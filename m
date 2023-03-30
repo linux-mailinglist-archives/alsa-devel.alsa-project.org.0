@@ -2,237 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7348D6D121B
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 00:28:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2182C6D137B
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 01:44:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD523200;
-	Fri, 31 Mar 2023 00:27:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD523200
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4FBD200;
+	Fri, 31 Mar 2023 01:43:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4FBD200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680215280;
-	bh=V+q0qNXtfx/4gtp0Fsn0PiereuOAtLMhImcMF3WBUK0=;
-	h=From:To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=bc+OwZ9bcxyma/NJYVgrN4rIh80SZVi0XTX9zFh849yez1VyRV2T4LlZEPOZ+0A5T
-	 s/kDf6nETpqehCnSCOfTuvGFFYQKaXeGT1tAndW9ZpdvjcrTmC+5iqpt2tNCd0HVCx
-	 X1tRqqKKN5nEhJaWNjH4nosixIjrkPFENPimcdTw=
+	s=default; t=1680219884;
+	bh=Mf5oJQRJAs2kTOJz1iO1GZSaNxY8Kz1ublkIkZ0c9/Y=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=flVTBGS3Clu3A3ch9mqYJ4o/806C8wvSt8cgRZ+4lyhp9jy7uiDLCGSU7hPN0eLwX
+	 oyIFQwyfXn8CkX0l/AM3qCi9D3zxVj7w9x/gEM+vd5MYrQEb+92PIaPmnyo8/HPkqq
+	 X+rkCYo0UeQenVDHLRW+zhYK8mVtYFK+fmVnsrfc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0164FF8024E;
-	Fri, 31 Mar 2023 00:27:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14AD9F8024E;
+	Fri, 31 Mar 2023 01:43:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6A937F80272; Fri, 31 Mar 2023 00:27:05 +0200 (CEST)
+	id 3294DF80290; Fri, 31 Mar 2023 01:43:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
- [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C14C9F8021D
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 00:26:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C14C9F8021D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27821F8021D
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 01:43:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27821F8021D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=analog.onmicrosoft.com header.i=@analog.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-analog-onmicrosoft-com
- header.b=sIUhyTDA
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32ULQBtT029958;
-	Thu, 30 Mar 2023 18:26:48 -0400
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2104.outbound.protection.outlook.com [104.47.58.104])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3pneuk9agn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 30 Mar 2023 18:26:47 -0400
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cVOVhxgz2JvK6Fx6bkkKZxfuCPc/BgtfeyNWHvmHdCAN2bGjYp7bLEH8rz1UAj3mDVO0KObECk32ARk3Ked6CFQPdDBGiFX7JP0BM5baBYIlDgOaK+X9JybB9BDRbpAL7H3N+fIaqNbM/JnwtG0GgDYczwFekCR3DrpFDQv9+/bzKTDZMKeihEREyq4zLxPr4l8trUhTJaBRJcQQCX+3dWtRZC3e4XsfjZGZ/D8WM0dXKbCuC9XzYCWU3ULvPYIejPYbSQRQtRqAmtaEssLFkXEqlim1MRxo/KRLc7VEj4Hu/GIvH6Zo42LLzIIXWTuqZnM/rLJSfyqVdWDOwVTA0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V+q0qNXtfx/4gtp0Fsn0PiereuOAtLMhImcMF3WBUK0=;
- b=ms/crJANjQWwOQmJfk2sB+n5NqIcvTwMGYbCiZl5vYWaZnri21izBAT4MSq/7UdeIHi2EtDowrUXzsd3B3HwP918t06zNogMBpiUaOSErZSQXmkPowSn+r9CBqSD1IUcca9kbB/9eVOoRMdlxKlKYnOF1qtLgPtAZGZC9AM1b7gNCMdiHEzWkYO7X42YD0AY9mQmEeJ6DocgGlovZ8X/f4T+OqSeESzi8fZomCiyDFOQzNzN8KGVzyPsOgmGPaPbMcTrpE7DiWcgG8DS/3z9G1p9jvKmjO3wEiaoqN5N0T/rXvlC3qtofG5IyPeOiFfngwJmFYOtg3h/RHUfJPzISg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=nf9KILnL
+Received: by mail-pj1-x102b.google.com with SMTP id
+ gp15-20020a17090adf0f00b0023d1bbd9f9eso23688401pjb.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 30 Mar 2023 16:43:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V+q0qNXtfx/4gtp0Fsn0PiereuOAtLMhImcMF3WBUK0=;
- b=sIUhyTDAciyZ8r6dK76rsSj+qJBsrxIYI/jL2IjBiuePmOTaimMZerJw7lYh34VNfI+SeEZ2WJY1rxZ094h5QxiePJF8RbhNG2hOXJVIN0P5uFZIFjVvwzjkOA4ZPFoi972wKuUotPxLc9tKqJ1ZpJkZHYYIQqkuEKC9Y6DiFWU=
-Received: from SJ0PR03MB6681.namprd03.prod.outlook.com (2603:10b6:a03:400::6)
- by SA2PR03MB5833.namprd03.prod.outlook.com (2603:10b6:806:114::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.21; Thu, 30 Mar
- 2023 22:26:45 +0000
-Received: from SJ0PR03MB6681.namprd03.prod.outlook.com
- ([fe80::3cfa:c828:4023:5375]) by SJ0PR03MB6681.namprd03.prod.outlook.com
- ([fe80::3cfa:c828:4023:5375%4]) with mapi id 15.20.6222.035; Thu, 30 Mar 2023
- 22:26:45 +0000
-From: "Lee, RyanS" <RyanS.Lee@analog.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-        =?utf-8?B?4oCcUnlhbg==?= <ryan.lee.analog@gmail.com>,
-        "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>,
-        "broonie@kernel.org" <broonie@kernel.org>,
-        "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
-        "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
-        "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
-        "pierre-louis.bossart@linux.intel.com"
-	<pierre-louis.bossart@linux.intel.com>,
-        "herve.codina@bootlin.com"
-	<herve.codina@bootlin.com>,
-        "wangweidong.a@awinic.com"
-	<wangweidong.a@awinic.com>,
-        "james.schulman@cirrus.com"
-	<james.schulman@cirrus.com>,
-        "ajye_huang@compal.corp-partner.google.com"
-	<ajye_huang@compal.corp-partner.google.com>,
-        "shumingf@realtek.com"
-	<shumingf@realtek.com>,
-        "povik+lin@cutebit.org" <povik+lin@cutebit.org>,
-        "flatmax@flatmax.com" <flatmax@flatmax.com>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>,
-        "robh+dt@kernel.org" <robh+dt@kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH V3 2/2] ASoC: dt-bindings: max98363: add soundwire
- amplifier
-Thread-Topic: [PATCH V3 2/2] ASoC: dt-bindings: max98363: add soundwire
- amplifier
-Thread-Index: AQHZXbBXNkPITZ3dd0G0i4gdprnniK8JznUAgAoYWhA=
-Date: Thu, 30 Mar 2023 22:26:45 +0000
-Message-ID: 
- <SJ0PR03MB66811E9AEB44F1B697725C138A8E9@SJ0PR03MB6681.namprd03.prod.outlook.com>
-References: <20230323175256.2606939-1-ryan.lee.analog@gmail.com>
- <20230323175256.2606939-2-ryan.lee.analog@gmail.com>
- <cbfbbfeb-8ce9-3908-9a61-58b7daa4e7d9@linaro.org>
-In-Reply-To: <cbfbbfeb-8ce9-3908-9a61-58b7daa4e7d9@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-dg-rorf: true
-x-dg-ref: 
- =?utf-8?B?UEcxbGRHRStQR0YwSUc1dFBTSmliMlI1TG5SNGRDSWdjRDBpWXpwY2RYTmxj?=
- =?utf-8?B?bk5jY214bFpURXpYR0Z3Y0dSaGRHRmNjbTloYldsdVoxd3dPV1E0TkRsaU5p?=
- =?utf-8?B?MHpNbVF6TFRSaE5EQXRPRFZsWlMwMllqZzBZbUV5T1dVek5XSmNiWE5uYzF4?=
- =?utf-8?B?dGMyY3RaakkyT1RZeFkyWXRZMlkwT1MweE1XVmtMV0poWWpjdE56QXhZV0k0?=
- =?utf-8?B?TURkbFpHSTVYR0Z0WlMxMFpYTjBYR1l5TmprMk1XUXdMV05tTkRrdE1URmxa?=
- =?utf-8?B?QzFpWVdJM0xUY3dNV0ZpT0RBM1pXUmlPV0p2WkhrdWRIaDBJaUJ6ZWowaU5E?=
- =?utf-8?B?QTVNU0lnZEQwaU1UTXpNalEyT0RnNE1ETTNOREE0T1RNM0lpQm9QU0pZUVM5?=
- =?utf-8?B?bVlrSlJkMjFQTms1NVRYbEJWV3dyV25CTFlWbzNTbGs5SWlCcFpEMGlJaUJp?=
- =?utf-8?B?YkQwaU1DSWdZbTg5SWpFaUlHTnBQU0pqUVVGQlFVVlNTRlV4VWxOU1ZVWk9R?=
- =?utf-8?B?MmRWUVVGRmIwTkJRVU53V1U5WE1GWnRVRnBCWmpOb00zTmtSRlZGTW13dlpV?=
- =?utf-8?B?aGxlREJPVVZSaFZVUkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlNFRkJRVUZFWVVGUlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UlVGQlVVRkNRVUZCUVZGa2FXczFVVUZCUVVGQlFVRkJRVUZCUVVGQlFVbzBR?=
- =?utf-8?B?VUZCUW1oQlIxRkJZVkZDWmtGSVRVRmFVVUpxUVVoVlFXTm5RbXhCUmpoQlkw?=
- =?utf-8?B?RkNlVUZIT0VGaFowSnNRVWROUVdSQlFucEJSamhCV21kQ2FFRkhkMEZqZDBK?=
- =?utf-8?B?c1FVWTRRVnBuUW5aQlNFMUJZVkZDTUVGSGEwRmtaMEpzUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZGUVVGQlFVRkJRVUZCUVdk?=
- =?utf-8?B?QlFVRkJRVUZ1WjBGQlFVZEZRVnBCUW5CQlJqaEJZM2RDYkVGSFRVRmtVVUo1?=
- =?utf-8?B?UVVkVlFWaDNRbmRCU0VsQlluZENjVUZIVlVGWmQwSXdRVWhOUVZoM1FqQkJS?=
- =?utf-8?B?MnRCV2xGQ2VVRkVSVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlVVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVTkJRVUZCUVVGRFpVRkJRVUZaVVVKclFVZHJRVmgzUW5wQlIx?=
- =?utf-8?B?VkJXWGRDTVVGSVNVRmFVVUptUVVoQlFXTm5RblpCUjI5QldsRkNha0ZJVVVG?=
- =?utf-8?B?amQwSm1RVWhSUVdGUlFteEJTRWxCVFdkQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
- =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
- =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
- =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
- =?utf-8?B?QlFVRkJRa0ZCUVVGQlFVRkJRVUZKUVVGQlFVRkJRVDA5SWk4K1BDOXRaWFJo?=
- =?utf-8?B?UGc9PQ==?=
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR03MB6681:EE_|SA2PR03MB5833:EE_
-x-ms-office365-filtering-correlation-id: bfeca04e-ff5c-45e4-4713-08db316dd849
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- cw+9X59tLwAxz+4IdcoD8hynEV77dd8QZcf8fGpTPQY4bPdAdZSFmJ0Hmns6A2DTL/X+nFleWIT/JG1KZlj5VvZO6UbHpCnjsASkV2dD0Ag9od47Kbsr8U8+vlhpjeGE41NGj20e1kamfl8yxgzxP16L26p1BEEdqyEIbphHYdWOg67f3dhieHCtEpJo2bATH4bUU6JnT/ohrPYn7L7+uLkD0z4+egfKljr23erdM9QiwVclo6/8xy00k5jKDy+rSmFnl2aBhSTdby69TSpcDPycXqd6c1hq1mpOyFmEQehG7jNkXs65zT5SDBd5OzzW4ABHwXe5A0qYwUMHrMGoJkl2twabBpcJMrgL3m47WCV7tLnwGYMRbRBM37pVUbo9u7QyAaSHRk+6vUfsw6ChEIrPvEjWkAVTPIb2LMy7zZ1dY6RjXkleMDd/QNFgereKhtj06C7OW/6GW3jB0qDt5vNMF5oZF6HfTo4PPde5cpgH1tkr1WI75XqGgdVUx3i3v5X7oECcANA8k5k/MbQ2UeU5S5OJnlleYj4GzbZxN1HsfsfCqjcUzSVrStzLSeQWNHQ3q8HbHm6+T5eAoxyiv5ykim72Iuho7F2lXqUg8iK09n4LEdrJD8il4OmwiiXmQ2d24JOXGyPdZlB5aEIHuMa/Q+SwetU973Hsf7I1AKw=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6681.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(366004)(136003)(376002)(346002)(39860400002)(451199021)(83380400001)(33656002)(86362001)(38100700002)(921005)(38070700005)(8936002)(5660300002)(122000001)(7416002)(41300700001)(64756008)(66476007)(8676002)(76116006)(66556008)(52536014)(55016003)(66446008)(66946007)(966005)(9686003)(6506007)(53546011)(71200400001)(478600001)(7696005)(2906002)(26005)(186003)(110136005)(316002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?L0wyRkUra3B6OG1QbEduL01QQkw2Q2hKUzk4enFZdk5WQ1lOVEdCblZkMCtu?=
- =?utf-8?B?KzMvUkVVL2R1YXpSSUI1dk5YMjYvK1IyZWoxVk1OTnJqYkVoTEZxR1Jxci9w?=
- =?utf-8?B?Sk5TRTU0ZE4vc0V1a3JoNVU4ZFlDbjk0c1hxL0hwRCsydy8rV09Kb25SWVd4?=
- =?utf-8?B?UTFaZy8zdG5kUDNBaGNqd29CUEo3dWVqNWY3MWR0RFBHVUpIRUhmb3pIYkxT?=
- =?utf-8?B?bnpuMkJHSTZJUDZLOWliUG5PemlQNW1INXhzMFV4NDJsbVZ2Z3JIQ3FVSzMy?=
- =?utf-8?B?MFVWZ2dMUG1IUzBFSkhvRXRQV3MydjNqcml4RUMzdDc2eG5PRFRWZHdZTEUx?=
- =?utf-8?B?S3ZhSGpiMHFtUjk1MER0M0ZNU0Z2ZEd0dC9VbUhtR1lPd2ZvT2J5ak5WKyti?=
- =?utf-8?B?dVZEd2NiVm5yMEVWT000M0c0RkJqb25rallnNTRBemhyQ3VwY0JOc1lQOFBy?=
- =?utf-8?B?UjBFSXVsOHQ0OHRYakxFcnBsdDc4SHpBSGpwaWtiZXovNDhWdndwTC83ZG03?=
- =?utf-8?B?NXJGenRweVRnS1hUdG9VMmo1dHd5YXhzdWprNkxnUWNid2plYVZsMzRyWXVO?=
- =?utf-8?B?TnRlTTdwTVg3Q2J0Q1JMRS94bXY0K3BMRzczK0YwUG5mamJMdDhObFNYQS9D?=
- =?utf-8?B?cFdNdGZlQnl2bDdvd1YyVGIybFdmK1QxWkRSbWtIdDBqM2lDeTNHcEVBN0xZ?=
- =?utf-8?B?eWZyOG93WlZEcDkrNGVLYUw1cncwbUhhM1AvQUxoL0NJMjdlbVE1bHJ0RXI5?=
- =?utf-8?B?NWl1UXo5WnI0TEdraGh6cGd6SCtmWWJKSStIMmhRdm1QWFJSUDZpcUNMc0Q1?=
- =?utf-8?B?V042NStTVkFLUWtBZXZEMkREWFhHaFRKamd1VE9HZHVZb2U4NkJnNDdQMkIr?=
- =?utf-8?B?OHJHSjdrZllXUEpkeEk2MzZtemJ1VXF6UzNUM0FVWVY1QXdISm12cDFzeWRU?=
- =?utf-8?B?TjFCaTNnT0pmSm15Ulgvc29xRnNzQW5BNzZ3azErb1FoaDl2QUd4WlVCREgx?=
- =?utf-8?B?N0twRUttczJhMmJJYTNMSHBsRytjVjhmRXJXRXRoVVVsY0VnWnFVWm9lcmV3?=
- =?utf-8?B?NDF1V1JoVzN5OWc3S3BCQms3QStJMWdFSXA1RkFxUDFiMmYrOVlTZlpGVFA1?=
- =?utf-8?B?NE43OGdVaUFQcW1HaC8zaFlQRDhXaWZndWtaVUZrWWRDbmZ1RExXdklveUMy?=
- =?utf-8?B?bUhoeXQ5R1Vpb1VyTVhwcHNRam5CTW5UbXdWcmFMY2ZsR2w5bTJ0d0NnVVN4?=
- =?utf-8?B?U3IweUpNSUk2Z2dGNDduRUdqak4rcFBXd2RnY3g5SSt1SjNBNnpMVFVET3Fy?=
- =?utf-8?B?QithSzAwanV4cnVHZ0lObDNoamlKU2tnQjA5RXdJWFFCR0l0Zmd1R0xHWnp1?=
- =?utf-8?B?cy9WQXZHV2JLUXpxWm12UHh6NnZKMmd4SWluS3NmOWJoRnhlTm5WSktaZlJj?=
- =?utf-8?B?czVLK21KWU1OSlk3eExhQld5bEN0UDlaZjE4WDRXZmtWbld5c3JDVC9qOTJY?=
- =?utf-8?B?NC9HQ1QzMG5CMkNEYjBYaUFjaGFWV2ZtVXhzb1U2ZGszdmx5UjJXclhEWUNx?=
- =?utf-8?B?VzRHamJqdWlZTEN1TEJPWmwxVkZ3SEt1QVh4Z0ZsTVp6d29KeWcveVRwTjhp?=
- =?utf-8?B?aFVBSWJFVGVGT0Y2SEUrLytrSUYyVFRkWUQ4azl2SDRsWnF0Q3Y3NkZQdzhS?=
- =?utf-8?B?alJaV21GRWhGWDJWQXg1ZGJtc3kzTC9JTVlKYnhmd0tZdjdvWE9vS1hzQ1c4?=
- =?utf-8?B?bFhvNWwxWXRMTkl4ZERGYjR3Z0NhVGpzVm4vYUhhL2NPYTgrckF3UXloRWJ5?=
- =?utf-8?B?azdWRS92NE1ESk8ya1ZZcEhCNFJUazc3cE9QbXM5RXdMRXVzaU1IWUxKVHJn?=
- =?utf-8?B?MnNNK09hb0FFL2FMZUpJZmtGSVM4czhRZkhOeTE4Sm1IV2VRQU9kR0lPYWdh?=
- =?utf-8?B?d1JPS0pjNEJyUUJPcmM0bGFQT2RlYmcwc2hOYUxTeWJSRE1heDdRamU5bHBW?=
- =?utf-8?B?bzh4akN4SEZlclUxKzI3RjJucG1ucDFIR3lxRXlGRE1CSEJEaWRKb3hpRUpy?=
- =?utf-8?B?dXVmcDIyZDFoOUtiTUhkUEF6aFdLU2svUmo1MG5oa1dSbks1djZTeS9pcXFz?=
- =?utf-8?Q?b1h98JlTdZSZvX//nn1pXRsxG?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+        d=gmail.com; s=20210112; t=1680219810;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4bWK6Ge0mP363juAWmXgO3AS0PV8Tb656OmQ5FuWJW0=;
+        b=nf9KILnLDCqw7W/9aV2/MMGX4DfbMb1ATrfLrf+fci8cFaU8wAV2vP+pk59eNNLw77
+         Twmq/2Gws8fO6FNr+DQkrEtMaV4vgSzO7PVHpOFWZPq+CYs4BxHHrkqp0klR3yUVjnUl
+         wMwE0W9mPfq2zoNhzRgWxthdj3B4gJ5xq/lhmUHJaH3JYbY39ybALPp6d9AiPXRJbnYZ
+         xDMfq1p3+sdmUk8VfrT2GuE81ChBgzYwgoWh79XWDSeauKk8a0NRd/GmxSPsSx+PM4qW
+         O3VygftW/8Lw4u87oA1Rp8fIcTKkSQ0gHmuRlfid6rLmLetSWCMJ8k8DPUns8BdntrcX
+         R/ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680219810;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4bWK6Ge0mP363juAWmXgO3AS0PV8Tb656OmQ5FuWJW0=;
+        b=J2otwF9xnWm24O3zXLq/YdWix6MojStthB0acx5UhWTolFhgT2AgqeF5019yhlfHFn
+         26RJH9zYzeO/EmuxLwdIsVgDy2PkzP6n1qrvCD+BVdsbcYtnQV1qHTFCD2DHyhlNuHPc
+         GapJLDn0uZnw+oAZ3kzx3tp7DyVzirJw4LWz5Hg0uBDHmH/OTZ+K+tFANqZ0vVZ5Y4kw
+         Yv15TqUDXjox25dnPYxJg0U2ifRBAheCYzUflAhIx3FJf6BDK1UFGINjZKOJWu22MDy7
+         uAqGA3sQYuIDq5Nv82HDWy8bnUMA0wpYB7hCkihRhXQRkpUcLLkacjLgYVOMMnBjfXAM
+         ePpw==
+X-Gm-Message-State: AAQBX9ez/RpJxhyRTMCscw+2SlBBa8rhWI4pSqTClVMDQ4n/rNzwsFZd
+	TW9aASbiGTXSASUiU4G6wbA=
+X-Google-Smtp-Source: 
+ AKy350YwDcE7ZB8Bjzm1xOsbHsywFnzLA09UR5z87pX4C4kCIQEBvT10JydEdyduVMxQ0aF4NyUQqQ==
+X-Received: by 2002:a17:90a:190f:b0:233:c301:32b3 with SMTP id
+ 15-20020a17090a190f00b00233c30132b3mr27396825pjg.3.1680219809925;
+        Thu, 30 Mar 2023 16:43:29 -0700 (PDT)
+Received: from ryan-ThinkPad-T470.. (c-24-6-63-212.hsd1.ca.comcast.net.
+ [24.6.63.212])
+        by smtp.gmail.com with ESMTPSA id
+ k2-20020a170902e90200b001a19cf1b37esm282733pld.40.2023.03.30.16.43.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Mar 2023 16:43:29 -0700 (PDT)
+From: =?UTF-8?q?=E2=80=9CRyan?= <ryan.lee.analog@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	krzysztof.kozlowski@linaro.org,
+	rf@opensource.cirrus.com,
+	ckeepax@opensource.cirrus.com,
+	pierre-louis.bossart@linux.intel.com,
+	herve.codina@bootlin.com,
+	wangweidong.a@awinic.com,
+	james.schulman@cirrus.com,
+	ajye_huang@compal.corp-partner.google.com,
+	shumingf@realtek.com,
+	povik+lin@cutebit.org,
+	flatmax@flatmax.com,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	robh+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	ryans.lee@analog.com
+Subject: [PATCH V4 1/2] ASoC: max98363: add soundwire amplifier driver
+Date: Thu, 30 Mar 2023 16:43:18 -0700
+Message-Id: <20230330234319.6841-1-ryan.lee.analog@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6681.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- bfeca04e-ff5c-45e4-4713-08db316dd849
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2023 22:26:45.2579
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- pbSXpRDM3JX7pysIV0BRM5uExRcvDgjDPHkZ5U5CL8no9I2cEjqkZQzCj+CaMZC8ULWcTiDBXn3l/Li0APAXnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5833
-X-Proofpoint-GUID: 7lNHk5vscrDopV081mA-r3SJ8EJh5XqC
-X-Proofpoint-ORIG-GUID: 7lNHk5vscrDopV081mA-r3SJ8EJh5XqC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-30_13,2023-03-30_04,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0
- suspectscore=0 impostorscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0
- clxscore=1011 priorityscore=1501 mlxscore=0 phishscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2303300177
-Message-ID-Hash: IB4YXQXA2SAUN6TX5RXFCBSP3JYL6R2A
-X-Message-ID-Hash: IB4YXQXA2SAUN6TX5RXFCBSP3JYL6R2A
-X-MailFrom: RyanS.Lee@analog.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VSNO6GLB2TAF2KHY7TNK5E54NGSLCK4P
+X-Message-ID-Hash: VSNO6GLB2TAF2KHY7TNK5E54NGSLCK4P
+X-MailFrom: ryan.lee.analog@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -244,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQC7PTCWDNCGFVRSYESFG5BO737XDHK6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VSNO6GLB2TAF2KHY7TNK5E54NGSLCK4P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -253,74 +131,599 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLcnp5c3p0b2YgS296bG93c2tp
-IDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+DQo+IFNlbnQ6IEZyaWRheSwgTWFyY2gg
-MjQsIDIwMjMgNDozNyBBTQ0KPiBUbzog4oCcUnlhbiA8cnlhbi5sZWUuYW5hbG9nQGdtYWlsLmNv
-bT47IGxnaXJkd29vZEBnbWFpbC5jb207DQo+IGJyb29uaWVAa2VybmVsLm9yZzsgcGVyZXhAcGVy
-ZXguY3o7IHRpd2FpQHN1c2UuY29tOw0KPiByZkBvcGVuc291cmNlLmNpcnJ1cy5jb207IGNrZWVw
-YXhAb3BlbnNvdXJjZS5jaXJydXMuY29tOyBwaWVycmUtDQo+IGxvdWlzLmJvc3NhcnRAbGludXgu
-aW50ZWwuY29tOyBoZXJ2ZS5jb2RpbmFAYm9vdGxpbi5jb207DQo+IHdhbmd3ZWlkb25nLmFAYXdp
-bmljLmNvbTsgamFtZXMuc2NodWxtYW5AY2lycnVzLmNvbTsNCj4gYWp5ZV9odWFuZ0Bjb21wYWwu
-Y29ycC1wYXJ0bmVyLmdvb2dsZS5jb207IHNodW1pbmdmQHJlYWx0ZWsuY29tOw0KPiBwb3Zpayts
-aW5AY3V0ZWJpdC5vcmc7IGZsYXRtYXhAZmxhdG1heC5jb207IGxpbnV4LWtlcm5lbEB2Z2VyLmtl
-cm5lbC5vcmc7DQo+IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsgcm9iaCtkdEBrZXJuZWwu
-b3JnOw0KPiBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZzsgTGVlLCBSeWFuUyA8UnlhblMuTGVl
-QGFuYWxvZy5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggVjMgMi8yXSBBU29DOiBkdC1iaW5k
-aW5nczogbWF4OTgzNjM6IGFkZCBzb3VuZHdpcmUNCj4gYW1wbGlmaWVyDQo+IA0KPiBbRXh0ZXJu
-YWxdDQo+IA0KPiBPbiAyMy8wMy8yMDIzIDE4OjUyLCDigJxSeWFuIHdyb3RlOg0KPiA+IEZyb206
-IFJ5YW4gTGVlIDxyeWFucy5sZWVAYW5hbG9nLmNvbT4NCj4gPg0KPiA+IFRoaXMgcGF0Y2ggYWRk
-cyBkdC1iaW5kaW5ncyBpbmZvcm1hdGlvbiBmb3IgQW5hbG9nIERldmljZXMgTUFYOTgzNjMNCj4g
-PiBTb3VuZFdpcmUgQW1wbGlmaWVyLg0KPiANCj4gTm8gaW1wcm92ZW1lbnRzIGhlcmUuIFNvIHJl
-bWluZGluZzoNCj4gDQo+IERvIG5vdCB1c2UgIlRoaXMgY29tbWl0L3BhdGNoIiwgYnV0IGltcGVy
-YXRpdmUgbW9vZC4gU2VlOg0KPiBodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9l
-bGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjUuMTcuMS9zb3VyYw0KPiBlL0RvY3VtZW50YXRpb24v
-cHJvY2Vzcy9zdWJtaXR0aW5nLQ0KPiBwYXRjaGVzLnJzdCpMOTVfXztJdyEhQTNOaThDUzB5Mlkh
-NDVyTXh0bjg5b3RsZW41bWpFT0dNWG9QUXduc2wzcDkNCj4gcXR1VEpSOTlRZ0taRE5kRk9vLXVm
-SVdFMk9lZWJIZkp5bkdqaG1DNHkyZkZQV3RZYVR3UktqWGhma0UkDQo+IA0KDQpUaGFua3MgZm9y
-IHRoZSBjb21tZW50LiBJIHNoYWxsIGZpeCB0aGlzIGFuZCB0aGUgcmVzdC4NCg0KPiA+DQo+ID4g
-U2lnbmVkLW9mZi1ieTogUnlhbiBMZWUgPHJ5YW5zLmxlZUBhbmFsb2cuY29tPg0KPiA+IC0tLQ0K
-PiA+IENoYW5nZXMgZnJvbSB2MToNCj4gPiAgIEZpeGVkIGEgc3ludGF4IGVycm9yIGZvciB0aGUg
-J2R0X2JpbmRpbmdfY2hlY2snIGJ1aWxkLg0KPiA+ICAgUmVtb3ZlZCB1bm5lY2Vzc2FyeSBwcm9w
-ZXJ0aWVzLg0KPiA+ICAgQWRkZWQgZGVzY3JpcHRpb24gYWJvdXQgU291bmRXaXJlIGRldmljZSBJ
-RCBvZiBNQVg5ODM2MyBDaGFuZ2VzIGZyb20NCj4gPiB2MjoNCj4gPiAgIFJlbW92ZWQgdGhlIGxl
-Z2FjeSBmcm9tIGkyYy9pMnMgZHJpdmVyIGFuZCBhZGRlZCBTb3VuZFdpcmUgZGV2aWNlIElEDQo+
-IGluZm8uDQo+ID4gICBBZGRlZCBtaXNzaW5nIGluZm9ybWF0aW9uIGFib3V0IERBSS4NCj4gPg0K
-PiA+ICAuLi4vYmluZGluZ3Mvc291bmQvYWRpLG1heDk4MzYzLnlhbWwgICAgICAgICAgfCA2MiAr
-KysrKysrKysrKysrKysrKysrDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCA2MiBpbnNlcnRpb25zKCsp
-DQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NA0KPiA+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9zb3VuZC9hZGksbWF4OTgzNjMueWFtbA0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL0Rv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9hZGksbWF4OTgzNjMueWFtbA0K
-PiA+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL2FkaSxtYXg5ODM2
-My55YW1sDQo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4gPiBpbmRleCAwMDAwMDAwMDAwMDAu
-LjkyMzUyYTIzZTFjYg0KPiA+IC0tLSAvZGV2L251bGwNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvYWRpLG1heDk4MzYzLnlhbWwNCj4gPiBAQCAtMCww
-ICsxLDYyIEBADQo+ID4gKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wLW9ubHkg
-T1IgQlNELTItQ2xhdXNlKSAlWUFNTCAxLjINCj4gPiArLS0tDQo+ID4gKyRpZDoNCj4gPg0KPiAr
-aHR0cHM6Ly91cmxkZWZlbnNlLmNvbS92My9fX2h0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFz
-L3NvdW5kL2FkaSxtDQo+ID4NCj4gK2F4OTgzNjMueWFtbCpfXztJdyEhQTNOaThDUzB5MlkhNDVy
-TXh0bjg5b3RsZW41bWpFT0dNWG9QUXduc2wzcA0KPiA5cXR1VEoNCj4gPiArUjk5UWdLWkROZEZP
-by11ZklXRTJPZWViSGZKeW5HamhtQzR5MmZGUFd0WWFUd1JZYUpOTXJvJA0KPiA+ICskc2NoZW1h
-Og0KPiA+ICtodHRwczovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cDovL2RldmljZXRyZWUub3Jn
-L21ldGEtDQo+IHNjaGVtYXMvY29yZS55DQo+ID4NCj4gK2FtbCpfXztJdyEhQTNOaThDUzB5Mlkh
-NDVyTXh0bjg5b3RsZW41bWpFT0dNWG9QUXduc2wzcDlxdHVUSlI5OQ0KPiBRZ0taRE4NCj4gPiAr
-ZEZPby11ZklXRTJPZWViSGZKeW5HamhtQzR5MmZGUFd0WWFUd1JUTW4zMjA4JA0KPiA+ICsNCj4g
-PiArdGl0bGU6IEFuYWxvZyBEZXZpY2VzIE1BWDk4MzYzIFNvdW5kV2lyZSBBbXBsaWZpZXINCj4g
-PiArDQo+ID4gK21haW50YWluZXJzOg0KPiA+ICsgIC0gUnlhbiBMZWUgPHJ5YW5zLmxlZUBhbmFs
-b2cuY29tPg0KPiA+ICsNCj4gPiArZGVzY3JpcHRpb246DQo+ID4gKyAgVGhlIE1BWDk4MzYzIGlz
-IGEgU291bmRXaXJlIGlucHV0IENsYXNzIEQgbW9ubyBhbXBsaWZpZXIgdGhhdA0KPiA+ICsgIHN1
-cHBvcnRzIE1JUEkgU291bmRXaXJlIHYxLjItY29tcGF0aWJsZSBkaWdpdGFsIGludGVyZmFjZSBm
-b3INCj4gPiArICBhdWRpbyBhbmQgY29udHJvbCBkYXRhLg0KPiA+ICsgIFNvdW5kV2lyZSBwZXJp
-cGhlcmFsIGRldmljZSBJRCBvZiBNQVg5ODM2MyBpcyAweDNYMDE5RjgzNjMwMA0KPiANCj4gbG93
-ZXJjYXNlIGhleA0KPiANCj4gPiArICB3aGVyZSBYIGlzIHRoZSBwZXJpcGhlcmFsIGRldmljZSB1
-bmlxdWUgSUQgZGVjb2RlZCBmcm9tIHBpbi4NCj4gPiArICBJdCBzdXBwb3J0cyB1cCB0byAxMCBw
-ZXJpcGhlcmFsIGRldmljZXMoMHgwIHRvIDB4OSkuDQo+ID4gKw0KPiA+ICthbGxPZjoNCj4gPiAr
-ICAtICRyZWY6IGRhaS1jb21tb24ueWFtbCMNCj4gPiArDQo+ID4gK3Byb3BlcnRpZXM6DQo+ID4g
-KyAgY29tcGF0aWJsZToNCj4gPiArICAgIGNvbnN0OiBzZHczMDE5RjgzNjMwMA0KPiANCj4gbG93
-ZXJjYXNlIGhleCAoYWxzbyBpbiBleGFtcGxlKQ0KPiANCj4gPiArDQo+ID4gKyAgcmVnOg0KPiA+
-ICsgICAgbWF4SXRlbXM6IDENCj4gPiArDQo+ID4gKyAgJyNzb3VuZC1kYWktY2VsbHMnOg0KPiA+
-ICsgICAgY29uc3Q6IDANCj4gPiArDQo+ID4gKyAgc291bmQtbmFtZS1wcmVmaXg6IHRydWUNCj4g
-DQo+IERyb3AgdGhpcy4NCj4gDQo+ID4gKw0KPiA+ICtyZXF1aXJlZDoNCj4gPiArICAtIGNvbXBh
-dGlibGUNCj4gPiArICAtIHJlZw0KPiA+ICsgIC0gIiNzb3VuZC1kYWktY2VsbHMiDQo+ID4gKw0K
-PiA+ICthZGRpdGlvbmFsUHJvcGVydGllczogZmFsc2UNCj4gDQo+IEluc3RlYWQ6DQo+IHVuZXZh
-bHVhdGVkUHJvcGVydGllczogZmFsc2UNCj4gDQo+IEJlc3QgcmVnYXJkcywNCj4gS3J6eXN6dG9m
-DQoNCg==
+From: Ryan Lee <ryans.lee@analog.com>
+
+Added Analog Devices MAX98363 SoundWire Amplifier Driver.
+The MAX98363 is a SoundWire peripheral device that supports
+MIPI SoundWire v1.2-compatible digital interface for audio and
+control data.
+
+Signed-off-by: Ryan Lee <ryans.lee@analog.com>
+---
+Changes from v1:
+  Removed the standard SoundWire registers from the amp register table.
+  Removed .of_match_table and .acpi_match_table.
+  Removed vdd/dvddio control.
+  Removed unnecessary source port control in .read_prop.
+  Removed legacy from I2S driver not used for SoundWire driver.
+  Removed .shutdown, .bus_config, and unused functions.
+  Sorted include files in alphabetical order.
+Changes from v2:
+  Changed .channels_max from 2 to 1.
+  stream_config.ch_count is limited to .channels_max.
+  Removed unused variables. rx_mask and slot from max98363_priv.
+Changes from v3:
+  No change
+
+ sound/soc/codecs/Kconfig    |  11 +
+ sound/soc/codecs/Makefile   |   2 +
+ sound/soc/codecs/max98363.c | 464 ++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/max98363.h |  36 +++
+ 4 files changed, 513 insertions(+)
+ create mode 100644 sound/soc/codecs/max98363.c
+ create mode 100644 sound/soc/codecs/max98363.h
+
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 03630d13d35f..4062fe3fbb1c 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -133,6 +133,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_MAX98925
+ 	imply SND_SOC_MAX98926
+ 	imply SND_SOC_MAX98927
++	imply SND_SOC_MAX98363
+ 	imply SND_SOC_MAX98373_I2C
+ 	imply SND_SOC_MAX98373_SDW
+ 	imply SND_SOC_MAX98390
+@@ -1133,6 +1134,16 @@ config SND_SOC_MAX98520
+ 
+ 	  To compile this driver as a module, choose M here.
+ 
++config SND_SOC_MAX98363
++	tristate "Analog Devices MAX98363 Soundwire Speaker Amplifier"
++	depends on SOUNDWIRE
++	select REGMAP_SOUNDWIRE
++	help
++	  Enable support for Analog Devices MAX98363 Soundwire
++	  amplifier. MAX98363 supports the MIPI SoundWire v1.2
++	  compatible interface for audio and control data.
++	  This amplifier does not support I2C and I2S.
++
+ config SND_SOC_MAX98373
+ 	tristate
+ 
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 25ebce58a0ba..44ea747579fd 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -148,6 +148,7 @@ snd-soc-max98925-objs := max98925.o
+ snd-soc-max98926-objs := max98926.o
+ snd-soc-max98927-objs := max98927.o
+ snd-soc-max98520-objs := max98520.o
++snd-soc-max98363-objs := max98363.o
+ snd-soc-max98373-objs := max98373.o
+ snd-soc-max98373-i2c-objs := max98373-i2c.o
+ snd-soc-max98373-sdw-objs := max98373-sdw.o
+@@ -515,6 +516,7 @@ obj-$(CONFIG_SND_SOC_MAX98925)	+= snd-soc-max98925.o
+ obj-$(CONFIG_SND_SOC_MAX98926)	+= snd-soc-max98926.o
+ obj-$(CONFIG_SND_SOC_MAX98927)	+= snd-soc-max98927.o
+ obj-$(CONFIG_SND_SOC_MAX98520)	+= snd-soc-max98520.o
++obj-$(CONFIG_SND_SOC_MAX98363)	+= snd-soc-max98363.o
+ obj-$(CONFIG_SND_SOC_MAX98373)	+= snd-soc-max98373.o
+ obj-$(CONFIG_SND_SOC_MAX98373_I2C)   += snd-soc-max98373-i2c.o
+ obj-$(CONFIG_SND_SOC_MAX98373_SDW)   += snd-soc-max98373-sdw.o
+diff --git a/sound/soc/codecs/max98363.c b/sound/soc/codecs/max98363.c
+new file mode 100644
+index 000000000000..4585ebb1e82c
+--- /dev/null
++++ b/sound/soc/codecs/max98363.c
+@@ -0,0 +1,464 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) 2022, Analog Devices Inc.
++
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regmap.h>
++#include <linux/soundwire/sdw.h>
++#include <linux/soundwire/sdw_registers.h>
++#include <linux/soundwire/sdw_type.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/tlv.h>
++
++#include "max98363.h"
++
++static struct reg_default max98363_reg[] = {
++	{MAX98363_R2001_INTR_RAW, 0x0},
++	{MAX98363_R2003_INTR_STATE, 0x0},
++	{MAX98363_R2005_INTR_FALG, 0x0},
++	{MAX98363_R2007_INTR_EN, 0x0},
++	{MAX98363_R2009_INTR_CLR, 0x0},
++	{MAX98363_R2021_ERR_MON_CTRL, 0x0},
++	{MAX98363_R2022_SPK_MON_THRESH, 0x0},
++	{MAX98363_R2023_SPK_MON_DURATION, 0x0},
++	{MAX98363_R2030_TONE_GEN_CFG, 0x0},
++	{MAX98363_R203F_TONE_GEN_EN, 0x0},
++	{MAX98363_R2040_AMP_VOL, 0x0},
++	{MAX98363_R2041_AMP_GAIN, 0x5},
++	{MAX98363_R2042_DSP_CFG, 0x0},
++	{MAX98363_R21FF_REV_ID, 0x0},
++};
++
++static bool max98363_readable_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MAX98363_R2001_INTR_RAW:
++	case MAX98363_R2003_INTR_STATE:
++	case MAX98363_R2005_INTR_FALG:
++	case MAX98363_R2007_INTR_EN:
++	case MAX98363_R2009_INTR_CLR:
++	case MAX98363_R2021_ERR_MON_CTRL ... MAX98363_R2023_SPK_MON_DURATION:
++	case MAX98363_R2030_TONE_GEN_CFG:
++	case MAX98363_R203F_TONE_GEN_EN:
++	case MAX98363_R2040_AMP_VOL:
++	case MAX98363_R2041_AMP_GAIN:
++	case MAX98363_R2042_DSP_CFG:
++	case MAX98363_R21FF_REV_ID:
++		return true;
++	default:
++		return false;
++	}
++};
++
++static bool max98363_volatile_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MAX98363_R2001_INTR_RAW:
++	case MAX98363_R2003_INTR_STATE:
++	case MAX98363_R2005_INTR_FALG:
++	case MAX98363_R2007_INTR_EN:
++	case MAX98363_R2009_INTR_CLR:
++	case MAX98363_R21FF_REV_ID:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct regmap_config max98363_sdw_regmap = {
++	.reg_bits = 32,
++	.val_bits = 8,
++	.max_register = MAX98363_R21FF_REV_ID,
++	.reg_defaults  = max98363_reg,
++	.num_reg_defaults = ARRAY_SIZE(max98363_reg),
++	.readable_reg = max98363_readable_register,
++	.volatile_reg = max98363_volatile_reg,
++	.cache_type = REGCACHE_RBTREE,
++	.use_single_read = true,
++	.use_single_write = true,
++};
++
++static int max98363_suspend(struct device *dev)
++{
++	struct max98363_priv *max98363 = dev_get_drvdata(dev);
++
++	regcache_cache_only(max98363->regmap, true);
++	regcache_mark_dirty(max98363->regmap);
++
++	return 0;
++}
++
++#define MAX98363_PROBE_TIMEOUT 5000
++
++static int max98363_resume(struct device *dev)
++{
++	struct sdw_slave *slave = dev_to_sdw_dev(dev);
++	struct max98363_priv *max98363 = dev_get_drvdata(dev);
++	unsigned long time;
++
++	if (!max98363->first_hw_init)
++		return 0;
++
++	if (!slave->unattach_request)
++		goto regmap_sync;
++
++	time = wait_for_completion_timeout(&slave->initialization_complete,
++					   msecs_to_jiffies(MAX98363_PROBE_TIMEOUT));
++	if (!time) {
++		dev_err(dev, "Initialization not complete, timed out\n");
++		return -ETIMEDOUT;
++	}
++
++regmap_sync:
++
++	slave->unattach_request = 0;
++	regcache_cache_only(max98363->regmap, false);
++	regcache_sync(max98363->regmap);
++
++	return 0;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(max98363_pm, max98363_suspend, max98363_resume, NULL);
++
++static int max98363_read_prop(struct sdw_slave *slave)
++{
++	struct sdw_slave_prop *prop = &slave->prop;
++	int nval, i;
++	u32 bit;
++	unsigned long addr;
++	struct sdw_dpn_prop *dpn;
++
++	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
++
++	/* BITMAP: 00000010  Dataport 1 is active */
++	prop->sink_ports = BIT(1);
++	prop->paging_support = true;
++	prop->clk_stop_timeout = 20;
++	prop->simple_clk_stop_capable = true;
++	prop->clock_reg_supported = true;
++
++	nval = hweight32(prop->sink_ports);
++	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
++					   sizeof(*prop->sink_dpn_prop),
++					   GFP_KERNEL);
++	if (!prop->sink_dpn_prop)
++		return -ENOMEM;
++
++	i = 0;
++	dpn = prop->sink_dpn_prop;
++	addr = prop->sink_ports;
++	for_each_set_bit(bit, &addr, 32) {
++		dpn[i].num = bit;
++		dpn[i].type = SDW_DPN_FULL;
++		dpn[i].simple_ch_prep_sm = true;
++		dpn[i].ch_prep_timeout = 10;
++		i++;
++	}
++
++	return 0;
++}
++
++static int max98363_io_init(struct sdw_slave *slave)
++{
++	struct device *dev = &slave->dev;
++	struct max98363_priv *max98363 = dev_get_drvdata(dev);
++	int ret, reg;
++
++	if (max98363->first_hw_init) {
++		regcache_cache_only(max98363->regmap, false);
++		regcache_cache_bypass(max98363->regmap, true);
++	}
++
++	/*
++	 * PM runtime is only enabled when a Slave reports as Attached
++	 */
++	if (!max98363->first_hw_init) {
++		/* set autosuspend parameters */
++		pm_runtime_set_autosuspend_delay(dev, 3000);
++		pm_runtime_use_autosuspend(dev);
++
++		/* update count of parent 'active' children */
++		pm_runtime_set_active(dev);
++
++		/* make sure the device does not suspend immediately */
++		pm_runtime_mark_last_busy(dev);
++
++		pm_runtime_enable(dev);
++	}
++
++	pm_runtime_get_noresume(dev);
++
++	ret = regmap_read(max98363->regmap, MAX98363_R21FF_REV_ID, &reg);
++	if (!ret) {
++		dev_info(dev, "Revision ID: %X\n", reg);
++		return ret;
++	}
++
++	if (max98363->first_hw_init) {
++		regcache_cache_bypass(max98363->regmap, false);
++		regcache_mark_dirty(max98363->regmap);
++	}
++
++	max98363->first_hw_init = true;
++	max98363->hw_init = true;
++
++	pm_runtime_mark_last_busy(dev);
++	pm_runtime_put_autosuspend(dev);
++
++	return 0;
++}
++
++#define MAX98363_RATES SNDRV_PCM_RATE_8000_192000
++#define MAX98363_FORMATS (SNDRV_PCM_FMTBIT_S32_LE)
++
++static int max98363_sdw_dai_hw_params(struct snd_pcm_substream *substream,
++				      struct snd_pcm_hw_params *params,
++				      struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct max98363_priv *max98363 =
++		snd_soc_component_get_drvdata(component);
++
++	struct sdw_stream_config stream_config;
++	struct sdw_port_config port_config;
++	enum sdw_data_direction direction;
++	struct sdw_stream_runtime *stream;
++	struct snd_pcm_runtime *runtime = substream->runtime;
++
++	int ret;
++
++	stream = snd_soc_dai_get_dma_data(dai, substream);
++
++	if (!stream)
++		return -EINVAL;
++
++	if (!max98363->slave)
++		return -EINVAL;
++
++	if (substream->stream != SNDRV_PCM_STREAM_PLAYBACK)
++		return -EINVAL;
++
++	direction = SDW_DATA_DIR_RX;
++	port_config.num = 1;
++
++	stream_config.frame_rate = params_rate(params);
++	stream_config.bps = snd_pcm_format_width(params_format(params));
++	stream_config.direction = direction;
++	stream_config.ch_count = params_channels(params);
++
++	if (stream_config.ch_count > runtime->hw.channels_max) {
++		stream_config.ch_count = runtime->hw.channels_max;
++		dev_info(dai->dev, "Number of channels: %d (requested: %d)\n",
++			 stream_config.ch_count, params_channels(params));
++	}
++	port_config.ch_mask = GENMASK((int)stream_config.ch_count - 1, 0);
++
++	ret = sdw_stream_add_slave(max98363->slave, &stream_config,
++				   &port_config, 1, stream);
++	if (ret) {
++		dev_err(dai->dev, "Unable to configure port\n");
++		return ret;
++	}
++
++	dev_dbg(component->dev, "Format supported %d", params_format(params));
++
++	return 0;
++}
++
++static int max98363_pcm_hw_free(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct max98363_priv *max98363 =
++		snd_soc_component_get_drvdata(component);
++	struct sdw_stream_runtime *stream =
++		snd_soc_dai_get_dma_data(dai, substream);
++
++	if (!max98363->slave)
++		return -EINVAL;
++
++	sdw_stream_remove_slave(max98363->slave, stream);
++
++	return 0;
++}
++
++static int max98363_set_sdw_stream(struct snd_soc_dai *dai,
++				   void *sdw_stream, int direction)
++{
++	snd_soc_dai_dma_data_set(dai, direction, sdw_stream);
++
++	return 0;
++}
++
++static const struct snd_soc_dai_ops max98363_dai_sdw_ops = {
++	.hw_params = max98363_sdw_dai_hw_params,
++	.hw_free = max98363_pcm_hw_free,
++	.set_stream = max98363_set_sdw_stream,
++};
++
++static struct snd_soc_dai_driver max98363_dai[] = {
++	{
++		.name = "max98363-aif1",
++		.playback = {
++			.stream_name = "HiFi Playback",
++			.channels_min = 1,
++			.channels_max = 1,
++			.rates = MAX98363_RATES,
++			.formats = MAX98363_FORMATS,
++		},
++		.ops = &max98363_dai_sdw_ops,
++	}
++};
++
++static int max98363_update_status(struct sdw_slave *slave,
++				  enum sdw_slave_status status)
++{
++	struct max98363_priv *max98363 = dev_get_drvdata(&slave->dev);
++
++	if (status == SDW_SLAVE_UNATTACHED)
++		max98363->hw_init = false;
++
++	/*
++	 * Perform initialization only if slave status is SDW_SLAVE_ATTACHED
++	 */
++	if (max98363->hw_init || status != SDW_SLAVE_ATTACHED)
++		return 0;
++
++	/* perform I/O transfers required for Slave initialization */
++	return max98363_io_init(slave);
++}
++
++static struct sdw_slave_ops max98363_slave_ops = {
++	.read_prop = max98363_read_prop,
++	.update_status = max98363_update_status,
++};
++
++static DECLARE_TLV_DB_SCALE(max98363_digital_tlv, -6350, 50, 1);
++static const DECLARE_TLV_DB_RANGE(max98363_spk_tlv,
++	0, 5, TLV_DB_SCALE_ITEM(-300, 300, 0),
++);
++
++static const char * const max98363_tone_cfg_text[] = {
++	"Reserved", "0", "+FS/2", "-FS/2", "1KHz",
++	"12KHz", "8KHz", "6KHz", "4KHz", "3KHz",
++	"2KHz",	"1.5KHz", "Reserved", "500Hz", "250Hz"
++};
++
++static SOC_ENUM_SINGLE_DECL(max98363_tone_cfg_enum,
++			    MAX98363_R2030_TONE_GEN_CFG, 0,
++			    max98363_tone_cfg_text);
++
++static const char * const max98363_spkmon_duration_text[] = {
++	"8ms", "20ms", "40ms", "60ms",
++	"80ms", "160ms", "240ms", "320ms",
++	"400ms", "480ms", "560ms", "640ms",
++	"720ms", "800ms", "880ms", "960ms"
++};
++
++static SOC_ENUM_SINGLE_DECL(max98363_spkmon_duration_enum,
++			    MAX98363_R2023_SPK_MON_DURATION, 0,
++			    max98363_spkmon_duration_text);
++
++static const struct snd_kcontrol_new max98363_snd_controls[] = {
++	SOC_SINGLE_TLV("Digital Volume", MAX98363_R2040_AMP_VOL,
++		       0, 0x7F, 1, max98363_digital_tlv),
++	SOC_SINGLE_TLV("Speaker Volume", MAX98363_R2041_AMP_GAIN,
++		       0, 10, 0, max98363_spk_tlv),
++	SOC_SINGLE("Tone Generator Switch", MAX98363_R203F_TONE_GEN_EN,
++		   0, 1, 0),
++	SOC_ENUM("Tone Config", max98363_tone_cfg_enum),
++	SOC_SINGLE("Ramp Switch", MAX98363_R2042_DSP_CFG,
++		   MAX98363_AMP_DSP_CFG_RMP_SHIFT, 1, 0),
++	SOC_SINGLE("CLK Monitor Switch", MAX98363_R2021_ERR_MON_CTRL,
++		   MAX98363_CLOCK_MON_SHIFT, 1, 0),
++	SOC_SINGLE("SPKMON Monitor Switch", MAX98363_R2021_ERR_MON_CTRL,
++		   MAX98363_SPKMON_SHIFT, 1, 0),
++	SOC_SINGLE("SPKMON Thresh", MAX98363_R2022_SPK_MON_THRESH, 0, 0xFF, 0),
++	SOC_ENUM("SPKMON Duration", max98363_spkmon_duration_enum),
++};
++
++static const struct snd_soc_dapm_widget max98363_dapm_widgets[] = {
++	SND_SOC_DAPM_AIF_IN("AIFIN", "HiFi Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_OUTPUT("BE_OUT"),
++};
++
++static const struct snd_soc_dapm_route max98363_audio_map[] = {
++	/* Plabyack */
++	{"BE_OUT", NULL, "AIFIN"},
++};
++
++const struct snd_soc_component_driver soc_codec_dev_max98363 = {
++	.controls		= max98363_snd_controls,
++	.num_controls		= ARRAY_SIZE(max98363_snd_controls),
++	.dapm_widgets		= max98363_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(max98363_dapm_widgets),
++	.dapm_routes		= max98363_audio_map,
++	.num_dapm_routes	= ARRAY_SIZE(max98363_audio_map),
++	.use_pmdown_time	= 1,
++	.endianness		= 1,
++};
++
++static int max98363_init(struct sdw_slave *slave, struct regmap *regmap)
++{
++	struct max98363_priv *max98363;
++	int ret;
++	struct device *dev = &slave->dev;
++
++	/*  Allocate and assign private driver data structure  */
++	max98363 = devm_kzalloc(dev, sizeof(*max98363), GFP_KERNEL);
++	if (!max98363)
++		return -ENOMEM;
++
++	dev_set_drvdata(dev, max98363);
++	max98363->regmap = regmap;
++	max98363->slave = slave;
++
++	max98363->hw_init = false;
++	max98363->first_hw_init = false;
++
++	/* codec registration  */
++	ret = devm_snd_soc_register_component(dev, &soc_codec_dev_max98363,
++					      max98363_dai,
++					      ARRAY_SIZE(max98363_dai));
++	if (ret < 0)
++		dev_err(dev, "Failed to register codec: %d\n", ret);
++
++	return ret;
++}
++
++static int max98363_sdw_probe(struct sdw_slave *slave,
++			      const struct sdw_device_id *id)
++{
++	struct regmap *regmap;
++
++	/* Regmap Initialization */
++	regmap = devm_regmap_init_sdw(slave, &max98363_sdw_regmap);
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
++
++	return max98363_init(slave, regmap);
++}
++
++static const struct sdw_device_id max98363_id[] = {
++	SDW_SLAVE_ENTRY(0x019F, 0x8363, 0),
++	{},
++};
++MODULE_DEVICE_TABLE(sdw, max98363_id);
++
++static struct sdw_driver max98363_sdw_driver = {
++	.driver = {
++		.name = "max98363",
++		.pm = pm_ptr(&max98363_pm),
++	},
++	.probe = max98363_sdw_probe,
++	.ops = &max98363_slave_ops,
++	.id_table = max98363_id,
++};
++
++module_sdw_driver(max98363_sdw_driver);
++
++MODULE_DESCRIPTION("ASoC MAX98363 driver SDW");
++MODULE_AUTHOR("Ryan Lee <ryans.lee@analog.com>");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/max98363.h b/sound/soc/codecs/max98363.h
+new file mode 100644
+index 000000000000..2b6743d3a2cf
+--- /dev/null
++++ b/sound/soc/codecs/max98363.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright (c) 2022 Analog Devices Inc. */
++
++#ifndef _MAX98363_H
++#define _MAX98363_H
++
++#define MAX98363_R2000_SW_RESET			0x2000
++#define MAX98363_R2001_INTR_RAW			0x2001
++#define MAX98363_R2003_INTR_STATE		0x2003
++#define MAX98363_R2005_INTR_FALG		0x2005
++#define MAX98363_R2007_INTR_EN			0x2007
++#define MAX98363_R2009_INTR_CLR			0x2009
++#define MAX98363_R2021_ERR_MON_CTRL		0x2021
++#define MAX98363_R2022_SPK_MON_THRESH		0x2022
++#define MAX98363_R2023_SPK_MON_DURATION		0x2023
++#define MAX98363_R2030_TONE_GEN_CFG		0x2030
++#define MAX98363_R203F_TONE_GEN_EN		0x203F
++#define MAX98363_R2040_AMP_VOL			0x2040
++#define MAX98363_R2041_AMP_GAIN			0x2041
++#define MAX98363_R2042_DSP_CFG			0x2042
++#define MAX98363_R21FF_REV_ID			0x21FF
++
++/* MAX98363_R2021_ERR_MON_CTRL */
++#define MAX98363_SPKMON_SHIFT			(3)
++#define MAX98363_CLOCK_MON_SHIFT		(0)
++
++/* MAX98363_R2042_DSP_CFG */
++#define MAX98363_AMP_DSP_CFG_RMP_SHIFT		(3)
++
++struct max98363_priv {
++	struct regmap *regmap;
++	struct sdw_slave *slave;
++	bool hw_init;
++	bool first_hw_init;
++};
++#endif
+-- 
+2.34.1
+

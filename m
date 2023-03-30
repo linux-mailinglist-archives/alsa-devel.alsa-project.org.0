@@ -2,114 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A0BA6D0A7F
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Mar 2023 17:55:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 035B16D0AA1
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Mar 2023 18:06:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C95DB1F1;
-	Thu, 30 Mar 2023 17:54:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C95DB1F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0003A41;
+	Thu, 30 Mar 2023 18:05:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0003A41
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680191715;
-	bh=8fdkxzGEdTcj5Iqg31XzGMXh3GLbZjg3ksGnHCEhgaw=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1680192378;
+	bh=viaViRHbOUE2fhuaH9npts1s3lqVVfNzJID7p/qGxNE=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hJR7CBke2UwrNwganYf15im4P9RnHq9RnoTcl5FyfLIuAfbIH6hUD1osWVU6P4Ebr
-	 aeLWu5i5DR038zWqUHuwXop41p/F74+D6SxYyVQKYl5L9BGR+UMQwgqR6afS1b9Gcp
-	 dhgyoQQ351HmdWaOhHDzztc1/18j+rrP/r9qmnZ0=
+	b=OK50DQR/c3WSvQ4qAHXPD7xtV4BMA3lA9qbzsGIZSHTxYsTw4cEM6mJjJv6hMvZ4C
+	 4Oswp0mEmkB4O4mNoU/EKCSS3sdmRHHiOV4icI0WeIUwb6ibZERTB+3wquedReEz2V
+	 rpM7FYWY7iqJG4oDXpr541LIOoTfJ0asXa/UsbbA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 389AEF8024E;
-	Thu, 30 Mar 2023 17:54:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 732D5F8024E;
+	Thu, 30 Mar 2023 18:05:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABA2FF80272; Thu, 30 Mar 2023 17:54:21 +0200 (CEST)
+	id 325CBF80272; Thu, 30 Mar 2023 18:05:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EB39EF80249
-	for <alsa-devel@alsa-project.org>; Thu, 30 Mar 2023 17:54:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB39EF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 32D06F8021D
+	for <alsa-devel@alsa-project.org>; Thu, 30 Mar 2023 18:05:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32D06F8021D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=xnQIj2c8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=axyRbsyV
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=m6OZfS5Z
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id AFA2D1FE10;
-	Thu, 30 Mar 2023 15:54:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680191657;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a2MQ1f3LkYw8V/ereBWjDqsoDnid7UAHay1UaLYZ9M0=;
-	b=xnQIj2c8/lha+ALtaT/nGH67Xx5c0Inbdat+Rzo+U+Zs9jUji2NL/D7OlCKyOnrijbITAX
-	Cj39tMpOv7SC7YOL3OjYbZyc1ZS+DL5Jiy606wntaKD98UtC5pur7Nptm5Z/GMoQclEieh
-	cLCctMupA5ox5vPwTn0MgEv7Tm523dI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680191657;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a2MQ1f3LkYw8V/ereBWjDqsoDnid7UAHay1UaLYZ9M0=;
-	b=axyRbsyVStzHNVlOzpmHa4MhOrAN85601+RYWE8mkLgrKeRCXi8DHFGBGHPGcDK+shhDc5
-	2ALZ95BEKfVa+3CA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 74EA11348E;
-	Thu, 30 Mar 2023 15:54:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id U4W9G6mwJWSjWQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 30 Mar 2023 15:54:17 +0000
-Date: Thu, 30 Mar 2023 17:54:16 +0200
-Message-ID: <87a5zukzfb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 08/18] ASoC: SOF: Intel: hda-mlink: introduce helpers for
- 'extended links' PM
-In-Reply-To: <20230327112931.23411-9-peter.ujfalusi@linux.intel.com>
-References: <20230327112931.23411-1-peter.ujfalusi@linux.intel.com>
-	<20230327112931.23411-9-peter.ujfalusi@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: JDXWGVB3FV4JVMCVGQP5VBRVIM75AIW3
-X-Message-ID-Hash: JDXWGVB3FV4JVMCVGQP5VBRVIM75AIW3
-X-MailFrom: tiwai@suse.de
+	by ams.source.kernel.org (Postfix) with ESMTPS id F333CB82990;
+	Thu, 30 Mar 2023 16:05:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26820C433D2;
+	Thu, 30 Mar 2023 16:05:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1680192316;
+	bh=viaViRHbOUE2fhuaH9npts1s3lqVVfNzJID7p/qGxNE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=m6OZfS5Z2VvyJAEylOF2nv/gh9VcA5FP+BQRkidlgpB/DisvueL3Sd/6WTynINVHl
+	 +n7axNxIfrchWxNOAnb1Ej6EVtw4BaFq0Sdnqmopp1uO5TBTiiqE+l7OeYcJJCkxrr
+	 MDCQUrjfXukhfzXX+LeDpypxjeMOUAs/lPFCBJ93hmMbD2L13rdvW2zawmYSLP5OQ6
+	 wOdrM08QFaR3WJPoVfXxiUSLOVZO2b1ELtzeVPh+Y0bFea+2RQg6QIHuriF0h5WAME
+	 61J3oK4B7sxLfoeMZIy9ssFDi3CEgSEnWEwN859ZDCv+fxpHc4SarvuLZZa1suYQVW
+	 P36jrUUrMRJBQ==
+Date: Thu, 30 Mar 2023 17:05:10 +0100
+From: Lee Jones <lee@kernel.org>
+To: Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH v5 2/5] mfd: Add support for the Lantiq PEF2256 framer
+Message-ID: <20230330160510.GB489249@google.com>
+References: <20230328092645.634375-1-herve.codina@bootlin.com>
+ <20230328092645.634375-3-herve.codina@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230328092645.634375-3-herve.codina@bootlin.com>
+Message-ID-Hash: H4RCPTNB35PHCKN7M7YYA2CE277HLYJ5
+X-Message-ID-Hash: H4RCPTNB35PHCKN7M7YYA2CE277HLYJ5
+X-MailFrom: lee@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, rander.wang@intel.com
+CC: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDXWGVB3FV4JVMCVGQP5VBRVIM75AIW3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H4RCPTNB35PHCKN7M7YYA2CE277HLYJ5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,47 +99,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 27 Mar 2023 13:29:21 +0200,
-Peter Ujfalusi wrote:
-> 
-> +/*
-> + * Hardware recommendations are to wait ~10us before checking any hardware transition
-> + * reported by bits changing status.
-> + * This value does not need to be super-precise, a slack of 5us is perfectly acceptable.
-> + * The worst-case is about 1ms before reporting an issue
-> + */
-> +#define HDAML_POLL_DELAY_MIN_US 10
-> +#define HDAML_POLL_DELAY_SLACK_US 5
-> +#define HDAML_POLL_DELAY_RETRY  100
-> +
-> +static int check_power_active(u32 __iomem *lctl, int sublink, bool enable)
-> +{
-> +	int mask = BIT(sublink) << AZX_ML_LCTL_CPA_SHIFT;
-> +	int retry = HDAML_POLL_DELAY_RETRY;
-> +	u32 val;
-> +
-> +	usleep_range(HDAML_POLL_DELAY_MIN_US,
-> +		     HDAML_POLL_DELAY_MIN_US + HDAML_POLL_DELAY_SLACK_US);
-> +	do {
-> +		val = readl(lctl);
-> +		if (enable) {
-> +			if (val & mask)
-> +				return 0;
-> +		} else {
-> +			if (!(val & mask))
-> +				return 0;
-> +		}
-> +		usleep_range(HDAML_POLL_DELAY_MIN_US,
-> +			     HDAML_POLL_DELAY_MIN_US + HDAML_POLL_DELAY_SLACK_US);
-> +
-> +	} while (--retry);
-> +
-> +	return -EIO;
-> +}
+On Tue, 28 Mar 2023, Herve Codina wrote:
 
-Can read_poll_timeout() and co be alternative?
+> The Lantiq PEF2256 is a framer and line interface component designed to
+> fulfill all required interfacing between an analog E1/T1/J1 line and the
+> digital PCM system highway/H.100 bus.
 
+My goodness!
 
-thanks,
+It's been a long time since I've seen anything quite like this.
 
-Takashi
+My suggestion to you:
+
+* Split this up into components that fit functional subsystems
+* Run checkpatch.pl
+* Remove all of the debug prints
+* Move all of the defines out to a header file
+* Be more verbose in your documentation / comments
+* Consider using simple-mfd to probe child devices.
+
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> ---
+>  drivers/mfd/Kconfig         |   17 +
+>  drivers/mfd/Makefile        |    1 +
+>  drivers/mfd/pef2256.c       | 1355 +++++++++++++++++++++++++++++++++++
+>  include/linux/mfd/pef2256.h |   28 +
+>  4 files changed, 1401 insertions(+)
+>  create mode 100644 drivers/mfd/pef2256.c
+>  create mode 100644 include/linux/mfd/pef2256.h
+
+--
+Lee Jones [李琼斯]

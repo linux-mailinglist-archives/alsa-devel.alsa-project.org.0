@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17F066D1CE6
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 11:48:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAF1C6D1CEB
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 11:49:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E4C71FA;
-	Fri, 31 Mar 2023 11:47:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E4C71FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FA521F9;
+	Fri, 31 Mar 2023 11:48:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FA521F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680256104;
-	bh=gXDQ9MeogvIvJCcIlMxTl/DF57chnfHCjwpAMUuQJ+8=;
+	s=default; t=1680256155;
+	bh=5O2+KUYnz3YBKFAptfERJ1ZI5E1evPXSDCoSoigq++Y=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YLGlrEc1VTtHhOGByQuVXryLp99B2/xb7Ttip73Nxs8/+5FuavPhAVYarjKQvzB6K
-	 +642PNkFk28Kp211AbojkQblIFo2n4GCSIn8cidCpuRfGzfj0XX0cAy591KIjOC4Ul
-	 8R3CS0BUE68RfASrj97/a902NmMAc2RRQ3/k1sW8=
+	b=DTDKZq5wiDyFTDtt1KXWEksxJDfu7HP2K+dGZdwh0GPFHAyrqv17B1Hbh8dQkCf0s
+	 C1S3cGZaeOtTIbLfF+gXPXhpd1gx2sX+MEEBq1mIWvwPwJaXvpk17qUSgHF06ElX1X
+	 z+htO8CTAO70xrRcqfGkZxi73KPJbc7Jnog+IZCU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09371F8024E;
-	Fri, 31 Mar 2023 11:47:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71A28F80423;
+	Fri, 31 Mar 2023 11:47:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14292F80272; Fri, 31 Mar 2023 11:47:29 +0200 (CEST)
+	id EC24BF80482; Fri, 31 Mar 2023 11:47:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,55 +36,55 @@ Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CAE0AF80114
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 11:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAE0AF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8118F8032D
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 11:47:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8118F8032D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=HB+TVMnk
-Received: by mail-lf1-x136.google.com with SMTP id bi9so28108456lfb.12
+ header.s=google header.b=ezQU1fwl
+Received: by mail-lf1-x136.google.com with SMTP id g19so15024426lfr.9
         for <alsa-devel@alsa-project.org>;
- Fri, 31 Mar 2023 02:47:22 -0700 (PDT)
+ Fri, 31 Mar 2023 02:47:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680256040;
+        d=linaro.org; s=google; t=1680256070;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=hnzWIFD7E+b4S3TZGTfN6jfs1uPbhSQEaRByhI1df+M=;
-        b=HB+TVMnkqvB7O0R3MzfOeH12788Pp02xIqytld9w5q6ehalIpUQ4NIGCs4FoPNwGtw
-         KjINmDIkY//lZWKGXkAW/6HxoxXWdC32DM4f1uzIesFTa8YPI+RAC1d3WOQUbqGx7nDV
-         lTespHeb2N2brtIIpdtHFxWZN2OOzGN+9/NRxQ+6sQoqnIOdTwI1GHdLu/mnJvAKyz/E
-         RohbWhLih537gFmaFLGYdHiPsS3Jb5lI2sbUbhvksGpoVbf/QRJvjloZzTcOf2OT99fP
-         OS0ixUMKhOi6tHVFED7+FBbzZG3nbCGdfiqHc8K+fc+DtV1WkjcoGRqILKWRvhz9pV62
-         ZRtw==
+        bh=8+FVjc7Vr5u63Aky+QFc4CNm5/6VJEJaY0PE/oQ5V5Y=;
+        b=ezQU1fwlthlnLkzOKfjJOlU8Vs5/eSnmr9Kp1S6uvV/QCN0zH9rfO/hE5raTnlebbz
+         b25EcCa/+TCWFoGRjP+iRjdvnpbdE9nd+x5F6YWd2m/CK4a5+LdFtF9MbsNpgKQUgKSD
+         2nW5MmV09cZ4wU5rIWYaP3uQJ/euxqQJ4ZTlsNxlPb7YVK6M0ip6KC6uApjtvLRrwAaH
+         twUNIusSdJ929h36uDlk6TNck720rAkxa/pPqy1a+ATahXn7qOiVG20zFoiOJCSUgnU3
+         twvqifPVC5JGcCdTqV1GjyLLQYer1PLjPvbgENYNu//RXfB5JnFrfzTwlBrbwN+dWYI0
+         x9hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680256040;
+        d=1e100.net; s=20210112; t=1680256070;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hnzWIFD7E+b4S3TZGTfN6jfs1uPbhSQEaRByhI1df+M=;
-        b=Pt8piHqOVqHToDE/1OChP3VvhaanW+BcFlPnv5GdK/UtcHBa5e2yDZWGOQn2ZyYCLR
-         j1mhTMOEGZiYsqYW6m1fKb4XqbwuFhWPe9/7LnJktohfyQi4NMaDC75pf6HVisubZS95
-         fu3IjMkZLl02W/xW+qKL0M+BGPRQ+qjZoho2NEUZhitJzWEugVJnbsD8OqpB8TVnFPlu
-         a5tcOEXaagJILmHl/Rco7W7M6YMiQImwkTQaz4ww9my4s/TLYgXtS10P27fY4+WSnbuk
-         w6Ai12uhg6O53u7v/zltluOwbiuZsRCDznHZLmqkeZ4G3vMZAVltY3GZp8VXWoSR7etp
-         RPQg==
-X-Gm-Message-State: AAQBX9fKknIcvRuNVGvh6XLSlfNBQeaqsCncQO0i4DtlaNpE4YlPyDtA
-	mZRatEBBcMwsmZi8JK5odgUCvw==
+        bh=8+FVjc7Vr5u63Aky+QFc4CNm5/6VJEJaY0PE/oQ5V5Y=;
+        b=ZQLmRPthi3eT7FFFvOVgpqpk8xs2SG1h0c1UB4HUl0vp6q1S1OM1wHP/9WW4Hv9BOM
+         ulGWXSmrf1BXHNGpJlTlRx2e2WIvm9EJ/BFwlpZndI5c3FgCMUHcd/Y+RIIoq0FLVMVz
+         Cwq3nZ+qnhSJBYBQBuWVAgKqMW/6DlwU3hDGzsH+/LEv41kpuxCAfFRPdtIAM4aeymsK
+         TkJLRuM0K8FkqBFOdwQVdryGGX01VoGMcpc0caqIR3t8dklRBFU70FwtqIBOJL+noZ90
+         QB3jRBTkEe/QM9Dn38THpGSvw4ut9qTYbdz8Z+EPYi3t6gujPlIaolDzJc1fze6pVgTp
+         QbUQ==
+X-Gm-Message-State: AAQBX9eT6v7vuwjxk8JP4I59QhcLqCssKjKra1DgiN6GeSxsOLOmkEl4
+	3o+5BdsMVOkcE/PWCSc1vH58Vw==
 X-Google-Smtp-Source: 
- AKy350axKhA1sEScCS2IqTPlAy7H3rF+ckndonIj5tM6RWPZCy4EAumflMTPJ5hdVeFx1W2N/KcT/A==
-X-Received: by 2002:ac2:46e4:0:b0:4dd:995b:feaa with SMTP id
- q4-20020ac246e4000000b004dd995bfeaamr7880350lfo.24.1680256040470;
-        Fri, 31 Mar 2023 02:47:20 -0700 (PDT)
+ AKy350Yfe7vvDbdX5/m31I+n1dQH9YM3t6uIDyBc+99lpi+x0QXmahT38KoUxCALt0/tRmw5I5ybGw==
+X-Received: by 2002:a19:ad46:0:b0:4eb:1527:e29d with SMTP id
+ s6-20020a19ad46000000b004eb1527e29dmr3764702lfd.52.1680256070447;
+        Fri, 31 Mar 2023 02:47:50 -0700 (PDT)
 Received: from [192.168.0.21] (78-11-189-27.static.ip.netia.com.pl.
  [78.11.189.27])
         by smtp.gmail.com with ESMTPSA id
- c25-20020ac244b9000000b004e9c983a007sm309559lfm.289.2023.03.31.02.47.19
+ m14-20020a19520e000000b004cb1de3f487sm310397lfb.104.2023.03.31.02.47.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Mar 2023 02:47:20 -0700 (PDT)
-Message-ID: <304ce3f0-81df-327c-8b42-2471a3a51e43@linaro.org>
-Date: Fri, 31 Mar 2023 11:47:19 +0200
+        Fri, 31 Mar 2023 02:47:50 -0700 (PDT)
+Message-ID: <08c18374-5d1a-7407-07d3-151bc5ce2511@linaro.org>
+Date: Fri, 31 Mar 2023 11:47:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
@@ -101,8 +101,8 @@ From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 In-Reply-To: <20230331020527.482991-1-andremorishita@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QJQXDCLREYGWWGCTS3UPOE3SJTJ3YVZK
-X-Message-ID-Hash: QJQXDCLREYGWWGCTS3UPOE3SJTJ3YVZK
+Message-ID-Hash: RPDBAJISRB3WK75QF3FXC72TI7MVRBWK
+X-Message-ID-Hash: RPDBAJISRB3WK75QF3FXC72TI7MVRBWK
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -117,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QJQXDCLREYGWWGCTS3UPOE3SJTJ3YVZK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RPDBAJISRB3WK75QF3FXC72TI7MVRBWK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,35 +130,13 @@ On 31/03/2023 04:05, André Morishita wrote:
 > Convert the Maxim Integrated MAX98371 audio codec bindings to DT schema.
 > 
 > Signed-off-by: André Morishita <andremorishita@gmail.com>
-> ---
 
-Thank you for your patch. There is something to discuss/improve.
+Ahh, and missing ASoC subject prefix.
 
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        max98371: max98371@31 {
+(which you can get for example with `git log --oneline --
+DIRECTORY_OR_FILE` on the directory your patch is touching).
 
-Generic node names, so: codec
 
-And drop label (max98371:)
-
-> +            compatible = "maxim,max98371";
-> +            reg = <0x31>;
-
-#sound-dai-cells = <0>;
-
-> +        };
-> +    };
 
 Best regards,
 Krzysztof

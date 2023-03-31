@@ -2,112 +2,201 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A0106D15C2
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 04:56:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E67936D3615
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Apr 2023 10:12:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0599F1F7;
-	Fri, 31 Mar 2023 04:55:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0599F1F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34CAF1F9;
+	Sun,  2 Apr 2023 10:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34CAF1F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680231404;
-	bh=X/tsONxZ8L1WAeAR1ROCGDulqWscAhL3Lp5vAG+Z23w=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=llaRv9NqbxThnCXFsYYX8HFDce7w9sBW3IlmMZY4YzouHwXYHpEcAMwdQWGFH4ju4
-	 q1jw05uJ3lKtmu9JaJwAvWBB01dt83Dq/SnQyj0LUhoZseh+KRwVUTECcgtKN/vdlw
-	 lQnF8iZFahNP5gt2m6IJo2jXPksIShNHmeVCUbHs=
+	s=default; t=1680423143;
+	bh=udJiExzXvkUf8xe+fLZrl3zvwqp+aF09gR8rkvNOPTw=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=cYu8a4tjP1FwWqXUrXwa3BhSPWHssjaCJy8d6cAeetxq4lfgDSSbE3pxyJPCg36Ez
+	 Rg9KrpGThg8EAyx3vo6gH70SBYmDlFUzSNnUmzwbU44AcKF7rdpWFk3ccJfPpbMwmM
+	 bSc0uImx0OW3Yn8SfnPHLCMU1dVDDZxWksVrbI0Y=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F834F8021D;
-	Fri, 31 Mar 2023 04:55:53 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D00DF80272; Fri, 31 Mar 2023 04:55:47 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [IPv6:2a00:1450:4864:20::432])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62D4FF8021D
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 04:55:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62D4FF8021D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=j6snYCTS
-Received: by mail-wr1-x432.google.com with SMTP id h17so20980751wrt.8
-        for <alsa-devel@alsa-project.org>;
- Thu, 30 Mar 2023 19:55:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680231337; x=1682823337;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=R0f0oYaBiIjZngwKKrarE3ZU4R7VLA65VkJQmbsO7p4=;
-        b=j6snYCTSc3mn9magen+ARP9tyBjdlqAg7Msxhi4LmTS+IMoHqzu/tVUg95/7GQ6fK1
-         Ab33kcxf2rMwtLKQFmY0q2/ynhw8dxHAA/ErsVFtm/f8HYQqlkegFOko3J2MRW/gozSA
-         zbFnAUPiwIsIfxZeD3NpRyiDH1t8mHcxYUHFlEa3a5uH/Q4E0EOa5K2KdXoGm2ikXbEJ
-         cFacjZNut43G140mcjfDOYCH49vCCq1WXMeWr4OoqMcEDx1mVacsHdDwvKbriOa6D9An
-         8vEDs5Gks6sYn2jJamaaMSvpCJ2dMNSlgydmr867/IW5q8kungIpa1YhWEGPeH+UTAyt
-         yw1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680231337; x=1682823337;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=R0f0oYaBiIjZngwKKrarE3ZU4R7VLA65VkJQmbsO7p4=;
-        b=S7VHGukG1IXIDiaZc9q610X/H2bLFw0I4HO09G0KXblZ6iqJR+v7wt0TDe3oBtnQY7
-         TMmIsMHeq9+NLdULVPOT+73VtffsyYGFygZzG+StOHBcJ7CJh1SgETGvYgRjSKJb5JUN
-         xrVGMsnGezNWnLqehrnsqk3CaVmLV39wYsWF+LjkcdyRq4dy9hv3jWy81eCZbRfyFag7
-         1olH3XtetZhndS+6aGBypVMDhi5WAfOmap8XU7Su/8kG9NAZLQ0cZ8AVn1Ce782f2KOv
-         7FKKVq8UCD6OufDxXEnhCmi3MafHsnznjBD6aPu8U7uFse5n5/gFhKa/hSYsQtFOnRPN
-         eyUQ==
-X-Gm-Message-State: AAQBX9ejamsCVXvKTL+ibr5oavpFz09JdbvBWFGvVSUZ8gp188ptmJSK
-	XrrJMX5vXXVd671PCGhgnrKrnOd6X6s0ff62dz0=
-X-Google-Smtp-Source: 
- AKy350aoW6eyWZ7Vy7uL9TzBTgI+9gM4kG0Y6ga+Ywwo/3Ce7novHeVGH33oyhBjPnINiHx5c4pgOiCGaiSL/Y/+Rnw=
-X-Received: by 2002:a5d:5152:0:b0:2c7:17b8:5759 with SMTP id
- u18-20020a5d5152000000b002c717b85759mr4385251wrt.3.1680231336775; Thu, 30 Mar
- 2023 19:55:36 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230330083040.77085-1-emas@bang-olufsen.dk>
-In-Reply-To: <20230330083040.77085-1-emas@bang-olufsen.dk>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Fri, 31 Mar 2023 10:55:25 +0800
-Message-ID: 
- <CAA+D8AOMTQ00Ah21w54DVXin3KcYkVxaGVd64Z_pSzv+Ooj9vw@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_sai: Use physical format width
-To: Emil Abildgaard Svendsen <EMAS@bang-olufsen.dk>
-Message-ID-Hash: BDAOF4YPK6GIZZHIJKDSIGITBBK7NQUW
-X-Message-ID-Hash: BDAOF4YPK6GIZZHIJKDSIGITBBK7NQUW
-X-MailFrom: shengjiu.wang@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTP id DDC06F80529;
+	Sun,  2 Apr 2023 10:11:31 +0200 (CEST)
+To: Ban Tao <fengzheng923@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: [PATCH] ASoC: sunxi: handle reset_control_deassert() error
+Date: Fri, 31 Mar 2023 11:01:16 +0800
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
-CC: Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+ header-match-alsa-devel.alsa-project.org-1
+X-Mailman-Approved-At: Sun, 02 Apr 2023 08:07:49 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BDAOF4YPK6GIZZHIJKDSIGITBBK7NQUW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QFXI55VHD56ZJ2V5QY24XLCJTMDEHNKG/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168042309035.26.12759717015715603472@mailman-core.alsa-project.org>
+From: Yangtao Li via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Yangtao Li <frank.li@vivo.com>
+Cc: Yangtao Li <frank.li@vivo.com>, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id C6DC6F80272; Fri, 31 Mar 2023 05:02:00 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on20705.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:704b::705])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 799A1F8021D
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 05:01:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 799A1F8021D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=vivo.com header.i=@vivo.com header.a=rsa-sha256
+ header.s=selector2 header.b=i7vZiZ0b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ussl+yC6BbQe7qMpzfMdEExlx3+uuhq2Mi8YjzFeROa/DfGhZiLVpFc/hGzs38/NHftRe98qfbIgZVSQoXeoIIQH+07M8g3pFNrPf4T57LCoOXXAkbLeR4oGFABlejnc3bd550BHLY81SLW6gkFdIJMS9lVWr9zJeeKFjgPUJ/m0sV9DxbvNi031Z2UjvYokyYfg65BFyIIHvwF6d2Wl6dZInBP7W12/oPwxFtpImH68gLar6zlETpsYg2wsVwWu57XSWFPN7nDZaF+eYzmP8CPMCuKaNcvIMg15I0h6eLRJyYGg4V8nNEoQSSLv8DyAogMWQ1ht3gMcEKXYy4ecWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bzo5V7TmG5uVONj8ZEcDhDKjIl/nCCPTHODWovRywKg=;
+ b=H3SKPzaVebxqha8hToQNd+Ji4RP7YLJ3vgHmkzURbQHkstTNbCsyRKOCYW7i5/AuStWRejuV8mg+19B9nNTWwPtVTi3skdtQXh3eAfMZLKukfLiqHZnHOWh6kVrNhQ4Hq7ZdpWmZyZaA4efH/OtftBwc51Wd9xVbnN8MuZs7GXEIUPqQ1bPdtR578QEaj8icfVo70BhtHFkAXyEDuO2C7j6ag+HcB60oQNhepr+cr8Rk20l37p4at7v66oMHlxxwUtkR9OTQL8nZG/5rNbIqfTdzTxcdWqDi3OjKmkSAXlhreaz2qZEExVy408Je+IwNOK7o9/2QawVVSCo9oahDag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bzo5V7TmG5uVONj8ZEcDhDKjIl/nCCPTHODWovRywKg=;
+ b=i7vZiZ0bXLcrarsX3WjXFnQ3LJcRn3heDN0eXIAzp5ji1OapjAO8ktxsuxkrLSo4sGcYIN3D5+FUvH38MPa2k4IuzJ+drMZ/pYCj0CKOFnhvqbLOXminYnK3EumHdDzbUy8n4V5ipP1JHKmo1N18RtCccOkZU7eT9sr7UdGGyMvTMC6YNo+tEOicyosAv/oAr48x5VflTH6nknI08vPTbV0lPEFBEkj7ljoe334zFI44tFbedaZMKUqt0RLoXEVS6SAceS+xJnKmwdRvl1zuqM9AnVTJXagboaj3Z4ZSz61zqvKrlzjfHPIIjSl17FulweXzb0QVS2k60CzFRw3YeQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
+ by SEZPR06MB5024.apcprd06.prod.outlook.com (2603:1096:101:46::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Fri, 31 Mar
+ 2023 03:01:36 +0000
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::a3a1:af8e:be1e:437c]) by SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::a3a1:af8e:be1e:437c%6]) with mapi id 15.20.6222.033; Fri, 31 Mar 2023
+ 03:01:35 +0000
+From: Yangtao Li <frank.li@vivo.com>
+To: Ban Tao <fengzheng923@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Chen-Yu Tsai <wens@csie.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: [PATCH] ASoC: sunxi: handle reset_control_deassert() error
+Date: Fri, 31 Mar 2023 11:01:16 +0800
+Message-Id: <20230331030116.54136-1-frank.li@vivo.com>
+X-Mailer: git-send-email 2.35.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR04CA0015.apcprd04.prod.outlook.com
+ (2603:1096:4:197::21) To SEZPR06MB5269.apcprd06.prod.outlook.com
+ (2603:1096:101:78::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|SEZPR06MB5024:EE_
+X-MS-Office365-Filtering-Correlation-Id: 134b0caf-c4ea-446a-fe07-08db31943cb9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	09yhGg5BWSREIVGcq1H+eiTBKRq+eK9uGy0t7J385ZR7cBJx991vGopaAIPC14pqliGq5kLqYblDOKb24l97+9GkhNxhno0DfZ6spZq0+nEetzYZHYpQ7yQw67bDZ0AK97tRdnCmsAEMqgatsUVCg04o5TDEVjwZAc+int11DCYbNzD7Yk47tNJVc4WfeSUo/Qq3uzgZkIDERZhL9herOg2aGlLdmu2sr08pWOrOZ5WbT7ET+19WdK0yvA/Pxa4lQMVOU/zJ+N6RVU6AfHkM7b2cLAnFkwViL4c/XeYi0knCw5vXyKXpysVThOiBhcr+kODE8fZPhapkV5XVKkAFFnOHrVzvm3If7bBBGP/7M0eGPrgV1ju8yn60O6gvmF0E/BSbo/hl2Nea1OwKMJ5ZmFDiwY46O5z7nNFEFlT6bdK+6I+nqdUbEgowAZY7ImeqvoLibDMDOgmcxvAzsPIyifpMo2O9cYkZOZiR1aZWWf403molY8wD63URlEOHzj3N5O01p210Ce7hwtBDr2g+1Qjo4q+prxvpkVVN6ZoEYdjpNmmUDvjLCHZ/hEw7OM1sn/zEGJWlQXtK4GKxTNo1HJcIXgnlNX2srTodxMFsBlwWX37sAUHsRkanZyAtuy0/
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEZPR06MB5269.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(396003)(136003)(39860400002)(376002)(346002)(451199021)(6512007)(26005)(41300700001)(6506007)(1076003)(186003)(6666004)(6486002)(52116002)(83380400001)(2616005)(478600001)(316002)(110136005)(38350700002)(38100700002)(66476007)(4326008)(66556008)(7416002)(66946007)(4744005)(5660300002)(2906002)(8676002)(86362001)(36756003)(8936002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?79/eNeFLuRpAXRHbv2xUixe+2+qub3x+ml3uuAyZuxmXNPMKUId+FhvfnWyc?=
+ =?us-ascii?Q?Xv1sBaaxYxzSYFOb7M+A/feTKOA9F6p0tsYtHEvQYu0Ur1iQtH58jOaAFfCY?=
+ =?us-ascii?Q?IX/6/d7DTnCrrYx8/ziaPFPnEmcR2oC/sEQ1dYRCNU8X1EpCxSDy9zoysV8s?=
+ =?us-ascii?Q?rgYTBkvUll9z36nJ/ghP+erfPZjN1ML+J/r7vC2PaQUPxx3BiP9LIh8S/hPG?=
+ =?us-ascii?Q?WGgFR2Xq2kXjZQD8E9qr4uOP4cz6Zy9glM8bvDKWR6U5xd6TIV/dip5ZUuUL?=
+ =?us-ascii?Q?rvB0G4gB18ND3KbT7oqExuZIzyXEds7mKjs0BnSYbelWJP+n2jSrrmW6K51v?=
+ =?us-ascii?Q?zqBEaXqW//YBn0LKng2HgCofklw5BPGkd4W66A5uhe2Yo3NYibzsl0dJzLHa?=
+ =?us-ascii?Q?NrgNKtWaqpOl/o37aKdEROYhMqBFb4VSraxW2A784/w8gMpwrav+9vy0WYxH?=
+ =?us-ascii?Q?Ag0ogsmI6/y7WRlqwgjx/WMeAnH1fRqdlWDSgI1t/ymRPXUf3sCPb5ofEkvR?=
+ =?us-ascii?Q?7YtdZH0HBpGteF5gwjeUpA21H1lwdPDxz9Ph71Z4maVJJBBdYmmSBjboqOAD?=
+ =?us-ascii?Q?2ft9qdYx29ikpdoUDXXXBIibJ00uRLQKZD8hPn1um+L+94Yywg3MDWmAS81U?=
+ =?us-ascii?Q?NgY+WyFvAbbpG5lg87+ZReEHvnLEtsjm0kab+bm+9x25S7+JMzGxI4u7jmsJ?=
+ =?us-ascii?Q?dBPiJ/ny1TBSkaHM7RMS9vl7lfvBPxwM2BouBW4S4Qi3aKhbLhzMW0QJ7M6y?=
+ =?us-ascii?Q?X0PdjQwGk2xxGtM/hoPSYkKBDz+oxXPDluIWyRuAEzjKiQAGSqJbI6bDiSwv?=
+ =?us-ascii?Q?3kUeTwZymEhaSHI/BQ7mmpEG0NgFekm9V9Ej3Eqi+2dbKVx8W4SZ6qVeYhTW?=
+ =?us-ascii?Q?aEXlpiXY5qahpir63P0uF0cxPVFg2AofiBWA+fjSc+Elqs9HZOCLbB2VwYOk?=
+ =?us-ascii?Q?5yN9GIl5MTO6JVDjWxcKICDySQjcbMPYDpmQ/LqXVT/nJHgy0itiInaUlmMy?=
+ =?us-ascii?Q?kEen8UoKqa8BY+tTnmTFtIOnbFHDz3xishrRu0JDZwNfqWUfskUquSTEvA8W?=
+ =?us-ascii?Q?Xkp2W/iyP3HJTrWMD2mfd8h4wyKF6Zno324pFHVSP1lOnaHr+U32fh2eLLqR?=
+ =?us-ascii?Q?n7QchxCwTqI8PXUxR6oMdhyGe4Zz1qtFLcQcNfewX8qiisFoapnIdpp/wl+u?=
+ =?us-ascii?Q?fPbqU19pcITvKrQTrigRyyy7qXd/XNvTYk8TKlwxN6UtZzyJQ6D9Fg+jWMeK?=
+ =?us-ascii?Q?7jjnL9NYdpT7lBwVybgDfp9oe6o4/MtNpY86MwRQVGOe2EYG3ZqxEBEx+8Tj?=
+ =?us-ascii?Q?9KoHHyIiydolUCrNtzscxQK8ZZ5DRmMvu4fhFzz5jEak+n+xTYnf6Z9dFfrF?=
+ =?us-ascii?Q?3v3Wu0jJrEaR/9JI1WW+2nleKBvwl55r0uPXN5fTiwSBpqKn/TPUjn3UKAhX?=
+ =?us-ascii?Q?kWpBTZN9qwKfP4Z3mzbwyoBLf3ZTZP7okeW9A3UCmddwrLBa149oy67eE58V?=
+ =?us-ascii?Q?ha5entrrR2DKm2Jp7LyytrXKlc/ZcCTHWxu6rMDoEPmncqMuUHnAKyJhvJ+w?=
+ =?us-ascii?Q?agkuAuCIO9Xf6gBar/3o6H2bDY2MlBoJlNZSD3Gm?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 134b0caf-c4ea-446a-fe07-08db31943cb9
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 03:01:35.0521
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ 6bR4OZpt+3vFhMY95LLeMg1DY+AIY8X7x73gbhhWuEBz8pT5131IJdjuAF4ambU651rARLdJ6lgA5rqnzc8cMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5024
+X-MailFrom: frank.li@vivo.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: QFXI55VHD56ZJ2V5QY24XLCJTMDEHNKG
+X-Message-ID-Hash: QFXI55VHD56ZJ2V5QY24XLCJTMDEHNKG
+X-Mailman-Approved-At: Sun, 02 Apr 2023 08:07:49 +0000
+CC: Yangtao Li <frank.li@vivo.com>, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QFXI55VHD56ZJ2V5QY24XLCJTMDEHNKG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,34 +205,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gVGh1LCBNYXIgMzAsIDIwMjMgYXQgNDozMOKAr1BNIEVtaWwgQWJpbGRnYWFyZCBTdmVuZHNl
-biA8DQpFTUFTQGJhbmctb2x1ZnNlbi5kaz4gd3JvdGU6DQoNCj4gU2xvdCB3aWR0aCBzaG91bGQg
-Zm9sbG93IHRoZSBwaHlzaWNhbCB3aWR0aCBvZiB0aGUgZm9ybWF0IGluc3RlYWQgb2YgdGhlDQo+
-IGRhdGEgd2lkdGguDQo+DQo+IFRoaXMgaXMgbmVlZGVkIGZvciBmb3JtYXRzIGxpa2UgU05EUlZf
-UENNX0ZNVEJJVF9TMjRfTEUgd2hlcmUgcGh5c2ljYWwNCj4gd2lkdGggaXMgMzIgYW5kIGRhdGEg
-d2lkdGggaXMgMjQuIEJ5IHVzaW5nIHRoZSBwaHlzaWNhbCB3aWR0aCwgZGF0YQ0KPiB3b24ndCBn
-ZXQgbWlzYWxpZ25lZC4NCg0KDQpUaGVyZSBhcmUgZGlmZmVyZW50IHJlcXVpcmVtZW50cyBmb3Ig
-dGhpcyBzbG90IHdpZHRoLiBTb21lIG5lZWQgcGh5c2ljYWwNCndpZHRoLA0KU29tZSBuZWVkIGZv
-cm1hdCB3aWR0aC4gV2UgbmVlZCB0byBiZSBjYXJlZnVsIGFib3V0IGNoYW5nZSBoZXJlLg0KDQpB
-Y3R1YWxseSB0aGVyZSBpcyAuc2V0X3RkbV9zbG90IEFQSSBmb3Igc2xvdCBzcGVjaWZpYyBzZXR0
-aW5nLCBwbGVhc2UgdXNlDQp0aGlzIEFQSS4NCg0KYmVzdCByZWdhcmRzDQp3YW5nIHNoZW5naml1
-DQoNCj4NCj4gU2lnbmVkLW9mZi1ieTogRW1pbCBTdmVuZHNlbiA8ZW1hc0BiYW5nLW9sdWZzZW4u
-ZGs+DQo+IC0tLQ0KPiAgc291bmQvc29jL2ZzbC9mc2xfc2FpLmMgfCAyICstDQo+ICAxIGZpbGUg
-Y2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4NCj4gZGlmZiAtLWdpdCBh
-L3NvdW5kL3NvYy9mc2wvZnNsX3NhaS5jIGIvc291bmQvc29jL2ZzbC9mc2xfc2FpLmMNCj4gaW5k
-ZXggOTM5YzZiZGQyMmM0Li4yMTNlMmQ0NjIwNzYgMTAwNjQ0DQo+IC0tLSBhL3NvdW5kL3NvYy9m
-c2wvZnNsX3NhaS5jDQo+ICsrKyBiL3NvdW5kL3NvYy9mc2wvZnNsX3NhaS5jDQo+IEBAIC01MTks
-MTMgKzUxOSwxMyBAQCBzdGF0aWMgaW50IGZzbF9zYWlfaHdfcGFyYW1zKHN0cnVjdA0KPiBzbmRf
-cGNtX3N1YnN0cmVhbSAqc3Vic3RyZWFtLA0KPiAgICAgICAgIHVuc2lnbmVkIGludCBjaGFubmVs
-cyA9IHBhcmFtc19jaGFubmVscyhwYXJhbXMpOw0KPiAgICAgICAgIHN0cnVjdCBzbmRfZG1hZW5n
-aW5lX2RhaV9kbWFfZGF0YSAqZG1hX3BhcmFtczsNCj4gICAgICAgICBzdHJ1Y3QgZnNsX3NhaV9k
-bF9jZmcgKmRsX2NmZyA9IHNhaS0+ZGxfY2ZnOw0KPiArICAgICAgIHUzMiBzbG90X3dpZHRoID0g
-cGFyYW1zX3BoeXNpY2FsX3dpZHRoKHBhcmFtcyk7DQo+ICAgICAgICAgdTMyIHdvcmRfd2lkdGgg
-PSBwYXJhbXNfd2lkdGgocGFyYW1zKTsNCj4gICAgICAgICBpbnQgdHJjZV9tYXNrID0gMCwgZGxf
-Y2ZnX2lkeCA9IDA7DQo+ICAgICAgICAgaW50IGRsX2NmZ19jbnQgPSBzYWktPmRsX2NmZ19jbnQ7
-DQo+ICAgICAgICAgdTMyIGRsX3R5cGUgPSBGU0xfU0FJX0RMX0kyUzsNCj4gICAgICAgICB1MzIg
-dmFsX2NyNCA9IDAsIHZhbF9jcjUgPSAwOw0KPiAgICAgICAgIHUzMiBzbG90cyA9IChjaGFubmVs
-cyA9PSAxKSA/IDIgOiBjaGFubmVsczsNCj4gLSAgICAgICB1MzIgc2xvdF93aWR0aCA9IHdvcmRf
-d2lkdGg7DQo+ICAgICAgICAgaW50IGFkaXIgPSB0eCA/IFJYIDogVFg7DQo+ICAgICAgICAgdTMy
-IHBpbnMsIGJjbGs7DQo+ICAgICAgICAgdTMyIHdhdGVybWFyazsNCj4gLS0NCj4gMi4zNC4xDQo+
-DQo=
+Add error check for reset_control_deassert().
+
+Signed-off-by: Yangtao Li <frank.li@vivo.com>
+---
+ sound/soc/sunxi/sun50i-dmic.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/sunxi/sun50i-dmic.c b/sound/soc/sunxi/sun50i-dmic.c
+index 069c993acb31..7f0e63130d95 100644
+--- a/sound/soc/sunxi/sun50i-dmic.c
++++ b/sound/soc/sunxi/sun50i-dmic.c
+@@ -345,7 +345,11 @@ static int sun50i_dmic_probe(struct platform_device *pdev)
+ 	if (IS_ERR(host->rst))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(host->rst),
+ 				     "Failed to get reset.\n");
+-	reset_control_deassert(host->rst);
++	ret = reset_control_deassert(host->rst);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to deassert reset: %d\n", ret);
++		return ret;
++	}
+ 
+ 	ret = devm_snd_soc_register_component(&pdev->dev, &sun50i_dmic_component,
+ 					      &sun50i_dmic_dai, 1);
+-- 
+2.35.1
+

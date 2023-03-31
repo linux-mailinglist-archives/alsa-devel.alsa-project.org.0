@@ -2,120 +2,141 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B99716D3616
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Apr 2023 10:12:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 435CC6D1FC9
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 14:12:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EFEB208;
-	Sun,  2 Apr 2023 10:11:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EFEB208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68A301F4;
+	Fri, 31 Mar 2023 14:11:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68A301F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680423149;
-	bh=u+/EvSKy4AHbpiLuIF+mJW9616jnGCmXGnZTUKGlGvI=;
-	h=Date:Subject:From:To:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=H9LVIAVSrz0pO27DGnQid+6vVT6NLUh2MlIUT2IOrlq/O5IlNYnsFOILsAcAzyCBk
-	 ZkpnrwkKBd0qyzJy6jqQSjfkidfYjaNhRP7TQciDtyx1TMHbvjdhEWUHp6TfzvEhRU
-	 PXSXQRvwCX1tCFoKBKxDbKRtGFSM7Yyap6/0vyCk=
+	s=default; t=1680264735;
+	bh=luw6WRoKOCKMpjLWXT9F2/F5B8AJlhK54WDtBlSG0zM=;
+	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=liHug3iKHxPbmLDebFbpaSri5rKB8VuhzM5z1LSTlb78nrWOAVpXMk9XirmOAm7Ts
+	 NbwpH50ZRzydQxCyawui5lCT0B5Mqm/1O2bOFxg/SGUg7f1I4upkw5gVKsuhwbQ+TE
+	 KpvZQaBGQZVEisJlnCDCcTBblCE78gDS8uoa2obM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3F4DF80482;
-	Sun,  2 Apr 2023 10:11:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C66B8F800C9;
+	Fri, 31 Mar 2023 14:11:24 +0200 (CEST)
+Date: Fri, 31 Mar 2023 14:11:04 +0200
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v5 2/5] mfd: Add support for the Lantiq PEF2256 framer
+In-Reply-To: <6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
+References: <20230328092645.634375-1-herve.codina@bootlin.com>
+	<20230328092645.634375-3-herve.codina@bootlin.com>
+	<20230330160510.GB489249@google.com>
+	<20230331094208.41ab4420@bootlin.com>
+	<6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168026468438.26.13238104728611675195@mailman-core.alsa-project.org>
+From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Herve Codina <herve.codina@bootlin.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D89AF80272; Fri, 31 Mar 2023 13:42:47 +0200 (CEST)
+	id 68B74F8024E; Fri, 31 Mar 2023 14:11:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::223])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 131D6F80114
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 13:42:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 131D6F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 114BBF80114
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 14:11:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 114BBF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=fairphone.com header.i=@fairphone.com
- header.a=rsa-sha256 header.s=fair header.b=VN+f7qPZ
-Received: by mail-ed1-x536.google.com with SMTP id ek18so88476380edb.6
-        for <alsa-devel@alsa-project.org>;
- Fri, 31 Mar 2023 04:42:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1680262958; x=1682854958;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=K4UMt/uQavZvUD9jlmkMLKcZa3Scbrdah2/KVZEgnww=;
-        b=VN+f7qPZVike+udaEK6uUPh17uXFK9dM3elIMx+dnL3YEpuM28Xt0JtM3X4BjiE40p
-         lc1WL9u/UkcBusz289hoiNNHESo2f0DlAf/YjTCxO5f37mm13xtKrUmCstczo2uu5Fkh
-         jokVwQV2Gdtx28sdsHsEivCG6Ekgii/hhDE9Y2Pjqof0LunmbmQdh1VPJZs5UtMJMke4
-         MH0YnhQGKsBa35bv/1gnqeAkvu5f52ujLY5EACddKeWY6qHMAnaK6Xs74/f/vIggeFIX
-         Nwwm/qOu/3NFlzmdC+uqYF4r7TdkQoc4bd5RMG+9PKjhATumppOys8TDOd3qNcPvf+ab
-         5dmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680262958; x=1682854958;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=K4UMt/uQavZvUD9jlmkMLKcZa3Scbrdah2/KVZEgnww=;
-        b=A1nxdM8qnRiWyUb+ZnpS0xFiOcmwNvPDvqFoc/Y2GwQQToZkM5ItDa5Nf8ML64dlrJ
-         LoV84pmEJbLh7y9bq6o8xJC16r/phmHZvux5rLuKsokSZm+WkJYGn5nzYshTjSnwg24n
-         pZaiewyKkP7Af2JbJ5R2Qpe1M9fpl1dma4dZk6A6NG3uqK0yZUwcd0jb+UfYwGn3uDDP
-         fAJLHACZNMDQTaZlUf89DEDyDfgaCGsFTBVtuAdLlz0qNMo+5GKe6tyvRTKX5auIkbDi
-         8AT+/eErsrYecibuDHZuWJKEMx3hRXU/PUUFEtVdAlBPN5OPltVDL5sETEnyjb/2h7G1
-         aWyA==
-X-Gm-Message-State: AAQBX9dp4h3BnPf4KEZFR+i0YcCJlTZzYJx/1cilDZFNC5bsFmgFPeRu
-	W/7JsZUG9EYjiWxy1kLyBdPpsg==
-X-Google-Smtp-Source: 
- AKy350bU6YNYtfDrZJb4mmhrOkc2Dbh79ZNF3PcRCc5KbPdRkJ5TYvPvhlSpYorjEEX8ZCut+dDJnA==
-X-Received: by 2002:a17:906:9f04:b0:944:8c30:830d with SMTP id
- fy4-20020a1709069f0400b009448c30830dmr19555868ejc.42.1680262957896;
-        Fri, 31 Mar 2023 04:42:37 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl.
- [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id
- 1-20020a170906058100b00946c5da4d32sm890571ejn.40.2023.03.31.04.42.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Mar 2023 04:42:37 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=G/P7ooR6
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id CE5866000C;
+	Fri, 31 Mar 2023 12:11:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1680264669;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VlFjaEgglGp4LuEAhX3Eu2KitorIUFC8QsINMFBMePg=;
+	b=G/P7ooR673wIkTHXtogfVKLqLVvxP9iSUJhbBPA0jBi46ucYB/ay6zGFAPJvLQuYGeesZu
+	G2qdWoQOTRtT1BDQy+evrDZKkBsap0H2FXS1Gibw54F/NakKab9Y8rij6uS9aQZggDlDk0
+	m6eq3/XUqhFZLvfC7JL0KuPSeDkPaC1FyfzrtWgwWNGPMXzIRZCC9T1TQ9Xne3tJ30JBir
+	MmANr3cLZNj/XOoOMcuI0W2qjQnHhXmskYvmpfDES1thXXFm5yugnbcwFbkR8K/Fi7CDeM
+	7yUkr6oY/zFhHLJpqHEjQreBpihPohVWzp4Obk0FvbeWh71jMd6wIL7LmicBFw==
+Date: Fri, 31 Mar 2023 14:11:04 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v5 2/5] mfd: Add support for the Lantiq PEF2256 framer
+Message-ID: <20230331141104.42445da9@bootlin.com>
+In-Reply-To: <6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
+References: <20230328092645.634375-1-herve.codina@bootlin.com>
+	<20230328092645.634375-3-herve.codina@bootlin.com>
+	<20230330160510.GB489249@google.com>
+	<20230331094208.41ab4420@bootlin.com>
+	<6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 31 Mar 2023 13:42:37 +0200
-Message-Id: <CRKJIAFM4FQS.CLF4S9AUEBBX@otso>
-Subject: Re: [PATCH 5/8] ASoC: codecs: lpass: register mclk after runtime pm
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Srinivas Kandagatla" <srinivas.kandagatla@linaro.org>,
- <broonie@kernel.org>
-X-Mailer: aerc 0.14.0
-References: <20230209122806.18923-1-srinivas.kandagatla@linaro.org>
- <20230209122806.18923-6-srinivas.kandagatla@linaro.org>
- <CREKOWOABXLP.28VKF824CFB3O@otso>
- <e782e78c-422f-fbf9-94a3-3557c9f7fc7e@linaro.org>
-In-Reply-To: <e782e78c-422f-fbf9-94a3-3557c9f7fc7e@linaro.org>
-X-MailFrom: luca.weiss@fairphone.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU
+X-Message-ID-Hash: PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FNLYGWMCRPEAVOQW6BOOKLOFE5TGU3P2
-X-Message-ID-Hash: FNLYGWMCRPEAVOQW6BOOKLOFE5TGU3P2
-X-Mailman-Approved-At: Sun, 02 Apr 2023 08:07:49 +0000
-CC: lgirdwood@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, steev@kali.org, johan+linaro@kernel.org,
- quic_bjorande@quicinc.com
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FNLYGWMCRPEAVOQW6BOOKLOFE5TGU3P2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,213 +145,129 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri Mar 24, 2023 at 2:40 PM CET, Srinivas Kandagatla wrote:
-> Hi Luca,
->
-> On 24/03/2023 11:22, Luca Weiss wrote:
-> > Hi Srinivas,
-> >=20
-> > On Thu Feb 9, 2023 at 1:28 PM CET, Srinivas Kandagatla wrote:
-> >> move mclk out registration after runtime pm is enabled so that the
-> >> clk framework can resume the codec if it requires to enable the mclk o=
-ut.
+Hi Krzysztof, Lee
+
+On Fri, 31 Mar 2023 11:13:30 +0200
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+
+> On 31/03/2023 09:42, Herve Codina wrote:
+> > Hi Lee,
+> > 
+> > On Thu, 30 Mar 2023 17:05:10 +0100
+> > Lee Jones <lee@kernel.org> wrote:
+> >   
+> >> On Tue, 28 Mar 2023, Herve Codina wrote:
+> >>  
+> >>> The Lantiq PEF2256 is a framer and line interface component designed to
+> >>> fulfill all required interfacing between an analog E1/T1/J1 line and the
+> >>> digital PCM system highway/H.100 bus.    
 > >>
-> >> Fixes: c96baa2949b2 ("ASoC: codecs: wsa-macro: add runtime pm support"=
-)
-> >> Fixes: 72ad25eabda0 ("ASoC: codecs: va-macro: add runtime pm support")
-> >> Fixes: 366ff79ed539 ("ASoC: codecs: rx-macro: add runtime pm support")
-> >> Fixes: 1fb83bc5cf64 ("ASoC: codecs: tx-macro: add runtime pm support")
-> >> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> >=20
-> > I see the following remoteproc crash with this patch in on
-> > sm6350/sm7225-fairphone-fp4.
-> >=20
-> > To be clear, all the audio parts for that SoC are not upstream (yet) an=
-d
-> > there's still many issues to solve so not sure if it's actually my faul=
-t.
-> >=20
->
-> please try this patch Amit did report this issue before
->
-> https://lore.kernel.org/lkml/20230323110125.23790-1-srinivas.kandagatla@l=
-inaro.org/
-
-Right, that fixes it on sm6350/sm7225 also. Thanks!
-
-Regards
-Luca
-
->
->
-> thanks,
-> srini
-> > Anyways, getting this crash after starting adsp.
-> >=20
-> > [   97.212943] qcom_q6v5_pas 3000000.remoteproc: fatal error received: =
-ABT_dal.c:287:ABTimeout: AHB Bus hang is detected, Number of bus hang detec=
-ted :=3D 1 , addr0 =3D 0x3370000 , addr1 =3D 0x0!!!
-> > [   97.212995] remoteproc remoteproc0: crash detected in 3000000.remote=
-proc: type fatal error
-> > [   97.213015] remoteproc remoteproc0: handling crash #1 in 3000000.rem=
-oteproc
-> > [   97.213022] remoteproc remoteproc0: recovering 3000000.remoteproc
-> >=20
-> > This happens just after some clocks on the adsp get disabled, this is
-> > from my own debug prints:
-> > [   97.189097] q6afe_set_lpass_clock: clk_id=3D780, attri=3D1, clk_root=
-=3D0, freq=3D0
-> > [   97.189426] q6afe_set_lpass_clock: clk_id=3D781, attri=3D1, clk_root=
-=3D0, freq=3D0
-> >=20
-> > And then a couple of seconds later the whole phone just crashes into th=
-e
-> > 900e mode.
-> >=20
-> > Regards
-> > Luca
-> >=20
-> >=20
-> >> ---
-> >>   sound/soc/codecs/lpass-rx-macro.c  |  8 ++++----
-> >>   sound/soc/codecs/lpass-tx-macro.c  |  8 ++++----
-> >>   sound/soc/codecs/lpass-va-macro.c  | 20 ++++++++++----------
-> >>   sound/soc/codecs/lpass-wsa-macro.c |  9 ++++-----
-> >>   4 files changed, 22 insertions(+), 23 deletions(-)
+> >> My goodness!
 > >>
-> >> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpas=
-s-rx-macro.c
-> >> index a9ef9d5ffcc5..dd6970d5eb8d 100644
-> >> --- a/sound/soc/codecs/lpass-rx-macro.c
-> >> +++ b/sound/soc/codecs/lpass-rx-macro.c
-> >> @@ -3601,10 +3601,6 @@ static int rx_macro_probe(struct platform_devic=
-e *pdev)
-> >>   	if (ret)
-> >>   		goto err_fsgen;
-> >>  =20
-> >> -	ret =3D rx_macro_register_mclk_output(rx);
-> >> -	if (ret)
-> >> -		goto err_clkout;
-> >> -
-> >>   	ret =3D devm_snd_soc_register_component(dev, &rx_macro_component_dr=
-v,
-> >>   					      rx_macro_dai,
-> >>   					      ARRAY_SIZE(rx_macro_dai));
-> >> @@ -3618,6 +3614,10 @@ static int rx_macro_probe(struct platform_devic=
-e *pdev)
-> >>   	pm_runtime_set_active(dev);
-> >>   	pm_runtime_enable(dev);
-> >>  =20
-> >> +	ret =3D rx_macro_register_mclk_output(rx);
-> >> +	if (ret)
-> >> +		goto err_clkout;
-> >> +
-> >>   	return 0;
-> >>  =20
-> >>   err_clkout:
-> >> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpas=
-s-tx-macro.c
-> >> index 2ef62d6edc30..b9475ba55e20 100644
-> >> --- a/sound/soc/codecs/lpass-tx-macro.c
-> >> +++ b/sound/soc/codecs/lpass-tx-macro.c
-> >> @@ -2036,10 +2036,6 @@ static int tx_macro_probe(struct platform_devic=
-e *pdev)
-> >>   	if (ret)
-> >>   		goto err_fsgen;
-> >>  =20
-> >> -	ret =3D tx_macro_register_mclk_output(tx);
-> >> -	if (ret)
-> >> -		goto err_clkout;
-> >> -
-> >>   	ret =3D devm_snd_soc_register_component(dev, &tx_macro_component_dr=
-v,
-> >>   					      tx_macro_dai,
-> >>   					      ARRAY_SIZE(tx_macro_dai));
-> >> @@ -2052,6 +2048,10 @@ static int tx_macro_probe(struct platform_devic=
-e *pdev)
-> >>   	pm_runtime_set_active(dev);
-> >>   	pm_runtime_enable(dev);
-> >>  =20
-> >> +	ret =3D tx_macro_register_mclk_output(tx);
-> >> +	if (ret)
-> >> +		goto err_clkout;
-> >> +
-> >>   	return 0;
-> >>  =20
-> >>   err_clkout:
-> >> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpas=
-s-va-macro.c
-> >> index b0b6cf29cba3..1623ba78ddb3 100644
-> >> --- a/sound/soc/codecs/lpass-va-macro.c
-> >> +++ b/sound/soc/codecs/lpass-va-macro.c
-> >> @@ -1524,16 +1524,6 @@ static int va_macro_probe(struct platform_devic=
-e *pdev)
-> >>   	if (ret)
-> >>   		goto err_mclk;
-> >>  =20
-> >> -	ret =3D va_macro_register_fsgen_output(va);
-> >> -	if (ret)
-> >> -		goto err_clkout;
-> >> -
-> >> -	va->fsgen =3D clk_hw_get_clk(&va->hw, "fsgen");
-> >> -	if (IS_ERR(va->fsgen)) {
-> >> -		ret =3D PTR_ERR(va->fsgen);
-> >> -		goto err_clkout;
-> >> -	}
-> >> -
-> >>   	if (va->has_swr_master) {
-> >>   		/* Set default CLK div to 1 */
-> >>   		regmap_update_bits(va->regmap, CDC_VA_TOP_CSR_SWR_MIC_CTL0,
-> >> @@ -1560,6 +1550,16 @@ static int va_macro_probe(struct platform_devic=
-e *pdev)
-> >>   	pm_runtime_set_active(dev);
-> >>   	pm_runtime_enable(dev);
-> >>  =20
-> >> +	ret =3D va_macro_register_fsgen_output(va);
-> >> +	if (ret)
-> >> +		goto err_clkout;
-> >> +
-> >> +	va->fsgen =3D clk_hw_get_clk(&va->hw, "fsgen");
-> >> +	if (IS_ERR(va->fsgen)) {
-> >> +		ret =3D PTR_ERR(va->fsgen);
-> >> +		goto err_clkout;
-> >> +	}
-> >> +
-> >>   	return 0;
-> >>  =20
-> >>   err_clkout:
-> >> diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpa=
-ss-wsa-macro.c
-> >> index 5cfe96f6e430..c0b86d69c72e 100644
-> >> --- a/sound/soc/codecs/lpass-wsa-macro.c
-> >> +++ b/sound/soc/codecs/lpass-wsa-macro.c
-> >> @@ -2451,11 +2451,6 @@ static int wsa_macro_probe(struct platform_devi=
-ce *pdev)
-> >>   	if (ret)
-> >>   		goto err_fsgen;
-> >>  =20
-> >> -	ret =3D wsa_macro_register_mclk_output(wsa);
-> >> -	if (ret)
-> >> -		goto err_clkout;
-> >> -
-> >> -
-> >>   	ret =3D devm_snd_soc_register_component(dev, &wsa_macro_component_d=
-rv,
-> >>   					      wsa_macro_dai,
-> >>   					      ARRAY_SIZE(wsa_macro_dai));
-> >> @@ -2468,6 +2463,10 @@ static int wsa_macro_probe(struct platform_devi=
-ce *pdev)
-> >>   	pm_runtime_set_active(dev);
-> >>   	pm_runtime_enable(dev);
-> >>  =20
-> >> +	ret =3D wsa_macro_register_mclk_output(wsa);
-> >> +	if (ret)
-> >> +		goto err_clkout;
-> >> +
-> >>   	return 0;
-> >>  =20
-> >>   err_clkout:
-> >> --=20
-> >> 2.21.0
-> >=20
+> >> It's been a long time since I've seen anything quite like this.  
+> > 
+> > Yes, old things but working on recent kernel.
+> >   
+> >>
+> >> My suggestion to you:
+> >>
+> >> * Split this up into components that fit functional subsystems  
+> > 
+> > It is done. The audio part is present in ASoC subsystem (path 5 in this
+> > series). pinctrl function is implemented in this driver and, as I don't
+> > want to share registers, I would prefer to keep this function inside this
+> > driver.  
+> 
+> The amount of defines and huge functions like pef2256_setup_e1()
+> contradict it.
+> 
+> Even the pef2256_setup_e1() really does not follow Linux coding style -
+> you know the size requirement, right?
 
+I know that pef2256_setup_e1() is quite big and I will look at a way
+to split it in a consistent way.
+
+> 
+> pef2256_get_groups_count, struct pinmux_ops and others - this is
+> pinctrl, not MFD! They cannot be in MFD driver.
+
+Maybe the issue is that MFD was not a good choice.
+The "function" provided are not independent of each other.
+The "main" driver (pef2256.c) needs to do the setup and handle the interrupt.
+The "function" provided are some glues in order to be used in some sub-systems
+such as audio. Indeed, ASoC needs a codec DAI to be connected to a CPU DAI.
+These "functions" need to be started (ie probe()) after the pef2256 setup was
+done. So a start (probe()) order relationship is needed.
+
+If a MFD driver needs independent children to handle independent functions,
+the pef2256 does not fit well as a MFD driver.
+
+I switched from misc to MFD just to handle child DT nodes instead of having
+phandles. Using child DT nodes instead of phandles is really a good thing and
+need to be kept.
+The switch to MFD was probably not the best thing to do.
+
+What do you think if I switched back the pef2256 "main" driver (pef2256.c) to
+misc ?
+
+
+> 
+> > 
+> > Also, I sent a RFC related to HDLC and PHY. In this RFC, the pef2256 is
+> > considered as a PHY and handled in the PHY subsystem.
+> >   https://lore.kernel.org/linux-kernel/20230323103154.264546-1-herve.codina@bootlin.com/
+> >   
+> >> * Run checkpatch.pl  
+> > 
+> > I did.  
+> 
+> There are tons of weird indentation,e.g.:
+> +#define     PEF2256_2X_PC_XPC_XLT	(0x8 << 0)
+>         ^^^^ there is only one space after #define
+
+I ran checkpatch.pl, not checkpatch.pl --strict.
+
+The spaces related the #define can be seen on many other drivers.
+
+#define FOO_REG_BAR	0x10
+#define   FOO_REG_BAR_BIT0	BIT(0)
+#define   FOO_REG_BAR_BIT4	BIT(4)
+
+The first line is the register offset and the other lines (indented) are
+the bits description related to this register.
+
+> 
+> ... and other style issues:
+> 
+> CHECK: Please don't use multiple blank lines
+> CHECK: spaces preferred around that '+' (ctx:VxV)
+> CHECK: Alignment should match open parenthesis
+> CHECK: Macro argument reuse '_groups' - possible side-effects?
+> CHECK: usleep_range is preferred over udelay; see
+> Documentation/timers/timers-howto.rst
+> CHECK: spaces preferred around that '/' (ctx:VxV)
+
+I will have a look and fix them in the next iteration.
+
+> 
+> 
+> >   
+> >> * Remove all of the debug prints  
+> > 
+> > I can do that in the next iteration if really needed.
+> >   
+> >> * Move all of the defines out to a header file  
+> > 
+> > These defines are related to registers. As I don't want to share these
+> > registers, is it really necessary to use a header file for them ?
+> >   
+> >> * Be more verbose in your documentation / comments  
+> > 
+> > I can improve the API documentation present in include/mfd/pef2256.h.
+> > Do you thing that is necessary ? Only a few devices will use this API.
+> >   
+> Krzysztof
+> 
+
+Best regards,
+Hervé

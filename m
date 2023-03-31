@@ -2,131 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A929A6D1383
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 01:45:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A467A6D3614
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Apr 2023 10:12:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EF341FE;
-	Fri, 31 Mar 2023 01:44:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EF341FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35AFB204;
+	Sun,  2 Apr 2023 10:11:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35AFB204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680219935;
-	bh=mFeDTUSsaKxwjLyU88OX5t07nCZXauC1Z24y3BNEVdE=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=VzROfJk3qezQo2QfPGCRNfgjC2X1NBLo/9YmPQ2gyu6VAGSuzGwgDDSJtSLfHCoQ4
-	 Dmq4FmLJUUZdNryHAuClx2IKCqIWn8XR9QYR5R8P0i9ovnKjEHVI9cgO1m7md+PcVi
-	 rK2Ufl3a3HmNLjuDJ0MQ0aY6mE9jgRGZl1k2oe6s=
+	s=default; t=1680423141;
+	bh=wDHVLY6ZJhIUXBKY7H8j6bZr4maZPwThUzeve7aEUCc=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JgZNTBSyAfivk5eL3DxpY47UeqNVzkbUugZdGGa/dUybXqWsETAqIsTO2YnmpCiSL
+	 /RD96Rj8+10V+pWkt1DYr6YVvcheQXMCcBQ7m3go9V3E7ncYI4GInGyV8DPCo3X19S
+	 DzwvSHC84JBk0VAs5SN3NDDhrFc+5U0zNj1xwJ+s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99902F80423;
-	Fri, 31 Mar 2023 01:43:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA9C4F8028B;
+	Sun,  2 Apr 2023 10:11:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CD4CF80272; Fri, 31 Mar 2023 01:43:51 +0200 (CEST)
+	id 2773AF80272; Fri, 31 Mar 2023 04:07:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [IPv6:2001:4860:4864:20::30])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 01D97F800C9
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 01:43:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01D97F800C9
+	by alsa1.perex.cz (Postfix) with ESMTPS id 20770F800C9
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 04:06:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20770F800C9
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=cp61TQFD
-Received: by mail-pl1-x634.google.com with SMTP id o11so19686844ple.1
+ header.s=20210112 header.b=OUha1buX
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-17e140619fdso21778776fac.11
         for <alsa-devel@alsa-project.org>;
- Thu, 30 Mar 2023 16:43:33 -0700 (PDT)
+ Thu, 30 Mar 2023 19:06:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680219812;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8NTXaHHO//3z+k+mNK1rkd5Zzs1cpAqfGCFxh55cRSg=;
-        b=cp61TQFDfM8o339UtrnDmOFRlj1BU5ivIShulD1ygi1J5PnpYJXTAKVn8hN9LejGVW
-         Ng7kmSq/bYlQPWmI1QEdbxdC5EDWye0iplCY3O9vbBJsOQwZagdUuHlwjqnV/1VrZARx
-         T8O2yQKlWXJY/Kwocv2EqBMqzZr0DZZoGRgzEZKP+nksqXiVWfgal3cGfC7DoIikBxgR
-         RNwzcTe6vYmbYZne8oQqDhiorPu9///1JFlwxwLJ9WDs+nPDLlPtRf+tDbztY+STkrRZ
-         Cu3ncFqZlV6bigun6CI5/4+VP19ThctqU3wCM8ikjrXkP7cUgvfmIjbHfIBlZKkGzYM0
-         isqw==
+        d=gmail.com; s=20210112; t=1680228410;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pvM334uaDN62u5CXBwDPRhi1Ml5Rc/k9LOkZNPsfO9U=;
+        b=OUha1buX9Iya3CjbsVobPGHSOMWmpDrZzKS4TD3RmS+O87YOx/sthAzdlI6Mpq6c2x
+         uSD9IFLRH4VFtCWCAxURoqL0IG4NSpM4EueoLgGiZTipQjByWnk4Qo/h02rFOlYOzGsM
+         HSviKdKTOdMu8KOcJV4AD4hZJS4OPmpsBKvppGrEIYPVUu0b3QX5IoLc4OzGLkHSwBx5
+         rT2xr3XB3hifVhNdNG0LwszasFVR9vR7eO/1p+cHFUJwYkK7XNnRsDcsn/WFhbO959yU
+         O5C8Uf+LWjM4gkF1CM4NBLcbFgJPAWMudClmTTablSrajbt1Bc3O7TLUL7Z9qyEmrDTy
+         fyJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680219812;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8NTXaHHO//3z+k+mNK1rkd5Zzs1cpAqfGCFxh55cRSg=;
-        b=4x323kfAbaOB9iYXPUCpcEmEqDcgZBjs4fIgYYx7Ucd1MlJPAnJwaDyPKnOrt4fT97
-         fvmIsxcRh7sjA/q2ZVWw1CxQJQANruF7xsPhxxKA23sGm1l0K0Oge2zUhY5cQfYrTyol
-         FzQv9ZDWZYY1F05RfLRnzgc5NBiOvNofQwZb2I5tP7Z5gXLqHJZ9b+emr/+F3/w2DRg1
-         lpFAfUw/yWAMpUHYBvOiimMQWcYB7scfR+FlFFG2Ck1Wev/3z+Y2yIP0bGtg+28XDcCY
-         vSraWvepUyJa8cJhgxtdZ4X5caHGuQh1Y1S1rgGCXA1L5Kcu2CEuN21COLWC1ScmoU3q
-         SPfw==
-X-Gm-Message-State: AAQBX9dB6AasX/q9z3n7Re2Qi0L8CzZRXxfigqU0/HqdKes+LcrdPD2K
-	hxEwnx7EWuUD4wEni1RUo/U=
+        d=1e100.net; s=20210112; t=1680228410;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pvM334uaDN62u5CXBwDPRhi1Ml5Rc/k9LOkZNPsfO9U=;
+        b=d3mSGDMHp/tVfR4lSRAt3rliGsk+BBcaAkkNqXLWw5qD7cgANfDp8ojVN3vCpN6MqP
+         8oUsa9t1yppVhZut3OQFPhP7wIK570uyrfVVequTa3UjJ1pQZGiGivsNmz8t7dhUEarQ
+         0FL50tgoeXDUhZroZZqyM++Iq2y130nw24dHykv7Opkx5xI/WcvTaPrs2y7NztvAFBGH
+         AffBSw3+h1efrRRzOLGi8qxMpXLc4Tb40zgs5MFjoyRsFBRDod5Rkd7HSyKCh/NDwlOS
+         bsIJlh5Gd0MmyjK2505Iy/6pBzBQYO6zb1vyRlQKd5+epbjQzqPVvIh0mTU9RjhPjiuu
+         i1og==
+X-Gm-Message-State: AO0yUKWWt5B/cE9mNDR+LhSO0/oMjI7oCBBYW2rg0fc2m8/Wjey/QDb2
+	XpfRWjFcD6jbZ033h/bmdrI=
 X-Google-Smtp-Source: 
- AKy350bifEk1k722eISf1aA5Ur1irJAuMPL6ctlCNHdxG7TafXssIwk7Fqlxd3SbBqJzN+lYuoGzfg==
-X-Received: by 2002:a17:903:1d1:b0:1a1:ad5e:bdbb with SMTP id
- e17-20020a17090301d100b001a1ad5ebdbbmr32329670plh.36.1680219811790;
-        Thu, 30 Mar 2023 16:43:31 -0700 (PDT)
-Received: from ryan-ThinkPad-T470.. (c-24-6-63-212.hsd1.ca.comcast.net.
- [24.6.63.212])
+ AK7set9SVdoBv4Z6z/5U2LbxssB3wFAqZk8t0GCibw/+1rXEmQsRBHijgZAq1yj9AKxTzVChxWYNVA==
+X-Received: by 2002:a05:6870:3396:b0:177:c4c1:db8a with SMTP id
+ w22-20020a056870339600b00177c4c1db8amr15470422oae.0.1680228409807;
+        Thu, 30 Mar 2023 19:06:49 -0700 (PDT)
+Received: from heimdal.localdomain ([2804:431:cfec:20b3:d050:3c82:2c34:f704])
         by smtp.gmail.com with ESMTPSA id
- k2-20020a170902e90200b001a19cf1b37esm282733pld.40.2023.03.30.16.43.30
+ yv2-20020a05687c228200b0016e8726f0d4sm548177oab.3.2023.03.30.19.06.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Mar 2023 16:43:31 -0700 (PDT)
-From: =?UTF-8?q?=E2=80=9CRyan?= <ryan.lee.analog@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	krzysztof.kozlowski@linaro.org,
-	rf@opensource.cirrus.com,
-	ckeepax@opensource.cirrus.com,
-	pierre-louis.bossart@linux.intel.com,
-	herve.codina@bootlin.com,
-	wangweidong.a@awinic.com,
-	james.schulman@cirrus.com,
-	ajye_huang@compal.corp-partner.google.com,
-	shumingf@realtek.com,
-	povik+lin@cutebit.org,
-	flatmax@flatmax.com,
-	linux-kernel@vger.kernel.org,
+        Thu, 30 Mar 2023 19:06:49 -0700 (PDT)
+From: =?UTF-8?q?Andr=C3=A9=20Morishita?= <andremorishita@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	anish kumar <yesanishhere@gmail.com>,
 	alsa-devel@alsa-project.org,
-	robh+dt@kernel.org,
 	devicetree@vger.kernel.org,
-	ryans.lee@analog.com
-Subject: [PATCH V4 2/2] ASoC: dt-bindings: max98363: add soundwire amplifier
-Date: Thu, 30 Mar 2023 16:43:19 -0700
-Message-Id: <20230330234319.6841-2-ryan.lee.analog@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230330234319.6841-1-ryan.lee.analog@gmail.com>
-References: <20230330234319.6841-1-ryan.lee.analog@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: maxim,max98371: Convert to DT schema
+Date: Thu, 30 Mar 2023 23:05:25 -0300
+Message-Id: <20230331020527.482991-1-andremorishita@gmail.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Q6G5DTHHKEXG5GD4ZHXO7WEPIXJJ6LGQ
-X-Message-ID-Hash: Q6G5DTHHKEXG5GD4ZHXO7WEPIXJJ6LGQ
-X-MailFrom: ryan.lee.analog@gmail.com
+X-MailFrom: andremorishita@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 6TLSGH6XLVIIOPREMGWPDSUGZCF554WK
+X-Message-ID-Hash: 6TLSGH6XLVIIOPREMGWPDSUGZCF554WK
+X-Mailman-Approved-At: Sun, 02 Apr 2023 08:07:44 +0000
+CC: mairacanal@riseup.net, dri-devel@lists.freedesktop.org,
+ daniel.baluta@nxp.com,
+ =?UTF-8?q?Andr=C3=A9=20Morishita?= <andremorishita@gmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q6G5DTHHKEXG5GD4ZHXO7WEPIXJJ6LGQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6TLSGH6XLVIIOPREMGWPDSUGZCF554WK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,95 +123,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ryan Lee <ryans.lee@analog.com>
+Convert the Maxim Integrated MAX98371 audio codec bindings to DT schema.
 
-Add dt-bindings information for Analog Devices MAX98363 SoundWire Amplifier
-
-Signed-off-by: Ryan Lee <ryans.lee@analog.com>
+Signed-off-by: André Morishita <andremorishita@gmail.com>
 ---
-Changes from v1:
-  Fixed a syntax error for the 'dt_binding_check' build.
-  Removed unnecessary properties.
-  Added description about SoundWire device ID of MAX98363
-Changes from v2:
-  Removed the legacy from i2c/i2s driver and added SoundWire device ID info.
-  Added missing information about DAI.
-Changes from v3:
-  Modified the commit message. Removed "This patch"
-  Converted uppercase hex to lowercase hex
-  Dropped 'sound-name-prefix'.
-  Added unevaluatedProperties instead of additionalProperties
+ .../devicetree/bindings/sound/max98371.txt    | 17 --------
+ .../bindings/sound/maxim,max98371.yaml        | 41 +++++++++++++++++++
+ 2 files changed, 41 insertions(+), 17 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/max98371.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98371.yaml
 
- .../bindings/sound/adi,max98363.yaml          | 60 +++++++++++++++++++
- 1 file changed, 60 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/adi,max98363.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/adi,max98363.yaml b/Documentation/devicetree/bindings/sound/adi,max98363.yaml
+diff --git a/Documentation/devicetree/bindings/sound/max98371.txt b/Documentation/devicetree/bindings/sound/max98371.txt
+deleted file mode 100644
+index 8b2b2704b574..000000000000
+--- a/Documentation/devicetree/bindings/sound/max98371.txt
++++ /dev/null
+@@ -1,17 +0,0 @@
+-max98371 codec
+-
+-This device supports I2C mode only.
+-
+-Required properties:
+-
+-- compatible : "maxim,max98371"
+-- reg : The chip select number on the I2C bus
+-
+-Example:
+-
+-&i2c {
+-	max98371: max98371@31 {
+-		compatible = "maxim,max98371";
+-		reg = <0x31>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/maxim,max98371.yaml b/Documentation/devicetree/bindings/sound/maxim,max98371.yaml
 new file mode 100644
-index 000000000000..a844b63f3930
+index 000000000000..df0262473399
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/adi,max98363.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++++ b/Documentation/devicetree/bindings/sound/maxim,max98371.yaml
+@@ -0,0 +1,41 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/sound/adi,max98363.yaml#
++$id: http://devicetree.org/schemas/sound/maxim,max98371.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Analog Devices MAX98363 SoundWire Amplifier
++title: Maxim MAX98371 audio codec
 +
 +maintainers:
-+  - Ryan Lee <ryans.lee@analog.com>
-+
-+description:
-+  The MAX98363 is a SoundWire input Class D mono amplifier that
-+  supports MIPI SoundWire v1.2-compatible digital interface for
-+  audio and control data.
-+  SoundWire peripheral device ID of MAX98363 is 0x3*019f836300
-+  where * is the peripheral device unique ID decoded from pin.
-+  It supports up to 10 peripheral devices(0x0 to 0x9).
++  - anish kumar <yesanishhere@gmail.com>
 +
 +allOf:
 +  - $ref: dai-common.yaml#
 +
 +properties:
 +  compatible:
-+    const: sdw3019f836300
-+
-+  reg:
-+    maxItems: 1
++    const: maxim,max98371
 +
 +  '#sound-dai-cells':
 +    const: 0
 +
++  reg:
++    maxItems: 1
++
 +required:
 +  - compatible
 +  - reg
-+  - "#sound-dai-cells"
 +
 +unevaluatedProperties: false
 +
 +examples:
 +  - |
-+    soundwire-controller@3250000 {
-+        #address-cells = <2>;
++    i2c {
++        #address-cells = <1>;
 +        #size-cells = <0>;
-+        reg = <0x3250000 0x2000>;
 +
-+        speaker@0,0 {
-+            compatible = "sdw3019f836300";
-+            reg = <0 0>;
-+            #sound-dai-cells = <0>;
-+            sound-name-prefix = "Speaker Left";
-+        };
-+
-+        speaker@0,1 {
-+            compatible = "sdw3019f836300";
-+            reg = <0 1>;
-+            #sound-dai-cells = <0>;
-+            sound-name-prefix = "Speaker Right";
++        max98371: max98371@31 {
++            compatible = "maxim,max98371";
++            reg = <0x31>;
 +        };
 +    };
 -- 
-2.34.1
+2.40.0
 

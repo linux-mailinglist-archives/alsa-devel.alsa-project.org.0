@@ -2,129 +2,162 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497E06D28CA
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 21:45:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C98676D2990
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 22:42:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EC9E1FA;
-	Fri, 31 Mar 2023 21:44:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EC9E1FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA2611F1;
+	Fri, 31 Mar 2023 22:41:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA2611F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680291939;
-	bh=HEiv9FOpz3nQM0AaNXLoX1BAT5OkMh29cKiVRmBF2hQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1680295356;
+	bh=VXVjcwGVYzUEzPZS5+Pk4+wUr+vGoG70AaLub12SgGY=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WBUQ/IJwbDC36xHtjDjFgT4hH/CHAmnSGn+/a1vwIAy8+ZDwGkF9kmEKx4Bnmrr2k
-	 ShakWgTUeH1wf4YMB/U/NpFsMu9bN6s2ldZHRVO2thfVZ5jRwM1RUYJVU8G2WNQI8L
-	 HyuCDAXXf8iRWaOeIBqkAnHr1VHjEr972rD2zo88=
+	b=LZmBFrW+Sfmm8aWZ1faPdH9bhdy3yTJl2nDW89tsRRt6IcEoMvgbCvKtQU2KzmMw8
+	 As7s8PPTvDRb5unDQ4bP4IzTv/jbhq/xRtSvJR3BKoMLGMWHfRw+naXrdr7bocfVCx
+	 DbgSTDk0ubQ/b8jyrxt4iOOn9OLPXF3LCN1A1g4w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9428AF80423;
-	Fri, 31 Mar 2023 21:44:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 297B3F8024E;
+	Fri, 31 Mar 2023 22:41:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7FC3F80482; Fri, 31 Mar 2023 21:44:01 +0200 (CEST)
+	id 704F8F80272; Fri, 31 Mar 2023 22:41:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=NICE_REPLY_A,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from smtp.smtpout.orange.fr (smtp-16.smtpout.orange.fr
+ [80.12.242.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51C45F8032D
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 21:43:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51C45F8032D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=d0BQ3CX9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=NTLm5/eQ
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 11A0A21A45;
-	Fri, 31 Mar 2023 19:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680291839;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sxjgAsvd5m4J7eFRylkjgk5lsyKPEBKk/9tdT7F604U=;
-	b=d0BQ3CX9JsDlefRfU2hD6389+DyRfYBysU2ColXSvldgkGYqTIbrrOeLwSCJl1Pjcg45D0
-	ja4PcmJDDwhznRZoRIiAewFULFeKDle4fkE/za/I2fCfiVWagjOl7p1NIvHkYA8foarn9J
-	6gZny3V06ilm0DvxEYJFWGgDX1cDFMU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680291839;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sxjgAsvd5m4J7eFRylkjgk5lsyKPEBKk/9tdT7F604U=;
-	b=NTLm5/eQRtLsuadHzEALYcMb+J4fboY98bE8+7dfzwd/COAEHXpS8FGJ4iAnwL1yLbGBih
-	H1dK8ohm4mzPcvBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D361D133B6;
-	Fri, 31 Mar 2023 19:43:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id kA9wMf43J2T7eAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 31 Mar 2023 19:43:58 +0000
-Date: Fri, 31 Mar 2023 21:43:58 +0200
-Message-ID: <87a5zs4sg1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo X370SNW
-In-Reply-To: <20230331162317.14992-1-tcrawford@system76.com>
-References: <20230331162317.14992-1-tcrawford@system76.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 4X6ANY3Z5LADULQGYCWR3MXAUXCL5IOE
-X-Message-ID-Hash: 4X6ANY3Z5LADULQGYCWR3MXAUXCL5IOE
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5BF0CF80114
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 22:41:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BF0CF80114
+Received: from [192.168.1.18] ([86.243.2.178])
+	by smtp.orange.fr with ESMTPA
+	id iLYopzKfMmTnIiLYopYmd3; Fri, 31 Mar 2023 22:41:27 +0200
+X-ME-Helo: [192.168.1.18]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Fri, 31 Mar 2023 22:41:27 +0200
+X-ME-IP: 86.243.2.178
+Message-ID: <458d7c2f-bcee-9ec3-e955-9661a06a3349@wanadoo.fr>
+Date: Fri, 31 Mar 2023 22:41:22 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v10] ASoC: tas2781: Add tas2781 driver
+Content-Language: fr, en-US
+To: "Ding, Shenghao" <shenghao-ding@ti.com>,
+ Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>,
+ Shenghao Ding <13916275206@139.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "perex@perex.cz" <perex@perex.cz>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
+References: <20230329100107.8181-1-13916275206@139.com>
+ <8d0d0478-1e45-ea52-f1b7-910b747d6282@linux.intel.com>
+ <7a0cfa60e2a244168edd49c3d2f6a2bd@ti.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+In-Reply-To: <7a0cfa60e2a244168edd49c3d2f6a2bd@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 6CUD5AX56CYI322FOUR25VZT6B4FO3JZ
+X-Message-ID-Hash: 6CUD5AX56CYI322FOUR25VZT6B4FO3JZ
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, productdev@system76.com,
- Jeremy Soller <jeremy@system76.com>
+CC: "Lu, Kevin" <kevin-lu@ti.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Xu,
+ Baojun" <x1077012@ti.com>, "Gupta, Peeyush" <peeyush@ti.com>,
+ "Navada Kanyana, Mukund" <navada@ti.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4X6ANY3Z5LADULQGYCWR3MXAUXCL5IOE/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6CUD5AX56CYI322FOUR25VZT6B4FO3JZ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 31 Mar 2023 18:23:17 +0200,
-Tim Crawford wrote:
+Le 31/03/2023 à 04:19, Ding, Shenghao a écrit :
+> Hi Amadeusz Sławiński
+> Thanks for your comment.
+> Answer inline.
 > 
-> From: Jeremy Soller <jeremy@system76.com>
+> -----Original Message-----
+> From: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+> Sent: Thursday, March 30, 2023 7:54 PM
+> To: Shenghao Ding <13916275206@139.com>; broonie@kernel.org; lgirdwood@gmail.com; perex@perex.cz; pierre-louis.bossart@linux.intel.com
+> Cc: Lu, Kevin <kevin-lu@ti.com>; Ding, Shenghao <shenghao-ding@ti.com>; alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org; Xu, Baojun <x1077012@ti.com>; Gupta, Peeyush <peeyush@ti.com>; Navada Kanyana, Mukund <navada@ti.com>
+> Subject: [EXTERNAL] Re: [PATCH v10] ASoC: tas2781: Add tas2781 driver
 > 
-> Fixes speaker output and headset detection on Clevo X370SNW.
+> On 3/29/2023 12:01 PM, Shenghao Ding wrote:
+>> Create tas2781 driver.
+>>
+>> Signed-off-by: Shenghao Ding <13916275206@139.com>
+>>
+>> ---
+>> Changes in v10:
+>>    - using be16_to_cpu and be32_to_cpu instead of SMS_HTONS and SMS_HTONL
+>>    - optimize and reduce the boundary checks
+>>    - Add comments on some kmemdup instead of kzalloc+memcpy
+>>    Changes to be committed:
+>> 	modified:   sound/soc/codecs/Kconfig
+>> 	modified:   sound/soc/codecs/Makefile
+>> 	new file:   sound/soc/codecs/tas2781-dsp.c
+>> 	new file:   sound/soc/codecs/tas2781-dsp.h
+>> 	new file:   sound/soc/codecs/tas2781-i2c.c
+>> 	new file:   sound/soc/codecs/tas2781.h
+>> ---
 > 
-> Signed-off-by: Jeremy Soller <jeremy@system76.com>
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+> ...
+> 
+>> +
+>> +static int fw_parse_block_data_kernel(struct tasdevice_fw *tas_fmw,
+>> +	struct tasdev_blk *block, const struct firmware *fmw, int offset) {
+>> +	const unsigned char *data = fmw->data;
+>> +
+>> +	if (offset + 16 > fmw->size) {
+>> +		dev_err(tas_fmw->dev, "%s: File Size error\n", __func__);
+>> +		offset = -EINVAL;
+>> +		goto out;
+>> +	}
+>> +	block->type = be32_to_cpup((__be32 *)&data[offset]);
+> 
+> Wouldn't just be32_to_cpu(data[offset]) work instead of be32_to_cpup?
+> Same in other cases.
+> [DING] data[] is a char array, the code will convert data[offset], data[offset + 1],
+> data[offset + 2] and data[offset + 3] into host instead of data[offset] only.
+> 
 
-Thanks, applied now.
+Not sure to follow you.
+Isn't it the purpose of be32_to_cpu() to take a 32 bits word, in other 
+words 4 x 8 bits char, and swap what if needed (little endian arch)?
+
+It ends to __swab32() ([1] for the "constant" implementation)
 
 
-Takashi
+be32_to_cpup(&p) ends to __swab32(*p), which really looks to the same as 
+be32_to_cpu(p).
+
+Can you elaborate more?
+
+CJ
+
+
+[1]: 
+https://elixir.bootlin.com/linux/v6.3-rc3/source/include/uapi/linux/swab.h#L18
+

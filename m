@@ -2,94 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7AA66D2375
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 17:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7610A6D23DA
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 17:19:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04A051F7;
-	Fri, 31 Mar 2023 17:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04A051F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5679D1F0;
+	Fri, 31 Mar 2023 17:18:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5679D1F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680275032;
-	bh=K+HZuqgB9rt/QMhwBweIcNwWvClGQr42KVcvQKa67U4=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=hhP/5cO43KX8D1V0nltkHPquKSozsU4h7YwFG/oLvlxiPky0QT175u1XH1lls9rOS
-	 kARGd7rSuufcMi31lMBOr/Z0KLY1yUBccpuy10DvChcseF+zXGA4lOWcCkl0ui25Ec
-	 TIZ9OGN0uHf6F1OwsYKSsKocm80bhNLsGIjELWVE=
+	s=default; t=1680275989;
+	bh=D7eg8ul8cyhL0bbIT690gjKeQHy9WbKpUv87HqP2IiM=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=R0oxY3H/+mZZmk0YirRoUk8e4rarjJGgGiyiVnGKXStUnWo4vQNLB/iQhUyoeYgbq
+	 dgRVdvBgwNOxyHhDkSXzF5xWBc2YhZ4/u/wRn7qYpiKt9IvRzaZIWjHzdUDhVkUX85
+	 g7N6JpDyrxSb2xvxm0H2llFmvn7I5HUFQVQL00hA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 720B6F8024E;
-	Fri, 31 Mar 2023 17:03:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BEB5F8021D;
+	Fri, 31 Mar 2023 17:18:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2AEC1F80272; Fri, 31 Mar 2023 17:02:58 +0200 (CEST)
+	id 48143F80272; Fri, 31 Mar 2023 17:18:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23A1AF8021D
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 17:02:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23A1AF8021D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=C6swUh79
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60A51F8021D
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 17:18:49 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 16AB911CB;
+	Fri, 31 Mar 2023 17:18:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 16AB911CB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1680275929; bh=BEXFYqDgQzW2LPZSsgpG81FG7c3UoME/2ezYI8kEGP0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hbktikxFWnzFkFLy9c0NJ0LbIqnVgjxl2hBSPjUbPBfCTYO2i0oD9cCNSP5W0g3Q6
+	 ivvitp3zl6uRmQtGyi9w9cilZipsxluRonLxyHcC7k1mg/T85B8g0WsPnYmqs9oOzu
+	 ldaDqtDc4PZTVzwdwLDx8mH4FCzT0IeXtlnEzjcY=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 6A954B82E26;
-	Fri, 31 Mar 2023 15:02:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E50CC433D2;
-	Fri, 31 Mar 2023 15:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680274966;
-	bh=K+HZuqgB9rt/QMhwBweIcNwWvClGQr42KVcvQKa67U4=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=C6swUh79DRO5QZSPpqIlQyIThpRfWCLZJqd6GgZq9zRIzg3OMSBxBlp2AKr3MLBHK
-	 Ihpdq3hbeknoGuZwyDbcI7zBmla6N9FVUnfQl3PH2cNCo2z0XCNbwCm/qIS00Nebu2
-	 RubHziuxniLGWPQ6hNVCBScMDVVFiajmCQrugBtb8ojyqbWmZi9VU/o/wcw0yfHDtN
-	 hUUEsK54w9S6cCr4iCqAUD786C96DoYcmkGjmRtjYN5Oji+wDuyB8hO0Mfdou9rcU+
-	 WaRAkhM4kpoTy5PSpK6DgKQAPMy4o5QoaJTNJ/T15c3Q5p4YSHO61+7vkb3WGvmsqO
-	 pEDPycD6GW9SQ==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- krzysztof.kozlowski@linaro.org, rf@opensource.cirrus.com,
- ckeepax@opensource.cirrus.com, pierre-louis.bossart@linux.intel.com,
- herve.codina@bootlin.com, wangweidong.a@awinic.com,
- james.schulman@cirrus.com, ajye_huang@compal.corp-partner.google.com,
- shumingf@realtek.com, povik+lin@cutebit.org, flatmax@flatmax.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- robh+dt@kernel.org, devicetree@vger.kernel.org, ryans.lee@analog.com,
- =?utf-8?q?=E2=80=9CRyan?= <ryan.lee.analog@gmail.com>
-In-Reply-To: <20230330234319.6841-1-ryan.lee.analog@gmail.com>
-References: <20230330234319.6841-1-ryan.lee.analog@gmail.com>
-Subject: Re: [PATCH V4 1/2] ASoC: max98363: add soundwire amplifier driver
-Message-Id: <168027496197.3365708.8821025322937971454.b4-ty@kernel.org>
-Date: Fri, 31 Mar 2023 16:02:41 +0100
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Fri, 31 Mar 2023 17:18:45 +0200 (CEST)
+Message-ID: <57ffa8e0-83fa-a982-9f48-abbe5f098732@perex.cz>
+Date: Fri, 31 Mar 2023 17:18:44 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.13-dev-2eb1a
-Message-ID-Hash: ZGFNEOFSIW3U7W4EJLESNZ4XN7ABEXPY
-X-Message-ID-Hash: ZGFNEOFSIW3U7W4EJLESNZ4XN7ABEXPY
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] ALSA: hda/hdmi: Preserve the previous PCM device upon
+ re-enablement
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20230331142217.19791-1-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230331142217.19791-1-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: LMEX5U3ZY2IRZXRPLYFPSBSADPVMERO2
+X-Message-ID-Hash: LMEX5U3ZY2IRZXRPLYFPSBSADPVMERO2
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Wim Taymans <wim.taymans@gmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZGFNEOFSIW3U7W4EJLESNZ4XN7ABEXPY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LMEX5U3ZY2IRZXRPLYFPSBSADPVMERO2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,41 +94,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 30 Mar 2023 16:43:18 -0700, “Ryan wrote:
-> Added Analog Devices MAX98363 SoundWire Amplifier Driver.
-> The MAX98363 is a SoundWire peripheral device that supports
-> MIPI SoundWire v1.2-compatible digital interface for audio and
-> control data.
+On 31. 03. 23 16:22, Takashi Iwai wrote:
+> When a DRM driver turns on or off the screen with the audio
+> capability, it notifies the ELD to HD-audio HDMI codec driver via
+> component ops.  HDMI codec driver, in turn, attaches or detaches the
+> PCM stream for the given port on the fly.
 > 
+> The problem is that, since the recent code change, the HDMI driver
+> always treats the PCM stream assignment dynamically; this ended up the
+> confusion of the PCM device appearance.  e.g. when a screen goes once
+> off and on again, it may appear on a different PCM device before the
+> screen-off.  Although the application should treat such a change, it
+> doesn't seem working gracefully with the current pipewire (maybe
+> PulseAudio, too).
 > 
+> As a workaround, this patch changes the HDMI codec driver behavior
+> slightly to be more consistent.  Now it remembers the previous PCM
+> slot for the given port and try to assign to it.  That is, if a port
+> is re-enabled, the driver tries to use the same PCM slot that was
+> assigned to that port previously.  If it conflicts, a new slot is
+> searched and used like before, instead.
 
-Applied to
+I don't like this workaround so much, because the devices should be assigned 
+from the first PCM device.
 
-   broonie/sound.git for-next
+The sound server should combine the persistent path only from the ELD 
+information for the HDMI devices (if present). The problem may be when 
+multiple similar monitors are connected to the machine. It would be probably 
+nice to have an unique PCM device name for this usage with the serial number 
+of the connected monitor (but I don't think it's in ELD? - it is in the EDID 
+spec thought).
 
-Thanks!
+> @@ -1399,6 +1408,7 @@ static void hdmi_detach_hda_pcm(struct hdmi_spec *spec,
+>   	idx = per_pin->pcm_idx;
+>   	per_pin->pcm_idx = -1;
+>   	per_pin->pcm = NULL;
+> +	per_pin->prev_pcm_idx = idx;
 
-[1/2] ASoC: max98363: add soundwire amplifier driver
-      commit: 18c0af945fa35766730d3f729adcf417a3d1ad5d
-[2/2] ASoC: dt-bindings: max98363: add soundwire amplifier
-      commit: 276d8c08e82b9f6062f6febc7bc63913829bde27
+Maybe this line should be moved up before 'pcm = NULL'. The pcm_idx and 
+prev_pcm_idx members are related.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+For now:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+					Jaroslav
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

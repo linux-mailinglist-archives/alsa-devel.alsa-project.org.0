@@ -2,141 +2,169 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 435CC6D1FC9
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 14:12:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 034C26D3617
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Apr 2023 10:13:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68A301F4;
-	Fri, 31 Mar 2023 14:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68A301F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F889829;
+	Sun,  2 Apr 2023 10:12:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F889829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680264735;
-	bh=luw6WRoKOCKMpjLWXT9F2/F5B8AJlhK54WDtBlSG0zM=;
-	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=liHug3iKHxPbmLDebFbpaSri5rKB8VuhzM5z1LSTlb78nrWOAVpXMk9XirmOAm7Ts
-	 NbwpH50ZRzydQxCyawui5lCT0B5Mqm/1O2bOFxg/SGUg7f1I4upkw5gVKsuhwbQ+TE
-	 KpvZQaBGQZVEisJlnCDCcTBblCE78gDS8uoa2obM=
+	s=default; t=1680423193;
+	bh=qEBi/2/XGVf3QpqvzWB/GksrhasWX5+9m/gmHY0HB0s=;
+	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=jaZ/XxBOSO6u2ykh35Csatklvtfv1hGDC4EfvMksd1ZbeBmNpOuQBJGd1qQ6G1323
+	 VK9R8R8nl/rS8ZXc9HYBvcbjWE06w+GHYirLvVx755L+cGw3J6IefeVYAFa4qxuCJY
+	 I2SneojC1qrEVZms8CSx7wgoNDZR31O1uRlXWlf8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C66B8F800C9;
-	Fri, 31 Mar 2023 14:11:24 +0200 (CEST)
-Date: Fri, 31 Mar 2023 14:11:04 +0200
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v5 2/5] mfd: Add support for the Lantiq PEF2256 framer
-In-Reply-To: <6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
-References: <20230328092645.634375-1-herve.codina@bootlin.com>
-	<20230328092645.634375-3-herve.codina@bootlin.com>
-	<20230330160510.GB489249@google.com>
-	<20230331094208.41ab4420@bootlin.com>
-	<6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168026468438.26.13238104728611675195@mailman-core.alsa-project.org>
-From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 7409FF8024C;
+	Sun,  2 Apr 2023 10:11:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68B74F8024E; Fri, 31 Mar 2023 14:11:20 +0200 (CEST)
+	id D572AF8024E; Fri, 31 Mar 2023 14:37:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::223])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 114BBF80114
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 14:11:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 114BBF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC1E0F80114
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 14:37:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC1E0F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=G/P7ooR6
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id CE5866000C;
-	Fri, 31 Mar 2023 12:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1680264669;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VlFjaEgglGp4LuEAhX3Eu2KitorIUFC8QsINMFBMePg=;
-	b=G/P7ooR673wIkTHXtogfVKLqLVvxP9iSUJhbBPA0jBi46ucYB/ay6zGFAPJvLQuYGeesZu
-	G2qdWoQOTRtT1BDQy+evrDZKkBsap0H2FXS1Gibw54F/NakKab9Y8rij6uS9aQZggDlDk0
-	m6eq3/XUqhFZLvfC7JL0KuPSeDkPaC1FyfzrtWgwWNGPMXzIRZCC9T1TQ9Xne3tJ30JBir
-	MmANr3cLZNj/XOoOMcuI0W2qjQnHhXmskYvmpfDES1thXXFm5yugnbcwFbkR8K/Fi7CDeM
-	7yUkr6oY/zFhHLJpqHEjQreBpihPohVWzp4Obk0FvbeWh71jMd6wIL7LmicBFw==
-Date: Fri, 31 Mar 2023 14:11:04 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v5 2/5] mfd: Add support for the Lantiq PEF2256 framer
-Message-ID: <20230331141104.42445da9@bootlin.com>
-In-Reply-To: <6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
-References: <20230328092645.634375-1-herve.codina@bootlin.com>
-	<20230328092645.634375-3-herve.codina@bootlin.com>
-	<20230330160510.GB489249@google.com>
-	<20230331094208.41ab4420@bootlin.com>
-	<6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ZMrC7RQQ
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-545cb3c9898so337082327b3.7
+        for <alsa-devel@alsa-project.org>;
+ Fri, 31 Mar 2023 05:37:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1680266252;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=E6lKdgk6THqQzNp4VvxVKewKaHaWOnEhQknxk2acjn0=;
+        b=ZMrC7RQQSpVfgy/SHMpfC+E2QpLMDaY5/yaDkSHUKYAESGTlYtEL7g/qRUeknQy91P
+         zUvgfNL0L6h3FNfh9c8D2HFAFVYOCP9WG625XToYyxYEiXALrCS5KsLDkaIeSbXlXde1
+         eg6UEhsSIBdX6MmhPhtTRLpJ9X4gdd+QI1NZNQSGtPnmNcH0Md5Wv/wDx/8mZJzSNT7K
+         vAZIJkR9VzoIqc5aO0g4o0xB+IpDOheOKDhB6ttu5EMPirHAV26dyaOz/pB9Dw1cQhWl
+         Nw5HjfOlvF3F0OheAjfDdZPbDekSVJ+CefyXJevdAGQrjbRZSi8YsUnd1+evdQw6Mb3h
+         4YIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680266252;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=E6lKdgk6THqQzNp4VvxVKewKaHaWOnEhQknxk2acjn0=;
+        b=Cx8EO8GTO9QOtUQP2f4MZR6NbH/7LMoaFsSRdmTLwrD40ANBuvELAGe0NAGp+KwNGr
+         ui9uQNix4zOiI+RZXSp53/MalOWcaETXu4TF40uO0GGVUepN1GPPYZOfNUpwBY5uRnk4
+         wemnt7wdgWI95bI7Yb3GAUfam/uPgWFZV5aO5pjk8UXhCi1Dc6B/0gliUv55N81t2MYZ
+         wxQdQFxnO0rZbL6Vhvmb+727zcL5xLU9l2vp4DdmV7sZRy779qdCJMoIMd76nhZZre6A
+         e6NBAKXLfGBt5BF+dl3EbjT+27B/ezUGi4mVV7EQZ5XjfBpTQU251wuMnalzDIFYP6O6
+         J6wg==
+X-Gm-Message-State: AAQBX9e8RxNiiG17w3xRB3N0OF+sDQj+wMERlLt48vlFuC+j4146JIN4
+	tZG/e8sitCutwCe9pdPgtgHjSSE8tdFvpg4AHdwF+w==
+X-Google-Smtp-Source: 
+ AKy350aQG4pTb9063C5UpGPTZlWu/1jB1S9bOfbEf1bci1cyW8YxugalTaCiIXNAm4RWMBbCrWxYKS+tBxFA+9FzOXI=
+X-Received: by 2002:a81:c84a:0:b0:541:753d:32f9 with SMTP id
+ k10-20020a81c84a000000b00541753d32f9mr13384037ywl.9.1680266252481; Fri, 31
+ Mar 2023 05:37:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU
-X-Message-ID-Hash: PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU
-X-MailFrom: herve.codina@bootlin.com
+References: <20230330200402.2731992-1-robh@kernel.org>
+In-Reply-To: <20230330200402.2731992-1-robh@kernel.org>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 31 Mar 2023 14:37:21 +0200
+Message-ID: 
+ <CACRpkdYwM5Kw4XB9S5qoqdK-boiYp2iu=LRZ-B-vJb1k9fNnig@mail.gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: pinctrl: Drop unneeded quotes
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: linus.walleij@linaro.org
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: KERGS6HEMTE4CSMQBYMIPCGGBTRWEFO6
+X-Message-ID-Hash: KERGS6HEMTE4CSMQBYMIPCGGBTRWEFO6
+X-Mailman-Approved-At: Sun, 02 Apr 2023 08:07:50 +0000
+CC: =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Manivannan Sadhasivam <mani@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Hector Martin <marcan@marcan.st>,
+ Sven Peter <sven@svenpeter.dev>, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ Damien Le Moal <damien.lemoal@wdc.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Jacky Bai <ping.bai@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, NXP Linux Team <linux-imx@nxp.com>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Heiko Stuebner <heiko@sntech.de>, Tomasz Figa <tomasz.figa@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Mark Kettenis <kettenis@openbsd.org>,
+ =?UTF-8?Q?Fern=C3=A1ndez_Rojas?= <noltari@gmail.com>,
+ Jonas Gorski <jonas.gorski@gmail.com>, - <patches@opensource.cirrus.com>,
+ Patrick Rudolph <patrick.rudolph@9elements.com>, Peng Fan <peng.fan@nxp.com>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Rahul Tanwar <rahul.tanwar@linux.intel.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Lars Povlsen <lars.povlsen@microchip.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>,
+ Chris Brandt <chris.brandt@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Gareth Williams <gareth.williams.jx@renesas.com>,
+ Phil Edworthy <phil.edworthy@renesas.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Drew Fustini <drew@beagleboard.org>,
+ Krishna Potthuri <lakshmi.sai.krishna.potthuri@xilinx.com>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, asahi@lists.linux.dev,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGL23H6HBO4XKMOIXDPUY45PNIA6LRCU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KERGS6HEMTE4CSMQBYMIPCGGBTRWEFO6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,129 +173,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Krzysztof, Lee
+On Thu, Mar 30, 2023 at 10:05=E2=80=AFPM Rob Herring <robh@kernel.org> wrot=
+e:
 
-On Fri, 31 Mar 2023 11:13:30 +0200
-Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> wrote:
+> Cleanup bindings dropping unneeded quotes. Once all these are fixed,
+> checking for this can be enabled in yamllint.
+>
+> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+> Acked-by: Hector Martin <marcan@marcan.st>
+> Acked-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Reviewed-by: Heiko Stuebner <heiko@sntech.de> #rockchip
+> Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+> v2:
+>  - Rebase on pinctrl tree
 
-> On 31/03/2023 09:42, Herve Codina wrote:
-> > Hi Lee,
-> > 
-> > On Thu, 30 Mar 2023 17:05:10 +0100
-> > Lee Jones <lee@kernel.org> wrote:
-> >   
-> >> On Tue, 28 Mar 2023, Herve Codina wrote:
-> >>  
-> >>> The Lantiq PEF2256 is a framer and line interface component designed to
-> >>> fulfill all required interfacing between an analog E1/T1/J1 line and the
-> >>> digital PCM system highway/H.100 bus.    
-> >>
-> >> My goodness!
-> >>
-> >> It's been a long time since I've seen anything quite like this.  
-> > 
-> > Yes, old things but working on recent kernel.
-> >   
-> >>
-> >> My suggestion to you:
-> >>
-> >> * Split this up into components that fit functional subsystems  
-> > 
-> > It is done. The audio part is present in ASoC subsystem (path 5 in this
-> > series). pinctrl function is implemented in this driver and, as I don't
-> > want to share registers, I would prefer to keep this function inside this
-> > driver.  
-> 
-> The amount of defines and huge functions like pef2256_setup_e1()
-> contradict it.
-> 
-> Even the pef2256_setup_e1() really does not follow Linux coding style -
-> you know the size requirement, right?
+I applied it quickly before something else changes!
 
-I know that pef2256_setup_e1() is quite big and I will look at a way
-to split it in a consistent way.
+Thanks for respinning, and thanks as always for driving these changes.
 
-> 
-> pef2256_get_groups_count, struct pinmux_ops and others - this is
-> pinctrl, not MFD! They cannot be in MFD driver.
-
-Maybe the issue is that MFD was not a good choice.
-The "function" provided are not independent of each other.
-The "main" driver (pef2256.c) needs to do the setup and handle the interrupt.
-The "function" provided are some glues in order to be used in some sub-systems
-such as audio. Indeed, ASoC needs a codec DAI to be connected to a CPU DAI.
-These "functions" need to be started (ie probe()) after the pef2256 setup was
-done. So a start (probe()) order relationship is needed.
-
-If a MFD driver needs independent children to handle independent functions,
-the pef2256 does not fit well as a MFD driver.
-
-I switched from misc to MFD just to handle child DT nodes instead of having
-phandles. Using child DT nodes instead of phandles is really a good thing and
-need to be kept.
-The switch to MFD was probably not the best thing to do.
-
-What do you think if I switched back the pef2256 "main" driver (pef2256.c) to
-misc ?
-
-
-> 
-> > 
-> > Also, I sent a RFC related to HDLC and PHY. In this RFC, the pef2256 is
-> > considered as a PHY and handled in the PHY subsystem.
-> >   https://lore.kernel.org/linux-kernel/20230323103154.264546-1-herve.codina@bootlin.com/
-> >   
-> >> * Run checkpatch.pl  
-> > 
-> > I did.  
-> 
-> There are tons of weird indentation,e.g.:
-> +#define     PEF2256_2X_PC_XPC_XLT	(0x8 << 0)
->         ^^^^ there is only one space after #define
-
-I ran checkpatch.pl, not checkpatch.pl --strict.
-
-The spaces related the #define can be seen on many other drivers.
-
-#define FOO_REG_BAR	0x10
-#define   FOO_REG_BAR_BIT0	BIT(0)
-#define   FOO_REG_BAR_BIT4	BIT(4)
-
-The first line is the register offset and the other lines (indented) are
-the bits description related to this register.
-
-> 
-> ... and other style issues:
-> 
-> CHECK: Please don't use multiple blank lines
-> CHECK: spaces preferred around that '+' (ctx:VxV)
-> CHECK: Alignment should match open parenthesis
-> CHECK: Macro argument reuse '_groups' - possible side-effects?
-> CHECK: usleep_range is preferred over udelay; see
-> Documentation/timers/timers-howto.rst
-> CHECK: spaces preferred around that '/' (ctx:VxV)
-
-I will have a look and fix them in the next iteration.
-
-> 
-> 
-> >   
-> >> * Remove all of the debug prints  
-> > 
-> > I can do that in the next iteration if really needed.
-> >   
-> >> * Move all of the defines out to a header file  
-> > 
-> > These defines are related to registers. As I don't want to share these
-> > registers, is it really necessary to use a header file for them ?
-> >   
-> >> * Be more verbose in your documentation / comments  
-> > 
-> > I can improve the API documentation present in include/mfd/pef2256.h.
-> > Do you thing that is necessary ? Only a few devices will use this API.
-> >   
-> Krzysztof
-> 
-
-Best regards,
-Hervé
+Yours,
+Linus Walleij

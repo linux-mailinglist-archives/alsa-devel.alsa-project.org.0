@@ -2,119 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A467A6D3614
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Apr 2023 10:12:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBCBF6D158C
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 Mar 2023 04:21:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35AFB204;
-	Sun,  2 Apr 2023 10:11:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35AFB204
+	by alsa0.perex.cz (Postfix) with ESMTPS id A45EE200;
+	Fri, 31 Mar 2023 04:20:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A45EE200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680423141;
-	bh=wDHVLY6ZJhIUXBKY7H8j6bZr4maZPwThUzeve7aEUCc=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=JgZNTBSyAfivk5eL3DxpY47UeqNVzkbUugZdGGa/dUybXqWsETAqIsTO2YnmpCiSL
-	 /RD96Rj8+10V+pWkt1DYr6YVvcheQXMCcBQ7m3go9V3E7ncYI4GInGyV8DPCo3X19S
-	 DzwvSHC84JBk0VAs5SN3NDDhrFc+5U0zNj1xwJ+s=
+	s=default; t=1680229266;
+	bh=6cAj5vKIghcTUdLes4LX/ObNKtYym+CHMvUOSQx+j1Q=;
+	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=bYkuV3VDp67wLF2voG1jKZ47wau6c4ewMNFrncdFKFS85zcZTzOKPozdnW+MEvUzy
+	 eLZcTjENrIpjKzWen5AHRqRe0Cqi/Kv7WQJ9SDYnBo+rlhOYIve79FY9Wo+UZqEH8M
+	 PBLwiObh38kseE8/WgRKKpDk92eL98UdF6d/wD0E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA9C4F8028B;
-	Sun,  2 Apr 2023 10:11:30 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2773AF80272; Fri, 31 Mar 2023 04:07:00 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [IPv6:2001:4860:4864:20::30])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 20770F800C9
-	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 04:06:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20770F800C9
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=OUha1buX
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-17e140619fdso21778776fac.11
-        for <alsa-devel@alsa-project.org>;
- Thu, 30 Mar 2023 19:06:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680228410;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=pvM334uaDN62u5CXBwDPRhi1Ml5Rc/k9LOkZNPsfO9U=;
-        b=OUha1buX9Iya3CjbsVobPGHSOMWmpDrZzKS4TD3RmS+O87YOx/sthAzdlI6Mpq6c2x
-         uSD9IFLRH4VFtCWCAxURoqL0IG4NSpM4EueoLgGiZTipQjByWnk4Qo/h02rFOlYOzGsM
-         HSviKdKTOdMu8KOcJV4AD4hZJS4OPmpsBKvppGrEIYPVUu0b3QX5IoLc4OzGLkHSwBx5
-         rT2xr3XB3hifVhNdNG0LwszasFVR9vR7eO/1p+cHFUJwYkK7XNnRsDcsn/WFhbO959yU
-         O5C8Uf+LWjM4gkF1CM4NBLcbFgJPAWMudClmTTablSrajbt1Bc3O7TLUL7Z9qyEmrDTy
-         fyJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680228410;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pvM334uaDN62u5CXBwDPRhi1Ml5Rc/k9LOkZNPsfO9U=;
-        b=d3mSGDMHp/tVfR4lSRAt3rliGsk+BBcaAkkNqXLWw5qD7cgANfDp8ojVN3vCpN6MqP
-         8oUsa9t1yppVhZut3OQFPhP7wIK570uyrfVVequTa3UjJ1pQZGiGivsNmz8t7dhUEarQ
-         0FL50tgoeXDUhZroZZqyM++Iq2y130nw24dHykv7Opkx5xI/WcvTaPrs2y7NztvAFBGH
-         AffBSw3+h1efrRRzOLGi8qxMpXLc4Tb40zgs5MFjoyRsFBRDod5Rkd7HSyKCh/NDwlOS
-         bsIJlh5Gd0MmyjK2505Iy/6pBzBQYO6zb1vyRlQKd5+epbjQzqPVvIh0mTU9RjhPjiuu
-         i1og==
-X-Gm-Message-State: AO0yUKWWt5B/cE9mNDR+LhSO0/oMjI7oCBBYW2rg0fc2m8/Wjey/QDb2
-	XpfRWjFcD6jbZ033h/bmdrI=
-X-Google-Smtp-Source: 
- AK7set9SVdoBv4Z6z/5U2LbxssB3wFAqZk8t0GCibw/+1rXEmQsRBHijgZAq1yj9AKxTzVChxWYNVA==
-X-Received: by 2002:a05:6870:3396:b0:177:c4c1:db8a with SMTP id
- w22-20020a056870339600b00177c4c1db8amr15470422oae.0.1680228409807;
-        Thu, 30 Mar 2023 19:06:49 -0700 (PDT)
-Received: from heimdal.localdomain ([2804:431:cfec:20b3:d050:3c82:2c34:f704])
-        by smtp.gmail.com with ESMTPSA id
- yv2-20020a05687c228200b0016e8726f0d4sm548177oab.3.2023.03.30.19.06.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Mar 2023 19:06:49 -0700 (PDT)
-From: =?UTF-8?q?Andr=C3=A9=20Morishita?= <andremorishita@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	anish kumar <yesanishhere@gmail.com>,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: maxim,max98371: Convert to DT schema
-Date: Thu, 30 Mar 2023 23:05:25 -0300
-Message-Id: <20230331020527.482991-1-andremorishita@gmail.com>
-X-Mailer: git-send-email 2.40.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MailFrom: andremorishita@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+	by alsa1.perex.cz (Postfix) with ESMTP id E6150F80272;
+	Fri, 31 Mar 2023 04:20:15 +0200 (CEST)
+To: Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>,
+        Shenghao Ding
+	<13916275206@139.com>,
+        "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "pierre-louis.bossart@linux.intel.com"
+	<pierre-louis.bossart@linux.intel.com>
+Subject: RE: [EXTERNAL] Re: [PATCH v10] ASoC: tas2781: Add tas2781 driver
+Date: Fri, 31 Mar 2023 02:19:42 +0000
+References: <20230329100107.8181-1-13916275206@139.com>
+ <8d0d0478-1e45-ea52-f1b7-910b747d6282@linux.intel.com>
+In-Reply-To: <8d0d0478-1e45-ea52-f1b7-910b747d6282@linux.intel.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 6TLSGH6XLVIIOPREMGWPDSUGZCF554WK
-X-Message-ID-Hash: 6TLSGH6XLVIIOPREMGWPDSUGZCF554WK
-X-Mailman-Approved-At: Sun, 02 Apr 2023 08:07:44 +0000
-CC: mairacanal@riseup.net, dri-devel@lists.freedesktop.org,
- daniel.baluta@nxp.com,
- =?UTF-8?q?Andr=C3=A9=20Morishita?= <andremorishita@gmail.com>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6TLSGH6XLVIIOPREMGWPDSUGZCF554WK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CB7DCSXGW3SRR5XZXMWLARHYUBQVT5VF/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168022921533.26.14312859784019905560@mailman-core.alsa-project.org>
+From: "Ding, Shenghao via Alsa-devel" <alsa-devel@alsa-project.org>
+Reply-To: "Ding, Shenghao" <shenghao-ding@ti.com>
+Cc: "Lu, Kevin" <kevin-lu@ti.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Xu,
+ Baojun" <x1077012@ti.com>, "Gupta, Peeyush" <peeyush@ti.com>,
+ "Navada Kanyana, Mukund" <navada@ti.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 82700F80272; Fri, 31 Mar 2023 04:20:09 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id ED973F800C9
+	for <alsa-devel@alsa-project.org>; Fri, 31 Mar 2023 04:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED973F800C9
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
+ header.s=ti-com-17Q1 header.b=pO7AKfxK
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 32V2JgvP091623;
+	Thu, 30 Mar 2023 21:19:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1680229182;
+	bh=unyTBO4Ygm+1ODxAbCPxACaeUdm0WzLSPlIfSATDC4M=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To;
+	b=pO7AKfxKxhUumVESD5UQ8nW3rXWMHBn2RI7HBqd8WgDznCm/jZkHHtVZX16Yhrvmg
+	 sLKp/ZEgcm3JbyDae84gnxWmv+yHOoQe0X5ak96NDtVRc9GUAkH+CFvmJxDbE92DiB
+	 bZJhag4+zw/bETuryAREXxdIFKBR8iLiZJMyQy0c=
+Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
+	by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 32V2Jgwn057153
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 30 Mar 2023 21:19:42 -0500
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE102.ent.ti.com
+ (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.16; Thu, 30
+ Mar 2023 21:19:42 -0500
+Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
+ DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
+ 15.01.2507.016; Thu, 30 Mar 2023 21:19:42 -0500
+From: "Ding, Shenghao" <shenghao-ding@ti.com>
+To: Amadeusz Slawinski <amadeuszx.slawinski@linux.intel.com>,
+        Shenghao Ding
+	<13916275206@139.com>,
+        "broonie@kernel.org" <broonie@kernel.org>,
+        "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+        "perex@perex.cz"
+	<perex@perex.cz>,
+        "pierre-louis.bossart@linux.intel.com"
+	<pierre-louis.bossart@linux.intel.com>
+Subject: RE: [EXTERNAL] Re: [PATCH v10] ASoC: tas2781: Add tas2781 driver
+Thread-Topic: [EXTERNAL] Re: [PATCH v10] ASoC: tas2781: Add tas2781 driver
+Thread-Index: AQHZYv5dO/gdHn+1qke4qmD6peEJfK8UJ1NQ
+Date: Fri, 31 Mar 2023 02:19:42 +0000
+Message-ID: <7a0cfa60e2a244168edd49c3d2f6a2bd@ti.com>
+References: <20230329100107.8181-1-13916275206@139.com>
+ <8d0d0478-1e45-ea52-f1b7-910b747d6282@linux.intel.com>
+In-Reply-To: <8d0d0478-1e45-ea52-f1b7-910b747d6282@linux.intel.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.250.160.107]
+x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Message-ID-Hash: CB7DCSXGW3SRR5XZXMWLARHYUBQVT5VF
+X-Message-ID-Hash: CB7DCSXGW3SRR5XZXMWLARHYUBQVT5VF
+X-MailFrom: shenghao-ding@ti.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: "Lu, Kevin" <kevin-lu@ti.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Xu,
+ Baojun" <x1077012@ti.com>, "Gupta, Peeyush" <peeyush@ti.com>,
+ "Navada Kanyana, Mukund" <navada@ti.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CB7DCSXGW3SRR5XZXMWLARHYUBQVT5VF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,86 +162,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the Maxim Integrated MAX98371 audio codec bindings to DT schema.
-
-Signed-off-by: André Morishita <andremorishita@gmail.com>
----
- .../devicetree/bindings/sound/max98371.txt    | 17 --------
- .../bindings/sound/maxim,max98371.yaml        | 41 +++++++++++++++++++
- 2 files changed, 41 insertions(+), 17 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/max98371.txt
- create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98371.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/max98371.txt b/Documentation/devicetree/bindings/sound/max98371.txt
-deleted file mode 100644
-index 8b2b2704b574..000000000000
---- a/Documentation/devicetree/bindings/sound/max98371.txt
-+++ /dev/null
-@@ -1,17 +0,0 @@
--max98371 codec
--
--This device supports I2C mode only.
--
--Required properties:
--
--- compatible : "maxim,max98371"
--- reg : The chip select number on the I2C bus
--
--Example:
--
--&i2c {
--	max98371: max98371@31 {
--		compatible = "maxim,max98371";
--		reg = <0x31>;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/sound/maxim,max98371.yaml b/Documentation/devicetree/bindings/sound/maxim,max98371.yaml
-new file mode 100644
-index 000000000000..df0262473399
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/maxim,max98371.yaml
-@@ -0,0 +1,41 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/maxim,max98371.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Maxim MAX98371 audio codec
-+
-+maintainers:
-+  - anish kumar <yesanishhere@gmail.com>
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: maxim,max98371
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        max98371: max98371@31 {
-+            compatible = "maxim,max98371";
-+            reg = <0x31>;
-+        };
-+    };
--- 
-2.40.0
-
+SGkgQW1hZGV1c3ogU8WCYXdpxYRza2kNClRoYW5rcyBmb3IgeW91ciBjb21tZW50Lg0KQW5zd2Vy
+IGlubGluZS4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEFtYWRldXN6IFPF
+gmF3acWEc2tpIDxhbWFkZXVzenguc2xhd2luc2tpQGxpbnV4LmludGVsLmNvbT4gDQpTZW50OiBU
+aHVyc2RheSwgTWFyY2ggMzAsIDIwMjMgNzo1NCBQTQ0KVG86IFNoZW5naGFvIERpbmcgPDEzOTE2
+Mjc1MjA2QDEzOS5jb20+OyBicm9vbmllQGtlcm5lbC5vcmc7IGxnaXJkd29vZEBnbWFpbC5jb207
+IHBlcmV4QHBlcmV4LmN6OyBwaWVycmUtbG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5jb20NCkNj
+OiBMdSwgS2V2aW4gPGtldmluLWx1QHRpLmNvbT47IERpbmcsIFNoZW5naGFvIDxzaGVuZ2hhby1k
+aW5nQHRpLmNvbT47IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsgbGludXgta2VybmVsQHZn
+ZXIua2VybmVsLm9yZzsgWHUsIEJhb2p1biA8eDEwNzcwMTJAdGkuY29tPjsgR3VwdGEsIFBlZXl1
+c2ggPHBlZXl1c2hAdGkuY29tPjsgTmF2YWRhIEthbnlhbmEsIE11a3VuZCA8bmF2YWRhQHRpLmNv
+bT4NClN1YmplY3Q6IFtFWFRFUk5BTF0gUmU6IFtQQVRDSCB2MTBdIEFTb0M6IHRhczI3ODE6IEFk
+ZCB0YXMyNzgxIGRyaXZlcg0KDQpPbiAzLzI5LzIwMjMgMTI6MDEgUE0sIFNoZW5naGFvIERpbmcg
+d3JvdGU6DQo+IENyZWF0ZSB0YXMyNzgxIGRyaXZlci4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFNo
+ZW5naGFvIERpbmcgPDEzOTE2Mjc1MjA2QDEzOS5jb20+DQo+IA0KPiAtLS0NCj4gQ2hhbmdlcyBp
+biB2MTA6DQo+ICAgLSB1c2luZyBiZTE2X3RvX2NwdSBhbmQgYmUzMl90b19jcHUgaW5zdGVhZCBv
+ZiBTTVNfSFRPTlMgYW5kIFNNU19IVE9OTA0KPiAgIC0gb3B0aW1pemUgYW5kIHJlZHVjZSB0aGUg
+Ym91bmRhcnkgY2hlY2tzDQo+ICAgLSBBZGQgY29tbWVudHMgb24gc29tZSBrbWVtZHVwIGluc3Rl
+YWQgb2Yga3phbGxvYyttZW1jcHkNCj4gICBDaGFuZ2VzIHRvIGJlIGNvbW1pdHRlZDoNCj4gCW1v
+ZGlmaWVkOiAgIHNvdW5kL3NvYy9jb2RlY3MvS2NvbmZpZw0KPiAJbW9kaWZpZWQ6ICAgc291bmQv
+c29jL2NvZGVjcy9NYWtlZmlsZQ0KPiAJbmV3IGZpbGU6ICAgc291bmQvc29jL2NvZGVjcy90YXMy
+NzgxLWRzcC5jDQo+IAluZXcgZmlsZTogICBzb3VuZC9zb2MvY29kZWNzL3RhczI3ODEtZHNwLmgN
+Cj4gCW5ldyBmaWxlOiAgIHNvdW5kL3NvYy9jb2RlY3MvdGFzMjc4MS1pMmMuYw0KPiAJbmV3IGZp
+bGU6ICAgc291bmQvc29jL2NvZGVjcy90YXMyNzgxLmgNCj4gLS0tDQoNCi4uLg0KDQo+ICsNCj4g
+K3N0YXRpYyBpbnQgZndfcGFyc2VfYmxvY2tfZGF0YV9rZXJuZWwoc3RydWN0IHRhc2RldmljZV9m
+dyAqdGFzX2ZtdywNCj4gKwlzdHJ1Y3QgdGFzZGV2X2JsayAqYmxvY2ssIGNvbnN0IHN0cnVjdCBm
+aXJtd2FyZSAqZm13LCBpbnQgb2Zmc2V0KSB7DQo+ICsJY29uc3QgdW5zaWduZWQgY2hhciAqZGF0
+YSA9IGZtdy0+ZGF0YTsNCj4gKw0KPiArCWlmIChvZmZzZXQgKyAxNiA+IGZtdy0+c2l6ZSkgew0K
+PiArCQlkZXZfZXJyKHRhc19mbXctPmRldiwgIiVzOiBGaWxlIFNpemUgZXJyb3JcbiIsIF9fZnVu
+Y19fKTsNCj4gKwkJb2Zmc2V0ID0gLUVJTlZBTDsNCj4gKwkJZ290byBvdXQ7DQo+ICsJfQ0KPiAr
+CWJsb2NrLT50eXBlID0gYmUzMl90b19jcHVwKChfX2JlMzIgKikmZGF0YVtvZmZzZXRdKTsNCg0K
+V291bGRuJ3QganVzdCBiZTMyX3RvX2NwdShkYXRhW29mZnNldF0pIHdvcmsgaW5zdGVhZCBvZiBi
+ZTMyX3RvX2NwdXA/IA0KU2FtZSBpbiBvdGhlciBjYXNlcy4NCltESU5HXSBkYXRhW10gaXMgYSBj
+aGFyIGFycmF5LCB0aGUgY29kZSB3aWxsIGNvbnZlcnQgZGF0YVtvZmZzZXRdLCBkYXRhW29mZnNl
+dCArIDFdLCANCmRhdGFbb2Zmc2V0ICsgMl0gYW5kIGRhdGFbb2Zmc2V0ICsgM10gaW50byBob3N0
+IGluc3RlYWQgb2YgZGF0YVtvZmZzZXRdIG9ubHkuDQoNCg==

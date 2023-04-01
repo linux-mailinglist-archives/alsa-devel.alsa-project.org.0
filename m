@@ -2,116 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF4C56D3280
-	for <lists+alsa-devel@lfdr.de>; Sat,  1 Apr 2023 18:05:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B3766D3622
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Apr 2023 10:14:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D78271F3;
-	Sat,  1 Apr 2023 18:04:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D78271F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19D4CAEA;
+	Sun,  2 Apr 2023 10:13:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19D4CAEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680365144;
-	bh=GwaZnSfPfRSbqOwPqqgwNpYUwru9q1es9ygqnzp+544=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Lr6RiT/4zkE9bWXS8BpxfiXA2+O1IEV12qWj9y/bfhxK1CyoV59s/WCW/nFwawkR3
-	 VL+JJ/EqAsmMjXXqjovGvxDh2UXjJXMG5O4lRxzj6o6aUWSywUfmLPYBD+Os9hFpea
-	 nRk7OVcnmpFDhPVu5E7n29Wc6Ees5Oyb9KakwMHo=
+	s=default; t=1680423267;
+	bh=bE+dNR7hAwM2i8a8vDUtPNMM0SJCpb/XZgiA8sGgch0=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=RaNFc16stMVRH37JuaKLmceDdz6itRNPrna104d6qgc1zX/Bkom5rUulikbg7Tf53
+	 ABngRPZqdY217i+QIZwD81zYtsfBZmlCX8IxTh0RBBUthHkWujsH/A3wdHvI/o3jUP
+	 8W5lmusNA8yQqVQvkyCarP4kO97BtDIejs28PCpc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09D29F80249;
-	Sat,  1 Apr 2023 18:04:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3171F8057B;
+	Sun,  2 Apr 2023 10:11:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1484F80272; Sat,  1 Apr 2023 18:01:33 +0200 (CEST)
+	id 7D441F80272; Sat,  1 Apr 2023 20:20:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
+ [IPv6:2607:f8b0:4864:20::c32])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3D286F80249
-	for <alsa-devel@alsa-project.org>; Sat,  1 Apr 2023 18:01:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D286F80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 307A5F80114
+	for <alsa-devel@alsa-project.org>; Sat,  1 Apr 2023 20:20:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 307A5F80114
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=JoXZlj32;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=OYhF7iak
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8BB2821B06;
-	Sat,  1 Apr 2023 16:01:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680364882;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zBwVkxiD0GGrn60bLm591axYcJzhrw8nR4HBiyJXKC4=;
-	b=JoXZlj32DIcZVn8hlnyXMuUg8PEgrdF+TfVmTyjUyougdzPB0ug+mkxNHRJ4tOF/5B0VQP
-	Y0xTW8xIaREJocg6YDxUE94QAb6zpP4ruHEctf92/FRi+d6eiUGM/EG9lGUFA3+2X5ZKMW
-	Rp2Q79vk7jxqTSI6impnZvW0SD0mbho=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680364882;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zBwVkxiD0GGrn60bLm591axYcJzhrw8nR4HBiyJXKC4=;
-	b=OYhF7iakdQGnoelneAUV7vsXg1BYk8Ovby9MFmy0uBihuYXl9QHCPbY+v1Wdfq2k61vct1
-	r9F5csQ4EXoBDcAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B16A134FB;
-	Sat,  1 Apr 2023 16:01:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id j25bGVJVKGS7RQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 01 Apr 2023 16:01:22 +0000
-Date: Sat, 01 Apr 2023 18:01:21 +0200
-Message-ID: <871ql3twvi.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: hda/hdmi: Preserve the previous PCM device upon
- re-enablement
-In-Reply-To: <ca19e5ba-efbe-634d-f42d-93d18f27158b@perex.cz>
-References: <20230331142217.19791-1-tiwai@suse.de>
-	<57ffa8e0-83fa-a982-9f48-abbe5f098732@perex.cz>
-	<87v8ihhr9x.wl-tiwai@suse.de>
-	<ca19e5ba-efbe-634d-f42d-93d18f27158b@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ZTCPHO5W2RBYXKZDWIRYCB7VSEONCKPR
-X-Message-ID-Hash: ZTCPHO5W2RBYXKZDWIRYCB7VSEONCKPR
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=TWTywiVB
+Received: by mail-oo1-xc32.google.com with SMTP id
+ i4-20020a056820138400b0053e3ccf739cso3123910oow.10
+        for <alsa-devel@alsa-project.org>;
+ Sat, 01 Apr 2023 11:20:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680373205;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fITr2HwYgqLUUk1Kke5I+QMgFMyvuPMKr1ZR1hYIU3I=;
+        b=TWTywiVBMaANiqanN77gtisbmbm/wLVaWH+qyvtSiG7Ip59YMo9aZDcndAj+mKA+np
+         pmRQ/MRD3zciKrhFt0RuZvZz2+h78fnTzX/LcAXMYKtlKZxIYQAoAP4r4EremUZ3sz0b
+         qkxGHWGCNrdO76vAQ9tDN0qdcTRQQlaidz9AixfK1WPfKQHehUmHtsft+IME2e+dtrn+
+         19VBxkzkYCibQxoy7a1ESloaQXtfmxLJ3EhA8uCs0lomI+AfOuw00QACf/hwYVUCwKKU
+         3oeE4S6hC+9ht1tFV7Nti8PwpFUsmbeyI9oqrOcY2RqMGsSjyUcsTXnL2A5iKKaz4EDY
+         DGlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680373205;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fITr2HwYgqLUUk1Kke5I+QMgFMyvuPMKr1ZR1hYIU3I=;
+        b=yWYgzrRBe3rW8yuxQyPaxp+UHvUMP4IM34Sb5hCZ4b+1CpEVSK5ZAPOAbRmEpl9bd0
+         Cr7y7KwvIRNj0Au3B11ifAAqjxO9SX8GOxp8RO8wmU3joncq33o1Dojm8qPq3Bdwn+Ek
+         OenaYqBZP3qT+AkWTWLYyO1PinUKfi+EXjixqpJkLrASWzp2aXccId89HdLhZ7R+xF2Q
+         MHOImxp98M2Lw1DslZR9w/cejdHSQAWQIZCQeUjnLO9dOfnNXYpb12cdpF317NXJAB9H
+         0P41oF71zCghO2A2gOjuD4pjwAmP9qR6Earsf91PoRe8hu5cFLTaAmnCAubjpVuUaRpn
+         nafg==
+X-Gm-Message-State: AAQBX9dXn9IGd5DeZJH+rMNZulYyl7LmUZtgILEgH5BNGd1EAJNKHw0+
+	hFAp3OgeDGbtPRgUlZqpyLI=
+X-Google-Smtp-Source: 
+ AKy350ZGi7A5EVHermG2a+d2Y1EJ0swdZU4PDDJgxPBdTR3MqzeWevqrtPAxWogwUpGjkvCHzT782A==
+X-Received: by 2002:a4a:bd8c:0:b0:53c:5f89:eb85 with SMTP id
+ k12-20020a4abd8c000000b0053c5f89eb85mr6913034oop.2.1680373205132;
+        Sat, 01 Apr 2023 11:20:05 -0700 (PDT)
+Received: from heimdal.localdomain ([2804:431:cfec:79f0:85a3:2af2:a6f4:1842])
+        by smtp.gmail.com with ESMTPSA id
+ e193-20020a4a55ca000000b005255e556399sm2159485oob.43.2023.04.01.11.20.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Apr 2023 11:20:04 -0700 (PDT)
+From: =?UTF-8?q?Andr=C3=A9=20Morishita?= <andremorishita@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	anish kumar <yesanishhere@gmail.com>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] ASoC: dt-bindings: maxim,max98371: Convert to DT schema
+Date: Sat,  1 Apr 2023 15:19:29 -0300
+Message-Id: <20230401181930.533067-1-andremorishita@gmail.com>
+X-Mailer: git-send-email 2.40.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MailFrom: andremorishita@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Wim Taymans <wim.taymans@gmail.com>
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: JB3BCGNZO5AP2J7VDYNI3VADM3CUGWDE
+X-Message-ID-Hash: JB3BCGNZO5AP2J7VDYNI3VADM3CUGWDE
+X-Mailman-Approved-At: Sun, 02 Apr 2023 08:08:35 +0000
+CC: mairacanal@riseup.net, dri-devel@lists.freedesktop.org,
+ daniel.baluta@nxp.com,
+ =?UTF-8?q?Andr=C3=A9=20Morishita?= <andremorishita@gmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZTCPHO5W2RBYXKZDWIRYCB7VSEONCKPR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JB3BCGNZO5AP2J7VDYNI3VADM3CUGWDE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,46 +123,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 31 Mar 2023 17:40:46 +0200,
-Jaroslav Kysela wrote:
-> 
-> On 31. 03. 23 17:30, Takashi Iwai wrote:
-> 
-> > That said, the slot preservation becomes effective only when multiple
-> > devices are connected and they are on/off at the same time.  In such a
-> > case, the device order may be changed at each screen on/off with the
-> > current code, while this patch allows keeping the order.  Maybe I
-> > should emphasize about the multiple devices in the patch description.
-> 
-> I though about possibility to remove a monitor completely. Then you
-> can have a gap in the PCM device list.
+Convert the Maxim Integrated MAX98371 audio codec bindings to DT schema.
 
-Do you mean the situation where multiple monitors were connected and
-the system is moved afterward to a single monitor environment?  Then
-it might be assigned to the second PCM slot, and that's the designed
-behavior.  In other cases, as long as only a single monitor is used,
-it'll still be assigned to the first PCM slot even with this patch.
+Signed-off-by: André Morishita <andremorishita@gmail.com>
+---
+Changes in v3:
+  - Make commit message and subject as v1 with ASoC subject prefix
 
-> >> The sound server should combine the persistent path only from the ELD
-> >> information for the HDMI devices (if present). The problem may be when
-> >> multiple similar monitors are connected to the machine. It would be
-> >> probably nice to have an unique PCM device name for this usage with
-> >> the serial number of the connected monitor (but I don't think it's in
-> >> ELD? - it is in the EDID spec thought).
-> > 
-> > The name string appears actually in the dialog.  But the automatic
-> > switch doesn't happen.  So we need some improvement / fix.
-> 
-> The switch does not happen because PA/PW use the sink/output path
-> which use the ALSA PCM device identification. This sink/output path
-> also identifies the volume/port preservation. It is not ideal for the
-> hotplug audio devices like HDMI, so we should have another way to
-> identify those devices. The ALSA's PCM name / subdevice name fields in
-> the info structure may be usable for this.
+Changes in v2:
+   - Generic node names - codec (Krzysztof)
+   - Drop label max98371 (Krzysztof)
+   - Add sound-dai-cells in example (Krzysztof)
 
-Well, at least, the jack disconnection and re-connection should be
-notified in that case, and I thought the switching may happen.
-But apparently not.
+ .../devicetree/bindings/sound/max98371.txt    | 17 --------
+ .../bindings/sound/maxim,max98371.yaml        | 42 +++++++++++++++++++
+ 2 files changed, 42 insertions(+), 17 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/max98371.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/maxim,max98371.yaml
 
+diff --git a/Documentation/devicetree/bindings/sound/max98371.txt b/Documentation/devicetree/bindings/sound/max98371.txt
+deleted file mode 100644
+index 8b2b2704b574..000000000000
+--- a/Documentation/devicetree/bindings/sound/max98371.txt
++++ /dev/null
+@@ -1,17 +0,0 @@
+-max98371 codec
+-
+-This device supports I2C mode only.
+-
+-Required properties:
+-
+-- compatible : "maxim,max98371"
+-- reg : The chip select number on the I2C bus
+-
+-Example:
+-
+-&i2c {
+-	max98371: max98371@31 {
+-		compatible = "maxim,max98371";
+-		reg = <0x31>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/maxim,max98371.yaml b/Documentation/devicetree/bindings/sound/maxim,max98371.yaml
+new file mode 100644
+index 000000000000..14fba34ef81a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/maxim,max98371.yaml
+@@ -0,0 +1,42 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/maxim,max98371.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Maxim MAX98371 audio codec
++
++maintainers:
++  - anish kumar <yesanishhere@gmail.com>
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: maxim,max98371
++
++  '#sound-dai-cells':
++    const: 0
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        codec@31 {
++            compatible = "maxim,max98371";
++            reg = <0x31>;
++            #sound-dai-cells = <0>;
++        };
++    };
+-- 
+2.40.0
 
-Takashi

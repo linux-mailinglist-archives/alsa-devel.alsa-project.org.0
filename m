@@ -2,92 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 130C66D4C14
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 17:38:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3516D44E3
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 14:52:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12BA13E;
-	Mon,  3 Apr 2023 17:37:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12BA13E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51C031F0;
+	Mon,  3 Apr 2023 14:51:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51C031F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680536321;
-	bh=U1bSCWFZ2p1KoyfbCUAzylQhzl56q5YKQC/UB+F+h5M=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1680526332;
+	bh=AJEjoPDvOiW9O7K74lmqI5HZy8RzM1Zgtt3tX3ncQVU=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UUwFY6Vx2bNsa7ZLEkpPv9Kq5pPYZOMz7wcxxwZ9HeT/4sC1DiIGOP65fAqolA4Cf
-	 nihDlg3QAMozje5twHhzvs0bZ7SSEUN1daklnmnaultXOYCUCxQqaaSWuLZ58W2N4/
-	 QAzyf3MWcMDU8oVqZ7xs/UXInYjIR7ax4vOJru/w=
+	b=Nww+Gt01UruXe32k0NLVfKm0w4lI3URuiVIFgo2AZronTjGaA1wmhWYNvYZmpZpde
+	 RD8U06m/xgactPpnWHrOGPz57qXKBBGivalssB0pEqRrhdnD1y6pAI1ILqh0LcODGE
+	 VHRQ8kadbWnFBPMgz/9lfcauz8ucHdJ0MACvLxGA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7FC2F8052D;
-	Mon,  3 Apr 2023 17:36:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B34B2F8024C;
+	Mon,  3 Apr 2023 14:51:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4D36F8024C; Mon,  3 Apr 2023 14:18:14 +0200 (CEST)
+	id 41CA8F8024C; Mon,  3 Apr 2023 14:51:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-7.4 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A43AEF80171
-	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 14:17:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A43AEF80171
-Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
-	by ex01.ufhost.com (Postfix) with ESMTP id 4C03824DFFD;
-	Mon,  3 Apr 2023 20:17:41 +0800 (CST)
-Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX166.cuchost.com
- (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Mon, 3 Apr
- 2023 20:17:41 +0800
-Received: from [192.168.125.145] (183.27.97.179) by EXMBX168.cuchost.com
- (172.16.6.78) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Mon, 3 Apr
- 2023 20:17:40 +0800
-Message-ID: <670fbeaf-334b-b6d7-d48c-0828c5f1d841@starfivetech.com>
-Date: Mon, 3 Apr 2023 20:17:39 +0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F378F801C0
+	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 14:51:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F378F801C0
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=idZVmq4o
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 01CF5B819A1;
+	Mon,  3 Apr 2023 12:51:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25A59C433D2;
+	Mon,  3 Apr 2023 12:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1680526267;
+	bh=AJEjoPDvOiW9O7K74lmqI5HZy8RzM1Zgtt3tX3ncQVU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=idZVmq4o2EB52wKthrVNjlBfK6yyo6TDGbGtIp/0DZUo8D/XZqfEYeFONbXR7VQcu
+	 VWDcTUChhGJIfAQgze424L7gve3jiz6eINVeL2APdtQoqC3DZ8a8/leoXFd6Z9lTH9
+	 6CSOVnq4/zrdewmZ8cuBwS0orRjspEArZmm6tIxxrnwlIeNmX16toMfeNvXB7sp2I7
+	 ntvbVfxhFSc/SNOTSRUVcI7NiNLheJVIybVj7D7EImiBm5Y1fKzzA8iFcu5fa9L/5k
+	 u4rVVpPYiLz6j7lRrzcqSg6VnVB5/HOaB1DaTC34MEDL17KMy4S1iR90wk1ArWiyLR
+	 WL2TwHszaikqQ==
+From: Mark Brown <broonie@kernel.org>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230327132254.147975-1-krzysztof.kozlowski@linaro.org>
+References: <20230327132254.147975-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: (subset) [PATCH v3 00/10] ASoC: add audio digital codecs for
+ Qualcomm SM8550
+Message-Id: <168052626277.36561.10428671254225734348.b4-ty@kernel.org>
+Date: Mon, 03 Apr 2023 13:51:02 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH v1 1/3] dt-bindings: sound: Add TDM for StarFive JH7110
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
-	<robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
-	<conor.dooley@microchip.com>, Emil Renner Berthing
-	<emil.renner.berthing@canonical.com>
-References: <20230329153320.31390-1-walker.chen@starfivetech.com>
- <20230329153320.31390-2-walker.chen@starfivetech.com>
- <c999da90-1cb9-c767-23bc-c28d37708cf2@linaro.org>
-From: Walker Chen <walker.chen@starfivetech.com>
-In-Reply-To: <c999da90-1cb9-c767-23bc-c28d37708cf2@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [183.27.97.179]
-X-ClientProxiedBy: EXCAS066.cuchost.com (172.16.6.26) To EXMBX168.cuchost.com
- (172.16.6.78)
-X-YovoleRuleAgent: yovoleflag
-X-MailFrom: walker.chen@starfivetech.com
-X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailer: b4 0.13-dev-00303
+Message-ID-Hash: X7WTJ4R543Q4ZIX6CFJRB77UTM47T6WC
+X-Message-ID-Hash: X7WTJ4R543Q4ZIX6CFJRB77UTM47T6WC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FB2N2U3S25OQ7GSS62BRAJZCYA6NOIGX
-X-Message-ID-Hash: FB2N2U3S25OQ7GSS62BRAJZCYA6NOIGX
-X-Mailman-Approved-At: Mon, 03 Apr 2023 15:36:51 +0000
-CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FB2N2U3S25OQ7GSS62BRAJZCYA6NOIGX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7WTJ4R543Q4ZIX6CFJRB77UTM47T6WC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,78 +102,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 2023/3/30 15:39, Krzysztof Kozlowski wrote:
-> On 29/03/2023 17:33, Walker Chen wrote:
->> Add bindings to describe the TDM driver for the StarFive JH7110 SoC.
->> 
->> Signed-off-by: Walker Chen <walker.chen@starfivetech.com>
->> ---
->>  .../bindings/sound/starfive,jh7110-tdm.yaml   | 95 +++++++++++++++++++
->>  1 file changed, 95 insertions(+)
->>  create mode 100644 Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
->> 
->> diff --git a/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml b/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
->> new file mode 100644
->> index 000000000000..d65b9ed781ef
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
->> @@ -0,0 +1,95 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/sound/starfive,jh7110-tdm.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: StarFive JH7110 TDM Controller
->> +
->> +description: |
->> +  The TDM Controller is a Time Division Multiplexed audio interface
->> +  integrated in StarFive JH7110 SoC, allowing up to 8 channels of
->> +  audio over a serial interface. The TDM controller can operate both
->> +  in master and slave mode.
->> +
->> +maintainers:
->> +  - Walker Chen <walker.chen@starfivetech.com>
->> +
+On Mon, 27 Mar 2023 15:22:44 +0200, Krzysztof Kozlowski wrote:
+> This patchset can be merged as is - no dependencies.
 > 
-> Missing allOf: with $ref to dai-common.
-
-Indeed missing allOf, thank you for kind reminding.
-
+> Changes since v2
+> ================
+> 1. Rebase.
+> 2. New patch: ASoC: dt-bindings: qcom,lpass-va-macro: Add missing NPL clock.
+> 3. Add Rb tags.
 > 
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - starfive,jh7110-tdm
->> +
->> +  reg:
->> +    maxItems: 1
-> 
-> (...)
-> 
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +  - resets
->> +  - dmas
->> +  - dma-names
->> +  - "#sound-dai-cells"
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    tdm: tdm@10090000 {
-> 
-> Drop tdm label, not used.
+> [...]
 
-Ok, will drop it.
+Applied to
 
-Best regards,
-Walker
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[07/10] ASoC: dt-bindings: qcom,lpass-va-macro: Add missing NPL clock
+        commit: cfad817095e111b640c7d538b9f182d2535ee065
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

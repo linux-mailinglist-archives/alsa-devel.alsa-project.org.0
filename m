@@ -2,105 +2,196 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4BB46D3DD7
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 09:09:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 337FE6D3DE9
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 09:14:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A7A31F7;
-	Mon,  3 Apr 2023 09:08:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A7A31F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0FA41FA;
+	Mon,  3 Apr 2023 09:13:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0FA41FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680505776;
-	bh=Z14ZgWQ7PAtGKqW1xLqpPRGzxTQkcM8qbmygRVkC0+g=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jCwVAEgZa1pPfJ/qHWT8KAyu+eKjthrJC5ALrtORqAe0eeqPyhW6fNB7bRBuLBN9r
-	 QTRB31ltUrYQjEgbQ3AjLqphkoUwxhXG8CvPEF0oNVDlcHSErM4RPZDJ6Q0LVrghEU
-	 J+6KQMpwNfVeRSMZB0E2xqDHGHKTbnEflZsBUx08=
+	s=default; t=1680506079;
+	bh=6/uESz84lki3dtKFHB0xNMRqzX6D5nx0ghhnMIUG2C8=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=rCjqsyN7RNXie3Yy5xdbaZf42j7liewGzawcK6gg7KorgKdZgf5LvpWscN8vBEvXj
+	 YJOncWhKT+CnlLJWYCXoK5wYOhtoaZlpJgL05dtj9v4E+oDaUcA0VRMmASjPipm0bS
+	 L5TYi4b6MNl33Ti0ptjGalKVBUk9IMlLjCYHypF8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67CB4F80249;
-	Mon,  3 Apr 2023 09:08:45 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84370F8024C; Mon,  3 Apr 2023 09:08:40 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4AAE5F8015B
-	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 09:08:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AAE5F8015B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=QyTjx3gp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1680505712; x=1712041712;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Z14ZgWQ7PAtGKqW1xLqpPRGzxTQkcM8qbmygRVkC0+g=;
-  b=QyTjx3gpImvvVCDGtJk91yKZa2+WUvU5ciF9BnpcgqkhgvoyDb6vIjRf
-   Pl7Rpj2AC096p0S6s0ROISCS5H31Rt3jHuBFnLBZARkHwAdD2PV5sO4KT
-   QYI5QRGtljhzGbpgvojQ8GqG09TKn/Y2TYQiUOcVcg0ziYSnXJyLUXsRI
-   zBmppdAyVDkGK9dlxMSMDRcvN5+TYtgSZCLtdMpRFG7tmTA6d3q9UdEaB
-   MDPNrEQy7ddDKsxYBmUySUh+u3pNRL6IkegfIHHR3vju4Rlr3MC7kDORz
-   m6sj63WvzwLqroT3Vo1DHS3Ao+0oWr97xIkX9Ux4sllO/bdvDkngFPiPd
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10668"; a="321489809"
-X-IronPort-AV: E=Sophos;i="5.98,314,1673942400";
-   d="scan'208";a="321489809"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2023 00:08:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10668"; a="718435532"
-X-IronPort-AV: E=Sophos;i="5.98,314,1673942400";
-   d="scan'208";a="718435532"
-Received: from epologov-mobl2.ccr.corp.intel.com (HELO [10.252.52.206])
- ([10.252.52.206])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2023 00:08:11 -0700
-Message-ID: <471b8f95-1c13-48bd-0491-cae0fe2ce824@linux.intel.com>
-Date: Mon, 3 Apr 2023 10:08:47 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.9.1
-Subject: Re: [bug report] ASoC: SOF: avoid a NULL dereference with unsupported
- widgets
-Content-Language: en-US
-To: Dan Carpenter <error27@gmail.com>
-References: <4826f662-42f0-4a82-ba32-8bf5f8a03256@kili.mountain>
- <80f2a9e2-a2fb-4543-b381-251bb07876ef@linux.intel.com>
- <b3671cde-7f77-48aa-a4a2-db25e141ff45@kili.mountain>
- <8f78395b-5cc3-e5da-90f2-2fa7114ddcfb@linux.intel.com>
- <9ab57cb9-8320-4891-beb9-50c57346d9e5@kili.mountain>
-From: =?UTF-8?Q?P=c3=a9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <9ab57cb9-8320-4891-beb9-50c57346d9e5@kili.mountain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2FX67JAIT24CIACN2CJYM2PLWBNZOSM5
-X-Message-ID-Hash: 2FX67JAIT24CIACN2CJYM2PLWBNZOSM5
-X-MailFrom: peter.ujfalusi@linux.intel.com
+	by alsa1.perex.cz (Postfix) with ESMTP id 35BB9F8024C;
+	Mon,  3 Apr 2023 09:13:49 +0200 (CEST)
+To: <broonie@kernel.org>
+Subject: [PATCH 1/6] ASoC: SOF: amd: remove unused code
+Date: Mon, 3 Apr 2023 12:46:41 +0530
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: guennadi.liakhovetski@linux.intel.com, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2FX67JAIT24CIACN2CJYM2PLWBNZOSM5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T2V7AUNAJGOB3Q5JT3Q6RCENZE53T337/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168050602840.26.2914190211769745946@mailman-core.alsa-project.org>
+From: Vijendar Mukunda via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Rander Wang <rander.wang@intel.com>,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ Zheng Bin <zhengbin13@huawei.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 76460F8026D; Mon,  3 Apr 2023 09:13:45 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20611.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eab::611])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3731BF801C0;
+	Mon,  3 Apr 2023 09:13:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3731BF801C0
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=bNc/eP21
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MmMqEwrluihVwR+n1fvlixp6o3f6MuUP0ZBzHU7p5KnEI0B1SBv9pRyTmOVLHZt3Ta6l9Uz7SaTrzRLEut7lMM5CopD/WZNufBUzCP2FdbkVkCI1VWp0Aocu283tpM8jczTT8dDF7Oofdt5/PPK8e0Tk7BpbXWHW1VZ/3yjC76YjxbtxVPIYz95QYgeBgyVxDC/xikpmCxJeby0qiraKeCOoeYCsvwPwb5u8KzvW2fsLlrT6iyH4El9i73XKV+0ZDIGzDy804Ue6OxI9dcZVGu+ySCGiqdgUOTY/XrBdnHkUhjr29cMDZ0kA7VM4juypz35S8upQ7bgVfCNWyXTW8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8n/53dGixqmTf7EBH7T0wScMI5OtjUU7wS6fFwxFPYE=;
+ b=GFdDfWUYRZLV/w6iiQx/2U5O2c4NX+1KCnQnSKYhRk6HD9C9MkL111ECl/qN1gVQIt3jCLx622h8j9FzhEPH0abik1yzWCmQHTUeKcv0TAmwXKXoTAC56NslwwktP/Z6PIRwNO/cTvwIlxGoUXrZG4biB1wgXNnGi8FfXdV9L+vEIcicJOrFLDgK6M6gh/JDCiSvR/+p0tInW+SG7hO9hcrJTWGOVlL4qCw6MjD9drnN/yzLMfHp7YGdNoyQpgS4XiXI/S8WO4fECh23SfmzmWRUxgW8C02DiUB5As7nahfAG9bCgGxdZF2TILipmGUJTv1mq4S8azRRrqmWrbTXuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8n/53dGixqmTf7EBH7T0wScMI5OtjUU7wS6fFwxFPYE=;
+ b=bNc/eP21yulsZfkb4iGujmDgUAXjPh9sglMza7eGfyS0Wz92J1rtQkZZwpIgwU6IZpiJqTUftyk3fHetYuZnJWa17PJkxvfPhcU6meatZ/E9TRx0qWd0bX767gLhO4Qr4gApXhByLNvehruxEVfybdwdq3PFnKcOfq0o/K6yeQQ=
+Received: from MW4PR03CA0143.namprd03.prod.outlook.com (2603:10b6:303:8c::28)
+ by MN2PR12MB4343.namprd12.prod.outlook.com (2603:10b6:208:26f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
+ 2023 07:13:19 +0000
+Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8c:cafe::cd) by MW4PR03CA0143.outlook.office365.com
+ (2603:10b6:303:8c::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.20 via Frontend
+ Transport; Mon, 3 Apr 2023 07:13:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6277.16 via Frontend Transport; Mon, 3 Apr 2023 07:13:19 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 3 Apr
+ 2023 02:13:17 -0500
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Mon, 3 Apr 2023 02:13:13 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+Subject: [PATCH 1/6] ASoC: SOF: amd: remove unused code
+Date: Mon, 3 Apr 2023 12:46:41 +0530
+Message-ID: <20230403071651.919027-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT036:EE_|MN2PR12MB4343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65a52ce6-16a6-4c62-cc45-08db3412e704
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Lusrul71Vey2OEtv9RLtKtGlf98I9JP17VvLKdogXbOEiewPlbq0GfB4uud0Px7J1yoF/ScHS1NgY2bCYo4rdImLBqIpj6SNoSQeU/5qc8vH2C8PhGu6iE9EgAPTLSBcOUio+fWQU78ZFgy7QOQx2/VuM841+xlMcGxYM1Hf5702BA0hBKguGhJIll12i78cwy+8fNm1WW4RSG1tDuaPgdxweAf5qfh77C+I/lFqndKPIhhOYmEFFKtv6KQrmzU5U2FbUMqs2SG6529KClIbIiDnEZZa7vSb8zx4rQz72mm7ray/0RBxjcLbOrQmzvV1efP9YuGEw54vhIKrK27uLRqmmrv6s13F0ZvBcah95o383HhWfnz8thRcUHHPQy6F3FLjot9kuCKclwIjuge+Ugy/DIJSHOsyuv5MJijGgjNvLnsl7Cq65GMMy1LMoEuISq0oi7bXvwrW3JTOjRLa9Ju6nOHWVM+1CfCEjmpXLzbZjK7yfHRNzCMZsCF9P+E+f7TUghgopr3V++tSMgftO1znivzlphaVF/L2Ov1BrVhH2Wri64APvi+LIW6kh+djXuNpBmy4M6vKbgYdQIZV5+YHmJWsKrukaDhR33qTUnFBi8vywOjPAx7Nlg2uNuVWELQo1Tjr2TSJDo15EYZTk44yp/+t+vTv7Im+dMHlC6r5L3AUale7ZxBOtZ5FLBGiI9/Mog3iBwwqno2Uy0kosN0U/ZpZv7yYipXsM3SKcOg=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(136003)(39860400002)(396003)(451199021)(40470700004)(46966006)(36840700001)(86362001)(36756003)(82310400005)(2906002)(40480700001)(2616005)(7696005)(336012)(426003)(83380400001)(186003)(47076005)(26005)(1076003)(6666004)(6916009)(4326008)(36860700001)(70586007)(8676002)(70206006)(40460700003)(41300700001)(81166007)(82740400003)(5660300002)(356005)(7416002)(316002)(54906003)(478600001)(8936002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 07:13:19.1401
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 65a52ce6-16a6-4c62-cc45-08db3412e704
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4343
+Message-ID-Hash: T2V7AUNAJGOB3Q5JT3Q6RCENZE53T337
+X-Message-ID-Hash: T2V7AUNAJGOB3Q5JT3Q6RCENZE53T337
+X-MailFrom: Vijendar.Mukunda@amd.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ Rander Wang <rander.wang@intel.com>,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ Zheng Bin <zhengbin13@huawei.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T2V7AUNAJGOB3Q5JT3Q6RCENZE53T337/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,57 +200,224 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+During initial SOF driver bring up on AMD platforms, only DMIC
+support was added. As of today, we have a complete SOF solution for
+I2S endpoints along with DMIC endpoint.
+This code is no longer required.
+Remove unused code from RMB and RN platform ACP PCI driver.
 
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/sof/amd/pci-rmb.c | 70 +------------------------------------
+ sound/soc/sof/amd/pci-rn.c  | 70 +------------------------------------
+ 2 files changed, 2 insertions(+), 138 deletions(-)
 
-On 03/04/2023 08:54, Dan Carpenter wrote:
-> On Mon, Apr 03, 2023 at 08:20:38AM +0300, Péter Ujfalusi wrote:
->>
->>
->> On 01/04/2023 10:44, Dan Carpenter wrote:
->>> On Fri, Mar 31, 2023 at 10:14:11AM +0300, Péter Ujfalusi wrote:
->>>> if src_fw_module is NULL then the print will be:
->>>> source (efault) or sink sink.module.name widget weren't set up properly
->>>>
->>>> Guennadi is relying on some black magic in the printk system to handle
->>>> the printing instead of open coding.
->>>
->>> I've done compiler related work and explored some weird aspect of the
->>> C language and I am so fascinated by this.  I would have thought it
->>> crashes before the function is called.  I cannot even imagine how black
->>> magic like this would work.
->>
->> I think it is not a compiler magic, but kernel magic:
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/lib/vsprintf.c#n700
->>
->>> Is there anyway I can test this?
->>
->> You could, If you have a laptop which uses SOF and it is Intel 11th gen
->> or newer then you can switch it to IPC4 and install the opt-in v2.5
->> (which would need with 6.4 kernel).
->> Apply this patch to 6.3-rc (or 6.2) and boot up, but unpatched kernel
->> will NULL dereference, so you need to have a backup option.
->>
->> https://github.com/thesofproject/sof-bin
->>
->> The v2.5 is not there as a release,you need to fetch the repo and follow
->> the instructions.
->>
->> Read the instruction in v2.5.x/README.md before attempting to use this
->> release.
->>
->> Now that I look back at the patch, yes it is not obvious, but it is
->> doing a valid thing.
-> 
-> Yeah.  Fine.  It doesn't crash but "valid" is kind of debatable.  It's
-> a super ugly thing.
-
-Well, it is going to behave in an expected way (print (efault) instead
-of the module name in case it is not present).
-By itself it is correct as this is a feature given by the kernel, on the
-other hand, it could be improved to print the _swidget->widget->name and
-a note, which side is missing the fw_module.
-
-I can send a v2 with a new print without waiting for Guennadi in few hours.
-
+diff --git a/sound/soc/sof/amd/pci-rmb.c b/sound/soc/sof/amd/pci-rmb.c
+index 4e1de462b431..d0a56e8f09c0 100644
+--- a/sound/soc/sof/amd/pci-rmb.c
++++ b/sound/soc/sof/amd/pci-rmb.c
+@@ -27,22 +27,6 @@
+ #define ACP6x_REG_END		0x125C000
+ 
+ static struct platform_device *dmic_dev;
+-static struct platform_device *pdev;
+-
+-static const struct resource rembrandt_res[] = {
+-	{
+-		.start = 0,
+-		.end = ACP6x_REG_END - ACP6x_REG_START,
+-		.name = "acp_mem",
+-		.flags = IORESOURCE_MEM,
+-	},
+-	{
+-		.start = 0,
+-		.end = 0,
+-		.name = "acp_dai_irq",
+-		.flags = IORESOURCE_IRQ,
+-	},
+-};
+ 
+ static const struct sof_amd_acp_desc rembrandt_chip_info = {
+ 	.rev		= 6,
+@@ -83,11 +67,8 @@ static const struct sof_dev_desc rembrandt_desc = {
+ 
+ static int acp_pci_rmb_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ {
+-	struct platform_device_info pdevinfo;
+ 	struct device *dev = &pci->dev;
+-	const struct resource *res_i2s;
+-	struct resource *res;
+-	unsigned int flag, i, addr;
++	unsigned int flag;
+ 	int ret;
+ 
+ 	flag = snd_amd_acp_find_config(pci);
+@@ -104,53 +85,6 @@ static int acp_pci_rmb_probe(struct pci_dev *pci, const struct pci_device_id *pc
+ 		sof_pci_remove(pci);
+ 		return PTR_ERR(dmic_dev);
+ 	}
+-
+-	/* Register platform device only if flag set to FLAG_AMD_SOF_ONLY_DMIC */
+-	if (flag != FLAG_AMD_SOF_ONLY_DMIC)
+-		return 0;
+-
+-	addr = pci_resource_start(pci, 0);
+-	res = devm_kzalloc(&pci->dev, sizeof(struct resource) * ARRAY_SIZE(rembrandt_res),
+-			   GFP_KERNEL);
+-	if (!res) {
+-		platform_device_unregister(dmic_dev);
+-		sof_pci_remove(pci);
+-		return -ENOMEM;
+-	}
+-
+-	res_i2s = rembrandt_res;
+-	for (i = 0; i < ARRAY_SIZE(rembrandt_res); i++, res_i2s++) {
+-		res[i].name = res_i2s->name;
+-		res[i].flags = res_i2s->flags;
+-		res[i].start = addr + res_i2s->start;
+-		res[i].end = addr + res_i2s->end;
+-		if (res_i2s->flags == IORESOURCE_IRQ) {
+-			res[i].start = pci->irq;
+-			res[i].end = res[i].start;
+-		}
+-	}
+-
+-	memset(&pdevinfo, 0, sizeof(pdevinfo));
+-
+-	/*
+-	 * We have common PCI driver probe for ACP device but we have to support I2S without SOF
+-	 * for some distributions. Register platform device that will be used to support non dsp
+-	 * ACP's audio ends points on some machines.
+-	 */
+-	pdevinfo.name = "acp_asoc_rembrandt";
+-	pdevinfo.id = 0;
+-	pdevinfo.parent = &pci->dev;
+-	pdevinfo.num_res = ARRAY_SIZE(rembrandt_res);
+-	pdevinfo.res = &res[0];
+-
+-	pdev = platform_device_register_full(&pdevinfo);
+-	if (IS_ERR(pdev)) {
+-		dev_err(&pci->dev, "cannot register %s device\n", pdevinfo.name);
+-		platform_device_unregister(dmic_dev);
+-		sof_pci_remove(pci);
+-		ret = PTR_ERR(pdev);
+-	}
+-
+ 	return ret;
+ };
+ 
+@@ -158,8 +92,6 @@ static void acp_pci_rmb_remove(struct pci_dev *pci)
+ {
+ 	if (dmic_dev)
+ 		platform_device_unregister(dmic_dev);
+-	if (pdev)
+-		platform_device_unregister(pdev);
+ 
+ 	sof_pci_remove(pci);
+ }
+diff --git a/sound/soc/sof/amd/pci-rn.c b/sound/soc/sof/amd/pci-rn.c
+index fca40b261671..faab4c33a24d 100644
+--- a/sound/soc/sof/amd/pci-rn.c
++++ b/sound/soc/sof/amd/pci-rn.c
+@@ -27,22 +27,6 @@
+ #define ACP3x_REG_END		0x125C000
+ 
+ static struct platform_device *dmic_dev;
+-static struct platform_device *pdev;
+-
+-static const struct resource renoir_res[] = {
+-	{
+-		.start = 0,
+-		.end = ACP3x_REG_END - ACP3x_REG_START,
+-		.name = "acp_mem",
+-		.flags = IORESOURCE_MEM,
+-	},
+-	{
+-		.start = 0,
+-		.end = 0,
+-		.name = "acp_dai_irq",
+-		.flags = IORESOURCE_IRQ,
+-	},
+-};
+ 
+ static const struct sof_amd_acp_desc renoir_chip_info = {
+ 	.rev		= 3,
+@@ -83,11 +67,8 @@ static const struct sof_dev_desc renoir_desc = {
+ 
+ static int acp_pci_rn_probe(struct pci_dev *pci, const struct pci_device_id *pci_id)
+ {
+-	struct platform_device_info pdevinfo;
+ 	struct device *dev = &pci->dev;
+-	const struct resource *res_i2s;
+-	struct resource *res;
+-	unsigned int flag, i, addr;
++	unsigned int flag;
+ 	int ret;
+ 
+ 	flag = snd_amd_acp_find_config(pci);
+@@ -104,53 +85,6 @@ static int acp_pci_rn_probe(struct pci_dev *pci, const struct pci_device_id *pci
+ 		sof_pci_remove(pci);
+ 		return PTR_ERR(dmic_dev);
+ 	}
+-
+-	/* Register platform device only if flag set to FLAG_AMD_SOF_ONLY_DMIC */
+-	if (flag != FLAG_AMD_SOF_ONLY_DMIC)
+-		return 0;
+-
+-	addr = pci_resource_start(pci, 0);
+-	res = devm_kzalloc(&pci->dev, sizeof(struct resource) * ARRAY_SIZE(renoir_res), GFP_KERNEL);
+-	if (!res) {
+-		sof_pci_remove(pci);
+-		platform_device_unregister(dmic_dev);
+-		return -ENOMEM;
+-	}
+-
+-	res_i2s = renoir_res;
+-	for (i = 0; i < ARRAY_SIZE(renoir_res); i++, res_i2s++) {
+-		res[i].name = res_i2s->name;
+-		res[i].flags = res_i2s->flags;
+-		res[i].start = addr + res_i2s->start;
+-		res[i].end = addr + res_i2s->end;
+-		if (res_i2s->flags == IORESOURCE_IRQ) {
+-			res[i].start = pci->irq;
+-			res[i].end = res[i].start;
+-		}
+-	}
+-
+-	memset(&pdevinfo, 0, sizeof(pdevinfo));
+-
+-	/*
+-	 * We have common PCI driver probe for ACP device but we have to support I2S without SOF
+-	 * for some distributions. Register platform device that will be used to support non dsp
+-	 * ACP's audio ends points on some machines.
+-	 */
+-
+-	pdevinfo.name = "acp_asoc_renoir";
+-	pdevinfo.id = 0;
+-	pdevinfo.parent = &pci->dev;
+-	pdevinfo.num_res = ARRAY_SIZE(renoir_res);
+-	pdevinfo.res = &res[0];
+-
+-	pdev = platform_device_register_full(&pdevinfo);
+-	if (IS_ERR(pdev)) {
+-		dev_err(&pci->dev, "cannot register %s device\n", pdevinfo.name);
+-		sof_pci_remove(pci);
+-		platform_device_unregister(dmic_dev);
+-		ret = PTR_ERR(pdev);
+-	}
+-
+ 	return ret;
+ };
+ 
+@@ -158,8 +92,6 @@ static void acp_pci_rn_remove(struct pci_dev *pci)
+ {
+ 	if (dmic_dev)
+ 		platform_device_unregister(dmic_dev);
+-	if (pdev)
+-		platform_device_unregister(pdev);
+ 
+ 	return sof_pci_remove(pci);
+ }
 -- 
-Péter
+2.34.1
+

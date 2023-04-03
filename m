@@ -2,92 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B939F6D44EB
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 14:53:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13A916D44EC
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 14:53:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 138B5200;
-	Mon,  3 Apr 2023 14:52:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 138B5200
+	by alsa0.perex.cz (Postfix) with ESMTPS id B98CF6C0;
+	Mon,  3 Apr 2023 14:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B98CF6C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680526383;
-	bh=8aJ44bd4d5edAPiqMTaOF1QxLbXCmKzlPKhW1WxDuCE=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1680526384;
+	bh=nHI8F0FIJwR3RnOpgrrxhzfJ73MZZYyje0ED/1VxtBg=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WDSbOSniltlifTuNwDQTVGfDIRAGq/bk6mpQQtU0da8AzXBoN2kVQa44l2VmksZi8
-	 8NnOSHoM6fndTUp4TbA/XWvfv2Ly4eyuK8cj4bgMp7PmbX66KqRQrDwwIpG6d9n6sE
-	 6wqWgT9PsgmHm3DuM7q4f7qnIgZWWIr+Z6RjIGKI=
+	b=nQ5peu0PwyAl4F8EReLDhTM8RshHGWgkqec0TxNCe2E7NCIxEZI5k3pdmRayAg3K2
+	 /6YQ8ZWskr+rFEb0HRi9Ij64+H6QVK7BjNcenLVclf+pO3ZXayXqMwwPLi+tUfUIFB
+	 6rlAdeuhxoEyXpXYt2ZwoCzJk4BQQspeQromBH0M=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3252EF80482;
-	Mon,  3 Apr 2023 14:51:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 973A1F8052D;
+	Mon,  3 Apr 2023 14:51:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 623F7F80495; Mon,  3 Apr 2023 14:51:23 +0200 (CEST)
+	id 93F63F8052E; Mon,  3 Apr 2023 14:51:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B5F6EF8015B
-	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 14:51:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5F6EF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0C1AF8028B
+	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 14:51:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0C1AF8028B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=oXKzBdcx
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 7430561A82;
-	Mon,  3 Apr 2023 12:51:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFA71C4339E;
-	Mon,  3 Apr 2023 12:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680526271;
-	bh=8aJ44bd4d5edAPiqMTaOF1QxLbXCmKzlPKhW1WxDuCE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=oXKzBdcxbxgeFTUWlai3aKjiIJShGmjXISgL6d0kQ7DgKNKvFLd74pMIAO1XSVhXt
-	 7Hn4Aa/4E3UT/sZbggtP0IH/9w+VIPTqzfVrBwRswAkIAUVzwwJJK9y0Y39IPZa1gl
-	 syvAKBGapk3Y5hm1j5ERlySINC5tO5CFq8rxerVc7F85axKXdeUHrqzNDwdYGGOmSS
-	 2sk1p81wUNf727vvWmaFC0eKlkqwqmkLvh/J/sRw34xjjhdLW28g8RDk/ammok9o4Y
-	 IVjPVW6gj0lpivAiJ/b263L6Z1qrXfv2ZjYEmZWyDS90KvEZI7oCXgj1P0qm74/vqz
-	 mENnD8DF4gzsA==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230403090909.18233-1-peter.ujfalusi@linux.intel.com>
-References: <20230403090909.18233-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH for v6.3-rc] ASoC: SOF: ipc4-topology: Clarify bind
- failure caused by missing fw_module
-Message-Id: <168052626818.36561.15470216778715648904.b4-ty@kernel.org>
-Date: Mon, 03 Apr 2023 13:51:08 +0100
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=ZgDUT7kA
+Received: by mail-ed1-x52e.google.com with SMTP id x3so116794581edb.10
+        for <alsa-devel@alsa-project.org>;
+ Mon, 03 Apr 2023 05:51:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1680526280;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hBlBY9aCp2fwzyEA3oA1ESp/NxFfdWBUjHz7ismdq/M=;
+        b=ZgDUT7kABXnlv7ZQy4O22yoBe5x0gdxIJSPzzUUMzlIO5weoHEy2JCOq5RW2GY5rbq
+         5asiMAUFK8koBo2l1hA312FmopSKyS7g5ZyXWL6olYKt9ZhyzYRvUsMFwKcNWkfQuSHv
+         8z2k+U3SIQiKC4viWXe1fDRNbOkwQMpew12eeiUQh944BJlypM6VsggRjGZERoQg2mUo
+         AdxZf/G1WNImdAEtsy4nPnkVH4j+eOaLhR5km+LMMoeSABMjdKxt8x85oAAVq08zGJZL
+         v4NmXtYZiJIQMrTP3jrj28JF/FfH+xWjZDgMDeLtBVbcO8W0p20iylXL2ru3Ry3/hC1k
+         CxeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680526280;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hBlBY9aCp2fwzyEA3oA1ESp/NxFfdWBUjHz7ismdq/M=;
+        b=uZAun26p1VL/DkIJVre8tLG1DnaxCRYGNxjJwGS+B3weI7tcs2/xrhkc6t9Qi8eqkN
+         Q0OQJiCTnrS0Ks6M/uDvQvi+sRK6c+9swT8BXFwZkfJ/T/4BFpI+nS3r3RXfmlZ6b7vV
+         l0plEbkMpe/2WVV9DKWncEG1WFcesy2p+h7IpVjPHxac1buYpwzlHCWaQIZOH7RrvLtY
+         ftvmQwB+etywlE/QvVPvaqIBehrqPdLBzdfeG8061kEukPLuPmUtylplhoT3mjgH9Z7T
+         R2Hnz5iDBSTCLrOl7Wrle/ZNyHO3r95uTOlSQ4vhoW1S5EFwwXZ7Vhq+PPiM9v0cowG6
+         2k8g==
+X-Gm-Message-State: AAQBX9f8RFAmRMBZCxq4gMWxvtFeZIhFUCaTffG7k3bWByGh9xvzTT3D
+	mEROqOs7XUxd3tAf97KpEz8Kvg==
+X-Google-Smtp-Source: 
+ AKy350bf4uQa4MoKau0zxjWPD5Tb7xiBU+NP/AwFSxCBzCP0E607DlXYpS/wBX3Q3Wt3HJlCE2oxtg==
+X-Received: by 2002:aa7:c98b:0:b0:4cd:e84d:1e74 with SMTP id
+ c11-20020aa7c98b000000b004cde84d1e74mr39732285edt.0.1680526279821;
+        Mon, 03 Apr 2023 05:51:19 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:ae90:d80:1069:4805?
+ ([2a02:810d:15c0:828:ae90:d80:1069:4805])
+        by smtp.gmail.com with ESMTPSA id
+ n19-20020a509353000000b004c09527d62dsm4621217eda.30.2023.04.03.05.51.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Apr 2023 05:51:19 -0700 (PDT)
+Message-ID: <d6b4df41-02cb-b900-5e8b-8ad08d3d36f1@linaro.org>
+Date: Mon, 3 Apr 2023 14:51:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v2] ASoC: dt-bindings: wm8510: Convert to dtschema
+Content-Language: en-US
+To: Saalim Quadri <danascape@gmail.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ daniel.baluta@nxp.com
+References: <20230403105237.3854-1-danascape@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230403105237.3854-1-danascape@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: J47LFQGMRZYG4XVKEY4J3MQGYGGKZZT6
-X-Message-ID-Hash: J47LFQGMRZYG4XVKEY4J3MQGYGGKZZT6
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: JAKWGL3TKAC6JTODOVIFZ3DSKKAVVJIB
+X-Message-ID-Hash: JAKWGL3TKAC6JTODOVIFZ3DSKKAVVJIB
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- guennadi.liakhovetski@linux.intel.com, stable@vger.kernel.org,
- error27@gmail.com
+CC: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J47LFQGMRZYG4XVKEY4J3MQGYGGKZZT6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JAKWGL3TKAC6JTODOVIFZ3DSKKAVVJIB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,42 +123,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 03 Apr 2023 12:09:09 +0300, Peter Ujfalusi wrote:
-> The original patch uses a feature in lib/vsprintf.c to handle the invalid
-> address when tring to print *_fw_module->man4_module_entry.name when the
-> *rc_fw_module is NULL.
-> This case is handled by check_pointer_msg() internally and turns the
-> invalid pointer to '(efault)' for printing but it is hiding useful
-> information about the circumstances. Change the print to emmit the name
-> of the widget and a note on which side's fw_module is missing.
+On 03/04/2023 12:52, Saalim Quadri wrote:
+> Convert the WM8510 audio CODEC bindings to DT schema
 > 
-> [...]
+> Signed-off-by: Saalim Quadri <danascape@gmail.com>
+> ---
+> Changes:
+> V1 - V2: Fixup issues mentioned by Krzysztof
 
-Applied to
+So what changed?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+>          Add SPI and I2C examples
 
-Thanks!
+Why?
 
-[1/1] ASoC: SOF: ipc4-topology: Clarify bind failure caused by missing fw_module
-      commit: de6aa72b265b72bca2b1897d5000c8f0147d3157
+> 
+>  .../devicetree/bindings/sound/wlf,wm8510.yaml | 52 +++++++++++++++++++
+>  .../devicetree/bindings/sound/wm8510.txt      | 18 -------
+>  2 files changed, 52 insertions(+), 18 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8510.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/wm8510.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8510.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8510.yaml
+> new file mode 100644
+> index 000000000000..418a82f65531
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/wlf,wm8510.yaml
+> @@ -0,0 +1,52 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/wlf,wm8510.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: WM8510 audio CODEC
+> +
+> +maintainers:
+> +  - patches@opensource.cirrus.com
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: wlf,wm8510
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        
+> +        codec@0 {
+> +            compatible = "wlf,wm8510";
+> +            reg = <0>;
+> +        };
+> +    };
+> +
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        codec@1a {
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Drop second example. It is the same.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards,
+Krzysztof
 

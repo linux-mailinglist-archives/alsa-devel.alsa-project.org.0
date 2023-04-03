@@ -2,84 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D3516D44E3
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 14:52:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B939F6D44EB
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 14:53:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51C031F0;
-	Mon,  3 Apr 2023 14:51:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51C031F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 138B5200;
+	Mon,  3 Apr 2023 14:52:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 138B5200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680526332;
-	bh=AJEjoPDvOiW9O7K74lmqI5HZy8RzM1Zgtt3tX3ncQVU=;
+	s=default; t=1680526383;
+	bh=8aJ44bd4d5edAPiqMTaOF1QxLbXCmKzlPKhW1WxDuCE=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Nww+Gt01UruXe32k0NLVfKm0w4lI3URuiVIFgo2AZronTjGaA1wmhWYNvYZmpZpde
-	 RD8U06m/xgactPpnWHrOGPz57qXKBBGivalssB0pEqRrhdnD1y6pAI1ILqh0LcODGE
-	 VHRQ8kadbWnFBPMgz/9lfcauz8ucHdJ0MACvLxGA=
+	b=WDSbOSniltlifTuNwDQTVGfDIRAGq/bk6mpQQtU0da8AzXBoN2kVQa44l2VmksZi8
+	 8NnOSHoM6fndTUp4TbA/XWvfv2Ly4eyuK8cj4bgMp7PmbX66KqRQrDwwIpG6d9n6sE
+	 6wqWgT9PsgmHm3DuM7q4f7qnIgZWWIr+Z6RjIGKI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B34B2F8024C;
-	Mon,  3 Apr 2023 14:51:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3252EF80482;
+	Mon,  3 Apr 2023 14:51:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41CA8F8024C; Mon,  3 Apr 2023 14:51:17 +0200 (CEST)
+	id 623F7F80495; Mon,  3 Apr 2023 14:51:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7F378F801C0
-	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 14:51:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F378F801C0
+	by alsa1.perex.cz (Postfix) with ESMTPS id B5F6EF8015B
+	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 14:51:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5F6EF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=idZVmq4o
+ header.s=k20201202 header.b=oXKzBdcx
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id 01CF5B819A1;
-	Mon,  3 Apr 2023 12:51:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25A59C433D2;
-	Mon,  3 Apr 2023 12:51:02 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7430561A82;
+	Mon,  3 Apr 2023 12:51:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFA71C4339E;
+	Mon,  3 Apr 2023 12:51:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680526267;
-	bh=AJEjoPDvOiW9O7K74lmqI5HZy8RzM1Zgtt3tX3ncQVU=;
+	s=k20201202; t=1680526271;
+	bh=8aJ44bd4d5edAPiqMTaOF1QxLbXCmKzlPKhW1WxDuCE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=idZVmq4o2EB52wKthrVNjlBfK6yyo6TDGbGtIp/0DZUo8D/XZqfEYeFONbXR7VQcu
-	 VWDcTUChhGJIfAQgze424L7gve3jiz6eINVeL2APdtQoqC3DZ8a8/leoXFd6Z9lTH9
-	 6CSOVnq4/zrdewmZ8cuBwS0orRjspEArZmm6tIxxrnwlIeNmX16toMfeNvXB7sp2I7
-	 ntvbVfxhFSc/SNOTSRUVcI7NiNLheJVIybVj7D7EImiBm5Y1fKzzA8iFcu5fa9L/5k
-	 u4rVVpPYiLz6j7lRrzcqSg6VnVB5/HOaB1DaTC34MEDL17KMy4S1iR90wk1ArWiyLR
-	 WL2TwHszaikqQ==
+	b=oXKzBdcxbxgeFTUWlai3aKjiIJShGmjXISgL6d0kQ7DgKNKvFLd74pMIAO1XSVhXt
+	 7Hn4Aa/4E3UT/sZbggtP0IH/9w+VIPTqzfVrBwRswAkIAUVzwwJJK9y0Y39IPZa1gl
+	 syvAKBGapk3Y5hm1j5ERlySINC5tO5CFq8rxerVc7F85axKXdeUHrqzNDwdYGGOmSS
+	 2sk1p81wUNf727vvWmaFC0eKlkqwqmkLvh/J/sRw34xjjhdLW28g8RDk/ammok9o4Y
+	 IVjPVW6gj0lpivAiJ/b263L6Z1qrXfv2ZjYEmZWyDS90KvEZI7oCXgj1P0qm74/vqz
+	 mENnD8DF4gzsA==
 From: Mark Brown <broonie@kernel.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230327132254.147975-1-krzysztof.kozlowski@linaro.org>
-References: <20230327132254.147975-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: (subset) [PATCH v3 00/10] ASoC: add audio digital codecs for
- Qualcomm SM8550
-Message-Id: <168052626277.36561.10428671254225734348.b4-ty@kernel.org>
-Date: Mon, 03 Apr 2023 13:51:02 +0100
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230403090909.18233-1-peter.ujfalusi@linux.intel.com>
+References: <20230403090909.18233-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH for v6.3-rc] ASoC: SOF: ipc4-topology: Clarify bind
+ failure caused by missing fw_module
+Message-Id: <168052626818.36561.15470216778715648904.b4-ty@kernel.org>
+Date: Mon, 03 Apr 2023 13:51:08 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: X7WTJ4R543Q4ZIX6CFJRB77UTM47T6WC
-X-Message-ID-Hash: X7WTJ4R543Q4ZIX6CFJRB77UTM47T6WC
+Message-ID-Hash: J47LFQGMRZYG4XVKEY4J3MQGYGGKZZT6
+X-Message-ID-Hash: J47LFQGMRZYG4XVKEY4J3MQGYGGKZZT6
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,13 +78,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Patrick Lai <quic_plai@quicinc.com>
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ guennadi.liakhovetski@linux.intel.com, stable@vger.kernel.org,
+ error27@gmail.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7WTJ4R543Q4ZIX6CFJRB77UTM47T6WC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J47LFQGMRZYG4XVKEY4J3MQGYGGKZZT6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,14 +96,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 27 Mar 2023 15:22:44 +0200, Krzysztof Kozlowski wrote:
-> This patchset can be merged as is - no dependencies.
-> 
-> Changes since v2
-> ================
-> 1. Rebase.
-> 2. New patch: ASoC: dt-bindings: qcom,lpass-va-macro: Add missing NPL clock.
-> 3. Add Rb tags.
+On Mon, 03 Apr 2023 12:09:09 +0300, Peter Ujfalusi wrote:
+> The original patch uses a feature in lib/vsprintf.c to handle the invalid
+> address when tring to print *_fw_module->man4_module_entry.name when the
+> *rc_fw_module is NULL.
+> This case is handled by check_pointer_msg() internally and turns the
+> invalid pointer to '(efault)' for printing but it is hiding useful
+> information about the circumstances. Change the print to emmit the name
+> of the widget and a note on which side's fw_module is missing.
 > 
 > [...]
 
@@ -119,8 +113,8 @@ Applied to
 
 Thanks!
 
-[07/10] ASoC: dt-bindings: qcom,lpass-va-macro: Add missing NPL clock
-        commit: cfad817095e111b640c7d538b9f182d2535ee065
+[1/1] ASoC: SOF: ipc4-topology: Clarify bind failure caused by missing fw_module
+      commit: de6aa72b265b72bca2b1897d5000c8f0147d3157
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

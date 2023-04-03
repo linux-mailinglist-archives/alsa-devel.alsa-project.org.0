@@ -2,74 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB76A6D4B7C
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 17:10:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE8AF6D4B7A
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 17:09:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E517B820;
-	Mon,  3 Apr 2023 17:09:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E517B820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FEBB204;
+	Mon,  3 Apr 2023 17:08:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FEBB204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680534610;
-	bh=lf4upq3FdpRAqhv049TEQuv0s9Un/cwgAomIIpEaq0s=;
+	s=default; t=1680534586;
+	bh=BSS3Ft8JQ9etJOn1zN0oTwzUaes1AtJBsgymC/v4kdc=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cHaMMvdfuYuw3Yua1KL89x5loaFdci+rZpLA7y7+rvo9hJN1CYI7ZgxG4ecJvo1L0
-	 D8xHiJW3tWLXVpQ8r9hNZBhKRlMVsn6iM3zckm51/S8zx4sXzrrcCdC2QwjjzVosDa
-	 ZJl1wBI3WHptyTvJ6AM7AlV4XqogUcv3lHtLUerY=
+	b=V6OzdS9EG74W+Hasp3Y9kHqoANd0HrG9Irv0DG1Yeic6AHj/kpkQ1yGkrPRkmGBr2
+	 CEnJ4Rsah+ksa69tqt2d9yPPImCcAu3YYKRwDr2wL0Zp02WX0H1adXKciIofjvSEks
+	 fjdoii0nvegwAiXremHzqc4a38QhPdKHIZy6ENz8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 716CFF80544;
-	Mon,  3 Apr 2023 17:08:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27BFEF8028B;
+	Mon,  3 Apr 2023 17:08:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 27655F8015B; Mon,  3 Apr 2023 17:08:04 +0200 (CEST)
+	id 855AAF8028B; Mon,  3 Apr 2023 17:08:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1EAF0F8026D
-	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 17:07:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EAF0F8026D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9874BF8015B
+	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 17:07:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9874BF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=iKoGuZuQ
+ header.s=k20201202 header.b=LH6/UPc2
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 20D1361FE1;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4038A61FC7;
+	Mon,  3 Apr 2023 15:07:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72277C433EF;
 	Mon,  3 Apr 2023 15:07:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4266C4339B;
-	Mon,  3 Apr 2023 15:07:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680534470;
-	bh=lf4upq3FdpRAqhv049TEQuv0s9Un/cwgAomIIpEaq0s=;
+	s=k20201202; t=1680534473;
+	bh=BSS3Ft8JQ9etJOn1zN0oTwzUaes1AtJBsgymC/v4kdc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=iKoGuZuQuiB2AATagOH6QT06cLYsL9IFURw0gD3/EwCcErabq2543tv9bsmViTDXB
-	 Ntl5DHlpgqVlZXvPmNd4vL6bsf1c03/hKV9DR5mtxuPdMqGgIMY0cbn29J/u68TUef
-	 KU+pa+ddaDhqh8/zSWnYh9K7fdhpkUmCXXPvN5+q3Ik+VlkvZ3T0iAOPFPAW1cTsxZ
-	 F0cOEI5nr96DvY+HgbJsiOsz9gjO22nE/nfp5/3pr9d53mF7/3AMweg9QiIKo+9vGF
-	 DxRzecYn4/dw3M9u13AIKY5euxw/Bn9SgPflEgvmIk6vs3ehdH6OhK1tAAWikPn7ij
-	 i2LrEc+qA57WQ==
+	b=LH6/UPc2zLS065s2+tZPcVdZUiadCX0D0+ucwbowf+9GAdMeVXzEUGVjxqu6zBBlu
+	 PxGDkfaLD4x0nPXajNRS7WcMTdKpyQ74urU0X29Xc4DeJTHLLpP/8o4ch58oA4nZtI
+	 3HCO81N1V9Ko9cJMH4tH3EAPvUPRGEkdB295IcU1lfq9sKwoBmhMSlCTNMpEGgJZHX
+	 VIBB9CXQyFAXAjisMPGJDoLg2PLMITWOfOh/tNThpFHBiiJrO1tUc6EXj/GqEbXvht
+	 YpXJ/9kftMUe9VMfRs7aK4bHQuJ1e54oQsnT6oR4q/KhNJTh6mg+dbNlmQbiCkVHZG
+	 AQe0G0fPoHYUw==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20230328131018.6820-1-rf@opensource.cirrus.com>
-References: <20230328131018.6820-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH v2] firmware: cs_dsp: Add a debugfs entry containing
- control details
-Message-Id: <168053446957.47553.1396193248539137592.b4-ty@kernel.org>
-Date: Mon, 03 Apr 2023 16:07:49 +0100
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>
+In-Reply-To: <20230329080418.1100-1-allen-kh.cheng@mediatek.com>
+References: <20230329080418.1100-1-allen-kh.cheng@mediatek.com>
+Subject: Re: [PATCH] ASoC: mediatek: mt8186: Move some prints to debug
+ level
+Message-Id: <168053447118.47553.13821701231639468315.b4-ty@kernel.org>
+Date: Mon, 03 Apr 2023 16:07:51 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: TQCESYU74T6IKDEOWBJMJWZQUT37PESS
-X-Message-ID-Hash: TQCESYU74T6IKDEOWBJMJWZQUT37PESS
+Message-ID-Hash: 2J7FRFJRHT575RBXGR7F2FTPPP3BT547
+X-Message-ID-Hash: 2J7FRFJRHT575RBXGR7F2FTPPP3BT547
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,34 +81,29 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Simon Trimmer <simont@opensource.cirrus.com>
+CC: Project_Global_Chrome_Upstream_Group@mediatek.com,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TQCESYU74T6IKDEOWBJMJWZQUT37PESS/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2J7FRFJRHT575RBXGR7F2FTPPP3BT547/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 28 Mar 2023 14:10:18 +0100, Richard Fitzgerald wrote:
-> The file named 'controls' in the DSP's debugfs root contains a
-> formatted table describing the controls defined within the loaded DSP
-> firmware, it is of the form
+On Wed, 29 Mar 2023 16:04:18 +0800, Allen-KH Cheng wrote:
+> There are many log messages scattered throughout the mt8186 sound
+> drivers, and they are frequently triggered.
 > 
->   name: len region:offset addr fwname algid ctltype flags en dirty
+> To avoid spamming the console, move these messages to the debug level.
 > 
-> Where flags is represented as a character for each flag if set, or '-',
-> enabled is whether the control is enabled or disabled and dirty is
-> whether the control value is set in the cache but not the hardware.
 > 
-> [...]
 
 Applied to
 
@@ -112,8 +111,8 @@ Applied to
 
 Thanks!
 
-[1/1] firmware: cs_dsp: Add a debugfs entry containing control details
-      commit: 7a3f924cee4bdfe85eda4e636213e79d3fda6182
+[1/1] ASoC: mediatek: mt8186: Move some prints to debug level
+      commit: 3af24372964a8f999d62427c0585d9a4693ae4e4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

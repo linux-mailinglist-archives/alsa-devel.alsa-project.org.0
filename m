@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4EAE6D45C6
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 15:28:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECD836D45C7
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 15:28:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07FC4836;
-	Mon,  3 Apr 2023 15:27:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07FC4836
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6B14832;
+	Mon,  3 Apr 2023 15:27:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6B14832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680528494;
-	bh=nSeX/SLwys6Gsk0/1OS5/4hgDHjZeAFyE2i5p7qdk/U=;
+	s=default; t=1680528510;
+	bh=Iwjy17kg1P0i5i4AbZWulGFs1IIbNqfPDxXfBkZ2OPQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=P8D9NwzPvtFpuwon4QQzmqdweV5sFx6Esl/ps0WaEc4D41s1WdRMXXEqu+zHI3JS+
-	 +ePoMuhkP5vWkgm7eQ8I36q09J5lHfdmusUcFi8V15M4YFHxsoGre7tMdJPitj97/5
-	 eNvmQN0ONV7uxnpuLjfBmGW4JkadRFJKauxVIpIM=
+	b=NJP0Uz5JabiBZSGOBQS+YJ3OZa1uYG1WKMtlh623fVo9tsuHOpDtietJmk1GHKJTu
+	 RqSZDq6L/BKj3kIr5QVUQsuMoVmLC+Tgl1RFEJ828skGN2mI+3WmtjFUgFsv0ALfY5
+	 KWpOnv4Z0WTP7lk7lueS+mdE797dHaDgfmfRks+o=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CD30F80568;
-	Mon,  3 Apr 2023 15:26:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF973F8057D;
+	Mon,  3 Apr 2023 15:26:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1083DF80171; Mon,  3 Apr 2023 15:25:58 +0200 (CEST)
+	id 17D44F8026D; Mon,  3 Apr 2023 15:26:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
+X-Spam-Status: No, score=-4.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	UPPERCASE_50_75,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E550DF80249
-	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 15:25:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E550DF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 292C3F80495
+	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 15:25:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 292C3F80495
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=SZGcJouB
-Received: by mail-ed1-x52e.google.com with SMTP id eh3so117239654edb.11
+ header.s=google header.b=Nr3g+Hbl
+Received: by mail-ed1-x52c.google.com with SMTP id h8so117331400ede.8
         for <alsa-devel@alsa-project.org>;
- Mon, 03 Apr 2023 06:25:13 -0700 (PDT)
+ Mon, 03 Apr 2023 06:25:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680528313;
+        d=linaro.org; s=google; t=1680528315;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Sp60VseyF3SpEN3gnPKxC1hi6CKSvHoQqI8q0rR6RTk=;
-        b=SZGcJouBU/P4xZdMQYh2igcXuDvcD0qFuYO+3zK7Lu/9EdNEvqDC9hUmvK2oARpCia
-         SBq7AI4zveQf98avUEQDkmFLZ8i51q+I37/6AKKssQZEWFhDgFSQsaeR1rBtR+r8CBKA
-         hVk7inUHp9q8sTF98bOjMstGBnSFqgOh1m4UvGL46nU7Xcny42AgeNTg7SeJVsvWK9Vk
-         72MYF818eq6uK3DSM6kIVuAgIUMVvg34c2HaJIEXyLVLFWD6a1faQ2nIeMjFzyqMETV8
-         4MOvzqcKhlq6X9LYUqP5VVkKlPJL/5FbLgE56188w+wW5EA05v6XK5bgpDMyjicdMLEt
-         Ntnw==
+        bh=weKVU1kTnYmV8Kz2hO3iwF9H+hKHLTD9FkkPqYTBdb4=;
+        b=Nr3g+Hbl9L+w1ge2cQP835ENaUyoy3GnzYz3FXpww7GCn4U/JCBEF21ElDfb3y4+zw
+         hi1mf3tfYM+l2M2IpoJwtOg09JjGLoj5NZJjpyzIalK02GcJSePgcGzl++cFH6Vknsvu
+         3ZRqtxNYkovZVJ6+F5EbrdkHkxzREnDGxpdGBhzeexv+OwhW8rBJbh+MMcpSoUo/oUHt
+         +fKjFbEO8uFyxXqd11LTqio2VmwruzhoZXvZnTHG+Wiq3lX/3q+/GK93LBKvZ00nINbb
+         3nd6ogV80OnDN916s9frwHl8pJzQdoQqOy4+SAJ5p7AtT7eXFMG1E9tTdLt1VHB3MkNN
+         yh1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680528313;
+        d=1e100.net; s=20210112; t=1680528315;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Sp60VseyF3SpEN3gnPKxC1hi6CKSvHoQqI8q0rR6RTk=;
-        b=792sR9AdUDwsF5k8GPgAmUGrv3EuWtXQdStC3YhgS5CK5CGiVVBzF8mXdMFT2nOxVY
-         9w48uXIDydhf3ISq0GpYJ1CSUDKglTIZwQr/vJvZB+cnqzYff/Bo2bRUYIw0riuJ6w8w
-         ypjMVC7eTbS4PoHvPzTbMpE8xCr53LB/WckdF6pFARPQEHoD5YhHzJvm6biG7tshfHRl
-         Rc4B4GhrdSrjVkCDtz9db29S8p/6+yvg4g2EtztNYMnwsOkjcMcFiCTFEyGmT+SGP+91
-         /obsg1iApS7ob2Axe1gTeVhU1Z2839lj3R2CgBTVUSMERBuc1giivsJSd9OddYSsGQtn
-         cyyQ==
-X-Gm-Message-State: AAQBX9c6ntZuQ8tsY/tV4o7zwDHgURQSN8PbMP+NWe3Z+fTmYPKTAb1p
-	x/9ofjTucO0+jKj3gGlvJ59WgA==
+        bh=weKVU1kTnYmV8Kz2hO3iwF9H+hKHLTD9FkkPqYTBdb4=;
+        b=X5rQCPRSMKlq89uFPVCYoNpytI/disqVVBl6BkpwQ9btjMHvHMiO7HkyleLHJJLJSD
+         wEEO9WepUs4ITR0CPbcwaeEJn1h+QzvawDprmf0G6K/sMS0JsK8Wt2ENl1Ic440FfAqx
+         w6UFn3nAWdUFu4dDameEJqvQxnasIkwAK+A7ip05MoTgKN/fTUsavK/p1GaaWrkwnMQE
+         KBmdAf5NbxlhkKPF+icmdR1nVYsjjrZ7hkeybghWpOuA8Gf8j8t2aZRvGgXjH9SiwwIL
+         qy4KcbSMHKaj9oNgbJRZU3LxRqfpFZZ7hx4y/bQJBv7X1ARVW72MezSP2Rj0CZEx2sTe
+         Zqrw==
+X-Gm-Message-State: AAQBX9dx1t4AdZmRWN7yZomk1son8940VOT0yxtX2DA5KBha64yJicXC
+	Xt816YpltwZ3hh5hYLwo9z1H/w==
 X-Google-Smtp-Source: 
- AKy350b0pTxTcdyFPeSdZbvMmY7fANeAxsGjF1AB0Ykbj2DMfJPEJJyhRx8UHlLlWj2LZd+dYzn+VQ==
-X-Received: by 2002:a17:906:d966:b0:8b0:f58d:2da9 with SMTP id
- rp6-20020a170906d96600b008b0f58d2da9mr35907692ejb.64.1680528313570;
-        Mon, 03 Apr 2023 06:25:13 -0700 (PDT)
+ AKy350YWrarnG+pOFyqN5H8GPs94VDiB0504oYYt4205v8N6P8ovj34ASsNOxyFu/AbLwsjVAIXL0A==
+X-Received: by 2002:a17:906:81d5:b0:93d:ae74:fa9e with SMTP id
+ e21-20020a17090681d500b0093dae74fa9emr34019824ejx.7.1680528314726;
+        Mon, 03 Apr 2023 06:25:14 -0700 (PDT)
 Received: from krzk-bin.. ([2a02:810d:15c0:828:ae90:d80:1069:4805])
         by smtp.gmail.com with ESMTPSA id
- p18-20020a170906229200b00930ba362216sm4658489eja.176.2023.04.03.06.25.12
+ p18-20020a170906229200b00930ba362216sm4658489eja.176.2023.04.03.06.25.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Apr 2023 06:25:13 -0700 (PDT)
+        Mon, 03 Apr 2023 06:25:14 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
@@ -98,16 +98,16 @@ To: Andy Gross <agross@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH v2 6/7] soundwire: qcom: add support for v2.0.0 controller
-Date: Mon,  3 Apr 2023 15:25:02 +0200
-Message-Id: <20230403132503.62090-7-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 7/7] soundwire: qcom: use tabs for indentation in defines
+Date: Mon,  3 Apr 2023 15:25:03 +0200
+Message-Id: <20230403132503.62090-8-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
 References: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: U6YXAWEDDBZ5DMFU2FUX6PDXP7O7K4BP
-X-Message-ID-Hash: U6YXAWEDDBZ5DMFU2FUX6PDXP7O7K4BP
+Message-ID-Hash: 3DE3OVXZT4772XAFV6TVWWSFLRNOZYJJ
+X-Message-ID-Hash: 3DE3OVXZT4772XAFV6TVWWSFLRNOZYJJ
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U6YXAWEDDBZ5DMFU2FUX6PDXP7O7K4BP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3DE3OVXZT4772XAFV6TVWWSFLRNOZYJJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,183 +131,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add support for Qualcomm Soundwire Controller with a bit different
-register layout.
+Use consistently only tabs to indent the value in defines.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/soundwire/qcom.c | 65 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 8 deletions(-)
+ drivers/soundwire/qcom.c | 34 +++++++++++++++++-----------------
+ 1 file changed, 17 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index b6666ffe37ae..f2e1135ef113 100644
+index f2e1135ef113..77a5e4cbbe9b 100644
 --- a/drivers/soundwire/qcom.c
 +++ b/drivers/soundwire/qcom.c
-@@ -31,6 +31,7 @@
- #define SWRM_VERSION_1_3_0					0x01030000
- #define SWRM_VERSION_1_5_1					0x01050001
- #define SWRM_VERSION_1_7_0					0x01070000
-+#define SWRM_VERSION_2_0_0					0x02000000
- #define SWRM_COMP_HW_VERSION					0x00
- #define SWRM_COMP_CFG_ADDR					0x04
- #define SWRM_COMP_CFG_IRQ_LEVEL_OR_PULSE_MSK			BIT(1)
-@@ -42,6 +43,7 @@
- #define SWRM_COMP_PARAMS_DIN_PORTS_MASK				GENMASK(9, 5)
- #define SWRM_COMP_MASTER_ID					0x104
- #define SWRM_V1_3_INTERRUPT_STATUS				0x200
-+#define SWRM_V2_0_INTERRUPT_STATUS				0x5000
- #define SWRM_INTERRUPT_STATUS_RMSK				GENMASK(16, 0)
- #define SWRM_INTERRUPT_STATUS_SLAVE_PEND_IRQ			BIT(0)
- #define SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED		BIT(1)
-@@ -54,24 +56,32 @@
- #define SWRM_INTERRUPT_STATUS_DOUT_PORT_COLLISION		BIT(8)
- #define SWRM_INTERRUPT_STATUS_READ_EN_RD_VALID_MISMATCH		BIT(9)
+@@ -58,9 +58,9 @@
  #define SWRM_INTERRUPT_STATUS_SPECIAL_CMD_ID_FINISHED		BIT(10)
-+#define SWRM_INTERRUPT_STATUS_AUTO_ENUM_FAILED			BIT(11)
-+#define SWRM_INTERRUPT_STATUS_AUTO_ENUM_TABLE_IS_FULL		BIT(12)
- #define SWRM_INTERRUPT_STATUS_BUS_RESET_FINISHED_V2             BIT(13)
- #define SWRM_INTERRUPT_STATUS_CLK_STOP_FINISHED_V2              BIT(14)
- #define SWRM_INTERRUPT_STATUS_EXT_CLK_STOP_WAKEUP               BIT(16)
+ #define SWRM_INTERRUPT_STATUS_AUTO_ENUM_FAILED			BIT(11)
+ #define SWRM_INTERRUPT_STATUS_AUTO_ENUM_TABLE_IS_FULL		BIT(12)
+-#define SWRM_INTERRUPT_STATUS_BUS_RESET_FINISHED_V2             BIT(13)
+-#define SWRM_INTERRUPT_STATUS_CLK_STOP_FINISHED_V2              BIT(14)
+-#define SWRM_INTERRUPT_STATUS_EXT_CLK_STOP_WAKEUP               BIT(16)
++#define SWRM_INTERRUPT_STATUS_BUS_RESET_FINISHED_V2		BIT(13)
++#define SWRM_INTERRUPT_STATUS_CLK_STOP_FINISHED_V2		BIT(14)
++#define SWRM_INTERRUPT_STATUS_EXT_CLK_STOP_WAKEUP		BIT(16)
  #define SWRM_INTERRUPT_MAX					17
  #define SWRM_V1_3_INTERRUPT_MASK_ADDR				0x204
  #define SWRM_V1_3_INTERRUPT_CLEAR				0x208
-+#define SWRM_V2_0_INTERRUPT_CLEAR				0x5008
- #define SWRM_V1_3_INTERRUPT_CPU_EN				0x210
-+#define SWRM_V2_0_INTERRUPT_CPU_EN				0x5004
- #define SWRM_V1_3_CMD_FIFO_WR_CMD				0x300
-+#define SWRM_V2_0_CMD_FIFO_WR_CMD				0x5020
- #define SWRM_V1_3_CMD_FIFO_RD_CMD				0x304
-+#define SWRM_V2_0_CMD_FIFO_RD_CMD				0x5024
- #define SWRM_CMD_FIFO_CMD					0x308
- #define SWRM_CMD_FIFO_FLUSH					0x1
- #define SWRM_V1_3_CMD_FIFO_STATUS				0x30C
-+#define SWRM_V2_0_CMD_FIFO_STATUS				0x5050
- #define SWRM_RD_CMD_FIFO_CNT_MASK				GENMASK(20, 16)
- #define SWRM_WR_CMD_FIFO_CNT_MASK				GENMASK(12, 8)
- #define SWRM_CMD_FIFO_CFG_ADDR					0x314
- #define SWRM_CONTINUE_EXEC_ON_CMD_IGNORE			BIT(31)
- #define SWRM_RD_WR_CMD_RETRIES					0x7
- #define SWRM_V1_3_CMD_FIFO_RD_FIFO_ADDR				0x318
-+#define SWRM_V2_0_CMD_FIFO_RD_FIFO_ADDR				0x5040
- #define SWRM_RD_FIFO_CMD_ID_MASK				GENMASK(11, 8)
- #define SWRM_ENUMERATOR_CFG_ADDR				0x500
- #define SWRM_ENUMERATOR_SLAVE_DEV_ID_1(m)		(0x530 + 0x8 * (m))
-@@ -98,6 +108,11 @@
- #define SWRM_DP_SAMPLECTRL2_BANK(n, m)	(0x113C + 0x100 * (n - 1) + 0x40 * m)
- #define SWRM_DIN_DPn_PCM_PORT_CTRL(n)	(0x1054 + 0x100 * (n - 1))
- #define SWR_V1_3_MSTR_MAX_REG_ADDR				0x1740
-+#define SWR_V2_0_MSTR_MAX_REG_ADDR				0x50ac
-+
-+#define SWRM_V2_0_CLK_CTRL					0x5060
-+#define SWRM_V2_0_CLK_CTRL_CLK_START				BIT(0)
-+#define SWRM_V2_0_LINK_STATUS					0x5064
+@@ -125,20 +125,20 @@
+ #define SWRM_REG_VAL_PACK(data, dev, id, reg)	\
+ 			((reg) | ((id) << 16) | ((dev) << 20) | ((data) << 24))
  
- #define SWRM_DP_PORT_CTRL_EN_CHAN_SHFT				0x18
- #define SWRM_DP_PORT_CTRL_OFFSET2_SHFT				0x10
-@@ -243,6 +258,26 @@ static const struct qcom_swrm_data swrm_v1_6_data = {
- 	.reg_layout = swrm_v1_3_reg_layout,
- };
+-#define MAX_FREQ_NUM		1
+-#define TIMEOUT_MS		100
+-#define QCOM_SWRM_MAX_RD_LEN	0x1
+-#define QCOM_SDW_MAX_PORTS	14
+-#define DEFAULT_CLK_FREQ	9600000
+-#define SWRM_MAX_DAIS		0xF
+-#define SWR_INVALID_PARAM 0xFF
+-#define SWR_HSTOP_MAX_VAL 0xF
+-#define SWR_HSTART_MIN_VAL 0x0
+-#define SWR_BROADCAST_CMD_ID    0x0F
+-#define SWR_MAX_CMD_ID	14
+-#define MAX_FIFO_RD_RETRY 3
+-#define SWR_OVERFLOW_RETRY_COUNT 30
+-#define SWRM_LINK_STATUS_RETRY_CNT 100
++#define MAX_FREQ_NUM						1
++#define TIMEOUT_MS						100
++#define QCOM_SWRM_MAX_RD_LEN					0x1
++#define QCOM_SDW_MAX_PORTS					14
++#define DEFAULT_CLK_FREQ					9600000
++#define SWRM_MAX_DAIS						0xF
++#define SWR_INVALID_PARAM					0xFF
++#define SWR_HSTOP_MAX_VAL					0xF
++#define SWR_HSTART_MIN_VAL					0x0
++#define SWR_BROADCAST_CMD_ID					0x0F
++#define SWR_MAX_CMD_ID						14
++#define MAX_FIFO_RD_RETRY					3
++#define SWR_OVERFLOW_RETRY_COUNT				30
++#define SWRM_LINK_STATUS_RETRY_CNT				100
  
-+static const unsigned int swrm_v2_0_reg_layout[] = {
-+	[SWRM_REG_FRAME_GEN_ENABLED] = SWRM_V2_0_LINK_STATUS,
-+	[SWRM_REG_INTERRUPT_STATUS] = SWRM_V2_0_INTERRUPT_STATUS,
-+	[SWRM_REG_INTERRUPT_MASK_ADDR] = 0, /* Not present */
-+	[SWRM_REG_INTERRUPT_CLEAR] = SWRM_V2_0_INTERRUPT_CLEAR,
-+	[SWRM_REG_INTERRUPT_CPU_EN] = SWRM_V2_0_INTERRUPT_CPU_EN,
-+	[SWRM_REG_CMD_FIFO_WR_CMD] = SWRM_V2_0_CMD_FIFO_WR_CMD,
-+	[SWRM_REG_CMD_FIFO_RD_CMD] = SWRM_V2_0_CMD_FIFO_RD_CMD,
-+	[SWRM_REG_CMD_FIFO_STATUS] = SWRM_V2_0_CMD_FIFO_STATUS,
-+	[SWRM_REG_CMD_FIFO_RD_FIFO_ADDR] = SWRM_V2_0_CMD_FIFO_RD_FIFO_ADDR,
-+};
-+
-+static const struct qcom_swrm_data swrm_v2_0_data = {
-+	.default_rows = 50,
-+	.default_cols = 16,
-+	.sw_clk_gate_required = true,
-+	.max_reg = SWR_V2_0_MSTR_MAX_REG_ADDR,
-+	.reg_layout = swrm_v2_0_reg_layout,
-+};
-+
- #define to_qcom_sdw(b)	container_of(b, struct qcom_swrm_ctrl, bus)
- 
- static int qcom_swrm_ahb_reg_read(struct qcom_swrm_ctrl *ctrl, int reg,
-@@ -748,18 +783,23 @@ static int qcom_swrm_init(struct qcom_swrm_ctrl *ctrl)
- 
- 	ctrl->intr_mask = SWRM_INTERRUPT_STATUS_RMSK;
- 	/* Mask soundwire interrupts */
--	ctrl->reg_write(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_MASK_ADDR],
--			SWRM_INTERRUPT_STATUS_RMSK);
-+	if (ctrl->version < SWRM_VERSION_2_0_0)
-+		ctrl->reg_write(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_MASK_ADDR],
-+				SWRM_INTERRUPT_STATUS_RMSK);
- 
- 	/* Configure No pings */
- 	ctrl->reg_read(ctrl, SWRM_MCP_CFG_ADDR, &val);
- 	u32p_replace_bits(&val, SWRM_DEF_CMD_NO_PINGS, SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK);
- 	ctrl->reg_write(ctrl, SWRM_MCP_CFG_ADDR, val);
- 
--	if (ctrl->version >= SWRM_VERSION_1_7_0) {
-+	if (ctrl->version == SWRM_VERSION_1_7_0) {
- 		ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, SWRM_EE_CPU);
- 		ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL,
- 				SWRM_MCP_BUS_CLK_START << SWRM_EE_CPU);
-+	} else if (ctrl->version >= SWRM_VERSION_2_0_0) {
-+		ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, SWRM_EE_CPU);
-+		ctrl->reg_write(ctrl, SWRM_V2_0_CLK_CTRL,
-+				SWRM_V2_0_CLK_CTRL_CLK_START);
- 	} else {
- 		ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL, SWRM_MCP_BUS_CLK_START);
- 	}
-@@ -1609,10 +1649,14 @@ static int __maybe_unused swrm_runtime_resume(struct device *dev)
- 	} else {
- 		reset_control_reset(ctrl->audio_cgcr);
- 
--		if (ctrl->version >= SWRM_VERSION_1_7_0) {
-+		if (ctrl->version == SWRM_VERSION_1_7_0) {
- 			ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, SWRM_EE_CPU);
- 			ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL,
- 					SWRM_MCP_BUS_CLK_START << SWRM_EE_CPU);
-+		} else if (ctrl->version >= SWRM_VERSION_2_0_0) {
-+			ctrl->reg_write(ctrl, SWRM_LINK_MANAGER_EE, SWRM_EE_CPU);
-+			ctrl->reg_write(ctrl, SWRM_V2_0_CLK_CTRL,
-+					SWRM_V2_0_CLK_CTRL_CLK_START);
- 		} else {
- 			ctrl->reg_write(ctrl, SWRM_MCP_BUS_CTRL, SWRM_MCP_BUS_CLK_START);
- 		}
-@@ -1620,8 +1664,10 @@ static int __maybe_unused swrm_runtime_resume(struct device *dev)
- 			SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET);
- 
- 		ctrl->intr_mask |= SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
--		ctrl->reg_write(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_MASK_ADDR],
--				ctrl->intr_mask);
-+		if (ctrl->version < SWRM_VERSION_2_0_0)
-+			ctrl->reg_write(ctrl,
-+					ctrl->reg_layout[SWRM_REG_INTERRUPT_MASK_ADDR],
-+					ctrl->intr_mask);
- 		ctrl->reg_write(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_CPU_EN],
- 				ctrl->intr_mask);
- 
-@@ -1645,8 +1691,10 @@ static int __maybe_unused swrm_runtime_suspend(struct device *dev)
- 	if (!ctrl->clock_stop_not_supported) {
- 		/* Mask bus clash interrupt */
- 		ctrl->intr_mask &= ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
--		ctrl->reg_write(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_MASK_ADDR],
--				ctrl->intr_mask);
-+		if (ctrl->version < SWRM_VERSION_2_0_0)
-+			ctrl->reg_write(ctrl,
-+					ctrl->reg_layout[SWRM_REG_INTERRUPT_MASK_ADDR],
-+					ctrl->intr_mask);
- 		ctrl->reg_write(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_CPU_EN],
- 				ctrl->intr_mask);
- 		/* Prepare slaves for clock stop */
-@@ -1684,6 +1732,7 @@ static const struct of_device_id qcom_swrm_of_match[] = {
- 	{ .compatible = "qcom,soundwire-v1.5.1", .data = &swrm_v1_5_data },
- 	{ .compatible = "qcom,soundwire-v1.6.0", .data = &swrm_v1_6_data },
- 	{ .compatible = "qcom,soundwire-v1.7.0", .data = &swrm_v1_5_data },
-+	{ .compatible = "qcom,soundwire-v2.0.0", .data = &swrm_v2_0_data },
- 	{/* sentinel */},
- };
- 
+ enum {
+ 	MASTER_ID_WSA = 1,
 -- 
 2.34.1
 

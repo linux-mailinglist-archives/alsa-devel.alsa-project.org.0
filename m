@@ -2,86 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C4586D45C0
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 15:27:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08D5F6D45BE
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Apr 2023 15:27:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 956647F4;
-	Mon,  3 Apr 2023 15:26:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 956647F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 468181FE;
+	Mon,  3 Apr 2023 15:26:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 468181FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680528441;
-	bh=PxYd3yv+A2KL28K9DPVIoPVnzepXRiQZB+vO/YriA44=;
+	s=default; t=1680528419;
+	bh=fWtz5EZIop7Wutnxgfit8029xBK7VD+ISoNuSwlGGGk=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GRsaTbnpWS8Pjav9WEMTinGpEIcVHMrvCBbX4ylCTQERaPh4LOUSFDtXapxz+EPtT
-	 1yGwiYhn9GQlArovrvGziChiiIRngaCb0v0UjmmTKelnnxBo5l0lZmiJd/4mjFLRXs
-	 VY2tHxshJ7kxE+rLMx6UrlZ9K5SbkWFOU/+0itCQ=
+	b=IC7TI6MCoayltiS0F0uJJG9fQZZUaS8B2N60fPN+EtyqrJQUlLzKT1JTg9ClsE2zt
+	 qtITQCjI3VU7FwNBrv1zrmJBNHbQNBZFREU+J/A+Aqm8CtXwptU5ck271QYHbzPYnh
+	 d6v7gwAJgrcMQbcJs/XrZSxDvFSW0YbZ+CN+uq8U=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D772BF80548;
-	Mon,  3 Apr 2023 15:25:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77350F8052D;
+	Mon,  3 Apr 2023 15:25:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 456AFF801C0; Mon,  3 Apr 2023 15:25:19 +0200 (CEST)
+	id EC8E3F8024C; Mon,  3 Apr 2023 15:25:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6138CF801C0
-	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 15:25:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6138CF801C0
+	by alsa1.perex.cz (Postfix) with ESMTPS id D42D7F8024C
+	for <alsa-devel@alsa-project.org>; Mon,  3 Apr 2023 15:25:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D42D7F8024C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=tzRfk8NO
-Received: by mail-ed1-x530.google.com with SMTP id r11so117314146edd.5
+ header.s=google header.b=KbIE8hHp
+Received: by mail-ed1-x52e.google.com with SMTP id eh3so117238917edb.11
         for <alsa-devel@alsa-project.org>;
- Mon, 03 Apr 2023 06:25:10 -0700 (PDT)
+ Mon, 03 Apr 2023 06:25:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680528309;
+        d=linaro.org; s=google; t=1680528310;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1cFC2doK7pP+oZeom2O+jOvVNNVc+JGEYRAe06U7TEU=;
-        b=tzRfk8NOdb/h927gg/TWagqrk60Ev0iFDYfLVXJiwNd5qxCR4SaQ12ZujIf+zwJPb5
-         veojcYiD+25NuWCpRkUWd+Xk5H0ZJzqrPqYGlkNI8Wfj7rGpj8OOfclitrkW26YSgM7e
-         gUqdtm4+pOs2MZ4vDSvBBt7Vc+23eB6tEd9u3XxkK4a50d470J1R/D0hgFmSUNmHQ1dX
-         Hp35beC+zAdmSVeHdaKkKFHDknXrxGxGIIBm8Ud3AcM/Z5XOHLB0mxVWiyrONl5McQq3
-         2HLsFHd/vlD+txHkqAuUppb5au7uD1atcUsR5VXz3SHg8S0Bq7F3/WFOS8V1cMage530
-         g+hQ==
+        bh=RNWNIuqhfrK8VPT/wc/b5owpPd0Qbj32dt41XL6jF7I=;
+        b=KbIE8hHpBMmVbs1dUdcqesZJr111M3juAwR/UVy5JlGbulKsFx7d6iHgThw/UcfE/H
+         g04ODRwtd7K6JWW/AkKYz82yClpeSok0TeRoIdHfTQS5tIH6oI/MxL9Al6YniKjUnWx3
+         95rKlTw/YTNiVRHJYjQ1YTfXPy1LUZuyhdMD2gzeT581NPC7ChG/vf1o8Daz7p5hMY7M
+         5RwASrOm4q0F4tXsKsBdHd0Aez6pVZnN0AQqt+hrU8iSFTq3djeT35MNlR/XURafW0yT
+         5MpnnUX2QuMq76hKOPQlmREU4ipwp6Xj9KyNXVSu1cRLId3aKBjBJVaePjq5CPDP3Qnb
+         /AwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680528309;
+        d=1e100.net; s=20210112; t=1680528310;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1cFC2doK7pP+oZeom2O+jOvVNNVc+JGEYRAe06U7TEU=;
-        b=l52OqiuAhfYE85i5vv8xykBFgNKFoKOcSm1UkUfjylVhyeUgL2LqLOxsJ8h0GqWCvZ
-         v/hXyHig5nGMpXQOmxRun6aqRap7oaTGLs01f1ssxoMSAO8tpoaMfNwbCyG7waVzWKtQ
-         y0UXh/KKgCkbPh3h2m/BjbVmZR3Znhy9GFUY+JWnZ0luhtLlHvOhNUXkX3EqX18JgZo1
-         daXffAYfSuBVxnm/h2wIzMcAPbssSADgdoRMjACHmqngxw+OWAUyPu4jszGP03IStqqz
-         8WIdsTjzNSwtoZ6UkKJ9JLdiWcXNVqAQXPH2ifaG2ne8+AhPCwHvyN9PfL5605T5BeiP
-         gNiQ==
-X-Gm-Message-State: AAQBX9fT8/ZPADRit39Vq7DZ92bj/UBjH2O/Ko9XGv21LO6IZZ3fVWc1
-	SRsOJ6KcVGgeo53qVTrlIu0Uew==
+        bh=RNWNIuqhfrK8VPT/wc/b5owpPd0Qbj32dt41XL6jF7I=;
+        b=eJGFMp4eUTeEqpDWwIUV7wNkh400FTIve3nLrt5TJJVkD96X82l3ekFP+tYOFZ8rlL
+         lfgTvPkyNVlYrWpg4oF/pAUEnUMLqkvSKrPZ6s5e1bFLg6P3biamxNN5vwvzYPYyPBem
+         0OaoXfqRoeaooje5OemvwAnMTp9eC2gZhS7xA0OPMSDZRdMaolgHCpcLDY1vWDluF+vA
+         dk30wfiVwc5YmL8hisNqMisfUhe9c2tS8tPQ1TTntR+vqF3h1EJc9MNV8byuIt2lVkmF
+         bVnHzCgW7U1BqkUWkYIwlVkY3BI6Nv08OVsDFvFD7VuYVf1YMzv48BK27kJN+hEoWJzJ
+         zO+g==
+X-Gm-Message-State: AAQBX9dPdyVd7qRr0E1y++HnodngipWVTAd01Apo0MmkBBdKt5EUSNXk
+	VO+fZUq96QrJaUf+cFXnN0vYNw==
 X-Google-Smtp-Source: 
- AKy350YbAnSJzJAryYy5Z4w+TUXHLgy/iWJlundDtd2T8cKcldJbO5NJI5MUclajMl0qDLW39vc2ZA==
-X-Received: by 2002:a17:907:75f2:b0:88a:1ea9:a5ea with SMTP id
- jz18-20020a17090775f200b0088a1ea9a5eamr32427334ejc.65.1680528308765;
-        Mon, 03 Apr 2023 06:25:08 -0700 (PDT)
+ AKy350aNoUlBedlJkAaKw8U0tZgt086mXDJsj0D3EEMN2efvta5ShNiO6t6OdWHXPV90xvmimW0M3A==
+X-Received: by 2002:a05:6402:2693:b0:4bc:edde:150d with SMTP id
+ w19-20020a056402269300b004bcedde150dmr17348061edd.0.1680528310030;
+        Mon, 03 Apr 2023 06:25:10 -0700 (PDT)
 Received: from krzk-bin.. ([2a02:810d:15c0:828:ae90:d80:1069:4805])
         by smtp.gmail.com with ESMTPSA id
- p18-20020a170906229200b00930ba362216sm4658489eja.176.2023.04.03.06.25.07
+ p18-20020a170906229200b00930ba362216sm4658489eja.176.2023.04.03.06.25.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Apr 2023 06:25:08 -0700 (PDT)
+        Mon, 03 Apr 2023 06:25:09 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Andy Gross <agross@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
@@ -98,17 +98,17 @@ To: Andy Gross <agross@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH v2 2/7] dt-bindings: soundwire: qcom: add 16-bit sample
- interval
-Date: Mon,  3 Apr 2023 15:24:58 +0200
-Message-Id: <20230403132503.62090-3-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v2 3/7] soundwire: qcom: allow 16-bit sample interval for
+ ports
+Date: Mon,  3 Apr 2023 15:24:59 +0200
+Message-Id: <20230403132503.62090-4-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
 References: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MIFYP44Q7LZTS4U4Q4BFPANABGC7PH64
-X-Message-ID-Hash: MIFYP44Q7LZTS4U4Q4BFPANABGC7PH64
+Message-ID-Hash: AYUUS24HBLIXWTB6JGPSTGH22FOWYC2Q
+X-Message-ID-Hash: AYUUS24HBLIXWTB6JGPSTGH22FOWYC2Q
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MIFYP44Q7LZTS4U4Q4BFPANABGC7PH64/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AYUUS24HBLIXWTB6JGPSTGH22FOWYC2Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,60 +140,105 @@ both bytes will be used, thus add a new 'qcom,ports-sinterval' property
 to allow 16-bit sample intervals.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- .../bindings/soundwire/qcom,soundwire.yaml    | 22 +++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-index c283c594fb5c..883b8be9be1b 100644
---- a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-+++ b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-@@ -86,7 +86,7 @@ properties:
-   qcom,ports-sinterval-low:
-     $ref: /schemas/types.yaml#/definitions/uint8-array
-     description:
--      Sample interval low of each data port.
-+      Sample interval (only lowest byte) of each data port.
-       Out ports followed by In ports. Used for Sample Interval calculation.
-       Value of 0xff indicates that this option is not implemented
-       or applicable for the respective data port.
-@@ -94,6 +94,19 @@ properties:
-     minItems: 3
-     maxItems: 16
+---
+
+Changes since v1:
+1. Drop unneeded semicolon.
+---
+ drivers/soundwire/qcom.c | 32 +++++++++++++++++++++++++-------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index c296e0bf897b..faa091e7472a 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -95,6 +95,7 @@
+ #define SWRM_DP_BLOCK_CTRL2_BANK(n, m)	(0x1130 + 0x100 * (n - 1) + 0x40 * m)
+ #define SWRM_DP_PORT_HCTRL_BANK(n, m)	(0x1134 + 0x100 * (n - 1) + 0x40 * m)
+ #define SWRM_DP_BLOCK_CTRL3_BANK(n, m)	(0x1138 + 0x100 * (n - 1) + 0x40 * m)
++#define SWRM_DP_SAMPLECTRL2_BANK(n, m)	(0x113C + 0x100 * (n - 1) + 0x40 * m)
+ #define SWRM_DIN_DPn_PCM_PORT_CTRL(n)	(0x1054 + 0x100 * (n - 1))
+ #define SWR_MSTR_MAX_REG_ADDR		(0x1740)
  
-+  qcom,ports-sinterval:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Sample interval of each data port.
-+      Out ports followed by In ports. Used for Sample Interval calculation.
-+      Value of 0xffff indicates that this option is not implemented
-+      or applicable for the respective data port.
-+      More info in MIPI Alliance SoundWire 1.0 Specifications.
-+    minItems: 3
-+    maxItems: 16
-+    items:
-+      maximum: 0xffff
+@@ -131,7 +132,7 @@ enum {
+ };
+ 
+ struct qcom_swrm_port_config {
+-	u8 si;
++	u32 si;
+ 	u8 off1;
+ 	u8 off2;
+ 	u8 bp_mode;
+@@ -806,12 +807,20 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
+ 
+ 	value = pcfg->off1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
+ 	value |= pcfg->off2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
+-	value |= pcfg->si;
++	value |= pcfg->si & 0xff;
+ 
+ 	ret = ctrl->reg_write(ctrl, reg, value);
+ 	if (ret)
+ 		goto err;
+ 
++	if (pcfg->si > 0xff) {
++		value = (pcfg->si >> 8) & 0xff;
++		reg = SWRM_DP_SAMPLECTRL2_BANK(params->port_num, bank);
++		ret = ctrl->reg_write(ctrl, reg, value);
++		if (ret)
++			goto err;
++	}
 +
-   qcom,ports-offset1:
-     $ref: /schemas/types.yaml#/definitions/uint8-array
-     description:
-@@ -219,10 +232,15 @@ required:
-   - '#size-cells'
-   - qcom,dout-ports
-   - qcom,din-ports
--  - qcom,ports-sinterval-low
-   - qcom,ports-offset1
-   - qcom,ports-offset2
+ 	if (pcfg->lane_control != SWR_INVALID_PARAM) {
+ 		reg = SWRM_DP_PORT_CTRL_2_BANK(params->port_num, bank);
+ 		value = pcfg->lane_control;
+@@ -1185,7 +1194,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 	struct device_node *np = ctrl->dev->of_node;
+ 	u8 off1[QCOM_SDW_MAX_PORTS];
+ 	u8 off2[QCOM_SDW_MAX_PORTS];
+-	u8 si[QCOM_SDW_MAX_PORTS];
++	u32 si[QCOM_SDW_MAX_PORTS];
+ 	u8 bp_mode[QCOM_SDW_MAX_PORTS] = { 0, };
+ 	u8 hstart[QCOM_SDW_MAX_PORTS];
+ 	u8 hstop[QCOM_SDW_MAX_PORTS];
+@@ -1193,6 +1202,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 	u8 blk_group_count[QCOM_SDW_MAX_PORTS];
+ 	u8 lane_control[QCOM_SDW_MAX_PORTS];
+ 	int i, ret, nports, val;
++	bool si_32 = false;
  
-+oneOf:
-+  - required:
-+      - qcom,ports-sinterval-low
-+  - required:
-+      - qcom,ports-sinterval
-+
- additionalProperties: false
+ 	ctrl->reg_read(ctrl, SWRM_COMP_PARAMS, &val);
  
- examples:
+@@ -1236,9 +1246,14 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 		return ret;
+ 
+ 	ret = of_property_read_u8_array(np, "qcom,ports-sinterval-low",
+-					si, nports);
+-	if (ret)
+-		return ret;
++					(u8 *)si, nports);
++	if (ret) {
++		ret = of_property_read_u32_array(np, "qcom,ports-sinterval",
++						 si, nports);
++		if (ret)
++			return ret;
++		si_32 = true;
++	}
+ 
+ 	ret = of_property_read_u8_array(np, "qcom,ports-block-pack-mode",
+ 					bp_mode, nports);
+@@ -1266,7 +1281,10 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+ 
+ 	for (i = 0; i < nports; i++) {
+ 		/* Valid port number range is from 1-14 */
+-		ctrl->pconfig[i + 1].si = si[i];
++		if (si_32)
++			ctrl->pconfig[i + 1].si = si[i];
++		else
++			ctrl->pconfig[i + 1].si = ((u8 *)si)[i];
+ 		ctrl->pconfig[i + 1].off1 = off1[i];
+ 		ctrl->pconfig[i + 1].off2 = off2[i];
+ 		ctrl->pconfig[i + 1].bp_mode = bp_mode[i];
 -- 
 2.34.1
 

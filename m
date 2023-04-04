@@ -2,89 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4FB36D6B33
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 20:06:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3726C6D6B3C
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 20:08:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20C331FE;
-	Tue,  4 Apr 2023 20:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20C331FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 886191E7;
+	Tue,  4 Apr 2023 20:07:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 886191E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680631601;
-	bh=ZiYzQaevHiB5LB/11qAwNWoEm5wBs1A8U5pKomD1q3M=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1680631700;
+	bh=Sngs/behlAyyKI3J5bZm6I3kh+pJdoS7SmIZi+xG0mE=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rbeDYUI4mYeBiNZe09UYoFX59DEV+6J9qTicYjvsyWv8/y1V3ZcapjYyZtxwDQW8D
-	 Wvs901vm8yc9auhMh2M/zthkq6BgjgKWKUJKTsBXI0DOUFiGDM1F9tdsXPvM31Az/H
-	 yMHF5DPhM1vIzgdeodfhNZ021kACWgUG55iwkPAA=
+	b=BNLsybqsDpS9FSgoFOliRV3Ksmg94Tlilt0/EfqYPgvYIk0691sls7owGFIWOO6lI
+	 jgd9BkRGG8F/UzCxKbreN1Q0qfSebFvtzNw5S6Ny8Kj5sFnnmoLysXalReD2lFbKWN
+	 HmSfZ3smYKE5p7k4ZZwZXA3tVLmmqBWNeowLrHgk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD933F801C0;
-	Tue,  4 Apr 2023 20:05:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4678DF801C0;
+	Tue,  4 Apr 2023 20:07:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 265B4F8024C; Tue,  4 Apr 2023 20:05:47 +0200 (CEST)
+	id EF041F8024C; Tue,  4 Apr 2023 20:07:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [IPv6:2a00:1450:4864:20::234])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47EADF80171
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 20:05:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47EADF80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7D554F8015B
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 20:07:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D554F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=D0pRJM59
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 014C0634CE;
-	Tue,  4 Apr 2023 18:05:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45EAC433D2;
-	Tue,  4 Apr 2023 18:05:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680631539;
-	bh=ZiYzQaevHiB5LB/11qAwNWoEm5wBs1A8U5pKomD1q3M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=D0pRJM59DHGPRiQPOeqEnhIZHFX21JnL8RGAlFArIrfeU1x5Sq92gD93y6fToZJ64
-	 hhktzwRUCQkHgPeI/nq9QXPT6DoKPnAMd4rke0W0kdS9Tc5nQuXZphDTquSgXtafEk
-	 Ts1mRJEudf5wuKamKn1M9QwDoyi9DE4dy5UzaMDyjHqHiRC76irajEg4A3AJzGoWgN
-	 IIyPHf18sJyaFdTa78ckUQUPM5x5azQW6cKoTuXbBShE/+k6oIcqdVuWdonw2Yf2sA
-	 JTcqIKgrAzMn2q0flFyFOO7aG8vtQhGEAohXNjxBq2ami60RmcyWBxWDEL9kHue/fN
-	 e7+DeqPkvhtbA==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-In-Reply-To: <20230404092115.27949-1-peter.ujfalusi@linux.intel.com>
-References: <20230404092115.27949-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 00/12] ASoC: SOF: core/Intel: Introduce DSPless mode
-Message-Id: <168063153764.96548.13296179289450941626.b4-ty@kernel.org>
-Date: Tue, 04 Apr 2023 19:05:37 +0100
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=DbMjP6Mw
+Received: by mail-lj1-x234.google.com with SMTP id by14so15631863ljb.12
+        for <alsa-devel@alsa-project.org>;
+ Tue, 04 Apr 2023 11:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1680631637;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dKGYy/lnfy+kLVObhWRLvXvnRmxbL6o7FAqb6+OXgrQ=;
+        b=DbMjP6MwypN0+AIvI231crk6wvxsuu1WgEHE8k11XZwNJ4wrzM22ZnANpFzc2fIHna
+         xoU+P8AQqFjdSEJUcHCaDAwXjAOKFNZjTTr4RRqxfmX5chfPkxBWkOwkg4rkGJ4qBUZP
+         8YmaIFmy5Z1qX7WKMVTNSZ5J0z8bhI8Z4hWuQykH40P1zjalVw093YXWCaQpvO8Yox1+
+         /lJH++B4xthR9N3fAGfyZX397SX4/YQYq/+lYqQaw9yMZRb2KOQ06KXQQTv9jOJgkgM7
+         AUKntf986yXaatoMev2hFimEW1tDanBSrkmwyxDe26kjfZh2vMqA37SXRqRtlKA7Q49+
+         G28g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680631637;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=dKGYy/lnfy+kLVObhWRLvXvnRmxbL6o7FAqb6+OXgrQ=;
+        b=JmuJv30zkuuwfLORwQLcWvjK3VFJ21LQ90/LeKHYt8x1w5fTOX/fL0cik8NzBF4CdJ
+         m66I6qZwyua82/BmRbk/HHthPyuaAZiJQYN6OOSTdc6ji/IoK3xHLN2vzeRCZUmi5940
+         N0zPya+nvRdslE7UEwlBNPAVd7AQZW/Zbe7sKzuJC6bmB+yE+7Fq275T0KMF6KVfIdh5
+         sHt1dNMwfAqwJbOlO/ad7bzi88XkpP/+kzpxcTbXLHti+HRH/BgxN9ZcPMFNTHiHrRRA
+         IRlxmvtFsOS8dYAXLyvv4TC0c/5UMmCmr9u4zd5JJnlAlSKinHafCHk6Ok5AO/dkLmMK
+         /RjQ==
+X-Gm-Message-State: AAQBX9d4wOJr2vPHTOAvHIsvm/g4VkY0fTtFw6FnjzmDezdo5BRbHLc5
+	3QxBDsFUd6wH6j11w3M+JsGyFg==
+X-Google-Smtp-Source: 
+ AKy350bTRPJNdhoD8Ppp5HPZcfIS1qN1iMMfdXM1O3Ez1bpFq/GD7QD6JQ8TrFGnaqFjGD4viKhZcg==
+X-Received: by 2002:a2e:9002:0:b0:29e:6d48:d8d5 with SMTP id
+ h2-20020a2e9002000000b0029e6d48d8d5mr1151815ljg.29.1680631637323;
+        Tue, 04 Apr 2023 11:07:17 -0700 (PDT)
+Received: from [192.168.1.101] (abxh37.neoplus.adsl.tpnet.pl. [83.9.1.37])
+        by smtp.gmail.com with ESMTPSA id
+ o7-20020a2e90c7000000b002958c4e96fasm2470187ljg.3.2023.04.04.11.07.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 04 Apr 2023 11:07:16 -0700 (PDT)
+Message-ID: <0bd29b3e-a6c9-ff22-cfb3-1860f56b4ee5@linaro.org>
+Date: Tue, 4 Apr 2023 20:07:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH v2 4/7] soundwire: qcom: use consistently 'ctrl' as state
+ variable name
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rao Mandadapu <quic_srivasam@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
+ <20230403132503.62090-5-krzysztof.kozlowski@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230403132503.62090-5-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: W67CM7DT5ANOSPEWMH5L5LW5NF3R4X33
-X-Message-ID-Hash: W67CM7DT5ANOSPEWMH5L5LW5NF3R4X33
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: WAJSQQSPQCM37XIAHLUFNYQWZEQJ5OYG
+X-Message-ID-Hash: WAJSQQSPQCM37XIAHLUFNYQWZEQJ5OYG
+X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- rander.wang@intel.com
+CC: Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W67CM7DT5ANOSPEWMH5L5LW5NF3R4X33/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WAJSQQSPQCM37XIAHLUFNYQWZEQJ5OYG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,63 +131,431 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 04 Apr 2023 12:21:03 +0300, Peter Ujfalusi wrote:
-> This series will add support for SOF Linux stack to run without using the DSP.
+
+
+On 3.04.2023 15:25, Krzysztof Kozlowski wrote:
+> The pointer to 'struct qcom_swrm_ctrl' was called sometimes 'swrm' and
+> sometimes 'ctrl' variable.  Choose one - 'ctrl' - so the code will be
+> consistent and easier to read.
 > 
-> DSPless mode provides a good tool for verification that the hardware itself
-> works correctly by taking the DSP use out from the picture.
-> It can only work with interfaces which supports this mode: Intel HDA at the
-> moment but with LNL it could be possible to support other audio interfaces.
+> No functional change.
 > 
-> [...]
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[01/12] ASoC: SOF: Intel: hda-stream: Do not dereference hstream until it is safe
-        commit: 09255c7ed8ca1f1ed99357b845d2f63fe2ef3e1e
-[02/12] ASoC: SOF: Add flag and state which will be used for DSP-less mode
-        commit: 59611370f92923089ceb284072d01445164a0191
-[03/12] ASoC: SOF: Add support for DSPless mode
-        commit: 28d40e7adfd4108c11c9397c6fe9d9f80fed31e9
-[04/12] ASoC: SOF: Intel: hda: Skip interfaces not supported on a platform
-        commit: 4a3b1433a8d384ff8d668b4f8665d6c67dbb30d3
-[05/12] ASoC: SOF: Intel: hda: Add support for DSPless mode
-        commit: 1f7b5d52be130e16fda60be446b30136698738c6
-[06/12] ASoC: SOF: Intel: hda: make DSPless mode work with DSP disabled in BIOS
-        commit: 9fc6786f549c4d71e55bd646ffb4814933286072
-[07/12] ASoC: SOF: Intel: pci-apl: Allow DSPless mode
-        commit: 04957f87ae7e862216a3bc901710c82de55c4078
-[08/12] ASoC: SOF: Intel: pci-cnl: Allow DSPless mode
-        commit: a417d71fd3f6a60d1cda0abf62e7961489908dca
-[09/12] ASoC: SOF: Intel: pci-icl: Allow DSPless mode
-        commit: 937a7fb441f5f1796398e171eef479de34a7c64f
-[10/12] ASoC: SOF: Intel: pci-mtl: Allow DSPless mode
-        commit: b58bbd067585af1f38cc24dbeccf98218c717281
-[11/12] ASoC: SOF: Intel: pci-skl: Allow DSPless mode
-        commit: f45b1fd61e874cae0217c04406f8e99d57ddfacc
-[12/12] ASoC: SOF: Intel: pci-tgl: Allow DSPless mode
-        commit: 5962c2a527b52b95426167ba59a2ef01a522d077
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Konrad
+>  drivers/soundwire/qcom.c | 168 +++++++++++++++++++--------------------
+>  1 file changed, 84 insertions(+), 84 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index faa091e7472a..00522de47b6f 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -279,14 +279,14 @@ static u32 swrm_get_packed_reg_val(u8 *cmd_id, u8 cmd_data,
+>  	return val;
+>  }
+>  
+> -static int swrm_wait_for_rd_fifo_avail(struct qcom_swrm_ctrl *swrm)
+> +static int swrm_wait_for_rd_fifo_avail(struct qcom_swrm_ctrl *ctrl)
+>  {
+>  	u32 fifo_outstanding_data, value;
+>  	int fifo_retry_count = SWR_OVERFLOW_RETRY_COUNT;
+>  
+>  	do {
+>  		/* Check for fifo underflow during read */
+> -		swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
+> +		ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
+>  		fifo_outstanding_data = FIELD_GET(SWRM_RD_CMD_FIFO_CNT_MASK, value);
+>  
+>  		/* Check if read data is available in read fifo */
+> @@ -297,39 +297,39 @@ static int swrm_wait_for_rd_fifo_avail(struct qcom_swrm_ctrl *swrm)
+>  	} while (fifo_retry_count--);
+>  
+>  	if (fifo_outstanding_data == 0) {
+> -		dev_err_ratelimited(swrm->dev, "%s err read underflow\n", __func__);
+> +		dev_err_ratelimited(ctrl->dev, "%s err read underflow\n", __func__);
+>  		return -EIO;
+>  	}
+>  
+>  	return 0;
+>  }
+>  
+> -static int swrm_wait_for_wr_fifo_avail(struct qcom_swrm_ctrl *swrm)
+> +static int swrm_wait_for_wr_fifo_avail(struct qcom_swrm_ctrl *ctrl)
+>  {
+>  	u32 fifo_outstanding_cmds, value;
+>  	int fifo_retry_count = SWR_OVERFLOW_RETRY_COUNT;
+>  
+>  	do {
+>  		/* Check for fifo overflow during write */
+> -		swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
+> +		ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
+>  		fifo_outstanding_cmds = FIELD_GET(SWRM_WR_CMD_FIFO_CNT_MASK, value);
+>  
+>  		/* Check for space in write fifo before writing */
+> -		if (fifo_outstanding_cmds < swrm->wr_fifo_depth)
+> +		if (fifo_outstanding_cmds < ctrl->wr_fifo_depth)
+>  			return 0;
+>  
+>  		usleep_range(500, 510);
+>  	} while (fifo_retry_count--);
+>  
+> -	if (fifo_outstanding_cmds == swrm->wr_fifo_depth) {
+> -		dev_err_ratelimited(swrm->dev, "%s err write overflow\n", __func__);
+> +	if (fifo_outstanding_cmds == ctrl->wr_fifo_depth) {
+> +		dev_err_ratelimited(ctrl->dev, "%s err write overflow\n", __func__);
+>  		return -EIO;
+>  	}
+>  
+>  	return 0;
+>  }
+>  
+> -static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
+> +static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *ctrl, u8 cmd_data,
+>  				     u8 dev_addr, u16 reg_addr)
+>  {
+>  
+> @@ -342,20 +342,20 @@ static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
+>  		val = swrm_get_packed_reg_val(&cmd_id, cmd_data,
+>  					      dev_addr, reg_addr);
+>  	} else {
+> -		val = swrm_get_packed_reg_val(&swrm->wcmd_id, cmd_data,
+> +		val = swrm_get_packed_reg_val(&ctrl->wcmd_id, cmd_data,
+>  					      dev_addr, reg_addr);
+>  	}
+>  
+> -	if (swrm_wait_for_wr_fifo_avail(swrm))
+> +	if (swrm_wait_for_wr_fifo_avail(ctrl))
+>  		return SDW_CMD_FAIL_OTHER;
+>  
+>  	if (cmd_id == SWR_BROADCAST_CMD_ID)
+> -		reinit_completion(&swrm->broadcast);
+> +		reinit_completion(&ctrl->broadcast);
+>  
+>  	/* Its assumed that write is okay as we do not get any status back */
+> -	swrm->reg_write(swrm, SWRM_CMD_FIFO_WR_CMD, val);
+> +	ctrl->reg_write(ctrl, SWRM_CMD_FIFO_WR_CMD, val);
+>  
+> -	if (swrm->version <= SWRM_VERSION_1_3_0)
+> +	if (ctrl->version <= SWRM_VERSION_1_3_0)
+>  		usleep_range(150, 155);
+>  
+>  	if (cmd_id == SWR_BROADCAST_CMD_ID) {
+> @@ -363,7 +363,7 @@ static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
+>  		 * sleep for 10ms for MSM soundwire variant to allow broadcast
+>  		 * command to complete.
+>  		 */
+> -		ret = wait_for_completion_timeout(&swrm->broadcast,
+> +		ret = wait_for_completion_timeout(&ctrl->broadcast,
+>  						  msecs_to_jiffies(TIMEOUT_MS));
+>  		if (!ret)
+>  			ret = SDW_CMD_IGNORED;
+> @@ -376,41 +376,41 @@ static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *swrm, u8 cmd_data,
+>  	return ret;
+>  }
+>  
+> -static int qcom_swrm_cmd_fifo_rd_cmd(struct qcom_swrm_ctrl *swrm,
+> +static int qcom_swrm_cmd_fifo_rd_cmd(struct qcom_swrm_ctrl *ctrl,
+>  				     u8 dev_addr, u16 reg_addr,
+>  				     u32 len, u8 *rval)
+>  {
+>  	u32 cmd_data, cmd_id, val, retry_attempt = 0;
+>  
+> -	val = swrm_get_packed_reg_val(&swrm->rcmd_id, len, dev_addr, reg_addr);
+> +	val = swrm_get_packed_reg_val(&ctrl->rcmd_id, len, dev_addr, reg_addr);
+>  
+>  	/*
+>  	 * Check for outstanding cmd wrt. write fifo depth to avoid
+>  	 * overflow as read will also increase write fifo cnt.
+>  	 */
+> -	swrm_wait_for_wr_fifo_avail(swrm);
+> +	swrm_wait_for_wr_fifo_avail(ctrl);
+>  
+>  	/* wait for FIFO RD to complete to avoid overflow */
+>  	usleep_range(100, 105);
+> -	swrm->reg_write(swrm, SWRM_CMD_FIFO_RD_CMD, val);
+> +	ctrl->reg_write(ctrl, SWRM_CMD_FIFO_RD_CMD, val);
+>  	/* wait for FIFO RD CMD complete to avoid overflow */
+>  	usleep_range(250, 255);
+>  
+> -	if (swrm_wait_for_rd_fifo_avail(swrm))
+> +	if (swrm_wait_for_rd_fifo_avail(ctrl))
+>  		return SDW_CMD_FAIL_OTHER;
+>  
+>  	do {
+> -		swrm->reg_read(swrm, SWRM_CMD_FIFO_RD_FIFO_ADDR, &cmd_data);
+> +		ctrl->reg_read(ctrl, SWRM_CMD_FIFO_RD_FIFO_ADDR, &cmd_data);
+>  		rval[0] = cmd_data & 0xFF;
+>  		cmd_id = FIELD_GET(SWRM_RD_FIFO_CMD_ID_MASK, cmd_data);
+>  
+> -		if (cmd_id != swrm->rcmd_id) {
+> +		if (cmd_id != ctrl->rcmd_id) {
+>  			if (retry_attempt < (MAX_FIFO_RD_RETRY - 1)) {
+>  				/* wait 500 us before retry on fifo read failure */
+>  				usleep_range(500, 505);
+> -				swrm->reg_write(swrm, SWRM_CMD_FIFO_CMD,
+> +				ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CMD,
+>  						SWRM_CMD_FIFO_FLUSH);
+> -				swrm->reg_write(swrm, SWRM_CMD_FIFO_RD_CMD, val);
+> +				ctrl->reg_write(ctrl, SWRM_CMD_FIFO_RD_CMD, val);
+>  			}
+>  			retry_attempt++;
+>  		} else {
+> @@ -419,9 +419,9 @@ static int qcom_swrm_cmd_fifo_rd_cmd(struct qcom_swrm_ctrl *swrm,
+>  
+>  	} while (retry_attempt < MAX_FIFO_RD_RETRY);
+>  
+> -	dev_err(swrm->dev, "failed to read fifo: reg: 0x%x, rcmd_id: 0x%x,\
+> +	dev_err(ctrl->dev, "failed to read fifo: reg: 0x%x, rcmd_id: 0x%x,\
+>  		dev_num: 0x%x, cmd_data: 0x%x\n",
+> -		reg_addr, swrm->rcmd_id, dev_addr, cmd_data);
+> +		reg_addr, ctrl->rcmd_id, dev_addr, cmd_data);
+>  
+>  	return SDW_CMD_IGNORED;
+>  }
+> @@ -533,39 +533,39 @@ static int qcom_swrm_enumerate(struct sdw_bus *bus)
+>  
+>  static irqreturn_t qcom_swrm_wake_irq_handler(int irq, void *dev_id)
+>  {
+> -	struct qcom_swrm_ctrl *swrm = dev_id;
+> +	struct qcom_swrm_ctrl *ctrl = dev_id;
+>  	int ret;
+>  
+> -	ret = pm_runtime_resume_and_get(swrm->dev);
+> +	ret = pm_runtime_resume_and_get(ctrl->dev);
+>  	if (ret < 0 && ret != -EACCES) {
+> -		dev_err_ratelimited(swrm->dev,
+> +		dev_err_ratelimited(ctrl->dev,
+>  				    "pm_runtime_resume_and_get failed in %s, ret %d\n",
+>  				    __func__, ret);
+>  		return ret;
+>  	}
+>  
+> -	if (swrm->wake_irq > 0) {
+> -		if (!irqd_irq_disabled(irq_get_irq_data(swrm->wake_irq)))
+> -			disable_irq_nosync(swrm->wake_irq);
+> +	if (ctrl->wake_irq > 0) {
+> +		if (!irqd_irq_disabled(irq_get_irq_data(ctrl->wake_irq)))
+> +			disable_irq_nosync(ctrl->wake_irq);
+>  	}
+>  
+> -	pm_runtime_mark_last_busy(swrm->dev);
+> -	pm_runtime_put_autosuspend(swrm->dev);
+> +	pm_runtime_mark_last_busy(ctrl->dev);
+> +	pm_runtime_put_autosuspend(ctrl->dev);
+>  
+>  	return IRQ_HANDLED;
+>  }
+>  
+>  static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>  {
+> -	struct qcom_swrm_ctrl *swrm = dev_id;
+> +	struct qcom_swrm_ctrl *ctrl = dev_id;
+>  	u32 value, intr_sts, intr_sts_masked, slave_status;
+>  	u32 i;
+>  	int devnum;
+>  	int ret = IRQ_HANDLED;
+> -	clk_prepare_enable(swrm->hclk);
+> +	clk_prepare_enable(ctrl->hclk);
+>  
+> -	swrm->reg_read(swrm, SWRM_INTERRUPT_STATUS, &intr_sts);
+> -	intr_sts_masked = intr_sts & swrm->intr_mask;
+> +	ctrl->reg_read(ctrl, SWRM_INTERRUPT_STATUS, &intr_sts);
+> +	intr_sts_masked = intr_sts & ctrl->intr_mask;
+>  
+>  	do {
+>  		for (i = 0; i < SWRM_INTERRUPT_MAX; i++) {
+> @@ -575,80 +575,80 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>  
+>  			switch (value) {
+>  			case SWRM_INTERRUPT_STATUS_SLAVE_PEND_IRQ:
+> -				devnum = qcom_swrm_get_alert_slave_dev_num(swrm);
+> +				devnum = qcom_swrm_get_alert_slave_dev_num(ctrl);
+>  				if (devnum < 0) {
+> -					dev_err_ratelimited(swrm->dev,
+> +					dev_err_ratelimited(ctrl->dev,
+>  					    "no slave alert found.spurious interrupt\n");
+>  				} else {
+> -					sdw_handle_slave_status(&swrm->bus, swrm->status);
+> +					sdw_handle_slave_status(&ctrl->bus, ctrl->status);
+>  				}
+>  
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED:
+>  			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
+> -				dev_dbg_ratelimited(swrm->dev, "SWR new slave attached\n");
+> -				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
+> -				if (swrm->slave_status == slave_status) {
+> -					dev_dbg(swrm->dev, "Slave status not changed %x\n",
+> +				dev_dbg_ratelimited(ctrl->dev, "SWR new slave attached\n");
+> +				ctrl->reg_read(ctrl, SWRM_MCP_SLV_STATUS, &slave_status);
+> +				if (ctrl->slave_status == slave_status) {
+> +					dev_dbg(ctrl->dev, "Slave status not changed %x\n",
+>  						slave_status);
+>  				} else {
+> -					qcom_swrm_get_device_status(swrm);
+> -					qcom_swrm_enumerate(&swrm->bus);
+> -					sdw_handle_slave_status(&swrm->bus, swrm->status);
+> +					qcom_swrm_get_device_status(ctrl);
+> +					qcom_swrm_enumerate(&ctrl->bus);
+> +					sdw_handle_slave_status(&ctrl->bus, ctrl->status);
+>  				}
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET:
+> -				dev_err_ratelimited(swrm->dev,
+> +				dev_err_ratelimited(ctrl->dev,
+>  						"%s: SWR bus clsh detected\n",
+>  						__func__);
+> -				swrm->intr_mask &= ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
+> -				swrm->reg_write(swrm, SWRM_INTERRUPT_CPU_EN, swrm->intr_mask);
+> +				ctrl->intr_mask &= ~SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET;
+> +				ctrl->reg_write(ctrl, SWRM_INTERRUPT_CPU_EN, ctrl->intr_mask);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_RD_FIFO_OVERFLOW:
+> -				swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
+> -				dev_err_ratelimited(swrm->dev,
+> +				ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
+> +				dev_err_ratelimited(ctrl->dev,
+>  					"%s: SWR read FIFO overflow fifo status 0x%x\n",
+>  					__func__, value);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_RD_FIFO_UNDERFLOW:
+> -				swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
+> -				dev_err_ratelimited(swrm->dev,
+> +				ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
+> +				dev_err_ratelimited(ctrl->dev,
+>  					"%s: SWR read FIFO underflow fifo status 0x%x\n",
+>  					__func__, value);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_WR_CMD_FIFO_OVERFLOW:
+> -				swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
+> -				dev_err(swrm->dev,
+> +				ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
+> +				dev_err(ctrl->dev,
+>  					"%s: SWR write FIFO overflow fifo status %x\n",
+>  					__func__, value);
+> -				swrm->reg_write(swrm, SWRM_CMD_FIFO_CMD, 0x1);
+> +				ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CMD, 0x1);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_CMD_ERROR:
+> -				swrm->reg_read(swrm, SWRM_CMD_FIFO_STATUS, &value);
+> -				dev_err_ratelimited(swrm->dev,
+> +				ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
+> +				dev_err_ratelimited(ctrl->dev,
+>  					"%s: SWR CMD error, fifo status 0x%x, flushing fifo\n",
+>  					__func__, value);
+> -				swrm->reg_write(swrm, SWRM_CMD_FIFO_CMD, 0x1);
+> +				ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CMD, 0x1);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_DOUT_PORT_COLLISION:
+> -				dev_err_ratelimited(swrm->dev,
+> +				dev_err_ratelimited(ctrl->dev,
+>  						"%s: SWR Port collision detected\n",
+>  						__func__);
+> -				swrm->intr_mask &= ~SWRM_INTERRUPT_STATUS_DOUT_PORT_COLLISION;
+> -				swrm->reg_write(swrm,
+> -					SWRM_INTERRUPT_CPU_EN, swrm->intr_mask);
+> +				ctrl->intr_mask &= ~SWRM_INTERRUPT_STATUS_DOUT_PORT_COLLISION;
+> +				ctrl->reg_write(ctrl,
+> +					SWRM_INTERRUPT_CPU_EN, ctrl->intr_mask);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_READ_EN_RD_VALID_MISMATCH:
+> -				dev_err_ratelimited(swrm->dev,
+> +				dev_err_ratelimited(ctrl->dev,
+>  					"%s: SWR read enable valid mismatch\n",
+>  					__func__);
+> -				swrm->intr_mask &=
+> +				ctrl->intr_mask &=
+>  					~SWRM_INTERRUPT_STATUS_READ_EN_RD_VALID_MISMATCH;
+> -				swrm->reg_write(swrm,
+> -					SWRM_INTERRUPT_CPU_EN, swrm->intr_mask);
+> +				ctrl->reg_write(ctrl,
+> +					SWRM_INTERRUPT_CPU_EN, ctrl->intr_mask);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_SPECIAL_CMD_ID_FINISHED:
+> -				complete(&swrm->broadcast);
+> +				complete(&ctrl->broadcast);
+>  				break;
+>  			case SWRM_INTERRUPT_STATUS_BUS_RESET_FINISHED_V2:
+>  				break;
+> @@ -657,19 +657,19 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>  			case SWRM_INTERRUPT_STATUS_EXT_CLK_STOP_WAKEUP:
+>  				break;
+>  			default:
+> -				dev_err_ratelimited(swrm->dev,
+> +				dev_err_ratelimited(ctrl->dev,
+>  						"%s: SWR unknown interrupt value: %d\n",
+>  						__func__, value);
+>  				ret = IRQ_NONE;
+>  				break;
+>  			}
+>  		}
+> -		swrm->reg_write(swrm, SWRM_INTERRUPT_CLEAR, intr_sts);
+> -		swrm->reg_read(swrm, SWRM_INTERRUPT_STATUS, &intr_sts);
+> -		intr_sts_masked = intr_sts & swrm->intr_mask;
+> +		ctrl->reg_write(ctrl, SWRM_INTERRUPT_CLEAR, intr_sts);
+> +		ctrl->reg_read(ctrl, SWRM_INTERRUPT_STATUS, &intr_sts);
+> +		intr_sts_masked = intr_sts & ctrl->intr_mask;
+>  	} while (intr_sts_masked);
+>  
+> -	clk_disable_unprepare(swrm->hclk);
+> +	clk_disable_unprepare(ctrl->hclk);
+>  	return ret;
+>  }
+>  
+> @@ -1301,23 +1301,23 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>  #ifdef CONFIG_DEBUG_FS
+>  static int swrm_reg_show(struct seq_file *s_file, void *data)
+>  {
+> -	struct qcom_swrm_ctrl *swrm = s_file->private;
+> +	struct qcom_swrm_ctrl *ctrl = s_file->private;
+>  	int reg, reg_val, ret;
+>  
+> -	ret = pm_runtime_resume_and_get(swrm->dev);
+> +	ret = pm_runtime_resume_and_get(ctrl->dev);
+>  	if (ret < 0 && ret != -EACCES) {
+> -		dev_err_ratelimited(swrm->dev,
+> +		dev_err_ratelimited(ctrl->dev,
+>  				    "pm_runtime_resume_and_get failed in %s, ret %d\n",
+>  				    __func__, ret);
+>  		return ret;
+>  	}
+>  
+>  	for (reg = 0; reg <= SWR_MSTR_MAX_REG_ADDR; reg += 4) {
+> -		swrm->reg_read(swrm, reg, &reg_val);
+> +		ctrl->reg_read(ctrl, reg, &reg_val);
+>  		seq_printf(s_file, "0x%.3x: 0x%.2x\n", reg, reg_val);
+>  	}
+> -	pm_runtime_mark_last_busy(swrm->dev);
+> -	pm_runtime_put_autosuspend(swrm->dev);
+> +	pm_runtime_mark_last_busy(ctrl->dev);
+> +	pm_runtime_put_autosuspend(ctrl->dev);
+>  
+>  
+>  	return 0;
+> @@ -1498,13 +1498,13 @@ static int qcom_swrm_remove(struct platform_device *pdev)
+>  	return 0;
+>  }
+>  
+> -static bool swrm_wait_for_frame_gen_enabled(struct qcom_swrm_ctrl *swrm)
+> +static bool swrm_wait_for_frame_gen_enabled(struct qcom_swrm_ctrl *ctrl)
+>  {
+>  	int retry = SWRM_LINK_STATUS_RETRY_CNT;
+>  	int comp_sts;
+>  
+>  	do {
+> -		swrm->reg_read(swrm, SWRM_COMP_STATUS, &comp_sts);
+> +		ctrl->reg_read(ctrl, SWRM_COMP_STATUS, &comp_sts);
+>  
+>  		if (comp_sts & SWRM_FRM_GEN_ENABLED)
+>  			return true;
+> @@ -1512,7 +1512,7 @@ static bool swrm_wait_for_frame_gen_enabled(struct qcom_swrm_ctrl *swrm)
+>  		usleep_range(500, 510);
+>  	} while (retry--);
+>  
+> -	dev_err(swrm->dev, "%s: link status not %s\n", __func__,
+> +	dev_err(ctrl->dev, "%s: link status not %s\n", __func__,
+>  		comp_sts & SWRM_FRM_GEN_ENABLED ? "connected" : "disconnected");
+>  
+>  	return false;

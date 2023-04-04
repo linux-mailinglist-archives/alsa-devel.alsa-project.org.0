@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A6F6D5F63
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 13:44:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A8076D5F6A
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 13:46:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 175001E7;
-	Tue,  4 Apr 2023 13:43:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 175001E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C0591FB;
+	Tue,  4 Apr 2023 13:45:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C0591FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680608689;
-	bh=fmitKTP2A3EWk9XNz45pHfPah45MND6OQgw32mAKPK0=;
+	s=default; t=1680608805;
+	bh=VMElRMGjg/6npF87PapX/PUQfyFG+AI8rzIRICGBY0I=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mOMQF7ILZudfxcck0qEbPbp6yU4Sp70GXarGUNPiWTN6uLdBr7t1PYWmHwidhTwAx
-	 aLGRF9haKso5509xy9hDg0YxHOm8inV7NG7x0+k92GHJnDZqZhSfPLBU7Wu6sbeTBB
-	 f7QXdXOlwbaQddp8XsmlHAexFakmQgSUmYStiezA=
+	b=OGTxuUNNjnRdzrq9DhvRVo3Ga7rg/RnH6zjKFWdHBcTJ5LJaTdfqQu91KKmgaxNwb
+	 zCmGQtwGrUavcBD+zb8WmyM7Xjltcs6qemnQtcstHaNxqLQ/O4IrrSjkUL1EOW/C2F
+	 DkYpIVoJPwV/vkrge30rYA2DFf50VONv9ZKlVsA8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7ACA9F80171;
-	Tue,  4 Apr 2023 13:43:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 014B2F8015B;
+	Tue,  4 Apr 2023 13:45:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CD17F8026D; Tue,  4 Apr 2023 13:43:55 +0200 (CEST)
+	id 8BFC2F8024C; Tue,  4 Apr 2023 13:45:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,46 +33,45 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4BFA6F80171
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 13:43:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BFA6F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id E662FF80171
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 13:45:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E662FF80171
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EmWSH+xk
+ header.s=k20201202 header.b=K6bXH1QG
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3618E63289;
-	Tue,  4 Apr 2023 11:43:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4705C433EF;
-	Tue,  4 Apr 2023 11:43:44 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3FC3761447;
+	Tue,  4 Apr 2023 11:45:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF27CC433EF;
+	Tue,  4 Apr 2023 11:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680608626;
-	bh=fmitKTP2A3EWk9XNz45pHfPah45MND6OQgw32mAKPK0=;
+	s=k20201202; t=1680608747;
+	bh=VMElRMGjg/6npF87PapX/PUQfyFG+AI8rzIRICGBY0I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EmWSH+xkn42whE3uwo+NxSvbjzShE03vIDpxCtTA78dr+/n0W95kp8iWCkrlyNOb7
-	 B1yxRmg9NkVVHR8vsJBijC2mPdp+ecp3IJ0zNhcnchr+ljfKLB84irzKnbKWc49qtP
-	 m7Q/lVa31qkZ0VyNyJNf0ItXWr3mbdztwQSBk9+MDmp4SVQBEifvwWOQ1E6MNgWYt7
-	 J9Qu2egqXSy8rf+i1kzLDDC+/bj1cb9Axb1macmxXjfB0JOlGhYCNilbxIh60CuNny
-	 B0xaEXILNn7P1CX8/LkKCLLVZG3vpdAV5Drn+bGQ+PYZ0byKH4a+63d3DwHl1mYbSF
-	 KXZ5gyFefXovQ==
-Date: Tue, 4 Apr 2023 12:43:41 +0100
+	b=K6bXH1QGmeYEBpRpfipt9PUMd55OOH0WApO/MybTGGIe+t2HjztKomHVvES70BjS1
+	 IrEufaltWFSZOKMz9LWUmLRQm/KHng7rzVr6vuaNElmvJUYFHPM90VZwY7pglJNAN9
+	 CFNy7fkgoiinJYvxfm2kSjWQ//LAwvKE3I73QeewzifRTVvYCuZN1+p3Z9B6m+4zTn
+	 rrZCHKGrD9lPv2MLSSRSQQe9vlpqluzbdclM2u5zigpzmxhGHM5gxcMuKvMnTO19wy
+	 r7sAi988Cbu5crcMC3bV5Es5zssh0Xxmh8FdGycg0NMXVzAAzcvbZX9/5iGTK9XGHs
+	 qAyz4TWQBT7oQ==
+Date: Tue, 4 Apr 2023 12:45:41 +0100
 From: Mark Brown <broonie@kernel.org>
-To: ye.xingchen@zte.com.cn
-Subject: Re: [PATCH] ASoC: ti: =?iso-8859-1?Q?omap-?=
- =?iso-8859-1?Q?mcpdm=3A_use=A0devm=5Fplatform=5Fioremap=5Fresource=5Fbyna?=
- =?iso-8859-1?Q?me=28=29?=
-Message-ID: <328d0920-7dd2-4ee5-9b22-3f86dd31ed4d@sirena.org.uk>
-References: <202303221411117451283@zte.com.cn>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH next] ASoC: cs35l56: Fix unsigned 'rv' comparison with
+ zero in cs35l56_irq()
+Message-ID: <f6e99383-4054-4f14-8cf6-8a9cdd792265@sirena.org.uk>
+References: <20230323165825.1588629-1-harshit.m.mogalapalli@oracle.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zd9rlODtJ73APuoC"
+	protocol="application/pgp-signature"; boundary="2SZ3smf958ksUSJo"
 Content-Disposition: inline
-In-Reply-To: <202303221411117451283@zte.com.cn>
-X-Cookie: Keep your laws off my body!
-Message-ID-Hash: 5ANZBI7SHYQ4GHKDOBPPBRZDAMB7TPMZ
-X-Message-ID-Hash: 5ANZBI7SHYQ4GHKDOBPPBRZDAMB7TPMZ
+In-Reply-To: <20230323165825.1588629-1-harshit.m.mogalapalli@oracle.com>
+X-Cookie: Don't get even -- get odd!
+Message-ID-Hash: LZVSNTAB42IHNI7CIPVEII7VVTCLV5SF
+X-Message-ID-Hash: LZVSNTAB42IHNI7CIPVEII7VVTCLV5SF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,15 +79,19 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: peter.ujfalusi@gmail.com, jarkko.nikula@bitmer.com, lgirdwood@gmail.com,
- tiwai@suse.com, alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org
+CC: error27@gmail.com, James Schulman <james.schulman@cirrus.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Lucas Tanure <tanureal@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Simon Trimmer <simont@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ANZBI7SHYQ4GHKDOBPPBRZDAMB7TPMZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LZVSNTAB42IHNI7CIPVEII7VVTCLV5SF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,33 +101,28 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---zd9rlODtJ73APuoC
+--2SZ3smf958ksUSJo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Mar 22, 2023 at 02:11:11PM +0800, ye.xingchen@zte.com.cn wrote:
-> From: Ye Xingchen <ye.xingchen@zte.com.cn>
->=20
-> Convert platform_get_resource_byname(),devm_ioremap_resource() to a single
-> call to devm_platform_ioremap_resource_byname(), as this is exactly what
-> this function does.
+On Thu, Mar 23, 2023 at 09:58:25AM -0700, Harshit Mogalapalli wrote:
+> 'rv' is of type unsigned int, which can never be less than zero.
 
 This doesn't apply against current code, please check and resend.
 
---zd9rlODtJ73APuoC
+--2SZ3smf958ksUSJo
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQsDWwACgkQJNaLcl1U
-h9Crrgf/RStkN13yC5YhXkKomKmWTO6FB9f7QLIZLemvCbBNJhwL8aDs9Fp78bXe
-j6LJxCBEeMZRJqn8EaS9pMWj7QTR1lKjN9rkJXl4rx7uJ3TzL6O32jbkypQPNhKr
-GyeeogaxaFFfTzkMVkbImL4xacllrVowZES2oEopEXI1KrNvHp2fQKv4gLjo2sw0
-z/BCsrqyVL1POM675Nrsi4f/E6WBFi0gmkQw1gKYiRC6oK8X0G5po0z/lsZgRb3o
-cnrub1qB9+uyWdUCgcwEC8MbEOI+8F3xJAErppy2tGpYnXOv60cPyLVQj8hqvVBB
-aPkuqztkLLb2ET1mwdD3M4YzaS8XAA==
-=Iyzs
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQsDeQACgkQJNaLcl1U
+h9D+VAf/QW9rSPmMvgXDHFAb0ickOpz7arHugaOibeBnQyLyf511JOJCH2NEag3k
+lCvj7/K0VFzKQtfV/20leU8BesPa/GILUMMNK4F/8XE6Tj2vsMEBpGxTBalG9XIX
+1bR4ixX2d0dt2LWsUBsk1qaw95clJ8bA87hOFJl7c14f8Ikg89fzzzpbrPw1YLP1
+gQwNfJ9y/NTViWbPmOuZno1e43xNxUhfa4izJS0wmzDaxwOof/IFwwYsXHRHtD36
+w/FClhm+6d8UCWoD2Xg5R/+d6PQZxlozvHJHoKfr6bARgSzhzXRHikDs0r01Gb1G
+Jr0IxYdcHpTJ+z6sHVh5Lo01o7dPNg==
+=es2X
 -----END PGP SIGNATURE-----
 
---zd9rlODtJ73APuoC--
+--2SZ3smf958ksUSJo--

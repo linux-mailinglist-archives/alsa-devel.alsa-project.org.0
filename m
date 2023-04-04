@@ -2,105 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F3326D5ED0
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 13:17:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A6F6D5F63
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 13:44:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B6A91E4;
-	Tue,  4 Apr 2023 13:16:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B6A91E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 175001E7;
+	Tue,  4 Apr 2023 13:43:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 175001E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680607028;
-	bh=NWUlWcjMfRIFF58Am5Gy31a3XFZnMiFsLT+jmXw6CuM=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1680608689;
+	bh=fmitKTP2A3EWk9XNz45pHfPah45MND6OQgw32mAKPK0=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gK2HYKVbnuh6ypuoSueIkfKbNE9uJYzOKB4C1taDAaw94OAfsVJhTOFORCh7tuohz
-	 7PUFVLx9RK7s6WTmul+vyFcZyZUQOb1bh1ldOAuvijKvOWH6PtjXBqDkYnCy4bpx2Q
-	 ezg9Ft7REqpkMplhPqw/5nsUGJ86oVLZ1+0YazGw=
+	b=mOMQF7ILZudfxcck0qEbPbp6yU4Sp70GXarGUNPiWTN6uLdBr7t1PYWmHwidhTwAx
+	 aLGRF9haKso5509xy9hDg0YxHOm8inV7NG7x0+k92GHJnDZqZhSfPLBU7Wu6sbeTBB
+	 f7QXdXOlwbaQddp8XsmlHAexFakmQgSUmYStiezA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A061F801C0;
-	Tue,  4 Apr 2023 13:16:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7ACA9F80171;
+	Tue,  4 Apr 2023 13:43:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C5E0F8024C; Tue,  4 Apr 2023 13:16:14 +0200 (CEST)
+	id 0CD17F8026D; Tue,  4 Apr 2023 13:43:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4D4AAF80171
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 13:16:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D4AAF80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4BFA6F80171
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 13:43:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BFA6F80171
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZkxWat6u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1680606970; x=1712142970;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=NWUlWcjMfRIFF58Am5Gy31a3XFZnMiFsLT+jmXw6CuM=;
-  b=ZkxWat6u7pr/FTjbIgsbsv1DhvoE/7GCRHmxsEJDL5ZT2ecjDiifKzyE
-   0+6TFJhjDENqPb3Htp2LbhVTAf8PpqCgbmbiw6BXZhfIOWe98I8VS1aPP
-   9P8SeNZV1VziynTq5btveKYCsF1hb89LffNF90MwLob2CaWsb6TD4hB9w
-   ZOrkInh0WX/yZ/Irm7AchAdnvQIPGPcbOHWKex9o1/4LUS/vF456GcYEb
-   dK47bDZHLgfrCwQodF8dA9zsaV0XwGEC61AcDB7LBc8M0B+RdnuV7hDUW
-   3ZqpKHWMOYHAA3q42y1OZD+aA8nNvGBFAsLMdOaL4HdBvyRn+apCCyt1U
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="321809496"
-X-IronPort-AV: E=Sophos;i="5.98,317,1673942400";
-   d="scan'208";a="321809496"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2023 04:16:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="860555840"
-X-IronPort-AV: E=Sophos;i="5.98,317,1673942400";
-   d="scan'208";a="860555840"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
-  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2023 04:16:03 -0700
-Date: Tue, 4 Apr 2023 14:14:06 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ALSA: hda/hdmi: Preserve the previous PCM device upon
- re-enablement
-In-Reply-To: <7919429d-655f-9202-a5ba-69b48b102bc2@perex.cz>
-Message-ID: 
- <alpine.DEB.2.22.394.2304041258370.3532114@eliteleevi.tm.intel.com>
-References: <20230331142217.19791-1-tiwai@suse.de>
- <57ffa8e0-83fa-a982-9f48-abbe5f098732@perex.cz> <87v8ihhr9x.wl-tiwai@suse.de>
- <alpine.DEB.2.22.394.2304031737010.3532114@eliteleevi.tm.intel.com>
- <7919429d-655f-9202-a5ba-69b48b102bc2@perex.cz>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EmWSH+xk
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3618E63289;
+	Tue,  4 Apr 2023 11:43:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4705C433EF;
+	Tue,  4 Apr 2023 11:43:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1680608626;
+	bh=fmitKTP2A3EWk9XNz45pHfPah45MND6OQgw32mAKPK0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EmWSH+xkn42whE3uwo+NxSvbjzShE03vIDpxCtTA78dr+/n0W95kp8iWCkrlyNOb7
+	 B1yxRmg9NkVVHR8vsJBijC2mPdp+ecp3IJ0zNhcnchr+ljfKLB84irzKnbKWc49qtP
+	 m7Q/lVa31qkZ0VyNyJNf0ItXWr3mbdztwQSBk9+MDmp4SVQBEifvwWOQ1E6MNgWYt7
+	 J9Qu2egqXSy8rf+i1kzLDDC+/bj1cb9Axb1macmxXjfB0JOlGhYCNilbxIh60CuNny
+	 B0xaEXILNn7P1CX8/LkKCLLVZG3vpdAV5Drn+bGQ+PYZ0byKH4a+63d3DwHl1mYbSF
+	 KXZ5gyFefXovQ==
+Date: Tue, 4 Apr 2023 12:43:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: ye.xingchen@zte.com.cn
+Subject: Re: [PATCH] ASoC: ti: =?iso-8859-1?Q?omap-?=
+ =?iso-8859-1?Q?mcpdm=3A_use=A0devm=5Fplatform=5Fioremap=5Fresource=5Fbyna?=
+ =?iso-8859-1?Q?me=28=29?=
+Message-ID: <328d0920-7dd2-4ee5-9b22-3f86dd31ed4d@sirena.org.uk>
+References: <202303221411117451283@zte.com.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 4RBRINHNP22X42VOXVOAYQG4UYSA5JET
-X-Message-ID-Hash: 4RBRINHNP22X42VOXVOAYQG4UYSA5JET
-X-MailFrom: kai.vehmanen@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zd9rlODtJ73APuoC"
+Content-Disposition: inline
+In-Reply-To: <202303221411117451283@zte.com.cn>
+X-Cookie: Keep your laws off my body!
+Message-ID-Hash: 5ANZBI7SHYQ4GHKDOBPPBRZDAMB7TPMZ
+X-Message-ID-Hash: 5ANZBI7SHYQ4GHKDOBPPBRZDAMB7TPMZ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>, Alsa-devel <alsa-devel@alsa-project.org>,
- Wim Taymans <wim.taymans@gmail.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+CC: peter.ujfalusi@gmail.com, jarkko.nikula@bitmer.com, lgirdwood@gmail.com,
+ tiwai@suse.com, alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4RBRINHNP22X42VOXVOAYQG4UYSA5JET/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ANZBI7SHYQ4GHKDOBPPBRZDAMB7TPMZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,48 +97,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
 
-On Mon, 3 Apr 2023, Jaroslav Kysela wrote:
+--zd9rlODtJ73APuoC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> The question is, if ELD contains a serial number of the monitor. If there is
-> no unique identification for similar monitors (one model), then we have no way
-> to identify the audio devices properly.
-[...]
-> If I look to drm_edid_to_eld() function in drivers/gpu/drm/drm_edid.c I don't
-> see any unique information to be copied for the identical monitors.
+On Wed, Mar 22, 2023 at 02:11:11PM +0800, ye.xingchen@zte.com.cn wrote:
+> From: Ye Xingchen <ye.xingchen@zte.com.cn>
+>=20
+> Convert platform_get_resource_byname(),devm_ioremap_resource() to a single
+> call to devm_platform_ioremap_resource_byname(), as this is exactly what
+> this function does.
 
-right, if you have two identical monitors, and to make things worse, you 
-connect them via a DP-MST hub, we have a problem.
+This doesn't apply against current code, please check and resend.
 
-ELD certainly does not have the serial info. It does have a PortID
-field, but that is an implementation specific field (in the HDA spec)
-and at least based on quick check, seem to be zero filled on most systems.
-Plus, existing apps (e.g. both Pulseaudio and Pipewire) only consider
-Monitor_Name_String in ELD.
+--zd9rlODtJ73APuoC
+Content-Type: application/pgp-signature; name="signature.asc"
 
-EDID does have fields for serial number and date of mfg. Not sure how 
-widely implemented the serial number is, but I can see at least 
-org.gnome.Mutter.DisplayConfig ([1] as used by e.g. GNOME Display Settings 
-panel) do expose it and use it to identify displays (and e.g. remember the 
-display layout).
+-----BEGIN PGP SIGNATURE-----
 
-In practise, Takashi's patch will probably cover a large amount of cases.
-If you don't have a hub in between, the pin NID will be stable. If you 
-have identical monitors, you might have to guess the right monitor on the 
-first time, but subsequently the pin NID reuse will pick the same PCM for 
-same monitor. With a hub in between, we are at mercy of how the DP-MST
-device ids are allocated (if you have monitors of same type).
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQsDWwACgkQJNaLcl1U
+h9Crrgf/RStkN13yC5YhXkKomKmWTO6FB9f7QLIZLemvCbBNJhwL8aDs9Fp78bXe
+j6LJxCBEeMZRJqn8EaS9pMWj7QTR1lKjN9rkJXl4rx7uJ3TzL6O32jbkypQPNhKr
+GyeeogaxaFFfTzkMVkbImL4xacllrVowZES2oEopEXI1KrNvHp2fQKv4gLjo2sw0
+z/BCsrqyVL1POM675Nrsi4f/E6WBFi0gmkQw1gKYiRC6oK8X0G5po0z/lsZgRb3o
+cnrub1qB9+uyWdUCgcwEC8MbEOI+8F3xJAErppy2tGpYnXOv60cPyLVQj8hqvVBB
+aPkuqztkLLb2ET1mwdD3M4YzaS8XAA==
+=Iyzs
+-----END PGP SIGNATURE-----
 
-So indeed next step would be to expose the EDID serial number, and
-make that available via ALSA so that apps could link a PCM to a monitor 
-name plus serial number. As this is not part of ELD, this is somewhat
-larger task (need to extend drm_audio_component.h to pass this info,
-need to extend the ALSA user-space interface and get updates to clients).
-
-[1] 
-https://gitlab.gnome.org/GNOME/mutter/-/blob/main/data/dbus-interfaces/org.gnome.Mutter.DisplayConfig.xml  
-,
-https://wiki.gnome.org/Initiatives/Wayland/Gaps/DisplayConfig
-
-Br, Kai
+--zd9rlODtJ73APuoC--

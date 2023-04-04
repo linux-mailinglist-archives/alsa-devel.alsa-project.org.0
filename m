@@ -2,127 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 435616D6B2B
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 20:04:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4FB36D6B33
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 20:06:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2A4A1FE;
-	Tue,  4 Apr 2023 20:04:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2A4A1FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20C331FE;
+	Tue,  4 Apr 2023 20:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20C331FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680631492;
-	bh=VTodb8VMovTJIOmYpvzU93rcOHX1Ft3uc3hiWxKWh0Y=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1680631601;
+	bh=ZiYzQaevHiB5LB/11qAwNWoEm5wBs1A8U5pKomD1q3M=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WBiA++M/qwc/rvG+0/t6B+aK0gF+3ug7CH3O8j0Sny6gOTFnaiEXlGXi/3A7uvg6y
-	 Nz+JhzVShLXzyF4tuG9gXSePrsgAdDe7dUkvlWG+L8cLrzXih+xH+XXxGM5rd721Y+
-	 LVkERvYnC1Z9avsuKTeb3AfMbWPyQZfUveeGouNU=
+	b=rbeDYUI4mYeBiNZe09UYoFX59DEV+6J9qTicYjvsyWv8/y1V3ZcapjYyZtxwDQW8D
+	 Wvs901vm8yc9auhMh2M/zthkq6BgjgKWKUJKTsBXI0DOUFiGDM1F9tdsXPvM31Az/H
+	 yMHF5DPhM1vIzgdeodfhNZ021kACWgUG55iwkPAA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F35FF801C0;
-	Tue,  4 Apr 2023 20:04:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD933F801C0;
+	Tue,  4 Apr 2023 20:05:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E881CF8024C; Tue,  4 Apr 2023 20:03:57 +0200 (CEST)
+	id 265B4F8024C; Tue,  4 Apr 2023 20:05:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A9E5DF80171
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 20:03:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9E5DF80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id 47EADF80171
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 20:05:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47EADF80171
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=pML5Xnta
-Received: by mail-lf1-x131.google.com with SMTP id k37so43475487lfv.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 04 Apr 2023 11:03:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680631423;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JR7CqJAwvpJxFbciu3o8qyafjr98DA8/rLAPmXVSUts=;
-        b=pML5XntacJXTSKhU9ODumSKwOTCz0UW7j64E+EAkqVSzDJA3uwsev/umHCI3zIXNtb
-         y+ah7uluB7FDPDQzE4PA8keAWV+bFm/HhfUCnrZzq5mH5XYcwBPTSG8HHOOdQdMMWzXj
-         rE1w0Q/eh8emv05TzEkZyghjzP9GNTXiMQOyH1aR6h8FWB2YenyXda/byB1Ybsm1gqLZ
-         gqWiehuVCnx4tuapSHwGCN1vYMrV8s6ZOj0A9rubNi31sLmuvSeB8ZvglXnqRF0Bs5iY
-         g4REZlDlwrz7bgzKQOAG8bKAs+XtSKga2bwNev58K2Kx7+12zWMIFkqHC3XBlRIuu60P
-         lZTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680631423;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JR7CqJAwvpJxFbciu3o8qyafjr98DA8/rLAPmXVSUts=;
-        b=VUrteEOOJk3s9AcNeCOKY+LQO2+ZAz0AecbmcgcjKuMkpyPg9a5/Ub08JbTiCQbtyJ
-         huDl8RMSpCaPkxlBqlfXgEdcb9SkUeCleQIkZeQ8+kGsLUzZQC6XRp0UAk2oMMeb8aJX
-         5MZYsLrShzriowhUbL3jIIM6ZkJ8Yq2PwqcsWpSU0BKvkMu59s4sWNyY5eQ4VCXV9Gnm
-         dFvckG3KrsrtJ3dqDN0eAVBcbajCP/q+3XmDXssNLirNMXVShZMCWOhk9Xpqqme+vIEO
-         ku+xi5StKxoRLKuoynuTmlKb/2dCOpxv/i529nd8eVYRnU6EOpvoAivkWHW30Oq1VaAN
-         qeNw==
-X-Gm-Message-State: AAQBX9c34HPYtiECchuYahVCRgSgBRa78biwAq4GVPftyTvqckfyOpKe
-	0UPDVZCMGTT3ivGl0e4ropAiSg==
-X-Google-Smtp-Source: 
- AKy350Z3GNst68g7AebZ7jv36PnnaXILoR6V2RC/YE70jV8ohG+yAaUbnTUNB4E6N8gZweE9NRgEMA==
-X-Received: by 2002:a19:5211:0:b0:4ea:c730:aabe with SMTP id
- m17-20020a195211000000b004eac730aabemr920209lfb.20.1680631423266;
-        Tue, 04 Apr 2023 11:03:43 -0700 (PDT)
-Received: from [192.168.1.101] (abxh37.neoplus.adsl.tpnet.pl. [83.9.1.37])
-        by smtp.gmail.com with ESMTPSA id
- v14-20020ac2560e000000b004e8011cbaa0sm2410412lfd.111.2023.04.04.11.03.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Apr 2023 11:03:42 -0700 (PDT)
-Message-ID: <a4bf52db-21a4-dd92-e7ef-62b9c7d19d26@linaro.org>
-Date: Tue, 4 Apr 2023 20:03:40 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=D0pRJM59
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 014C0634CE;
+	Tue,  4 Apr 2023 18:05:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45EAC433D2;
+	Tue,  4 Apr 2023 18:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1680631539;
+	bh=ZiYzQaevHiB5LB/11qAwNWoEm5wBs1A8U5pKomD1q3M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=D0pRJM59DHGPRiQPOeqEnhIZHFX21JnL8RGAlFArIrfeU1x5Sq92gD93y6fToZJ64
+	 hhktzwRUCQkHgPeI/nq9QXPT6DoKPnAMd4rke0W0kdS9Tc5nQuXZphDTquSgXtafEk
+	 Ts1mRJEudf5wuKamKn1M9QwDoyi9DE4dy5UzaMDyjHqHiRC76irajEg4A3AJzGoWgN
+	 IIyPHf18sJyaFdTa78ckUQUPM5x5azQW6cKoTuXbBShE/+k6oIcqdVuWdonw2Yf2sA
+	 JTcqIKgrAzMn2q0flFyFOO7aG8vtQhGEAohXNjxBq2ami60RmcyWBxWDEL9kHue/fN
+	 e7+DeqPkvhtbA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230404092115.27949-1-peter.ujfalusi@linux.intel.com>
+References: <20230404092115.27949-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 00/12] ASoC: SOF: core/Intel: Introduce DSPless mode
+Message-Id: <168063153764.96548.13296179289450941626.b4-ty@kernel.org>
+Date: Tue, 04 Apr 2023 19:05:37 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH v2 3/7] soundwire: qcom: allow 16-bit sample interval for
- ports
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Rao Mandadapu <quic_srivasam@quicinc.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
-References: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
- <20230403132503.62090-4-krzysztof.kozlowski@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230403132503.62090-4-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: I2K7KTSWG6WOBKHWVIMTZD4XLM2KTS7T
-X-Message-ID-Hash: I2K7KTSWG6WOBKHWVIMTZD4XLM2KTS7T
-X-MailFrom: konrad.dybcio@linaro.org
+X-Mailer: b4 0.13-dev-00303
+Message-ID-Hash: W67CM7DT5ANOSPEWMH5L5LW5NF3R4X33
+X-Message-ID-Hash: W67CM7DT5ANOSPEWMH5L5LW5NF3R4X33
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Patrick Lai <quic_plai@quicinc.com>
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ rander.wang@intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2K7KTSWG6WOBKHWVIMTZD4XLM2KTS7T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W67CM7DT5ANOSPEWMH5L5LW5NF3R4X33/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,119 +93,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 3.04.2023 15:24, Krzysztof Kozlowski wrote:
-> The port sample interval was always 16-bit, split into low and high
-> bytes.  This split was unnecessary, although harmless for older devices
-> because all of them used only lower byte (so values < 0xff).  With
-> support for Soundwire controller on Qualcomm SM8550 and its devices,
-> both bytes will be used, thus add a new 'qcom,ports-sinterval' property
-> to allow 16-bit sample intervals.
+On Tue, 04 Apr 2023 12:21:03 +0300, Peter Ujfalusi wrote:
+> This series will add support for SOF Linux stack to run without using the DSP.
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> DSPless mode provides a good tool for verification that the hardware itself
+> works correctly by taking the DSP use out from the picture.
+> It can only work with interfaces which supports this mode: Intel HDA at the
+> moment but with LNL it could be possible to support other audio interfaces.
 > 
-> ---
-I have little insight in this code, but the changes look
-logical, so..
+> [...]
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Applied to
 
-Konrad
-> 
-> Changes since v1:
-> 1. Drop unneeded semicolon.
-> ---
->  drivers/soundwire/qcom.c | 32 +++++++++++++++++++++++++-------
->  1 file changed, 25 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index c296e0bf897b..faa091e7472a 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -95,6 +95,7 @@
->  #define SWRM_DP_BLOCK_CTRL2_BANK(n, m)	(0x1130 + 0x100 * (n - 1) + 0x40 * m)
->  #define SWRM_DP_PORT_HCTRL_BANK(n, m)	(0x1134 + 0x100 * (n - 1) + 0x40 * m)
->  #define SWRM_DP_BLOCK_CTRL3_BANK(n, m)	(0x1138 + 0x100 * (n - 1) + 0x40 * m)
-> +#define SWRM_DP_SAMPLECTRL2_BANK(n, m)	(0x113C + 0x100 * (n - 1) + 0x40 * m)
->  #define SWRM_DIN_DPn_PCM_PORT_CTRL(n)	(0x1054 + 0x100 * (n - 1))
->  #define SWR_MSTR_MAX_REG_ADDR		(0x1740)
->  
-> @@ -131,7 +132,7 @@ enum {
->  };
->  
->  struct qcom_swrm_port_config {
-> -	u8 si;
-> +	u32 si;
->  	u8 off1;
->  	u8 off2;
->  	u8 bp_mode;
-> @@ -806,12 +807,20 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
->  
->  	value = pcfg->off1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
->  	value |= pcfg->off2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
-> -	value |= pcfg->si;
-> +	value |= pcfg->si & 0xff;
->  
->  	ret = ctrl->reg_write(ctrl, reg, value);
->  	if (ret)
->  		goto err;
->  
-> +	if (pcfg->si > 0xff) {
-> +		value = (pcfg->si >> 8) & 0xff;
-> +		reg = SWRM_DP_SAMPLECTRL2_BANK(params->port_num, bank);
-> +		ret = ctrl->reg_write(ctrl, reg, value);
-> +		if (ret)
-> +			goto err;
-> +	}
-> +
->  	if (pcfg->lane_control != SWR_INVALID_PARAM) {
->  		reg = SWRM_DP_PORT_CTRL_2_BANK(params->port_num, bank);
->  		value = pcfg->lane_control;
-> @@ -1185,7 +1194,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
->  	struct device_node *np = ctrl->dev->of_node;
->  	u8 off1[QCOM_SDW_MAX_PORTS];
->  	u8 off2[QCOM_SDW_MAX_PORTS];
-> -	u8 si[QCOM_SDW_MAX_PORTS];
-> +	u32 si[QCOM_SDW_MAX_PORTS];
->  	u8 bp_mode[QCOM_SDW_MAX_PORTS] = { 0, };
->  	u8 hstart[QCOM_SDW_MAX_PORTS];
->  	u8 hstop[QCOM_SDW_MAX_PORTS];
-> @@ -1193,6 +1202,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
->  	u8 blk_group_count[QCOM_SDW_MAX_PORTS];
->  	u8 lane_control[QCOM_SDW_MAX_PORTS];
->  	int i, ret, nports, val;
-> +	bool si_32 = false;
->  
->  	ctrl->reg_read(ctrl, SWRM_COMP_PARAMS, &val);
->  
-> @@ -1236,9 +1246,14 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
->  		return ret;
->  
->  	ret = of_property_read_u8_array(np, "qcom,ports-sinterval-low",
-> -					si, nports);
-> -	if (ret)
-> -		return ret;
-> +					(u8 *)si, nports);
-> +	if (ret) {
-> +		ret = of_property_read_u32_array(np, "qcom,ports-sinterval",
-> +						 si, nports);
-> +		if (ret)
-> +			return ret;
-> +		si_32 = true;
-> +	}
->  
->  	ret = of_property_read_u8_array(np, "qcom,ports-block-pack-mode",
->  					bp_mode, nports);
-> @@ -1266,7 +1281,10 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
->  
->  	for (i = 0; i < nports; i++) {
->  		/* Valid port number range is from 1-14 */
-> -		ctrl->pconfig[i + 1].si = si[i];
-> +		if (si_32)
-> +			ctrl->pconfig[i + 1].si = si[i];
-> +		else
-> +			ctrl->pconfig[i + 1].si = ((u8 *)si)[i];
->  		ctrl->pconfig[i + 1].off1 = off1[i];
->  		ctrl->pconfig[i + 1].off2 = off2[i];
->  		ctrl->pconfig[i + 1].bp_mode = bp_mode[i];
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[01/12] ASoC: SOF: Intel: hda-stream: Do not dereference hstream until it is safe
+        commit: 09255c7ed8ca1f1ed99357b845d2f63fe2ef3e1e
+[02/12] ASoC: SOF: Add flag and state which will be used for DSP-less mode
+        commit: 59611370f92923089ceb284072d01445164a0191
+[03/12] ASoC: SOF: Add support for DSPless mode
+        commit: 28d40e7adfd4108c11c9397c6fe9d9f80fed31e9
+[04/12] ASoC: SOF: Intel: hda: Skip interfaces not supported on a platform
+        commit: 4a3b1433a8d384ff8d668b4f8665d6c67dbb30d3
+[05/12] ASoC: SOF: Intel: hda: Add support for DSPless mode
+        commit: 1f7b5d52be130e16fda60be446b30136698738c6
+[06/12] ASoC: SOF: Intel: hda: make DSPless mode work with DSP disabled in BIOS
+        commit: 9fc6786f549c4d71e55bd646ffb4814933286072
+[07/12] ASoC: SOF: Intel: pci-apl: Allow DSPless mode
+        commit: 04957f87ae7e862216a3bc901710c82de55c4078
+[08/12] ASoC: SOF: Intel: pci-cnl: Allow DSPless mode
+        commit: a417d71fd3f6a60d1cda0abf62e7961489908dca
+[09/12] ASoC: SOF: Intel: pci-icl: Allow DSPless mode
+        commit: 937a7fb441f5f1796398e171eef479de34a7c64f
+[10/12] ASoC: SOF: Intel: pci-mtl: Allow DSPless mode
+        commit: b58bbd067585af1f38cc24dbeccf98218c717281
+[11/12] ASoC: SOF: Intel: pci-skl: Allow DSPless mode
+        commit: f45b1fd61e874cae0217c04406f8e99d57ddfacc
+[12/12] ASoC: SOF: Intel: pci-tgl: Allow DSPless mode
+        commit: 5962c2a527b52b95426167ba59a2ef01a522d077
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

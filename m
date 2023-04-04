@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6B366D7565
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 09:30:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98AD6D757D
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 09:31:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 545F3E90;
-	Wed,  5 Apr 2023 09:29:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 545F3E90
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A682E91;
+	Wed,  5 Apr 2023 09:30:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A682E91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680679828;
-	bh=MEbs6Fry9hN6nhk6b6j7l4iM8w51a4M3wMGk4q51/gw=;
+	s=default; t=1680679890;
+	bh=oChopgY1SKNjR7hsmEncnv8U/Kn+Y19rt/o3e7AEhiI=;
 	h=From:Date:Subject:References:In-Reply-To:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mE7qyhIgrMexwyxjGKuln/68nqTCyIGOVCXJuHiFISL/P8ckk9VWASX/byuHFf9d9
-	 TGEZ3CIqkR27hSkUvkDgP7TAX2xK5jm81nhgioyMknuXSaJZ27rFdPDTWpsj/s1UQu
-	 JYP54f4kiKD+A/QJTaD1c0B3s4MI1Foy3nrUbMPc=
+	b=DMyFceS/Uc17gGXB1/+Z58mA+J80TNqFONTtyYBTF1MsVq7wGmPG47porSLrsdW59
+	 l/U52jzSHJmzPH545YIeEiTJWCwB8zFAVEaygC+yU2/Z+2QCBTsQDvCzT7GM+8IL3n
+	 C94W65dLsdQAxrJ8SEWZu05YRAlQ+76Zsg+kS2eQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6ADBBF8061A;
+	by alsa1.perex.cz (Postfix) with ESMTP id E8680F8061E;
 	Wed,  5 Apr 2023 09:20:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9C72F801C0; Tue,  4 Apr 2023 15:38:18 +0200 (CEST)
+	id D0D5EF8028B; Tue,  4 Apr 2023 15:38:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_03_06,
@@ -35,50 +35,50 @@ Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 887E4F8028B
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 15:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 887E4F8028B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 52BAEF8026D
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 15:38:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52BAEF8026D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
- header.s=fm3 header.b=PIung3aa;
+ header.s=fm3 header.b=CP8eNe+p;
 	dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=h7o2/bCf
+ header.a=rsa-sha256 header.s=fm2 header.b=SUDGJ6P/
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailnew.nyi.internal (Postfix) with ESMTP id B026F5821D1;
-	Tue,  4 Apr 2023 09:38:14 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute1.internal (MEProxy); Tue, 04 Apr 2023 09:38:14 -0400
+	by mailnew.nyi.internal (Postfix) with ESMTP id 22E655821D3;
+	Tue,  4 Apr 2023 09:38:18 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute1.internal (MEProxy); Tue, 04 Apr 2023 09:38:18 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1680615494; x=1680622694; bh=9erKL76nF+zcChQfvUOIX+3IbIizLEe+2X3
-	rEnpMzWM=; b=PIung3aa5vgiRKpawa5FHBi4L4D505BrBc9E6l6XSDbD6p+F1/3
-	qfbtMTfTDlmhWNSIXVKkDcoKRyUN040HtOoe5yd4OK+FyckrhBlDAevDYFX3KOnr
-	qL8Vfa5WVt+F1uuClr84120WJjbCTIqeiaVGgpVUe23ezyoEWzs2osDFZyLQtFEH
-	0S5s5nGMilfOQacx04JEG5f0z1+jbu9VfH2TVJ6mRCr0gZQH0ysGdISPOFrwjfEd
-	k/5VurEpLRbHCavCSXhwwhFR44j0nBeXQgW9RdGnAOFbIZsqjm+K3uZ9nmLvxGwd
-	NZJKozSDTRdM5zHdFgXyOeNKnV57lx8iMKw==
+	1680615498; x=1680622698; bh=/MpuhC2YV/sI8MoX4HIHj0oAsDLEqasTb0C
+	TR5BBjJY=; b=CP8eNe+p8jkvI/XFmojfDP6JgP+NsW1GhmTRG8j8FYMOpfqN2Ti
+	POZj55Jrn/tN2oqcPc7vrO3b8rLVPLHa7XluWTFX6Dtrg0poCWmvrN5ATWWk65st
+	7HbH07L9qgOtiPzx2FhhWzrfxYoJViiytT5VIPOEpswLn9s5/dlwte+Wa/Kn5reS
+	xBBGGfmVQqvk/9qTMJto7DN1RUuo/7lb97jbqU7POlRDZ/z9VXKFW7qZjfj3xA4K
+	OEQMiFaz35RY/Q7klIU9+8SynVUIFxYnnLVT3tDTqc6UUlteugSJLTLjs6EUCiGa
+	6DR6wHKJEmtCYO85S4zzLCg5Sjw3tXvrijQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
 	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1680615494; x=1680622694; bh=9erKL76nF+zcChQfvUOIX+3IbIizLEe+2X3
-	rEnpMzWM=; b=h7o2/bCfIvORqMGoznaWJESVKSuB8LrrwsP0PhmfmUEYpE9mhm6
-	alLRJDo8YfOoW/SQ8gc7QrkIVbh/Hr8ijAuG2jQEsXOp8WQS+gHUdy56/TDhU5YF
-	2OaEO5SvAHBz+eDD+My6ch9C0T5X1duzcKB4/r+2HAd/MaA6OUHsRdLU6t5wtmG8
-	OBE2LD5patTL4wy0BlMbFtpEb5FYoh4/EcF5HyYy9af/DEJn4lTjfsJ1Oz/Ye1+Z
-	d7tqxMFCfpKb1ts7ZzBI5fI0FZWDs/Bh1Em0l9aTvFufPvmKCqNr4eV4BT1UMQ+K
-	iTSEh+8ZKDTImGgFfCbZB2mW8ZEJu7vjlfw==
-X-ME-Sender: <xms:RigsZJzuvO5m0NIADv3WYjcPo6tZomBzFgLaU6NoyekkncryjMUNnw>
-    <xme:RigsZJTcl-xowiA2RZ87b46YWnl-Apyt3g26IWhRkeccoaJxDcJEgT6_iynQecJ2I
-    p46BlcglVIBtpp4bv8>
+	1680615498; x=1680622698; bh=/MpuhC2YV/sI8MoX4HIHj0oAsDLEqasTb0C
+	TR5BBjJY=; b=SUDGJ6P/qMg0QLe+433nAUDUMUlxoL9P+sd8/8Bqw2ta4WUJ5vq
+	b/Tsjn+CvKOn88uazrKsHC2S0udjrxyE40X/NDGuM5Jh48Rj7QruxvVmbLy1VQRx
+	dg1XAsMNMLWIPxN9JEKYOgixceMrhmpclaPnX3faZgNqZ4mFvjEdeQC9NaJeocsY
+	xT1z+sBDKjrerYiuT4BTqmbmNrasGnb22GqdOH+G34NOpvEwSudntzxZctAKOmHC
+	uXMNlO7X3dIL1ksEEvcouCQW7/YACgygJea2HnjYcMdvdhDDTY8A+SkD5YEEkm4c
+	BheDIWxePYU2gIfxy/HHltZG7LkXeoGGsvg==
+X-ME-Sender: <xms:SSgsZBnzGzjx-eYXglI-1FxPbxH_BD8l5xCzOkmWSJ5gWLf9dQGd0A>
+    <xme:SSgsZM0TURFs67gu_XTA44_c5J2LeH3pR-JkvV3r49EapCAMHW4zXVC0W9k41kXNs
+    BFTgpJuSv56YtBYIbA>
 X-ME-Received: 
- <xmr:RigsZDU7ptS16n4LZp4DHKzVyA4nBM5WRDrNn-vyiQBxJ38GG3aAfDa1fdvcU_RFE80UYIIrTU19nzITfJtCHdewOvGWHZg>
+ <xmr:SSgsZHr0qzXukls0NkUNcc6mlTTWq6V1MwyzZZYcfOrvb8hykTXmtRs8YHet1cEnbtKaFjYm5YgAuNGxPDF5Z2VEeRweSDo>
 X-ME-Proxy-Cause: 
  gggruggvucftvghtrhhoucdtuddrgedvhedrvdeiledgieeiucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
@@ -88,20 +88,20 @@ X-ME-Proxy-Cause:
     grthhtvghrnhepvedvleeijeegvdekffehkeehieelhfeggfffheetkeeuledvtdeuffeh
     teeltdffnecuvehluhhsthgvrhfuihiivgepfeenucfrrghrrghmpehmrghilhhfrhhomh
     epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:RigsZLg_uLPn1iMPuNN7QC4IOq3H1ZmOeWfOUCIw_UGJFkZskY7BKQ>
-    <xmx:RigsZLA1lpjwF75ShyyeKWPhXcaBDk5qfUDb9nZk_EnJ5v7p016mOw>
-    <xmx:RigsZEKYV4tEc5ZWPZhRAhWxabR_QSW-g1jIXgk3pvBl-kuaDRBxOw>
-    <xmx:RigsZFP0cpbupEZYj5R_P64BMDaQvvJAuRGPqLelTyELK4CYv5dMWQ>
+X-ME-Proxy: <xmx:SSgsZBkgOMnfOGhpfWED0p38EI9zkCSQXHeQ9lvVnqUx3dMa0XaFww>
+    <xmx:SSgsZP3kC5tmFT_-JesJEvDZGdmt5LV59TWBN7Gi4pomSjqwIXdPiA>
+    <xmx:SSgsZAtq7rNhNtzu4Kt2VtksIu_85RuFr70JIoR3d5_fUlkLaEUNxA>
+    <xmx:SigsZOgWzEpKwGUsXGM7wTp3kkALlUpC_VZQwx_IbGc0dHqfs8jYeg>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Apr 2023 09:38:13 -0400 (EDT)
+ 4 Apr 2023 09:38:16 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 04 Apr 2023 12:11:41 +0200
-Subject: [PATCH v3 51/65] clk: si5351: pll: Switch to determine_rate
+Date: Tue, 04 Apr 2023 12:11:42 +0200
+Subject: [PATCH v3 52/65] clk: si5351: msynth: Switch to determine_rate
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20221018-clk-range-checks-fixes-v3-51-9a1358472d52@cerno.tech>
+Message-Id: <20221018-clk-range-checks-fixes-v3-52-9a1358472d52@cerno.tech>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 In-Reply-To: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 To: Michael Turquette <mturquette@baylibre.com>,
@@ -143,11 +143,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
   Baolin Wang <baolin.wang@linux.alibaba.com>,
   Chunyan Zhang <zhang.lyra@gmail.com>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4009; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=MEbs6Fry9hN6nhk6b6j7l4iM8w51a4M3wMGk4q51/gw=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37d3m2ZEree7LBjHwqDxmcXShXNFTZuho+zXq7q3HvSe
- 3CXTUcrCIMbFICumyBIjbL4k7tSs151sfPNg5rAygQxh4OIUgIls5WJkmLw11O+xW6uCqcbd6wVCtn
- 72dk9XN4YlZKxOes+gfkd4B8P/wJTPq0pF5Dv/s6/8sM/a32pb57r/mrNmb5ghZvXr/id3TgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4438; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=oChopgY1SKNjR7hsmEncnv8U/Kn+Y19rt/o3e7AEhiI=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37c7r+CXinXtEz1edCvLYrr3hc3RBRvkX65ZbihcFrvo
+ 14EbHaUsDGJcDLJiiiwxwuZL4k7Net3JxjcPZg4rE8gQBi5OAZiIWwXD/3K70uwgyYmHWGLCCua3Ln
+ v+4GPu1k7tU4mGy30zI15V72P4K7eYJfb1j87VjXmLkyra9BUqUySY5+wNNnsr7C2U+y2ZDwA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-MailFrom: maxime@cerno.tech
@@ -158,9 +158,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: W6RBJ5TNZX37PHSGDVCUCURRRE7GW74D
-X-Message-ID-Hash: W6RBJ5TNZX37PHSGDVCUCURRRE7GW74D
-X-Mailman-Approved-At: Wed, 05 Apr 2023 07:18:44 +0000
+Message-ID-Hash: 4AVRE7MTMBDLDV2Z4O6J6KJ5XYSAALOW
+X-Message-ID-Hash: 4AVRE7MTMBDLDV2Z4O6J6KJ5XYSAALOW
+X-Mailman-Approved-At: Wed, 05 Apr 2023 07:18:45 +0000
 CC: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
@@ -175,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W6RBJ5TNZX37PHSGDVCUCURRRE7GW74D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4AVRE7MTMBDLDV2Z4O6J6KJ5XYSAALOW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -184,7 +184,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The SI5351 PLL clocks implements a mux with a set_parent hook, but
+The SI5351 msynth clocks implements a mux with a set_parent hook, but
 doesn't provide a determine_rate implementation.
 
 This is a bit odd, since set_parent() is there to, as its name implies,
@@ -214,84 +214,89 @@ oversight, the clock behaviour can be adjusted later on.
 
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
- drivers/clk/clk-si5351.c | 26 ++++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
+ drivers/clk/clk-si5351.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/clk/clk-si5351.c b/drivers/clk/clk-si5351.c
-index 9e939c98a455..fcf5785ba4ce 100644
+index fcf5785ba4ce..bfab05f4fe28 100644
 --- a/drivers/clk/clk-si5351.c
 +++ b/drivers/clk/clk-si5351.c
-@@ -442,11 +442,12 @@ static unsigned long si5351_pll_recalc_rate(struct clk_hw *hw,
+@@ -642,11 +642,12 @@ static unsigned long si5351_msynth_recalc_rate(struct clk_hw *hw,
  	return (unsigned long)rate;
  }
  
--static long si5351_pll_round_rate(struct clk_hw *hw, unsigned long rate,
--				  unsigned long *parent_rate)
-+static int si5351_pll_determine_rate(struct clk_hw *hw,
-+				     struct clk_rate_request *req)
+-static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+-				     unsigned long *parent_rate)
++static int si5351_msynth_determine_rate(struct clk_hw *hw,
++					struct clk_rate_request *req)
  {
  	struct si5351_hw_data *hwdata =
  		container_of(hw, struct si5351_hw_data, hw);
 +	unsigned long rate = req->rate;
- 	unsigned long rfrac, denom, a, b, c;
  	unsigned long long lltmp;
+ 	unsigned long a, b, c;
+ 	int divby4;
+@@ -681,10 +682,10 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+ 		b = 0;
+ 		c = 1;
  
-@@ -456,18 +457,18 @@ static long si5351_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 		rate = SI5351_PLL_VCO_MAX;
+-		*parent_rate = a * rate;
++		req->best_parent_rate = a * rate;
+ 	} else if (hwdata->num >= 6) {
+ 		/* determine the closest integer divider */
+-		a = DIV_ROUND_CLOSEST(*parent_rate, rate);
++		a = DIV_ROUND_CLOSEST(req->best_parent_rate, rate);
+ 		if (a < SI5351_MULTISYNTH_A_MIN)
+ 			a = SI5351_MULTISYNTH_A_MIN;
+ 		if (a > SI5351_MULTISYNTH67_A_MAX)
+@@ -702,7 +703,7 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+ 		}
  
- 	/* determine integer part of feedback equation */
--	a = rate / *parent_rate;
-+	a = rate / req->best_parent_rate;
+ 		/* determine integer part of divider equation */
+-		a = *parent_rate / rate;
++		a = req->best_parent_rate / rate;
+ 		if (a < SI5351_MULTISYNTH_A_MIN)
+ 			a = SI5351_MULTISYNTH_A_MIN;
+ 		if (a > SI5351_MULTISYNTH_A_MAX)
+@@ -710,7 +711,7 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
  
- 	if (a < SI5351_PLL_A_MIN)
--		rate = *parent_rate * SI5351_PLL_A_MIN;
-+		rate = req->best_parent_rate * SI5351_PLL_A_MIN;
- 	if (a > SI5351_PLL_A_MAX)
--		rate = *parent_rate * SI5351_PLL_A_MAX;
-+		rate = req->best_parent_rate * SI5351_PLL_A_MAX;
+ 		/* find best approximation for b/c = fVCO mod fOUT */
+ 		denom = 1000 * 1000;
+-		lltmp = (*parent_rate) % rate;
++		lltmp = req->best_parent_rate % rate;
+ 		lltmp *= denom;
+ 		do_div(lltmp, rate);
+ 		rfrac = (unsigned long)lltmp;
+@@ -724,7 +725,7 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
+ 	}
  
- 	/* find best approximation for b/c = fVCO mod fIN */
- 	denom = 1000 * 1000;
--	lltmp = rate % (*parent_rate);
-+	lltmp = rate % (req->best_parent_rate);
- 	lltmp *= denom;
--	do_div(lltmp, *parent_rate);
-+	do_div(lltmp, req->best_parent_rate);
- 	rfrac = (unsigned long)lltmp;
- 
- 	b = 0;
-@@ -484,19 +485,20 @@ static long si5351_pll_round_rate(struct clk_hw *hw, unsigned long rate,
- 	hwdata->params.p1 -= 512;
- 
- 	/* recalculate rate by fIN * (a + b/c) */
+ 	/* recalculate rate by fOUT = fIN / (a + b/c) */
 -	lltmp  = *parent_rate;
 +	lltmp  = req->best_parent_rate;
- 	lltmp *= b;
- 	do_div(lltmp, c);
- 
+ 	lltmp *= c;
+ 	do_div(lltmp, a * c + b);
  	rate  = (unsigned long)lltmp;
--	rate += *parent_rate * a;
-+	rate += req->best_parent_rate * a;
- 
+@@ -749,9 +750,11 @@ static long si5351_msynth_round_rate(struct clk_hw *hw, unsigned long rate,
  	dev_dbg(&hwdata->drvdata->client->dev,
- 		"%s - %s: a = %lu, b = %lu, c = %lu, parent_rate = %lu, rate = %lu\n",
- 		__func__, clk_hw_get_name(hw), a, b, c,
+ 		"%s - %s: a = %lu, b = %lu, c = %lu, divby4 = %d, parent_rate = %lu, rate = %lu\n",
+ 		__func__, clk_hw_get_name(hw), a, b, c, divby4,
 -		*parent_rate, rate);
 +		req->best_parent_rate, rate);
  
 -	return rate;
 +	req->rate = rate;
++
 +	return 0;
  }
  
- static int si5351_pll_set_rate(struct clk_hw *hw, unsigned long rate,
-@@ -533,7 +535,7 @@ static const struct clk_ops si5351_pll_ops = {
- 	.set_parent = si5351_pll_set_parent,
- 	.get_parent = si5351_pll_get_parent,
- 	.recalc_rate = si5351_pll_recalc_rate,
--	.round_rate = si5351_pll_round_rate,
-+	.determine_rate = si5351_pll_determine_rate,
- 	.set_rate = si5351_pll_set_rate,
+ static int si5351_msynth_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -791,7 +794,7 @@ static const struct clk_ops si5351_msynth_ops = {
+ 	.set_parent = si5351_msynth_set_parent,
+ 	.get_parent = si5351_msynth_get_parent,
+ 	.recalc_rate = si5351_msynth_recalc_rate,
+-	.round_rate = si5351_msynth_round_rate,
++	.determine_rate = si5351_msynth_determine_rate,
+ 	.set_rate = si5351_msynth_set_rate,
  };
  
 

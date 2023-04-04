@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1254E6D7556
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 09:28:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F7946D7557
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 09:29:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BDF882E;
-	Wed,  5 Apr 2023 09:27:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BDF882E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8C1FA4C;
+	Wed,  5 Apr 2023 09:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8C1FA4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680679727;
-	bh=HtiZLTZxu+0Vc/tuIwwetW0OP4SJJZ85i6en1IS1+Ro=;
+	s=default; t=1680679744;
+	bh=QekP+epNmA83sqDmu5lHjN7BcI1AORu3A4RkoTeeLxY=;
 	h=From:Date:Subject:References:In-Reply-To:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GKSbo4c8KupCpvOb67jnvF177bciSCBr6nBYcrXl9n8mZfTd5p8t0QDNmLDsbxrUU
-	 sDSjWiRbxjMrzHEOXEl1gxEbdyEx5Ms9Y9xcyyHnn6c/uQeefJE0xGOm7uWSJZleS4
-	 OWCHsAvfiJOPdSavTIYHdqhpKOPNoE7s5ksc2SVs=
+	b=LvvMbWjGIUCt3vogCyzWN8Um0NjFgMZ4ZqIIlcBJCe4QPos579Qn++iGinr3OESmo
+	 winRigDKMRjRljpLKFkIrtYrSZX8nC9zjOCjPWjq+bcy+GXDtwHsNlRPC+Bb6yofr7
+	 io5hY7td+2pxQmsUotif92njB+x269thwkpK6ZLg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19055F80602;
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CF85F805FB;
 	Wed,  5 Apr 2023 09:20:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 43B9BF80054; Tue,  4 Apr 2023 15:37:57 +0200 (CEST)
+	id 4A5BDF8026D; Tue,  4 Apr 2023 15:37:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_03_06,
@@ -35,50 +35,50 @@ Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B1828F8024C
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 15:37:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1828F8024C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 345DDF801C0
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 15:37:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 345DDF801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
- header.s=fm3 header.b=YdasKTWY;
+ header.s=fm3 header.b=Z/WQMY1/;
 	dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=R4rZh5eZ
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
-	by mailnew.nyi.internal (Postfix) with ESMTP id 313B75821B5;
-	Tue,  4 Apr 2023 09:37:49 -0400 (EDT)
+ header.a=rsa-sha256 header.s=fm2 header.b=I1cHeP/c
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailnew.nyi.internal (Postfix) with ESMTP id 5BF9D5821B6;
+	Tue,  4 Apr 2023 09:37:53 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
-  by compute6.internal (MEProxy); Tue, 04 Apr 2023 09:37:49 -0400
+  by compute5.internal (MEProxy); Tue, 04 Apr 2023 09:37:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1680615469; x=1680622669; bh=2f/GcOwC9A0ZwKNkj3FhXDHyxqI3cZjTVz5
-	j/5zG6a4=; b=YdasKTWY9UutI9KwQqigqhxGYK3ML0Gb3XawGuJf2dTogDW+Sp4
-	hjqk4JSxnnu1fsz749xiav0a3Rm9hwjE5iB4T4WIRnkEXpiXK04DGkxnXcpQVNDD
-	uMpqW/mU/3FkNk4w5+qKVwxXyWa+4r/cZpVuF5VSvdhF6nEs7oOxa2c48+uHmRRL
-	diE9/aYJ+ndqVLtWl14v7VffR+fzu6b0T9A4du/TWgDiraNsJRkA/IwT0cjgjj7u
-	zeBnh06LAgyD3dLaU36XbvLaDicm0Rwwfhekaga7YjkKiTqfSNH0mBAQlhfUx4U3
-	Csk35KszJZtfuf2c+qwC0Kn5uhZBEe9Ej+A==
+	1680615473; x=1680622673; bh=9Im+4uF1Y1TWyriLnaoZZgBXrAkNQSpZDwb
+	QAD+dh3k=; b=Z/WQMY1/exkEw5U0lYVPxk+eSrO976KSusR6685F+fj7UIfyx0y
+	iNX1Nxz6fe5MrDw8WtVlVhDKIQaRbwq3KkuU0E66c+lPYXx8SgdyaZwg6egXOnjj
+	UhBufbAetEbmDr28HSoRt1RZl7XlR3syCtsjI8Ry3plrW5dFdmg7iZHnG0CkRqUQ
+	UOIwNuq8fJphVdkqugSMgonGMCAGToi3IypetkPMjb1tAMI/iad6fXQwPd/8A2XL
+	1ZWem6WdJrt3u6vQX5xQZZuc7uGWjr14/H2ZYO4Z7jNDCHYd1SQVqdMLeDTY8zOp
+	qZ1sSQ08b47p0/KBulb3WK3MktpYeYoeanA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
 	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1680615469; x=1680622669; bh=2f/GcOwC9A0ZwKNkj3FhXDHyxqI3cZjTVz5
-	j/5zG6a4=; b=R4rZh5eZAhCRXW0ZgLVw0QITTsAmR0Yi8Z6I5bX9y/uUoYyNEvC
-	bfXsgHyXrTaIMcQe+Trxn3FeG3gMSAOxfs5bXF7d3Fe3qAxrFALEDPlp85SCD0eF
-	TIaXjcLt0xwfM8FD6Z35MiXo5H1sxDnTGk2T76uNPw8Ec0qxKfiF/HvP4DVPfy0A
-	xooDMJri9B8zVzVCatzCPGuABVd/KqSKXkuHIyLFeRtfeECy5hCsERiZ3weSC7t5
-	rlCZVQ4bRXI99XqS/nHXwkLXzScrXhbUTC9TQ5CMMcI2+osJ3nIcYoPdNpsGTPdn
-	isn1R2dLbB0ExtI6eTZ0f3zzUOaToLEw68Q==
-X-ME-Sender: <xms:LCgsZAt-gaauDetDLsx8VCTzVJ-j7QEru_j2Q6fJWGnuF11_DJOU3Q>
-    <xme:LCgsZNeoekCQKW71k7CfVT37kjflJAZae2XO0Ulks7qHWGAeMAdSpa5mbjE0G4xoB
-    KZeBB0vPWJv3sZPbEg>
+	1680615473; x=1680622673; bh=9Im+4uF1Y1TWyriLnaoZZgBXrAkNQSpZDwb
+	QAD+dh3k=; b=I1cHeP/cESwwf/a6SPze9YtqbmiYvsiHARWu9FjMSQfJGUCn3Hc
+	ntvcsJ9ZFYGF32Pwg4xQ8Ay40x0TuSR6KiY0zDlndRfnHEd0DIh8cCXeWo5Jh3Ab
+	qdft1YoZ76Y3yiu3adDT6hgvQMxIbrIJnWA6KTx/HHAV9En54mG6T0gvfkOAZz4W
+	nkckRHn2NtGNpinGA3It7lug1efOmMK0A7diN8QAoubvoGNXTiHZheDYUR5EP2N0
+	J7ZTv0ZQRTFZWNHoAxBoDY0g1zNGrvFqxiH1Ae7nqWfSu0FEkIz6klwqA8VDw+/A
+	BNBZlkwilXmiYIUpkrLn4fIxCnIaPtintpg==
+X-ME-Sender: <xms:MCgsZFnrcDoBqMS2N-WnhZLkNfoUGkJ5RzZGlvu19tSP3Z0xndkg0Q>
+    <xme:MCgsZA1HiMEcDTEFsHB7DSI7HPOarQU6hu4IvclGZHLgoZmZ9luDdCV8xblZ9miaE
+    5sZijqBgSIOOtDhu3w>
 X-ME-Received: 
- <xmr:LCgsZLxlf7c1Vh41qz1TcrtlwDlNPrQ_LP7zYk-PpWXRBR0-MtYKiawwCXheyvYDOpmef2Q7IKtzfdx9DlNR2Dtu_4wuw78>
+ <xmr:MCgsZLpGOJTpkA0DuOlVVLBZBbJ2n3239AEDcapYBjlCYEP9I6d9r0XBSCZlCB6gN_ITy7h-kB3wzbQy0pnunjVwi_RvBXQ>
 X-ME-Proxy-Cause: 
  gggruggvucftvghtrhhoucdtuddrgedvhedrvdeiledgieeiucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
@@ -86,23 +86,23 @@ X-ME-Proxy-Cause:
     cujfgurhephfffufggtgfgkfhfjgfvvefosehtjeertdertdejnecuhfhrohhmpeforgig
     ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
     grthhtvghrnhepvedvleeijeegvdekffehkeehieelhfeggfffheetkeeuledvtdeuffeh
-    teeltdffnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomh
+    teeltdffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
     epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:LSgsZDOl2KyGVQXbcvWu9DVweT7d0A-2bvGBeWUTPr0vJkYLcCAHZQ>
-    <xmx:LSgsZA_t8f09pPmHS-QDtHs9wGVXaiARFRplYUznJK-8JjuoKzl8Zg>
-    <xmx:LSgsZLUFuIcFk8j-oHCtaUmfnjQNPOOsnXeCoYa0pw1TQdcHF4mH0Q>
-    <xmx:LSgsZEp-9uiq07WyCC6YwPTE8mcHWEectda7jKcHcHccL_U6dt1Lpw>
+X-ME-Proxy: <xmx:MCgsZFml3G-dV9IkUe9MhNs1jMBuW_2Yt0M-tUJnsduuNpatajenKg>
+    <xmx:MCgsZD0h0LX3mtt8fmVcz9tj5od5tCR9vVmCS_CVC-CxBOTb8xrUYQ>
+    <xmx:MCgsZEuRnXKkyx4YqbONlz_pAUTMjZYDN-nuH2rwrviPNTgzpOnmaw>
+    <xmx:MSgsZCjNY9M79LhpiePHJyHYyDZKnolH572jkSiMbLMmo_UHvp-4mw>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Apr 2023 09:37:47 -0400 (EDT)
+ 4 Apr 2023 09:37:50 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 04 Apr 2023 12:11:34 +0200
-Subject: [PATCH v3 44/65] clk: actions: composite: div: Switch to
+Date: Tue, 04 Apr 2023 12:11:35 +0200
+Subject: [PATCH v3 45/65] clk: actions: composite: fact: Switch to
  determine_rate
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20221018-clk-range-checks-fixes-v3-44-9a1358472d52@cerno.tech>
+Message-Id: <20221018-clk-range-checks-fixes-v3-45-9a1358472d52@cerno.tech>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 In-Reply-To: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 To: Michael Turquette <mturquette@baylibre.com>,
@@ -144,11 +144,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
   Baolin Wang <baolin.wang@linux.alibaba.com>,
   Chunyan Zhang <zhang.lyra@gmail.com>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2782; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=HtiZLTZxu+0Vc/tuIwwetW0OP4SJJZ85i6en1IS1+Ro=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37fNnzPlzLGNc+cczLofr6MXLZ922uqAoZfTnL0fVJUO
- lhnO6yhlYRDjYpAVU2SJETZfEndq1utONr55MHNYmUCGMHBxCsBE9C4y/I96wsVSzhW6LiX8fwIzB+
- vkqncrL3u/PZgXET/P18a7pIOR4UjAPR3lq98vv1i7+U6IfcJK2ZyPbv+TNPTvOok/8ogM5wcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2796; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=QekP+epNmA83sqDmu5lHjN7BcI1AORu3A4RkoTeeLxY=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37fNm2LqavPB74P47p7MiiUW0pvbNupWs6079EPLrmTz
+ zBz7jlIWBjEuBlkxRZYYYfMlcadmve5k45sHM4eVCWQIAxenAEyktoiR4ZhHhp8+q3NEf9jm2Pua04
+ yLul9uM6orrXg/6cWEg/svqzH8FRP0Yz3Bcay/zevirk8sfyK0o54Yfst1craJ8MxfsnQWAwA=
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-MailFrom: maxime@cerno.tech
@@ -159,8 +159,8 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: ARR3I3C5UBJ4CXCOPVX7RCMJH6TJO2UO
-X-Message-ID-Hash: ARR3I3C5UBJ4CXCOPVX7RCMJH6TJO2UO
+Message-ID-Hash: Q2VJ62FJFR2XRDYUCHY5V7FPPJPKORPG
+X-Message-ID-Hash: Q2VJ62FJFR2XRDYUCHY5V7FPPJPKORPG
 X-Mailman-Approved-At: Wed, 05 Apr 2023 07:18:33 +0000
 CC: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
@@ -176,7 +176,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ARR3I3C5UBJ4CXCOPVX7RCMJH6TJO2UO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q2VJ62FJFR2XRDYUCHY5V7FPPJPKORPG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -185,7 +185,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Actions composite divider clocks implements a mux with a set_parent
+The Actions composite factor clocks implements a mux with a set_parent
 hook, but doesn't provide a determine_rate implementation.
 
 This is a bit odd, since set_parent() is there to, as its name implies,
@@ -215,29 +215,31 @@ oversight, the clock behaviour can be adjusted later on.
 
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
- drivers/clk/actions/owl-composite.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/clk/actions/owl-composite.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/clk/actions/owl-composite.c b/drivers/clk/actions/owl-composite.c
-index 4c844a5613e4..d66b268563d0 100644
+index d66b268563d0..3cac8f0a80dc 100644
 --- a/drivers/clk/actions/owl-composite.c
 +++ b/drivers/clk/actions/owl-composite.c
-@@ -53,13 +53,19 @@ static int owl_comp_is_enabled(struct clk_hw *hw)
- 	return owl_gate_clk_is_enabled(common, &comp->gate_hw);
+@@ -86,14 +86,20 @@ static int owl_comp_div_set_rate(struct clk_hw *hw, unsigned long rate,
+ 					rate, parent_rate);
  }
  
--static long owl_comp_div_round_rate(struct clk_hw *hw, unsigned long rate,
--				unsigned long *parent_rate)
-+static int owl_comp_div_determine_rate(struct clk_hw *hw,
-+				       struct clk_rate_request *req)
+-static long owl_comp_fact_round_rate(struct clk_hw *hw, unsigned long rate,
+-			unsigned long *parent_rate)
++static int owl_comp_fact_determine_rate(struct clk_hw *hw,
++					struct clk_rate_request *req)
  {
  	struct owl_composite *comp = hw_to_owl_comp(hw);
 +	long rate;
  
--	return owl_divider_helper_round_rate(&comp->common, &comp->rate.div_hw,
+-	return owl_factor_helper_round_rate(&comp->common,
+-					&comp->rate.factor_hw,
 -					rate, parent_rate);
-+	rate = owl_divider_helper_round_rate(&comp->common, &comp->rate.div_hw,
-+					     req->rate, &req->best_parent_rate);
++	rate = owl_factor_helper_round_rate(&comp->common,
++					    &comp->rate.factor_hw,
++					    req->rate, &req->best_parent_rate);
 +	if (rate < 0)
 +		return rate;
 +
@@ -245,15 +247,15 @@ index 4c844a5613e4..d66b268563d0 100644
 +	return 0;
  }
  
- static unsigned long owl_comp_div_recalc_rate(struct clk_hw *hw,
-@@ -152,7 +158,7 @@ const struct clk_ops owl_comp_div_ops = {
+ static unsigned long owl_comp_fact_recalc_rate(struct clk_hw *hw,
+@@ -175,7 +181,7 @@ const struct clk_ops owl_comp_fact_ops = {
  	.is_enabled	= owl_comp_is_enabled,
  
- 	/* div_ops */
--	.round_rate	= owl_comp_div_round_rate,
-+	.determine_rate	= owl_comp_div_determine_rate,
- 	.recalc_rate	= owl_comp_div_recalc_rate,
- 	.set_rate	= owl_comp_div_set_rate,
+ 	/* fact_ops */
+-	.round_rate	= owl_comp_fact_round_rate,
++	.determine_rate	= owl_comp_fact_determine_rate,
+ 	.recalc_rate	= owl_comp_fact_recalc_rate,
+ 	.set_rate	= owl_comp_fact_set_rate,
  };
 
 -- 

@@ -2,103 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE026D67D8
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 17:49:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63EA96D688B
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 18:13:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62DBF1FE;
-	Tue,  4 Apr 2023 17:49:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62DBF1FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C6841FB;
+	Tue,  4 Apr 2023 18:12:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C6841FB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680623393;
-	bh=UptvTG4aFR011GJLVts1oxOoxLMLOROueUPWZC1W3/A=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1680624813;
+	bh=0ApQ+qcVINqFdFbZP2USFgiBq84yNoutzzoVeoKV2MI=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y/MtFBVYLXkOtP8EQTuAiBmJxB1Jsh6mpSYJt5zX05rpmImwKQ99Z+mMpZywQD5O3
-	 tZF1u/BQ34AfKq1sihOs4+r9Z8CldOnupv6dpg69iyRrj0n2fHZHflFGnoIqZ1Zf1O
-	 28k/JOcq22ld3+p8FHkLQgip20knHs5EmFGHlKQ4=
+	b=s2E7E/1ezjR4Hrk06GSPxFxQj665h2d+2kbRBIgRTBTi6wn5sugAd8s8UwSt84qI0
+	 qCfzCDkoXv14XrPVK9JUiSspQAq44lORv5LvJVXD0H3nWKNT0Gqvlb4gY+naxefUto
+	 YzZbzPo2qfQkUXReRS3X9/ffNtdT6J4Nx9hpQLkA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FEB0F801C0;
-	Tue,  4 Apr 2023 17:49:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEB2FF801C0;
+	Tue,  4 Apr 2023 18:12:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0A3BF8024C; Tue,  4 Apr 2023 17:48:58 +0200 (CEST)
+	id E84C5F8024C; Tue,  4 Apr 2023 18:12:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 18615F80054
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 17:48:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18615F80054
+	by alsa1.perex.cz (Postfix) with ESMTPS id F18D0F80054
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 18:12:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F18D0F80054
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VFT8BR6L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1680623323; x=1712159323;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UptvTG4aFR011GJLVts1oxOoxLMLOROueUPWZC1W3/A=;
-  b=VFT8BR6LYN7yKsVWZQubAMpAUWuKJJUQ8rAVRdpXDqvpr99rewBXt+tS
-   a3e9kufqpeKtbVFwX5ordSMQHilo6KqoxJdSiroYgrIgvcO21sRynBIIG
-   Gc9NswWqkPrG4G1K+8NWRmpBbN8z+yh/SGpudqWopThk1Rk/v8eTqRqVZ
-   YAlAnU5ANp9EEX5hcWPsCvqXoE9c/kjtvSqG/Ep4Fvk8tUgjh2U0mWmoD
-   OnKSzJWet8MBaPCrdv/IVl9xJQPr6gkF3C4sxLaQcl4z24QlF/aIx4Scu
-   SQvPui38AaSG/a37xyPchi2T3rSIo15AhK0n3aGU4AYuJv2y3a3fjSeqf
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="428510618"
-X-IronPort-AV: E=Sophos;i="5.98,318,1673942400";
-   d="scan'208";a="428510618"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2023 08:48:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="775683593"
-X-IronPort-AV: E=Sophos;i="5.98,318,1673942400";
-   d="scan'208";a="775683593"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
-  by FMSMGA003.fm.intel.com with ESMTP; 04 Apr 2023 08:48:32 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1pjitb-000Pqe-2p;
-	Tue, 04 Apr 2023 15:48:31 +0000
-Date: Tue, 4 Apr 2023 23:47:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: shumingf@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-Subject: Re: [PATCH v3] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic
- topology
-Message-ID: <202304042324.kTGAiaCz-lkp@intel.com>
-References: <20230329090737.254649-1-shumingf@realtek.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=Z/iFB9SX
+Received: by mail-ed1-x52e.google.com with SMTP id eh3so132714146edb.11
+        for <alsa-devel@alsa-project.org>;
+ Tue, 04 Apr 2023 09:12:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680624751;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CEde4dazqs8JsdpTq9e976ZMwIeqbEXbVwUyENJtDV0=;
+        b=Z/iFB9SXOwMEOpCmleolmC6l2LhvyD3XMh7WKOQsjMrvrxUfm8ennXwNohnigYv577
+         B0hcxCfK9O73k2WCkdVlygKAlqYEEo72A8k1oNl+MsgsyTJGhgafCec/5kegRzRVLQXT
+         OCOfvy9H+0BPY68owun4pHVK1Y2z87oAUDjbO42Onc2uTvHyqB3Pk9lYHWCIitiB3L+W
+         6O1IIhVrJUlTQOnrp6Z+7/NZyyt//bCrMkRfulIemxRMeROJ6K/RYHwuMY84B7/V8FIH
+         Esd2Q2uWSlAzo36yuNwBvSFHrCTIQzFqztfrFUU82/mwACajVe92PJiD1PZ2RvDi8R/9
+         F1Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680624751;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CEde4dazqs8JsdpTq9e976ZMwIeqbEXbVwUyENJtDV0=;
+        b=bgLYG+1JRNl31hv/Fn3vQ9IUYyyRK9qtnvgt+Qz8Fr+g0oGzOdLcmteE6s+LoOekmV
+         QRlcKpvmKq7gP16j0s+MUCAkJqt2k41FoHn9J5PZbW6qpDu7I9Maag3NO9fZ3ceFmR4W
+         mrNYgYJU9NwMy+eHKam/vgVe7EoNZ0NlJAJ/GvPxVaHGoo0aaEytdShhsPWb5DNTKn7F
+         Gx5sw4y/vDSz06NkJlg8KuyQp5fVi1oqWyzMJl2nQ0VX27fYJb2bvZA9rHG1zG0wEuUY
+         rqvAbvUaxKDv+mUIJk44E/YMudi0z3DIKO/VpqZHyYya3soEUpRzFnk7IMXp0Gzz0TDE
+         vfDA==
+X-Gm-Message-State: AAQBX9e6Unbaff7CVWR8HoKnkNxNBhxufZ/XxJCLROIz6ZG7bFQ3hYRs
+	E19XYurByZMp18npCDc8xOA=
+X-Google-Smtp-Source: 
+ AKy350Y7Q1EvlaIMvcDZzEKWbHr8fByK3cVf/k9Wwlk6Un7sG8GyowpBQ8MoX8kuqDf1J9EYnHhtUg==
+X-Received: by 2002:a17:906:c217:b0:92d:9767:8e0a with SMTP id
+ d23-20020a170906c21700b0092d97678e0amr102818ejz.13.1680624751436;
+        Tue, 04 Apr 2023 09:12:31 -0700 (PDT)
+Received: from localhost
+ (p200300e41f1c0800f22f74fffe1f3a53.dip0.t-ipconnect.de.
+ [2003:e4:1f1c:800:f22f:74ff:fe1f:3a53])
+        by smtp.gmail.com with ESMTPSA id
+ jo25-20020a170906f6d900b0093408d33875sm6126508ejb.49.2023.04.04.09.12.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Apr 2023 09:12:31 -0700 (PDT)
+From: Thierry Reding <thierry.reding@gmail.com>
+To: oder_chiou@realtek.com,
+	thierry.reding@gmail.com,
+	Sameer Pujar <spujar@nvidia.com>,
+	krzysztof.kozlowski+dt@linaro.org,
+	robh+dt@kernel.org,
+	broonie@kernel.org,
+	jonathanh@nvidia.com
+Subject: Re: [PATCH v2] arm64: tegra: Audio codec support on Jetson AGX Orin
+Date: Tue,  4 Apr 2023 18:12:30 +0200
+Message-Id: <168062474005.2644933.17495662209402914912.b4-ty@nvidia.com>
+X-Mailer: git-send-email 2.40.0
+In-Reply-To: <1676263474-13346-1-git-send-email-spujar@nvidia.com>
+References: <1676263474-13346-1-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230329090737.254649-1-shumingf@realtek.com>
-Message-ID-Hash: 7RROOA3HIGZFMVZ2UDM4FRB57HEHIQXU
-X-Message-ID-Hash: 7RROOA3HIGZFMVZ2UDM4FRB57HEHIQXU
-X-MailFrom: lkp@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: KANU4WUYDIMKSUN4GFXRPEBDZOEGUJF4
+X-Message-ID-Hash: KANU4WUYDIMKSUN4GFXRPEBDZOEGUJF4
+X-MailFrom: thierry.reding@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
- lars@metafoo.de, flove@realtek.com, oder_chiou@realtek.com,
- jack.yu@realtek.com, derek.fang@realtek.com, pierre-louis.bossart@intel.com,
- bard.liao@intel.com, Yijun.Shen@dell.com, Shuming Fan <shumingf@realtek.com>
+CC: kuninori.morimoto.gx@renesas.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, tiwai@suse.com, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7RROOA3HIGZFMVZ2UDM4FRB57HEHIQXU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KANU4WUYDIMKSUN4GFXRPEBDZOEGUJF4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,129 +127,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+From: Thierry Reding <treding@nvidia.com>
 
-kernel test robot noticed the following build warnings:
+On Mon, 13 Feb 2023 10:14:34 +0530, Sameer Pujar wrote:
+> Jetson AGX Orin has onboard RT5640 audio codec. This patch adds the
+> codec device node and the bindings to I2S1 interface.
+> 
+> 
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on linus/master v6.3-rc5 next-20230404]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Applied, thanks!
 
-url:    https://github.com/intel-lab-lkp/linux/commits/shumingf-realtek-com/ASoC-rt712-sdca-Add-RT712-SDCA-driver-for-Mic-topology/20230329-171313
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230329090737.254649-1-shumingf%40realtek.com
-patch subject: [PATCH v3] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology
-config: arc-randconfig-r043-20230404 (https://download.01.org/0day-ci/archive/20230404/202304042324.kTGAiaCz-lkp@intel.com/config)
-compiler: arc-elf-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/aeee9e435d2d3b75d6cacb0b19bd6afb06c287ac
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review shumingf-realtek-com/ASoC-rt712-sdca-Add-RT712-SDCA-driver-for-Mic-topology/20230329-171313
-        git checkout aeee9e435d2d3b75d6cacb0b19bd6afb06c287ac
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash drivers/virtio/ sound/soc/codecs/
+[1/1] arm64: tegra: Audio codec support on Jetson AGX Orin
+      commit: b903a6c5aaa862f8b88f4be4431ccca3b6fbc187
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202304042324.kTGAiaCz-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> sound/soc/codecs/rt712-sdca-dmic.c:178:5: warning: no previous prototype for 'rt712_sdca_dmic_io_init' [-Wmissing-prototypes]
-     178 | int rt712_sdca_dmic_io_init(struct device *dev, struct sdw_slave *slave)
-         |     ^~~~~~~~~~~~~~~~~~~~~~~
->> sound/soc/codecs/rt712-sdca-dmic.c:765:5: warning: no previous prototype for 'rt712_sdca_dmic_init' [-Wmissing-prototypes]
-     765 | int rt712_sdca_dmic_init(struct device *dev, struct regmap *regmap,
-         |     ^~~~~~~~~~~~~~~~~~~~
-
-
-vim +/rt712_sdca_dmic_io_init +178 sound/soc/codecs/rt712-sdca-dmic.c
-
-   177	
- > 178	int rt712_sdca_dmic_io_init(struct device *dev, struct sdw_slave *slave)
-   179	{
-   180		struct rt712_sdca_dmic_priv *rt712 = dev_get_drvdata(dev);
-   181	
-   182		if (rt712->hw_init)
-   183			return 0;
-   184	
-   185		if (rt712->first_hw_init) {
-   186			regcache_cache_only(rt712->regmap, false);
-   187			regcache_cache_bypass(rt712->regmap, true);
-   188			regcache_cache_only(rt712->mbq_regmap, false);
-   189			regcache_cache_bypass(rt712->mbq_regmap, true);
-   190		} else {
-   191			/*
-   192			 * PM runtime is only enabled when a Slave reports as Attached
-   193			 */
-   194	
-   195			/* set autosuspend parameters */
-   196			pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
-   197			pm_runtime_use_autosuspend(&slave->dev);
-   198	
-   199			/* update count of parent 'active' children */
-   200			pm_runtime_set_active(&slave->dev);
-   201	
-   202			/* make sure the device does not suspend immediately */
-   203			pm_runtime_mark_last_busy(&slave->dev);
-   204	
-   205			pm_runtime_enable(&slave->dev);
-   206		}
-   207	
-   208		pm_runtime_get_noresume(&slave->dev);
-   209	
-   210		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   211			RT712_ADC0A_08_PDE_FLOAT_CTL, 0x1112);
-   212		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   213			RT712_ADC0B_11_PDE_FLOAT_CTL, 0x1111);
-   214		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   215			RT712_DMIC1_2_PDE_FLOAT_CTL, 0x1111);
-   216		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   217			RT712_I2S_IN_OUT_PDE_FLOAT_CTL, 0x1155);
-   218		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   219			RT712_DMIC_ENT_FLOAT_CTL, 0x2626);
-   220		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   221			RT712_ADC_ENT_FLOAT_CTL, 0x1e19);
-   222		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   223			RT712_DMIC_GAIN_ENT_FLOAT_CTL0, 0x1515);
-   224		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   225			RT712_ADC_VOL_CH_FLOAT_CTL2, 0x0304);
-   226		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   227			RT712_DMIC_GAIN_ENT_FLOAT_CTL2, 0x0304);
-   228		rt712_sdca_dmic_index_write(rt712, RT712_VENDOR_HDA_CTL,
-   229			RT712_HDA_LEGACY_CONFIG_CTL0, 0x0050);
-   230		regmap_write(rt712->regmap,
-   231			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT712_SDCA_ENT_IT26, RT712_SDCA_CTL_VENDOR_DEF, 0), 0x01);
-   232		rt712_sdca_dmic_index_write(rt712, RT712_ULTRA_SOUND_DET,
-   233			RT712_ULTRA_SOUND_DETECTOR6, 0x3200);
-   234		regmap_write(rt712->regmap, RT712_RC_CAL, 0x23);
-   235		regmap_write(rt712->regmap, 0x2f52, 0x00);
-   236	
-   237		if (rt712->first_hw_init) {
-   238			regcache_cache_bypass(rt712->regmap, false);
-   239			regcache_mark_dirty(rt712->regmap);
-   240			regcache_cache_bypass(rt712->mbq_regmap, false);
-   241			regcache_mark_dirty(rt712->mbq_regmap);
-   242		} else
-   243			rt712->first_hw_init = true;
-   244	
-   245		/* Mark Slave initialization complete */
-   246		rt712->hw_init = true;
-   247	
-   248		pm_runtime_mark_last_busy(&slave->dev);
-   249		pm_runtime_put_autosuspend(&slave->dev);
-   250	
-   251		dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
-   252		return 0;
-   253	}
-   254	
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Thierry Reding <treding@nvidia.com>

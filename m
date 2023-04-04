@@ -2,240 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0345D6D75AE
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 09:34:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 435616D6B2B
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 20:04:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49FAAEA6;
-	Wed,  5 Apr 2023 09:33:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49FAAEA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2A4A1FE;
+	Tue,  4 Apr 2023 20:04:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2A4A1FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680680059;
-	bh=nkg3J2pZ6Emj5ZTb2TEAACZEzYKD5OZqKewZo/EQOOU=;
+	s=default; t=1680631492;
+	bh=VTodb8VMovTJIOmYpvzU93rcOHX1Ft3uc3hiWxKWh0Y=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ct7AD77xB8/43kpf5m3EoUvaLxOfaDZjSpuwrNl8FOrVprqWWQTCHRP9s4MB7Jax5
-	 rpW81SibRk8VU3DOMQpcjfe1qVZEKODGrI3pUUV0f3vbfLn/7XR8JUvp8UTvcjx8mr
-	 Al4Yj451IFzPiVX11YQPVEMtHRiS/pTwc0NXOi2Q=
+	b=WBiA++M/qwc/rvG+0/t6B+aK0gF+3ug7CH3O8j0Sny6gOTFnaiEXlGXi/3A7uvg6y
+	 Nz+JhzVShLXzyF4tuG9gXSePrsgAdDe7dUkvlWG+L8cLrzXih+xH+XXxGM5rd721Y+
+	 LVkERvYnC1Z9avsuKTeb3AfMbWPyQZfUveeGouNU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B401F8067E;
-	Wed,  5 Apr 2023 09:21:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F35FF801C0;
+	Tue,  4 Apr 2023 20:04:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAA8AF8024C; Tue,  4 Apr 2023 19:25:17 +0200 (CEST)
+	id E881CF8024C; Tue,  4 Apr 2023 20:03:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5191FF80054
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 19:25:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5191FF80054
+	by alsa1.perex.cz (Postfix) with ESMTPS id A9E5DF80171
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 20:03:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9E5DF80171
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256
- header.s=corp-2022-7-12 header.b=ih/i+YwH;
-	dkim=pass (1024-bit key,
- unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com
- header.b=fGXHC3TB
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 334DxCj2023754;
-	Tue, 4 Apr 2023 17:25:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2022-7-12;
- bh=dbApGOrYWa7mfDuoxc6AkG1hJLb+F948BK/KeDOGaJ0=;
- b=ih/i+YwHXIMG9X00gO2LL5yv3b1RugETP4V2w1gwBY9iW+I1MtHWMFIInDxrdO67ebP9
- LzasBDBxuVppvaRdvCR/5gt2c37bKamN+WroTY8iaJzVK4QkSE5HbUIvazlijl4uCNJi
- Xwa1EOTmrET7nvy8mL9dtMPRtLNlOlLY4lMscK0gMoIv078vFXV96yDlz1U8J8z0gI48
- MoncP4Yml7QpCYaBCO8pe1qkvXlaxy3LHtgHjCWf8af4rv/HBRIdsvq72QvMnO/t/3br
- wxOebNbz6ICUD9HL46xKZ1RK7PmzZsLT0FYBUTa4MRNqW9YYD8pYkT1wl/LUTj8e/bc+ /g==
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ppc7txcwj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 04 Apr 2023 17:25:06 +0000
-Received: from pps.filterd
- (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 334Fu0iD039465;
-	Tue, 4 Apr 2023 17:25:05 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2174.outbound.protection.outlook.com [104.47.56.174])
-	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3ppt26q1f4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 04 Apr 2023 17:25:05 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I+7np9ZNhbFIKhT1P7vRIL/t+ey2kH6zU4Eaoz0VW7JHDPlr+JNCAK+VqFpZhXmmRRske+dq53jSpwgFBs/MYKn/zAuJV3aJSbwY7qiU8KvQahhElhOImSY9pBW7IBNxiYGoElEUNREUL16a/GHogtKuhs98BpWKIV1zDCDozluKgsKapD12Hx3TSVfgom6WpMzKUKbb2sAugCMuiAgFWVCW9+ZK9gyiFJB/0iB9ZFrRGKTWo4oMSAa5KyJ1kHFoiiPHJmKcePMetUoE/VP6Ag8s6mZTmzp54dDiYmRyb+n3EhMwD8Vuq6oYaFwN7vusXKEUByivP+nbDh4kwMbzCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dbApGOrYWa7mfDuoxc6AkG1hJLb+F948BK/KeDOGaJ0=;
- b=n2xGc+/TAQeeLhGwUj4o/H6WH7pigyrPU19IOYv0x/JRqe+b5QeeZkPn0d8oKGDaqBkUr+zZw/+bhPqM4dqf3ECS2D13AqwurnL69WmkFC5btlufXAviHDPW2wZEYIPPGNkGJWobdlwRoItcQqsHTojmQs3AEdw2zzFHIXNRwONdMoC0elJCO2dFUs1+AzYCHE+k8W2IDPWwha9BmCR3WsDMWWt6bF4uVbRmBuOMeSdOaEY3lOrrxqpQs+EyyR8RATVOf2KCvlE6T6+76iqJ2btTRmK0u8d4YWfePJITJsbdRJXz0QN9vnapiWkDFdRPV1CEwoO80EIQ1LIBIq0sKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=pML5Xnta
+Received: by mail-lf1-x131.google.com with SMTP id k37so43475487lfv.0
+        for <alsa-devel@alsa-project.org>;
+ Tue, 04 Apr 2023 11:03:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dbApGOrYWa7mfDuoxc6AkG1hJLb+F948BK/KeDOGaJ0=;
- b=fGXHC3TBAj6bYlnK4M1335V3ddyCngggNMXOjWe+hz6p4ANc8RsTQY04BRgGDuElDbLU2cFBUyohwRTe+9WzYMol0Dk/Eg3pfb0f1yNecEysUjj9HvoD8s8Cg2F3AEM1S5+Xukl1eOwZK4Y53+QTZSAl9nCv+jFGE9D8Bp5S8fQ=
-Received: from PH8PR10MB6290.namprd10.prod.outlook.com (2603:10b6:510:1c1::7)
- by BLAPR10MB5347.namprd10.prod.outlook.com (2603:10b6:208:328::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Tue, 4 Apr
- 2023 17:25:03 +0000
-Received: from PH8PR10MB6290.namprd10.prod.outlook.com
- ([fe80::fb63:990:eeef:ec00]) by PH8PR10MB6290.namprd10.prod.outlook.com
- ([fe80::fb63:990:eeef:ec00%8]) with mapi id 15.20.6254.033; Tue, 4 Apr 2023
- 17:25:03 +0000
-Message-ID: <fb1b1f30-cf9b-3044-d573-00a7e108d943@oracle.com>
-Date: Tue, 4 Apr 2023 22:54:53 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [PATCH next] ASoC: cs35l56: Fix unsigned 'rv' comparison with
- zero in cs35l56_irq()
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20230323165825.1588629-1-harshit.m.mogalapalli@oracle.com>
- <f6e99383-4054-4f14-8cf6-8a9cdd792265@sirena.org.uk>
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-In-Reply-To: <f6e99383-4054-4f14-8cf6-8a9cdd792265@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TYCP286CA0081.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b3::7) To PH8PR10MB6290.namprd10.prod.outlook.com
- (2603:10b6:510:1c1::7)
+        d=linaro.org; s=google; t=1680631423;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JR7CqJAwvpJxFbciu3o8qyafjr98DA8/rLAPmXVSUts=;
+        b=pML5XntacJXTSKhU9ODumSKwOTCz0UW7j64E+EAkqVSzDJA3uwsev/umHCI3zIXNtb
+         y+ah7uluB7FDPDQzE4PA8keAWV+bFm/HhfUCnrZzq5mH5XYcwBPTSG8HHOOdQdMMWzXj
+         rE1w0Q/eh8emv05TzEkZyghjzP9GNTXiMQOyH1aR6h8FWB2YenyXda/byB1Ybsm1gqLZ
+         gqWiehuVCnx4tuapSHwGCN1vYMrV8s6ZOj0A9rubNi31sLmuvSeB8ZvglXnqRF0Bs5iY
+         g4REZlDlwrz7bgzKQOAG8bKAs+XtSKga2bwNev58K2Kx7+12zWMIFkqHC3XBlRIuu60P
+         lZTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680631423;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JR7CqJAwvpJxFbciu3o8qyafjr98DA8/rLAPmXVSUts=;
+        b=VUrteEOOJk3s9AcNeCOKY+LQO2+ZAz0AecbmcgcjKuMkpyPg9a5/Ub08JbTiCQbtyJ
+         huDl8RMSpCaPkxlBqlfXgEdcb9SkUeCleQIkZeQ8+kGsLUzZQC6XRp0UAk2oMMeb8aJX
+         5MZYsLrShzriowhUbL3jIIM6ZkJ8Yq2PwqcsWpSU0BKvkMu59s4sWNyY5eQ4VCXV9Gnm
+         dFvckG3KrsrtJ3dqDN0eAVBcbajCP/q+3XmDXssNLirNMXVShZMCWOhk9Xpqqme+vIEO
+         ku+xi5StKxoRLKuoynuTmlKb/2dCOpxv/i529nd8eVYRnU6EOpvoAivkWHW30Oq1VaAN
+         qeNw==
+X-Gm-Message-State: AAQBX9c34HPYtiECchuYahVCRgSgBRa78biwAq4GVPftyTvqckfyOpKe
+	0UPDVZCMGTT3ivGl0e4ropAiSg==
+X-Google-Smtp-Source: 
+ AKy350Z3GNst68g7AebZ7jv36PnnaXILoR6V2RC/YE70jV8ohG+yAaUbnTUNB4E6N8gZweE9NRgEMA==
+X-Received: by 2002:a19:5211:0:b0:4ea:c730:aabe with SMTP id
+ m17-20020a195211000000b004eac730aabemr920209lfb.20.1680631423266;
+        Tue, 04 Apr 2023 11:03:43 -0700 (PDT)
+Received: from [192.168.1.101] (abxh37.neoplus.adsl.tpnet.pl. [83.9.1.37])
+        by smtp.gmail.com with ESMTPSA id
+ v14-20020ac2560e000000b004e8011cbaa0sm2410412lfd.111.2023.04.04.11.03.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 04 Apr 2023 11:03:42 -0700 (PDT)
+Message-ID: <a4bf52db-21a4-dd92-e7ef-62b9c7d19d26@linaro.org>
+Date: Tue, 4 Apr 2023 20:03:40 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR10MB6290:EE_|BLAPR10MB5347:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e6c7d3e-650f-448d-c440-08db35318689
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	EW3Elb2UDpKH0LIz8pYcYJMX4HTm9eaEDyLrwejoZZARPuc0/amPsjEGXmkemjXwk3/G6wQUHvQOKch3ih6WVlOrP2n2giz0RyxA0EehfAN2k+VHbwa62TDR39RisqVJW8Ki5Ba/2/HYwagxClLoX7FFEL2ISH2Og9ZS62FF6nY04rGvLIj0kP1wWTOmZugeTRcXRVpGioy+8NZEQFnMCk/vm3xvkHjNHUYFPxylMD7A0eaeeCv/g1+QpXCx/hsRv+11/eKTJBdG8dwVTPWdviiLfENoJ0OZBty+2/Xu9Rh+dAJClMLpFsq6QVrnModMT0w7vFp7ZO+MYRGA8s8GhZuEBce7bPQtR7KMQX341gqZT8DgMIkM+jc1J18k1dJk8EZExo7uERPCEjQK2m16QOoBQtppF2cy7pCwfpM1IFSSsB75UhIOzY4jtCNKV8b2mqHEXQsRESAJUbu59RjcmLq7wvOyvfUxbaXL0TCsbWmTR9XdZyQaE44J5yvmHrhbn7VK0rqVEpjwHyaUyHvQU2iox6tHIoolUIOhC7y3yx/MTB6QHyXr9TLuzg2qUasEf0YV6W8N7zDj9UO5IjYSDPScIG+KehItDeFiZL9w88mHdPiq3EnQW9S6cncTzChb9GBXaJGkb9G5QY9LaKiIlg==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR10MB6290.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(376002)(346002)(396003)(39860400002)(136003)(451199021)(6486002)(966005)(6512007)(53546011)(38100700002)(2616005)(6506007)(6666004)(186003)(8936002)(26005)(4744005)(2906002)(7416002)(5660300002)(31696002)(36756003)(478600001)(4326008)(66946007)(66556008)(66476007)(54906003)(6916009)(8676002)(41300700001)(86362001)(316002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?SW1lS1dPRlB0N21FaXZTRlU0SjFtN0FkL2lnVWo3L2p0OW9UdnR2UVZKVmFN?=
- =?utf-8?B?Ty9uYkNMVERvb1M3SU0yczJlT3ZBNzNhKzRMRFErNWlpTlA1VUkwVks2OCtR?=
- =?utf-8?B?M3JLZjJhZzMwR2RJSEdIVnJmcWx1anRkWTdOVURlRWRDRWk5UzdBWU1WS2pn?=
- =?utf-8?B?MVZPWks4Ym5kWm5TQnpuTTk2enY4aCs5MGFHQlluMzl4NXhqTjMxbGZzUDBm?=
- =?utf-8?B?WHlFa2dFdUdCZ3hFbjNrN2V2R1paTDk5UXQ3NTg0Q2MvVmxVaHRDOWZJODlE?=
- =?utf-8?B?NXIvbmlBRVpKZDljdVc3TFVmTTFGdW5ZY1llcVNQWmM0T3FQM3o2KzQzcGRh?=
- =?utf-8?B?NG1GaXcwVGhpWk5XRkZmOW9HbzdBdDFUdXFJOVJXbUtoSThVVE9rRCt3YnhD?=
- =?utf-8?B?UWNnV2l3eFBkb2pnT3FOcmZSS1M1Z2daZk81dXBqVjFQZFEvT003am5kV24r?=
- =?utf-8?B?VWtoaSsvb0FwZVUyT0lUNXBPcUNEUkZQd1RwNkl6RUdjOFNnVVZvK0YxcEFV?=
- =?utf-8?B?SlYxdllkckszNzB6ZVBIUEFNc29OZFZQOFVXNDQremRsVjJVVmcza2I5dTdz?=
- =?utf-8?B?SHdiOTRIUXVlOERiaW5ycE94SkNhd2FZU1BjZDlWOXRPRkQvL1FDdmNjQjkx?=
- =?utf-8?B?OGFiVVpudkxBclZhZjIvdW9kR0hXd2tMTXpqQk1iUlZ3N2VqRXBwcWl1VHJz?=
- =?utf-8?B?b2JGNC9PRHBPQUFFejZPOERSSm4zVFFnTUNDNWdkdmlKbHhMT1EyT05idzJT?=
- =?utf-8?B?Rjc5bTRXcjlGaVNLOE5vYUZEUlh6VVllZXVWQXFrWXQ1VTloU1B3ZWtnYngr?=
- =?utf-8?B?K0V2dVJnbW0yV1BLWHVsb3pWaWsyRjNCVGhUdzBJcEZiZ0dJR0w0eTNvb2hR?=
- =?utf-8?B?QWZ6YmRIZUROdmErMXRkS1NvSkR2QXFIYnVRR2lvNEsxcEZUSVdsL0w3WlVF?=
- =?utf-8?B?NHJOejJvS2d6UXU1bjYzWmY1T2tTMGFab2JNQjJ6NWE1empBMFhMNU92cXZS?=
- =?utf-8?B?ckFYVU1wbFFnTFlibFlQLzlYYzhKYkI5WVN4aTE0RWpIOXFVMjNxbGRhVndN?=
- =?utf-8?B?d0tKdzZ6dTRiRWFHUEtSWWs1NUU0bDAyek5zQnpoOHM5QWc0VHdsN2V0Rnoy?=
- =?utf-8?B?RTBjanFnVkpDeE5oc0FrbDdWK250aHVQeHVIc21MdXJpdVhobUtzTDBLK29J?=
- =?utf-8?B?ZXdUamFYczUrZHB5OUx0Z3pFTXJTWVlaUTcxSjhHeFBsWWVpeVMxam44d3NS?=
- =?utf-8?B?ZEFoWTJkOGw3Wk1oMUVNdHdFaXFDbnpCSjlxUEgxVVZGRzhBR0VaVlRlOWRw?=
- =?utf-8?B?d09aS0cvWVh2dE1aemttUjY2OTNVaE9aeXQyQ0VJSzRHZXI0MkZjbGJZMmt2?=
- =?utf-8?B?TkFwN0d5bkFjaTlDanNiZW9jT05zSjlpbUxrZmhKdlZuZ2hjM1RJNlNyK1Q5?=
- =?utf-8?B?UzhUSTlhRTZyRXVwRDg4akVUbDZ3elNMZFJDZVljQ1BNTktDZGROczFEYUw1?=
- =?utf-8?B?T3VlTWU4QUd0ekRmd3hTY1lFdjJCNjdUaTJoem4vTTlYWTBuQTlLM3FBT1ho?=
- =?utf-8?B?ejRFNTU3TTVGQjVjYWhQWVpNL04zbkZvRW0vODJYTXVUNWlkeFROK3U1VW5I?=
- =?utf-8?B?UUxqWEFNTlZLU0xIcTQyUEVpZkYwTCtlL3lEM1VRQllJZkh2QTRyaFV5V1Zo?=
- =?utf-8?B?NVg4MUdpeDdzL3FXeXJYVm42N2VLSm9rdCt0WThEUmlZblhIYTZ4cHp5bTc3?=
- =?utf-8?B?a1Ric3MrOEpEbVFFNFdXTHlSTHNRWUo5MktKWUhUM1ZxRDI3SC9NbG11cXJx?=
- =?utf-8?B?MERENk9aZWQ2L092Y1ZTVTBZaWNyTVpkK3loajIvOVEyejFOaGdDN1dhdC9I?=
- =?utf-8?B?QWxJckQ2VmVKVHlFUkxsUk9EUWUvQWJtaTQyWWRVU3hlQU5jVjNnOG9aQVJq?=
- =?utf-8?B?NEhKekJ2UmVENnRzUG9MV1VZaGhGajJrS1NvTkl3bXZ6aFBOWGFiRDNobmdi?=
- =?utf-8?B?QTF4NWVvd2lwK0tjMVBmd1lQdmd6MnlnVUZNM0tnUExNVkdEOWUxMWpPL2Vo?=
- =?utf-8?B?cSthc0ViZXpOdW5IT0lPT244YlhiUUhKUVQ3M2Vsc2YrMkF1VkNwVWNQdUFF?=
- =?utf-8?B?UzVSUm1kdEwxRDgzc0JGVEplTGpma0FxcGc4bWg4cEQvOGJTQnU5SFBHbUFW?=
- =?utf-8?Q?8HwpwlY4+X13BleN2Noby+U=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 
-	=?utf-8?B?cVNrdkczcmgyRzJBOER4aWI1My9Nc2JGbE9WeGxKTjNtRzgyd0dQREV5UWE0?=
- =?utf-8?B?YTJNWUZIM1BFbEhGMGlRRUFwQkQ3R3M0TUxVREQ2bkR3M0Fqc2hVNndFQjFn?=
- =?utf-8?B?QWVISGtFNzk0T0M2ZFVhRVY3Qzd4cXYwZzlUUENobUMrdDYxd25EakgxaWx2?=
- =?utf-8?B?bTlIeStVT0RDeG5UNlNIazhXQ2c3N08zTmliQlhxUzBKUjVjZlVBU0Q5Q2NT?=
- =?utf-8?B?eE0rcDhVZm5zMjFlcmcvZUNTS0NpbE5ybWdEVmZPb3orNnllbHNTYTltR1VS?=
- =?utf-8?B?SHFXK1p5VXlaeXBZcjlVbng5dm9KSGFaY2N4WnJxZkloYjkyTEZZZVZxa0Zy?=
- =?utf-8?B?ZWl1WUNiWUdOSWNYYlc2V2YxaERvNW1QNjJZNHF1SW5GQlNmNkNDU2dUNWZP?=
- =?utf-8?B?dm5NWDIrZ0kyTU9pd3dxVGJxbWNYZlpEZkU5cmdKVjU1S0QzZ1JHVUg0cW1v?=
- =?utf-8?B?c3BKaWFPOC9xSkRnSVZhWmJVU3drdk9xdjhrK2tvL1prSTNqTEt2aGc4emF2?=
- =?utf-8?B?Nk5pTitOZEtrVFRnUHFUOWdQSmEyNEdjeDBuY1BnQ1JWa3UyZUlrM2NFdXlo?=
- =?utf-8?B?QWdLbDRSY2lqcVo3bmhIcmZUd0ozTGdlOWhNeE5uOHAvYVdZRHU3ejB6WmFZ?=
- =?utf-8?B?VlgyWnRLaDliTUp4RnlOM1pmaXdwOVFqQkU1bDYrTWVYR0s2WTBDMmRQK3d0?=
- =?utf-8?B?dkRUTUFzOHpvemphaUZpd3Q3UjNOUzVlYVd3N3pERkpyYzczR3pwVGJKRE5Q?=
- =?utf-8?B?Zkd4d2p0YUxUb045Nitka2NEalFoQ2ZEUCtORVlCWTdBRDN2UE9ydlFUOEpt?=
- =?utf-8?B?dDQxdnRxNDlMTVp5aDRMUlpuUnBhL016YjlrK0JRVXNuM0RPWUsyTkJMei9k?=
- =?utf-8?B?M0NJRVBtQUM0ZEtHUUU1MDBMbG4zY1hxWHBYZWlNV3JVZUFPZnc3QlkrNFZ6?=
- =?utf-8?B?elRGOExPb2thdUV2WlU2VjVGamtBc3ovVXpXbDlSOVovRmxncThFYzFnaitK?=
- =?utf-8?B?QXZzM1g1RjVjUnJZZnJ4a1FkZllqVE15RGY3UkFHbHNtQTBxY04rMGVvRElI?=
- =?utf-8?B?VzZWQWE1Y1FiRnVKSGxnamY2RXVUc1lUeU9tK0JtcXc3M3p4b0luYUh0RmpQ?=
- =?utf-8?B?Y1F4ZTZBdVZBTUxqWUFvMG1HQ3R4ZXhnL05YQ2VQcnROVDVNUy96aVp0UlFO?=
- =?utf-8?B?YUxyY3NqTEhsTmR5TTMxU3lsNGtZdlM0Q2dVZEkzUXgzRE9HdWZVeGp0cS9P?=
- =?utf-8?B?VjJXWkhXM2NCMXNRQXVFbkNabXdaV1dMdWhDRjBkL1dBZDRIeFBqNUw2VmFO?=
- =?utf-8?Q?iIREO5/6fAav7FaSh+dY7ZbBLonp/Et7+C?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 1e6c7d3e-650f-448d-c440-08db35318689
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR10MB6290.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 17:25:03.3001
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- WAG6IKDl4vIjCzdMR7RDiTenvDChF1hX5XbOj1LtqjeRrWkqhsuhC5WzHA94mhdJr1iNSaXqqfqNmaP+7YOW97gohOf6VWpzQpfqNxZQAmJ+HIZnr6hELR6dUr18ZUTK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5347
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-04_08,2023-04-04_05,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- spamscore=0
- malwarescore=0 adultscore=0 bulkscore=0 mlxlogscore=906 phishscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304040161
-X-Proofpoint-ORIG-GUID: COETNzdGpCqVg2jCV114p8Z7_Yzy2rHD
-X-Proofpoint-GUID: COETNzdGpCqVg2jCV114p8Z7_Yzy2rHD
-X-MailFrom: harshit.m.mogalapalli@oracle.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH v2 3/7] soundwire: qcom: allow 16-bit sample interval for
+ ports
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rao Mandadapu <quic_srivasam@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
+ <20230403132503.62090-4-krzysztof.kozlowski@linaro.org>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <20230403132503.62090-4-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: I2K7KTSWG6WOBKHWVIMTZD4XLM2KTS7T
+X-Message-ID-Hash: I2K7KTSWG6WOBKHWVIMTZD4XLM2KTS7T
+X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: TMRKBX2LOKXKDOHSV2XDPHQENIQBP6EP
-X-Message-ID-Hash: TMRKBX2LOKXKDOHSV2XDPHQENIQBP6EP
-X-Mailman-Approved-At: Wed, 05 Apr 2023 07:19:13 +0000
-CC: error27@gmail.com, James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Simon Trimmer <simont@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TMRKBX2LOKXKDOHSV2XDPHQENIQBP6EP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I2K7KTSWG6WOBKHWVIMTZD4XLM2KTS7T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -244,21 +131,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mark,
 
-On 04/04/23 5:15 pm, Mark Brown wrote:
-> On Thu, Mar 23, 2023 at 09:58:25AM -0700, Harshit Mogalapalli wrote:
->> 'rv' is of type unsigned int, which can never be less than zero.
+
+On 3.04.2023 15:24, Krzysztof Kozlowski wrote:
+> The port sample interval was always 16-bit, split into low and high
+> bytes.  This split was unnecessary, although harmless for older devices
+> because all of them used only lower byte (so values < 0xff).  With
+> support for Soundwire controller on Qualcomm SM8550 and its devices,
+> both bytes will be used, thus add a new 'qcom,ports-sinterval' property
+> to allow 16-bit sample intervals.
 > 
-> This doesn't apply against current code, please check and resend.
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+I have little insight in this code, but the changes look
+logical, so..
 
-The reason for the above is that someone else sent a patch next day 
-fixing the same bug which got merged in linux-next.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Ref: 
-https://lore.kernel.org/all/20230324022303.121485-1-jiapeng.chong@linux.alibaba.com/
-
-So my patch will not apply and is not needed anymore.
-
-Thanks,
-Harshit
+Konrad
+> 
+> Changes since v1:
+> 1. Drop unneeded semicolon.
+> ---
+>  drivers/soundwire/qcom.c | 32 +++++++++++++++++++++++++-------
+>  1 file changed, 25 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index c296e0bf897b..faa091e7472a 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -95,6 +95,7 @@
+>  #define SWRM_DP_BLOCK_CTRL2_BANK(n, m)	(0x1130 + 0x100 * (n - 1) + 0x40 * m)
+>  #define SWRM_DP_PORT_HCTRL_BANK(n, m)	(0x1134 + 0x100 * (n - 1) + 0x40 * m)
+>  #define SWRM_DP_BLOCK_CTRL3_BANK(n, m)	(0x1138 + 0x100 * (n - 1) + 0x40 * m)
+> +#define SWRM_DP_SAMPLECTRL2_BANK(n, m)	(0x113C + 0x100 * (n - 1) + 0x40 * m)
+>  #define SWRM_DIN_DPn_PCM_PORT_CTRL(n)	(0x1054 + 0x100 * (n - 1))
+>  #define SWR_MSTR_MAX_REG_ADDR		(0x1740)
+>  
+> @@ -131,7 +132,7 @@ enum {
+>  };
+>  
+>  struct qcom_swrm_port_config {
+> -	u8 si;
+> +	u32 si;
+>  	u8 off1;
+>  	u8 off2;
+>  	u8 bp_mode;
+> @@ -806,12 +807,20 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
+>  
+>  	value = pcfg->off1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
+>  	value |= pcfg->off2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
+> -	value |= pcfg->si;
+> +	value |= pcfg->si & 0xff;
+>  
+>  	ret = ctrl->reg_write(ctrl, reg, value);
+>  	if (ret)
+>  		goto err;
+>  
+> +	if (pcfg->si > 0xff) {
+> +		value = (pcfg->si >> 8) & 0xff;
+> +		reg = SWRM_DP_SAMPLECTRL2_BANK(params->port_num, bank);
+> +		ret = ctrl->reg_write(ctrl, reg, value);
+> +		if (ret)
+> +			goto err;
+> +	}
+> +
+>  	if (pcfg->lane_control != SWR_INVALID_PARAM) {
+>  		reg = SWRM_DP_PORT_CTRL_2_BANK(params->port_num, bank);
+>  		value = pcfg->lane_control;
+> @@ -1185,7 +1194,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>  	struct device_node *np = ctrl->dev->of_node;
+>  	u8 off1[QCOM_SDW_MAX_PORTS];
+>  	u8 off2[QCOM_SDW_MAX_PORTS];
+> -	u8 si[QCOM_SDW_MAX_PORTS];
+> +	u32 si[QCOM_SDW_MAX_PORTS];
+>  	u8 bp_mode[QCOM_SDW_MAX_PORTS] = { 0, };
+>  	u8 hstart[QCOM_SDW_MAX_PORTS];
+>  	u8 hstop[QCOM_SDW_MAX_PORTS];
+> @@ -1193,6 +1202,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>  	u8 blk_group_count[QCOM_SDW_MAX_PORTS];
+>  	u8 lane_control[QCOM_SDW_MAX_PORTS];
+>  	int i, ret, nports, val;
+> +	bool si_32 = false;
+>  
+>  	ctrl->reg_read(ctrl, SWRM_COMP_PARAMS, &val);
+>  
+> @@ -1236,9 +1246,14 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>  		return ret;
+>  
+>  	ret = of_property_read_u8_array(np, "qcom,ports-sinterval-low",
+> -					si, nports);
+> -	if (ret)
+> -		return ret;
+> +					(u8 *)si, nports);
+> +	if (ret) {
+> +		ret = of_property_read_u32_array(np, "qcom,ports-sinterval",
+> +						 si, nports);
+> +		if (ret)
+> +			return ret;
+> +		si_32 = true;
+> +	}
+>  
+>  	ret = of_property_read_u8_array(np, "qcom,ports-block-pack-mode",
+>  					bp_mode, nports);
+> @@ -1266,7 +1281,10 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>  
+>  	for (i = 0; i < nports; i++) {
+>  		/* Valid port number range is from 1-14 */
+> -		ctrl->pconfig[i + 1].si = si[i];
+> +		if (si_32)
+> +			ctrl->pconfig[i + 1].si = si[i];
+> +		else
+> +			ctrl->pconfig[i + 1].si = ((u8 *)si)[i];
+>  		ctrl->pconfig[i + 1].off1 = off1[i];
+>  		ctrl->pconfig[i + 1].off2 = off2[i];
+>  		ctrl->pconfig[i + 1].bp_mode = bp_mode[i];

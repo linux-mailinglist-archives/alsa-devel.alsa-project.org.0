@@ -2,92 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E953B6D63B0
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 15:46:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0641D6D6519
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 16:21:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD33A1FB;
-	Tue,  4 Apr 2023 15:45:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD33A1FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id C363A1FA;
+	Tue,  4 Apr 2023 16:20:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C363A1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680615976;
-	bh=QbKOfwkYmEZxqJrLdeZwqiVVRzEx/YEVnqeq1gCUNSk=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1680618081;
+	bh=Bo5a12c27m6TAp9L+MxXp6pu2IfZAoVnp6GpkKF1Grg=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DBH8B4kOr85swZZ0AshUwTRAdAyqG9Kuf813RC6r9LN04CsmdJvY1+Ks7QZzmmoGq
-	 2MudrlRVedaBqIjXlMhOmCnYEZFLLAHEhHsqfFoBuAqWT6TzADqU+6fVfdWUD+e5wr
-	 kpIK9/3d4fdW6qJzIuTtJ0CSiHREq+H9Q9wNw4OM=
+	b=vbv9KJJM7KmtNIOlBhe7UDv7F0rx7jdkiUCdnog0nTtO9t94g4SVQEvWgrkmrHILw
+	 ozikUYylUg2qqY4RR3T1BIqHruUacjTWYaaAAPp7OFFY8hGzjAMCPZZIof3f0kcxu5
+	 kgLfHenwDOxIisxG5KIseFDQd6nxI1iP0xNMEJu8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59443F801C0;
-	Tue,  4 Apr 2023 15:45:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38D78F801C0;
+	Tue,  4 Apr 2023 16:20:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C63C6F8024C; Tue,  4 Apr 2023 15:45:21 +0200 (CEST)
+	id A9FAAF8024C; Tue,  4 Apr 2023 16:20:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7AA00F80054
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 15:45:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AA00F80054
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tKx5Pde0
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 44C3C6342F;
-	Tue,  4 Apr 2023 13:45:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35227C433EF;
-	Tue,  4 Apr 2023 13:45:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680615915;
-	bh=QbKOfwkYmEZxqJrLdeZwqiVVRzEx/YEVnqeq1gCUNSk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=tKx5Pde08Zpmg8iF4kGQif6ZA2f1mKakatyGHkxdyYv6RYyMf7G+Ve6nx9qcDKHr1
-	 hPmgeUm2981qdUbGjZTRPfFuDPWuxU+Y9Dgv/q+TgwFZCFRIpbJ9tYDZ7XG7PS3a9K
-	 rX40k2hUqZOuvRaNRQGYHiKuM1iUPfHasCdIoBcqzWHfXJuC56wkWMir9YHr04XZBy
-	 jk1WVuJb9XVNcskPSkWHVVnRNN4W1gLL0NLTVFt0Fv4XnFAg6TKYYTvfRO1h0y2XLs
-	 2PLoyeunKd8CC5OJcGky1s5D23tbnJevA8MiqJof0qYhckwx8jgoEOBvyA9gEPtNTR
-	 diHuqaBT1wjmQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Zihao Wang <u202012060@hust.edu.cn>
-In-Reply-To: <20230404084622.1202-1-u202012060@hust.edu.cn>
-References: <20230404084622.1202-1-u202012060@hust.edu.cn>
-Subject: Re: [PATCH] ASoC: tegra20_ac97: Add missing unwind goto in
- tegra20_ac97_platform_probe()
-Message-Id: <168061591290.45547.6311977910704491174.b4-ty@kernel.org>
-Date: Tue, 04 Apr 2023 14:45:12 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3D4CF80171
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 16:20:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3D4CF80171
+Received: by mail-oi1-f178.google.com with SMTP id w133so24314720oib.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 04 Apr 2023 07:20:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680618019;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tcAGXMBU45kFzxoxh7X3M9oW7jjf/HL66IWJZzW7mH4=;
+        b=QznRAE3beUGovSKZ/3PlA5uu/Jj49QtYR4hYE0xoLfk2bUjUCOGCrln88C2ka0ebLL
+         nOavH7nP+z4u5SSyBEHVYLjZ30uLls+ASxFvsxXuometqMkP18cX8NcVdBIISAMP87sN
+         weQVZrR/NUsTYtxbvUmvw/KAm/9zXSzYVtY7FjlEx07Olhj/+zPsqNHoT3zHFR52V8m2
+         NOgYck1LnSvP9QHv3j9rehBqnC6eg/O00Ty6GRb8iG3Pg+6LbFuXWvV3m6ZjR/B24UTw
+         DPzIDIKLHfsPA6vqVmNGwbJS+VSL6pzxGk3KQmu+DRRoDXf+g9Xgclq9usosm2v5lRe0
+         u8bw==
+X-Gm-Message-State: AAQBX9dg9cPvBYItN3iNO/1/rG3/cirrHQsWl5RDphjdnSLMXzViLYky
+	ekvphguPVqHFqhv0Un9sBg==
+X-Google-Smtp-Source: 
+ AKy350YBYmU5p7k1/dLAQw/GIT1ClDRVqyc+yDM4YQ40tYSJ/eShdEmc8skMGTsngHvEGoknfiFrdA==
+X-Received: by 2002:aca:240e:0:b0:386:ee34:afb9 with SMTP id
+ n14-20020aca240e000000b00386ee34afb9mr1334132oic.11.1680618018649;
+        Tue, 04 Apr 2023 07:20:18 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107])
+        by smtp.gmail.com with ESMTPSA id
+ u188-20020a4a57c5000000b00541269a2fcesm3318050ooa.25.2023.04.04.07.20.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Apr 2023 07:20:18 -0700 (PDT)
+Received: (nullmailer pid 3827562 invoked by uid 1000);
+	Tue, 04 Apr 2023 14:20:17 -0000
+Date: Tue, 4 Apr 2023 09:20:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v2 1/7] dt-bindings: soundwire: qcom: add Qualcomm
+ Soundwire v2.0.0
+Message-ID: <168061801694.3827523.18263616021970369926.robh@kernel.org>
+References: <20230403132503.62090-1-krzysztof.kozlowski@linaro.org>
+ <20230403132503.62090-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: UJASFJ6D2PGJH2OSSMG75EY2HCYCK3NJ
-X-Message-ID-Hash: UJASFJ6D2PGJH2OSSMG75EY2HCYCK3NJ
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230403132503.62090-2-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: L6EU2XBH5T5DD3FK4OUWZUWQJRUJW2CW
+X-Message-ID-Hash: L6EU2XBH5T5DD3FK4OUWZUWQJRUJW2CW
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: hust-os-kernel-patches@googlegroups.com,
- Dan Carpenter <error27@gmail.com>, alsa-devel@alsa-project.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+CC: Bjorn Andersson <andersson@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Andy Gross <agross@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, devicetree@vger.kernel.org,
+ Patrick Lai <quic_plai@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Rao Mandadapu <quic_srivasam@quicinc.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UJASFJ6D2PGJH2OSSMG75EY2HCYCK3NJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L6EU2XBH5T5DD3FK4OUWZUWQJRUJW2CW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,43 +115,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 04 Apr 2023 16:46:22 +0800, Zihao Wang wrote:
-> Smatch Warns:
-> 	sound/soc/tegra/tegra20_ac97.c:321 tegra20_ac97_platform_probe()
-> 	warn: missing unwind goto?
+
+On Mon, 03 Apr 2023 15:24:57 +0200, Krzysztof Kozlowski wrote:
+> Add compatible for Qualcomm Soundwire v2.0.0 controller, which comes
+> with several differences against v1.7.0 in register layout and more
+> ports (thus increase maxItems of each port-related property to 16).
 > 
-> The goto will set the "soc_ac97_ops" and "soc_ac97_bus" operations to
-> NULL.  But they are already NULL at this point so it is a no-op.
-> However, just for consistency, change the direct return to a goto.  No
-> functional change.
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> [...]
+> ---
+> 
+> Changes since v1:
+> 1. Increase maxItems to 16 for port-related properties.
+> ---
+>  .../bindings/soundwire/qcom,soundwire.yaml    | 19 ++++++++++---------
+>  1 file changed, 10 insertions(+), 9 deletions(-)
+> 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: tegra20_ac97: Add missing unwind goto in tegra20_ac97_platform_probe()
-      commit: 194f8692302cbf31d8072f3fc2710fb04720d8a0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Reviewed-by: Rob Herring <robh@kernel.org>
 

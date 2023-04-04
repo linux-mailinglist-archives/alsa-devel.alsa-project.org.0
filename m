@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C736D5BD6
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 11:25:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 800D76D5BBF
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Apr 2023 11:22:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76FD83E7;
-	Tue,  4 Apr 2023 11:24:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76FD83E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B02FF74C;
+	Tue,  4 Apr 2023 11:22:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B02FF74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680600311;
-	bh=x157ULv2Xl+MdfEY0HSEmNl0jgscs3UoEZE2dDY5gsQ=;
+	s=default; t=1680600170;
+	bh=zCzWw5y5GxDj52aseUqSwsnpZbpzlPnahrK5NtzSyvM=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UQ0Yuf/NhvVBhnkfTxrNrz2mV4vgIVdXesqcgnEvNaXyZolM0mG2XNmMIE80JVGw0
-	 v3OJfkJFeSisj4zll3liRArR9AzXKrpoaTJxJTELCf1RCTn68673x+c4DG3TPpMYcF
-	 3VMmKUQLoU15o51sAmaYUSDjIpmKBbfCPOnH6qCI=
+	b=hkaTLR2T0BeLukcAybypj/OSeyb+N9TZgd6Da9NyHS18k3GoDfeftbXTymyMAo3+d
+	 0jWSNwLnVTnr5pmJFzCfW9Ynu4ArQ9dc3OJU6FrSCD5eKFG76ockCEqnNVWoC/WmnV
+	 OGCXeYrnrxf/ldYHEkE9JU+WB5QT+Xk84HIUj30E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 236DCF8052E;
-	Tue,  4 Apr 2023 11:23:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF673F80548;
+	Tue,  4 Apr 2023 11:21:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80778F80529; Tue,  4 Apr 2023 11:22:58 +0200 (CEST)
+	id 85F5AF80548; Tue,  4 Apr 2023 11:21:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,54 +33,53 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F2341F80171
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 11:20:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2341F80171
+	by alsa1.perex.cz (Postfix) with ESMTPS id E52FAF801C0
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 11:20:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E52FAF801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=H39zIsiO
+ header.s=Intel header.b=Vo238Esm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1680600050; x=1712136050;
+  t=1680600052; x=1712136052;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=x157ULv2Xl+MdfEY0HSEmNl0jgscs3UoEZE2dDY5gsQ=;
-  b=H39zIsiO0v7sJD0nEFlBtbcqG3I0sYErqzv5X5gMMECLCx7QqGf46U+h
-   il5fBnO9GyGw6Bhj8K4d9GzP+wDuauWnLtbVm80TAL9H6hLvvli89h2Yk
-   vdl9IcC8K5tgJEtAut5SVv0GMq9bqsb32HtrzRplBwPnjdzHik7Kb2a0l
-   o7sSoQLXXa3rvFiVgn6zGqpPe4XWpGu3hQiHpSL5IkR/u0C0SWdNSYl9k
-   RQM7264Hy28H5Q3mtn8kB2j+G3BtMgo9QPrerYgiMXiWhyfXli2konJ3Y
-   zqlCyj0Z0lDOJ2pWLCs6ZU3G34VuVxbl9m6KCLO+2NVV3+fcIqrfJU3dH
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="339620524"
+  bh=zCzWw5y5GxDj52aseUqSwsnpZbpzlPnahrK5NtzSyvM=;
+  b=Vo238EsmWd4JftpHSWF9NSmxgUdypkBCeiYV3MRmfgXFv00OS7fiEhEE
+   TXH6sNdA9MFmvjQBnPWvP8GbuNFEaRpw2ST52dnPvJxuzn3GGp8KY6SEr
+   LumAQIS88/nYt8ia/KArdJ+Gfok+58v588Mq/jpq/GG7wfgUvGkzdo8mT
+   efpsnkOmTp5+V6sLkO9AIsD88DnpepZ62GpoiJWHg9QGZW61yvNSy7Mfe
+   F4xaxvBw2FNTWjdfi6qauLW3UahyomKBy7yiF4xX1b56eqrjgvPinqsLd
+   pXicd1m4UKJsZggpPCkuCVFJDnNdgS2/y/DhS2/kPRNB5G1TSwQb6ryN7
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="339620553"
 X-IronPort-AV: E=Sophos;i="5.98,317,1673942400";
-   d="scan'208";a="339620524"
+   d="scan'208";a="339620553"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
   by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2023 02:20:46 -0700
+ 04 Apr 2023 02:20:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="688819969"
+X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="688819986"
 X-IronPort-AV: E=Sophos;i="5.98,317,1673942400";
-   d="scan'208";a="688819969"
+   d="scan'208";a="688819986"
 Received: from vsysoevx-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.249.33.42])
   by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2023 02:20:44 -0700
+ 04 Apr 2023 02:20:46 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
-Subject: [PATCH 02/12] ASoC: SOF: Add flag and state which will be used for
- DSP-less mode
-Date: Tue,  4 Apr 2023 12:21:05 +0300
-Message-Id: <20230404092115.27949-3-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 03/12] ASoC: SOF: Add support for DSPless mode
+Date: Tue,  4 Apr 2023 12:21:06 +0300
+Message-Id: <20230404092115.27949-4-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230404092115.27949-1-peter.ujfalusi@linux.intel.com>
 References: <20230404092115.27949-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GKWQ4VFCFBPYAF3U5XJI43N55LUBRWJI
-X-Message-ID-Hash: GKWQ4VFCFBPYAF3U5XJI43N55LUBRWJI
+Message-ID-Hash: 56RPS6JQCFNIGXSLPOZVJX73BAHCLTTU
+X-Message-ID-Hash: 56RPS6JQCFNIGXSLPOZVJX73BAHCLTTU
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GKWQ4VFCFBPYAF3U5XJI43N55LUBRWJI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/56RPS6JQCFNIGXSLPOZVJX73BAHCLTTU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,105 +104,322 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The DSPless mode of the ASoC/SOF driver can be used for hardware
-verification and debug on platforms with HDaudio codecs. The DSP mode is
-still needed on existing platforms for SSP, DMIC, SoundWire interfaces
-managed by the GP-DMA.
+Via the SOF_DBG_DSPLESS_MODE sof_debug flag the SOF stack can be asked to
+not use the DSP for audio.
 
-This mode is also helpful to compare the legacy HDaudio driver with the
-ASoC/SOF driver wrt. codec management and handling. In theory we use the
-same code but differences are sometimes seen on jack detection and event
-handling.
+The core's support for DSPless mode is only going to be enabled if the
+platform reports that it can be used without DSP.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 ---
- include/sound/sof.h      |  5 +++++
- sound/soc/sof/core.c     |  9 +++++++++
- sound/soc/sof/sof-priv.h | 11 +++++++++++
- 3 files changed, 25 insertions(+)
+ sound/soc/sof/core.c       |  22 +++++--
+ sound/soc/sof/debug.c      |   1 +
+ sound/soc/sof/pcm.c        |  13 +++-
+ sound/soc/sof/pm.c         |   5 ++
+ sound/soc/sof/sof-audio.c  |   2 +-
+ sound/soc/sof/sof-client.c |   3 +
+ sound/soc/sof/topology.c   | 130 ++++++++++++++++++++++++++++++++++++-
+ 7 files changed, 168 insertions(+), 8 deletions(-)
 
-diff --git a/include/sound/sof.h b/include/sound/sof.h
-index 266e66318f9c..d3c41f87ac31 100644
---- a/include/sound/sof.h
-+++ b/include/sound/sof.h
-@@ -21,6 +21,7 @@ struct snd_sof_dev;
- /**
-  * enum sof_fw_state - DSP firmware state definitions
-  * @SOF_FW_BOOT_NOT_STARTED:	firmware boot is not yet started
-+ * @SOF_DSPLESS_MODE:		DSP is not used
-  * @SOF_FW_BOOT_PREPARE:	preparing for boot (firmware loading for exaqmple)
-  * @SOF_FW_BOOT_IN_PROGRESS:	firmware boot is in progress
-  * @SOF_FW_BOOT_FAILED:		firmware boot failed
-@@ -31,6 +32,7 @@ struct snd_sof_dev;
-  */
- enum sof_fw_state {
- 	SOF_FW_BOOT_NOT_STARTED = 0,
-+	SOF_DSPLESS_MODE,
- 	SOF_FW_BOOT_PREPARE,
- 	SOF_FW_BOOT_IN_PROGRESS,
- 	SOF_FW_BOOT_FAILED,
-@@ -130,6 +132,9 @@ struct sof_dev_desc {
- 	unsigned int ipc_supported_mask;
- 	enum sof_ipc_type ipc_default;
- 
-+	/* The platform supports DSPless mode */
-+	bool dspless_mode_supported;
-+
- 	/* defaults paths for firmware, library and topology files */
- 	const char *default_fw_path[SOF_IPC_TYPE_COUNT];
- 	const char *default_lib_path[SOF_IPC_TYPE_COUNT];
 diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index 7de8673a01ce..06bcae631612 100644
+index 06bcae631612..9a9d82220fd0 100644
 --- a/sound/soc/sof/core.c
 +++ b/sound/soc/sof/core.c
-@@ -365,6 +365,15 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
- 	if (sof_core_debug)
- 		dev_info(dev, "sof_debug value: %#x\n", sof_core_debug);
+@@ -208,6 +208,11 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
+ 	/* set up platform component driver */
+ 	snd_sof_new_platform_drv(sdev);
  
-+	if (sof_debug_check_flag(SOF_DBG_DSPLESS_MODE)) {
-+		if (plat_data->desc->dspless_mode_supported) {
-+			dev_info(dev, "Switching to DSPless mode\n");
-+			sdev->dspless_mode_selected = true;
-+		} else {
-+			dev_info(dev, "DSPless mode is not supported by the platform\n");
-+		}
++	if (sdev->dspless_mode_selected) {
++		sof_set_fw_state(sdev, SOF_DSPLESS_MODE);
++		goto skip_dsp_init;
 +	}
 +
- 	/* check IPC support */
- 	if (!(BIT(plat_data->ipc_type) & plat_data->desc->ipc_supported_mask)) {
- 		dev_err(dev, "ipc_type %d is not supported on this platform, mask is %#x\n",
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 5f919162a555..1170989bea57 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -48,6 +48,7 @@ struct snd_sof_pcm_stream;
- #define SOF_DBG_FORCE_NOCODEC			BIT(10) /* ignore all codec-related
- 							 * configurations
- 							 */
-+#define SOF_DBG_DSPLESS_MODE			BIT(15) /* Do not initialize and use the DSP */
+ 	/* register any debug/trace capabilities */
+ 	ret = snd_sof_dbg_init(sdev);
+ 	if (ret < 0) {
+@@ -266,6 +271,7 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
+ 		dev_dbg(sdev->dev, "SOF firmware trace disabled\n");
+ 	}
  
- /* Flag definitions used for controlling the DSP dump behavior */
- #define SOF_DBG_DUMP_REGS		BIT(0)
-@@ -528,6 +529,16 @@ struct snd_sof_dev {
- 	spinlock_t ipc_lock;	/* lock for IPC users */
- 	spinlock_t hw_lock;	/* lock for HW IO access */
++skip_dsp_init:
+ 	/* hereafter all FW boot flows are for PM reasons */
+ 	sdev->first_boot = false;
  
-+	/*
-+	 * When true the DSP is not used.
-+	 * It is set under the following condition:
-+	 * User sets the SOF_DBG_DSPLESS_MODE flag in sof_debug module parameter
-+	 * and
-+	 * the platform advertises that it can support such mode
-+	 * pdata->desc->dspless_mode_supported is true.
-+	 */
-+	bool dspless_mode_selected;
+@@ -387,12 +393,18 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+ 		return ret;
+ 
+ 	/* check all mandatory ops */
+-	if (!sof_ops(sdev) || !sof_ops(sdev)->probe || !sof_ops(sdev)->run ||
+-	    !sof_ops(sdev)->block_read || !sof_ops(sdev)->block_write ||
+-	    !sof_ops(sdev)->send_msg || !sof_ops(sdev)->load_firmware ||
+-	    !sof_ops(sdev)->ipc_msg_data) {
++	if (!sof_ops(sdev) || !sof_ops(sdev)->probe) {
++		sof_ops_free(sdev);
++		dev_err(dev, "missing mandatory ops\n");
++		return -EINVAL;
++	}
 +
- 	/* Main, Base firmware image */
- 	struct sof_firmware basefw;
++	if (!sdev->dspless_mode_selected &&
++	    (!sof_ops(sdev)->run || !sof_ops(sdev)->block_read ||
++	     !sof_ops(sdev)->block_write || !sof_ops(sdev)->send_msg ||
++	     !sof_ops(sdev)->load_firmware || !sof_ops(sdev)->ipc_msg_data)) {
+ 		sof_ops_free(sdev);
+-		dev_err(dev, "error: missing mandatory ops\n");
++		dev_err(dev, "missing mandatory DSP ops\n");
+ 		return -EINVAL;
+ 	}
  
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index ade0507328af..b42b5982cbbc 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -370,6 +370,7 @@ static const struct soc_fw_state_info {
+ 	const char *name;
+ } fw_state_dbg[] = {
+ 	{SOF_FW_BOOT_NOT_STARTED, "SOF_FW_BOOT_NOT_STARTED"},
++	{SOF_DSPLESS_MODE, "SOF_DSPLESS_MODE"},
+ 	{SOF_FW_BOOT_PREPARE, "SOF_FW_BOOT_PREPARE"},
+ 	{SOF_FW_BOOT_IN_PROGRESS, "SOF_FW_BOOT_IN_PROGRESS"},
+ 	{SOF_FW_BOOT_FAILED, "SOF_FW_BOOT_FAILED"},
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index d9b4633bba7a..127b68caf9e1 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -330,6 +330,11 @@ static int sof_pcm_trigger(struct snd_soc_component *component,
+ 			spcm->stream[substream->stream].suspend_ignored = true;
+ 			return 0;
+ 		}
++
++		/* On suspend the DMA must be stopped in DSPless mode */
++		if (sdev->dspless_mode_selected)
++			reset_hw_params = true;
++
+ 		fallthrough;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 		ipc_first = true;
+@@ -705,7 +710,6 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ 
+ 	pd->pcm_construct = sof_pcm_new;
+ 	pd->ignore_machine = drv_name;
+-	pd->be_hw_params_fixup = sof_pcm_dai_link_fixup;
+ 	pd->be_pcm_base = SOF_BE_PCM_BASE;
+ 	pd->use_dai_pcm_id = true;
+ 	pd->topology_name_prefix = "sof";
+@@ -714,4 +718,11 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ 	pd->module_get_upon_open = 1;
+ 
+ 	pd->legacy_dai_naming = 1;
++
++	/*
++	 * The fixup is only needed when the DSP is in use as with the DSPless
++	 * mode we are directly using the audio interface
++	 */
++	if (!sdev->dspless_mode_selected)
++		pd->be_hw_params_fixup = sof_pcm_dai_link_fixup;
+ }
+diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
+index 8d3383085d12..c74ce8d414e7 100644
+--- a/sound/soc/sof/pm.c
++++ b/sound/soc/sof/pm.c
+@@ -103,6 +103,11 @@ static int sof_resume(struct device *dev, bool runtime_resume)
+ 		return ret;
+ 	}
+ 
++	if (sdev->dspless_mode_selected) {
++		sof_set_fw_state(sdev, SOF_DSPLESS_MODE);
++		return 0;
++	}
++
+ 	/*
+ 	 * Nothing further to be done for platforms that support the low power
+ 	 * D0 substate. Resume trace and return when resuming from
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index 4f12e137ff63..7651644fcd62 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -688,7 +688,7 @@ int sof_widget_list_setup(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm,
+ 		struct snd_sof_widget *pipe_widget;
+ 		struct snd_sof_pipeline *spipe;
+ 
+-		if (!swidget)
++		if (!swidget || sdev->dspless_mode_selected)
+ 			continue;
+ 
+ 		spipe = swidget->spipe;
+diff --git a/sound/soc/sof/sof-client.c b/sound/soc/sof/sof-client.c
+index 9017f0864cdd..d6b7caa0cf03 100644
+--- a/sound/soc/sof/sof-client.c
++++ b/sound/soc/sof/sof-client.c
+@@ -130,6 +130,9 @@ int sof_register_clients(struct snd_sof_dev *sdev)
+ {
+ 	int ret;
+ 
++	if (sdev->dspless_mode_selected)
++		return 0;
++
+ 	/* Register platform independent client devices */
+ 	ret = sof_register_ipc_flood_test(sdev);
+ 	if (ret) {
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index bc8ca1e05b83..d3d536b0a8f5 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1144,8 +1144,12 @@ static void sof_disconnect_dai_widget(struct snd_soc_component *scomp,
+ static int spcm_bind(struct snd_soc_component *scomp, struct snd_sof_pcm *spcm,
+ 		     int dir)
+ {
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_sof_widget *host_widget;
+ 
++	if (sdev->dspless_mode_selected)
++		return 0;
++
+ 	host_widget = snd_sof_find_swidget_sname(scomp,
+ 						 spcm->pcm.caps[dir].name,
+ 						 dir);
+@@ -2270,6 +2274,126 @@ static struct snd_soc_tplg_ops sof_tplg_ops = {
+ 	.bytes_ext_ops_count	= ARRAY_SIZE(sof_bytes_ext_ops),
+ };
+ 
++static int snd_sof_dspless_kcontrol(struct snd_kcontrol *kcontrol,
++				    struct snd_ctl_elem_value *ucontrol)
++{
++	return 0;
++}
++
++static const struct snd_soc_tplg_kcontrol_ops sof_dspless_io_ops[] = {
++	{SOF_TPLG_KCTL_VOL_ID, snd_sof_dspless_kcontrol, snd_sof_dspless_kcontrol},
++	{SOF_TPLG_KCTL_BYTES_ID, snd_sof_dspless_kcontrol, snd_sof_dspless_kcontrol},
++	{SOF_TPLG_KCTL_ENUM_ID, snd_sof_dspless_kcontrol, snd_sof_dspless_kcontrol},
++	{SOF_TPLG_KCTL_SWITCH_ID, snd_sof_dspless_kcontrol, snd_sof_dspless_kcontrol},
++};
++
++static int snd_sof_dspless_bytes_ext_get(struct snd_kcontrol *kcontrol,
++					 unsigned int __user *binary_data,
++					 unsigned int size)
++{
++	return 0;
++}
++
++static int snd_sof_dspless_bytes_ext_put(struct snd_kcontrol *kcontrol,
++					 const unsigned int __user *binary_data,
++					 unsigned int size)
++{
++	return 0;
++}
++
++static const struct snd_soc_tplg_bytes_ext_ops sof_dspless_bytes_ext_ops[] = {
++	{SOF_TPLG_KCTL_BYTES_ID, snd_sof_dspless_bytes_ext_get, snd_sof_dspless_bytes_ext_put},
++	{SOF_TPLG_KCTL_BYTES_VOLATILE_RO, snd_sof_dspless_bytes_ext_get},
++};
++
++/* external widget init - used for any driver specific init */
++static int sof_dspless_widget_ready(struct snd_soc_component *scomp, int index,
++				    struct snd_soc_dapm_widget *w,
++				    struct snd_soc_tplg_dapm_widget *tw)
++{
++	if (WIDGET_IS_DAI(w->id)) {
++		struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++		struct snd_sof_widget *swidget;
++		struct snd_sof_dai dai;
++		int ret;
++
++		swidget = kzalloc(sizeof(*swidget), GFP_KERNEL);
++		if (!swidget)
++			return -ENOMEM;
++
++		memset(&dai, 0, sizeof(dai));
++
++		ret = sof_connect_dai_widget(scomp, w, tw, &dai);
++		if (ret) {
++			kfree(swidget);
++			return ret;
++		}
++
++		swidget->scomp = scomp;
++		swidget->widget = w;
++		mutex_init(&swidget->setup_mutex);
++		w->dobj.private = swidget;
++		list_add(&swidget->list, &sdev->widget_list);
++	}
++
++	return 0;
++}
++
++static int sof_dspless_widget_unload(struct snd_soc_component *scomp,
++				     struct snd_soc_dobj *dobj)
++{
++	struct snd_soc_dapm_widget *w = container_of(dobj, struct snd_soc_dapm_widget, dobj);
++
++	if (WIDGET_IS_DAI(w->id)) {
++		struct snd_sof_widget *swidget = dobj->private;
++
++		sof_disconnect_dai_widget(scomp, w);
++
++		if (!swidget)
++			return 0;
++
++		/* remove and free swidget object */
++		list_del(&swidget->list);
++		kfree(swidget);
++	}
++
++	return 0;
++}
++
++static int sof_dspless_link_load(struct snd_soc_component *scomp, int index,
++				 struct snd_soc_dai_link *link,
++				 struct snd_soc_tplg_link_config *cfg)
++{
++	link->platforms->name = dev_name(scomp->dev);
++
++	/* Set nonatomic property for FE dai links for FE-BE compatibility */
++	if (!link->no_pcm)
++		link->nonatomic = true;
++
++	return 0;
++}
++
++static struct snd_soc_tplg_ops sof_dspless_tplg_ops = {
++	/* external widget init - used for any driver specific init */
++	.widget_ready	= sof_dspless_widget_ready,
++	.widget_unload	= sof_dspless_widget_unload,
++
++	/* FE DAI - used for any driver specific init */
++	.dai_load	= sof_dai_load,
++	.dai_unload	= sof_dai_unload,
++
++	/* DAI link - used for any driver specific init */
++	.link_load	= sof_dspless_link_load,
++
++	/* vendor specific kcontrol handlers available for binding */
++	.io_ops		= sof_dspless_io_ops,
++	.io_ops_count	= ARRAY_SIZE(sof_dspless_io_ops),
++
++	/* vendor specific bytes ext handlers available for binding */
++	.bytes_ext_ops = sof_dspless_bytes_ext_ops,
++	.bytes_ext_ops_count = ARRAY_SIZE(sof_dspless_bytes_ext_ops),
++};
++
+ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
+ {
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+@@ -2287,7 +2411,11 @@ int snd_sof_load_topology(struct snd_soc_component *scomp, const char *file)
+ 		return ret;
+ 	}
+ 
+-	ret = snd_soc_tplg_component_load(scomp, &sof_tplg_ops, fw);
++	if (sdev->dspless_mode_selected)
++		ret = snd_soc_tplg_component_load(scomp, &sof_dspless_tplg_ops, fw);
++	else
++		ret = snd_soc_tplg_component_load(scomp, &sof_tplg_ops, fw);
++
+ 	if (ret < 0) {
+ 		dev_err(scomp->dev, "error: tplg component load failed %d\n",
+ 			ret);
 -- 
 2.40.0
 

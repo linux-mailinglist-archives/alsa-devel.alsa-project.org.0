@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 624A36D7550
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 09:27:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8D7F6D7552
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 09:28:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B655FE88;
-	Wed,  5 Apr 2023 09:26:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B655FE88
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CC44E7F;
+	Wed,  5 Apr 2023 09:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CC44E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680679659;
-	bh=JQSTFMJLoT+23FQjGZTzhN+eYIN/szkjs6l6H5EcB7o=;
+	s=default; t=1680679694;
+	bh=GJLfktUZeSsz+SqbECv8pHKpT94sJfK29hHkQN5qagk=;
 	h=From:Date:Subject:References:In-Reply-To:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eb6sAOZq5blxiudFqoreg7YoqBfmGi8r7Ifz9SOh5GtVe6XY/zQm7kakowOi9ZmIC
-	 URAVGf4/o51Ynv3utG3j9NXc2k0dcMiRwAEeIPKmrKE4HRZ/UFLlPAoJDoShcGWGyK
-	 DKRAkxa+2mewkqw+CaNAFX26y5o551PTwaxMZEpE=
+	b=VK8WIegNLI1oWqcEXHQbAef7vlDHUlsyy7dc6OG2oSxz6MCLbLyV+YSpo86gPUjUT
+	 zlmZAGXNSD3Nk8aqwmYGyNTxEATOm6mJOZEZW1sdJyTgxfSg8TCdL4LTRFU6Mx4gLk
+	 5oghilnS/HtppTlk7oJyBB2PKJgoiwVxpdNCLcsY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8C81F805AB;
-	Wed,  5 Apr 2023 09:20:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B86FF805AC;
+	Wed,  5 Apr 2023 09:20:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A25A8F8028B; Tue,  4 Apr 2023 15:32:54 +0200 (CEST)
+	id EFB5FF8024C; Tue,  4 Apr 2023 15:32:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_03_06,
@@ -33,53 +33,52 @@ X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_03_06,
 Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
  [66.111.4.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0C3AF80054
-	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 15:32:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0C3AF80054
+	by alsa1.perex.cz (Postfix) with ESMTPS id AF197F801C0
+	for <alsa-devel@alsa-project.org>; Tue,  4 Apr 2023 15:32:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF197F801C0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
- header.s=fm3 header.b=m/DfsQmA;
+ header.s=fm3 header.b=JtP1grB+;
 	dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=XI81MScU
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailnew.nyi.internal (Postfix) with ESMTP id 22F96581F6B;
-	Tue,  4 Apr 2023 09:32:42 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute2.internal (MEProxy); Tue, 04 Apr 2023 09:32:42 -0400
+ header.a=rsa-sha256 header.s=fm2 header.b=nUCmuL+E
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+	by mailnew.nyi.internal (Postfix) with ESMTP id D9603581F70;
+	Tue,  4 Apr 2023 09:32:46 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute6.internal (MEProxy); Tue, 04 Apr 2023 09:32:46 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1680615162; x=1680622362; bh=vrfzoheDDKqftYvuykRmc8QiWwzudHZE2qX
-	zjDQOLxM=; b=m/DfsQmAQRF+rJw0HonZCfszHHerFFcnDOr2l/WnVous8juq0Vz
-	Xj/GFFoezm/cVfAzLSONhVny5pszKi/Yl/d6+0riAT0jHaf2A4eIa0LrCDKMCSEk
-	vgVeCTDcQFX/bPmy1j2PaxY72prdDJ23WOlqR2wCKICDKQ5JdLyHIyTZFdUDftFk
-	SARFMOB383uJcsBsML39zgqHQRfCGUfL1CE28aEqUHYQydj2fTi5Gtk02ZekzluL
-	Z9cSojtLX9XtEU6M4z54f9zSJwb9YqbUOyRHtvmk/CSbGtTAiY49TKOtlMPIWllt
-	zHQ1wBV7BmEDUMnxwalqwBo9aVrjS47By7g==
+	1680615166; x=1680622366; bh=X5yQ82ymN/fY+BFvs4cyiVoAbRFgqrMybYi
+	jGIueh0I=; b=JtP1grB+aM7//XbZ/GrqYW7pR04PXpY7qECsQCECnzlROBJQ/RN
+	406GTUXB/K/KXulm+Wj8G9yRpshIUksIVHRNVgOc2BW1GrV6g8eREet8psE8gEG5
+	CksDkj5nR1/bQBCRtqXQxNsS6tCPfCAOSsvDoQACeJtoV0KvCIK1W7JaEwKECqIU
+	LOTPWkDGt4cA2AvcZxgPuQI5fRbTsVS9vknSoviPoTjez9KYgnewuOOsTtB/fi4C
+	nhq4LtSUU2mwXu9p1gpAdg6bdlbiKyg/gbfn6AlYA91S3rD4YEBcFq3vD2XBKbr1
+	VMVXXnjGc4pm+VNaTTsJZzr9hQB93xdEOAQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
 	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1680615162; x=1680622362; bh=vrfzoheDDKqftYvuykRmc8QiWwzudHZE2qX
-	zjDQOLxM=; b=XI81MScU/bNDKOoe0KCzFM0XgUJOz2U3n4N3opocW077rGp3Gyi
-	Jgamyb0BFj3aT7RhazL/FC078PplH5UVPsQgs06b1jfcRxwtUUfwIukQSU9BfIup
-	Lfl1c73o/z77rqt5YzjhBmOUbymF5yoB3FKAh5I2sEqJd7YaAULlDQKBbQmQiYe+
-	djkVAOz8mRTVKHvb5pbnJRruI9ATAYw3nP/mu6XR3ZCuJPBM6xvcnEVGp3toS6jB
-	nwRa03TgWYxWPn1iqRUSf4t4BQZO4IztbQ9WIJrZ0m8Z3HpnatMA6776Rzp1yMN+
-	AFDpEyYuJX9d2lfoX9QDjljIuJsFuZIRhNA==
-X-ME-Sender: <xms:-CYsZC08spgEPV9rjBdVKDTCSlwSkn7-iqBVJ7cnxM91WrCRGN_YRg>
-    <xme:-CYsZFEpZu13i_yGe5phyly0EsCyU6RR7BCMmiVOL3IzgnyxJZzHKDtH1WdaGL_kL
-    vR4THseGf1wBc_LC3Q>
+	1680615166; x=1680622366; bh=X5yQ82ymN/fY+BFvs4cyiVoAbRFgqrMybYi
+	jGIueh0I=; b=nUCmuL+EKcIqZb9ZbIxQENehMUI/mW8njDMj8bwPll8weqgK2h3
+	0iwcKhpCRYqvG1n7Q063wPV/ETA9mlOjgkQoZYb6lzkvGTMhwMVTOoE9l660kNzM
+	vZB7fMy9FuRf7Bn+oHrQj60C2PYdkGw2IcQZ4hgl6j0RNIkF70h9Jz+jzsDO0NNo
+	pjKiGP8ScT2Uaj19itLzm83DS/qV5jpqLdmhdap5uocjZTRkND0DMwqSk0BxXT2x
+	wkj/QZPS+m24rtvV3bklXRB++QE5dGOtaLGG08qQHjMHN5IwHoqSnhJQm4JOrkZs
+	y9pIpmicllZNaqI5ywgh2F2T59TFhW/nWiQ==
+X-ME-Sender: <xms:_SYsZHP3caxqmNYfGCNxQgt40TVFaXGhugJc6ib1tnpaaiGzpskm9A>
+    <xme:_SYsZB_K0fDh4RWRtQsMhQa_MAFezrSv8OaRUxZ2wksInWqvfLsz02y6wTjjRa7Qa
+    fc79G3VABwgxlC55g4>
 X-ME-Received: 
- <xmr:-CYsZK61qik7F94_LZwDTdqa5cXngqFSsBq4FuJLuJ1tDVAcq2a8rH2pClj9byb3gVx8xaM3dEtssOb0wZYO7pjRwJMe-Vk>
+ <xmr:_SYsZGRB3zJ2pu3kb_BzdeCtMz3JOZYLf0E-ZTTBsCKY6tqissLp_bSngG-u5DiZ15xLVA43c4IinBFmgJti3dF2I09YMec>
 X-ME-Proxy-Cause: 
  gggruggvucftvghtrhhoucdtuddrgedvhedrvdeiledgieehucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
@@ -89,20 +88,20 @@ X-ME-Proxy-Cause:
     grthhtvghrnhepvedvleeijeegvdekffehkeehieelhfeggfffheetkeeuledvtdeuffeh
     teeltdffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
     epmhgrgihimhgvsegtvghrnhhordhtvggthh
-X-ME-Proxy: <xmx:-CYsZD0bNcINFGIpKgEaUh2KorcYbpY1yVkJYHLHs7FNTtz_3VVSBg>
-    <xmx:-CYsZFErlaVw96orIPLm0LAy-JkcHSD-L_FYj_jnzpNQl-meW1lL5A>
-    <xmx:-CYsZM_TADPYKpHUi3ybJx_ZJjtkDtTOtNqDqwilQ7gWXe98aZW-SQ>
-    <xmx:-iYsZFxf3FPLsOcicFZiv7bNpji03k3wqxxjOvCGgICu0C0Nag7F6w>
+X-ME-Proxy: <xmx:_SYsZLsb4oLyHvFEZf1b8EukmsiFzIFA-gYmG8ynlDLaLKiEL5RaFA>
+    <xmx:_SYsZPeU19X7_wfFwOV4x1s68zTPzW-U-6h83djyJX_1a4gVQDYsZA>
+    <xmx:_SYsZH3zOsNfVLFU1t1ih6ujWAwSZhpKzz1Yb7MN4e5OVpn5DMttyg>
+    <xmx:_iYsZHI8HOEg60S8uvZPwUueTdoLA_fVRRF74RXfDeeyoaG7Jy1Q-g>
 Feedback-ID: i8771445c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Apr 2023 09:32:38 -0400 (EDT)
+ 4 Apr 2023 09:32:43 -0400 (EDT)
 From: Maxime Ripard <maxime@cerno.tech>
-Date: Tue, 04 Apr 2023 12:11:29 +0200
-Subject: [PATCH v3 39/65] phy: cadence: torrent: Add a determine_rate hook
+Date: Tue, 04 Apr 2023 12:11:30 +0200
+Subject: [PATCH v3 40/65] phy: ti: am654-serdes: Add a determine_rate hook
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20221018-clk-range-checks-fixes-v3-39-9a1358472d52@cerno.tech>
+Message-Id: <20221018-clk-range-checks-fixes-v3-40-9a1358472d52@cerno.tech>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 In-Reply-To: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
 To: Michael Turquette <mturquette@baylibre.com>,
@@ -144,11 +143,11 @@ To: Michael Turquette <mturquette@baylibre.com>,
   Baolin Wang <baolin.wang@linux.alibaba.com>,
   Chunyan Zhang <zhang.lyra@gmail.com>
 X-Mailer: b4 0.12.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2298; i=maxime@cerno.tech;
- h=from:subject:message-id; bh=JQSTFMJLoT+23FQjGZTzhN+eYIN/szkjs6l6H5EcB7o=;
- b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37fFijD5XPuXPTMvqrdfZssl9Qs24adeXfvByhgx69GR
- GTejOkpZGMS4GGTFFFlihM2XxJ2a9bqTjW8ezBxWJpAhDFycAjCRojhGht35XrmzrA+2t7y6Uv11Xs
- D7S+FpcTolt9YF+D47rDx1VjnD/wr28PKXOzs6XiSafXoh0XfjUFTBnTMHWuvdv6ZIrj76gwEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2158; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=GJLfktUZeSsz+SqbECv8pHKpT94sJfK29hHkQN5qagk=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCna37fxlKznLju47UeF3czM29sSJbPupaz/t/vg3aS8CMbp
+ LzkfdJSyMIhxMciKKbLECJsviTs163UnG988mDmsTCBDGLg4BWAi02YzMnyP4eC/5fQo6tLyuwYFPH
+ mMKx/f3mjYsu3gkuKdTYcD4zoZ/ucv/vjy/v1fajxyb3cl125/9on147m3/TYspYfXTPhbdp0ZAA==
 X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-MailFrom: maxime@cerno.tech
@@ -159,9 +158,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: CYR3MOXP2ZB37J4CDF7UVEI7GE57U3EK
-X-Message-ID-Hash: CYR3MOXP2ZB37J4CDF7UVEI7GE57U3EK
-X-Mailman-Approved-At: Wed, 05 Apr 2023 07:18:24 +0000
+Message-ID-Hash: 7KLQB5MW5YTFBLGRB2E2A5RDCKHCEK6N
+X-Message-ID-Hash: 7KLQB5MW5YTFBLGRB2E2A5RDCKHCEK6N
+X-Mailman-Approved-At: Wed, 05 Apr 2023 07:18:33 +0000
 CC: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
@@ -176,7 +175,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYR3MOXP2ZB37J4CDF7UVEI7GE57U3EK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7KLQB5MW5YTFBLGRB2E2A5RDCKHCEK6N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -185,7 +184,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Cadence Torrent refclk clock implements a mux with a set_parent
+The TI AM654 SerDes clock implements a mux with a set_parent
 hook, but doesn't provide a determine_rate implementation.
 
 This is a bit odd, since set_parent() is there to, as its name implies,
@@ -219,20 +218,20 @@ unlikely.
 
 Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
- drivers/phy/cadence/phy-cadence-torrent.c | 1 +
+ drivers/phy/ti/phy-am654-serdes.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/phy/cadence/phy-cadence-torrent.c b/drivers/phy/cadence/phy-cadence-torrent.c
-index 3831f596d50c..62e59d1bb9c3 100644
---- a/drivers/phy/cadence/phy-cadence-torrent.c
-+++ b/drivers/phy/cadence/phy-cadence-torrent.c
-@@ -1861,6 +1861,7 @@ static const struct clk_ops cdns_torrent_refclk_driver_ops = {
- 	.enable = cdns_torrent_refclk_driver_enable,
- 	.disable = cdns_torrent_refclk_driver_disable,
- 	.is_enabled = cdns_torrent_refclk_driver_is_enabled,
+diff --git a/drivers/phy/ti/phy-am654-serdes.c b/drivers/phy/ti/phy-am654-serdes.c
+index 4ed2d951d3df..3f1d43e8b7ad 100644
+--- a/drivers/phy/ti/phy-am654-serdes.c
++++ b/drivers/phy/ti/phy-am654-serdes.c
+@@ -634,6 +634,7 @@ static int serdes_am654_clk_mux_set_parent(struct clk_hw *hw, u8 index)
+ }
+ 
+ static const struct clk_ops serdes_am654_clk_mux_ops = {
 +	.determine_rate = __clk_mux_determine_rate,
- 	.set_parent = cdns_torrent_refclk_driver_set_parent,
- 	.get_parent = cdns_torrent_refclk_driver_get_parent,
+ 	.set_parent = serdes_am654_clk_mux_set_parent,
+ 	.get_parent = serdes_am654_clk_mux_get_parent,
  };
 
 -- 

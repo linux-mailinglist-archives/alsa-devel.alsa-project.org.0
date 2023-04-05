@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83C96D998F
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:27:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81B126D9991
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:27:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C553E91;
-	Thu,  6 Apr 2023 16:26:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C553E91
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AB2AE9B;
+	Thu,  6 Apr 2023 16:26:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AB2AE9B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680791263;
-	bh=HesOZI2aqyccnLDr7n4+hIrVDQsi/xFB8eQBSjt0tew=;
+	s=default; t=1680791265;
+	bh=2m8CfJBUbDP1StW7pKHnrZKP5B+eznLXiTbABWVZfw0=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IQuKY3kH2krN7gO6JDdcg1pUdHBAAqSYLQIidMKOZqiMgd1meHmx8Rm+dK9Zt6ob0
-	 gvf/OzUyvDJeXljZBm/4Yt4NQAy//jpnPJfrYi2UajoWiELdonvqGFcCZ5VWlqiBUa
-	 luOohxw5AljYenOuIJm9sh/uBopuNBBn0/O7STfw=
+	b=e5bSzNiCSlY66+gNixoCH0W/6gafm0uAB6uvgfOH1yeooOCDoXz1XU4LNx6QsffWY
+	 EHwXH5Hv0zQh3qSJfWwkGkV4hEz8GOSe8BfewqQMqFtO3rD2do3fujY3d31ACrE1H6
+	 PMePT2D4ofK4Se6Mhrsx5zK0tzT3ygHfjVoZlrtI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E66FF80448;
-	Thu,  6 Apr 2023 16:26:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B49BBF80529;
+	Thu,  6 Apr 2023 16:26:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97FCBF8024C; Wed,  5 Apr 2023 17:04:21 +0200 (CEST)
+	id 1910CF8024C; Wed,  5 Apr 2023 17:04:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,41 @@ X-Spam-Status: No, score=-7.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5F20FF8015B
-	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 17:03:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F20FF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73953F8015B
+	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 17:04:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73953F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=lechnology.com header.i=@lechnology.com
- header.a=rsa-sha256 header.s=default header.b=Oqb3PO1k
+ header.a=rsa-sha256 header.s=default header.b=Y+x4KEnY
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
 	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
 	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
 	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=WEVhki1z04JzpG6JGv+tXPk2KVEYI5pMsCd6omv0e8Y=; b=Oqb3PO1k4CqBJ/hcNQoQc+Xjed
-	eqJ8vOTGWrK6NhOYRyoWYY4aVIyndl7gxFnpfFolncw0Z9voV1OiJ34cx8DI5SlracX7U/bo5KRaU
-	DzOLBECWff7waN7kl5pjbA+z6u9PMEFYB6+ajs7fS0CXZGw40zjzdo0rWKS8xMJmOVnDXIFueTgH6
-	lxiuEmeKpsF9wRHjxbmkeO0Mqa9IgYFF3iW++MSoQIiqip/0SHWaz7KosJ8I7VUFw7LVrqjDGC8jw
-	23/tXgr5RlS0iaJ9nSDJPDrclY9+f3iUBwbWWkjX2TCAO2a7+mA2Py7eJ4NjhNAeH7qlGdjkUunR3
-	bJRwCG0A==;
-Received: from ip98-183-112-29.ok.ok.cox.net ([98.183.112.29]:40758
+	bh=KwsN1Jqgdt0Ru2Hhoc0LBYnmZhb8r5La/ON0Ev0Izhg=; b=Y+x4KEnYaxmTOeuiHyftGo9xdQ
+	I1IkCDLcv6rx19nvnc017O7Q0VqCDu/q1lgaWg61g+UYbu9cqTokgl5+9DYvnSjmbBS3XgKXxpY3Q
+	S11J4aG6c4qnzIG5yHCr/oioEBkYd+W6IFaxyucGat2uI5SFQAEeax52nY11iIGwn3haXiEgEunrY
+	GE5ldbrx/L9zfJkJEcvT9/Iw5bVgh8UKVwKHUzD0TmBvaglCDwoIUaZTLqI/42TdooiVpNtHzagsr
+	/5M9aotBK1c5PBNn4KWBcwtwjXsUxY1OdDbrvlDUkuwgElxvxLOuPdTvVcCbh3Sax5X6zA/ZvkOjL
+	cTDrBcPw==;
+Received: from ip98-183-112-29.ok.ok.cox.net ([98.183.112.29]:45982
  helo=[192.168.0.134])
 	by vern.gendns.com with esmtpsa  (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.96)
 	(envelope-from <david@lechnology.com>)
-	id 1pk4fg-0004Km-04;
-	Wed, 05 Apr 2023 11:03:36 -0400
-Message-ID: <04f5d305-9992-bcdc-cd54-111eb8254155@lechnology.com>
-Date: Wed, 5 Apr 2023 10:03:24 -0500
+	id 1pk4gF-0004Ux-2Q;
+	Wed, 05 Apr 2023 11:04:12 -0400
+Message-ID: <ca8efcd8-b2f1-b84d-8087-7f60795f0c0e@lechnology.com>
+Date: Wed, 5 Apr 2023 10:04:04 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH v3 54/65] clk: da8xx: clk48: Switch to determine_rate
+Subject: Re: [PATCH v3 22/65] clk: davinci: da8xx-cfgchip: Add a
+ determine_rate hook
+Content-Language: en-US
 To: Maxime Ripard <maxime@cerno.tech>,
  Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
  <sboyd@kernel.org>, =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
@@ -101,10 +103,9 @@ To: Maxime Ripard <maxime@cerno.tech>,
  Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
  <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>
 References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-54-9a1358472d52@cerno.tech>
-Content-Language: en-US
+ <20221018-clk-range-checks-fixes-v3-22-9a1358472d52@cerno.tech>
 From: David Lechner <david@lechnology.com>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-54-9a1358472d52@cerno.tech>
+In-Reply-To: <20221018-clk-range-checks-fixes-v3-22-9a1358472d52@cerno.tech>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-AntiAbuse: This header was added to track abuse,
@@ -127,9 +128,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: J6YC5PCWSCOQLTK7QWVFKIOYV43PBWNE
-X-Message-ID-Hash: J6YC5PCWSCOQLTK7QWVFKIOYV43PBWNE
-X-Mailman-Approved-At: Thu, 06 Apr 2023 14:26:00 +0000
+Message-ID-Hash: ILF3VXCNJVPY3K3NTEFVQBQWC5T65BJT
+X-Message-ID-Hash: ILF3VXCNJVPY3K3NTEFVQBQWC5T65BJT
+X-Mailman-Approved-At: Thu, 06 Apr 2023 14:26:01 +0000
 CC: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
@@ -144,7 +145,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J6YC5PCWSCOQLTK7QWVFKIOYV43PBWNE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ILF3VXCNJVPY3K3NTEFVQBQWC5T65BJT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -154,8 +155,8 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 4/4/23 5:11 AM, Maxime Ripard wrote:
-> The TI DA8xx USB0 clk48 clocks implements a mux with a set_parent
-> hook, but doesn't provide a determine_rate implementation.
+> The Davinci DA8xxx cfgchip "clk48" clock implements a mux with a
+> set_parent hook, but doesn't provide a determine_rate implementation.
 > 
 > This is a bit odd, since set_parent() is there to, as its name implies,
 > change the parent of a clock. However, the most likely candidate to
@@ -166,4 +167,5 @@ On 4/4/23 5:11 AM, Maxime Ripard wrote:
 
 As mentioned in my previous review, parent is selected by device
 tree and should never be changed after init.
+
 

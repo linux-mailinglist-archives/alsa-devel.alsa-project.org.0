@@ -2,103 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1906D7E27
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 15:55:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 115536D7EF9
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 16:16:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E85FF1E3;
-	Wed,  5 Apr 2023 15:55:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E85FF1E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1BB91FC;
+	Wed,  5 Apr 2023 16:15:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1BB91FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680702958;
-	bh=afQp0pzn0/QeQA2yZuPiGA1HfkQUMzgZArsWN6F3gP8=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1680704182;
+	bh=zLCbqzqreL/SDJwaz6NG3NuxhGyWu+VOlVJt7oD3Qks=;
+	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vg6TA+qlenVpboHNNgHnObh1XBpxA6K4NncETWmTQGo/gV67BnrursOmG+Le+2TR3
-	 S872He+5KrmMG+512td1CN59rcmzOO4qafQkq+2L3tnnqjk7Hm1z5Ot0oh1E+Hs90U
-	 HWgQnRXZLZZPx+9Fmvo3TYexd/1tGEr0Yln7EKgw=
+	b=p2HwwoGo9SFX02HVmKBkIyLlLxKWP3Tace+TgJ4nZmTrLbnkDe2uLXfzQX7D1rYVx
+	 UYcBwPgWBwZMdVgWYa9EVb/qH8XFnTXHjsmRxQxBCHJbgE2Gc4NYPa0XTS7w4vhIFa
+	 Yzt1WAIkQ9Eq0xIqrDwTdAunY8qdzlxpLg2zKVwA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69F4AF80249;
-	Wed,  5 Apr 2023 15:55:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F6A1F8024C;
+	Wed,  5 Apr 2023 16:15:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B27EDF8026D; Wed,  5 Apr 2023 15:55:03 +0200 (CEST)
+	id 151FDF8024C; Wed,  5 Apr 2023 16:15:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3CF39F8015B
-	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 15:54:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CF39F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 69BA1F80054
+	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 16:15:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69BA1F80054
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BJzRUELO
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9B45D62942;
-	Wed,  5 Apr 2023 13:54:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14212C433D2;
-	Wed,  5 Apr 2023 13:54:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680702896;
-	bh=afQp0pzn0/QeQA2yZuPiGA1HfkQUMzgZArsWN6F3gP8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BJzRUELOzZFM4zemOrIWywg+3ZyP3masCyIl5+zZlAB09XTI6j0Nki00evmuKOTJY
-	 1PckAHEU9PDXJ+7sUqjZBOo7K8vEYAKQsSHYxvoWGq42pTvxAdIi4OEX3fvUN3LyzD
-	 cWhFN9VprMBARPc3xovQJAWqPiFoXA9QyncVskUC/HCxqx0YLUjfYH1BD+rb0tyPXk
-	 6yHuY5PPh+Ng6icedCWO7f1PXkcLxW7gyC3lxLEB81vMOAwXPGmlFGCDk5zAwuO3mB
-	 l8rL+Up4CnppD4DdNEtADRAbDQwZ4h/eBb+avX0sB3v3khVzpyyq2aGF4JG/p7Z9T6
-	 sA9i588CorxQg==
-Date: Wed, 5 Apr 2023 14:54:50 +0100
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v5 2/5] mfd: Add support for the Lantiq PEF2256 framer
-Message-ID: <20230405135450.GF8371@google.com>
-References: <20230331094208.41ab4420@bootlin.com>
- <6d39e9c3-fb6a-4b2a-9889-8fe8d86716d5@linaro.org>
- <20230331141104.42445da9@bootlin.com>
- <a642e653-e3e2-c3d2-68cb-1efc92be05bb@linaro.org>
- <20230331165904.4e7f46a1@bootlin.com>
- <20230403142822.GA8371@google.com>
- <20230404092036.2d1cd5d9@bootlin.com>
- <f7ab2fcc-93fc-ce87-8767-579d33907225@linaro.org>
- <20230404100759.5bc9cd20@bootlin.com>
- <143754c2-9e37-4386-af92-174c0df2eb0a@linaro.org>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=IqKMH9j+
+Received: by mail-wm1-x333.google.com with SMTP id
+ n19-20020a05600c501300b003f064936c3eso1271186wmr.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 05 Apr 2023 07:15:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680704113;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=IpgaWsNbw3Z/0dUj+oRiMAi8hpXpay23y++dOCQUOjE=;
+        b=IqKMH9j+XgjSSYg203S4TCDvawuH3m0kFu+LzhdkJXPrh806MOa+moVcWGnPUvyKRE
+         Z1ccadg7pF/yS+pim7uP8Q4HKbeleevJ4xygTU1/+mYj4dsbmyJlbTG4mLKimdUw8pQi
+         OuJDj3SnxvAms/mnntZG40XEuwS4sJfGf3F3/3r4BYIgljquJAOmHa53vk5d4k5IYDn0
+         lr7bKAZ7nTHyL3GYQA8hb/TIqqzKnJWgddVXEi6bI1K68d/uUaGE0SeNcQP2dmcuxMLq
+         HnmcsATAlXPdr7VkW+5+QPu7i4DN0TcV7hASajh6RBKpKQKEJb5Wlms8dERAm6Xi7w4y
+         6mmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680704113;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IpgaWsNbw3Z/0dUj+oRiMAi8hpXpay23y++dOCQUOjE=;
+        b=az8znlmH3ISB2DvtcN8YyV0xQJyHKHfW9sbgcbUZgGj+gY2OgOc3LuobDZrBocDUpx
+         I0ad8N34H34i3/GWqgIGAB+PPbMPTXjD2+dDaI9u7X99eRHBQ0sCWrwTT18zeNNEm9hg
+         6ibOokw/iVEBcb+uzn90G3hBjAlSxc4VARcaAtXCimls0rQawbIV/cJy+VawI0IBPGR3
+         TljNxy3RJHVvdF2tUdZ+LNOYkbY1IBFsrMC9JfqXAXcnk5D2miXBEFERuJBOIThO3RRb
+         sSIQtB54+kvY23rGBeD+m7rfREPxYaVl/FOQEf2fRyIO4t3ktuT4sgQPnUFFJwSVSe44
+         Sd5g==
+X-Gm-Message-State: AAQBX9eG8J2MITxjAcZlyiwmPm4mENbLlpHA4Cvr/nk8xxj5jRdDw1J+
+	OzHUKGrW94UcvcgpndinaAGVRJYWRl0eklmQgg==
+X-Google-Smtp-Source: 
+ AKy350azZaSzk8DjHMVg2DTjnVRsVWr5aliNryusechEoMgYowM3+V02MfTqCZXmgjJyyOLHa43HvkjA9hgT2lTfbxM=
+X-Received: by 2002:a05:600c:21ce:b0:3ed:c669:8a13 with SMTP id
+ x14-20020a05600c21ce00b003edc6698a13mr1658782wmj.8.1680704113286; Wed, 05 Apr
+ 2023 07:15:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <143754c2-9e37-4386-af92-174c0df2eb0a@linaro.org>
-Message-ID-Hash: GJKUJRRONTBKWXHEF72UPTR2SS7GRCN2
-X-Message-ID-Hash: GJKUJRRONTBKWXHEF72UPTR2SS7GRCN2
-X-MailFrom: lee@kernel.org
+References: <20230331030116.54136-1-frank.li@vivo.com>
+In-Reply-To: <20230331030116.54136-1-frank.li@vivo.com>
+From: =?UTF-8?B?54+t5rab?= <fengzheng923@gmail.com>
+Date: Wed, 5 Apr 2023 22:15:00 +0800
+Message-ID: 
+ <CAE=m61_asm=8SuBjD8cYXDJF-QZb7BXUDPh+HMoDBgyvvyjkNA@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: sunxi: handle reset_control_deassert() error
+To: Yangtao Li <frank.li@vivo.com>
+Message-ID-Hash: PK6FT3LKBEUMS32UYCLWIG7MFIUWSKBN
+X-Message-ID-Hash: PK6FT3LKBEUMS32UYCLWIG7MFIUWSKBN
+X-MailFrom: fengzheng923@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Herve Codina <herve.codina@bootlin.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
+CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GJKUJRRONTBKWXHEF72UPTR2SS7GRCN2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PK6FT3LKBEUMS32UYCLWIG7MFIUWSKBN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,79 +118,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 04 Apr 2023, Krzysztof Kozlowski wrote:
-
-> On 04/04/2023 10:07, Herve Codina wrote:
->
-> >>> So, the structure I have in mind:
-> >>> - pef2256.c (MFD)
-> >>>   implement and do the setup at probe()
-> >>>   Add the children at probe():
-> >>>     - pef2256-pinctrl (pinctrl) added using mfd_add_devices()
-> >>>     - pef2256-codec (ASoC codec) added using devm_of_platform_populate()
-> >>>
-> >>> Lee, with this in mind, can the core pef2256.c be a MFD driver ?
-> >>
-> >> You do not use MFD here, so why do you want to keep it in MFD? If you
-> >> disagree, please tell me where is the MFD code in your patch?
-> >
-> > I don't want to absolutely use MFD.
-> > I just want to put my driver somewhere and I don't know the right location
-> > between MFD and Misc.
-> >
-> > Basically, the driver needs to do (little simplified and error path removed):
-> >
-> >   static const struct mfd_cell pef2256_devs[] = {
-> >   	{ .name = "lantiq-pef2256-pinctrl", },
-> >   };
-> >
-> >   static int pef2256_probe(struct platform_device *pdev)
-> >   {
-> > 	struct pef2256 *pef2256;
-> > 	void __iomem *iomem;
-> > 	int ret;
-> > 	int irq;
-> >
-> > 	pef2256 = devm_kzalloc(&pdev->dev, sizeof(*pef2256), GFP_KERNEL);
-> > 	if (!pef2256)
-> > 		return -ENOMEM;
-> >
-> > 	pef2256->dev = &pdev->dev;
-> >
-> > 	iomem = devm_platform_ioremap_resource(pdev, 0);
-> >
-> > 	pef2256->regmap = devm_regmap_init_mmio(&pdev->dev, iomem,
-> > 						&pef2256_regmap_config);
-> >
-> > 	pef2256->mclk = devm_clk_get_enabled(&pdev->dev, "mclk");
-> > 	pef2256->sclkr = devm_clk_get_enabled(&pdev->dev, "sclkr");
-> > 	pef2256->sclkx = devm_clk_get_enabled(&pdev->dev, "sclkx");
-> >
-> > 	pef2256->reset_gpio = devm_gpiod_get_optional(&pdev->dev, "reset", GPIOD_OUT_LOW);
-> > 	if (pef2256->reset_gpio) {
-> > 		gpiod_set_value_cansleep(pef2256->reset_gpio, 1);
-> > 		udelay(10);
-> > 		gpiod_set_value_cansleep(pef2256->reset_gpio, 0);
-> > 		udelay(10);
-> > 	}
-> >
-> > 	pef2556_of_parse(pef2256, np);
-> >
-> > 	irq = platform_get_irq(pdev, 0);
-> > 	ret = devm_request_irq(pef2256->dev, irq, pef2256_irq_handler, 0, "pef2256", pef2256);
-> >
-> > 	platform_set_drvdata(pdev, pef2256);
-> >
-> > 	mfd_add_devices(pef2256->dev, PLATFORM_DEVID_NONE, pef2256_devs,
-> > 	      		ARRAY_SIZE(pef2256_devs), NULL, 0, NULL);
->
-> Wait, now you use MFD framework, so the driver is suitable for MFD.
-> Before there was nothing like that in your code.
-
-Agree, the above is suitable for MFD, since it does all the things I
-said your last one did not.  You *can* also use of_platform_populate()
-here, since you are *also* requesting and initialising shared resources.
-You cannot do *both* however.
-
---
-Lee Jones [李琼斯]
+WWFuZ3RhbyBMaSA8ZnJhbmsubGlAdml2by5jb20+IOS6jjIwMjPlubQz5pyIMzHml6XlkajkupQg
+MTE6MDHlhpnpgZPvvJoNCg0KPiBBZGQgZXJyb3IgY2hlY2sgZm9yIHJlc2V0X2NvbnRyb2xfZGVh
+c3NlcnQoKS4NCj4NCj4gU2lnbmVkLW9mZi1ieTogWWFuZ3RhbyBMaSA8ZnJhbmsubGlAdml2by5j
+b20+DQo+IC0tLQ0KPiAgc291bmQvc29jL3N1bnhpL3N1bjUwaS1kbWljLmMgfCA2ICsrKysrLQ0K
+PiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPiBk
+aWZmIC0tZ2l0IGEvc291bmQvc29jL3N1bnhpL3N1bjUwaS1kbWljLmMgYi9zb3VuZC9zb2Mvc3Vu
+eGkvc3VuNTBpLWRtaWMuYw0KPiBpbmRleCAwNjljOTkzYWNiMzEuLjdmMGU2MzEzMGQ5NSAxMDA2
+NDQNCj4gLS0tIGEvc291bmQvc29jL3N1bnhpL3N1bjUwaS1kbWljLmMNCj4gKysrIGIvc291bmQv
+c29jL3N1bnhpL3N1bjUwaS1kbWljLmMNCj4gQEAgLTM0NSw3ICszNDUsMTEgQEAgc3RhdGljIGlu
+dCBzdW41MGlfZG1pY19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlDQo+ICpwZGV2KQ0KPiAg
+ICAgICAgIGlmIChJU19FUlIoaG9zdC0+cnN0KSkNCj4gICAgICAgICAgICAgICAgIHJldHVybiBk
+ZXZfZXJyX3Byb2JlKCZwZGV2LT5kZXYsIFBUUl9FUlIoaG9zdC0+cnN0KSwNCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICJGYWlsZWQgdG8gZ2V0IHJlc2V0LlxuIik7DQo+
+IC0gICAgICAgcmVzZXRfY29udHJvbF9kZWFzc2VydChob3N0LT5yc3QpOw0KPiArICAgICAgIHJl
+dCA9IHJlc2V0X2NvbnRyb2xfZGVhc3NlcnQoaG9zdC0+cnN0KTsNCj4gKyAgICAgICBpZiAocmV0
+KSB7DQo+ICsgICAgICAgICAgICAgICBkZXZfZXJyKCZwZGV2LT5kZXYsICJmYWlsZWQgdG8gZGVh
+c3NlcnQgcmVzZXQ6ICVkXG4iLCByZXQpOw0KPg0KUGxlYXNlIHVzZSAiZGV2X2Vycl9wcm9iZSgu
+Li4pIg0KDQo+ICsgICAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiArICAgICAgIH0NCj4NCiAg
+ICAgICAgcmV0ID0gZGV2bV9zbmRfc29jX3JlZ2lzdGVyX2NvbXBvbmVudCgmcGRldi0+ZGV2LA0K
+PiAmc3VuNTBpX2RtaWNfY29tcG9uZW50LA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgJnN1bjUwaV9kbWljX2RhaSwgMSk7DQo+IC0tDQo+IDIuMzUuMQ0K
+Pg0KPg0K

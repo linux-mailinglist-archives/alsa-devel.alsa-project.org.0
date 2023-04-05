@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54CE36D99A7
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:29:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91B216D8208
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 17:36:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9F6BEC3;
-	Thu,  6 Apr 2023 16:29:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9F6BEC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53B351E7;
+	Wed,  5 Apr 2023 17:35:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53B351E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680791397;
-	bh=q6hazTR3zs7E7OVM3zxpzK5DagX6jtQENEamOL0SGKU=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1680709006;
+	bh=6uAUWj2LjSDCaYsVxyfHMXJlEA0t1d2IhrhQy8FrHuQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EGRMr7cGNaqDo9pgN//BNL1Pi7lReDOolIjo2Lkik/FkNA9mui1e3bvFkP5Wn8W6w
-	 ca69leIRwjyPCKq6AO/G8l3eAQ7Sk/8hyg4gDnR9U3Z8U1vAWxTQnIM3S+SXkgsk9Q
-	 IIwaI9EpanbO4kSRE6bkOWd7UiQVgZCSpgXYTUdU=
+	b=b6HfXsQjdhZFHRV9Jzgg2Ow3KXlPTL3wwKIjz0MVvjfzaLJ+LCy4NYvT7dV4VMiUi
+	 XVACxDpqntdZazlmq9RI5yYw/4mT1bRfRTOkdvs2Ja2v+kURukTM2xt8vy1PbEoOxc
+	 jm6BqX3hq6KuLSGJ/j3Vrs7/EpXsnEy12ikSAK1A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 613FFF805A9;
-	Thu,  6 Apr 2023 16:26:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C480EF80249;
+	Wed,  5 Apr 2023 17:35:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5139F8024C; Wed,  5 Apr 2023 17:34:54 +0200 (CEST)
+	id 6ACE8F8024C; Wed,  5 Apr 2023 17:35:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,106 +33,57 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 44979F80075
-	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 17:34:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44979F80075
+	by alsa1.perex.cz (Postfix) with ESMTPS id 95624F80075
+	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 17:35:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95624F80075
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mlbEhXat
+ header.s=k20201202 header.b=HVoiwecb
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D76FB623C3;
-	Wed,  5 Apr 2023 15:34:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7C9C433EF;
-	Wed,  5 Apr 2023 15:34:34 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 69A4862717;
+	Wed,  5 Apr 2023 15:35:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54024C433EF;
+	Wed,  5 Apr 2023 15:35:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680708886;
-	bh=q6hazTR3zs7E7OVM3zxpzK5DagX6jtQENEamOL0SGKU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mlbEhXatZkXJ9X7FsGvPf2rH95VpY5tOnyIMJWR/0y9to3LuusuWOEW94RzKcDlKg
-	 HsFf5CsPOKukH8P5uoSP2Z0JlxMdLwy9OxF/8G86S5WBCQNQtEOwVMDqSea8cvrsDU
-	 564oj+TiTuatTLbxixAITrHG3+c5+iQ5kEWuaj8LLDEFmeZMfABdscXZNA/eAMWJAk
-	 0YkRM5fCov8t3qCX2aBvV3kmH3qO4N9tKQnMqdz4QY5qygfyDOUcQlTmMnAu3at4ih
-	 jXuoUGUjvrX+RS3OfX29rQcD6mKS146C1VyprHv8nlDm6+/mgIZ+D1r/IpS6sIO5UV
-	 4+HTzWQ25QIJA==
-Date: Wed, 5 Apr 2023 16:34:31 +0100
+	s=k20201202; t=1680708947;
+	bh=6uAUWj2LjSDCaYsVxyfHMXJlEA0t1d2IhrhQy8FrHuQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=HVoiwecb/ThJcarG7UDJjrvvROgxnPz/ognPPc1RBNKoPeeST9cdr2W2FgiqYszSR
+	 HBbtbQ71iJrM08dQH6NvGoSyOp9AkJpj5PHK4wIajCRfhboSf8iedtzNvQ6UEm7j7N
+	 PzNjMsVw0yE+txn3X23xc4wZQQvTsedwqK48NiuJHI/IjoerKsjBC+IJq23Ieuaqs+
+	 3VwrO4z8gKbRH66PYq+ZI8u4dfIbRZ164Nm7p44jSiMEDd6SKQ6eXfAKB6R26Avt/f
+	 eWiCUIymEPeXPIZOMmFtNeBiXwt/AETiUyHKjfdx0pvRgkkb+U+BwmEyytOj5RHvdf
+	 ak46V37jyWxIg==
 From: Mark Brown <broonie@kernel.org>
-To: Maxime Ripard <maxime@cerno.tech>
-Subject: Re: [PATCH v3 43/65] ASoC: tlv320aic32x4: Add a determine_rate hook
-Message-ID: <fcc11e4d-eba6-4eff-b3e5-9488a4da84c3@sirena.org.uk>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-43-9a1358472d52@cerno.tech>
- <01f32440-8dd2-4030-9006-a3123be55845@sirena.org.uk>
- <erm4iq3mygnrr4h2gd5cag3sfuovv47ibdqsbmxcfabngvnwy4@z63ksvj55zuu>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pm8lc2m7.wl-kuninori.morimoto.gx@renesas.com>
+References: <87pm8lc2m7.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH resend 0/5] ASoC: clarify Codec2Codec params
+Message-Id: <168070894705.71826.16313725811061177061.b4-ty@kernel.org>
+Date: Wed, 05 Apr 2023 16:35:47 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rWy5+BLE6plJ+54H"
-Content-Disposition: inline
-In-Reply-To: <erm4iq3mygnrr4h2gd5cag3sfuovv47ibdqsbmxcfabngvnwy4@z63ksvj55zuu>
-X-Cookie: 1 bulls, 3 cows.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-00303
+Message-ID-Hash: GGIRZGPO4H33YVSRGZFXVEXESCQGDCUW
+X-Message-ID-Hash: GGIRZGPO4H33YVSRGZFXVEXESCQGDCUW
 X-MailFrom: broonie@kernel.org
-X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: MQCYCPZC62BE5RR6YZALIIAAVPBYHXZL
-X-Message-ID-Hash: MQCYCPZC62BE5RR6YZALIIAAVPBYHXZL
-X-Mailman-Approved-At: Thu, 06 Apr 2023 14:26:27 +0000
-CC: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Lechner <david@lechnology.com>, Sekhar Nori <nsekhar@ti.com>,
- Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Dinh Nguyen <dinguyen@kernel.org>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Paul Cercueil <paul@crapouillou.net>,
- Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
- patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-phy@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-sunxi@lists.linux.dev, alsa-devel@alsa-project.org,
- linux-mips@vger.kernel.org
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Linux-ALSA <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MQCYCPZC62BE5RR6YZALIIAAVPBYHXZL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGIRZGPO4H33YVSRGZFXVEXESCQGDCUW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,40 +92,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Sun, 02 Apr 2023 22:59:13 +0000, Kuninori Morimoto wrote:
+> ASoC is supporting Codec2Codec, but its parameter name is
+> "params" and "num_params" which are very unclear naming.
+> 
+> This patch-set clarifies it by replacing to c2c_params / num_c2c_params.
+> 
+> Link: https://lore.kernel.org/r/87r0tb6ond.wl-kuninori.morimoto.gx@renesas.com
+> 
+> [...]
 
---rWy5+BLE6plJ+54H
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Apr 05, 2023 at 05:17:21PM +0200, Maxime Ripard wrote:
-> On Tue, Apr 04, 2023 at 04:26:18PM +0100, Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> > To be honest it's surprising that we'd have to manually specify this, I
-> > would expect to be able to reparent.  I suspect it'd be better to go the
-> > other way here and allow reparenting.
+Thanks!
 
-> Yeah, I think I'd prefer to allow reparenting too, but as can be seen
-> from the other reviewers in that thread, it seems like we have a very
-> split community here, so that doesn't sound very realistic without some
-> major pushback :)
+[1/5] ASoC: soc.h: clarify Codec2Codec params
+      commit: 7ddc7f91beb285246e926e3adf0b292b071aea33
+[2/5] ASoC: audio-graph-card2: switch to use c2c_params instead of params
+      commit: a1cd7e8017aabe4dded887dcca30e126ec2753c3
+[3/5] ASoC: meson: switch to use c2c_params instead of params
+      commit: 433f4a1697fae78c34377de1ef3abd26aec8214e
+[4/5] ASoC: samsung: switch to use c2c_params instead of params
+      commit: e7a73b05542d82e209af450dd90b730255f6e775
+[5/5] ASoC: soc.h: remove unused params/num_params
+      commit: 1ea63f29c27712d6b9c45af67cd71299d849c5e3
 
-For these ASoC drivers I think we should just do the reparenting,
-they're very much at the leaf of the tree so the considerations that
-make it a problem sometimes are unlikely to apply.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---rWy5+BLE6plJ+54H
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQtlQYACgkQJNaLcl1U
-h9B5kwgAhgnq7R11Qu+B0UHvMPR+YuXSbduHynE7TqBLfStAOBSo1K13PASgQaa9
-wrmguaiF0D05AzsDdSViUh7jt1zNtO3da+OYl8oXujrIbMZbGni9L/fGVLPLH9LH
-S4EKLVYbDM7dTpVx0aDXvlVCYW21kOHRWWv/J6PmtESnjJOfnQGHe3Xs1h8ZgovN
-olevNVv7bIIBbK+syW2trg9ueeQFhIP8zFvA7seKaKplyJQN6b6ZBpF5/0RIVobC
-9KooGdA4p3nEKzSBi+TYDZL/NYxlB7m/Y8nMussyk40gnvHmlVGYXLA0nVd3MP6U
-GEwYUUby6V7fvlt7mTxduZug5WAoPQ==
-=MZpO
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---rWy5+BLE6plJ+54H--
+Thanks,
+Mark
+

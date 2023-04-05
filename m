@@ -2,108 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CCCE6D8056
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Apr 2023 17:03:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A83C96D998F
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:27:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 957DE1E7;
-	Wed,  5 Apr 2023 17:02:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 957DE1E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C553E91;
+	Thu,  6 Apr 2023 16:26:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C553E91
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680707020;
-	bh=dFlO+IoyPt/cvrM8e5U9Z6n3Lak/MZq3BRfErTyVWhM=;
+	s=default; t=1680791263;
+	bh=HesOZI2aqyccnLDr7n4+hIrVDQsi/xFB8eQBSjt0tew=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OJ1y6msyTJImDhMkSq846lsGqQWbBrqXVU+bM1w6M5CMm6eAfvHRA+qVS6fikL/WA
-	 MRVc4BMaM7mn41YXYUCa/ZWnWPemYF1ir5KyWFzWCd7pRXJSUfJtX4wlov65DB7wWE
-	 1a/Qv1BHfzg3mFpijaEII9K2/6XgH4jf4Xwu1JsA=
+	b=IQuKY3kH2krN7gO6JDdcg1pUdHBAAqSYLQIidMKOZqiMgd1meHmx8Rm+dK9Zt6ob0
+	 gvf/OzUyvDJeXljZBm/4Yt4NQAy//jpnPJfrYi2UajoWiELdonvqGFcCZ5VWlqiBUa
+	 luOohxw5AljYenOuIJm9sh/uBopuNBBn0/O7STfw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09EBCF801C0;
-	Wed,  5 Apr 2023 17:02:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E66FF80448;
+	Thu,  6 Apr 2023 16:26:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC5ABF8024C; Wed,  5 Apr 2023 17:02:44 +0200 (CEST)
+	id 97FCBF8024C; Wed,  5 Apr 2023 17:04:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=-7.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from vern.gendns.com (vern.gendns.com [98.142.107.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8F83EF8015B
-	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 17:02:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F83EF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5F20FF8015B
+	for <alsa-devel@alsa-project.org>; Wed,  5 Apr 2023 17:03:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F20FF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=KZCcmhIP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1680706956; x=1712242956;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=dFlO+IoyPt/cvrM8e5U9Z6n3Lak/MZq3BRfErTyVWhM=;
-  b=KZCcmhIPBQuATTdMgkcTwvxe/hDkC+hO3Ehbi85z0BcTKYOyzMUkfV4c
-   yz03bQmIlm86AfMo7+RxGDxznukt0Es7HsujOf9osiYMMevtkPvY1KW96
-   ZwebQhYVKSYl/xDGayTVyDQ2y5Xw4oDKuj9CMfqbHpqld0RpcoqOohyGS
-   hIIjkqb29jYsxsn1h6RtVkNJakFFo+/gpjClk9E6UCvnvOc2dCfyAPvMg
-   M/dmn1n66KZVJHG+H2pwTaYQOUxp1V1456aOlihF2d3DZDQsCddpTJXor
-   8KVqwW90r9tW6wLpMptfKEJBQoM58afvs6AyQm5pJKpQL+j6m8VJCZo9A
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="407559720"
-X-IronPort-AV: E=Sophos;i="5.98,321,1673942400";
-   d="scan'208";a="407559720"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2023 08:01:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="686779878"
-X-IronPort-AV: E=Sophos;i="5.98,321,1673942400";
-   d="scan'208";a="686779878"
-Received: from mlokuyad-mobl.amr.corp.intel.com (HELO [10.212.149.36])
- ([10.212.149.36])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2023 08:01:56 -0700
-Message-ID: <ecc13046-1a4f-77e7-c4dc-a5a4c1248572@linux.intel.com>
-Date: Wed, 5 Apr 2023 10:01:56 -0500
+ unprotected) header.d=lechnology.com header.i=@lechnology.com
+ header.a=rsa-sha256 header.s=default header.b=Oqb3PO1k
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=WEVhki1z04JzpG6JGv+tXPk2KVEYI5pMsCd6omv0e8Y=; b=Oqb3PO1k4CqBJ/hcNQoQc+Xjed
+	eqJ8vOTGWrK6NhOYRyoWYY4aVIyndl7gxFnpfFolncw0Z9voV1OiJ34cx8DI5SlracX7U/bo5KRaU
+	DzOLBECWff7waN7kl5pjbA+z6u9PMEFYB6+ajs7fS0CXZGw40zjzdo0rWKS8xMJmOVnDXIFueTgH6
+	lxiuEmeKpsF9wRHjxbmkeO0Mqa9IgYFF3iW++MSoQIiqip/0SHWaz7KosJ8I7VUFw7LVrqjDGC8jw
+	23/tXgr5RlS0iaJ9nSDJPDrclY9+f3iUBwbWWkjX2TCAO2a7+mA2Py7eJ4NjhNAeH7qlGdjkUunR3
+	bJRwCG0A==;
+Received: from ip98-183-112-29.ok.ok.cox.net ([98.183.112.29]:40758
+ helo=[192.168.0.134])
+	by vern.gendns.com with esmtpsa  (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.96)
+	(envelope-from <david@lechnology.com>)
+	id 1pk4fg-0004Km-04;
+	Wed, 05 Apr 2023 11:03:36 -0400
+Message-ID: <04f5d305-9992-bcdc-cd54-111eb8254155@lechnology.com>
+Date: Wed, 5 Apr 2023 10:03:24 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.9.0
-Subject: Re: [PATCH] soundwire: qcom: Fix enumeration of second device on the
- bus
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v3 54/65] clk: da8xx: clk48: Switch to determine_rate
+To: Maxime Ripard <maxime@cerno.tech>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sekhar Nori <nsekhar@ti.com>,
+ Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Ulf Hansson
+ <ulf.hansson@linaro.org>, Linus Walleij <linus.walleij@linaro.org>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Paul Cercueil <paul@crapouillou.net>,
+ Orson Zhai <orsonzhai@gmail.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>
+References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-54-9a1358472d52@cerno.tech>
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20230405142926.842173-1-krzysztof.kozlowski@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230405142926.842173-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: David Lechner <david@lechnology.com>
+In-Reply-To: <20221018-clk-range-checks-fixes-v3-54-9a1358472d52@cerno.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DQBQMQVEOMQ3LIAALSB2TIYLSKOGIBL7
-X-Message-ID-Hash: DQBQMQVEOMQ3LIAALSB2TIYLSKOGIBL7
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - vern.gendns.com
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - lechnology.com
+X-Get-Message-Sender-Via: vern.gendns.com: authenticated_id:
+ davidmain+lechnology.com/only user confirmed/virtual account not confirmed
+X-Authenticated-Sender: vern.gendns.com: davidmain@lechnology.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-MailFrom: david@lechnology.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: stable@vger.kernel.org, Patrick Lai <quic_plai@quicinc.com>
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: J6YC5PCWSCOQLTK7QWVFKIOYV43PBWNE
+X-Message-ID-Hash: J6YC5PCWSCOQLTK7QWVFKIOYV43PBWNE
+X-Mailman-Approved-At: Thu, 06 Apr 2023 14:26:00 +0000
+CC: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
+ patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-phy@lists.infradead.org, linux-rtc@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, alsa-devel@alsa-project.org,
+ linux-mips@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQBQMQVEOMQ3LIAALSB2TIYLSKOGIBL7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J6YC5PCWSCOQLTK7QWVFKIOYV43PBWNE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,52 +153,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 4/5/23 09:29, Krzysztof Kozlowski wrote:
-> Some Soundwire buses (like &swr0 on Qualcomm HDK8450) have two devices,
-> which can be brought from powerdown state one after another.  We need to
-> keep enumerating them on each slave attached interrupt, otherwise only
-> first will appear.
+On 4/4/23 5:11 AM, Maxime Ripard wrote:
+> The TI DA8xx USB0 clk48 clocks implements a mux with a set_parent
+> hook, but doesn't provide a determine_rate implementation.
 > 
-> Cc: <stable@vger.kernel.org>
-> Fixes: a6e6581942ca ("soundwire: qcom: add auto enumeration support")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> This is a bit odd, since set_parent() is there to, as its name implies,
+> change the parent of a clock. However, the most likely candidate to
+> trigger that parent change is a call to clk_set_rate(), with
+> determine_rate() figuring out which parent is the best suited for a
+> given rate.
 > 
-> ---
-> 
-> Cc: Patrick Lai <quic_plai@quicinc.com>
-> ---
->  drivers/soundwire/qcom.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index c296e0bf897b..1e5077d91f59 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -587,14 +587,9 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
->  			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
->  				dev_dbg_ratelimited(swrm->dev, "SWR new slave attached\n");
->  				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
-> -				if (swrm->slave_status == slave_status) {
-> -					dev_dbg(swrm->dev, "Slave status not changed %x\n",
-> -						slave_status);
 
-it's not clear to me how removing this test helps with the two-device
-configuration?
+As mentioned in my previous review, parent is selected by device
+tree and should never be changed after init.
 
-Or is this a case where the status for both devices changes at the same
-time but the interrupt status remains set, so the next iteration of the
-loop is ignored?
-
-> -				} else {
-> -					qcom_swrm_get_device_status(swrm);
-> -					qcom_swrm_enumerate(&swrm->bus);
-> -					sdw_handle_slave_status(&swrm->bus, swrm->status);
-> -				}
-> +				qcom_swrm_get_device_status(swrm);
-> +				qcom_swrm_enumerate(&swrm->bus);
-> +				sdw_handle_slave_status(&swrm->bus, swrm->status);
->  				break;
->  			case SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET:
->  				dev_err_ratelimited(swrm->dev,

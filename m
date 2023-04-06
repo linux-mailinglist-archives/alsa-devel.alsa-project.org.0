@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75E046D9B05
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:47:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152346D9B4E
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:54:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37897EE5;
-	Thu,  6 Apr 2023 16:46:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37897EE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4AE1ED3;
+	Thu,  6 Apr 2023 16:53:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4AE1ED3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680792429;
-	bh=Qlo8OM1F8QpA3C1H5flBe6xebzZG9G7/GuGvHEdSo14=;
+	s=default; t=1680792880;
+	bh=NbFh4VsfBCR1VOhwyuL4rllODSvMjtWBuMrplPeFMnM=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gFVfKu9QPrf2aGtDV54+yYuSdm5HtOPeHcoPuqX9+rbSpOVg0xXCfC8zZOXkQYAy4
-	 TUQt4yFkLCBvybi6UllHe1h432EGSLKkTk4UKEccrcLlN5xt53Qd2kxE7dc6qopc5g
-	 LrU+FzHQpHnNmJ3RVmOiVEYw94uCE16mf0ph+FD8=
+	b=ik/yV9k1WlJg7dWE3i8dSv35mK0EvBt+c9baqdClBzLnmJjRJMYO6BR+gyiDeI0zl
+	 E40mke1H6e7vZGrS/oBioCWZ0/9uWxV8xiDjx0uw2Hx9xfYviyGYlkom0Iy2NMSvTZ
+	 T7xmuAQVdk+TQDisd3gsZYsxOA63zPNlMwQfglhY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAE82F80171;
-	Thu,  6 Apr 2023 16:46:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D649DF80171;
+	Thu,  6 Apr 2023 16:53:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34DC5F80246; Thu,  6 Apr 2023 16:46:15 +0200 (CEST)
+	id 40626F80246; Thu,  6 Apr 2023 16:53:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,64 +36,63 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CE43BF80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 16:46:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE43BF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B78CF8013D
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 16:53:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B78CF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=HcLEds76;
+ header.s=susede2_rsa header.b=dxfqEDH4;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Oi2hUUEs
+ header.s=susede2_ed25519 header.b=IUawN+9h
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 27C7622772;
-	Thu,  6 Apr 2023 14:46:11 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F0CD922764;
+	Thu,  6 Apr 2023 14:53:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680792371;
+	t=1680792824;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Q+JX1s/KR0nLimx4PnuykLK94hvVsXNQegddVBLCKn0=;
-	b=HcLEds76/mjYjp/fi8YZ9KsDCHNH3rbOuQP3DwpwFlLwuaOzcIl5Nw3OtjY3zPRUPkidKT
-	G4g2IKgDY+qrIyQvkgv8ykFBWK3BY9VbYRCZUwHl8+i19II6f0x2kuxnQ/MctTuGuF1HSU
-	7pLxwn6pLmarAJ25PgQHrfFXG4QeHoQ=
+	bh=75kRHtI7TGPSfEtRS6w3OZz2fIzPjdexrtIVHLpZNEQ=;
+	b=dxfqEDH4qA58MsvDO5pPluV/UWAZVJOpeAWyvqTHcCkWmST3D2/aaMmZWF6yTfvWQqVycF
+	u3YsiJzJyO+EGShR4t76cMKrqMrA8+s/WXnBdsdwpXNiDqkP0CYhpRo/QtBQyZ401C7ghC
+	4sUPo/yFGvZxeGLd7VId9DGGCNRwq+Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680792371;
+	s=susede2_ed25519; t=1680792824;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Q+JX1s/KR0nLimx4PnuykLK94hvVsXNQegddVBLCKn0=;
-	b=Oi2hUUEs2XZrd0GNzh+bStiV6/+LTlt3iYboBnIBfpJVL31jiJdTl+OWdV07i1FITQv330
-	eNvKSIJrk2NaBBCQ==
+	bh=75kRHtI7TGPSfEtRS6w3OZz2fIzPjdexrtIVHLpZNEQ=;
+	b=IUawN+9hQsRZLIelsM9+yonogHI3mpYgK7ZdH7aoQlg4AvfvOYM/CSa0rPa7asDCJ88wwn
+	QdHhFs9sXfqSOgBA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EC02A1351F;
-	Thu,  6 Apr 2023 14:46:10 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBB481351F;
+	Thu,  6 Apr 2023 14:53:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id DXfTODLbLmQxNwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 14:46:10 +0000
-Date: Thu, 06 Apr 2023 16:46:10 +0200
-Message-ID: <87a5zlt6fh.wl-tiwai@suse.de>
+	id fA/0NPjcLmRaOwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 14:53:44 +0000
+Date: Thu, 06 Apr 2023 16:53:44 +0200
+Message-ID: <878rf5t62v.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Xu Biang <xubiang@hust.edu.cn>
-Subject: Re: [PATCH] ALSA: firewire-tascam: add missing unwind goto in
- snd_tscm_stream_start_duplex()
-In-Reply-To: <20230406132801.105108-1-xubiang@hust.edu.cn>
-References: <20230406132801.105108-1-xubiang@hust.edu.cn>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
+In-Reply-To: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: JQ3Z7IKFDJXKSQUVD3ZQKPL3AULTHQ6I
-X-Message-ID-Hash: JQ3Z7IKFDJXKSQUVD3ZQKPL3AULTHQ6I
+Message-ID-Hash: L73Q6U65L2GBN5OT2VY4QQWMZY3NGD6C
+X-Message-ID-Hash: L73Q6U65L2GBN5OT2VY4QQWMZY3NGD6C
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,16 +100,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>,
- dzm91@hust.edu.cn, error27@gmail.com,
- hust-os-kernel-patches@googlegroups.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQ3Z7IKFDJXKSQUVD3ZQKPL3AULTHQ6I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L73Q6U65L2GBN5OT2VY4QQWMZY3NGD6C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,40 +115,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 06 Apr 2023 15:28:01 +0200,
-Xu Biang wrote:
+On Wed, 05 Apr 2023 22:12:18 +0200,
+Oswald Buddenhagen wrote:
 > 
-> Smatch Warns:
-> sound/firewire/tascam/tascam-stream.c:493 snd_tscm_stream_start_duplex()
-> warn: missing unwind goto?
+> The auto-silencer supports two modes: "thresholded" to fill up "just
+> enough", and "top-up" to fill up "as much as possible". The two modes
+> used rather distinct code paths, which this patch unifies. The only
+> remaining distinction is how much we actually want to fill.
 > 
-> The direct return will cause the stream list of "&tscm->domain" unemptied
-> and the session in "tscm" unfinished if amdtp_domain_start() returns with
-> an error.
+> This fixes a bug in thresholded mode, where we failed to use new_hw_ptr,
+> resulting in under-fill.
 > 
-> Fix this by changing the direct return to a goto which will empty the
-> stream list of "&tscm->domain" and finish the session in "tscm".
+> Top-up mode is now more well-behaved and much easier to understand in
+> corner cases.
 > 
-> The snd_tscm_stream_start_duplex() function is called in the prepare
-> callback of PCM. According to "ALSA Kernel API Documentation", the prepare
-> callback of PCM will be called many times at each setup. So, if the
-> "&d->streams" list is not emptied, when the prepare callback is called
-> next time, snd_tscm_stream_start_duplex() will receive -EBUSY from
-> amdtp_domain_add_stream() that tries to add an existing stream to the
-> domain. The error handling code after the "error" label will be executed
-> in this case, and the "&d->streams" list will be emptied. So not emptying
-> the "&d->streams" list will not cause an issue. But it is more efficient
-> and readable to empty it on the first error by changing the direct return
-> to a goto statement.
+> This also updates comments in the proximity of silencing-related data
+> structures.
 > 
-> The session in "tscm" has been begun before amdtp_domain_start(), so it
-> needs to be finished when amdtp_domain_start() fails.
-> 
-> Fixes: c281d46a51e3 ("ALSA: firewire-tascam: support AMDTP domain")
-> Signed-off-by: Xu Biang <xubiang@hust.edu.cn>
-> Reviewed-by: Dan Carpenter <error27@gmail.com>
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Thanks, applied now.
+Applied both patches now to for-next branch.
 
+
+thanks,
 
 Takashi

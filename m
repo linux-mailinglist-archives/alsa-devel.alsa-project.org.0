@@ -2,105 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4FF86D97B0
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 15:13:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2254B6D9815
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 15:23:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7B23DF0;
-	Thu,  6 Apr 2023 15:12:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7B23DF0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D08FDDF1;
+	Thu,  6 Apr 2023 15:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D08FDDF1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680786805;
-	bh=h9ji6NYGYKhe8pru+plznJ5ni8zeCU3Dta5EJvRMeRo=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HR+pp5Nn7QrjG9C85pauh+jNBuDmdKpxrRWhV/gOBh9XrHx+ec0NUhBV9/PavKVfs
-	 R7ZFASIZKj/PnpSoHQZYWixGZPbmnAx/jF4jdZr7lBrZdQPkevplpb73fW48kP20k1
-	 pNmu6vtOfEf7NC0msW0r+EQyiJWaO4smLs/4Rp2w=
+	s=default; t=1680787419;
+	bh=3RieJURbbs7rd4zC5OsfC2lZN0Dgn5gDWbcDpBqyMkQ=;
+	h=Date:From:To:Subject:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=q1hNAAbpplu+Q3Rtb+vv0ecK5JL2WFLqWO4MY0Om1fgb7iQd+mdMj3sviNd136CZ3
+	 Fzp6wwmHW/HTD+HMOzf+666Iztr2ta6f93Jon9YEuBL9fyIDD8nQ/XgrtduVVQpr4k
+	 W7YqiNQLTvB0aYNxwlQNNArCHsZ/uWjvF0TRdQXE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12B4BF80171;
-	Thu,  6 Apr 2023 15:12:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D354F80171;
+	Thu,  6 Apr 2023 15:22:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07D3AF80246; Thu,  6 Apr 2023 15:12:31 +0200 (CEST)
+	id EDEA4F80246; Thu,  6 Apr 2023 15:22:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3B1EBF8013D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 15:12:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B1EBF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73FB4F8015B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 15:22:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73FB4F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PjG4crlQ
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B2D28645B5
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 13:12:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273DFC4339B
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 13:12:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680786741;
-	bh=h9ji6NYGYKhe8pru+plznJ5ni8zeCU3Dta5EJvRMeRo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=PjG4crlQOjp5xxZmpAMnr4kZzad/soJ0KNGo0HGrmiUCC9bT0Ru9qwccDBM7xlFqv
-	 iCxhiA7JmfQwtz+kz7E67ZkRPZywb6mOgoPl85WBlgZv2w1gy35+9Uklt67ny/l8qD
-	 oSIecvVTLcOUh5ILCDpRhEPJJEOklj2rG5AkRob2iesB+MuzM7LuoedaDESuLve2na
-	 4ON2tIMn3I+/o3pHq0VLx/2UDJzpssBoiM1TpLCD22w3iyoc5Xo4NQWWLK1n0X2vOs
-	 MfrnzCYQzBSebjopvH3+FB9cC6wD8F5czhWTrHrscJWd183FfgyZjs3B5yT0zkzTFQ
-	 3yIiQCSEurKDg==
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-54c0dd7e2f3so32280947b3.8
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=B3eZbsNb
+Received: by mail-wm1-x329.google.com with SMTP id
+ l15-20020a05600c4f0f00b003ef6d684102so20223900wmq.3
         for <alsa-devel@alsa-project.org>;
- Thu, 06 Apr 2023 06:12:21 -0700 (PDT)
-X-Gm-Message-State: AAQBX9dQds592l7M1KEXmeUoS+uyIIuuV5ht0HbF9JMIi6Ip1uSNKkB8
-	0IJCaTBEtxPIIYqOdgluCeSMgT4Np2OZVkNRbg==
+ Thu, 06 Apr 2023 06:22:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680787360; x=1683379360;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M/VYyN4aT+7RK5+5vhV35MtnDLhdcOUHlRDMz2RR5gU=;
+        b=B3eZbsNbKGWQAJbXPzGoKnejdO/W5SfNNme91c4rMGOOqhplK7Uw8TVYYZFTINVjDw
+         VVLx0puCCepl5DRrmAw028+P78garpg/EUjYXYASf8Jsvgty2GixhBs3ihem8qhGqpra
+         Xv9KkZ1LweoIvWvRC2MQDpQd81UndDBGVxJYRioXbCRPCnpeuRIAFZKNRmUnW9EJPnPA
+         s/uyqR3xtSjCcpdv5yWYb1IsnfOz6aKyFJxLF5TpdwV1pXsdAt13/6mNs21fZL2ml7L/
+         uTMrC51NRU64pIvvwMZwo9laHGHnXFxr4ayh5dIQJojcqKqSZ4PgzYEZULd5Gyx+oXb6
+         uxqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680787360; x=1683379360;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=M/VYyN4aT+7RK5+5vhV35MtnDLhdcOUHlRDMz2RR5gU=;
+        b=lzFwp3OB1VSmThz3ABIHHRXYbDesn3rObfMPi/YgKqHtV+rmBHRzW6iHUV5d2uhJ7I
+         Vb334HmtQzBwssuNFTR+oPE+bajPb0JBdGmlIm+XwK8qALP5tfDlJNweWUkTJL1FsVDp
+         ywJmWcCBwBaa0jA+GHBJw/tgmdZ/UCVqQZfjKDhxG27yBZaZ7nDFeJcmvoMefHmR8ASm
+         EK9iPBZ6jxRUzluORGukPyWAFxOYnHWmdXRCbWHlZ/lJnfzNbpoTWy+Sru2wckhJMD6B
+         srIy+1xjrcVRpfLs/7TGDDl3W1YfuaLXta8cel0aV9KQxEX5bJSM+YisDkNYNKWdPoAW
+         gFjA==
+X-Gm-Message-State: AAQBX9e/0BC6kNjwkBCaX22AbRCnoU9DRKMZfHMerS3dXF2d+9uUlVNR
+	FEFpohOXP9ZPAVsNyxYWJ18=
 X-Google-Smtp-Source: 
- AKy350ZOxDGy7DDkguaA4F8q871wWQIN+RJcOt+kM/r0F3L1IVxOIlzJuURUtatL4qNsqf5I9ctDXNLKAui/uCpRtn8=
-X-Received: by 2002:a81:b207:0:b0:545:a7d8:f278 with SMTP id
- q7-20020a81b207000000b00545a7d8f278mr5591986ywh.5.1680786740183; Thu, 06 Apr
- 2023 06:12:20 -0700 (PDT)
+ AKy350YZMoIKdCj1u6EHAJQP8zd+E2hjVkrncP2e/RmCEx2iHfjygYP87A64w6u3/kxnUuNVdDpUwA==
+X-Received: by 2002:a05:600c:3644:b0:3eb:42fa:39d5 with SMTP id
+ y4-20020a05600c364400b003eb42fa39d5mr7373848wmq.29.1680787360435;
+        Thu, 06 Apr 2023 06:22:40 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id
+ u11-20020a05600c19cb00b003ede3f5c81fsm5411989wmq.41.2023.04.06.06.22.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Apr 2023 06:22:40 -0700 (PDT)
+Date: Thu, 6 Apr 2023 16:22:36 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: [PATCH v2] soundwire: amd: fix an error check in probe()
+Message-ID: <390287d1-ddce-4414-873d-44ac0186a14c@kili.mountain>
 MIME-Version: 1.0
-References: <20230328091831.55690-1-danascape@gmail.com>
-In-Reply-To: <20230328091831.55690-1-danascape@gmail.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Thu, 6 Apr 2023 08:12:09 -0500
-X-Gmail-Original-Message-ID: 
- <CAL_JsqJzxQb1g=yVgHduLnYOpk8-Q3jppA1qQT1Ce51_gNWjhg@mail.gmail.com>
-Message-ID: 
- <CAL_JsqJzxQb1g=yVgHduLnYOpk8-Q3jppA1qQT1Ce51_gNWjhg@mail.gmail.com>
-Subject: Re: [PATCH v5] ASoC: dt-bindings: ak4458: Convert to dtschema
-To: Saalim Quadri <danascape@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: NPD3XNA4H7K5ZJR3L3JEKQ54OEGMG6PF
-X-Message-ID-Hash: NPD3XNA4H7K5ZJR3L3JEKQ54OEGMG6PF
-X-MailFrom: robh+dt@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+Message-ID-Hash: AQRTROQII4QIGYCPRWFYIEXHQBG2IJXT
+X-Message-ID-Hash: AQRTROQII4QIGYCPRWFYIEXHQBG2IJXT
+X-MailFrom: error27@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: krzysztof.kozlowski@linaro.org, broonie@kernel.org, daniel.baluta@nxp.com,
- krzysztof.kozlowski+dt@linaro.org, shengjiu.wang@nxp.com,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+CC: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NPD3XNA4H7K5ZJR3L3JEKQ54OEGMG6PF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AQRTROQII4QIGYCPRWFYIEXHQBG2IJXT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,120 +116,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Mar 28, 2023 at 4:18=E2=80=AFAM Saalim Quadri <danascape@gmail.com>=
- wrote:
->
-> Convert the AK4458 audio DAC bindings to DT schema.
->
-> Signed-off-by: Saalim Quadri <danascape@gmail.com>
-> ---
-> Changes:
-> V1 -> V2: Use the correct way for dsd-path property
->           Drop ak4458 label form example
-> V2 -> V3: ak4458 is the only one that does not support dsd-path, so we
->           do not require to define an array
-> V3 -> V4: Add back dsd-path property description
-> V4 -> V5: Fix yaml format as per example-schema
->
->  .../devicetree/bindings/sound/ak4458.txt      | 28 -------
->  .../bindings/sound/asahi-kasei,ak4458.yaml    | 73 +++++++++++++++++++
->  2 files changed, 73 insertions(+), 28 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/ak4458.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/asahi-kasei,a=
-k4458.yaml
->
-> diff --git a/Documentation/devicetree/bindings/sound/ak4458.txt b/Documen=
-tation/devicetree/bindings/sound/ak4458.txt
-> deleted file mode 100644
-> index 0416c14895d6..000000000000
-> --- a/Documentation/devicetree/bindings/sound/ak4458.txt
-> +++ /dev/null
-> @@ -1,28 +0,0 @@
-> -AK4458 audio DAC
-> -
-> -This device supports I2C mode.
-> -
-> -Required properties:
-> -
-> -- compatible : "asahi-kasei,ak4458" or "asahi-kasei,ak4497"
-> -- reg : The I2C address of the device for I2C
-> -
-> -Optional properties:
-> -- reset-gpios: A GPIO specifier for the power down & reset pin
-> -- mute-gpios: A GPIO specifier for the soft mute pin
-> -- AVDD-supply: Analog power supply
-> -- DVDD-supply: Digital power supply
-> -- dsd-path: Select DSD input pins for ak4497
-> -            0: select #16, #17, #19 pins
-> -            1: select #3, #4, #5 pins
-> -
-> -Example:
-> -
-> -&i2c {
-> -       ak4458: dac@10 {
-> -               compatible =3D "asahi-kasei,ak4458";
-> -               reg =3D <0x10>;
-> -               reset-gpios =3D <&gpio1 10 GPIO_ACTIVE_LOW>
-> -               mute-gpios =3D <&gpio1 11 GPIO_ACTIVE_HIGH>
-> -       };
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.y=
-aml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
-> new file mode 100644
-> index 000000000000..0db0c8e923a0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
-> @@ -0,0 +1,73 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/asahi-kasei,ak4458.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AK4458 audio DAC
-> +
-> +maintainers:
-> +  - Shengjiu Wang <shengjiu.wang@nxp.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - asahi-kasei,ak4458
-> +      - asahi-kasei,ak4497
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  avdd-supply:
-> +    description: Analog power supply
-> +
-> +  dvdd-supply:
-> +    description: Digital power supply
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +  mute-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO used to mute all the outputs
-> +
-> +  dsd-path:
-> +    description: Select DSD input pins for ak4497
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    oneOf:
-> +      - const: 0
-> +        description: select #16, #17, #19 pins
-> +      - const: 1
-> +        description: select #3, #4, #5 pins
+This code is testing the wrong variable.  It should be ->acp_mmio
+instead of ->mmio.  It also should be a NULL check instead of an
+IS_ERR() check.
 
-'#' (with a space or newline before) is a comment, so these need to be
-quoted. I only noticed because yamllint now requires a space after as
-well:
+Fixes: a673a8dfc214 ("soundwire: amd: Add support for AMD Manager driver")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+v2: My first patch just fixed the NULL vs IS_ERR() but because it was
+using the wrong variable that broke the driver completely.  Thanks,
+Vijendar for finding this:
 
-./Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml:40:30:
-[error] missing starting space in comment (comments)
-./Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml:42:30:
-[error] missing starting space in comment (comments)
+Fixes-from: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 
-Rob
+ drivers/soundwire/amd_manager.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+index 9fb7f91ca182..21c638e38c51 100644
+--- a/drivers/soundwire/amd_manager.c
++++ b/drivers/soundwire/amd_manager.c
+@@ -910,9 +910,9 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	amd_manager->acp_mmio = devm_ioremap(dev, res->start, resource_size(res));
+-	if (IS_ERR(amd_manager->mmio)) {
++	if (!amd_manager->acp_mmio) {
+ 		dev_err(dev, "mmio not found\n");
+-		return PTR_ERR(amd_manager->mmio);
++		return -ENOMEM;
+ 	}
+ 	amd_manager->instance = pdata->instance;
+ 	amd_manager->mmio = amd_manager->acp_mmio +
+-- 
+2.39.1
+

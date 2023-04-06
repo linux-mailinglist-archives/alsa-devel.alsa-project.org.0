@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E4206D8F1E
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:13:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B64536D8F3A
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:17:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B25A208;
-	Thu,  6 Apr 2023 08:12:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B25A208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A04D208;
+	Thu,  6 Apr 2023 08:16:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A04D208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680761586;
-	bh=iKRdQSlSYeo4KpI+IY7Wn2kP5GeIUqbM/ZgRY91JvJM=;
+	s=default; t=1680761819;
+	bh=ASY1jWuYe/b/63rHkQDTUVbp0U8YHyGmxikNcuRnHaI=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WBp0idxezhy+RpKTO5nl7xQSGES/+eYuSbrT6TWr1SetGuB+PJIvqIm0FeCuLG5e3
-	 AOZHTHDxt5aqcfP7CgXg+1dnOxZv/tn6lJuEwFlmBGztGjvnXQEkvAcc8l44wl2+NF
-	 rTyB0sIkysFQ03+iCvZi4pj0QlDHQQwpjND5dyS0=
+	b=vM6LpbA7utED0VCgisZ2rYmnYpDa+ahsVYcFJQMrawsBUwqZcyAFniR1512nqEwDC
+	 v+Zb2z0tNKnpEvzK1MmMl9BzpJ82zEn+EYQw6eTivFV9aKU5RPZNXL4gvt94Kse2LF
+	 riwhyh10ZJ+odrLUBhJwFkO4Mlk90UJtOH/HUgoc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25A0EF80171;
-	Thu,  6 Apr 2023 08:12:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D67F9F80171;
+	Thu,  6 Apr 2023 08:16:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37709F80246; Thu,  6 Apr 2023 08:12:13 +0200 (CEST)
+	id 290CFF80246; Thu,  6 Apr 2023 08:16:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,63 +35,64 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F5E9F80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:12:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F5E9F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id B453BF8015B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:16:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B453BF8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=blOTVesC;
+ header.s=susede2_rsa header.b=Cg3vLrte;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=BMgwcwTd
+ header.s=susede2_ed25519 header.b=5C1sek4l
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D267B22591;
-	Thu,  6 Apr 2023 06:12:08 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 55ABC22370;
+	Thu,  6 Apr 2023 06:16:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680761528;
+	t=1680761761;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FGKNWqy2msyR6/Vy8cqKEan2kj5i3DubsXstEtNzcLE=;
-	b=blOTVesCzrCBZdkVfPzsxvg6H1m6XVYGjcjTUZt4SZpH2/e3R41Vuxf3z+c4sRJ4FVTp2E
-	Fpn1VWDidA9zKRj09OabmwO2GuGx1Wsif+ZmJwfvvnZraDN9RTQzSJ9o8wgZ1wpGAc7jjo
-	flGDWvxEPyqwnIyWLJk7jN8TayvrxUk=
+	bh=AiJv7Q7qnbENvKxGsjQqRCguU/0BUfYyQ4lczevHbwo=;
+	b=Cg3vLrtej9/My6xyBB2Wf5Q+bBPJEzZPvg7l7b4mJ99P76feJWFh9iUw83u2/lgPvqeajJ
+	jFSvVpU3Hq3P+iysZiq1cUe4qWddrl8sC3/FsK7GjLWwghRhgi8b6Ng6GTG2kZKA0Y92Pn
+	4KaI/lexar+04vg9d4DU1QK+XicA8p0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680761528;
+	s=susede2_ed25519; t=1680761761;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FGKNWqy2msyR6/Vy8cqKEan2kj5i3DubsXstEtNzcLE=;
-	b=BMgwcwTd0eX7LG5uZpz2fWGuaNYsQaU+fWCOtBXDS8ymXAaM8vRLVSh5YvyB7lZmUdaoHr
-	iEHInM1DPqj8OvBw==
+	bh=AiJv7Q7qnbENvKxGsjQqRCguU/0BUfYyQ4lczevHbwo=;
+	b=5C1sek4lpvHn+K7y2ZWSs4WYM7rw+C9Xm17ojSbkGqxjneufpe3WRVONxo1etZKBDv7D9y
+	841YCD0ewT8FxOAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B8EE7133E5;
-	Thu,  6 Apr 2023 06:12:08 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 356E2133E5;
+	Thu,  6 Apr 2023 06:16:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id rjVjLLhiLmSzIAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:12:08 +0000
-Date: Thu, 06 Apr 2023 08:12:08 +0200
-Message-ID: <87y1n5v8sn.wl-tiwai@suse.de>
+	id yjMECqFjLmRnIgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:16:01 +0000
+Date: Thu, 06 Apr 2023 08:16:00 +0200
+Message-ID: <87wn2pv8m7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] ALSA: emu10k1: fix capture interrupt handler unlinking
-In-Reply-To: <20230405201220.2197923-1-oswald.buddenhagen@gmx.de>
-References: <20230405201220.2197923-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH] ALSA: emu10k1: don't create old pass-through playback
+ device on Audigy
+In-Reply-To: <20230405201220.2197938-1-oswald.buddenhagen@gmx.de>
+References: <20230405201220.2197938-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: BTNIYJTPVDS6WXI7FDAFPTFKODYAUWXM
-X-Message-ID-Hash: BTNIYJTPVDS6WXI7FDAFPTFKODYAUWXM
+Message-ID-Hash: SSGBIVLE43JRZZA5LIC2QTCLTP23HTP7
+X-Message-ID-Hash: SSGBIVLE43JRZZA5LIC2QTCLTP23HTP7
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTNIYJTPVDS6WXI7FDAFPTFKODYAUWXM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SSGBIVLE43JRZZA5LIC2QTCLTP23HTP7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,16 +118,11 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On Wed, 05 Apr 2023 22:12:20 +0200,
 Oswald Buddenhagen wrote:
 > 
-> Due to two copy/pastos, closing the MIC or EFX capture device would
-> make a running ADC capture hang due to unsetting its interrupt handler.
-> In principle, this would have also allowed dereferencing dangling
-> pointers, but we're actually rather thorough at disabling and flushing
-> the ints.
-> 
-> While it may sound like one, this actually wasn't a hypothetical bug:
-> PortAudio will open a capture stream at startup (and close it right
-> away) even if not asked to. If the first device is busy, it will just
-> proceed with the next one ... thus killing a concurrent capture.
+> It could have never worked, as snd_emu10k1_fx8010_playback_prepare() and
+> snd_emu10k1_fx8010_playback_hw_free() assume the emu10k1 offset for the
+> ETRAM, and the default DSP code includes no handler for it. It also
+> wouldn't make a lot of sense to make it work, as Audigy has an own, much
+> simpler, pass-through mechanism. So just skip creation of the device.
 > 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 

@@ -2,113 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A806D914C
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 10:15:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF54C6D9190
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 10:30:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A8EE84B;
-	Thu,  6 Apr 2023 10:14:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A8EE84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2B8A83B;
+	Thu,  6 Apr 2023 10:29:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2B8A83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680768936;
-	bh=GtNxfcdKPfCXwhGzANLkpAAYsEz2ZrmjYg0S/eaTsFM=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fw1p326uu4B2a41A9CVy8kGph7Pi8Fn4v+QNbpQxC09+XBnMeoSej0vqmfmDmaqnq
-	 d6qDB5nQBcIfqNl/Q96t1EipmTBSkxuuRpQ5EGyHOPXxy+vTWr5+uZv+clqwUtlsg+
-	 nIc2GADWjYnseddsGy/H8LjdLvOQ5+226Clwc5w0=
+	s=default; t=1680769816;
+	bh=li0BESbwVWnrhA0D5qrvlE4wZbMM9TFXvAWjmLGcA2I=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=kuiFrOWknEwzvS4CNQyn3BLc2eKh4OtNSqDOm5nFADo1L+N8AKh77Jt6yIlGYCpSE
+	 5IfJGZahRJ0YfJvqA5puXtgtT0yyf2keAosOAg+odhUQSHJ9lP5E0j9mU2pvAGALft
+	 GYA/vg4KSkeR6ghwF/esn7y5GL7ItgikYK/KW9Yw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CCC7F80448;
-	Thu,  6 Apr 2023 10:14:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 343FCF8015B;
+	Thu,  6 Apr 2023 10:29:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86094F8051F; Thu,  6 Apr 2023 10:14:04 +0200 (CEST)
+	id 4BA79F80246; Thu,  6 Apr 2023 10:29:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org
+ [IPv6:2001:470:142:8::100])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A7530F80246
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 10:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7530F80246
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ZyaMRgAx;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=QsDJc69h
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EFAD21F895;
-	Thu,  6 Apr 2023 08:14:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680768841;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5KrgMR9D6KgN/Hevx07lMf4tPyHLoXRfTdUQfmPGPzs=;
-	b=ZyaMRgAxpWLO62C6bgXje5mlwbFpDJFbY51f+VL3gbl5gI13Zi/7XRQpQHcFw/iQ5H7pIi
-	KxDYSfNoKPMR/Ka84ew+UtUkN6oUfdDeNNukV+qICr7mD5tcLCUVdpYuZ7av9fKiSb+RBa
-	G2hs0OQeKxLKzRCOZhrDGA4qb8QKvys=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680768841;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5KrgMR9D6KgN/Hevx07lMf4tPyHLoXRfTdUQfmPGPzs=;
-	b=QsDJc69hTShf0OwuZp9EqjV/V6Y3K2zsSy7eaio7Q/BSRKrS0TiqCtMW6q1/OvsY3amv07
-	Eo36q0tgDEBuuzCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CFF90133E5;
-	Thu,  6 Apr 2023 08:14:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id OOagL0l/LmTeWwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 08:14:01 +0000
-Date: Thu, 06 Apr 2023 10:14:01 +0200
-Message-ID: <87cz4hv35i.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46E67F80149
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 10:29:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E67F80149
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 203A724184
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 04:29:11 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pkKzW-Kuk-00
+	for <alsa-devel@alsa-project.org>; Thu, 06 Apr 2023 10:29:10 +0200
+Date: Thu, 6 Apr 2023 10:29:10 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
 Subject: Re: [PATCH] docs: sound: hda: drop mentions of hda-analyzer
-In-Reply-To: <119dd23f-8cb2-3a64-fc16-8429ca029983@perex.cz>
+Message-ID: <ZC6C1v5kxYSxTNGW@ugly>
+Mail-Followup-To: alsa-devel@alsa-project.org
 References: <20230405201220.2197848-1-oswald.buddenhagen@gmx.de>
-	<87v8i9v8h5.wl-tiwai@suse.de>
-	<119dd23f-8cb2-3a64-fc16-8429ca029983@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: C7PJJVSXMB7CSYGMO2HFB6F4SXZHZHCQ
-X-Message-ID-Hash: C7PJJVSXMB7CSYGMO2HFB6F4SXZHZHCQ
-X-MailFrom: tiwai@suse.de
+ <87v8i9v8h5.wl-tiwai@suse.de>
+ <119dd23f-8cb2-3a64-fc16-8429ca029983@perex.cz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <119dd23f-8cb2-3a64-fc16-8429ca029983@perex.cz>
+Message-ID-Hash: YDRB3HSI4UG2PRIXXAFFJ7XPD5TOTRYF
+X-Message-ID-Hash: YDRB3HSI4UG2PRIXXAFFJ7XPD5TOTRYF
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
- alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C7PJJVSXMB7CSYGMO2HFB6F4SXZHZHCQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YDRB3HSI4UG2PRIXXAFFJ7XPD5TOTRYF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,26 +79,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 06 Apr 2023 10:08:58 +0200,
-Jaroslav Kysela wrote:
-> 
-> On 06. 04. 23 8:19, Takashi Iwai wrote:
-> > On Wed, 05 Apr 2023 22:12:20 +0200,
-> > Oswald Buddenhagen wrote:
-> >> 
-> >> It's gone from the repos, presumably because nobody ported it to
-> >> Python 3.
-> 
-> The "gone" is no longer true. The gitweb was misconfigured on the ALSA
-> server after upgrade.
-> 
-> We have also preliminary python3 work at
-> https://github.com/alsa-project/alsa-utils/issues/134 .
-> 
-> I merged those changes and did some cleanups so the code can run with
-> python3 now. I suggest to remove this doc change (drop this patch).
-
-OK, dropped again.
-
-
-Takashi
+On Thu, Apr 06, 2023 at 10:08:58AM +0200, Jaroslav Kysela wrote:
+>The gitweb was misconfigured on the ALSA server after upgrade.
+>
+ah, that explains a lot. i thought it moved to github entirely.
+(i'm kinda getting lost in the various wiki pages, which isn't made any 
+better by google turning up some heavily outdated ones, even though they 
+aren't linked top-down any more. feel like doing some cleanup work?)

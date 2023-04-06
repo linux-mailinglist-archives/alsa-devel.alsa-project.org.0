@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90DC16D8F49
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:20:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 959606D8F4B
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:20:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 754C720B;
-	Thu,  6 Apr 2023 08:19:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 754C720B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C51CE741;
+	Thu,  6 Apr 2023 08:20:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C51CE741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680762000;
-	bh=KiF2pElGiHPIj3fP4JusesWWPm0IuiKrYT7gWk9K+4M=;
+	s=default; t=1680762050;
+	bh=3NsIJC8LGDFhzoYhgHJb2+lbthegruacQSXvM5mvGpw=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iOxBvL+qCYrIkAn6aTbNVy9uSAuQeObHbEffXyx0TG+WhNMpqk7OLxyazIhFzjHau
-	 8ltwR6kekU5VXEJxbm5LM/X79pwEl/f6Wzfr14J5BxcPxBoEhklXzIQstCYIOGbZ86
-	 SVpmMSv6DJi+2ZomuYmD7UX0JgNVCOyexYbNhL5I=
+	b=lguhS4nr4J8j5uMsDrIr9JB1MERxuxRxUmIZuI0rAotARjo15YZNjfHl89FkjaHTI
+	 ziboNRBH1tfUqWZRBO1oLCIz3qgx57KggliuUusuUjxDqvSAuSltwbA8U+4Qb7Lb6f
+	 0yaWy+S3iHnTreYQLZShOO2ytaQEsPEVGkubGBBY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D38E7F80171;
-	Thu,  6 Apr 2023 08:19:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BDEFF80448;
+	Thu,  6 Apr 2023 08:19:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26EBAF80246; Thu,  6 Apr 2023 08:19:06 +0200 (CEST)
+	id 63618F8051F; Thu,  6 Apr 2023 08:19:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,63 +36,63 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A84DFF8015B
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:19:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A84DFF8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id CE0BAF8026A
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:19:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE0BAF8026A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Ha25+lWo;
+ header.s=susede2_rsa header.b=xuKPHmiU;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=nuln2sWm
+ header.s=susede2_ed25519 header.b=7dpr1619
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 078F11FE9D;
-	Thu,  6 Apr 2023 06:19:03 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 77C941FE9D;
+	Thu,  6 Apr 2023 06:19:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680761943;
+	t=1680761974;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=njy2Y7BDCrm7s6VgOzVEbBbZ41EFQ50+mTKyilZdLj4=;
-	b=Ha25+lWobjuevGkFa6OgPxFZiXr3O5wHIR+pXywrsbAOr+9YqoEzretKHiFQhQEq1kb8RE
-	TKAKZdmMfUnnK9TROVcFtlWFhOhopU0PlZwAcK1wxj9iWWlTB05FDiYvFBJWCyc8bVpKZ2
-	CWY1B0bvmVv/Fc5Fm5cONIhFTqCFuC0=
+	bh=TYaR4BMyv+RVlQAlbn2G8FkNhvi+oLqjhcv1ppozGd4=;
+	b=xuKPHmiUHx0VTUkLUtqmRbqLXcVxrlr44JDM+i/g8jca/Oq40D+j8asckcfFjgHtPe182M
+	JK2YbBXJWSq0P+yJvfouNpldUaEyXBJYqak1DxeDBvg9WrUN1ZWSBGKsngu/CAQxp62ZuK
+	GdFie19yJhadu8K0wb1svEazjDRSShQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680761943;
+	s=susede2_ed25519; t=1680761974;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=njy2Y7BDCrm7s6VgOzVEbBbZ41EFQ50+mTKyilZdLj4=;
-	b=nuln2sWmiMhRgGtGvDoTukDhsN3rIoTdWfgkqiUjxNIXZEL3RpJnvpBSdZXjw07JBzHczH
-	/LSCliK8zzBd5yCg==
+	bh=TYaR4BMyv+RVlQAlbn2G8FkNhvi+oLqjhcv1ppozGd4=;
+	b=7dpr1619yNoep2k38YpjPBWLeo+6QATNGZyi5UlEPtIuLieO2AzbRTLULxLPvOPLjCJrGI
+	5mkjWTlNepsqNcAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D86A8133E5;
-	Thu,  6 Apr 2023 06:19:02 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 54D30133E5;
+	Thu,  6 Apr 2023 06:19:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id jf4lNFZkLmSuIwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:19:02 +0000
-Date: Thu, 06 Apr 2023 08:19:02 +0200
-Message-ID: <87v8i9v8h5.wl-tiwai@suse.de>
+	id UdkBFHZkLmTjIwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:19:34 +0000
+Date: Thu, 06 Apr 2023 08:19:33 +0200
+Message-ID: <87ttxtv8ga.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] docs: sound: hda: drop mentions of hda-analyzer
-In-Reply-To: <20230405201220.2197848-1-oswald.buddenhagen@gmx.de>
-References: <20230405201220.2197848-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH] ALSA: emu10k1: update label & help in config system
+In-Reply-To: <20230405201220.2197908-1-oswald.buddenhagen@gmx.de>
+References: <20230405201220.2197908-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: VAED5RE4HOEFA2AWQW3CL6NI52GRE53O
-X-Message-ID-Hash: VAED5RE4HOEFA2AWQW3CL6NI52GRE53O
+Message-ID-Hash: LCEFVWOH4GQQIVXOOLEW6HSCBGA7UE3A
+X-Message-ID-Hash: LCEFVWOH4GQQIVXOOLEW6HSCBGA7UE3A
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VAED5RE4HOEFA2AWQW3CL6NI52GRE53O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LCEFVWOH4GQQIVXOOLEW6HSCBGA7UE3A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,11 +118,9 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On Wed, 05 Apr 2023 22:12:20 +0200,
 Oswald Buddenhagen wrote:
 > 
-> It's gone from the repos, presumably because nobody ported it to
-> Python 3.
+> The newer E-MU cards weren't mentioned at all.
 > 
-> I'm leaving hda-emu in, even though it isn't actually usable with
-> current kernels (but with some minor hacking, the encoding tools work).
+> The "partially supported" is removed ahead of it becoming mostly untrue.
 > 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 

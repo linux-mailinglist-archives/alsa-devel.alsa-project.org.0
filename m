@@ -2,101 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF0E6D90E6
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 09:57:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64A676D9136
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 10:10:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DACB829;
-	Thu,  6 Apr 2023 09:56:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DACB829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DA82836;
+	Thu,  6 Apr 2023 10:09:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DA82836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680767823;
-	bh=U0JHKejH9AvmPl3r0YPdgKy5GPPZRKczQ7MOnjNqTCI=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1680768603;
+	bh=2RcXY2oO93mm0JtWNdG2Ouvh5Du1cRq3kk+qEa5CrFw=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=b4MtpKeHKoIgmrl/yHeCrjQolnyixTNbPULzo/w6mNjxEcL6X9fS19RKoQeAaeURf
-	 m/53ZN6rJeWKvtcQXQQJ3iEnhsL9g7P1DS9Og/U6Vjr85eg/AOYaRbebKPRI/i/tdP
-	 FIo7QC/Px87F29AJODalqNfz65MYEJdxTROTlIdk=
+	b=h9WcENHpyGZOpQyrD3hGvCrpxVfsjH37nIU5SvVkorT/LjcYzw5BY8JlD2wRZ+iLy
+	 9txU+NennwvLQLbPNrgC5D2O12vtQgEU3wkJsIWVkPTEYoMIASeILZ6ylfG9ZgW/k1
+	 P/0tsU9id/K2rJEMhIFNYb5kP9e1N6Avm1QH8c0s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8CC4F8015B;
-	Thu,  6 Apr 2023 09:56:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59EDFF80149;
+	Thu,  6 Apr 2023 10:09:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD8B5F80246; Thu,  6 Apr 2023 09:56:09 +0200 (CEST)
+	id 350EEF80246; Thu,  6 Apr 2023 10:09:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F13DF80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 09:56:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F13DF80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=glmt0zl3;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3ZDYf936
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B441F8015B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 10:09:03 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5FE0A11D5;
+	Thu,  6 Apr 2023 10:09:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5FE0A11D5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1680768542; bh=/TLojvzWDIUUy0CijBGfwhAg+77Da3/JbI5/KgXe1zI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nQSXIV5Za3IcOlIKkoGsk3LbI8Iu7jx71M2QQ59F7tXOfqQhHWxficfBCsqhJZ621
+	 J3BjHt6UseUTnA0A551dB20Cv1XBzNvALtEgTLQv/Sh9xYRAOa27yZT9OQr3nCGbMX
+	 R6ZwIbsEcnJA5MZhJUlummIP3u4nrJgNiLOxSqu0=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A42B71FD76;
-	Thu,  6 Apr 2023 07:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680767766;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lNejoVd0cX2l8bsV9GpkjOTU5kVjNcZbLK6zcJ0Aba8=;
-	b=glmt0zl3W0Nb1K+4vX768aaPh1879m+6dlKEvyyZA8dAkTJFlsh+Gr5G7s9B9kOA51zo5L
-	nia5Aq1rVyu/A8KKmu0JamX3nCr7qcgMjXf+mvNg4SQ9jtULRSxcyipeBWv3oJA9Sp6RdZ
-	Ki5Iu4VeBnAAih4RKLwpfboH/Mh6l/0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680767766;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lNejoVd0cX2l8bsV9GpkjOTU5kVjNcZbLK6zcJ0Aba8=;
-	b=3ZDYf9363zWShK6cxPdV2NpNFGRAFF8u3BV+gbrwjrshU39G1HFhvfZgiLRK1KjhR+QTWA
-	itVcQI1YVvauUCAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8555D1351F;
-	Thu,  6 Apr 2023 07:56:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id PfLUHxZ7LmSXUQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 07:56:06 +0000
-Date: Thu, 06 Apr 2023 09:56:06 +0200
-Message-ID: <87fs9dv3zd.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] docs: sound: kernel-api: writing-an-alsa-driver.rst:
- polishing
-In-Reply-To: <ZC511SOI1BH6xKpo@ugly>
-References: <20230405201220.2197863-1-oswald.buddenhagen@gmx.de>
-	<87pm8hv6sg.wl-tiwai@suse.de>
-	<ZC511SOI1BH6xKpo@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: LR6ML6PJ2WBKDUION3WIPCD7IZCAVPBP
-X-Message-ID-Hash: LR6ML6PJ2WBKDUION3WIPCD7IZCAVPBP
-X-MailFrom: tiwai@suse.de
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Thu,  6 Apr 2023 10:08:59 +0200 (CEST)
+Message-ID: <119dd23f-8cb2-3a64-fc16-8429ca029983@perex.cz>
+Date: Thu, 6 Apr 2023 10:08:58 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH] docs: sound: hda: drop mentions of hda-analyzer
+To: Takashi Iwai <tiwai@suse.de>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+References: <20230405201220.2197848-1-oswald.buddenhagen@gmx.de>
+ <87v8i9v8h5.wl-tiwai@suse.de>
+Content-Language: en-US
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <87v8i9v8h5.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: HZALPIXEOBZHP66ER7TP3GQUWE7YA5TF
+X-Message-ID-Hash: HZALPIXEOBZHP66ER7TP3GQUWE7YA5TF
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LR6ML6PJ2WBKDUION3WIPCD7IZCAVPBP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HZALPIXEOBZHP66ER7TP3GQUWE7YA5TF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,57 +94,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 06 Apr 2023 09:33:41 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Thu, Apr 06, 2023 at 08:55:27AM +0200, Takashi Iwai wrote:
-> > On Wed, 05 Apr 2023 22:12:20 +0200,
-> > Oswald Buddenhagen wrote:
-> >> @@ -2262,7 +2156,7 @@ Typical code would be like the following.
-> >>                        /* over the period boundary? */
-> >>                        if (chip->size >= runtime->period_size) {
-> >>                                /* reset the accumulator */
-> >> -                              chip->size %= runtime->period_size;
-> >> +                              chip->size -= runtime->period_size;
-> >>                                /* call updater */
-> >>                                spin_unlock(&chip->lock);
-> >>                                snd_pcm_period_elapsed(substream);
-> > 
-> > Hmm, this kind of change shouldn't be sneaked in.
-> > That's more than the typo fixes etc,
-> > 
-> true, the patch grew too big and i missed this hunk.
-> (i only kept it as one patch, because some pieces overlap and i didn't
-> want to add churn.)
+On 06. 04. 23 8:19, Takashi Iwai wrote:
+> On Wed, 05 Apr 2023 22:12:20 +0200,
+> Oswald Buddenhagen wrote:
+>>
+>> It's gone from the repos, presumably because nobody ported it to
+>> Python 3.
 
-Maybe the changes could have been split from the first place, the
-mechanical changes to drop empty lines before "::", typo fixes, and
-text improvements, etc.  But I guess it's too late and I'm fine to
-apply this whole change as a single patch with the correction.
+The "gone" is no longer true. The gitweb was misconfigured on the ALSA server 
+after upgrade.
 
+We have also preliminary python3 work at 
+https://github.com/alsa-project/alsa-utils/issues/134 .
 
-> > and even worse, it's a wrong replacement.
-> > 
-> hmm, yeah, if the timer ints are configured to occur too rarely, this
-> wouldn't do the right thing.
-> but then, why would they be? that would basically defeat the point of
-> using many periods in the first place. should i instead change the
-> text to emphasize that the ints should occur at least once per period?
-> (i've actually pondered the timer option in the context of the emu10k1
-> driver as well, and concluded that there should be two timer ints per
-> period, so snd_pcm_period_elapsed() is reliably called in the first
-> half of the next period, which is critical when only two periods are
-> configured.)
+I merged those changes and did some cleanups so the code can run with python3 
+now. I suggest to remove this doc change (drop this patch).
 
-No, the point is that, if an irq handler misses the multiple period
-updates, it has to handle the situation in a single shot, and the
-offset gets corrected to the value within the period size; using "-="
-instead of "%=" may leave the size over the period size in such a
-case, and this may return an invalid PCM pointer value in the end.
+				Thanks,
+					Jaroslav
 
-The text about the irq handling could be improved, of course.
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
-
-thanks,
-
-Takashi

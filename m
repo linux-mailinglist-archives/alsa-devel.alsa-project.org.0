@@ -2,98 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 938876D8FA5
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 139536D8FA9
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:44:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 610AD741;
-	Thu,  6 Apr 2023 08:42:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 610AD741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38A92826;
+	Thu,  6 Apr 2023 08:43:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38A92826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680763414;
-	bh=BRBRTUT2HUq0E0aiKu5/2t5YorIl3nRUrsWLgj4s93Q=;
+	s=default; t=1680763465;
+	bh=FSiTygEnP3X7gwmwuUvJVxWzKSRmZmHH/TxT0ls9ohk=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WjPSYex0qnIMcP3+WYp8xynIsuEChiZihQlJDE2mF48ACORz78PRr7r8/RIdKZ71Q
-	 yCGwCoAzCK11NCN2pX4bpIvCFEqVkKMY2RjGqlx4aDzbj8eB261ELVUcMOsjBIqZNg
-	 AaQNAiFUJfskxJTBxZXtxuJvGcilXIHFKhp+gPy8=
+	b=cYoqvQ1RaEUCoYefFKv6sJc4qyytjk3VBjak6SATVon6BTax0t7bVfMAJrV18RtCL
+	 7YHW7pptUBoKaknxFkP3sTJwYtDPvcxkDww5hf7ZyJf0Rl4nuVxYjX3LF2a3FXiMBr
+	 EO9QAvCZ8b6mPOAmkNtolrFE5uNRNI4Z142Bzbno=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2083EF80171;
-	Thu,  6 Apr 2023 08:42:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93AEDF80448;
+	Thu,  6 Apr 2023 08:43:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39178F80246; Thu,  6 Apr 2023 08:42:38 +0200 (CEST)
+	id 557CCF8051F; Thu,  6 Apr 2023 08:43:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BC849F80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:42:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC849F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 11DC3F80246
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:42:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11DC3F80246
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=wBZywpAp;
+ header.s=susede2_rsa header.b=W6dPfePs;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=+DtIGK8c
+ header.s=susede2_ed25519 header.b=QLsQbIM2
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6E8301FD76;
-	Thu,  6 Apr 2023 06:42:28 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 92A26226F5;
+	Thu,  6 Apr 2023 06:42:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680763348;
+	t=1680763379;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iC3kUwHu8SLilRzM89HjW/0kK1qVKLSU+HjqB7XTocg=;
-	b=wBZywpApN3dbrglYG5Lti766yjc4OfkPXw+9vhactMEp0+u0NNTmNIr6eCiuYrvTWrVWtb
-	vNiEU2WBaLQdz46J62Jgwly5t+vtvsE/ukqzwi6tmmrh986hMoDCTbqxLEpUoXfn4BEHSz
-	mJeNnQiZOqg09kqlnc/IG6kRbfikCNc=
+	bh=r4yQdWsVYIYueMnHKLhULGjN4EnXrk8tYYnGtMFThD4=;
+	b=W6dPfePsNSMPbZja6dIFtnewYuvO4PBfCR97VobqFxynQKg2gLs4GJNrpWbU4whw+yVRa3
+	JAVH4YCP3/nZglVhL1u1RpympP9ze7nQNEX5buZG8bFVoURhmdu9CYS3nu4eLohTsW2OcP
+	EVYqx1uP4PTEE/ZNNymojFWvGxm8VM8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680763348;
+	s=susede2_ed25519; t=1680763379;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iC3kUwHu8SLilRzM89HjW/0kK1qVKLSU+HjqB7XTocg=;
-	b=+DtIGK8c7kmc2BE1uNdGM6y7mcdNNmJt/ViVQ6bkSD0F55uTeyDnN9rpsyGbsgbRnUN+lq
-	YJVxxBE2+g4rebAA==
+	bh=r4yQdWsVYIYueMnHKLhULGjN4EnXrk8tYYnGtMFThD4=;
+	b=QLsQbIM2OlyS2Gs+mTTIKw1wzWqejsgRhNNqKG6ZAnvS4aBHfEQAdMo5dqJ/zGSOTwiDz3
+	q1h97mqpOvAWvzAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55DC5133E5;
-	Thu,  6 Apr 2023 06:42:28 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 72AF9133E5;
+	Thu,  6 Apr 2023 06:42:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id PptCFNRpLmSMLQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:42:28 +0000
-Date: Thu, 06 Apr 2023 08:42:27 +0200
-Message-ID: <87sfddv7e4.wl-tiwai@suse.de>
+	id hNBQG/NpLmTHLQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:42:59 +0000
+Date: Thu, 06 Apr 2023 08:42:59 +0200
+Message-ID: <87r0sxv7d8.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [RFC PATCH] docs: sound: kernel-api: writing-an-alsa-driver.rst:
- add FIXMEs
-In-Reply-To: <20230405201220.2197878-1-oswald.buddenhagen@gmx.de>
-References: <20230405201220.2197878-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH] ALSA: emu10k1: documentation updates
+In-Reply-To: <20230405201220.2197893-1-oswald.buddenhagen@gmx.de>
+References: <20230405201220.2197893-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-2022-JP
-Message-ID-Hash: CP7WXEHVPPW4AVN4IE7V5RYS5FXMMTEC
-X-Message-ID-Hash: CP7WXEHVPPW4AVN4IE7V5RYS5FXMMTEC
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 2BUNEHDKXDXXIIPC5ESFUV2OLI5I35LD
+X-Message-ID-Hash: 2BUNEHDKXDXXIIPC5ESFUV2OLI5I35LD
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CP7WXEHVPPW4AVN4IE7V5RYS5FXMMTEC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2BUNEHDKXDXXIIPC5ESFUV2OLI5I35LD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,109 +118,12 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On Wed, 05 Apr 2023 22:12:20 +0200,
 Oswald Buddenhagen wrote:
 > 
-> @@ -1646,11 +1647,11 @@ Typically, you'll have a hardware descriptor as below::
->  
->     The “period” is a term that corresponds to a fragment in the OSS
->     world. The period defines the point at which a PCM interrupt is
->     generated. This point strongly depends on the hardware. Generally,
->     a smaller period size will give you more interrupts, that is,
-> -   more controls. In the case of capture, this size defines the input
-> +   more controls (FIXME: huh? granularity, maybe?). In the case of capture, this size defines the input
+> - Less misinformation
+> - Language and whitespace fixups
+> 
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Well, "controls" might be no good choice of the word, it was meant as
-"the opportunities returned from kernel back to user-space for sending
-/ receiving the defined size of data".  This isn't really granularity,
-strictly speaking, but it may be a better fit.
+Thanks, applied.
 
->  DMA Buffer Information
->  ~~~~~~~~~~~~~~~~~~~~~~
->  
-> +// FIXME: this is outdated; dma_private is available only through dma_buffer_p!
-
-It's written so:
-  ``dma_private`` is used for the ALSA DMA allocator.
-
-And, this field can be used still freely if you implement the full
-stack in the driver by itself instead of using the standard helpers.
-
-> @@ -1709,10 +1711,11 @@ Running Status
->  The running status can be referred via ``runtime->status``. This is
->  a pointer to a struct snd_pcm_mmap_status record.
->  For example, you can get the current
->  DMA hardware pointer via ``runtime->status->hw_ptr``.
->  
-> +// FIXME: DMA application pointer is not explained.
-
-A better description please ;)
-
-> @@ -2010,10 +2013,12 @@ is called by the interrupt routine. Then the PCM middle layer updates
->  the position and calculates the available space, and wakes up the
->  sleeping poll threads, etc.
->  
->  This callback is also atomic by default.
->  
-> +FIXME: this does not specifiy whether this is the pre- or post-fifo position.
-> +
-
-Again, a patch to add more description please.
-
-> @@ -2384,10 +2389,14 @@ fields.
->  
->  The ``name`` is the name identifier string. Since ALSA 0.9.x, the
->  control name is very important, because its role is classified from
->  its name. There are pre-defined standard control names. The details
->  are described in the `Control Names`_ subsection.
-> +// This is a questionable design, IMO. Why user-space heuristics when
-> +// the driver could set the roles/capabilities? This would avoid
-> +// problems like the Tone Control sliders (unlike the switch?!) being
-> +// misclassified as applying also to capture.
-
-Why this has to be discussed here and now...?
-It's the thing that was *defined* over two decades ago.
-
-
->  The ``index`` field holds the index number of this control. If there
->  are several different controls with the same name, they can be
->  distinguished by the index number. This is the case when several
->  codecs exist on the card. If the index is zero, you can omit the
-> @@ -2485,10 +2494,11 @@ a control constantly.
->  When the control may be updated, but currently has no effect on anything,
->  setting the ``INACTIVE`` flag may be appropriate. For example, PCM
->  controls should be inactive while no PCM device is open.
->  
->  There are ``LOCK`` and ``OWNER`` flags to change the write permissions.
-> +// FIXME: explain.
-
-A patch please.
-
-
->  Control Callbacks
->  -----------------
->  
->  info callback
-> @@ -3355,10 +3365,11 @@ Buffer and Memory Management
->  ============================
->  
->  Buffer Types
->  ------------
->  
-> +// FIXME: this appears obsolete, i only found one pair of functions.
-
-Yes, snd_malloc_pages() and snd_free_pages() have been replaced with
-the managed buffer.
-
-> @@ -3670,10 +3681,11 @@ user (root by default), do as follows::
->   entry->mode = S_IFREG | S_IRUGO | S_IWUSR;
->  
->  and set the write buffer size and the callback::
->  
->    entry->c.text.write = my_proc_write;
-> +  // FIXME: something's missing here?
-
-No, that's fine.  Rather the line above it (mentioning the write
-buffer size) is outdated; there is no size to be specified.
-
-
-thanks,
 
 Takashi

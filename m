@@ -2,92 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C09C56D9F56
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 19:55:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 540A96D9FD4
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 20:29:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E1F0F69;
-	Thu,  6 Apr 2023 19:54:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E1F0F69
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C096F71;
+	Thu,  6 Apr 2023 20:28:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C096F71
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680803749;
-	bh=AnwacomM1iD9Tyc8ERcf/HH5qu5lLcyO3dh52AB5eII=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=i9I/EFxba70Y5nOP2cWpiC/5GM27kVQ3Zy9el8rPszwOzjyhbAAwclu6vPtdwzOsd
-	 T50OpgLpAAy769Bla6z27dt+tR1W5vIofpkH/Oc8gIOCg16Fgd6ToDDULq4qlOiYmb
-	 q9Oxu5NUkszqjzm/TTjkBW9sT9WU5I5efdtAsaf4=
+	s=default; t=1680805788;
+	bh=6ik5bJD1nPzYRyb0IpKsydleSy1Kux9GLcZ9LeBoElc=;
+	h=References:In-Reply-To:Date:Subject:To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=VUtv573O7w0glUR3U2+/KhHWJAcXokQfaonK6hmM5WmZSlvlopcgbtmN3FnOUqlK6
+	 jJ3fq933Ptd9jKk6avXHZClxlW+dLR8DNu+vW5g/nVfNTauhcZDFtQQ0lEINYT0P5X
+	 xcFKaxQjxxOhIlsxNpK8pRnFy/KfHFQTzLDYdU5c=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABC87F80171;
-	Thu,  6 Apr 2023 19:54:58 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0046F80246; Thu,  6 Apr 2023 19:54:54 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3CB18F8013D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 19:54:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CB18F8013D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AIeg0VT5
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 23FE160C99;
-	Thu,  6 Apr 2023 17:54:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7A3C433D2;
-	Thu,  6 Apr 2023 17:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680803685;
-	bh=AnwacomM1iD9Tyc8ERcf/HH5qu5lLcyO3dh52AB5eII=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AIeg0VT5RR3GJ29HkJWAwB6FSGdq8pXdmobKqBWch8pJWcryqnKPoqBuhVBRWjKmU
-	 e9JqR+ly1T/XwtNKwTxMgKIuPe16EhRVuzn3lRpjOvOfkzkkF++C+WWffQ/bm9veWa
-	 s2nJzGB8ktm/O9Hvjh3TUyAP7U4mWsn6I4HYoSG7NCb4tnghINeNlHNskCBcwEYJno
-	 T1reai+Du2z158hOx6JBt/IyySr7Z1N7C+QR8cdZQWmbYObdO4t53jzsQ4DjJWcEad
-	 D5nNOFOqM8rG+6Mwh3kKj5QDM7OU9cMkyK+5bb41bfR29dC9pD/JZiFHqXeZJVyRkT
-	 4QCBD3j7XiS7Q==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230406154535.18205-1-pierre-louis.bossart@linux.intel.com>
-References: <20230406154535.18205-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH] ASoC: max98373: change power down sequence for smart
- amp
-Message-Id: <168080368401.149953.14101023757465047038.b4-ty@kernel.org>
-Date: Thu, 06 Apr 2023 18:54:44 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: WVDKLUSVA72CVIU4LMTM5BAPGBIEKSIR
-X-Message-ID-Hash: WVDKLUSVA72CVIU4LMTM5BAPGBIEKSIR
-X-MailFrom: broonie@kernel.org
+	by alsa1.perex.cz (Postfix) with ESMTP id AC84EF80171;
+	Thu,  6 Apr 2023 20:28:57 +0200 (CEST)
+References: <20230406155026.18723-1-pierre-louis.bossart@linux.intel.com>
+ <20230406155026.18723-3-pierre-louis.bossart@linux.intel.com>
+ <a4145eda-3ff4-4ed0-8a57-fea8c358833b@sirena.org.uk>
+In-Reply-To: <a4145eda-3ff4-4ed0-8a57-fea8c358833b@sirena.org.uk>
+Date: Thu, 6 Apr 2023 11:28:31 -0700
+Subject: Re: [PATCH 2/2] ASoC: SOF: Use no_reply calls for TX
+To: Mark Brown <broonie@kernel.org>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.de, Long Wang <long.wang@analog.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WVDKLUSVA72CVIU4LMTM5BAPGBIEKSIR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6HCGWEO37GFGHR5DWV5S3OXCKIZMGVS4/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168080573652.26.3251337021560568078@mailman-core.alsa-project.org>
+From: Curtis Malainey via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Curtis Malainey <cujomalainey@google.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.de,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id CE986F80246; Thu,  6 Apr 2023 20:28:51 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL,
+	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 41E5BF8015B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 20:28:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41E5BF8015B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20210112 header.b=pM5ZRRIk
+Received: by mail-pj1-x1033.google.com with SMTP id
+ om3-20020a17090b3a8300b0023efab0e3bfso43733774pjb.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 06 Apr 2023 11:28:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112; t=1680805722;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OEzf2i3FlPC4ue7aO7pKT7jzZn21kj4HZudCO/+1sk0=;
+        b=pM5ZRRIk7R3LsCd4NvwpxuUVoU/XBTQ4xaJiw0EpJTnWD9sB7Z89NgOjTRfM6WiZLl
+         iWWMCkYDUsP4Do3dymKSN5Y/vv1t4F6Jn7P7UVdHDSUWj4BHoquGGz2fTQhd3/2g635V
+         fg+hoV+iI72DDRL1D2bt47t6n/vuH7DJwVGa34WClfGDeY04tXrL4tO4sbJaqRg/ZFG2
+         Mo/lo+ZZ21QuPslwI1NL2C27A7EgwclKFi3hc2wd6+y0JN+kLrxkYv8mJCvBLJHF6fgO
+         ypsNxb7+yTXlnqj0vjU21IzEyACf/rcVJu0TUaDMC4bUy3F4rwCHsDu5j6VW1JT1Uxr6
+         ke9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680805723;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=OEzf2i3FlPC4ue7aO7pKT7jzZn21kj4HZudCO/+1sk0=;
+        b=6IhP76muPoiwIaxTgfUlHO+vPXaokll42c9V66RMyHul0VF5AW0KC4aZqWJeQp9+71
+         KDDmBcayz61hTIDkj6H0ktaAreEHvkWCwgvwB943o9eMj2QTTFh+sbZseUwyqSILM7Nf
+         wYFlSXCTT8Di0Py2U5JzmAXZq84j2U05CVL6uYLM4aBC2tDBWAGHrfg9r1u7wiVcjABM
+         fLFi96rRBSgus/HEdIB9R6jv/JxbkJ2JNysh9oa9xQp0NSIQGBKN3Qp31vLUJyZN51vk
+         zhjhI3Slyv38G2MROk9Kx6X0+0+aNmKNr5T2vmgQIBF4T0F4NYlKjbttkXKunRk+5wSq
+         IqBw==
+X-Gm-Message-State: AAQBX9c6REWNyRsQP/BSR6RDU884sC0DL+LR4HHYC6tFIZx7uOrAjfQ/
+	YMjLUtTgvNwSIswrbzDeIJ4t10qglLhoNHHbWluiMg==
+X-Google-Smtp-Source: 
+ AKy350aSp+LmN4PdDzuArNmgaccx8SQdRskKhK41/B/xjwU+yVPNF/gMgT2XX8jFJ+LSCnKfHlWgdlCjYkKMIMNuo+8=
+X-Received: by 2002:a17:902:7c13:b0:1a0:51f6:a252 with SMTP id
+ x19-20020a1709027c1300b001a051f6a252mr63970pll.3.1680805722245; Thu, 06 Apr
+ 2023 11:28:42 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230406155026.18723-1-pierre-louis.bossart@linux.intel.com>
+ <20230406155026.18723-3-pierre-louis.bossart@linux.intel.com>
+ <a4145eda-3ff4-4ed0-8a57-fea8c358833b@sirena.org.uk>
+In-Reply-To: <a4145eda-3ff4-4ed0-8a57-fea8c358833b@sirena.org.uk>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Thu, 6 Apr 2023 11:28:31 -0700
+Message-ID: 
+ <CAOReqxjnBXP+e4i_kh8FwtKQJjJU-MdAU8c-P44LNMkNs-O6tg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ASoC: SOF: Use no_reply calls for TX
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 6HCGWEO37GFGHR5DWV5S3OXCKIZMGVS4
+X-Message-ID-Hash: 6HCGWEO37GFGHR5DWV5S3OXCKIZMGVS4
+X-MailFrom: cujomalainey@google.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.de,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6HCGWEO37GFGHR5DWV5S3OXCKIZMGVS4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,38 +161,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 06 Apr 2023 10:45:35 -0500, Pierre-Louis Bossart wrote:
-> In order to avoid pop noise which occurs when switching
-> device from speaker to headphone, the amplifier should
-> power down first when stopping playback.
-> 
-> 
+On Thu, Apr 6, 2023 at 10:19=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> On Thu, Apr 06, 2023 at 10:50:26AM -0500, Pierre-Louis Bossart wrote:
+> > From: Curtis Malainey <cujomalainey@chromium.org>
+> >
+> > Convert all existing calls that pass "NULL, 0" for reply data to the ne=
+w
+> > no_reply calls. Also convert any calls that pass in data but don't
+> > actually parse the result.
+>
+> This breaks an x86 allmodconfig build:
+>
 
-Applied to
+This is because a9737808b3e4 ("ASoC: SOF: compress: Set compress data
+offset") was sent first. Pierre, how do you want to resolve this?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: max98373: change power down sequence for smart amp
-      commit: 352e1eb17eee86ab4dd66c0c9df528b350aaace2
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+> /build/stage/linux/sound/soc/sof/compress.c: In function =E2=80=98sof_com=
+pr_set_params=E2=80=99:
+> /build/stage/linux/sound/soc/sof/compress.c:238:46: error: =E2=80=98ipc_p=
+arams_reply=E2=80=99 undeclared (first use in this function); did you mean =
+=E2=80=98sof_ipc_pcm_params_reply=E2=80=99?
+>   238 |                                              ipc_params_reply.pos=
+n_offset);
+>       |                                              ^~~~~~~~~~~~~~~~
+>       |                                              sof_ipc_pcm_params_r=
+eply
+> /build/stage/linux/sound/soc/sof/compress.c:238:46: note: each undeclared=
+ identifier is reported only once for each function it appears in

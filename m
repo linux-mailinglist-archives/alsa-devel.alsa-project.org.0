@@ -2,75 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF54C6D9190
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 10:30:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C3EE6D9A5C
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:31:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2B8A83B;
-	Thu,  6 Apr 2023 10:29:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2B8A83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E8E1ED4;
+	Thu,  6 Apr 2023 16:30:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E8E1ED4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680769816;
-	bh=li0BESbwVWnrhA0D5qrvlE4wZbMM9TFXvAWjmLGcA2I=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=kuiFrOWknEwzvS4CNQyn3BLc2eKh4OtNSqDOm5nFADo1L+N8AKh77Jt6yIlGYCpSE
-	 5IfJGZahRJ0YfJvqA5puXtgtT0yyf2keAosOAg+odhUQSHJ9lP5E0j9mU2pvAGALft
-	 GYA/vg4KSkeR6ghwF/esn7y5GL7ItgikYK/KW9Yw=
+	s=default; t=1680791496;
+	bh=JAFdP+RhWxCZpZQqzEh/8UwFmFSvQ5eGCtTgsL+EhM4=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=XFFZxFkyo/pEuikqeScCCX4s1N8iKz2OrwXWsyqDwLUDvncoVm9R7ruM6UIOP0nrM
+	 APws4y9Xi5fNYVvpK8yLycknCF5AfKTG8y/zwJiBupXKzUDRy9h4KhYBu1jxuxQa4a
+	 Vt2v+QO4efr6EAEDslN3sT6XmnNV+0PXbhYWBpF8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 343FCF8015B;
-	Thu,  6 Apr 2023 10:29:25 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BA79F80246; Thu,  6 Apr 2023 10:29:20 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46E67F80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 10:29:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E67F80149
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 203A724184
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 04:29:11 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pkKzW-Kuk-00
-	for <alsa-devel@alsa-project.org>; Thu, 06 Apr 2023 10:29:10 +0200
-Date: Thu, 6 Apr 2023 10:29:10 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+	by alsa1.perex.cz (Postfix) with ESMTP id 18B7FF805C8;
+	Thu,  6 Apr 2023 16:26:45 +0200 (CEST)
 To: alsa-devel@alsa-project.org
-Subject: Re: [PATCH] docs: sound: hda: drop mentions of hda-analyzer
-Message-ID: <ZC6C1v5kxYSxTNGW@ugly>
-Mail-Followup-To: alsa-devel@alsa-project.org
-References: <20230405201220.2197848-1-oswald.buddenhagen@gmx.de>
- <87v8i9v8h5.wl-tiwai@suse.de>
- <119dd23f-8cb2-3a64-fc16-8429ca029983@perex.cz>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <119dd23f-8cb2-3a64-fc16-8429ca029983@perex.cz>
-Message-ID-Hash: YDRB3HSI4UG2PRIXXAFFJ7XPD5TOTRYF
-X-Message-ID-Hash: YDRB3HSI4UG2PRIXXAFFJ7XPD5TOTRYF
-X-MailFrom: ossi@kde.org
+Subject: [PATCH] ASoC: amd: yc: Add ASUS M3402RA into DMI table
+Date: Thu,  6 Apr 2023 10:47:55 +0200
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+X-Mailman-Approved-At: Thu, 06 Apr 2023 14:26:36 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YDRB3HSI4UG2PRIXXAFFJ7XPD5TOTRYF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X3CUALCPICBCMFRHMJYL7JXYOTPAJ2TQ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168079120408.26.3383544700797001255@mailman-core.alsa-project.org>
+From: Enrico Belleri via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Enrico Belleri <kilgore.trout@idesmi.eu>
+Cc: Enrico Belleri <idesmi@protonmail.com>,
+ Enrico Belleri <kilgore.trout@idesmi.eu>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 32FA0F80246; Thu,  6 Apr 2023 10:48:08 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org
+ [IPv6:2001:67c:2050:0:465::201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 399AAF8015B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 10:48:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 399AAF8015B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=idesmi.eu header.i=@idesmi.eu header.a=rsa-sha256
+ header.s=MBO0001 header.b=sGA4cp3B
+Received: from smtp1.mailbox.org (unknown [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4PsZrt6zhrz9t4j;
+	Thu,  6 Apr 2023 10:47:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=idesmi.eu; s=MBO0001;
+	t=1680770879;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=C97U33ii7CfAJbQ3OayudLW2xJgkrpQRtGPwkeJJIdM=;
+	b=sGA4cp3Bw7E1sgkuGhYubY+6HTCPSxWccHRGkwBUkVHtqXkGp0DpFS8SbMJoRr31vzkZ5R
+	1hhOyFPyrf/Sjw36ll0hXqnzTFpU4dAd78P6z8Cq8RWGz82SgLC1o0s4dorCJTdBp1lfdC
+	OOBPFy9sjS5c3xsPP0Yuv+YBChWiKjMdSAW54sJd5mFFbiNCUlcGde/xv/cH2zOVlSAi1+
+	5wYntwmFeoyWV5AGPsW6Yv1iIHT8BWAM1Trwxd1TU2kKA5cbTHwLCJ/NyXgbuh9+1NFwc/
+	77dIz9rxL1EzWS0QIOZuWlYXUavIa8qGt8uvQaaVaDrmgWJFU/otlUpIdsv0Wg==
+From: Enrico Belleri <kilgore.trout@idesmi.eu>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: amd: yc: Add ASUS M3402RA into DMI table
+Date: Thu,  6 Apr 2023 10:47:55 +0200
+Message-Id: <20230406084755.31647-1-kilgore.trout@idesmi.eu>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MailFrom: kilgore.trout@idesmi.eu
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: X3CUALCPICBCMFRHMJYL7JXYOTPAJ2TQ
+X-Message-ID-Hash: X3CUALCPICBCMFRHMJYL7JXYOTPAJ2TQ
+X-Mailman-Approved-At: Thu, 06 Apr 2023 14:26:36 +0000
+CC: Enrico Belleri <idesmi@protonmail.com>,
+ Enrico Belleri <kilgore.trout@idesmi.eu>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X3CUALCPICBCMFRHMJYL7JXYOTPAJ2TQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -79,10 +124,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Apr 06, 2023 at 10:08:58AM +0200, Jaroslav Kysela wrote:
->The gitweb was misconfigured on the ALSA server after upgrade.
->
-ah, that explains a lot. i thought it moved to github entirely.
-(i'm kinda getting lost in the various wiki pages, which isn't made any 
-better by google turning up some heavily outdated ones, even though they 
-aren't linked top-down any more. feel like doing some cleanup work?)
+From: Enrico Belleri <idesmi@protonmail.com>
+
+Fix builtin microphone on ASUS Vivobook S 14 OLED 2022 (M3402RA)
+
+Same issue with this model as apparently with other Rembrandt laptops: https://bugzilla.kernel.org/show_bug.cgi?id=216270
+
+Signed-off-by: Enrico Belleri <kilgore.trout@idesmi.eu>
+---
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 4a69ce702360..80dfb6036859 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -213,6 +213,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "M5402RA"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "M3402RA"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
+-- 
+2.40.0
+

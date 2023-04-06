@@ -2,137 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310E16D9886
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 15:47:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E520F6D98FE
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:06:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCF32E7A;
-	Thu,  6 Apr 2023 15:47:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCF32E7A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF7F6E7E;
+	Thu,  6 Apr 2023 16:05:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF7F6E7E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680788871;
-	bh=BgDLeDq1Dk4v6dJ8ItGW71HlZS5f67S2T1kXD5nY/tY=;
-	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
-	b=YmmD/LSWW3AKUiqBm9NI8SvbcMzBBLS3S05b8InBUmVwhd4ZwR4l7JPq12q7ZROgr
-	 TmgcQU3UO3aIACIySL8YtiSaz1lTeblvTPdEnsGbybS/x8zVg910WbpyrJTWI1dmG9
-	 KzNXVek5+yCTckw/9nFcV96p5JyaCeue6KFJNuQs=
+	s=default; t=1680790003;
+	bh=EDNgb11peQSYs4SchHYHKS8KitkZStRwj89sSmSKgkU=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=UR4ctI6/3RNA+E94rOIrxshnJ9IVAb/XZ+33WfJ0t1uKETw2BXrnCVsNFKwCFNwNs
+	 5DvGyv2r4YOtDN4xATdpchvywor1URRdjzW7lMKD7Esi1dWMWyJ84C+SFyp3Z9h19p
+	 xwABcRGymvsyz+CBHwhdVHX2a81cVRTFtfEADo3k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16D9EF80171;
-	Thu,  6 Apr 2023 15:47:01 +0200 (CEST)
-To: <vkoul@kernel.org>
-Subject: [PATCH RESEND] soundwire: bus: Fix unbalanced pm_runtime_put()
- causing usage count underflow
-Date: Thu, 6 Apr 2023 14:46:40 +0100
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JXZBZSOGAPHDNKQK6VU7OY63I6RLC4SZ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168078882041.26.17895809248979814492@mailman-core.alsa-project.org>
-From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com, Richard Fitzgerald <rf@opensource.cirrus.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F731F80171;
+	Thu,  6 Apr 2023 16:05:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C48DF80246; Thu,  6 Apr 2023 15:46:57 +0200 (CEST)
+	id 8008FF80246; Thu,  6 Apr 2023 16:05:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1812CF8013D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 15:46:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1812CF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46B67F80149
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 16:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46B67F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=BTpr/ZQe
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3365A8Qr028169;
-	Thu, 6 Apr 2023 08:46:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=IcGX+N/DevlgoXLY+O/yuLAaJ4V5pIBbxyzs7p+ew1c=;
- b=BTpr/ZQe2OO7a7rRoKLao2n+SSPAhwV5x2CS6PSkRMaNZVVV4/gu3n46jcC+ooJw3vzQ
- 5VcYSGcy8Z7W+ViIwfb6sYTCIkMQefWRkpcMvhSyobp3eCJwcUeFTyIMUMi8TQ39VZ+0
- JgUgUajlwx5cvRGycFuew8ciopldw7gE0CBOG9Z0DwePl+2/Aiz7FHysq+OJkIcDOSXa
- a9MqW0ylDdoPnPTzyVjbLncb6ZxXlgNT+MaC9GXjOMe02tjLZFirYybHMhHadNlVBoWO
- 5Og0cT1DhB9xWyuxN7MYQTiCgXyiIMZNm0INKHkLHE7MH6TcSoLyDwC2DZvB40Rzmvt6 Lw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3ppj13fkhb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Apr 2023 08:46:47 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 6 Apr
- 2023 08:46:45 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Thu, 6 Apr 2023 08:46:45 -0500
-Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
- [198.61.65.178])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 44277478;
-	Thu,  6 Apr 2023 13:46:43 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>
-Subject: [PATCH RESEND] soundwire: bus: Fix unbalanced pm_runtime_put()
- causing usage count underflow
-Date: Thu, 6 Apr 2023 14:46:40 +0100
-Message-ID: <20230406134640.8582-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.a=rsa-sha256 header.s=fm2 header.b=znIKK2kQ;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=EdqRSNNQ
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+	by mailout.nyi.internal (Postfix) with ESMTP id 3D5515C008E;
+	Thu,  6 Apr 2023 10:05:36 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute6.internal (MEProxy); Thu, 06 Apr 2023 10:05:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1680789936; x=
+	1680876336; bh=DAcmnY1Q1z8EU+4I4aVFUF/Azk8umAnJTEKhofKGfzM=; b=z
+	nIKK2kQEolnsPtyMuEMiZcbDaNdp7g3x1rXcOaanfH0X0991cZIHv/07q7QfPtcT
+	BFcJ5LFeAO5Vc7O0RkfpDBl2RSjPCnNv8DZwaJvpMW0XsiOKwBNGi3eiVN3OM/KM
+	DPqN4nR4zQtuRFEbdcijvf4GRVGqyyIfrxFbR2J5qtY6WmHYPjzQ39XC7Y5TmSfi
+	KYZgiY5EAmgnPUwJhrD/QAEU/ajfPvHTodk3CwhTOTbevhndpmNPKhskYlobV7QZ
+	HOZHqxTavpfOtnvB3Mm7NVn9+H8QvYFovsZYT6+KDFTY7at6O9Sp4mS5pkLWxIpu
+	x4mBDBpqipjFoWKQKunoQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1680789936; x=1680876336; bh=DAcmnY1Q1z8EU
+	+4I4aVFUF/Azk8umAnJTEKhofKGfzM=; b=EdqRSNNQ75i6Dwcnq3z36VsH6XXk1
+	26oawqdRmVlnEkH0U89u02cg9lMJm9Zj0d22tZnrtgNuo8h4MQXgb6ENa5Lq1/dJ
+	g/SN/h3xIaCqbHk0+5lmCFHhGQJSG2ZgSkjKXd38/2TnN9n/Mmhva5tmd0IIjMkL
+	q4/1tp6YgaRfQZdVAZqxZOfS1MHIbEhXffFAg7lJiuudr1ZjZ1oR+HEzQgj8Wu/z
+	N5zd3Z8FiIOgjycnwiOiU0fkxoOSUmHpqLxFRaV/bl6EjcP4II7/4NNoJKcsUfJ5
+	60y1j349abkNa1uK7OoMmgeU9M0gK9+vsOvEDfT5TQHM9eTAE7MX37zUw==
+X-ME-Sender: <xms:rtEuZJGLdJkxbLbuYRce6TQReIldoxwl07PJ6v1bk200yOVK82Iseg>
+    <xme:rtEuZOXOpbtE5ljmWsWDIXi9RZUmROAxE6dqj21qQEBwcDNjIgf5sGFMh9VLtdb7w
+    uK213Fptp4TEehmQyw>
+X-ME-Received: 
+ <xmr:rtEuZLIt9yV6ZxBnIbzobzUUn0aexNUctoCZy2rxvldmNNkpdtsr9RKRS1UkvFcHRfXzG8NUCfrcn9c3Y11RBJQkbl4>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrvdejfedgieelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepvfgrkhgr
+    shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+    hjpheqnecuggftrfgrthhtvghrnhephefhhfettefgkedvieeuffevveeufedtlefhjeei
+    ieetvdelfedtgfefuedukeeunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+    hmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
+X-ME-Proxy: <xmx:rtEuZPHMR_7NCFUD9Gq7g3tT0FAlyWzTG0bRhCgeqF67CXZj8Qdj1g>
+    <xmx:rtEuZPWMIu98-FsNyJK_-3i-IcfmRftwPTmGPnPnsgl1wvaK7zQ7nw>
+    <xmx:rtEuZKO-HMXeXKnreKd9xL4Zlz6w4846ca_1zHoktJQMxTNAE1Lj7A>
+    <xmx:sNEuZLrmdD4zAdFm3MDKbezWW_sn2lPC84a6YL6_fmI6oIGvnYN-Og>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 6 Apr 2023 10:05:32 -0400 (EDT)
+Date: Thu, 6 Apr 2023 23:05:29 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Xu Biang <xubiang@hust.edu.cn>
+Subject: Re: [PATCH] ALSA: firewire-tascam: add missing unwind goto in
+ snd_tscm_stream_start_duplex()
+Message-ID: <20230406140529.GA159563@workstation>
+Mail-Followup-To: Xu Biang <xubiang@hust.edu.cn>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	dzm91@hust.edu.cn, error27@gmail.com,
+	hust-os-kernel-patches@googlegroups.com,
+	Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+References: <20230406132801.105108-1-xubiang@hust.edu.cn>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: q4nUoijmp0C7Bu09z2VJiLcxffgeGEVR
-X-Proofpoint-ORIG-GUID: q4nUoijmp0C7Bu09z2VJiLcxffgeGEVR
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: JXZBZSOGAPHDNKQK6VU7OY63I6RLC4SZ
-X-Message-ID-Hash: JXZBZSOGAPHDNKQK6VU7OY63I6RLC4SZ
-X-MailFrom: prvs=94605dde9f=rf@opensource.cirrus.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230406132801.105108-1-xubiang@hust.edu.cn>
+Message-ID-Hash: ZASJMK6WUVYDV4UU5FAUG5CZBK4KKUYA
+X-Message-ID-Hash: ZASJMK6WUVYDV4UU5FAUG5CZBK4KKUYA
+X-MailFrom: o-takashi@sakamocchi.jp
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com, Richard Fitzgerald <rf@opensource.cirrus.com>
+CC: Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>,
+ dzm91@hust.edu.cn, error27@gmail.com,
+ hust-os-kernel-patches@googlegroups.com, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JXZBZSOGAPHDNKQK6VU7OY63I6RLC4SZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZASJMK6WUVYDV4UU5FAUG5CZBK4KKUYA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,82 +140,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This reverts commit
-443a98e649b4 ("soundwire: bus: use pm_runtime_resume_and_get()")
+Hi,
 
-Change calls to pm_runtime_resume_and_get() back to pm_runtime_get_sync().
-This fixes a usage count underrun caused by doing a pm_runtime_put() even
-though pm_runtime_resume_and_get() returned an error.
+On Thu, Apr 06, 2023 at 06:28:01AM -0700, Xu Biang wrote:
+> Smatch Warns:
+> sound/firewire/tascam/tascam-stream.c:493 snd_tscm_stream_start_duplex()
+> warn: missing unwind goto?
+> 
+> The direct return will cause the stream list of "&tscm->domain" unemptied
+> and the session in "tscm" unfinished if amdtp_domain_start() returns with
+> an error.
+> 
+> Fix this by changing the direct return to a goto which will empty the
+> stream list of "&tscm->domain" and finish the session in "tscm".
+> 
+> The snd_tscm_stream_start_duplex() function is called in the prepare
+> callback of PCM. According to "ALSA Kernel API Documentation", the prepare
+> callback of PCM will be called many times at each setup. So, if the
+> "&d->streams" list is not emptied, when the prepare callback is called
+> next time, snd_tscm_stream_start_duplex() will receive -EBUSY from
+> amdtp_domain_add_stream() that tries to add an existing stream to the
+> domain. The error handling code after the "error" label will be executed
+> in this case, and the "&d->streams" list will be emptied. So not emptying
+> the "&d->streams" list will not cause an issue. But it is more efficient
+> and readable to empty it on the first error by changing the direct return
+> to a goto statement.
+> 
+> The session in "tscm" has been begun before amdtp_domain_start(), so it
+> needs to be finished when amdtp_domain_start() fails.
+> 
+> Fixes: c281d46a51e3 ("ALSA: firewire-tascam: support AMDTP domain")
+> Signed-off-by: Xu Biang <xubiang@hust.edu.cn>
+> Reviewed-by: Dan Carpenter <error27@gmail.com>
+> ---
+> Note that this finding is from static analysis and not tested.
+> 
+>  sound/firewire/tascam/tascam-stream.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-The three affected functions ignore -EACCES error from trying to get
-pm_runtime, and carry on, including a put at the end of the function.
-But pm_runtime_resume_and_get() does not increment the usage count if it
-returns an error. So in the -EACCES case you must not call
-pm_runtime_put().
+Indeed. I overlooked it when posting the patch. The bug exists Linux
+kernel v5.4 or later and the fix should be forward to stable kernels.
 
-The documentation for pm_runtime_get_sync() says:
- "Consider using pm_runtime_resume_and_get() ...  as this is likely to
- result in cleaner code."
+Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-In this case I don't think it results in cleaner code because the
-pm_runtime_put() at the end of the function would have to be conditional on
-the return value from pm_runtime_resume_and_get() at the top of the
-function.
+> diff --git a/sound/firewire/tascam/tascam-stream.c b/sound/firewire/tascam/tascam-stream.c
+> index 53e094cc411f..dfe783d01d7d 100644
+> --- a/sound/firewire/tascam/tascam-stream.c
+> +++ b/sound/firewire/tascam/tascam-stream.c
+> @@ -490,7 +490,7 @@ int snd_tscm_stream_start_duplex(struct snd_tscm *tscm, unsigned int rate)
+>  		// packet is important for media clock recovery.
+>  		err = amdtp_domain_start(&tscm->domain, tx_init_skip_cycles, true, true);
+>  		if (err < 0)
+> -			return err;
+> +			goto error;
+>  
+>  		if (!amdtp_domain_wait_ready(&tscm->domain, READY_TIMEOUT_MS)) {
+>  			err = -ETIMEDOUT;
+> -- 
+> 2.17.1
 
-pm_runtime_get_sync() doesn't have this problem because it always
-increments the count, so always needs a put. The code can just flow through
-and do the pm_runtime_put() unconditionally.
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- drivers/soundwire/bus.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+Thanks
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index e157a39a82ce..1ea6a64f8c4a 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -584,9 +584,11 @@ int sdw_nread(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
- {
- 	int ret;
- 
--	ret = pm_runtime_resume_and_get(&slave->dev);
--	if (ret < 0 && ret != -EACCES)
-+	ret = pm_runtime_get_sync(&slave->dev);
-+	if (ret < 0 && ret != -EACCES) {
-+		pm_runtime_put_noidle(&slave->dev);
- 		return ret;
-+	}
- 
- 	ret = sdw_nread_no_pm(slave, addr, count, val);
- 
-@@ -613,9 +615,11 @@ int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
- {
- 	int ret;
- 
--	ret = pm_runtime_resume_and_get(&slave->dev);
--	if (ret < 0 && ret != -EACCES)
-+	ret = pm_runtime_get_sync(&slave->dev);
-+	if (ret < 0 && ret != -EACCES) {
-+		pm_runtime_put_noidle(&slave->dev);
- 		return ret;
-+	}
- 
- 	ret = sdw_nwrite_no_pm(slave, addr, count, val);
- 
-@@ -1590,9 +1594,10 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 
- 	sdw_modify_slave_status(slave, SDW_SLAVE_ALERT);
- 
--	ret = pm_runtime_resume_and_get(&slave->dev);
-+	ret = pm_runtime_get_sync(&slave->dev);
- 	if (ret < 0 && ret != -EACCES) {
- 		dev_err(&slave->dev, "Failed to resume device: %d\n", ret);
-+		pm_runtime_put_noidle(&slave->dev);
- 		return ret;
- 	}
- 
--- 
-2.30.2
-
+Takashi Sakamoto

@@ -2,100 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BF3C6D90C9
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 09:49:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAF0E6D90E6
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 09:57:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5537382A;
-	Thu,  6 Apr 2023 09:48:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5537382A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DACB829;
+	Thu,  6 Apr 2023 09:56:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DACB829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680767380;
-	bh=y3kUvH7bgoNqnEeEa1a1aeOgL6lBwBBmqMGkWMNosVI=;
+	s=default; t=1680767823;
+	bh=U0JHKejH9AvmPl3r0YPdgKy5GPPZRKczQ7MOnjNqTCI=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TI9LgnkhRlYi6b2HLz6Iid2GQQbyn1IrsipCjUODOqssuGFARVTmmf+4uWdf3FEFx
-	 6vc/qnMFRPVuyLy70rFufxVeWT361I+t6/jEdqTnYLL5Ad5gx9hgGHUpO1Ytxed/8W
-	 +djLR6zl967nTZ9tKM6oU28uCXIK4D3BD85M1BBk=
+	b=b4MtpKeHKoIgmrl/yHeCrjQolnyixTNbPULzo/w6mNjxEcL6X9fS19RKoQeAaeURf
+	 m/53ZN6rJeWKvtcQXQQJ3iEnhsL9g7P1DS9Og/U6Vjr85eg/AOYaRbebKPRI/i/tdP
+	 FIo7QC/Px87F29AJODalqNfz65MYEJdxTROTlIdk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DC48F80171;
-	Thu,  6 Apr 2023 09:48:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8CC4F8015B;
+	Thu,  6 Apr 2023 09:56:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86059F80246; Thu,  6 Apr 2023 09:48:46 +0200 (CEST)
+	id BD8B5F80246; Thu,  6 Apr 2023 09:56:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5E24FF8013D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 09:48:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E24FF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2F13DF80149
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 09:56:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F13DF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=xXuiMP6t;
+ header.s=susede2_rsa header.b=glmt0zl3;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=IvUM5jw0
+ header.s=susede2_ed25519 header.b=3ZDYf936
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B5AD2227D5;
-	Thu,  6 Apr 2023 07:48:40 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A42B71FD76;
+	Thu,  6 Apr 2023 07:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680767320;
+	t=1680767766;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nZatxLHq/PQvxUTvvjjQgwfTuM8zCLo8Lpiv4ofupx4=;
-	b=xXuiMP6t0Yb4lHOBWg0Ov3pnmykw8b6ats2umzaCGXd+JgW76MA/vEqEURfI4+3vlAERqm
-	CKmKV1/lFqAfLgF62o8Bfa5lgsyS/VhpoQFCKQTMC34CizgcHnSvcsLoFHo2ulsRWlbWTj
-	3PGTxs+q+aL7DATLxn76fTvpcIVueBU=
+	bh=lNejoVd0cX2l8bsV9GpkjOTU5kVjNcZbLK6zcJ0Aba8=;
+	b=glmt0zl3W0Nb1K+4vX768aaPh1879m+6dlKEvyyZA8dAkTJFlsh+Gr5G7s9B9kOA51zo5L
+	nia5Aq1rVyu/A8KKmu0JamX3nCr7qcgMjXf+mvNg4SQ9jtULRSxcyipeBWv3oJA9Sp6RdZ
+	Ki5Iu4VeBnAAih4RKLwpfboH/Mh6l/0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680767320;
+	s=susede2_ed25519; t=1680767766;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nZatxLHq/PQvxUTvvjjQgwfTuM8zCLo8Lpiv4ofupx4=;
-	b=IvUM5jw0GRv6HPlEVRXGD/C+2+0gs3jXJ1OTEwNjXaJuOhiFKRIP/ZiliVWIySx/u21t+N
-	iOYZhGqkRtjmtdBw==
+	bh=lNejoVd0cX2l8bsV9GpkjOTU5kVjNcZbLK6zcJ0Aba8=;
+	b=3ZDYf9363zWShK6cxPdV2NpNFGRAFF8u3BV+gbrwjrshU39G1HFhvfZgiLRK1KjhR+QTWA
+	itVcQI1YVvauUCAQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A0D771351F;
-	Thu,  6 Apr 2023 07:48:40 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8555D1351F;
+	Thu,  6 Apr 2023 07:56:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id KcnZJVh5LmS/TQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 07:48:40 +0000
-Date: Thu, 06 Apr 2023 09:48:40 +0200
-Message-ID: <87h6ttv4br.wl-tiwai@suse.de>
+	id PfLUHxZ7LmSXUQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 07:56:06 +0000
+Date: Thu, 06 Apr 2023 09:56:06 +0200
+Message-ID: <87fs9dv3zd.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] ALSA: document that struct __snd_pcm_mmap_control64 is
- messed up
-In-Reply-To: <ZC5q2zwCmhaTE6ba@ugly>
-References: <20230405201219.2197759-1-oswald.buddenhagen@gmx.de>
-	<87355dwnr8.wl-tiwai@suse.de>
-	<ZC5q2zwCmhaTE6ba@ugly>
+Subject: Re: [PATCH] docs: sound: kernel-api: writing-an-alsa-driver.rst:
+ polishing
+In-Reply-To: <ZC511SOI1BH6xKpo@ugly>
+References: <20230405201220.2197863-1-oswald.buddenhagen@gmx.de>
+	<87pm8hv6sg.wl-tiwai@suse.de>
+	<ZC511SOI1BH6xKpo@ugly>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 4YPGJCCP6IXOSVKXBGQPB7RNEMPZZ6QR
-X-Message-ID-Hash: 4YPGJCCP6IXOSVKXBGQPB7RNEMPZZ6QR
+Message-ID-Hash: LR6ML6PJ2WBKDUION3WIPCD7IZCAVPBP
+X-Message-ID-Hash: LR6ML6PJ2WBKDUION3WIPCD7IZCAVPBP
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4YPGJCCP6IXOSVKXBGQPB7RNEMPZZ6QR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LR6ML6PJ2WBKDUION3WIPCD7IZCAVPBP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,52 +118,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 06 Apr 2023 08:46:51 +0200,
+On Thu, 06 Apr 2023 09:33:41 +0200,
 Oswald Buddenhagen wrote:
 > 
-> On Thu, Apr 06, 2023 at 08:03:39AM +0200, Takashi Iwai wrote:
-> > On Wed, 05 Apr 2023 22:12:19 +0200,
+> On Thu, Apr 06, 2023 at 08:55:27AM +0200, Takashi Iwai wrote:
+> > On Wed, 05 Apr 2023 22:12:20 +0200,
 > > Oswald Buddenhagen wrote:
-> >> 
-> >> I suppose this can't be changed anymore due to binary compat concerns.
+> >> @@ -2262,7 +2156,7 @@ Typical code would be like the following.
+> >>                        /* over the period boundary? */
+> >>                        if (chip->size >= runtime->period_size) {
+> >>                                /* reset the accumulator */
+> >> -                              chip->size %= runtime->period_size;
+> >> +                              chip->size -= runtime->period_size;
+> >>                                /* call updater */
+> >>                                spin_unlock(&chip->lock);
+> >>                                snd_pcm_period_elapsed(substream);
 > > 
-> > Yes, please check the thread at
-> >  https://lore.kernel.org/all/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org/
+> > Hmm, this kind of change shouldn't be sneaked in.
+> > That's more than the typo fixes etc,
 > > 
-> >> +	__pad_before_uframe __pad2;	 // BUG: this should have been __pad_after_uframe!
-> > 
-> > Writing this alone doesn't help much.  Actual help would be to mention
-> > that this typo is kept intentionally.
-> > 
-> hmm, my thinking is that the immediate response to reading that
-> comment would be "so why don't you change it?!", at which point the
-> person would either realize by themselves that this is subject to
-> binary compat constraints, or would git-blame it and see the
-> explanation.
-> 
-> anyway, my concern is keeping this *short*, so it doesn't distract.
-> 
-> maybe
-> 
->   // BUG: should be __pad_after_uframe, but binary compat
-> 
-> would do, though obviously the grammar kinda sucks.
-> 
-> the (too) long version could be
-> 
->   // BUG: this should be __pad_after_uframe, but
->   // binary compatibility constraints prevent a fix.
-> 
-> choose your death, i'll deliver it. ;-)
+> true, the patch grew too big and i missed this hunk.
+> (i only kept it as one patch, because some pieces overlap and i didn't
+> want to add churn.)
 
-The "BUG:" suffix should be dropped.  This would catch eyes of (badly)
-trained kernel programmers as if it were a kernel panic message :)
+Maybe the changes could have been split from the first place, the
+mechanical changes to drop empty lines before "::", typo fixes, and
+text improvements, etc.  But I guess it's too late and I'm fine to
+apply this whole change as a single patch with the correction.
 
-Also the term "binary compatibility" is ambiguous in this context --
-especially because we're dealing with the code that treats the
-32/64bit binary compatibility.
 
-But, yeah, I'm for that direction.
+> > and even worse, it's a wrong replacement.
+> > 
+> hmm, yeah, if the timer ints are configured to occur too rarely, this
+> wouldn't do the right thing.
+> but then, why would they be? that would basically defeat the point of
+> using many periods in the first place. should i instead change the
+> text to emphasize that the ints should occur at least once per period?
+> (i've actually pondered the timer option in the context of the emu10k1
+> driver as well, and concluded that there should be two timer ints per
+> period, so snd_pcm_period_elapsed() is reliably called in the first
+> half of the next period, which is critical when only two periods are
+> configured.)
+
+No, the point is that, if an irq handler misses the multiple period
+updates, it has to handle the situation in a single shot, and the
+offset gets corrected to the value within the period size; using "-="
+instead of "%=" may leave the size over the period size in such a
+case, and this may return an invalid PCM pointer value in the end.
+
+The text about the irq handling could be improved, of course.
 
 
 thanks,

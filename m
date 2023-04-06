@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD38D6D8F09
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:05:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CEE6D8F15
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:10:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D21AD1F7;
-	Thu,  6 Apr 2023 08:04:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D21AD1F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB27B1FA;
+	Thu,  6 Apr 2023 08:09:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB27B1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680761122;
-	bh=rp5HQtE1o/Q9yvI1eqtxVDwlxLZ8alJ1tqymdQQ1khw=;
+	s=default; t=1680761447;
+	bh=NazCQr3bAhln/ePn3o1aXlvMTG9oQpnTawyfoEJblM8=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fVwREHGFACHae6qslPlyIb2OEIQue5NWHgaAq94wnM+E/PZehK/q34M4Nnqn6kdSp
-	 v1KbQMnXRjy6brp0HBMX5kkvrUinEG0Fq7Y35Y3jpcb05s0MYniTuDdc+pi9iXBD2K
-	 sd7Mzs4ZEqw4jVrZPfPw0zXB5IJKzc6kZApu4tec=
+	b=gpvpcHMMCTAiArUMQSQ0nZbHCvHr1AnbdvxctpKQ7GIIidXl9kpTDMdae6W5vg6Zk
+	 h25rtqqtfoM4A+y66hFKFaGIBf7nkXnSvJ1h3EgDOumqSlWtYpb25PDkyPc5oXw7UY
+	 9WXVbWomPqdAs6Gp4fxY17PMIBlycHWz90Wmf/X0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E178F80171;
-	Thu,  6 Apr 2023 08:04:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D75BF80171;
+	Thu,  6 Apr 2023 08:09:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EED81F80246; Thu,  6 Apr 2023 08:04:05 +0200 (CEST)
+	id CDF7BF80246; Thu,  6 Apr 2023 08:09:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00DFCF80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:03:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00DFCF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35D31F80149
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:09:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35D31F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=gGEUgAiF;
+ header.s=susede2_rsa header.b=FJ0SFm51;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Q1+Bl5Z7
+ header.s=susede2_ed25519 header.b=+47uklNr
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A460B1FF43;
-	Thu,  6 Apr 2023 06:03:39 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B59061FE9D;
+	Thu,  6 Apr 2023 06:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680761019;
+	t=1680761389;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KUgGoa2sSoKqvMvUDjGPqmnMRk93LVQcWD1Fb/OCBzk=;
-	b=gGEUgAiFS1H7HSGgzVl7nKBDhvoaLjHCyvQR1cjGIItovUUMtMQ3eU2m4+whqpD71SmGUR
-	XXpDZElVcK7My2z+M4MBE7dq+kSNMT0+a7o7bVYA4rhxNFYcyRvJd51H1mTSKoZYyBN46x
-	MH5xoK+fIE9agu3V3WymOfdOeB05aO0=
+	bh=nu37oTLNfK7cDTfYYuexRGbpGZu6hefHeKdYts7CxVk=;
+	b=FJ0SFm51t4seIe8eJt17sZhtnWBjNJVF18yJTdicBMbNKqH8GZyoDqpw2HWiTRF/1IFXrW
+	z24m9XtvAXIbVeGmRVWKobuaQGM/30DxCkvsslnQduYvLd6A2xfHCnLZnWh5EFw4veQ7bQ
+	K329kFjSw40CtXxOsItZk29Cjwm5mf8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680761019;
+	s=susede2_ed25519; t=1680761389;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KUgGoa2sSoKqvMvUDjGPqmnMRk93LVQcWD1Fb/OCBzk=;
-	b=Q1+Bl5Z7BbRxECBguBLePCtO1o+7QBZ+Qo9nr8mb4LCn8gAcNAqAkhee7/ZyDPrVPjecZ6
-	unLO5vRitf/fzUCQ==
+	bh=nu37oTLNfK7cDTfYYuexRGbpGZu6hefHeKdYts7CxVk=;
+	b=+47uklNrIu9WVPZPeL3+NOfiemV1LLPicA3ZStGoXTyGbjDemjzEfnFqpein5NRveUGpyx
+	5Eh5h5l88cQkHjDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8C433133E5;
-	Thu,  6 Apr 2023 06:03:39 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 96B91133E5;
+	Thu,  6 Apr 2023 06:09:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id tqqEIbtgLmSgHAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:03:39 +0000
-Date: Thu, 06 Apr 2023 08:03:39 +0200
-Message-ID: <87355dwnr8.wl-tiwai@suse.de>
+	id jkT4Iy1iLmSkHwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:09:49 +0000
+Date: Thu, 06 Apr 2023 08:09:49 +0200
+Message-ID: <871qkxwngy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] ALSA: document that struct __snd_pcm_mmap_control64 is
- messed up
-In-Reply-To: <20230405201219.2197759-1-oswald.buddenhagen@gmx.de>
-References: <20230405201219.2197759-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH] ALSA: i2c/cs8427: fix iec958 mixer control deactivation
+In-Reply-To: <20230405201219.2197811-1-oswald.buddenhagen@gmx.de>
+References: <20230405201219.2197811-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: TEB6S5WV6JVE44COT4IYCNSDSNNDT5L6
-X-Message-ID-Hash: TEB6S5WV6JVE44COT4IYCNSDSNNDT5L6
+Message-ID-Hash: H3U764ZPQALY2JZZF3EN3QZJ5QLQEYJ7
+X-Message-ID-Hash: H3U764ZPQALY2JZZF3EN3QZJ5QLQEYJ7
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TEB6S5WV6JVE44COT4IYCNSDSNNDT5L6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3U764ZPQALY2JZZF3EN3QZJ5QLQEYJ7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,29 +118,13 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On Wed, 05 Apr 2023 22:12:19 +0200,
 Oswald Buddenhagen wrote:
 > 
-> I suppose this can't be changed anymore due to binary compat concerns.
-
-Yes, please check the thread at
-  https://lore.kernel.org/all/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org/
-
-> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-> ---
->  include/uapi/sound/asound.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> snd_cs8427_iec958_active() would always delete
+> SNDRV_CTL_ELEM_ACCESS_INACTIVE, even though the function has an
+> argument `active`.
 > 
-> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
-> index de6810e94abe..595a683968bc 100644
-> --- a/include/uapi/sound/asound.h
-> +++ b/include/uapi/sound/asound.h
-> @@ -570,7 +570,7 @@ struct __snd_pcm_mmap_status64 {
->  struct __snd_pcm_mmap_control64 {
->  	__pad_before_uframe __pad1;
->  	snd_pcm_uframes_t appl_ptr;	 /* RW: appl ptr (0...boundary-1) */
-> -	__pad_before_uframe __pad2;
-> +	__pad_before_uframe __pad2;	 // BUG: this should have been __pad_after_uframe!
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Writing this alone doesn't help much.  Actual help would be to mention
-that this typo is kept intentionally.
+Thanks, applied.
 
 
 Takashi

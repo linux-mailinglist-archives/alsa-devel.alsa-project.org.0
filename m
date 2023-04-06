@@ -2,110 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E61646D9B8B
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 17:02:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60B276D9BAE
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 17:05:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6D20ED9;
-	Thu,  6 Apr 2023 17:01:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6D20ED9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C050EF3;
+	Thu,  6 Apr 2023 17:04:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C050EF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680793338;
-	bh=P43ElmAsX93VFPSHv4IXSYsDYMMMl79AyWqnX6zZydU=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1680793530;
+	bh=33vqUxRIpdpTIDv6WnFlP2Rag1D22LhV1VRJ3Uo6ICk=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Kh5TuNTF1p5HS6EA3ZhQjXDVPd45j1UmIIk02cJmkG88MQZVwPMedBiTeoSlGSDNe
-	 KmaGcOJFRHQWuh/mCTzpT61WhVwYVegR6Zrp6cI0IgrRLX4gPqNnKCq2YRvIiLVy0Q
-	 zxaeGaM3aEZ0LOY1cHc/ocejmzhZh04efXrlwEV4=
+	b=FAx6ImOlUPRvW6XYWK0rCL3uLXIvqXArFc0Q6lW8dje3AgQ2cuD6heYx//ArcCxNc
+	 Yh69OjdHjGgb7gjtd+ttJzVTOZQNBLZjV/ypGMOIFfnYA9ElIVUS3PcyxpN+AWWrzz
+	 ssDLzDYc6CRU1oh8jXXyi91LmNIRHY5hIwDbLU5s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19198F80171;
-	Thu,  6 Apr 2023 17:01:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97FCCF8052D;
+	Thu,  6 Apr 2023 17:03:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0082F80246; Thu,  6 Apr 2023 17:01:24 +0200 (CEST)
+	id A1F85F8052E; Thu,  6 Apr 2023 17:03:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5FF70F8015B
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 17:01:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FF70F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F8BDF80171
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 17:03:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F8BDF80171
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=bulNN/ha;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=p2/HfqPT
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=VIYZGmAU
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BBF3E2277D;
-	Thu,  6 Apr 2023 15:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680793280;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rkFAOuoZZGRLa/Itf5pOxP/nosmjxLeOoQzFJQ+UWgc=;
-	b=bulNN/hag/ltlA2zb+NGJM5m5WzFOVD+1L6iG5P3arrUWRAVL/cW822WWa1rozEhARcuTA
-	cnmWbHee6ZdMgdnchGNBUw70ZIkhIH6OtTAdz6y7SZOvz/5xOyeU01Eo6RenXhONa7Qly8
-	WkKSRALTVpsFy1sS6c8HjctS4R2xFIs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680793280;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rkFAOuoZZGRLa/Itf5pOxP/nosmjxLeOoQzFJQ+UWgc=;
-	b=p2/HfqPTenjBmqOX8gUzXKCGL2YoiJGA3nz6vqJxBsEFFMpB+SaqCFlBpU6zvoIRTzcznU
-	8uyWFfc8/kgDVtCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A4807133E5;
-	Thu,  6 Apr 2023 15:01:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ruNrJ8DeLmSuPwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 15:01:20 +0000
-Date: Thu, 06 Apr 2023 17:01:20 +0200
-Message-ID: <877cupt5q7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] ALSA: pcm: fix wait_time calculations
-In-Reply-To: <20230405201219.2197774-1-oswald.buddenhagen@gmx.de>
-References: <20230405201219.2197774-1-oswald.buddenhagen@gmx.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: EGVG6QJRRLVRPLNUKZ6GDGFXJHGFQSPE
-X-Message-ID-Hash: EGVG6QJRRLVRPLNUKZ6GDGFXJHGFQSPE
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C5A2160EC7;
+	Thu,  6 Apr 2023 15:03:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1495EC433D2;
+	Thu,  6 Apr 2023 15:03:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1680793415;
+	bh=33vqUxRIpdpTIDv6WnFlP2Rag1D22LhV1VRJ3Uo6ICk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=VIYZGmAUkPRAdufaC71TJHIapDebSn7OCiJFDqbFd32T6Dz5psrOzmWU2VSrtRU3O
+	 7/JUJ3SydHe0UkQe5jiKBwNMONgmQ+sV9JXK83wO9526gRBOfUMi0DSrfRojUq/CVa
+	 9XaiBSHmJeDUXsRny7Lr2SdsGhreFs1/wQGY7+kdho45vDd+hhfmccmhfkyDeuQDS3
+	 sRkuYotI58OpG/RlSbM+jIEa89yORzVSLxiulv85/wuEQvahAT79aZLraqJD+IjIGf
+	 nhjpMM7E2mHsKtcMxSf0ZuwqCQxpE1sxHGZmKXdQMBhZj7eIPkPiiJScx6U9Ypi9Cz
+	 7MtMuWtubRBMQ==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, shumingf@realtek.com
+In-Reply-To: <20230406085535.52002-1-shumingf@realtek.com>
+References: <20230406085535.52002-1-shumingf@realtek.com>
+Subject: Re: [PATCH v4] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic
+ topology
+Message-Id: <168079341266.66286.15067359243978973036.b4-ty@kernel.org>
+Date: Thu, 06 Apr 2023 16:03:32 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-00303
+Message-ID-Hash: SXRWTHVWGSPVZVSSOYQGFK3BAFRLOZO7
+X-Message-ID-Hash: SXRWTHVWGSPVZVSSOYQGFK3BAFRLOZO7
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
+ pierre-louis.bossart@intel.com, bard.liao@intel.com, Yijun.Shen@dell.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EGVG6QJRRLVRPLNUKZ6GDGFXJHGFQSPE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SXRWTHVWGSPVZVSSOYQGFK3BAFRLOZO7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,39 +95,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 05 Apr 2023 22:12:19 +0200,
-Oswald Buddenhagen wrote:
+On Thu, 06 Apr 2023 16:55:35 +0800, shumingf@realtek.com wrote:
+> This is the initial codec driver for rt712 SDCA (Mic topology).
+> The host should connect with rt712 SdW2 interface.
 > 
-> ... in wait_for_avail() and snd_pcm_drain().
 > 
-> t was calculated in seconds, so it would be pretty much always zero, to
-> be subsequently de-facto ignored due to being max(t, 10)'d. And then it
-> (i.e., 10) would be treated as secs, which doesn't seem right.
-> 
-> However, fixing it to properly calculate msecs would potentially cause
-> timeouts when using twice the period size for the default timeout (which
-> seems reasonable to me), so instead use the buffer size plus 10 percent
-> to be on the safe side ... but that still seems insufficient, presumably
-> because the hardware typically needs a moment to fire up. To compensate
-> for this, we up the minimal timeout to 100ms, which is still two orders
-> of magnitude less than the bogus minimum.
-> 
-> substream->wait_time was also misinterpreted as jiffies, despite being
-> documented as being in msecs. Only the soc/sof driver sets it - to 500,
-> which looks very much like msecs were intended.
-> 
-> Speaking of which, shouldn't snd_pcm_drain() also use substream->
-> wait_time?
 
-Yes, and unifying the code might make more sense.
+Applied to
 
-> As a drive-by, make the debug messages on timeout less confusing.
-> 
-> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-I applied this patch as is now to for-next branch.
+Thanks!
 
+[1/1] ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology
+      commit: 63a511284c9ea72696a5dd0a2d2721bdef19f774
 
-thanks,
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Takashi
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

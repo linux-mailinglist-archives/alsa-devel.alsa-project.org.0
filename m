@@ -2,113 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25FCC6D8F9C
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:41:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938876D8FA5
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 08:43:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2196F20C;
-	Thu,  6 Apr 2023 08:40:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2196F20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 610AD741;
+	Thu,  6 Apr 2023 08:42:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 610AD741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680763285;
-	bh=FpzXCvWsfiC4UQj2ZiOPldH80QOhaMQ8XJIJEGMvz84=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
+	s=default; t=1680763414;
+	bh=BRBRTUT2HUq0E0aiKu5/2t5YorIl3nRUrsWLgj4s93Q=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=H1hRZNQ3ZdSphUK6rhFez1oeo0qPIQ2tJM0SsQkn/Ep6YZMZSt/KnWRKm9SuoQkA2
-	 Ny97iXbiAcBMYtgHBeUzOORp81/W+5BGyFxJ0aTelzEG1NElk0g/zoPPLI0w+yuKRg
-	 Y8DqZG8GtE/fsf4er4BYOokxl14yt8h7Ul1ir9YQ=
+	b=WjPSYex0qnIMcP3+WYp8xynIsuEChiZihQlJDE2mF48ACORz78PRr7r8/RIdKZ71Q
+	 yCGwCoAzCK11NCN2pX4bpIvCFEqVkKMY2RjGqlx4aDzbj8eB261ELVUcMOsjBIqZNg
+	 AaQNAiFUJfskxJTBxZXtxuJvGcilXIHFKhp+gPy8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DBB4F80171;
-	Thu,  6 Apr 2023 08:40:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2083EF80171;
+	Thu,  6 Apr 2023 08:42:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8F5BF80246; Thu,  6 Apr 2023 08:40:29 +0200 (CEST)
+	id 39178F80246; Thu,  6 Apr 2023 08:42:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CCCA2F8015B
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:40:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCCA2F8015B
+	by alsa1.perex.cz (Postfix) with ESMTPS id BC849F80149
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 08:42:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC849F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=fnJmHXkS
-Received: by mail-ed1-x52b.google.com with SMTP id ew6so146732505edb.7
-        for <alsa-devel@alsa-project.org>;
- Wed, 05 Apr 2023 23:40:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680763218;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ufn8dXIrnh+56Iea4gFx0gEX9oFLFPbZkbSS9EDVPbA=;
-        b=fnJmHXkS2uyJjTmT3M6mMzRezWhpgHAgnt756Nb+ik0p9gixZjwrz7Z4/YqDN02THY
-         Be58g0grhcXPBndhQETpFchxKaPbVFYpiJmjBg9Lhb2Fg5/uiBYoTC/G4IQwh7t+4lqi
-         //UhTEXWr6WY9mRlSMJCl1nfISa9UByZ2o6RKHEm31XxuMu075zVF1gnbEZL82u+1nQL
-         Djf9YFGdGf2rBdQaOGFivSZp5laX4lswHSRNqPFbxE+6bpUYdixhefzOh/IRR1DHe2F7
-         HG3di5HCADSwluycWG3FxosUxs0jomgIzbAo3etbwibwYndaB0P+MNznCakHUpr9orB+
-         gtgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680763218;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Ufn8dXIrnh+56Iea4gFx0gEX9oFLFPbZkbSS9EDVPbA=;
-        b=RapgGvF8croTqHORicXX09M6I/T044b8g+f6AY/sS8ySWfyQn4NXz0A2O7WGnREez7
-         LMPMdV1xfgOsr5TUZ73p5Xgu6wmTLOB2hgd+6zMdgnBkvv4Dv303ZqDglv4usLywvPiw
-         qynh1bn/vesYKhgHFEcbQD381vH9lH3LYnC/PJuvE7NNgkhFwIwSDUtX8TMb4LKG5HVW
-         vQWhHeXufGSd26YW8HFnyZAkQQfWgzUZJdzmIYxYkhTs4eVStumkeyC3Ae/qozk8vUKO
-         ErK73Pt3EuMH+1l1Rcdl/Go2QQpjUrDlr2fMAg/lzrJbwk4/hJ7sWUigLGOHJqUkszcK
-         6X6w==
-X-Gm-Message-State: AAQBX9dHFcMRX05yo8Xoep5F5T4GDVDgnxiRp39qJUsI4nXKEuy2MUur
-	tuQC6nsOFFYGLm0GZ07gp8tbyOlrxnX1/HVQ6ag=
-X-Google-Smtp-Source: 
- AKy350ZaitaIP37QKRvJ09Xxq14dBzKuBhP+qsRlaK9rt9XekriZtwV+88QyzbMY8o0YYuKBJFV84rdt3YK3h7b9m5s=
-X-Received: by 2002:a17:906:3a8f:b0:947:335f:5a10 with SMTP id
- y15-20020a1709063a8f00b00947335f5a10mr2624674ejd.12.1680763218206; Wed, 05
- Apr 2023 23:40:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230405200341.4911-1-danascape@gmail.com>
- <168074344623.1301612.621743725976519280.robh@kernel.org>
-In-Reply-To: <168074344623.1301612.621743725976519280.robh@kernel.org>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 6 Apr 2023 09:40:06 +0300
-Message-ID: 
- <CAEnQRZBCN6JrjvaJSD5dnuLXOUyx8Y9LOucY_Fwqcf4ZZLuwJg@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: wm8904: Convert to dtschema
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: Z7WLQA3OQJIYVTOEYWKBR3OGIPVBA4Y3
-X-Message-ID-Hash: Z7WLQA3OQJIYVTOEYWKBR3OGIPVBA4Y3
-X-MailFrom: daniel.baluta@gmail.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=wBZywpAp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=+DtIGK8c
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6E8301FD76;
+	Thu,  6 Apr 2023 06:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1680763348;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iC3kUwHu8SLilRzM89HjW/0kK1qVKLSU+HjqB7XTocg=;
+	b=wBZywpApN3dbrglYG5Lti766yjc4OfkPXw+9vhactMEp0+u0NNTmNIr6eCiuYrvTWrVWtb
+	vNiEU2WBaLQdz46J62Jgwly5t+vtvsE/ukqzwi6tmmrh986hMoDCTbqxLEpUoXfn4BEHSz
+	mJeNnQiZOqg09kqlnc/IG6kRbfikCNc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1680763348;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iC3kUwHu8SLilRzM89HjW/0kK1qVKLSU+HjqB7XTocg=;
+	b=+DtIGK8c7kmc2BE1uNdGM6y7mcdNNmJt/ViVQ6bkSD0F55uTeyDnN9rpsyGbsgbRnUN+lq
+	YJVxxBE2+g4rebAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55DC5133E5;
+	Thu,  6 Apr 2023 06:42:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id PptCFNRpLmSMLQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 06:42:28 +0000
+Date: Thu, 06 Apr 2023 08:42:27 +0200
+Message-ID: <87sfddv7e4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [RFC PATCH] docs: sound: kernel-api: writing-an-alsa-driver.rst:
+ add FIXMEs
+In-Reply-To: <20230405201220.2197878-1-oswald.buddenhagen@gmx.de>
+References: <20230405201220.2197878-1-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-2022-JP
+Message-ID-Hash: CP7WXEHVPPW4AVN4IE7V5RYS5FXMMTEC
+X-Message-ID-Hash: CP7WXEHVPPW4AVN4IE7V5RYS5FXMMTEC
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Saalim Quadri <danascape@gmail.com>, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, daniel.baluta@nxp.com, robh+dt@kernel.org,
- broonie@kernel.org, patches@opensource.cirrus.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z7WLQA3OQJIYVTOEYWKBR3OGIPVBA4Y3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CP7WXEHVPPW4AVN4IE7V5RYS5FXMMTEC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,40 +116,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Apr 6, 2023 at 4:24=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
->
->
-> On Thu, 06 Apr 2023 01:33:41 +0530, Saalim Quadri wrote:
-> > Convert the WM8904 audio CODEC bindings to DT schema
-> >
-> > Signed-off-by: Saalim Quadri <danascape@gmail.com>
-> > ---
-> >  .../devicetree/bindings/sound/wlf,wm8904.yaml | 66 +++++++++++++++++++
-> >  .../devicetree/bindings/sound/wm8904.txt      | 33 ----------
-> >  2 files changed, 66 insertions(+), 33 deletions(-)
-> >  create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8904.=
-yaml
-> >  delete mode 100644 Documentation/devicetree/bindings/sound/wm8904.txt
-> >
->
-> Running 'make dtbs_check' with the schema in this patch gives the
-> following warnings. Consider if they are expected or the schema is
-> incorrect. These may not be new warnings.
->
-So, these properties are present in some dts files! We need to
-evaluated if they are always expected
-or can be optional.
+On Wed, 05 Apr 2023 22:12:20 +0200,
+Oswald Buddenhagen wrote:
+> 
+> @@ -1646,11 +1647,11 @@ Typically, you'll have a hardware descriptor as below::
+>  
+>     The “period” is a term that corresponds to a fragment in the OSS
+>     world. The period defines the point at which a PCM interrupt is
+>     generated. This point strongly depends on the hardware. Generally,
+>     a smaller period size will give you more interrupts, that is,
+> -   more controls. In the case of capture, this size defines the input
+> +   more controls (FIXME: huh? granularity, maybe?). In the case of capture, this size defines the input
 
-> Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-> This will change in the future.
->
-> Full log is available here: https://patchwork.ozlabs.org/project/devicetr=
-ee-bindings/patch/20230405200341.4911-1-danascape@gmail.com
->
->
-> audio-codec@1a: Unevaluated properties are not allowed ('AVDD-supply', 'C=
-PVDD-supply', 'DBVDD-supply', 'DCVDD-supply', 'MICVDD-supply' were unexpect=
-ed)
->         arch/arm64/boot/dts/freescale/imx8mm-verdin-nonwifi-dahlia.dtb
->         arch/arm64/boot/dts/freescale/imx8mm-verdin-wifi-dahlia.dtb
->
+Well, "controls" might be no good choice of the word, it was meant as
+"the opportunities returned from kernel back to user-space for sending
+/ receiving the defined size of data".  This isn't really granularity,
+strictly speaking, but it may be a better fit.
+
+>  DMA Buffer Information
+>  ~~~~~~~~~~~~~~~~~~~~~~
+>  
+> +// FIXME: this is outdated; dma_private is available only through dma_buffer_p!
+
+It's written so:
+  ``dma_private`` is used for the ALSA DMA allocator.
+
+And, this field can be used still freely if you implement the full
+stack in the driver by itself instead of using the standard helpers.
+
+> @@ -1709,10 +1711,11 @@ Running Status
+>  The running status can be referred via ``runtime->status``. This is
+>  a pointer to a struct snd_pcm_mmap_status record.
+>  For example, you can get the current
+>  DMA hardware pointer via ``runtime->status->hw_ptr``.
+>  
+> +// FIXME: DMA application pointer is not explained.
+
+A better description please ;)
+
+> @@ -2010,10 +2013,12 @@ is called by the interrupt routine. Then the PCM middle layer updates
+>  the position and calculates the available space, and wakes up the
+>  sleeping poll threads, etc.
+>  
+>  This callback is also atomic by default.
+>  
+> +FIXME: this does not specifiy whether this is the pre- or post-fifo position.
+> +
+
+Again, a patch to add more description please.
+
+> @@ -2384,10 +2389,14 @@ fields.
+>  
+>  The ``name`` is the name identifier string. Since ALSA 0.9.x, the
+>  control name is very important, because its role is classified from
+>  its name. There are pre-defined standard control names. The details
+>  are described in the `Control Names`_ subsection.
+> +// This is a questionable design, IMO. Why user-space heuristics when
+> +// the driver could set the roles/capabilities? This would avoid
+> +// problems like the Tone Control sliders (unlike the switch?!) being
+> +// misclassified as applying also to capture.
+
+Why this has to be discussed here and now...?
+It's the thing that was *defined* over two decades ago.
+
+
+>  The ``index`` field holds the index number of this control. If there
+>  are several different controls with the same name, they can be
+>  distinguished by the index number. This is the case when several
+>  codecs exist on the card. If the index is zero, you can omit the
+> @@ -2485,10 +2494,11 @@ a control constantly.
+>  When the control may be updated, but currently has no effect on anything,
+>  setting the ``INACTIVE`` flag may be appropriate. For example, PCM
+>  controls should be inactive while no PCM device is open.
+>  
+>  There are ``LOCK`` and ``OWNER`` flags to change the write permissions.
+> +// FIXME: explain.
+
+A patch please.
+
+
+>  Control Callbacks
+>  -----------------
+>  
+>  info callback
+> @@ -3355,10 +3365,11 @@ Buffer and Memory Management
+>  ============================
+>  
+>  Buffer Types
+>  ------------
+>  
+> +// FIXME: this appears obsolete, i only found one pair of functions.
+
+Yes, snd_malloc_pages() and snd_free_pages() have been replaced with
+the managed buffer.
+
+> @@ -3670,10 +3681,11 @@ user (root by default), do as follows::
+>   entry->mode = S_IFREG | S_IRUGO | S_IWUSR;
+>  
+>  and set the write buffer size and the callback::
+>  
+>    entry->c.text.write = my_proc_write;
+> +  // FIXME: something's missing here?
+
+No, that's fine.  Rather the line above it (mentioning the write
+buffer size) is outdated; there is no size to be specified.
+
+
+thanks,
+
+Takashi

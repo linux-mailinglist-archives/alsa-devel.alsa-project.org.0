@@ -2,111 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B8F46D900E
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 09:04:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1EB26D9033
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 09:10:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C48047F8;
-	Thu,  6 Apr 2023 09:03:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C48047F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D5D37F1;
+	Thu,  6 Apr 2023 09:09:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D5D37F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680764674;
-	bh=2vUQ6zD3fBOy5Gy7ceZYTAaFAszRPYStg3uGV6fQd2c=;
+	s=default; t=1680765043;
+	bh=tB9AtNUkWALfyskHr2yy0kjORxhaaumhw8ao8yu6AGM=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gmag/MAcIMLT4kgrXVaa0Bv1KYTVhxqA4N4bj7xujJkEA5UgP780zKadu5EZbKVoV
-	 aX5H7l1Q4oZezPCmHqvBe6dmpk6Xm7bUErt53hArFuFY1n38P1WHHPi89MplOAoTNX
-	 hMJ0Z1EbZj+RwhH2eM9qrpbT+4hHWI9sxbbP+NIQ=
+	b=i5++1lbel+yFnc2nQEFdHy0xroVgCPtNu7MkjHSOyaBYOmJdt4bLis007CfVlCGEa
+	 G00TWXWKV7AY2aLpksD0N438j1yIXA8S1A2GqfGBU+ePnVHUt0cApWJjpJB907OuZP
+	 3DRjkoFf/WkYrjVoajTDXcJeQbx6ZTMQ9/uWWK5o=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37B58F80171;
-	Thu,  6 Apr 2023 09:03:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF6FFF80171;
+	Thu,  6 Apr 2023 09:09:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE8AFF80246; Thu,  6 Apr 2023 09:03:39 +0200 (CEST)
+	id 077F7F80246; Thu,  6 Apr 2023 09:09:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41A86F80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 09:03:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41A86F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id E344DF8013D
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 09:09:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E344DF8013D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=hVmARTOW
-Received: by mail-ed1-x52c.google.com with SMTP id r11so146980499edd.5
+ header.s=google header.b=QkzsACok
+Received: by mail-ed1-x533.google.com with SMTP id w9so147023215edc.3
         for <alsa-devel@alsa-project.org>;
- Thu, 06 Apr 2023 00:03:32 -0700 (PDT)
+ Thu, 06 Apr 2023 00:09:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680764611;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=linaro.org; s=google; t=1680764984;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xt6w7DBEEp2oP9gq6uM1fJrHBdn8VFiv3bhU+Z8knvc=;
-        b=hVmARTOWOi8zcXg/wquYPGxpaxjcdvjoCiWvCn/vQkTDpU56ZAhW4rutJ//Xzx6vz6
-         sk3iRLVpvhW3aaX6lykCTeKgQdHEX3JMgzS3Fd8W/zp/KAEo3Uym7g3mEqBTKJ918jtL
-         ZptyNafVhadzQfCoJ9p/gMqw2crPzdyyUqSqaxzOQBoP36R43wjUYT0BWvOWLp/G4g4r
-         w2MNwZyMW99BYuaI53XP55LtMnPpEKKSs3VklWerLWaPLAqduIdjf2PAm+v4eSgUnQ3P
-         4jdU3H4yFFIg4N6F6dc7AXYvM5/+VezfVxrJ8j51k/LsJlDEj4wZKerHQUaes0qBUMwa
-         FFTQ==
+        bh=yc9Xvq+z5mbuXb3hSjcOx0+2lF1uMWYl+pWLfV4JER0=;
+        b=QkzsACok/1Sni8jj0r4LfW0kSqPlKfomfvcLFAqY/8+wPN2iAPUMQDvDsnpzZ2a8dl
+         OrbTJ8DnxlvjZPg9tx/bjyMU7hMcYLjtBoYP/11PrtRgfxc496fOqRaL6j+nMjxbqRzc
+         an9SU748kO3qMcNuNCBJVQwRCemtYT5umtRg0lxgFfjEbdvNm7lEQkgTkdrJ9ChFNp5L
+         C9jtBUE6pmatQA7SBQ0CkGAbj1z04qFguKVND7e8o9aEjTYXC9xzT9xTSSHZjxQDeIoL
+         XkyHWRrbpbrUJfjYuF9Jb0CsDTGSELl2YflsC85EDaC3SRBC2UER5idovmntKf26qU5K
+         lnCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680764611;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20210112; t=1680764984;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xt6w7DBEEp2oP9gq6uM1fJrHBdn8VFiv3bhU+Z8knvc=;
-        b=LcQIjSP9hGD+Ze3HVhK1QeE0vjuwqUWLLlLSqB3/DWcNYiWqolEp3c/5vQngJTminv
-         vCA9rQJe/tj6J5zFqAMO0YSNuUBfMChXdOcEPFnGzuEaCQM8eKPShKM2Z3IXDeRHCpmI
-         sO1LKY6GTgnLRr1oVdWd0rjLIdRmRBcfOMJOXsvn5In8hhrUsFyMNxul5mM9YDl/0qXI
-         p+4C76EKOwy5/X1ucfDlrZ/MpLIcqzXZklGb8LZ9TVUgc/2O+/dt9OJHqQJUW64JG0c5
-         oGjDhA6alzUEHuEJ0GVqJ0GQRJ93BVLUhzuZzXlBMbbfEqkRCoePG572AV9dOX3891uc
-         lLYA==
-X-Gm-Message-State: AAQBX9dOHWEoUkpsmqoxKxn5vCmjUGynB1smPqem9SwYE2h/qwKuJUB2
-	JMIY/JvDKOxI/R195IVY0ThYug==
+        bh=yc9Xvq+z5mbuXb3hSjcOx0+2lF1uMWYl+pWLfV4JER0=;
+        b=gXazBi0+M81K2T88TRyCgMQjX/E02XPAG+V4avsk+NNSAEdPDBOwO91Mztsc+VgqOR
+         5LFiXo4iQ4ThjiYodUX8sn6x/Mv9lAfzn0Zv2zYQOI7XicPEspjtOVE8ssZfKqwiOkg9
+         LYgrC8/x9GRF4NKIb1hHvmPbLjESQBc5wQZm8u3hAdtaKLbqlWVwOsaDFf/NBkNZ+k2R
+         P0ep8ra6H8Y2mzkCLDRhJlTgnkPIkQIz3pZ2bRHEjExQqdDjA8n1J/q9/F8RtuKZibVR
+         tYxYPvX1J9jRgg8bXDDbA76nK1+0tRqJwc1Tx4j5l/AdfU93DILP56Ke0Oc+eauiK4t6
+         hsEA==
+X-Gm-Message-State: AAQBX9fCqejPlPRCUhfsA/Uo4JKoz+NBQbOkt/8tvgoBtNTty95NMHtm
+	FoX4kK9Va3FhCljsvPKZPXophA==
 X-Google-Smtp-Source: 
- AKy350YnhKpndWCuKkoEX1F9XMUWGFxBZSXdLPSCgbRgT7xN4Z0Df2myKsprNtK3DO5NAXHENav20w==
-X-Received: by 2002:a17:906:9145:b0:931:df8d:113 with SMTP id
- y5-20020a170906914500b00931df8d0113mr4673121ejw.26.1680764611021;
-        Thu, 06 Apr 2023 00:03:31 -0700 (PDT)
+ AKy350Zp1l1KeFsRGmVCa9OnDanG64NjDJaLJSZDT21j8lyW/hwaEqXRHjxJS3SKJj6dXAYUhstz2w==
+X-Received: by 2002:a17:906:209d:b0:947:405a:955f with SMTP id
+ 29-20020a170906209d00b00947405a955fmr5394149ejq.31.1680764984065;
+        Thu, 06 Apr 2023 00:09:44 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:49e6:bb8c:a05b:c4ed?
  ([2a02:810d:15c0:828:49e6:bb8c:a05b:c4ed])
         by smtp.gmail.com with ESMTPSA id
- f13-20020a170906c08d00b0092f289b6fdbsm390050ejz.181.2023.04.06.00.03.30
+ q18-20020a1709063d5200b0093237bd4bc3sm401755ejf.116.2023.04.06.00.09.43
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Apr 2023 00:03:30 -0700 (PDT)
-Message-ID: <11de8706-5753-472b-1fe0-de80bb3d8c8c@linaro.org>
-Date: Thu, 6 Apr 2023 09:03:29 +0200
+        Thu, 06 Apr 2023 00:09:43 -0700 (PDT)
+Message-ID: <4c1b8ab9-ab03-639a-78e7-ca75131ecc81@linaro.org>
+Date: Thu, 6 Apr 2023 09:09:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH] soundwire: qcom: Fix enumeration of second device on the
- bus
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20230405142926.842173-1-krzysztof.kozlowski@linaro.org>
- <ecc13046-1a4f-77e7-c4dc-a5a4c1248572@linux.intel.com>
+Subject: Re: [PATCH] ASoC: dt-bindings: wm8904: Convert to dtschema
 Content-Language: en-US
+To: Daniel Baluta <daniel.baluta@gmail.com>, Rob Herring <robh@kernel.org>
+References: <20230405200341.4911-1-danascape@gmail.com>
+ <168074344623.1301612.621743725976519280.robh@kernel.org>
+ <CAEnQRZBCN6JrjvaJSD5dnuLXOUyx8Y9LOucY_Fwqcf4ZZLuwJg@mail.gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <ecc13046-1a4f-77e7-c4dc-a5a4c1248572@linux.intel.com>
+In-Reply-To: 
+ <CAEnQRZBCN6JrjvaJSD5dnuLXOUyx8Y9LOucY_Fwqcf4ZZLuwJg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: SY6P5WDN5RE7ZCMKHQROCQP477VJ3H74
-X-Message-ID-Hash: SY6P5WDN5RE7ZCMKHQROCQP477VJ3H74
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 67GE34FRUJHGW5VEXF4KZOFBQL4TRG3F
+X-Message-ID-Hash: 67GE34FRUJHGW5VEXF4KZOFBQL4TRG3F
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,13 +108,17 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: stable@vger.kernel.org, Patrick Lai <quic_plai@quicinc.com>
+CC: Saalim Quadri <danascape@gmail.com>, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, daniel.baluta@nxp.com, robh+dt@kernel.org,
+ broonie@kernel.org, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SY6P5WDN5RE7ZCMKHQROCQP477VJ3H74/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/67GE34FRUJHGW5VEXF4KZOFBQL4TRG3F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,48 +127,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 05/04/2023 17:01, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 4/5/23 09:29, Krzysztof Kozlowski wrote:
->> Some Soundwire buses (like &swr0 on Qualcomm HDK8450) have two devices,
->> which can be brought from powerdown state one after another.  We need to
->> keep enumerating them on each slave attached interrupt, otherwise only
->> first will appear.
+On 06/04/2023 08:40, Daniel Baluta wrote:
+> On Thu, Apr 6, 2023 at 4:24 AM Rob Herring <robh@kernel.org> wrote:
 >>
->> Cc: <stable@vger.kernel.org>
->> Fixes: a6e6581942ca ("soundwire: qcom: add auto enumeration support")
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 >>
->> ---
+>> On Thu, 06 Apr 2023 01:33:41 +0530, Saalim Quadri wrote:
+>>> Convert the WM8904 audio CODEC bindings to DT schema
+>>>
+>>> Signed-off-by: Saalim Quadri <danascape@gmail.com>
+>>> ---
+>>>  .../devicetree/bindings/sound/wlf,wm8904.yaml | 66 +++++++++++++++++++
+>>>  .../devicetree/bindings/sound/wm8904.txt      | 33 ----------
+>>>  2 files changed, 66 insertions(+), 33 deletions(-)
+>>>  create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8904.yaml
+>>>  delete mode 100644 Documentation/devicetree/bindings/sound/wm8904.txt
+>>>
 >>
->> Cc: Patrick Lai <quic_plai@quicinc.com>
->> ---
->>  drivers/soundwire/qcom.c | 11 +++--------
->>  1 file changed, 3 insertions(+), 8 deletions(-)
+>> Running 'make dtbs_check' with the schema in this patch gives the
+>> following warnings. Consider if they are expected or the schema is
+>> incorrect. These may not be new warnings.
 >>
->> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
->> index c296e0bf897b..1e5077d91f59 100644
->> --- a/drivers/soundwire/qcom.c
->> +++ b/drivers/soundwire/qcom.c
->> @@ -587,14 +587,9 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
->>  			case SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS:
->>  				dev_dbg_ratelimited(swrm->dev, "SWR new slave attached\n");
->>  				swrm->reg_read(swrm, SWRM_MCP_SLV_STATUS, &slave_status);
->> -				if (swrm->slave_status == slave_status) {
->> -					dev_dbg(swrm->dev, "Slave status not changed %x\n",
->> -						slave_status);
-> 
-> it's not clear to me how removing this test helps with the two-device
-> configuration?
-> 
-> Or is this a case where the status for both devices changes at the same
-> time but the interrupt status remains set, so the next iteration of the
-> loop is ignored?
+> So, these properties are present in some dts files! We need to
+> evaluated if they are always expected
+> or can be optional.
 
-I think the patch is not correct. I misinterpreted the slave status
-field and after double checking I see two speakers bound. Please ignore
-for now.
+I assume the DTSes are tested when you submit new DT schema conversion...
 
 Best regards,
 Krzysztof

@@ -2,117 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 720916D96EF
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 14:18:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E3E6D9707
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 14:30:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2409C886;
-	Thu,  6 Apr 2023 14:17:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2409C886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0628AA4E;
+	Thu,  6 Apr 2023 14:29:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0628AA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680783523;
-	bh=GRjR8A4WRVIKD4oRHpVco0s9yZEfy/2WeB9lg2vWiOg=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1680784247;
+	bh=lkFOoqHCc3fEByQRPnJASsL0FWzoCgLTbdpUE0IHJk0=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XVXG0vRhssv064e8JA+ouuoTPFt0BKXysup5LBqjPWpzr53ZpjYJv4nhhokOik6uy
-	 ZG+Av42GO2dZL5syMkzWTuQb8+GeI1lPZ0vvoB4KZrgpD3IMVJgZTy6BolfkyRmOVa
-	 MDVzoIdFzw0FOG0ve+GvmXXwmr3hVnFp3jWeB918=
+	b=SSZTfpUGUkGojdnB99Q04xZ58rEAtZMgF4EkDKVDETNKyjSI3a6RwghLN2BZi6aVA
+	 HDLg3w6zdGP+UB5x4vToQPzxLK/Ip8awxVZogP/337KPxrIIFdixGOcjfmCPY/i/6e
+	 VuqoVmm770Y8V7WIBhuhjLQSk1qxQafrxfFrXbZs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AB60F80171;
-	Thu,  6 Apr 2023 14:17:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D51FF80149;
+	Thu,  6 Apr 2023 14:29:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88C01F80246; Thu,  6 Apr 2023 14:17:49 +0200 (CEST)
+	id A3400F80149; Thu,  6 Apr 2023 14:29:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F85AF8013D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 14:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F85AF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id F33F5F80149
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 14:29:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F33F5F80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=pwP0uwEl
-Received: by mail-wr1-x433.google.com with SMTP id y14so39343982wrq.4
-        for <alsa-devel@alsa-project.org>;
- Thu, 06 Apr 2023 05:17:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680783464; x=1683375464;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=n61jYAD6dPbw2otCpc4Oe8515REV5GC/8MPBAjpZGx4=;
-        b=pwP0uwEleAdlRfKZhE0uiqwhlnA3U7GlSgk3rUVwS5G/kOUN3xH+7PxvvgcidbdkMl
-         fENbAOvC1T6CvM7u4vNo2GgHMjhU78JDEJFjm0bfTpzGd+qzyZucl5A4cApaEe1Qekkl
-         lNj7skaOIVzE+UbjOoJm3Lv3XTKdSpeLQWAaUDYXRx7RpOnhWb/QTUX4XEhh06R90n3g
-         4kdIOBOejsNsTLZBPyvkP5G+jZg6auWR7qUGMu5AtUfGOvkjlHwvPRUO2kUdCX0UJkrS
-         siKJegkxUKRil3bxcciqkACy9fyWcjA94ik2BZCTiqCpQtFWyL9cKb4CzQ4XzABd7GTn
-         9aTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680783464; x=1683375464;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=n61jYAD6dPbw2otCpc4Oe8515REV5GC/8MPBAjpZGx4=;
-        b=YybBzdIZt07XikBjEj3YnOGRfEHVprnU+dXgiSb5uOUUO7KXvY8Nt4z3CbCPYZshMr
-         jWqA1+ip0dFx7IWKjujbGT2ZwR4Flf7RjItAhNPFz0tBQW+UuNsFho6+16WK65cm8Zrv
-         Ky7mdcTwnd4/fAVP0YMzws7bNkzIUqIaCzpSD6i91Y7QYBF59LxIRFUkQlo5RB3bTn74
-         W+vjEoOhv9JoLPeVJ6+m4rRqo2y8mC+1kKy4rHik9pblN3klubgpT4vjUtGif69vo+Dj
-         aLV6eIb/jSl2tABnPjIs/hlvXI/0DS992AN+1jO3BvJLyj0KjORvN4BCLKoLOrc7DePy
-         FvKQ==
-X-Gm-Message-State: AAQBX9eitJMmi3gshhxQzDSpMx45uEFpfG0ZQuI/yy3TBkAts0JRH9Go
-	Vt8T8OjJilvibK9Q5VxWHc0=
-X-Google-Smtp-Source: 
- AKy350au71EVpD159cTUd4VgIxLFQjQvHIgjYwc5kQMc1R19GrugvM5hnbCNZANl56ZOuAii2H7xBA==
-X-Received: by 2002:a5d:604c:0:b0:2d7:6035:7d20 with SMTP id
- j12-20020a5d604c000000b002d760357d20mr7271212wrt.15.1680783464585;
-        Thu, 06 Apr 2023 05:17:44 -0700 (PDT)
-Received: from localhost ([102.36.222.112])
-        by smtp.gmail.com with ESMTPSA id
- d7-20020adfef87000000b002daeb108304sm1634365wro.33.2023.04.06.05.17.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Apr 2023 05:17:44 -0700 (PDT)
-Date: Thu, 6 Apr 2023 15:17:41 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Subject: Re: [PATCH] soundwire: amd: fix an IS_ERR() vs NULL bug
-Message-ID: <a668e9cd-d19d-4647-8ecd-6a9fc03f68c9@kili.mountain>
-References: <3be30516-a1b0-412b-8379-06011855e46f@kili.mountain>
- <701bef7f-77bb-63a6-429f-1293519a6b21@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <701bef7f-77bb-63a6-429f-1293519a6b21@amd.com>
-Message-ID-Hash: GVCTFKVQNXYRQLPBX5SC5DB3GLPDWVKY
-X-Message-ID-Hash: GVCTFKVQNXYRQLPBX5SC5DB3GLPDWVKY
-X-MailFrom: error27@gmail.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=zJOJz1Dq;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=US/5YUxN
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D8BF422051;
+	Thu,  6 Apr 2023 12:29:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1680784184;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H/bBlNHnFNzsTbREAw2mouTIoK99/U2OlzugIrfkBoc=;
+	b=zJOJz1DqnGAC/7krjQA0bfzKHtYkLQfcmZfx5xwACX9+adFEMjhcpw9S6kNLcXg8xNJaoN
+	bOEQ+g/uGd62aAS3pOfwJZi0rP+Gdt9F0WKdnqJ1ZJ/GcmkV1gYQs+490Ik7vqDCPPF07v
+	LiutzxwSdMA+w0Gji2TLe0xGEpJqnW4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1680784184;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H/bBlNHnFNzsTbREAw2mouTIoK99/U2OlzugIrfkBoc=;
+	b=US/5YUxN71e4iWIfHNVlx72+i+uhwx95Sw6kT1PeJRDyuMekJoxI9e5VoCCPNMDjtnSXuL
+	CD3wwsExfxb6WcCA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C1F3E1351F;
+	Thu,  6 Apr 2023 12:29:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id tBmMLji7LmRXaQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 12:29:44 +0000
+Date: Thu, 06 Apr 2023 14:29:44 +0200
+Message-ID: <87ttxttcqv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH v2] ALSA: document that struct __snd_pcm_mmap_control64 is
+ messed up
+In-Reply-To: <20230406111545.2240797-1-oswald.buddenhagen@gmx.de>
+References: <87h6ttv4br.wl-tiwai@suse.de>
+	<20230406111545.2240797-1-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: LN36Y7NEHJPUQQT7PDCT2Z3IWSB6KQ45
+X-Message-ID-Hash: LN36Y7NEHJPUQQT7PDCT2Z3IWSB6KQ45
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GVCTFKVQNXYRQLPBX5SC5DB3GLPDWVKY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LN36Y7NEHJPUQQT7PDCT2Z3IWSB6KQ45/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,36 +116,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Apr 06, 2023 at 05:32:21PM +0530, Mukunda,Vijendar wrote:
-> On 06/04/23 14:26, Dan Carpenter wrote:
-> > The devm_ioremap() function returns NULL on error.  It never returns
-> > error pointers.  Update the error checking accordingly.
-> >
-> > Fixes: a673a8dfc214 ("soundwire: amd: Add support for AMD Manager driver")
-> > Signed-off-by: Dan Carpenter <error27@gmail.com>
-> > ---
-> >  drivers/soundwire/amd_manager.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> > index 9fb7f91ca182..9bb8ae8c5f32 100644
-> > --- a/drivers/soundwire/amd_manager.c
-> > +++ b/drivers/soundwire/amd_manager.c
-> > @@ -910,9 +910,9 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
-> >  		return -ENOMEM;
-> >  
-> >  	amd_manager->acp_mmio = devm_ioremap(dev, res->start, resource_size(res));
-> > -	if (IS_ERR(amd_manager->mmio)) {
-> > +	if (!amd_manager->mmio) {
-> This will break the functionality.  Condition should be
-> if (!amd_manager->acp_mmio)
+On Thu, 06 Apr 2023 13:15:45 +0200,
+Oswald Buddenhagen wrote:
 > 
-> >  		dev_err(dev, "mmio not found\n");
-> > -		return PTR_ERR(amd_manager->mmio);
-> > +		return -ENOMEM;
+> On Thu, Apr 06, 2023 at 09:48:40AM +0200, Takashi Iwai wrote:
+> >The "BUG:" suffix should be dropped.  This would catch eyes of (badly)
+> >trained kernel programmers as if it were a kernel panic message :)
+> >
+> done
+> 
+> >Also the term "binary compatibility" is ambiguous in this context --
+> >especially because we're dealing with the code that treats the
+> >32/64bit binary compatibility.
+> >
+> i wasn't sure what to make of that. how about this:
+> 
+> -- >8 --
+> 
+> I'm not the first one to run into this, see e.g.
+> https://lore.kernel.org/all/29QBMJU8DE71E.2YZSH8IHT5HMH@mforney.org/
+> 
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> ---
+>  include/uapi/sound/asound.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+> index de6810e94abe..7eecc99ddef7 100644
+> --- a/include/uapi/sound/asound.h
+> +++ b/include/uapi/sound/asound.h
+> @@ -570,7 +570,8 @@ struct __snd_pcm_mmap_status64 {
+>  struct __snd_pcm_mmap_control64 {
+>  	__pad_before_uframe __pad1;
+>  	snd_pcm_uframes_t appl_ptr;	 /* RW: appl ptr (0...boundary-1) */
+> -	__pad_before_uframe __pad2;
+> +	__pad_before_uframe __pad2;	 // This should be __pad_after_uframe, but binary
+> +					 // backwards compatibility constraints prevent a fix.
 
-Ah crap.  You're right.  Thanks.  I will resend.
+Looks much better.
+Care to resubmit v2 patch?
 
-regards,
-dan carpenter
 
+Thanks!
+
+Takashi

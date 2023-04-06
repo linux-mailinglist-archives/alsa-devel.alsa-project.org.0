@@ -2,97 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 152346D9B4E
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 16:54:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E61646D9B8B
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 17:02:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4AE1ED3;
-	Thu,  6 Apr 2023 16:53:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4AE1ED3
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6D20ED9;
+	Thu,  6 Apr 2023 17:01:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6D20ED9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680792880;
-	bh=NbFh4VsfBCR1VOhwyuL4rllODSvMjtWBuMrplPeFMnM=;
+	s=default; t=1680793338;
+	bh=P43ElmAsX93VFPSHv4IXSYsDYMMMl79AyWqnX6zZydU=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ik/yV9k1WlJg7dWE3i8dSv35mK0EvBt+c9baqdClBzLnmJjRJMYO6BR+gyiDeI0zl
-	 E40mke1H6e7vZGrS/oBioCWZ0/9uWxV8xiDjx0uw2Hx9xfYviyGYlkom0Iy2NMSvTZ
-	 T7xmuAQVdk+TQDisd3gsZYsxOA63zPNlMwQfglhY=
+	b=Kh5TuNTF1p5HS6EA3ZhQjXDVPd45j1UmIIk02cJmkG88MQZVwPMedBiTeoSlGSDNe
+	 KmaGcOJFRHQWuh/mCTzpT61WhVwYVegR6Zrp6cI0IgrRLX4gPqNnKCq2YRvIiLVy0Q
+	 zxaeGaM3aEZ0LOY1cHc/ocejmzhZh04efXrlwEV4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D649DF80171;
-	Thu,  6 Apr 2023 16:53:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19198F80171;
+	Thu,  6 Apr 2023 17:01:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40626F80246; Thu,  6 Apr 2023 16:53:47 +0200 (CEST)
+	id E0082F80246; Thu,  6 Apr 2023 17:01:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7B78CF8013D
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 16:53:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B78CF8013D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5FF70F8015B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 17:01:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FF70F8015B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=dxfqEDH4;
+ header.s=susede2_rsa header.b=bulNN/ha;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=IUawN+9h
+ header.s=susede2_ed25519 header.b=p2/HfqPT
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F0CD922764;
-	Thu,  6 Apr 2023 14:53:44 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BBF3E2277D;
+	Thu,  6 Apr 2023 15:01:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1680792824;
+	t=1680793280;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=75kRHtI7TGPSfEtRS6w3OZz2fIzPjdexrtIVHLpZNEQ=;
-	b=dxfqEDH4qA58MsvDO5pPluV/UWAZVJOpeAWyvqTHcCkWmST3D2/aaMmZWF6yTfvWQqVycF
-	u3YsiJzJyO+EGShR4t76cMKrqMrA8+s/WXnBdsdwpXNiDqkP0CYhpRo/QtBQyZ401C7ghC
-	4sUPo/yFGvZxeGLd7VId9DGGCNRwq+Y=
+	bh=rkFAOuoZZGRLa/Itf5pOxP/nosmjxLeOoQzFJQ+UWgc=;
+	b=bulNN/hag/ltlA2zb+NGJM5m5WzFOVD+1L6iG5P3arrUWRAVL/cW822WWa1rozEhARcuTA
+	cnmWbHee6ZdMgdnchGNBUw70ZIkhIH6OtTAdz6y7SZOvz/5xOyeU01Eo6RenXhONa7Qly8
+	WkKSRALTVpsFy1sS6c8HjctS4R2xFIs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680792824;
+	s=susede2_ed25519; t=1680793280;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=75kRHtI7TGPSfEtRS6w3OZz2fIzPjdexrtIVHLpZNEQ=;
-	b=IUawN+9hQsRZLIelsM9+yonogHI3mpYgK7ZdH7aoQlg4AvfvOYM/CSa0rPa7asDCJ88wwn
-	QdHhFs9sXfqSOgBA==
+	bh=rkFAOuoZZGRLa/Itf5pOxP/nosmjxLeOoQzFJQ+UWgc=;
+	b=p2/HfqPTenjBmqOX8gUzXKCGL2YoiJGA3nz6vqJxBsEFFMpB+SaqCFlBpU6zvoIRTzcznU
+	8uyWFfc8/kgDVtCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DBB481351F;
-	Thu,  6 Apr 2023 14:53:44 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A4807133E5;
+	Thu,  6 Apr 2023 15:01:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id fA/0NPjcLmRaOwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 14:53:44 +0000
-Date: Thu, 06 Apr 2023 16:53:44 +0200
-Message-ID: <878rf5t62v.wl-tiwai@suse.de>
+	id ruNrJ8DeLmSuPwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 15:01:20 +0000
+Date: Thu, 06 Apr 2023 17:01:20 +0200
+Message-ID: <877cupt5q7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
-In-Reply-To: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
-References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH] ALSA: pcm: fix wait_time calculations
+In-Reply-To: <20230405201219.2197774-1-oswald.buddenhagen@gmx.de>
+References: <20230405201219.2197774-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: L73Q6U65L2GBN5OT2VY4QQWMZY3NGD6C
-X-Message-ID-Hash: L73Q6U65L2GBN5OT2VY4QQWMZY3NGD6C
+Message-ID-Hash: EGVG6QJRRLVRPLNUKZ6GDGFXJHGFQSPE
+X-Message-ID-Hash: EGVG6QJRRLVRPLNUKZ6GDGFXJHGFQSPE
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L73Q6U65L2GBN5OT2VY4QQWMZY3NGD6C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EGVG6QJRRLVRPLNUKZ6GDGFXJHGFQSPE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,26 +114,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 05 Apr 2023 22:12:18 +0200,
+On Wed, 05 Apr 2023 22:12:19 +0200,
 Oswald Buddenhagen wrote:
 > 
-> The auto-silencer supports two modes: "thresholded" to fill up "just
-> enough", and "top-up" to fill up "as much as possible". The two modes
-> used rather distinct code paths, which this patch unifies. The only
-> remaining distinction is how much we actually want to fill.
+> ... in wait_for_avail() and snd_pcm_drain().
 > 
-> This fixes a bug in thresholded mode, where we failed to use new_hw_ptr,
-> resulting in under-fill.
+> t was calculated in seconds, so it would be pretty much always zero, to
+> be subsequently de-facto ignored due to being max(t, 10)'d. And then it
+> (i.e., 10) would be treated as secs, which doesn't seem right.
 > 
-> Top-up mode is now more well-behaved and much easier to understand in
-> corner cases.
+> However, fixing it to properly calculate msecs would potentially cause
+> timeouts when using twice the period size for the default timeout (which
+> seems reasonable to me), so instead use the buffer size plus 10 percent
+> to be on the safe side ... but that still seems insufficient, presumably
+> because the hardware typically needs a moment to fire up. To compensate
+> for this, we up the minimal timeout to 100ms, which is still two orders
+> of magnitude less than the bogus minimum.
 > 
-> This also updates comments in the proximity of silencing-related data
-> structures.
+> substream->wait_time was also misinterpreted as jiffies, despite being
+> documented as being in msecs. Only the soc/sof driver sets it - to 500,
+> which looks very much like msecs were intended.
+> 
+> Speaking of which, shouldn't snd_pcm_drain() also use substream->
+> wait_time?
+
+Yes, and unifying the code might make more sense.
+
+> As a drive-by, make the debug messages on timeout less confusing.
 > 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Applied both patches now to for-next branch.
+I applied this patch as is now to for-next branch.
 
 
 thanks,

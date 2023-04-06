@@ -2,115 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CC786D9C92
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 17:42:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B90326D9C9E
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Apr 2023 17:46:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 395FEF0A;
-	Thu,  6 Apr 2023 17:42:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 395FEF0A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 176DFDF9;
+	Thu,  6 Apr 2023 17:45:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 176DFDF9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680795775;
-	bh=X9GZZJrRfsLA2oA8zKY+LFJb0GWR9flzWOPrzwBSvok=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Ds8WiFwNJQH9r41QTsFqRuzR0mEpkoTVvtY/K7EW1lgb5C90urgFHoH9BtcRJpljg
-	 lTMiVUfklZ9TyRGZrApamTi5hwOu5kP3U1BrOlIg17MajR1O3OYO3IW55A5bCnj1No
-	 SrJjfGtfvD7gZ5eCFpJU1RKBlHB3XBUeeXZ/DajI=
+	s=default; t=1680795997;
+	bh=+ysS7T7cxRO9HlMvDXWw2b6g8HzEPsfpnLPFd7YHjnM=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ShRuDRdSnq32/GvriNioqeJNWCOkn5xmTEYBNzeCyJul/4k0IY8nNTNsWNmbAcfvD
+	 DRtUYgHjoRP3UKFa5IqN/ImI0AZp0MBZLlTe5gg7bkjnVthrOBpGaiZeJ44Jx5YIow
+	 ZKUyQHEutE3CKFWoY/jEWYP9v0qAfQIZ9NhMSdaA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E57EDF80171;
-	Thu,  6 Apr 2023 17:42:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5ACEAF80171;
+	Thu,  6 Apr 2023 17:45:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2168CF80171; Thu,  6 Apr 2023 17:41:58 +0200 (CEST)
+	id 5F177F80246; Thu,  6 Apr 2023 17:45:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9C5ABF80149
-	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 17:41:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C5ABF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0942BF8015B
+	for <alsa-devel@alsa-project.org>; Thu,  6 Apr 2023 17:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0942BF8015B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=UXchVkVS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=3BLJ9VoW
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E17ED1F895;
-	Thu,  6 Apr 2023 15:41:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1680795714;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JbfMgW3jlqHiCeHs1lZBEM0x/taz09o/kiiHcND8uK0=;
-	b=UXchVkVSTT/OaegOiVgDxYbTVstyTn4fiQUFf1CxUQgsLhjXrnlLCk4tAGPwQYC+XyWqzi
-	iYBeUjvYHsnfzfMI1mGisnDxD+Xy82LhlvtIYEeOAi4Y7+cVD3qJ7RzYwBue3qWAh5H8GG
-	SkPzBBQ4yP7NfRW9T2RDaxc+YQF+y/E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1680795714;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JbfMgW3jlqHiCeHs1lZBEM0x/taz09o/kiiHcND8uK0=;
-	b=3BLJ9VoWZcYRMcKFx8o4OEqdoECmc45ELecLlGosZcZvW3XMcRtMVc3tQEMWDQRbjYtScq
-	qHckBp0K+H+DVMBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AFF3A133E5;
-	Thu,  6 Apr 2023 15:41:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id YE9AKkLoLmQZXgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 06 Apr 2023 15:41:54 +0000
-Date: Thu, 06 Apr 2023 17:41:54 +0200
-Message-ID: <87y1n5rpa5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH v2 00/18] ASoC: SOF: Intel: hda-mlink: HDaudio multi-link
- extension update
-In-Reply-To: <20230404104127.5629-1-peter.ujfalusi@linux.intel.com>
-References: <20230404104127.5629-1-peter.ujfalusi@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: OOCQ5NDOMJ3N63HVVQ3QYK3FPAKIQYGU
-X-Message-ID-Hash: OOCQ5NDOMJ3N63HVVQ3QYK3FPAKIQYGU
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=VlIbEQmh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1680795929; x=1712331929;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=+ysS7T7cxRO9HlMvDXWw2b6g8HzEPsfpnLPFd7YHjnM=;
+  b=VlIbEQmh6UrFH2lKJAnxvgdKZQ8VUIQZowhpII2ZzwYb5jl9W0IyavLi
+   dgcOhSAWo/QndigmsnGfS3QojsQ/ifWRkThpmSnruKMoB8AGjNwElIp+/
+   vFw2/kksuUGV5RNK3S8eEXRft8T8P2Ud9IC94Y7e8amZeJXj0qkDagmuy
+   6SkGgsz9nXP4VbgA1kv/9iub/7HZXIVcm4tP8tCckNn8WNYRDfL3GxXvC
+   30LjWxYZI1SBOukE57ywpPEoH96VBSrB956oP1bpgj1npJOVgicThbFGL
+   rdmf7uXkHpuPfxLm6J7j/L6Yy3J5Wn//omk9rUn//InTmXisNJKDfOAdu
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="344527941"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400";
+   d="scan'208";a="344527941"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Apr 2023 08:45:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="1016910423"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400";
+   d="scan'208";a="1016910423"
+Received: from iherna2-mobl4.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.209.83.247])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Apr 2023 08:45:04 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: SOF: Intel: MTL: conditionally wake WPIO1PG domain
+Date: Thu,  6 Apr 2023 10:44:54 -0500
+Message-Id: <20230406154454.18163-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: GSELP5BJF5STNGERWZKYQRFLPYTYHV6B
+X-Message-ID-Hash: GSELP5BJF5STNGERWZKYQRFLPYTYHV6B
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, rander.wang@intel.com,
- amadeuszx.slawinski@linux.intel.com
+CC: tiwai@suse.de, broonie@kernel.org, Yong Zhi <yong.zhi@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOCQ5NDOMJ3N63HVVQ3QYK3FPAKIQYGU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSELP5BJF5STNGERWZKYQRFLPYTYHV6B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,37 +102,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 04 Apr 2023 12:41:09 +0200,
-Peter Ujfalusi wrote:
-> 
-> Hi,
-> 
-> Changes since v1:
-> - Rename hda_bus_ml_get_capabilities() to hda_bus_ml_init() - patch 06/18
-> - Rename check_power_active() to check_sublink_power() and the parameter from
->   enable to enabled - patch 08/18
-> 
-> Not changed: the poll timeout implementation for now, as Pierre mentioned it can
-> be done at a later time.
-> 
-> Cover letter:
-> 
-> The following series adds the core support to handle the recently updated
-> HDaudio multi-link support to hanlde non HDA links, like SoundWire/DMIC/SSP on
-> Intel platform.
-> 
-> For details, please see the first patch which documents the current mlink
-> support (introduced at Skylake) and the new extensions, arriving with LNL.
-> 
-> There is no change in functionality for existing HDA support, the extension is
-> backwards compatible with existing implementations.
-> 
-> Regards,
-> Peter
+From: Yong Zhi <yong.zhi@intel.com>
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Wake IO1 from power gating if there is SoundWire enabled link discovered
+by ACPI scan.
 
+Signed-off-by: Yong Zhi <yong.zhi@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+---
+ sound/soc/sof/intel/mtl.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-thanks,
+diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
+index 58959c24cb71..882ce5536ab6 100644
+--- a/sound/soc/sof/intel/mtl.c
++++ b/sound/soc/sof/intel/mtl.c
+@@ -217,6 +217,7 @@ static int mtl_enable_interrupts(struct snd_sof_dev *sdev, bool enable)
+ /* pre fw run operations */
+ static int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
+ {
++	struct sof_intel_hda_dev *hdev = sdev->pdata->hw_pdata;
+ 	u32 dsphfpwrsts;
+ 	u32 dsphfdsscs;
+ 	u32 cpa;
+@@ -255,9 +256,11 @@ static int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
+ 	if (ret < 0)
+ 		dev_err(sdev->dev, "failed to power up gated DSP domain\n");
+ 
+-	/* make sure SoundWire is not power-gated */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, MTL_HFPWRCTL,
+-				MTL_HfPWRCTL_WPIOXPG(1), MTL_HfPWRCTL_WPIOXPG(1));
++	/* if SoundWire is used, make sure it is not power-gated */
++	if (hdev->info.handle && hdev->info.link_mask > 0)
++		snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, MTL_HFPWRCTL,
++					MTL_HfPWRCTL_WPIOXPG(1), MTL_HfPWRCTL_WPIOXPG(1));
++
+ 	return ret;
+ }
+ 
+-- 
+2.37.2
 
-Takashi

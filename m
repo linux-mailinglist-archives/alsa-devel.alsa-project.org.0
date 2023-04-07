@@ -2,131 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D5B06DAC6C
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Apr 2023 13:57:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B6786DB110
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Apr 2023 19:01:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E186EC3;
-	Fri,  7 Apr 2023 13:56:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E186EC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id F078DED1;
+	Fri,  7 Apr 2023 19:00:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F078DED1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1680868622;
-	bh=f3wKXbpblU6E4bD1zHeaxGZtlH12TET+6jBA8YzIDG0=;
+	s=default; t=1680886904;
+	bh=5pjuGcBc3CjW0GPZxxx5xx1+FEXHzkRcUklMJL35Oxk=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=vuo8UN17zzj/RmClHLDHwqPwJMchRVgLkC6no44a6uB5bL3bdxLcPcOQ3yI7bcNKF
-	 HHmWks1lwQNMoI+qOHNXDsCXWwpr5PGg2CpsIP5SHL8B1AI0IVvAXYsMar018QN04n
-	 kf6S2TJcI39fkpmY+q4uvakQ5CHQ9875/95x9bsE=
+	b=WmQMLdQ3TxYaq0TrjM9CWemxgYTssQfgasqTEFVNYHfMLY8p3t5m9IjD9SWyrjl3f
+	 AiCnw61DXUPhu4VdiqDJnszI7/jSzr5UEXwqY0+oCX/JzidcRlFtqcK37xKIxKJnPE
+	 Cc7Hcyz4eIva2iawqLKE0wxFGMYUdUjF9PVjnPNs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67556F80249;
-	Fri,  7 Apr 2023 13:56:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BEA2F8015B;
+	Fri,  7 Apr 2023 19:00:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42492F8026A; Fri,  7 Apr 2023 13:56:07 +0200 (CEST)
+	id 66EB1F8026A; Fri,  7 Apr 2023 19:00:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7775FF80149
-	for <alsa-devel@alsa-project.org>; Fri,  7 Apr 2023 13:55:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7775FF80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=E3U7Wh7E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680868558;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=n4yjwe4G2G9/env2LGiwcE/Ce2F1TWlNc2OcCX0hL4A=;
-	b=E3U7Wh7ECWyrUkS6D/zbhCF147KS4jscbnVtz3mLXfthHIQSMRR6rV2zJVe3e9p8SYknAv
-	GdXcUU1LZWBhjRKm/Bmcqb3OHP8rdAayLynWLjm8qNRoyJrUn4pFWwTq5KU+/jvCk4eYyT
-	L+zRsZKsNjA3HRNIHphkSo0D+btH8Z0=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-371-ZO5ovSnMOkWI1v8hxDGlDA-1; Fri, 07 Apr 2023 07:55:57 -0400
-X-MC-Unique: ZO5ovSnMOkWI1v8hxDGlDA-1
-Received: by mail-qt1-f199.google.com with SMTP id
- p22-20020a05622a00d600b003e38f7f800bso28431118qtw.9
-        for <alsa-devel@alsa-project.org>;
- Fri, 07 Apr 2023 04:55:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680868557;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=n4yjwe4G2G9/env2LGiwcE/Ce2F1TWlNc2OcCX0hL4A=;
-        b=6DjXvbuv6ZLZhFCE0LGYdQHo75WdHPMSKjFDOBm/nt7hVdd+K81RRGau4TkFMw4FNe
-         5LQiyGejw7j2U6MofhTirUODnoUGyy8Wh+b0vJ/ZLPw16NLT0eamaXH7hvKc/HUvHo3u
-         8Zs6e26nZf4CX4kxrYVUZLAzwZfGOuZ792UHZdv40sKZ1dNEf5N0XJ6hqahU22R9efgk
-         QsbxHOZVELqorGebdS87dBCkkTKVUZr05U+QKfpXJQAiw382l0OqxAPUtgQw/+omUjTV
-         J71+Tn6mqHtpTzBhoDdhCUewcpStopkyb+X/Xlfe8XwkpwdrPB8Y5xprwAmCk/cTXfem
-         0GdA==
-X-Gm-Message-State: AAQBX9ckJDeDLCfSJAmuUyCxajhT5LI8LtgVEdGByladhuQHONNpRse3
-	dWgqrMHPeovyscEFOKLlWSavtaJ+XQruheHu9XcJYmDdZDvzR7f6sLEHe2svWWXhWP6e4UH5nxr
-	s3GeRSOKpRT3pQusm50JQZi0=
-X-Received: by 2002:a05:622a:1646:b0:3bf:b70b:7804 with SMTP id
- y6-20020a05622a164600b003bfb70b7804mr3553537qtj.25.1680868556973;
-        Fri, 07 Apr 2023 04:55:56 -0700 (PDT)
-X-Google-Smtp-Source: 
- AKy350bl0Z3EzCJjIcLXRO1sAvzdukxxqrzrxNB4Iggt9a8A/nFDAbH/D/tViLjUBbsmcHprRWWaUQ==
-X-Received: by 2002:a05:622a:1646:b0:3bf:b70b:7804 with SMTP id
- y6-20020a05622a164600b003bfb70b7804mr3553498qtj.25.1680868556613;
-        Fri, 07 Apr 2023 04:55:56 -0700 (PDT)
-Received: from dell-per740-01.7a2m.lab.eng.bos.redhat.com
- (nat-pool-bos-t.redhat.com. [66.187.233.206])
-        by smtp.gmail.com with ESMTPSA id
- t186-20020a3746c3000000b00746ae84ea6csm1256321qka.3.2023.04.07.04.55.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Apr 2023 04:55:56 -0700 (PDT)
-From: Tom Rix <trix@redhat.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	colin.i.king@gmail.com,
-	fshao@chromium.org,
-	jiaxin.yu@mediatek.com,
-	allen-kh.cheng@mediatek.com
-Subject: [PATCH] ASoC: mediatek: mt8186: set variable aud_pinctrl to static
-Date: Fri,  7 Apr 2023 07:55:53 -0400
-Message-Id: <20230407115553.1968111-1-trix@redhat.com>
-X-Mailer: git-send-email 2.27.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4B136F8015B
+	for <alsa-devel@alsa-project.org>; Fri,  7 Apr 2023 19:00:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B136F8015B
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 242F6650B5;
+	Fri,  7 Apr 2023 17:00:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7DE7C433EF;
+	Fri,  7 Apr 2023 17:00:35 +0000 (UTC)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Saalim Quadri <danascape@gmail.com>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: dt-bindings: asahi-kasei,ak4458: fix missing quotes
+ around hash
+Date: Fri,  7 Apr 2023 19:00:32 +0200
+Message-Id: <20230407170032.102412-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Message-ID-Hash: AZ6XGDLOETWMKRWOSS4K6PKDVT6ACSPM
-X-Message-ID-Hash: AZ6XGDLOETWMKRWOSS4K6PKDVT6ACSPM
-X-MailFrom: trix@redhat.com
+Message-ID-Hash: FPWFCJ5R3YQPGL2K6PRBS524KWV4AWAX
+X-Message-ID-Hash: FPWFCJ5R3YQPGL2K6PRBS524KWV4AWAX
+X-MailFrom: SRS0=hRHz=76=linaro.org=krzysztof.kozlowski@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Tom Rix <trix@redhat.com>
+CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Rob Herring <robh@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AZ6XGDLOETWMKRWOSS4K6PKDVT6ACSPM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FPWFCJ5R3YQPGL2K6PRBS524KWV4AWAX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,30 +84,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-smatch reports
-sound/soc/mediatek/mt8186/mt8186-afe-gpio.c:14:16: warning: symbol
-  'aud_pinctrl' was not declared. Should it be static?
+The yamllint expect comments to start with hash and space ('# '), so
+quote the description to fix:
 
-This variable is only used in one file so should be static.
+  asahi-kasei,ak4458.yaml:40:30: [error] missing starting space in comment (comments)
 
-Signed-off-by: Tom Rix <trix@redhat.com>
+Reported-by: Rob Herring <robh@kernel.org>
+Closes: https://lore.kernel.org/all/CAL_JsqJzxQb1g=yVgHduLnYOpk8-Q3jppA1qQT1Ce51_gNWjhg@mail.gmail.com/
+Fixes: 009e83b591dd ("ASoC: dt-bindings: ak4458: Convert to dtschema")
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/mediatek/mt8186/mt8186-afe-gpio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/sound/asahi-kasei,ak4458.yaml         | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
-index 20b9f5d810ec..f12e91cc4fcf 100644
---- a/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
-+++ b/sound/soc/mediatek/mt8186/mt8186-afe-gpio.c
-@@ -11,7 +11,7 @@
- #include "mt8186-afe-common.h"
- #include "mt8186-afe-gpio.h"
+diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
+index 0db0c8e923a0..4477f84b7acc 100644
+--- a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
++++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4458.yaml
+@@ -37,9 +37,9 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     oneOf:
+       - const: 0
+-        description: select #16, #17, #19 pins
++        description: "select #16, #17, #19 pins"
+       - const: 1
+-        description: select #3, #4, #5 pins
++        description: "select #3, #4, #5 pins"
  
--struct pinctrl *aud_pinctrl;
-+static struct pinctrl *aud_pinctrl;
- 
- enum mt8186_afe_gpio {
- 	MT8186_AFE_GPIO_CLK_MOSI_OFF,
+ required:
+   - compatible
 -- 
-2.27.0
+2.34.1
 

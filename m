@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7DA6DC970
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Apr 2023 18:40:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C811D6DC97B
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Apr 2023 18:45:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 979C1E76;
-	Mon, 10 Apr 2023 18:39:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 979C1E76
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4210BFB4;
+	Mon, 10 Apr 2023 18:44:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4210BFB4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681144819;
-	bh=hNHOCzqXbjPfsWUduaFgNwueElaA/UCo7/TFAUyE7jc=;
+	s=default; t=1681145107;
+	bh=yOwMDiR8bUzNJsNO0YP+1IkaZxNMr0jg2cIfbXHZnG4=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=a6XdY8NaxLh6MKlkZttO3u2Hi36zwngYpVN5Bpp7oEeDcQanhfLvony3ADjmqID54
-	 AGRqDrSUucB3ZXOWBXpEiE/4Zj4Dkre+FiOdGr9G5lHR3Ux4O6egr6thc7LbRPGxLk
-	 +I5nZw6nNEkZUEJR2tKU8movYnccK85QIWBJjqSo=
+	b=jBuev6VERV4nuQoGdXkJIelf40SXOrlX6Fcw+d33ukOjquxpG0EDVcPWv9pXMeur/
+	 CzwnuyRpBwuESAZlbEGUtcz3HeNRMhTVNLQ4GO/vgmyi3u3qnKIwASjDTmosmt/rnU
+	 gMkmtAIRjSgmYFohX218aAILp+N+h841tQASgo6g=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94518F8025E;
-	Mon, 10 Apr 2023 18:39:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85535F8025E;
+	Mon, 10 Apr 2023 18:44:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23715F8032B; Mon, 10 Apr 2023 18:39:23 +0200 (CEST)
+	id 8121FF8032B; Mon, 10 Apr 2023 18:44:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7FC21F800E5
-	for <alsa-devel@alsa-project.org>; Mon, 10 Apr 2023 18:39:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FC21F800E5
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6AED8F80100
+	for <alsa-devel@alsa-project.org>; Mon, 10 Apr 2023 18:44:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AED8F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=O94UpZTa;
+ header.s=susede2_rsa header.b=mBcIzvRS;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=R7tNfHcs
+ header.s=susede2_ed25519 header.b=kOWQR0It
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8D77A1FDDB;
-	Mon, 10 Apr 2023 16:39:15 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E4BE41FDD6;
+	Mon, 10 Apr 2023 16:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1681144755;
+	t=1681145049;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bPJMlcg/GJ3Z5XHbPwTY0KXJ3aePcjHBDKXnTXpIimo=;
-	b=O94UpZTaW50mMBpRSlmfcKPiKV2HGah10vUUU6uRhK7U+cLHBx7jjHA1OKutXOfwsPastU
-	FOlqvuQUaoH0fN0xmU4idI4oN02JvqNi9AgPogi9EDFy/kkyE5TMAMDdSSnD0Gj6S2N4/B
-	4NRr/oHjvXh91io9SRTrqLd4uk84Qy8=
+	bh=LJqABcbcD38SY6Mz3Qqy6U1axUxLk/eib/qEefWofZk=;
+	b=mBcIzvRS4aaw7WcWnDVPxYkVxvu4ifISrJjb2bCa94FFjyGDnaKmvbfz5ytqSVjRzFlEQr
+	VzN8HgaMlKyreGyBS/9unMVvFook6M5TZQbuEW0hlyWSjXqk+AV0cIg2iaUCJsl0X6lj40
+	dAsQaVNkeb/stpwVBjTIgjagOFKtlZM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1681144755;
+	s=susede2_ed25519; t=1681145049;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bPJMlcg/GJ3Z5XHbPwTY0KXJ3aePcjHBDKXnTXpIimo=;
-	b=R7tNfHcs95OJK50y8TwpM0okt5LgoxUM9auio/So5aH6eOjF2yD9nTLh0LTJGO0wyHCWwp
-	I+cC1JjY6Wn58LCA==
+	bh=LJqABcbcD38SY6Mz3Qqy6U1axUxLk/eib/qEefWofZk=;
+	b=kOWQR0It++AsXSsKyNJRlE1pAvYx3q4kBgbP82TXQPuEIL2s8WR6UJJ+aGqyyRmzUQWVjH
+	/hOxTOVVYsk4BeDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 61855138F0;
-	Mon, 10 Apr 2023 16:39:15 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C39E5138F0;
+	Mon, 10 Apr 2023 16:44:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id p0HgFrM7NGTGfwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 10 Apr 2023 16:39:15 +0000
-Date: Mon, 10 Apr 2023 18:39:14 +0200
-Message-ID: <878rez4rpp.wl-tiwai@suse.de>
+	id tKnaLtk8NGQ0AgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 10 Apr 2023 16:44:09 +0000
+Date: Mon, 10 Apr 2023 18:44:09 +0200
+Message-ID: <874jpn4rhi.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Cem Kaya <cemkaya.boun@gmail.com>
 Subject: Re: [PATCH v3] Add Dell G15 5525 Ryzen Edition to quirks list for
  acp6x so that internal DMIC works.
-In-Reply-To: <38108AA1-01F5-4C48-A03E-73E9CAC3E8CF@getmailspring.com>
+In-Reply-To: <878rez4rpp.wl-tiwai@suse.de>
 References: <38108AA1-01F5-4C48-A03E-73E9CAC3E8CF@getmailspring.com>
+	<878rez4rpp.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: WBRKR2XDA2KVZ2PHIXWJ3XS7R7WVC4BU
-X-Message-ID-Hash: WBRKR2XDA2KVZ2PHIXWJ3XS7R7WVC4BU
+Message-ID-Hash: X7DHRYNWFTSFDKEXMYMPPHJE2BLUUT5S
+X-Message-ID-Hash: X7DHRYNWFTSFDKEXMYMPPHJE2BLUUT5S
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WBRKR2XDA2KVZ2PHIXWJ3XS7R7WVC4BU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7DHRYNWFTSFDKEXMYMPPHJE2BLUUT5S/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,76 +119,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 10 Apr 2023 18:03:36 +0200,
-Cem Kaya wrote:
+On Mon, 10 Apr 2023 18:39:14 +0200,
+Takashi Iwai wrote:
 > 
-> 
-> From 972ad712cfda9453a720b73c645601db23d708c6 Mon Sep 17 00:00:00 2001
-> From: Cem Kaya <cemkaya.boun@gmail.com>
-> Date: Sat, 8 Apr 2023 16:20:42 +0200
-> Subject: [PATCH v3] Add Dell G15 5525 Ryzen Edition to quirks list for acp6x
-> so
->  that internal DMIC works.
-> Signed-off-by: Cem Kaya <cemkaya.boun@gmail.com>
-> Commit: Add Dell G15 5525 Ryzen Edition to quirks list for acp6x so that
-> internal mic works.
-> Link: https://bugzilla.kernel.org/show_bug.cgi?id=217155
+> ..., and get the right maintainer via scripts/get_maintainer.pl, put
+> them to Cc.
 
-Looks better, but still a few things to be correctly formatted.
+Note that, in your case, put rather "supports" (especially Mark) to Cc
+in addition to maintainers.
 
-The subject line needs the proper prefix, depending on the subsystem.
-In your case, put "ASoC: amd:", for example.  Also, the subject line
-should be concise.
-
-The patch description is no such a tag like "Commit:", but it should
-be filled in the commit log.  This can be as long as you like, but put
-the line breaks appropriately.
-
-The Link and Signed-off-by tags follow after the patch description
-with a blank line.
-
-In your case, it'd be worth to put Cc-to-stable, too.
-
-So, it should be like:
-
--- 8< --
-From: Cem Kaya <cemkaya.boun@gmail.com>
-Subject: [PATCH v3] ASoC: amd: Add Dell G15 5525 to quirks list for internal DMIC
-
-Add Dell G15 5525 Ryzen Edition to quirks list for acp6x so that
-internal mic works.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=217155
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Cem Kaya <cemkaya.boun@gmail.com>
--- 8< --
-
-..., and get the right maintainer via scripts/get_maintainer.pl, put
-them to Cc.
-
-For details, please read
-Documentation/process/submitting-patches.rst.
-
-
-*HOWEVER*: the most serious problem is in this patch submission is...
-
-> @@ -45,6 +45,13 @@ static struct snd_soc_card acp6x_card = {
->  };
->  
->  static const struct dmi_system_id yc_acp_quirk_table[] = {
-> + {
-> + .driver_data = &acp6x_card,
-> + .matches = {
-> + DMI_MATCH(DMI_BOARD_VENDOR, "Dell Inc."),
-> + DMI_MATCH(DMI_PRODUCT_NAME, "Dell G15 5525"),
-> + }
-> + },
-
-... somehow the patch itself became broken (while v2 patch looked
-OK).  Please verify how this got broken and try to submit correctly at
-the next time.
-
-
-thanks,
 
 Takashi

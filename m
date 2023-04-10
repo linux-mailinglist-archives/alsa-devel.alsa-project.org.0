@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 684336DCD99
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 00:40:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F6A76DCD9A
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 00:40:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D05F5102C;
-	Tue, 11 Apr 2023 00:40:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D05F5102C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0640E1033;
+	Tue, 11 Apr 2023 00:40:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0640E1033
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681166455;
-	bh=WvpbiUlY+1OBAuaKtGC9zbtP9lE4G4zdh1NCzFiZtv8=;
+	s=default; t=1681166458;
+	bh=5gUvVLDFgf47Y88ib4FD2TGQCEMYFnFnuUTa4o4oLwQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FIB+grloYClvaQ1loIR21NS/X/JHUIcAfcGfDoyIGTv4QPkcCyhxkATX6dpCPwkD8
-	 Y+5vFCrMFPz22anXozK4Az+QScD3oyDdiHYGFrq6DfqQCQrqjG8L/tbH6gBBXJKqy4
-	 0izcpMzV+OT9uW8TFgN+XoSACFin14gV+TO+HLOg=
+	b=ilatD6gr2bwMOJ2BpHnuVOMdkBMjyyN3owSAxG+Xk6l8U8U7uDUxgKlMgW/YRQg+s
+	 CjUE9YK5LRLahGlZmkQp0IBXXoYgOBoghp7mYsJ3G3Mu6DeVolQagoG5sW6pLyT2YZ
+	 pvdcgL1A0pwyXSiAvou0tbBdGupLZwiWoKYn13TQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29A3FF8023A;
-	Tue, 11 Apr 2023 00:39:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B24F9F8052D;
+	Tue, 11 Apr 2023 00:39:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9489BF8049C; Tue, 11 Apr 2023 00:39:12 +0200 (CEST)
+	id EB11DF80524; Tue, 11 Apr 2023 00:39:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F291DF80100
-	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 00:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F291DF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9FE9CF8025E
+	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 00:39:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FE9CF8025E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=F+gsdJ8f
-Received: by mail-wr1-x42a.google.com with SMTP id o18so5721985wro.12
+ header.s=20210112 header.b=qgUiirri
+Received: by mail-wr1-x42c.google.com with SMTP id i27so5688542wrc.1
         for <alsa-devel@alsa-project.org>;
- Mon, 10 Apr 2023 15:39:07 -0700 (PDT)
+ Mon, 10 Apr 2023 15:39:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112; t=1681166346;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dNwzE4KtIR7VA8WEdFR1Y325MnwjNn/HP5LmgOvBXjw=;
-        b=F+gsdJ8fCjBl/In9VkEjngqOT7Yuy4rIlgNTgygFtjvwflyMXmqET1mjhlBYH4h/hK
-         UapCpXSmCP5mAkgUJkJ9xtllBixS1M7NeDhQJzNyzoakQgm7T49tE4pNAEm1YTrWbn8f
-         i0L9R2NTth5sj0N2S1NoFjUb4Z+83LqH5dScPFvzIIZIAZ+zcbO/S2lhE1DNKnh3e/rt
-         G4WcjnxgSToUUhOPlLr1ZtKawVIYKB1ltq9/PZyILVBqdYT+bQr+5IjeCwCazzV9C+Rn
-         HRkjTJ9HhANlIzvKd3TacCbtXRJAs59ZcBBTdJnMu/joEG4yIQZ5+6rigL2hvk2P84Lz
-         pBWw==
+        bh=K2w9r/FCSQOhLas4fRq9UxlUyxuMVk8X58MVQxfpTJY=;
+        b=qgUiirriVGu7ZTWcizKlhTrvCVkKMTVcuahYo/fWk86tr/5Mgb2EeTrIDJ0GjBvcCW
+         JiQrRDBs2nv+Gp54bItYKqJOqXu4v5BssEQSHsFTu/NR2/l0TY4pKKWBf/6BWoNsMxO0
+         Li7LYx6r9FzhoPFoXGvrqt+0IcJ6RqFGtcJX7L1ZDoy3fBYGyPgotTfJKh8WdMj5UWnI
+         CwaEyVqz/CPyu0rFJ9FPZp6CnWr5hcLaPT/rlOYJyexpe9buQN+llXpnXzXBDWbrddWG
+         +X1x/12gIpo8wsaM6riuoH9YxVkne2OwgpmQB/zOFdhe4uJINP+IJ135yPVjBypp93oK
+         0A3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112; t=1681166346;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=dNwzE4KtIR7VA8WEdFR1Y325MnwjNn/HP5LmgOvBXjw=;
-        b=Y7Emosb0AbOQd2XejNy0/QLkDT7N8snpCajLvfqHDY/FAO6Ff8XLbgdzNlYd4ilMLT
-         7sDjRROdvbyo5S2/nhJltzuVS30a+AKG4ixYUa1zTdhrTRiQ3AC8UtJQQXViug6YHo75
-         Srk8Mq2UZq06Y9vs23CYz7t4Drt8yrpS7ZnYNxhovhm/510hoiYiku3OYLp9Msj58g/w
-         d3AfNaYBavDJ84y9RQO83KarBJm/AbMF9WfbGonEEYH2/CuAo61tHfQsqONZYU9rDuV3
-         hSVTtFRv+aWkU2Qoa13WJEAh5TBF/qqk/02WG49t9YKOd3VViOLdLuA/AuLoqphxNZZg
-         WurA==
-X-Gm-Message-State: AAQBX9fa29ZViGktI+5NwySrSUbTFHeF47mZ3SfwM22d2jXxLGCQR0ta
-	phrXkln1Xk4SbwuVygWl4dRyrUKSuS4+wA==
+        bh=K2w9r/FCSQOhLas4fRq9UxlUyxuMVk8X58MVQxfpTJY=;
+        b=V52Ou+10xD1C4SWGP31hA+L9NTwtY6NRYCnznxzKyK3gdq4ZJcyafBolcspOjC/p4W
+         ufEM4n7PCfBalMK6KcS+b/BGYssg6HfL9wSR9fk5bAXX8GlX5sKILcCks2ZAW/tOPZJZ
+         9xZLSxPn7GzxjEsdeJFk9W74pPyfGN35l7qZ8luTBdG2Q9FxpDVUi73vszpbtSgF+jcM
+         znZs6Fu1qYopzqAkXJAkgrHXbueaL7aRhl4FCCKG6MMFpI3PLf3ZP/gvUPGnAIos72w8
+         twwEgnERq529VFpI3iEYft465xFKeuRAFRcs1C3Oo2PLr/yGErvUWmGB2lmUAnjvrtPm
+         7wlQ==
+X-Gm-Message-State: AAQBX9cBlWtAMGu6RxUbukeQiHjbj/+pnSBdEjgHYMIFDfntVtXepx/Q
+	2b2Nrz1hMY8TdpGLGzf+J4jHoWgeS2qRZg==
 X-Google-Smtp-Source: 
- AKy350Y/Jw0fJS5n1ttIDBcdNXFNA0aKae15RlsyioYA7N5Vk0r0ouA/4vMJ+EkD1ObVbRm/7DG4ew==
-X-Received: by 2002:adf:f3cf:0:b0:2d5:2c7b:bc5f with SMTP id
- g15-20020adff3cf000000b002d52c7bbc5fmr8960195wrp.58.1681166345763;
-        Mon, 10 Apr 2023 15:39:05 -0700 (PDT)
+ AKy350YR9fr6IYcnFe1oSanOl6H+YPUhDRizE112VA61/3/A/9UbnKcTLtOq4N8oFX8K3PspiyZPBQ==
+X-Received: by 2002:a5d:61c2:0:b0:2ee:c582:a67d with SMTP id
+ q2-20020a5d61c2000000b002eec582a67dmr524431wrv.31.1681166346742;
+        Mon, 10 Apr 2023 15:39:06 -0700 (PDT)
 Received: from localhost ([2a02:1210:8629:800:82ee:73ff:feb8:99e3])
         by smtp.gmail.com with UTF8SMTPSA id
- m8-20020adffe48000000b002c55521903bsm12862966wrs.51.2023.04.10.15.39.05
+ m14-20020a5d6a0e000000b002f01cb41b0bsm5093614wru.60.2023.04.10.15.39.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Apr 2023 15:39:05 -0700 (PDT)
+        Mon, 10 Apr 2023 15:39:06 -0700 (PDT)
 From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/3] ASoC: ep93xx: i2s: move enable call to startup callback
-Date: Tue, 11 Apr 2023 00:39:00 +0200
-Message-Id: <20230410223902.2321834-2-alexander.sverdlin@gmail.com>
+Subject: [PATCH 2/3] ASoC: cs4271: flat regcache, trivial simplifications
+Date: Tue, 11 Apr 2023 00:39:01 +0200
+Message-Id: <20230410223902.2321834-3-alexander.sverdlin@gmail.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230410223902.2321834-1-alexander.sverdlin@gmail.com>
 References: <20230410223902.2321834-1-alexander.sverdlin@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YK2Z7DK6SM5GFHVDBYNASOXFYYNITA4K
-X-Message-ID-Hash: YK2Z7DK6SM5GFHVDBYNASOXFYYNITA4K
+Message-ID-Hash: NHILDX3DRZLDDMFHYJJQLFD7V5UZOKYB
+X-Message-ID-Hash: NHILDX3DRZLDDMFHYJJQLFD7V5UZOKYB
 X-MailFrom: alexander.sverdlin@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YK2Z7DK6SM5GFHVDBYNASOXFYYNITA4K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NHILDX3DRZLDDMFHYJJQLFD7V5UZOKYB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,83 +123,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Make startup/shutdown callbacks symmetric to avoid clock subsystem warnings
-(reproduced with "aplay --dump-hw-params" + ctrl-c):
-
-WARNING: CPU: 0 PID: 102 at drivers/clk/clk.c:1048 clk_core_disable
-lrclk already disabled
-CPU: 0 PID: 102 Comm: aplay Not tainted 6.2.0-rc4 #1
-Hardware name: Generic DT based system
- ...
- clk_core_disable from clk_core_disable_lock
- clk_core_disable_lock from ep93xx_i2s_shutdown
- ep93xx_i2s_shutdown from snd_soc_dai_shutdown
- snd_soc_dai_shutdown from soc_pcm_clean
- soc_pcm_clean from soc_pcm_close
- soc_pcm_close from snd_pcm_release_substream.part.0
- snd_pcm_release_substream.part.0 from snd_pcm_release
- snd_pcm_release from __fput
- __fput from task_work_run
- ...
-
-WARNING: CPU: 0 PID: 102 at drivers/clk/clk.c:907 clk_core_unprepare
-lrclk already unprepared
-CPU: 0 PID: 102 Comm: aplay Tainted: G        W          6.2.0-rc4 #1
-Hardware name: Generic DT based system
- ...
- clk_core_unprepare from clk_unprepare
- clk_unprepare from ep93xx_i2s_shutdown
- ep93xx_i2s_shutdown from snd_soc_dai_shutdown
- snd_soc_dai_shutdown from soc_pcm_clean
- soc_pcm_clean from soc_pcm_close
- soc_pcm_close from snd_pcm_release_substream.part.0
- snd_pcm_release_substream.part.0 from snd_pcm_release
- snd_pcm_release from __fput
- __fput from task_work_run
- ...
+- Switch to REGCACHE_FLAT, the whole overhead of RBTREE is not worth it
+  with non sparse register set in the address range 1..7.
+- Move register width to central location
 
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 ---
- sound/soc/cirrus/ep93xx-i2s.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ sound/soc/codecs/cs4271-i2c.c | 1 -
+ sound/soc/codecs/cs4271-spi.c | 1 -
+ sound/soc/codecs/cs4271.c     | 4 ++--
+ 3 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/cirrus/ep93xx-i2s.c b/sound/soc/cirrus/ep93xx-i2s.c
-index 200d18060f7c..bbbb1065b2f1 100644
---- a/sound/soc/cirrus/ep93xx-i2s.c
-+++ b/sound/soc/cirrus/ep93xx-i2s.c
-@@ -209,6 +209,16 @@ static int ep93xx_i2s_dai_probe(struct snd_soc_dai *dai)
- 	return 0;
- }
+diff --git a/sound/soc/codecs/cs4271-i2c.c b/sound/soc/codecs/cs4271-i2c.c
+index 0e8a7cf0da50..4033be1c3bc1 100644
+--- a/sound/soc/codecs/cs4271-i2c.c
++++ b/sound/soc/codecs/cs4271-i2c.c
+@@ -17,7 +17,6 @@ static int cs4271_i2c_probe(struct i2c_client *client)
  
-+static int ep93xx_i2s_startup(struct snd_pcm_substream *substream,
-+			      struct snd_soc_dai *dai)
-+{
-+	struct ep93xx_i2s_info *info = snd_soc_dai_get_drvdata(dai);
-+
-+	ep93xx_i2s_enable(info, substream->stream);
-+
-+	return 0;
-+}
-+
- static void ep93xx_i2s_shutdown(struct snd_pcm_substream *substream,
- 				struct snd_soc_dai *dai)
- {
-@@ -349,7 +359,6 @@ static int ep93xx_i2s_hw_params(struct snd_pcm_substream *substream,
- 	if (err)
- 		return err;
+ 	config = cs4271_regmap_config;
+ 	config.reg_bits = 8;
+-	config.val_bits = 8;
  
--	ep93xx_i2s_enable(info, substream->stream);
- 	return 0;
- }
+ 	return cs4271_probe(&client->dev,
+ 			    devm_regmap_init_i2c(client, &config));
+diff --git a/sound/soc/codecs/cs4271-spi.c b/sound/soc/codecs/cs4271-spi.c
+index 7ef0a66b7778..4feb80436bd9 100644
+--- a/sound/soc/codecs/cs4271-spi.c
++++ b/sound/soc/codecs/cs4271-spi.c
+@@ -17,7 +17,6 @@ static int cs4271_spi_probe(struct spi_device *spi)
  
-@@ -398,6 +407,7 @@ static int ep93xx_i2s_resume(struct snd_soc_component *component)
- #endif
+ 	config = cs4271_regmap_config;
+ 	config.reg_bits = 16;
+-	config.val_bits = 8;
+ 	config.read_flag_mask = 0x21;
+ 	config.write_flag_mask = 0x20;
  
- static const struct snd_soc_dai_ops ep93xx_i2s_dai_ops = {
-+	.startup	= ep93xx_i2s_startup,
- 	.shutdown	= ep93xx_i2s_shutdown,
- 	.hw_params	= ep93xx_i2s_hw_params,
- 	.set_sysclk	= ep93xx_i2s_set_sysclk,
+diff --git a/sound/soc/codecs/cs4271.c b/sound/soc/codecs/cs4271.c
+index 2021cf442606..188b8b43c524 100644
+--- a/sound/soc/codecs/cs4271.c
++++ b/sound/soc/codecs/cs4271.c
+@@ -689,8 +689,8 @@ const struct regmap_config cs4271_regmap_config = {
+ 
+ 	.reg_defaults = cs4271_reg_defaults,
+ 	.num_reg_defaults = ARRAY_SIZE(cs4271_reg_defaults),
+-	.cache_type = REGCACHE_RBTREE,
+-
++	.cache_type = REGCACHE_FLAT,
++	.val_bits = 8,
+ 	.volatile_reg = cs4271_volatile_reg,
+ };
+ EXPORT_SYMBOL_GPL(cs4271_regmap_config);
 -- 
 2.40.0
 

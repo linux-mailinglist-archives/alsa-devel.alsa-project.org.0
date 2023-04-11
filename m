@@ -2,123 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCAF86DE203
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 19:12:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA2A6DE267
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 19:24:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD28EF4;
-	Tue, 11 Apr 2023 19:11:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD28EF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CE79EF6;
+	Tue, 11 Apr 2023 19:23:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CE79EF6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681233139;
-	bh=JzoVnbx8tLn5feqXortZjuu/9XvFQA8pGKKHatA/Zig=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=eX1YBVfVvY2Za5GsnCUDZT+TgSOrOcbh6ZAQel7kB0vuDLv0Op12ASsus5aNZ24Hg
-	 0aX8nYcvSS+Ih322gxMPIUJ/L8ixNxsac6q0GP0/1JwEGakJsiaZQLyOP+v9i6pa6p
-	 3bK30ukCfqB4S11bOMbyGIPQf9Uo0PFwLu5KKiiM=
+	s=default; t=1681233860;
+	bh=BQKfozDRimzYHC15X2Cx3uw+iVJMxTDMS7hWmstGFgM=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=IGDh8P7ZounzTXE/qGlbeklHoMJBa6QlT9CdgxNnfcBLuKcDbLgQIIZY1p23a13q/
+	 YeMq3+U5H9f3EHNEkzsqDkZZ8ZaxnqrU8Ml8veJrKZL2IwI4kcZd0ZH0Ic/oWSjzE7
+	 B+KMyBEoXXnmO9roy2NOZbLgT0uturFP44ok4lZM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 119E4F8025E;
-	Tue, 11 Apr 2023 19:11:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98535F8025E;
+	Tue, 11 Apr 2023 19:23:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8481F8032B; Tue, 11 Apr 2023 19:11:25 +0200 (CEST)
+	id BDD71F8032B; Tue, 11 Apr 2023 19:23:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-8.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [IPv6:2a00:1450:4864:20::633])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id B6C10F80149
+	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 19:23:22 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4168111D8;
+	Tue, 11 Apr 2023 19:23:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4168111D8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1681233801; bh=HBz+ZBbwigxQAZQz464QUuHmyj27KM5CMfC4HPULviA=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=ysxVP/TmpNFeJjSeDZQswh9QP0PNrrK5L7fnYxa22w5SvmXcx1GQRWssDV2UU4/8s
+	 a9aqYxAe5J0NRXt88B2W/r6Vzynx4jx04468JKWRBTH+ZQYIG94zDhTa9N+xK4tHc+
+	 UK1ydIug+av2BLV5evpitPDY0t2awmPkl0ysQybg=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D3B8F80149
-	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 19:11:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D3B8F80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=dFhJFjoA
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-94a34a0b531so212891166b.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 11 Apr 2023 10:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1681233079;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pWF1p5GA25OvC5IkhaNGaOg//cQPDFhqXYPwtZg5x8g=;
-        b=dFhJFjoAyK5R5qUYgh0yy2kGnzMaXC2N0bUaD6ds2jGWr+eg21x5h5Y59+bii68GE/
-         O9OXZ1lQnbZX0L9zcVcK68nwXmOBGw7buRRy33ISHJLAuEGTS2nLR1zMzuwp3zmkdtdy
-         YyvHndm7VOLKCNjvlHGUXML5nG5b5Mhp0zotXMfgsTU/+go3Stzmayvk1FaopSuByQqL
-         587TWv3Z5f0LAHsG1rjGcMkqZzYE7zwR2Powj9lwx/wzmD6d7HivHFZ0RvAxu9usT4Ke
-         LUUgzQ3wRAFcgom89mshhLwvHZlZ2KVcium/5sR8t6G9+gXC5f7YtmhjL4kmEjYfkwqm
-         /aQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681233079;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pWF1p5GA25OvC5IkhaNGaOg//cQPDFhqXYPwtZg5x8g=;
-        b=3WBiJDaJNkkXQnFlrju7q0MOtwA6v6xqq1iNovTgytp3M5w1wnGxfDv+XGBUJbVXwX
-         p/dvL+B5GSJ9r2EaAv09JylMr6bJaJsxCroV4eVh0qCD9BT90y6Oren4zcxzzBJaa/iu
-         tXeOLYBWApXjWrhzup/1krnuqDuTOJFdbQuczg/L0WEY9H3NKhBNtWSV0v0DaKNbCkJ0
-         TFRjyiz9G3Z+17BI86cGDcWFI7biDpeaCcmWMsf1qNXKYewPLKKfxHK9eNcosS7l5mrM
-         qr2m1NT4akAMyNAcRhmKAuGLOuTkIyN40G5Wsvf84hx8+wd9HclJVt8oqEczZ1Fi2oqt
-         jpcg==
-X-Gm-Message-State: AAQBX9fyuyTjwX2hIkaMdG+WSyRt1JnwJHweBlMtAnQkZMK9NQFSUo31
-	uAFoXHqxa5/kgjZMPtKydO04sw==
-X-Google-Smtp-Source: 
- AKy350a8G75tLqrttqnXqD68zKhR4Bwu9CYLqf4N5npE1a25zQI5U9DFgT07MGKm1HXMLPmOpUvkXg==
-X-Received: by 2002:aa7:c59a:0:b0:504:bba1:de8b with SMTP id
- g26-20020aa7c59a000000b00504bba1de8bmr3464462edq.19.1681233079521;
-        Tue, 11 Apr 2023 10:11:19 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:f1da:c117:3657:c8a?
- ([2a02:810d:15c0:828:f1da:c117:3657:c8a])
-        by smtp.gmail.com with ESMTPSA id
- k6-20020a50cb86000000b00501d73cfc86sm5820199edi.9.2023.04.11.10.11.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Apr 2023 10:11:18 -0700 (PDT)
-Message-ID: <9a7b8fda-9a6a-59e3-3173-1d173b34825a@linaro.org>
-Date: Tue, 11 Apr 2023 19:11:18 +0200
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Tue, 11 Apr 2023 19:23:18 +0200 (CEST)
+Message-ID: <7b317956-deb1-0a75-0a34-f82d6a81cf90@perex.cz>
+Date: Tue, 11 Apr 2023 19:23:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH v3 1/2] dt-bindings: sound: ep93xx: Add I2S description
+Subject: Re: [PATCH 2/2] ALSA: pcm: auto-fill buffer with silence when
+ draining playback
 Content-Language: en-US
-To: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
- devicetree@vger.kernel.org
-References: <20230411165951.2335899-1-alexander.sverdlin@gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230411165951.2335899-1-alexander.sverdlin@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+ <20230405201219.2197789-2-oswald.buddenhagen@gmx.de>
+ <3d75c103-7e94-e6a1-7f3d-7f957c33cddc@perex.cz> <ZDEWyjdVE2IocpGY@ugly>
+ <22f551f3-deae-1536-bd07-0b9340940ea4@perex.cz> <ZDVnUj2B0EkMiOlA@ugly>
+ <6d6c5f3a-81bc-acf4-eb4d-229b581bbe8b@perex.cz> <ZDWPy9YbXWWOqaC+@ugly>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <ZDWPy9YbXWWOqaC+@ugly>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DEIRIGU7EIQA2PMVB7REIRGHAYUJJQT3
-X-Message-ID-Hash: DEIRIGU7EIQA2PMVB7REIRGHAYUJJQT3
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Message-ID-Hash: TUSN5WSKH6TDDRVZGVOJU5QKNZA4F3NJ
+X-Message-ID-Hash: TUSN5WSKH6TDDRVZGVOJU5QKNZA4F3NJ
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Hartley Sweeten <hsweeten@visionengravers.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Nikita Shubin <nikita.shubin@maquefel.me>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DEIRIGU7EIQA2PMVB7REIRGHAYUJJQT3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TUSN5WSKH6TDDRVZGVOJU5QKNZA4F3NJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,37 +97,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 11/04/2023 18:59, Alexander Sverdlin wrote:
-> Add device tree bindings for Cirrus Logic EP93xx internal SoCs' I2S
-> controller.
-> 
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-> ---
-> Changelog:
-> v3:
-> - rebased onto
->  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> v2:
->  - Incorporated most of the suggestions from Krzysztof Kozlowski [1]
->  - Dropped AC97 (deleted from the tree)
-> 
+On 11. 04. 23 18:50, Oswald Buddenhagen wrote:
 
-This is a friendly reminder during the review process.
+>> If we allow modification of the PCM buffer, I think that we should:
+>>
+>> - Do not modify the buffer for drivers already working with the
+>>    appl_ptr data (end position) only.
+>>
+> i suppose that should be detected by the drain callback being set up?
 
-It looks like you received a tag and forgot to add it.
+Yes, but it would be probably better to add a default silencing callback with 
+a warning to notify authors of drivers to review and eventually correct the 
+behavior.
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions. However, there's no need to repost patches *only* to add the
-tags. The upstream maintainer will do that for acks received on the
-version they apply.
+>> - Handle the situation with the large buffer; it may make sense
+>>    to change the "wait" operation from the end-of-period interrupt to time
+>>    scheduler and stop the drain more early when the end-of-valid data condition
+>>    is fulfilled.
+>>
+> i don't understand what you're asking for.
 
-https://elixir.bootlin.com/linux/v5.17/source/Documentation/process/submitting-patches.rst#L540
+Use jiffies/timeout instead waiting to the interrupt. In this case, the stop 
+may be called earlier (in the middle of period). In this case the silenced 
+area may be much smaller.
 
-If a tag was not added on purpose, please state why and what changed.
+>> - Increase the protocol version.
+>>
+>> But as I wrote, I would make those extensions configurable
+>> (SNDRV_PCM_HW_PARAMS_DRAIN_ALLOW_SILENCE). It can be turned on by default.
+>>
+> i have no clue what would be involved in doing that. to me that sounds
+> like overkill (solving a non-issue), and goes waaaay beyond what i
+> expected to invest into this issue (really, i just wanted to verify that
+> the emu10k1 fixes work, and accidentally discovered that there is a
+> mid-layer issue that affects user space, as the pyalsaaudio lib i'm
+> using doesn't handle it).
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+OK. I don't think that it's a pyalsaudio job to resolve the issue with the 
+minimal transfer chunk / period (which you set / know before the transfer is 
+initiated).
 
-Best regards,
-Krzysztof
+				Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

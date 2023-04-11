@@ -2,159 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48C6D6DEB11
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 07:28:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1EE96DD843
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 12:48:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68F80EB7;
-	Wed, 12 Apr 2023 07:27:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68F80EB7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82025F06;
+	Tue, 11 Apr 2023 12:47:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82025F06
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681277324;
-	bh=s5Yy+uJ/+6a3RmIpEHCFWkwhcr9WO1iaIKEOWXN68bU=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qj01iGkxk6Uxrf+AttM9+yZnYEGmWqr/rpsOAvNm+xwxRPlj1tVQFIwNhtYleFGo2
-	 tpNwltHWCEq0wzP6SSYnsD7X2vdrnnC4GggyGpPUoBbj2jvB61mM08g34MuDUYMhSt
-	 8pRSrNf0Rst1HXSX/CfjNMwP6aRZGE0N1G9xc1rQ=
+	s=default; t=1681210116;
+	bh=JqnbvCrUITYYJu5uAvOwc6PBU7Ti+dSfxTm46tf28B4=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=gxJUc9cZ/JwQ0HFGjni2XFQXE+KaEfo6oGqd7l8ELCF+SQ/ZJiSNSiMWLvOJLZSli
+	 6A9dHdTkMQBYVvjtaue73PmuXMglecbua4uIjm/qpxF04ggcBT4IGi9CJGcZLiyium
+	 XD0tkxz0NMsKlC/UQMJe5ZPwLgs2c68NqW0lhL7k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97714F80552;
-	Wed, 12 Apr 2023 07:26:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBE2CF8025E;
+	Tue, 11 Apr 2023 12:47:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64CD0F8032B; Tue, 11 Apr 2023 12:28:18 +0200 (CEST)
+	id A65FDF8032B; Tue, 11 Apr 2023 12:47:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
+X-Spam-Status: No, score=-8.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id F03E6F80149
+	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 12:47:31 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4464011D4;
+	Tue, 11 Apr 2023 12:47:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4464011D4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1681210050; bh=+6OvRYlnBhN9AtbssAmX3dUE2d/IdgGIGdR/g/iLXGw=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=Q8zSEGy0lo2lI9bh6L7kZ6ec96+v8RG6rY0LTv8CyQ9RqFoTWn//89pyDdBtqU0Si
+	 iRf+QVQ8fvlQIw4KvbsyEDgWfuZNTP0GwY+fAHLLhG+PNGlosU/3XMzcvsWiRvAo43
+	 ygPAgEFap0D3LXFqtu7gY82wDb8j+QVMw1tGwhrc=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8A351F80149
-	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 12:28:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A351F80149
-Received: by mail-ot1-f43.google.com with SMTP id
- w15-20020a056830410f00b006a386a0568dso10974868ott.4
-        for <alsa-devel@alsa-project.org>;
- Tue, 11 Apr 2023 03:28:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681208893;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9k4ZTujQ4vL3rn+nuolFAvnH5smJoZ+VnOtxKctHstQ=;
-        b=O6KSfJ2wzPTSfjA/YQsqodavQUAERqtmBybZrCvrjoCXDWm1wLKjMPr/NBIgu2n7ZT
-         F2ET6mZgRVSlKqlgmnAr+GHUXp0g2m/WhEduRNQyC1CHA7pohr4XRbmtO7d/fGmml3jz
-         xr1lw4GrmjaFX0Hxufd4egKKdWoyJMp5E5CfjMlF06sYTcjc54GcLB37DpZdh0Dn3qtW
-         kZmfp5389bNahNk/pjYjndfOFyeMG+PSJ7oZhqq0h5ir98eGomCvf909YaisfZXWrUVu
-         s9PNimavYJiVL5MQJeaVakqDJyq/zc8AOAgaeol3fWzI4RTbVPnb1TbVyB62l2dVbtPJ
-         cVoA==
-X-Gm-Message-State: AAQBX9fC+Mf567sAIAaExIHpSa48jkJMAvDYR6JJgGlsz0du1CS4QVXn
-	JDkmM7Isssa4DCcQ7O5XEM95pHEvJhg6IUtE
-X-Google-Smtp-Source: 
- AKy350ZomM58hihcP8zkn/HtBDY4l1bJYDYjMoD2T1OBg7v9/S3g1DcBYj0ukgE1qx79MvsWwt2ryA==
-X-Received: by 2002:a05:6830:22d1:b0:69f:9cec:1962 with SMTP id
- q17-20020a05683022d100b0069f9cec1962mr5489351otc.20.1681208893122;
-        Tue, 11 Apr 2023 03:28:13 -0700 (PDT)
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com.
- [209.85.167.177])
-        by smtp.gmail.com with ESMTPSA id
- d23-20020a9d4f17000000b006a3df644d31sm3309446otl.37.2023.04.11.03.28.12
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Apr 2023 03:28:12 -0700 (PDT)
-Received: by mail-oi1-f177.google.com with SMTP id m2so4647968oiw.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 11 Apr 2023 03:28:12 -0700 (PDT)
-X-Received: by 2002:a25:d74c:0:b0:b46:c5aa:86ef with SMTP id
- o73-20020a25d74c000000b00b46c5aa86efmr5126210ybg.12.1681208871324; Tue, 11
- Apr 2023 03:27:51 -0700 (PDT)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Tue, 11 Apr 2023 12:47:27 +0200 (CEST)
+Message-ID: <8a3a2490-eb0f-7b76-3bc6-58ef5473d360@perex.cz>
+Date: Tue, 11 Apr 2023 12:47:26 +0200
 MIME-Version: 1.0
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-28-9a1358472d52@cerno.tech>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-28-9a1358472d52@cerno.tech>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 11 Apr 2023 12:27:38 +0200
-X-Gmail-Original-Message-ID: 
- <CAMuHMdXUEOP_3zjf8nwDyHvZVG-D0AsBjnr=esKzejMMcEiLSQ@mail.gmail.com>
-Message-ID: 
- <CAMuHMdXUEOP_3zjf8nwDyHvZVG-D0AsBjnr=esKzejMMcEiLSQ@mail.gmail.com>
-Subject: Re: [PATCH v3 28/65] clk: renesas: r9a06g032: Add a determine_rate
- hook
-To: Maxime Ripard <maxime@cerno.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: geert.uytterhoeven@gmail.com
-X-Mailman-Rule-Hits: max-recipients
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+ alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
+References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+Content-Language: en-US
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: QQ4BG2IDZNBXZYZCSV3Y4HSFAGX3VODU
+X-Message-ID-Hash: QQ4BG2IDZNBXZYZCSV3Y4HSFAGX3VODU
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: FIQLTCBVWTVQZAZ75RCMOO2ZP7FRLCJQ
-X-Message-ID-Hash: FIQLTCBVWTVQZAZ75RCMOO2ZP7FRLCJQ
-X-Mailman-Approved-At: Wed, 12 Apr 2023 05:23:10 +0000
-CC: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Lechner <david@lechnology.com>, Sekhar Nori <nsekhar@ti.com>,
- Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Dinh Nguyen <dinguyen@kernel.org>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Paul Cercueil <paul@crapouillou.net>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
- patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-phy@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-sunxi@lists.linux.dev, alsa-devel@alsa-project.org,
- linux-mips@vger.kernel.org, Gareth Williams <gareth.williams.jx@renesas.com>,
- Herve Codina <herve.codina@bootlin.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Ralph Siemsen <ralph.siemsen@linaro.org>
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FIQLTCBVWTVQZAZ75RCMOO2ZP7FRLCJQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QQ4BG2IDZNBXZYZCSV3Y4HSFAGX3VODU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,77 +92,194 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-CC Gareth, Herv=C3=A9, Miquel, Ralph
+On 05. 04. 23 22:12, Oswald Buddenhagen wrote:
+> The auto-silencer supports two modes: "thresholded" to fill up "just
+> enough", and "top-up" to fill up "as much as possible". The two modes
+> used rather distinct code paths, which this patch unifies. The only
+> remaining distinction is how much we actually want to fill.
+> 
+> This fixes a bug in thresholded mode, where we failed to use new_hw_ptr,
+> resulting in under-fill.
 
-On Tue, Apr 4, 2023 at 2:44=E2=80=AFPM Maxime Ripard <maxime@cerno.tech> wr=
-ote:
-> The Renesas r9a06g032 bitselect clock implements a mux with a set_parent
-> hook, but doesn't provide a determine_rate implementation.
->
-> This is a bit odd, since set_parent() is there to, as its name implies,
-> change the parent of a clock. However, the most likely candidate to
-> trigger that parent change is a call to clk_set_rate(), with
-> determine_rate() figuring out which parent is the best suited for a
-> given rate.
->
-> The other trigger would be a call to clk_set_parent(), but it's far less
-> used, and it doesn't look like there's any obvious user for that clock.
->
-> So, the set_parent hook is effectively unused, possibly because of an
-> oversight. However, it could also be an explicit decision by the
-> original author to avoid any reparenting but through an explicit call to
-> clk_set_parent().
->
-> The latter case would be equivalent to setting the flag
-> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> implementation is provided, clk_round_rate() (through
-> clk_core_round_rate_nolock()) will call itself on the parent if
-> CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> CLK_SET_RATE_NO_REPARENT is set.
->
-> And if it was an oversight, then we are at least explicit about our
-> behavior now and it can be further refined down the line.
->
-> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+I don't follow what you refer here. The old code uses 
+snd_pcm_playback_hw_avail() thus new hw_ptr for the threshold mode, too.
 
-LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-But I do not have the hardware.
+> Top-up mode is now more well-behaved and much easier to understand in
+> corner cases.
+> 
+> This also updates comments in the proximity of silencing-related data
+> structures.
+> 
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> ---
+>   .../kernel-api/writing-an-alsa-driver.rst     | 14 +--
+>   include/sound/pcm.h                           | 14 +--
+>   include/uapi/sound/asound.h                   |  9 +-
+>   sound/core/pcm_lib.c                          | 86 ++++++++-----------
+>   sound/core/pcm_local.h                        |  3 +-
+>   sound/core/pcm_native.c                       |  6 +-
+>   6 files changed, 62 insertions(+), 70 deletions(-)
+> 
+> diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> index a368529e8ed3..f2834a016473 100644
+> --- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> +++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> @@ -1577,14 +1577,16 @@ are the contents of this file:
+>             unsigned int period_step;
+>             unsigned int sleep_min;		/* min ticks to sleep */
+>             snd_pcm_uframes_t start_threshold;
+> -          snd_pcm_uframes_t stop_threshold;
+> -          snd_pcm_uframes_t silence_threshold; /* Silence filling happens when
+> -                                                  noise is nearest than this */
+> -          snd_pcm_uframes_t silence_size;	/* Silence filling size */
+> +          // The following two thresholds alleviate playback buffer underruns; when
+> +          // hw_avail drops below the threshold, the respective action is triggered:
+> +          snd_pcm_uframes_t stop_threshold;	/* stop playback */
+> +          snd_pcm_uframes_t silence_threshold;	/* pre-fill buffer with silence */
+> +          snd_pcm_uframes_t silence_size;		/* msx size of silence pre-fill */
+>             snd_pcm_uframes_t boundary;	/* pointers wrap point */
+>     
+> -          snd_pcm_uframes_t silenced_start;
+> -          snd_pcm_uframes_t silenced_size;
+> +          // internal data of auto-silencer
+> +          snd_pcm_uframes_t silence_start; /* starting pointer to silence area */
+> +          snd_pcm_uframes_t silence_filled; /* size filled with silence */
+>     
+>             snd_pcm_sync_id_t sync;		/* hardware synchronization ID */
+>     
+> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+> index 27040b472a4f..f20400bb7032 100644
+> --- a/include/sound/pcm.h
+> +++ b/include/sound/pcm.h
+> @@ -378,18 +378,18 @@ struct snd_pcm_runtime {
+>   	unsigned int rate_den;
+>   	unsigned int no_period_wakeup: 1;
+>   
+> -	/* -- SW params -- */
+> -	int tstamp_mode;		/* mmap timestamp is updated */
+> +	/* -- SW params; see struct snd_pcm_sw_params for comments -- */
+> +	int tstamp_mode;
+>     	unsigned int period_step;
+>   	snd_pcm_uframes_t start_threshold;
+>   	snd_pcm_uframes_t stop_threshold;
+> -	snd_pcm_uframes_t silence_threshold; /* Silence filling happens when
+> -						noise is nearest than this */
+> -	snd_pcm_uframes_t silence_size;	/* Silence filling size */
+> -	snd_pcm_uframes_t boundary;	/* pointers wrap point */
+> +	snd_pcm_uframes_t silence_threshold;
+> +	snd_pcm_uframes_t silence_size;
+> +	snd_pcm_uframes_t boundary;
+>   
+> +	// internal data of auto-silencer
 
-> --- a/drivers/clk/renesas/r9a06g032-clocks.c
-> +++ b/drivers/clk/renesas/r9a06g032-clocks.c
-> @@ -1121,6 +1121,7 @@ static int r9a06g032_clk_mux_set_parent(struct clk_=
-hw *hw, u8 index)
->  }
->
->  static const struct clk_ops clk_bitselect_ops =3D {
-> +       .determine_rate =3D __clk_mux_determine_rate,
->         .get_parent =3D r9a06g032_clk_mux_get_parent,
->         .set_parent =3D r9a06g032_clk_mux_set_parent,
->  };
-> @@ -1145,7 +1146,7 @@ r9a06g032_register_bitsel(struct r9a06g032_priv *cl=
-ocks,
->
->         init.name =3D desc->name;
->         init.ops =3D &clk_bitselect_ops;
-> -       init.flags =3D CLK_SET_RATE_PARENT;
-> +       init.flags =3D CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT;
->         init.parent_names =3D names;
->         init.num_parents =3D 2;
->
+I would use traditional C-style comment style here (to match other descriptions).
 
-Gr{oetje,eeting}s,
+>   	snd_pcm_uframes_t silence_start; /* starting pointer to silence area */
+> -	snd_pcm_uframes_t silence_filled; /* size filled with silence */
+> +	snd_pcm_uframes_t silence_filled; /* already filled part of silence area */
+>   
+>   	union snd_pcm_sync_id sync;	/* hardware synchronization ID */
+>   
+> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+> index de6810e94abe..50aa1d98873f 100644
+> --- a/include/uapi/sound/asound.h
+> +++ b/include/uapi/sound/asound.h
+> @@ -429,9 +429,12 @@ struct snd_pcm_sw_params {
+>   	snd_pcm_uframes_t avail_min;		/* min avail frames for wakeup */
+>   	snd_pcm_uframes_t xfer_align;		/* obsolete: xfer size need to be a multiple */
+>   	snd_pcm_uframes_t start_threshold;	/* min hw_avail frames for automatic start */
+> -	snd_pcm_uframes_t stop_threshold;	/* min avail frames for automatic stop */
+> -	snd_pcm_uframes_t silence_threshold;	/* min distance from noise for silence filling */
+> -	snd_pcm_uframes_t silence_size;		/* silence block size */
+> +	// The following two thresholds alleviate playback buffer underruns; when
+> +	// hw_avail drops below the threshold, the respective action is triggered:
 
-                        Geert
+Traditional C-style comments.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+> +	snd_pcm_uframes_t stop_threshold;	/* stop playback */
+> +	snd_pcm_uframes_t silence_threshold;	/* pre-fill buffer with silence */
+> +	snd_pcm_uframes_t silence_size;		/* max size of silence pre-fill; when >= boundary,
+> +						 * fill played area with silence immediately */
+>   	snd_pcm_uframes_t boundary;		/* pointers wrap point */
+>   	unsigned int proto;			/* protocol version */
+>   	unsigned int tstamp_type;		/* timestamp type (req. proto >= 2.0.12) */
+> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> index 02fd65993e7e..b074c5b926db 100644
+> --- a/sound/core/pcm_lib.c
+> +++ b/sound/core/pcm_lib.c
+> @@ -42,70 +42,58 @@ static int fill_silence_frames(struct snd_pcm_substream *substream,
+>    *
+>    * when runtime->silence_size >= runtime->boundary - fill processed area with silence immediately
+>    */
+> -void snd_pcm_playback_silence(struct snd_pcm_substream *substream, snd_pcm_uframes_t new_hw_ptr)
+> +void snd_pcm_playback_silence(struct snd_pcm_substream *substream)
+>   {
+>   	struct snd_pcm_runtime *runtime = substream->runtime;
+> +	snd_pcm_uframes_t appl_ptr = READ_ONCE(runtime->control->appl_ptr);
+> +	snd_pcm_sframes_t hw_avail, added, noise_dist;
+>   	snd_pcm_uframes_t frames, ofs, transfer;
+>   	int err;
+>   
+> +	// This will "legitimately" turn negative on underrun, and will be mangled
+> +	// into a huge number by the boundary crossing handling. The initial state
+> +	// might also be not quite sane. The code below MUST account for these cases.
+> +	hw_avail = appl_ptr - runtime->status->hw_ptr;
+> +	if (hw_avail < 0)
+> +		hw_avail += runtime->boundary;
+> +	else if ((snd_pcm_uframes_t) hw_avail >= runtime->boundary)
+> +		hw_avail -= runtime->boundary;
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+If hw_avail is above runtime->boundary then the initial condition is totaly 
+bogus. I would use snd_BUG_ON() and direct return here.
+
+> +
+> +	added = appl_ptr - runtime->silence_start;
+> +	if (added) {
+> +		if (added < 0)
+> +			added += runtime->boundary;
+> +		if ((snd_pcm_uframes_t)added < runtime->silence_filled)
+> +			runtime->silence_filled -= added;
+> +		else
+> +			runtime->silence_filled = 0;
+> +		runtime->silence_start = appl_ptr;
+> +	}
+> +
+> +	noise_dist = hw_avail + runtime->silence_filled;
+>   	if (runtime->silence_size < runtime->boundary) {
+> -		snd_pcm_sframes_t noise_dist, n;
+
+...
+
+> -		if (noise_dist >= (snd_pcm_sframes_t) runtime->silence_threshold)
+> -			return;
+>   		frames = runtime->silence_threshold - noise_dist;
+> +		if ((snd_pcm_sframes_t) frames <= 0)
+> +			return;
+
+The retyping does not look good here. Could we move the if before frames 
+assignment like:
+
+   if (runtime->silence_threshold <= noise_dist)
+     return;
+   frames = runtime->silence_threshold - noise_dist;
+
+>   		if (frames > runtime->silence_size)
+>   			frames = runtime->silence_size;
+>   	} else {
+> -		if (new_hw_ptr == ULONG_MAX) {	/* initialization */
+
+...
+
+> -		frames = runtime->buffer_size - runtime->silence_filled;
+> +		frames = runtime->buffer_size - noise_dist;
+> +		if ((snd_pcm_sframes_t) frames <= 0)
+> +			return;
+
+Similar thing, move the check before the frames assignment.
+
+						Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+

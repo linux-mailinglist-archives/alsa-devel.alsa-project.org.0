@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC89C6DDFAC
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 17:28:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 591816DDFA6
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 17:28:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 642E7F0F;
-	Tue, 11 Apr 2023 17:27:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 642E7F0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69033F0E;
+	Tue, 11 Apr 2023 17:27:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69033F0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681226920;
-	bh=CGz6dOryt6i+9MyE/ROX0UldLs/32MeJGRQXpIrQOPs=;
+	s=default; t=1681226889;
+	bh=Y51UQ2ugAy2nOw3puPqR97e5FQ4fHG7M3xmAcy9F10A=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=kDR/ME3S1EMr7bAQ4LKZpXie9JZ+ezEwqIqTCCvzO388y5gMzlRn2d7DbuKdJ1XAu
-	 hd9eojAb2GOqBYcn1gIfWq5eyYAy0WPID+I4MULQ1ss6ye5CPOxEyTKlSGCnBajbFX
-	 6CiF69Li0K2yoELahHth3AHUG3t+GOGlmdIlv0fE=
+	b=nBYcPY7tbGAVXimeHzLR5jL3ojwqcj3QhOixYoGk0CVu6+IMzHygEpTPYDBMPlrHn
+	 f95arh9gSmsNnlsFbwHlkHXFDz+GWYfoHajN7VGgDq0M67CRl9an8AhCfSjZD5WM23
+	 ciH4MHzKbJA6TLWqDvMdHgfJy8//KNU3HuHetJvA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4ACFF80557;
-	Tue, 11 Apr 2023 17:26:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D734F80551;
+	Tue, 11 Apr 2023 17:25:52 +0200 (CEST)
 To: <broonie@kernel.org>
-Subject: [PATCH 2/6] ASoC: cs35l56: Use DAPM widget for firmware PLAY/PAUSE
-Date: Tue, 11 Apr 2023 16:25:24 +0100
+Subject: [PATCH 3/6] ASoC: cs35l56: Skip first init_completion wait in
+ dsp_work if init_done
+Date: Tue, 11 Apr 2023 16:25:25 +0100
 In-Reply-To: <20230411152528.329803-1-rf@opensource.cirrus.com>
 References: <20230411152528.329803-1-rf@opensource.cirrus.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -38,7 +39,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MPV7HUKEMNRNPTCAUIKCXUZ77TMCZJEO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHLDYBNWEZIEEGRSEDAUZILTRWSNEUPH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -48,7 +49,7 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <168122680811.26.11649985628420343041@mailman-core.alsa-project.org>
+ <168122675139.26.1346332199626475851@mailman-core.alsa-project.org>
 From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
@@ -57,68 +58,69 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB0C2F80529; Tue, 11 Apr 2023 17:26:44 +0200 (CEST)
+	id D1CCCF80534; Tue, 11 Apr 2023 17:25:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51EB1F8032B
-	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 17:25:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51EB1F8032B
+	by alsa1.perex.cz (Postfix) with ESMTPS id CDF97F80448
+	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 17:25:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDF97F80448
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=jXi+jFd/
+ header.s=PODMain02222019 header.b=Rdn+cz2P
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
 	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33B5cuXJ012801;
-	Tue, 11 Apr 2023 10:25:32 -0500
+ 33B5cuXH012801;
+	Tue, 11 Apr 2023 10:25:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=h7DditDHGmOtptShi/lIy8tnhUVRuZRHJPllhupMv7Y=;
- b=jXi+jFd/d5f6+uOcY0+gYawFBxHSTTPTIen6w0ZT/ClYXA7wZ3r8m5UHnSJIbHIcfoCN
- n2LOtY77XJeakIJO2hGiufJ5BOECLkEGJhrKZkLwGwRZwsbET52duW2Lmy+lRmvd2Q3m
- kiWQHLwNXvvpNL8cAkUefFV0DtppUVuk2VSmLR2IKOLNpz5+fJyuGwTUxMGDnpebeSvI
- DlWnq60ely5Lo0oAegNb1dFrviY3axlRMUzLtVDp1PtFuSuu2HTxbpOSu1Xuk1xPYaKL
- dxhhYSuayXHpr7XVZSCKr45PWTSlqLbbHRSrYjXCwE81ULL7SPT2xJALCYOnH3oSMdHl Fw==
+ bh=VR8dS9XHi/tcgg98tMyvu5oqdaqQI1zEFWEB3e2GIBY=;
+ b=Rdn+cz2PuBzL5/nLw7ZZd+bzotn5bAQU7bm7EuXWXvgYoH/upMoYC6qDk5Abml4ndy4v
+ cyHFtHdwxs4Otgq4BRmxkDBoUMLbKPBbAGDUdhX74rD20VEHeBLSxtygp1UscMXrYb8+
+ 6/0UbjZ7capl9N97eQhA4fSl6TAaX7l38P711OEAeBwwY8D27mE4/pXCxtvmQ540AxOO
+ y+p2Py6Jv/on7ImAJZCpLKMvGxOoLQnzY0bPDQ1KAaGYv8E7k5yWywsEq2OOENX4dhRz
+ 3kgBXZyz4g6bmiiUq3gSJy22bJht4Pxz/5eYqnjnx0XHY0KX0IGa230Ftk3ds7xtxdKY Fg==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pu4pq54a3-5
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pu4pq54a3-3
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Apr 2023 10:25:32 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+	Tue, 11 Apr 2023 10:25:31 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Tue, 11 Apr
  2023 10:25:28 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Tue, 11 Apr 2023 10:25:28 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
+ Transport; Tue, 11 Apr 2023 10:25:28 -0500
 Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
  [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5EA2515A4;
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 6EED115B6;
 	Tue, 11 Apr 2023 15:25:28 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <broonie@kernel.org>
-Subject: [PATCH 2/6] ASoC: cs35l56: Use DAPM widget for firmware PLAY/PAUSE
-Date: Tue, 11 Apr 2023 16:25:24 +0100
-Message-ID: <20230411152528.329803-3-rf@opensource.cirrus.com>
+Subject: [PATCH 3/6] ASoC: cs35l56: Skip first init_completion wait in
+ dsp_work if init_done
+Date: Tue, 11 Apr 2023 16:25:25 +0100
+Message-ID: <20230411152528.329803-4-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230411152528.329803-1-rf@opensource.cirrus.com>
 References: <20230411152528.329803-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: 7ADj-nRnMCs-naLvQdERRqpVep_mEc0N
-X-Proofpoint-ORIG-GUID: 7ADj-nRnMCs-naLvQdERRqpVep_mEc0N
+X-Proofpoint-GUID: j7ttbEAZI4NGRR5EORvwAyFKfnenpTWr
+X-Proofpoint-ORIG-GUID: j7ttbEAZI4NGRR5EORvwAyFKfnenpTWr
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: MPV7HUKEMNRNPTCAUIKCXUZ77TMCZJEO
-X-Message-ID-Hash: MPV7HUKEMNRNPTCAUIKCXUZ77TMCZJEO
+Message-ID-Hash: IHLDYBNWEZIEEGRSEDAUZILTRWSNEUPH
+X-Message-ID-Hash: IHLDYBNWEZIEEGRSEDAUZILTRWSNEUPH
 X-MailFrom: prvs=9465f6ee37=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -133,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MPV7HUKEMNRNPTCAUIKCXUZ77TMCZJEO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHLDYBNWEZIEEGRSEDAUZILTRWSNEUPH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,187 +144,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-If we use a DAPM widget instead of mute_stream() to send the
-PLAY command we can issue the plays to multiple amps in parallel.
-With mute_stream each codec driver instance is called one at a
-time so we get N * PS0 delay time.
+At the start of dsp_work() only wait for init_completion if !init_done.
+This allows system suspend to re-queue dsp_work() without having to
+do a dummy complete() of init_completion.
 
-DAPM does each stage on every widget in a card before moving to
-the next stage. So all amps will do the PRE_PMU then all will do
-the POST_PMU. The PLAY is sent in the PRE_PMU so that they all
-power-up in parallel. After the PS0 wait in the first POST_PMU
-all the other amps will also be ready so there won't be any extra
-delay, or it will be negligible.
+A dummy completion in system suspend would have to be conditional on
+init_done. But that would create a possible race condition between our
+system resume and cs35l56_init() in the corner case that we suspend right
+after the SoundWire core has enumerated and reported ATTACHED.
 
-There's also no point waiting for the MBOX ack in the PRE_PMU.
-We won't see a PS0 state in POST_PMU if it didn't ack the PLAY
-command. So we can save a little extra time.
+It is safer and simpler to have cs35l56_init() as the only place that
+init_completion is completed, and dsp_work() as the only place that
+it is consumed.
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- sound/soc/codecs/cs35l56.c | 105 +++++++++++++++++++------------------
- 1 file changed, 55 insertions(+), 50 deletions(-)
+ sound/soc/codecs/cs35l56.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index 675aad8e909f..997a5c5acaab 100644
+index 997a5c5acaab..62c44276c121 100644
 --- a/sound/soc/codecs/cs35l56.c
 +++ b/sound/soc/codecs/cs35l56.c
-@@ -32,6 +32,23 @@
- static int cs35l56_dsp_event(struct snd_soc_dapm_widget *w,
- 			     struct snd_kcontrol *kcontrol, int event);
+@@ -866,7 +866,8 @@ static void cs35l56_dsp_work(struct work_struct *work)
+ 	unsigned int val;
+ 	int ret = 0;
  
-+static int cs35l56_mbox_send(struct cs35l56_private *cs35l56, unsigned int command)
-+{
-+	unsigned int val;
-+	int ret;
-+
-+	regmap_write(cs35l56->regmap, CS35L56_DSP_VIRTUAL1_MBOX_1, command);
-+	ret = regmap_read_poll_timeout(cs35l56->regmap, CS35L56_DSP_VIRTUAL1_MBOX_1,
-+				       val, (val == 0),
-+				       CS35L56_MBOX_POLL_US, CS35L56_MBOX_TIMEOUT_US);
-+	if (ret) {
-+		dev_warn(cs35l56->dev, "MBOX command %#x failed: %d\n", command, ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int cs35l56_wait_dsp_ready(struct cs35l56_private *cs35l56)
- {
- 	int ret;
-@@ -182,10 +199,45 @@ static SOC_VALUE_ENUM_SINGLE_DECL(cs35l56_sdw1tx6_enum,
- static const struct snd_kcontrol_new sdw1_tx6_mux =
- 	SOC_DAPM_ENUM("SDW1TX6 SRC", cs35l56_sdw1tx6_enum);
- 
-+static int cs35l56_play_event(struct snd_soc_dapm_widget *w,
-+			      struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(component);
-+	unsigned int val;
-+	int ret;
-+
-+	dev_dbg(cs35l56->dev, "play: %d\n", event);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		/* Don't wait for ACK, we check in POST_PMU that it completed */
-+		return regmap_write(cs35l56->regmap, CS35L56_DSP_VIRTUAL1_MBOX_1,
-+				    CS35L56_MBOX_CMD_AUDIO_PLAY);
-+	case SND_SOC_DAPM_POST_PMU:
-+		/* Wait for firmware to enter PS0 power state */
-+		ret = regmap_read_poll_timeout(cs35l56->regmap,
-+					       CS35L56_TRANSDUCER_ACTUAL_PS,
-+					       val, (val == CS35L56_PS0),
-+					       CS35L56_PS0_POLL_US,
-+					       CS35L56_PS0_TIMEOUT_US);
-+		if (ret)
-+			dev_err(cs35l56->dev, "PS0 wait failed: %d\n", ret);
-+		return ret;
-+	case SND_SOC_DAPM_POST_PMD:
-+		return cs35l56_mbox_send(cs35l56, CS35L56_MBOX_CMD_AUDIO_PAUSE);
-+	default:
-+		return 0;
-+	}
-+}
-+
- static const struct snd_soc_dapm_widget cs35l56_dapm_widgets[] = {
- 	SND_SOC_DAPM_REGULATOR_SUPPLY("VDD_B", 0, 0),
- 	SND_SOC_DAPM_REGULATOR_SUPPLY("VDD_AMP", 0, 0),
- 
-+	SND_SOC_DAPM_SUPPLY("PLAY", SND_SOC_NOPM, 0, 0, cs35l56_play_event,
-+			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-+
- 	SND_SOC_DAPM_OUT_DRV("AMP", SND_SOC_NOPM, 0, 0, NULL, 0),
- 	SND_SOC_DAPM_OUTPUT("SPK"),
- 
-@@ -252,6 +304,9 @@ static const struct snd_soc_dapm_route cs35l56_audio_map[] = {
- 	{ "AMP", NULL, "VDD_B" },
- 	{ "AMP", NULL, "VDD_AMP" },
- 
-+	{ "ASP1 Playback", NULL, "PLAY" },
-+	{ "SDW1 Playback", NULL, "PLAY" },
-+
- 	{ "ASP1RX1", NULL, "ASP1 Playback" },
- 	{ "ASP1RX2", NULL, "ASP1 Playback" },
- 	{ "DSP1", NULL, "ASP1RX1" },
-@@ -288,23 +343,6 @@ static const struct snd_soc_dapm_route cs35l56_audio_map[] = {
- 	{ "SDW1 Capture", NULL, "SDW1 TX6 Source" },
- };
- 
--static int cs35l56_mbox_send(struct cs35l56_private *cs35l56, unsigned int command)
--{
--	unsigned int val;
--	int ret;
--
--	regmap_write(cs35l56->regmap, CS35L56_DSP_VIRTUAL1_MBOX_1, command);
--	ret = regmap_read_poll_timeout(cs35l56->regmap, CS35L56_DSP_VIRTUAL1_MBOX_1,
--				       val, (val == 0),
--				       CS35L56_MBOX_POLL_US, CS35L56_MBOX_TIMEOUT_US);
--	if (ret) {
--		dev_warn(cs35l56->dev, "MBOX command %#x failed: %d\n", command, ret);
--		return ret;
--	}
--
--	return 0;
--}
--
- static int cs35l56_dsp_event(struct snd_soc_dapm_widget *w,
- 			     struct snd_kcontrol *kcontrol, int event)
- {
-@@ -611,43 +649,11 @@ static int cs35l56_asp_dai_set_sysclk(struct snd_soc_dai *dai,
- 	return 0;
- }
- 
--static int cs35l56_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
--{
--	struct cs35l56_private *cs35l56 = snd_soc_component_get_drvdata(dai->component);
--	unsigned int val;
--	int ret;
--
--	dev_dbg(cs35l56->dev, "%s: %d %s\n", __func__, stream, mute ? "mute" : "unmute");
--
--	if (stream != SNDRV_PCM_STREAM_PLAYBACK)
--		return 0;
--
--	if (mute) {
--		ret = cs35l56_mbox_send(cs35l56, CS35L56_MBOX_CMD_AUDIO_PAUSE);
--	} else {
--		ret = cs35l56_mbox_send(cs35l56, CS35L56_MBOX_CMD_AUDIO_PLAY);
--		if (ret == 0) {
--			/* Wait for firmware to enter PS0 power state */
--			ret = regmap_read_poll_timeout(cs35l56->regmap,
--						       CS35L56_TRANSDUCER_ACTUAL_PS,
--						       val, (val == CS35L56_PS0),
--						       CS35L56_PS0_POLL_US,
--						       CS35L56_PS0_TIMEOUT_US);
--			if (ret)
--				dev_err(cs35l56->dev, "PS0 wait failed: %d\n", ret);
--			ret = 0;
--		}
--	}
--
--	return ret;
--}
--
- static const struct snd_soc_dai_ops cs35l56_ops = {
- 	.set_fmt = cs35l56_asp_dai_set_fmt,
- 	.set_tdm_slot = cs35l56_asp_dai_set_tdm_slot,
- 	.hw_params = cs35l56_asp_dai_hw_params,
- 	.set_sysclk = cs35l56_asp_dai_set_sysclk,
--	.mute_stream = cs35l56_mute_stream,
- };
- 
- static void cs35l56_sdw_dai_shutdown(struct snd_pcm_substream *substream,
-@@ -749,7 +755,6 @@ static const struct snd_soc_dai_ops cs35l56_sdw_dai_ops = {
- 	.shutdown = cs35l56_sdw_dai_shutdown,
- 	.hw_params = cs35l56_sdw_dai_hw_params,
- 	.hw_free = cs35l56_sdw_dai_hw_free,
--	.mute_stream = cs35l56_mute_stream,
- 	.set_stream = cs35l56_sdw_dai_set_stream,
- };
- 
+-	if (!wait_for_completion_timeout(&cs35l56->init_completion,
++	if (!cs35l56->init_done &&
++	    !wait_for_completion_timeout(&cs35l56->init_completion,
+ 					 msecs_to_jiffies(5000))) {
+ 		dev_err(cs35l56->dev, "%s: init_completion timed out\n", __func__);
+ 		goto complete;
 -- 
 2.30.2
 

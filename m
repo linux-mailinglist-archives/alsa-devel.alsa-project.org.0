@@ -2,259 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E2036DD036
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 05:33:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52EDE6DD1EE
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Apr 2023 07:42:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0658FFAB;
-	Tue, 11 Apr 2023 05:32:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0658FFAB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 706B2F6C;
+	Tue, 11 Apr 2023 07:41:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 706B2F6C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681184009;
-	bh=kHkcsr4WXFuU5s/IV3atkDPFqiTUWMx58c+rSAdvET0=;
-	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=cZhZ4g7SW7MBOAAt8iaQaMXzJcxru9DTW48gKQ8XSqEFzI2ju0bxc1jeErNcXcMPJ
-	 Ze+l6+Vhj0V/uCRYLefwI2wuWyUl9w1uYdUy77TLx786/9RQfqgAhpTiRH2+RIKXvI
-	 lczt70ZyEBK/EP41zjBOvcrxPFsam1hs1DdPnQDE=
+	s=default; t=1681191736;
+	bh=EalEXuyum1URrX7KRo4oMLBXqz7aDoQJ4tp3oFfYp44=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=NA9/ST4ACClik+EB9d7O0JP57PB7silgBBpQQp5V7e3n6BZ61kEjdq+hfbqXKsdLe
+	 muBMolpIsuUEJ+CnpAIoQPZo4lqc/3m3xcp7gbt5TAQKhqMjWZ7+heoVt9/rzuX39o
+	 X3Ze0iuvEqd16GJzX1OE17o8xa96k1g4l1f1Xa0k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52375F8025E;
-	Tue, 11 Apr 2023 05:32:38 +0200 (CEST)
-To: "broonie@kernel.org" <broonie@kernel.org>, "groeck@chromium.org"
-	<groeck@chromium.org>, "tiwai@suse.com" <tiwai@suse.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, "shraash@google.com" <shraash@google.com>,
-	"perex@perex.cz" <perex@perex.cz>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH] ASoC: mediatek: common: Fix refcount leak in
- parse_dai_link_info
-Date: Tue, 11 Apr 2023 03:32:13 +0000
-References: <20230411003431.4048700-1-shraash@google.com>
-In-Reply-To: <20230411003431.4048700-1-shraash@google.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2O6JQYL32KW74KEILQ3Z27A27VNWC25/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168118395705.26.18273058440394008199@mailman-core.alsa-project.org>
-From: =?utf-8?b?VHJldm9yIFd1ICjlkLPmlofoia8pIHZpYSBBbHNhLWRldmVs?=
- <alsa-devel@alsa-project.org>
-Reply-To: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-Cc: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "lkp@intel.com" <lkp@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "julia.lawall@inria.fr" <julia.lawall@inria.fr>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id CF97EF8025E;
+	Tue, 11 Apr 2023 07:41:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6A842F8032B; Tue, 11 Apr 2023 05:32:32 +0200 (CEST)
+	id E5393F8032B; Tue, 11 Apr 2023 07:39:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_MSPIKE_H2,RDNS_NONE,SPF_HELO_PASS,
-	SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=no
+X-Spam-Level: 
+X-Spam-Status: No, score=-8.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3A7A9F8023A
-	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 05:32:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A7A9F8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9B298F80100
+	for <alsa-devel@alsa-project.org>; Tue, 11 Apr 2023 07:39:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B298F80100
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=pR2446Pe;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com
- header.b=BdWultVw
-X-UUID: 74f55190d81911eda9a90f0bb45854f4-20230411
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=ZtWtLNHlT7mO73lwjcTiDNCYaVGKpwizFSrhhw3UJM0=;
-	b=pR2446PeZmy4WTATaKFyOs/4tfmqqD7spIzJmLvsKruosPC57JeIOR3sVFWG0TueV2VnfvH8TrzBmPl+mOpJrfAQD1qqATthWPl02uPhoN/8intCLRc7GxFlSLI/Gc3xvoKfJG3aEOYKy2z45fNskSQS02WbQI9teocRnPCNYxg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22,REQID:42db7a0d-68a7-4d5d-a760-002a4b78cd5b,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:120426c,CLOUDID:2d4fe7a0-8fcb-430b-954a-ba3f00fa94a5,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: 74f55190d81911eda9a90f0bb45854f4-20230411
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
- mailgw01.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1119130840; Tue, 11 Apr 2023 11:32:16 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25; Tue, 11 Apr 2023 11:32:15 +0800
-Received: from APC01-SG2-obe.outbound.protection.outlook.com (172.21.101.239)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Tue, 11 Apr 2023 11:32:15 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OhC+ez9YpoxyyRrMHCp01JcSzG/3w0iCGpLKhfo4QCEUIY6c2DvXBXkQJ34LWPttoosO9ag307Ar8yuuDsIjEdz949YSbyDa+Bp4AC+WLZkUHBDkmM7T0CJiAf6PaXPe3HP2nNbuu3gB0vG1r/vZOC2jLxDcOZwRkf0uzM9o6ynnS+6fLgXBUZWqHk7JfZI3CtoiQ/Ue575uOOxvtRomNhmfbxQT052ik7FdhKGqrYLYFPEoDTsGlPaHOalTUvqbCHs5tRXU0Jo/VL6QiQKRbhNeYI5bYL4phIxExsT9DGoldEddBig/QRzMeFuczq0gfUCf7Nmk5H2Zi+rq6XG72g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZtWtLNHlT7mO73lwjcTiDNCYaVGKpwizFSrhhw3UJM0=;
- b=eZjO70CJb8OhUGCzwSfRZDpJN9vi4X1YLQRWQ0TjhmV5aie+BbRCI02y5afVnchxTEfrLjHEFNKCW0MKTwWAl3zPvVWQYta8nYZGln08Ceu+mZbA9rx4gDUCthb81SgezFjqflOsQOfRUdYC7/m9RCVtPDQEUe+8X9wTcsiGj7wn0cTVDmBLCmi7q/6kGpVz9hyRygD5K04UaEed5z58dxgDSNp+aEntxJ2bujBBhBXukGpBlL+3DJW2m8DZlglD5ojciD/VLY/mFOFUw/nKcHHCaQ9EzAhuoj1BuTQqDV5jarl9kpIvxc/qWbXcffYToUp6B1ho+IcQXkpF4JYqiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=SQ0HcQxa
+Received: by mail-ej1-x636.google.com with SMTP id f26so11301086ejb.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 10 Apr 2023 22:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZtWtLNHlT7mO73lwjcTiDNCYaVGKpwizFSrhhw3UJM0=;
- b=BdWultVw7DdLBpdWjUAt5Dxfli7OXUw5gLHSjEzKff9FTUQZls6F+2YZXxQ7PohiwwO6j+D4SPux7JKIKoZsqIiGO33HsND1UrmZ/LqWMPYOw8+u3f+7kq3rNuFfPgiEFMnjPYfZVPUqeZRrd8NF5BDYQrHeqQQr2aY7lfFO1lI=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by SI2PR03MB6112.apcprd03.prod.outlook.com (2603:1096:4:16c::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Tue, 11 Apr
- 2023 03:32:13 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de%3]) with mapi id 15.20.6277.035; Tue, 11 Apr 2023
- 03:32:13 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "groeck@chromium.org"
-	<groeck@chromium.org>, "tiwai@suse.com" <tiwai@suse.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, "shraash@google.com" <shraash@google.com>,
-	"perex@perex.cz" <perex@perex.cz>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH] ASoC: mediatek: common: Fix refcount leak in
- parse_dai_link_info
-Thread-Topic: [PATCH] ASoC: mediatek: common: Fix refcount leak in
- parse_dai_link_info
-Thread-Index: AQHZbA1xqN3M8LrD3kK3fdGKol+LNq8ldE6A
-Date: Tue, 11 Apr 2023 03:32:13 +0000
-Message-ID: <948eb609271ed2b735a480266480fd23c148d42f.camel@mediatek.com>
-References: <20230411003431.4048700-1-shraash@google.com>
-In-Reply-To: <20230411003431.4048700-1-shraash@google.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|SI2PR03MB6112:EE_
-x-ms-office365-filtering-correlation-id: 5b10157f-2c50-4318-db9a-08db3a3d5779
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 4LNFEDPaWi/Yaq18zlPew42xzndUmHNZYgxXKV8Gdawnm4vuTk2UkOnYehycTmv1NDO3bAshnrRjx4BQyB/R9pptZS64J8yh06owWJ5pj5x3PpSY3e64ZTST2Z+nV7eU8qvlDqgdKOGUqSBJyGCn8U9Q2IysnrwNZTzzZYqTFFRlAFbwfZ9RTSW8hlHGpXSWOV141DvkDjnrFvXJLpxtGCiKHqTKCULtLE3ld9Zgnhv+ZRb0FMq4D7q6YCdbgoBsfnx6UCXqNJ4BBlj4+MZMCh0prdL0xOioZvhnl602+0TOaYChMRDrulj7g2Jw7DM/uVDNVFtPKf+8oIAQ7bqGUfC5CZ1DWzNBEN3k+iNzho9RRRNybe/BNdNyOR2GUmQvP6o588Jo4lMBEQLW5Xxmd/KObYGyH53d1WT6p1c2TKa7XBu0/iQXxyLLE+oYYvuYr5jPWTBa0Va1+k5d12OOdq60IoRHwE9+raY4CGcGuVE3tEpXZbs2rK2PqZJOZw2gAn2CDzdfbFTlj581K4qII87MALykhdxtq9aa1N4XNSt0RvRlR+UbQBcwegIihygXDPmYkCYBIURitZASdDT5pqZH4PH+D0fcpGxIgjwNY8BqSkzCiqIajpMh650ldd0aIdHJMpCmFAm15QGVwYUV8kmQK4scOpqMsavUq02q9To=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR03MB6686.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(366004)(346002)(376002)(136003)(39860400002)(451199021)(85182001)(36756003)(86362001)(91956017)(110136005)(316002)(41300700001)(76116006)(66946007)(4326008)(66476007)(66556008)(71200400001)(6486002)(478600001)(966005)(64756008)(66446008)(54906003)(5660300002)(8936002)(8676002)(2906002)(7416002)(38070700005)(38100700002)(122000001)(186003)(6512007)(6506007)(26005)(2616005)(83380400001)(99106002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?ZXkxOVNEdUJtSEh1UDhMZXBCczdXSGU5SHlwcnVJeEV4ZWpUczkzTzdxQVJV?=
- =?utf-8?B?bGVRM3ZhNzA3Zy9zdngxNDZ2eW5iY1VrK0t5WVNyOUlNb2V3V0RwRHVvZDIr?=
- =?utf-8?B?cksxYlJiZ3FkVVozdDRLMUFmRWIxY3Z1c1FOY2NaOUZxMHlqNFQyekl4Nndi?=
- =?utf-8?B?clVueUlSVUpsNy9Xd3hVZFVmUTlxOGxmZzVXOGNRWVZEM2VQOU1uN2dUNlFM?=
- =?utf-8?B?M1dTa0NNb3RxQnhGMmZEUGRvTVVSR01QdHg1cUMvWUNldjUrdS9aZ1FhN2Ra?=
- =?utf-8?B?clZQL0RhSUNxakFCcTk0R2E0aHkvYld2empRNTdNNUV1dFc0cFhXWjF5dDRL?=
- =?utf-8?B?UGppUW1sZVpSbnV6ODBxOE1HYXo0NTg4ZUk3Nysrd29zYlp2NHNaaGREbXJz?=
- =?utf-8?B?b3kvNUZHQnRNTHdndnBKR1JzQW4yc1NWaWZ0Q0c0ZG1pT3prbkFVcVdRdlEx?=
- =?utf-8?B?RGMxMFowK2JhTjBSZ1JPeERkQWpoai8vZHdpd2U4MXJQMi8vOTRFYmNyMlFQ?=
- =?utf-8?B?eXMvUlRTdzcrc2VBRHdhbDNkYUM0Y1JobnRUaHRyc1Rrb0VRQS83OEI0eTdG?=
- =?utf-8?B?VnJ5djRSayttYit6Sng3N2lnWFI5dFZXZzcwUS9JRW0rVnRLcUlQbnFpSXh0?=
- =?utf-8?B?cW5IdnltZFBnbDBSYzlMSFVQQ2V2WXBvcTc1UHRBY0lNYjAyRUVJK0t6bXZ1?=
- =?utf-8?B?eVUxRGtTMjhJV0J5ZUJOTUg0MnhUcWhIZExyOFNNNHM0SFZxOGxHaGlMOVVv?=
- =?utf-8?B?NTNBZWFrRVdlN0IxazdUcW5kWGwzNkJDYXBRTEFmQWc2d2NzT3hFdWIxa0dH?=
- =?utf-8?B?d1RpN1paS2J4SDV0dmNNRXkyL2RkYUYyNVV6MEpWZFFHRnYyZWlOTGFISDdt?=
- =?utf-8?B?MnFoUkIreW5yYi9nUENHdWozaFBkTVlidWgwN3dkcHMySWNUZjNkYzZjYmJC?=
- =?utf-8?B?ZEhDOHZFaHp1S0p3TkVsaXNmd3gwdlR5QldiYTkyRFI4RkN1OHc5bHF0WlFR?=
- =?utf-8?B?aVpBNFd5TXY3LzZ6dUc3aERyM2Ntc2xYN29tSzBFWWo3UFUxL3F2a2ZLTWpG?=
- =?utf-8?B?MktKQjYvRVJiT2hydnNJemhONzVnVFF6R09oUTA5bnFDdC9WQUMzVCt3c3px?=
- =?utf-8?B?UjJIaS9kRHpZTVR6WVdrVzMzUmJ6TE50Rld5ckM3TE9ZQlluaXdQRllJUE1k?=
- =?utf-8?B?VWFKTWtXV2ttcHRvbmM0a0s0NThkMnlGUjF4VjlDRnZaaENNSnBKNFBSbjF4?=
- =?utf-8?B?VDQyd1BJU1BWcTlETWh1eXJqRG5lNW95ZHlKd0huUHVxb3V3d0FHaWExTkJD?=
- =?utf-8?B?WXJPU2pJS0VCZlp1S0RLNVM3cGdqY3dzdkRaK2V6Z1NqcHQ0RFJjVDBWUjJW?=
- =?utf-8?B?RFYyQlUyRk43eUZDWUszYVM5UFNLdXNVL3FqdVhlRVZZNWI1aEZQZEs5WVJF?=
- =?utf-8?B?a3FETEJDYmpNWldSMC9abWVrMm1UYm92YzNvWjBWR3RoVVUzendCbWwrWU5m?=
- =?utf-8?B?YUdmVTZPNXN0UXZoNlgwNlljNVFKWlhtSVBBcHlvTzR2MlQzdXNDbkhKWmNZ?=
- =?utf-8?B?KzZKTGdtM2c2MkVYd3lqb0RQM1FqOVhJZ290blVoVDNmcXBhVE5yZC9IaHMz?=
- =?utf-8?B?Y0FCYmhtN05lVkttNkNKVlQ5TGlaaWI0WVR3eDR5UlU5WE1BQkJrQjRnYWNX?=
- =?utf-8?B?cWhWTzFUZ21LY0VnQVVkTlhDYU1uV3VyNS9UMkVRRmFqT3hKbFNVMXk2YXl0?=
- =?utf-8?B?VVlLeWltK0ZIVDF4V0lEQU9wM3l4RGdOWUcrWFVxVWJPUUxXcGhBdXV5T1V6?=
- =?utf-8?B?T2R3K2lXaUE2UlpuK2dvOFBJdWNTSS95SVFIS0ZIc2VsZzN1VUdrNFc3bmlj?=
- =?utf-8?B?MkFIbTY4Vm1oQ0x5RFVqdE9Zd2hlRy8ySUliWnlZcnI2UXhIRE1TdjVnZzNE?=
- =?utf-8?B?T21MRXlZWmhOTTU0U2tqSGhyMHpPdzkyU0RuanZKb0JSL2hRaFB5WVllTlpj?=
- =?utf-8?B?dXRBMHAwNnBwWEEzdFI4VHJKcTRXUDlQbUhjUXo4MkcvTGNtbnR3TU1Wd3JW?=
- =?utf-8?B?QWV3K2tOejV6czM0OEJXV0l1YmFmUW45OHNGb2g4YUJGRVlpYlJyWENiZ05D?=
- =?utf-8?B?Q01LNE1Yc0xLdnhKNEVEVURBc000MTlsWm9lZWZuU0RGWFczSzRXNkVYTGJt?=
- =?utf-8?B?dlE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <C4B23C8B28445E47A5943FCCCAC258B6@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+        d=linaro.org; s=google; t=1681191585;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=CoUp8773GFsWX8uWiArPvI14C/ql8uh0ic9aHuPd7Zk=;
+        b=SQ0HcQxaYhVaPHJU7/Fddz5xSruENq8SIZdWF2hDnv6HCXdQGfcgCsgrZJa2z0hZEc
+         wfKaOclUEBMXsWyQY7M+C73Olwkv/Vqn6sr+Hp6bMEZMwl0S5ipnPHtKdp11/iUAmol9
+         JXubvATbAYG5toZNgHNu7fUYa3bllf+T3tIu9K486PiVzxAdhy/wo2IulinkybjPPrXd
+         wtB9laoY8xPAlIL4vtcYc9WLnGj0gsvTXPZq0IbF66AxDbj2Df9Hbrkk7r5l1Ex7wYPe
+         foGOcjvqwCLXUbkzNDLeogyIPOaN76VuAKp++SP7+nppcX1fz3RM3D2qMlk/WP8c0IpV
+         2WFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1681191585;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=CoUp8773GFsWX8uWiArPvI14C/ql8uh0ic9aHuPd7Zk=;
+        b=7PgXARkb7Wp0sSJFIVfxDD+W3ghlxrAtSCSOCa6r/n3OZn4QPaGmYo/x9349sBZyIO
+         LPxNSMy3iDyEKYnODsXcMuj5W2XX0iQFJ3vTQNdXCXUz5E2pbRfWQ98NG1v9IoLZI7Zh
+         qEq8F3IazEKQIBUXKsdu6HzWMZlbMGfFc/EkWqjPx2maGn4cUdrEse6XsBlA+JaBlcfi
+         gqZNSIRsdLJ7XsJFV8TXyf5V9iCufG1HeiWJvqNGC3X6Dgqdo5efzK3pBUIXA9ONAXEj
+         ShoUya9UAploXYgSvnkVHVVX3G8wZVryHYZMdGFJSoxWAhLtUfpYh/FW4onLpYIk8r47
+         NBzw==
+X-Gm-Message-State: AAQBX9eB+u1LIW/pvYCkfvBCG8HabHKy853SxjSLbVJod4tOId8NsCns
+	lTMUFy9X0YFu92ReQe9MoRqaBA==
+X-Google-Smtp-Source: 
+ AKy350blMDeEpPqsWV8AahVbXa/XkySm179RRsqGLVKVGNELXAp3iuvjbp3/OoHwZHpcCTy2iLaaJw==
+X-Received: by 2002:a17:907:2ced:b0:8ee:babc:d40b with SMTP id
+ hz13-20020a1709072ced00b008eebabcd40bmr8342951ejc.58.1681191585694;
+        Mon, 10 Apr 2023 22:39:45 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:dad2:72b7:3626:af61?
+ ([2a02:810d:15c0:828:dad2:72b7:3626:af61])
+        by smtp.gmail.com with ESMTPSA id
+ tg12-20020a1709078dcc00b0094a473988b9sm2943049ejc.27.2023.04.10.22.39.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Apr 2023 22:39:45 -0700 (PDT)
+Message-ID: <a6f78d8a-829a-a40e-0fc4-83eb9887b406@linaro.org>
+Date: Tue, 11 Apr 2023 07:39:44 +0200
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 5b10157f-2c50-4318-db9a-08db3a3d5779
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2023 03:32:13.7509
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- JMliszaWpRXtvGQpnY0fTPnBBkLeN/cobnmkm7/hmzhMhf5T/J+q/NLZSJ372ekSKuZZxUbE4wNMr6zbW+Inbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR03MB6112
-X-MTK: N
-Message-ID-Hash: S2O6JQYL32KW74KEILQ3Z27A27VNWC25
-X-Message-ID-Hash: S2O6JQYL32KW74KEILQ3Z27A27VNWC25
-X-MailFrom: trevor.wu@mediatek.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH v2 1/2] dt-bindings: sound: ep93xx: Add I2S description
+Content-Language: en-US
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+ devicetree@vger.kernel.org
+References: <20230410222958.2321398-1-alexander.sverdlin@gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230410222958.2321398-1-alexander.sverdlin@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: OONNQI47FHAJ7Q5CMZRVRAQOCDQXGUQX
+X-Message-ID-Hash: OONNQI47FHAJ7Q5CMZRVRAQOCDQXGUQX
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "lkp@intel.com" <lkp@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "julia.lawall@inria.fr" <julia.lawall@inria.fr>
+CC: Hartley Sweeten <hsweeten@visionengravers.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Nikita Shubin <nikita.shubin@maquefel.me>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2O6JQYL32KW74KEILQ3Z27A27VNWC25/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OONNQI47FHAJ7Q5CMZRVRAQOCDQXGUQX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -263,46 +126,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gVHVlLCAyMDIzLTA0LTExIGF0IDA2OjA0ICswNTMwLCBBYXNoaXNoIFNoYXJtYSB3cm90ZToN
-Cj4gRXh0ZXJuYWwgZW1haWwgOiBQbGVhc2UgZG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0
-YWNobWVudHMgdW50aWwNCj4geW91IGhhdmUgdmVyaWZpZWQgdGhlIHNlbmRlciBvciB0aGUgY29u
-dGVudC4NCj4gDQo+IA0KPiBBZGQgbWlzc2luZyBvZl9ub2RlX3B1dCgpcyBiZWZvcmUgdGhlIHJl
-dHVybnMgdG8gYmFsYW5jZQ0KPiBvZl9ub2RlX2dldCgpcyBhbmQgb2Zfbm9kZV9wdXQoKXMsIHdo
-aWNoIG1heSBnZXQgdW5iYWxhbmNlZA0KPiBpbiBjYXNlIHRoZSBmb3IgbG9vcCAnZm9yX2VhY2hf
-YXZhaWxhYmxlX2NoaWxkX29mX25vZGUnIHJldHVybnMNCj4gZWFybHkuDQo+IA0KPiBGaXhlczog
-NDMwMjE4N2Q5NTVmICgiQVNvQzogbWVkaWF0ZWs6IGNvbW1vbjogYWRkIHNvdW5kY2FyZCBkcml2
-ZXINCj4gY29tbW9uIGNvZGUiKQ0KPiBSZXBvcnRlZC1ieToga2VybmVsIHRlc3Qgcm9ib3QgPGxr
-cEBpbnRlbC5jb20+DQo+IFJlcG9ydGVkLWJ5OiBKdWxpYSBMYXdhbGwgPGp1bGlhLmxhd2FsbEBp
-bnJpYS5mcj4NCj4gTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDIzMDQwOTA1MDQu
-Mks4TDZzb2otbGtwQGludGVsLmNvbS8NCj4gU2lnbmVkLW9mZi1ieTogQWFzaGlzaCBTaGFybWEg
-PHNocmFhc2hAZ29vZ2xlLmNvbT4NCg0KDQpSZXZpZXdlZC1ieTogVHJldm9yIFd1IDx0cmV2b3Iu
-d3VAbWVkaWF0ZWsuY29tPg0KDQo+IC0tLQ0KPiAgc291bmQvc29jL21lZGlhdGVrL2NvbW1vbi9t
-dGstc291bmRjYXJkLWRyaXZlci5jIHwgMTIgKysrKysrKysrLS0tDQo+ICAxIGZpbGUgY2hhbmdl
-ZCwgOSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL3Nv
-dW5kL3NvYy9tZWRpYXRlay9jb21tb24vbXRrLXNvdW5kY2FyZC1kcml2ZXIuYw0KPiBiL3NvdW5k
-L3NvYy9tZWRpYXRlay9jb21tb24vbXRrLXNvdW5kY2FyZC1kcml2ZXIuYw0KPiBpbmRleCA3YzU1
-YzJjYjFmMjEuLjczODA5MzQ1MWNjYiAxMDA2NDQNCj4gLS0tIGEvc291bmQvc29jL21lZGlhdGVr
-L2NvbW1vbi9tdGstc291bmRjYXJkLWRyaXZlci5jDQo+ICsrKyBiL3NvdW5kL3NvYy9tZWRpYXRl
-ay9jb21tb24vbXRrLXNvdW5kY2FyZC1kcml2ZXIuYw0KPiBAQCAtNDcsMjAgKzQ3LDI2IEBAIGlu
-dCBwYXJzZV9kYWlfbGlua19pbmZvKHN0cnVjdCBzbmRfc29jX2NhcmQNCj4gKmNhcmQpDQo+ICAg
-ICAgICAgLyogTG9vcCBvdmVyIGFsbCB0aGUgZGFpIGxpbmsgc3ViIG5vZGVzICovDQo+ICAgICAg
-ICAgZm9yX2VhY2hfYXZhaWxhYmxlX2NoaWxkX29mX25vZGUoZGV2LT5vZl9ub2RlLCBzdWJfbm9k
-ZSkgew0KPiAgICAgICAgICAgICAgICAgaWYgKG9mX3Byb3BlcnR5X3JlYWRfc3RyaW5nKHN1Yl9u
-b2RlLCAibGluay1uYW1lIiwNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAmZGFpX2xpbmtfbmFtZSkpDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgJmRhaV9saW5rX25hbWUpKSB7DQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIG9mX25vZGVfcHV0KHN1Yl9ub2RlKTsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0
-dXJuIC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICB9DQo+IA0KPiAgICAgICAgICAgICAgICAg
-Zm9yX2VhY2hfY2FyZF9wcmVsaW5rcyhjYXJkLCBpLCBkYWlfbGluaykgew0KPiAgICAgICAgICAg
-ICAgICAgICAgICAgICBpZiAoIXN0cmNtcChkYWlfbGlua19uYW1lLCBkYWlfbGluay0+bmFtZSkp
-DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQo+ICAgICAgICAgICAg
-ICAgICB9DQo+IA0KPiAtICAgICAgICAgICAgICAgaWYgKGkgPj0gY2FyZC0+bnVtX2xpbmtzKQ0K
-PiArICAgICAgICAgICAgICAgaWYgKGkgPj0gY2FyZC0+bnVtX2xpbmtzKSB7DQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIG9mX25vZGVfcHV0KHN1Yl9ub2RlKTsNCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICB9DQo+IA0KPiAgICAg
-ICAgICAgICAgICAgcmV0ID0gc2V0X2NhcmRfY29kZWNfaW5mbyhjYXJkLCBzdWJfbm9kZSwgZGFp
-X2xpbmspOw0KPiAtICAgICAgICAgICAgICAgaWYgKHJldCA8IDApDQo+ICsgICAgICAgICAgICAg
-ICBpZiAocmV0IDwgMCkgew0KPiArICAgICAgICAgICAgICAgICAgICAgICBvZl9ub2RlX3B1dChz
-dWJfbm9kZSk7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQo+ICsgICAg
-ICAgICAgICAgICB9DQo+ICAgICAgICAgfQ0KPiANCj4gICAgICAgICByZXR1cm4gMDsNCj4gLS0N
-Cj4gMi40MC4wLjU3Ny5nYWMxZTQ0MzQyNC1nb29nDQo+IA0K
+On 11/04/2023 00:29, Alexander Sverdlin wrote:
+> Add device tree bindings for Cirrus Logic EP93xx internal SoCs' I2S
+> controller.
+> 
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> ---
+> Changelog:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+

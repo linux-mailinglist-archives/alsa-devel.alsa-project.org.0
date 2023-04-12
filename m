@@ -2,73 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B7D06DF210
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 12:34:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1516A6DF217
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 12:38:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD50110D2;
-	Wed, 12 Apr 2023 12:34:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD50110D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7214310CF;
+	Wed, 12 Apr 2023 12:38:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7214310CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681295697;
-	bh=VhWypZmjzC4k6XhhihbDg5YelhEJglGSoe3BycyLU88=;
-	h=Date:From:To:Subject:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=qfpnX4GqKMJVg6arEGSZQpTjcv+nZhX3Sdg9BqkTztmGz76r3uvKLfQAejYTwku6T
-	 M+KpOVm7uLmzLLYYSOtRCBJWdi8Q2yV/S8luL9DeiWzPoFH9OR2GWBParpKkDqf3Bi
-	 y0T1U53YbOSKZl56REqxM9w3lPto3rQ5hnXTPXAg=
+	s=default; t=1681295937;
+	bh=K7z0m/uGXWIExlxp9kQ1rn+uTqo+41hh1mPPSNnQYLA=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=p7mencQhOCTH0Q9ZyaDDwn5KU8hDZos2edfIKLXr+FbqwjLGXwi2KWbIiztbPLQc0
+	 xgXwXzUSJdgXxmJKVJ90keV0Hy8T9usaRmUvJAO3pNLiL4aNQuMsAixqGvKdNAPAK0
+	 2hsOL5Op57jUtNthyTF37+kIKPOQxLwe+J9SVDsI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2138F8025E;
-	Wed, 12 Apr 2023 12:34:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7614F8025E;
+	Wed, 12 Apr 2023 12:38:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AD46F8032B; Wed, 12 Apr 2023 12:34:02 +0200 (CEST)
+	id C2FF9F8032B; Wed, 12 Apr 2023 12:38:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E4902F800E5
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 12:33:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4902F800E5
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 5AD8824107
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 06:33:39 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pmXnH-JVV-00
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 12:33:39 +0200
-Date: Wed, 12 Apr 2023 12:33:39 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
-Message-ID: <ZDaJA4fCTFcsy9N1@ugly>
-Mail-Followup-To: alsa-devel@alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id E655DF800E5
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 12:37:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E655DF800E5
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=mHS1fokY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Iop0UzPX
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 023021F890;
+	Wed, 12 Apr 2023 10:37:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1681295878;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gs8Y5P+Jw69iw00dN18P1cyRdBJ6IoLQtoEhIdbPoc8=;
+	b=mHS1fokYPXDnlwSc508r25TDzHmN/8vX5dq7r/LdRk4ai6ZnCv3139IIwXP0y/WnVs6jZW
+	bmwKpRGnQ5r7ewN4evoUesuG8icqzlLDqghg5gd0QyZGUyhJg4SH7aalRll6nwJSpnvxn8
+	pH+AeGd6ragNsdSSVQm3eZLfKoxy9nc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1681295878;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gs8Y5P+Jw69iw00dN18P1cyRdBJ6IoLQtoEhIdbPoc8=;
+	b=Iop0UzPXtyQdPqb4U3PO0YVG7qGMTc8u256+kl4AnLm5vNT6xwNLTB/kiMdVsOx14GtvWu
+	DCl1v+V3YAXK8aBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E6C5D132C7;
+	Wed, 12 Apr 2023 10:37:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id DuK3NwWKNmTtHgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 12 Apr 2023 10:37:57 +0000
+Date: Wed, 12 Apr 2023 12:37:56 +0200
+Message-ID: <87wn2ho06z.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 2/2] ALSA: pcm: auto-fill buffer with silence when
+ draining playback
+In-Reply-To: <ZDZmDyOMYMD4Uu5g@ugly>
 References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
- <8a3a2490-eb0f-7b76-3bc6-58ef5473d360@perex.cz>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="sIy9q8i09DG33QAU"
-Content-Disposition: inline
-In-Reply-To: <8a3a2490-eb0f-7b76-3bc6-58ef5473d360@perex.cz>
-Message-ID-Hash: 7C4HO3OOH3PWWQPHB677RK2YKYFGNPFS
-X-Message-ID-Hash: 7C4HO3OOH3PWWQPHB677RK2YKYFGNPFS
-X-MailFrom: ossi@kde.org
+	<20230405201219.2197789-2-oswald.buddenhagen@gmx.de>
+	<3d75c103-7e94-e6a1-7f3d-7f957c33cddc@perex.cz>
+	<ZDEWyjdVE2IocpGY@ugly>
+	<22f551f3-deae-1536-bd07-0b9340940ea4@perex.cz>
+	<ZDVnUj2B0EkMiOlA@ugly>
+	<6d6c5f3a-81bc-acf4-eb4d-229b581bbe8b@perex.cz>
+	<ZDWPy9YbXWWOqaC+@ugly>
+	<7b317956-deb1-0a75-0a34-f82d6a81cf90@perex.cz>
+	<87ttxl7cxd.wl-tiwai@suse.de>
+	<ZDZmDyOMYMD4Uu5g@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: QRYPNQHUI7MVX6XIQOY55R2PFHITHUNP
+X-Message-ID-Hash: QRYPNQHUI7MVX6XIQOY55R2PFHITHUNP
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7C4HO3OOH3PWWQPHB677RK2YKYFGNPFS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QRYPNQHUI7MVX6XIQOY55R2PFHITHUNP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -77,150 +125,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 12 Apr 2023 10:04:31 +0200,
+Oswald Buddenhagen wrote:
+> 
+> On Wed, Apr 12, 2023 at 09:54:54AM +0200, Takashi Iwai wrote:
+> > I'm thinking whether we need to change anything in the kernel side for
+> > this at all.  Can't it be changed rather in alsa-lib side instead?
+> > 
+> it could, but it would be a lot uglier. user space would have to do a
+> "man-in-the-middle attack" on the data, while in the kernel we can
+> just slightly modify the consumer. this would be particularly obvious
+> in the case of write() access.
 
---sIy9q8i09DG33QAU
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-
-On Tue, Apr 11, 2023 at 12:47:26PM +0200, Jaroslav Kysela wrote:
->On 05. 04. 23 22:12, Oswald Buddenhagen wrote:
->> This fixes a bug in thresholded mode, where we failed to use 
->> new_hw_ptr,
->> resulting in under-fill.
->
->I don't follow what you refer here. The old code uses 
->snd_pcm_playback_hw_avail()
->
-yes
-
->thus new hw_ptr for the threshold mode, too.
->
-not before my patch. the silencer was called before the new pointer was 
-stored. it had to be, as otherwise the delta for top-up mode could not 
-be calculated.
-
->> +	// This will "legitimately" turn negative on underrun, and will be mangled
->> +	// into a huge number by the boundary crossing handling. The initial state
->> +	// might also be not quite sane. The code below MUST account for these cases.
->> +	hw_avail = appl_ptr - runtime->status->hw_ptr;
->> +	if (hw_avail < 0)
->> +		hw_avail += runtime->boundary;
-
->> +	else if ((snd_pcm_uframes_t) hw_avail >= runtime->boundary)
->> +		hw_avail -= runtime->boundary;
->
->If hw_avail is above runtime->boundary then the initial condition is totaly 
->bogus. I would use snd_BUG_ON() and direct return here.
->
-this is only there as a result of inlining 
-snd_pcm_playback_hw_avail()/snd_pcm_playback_avail() somewhat 
-mindlessly. the check does indeed make no sense, so i'll just drop it.
-(the broader lesson of this is the attached patch. i can re-post it 
-separately if you like it.)
-
->>   		frames = runtime->silence_threshold - noise_dist;
->> +		if ((snd_pcm_sframes_t) frames <= 0)
->> +			return;
->
->The retyping does not look good here. Could we move the if before frames 
->assignment like:
->
->   if (runtime->silence_threshold <= noise_dist)
->     return;
->   frames = runtime->silence_threshold - noise_dist;
->
-dunno, i don't like it - it's more noisy and imo it loses 
-expressiveness, as the question we're asking is "how many frames do we 
-need to fill?".
-note that due to use of unsigned types in the runtime struct, such 
-retyping is rather common in comparisons.
-
-regards
-
---sIy9q8i09DG33QAU
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-ALSA-pcm-reshuffle-implementations-of-snd_pcm_playba.patch"
-
->From 02b303326b1be1ddb52afb38a384d26d79fa8b53 Mon Sep 17 00:00:00 2001
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Date: Wed, 12 Apr 2023 12:28:49 +0200
-Subject: [PATCH] ALSA: pcm: reshuffle implementations of
- snd_pcm_playback_{,hw}_avail()
-
-Implementing snd_pcm_playback_hw_avail() in terms of
-snd_pcm_playback_avail() doesn't actually make sense - it should be the
-other way around, the opposite of the respective functions for capture.
-This makes the code clearer by illustrating the inverse data flow
-better, and saving a conditional.
-
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
----
- include/sound/pcm.h | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
-
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index f20400bb7032..81854813a567 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -783,22 +783,31 @@ static inline size_t snd_pcm_lib_period_bytes(struct snd_pcm_substream *substrea
- 	return frames_to_bytes(runtime, runtime->period_size);
- }
- 
-+/**
-+ * snd_pcm_playback_hw_avail - Get the queued space for playback
-+ * @runtime: PCM runtime instance
-+ *
-+ * Return: available frame size
-+ */
-+static inline snd_pcm_sframes_t snd_pcm_playback_hw_avail(struct snd_pcm_runtime *runtime)
-+{
-+	snd_pcm_sframes_t avail = runtime->control->appl_ptr - runtime->status->hw_ptr;
-+	if (avail < 0)
-+		avail += runtime->boundary;
-+	return avail;
-+}
-+
- /**
-  * snd_pcm_playback_avail - Get the available (writable) space for playback
-  * @runtime: PCM runtime instance
-  *
-  * Result is between 0 ... (boundary - 1)
-  *
-  * Return: available frame size
-  */
- static inline snd_pcm_uframes_t snd_pcm_playback_avail(struct snd_pcm_runtime *runtime)
- {
--	snd_pcm_sframes_t avail = runtime->status->hw_ptr + runtime->buffer_size - runtime->control->appl_ptr;
--	if (avail < 0)
--		avail += runtime->boundary;
--	else if ((snd_pcm_uframes_t) avail >= runtime->boundary)
--		avail -= runtime->boundary;
--	return avail;
-+	return runtime->buffer_size - snd_pcm_playback_hw_avail(runtime);
- }
- 
- /**
-@@ -817,17 +826,6 @@ static inline snd_pcm_uframes_t snd_pcm_capture_avail(struct snd_pcm_runtime *ru
- 	return avail;
- }
- 
--/**
-- * snd_pcm_playback_hw_avail - Get the queued space for playback
-- * @runtime: PCM runtime instance
-- *
-- * Return: available frame size
-- */
--static inline snd_pcm_sframes_t snd_pcm_playback_hw_avail(struct snd_pcm_runtime *runtime)
--{
--	return runtime->buffer_size - snd_pcm_playback_avail(runtime);
--}
--
- /**
-  * snd_pcm_capture_hw_avail - Get the free space for capture
-  * @runtime: PCM runtime instance
--- 
-2.40.0.152.g15d061e6df
+But basically it'd be like fiddling sw_params temporarily for
+draining, I suppose?  And the "attack" here can be taken too
+seriously; the whole PCM operation can be somehow interfered if a
+process may have the access to the PCM device, and changing sw_params
+itself must not introduce too much trouble.
 
 
---sIy9q8i09DG33QAU--
+thanks,
+
+Takashi

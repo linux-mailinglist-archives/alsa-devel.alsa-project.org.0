@@ -2,36 +2,32 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C87D46DF8E0
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 16:48:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 175106DF93A
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 17:01:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 970C8104F;
-	Wed, 12 Apr 2023 16:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 970C8104F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A4E4847;
+	Wed, 12 Apr 2023 17:00:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A4E4847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681310892;
-	bh=tCpfqOm91F9+d3d820Hn9Un7E47mHAi9jT2TwwzL7W4=;
-	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
+	s=default; t=1681311704;
+	bh=UMyz8fV3u3KYXa9SaAXNgh6y7YkEIabal9fhQDJCj2g=;
+	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:From;
-	b=llQ65XnAyrL3teCbuQnqzZIMOUSkRq18RU+i+AIvo7NydSyv/gQQPw7lsbNhgbq60
-	 Q/SNX+mlo6wO/wc990c8SkmVs6D+5q2FJ/hX9mAZpcyNDO2W+OT1o6l7QUT2WPXBvI
-	 oYYaJsdE0BKKnWq4X5sp4bqv2OxI2suiyRv6Lrx4=
+	 From:Reply-To:Cc:From;
+	b=PgOD/4zDW1/dxattmW2EqRRjTPR5G/Vq86gvViMnKoDd/Hf2EqkNU784GWkXnpEr1
+	 5MXaQwlkhNejJJkQrfMHCooQ1HnJ/qlQhZYjCupHSNRcZ8H12PyD3zK/dev4D7sRU9
+	 /4bfP9cL4tepzjUKlERL5uipxWS8u69PpjuGAif4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDBE9F8025E;
-	Wed, 12 Apr 2023 16:47:21 +0200 (CEST)
-To: Baishan Jiang <bjiang400@outlook.com>, Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, Mark Pearson <mpearson-lenovo@squebb.ca>
-Subject: RE: [PATCH v2] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks list
- for acp6x
-Date: Wed, 12 Apr 2023 14:47:01 +0000
-References: 
- <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
-In-Reply-To: 
- <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A900F8025E;
+	Wed, 12 Apr 2023 17:00:53 +0200 (CEST)
+Date: Wed, 12 Apr 2023 10:00:31 -0500
+Subject: Re: [PATCH] ASoC: amd: Add check for acp config flags
+To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
+In-Reply-To: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -43,7 +39,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZSBKJEY57755BLRQWOJTRIID3FXIQGVP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/24OS7UT3NSWNMHWGIOD2Y4XRBNUGLGGA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -53,150 +49,145 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <168131084103.26.7232689866895095136@mailman-core.alsa-project.org>
+ <168131165234.26.6851719383071727188@mailman-core.alsa-project.org>
 From: "Limonciello, Mario via Alsa-devel" <alsa-devel@alsa-project.org>
-Reply-To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Reply-To: "Limonciello, Mario" <mario.limonciello@amd.com>
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ vsujithkumar.reddy@amd.com, ssabakar@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
 Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 557CAF8032B; Wed, 12 Apr 2023 16:47:17 +0200 (CEST)
+	id 3DC5FF8032B; Wed, 12 Apr 2023 17:00:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::606])
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8b::604])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2631EF80149
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 16:47:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2631EF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02CAAF80100
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 17:00:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02CAAF80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=YUiG2IrM
+ header.s=selector1 header.b=rCrxoCJL
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fop3hkZNssQ7TZpWbY/PJdI5/4nlTzag+6hIaBe0KouqwZPwe3LV05EKnCoK55FRdPqRjHMEEkSYglsRhT1RbSXoJgVzeZHwXBp33taB6jkn+KzxWPSB3vHTx1813XO7kjP+jwdHpjLCO1ARAW1GVsHa4njUoM/77FQbdZL6xvQ56BIaTbdfMx7lehtj3Smfso+bvxa4Y7VillhIEjUTgauruJSo0L+gxNgs/f5CC2JJkESRFGjDgkVwfwRBV9fnt8ELlyT9UXfPsM89tCGGZbSe1JuY9o+9Ll0W42yMMJYLwziextae+3FrAuxNY+IrTZysz+YsqMODf6JeG51GzQ==
+ b=QB1j70cfbimxBJEsN7dSsI86O1rbTmDSV4npb9bf5FnRHHNsdbyNTVIGw5YMpB/8QHwqQ03AJm+LBLNagmf/hqhlNvnE6PeEU/+++VTE82bUdjwD0780SoGF/CYoh9A56oEx42x1Vhqa5x30T5BAMVT3eUPSwnEyyzYxxRki4jTcNCz7TE7vFOFepssWZy2X1S54Onyjd6kkHAtqFAvLGhZkmopwBdTDFiYiIrPs5Hp9lHXyIcUCx9D3OlVEB1h30TnXZ4ejG/pq2f1YNdffWxQ+ymgIGoaZUj3MviKiLNivMNdLKLBZoQ3w/74JZHq8HLVipAXcrQqzSFKT+unn5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2ZySwq+a0HnQCUfxWxPfCeNHh736bTgNn3jcEcl4XzU=;
- b=cReKlIVF0UJVb7IuVrxWfmxsjoFP2llCb9nwVF4p+uKqXjFtEIEqjrCn+GIUT7iYjPkzJVxqjRDODc2bKx8VJj/War+G34zyiHthJALRX3NkJVPRNthjX3hmupEHgxYuaM0FtbZ3RLfSFVe1K1sWMOdOIueFoQTrxLAiLcEzymqoWh89ax7GvRjes5VmmJoLPsuQEI420GDiYirP1g51HVY9cn//rD3yvhJzY1JQrtcSI6+J/rma1PtowebYxk0xARSr/2cR4StjXPp9ymhfvFc+R1xeZDwU1zizEXMSone82HIT9CEB0Bwv1ESJxMovJYX9ZrRKaDbTfUuNB8v93g==
+ bh=60xuJRrZnrKvYUI53F7Ce/TdLbDbnbFajKtJN0vZvf0=;
+ b=DcJm+vq2cHzgseeoEaGfo1JDHhqR9f8C+aTrnrG6txMcH65t/ueh+F3K0sLpxnPnMRh/NaoSKPFbah7wNq3AfSyHtrXlBfR3fV3DoUw+IfcdJ3X1boaTduSWSKyVW1DChQWFpDgHP4LeVLQ6oUYFiMRVVYlzK2l+FJgIT96EeoKN9lo0UmSnlj1Zj/5KK9TR/m1proyVdIWLuBngAMP2+SenIQwyop5U6YiBQWTGDJqqmGuI9rDMSVqy0366eQmlVwZfkkBy8y1XRky8KswlorK/8t5XtWYr8bRPy/AeVt7yCvCLm5FLsrHq5T0iBjcteNm4TqJ4lrpVTVr4oMwNEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2ZySwq+a0HnQCUfxWxPfCeNHh736bTgNn3jcEcl4XzU=;
- b=YUiG2IrMsS0RUd6xxmWBXSsPsgouHPzEMISzgXEe6QY5TWqruqClK17TXg/ly6z33K8FJt4OGD4pf9RPpgWd0tacPthu6x+d3+SdltcgcFWkkGvVXOR+GB6iOAggp7Gy6QHeDOVWTbiJSZSmP40aw/2DUAk7Gga4+X0aUEl/UMY=
+ bh=60xuJRrZnrKvYUI53F7Ce/TdLbDbnbFajKtJN0vZvf0=;
+ b=rCrxoCJLcZay8oEnv3B7ENJD6ADvKe9WDUIJ86fy1SYxvFTMmDrdpqy8DXMBnu83N8Ti2Wbl4deo4lvUcqzl2XuNeQ5xM1wuxRvZqW58fpyO4E3Nv4XlaU4/Z8Vj6/xN4bkgiucffn7dtduexqrA8e5VObyAVQ7U2Y1Tp9HxrX4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SA3PR12MB7975.namprd12.prod.outlook.com (2603:10b6:806:320::11) with
+ by SA0PR12MB4461.namprd12.prod.outlook.com (2603:10b6:806:9c::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Wed, 12 Apr
- 2023 14:47:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Wed, 12 Apr
+ 2023 15:00:35 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::f4d:82d0:c8c:bebe]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::f4d:82d0:c8c:bebe%2]) with mapi id 15.20.6277.036; Wed, 12 Apr 2023
- 14:47:01 +0000
-From: "Limonciello, Mario" <Mario.Limonciello@amd.com>
-To: Baishan Jiang <bjiang400@outlook.com>, Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, Mark Pearson <mpearson-lenovo@squebb.ca>
-Subject: RE: [PATCH v2] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks list
- for acp6x
-Thread-Topic: [PATCH v2] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks
- list for acp6x
-Thread-Index: AQHZbRt5wxXeIJaS+0KmLy+xNuZVFK8nvi2g
-Date: Wed, 12 Apr 2023 14:47:01 +0000
-Message-ID: 
- <MN0PR12MB61013DABE036B5D1BB3518A5E29B9@MN0PR12MB6101.namprd12.prod.outlook.com>
-References: 
- <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
-In-Reply-To: 
- <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
-Accept-Language: en-US
+ 15:00:34 +0000
+Message-ID: <0295ccee-2ee3-7d8a-9412-1442794157b0@amd.com>
+Date: Wed, 12 Apr 2023 10:00:31 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] ASoC: amd: Add check for acp config flags
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Enabled=true;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SetDate=2023-04-12T14:46:59Z;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Method=Privileged;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_Name=Public-AIP 2.0;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ActionId=61fb2d1e-8cb9-4b9a-a821-334c7aceca1b;
- MSIP_Label_d4243a53-6221-4f75-8154-e4b33a5707a1_ContentBits=1
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_enabled: true
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_setdate: 2023-04-12T14:46:59Z
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_method: Privileged
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_name: Public-AIP 2.0
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_siteid: 
- 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_actionid: 
- ba074258-e387-4594-8a0c-db5d30e3f898
-msip_label_d4243a53-6221-4f75-8154-e4b33a5707a1_contentbits: 0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6101:EE_|SA3PR12MB7975:EE_
-x-ms-office365-filtering-correlation-id: 21fd28a7-18d3-4794-d22b-08db3b64c65c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- neEg8N8V4tEfZFmvJY68TVZCTNRfVzWSolqZPnJagPpmDvMcajdsT9eqpcyiQpjLbiBpm9KxM8LlSFycpnW3Oz1a5gGVjnHxmJs8q67+6uLf9WUUpKSRThS57nZPALXMKQ9tNOSndvK9DktAkM2bf+ZZRf4IyNdhRHxQDTPjIZYfigEvAPbgzUG9uIsyvj/7WrwUrPzUpWhiq+0EH3Wgp/WFgKtI7zqJReIxqvKvB3NecAAAfwU93Prz0u1ykdoxScXb/OsTuxHEvXLtQZgPEiL5Tg5/NE1ZqVYvvJ4UTQKkKJrnpNSPlYw8LXQox0JOHIHqlrEPg6fm7PjSaVMJz6METX5Cf3cj32L7YMXg1FcbERIFN1CyZFamntXUeSpwJANTxtWaTj67P+o0RVyuluYqcY55pieMFlJgbwzWMUTTOVX/7nfM92ZCeXjnilNbJOtndq6WVfJDGO5nXsJRjs5xMBi1FiHO/2EQtaoREBVhOmArFUmKg8cq35bylWdTp4jimkjXoRRCFaPIqg44l6wGAXb9hJfh7xijhrW1A9CLRO3SKzrauRvF4WMZPTFsp45s9+wnqvVSPtPPSiDgQTnTZQGnnlnLW2dfrBzdLYJrSdhoKSa++mp2MuL4ZPv0hCcDTp6vQnd9jrjYEYSsTg==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(376002)(346002)(39860400002)(366004)(451199021)(71200400001)(83380400001)(76116006)(478600001)(7696005)(186003)(26005)(110136005)(6506007)(53546011)(9686003)(52536014)(2906002)(33656002)(5660300002)(122000001)(38100700002)(66446008)(66556008)(64756008)(66946007)(41300700001)(66476007)(8936002)(316002)(38070700005)(55016003)(86362001)(8676002)(32563001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?+pWuJsB5sp08RfNY075nfvbCbiF2xMfvl11ApL9FVLRPVDF9RKufA2Cta3Dk?=
- =?us-ascii?Q?D6oJmgUMVHH4iQev86dUAvVibCKMa0SM+Q6PXYp4QcnqtFAshPUx8QpX3eWD?=
- =?us-ascii?Q?Ixp2FThlGfVrRtlp6dITVj1EUm0+XWBvKvsR4mM/9uTfjmLtgZtwbGIuw2G3?=
- =?us-ascii?Q?gkHdd63ku25nizUwEesP+GGccARQ3cjRAhG4LIlK/cwEPOmkVyy9vLGxMwwN?=
- =?us-ascii?Q?t6ldvg8hg8bHiou7xQ9Fz9ZDOUwT3o9/ZEtGRd4rwTEW1TRlfGUW+CGvHHaD?=
- =?us-ascii?Q?6gpsnPZOaF8K5AdM6uNjFq05hSnwcm5vfZ6kePkYAX4hg212IIRPrPCTz8Bp?=
- =?us-ascii?Q?L2XfVnHwpMxek0vug8k9AVbHYLrRGiLSu2kQJfkNSazRMmoyHpnhzH1EX4a9?=
- =?us-ascii?Q?z6MX2UBsoYLM+qT+vDEmpYyWdOkIIKqqmt5g14v40GR9sRdjrw9tk4JfQJyR?=
- =?us-ascii?Q?wI8XOoYB4ECQ6bdhCdis0CBSqjTskDpF/k3rYBa5t0raIbYCMKYDVKUIQGd4?=
- =?us-ascii?Q?w9fUhzQeBh9VnAOnIYxO1ADWvtYi9hjEh3qPpeaaeC195r+0UeHhLIvAhyui?=
- =?us-ascii?Q?JMlq0s75OW+yiwy40iItz3LoAlcmliNrCJbAE6qTmk+8IjYzd56In98nHPaX?=
- =?us-ascii?Q?MqF8Y7kjbWSR/Lfj1RScsTKeddEaQJ4tfoJwUkIk3sYDE3DT+4eA6Z2feZFc?=
- =?us-ascii?Q?fP58FNqqu1ndEUU2HIsWLVuvSa9ud5//hIH/QKB1xRiyb+5GKqjw2f2xVFbl?=
- =?us-ascii?Q?VUl6mryMCsm/f0ZGxmiJg3CgzdNT8e+vzgwHYEtkFl54Ot0EuIeXfeOYEV2/?=
- =?us-ascii?Q?QlxAVCry7QQooLzU6MgOwWIMVkN1P5MU69vMjLKFJNAfVHnvJLB8L8PU57vT?=
- =?us-ascii?Q?aKT/U/Mj5JxZMIh7AfgT5IWH27or836I9LFeJEYgrdPFFPZS+UyBu/ltW2Rn?=
- =?us-ascii?Q?m1nSwbNWmaygdhhprqPU+c8F90iSZaWfj0BLYl6h3lMtRX35Ng38r+932g4F?=
- =?us-ascii?Q?n9oieNDQibAEF8bmaX0TpcddXmiMqRmAxb/f1bAApZ1kJNR7rRAH6kIaGFbk?=
- =?us-ascii?Q?6bqZIcG755i/GvX79IaiA/kkH/IW1Rmlm6dzVbxDQQa12CFTkhP/BzYgUUFH?=
- =?us-ascii?Q?dj1n1D3kReUXGaaPUjZpdRbJqXjA4cJxJG74DBeb9NA6m9LWplVuW7mfr2H5?=
- =?us-ascii?Q?RiwgHqfTg3ACBBRwgz0yQ0/foXWuzYkJLHomnH85KzkIDnelqWjffFnFq5hC?=
- =?us-ascii?Q?xv6NDEL2Cptuiv/RDaIKNPo8btd/sxYFI8kZ0WaGr7HvaYb3SsUNE5fMPt8u?=
- =?us-ascii?Q?Ymd6gECbSKEzw4MrDAUQIBE1Bh0VW9o0hHNFtqqqkkM9Ftf4CWthAD+/sUYO?=
- =?us-ascii?Q?0VZIFtQdJvL9KmNuIkbNQDeYZVzTQeNxz4jqgff6PyJ2Vc/x5XiBUYbwjYEK?=
- =?us-ascii?Q?odFUV0P984ObuN7s8BzVcvJhvq9E7ofae5+n1+l5sRsM2hs7fezUDvQ6zGns?=
- =?us-ascii?Q?2oy36q/PRTC2/IW1NqwTzGb5He8q4wX5pafQTDK4ZMaSGUQtVELTgFhTWDAR?=
- =?us-ascii?Q?ozlO+zwWIh7bp3GlbV4=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+To: Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+References: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
+From: "Limonciello, Mario" <mario.limonciello@amd.com>
+In-Reply-To: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR02CA0005.namprd02.prod.outlook.com
+ (2603:10b6:208:fc::18) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SA0PR12MB4461:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a7d5677-7c89-4373-25d7-08db3b66aaea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	NSAg3vgHCO/GgT8+ZrTkI1qkCRj3JyHHCSnm4qaMp+GwNfjQvK7o9/cRhw1zodDEPhXfY3wpYCql3vcD9wio7y2+2cMTNzz+DXbQu5R7bVJvZuI8nDSsseEW2bxzHMSAXNCGYtf+T1B/cO3+k2TVvUkik0f0kOcHKqFjvrg7my6dhSydxop8di4ODvLFzIkTvzbRfNcQPXpPMGctr5SLH9pm8lhHHTBTLrcT87lbaqGFoLvsORQaq4gYHhtBb8u/I+tf0GIxoz2/4Sd+sfW5Tik1IniDdCcvOkGzoxKw4UOCfrIbnp5cTZZyKe9ZnchqCELBF/bQk++VZaiOK4cNlh4A77keknbwXRNt9sm12EbXTiEi5VKgpVvmy50pX3WSQ8TqqZ9dmjGX1j0K2Y3JbdqoTcDTqwg+I7JpaFfmZDg5+byoBRyd7B0G5UuPasmYVZqBR2mpFlRaNk9Ys1VLurUFO4w0HeXeGfZuRcXSnN86YPYjhR+SK2OHTAjF2rpuD/JK+hEEB2mhDkwwwtP89mpN6OyRRlLxgFJbIVg6oKrQEMYuN551wmvpUN8dkJFrb0X1JvFbsLP1Cm2kGPTxJAZ/qo+aaEv1qrMphePNApWBe3Ewf4ku6syKZBXsyUaK+4GdHG7mfdy17XbjxPYIyQ==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(346002)(396003)(376002)(39860400002)(451199021)(6486002)(66476007)(66946007)(66556008)(8676002)(54906003)(4326008)(478600001)(41300700001)(316002)(31686004)(36756003)(31696002)(86362001)(6666004)(2616005)(6512007)(6506007)(26005)(53546011)(83380400001)(2906002)(8936002)(5660300002)(38100700002)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?QXYwVnF5SW1SbUNHWFRnNHRDNXNoL2hma3pjOTZnb081Mnh3THY2RCt5dVdK?=
+ =?utf-8?B?c1dFalhoMmVpM3AxeTlXOGpWNC9kZTkrSTZjNGd2bUdtL01uM1JZNHh0SW14?=
+ =?utf-8?B?RW9wbzlHeVBuU1Vjd2QydGJlRzFGeGw4VnBqWHc5VGM4bXc4MkpnZ0lmSUNZ?=
+ =?utf-8?B?VU9iNFNoQnAvMWNxY2J5MFFRenRMSDVxTnRFRHdFaUo3Nk5nWllhcHJHNU9S?=
+ =?utf-8?B?NXdIeWZrbnpGbzIwbTNHWDRrbDBobFFrbHlCNUV5bU41REs4SzV4L0FhbXBj?=
+ =?utf-8?B?RkhBL0pld3llT0ZqazhtbTFpZjhqQkFOOEFzNzdkZDd2d1Q2TUx5M28rM2pl?=
+ =?utf-8?B?VVVDRGJYV0NmcE1xcXAvQ3dFRURWQ3lPS0RqV3hRZTg0YnI3VHRaRms3WlJT?=
+ =?utf-8?B?ZCsyZzI5dEp4U2JqLytzTC9odFh4OHhpZ1JvRXVQRzlCNE5wTTVDU0xwZm1t?=
+ =?utf-8?B?NDRuQkF1Szc2UEVXendVcHI5bUVnYk5zTFQxaTliSUJpYi9UTXZMSDhORkxJ?=
+ =?utf-8?B?end1ZVJzRGNFYmdOWnlzdmgrbGpOMTZ6d1BOZjhQQnpRTEJxcElLRnR3bUho?=
+ =?utf-8?B?VnZKeHFIMGphVE5KTldDSktnenhJc0xvMmg1ZHY3ZzF1UDByWDc1R3lkVkM3?=
+ =?utf-8?B?QU00ZzhrZUtLSGhoM3hmY3RvUVo4VzJWTFNVczBjQXlLR0c2SUl5UjJQd1lz?=
+ =?utf-8?B?bEpyQkc3MitsaEdKdk5PVHFGbmtiMm9OU3VPTEh0bUFmUzVnU1BtOWNyY1Js?=
+ =?utf-8?B?VS92ZWRzYW9WN0x3Rk9Zc0NZUnFmeFRVYS9BVFF5Zk9qejVpa2Fza2dsS1VS?=
+ =?utf-8?B?TCt4NnRwZ3lMWHNqN2V0Q2MvaXRHOEkxRWJFbER0dWdLWjJSMDR3dm9WUjFa?=
+ =?utf-8?B?ZDhqRk84WkVXV3FqSjNZV0xLNGZnOXJrWlcxSmxVamJ5WmZtM3RyQVNYT1J6?=
+ =?utf-8?B?Z0hDbjltV2lMRXNDUzd1L0xJdE5NM2FrNitlQjlzS2k1Y3JJTXlrNGxUSE9O?=
+ =?utf-8?B?bHRUbXZ3b0lUcnB4ZjVGSjdYYU4yK1BZV3ZhRW5ibmdzKzQ2Z2ZRcjBjQ1Jq?=
+ =?utf-8?B?OVpWRkxoM1VCNDRNV0hqN3dXRytxdms0Rk5vQUxXc2tKUkVHVGptOStBcFNh?=
+ =?utf-8?B?V3NyUzVGK3N6MDM5dmE2THVCakFTYjN0K2diYVNjMU9uMXRPVnhHRlJYOG9I?=
+ =?utf-8?B?eFBsNzlYWTlNTjlkMGE2ZmJBbTJORVVEVmt4N3ZGdTJ0VDJJNXZ1UFF3SGVH?=
+ =?utf-8?B?UDFkOTg5VHkzM00xc3RYU0xkYS9xNjZQVmw0YWJSQVdHaWJOV1l1dUc2K0Q3?=
+ =?utf-8?B?a0ZvV1hiVVNyOGg2dm1GZXlRUUVCSTNLdFh6QThPNE1FWUVrR2lXcjFkVjhH?=
+ =?utf-8?B?eVdNSG5zWlRsVi9sYjUxOFBERVA1aGZWU1FYUXlyRmhWZVRpczVrUGFMbmFw?=
+ =?utf-8?B?TEZTNmQ5Rk1EaDhkY1JIUm5Ba2VEc3VLNjh4QTMwLzIyQlJ2aWtjd3Rqb1B2?=
+ =?utf-8?B?NW9MZE1xUE1aMmRUTmU0ZmV1Yis1UWdBNUVLS3Y3eEJzY0pHaHlqNHk1WWRF?=
+ =?utf-8?B?d2VOZGsvelBxQW11cm0rbERHVmFwaVBCb3NHeVJkNzE2VmlmWlI0bHpTWVpr?=
+ =?utf-8?B?TzhINEJVTVBPdzNkbHVhWXREbjdLQmF6enNrOThGT1JScUdYNXdJWDd3TnFh?=
+ =?utf-8?B?Q0lMajBwdUFlYjVWckp6ZXNKRFJ5TXF4SlpVdHAzeGdpd3MvMXdVcWs3d2hC?=
+ =?utf-8?B?YVZJeDl6UkpWYThuSnlaWUtsYm5RbitzR0xrUVdqUVJlOG9yaXc1Y1MxWGxF?=
+ =?utf-8?B?RzdnQ0JzV1Nwd1RXZE1xanh2NStBbnBoZ0hFUkdtcnRRWGU0YjNoOEp1RGti?=
+ =?utf-8?B?c3p4YjBUaWY3d3QrYzY0bmhBMUZkRDIvV3YxZVlrWWJZTitndkY5b0U1MnJ6?=
+ =?utf-8?B?N3psbW5MTHE3RDhFNVJlcUpQdFVhZUgzZ1M5MUdJblo1VFJLakZBWm9FcVll?=
+ =?utf-8?B?QSt1V1M2bmEwMDg0SXREcnF2VDdCMi9ZWmM3YlB5cnIzQ2E4MDl6VVBqSEJC?=
+ =?utf-8?B?QjNKZXhveXRtbk01ZXBIbHNKdUNKdHU4RWVVTzA5eGduZHd6ME14TkZ2b0tQ?=
+ =?utf-8?Q?J2y2D0Of0OFuzohq/jGC5dFCb?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 21fd28a7-18d3-4794-d22b-08db3b64c65c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2023 14:47:01.3535
+ 5a7d5677-7c89-4373-25d7-08db3b66aaea
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 15:00:34.5013
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- oZoNFnxHSGjm2Cu3jayY0ZDtfEDUWDhUBhBC4Dpv+jfiqlBuy2yfl2kmgx3n1In2zqgPLn4kRo5oF88ZSQ1Zxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7975
-Message-ID-Hash: 2YZP7JBIBRQA27PVCTI5B4L2ELYESVXO
-X-Message-ID-Hash: 2YZP7JBIBRQA27PVCTI5B4L2ELYESVXO
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ I0Cp6q8EK5gEyOe7v+wL9hGarwgdJ5L41cDVpJKklhfY4q6tBuANVzBu1pgf9O6Y4kvPgDZOZzbh4tleZZiFYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4461
+Message-ID-Hash: 24OS7UT3NSWNMHWGIOD2Y4XRBNUGLGGA
+X-Message-ID-Hash: 24OS7UT3NSWNMHWGIOD2Y4XRBNUGLGGA
 X-MailFrom: Mario.Limonciello@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -204,12 +195,20 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ vsujithkumar.reddy@amd.com, ssabakar@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZSBKJEY57755BLRQWOJTRIID3FXIQGVP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/24OS7UT3NSWNMHWGIOD2Y4XRBNUGLGGA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -218,62 +217,127 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-[Public]
+On 4/12/2023 04:16, Syed Saba Kareem wrote:
+> We have SOF and generic ACP support enabled for Rembrandt and
+> pheonix platforms on some machines. Since we have same PCI id
 
-Loop Mark Pearson from Lenovo for awareness.
+s,pheonix,Phoenix,
+s,have same,have the same,
 
-> -----Original Message-----
-> From: Baishan Jiang <bjiang400@outlook.com>
-> Sent: Wednesday, April 12, 2023 03:41
-> To: Mark Brown <broonie@kernel.org>; Takashi Iwai <tiwai@suse.com>;
-> Limonciello, Mario <Mario.Limonciello@amd.com>; alsa-devel@alsa-
-> project.org
-> Cc: Baishan Jiang <bjiang400@outlook.com>
-> Subject: [PATCH v2] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks lis=
-t
-> for acp6x
->=20
-> ThinkBook 14 G5+ ARP uses Ryzen 7735H processor, and has the same
-> microphone problem as ThinkBook 14 G4+ ARA.
->=20
-> Adding 21HY to acp6x quirks table enables microphone for ThinkBook
-> 14 G5+ ARP.
->=20
-> Signed-off-by: Baishan Jiang <bjiang400@outlook.com>
+> used for probing, add check for machine configuration flag to
 
-It would be generally preferred for systems to start including the _DSD in =
-the
-BIOS so we can stop growing the quirk list, but if they don't then patches =
-like
-this make sense.
+You should mention here that the PCI ID is the same but the revision
+is different to make this clearer for the commit message.
 
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-
+> avoid conflict with newer pci drivers. Such machine flag has
+> been initialized via dmi match on few Chrome machines. If no
+> flag is specified probe and register older platform device.
+> 
+> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+> Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 > ---
-> V1 -> V2: Fixed signed-off-by format
-> ---
->  sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-
-> mach.c
-> index 0acdf0156f07..62d8a8e060d2 100644
-> --- a/sound/soc/amd/yc/acp6x-mach.c
-> +++ b/sound/soc/amd/yc/acp6x-mach.c
-> @@ -178,6 +178,13 @@ static const struct dmi_system_id
-> yc_acp_quirk_table[] =3D {
->  			DMI_MATCH(DMI_PRODUCT_NAME, "21EN"),
->  		}
->  	},
-> +	{
-> +		.driver_data =3D &acp6x_card,
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "21HY"),
-> +		}
-> +	},
->  	{
->  		.driver_data =3D &acp6x_card,
->  		.matches =3D {
-> --
-> 2.40.0
+>   sound/soc/amd/Kconfig        | 2 ++
+>   sound/soc/amd/ps/acp63.h     | 2 ++
+>   sound/soc/amd/ps/pci-ps.c    | 8 +++++++-
+>   sound/soc/amd/yc/acp6x.h     | 3 +++
+>   sound/soc/amd/yc/pci-acp6x.c | 8 +++++++-
+>   5 files changed, 21 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+> index c88ebd84bdd5..08e42082f5e9 100644
+> --- a/sound/soc/amd/Kconfig
+> +++ b/sound/soc/amd/Kconfig
+> @@ -90,6 +90,7 @@ config SND_SOC_AMD_VANGOGH_MACH
+>   
+>   config SND_SOC_AMD_ACP6x
+>   	tristate "AMD Audio Coprocessor-v6.x Yellow Carp support"
+> +	select SND_AMD_ACP_CONFIG
+>   	depends on X86 && PCI
+>   	help
+>   	  This option enables Audio Coprocessor i.e ACP v6.x support on
+> @@ -130,6 +131,7 @@ config SND_SOC_AMD_RPL_ACP6x
+>   
+>   config SND_SOC_AMD_PS
+>           tristate "AMD Audio Coprocessor-v6.3 Pink Sardine support"
+> +	select SND_AMD_ACP_CONFIG
+
+Whitespace looks not aligned here.  I think it's a mix of tabs and 
+spaces in this section.
+
+>           depends on X86 && PCI && ACPI
+>           help
+>             This option enables Audio Coprocessor i.e ACP v6.3 support on
+> diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
+> index 6bf29b520511..dd36790b25ae 100644
+> --- a/sound/soc/amd/ps/acp63.h
+> +++ b/sound/soc/amd/ps/acp63.h
+> @@ -111,3 +111,5 @@ struct acp63_dev_data {
+>   	u16 pdev_count;
+>   	u16 pdm_dev_index;
+>   };
+> +
+> +int snd_amd_acp_find_config(struct pci_dev *pci);
+> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+> index 688a1d4643d9..afddb9a77ba4 100644
+> --- a/sound/soc/amd/ps/pci-ps.c
+> +++ b/sound/soc/amd/ps/pci-ps.c
+> @@ -247,11 +247,17 @@ static int snd_acp63_probe(struct pci_dev *pci,
+>   {
+>   	struct acp63_dev_data *adata;
+>   	u32 addr;
+> -	u32 irqflags;
+> +	u32 irqflags, flag; >   	int val;
+>   	int ret;
+>   
+>   	irqflags = IRQF_SHARED;
+> +
+> +	/* Return if acp config flag is defined */
+> +	flag = snd_amd_acp_find_config(pci);
+
+This 'flag' variable seems unnecessary if it's just used in one place 
+and never evaluated.
+
+> +	if (flag)
+> +		return -ENODEV;
+> +
+>   	/* Pink Sardine device check */
+>   	switch (pci->revision) {
+>   	case 0x63:
+> diff --git a/sound/soc/amd/yc/acp6x.h b/sound/soc/amd/yc/acp6x.h
+> index 036207568c04..2de7d1edf00b 100644
+> --- a/sound/soc/amd/yc/acp6x.h
+> +++ b/sound/soc/amd/yc/acp6x.h
+> @@ -105,3 +105,6 @@ static inline void acp6x_writel(u32 val, void __iomem *base_addr)
+>   {
+>   	writel(val, base_addr - ACP6x_PHY_BASE_ADDRESS);
+>   }
+> +
+> +int snd_amd_acp_find_config(struct pci_dev *pci);
+> +
+> diff --git a/sound/soc/amd/yc/pci-acp6x.c b/sound/soc/amd/yc/pci-acp6x.c
+> index 77c5fa1f7af1..7af6a349b1d4 100644
+> --- a/sound/soc/amd/yc/pci-acp6x.c
+> +++ b/sound/soc/amd/yc/pci-acp6x.c
+> @@ -149,10 +149,16 @@ static int snd_acp6x_probe(struct pci_dev *pci,
+>   	int index = 0;
+>   	int val = 0x00;
+>   	u32 addr;
+> -	unsigned int irqflags;
+> +	unsigned int irqflags, flag;
+>   	int ret;
+>   
+>   	irqflags = IRQF_SHARED;
+> +
+> +	/* Return if acp config flag is defined */
+> +	flag = snd_amd_acp_find_config(pci);
+
+This 'flag' variable seems unnecessary if it's just used in one place 
+and never evaluated.
+
+> +	if (flag)
+> +		return -ENODEV;
+> +
+>   	/* Yellow Carp device check */
+>   	switch (pci->revision) {
+>   	case 0x60:
+

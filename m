@@ -2,74 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CF976DFBBB
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 18:48:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3BAA6DFBBF
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 18:48:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F496107E;
-	Wed, 12 Apr 2023 18:47:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F496107E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0AF107C;
+	Wed, 12 Apr 2023 18:47:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0AF107C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681318100;
-	bh=BxX3A3+QcMTgiJrOfxOMYktRoDe9+HI8F2/cJ/qvsKk=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=t5KNaEfQnjoIenCfaETQq6H0VvyHEQupwIILLCBVN/hKmkv0WdnuWq+ZBvvguc6fa
-	 GneEiimEfbms78mVtk5PGd0Y02M1/+ofysdhG3Gr02pVDLoDJcVupqGf7ExSZw5P2B
-	 cimXeaWRWQKKzZNa2/E5bLrD4LHcESInPlQ7Mo2M=
+	s=default; t=1681318124;
+	bh=70QQ0piJA0rb40fo7kUyhJ0BI51kGHGC938Dnjp/T/I=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=T4Fw6rclzvES/q3MSwbFtpVzkyJKP4ypX10zISuZHaOVCPjTZHLxL0OznBu5FXmbO
+	 +sCC/qHKfFP3M9ePO1HUoT0eT7bzFTSLZKDX5stjeqypV/SSINDaQUSDwf9StYjaF3
+	 KUuU1AcLYqkbucbeT0ykAx/9SBK4q9b3VifVbDqY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC582F80549;
-	Wed, 12 Apr 2023 18:46:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BE16F80557;
+	Wed, 12 Apr 2023 18:46:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C301F80533; Wed, 12 Apr 2023 18:46:20 +0200 (CEST)
+	id 715AFF80552; Wed, 12 Apr 2023 18:46:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6DE31F80149
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 18:46:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DE31F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id CBCEFF8049C
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 18:46:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBCEFF8049C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ulib6p0z
+ header.s=k20201202 header.b=JCU7FJQe
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 275BC6123A;
-	Wed, 12 Apr 2023 16:46:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D2BC4339B;
-	Wed, 12 Apr 2023 16:46:10 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B9EF263758;
+	Wed, 12 Apr 2023 16:46:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F6AFC4339C;
+	Wed, 12 Apr 2023 16:46:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681317974;
-	bh=BxX3A3+QcMTgiJrOfxOMYktRoDe9+HI8F2/cJ/qvsKk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ulib6p0zEHSchuyxnKbhSdO2Vd89+JgYsU28UNpL3nGuZriS8UAXETwu8+6T5nNnI
-	 sMwuI7n+I954JXtvYrF2dwuNFgnlPPKGL8VcXvQUfL806IWRXQA9sICQjxaY6t0pVu
-	 Ds7TErf6+TvE+8c5aK6sC19A3LBanf7OXYozfQwSeqZ7YJnFW1cvCIA2MXjIYE2rNB
-	 aqKG4UNrCtyEkAnmbWGjmxFdGxgR5F8yR6BFLRoW5kh4RgOydzeXyqXq7EgSVvZqFF
-	 2TcPDDj/6s7UnJDejTEdm/VZQfepcDjwafpO0oSd8LjVfSWE8bFq5tR1apMoReTzia
-	 XI/3KMJGF4mKg==
+	s=k20201202; t=1681317976;
+	bh=70QQ0piJA0rb40fo7kUyhJ0BI51kGHGC938Dnjp/T/I=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=JCU7FJQeLkerkeVrWpYaAarFDRD/zNBVtyreSJIbJvB2cXWWYyGNXXS2z5XCrNsP8
+	 abLuUrHpp8ccomcoNROhjqlZzDCktlX8q4rrDsKQ6CTR4X7ifncQHe+2ZccODtvWVF
+	 VO04DbgX0eGigHxWhTlrI+TFxgZDW55y4dWIzRrsePM94WqAgkOt8AkH53tvvzrosj
+	 OCs+1opFmYj8gjvMYYwT8Eu+bSX+/5vM7RKfIiaxYvyG1tnbXjSpOjmk+Ti6xYEzFe
+	 hHR3I7Bg8W8+fhyXKg5Omxk4BOjB02TW3gfFcwbYiHXQa1OvIkRNsYLTaoY08D7wvR
+	 ghx4xpLERbvPg==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Syed Saba Kareem <Syed.SabaKareem@amd.com>
-In-Reply-To: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
-References: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
-Subject: Re: [PATCH] ASoC: amd: Add check for acp config flags
-Message-Id: <168131797043.93781.9548675938995241210.b4-ty@kernel.org>
-Date: Wed, 12 Apr 2023 17:46:10 +0100
+To: Takashi Iwai <tiwai@suse.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, alsa-devel@alsa-project.org,
+ Baishan Jiang <bjiang400@outlook.com>
+In-Reply-To: 
+ <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
+References: 
+ <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v2] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks
+ list for acp6x
+Message-Id: <168131797478.93781.3828822970192052748.b4-ty@kernel.org>
+Date: Wed, 12 Apr 2023 17:46:14 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: L7LSLLN2DIPCJ7XQJYP5EXCH7KXESBFK
-X-Message-ID-Hash: L7LSLLN2DIPCJ7XQJYP5EXCH7KXESBFK
+Message-ID-Hash: 7QDKAMJL5KST4AZVK5KGOLIDTEEF52JI
+X-Message-ID-Hash: 7QDKAMJL5KST4AZVK5KGOLIDTEEF52JI
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,21 +81,12 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- vsujithkumar.reddy@amd.com, ssabakar@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Randy Dunlap <rdunlap@infradead.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Nathan Chancellor <nathan@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L7LSLLN2DIPCJ7XQJYP5EXCH7KXESBFK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7QDKAMJL5KST4AZVK5KGOLIDTEEF52JI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,13 +95,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 12 Apr 2023 14:46:16 +0530, Syed Saba Kareem wrote:
-> We have SOF and generic ACP support enabled for Rembrandt and
-> pheonix platforms on some machines. Since we have same PCI id
-> used for probing, add check for machine configuration flag to
-> avoid conflict with newer pci drivers. Such machine flag has
-> been initialized via dmi match on few Chrome machines. If no
-> flag is specified probe and register older platform device.
+On Wed, 12 Apr 2023 16:40:43 +0800, Baishan Jiang wrote:
+> ThinkBook 14 G5+ ARP uses Ryzen 7735H processor, and has the same
+> microphone problem as ThinkBook 14 G4+ ARA.
+> 
+> Adding 21HY to acp6x quirks table enables microphone for ThinkBook
+> 14 G5+ ARP.
+> 
 > 
 > [...]
 
@@ -116,8 +111,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: Add check for acp config flags
-      commit: bddcfb0802eb69b0f51293eab5db33d344c0262f
+[1/1] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks list for acp6x
+      commit: a8f5da0bf4d85a6ad03810d902aba61c572102a6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

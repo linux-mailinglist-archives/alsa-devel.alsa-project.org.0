@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3BAA6DFBBF
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 18:48:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 282F46DFBC0
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 18:48:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D0AF107C;
-	Wed, 12 Apr 2023 18:47:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D0AF107C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BD13109C;
+	Wed, 12 Apr 2023 18:48:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BD13109C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681318124;
-	bh=70QQ0piJA0rb40fo7kUyhJ0BI51kGHGC938Dnjp/T/I=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=T4Fw6rclzvES/q3MSwbFtpVzkyJKP4ypX10zISuZHaOVCPjTZHLxL0OznBu5FXmbO
-	 +sCC/qHKfFP3M9ePO1HUoT0eT7bzFTSLZKDX5stjeqypV/SSINDaQUSDwf9StYjaF3
-	 KUuU1AcLYqkbucbeT0ykAx/9SBK4q9b3VifVbDqY=
+	s=default; t=1681318136;
+	bh=I6ap0UQCbGkXAJiaJevqh7ON+yUC8QpHtszKmRg7634=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=WLEWIJPeT95mgi0Ou5HkAtp2fQA2q9vtg65TGyoBTRN+8AMkKYpxc3emtlWslp8rJ
+	 P/UmMW9DH82xYQkIrPS2pyDLzo7fEo3ajwkdFLTLihjqH3mIF2MQ8EL28Gcx7arz0W
+	 MF+6t4IQAM6PdzUcOb1E955Qv/4pSwT2kCW0vbW8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BE16F80557;
-	Wed, 12 Apr 2023 18:46:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFE32F8055C;
+	Wed, 12 Apr 2023 18:46:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 715AFF80552; Wed, 12 Apr 2023 18:46:22 +0200 (CEST)
+	id 5D3A9F80551; Wed, 12 Apr 2023 18:46:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CBCEFF8049C
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 18:46:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBCEFF8049C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6023DF80549
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 18:46:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6023DF80549
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JCU7FJQe
+ header.s=k20201202 header.b=Cb/6h+IH
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B9EF263758;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0353F63759;
+	Wed, 12 Apr 2023 16:46:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFA87C433D2;
 	Wed, 12 Apr 2023 16:46:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F6AFC4339C;
-	Wed, 12 Apr 2023 16:46:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681317976;
-	bh=70QQ0piJA0rb40fo7kUyhJ0BI51kGHGC938Dnjp/T/I=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=JCU7FJQeLkerkeVrWpYaAarFDRD/zNBVtyreSJIbJvB2cXWWYyGNXXS2z5XCrNsP8
-	 abLuUrHpp8ccomcoNROhjqlZzDCktlX8q4rrDsKQ6CTR4X7ifncQHe+2ZccODtvWVF
-	 VO04DbgX0eGigHxWhTlrI+TFxgZDW55y4dWIzRrsePM94WqAgkOt8AkH53tvvzrosj
-	 OCs+1opFmYj8gjvMYYwT8Eu+bSX+/5vM7RKfIiaxYvyG1tnbXjSpOjmk+Ti6xYEzFe
-	 hHR3I7Bg8W8+fhyXKg5Omxk4BOjB02TW3gfFcwbYiHXQa1OvIkRNsYLTaoY08D7wvR
-	 ghx4xpLERbvPg==
+	s=k20201202; t=1681317978;
+	bh=I6ap0UQCbGkXAJiaJevqh7ON+yUC8QpHtszKmRg7634=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Cb/6h+IH0WdthIWcnh79yGN0QJT4G2ycy6yUNpmhAzzJ5aEsDXAjEkkzhrHrzyXZh
+	 kqXAj4FkS0Vpfjwpa6ESr9kEIWhDy6dxG4eySTCttWFORiOgcqq8LT5TmafaW78Al4
+	 WiXd8BGHHY8CXimHCE2nPqb0hzP12sGHzmzxPhJ3izEBVTLJq+/zvznwcBso0zJJ9Y
+	 88wk3t4GtVCXoD20TZyfpWL+lMOObX2pUlp3+yUcadfG8tIC4DLCViHMwP7XG2debY
+	 ucG4l9zgwOAspUGmmSl1wgpxzGwNHEeI3zSOZOsP1E7loatDZoOtFrZ/TDIqdpS+NU
+	 o/QeUBEescxmQ==
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>,
- Mario Limonciello <mario.limonciello@amd.com>, alsa-devel@alsa-project.org,
- Baishan Jiang <bjiang400@outlook.com>
-In-Reply-To: 
- <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
-References: 
- <OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM>
-Subject: Re: [PATCH v2] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks
- list for acp6x
-Message-Id: <168131797478.93781.3828822970192052748.b4-ty@kernel.org>
-Date: Wed, 12 Apr 2023 17:46:14 +0100
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+In-Reply-To: <20230412061457.27937-1-peter.ujfalusi@linux.intel.com>
+References: <20230412061457.27937-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: mtl: fix page fault in dspless mode
+ when DSP is disabled
+Message-Id: <168131797639.93781.6297436322389790089.b4-ty@kernel.org>
+Date: Wed, 12 Apr 2023 17:46:16 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: 7QDKAMJL5KST4AZVK5KGOLIDTEEF52JI
-X-Message-ID-Hash: 7QDKAMJL5KST4AZVK5KGOLIDTEEF52JI
+Message-ID-Hash: RSKWFFV6XY7NHSFTEXVPPAQAR3XLBPAL
+X-Message-ID-Hash: RSKWFFV6XY7NHSFTEXVPPAQAR3XLBPAL
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -81,12 +78,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ fred.oh@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7QDKAMJL5KST4AZVK5KGOLIDTEEF52JI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RSKWFFV6XY7NHSFTEXVPPAQAR3XLBPAL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,12 +95,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 12 Apr 2023 16:40:43 +0800, Baishan Jiang wrote:
-> ThinkBook 14 G5+ ARP uses Ryzen 7735H processor, and has the same
-> microphone problem as ThinkBook 14 G4+ ARA.
-> 
-> Adding 21HY to acp6x quirks table enables microphone for ThinkBook
-> 14 G5+ ARP.
+On Wed, 12 Apr 2023 09:14:57 +0300, Peter Ujfalusi wrote:
+> The patch to make DSPless mode work even if the DSP is
+> disabled in BIOS missed to touch the MTL code to add
+> the needed checks.
+> If the DSP is disabled this can lead to page fault due to not
+> accesible registers.
 > 
 > 
 > [...]
@@ -111,8 +111,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to quirks list for acp6x
-      commit: a8f5da0bf4d85a6ad03810d902aba61c572102a6
+[1/1] ASoC: SOF: Intel: mtl: fix page fault in dspless mode when DSP is disabled
+      commit: ef0128afa1655f8d024dc5058fbfa0c6deecf117
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

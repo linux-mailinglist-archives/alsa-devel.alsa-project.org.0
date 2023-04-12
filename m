@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A246DFE42
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 21:01:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91C076DFEAF
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 21:24:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D59841047;
-	Wed, 12 Apr 2023 21:00:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D59841047
+	by alsa0.perex.cz (Postfix) with ESMTPS id B40571011;
+	Wed, 12 Apr 2023 21:23:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B40571011
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681326072;
-	bh=a04AmJjKGcxoyVDJd74YDQ+REyxz8IYcBkZ14KBATpY=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=pfBm7/XZM0ys+I6zbH/K9uo4pbHB9QrzxP0obA52p1m0i8vVz/kCEZ8SfpAPW8ujE
-	 5I696Il6TZ2HDP41rE7UqxQnnakJoaNCHg3LotIMXyN3QqrOoMBfqPdVjpZNMBG8Ht
-	 XfMv6MDh8lBqTvyYvfouD0eJFckaG7k+/NlwnSh4=
+	s=default; t=1681327470;
+	bh=CA0uNjqQ7UZKwD2eMHWqhw6WunyHnm6l1kgpv7ytslU=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=BNBYP0ht8co5Lk1Yjj7DEWsHUv6o8gwgR2hIsbmPWkCokVMipOyLyNpTWbH6c4cB7
+	 KhYLhtvyIW1keTgloDngnrgYPCQe16rkYTTFKSLIg+gm/XKLku0Ua8m2o4TunMAPut
+	 +xAhNjPQgNF5yrII9kNiPHkruEczd+hUB8y9OWEk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43EE1F8025E;
-	Wed, 12 Apr 2023 21:00:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7F4AF8025E;
+	Wed, 12 Apr 2023 21:23:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBE47F8032B; Wed, 12 Apr 2023 21:00:17 +0200 (CEST)
+	id 9784AF8032B; Wed, 12 Apr 2023 21:23:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3BFEBF80100
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 21:00:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BFEBF80100
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=qW4ctxIw
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id E12D1F80149
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 21:23:28 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9DBF511D5;
+	Wed, 12 Apr 2023 21:23:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9DBF511D5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1681327407; bh=nUtmWmp+tLkQy5mBF5U0Vs+HGW5rSKV6Sz39jScIzqg=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=ytM0cOKKElS+B4aVPI8KjEjLdoZw2h0FGW6gzIPbrBTjCywSRM7MR9LjyV+UCt4ly
+	 y2peAhzMY0j/M2IiNSaXa3DgIZKLhAVAIDhW8GcmLEcZPtv6ki6N0lasqRSV6x4nvZ
+	 PU3RhfcAt6efNYUtFzxnMhssDmhzZux3r7vMhfVE=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0BBC86125D;
-	Wed, 12 Apr 2023 19:00:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6691DC433D2;
-	Wed, 12 Apr 2023 19:00:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681326007;
-	bh=a04AmJjKGcxoyVDJd74YDQ+REyxz8IYcBkZ14KBATpY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=qW4ctxIw4LXiFrqcqLO1DNio5eUB2j9DYUKwnZ6WDR7yvOCFzRYiBV/ieTb/r5key
-	 CDmflt5kNd/i9XrUzzJjy+NBIS+93iYk2fVx5cdD+UiOVjDNV2+DmimorolTeCfcFZ
-	 p72k6Sckpi8O7OoHfG0E5v/EeWRvR4e8bhXlggqZ7U4aIQrhq2Er3cIjFLMummZRSr
-	 BIsHiiq97l0bUzED97k1W841505HtACcw8ySMkoJBhFxijYNnAtNO+bWwLT0XATjiY
-	 fAO0rqHuqYS7F09RfuW3UKcUK0Mv1ZCQA8TIiTgSFbKWNSoYCltaPbJdN+i0oOSaoh
-	 dV1gtJ6yHS7tw==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20230411152528.329803-1-rf@opensource.cirrus.com>
-References: <20230411152528.329803-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH 0/6] ASoC: cs35l56: Add system suspend handling
-Message-Id: <168132600593.137613.12135823880163549738.b4-ty@kernel.org>
-Date: Wed, 12 Apr 2023 20:00:05 +0100
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 12 Apr 2023 21:23:24 +0200 (CEST)
+Message-ID: <1775ab67-1967-e496-58af-e2aaa034f105@perex.cz>
+Date: Wed, 12 Apr 2023 21:23:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
+Content-Language: en-US
+To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+ <8a3a2490-eb0f-7b76-3bc6-58ef5473d360@perex.cz> <ZDaJA4fCTFcsy9N1@ugly>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <ZDaJA4fCTFcsy9N1@ugly>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-00303
-Message-ID-Hash: TTFD6VHLLNEQ3PNYMLN3O5BFXSJT26ZQ
-X-Message-ID-Hash: TTFD6VHLLNEQ3PNYMLN3O5BFXSJT26ZQ
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: 5TGPD6PQUKSVWHXIRKQ7HFLD6NRQ4TLR
+X-Message-ID-Hash: 5TGPD6PQUKSVWHXIRKQ7HFLD6NRQ4TLR
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TTFD6VHLLNEQ3PNYMLN3O5BFXSJT26ZQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5TGPD6PQUKSVWHXIRKQ7HFLD6NRQ4TLR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,53 +93,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 11 Apr 2023 16:25:22 +0100, Richard Fitzgerald wrote:
-> This set of patches adds handling for system suspend.
-> Patches 1..4 make some code changes that simplify the
-> suspend implementation, mainly to avoid race conditions.
+On 12. 04. 23 12:33, Oswald Buddenhagen wrote:
+> On Tue, Apr 11, 2023 at 12:47:26PM +0200, Jaroslav Kysela wrote:
+>> On 05. 04. 23 22:12, Oswald Buddenhagen wrote:
+>>> This fixes a bug in thresholded mode, where we failed to use
+>>> new_hw_ptr,
+>>> resulting in under-fill.
+>>
+>> I don't follow what you refer here. The old code uses
+>> snd_pcm_playback_hw_avail()
+>>
+> yes
 > 
-> There are two seperate aspects to suspend, and these have
-> been done as two patches:
-> - the main suspend-resume handling,
-> - re-loading the firmware if necessary after resume.
+>> thus new hw_ptr for the threshold mode, too.
+>>
+> not before my patch. the silencer was called before the new pointer was
+> stored. it had to be, as otherwise the delta for top-up mode could not
+> be calculated.
 > 
-> [...]
+>>> +	// This will "legitimately" turn negative on underrun, and will be mangled
+>>> +	// into a huge number by the boundary crossing handling. The initial state
+>>> +	// might also be not quite sane. The code below MUST account for these cases.
+>>> +	hw_avail = appl_ptr - runtime->status->hw_ptr;
+>>> +	if (hw_avail < 0)
+>>> +		hw_avail += runtime->boundary;
+> 
+>>> +	else if ((snd_pcm_uframes_t) hw_avail >= runtime->boundary)
+>>> +		hw_avail -= runtime->boundary;
+>>
+>> If hw_avail is above runtime->boundary then the initial condition is totaly
+>> bogus. I would use snd_BUG_ON() and direct return here.
+>>
+> this is only there as a result of inlining
+> snd_pcm_playback_hw_avail()/snd_pcm_playback_avail() somewhat
+> mindlessly. the check does indeed make no sense, so i'll just drop it.
+> (the broader lesson of this is the attached patch. i can re-post it
+> separately if you like it.)
 
-Applied to
+I will correct that it will make sense where hw_ptr is nearby boundary 
+(boundary - buffer_size ... boundary - 1) and appl_ptr is cropped using 
+boundary (0 ... buffer_size). But because appl_ptr can be set by application 
+without any kernel side correction, it may be possible to check if the 
+appl_ptr is in 0 ... boundary range before any use. Sorry for the confusion.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+>>>    		frames = runtime->silence_threshold - noise_dist;
+>>> +		if ((snd_pcm_sframes_t) frames <= 0)
+>>> +			return;
+>>
+>> The retyping does not look good here. Could we move the if before frames
+>> assignment like:
+>>
+>>    if (runtime->silence_threshold <= noise_dist)
+>>      return;
+>>    frames = runtime->silence_threshold - noise_dist;
+>>
+> dunno, i don't like it - it's more noisy and imo it loses
+> expressiveness, as the question we're asking is "how many frames do we
+> need to fill?".
+> note that due to use of unsigned types in the runtime struct, such
+> retyping is rather common in comparisons.
 
-Thanks!
+It seems that you have answer to everything. My suggestion is perfectly 
+readable (is the requested silence threshold fulfilled? or is the noise 
+distance greater than the whole buffer / buffer_size?).
 
-[1/6] ASoC: cs35l56: Remove quick-cancelling of dsp_work()
-      commit: 39a594dc0b4ac949edf221db33c7061c45e2c90b
-[2/6] ASoC: cs35l56: Use DAPM widget for firmware PLAY/PAUSE
-      commit: 7b98a1efbabfd729441f46823b24432f2c32deeb
-[3/6] ASoC: cs35l56: Skip first init_completion wait in dsp_work if init_done
-      commit: 7816e3407110d887726687740aa18c9ce8eeb0d2
-[4/6] ASoC: cs35l56: Always wait for firmware boot in runtime-resume
-      commit: f00abaddf0300bd9ca87918148a26bdb748129db
-[5/6] ASoC: cs35l56: Add basic system suspend handling
-      commit: f9dc6b875ec0a6a6d4091cd9603d193ec98c75a2
-[6/6] ASoC: cs35l56: Re-patch firmware after system suspend
-      commit: 59322d35179987e85b593e504fd334de8683c835
+					Jaroslav
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

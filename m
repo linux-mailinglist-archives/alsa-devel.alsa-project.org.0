@@ -2,91 +2,168 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D388E6DF9D3
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 17:23:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5333B6DF9F8
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 17:28:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F04A105F;
-	Wed, 12 Apr 2023 17:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F04A105F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 038781078;
+	Wed, 12 Apr 2023 17:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 038781078
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681313015;
-	bh=GWxm8P+3Ri5Spbf8k+0TVoJwpCVsLbHE0FFcIy1IECU=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1681313294;
+	bh=iZ2d15krzEjnz7JKcGnyW6S3Exfd1r3GiFuviFB4wlo=;
+	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oeOUCTttdo9VuXgQuV7dsZuxgfJbrRM3Q2DuAjJupi+gknfEX/zwBkhG4IJk0HjT7
-	 g1+elU+zXmB4vhsexIqD40OEdrwEjLsabPS84lQoC/x5wBEIexF4rCwR0Es+XlWG1h
-	 xfKxGSw9L+0G6c6uHl14oA7o9jzGuiozUFxfypdw=
+	b=pCcYh/O+UKOtF596MEm17w7WDrYKkR1wiadvadf8zxqg1Rb0YYXFMGLnxua+DF4NI
+	 Ab7Vm54pctdxuSeRM4EC3cVfWR3O6wCCTejR30awj1epRZ++pu/Zt/zdKVMPZuHxdK
+	 NJRlqwp/jusFylgXbOc7lGF9qUSLbBh74EXRLU6Q=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DFCFF8025E;
-	Wed, 12 Apr 2023 17:22:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59621F8025E;
+	Wed, 12 Apr 2023 17:27:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81BE6F8032B; Wed, 12 Apr 2023 17:22:41 +0200 (CEST)
+	id CD811F8032B; Wed, 12 Apr 2023 17:27:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 88954F80100
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 17:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88954F80100
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=gB6iZ//O
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20715.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7010::715])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id F3FDE6123F;
-	Wed, 12 Apr 2023 15:22:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF49C433D2;
-	Wed, 12 Apr 2023 15:22:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681312955;
-	bh=GWxm8P+3Ri5Spbf8k+0TVoJwpCVsLbHE0FFcIy1IECU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gB6iZ//OBzRXCmp4HY29Hj7DLDG6NFPgzgXKwSEpoRx1cfAvvBjlKxZZaB885ZCN3
-	 Ejo6670fu8hEjq4YLGqsg0j039IGh9A6C62MrkYhqvefL1KzuSHLYfdlJEgDAu3N0o
-	 PN7tY2DkX5zKHfaiIhk0xlbgoCJuMsGo3Cfb2XfRPI9a0VQdLapKVR2SK23RaoU+Hq
-	 znG6UK36Q/Bc4YMBanB6pXj/JNZTsznvFNqg0LOvmp7j3NgB6ADSdv71GQtNc8RIKY
-	 o7Cf5Fx2QKVyhK/1fs/p/DroDAMQwsnLRTLBeum6KDo3NB8aVC1Z2Xz7KLMnWF0jWA
-	 nieeUnlhZdr5g==
-Date: Wed, 12 Apr 2023 20:52:31 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 00/20] ASoC/soundwire: add support for ACE2.x
-Message-ID: <ZDbMt5BRrAV5UUEw@matsya>
-References: <20230323054452.1543233-1-yung-chuan.liao@linux.intel.com>
- <ZDaC6D8yBiJ4GrXm@matsya>
- <27493df8-e1c7-1a8b-e77e-dc3bd495567b@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4B563F80149
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 17:27:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B563F80149
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=dm.renesas.com header.i=@dm.renesas.com
+ header.a=rsa-sha256 header.s=selector1 header.b=GSOUw2mN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Bea4aKc0DCAw+VYPlF9s5nbn8GKNef7MsyNWFI6qdWG5pdDRQMZImSi4JduOLL+pc+15S3sWw0AYI8v30icgoys62YNNW9kDPBNRGmnVPtsijPXmtvHDxl9+Vs/CtPuL00MXKBwghRdOxcOOKolwIjwhXPx8J8ieNCFZJRTNwPxgY3MxWEs430+mm1Ffu6Auf7A4IdInQZIibzmHpIkZsHiuHRdb71/O0G79qEB3EZFBLM6411+gRO2usjcMYffU85dhTJycOoqIKBw/gw/sBVFBxXD+veJJHnzC1O9Rqv0njJqNZuz+5dda3+z6PUZjUZ8hMDi6gQbWFLwuV3JnyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ODBXCFBHdCpVuzjLxBnkaI+5ousq61EvLS0UHrNeUQg=;
+ b=cbG3sDRd1tNGDsUL7awD5Gp7kUI0wE3C50wZ9r/Acenh1XaQyl3IRiuzQAEbuRXPlb5cXIVKyhoWeYIEjlIlvw/U+fRn4CkzDeNvqWB6Ro0EzGPHdxY7ShXS8nIUKGEVNMQMBSDPKUFlM7C6xKaxjwViZkUuQqO/ZvCjVJg3vlPGmlS/z49euZCoDCjXEphl41LPpOt1fi/WCRZrOlCzsivtiyMVEHY5Hrqze7idkP+gQCV+yfj+Q9PqMSyMNswMKlTglUqLBLwO8/1ep2wfpuq5odjX4efcd93RYpcgpNFw3jDaaZNqqA3L5q8Yj2eRxiRIQoku54vEVJU+6Aw8dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=dm.renesas.com; dmarc=pass action=none
+ header.from=dm.renesas.com; dkim=pass header.d=dm.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dm.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ODBXCFBHdCpVuzjLxBnkaI+5ousq61EvLS0UHrNeUQg=;
+ b=GSOUw2mNmUufqTI5lThRb43W32gDyI/UoXlpSrm3o6rB2i9F1FFP0pHr4ix3DwqolfHqwJFsHSOlY56wpMbMf6Uzb85HnBOvKoLSFAyWgjRRzjZP4dpVRy5Btq/jfjpNFoNYND5UC5nnyRy42vjWzgy5S0aIGGNOhFEtdZhBTBE=
+Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
+ by TY3PR01MB11760.jpnprd01.prod.outlook.com (2603:1096:400:406::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Wed, 12 Apr
+ 2023 15:27:04 +0000
+Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
+ ([fe80::75a2:f32e:d86:4246]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
+ ([fe80::75a2:f32e:d86:4246%4]) with mapi id 15.20.6298.030; Wed, 12 Apr 2023
+ 15:27:01 +0000
+From: David.Rau.opensource <David.Rau.opensource@dm.renesas.com>
+To: Mark Brown <broonie@kernel.org>, Baili Deng <bailideng@google.com>
+Subject: RE: [PATCH] ASoC: da7219: Improve the relability of AAD IRQ process
+Thread-Topic: [PATCH] ASoC: da7219: Improve the relability of AAD IRQ process
+Thread-Index: AQHZa46eguM7qKJ7JUCs912NHUE94a8l+4eAgAAxBQCAAMp5gIAAoS+AgAA1vBA=
+Date: Wed, 12 Apr 2023 15:27:01 +0000
+Message-ID: 
+ <OS3PR01MB6641B6FBA5C227B55350DA73CD9B9@OS3PR01MB6641.jpnprd01.prod.outlook.com>
+References: <20230410092634.4870-1-David.Rau.opensource@dm.renesas.com>
+ <d9dac02a-328d-485e-9aff-158852eeb990@sirena.org.uk>
+ <CABXOdTfGD_fyi+itsr9Nd834Pb6+4Ej8M9SM5AN=uhXQ1K4DiA@mail.gmail.com>
+ <CADP_shKfY6-F_4+_eYv=NC9XcgVA+0H3BkCqH8D9wkqJ5SpMDQ@mail.gmail.com>
+ <227d1f11-dea0-400a-96c9-dee568730a13@sirena.org.uk>
+In-Reply-To: <227d1f11-dea0-400a-96c9-dee568730a13@sirena.org.uk>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=dm.renesas.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OS3PR01MB6641:EE_|TY3PR01MB11760:EE_
+x-ms-office365-filtering-correlation-id: 787677df-d6fd-450a-44f8-08db3b6a5d35
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ p399uGPfgWM4If5scGkmhc4N7pA9q7d6A+msnsJSPkfvKG0OHoD3VhdlJ+VdBoT3sPCVU/M2MEObyVwijA4jGtbeM/SOzFBNyeuW0r+F8gItiZkQ1vQf4uxoPQZVJdyKXdsCB2FbMWzJ0GFt8OeEcKDmqXxLwMoiJcVboH5l5xL52uz3ragmqIuJTzhy+3Oqfha2GVkv+BxgdkNizAQqeMzmTRDlrOg7EOjoibq+F11INhHjM13RNiEKdoerw6Tqi4RaweZiLmgxdkdnLUfgEh8D9rxiOTSOxIyt8FaIVF+ZjwrH28pMRRM7GApiSpMt4Aub0rbBc97v52E8k5OhKtngjIB8kdr2kvOPpFKBjGZttukNMQtckRp8lnVSrUxTvkXddS/7TSru0acu5XDOhqiZn9izQALbLuLeYESN65akldHlF4IkNi5sVhUbNg13C3RlUWbUjN/VP2WcSC8OYDqxJ9z77ZQfIyDC/o06U3SCKGhM7aYkSQ/mnrcKyLXPrqyXllfkuWZ3e2NJl85+fpghOfe4zsiuYKro7aNkxj4l/l5lX8xxzc9y1zGY02rfBwLCW3oavfknAeZvnUKa4JXG+qc2CEu4GtKwtDd6Vf4FsXT5dXpoiZrgpCEIMNUA
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB6641.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(366004)(346002)(136003)(396003)(451199021)(33656002)(52536014)(38100700002)(2906002)(4744005)(316002)(38070700005)(8676002)(8936002)(86362001)(55016003)(5660300002)(64756008)(66446008)(66476007)(66556008)(66946007)(122000001)(4326008)(41300700001)(83380400001)(76116006)(54906003)(26005)(110136005)(55236004)(9686003)(6506007)(478600001)(7696005)(186003)(71200400001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?8ZSDtqvGo12Gd1Q9Dxkro7mkpxZx26D93ajUw0G5VXssOss1IES9fdf13jhz?=
+ =?us-ascii?Q?tt8b+hJmW2cc+uyWqHyaHzJPd0IX7vPjRFaF/ERIStHGzuIamXEQiPv7AdVN?=
+ =?us-ascii?Q?2DXoRh/o6CPTdJgNARVAuNd7snLNHJM5m/XvWgveDwTQKXulclTCmP1YsDkw?=
+ =?us-ascii?Q?vhjGr0Ne/vb+t92tB3HnyahrXFT2uqSmCAqxg2tviRc6Df22sXucQl1bmN3P?=
+ =?us-ascii?Q?kOqDsc2TFBRJYqP3guFtPZ3q9MWN8DwS5GYovXn6PLp6rDkSfeddbQ1YoHiD?=
+ =?us-ascii?Q?1TRXApG79rk7MxReJC/KScyk6PQXHNYQjdnaP26ITOBIthDwdu3iW9r1hsmS?=
+ =?us-ascii?Q?VfNQZqBF/9apfPuKboyIzoYK05PxsBGavOOET3ZcrOAVKWRYYUgYsddvTxkP?=
+ =?us-ascii?Q?rFAzDUKBy4tpQ1lnIDd1QCQal/6j4m90xrzbRIbACdJwMp5E8oarCcqoz+dC?=
+ =?us-ascii?Q?yOxAM7NblYDKMFyGKb4/2F9/uMh15CHbr6dY8ZRlGNu5+A6m3XToclGbn/jL?=
+ =?us-ascii?Q?SEvygYTwz7VMWDNELFX4PH6kEKUvlVOhzLTPfxCl8+T453+hCtdj4ibr5adM?=
+ =?us-ascii?Q?YDebt1p5OhemPvBFiNeaoFtF44lZX6yC1IoNAjR5rUkls4d3AsKXGLSWl7hF?=
+ =?us-ascii?Q?XNxzl3utbsRN8wqwSSOZIarGQFZ5v6b3RLaM5jLYsWkOFxyEdBNHcMlDUy56?=
+ =?us-ascii?Q?sVCNMeqMVutz/7SwokdYtdtStzKobEw5uNNRK8tVMwGTazHixRemQwmU6s1z?=
+ =?us-ascii?Q?pIRhQMFZPSuicnCkVd9fN5drQIl7n6tqTSJxhA4tCKKzXMfwTCkdaAci2Xwf?=
+ =?us-ascii?Q?xLfujKyRsP7/4YMRcUwt5js/NHUGlEJl1kUfxU4dTmHOCBX8uVcbjc8Fo9Zw?=
+ =?us-ascii?Q?wt3QPh2A601gCYmtzvQ0bmoBj8FkrVGR6XkzcT3nbG83M6PdFCPeSLMie+uD?=
+ =?us-ascii?Q?m6BJprk7HHYEXkh26wbVdfyifKa2aF82WxAr5EwGkSOiAvPDS/dFjn9o9t/A?=
+ =?us-ascii?Q?SPwfLy5ygpxp1pH0jt9KrF6eUwkBEY9DOJe+R5hSt9KJrx+YVAMIZ65XSYen?=
+ =?us-ascii?Q?b/yDS13SYuQNI/PrhYyzPJ/97hsW9GnYaJr0rUohDzLfQxf6i4kROlK/h4Kn?=
+ =?us-ascii?Q?fDntu2kVWU15RT2BnMgUDEBsXHqrbiRC+tUTOrLwLKfoXnd3ErTSwFBbUeM1?=
+ =?us-ascii?Q?FA3tF9ID878FPdkgIfLKLr5v+qZjVF6xVRj+BFdvhhlKeuXdRbb+OlOC9QbA?=
+ =?us-ascii?Q?QiRPji+fwjo5Wo/Nwr3gfF6W0VqxnymGbdf9GfvO8qUt4hej8V1wvUZWPo0l?=
+ =?us-ascii?Q?I7M63M/jqTixsA2zmO1mka1+HtWodd2ooh4d3O4RRHdhlpocUjxFF59TGq13?=
+ =?us-ascii?Q?thfL0ayVwXIKYZizKQwtrwhV2B14DhI6ALPhNJ+SwEOsUnlRzPJbWrl1piSO?=
+ =?us-ascii?Q?2qVhj2nQAUKL0DXB5AjKWtVO4UL5BEAkPmgYPY83fXhwgH1lEQSjbCH63a7x?=
+ =?us-ascii?Q?RiAY96HTzTQj19zEgUr3Oa4BcvFqUJ9u+ecVP8cjK05xQXbaOVPlSCde7oYx?=
+ =?us-ascii?Q?j8Ofj/pp2udYhNS6i0zNtHKFKhIrk12wL2JWePeCR+JV69NvqDgvDY0VQyHu?=
+ =?us-ascii?Q?mw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <27493df8-e1c7-1a8b-e77e-dc3bd495567b@linux.intel.com>
-Message-ID-Hash: 7OVTFQSWVGTFUVY6APCWA74NLFMOWYIJ
-X-Message-ID-Hash: 7OVTFQSWVGTFUVY6APCWA74NLFMOWYIJ
-X-MailFrom: vkoul@kernel.org
+X-OriginatorOrg: dm.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 787677df-d6fd-450a-44f8-08db3b6a5d35
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Apr 2023 15:27:01.8868
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ UuSqlpkOqi7xhpnQmm43o8eAr51YS15x76rTwz3G5pvh65Ucax5cHWtT1+4hHTFrClKeGPW3lj17ijQDOWcHTUk6Qb9j6xJBrDZ+alBpPeg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11760
+Message-ID-Hash: 2NC6OEU34VJSNXNVUMNZOSTFSZ62NVYT
+X-Message-ID-Hash: 2NC6OEU34VJSNXNVUMNZOSTFSZ62NVYT
+X-MailFrom: David.Rau.opensource@dm.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
- broonie@kernel.org, linux-kernel@vger.kernel.org, bard.liao@intel.com,
- tiwai@suse.de
+CC: Guenter Roeck <groeck@google.com>,
+ "David.Rau.opensource" <David.Rau.opensource@dm.renesas.com>,
+ "support.opensource@diasemi.com" <support.opensource@diasemi.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7OVTFQSWVGTFUVY6APCWA74NLFMOWYIJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5JRF457RMOCF2OJXLVILEJSMVLQ3KDE6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,92 +172,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12-04-23, 09:11, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 4/12/23 05:07, Vinod Koul wrote:
-> > On 23-03-23, 13:44, Bard Liao wrote:
-> >> This series uses the abstraction added in past kernel cycles to provide
-> >> support for the ACE2.x integration. The existing SHIM and Cadence
-> > 
-> > ACE2..?
-> 
-> Not sure I get the comment, this refers to the IP version.
+>On Wed, Apr 12, 2023 at 10:32:47AM +0800, Baili Deng wrote:
+>> The change in the patch done to address the issue Geunter mentioned is=20
+>> that
+>> da7219_aad_handle_gnd_switch_time() is now called before interrupts=20
+>> are enabled. To address the msleep() issue, the delay is now added as=20
+>> a delayed work of its own workqueue.
 
-What does ACE mean, it should be expanded so that people know what it
-might refer to..?
-
-> 
-> ACE 2.0 IP used in LunarLake, x refers to future TDB versions.
-> 
-> BTW this depends on the series "[PATCH v2 00/18] ASoC: SOF: Intel:
-> hda-mlink: HDaudio multi-link extension update" applied yesterday by
-> Mark. It'd be really nice if we can have this in 6.4-rc1 to continue
-> adding the rest of the Lunar Lake patches.
-
-That should be mentioned in cover, I can ack this if okay and Mark might
-apply..? or u folks have something else in mind?
-
-> 
-> We tried to limit the number of changes impacting both ASoC and
-> SoundWire subsystems but there's mechanically 2 merges needed (ASoC ->
-> SoundWire for the hda-mlink dependency and SoundWire->ASoC for the
-> interface changes below).
-> 
-> > 
-> >> registers are now split in 3 (SHIM, IP, SHIM vendor-specific), with some
-> >> parts also moved to the HDaudio Extended Multi link structures. Nothing
-> >> fundamentally different except for the register map.
-> >>
-> >> This series only provides the basic mechanisms to expose SoundWire-based
-> >> DAIs. The PCI parts and DSP management will be contributed later, and the
-> >> DAI ops are now empty as well.
-> >>
-> >> The change is mainly on SoundWire. It would be better to go through
-> >> SoundWire tree.
-> >>
-> >> Pierre-Louis Bossart (20):
-> >>   ASoC: SOF: Intel: shim: add enum for ACE 2.0 IP used in LunarLake
-> >>   soundwire: intel: add ACE2.x SHIM definitions
-> >>   soundwire: intel_ace2x: add empty new ops for LunarLake
-> >>   soundwire/ASOC: Intel: update offsets for LunarLake
-> >>   soundwire: intel/cadence: set ip_offset at run-time
-> >>   ASoC/soundwire: intel: pass hdac_bus pointer for link management
-> >>   soundwire: intel: add eml_lock in the interface for new platforms
-> >>   ASoC: SOF: Intel: hda: retrieve SoundWire eml_lock and pass pointer
-> >>   soundwire: intel_init: use eml_lock parameter
-> >>   soundwire: intel_ace2x: add debugfs support
-> >>   soundwire: intel_ace2x: add link power-up/down helpers
-> >>   soundwire: intel_ace2x: set SYNCPRD before powering-up
-> >>   soundwire: intel_ace2x: configure link PHY
-> >>   soundwire: intel_ace2x: add DAI registration
-> >>   soundwire: intel_ace2x: add sync_arm/sync_go helpers
-> >>   soundwire: intel_ace2x: use common helpers for bus start/stop
-> >>   soundwire: intel_ace2x: enable wake support
-> >>   soundwire: intel_ace2x: add check_cmdsync_unlocked helper
-> >>   soundwire: bus: add new manager callback to deal with peripheral
-> >>     enumeration
-> >>   soundwire: intel_ace2x: add new_peripheral_assigned callback
-> >>
-> >>  drivers/soundwire/Makefile              |   3 +-
-> >>  drivers/soundwire/bus.c                 |   3 +
-> >>  drivers/soundwire/cadence_master.h      |   2 +
-> >>  drivers/soundwire/intel.h               |  16 +
-> >>  drivers/soundwire/intel_ace2x.c         | 390 ++++++++++++++++++++++++
-> >>  drivers/soundwire/intel_ace2x_debugfs.c | 147 +++++++++
-> >>  drivers/soundwire/intel_auxdevice.c     |  17 ++
-> >>  drivers/soundwire/intel_init.c          |  21 +-
-> >>  include/linux/soundwire/sdw.h           |   3 +-
-> >>  include/linux/soundwire/sdw_intel.h     |  88 ++++++
-> >>  sound/soc/sof/intel/hda.c               |  31 +-
-> >>  sound/soc/sof/intel/shim.h              |   1 +
-> >>  12 files changed, 711 insertions(+), 11 deletions(-)
-> >>  create mode 100644 drivers/soundwire/intel_ace2x.c
-> >>  create mode 100644 drivers/soundwire/intel_ace2x_debugfs.c
-> >>
-> >> -- 
-> >> 2.25.1
-> > 
-
--- 
-~Vinod
+>The point with the question was that this sort of stuff should be in the c=
+ommit messages.  I can't really tell what the change is supposed to do as t=
+hings stand.
+Sorry for missing such needed information in the previous commit message.
+May I send another commit that includes the complete information again?
+Thanks.

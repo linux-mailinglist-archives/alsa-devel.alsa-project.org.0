@@ -2,88 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00F36DF1A9
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 12:09:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B7D06DF210
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 12:34:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0D0510CF;
-	Wed, 12 Apr 2023 12:08:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0D0510CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD50110D2;
+	Wed, 12 Apr 2023 12:34:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD50110D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681294142;
-	bh=oOr8C2bRUEwOvdemN/ff1MHd4s8nq+oCfQiiIfYJ4/A=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=p0b3MWJ6CcMbhkINbw5vwWSa+XrS5odiRdfOPRbl4zggATjrp2NiTpD4F6C/AfOA8
-	 U4ch6X212Xeymxp/k86HgvI3tHoM1JIwO4VGC2ezOO9QMDkYNsIs1RLP3qcPQJtCFn
-	 27RXxjT7Sed9JX0dYFmhKUNJbWteq2OlnxfYAG+E=
+	s=default; t=1681295697;
+	bh=VhWypZmjzC4k6XhhihbDg5YelhEJglGSoe3BycyLU88=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=qfpnX4GqKMJVg6arEGSZQpTjcv+nZhX3Sdg9BqkTztmGz76r3uvKLfQAejYTwku6T
+	 M+KpOVm7uLmzLLYYSOtRCBJWdi8Q2yV/S8luL9DeiWzPoFH9OR2GWBParpKkDqf3Bi
+	 y0T1U53YbOSKZl56REqxM9w3lPto3rQ5hnXTPXAg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85196F804F2;
-	Wed, 12 Apr 2023 12:07:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2138F8025E;
+	Wed, 12 Apr 2023 12:34:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 62BB3F8051F; Wed, 12 Apr 2023 12:07:45 +0200 (CEST)
+	id 3AD46F8032B; Wed, 12 Apr 2023 12:34:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 18610F8049C
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 12:07:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18610F8049C
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FdGB488Y
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AEFF0632A8;
-	Wed, 12 Apr 2023 10:07:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E839C433EF;
-	Wed, 12 Apr 2023 10:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681294060;
-	bh=oOr8C2bRUEwOvdemN/ff1MHd4s8nq+oCfQiiIfYJ4/A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FdGB488YPHNMZaMwEjj0FfGAeg5D826+VfitkQHwsU81FCnn9puaWoI7h2TW7FjTk
-	 5WszIKG8qNSzt5vEQ1edO847iTKHs1JWBFad0t4S0dBMyok5DMcPZ0EEy7D23K+srp
-	 DtW0HIlFQDSe2XTjGTDaObT4gvzxEEj0VmMFJd7yudOe9XH9fGZxxNIwFUbtRjalCx
-	 Z7MxEHy1bEX/2ImQnT1BTHBue8urDNZKKMH/OYfFrAF9nZjvaI8RVIG79Br7jk3hR6
-	 iV6SNnCWBLhiaZM81QM2ril/eec9qxNSTScaBOia6d525t5N3uXnUbPENAQkVCk0dp
-	 //vOZbg0EY4qQ==
-Date: Wed, 12 Apr 2023 15:37:36 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 00/20] ASoC/soundwire: add support for ACE2.x
-Message-ID: <ZDaC6D8yBiJ4GrXm@matsya>
-References: <20230323054452.1543233-1-yung-chuan.liao@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4902F800E5
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 12:33:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4902F800E5
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 5AD8824107
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 06:33:39 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pmXnH-JVV-00
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 12:33:39 +0200
+Date: Wed, 12 Apr 2023 12:33:39 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
+Message-ID: <ZDaJA4fCTFcsy9N1@ugly>
+Mail-Followup-To: alsa-devel@alsa-project.org
+References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+ <8a3a2490-eb0f-7b76-3bc6-58ef5473d360@perex.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/mixed; boundary="sIy9q8i09DG33QAU"
 Content-Disposition: inline
-In-Reply-To: <20230323054452.1543233-1-yung-chuan.liao@linux.intel.com>
-Message-ID-Hash: 6A5JF7XU6RLU77R5JH4XD2UHW3AB6P6S
-X-Message-ID-Hash: 6A5JF7XU6RLU77R5JH4XD2UHW3AB6P6S
-X-MailFrom: vkoul@kernel.org
+In-Reply-To: <8a3a2490-eb0f-7b76-3bc6-58ef5473d360@perex.cz>
+Message-ID-Hash: 7C4HO3OOH3PWWQPHB677RK2YKYFGNPFS
+X-Message-ID-Hash: 7C4HO3OOH3PWWQPHB677RK2YKYFGNPFS
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, broonie@kernel.org,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com, tiwai@suse.de
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6A5JF7XU6RLU77R5JH4XD2UHW3AB6P6S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7C4HO3OOH3PWWQPHB677RK2YKYFGNPFS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,64 +77,150 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 23-03-23, 13:44, Bard Liao wrote:
-> This series uses the abstraction added in past kernel cycles to provide
-> support for the ACE2.x integration. The existing SHIM and Cadence
 
-ACE2..?
+--sIy9q8i09DG33QAU
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
 
-> registers are now split in 3 (SHIM, IP, SHIM vendor-specific), with some
-> parts also moved to the HDaudio Extended Multi link structures. Nothing
-> fundamentally different except for the register map.
-> 
-> This series only provides the basic mechanisms to expose SoundWire-based
-> DAIs. The PCI parts and DSP management will be contributed later, and the
-> DAI ops are now empty as well.
-> 
-> The change is mainly on SoundWire. It would be better to go through
-> SoundWire tree.
-> 
-> Pierre-Louis Bossart (20):
->   ASoC: SOF: Intel: shim: add enum for ACE 2.0 IP used in LunarLake
->   soundwire: intel: add ACE2.x SHIM definitions
->   soundwire: intel_ace2x: add empty new ops for LunarLake
->   soundwire/ASOC: Intel: update offsets for LunarLake
->   soundwire: intel/cadence: set ip_offset at run-time
->   ASoC/soundwire: intel: pass hdac_bus pointer for link management
->   soundwire: intel: add eml_lock in the interface for new platforms
->   ASoC: SOF: Intel: hda: retrieve SoundWire eml_lock and pass pointer
->   soundwire: intel_init: use eml_lock parameter
->   soundwire: intel_ace2x: add debugfs support
->   soundwire: intel_ace2x: add link power-up/down helpers
->   soundwire: intel_ace2x: set SYNCPRD before powering-up
->   soundwire: intel_ace2x: configure link PHY
->   soundwire: intel_ace2x: add DAI registration
->   soundwire: intel_ace2x: add sync_arm/sync_go helpers
->   soundwire: intel_ace2x: use common helpers for bus start/stop
->   soundwire: intel_ace2x: enable wake support
->   soundwire: intel_ace2x: add check_cmdsync_unlocked helper
->   soundwire: bus: add new manager callback to deal with peripheral
->     enumeration
->   soundwire: intel_ace2x: add new_peripheral_assigned callback
-> 
->  drivers/soundwire/Makefile              |   3 +-
->  drivers/soundwire/bus.c                 |   3 +
->  drivers/soundwire/cadence_master.h      |   2 +
->  drivers/soundwire/intel.h               |  16 +
->  drivers/soundwire/intel_ace2x.c         | 390 ++++++++++++++++++++++++
->  drivers/soundwire/intel_ace2x_debugfs.c | 147 +++++++++
->  drivers/soundwire/intel_auxdevice.c     |  17 ++
->  drivers/soundwire/intel_init.c          |  21 +-
->  include/linux/soundwire/sdw.h           |   3 +-
->  include/linux/soundwire/sdw_intel.h     |  88 ++++++
->  sound/soc/sof/intel/hda.c               |  31 +-
->  sound/soc/sof/intel/shim.h              |   1 +
->  12 files changed, 711 insertions(+), 11 deletions(-)
->  create mode 100644 drivers/soundwire/intel_ace2x.c
->  create mode 100644 drivers/soundwire/intel_ace2x_debugfs.c
-> 
-> -- 
-> 2.25.1
+On Tue, Apr 11, 2023 at 12:47:26PM +0200, Jaroslav Kysela wrote:
+>On 05. 04. 23 22:12, Oswald Buddenhagen wrote:
+>> This fixes a bug in thresholded mode, where we failed to use 
+>> new_hw_ptr,
+>> resulting in under-fill.
+>
+>I don't follow what you refer here. The old code uses 
+>snd_pcm_playback_hw_avail()
+>
+yes
 
+>thus new hw_ptr for the threshold mode, too.
+>
+not before my patch. the silencer was called before the new pointer was 
+stored. it had to be, as otherwise the delta for top-up mode could not 
+be calculated.
+
+>> +	// This will "legitimately" turn negative on underrun, and will be mangled
+>> +	// into a huge number by the boundary crossing handling. The initial state
+>> +	// might also be not quite sane. The code below MUST account for these cases.
+>> +	hw_avail = appl_ptr - runtime->status->hw_ptr;
+>> +	if (hw_avail < 0)
+>> +		hw_avail += runtime->boundary;
+
+>> +	else if ((snd_pcm_uframes_t) hw_avail >= runtime->boundary)
+>> +		hw_avail -= runtime->boundary;
+>
+>If hw_avail is above runtime->boundary then the initial condition is totaly 
+>bogus. I would use snd_BUG_ON() and direct return here.
+>
+this is only there as a result of inlining 
+snd_pcm_playback_hw_avail()/snd_pcm_playback_avail() somewhat 
+mindlessly. the check does indeed make no sense, so i'll just drop it.
+(the broader lesson of this is the attached patch. i can re-post it 
+separately if you like it.)
+
+>>   		frames = runtime->silence_threshold - noise_dist;
+>> +		if ((snd_pcm_sframes_t) frames <= 0)
+>> +			return;
+>
+>The retyping does not look good here. Could we move the if before frames 
+>assignment like:
+>
+>   if (runtime->silence_threshold <= noise_dist)
+>     return;
+>   frames = runtime->silence_threshold - noise_dist;
+>
+dunno, i don't like it - it's more noisy and imo it loses 
+expressiveness, as the question we're asking is "how many frames do we 
+need to fill?".
+note that due to use of unsigned types in the runtime struct, such 
+retyping is rather common in comparisons.
+
+regards
+
+--sIy9q8i09DG33QAU
+Content-Type: text/x-diff; charset=us-ascii
+Content-Disposition: attachment;
+	filename="0001-ALSA-pcm-reshuffle-implementations-of-snd_pcm_playba.patch"
+
+>From 02b303326b1be1ddb52afb38a384d26d79fa8b53 Mon Sep 17 00:00:00 2001
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Date: Wed, 12 Apr 2023 12:28:49 +0200
+Subject: [PATCH] ALSA: pcm: reshuffle implementations of
+ snd_pcm_playback_{,hw}_avail()
+
+Implementing snd_pcm_playback_hw_avail() in terms of
+snd_pcm_playback_avail() doesn't actually make sense - it should be the
+other way around, the opposite of the respective functions for capture.
+This makes the code clearer by illustrating the inverse data flow
+better, and saving a conditional.
+
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+---
+ include/sound/pcm.h | 32 +++++++++++++++-----------------
+ 1 file changed, 15 insertions(+), 17 deletions(-)
+
+diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+index f20400bb7032..81854813a567 100644
+--- a/include/sound/pcm.h
++++ b/include/sound/pcm.h
+@@ -783,22 +783,31 @@ static inline size_t snd_pcm_lib_period_bytes(struct snd_pcm_substream *substrea
+ 	return frames_to_bytes(runtime, runtime->period_size);
+ }
+ 
++/**
++ * snd_pcm_playback_hw_avail - Get the queued space for playback
++ * @runtime: PCM runtime instance
++ *
++ * Return: available frame size
++ */
++static inline snd_pcm_sframes_t snd_pcm_playback_hw_avail(struct snd_pcm_runtime *runtime)
++{
++	snd_pcm_sframes_t avail = runtime->control->appl_ptr - runtime->status->hw_ptr;
++	if (avail < 0)
++		avail += runtime->boundary;
++	return avail;
++}
++
+ /**
+  * snd_pcm_playback_avail - Get the available (writable) space for playback
+  * @runtime: PCM runtime instance
+  *
+  * Result is between 0 ... (boundary - 1)
+  *
+  * Return: available frame size
+  */
+ static inline snd_pcm_uframes_t snd_pcm_playback_avail(struct snd_pcm_runtime *runtime)
+ {
+-	snd_pcm_sframes_t avail = runtime->status->hw_ptr + runtime->buffer_size - runtime->control->appl_ptr;
+-	if (avail < 0)
+-		avail += runtime->boundary;
+-	else if ((snd_pcm_uframes_t) avail >= runtime->boundary)
+-		avail -= runtime->boundary;
+-	return avail;
++	return runtime->buffer_size - snd_pcm_playback_hw_avail(runtime);
+ }
+ 
+ /**
+@@ -817,17 +826,6 @@ static inline snd_pcm_uframes_t snd_pcm_capture_avail(struct snd_pcm_runtime *ru
+ 	return avail;
+ }
+ 
+-/**
+- * snd_pcm_playback_hw_avail - Get the queued space for playback
+- * @runtime: PCM runtime instance
+- *
+- * Return: available frame size
+- */
+-static inline snd_pcm_sframes_t snd_pcm_playback_hw_avail(struct snd_pcm_runtime *runtime)
+-{
+-	return runtime->buffer_size - snd_pcm_playback_avail(runtime);
+-}
+-
+ /**
+  * snd_pcm_capture_hw_avail - Get the free space for capture
+  * @runtime: PCM runtime instance
 -- 
-~Vinod
+2.40.0.152.g15d061e6df
+
+
+--sIy9q8i09DG33QAU--

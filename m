@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C076DFEAF
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 21:24:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 057D46DFF51
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Apr 2023 22:00:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B40571011;
-	Wed, 12 Apr 2023 21:23:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B40571011
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACF79101F;
+	Wed, 12 Apr 2023 21:59:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACF79101F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681327470;
-	bh=CA0uNjqQ7UZKwD2eMHWqhw6WunyHnm6l1kgpv7ytslU=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=BNBYP0ht8co5Lk1Yjj7DEWsHUv6o8gwgR2hIsbmPWkCokVMipOyLyNpTWbH6c4cB7
-	 KhYLhtvyIW1keTgloDngnrgYPCQe16rkYTTFKSLIg+gm/XKLku0Ua8m2o4TunMAPut
-	 +xAhNjPQgNF5yrII9kNiPHkruEczd+hUB8y9OWEk=
+	s=default; t=1681329636;
+	bh=LvKXJKVNhxMvGBYuMwMT57KEE+v2L3jWxznZmgKxsEA=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=mSXmHY2/VDhee1oAG2dEoPfL7TwztYVORHUoBDIX5Rzm2MRJ5D2N0nCfpVIQgqt1U
+	 SIDDQC73AQDuGRPvakopnDUYmCFPNsU5rvMom2F3ZHB6aPh2MlT2ZAQVlGz1cJQm/F
+	 PYfiOvqf8xo74zmPceVm3FoQfVXLjVJBoww7jSBY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7F4AF8025E;
-	Wed, 12 Apr 2023 21:23:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09F4CF8025E;
+	Wed, 12 Apr 2023 21:59:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9784AF8032B; Wed, 12 Apr 2023 21:23:35 +0200 (CEST)
+	id 8AAA4F8032B; Wed, 12 Apr 2023 21:59:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,47 @@ Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E12D1F80149
-	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 21:23:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8EEDCF80149
+	for <alsa-devel@alsa-project.org>; Wed, 12 Apr 2023 21:59:32 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9DBF511D5;
-	Wed, 12 Apr 2023 21:23:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9DBF511D5
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id E19A811D5;
+	Wed, 12 Apr 2023 21:59:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz E19A811D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1681327407; bh=nUtmWmp+tLkQy5mBF5U0Vs+HGW5rSKV6Sz39jScIzqg=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=ytM0cOKKElS+B4aVPI8KjEjLdoZw2h0FGW6gzIPbrBTjCywSRM7MR9LjyV+UCt4ly
-	 y2peAhzMY0j/M2IiNSaXa3DgIZKLhAVAIDhW8GcmLEcZPtv6ki6N0lasqRSV6x4nvZ
-	 PU3RhfcAt6efNYUtFzxnMhssDmhzZux3r7vMhfVE=
+	t=1681329571; bh=NHiD1FtFWjaeOzwxNy8tRLM3KhuiHz++ezxSowiCLx8=;
+	h=Date:Subject:To:References:From:Cc:In-Reply-To:From;
+	b=t9SD3D2vFTJ74g9fGadG9YzqcaS6KXgxZ/wSbcR/OeORGu/3Th5DHulY10cvGQPk+
+	 DXSICEv1gTo4Dndgzt9URDtHjtm1Xh4kIazxM2rpD2BI9rdZBrLcIeOGefRxlrZnt8
+	 9uJH0MJ9LxJMMuyuAqcyrjJNajDbmbNcvy5m1bdQ=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: perex)
 	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 12 Apr 2023 21:23:24 +0200 (CEST)
-Message-ID: <1775ab67-1967-e496-58af-e2aaa034f105@perex.cz>
-Date: Wed, 12 Apr 2023 21:23:23 +0200
+	Wed, 12 Apr 2023 21:59:28 +0200 (CEST)
+Message-ID: <54c16616-dee7-b50f-d612-82eef906d1df@perex.cz>
+Date: Wed, 12 Apr 2023 21:59:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
+Subject: Re: [PATCH 2/2] ALSA: pcm: auto-fill buffer with silence when
+ draining playback
 Content-Language: en-US
-To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
- Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: Takashi Iwai <tiwai@suse.de>
 References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
- <8a3a2490-eb0f-7b76-3bc6-58ef5473d360@perex.cz> <ZDaJA4fCTFcsy9N1@ugly>
+ <20230405201219.2197789-2-oswald.buddenhagen@gmx.de>
+ <3d75c103-7e94-e6a1-7f3d-7f957c33cddc@perex.cz> <ZDEWyjdVE2IocpGY@ugly>
+ <22f551f3-deae-1536-bd07-0b9340940ea4@perex.cz> <ZDVnUj2B0EkMiOlA@ugly>
+ <6d6c5f3a-81bc-acf4-eb4d-229b581bbe8b@perex.cz> <ZDWPy9YbXWWOqaC+@ugly>
+ <7b317956-deb1-0a75-0a34-f82d6a81cf90@perex.cz> <87ttxl7cxd.wl-tiwai@suse.de>
+ <ZDZmDyOMYMD4Uu5g@ugly> <87wn2ho06z.wl-tiwai@suse.de>
 From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <ZDaJA4fCTFcsy9N1@ugly>
+In-Reply-To: <87wn2ho06z.wl-tiwai@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5TGPD6PQUKSVWHXIRKQ7HFLD6NRQ4TLR
-X-Message-ID-Hash: 5TGPD6PQUKSVWHXIRKQ7HFLD6NRQ4TLR
+Message-ID-Hash: KRCLRID2X7C4FSG7UJ46NNAKP4JVJJZL
+X-Message-ID-Hash: KRCLRID2X7C4FSG7UJ46NNAKP4JVJJZL
 X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,12 +83,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: ALSA development <alsa-devel@alsa-project.org>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5TGPD6PQUKSVWHXIRKQ7HFLD6NRQ4TLR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KRCLRID2X7C4FSG7UJ46NNAKP4JVJJZL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,71 +99,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12. 04. 23 12:33, Oswald Buddenhagen wrote:
-> On Tue, Apr 11, 2023 at 12:47:26PM +0200, Jaroslav Kysela wrote:
->> On 05. 04. 23 22:12, Oswald Buddenhagen wrote:
->>> This fixes a bug in thresholded mode, where we failed to use
->>> new_hw_ptr,
->>> resulting in under-fill.
+On 12. 04. 23 12:37, Takashi Iwai wrote:
+> On Wed, 12 Apr 2023 10:04:31 +0200,
+> Oswald Buddenhagen wrote:
 >>
->> I don't follow what you refer here. The old code uses
->> snd_pcm_playback_hw_avail()
->>
-> yes
+>> On Wed, Apr 12, 2023 at 09:54:54AM +0200, Takashi Iwai wrote:
+>>> I'm thinking whether we need to change anything in the kernel side for
+>>> this at all.  Can't it be changed rather in alsa-lib side instead?
+>>>
+>> it could, but it would be a lot uglier. user space would have to do a
+>> "man-in-the-middle attack" on the data, while in the kernel we can
+>> just slightly modify the consumer. this would be particularly obvious
+>> in the case of write() access.
 > 
->> thus new hw_ptr for the threshold mode, too.
->>
-> not before my patch. the silencer was called before the new pointer was
-> stored. it had to be, as otherwise the delta for top-up mode could not
-> be calculated.
-> 
->>> +	// This will "legitimately" turn negative on underrun, and will be mangled
->>> +	// into a huge number by the boundary crossing handling. The initial state
->>> +	// might also be not quite sane. The code below MUST account for these cases.
->>> +	hw_avail = appl_ptr - runtime->status->hw_ptr;
->>> +	if (hw_avail < 0)
->>> +		hw_avail += runtime->boundary;
-> 
->>> +	else if ((snd_pcm_uframes_t) hw_avail >= runtime->boundary)
->>> +		hw_avail -= runtime->boundary;
->>
->> If hw_avail is above runtime->boundary then the initial condition is totaly
->> bogus. I would use snd_BUG_ON() and direct return here.
->>
-> this is only there as a result of inlining
-> snd_pcm_playback_hw_avail()/snd_pcm_playback_avail() somewhat
-> mindlessly. the check does indeed make no sense, so i'll just drop it.
-> (the broader lesson of this is the attached patch. i can re-post it
-> separately if you like it.)
+> But basically it'd be like fiddling sw_params temporarily for
+> draining, I suppose?  And the "attack" here can be taken too
+> seriously; the whole PCM operation can be somehow interfered if a
+> process may have the access to the PCM device, and changing sw_params
+> itself must not introduce too much trouble.
 
-I will correct that it will make sense where hw_ptr is nearby boundary 
-(boundary - buffer_size ... boundary - 1) and appl_ptr is cropped using 
-boundary (0 ... buffer_size). But because appl_ptr can be set by application 
-without any kernel side correction, it may be possible to check if the 
-appl_ptr is in 0 ... boundary range before any use. Sorry for the confusion.
+This looks like a sane proposal, but some drivers does not require the 
+silencing at all, so we can probably skip this step for them (new 
+SNDRV_PCM_INFO_PERFECT_DRAIN flag?).
 
->>>    		frames = runtime->silence_threshold - noise_dist;
->>> +		if ((snd_pcm_sframes_t) frames <= 0)
->>> +			return;
->>
->> The retyping does not look good here. Could we move the if before frames
->> assignment like:
->>
->>    if (runtime->silence_threshold <= noise_dist)
->>      return;
->>    frames = runtime->silence_threshold - noise_dist;
->>
-> dunno, i don't like it - it's more noisy and imo it loses
-> expressiveness, as the question we're asking is "how many frames do we
-> need to fill?".
-> note that due to use of unsigned types in the runtime struct, such
-> retyping is rather common in comparisons.
+The other not-yet-discussed option is to just print an warning in alsa-lib 
+that the residue samples may be played (when no silencing / period size align 
+is used). Then introduce a new helper function to setup silencing for the 
+drivers without new SNDRV_PCM_INFO_PERFECT_DRAIN flag set.
 
-It seems that you have answer to everything. My suggestion is perfectly 
-readable (is the requested silence threshold fulfilled? or is the noise 
-distance greater than the whole buffer / buffer_size?).
-
-					Jaroslav
+						Jaroslav
 
 -- 
 Jaroslav Kysela <perex@perex.cz>

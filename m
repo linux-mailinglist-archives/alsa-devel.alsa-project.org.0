@@ -2,147 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8330B6E0BD0
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 12:50:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37A2A6E0C27
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 13:11:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A029CEF3;
-	Thu, 13 Apr 2023 12:49:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A029CEF3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B73CEBB;
+	Thu, 13 Apr 2023 13:10:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B73CEBB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681383038;
-	bh=oT1+Jat0tDL27BePo+/Yme/jLs4UTkJ/L46miPJB52k=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
+	s=default; t=1681384292;
+	bh=Ar1yNmAySm0hhxRYqXBO2mtpbUPq9vBpHrKXs9melBg=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=pzQ/Ty0MHIb3FWdMpNEn3IlKNb26pchElOjgAdR7cGVYKLTcYZ+mvyT3RQ0zmVssQ
-	 Byty58FoLHO2acVDgNogSPkMdwWbxkAUPZ5oXqy+Y9gbhIX2qPg2c93QZ5jw828vSs
-	 wqQxe/jqRA2pzaeH89OADbPXCQ2Y1XPysYyhXiOM=
+	 From;
+	b=mG0OeTfTxmNy5/E5mLlJ9wrF3/TstBT1YKeT9+Y1zHTeYZMr4j8isQpNaoMtKdgTz
+	 MwN5TDXqzGkT0/z03ZfRZXBsjfu4l4F8CIXXrmX6h3nGOy+7jcQAWD2AVX5vW1xmS4
+	 zbGvtpRtG3VhFZfHq0pS7wV6qXszucVbxr23Bj9k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD323F8056F;
-	Thu, 13 Apr 2023 12:48:00 +0200 (CEST)
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH 7/7] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
- properties
-Date: Thu, 13 Apr 2023 18:47:13 +0800
-In-Reply-To: <20230413104713.7174-1-trevor.wu@mediatek.com>
-References: <20230413104713.7174-1-trevor.wu@mediatek.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: <168138288032.26.3791526706161218@mailman-core.alsa-project.org>
-From: Trevor Wu via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Trevor Wu <trevor.wu@mediatek.com>
-Cc: trevor.wu@mediatek.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id B9EECF8023A;
+	Thu, 13 Apr 2023 13:10:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26B9EF8053D; Thu, 13 Apr 2023 12:47:52 +0200 (CEST)
+	id 7A1D5F8032B; Thu, 13 Apr 2023 13:10:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07998F800E5
-	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 12:47:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07998F800E5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=SvUp+XcA
-X-UUID: 8fdbf8eed9e811edb6b9f13eb10bd0fe-20230413
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=gg5XIv0JoxYh7+Q/MXFr/X6SWUKuH88SYwHbABhmj9Y=;
-	b=SvUp+XcAtYKDtvp6YSsytflb2YVFvLuJYu3mCWxDDunScK075N8hvAtEeVE/CZon2nrtRHm2PkTx7/tLLBpM4TpnmpkcVu71L5ALCZFifnhjGpXkHM10PTwuaMSEyVRmItGYJhAUdQhckzfAJHSGfJGi9uKOB8/ZT8HKqjixHj4=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22,REQID:bbb6df5c-2546-4fc0-ba1b-7653372616bf,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:70
-X-CID-INFO: VERSION:1.1.22,REQID:bbb6df5c-2546-4fc0-ba1b-7653372616bf,IP:0,URL
-	:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTI
-	ON:quarantine,TS:70
-X-CID-META: VersionHash:120426c,CLOUDID:305ed9ea-db6f-41fe-8b83-13fe7ed1ef52,B
-	ulkID:230413184721HQGIUYN1,BulkQuantity:0,Recheck:0,SF:38|29|28|17|19|48,T
-	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: 8fdbf8eed9e811edb6b9f13eb10bd0fe-20230413
-Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 755087442; Thu, 13 Apr 2023 18:47:18 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25; Thu, 13 Apr 2023 18:47:18 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Thu, 13 Apr 2023 18:47:18 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH 7/7] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
- properties
-Date: Thu, 13 Apr 2023 18:47:13 +0800
-Message-ID: <20230413104713.7174-8-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230413104713.7174-1-trevor.wu@mediatek.com>
-References: <20230413104713.7174-1-trevor.wu@mediatek.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 98713F800E5
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 13:10:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98713F800E5
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id E8BD8241C0
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 07:10:34 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pmuqY-cVi-00
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 13:10:34 +0200
+Date: Thu, 13 Apr 2023 13:10:34 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH 2/2] ALSA: pcm: auto-fill buffer with silence when
+ draining playback
+Message-ID: <ZDfjKgLJ2tpV45eW@ugly>
+Mail-Followup-To: ALSA development <alsa-devel@alsa-project.org>
+References: <6d6c5f3a-81bc-acf4-eb4d-229b581bbe8b@perex.cz>
+ <ZDWPy9YbXWWOqaC+@ugly>
+ <7b317956-deb1-0a75-0a34-f82d6a81cf90@perex.cz>
+ <87ttxl7cxd.wl-tiwai@suse.de>
+ <ZDZmDyOMYMD4Uu5g@ugly>
+ <87wn2ho06z.wl-tiwai@suse.de>
+ <54c16616-dee7-b50f-d612-82eef906d1df@perex.cz>
+ <871qkoxrrl.wl-tiwai@suse.de>
+ <ZDfWZG+VASX/Xo/j@ugly>
+ <87ile0vzxp.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Message-ID-Hash: YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4
-X-Message-ID-Hash: YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4
-X-MailFrom: trevor.wu@mediatek.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <87ile0vzxp.wl-tiwai@suse.de>
+Message-ID-Hash: YGG4PDERSDYRJU2ZDHMNFWW6RIWFRT6F
+X-Message-ID-Hash: YGG4PDERSDYRJU2ZDHMNFWW6RIWFRT6F
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: trevor.wu@mediatek.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YGG4PDERSDYRJU2ZDHMNFWW6RIWFRT6F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -151,93 +86,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Assign top_a1sys_hp clock to 26M, and add apll1_d4 to clocks for switching
-the parent of top_a1sys_hp dynamically
-On the other hand, "mediatek,infracfg" is included for bus protection.
+On Thu, Apr 13, 2023 at 12:28:34PM +0200, Takashi Iwai wrote:
+>On Thu, 13 Apr 2023 12:16:04 +0200, Oswald Buddenhagen wrote:
+>> On Thu, Apr 13, 2023 at 07:42:06AM +0200, Takashi Iwai wrote:
+>> > Also, we may skip the
+>> > workaround for applications accessing directly via mmap as default.
+>> > 
+>> no, because one may easily miss that more than one period is required.
+>> also, i think that forgetting it entirely is an easy mistake to make,
+>> even if it's harder with mmap than with write.
+>
+>I don't agree with that point -- if application wants the access only
+>via mmap (without any write actions via alsa-lib functions), the
+>buffer and data management relies fully on the application itself.
+>Manipulating the data *silently* is no good action for such
+>applications.
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- .../bindings/sound/mediatek,mt8188-afe.yaml    | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+>For them, the drain simply means to stop at the certain point.
+>
+i don't think that's true. if an app wants to control things finely, it 
+would just use start/stop and manage the timing itself. draining otoh is 
+a convenient fire-and-forget operation. that makes it easy to miss the 
+finer details, which is why i'm so insistent that it should just work 
+out of the box.
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
-index 82ccb32f08f2..03301d5082f3 100644
---- a/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
-@@ -29,6 +29,10 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: The phandle of the mediatek topckgen controller
- 
-+  mediatek,infracfg:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of the mediatek infracfg controller
-+
-   power-domains:
-     maxItems: 1
- 
-@@ -37,6 +41,7 @@ properties:
-       - description: 26M clock
-       - description: audio pll1 clock
-       - description: audio pll2 clock
-+      - description: audio pll1 divide 4
-       - description: clock divider for i2si1_mck
-       - description: clock divider for i2si2_mck
-       - description: clock divider for i2so1_mck
-@@ -58,6 +63,7 @@ properties:
-       - const: clk26m
-       - const: apll1
-       - const: apll2
-+      - const: apll1_d4
-       - const: apll12_div0
-       - const: apll12_div1
-       - const: apll12_div2
-@@ -74,6 +80,12 @@ properties:
-       - const: i2si2_m_sel
-       - const: adsp_audio_26m
- 
-+  assigned-clocks:
-+    maxItems: 1
-+
-+  assigned-clock-parents:
-+    maxItems: 1
-+
-   mediatek,etdm-in1-cowork-source:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     description:
-@@ -147,6 +159,8 @@ required:
-   - power-domains
-   - clocks
-   - clock-names
-+  - assigned-clocks
-+  - assigned-clock-parents
- 
- additionalProperties: false
- 
-@@ -170,6 +184,7 @@ examples:
-         clocks = <&clk26m>,
-                  <&apmixedsys 9>, //CLK_APMIXED_APLL1
-                  <&apmixedsys 10>, //CLK_APMIXED_APLL2
-+                 <&topckgen 136>, //CLK_TOP_APLL1_D4
-                  <&topckgen 186>, //CLK_TOP_APLL12_CK_DIV0
-                  <&topckgen 187>, //CLK_TOP_APLL12_CK_DIV1
-                  <&topckgen 188>, //CLK_TOP_APLL12_CK_DIV2
-@@ -188,6 +203,7 @@ examples:
-         clock-names = "clk26m",
-                       "apll1",
-                       "apll2",
-+                      "apll1_d4",
-                       "apll12_div0",
-                       "apll12_div1",
-                       "apll12_div2",
-@@ -203,6 +219,8 @@ examples:
-                       "i2si1_m_sel",
-                       "i2si2_m_sel",
-                       "adsp_audio_26m";
-+        assigned-clocks = <&topckgen 83>; //CLK_TOP_A1SYS_HP
-+        assigned-clock-parents =  <&clk26m>;
-     };
- 
- ...
--- 
-2.18.0
+if you exclude mmapped devices in kernel, you exclude plughw with 
+emulated write(), so you'd have to add yet more code to compensate for 
+that. and doing it all in user space is yet more code. for all i can 
+tell, it's really just layers of complexity to solve a non-problem.
 
+regards

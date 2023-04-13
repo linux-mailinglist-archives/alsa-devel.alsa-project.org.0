@@ -2,104 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDA8D6E0F34
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 15:51:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9ADC6E1088
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 17:00:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 853FDF28;
-	Thu, 13 Apr 2023 15:50:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 853FDF28
+	by alsa0.perex.cz (Postfix) with ESMTPS id A82E1F0F;
+	Thu, 13 Apr 2023 16:59:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A82E1F0F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681393866;
-	bh=afsP9eR29z8ogXJ4k7X/m1aKljN9d4cNYKZUZO6xrLA=;
-	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=FbNuEdFi4JtNn+b1QcvEQhVhgw2WPS3iLbGwd1WDQSOYD4fOGu/FhjWYf6j0GLRy0
-	 +fYF//zLmAuAnn5DUNiDU6Upv2dhemrrWD+U4VkhPGQiiv3y5S+UkRepxeKLW6t6ue
-	 2/lCGmIOaOPKvXnwLfrGNxNwk5Y+mOLmDK34ZGH8=
+	s=default; t=1681398008;
+	bh=PuhnKqVh2UaWJCJxNjWnQ+m0PcNkTJ+5eFHm0awq0rg=;
+	h=Date:From:To:Subject:References:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=o1HfovqDQW7obMKPDAkfizZh+hobkVGW+OJ/C4QgJGDeMss1AF/NOY84el7vPY7ll
+	 0rAe45YNBF23NK1K+aUOMhreDycZhACW0wDQviTt0E65x6mLCXZD8ihebiooEJLXZR
+	 GXjjxsw5L9VICveCu3i4arfNx4eWpQfda1YM+bAY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 078B4F8023A;
-	Thu, 13 Apr 2023 15:50:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1EFB3F8025E;
+	Thu, 13 Apr 2023 16:59:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C55EF8032B; Thu, 13 Apr 2023 15:50:11 +0200 (CEST)
+	id 934E1F8032B; Thu, 13 Apr 2023 16:59:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 02BC8F800E5
-	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 15:50:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02BC8F800E5
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=L6w5otXI
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-54bfa5e698eso436472767b3.13
-        for <alsa-devel@alsa-project.org>;
- Thu, 13 Apr 2023 06:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681393803; x=1683985803;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=me/aMOzykgZd/rQWir4A2t1w//OGU8Q3sKZmPgaxe3w=;
-        b=L6w5otXIHyI2IbOVWI9zFAmYPFxav9f5v27dXrrRH5HzftZ+oIBUdCXz/CXcq12RZK
-         /uxMw4zvD1cr7CPBX5VkAuLku7Csi2L9kUR8s5hSavTTtFO6c1Q7p8j/IShwjeXZ3/e0
-         /6XxUhegy5rZurXznROgvK/yQI1ndV1AdK+/HTneWQlrgs7Sjz8zhnXeQEKoHid1LHWK
-         rej8qf/u8enxGMKgKXMT7VcTCYpfuW/0n1bgRZlGK0ry9fPPE+uO/3WL/VgOspLH/+9P
-         oAEBBGoTla0VCEK2cx2VuMcjujESdZ9fRkAgT9v1oIj9FapE0mgylJzG1/fU24vEMChx
-         pJ6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681393803; x=1683985803;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=me/aMOzykgZd/rQWir4A2t1w//OGU8Q3sKZmPgaxe3w=;
-        b=mIvJDeqc6H2r5ktaKFZ8ezDpVDWAyLGyOgrhupjbTvVDn0yeqdb1hwXbVOx2bMr6F9
-         VUBBFJLlRYkV+Gh2H2Vbg50YsdC9C7U+W0ALlxtObt60NBq2iA28ZDUspwWHDLh62DAE
-         K/9gYuZsyxzqwFTJGMwp5wC1vdwlfKyaeFL+VbZ0htM+ieg8gK2quHWsJfKOKRj2t92W
-         +MkmRmDHUHY/a+WZU/Ni2no8EcEotNElFGfWeGUuwGqSFfyMX7l2zoROU9gvVxwa9zaM
-         dRaOZiZZn+8HA7FcwdhfSMy/Jwh4inMzPcExd+MhhTmlOcjtahDVuizrw9rssyZLBisM
-         TXKw==
-X-Gm-Message-State: AAQBX9cJWDJrCKud+rDsbqitlMpqUHg5OgxwGfV4pFH9ci7VYxAaL070
-	sQu93qTkzb2YTsstBTTKcvmch89vcx+G30z9J08JZfqvdOk=
-X-Google-Smtp-Source: 
- AKy350abCiWuKt0W2Oza25xh9u6LUaylRn/CALV3kMLCROgnXylFy50rKXHdCamIScI6llmAjIwhKyqMFPANJjviXOY=
-X-Received: by 2002:a81:7613:0:b0:54f:b9f8:70ae with SMTP id
- r19-20020a817613000000b0054fb9f870aemr1470541ywc.7.1681393803597; Thu, 13 Apr
- 2023 06:50:03 -0700 (PDT)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C763AF8023A
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 16:59:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C763AF8023A
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 5ED7920391
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 10:59:03 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pmyPe-hg4-00
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 16:59:02 +0200
+Date: Thu, 13 Apr 2023 16:59:02 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH 2/2] ALSA: pcm: auto-fill buffer with silence when
+ draining playback
+Message-ID: <ZDgYto5sExV2q3pE@ugly>
+Mail-Followup-To: ALSA development <alsa-devel@alsa-project.org>
+References: <7b317956-deb1-0a75-0a34-f82d6a81cf90@perex.cz>
+ <87ttxl7cxd.wl-tiwai@suse.de>
+ <ZDZmDyOMYMD4Uu5g@ugly>
+ <87wn2ho06z.wl-tiwai@suse.de>
+ <54c16616-dee7-b50f-d612-82eef906d1df@perex.cz>
+ <871qkoxrrl.wl-tiwai@suse.de>
+ <ZDfWZG+VASX/Xo/j@ugly>
+ <87ile0vzxp.wl-tiwai@suse.de>
+ <ZDfjKgLJ2tpV45eW@ugly>
+ <87edoovvdy.wl-tiwai@suse.de>
 MIME-Version: 1.0
-From: Muni Sekhar <munisekharrms@gmail.com>
-Date: Thu, 13 Apr 2023 19:19:52 +0530
-Message-ID: 
- <CAHhAz+haVH-4Hgsz0PpTgUSW1pX4XxwxXwEd7nLVb0sFFwQwCg@mail.gmail.com>
-Subject: ALSA: arecord : silennce recorded as 0x80
-To: alsa-devel <alsa-devel@alsa-project.org>, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: M5SDSDKOMDGL6UT22Z4CH5EKBCCWDIKU
-X-Message-ID-Hash: M5SDSDKOMDGL6UT22Z4CH5EKBCCWDIKU
-X-MailFrom: munisekharrms@gmail.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <87edoovvdy.wl-tiwai@suse.de>
+Message-ID-Hash: FA66S2ASX6PZPMXNZKZY532PJ7P6PRTB
+X-Message-ID-Hash: FA66S2ASX6PZPMXNZKZY532PJ7P6PRTB
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: LKML <linux-kernel@vger.kernel.org>,
- kernelnewbies <kernelnewbies@kernelnewbies.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M5SDSDKOMDGL6UT22Z4CH5EKBCCWDIKU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FA66S2ASX6PZPMXNZKZY532PJ7P6PRTB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,25 +86,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi all,
+On Thu, Apr 13, 2023 at 02:06:49PM +0200, Takashi Iwai wrote:
+>On Thu, 13 Apr 2023 13:10:34 +0200, Oswald Buddenhagen wrote:
+>> i don't think that's true. if an app wants to control things finely,
+>> it would just use start/stop and manage the timing itself. draining
+>> otoh is a convenient fire-and-forget operation. that makes it easy to
+>> miss the finer details, which is why i'm so insistent that it should
+>> just work out of the box.
+>
+>Sure, but that's still no excuse to ignore the possibility blindly.
+>
+it's not blindly. it's after considering it, and concluding that it's a 
+hypothetical problem at best.
 
-I recorded the silence on the default audio card by running "arecord
--d 5 test.wav."
+we could of course do a survey of actually existing publicly accessible 
+code, to quantify the trade-off between apps fixed and apps broken. i 
+actually sort of tried that ...
 
-Once it exited, I checked the contents by running "hexdump test.wav,"
-and I see that silence is recorded as a sequence of 0x80 instead of
-0x00.
+first thing is that i found lots of stackoverflow answers and similar, 
+and *none* of them even mentioned the need to clear the rest of the 
+buffer. i found a bunch of libs, and none of the apidocs mentioned it in 
+the parts i read. i found one cross-platform how-to which did actually 
+mention it. yay.
 
-0000000 4952 4646 0024 8000 4157 4556 6d66 2074
-0000010 0010 0000 0001 0001 1f40 0000 1f40 0000
-0000020 0001 0008 6164 6174 0000 8000 8080 8080
-0000030 8080 8080 8080 8080 8080 8080 8080 8080
-0000040 8080 8080 8080 8080 8080 8080 8080 8080
-...
+code search was trickier, with rather predictable results:
+basically all hits for drain() were immediately followed by close().
+i found some simple cases of write+drain, and none of them did any 
+additional padding. this includes alsa's own pcm example. but never 
+mind, we're in agreement about this case.
+most other code was some abstraction, so it would be impossible to asses 
+the bigger picture quickly.
+that would be even more the case for apps that use mmap. so i won't even 
+try to provide actual data.
+one thing to consider here is that most of the code are cross-platform 
+abstractions. under such circumstances, it seems kinda inconceivable 
+that the higher level code would make any assumptions about buffer space 
+that has not been filled with fresh samples.
 
-What might be the reason for silence being recorded as 0x80 instead of 0x0?
+>> and doing it all in user space is yet more code. for all i can
+>> tell, it's really just layers of complexity to solve a non-problem.
+>
+>I don't get it: we're talking about the sw_params call in alsa-lib's
+>drain function, and how can it be *so* complex...?
+>
+the "drain function" bit is critical here, because it kind of implies 
+resetting it, potentially asynchronously. but if we add a specific bit 
+to the kernel to enable it, then it can be actually set already when the 
+device is set up, and the user space would be rather simple. however, 
+that would overall be still a lot more code than doing it 
+unconditionally, and fully in kernel.
 
-
--- 
-Thanks,
-Sekhar
+regards

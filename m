@@ -2,121 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456156E0D37
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 14:07:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 914F16E0D42
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 14:12:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB732EDD;
-	Thu, 13 Apr 2023 14:07:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB732EDD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE7B6EE9;
+	Thu, 13 Apr 2023 14:11:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE7B6EE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681387671;
-	bh=ct7ddTauNUKFao5RWztnrvbqLkqFVgA2I+wmAUirclI=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1681387921;
+	bh=f6nYDA5zDRXQnkwED6X9yup3CORZV103/yGCf4txjPc=;
+	h=Date:Subject:From:To:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UWIgRhytfLa2SQfOdABf/SoAN6ctQATMd5kV5XqmBNZnLom6y8KHQ90NZfouxGN3v
-	 nTOkR7WWiovZuxpa03BzPPp7ptz2eTwtugswUU47MH27SdQEKd3PbnKma1Nins0lr5
-	 Oc9jd7fxJOs7b1rbyE8XrnRp3Gx+Yel8Zs0/g3Jk=
+	b=pJ6slMMBUaquVb+hJSW4Yhm6poLCt+FpV+dYza3R1mf4Kd2ylqmgH+6Di9P4cKiuF
+	 iCk2s7F9n7t45f+CvqEuBxzIiV4XmmhH1Uf1/c8poHjOwoRJosnlv7ReksEkFhyzHR
+	 X+llNxUjg/5fnm4cSl479FzAiXsMvtwYASxePee0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21A17F8025E;
-	Thu, 13 Apr 2023 14:07:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34B44F8032B;
+	Thu, 13 Apr 2023 14:11:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 45DDDF8032B; Thu, 13 Apr 2023 14:06:55 +0200 (CEST)
+	id 9C1A2F8032B; Thu, 13 Apr 2023 14:11:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mout.web.de (mout.web.de [212.227.17.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 98AC5F8023A
-	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 14:06:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98AC5F8023A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 71AD9F80100;
+	Thu, 13 Apr 2023 14:10:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71AD9F80100
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ByIpaQm9;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=PU5rrEjv
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E4C22216DA;
-	Thu, 13 Apr 2023 12:06:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1681387609;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TQ4W5ZzUJOsg7bjXm/IjUeFMG84Sz4ptp8YH+6T7UCw=;
-	b=ByIpaQm9XBNgtO5vE+7iOckMiszArW7OsznoQXQO5O4paB0tGorN9QFJQ/jfZ/7hmlIwHn
-	mH22vPkWYvEKNAQVdhR19fxykQws8MC2YQe33IEjWHUHeVY4esWyUxUp5FcZzt3sOQfzGI
-	RXIZvT6jT1vCdO5wVDzX54flcliP7fo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1681387609;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TQ4W5ZzUJOsg7bjXm/IjUeFMG84Sz4ptp8YH+6T7UCw=;
-	b=PU5rrEjvXnK9HIP2sx+z9pzX+VBq5Vh548+8zO3U4d/dtX74H6x4vomFJmyl+OGnNXhdqM
-	es+0tYW1t5TnnNBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C723A13421;
-	Thu, 13 Apr 2023 12:06:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id y1ylL1nwN2TKeAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 13 Apr 2023 12:06:49 +0000
-Date: Thu, 13 Apr 2023 14:06:49 +0200
-Message-ID: <87edoovvdy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH 2/2] ALSA: pcm: auto-fill buffer with silence when
- draining playback
-In-Reply-To: <ZDfjKgLJ2tpV45eW@ugly>
-References: <6d6c5f3a-81bc-acf4-eb4d-229b581bbe8b@perex.cz>
-	<ZDWPy9YbXWWOqaC+@ugly>
-	<7b317956-deb1-0a75-0a34-f82d6a81cf90@perex.cz>
-	<87ttxl7cxd.wl-tiwai@suse.de>
-	<ZDZmDyOMYMD4Uu5g@ugly>
-	<87wn2ho06z.wl-tiwai@suse.de>
-	<54c16616-dee7-b50f-d612-82eef906d1df@perex.cz>
-	<871qkoxrrl.wl-tiwai@suse.de>
-	<ZDfWZG+VASX/Xo/j@ugly>
-	<87ile0vzxp.wl-tiwai@suse.de>
-	<ZDfjKgLJ2tpV45eW@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: QL4OXFPR24MTSVQHT5BBLPUFAN4S5LDZ
-X-Message-ID-Hash: QL4OXFPR24MTSVQHT5BBLPUFAN4S5LDZ
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=web.de header.i=markus.elfring@web.de
+ header.a=rsa-sha256 header.s=s29768273 header.b=tKjlRPdZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+	t=1681387852; i=markus.elfring@web.de;
+	bh=f6nYDA5zDRXQnkwED6X9yup3CORZV103/yGCf4txjPc=;
+	h=X-UI-Sender-Class:Date:Subject:From:To:References:Cc:In-Reply-To;
+	b=tKjlRPdZjPKBAdf7fBm3uzaI1qFHgTU0nzidZX94t4vdiqa/NW4jLZkxTlIP81xSG
+	 dMdSG4j2/TXRsWRlIKKRIIOuVztqMyD0pJVrUCMd1rkznj0ttY0kRwvnK1pkgBYDw7
+	 99Nycmd5CjsgN41diirZPtzMDMf4RXlgh7jFfgJ3bM3u+TWPksJXDFoBl/yMnkFLSg
+	 BuVjx7TeJNGvvcZh5Ri7dPF3bp5Z0FZbWcryODPkj+CsXRA1dZ+PHNH4cXfQhcxWZ7
+	 vb/0Q78dkP5qz5eILH1bfBH/CGn/SlrDzMyZB05Eeo7Kcj15AhkDT/kRxetdC7bvFY
+	 2mxeKp2t8R12Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.85.83]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mvbn2-1qbsVu1Z5C-00szHQ; Thu, 13
+ Apr 2023 14:10:52 +0200
+Message-ID: <46d8e10e-25dc-dfd7-3e39-92b86058126a@web.de>
+Date: Thu, 13 Apr 2023 14:10:49 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: [PATCH] ASoC: SOF: topology: Move a variable assignment behind
+ condition checks in sof_dai_load()
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+To: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
+ sound-open-firmware@alsa-project.org,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Keyon Jie <yang.jie@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>
+References: <40c60719-4bfe-b1a4-ead7-724b84637f55@web.de>
+ <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
+In-Reply-To: <1a11455f-ab57-dce0-1677-6beb8492a257@web.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Jl8V/9KAdzFRpvpfkQ77MacaWQTbsQVWDIxp9a6wDHu/uFJ6E0K
+ wrnq8t9va+6xer9T+IgUPfTITJurni3ae6KdAmI2E+md4NCvSinWzw3+xvTc/RDb28CUj4w
+ HNwdAU9Sim6wlfoLqbVFKie1SgubPls8/hPURw/Gqew3Lxco2rtWKomirG6tPQOVjlRtn4C
+ htR1uE0iGve8rHfDMe2WA==
+UI-OutboundReport: notjunk:1;M01:P0:1rUQBhxaU1g=;htIlgbUHh7Ouq5VoS3wyz8BV2jR
+ ARn+fkYyic62xVTX7XdqFjZkl8s2ekhbbUQs91Ve177CSlIj4SYljG9CL5gCOxurZE4jD2cOT
+ xr7aQaaQ2O4Gf0Rqtu9Uwl4a1SgRnPEU+5NjHOAINDCi2cSPRAIZNk6IlsPLfT9s2R7HZb1Je
+ l6wrvL5c3nBDz9HQWxe6Ddl/UfbzSEEEgFcCWCOU9Xe0h9BMjRDCuY7RUve9sZdyZFI5+et1V
+ 7mBrHogZGTgrhgxUL/KGB73n14zdPabzkO97VkABEUK8LE1MnKQGY70ClmXdozcQvQl6jPW/c
+ a2+E4aUi9lCosVTfn8lgTo/C5sCVjyumOBK4zQnjP8euEQSsRWYiqjRWd4fjOEjewFk7DpJUN
+ zWSEQzdBMLGmwmzZpJ+BdEpY+2NFCiwlsoOLCBO1bqS9yOQUX4wEo+dneT5SL2IZgsYEQpbQL
+ nYM6t+ApeMYnKQwL0xX+EDEAjY6Na9ADXL5yxYWNo6plCf9V6iptSDM4pIYfqmkj0819lrMmL
+ tFkHxRX/7CayZASNnn7QA2QN5EL2s8A6lzX9t9ZykBYhEtBqME4Nv1wDIXyG8vOY5Xm2kYQG/
+ iHCdO5ByR8tz7r9sGn6glElofiqa3/4eTKNau6Heo0/o7ZCA/z5n2Y1qrJ/qsslljc5MpRe/y
+ IwJZWT2e2DSVsCa6Wg/g4QFzXdHF3HLPr1n8zXquONmevH4bTJr1ADI2i9rMtelryJJGs0dyo
+ k8D4GdtYLLMRJ7pOe02RxImCqz7RIFFjqffGf1d+q0ezTwtdV8lNvDVvKS9BUcPfdbTJNRrzX
+ tx70Y9SCJlgIixKGD83vhg9NOOdaEsjOgaFxo9/DoF6UomkUjPHKeuykO1SlJ6bcuWnMUSNME
+ gOpV7452deRG7GiGBOonwrTf1mRBu+sRJlRF4QmhA65NAmmJuGOmmF7Vp
+Message-ID-Hash: LSDEHHF6FIUCCX7TDJMILQZPN4YZNTCX
+X-Message-ID-Hash: LSDEHHF6FIUCCX7TDJMILQZPN4YZNTCX
+X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: ALSA development <alsa-devel@alsa-project.org>
+CC: cocci@inria.fr, LKML <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QL4OXFPR24MTSVQHT5BBLPUFAN4S5LDZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LSDEHHF6FIUCCX7TDJMILQZPN4YZNTCX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,48 +123,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 13 Apr 2023 13:10:34 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Thu, Apr 13, 2023 at 12:28:34PM +0200, Takashi Iwai wrote:
-> > On Thu, 13 Apr 2023 12:16:04 +0200, Oswald Buddenhagen wrote:
-> >> On Thu, Apr 13, 2023 at 07:42:06AM +0200, Takashi Iwai wrote:
-> >> > Also, we may skip the
-> >> > workaround for applications accessing directly via mmap as default.
-> >> > no, because one may easily miss that more than one period is
-> >> required.
-> >> also, i think that forgetting it entirely is an easy mistake to make,
-> >> even if it's harder with mmap than with write.
-> > 
-> > I don't agree with that point -- if application wants the access only
-> > via mmap (without any write actions via alsa-lib functions), the
-> > buffer and data management relies fully on the application itself.
-> > Manipulating the data *silently* is no good action for such
-> > applications.
-> 
-> > For them, the drain simply means to stop at the certain point.
-> > 
-> i don't think that's true. if an app wants to control things finely,
-> it would just use start/stop and manage the timing itself. draining
-> otoh is a convenient fire-and-forget operation. that makes it easy to
-> miss the finer details, which is why i'm so insistent that it should
-> just work out of the box.
+Date: Thu, 13 Apr 2023 13:56:44 +0200
 
-Sure, but that's still no excuse to ignore the possibility blindly.
+The address of a data structure member was determined before
+a corresponding null pointer check in the implementation of
+the function =E2=80=9Csof_dai_load=E2=80=9D.
 
-> if you exclude mmapped devices in kernel, you exclude plughw with
-> emulated write(), so you'd have to add yet more code to compensate for
-> that.
+Thus avoid the risk for undefined behaviour by moving the assignment
+for the local variable =E2=80=9Cprivate=E2=80=9D behind some condition che=
+cks.
 
-No, I wrote "if application wants the access only via mmap (without
-any write actions via alsa-lib functions)".  So if application writes
-via plugin write(), we should apply the workaround, too.
+This issue was detected by using the Coccinelle software.
 
-> and doing it all in user space is yet more code. for all i can
-> tell, it's really just layers of complexity to solve a non-problem.
+Fixes: c5232c0171428f005a3204e1c264231fb5999b28 ("ASoC: SOF: topology: par=
+se and store d0i3_compatible flag")
+Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+=2D--
+ sound/soc/sof/topology.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-I don't get it: we're talking about the sw_params call in alsa-lib's
-drain function, and how can it be *so* complex...?
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index d3d536b0a8f5..3fffe3826160 100644
+=2D-- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1680,7 +1680,7 @@ static int sof_dai_load(struct snd_soc_component *sc=
+omp, int index,
+ 	struct snd_sof_dev *sdev =3D snd_soc_component_get_drvdata(scomp);
+ 	const struct sof_ipc_pcm_ops *ipc_pcm_ops =3D sof_ipc_get_ops(sdev, pcm)=
+;
+ 	struct snd_soc_tplg_stream_caps *caps;
+-	struct snd_soc_tplg_private *private =3D &pcm->priv;
++	struct snd_soc_tplg_private *private;
+ 	struct snd_sof_pcm *spcm;
+ 	int stream;
+ 	int ret;
+@@ -1716,6 +1716,7 @@ static int sof_dai_load(struct snd_soc_component *sc=
+omp, int index,
+ 	dai_drv->dobj.private =3D spcm;
+ 	list_add(&spcm->list, &sdev->pcm_list);
 
++	private =3D &pcm->priv;
+ 	ret =3D sof_parse_tokens(scomp, spcm, stream_tokens,
+ 			       ARRAY_SIZE(stream_tokens), private->array,
+ 			       le32_to_cpu(private->size));
+=2D-
+2.40.0
 
-Takashi

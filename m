@@ -2,215 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE3136E0679
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 07:39:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A83106E067F
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 07:43:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57378F29;
-	Thu, 13 Apr 2023 07:38:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57378F29
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D3ACF2A;
+	Thu, 13 Apr 2023 07:42:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D3ACF2A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681364388;
-	bh=sdZ6S3ApDaAVc1Smit8oEZrevaVqEgcESRBr50c0JQs=;
-	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=tG8pcBtODFuQNAa4OC/WiyD7jn3lMLr/9d+/HS13FAE+rGlhjE+IoP3SeCZlFY/iv
-	 cJ7Jf63h3B+qwfdGNWOYWOTVMxWYPq6OzbUcI7fwYBU2RBZCBzaLKLtfkoCqe5bzCd
-	 a0ourZqe3sA07teumezZyVwsimkViS2/UfVG9NLM=
+	s=default; t=1681364589;
+	bh=cjgz3HhK4M5QsV790gY6/KNWfTAgMVB596rKfNeh+k0=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=l28z4/Fsmmqj/HBY7B/ZUPk2ySYadQKDymYhl2pd+Tr6w8+oUA8H7YvfcI3Q3dtUb
+	 NLXujcoGqfJbhydgHytW2HPQcEwtk3Us7DuZ5RlFmQNKM0FZIPptKhF+WnJbUWCy2U
+	 phETQHswQyoNit/yeaeqNrFRyxdZJh8+tsVd/NRQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C79BBF8025E;
-	Thu, 13 Apr 2023 07:38:57 +0200 (CEST)
-Date: Thu, 13 Apr 2023 11:02:17 +0530
-Subject: Re: [PATCH] ASoC: amd: Add check for acp config flags
-To: "Limonciello, Mario" <mario.limonciello@amd.com>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
- <0295ccee-2ee3-7d8a-9412-1442794157b0@amd.com>
-In-Reply-To: <0295ccee-2ee3-7d8a-9412-1442794157b0@amd.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HPGQQNY2IPF4CGMSIWAKUJDBUFGRV4O3/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168136433700.26.16217672127468735434@mailman-core.alsa-project.org>
-From: syed saba kareem via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: syed saba kareem <ssabakar@amd.com>
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- vsujithkumar.reddy@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Randy Dunlap <rdunlap@infradead.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Nathan Chancellor <nathan@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 02115F8025E;
+	Thu, 13 Apr 2023 07:42:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56E36F8032B; Thu, 13 Apr 2023 07:38:54 +0200 (CEST)
+	id 632D5F8032B; Thu, 13 Apr 2023 07:42:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20602.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::602])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AADC0F80100
-	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 07:38:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AADC0F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1A317F80100
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 07:42:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A317F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=2XZRt6Av
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P1qBH4J3N6VcA9kipBwYxNF0mxx2BYabKOyWCX+gxTnZAX3piDRllX4Q6dwGzEwte1fysnEenelfqk/dz3x5Q+HdyTm+ar34AkfRLv3JfudO5QiJaSnJA83G04ATHfB0wUHcQdIjxnHR7WCM3MjzRC8sVKWhNdf6WIqX2wCw0ga+jWNKtJ7FLvbo/G2vO2kRcgZkcc7IG+aWrgNnrBIclH+/warva9qFAWmUGq3/1ZupY2wg/2RWel8u7cTKOPnTHyEHANzMe4FQfbGc0Y8n6MnJ17JbHORy+y9nGlDg3QYBssNziPGz23rhV/itNICKcdMRRuPOQV0L+pr+TAe5HA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EgmGe+LAbISCbSyfsvBRkMU0gEA8N1F02s+snDuzYK4=;
- b=njzPq+y2pu8pbg3KNyfh7z0Td8m/4Cm3bIy5q7CGlebUi8T64CK9SGBmtdmXVq+dQ7B2XT1emoKdHfSU+OEROx5SRFFCqWyzTwK9asSmnc4g94p9SaBl4kMMsqYC8exB8irAan1cPsGa8/86NCUAIiYp2aRTkKM2CWnXs+udn+0qgSUsF99SVCiv/EHCr/3cR+602WBzw4tGRMANSiY9aNKiPZNrrnZYzNCM2jYGTkX/UTe8ks9iBDAE9Bw2bb1179KNGH1m1+0BP0gwUN8blzneaeMeDPaTGJACpDNueFBxGAIaBRNXCm4Ed8/60NWg/LWbNO65mQlhnH8Ev+u4jQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EgmGe+LAbISCbSyfsvBRkMU0gEA8N1F02s+snDuzYK4=;
- b=2XZRt6AvMexi+LwAj0iY6LQRhvHfVAOn1rbHX9GRO3UcRQHqjsCCbkQhwJbPrOr4B5dG1AyEEzmWHIW7o6LQ1f9v9T1D+WuPl6Foa4ESlzjcI4l/3plY8EmJb3ZsydSrOjaaFDsD0OG+k7YiToneMD+iUnNSBkaa7JtWCBXY2lQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31)
- by BN9PR12MB5260.namprd12.prod.outlook.com (2603:10b6:408:101::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Thu, 13 Apr
- 2023 05:38:40 +0000
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::6799:5c0:c042:6d5f]) by MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::6799:5c0:c042:6d5f%7]) with mapi id 15.20.6298.030; Thu, 13 Apr 2023
- 05:38:39 +0000
-Message-ID: <c5b8b7d8-d478-55ff-17e4-85d1e2146d02@amd.com>
-Date: Thu, 13 Apr 2023 11:02:17 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] ASoC: amd: Add check for acp config flags
-To: "Limonciello, Mario" <mario.limonciello@amd.com>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20230412091638.1158901-1-Syed.SabaKareem@amd.com>
- <0295ccee-2ee3-7d8a-9412-1442794157b0@amd.com>
-Content-Language: en-US
-From: syed saba kareem <ssabakar@amd.com>
-In-Reply-To: <0295ccee-2ee3-7d8a-9412-1442794157b0@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0014.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:95::23) To MN2PR12MB3661.namprd12.prod.outlook.com
- (2603:10b6:208:169::31)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3661:EE_|BN9PR12MB5260:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb07c346-f574-434d-fafa-08db3be15559
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	f/OoJPo+yLARxV30Fy70HNOud7FyQdeA5TyBhZtsB+DH3+Ha2aY57khwMCn+zwHl4t532TiQleuVuClj5KAitexuz101f/+O+AsboV7OaRsooUOicKyU3k2Hq7idB3bA3wmHz73k9hbUXT8cVPPRmU5oVyZNe5qRdJi6GmFfehmvxFejPNjVRMNr1rgcMBeB5o9Fh/FnyJ/9Q6q3O5nW6NwuWBAigRBRUhq2N91ur+rf1Fke75X7gHqFwsVXTh9wtxJiLOrkYiSc3WBDtllHgLyOvBv73rfeqOM+SeEHllBFZlOjFRmyzDk5JT/bTm8j8vjLU1BjEyLrmfgcrNv1UYZNT4Sx4E1u0elDqM4ICAev07cLEWBo7vv31w3cBGRdJ2iKhC3cXKEvuzBABOWdx02Rq/Nwwjv81o4lc9YgMdVGPm8SnVJVipVFYyu2aY3K89OHNzMgiSA4AfSwO2N9SOr3PfYhN/QhvB29fLQydIeNjfD4SKsAgsXtNVYH3uxUG/qFHThJ7a1uIzY2ygDSV2QyqeGt2f/CzXOqyjG9W8MwVmp0LMvkjAf19q9SVkO4DOoN3NunR9iH0O5JcSssFnsg+a1PF1M1K2yPVqATVaLCAgRB3n1cvaOTrQlvwlbr6ioXVE59lOTdLNrbRMjgTw==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3661.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(346002)(376002)(39860400002)(366004)(451199021)(6666004)(6486002)(66476007)(66556008)(66946007)(4326008)(36756003)(110136005)(2906002)(31696002)(41300700001)(5660300002)(8676002)(8936002)(316002)(38100700002)(478600001)(54906003)(53546011)(6512007)(6506007)(26005)(31686004)(2616005)(186003)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?alFFRHY1MTlaYVJTSWMycGY2M3FUR2RwWWgwZGlWUG9WQWJVVlcydlJRN0Vz?=
- =?utf-8?B?NGxKbjA1QUhoMHQzSklkNk0ybjFuTG1LYkFOYU41MEl1bFNnSS8xcWY0NG1z?=
- =?utf-8?B?SVZVaDNoYTYraTJCQkZIY05yY1djYWFLblVaMkxsR0ZneWR0MzhIYmJQV3ow?=
- =?utf-8?B?cXIrVVRpQTZlb2xrREdEQTVHNkQrT2xjWkw4ZVJ0NTgyd0J0UEIxYTBSL2Qv?=
- =?utf-8?B?VmpTUDdGSzRhaXp4Wkk2T29Ed3pXMXMxLzVXRWRWUlk4Y1lWZ0lpcTl4blpm?=
- =?utf-8?B?dFgvVkhTa2JNU2pvemliZzU3MU1GV1d0YktNVDB5SHRGbUxPbVVWOUR2TFBE?=
- =?utf-8?B?Y2FqSkJmS0d1QVpaSFdPRjdsN1dtWTNFVWVYZzFRa0YxcllRT2VQV1d1bFdx?=
- =?utf-8?B?aHVhTlMvWWg4SXJFQnRlbEZyY3Q1bnJWaU9yTXZrb2UvVnF0K0lJMTcweENo?=
- =?utf-8?B?NCtGUmJic3pFTXQ0cUlpQ2lINHQvT1ZnUGFnNGRhZUZGSXBmellUZUw4SDZL?=
- =?utf-8?B?RUQ0b3BDQk1RRWRpT2ptTURmRnNzMUMyM3hDWmdkdENNRjBkQUZlTC9BODdX?=
- =?utf-8?B?bkZieCt2bzQ0clZ3MEdob3BEeVhCSzNHMjlWVjZHM2FnQTB3Yi9SZllzYzli?=
- =?utf-8?B?VWVyaWNNL2xVRDcyTnZSTFhncTFlUHJ5c3p2NkZjdFpjVGFZZWo3Y2g4STFX?=
- =?utf-8?B?bjRhOUhCU1hRZEhBM1V0eWVVa0F2RCt0dnlGQUVjV3RXclJPeFpHa2FsQW9O?=
- =?utf-8?B?eEZSSG5iUTNxUmFlb0o0UnpwUTNIeUxpeTlmSkZDSjhiY2JOU3hnRkR2eDdJ?=
- =?utf-8?B?NkN0bHYxeUwrT0hESU1YSmxuYXo5c0pGUFlyOWhKQTdxR084d1UrYi9zZGc4?=
- =?utf-8?B?dFpMemE0R21qT3NzVm1TVCtXMlduZEhXeTdTNXd6ZWFlaXIvSksyajkySGtS?=
- =?utf-8?B?ZVZNWk42NGNveStlemd1VkRCMUpLazZSUnRFR0JJU25CVmc0dFBaSlBZZzZr?=
- =?utf-8?B?bGcyWWJtRGZaNENPOW5LLzFNNk5MSUFHTkkrU3JoYWpNRStGVEhURkhyVXlO?=
- =?utf-8?B?Zy9Rc3pPcHpwbE9icTh0bXdiY1h6dEdHTzZxTWRZUTk2RjBpMWJ0NFFUVWNH?=
- =?utf-8?B?TkhPWjA0V2RVaER1dzZQLy9VaDJobmo2aDR1MGZGRFkwSHhoNEwrT2tHSXQ3?=
- =?utf-8?B?QUZIOE02Z1lsY0lmemErbVFxNmM3Q2IyWnFuYjZRS1UvWVBnYlp3V1pTaG9m?=
- =?utf-8?B?WEdPOHNXRHhHS20xdExWb0g2OGs1VjVTYUhkRmluWllvY255VUYwSHh0bVdv?=
- =?utf-8?B?ZHY4YkEvT0E4UkorSzhJMy9QdXZBdkk1aWdLMzNPQkJUMS9xRTNDb3d3dXRD?=
- =?utf-8?B?UVFhejVDY2JwY1dIUHNBUmFIL3V1b0ZpVUI3NHFVbXBuS2pqNCtkbVllRENP?=
- =?utf-8?B?R21JUjJSWm51QkdpM25seTh2TGRZNTF5TXR2cEFzM0h3cFJ1WVZoa1BENG5T?=
- =?utf-8?B?NGVjUytKS2lPRjlUVVJVa0lYaWtIRStsTzJQUU9zQTV3eDNMWDNtaWh4UVdt?=
- =?utf-8?B?N2NZT1lEZ29RSms1ZkkzcDYvQm5aZjl4TElsMFhYY2FKNDY4N2gvVU94WnFX?=
- =?utf-8?B?NHFzVm4wL1VtdjJhRzBvdDU3bThDT1liU3FBRDFHbDFFb0VJU2REOFJ1UXNs?=
- =?utf-8?B?TmVaemV1K0ZoeTZnTnlmZlh2M3dBRmFhRXV3Y1lwREQ5eEJXOTQ1S011Vis0?=
- =?utf-8?B?czhrSG9nN1N1b2Zoc0tKdjY4U0dJOHRJakxlTUxFZmlwc2JaZjhnbHdPNVQ2?=
- =?utf-8?B?VWl6K201ajJENXJJc2dZeHA5T0VMRXBzV2dwS0ZyclB2dWxLYkxjWlZyVDkx?=
- =?utf-8?B?d0p3bnFYdFpqMUVOT1E0NHlMb0N6RmZUMTdXQkM1SWRTWHdaRHJmdmlWdXhu?=
- =?utf-8?B?cWJmWTFmdENrb1VYbU1DcHhnWi9TQ29QTFRETGloWEhBM0dtU3RIbTFMZUVL?=
- =?utf-8?B?TWtpYnFFTTA1UTR6UlIwS0dLNWxwUDVDNWFJd2hHVDlPNkE4TU1Xb2NwdS8x?=
- =?utf-8?B?OFh0RUVDblNtOXluS3BrK0RjaHNTamhvZmVWVTNWRGJWdDB0SUpvQVlPUmF6?=
- =?utf-8?Q?rn9P4bNnOr0MPLc1XDAZv4UcK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- bb07c346-f574-434d-fafa-08db3be15559
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3661.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 05:38:39.2848
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- hQvCfw6KyBPR8LScstNyNhBsZ/u7Q2xBxLU1mLAGYvU2OuuczKLaVAIEUBskgtgTyQFTGOhFeQX2FhzKdomzGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5260
-Message-ID-Hash: HPGQQNY2IPF4CGMSIWAKUJDBUFGRV4O3
-X-Message-ID-Hash: HPGQQNY2IPF4CGMSIWAKUJDBUFGRV4O3
-X-MailFrom: Syed.SabaKareem@amd.com
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=llG+iTio;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=VoO2TMYH
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9DA1B1FD66;
+	Thu, 13 Apr 2023 05:42:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1681364527;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q+zNMKfO3GHSJRk0FDLSjnxPzs6ia61jUFS5WhbaGfY=;
+	b=llG+iTiouUzKB1GCiFIek3FyA5y7c3D7b0I5ApaunkFpYbh/7LSj35I8oiiktSdhAHymUa
+	VSNmuNjBzxrK3e6huGofpoDXaczacsDDl9Vf8p3ht5Tm8NrTxhoNxAsOlhaYAGaCH6DLZn
+	6OJOtFaY+OUpzdgG6y5JTNC/pMeJcGU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1681364527;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q+zNMKfO3GHSJRk0FDLSjnxPzs6ia61jUFS5WhbaGfY=;
+	b=VoO2TMYHIF35Cp7F4FSX4+gMWgoJCfxYfTBwSVIPDt30F6OZSlpld2Ro7vxI/WVoqwhayR
+	Itq7mTqEqPP8R0DA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7D6B9138E3;
+	Thu, 13 Apr 2023 05:42:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id tj5VHS+WN2SCUQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 13 Apr 2023 05:42:07 +0000
+Date: Thu, 13 Apr 2023 07:42:06 +0200
+Message-ID: <871qkoxrrl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 2/2] ALSA: pcm: auto-fill buffer with silence when
+ draining playback
+In-Reply-To: <54c16616-dee7-b50f-d612-82eef906d1df@perex.cz>
+References: <20230405201219.2197789-1-oswald.buddenhagen@gmx.de>
+	<20230405201219.2197789-2-oswald.buddenhagen@gmx.de>
+	<3d75c103-7e94-e6a1-7f3d-7f957c33cddc@perex.cz>
+	<ZDEWyjdVE2IocpGY@ugly>
+	<22f551f3-deae-1536-bd07-0b9340940ea4@perex.cz>
+	<ZDVnUj2B0EkMiOlA@ugly>
+	<6d6c5f3a-81bc-acf4-eb4d-229b581bbe8b@perex.cz>
+	<ZDWPy9YbXWWOqaC+@ugly>
+	<7b317956-deb1-0a75-0a34-f82d6a81cf90@perex.cz>
+	<87ttxl7cxd.wl-tiwai@suse.de>
+	<ZDZmDyOMYMD4Uu5g@ugly>
+	<87wn2ho06z.wl-tiwai@suse.de>
+	<54c16616-dee7-b50f-d612-82eef906d1df@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: L7E6TL6XCFWIJHDYRABGXMF2CBVGOJ22
+X-Message-ID-Hash: L7E6TL6XCFWIJHDYRABGXMF2CBVGOJ22
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
- vsujithkumar.reddy@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Randy Dunlap <rdunlap@infradead.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Nathan Chancellor <nathan@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
+CC: ALSA development <alsa-devel@alsa-project.org>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HPGQQNY2IPF4CGMSIWAKUJDBUFGRV4O3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L7E6TL6XCFWIJHDYRABGXMF2CBVGOJ22/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -219,128 +128,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 12 Apr 2023 21:59:28 +0200,
+Jaroslav Kysela wrote:
+> 
+> On 12. 04. 23 12:37, Takashi Iwai wrote:
+> > On Wed, 12 Apr 2023 10:04:31 +0200,
+> > Oswald Buddenhagen wrote:
+> >> 
+> >> On Wed, Apr 12, 2023 at 09:54:54AM +0200, Takashi Iwai wrote:
+> >>> I'm thinking whether we need to change anything in the kernel side for
+> >>> this at all.  Can't it be changed rather in alsa-lib side instead?
+> >>> 
+> >> it could, but it would be a lot uglier. user space would have to do a
+> >> "man-in-the-middle attack" on the data, while in the kernel we can
+> >> just slightly modify the consumer. this would be particularly obvious
+> >> in the case of write() access.
+> > 
+> > But basically it'd be like fiddling sw_params temporarily for
+> > draining, I suppose?  And the "attack" here can be taken too
+> > seriously; the whole PCM operation can be somehow interfered if a
+> > process may have the access to the PCM device, and changing sw_params
+> > itself must not introduce too much trouble.
+> 
+> This looks like a sane proposal, but some drivers does not require the
+> silencing at all, so we can probably skip this step for them (new
+> SNDRV_PCM_INFO_PERFECT_DRAIN flag?).
 
-On 4/12/23 20:30, Limonciello, Mario wrote:
-> On 4/12/2023 04:16, Syed Saba Kareem wrote:
->> We have SOF and generic ACP support enabled for Rembrandt and
->> pheonix platforms on some machines. Since we have same PCI id
->
-> s,pheonix,Phoenix,
-> s,have same,have the same,
->
->> used for probing, add check for machine configuration flag to
->
-> You should mention here that the PCI ID is the same but the revision
-> is different to make this clearer for the commit message.
->
->> avoid conflict with newer pci drivers. Such machine flag has
->> been initialized via dmi match on few Chrome machines. If no
->> flag is specified probe and register older platform device.
->>
->> Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
->> Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> ---
->>   sound/soc/amd/Kconfig        | 2 ++
->>   sound/soc/amd/ps/acp63.h     | 2 ++
->>   sound/soc/amd/ps/pci-ps.c    | 8 +++++++-
->>   sound/soc/amd/yc/acp6x.h     | 3 +++
->>   sound/soc/amd/yc/pci-acp6x.c | 8 +++++++-
->>   5 files changed, 21 insertions(+), 2 deletions(-)
->>
->> diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
->> index c88ebd84bdd5..08e42082f5e9 100644
->> --- a/sound/soc/amd/Kconfig
->> +++ b/sound/soc/amd/Kconfig
->> @@ -90,6 +90,7 @@ config SND_SOC_AMD_VANGOGH_MACH
->>     config SND_SOC_AMD_ACP6x
->>       tristate "AMD Audio Coprocessor-v6.x Yellow Carp support"
->> +    select SND_AMD_ACP_CONFIG
->>       depends on X86 && PCI
->>       help
->>         This option enables Audio Coprocessor i.e ACP v6.x support on
->> @@ -130,6 +131,7 @@ config SND_SOC_AMD_RPL_ACP6x
->>     config SND_SOC_AMD_PS
->>           tristate "AMD Audio Coprocessor-v6.3 Pink Sardine support"
->> +    select SND_AMD_ACP_CONFIG
->
-> Whitespace looks not aligned here.  I think it's a mix of tabs and 
-> spaces in this section.
-> It is aligned ,may be due to addition of plus symbol in the patch it 
-> is looking like misaligned.
->>           depends on X86 && PCI && ACPI
->>           help
->>             This option enables Audio Coprocessor i.e ACP v6.3 
->> support on
->> diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
->> index 6bf29b520511..dd36790b25ae 100644
->> --- a/sound/soc/amd/ps/acp63.h
->> +++ b/sound/soc/amd/ps/acp63.h
->> @@ -111,3 +111,5 @@ struct acp63_dev_data {
->>       u16 pdev_count;
->>       u16 pdm_dev_index;
->>   };
->> +
->> +int snd_amd_acp_find_config(struct pci_dev *pci);
->> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
->> index 688a1d4643d9..afddb9a77ba4 100644
->> --- a/sound/soc/amd/ps/pci-ps.c
->> +++ b/sound/soc/amd/ps/pci-ps.c
->> @@ -247,11 +247,17 @@ static int snd_acp63_probe(struct pci_dev *pci,
->>   {
->>       struct acp63_dev_data *adata;
->>       u32 addr;
->> -    u32 irqflags;
->> +    u32 irqflags, flag; >       int val;
->>       int ret;
->>         irqflags = IRQF_SHARED;
->> +
->> +    /* Return if acp config flag is defined */
->> +    flag = snd_amd_acp_find_config(pci);
->
-> This 'flag' variable seems unnecessary if it's just used in one place 
-> and never evaluated.
->
->> +    if (flag)
->> +        return -ENODEV;
->> +
->>       /* Pink Sardine device check */
->>       switch (pci->revision) {
->>       case 0x63:
->> diff --git a/sound/soc/amd/yc/acp6x.h b/sound/soc/amd/yc/acp6x.h
->> index 036207568c04..2de7d1edf00b 100644
->> --- a/sound/soc/amd/yc/acp6x.h
->> +++ b/sound/soc/amd/yc/acp6x.h
->> @@ -105,3 +105,6 @@ static inline void acp6x_writel(u32 val, void 
->> __iomem *base_addr)
->>   {
->>       writel(val, base_addr - ACP6x_PHY_BASE_ADDRESS);
->>   }
->> +
->> +int snd_amd_acp_find_config(struct pci_dev *pci);
->> +
->> diff --git a/sound/soc/amd/yc/pci-acp6x.c b/sound/soc/amd/yc/pci-acp6x.c
->> index 77c5fa1f7af1..7af6a349b1d4 100644
->> --- a/sound/soc/amd/yc/pci-acp6x.c
->> +++ b/sound/soc/amd/yc/pci-acp6x.c
->> @@ -149,10 +149,16 @@ static int snd_acp6x_probe(struct pci_dev *pci,
->>       int index = 0;
->>       int val = 0x00;
->>       u32 addr;
->> -    unsigned int irqflags;
->> +    unsigned int irqflags, flag;
->>       int ret;
->>         irqflags = IRQF_SHARED;
->> +
->> +    /* Return if acp config flag is defined */
->> +    flag = snd_amd_acp_find_config(pci);
->
-> This 'flag' variable seems unnecessary if it's just used in one place 
-> and never evaluated.
->
->> +    if (flag)
->> +        return -ENODEV;
->> +
->>       /* Yellow Carp device check */
->>       switch (pci->revision) {
->>       case 0x60:
->
+Sure, we should apply it only conditionally.  Also, we may skip the
+workaround for applications accessing directly via mmap as default.
+Also we may provide a flag in asoundrc config, if any, too.
+The implementation in alsa-lib is more flexible in this regard.
+
+> The other not-yet-discussed option is to just print an warning in
+> alsa-lib that the residue samples may be played (when no silencing /
+> period size align is used). Then introduce a new helper function to
+> setup silencing for the drivers without new
+> SNDRV_PCM_INFO_PERFECT_DRAIN flag set.
+
+Hm, I don't think this would be useful.  Spewing warnings are rather
+annoying or confusing for end users, and I bet the old applications
+wouldn't be fixed even with such annoyance.
+
+
+thanks,
+
+Takashi

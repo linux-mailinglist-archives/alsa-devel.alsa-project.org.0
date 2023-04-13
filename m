@@ -2,28 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7B526E04B9
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 04:41:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BEC56E04BE
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 04:41:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DACAFA4;
-	Thu, 13 Apr 2023 04:40:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DACAFA4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60DD3FA2;
+	Thu, 13 Apr 2023 04:40:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60DD3FA2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681353687;
-	bh=6V9UU7Oo2l6svGl2xdwt7K1tmIn8UpKuZhXy3GC++TM=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=PF9V+oOAQM9JIC7LVsiFS3dF3YFt9ae3l3Lw3DNZ/CzDlLz6L5Y1W4QG/W+9+ZhIZ
-	 EbIHKgYOvdwfDzIXNTq3zjQhBfd4SOT20nqEUyVlT5jd0dBUYcXEe+uC79yMFXLGmF
-	 AnQJ9imB3E+yUDVPIx9wWMwG61d37htIHAMlI4GE=
+	s=default; t=1681353708;
+	bh=uK35DXXbqaB+kOQBB45RdJHPlNvqSa2wIBInCt6wZsU=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Tlkq4HVq9sqEv2XIfG2RaQvkV8NA8SOnpd5cQ2827EFZIKoVvQZjH2gY7Hkbg12wT
+	 /QMM3veTwl+0g6fTWBcJEk9GPEm8IH3oku+dcT7FLH3b9tMF+QmbHYkaCTpLjk/lRu
+	 Aj6/Q5BF+OdS2Gi4iA6o/IF+hw7euN3REs263NyM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80212F80544;
-	Thu, 13 Apr 2023 04:37:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3A29F805B6;
+	Thu, 13 Apr 2023 04:37:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AAD6FF805B4; Thu, 13 Apr 2023 04:37:43 +0200 (CEST)
+	id C80A5F805BA; Thu, 13 Apr 2023 04:37:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,46 +32,45 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0BA69F805B3
-	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 04:37:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BA69F805B3
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4A8BF805B5
+	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 04:37:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4A8BF805B5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JXm67dpc
+ header.s=k20201202 header.b=TzvyzEvd
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AAB3463AC3;
-	Thu, 13 Apr 2023 02:37:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856D0C433EF;
-	Thu, 13 Apr 2023 02:37:38 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7CB3663ABE;
+	Thu, 13 Apr 2023 02:37:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40556C433EF;
+	Thu, 13 Apr 2023 02:37:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681353460;
-	bh=6V9UU7Oo2l6svGl2xdwt7K1tmIn8UpKuZhXy3GC++TM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JXm67dpcq6fO7+0gP+3vmBNBCX2AGbJZjKbl66X25lTI0+izji0pSsycs89XgDuzN
-	 uZNy+5Pl1xwgWmoVjsvmZuQpjcrtLg6GAxfMb50srOvffohyXmBVu7RKQpE8T22R72
-	 fD5csoggn/8j/FofW2BDatPzIkZAppkCeYkRt/b8Kt/ApR/H3xrdqPSDMo8DPKWuvB
-	 OU822re6KCB0QLfpM8o66yS+Xja/llaxiXRwT8UeEd6hT8Z+So3A7Z46G6NKqKHHJs
-	 94ZFNC1Y8ObblQtGi+RJAjFbWcgl4/7d/yfcrqr566uJieOF5HVFXa0SbLP1EsOtmZ
-	 WxJUeFnVXykgg==
+	s=k20201202; t=1681353469;
+	bh=uK35DXXbqaB+kOQBB45RdJHPlNvqSa2wIBInCt6wZsU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=TzvyzEvdLmZuW2ZlJ3TLvWDKuSN32jJr7TqHGE2a8WjOE/pqdzptYTkSaBfKKY/aF
+	 pz0CtbSCzuMCivvRnvR6TefC4Q0Iw4myXF3Pl0IuiEh9IO2lhM39nad6flXd0Mj2Sz
+	 r9qXsNiVhKcrrX5Sv93rMB55yXYV41weOqVr3kdqFiacWxQbmvfkbgzWKFvGOe7Ouq
+	 DrdhiChAg5MmEPuqdNRhCiQL/iUM+KuHaDLXczQu446BqNvpmVWMPr88Lf3OCY0iQ5
+	 4gtv95dvXYCR9JmJi+Qbz/mj8gmD2TBTNQNqjpeAwiavi55DYMi6VRsZh0JIAVFlqb
+	 ISevIMdPz2RMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 5/8] ASoC: Intel: bytcr_rt5640: Add quirk for the
- Acer Iconia One 7 B1-750
-Date: Wed, 12 Apr 2023 22:37:22 -0400
-Message-Id: <20230413023727.74875-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 1/4] ASOC: Intel: sof_sdw: add quirk for Intel
+ 'Rooks County' NUC M15
+Date: Wed, 12 Apr 2023 22:37:41 -0400
+Message-Id: <20230413023746.74984-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230413023727.74875-1-sashal@kernel.org>
-References: <20230413023727.74875-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6MHMMOA6YI3563467X5LGMJ3TYX4FGLH
-X-Message-ID-Hash: 6MHMMOA6YI3563467X5LGMJ3TYX4FGLH
+Message-ID-Hash: OVULYSF7NOBKHQB2JFFCWV3IWB5JSUEU
+X-Message-ID-Hash: OVULYSF7NOBKHQB2JFFCWV3IWB5JSUEU
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,21 +78,20 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Hans de Goede <hdegoede@redhat.com>,
+CC: Eugene Huang <eugene.huang99@gmail.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Sasha Levin <sashal@kernel.org>,
- cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com,
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- tiwai@suse.com, akihiko.odaki@gmail.com, andriy.shevchenko@linux.intel.com,
- ckeepax@opensource.cirrus.com, oder_chiou@realtek.com,
- moisesmcardona@gmail.com, alsa-devel@alsa-project.org
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
+ liam.r.girdwood@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, tiwai@suse.com, gongjun.song@intel.com,
+ shumingf@realtek.com, yong.zhi@intel.com, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6MHMMOA6YI3563467X5LGMJ3TYX4FGLH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OVULYSF7NOBKHQB2JFFCWV3IWB5JSUEU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,48 +100,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+From: Eugene Huang <eugene.huang99@gmail.com>
 
-[ Upstream commit e38c5e80c3d293a883c6f1d553f2146ec0bda35e ]
+[ Upstream commit 3c728b1bc5b99c5275ac5c7788ef814c0e51ef54 ]
 
-The Acer Iconia One 7 B1-750 tablet mostly works fine with the defaults
-for an Bay Trail CR tablet. Except for the internal mic, instead of
-an analog mic on IN3 a digital mic on DMIC1 is uses.
+Same quirks as the 'Bishop County' NUC M15, except the rt711 is in the
+'JD2 100K' jack detection mode.
 
-Add a quirk with these settings for this tablet.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/20230322145332.131525-1-hdegoede@redhat.com
+Link: https://github.com/thesofproject/linux/issues/4088
+Signed-off-by: Eugene Huang <eugene.huang99@gmail.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20230314090553.498664-2-yung-chuan.liao@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ sound/soc/intel/boards/sof_sdw.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 5f6e2bb324406..4df1be8170bb6 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -533,6 +533,18 @@ static int byt_rt5640_aif1_hw_params(struct snd_pcm_substream *substream,
- 
- /* Please keep this list alphabetically sorted */
- static const struct dmi_system_id byt_rt5640_quirk_table[] = {
-+	{	/* Acer Iconia One 7 B1-750 */
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index f5d8f7951cfc3..eb713e9c2bd22 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -175,6 +175,17 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
+ 					SOF_SDW_PCH_DMIC |
+ 					SOF_RT711_JD_SRC_JD2),
+ 	},
++	{
++		/* NUC15 'Rooks County' LAPRC510 and LAPRC710 skews */
++		.callback = sof_sdw_quirk_cb,
 +		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Insyde"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "VESPA2"),
++			DMI_MATCH(DMI_SYS_VENDOR, "Intel(R) Client Systems"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "LAPRC"),
 +		},
-+		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
-+					BYT_RT5640_JD_SRC_JD1_IN4P |
-+					BYT_RT5640_OVCD_TH_1500UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
++		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
++					SOF_SDW_PCH_DMIC |
++					RT711_JD2_100K),
 +	},
- 	{	/* Acer Iconia Tab 8 W1-810 */
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Acer"),
+ 	/* TigerLake-SDCA devices */
+ 	{
+ 		.callback = sof_sdw_quirk_cb,
 -- 
 2.39.2
 

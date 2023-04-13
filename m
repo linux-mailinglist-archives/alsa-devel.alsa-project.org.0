@@ -2,31 +2,32 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0980E6E0BBC
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 12:48:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8330B6E0BD0
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Apr 2023 12:50:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9703BE8F;
-	Thu, 13 Apr 2023 12:47:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9703BE8F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A029CEF3;
+	Thu, 13 Apr 2023 12:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A029CEF3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681382915;
-	bh=36voQF2/FokRllgA0RUGG8ObTjMzoVuUTlOOVM/OeJU=;
+	s=default; t=1681383038;
+	bh=oT1+Jat0tDL27BePo+/Yme/jLs4UTkJ/L46miPJB52k=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=XbzRU+Lr3AC39ZMw1LDjsNVsJeIxGvU3fwZtt5NclzUmm+rS/IKuuLfWs4Ix+DO6n
-	 618denzXEjc/KHYqRYEbSfC7kdDqE+GGFsYl8/iN+nA4Zfin6mPt7u1f565HzjvDMq
-	 fx6fvy5btElahk+enmqaHnBzqyKN6x7rapdWWBTA=
+	b=pzQ/Ty0MHIb3FWdMpNEn3IlKNb26pchElOjgAdR7cGVYKLTcYZ+mvyT3RQ0zmVssQ
+	 Byty58FoLHO2acVDgNogSPkMdwWbxkAUPZ5oXqy+Y9gbhIX2qPg2c93QZ5jw828vSs
+	 wqQxe/jqRA2pzaeH89OADbPXCQ2Y1XPysYyhXiOM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6A67F80524;
-	Thu, 13 Apr 2023 12:47:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD323F8056F;
+	Thu, 13 Apr 2023 12:48:00 +0200 (CEST)
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
 	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
 	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH 6/7] ASoC: mediatek: mt8188: add bus protection
-Date: Thu, 13 Apr 2023 18:47:12 +0800
+Subject: [PATCH 7/7] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
+ properties
+Date: Thu, 13 Apr 2023 18:47:13 +0800
 In-Reply-To: <20230413104713.7174-1-trevor.wu@mediatek.com>
 References: <20230413104713.7174-1-trevor.wu@mediatek.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -40,7 +41,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWSXIH3JJHJRSP7FPMWLTIEKIWCBQIQD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -49,8 +50,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
-Message-ID: 
- <168138286386.26.13789056864123961576@mailman-core.alsa-project.org>
+Message-ID: <168138288032.26.3791526706161218@mailman-core.alsa-project.org>
 From: Trevor Wu via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Trevor Wu <trevor.wu@mediatek.com>
 Cc: trevor.wu@mediatek.com, alsa-devel@alsa-project.org,
@@ -60,7 +60,7 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66FBAF8052D; Thu, 13 Apr 2023 12:47:40 +0200 (CEST)
+	id 26B9EF8053D; Thu, 13 Apr 2023 12:47:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -72,38 +72,38 @@ Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 62D85F8025E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 07998F800E5
 	for <alsa-devel@alsa-project.org>; Thu, 13 Apr 2023 12:47:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62D85F8025E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07998F800E5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=RBAGSaev
-X-UUID: 8fd9ac4cd9e811edb6b9f13eb10bd0fe-20230413
+ header.s=dk header.b=SvUp+XcA
+X-UUID: 8fdbf8eed9e811edb6b9f13eb10bd0fe-20230413
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=mediatek.com; s=dk;
 	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=RVqtcIPzTn3ljgLNBGF6OLNjNa9bEk34VJBl1FNNCT0=;
-	b=RBAGSaev6NMGOfJhkVVS/MbLJItGOJZTt/8hs3j6EZ9PQkDMhA4lT0zjvq7IO2Wk5Mo5IUGsOjEzcmjAcNfonybZiflb3VZM0Jee3KZheBghC0sKC9ptY2xFSWsk8VA5Zc2aDW9071MKBuySMVMq8mY+zPw2FJJdCkyLK/bHy0A=;
+ bh=gg5XIv0JoxYh7+Q/MXFr/X6SWUKuH88SYwHbABhmj9Y=;
+	b=SvUp+XcAtYKDtvp6YSsytflb2YVFvLuJYu3mCWxDDunScK075N8hvAtEeVE/CZon2nrtRHm2PkTx7/tLLBpM4TpnmpkcVu71L5ALCZFifnhjGpXkHM10PTwuaMSEyVRmItGYJhAUdQhckzfAJHSGfJGi9uKOB8/ZT8HKqjixHj4=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22,REQID:260959bb-487a-458d-b9ae-984fe3b4bfd7,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:95
-X-CID-INFO: VERSION:1.1.22,REQID:260959bb-487a-458d-b9ae-984fe3b4bfd7,IP:0,URL
-	:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTION
-	:quarantine,TS:95
-X-CID-META: VersionHash:120426c,CLOUDID:62bff283-cd9c-45f5-8134-710979e3df0e,B
-	ulkID:230413184721ES63JHQS,BulkQuantity:0,Recheck:0,SF:28|17|19|48|38|29,T
+X-CID-O-INFO: VERSION:1.1.22,REQID:bbb6df5c-2546-4fc0-ba1b-7653372616bf,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:70
+X-CID-INFO: VERSION:1.1.22,REQID:bbb6df5c-2546-4fc0-ba1b-7653372616bf,IP:0,URL
+	:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTI
+	ON:quarantine,TS:70
+X-CID-META: VersionHash:120426c,CLOUDID:305ed9ea-db6f-41fe-8b83-13fe7ed1ef52,B
+	ulkID:230413184721HQGIUYN1,BulkQuantity:0,Recheck:0,SF:38|29|28|17|19|48,T
 	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
 	,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-UUID: 8fd9ac4cd9e811edb6b9f13eb10bd0fe-20230413
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-UUID: 8fdbf8eed9e811edb6b9f13eb10bd0fe-20230413
 Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
  mailgw02.mediatek.com
 	(envelope-from <trevor.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1128028323; Thu, 13 Apr 2023 18:47:18 +0800
+	with ESMTP id 755087442; Thu, 13 Apr 2023 18:47:18 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
  mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -115,17 +115,18 @@ From: Trevor Wu <trevor.wu@mediatek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
 	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
 	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH 6/7] ASoC: mediatek: mt8188: add bus protection
-Date: Thu, 13 Apr 2023 18:47:12 +0800
-Message-ID: <20230413104713.7174-7-trevor.wu@mediatek.com>
+Subject: [PATCH 7/7] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
+ properties
+Date: Thu, 13 Apr 2023 18:47:13 +0800
+Message-ID: <20230413104713.7174-8-trevor.wu@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20230413104713.7174-1-trevor.wu@mediatek.com>
 References: <20230413104713.7174-1-trevor.wu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-MTK: N
-Message-ID-Hash: DWSXIH3JJHJRSP7FPMWLTIEKIWCBQIQD
-X-Message-ID-Hash: DWSXIH3JJHJRSP7FPMWLTIEKIWCBQIQD
+Message-ID-Hash: YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4
+X-Message-ID-Hash: YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4
 X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -141,7 +142,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DWSXIH3JJHJRSP7FPMWLTIEKIWCBQIQD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YG4K2MHQKUQOWR7MXQ5GE36ZCILGVKP4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,132 +151,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add bus protection for reset controller.
+Assign top_a1sys_hp clock to 26M, and add apll1_d4 to clocks for switching
+the parent of top_a1sys_hp dynamically
+On the other hand, "mediatek,infracfg" is included for bus protection.
 
 Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 ---
- sound/soc/mediatek/mt8188/mt8188-afe-pcm.c | 76 ++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+ .../bindings/sound/mediatek,mt8188-afe.yaml    | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c b/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
-index fecc891f892d..c3fd32764da0 100644
---- a/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
-@@ -17,6 +17,7 @@
- #include <linux/of_address.h>
- #include <linux/of_platform.h>
- #include <linux/pm_runtime.h>
-+#include <linux/soc/mediatek/infracfg.h>
- #include <linux/reset.h>
- #include <sound/pcm_params.h>
- #include "mt8188-afe-common.h"
-@@ -3133,12 +3134,68 @@ static int mt8188_afe_parse_of(struct mtk_base_afe *afe,
- 	return 0;
- }
+diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
+index 82ccb32f08f2..03301d5082f3 100644
+--- a/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
++++ b/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
+@@ -29,6 +29,10 @@ properties:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description: The phandle of the mediatek topckgen controller
  
-+#define MT8188_DELAY_US 10
-+#define MT8188_TIMEOUT_US USEC_PER_SEC
++  mediatek,infracfg:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of the mediatek infracfg controller
 +
-+static int bus_protect_enable(struct regmap *regmap)
-+{
-+	int ret;
-+	u32 val;
-+	u32 mask;
-+
-+	val = 0;
-+	mask = MT8188_TOP_AXI_PROT_EN_2_AUDIO_STEP1;
-+	regmap_write(regmap, MT8188_TOP_AXI_PROT_EN_2_SET, mask);
-+
-+	ret = regmap_read_poll_timeout(regmap, MT8188_TOP_AXI_PROT_EN_2_STA,
-+				       val, (val & mask) == mask,
-+				       MT8188_DELAY_US, MT8188_TIMEOUT_US);
-+	if (ret)
-+		return ret;
-+
-+	val = 0;
-+	mask = MT8188_TOP_AXI_PROT_EN_2_AUDIO_STEP2;
-+	regmap_write(regmap, MT8188_TOP_AXI_PROT_EN_2_SET, mask);
-+
-+	ret = regmap_read_poll_timeout(regmap, MT8188_TOP_AXI_PROT_EN_2_STA,
-+				       val, (val & mask) == mask,
-+				       MT8188_DELAY_US, MT8188_TIMEOUT_US);
-+	return ret;
-+}
-+
-+static int bus_protect_disable(struct regmap *regmap)
-+{
-+	int ret;
-+	u32 val;
-+	u32 mask;
-+
-+	val = 0;
-+	mask = MT8188_TOP_AXI_PROT_EN_2_AUDIO_STEP2;
-+	regmap_write(regmap, MT8188_TOP_AXI_PROT_EN_2_CLR, mask);
-+
-+	ret = regmap_read_poll_timeout(regmap, MT8188_TOP_AXI_PROT_EN_2_STA,
-+				       val, !(val & mask),
-+				       MT8188_DELAY_US, MT8188_TIMEOUT_US);
-+	if (ret)
-+		return ret;
-+
-+	val = 0;
-+	mask = MT8188_TOP_AXI_PROT_EN_2_AUDIO_STEP1;
-+	regmap_write(regmap, MT8188_TOP_AXI_PROT_EN_2_CLR, mask);
-+
-+	ret = regmap_read_poll_timeout(regmap, MT8188_TOP_AXI_PROT_EN_2_STA,
-+				       val, !(val & mask),
-+				       MT8188_DELAY_US, MT8188_TIMEOUT_US);
-+	return ret;
-+}
-+
- static int mt8188_afe_pcm_dev_probe(struct platform_device *pdev)
- {
- 	struct mtk_base_afe *afe;
- 	struct mt8188_afe_private *afe_priv;
- 	struct device *dev;
- 	struct reset_control *rstc;
-+	struct regmap *infra_ao;
- 	int i, irq_id, ret;
+   power-domains:
+     maxItems: 1
  
- 	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(33));
-@@ -3163,18 +3220,37 @@ static int mt8188_afe_pcm_dev_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(afe->base_addr),
- 				     "AFE base_addr not found\n");
+@@ -37,6 +41,7 @@ properties:
+       - description: 26M clock
+       - description: audio pll1 clock
+       - description: audio pll2 clock
++      - description: audio pll1 divide 4
+       - description: clock divider for i2si1_mck
+       - description: clock divider for i2si2_mck
+       - description: clock divider for i2so1_mck
+@@ -58,6 +63,7 @@ properties:
+       - const: clk26m
+       - const: apll1
+       - const: apll2
++      - const: apll1_d4
+       - const: apll12_div0
+       - const: apll12_div1
+       - const: apll12_div2
+@@ -74,6 +80,12 @@ properties:
+       - const: i2si2_m_sel
+       - const: adsp_audio_26m
  
-+	infra_ao = syscon_regmap_lookup_by_phandle(dev->of_node,
-+						   "mediatek,infracfg");
-+	if (IS_ERR(infra_ao))
-+		return dev_err_probe(dev, PTR_ERR(infra_ao),
-+				     "%s() Cannot find infra_ao controller\n",
-+				     __func__);
++  assigned-clocks:
++    maxItems: 1
 +
- 	/* reset controller to reset audio regs before regmap cache */
- 	rstc = devm_reset_control_get_exclusive(dev, "audiosys");
- 	if (IS_ERR(rstc))
- 		return dev_err_probe(dev, PTR_ERR(rstc),
- 				     "could not get audiosys reset\n");
++  assigned-clock-parents:
++    maxItems: 1
++
+   mediatek,etdm-in1-cowork-source:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description:
+@@ -147,6 +159,8 @@ required:
+   - power-domains
+   - clocks
+   - clock-names
++  - assigned-clocks
++  - assigned-clock-parents
  
-+	ret = bus_protect_enable(infra_ao);
-+	if (ret) {
-+		dev_err(dev, "bus_protect_enable failed\n");
-+		return ret;
-+	}
-+
- 	ret = reset_control_reset(rstc);
- 	if (ret) {
- 		dev_err(dev, "failed to trigger audio reset:%d\n", ret);
- 		return ret;
- 	}
+ additionalProperties: false
  
-+	ret = bus_protect_disable(infra_ao);
-+	if (ret) {
-+		dev_err(dev, "bus_protect_disable failed\n");
-+		return ret;
-+	}
-+
- 	/* initial audio related clock */
- 	ret = mt8188_afe_init_clock(afe);
- 	if (ret)
+@@ -170,6 +184,7 @@ examples:
+         clocks = <&clk26m>,
+                  <&apmixedsys 9>, //CLK_APMIXED_APLL1
+                  <&apmixedsys 10>, //CLK_APMIXED_APLL2
++                 <&topckgen 136>, //CLK_TOP_APLL1_D4
+                  <&topckgen 186>, //CLK_TOP_APLL12_CK_DIV0
+                  <&topckgen 187>, //CLK_TOP_APLL12_CK_DIV1
+                  <&topckgen 188>, //CLK_TOP_APLL12_CK_DIV2
+@@ -188,6 +203,7 @@ examples:
+         clock-names = "clk26m",
+                       "apll1",
+                       "apll2",
++                      "apll1_d4",
+                       "apll12_div0",
+                       "apll12_div1",
+                       "apll12_div2",
+@@ -203,6 +219,8 @@ examples:
+                       "i2si1_m_sel",
+                       "i2si2_m_sel",
+                       "adsp_audio_26m";
++        assigned-clocks = <&topckgen 83>; //CLK_TOP_A1SYS_HP
++        assigned-clock-parents =  <&clk26m>;
+     };
+ 
+ ...
 -- 
 2.18.0
 

@@ -2,92 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB8A6E28AD
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 18:48:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78F876E28D8
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 18:59:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79B7F9F6;
-	Fri, 14 Apr 2023 18:47:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79B7F9F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36E27A4E;
+	Fri, 14 Apr 2023 18:58:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36E27A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681490891;
-	bh=kLySdUEMQr1iUvlQq6Htdfgpuyp1tU6kNYr8ymjcJnQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1681491540;
+	bh=e74ww3jVi/werVdV5g4ASKYAekZI6VhN/4ESgHA86xw=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MIO5mqFQL0zaKdl5PUW+iHzF+lPw5xuprXjL0ifaJptR09+hvFX21jM2Dhm97M1o3
-	 Dikjk4wYWd/imaO+s9TCQaAjUGEq9h9MTAZpT92uEbXh42mfP2P6tzaSIgytboq/sP
-	 DWjvJNMKNDRWLTyVnPKh2PPAF5xLrK7XKpXZMYaI=
+	b=EehE5a1Icw0mdAOw6l26oaS6Jud5p4KXV1KAGvxH3yq5sOxju379beFR+tK5+8Bzf
+	 4DFp+AmQcYnSVgKEpLs8Zokhj0JkOPtLn2JAeUOkvt0np01ZlNi8TBrPKHvEgJKFu+
+	 wX6hewxlQxkFLOTGzKt8exXU7YnieuPwuQTQx5Mc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5EC4FF8025E;
-	Fri, 14 Apr 2023 18:47:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ECF7F8025E;
+	Fri, 14 Apr 2023 18:58:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F30C6F8032B; Fri, 14 Apr 2023 18:47:15 +0200 (CEST)
+	id 4E342F8032B; Fri, 14 Apr 2023 18:58:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D18CCF80100
-	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 18:47:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D18CCF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7600FF80100
+	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 18:58:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7600FF80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=XZEjQWuo
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 656D66492F;
-	Fri, 14 Apr 2023 16:47:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7B7C433EF;
-	Fri, 14 Apr 2023 16:47:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681490828;
-	bh=kLySdUEMQr1iUvlQq6Htdfgpuyp1tU6kNYr8ymjcJnQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XZEjQWuoiaLMzrotKOefVL+KiaM61y6oJKqWG8HFdNkhwH2QW1Efhz7uwpZtwl6K6
-	 WilqvCdPSuY2QoommbloPIYgOiKpHYPdZaL4AmnjffO1mSDkbcrXBopNbiB6I3rk4W
-	 9ECmmny4LI3rkqydUbpL7fy35cxKUj5LQpPvCqDHwnsPl/6cT/HNAwHQQG2kByojwy
-	 szLQElxMKHDl6PPrQb7NlXFE9D3yyu1jle6XZg8zHfWNo4eDkTz6+PgGRe68r5bvaW
-	 gKTj7wdyFyw7/86HcMpL3EZwShkxgfj/azOQTpdRlKoR/+EG1qydfVIuKH6rgBPIkI
-	 BoVXZFUikBiJg==
-Date: Fri, 14 Apr 2023 17:47:02 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?UGF3ZcWC?= Anikiel <pan@semihalf.com>
-Subject: Re: [PATCH 0/9] Add Chameleon v3 ASoC audio
-Message-ID: <6d90ad41-bb2d-41a0-8a4a-922b78967a2e@sirena.org.uk>
-References: <20230414140203.707729-1-pan@semihalf.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=p9jcxsu5
+Received: by mail-ej1-x630.google.com with SMTP id xi5so47188957ejb.13
+        for <alsa-devel@alsa-project.org>;
+ Fri, 14 Apr 2023 09:58:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1681491478; x=1684083478;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cLuHyW+oToWSMJF/7yNdvhI6vBh6/Geuch2BcgJwQ+s=;
+        b=p9jcxsu5QbhKFz/zEToMWOzWt4NlQFv/ocvksXuo79xWMN9r4zmYmzFuOuaGZxcPBz
+         Bn9tdeRrraErGBUFG9HDf0ubFG+vlvtmtZ0TY4JgT6Bq7pyiOdUmLt3yTwyceZJsdzSr
+         5yOlGNO46IkUnpG2VxOblDidTidYX75Jk80/Em/p3D4iJ50Ue5KWUhRlBDCWbwRHLUUT
+         amskfEa6yTYjo40P3pvzl35iHmSyJ0PkK6UTzuRQL76sUGxYL5hA7734a8+6JuVan/q6
+         l5jE7RvaHDQ73AsP0fQ5sruExM0suuYGq5Ir7UgDjty9tThT3wcnzhYgrmczrb2vpjHP
+         xASg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681491478; x=1684083478;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cLuHyW+oToWSMJF/7yNdvhI6vBh6/Geuch2BcgJwQ+s=;
+        b=V1z/BNedoj9Y348N8qCGAo4Up4ihSWWbjAYPofNMJWPHz23V0rpmTXjBcQVs26wgx5
+         Whf+DD6ve6d7avO2JXLEqwCJOO4i7DuCBpB7pgJdiVI9rCLCd9AGXhneIXfVQ0rw/Jm9
+         R6UhATIzIEZZOFvJQqltz62SQJye9ZwIlA4qwdmEC8eUQGR7lWMD8TjbE9JgPtx2KdB1
+         d4x2RlGmhz9xX9/iXWC0QjyvX+5wV7Vm6jcmrcedQymMcEMmt0xYassBHx7qghdhap7Y
+         1IxdUnabg677AsiZ7WDpOsWHqilNKeuIRckppR5ImP5bZZwx+HbX1RyAtUMLPSFDrm6b
+         sHHw==
+X-Gm-Message-State: AAQBX9fSzpgznCpLRJqH35Qd8r/Z2CF3HSCGI60yB3pFAxszfeQdnbp/
+	5IptrRip4XsH31r7G/t/dDXmsw==
+X-Google-Smtp-Source: 
+ AKy350YQ1HKGT+ViKDuqS5nsV9zqTPyR2y8jAfhlwKBUAhpwzMu5YdZluLXysFoxFAEZSZMgaTQwww==
+X-Received: by 2002:a17:907:9873:b0:94e:887f:a083 with SMTP id
+ ko19-20020a170907987300b0094e887fa083mr6847292ejc.57.1681491478620;
+        Fri, 14 Apr 2023 09:57:58 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:39b7:81a0:bd41:17b1?
+ ([2a02:810d:15c0:828:39b7:81a0:bd41:17b1])
+        by smtp.gmail.com with ESMTPSA id
+ i7-20020a170906698700b0094a9eb7598esm2620895ejr.120.2023.04.14.09.57.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Apr 2023 09:57:58 -0700 (PDT)
+Message-ID: <b12f305e-ba53-bbab-1d0d-121b76d8b5f6@linaro.org>
+Date: Fri, 14 Apr 2023 18:57:56 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6K3bg/ncOMgdX1Ax"
-Content-Disposition: inline
-In-Reply-To: <20230414140203.707729-1-pan@semihalf.com>
-X-Cookie: One Bell System - it works.
-Message-ID-Hash: V77AFZIT7BPMKNLD2KHXOZPPNQAPXUIE
-X-Message-ID-Hash: V77AFZIT7BPMKNLD2KHXOZPPNQAPXUIE
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH 1/9] ASoC: Add Chameleon v3 audio
+To: =?UTF-8?Q?Pawe=c5=82_Anikiel?= <pan@semihalf.com>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, broonie@kernel.org
+References: <20230414140203.707729-1-pan@semihalf.com>
+ <20230414140203.707729-2-pan@semihalf.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230414140203.707729-2-pan@semihalf.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: AIBOY3ABO7KJQIO6AZ76PEZIMWTIY7UY
+X-Message-ID-Hash: AIBOY3ABO7KJQIO6AZ76PEZIMWTIY7UY
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, dinguyen@kernel.org,
- lars@metafoo.de, nuno.sa@analog.com, upstream@semihalf.com
+CC: tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ dinguyen@kernel.org, lars@metafoo.de, nuno.sa@analog.com,
+ upstream@semihalf.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V77AFZIT7BPMKNLD2KHXOZPPNQAPXUIE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AIBOY3ABO7KJQIO6AZ76PEZIMWTIY7UY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,39 +125,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 14/04/2023 16:01, Paweł Anikiel wrote:
+> Add machine and platform drivers for ASoC audio on Chameleon v3.
+> 
+> The board has two audio sources: HDMI audio from the it68051 chip
+> (RX only), and analog audio from the ssm2603 chip (RX and TX).
+> 
+> Signed-off-by: Paweł Anikiel <pan@semihalf.com>
+> ---
+>  .../boot/dts/socfpga_arria10_chameleonv3.dts  |  28 ++
 
---6K3bg/ncOMgdX1Ax
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+No way. DTS is always, always separate.
 
-On Fri, Apr 14, 2023 at 04:01:54PM +0200, Pawe=C5=82 Anikiel wrote:
+Best regards,
+Krzysztof
 
->  sound/soc/Makefile                            |   1 +
->  sound/soc/chameleonv3/Kconfig                 |   7 +
->  sound/soc/chameleonv3/Makefile                |   2 +
->  sound/soc/chameleonv3/chv3-audio.c            | 111 ++++++
->  sound/soc/chameleonv3/chv3-i2s.c              | 347 ++++++++++++++++++
->  sound/soc/chameleonv3/chv3-it68051.c          |  41 +++
-
-Please at least make a directory for Google as a vendor, we don't want
-people adding directories for each individual product.  That said
-generally we add machine drivers in the directory for the relevant SoC
-family, is there any reason that pattern isn't followed here?
-
---6K3bg/ncOMgdX1Ax
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQ5g4IACgkQJNaLcl1U
-h9Awagf/ddeh9NiL6xTm0jG7Plq85gP3Pyvhk2dVP91pSzF9F2Ji14MAlnMxtKdW
-I01PMKID+Zk7oMMvVWT6XwDfK6F6ScWBXR+uwqhtD2m+5Qz+srCzqKyZZpWevujg
-KSrw9av66SOmEHB8BYWK7PnhBGV27/0E8mxzHqaxWNyyVkJhgxhBakVda9ocacmY
-hBjUSiivVFpEV36uNZrn2N9ivcj8Ux5mVpNhFLF1BGnlMGLvYyZMcbfAUtkAm9AN
-rgduYeGNGttpn7p3/xjusIeboE0QZU/6JYfQ+tX6FTSm1QeklwL6e0G8hb8OzLQz
-OYG7LQgbQju5RMftb4EWn0bLI/4qsw==
-=rrTF
------END PGP SIGNATURE-----
-
---6K3bg/ncOMgdX1Ax--

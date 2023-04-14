@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32FFA6E2708
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 17:31:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A3F16E271D
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 17:34:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EF25E75;
-	Fri, 14 Apr 2023 17:30:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EF25E75
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C60DE76;
+	Fri, 14 Apr 2023 17:33:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C60DE76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681486259;
-	bh=Oy7IZNDxb+8PVB8hywDrkI7zMdUitr3Ayz89WzF1QX4=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1681486474;
+	bh=e+Wy9ti15jRc0cbaveWkdvrWp6kJ9Go/XAYuu5eqn7s=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=L2jcXV+FYcBXGrsQGnJt1PEnf2I53/LlQzrx+3kQ9bU/bQ+I+E/Mn+/SJKF80yMYV
-	 dZ1vuBpFyJ/dftvPKCXR/Oe/XvzTH/VoKxsRvLXSpCa3MEMSvVyvrt5KH0hmxXgZe8
-	 3GOuA2qBeVgddcHAhtct3Jn0XapXvpyKSwMuuPYg=
+	b=dihJ6z9L3epMw5fyb7rJgdR+RPeHdTvnrYYDCGxpbMSetuX86Pqog5CCjd5R4W35t
+	 5NPNPcqtYuhBpKtXmNFrC1J6rOVmc2qvgApMXXdR+rgUvDhaVCsRk1SpTssEkHuhff
+	 f6hmGwoQPJE62lev34wTdzJL/cYw/Fb371GH6S84=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8807F8025E;
-	Fri, 14 Apr 2023 17:30:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6496EF8025E;
+	Fri, 14 Apr 2023 17:33:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EE42F8032B; Fri, 14 Apr 2023 17:30:04 +0200 (CEST)
+	id 90AE8F8032B; Fri, 14 Apr 2023 17:33:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,46 +32,44 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2CCBDF80149
-	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 17:29:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CCBDF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 14FF0F8023A
+	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 17:33:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14FF0F8023A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kFM8EmCf
+ header.s=k20201202 header.b=IsWm1Lgh
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6B38361059;
-	Fri, 14 Apr 2023 15:29:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B5B8C433D2;
-	Fri, 14 Apr 2023 15:29:55 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B7A576023E;
+	Fri, 14 Apr 2023 15:33:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C45C433EF;
+	Fri, 14 Apr 2023 15:33:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681486196;
-	bh=Oy7IZNDxb+8PVB8hywDrkI7zMdUitr3Ayz89WzF1QX4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kFM8EmCfsJJw9RouzM3gPpsIj3kED9WCbaEvTzfDqL9sUpnrCRRvzemME77DtQjJz
-	 jQ03UsiCuqK5fXBF/+7o/ki1XH6D9PG2X3cyPWifIg6YPDwPhmUEqA7sNSYc9V+iIi
-	 T+j4euThusNa+h+4o/dubrs/YuxdtDaLPtUZGC91A3pYflmMJ9vYjc0IFTPpPh14Ab
-	 tT+dabmBoplKXEr3vOLTG7k2egJjtknbgGzywsKwFuZYTuhgNHDtocRWuKmg65SN9q
-	 AkUah5w5a24IcoTI034nebWQC9MFLefZeXlvAiVpUyDXN+wFQO+EVxTvK71kXy4UCD
-	 bCs03OKn2eezg==
-Date: Fri, 14 Apr 2023 16:29:52 +0100
+	s=k20201202; t=1681486413;
+	bh=e+Wy9ti15jRc0cbaveWkdvrWp6kJ9Go/XAYuu5eqn7s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=IsWm1LghhF33CdqQJRCRtirPieDHjl+yoiRJ5DiEPejt9nY/ZAcMmwKDKtBis/H9f
+	 N1tqJY8JhK6dHk2DCBOrRzRJk3EBy3QLiuvxy2uRjZtRub5hkijsvLS+Umc788iqMv
+	 BqITgCNWt6rhYQ1T2SCklRj61Js+wTFmtewD4OfQUBMA3dNvgFktbrhPFn7h6LZPD/
+	 +bOfwi5332Kax82O28snhXkasnAaZ+AX8bfYjDQfrNO+2EGzKJfuzUIFq6BuzFdZxV
+	 N4HSoGGtfnkSDFgCYgXh9T4+KHl3bNleM2/LzDmrWcmkOj5F/UhdyyW5+GeMF3v1Ap
+	 hkh4yMRAiZbEA==
 From: Mark Brown <broonie@kernel.org>
-To: Stefan Binding <sbinding@opensource.cirrus.com>
-Subject: Re: [PATCH v1 3/4] ALSA: cs35l41: Fix default regmap values for some
- registers
-Message-ID: <bd4dbfdd-74e6-4cb1-bd3d-cafad479c4f9@sirena.org.uk>
-References: <20230414152552.574502-1-sbinding@opensource.cirrus.com>
- <20230414152552.574502-4-sbinding@opensource.cirrus.com>
+To: David Lin <CTLIN0@nuvoton.com>
+In-Reply-To: <20230414103941.39566-1-CTLIN0@nuvoton.com>
+References: <20230414103941.39566-1-CTLIN0@nuvoton.com>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: nau8825: Add delay control for
+ input path
+Message-Id: <168148641127.2185284.12632656259594714453.b4-ty@kernel.org>
+Date: Fri, 14 Apr 2023 16:33:31 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6EaOANoT/PHVQQX0"
-Content-Disposition: inline
-In-Reply-To: <20230414152552.574502-4-sbinding@opensource.cirrus.com>
-X-Cookie: One Bell System - it works.
-Message-ID-Hash: 2K4ECIZSE7B2LNAKPM3I6EZ7EIHH4KWJ
-X-Message-ID-Hash: 2K4ECIZSE7B2LNAKPM3I6EZ7EIHH4KWJ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-00303
+Message-ID-Hash: PK25GKG3R5ZEFTZS6HH7CZREC6O7ASPF
+X-Message-ID-Hash: PK25GKG3R5ZEFTZS6HH7CZREC6O7ASPF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,14 +77,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+CC: lgirdwood@gmail.com, alsa-devel@alsa-project.org, YHCHuang@nuvoton.com,
+ KCHSU0@nuvoton.com, SJLIN0@nuvoton.com, WTLI@nuvoton.com,
+ ctlin0.linux@gmail.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2K4ECIZSE7B2LNAKPM3I6EZ7EIHH4KWJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PK25GKG3R5ZEFTZS6HH7CZREC6O7ASPF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,31 +94,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 14 Apr 2023 18:39:42 +0800, David Lin wrote:
+> Change the original fixed delay to the assignment from property. It will make
+> more flexible to different platforms for avoiding pop noise at the beginning
+> of recording.
+> 
+> 
 
---6EaOANoT/PHVQQX0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Fri, Apr 14, 2023 at 04:25:51PM +0100, Stefan Binding wrote:
-> Several values do not match the defaults of CS35L41, fix them.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Thanks!
 
-or can this just be applied separately?
+[1/2] ASoC: dt-bindings: nau8825: Add delay control for input path
+      commit: c26c5921e1a770e6c092c4d25dea19052bdfddab
+[2/2] ASoC: nau8825: Add delay control for input path
+      commit: fc0b096c92918c2ba4d76411ea763fdeb2ef6b0d
 
---6EaOANoT/PHVQQX0
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQ5cW8ACgkQJNaLcl1U
-h9Bcrgf/aqwxlKyZj5mcfULcMCLidR/C2EBHFRwWbp2FHTYko894mSEQVHmdipTI
-MjBD/wolT6glCFEolbcSAv7uKxnyXapCd5BHeJU0P665iMh4vBvXjbIvj5KUmLtK
-sRoIOyVTWoAwoHyTtRD4fexTQRXtTQJ+uzVueGtilDdeTU/IFdEH7x3rMHKhyMk8
-uMGmEWOkjyABUO7tThvCAwKsDoryYeUrd5ExWSbIyCSTC1HMwAlLYMCO8QlveNn0
-CHdpF8xfd1U/1fBG8ZRABb6XypUChaCUIXpJ+uP80GYhHsKkHY4hGIb78ykRBObe
-Mtb1CC8QElLLcvJZ0BY8xywFRescIQ==
-=1T2u
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---6EaOANoT/PHVQQX0--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

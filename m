@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B0356E292A
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 19:20:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C89B56E298C
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 19:36:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 559AEDF8;
-	Fri, 14 Apr 2023 19:19:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 559AEDF8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03825836;
+	Fri, 14 Apr 2023 19:35:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03825836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681492837;
-	bh=WPtkUT7O1f55KPb6oOybgN9Tg6E75bDydYtfxWgTN/w=;
+	s=default; t=1681493788;
+	bh=PdlPchlBqq3ipIe1/5avWeUUYeo8hYM1C6FOgpJVePE=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=B8GtDqCu0zVxrbDJoZ7FfCOEf54u3sLesjvwX9vqRraszWiJR5wo+RfCLqgfeGNn5
-	 yRd2bY/wZ363OezLUgUt7gd19qAKjC48mhqQCziXvBG+r+U6LD8QRfnzj8K4Yc56aN
-	 TskQiG6AzXITySVPhcJ5DHsmSrBjPWXgN6M177cY=
+	b=BcLcJVwra7E/Ip7ppxoGH8uqie38JybMrVfhP5FHCc2DiwdWQw1A/AFe7me3Pi9dk
+	 GimfnxuEJUm6OG39Zs2wO5TjT8cgqrXgEbiktMhiriXPYbGEIYJOobaKnD10LFAKyF
+	 yqK3ALFvWXbVMh/GeeidDgYewvwgnW0w5+m+dMOE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3D49F8025E;
-	Fri, 14 Apr 2023 19:19:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EF69F8025E;
+	Fri, 14 Apr 2023 19:35:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B841F80100; Fri, 14 Apr 2023 19:19:43 +0200 (CEST)
+	id 3E3BCF8032B; Fri, 14 Apr 2023 19:35:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8137DF80100
-	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 19:19:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8137DF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 612C8F80100
+	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 19:35:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 612C8F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=glJ277C+
+ header.s=k20201202 header.b=FHyrqHeY
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B6AC36108E;
-	Fri, 14 Apr 2023 17:19:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752ACC433EF;
-	Fri, 14 Apr 2023 17:19:32 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 33C1564968;
+	Fri, 14 Apr 2023 17:35:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD973C433EF;
+	Fri, 14 Apr 2023 17:35:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681492775;
-	bh=WPtkUT7O1f55KPb6oOybgN9Tg6E75bDydYtfxWgTN/w=;
+	s=k20201202; t=1681493724;
+	bh=PdlPchlBqq3ipIe1/5avWeUUYeo8hYM1C6FOgpJVePE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=glJ277C+LuPAikNUJQuYBszIJGakPuY6wVnTigqVgnUZZLx8jgsOqsunB16jvAwVw
-	 xCQbPMtk3eozq0F6Syg82E3D3pYCNS+SAsN+9327/no12x7RMVvuOthJ+DWuzoURF8
-	 XFMbNiMyJpoxcPZdb5Tzoyw8WAz0C0UAXQAY0986CnthcXwkukAK6PA2gNpTGHWyrG
-	 s6BPKPsWED0kzCuGAsx69VjMKSbl1uExIxZSkG8U6bDRR7kYXmMGPzTkW86sgVo0d6
-	 ljQQCqQjpODCC5LpbL2FnDdM0y/vJR7xCdSkX9BmQLBqsM3nuGEnKeq7K9lnlmHyUC
-	 if+ZcIzmgCStg==
-Date: Fri, 14 Apr 2023 18:19:29 +0100
+	b=FHyrqHeYFDR408+DVbywqdFdI5GZKpRRQe+rslBVGoCMgTxqF+CAtyTC9jcAKomNz
+	 PfFasrHSeJp341AxUycZArVFXHXCW5TKn0Xb7ZilD+q0ehTk+irIq11PYbUZ9zGrLp
+	 6ThJGCgMv0RNeESv03yDmCQkKpWF5K+DteXEi1L5vP5NsKJD66qxtdJMwmyuIzqsPm
+	 QOlGK2hVNdQjwc0VTI3v9X5qNkB/wJe46FODMI+uKTk2DaWJWNqm7N7Ku5hkZzfgUm
+	 hHItTYOL1nkJ/zA7/RHzNc0O/EnkLC5HZIV0/fiT8fJce/ObiPD6Z1SxOrlqOjQIoa
+	 mQtJQBmKqECTg==
+Date: Fri, 14 Apr 2023 18:35:18 +0100
 From: Mark Brown <broonie@kernel.org>
 To: =?utf-8?B?UGF3ZcWC?= Anikiel <pan@semihalf.com>
-Subject: Re: [PATCH 1/9] ASoC: Add Chameleon v3 audio
-Message-ID: <e64b438e-1205-4e54-b8c0-1b9a5d074752@sirena.org.uk>
+Subject: Re: [PATCH 5/9] ASoC: ssm2602: Add workaround for playback with
+ external MCLK
+Message-ID: <cb35f3f2-4dc9-4d56-96bd-bcffb33b7aaf@sirena.org.uk>
 References: <20230414140203.707729-1-pan@semihalf.com>
- <20230414140203.707729-2-pan@semihalf.com>
+ <20230414140203.707729-6-pan@semihalf.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jeKa2KZqsPnAadPJ"
+	protocol="application/pgp-signature"; boundary="EH6yRfJ9i6hhIpAh"
 Content-Disposition: inline
-In-Reply-To: <20230414140203.707729-2-pan@semihalf.com>
+In-Reply-To: <20230414140203.707729-6-pan@semihalf.com>
 X-Cookie: One Bell System - it works.
-Message-ID-Hash: JP6UFNJRFJCS6NFOCD6LMSOHKC6QVJ5J
-X-Message-ID-Hash: JP6UFNJRFJCS6NFOCD6LMSOHKC6QVJ5J
+Message-ID-Hash: PH7STPNI5G2IF6ALB3HCI56QRIOEQAWB
+X-Message-ID-Hash: PH7STPNI5G2IF6ALB3HCI56QRIOEQAWB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JP6UFNJRFJCS6NFOCD6LMSOHKC6QVJ5J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PH7STPNI5G2IF6ALB3HCI56QRIOEQAWB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,133 +98,74 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---jeKa2KZqsPnAadPJ
+--EH6yRfJ9i6hhIpAh
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 14, 2023 at 04:01:55PM +0200, Pawe=C5=82 Anikiel wrote:
+On Fri, Apr 14, 2023 at 04:01:59PM +0200, Pawe=C5=82 Anikiel wrote:
 
-> ---
->  .../boot/dts/socfpga_arria10_chameleonv3.dts  |  28 ++
+> Apply a workaround for what seems to be a hardware quirk: when using
+> an external MCLK signal, powering on Output and DAC for the first time
+> produces output distortions unless they're powered together with whole
+> chip power.
 
-Updates to the DT should be in a separate patch.
+This doesn't seem coherent, these are multiple register writes so
+clearly can't be done at the same moment as initial power on.  Clearly
+there's some other constraint here.
 
->  sound/soc/chameleonv3/chv3-audio.c            | 111 ++++++
->  sound/soc/chameleonv3/chv3-i2s.c              | 347 ++++++++++++++++++
->  sound/soc/chameleonv3/chv3-it68051.c          |  41 +++
+> The workaround powers them on in probe for the first time, as doing it
+> later may be impossible (e.g. when starting playback while recording,
+> whole chip power will already be on).
 
-The machine driver and board drivers (if needed) should also be separate
-patches - one patch per driver.
+It doesn't do that, it powers them on at component probe.
 
-> +config SND_SOC_CHV3
-> +       tristate "SoC Audio support for Chameleon v3"
-> +       select SND_SOC_SSM2602
-> +       select SND_SOC_SSM2602_I2C
-> +       help
-> +         Say Y if you want to add audio support for the Chameleon v3.
+> Here are some sequences run at the very start before a sw reset (and
+> later using one of the NOT OK sequences from above):
+>=20
+>   ssmset 0x09 0x01 # core
+>   ssmset 0x06 0x07 # chip, out, dac
+>   OK
 
-It woudl be better to have a separate selectable symbol for each drier.
+I can't tell what any of this is trying to say, especially given all the
+magic numbers, and obviously no actual use of the driver should be
+writing directly to the register map.
 
-> +static int chv3_ssm2603_hw_params(struct snd_pcm_substream *substream,
-> +			  struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd =3D asoc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *dai =3D asoc_rtd_to_codec(rtd, 0);
+> +	/* Workaround for what seems to be a hardware quirk: when using an
+> +	 * external MCLK signal, powering on Output and DAC for the first
+> +	 * time produces output distortions unless they're powered together
+> +	 * with whole chip power. We power them here for the first time,
+> +	 * as doing it later may be impossible (e.g. when starting playback
+> +	 * while recording, whole chip power will already be on)
+> +	 */
+> +	regmap_write(ssm2602->regmap, SSM2602_ACTIVE, 0x01);
+> +	regmap_write(ssm2602->regmap, SSM2602_PWR,    0x07);
+> +	regmap_write(ssm2602->regmap, SSM2602_RESET,  0x00);
 > +
-> +	return snd_soc_dai_set_sysclk(dai, 0, 22579200, SND_SOC_CLOCK_IN);
-> +}
 
-This could be done once at init, though in general I can't tell why this
-isn't audio-graph-card.
+The rest of the driver uses symbolic names for register values, this
+code should too. =20
 
-> + * Because of the two pointer design, the ring buffer can never be full.=
- With
-> + * capture this isn't a problem, because the hardware being the producer
-> + * will wait for the consumer index to move out of the way.  With playba=
-ck,
-> + * however, this is problematic, because ALSA wants to fill up the buffer
-> + * completely when waiting for hardware. In the .ack callback, the driver
-> + * would have to wait for the consumer index to move out of the way by
-> + * busy-waiting, which would keep stalling the kernel for quite a long t=
-ime.
-> + *
-> + * The workaround to this problem is to "lie" to ALSA that the hw_pointer
-> + * is one period behind what it actually is (see chv3_dma_pointer). This
-> + * way, ALSA will not try to fill up the entire buffer, and all callbacks
-> + * are wait-free.
+This also seems buggy in that it writes non-default values to the
+hardware then does a reset, meaning that the cache and hardware values
+will be out of sync, and since it only happens on probe there will be an
+issue after suspend if power is removed.  It looks like this would be
+most comfortably implemented as a register patch applied as soon as the
+regmap is instantiated.  See regmap_register_patch().
 
-Would it not be better to just lag by one (or some small number of)
-sample instead?
-
-> +static irqreturn_t chv3_i2s_isr(int irq, void *data)
-> +{
-> +	struct chv3_i2s_dev *i2s =3D data;
-> +	u32 reg;
-> +
-> +	reg =3D readl(i2s->iobase_irq + I2S_IRQ_CLR);
-> +	if (!reg)
-> +		return IRQ_NONE;
-> +
-> +	if (reg & I2S_IRQ_RX_BIT)
-> +		snd_pcm_period_elapsed(i2s->rx_substream);
-> +
-> +	if (reg & I2S_IRQ_TX_BIT) {
-> +		if (i2s->tx_ready)
-> +			snd_pcm_period_elapsed(i2s->tx_substream);
-> +		i2s->tx_ready =3D 1;
-> +	}
-> +
-> +	writel(reg, i2s->iobase_irq + I2S_IRQ_CLR);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-Really we should only ack things that were handled here and report
-appropriately, that's defensive against bugs causing interrupts to
-scream and shared interrupts.
-
-> +	dev_info(&pdev->dev, "probed\n");
-
-This is just noise, remove it.
-
-> +++ b/sound/soc/chameleonv3/chv3-it68051.c
-> @@ -0,0 +1,41 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +#include <linux/module.h>
-> +#include <sound/soc.h>
-> +
-> +static struct snd_soc_dai_driver it68051_dai =3D {
-> +	.name =3D "it68051-hifi",
-> +	.capture =3D {
-> +		.stream_name =3D "Capture",
-> +		.channels_min =3D 8,
-> +		.channels_max =3D 8,
-> +		.rates =3D SNDRV_PCM_RATE_CONTINUOUS,
-> +		.formats =3D SNDRV_PCM_FMTBIT_S32_LE,
-> +	},
-> +};
-> +
-> +static const struct snd_soc_component_driver soc_component_dev_it68051 =
-=3D {
-> +};
-
-This looks awfully like it's a generic CODEC driver for a device with no
-control available, why is it not being added as a CODEC?
-
---jeKa2KZqsPnAadPJ
+--EH6yRfJ9i6hhIpAh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQ5iyAACgkQJNaLcl1U
-h9CRYwf/eql00ml/jymz2c8qytH+GabFGfmGxl54E6dEJDIlm1F7zjcjN3wBFv0f
-SlcAt0eEc638oW3fTS6H9ptaC5QOPuldeDPDDH2XNizJ0NrCghPv41FANC3qG+GS
-7z21BGGnz92BI1a4TdHfgLLw3ux7kOjrdPL07eRMWyh0A2aeyfkeIlb/rVMlxt9j
-20oLEnVHJBVlarEcSmTl4ibfYE9zKajlYCHuM5mzjvIHCc/bFqWSxKF55Q2IkVtr
-SEbtZKU3W7/SOnKAuwEKMWwkXhbyrsxVQMjmGvXsSDu1w/ew6N28/Pksav90v06K
-j2zejPnplf0eCJBmxfvktdY0p1JQUQ==
-=aTr6
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQ5jtUACgkQJNaLcl1U
+h9Ajkwf+ODUCBkDtTHlEW7Kmhees6SWhoER3fk+u//I4yyeodw2AopWmhSQaUs0m
+k5/cPXokWbQaCDic+hod7YejaAtDGHj3lDH9s4CAsE9SRtuYV1SCL8N94LN6ZETG
+/3MlDr+ScZ+ga+8OsSQVvGMfYZlSuRlTiUJmocRWO5dJ/thyDzh/89QdgGfQt0eo
+g6asIK+pLjG4N7Pl20E/bAG5sG1AHGkYiAxOLVD6vsXzcBZT+GoI5xYxD2rleRNi
+cAN5Og3SghfLXhZNQeDBZ4/7mjCF/AwymoAsPuYwQRkWeWdZh29gOhPqSUD/Mzss
+EtMguFBBN3y1NPRsMRBqzvmFV4TkcQ==
+=zZC1
 -----END PGP SIGNATURE-----
 
---jeKa2KZqsPnAadPJ--
+--EH6yRfJ9i6hhIpAh--

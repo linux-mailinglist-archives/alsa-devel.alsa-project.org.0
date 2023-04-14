@@ -2,140 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F0F16E2470
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 15:40:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F303C6E248E
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Apr 2023 15:47:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA016E78;
-	Fri, 14 Apr 2023 15:39:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA016E78
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB3F1E7D;
+	Fri, 14 Apr 2023 15:46:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB3F1E7D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681479642;
-	bh=EP7cdZ9k8LrF5IDdEHa+8yXv0d0Afvrjeb0uI+9Cv5Q=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=GbTtvrLYTk1RHs55f3MOZkK0tuhAktiC2Hfjt5gpdOBL4RzlZfoDS43vipUhTC82k
-	 6hk1+GSmwofhAVqXNT/ca0A95cAfyVZtmtjP/Wcjm3+7v7f1qYHfLSUrwIEEvSwGY5
-	 OdkMkhR1ycGGxqJKYaf5O8syuMIsplmFHOwEqEgo=
+	s=default; t=1681480054;
+	bh=qdNpHUIC4JiGrdurn0+vm4Wd/ENL/9ooEsteVaLuuk4=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=UXpY7cv4BDqAv9cVMQvPNOeWHHrCkOZT9xYMw98bba3YrCoSN5ZsDGYjcHLKV30b8
+	 RI/YgnGnSGMhsPaGIV4CSK/nI52hiH12sCHSBvXNJW2ufH3GEEPaz3vOYf+3fCtO75
+	 k+BHhESm27g5WGWXThIC4bb32745X2LvvG/fIUKk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F0D4F80548;
-	Fri, 14 Apr 2023 15:38:19 +0200 (CEST)
-To: <broonie@kernel.org>
-Subject: [PATCH 5/5] ASoC: cs35l56: Don't return a value from cs35l56_remove()
-Date: Fri, 14 Apr 2023 14:37:53 +0100
-In-Reply-To: <20230414133753.653139-1-rf@opensource.cirrus.com>
-References: <20230414133753.653139-1-rf@opensource.cirrus.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YYOGNGCAESOXOBRNB6NZCQH5X5J4A4P6/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168147949879.26.15911439760325479107@mailman-core.alsa-project.org>
-From: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com, Simon Trimmer <simont@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FB57F8025E;
+	Fri, 14 Apr 2023 15:46:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4266CF80524; Fri, 14 Apr 2023 15:38:13 +0200 (CEST)
+	id 5AC5DF8032B; Fri, 14 Apr 2023 15:46:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 691B3F8049C
-	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 15:38:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 691B3F8049C
+	by alsa1.perex.cz (Postfix) with ESMTPS id B5AD1F8023A
+	for <alsa-devel@alsa-project.org>; Fri, 14 Apr 2023 15:46:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5AD1F8023A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=piHmnytf
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33EDVEAR030487;
-	Fri, 14 Apr 2023 08:37:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=ZKLDYdqiwNsuno7oSYA6GXFb/H2zvvzG87rB48aUcGs=;
- b=piHmnytf3PPnrmyapz9AMndVHcNqy0u746yyJNFhzqUDIspeAS3EFi8wiYRMpUarocFH
- lndzPYKlbDmGm7ShK+gCfqJ5/8ShlKao/TQ4kc2OQCTEOb96ytVyDQj6hRuT180CqZb0
- bbH+YmqahErdYwArvNDZt3LBRr3G27j2OzIDu3nKREx7vEw96RCzukFXyCzRiK1DeQpX
- GA+Ans7hmP/8rVTxVrvNgksyVZPT3712F++iIsVonQMG8q/A3fcjEp1fOnDMUjKqj0mb
- wB29UcKQJpkuDusAiZ+s1tB1XxFJkjUPx5JHA+TAkvo94gzMGEwjyskv0TpoHohesyaD rQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3pu5p3sexy-4
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 14 Apr 2023 08:37:59 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 14 Apr
- 2023 08:37:54 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Fri, 14 Apr 2023 08:37:54 -0500
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3981C3561;
-	Fri, 14 Apr 2023 13:37:54 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH 5/5] ASoC: cs35l56: Don't return a value from cs35l56_remove()
-Date: Fri, 14 Apr 2023 14:37:53 +0100
-Message-ID: <20230414133753.653139-6-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230414133753.653139-1-rf@opensource.cirrus.com>
-References: <20230414133753.653139-1-rf@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MPrLMrcM
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5081C63300;
+	Fri, 14 Apr 2023 13:46:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67EDC433EF;
+	Fri, 14 Apr 2023 13:46:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1681479994;
+	bh=qdNpHUIC4JiGrdurn0+vm4Wd/ENL/9ooEsteVaLuuk4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MPrLMrcMmSp15iChEYeae4n22b0YBGJDx0YqK5fu8DsGgg4Inxm0Ktu4Qh2d1L2lD
+	 7du/zQbSfh1Uz7fg4+7X98wfuh9x+flZOxdqoUfIcsCFUDVTdxKt3v0jHabFqM7oiI
+	 b1gu7RtI6ffrFJ/j+i8EjJsIEhr/6lupcpy7Sgguq+oVazPxCqtYR5TK5A8s56XAsz
+	 3dwGLXg2Z0iH7zYcza79z1JaHM4p5BfAwzmxpJD2KtjKbV4lGrOT/Z+LkyuDTWuWz5
+	 4KnZrRr94hIM7RbmzM86Q/uauf2JqI0jQS9MOvSTv0Uc73vBnNvZ71tL7FXhHYOyIV
+	 4NpV490GajA7w==
+Date: Fri, 14 Apr 2023 14:46:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: nau8825: Add delay control for
+ input path
+Message-ID: <4f854448-c643-4ce0-be3b-770e0f7c7814@sirena.org.uk>
+References: <20230414103941.39566-1-CTLIN0@nuvoton.com>
+ <7826c2f8-3e8d-7786-4742-4b885b840cae@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: Fr5d0BIXTGBfRA4nFc6Mgfb4nMqCehG2
-X-Proofpoint-GUID: Fr5d0BIXTGBfRA4nFc6Mgfb4nMqCehG2
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: YYOGNGCAESOXOBRNB6NZCQH5X5J4A4P6
-X-Message-ID-Hash: YYOGNGCAESOXOBRNB6NZCQH5X5J4A4P6
-X-MailFrom: prvs=94685c4d78=rf@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YrWsGFGeEwf0jzLa"
+Content-Disposition: inline
+In-Reply-To: <7826c2f8-3e8d-7786-4742-4b885b840cae@kernel.org>
+X-Cookie: One Bell System - it works.
+Message-ID-Hash: RONYDMF4PIDCFEDFX3CF7KDV6EORIWUR
+X-Message-ID-Hash: RONYDMF4PIDCFEDFX3CF7KDV6EORIWUR
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com, Simon Trimmer <simont@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>
+CC: David Lin <CTLIN0@nuvoton.com>, lgirdwood@gmail.com,
+ alsa-devel@alsa-project.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
+ SJLIN0@nuvoton.com, WTLI@nuvoton.com, ctlin0.linux@gmail.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YYOGNGCAESOXOBRNB6NZCQH5X5J4A4P6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RONYDMF4PIDCFEDFX3CF7KDV6EORIWUR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,69 +96,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Simon Trimmer <simont@opensource.cirrus.com>
 
-cs35l56_remove() always returns 0. Two of the functions that call
-it are void and the other one should only return 0. So there's no
-point returning anything from cs35l56_remove().
+--YrWsGFGeEwf0jzLa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs35l56-sdw.c | 4 +++-
- sound/soc/codecs/cs35l56.c     | 4 +---
- sound/soc/codecs/cs35l56.h     | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+On Fri, Apr 14, 2023 at 02:34:19PM +0200, Krzysztof Kozlowski wrote:
+> On 14/04/2023 12:39, David Lin wrote:
 
-diff --git a/sound/soc/codecs/cs35l56-sdw.c b/sound/soc/codecs/cs35l56-sdw.c
-index e759347423cf..2cde78605ba9 100644
---- a/sound/soc/codecs/cs35l56-sdw.c
-+++ b/sound/soc/codecs/cs35l56-sdw.c
-@@ -527,7 +527,9 @@ static int cs35l56_sdw_remove(struct sdw_slave *peripheral)
- 	sdw_read_no_pm(peripheral, CS35L56_SDW_GEN_INT_STAT_1);
- 	sdw_write_no_pm(peripheral, CS35L56_SDW_GEN_INT_STAT_1, 0xFF);
- 
--	return cs35l56_remove(cs35l56);
-+	cs35l56_remove(cs35l56);
-+
-+	return 0;
- }
- 
- static const struct dev_pm_ops cs35l56_sdw_pm = {
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index 5f66a8e20b2d..0f4a94b02ef8 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -1590,7 +1590,7 @@ int cs35l56_init(struct cs35l56_private *cs35l56)
- }
- EXPORT_SYMBOL_NS_GPL(cs35l56_init, SND_SOC_CS35L56_CORE);
- 
--int cs35l56_remove(struct cs35l56_private *cs35l56)
-+void cs35l56_remove(struct cs35l56_private *cs35l56)
- {
- 	cs35l56->init_done = false;
- 
-@@ -1613,8 +1613,6 @@ int cs35l56_remove(struct cs35l56_private *cs35l56)
- 
- 	gpiod_set_value_cansleep(cs35l56->reset_gpio, 0);
- 	regulator_bulk_disable(ARRAY_SIZE(cs35l56->supplies), cs35l56->supplies);
--
--	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(cs35l56_remove, SND_SOC_CS35L56_CORE);
- 
-diff --git a/sound/soc/codecs/cs35l56.h b/sound/soc/codecs/cs35l56.h
-index 09762e70ce81..1f7894662fcb 100644
---- a/sound/soc/codecs/cs35l56.h
-+++ b/sound/soc/codecs/cs35l56.h
-@@ -76,6 +76,6 @@ irqreturn_t cs35l56_irq(int irq, void *data);
- int cs35l56_irq_request(struct cs35l56_private *cs35l56, int irq);
- int cs35l56_common_probe(struct cs35l56_private *cs35l56);
- int cs35l56_init(struct cs35l56_private *cs35l56);
--int cs35l56_remove(struct cs35l56_private *cs35l56);
-+void cs35l56_remove(struct cs35l56_private *cs35l56);
- 
- #endif /* ifndef CS35L56_H */
--- 
-2.30.2
+> > +  - nuvoton,adc-delay-ms: Delay (in ms) to make input path stable and avoid pop noise. The
+> > +      default value is 125 and range between 125 to 500 ms.
 
+> Convert the binding to DT Schema first.
+
+That seems disproportionate for such a trivial change.
+
+--YrWsGFGeEwf0jzLa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmQ5WTQACgkQJNaLcl1U
+h9AkVQf/T4gUM8Xf2ON2eylGJwUS2Jvw5AYEcP5qsVXHluewOAz/v6QdFgkQ2iHB
+08os5FXV1DhC0uCIcAytKcIL350IF5Xm3oBAzzOk2PDNGLWRqjkOVvj+g1sgapcn
+F67CDxf3R08sXIA8/8xU81EitMxHq9589aWdjHjDKG2cF8qBrS1bUj9JJ55yPuv/
+1zPqkaiKOS8mLaVpCvB7++VdDwpxax+njH4gN0jp6XLrYN5YcTbXIjk4F3Q6OqAL
+Nr7kSviPkJ5fJgwLp9ahCIIdciq1Z8759zLJoxBlPVKHWba0xHi1yn0lIDv0WQay
+A3AwnNMUTMcuiaHCt2J3gS4yIK3w0w==
+=oIAK
+-----END PGP SIGNATURE-----
+
+--YrWsGFGeEwf0jzLa--

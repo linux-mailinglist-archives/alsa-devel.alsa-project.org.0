@@ -2,117 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 743726E606A
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 13:52:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 728F06E606B
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 13:53:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DAFFE71;
-	Tue, 18 Apr 2023 13:51:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DAFFE71
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A8C3E7B;
+	Tue, 18 Apr 2023 13:52:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A8C3E7B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681818742;
-	bh=Qk/xs5vEW/xS7uNeeoqopsXpy0ZvzKliIV30QGdKTL0=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1681818792;
+	bh=ac4/gKT5b6/9noaaMeqV09+9MVanu6JqxbGBWbuNNtw=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JGkPGmmhQ+ppjED8laiF7qM0jquTg787xL+UMpSeJnU1zXqP1wmBWg1d4DnST3ez6
-	 kqyBEOHU3M/ioJNr1u5Oy1WKITJ2tR3O/TXUDqm3hDYkdaRZmj3tR8Qz92BCjAkf4H
-	 SsloDeqKXYh95FQVfEf2DISeAK8dlbZ/wN95XMMw=
+	b=lE6JLsuAnS5o712U2oDu+W9OyvGCDi4apapnHXlZExeC/gMr5KFcuSfVHdp5MPys1
+	 p9zIDpqC6a02DxxVESqx3HkK+X0lIf8EJBI4HJITE8Yyep/0MKi+5jLbzMSK4K/3ie
+	 MvNVtjWrPRnS+orCd8pQKlOuWP7f9ontCFdOMmbo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55B04F80149;
-	Tue, 18 Apr 2023 13:51:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8CBBF804FC;
+	Tue, 18 Apr 2023 13:51:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F5A2F8032B; Sat, 15 Apr 2023 11:51:52 +0200 (CEST)
+	id 0DE38F8032B; Sat, 15 Apr 2023 22:13:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [IPv6:2a00:1450:4864:20::62e])
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 771E3F80100
-	for <alsa-devel@alsa-project.org>; Sat, 15 Apr 2023 11:51:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 771E3F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id DF5D4F800E5
+	for <alsa-devel@alsa-project.org>; Sat, 15 Apr 2023 22:13:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF5D4F800E5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=D10Ide1Q
-Received: by mail-ej1-x62e.google.com with SMTP id gc14so6566698ejc.5
+ header.s=20221208 header.b=pnICfcRM
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-63b7588006cso429554b3a.3
         for <alsa-devel@alsa-project.org>;
- Sat, 15 Apr 2023 02:51:47 -0700 (PDT)
+ Sat, 15 Apr 2023 13:13:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681552305; x=1684144305;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=HWQ55XCgxMzVrYbC4f0gRBhCKgR8TSk192DndIkYVbU=;
-        b=D10Ide1QWyGQiItP6shdmRzVzxuiDNMeNaZhIi8tgc+Xf0lJm5xo71AgHGFGMhqnHF
-         MdesI/Oh24NeXwgb0HNK7zq7dwz6sKXXIUWXyTLj5r1+G0lxGHQ9B03SvECb4vcEyTPw
-         dPXzcXYY/Fn7wJiKFlljVscbPuGPevY/qV09k7cXEBqvnDoo8RAw+CEwHkilfQPn6AT7
-         iHCNs76q3cY4mIyMJHeRZVyl+wX7NzcTwo1CDGufBL3Og1B4P5LrdNgfRIe+2QOJYgG5
-         RCYBY9tSpd3FKtK1/olJikqbVt4CDUaJnvRQjS+E6QqTOLaPUZ1Q3CKt6KcRWcjjoEsm
-         JJwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681552305; x=1684144305;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20221208; t=1681589581; x=1684181581;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HWQ55XCgxMzVrYbC4f0gRBhCKgR8TSk192DndIkYVbU=;
-        b=gF1Oun3S5bJDxDoH6R5bxVI9zb0NTqqjMTQWeNFMRvtH4bUkcEt7EzHEj6KX8fCOBn
-         kkL4LZwQUq+3Wi2eUb8uZbyJQIu5qYQvJcHXdZ6jKCGbXfazSt7SejDmDhvHXgbnvG8B
-         fOgoSSwc1WS1ev3bitYfPRAX/dH4oGuMswxterSQpKKGsmRf3xm7XeupKvijgmUaugkt
-         udnpPOJBETGIW2Wcdp5tjUaGl2R2j3xcz3Ipa6DF8IKz365/rVA+Un7MWP7d5N8kvWzb
-         jvQ3ReMRViWMiWVbY5L53OxJXBGaXIXXJrpDeiP0nXeKNfUMlOHaIfwFlOFekacDKuyc
-         t9ew==
-X-Gm-Message-State: AAQBX9fI94tie/BKhAjuXkFyDtndCCjJ6+oTCIHPQl8z4w7JiVNqvpG1
-	4C1Rdwlt9gvIaFyoda0oEqY=
+        bh=ac4/gKT5b6/9noaaMeqV09+9MVanu6JqxbGBWbuNNtw=;
+        b=pnICfcRMC5zJW6zd7L5SIzJmxGA0+FF4/T5vl51mB4zb0osPEA2/WFwZfE5RS0yBh/
+         GqA8se5FnzIbLPqtSA4LUi/hmtRI/nrqVdAJT+S4O7O6bK37IWv9ZBvgvse9C+YeVqEo
+         l4QAaVgFhRY1/i86dM1I7lZzC16Eqg7rrynnarRsP+OGvjEALlcoN7iBoBhoZz2WK8lx
+         5sYsguCOuUDIxrURqo1T7NOwh2eyAymmYVb0d/NiYgTN0l+QOiXaEYKLLqm/8pe8Y2zl
+         vnm2T22MolSYytmyUn+Mm8td5hi6yMYBRXyY5TNeYI9Zl3b3VmS1PGoLNDgl7iOAX0GJ
+         P+hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681589581; x=1684181581;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ac4/gKT5b6/9noaaMeqV09+9MVanu6JqxbGBWbuNNtw=;
+        b=F+p6X6mdZHSU8q7HoBQIGyRfhNp2tGv6+jbd5kOoXMl3tUK4WqwijlzCybw0/ezXp8
+         vXTBVMsXXQCRmQ8k2gicVCJGl0Ik6fEq5pNtILy1zNATzVBKio3rwLnJ6Sd+oOjkYoaY
+         VN44Iz1tMjx9/lqUhNxIvTMIT+MoVu9/cNLQj9nmqBYJq+Hul/DxG3aPk4DdzR9GSA8r
+         sIgjsHcwuRxAiEJ0qSwJtMpQ3aTAU5c4BqhX/e/m+BDseJAwaiiG/FX1IaGzle36kgQA
+         msU4Sr/AOP0jrcH2N3TSEX6J3KenH/D9IFjWxfxg6an5PJWK2YSSF6Rv+Jox7PLi9DEH
+         /tiw==
+X-Gm-Message-State: AAQBX9e04CS07Z8s0U5hpsWyDjDxTG7h2/pW5vcjfl9BSsWKu7uXI/F7
+	zMNQc7fJSh9urwRcdsqyPaU=
 X-Google-Smtp-Source: 
- AKy350b1QR7MHj04ykvekWmpeGKoJxXk7uY+wdSd5IPW8aUUCxYmmf/ktNoJ8B2uWa0q+vqJAO8nZA==
-X-Received: by 2002:a17:906:264a:b0:94f:2d5f:6949 with SMTP id
- i10-20020a170906264a00b0094f2d5f6949mr363481ejc.42.1681552305288;
-        Sat, 15 Apr 2023 02:51:45 -0700 (PDT)
-Received: from kernelhacking.kernelhacking.example.com
- (dslb-088-067-245-126.088.067.pools.vodafone-ip.de. [88.67.245.126])
+ AKy350aTASezSjdDMkmYoTpUTGQAoa9iIV+w98sIMwNqUN9M6lufnA0E4sPt38Ew7iNabsq/kmWLxg==
+X-Received: by 2002:a05:6a00:1a13:b0:63b:7954:9881 with SMTP id
+ g19-20020a056a001a1300b0063b79549881mr6274176pfv.28.1681589580927;
+        Sat, 15 Apr 2023 13:13:00 -0700 (PDT)
+Received: from localhost.localdomain ([2402:e280:218d:82:ae97:7cb6:b12a:54f5])
         by smtp.gmail.com with ESMTPSA id
- bl8-20020a170906c24800b00949691d3183sm3554040ejb.36.2023.04.15.02.51.44
+ x24-20020a62fb18000000b0062de9ef6915sm4926228pfm.216.2023.04.15.13.12.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Apr 2023 02:51:44 -0700 (PDT)
-Date: Sat, 15 Apr 2023 11:51:43 +0200
-From: Luke Koch <lu.ale.koch@gmail.com>
-To: Muni Sekhar <munisekharrms@gmail.com>
-Subject: Re: ALSA: arecord : silennce recorded as 0x80
-Message-ID: <ZDpzr8VOD5w5UhsR@kernelhacking.kernelhacking.example.com>
-References: 
- <CAHhAz+haVH-4Hgsz0PpTgUSW1pX4XxwxXwEd7nLVb0sFFwQwCg@mail.gmail.com>
- <CAPDUAqPVDi4TgAja92tMqMp6rGAyC-eabS_6+W0zThKfsZAxGA@mail.gmail.com>
- <CAHhAz+g-Mtz3xhnU9hDHG9DzBuBM_e9_4n0BSRpALRJcyLF0LQ@mail.gmail.com>
+        Sat, 15 Apr 2023 13:12:59 -0700 (PDT)
+From: Saalim Quadri <danascape@gmail.com>
+To: krzysztof.kozlowski@linaro.org
+Subject: [PATCH] ASoC: dt-bindings: wm8753: Convert to dtschema
+Date: Sat, 15 Apr 2023 20:12:46 +0000
+Message-Id: <20230415201246.1200683-1-danascape@gmail.com>
+X-Mailer: git-send-email 2.40.0
+In-Reply-To: <5d629ff3-c5ae-bd00-e70d-8c0d58365ce3@linaro.org>
+References: <5d629ff3-c5ae-bd00-e70d-8c0d58365ce3@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: 
- <CAHhAz+g-Mtz3xhnU9hDHG9DzBuBM_e9_4n0BSRpALRJcyLF0LQ@mail.gmail.com>
-X-MailFrom: lu.ale.koch@gmail.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: danascape@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: QYNO4UWXT5H2HUHQHZ2Q5JARKAAI5YI3
-X-Message-ID-Hash: QYNO4UWXT5H2HUHQHZ2Q5JARKAAI5YI3
-X-Mailman-Approved-At: Tue, 18 Apr 2023 11:51:27 +0000
-CC: LKML <linux-kernel@vger.kernel.org>,
- alsa-devel <alsa-devel@alsa-project.org>, linux-sound@vger.kernel.org
+Message-ID-Hash: UZZXVKVRAZOTLOPM2LC2WFTXPIMRH76P
+X-Message-ID-Hash: UZZXVKVRAZOTLOPM2LC2WFTXPIMRH76P
+X-Mailman-Approved-At: Tue, 18 Apr 2023 11:51:29 +0000
+CC: alsa-devel@alsa-project.org, broonie@kernel.org, danascape@gmail.com,
+ daniel.baluta@nxp.com, devicetree@vger.kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ robh+dt@kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QYNO4UWXT5H2HUHQHZ2Q5JARKAAI5YI3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UZZXVKVRAZOTLOPM2LC2WFTXPIMRH76P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,41 +121,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-> > This is what I found after Googling a bit:
-> > Since you didn't specify a format, arecord defaults to 8 bit format (U8).
-> > Being unsigned, a negative value for maximum negative amplitude is impossible. Therefore the value is given a bias of 128,
-> > making 0 the maximum negative amplitude, 255 the maximum positive, and 128 the center point (or silence).
-> Thanks for the clarification.
-> So I tried passing signed 8-bit format (S8), and then the arecord died
-> immediately, as mentioned below.
-> 
-> $ arecord -f S8 test.wav
-> Recording WAVE 'test.wav' : Signed 8 bit, Rate 8000 Hz, Mono
-> arecord: begin_wave:2481: Wave doesn't support S8 format...
-> 
-> For other format S16_LE, the arecord hangs for a few seconds and
-> throws an I/O error.
-> 
-> $ arecord -f S16_LE test.wav
-> Recording WAVE 'test.wav' : Signed 16 bit Little Endian, Rate 8000 Hz, Mono
-> arecord: pcm_read:2032: read error: Input/output error
-> 
-> I am not sure why recording works only on the default format of U8.
-> For other formats, the record either dies immediately or hangs for a
-> timeout and then throws an I/O error. Any ideas about this behaviour?
+> You choose unusual bindings to convert to DT schema. It is fine but
+> honestly, less useful, with limited impact. This is an old, 12 year old
+> binding without users. Maybe it would be even removed by now...
+> I suggest converting ones which have a real impact - have users in DTS.
+> Otherwise you will be putting quite a lot of effort for no real gains...
+> because what is the difference between this binding being TXT and DT schema?
 
-The flag --dump-hw-params should show the formats arecord supports On
-your installation. On top of that .wav does not support any big endian formats
-as well as no signed formats below 9 bit. You could try testing with raw
-file type instead.
+I am converting these bindings as part of my GSoC project where I need to convert
+as many files as possible during the given tenure, I am slowly trying to read files
+in other subsystems too and will push patches for other subsystems too.
+Is it fine?
 
-The i/o error *might* relate to incorrect device selection.
+About the part where you suggested to convert the txt into a single YAML, shall I
+continue working on them? As I can see Mark merged the previous 2 patches to linux-next
 
-I hope you can pinpoint your issue to something more specific - and
-provide more information - so people with actual expertise in this driver can
-help you, I just googled a bit to not leave your questions hovering around unanswered.
-Maybe take a peek into the guide on how to ask good questions, linked on
-the kernelnewbies site, to make your questions more concise and worth busy people's time.
+Kind Regards,
 
-Best regards,
-Luke
+Saalim

@@ -2,143 +2,172 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C7F26E436D
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Apr 2023 11:17:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93FBB6E4666
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Apr 2023 13:28:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2A7C2852;
-	Mon, 17 Apr 2023 11:16:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A7C2852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35AA086E;
+	Mon, 17 Apr 2023 13:27:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35AA086E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681723048;
-	bh=G78UB8zPBN8wJVPKTPD3IMl7TdmG/aI/BzkRaQaMOPU=;
-	h=Date:To:Subject:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=HwlvQl2cYVuBw2bg2hXLgz3YLZacqc0LUaHJl12/0rgU1rDja6yiNCdUMjf8700IR
-	 Fl/qIopwgxrYH9taVFurQYYHgXLkCDTrUp3v3yP34M8RSBa/jmimieYtCDrNh3aUxT
-	 jErlAEgIVZu1EKIywWJMMx++6GcU+iREU3VGu3cM=
+	s=default; t=1681730895;
+	bh=Dor/+Gn6eXfSiE23nHwRediFWJYXNon5C9XgfBLqZ1k=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=o3kT/eJxksZBn4WaAiflicwTgI840gZb5ddsTIBIQnrwASR6Y8HZZQP+f//d+mhs1
+	 kyrKzF3874DY0hbw89c4YieADfY1D2m3VxARXIF6sBCLGeR9ciTeZdaEK/IRgyspO9
+	 aCXBUhjGRRBwSTadvi4MOBxltDErAkTn68Wu1MKU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6FA10F8025D;
-	Mon, 17 Apr 2023 11:16:37 +0200 (CEST)
-Date: Mon, 17 Apr 2023 09:15:58 +0000
-To: Saalim Quadri <danascape@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: wm8753: Convert to dtschema
-References: <20230414223801.1106550-1-danascape@gmail.com>
-In-Reply-To: <20230414223801.1106550-1-danascape@gmail.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4MKHL5XIMWBQJAG2M2H6ASOOSO6S7UVY/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168172299686.26.15199391870130838574@mailman-core.alsa-project.org>
-From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, daniel.baluta@nxp.com,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 60035F80212;
+	Mon, 17 Apr 2023 13:27:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 221A0F80266; Mon, 17 Apr 2023 11:16:10 +0200 (CEST)
+	id AADD7F80266; Mon, 17 Apr 2023 13:27:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2060b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe1a::60b])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 42DA0F80212
-	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 11:16:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42DA0F80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id E0C64F8023A
+	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 13:27:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0C64F8023A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=EkitFwzb
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 33H5bPcp032193;
-	Mon, 17 Apr 2023 04:16:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=+giweXyh9ja7j4+UCim1/7CY63h06GBLcMMPLEWqw+w=;
- b=EkitFwzbzeHg/nRde79sqH9f26ZY11JhZ/9L2J3DlP6O8JeoXb7erTm/AohCIQEclLMZ
- zFpT1PZS9suac6cQ9XxVBhtjLe3Y9a6EW22kCbHx6AACB8AiKQaJsG4CUbn/2K61hTXl
- 187nGqlmkC40CAxO5KxhKNdFRujL3WbT2lgAZkHc84yge8DUwK2M94EM5ZAGadlxRH22
- QqwFro+WHMU9gpjNo0ELFZ4Ej6iJXIXavIm9L/JE/f5UGoqN9msF9gLAqkIi/sIpHfxN
- h70961EHFA4dKhhLAOEMPve/DYiZwXJU77tSi7FlWpwjZA9XSg15QKfiiB161YgP7+pr dw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pyrbpuku4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 17 Apr 2023 04:15:59 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Mon, 17 Apr
- 2023 04:15:58 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Mon, 17 Apr 2023 04:15:58 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 02FA9475;
-	Mon, 17 Apr 2023 09:15:58 +0000 (UTC)
-Date: Mon, 17 Apr 2023 09:15:58 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Saalim Quadri <danascape@gmail.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: wm8753: Convert to dtschema
-Message-ID: <20230417091557.GZ68926@ediswmail.ad.cirrus.com>
-References: <20230414223801.1106550-1-danascape@gmail.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=lLb7P13C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hdSVjlC8tne4FsyVG71P2eWZRlvddfscE5pT494/MpaMOqS1AEoF1M2IdQ1mrKOa0M1trSKzF2j/flxVP2IalS1EyvOIg3U9aklRZOsp8w+rlOb1TeGTpm0j4c9M04Iy0nvUqFMkyWu+Yafhj5GIP85xuBRbXApsCQ9AkXSv9Ks6kb0ICd8agQpSxYk7FWx20OloKZVfHHqzazvUp5BcVYbFMKh6tE8biOxgOswHt1O2jXzJSja60oe/b/BqGzyeVUK5hfbmI+BdRqXG/78DDZe5pYvYSxSXNYyyyGvS4CUkqahsJd1hmKvbCKVS3/v42JJSQ9FmsR7ZhVvCtQzzSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dc+y43GbovzjVbicJR3poCkcfjapDAnNMoaUGiQ0GKM=;
+ b=EhpmtujTfqANholESUtWcjw5OF/QqnBUykEf2Vqu4NNv6bjLpxF21pH9OA+Z1P1J1oiSKRRvegnlE2Ta/6o4JBFogzUyXGS+N2fKcoK+hdjtFdPKKcS7GOJv8V2L0oeq1H1tYOFcr2mmxH9U889UYE0YDTQL/a5Na+3fvfRt2RjuR37AnK/HytLPUcutiNtUaKp9e31QNAHQi8zBrHNl1opL+jGP84spbL8yGcZ+UKTKxrUnILlBVIPVZ0p7vPfV7wIkbbGfW5dbYu3MhwZ6KBXCg0Gw2u0R1wtkqVy1+fzJrcScaFc6w4NZ1tAfQpbSNgdDhNez14PLuiP185zeOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dc+y43GbovzjVbicJR3poCkcfjapDAnNMoaUGiQ0GKM=;
+ b=lLb7P13CFjkoGWOHJ5iWaf3Fdj14qeLlJU0P/dNzYe91z166fproFGhRJn1gwSL62IPL4B85/9gmuImAVFOuIzQgGgUuXZxnoa/L/O9DBMktNNpgfrrTOVwvS4veICpp1bb9v4Jql35q2jctG9okWv4B6knHvHJPQfbDOx2reyc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DU2PR04MB8774.eurprd04.prod.outlook.com (2603:10a6:10:2e1::21)
+ by GVXPR04MB9928.eurprd04.prod.outlook.com (2603:10a6:150:117::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Mon, 17 Apr
+ 2023 11:27:08 +0000
+Received: from DU2PR04MB8774.eurprd04.prod.outlook.com
+ ([fe80::b6a5:b35f:94f8:ff53]) by DU2PR04MB8774.eurprd04.prod.outlook.com
+ ([fe80::b6a5:b35f:94f8:ff53%8]) with mapi id 15.20.6298.045; Mon, 17 Apr 2023
+ 11:27:08 +0000
+Message-ID: <55bd4292-7abf-dee1-9ce3-94dfb5b4b19a@nxp.com>
+Date: Mon, 17 Apr 2023 14:27:05 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.2
+Subject: Re: [PATCH] ASoC: fsl: Simplify an error message
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: 
+ <c167c16a535049d56f817bbede9c9f6f0a0f4c68.1681626553.git.christophe.jaillet@wanadoo.fr>
+Content-Language: en-US
+From: Iuliana Prodan <iuliana.prodan@nxp.com>
+In-Reply-To: 
+ <c167c16a535049d56f817bbede9c9f6f0a0f4c68.1681626553.git.christophe.jaillet@wanadoo.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM0PR07CA0014.eurprd07.prod.outlook.com
+ (2603:10a6:208:ac::27) To DU2PR04MB8774.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230414223801.1106550-1-danascape@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: O7J3hXBjZ4d6_6QyDWIwmycs-qeRqfOx
-X-Proofpoint-ORIG-GUID: O7J3hXBjZ4d6_6QyDWIwmycs-qeRqfOx
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 4MKHL5XIMWBQJAG2M2H6ASOOSO6S7UVY
-X-Message-ID-Hash: 4MKHL5XIMWBQJAG2M2H6ASOOSO6S7UVY
-X-MailFrom: prvs=94711dec14=ckeepax@opensource.cirrus.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8774:EE_|GVXPR04MB9928:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a9479c0-0d5b-4ef3-4aa4-08db3f36ae3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	NipD/ATflIMs9/bZgxMmfDesn6w0DoQVnbpXEN8qveM6gd+rqdroBQUpmZOEM7T8ACD6stfdYk7UkXMx8ETRfjSju7kowLMbFMnqMn6IsKHKneIQzLJAvGmsqJGknt2cWLV55XayV+6T2VT191njcOEa45DjItPGcRcMacN6MXSK1GUpaTrQPd77HsbvjlVY+gMpvZ+d7esR4kYZBVCiRqdYeJrZD6y8bOq9ALCiYo3DYFi/V7MudMlZmsIXuDFt3NrYBAwTKpmwMj+kw8semNxayF+xZf2NSTFNXhWcxfkixMco8HOoBXAp95+Ya1kGldt9NtxLdKE7GoxhDAf86yeiHvWSlkJnL5MB/+p5zGfMQq4AMQncPslW3s1kiEUccTBTWPRBM2oxAUQis1VGo4crQO6FdRaYq7Bl0wKVyzgyiMGGj9cTkdGmdFafjyXv7ZBenDjmPTITe3x6JgHgxX0EDC2d7K0osqW/6Oyu+vQbnWSrdxIETNNkhx2EOoYt5MpN+Vy5YHFRyjGqZUrqOpuSlidBKrowFUmC+TqpMMs0HNno9s0GAFnFwIyQk4IbqaJwOlEA0c4N1DXQx4gMfbIU4zNMG9HlR7JXyC2lvZ6+WwAvr0kHjhrnK5VhD2IA1229mrsaX6GXuzUaq+HAAg==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8774.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(39860400002)(136003)(376002)(396003)(346002)(451199021)(4326008)(66556008)(66946007)(66476007)(110136005)(316002)(8676002)(8936002)(7416002)(44832011)(5660300002)(41300700001)(4744005)(2906002)(38100700002)(15650500001)(6512007)(6506007)(53546011)(55236004)(26005)(186003)(36756003)(83380400001)(86362001)(31686004)(2616005)(478600001)(31696002)(6666004)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?NVplQXN1Ui9RVWxVcVp6TERIQjdHczl1L1czdlJGUmoxZURsbEg0ckx4RFFO?=
+ =?utf-8?B?QzRFM3czYlRjRGhnSmphbUhiMTl3OVZmWE9mSmpKQURoeXNhYWtkUkwyYlNZ?=
+ =?utf-8?B?KzE3bmZjUXpmQURLQjhzNnhtMW00RjdybWplY0ovNmp1Y3dVZlMrL290bGtr?=
+ =?utf-8?B?eUx4c0cyUGs3aFMwN04vK1VFamtqZCtBenJERTQ4eklreFBHUGpFbTU2MnJG?=
+ =?utf-8?B?SnRWZjFCYnFiVFNNSkw5eXRtK1l3bXZ0WEUzWmk0SjJ0U092M3pON3JqR1o4?=
+ =?utf-8?B?ZGlBS3RTeVlwTzRheDYzRThKN3V2bzBoZ09sUUxFM2JzQTNiekxLa3pLaksx?=
+ =?utf-8?B?ZTNDOGp6eEpWT1k5cXgyelRHTWdDeWlEcUFTaGt3VFZBVFlQQmNTNHoyQTIv?=
+ =?utf-8?B?NjFiSXJOU1dhbkUvWVJNM09KN0FTZlhoOHN4bHhON1RscnRDSWhQSFJCWjJo?=
+ =?utf-8?B?andUSzgzKzVydDhFTHMwbFdFb1NpV0dvdk44cXhNT1cyajhxTnA4YUJhMHNh?=
+ =?utf-8?B?L0I2QzRoTjF2MkE2U0J6TXpzc0dmOE9sVUlqaFFTRE8yMGZOT2xVcFQvMDVy?=
+ =?utf-8?B?N3d5NFF1THE4RE5SY0V6dTMrQ3NRV21pdWdCU2dHenBkTzRRcldweCtueWF0?=
+ =?utf-8?B?OEhOV0J1ektRNGgyK1RZaGgxUGxXQkJadHdxc09lb042bUpXdVN5WW1Pb3dL?=
+ =?utf-8?B?SjBkdU1QS2xiUlEyU2xhY1dlTnB5MGMyWXVNTEIyais1bVdqNXZHTGtDbllR?=
+ =?utf-8?B?REZPR0gxbjJWNVlUeHJ2TXlPaEd3Y01EemdsVUxzaGNweitMMllPVnE3UjA1?=
+ =?utf-8?B?dng3SitGY0JkekFta3NTdGQ4N3B0cGlORDU0MWw3a0NhTzhXc0wxd25LV3Nw?=
+ =?utf-8?B?Q01pQzNSZDBqbEZxUXY3bUZreUl1SmRPUkw3WUJYRVdUMmNxQys4dnRPMlhi?=
+ =?utf-8?B?ajYvV29RSW5QS3dWKzFaNEJOQzNuTStCZ2x5QU1Ga0E0bG9Cemo3eVdYazY0?=
+ =?utf-8?B?empxVTJhSVRJZks0ak9SVjBHUmlCTVhWNW9kNk83dHpqMElYUGdyb2FkZlFQ?=
+ =?utf-8?B?YU1mUnJ1SHJVMTdXS25oelU3UFdxei94WkhUcU5aK2VURUxGRy9Oamd6eFdH?=
+ =?utf-8?B?VGNUOXlpVUdtS0VpaVBMZ1RsYUxpS01PQVJaVjF2SFphNHRSVjkyQVM4Q3lU?=
+ =?utf-8?B?Y29QU1YvRmVFVmhLVlpHYllmbzdiWGttMThXVXlkU0lEaWc4YS9tNHo4VDYr?=
+ =?utf-8?B?N1VnVnI2NFlzZzZNVzljSVBBS0FRb056TkVhZzJZTk1NSHlpcUJyY2ZEeVFk?=
+ =?utf-8?B?K2lxUG5OYnQ3dW5WMTdxcEV5UENjRFpVQzhEcmUrcXZZcGluU09jb1lpd3hE?=
+ =?utf-8?B?MDI3bjFpeUFnZkdtS3dZbWlQVkcra3pxN0tSMVNIVkcwd1I1NHZQcEd0ajQr?=
+ =?utf-8?B?ektXWHVuK21MWldKd0o4TXc5MEJyVGRnOG1wMHM1WVVhTk1Rd1dMVm4wODNt?=
+ =?utf-8?B?V3pOVDZnVEhxZ3lhQlVHVGE1bkxqTWRuVDlQYktlQlN6bVE0TDMxcWFHT0Nm?=
+ =?utf-8?B?YlFDdlFwMHREZHE3OHZIS1c1TFl0bXoxMjlPbjROQWlzaCtBRWFFSDFmMEdG?=
+ =?utf-8?B?RmwwdGRkVkpIVll1WW82QmNWMXhOdktWZWRLc2E2Nmw3YXlJUWZOdVdhU1JY?=
+ =?utf-8?B?dXllaHNodVNLUGsraFB2VzVVN0VTNThvaFk3N1BRNG1zZ1hrNFpIemVQMDdU?=
+ =?utf-8?B?c2ZrMEUzTkxmRERacExRN2NkUUxoUUtGQlhsM1orOVRRZTM2U2tDaVpSU3JM?=
+ =?utf-8?B?Z3c2cHVya0kzR1RETmhqbEdxNU54eU82ZjZzc1ViVmgrTEZYdzJIMHE3c2Nh?=
+ =?utf-8?B?TExQM3dMR3N3MjlBNGNVYndEYXE3UklnRFNTbjZwbGdPR3JiMyswbFppZnhz?=
+ =?utf-8?B?b3h3KzYxbnZSQkYwWXBJRkNscFg4OVl0dDNlc2FXeklhbkNaL3dBR05lVTFE?=
+ =?utf-8?B?Um9obHVqc1RNOVJrMzQrYkNxQWQxbXM4OFIvOGxkUFNhNjdKRS91YkJTUjY4?=
+ =?utf-8?B?T3dWYVhUak1uMEZtWWloZFR0UmlBbC9GUVVZMXl0Tmd6VmpEdHlPWENCZ1Bl?=
+ =?utf-8?B?SmdBS2J0M25QVkZ6THlabjlXU2dqSU9yb0x6aWJ6eDdTSGIremVQVVZ4YVNx?=
+ =?utf-8?B?eUE9PQ==?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 3a9479c0-0d5b-4ef3-4aa4-08db3f36ae3a
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8774.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2023 11:27:08.8372
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ qvXXJISxkiYTLmPuPpMarK7D1plYLPzYH+fckpyHjkTypNVpcMa21jlwJmEBCpiPUuXk00ao5ARgUC+/FXDgJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9928
+Message-ID-Hash: 22M24Y7NCUHOOB2O56E5J34CF6Q3DWXN
+X-Message-ID-Hash: 22M24Y7NCUHOOB2O56E5J34CF6Q3DWXN
+X-MailFrom: iuliana.prodan@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, daniel.baluta@nxp.com,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4MKHL5XIMWBQJAG2M2H6ASOOSO6S7UVY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/22M24Y7NCUHOOB2O56E5J34CF6Q3DWXN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -147,13 +176,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Apr 14, 2023 at 10:38:01PM +0000, Saalim Quadri wrote:
-> Convert the WM8753 audio codec bindings to DT schema.
-> 
-> Signed-off-by: Saalim Quadri <danascape@gmail.com>
-> ---
+On 4/16/2023 9:29 AM, Christophe JAILLET wrote:
+> dev_err_probe() already display the error code. There is no need to
+> duplicate it explicitly in the error message.
+>
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: Iuliana Prodan <iuliana.prodan@nxp.com>
 
 Thanks,
-Charles
+Iulia
+
+> ---
+>   sound/soc/fsl/fsl-asoc-card.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+> index bffa1048d31e..40870668ee24 100644
+> --- a/sound/soc/fsl/fsl-asoc-card.c
+> +++ b/sound/soc/fsl/fsl-asoc-card.c
+> @@ -858,7 +858,7 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+>   
+>   	ret = devm_snd_soc_register_card(&pdev->dev, &priv->card);
+>   	if (ret) {
+> -		dev_err_probe(&pdev->dev, ret, "snd_soc_register_card failed: %d\n", ret);
+> +		dev_err_probe(&pdev->dev, ret, "snd_soc_register_card failed\n");
+>   		goto asrc_fail;
+>   	}
+>   

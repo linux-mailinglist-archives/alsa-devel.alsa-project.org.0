@@ -2,94 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A7266E6071
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 13:54:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C3C66E6073
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 13:54:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E842E73;
-	Tue, 18 Apr 2023 13:53:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E842E73
+	by alsa0.perex.cz (Postfix) with ESMTPS id 761F0E90;
+	Tue, 18 Apr 2023 13:53:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 761F0E90
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681818840;
-	bh=XW1W77t+hTd5dBsO7LqOvsGmGjvsBWZwm6oBjjHSRxI=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=U8YgH6Y5JykNqgxqnZB05mmzShDHFUUmmjCag8abRBkZVToaptsuYfgBUUiQQq0Xg
-	 V/wmUd3BFkaWDdyhY4R3dVL+AufA3YpEKrlFXJuOk9PMnYqwByNLBpKiw4iytQzj02
-	 RxpfsHEYgSvxXA11zTC0OPHXI37l3TzoTjFOPB+Y=
+	s=default; t=1681818846;
+	bh=zlI2VeZ+p2Odl+BpvwnCeth1jvPQpJZ+eKlepSeQMKY=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=T/HPiEOAwHYbpkGB3TGUcDZlovVmdnBAUaqnGTtm6O+REkcfMyK3kKkh4vQg08ia4
+	 +50vO2ayqzKR24oxi3XDThaX1CRPlwx+b/eXS0Vpn+aGvt/xS97n8XpbovOwMdS7wP
+	 8qopDvov7ULnWE+u1WJdilx2/L837+YOlu3Vc6ss=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49F60F8052D;
-	Tue, 18 Apr 2023 13:52:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6B3BF80548;
+	Tue, 18 Apr 2023 13:52:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31B99F80266; Mon, 17 Apr 2023 22:46:47 +0200 (CEST)
+	id 9F0B8F80266; Mon, 17 Apr 2023 23:24:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2A45F800E2
-	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 22:46:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2A45F800E2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3AEEBF800E2
+	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 23:24:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AEEBF800E2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=EPIpCONp
-Received: by mail-pl1-x636.google.com with SMTP id p8so27356727plk.9
+ header.s=20221208 header.b=Fk/0X/Ci
+Received: by mail-pl1-x633.google.com with SMTP id i8so18492257plt.10
         for <alsa-devel@alsa-project.org>;
- Mon, 17 Apr 2023 13:46:44 -0700 (PDT)
+ Mon, 17 Apr 2023 14:24:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681764403; x=1684356403;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XW1W77t+hTd5dBsO7LqOvsGmGjvsBWZwm6oBjjHSRxI=;
-        b=EPIpCONpQIjyYKAFdjlI1lXx6DV9t7G+ZlhOQdxphC7zJeFZCHawOxjbnFqo6Cqz4P
-         6UUGkMLShM2Tl1TWMJtEIbtOpPOQOATsWLB1c65pORCWhYQplELbToPdSEPWMSNbszMG
-         8ceMbsr1r+yc4+k+RNR+dMKzxulPus6a835BWcDB+3FkWyHIuI1xoJWIP69mY8L+kJfQ
-         JUgjdjzo8HJtrMIAwXDZ27FLAQM3hChGE5j1ez0BQJ33WO3HAXjIn3eVjhgaQ3c5qmpY
-         HfVRua3BwnFYTUHP9AjApYD2izRy6nbeNGZjKalPI5wkxV+GaL8dh7KNZyhD2AZvzCR/
-         aA6w==
+        d=gmail.com; s=20221208; t=1681766656; x=1684358656;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tS2EUAIxndFqnf5A6Ki9yaF0traiHvKhRYcLbNaTGjs=;
+        b=Fk/0X/CitoM7OVxl8nn7ggP0Ren4uObavNY91hwd44HvH2NrKmoM0h23GPordmdQk1
+         dMIvDKGQZ6vocVh9NEtr6riaR0BFi433NmwiWQ0WiXHqdukhUtYGmEgCqkW55JPnMAir
+         sXmGk7XXIEgJXib45NbZVgiNjjWKkJ5PO/hwvP+ksBeNyyWFoFBn3toRELFepx9U7g1+
+         6kB3tF+cLh6pQD0Ob3kjFPOKztpgGXsxYGuCKDWF4yc0x7+h0Yw0pCN9bVGOPkTO8KU9
+         XmzpZ6DgO4zXHDL/DKfqaF/SMcS6+NATLNM1veooGQeS94J92n0oWmyBqz2WEXdukkpA
+         yjXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681764403; x=1684356403;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=XW1W77t+hTd5dBsO7LqOvsGmGjvsBWZwm6oBjjHSRxI=;
-        b=KQ5C9cvNji6R+CoPbdJB6fAo7AOAa1BN6NxbUWsurI7BbaVM+NTRi4B5EDmxIo1wDW
-         CAbl0cnoU5apg7BwKHJ4ToL9F0nlU6UkGD02fxZfQJMshDEmGhsWuHOraxPBjFOwLBou
-         My9OWmzHWzjInLR/hp2gwO0Ioo7nmSw/myXu+notmXntBtAgYVSWWCd8rpaMo/5JSDmq
-         l5xzjdcGDGbnNmR9Oew5qdswbqRkX1y+hZjPYCF3TdXI3Zem0YuLwjgpmJgk/3/mCNDz
-         CA3eUmhWj+ODf8Gi/Uh45lnLSYrjHPG+Vd1ZQUYkFjpksq+BFU1Js/2xcY5iEcLI+Mpx
-         PpHw==
-X-Gm-Message-State: AAQBX9cWEWkfv6qaewhNfdUifIYhdkghCXFQKRg6Ae0o9kmTcSF0k1QS
-	NluKacDQ4OD54Atdwo1jTTM=
+        d=1e100.net; s=20221208; t=1681766656; x=1684358656;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tS2EUAIxndFqnf5A6Ki9yaF0traiHvKhRYcLbNaTGjs=;
+        b=IknJxwY47bOUecxD05geYKbEQp+M6TLxDsR8sKpjyfuLM5RthtoWn4fzIB1Is8DjfY
+         4AXCHQw5GtI88/jGM7Zr4R0Tl+ytD5t6o954HWr9u6xuJWQKktlUnVyHNq1AsIU0MVHg
+         krvUEy8W9lN/KcfQdbZBmdw9EqzPKviOCvoudHFEr6JeMD2X+enkVWnMtmpUTaFBiCJi
+         Jx8oumGFNakr0cvEntiaTLtNR5JA4X6wHqcFoVM1aH8iMFEb+bZcaN9QoHBicz2yz9ST
+         WNxVuPiJCbasRU0T1pFAw6J4XwWEl/WuHxgmf1sAZuyy+aoyYk7hy66Yuk7M7V1zrv3D
+         BSyg==
+X-Gm-Message-State: AAQBX9dqPprgVNuwD7Pcf6GZUhjkJmE5fynEOm1Ib9YnTyRxgm1spHhF
+	KbAij/eyHUgg9Hnld7dedcs=
 X-Google-Smtp-Source: 
- AKy350bRXLKLwaeRDW7sMd0ByKinn6Da0Tpa3cDSEUTgIjqC7O6aPCiDW/VU3dsCsMyaDjoJJgRuog==
-X-Received: by 2002:a05:6a20:728d:b0:f0:4dbf:5f92 with SMTP id
- o13-20020a056a20728d00b000f04dbf5f92mr2315120pzk.26.1681764402424;
-        Mon, 17 Apr 2023 13:46:42 -0700 (PDT)
+ AKy350aujkebVnw/oK8vmydVyXqYA3HoOBCMvisiFO1fI6aF4eFv8ANUXJNBd8VwXfiyiWREOkU7bA==
+X-Received: by 2002:a05:6a21:7893:b0:f0:93d9:9c03 with SMTP id
+ bf19-20020a056a21789300b000f093d99c03mr265012pzc.15.1681766655822;
+        Mon, 17 Apr 2023 14:24:15 -0700 (PDT)
 Received: from localhost.localdomain ([2402:e280:218d:82:ae97:7cb6:b12a:54f5])
         by smtp.gmail.com with ESMTPSA id
- x14-20020a63170e000000b0050f56964426sm7198932pgl.54.2023.04.17.13.46.38
+ k4-20020aa790c4000000b0063d2dae6247sm1177507pfk.77.2023.04.17.14.24.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Apr 2023 13:46:42 -0700 (PDT)
+        Mon, 17 Apr 2023 14:24:14 -0700 (PDT)
 From: Saalim Quadri <danascape@gmail.com>
-To: krzysztof.kozlowski@linaro.org
-Subject: [PATCH] ASoC: dt-bindings: wm8753: Convert to dtschema
-Date: Mon, 17 Apr 2023 20:46:27 +0000
-Message-Id: <20230417204627.137883-1-danascape@gmail.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	daniel.baluta@gmail.com
+Subject: [PATCH] ASoC: dt-bindings: wm8737: Convert to dtschema
+Date: Mon, 17 Apr 2023 21:24:00 +0000
+Message-Id: <20230417212400.161796-1-danascape@gmail.com>
 X-Mailer: git-send-email 2.40.0
-In-Reply-To: <98da9a32-9771-1002-f323-909e8b49a536@linaro.org>
-References: <98da9a32-9771-1002-f323-909e8b49a536@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-MailFrom: danascape@gmail.com
@@ -98,20 +98,18 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JG3KXA6NBV3FYSLHXLTW5FAUX7NYLLMM
-X-Message-ID-Hash: JG3KXA6NBV3FYSLHXLTW5FAUX7NYLLMM
+Message-ID-Hash: DZX35X2APKQUVLHK4RPDLBDJ3S2UU7XQ
+X-Message-ID-Hash: DZX35X2APKQUVLHK4RPDLBDJ3S2UU7XQ
 X-Mailman-Approved-At: Tue, 18 Apr 2023 11:52:28 +0000
-CC: alsa-devel@alsa-project.org, broonie@kernel.org, danascape@gmail.com,
- daniel.baluta@nxp.com, devicetree@vger.kernel.org,
- krzysztof.kozlowski+dt@linaro.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- robh+dt@kernel.org
+CC: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Saalim Quadri <danascape@gmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JG3KXA6NBV3FYSLHXLTW5FAUX7NYLLMM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DZX35X2APKQUVLHK4RPDLBDJ3S2UU7XQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,9 +118,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Thank you for that, I will take a look and soon push the patches for bindings
-that are actually being used.
+Convert the WM8737 audio CODEC bindings to DT schema
 
-Kind Regards,
+Signed-off-by: Saalim Quadri <danascape@gmail.com>
+---
+ .../devicetree/bindings/sound/wlf,wm8737.yaml | 40 +++++++++++++++++++
+ .../devicetree/bindings/sound/wm8737.txt      | 18 ---------
+ 2 files changed, 40 insertions(+), 18 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/wlf,wm8737.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/wm8737.txt
 
-Saalim
+diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8737.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8737.yaml
+new file mode 100644
+index 000000000000..12d8765726d8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/wlf,wm8737.yaml
+@@ -0,0 +1,40 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/wlf,wm8737.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: WM8737 audio CODEC
++
++maintainers:
++  - patches@opensource.cirrus.com
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: wlf,wm8737
++
++  reg:
++    maxItems: 1
++
++  "#sound-dai-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        codec@1a {
++            compatible = "wlf,wm8737";
++            reg = <0x1a>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/sound/wm8737.txt b/Documentation/devicetree/bindings/sound/wm8737.txt
+deleted file mode 100644
+index eda1ec6a7563..000000000000
+--- a/Documentation/devicetree/bindings/sound/wm8737.txt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-WM8737 audio CODEC
+-
+-This device supports both I2C and SPI (configured with pin strapping
+-on the board).
+-
+-Required properties:
+-
+-  - compatible : "wlf,wm8737"
+-
+-  - reg : the I2C address of the device for I2C, the chip select
+-          number for SPI.
+-
+-Example:
+-
+-wm8737: codec@1a {
+-	compatible = "wlf,wm8737";
+-	reg = <0x1a>;
+-};
+-- 
+2.40.0
+

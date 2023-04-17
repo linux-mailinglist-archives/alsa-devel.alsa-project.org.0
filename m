@@ -2,79 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999236E606D
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 13:53:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00A106E4B24
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Apr 2023 16:16:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26C8DE88;
-	Tue, 18 Apr 2023 13:52:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26C8DE88
+	by alsa0.perex.cz (Postfix) with ESMTPS id D35A5AE8;
+	Mon, 17 Apr 2023 16:15:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D35A5AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681818797;
-	bh=0eVlo6jd0rQ5jcQF9g7wri9bN9+CZolErRabb7snJfc=;
+	s=default; t=1681740959;
+	bh=tYI9XY6ZSj8vDuP9ew3r8r85M7hkzrlK6IHH8D+MwSw=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ke0mcIu2O5oC04BmkRvF1zG2ADOReRF4wZm1a/ZvRRKrKcuMtA1al6IgK26rXCLia
-	 hTh+o5HZa75ZLDzDnoResU4rFLj6lwUip6noAvTsdpZLc5isFzIJ282dqY85aei1tH
-	 yP1RbELc7P1AR6tzCeRvtY9v9h+SfUm4y/xCXPUI=
+	b=NkCnwnJPa0x3d4jvpomFHQstV5FTVbYOhxfGOO/3W0LFbCwR8fvzztGvwvbZcaUZv
+	 cfdcB2ywlRiMD+RecW7Z4xfzRPq+FsgI3dlCtcVJxuunq5muibp8bf788Vwo7dEm2X
+	 17oSnZ9QH0N6XLcZHWpUVxghz9xeA2fTu2YnMO1M=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E3FDF8053D;
-	Tue, 18 Apr 2023 13:51:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C3B7F80269;
+	Mon, 17 Apr 2023 16:15:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68DE5F80266; Mon, 17 Apr 2023 15:33:02 +0200 (CEST)
+	id 47EE6F804F2; Mon, 17 Apr 2023 16:15:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from exchange.fintech.ru (e10edge.fintech.ru [195.54.195.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 831E8F8023A
-	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 15:32:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 831E8F8023A
-Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
- (195.54.195.159) with Microsoft SMTP Server (TLS) id 14.3.498.0; Mon, 17 Apr
- 2023 16:32:46 +0300
-Received: from localhost (10.0.253.138) by Ex16-01.fintech.ru (10.0.10.18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Mon, 17 Apr
- 2023 16:32:46 +0300
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Subject: [PATCH] ASoC: fsl_asrc_dma: fix potential null-ptr-deref
-Date: Mon, 17 Apr 2023 06:32:42 -0700
-Message-ID: <20230417133242.53339-1-n.zhandarovich@fintech.ru>
-X-Mailer: git-send-email 2.25.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1B333F80212
+	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 16:14:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B333F80212
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=w/93HIzA
+Received: by mail-ej1-x62e.google.com with SMTP id u3so12521450ejj.12
+        for <alsa-devel@alsa-project.org>;
+ Mon, 17 Apr 2023 07:14:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1681740896; x=1684332896;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=l8OjZCSSC//phSuWYvfawiHJ89Dsp2AaxdfcVlgHVfA=;
+        b=w/93HIzAuP5t6l+IMz0tDo3YXGzXWUJfwpErdrbZ2jkDH3nOltQcKZOYn6MZ1Ylvl1
+         YLolZ3KjnWSSIntWx1g4yDPgdjiqT6I2zzmCX5KJQaQXaq7L1KeNKa/3w2mWAegaasjt
+         GWU8XrzdE0Pru49Zd1WhwPo+2oynrKKVG5jGGjYX7k30SB0aWL2mm0mc/6absdit0rpU
+         BBAP1E3hWtowRNEii0j1CYtHHW29bvRE0778vJ/k0HYCuNJqW5M39iKouODl141uyHqW
+         6pLzU7eyxgPEr7q/m3ltm80htp1o9qRxVwIM7gIQTCZ35T61WGr6juhm5kInRcEn1L7g
+         Lr1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681740896; x=1684332896;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=l8OjZCSSC//phSuWYvfawiHJ89Dsp2AaxdfcVlgHVfA=;
+        b=hFDrFXK+e9QeCp3uSa7hF1k6j5fiapRDTt8HG30GKyz8Krqx7zUntIDDsADVOzOaDT
+         4MhIejmXME6QY/Jg15vmWVeMqTupqDEYeNQJs+AIPwORS1Yhwf+3n11wf2ce+xxoSk1i
+         imeEtmX7b8Ti+JuLoTPTkqovL5vIofFXuW5dEee8OvOsm7Z4PBT4xPG2nBgOGqmEwJfa
+         5NC9XPUtud7m7FO1D8ikbe7iv9iLWOuItrD0DL030ozPmco2XlSAHjjBfoetTHimnx4x
+         Iko0XicPy7evk3pNhxe28sBcSJYt6bT0R4BDo00OggN+oAR0SJuZjoBFuoji80MjPHrV
+         rE3Q==
+X-Gm-Message-State: AAQBX9cVe0V1CifHlYWC+h8kA3JVgVQu5oQiS1c7CZVPsLi8fW7ye5ot
+	RHLfWcxU4iKjBCZbqkCli87usA==
+X-Google-Smtp-Source: 
+ AKy350a2bmRei9A0qs2pgDzWdwVvj/XCBSxX7OL18aPrP8Z+ZGBhJJ5K8guxgj+yHghapBSOeIWGQg==
+X-Received: by 2002:a17:907:7e9c:b0:94f:335b:4da0 with SMTP id
+ qb28-20020a1709077e9c00b0094f335b4da0mr6563124ejc.51.1681740895939;
+        Mon, 17 Apr 2023 07:14:55 -0700 (PDT)
+Received: from krzk-bin.. ([2a02:810d:15c0:828:96aa:60eb:e021:6511])
+        by smtp.gmail.com with ESMTPSA id
+ q6-20020a056402040600b004f9e6495f94sm5832034edv.50.2023.04.17.07.14.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Apr 2023 07:14:55 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/4] ASoC: codecs: wcd9335: Simplify with dev_err_probe
+Date: Mon, 17 Apr 2023 16:14:50 +0200
+Message-Id: <20230417141453.919158-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.253.138]
-X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
- (10.0.10.18)
-X-MailFrom: n.zhandarovich@fintech.ru
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: OZFHZG7MPDUJNZNDU44VK3T2UDMOYP6H
+X-Message-ID-Hash: OZFHZG7MPDUJNZNDU44VK3T2UDMOYP6H
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 5I4LBYLHE7COEOENSLRE5PEMFK2ODS24
-X-Message-ID-Hash: 5I4LBYLHE7COEOENSLRE5PEMFK2ODS24
-X-Mailman-Approved-At: Tue, 18 Apr 2023 11:51:38 +0000
-CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- Natalia Petrova <n.petrova@fintech.ru>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5I4LBYLHE7COEOENSLRE5PEMFK2ODS24/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OZFHZG7MPDUJNZNDU44VK3T2UDMOYP6H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -83,46 +119,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-dma_request_slave_channel() may return NULL which will lead to
-NULL pointer dereference error in 'tmp_chan->private'.
+Code can be a bit simpler with dev_err_probe().
 
-Correct this behaviour by, first, switching from deprecated function
-dma_request_slave_channel() to dma_request_chan(). Secondly, enable
-sanity check for the resuling value of dma_request_chan().
-Also, fix description that follows the enacted changes and that
-concerns the use of dma_request_slave_channel().
-
-Fixes: 706e2c881158 ("ASoC: fsl_asrc_dma: Reuse the dma channel if available in Back-End")
-Co-developed-by: Natalia Petrova <n.petrova@fintech.ru>
-Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- sound/soc/fsl/fsl_asrc_dma.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ sound/soc/codecs/wcd9335.c | 27 +++++++++++----------------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 3b81a465814a..05a7d1588d20 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -209,14 +209,19 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
- 		be_chan = soc_component_to_pcm(component_be)->chan[substream->stream];
- 		tmp_chan = be_chan;
- 	}
--	if (!tmp_chan)
--		tmp_chan = dma_request_slave_channel(dev_be, tx ? "tx" : "rx");
-+	if (!tmp_chan) {
-+		tmp_chan = dma_request_chan(dev_be, tx ? "tx" : "rx");
-+		if (IS_ERR(tmp_chan)) {
-+			dev_err(dev, "failed to request DMA channel for Back-End\n");
-+			return -EINVAL;
-+		}
-+	}
- 
- 	/*
- 	 * An EDMA DEV_TO_DEV channel is fixed and bound with DMA event of each
- 	 * peripheral, unlike SDMA channel that is allocated dynamically. So no
- 	 * need to configure dma_request and dma_request2, but get dma_chan of
--	 * Back-End device directly via dma_request_slave_channel.
-+	 * Back-End device directly via dma_request_chan.
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index d2548fdf9ae5..8bf3510a3ea3 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -5138,20 +5138,17 @@ static int wcd9335_irq_init(struct wcd9335_codec *wcd)
+ 	 * INTR2 is a subset of first interrupt sources MAD, VBAT, and SVA
  	 */
- 	if (!asrc->use_edma) {
- 		/* Get DMA request of Back-End */
+ 	wcd->intr1 = of_irq_get_byname(wcd->dev->of_node, "intr1");
+-	if (wcd->intr1 < 0) {
+-		if (wcd->intr1 != -EPROBE_DEFER)
+-			dev_err(wcd->dev, "Unable to configure IRQ\n");
+-
+-		return wcd->intr1;
+-	}
++	if (wcd->intr1 < 0)
++		return dev_err_probe(wcd->dev, wcd->intr1,
++				     "Unable to configure IRQ\n");
+ 
+ 	ret = devm_regmap_add_irq_chip(wcd->dev, wcd->regmap, wcd->intr1,
+ 				 IRQF_TRIGGER_HIGH, 0,
+ 				 &wcd9335_regmap_irq1_chip, &wcd->irq_data);
+ 	if (ret)
+-		dev_err(wcd->dev, "Failed to register IRQ chip: %d\n", ret);
++		return dev_err_probe(wcd->dev, ret, "Failed to register IRQ chip\n");
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int wcd9335_slim_probe(struct slim_device *slim)
+@@ -5207,17 +5204,15 @@ static int wcd9335_slim_status(struct slim_device *sdev,
+ 	slim_get_logical_addr(wcd->slim_ifc_dev);
+ 
+ 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
+-	if (IS_ERR(wcd->regmap)) {
+-		dev_err(dev, "Failed to allocate slim register map\n");
+-		return PTR_ERR(wcd->regmap);
+-	}
++	if (IS_ERR(wcd->regmap))
++		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
++				     "Failed to allocate slim register map\n");
+ 
+ 	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
+ 						  &wcd9335_ifc_regmap_config);
+-	if (IS_ERR(wcd->if_regmap)) {
+-		dev_err(dev, "Failed to allocate ifc register map\n");
+-		return PTR_ERR(wcd->if_regmap);
+-	}
++	if (IS_ERR(wcd->if_regmap))
++		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
++				     "Failed to allocate ifc register map\n");
+ 
+ 	ret = wcd9335_bring_up(wcd);
+ 	if (ret) {
+-- 
+2.34.1
+

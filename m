@@ -2,261 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 204C06E3DA8
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Apr 2023 04:53:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D9366E3F19
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Apr 2023 07:43:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 011B1201;
-	Mon, 17 Apr 2023 04:53:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 011B1201
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA04082C;
+	Mon, 17 Apr 2023 07:42:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA04082C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681700032;
-	bh=8vpPAjeeVj5pONTZeS/MGq9y4TQ7i8mYbL7jB8Ro7SM=;
-	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=LbV3+hs6KeoT80hhPqMygMz5ijOiynRj9dFJvrJcnRtURC2uj0nyISlmT4PiEQ+oz
-	 gUvUz4eQzSZTFzHgJFsP1vstOxv/zfKQ5vdh0mFjOHYnpsZ57DdNuAAWtiOjBMr+s4
-	 gjkWle/NUOqWS2F/b20CwqRQ1UII1r55UUUpd3YU=
+	s=default; t=1681710202;
+	bh=gPule4YgBO0YTeDbkLpunILQHLF7l07Axl1vWy1t5B8=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=VX5YXDJOhZBksA/tPRRVaTr3CU+2y3ewyKTNBCFdhAqYHNfn1UPh3D4xr1lZyKARU
+	 ajOc3pLIr10v2j3dkq8Kv2Kv3SqgtbY4qTlVTAwmxh+tKlBO5iCF0SXn7aR05g9Q3n
+	 fcANMXsfkILTUD1TDr00DvJhxABraarrkWM3J4ko=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A5B8F8025D;
-	Mon, 17 Apr 2023 04:53:01 +0200 (CEST)
-To: "robh+dt@kernel.org" <robh+dt@kernel.org>, "broonie@kernel.org"
-	<broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "perex@perex.cz"
-	<perex@perex.cz>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH 3/7] ASoC: mediatek: mt8188: revise ETDM control flow
-Date: Mon, 17 Apr 2023 02:52:35 +0000
-References: <20230413104713.7174-1-trevor.wu@mediatek.com>
-	 <20230413104713.7174-4-trevor.wu@mediatek.com>
-	 <e36598dd-4f83-90b4-1744-61d18744b02d@collabora.com>
-In-Reply-To: <e36598dd-4f83-90b4-1744-61d18744b02d@collabora.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GCOYHFCTA6LHB5MZCO7GOJIYFKMQBKE7/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168169997952.26.5781137661413661971@mailman-core.alsa-project.org>
-From: =?utf-8?b?VHJldm9yIFd1ICjlkLPmlofoia8pIHZpYSBBbHNhLWRldmVs?=
- <alsa-devel@alsa-project.org>
-Reply-To: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-Cc: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 1350BF8025D;
+	Mon, 17 Apr 2023 07:42:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1422F80266; Mon, 17 Apr 2023 04:52:56 +0200 (CEST)
+	id CC060F80266; Mon, 17 Apr 2023 07:42:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from smtp.smtpout.orange.fr (smtp-27.smtpout.orange.fr
+ [80.12.242.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B289F800BF
-	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 04:52:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B289F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5874FF8023A
+	for <alsa-devel@alsa-project.org>; Mon, 17 Apr 2023 07:41:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5874FF8023A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=LUkii2Hv;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com
- header.b=YzzQBPTt
-X-UUID: ea909b2adcca11edb6b9f13eb10bd0fe-20230417
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=Y7qmAhb6VsFtseLci8xkGRlrVdW9a7zOyhwkPBgV+tc=;
-	b=LUkii2Hv2KoyKH3G2dXMonywXga+aA08TQmaLpd5b2yiSSZycGCvkOWtOc8554HhhJGAKACvzlwsds/VmbW30UxOo3Ea5LtRRwbSk+gRSoTPH1wvGAM+BKtZPl09Dn0S4bcpDTxtYngwe0r6Cdxqp9DSkLC5UybkV0Ot3BlK6Fg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22,REQID:0600209a-ded0-4197-b767-5d8b6062f09e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:120426c,CLOUDID:3a774184-cd9c-45f5-8134-710979e3df0e,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: ea909b2adcca11edb6b9f13eb10bd0fe-20230417
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 868492570; Mon, 17 Apr 2023 10:52:39 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25; Mon, 17 Apr 2023 10:52:38 +0800
-Received: from APC01-PSA-obe.outbound.protection.outlook.com (172.21.101.239)
- by mtkmbs10n1.mediatek.com (172.21.101.34) with Microsoft SMTP Server id
- 15.2.1118.25 via Frontend Transport; Mon, 17 Apr 2023 10:52:38 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iRWvzi4wEcMHn7bS47cWw3I+qCS8aU+YcdDlv/KxHtvoDwjF2cxA6ps/BQDqIikaC1FtNfzxeZSwoXksIPeNk3rZIAZElwNYDR0jKV/oaeHy/198ljMuxngxPj5MiTeBXWtQFB8DUYOv58NZLYEEDu9JkmZzboZ7AQpnkurFJVs/gcLgSP9nI+NDDpNJ5ti9YNLx276plqlRuZjnlz9gP/IStkDDEPuGwCXhNpMjUmyFjm/hjnhgc+ILVSnmmEQdGnbZqsGRsZ4D5Y0XwORQL7lxM3emdqm98rO+E+hZIE9ECvhr5TWzrfX+rM7T+g/OBdWnhat/gMiBQKqO9JfJWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y7qmAhb6VsFtseLci8xkGRlrVdW9a7zOyhwkPBgV+tc=;
- b=Mp9e5MF6op5sY98K3dazHICeMc+4fW6zL/2/Tqkz+mmRupSveRDca1vA/F0fyVJ1NU3jAezbKermx5v33uLwmmPVZF7fWivWaGqnuCf7UTfDwUimIN+fHL2thhfi67zIX5gWRcq4R3hUeOxtzp5VUtEFFwngFMCyFRlSbK3gpWWKCxAzpks0TJkxcWPJxvwawQNY2EVwpy2JPWKc+4CwUXY6zHrtkjmEWvEP7M1IdzN4Pa0uUTfqnFG318/5MoYcAsV9bJFxOSJ1CWppdhBl/xuj8sR4bq96mYGWexnq7+Aqx9rERcFVthkdPjWzxZBTxK+erA1RqGW9Ynns2pXfTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y7qmAhb6VsFtseLci8xkGRlrVdW9a7zOyhwkPBgV+tc=;
- b=YzzQBPTtvU1KAQsRXj3DIkqE+m3n/GZVhsrDnQF8rju6kcWvCksUBc9/vM1bnyB59s4i+hG2evdW+nERRj/WjY1TdDejvfb0wTNRuGOHPSWdETtiZnW/G2q/Et5AHQUr/so+9C5dmybwBuKI+OVRW9J5980nitJq+lAVo/lvYsQ=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by KL1PR03MB7198.apcprd03.prod.outlook.com (2603:1096:820:de::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Mon, 17 Apr
- 2023 02:52:36 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de%3]) with mapi id 15.20.6298.030; Mon, 17 Apr 2023
- 02:52:35 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "robh+dt@kernel.org" <robh+dt@kernel.org>, "broonie@kernel.org"
-	<broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "perex@perex.cz"
-	<perex@perex.cz>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH 3/7] ASoC: mediatek: mt8188: revise ETDM control flow
-Thread-Topic: [PATCH 3/7] ASoC: mediatek: mt8188: revise ETDM control flow
-Thread-Index: AQHZbfVXHv1qNhspr0S8mreZJU45ZK8pOLuAgAWarAA=
-Date: Mon, 17 Apr 2023 02:52:35 +0000
-Message-ID: <228e990dcb46d5640f03deeeec720f6a4d4715b3.camel@mediatek.com>
-References: <20230413104713.7174-1-trevor.wu@mediatek.com>
-	 <20230413104713.7174-4-trevor.wu@mediatek.com>
-	 <e36598dd-4f83-90b4-1744-61d18744b02d@collabora.com>
-In-Reply-To: <e36598dd-4f83-90b4-1744-61d18744b02d@collabora.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|KL1PR03MB7198:EE_
-x-ms-office365-filtering-correlation-id: e763fec2-7968-4c99-1cb1-08db3eeecc68
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- dJ4wN/P2WtSLcBZxr26ZPxmJ7qt4piR5KJ4O3GOGT1chMEYHXswh/CNgmPx7mYhI6lRxs1wmAX+F4K7L7G3QvgtkSiaooW8KZz0UEhKWmb4s2cOTIQVK6N9AhARl5amo4NHFPJrlXvVpwksxw7WzohyUay1YbJ4r+AmbAHbcV8+oyFQ4CbUpBOqkm8oFeYc2bEdjrZb4RkzORRH0PYBJcTVNrbykxTlBU51KfCkzyXllNBVRjydYTEgXF+N8DeQ0Z52Oash3IaKjMOIQAy6Q+w8MnjPOeFU5VDod6wI1511orPjebNmjn7bVrQo+ZRZQH9xej1btKbHkfrKeDTmKuRqMAi7AcuFlOk7MaBPG97W5d0FFcOsHqsS09EfjSK8g94nohJhOYdKW0mJvJ2TkpFNsIi1QB2x1lcq1K74IUuY3ASCHtEUNE+B0OcSATUOf/r/IN1EcM8MfiJMreUm1RIPPXmcHhk6IUvFMt88d4aiAEQ1INacl2yPm5b/dc40I9thfg2GTp0kd+JHWNr2K0OR2kbetjJic8rff+pRisPfkekbpnsL0x3h05EzvWMO0iPfRZmGgXrAn0z87szIDpHNg8NN9krtwJLbOMXSaLWpO7hcOkf9M/lYrZ886bkOkmWRh5GDpvVhVMhX8jgRZ4A==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR03MB6686.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(346002)(366004)(136003)(396003)(451199021)(6486002)(54906003)(86362001)(110136005)(478600001)(71200400001)(36756003)(2616005)(85182001)(26005)(6506007)(38070700005)(38100700002)(6512007)(186003)(122000001)(316002)(4326008)(2906002)(64756008)(66446008)(66476007)(66556008)(66946007)(41300700001)(91956017)(76116006)(8936002)(8676002)(7416002)(5660300002)(99106002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?TFMrK0ZiYU9WUlY1dGxQcktZbXR5YXZ3TFVPK09makxZcTF0ak5Ba1ZSbTZT?=
- =?utf-8?B?WGF4UTk3cjRLVEdkbHlubE9EeXEzWlJzNlJ3RXdyeGx3M1FFR0xOb0RzeHh6?=
- =?utf-8?B?YlhyRTlQMlhLZTcwSXVxeGsvR2F0OFNBOUZtaWpaeVkwd0JPektUL2RzSVdu?=
- =?utf-8?B?Z2pVQTZTYVFIVDR2Vkwrc3RHNzRmdXlVT2RZQnlSMk1DUzhYbEhtcGZnQThJ?=
- =?utf-8?B?TmVqTU5NU3FBTTBtVGVNNTl5Nk5ZV0V6cXc4bG9PMVQrQjVnZHFWUVVMaGRa?=
- =?utf-8?B?bWRUdWxCTnNhYzRNM2F6c09OZlNKbjIwSC9FK1ZsQjcrYWFnRW5nUWFvTmF5?=
- =?utf-8?B?RFpMbUdMK1dWTFpZZDJ4WUxCaUNUZFgzdlBidFNVaVoxNGs0OVd5YXJ6NjZ1?=
- =?utf-8?B?aDlCOFplZmZ5VVBQSjlKSElxN2gvaDJrYU1WL3dxVUJXNHluT01SRzRIdWhz?=
- =?utf-8?B?OE9UZCt5bWRicUxpeW9zMlhxS2hZYWdFSjJyZGJ4dmJXVTRzMVBJdkdHbHVD?=
- =?utf-8?B?dFVJQkZlOVBsV0JZUE1yQVZjSGRUWUdoOFFwMUdncXlJRWw4aGYrNzJ3MVlI?=
- =?utf-8?B?aUhyWUt1Y0RTeXRjVFJaMkJQOXNLbTVERUF0M095UUlpblI5TGt4WlFWajAx?=
- =?utf-8?B?U05TaGVEUXhWWm00Y0owcnRMQUxDTFl4bStRN3JrOUR5MTkrRFMyOFpBU2tx?=
- =?utf-8?B?MS9vcWY4VlNoYnBCSHZPbVBkcm5CWC9aVVFVK0lCbFZBVkJhNmFUSkJYYUJo?=
- =?utf-8?B?R1hkTGgvdjdrenlMMk5ZcDJVNHVsRUo4SDNkTjdNWFZma1NEcWZsYURHM1pT?=
- =?utf-8?B?NW80aFdyNHRxS1JWNTdQMDJHSVVEd3RlVUsxQ0E4Mm1KU0tobUdwMHZscnY4?=
- =?utf-8?B?RmN0QUtpVjcwQ295SnhPUjZ4b053dko1VWFTc2s5cmx6aDZTdlpaV0ZZUkhN?=
- =?utf-8?B?TEV5NVQrckJtNjlIcVVLSEZvTW9CNkUwbmozSVRSMmhORkV3b1JBckFtWDRu?=
- =?utf-8?B?Q2M1bnE5Tm5KbUhaaTF1Tm9mdnNqMzRta3kzZXJydWhuYXVPS2hJMHhMMHR1?=
- =?utf-8?B?VWc4WVl6Sjc5cjJHOVBoamtxNm0rVGxVN0dHVC94OEE2bU9hbThuNC9DMzYz?=
- =?utf-8?B?aXBYL2NuOG8zeUxTMHlqRWIzcDJaanBDbUhLQ0thdTlwZlZGT3JRYW1wV2hZ?=
- =?utf-8?B?Ni9YSGJWM0I4TFJFcE4ycGxJeWE0cmNNaHBBaGcyY3IxSlRETVM0eFlrSU51?=
- =?utf-8?B?TGFmRVBSTWtMMWtsSFkxTFUyZ3orVDdoVTBEVTNIYlgzSUJhamtSSkhRWHBm?=
- =?utf-8?B?bWRUbUxQdEFwWjVMc1JCMWdpZXRjWDNYa1RIeTFXcWoyYmFDUmlKUkxoZEkr?=
- =?utf-8?B?Y1hJZ083dVMvZ3c1L2xVRVcySjl0L09kem5tcUZSb1NaTlhLcys5czg0Z2h2?=
- =?utf-8?B?Y3BRRCtCTzVtZ2FsR0hhSTJ2K1NrQVFZMGtRT3dpTkx5VXFQV3JMRWo2VkFB?=
- =?utf-8?B?UEdadEhldmxLT0ZJQm5WVTNmQXlkYkpmMTl2cVo4OEdkL1JuK3BvdmJjUDV6?=
- =?utf-8?B?LzdZNXB1U0lvOUk4ZkNzcHJrRVpEaTliY052dWFkWXloOWFVOXBaZUV1R1hM?=
- =?utf-8?B?RStGdEwwaXMvcE1USG54Q2NRSFpUYUhBN3pzMVFGaktkN2VVN2FOZGljYVh0?=
- =?utf-8?B?T0prUVZrdVJJWXBsQTFwc3J3d3p1U1B3MHhoT3M0dGROeE1sNGZsN09jQjBt?=
- =?utf-8?B?d1RYL1pyNkVKc1BtVXZUSnlmWWQvSDNTWjBFbC9FN3FzcWNQRVM5Y2dobngr?=
- =?utf-8?B?aXROdHhWM2JEYld0VDVkZVhBWlNySlBFRCs5aDdYcURzT0tqRktVVnFBUGhq?=
- =?utf-8?B?WkJ5dGcwbGNqcGdlNE55TE5mbjZabXZWODR1TWZLVVd0NU02YkVaL0hwcnVJ?=
- =?utf-8?B?a0ZHMzFGZWg5NnZ1ZFJVdytqc1JKS2tIMEJ4bnRzTGZ5R1U1clIrRHBZUUU3?=
- =?utf-8?B?end6R2VtMS91QnBJS3htS3cxc1lCWkdHclNMbHp6RWUrbXJaWlBBZ3BqdmFD?=
- =?utf-8?B?bFVpUksyc2VoUEZLUnVSOGxSMHF1UTM4M2dTZEw2amowcFVRQWpZRXptQVd0?=
- =?utf-8?B?R0sySWpYa200UmlsL1JIQUIweW9NUUNpZlZKbFl4QTY0WmpNOUxJVTVVMjE2?=
- =?utf-8?B?SkE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F14E93AE21D9964780979968A9629D13@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=orange.fr header.i=@orange.fr header.a=rsa-sha256
+ header.s=t20230301 header.b=h2icvuNG
+Received: from pop-os.home ([86.243.2.178])
+	by smtp.orange.fr with ESMTPA
+	id oHcbphe3Z7JnhoHcbpmzfe; Mon, 17 Apr 2023 07:41:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=orange.fr;
+	s=t20230301; t=1681710110;
+	bh=sEYIqrDOhNyLMdiTxKCtoht7+kSYTCD6ktbTcZil0+w=;
+	h=From:To:Cc:Subject:Date;
+	b=h2icvuNGfnX0QFaJHHSig4FFCB1cMfbshNi5NVWSETKCWjW7O0rhH0azthFF/3hkw
+	 axbW6bIUYO+SF1H2FyEhzrK++EBFeXGh6U1SQOD/dY3EqdS6+CxIwDJJEgg9Di0mN2
+	 nGGnN7Sa4doqgnfNtRe1bFDO0odjWP3mAgWSoUdLPLh4bwW+tHW3uOXcHiwtnsgHkD
+	 sh4ll6TNiyPjV7s47pFc7seP9HdZvUEhQCZcO01FjlB8gOL4AmMUfxNEFqN7ua3ILT
+	 aGp5uz3PPjwfl+aUdL12Mpm7C15qj5BGbINA33NSqMprWi4kabhMLhTQALl7vbqdai
+	 xKGyt5f0R1GVA==
+X-ME-Helo: pop-os.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Mon, 17 Apr 2023 07:41:50 +0200
+X-ME-IP: 86.243.2.178
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: [PATCH] ALSA: hda/hdmi: Remove some dead code
+Date: Mon, 17 Apr 2023 07:41:48 +0200
+Message-Id: 
+ <91a31341f32d493bcc6c4515178ce0755ac1aa70.1681710069.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e763fec2-7968-4c99-1cb1-08db3eeecc68
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2023 02:52:35.5180
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- Qro/iKU2yS2toPCChtHSGRRnDISMtM6s3HflsTmB1FFhO+FVFxgK6EYy61CfcpDw+e9w1RI9n+zX8UNZduzjJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB7198
-X-MTK: N
-Message-ID-Hash: GCOYHFCTA6LHB5MZCO7GOJIYFKMQBKE7
-X-Message-ID-Hash: GCOYHFCTA6LHB5MZCO7GOJIYFKMQBKE7
-X-MailFrom: trevor.wu@mediatek.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: H3BHO5C6H5HIANUOROCPBUV2E7DOGE2X
+X-Message-ID-Hash: H3BHO5C6H5HIANUOROCPBUV2E7DOGE2X
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+CC: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GCOYHFCTA6LHB5MZCO7GOJIYFKMQBKE7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3BHO5C6H5HIANUOROCPBUV2E7DOGE2X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -265,51 +93,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gVGh1LCAyMDIzLTA0LTEzIGF0IDE1OjE3ICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gDQo+ID4gK3N0YXRpYyBpbnQgbXRrX2V0ZG1fbWNsa19jb25uZWN0KHN0
-cnVjdCBzbmRfc29jX2RhcG1fd2lkZ2V0DQo+ID4gKnNvdXJjZSwNCj4gPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgc3RydWN0IHNuZF9zb2NfZGFwbV93aWRnZXQgKnNpbmspDQo+ID4g
-K3sNCj4gPiArICAgICBzdHJ1Y3Qgc25kX3NvY19kYXBtX3dpZGdldCAqdyA9IHNpbms7DQo+ID4g
-KyAgICAgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjbXBudCA9DQo+ID4gc25kX3NvY19kYXBt
-X3RvX2NvbXBvbmVudCh3LT5kYXBtKTsNCj4gPiArICAgICBzdHJ1Y3QgbXRrX2Jhc2VfYWZlICph
-ZmUgPQ0KPiA+IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNtcG50KTsNCj4gPiArICAg
-ICBzdHJ1Y3QgbXQ4MTg4X2FmZV9wcml2YXRlICphZmVfcHJpdiA9IGFmZS0+cGxhdGZvcm1fcHJp
-djsNCj4gPiArICAgICBzdHJ1Y3QgbXRrX2RhaV9ldGRtX3ByaXYgKmV0ZG1fcHJpdjsNCj4gPiAr
-ICAgICBpbnQgbWNsa19pZDsNCj4gPiArDQo+ID4gKyAgICAgbWNsa19pZCA9IGdldF9ldGRtX2lk
-X2J5X25hbWUoYWZlLCBzb3VyY2UtPm5hbWUpOw0KPiA+ICsgICAgIGlmIChtY2xrX2lkIDwgMCkg
-ew0KPiA+ICsgICAgICAgICAgICAgZGV2X2luZm8oYWZlLT5kZXYsICJtY2xrX2lkIDwgMCIpOw0K
-PiANCj4gU2luY2UgeW91J3JlIHJldHVybmluZyAwLCB0aGlzIGRvZXNuJ3QgYXBwZWFyIHRvIGJl
-IGFuIGVycm9yIGFuZCB0aGlzDQo+IHByaW50IGlzDQo+IHVzZWxlc3MgdW5sZXNzIGl0IGlzIHVz
-ZWQgZm9yIGRlYnVnZ2luZyBwdXJwb3Nlcy4NCj4gDQo+IFBsZWFzZSBjaGFuZ2UgaXQgdG8gZGV2
-X2RiZygpLg0KPiANCj4gPiArICAgICAgICAgICAgIHJldHVybiAwOw0KPiA+ICsgICAgIH0NCj4g
-PiArDQo+ID4gKyAgICAgZXRkbV9wcml2ID0gZ2V0X2V0ZG1fcHJpdl9ieV9uYW1lKGFmZSwgdy0+
-bmFtZSk7DQo+ID4gKyAgICAgaWYgKCFldGRtX3ByaXYpIHsNCj4gPiArICAgICAgICAgICAgIGRl
-dl9pbmZvKGFmZS0+ZGV2LCAiZXRkbV9wcml2ID09IE5VTEwiKTsNCj4gDQo+IGRldl9kYmcoKQ0K
-PiANCj4gPiArICAgICAgICAgICAgIHJldHVybiAwOw0KPiA+ICsgICAgIH0NCj4gPiArDQo+ID4g
-KyAgICAgaWYgKGdldF9ldGRtX2lkX2J5X25hbWUoYWZlLCBzaW5rLT5uYW1lKSA9PSBtY2xrX2lk
-KQ0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuICEhKGV0ZG1fcHJpdi0+bWNsa19mcmVxID4gMCk7
-DQo+ID4gKw0KPiA+ICsgICAgIGlmIChldGRtX3ByaXYtPmNvd29ya19zb3VyY2VfaWQgPT0gbWNs
-a19pZCkgew0KPiA+ICsgICAgICAgICAgICAgZXRkbV9wcml2ID0gYWZlX3ByaXYtPmRhaV9wcml2
-W21jbGtfaWRdOw0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuICEhKGV0ZG1fcHJpdi0+bWNsa19m
-cmVxID4gMCk7DQo+ID4gKyAgICAgfQ0KPiA+ICsNCj4gPiArICAgICByZXR1cm4gMDsNCj4gPiAr
-fQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBtdGtfZXRkbV9jb3dvcmtfY29ubmVjdChzdHJ1Y3Qg
-c25kX3NvY19kYXBtX3dpZGdldA0KPiA+ICpzb3VyY2UsDQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgc3RydWN0IHNuZF9zb2NfZGFwbV93aWRnZXQgKnNpbmspDQo+ID4gK3sN
-Cj4gPiArICAgICBzdHJ1Y3Qgc25kX3NvY19kYXBtX3dpZGdldCAqdyA9IHNpbms7DQo+ID4gKyAg
-ICAgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjbXBudCA9DQo+ID4gc25kX3NvY19kYXBtX3Rv
-X2NvbXBvbmVudCh3LT5kYXBtKTsNCj4gPiArICAgICBzdHJ1Y3QgbXRrX2Jhc2VfYWZlICphZmUg
-PQ0KPiA+IHNuZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNtcG50KTsNCj4gPiArICAgICBz
-dHJ1Y3QgbXQ4MTg4X2FmZV9wcml2YXRlICphZmVfcHJpdiA9IGFmZS0+cGxhdGZvcm1fcHJpdjsN
-Cj4gPiArICAgICBzdHJ1Y3QgbXRrX2RhaV9ldGRtX3ByaXYgKmV0ZG1fcHJpdjsNCj4gPiArICAg
-ICBpbnQgc291cmNlX2lkOw0KPiA+ICsgICAgIGludCBpOw0KPiA+ICsNCj4gPiArICAgICBzb3Vy
-Y2VfaWQgPSBnZXRfZXRkbV9pZF9ieV9uYW1lKGFmZSwgc291cmNlLT5uYW1lKTsNCj4gPiArICAg
-ICBpZiAoc291cmNlX2lkIDwgMCkgew0KPiA+ICsgICAgICAgICAgICAgZGV2X2luZm8oYWZlLT5k
-ZXYsICIlcygpIHNvdXJjZV9pZCA8IDBcbiIsIF9fZnVuY19fKTsNCj4gDQo+IGRldl9kYmcoKSBw
-bGVhc2UNCj4gDQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gMDsNCj4gPiArICAgICB9DQo+ID4g
-Kw0KPiA+ICsgICAgIGV0ZG1fcHJpdiA9IGdldF9ldGRtX3ByaXZfYnlfbmFtZShhZmUsIHctPm5h
-bWUpOw0KPiA+ICsgICAgIGlmICghZXRkbV9wcml2KSB7DQo+ID4gKyAgICAgICAgICAgICBkZXZf
-aW5mbyhhZmUtPmRldiwgIiVzKCkgZXRkbV9wcml2ID09IE5VTExcbiIsDQo+ID4gX19mdW5jX18p
-Ow0KPiANCj4gLi4uYWdhaW4uLi4gYW5kIGV2ZXJ5d2hlcmUgZWxzZS4NCj4gDQo+ID4gKyAgICAg
-ICAgICAgICByZXR1cm4gMDsNCj4gPiArICAgICB9DQo+ID4gKw0KPiANCg0KDQpPSywgSSB3aWxs
-IHJldmlldyBhbGwgZGV2X2luZm8gYW5kIHJlcGxhY2UgdGhlbSB3aXRoIGRldl9kYmcgaW4gVjIu
-DQoNClRoYW5rcywNClRyZXZvcg0KDQo+IA0K
+These snd_BUG_ON() can never trigger, so just remove them to save a few
+LoC.
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+This patch is speculative. Maybe the other "if"s should be removed and the
+error code returned instead.
+
+I chose to remove these ones and the corresponding error code, because it
+seems that it is already handled this way in hdmi_pcm_open().
+
+I don't know the code enough, so it is only my guess.
+
+Review with care :)
+---
+ sound/pci/hda/patch_hdmi.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 5c6980394dce..ee051bdfaff6 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -2104,10 +2104,6 @@ static int generic_hdmi_playback_pcm_prepare(struct hda_pcm_stream *hinfo,
+ 		goto unlock;
+ 	}
+ 
+-	if (snd_BUG_ON(pin_idx < 0)) {
+-		err = -EINVAL;
+-		goto unlock;
+-	}
+ 	per_pin = get_pin(spec, pin_idx);
+ 
+ 	/* Verify pin:cvt selections to avoid silent audio after S3.
+@@ -2199,13 +2195,13 @@ static int hdmi_pcm_close(struct hda_pcm_stream *hinfo,
+ 		snd_hda_spdif_ctls_unassign(codec, pcm_idx);
+ 		clear_bit(pcm_idx, &spec->pcm_in_use);
+ 		pin_idx = hinfo_to_pin_index(codec, hinfo);
++		/*
++		 * In such a case, return 0 to match the behavior in
++		 * hdmi_pcm_open()
++		 */
+ 		if (pin_idx < 0)
+ 			goto unlock;
+ 
+-		if (snd_BUG_ON(pin_idx < 0)) {
+-			err = -EINVAL;
+-			goto unlock;
+-		}
+ 		per_pin = get_pin(spec, pin_idx);
+ 
+ 		if (spec->dyn_pin_out) {
+-- 
+2.34.1
+

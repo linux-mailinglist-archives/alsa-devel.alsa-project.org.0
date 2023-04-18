@@ -2,121 +2,135 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D62966E657B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 15:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691B56E66A6
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 16:07:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DD31E73;
-	Tue, 18 Apr 2023 15:07:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DD31E73
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04BDBE7F;
+	Tue, 18 Apr 2023 16:07:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04BDBE7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681823322;
-	bh=DE2vreGREgDV2GE4G4qaaCuZEV1ow9JqBEsEQfidEe0=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=T+Vxy2Ml52VjcgzHOhN7AoMWR3IFsDxq9qaPUXZkQspkl/zsvw00RkR8IoMfPkzDz
-	 wATFlwM/NrpVHG0XJ2C14cKfu/nYJjxsLBL3ej997IemSmbGQfOP+QE35RYLhFQdEv
-	 4ijlJXa6h7Ce3l6aFgRHu50TbS3BUr4lc5cNEDrg=
+	s=default; t=1681826878;
+	bh=SzNNo6WBOukAPzI/wmd9HH8mdiz/mv2eHh5gnQP0vjM=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=YC5t0kMJInI8gpOsM8Io7trH3sWu5HUcyZkPZ9ufbUxo4QbvdRTFqS2iM67SzLr0B
+	 l/ccRkEV5nUxhhsEWkV4508f56H8xOGRcC0mwPq7HGE9PFCPMOgmSv8EJ1tV93oWXQ
+	 xEVk5VSSA7Aydlh6P7L1D6QkNxsTNow/oKWTO08I=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96349F80149;
-	Tue, 18 Apr 2023 15:07:51 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0C11F80155; Tue, 18 Apr 2023 15:07:47 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B680EF800D0
-	for <alsa-devel@alsa-project.org>; Tue, 18 Apr 2023 15:07:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B680EF800D0
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=roRqrhX9
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-504eb1155d3so24128647a12.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 18 Apr 2023 06:07:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1681823261; x=1684415261;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8AOLhJAEQTI21tHDt5iL3GpDHZ2TzKg+M92LI2cgLe4=;
-        b=roRqrhX9frNPq6BXAhUQix8S8kdfvO1UYwf6muNZatuo5DwUz3dE2Jy60Rv2u3o9JK
-         2GyOsAE2lJgyJeNvsEDwSKW1rJT4Vq7CDkX8HiCjeI9pPwXFB9nojFLgmruqd05+dc+n
-         mzs1MwGHqnTI7+w8VjynzB8CxQ/E5s/kC5KFEmoYQO5z/zhsYnkuUTPT9ITqfdnAzror
-         KLvXKHOdZpI1/3pqzNc9ATApeB5798fr/v9WyvayRZ5OUYYi1ol0dnkhY5enuKC2fXfj
-         lVenCj9bY7VW2kwqcffrNI22GkC9kfOJjeCaqHm02nMo8fUQKzAAMcvJOFKDLY9mNGED
-         E2Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681823261; x=1684415261;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8AOLhJAEQTI21tHDt5iL3GpDHZ2TzKg+M92LI2cgLe4=;
-        b=HtqDujAGLd5ZB2WxheWgnSjV6T/osYoUSX/6RxcIy9owhKluVcjqo4TAYiKl6em2D4
-         xFArVUOZKV+WqRk8ekRmQistVll2E69lMjhQIkusSlXgItP9Oler65TF439ANeKe/p+2
-         4BEuALC7YgjjvIISAr6NwFB3XJqvwC95DYT+zIPRT8g0QUzLxmO3l72OWbKGIxfY8Y7R
-         yCnJVMteS3eTj9juaEH78ZkqK2pKRloKRqHuYkXLMqgTROnliex/0pl7g6WsbPmqqrBB
-         tY4wD8uxqZI1NbPShaE4MxhY9j0uWgpnvD1mbwmLnUd4L8kJBPW0ZrPDzsdIhFKtMelC
-         vfnA==
-X-Gm-Message-State: AAQBX9e34YbAPMxgdavEDAAyPIszD1rdk1xxdr0HBeE3nMgLzj0e4DDl
-	Uucl+wj7+E/XBGvMM0nbbxRpXw==
-X-Google-Smtp-Source: 
- AKy350a2DhZtENu9a+/b5zp2KWG6AtoXMkc+JM6QjLKZm7ZsfHEa6GZ+N+9uPzcHN3EO2/CzFOoJ4g==
-X-Received: by 2002:a05:6402:518c:b0:506:bbf8:5152 with SMTP id
- q12-20020a056402518c00b00506bbf85152mr2280249edd.9.1681823261597;
-        Tue, 18 Apr 2023 06:07:41 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:a276:7d35:5226:1c77?
- ([2a02:810d:15c0:828:a276:7d35:5226:1c77])
-        by smtp.gmail.com with ESMTPSA id
- r7-20020aa7cb87000000b0050687ca0c92sm5156757edt.84.2023.04.18.06.07.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Apr 2023 06:07:41 -0700 (PDT)
-Message-ID: <ff0f4871-4d26-e671-0239-fa47117381a0@linaro.org>
-Date: Tue, 18 Apr 2023 15:07:37 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v2 1/4] ASoC: codecs: wcd9335: Simplify with dev_err_probe
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20230418074630.8681-1-krzysztof.kozlowski@linaro.org>
- <63a3b1c7-a68a-496c-99fe-9c936f4ebd94@sirena.org.uk>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <63a3b1c7-a68a-496c-99fe-9c936f4ebd94@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: HVNWTHLNRGIWLECVTSSGHCUSZJZJFXAI
-X-Message-ID-Hash: HVNWTHLNRGIWLECVTSSGHCUSZJZJFXAI
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 67D1CF80149;
+	Tue, 18 Apr 2023 16:07:07 +0200 (CEST)
+To: <vkoul@kernel.org>
+Subject: [PATCH v2] soundwire: bus: Don't filter slave alerts
+Date: Tue, 18 Apr 2023 15:06:50 +0100
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVNWTHLNRGIWLECVTSSGHCUSZJZJFXAI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TBC3XHMHTK52EFT3LIGJSUN5B3ZP5P4/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168182682641.26.12757632696057430648@mailman-core.alsa-project.org>
+From: Charles Keepax via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 7F249F80155; Tue, 18 Apr 2023 16:07:03 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 105E1F800D0
+	for <alsa-devel@alsa-project.org>; Tue, 18 Apr 2023 16:06:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 105E1F800D0
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=WhJbPa3b
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33I7Uxao008791;
+	Tue, 18 Apr 2023 09:06:52 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=hQHa8wBeeGW9puV7XlcRtvWMmKP2kW7m/WSCDKO6E64=;
+ b=WhJbPa3b+Qlgj+pRhq2QppXp8PFTTAvAbRZNsl3VZyUMyIqEhcIxUf6rBQsIXc+0i1vz
+ qRLZ5w7vynYkL3bqQJqCMzEH6w9RhELz3+t96D4dv8eWLo2BsPT/CUDsmD67o+JuUT06
+ B/SfovDZku5207zCfvk6biPpTEhi8RtQ85r3oSeOHIlsSsK3RKEA3yW7zUMncjmuTXAT
+ 3CRo6/g+D+qmubJxR1nQxvhEZ+BXiG1loCCqcFyulZz9bVzPY4ipXqp34H+ub9AH3vUc
+ 6sQuUUoYFjj5fZHALUFqgDiHjPAw9hpVByFM1g797y7PYuVW184mGlZOGr1h8amgef2Q cA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3pyrbpxdp7-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 18 Apr 2023 09:06:51 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Tue, 18 Apr
+ 2023 09:06:50 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
+ Transport; Tue, 18 Apr 2023 09:06:50 -0500
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0A876B06;
+	Tue, 18 Apr 2023 14:06:50 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <vkoul@kernel.org>
+Subject: [PATCH v2] soundwire: bus: Don't filter slave alerts
+Date: Tue, 18 Apr 2023 15:06:50 +0100
+Message-ID: <20230418140650.297279-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: xqcdqW-1U6epGePOSoUGzmzkzUP6iIwe
+X-Proofpoint-ORIG-GUID: xqcdqW-1U6epGePOSoUGzmzkzUP6iIwe
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 7TBC3XHMHTK52EFT3LIGJSUN5B3ZP5P4
+X-Message-ID-Hash: 7TBC3XHMHTK52EFT3LIGJSUN5B3ZP5P4
+X-MailFrom: prvs=947255f9bd=ckeepax@opensource.cirrus.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TBC3XHMHTK52EFT3LIGJSUN5B3ZP5P4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,24 +139,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 18/04/2023 14:55, Mark Brown wrote:
-> On Tue, Apr 18, 2023 at 09:46:27AM +0200, Krzysztof Kozlowski wrote:
->> Replace dev_err() in probe() path with dev_err_probe() to:
->> 1. Make code a bit simpler and easier to read,
->> 2. Do not print messages on deferred probe.
-> 
->>  	 */
->>  	wcd->intr1 = of_irq_get_byname(wcd->dev->of_node, "intr1");
->> -	if (wcd->intr1 < 0) {
->> -		if (wcd->intr1 != -EPROBE_DEFER)
->> -			dev_err(wcd->dev, "Unable to configure IRQ\n");
->> -
->> -		return wcd->intr1;
-> 
-> This is already not printing a message on deferred probe.
+It makes sense to have only a single point responsible for ensuring
+that all currently pending IRQs are handled. The current code in
+sdw_handle_slave_alerts confusingly splits this process in two.  This
+code will loop until the asserted IRQs are cleared but it will only
+handle IRQs that were already asserted when it was called. This
+means the caller must also loop (either manually, or through its IRQ
+mechanism) until the IRQs are all handled. It makes sense to either do
+all the looping in sdw_handle_slave_alerts or do no looping there and
+let the host controller repeatedly call it until things are handled.
 
-True, but the other places in the patch don't have such condition.
+There are realistically two sensible host controllers, those that
+will generate an IRQ when the alert status changes and those
+that will generate an IRQ continuously whilst the alert status
+is high. The current code will work fine for the second of those
+systems but not the first with out additional looping in the host
+controller.  Removing the code that filters out new IRQs whilst
+the handler is running enables both types of host controller to be
+supported and simplifies the code. The code will still only loop up to
+SDW_READ_INTR_CLEAR_RETRY times, so it shouldn't be possible for it to
+get completely stuck handling IRQs forever, and if you are generating
+IRQs faster than you can handle them you likely have bigger problems
+anyway.
 
-Best regards,
-Krzysztof
+This fixes an issue on the Cadence SoundWire IP, which only generates
+IRQs on an alert status change, where an alert which arrives whilst
+another alert is being handled will never be handled and will block
+all future alerts from being handled.
+
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+
+Changes since v1:
+ - Update commit message
+
+Thanks,
+Charles
+
+ drivers/soundwire/bus.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 1ea6a64f8c4a5..338f4f0b5d0cc 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -1588,7 +1588,7 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+ 	unsigned long port;
+ 	bool slave_notify;
+ 	u8 sdca_cascade = 0;
+-	u8 buf, buf2[2], _buf, _buf2[2];
++	u8 buf, buf2[2];
+ 	bool parity_check;
+ 	bool parity_quirk;
+ 
+@@ -1745,9 +1745,9 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+ 				"SDW_SCP_INT1 recheck read failed:%d\n", ret);
+ 			goto io_err;
+ 		}
+-		_buf = ret;
++		buf = ret;
+ 
+-		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, _buf2);
++		ret = sdw_nread_no_pm(slave, SDW_SCP_INTSTAT2, 2, buf2);
+ 		if (ret < 0) {
+ 			dev_err(&slave->dev,
+ 				"SDW_SCP_INT2/3 recheck read failed:%d\n", ret);
+@@ -1765,12 +1765,8 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
+ 		}
+ 
+ 		/*
+-		 * Make sure no interrupts are pending, but filter to limit loop
+-		 * to interrupts identified in the first status read
++		 * Make sure no interrupts are pending
+ 		 */
+-		buf &= _buf;
+-		buf2[0] &= _buf2[0];
+-		buf2[1] &= _buf2[1];
+ 		stat = buf || buf2[0] || buf2[1] || sdca_cascade;
+ 
+ 		/*
+-- 
+2.30.2
 

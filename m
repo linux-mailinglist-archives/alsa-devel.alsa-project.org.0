@@ -2,112 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 745E76E5DD0
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 11:46:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0ACB6E5E0B
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 11:55:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5D16E80;
-	Tue, 18 Apr 2023 11:45:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5D16E80
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBDA9E10;
+	Tue, 18 Apr 2023 11:55:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBDA9E10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681811163;
-	bh=DYYvmp+uFugmtvn+/Tg4TeTvWuHUMZmfqfdWsNsINnU=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=sd/CCV74jAOUH9U4lRP0NCqSg35CbizD7x7o0Phv/42ZDlfxKCcXshsnOuV8cpnFK
-	 HPbFlsuHoXcuXGEd4ChAIgtKxPxJjJ0TsHqQhpmHgLVfjXmJbwPIAY/zYmkoHCb6c7
-	 XldhSm+kUAdClyRflDfil4hdew/tcwA5WDy8SGYo=
+	s=default; t=1681811750;
+	bh=J5V9liva7UmY2eDMROsVVbGERcUZUS+E/tzhSsGTutY=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=i/n0ch+DvHAsL4MgMmcWiMdqH78jToo/lHY5svNQ0B82Fw/z7NqCvvZiht11QLlOh
+	 4dDegZfNL7Jo0uAC14H74VdkH2EWj0VXwQsOd7OOpCAwWNjg5J/MLqBxn1Dwv4xjIj
+	 ivXPZDn6RnR9N0p+3FnU2tVzVeJvz1gx7VnJAMUs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23289F8052E;
-	Tue, 18 Apr 2023 11:45:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98743F8019B;
+	Tue, 18 Apr 2023 11:54:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03061F80533; Tue, 18 Apr 2023 11:45:01 +0200 (CEST)
+	id 89DA2F8019B; Tue, 18 Apr 2023 11:54:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 992F5F80212
-	for <alsa-devel@alsa-project.org>; Tue, 18 Apr 2023 11:44:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 992F5F80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id 944F3F800F8
+	for <alsa-devel@alsa-project.org>; Tue, 18 Apr 2023 11:54:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 944F3F800F8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Ku6jUIEI;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=e2L9IOmp
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0F1641F8D5;
-	Tue, 18 Apr 2023 09:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1681811095;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h2DNN9uAK/0LGB1yyCJ/gV0l/zgtfRP7lir/w0VgvNg=;
-	b=Ku6jUIEIO0ZX3eA0cnLitm2O8jPO64lxUk9wh5NVhpKkU8SbTT8Bi2xMrs2oxfoi42kE81
-	Qd+CI0ZZ0lpw4gBuJZci0SbzEBTK5XctP/WLP3CiqPH1PbFLCin1lW5CwV9eMd6HtkyyNe
-	pSlZ9Ir4YaehH1nC0KUhUE5vptqp7L8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1681811095;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h2DNN9uAK/0LGB1yyCJ/gV0l/zgtfRP7lir/w0VgvNg=;
-	b=e2L9IOmppkEfnZkYo7lT7LLPkg651ZsvqGufKr+7UH8HFQJizvGOwJtsDQGQkj8kiJ4Fmv
-	6MZhWl0BqAy9SpDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA00F13581;
-	Tue, 18 Apr 2023 09:44:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id kkF4NJZmPmSfMgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 18 Apr 2023 09:44:54 +0000
-Date: Tue, 18 Apr 2023 11:44:53 +0200
-Message-ID: <87leip4j8q.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: reaperli <reaperlioc@glenfly.com>
-Subject: Re: [PATCH] ALSA: hda: Glenfly: add HD Audio PCI IDs and HDMI Codec
- Vendor IDs.
-In-Reply-To: <20230418083312.5208-1-reaperlioc@glenfly.com>
-References: <20230418083312.5208-1-reaperlioc@glenfly.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: WASMKNBEUUOODG5TKY7FLQFVSU46P4AX
-X-Message-ID-Hash: WASMKNBEUUOODG5TKY7FLQFVSU46P4AX
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=PlTVbNDB
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-506bf4cbecbso178537a12.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 18 Apr 2023 02:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1681811690; x=1684403690;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2XjTw2b21Lrfk4Jj+V6+6PBPJM9Xvx/rp1PjUa4gW2g=;
+        b=PlTVbNDBEYUnR+2Y6PfJVtcYCczUn6Ca3dFuBncv4GXwgOmqtytA4fs28OTeWM4bsi
+         OS7QrnQH1b2vjIE72icuKzcpmJFOseNqLoSXZa12NOGqUkcrdFuaxFnFcg4Du1wpRfal
+         lca47bv8Mt7LBSSPs5Fr7c+RZ5PJx2XWoXdBVuIXQHWjPKRqm3z+OFgYuAlHm6PnJvlR
+         Y3lyID1XKdRBSd6vHlzn/ntqwltwmDwpMNdTt9OBbHVFz2PJIj+e3ZMtUs7wU1rOx2r0
+         XpB07nyyJfMShpJfpsx8Jh9VIi115BHRbvIg+Va21QjlNlkQBIS23un1c4Gj86aeqdf0
+         quMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681811690; x=1684403690;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2XjTw2b21Lrfk4Jj+V6+6PBPJM9Xvx/rp1PjUa4gW2g=;
+        b=ZTgQpAXfTmTgG2UbygqCc2KYFDA4tLGSc0CTRTpKvo5omMtGjU8X7cWFmH3DQ15//H
+         cQ5qeTEs/MY4h/ZEprDbNQPKesPxcZKutZRtkwfA6z4xzFQO4gKQwiv+ZCNf/V8NilFa
+         sK/nrB35L7dHP/wNf+o8ImSHrQ8AbzFEHtA+NkPQ8CeF2em3XVkbroxtIRGrUVMQi3a/
+         atpCzw1i8zbbdt3EQs+5fhvdiIe9gpn8I4l7LN52JJr2yJafpvhDLa7bYjYtJrCUisey
+         MlEip/srCmn1Aa7G1bHABG/J3YAzE/Tyr3axbtuKPmKDcfBNCHd3+BjMp2y6OSzUiESu
+         HFjA==
+X-Gm-Message-State: AAQBX9ffGsmcqevSb/8FrpmwO9bLYEV5c4lBVKgrAF743fJCTj8xSft2
+	BRU8TBiL59nvhBP1dB90CtINMw==
+X-Google-Smtp-Source: 
+ AKy350ZoxJAY3osQymk/xjYIDkdSjS0BzSqPxS/Lm+86HDfHKVxW1WWwARUG2qSTrkpHqDsjf2Kytg==
+X-Received: by 2002:a05:6402:748:b0:506:ae87:a36a with SMTP id
+ p8-20020a056402074800b00506ae87a36amr1867913edy.14.1681811690360;
+        Tue, 18 Apr 2023 02:54:50 -0700 (PDT)
+Received: from krzk-bin.. ([2a02:810d:15c0:828:a276:7d35:5226:1c77])
+        by smtp.gmail.com with ESMTPSA id
+ o4-20020a509b04000000b00504d04c939fsm7076578edi.59.2023.04.18.02.54.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Apr 2023 02:54:49 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Rao Mandadapu <quic_srivasam@quicinc.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH v3 0/7] soundwire: qcom: add support for SM8550 (Soundwire
+ v2.0.0)
+Date: Tue, 18 Apr 2023 11:54:40 +0200
+Message-Id: <20230418095447.577001-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: EIWV4W4YM2XFDGSUFVQY5LQFBOZLZWVC
+X-Message-ID-Hash: EIWV4W4YM2XFDGSUFVQY5LQFBOZLZWVC
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, linux-kernel@vger.kernel.org,
- jasontao <jasontao@glenfly.com>, alsa-devel@alsa-project.org
+CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WASMKNBEUUOODG5TKY7FLQFVSU46P4AX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EIWV4W4YM2XFDGSUFVQY5LQFBOZLZWVC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,62 +128,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 18 Apr 2023 10:33:12 +0200,
-reaperli wrote:
-> 
-> From: jasontao <jasontao@glenfly.com>
-> 
-> Add a set of HD Audio PCI IDS, and the HDMI codec vendor IDs for
-> Glenfly Arise.
-> 
-> Signed-off-by: jasontao <jasontao@glenfly.com>
-> Signed-off-by: reaperli <reaperlioc@glenfly.com>
+Hi,
 
-The patch looks OK now, but could you submit to alsa-devel ML at the
-next time?
+Changes since v2:
+1. Use uint16 for qcom,ports-sinterval.
+   DTS will be fixed in separate patchset.
+2. Add tags.
 
-About details in the patch:
+Changes since v1:
+1. Patch 1: Increase maxItems to 16 for port-related properties.
+2. Re-order patch 1 and 2.
+3. Patch 3: Drop unneeded semicolon.
+4. Patch 5: Fix lang typo in subject.
 
-> @@ -1743,6 +1745,8 @@ static int default_bdl_pos_adj(struct azx *chip)
->  	}
->  
->  	switch (chip->driver_type) {
-> +	case AZX_DRIVER_GFHDMI:
-> +		return 128;
+Best regards,
+Krzysztof
 
-So this looks pretty high in comparison with other chips.
-It means that the actual position is much behind the reported
-position.  Due to a large FIFO?  Or what reason?
+Krzysztof Kozlowski (7):
+  dt-bindings: soundwire: qcom: add Qualcomm Soundwire v2.0.0
+  dt-bindings: soundwire: qcom: add 16-bit sample interval
+  soundwire: qcom: allow 16-bit sample interval for ports
+  soundwire: qcom: use consistently 'ctrl' as state variable name
+  soundwire: qcom: prepare for handling different register layouts
+  soundwire: qcom: add support for v2.0.0 controller
+  soundwire: qcom: use tabs for indentation in defines
 
-> @@ -1859,6 +1863,9 @@ static int azx_first_init(struct azx *chip)
->  	}
->  #endif
->  
-> +	if (chip->driver_type == AZX_DRIVER_GFHDMI)
-> +		bus->polling_mode = 1;
+ .../bindings/soundwire/qcom,soundwire.yaml    |  39 +-
+ drivers/soundwire/qcom.c                      | 387 ++++++++++++------
+ 2 files changed, 287 insertions(+), 139 deletions(-)
 
-This looks odd, too.  Doesn't the hardware give any interrupt back
-upon the CORB/RIRB response?
+-- 
+2.34.1
 
-> --- a/sound/pci/hda/patch_hdmi.c
-> +++ b/sound/pci/hda/patch_hdmi.c
-> @@ -4489,6 +4489,18 @@ static int patch_via_hdmi(struct hda_codec *codec)
->  	return patch_simple_hdmi(codec, VIAHDMI_CVT_NID, VIAHDMI_PIN_NID);
->  }
->  
-> +static int patch_gf_hdmi(struct hda_codec *codec)
-> +{
-> +	int err;
-> +
-> +	err = patch_generic_hdmi(codec);
-> +	if (err)
-> +		return err;
-> +
-> +	codec->no_sticky_stream = 1;
-
-This hack is needed for what reason?
-
-
-thanks,
-
-Takashi

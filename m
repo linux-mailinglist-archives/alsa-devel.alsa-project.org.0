@@ -2,126 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C32ED6E5E12
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 11:57:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E7446E5E41
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Apr 2023 12:09:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2707E93;
-	Tue, 18 Apr 2023 11:56:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2707E93
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9830E11;
+	Tue, 18 Apr 2023 12:08:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9830E11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681811858;
-	bh=Hr0oqtquOz2ToHxv0Fl8xScVsWjSuSpNNl19kiHZSeA=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=kyimLHL14us5Yi0BqmbcxNOGxk9VIVSi5YmPZXmi12zHj55Oior8rcnkC+K+woZBl
-	 q+/Po6QmCmSQw7ysOIBZ+seYmYBBpo4Gp9Q/uV9LTok2GqioJ57UHULY+Bo6j37KZ9
-	 ROaLRB/ues77reNcwNOVd3AGFx2oyi9GCjOohKLI=
+	s=default; t=1681812566;
+	bh=irLIcW8upGXeXeu0H5UNe5qfe28jCtKR8WN4aMsrm+w=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Daua0uUBvW53ckzBr3yVG1MbxBYUeBXb9kCceyDM/ucKZNoy6KeiADvu2ckIy2fDf
+	 tQuPG1qxVOjdAi8FLzduHwP1AXryuFIkEdn84h0rT1UABbK2tXN5LLxocDOyQHciuj
+	 YI16dUobzvY4LPihA6wBZ6yAZ9lsVsvp+bsYyIjc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5739F8055C;
-	Tue, 18 Apr 2023 11:55:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43843F80149;
+	Tue, 18 Apr 2023 12:08:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19477F80552; Tue, 18 Apr 2023 11:55:07 +0200 (CEST)
+	id 7EA96F80155; Tue, 18 Apr 2023 12:08:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,UPPERCASE_50_75,URIBL_BLOCKED shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
+X-Spam-Status: No, score=-7.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 44F23F8052D
-	for <alsa-devel@alsa-project.org>; Tue, 18 Apr 2023 11:55:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44F23F8052D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4FBF8F800D0
+	for <alsa-devel@alsa-project.org>; Tue, 18 Apr 2023 12:08:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FBF8F800D0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=B/zuyYIG
-Received: by mail-ej1-x62f.google.com with SMTP id u3so19643137ejj.12
+ header.s=google header.b=TCQn6SEN
+Received: by mail-ej1-x62d.google.com with SMTP id sz19so14655982ejc.2
         for <alsa-devel@alsa-project.org>;
- Tue, 18 Apr 2023 02:55:00 -0700 (PDT)
+ Tue, 18 Apr 2023 03:08:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1681811699; x=1684403699;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Rm5Clkhi7OKyfk2gyaI7Jz7GWaSKwLEnRxea7jsImnE=;
-        b=B/zuyYIGHjFHmCaELOHZqzcpXx1oeztJyGgpjhVFTT04tNSu+qVh7QsJ5voRLZCtJX
-         KMyJbWjMMswC9N7QP9G/Wj9Ah7Yyzv4XpEmnUM8Fdd32ANk27C0pnTwcP3Q1O9x0QrzT
-         AFfD5LIiFqk+CbE2Z17q3vwdPUJJ/FVzbPUPycvm3HPqMEUSVqkrBMmrmfbCv/fORT+V
-         37FcsPsQ4+vHLvFQa/1PxzdmuaTib3C1vu3WhLI4pcoXYuW4U5JYQWKdbYnm4VCar8nv
-         81RPjL377XhYn6mFlWUVyS7SyfHzro9GqbwzoSvmL5vLqE26OrxHcjkL+OTtpXxvm/7W
-         hJBw==
+        d=linaro.org; s=google; t=1681812506; x=1684404506;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=pJbsS52QI8BD8L7bxBieLvqoLUvDI9qlj6d+AdrgnkE=;
+        b=TCQn6SENxKUiWDWhguKUbbm85cwuKKTE9nnZAIR/Az6QKtuen7UP9nz99yiKw2fk6/
+         M40Q+mSYpF79fJAmx4BiBvn8UnFwwBOKTWa6by7ikSUGkANCZK++4uN84cyPVGTO+3Wq
+         8Okguo4CcwVG9g5fxTvXY62p0SsHDpjl7CimpY1v8v6nHfr14xiprIfCt1eYJse7Zgio
+         PxRpzBMrqlr/Td7rn6epU70Y/9U1oWiehSlji7ARMgDPqkwAPYba6l7+0XL6IBCPIM2N
+         NEkQOMxAszEyhiCCV3Mqa0Zw+rdcM1q8lYGCz5uLvS42mTtzI0MusuYtqMr5PyP1QUPk
+         UnDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681811699; x=1684403699;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Rm5Clkhi7OKyfk2gyaI7Jz7GWaSKwLEnRxea7jsImnE=;
-        b=OaWzafAF7fGWpV55a6F2IP68mD0C2TV5nrYw7uEdHRB6qFaKsKaOJ/DlpcJHocoML/
-         0PIRj6ijHa3Sg6P4pxsa2d6edwlN82/No+pIwRJkKiyPIMfvIryTKjkSQBczuUBRTI1j
-         xfEyQIs4mQ/saLr9LesMNuPWY4sKbYKFufYr9mXVSO3CQbiZph6lNesGy8ChOCHPSODG
-         MtD0DPAQQ3sAZ4YUNiNJRxsM5NaSL6yvMUiw6wlM/v5lFbwM9yVs5WZ2oRySqmbJe1Sl
-         NudWy8YV1LD2G1RXhbgl/EvMwrtRm17jC8fuISmMHa2CpdDEV6UXBqDsL73flyoPOLNZ
-         wHhA==
-X-Gm-Message-State: AAQBX9f1xjQugQtx9ZL7vbSn0H7pYK44OX0pEu2G9hMndHHU3j021g0E
-	L5v7QF3itCZco+igD4prJ67qVw==
+        d=1e100.net; s=20221208; t=1681812506; x=1684404506;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pJbsS52QI8BD8L7bxBieLvqoLUvDI9qlj6d+AdrgnkE=;
+        b=KS+pxfmCDp9CLwqzOpuL+HLE1ydqcYsLxCv21hRi9OmCY8KsbgUB70TUuKkcBbPT+4
+         SrxqnkcQwwf9ssue0KBelNiSaT7zUj9/aJG5PskagBkkrL5d7lsXg8TVavgtMT/I2Mz0
+         bYzsTWw770EuucqL19wyuCknlndDnRlibPMajbiPVGIE0y+e6u6A80OATRjxfxt/a6T2
+         sJn1iTi+5tSkm2l5OJU0BmM69XVqlRHmDE6QTyPsuFfiXXnflJqXWPMotya7TQzbDbLq
+         Qy1pgPNePxF5+e+VoHKFiMln7JL0w6oDVk9IRIAVc+m07pL60ujpSWlPPIrIZW8mCbRY
+         2j1g==
+X-Gm-Message-State: AAQBX9eCdTVcwLCXFIWgngUw46JTYXsl9GvKw6YQOAH2qq0sJONQFbXC
+	0NYbfg+aVO06wXF3H7gW7MH7FQ==
 X-Google-Smtp-Source: 
- AKy350Y4civICNM8zr7hd+GNeg3iFkCFRk5nboyltEkmFIyKL8bL8WfrBh55oP9yhCB2QT/73VnYjg==
-X-Received: by 2002:a17:907:16a8:b0:94f:2d38:896b with SMTP id
- hc40-20020a17090716a800b0094f2d38896bmr9767703ejc.53.1681811699278;
-        Tue, 18 Apr 2023 02:54:59 -0700 (PDT)
-Received: from krzk-bin.. ([2a02:810d:15c0:828:a276:7d35:5226:1c77])
-        by smtp.gmail.com with ESMTPSA id
- o4-20020a509b04000000b00504d04c939fsm7076578edi.59.2023.04.18.02.54.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Apr 2023 02:54:58 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Rao Mandadapu <quic_srivasam@quicinc.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH v3 7/7] soundwire: qcom: use tabs for indentation in defines
-Date: Tue, 18 Apr 2023 11:54:47 +0200
-Message-Id: <20230418095447.577001-8-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230418095447.577001-1-krzysztof.kozlowski@linaro.org>
-References: <20230418095447.577001-1-krzysztof.kozlowski@linaro.org>
+ AKy350bK/PoL+9j3PyVEjxvyP7zDgA8zwSdAmWINjdewHtyntiM5Dg7QeddoYymo3qIPHQ/t62hoRA==
+X-Received: by 2002:a17:906:7fd0:b0:94e:fe21:baf with SMTP id
+ r16-20020a1709067fd000b0094efe210bafmr12821705ejs.21.1681812505857;
+        Tue, 18 Apr 2023 03:08:25 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ w3-20020a170906b18300b0094b5ce9d43dsm7836225ejy.85.2023.04.18.03.08.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Apr 2023 03:08:25 -0700 (PDT)
+Message-ID: <b06da452-1cd3-a8f0-36a9-9ee7c8a6527f@linaro.org>
+Date: Tue, 18 Apr 2023 11:08:24 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JDU2QEZZJQLBKBC465FULC5645CVP57G
-X-Message-ID-Hash: JDU2QEZZJQLBKBC465FULC5645CVP57G
-X-MailFrom: krzysztof.kozlowski@linaro.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v3 3/7] soundwire: qcom: allow 16-bit sample interval for
+ ports
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Rao Mandadapu <quic_srivasam@quicinc.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org
+References: <20230418095447.577001-1-krzysztof.kozlowski@linaro.org>
+ <20230418095447.577001-4-krzysztof.kozlowski@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20230418095447.577001-4-krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: KPPDOGFRSFFAVSM2BJIDMBAKTBBQZMKT
+X-Message-ID-Hash: KPPDOGFRSFFAVSM2BJIDMBAKTBBQZMKT
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDU2QEZZJQLBKBC465FULC5645CVP57G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KPPDOGFRSFFAVSM2BJIDMBAKTBBQZMKT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,72 +129,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use consistently only tabs to indent the value in defines.
+
+
+On 18/04/2023 10:54, Krzysztof Kozlowski wrote:
+> The port sample interval was always 16-bit, split into low and high
+> bytes.  This split was unnecessary, although harmless for older devices
+> because all of them used only lower byte (so values < 0xff).  With
+> support for Soundwire controller on Qualcomm SM8550 and its devices,
+> both bytes will be used, thus add a new 'qcom,ports-sinterval' property
+> to allow 16-bit sample intervals.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+LGTM,
 
 Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
----
-
-Changes since v2:
-1. Add tags.
----
- drivers/soundwire/qcom.c | 34 +++++++++++++++++-----------------
- 1 file changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 90afc8f15b82..aad5942e5980 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -58,9 +58,9 @@
- #define SWRM_INTERRUPT_STATUS_SPECIAL_CMD_ID_FINISHED		BIT(10)
- #define SWRM_INTERRUPT_STATUS_AUTO_ENUM_FAILED			BIT(11)
- #define SWRM_INTERRUPT_STATUS_AUTO_ENUM_TABLE_IS_FULL		BIT(12)
--#define SWRM_INTERRUPT_STATUS_BUS_RESET_FINISHED_V2             BIT(13)
--#define SWRM_INTERRUPT_STATUS_CLK_STOP_FINISHED_V2              BIT(14)
--#define SWRM_INTERRUPT_STATUS_EXT_CLK_STOP_WAKEUP               BIT(16)
-+#define SWRM_INTERRUPT_STATUS_BUS_RESET_FINISHED_V2		BIT(13)
-+#define SWRM_INTERRUPT_STATUS_CLK_STOP_FINISHED_V2		BIT(14)
-+#define SWRM_INTERRUPT_STATUS_EXT_CLK_STOP_WAKEUP		BIT(16)
- #define SWRM_INTERRUPT_MAX					17
- #define SWRM_V1_3_INTERRUPT_MASK_ADDR				0x204
- #define SWRM_V1_3_INTERRUPT_CLEAR				0x208
-@@ -125,20 +125,20 @@
- #define SWRM_REG_VAL_PACK(data, dev, id, reg)	\
- 			((reg) | ((id) << 16) | ((dev) << 20) | ((data) << 24))
- 
--#define MAX_FREQ_NUM		1
--#define TIMEOUT_MS		100
--#define QCOM_SWRM_MAX_RD_LEN	0x1
--#define QCOM_SDW_MAX_PORTS	14
--#define DEFAULT_CLK_FREQ	9600000
--#define SWRM_MAX_DAIS		0xF
--#define SWR_INVALID_PARAM 0xFF
--#define SWR_HSTOP_MAX_VAL 0xF
--#define SWR_HSTART_MIN_VAL 0x0
--#define SWR_BROADCAST_CMD_ID    0x0F
--#define SWR_MAX_CMD_ID	14
--#define MAX_FIFO_RD_RETRY 3
--#define SWR_OVERFLOW_RETRY_COUNT 30
--#define SWRM_LINK_STATUS_RETRY_CNT 100
-+#define MAX_FREQ_NUM						1
-+#define TIMEOUT_MS						100
-+#define QCOM_SWRM_MAX_RD_LEN					0x1
-+#define QCOM_SDW_MAX_PORTS					14
-+#define DEFAULT_CLK_FREQ					9600000
-+#define SWRM_MAX_DAIS						0xF
-+#define SWR_INVALID_PARAM					0xFF
-+#define SWR_HSTOP_MAX_VAL					0xF
-+#define SWR_HSTART_MIN_VAL					0x0
-+#define SWR_BROADCAST_CMD_ID					0x0F
-+#define SWR_MAX_CMD_ID						14
-+#define MAX_FIFO_RD_RETRY					3
-+#define SWR_OVERFLOW_RETRY_COUNT				30
-+#define SWRM_LINK_STATUS_RETRY_CNT				100
- 
- enum {
- 	MASTER_ID_WSA = 1,
--- 
-2.34.1
-
+--srini
+> Changes since v2:
+> 1. Use uint16 for qcom,ports-sinterval.
+> 2. Add tags.
+> 
+> Changes since v1:
+> 1. Drop unneeded semicolon.
+> ---
+>   drivers/soundwire/qcom.c | 32 +++++++++++++++++++++++++-------
+>   1 file changed, 25 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index c296e0bf897b..d051dc408532 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+> @@ -95,6 +95,7 @@
+>   #define SWRM_DP_BLOCK_CTRL2_BANK(n, m)	(0x1130 + 0x100 * (n - 1) + 0x40 * m)
+>   #define SWRM_DP_PORT_HCTRL_BANK(n, m)	(0x1134 + 0x100 * (n - 1) + 0x40 * m)
+>   #define SWRM_DP_BLOCK_CTRL3_BANK(n, m)	(0x1138 + 0x100 * (n - 1) + 0x40 * m)
+> +#define SWRM_DP_SAMPLECTRL2_BANK(n, m)	(0x113C + 0x100 * (n - 1) + 0x40 * m)
+>   #define SWRM_DIN_DPn_PCM_PORT_CTRL(n)	(0x1054 + 0x100 * (n - 1))
+>   #define SWR_MSTR_MAX_REG_ADDR		(0x1740)
+>   
+> @@ -131,7 +132,7 @@ enum {
+>   };
+>   
+>   struct qcom_swrm_port_config {
+> -	u8 si;
+> +	u16 si;
+>   	u8 off1;
+>   	u8 off2;
+>   	u8 bp_mode;
+> @@ -806,12 +807,20 @@ static int qcom_swrm_transport_params(struct sdw_bus *bus,
+>   
+>   	value = pcfg->off1 << SWRM_DP_PORT_CTRL_OFFSET1_SHFT;
+>   	value |= pcfg->off2 << SWRM_DP_PORT_CTRL_OFFSET2_SHFT;
+> -	value |= pcfg->si;
+> +	value |= pcfg->si & 0xff;
+>   
+>   	ret = ctrl->reg_write(ctrl, reg, value);
+>   	if (ret)
+>   		goto err;
+>   
+> +	if (pcfg->si > 0xff) {
+> +		value = (pcfg->si >> 8) & 0xff;
+> +		reg = SWRM_DP_SAMPLECTRL2_BANK(params->port_num, bank);
+> +		ret = ctrl->reg_write(ctrl, reg, value);
+> +		if (ret)
+> +			goto err;
+> +	}
+> +
+>   	if (pcfg->lane_control != SWR_INVALID_PARAM) {
+>   		reg = SWRM_DP_PORT_CTRL_2_BANK(params->port_num, bank);
+>   		value = pcfg->lane_control;
+> @@ -1185,7 +1194,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>   	struct device_node *np = ctrl->dev->of_node;
+>   	u8 off1[QCOM_SDW_MAX_PORTS];
+>   	u8 off2[QCOM_SDW_MAX_PORTS];
+> -	u8 si[QCOM_SDW_MAX_PORTS];
+> +	u16 si[QCOM_SDW_MAX_PORTS];
+>   	u8 bp_mode[QCOM_SDW_MAX_PORTS] = { 0, };
+>   	u8 hstart[QCOM_SDW_MAX_PORTS];
+>   	u8 hstop[QCOM_SDW_MAX_PORTS];
+> @@ -1193,6 +1202,7 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>   	u8 blk_group_count[QCOM_SDW_MAX_PORTS];
+>   	u8 lane_control[QCOM_SDW_MAX_PORTS];
+>   	int i, ret, nports, val;
+> +	bool si_16 = false;
+>   
+>   	ctrl->reg_read(ctrl, SWRM_COMP_PARAMS, &val);
+>   
+> @@ -1236,9 +1246,14 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>   		return ret;
+>   
+>   	ret = of_property_read_u8_array(np, "qcom,ports-sinterval-low",
+> -					si, nports);
+> -	if (ret)
+> -		return ret;
+> +					(u8 *)si, nports);
+> +	if (ret) {
+> +		ret = of_property_read_u16_array(np, "qcom,ports-sinterval",
+> +						 si, nports);
+> +		if (ret)
+> +			return ret;
+> +		si_16 = true;
+> +	}
+>   
+>   	ret = of_property_read_u8_array(np, "qcom,ports-block-pack-mode",
+>   					bp_mode, nports);
+> @@ -1266,7 +1281,10 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
+>   
+>   	for (i = 0; i < nports; i++) {
+>   		/* Valid port number range is from 1-14 */
+> -		ctrl->pconfig[i + 1].si = si[i];
+> +		if (si_16)
+> +			ctrl->pconfig[i + 1].si = si[i];
+> +		else
+> +			ctrl->pconfig[i + 1].si = ((u8 *)si)[i];
+>   		ctrl->pconfig[i + 1].off1 = off1[i];
+>   		ctrl->pconfig[i + 1].off2 = off2[i];
+>   		ctrl->pconfig[i + 1].bp_mode = bp_mode[i];

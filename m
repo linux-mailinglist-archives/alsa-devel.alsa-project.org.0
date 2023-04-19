@@ -2,96 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74A8A6E734F
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Apr 2023 08:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEB596E7350
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Apr 2023 08:30:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C782EBF;
-	Wed, 19 Apr 2023 08:29:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C782EBF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FBAAEC6;
+	Wed, 19 Apr 2023 08:29:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FBAAEC6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681885825;
-	bh=ktAs8aPKXwLamy7L0LOAzDTiknoH2trEKpDmqdfJ4zg=;
+	s=default; t=1681885827;
+	bh=Mhm3gPP0LbyiOfZHree8q4Fcx1bxa0bpCvAD30vc/CI=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EP5UCNjUYoRddDqAW4nSlWSfY3p0ZQpAWOKKR6dr9a/Rq0qdwxnW+6XZk9SYtB4qj
-	 LUuJKkfla5HBCaDYJsrHX/YOYb9CZ4A3ImnNLz07JCDZMjKqhTRrQLpklmZhB/xor5
-	 DSTDy0H1Je8KBe6Ovg5hdmVMrVJOvFa9QFaYBHtw=
+	b=sSDbmzWDAdYlG3EyZyJHjS7jDs4lDF3bTrPmDsTJgSrG2OlEjwwh2yEX3LvPed1tE
+	 A45h6YFH2vSP/skHJC8GgAOt+BKHwyZl06FVpMaFhn+3SDkxJxsEeVDqzbpsYz9WMI
+	 rsnAFICYELVWRTtpQBH48IXtJSlPC7C20Hwr+JV4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91660F804FC;
-	Wed, 19 Apr 2023 08:28:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E83B4F80528;
+	Wed, 19 Apr 2023 08:29:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0511F80510; Wed, 19 Apr 2023 08:28:50 +0200 (CEST)
+	id A2F6FF8052E; Wed, 19 Apr 2023 08:29:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92E89F8019B
-	for <alsa-devel@alsa-project.org>; Wed, 19 Apr 2023 08:28:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92E89F8019B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19BE3F80528
+	for <alsa-devel@alsa-project.org>; Wed, 19 Apr 2023 08:29:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19BE3F80528
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=zK7vdgGj;
+ header.s=susede2_rsa header.b=oJJm8BPI;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=XAyNhlNt
+ header.s=susede2_ed25519 header.b=beR7wJfC
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 15E291FD84;
-	Wed, 19 Apr 2023 06:28:48 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6F48621220;
+	Wed, 19 Apr 2023 06:29:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1681885728;
+	t=1681885760;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sacuHrbOUS6+cQyU7TKPM4wfq6Bszs3UYCL4nwf7Amo=;
-	b=zK7vdgGj2z3zmOTNykONnpJVYaDhVZSOaa4Wp5UbzUE6kMy5slhIMGx2kbYp+1xkTisTz1
-	GIr4/D4uXfkGZ70/E687e0KWJ4T8LMS3pI0Q2LRSlRg2zELKwcvC1xlaBB9AxaD0vndWVG
-	lyK3oyXV+jSyax8lltpQS91fP0q0s/4=
+	bh=gYtOar5Cvk/OSF3i6DTvzxZxVbcvFFJlgOSwnvSnqWs=;
+	b=oJJm8BPI0g4Wcqio3OnZVUkJkZ3fIg5RSUiFV8qeE6ceGbF5vlNT/W59WQgH3yb3NsuoHz
+	j4xyVXv/x5yDrFIhQX9QkeDNtzVbN5KctROglBEkJQXzK7dyOxVht0kpU+s/64naDs6qdd
+	HuQ7vXVseBzJbsBR5pdACxbWXkmkHmM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1681885728;
+	s=susede2_ed25519; t=1681885760;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sacuHrbOUS6+cQyU7TKPM4wfq6Bszs3UYCL4nwf7Amo=;
-	b=XAyNhlNt9ap4AKRey2cFAw7iMXNaDIg8CPLgb88mv9JPdRDCXmR/3q0rhgGjMnREVK0w1+
-	Y3UYoMhk8RDvyiAQ==
+	bh=gYtOar5Cvk/OSF3i6DTvzxZxVbcvFFJlgOSwnvSnqWs=;
+	b=beR7wJfCJrHN5zIEi2/6alAEUrTcyJLW7RRIZMchJwObNPo6nrU3QFOLSRZcxhbpkrgERo
+	iqFFhFek91ELXoDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E58EF1390E;
-	Wed, 19 Apr 2023 06:28:47 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 48DB01390E;
+	Wed, 19 Apr 2023 06:29:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id tCk7Nx+KP2RmJgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 19 Apr 2023 06:28:47 +0000
-Date: Wed, 19 Apr 2023 08:28:47 +0200
-Message-ID: <87leio2xnk.wl-tiwai@suse.de>
+	id fWz/EECKP2SvJgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 19 Apr 2023 06:29:20 +0000
+Date: Wed, 19 Apr 2023 08:29:19 +0200
+Message-ID: <87jzy82xmo.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Rob Herring <robh@kernel.org>
 Subject: Re: [PATCH] ALSA: Use of_property_read_bool() for boolean properties
-In-Reply-To: <20230310144734.1546587-1-robh@kernel.org>
+In-Reply-To: <20230418162557.GD1764573-robh@kernel.org>
 References: <20230310144734.1546587-1-robh@kernel.org>
+	<20230418162557.GD1764573-robh@kernel.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: OA544FZ2CCW4DY3GRZJHMBMPR3C3U2ZF
-X-Message-ID-Hash: OA544FZ2CCW4DY3GRZJHMBMPR3C3U2ZF
+Message-ID-Hash: YX7ZDPOSE3D6YR7KXNG2BBAIVFNAHMCV
+X-Message-ID-Hash: YX7ZDPOSE3D6YR7KXNG2BBAIVFNAHMCV
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OA544FZ2CCW4DY3GRZJHMBMPR3C3U2ZF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YX7ZDPOSE3D6YR7KXNG2BBAIVFNAHMCV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,18 +117,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 10 Mar 2023 15:47:33 +0100,
+On Tue, 18 Apr 2023 18:25:57 +0200,
 Rob Herring wrote:
 > 
-> It is preferred to use typed property access functions (i.e.
-> of_property_read_<type> functions) rather than low-level
-> of_get_property/of_find_property functions for reading properties.
-> Convert reading boolean properties to to of_property_read_bool().
+> On Fri, Mar 10, 2023 at 08:47:33AM -0600, Rob Herring wrote:
+> > It is preferred to use typed property access functions (i.e.
+> > of_property_read_<type> functions) rather than low-level
+> > of_get_property/of_find_property functions for reading properties.
+> > Convert reading boolean properties to to of_property_read_bool().
+> > 
+> > Signed-off-by: Rob Herring <robh@kernel.org>
+> > ---
+> >  sound/ppc/tumbler.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> Ping!
 
-Applied to for-next branch.
+Sorry for the oversight.  Now both patches are applied.
 
-thanks,
 
 Takashi

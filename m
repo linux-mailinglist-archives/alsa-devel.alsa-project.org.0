@@ -2,85 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 881AE6E8234
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Apr 2023 21:57:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1C086E8240
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Apr 2023 21:59:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00736F04;
-	Wed, 19 Apr 2023 21:57:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00736F04
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2591EF01;
+	Wed, 19 Apr 2023 21:58:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2591EF01
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681934271;
-	bh=1TIjV+3pmSFyRtElpQplh8V/ePhxtOCFPODPHSIZDhQ=;
+	s=default; t=1681934344;
+	bh=ouBKoHKhciDcxwM8EneMHAp6XS64B5Xi2KdV9i7o8mk=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JgZ3jqFEYSVqwBILYOXFKMleKniyAXg3kR2Sakfd2vmrteqwFy8wNlIeFMuXa9yVE
-	 NLyZN5ij4oSYX+XfX4HMRnz/RmT61/u3lH8fy6WCrSwRDotUdxhmpuSzwgD8aXwV8Q
-	 8JjG/5ZRxIyU0h0/CcNzkGVCmgwg467hSRyCxt6M=
+	b=uc+01hC//dr5Zwd5QSC5OCe9goiDH099p2TgBNmnv693DHt4QpWW+bjUwnos0nh7J
+	 77yvCXD921t3+2vKFpixdJHGg3Qkgoi7diriurH8kpp5HoTl/wv7xMF+utzo9WWLIP
+	 IAlWypYNRTrOLZIl8PvDlcDUgK3j8MGCJOrX3OJY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBBF2F80149;
-	Wed, 19 Apr 2023 21:56:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFA32F804FC;
+	Wed, 19 Apr 2023 21:57:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DAE9F8052E; Wed, 19 Apr 2023 21:56:08 +0200 (CEST)
+	id 3E68CF80212; Wed, 19 Apr 2023 21:57:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
 	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EF856F80149
-	for <alsa-devel@alsa-project.org>; Wed, 19 Apr 2023 21:56:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF856F80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id D2B58F80053
+	for <alsa-devel@alsa-project.org>; Wed, 19 Apr 2023 21:56:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2B58F80053
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VpDxNH0h
+ header.s=Intel header.b=cRnwDYeg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1681934166; x=1713470166;
+  t=1681934167; x=1713470167;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=1TIjV+3pmSFyRtElpQplh8V/ePhxtOCFPODPHSIZDhQ=;
-  b=VpDxNH0hnpJcrub+tQRVUxupiiMBZEiT5RFRPihlCABfBR64qCAJ2jZp
-   xP6+r3scE3ZZaghulugfeDVJbrqNlE4BFwN2fpXazpEhIODyc7trXcmS8
-   /nWr8uCUvaN3v2zTPVRHxHSreTfk7ELYQHo4X+VcvhY//tVTSc3y355WQ
-   QlQ1PT3+TVQPY2bAaJQSZaI2zlKyB1Y9QkMqKTvroCC0zEPg2PkFUHBX7
-   TipcNkcyIqU5QpCEDJEKJGPBJ7Ef8iz+NrLf9ud9UEHyyhua64/5M7jfS
-   aFsUzFfrRl9MDSeb77nxMx6wWDPL7k6aQF1atN3bIyXDDJbKXaYeOuhB3
+  bh=ouBKoHKhciDcxwM8EneMHAp6XS64B5Xi2KdV9i7o8mk=;
+  b=cRnwDYegN8o+azm8jmm1w42MzmkcbAC/gm/Ixd8ImPwNi2K2WCtohKkR
+   SefJ8sjxSWc5xfYPKxuReSK2+Yw3CuIPS7Fp7p55e/L5lhRdZj50IYelQ
+   L9+gTqSTB7n5W7nuN8heFd/HVFtSy3P4zQXPr4DoaeO/mPUA5qSmGyYPS
+   Juk1iWQPiQ2Hq8emlWoVpElQc6N0a5Ebci3IHONnK7jNEr/v7epa/osBf
+   0m1Nnlfz2dCXT8IrgzjklMI1lSO5gqecxhhtnWobbe044nZgrLDxk06R5
+   vbi9DCQMxn08MkBVOSSnftqMRkFI8l0gTaRwlGW+49tcpdhr/xRm60x8h
    g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="373434389"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="373434393"
 X-IronPort-AV: E=Sophos;i="5.99,210,1677571200";
-   d="scan'208";a="373434389"
+   d="scan'208";a="373434393"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
   by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 12:56:01 -0700
+ 19 Apr 2023 12:56:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="815728102"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="815728105"
 X-IronPort-AV: E=Sophos;i="5.99,210,1677571200";
-   d="scan'208";a="815728102"
+   d="scan'208";a="815728105"
 Received: from gargicha-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.74.38])
   by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 12:56:00 -0700
+ 19 Apr 2023 12:56:01 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/7] ASoC: Intel: sof_sdw: remove late_probe flag in struct
- sof_sdw_codec_info
-Date: Wed, 19 Apr 2023 14:55:20 -0500
-Message-Id: <20230419195524.46995-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/7] ASoC: Intel: sof_sdw_max98373: change
+ sof_sdw_mx8373_late_probe to static call
+Date: Wed, 19 Apr 2023 14:55:21 -0500
+Message-Id: <20230419195524.46995-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230419195524.46995-1-pierre-louis.bossart@linux.intel.com>
 References: <20230419195524.46995-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 35LKAAPLXR24PXGRIBW3DJNQS32J4U47
-X-Message-ID-Hash: 35LKAAPLXR24PXGRIBW3DJNQS32J4U47
+Message-ID-Hash: 75H7LAZSYJJ3Q6FABIS7ZXHUUXASBSWM
+X-Message-ID-Hash: 75H7LAZSYJJ3Q6FABIS7ZXHUUXASBSWM
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/35LKAAPLXR24PXGRIBW3DJNQS32J4U47/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/75H7LAZSYJJ3Q6FABIS7ZXHUUXASBSWM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,73 +107,72 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Yong Zhi <yong.zhi@intel.com>
 
-Just use codec_card_late_probe ptr in struct sof_sdw_codec_info
-for validation check and drop late_probe variable.
+sof_sdw_mx8373_late_probe is only used in sof_sdw_max98373,
+so it should be static and rename it to 'mx8373_sdw_late_probe'.
 
 Signed-off-by: Yong Zhi <yong.zhi@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c          | 11 +++++------
- sound/soc/intel/boards/sof_sdw_common.h   |  1 -
- sound/soc/intel/boards/sof_sdw_max98373.c |  2 +-
- 3 files changed, 6 insertions(+), 8 deletions(-)
+ sound/soc/intel/boards/sof_sdw_common.h   |  2 --
+ sound/soc/intel/boards/sof_sdw_max98373.c | 22 +++++++++++-----------
+ 2 files changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 6897705a193c..7d398b45d48f 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -621,7 +621,6 @@ static struct sof_sdw_codec_info codec_info_list[] = {
- 		.direction = {true, true},
- 		.dai_name = "max98373-aif1",
- 		.init = sof_sdw_mx8373_init,
--		.codec_card_late_probe = sof_sdw_mx8373_late_probe,
- 		.codec_type = SOF_SDW_CODEC_TYPE_AMP,
- 	},
- 	{
-@@ -1490,12 +1489,12 @@ static int sof_sdw_card_late_probe(struct snd_soc_card *card)
- 	int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(codec_info_list); i++) {
--		if (!codec_info_list[i].late_probe)
--			continue;
-+		if (codec_info_list[i].codec_card_late_probe) {
-+			ret = codec_info_list[i].codec_card_late_probe(card);
- 
--		ret = codec_info_list[i].codec_card_late_probe(card);
--		if (ret < 0)
--			return ret;
-+			if (ret < 0)
-+				return ret;
-+		}
- 	}
- 
- 	if (ctx->idisp_codec)
 diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index 350010b0e5f4..4962dc11a088 100644
+index 4962dc11a088..081ab7eac5b6 100644
 --- a/sound/soc/intel/boards/sof_sdw_common.h
 +++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -74,7 +74,6 @@ struct sof_sdw_codec_info {
- 		     bool playback);
+@@ -158,8 +158,6 @@ int sof_sdw_mx8373_init(struct snd_soc_card *card,
+ 			struct sof_sdw_codec_info *info,
+ 			bool playback);
  
- 	int (*exit)(struct snd_soc_card *card, struct snd_soc_dai_link *dai_link);
--	bool late_probe;
- 	int (*codec_card_late_probe)(struct snd_soc_card *card);
- };
- 
+-int sof_sdw_mx8373_late_probe(struct snd_soc_card *card);
+-
+ /* RT5682 support */
+ int sof_sdw_rt5682_init(struct snd_soc_card *card,
+ 			const struct snd_soc_acpi_link_adr *link,
 diff --git a/sound/soc/intel/boards/sof_sdw_max98373.c b/sound/soc/intel/boards/sof_sdw_max98373.c
-index 77a3f32db11e..22bd1e356e22 100644
+index 22bd1e356e22..3d7df58c0f1d 100644
 --- a/sound/soc/intel/boards/sof_sdw_max98373.c
 +++ b/sound/soc/intel/boards/sof_sdw_max98373.c
-@@ -130,7 +130,7 @@ int sof_sdw_mx8373_init(struct snd_soc_card *card,
+@@ -120,6 +120,16 @@ static const struct snd_soc_ops max_98373_sdw_ops = {
+ 	.shutdown = sdw_shutdown,
+ };
+ 
++static int mx8373_sdw_late_probe(struct snd_soc_card *card)
++{
++	struct snd_soc_dapm_context *dapm = &card->dapm;
++
++	/* Disable Left and Right Spk pin after boot */
++	snd_soc_dapm_disable_pin(dapm, "Left Spk");
++	snd_soc_dapm_disable_pin(dapm, "Right Spk");
++	return snd_soc_dapm_sync(dapm);
++}
++
+ int sof_sdw_mx8373_init(struct snd_soc_card *card,
+ 			const struct snd_soc_acpi_link_adr *link,
+ 			struct snd_soc_dai_link *dai_links,
+@@ -130,19 +140,9 @@ int sof_sdw_mx8373_init(struct snd_soc_card *card,
  	if (info->amp_num == 2)
  		dai_links->init = spk_init;
  
--	info->late_probe = true;
-+	info->codec_card_late_probe = sof_sdw_mx8373_late_probe;
+-	info->codec_card_late_probe = sof_sdw_mx8373_late_probe;
++	info->codec_card_late_probe = mx8373_sdw_late_probe;
  
  	dai_links->ops = &max_98373_sdw_ops;
  
+ 	return 0;
+ }
+-
+-int sof_sdw_mx8373_late_probe(struct snd_soc_card *card)
+-{
+-	struct snd_soc_dapm_context *dapm = &card->dapm;
+-
+-	/* Disable Left and Right Spk pin after boot */
+-	snd_soc_dapm_disable_pin(dapm, "Left Spk");
+-	snd_soc_dapm_disable_pin(dapm, "Right Spk");
+-	return snd_soc_dapm_sync(dapm);
+-}
 -- 
 2.37.2
 

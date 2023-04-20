@@ -2,71 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E912F6E92DF
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:34:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 199536E931C
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:41:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04850EBE;
-	Thu, 20 Apr 2023 13:33:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04850EBE
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA757EC3;
+	Thu, 20 Apr 2023 13:41:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA757EC3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681990475;
-	bh=fC2pcUTfjBac20rHnPO9d9pntiukz4YAK4I5Lxobr7c=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DPQT5h90C/rku4uVWsccjp6J/yYHIBMOERkL+fgg+D4DxHr4E0RgClFi9hM3BdUYy
-	 mHRO1UTwc0s08Pc1o2PWIq6j6mgnlZStbJdL3BCqSXbn2CIrfwrVN3sqid741XDf+g
-	 csE2xP9zru9e4ihexTPvnjJhBilNUo3ZNt6tJEpE=
+	s=default; t=1681990917;
+	bh=kvB1cxNVZXADRg/+xCPYoeN9/6LeMG6G4zPAHYOv79w=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=p+4k7HrRs8eRoZSkjJ4/UE3xfyzovbD0b6vmaoifbYYWtWfUteJ1Vz2wcbgpKphVL
+	 vzndOEFvmD2Id0xjyb3v8kvMcRVVQretW1mvK8BhEDYCqTw2izhnGMoRCZpMLFT5gA
+	 Ed+JC5VBdtThWAigCQkmbKYj8sggxPA5hQ8uckbE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48358F800AC;
-	Thu, 20 Apr 2023 13:33:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34AD1F800AC;
+	Thu, 20 Apr 2023 13:41:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D68CF8019B; Thu, 20 Apr 2023 13:33:38 +0200 (CEST)
+	id B5DD5F80212; Thu, 20 Apr 2023 13:41:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A1942F80149
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:33:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1942F80149
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 9A46924116;
-	Thu, 20 Apr 2023 07:33:24 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1ppSXU-gC4-00; Thu, 20 Apr 2023 13:33:24 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 2/2] ALSA: pcm: auto-fill buffer with silence when draining
- playback
-Date: Thu, 20 Apr 2023 13:33:24 +0200
-Message-Id: <20230420113324.877164-2-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230420113324.877164-1-oswald.buddenhagen@gmx.de>
-References: <20230420113324.877164-1-oswald.buddenhagen@gmx.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id C07C6F800AC
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:40:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C07C6F800AC
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=X0HhGl7a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1681990861; x=1713526861;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kvB1cxNVZXADRg/+xCPYoeN9/6LeMG6G4zPAHYOv79w=;
+  b=X0HhGl7aZq8VEhfEuxvo38BWpg+xF68tkqNiqr1+r92+XbmLsxRixdv3
+   AI5oVFUZKL+t5sXGAoaa6aUEo22IjkSF+6FY2NqMkoLBAHpQ486hbCyO5
+   8SzBE7eqpx24E0NJvi4L1nwJllAUf1cnAU1xnrBV9zV279+u0j8Axe/XK
+   DPPbjIvhlFYVvoB+pW3IVF/55NRyQ+7VsvbiiR9LgUJLH6qGf8zuv6CHM
+   qbrTYDxb4JkFZPoFY69Lk1whQqGynPbzjmvOVrVp/XrjtnNOodAC5Yl6v
+   Cno1P0dOAwXQu2aFL3sdQKSwFG/qVvhJP8YgNju65X4tvJEZ0A611bUc0
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="373606509"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200";
+   d="scan'208";a="373606509"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2023 04:40:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="1021553552"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200";
+   d="scan'208";a="1021553552"
+Received: from draj-mobl1.ger.corp.intel.com (HELO
+ pujfalus-desk.ger.corp.intel.com) ([10.252.32.253])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2023 04:40:54 -0700
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH 0/2] ASoC: SOF: pcm/Intel: Pause-resume improvements for IPC4
+Date: Thu, 20 Apr 2023 14:41:35 +0300
+Message-Id: <20230420114137.27613-1-peter.ujfalusi@linux.intel.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QNAPNILO227IO3XU45VYE6YUGG37WB7E
-X-Message-ID-Hash: QNAPNILO227IO3XU45VYE6YUGG37WB7E
-X-MailFrom: ossi@kde.org
+Message-ID-Hash: N73F5RFLUVMLKDNHLOW3M6YSQDLXOEVO
+X-Message-ID-Hash: N73F5RFLUVMLKDNHLOW3M6YSQDLXOEVO
+X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
+CC: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N73F5RFLUVMLKDNHLOW3M6YSQDLXOEVO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -75,146 +102,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Draining will always playback somewhat beyond the end of the filled
-buffer. This would produce artifacts if the user did not set up the
-auto-silencing machinery, which is an extremely easy mistake to make, as
-the API strongly suggests convenient fire-and-forget semantics. This
-patch makes it work out of the box.
+Hi,
 
-Applying this unconditionally is uncontroversial for RW_ACCESS, as the
-buffer is fully controlled by the kernel in this case, which a) makes
-failure to set up silencing even more likely and b) no detrimental
-effects on user space are possible.
+last minute patch for correct the pasue/resume operation with IPC4.
 
-MMAP_ACCESS is a different matter:
-- It can be argued that the user can be expected to know that the buffer
-  needs to be padded one way or another. I dispute that; of the numerous
-  resources I surveyed, only one mentioned this. Draining is a
-  convenience function also in the mmap case - an application that wants
-  to control things finely would just use start/stop and manage the
-  timing itself.
-- It can be argued that it's a bad thing to overwrite a buffer the user
-  has access to without them explicitly requesting it. While technically
-  true, I think that's only a hypothetical issue - applications can be
-  expected to treat consumed samples as undefined data:
-  - The cases where playing back the same samples would be even useful
-    and practical are extremely limited.
-  - Most user code uses cross-platform/-API abstractions, which makes it
-    even less likely that they would get the idea that it's OK to re-use
-    buffered samples.
+The issues are hardto reproduce and needs extended stress testing to be hit, in
+which case the audio breaks due to DMA errors.
 
-So I think the trade-off between fixing numerous applications and
-potentially breaking some is skewed towards the former to the point that
-it's not even a question.
-
-We do the filling even if the driver supports exact draining
-(SNDRV_PCM_TRIGGER_DRAIN), because a) the cost of filling two periods
-from time to time is negligible, so it's not worth complicating the code
-and b) so the behavior is consistent between drivers, so hypothetical
-problems with the mmap case would be easier to reproduce.
-
-It would be possible to add an opt-in API to the kernel and leave
-actually enabling it to alsa-lib. However, this would add significant
-overall complexity, for no obvious gain.
-
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-
+Regards,
+Peter
 ---
-v2:
-- fill only up to two periods, to avoid undue load with big buffers
-- added discussion to commit message
----
- sound/core/pcm_lib.c    | 47 +++++++++++++++++++++++++----------------
- sound/core/pcm_native.c |  3 ++-
- 2 files changed, 31 insertions(+), 19 deletions(-)
+Ranjani Sridharan (2):
+  ASoC: SOF: Intel: hda: Do not stop/start DMA during pause/release
+  ASoC: SOF: pcm: Add an option to skip platform trigger during stop
 
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 5bb2129cceac..b8940ceeaedb 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -61,24 +61,35 @@ void snd_pcm_playback_silence(struct snd_pcm_substream *substream)
- 		runtime->silence_start = appl_ptr;
- 	}
- 
--	// This will "legitimately" turn negative on underrun, and will be mangled
--	// into a huge number by the boundary crossing handling. The initial state
--	// might also be not quite sane. The code below MUST account for these cases.
--	hw_avail = appl_ptr - runtime->status->hw_ptr;
--	if (hw_avail < 0)
--		hw_avail += runtime->boundary;
-+	if (runtime->state == SNDRV_PCM_STATE_DRAINING) {
-+		// We actually need only the next period boundary plus the FIFO size
-+		// plus some slack for IRQ delays, but it's not worth calculating that.
-+		frames = runtime->period_size * 2 - runtime->silence_filled;
-+		if (frames <= 0)
-+			return;
-+		// Impossible, unless the buffer has only one period.
-+		if (frames > runtime->buffer_size)
-+			frames = runtime->buffer_size;
-+	} else  {
-+		// This will "legitimately" turn negative on underrun, and will be mangled
-+		// into a huge number by the boundary crossing handling. The initial state
-+		// might also be not quite sane. The code below MUST account for these cases.
-+		hw_avail = appl_ptr - runtime->status->hw_ptr;
-+		if (hw_avail < 0)
-+			hw_avail += runtime->boundary;
- 
--	noise_dist = hw_avail + runtime->silence_filled;
--	if (runtime->silence_size < runtime->boundary) {
--		frames = runtime->silence_threshold - noise_dist;
--		if (frames <= 0)
--			return;
--		if (frames > runtime->silence_size)
--			frames = runtime->silence_size;
--	} else {
--		frames = runtime->buffer_size - noise_dist;
--		if (frames <= 0)
--			return;
-+		noise_dist = hw_avail + runtime->silence_filled;
-+		if (runtime->silence_size < runtime->boundary) {
-+			frames = runtime->silence_threshold - noise_dist;
-+			if (frames <= 0)
-+				return;
-+			if (frames > runtime->silence_size)
-+				frames = runtime->silence_size;
-+		} else {
-+			frames = runtime->buffer_size - noise_dist;
-+			if (frames <= 0)
-+				return;
-+		}
- 	}
- 
- 	if (snd_BUG_ON(frames > runtime->buffer_size))
-@@ -443,7 +454,7 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
- 	}
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
--	    runtime->silence_size > 0)
-+	    (runtime->silence_size > 0 || runtime->state == SNDRV_PCM_STATE_DRAINING))
- 		snd_pcm_playback_silence(substream);
- 
- 	update_audio_tstamp(substream, &curr_tstamp, &audio_tstamp);
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 0e3e7997dc58..6ecb6a733606 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -1454,7 +1454,7 @@ static void snd_pcm_post_start(struct snd_pcm_substream *substream,
- 							    runtime->rate;
- 	__snd_pcm_set_state(runtime, state);
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
--	    runtime->silence_size > 0)
-+	    (runtime->silence_size > 0 || state == SNDRV_PCM_STATE_DRAINING))
- 		snd_pcm_playback_silence(substream);
- 	snd_pcm_timer_notify(substream, SNDRV_TIMER_EVENT_MSTART);
- }
-@@ -2045,6 +2045,7 @@ static int snd_pcm_do_drain_init(struct snd_pcm_substream *substream,
- 			break;
- 		case SNDRV_PCM_STATE_RUNNING:
- 			__snd_pcm_set_state(runtime, SNDRV_PCM_STATE_DRAINING);
-+			snd_pcm_playback_silence(substream);
- 			break;
- 		case SNDRV_PCM_STATE_XRUN:
- 			__snd_pcm_set_state(runtime, SNDRV_PCM_STATE_SETUP);
+ sound/soc/sof/intel/hda-stream.c | 11 ++++++++++-
+ sound/soc/sof/ipc4-pcm.c         |  3 ++-
+ sound/soc/sof/pcm.c              | 23 +++++++++++++++--------
+ sound/soc/sof/sof-audio.c        | 22 ++++++++++++++--------
+ sound/soc/sof/sof-audio.h        |  6 ++++++
+ 5 files changed, 47 insertions(+), 18 deletions(-)
+
 -- 
-2.40.0.152.g15d061e6df
+2.40.0
 

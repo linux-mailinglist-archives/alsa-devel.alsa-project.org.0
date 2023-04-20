@@ -2,113 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34D616E951D
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 14:55:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ADF66E953F
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 15:01:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AEB2EC9;
-	Thu, 20 Apr 2023 14:54:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AEB2EC9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6902BEC2;
+	Thu, 20 Apr 2023 15:00:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6902BEC2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681995320;
-	bh=fHa1tNpr67Bn7zA+BMVPgFZVZpYZCKEYkm+qEGf8yX0=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1681995677;
+	bh=CbmhJ3ZmVyg2k2Wza3FXUHP83EnEg08C0pPRDzyTo5c=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VCzGBsBIDCzFzpd99dYQvmRIpq0slw+vphrmd47Afk18j7l9CblZzpxFTSoYeoczp
-	 MC58BOazrv3YwjDA4iC8jPZOrVVAt/ydz8fUnLSU4NgKG1dlBo9RFx+6dYbyrG5FaB
-	 QWQFd/bAoLwB8o0fl0J+e4tQiaR0zAqR+oacPRZI=
+	b=kGpPqtgZvHPVNpSd80yh7y69V0N3ynIjmrnfGzLnukjos8wd5jCJ6bCuqKMtjwFhk
+	 xkX7pAad6qAKYkrygriYyphe0s8xjX0oowR4/Bzj59oKkU6I2Cla47MCrXFdgvCQZj
+	 z+esvlrfDAF8UOHzHXX/zuxWf4HQnhsfl55A+KsE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2017F80149;
-	Thu, 20 Apr 2023 14:54:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C989DF80149;
+	Thu, 20 Apr 2023 15:00:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 346B8F80155; Thu, 20 Apr 2023 14:54:26 +0200 (CEST)
+	id 615B8F80155; Thu, 20 Apr 2023 15:00:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1C129F800F8
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 14:54:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C129F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id BB679F800F8
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 15:00:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB679F800F8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=qUJR1Gpw;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=f0caSjFs
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bAnJ6mgo
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A8470219BC;
-	Thu, 20 Apr 2023 12:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1681995259;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c/nYEKMkip4wPKXa+7ERNGgpmrR3nTG514VMjPOwfq0=;
-	b=qUJR1Gpwi0cpA7XhpNMKfEzovae9dBY5BKVASy8a58FYQgiU+ZymlT5SI+mqGUYkC8CA/z
-	NAsDeSR6aoCIBsldmBO0AoNPq/picYvqQguchMeF+x75Sy/HmhrvUR5KPz9PAzfLsv2sOC
-	CX9BIAmFlVhtH26ZhIKABTIGh9dFwQg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1681995259;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c/nYEKMkip4wPKXa+7ERNGgpmrR3nTG514VMjPOwfq0=;
-	b=f0caSjFs8X8/Lw1HOwc54MYajduIgHRWLo0HX80APSnTZUS9ygVcgqJ8UCm5O6Xf9OlWfW
-	5ETlamhJBrV5ImAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 896CB1333C;
-	Thu, 20 Apr 2023 12:54:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id Il+lIPs1QWR5CQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 20 Apr 2023 12:54:19 +0000
-Date: Thu, 20 Apr 2023 14:54:19 +0200
-Message-ID: <87wn26u32c.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [RFC PATCH] docs: sound: kernel-api: writing-an-alsa-driver.rst:
- add FIXMEs
-In-Reply-To: <ZEE0T+jx5i59oV37@ugly>
-References: <20230405201220.2197878-1-oswald.buddenhagen@gmx.de>
-	<87sfddv7e4.wl-tiwai@suse.de>
-	<ZEE0T+jx5i59oV37@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 3WCTII72MTJAMW3MHJMK2TLDRODR7VYQ
-X-Message-ID-Hash: 3WCTII72MTJAMW3MHJMK2TLDRODR7VYQ
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id A6EEB612A8;
+	Thu, 20 Apr 2023 13:00:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A9DC433D2;
+	Thu, 20 Apr 2023 13:00:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1681995618;
+	bh=CbmhJ3ZmVyg2k2Wza3FXUHP83EnEg08C0pPRDzyTo5c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bAnJ6mgoMDNZ3IS69NorlaK/rufDvakTN1i7fT5q559Ukqs3hl+WiRBur3cF6T74O
+	 vISmrHH9rSPS9BEUt4DjfjA7n5Tc9obUVfJwQUucBA4Sez3TpKs3WufBtpROiWwolb
+	 Wto99A1LUUgOYiD20XqGjDWc4x7pg9sSk4rGLgXTdU/ag41t8hZhVi2KbPwyqhGz8l
+	 KWh4IymK+Ug9WONtMrPTMp5Hc2nuXiBc5R64rLKp/UA+znk5ZhjfIKhhxDmfAqTXXO
+	 WjQ2cSueIwsrPTHlsNfV7QXo260JSHc8OHjA4OFSbw7Feh/cl9GytBQNYH8d00jO41
+	 fvau9+erQLAgQ==
+Date: Thu, 20 Apr 2023 14:00:06 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 1/6] ASoC: wcd938x: switch to using gpiod API
+Message-ID: <d746ee5f-283d-44ce-b72c-18c8955d38b1@sirena.org.uk>
+References: <20230420101617.142225-1-krzysztof.kozlowski@linaro.org>
+ <20230420101617.142225-2-krzysztof.kozlowski@linaro.org>
+ <6b355201-a957-4fca-a513-d5fa0742fb40@sirena.org.uk>
+ <fe6202ee-2552-8b5c-c2d5-f2f7042b901d@linaro.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PfnKUriuZ2R4YLEv"
+Content-Disposition: inline
+In-Reply-To: <fe6202ee-2552-8b5c-c2d5-f2f7042b901d@linaro.org>
+X-Cookie: Above all else -- sky.
+Message-ID-Hash: ZAEW7RBOZXTGKFLNKDHQFIJ3DOZPVTW4
+X-Message-ID-Hash: ZAEW7RBOZXTGKFLNKDHQFIJ3DOZPVTW4
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3WCTII72MTJAMW3MHJMK2TLDRODR7VYQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZAEW7RBOZXTGKFLNKDHQFIJ3DOZPVTW4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,37 +105,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 20 Apr 2023 14:47:11 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Thu, Apr 06, 2023 at 08:42:27AM +0200, Takashi Iwai wrote:
-> > On Wed, 05 Apr 2023 22:12:20 +0200, Oswald Buddenhagen wrote:
-> >>  The ``name`` is the name identifier string. Since ALSA 0.9.x, the
-> >>  control name is very important, because its role is classified from
-> >>  its name. There are pre-defined standard control names. The details
-> >>  are described in the `Control Names`_ subsection.
-> >> +// This is a questionable design, IMO. Why user-space heuristics when
-> >> +// the driver could set the roles/capabilities? This would avoid
-> >> +// problems like the Tone Control sliders (unlike the switch?!) being
-> >> +// misclassified as applying also to capture.
-> > 
-> > Why this has to be discussed here and now...?
-> > 
-> why not?
 
-Because it is the already defined rule, and you're complaining the
-documentation.  You are free to start a new discussion, but not it
-shouldn't be along with the documentation patch at all.
+--PfnKUriuZ2R4YLEv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> > It's the thing that was *defined* over two decades ago.
-> > 
-> that may be so, but this doesn't explain anything.
-> it's a somewhat surprising choice, and it does in fact sometimes cause
-> problems. so at least it should be thoroughly explained.
+On Thu, Apr 20, 2023 at 02:30:17PM +0200, Krzysztof Kozlowski wrote:
+> On 20/04/2023 13:58, Mark Brown wrote:
+> > On Thu, Apr 20, 2023 at 12:16:12PM +0200, Krzysztof Kozlowski wrote:
 
-Again, you're barking at a wrong place.  The whole control name ruling
-is explained in another document; there is another document covering
-control name rules.
+> >> -	gpio_direction_output(wcd938x->reset_gpio, 0);
+> >> -	/* 20us sleep required after pulling the reset gpio to LOW */
+> >> +	gpiod_set_value_cansleep(wcd938x->reset_gpio, 1);
+> >> +	/* 20us sleep required after asserting the reset gpio */
 
+> > This is inverting the sense of the GPIO in the API from active low to
+> > active high which will mean we're introducing a new reliance on having
+> > the signal described as active low in DT.  That's an ABI concern.
 
-Takashi
+> It's bringing it to the correct level. Old code was not respecting the
+> DTS thus if such DTS came with inverted design, the driver would not work.
+
+Sure, but OTOH if the user didn't bother specifying as active low it
+would work.  I suspect it's more likely that someone missed a flag that
+had no practical impact in DT than that someone would add an inverter to
+their design.
+
+> We were already fixing the upstream DTS users and I thought all of them
+> are fixed since long time (half a year) or even correct from the
+> beginning. Now I found one more case with incorrect level, which I will fix.
+
+That's just upstream, what about any downstream users?
+
+> > I remain deeply unconvinced that remapping active low outputs like this
+> > in the GPIO API is helping.
+
+> The code is mapping them to correct state. The previous state was
+> incorrect and did not allow to handle active high (which can happen).
+> This is the effort to make code correct - driver and DTS.
+
+We could handle inversions through an explicit property if that were
+needed, that would be a less problematic transition and clearer in the
+consumer code.
+
+--PfnKUriuZ2R4YLEv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRBN1UACgkQJNaLcl1U
+h9ARLgf8DLC7sm26xjBonZJsiIb04p8lxnLkqb2sEIpOo1F5Wjc4SP5X97YAICDM
+E/UU3m0cvSWhzwHCy6JhM8IeudyRAOdzUeg5mfDt6QSE/bhynllmcgA5lid8/3IQ
+SPdchu68hQL8tsFn0QCtSapGBDfpHJ2Np0URhl/Ej4k/1Iij4uWIC9BNNg+oyGt5
+Cj6wcxugplyc3Mjnb/qW263HNA6cDNXUl6zxNBkPckbdFhuTQGazigpv+sdA7ZFc
+i4quuojHDlbkABb8Cs2oT/rYFH5hBLRVaa+2hwHWX0hLKPmzZSeqkMz7Xq9/2R4k
+VXlD4DkgX5ctElHSCn/c3mVLzvaa+Q==
+=ksk9
+-----END PGP SIGNATURE-----
+
+--PfnKUriuZ2R4YLEv--

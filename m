@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CACE46E8FE5
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 12:18:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47CE36E8FE6
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 12:18:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC612ED0;
-	Thu, 20 Apr 2023 12:17:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC612ED0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B48A1EE9;
+	Thu, 20 Apr 2023 12:17:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B48A1EE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681985899;
-	bh=hG7tW9YFcXEIJSmnkwqj7hx5DHRCpiFJW+qZg1g8oFE=;
+	s=default; t=1681985900;
+	bh=PUtIcUv4LpxNF7zx+8orlZy9Ak37MkcNokLi6jIVOf8=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ABX/v6LYpYmfUPXrHKwsCfn3s6OfYKyhjZ+kKCr0GOBPYabg0eT7xvSPblpgUCo01
-	 nSaoW1gDNmvpQGmQand6hOAaBfMQBgswZVxAmfDABibTIRWi0aDOva7y89jDgWVGVp
-	 tuIB3JiFKz/npqTHzH0QJ1bicusS83D8eUdVQTK0=
+	b=gz1qMU85/uDNdfWRI00be8pQNfeYzhK1MeHoCM7eQNQs/FFp/rL/5CSnV8o648UWF
+	 kxtnPbUdlicV2lT4PZnb2yFQWX4KDGj0j7jyjXfjMCTUtF0LnFHrww3YLw/B12YJtU
+	 7D8syNYTigVAL/YZ4sObeKSNoAqQMa49G2PxxL6w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00005F8052D;
-	Thu, 20 Apr 2023 12:16:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8332BF8053B;
+	Thu, 20 Apr 2023 12:16:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7048F80510; Thu, 20 Apr 2023 12:16:35 +0200 (CEST)
+	id 1FDC8F8052E; Thu, 20 Apr 2023 12:16:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [IPv6:2a00:1450:4864:20::635])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0678AF80155
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 12:16:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0678AF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id DD53EF8019B
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 12:16:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD53EF8019B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=AmBkVOgl
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-94f32588c13so50307166b.2
+ header.s=google header.b=ZY7V2Fz3
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-9505214c47fso62292566b.1
         for <alsa-devel@alsa-project.org>;
- Thu, 20 Apr 2023 03:16:26 -0700 (PDT)
+ Thu, 20 Apr 2023 03:16:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1681985785; x=1684577785;
+        d=linaro.org; s=google; t=1681985787; x=1684577787;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lJ7NFOY+m136Tpa7a3Lvd2KVX0E55mkuZub+f9mfMPg=;
-        b=AmBkVOglK6tDRnpf5e1CjE9fZ783z5mKL+8fZ2ZovSKfIEaRbZG2hMsl/KZYx0GutP
-         I4eilLey7aFQzEn7ekVDO8KmseLtE5PTAZDRLwn2BMgyGrZC7FEDBt/Dp4xCbjrM4nMX
-         PExtibBF1phO8lOFATg7A1Vtim0z+UT6NDLufqy2uoALruXfdu+d+TPVALxWzqlWUzA6
-         T+GyHuG0AT4R7Gz3SSQotOWrU+a4WRBC/uMDUwxK18phb9KmLz2WNzbTxwMlB5A5NfNH
-         Ets4NSbdZxAlxiComw5hFcoxnnqZUExblUbtNFza39VeKttRMXgdMGu3NppRYjhA4g+x
-         /fyA==
+        bh=Lh0gzMHKjXIEM7BMaBHJPBXLjPSxY0yCOjmfp2sB3bs=;
+        b=ZY7V2Fz3NbWwq9aEj2mVn5PnKntw3UCQb4JlfiHhYV0ddMHpN+M8YLIYbeYsE+Ffsj
+         HAguHowzIfVychuICmyTnPXqrCiMPohkRBiwJ5gFErVFL2Xe0YgYfZ2mlihhIgNvguNc
+         WJSMsNFB4dEITw8ED4WVadG5Cg82WotrYQZV/esEjZnrq6uR8DvqTnNdmacy7mSZlxCQ
+         dRkhmaqjCEYdd+QWFyqkEGUu1o9bCaNIUC0WDAMjx/nnqTAN2Q4k+sRXaFL1FpwbKdMl
+         TEgTNFQY/B73e3xmmRB2a+UxETkMTtLGmrlFCrgs70IhUoPQd7MKs9vDEzegWoAtzQjv
+         ynxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681985785; x=1684577785;
+        d=1e100.net; s=20221208; t=1681985787; x=1684577787;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=lJ7NFOY+m136Tpa7a3Lvd2KVX0E55mkuZub+f9mfMPg=;
-        b=QuHWD70CyLBu7Pzul5cyCaArFTtGn4eSKlT8qBjEXTEprb7NGCFsaHAbjVTvyj9bmy
-         RBUQWX7VxhjByrybL5z8nxhKNfDOUWM0WmApNgFs3JZLrI3M6YDym8hPdqG7FTE+6mKc
-         xHbR5/2Gv+pEpuAYju63XXj6q0U1DYyTBB/Y0W9hieHvjILNdp25FD98mSU4iVzVYm9A
-         9jie8DkD90mt0jjZMPDsFC6g6ngQ8/TCKhroFYsYDqHBkCO8VzchsYy0xR3PjhStPO2u
-         GcyZXmNpvdVzt9KgYS5EFMySP7bMgCVnJIvzKcTLem8CmHR46o7prBflh40fjU3p4cmW
-         qV/g==
-X-Gm-Message-State: AAQBX9dJIfpQ8kxeviLgN9GWin2iu247MFCJHF4gNNgfpV7LKSw0VLTV
-	aZQigTdNsZk7L10qCSXZN6nhzQ==
+        bh=Lh0gzMHKjXIEM7BMaBHJPBXLjPSxY0yCOjmfp2sB3bs=;
+        b=JSb3/TekIltrcVYsp2n2jBuRf9cciPiYoUI9Cax/O6I+vzAbK/WQDSQVPzTgCsDycI
+         mZEFhL5dVbg4sV5F8hn0pudC6IVK9vzVx//eTWCM6Kum1SBOCTbg1+Pa5l8Yfngbt+Nw
+         qDUxv6PtURsKjQ9zrLCvTw/UQMwtcRkI7zFvx9XhAlYvFs+ZGr3yqZ3pwGOVtNBEDTDp
+         bLypkthgvmQv7MEjfU44UeljL+dBB+jMzBh+x8MUcIqlLOxQo58e0eCd0tr77EC27O/9
+         r9TJRzjnTiIdu2evuitQwzpNegZRGmdW3DTpWzTqW30qKleTpOIYLkXL1fqMhpX5g98M
+         qErw==
+X-Gm-Message-State: AAQBX9eXlANs6RBdwWZW+OHHjgSPGUcuP31WgQYAdTpb98dpNmloegR6
+	XPsukS/M8TvKVcdnoV8ne1ADLg==
 X-Google-Smtp-Source: 
- AKy350a9gCInOAQuMSUpXUGkll+ReqZrf7KjiUJPh73j3eJ9QX2mTKFQOiDbJcquHEnVTHtJWjfuwQ==
-X-Received: by 2002:a05:6402:1616:b0:504:9c59:7b8f with SMTP id
- f22-20020a056402161600b005049c597b8fmr1251270edv.36.1681985785537;
-        Thu, 20 Apr 2023 03:16:25 -0700 (PDT)
+ AKy350arZDGHMInHp8GuNY+Ano5ThS/SGyaLKa8v0e+z5Ka6cwm3FR2IPMhl6ymmgxoP66sw2zHKgg==
+X-Received: by 2002:aa7:d547:0:b0:506:98e8:7e58 with SMTP id
+ u7-20020aa7d547000000b0050698e87e58mr999102edr.34.1681985786794;
+        Thu, 20 Apr 2023 03:16:26 -0700 (PDT)
 Received: from krzk-bin.. ([2a02:810d:15c0:828:bcb8:77e6:8f45:4771])
         by smtp.gmail.com with ESMTPSA id
- l22-20020aa7c3d6000000b00506be898998sm588954edr.29.2023.04.20.03.16.24
+ l22-20020aa7c3d6000000b00506be898998sm588954edr.29.2023.04.20.03.16.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Apr 2023 03:16:25 -0700 (PDT)
+        Thu, 20 Apr 2023 03:16:26 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Vinod Koul <vkoul@kernel.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
@@ -98,16 +98,17 @@ To: Vinod Koul <vkoul@kernel.org>,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH 2/6] ASoC: codecs: wcd938x: Keep device in reset till bind
-Date: Thu, 20 Apr 2023 12:16:13 +0200
-Message-Id: <20230420101617.142225-3-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 3/6] ASoC: codecs: wcd938x: Check for enumeration before using
+ TX device
+Date: Thu, 20 Apr 2023 12:16:14 +0200
+Message-Id: <20230420101617.142225-4-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230420101617.142225-1-krzysztof.kozlowski@linaro.org>
 References: <20230420101617.142225-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PLNEJ3TQSNKFUNWNSO72VBOAIVMURPXU
-X-Message-ID-Hash: PLNEJ3TQSNKFUNWNSO72VBOAIVMURPXU
+Message-ID-Hash: XEEQ6263NVAM4USHK6E73HZZKJPRYHCL
+X-Message-ID-Hash: XEEQ6263NVAM4USHK6E73HZZKJPRYHCL
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PLNEJ3TQSNKFUNWNSO72VBOAIVMURPXU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XEEQ6263NVAM4USHK6E73HZZKJPRYHCL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,57 +132,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Soundwire master expects that bus devices will be kept in reset
-state and brought out of it in their Soundwire probe() or bind().
-Keeping it in reset state avoids early new Soundwire device interrupts
-in the master.  Fix this in WCD938x platform driver by moving the reset
-toggle code from platform probe() to component bind().
+Qualcomm WCD938x Soundwire codecs come as two Soundwire devices - TX
+and RX - on two Soundwire buses.  In DTS they are represented as three
+device nodes: Soundwire TX, Soundwire RX and the platform codec node
+(binding to this driver).
+
+Probing (and Soundwire enumeration) of all devices can happen in any
+order, but only the Soundwire TX WCD938x device is used for accessing
+actual WCD938x registers.  It is possible that component bind() in the
+platform driver will be called too early, before the Soundwire TX device
+is fully enumerated.  This might work or might not, but we cannot handle
+it correctly from the codec driver.  It's job for Soundwire master to
+bring up devices in correct order.  At least add some simple warning, so
+such condition will not be undetected.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 ---
 
-I wasn't sure whether this deserves a Fixes tag. It looks like a fix,
-but OTOH, I don't think Soundwire master expectation is documented
-anywhere.
-
 Cc: Patrick Lai <quic_plai@quicinc.com>
 ---
- sound/soc/codecs/wcd938x.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/soc/codecs/wcd938x.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
-index 33fd8fdde9fd..212667a7249c 100644
+index 212667a7249c..e8e07e120fa1 100644
 --- a/sound/soc/codecs/wcd938x.c
 +++ b/sound/soc/codecs/wcd938x.c
-@@ -4236,7 +4236,8 @@ static int wcd938x_populate_dt_data(struct wcd938x_priv *wcd938x, struct device
- 	struct wcd_mbhc_config *cfg = &wcd938x->mbhc_cfg;
- 	int ret;
+@@ -77,6 +77,8 @@
+ #define WCD938X_MBHC_MOISTURE_RREF      R_24_KOHM
+ #define WCD_MBHC_HS_V_MAX           1600
  
--	wcd938x->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_ASIS);
-+	/* Keep device in reset status till wcd938x_bind() */
-+	wcd938x->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
- 	ret = PTR_ERR_OR_ZERO(wcd938x->reset_gpio);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get reset gpio\n");
-@@ -4407,6 +4408,8 @@ static int wcd938x_bind(struct device *dev)
- 		return -EINVAL;
- 	}
- 
-+	wcd938x_reset(wcd938x);
++#define WCD938X_ENUM_TIMEOUT_MS		500
 +
- 	wcd938x->regmap = devm_regmap_init_sdw(wcd938x->tx_sdw_dev, &wcd938x_regmap_config);
- 	if (IS_ERR(wcd938x->regmap)) {
- 		dev_err(dev, "%s: tx csr regmap not found\n", __func__);
-@@ -4508,8 +4511,6 @@ static int wcd938x_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
+ #define WCD938X_EAR_PA_GAIN_TLV(xname, reg, shift, max, invert, tlv_array) \
+ {	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = xname, \
+ 	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
+@@ -4425,6 +4427,15 @@ static int wcd938x_bind(struct device *dev)
+ 	wcd938x->sdw_priv[AIF1_PB]->slave_irq = wcd938x->virq;
+ 	wcd938x->sdw_priv[AIF1_CAP]->slave_irq = wcd938x->virq;
  
--	wcd938x_reset(wcd938x);
--
- 	ret = component_master_add_with_match(dev, &wcd938x_comp_ops, match);
- 	if (ret)
- 		return ret;
++	/*
++	 * Before any TX slave regmap usage, be sure the TX slave is actually
++	 * enumerated.
++	 */
++	ret = wait_for_completion_timeout(&wcd938x->tx_sdw_dev->enumeration_complete,
++					  msecs_to_jiffies(WCD938X_ENUM_TIMEOUT_MS));
++	if (!ret)
++		dev_warn(dev, "Enumeration timeout in bind, possible failures in accessing registers\n");
++
+ 	ret = wcd938x_set_micbias_data(wcd938x);
+ 	if (ret < 0) {
+ 		dev_err(dev, "%s: bad micbias pdata\n", __func__);
 -- 
 2.34.1
 

@@ -2,115 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 328B96E9709
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 16:28:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D15F6E971E
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 16:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05F4EE99;
-	Thu, 20 Apr 2023 16:27:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05F4EE99
+	by alsa0.perex.cz (Postfix) with ESMTPS id E47B6EB7;
+	Thu, 20 Apr 2023 16:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E47B6EB7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682000915;
-	bh=3QOLUJB5tld9SqT9wFvg7zDbhmI49/rj1VarRdgDMmc=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1682001100;
+	bh=I4cEvv+GEdKfbFZhbGFcR+MrvoiSBuicUviURQnyCxw=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VHSc5YGM/YrQM11SkzpJIwaWilr6xDs8vyM5cxywNgupHtiLMjK+v9aunS2fHDVXc
-	 XEf/0xFW8G9IpYs6elnWaRFmwFXnuUQlbF+DTDMQbwqmNqQtC8UMTgs61hItAaAv1w
-	 XfGmY2AehtT4yS7CASg+mmnMVFl4ck4oA4ylduQ0=
+	b=N7+2E1OY9JkCCXU30BNUDo7aZMKQsX+OtEHPSU9jYmY/P/tH9uZqT4slr1Gd2/wU+
+	 lH30P1Ir/wypi0e1kEc5tXh1errSvU4CvfkcS16xRPuG5w2mw9+xLzq9jfvzBGcyf9
+	 SIJZEk4YLUFAzUiemgEAK8/MBHLWg1VQrIKDBDkQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 635E4F80149;
-	Thu, 20 Apr 2023 16:27:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23DDAF80149;
+	Thu, 20 Apr 2023 16:30:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD7AEF80155; Thu, 20 Apr 2023 16:27:40 +0200 (CEST)
+	id 20263F80155; Thu, 20 Apr 2023 16:30:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9CA07F800F8
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 16:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CA07F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1B3BF800F8
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 16:30:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1B3BF800F8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=TBmIM9bC;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=os0Kv0Ln
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=sWfvXyFj
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1A6471FDB3;
-	Thu, 20 Apr 2023 14:27:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1682000856;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e5NC2zzcdmpwlRy7BZWyF3HkwJ13f3gTw/lOY44WV2w=;
-	b=TBmIM9bCvg3sLxmyeSHO/QXiMzA1azj352Z15UE01Z43+BiJsejjbXoD6n5seRfU5luDcZ
-	80mERfFttqWrMRNA/P2kcyx7ELfowJ0eNzAUOZGo/PrPwwtHCXQ8sTBO03U1r9hbbnLzr8
-	y7evWl4bTJHR841Gnl3i6RxPPJZX8SY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682000856;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e5NC2zzcdmpwlRy7BZWyF3HkwJ13f3gTw/lOY44WV2w=;
-	b=os0Kv0LnSAQ/RYoz3qf6AmAzjytYTREPAVmD46T2YfH8Kvmq9853d8JNCwwcTliDroIewg
-	MfvmdToh2YzVSBBA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EBC111333C;
-	Thu, 20 Apr 2023 14:27:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id zUFhONdLQWRuOwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 20 Apr 2023 14:27:35 +0000
-Date: Thu, 20 Apr 2023 16:27:35 +0200
-Message-ID: <87leimtyqw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [RFC PATCH] docs: sound: kernel-api: writing-an-alsa-driver.rst:
- add FIXMEs
-In-Reply-To: <ZEFB0r20odpxH6pR@ugly>
-References: <20230405201220.2197878-1-oswald.buddenhagen@gmx.de>
-	<87sfddv7e4.wl-tiwai@suse.de>
-	<ZEE0T+jx5i59oV37@ugly>
-	<87wn26u32c.wl-tiwai@suse.de>
-	<ZEFB0r20odpxH6pR@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: R2PZ7TZE4KRSOQ4F2Y3E4W5IDWXQXXP5
-X-Message-ID-Hash: R2PZ7TZE4KRSOQ4F2Y3E4W5IDWXQXXP5
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8DA1F6152D;
+	Thu, 20 Apr 2023 14:30:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB43C433D2;
+	Thu, 20 Apr 2023 14:30:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1682001034;
+	bh=I4cEvv+GEdKfbFZhbGFcR+MrvoiSBuicUviURQnyCxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sWfvXyFjP1McpPH6RJDeQFET1qGveIMfqOOQgly3qSPIKcw6HTD8Wtz7LenrL4Mq7
+	 lnxGO4Be2FI+4gRhv4q+SrvpuB5U2Wtw1PHPxQJ3LAu8ufHf89D93xUU12kbI2pVNb
+	 GeIpiv7ToI2j8GUqURu6JLFLYGLiYdEk3Z7rCul0Z3TdD9TgBk5jX72vnz6s/bF1BX
+	 C7D9HoWqeK29fOURGKWHryym+sOHwQJW49pe36XkgS+yYkCXZaNNCAy05k+8EwERqv
+	 w8vrZxTL9ANbBRvzn8iryNXnEzk9MBvgdGWJhx3F7FOeRku9SxuLkq3Fkd+WWS6mXD
+	 g528GhxhTGSJA==
+Date: Thu, 20 Apr 2023 15:30:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Walker Chen <walker.chen@starfivetech.com>
+Subject: Re: [PATCH v2 3/4] ASoC: starfive: Add JH7110 TDM driver
+Message-ID: <27e57746-d05b-4983-a631-29306851a478@sirena.org.uk>
+References: <20230420024118.22677-1-walker.chen@starfivetech.com>
+ <20230420024118.22677-4-walker.chen@starfivetech.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NI6GNQYuRDrkmma6"
+Content-Disposition: inline
+In-Reply-To: <20230420024118.22677-4-walker.chen@starfivetech.com>
+X-Cookie: Above all else -- sky.
+Message-ID-Hash: WLSRTXBDE46BAQOAWCBD5TEBW6KG2NXK
+X-Message-ID-Hash: WLSRTXBDE46BAQOAWCBD5TEBW6KG2NXK
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R2PZ7TZE4KRSOQ4F2Y3E4W5IDWXQXXP5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WLSRTXBDE46BAQOAWCBD5TEBW6KG2NXK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,66 +101,180 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 20 Apr 2023 15:44:50 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Thu, Apr 20, 2023 at 02:54:19PM +0200, Takashi Iwai wrote:
-> > On Thu, 20 Apr 2023 14:47:11 +0200, Oswald Buddenhagen wrote:
-> >> On Thu, Apr 06, 2023 at 08:42:27AM +0200, Takashi Iwai wrote:
-> >> > On Wed, 05 Apr 2023 22:12:20 +0200, Oswald Buddenhagen wrote:
-> >> >>  The ``name`` is the name identifier string. Since ALSA 0.9.x, the
-> >> >>  control name is very important, because its role is classified from
-> >> >>  its name.
-> >> >> +// This is a questionable design, IMO. Why user-space heuristics when
-> >> >> +// the driver could set the roles/capabilities? This would avoid
-> >> >> +// problems like the Tone Control sliders (unlike the switch?!) being
-> >> >> +// misclassified as applying also to capture.
-> >> > > Why this has to be discussed here and now...?
-> >> > why not?
-> > 
-> > Because it is the already defined rule, and you're complaining the
-> > documentation.  You are free to start a new discussion, but not it
-> > shouldn't be along with the documentation patch at all.
-> > 
-> this is a "various questions about the documentation" patch/thread. i
-> can't think of a better place to discuss/document design choices.
 
-But why this has to be buried in the middle of a patch containing lots
-of other changes...?  Better to split out and start a new thread.
+--NI6GNQYuRDrkmma6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> 
-> >> > It's the thing that was *defined* over two decades ago.
-> >> > that may be so, but this doesn't explain anything.
-> >> it's a somewhat surprising choice, and it does in fact sometimes cause
-> >> problems. so at least it should be thoroughly explained.
-> > 
-> > Again, you're barking at a wrong place.  The whole control name ruling
-> > is explained in another document; there is another document covering
-> > control name rules.
-> > 
-> there is the control-names.rst document.
-> if you agree, i'd actually move the entire "Control Names" section
-> into it, to avoid redundancy.
+On Thu, Apr 20, 2023 at 10:41:17AM +0800, Walker Chen wrote:
+> Add tdm driver support for the StarFive JH7110 SoC.
 
-I don't mind too much, but holding a brief description is always nice,
-better than just mentioning another reference.  You can refer to the
-other document for details, of course, though.
+This is mostly fine, though the code all feels a bit messy somehow.
+A lot of this is just coding style, I've highlighted a bunch of things
+below.  There's also a couple of more substantial issues.
 
-> but none of that explains the design choice.
+> @@ -0,0 +1,579 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * TDM driver for the StarFive JH7110 SoC
+> + *
+> + * Copyright (C) 2023 StarFive Technology Co., Ltd.
 
-The design choice was a looooong history, ca 25 years ago.
+Please make the entire comment a C++ one so things look more
+intentional.
 
-> two questions require an answer, imo: a) why was is done this way and
-> b) do you still consider it the right choice?
+> +static int jh7110_tdm_syncdiv(struct jh7110_tdm_dev *tdm)
+> +{
+> +	u32 sl, sscale, syncdiv;
+> +
+> +	sl = (tdm->rx.sl >= tdm->tx.sl) ? tdm->rx.sl : tdm->tx.sl;
+> +	sscale = (tdm->rx.sscale >= tdm->tx.sscale) ? tdm->rx.sscale : tdm->tx.sscale;
 
-IIRC, this was a result after struggles with the structured control
-implementations.  It became too complex, and the plain array with
-string representation can cover all complexity, while it still allows
-the grouping in user-space side.
+Please write normal conditional statements to improve legibility.
 
-Again, the choice was done in a quarter century ago, and if you change
-it, you'll certainly break the whole things badly.  We must keep the
-compatibility.
+> +static int jh7110_tdm_clk_enable(struct jh7110_tdm_dev *tdm)
+> +{
 
+> +       ret = clk_set_parent(tdm->clk_tdm, tdm->clk_tdm_ext);
+> +       if (ret) {
+> +               dev_err(tdm->dev, "Can't set clock source for clk_tdm: %d\n",
+> +ret);
+> +               goto dis_tdm_clk;
+> +       }
 
-Takashi
+It's a bit weird to enable clocks and then reparent afterwards, that
+seems more likely to run into issues with glitches doing something bad
+than reparenting with the clock disabled.
+
+This parenting looks like a system specific configuration (what if
+the SoC is driving the audio bus?), and might be better done by using
+the clock bindings.  It's also strange that the driver is reparenting
+every single time it enables the clocks rather than doing that once on
+init.
+
+> +static int jh7110_tdm_suspend(struct snd_soc_component *component)
+> +{
+> +	return pm_runtime_force_suspend(component->dev);
+> +}
+> +
+> +static int jh7110_tdm_resume(struct snd_soc_component *component)
+> +{
+> +	struct jh7110_tdm_dev *tdm = snd_soc_component_get_drvdata(component);
+> +
+> +	/* restore context */
+> +	jh7110_tdm_writel(tdm, TDM_PCMGBCR, tdm->saved_pcmgbcr);
+> +	jh7110_tdm_writel(tdm, TDM_PCMDIV, tdm->saved_pcmdiv);
+> +
+> +	return pm_runtime_force_resume(component->dev);
+> +}
+
+It is weird that we restore context that we don't save on suspend, the
+code *works* but it looks off.
+
+> +static int jh7110_tdm_hw_params(struct snd_pcm_substream *substream,
+> +				struct snd_pcm_hw_params *params,
+> +				struct snd_soc_dai *dai)
+> +{
+> +	struct jh7110_tdm_dev *tdm = snd_soc_dai_get_drvdata(dai);
+> +	int chan_wl, chan_sl, chan_nr;
+> +	unsigned int data_width;
+> +	unsigned int dma_bus_width;
+> +	struct snd_dmaengine_dai_dma_data *dma_data = NULL;
+> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+> +	struct snd_soc_dai_link *dai_link = rtd->dai_link;
+> +
+> +	dai_link->stop_dma_first = 1;
+
+A driver shouldn't be forcing dai_link settings, and hw_params is
+claerly the wrong place to be configuring something like this which
+never varies at runtime - it should be done on init().  If the DAI
+really needs this you should extend the core so there's a flag in the
+dai_driver which gets checked.
+
+> +	switch (chan_nr) {
+> +	case ONE_CHANNEL_SUPPORT:
+> +	case TWO_CHANNEL_SUPPORT:
+> +	case FOUR_CHANNEL_SUPPORT:
+> +	case SIX_CHANNEL_SUPPORT:
+> +	case EIGHT_CHANNEL_SUPPORT:
+
+I am having a *really* hard time finding these definitions (which aren't
+namespaced...) helpful.  Just write the numbers directly.
+
+> +static int jh7110_tdm_trigger(struct snd_pcm_substream *substream,
+> +			      int cmd, struct snd_soc_dai *dai)
+> +{
+> +	struct jh7110_tdm_dev *tdm = snd_soc_dai_get_drvdata(dai);
+> +	int ret = 0;
+> +
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		/* restore context */
+> +		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> +			jh7110_tdm_writel(tdm, TDM_PCMTXCR, tdm->saved_pcmtxcr);
+> +		else
+> +			jh7110_tdm_writel(tdm, TDM_PCMRXCR, tdm->saved_pcmrxcr);
+> +
+> +		jh7110_tdm_start(tdm, substream);
+
+Why is the write to CR not part of start()?
+
+> +static void jh7110_tdm_init_params(struct jh7110_tdm_dev *tdm)
+> +{
+> +	tdm->clkpolity = TDM_TX_RASING_RX_FALLING;
+> +	if (tdm->frame_mode == SHORT_LATER) {
+> +		tdm->elm = TDM_ELM_LATE;
+> +		tdm->syncm = TDM_SYNCM_SHORT;
+> +	} else if (tdm->frame_mode == SHORT_EARLY) {
+> +		tdm->elm = TDM_ELM_EARLY;
+> +		tdm->syncm = TDM_SYNCM_SHORT;
+> +	} else {
+> +		tdm->elm = TDM_ELM_EARLY;
+> +		tdm->syncm = TDM_SYNCM_LONG;
+> +	}
+
+This looks like it should be a switch statement, and the defintiions
+namespaced.  I can't see anyhwere where this ever gets configured to
+anything other than SHORT_LATER ever being used so might be better to
+just delete.
+
+> +	tdm->ms_mode = TDM_AS_SLAVE;
+
+Please use the modern provider/consumer terminology for clocking.
+
+> +	tdm->clk_tdm_ahb = clks[0].clk;
+> +	tdm->clk_tdm_apb = clks[1].clk;
+> +	tdm->clk_tdm_internal = clks[2].clk;
+> +	tdm->clk_tdm = clks[3].clk;
+> +	tdm->clk_mclk_inner = clks[4].clk;
+> +	tdm->clk_tdm_ext = clks[5].clk;
+
+Given that the driver only ever interacts with the clocks en masse is
+there any point in having all the specific named variables, that'd mean
+that the enable/disable could just use loops.
+
+> +/*  DMA registers */
+> +#define TDM_FIFO			0x170c0000
+> +#define TDM_FIFO_DEPTH			32
+
+None of the defines in the header are namespaced and some of them (like
+the above) seem generic enough to be likely to result in conflicts.
+
+--NI6GNQYuRDrkmma6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRBTHgACgkQJNaLcl1U
+h9DqOAgAhThQ/9yrzRRMXGDWY1z3TSWn/xy6/6JIXnBgvSysHQy5F2YXZhipWYBt
+IIIelfg5I4OzL/ZNHEWAcCL/9J88ua+xM9dSRZOKUF33zfMb4woVoesNhLCLICXw
+M8jy8naVp0QAD5gIbmvm+hB3DCQAIdlog2kCKQN6OJpfJP/6A4MEAHK7/LKIrseK
+Jt63A+1xcCUxK7UJhvR7g2zHS4Zn4z8lU1W7+Jxtx9tDpimn616OcPMmjDo6TwVy
+sP8l2dDec7rbcL65a/acq3gZI3CHIurh6nHzXOshSCOkB8aHXVCjMmjRwvKSRLV1
+WWjH8VLGisYWBAxzBmLkSlEvs2bjew==
+=wfqy
+-----END PGP SIGNATURE-----
+
+--NI6GNQYuRDrkmma6--

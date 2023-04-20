@@ -2,159 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A5646E8639
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 02:13:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C67C6E904C
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 12:34:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B44FFEEE;
-	Thu, 20 Apr 2023 02:12:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B44FFEEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3F88EE0;
+	Thu, 20 Apr 2023 12:33:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3F88EE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681949587;
-	bh=FzGgPypLd9ZgxZFuzDqGr8WumuB7Xc+XtpzhUNnsOzs=;
-	h=From:To:Subject:In-Reply-To:References:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=pt6UtLgheAszn1AAnX8DMP2Vbw99OMuDsJGtmgZvBzzBMXxJXlE8s/YwCa0ka8VX3
-	 cAJZosY6uBRpT2x1Hl7XxKmgaKHXUeq/VrsCvYcO67KK7xFkQ7O/ymCQA3fWMyVYLk
-	 C3eRwrvQUbEa/ADStT7R5SsSCs3dzbswGpVTNZFU=
+	s=default; t=1681986860;
+	bh=mM8kwZeup+Ii76yZcHfwfq3tvbZq8F7xNfnaCsUOamE=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FsmQsAZ3BIcbOoKYQSuI/QE2jXIhfqxwoPPmtbMJDazrbiiNgdxrODucBoYhjIzdZ
+	 nLAVTVtdfoGJVHLxrmBvk+ORSh4IR3h6q09VVfgkNmqDp2f8w9ll6bH4JY9RE110e9
+	 G2Ivg96QdX6tQ7II1T93yAEe2sXMsV/D5/Fxr3VM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 172F4F80149;
-	Thu, 20 Apr 2023 02:12:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0ABCFF804FC;
+	Thu, 20 Apr 2023 12:33:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64F36F80155; Thu, 20 Apr 2023 02:12:12 +0200 (CEST)
+	id 159B5F80510; Thu, 20 Apr 2023 04:41:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on2072f.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::72f])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
+ [61.152.239.71])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9B8C2F80053
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 02:12:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B8C2F80053
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=OWIV6Odo
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jfJJopDRQOaLoSdP1crjDgoFEnw6hqjXPnhgw7+9lZh850ma4Ek8IL1FRZrBzL+LxXW7UsON03W4QTikX7+nrbeNsahZFwrFInhoI6qmmC6gAcSAJs8tl5WAeMmzfMaaKPHyU311dusLLFeBKBRgxbmBl0PnghwdE1jg3oR3bcv2jZEhxEBbFtdtdBlmx+Y7jis81NWYMdYfnLN4k1dRhIkPlbKSNGYGQVGtZP7FMOCqV2gMifeqPwvovCkthSUfO4EYy9yOGppYWNcbNr2MrQniu1OSUNe8CJwj9g4nLsxBtbk9LCXPXa30CePNyB9/O6aZE1SdhUXdABnvAtwzhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zMl5Ut/Xc0Z7kuZ/drt9sXcQaelCyUk9MEpDfmGVEPY=;
- b=CRDV5bPBOWIy6PQIkFSZw2n2ZpedV/CEX/Hge9qJ8Vv9JoMPlA9nMPFTwnai5ZkTwh1eeFKnAF+Zvl3zooDmUhVin/LL59aHIu5s3lTdcLatKPG74RV5BaIzeUwajTSmFowLZo/Q6OUXsk3dQ7Xthb8TFOm6l6Mdn9RoRpm34QuWeBnglMnk8gWYeij1wGiCQsWpvL4UCKhw2dF00w+p5wDbRbOQUsQFF/rlctvFbbmQf5xVQo9ukf5S9B8SUcD2XY7bOzgpZYrusuMeMrSBdNJOlmJeuu0Y9A86JsAiCVt7Mm/FjFR5kKE7dQIdq5C/7Ao057KM6ZmYrj9b34mrgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zMl5Ut/Xc0Z7kuZ/drt9sXcQaelCyUk9MEpDfmGVEPY=;
- b=OWIV6Odoykz2WcsBYkqRCBjz+fGot6Lw2muSTew+Fp08IY4n9drXPE6Gdp92Psat5GppAQG9+0TQsdhudTbpeM6b9al1w027pNG8NWza3WloiBa91bqwSEPYM+u9xtolGqeVdFoyZuPkQL+24b3j0CaQMAdUc0vwondqHnzCW2M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYWPR01MB9276.jpnprd01.prod.outlook.com (2603:1096:400:1a0::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Thu, 20 Apr
- 2023 00:11:55 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840%5]) with mapi id 15.20.6319.022; Thu, 20 Apr 2023
- 00:11:54 +0000
-Message-ID: <87y1mnv2d2.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH] Revert "ASoC: fsl: remove unnecessary dai_link->platform"
-In-Reply-To: <1681900158-17428-1-git-send-email-shengjiu.wang@nxp.com>
-References: <1681900158-17428-1-git-send-email-shengjiu.wang@nxp.com>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Thu, 20 Apr 2023 00:11:54 +0000
-X-ClientProxiedBy: TYCP286CA0097.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b4::11) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44F0CF800F8
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 04:41:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44F0CF800F8
+Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
+	by fd01.gateway.ufhost.com (Postfix) with ESMTP id A620824DB89;
+	Thu, 20 Apr 2023 10:41:19 +0800 (CST)
+Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX166.cuchost.com
+ (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 20 Apr
+ 2023 10:41:19 +0800
+Received: from SD-Server.starfivetech.com (113.72.144.253) by
+ EXMBX168.cuchost.com (172.16.6.78) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.42; Thu, 20 Apr 2023 10:41:18 +0800
+From: Walker Chen <walker.chen@starfivetech.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Rob
+ Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+	<conor.dooley@microchip.com>, Emil Renner Berthing
+	<emil.renner.berthing@canonical.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Walker Chen <walker.chen@starfivetech.com>
+Subject: [PATCH v2 0/4] Add TDM audio on StarFive JH7110
+Date: Thu, 20 Apr 2023 10:41:14 +0800
+Message-ID: <20230420024118.22677-1-walker.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB9276:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b0558b2-8f5e-4759-4e3e-08db4133d939
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	YHkeu3Jl2tg5HERTAdF/RiqXQJaoUeKgygPvb9X3/cQ91vWfHpQHaDgr7JszlBIX0JPl8NqCldSHhpmhqO1AIsv2+/AiEJLczIJBCvzDcKhD6GUjNeH3Pa6bBMmNWHX6Y/MPAgaenlIDt6YHZ5MFM903L5vbNUWGOBAyhV9TzOBjXlu+QGLEZ5rkigcpVdE7Z2HG3/Qk7hG+N0jBuXRCPLr0cM8M51XYhL0ujC1zPpLhQTpsvIDDDDABLkAOwGsgM1hV3mXMfYaplIwfQ+rUx9j+RrMY09q/QWXXhLLVypsgRHFqhCT2hRsxtXHeGt9GMVtmZB5O2cNh+5OAk7eGTNydDl1hbYfo/t6voOHndCP6UhaNerjXecom2OhhJDdBRVu+D2Qfcy700hZK648EtbZ3mNvmqoXco5Xqkt01oV9Jrr9OxfhdewfkemiwA5/HnN0Wp73LP50tuwZ5yhhE+QODYUrbKlz8cVEVALh28ys+ICvgzVqbuk3RijqFtVcqAR2Pi2in0MtdN+//vqeiEyRZaiv/nblAwYE+w65fV5IB3aQ61FJ+mMj2R8cw3w2xzSLDZUZC+3HFvdW603T27q2uvWeH4ZJsXdJgpTQjB5oOAn7qvmCfT8r+Y30GMDM4
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(396003)(136003)(346002)(39860400002)(376002)(451199021)(6512007)(6916009)(6506007)(316002)(4326008)(186003)(26005)(478600001)(2616005)(41300700001)(66476007)(52116002)(66556008)(66946007)(6486002)(38350700002)(38100700002)(8936002)(36756003)(86362001)(2906002)(8676002)(4744005)(5660300002)(7416002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?379Hv9wKjc2jRyj1paY/hUL0yh4NCqAUW32nd4UC3EHcl7+VRnf+tTC/AI9l?=
- =?us-ascii?Q?lx1qZ1q8WgwbBicvHHGtwuu0ry1aHeFlxAQPsAG62rg9oaATJrFtURCWwIlG?=
- =?us-ascii?Q?gxkK2NR18qb9dIPtgxJWUVKxjmvglvT9teXZfjA+XncDoElE77t6qHKKVcAH?=
- =?us-ascii?Q?X23YxwfpcHpx1XqNc3otP6gvkR1GnktHCCTAnrC7OG+O4kenTY2PqkJnPpdv?=
- =?us-ascii?Q?QkRpoGbec83OuIa5dtv0GB0fPK5XDYwXX06HZ4WyGTzbjkO8vHKuJo0wSwWb?=
- =?us-ascii?Q?0XKKBCZBCl5uoPiXhFfGyo+81MC24169ADpRICl9zPgsmIc4c4MLMR9ILwLM?=
- =?us-ascii?Q?zH4uqJ0I6FiKmPZM/c6MUCq2uv+RKzRP5CqCEHBH064tk18mJPwzvKrBpaOu?=
- =?us-ascii?Q?zbklpxXKwUn6rKZVtJLirse2TSrXx6DsuVsv0w9VN+YqqESK7TdNmgtEwWun?=
- =?us-ascii?Q?QbFbih9KcrmvlurygDwk6Avr2+bJhgtbp6SScfsfLA/DnG4YwylUoKAJbynd?=
- =?us-ascii?Q?ysCRPFgOuRLqqrnVOvmsr+UQWTKY1qWf9tsXLg6an6n98g1iLm8MDwM0Fg87?=
- =?us-ascii?Q?3yx42c3Cqh50QOfa53n5cSbPNp1LpgRJEudeY3J7AoNXw1dp+i2M0nQ16WWk?=
- =?us-ascii?Q?0D0dSSmj2Rg/ka6Nn0cKS5WTAj1OArmERRni2nSzq3DBq123GIKCM7mqC0HC?=
- =?us-ascii?Q?FQCK/jSoe4qfnCs3ohzQSkf9D6tvfMWWLegWSLsM8QbNtvhztgEwiJu4oo8a?=
- =?us-ascii?Q?LqsgMsW286Qxnrk231rfFcz1ya4fVvhCtlR8f1YfZ5Sdh60CHKek8H2cBtPd?=
- =?us-ascii?Q?UDTTix3tJhUYnyVAQ4KD32yoUvfR99OYiWz6vjPnxFL1AeIZT1aUv8dLH57q?=
- =?us-ascii?Q?mlcReRLzRNZVhv2+ba88Rm3mH413EBaiwVo/Rh1DSYKwF00PnVReRfdcQWuB?=
- =?us-ascii?Q?H6Zkj+z28vvlqtB9XwQ0acvRKi7M2YK08jZVtTrfu3wSHqSu40q1DzIeoHbZ?=
- =?us-ascii?Q?u1yu6q0qYE158AAwVvthQ6HZCrgGtnLWFymGZUHDequxHkNY4bnqaLLC/UxO?=
- =?us-ascii?Q?v4psORyQytKC03FRJq0kdEA9YS84kxr+hX7ums5ENMbwut9g4QfaVKubbk6l?=
- =?us-ascii?Q?svXp4kyi4BxOcjp+GYXdxmS+5tKDS0yq03EolzIgRhLIoYYaZzodLLV0iXsl?=
- =?us-ascii?Q?F/qbVqbvy17KhtlESLqo03spNNi/4mket11ioIinl4WUDLc/v8koy0AbXF5C?=
- =?us-ascii?Q?ydZcnKU5KpzaX03PO9AvNShjonnrTKVoH9wnpP6e9Y+eLY7UN1ov/rCO9gP5?=
- =?us-ascii?Q?XCgxefyF0HQlSf2k97/q9a7GBXuYkvsmJNWce4Ok8x4qllj6hLyKgnna8N8P?=
- =?us-ascii?Q?JFvDrfjCRudQZUp+vXa2fRl0RhazJkd2mD55Q0Kyvsf9Fry4T0If1EKEvXPU?=
- =?us-ascii?Q?4sa4v4cD/Qxbp0BIHyBM9NkZzm/SOIzBMb+awl8SoM1BG52n4Zju2+Xud1go?=
- =?us-ascii?Q?feH2+DLmC7oK6avxJiP95vUqebOioxOAVibTrSO+CONU+5Gmre1CVaIIecSG?=
- =?us-ascii?Q?TobQbIWN32UgHkcTJcuZp7QYIoT39KVtLH4takoAfenedToY2g8jPVhclUM4?=
- =?us-ascii?Q?bIIlXp51g8RY83eETZoLS54=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4b0558b2-8f5e-4759-4e3e-08db4133d939
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 00:11:54.8039
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 62/iaIvDVFkx5dS3VKJkQu6YWj/0jUxEVG+Apvp6+egajsJLeh7jW6HyrA43EpOwNbUGgPz/HuAVwgMBIV+o4SWCoUeDzTeJwj3s7zWEeQqJVYZp5EY58d6UXdwKWSNv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9276
-Message-ID-Hash: ZNGONI4QSXRVCPWNWG36WAUO2PC3IFBL
-X-Message-ID-Hash: ZNGONI4QSXRVCPWNWG36WAUO2PC3IFBL
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain
+X-Originating-IP: [113.72.144.253]
+X-ClientProxiedBy: EXCAS066.cuchost.com (172.16.6.26) To EXMBX168.cuchost.com
+ (172.16.6.78)
+X-YovoleRuleAgent: yovoleflag
+X-MailFrom: walker.chen@starfivetech.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
- nicoleotsuka@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- tiwai@suse.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
- kernel@pengutronix.de, linux-imx@nxp.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: SL2ITCTCX3BLDYQJFOENXV5F54YDCM2G
+X-Message-ID-Hash: SL2ITCTCX3BLDYQJFOENXV5F54YDCM2G
+X-Mailman-Approved-At: Thu, 20 Apr 2023 10:33:13 +0000
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZNGONI4QSXRVCPWNWG36WAUO2PC3IFBL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SL2ITCTCX3BLDYQJFOENXV5F54YDCM2G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,41 +89,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+This patchset adds TDM audio driver for the StarFive JH7110 SoC. The
+first patch adds device tree binding for TDM module. The second patch
+adds the item for JH7110 audio board to the dt-binding of StarFive
+SoC-based boards. The third patch adds tdm driver support for JH7110
+SoC. The last patch adds device node of tdm and sound card to JH7110 dts.
 
-Hi Shengjiu
-Cc Mark
+The series has been tested on the VisionFive 2 board by plugging the
+raspberry pie audio board. 
 
-Thank you for the patch
+For more information of raspberry pie audio board, you can take a look
+at the following webpage:
+https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/
 
-> This reverts commit 33683cbf49b5412061cb1e4c876063fdef86def4.
-> 
-> dai_link->platform is needed. The platform component is
-> "snd_dmaengine_pcm", which is registered from cpu driver,
-> 
-> If dai_link->platform is not assigned, then platform
-> component will not be probed, then there will be issue:
-> 
-> aplay: main:831: audio open error: Invalid argument
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
+The last patch should be applied after the following patchset:
+https://lore.kernel.org/all/20230411135558.44282-1-xingyu.wu@starfivetech.com/
 
-And sorry to my noise patch. I understood the issue.
+Changes since v1:
+- Rebased on Linux 6.3-rc4.
+- Added the dts file dedicated to describe audio card.
+- Added the item for JH7110 audio board to the dt-binding of StarFive
+  SoC-based boards.
 
-Can I ask 2 things ?
-
-My original patch removed 3 platforms.
-Then, I understood that 2 of them are used as
-soc-generic-dmaengine-pcm (= 1st, 3rd platform).
-
-I think we want to have comment here that
-why dummy component is needed. Can you agree ?
-
-I wonder how about 2nd platform ? Is it same ?
-I'm asking because it doesn't have of_node which other 2 platforms have.
-
-Thank you for your help !!
-
-Best regards
 ---
-Kuninori Morimoto
+v1: https://lore.kernel.org/all/20230329153320.31390-1-walker.chen@starfivetech.com/
+
+Walker Chen (4):
+  dt-bindings: sound: Add TDM for StarFive JH7110
+  dt-bindings: riscv: Add item for StarFive JH7110 audio board
+  ASoC: starfive: Add JH7110 TDM driver
+  riscv: dts: starfive: add tdm node and sound card
+
+ .../devicetree/bindings/riscv/starfive.yaml   |   1 +
+ .../bindings/sound/starfive,jh7110-tdm.yaml   |  98 +++
+ MAINTAINERS                                   |   6 +
+ arch/riscv/boot/dts/starfive/Makefile         |   1 +
+ .../starfive/jh7110-starfive-audio-card.dts   |  67 ++
+ .../jh7110-starfive-visionfive-2.dtsi         |  40 ++
+ arch/riscv/boot/dts/starfive/jh7110.dtsi      |  21 +
+ sound/soc/Kconfig                             |   1 +
+ sound/soc/Makefile                            |   1 +
+ sound/soc/starfive/Kconfig                    |  15 +
+ sound/soc/starfive/Makefile                   |   2 +
+ sound/soc/starfive/jh7110_tdm.c               | 579 ++++++++++++++++++
+ sound/soc/starfive/jh7110_tdm.h               | 155 +++++
+ 13 files changed, 987 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
+ create mode 100644 arch/riscv/boot/dts/starfive/jh7110-starfive-audio-card.dts
+ create mode 100644 sound/soc/starfive/Kconfig
+ create mode 100644 sound/soc/starfive/Makefile
+ create mode 100644 sound/soc/starfive/jh7110_tdm.c
+ create mode 100644 sound/soc/starfive/jh7110_tdm.h
+
+
+base-commit: 197b6b60ae7bc51dd0814953c562833143b292aa
+prerequisite-patch-id: 30bec4dba6f250a6edd0c2cbab2ce09442e50e8a
+prerequisite-patch-id: bb939c0c7c26b08addfccd890f9d3974b6eaec53
+prerequisite-patch-id: 8a6f135bcabdad4a4bfb21f0c6a0ffd2bb57efe7
+prerequisite-patch-id: c2366f993a9d85e28c06d8d09f064dd5e8b29a61
+prerequisite-patch-id: 50d53a21f91f4087fc80b6f1f72864adfb0002b9
+prerequisite-patch-id: 0df3703af91c30f1ca2c47f5609012f2d7200028
+prerequisite-patch-id: 89f049f951e5acf75aab92541992f816fd0acc0d
+prerequisite-patch-id: 551fae54377090044c3612fca9740a9b359abdd2
+prerequisite-patch-id: c7fdf904f398d478f0ed6d57eb878982bc73329d
+prerequisite-patch-id: 1b2d0982b18da060c82134f05bf3ce16425bac8d
+prerequisite-patch-id: 090ba4b78d47bc19204916e76fdbc70021785388
+prerequisite-patch-id: a5d9e0f7d4f8163f566678894cf693015119f2d9
+prerequisite-patch-id: 4637a8fa2334a45fa6b64351f4e9e28d3e2d60d3
+prerequisite-patch-id: 32647ec60a3b614e1c59ec8e54cb511ae832c22f
+prerequisite-patch-id: aa06658ecf89c92d0dfdd6a4ba6d9e6e67532971
+prerequisite-patch-id: 1387a7e87b446329dfc21f3e575ceae7ebcf954c
+prerequisite-patch-id: 258ea5f9b8bf41b6981345dcc81795f25865d38f
+prerequisite-patch-id: 8b6f2c9660c0ac0ee4e73e4c21aca8e6b75e81b9
+prerequisite-patch-id: dbb0c0151b8bdf093e6ce79fd2fe3f60791a6e0b
+prerequisite-patch-id: 9007c8610fdcd387592475949864edde874c20a2
+prerequisite-patch-id: d57e95d31686772abc4c4d5aa1cadc344dc293cd
+prerequisite-patch-id: 9f911969d0a550648493952c99096d26e05d4d83
+prerequisite-patch-id: 2ddada18ab6ea5cd1da14212aaf59632f5203d40
+prerequisite-patch-id: 80042661ff6156ce577a72e9eb8c0b218b624829
+prerequisite-patch-id: 398744c61913c76a35754de867c4f820ca7a8d99
+prerequisite-patch-id: f59269382164b5d642a5e10443ca447f5caa595c
+prerequisite-patch-id: 1babe83d6bf999bad17584dc595480f9070a5369
+prerequisite-patch-id: 77be3d122d66df813f13088141ce27b21107a341
+prerequisite-patch-id: 9fbb7ad1dd258bb8ff5946c4a0e59de4bfd82a04
+prerequisite-patch-id: 6f6984916dffd0cc66aa733c9b6bd3a55495a50c
+prerequisite-patch-id: 39e1be2a3d1593577ab997f55f59367cba665aa7
+prerequisite-patch-id: 584c256c9acb52ee2773d0c81c3f4977fc18155a
+prerequisite-patch-id: b37ac15032973e1fcd918f157c82a0606775c9e9
+prerequisite-patch-id: 32deea16304859842af5c2151bc41d91cf6dfc9b
+prerequisite-patch-id: 20ac2450fb93b3f69f83fc720fd4800a95e618a6
+prerequisite-patch-id: 6abf359fa445f4104432ddee27044dfbfb128417
+-- 
+2.17.1
+

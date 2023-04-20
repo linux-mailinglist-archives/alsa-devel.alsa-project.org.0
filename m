@@ -2,175 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AA826EB816
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 10:49:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 211CF6E9B7C
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 20:21:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2789DE86;
-	Sat, 22 Apr 2023 10:49:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2789DE86
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FDA9EAE;
+	Thu, 20 Apr 2023 20:20:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FDA9EAE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682153398;
-	bh=PDL3fWsQl66WCHfKZxI055UGZQxqBeSBHpfe73QuKck=;
-	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
-	b=ESWiS/9s6K4B4Vh/eEy4L8kNTRADqtBYKRoNtXO6/GCZugoy4MVXz3bpu0BKpcmHH
-	 fANX1qdZaFsVcnhL0mCFspkblEA1D4BxtF2vu0qrBibyCWV7OZdclrQvBgodJJU2LC
-	 2HYn68nbXghV2acqH4Mtzyi2CPV/N7hktRc6mpn4=
+	s=default; t=1682014870;
+	bh=5XFSKTlGWTxFI19rXXuk4sccUdqF5R5vVCMDRvNeE6Q=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=GYqrn8IeXwGQiWLvnpXfL+gT+HGNN4Eywkt2EhMChh7qTdzLLyC5npRmrYfHrBTl6
+	 Ul+9IBwhEnN4wY4+MVCEScpFKNnp57U9t/6dmiL6b62VVjTpEEdPu+Lo1zGnD2E8Kx
+	 39J+DoBN3hWGkdcdWi+jsDcjTPdmkQtAGeD/3XP8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3C90F80149;
-	Sat, 22 Apr 2023 10:49:07 +0200 (CEST)
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
-	<tiwai@suse.com>, <Syed.SabaKareem@amd.com>, <Vijendar.Mukunda@amd.com>
-Subject: [PATCH] ASoC: amd: ps: Update copyright notice
-Date: Thu, 20 Apr 2023 18:02:12 +0000
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-X-Mailman-Approved-At: Sat, 22 Apr 2023 08:49:03 +0000
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SZMBBYC5QAZ4WTP3LB7JJ2MMMXM7T7X2/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168215334661.26.11249048207406460670@mailman-core.alsa-project.org>
-From: Carlos Bilbao via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Carlos Bilbao <carlos.bilbao@amd.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Carlos Bilbao <carlos.bilbao@amd.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 10394F80149;
+	Thu, 20 Apr 2023 20:20:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25847F80155; Thu, 20 Apr 2023 20:02:25 +0200 (CEST)
+	id 64FD7F80155; Thu, 20 Apr 2023 20:20:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7ea9::61d])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 60287F800F8
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 20:20:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60287F800F8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hXSDni+M
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 01CB4F80053
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 20:02:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01CB4F80053
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=LbDNJ401
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OGbbR2CLl9acNcZDWqkg/eUVapXZfG4o9mXTI7XuwwPsei1d21YiztM0BCqM/vJsoeYPgxfw/qjJSzXFo6Z7biRqUNrsf8xd5/skuVNGXgVVxCGXCJXYwDGl8lC03l2EFbkCxyCyoTvU5T8rudty4xfy4Wh/L9vxylPAzZZ3BR/ZDm3oOaFV2dbsxrz6f/Qg85Inzlots4iJWH4TbFXBwxAEey+ep8Zy3Wac41Hue6dNeBboXQGbP1FXjZp0I6DOOZfl6q7RaicBXAf/mN2Y/qbW5o2yhlXni2U82YOy6dKI+zYfV6v8VGbp2fDaomBX7dbNUmY0ECPaa/rT3JB7ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pxqJ5IBbhy+fCWT9fb77Vyhxl3ZnqBz+QVmgIItm90w=;
- b=nYr5EqjTReRn75E8ivuIEePhnX1eiTKzP0rNm5zV74dh9EYn8D+lNKDhsYdYxnj3/DzzmckbeSyTp3PGdWjduUzzKp8X6KK8k4q6MAPEKgGETP2CD4Nw2Dpn2zEAcpSf7s9EyIGK+l9Z/y8ogRICNDppp9juc4XfMvlBoiJ7MxrgpoXIHF6hFqSgaMFLxj+w1uLwNMWCi6T34mWL6DKBA6G+ssJlCOo8P64HdcaZ27PAfkGNm6YFA+VQ7WelDGg76CW0COH7TXGQSQoTcJcVtTyNQfsG3bEHGoR3FXSsF1aWadrwHG0bvOkRmRFMYDF69HTywtDZ9hHRfJi0uhLzcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pxqJ5IBbhy+fCWT9fb77Vyhxl3ZnqBz+QVmgIItm90w=;
- b=LbDNJ401UcGFg0oFrHvWXcG6dIAaZpdWtdJnMxtzhgWoc09YEDXLxediS47oeco1T1ykr6/+dRjORpKy8JT9i5AhYIhrnK92IL1p2Z2eSo2lyQHQ42iXfME4hTmhxx3aoaCvtWsYNZC9cheScB6Ee1ICYf+1wx7CMhpCLZdv1Cs=
-Received: from MW4PR04CA0341.namprd04.prod.outlook.com (2603:10b6:303:8a::16)
- by PH7PR12MB5998.namprd12.prod.outlook.com (2603:10b6:510:1da::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.36; Thu, 20 Apr
- 2023 18:02:14 +0000
-Received: from CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::1e) by MW4PR04CA0341.outlook.office365.com
- (2603:10b6:303:8a::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.25 via Frontend
- Transport; Thu, 20 Apr 2023 18:02:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT031.mail.protection.outlook.com (10.13.174.118) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.26 via Frontend Transport; Thu, 20 Apr 2023 18:02:13 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 20 Apr
- 2023 13:02:13 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 20 Apr
- 2023 13:02:12 -0500
-Received: from ethanolx1adehost.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 20 Apr 2023 13:02:12 -0500
-From: Carlos Bilbao <carlos.bilbao@amd.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
-	<tiwai@suse.com>, <Syed.SabaKareem@amd.com>, <Vijendar.Mukunda@amd.com>
-Subject: [PATCH] ASoC: amd: ps: Update copyright notice
-Date: Thu, 20 Apr 2023 18:02:12 +0000
-Message-ID: <20230420180212.3101178-1-carlos.bilbao@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9034464B2F;
+	Thu, 20 Apr 2023 18:20:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E45C433EF;
+	Thu, 20 Apr 2023 18:20:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1682014808;
+	bh=5XFSKTlGWTxFI19rXXuk4sccUdqF5R5vVCMDRvNeE6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hXSDni+ML7e8GD4VMSSG+NtvkzA74GSINSfWtjPOPnQw86s+isW8m3D3WHXZS8hNw
+	 V3485du/yMFHVrV16n53j595kRPpyA2Sm9yjxJ017TbTlzG75lyFUmeoEZJ81YYCOe
+	 LMyzVbSYp7Llyw9Wd5UZcJAu0oFZv2OOO5QtnEpHSyixKFiQeQ62s5jywBoSy2VTj7
+	 GEOWYPmkZ+QayKydWFMs1Ty3lyZNUvoZZvsL+XDqA9CnDdC8CkrtjAH98yEwndS/vO
+	 26Dg3zeRSL6VSjWN3H1w+/IsYp39ysZduFBm3+Wml+vdJevJH5pO8uX2jaTNwKFNra
+	 7LrsxWiLa9NXw==
+Date: Thu, 20 Apr 2023 19:19:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 1/6] ASoC: wcd938x: switch to using gpiod API
+Message-ID: <a1d797bc-609c-4cb5-a531-9f840f3cf2b7@sirena.org.uk>
+References: <20230420101617.142225-1-krzysztof.kozlowski@linaro.org>
+ <20230420101617.142225-2-krzysztof.kozlowski@linaro.org>
+ <6b355201-a957-4fca-a513-d5fa0742fb40@sirena.org.uk>
+ <fe6202ee-2552-8b5c-c2d5-f2f7042b901d@linaro.org>
+ <d746ee5f-283d-44ce-b72c-18c8955d38b1@sirena.org.uk>
+ <3eb0cbb4-f6d9-db8a-031e-92627e70f41e@linaro.org>
+ <9942c3a9-51d1-4161-8871-f6ec696cb4db@sirena.org.uk>
+ <94bbd608-a90b-605d-a61c-6d6769b60445@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT031:EE_|PH7PR12MB5998:EE_
-X-MS-Office365-Filtering-Correlation-Id: eaccda1f-f918-493c-3180-08db41c95eeb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	s/Lk84ELL7Vi8XapnPZzdxN1bG9J1/cE1BC5lmohkW8yy+qEnTVj5o+B/UuzHGyf87CW2McSQAuHPY237rMQsbm6o/+S+JBQR4HS6WhN6QYQL+A5djr+/axDjyp4rU06+X/aFBvLgWv1Yd53VlTVnLFNc069fmrXg2uBhNLHTb3kEXM/HU16TSqJeb/E01uF/HUVC0uqa85M7FPBN0WbDz99KBKU/CWxzvNCdZcgOXqSEmO0OIrJHVHX2lNVY6/QPHr+5K6TCb2B9e3X5Na88B3q0yLedfmdom0X4PZWdOUjxPTqD89RHBoRhL9uMATMLH5CU+FjKpM6vr0bMTnW2EUlWupUB3UrW7+SiYu0aWDgPN3m/PuJ7/F0KgX6zT7ZtQnSELfxeHfMxZLRmQ/w1pxipjsNW0fvXvNQPZ5Ga0hHH8hJ4DGvF5SCJAsZx5rcYH50e/qYE8wn29A4VDcEcSM1f18WfL2pPVHwCuxTNrFck7HnIKXYBPZThtO3Ty2IPvUSUEKJ18ltchey+iAwmlF2Aq7xgNx2NeS/vRaIfRwRbDWMrpvZScYA5lg+1pAHmm5NOqQEjoiqxeQNPxf2W3zDZeprKg/7cGngqJB7oPjbKwD4Uf70NyyOAmvx+nasKrFGtTk7NWV06HyWC5bs93i/N8D+2P45Cb12NZliS1yei4qha9sZ6NKnlCgflB/26KmoV1QsHK5N4JuoTMZwwPgBEAN/4JSJtvcg9AbTw1I=
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199021)(46966006)(36840700001)(40470700004)(5660300002)(8676002)(8936002)(40480700001)(47076005)(336012)(426003)(40460700003)(15650500001)(86362001)(83380400001)(2616005)(44832011)(2906002)(4744005)(36756003)(36860700001)(82310400005)(186003)(54906003)(6636002)(1076003)(26005)(110136005)(316002)(70206006)(70586007)(478600001)(4326008)(7696005)(41300700001)(356005)(82740400003)(81166007)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 18:02:13.8198
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- eaccda1f-f918-493c-3180-08db41c95eeb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CO1NAM11FT031.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5998
-X-MailFrom: Carlos.Bilbao@amd.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="E1XQasTOF4jMIEw6"
+Content-Disposition: inline
+In-Reply-To: <94bbd608-a90b-605d-a61c-6d6769b60445@linaro.org>
+X-Cookie: Above all else -- sky.
+Message-ID-Hash: I7MZSUXKLNGJE34JTPWTFB664D7AA3ZJ
+X-Message-ID-Hash: I7MZSUXKLNGJE34JTPWTFB664D7AA3ZJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: SZMBBYC5QAZ4WTP3LB7JJ2MMMXM7T7X2
-X-Message-ID-Hash: SZMBBYC5QAZ4WTP3LB7JJ2MMMXM7T7X2
-X-Mailman-Approved-At: Sat, 22 Apr 2023 08:49:03 +0000
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Carlos Bilbao <carlos.bilbao@amd.com>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SZMBBYC5QAZ4WTP3LB7JJ2MMMXM7T7X2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I7MZSUXKLNGJE34JTPWTFB664D7AA3ZJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,27 +109,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The most recent changes to ASoC, such as new module parameters, date to the
-year 2023. Update copyright statement accordingly.
 
-Signed-off-by: Carlos Bilbao <carlos.bilbao@amd.com>
----
- sound/soc/amd/ps/acp63.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--E1XQasTOF4jMIEw6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
-index 5e7f9c1c1b0e..587c206114a6 100644
---- a/sound/soc/amd/ps/acp63.h
-+++ b/sound/soc/amd/ps/acp63.h
-@@ -2,7 +2,7 @@
- /*
-  * AMD ALSA SoC PDM Driver
-  *
-- * Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
-+ * Copyright (C) 2022, 2023 Advanced Micro Devices, Inc. All rights reserved.
-  */
- 
- #include <sound/acp63_chip_offset_byte.h>
--- 
-2.34.1
+On Thu, Apr 20, 2023 at 07:51:27PM +0200, Krzysztof Kozlowski wrote:
+> On 20/04/2023 18:28, Mark Brown wrote:
+> > On Thu, Apr 20, 2023 at 04:16:59PM +0200, Krzysztof Kozlowski wrote:
 
+> >> Life of downstream. We all know the drill: merge your DTS or suffer. T=
+he
+
+> > No, the DT is supposed to be an ABI. =20
+
+> No, the DT bindings are the ABI. We are supposed not to break
+> user-space, but out-of-tree users of drivers are not ABI by itself.
+> Bindings are. If out-of-tree users make mistakes in their DTS and do not
+> want to upstream it, it's their choice but it does not come for free.
+
+This is absolutely not the case, users should be able to ship DTs
+without upstreaming them and run multiple operating systems on top of a
+single DT - ideally boards would ship with DTs in firmware and people
+would be able to install generic OSs onto them with just off the shelf
+install media.  This is even a thing that people have actually done,
+both non-FDT systems like SPARC and the PowerPC systems from Apple and a
+few FDT ones like Synquacer.
+
+The enormous costs of DT would hardly be worth it if it were purely an
+in tree thing.
+
+> > The point in having a domain
+> > specific language with a compiler is to allow device trees to be
+> > distributed independently of the kernel.
+
+> When it is written incorrectly - wrong flag used for GPIO - there is no
+> requirement to support it.
+
+If it worked was it ever really wrong (and note that the bindings may
+not always be super clear...)?  While there is a point at which things
+never worked, can be fixed and we don't need to care about it or where
+we know the userbase well enough to know there won't be any issue those
+shouldn't be the default and should generally be avoided.  Where there
+is a good reason to break compatibility it should be something we're
+actively deciding to do for a clear reason having considered the
+tradeoffs, not something that gets done on a whim without even
+mentioning it.
+
+> > It's not just this individual transition, it's the whole thing with
+> > encoding the polarity of the signal at all - it's a layer of abstraction
+> > that feels like it introduces at least as many problems as it solves,
+> > and requiring configuration on every single system integration doesn't
+> > feel like the right choice in general.
+
+> Choosing appropriate flag for GPIO in DTS is not difficult. It was
+> skipped because we rarely cared in the drivers, but it should have been
+> chosen correctly. The same about interrupt flags. We had many DTS for
+> many times marking all possible interrupts as IRQ_TYPE_NONE. Did it
+> matter for many drivers and setups? No, was perfectly "fine". Is it
+> correct from DTS point of view. Also no.
+
+There's no natural definition of "correct" here though - it's just
+picking something in a binding.  If someone for example flips the label
+on a signal from reset to enable (perhaps during review) that ends up
+changing active high to active low, and really I'm not sure how much
+we're really winning compared to just having code in the end consumer
+which just directly says what value it wants the physical signal to
+have.
+
+My point is not that we haven't defined things such that the user has to
+specify if something is active high or active low, it's that it feels
+like it's more trouble han it's worth.
+
+--E1XQasTOF4jMIEw6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRBgk8ACgkQJNaLcl1U
+h9B+Pgf+MdIbsZc3MSRgo0sDGINgmk7ZlFCYK9G4DzJWb/KN/hDgJqXx/d0NKSEB
+css44uv8VRbuEEGyVKvHcqkMyfjkof3REX6VXP05Z9EXJdnGCycYb5A6tynYHrlj
+/nYsDcTZUuUNsY+AOJHQ6941BJWKeR6YhBsY7bNQZdq1HCz7BkY88RoTBDlBrzPd
+jBX+Uxa1DBDdMvvsKDvsFde4948YwlvgQEQI63afOucmG4Apl+FWEb3jNaMDzwEA
+yX0CC5YxrshNo2KrIz3uVy/YapOh/MWGo5siOyu6M5RJqXo4KMhSCH5cVXcGXB3h
+UnSazFtwtnMjuBq0MpY7eaJd8bo1kw==
+=HNVO
+-----END PGP SIGNATURE-----
+
+--E1XQasTOF4jMIEw6--

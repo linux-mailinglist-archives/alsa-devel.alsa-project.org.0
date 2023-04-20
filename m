@@ -2,100 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E6D06E91E2
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:08:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C97AD6E92E3
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:35:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E781CEF5;
-	Thu, 20 Apr 2023 13:07:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E781CEF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id B378EECF;
+	Thu, 20 Apr 2023 13:34:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B378EECF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681988890;
-	bh=9hBcseIcMFaVaM3/tJw5Vlsa6Zi+x20eVlBgfgJCC8c=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=uj2NAoHwWcJt4fFlH/vIdIGoUZp+qEUP7OO1N8lvoRjgGgwCQrTioZTl6ORpKVSFy
-	 ktWtweh7y80CiJQvc0pqAL2afs2cyDKJC70rFYfYVyo+Wo1uqZABPn+MzWgrkLGU4e
-	 +M4cVke5Vpm4z/X+47IxplJh8mzG8lrKnEyUrxR0=
+	s=default; t=1681990525;
+	bh=H0TZa4Vf3XHsHNm+g5zBQZg/RSJONDCCh3rJ+U4VyHM=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Uk/tAMiAVNsKpQpJqem4i6umrqn6bKU+xIC84Q4vYmN3o5el5/xW9E5q4wryM7HKN
+	 3dyolc7vH6ibD/qFhLA5yReR7aZpb6yThl+Y6FVlMSWyrDqoMEehD1OBbRSXVhCF9d
+	 I5r99ZQEzmRwmKZRlwJ/I1WeCWbD9s6GeX0186/g=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 248F1F80557;
-	Thu, 20 Apr 2023 13:04:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1E69F804FC;
+	Thu, 20 Apr 2023 13:33:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEDADF805C1; Thu, 20 Apr 2023 13:03:58 +0200 (CEST)
+	id E06ACF80155; Thu, 20 Apr 2023 13:33:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4832AF80212
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:03:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4832AF80212
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=PfCJ1JJg
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B9F94647C5;
-	Thu, 20 Apr 2023 11:03:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1D6C4339B;
-	Thu, 20 Apr 2023 11:03:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681988633;
-	bh=9hBcseIcMFaVaM3/tJw5Vlsa6Zi+x20eVlBgfgJCC8c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PfCJ1JJgcJhMBeN/GPsk3RNDlRyL3j/grZDWJXXT2VgKxyOqpK7OtJS7fnEzkqwzC
-	 y5gbqgnhUbOzUFR70rmL4gESEhRFCspFvVvzwXjcI6XhoAmZxLvzHUdHUZVgbX44ND
-	 tMtmLrbrvkFRBOz8szkW6wWfGaR/+lIgPXnbAPHIekJBiQp7uYbfbBnt+sJ+ed0nEf
-	 t1iLtM6HCpz3SStAps64pnqQQoeX5ThY794ycztCA1oW6XYFUvxr5aTMrj81q+JTvm
-	 /i3wr/OxF47PsRcK2ReDrbA8XaxJtrMxpSlWTPrttenx73kXDT57wQQA3EZtH0JwCb
-	 CSYJOPuvS6DNA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 2/2] ASoC: Intel: bytcr_rt5640: Add quirk for the
- Acer Iconia One 7 B1-750
-Date: Thu, 20 Apr 2023 07:03:45 -0400
-Message-Id: <20230420110347.506392-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230420110347.506392-1-sashal@kernel.org>
-References: <20230420110347.506392-1-sashal@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 998B5F800F8
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:33:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 998B5F800F8
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 97C21240F9;
+	Thu, 20 Apr 2023 07:33:24 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1ppSXU-gBy-00; Thu, 20 Apr 2023 13:33:24 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 1/2] ALSA: pcm: rewrite snd_pcm_playback_silence()
+Date: Thu, 20 Apr 2023 13:33:23 +0200
+Message-Id: <20230420113324.877164-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7XAGDNRRY65WCXWTAOOEK6XE45JCLQD5
-X-Message-ID-Hash: 7XAGDNRRY65WCXWTAOOEK6XE45JCLQD5
-X-MailFrom: sashal@kernel.org
+Message-ID-Hash: YCYCGM6XUDSD3XIZBXK3JQNDYRCYX3XV
+X-Message-ID-Hash: YCYCGM6XUDSD3XIZBXK3JQNDYRCYX3XV
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Hans de Goede <hdegoede@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Sasha Levin <sashal@kernel.org>,
- cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com,
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- tiwai@suse.com, andriy.shevchenko@linux.intel.com,
- ckeepax@opensource.cirrus.com, oder_chiou@realtek.com,
- moisesmcardona@gmail.com, amadeuszx.slawinski@linux.intel.com,
- alsa-devel@alsa-project.org
+CC: Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7XAGDNRRY65WCXWTAOOEK6XE45JCLQD5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YCYCGM6XUDSD3XIZBXK3JQNDYRCYX3XV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,48 +72,298 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Hans de Goede <hdegoede@redhat.com>
+The auto-silencer supports two modes: "thresholded" to fill up "just
+enough", and "top-up" to fill up "as much as possible". The two modes
+used rather distinct code paths, which this patch unifies. The only
+remaining distinction is how much we actually want to fill.
 
-[ Upstream commit e38c5e80c3d293a883c6f1d553f2146ec0bda35e ]
+This fixes a bug in thresholded mode, where we failed to use new_hw_ptr,
+resulting in under-fill.
 
-The Acer Iconia One 7 B1-750 tablet mostly works fine with the defaults
-for an Bay Trail CR tablet. Except for the internal mic, instead of
-an analog mic on IN3 a digital mic on DMIC1 is uses.
+Top-up mode is now more well-behaved and much easier to understand in
+corner cases.
 
-Add a quirk with these settings for this tablet.
+This also updates comments in the proximity of silencing-related data
+structures.
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/20230322145332.131525-1-hdegoede@redhat.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+v2:
+- removed useless boundary check
+- got rid of casts by using a signed type for deltas.
+  i did not adjust the style of the conditionals, because it's not clear
+  whether the hangup was actually over that, or merely over the casts.
+- dropped use of C99 comments where the surroundings suggest it.
+  (in the case of the interspersed multi-line comments, that doesn't
+  look like an improvement to me at all ...)
+- swapped the `added` and `hw_avail` calculation blocks to reduce
+  subsequent churn. it's more logical that way anyway.
+---
+ .../kernel-api/writing-an-alsa-driver.rst     | 17 ++--
+ include/sound/pcm.h                           | 14 +--
+ include/uapi/sound/asound.h                   | 11 ++-
+ sound/core/pcm_lib.c                          | 86 ++++++++-----------
+ sound/core/pcm_local.h                        |  3 +-
+ sound/core/pcm_native.c                       |  6 +-
+ 6 files changed, 66 insertions(+), 71 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 2001bc774c643..d27dd170bedaf 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -400,6 +400,18 @@ static int byt_rt5640_aif1_hw_params(struct snd_pcm_substream *substream,
+diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+index a368529e8ed3..e37d9dba320d 100644
+--- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
++++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+@@ -1577,14 +1577,19 @@ are the contents of this file:
+           unsigned int period_step;
+           unsigned int sleep_min;		/* min ticks to sleep */
+           snd_pcm_uframes_t start_threshold;
+-          snd_pcm_uframes_t stop_threshold;
+-          snd_pcm_uframes_t silence_threshold; /* Silence filling happens when
+-                                                  noise is nearest than this */
+-          snd_pcm_uframes_t silence_size;	/* Silence filling size */
++          /*
++           * The following two thresholds alleviate playback buffer underruns; when
++           * hw_avail drops below the threshold, the respective action is triggered:
++           */
++          snd_pcm_uframes_t stop_threshold;	/* - stop playback */
++          snd_pcm_uframes_t silence_threshold;	/* - pre-fill buffer with silence */
++          snd_pcm_uframes_t silence_size;       /* max size of silence pre-fill; when >= boundary,
++                                                 * fill played area with silence immediately */
+           snd_pcm_uframes_t boundary;	/* pointers wrap point */
+   
+-          snd_pcm_uframes_t silenced_start;
+-          snd_pcm_uframes_t silenced_size;
++          /* internal data of auto-silencer */
++          snd_pcm_uframes_t silence_start; /* starting pointer to silence area */
++          snd_pcm_uframes_t silence_filled; /* size filled with silence */
+   
+           snd_pcm_sync_id_t sync;		/* hardware synchronization ID */
+   
+diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+index 27040b472a4f..19f564606ac4 100644
+--- a/include/sound/pcm.h
++++ b/include/sound/pcm.h
+@@ -378,18 +378,18 @@ struct snd_pcm_runtime {
+ 	unsigned int rate_den;
+ 	unsigned int no_period_wakeup: 1;
  
- /* Please keep this list alphabetically sorted */
- static const struct dmi_system_id byt_rt5640_quirk_table[] = {
-+	{	/* Acer Iconia One 7 B1-750 */
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Insyde"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "VESPA2"),
-+		},
-+		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
-+					BYT_RT5640_JD_SRC_JD1_IN4P |
-+					BYT_RT5640_OVCD_TH_1500UA |
-+					BYT_RT5640_OVCD_SF_0P75 |
-+					BYT_RT5640_SSP0_AIF1 |
-+					BYT_RT5640_MCLK_EN),
-+	},
- 	{	/* Acer Iconia Tab 8 W1-810 */
- 		.matches = {
- 			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Acer"),
+-	/* -- SW params -- */
+-	int tstamp_mode;		/* mmap timestamp is updated */
++	/* -- SW params; see struct snd_pcm_sw_params for comments -- */
++	int tstamp_mode;
+   	unsigned int period_step;
+ 	snd_pcm_uframes_t start_threshold;
+ 	snd_pcm_uframes_t stop_threshold;
+-	snd_pcm_uframes_t silence_threshold; /* Silence filling happens when
+-						noise is nearest than this */
+-	snd_pcm_uframes_t silence_size;	/* Silence filling size */
+-	snd_pcm_uframes_t boundary;	/* pointers wrap point */
++	snd_pcm_uframes_t silence_threshold;
++	snd_pcm_uframes_t silence_size;
++	snd_pcm_uframes_t boundary;
+ 
++	/* internal data of auto-silencer */
+ 	snd_pcm_uframes_t silence_start; /* starting pointer to silence area */
+-	snd_pcm_uframes_t silence_filled; /* size filled with silence */
++	snd_pcm_uframes_t silence_filled; /* already filled part of silence area */
+ 
+ 	union snd_pcm_sync_id sync;	/* hardware synchronization ID */
+ 
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index de6810e94abe..a255a891eb81 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -429,9 +429,14 @@ struct snd_pcm_sw_params {
+ 	snd_pcm_uframes_t avail_min;		/* min avail frames for wakeup */
+ 	snd_pcm_uframes_t xfer_align;		/* obsolete: xfer size need to be a multiple */
+ 	snd_pcm_uframes_t start_threshold;	/* min hw_avail frames for automatic start */
+-	snd_pcm_uframes_t stop_threshold;	/* min avail frames for automatic stop */
+-	snd_pcm_uframes_t silence_threshold;	/* min distance from noise for silence filling */
+-	snd_pcm_uframes_t silence_size;		/* silence block size */
++	/*
++	 * The following two thresholds alleviate playback buffer underruns; when
++	 * hw_avail drops below the threshold, the respective action is triggered:
++	 */
++	snd_pcm_uframes_t stop_threshold;	/* - stop playback */
++	snd_pcm_uframes_t silence_threshold;	/* - pre-fill buffer with silence */
++	snd_pcm_uframes_t silence_size;		/* max size of silence pre-fill; when >= boundary,
++						 * fill played area with silence immediately */
+ 	snd_pcm_uframes_t boundary;		/* pointers wrap point */
+ 	unsigned int proto;			/* protocol version */
+ 	unsigned int tstamp_type;		/* timestamp type (req. proto >= 2.0.12) */
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index 02fd65993e7e..5bb2129cceac 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -42,70 +42,56 @@ static int fill_silence_frames(struct snd_pcm_substream *substream,
+  *
+  * when runtime->silence_size >= runtime->boundary - fill processed area with silence immediately
+  */
+-void snd_pcm_playback_silence(struct snd_pcm_substream *substream, snd_pcm_uframes_t new_hw_ptr)
++void snd_pcm_playback_silence(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+-	snd_pcm_uframes_t frames, ofs, transfer;
++	snd_pcm_uframes_t appl_ptr = READ_ONCE(runtime->control->appl_ptr);
++	snd_pcm_sframes_t added, hw_avail, frames;
++	snd_pcm_uframes_t noise_dist, ofs, transfer;
+ 	int err;
+ 
++	added = appl_ptr - runtime->silence_start;
++	if (added) {
++		if (added < 0)
++			added += runtime->boundary;
++		if (added < runtime->silence_filled)
++			runtime->silence_filled -= added;
++		else
++			runtime->silence_filled = 0;
++		runtime->silence_start = appl_ptr;
++	}
++
++	// This will "legitimately" turn negative on underrun, and will be mangled
++	// into a huge number by the boundary crossing handling. The initial state
++	// might also be not quite sane. The code below MUST account for these cases.
++	hw_avail = appl_ptr - runtime->status->hw_ptr;
++	if (hw_avail < 0)
++		hw_avail += runtime->boundary;
++
++	noise_dist = hw_avail + runtime->silence_filled;
+ 	if (runtime->silence_size < runtime->boundary) {
+-		snd_pcm_sframes_t noise_dist, n;
+-		snd_pcm_uframes_t appl_ptr = READ_ONCE(runtime->control->appl_ptr);
+-		if (runtime->silence_start != appl_ptr) {
+-			n = appl_ptr - runtime->silence_start;
+-			if (n < 0)
+-				n += runtime->boundary;
+-			if ((snd_pcm_uframes_t)n < runtime->silence_filled)
+-				runtime->silence_filled -= n;
+-			else
+-				runtime->silence_filled = 0;
+-			runtime->silence_start = appl_ptr;
+-		}
+-		if (runtime->silence_filled >= runtime->buffer_size)
+-			return;
+-		noise_dist = snd_pcm_playback_hw_avail(runtime) + runtime->silence_filled;
+-		if (noise_dist >= (snd_pcm_sframes_t) runtime->silence_threshold)
+-			return;
+ 		frames = runtime->silence_threshold - noise_dist;
++		if (frames <= 0)
++			return;
+ 		if (frames > runtime->silence_size)
+ 			frames = runtime->silence_size;
+ 	} else {
+-		if (new_hw_ptr == ULONG_MAX) {	/* initialization */
+-			snd_pcm_sframes_t avail = snd_pcm_playback_hw_avail(runtime);
+-			if (avail > runtime->buffer_size)
+-				avail = runtime->buffer_size;
+-			runtime->silence_filled = avail > 0 ? avail : 0;
+-			runtime->silence_start = (runtime->status->hw_ptr +
+-						  runtime->silence_filled) %
+-						 runtime->boundary;
+-		} else {
+-			ofs = runtime->status->hw_ptr;
+-			frames = new_hw_ptr - ofs;
+-			if ((snd_pcm_sframes_t)frames < 0)
+-				frames += runtime->boundary;
+-			runtime->silence_filled -= frames;
+-			if ((snd_pcm_sframes_t)runtime->silence_filled < 0) {
+-				runtime->silence_filled = 0;
+-				runtime->silence_start = new_hw_ptr;
+-			} else {
+-				runtime->silence_start = ofs;
+-			}
+-		}
+-		frames = runtime->buffer_size - runtime->silence_filled;
++		frames = runtime->buffer_size - noise_dist;
++		if (frames <= 0)
++			return;
+ 	}
++
+ 	if (snd_BUG_ON(frames > runtime->buffer_size))
+ 		return;
+-	if (frames == 0)
+-		return;
+-	ofs = runtime->silence_start % runtime->buffer_size;
+-	while (frames > 0) {
++	ofs = (runtime->silence_start + runtime->silence_filled) % runtime->buffer_size;
++	do {
+ 		transfer = ofs + frames > runtime->buffer_size ? runtime->buffer_size - ofs : frames;
+ 		err = fill_silence_frames(substream, ofs, transfer);
+ 		snd_BUG_ON(err < 0);
+ 		runtime->silence_filled += transfer;
+ 		frames -= transfer;
+ 		ofs = 0;
+-	}
++	} while (frames > 0);
+ 	snd_pcm_dma_buffer_sync(substream, SNDRV_DMA_SYNC_DEVICE);
+ }
+ 
+@@ -439,10 +425,6 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
+ 		return 0;
+ 	}
+ 
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
+-	    runtime->silence_size > 0)
+-		snd_pcm_playback_silence(substream, new_hw_ptr);
+-
+ 	if (in_interrupt) {
+ 		delta = new_hw_ptr - runtime->hw_ptr_interrupt;
+ 		if (delta < 0)
+@@ -460,6 +442,10 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
+ 		runtime->hw_ptr_wrap += runtime->boundary;
+ 	}
+ 
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
++	    runtime->silence_size > 0)
++		snd_pcm_playback_silence(substream);
++
+ 	update_audio_tstamp(substream, &curr_tstamp, &audio_tstamp);
+ 
+ 	return snd_pcm_update_state(substream, runtime);
+diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
+index ecb21697ae3a..42fe3a4e9154 100644
+--- a/sound/core/pcm_local.h
++++ b/sound/core/pcm_local.h
+@@ -29,8 +29,7 @@ int snd_pcm_update_state(struct snd_pcm_substream *substream,
+ 			 struct snd_pcm_runtime *runtime);
+ int snd_pcm_update_hw_ptr(struct snd_pcm_substream *substream);
+ 
+-void snd_pcm_playback_silence(struct snd_pcm_substream *substream,
+-			      snd_pcm_uframes_t new_hw_ptr);
++void snd_pcm_playback_silence(struct snd_pcm_substream *substream);
+ 
+ static inline snd_pcm_uframes_t
+ snd_pcm_avail(struct snd_pcm_substream *substream)
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 331380c2438b..0e3e7997dc58 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -958,7 +958,7 @@ static int snd_pcm_sw_params(struct snd_pcm_substream *substream,
+ 	if (snd_pcm_running(substream)) {
+ 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
+ 		    runtime->silence_size > 0)
+-			snd_pcm_playback_silence(substream, ULONG_MAX);
++			snd_pcm_playback_silence(substream);
+ 		err = snd_pcm_update_state(substream, runtime);
+ 	}
+ 	snd_pcm_stream_unlock_irq(substream);
+@@ -1455,7 +1455,7 @@ static void snd_pcm_post_start(struct snd_pcm_substream *substream,
+ 	__snd_pcm_set_state(runtime, state);
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
+ 	    runtime->silence_size > 0)
+-		snd_pcm_playback_silence(substream, ULONG_MAX);
++		snd_pcm_playback_silence(substream);
+ 	snd_pcm_timer_notify(substream, SNDRV_TIMER_EVENT_MSTART);
+ }
+ 
+@@ -1916,7 +1916,7 @@ static void snd_pcm_post_reset(struct snd_pcm_substream *substream,
+ 	runtime->control->appl_ptr = runtime->status->hw_ptr;
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
+ 	    runtime->silence_size > 0)
+-		snd_pcm_playback_silence(substream, ULONG_MAX);
++		snd_pcm_playback_silence(substream);
+ 	snd_pcm_stream_unlock_irq(substream);
+ }
+ 
 -- 
-2.39.2
+2.40.0.152.g15d061e6df
 

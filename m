@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 209996E9193
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:05:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E216E91A6
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:05:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FF46EEC;
-	Thu, 20 Apr 2023 13:04:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FF46EEC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D3BCEEF;
+	Thu, 20 Apr 2023 13:04:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D3BCEEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681988716;
-	bh=Veoh3nbT/FHO+RMJ4ObqE8nXFs9uC17/9N8Wr6a95qI=;
+	s=default; t=1681988732;
+	bh=P1RJ20QJirQyRF3HhoWwKz3CHgv5xWwc6aSBD4SJCo4=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FTTDL7shR8Dfy9NGvsIRltpkBpJ91YQjhnOxXVA91LYiBAQ17GlclH6iuATNoflY0
-	 VwoVB64XsjZQZL50orfHVGyzoATKrL8B8iQ6kNo/f7kH1/pLC59Kw6Y9G4I627LeP+
-	 KjhIprkFXCXsA8GzftgmAHpLVw6d5PQpREuAi/WU=
+	b=QNToRg8mZrtCN3DCw+KfJEcwmMVWSljIoECEvjCXKh03C7CyDPgFjJx8Jrj3HP9Mh
+	 VSl1T0D+uGIXMniuTaYbspDIbxffgHtDwac4Pd3vEuM8uFmwrH5Xg+WYr9UgU4Ozld
+	 Ccjb+uuZ8USWQnOHEHHvvFLTRPZPjZKn6rNxxxDI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62591F80578;
-	Thu, 20 Apr 2023 13:02:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6E46F8057C;
+	Thu, 20 Apr 2023 13:02:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6EFFCF8056F; Thu, 20 Apr 2023 13:02:42 +0200 (CEST)
+	id DD3A3F80570; Thu, 20 Apr 2023 13:02:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7C422F80567
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:02:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C422F80567
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3172F80567
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:02:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3172F80567
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hopq04De
+ header.s=k20201202 header.b=P5B0E5g8
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 644DE647C8;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C291C647CA;
+	Thu, 20 Apr 2023 11:02:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 437E3C433A0;
 	Thu, 20 Apr 2023 11:02:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B85DDC433D2;
-	Thu, 20 Apr 2023 11:02:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681988558;
-	bh=Veoh3nbT/FHO+RMJ4ObqE8nXFs9uC17/9N8Wr6a95qI=;
+	s=k20201202; t=1681988560;
+	bh=P1RJ20QJirQyRF3HhoWwKz3CHgv5xWwc6aSBD4SJCo4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hopq04DeS8XYRy5mGJ0pOwzA8YbhQOFKaZAMxC0cBR0S8MxtdZXWkCgpHTcfgz3Ge
-	 mhlF4eX3N/u2A0G63PpEw7MvwLvEawQ7gvC/XDNNGcIQ36L+I4GEbNXtFsA2ACGJJc
-	 peTRuR7Rs3oX4m1zfXzMyQVfqWZ2CUBjkFjWnUSINy8hJo5anBRQAC5PGdqRXYlVS7
-	 nbjYaO2m5PibrLHHKjSSJGZEWwfO6enFL8HUCvHdITf4wkEYAohMO3pqC6iL8xuCxo
-	 gG292HC63BRr6yZwlOAXm1NOHAAm/ndKOpqiJO7bxKWPM1j/ZRLICbxNjdgsdxoiU+
-	 rKfugZg2IM/mA==
+	b=P5B0E5g8nYsnECEv4VvhTdTahIyRZmgcTPvrSDRacLogSKHCZgL4sanBqINZGywoH
+	 7X5yuEk4HtUHxa3cwv23cu3UIuEOGzR9EVezpsRz0oy+BCKnKXOGsNjGBIbVeDwdXv
+	 EvahkTJ33UQ0AqDZSYIX+B7G1GqrSUPody429aGEKgL6Nzq+xJIRcy/U8miePxuiUt
+	 Dn2Au9+HhWI+A0krZRkCu6cuCrrBumbjpBAddccCYgtZJyXNv6PAqi5dFV06Q4vXOY
+	 BhBUxEIHEVMH60b9cXpaDuJb/HMOYLEcyk06w2BUasRZoGVLanmXvluLIDS34z7otk
+	 3uQRkG6Ho+HVA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 02/15] ASoC: Intel: soc-acpi: add table for Intel
- 'Rooks County' NUC M15
-Date: Thu, 20 Apr 2023 07:02:16 -0400
-Message-Id: <20230420110231.505992-2-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 03/15] ASoC: soc-pcm: fix hw->formats cleared by
+ soc_pcm_hw_init() for dpcm
+Date: Thu, 20 Apr 2023 07:02:17 -0400
+Message-Id: <20230420110231.505992-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230420110231.505992-1-sashal@kernel.org>
 References: <20230420110231.505992-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2EIRUOTILYLN3ZADBEF2TGOTVWIJTU2K
-X-Message-ID-Hash: 2EIRUOTILYLN3ZADBEF2TGOTVWIJTU2K
+Message-ID-Hash: BE5GC5PISYWXVJK3AMSUDKVCXJGD7UG2
+X-Message-ID-Hash: BE5GC5PISYWXVJK3AMSUDKVCXJGD7UG2
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -81,21 +81,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Eugene Huang <eugene.huang99@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
- liam.r.girdwood@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, tiwai@suse.com, brent.lu@intel.com,
- ajye_huang@compal.corp-partner.google.com, muralidhar.reddy@intel.com,
- arnd@arndb.de, CTLIN0@nuvoton.com, alsa-devel@alsa-project.org
+CC: Shengjiu Wang <shengjiu.wang@nxp.com>, Mark Brown <broonie@kernel.org>,
+ Sasha Levin <sashal@kernel.org>, lgirdwood@gmail.com, tiwai@suse.com,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2EIRUOTILYLN3ZADBEF2TGOTVWIJTU2K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BE5GC5PISYWXVJK3AMSUDKVCXJGD7UG2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,63 +98,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Eugene Huang <eugene.huang99@gmail.com>
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-[ Upstream commit 9c691a42b8926c8966561265cdae3ddc7464d3a2 ]
+[ Upstream commit 083a25b18d6ad9f1f540e629909aa3eaaaf01823 ]
 
-Same topology as the HP Omen 16-k0005TX, except with the rt1316 amp
-on link2.
+The hw->formats may be set by snd_dmaengine_pcm_refine_runtime_hwparams()
+in component's startup()/open(), but soc_pcm_hw_init() will init
+hw->formats in dpcm_runtime_setup_fe() after component's startup()/open(),
+which causes the valuable hw->formats to be cleared.
 
-Link: https://github.com/thesofproject/linux/issues/4088
-Signed-off-by: Eugene Huang <eugene.huang99@gmail.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20230314090553.498664-3-yung-chuan.liao@linux.intel.com
+So need to store the hw->formats before initialization, then restore
+it after initialization.
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Link: https://lore.kernel.org/r/1678346017-3660-1-git-send-email-shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../intel/common/soc-acpi-intel-adl-match.c   | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ sound/soc/soc-pcm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-adl-match.c b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-index 0102574025e90..6e21e1640acfa 100644
---- a/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-adl-match.c
-@@ -354,6 +354,20 @@ static const struct snd_soc_acpi_link_adr adl_sdw_rt711_link0_rt1316_link3[] = {
- 	{}
- };
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 35a16c3f9591b..7a486ca9633c1 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1649,10 +1649,14 @@ static void dpcm_runtime_setup_fe(struct snd_pcm_substream *substream)
+ 	struct snd_pcm_hardware *hw = &runtime->hw;
+ 	struct snd_soc_dai *dai;
+ 	int stream = substream->stream;
++	u64 formats = hw->formats;
+ 	int i;
  
-+static const struct snd_soc_acpi_link_adr adl_sdw_rt711_link0_rt1316_link2[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt711_sdca_0_adr),
-+		.adr_d = rt711_sdca_0_adr,
-+	},
-+	{
-+		.mask = BIT(2),
-+		.num_adr = ARRAY_SIZE(rt1316_2_single_adr),
-+		.adr_d = rt1316_2_single_adr,
-+	},
-+	{}
-+};
+ 	soc_pcm_hw_init(hw);
+ 
++	if (formats)
++		hw->formats &= formats;
 +
- static const struct snd_soc_acpi_adr_device mx8373_2_adr[] = {
- 	{
- 		.adr = 0x000223019F837300ull,
-@@ -612,6 +626,12 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[] = {
- 		.drv_name = "sof_sdw",
- 		.sof_tplg_filename = "sof-adl-rt711-l0-rt1316-l3.tplg",
- 	},
-+	{
-+		.link_mask = 0x5, /* 2 active links required */
-+		.links = adl_sdw_rt711_link0_rt1316_link2,
-+		.drv_name = "sof_sdw",
-+		.sof_tplg_filename = "sof-adl-rt711-l0-rt1316-l2.tplg",
-+	},
- 	{
- 		.link_mask = 0x1, /* link0 required */
- 		.links = adl_rvp,
+ 	for_each_rtd_cpu_dais(fe, i, dai) {
+ 		struct snd_soc_pcm_stream *cpu_stream;
+ 
 -- 
 2.39.2
 

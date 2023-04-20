@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FB6B6E918C
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:04:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11C0F6E918E
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 13:05:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5AE2EF02;
-	Thu, 20 Apr 2023 13:03:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AE2EF02
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4242CF04;
+	Thu, 20 Apr 2023 13:04:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4242CF04
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681988681;
-	bh=FxSpL+k7mWLJ/yG1GbUE51+sbJSmAkqDaYqGJUi2tiY=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Fyc2Ai9G/C1lH51r+xoyW6/Cd9GY4+ab8kihEQcJzTuyIa6Wjj8HqSOpDK/5MIBT5
-	 4sc5KlRQR4CQqDSepr+sL7fvj4M90rxZ/VszWRTQ2ujdadDyW3b4P45gHfsrwhV7f9
-	 UdzqnUjYvt42jKV6FUkFwrWd2kl82qlKrxdhIvx4=
+	s=default; t=1681988704;
+	bh=V38LfrFY2SLpHVHDJ43NpZ8FgQwpzlAV8uCds+Dx+lw=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hGAAKaz4xdB92EKTWPrXt1Q++Xz7ByW3J6PWMIFi8B5iMi+/TeWgLqNJj5NyRvIdr
+	 lk8oexPo6d5YrG1ZrDmdqaGyWM2KDsZx5qinWZlCH2O1AKzAVYNbdoPnOiscz61+WC
+	 pKKcDFre+8NlCzS9aNAujEu8Iq3fygW/AFw9i6Kg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A00FF8055C;
-	Thu, 20 Apr 2023 13:02:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1013DF80568;
+	Thu, 20 Apr 2023 13:02:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D7BFF80563; Thu, 20 Apr 2023 13:02:18 +0200 (CEST)
+	id 785F3F8056F; Thu, 20 Apr 2023 13:02:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CA783F8053D
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:02:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA783F8053D
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6206F80567
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 13:02:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6206F80567
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=u+76OvY2
+ header.s=k20201202 header.b=GIVC5vgr
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6F778647CB;
-	Thu, 20 Apr 2023 11:02:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF62C4339B;
-	Thu, 20 Apr 2023 11:02:11 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 808AB647CE;
+	Thu, 20 Apr 2023 11:02:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C489C433D2;
+	Thu, 20 Apr 2023 11:02:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681988532;
-	bh=FxSpL+k7mWLJ/yG1GbUE51+sbJSmAkqDaYqGJUi2tiY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=u+76OvY2cyT2rmMCcoQncat/QBhRrggQa24paj0gU4SDVKGO+Ri+/6CNYm2aNk9cH
-	 fppt7od9N8ZLaBcHIplz9CdBnNWpDBkvp54/nAwNJOvnN/2lrtsMkOUqk+op6aGUxr
-	 dYHCbSmNlwRBw+5i+YhL0R8Q5Ctiey9dUXEsb5n8l5nbIut+NRFEficQ7pSA5SCEkN
-	 Xlg6FtarXXJgjcwSYoY0dwAx6ugWpJ8NxQo1kOpE89TzHlfEvPaWpnzs7DiqhxhONN
-	 /RHrm25A+XJPOC1Kip9j+wOW6CJVj177/3w4rpGyHsMKJeoNypLlUkfEauGhmR63iA
-	 Eb5jJv49bMSzw==
+	s=k20201202; t=1681988554;
+	bh=V38LfrFY2SLpHVHDJ43NpZ8FgQwpzlAV8uCds+Dx+lw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=GIVC5vgrKg5cGM49Pa5OzNsjwrgVUDI2gbTJvz3Hw+fCOTF8j3Usry+zEbYwaic3C
+	 q+VRI5sHRLmBqRiZK4ivDklb5c0Ip0sV9HJIQVCP5e3Xx0/GASFnMT4PvbG6QGRsdt
+	 vZ6Y/UkBPzFVxn2TCPNUhCW2AUzzWQ6ccCe1yC/vXe3TET3GF+CyrUin9o4sHFMoME
+	 +fi98KY4L1ovLBJOkpwtmWxJP3uEiQIXDHrXrP12VscJ6NrFgnFkDtKgw4qwz2u34X
+	 CH8FYzYxqo2NndMqmKMhbgeUUkSFLN+vDpaKhx1U/QuPC75+r/Qra8k+CfxahHUBgZ
+	 3sIO7HF2rQ75w==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.2 09/17] ASoC: da7213.c: add missing
- pm_runtime_disable()
-Date: Thu, 20 Apr 2023 07:01:38 -0400
-Message-Id: <20230420110148.505779-9-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 01/15] ASOC: Intel: sof_sdw: add quirk for Intel
+ 'Rooks County' NUC M15
+Date: Thu, 20 Apr 2023 07:02:15 -0400
+Message-Id: <20230420110231.505992-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230420110148.505779-1-sashal@kernel.org>
-References: <20230420110148.505779-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JQSI5JTRLT2SJNWZHBVYC2PYERGDVWSV
-X-Message-ID-Hash: JQSI5JTRLT2SJNWZHBVYC2PYERGDVWSV
+Message-ID-Hash: KBSTMKVMYDMVUJIITI4UGYQXD56LSACO
+X-Message-ID-Hash: KBSTMKVMYDMVUJIITI4UGYQXD56LSACO
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -81,17 +78,20 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Duy Nguyen <duy.nguyen.rh@renesas.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Khanh Le <khanh.le.xr@renesas.com>, Mark Brown <broonie@kernel.org>,
- Sasha Levin <sashal@kernel.org>, support.opensource@diasemi.com,
- lgirdwood@gmail.com, tiwai@suse.com, alsa-devel@alsa-project.org
+CC: Eugene Huang <eugene.huang99@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Mark Brown <broonie@kernel.org>,
+ Sasha Levin <sashal@kernel.org>, cezary.rojewski@intel.com,
+ liam.r.girdwood@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, tiwai@suse.com, gongjun.song@intel.com,
+ shumingf@realtek.com, yong.zhi@intel.com, alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQSI5JTRLT2SJNWZHBVYC2PYERGDVWSV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBSTMKVMYDMVUJIITI4UGYQXD56LSACO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,53 +100,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Duy Nguyen <duy.nguyen.rh@renesas.com>
+From: Eugene Huang <eugene.huang99@gmail.com>
 
-[ Upstream commit 44378cd113e5f15bb0a89f5ac5a0e687b52feb90 ]
+[ Upstream commit 3c728b1bc5b99c5275ac5c7788ef814c0e51ef54 ]
 
-da7213.c is missing pm_runtime_disable(), thus we will get
-below error when rmmod -> insmod.
+Same quirks as the 'Bishop County' NUC M15, except the rt711 is in the
+'JD2 100K' jack detection mode.
 
-	$ rmmod  snd-soc-da7213.ko
-	$ insmod snd-soc-da7213.ko
-	da7213 0-001a: Unbalanced pm_runtime_enable!"
-
-[Kuninori adjusted to latest upstream]
-
-Signed-off-by: Duy Nguyen <duy.nguyen.rh@renesas.com>
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Tested-by: Khanh Le <khanh.le.xr@renesas.com>
-Link: https://lore.kernel.org/r/87mt3xg2tk.wl-kuninori.morimoto.gx@renesas.com
+Link: https://github.com/thesofproject/linux/issues/4088
+Signed-off-by: Eugene Huang <eugene.huang99@gmail.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20230314090553.498664-2-yung-chuan.liao@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/da7213.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/soc/intel/boards/sof_sdw.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
-index 544ccbcfc8844..5678683c71bee 100644
---- a/sound/soc/codecs/da7213.c
-+++ b/sound/soc/codecs/da7213.c
-@@ -1996,6 +1996,11 @@ static int da7213_i2c_probe(struct i2c_client *i2c)
- 	return ret;
- }
- 
-+static void da7213_i2c_remove(struct i2c_client *i2c)
-+{
-+	pm_runtime_disable(&i2c->dev);
-+}
-+
- static int __maybe_unused da7213_runtime_suspend(struct device *dev)
- {
- 	struct da7213_priv *da7213 = dev_get_drvdata(dev);
-@@ -2039,6 +2044,7 @@ static struct i2c_driver da7213_i2c_driver = {
- 		.pm = &da7213_pm,
+diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
+index ee9857dc3135d..d4f92bb5e29f8 100644
+--- a/sound/soc/intel/boards/sof_sdw.c
++++ b/sound/soc/intel/boards/sof_sdw.c
+@@ -213,6 +213,17 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
+ 					SOF_SDW_PCH_DMIC |
+ 					RT711_JD1),
  	},
- 	.probe_new	= da7213_i2c_probe,
-+	.remove		= da7213_i2c_remove,
- 	.id_table	= da7213_i2c_id,
- };
- 
++	{
++		/* NUC15 'Rooks County' LAPRC510 and LAPRC710 skews */
++		.callback = sof_sdw_quirk_cb,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Intel(R) Client Systems"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "LAPRC"),
++		},
++		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
++					SOF_SDW_PCH_DMIC |
++					RT711_JD2_100K),
++	},
+ 	/* TigerLake-SDCA devices */
+ 	{
+ 		.callback = sof_sdw_quirk_cb,
 -- 
 2.39.2
 

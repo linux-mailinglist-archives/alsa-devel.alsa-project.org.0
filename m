@@ -2,101 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ADF66E953F
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 15:01:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41D4D6E959F
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 15:16:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6902BEC2;
-	Thu, 20 Apr 2023 15:00:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6902BEC2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34DD4EC2;
+	Thu, 20 Apr 2023 15:16:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34DD4EC2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681995677;
-	bh=CbmhJ3ZmVyg2k2Wza3FXUHP83EnEg08C0pPRDzyTo5c=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=kGpPqtgZvHPVNpSd80yh7y69V0N3ynIjmrnfGzLnukjos8wd5jCJ6bCuqKMtjwFhk
-	 xkX7pAad6qAKYkrygriYyphe0s8xjX0oowR4/Bzj59oKkU6I2Cla47MCrXFdgvCQZj
-	 z+esvlrfDAF8UOHzHXX/zuxWf4HQnhsfl55A+KsE=
+	s=default; t=1681996613;
+	bh=W0XRVsZRn8MnGBzqA9Vn88IL3uHL7Yez2aWoVZLNraQ=;
+	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=CJOSDxyfqZrgueMzlQ6XLRlMkUuyU+5qQRJL0ya1HnxQa3jOKIEyyiftLg777hbk/
+	 X3MWPG70CBMsesxfcjgXZupd43ZWgEn/QiBrUhUFp7LyAs69nz0Sr/IyIDjXUr2T/A
+	 g96bMmIbJGin+uFEbkf1pFyr9ZVNlEGZ7/ru48B8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C989DF80149;
-	Thu, 20 Apr 2023 15:00:26 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 615B8F80155; Thu, 20 Apr 2023 15:00:23 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB679F800F8
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 15:00:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB679F800F8
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bAnJ6mgo
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A6EEB612A8;
-	Thu, 20 Apr 2023 13:00:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A9DC433D2;
-	Thu, 20 Apr 2023 13:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1681995618;
-	bh=CbmhJ3ZmVyg2k2Wza3FXUHP83EnEg08C0pPRDzyTo5c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bAnJ6mgoMDNZ3IS69NorlaK/rufDvakTN1i7fT5q559Ukqs3hl+WiRBur3cF6T74O
-	 vISmrHH9rSPS9BEUt4DjfjA7n5Tc9obUVfJwQUucBA4Sez3TpKs3WufBtpROiWwolb
-	 Wto99A1LUUgOYiD20XqGjDWc4x7pg9sSk4rGLgXTdU/ag41t8hZhVi2KbPwyqhGz8l
-	 KWh4IymK+Ug9WONtMrPTMp5Hc2nuXiBc5R64rLKp/UA+znk5ZhjfIKhhxDmfAqTXXO
-	 WjQ2cSueIwsrPTHlsNfV7QXo260JSHc8OHjA4OFSbw7Feh/cl9GytBQNYH8d00jO41
-	 fvau9+erQLAgQ==
-Date: Thu, 20 Apr 2023 14:00:06 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/6] ASoC: wcd938x: switch to using gpiod API
-Message-ID: <d746ee5f-283d-44ce-b72c-18c8955d38b1@sirena.org.uk>
-References: <20230420101617.142225-1-krzysztof.kozlowski@linaro.org>
- <20230420101617.142225-2-krzysztof.kozlowski@linaro.org>
- <6b355201-a957-4fca-a513-d5fa0742fb40@sirena.org.uk>
- <fe6202ee-2552-8b5c-c2d5-f2f7042b901d@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PfnKUriuZ2R4YLEv"
-Content-Disposition: inline
-In-Reply-To: <fe6202ee-2552-8b5c-c2d5-f2f7042b901d@linaro.org>
-X-Cookie: Above all else -- sky.
-Message-ID-Hash: ZAEW7RBOZXTGKFLNKDHQFIJ3DOZPVTW4
-X-Message-ID-Hash: ZAEW7RBOZXTGKFLNKDHQFIJ3DOZPVTW4
-X-MailFrom: broonie@kernel.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 834B1F80149;
+	Thu, 20 Apr 2023 15:16:02 +0200 (CEST)
+Date: Thu, 20 Apr 2023 15:15:51 +0200
+To: Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH v6 3/7] mfd: Add support for the Lantiq PEF2256 framer
+In-Reply-To: <20230420123946.GB996918@google.com>
+References: <20230417171601.74656-1-herve.codina@bootlin.com>
+	<20230417171601.74656-4-herve.codina@bootlin.com>
+	<20230420123946.GB996918@google.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZAEW7RBOZXTGKFLNKDHQFIJ3DOZPVTW4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3GE3GRRS45VSEFK23S3JDK7CFVNOIJ3J/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168199656108.26.1396823662275947841@mailman-core.alsa-project.org>
+From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 781A0F80155; Thu, 20 Apr 2023 15:15:58 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::224])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id DDC09F800AC
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 15:15:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDC09F800AC
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=A8w0OSj2
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 74178E0010;
+	Thu, 20 Apr 2023 13:15:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1681996553;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mf7ZEqMnInD6phgYGwpuLntMIV868d1BcFV7kNAFuVc=;
+	b=A8w0OSj2lidc4EuDhnUnEMUC/NHZfLwRyj7eA83lolXTf53qJbKyic8Yv3rhKMDygbl4WF
+	p2NJfK5N8QMejhgYTeOaP9QkzIpKaE5e6wtIXh1IzSYpnzgc4BtYax6no3RFnFSwbE4vus
+	cJ+fsUcBVh5iUVLa2LUm1700tpoQG/jVKLuoBOIJYCT/GCSE+KM3HDFpdrMq9OAVAb6CnQ
+	wcvK+YSh0O2bNi3fdKIWQIEFg1svQ/TlXw8nas68tktzXO1FYFqyXPjKEab0QM3SZTpSYq
+	N+COI7tYKW1xpDCbCMnQCFr8Q75SwTIfIT/vRGSaoSbenxXe87w98XQGwrQ0Ww==
+Date: Thu, 20 Apr 2023 15:15:51 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH v6 3/7] mfd: Add support for the Lantiq PEF2256 framer
+Message-ID: <20230420151551.78c1288b@bootlin.com>
+In-Reply-To: <20230420123946.GB996918@google.com>
+References: <20230417171601.74656-1-herve.codina@bootlin.com>
+	<20230417171601.74656-4-herve.codina@bootlin.com>
+	<20230420123946.GB996918@google.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 3GE3GRRS45VSEFK23S3JDK7CFVNOIJ3J
+X-Message-ID-Hash: 3GE3GRRS45VSEFK23S3JDK7CFVNOIJ3J
+X-MailFrom: herve.codina@bootlin.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3GE3GRRS45VSEFK23S3JDK7CFVNOIJ3J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,62 +141,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, 20 Apr 2023 13:39:46 +0100
+Lee Jones <lee@kernel.org> wrote:
 
---PfnKUriuZ2R4YLEv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Mon, 17 Apr 2023, Herve Codina wrote:
+> 
+> > The Lantiq PEF2256 is a framer and line interface component designed to
+> > fulfill all required interfacing between an analog E1/T1/J1 line and the
+> > digital PCM system highway/H.100 bus.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > ---
+> >  drivers/mfd/Kconfig         |  16 +
+> >  drivers/mfd/Makefile        |   1 +
+> >  drivers/mfd/pef2256-regs.h  | 250 ++++++++++
+> >  drivers/mfd/pef2256.c       | 950 ++++++++++++++++++++++++++++++++++++  
+> 
+> 95% of this driver needs to be moved somewhere else.
+> 
+> What is a Framer?  Perhaps sound/ is a good candidate?
 
-On Thu, Apr 20, 2023 at 02:30:17PM +0200, Krzysztof Kozlowski wrote:
-> On 20/04/2023 13:58, Mark Brown wrote:
-> > On Thu, Apr 20, 2023 at 12:16:12PM +0200, Krzysztof Kozlowski wrote:
+The pef2256 framer is a device that transfers data to/from a TDM (time-slots
+data) from/to quite old telecommunication lines (E1 in my case).
+Several subsystem can set/get data to/from the TDM. Each device using their
+own time-slots set.
 
-> >> -	gpio_direction_output(wcd938x->reset_gpio, 0);
-> >> -	/* 20us sleep required after pulling the reset gpio to LOW */
-> >> +	gpiod_set_value_cansleep(wcd938x->reset_gpio, 1);
-> >> +	/* 20us sleep required after asserting the reset gpio */
+On my use-case, I have some audio consumer and a not yet upstreamed HDLC
+consumer. Both of them uses the framer to know the E1 link state.
+The framer needs to be initialized 'globally' and not by a specific consumer
+as several consumers can use the framer.
 
-> > This is inverting the sense of the GPIO in the API from active low to
-> > active high which will mean we're introducing a new reliance on having
-> > the signal described as active low in DT.  That's an ABI concern.
+> 
+> >  include/linux/mfd/pef2256.h |  52 ++
+> >  5 files changed, 1269 insertions(+)
+> >  create mode 100644 drivers/mfd/pef2256-regs.h
+> >  create mode 100644 drivers/mfd/pef2256.c
+> >  create mode 100644 include/linux/mfd/pef2256.h  
+> 
+> [...]
+> 
+> > +static int pef2256_add_audio_devices(struct pef2256 *pef2256)
+> > +{
+> > +	const char *compatible = "lantiq,pef2256-codec";
+> > +	struct mfd_cell *audio_devs;
+> > +	struct device_node *np;
+> > +	unsigned int count = 0;
+> > +	unsigned int i;
+> > +	int ret;
+> > +
+> > +	for_each_available_child_of_node(pef2256->dev->of_node, np) {
+> > +		if (of_device_is_compatible(np, compatible))
+> > +			count++;
+> > +	}  
+> 
+> Converting Device Tree nodes into MFD cells to register with the
+> Platform Device API is not a reasonable use-case of MFD.
+> 
+> Have the CODEC driver match on "lantiq,pef2256-codec" and let it
+> instantiate itself.
 
-> It's bringing it to the correct level. Old code was not respecting the
-> DTS thus if such DTS came with inverted design, the driver would not work.
+As the framer is going to used by several subsystem, I cannot instantiate
+it in the specific ASoC subsystem.
 
-Sure, but OTOH if the user didn't bother specifying as active low it
-would work.  I suspect it's more likely that someone missed a flag that
-had no practical impact in DT than that someone would add an inverter to
-their design.
+> 
+> Your first version using of_platform_populate() was closer to the mark.
 
-> We were already fixing the upstream DTS users and I thought all of them
-> are fixed since long time (half a year) or even correct from the
-> beginning. Now I found one more case with incorrect level, which I will fix.
+The issue was that I need MFD cells for the pinctrl part.
 
-That's just upstream, what about any downstream users?
+> 
+> > +	if (!count)
+> > +		return 0;
+> > +
+> > +	audio_devs = kcalloc(count, sizeof(*audio_devs), GFP_KERNEL);
+> > +	if (!audio_devs)
+> > +		return -ENOMEM;
+> > +
+> > +	for (i = 0; i < count; i++) {
+> > +		(audio_devs + i)->name = "lantiq-pef2256-codec";
+> > +		(audio_devs + i)->of_compatible = compatible;
+> > +		(audio_devs + i)->id = i;
+> > +	}
+> > +
+> > +	ret = mfd_add_devices(pef2256->dev, 0, audio_devs, count, NULL, 0, NULL);
+> > +	kfree(audio_devs);
+> > +	return ret;
+> > +}  
+> 
 
-> > I remain deeply unconvinced that remapping active low outputs like this
-> > in the GPIO API is helping.
+Best regards,
+Hervé
 
-> The code is mapping them to correct state. The previous state was
-> incorrect and did not allow to handle active high (which can happen).
-> This is the effort to make code correct - driver and DTS.
-
-We could handle inversions through an explicit property if that were
-needed, that would be a less problematic transition and clearer in the
-consumer code.
-
---PfnKUriuZ2R4YLEv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRBN1UACgkQJNaLcl1U
-h9ARLgf8DLC7sm26xjBonZJsiIb04p8lxnLkqb2sEIpOo1F5Wjc4SP5X97YAICDM
-E/UU3m0cvSWhzwHCy6JhM8IeudyRAOdzUeg5mfDt6QSE/bhynllmcgA5lid8/3IQ
-SPdchu68hQL8tsFn0QCtSapGBDfpHJ2Np0URhl/Ej4k/1Iij4uWIC9BNNg+oyGt5
-Cj6wcxugplyc3Mjnb/qW263HNA6cDNXUl6zxNBkPckbdFhuTQGazigpv+sdA7ZFc
-i4quuojHDlbkABb8Cs2oT/rYFH5hBLRVaa+2hwHWX0hLKPmzZSeqkMz7Xq9/2R4k
-VXlD4DkgX5ctElHSCn/c3mVLzvaa+Q==
-=ksk9
------END PGP SIGNATURE-----
-
---PfnKUriuZ2R4YLEv--
+-- 
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

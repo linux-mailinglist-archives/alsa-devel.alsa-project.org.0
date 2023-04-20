@@ -2,76 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C00656E9503
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 14:48:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D7F66E9505
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Apr 2023 14:49:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E471DEC3;
-	Thu, 20 Apr 2023 14:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E471DEC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC982ED5;
+	Thu, 20 Apr 2023 14:48:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC982ED5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1681994893;
-	bh=mPpWLHOLy99ZrKoHK9lQcqdY7m/6Prk562N+sxqxma8=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1681994943;
+	bh=cMws2fis6674crVV6z3zHznzxguegBS3bD1YNxXSp+E=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XVrAr5xG+qH5vohT1VyP9pGX/rw1vX0RIRDgkWfnpdndnX5awglQCWRtX2a1hORii
-	 XaEbaEj2O//mqBqpTaW5uUgwllcmmiQNY9oI7Nw+XZgdBjq1ahOPNx4crIZ59oJXk0
-	 TtykG0PW3h9Eyipg+cftwS729gr/MCMuK3dDvW2U=
+	b=L9TIKGegSyls+BjHk42+xhfk9zxtqVAywd8b6kyJwQHuZQ9WeetQu78zQpRA9VirQ
+	 YKAaI45Wn6SK2K+2yfPxmsbXKsvwE07i4K/vvm2eyDKXdmJ8GA92dptn9Blb4CRyg9
+	 JzMNR5l2AAyV/fBAS1jpTEGgS8s+a8BI0rMTxS4o=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E2DAF80149;
-	Thu, 20 Apr 2023 14:47:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4531F804FC;
+	Thu, 20 Apr 2023 14:47:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97A13F80155; Thu, 20 Apr 2023 14:47:18 +0200 (CEST)
+	id 6D377F80510; Thu, 20 Apr 2023 14:47:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CE4BDF80053
-	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 14:47:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE4BDF80053
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 1CA8A24179;
-	Thu, 20 Apr 2023 08:47:12 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1ppTgt-h8k-00; Thu, 20 Apr 2023 14:47:11 +0200
-Date: Thu, 20 Apr 2023 14:47:11 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: Re: [RFC PATCH] docs: sound: kernel-api: writing-an-alsa-driver.rst:
- add FIXMEs
-Message-ID: <ZEE0T+jx5i59oV37@ugly>
-Mail-Followup-To: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>
-References: <20230405201220.2197878-1-oswald.buddenhagen@gmx.de>
- <87sfddv7e4.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <87sfddv7e4.wl-tiwai@suse.de>
-Message-ID-Hash: GFLF77UW7B322B6CLE6BI3BHGMPZA5AC
-X-Message-ID-Hash: GFLF77UW7B322B6CLE6BI3BHGMPZA5AC
-X-MailFrom: ossi@kde.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id E82E7F80212
+	for <alsa-devel@alsa-project.org>; Thu, 20 Apr 2023 14:47:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E82E7F80212
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=OL+JdFDa;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=7eYfxLUL
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 15015219BC;
+	Thu, 20 Apr 2023 12:47:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1681994869;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HTHVxC2svPLzFMYH3+XJMZqe+9MlRBDvNzhqZDJydEU=;
+	b=OL+JdFDahCY0X8OvjO6In0dXXP3+NpRH6UhcLcJqIsYvE7Bjb4QAhFl0PDv6A8dh1zoF31
+	aEJZDbCU4Fky8hPzOxPzDztQBa7Q4c2uQCWs5k67LEL74p2imbrQ9u6aBJdXGa9607INmF
+	RSOzlks+mhY7oaQCBuNXH/0IPQstNt8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1681994869;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HTHVxC2svPLzFMYH3+XJMZqe+9MlRBDvNzhqZDJydEU=;
+	b=7eYfxLULu24E+hk8KjtQs9V30YDcgAiYa6wWJVu30KwiK75YXjPJpHfG4VB5Z+gHZE2Vd1
+	WKJzm8cRspLhLqBg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E3BAA1333C;
+	Thu, 20 Apr 2023 12:47:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id UpheNnQ0QWSVBQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 20 Apr 2023 12:47:48 +0000
+Date: Thu, 20 Apr 2023 14:47:48 +0200
+Message-ID: <87y1mmu3d7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH v2] docs: sound/kernel-api/writing-an-alsa-driver.rst:
+ polishing
+In-Reply-To: <20230420114341.878441-1-oswald.buddenhagen@gmx.de>
+References: <20230420114341.878441-1-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 67254H6REJ3BWNH3TIGD4U7EBEBAUXUU
+X-Message-ID-Hash: 67254H6REJ3BWNH3TIGD4U7EBEBAUXUU
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GFLF77UW7B322B6CLE6BI3BHGMPZA5AC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/67254H6REJ3BWNH3TIGD4U7EBEBAUXUU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -80,35 +115,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Apr 06, 2023 at 08:42:27AM +0200, Takashi Iwai wrote:
->On Wed, 05 Apr 2023 22:12:20 +0200, Oswald Buddenhagen wrote:
->>  The ``name`` is the name identifier string. Since ALSA 0.9.x, the
->>  control name is very important, because its role is classified from
->>  its name. There are pre-defined standard control names. The details
->>  are described in the `Control Names`_ subsection.
->> +// This is a questionable design, IMO. Why user-space heuristics when
->> +// the driver could set the roles/capabilities? This would avoid
->> +// problems like the Tone Control sliders (unlike the switch?!) being
->> +// misclassified as applying also to capture.
->
->Why this has to be discussed here and now...?
->
-why not?
+On Thu, 20 Apr 2023 13:43:41 +0200,
+Oswald Buddenhagen wrote:
+> 
+> - Update some outdated info
+> - Language fixes
+> - Whitespace/formatting fixes
+> - Prefer attached over stand-alone '::'
+> 
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> 
+> ---
+> 
+> v2:
+> - dropped questionable hunk from period timer example code
+> - new hunk: improved wording wrt period sizes
 
->It's the thing that was *defined* over two decades ago.
->
-that may be so, but this doesn't explain anything.
-it's a somewhat surprising choice, and it does in fact sometimes cause 
-problems. so at least it should be thoroughly explained.
+Looks better, but I don't like putting FIXME's in the end result:
 
->> +// FIXME: explain.
->
->A patch please.
->
-well, if i knew what to write there without doing deeper research first, 
-i'd have already included it into the doc update. if you give me rough 
-drafts (even just somewhat extensive bullet points), i can polish it for 
-you (though i suspect that nowadays you may just dump it into chatgpt 
-and get something reasonable out of it).
+>  Callbacks are not atomic
+>  ~~~~~~~~~~~~~~~~~~~~~~~~
+>  
+> -All these three callbacks are basically not atomic.
+> +All these three callbacks are basically (FIXME: but ...?) not atomic.
 
-regards
+You can omit the word "basically" and replace "not atomic" with
+"non-atomic".
+
+> +``SNDRV_DMA_TYPE_DEV_SG`` in the PCM constructor like for other PCI
+> +pre-allocations. You need to pass ``&pci->dev``, where pci is
+> +the struct pci_dev pointer of the chip as well::
+>  
+>    snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV_SG,
+>                                   &pci->dev, size, max);
+>  
+> +// FIXME: dma_private again
+
+I don't understand what are you asking here.  "dma_private" has been
+already described in the early section.
+
+
+thanks,
+
+Takashi

@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4EE6EAC95
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 16:15:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 279F56EAC67
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 16:11:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2892E9E;
-	Fri, 21 Apr 2023 16:14:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2892E9E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65512E8C;
+	Fri, 21 Apr 2023 16:10:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65512E8C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682086535;
-	bh=x37UryjQicn40viHG0w3UFHBBwrnroKnUkFvCpQvnvw=;
+	s=default; t=1682086268;
+	bh=jW3WxjgSUzW22+r3YqzFafGwtDcnk4z1LhYUpWpaIqw=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SbXVFccN5QDghUk41QEBCAJFXSa6Z70Snv8cWneyG7hD/P61gsee/5mwrvvdvMNxD
-	 DJxxo8Iam4bgg0rTJlMYMe5ASqwOX80BofNam84LteW+5x9r6nuhYq44vnO3pSh9we
-	 8D/6kIGQgyyQ1PIErrvOJnrK4hQ60IvsHaB+TLso=
+	b=YHS8CWwjI4FF8EkY7am0pbTCpq/tht2F1qJ2TcomFvHC28BcoNV7k6fwz0Oo0nNVT
+	 LuHCokI6NddCyJOEVqo/+PeVDJKK4TIrnHaYhlw5nzkZjvCyhazzz2opJtINWrA1TT
+	 ifvHJX2wFDg1lQo+Xn+QLP2naz9cpfuNAwBNriek=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD721F805C1;
-	Fri, 21 Apr 2023 16:10:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A8A0F8053D;
+	Fri, 21 Apr 2023 16:10:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B336F8057D; Fri, 21 Apr 2023 16:10:41 +0200 (CEST)
+	id 2E33CF8053D; Fri, 21 Apr 2023 16:10:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
@@ -33,26 +33,27 @@ X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
 Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CA25CF8053B
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 16:10:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA25CF8053B
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1B8CF80053
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 16:10:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1B8CF80053
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 1FBF42425C;
-	Fri, 21 Apr 2023 10:10:07 -0400 (EDT)
+	by bluemchen.kde.org (Postfix) with ESMTP id A12C524254;
+	Fri, 21 Apr 2023 10:10:06 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pprSg-Db0-00; Fri, 21 Apr 2023 16:10:06 +0200
+	id 1pprSg-DZh-00; Fri, 21 Apr 2023 16:10:06 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 5/7] ALSA: emu10k1: remove apparently pointless FPGA reads
-Date: Fri, 21 Apr 2023 16:10:04 +0200
-Message-Id: <20230421141006.1005539-5-oswald.buddenhagen@gmx.de>
+Subject: [PATCH 6/7] ALSA: emu10k1: remove unused
+ emu->pcm_playback_efx_substream field
+Date: Fri, 21 Apr 2023 16:10:05 +0200
+Message-Id: <20230421141006.1005452-6-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230421141006.1005539-1-oswald.buddenhagen@gmx.de>
-References: <20230421141006.1005539-1-oswald.buddenhagen@gmx.de>
+In-Reply-To: <20230421141006.1005452-1-oswald.buddenhagen@gmx.de>
+References: <20230421141006.1005452-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KTACUU6S6OYSW4JEKVAW4OXHNADJDM3E
-X-Message-ID-Hash: KTACUU6S6OYSW4JEKVAW4OXHNADJDM3E
+Message-ID-Hash: D55VEPJJT6USVPJPYKDI6UJQJDPV342O
+X-Message-ID-Hash: D55VEPJJT6USVPJPYKDI6UJQJDPV342O
 X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -66,7 +67,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KTACUU6S6OYSW4JEKVAW4OXHNADJDM3E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D55VEPJJT6USVPJPYKDI6UJQJDPV342O/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -75,60 +76,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These seem to be simply cargo-culted from the Windows driver's behavior.
-However, the original reason were presumably read-modify-write cycles,
-which we don't do.
+Amends commit 27ae958cf6.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- sound/pci/emu10k1/emu10k1_main.c | 7 -------
- 1 file changed, 7 deletions(-)
+ include/sound/emu10k1.h    | 1 -
+ sound/pci/emu10k1/emupcm.c | 2 --
+ 2 files changed, 3 deletions(-)
 
-diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
-index f7908e5a6e0d..ac0c8865c76b 100644
---- a/sound/pci/emu10k1/emu10k1_main.c
-+++ b/sound/pci/emu10k1/emu10k1_main.c
-@@ -885,32 +885,26 @@ static int snd_emu10k1_emu1010_init(struct snd_emu10k1 *emu)
- 	dev_info(emu->card->dev, "emu1010: Card options = 0x%x\n", reg);
- 	snd_emu1010_fpga_read(emu, EMU_HANA_OPTION_CARDS, &reg);
- 	dev_info(emu->card->dev, "emu1010: Card options = 0x%x\n", reg);
--	snd_emu1010_fpga_read(emu, EMU_HANA_OPTICAL_TYPE, &tmp);
- 	/* Optical -> ADAT I/O  */
- 	/* 0 : SPDIF
- 	 * 1 : ADAT
- 	 */
- 	emu->emu1010.optical_in = 1; /* IN_ADAT */
- 	emu->emu1010.optical_out = 1; /* IN_ADAT */
- 	tmp = 0;
- 	tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : 0) |
- 		(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : 0);
- 	snd_emu1010_fpga_write(emu, EMU_HANA_OPTICAL_TYPE, tmp);
--	snd_emu1010_fpga_read(emu, EMU_HANA_ADC_PADS, &tmp);
- 	/* Set no attenuation on Audio Dock pads. */
- 	snd_emu1010_fpga_write(emu, EMU_HANA_ADC_PADS, 0x00);
- 	emu->emu1010.adc_pads = 0x00;
--	snd_emu1010_fpga_read(emu, EMU_HANA_DOCK_MISC, &tmp);
- 	/* Unmute Audio dock DACs, Headphone source DAC-4. */
- 	snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_MISC, 0x30);
- 	snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_LEDS_2, 0x12);
--	snd_emu1010_fpga_read(emu, EMU_HANA_DAC_PADS, &tmp);
- 	/* DAC PADs. */
- 	snd_emu1010_fpga_write(emu, EMU_HANA_DAC_PADS, 0x0f);
- 	emu->emu1010.dac_pads = 0x0f;
--	snd_emu1010_fpga_read(emu, EMU_HANA_DOCK_MISC, &tmp);
- 	snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_MISC, 0x30);
--	snd_emu1010_fpga_read(emu, EMU_HANA_SPDIF_MODE, &tmp);
- 	/* SPDIF Format. Set Consumer mode, 24bit, copy enable */
- 	snd_emu1010_fpga_write(emu, EMU_HANA_SPDIF_MODE, 0x10);
- 	/* MIDI routing */
-@@ -1068,7 +1062,6 @@ static int snd_emu10k1_emu1010_init(struct snd_emu10k1 *emu)
- 	snd_emu1010_fpga_write(emu, EMU_HANA_MIDI_OUT, 0x0c); /* Unknown */
- 	snd_emu1010_fpga_write(emu, EMU_HANA_MIDI_IN, 0x19); /* MIDI Route */
- 	snd_emu1010_fpga_write(emu, EMU_HANA_MIDI_OUT, 0x0c); /* Unknown */
--	snd_emu1010_fpga_read(emu, EMU_HANA_SPDIF_MODE, &tmp);
- 	snd_emu1010_fpga_write(emu, EMU_HANA_SPDIF_MODE, 0x10); /* SPDIF Format spdif  (or 0x11 for aes/ebu) */
+diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
+index d1bae032c05f..84ea53e9c83f 100644
+--- a/include/sound/emu10k1.h
++++ b/include/sound/emu10k1.h
+@@ -1762,7 +1762,6 @@ struct snd_emu10k1 {
+ 	struct snd_pcm_substream *pcm_capture_substream;
+ 	struct snd_pcm_substream *pcm_capture_mic_substream;
+ 	struct snd_pcm_substream *pcm_capture_efx_substream;
+-	struct snd_pcm_substream *pcm_playback_efx_substream;
  
- #if 0
+ 	struct snd_timer *timer;
+ 
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index b7830fd5c2b4..c2749ad59e10 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -1044,8 +1044,6 @@ static int snd_emu10k1_efx_playback_open(struct snd_pcm_substream *substream)
+ 	epcm->type = PLAYBACK_EFX;
+ 	epcm->substream = substream;
+ 	
+-	emu->pcm_playback_efx_substream = substream;
+-
+ 	runtime->private_data = epcm;
+ 	runtime->private_free = snd_emu10k1_pcm_free_substream;
+ 	runtime->hw = snd_emu10k1_efx_playback;
 -- 
 2.40.0.152.g15d061e6df
 

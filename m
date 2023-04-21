@@ -2,69 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93A5C6EAC8D
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 16:14:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D2A66EAD11
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 16:37:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B55BEE94;
-	Fri, 21 Apr 2023 16:13:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B55BEE94
+	by alsa0.perex.cz (Postfix) with ESMTPS id E24FBE8F;
+	Fri, 21 Apr 2023 16:36:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E24FBE8F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682086439;
-	bh=Msj1x16VIkpHnRn7X9naTr0kITTTFDn1b6x9DzsHtQc=;
+	s=default; t=1682087843;
+	bh=wqPxoZjkgefakv5jycqQflvRpQg/iHAnD3UY493SNkM=;
 	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VlfbEwNkxDwh3ChMZx2c5YHexW/1RzZoc1oSrhes3lo43KUb7z95BZolv+FlJ7zOD
-	 wHQX2KbeQwzZl6X+ECukMxfd9l83a5f5pXXoyPfC3WqsZcn6uqn86t8xJl7byR6VIQ
-	 Wn4b18lP+T+4xcIU71MtNXdGQsXucShK0E8aSrCE=
+	b=Z4RCk90qcP2uERjwOEKcwyiGGBoiSDNeA9g9AorFRyeCcxCM1oTvFarOAPNR7t2wo
+	 OxzUxvs3hWgGJbd318EDKKnfFrGdSkMOjJu40LwfuqDgPy+A4CFNG5+waXmr+fNnPY
+	 TlsUTeZPe7S1mQ+h4bUeowxJHazcyLUHzwkB0dVE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C87BF80580;
-	Fri, 21 Apr 2023 16:10:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49696F80149;
+	Fri, 21 Apr 2023 16:36:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38FC1F80563; Fri, 21 Apr 2023 16:10:32 +0200 (CEST)
+	id 26084F80155; Fri, 21 Apr 2023 16:36:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 69611F8052D
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 16:10:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69611F8052D
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id B504F24256;
-	Fri, 21 Apr 2023 10:10:06 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pprSg-Da2-00; Fri, 21 Apr 2023 16:10:06 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: emu10k1: clarify various fx8010.*_mask fields
-Date: Fri, 21 Apr 2023 16:10:06 +0200
-Message-Id: <20230421141006.1005509-1-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E90BF80053
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 16:36:20 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id CD67411CF;
+	Fri, 21 Apr 2023 16:36:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz CD67411CF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1682087779; bh=a6Xuzj0mzVgusYMWrNHY1xpGYof52mQVQODYGsO4lRA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qWrEQbizT+pW2+dXRlkapFNgq6kpbQ17TEq4V2XOqbslAga4A0dwxv63lSg+mY+FF
+	 EHRe0G3MITh9T5EK7CkwV8Yj0YBeJBcxhxReL4tD5fPxtE+ojraVfU9l8SJH3k1kQE
+	 L4ip7XJBE1uQaXZudjemWUpoG/osUuepTzASryuc=
+Received: from p1gen2.perex-int.cz (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Fri, 21 Apr 2023 16:36:16 +0200 (CEST)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Subject: [PATCH alsa-lib] pcm: hw: setup explicit silencing for snd_pcm_drain
+ by default
+Date: Fri, 21 Apr 2023 16:36:06 +0200
+Message-Id: <20230421143606.475100-1-perex@perex.cz>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7WB4N7GVJ3ZOCK4GNOJLGRPJVA4555VN
-X-Message-ID-Hash: 7WB4N7GVJ3ZOCK4GNOJLGRPJVA4555VN
-X-MailFrom: ossi@kde.org
+Message-ID-Hash: GDPVE25JX7U5UQ2BYYN6OMDOBAOP76JQ
+X-Message-ID-Hash: GDPVE25JX7U5UQ2BYYN6OMDOBAOP76JQ
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
+CC: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7WB4N7GVJ3ZOCK4GNOJLGRPJVA4555VN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GDPVE25JX7U5UQ2BYYN6OMDOBAOP76JQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -73,87 +87,179 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-extin_mask and extout_mask are used only by the SbLive! microcode, so
-they have no effect on Audigy.
+RFC: Patch for alsa-lib. Not tested. For a discussion.
 
-Eliminate fxbus_mask entirely, as it wasn't actually used for anything.
+Some applications may not follow the period_size transfer blocks and
+also the driver developers may not follow the consequeces of the
+access beyond valid samples in the playback DMA buffer.
 
-As a drive-by, remove the pointless pad1 field from struct
-snd_emu10k1_fx8010 - it is not visible to user space, so it has no
-binary compatibility constraints.
+To avoid clicks, fill a little silence at the end of the playback
+ring buffer when the snd_pcm_drain() is called.
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+TODO:
+  - add SND_PCM_NO_DRAIN_SILENCE as a new flag for snd_pcm_open()
+  - make this behaviour configurable (plugin config)
+
+Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
- include/sound/emu10k1.h          | 6 ++----
- sound/pci/emu10k1/emu10k1_main.c | 7 ++++---
- sound/pci/emu10k1/emufx.c        | 9 ++++-----
- 3 files changed, 10 insertions(+), 12 deletions(-)
+ src/pcm/pcm.c       | 33 ++++++++++++++++++++-------------
+ src/pcm/pcm_hw.c    | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ src/pcm/pcm_local.h |  4 ++++
+ 3 files changed, 69 insertions(+), 13 deletions(-)
 
-diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
-index 39787fecc8d9..3407ca4a1210 100644
---- a/include/sound/emu10k1.h
-+++ b/include/sound/emu10k1.h
-@@ -1599,10 +1599,8 @@ struct snd_emu10k1_fx8010_pcm {
- };
+diff --git a/src/pcm/pcm.c b/src/pcm/pcm.c
+index 2b966d44..88b13ed4 100644
+--- a/src/pcm/pcm.c
++++ b/src/pcm/pcm.c
+@@ -6167,6 +6167,25 @@ int snd_pcm_hw_params_get_min_align(const snd_pcm_hw_params_t *params, snd_pcm_u
+ 	return 0;
+ }
  
- struct snd_emu10k1_fx8010 {
--	unsigned short fxbus_mask;	/* used FX buses (bitmask) */
--	unsigned short extin_mask;	/* used external inputs (bitmask) */
--	unsigned short extout_mask;	/* used external outputs (bitmask) */
--	unsigned short pad1;
-+	unsigned short extin_mask;	/* used external inputs (bitmask); not used for Audigy */
-+	unsigned short extout_mask;	/* used external outputs (bitmask); not used for Audigy */
- 	unsigned int itram_size;	/* internal TRAM size in samples */
- 	struct snd_dma_buffer etram_pages; /* external TRAM pages and size */
- 	unsigned int dbg;		/* FX debugger register */
-diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
-index 3880f359e688..65fd6b62bc9c 100644
---- a/sound/pci/emu10k1/emu10k1_main.c
-+++ b/sound/pci/emu10k1/emu10k1_main.c
-@@ -1901,11 +1901,12 @@ int snd_emu10k1_create(struct snd_card *card,
- 
- 	pci_set_master(pci);
- 
--	emu->fx8010.fxbus_mask = 0x303f;
-+	// The masks are not used for Audigy.
-+	// FIXME: these should come from the card_capabilites table.
- 	if (extin_mask == 0)
--		extin_mask = 0x3fcf;
-+		extin_mask = 0x3fcf;  // EXTIN_*
- 	if (extout_mask == 0)
--		extout_mask = 0x7fff;
-+		extout_mask = 0x7fff;  // EXTOUT_*
- 	emu->fx8010.extin_mask = extin_mask;
- 	emu->fx8010.extout_mask = extout_mask;
- 	emu->enable_ir = enable_ir;
-diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
-index 6cf7c8b1de47..c74e66e03ae0 100644
---- a/sound/pci/emu10k1/emufx.c
-+++ b/sound/pci/emu10k1/emufx.c
-@@ -2523,19 +2523,18 @@ static void snd_emu10k1_fx8010_info(struct snd_emu10k1 *emu,
- 				   struct snd_emu10k1_fx8010_info *info)
- {
- 	const char * const *fxbus, * const *extin, * const *extout;
--	unsigned short fxbus_mask, extin_mask, extout_mask;
-+	unsigned short extin_mask, extout_mask;
- 	int res;
- 
- 	info->internal_tram_size = emu->fx8010.itram_size;
- 	info->external_tram_size = emu->fx8010.etram_pages.bytes / 2;
- 	fxbus = fxbuses;
- 	extin = emu->audigy ? audigy_ins : creative_ins;
- 	extout = emu->audigy ? audigy_outs : creative_outs;
--	fxbus_mask = emu->fx8010.fxbus_mask;
--	extin_mask = emu->fx8010.extin_mask;
--	extout_mask = emu->fx8010.extout_mask;
-+	extin_mask = emu->audigy ? ~0 : emu->fx8010.extin_mask;
-+	extout_mask = emu->audigy ? ~0 : emu->fx8010.extout_mask;
- 	for (res = 0; res < 16; res++, fxbus++, extin++, extout++) {
--		copy_string(info->fxbus_names[res], fxbus_mask & (1 << res) ? *fxbus : NULL, "FXBUS", res);
-+		copy_string(info->fxbus_names[res], *fxbus, "FXBUS", res);
- 		copy_string(info->extin_names[res], extin_mask & (1 << res) ? *extin : NULL, "Unused", res);
- 		copy_string(info->extout_names[res], extout_mask & (1 << res) ? *extout : NULL, "Unused", res);
++#ifndef DOXYGEN
++void snd_pcm_sw_params_current_no_lock(snd_pcm_t *pcm, snd_pcm_sw_params_t *params)
++{
++	params->proto = SNDRV_PCM_VERSION;
++	params->tstamp_mode = pcm->tstamp_mode;
++	params->tstamp_type = pcm->tstamp_type;
++	params->period_step = pcm->period_step;
++	params->sleep_min = 0;
++	params->avail_min = pcm->avail_min;
++	sw_set_period_event(params, pcm->period_event);
++	params->xfer_align = 1;
++	params->start_threshold = pcm->start_threshold;
++	params->stop_threshold = pcm->stop_threshold;
++	params->silence_threshold = pcm->silence_threshold;
++	params->silence_size = pcm->silence_size;
++	params->boundary = pcm->boundary;
++}
++#endif
++
+ /**
+  * \brief Return current software configuration for a PCM
+  * \param pcm PCM handle
+@@ -6183,19 +6202,7 @@ int snd_pcm_sw_params_current(snd_pcm_t *pcm, snd_pcm_sw_params_t *params)
+ 		return -EIO;
  	}
+ 	__snd_pcm_lock(pcm); /* forced lock due to pcm field changes */
+-	params->proto = SNDRV_PCM_VERSION;
+-	params->tstamp_mode = pcm->tstamp_mode;
+-	params->tstamp_type = pcm->tstamp_type;
+-	params->period_step = pcm->period_step;
+-	params->sleep_min = 0;
+-	params->avail_min = pcm->avail_min;
+-	sw_set_period_event(params, pcm->period_event);
+-	params->xfer_align = 1;
+-	params->start_threshold = pcm->start_threshold;
+-	params->stop_threshold = pcm->stop_threshold;
+-	params->silence_threshold = pcm->silence_threshold;
+-	params->silence_size = pcm->silence_size;
+-	params->boundary = pcm->boundary;
++	snd_pcm_sw_params_current_no_lock(pcm, params);
+ 	__snd_pcm_unlock(pcm);
+ 	return 0;
+ }
+diff --git a/src/pcm/pcm_hw.c b/src/pcm/pcm_hw.c
+index daa3e1ff..4995b2cd 100644
+--- a/src/pcm/pcm_hw.c
++++ b/src/pcm/pcm_hw.c
+@@ -98,6 +98,8 @@ typedef struct {
+ 	bool mmap_control_fallbacked;
+ 	struct snd_pcm_sync_ptr *sync_ptr;
+ 
++	bool prepare_reset_sw_params;
++
+ 	int period_event;
+ 	snd_timer_t *period_timer;
+ 	struct pollfd period_timer_pfd;
+@@ -534,6 +536,7 @@ static int snd_pcm_hw_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t * params)
+ 		SYSMSG("SNDRV_PCM_IOCTL_SW_PARAMS failed (%i)", err);
+ 		goto out;
+ 	}
++	hw->prepare_reset_sw_params = false;
+ 	if ((snd_pcm_tstamp_type_t) params->tstamp_type != pcm->tstamp_type) {
+ 		if (hw->version < SNDRV_PROTOCOL_VERSION(2, 0, 12)) {
+ 			int on = (snd_pcm_tstamp_type_t) params->tstamp_type ==
+@@ -660,7 +663,18 @@ static int snd_pcm_hw_hwsync(snd_pcm_t *pcm)
+ static int snd_pcm_hw_prepare(snd_pcm_t *pcm)
+ {
+ 	snd_pcm_hw_t *hw = pcm->private_data;
++	snd_pcm_sw_params_t sw_params;
+ 	int fd = hw->fd, err;
++
++	if (hw->prepare_reset_sw_params) {
++		snd_pcm_sw_params_current_no_lock(pcm, &sw_params);
++		if (ioctl(hw->fd, SNDRV_PCM_IOCTL_SW_PARAMS, sw_params) < 0) {
++			err = -errno;
++			SYSMSG("SNDRV_PCM_IOCTL_SW_PARAMS failed (%i)", err);
++			return err;
++		}
++		hw->prepare_reset_sw_params = false;
++	}
+ 	if (ioctl(fd, SNDRV_PCM_IOCTL_PREPARE) < 0) {
+ 		err = -errno;
+ 		SYSMSG("SNDRV_PCM_IOCTL_PREPARE failed (%i)", err);
+@@ -718,7 +732,38 @@ static int snd_pcm_hw_drop(snd_pcm_t *pcm)
+ static int snd_pcm_hw_drain(snd_pcm_t *pcm)
+ {
+ 	snd_pcm_hw_t *hw = pcm->private_data;
++	snd_pcm_sw_params_t sw_params;
++	snd_pcm_uframes_t silence_size;
+ 	int err;
++
++	if (pcm->stream != SND_PCM_STREAM_PLAYBACK)
++		goto __skip_silence;
++	/* compute end silence size, align to period size + extra time */
++	snd_pcm_sw_params_current_no_lock(pcm, &sw_params);
++	if ((pcm->buffer_size % pcm->period_size) == 0) {
++		silence_size = pcm->period_size - (pcm->period_size % *pcm->appl.ptr);
++		if (silence_size == pcm->period_size)
++			silence_size = 0;
++	} else {
++		/* it not not easy to compute the period cross point
++		 * in this case because boundary is aligned only
++		 * to the buffer_size - use the full range (period)
++		 */
++		silence_size = pcm->period_size;
++	}
++	silence_size += pcm->rate / 10;	/* 1/10th of second */
++	if (sw_params.silence_size < silence_size) {
++		/* fill silence soon as possible (in the bellow ioctl) */
++		sw_params.silence_threshold = pcm->buffer_size;
++		sw_params.silence_size = silence_size;
++		if (ioctl(hw->fd, SNDRV_PCM_IOCTL_SW_PARAMS, sw_params) < 0) {
++			err = -errno;
++			SYSMSG("SNDRV_PCM_IOCTL_SW_PARAMS failed (%i)", err);
++			return err;
++		}
++		hw->prepare_reset_sw_params = true;
++	}
++__skip_silence:
+ 	if (ioctl(hw->fd, SNDRV_PCM_IOCTL_DRAIN) < 0) {
+ 		err = -errno;
+ 		SYSMSG("SNDRV_PCM_IOCTL_DRAIN failed (%i)", err);
+diff --git a/src/pcm/pcm_local.h b/src/pcm/pcm_local.h
+index ae0c44bf..4a859cd1 100644
+--- a/src/pcm/pcm_local.h
++++ b/src/pcm/pcm_local.h
+@@ -366,6 +366,8 @@ struct _snd_pcm {
+ 	snd1_pcm_hw_param_get_max
+ #define snd_pcm_hw_param_name		\
+ 	snd1_pcm_hw_param_name
++#define snd_pcm_sw_params_current_no_lock \
++	snd1_pcm_sw_params_current_no_lock
+ 
+ int snd_pcm_new(snd_pcm_t **pcmp, snd_pcm_type_t type, const char *name,
+ 		snd_pcm_stream_t stream, int mode);
+@@ -390,6 +392,8 @@ void snd_pcm_mmap_appl_forward(snd_pcm_t *pcm, snd_pcm_uframes_t frames);
+ void snd_pcm_mmap_hw_backward(snd_pcm_t *pcm, snd_pcm_uframes_t frames);
+ void snd_pcm_mmap_hw_forward(snd_pcm_t *pcm, snd_pcm_uframes_t frames);
+ 
++void snd_pcm_sw_params_current_no_lock(snd_pcm_t *pcm, snd_pcm_sw_params_t *params);
++
+ snd_pcm_sframes_t snd_pcm_mmap_writei(snd_pcm_t *pcm, const void *buffer, snd_pcm_uframes_t size);
+ snd_pcm_sframes_t snd_pcm_mmap_readi(snd_pcm_t *pcm, void *buffer, snd_pcm_uframes_t size);
+ snd_pcm_sframes_t snd_pcm_mmap_writen(snd_pcm_t *pcm, void **bufs, snd_pcm_uframes_t size);
 -- 
-2.40.0.152.g15d061e6df
+2.39.2
 

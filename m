@@ -2,26 +2,26 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EED206EAAAA
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 14:43:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E62C6EAAB1
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 14:43:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C37FE8B;
-	Fri, 21 Apr 2023 14:42:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C37FE8B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA0E9E8A;
+	Fri, 21 Apr 2023 14:42:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA0E9E8A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682081008;
-	bh=8gfkwX+8aunA9WIADDSGXEu7m09LmHBIQxUkHYIMAEg=;
+	s=default; t=1682081013;
+	bh=HSSi6xc2LxgNGOVBIalI3EG83A6fpJXq8GOoVGipEnw=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=qfY9MOkB2Mip+d53VUTi9EKbOGxTLtZCqFN0Gs1ecJerdFdNqfKlAqsWbVjhUcGoG
-	 1K6LwflX3yLkCfyzRX5M7W3LNU1+KGKTyrQOS5AsYmFC5tRNfIJblMlsa1pBRZd56+
-	 p3OipmzfDWFmS2iFLtT+KLqfYsuPfygBRBevfFEE=
+	b=Mi9y93Q/zbvoLgEj76DilLXILuDGuT0ILxhrSZ2iHT8nB0EpIgu+o5z64LDeh5r+7
+	 ytjl5GIZcl/xig4r9+lDBKJGm5XxVhpeefNStqtBrreJ+k+jPkzh1Fw72NBFDXC0B/
+	 pxtZ5xQPs42H70/DalfrcruXQA7SF59hB46IpnBQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4A8CF804FC;
-	Fri, 21 Apr 2023 14:41:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52F3CF80510;
+	Fri, 21 Apr 2023 14:42:02 +0200 (CEST)
 To: Herve Codina <herve.codina@bootlin.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -31,8 +31,9 @@ To: Herve Codina <herve.codina@bootlin.com>,
 	Lars-Peter Clausen <lars@metafoo.de>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 1/4] dt-bindings: sound: Add simple-iio-aux
-Date: Fri, 21 Apr 2023 14:41:19 +0200
+Subject: [PATCH 2/4] iio: inkern: Add a helper to query an available minimum
+ raw value
+Date: Fri, 21 Apr 2023 14:41:20 +0200
 In-Reply-To: <20230421124122.324820-1-herve.codina@bootlin.com>
 References: <20230421124122.324820-1-herve.codina@bootlin.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -46,7 +47,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W3PYEDCFAGGD6SN4W54VYIOQREKZB4YP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVXLSD73YLAQF4HEQZIT35J6VJ7PCADE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -55,7 +56,8 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
-Message-ID: <168208091186.26.972192573176903658@mailman-core.alsa-project.org>
+Message-ID: 
+ <168208092125.26.17592533637486807262@mailman-core.alsa-project.org>
 From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: Herve Codina <herve.codina@bootlin.com>
 Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
@@ -66,7 +68,7 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F282F80510; Fri, 21 Apr 2023 14:41:49 +0200 (CEST)
+	id 4E0E9F8052E; Fri, 21 Apr 2023 14:41:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -77,28 +79,28 @@ Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
  [IPv6:2001:4b98:dc4:8::222])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92B55F80212
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 14:41:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92B55F80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id 235F1F80510
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 14:41:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 235F1F80510
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=QClt+BCD
+ header.s=gm1 header.b=Y2Uy4aX0
 Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id AE9A740007;
-	Fri, 21 Apr 2023 12:41:43 +0000 (UTC)
+	by mail.gandi.net (Postfix) with ESMTPA id 036DE40004;
+	Fri, 21 Apr 2023 12:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1682080904;
+	t=1682080915;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eNsCq0s00cdcExGMd2Rls3HSwLDqQCPjKQ7JzV6nFDI=;
-	b=QClt+BCDWwhb08qssJkO5Mnz+mTsc0qr/vnqlDJjJEEnPe741wrKNRdxSsaP97cjKQTq8k
-	V/t7Ho58TgZ/3/rfOvyfx2K2zkrC2idEVmE770AjuXb762FnlLP9MAkTTviN5KZagfNwAN
-	oK/4u1tuS1uddfmahTeg3M9d4IGuyEO6ORp5N2H3V+c/xyAAJAakmemGJQWLKhzwP5Nj2A
-	r0/rkKgSUcWd9noVnD5iPj5ExEAS+Obu6XGQxQyMI2zzCgglewV1/4fBWnR8hpL4Sfb89t
-	8QMtFhBIq0TcfacVoQzq9qX3RRkxehIi/xuD2p8Anq0GkyVxQaCQhDSjBum9iw==
+	bh=ecGQES+IctsZxeHGmbZiv99zRKwWx/U6QMun/YsCg54=;
+	b=Y2Uy4aX0fJLJin3UbJuHlp6xKyONaXP+q/4E6traJCaV4jgmMdm3TsvfcgIBmqlsoee0CF
+	zT9VC+AnT8ScfxXu35DaKXKyN6XZvWtUjwQULTMwh1h5C0fRNf2CwmQWLmbfleahnmYjXX
+	SiI8pO1SgPpnwt3yS6RAHsotNbZlJdp3oPLXK5KZudsMH/cQGQy27Yy5X0sWHIZ/BZMdIV
+	h3GITU6Nxe+bCB+QzISMmVKb1l6g/nrEiMkI0RPMX6YxPeQ3ClFV9qjERP4OZmjJCKbKd9
+	DtCX5vjcjqW7EPRdRpqZLWwK6U9FfWcsg03OZmma3d+DiL2V/zpDZMehsrVBvw==
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -109,16 +111,17 @@ To: Herve Codina <herve.codina@bootlin.com>,
 	Lars-Peter Clausen <lars@metafoo.de>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 1/4] dt-bindings: sound: Add simple-iio-aux
-Date: Fri, 21 Apr 2023 14:41:19 +0200
-Message-Id: <20230421124122.324820-2-herve.codina@bootlin.com>
+Subject: [PATCH 2/4] iio: inkern: Add a helper to query an available minimum
+ raw value
+Date: Fri, 21 Apr 2023 14:41:20 +0200
+Message-Id: <20230421124122.324820-3-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230421124122.324820-1-herve.codina@bootlin.com>
 References: <20230421124122.324820-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: W3PYEDCFAGGD6SN4W54VYIOQREKZB4YP
-X-Message-ID-Hash: W3PYEDCFAGGD6SN4W54VYIOQREKZB4YP
+Message-ID-Hash: UVXLSD73YLAQF4HEQZIT35J6VJ7PCADE
+X-Message-ID-Hash: UVXLSD73YLAQF4HEQZIT35J6VJ7PCADE
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -135,7 +138,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W3PYEDCFAGGD6SN4W54VYIOQREKZB4YP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVXLSD73YLAQF4HEQZIT35J6VJ7PCADE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -144,90 +147,120 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Industrial I/O devices can be present in the audio path.
-These devices needs to be viewed as audio components in order to be
-fully integrated in the audio path.
+A helper, iio_read_max_channel_raw() exists to read the available
+maximum raw value of a channel but nothing similar exists to read the
+available minimum raw value.
 
-simple-iio-aux allows to consider these Industrial I/O devices as
-auxliary audio devices.
+This new helper, iio_read_min_channel_raw(), fills the hole and can be
+used for reading the available minimum raw value of a channel.
+It is fully based on the existing iio_read_max_channel_raw().
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- .../bindings/sound/simple-iio-aux.yaml        | 65 +++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/simple-iio-aux.yaml
+ drivers/iio/inkern.c         | 67 ++++++++++++++++++++++++++++++++++++
+ include/linux/iio/consumer.h | 11 ++++++
+ 2 files changed, 78 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/simple-iio-aux.yaml b/Documentation/devicetree/bindings/sound/simple-iio-aux.yaml
-new file mode 100644
-index 000000000000..fab128fce4fc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/simple-iio-aux.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/simple-iio-aux.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/iio/inkern.c b/drivers/iio/inkern.c
+index 872fd5c24147..914fc69c718a 100644
+--- a/drivers/iio/inkern.c
++++ b/drivers/iio/inkern.c
+@@ -912,6 +912,73 @@ int iio_read_max_channel_raw(struct iio_channel *chan, int *val)
+ }
+ EXPORT_SYMBOL_GPL(iio_read_max_channel_raw);
+ 
++static int iio_channel_read_min(struct iio_channel *chan,
++				int *val, int *val2, int *type,
++				enum iio_chan_info_enum info)
++{
++	int unused;
++	const int *vals;
++	int length;
++	int ret;
 +
-+title: Simple IIO auxiliary
++	if (!val2)
++		val2 = &unused;
 +
-+maintainers:
-+  - Herve Codina <herve.codina@bootlin.com>
++	ret = iio_channel_read_avail(chan, &vals, type, &length, info);
++	switch (ret) {
++	case IIO_AVAIL_RANGE:
++		switch (*type) {
++		case IIO_VAL_INT:
++			*val = vals[0];
++			break;
++		default:
++			*val = vals[0];
++			*val2 = vals[1];
++		}
++		return 0;
 +
-+description: |
-+  Auxiliary device based on Industrial I/O device channels
++	case IIO_AVAIL_LIST:
++		if (length <= 0)
++			return -EINVAL;
++		switch (*type) {
++		case IIO_VAL_INT:
++			*val = vals[--length];
++			while (length) {
++				if (vals[--length] < *val)
++					*val = vals[length];
++			}
++			break;
++		default:
++			/* FIXME: learn about min for other iio values */
++			return -EINVAL;
++		}
++		return 0;
 +
-+allOf:
-+  - $ref: /schemas/iio/iio-consumer.yaml
-+  - $ref: dai-common.yaml#
++	default:
++		return ret;
++	}
++}
 +
-+properties:
-+  compatible:
-+    const: simple-iio-aux
++int iio_read_min_channel_raw(struct iio_channel *chan, int *val)
++{
++	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(chan->indio_dev);
++	int ret;
++	int type;
 +
-+  io-channels:
-+    description:
-+      Industrial I/O device channels used
++	mutex_lock(&iio_dev_opaque->info_exist_lock);
++	if (!chan->indio_dev->info) {
++		ret = -ENODEV;
++		goto err_unlock;
++	}
 +
-+  io-channel-names:
-+    description:
-+      Industrial I/O channel names related to io-channels.
-+      These names are used to provides sound controls, widgets and routes names.
++	ret = iio_channel_read_min(chan, val, NULL, &type, IIO_CHAN_INFO_RAW);
++err_unlock:
++	mutex_unlock(&iio_dev_opaque->info_exist_lock);
 +
-+  invert:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: |
-+      A list of 0/1 flags defining whether or not the related channel is
-+      inverted
-+    items:
-+      enum: [0, 1]
-+      default: 0
-+      description: |
-+        Invert the sound control value compared to the IIO channel raw value.
-+          - 1: The related sound control value is inverted meaning that the
-+               minimum sound control value correspond to the maximum IIO channel
-+               raw value and the maximum sound control value correspond to the
-+               minimum IIO channel raw value.
-+          - 0: The related sound control value is not inverted meaning that the
-+               minimum (resp maximum) sound control value correspond to the
-+               minimum (resp maximum) IIO channel raw value.
++	return ret;
++}
++EXPORT_SYMBOL_GPL(iio_read_min_channel_raw);
 +
-+required:
-+  - compatible
-+  - io-channels
-+  - io-channel-names
+ int iio_get_channel_type(struct iio_channel *chan, enum iio_chan_type *type)
+ {
+ 	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(chan->indio_dev);
+diff --git a/include/linux/iio/consumer.h b/include/linux/iio/consumer.h
+index 6802596b017c..956120d8b5a3 100644
+--- a/include/linux/iio/consumer.h
++++ b/include/linux/iio/consumer.h
+@@ -297,6 +297,17 @@ int iio_write_channel_raw(struct iio_channel *chan, int val);
+  */
+ int iio_read_max_channel_raw(struct iio_channel *chan, int *val);
+ 
++/**
++ * iio_read_min_channel_raw() - read minimum available raw value from a given
++ *				channel, i.e. the minimum possible value.
++ * @chan:		The channel being queried.
++ * @val:		Value read back.
++ *
++ * Note raw reads from iio channels are in adc counts and hence
++ * scale will need to be applied if standard units are required.
++ */
++int iio_read_min_channel_raw(struct iio_channel *chan, int *val);
 +
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    aux {
-+        compatible = "simple-iio-aux";
-+        io-channels = <&iio 0>, <&iio 1>, <&iio 2>, <&iio 3>;
-+        io-channel-names = "CH0", "CH1", "CH2", "CH3";
-+        /* Invert CH1 and CH2 */
-+        invert = <0 1 1>;
-+    };
+ /**
+  * iio_read_avail_channel_raw() - read available raw values from a given channel
+  * @chan:		The channel being queried.
 -- 
 2.39.2
 

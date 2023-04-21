@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B626EAEB6
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 18:09:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6E556EAF15
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 18:29:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03C07EB4;
-	Fri, 21 Apr 2023 18:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03C07EB4
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD6C2E92;
+	Fri, 21 Apr 2023 18:28:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD6C2E92
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682093354;
-	bh=/fqu4LAO0rQXLeKMn7Vx1bIx9OQ+1oaeV/RoLW9avGk=;
+	s=default; t=1682094565;
+	bh=RDh3ibkeEX9WJ3z8uDInIzSMLKeBvSvB1PdmOxrb/V8=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MoNsNh3K7E5OikHuOgXuvnO6NzwHt+IoK2ahsQ7KG3tIT1Piy6DzYLBOD2C+YM7vK
-	 oM932k2csnRWhA68YeALV3LPJjTVOPEegm+aGAm5cYYROA7lEKrLQmiYR4zbabGIhC
-	 qFtZ9eVZTshIBnipw55PibtGzPCegsrn+Kz3pqUQ=
+	b=Q5UFq7tDgHTht7ygRDBkaWPjvrLiSiNklwWOZjBeZlGsVh8VAynvJjJ7JxD8z0mev
+	 FqnmRmmbw+/nYYWK4lNIDKGN02muiG3C86U+lO1KWD1uiLddAdTtUidiTPBCT1HeWh
+	 oaw3fE0JKkyItW3++7hhMirjGEEaDWXJx5/dl4Wg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 183D0F8055C;
-	Fri, 21 Apr 2023 18:06:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38D7DF80149;
+	Fri, 21 Apr 2023 18:28:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8DAA4F80552; Fri, 21 Apr 2023 18:06:46 +0200 (CEST)
+	id A0836F80155; Fri, 21 Apr 2023 18:28:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 22A09F80528
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 18:06:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22A09F80528
+	by alsa1.perex.cz (Postfix) with ESMTPS id B50D1F80053
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 18:28:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B50D1F80053
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OXKLQdiq
+ header.s=k20201202 header.b=FwAJUAzq
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C87C1612AB;
-	Fri, 21 Apr 2023 16:06:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 386C9C433EF;
-	Fri, 21 Apr 2023 16:06:37 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0507A61B50;
+	Fri, 21 Apr 2023 16:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE7AC433D2;
+	Fri, 21 Apr 2023 16:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682093198;
-	bh=/fqu4LAO0rQXLeKMn7Vx1bIx9OQ+1oaeV/RoLW9avGk=;
+	s=k20201202; t=1682094500;
+	bh=RDh3ibkeEX9WJ3z8uDInIzSMLKeBvSvB1PdmOxrb/V8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=OXKLQdiqyePGt+CuFBe+9QESkM1orGqaE2bDmsvJML8PVaXHr+veF9JVCHe6xvkXK
-	 ucaTsGelUQHYa6db1WLu1NXgMoaWwO7+huaFGjwv9m15IKVslIRILDRJ7fMnlMq5H0
-	 sbOC0GYuOkRdJ7phgapoyf26Te49jkJM3EkfhwL07O91J8TzH6oQ/ykvsK4Xg3QH9g
-	 l17SIY4CgAWjEwYgvsm/5vKGADnhjjUOm9Q21uJvYyWjNrgcpvJV13aJ7wbzifZXJm
-	 rzSHBKTGgbxxsh1QBb3On1hOp207JgfEJg0E++vg63xh5ZZmX4lnf+gHvQaAe1heoo
-	 O9ziRXudCzndA==
+	b=FwAJUAzqLT3ASqkQCbFq1BdisobUvmulkuc6yiRaxQsxh8irOjfyE2lC4GqQWa2Ms
+	 /Eg0c9tigR/ClDuM9ztwe4M7Jfnjfocq0H1B2eR6Ok2UDDEIleBez5ImZKgU35BCYu
+	 8g9JBxHG4qyeD16usNiH+E4fIZsvrgcvLiCrX6UNkQl69putp08us87sOgaAktsy/9
+	 u45XuiQa2SHwvG63tMKBXelAO60LLDTAKfjU4jKboBbAjkbwSXFSRuS+D05WBsynaA
+	 u/9kdI+h+2vIHv/WbRRLfAGmny4FJj+nzTgl7tfZ8RmmvfYD/KpLLJFWaF/EZB03kb
+	 dKtiLznud87jg==
 From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20230420102043.1151830-1-rf@opensource.cirrus.com>
-References: <20230420102043.1151830-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l56: Remove duplicate mbox log messages
-Message-Id: <168209319695.108546.10814021215571192009.b4-ty@kernel.org>
-Date: Fri, 21 Apr 2023 17:06:36 +0100
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87cz3yf631.wl-kuninori.morimoto.gx@renesas.com>
+References: <87cz3yf631.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [RFC][PATCH 0/4] ASoC: fsl: cleanup platform
+Message-Id: <168209449839.112331.12194273139778105613.b4-ty@kernel.org>
+Date: Fri, 21 Apr 2023 17:28:18 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-00e42
-Message-ID-Hash: DSWDXJT6CWUXDRE6WF6RQB4EG3DFX76M
-X-Message-ID-Hash: DSWDXJT6CWUXDRE6WF6RQB4EG3DFX76M
+Message-ID-Hash: JA77IUMGQE3PNVVLGQZEAOIMDBUVWW3R
+X-Message-ID-Hash: JA77IUMGQE3PNVVLGQZEAOIMDBUVWW3R
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -78,14 +77,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com, Simon Trimmer <simont@opensource.cirrus.com>
+CC: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DSWDXJT6CWUXDRE6WF6RQB4EG3DFX76M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JA77IUMGQE3PNVVLGQZEAOIMDBUVWW3R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,11 +95,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 20 Apr 2023 11:20:43 +0100, Richard Fitzgerald wrote:
-> cs35l56_mbox_send() logs a warning when sending a mbox command fails so
-> the callers can be simplified.
+On Fri, 21 Apr 2023 00:10:32 +0000, Kuninori Morimoto wrote:
+> Cc Shengjiu
 > 
+> The driver which is using soc-generic-dmaengine-pcm is a little bit
+> difficult to notice about it, because it prepares own Component,
+> but shares same component->dev with CPU Component.
 > 
+> Some fsl driver is using soc-generic-dmaengine-pcm as Platform Component.
+> 
+> [...]
 
 Applied to
 
@@ -106,8 +112,14 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: cs35l56: Remove duplicate mbox log messages
-      commit: a9e42d9e8b4be36a1e0dde0285a9ff36b2e06a46
+[1/4] ASoC: fsl: imx-es8328: cleanup platform which is using Generic DMA
+      commit: d6e28695dcb6f653c7f2adf38021a5e934a6f416
+[2/4] ASoC: fsl: imx-spdif: cleanup platform which is using Generic DMA
+      commit: 2324bc107b0b3d2de351f35032dc5093cbb61493
+[3/4] ASoC: fsl: imx-audmix: cleanup platform which is using Generic DMA
+      commit: 3ce08f85133fc93278801aba3efb4548d3ef3ca0
+[4/4] ASoC: fsl: imx-audmix: remove dummy dai_link->platform
+      commit: dc801ea8ae37d54706e6f1cef140731ac5981c9c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

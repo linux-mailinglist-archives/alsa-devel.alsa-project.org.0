@@ -2,28 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E556EAF15
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 18:29:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 289A36EAF49
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 18:37:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD6C2E92;
-	Fri, 21 Apr 2023 18:28:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD6C2E92
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3EBAE8C;
+	Fri, 21 Apr 2023 18:36:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3EBAE8C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682094565;
-	bh=RDh3ibkeEX9WJ3z8uDInIzSMLKeBvSvB1PdmOxrb/V8=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Q5UFq7tDgHTht7ygRDBkaWPjvrLiSiNklwWOZjBeZlGsVh8VAynvJjJ7JxD8z0mev
-	 FqnmRmmbw+/nYYWK4lNIDKGN02muiG3C86U+lO1KWD1uiLddAdTtUidiTPBCT1HeWh
-	 oaw3fE0JKkyItW3++7hhMirjGEEaDWXJx5/dl4Wg=
+	s=default; t=1682095022;
+	bh=nnUrL2/uCxS1kaZARBS1+/ZTmFCyuJT0YgKCTa+rc1g=;
+	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=BV1SpfMMIQ9zRFIkqv3nPW+RtcE+p5xKTJqGhzmNZ7P0gpKLF2X3W0NLTeO/9lma1
+	 R7ooGxFoorWggIbVBhmC77s/VDXBoXpc5uVM/XZNMHQNuxKwWnz4iT+uNhypwT1Q5q
+	 JNnOcfUD3muOBB9Rcdqu8V08DU7J3iDlvtjG82Uo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38D7DF80149;
-	Fri, 21 Apr 2023 18:28:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AB3EF80149;
+	Fri, 21 Apr 2023 18:36:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A0836F80155; Fri, 21 Apr 2023 18:28:30 +0200 (CEST)
+	id BA107F80155; Fri, 21 Apr 2023 18:36:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,43 +32,56 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B50D1F80053
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 18:28:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B50D1F80053
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62A04F80053
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 18:35:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62A04F80053
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FwAJUAzq
+ header.s=k20201202 header.b=Oa81Pmy3
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0507A61B50;
-	Fri, 21 Apr 2023 16:28:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE7AC433D2;
-	Fri, 21 Apr 2023 16:28:18 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C231761A7B;
+	Fri, 21 Apr 2023 16:35:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF72C433EF;
+	Fri, 21 Apr 2023 16:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682094500;
-	bh=RDh3ibkeEX9WJ3z8uDInIzSMLKeBvSvB1PdmOxrb/V8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=FwAJUAzqLT3ASqkQCbFq1BdisobUvmulkuc6yiRaxQsxh8irOjfyE2lC4GqQWa2Ms
-	 /Eg0c9tigR/ClDuM9ztwe4M7Jfnjfocq0H1B2eR6Ok2UDDEIleBez5ImZKgU35BCYu
-	 8g9JBxHG4qyeD16usNiH+E4fIZsvrgcvLiCrX6UNkQl69putp08us87sOgaAktsy/9
-	 u45XuiQa2SHwvG63tMKBXelAO60LLDTAKfjU4jKboBbAjkbwSXFSRuS+D05WBsynaA
-	 u/9kdI+h+2vIHv/WbRRLfAGmny4FJj+nzTgl7tfZ8RmmvfYD/KpLLJFWaF/EZB03kb
-	 dKtiLznud87jg==
+	s=k20201202; t=1682094952;
+	bh=nnUrL2/uCxS1kaZARBS1+/ZTmFCyuJT0YgKCTa+rc1g=;
+	h=From:Date:Subject:To:Cc:From;
+	b=Oa81Pmy3R2FzPb3k/KG/nWj6IlSwMJ7NpIjZdt1utIKibjgjnTzUHUV1gAKlxmQL/
+	 CgQ6IJwt3sxQdUMkz7dW++gGosGQQ1I6igW/9R98B2jPLDZ7sJnL+AdfryeANEZWE3
+	 hDDvrLh35ESpbmSn5xof/ETumu3bZpxSlBTESGw9UiIox/bjDZf8JIkg2VZcx5n3xk
+	 bRyV2I3HivhYPjDFCRS7TwrOXBLGn9Obban7QRufTu3DM9JCvf7nCp5zVjAfSX7nJK
+	 u7DBg69vu6uTlkfJlJAEt0ych7FmnUfi6cm6eyIM8ZvPrMt76F3wvbo7xao2BCiUvq
+	 9K/kjvZzIQMIw==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87cz3yf631.wl-kuninori.morimoto.gx@renesas.com>
-References: <87cz3yf631.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [RFC][PATCH 0/4] ASoC: fsl: cleanup platform
-Message-Id: <168209449839.112331.12194273139778105613.b4-ty@kernel.org>
-Date: Fri, 21 Apr 2023 17:28:18 +0100
+Date: Fri, 21 Apr 2023 17:35:46 +0100
+Subject: [PATCH] ASoC: rt715: Use maple tree register cache
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20230412-asoc-rt715-maple-v1-1-200a84835fde@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAGG7QmQC/x2NQQrCMBAAv1L27EKSNq34FfGwjRsb1KTsihZK/
+ 97U4wwMs4KyJFa4NCsIf5OmkivYUwNhovxgTPfK4IxrTWcdkpaA8hmsxzfNL0Z79rH3g+nb2EH
+ NRlLGUSiH6Qh/RZ6HnoVjWv6n623bdks+sW95AAAA
+To: Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
 X-Mailer: b4 0.13-dev-00e42
-Message-ID-Hash: JA77IUMGQE3PNVVLGQZEAOIMDBUVWW3R
-X-Message-ID-Hash: JA77IUMGQE3PNVVLGQZEAOIMDBUVWW3R
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1913; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=nnUrL2/uCxS1kaZARBS1+/ZTmFCyuJT0YgKCTa+rc1g=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkQrtltH1fl6yvBPtXjhXRlZ1zgP5vCxhZcVu6cD56
+ RfcmX/SJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZEK7ZQAKCRAk1otyXVSH0KlrB/
+ 49Gq1y9hogSCIsLazNSRxQbxeJYozgzfG7fANMEvvEEfGwvVjVnmwPBmtCp6++gdwCgKM37WesTggA
+ Va3K2bbARKdoiMg3RAfbn7vryLJ77BsgTz+7S+wQTmHhCOpSvE8h8bmngxWmgrjZxMhGyRjulKyglX
+ IHwD/woeBOy0Ca3n8HsBbhlpDIowhkPP+spxtB2uYJmKwjb+/4j5B3SqxJKK0+2gR3FmRq1QnLQKlH
+ nwzagIYK9LGkEenmK3cT4qoM86f5/QbFZFFQkC1ABxDuHqfa4p3JnvtsxCkUkL1EbEGVaR8Fi7030s
+ 0HuPbvvvECWiU+5sjLkNjyUr1YhYj4
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID-Hash: DTWSVFJVOUUIOZZ5KRUPFRMFL4C6POFK
+X-Message-ID-Hash: DTWSVFJVOUUIOZZ5KRUPFRMFL4C6POFK
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -77,16 +89,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- alsa-devel@alsa-project.org
+CC: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JA77IUMGQE3PNVVLGQZEAOIMDBUVWW3R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DTWSVFJVOUUIOZZ5KRUPFRMFL4C6POFK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,48 +106,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 21 Apr 2023 00:10:32 +0000, Kuninori Morimoto wrote:
-> Cc Shengjiu
-> 
-> The driver which is using soc-generic-dmaengine-pcm is a little bit
-> difficult to notice about it, because it prepares own Component,
-> but shares same component->dev with CPU Component.
-> 
-> Some fsl driver is using soc-generic-dmaengine-pcm as Platform Component.
-> 
-> [...]
+regmap has introduced a maple tree based register cache which makes use of
+this more advanced data structure which has been added to the kernel
+recently. Maple trees are much flatter than rbtrees, meaning that they do
+not grow to such depths when the register map is sparse which makes access
+a bit more efficient. The maple tree cache type is still a bit of a work
+in progress but should be effective for some devices already.
 
-Applied to
+RT715 seems like a good candidate for maple tree. It is a SoundWire MBQ
+device and therefore supports only single register read/write operations
+which do not use raw I/O and will therefore save the cost of converting
+to and from device native format when accessing the cache while not having
+a negative impact from the current lack of bulk operations in maple tree
+cache sync. It has a moderately large and quite sparse register map which
+is a good fit for storing in a maple tree.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Convert to use maple tree. There should be little if any visible difference
+at runtime.
 
-Thanks!
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/rt715-sdw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[1/4] ASoC: fsl: imx-es8328: cleanup platform which is using Generic DMA
-      commit: d6e28695dcb6f653c7f2adf38021a5e934a6f416
-[2/4] ASoC: fsl: imx-spdif: cleanup platform which is using Generic DMA
-      commit: 2324bc107b0b3d2de351f35032dc5093cbb61493
-[3/4] ASoC: fsl: imx-audmix: cleanup platform which is using Generic DMA
-      commit: 3ce08f85133fc93278801aba3efb4548d3ef3ca0
-[4/4] ASoC: fsl: imx-audmix: remove dummy dai_link->platform
-      commit: dc801ea8ae37d54706e6f1cef140731ac5981c9c
+diff --git a/sound/soc/codecs/rt715-sdw.c b/sound/soc/codecs/rt715-sdw.c
+index 4e61e16470ed..5ffe9a00dfd8 100644
+--- a/sound/soc/codecs/rt715-sdw.c
++++ b/sound/soc/codecs/rt715-sdw.c
+@@ -354,7 +354,7 @@ static const struct regmap_config rt715_regmap = {
+ 	.max_register = 0x752039, /* Maximum number of register */
+ 	.reg_defaults = rt715_reg_defaults, /* Defaults */
+ 	.num_reg_defaults = ARRAY_SIZE(rt715_reg_defaults),
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 	.use_single_read = true,
+ 	.use_single_write = true,
+ 	.reg_read = rt715_sdw_read,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+---
+base-commit: f033c26de5a5734625d2dd1dc196745fae186f1b
+change-id: 20230412-asoc-rt715-maple-185f657063f4
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+Best regards,
+-- 
+Mark Brown <broonie@kernel.org>
 

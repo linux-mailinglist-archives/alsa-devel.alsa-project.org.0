@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617536EAE17
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 17:33:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 584AE6EAE2B
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 17:38:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FF44E8F;
-	Fri, 21 Apr 2023 17:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FF44E8F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E75A9E87;
+	Fri, 21 Apr 2023 17:37:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E75A9E87
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682091225;
-	bh=xR7GU6dYfwfqtr8dqEMpfylmsQRDJOGiKX09k9DVQP8=;
+	s=default; t=1682091528;
+	bh=n8nuWUFqDyci38iXLDh7y9WLCUFNrTKBXtqXcF3b1p8=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ckFDimsDAty8PQwQiM3Qow66DG2zoHs8gJW6PFJB2IaH9i42Wtc4xFecSVAdNyYhv
-	 BHRDBG98XvejJpgczBVlM6iPuAlY+S3ft+ECzQqWkZWM840YV2Ty7sUMQvuVaMrZwq
-	 Bus1pDqS6z6YG915pFrCNk2Q4iL6oquDiDkWaP0w=
+	b=fX7jrPCKLHDQ3dXYOpiq722HhyssCbNI280y0DhsE3fXmujPE7ZaB06lOw1XXDVjT
+	 55byQRDl1DjqIPrZ5O+5LaRwAZKIVliZLto9aOXV/XpMDPREi0+Rwg48tFktKX9HtR
+	 Mj7aVRyk5k0Zr0YLYJutD/56dF7qs3Zs28WPeFNI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE7F2F800F8;
-	Fri, 21 Apr 2023 17:32:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6ECA8F80149;
+	Fri, 21 Apr 2023 17:37:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC6E9F80155; Fri, 21 Apr 2023 17:32:49 +0200 (CEST)
+	id 71693F80155; Fri, 21 Apr 2023 17:37:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,67 +36,67 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0730F800F8
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 17:32:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0730F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02656F800F8
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 17:37:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02656F800F8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=JkaaqwUG;
+ header.s=susede2_rsa header.b=mm7BQ/nm;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=YEAkyeaw
+ header.s=susede2_ed25519 header.b=kd/1dBUY
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5CDF62190B;
-	Fri, 21 Apr 2023 15:32:45 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 81A16218D5;
+	Fri, 21 Apr 2023 15:37:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1682091165;
+	t=1682091469;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ItdnvNb3y8eXZxISso4+julmyScR9rNxbxwXQTtBTgE=;
-	b=JkaaqwUGWjeqILwGkiGQf1BQne44BPWeY6FF0TDx+WwiolpJu64ri1WvZx8DbhxKQx54Jd
-	e+pj+A0H1/u/p+aDgjpAwojHsJRYx0NlO18WvezA5bhVYhLxFRMjwoq2OuZ2sFuZuf9re+
-	2fqN+eyWzRFM53IacVoHa+JzcpGT0qo=
+	bh=gIQMf4SltSejANF4Gl5TJd9QHAPLK+5OGd/Ed4gc4+E=;
+	b=mm7BQ/nmqSghYxASMnnMXk+jOM4yIdtEYUg6yS1lbjvkDYxvdJoA5Zf6DuBY4EBGJGVchU
+	NxcbTYJHoZVkwEBzudXUMo7MNqkZJslTDaG2lCnP9x6ggU6XoMHZjKKQOglxbLafFUx51Z
+	x8Jf3TWyyahf13pD5B9g0ofsP+dEtBM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682091165;
+	s=susede2_ed25519; t=1682091469;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ItdnvNb3y8eXZxISso4+julmyScR9rNxbxwXQTtBTgE=;
-	b=YEAkyeawqOCHCxx6lbqljnZfl60hN2kd2QKq0cWLdWx/cy30R3RgUG+0g1DzTrl+JEa4z+
-	HklwYL9OXUFlUwCA==
+	bh=gIQMf4SltSejANF4Gl5TJd9QHAPLK+5OGd/Ed4gc4+E=;
+	b=kd/1dBUYfltRJdnIhWVr+hiOkPu8MY5wVAFS3AVoYP8+QjebPLMt981NX49NeV9VOwKHQ9
+	Hzx3ajnHEUDZ7tCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3D6531390E;
-	Fri, 21 Apr 2023 15:32:45 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 443331390E;
+	Fri, 21 Apr 2023 15:37:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id JA4jDp2sQmT8HwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 21 Apr 2023 15:32:45 +0000
-Date: Fri, 21 Apr 2023 17:32:44 +0200
-Message-ID: <87fs8tqmhv.wl-tiwai@suse.de>
+	id OZLED82tQmQiIwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 21 Apr 2023 15:37:49 +0000
+Date: Fri, 21 Apr 2023 17:37:48 +0200
+Message-ID: <87cz3xqm9f.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH 3/7] ALSA: emu10k1: fix snd_emu1010_fpga_read() input
- masking for rev2 cards
-In-Reply-To: <ZEKq+mMLniMViILZ@ugly>
-References: <20230421141006.1005539-1-oswald.buddenhagen@gmx.de>
-	<20230421141006.1005539-3-oswald.buddenhagen@gmx.de>
-	<87leilqnct.wl-tiwai@suse.de>
-	<ZEKq+mMLniMViILZ@ugly>
+To: Chris Down <chris@chrisdown.name>
+Subject: Re: [PATCH] usb-audio: Rate limit usb_set_interface error reporting
+In-Reply-To: <ZEKo68jUGe1taYxz@chrisdown.name>
+References: <ZEKf8UYBYa1h4JWR@chrisdown.name>
+	<87wn25qosu.wl-tiwai@suse.de>
+	<ZEKiO7lh94QUyuAs@chrisdown.name>
+	<87mt31qngg.wl-tiwai@suse.de>
+	<ZEKo68jUGe1taYxz@chrisdown.name>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: RK4PINN7OVLNNKAAHUUZE2WBEA6KTM3Y
-X-Message-ID-Hash: RK4PINN7OVLNNKAAHUUZE2WBEA6KTM3Y
+Message-ID-Hash: 4EHMCDRQHO74KOFBQN2RQPO4L65M5Y4K
+X-Message-ID-Hash: 4EHMCDRQHO74KOFBQN2RQPO4L65M5Y4K
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,13 +104,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RK4PINN7OVLNNKAAHUUZE2WBEA6KTM3Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4EHMCDRQHO74KOFBQN2RQPO4L65M5Y4K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,33 +120,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 21 Apr 2023 17:25:46 +0200,
-Oswald Buddenhagen wrote:
+On Fri, 21 Apr 2023 17:16:59 +0200,
+Chris Down wrote:
 > 
-> On Fri, Apr 21, 2023 at 05:14:10PM +0200, Takashi Iwai wrote:
-> > On Fri, 21 Apr 2023 16:10:02 +0200,
-> > Oswald Buddenhagen wrote:
-> >> 
-> >> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-> > 
-> > No changelog is no good news.
-> > Please give more information.
-> > 
-> i suppose this is a difference in philosophy. i generally refrain from
-> covering in the commit message what comments in the patch already
-> explain. otherwise it would be just redundant, and i don't like that
-> very much.
+> Takashi Iwai writes:
+> > Hrm, is "usb 3-7.1.4" really the USB audio device?  The previous
+> > errors like "Unable to submit urb #2..." are certainly for USB audio,
+> > and those are with "usb 3-7.4".
 > 
-> anyway, i can add some speculation what problems this could have
-> theoretically caused.
+> There are two USB audio devices -- 3-7.1.4 is input, 3-7.4 is output.
+> 
+>     % dmesg --notime | grep -e 'usb 3-7.4' -e 'usb 3-7.1.4' | grep Product: | sort | uniq
+>     usb 3-7.1.4: Product: USB2.0 Microphone
+>     usb 3-7.4: Product: USB Audio Device
 
-You didn't explain exactly *WHAT* you fixed, and that's the readers
-may be interested more.  The summary says merely "fix
-snd_emu1010_fpga_read() input masking for rev2 cards".  What was
-broken beforehand and what was corrected by your patch?  The summary
-isn't enough for explaining it, but you have more space here.
+Ah I see.  Then those are two different sound cards?
+
+The repeated call of usb_set_interface() might be avoided by the
+additional check like below.  But it's still puzzling how it happens,
+because the only caller of endpoint_set_interface() you modified is
+snd_usb_endpoint_prepare(), and it's called only from
+snd_usb_pcm_prepare().  And, snd_usb_pcm_preapre() has the
+snd_usb_lock_shutdown() call, which does the check of the
+card->shutdown flag that should be set by the USB disconnection
+callback...
 
 
 thanks,
 
 Takashi
+
+-- 8< --
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -911,6 +911,9 @@ static int endpoint_set_interface(struct snd_usb_audio *chip,
+ 
+ 	if (ep->iface_ref->altset == altset)
+ 		return 0;
++	/* already disconnected? */
++	if (unlikely(atomic_read(&chip->shutdown)))
++		return -ENODEV;
+ 
+ 	usb_audio_dbg(chip, "Setting usb interface %d:%d for EP 0x%x\n",
+ 		      ep->iface, altset, ep->ep_num);
+
+

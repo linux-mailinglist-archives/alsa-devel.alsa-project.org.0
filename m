@@ -2,98 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03C346EADB2
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 17:06:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CCDE6EADC3
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 17:09:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59AA1E8A;
-	Fri, 21 Apr 2023 17:05:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59AA1E8A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C94A2E7C;
+	Fri, 21 Apr 2023 17:08:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C94A2E7C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682089586;
-	bh=X0HEThKXIxKD2+zeo+U4x9I79pUhDMhUBiilb7jimlE=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1682089788;
+	bh=1+mrGMa+NvT0VLOY/dMsdW4MUMIm581Qu/iSDMGIL9s=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Fc5r8RCuo1ij2M5wDoKPubZkh1hc6WmodB48k2VbeEuJCTA0eM7XsBpUs30sIEFXY
-	 qcePljrN+NYZow9t+Jfdkr6qCdN2ZTMDGOidzyWY+KoZc7OJF/7+P0EDlM/k0q4LEQ
-	 fziW1h9XIpozcZZgbRLaV4M5iWpW2yeiAz0p34Yc=
+	b=jDXnpRf+AYdSQ93oXyvJs8lPLNp6gScx2Mkl/8m8LJCb+sUvvzXPkVDX44UXlFUWk
+	 FGqKOARis0CAQctD/BWeMlemsT0cuP+lgVX13MJfpesWWfsGdhdpfRk45tsMpA7DuM
+	 j4LS1C4gOzpa2RNYJDP5CxemPae8gr47ufFbllgc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB872F80149;
-	Fri, 21 Apr 2023 17:05:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BEE0F80149;
+	Fri, 21 Apr 2023 17:08:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CDDEEF80155; Fri, 21 Apr 2023 17:05:32 +0200 (CEST)
+	id 3D11CF80155; Fri, 21 Apr 2023 17:08:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A36B2F800D0
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 17:05:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A36B2F800D0
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=NJw9/Hk+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=/Jx8/51V
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C09921A39;
-	Fri, 21 Apr 2023 15:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1682089529;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CT3HzGanPFaKe36oxdbwwh+jPdHT/8/7OUujsd4Hcpc=;
-	b=NJw9/Hk+PdUTWfARP8U5iZ6SHMbzaJlwByAKjLxfuZ9sFZkMhJn9Q0oQ+oVbPdqKROBYr3
-	2oquCxLkuwqk7pBEK2DN3Eu0kPsSj0mf2AaLbpiSJU0PS1a1Cy24JECpiaURKYySefo1sl
-	uEA9wjQVpD255B4/alyYBZhNLWZdTH0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682089529;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CT3HzGanPFaKe36oxdbwwh+jPdHT/8/7OUujsd4Hcpc=;
-	b=/Jx8/51V3VloEJ7j6/axlyTkucN6HCMlEFjq4FgOh8S1NQ0iyK8oX7vYyg0ikS3zgR92wB
-	ybP9xXdud2lbl0Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA04F1390E;
-	Fri, 21 Apr 2023 15:05:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 3ir0MzimQmTbEAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 21 Apr 2023 15:05:28 +0000
-Date: Fri, 21 Apr 2023 17:05:28 +0200
-Message-ID: <87o7nhqnrb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B4F7F800D0
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 17:08:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B4F7F800D0
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 3CF87240FD;
+	Fri, 21 Apr 2023 11:08:51 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1ppsNW-ETe-00; Fri, 21 Apr 2023 17:08:50 +0200
+Date: Fri, 21 Apr 2023 17:08:50 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [PATCH] ALSA: emu10k1: properly assert DSP init constraints
-In-Reply-To: <20230421141006.1005524-1-oswald.buddenhagen@gmx.de>
+Message-ID: <ZEKnAqm5sh00Fx0j@ugly>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>
 References: <20230421141006.1005524-1-oswald.buddenhagen@gmx.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: BBJO4GYFASRT6GSME2TVXH7CTU4CQE7G
-X-Message-ID-Hash: BBJO4GYFASRT6GSME2TVXH7CTU4CQE7G
-X-MailFrom: tiwai@suse.de
+ <87o7nhqnrb.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <87o7nhqnrb.wl-tiwai@suse.de>
+Message-ID-Hash: 3SIOCKG4JSLPEJJWGZOK5FHSAMZIDR6C
+X-Message-ID-Hash: 3SIOCKG4JSLPEJJWGZOK5FHSAMZIDR6C
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +69,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BBJO4GYFASRT6GSME2TVXH7CTU4CQE7G/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3SIOCKG4JSLPEJJWGZOK5FHSAMZIDR6C/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,20 +78,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 21 Apr 2023 16:10:06 +0200,
-Oswald Buddenhagen wrote:
-> 
-> If these are hit, we've already trashed kernel space. There is no
-> recovery from that.
-> 
-> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+On Fri, Apr 21, 2023 at 05:05:28PM +0200, Takashi Iwai wrote:
+>On Fri, 21 Apr 2023 16:10:06 +0200,
+>Oswald Buddenhagen wrote:
+>> 
+>> If these are hit, we've already trashed kernel space. There is no
+>> recovery from that.
+>> 
+>> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+>
+>Sorry, it's a big NO-NO.  BUG_ON() shouldn't be used here at all.
+>
+>BUG_ON() is used for the case you inevitably must stop everything
+>immediately at this point.
+>
+yes, this is exactly what is intended, and i hoped that the commit 
+message makes it clear enough why.
 
-Sorry, it's a big NO-NO.  BUG_ON() shouldn't be used here at all.
-
-BUG_ON() is used for the case you inevitably must stop everything
-immediately at this point.
-
-
-thanks,
-
-Takashi
+regards

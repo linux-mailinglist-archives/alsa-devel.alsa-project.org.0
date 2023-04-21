@@ -2,158 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35F666EA082
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 02:13:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF2416EA21E
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 05:03:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 889E2EB7;
-	Fri, 21 Apr 2023 02:12:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 889E2EB7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BE6BE98;
+	Fri, 21 Apr 2023 05:02:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BE6BE98
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682036003;
-	bh=cPvplWlQ668mjPIj4/Es/3ellauhSUlTNkW6nEMCOXM=;
-	h=To:In-Reply-To:References:From:Subject:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LJRWfrOJpjRc9YnMdm+C+85rN6EPr4+zdhd2lkW5v5aqIazYToZOg2fkGYQ4BQlQf
-	 ViQ/hL+qZhY7RPzO3V2fDllcjCoMHaaxrskLlDiuqbYumxyIwft8D1Wivq0zQTR0d3
-	 PU7T3z9VGQ+Fg/9msHl+pxrDI+UNownzTOHkH5jQ=
+	s=default; t=1682046195;
+	bh=ukzJeHXKy/Uct70lvQwov/oSgNyRW/Q0fLw36rNpRE0=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Umcpah7+lum4O0T8F8KJoYJkpmmU1aADwje7AVWWTyB54PV2md5NavW2dOZCPyLeP
+	 Z+IxrWlQ7YAAfTo7Jb/ca/spQ2qRGoo9m5ATc07yl/8QmRZkDcaG9nwwBcMiO2cVEh
+	 h8guAcibqotEkRLnVKHHWaPHOlVuyApNhXFow/BU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF87BF80551;
-	Fri, 21 Apr 2023 02:11:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E15DF800D0;
+	Fri, 21 Apr 2023 05:02:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 055FDF80558; Fri, 21 Apr 2023 02:11:37 +0200 (CEST)
+	id A590CF80155; Fri, 21 Apr 2023 05:02:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20715.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::715])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EEC45F80551
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 02:11:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEC45F80551
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=HsrztZen
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jy/LU/sUxXFBxsPFQfWQIlB53h9WDXTL44gXRXNcMgGvXiEF9iigWuhqnSe9I3CIrxKLd6coY3LlnB0BrlcniPZ5tXV9rGhTxYGj0bpoibocEiZURYMh6SRAoBaPrWbWY+RPfgGswAC8VsUPkkfBErVjmM8vnpxkMZB3J3ZWnTyeEsoSEMZLAb7QcIwOT/kZyuf167sZi6imdmTqZabOJFtZK/68LMCcTu8f9vBjxQVr9RADBIy2Vo2shZjLvR8TmKaTh7FtBcXhO2nZkBd+XHofFHLPmo6xA+3MXEaTxXFu2KxattQw1Ex8kNl6BaNzVF1seC/OgKBpzejHa1axCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V9ja7Y2Lq38JJv7FEfsLxMW81cxKcEouuHD30z02rto=;
- b=YXqgAziHC0IUS0bT4EnN3nUyy6j38hFds2yHz0nCmujlqMg2OV+ccwB/MEJLgn/p3Wtdf4clkL3qbnPuA3AK0osCB7MoFpX427+GFlhvUZ7PS6uSp8wWlH6rZcZvMUaFZ9uxVBahHdqA8GzGTeTajFicTRq/GCKeLSXfIJR5E5ZZjQhbN75MGdEKXwIb3bCWo4MsWrHx2DOAORT14JCjyc9bzDtzxS1mw5lcNN7wKkpj+7hpQjKjUG/9ZgGbDJAldvg8/o2vuCyw6amVfuG/qeN0aC2d595X3ecHKDK0vIDDWyy3yEADqvrXrXegpq9tjwXTvEquIFTUEyVBc5yWsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V9ja7Y2Lq38JJv7FEfsLxMW81cxKcEouuHD30z02rto=;
- b=HsrztZenj72D9LfGY2/7WDynKMax0PQ5POyHCqBCTqfXlvkI7lOMZDmcZD0tVWbf6rnsBI7JLMDr4GUdAB3CAw41Hc6ksY2evBbXQOR6ZwjnxNAXqmU3Dfm+O0Odn88fUAFIryM+8xio0j/EiQBWwtEYuiE7i0U7hocyID31o48=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYWPR01MB11167.jpnprd01.prod.outlook.com (2603:1096:400:3f4::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Fri, 21 Apr
- 2023 00:11:31 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840%5]) with mapi id 15.20.6319.022; Fri, 21 Apr 2023
- 00:11:31 +0000
-Message-ID: <877cu6f619.wl-kuninori.morimoto.gx@renesas.com>
-To: Mark Brown <broonie@kernel.org>
-In-Reply-To: <87cz3yf631.wl-kuninori.morimoto.gx@renesas.com>
-References: <87cz3yf631.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [RFC][PATCH 4/4] ASoC: fsl: imx-audmix: remove dummy
- dai_link->platform
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 21 Apr 2023 00:11:31 +0000
-X-ClientProxiedBy: TYBP286CA0015.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:404:ce::27) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 006A5F80053
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 05:01:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 006A5F80053
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 33L31Q440004103,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 33L31Q440004103
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
+	Fri, 21 Apr 2023 11:01:26 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.17; Fri, 21 Apr 2023 11:01:26 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Fri, 21 Apr 2023 11:01:25 +0800
+From: Jack Yu <jack.yu@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH v3] ASoC: rt722-sdca: Add RT722 SDCA driver
+Date: Fri, 21 Apr 2023 11:01:16 +0800
+Message-ID: <20230421030116.26245-1-jack.yu@realtek.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB11167:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f84083c-4b68-4651-3cbd-08db41fcf5ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	vAc4uOduYVdPpmJxxTxU2++ZfVk9X8pl9XDZkXy7/CbpBBIPFNmn/xCfo89AT7PiRgVvEiRM6tcwdJwb9NoERmr+vJBByTtG2jAB9rXqIwCbOpS6OA+c4V/F72m/zBcVr5se1TqQPrXnN5msl30CVuCiHQCMol9i+IlYYM/ZOhtCwlg8U07EQhPuVtY5w6hj5KvKAMkCDSVxcZYGplLxt8E6m+BrH52qA/UfazyF7y/dZdri1Clt1GGiQHZgGyxEy+mikO0iXoK2ZEkobDjDz57cLtfslwEQ0NtEF4fPnDZ3DJrwLA6Sk31PuHxBkhb3EW4qiIpMDfx/XUl+51Qfer3E8vMc7Tb5ldRWwq5MxUbXjikHp6Gf2z202obLPRWtGa0L7HHJzgyst9+Gp5e2UCj1mEJBHS/jCdL4zq2lHbPVl5hO/y5hNpHfiiCXQmUTaNcK3EiT+52dmCxQKRrYLZQ5/mUtaXfUG307IbrBvUsP7rxu8JPCXCYIaQAo00WlvU9fisOME3ada4KLx12n7kMw+BJExKEb15CoX8rLusR1CUi43ivdFYdkT767s5D5vPRPcegoE5Wupgmf9hJYm46FRMlVwC+Q0aS04ndlW2k=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(396003)(39860400002)(346002)(136003)(451199021)(36756003)(2906002)(38100700002)(8936002)(8676002)(38350700002)(5660300002)(86362001)(6486002)(52116002)(6512007)(26005)(6506007)(54906003)(478600001)(2616005)(83380400001)(186003)(66476007)(66946007)(316002)(66556008)(41300700001)(4326008)(6916009);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?mYha1rS4kKUkhDfSbIseroG4vd0dj9ylGwsOX8IzUzorsD+5Rzjy2pyv6mnX?=
- =?us-ascii?Q?pUdvreB28wWuexw4aVB4PTnFz+DkScY1m69cWlBFCGm4dc4LXj3FYhKT8b+T?=
- =?us-ascii?Q?V8/K8DnhV9tY+q0H1rU9s6gNf9EOJSKxE58SOCftL7bdQgQ3JtWI5F3cPFZi?=
- =?us-ascii?Q?HjuIutsNjz+/fpLWIpQv3rwlu6x/lLonKVHsEZ+PPWQHc8pliky9Q4rsPmn5?=
- =?us-ascii?Q?tTNfXfmfKCqCS5dMvrGItSidemzdvXANU0D/XFQmro8Z3kRS9oQnbZRSf1Cm?=
- =?us-ascii?Q?z0zEJUu3e8pnAW0Cyiq2z7PDgd26itUDGcv+3ilkfWLBFJeCqTKEqO67C7x9?=
- =?us-ascii?Q?Ac/LjreNDwxw0qO2nmVsMNy/oo5VlLoAAKUg5eBc4s646CjG0AUTRKjLtsEY?=
- =?us-ascii?Q?9XHuBWE8v6O1qXu8t5r/SvNy/q/OTctN30p4UJagzxww9Mo6mmGtiKwK1vNd?=
- =?us-ascii?Q?NbcYq2dr4Wl7OIJnI3Cdv+6ddLH/29FTlnvE/fIDms2bxPRLk2+kaU2WGE2y?=
- =?us-ascii?Q?wES7zVyPlInsq4BAFIIRGUKDU7d3fYwKEwW6TS0vDcTwm8gDR6Eqsk6kr/fF?=
- =?us-ascii?Q?/8mSPkWzp/X+YjzUYjTXCT7Efsij3OJppUFx8oX+OjDbvJwhKFplOatuoogJ?=
- =?us-ascii?Q?Q2zlk9YTAeyRqzXwy+GIQsNTvN98InE1crH8CRWkDRugQg1TzfVOKdu2RbEc?=
- =?us-ascii?Q?zT67qiO4lRNU/6JpdMz24NcA8vjv+MDqF/Je9uoaeRapCY3/yZiEL4voFLME?=
- =?us-ascii?Q?2YsmoowK4fsjXILPFgPgyBh79pKjpT8oYerMxFnBpIYUOnVrpR73+i28kG56?=
- =?us-ascii?Q?Q8qcS0KHv5rMM+m82HTBIEAPM3+H2K7VvibBiOJD8iq4Kv5iswZgx/w0aioX?=
- =?us-ascii?Q?oqVDl4yFQEcTYIsoIj3Ivoq1Lvld0PZpUYxGZfizBIy5cD3c6mORW7BvH7iX?=
- =?us-ascii?Q?gMLbsKuMsgCmq5yWUo88vM+NXcVWF63i/9+QMw5pCbWlcurHrJETpQN2j4PS?=
- =?us-ascii?Q?HiRU9+25CnlcdRspuhY4n2aApASf/rXT99Pz9ParMaTwdE+Nvh1y8YRvxV4+?=
- =?us-ascii?Q?7BcT81aQhLoylhjEm4ntlEyYkffPfNN+Rjf4/bj8c2Di/AG7LnQTZeeWwUKh?=
- =?us-ascii?Q?nNxMewxiNT6mg0py+eLl9dczAHbsZTarb6s/S5VaZ5gfg5Qy+WU5iY01i7p2?=
- =?us-ascii?Q?YB43lpsfNXpOMboqQ8NlmCJ/QEj8jcsRVlKu0GaTMtzc7VF9zvoDyziYN/ob?=
- =?us-ascii?Q?V56LO+6igO4I8jkHpAGS8BrjGWZrfWJpp6GJWCdxNy7wYeArdJuwhwOgElVr?=
- =?us-ascii?Q?rb8muJAz27rLkR75htTUfSHUndAbukgJ3nfeT2qV9aiYkima503Apzq95cHL?=
- =?us-ascii?Q?uCMFvtKPeLrsqQ2gr1LMvk1JVmyU9uAlGJlmuaRBhe8ROEwssNQyU+wrdoTo?=
- =?us-ascii?Q?gnVgN+7awKDHVJZYittaM5sMZIRYo9phfsYpbNAIg8RzXAsi9Vnr/HhtTbK0?=
- =?us-ascii?Q?rsUyJokp5KzYfE6RGNPtdVTgrMbQtGf43HjrFAE5o7w22SSJJeJkCwVlkfT1?=
- =?us-ascii?Q?LaVXw6iA5MU8EtvUnHEsC6nUJMG5bd6hsALoPc10UwpwrtV1IfpuTMgrOxq4?=
- =?us-ascii?Q?EaQTrh97KrGyW+mLjNqx5qQ=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 4f84083c-4b68-4651-3cbd-08db41fcf5ec
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2023 00:11:31.8230
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- GLM9Mm5crDos3+87LCLxSQia3ogX6SW6NbKHY5arism+0aiRF/3E6xNQRk3Zwq/gt3lbUgUA9O8dVR20+bEmWmj4SZ6/OBweBF3pOkVQ/GwvNRFFT5nuWaYvYzkLrmI8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11167
-Message-ID-Hash: R7ZYXY4ASDT4MSVLXYVFZCDVRKRHF4DU
-X-Message-ID-Hash: R7ZYXY4ASDT4MSVLXYVFZCDVRKRHF4DU
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36506.realtek.com.tw (172.21.6.27) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: FO2GHTDXLORRPROJ5Y2TBDA446XUS4ZO
+X-Message-ID-Hash: FO2GHTDXLORRPROJ5Y2TBDA446XUS4ZO
+X-MailFrom: jack.yu@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Shengjiu Wang <shengjiu.wang@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- alsa-devel@alsa-project.org
+CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, shumingf@realtek.com, derek.fang@realtek.com,
+ jack.yu@realtek.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R7ZYXY4ASDT4MSVLXYVFZCDVRKRHF4DU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FO2GHTDXLORRPROJ5Y2TBDA446XUS4ZO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -162,47 +93,2522 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Dummy dai_link->platform is not needed.
+This is the initial codec driver for rt722-sdca.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Jack Yu <jack.yu@realtek.com>
 ---
- sound/soc/fsl/imx-audmix.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Patch v2 : To fix warning message from kernel test robot.
+Patch v3 : To add information for port configuration and separate
+DAIs for dmic/speaker, hw_params settings are separated as well.
+---
+ sound/soc/codecs/Kconfig          |    7 +
+ sound/soc/codecs/Makefile         |    2 +
+ sound/soc/codecs/rt722-sdca-sdw.c |  510 ++++++++++
+ sound/soc/codecs/rt722-sdca-sdw.h |  124 +++
+ sound/soc/codecs/rt722-sdca.c     | 1555 +++++++++++++++++++++++++++++
+ sound/soc/codecs/rt722-sdca.h     |  238 +++++
+ 6 files changed, 2436 insertions(+)
+ create mode 100644 sound/soc/codecs/rt722-sdca-sdw.c
+ create mode 100644 sound/soc/codecs/rt722-sdca-sdw.h
+ create mode 100644 sound/soc/codecs/rt722-sdca.c
+ create mode 100644 sound/soc/codecs/rt722-sdca.h
 
-diff --git a/sound/soc/fsl/imx-audmix.c b/sound/soc/fsl/imx-audmix.c
-index cabef0de3891..b2c5aca92c6b 100644
---- a/sound/soc/fsl/imx-audmix.c
-+++ b/sound/soc/fsl/imx-audmix.c
-@@ -207,8 +207,8 @@ static int imx_audmix_probe(struct platform_device *pdev)
- 	for (i = 0; i < num_dai; i++) {
- 		struct snd_soc_dai_link_component *dlc;
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 79d2362ad055..a163e2afdf72 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -207,6 +207,7 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_RT712_SDCA_DMIC_SDW
+ 	imply SND_SOC_RT715_SDW
+ 	imply SND_SOC_RT715_SDCA_SDW
++	imply SND_SOC_RT722_SDCA_SDW
+ 	imply SND_SOC_RT1308_SDW
+ 	imply SND_SOC_RT1316_SDW
+ 	imply SND_SOC_RT1318_SDW
+@@ -1539,6 +1540,12 @@ config SND_SOC_RT712_SDCA_DMIC_SDW
+ 	select REGMAP_SOUNDWIRE
+ 	select REGMAP_SOUNDWIRE_MBQ
  
--		/* for CPU/Codec x 2 + Platform */
--		dlc = devm_kcalloc(&pdev->dev, 5, sizeof(*dlc), GFP_KERNEL);
-+		/* for CPU/Codec x 2 */
-+		dlc = devm_kcalloc(&pdev->dev, 4, sizeof(*dlc), GFP_KERNEL);
- 		if (!dlc)
- 			return -ENOMEM;
++config SND_SOC_RT722_SDCA_SDW
++	tristate "Realtek RT722 SDCA Codec - SDW"
++	depends on SOUNDWIRE
++	select REGMAP_SOUNDWIRE
++	select REGMAP_SOUNDWIRE_MBQ
++
+ config SND_SOC_RT715
+ 	tristate
  
-@@ -272,18 +272,15 @@ static int imx_audmix_probe(struct platform_device *pdev)
- 
- 		priv->dai[num_dai + i].cpus	= &dlc[2];
- 		priv->dai[num_dai + i].codecs	= &dlc[3];
--		priv->dai[num_dai + i].platforms = &dlc[4];
- 
- 		priv->dai[num_dai + i].num_cpus = 1;
- 		priv->dai[num_dai + i].num_codecs = 1;
--		priv->dai[num_dai + i].num_platforms = 1;
- 
- 		priv->dai[num_dai + i].name = be_name;
- 		priv->dai[num_dai + i].codecs->dai_name = "snd-soc-dummy-dai";
- 		priv->dai[num_dai + i].codecs->name = "snd-soc-dummy";
- 		priv->dai[num_dai + i].cpus->of_node = audmix_np;
- 		priv->dai[num_dai + i].cpus->dai_name = be_name;
--		priv->dai[num_dai + i].platforms->name = "snd-soc-dummy";
- 		priv->dai[num_dai + i].no_pcm = 1;
- 		priv->dai[num_dai + i].dpcm_playback = 1;
- 		priv->dai[num_dai + i].dpcm_capture  = 1;
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index 5cdbae88e6e3..cd799306331c 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -237,6 +237,7 @@ snd-soc-rt712-sdca-objs := rt712-sdca.o rt712-sdca-sdw.o
+ snd-soc-rt712-sdca-dmic-objs := rt712-sdca-dmic.o
+ snd-soc-rt715-objs := rt715.o rt715-sdw.o
+ snd-soc-rt715-sdca-objs := rt715-sdca.o rt715-sdca-sdw.o
++snd-soc-rt722-sdca-objs := rt722-sdca.o rt722-sdca-sdw.o
+ snd-soc-rt9120-objs := rt9120.o
+ snd-soc-sdw-mockup-objs := sdw-mockup.o
+ snd-soc-sgtl5000-objs := sgtl5000.o
+@@ -607,6 +608,7 @@ obj-$(CONFIG_SND_SOC_RT712_SDCA_SDW)     += snd-soc-rt712-sdca.o
+ obj-$(CONFIG_SND_SOC_RT712_SDCA_DMIC_SDW)     += snd-soc-rt712-sdca-dmic.o
+ obj-$(CONFIG_SND_SOC_RT715)     += snd-soc-rt715.o
+ obj-$(CONFIG_SND_SOC_RT715_SDCA_SDW)     += snd-soc-rt715-sdca.o
++obj-$(CONFIG_SND_SOC_RT722_SDCA_SDW)     += snd-soc-rt722-sdca.o
+ obj-$(CONFIG_SND_SOC_RT9120)	+= snd-soc-rt9120.o
+ obj-$(CONFIG_SND_SOC_SDW_MOCKUP)     += snd-soc-sdw-mockup.o
+ obj-$(CONFIG_SND_SOC_SGTL5000)  += snd-soc-sgtl5000.o
+diff --git a/sound/soc/codecs/rt722-sdca-sdw.c b/sound/soc/codecs/rt722-sdca-sdw.c
+new file mode 100644
+index 000000000000..0a791a14215e
+--- /dev/null
++++ b/sound/soc/codecs/rt722-sdca-sdw.c
+@@ -0,0 +1,510 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// rt722-sdca-sdw.c -- rt722 SDCA ALSA SoC audio driver
++//
++// Copyright(c) 2023 Realtek Semiconductor Corp.
++//
++//
++
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/module.h>
++#include <linux/mod_devicetable.h>
++#include <linux/pm_runtime.h>
++#include <linux/soundwire/sdw_registers.h>
++
++#include "rt722-sdca.h"
++#include "rt722-sdca-sdw.h"
++
++static bool rt722_sdca_readable_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case 0x2f01 ... 0x2f0a:
++	case 0x2f35 ... 0x2f36:
++	case 0x2f50:
++	case 0x2f54:
++	case 0x2f58 ... 0x2f5d:
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_GE49, RT722_SDCA_CTL_SELECTED_MODE,
++			0):
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_GE49, RT722_SDCA_CTL_DETECTED_MODE,
++			0):
++	case SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01, RT722_SDCA_CTL_HIDTX_CURRENT_OWNER,
++			0) ... SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01,
++			RT722_SDCA_CTL_HIDTX_MESSAGE_LENGTH, 0):
++	case RT722_BUF_ADDR_HID1 ... RT722_BUF_ADDR_HID2:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool rt722_sdca_volatile_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case 0x2f01:
++	case 0x2f54:
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_GE49, RT722_SDCA_CTL_DETECTED_MODE,
++			0):
++	case SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01, RT722_SDCA_CTL_HIDTX_CURRENT_OWNER,
++			0) ... SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01,
++			RT722_SDCA_CTL_HIDTX_MESSAGE_LENGTH, 0):
++	case RT722_BUF_ADDR_HID1 ... RT722_BUF_ADDR_HID2:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool rt722_sdca_mbq_readable_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case 0x2000000 ... 0x2000024:
++	case 0x2000029 ... 0x200004a:
++	case 0x2000051 ... 0x2000052:
++	case 0x200005a ... 0x200005b:
++	case 0x2000061 ... 0x2000069:
++	case 0x200006b:
++	case 0x2000070:
++	case 0x200007f:
++	case 0x2000082 ... 0x200008e:
++	case 0x2000090 ... 0x2000094:
++	case 0x5300000 ... 0x5300002:
++	case 0x5400002:
++	case 0x5600000 ... 0x5600007:
++	case 0x5700000 ... 0x5700004:
++	case 0x5800000 ... 0x5800004:
++	case 0x5b00003:
++	case 0x5c00011:
++	case 0x5d00006:
++	case 0x5f00000 ... 0x5f0000d:
++	case 0x5f00030:
++	case 0x6100000 ... 0x6100051:
++	case 0x6100055 ... 0x6100057:
++	case 0x6100062:
++	case 0x6100064 ... 0x6100065:
++	case 0x6100067:
++	case 0x6100070 ... 0x610007c:
++	case 0x6100080:
++	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++			CH_01):
++	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++			CH_02):
++	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++			CH_03):
++	case SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++			CH_04):
++	case SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06, RT722_SDCA_CTL_FU_VOLUME, CH_L):
++	case SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06, RT722_SDCA_CTL_FU_VOLUME, CH_R):
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05, RT722_SDCA_CTL_FU_VOLUME,
++			CH_L):
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05, RT722_SDCA_CTL_FU_VOLUME,
++			CH_R):
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F, RT722_SDCA_CTL_FU_VOLUME,
++			CH_L):
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F, RT722_SDCA_CTL_FU_VOLUME,
++			CH_R):
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PLATFORM_FU44,
++			RT722_SDCA_CTL_FU_CH_GAIN, CH_L):
++	case SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PLATFORM_FU44,
++			RT722_SDCA_CTL_FU_CH_GAIN, CH_R):
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool rt722_sdca_mbq_volatile_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case 0x2000000:
++	case 0x200000d:
++	case 0x2000019:
++	case 0x2000020:
++	case 0x2000030:
++	case 0x2000046:
++	case 0x2000067:
++	case 0x2000084:
++	case 0x2000086:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct regmap_config rt722_sdca_regmap = {
++	.reg_bits = 32,
++	.val_bits = 8,
++	.readable_reg = rt722_sdca_readable_register,
++	.volatile_reg = rt722_sdca_volatile_register,
++	.max_register = 0x44ffffff,
++	.reg_defaults = rt722_sdca_reg_defaults,
++	.num_reg_defaults = ARRAY_SIZE(rt722_sdca_reg_defaults),
++	.cache_type = REGCACHE_RBTREE,
++	.use_single_read = true,
++	.use_single_write = true,
++};
++
++static const struct regmap_config rt722_sdca_mbq_regmap = {
++	.name = "sdw-mbq",
++	.reg_bits = 32,
++	.val_bits = 16,
++	.readable_reg = rt722_sdca_mbq_readable_register,
++	.volatile_reg = rt722_sdca_mbq_volatile_register,
++	.max_register = 0x41000312,
++	.reg_defaults = rt722_sdca_mbq_defaults,
++	.num_reg_defaults = ARRAY_SIZE(rt722_sdca_mbq_defaults),
++	.cache_type = REGCACHE_RBTREE,
++	.use_single_read = true,
++	.use_single_write = true,
++};
++
++static int rt722_sdca_update_status(struct sdw_slave *slave,
++				enum sdw_slave_status status)
++{
++	struct rt722_sdca_priv *rt722 = dev_get_drvdata(&slave->dev);
++
++	/* Update the status */
++	rt722->status = status;
++
++	if (status == SDW_SLAVE_UNATTACHED)
++		rt722->hw_init = false;
++
++	if (status == SDW_SLAVE_ATTACHED) {
++		if (rt722->hs_jack) {
++		/*
++		 * Due to the SCP_SDCA_INTMASK will be cleared by any reset, and then
++		 * if the device attached again, we will need to set the setting back.
++		 * It could avoid losing the jack detection interrupt.
++		 * This also could sync with the cache value as the rt722_sdca_jack_init set.
++		 */
++			sdw_write_no_pm(rt722->slave, SDW_SCP_SDCA_INTMASK1,
++				SDW_SCP_SDCA_INTMASK_SDCA_0 | SDW_SCP_SDCA_INTMASK_SDCA_6);
++			sdw_write_no_pm(rt722->slave, SDW_SCP_SDCA_INTMASK2,
++				SDW_SCP_SDCA_INTMASK_SDCA_8);
++		}
++	}
++
++	/*
++	 * Perform initialization only if slave status is present and
++	 * hw_init flag is false
++	 */
++	if (rt722->hw_init || rt722->status != SDW_SLAVE_ATTACHED)
++		return 0;
++
++	/* perform I/O transfers required for Slave initialization */
++	return rt722_sdca_io_init(&slave->dev, slave);
++}
++
++static int rt722_sdca_read_prop(struct sdw_slave *slave)
++{
++	struct sdw_slave_prop *prop = &slave->prop;
++	int nval;
++	int i, j;
++	u32 bit;
++	unsigned long addr;
++	struct sdw_dpn_prop *dpn;
++
++	prop->scp_int1_mask = SDW_SCP_INT1_BUS_CLASH | SDW_SCP_INT1_PARITY;
++	prop->quirks = SDW_SLAVE_QUIRKS_INVALID_INITIAL_PARITY;
++
++	prop->paging_support = true;
++
++	/*
++	 * port = 1 for headphone playback
++	 * port = 2 for headset-mic capture
++	 * port = 3 for speaker playback
++	 * port = 6 for digital-mic capture
++	 */
++	prop->source_ports = BIT(6) | BIT(2); /* BITMAP: 01000100 */
++	prop->sink_ports = BIT(3) | BIT(1); /* BITMAP:  00001010 */
++
++	nval = hweight32(prop->source_ports);
++	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
++		sizeof(*prop->src_dpn_prop), GFP_KERNEL);
++	if (!prop->src_dpn_prop)
++		return -ENOMEM;
++
++	i = 0;
++	dpn = prop->src_dpn_prop;
++	addr = prop->source_ports;
++	for_each_set_bit(bit, &addr, 32) {
++		dpn[i].num = bit;
++		dpn[i].type = SDW_DPN_FULL;
++		dpn[i].simple_ch_prep_sm = true;
++		dpn[i].ch_prep_timeout = 10;
++		i++;
++	}
++
++	/* do this again for sink now */
++	nval = hweight32(prop->sink_ports);
++	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
++		sizeof(*prop->sink_dpn_prop), GFP_KERNEL);
++	if (!prop->sink_dpn_prop)
++		return -ENOMEM;
++
++	j = 0;
++	dpn = prop->sink_dpn_prop;
++	addr = prop->sink_ports;
++	for_each_set_bit(bit, &addr, 32) {
++		dpn[j].num = bit;
++		dpn[j].type = SDW_DPN_FULL;
++		dpn[j].simple_ch_prep_sm = true;
++		dpn[j].ch_prep_timeout = 10;
++		j++;
++	}
++
++	/* set the timeout values */
++	prop->clk_stop_timeout = 200;
++
++	/* wake-up event */
++	prop->wake_capable = 1;
++
++	return 0;
++}
++
++static int rt722_sdca_interrupt_callback(struct sdw_slave *slave,
++					struct sdw_slave_intr_status *status)
++{
++	struct rt722_sdca_priv *rt722 = dev_get_drvdata(&slave->dev);
++	int ret, stat;
++	int count = 0, retry = 3;
++	unsigned int sdca_cascade, scp_sdca_stat1, scp_sdca_stat2 = 0;
++
++	if (cancel_delayed_work_sync(&rt722->jack_detect_work)) {
++		dev_warn(&slave->dev, "%s the pending delayed_work was cancelled", __func__);
++		/* avoid the HID owner doesn't change to device */
++		if (rt722->scp_sdca_stat2)
++			scp_sdca_stat2 = rt722->scp_sdca_stat2;
++	}
++
++	/*
++	 * The critical section below intentionally protects a rather large piece of code.
++	 * We don't want to allow the system suspend to disable an interrupt while we are
++	 * processing it, which could be problematic given the quirky SoundWire interrupt
++	 * scheme. We do want however to prevent new workqueues from being scheduled if
++	 * the disable_irq flag was set during system suspend.
++	 */
++	mutex_lock(&rt722->disable_irq_lock);
++
++	ret = sdw_read_no_pm(rt722->slave, SDW_SCP_SDCA_INT1);
++	if (ret < 0)
++		goto io_error;
++	rt722->scp_sdca_stat1 = ret;
++	ret = sdw_read_no_pm(rt722->slave, SDW_SCP_SDCA_INT2);
++	if (ret < 0)
++		goto io_error;
++	rt722->scp_sdca_stat2 = ret;
++	if (scp_sdca_stat2)
++		rt722->scp_sdca_stat2 |= scp_sdca_stat2;
++	do {
++		/* clear flag */
++		ret = sdw_read_no_pm(rt722->slave, SDW_SCP_SDCA_INT1);
++		if (ret < 0)
++			goto io_error;
++		if (ret & SDW_SCP_SDCA_INTMASK_SDCA_0) {
++			ret = sdw_update_no_pm(rt722->slave, SDW_SCP_SDCA_INT1,
++				SDW_SCP_SDCA_INT_SDCA_0, SDW_SCP_SDCA_INT_SDCA_0);
++			if (ret < 0)
++				goto io_error;
++		} else if (ret & SDW_SCP_SDCA_INTMASK_SDCA_6) {
++			ret = sdw_update_no_pm(rt722->slave, SDW_SCP_SDCA_INT1,
++				SDW_SCP_SDCA_INT_SDCA_6, SDW_SCP_SDCA_INT_SDCA_6);
++			if (ret < 0)
++				goto io_error;
++		}
++		ret = sdw_read_no_pm(rt722->slave, SDW_SCP_SDCA_INT2);
++		if (ret < 0)
++			goto io_error;
++		if (ret & SDW_SCP_SDCA_INTMASK_SDCA_8) {
++			ret = sdw_write_no_pm(rt722->slave, SDW_SCP_SDCA_INT2,
++						SDW_SCP_SDCA_INTMASK_SDCA_8);
++			if (ret < 0)
++				goto io_error;
++		}
++
++		/* check if flag clear or not */
++		ret = sdw_read_no_pm(rt722->slave, SDW_DP0_INT);
++		if (ret < 0)
++			goto io_error;
++		sdca_cascade = ret & SDW_DP0_SDCA_CASCADE;
++
++		ret = sdw_read_no_pm(rt722->slave, SDW_SCP_SDCA_INT1);
++		if (ret < 0)
++			goto io_error;
++		scp_sdca_stat1 = ret & SDW_SCP_SDCA_INTMASK_SDCA_0;
++
++		ret = sdw_read_no_pm(rt722->slave, SDW_SCP_SDCA_INT2);
++		if (ret < 0)
++			goto io_error;
++		scp_sdca_stat2 = ret & SDW_SCP_SDCA_INTMASK_SDCA_8;
++
++		stat = scp_sdca_stat1 || scp_sdca_stat2 || sdca_cascade;
++
++		count++;
++	} while (stat != 0 && count < retry);
++
++	if (stat)
++		dev_warn(&slave->dev,
++			"%s scp_sdca_stat1=0x%x, scp_sdca_stat2=0x%x\n", __func__,
++			rt722->scp_sdca_stat1, rt722->scp_sdca_stat2);
++
++	if (status->sdca_cascade && !rt722->disable_irq)
++		mod_delayed_work(system_power_efficient_wq,
++			&rt722->jack_detect_work, msecs_to_jiffies(30));
++
++	mutex_unlock(&rt722->disable_irq_lock);
++
++	return 0;
++
++io_error:
++	mutex_unlock(&rt722->disable_irq_lock);
++	pr_err_ratelimited("IO error in %s, ret %d\n", __func__, ret);
++	return ret;
++}
++
++static struct sdw_slave_ops rt722_sdca_slave_ops = {
++	.read_prop = rt722_sdca_read_prop,
++	.interrupt_callback = rt722_sdca_interrupt_callback,
++	.update_status = rt722_sdca_update_status,
++};
++
++static int rt722_sdca_sdw_probe(struct sdw_slave *slave,
++				const struct sdw_device_id *id)
++{
++	struct regmap *regmap, *mbq_regmap;
++
++	/* Regmap Initialization */
++	mbq_regmap = devm_regmap_init_sdw_mbq(slave, &rt722_sdca_mbq_regmap);
++	if (IS_ERR(mbq_regmap))
++		return PTR_ERR(mbq_regmap);
++
++	regmap = devm_regmap_init_sdw(slave, &rt722_sdca_regmap);
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
++
++	return rt722_sdca_init(&slave->dev, regmap, mbq_regmap, slave);
++}
++
++static int rt722_sdca_sdw_remove(struct sdw_slave *slave)
++{
++	struct rt722_sdca_priv *rt722 = dev_get_drvdata(&slave->dev);
++
++	if (rt722->hw_init) {
++		cancel_delayed_work_sync(&rt722->jack_detect_work);
++		cancel_delayed_work_sync(&rt722->jack_btn_check_work);
++	}
++
++	if (rt722->first_hw_init)
++		pm_runtime_disable(&slave->dev);
++
++	mutex_destroy(&rt722->calibrate_mutex);
++	mutex_destroy(&rt722->disable_irq_lock);
++
++	return 0;
++}
++
++static const struct sdw_device_id rt722_sdca_id[] = {
++	SDW_SLAVE_ENTRY_EXT(0x025d, 0x722, 0x3, 0x1, 0),
++	{},
++};
++MODULE_DEVICE_TABLE(sdw, rt722_sdca_id);
++
++static int __maybe_unused rt722_sdca_dev_suspend(struct device *dev)
++{
++	struct rt722_sdca_priv *rt722 = dev_get_drvdata(dev);
++
++	if (!rt722->hw_init)
++		return 0;
++
++	cancel_delayed_work_sync(&rt722->jack_detect_work);
++	cancel_delayed_work_sync(&rt722->jack_btn_check_work);
++
++	regcache_cache_only(rt722->regmap, true);
++	regcache_cache_only(rt722->mbq_regmap, true);
++
++	return 0;
++}
++
++static int __maybe_unused rt722_sdca_dev_system_suspend(struct device *dev)
++{
++	struct rt722_sdca_priv *rt722_sdca = dev_get_drvdata(dev);
++	struct sdw_slave *slave = dev_to_sdw_dev(dev);
++	int ret1, ret2;
++
++	if (!rt722_sdca->hw_init)
++		return 0;
++
++	/*
++	 * prevent new interrupts from being handled after the
++	 * deferred work completes and before the parent disables
++	 * interrupts on the link
++	 */
++	mutex_lock(&rt722_sdca->disable_irq_lock);
++	rt722_sdca->disable_irq = true;
++	ret1 = sdw_update_no_pm(slave, SDW_SCP_SDCA_INTMASK1,
++				SDW_SCP_SDCA_INTMASK_SDCA_0 | SDW_SCP_SDCA_INTMASK_SDCA_6, 0);
++	ret2 = sdw_update_no_pm(slave, SDW_SCP_SDCA_INTMASK2,
++				SDW_SCP_SDCA_INTMASK_SDCA_8, 0);
++	mutex_unlock(&rt722_sdca->disable_irq_lock);
++
++	if (ret1 < 0 || ret2 < 0) {
++		/* log but don't prevent suspend from happening */
++		dev_dbg(&slave->dev, "%s: could not disable SDCA interrupts\n:", __func__);
++	}
++
++	return rt722_sdca_dev_suspend(dev);
++}
++
++#define RT722_PROBE_TIMEOUT 5000
++
++static int __maybe_unused rt722_sdca_dev_resume(struct device *dev)
++{
++	struct sdw_slave *slave = dev_to_sdw_dev(dev);
++	struct rt722_sdca_priv *rt722 = dev_get_drvdata(dev);
++	unsigned long time;
++
++	if (!rt722->first_hw_init)
++		return 0;
++
++	if (!slave->unattach_request)
++		goto regmap_sync;
++
++	time = wait_for_completion_timeout(&slave->initialization_complete,
++				msecs_to_jiffies(RT722_PROBE_TIMEOUT));
++	if (!time) {
++		dev_err(&slave->dev, "Initialization not complete, timed out\n");
++		sdw_show_ping_status(slave->bus, true);
++
++		return -ETIMEDOUT;
++	}
++
++regmap_sync:
++	slave->unattach_request = 0;
++	regcache_cache_only(rt722->regmap, false);
++	regcache_sync(rt722->regmap);
++	regcache_cache_only(rt722->mbq_regmap, false);
++	regcache_sync(rt722->mbq_regmap);
++	return 0;
++}
++
++static const struct dev_pm_ops rt722_sdca_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(rt722_sdca_dev_system_suspend, rt722_sdca_dev_resume)
++	SET_RUNTIME_PM_OPS(rt722_sdca_dev_suspend, rt722_sdca_dev_resume, NULL)
++};
++
++static struct sdw_driver rt722_sdca_sdw_driver = {
++	.driver = {
++		.name = "rt722-sdca",
++		.owner = THIS_MODULE,
++		.pm = &rt722_sdca_pm,
++	},
++	.probe = rt722_sdca_sdw_probe,
++	.remove = rt722_sdca_sdw_remove,
++	.ops = &rt722_sdca_slave_ops,
++	.id_table = rt722_sdca_id,
++};
++module_sdw_driver(rt722_sdca_sdw_driver);
++
++MODULE_DESCRIPTION("ASoC RT722 SDCA SDW driver");
++MODULE_AUTHOR("Jack Yu <jack.yu@realtek.com>");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/rt722-sdca-sdw.h b/sound/soc/codecs/rt722-sdca-sdw.h
+new file mode 100644
+index 000000000000..5b43e86f75d1
+--- /dev/null
++++ b/sound/soc/codecs/rt722-sdca-sdw.h
+@@ -0,0 +1,124 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * rt722-sdca-sdw.h -- RT722 SDCA ALSA SoC audio driver header
++ *
++ * Copyright(c) 2023 Realtek Semiconductor Corp.
++ */
++
++#ifndef __RT722_SDW_H__
++#define __RT722_SDW_H__
++
++#include <linux/regmap.h>
++#include <linux/soundwire/sdw_registers.h>
++
++static const struct reg_default rt722_sdca_reg_defaults[] = {
++	{ 0x202d, 0x00 },
++	{ 0x2f01, 0x00 },
++	{ 0x2f02, 0x09 },
++	{ 0x2f03, 0x00 },
++	{ 0x2f04, 0x00 },
++	{ 0x2f05, 0x0b },
++	{ 0x2f06, 0x01 },
++	{ 0x2f08, 0x00 },
++	{ 0x2f09, 0x00 },
++	{ 0x2f0a, 0x00 },
++	{ 0x2f35, 0x00 },
++	{ 0x2f36, 0x00 },
++	{ 0x2f50, 0xf0 },
++	{ 0x2f58, 0x07 },
++	{ 0x2f59, 0x07 },
++	{ 0x2f5a, 0x07 },
++	{ 0x2f5b, 0x07 },
++	{ 0x2f5c, 0x27 },
++	{ 0x2f5d, 0x07 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_CS01, RT722_SDCA_CTL_SAMPLE_FREQ_INDEX,
++		0), 0x09 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_CS11, RT722_SDCA_CTL_SAMPLE_FREQ_INDEX,
++		0), 0x09 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PDE12, RT722_SDCA_CTL_REQ_POWER_STATE,
++		0), 0x03 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PDE40, RT722_SDCA_CTL_REQ_POWER_STATE,
++		0), 0x03 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05, RT722_SDCA_CTL_FU_MUTE, CH_L),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05, RT722_SDCA_CTL_FU_MUTE, CH_R),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F, RT722_SDCA_CTL_FU_MUTE, CH_L),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F, RT722_SDCA_CTL_FU_MUTE, CH_R),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_CS1F, RT722_SDCA_CTL_SAMPLE_FREQ_INDEX,
++		0), 0x09 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_MUTE, CH_01),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_MUTE, CH_02),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_MUTE, CH_03),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_MUTE, CH_04),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_PDE2A, RT722_SDCA_CTL_REQ_POWER_STATE, 0),
++		0x03 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_IT26, RT722_SDCA_CTL_VENDOR_DEF, 0),
++		0x00 },
++	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_CS31, RT722_SDCA_CTL_SAMPLE_FREQ_INDEX, 0),
++		0x09 },
++	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06, RT722_SDCA_CTL_FU_MUTE, CH_L),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06, RT722_SDCA_CTL_FU_MUTE, CH_R),
++		0x01 },
++	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_PDE23, RT722_SDCA_CTL_REQ_POWER_STATE, 0),
++		0x03 },
++	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_OT23, RT722_SDCA_CTL_VENDOR_DEF, 0), 0x00 },
++};
++
++static const struct reg_default rt722_sdca_mbq_defaults[] = {
++	{ 0x200003c, 0xc214 },
++	{ 0x2000046, 0x8004 },
++	{ 0x6100006, 0x0005 },
++	{ 0x6100010, 0x2630 },
++	{ 0x6100011, 0x152f },
++	{ 0x6100013, 0x0102 },
++	{ 0x6100015, 0x2200 },
++	{ 0x6100017, 0x0102 },
++	{ 0x6100025, 0x2a29 },
++	{ 0x6100026, 0x2a00 },
++	{ 0x6100028, 0x2a2a },
++	{ 0x6100029, 0x4141 },
++	{ 0x6100055, 0x0000 },
++	{ 0x5810000, 0x702d },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05, RT722_SDCA_CTL_FU_VOLUME,
++		CH_L), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05, RT722_SDCA_CTL_FU_VOLUME,
++		CH_R), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F, RT722_SDCA_CTL_FU_VOLUME,
++		CH_L), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F, RT722_SDCA_CTL_FU_VOLUME,
++		CH_R), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PLATFORM_FU44, RT722_SDCA_CTL_FU_CH_GAIN,
++		CH_L), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PLATFORM_FU44, RT722_SDCA_CTL_FU_CH_GAIN,
++		CH_R), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++		CH_01), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++		CH_02), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++		CH_03), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E, RT722_SDCA_CTL_FU_VOLUME,
++		CH_04), 0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_FU15, RT722_SDCA_CTL_FU_CH_GAIN, CH_01),
++		0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_FU15, RT722_SDCA_CTL_FU_CH_GAIN, CH_02),
++		0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_FU15, RT722_SDCA_CTL_FU_CH_GAIN, CH_03),
++		0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_FU15, RT722_SDCA_CTL_FU_CH_GAIN, CH_04),
++		0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06, RT722_SDCA_CTL_FU_VOLUME, CH_L),
++		0x0000 },
++	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06, RT722_SDCA_CTL_FU_VOLUME, CH_R),
++		0x0000 },
++};
++
++#endif /* __RT722_SDW_H__ */
+diff --git a/sound/soc/codecs/rt722-sdca.c b/sound/soc/codecs/rt722-sdca.c
+new file mode 100644
+index 000000000000..9c0d34366c9e
+--- /dev/null
++++ b/sound/soc/codecs/rt722-sdca.c
+@@ -0,0 +1,1555 @@
++// SPDX-License-Identifier: GPL-2.0-only
++//
++// rt722-sdca.c -- rt722 SDCA ALSA SoC audio driver
++//
++// Copyright(c) 2023 Realtek Semiconductor Corp.
++//
++//
++
++#include <linux/bitops.h>
++#include <sound/core.h>
++#include <linux/delay.h>
++#include <linux/init.h>
++#include <sound/initval.h>
++#include <sound/jack.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/moduleparam.h>
++#include <sound/pcm.h>
++#include <linux/pm_runtime.h>
++#include <sound/pcm_params.h>
++#include <linux/soundwire/sdw_registers.h>
++#include <linux/slab.h>
++#include <sound/soc-dapm.h>
++#include <sound/tlv.h>
++
++#include "rt722-sdca.h"
++
++int rt722_sdca_index_write(struct rt722_sdca_priv *rt722,
++		unsigned int nid, unsigned int reg, unsigned int value)
++{
++	struct regmap *regmap = rt722->mbq_regmap;
++	unsigned int addr = (nid << 20) | reg;
++	int ret;
++
++	ret = regmap_write(regmap, addr, value);
++	if (ret < 0)
++		dev_err(&rt722->slave->dev,
++			"Failed to set private value: %06x <= %04x ret=%d\n",
++			addr, value, ret);
++
++	return ret;
++}
++
++int rt722_sdca_index_read(struct rt722_sdca_priv *rt722,
++		unsigned int nid, unsigned int reg, unsigned int *value)
++{
++	int ret;
++	struct regmap *regmap = rt722->mbq_regmap;
++	unsigned int addr = (nid << 20) | reg;
++
++	ret = regmap_read(regmap, addr, value);
++	if (ret < 0)
++		dev_err(&rt722->slave->dev,
++			"Failed to get private value: %06x => %04x ret=%d\n",
++			addr, *value, ret);
++
++	return ret;
++}
++
++static int rt722_sdca_index_update_bits(struct rt722_sdca_priv *rt722,
++	unsigned int nid, unsigned int reg, unsigned int mask, unsigned int val)
++{
++	unsigned int tmp;
++	int ret;
++
++	ret = rt722_sdca_index_read(rt722, nid, reg, &tmp);
++	if (ret < 0)
++		return ret;
++
++	set_mask_bits(&tmp, mask, val);
++	return rt722_sdca_index_write(rt722, nid, reg, tmp);
++}
++
++static int rt722_sdca_btn_type(unsigned char *buffer)
++{
++	if ((*buffer & 0xf0) == 0x10 || (*buffer & 0x0f) == 0x01 || (*(buffer + 1) == 0x01) ||
++		(*(buffer + 1) == 0x10))
++		return SND_JACK_BTN_2;
++	else if ((*buffer & 0xf0) == 0x20 || (*buffer & 0x0f) == 0x02 || (*(buffer + 1) == 0x02) ||
++		(*(buffer + 1) == 0x20))
++		return SND_JACK_BTN_3;
++	else if ((*buffer & 0xf0) == 0x40 || (*buffer & 0x0f) == 0x04 || (*(buffer + 1) == 0x04) ||
++		(*(buffer + 1) == 0x40))
++		return SND_JACK_BTN_0;
++	else if ((*buffer & 0xf0) == 0x80 || (*buffer & 0x0f) == 0x08 || (*(buffer + 1) == 0x08) ||
++		(*(buffer + 1) == 0x80))
++		return SND_JACK_BTN_1;
++
++	return 0;
++}
++
++static unsigned int rt722_sdca_button_detect(struct rt722_sdca_priv *rt722)
++{
++	unsigned int btn_type = 0, offset, idx, val, owner;
++	int ret;
++	unsigned char buf[3];
++
++	/* get current UMP message owner */
++	ret = regmap_read(rt722->regmap,
++		SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01,
++			RT722_SDCA_CTL_HIDTX_CURRENT_OWNER, 0), &owner);
++	if (ret < 0)
++		return 0;
++
++	/* if owner is device then there is no button event from device */
++	if (owner == 1)
++		return 0;
++
++	/* read UMP message offset */
++	ret = regmap_read(rt722->regmap,
++		SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01,
++			RT722_SDCA_CTL_HIDTX_MESSAGE_OFFSET, 0), &offset);
++	if (ret < 0)
++		goto _end_btn_det_;
++
++	for (idx = 0; idx < sizeof(buf); idx++) {
++		ret = regmap_read(rt722->regmap,
++			RT722_BUF_ADDR_HID1 + offset + idx, &val);
++		if (ret < 0)
++			goto _end_btn_det_;
++		buf[idx] = val & 0xff;
++	}
++
++	if (buf[0] == 0x11)
++		btn_type = rt722_sdca_btn_type(&buf[1]);
++
++_end_btn_det_:
++	/* Host is owner, so set back to device */
++	if (owner == 0)
++		/* set owner to device */
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01,
++				RT722_SDCA_CTL_HIDTX_CURRENT_OWNER, 0), 0x01);
++
++	return btn_type;
++}
++
++static int rt722_sdca_headset_detect(struct rt722_sdca_priv *rt722)
++{
++	unsigned int det_mode;
++	int ret;
++
++	/* get detected_mode */
++	ret = regmap_read(rt722->regmap,
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_GE49,
++			RT722_SDCA_CTL_DETECTED_MODE, 0), &det_mode);
++	if (ret < 0)
++		goto io_error;
++
++	switch (det_mode) {
++	case 0x00:
++		rt722->jack_type = 0;
++		break;
++	case 0x03:
++		rt722->jack_type = SND_JACK_HEADPHONE;
++		break;
++	case 0x05:
++		rt722->jack_type = SND_JACK_HEADSET;
++		break;
++	}
++
++	/* write selected_mode */
++	if (det_mode) {
++		ret = regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_GE49,
++				RT722_SDCA_CTL_SELECTED_MODE, 0), det_mode);
++		if (ret < 0)
++			goto io_error;
++	}
++
++	dev_dbg(&rt722->slave->dev,
++		"%s, detected_mode=0x%x\n", __func__, det_mode);
++
++	return 0;
++
++io_error:
++	pr_err_ratelimited("IO error in %s, ret %d\n", __func__, ret);
++	return ret;
++}
++
++static void rt722_sdca_jack_detect_handler(struct work_struct *work)
++{
++	struct rt722_sdca_priv *rt722 =
++		container_of(work, struct rt722_sdca_priv, jack_detect_work.work);
++	int btn_type = 0, ret;
++
++	if (!rt722->hs_jack)
++		return;
++
++	if (!rt722->component->card || !rt722->component->card->instantiated)
++		return;
++
++	/* SDW_SCP_SDCA_INT_SDCA_6 is used for jack detection */
++	if (rt722->scp_sdca_stat1 & SDW_SCP_SDCA_INT_SDCA_6 ||
++		rt722->scp_sdca_stat1 & SDW_SCP_SDCA_INT_SDCA_0) {
++		ret = rt722_sdca_headset_detect(rt722);
++		if (ret < 0)
++			return;
++	}
++
++	/* SDW_SCP_SDCA_INT_SDCA_8 is used for button detection */
++	if (rt722->scp_sdca_stat2 & SDW_SCP_SDCA_INT_SDCA_8)
++		btn_type = rt722_sdca_button_detect(rt722);
++
++	if (rt722->jack_type == 0)
++		btn_type = 0;
++
++	dev_dbg(&rt722->slave->dev,
++		"in %s, jack_type=%d\n", __func__, rt722->jack_type);
++	dev_dbg(&rt722->slave->dev,
++		"in %s, btn_type=0x%x\n", __func__, btn_type);
++	dev_dbg(&rt722->slave->dev,
++		"in %s, scp_sdca_stat1=0x%x, scp_sdca_stat2=0x%x\n", __func__,
++		rt722->scp_sdca_stat1, rt722->scp_sdca_stat2);
++
++	snd_soc_jack_report(rt722->hs_jack, rt722->jack_type | btn_type,
++			SND_JACK_HEADSET |
++			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++			SND_JACK_BTN_2 | SND_JACK_BTN_3);
++
++	if (btn_type) {
++		/* button released */
++		snd_soc_jack_report(rt722->hs_jack, rt722->jack_type,
++			SND_JACK_HEADSET |
++			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++			SND_JACK_BTN_2 | SND_JACK_BTN_3);
++
++		mod_delayed_work(system_power_efficient_wq,
++			&rt722->jack_btn_check_work, msecs_to_jiffies(200));
++	}
++}
++
++static void rt722_sdca_btn_check_handler(struct work_struct *work)
++{
++	struct rt722_sdca_priv *rt722 =
++		container_of(work, struct rt722_sdca_priv, jack_btn_check_work.work);
++	int btn_type = 0, ret, idx;
++	unsigned int det_mode, offset, val;
++	unsigned char buf[3];
++
++	ret = regmap_read(rt722->regmap,
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_GE49,
++			RT722_SDCA_CTL_DETECTED_MODE, 0), &det_mode);
++	if (ret < 0)
++		goto io_error;
++
++	/* pin attached */
++	if (det_mode) {
++		/* read UMP message offset */
++		ret = regmap_read(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_HID, RT722_SDCA_ENT_HID01,
++				RT722_SDCA_CTL_HIDTX_MESSAGE_OFFSET, 0), &offset);
++		if (ret < 0)
++			goto io_error;
++
++		for (idx = 0; idx < sizeof(buf); idx++) {
++			ret = regmap_read(rt722->regmap,
++				RT722_BUF_ADDR_HID1 + offset + idx, &val);
++			if (ret < 0)
++				goto io_error;
++			buf[idx] = val & 0xff;
++		}
++
++		if (buf[0] == 0x11)
++			btn_type = rt722_sdca_btn_type(&buf[1]);
++	} else
++		rt722->jack_type = 0;
++
++	dev_dbg(&rt722->slave->dev, "%s, btn_type=0x%x\n",	__func__, btn_type);
++	snd_soc_jack_report(rt722->hs_jack, rt722->jack_type | btn_type,
++			SND_JACK_HEADSET |
++			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++			SND_JACK_BTN_2 | SND_JACK_BTN_3);
++
++	if (btn_type) {
++		/* button released */
++		snd_soc_jack_report(rt722->hs_jack, rt722->jack_type,
++			SND_JACK_HEADSET |
++			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++			SND_JACK_BTN_2 | SND_JACK_BTN_3);
++
++		mod_delayed_work(system_power_efficient_wq,
++			&rt722->jack_btn_check_work, msecs_to_jiffies(200));
++	}
++
++	return;
++
++io_error:
++	pr_err_ratelimited("IO error in %s, ret %d\n", __func__, ret);
++}
++
++static void rt722_sdca_jack_init(struct rt722_sdca_priv *rt722)
++{
++	mutex_lock(&rt722->calibrate_mutex);
++	if (rt722->hs_jack) {
++		/* set SCP_SDCA_IntMask1[0]=1 */
++		sdw_write_no_pm(rt722->slave, SDW_SCP_SDCA_INTMASK1,
++			SDW_SCP_SDCA_INTMASK_SDCA_0 | SDW_SCP_SDCA_INTMASK_SDCA_6);
++		/* set SCP_SDCA_IntMask2[0]=1 */
++		sdw_write_no_pm(rt722->slave, SDW_SCP_SDCA_INTMASK2,
++			SDW_SCP_SDCA_INTMASK_SDCA_8);
++		dev_dbg(&rt722->slave->dev, "in %s enable\n", __func__);
++		rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++			RT722_HDA_LEGACY_UNSOL_CTL, 0x016E);
++		/* set XU(et03h) & XU(et0Dh) to Not bypassed */
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_XU03,
++				RT722_SDCA_CTL_SELECTED_MODE, 0), 0);
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_XU0D,
++				RT722_SDCA_CTL_SELECTED_MODE, 0), 0);
++		/* trigger GE interrupt */
++		rt722_sdca_index_update_bits(rt722, RT722_VENDOR_HDA_CTL,
++			RT722_GE_RELATED_CTL2, 0x4000, 0x4000);
++	}
++	mutex_unlock(&rt722->calibrate_mutex);
++}
++
++static int rt722_sdca_set_jack_detect(struct snd_soc_component *component,
++	struct snd_soc_jack *hs_jack, void *data)
++{
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	int ret;
++
++	rt722->hs_jack = hs_jack;
++
++	ret = pm_runtime_resume_and_get(component->dev);
++	if (ret < 0) {
++		if (ret != -EACCES) {
++			dev_err(component->dev, "%s: failed to resume %d\n", __func__, ret);
++			return ret;
++		}
++		/* pm_runtime not enabled yet */
++		dev_dbg(component->dev,	"%s: skipping jack init for now\n", __func__);
++		return 0;
++	}
++
++	rt722_sdca_jack_init(rt722);
++
++	pm_runtime_mark_last_busy(component->dev);
++	pm_runtime_put_autosuspend(component->dev);
++
++	return 0;
++}
++
++/* For SDCA control DAC/ADC Gain */
++static int rt722_sdca_set_gain_put(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned int read_l, read_r, gain_l_val, gain_r_val;
++	unsigned int adc_vol_flag = 0, changed = 0;
++	unsigned int lvalue, rvalue;
++	const unsigned int interval_offset = 0xc0;
++	const unsigned int tendB = 0xa00;
++
++	if (strstr(ucontrol->id.name, "FU1E Capture Volume") ||
++		strstr(ucontrol->id.name, "FU0F Capture Volume"))
++		adc_vol_flag = 1;
++
++	regmap_read(rt722->mbq_regmap, mc->reg, &lvalue);
++	regmap_read(rt722->mbq_regmap, mc->rreg, &rvalue);
++
++	/* L Channel */
++	gain_l_val = ucontrol->value.integer.value[0];
++	if (gain_l_val > mc->max)
++		gain_l_val = mc->max;
++
++	if (mc->shift == 8) /* boost gain */
++		gain_l_val = gain_l_val * tendB;
++	else {
++		/* ADC/DAC gain */
++		if (adc_vol_flag)
++			gain_l_val = 0x1e00 - ((mc->max - gain_l_val) * interval_offset);
++		else
++			gain_l_val = 0 - ((mc->max - gain_l_val) * interval_offset);
++		gain_l_val &= 0xffff;
++	}
++
++	/* R Channel */
++	gain_r_val = ucontrol->value.integer.value[1];
++	if (gain_r_val > mc->max)
++		gain_r_val = mc->max;
++
++	if (mc->shift == 8) /* boost gain */
++		gain_r_val = gain_r_val * tendB;
++	else {
++		/* ADC/DAC gain */
++		if (adc_vol_flag)
++			gain_r_val = 0x1e00 - ((mc->max - gain_r_val) * interval_offset);
++		else
++			gain_r_val = 0 - ((mc->max - gain_r_val) * interval_offset);
++		gain_r_val &= 0xffff;
++	}
++
++	if (lvalue != gain_l_val || rvalue != gain_r_val)
++		changed = 1;
++	else
++		return 0;
++
++	/* Lch*/
++	regmap_write(rt722->mbq_regmap, mc->reg, gain_l_val);
++
++	/* Rch */
++	regmap_write(rt722->mbq_regmap, mc->rreg, gain_r_val);
++
++	regmap_read(rt722->mbq_regmap, mc->reg, &read_l);
++	regmap_read(rt722->mbq_regmap, mc->rreg, &read_r);
++	if (read_r == gain_r_val && read_l == gain_l_val)
++		return changed;
++
++	return -EIO;
++}
++
++static int rt722_sdca_set_gain_get(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	struct soc_mixer_control *mc =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	unsigned int read_l, read_r, ctl_l = 0, ctl_r = 0;
++	unsigned int adc_vol_flag = 0;
++	const unsigned int interval_offset = 0xc0;
++	const unsigned int tendB = 0xa00;
++
++	if (strstr(ucontrol->id.name, "FU1E Capture Volume") ||
++		strstr(ucontrol->id.name, "FU0F Capture Volume"))
++		adc_vol_flag = 1;
++
++	regmap_read(rt722->mbq_regmap, mc->reg, &read_l);
++	regmap_read(rt722->mbq_regmap, mc->rreg, &read_r);
++
++	if (mc->shift == 8) /* boost gain */
++		ctl_l = read_l / tendB;
++	else {
++		if (adc_vol_flag)
++			ctl_l = mc->max - (((0x1e00 - read_l) & 0xffff) / interval_offset);
++		else
++			ctl_l = mc->max - (((0 - read_l) & 0xffff) / interval_offset);
++	}
++
++	if (read_l != read_r) {
++		if (mc->shift == 8) /* boost gain */
++			ctl_r = read_r / tendB;
++		else { /* ADC/DAC gain */
++			if (adc_vol_flag)
++				ctl_r = mc->max - (((0x1e00 - read_r) & 0xffff) / interval_offset);
++			else
++				ctl_r = mc->max - (((0 - read_r) & 0xffff) / interval_offset);
++		}
++	} else {
++		ctl_r = ctl_l;
++	}
++
++	ucontrol->value.integer.value[0] = ctl_l;
++	ucontrol->value.integer.value[1] = ctl_r;
++
++	return 0;
++}
++
++static int rt722_sdca_set_fu1e_capture_ctl(struct rt722_sdca_priv *rt722)
++{
++	int err, i;
++	unsigned int ch_mute;
++
++	for (i = 0; i < ARRAY_SIZE(rt722->fu1e_mixer_mute); i++) {
++		ch_mute = rt722->fu1e_dapm_mute || rt722->fu1e_mixer_mute[i];
++		err = regmap_write(rt722->regmap,
++				SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E,
++				RT722_SDCA_CTL_FU_MUTE, CH_01) + i, ch_mute);
++		if (err < 0)
++			return err;
++	}
++
++	return 0;
++}
++
++static int rt722_sdca_fu1e_capture_get(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	struct rt722_sdca_dmic_kctrl_priv *p =
++		(struct rt722_sdca_dmic_kctrl_priv *)kcontrol->private_value;
++	unsigned int i;
++
++	for (i = 0; i < p->count; i++)
++		ucontrol->value.integer.value[i] = !rt722->fu1e_mixer_mute[i];
++
++	return 0;
++}
++
++static int rt722_sdca_fu1e_capture_put(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	struct rt722_sdca_dmic_kctrl_priv *p =
++		(struct rt722_sdca_dmic_kctrl_priv *)kcontrol->private_value;
++	int err, changed = 0, i;
++
++	for (i = 0; i < p->count; i++) {
++		if (rt722->fu1e_mixer_mute[i] != !ucontrol->value.integer.value[i])
++			changed = 1;
++		rt722->fu1e_mixer_mute[i] = !ucontrol->value.integer.value[i];
++	}
++
++	err = rt722_sdca_set_fu1e_capture_ctl(rt722);
++	if (err < 0)
++		return err;
++
++	return changed;
++}
++
++static int rt722_sdca_set_fu0f_capture_ctl(struct rt722_sdca_priv *rt722)
++{
++	int err;
++	unsigned int ch_l, ch_r;
++
++	ch_l = (rt722->fu0f_dapm_mute || rt722->fu0f_mixer_l_mute) ? 0x01 : 0x00;
++	ch_r = (rt722->fu0f_dapm_mute || rt722->fu0f_mixer_r_mute) ? 0x01 : 0x00;
++
++	err = regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F,
++			RT722_SDCA_CTL_FU_MUTE, CH_L), ch_l);
++	if (err < 0)
++		return err;
++
++	err = regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F,
++			RT722_SDCA_CTL_FU_MUTE, CH_R), ch_r);
++	if (err < 0)
++		return err;
++
++	return 0;
++}
++
++static int rt722_sdca_fu0f_capture_get(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++
++	ucontrol->value.integer.value[0] = !rt722->fu0f_mixer_l_mute;
++	ucontrol->value.integer.value[1] = !rt722->fu0f_mixer_r_mute;
++	return 0;
++}
++
++static int rt722_sdca_fu0f_capture_put(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	int err, changed = 0;
++
++	if (rt722->fu0f_mixer_l_mute != !ucontrol->value.integer.value[0] ||
++		rt722->fu0f_mixer_r_mute != !ucontrol->value.integer.value[1])
++		changed = 1;
++
++	rt722->fu0f_mixer_l_mute = !ucontrol->value.integer.value[0];
++	rt722->fu0f_mixer_r_mute = !ucontrol->value.integer.value[1];
++	err = rt722_sdca_set_fu0f_capture_ctl(rt722);
++	if (err < 0)
++		return err;
++
++	return changed;
++}
++
++static int rt722_sdca_fu_info(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_info *uinfo)
++{
++	struct rt722_sdca_dmic_kctrl_priv *p =
++		(struct rt722_sdca_dmic_kctrl_priv *)kcontrol->private_value;
++
++	if (p->max == 1)
++		uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++	else
++		uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = p->count;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = p->max;
++	return 0;
++}
++
++static int rt722_sdca_dmic_set_gain_get(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	struct rt722_sdca_dmic_kctrl_priv *p =
++		(struct rt722_sdca_dmic_kctrl_priv *)kcontrol->private_value;
++	unsigned int boost_step = 0x0a00;
++	unsigned int vol_max = 0x1e00;
++	unsigned int regvalue, ctl, i;
++	unsigned int adc_vol_flag = 0;
++	const unsigned int interval_offset = 0xc0;
++
++	if (strstr(ucontrol->id.name, "FU1E Capture Volume"))
++		adc_vol_flag = 1;
++
++	/* check all channels */
++	for (i = 0; i < p->count; i++) {
++		regmap_read(rt722->mbq_regmap, p->reg_base + i, &regvalue);
++
++		if (!adc_vol_flag) /* boost gain */
++			ctl = regvalue / boost_step;
++		else { /* ADC gain */
++			if (adc_vol_flag)
++				ctl = p->max - (((vol_max - regvalue) & 0xffff) / interval_offset);
++			else
++				ctl = p->max - (((0 - regvalue) & 0xffff) / interval_offset);
++		}
++
++		ucontrol->value.integer.value[i] = ctl;
++	}
++
++	return 0;
++}
++
++static int rt722_sdca_dmic_set_gain_put(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct rt722_sdca_dmic_kctrl_priv *p =
++		(struct rt722_sdca_dmic_kctrl_priv *)kcontrol->private_value;
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned int boost_step = 0x0a00;
++	unsigned int vol_max = 0x1e00;
++	unsigned int gain_val[4];
++	unsigned int i, adc_vol_flag = 0, changed = 0;
++	unsigned int regvalue[4];
++	const unsigned int interval_offset = 0xc0;
++	int err;
++
++	if (strstr(ucontrol->id.name, "FU1E Capture Volume"))
++		adc_vol_flag = 1;
++
++	/* check all channels */
++	for (i = 0; i < p->count; i++) {
++		regmap_read(rt722->mbq_regmap, p->reg_base + i, &regvalue[i]);
++
++		gain_val[i] = ucontrol->value.integer.value[i];
++		if (gain_val[i] > p->max)
++			gain_val[i] = p->max;
++
++		if (!adc_vol_flag) /* boost gain */
++			gain_val[i] = gain_val[i] * boost_step;
++		else { /* ADC gain */
++			gain_val[i] = vol_max - ((p->max - gain_val[i]) * interval_offset);
++			gain_val[i] &= 0xffff;
++		}
++
++		if (regvalue[i] != gain_val[i])
++			changed = 1;
++	}
++
++	if (!changed)
++		return 0;
++
++	for (i = 0; i < p->count; i++) {
++		err = regmap_write(rt722->mbq_regmap, p->reg_base + i, gain_val[i]);
++		if (err < 0)
++			dev_err(&rt722->slave->dev, "%#08x can't be set\n", p->reg_base + i);
++	}
++
++	return changed;
++}
++
++#define RT722_SDCA_PR_VALUE(xreg_base, xcount, xmax, xinvert) \
++	((unsigned long)&(struct rt722_sdca_dmic_kctrl_priv) \
++		{.reg_base = xreg_base, .count = xcount, .max = xmax, \
++		.invert = xinvert})
++
++#define RT722_SDCA_FU_CTRL(xname, reg_base, xmax, xinvert, xcount) \
++{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname), \
++	.info = rt722_sdca_fu_info, \
++	.get = rt722_sdca_fu1e_capture_get, \
++	.put = rt722_sdca_fu1e_capture_put, \
++	.private_value = RT722_SDCA_PR_VALUE(reg_base, xcount, xmax, xinvert)}
++
++#define RT722_SDCA_EXT_TLV(xname, reg_base, xhandler_get,\
++	 xhandler_put, xcount, xmax, tlv_array) \
++{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname), \
++	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | \
++		 SNDRV_CTL_ELEM_ACCESS_READWRITE, \
++	.tlv.p = (tlv_array), \
++	.info = rt722_sdca_fu_info, \
++	.get = xhandler_get, .put = xhandler_put, \
++	.private_value = RT722_SDCA_PR_VALUE(reg_base, xcount, xmax, 0) }
++
++static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -6525, 75, 0);
++static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, -1725, 75, 0);
++static const DECLARE_TLV_DB_SCALE(boost_vol_tlv, 0, 1000, 0);
++
++static const struct snd_kcontrol_new rt722_sdca_controls[] = {
++	/* Headphone playback settings */
++	SOC_DOUBLE_R_EXT_TLV("FU05 Playback Volume",
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05,
++			RT722_SDCA_CTL_FU_VOLUME, CH_L),
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05,
++			RT722_SDCA_CTL_FU_VOLUME, CH_R), 0, 0x57, 0,
++		rt722_sdca_set_gain_get, rt722_sdca_set_gain_put, out_vol_tlv),
++	/* Headset mic capture settings */
++	SOC_DOUBLE_EXT("FU0F Capture Switch", SND_SOC_NOPM, 0, 1, 1, 0,
++		rt722_sdca_fu0f_capture_get, rt722_sdca_fu0f_capture_put),
++	SOC_DOUBLE_R_EXT_TLV("FU0F Capture Volume",
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F,
++			RT722_SDCA_CTL_FU_VOLUME, CH_L),
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU0F,
++			RT722_SDCA_CTL_FU_VOLUME, CH_R), 0, 0x3f, 0,
++		rt722_sdca_set_gain_get, rt722_sdca_set_gain_put, mic_vol_tlv),
++	SOC_DOUBLE_R_EXT_TLV("FU33 Boost Volume",
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PLATFORM_FU44,
++			RT722_SDCA_CTL_FU_CH_GAIN, CH_L),
++		SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PLATFORM_FU44,
++			RT722_SDCA_CTL_FU_CH_GAIN, CH_R), 8, 3, 0,
++		rt722_sdca_set_gain_get, rt722_sdca_set_gain_put, boost_vol_tlv),
++	/* AMP playback settings */
++	SOC_DOUBLE_R_EXT_TLV("FU06 Playback Volume",
++		SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06,
++			RT722_SDCA_CTL_FU_VOLUME, CH_L),
++		SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06,
++			RT722_SDCA_CTL_FU_VOLUME, CH_R), 0, 0x57, 0,
++		rt722_sdca_set_gain_get, rt722_sdca_set_gain_put, out_vol_tlv),
++	/* DMIC capture settings */
++	RT722_SDCA_FU_CTRL("FU1E Capture Switch",
++		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E,
++			RT722_SDCA_CTL_FU_MUTE, CH_01), 1, 1, 4),
++	RT722_SDCA_EXT_TLV("FU1E Capture Volume",
++		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_USER_FU1E,
++			RT722_SDCA_CTL_FU_VOLUME, CH_01),
++		rt722_sdca_dmic_set_gain_get, rt722_sdca_dmic_set_gain_put,
++			4, 0x3f, mic_vol_tlv),
++	RT722_SDCA_EXT_TLV("FU15 Boost Volume",
++		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_FU15,
++			RT722_SDCA_CTL_FU_CH_GAIN, CH_01),
++		rt722_sdca_dmic_set_gain_get, rt722_sdca_dmic_set_gain_put,
++			4, 3, boost_vol_tlv),
++};
++
++static int rt722_sdca_adc_mux_get(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_kcontrol_component(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned int val = 0, mask_sft;
++
++	if (strstr(ucontrol->id.name, "ADC 22 Mux"))
++		mask_sft = 12;
++	else if (strstr(ucontrol->id.name, "ADC 24 Mux"))
++		mask_sft = 4;
++	else if (strstr(ucontrol->id.name, "ADC 25 Mux"))
++		mask_sft = 0;
++	else
++		return -EINVAL;
++
++	rt722_sdca_index_read(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_HDA_LEGACY_MUX_CTL0, &val);
++
++	ucontrol->value.enumerated.item[0] = (val >> mask_sft) & 0x7;
++
++	return 0;
++}
++
++static int rt722_sdca_adc_mux_put(struct snd_kcontrol *kcontrol,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_kcontrol_component(kcontrol);
++	struct snd_soc_dapm_context *dapm =
++		snd_soc_dapm_kcontrol_dapm(kcontrol);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
++	unsigned int *item = ucontrol->value.enumerated.item;
++	unsigned int val, val2 = 0, change, mask_sft;
++
++	if (item[0] >= e->items)
++		return -EINVAL;
++
++	if (strstr(ucontrol->id.name, "ADC 22 Mux"))
++		mask_sft = 12;
++	else if (strstr(ucontrol->id.name, "ADC 24 Mux"))
++		mask_sft = 4;
++	else if (strstr(ucontrol->id.name, "ADC 25 Mux"))
++		mask_sft = 0;
++	else
++		return -EINVAL;
++
++	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
++
++	rt722_sdca_index_read(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_HDA_LEGACY_MUX_CTL0, &val2);
++	val2 = (0x7 << mask_sft) & val2;
++
++	if (val == val2)
++		change = 0;
++	else
++		change = 1;
++
++	if (change)
++		rt722_sdca_index_update_bits(rt722, RT722_VENDOR_HDA_CTL,
++			RT722_HDA_LEGACY_MUX_CTL0, 0x7 << mask_sft,
++			val << mask_sft);
++
++	snd_soc_dapm_mux_update_power(dapm, kcontrol,
++		item[0], e, NULL);
++
++	return change;
++}
++
++static const char * const adc22_mux_text[] = {
++	"MIC2",
++	"LINE1",
++	"LINE2",
++};
++
++static const char * const adc07_10_mux_text[] = {
++	"DMIC1",
++	"DMIC2",
++};
++
++static SOC_ENUM_SINGLE_DECL(
++	rt722_adc22_enum, SND_SOC_NOPM, 0, adc22_mux_text);
++
++static SOC_ENUM_SINGLE_DECL(
++	rt722_adc24_enum, SND_SOC_NOPM, 0, adc07_10_mux_text);
++
++static SOC_ENUM_SINGLE_DECL(
++	rt722_adc25_enum, SND_SOC_NOPM, 0, adc07_10_mux_text);
++
++static const struct snd_kcontrol_new rt722_sdca_adc22_mux =
++	SOC_DAPM_ENUM_EXT("ADC 22 Mux", rt722_adc22_enum,
++			rt722_sdca_adc_mux_get, rt722_sdca_adc_mux_put);
++
++static const struct snd_kcontrol_new rt722_sdca_adc24_mux =
++	SOC_DAPM_ENUM_EXT("ADC 24 Mux", rt722_adc24_enum,
++			rt722_sdca_adc_mux_get, rt722_sdca_adc_mux_put);
++
++static const struct snd_kcontrol_new rt722_sdca_adc25_mux =
++	SOC_DAPM_ENUM_EXT("ADC 25 Mux", rt722_adc25_enum,
++			rt722_sdca_adc_mux_get, rt722_sdca_adc_mux_put);
++
++static int rt722_sdca_fu42_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned char unmute = 0x0, mute = 0x1;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05,
++				RT722_SDCA_CTL_FU_MUTE, CH_L), unmute);
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05,
++				RT722_SDCA_CTL_FU_MUTE, CH_R), unmute);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05,
++				RT722_SDCA_CTL_FU_MUTE, CH_L), mute);
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_USER_FU05,
++				RT722_SDCA_CTL_FU_MUTE, CH_R), mute);
++		break;
++	}
++	return 0;
++}
++
++static int rt722_sdca_fu21_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned char unmute = 0x0, mute = 0x1;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06,
++				RT722_SDCA_CTL_FU_MUTE, CH_L), unmute);
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06,
++				RT722_SDCA_CTL_FU_MUTE, CH_R), unmute);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06,
++				RT722_SDCA_CTL_FU_MUTE, CH_L), mute);
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_USER_FU06,
++				RT722_SDCA_CTL_FU_MUTE, CH_R), mute);
++		break;
++	}
++	return 0;
++}
++
++static int rt722_sdca_fu113_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		rt722->fu1e_dapm_mute = false;
++		rt722_sdca_set_fu1e_capture_ctl(rt722);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		rt722->fu1e_dapm_mute = true;
++		rt722_sdca_set_fu1e_capture_ctl(rt722);
++		break;
++	}
++	return 0;
++}
++
++static int rt722_sdca_fu36_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		rt722->fu0f_dapm_mute = false;
++		rt722_sdca_set_fu0f_capture_ctl(rt722);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		rt722->fu0f_dapm_mute = true;
++		rt722_sdca_set_fu0f_capture_ctl(rt722);
++		break;
++	}
++	return 0;
++}
++
++static int rt722_sdca_pde47_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned char ps0 = 0x0, ps3 = 0x3;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PDE40,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PDE40,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps3);
++		break;
++	}
++	return 0;
++}
++
++static int rt722_sdca_pde23_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned char ps0 = 0x0, ps3 = 0x3;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_PDE23,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_PDE23,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps3);
++		break;
++	}
++	return 0;
++}
++
++static int rt722_sdca_pde11_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned char ps0 = 0x0, ps3 = 0x3;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_PDE2A,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_PDE2A,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps3);
++		break;
++	}
++	return 0;
++}
++
++static int rt722_sdca_pde12_event(struct snd_soc_dapm_widget *w,
++	struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(w->dapm);
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	unsigned char ps0 = 0x0, ps3 = 0x3;
++
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PDE12,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps0);
++		break;
++	case SND_SOC_DAPM_PRE_PMD:
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_PDE12,
++				RT722_SDCA_CTL_REQ_POWER_STATE, 0), ps3);
++		break;
++	}
++	return 0;
++}
++
++static const struct snd_soc_dapm_widget rt722_sdca_dapm_widgets[] = {
++	SND_SOC_DAPM_OUTPUT("HP"),
++	SND_SOC_DAPM_OUTPUT("SPK"),
++	SND_SOC_DAPM_INPUT("MIC2"),
++	SND_SOC_DAPM_INPUT("LINE1"),
++	SND_SOC_DAPM_INPUT("LINE2"),
++	SND_SOC_DAPM_INPUT("DMIC1_2"),
++	SND_SOC_DAPM_INPUT("DMIC3_4"),
++
++	SND_SOC_DAPM_SUPPLY("PDE 23", SND_SOC_NOPM, 0, 0,
++		rt722_sdca_pde23_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_SUPPLY("PDE 47", SND_SOC_NOPM, 0, 0,
++		rt722_sdca_pde47_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_SUPPLY("PDE 11", SND_SOC_NOPM, 0, 0,
++		rt722_sdca_pde11_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_SUPPLY("PDE 12", SND_SOC_NOPM, 0, 0,
++		rt722_sdca_pde12_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++
++	SND_SOC_DAPM_DAC_E("FU 21", NULL, SND_SOC_NOPM, 0, 0,
++		rt722_sdca_fu21_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_DAC_E("FU 42", NULL, SND_SOC_NOPM, 0, 0,
++		rt722_sdca_fu42_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_ADC_E("FU 36", NULL, SND_SOC_NOPM, 0, 0,
++		rt722_sdca_fu36_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_ADC_E("FU 113", NULL, SND_SOC_NOPM, 0, 0,
++		rt722_sdca_fu113_event,
++		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
++	SND_SOC_DAPM_MUX("ADC 22 Mux", SND_SOC_NOPM, 0, 0,
++		&rt722_sdca_adc22_mux),
++	SND_SOC_DAPM_MUX("ADC 24 Mux", SND_SOC_NOPM, 0, 0,
++		&rt722_sdca_adc24_mux),
++	SND_SOC_DAPM_MUX("ADC 25 Mux", SND_SOC_NOPM, 0, 0,
++		&rt722_sdca_adc25_mux),
++
++	SND_SOC_DAPM_AIF_IN("DP1RX", "DP1 Headphone Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("DP2TX", "DP2 Headset Capture", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_IN("DP3RX", "DP3 Speaker Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("DP6TX", "DP6 DMic Capture", 0, SND_SOC_NOPM, 0, 0),
++};
++
++static const struct snd_soc_dapm_route rt722_sdca_audio_map[] = {
++	{"FU 42", NULL, "DP1RX"},
++	{"FU 21", NULL, "DP3RX"},
++
++	{"ADC 22 Mux", "MIC2", "MIC2"},
++	{"ADC 22 Mux", "LINE1", "LINE1"},
++	{"ADC 22 Mux", "LINE2", "LINE2"},
++	{"ADC 24 Mux", "DMIC1", "DMIC1_2"},
++	{"ADC 24 Mux", "DMIC2", "DMIC3_4"},
++	{"ADC 25 Mux", "DMIC1", "DMIC1_2"},
++	{"ADC 25 Mux", "DMIC2", "DMIC3_4"},
++	{"FU 36", NULL, "PDE 12"},
++	{"FU 36", NULL, "ADC 22 Mux"},
++	{"FU 113", NULL, "PDE 11"},
++	{"FU 113", NULL, "ADC 24 Mux"},
++	{"FU 113", NULL, "ADC 25 Mux"},
++	{"DP2TX", NULL, "FU 36"},
++	{"DP6TX", NULL, "FU 113"},
++
++	{"HP", NULL, "PDE 47"},
++	{"HP", NULL, "FU 42"},
++	{"SPK", NULL, "PDE 23"},
++	{"SPK", NULL, "FU 21"},
++};
++
++static int rt722_sdca_parse_dt(struct rt722_sdca_priv *rt722, struct device *dev)
++{
++	device_property_read_u32(dev, "realtek,jd-src", &rt722->jd_src);
++
++	return 0;
++}
++
++static int rt722_sdca_probe(struct snd_soc_component *component)
++{
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	int ret;
++
++	rt722_sdca_parse_dt(rt722, &rt722->slave->dev);
++	rt722->component = component;
++
++	ret = pm_runtime_resume(component->dev);
++	if (ret < 0 && ret != -EACCES)
++		return ret;
++
++	return 0;
++}
++
++static const struct snd_soc_component_driver soc_sdca_dev_rt722 = {
++	.probe = rt722_sdca_probe,
++	.controls = rt722_sdca_controls,
++	.num_controls = ARRAY_SIZE(rt722_sdca_controls),
++	.dapm_widgets = rt722_sdca_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(rt722_sdca_dapm_widgets),
++	.dapm_routes = rt722_sdca_audio_map,
++	.num_dapm_routes = ARRAY_SIZE(rt722_sdca_audio_map),
++	.set_jack = rt722_sdca_set_jack_detect,
++	.endianness = 1,
++};
++
++static int rt722_sdca_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
++				int direction)
++{
++	snd_soc_dai_dma_data_set(dai, direction, sdw_stream);
++
++	return 0;
++}
++
++static void rt722_sdca_shutdown(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
++{
++	snd_soc_dai_set_dma_data(dai, substream, NULL);
++}
++
++static int rt722_sdca_pcm_hw_params(struct snd_pcm_substream *substream,
++				struct snd_pcm_hw_params *params,
++				struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	struct sdw_stream_config stream_config;
++	struct sdw_port_config port_config;
++	enum sdw_data_direction direction;
++	struct sdw_stream_runtime *sdw_stream;
++	int retval, port, num_channels;
++	unsigned int sampling_rate;
++
++	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
++	sdw_stream = snd_soc_dai_get_dma_data(dai, substream);
++
++	if (!sdw_stream)
++		return -EINVAL;
++
++	if (!rt722->slave)
++		return -EINVAL;
++
++	/*
++	 * RT722_AIF1 with port = 1 for headphone playback
++	 * RT722_AIF1 with port = 2 for headset-mic capture
++	 * RT722_AIF2 with port = 3 for speaker playback
++	 * RT722_AIF3 with port = 6 for digital-mic capture
++	 */
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		direction = SDW_DATA_DIR_RX;
++		if (dai->id == RT722_AIF1)
++			port = 1;
++		else if (dai->id == RT722_AIF2)
++			port = 3;
++		else
++			return -EINVAL;
++	} else {
++		direction = SDW_DATA_DIR_TX;
++		if (dai->id == RT722_AIF1)
++			port = 2;
++		else if (dai->id == RT722_AIF3)
++			port = 6;
++		else
++			return -EINVAL;
++	}
++	stream_config.frame_rate = params_rate(params);
++	stream_config.ch_count = params_channels(params);
++	stream_config.bps = snd_pcm_format_width(params_format(params));
++	stream_config.direction = direction;
++
++	num_channels = params_channels(params);
++	port_config.ch_mask = GENMASK(num_channels - 1, 0);
++	port_config.num = port;
++
++	retval = sdw_stream_add_slave(rt722->slave, &stream_config,
++					&port_config, 1, sdw_stream);
++	if (retval) {
++		dev_err(dai->dev, "Unable to configure port\n");
++		return retval;
++	}
++
++	if (params_channels(params) > 16) {
++		dev_err(component->dev, "Unsupported channels %d\n",
++			params_channels(params));
++		return -EINVAL;
++	}
++
++	/* sampling rate configuration */
++	switch (params_rate(params)) {
++	case 44100:
++		sampling_rate = RT722_SDCA_RATE_44100HZ;
++		break;
++	case 48000:
++		sampling_rate = RT722_SDCA_RATE_48000HZ;
++		break;
++	case 96000:
++		sampling_rate = RT722_SDCA_RATE_96000HZ;
++		break;
++	case 192000:
++		sampling_rate = RT722_SDCA_RATE_192000HZ;
++		break;
++	default:
++		dev_err(component->dev, "Rate %d is not supported\n",
++			params_rate(params));
++		return -EINVAL;
++	}
++
++	/* set sampling frequency */
++	if (dai->id == RT722_AIF1) {
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_CS01,
++				RT722_SDCA_CTL_SAMPLE_FREQ_INDEX, 0), sampling_rate);
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_JACK_CODEC, RT722_SDCA_ENT_CS11,
++				RT722_SDCA_CTL_SAMPLE_FREQ_INDEX, 0), sampling_rate);
++	}
++
++	if (dai->id == RT722_AIF2)
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_CS31,
++				RT722_SDCA_CTL_SAMPLE_FREQ_INDEX, 0), sampling_rate);
++
++	if (dai->id == RT722_AIF3)
++		regmap_write(rt722->regmap,
++			SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_CS1F,
++				RT722_SDCA_CTL_SAMPLE_FREQ_INDEX, 0), sampling_rate);
++
++	return 0;
++}
++
++static int rt722_sdca_pcm_hw_free(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct rt722_sdca_priv *rt722 = snd_soc_component_get_drvdata(component);
++	struct sdw_stream_runtime *sdw_stream =
++		snd_soc_dai_get_dma_data(dai, substream);
++
++	if (!rt722->slave)
++		return -EINVAL;
++
++	sdw_stream_remove_slave(rt722->slave, sdw_stream);
++	return 0;
++}
++
++#define RT722_STEREO_RATES (SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000 | \
++			SNDRV_PCM_RATE_96000 | SNDRV_PCM_RATE_192000)
++#define RT722_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
++			SNDRV_PCM_FMTBIT_S24_LE)
++
++static const struct snd_soc_dai_ops rt722_sdca_ops = {
++	.hw_params	= rt722_sdca_pcm_hw_params,
++	.hw_free	= rt722_sdca_pcm_hw_free,
++	.set_stream	= rt722_sdca_set_sdw_stream,
++	.shutdown	= rt722_sdca_shutdown,
++};
++
++static struct snd_soc_dai_driver rt722_sdca_dai[] = {
++	{
++		.name = "rt722-sdca-aif1",
++		.id = RT722_AIF1,
++		.playback = {
++			.stream_name = "DP1 Headphone Playback",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = RT722_STEREO_RATES,
++			.formats = RT722_FORMATS,
++		},
++		.capture = {
++			.stream_name = "DP2 Headset Capture",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = RT722_STEREO_RATES,
++			.formats = RT722_FORMATS,
++		},
++		.ops = &rt722_sdca_ops,
++	},
++	{
++		.name = "rt722-sdca-aif2",
++		.id = RT722_AIF2,
++		.playback = {
++			.stream_name = "DP3 Speaker Playback",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = RT722_STEREO_RATES,
++			.formats = RT722_FORMATS,
++		},
++		.ops = &rt722_sdca_ops,
++	},
++	{
++		.name = "rt722-sdca-aif3",
++		.id = RT722_AIF3,
++		.capture = {
++			.stream_name = "DP6 DMic Capture",
++			.channels_min = 1,
++			.channels_max = 2,
++			.rates = RT722_STEREO_RATES,
++			.formats = RT722_FORMATS,
++		},
++		.ops = &rt722_sdca_ops,
++	}
++};
++
++int rt722_sdca_init(struct device *dev, struct regmap *regmap,
++			struct regmap *mbq_regmap, struct sdw_slave *slave)
++{
++	struct rt722_sdca_priv *rt722;
++
++	rt722 = devm_kzalloc(dev, sizeof(*rt722), GFP_KERNEL);
++	if (!rt722)
++		return -ENOMEM;
++
++	dev_set_drvdata(dev, rt722);
++	rt722->slave = slave;
++	rt722->regmap = regmap;
++	rt722->mbq_regmap = mbq_regmap;
++
++	mutex_init(&rt722->calibrate_mutex);
++	mutex_init(&rt722->disable_irq_lock);
++
++	INIT_DELAYED_WORK(&rt722->jack_detect_work, rt722_sdca_jack_detect_handler);
++	INIT_DELAYED_WORK(&rt722->jack_btn_check_work, rt722_sdca_btn_check_handler);
++
++	/*
++	 * Mark hw_init to false
++	 * HW init will be performed when device reports present
++	 */
++	rt722->hw_init = false;
++	rt722->first_hw_init = false;
++	rt722->fu1e_dapm_mute = true;
++	rt722->fu0f_dapm_mute = true;
++	rt722->fu0f_mixer_l_mute = rt722->fu0f_mixer_r_mute = true;
++	rt722->fu1e_mixer_mute[0] = rt722->fu1e_mixer_mute[1] =
++		rt722->fu1e_mixer_mute[2] = rt722->fu1e_mixer_mute[3] = true;
++
++	return devm_snd_soc_register_component(dev,
++			&soc_sdca_dev_rt722, rt722_sdca_dai, ARRAY_SIZE(rt722_sdca_dai));
++}
++
++static void rt722_sdca_dmic_preset(struct rt722_sdca_priv *rt722)
++{
++	/* Set AD07 power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_ADC0A_08_PDE_FLOAT_CTL, 0x2a29);
++	/* Set AD10 power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_ADC10_PDE_FLOAT_CTL, 0x2a00);
++	/* Set DMIC1/DMIC2 power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_DMIC1_2_PDE_FLOAT_CTL, 0x2a2a);
++	/* Set DMIC2 IT entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_DMIC_ENT_FLOAT_CTL, 0x2626);
++	/* Set AD10 FU entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_ADC_ENT_FLOAT_CTL, 0x1e00);
++	/* Set DMIC2 FU entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_DMIC_GAIN_ENT_FLOAT_CTL0, 0x1515);
++	/* Set AD10 FU channel floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_ADC_VOL_CH_FLOAT_CTL, 0x0304);
++	/* Set DMIC2 FU channel floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_DMIC_GAIN_ENT_FLOAT_CTL2, 0x0304);
++	/* vf71f_r12_07_06 and vf71f_r13_07_06 = 2’b00 */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL,
++		RT722_HDA_LEGACY_CONFIG_CTL0, 0x0000);
++	/* Enable vf707_r12_05/vf707_r13_05 */
++	regmap_write(rt722->regmap,
++		SDW_SDCA_CTL(FUNC_NUM_MIC_ARRAY, RT722_SDCA_ENT_IT26,
++			RT722_SDCA_CTL_VENDOR_DEF, 0), 0x01);
++	/* Fine tune PDE2A latency */
++	regmap_write(rt722->regmap, 0x2f5c, 0x25);
++}
++
++static void rt722_sdca_amp_preset(struct rt722_sdca_priv *rt722)
++{
++	/* Set DVQ=01 */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_REG, RT722_CLSD_CTRL6,
++		0xc215);
++	/* Reset dc_cal_top */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_CALI, RT722_DC_CALIB_CTRL,
++		0x702c);
++	/* W1C Trigger Calibration */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_CALI, RT722_DC_CALIB_CTRL,
++		0xf02d);
++	/* Set DAC02/ClassD power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_AMP_PDE_FLOAT_CTL,
++		0x2323);
++	/* Set EAPD high */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_EAPD_CTL,
++		0x0002);
++	/* Enable vf707_r14 */
++	regmap_write(rt722->regmap,
++		SDW_SDCA_CTL(FUNC_NUM_AMP, RT722_SDCA_ENT_OT23,
++			RT722_SDCA_CTL_VENDOR_DEF, CH_08), 0x04);
++}
++
++static void rt722_sdca_jack_preset(struct rt722_sdca_priv *rt722)
++{
++	int loop_check, chk_cnt = 100, ret;
++	unsigned int calib_status = 0;
++
++	/* Read eFuse */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_SPK_EFUSE, RT722_DC_CALIB_CTRL,
++		0x4808);
++	/* Button A, B, C, D bypass mode */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_UMP_HID_CTL4,
++		0xcf00);
++	/* HID1 slot enable */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_UMP_HID_CTL5,
++		0x000f);
++	/* Report ID for HID1 */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_UMP_HID_CTL0,
++		0x1100);
++	/* OSC/OOC for slot 2, 3 */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_UMP_HID_CTL7,
++		0x0c12);
++	/* Set JD de-bounce clock control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_REG, RT722_JD_CTRL1,
++		0x7002);
++	/* Set DVQ=01 */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_REG, RT722_CLSD_CTRL6,
++		0xc215);
++	/* FSM switch to calibration manual mode */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_REG, RT722_FSM_CTL,
++		0x4100);
++	/* W1C Trigger DC calibration (HP) */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_CALI, RT722_DAC_DC_CALI_CTL3,
++		0x008d);
++	/* check HP calibration FSM status */
++	for (loop_check = 0; loop_check < chk_cnt; loop_check++) {
++		ret = rt722_sdca_index_read(rt722, RT722_VENDOR_CALI,
++			RT722_DAC_DC_CALI_CTL3, &calib_status);
++		if (ret < 0 || loop_check == chk_cnt)
++			dev_dbg(&rt722->slave->dev, "calibration failed!, ret=%d\n", ret);
++		if ((calib_status & 0x0040) == 0x0)
++			break;
++	}
++	/* Release HP-JD, EN_CBJ_TIE_GL/R open, en_osw gating auto done bit */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_REG, RT722_DIGITAL_MISC_CTRL4,
++		0x0010);
++	/* Set ADC09 power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_ADC0A_08_PDE_FLOAT_CTL,
++		0x2a12);
++	/* Set MIC2 and LINE1 power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_MIC2_LINE2_PDE_FLOAT_CTL,
++		0x3429);
++	/* Set ET41h and LINE2 power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_ET41_LINE2_PDE_FLOAT_CTL,
++		0x4112);
++	/* Set DAC03 and HP power entity floating control */
++	rt722_sdca_index_write(rt722, RT722_VENDOR_HDA_CTL, RT722_DAC03_HP_PDE_FLOAT_CTL,
++		0x4040);
++	/* Fine tune PDE40 latency */
++	regmap_write(rt722->regmap, 0x2f58, 0x07);
++}
++
++int rt722_sdca_io_init(struct device *dev, struct sdw_slave *slave)
++{
++	struct rt722_sdca_priv *rt722 = dev_get_drvdata(dev);
++
++	rt722->disable_irq = false;
++
++	if (rt722->hw_init)
++		return 0;
++
++	if (rt722->first_hw_init) {
++		regcache_cache_only(rt722->regmap, false);
++		regcache_cache_bypass(rt722->regmap, true);
++		regcache_cache_only(rt722->mbq_regmap, false);
++		regcache_cache_bypass(rt722->mbq_regmap, true);
++	} else {
++		/*
++		 * PM runtime is only enabled when a Slave reports as Attached
++		 */
++
++		/* set autosuspend parameters */
++		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
++		pm_runtime_use_autosuspend(&slave->dev);
++
++		/* update count of parent 'active' children */
++		pm_runtime_set_active(&slave->dev);
++
++		/* make sure the device does not suspend immediately */
++		pm_runtime_mark_last_busy(&slave->dev);
++
++		pm_runtime_enable(&slave->dev);
++	}
++
++	pm_runtime_get_noresume(&slave->dev);
++
++	rt722_sdca_dmic_preset(rt722);
++	rt722_sdca_amp_preset(rt722);
++	rt722_sdca_jack_preset(rt722);
++
++	if (rt722->first_hw_init) {
++		regcache_cache_bypass(rt722->regmap, false);
++		regcache_mark_dirty(rt722->regmap);
++		regcache_cache_bypass(rt722->mbq_regmap, false);
++		regcache_mark_dirty(rt722->mbq_regmap);
++	} else
++		rt722->first_hw_init = true;
++
++	/* Mark Slave initialization complete */
++	rt722->hw_init = true;
++
++	pm_runtime_mark_last_busy(&slave->dev);
++	pm_runtime_put_autosuspend(&slave->dev);
++
++	dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
++	return 0;
++}
++
++MODULE_DESCRIPTION("ASoC RT722 SDCA SDW driver");
++MODULE_AUTHOR("Jack Yu <jack.yu@realtek.com>");
++MODULE_LICENSE("GPL");
+diff --git a/sound/soc/codecs/rt722-sdca.h b/sound/soc/codecs/rt722-sdca.h
+new file mode 100644
+index 000000000000..5bc6184d09aa
+--- /dev/null
++++ b/sound/soc/codecs/rt722-sdca.h
+@@ -0,0 +1,238 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * rt722-sdca.h -- RT722 SDCA ALSA SoC audio driver header
++ *
++ * Copyright(c) 2023 Realtek Semiconductor Corp.
++ */
++
++#ifndef __RT722_H__
++#define __RT722_H__
++
++#include <linux/pm.h>
++#include <linux/regmap.h>
++#include <linux/soundwire/sdw.h>
++#include <linux/soundwire/sdw_type.h>
++#include <sound/soc.h>
++#include <linux/workqueue.h>
++
++struct  rt722_sdca_priv {
++	struct regmap *regmap;
++	struct regmap *mbq_regmap;
++	struct snd_soc_component *component;
++	struct sdw_slave *slave;
++	enum sdw_slave_status status;
++	struct sdw_bus_params params;
++	bool hw_init;
++	bool first_hw_init;
++	struct mutex calibrate_mutex;
++	struct mutex disable_irq_lock;
++	bool disable_irq;
++	/* For Headset jack & Headphone */
++	unsigned int scp_sdca_stat1;
++	unsigned int scp_sdca_stat2;
++	struct snd_soc_jack *hs_jack;
++	struct delayed_work jack_detect_work;
++	struct delayed_work jack_btn_check_work;
++	int jack_type;
++	int jd_src;
++	bool fu0f_dapm_mute;
++	bool fu0f_mixer_l_mute;
++	bool fu0f_mixer_r_mute;
++	/* For DMIC */
++	bool fu1e_dapm_mute;
++	bool fu1e_mixer_mute[4];
++};
++
++struct rt722_sdca_dmic_kctrl_priv {
++	unsigned int reg_base;
++	unsigned int count;
++	unsigned int max;
++	unsigned int invert;
++};
++
++/* NID */
++#define RT722_VENDOR_REG			0x20
++#define RT722_VENDOR_CALI			0x58
++#define RT722_VENDOR_SPK_EFUSE			0x5c
++#define RT722_VENDOR_IMS_DRE			0x5b
++#define RT722_VENDOR_ANALOG_CTL			0x5f
++#define RT722_VENDOR_HDA_CTL			0x61
++
++/* Index (NID:20h) */
++#define RT722_JD_PRODUCT_NUM			0x00
++#define RT722_ANALOG_BIAS_CTL3			0x04
++#define RT722_JD_CTRL1				0x09
++#define RT722_LDO2_3_CTL1			0x0e
++#define RT722_LDO1_CTL				0x1a
++#define RT722_HP_JD_CTRL			0x24
++#define RT722_CLSD_CTRL6			0x3c
++#define RT722_COMBO_JACK_AUTO_CTL1		0x45
++#define RT722_COMBO_JACK_AUTO_CTL2		0x46
++#define RT722_COMBO_JACK_AUTO_CTL3		0x47
++#define RT722_DIGITAL_MISC_CTRL4		0x4a
++#define RT722_FSM_CTL				0x67
++#define RT722_SDCA_INTR_REC			0x82
++#define RT722_SW_CONFIG1			0x8a
++#define RT722_SW_CONFIG2			0x8b
++
++/* Index (NID:58h) */
++#define RT722_DAC_DC_CALI_CTL0			0x00
++#define RT722_DAC_DC_CALI_CTL1			0x01
++#define RT722_DAC_DC_CALI_CTL2			0x02
++#define RT722_DAC_DC_CALI_CTL3			0x03
++
++/* Index (NID:59h) */
++#define RT722_ULTRA_SOUND_DETECTOR6		0x1e
++
++/* Index (NID:5bh) */
++#define RT722_IMS_DIGITAL_CTL1			0x00
++#define RT722_IMS_DIGITAL_CTL5			0x05
++#define RT722_HP_DETECT_RLDET_CTL1		0x29
++#define RT722_HP_DETECT_RLDET_CTL2		0x2a
++
++/* Index (NID:5fh) */
++#define RT722_MISC_POWER_CTL0			0x00
++#define RT722_MISC_POWER_CTL7			0x08
++
++/* Index (NID:61h) */
++#define RT722_HDA_LEGACY_MUX_CTL0		0x00
++#define RT722_HDA_LEGACY_UNSOL_CTL		0x03
++#define RT722_HDA_LEGACY_CONFIG_CTL0		0x06
++#define RT722_HDA_LEGACY_RESET_CTL		0x08
++#define RT722_HDA_LEGACY_GPIO_WAKE_EN_CTL	0x0e
++#define RT722_DMIC_ENT_FLOAT_CTL		0x10
++#define RT722_DMIC_GAIN_ENT_FLOAT_CTL0		0x11
++#define RT722_DMIC_GAIN_ENT_FLOAT_CTL2		0x13
++#define RT722_ADC_ENT_FLOAT_CTL			0x15
++#define RT722_ADC_VOL_CH_FLOAT_CTL		0x17
++#define RT722_ADC_SAMPLE_RATE_FLOAT		0x18
++#define RT722_DAC03_HP_PDE_FLOAT_CTL		0x22
++#define RT722_MIC2_LINE2_PDE_FLOAT_CTL		0x23
++#define RT722_ET41_LINE2_PDE_FLOAT_CTL		0x24
++#define RT722_ADC0A_08_PDE_FLOAT_CTL		0x25
++#define RT722_ADC10_PDE_FLOAT_CTL		0x26
++#define RT722_DMIC1_2_PDE_FLOAT_CTL		0x28
++#define RT722_AMP_PDE_FLOAT_CTL			0x29
++#define RT722_I2S_IN_OUT_PDE_FLOAT_CTL		0x2f
++#define RT722_GE_RELATED_CTL1			0x45
++#define RT722_GE_RELATED_CTL2			0x46
++#define RT722_MIXER_CTL0			0x52
++#define RT722_MIXER_CTL1			0x53
++#define RT722_EAPD_CTL				0x55
++#define RT722_UMP_HID_CTL0			0x60
++#define RT722_UMP_HID_CTL1			0x61
++#define RT722_UMP_HID_CTL2			0x62
++#define RT722_UMP_HID_CTL3			0x63
++#define RT722_UMP_HID_CTL4			0x64
++#define RT722_UMP_HID_CTL5			0x65
++#define RT722_UMP_HID_CTL6			0x66
++#define RT722_UMP_HID_CTL7			0x67
++#define RT722_UMP_HID_CTL8			0x68
++
++/* Parameter & Verb control 01 (0x1a)(NID:20h) */
++#define RT722_HIDDEN_REG_SW_RESET (0x1 << 14)
++
++/* combo jack auto switch control 2 (0x46)(NID:20h) */
++#define RT722_COMBOJACK_AUTO_DET_STATUS		(0x1 << 11)
++#define RT722_COMBOJACK_AUTO_DET_TRS		(0x1 << 10)
++#define RT722_COMBOJACK_AUTO_DET_CTIA		(0x1 << 9)
++#define RT722_COMBOJACK_AUTO_DET_OMTP		(0x1 << 8)
++
++/* DAC calibration control (0x00)(NID:58h) */
++#define RT722_DC_CALIB_CTRL (0x1 << 16)
++/* DAC DC offset calibration control-1 (0x01)(NID:58h) */
++#define RT722_PDM_DC_CALIB_STATUS (0x1 << 15)
++
++#define RT722_EAPD_HIGH				0x2
++#define RT722_EAPD_LOW				0x0
++
++/* Buffer address for HID */
++#define RT722_BUF_ADDR_HID1			0x44030000
++#define RT722_BUF_ADDR_HID2			0x44030020
++
++/* RT722 SDCA Control - function number */
++#define FUNC_NUM_JACK_CODEC			0x01
++#define FUNC_NUM_MIC_ARRAY			0x02
++#define FUNC_NUM_HID				0x03
++#define FUNC_NUM_AMP				0x04
++
++/* RT722 SDCA entity */
++#define RT722_SDCA_ENT_HID01			0x01
++#define RT722_SDCA_ENT_GE49			0x49
++#define RT722_SDCA_ENT_USER_FU05		0x05
++#define RT722_SDCA_ENT_USER_FU06		0x06
++#define RT722_SDCA_ENT_USER_FU0F		0x0f
++#define RT722_SDCA_ENT_USER_FU10		0x19
++#define RT722_SDCA_ENT_USER_FU1E		0x1e
++#define RT722_SDCA_ENT_FU15			0x15
++#define RT722_SDCA_ENT_PDE23			0x23
++#define RT722_SDCA_ENT_PDE40			0x40
++#define RT722_SDCA_ENT_PDE11			0x11
++#define RT722_SDCA_ENT_PDE12			0x12
++#define RT722_SDCA_ENT_PDE2A			0x2a
++#define RT722_SDCA_ENT_CS01			0x01
++#define RT722_SDCA_ENT_CS11			0x11
++#define RT722_SDCA_ENT_CS1F			0x1f
++#define RT722_SDCA_ENT_CS1C			0x1c
++#define RT722_SDCA_ENT_CS31			0x31
++#define RT722_SDCA_ENT_OT23			0x42
++#define RT722_SDCA_ENT_IT26			0x26
++#define RT722_SDCA_ENT_IT09			0x09
++#define RT722_SDCA_ENT_PLATFORM_FU15		0x15
++#define RT722_SDCA_ENT_PLATFORM_FU44		0x44
++#define RT722_SDCA_ENT_XU03			0x03
++#define RT722_SDCA_ENT_XU0D			0x0d
++
++/* RT722 SDCA control */
++#define RT722_SDCA_CTL_SAMPLE_FREQ_INDEX		0x10
++#define RT722_SDCA_CTL_FU_MUTE				0x01
++#define RT722_SDCA_CTL_FU_VOLUME			0x02
++#define RT722_SDCA_CTL_HIDTX_CURRENT_OWNER		0x10
++#define RT722_SDCA_CTL_HIDTX_SET_OWNER_TO_DEVICE	0x11
++#define RT722_SDCA_CTL_HIDTX_MESSAGE_OFFSET		0x12
++#define RT722_SDCA_CTL_HIDTX_MESSAGE_LENGTH		0x13
++#define RT722_SDCA_CTL_SELECTED_MODE			0x01
++#define RT722_SDCA_CTL_DETECTED_MODE			0x02
++#define RT722_SDCA_CTL_REQ_POWER_STATE			0x01
++#define RT722_SDCA_CTL_VENDOR_DEF			0x30
++#define RT722_SDCA_CTL_FU_CH_GAIN			0x0b
++
++/* RT722 SDCA channel */
++#define CH_L	0x01
++#define CH_R	0x02
++#define CH_01	0x01
++#define CH_02	0x02
++#define CH_03	0x03
++#define CH_04	0x04
++#define CH_08	0x08
++
++/* sample frequency index */
++#define RT722_SDCA_RATE_16000HZ		0x04
++#define RT722_SDCA_RATE_32000HZ		0x07
++#define RT722_SDCA_RATE_44100HZ		0x08
++#define RT722_SDCA_RATE_48000HZ		0x09
++#define RT722_SDCA_RATE_96000HZ		0x0b
++#define RT722_SDCA_RATE_192000HZ	0x0d
++
++enum {
++	RT722_AIF1, /* For headset mic and headphone */
++	RT722_AIF2, /* For speaker */
++	RT722_AIF3, /* For dmic */
++	RT722_AIFS,
++};
++
++enum rt722_sdca_jd_src {
++	RT722_JD_NULL,
++	RT722_JD1,
++};
++
++int rt722_sdca_io_init(struct device *dev, struct sdw_slave *slave);
++int rt722_sdca_init(struct device *dev, struct regmap *regmap,
++			struct regmap *mbq_regmap, struct sdw_slave *slave);
++int rt722_sdca_index_write(struct rt722_sdca_priv *rt722,
++		unsigned int nid, unsigned int reg, unsigned int value);
++int rt722_sdca_index_read(struct rt722_sdca_priv *rt722,
++		unsigned int nid, unsigned int reg, unsigned int *value);
++
++int rt722_sdca_jack_detect(struct rt722_sdca_priv *rt722, bool *hp, bool *mic);
++#endif /* __RT722_H__ */
 -- 
-2.25.1
+2.40.0
 

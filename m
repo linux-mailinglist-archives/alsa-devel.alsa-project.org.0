@@ -2,74 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCDE6EADC3
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 17:09:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E67B06EADD5
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Apr 2023 17:13:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C94A2E7C;
-	Fri, 21 Apr 2023 17:08:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C94A2E7C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77AFDE92;
+	Fri, 21 Apr 2023 17:12:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77AFDE92
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682089788;
-	bh=1+mrGMa+NvT0VLOY/dMsdW4MUMIm581Qu/iSDMGIL9s=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1682089982;
+	bh=r9J1Hp87UG04HUAkzR9MjKMcsmluj2I0+/KMvP5cBXU=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jDXnpRf+AYdSQ93oXyvJs8lPLNp6gScx2Mkl/8m8LJCb+sUvvzXPkVDX44UXlFUWk
-	 FGqKOARis0CAQctD/BWeMlemsT0cuP+lgVX13MJfpesWWfsGdhdpfRk45tsMpA7DuM
-	 j4LS1C4gOzpa2RNYJDP5CxemPae8gr47ufFbllgc=
+	b=stsXAVs9AxCKo9z2RpwgLEJM7gpRxlBKquvqnui+gtEUeavIKQnJ6GkLgO/SVIbpm
+	 PIH3/qwuoS+x1H0ZHcxeOXOrdOmVqSBURSicrr7//d6wK0lIM4VuGU7HtXwKjE+uHz
+	 Ikzocr65wLaiXYbUPQ+RK4bRh7l0xDdFp5Pc9Hxs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BEE0F80149;
-	Fri, 21 Apr 2023 17:08:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB00AF80149;
+	Fri, 21 Apr 2023 17:12:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D11CF80155; Fri, 21 Apr 2023 17:08:55 +0200 (CEST)
+	id 9BD03F80155; Fri, 21 Apr 2023 17:12:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B4F7F800D0
-	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 17:08:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B4F7F800D0
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 3CF87240FD;
-	Fri, 21 Apr 2023 11:08:51 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1ppsNW-ETe-00; Fri, 21 Apr 2023 17:08:50 +0200
-Date: Fri, 21 Apr 2023 17:08:50 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH] ALSA: emu10k1: properly assert DSP init constraints
-Message-ID: <ZEKnAqm5sh00Fx0j@ugly>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-References: <20230421141006.1005524-1-oswald.buddenhagen@gmx.de>
- <87o7nhqnrb.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <87o7nhqnrb.wl-tiwai@suse.de>
-Message-ID-Hash: 3SIOCKG4JSLPEJJWGZOK5FHSAMZIDR6C
-X-Message-ID-Hash: 3SIOCKG4JSLPEJJWGZOK5FHSAMZIDR6C
-X-MailFrom: ossi@kde.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id 92898F80053
+	for <alsa-devel@alsa-project.org>; Fri, 21 Apr 2023 17:12:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92898F80053
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=m4QzAOYY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=L7jyBMY9
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id ACCCC21A2F;
+	Fri, 21 Apr 2023 15:12:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1682089920;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pB+SaarZkswQ/Ojvq8IRHEQLm9aa2k8O20tyEXe9Ttk=;
+	b=m4QzAOYY+p0BUDAoshRgoAQZPHsp25Eo+rXYfxamvg3RZxXIxSdWveuandX2Zi8tYbyxh/
+	ZtT5zrcHa0NEq5QvloF5sltO7Keps8PbnqyTjK7g7NEa84zT9Yp+49wIOkiwuoGqtpZfL0
+	77RNmIUqwwvrqtkU4TYOmCng13wF+c8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1682089920;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pB+SaarZkswQ/Ojvq8IRHEQLm9aa2k8O20tyEXe9Ttk=;
+	b=L7jyBMY90E1QCULSBruK640aKq0CC1MXYiZUu8X2WeSOFdlimbBU91LdIhCLC9tOBKb+A5
+	m8TjO1+O3BSHR9Dw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 765EB1390E;
+	Fri, 21 Apr 2023 15:12:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id l96vG8CnQmRbFAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 21 Apr 2023 15:12:00 +0000
+Date: Fri, 21 Apr 2023 17:11:59 +0200
+Message-ID: <87mt31qngg.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Chris Down <chris@chrisdown.name>
+Subject: Re: [PATCH] usb-audio: Rate limit usb_set_interface error reporting
+In-Reply-To: <ZEKiO7lh94QUyuAs@chrisdown.name>
+References: <ZEKf8UYBYa1h4JWR@chrisdown.name>
+	<87wn25qosu.wl-tiwai@suse.de>
+	<ZEKiO7lh94QUyuAs@chrisdown.name>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: CBFWBA4XU5VY7O4QQIJABFYRHRW62WVF
+X-Message-ID-Hash: CBFWBA4XU5VY7O4QQIJABFYRHRW62WVF
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3SIOCKG4JSLPEJJWGZOK5FHSAMZIDR6C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CBFWBA4XU5VY7O4QQIJABFYRHRW62WVF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -78,21 +118,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Apr 21, 2023 at 05:05:28PM +0200, Takashi Iwai wrote:
->On Fri, 21 Apr 2023 16:10:06 +0200,
->Oswald Buddenhagen wrote:
->> 
->> If these are hit, we've already trashed kernel space. There is no
->> recovery from that.
->> 
->> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
->
->Sorry, it's a big NO-NO.  BUG_ON() shouldn't be used here at all.
->
->BUG_ON() is used for the case you inevitably must stop everything
->immediately at this point.
->
-yes, this is exactly what is intended, and i hoped that the commit 
-message makes it clear enough why.
+On Fri, 21 Apr 2023 16:48:27 +0200,
+Chris Down wrote:
+> 
+> Hi Takashi,
+> 
+> Takashi Iwai writes:
+> > This patch itself is safe and good to have, so I'm going to take it as
+> > is.
+> 
+> Thanks!
+> 
+> > But I'm still curious in which code path the problem happens.  That
+> > is, we should address such unnecessary repeats if possible.  Do you
+> > have some more data?
+> 
+> Unfortunately not, I've been running with a kernel testing some other
+> mm changes recently so haven't had a chance to debug what's going on
+> here. But it starts like this:
+> 
+>     [Fri Apr 21 13:21:10 2023] usb 3-7: USB disconnect, device number 39
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1: USB disconnect, device number 40
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.1: USB disconnect, device number 42
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.4: cannot submit urb (err = -19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.4: Unable to submit urb #2: -19 at snd_usb_queue_pending_output_urbs
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.4: cannot submit urb 0, error -19: no device
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.4: cannot submit urb 0, error -19: no device
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.4: cannot submit urb 0, error -19: no device
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.4: 1:0: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.4: 2:0: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.2: USB disconnect, device number 44
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [Fri Apr 21 13:21:10 2023] usb 3-7.1.4: 1:1: usb_set_interface failed (-19)
+>     [... thousands of messages ensue ...]
+> 
+> So it looks like maybe some ordering is not quite right in
+> destruction, perhaps only on multi-level USB topologies?
 
-regards
+Hrm, is "usb 3-7.1.4" really the USB audio device?  The previous
+errors like "Unable to submit urb #2..." are certainly for USB audio,
+and those are with "usb 3-7.4".
+
+You patch may still make sense, though.  So I'll keep it applied.
+
+
+thanks,
+
+Takashi

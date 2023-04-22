@@ -2,28 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF2826EBA41
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 18:14:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30C0D6EBA3F
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 18:14:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D401EE5;
-	Sat, 22 Apr 2023 18:14:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D401EE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AFBAF01;
+	Sat, 22 Apr 2023 18:13:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AFBAF01
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682180091;
-	bh=9GDIbyWbJ4v96q5Dzp40g4cQVZh9OoSU1bjKC7oT4x4=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=dBhMVys4x+UWNtEJjgbBImqD4mEknhVaRRNng6rAsPFJmof1m7ns4SRle74FFjL2O
-	 1on2qrYr5lujTm5p3RcS4lA66pnFnpJieS/66z5owX/2++hf/1vfV+lfFDB2+ije+x
-	 fmxh4hQOvT+BLowpXWeRU5s1RcJ7eZXyniXZb5Ro=
+	s=default; t=1682180060;
+	bh=t8gKhjeFnLBw5+iSsLdW2lrZBLxmMZdIhCgC9YYE1WY=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=SUP0gM7dVAx71v5aCEkrEo7o0BHppNGXC4D7hQ1CNOlJ1WJaleB/8okjw10kzmAi3
+	 OIl8Nod8FkfIUJR8nBYgiS2QWF7pm/4VMlcLmSO23TW/t9UH++bdug7GDKUhSdvEDk
+	 iDcuCCm//1R5x286Rcr2Yn99aV/pstTJB1llEfJg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49660F805B0;
-	Sat, 22 Apr 2023 18:11:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 889A9F805A8;
+	Sat, 22 Apr 2023 18:11:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D688F8057C; Sat, 22 Apr 2023 18:11:01 +0200 (CEST)
+	id 4521DF8052E; Sat, 22 Apr 2023 18:10:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
@@ -33,27 +32,25 @@ X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
 Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2E1B5F8053B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 190FDF80534
 	for <alsa-devel@alsa-project.org>; Sat, 22 Apr 2023 18:10:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E1B5F8053B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 190FDF80534
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id EE6402422D;
-	Sat, 22 Apr 2023 12:10:21 -0400 (EDT)
+	by bluemchen.kde.org (Postfix) with ESMTP id 199962422E;
+	Sat, 22 Apr 2023 12:10:22 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pqFob-nbw-00; Sat, 22 Apr 2023 18:10:21 +0200
+	id 1pqFob-ncB-00; Sat, 22 Apr 2023 18:10:21 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/2] ALSA: emu10k1: don't stop DSP in
- _snd_emu10k1_{,audigy_}init_efx()
+Subject: [PATCH] ALSA: emu10k1: fix error handling in
+ snd_audigy_i2c_volume_put()
 Date: Sat, 22 Apr 2023 18:10:21 +0200
-Message-Id: <20230422161021.1144004-2-oswald.buddenhagen@gmx.de>
+Message-Id: <20230422161021.1144026-1-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230422161021.1144004-1-oswald.buddenhagen@gmx.de>
-References: <20230422161021.1144004-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: EK2E475VEA4VTEMGHIRQN6VMFCE6YVSN
-X-Message-ID-Hash: EK2E475VEA4VTEMGHIRQN6VMFCE6YVSN
+Message-ID-Hash: BWOFJC6XPBPMMFRFTRDCSCQDCF5GLMXC
+X-Message-ID-Hash: BWOFJC6XPBPMMFRFTRDCSCQDCF5GLMXC
 X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -67,7 +64,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EK2E475VEA4VTEMGHIRQN6VMFCE6YVSN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BWOFJC6XPBPMMFRFTRDCSCQDCF5GLMXC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -76,39 +73,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These functions don't actually touch the DSP until they poke the code
-into it, at which point it's temporarily stopped anyway. And fx8010.dbg
-is already zero anyway.
+Check all inputs before changing anything, and return the right error
+code in case of failure.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- sound/pci/emu10k1/emufx.c | 6 ------
- 1 file changed, 6 deletions(-)
+ sound/pci/emu10k1/emumixer.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
-index 70ec2cb9efe8..b43acf0611a2 100644
---- a/sound/pci/emu10k1/emufx.c
-+++ b/sound/pci/emu10k1/emufx.c
-@@ -1259,9 +1259,6 @@ static int _snd_emu10k1_audigy_init_efx(struct snd_emu10k1 *emu)
- 	gpr_map[gpr++] = 0x0000ffff;
- 	bit_shifter16 = gpr;
+diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
+index 754d91050af2..2b1afbef92c7 100644
+--- a/sound/pci/emu10k1/emumixer.c
++++ b/sound/pci/emu10k1/emumixer.c
+@@ -1005,33 +1005,33 @@ static int snd_audigy_i2c_volume_put(struct snd_kcontrol *kcontrol,
+ {
+ 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
+ 	unsigned int ogain;
+-	unsigned int ngain;
++	unsigned int ngain0, ngain1;
+ 	unsigned int source_id;
+ 	int change = 0;
  
--	/* stop FX processor */
--	snd_emu10k1_ptr_write(emu, A_DBG, 0, (emu->fx8010.dbg = 0) | A_DBG_SINGLE_STEP);
--
- #if 1
- 	/* PCM front Playback Volume (independent from stereo mix)
- 	 * playback = 0 + ( gpr * FXBUS_PCM_LEFT_FRONT >> 31)
-@@ -1899,9 +1896,6 @@ static int _snd_emu10k1_init_efx(struct snd_emu10k1 *emu)
- 	tmp = 0x88;	/* we need 4 temporary GPR */
- 	/* from 0x8c to 0xff is the area for tone control */
+ 	source_id = kcontrol->private_value;
+ 	/* Limit: emu->i2c_capture_volume */
+         /*        capture_source: uinfo->value.enumerated.items = 2 */
+ 	if (source_id >= 2)
+ 		return -EINVAL;
++	ngain0 = ucontrol->value.integer.value[0];
++	ngain1 = ucontrol->value.integer.value[1];
++	if (ngain0 > 0xff)
++		return -EINVAL;
++	if (ngain1 > 0xff)
++		return -EINVAL;
+ 	ogain = emu->i2c_capture_volume[source_id][0]; /* Left */
+-	ngain = ucontrol->value.integer.value[0];
+-	if (ngain > 0xff)
+-		return 0;
+-	if (ogain != ngain) {
++	if (ogain != ngain0) {
+ 		if (emu->i2c_capture_source == source_id)
+-			snd_emu10k1_i2c_write(emu, ADC_ATTEN_ADCL, ((ngain) & 0xff) );
+-		emu->i2c_capture_volume[source_id][0] = ngain;
++			snd_emu10k1_i2c_write(emu, ADC_ATTEN_ADCL, ngain0);
++		emu->i2c_capture_volume[source_id][0] = ngain0;
+ 		change = 1;
+ 	}
+ 	ogain = emu->i2c_capture_volume[source_id][1]; /* Right */
+-	ngain = ucontrol->value.integer.value[1];
+-	if (ngain > 0xff)
+-		return 0;
+-	if (ogain != ngain) {
++	if (ogain != ngain1) {
+ 		if (emu->i2c_capture_source == source_id)
+-			snd_emu10k1_i2c_write(emu, ADC_ATTEN_ADCR, ((ngain) & 0xff));
+-		emu->i2c_capture_volume[source_id][1] = ngain;
++			snd_emu10k1_i2c_write(emu, ADC_ATTEN_ADCR, ngain1);
++		emu->i2c_capture_volume[source_id][1] = ngain1;
+ 		change = 1;
+ 	}
  
--	/* stop FX processor */
--	snd_emu10k1_ptr_write(emu, DBG, 0, (emu->fx8010.dbg = 0) | EMU10K1_DBG_SINGLE_STEP);
--
- 	/*
- 	 *  Process FX Buses
- 	 */
 -- 
 2.40.0.152.g15d061e6df
 

@@ -2,75 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7345C6EB865
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 12:08:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12FEF6EB906
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 14:07:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5FA96EC3;
-	Sat, 22 Apr 2023 12:07:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FA96EC3
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA5CCEBB;
+	Sat, 22 Apr 2023 14:06:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA5CCEBB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682158119;
-	bh=rXOPslBoBlhZNGBdMmqogJrqQRhdnAyJxoeKsIsVOic=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1682165232;
+	bh=yv/uqEucy43eXb2KbXuSl5BY4D7P4ndSvUjN+qytDM8=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EARDIC4/kDzTK7vXce7SRkGFir28OUoi/T+47ybtQ+H+yS0Q/95RQK2bXrzIZesPQ
-	 NK7JUR3U3rjlGh32I1VZBXGvoZLmnxsyaK/hB4RXZqAlld/qloYxAdHCcIW/08E0tE
-	 MxpuQS6RJX9yceGuQJl+9rf2MGJddcoTMxboRTe0=
+	b=QTm2/DZR8TQ/wHffWYBU2GsQS7FkX5FHEKoBxyEBqz1z5+ickdKau16/PQYqCeycH
+	 y1F5zaGEf67w12eg+mfUwjc9KlJbFGLpyM+TDNP0h3ng/0DJxQofNEy/5/zMOpyWuA
+	 cmIDwfwhop1sy6zTL8mWZMC5HRX9QCNElG9brNl4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C57B7F80149;
-	Sat, 22 Apr 2023 12:07:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D979F80149;
+	Sat, 22 Apr 2023 14:06:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7FA1F80155; Sat, 22 Apr 2023 12:07:44 +0200 (CEST)
+	id 28E28F80155; Sat, 22 Apr 2023 14:04:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 860A7F800AC
-	for <alsa-devel@alsa-project.org>; Sat, 22 Apr 2023 12:07:35 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4A4FE11CF;
-	Sat, 22 Apr 2023 12:07:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4A4FE11CF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1682158054; bh=d0r/rqFhIyFt1kVxaACSHWNwV0dxJ5RqZcz95TNwcmo=;
-	h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
-	b=U6Jr/uDSYo7Gk9yrxE/EUBTk6ygUKWnJMJGQ+yiA1nLxzicv2O4iX9lnhN2cGrO8k
-	 HcFmBnf258E3k0g+tYU/LCHTfeQV5c4bmpRMapiwS0gGKTb/bfCVDScurW0yVpYqMo
-	 0esm9JcmpMBzJvKvIh8nbI1ik5OX6htB5Z5XRnF4=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Sat, 22 Apr 2023 12:07:32 +0200 (CEST)
-Message-ID: <42c32ed5-84f4-ad4f-c7b6-ae3a2ad89a8c@perex.cz>
-Date: Sat, 22 Apr 2023 12:07:31 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 15693F80053
+	for <alsa-devel@alsa-project.org>; Sat, 22 Apr 2023 14:04:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15693F80053
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 5E26723F58;
+	Sat, 22 Apr 2023 08:04:36 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pqBym-Pjp-00; Sat, 22 Apr 2023 14:04:36 +0200
+Date: Sat, 22 Apr 2023 14:04:36 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH] ALSA: emu10k1: fix error codes
+Message-ID: <ZEPNVE1MbRtkakRw@ugly>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>
+References: <20230421172623.1017222-1-oswald.buddenhagen@gmx.de>
+ <87y1mkpdf3.wl-tiwai@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: Request to configure libhinawa and hinawa-rs repositories
-Content-Language: en-US
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <20230422005622.GA55854@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20230422005622.GA55854@workstation>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: GNTC2RS5JQZSCGDVPSAOHIBKAKRHHTAD
-X-Message-ID-Hash: GNTC2RS5JQZSCGDVPSAOHIBKAKRHHTAD
-X-MailFrom: perex@perex.cz
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <87y1mkpdf3.wl-tiwai@suse.de>
+Message-ID-Hash: AMHKNZLPZ2DOZPFERAZ5Z2LHVL7EUDJM
+X-Message-ID-Hash: AMHKNZLPZ2DOZPFERAZ5Z2LHVL7EUDJM
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -83,7 +69,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GNTC2RS5JQZSCGDVPSAOHIBKAKRHHTAD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AMHKNZLPZ2DOZPFERAZ5Z2LHVL7EUDJM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,28 +78,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22. 04. 23 2:56, Takashi Sakamoto wrote:
-> Hi Jaroslav,
-> 
-> Thanks for your administration in many repositories hosting on github.com.
-> 
-> I'd like you to change 'About' messages for the two repositories, since
-> I decide to host some repository in git.kernel.org.
-> 
-> * For libhinawa repository
->    * 'Mirror of https://git.kernel.org/pub/scm/libs/ieee1394/libhinawa.git/
->       for user support and continuous integration '
-> * For hinawa-rs repository
->    * 'Mirror of https://git.kernel.org/pub/scm/libs/ieee1394/hinawa-rs.git/
->       for user support and continuous integration '
+On Sat, Apr 22, 2023 at 09:46:24AM +0200, Takashi Iwai wrote:
+>On Fri, 21 Apr 2023 19:26:23 +0200, Oswald Buddenhagen wrote:
+>> One might argue that this potentially breaks user space, but a) this 
+>> is
+>> just one driver among many, so it seems unlikely that someone would
+>> expect (only) the broken codes and b) it seems unlikely that someone
+>> would check these syscalls for particular errors at all, rather than
+>> just logging them (this might be debatable for the voice allocator
+>> calls).
+>
+>I find this is too risky for really little win.
+>
+yes, the gain is relatively low. it merely means applications displaying 
+somewhat less confusing error messages.
 
-Hi Takashi,
+>The error code is
+>returned to user space in quite many cases; e.g. the voice allocator
+>is called from PCM hw_params, too, and that's most of user-space
+>programs do actually check.  It could be a surprise if it's changed
+>without much reason, may trigger unexpected behavior changes.
+>
+of course. hypothetically.
+but these aren't error codes around which specific error recovery would 
+exist.
+codes that actually _have_ error recovery built around them tend to be 
+already correct, because people actually tried using them and noticed 
+mistakes in time.
 
-	the information was changed as requested.
+>Of course, if the error code must be corrected, we can fix it.
+>But I don't see it in this patch description.
+>
+i can provide a rationale for each of the changes, even though i think 
+that the patch context speaks for itself - the theme is always "return 
+an error code whose description better reflects the situation being 
+reported".
+but none of that would change the fact that it would break code that was 
+specifically designed to rely on this driver's bogus behavior. i just 
+don't think such code exists, because that wouldn't make any sense.
+so i don't know what your criteria for "must be corrected" are.
 
-						Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+regards

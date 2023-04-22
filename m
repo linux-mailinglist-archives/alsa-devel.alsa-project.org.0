@@ -2,112 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7EAE6EBA05
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 17:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11EC86EBA35
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 18:11:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C86FEDF;
-	Sat, 22 Apr 2023 17:36:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C86FEDF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BD0EEE0;
+	Sat, 22 Apr 2023 18:10:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BD0EEE0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682177831;
-	bh=o4Gzdh8HMw8obWujOFaQKI4AYn2F/JqxBOeNpQj+6Hk=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=u0q2cLNwjbqEqCcijMv0zd/AityWlB7Nfxsm/qIFe38W9UeI7ILwPbmnLtwYGRFo0
-	 GG/rL/Ck6VHMhWZGpl11XoHJ6mnWsGtVawuLknlOz7RLTBzNIiWxmVYuaqWXIc8Mxp
-	 dBMQliargaBewlQLQhCqIKz+sbybOcUa1DB2Cn8w=
+	s=default; t=1682179882;
+	bh=oeERniX7QecnX9q8B7HtNdQTCWxVGYIaoP9/NXazD8g=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=P/goAqkcgpDCa/AT0LbTTwhVozNSe5UcjrGYyrcto9hfRG1TiOnFk7K1bF40HqRB4
+	 DdkmbjxgQ/XbKrSoxnoHmMDOrXxuIAFXIxUT6iqQOV+A4c9b9UePaP7RWK9Kv8heZH
+	 YviKTzhf1rXx6DjbXEujYjrXjbFPCy2VLjw47ejw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1221F80149;
-	Sat, 22 Apr 2023 17:36:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B619EF8053D;
+	Sat, 22 Apr 2023 18:10:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83E14F80155; Sat, 22 Apr 2023 17:36:15 +0200 (CEST)
+	id C88DAF8052E; Sat, 22 Apr 2023 18:10:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BBEAEF800AC
-	for <alsa-devel@alsa-project.org>; Sat, 22 Apr 2023 17:36:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBEAEF800AC
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=077Zl66q;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=cV6RKTGw
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 98FE61F86B;
-	Sat, 22 Apr 2023 15:36:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1682177773;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ce9hfdc8m+W2EzWPy7yHd0N6Fi03OIUINQggtsolc6g=;
-	b=077Zl66qtrpbVkvKNVqudFUNewWJoPwhRKvTCd9ryuIM8qlAwjKhoKqzViH6PuaU8pP8I9
-	zqSff/VKoxpJNtciFdJrD5B7Qr69Hkutc4wChmnJdOiuR/GGeFzADqsEi7ktJbKkUHvCDG
-	8vp1t+/88aflQU1UcyOotR5/+v5P/go=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682177773;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ce9hfdc8m+W2EzWPy7yHd0N6Fi03OIUINQggtsolc6g=;
-	b=cV6RKTGwUvk7SqdbMSPxIENob5zsWXYu+XcbQWlzlxuAWOtHsEzb+752Yfx32WpBmHifZV
-	Cf+0B1iPO7HODHCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7859D13499;
-	Sat, 22 Apr 2023 15:36:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id R/V6HO3+Q2RXUgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sat, 22 Apr 2023 15:36:13 +0000
-Date: Sat, 22 Apr 2023 17:36:12 +0200
-Message-ID: <87edocoro3.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH v2] ALSA: emu10k1: fix snd_emu1010_fpga_read() input
- masking for rev2 cards
-In-Reply-To: <20230422132430.1057490-1-oswald.buddenhagen@gmx.de>
-References: <20230422132430.1057490-1-oswald.buddenhagen@gmx.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: U4AQWSR7CFZHDPEB2F3KWPSSFYXAN2A6
-X-Message-ID-Hash: U4AQWSR7CFZHDPEB2F3KWPSSFYXAN2A6
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 82D40F800AC
+	for <alsa-devel@alsa-project.org>; Sat, 22 Apr 2023 18:10:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82D40F800AC
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 7BC4A23FF1;
+	Sat, 22 Apr 2023 12:10:21 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pqFob-naJ-00; Sat, 22 Apr 2023 18:10:21 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 0/7] ALSA: emu10k1: improvements mostly related to #defines
+Date: Sat, 22 Apr 2023 18:10:14 +0200
+Message-Id: <20230422161021.1143903-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: XQJ23NKZWKAH363M5VHFJZATKAT6GBPA
+X-Message-ID-Hash: XQJ23NKZWKAH363M5VHFJZATKAT6GBPA
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U4AQWSR7CFZHDPEB2F3KWPSSFYXAN2A6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XQJ23NKZWKAH363M5VHFJZATKAT6GBPA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,24 +72,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 22 Apr 2023 15:24:30 +0200,
-Oswald Buddenhagen wrote:
-> 
-> Unlike the Alice2 chips used on 1st generation E-MU cards, the
-> Tina/Tina2 chips used on the 2nd gen cards have only six GPIN pins,
-> which means that we need to use a smaller mask. Failure to do so would
-> falsify the read data if the FPGA tried to raise an IRQ right at that
-> moment. This wasn't a problem so far, as we didn't actually enable FPGA
-> IRQs, but that's going to change soon.
-> 
-> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-> ---
-> v2:
-> - added description
+Mostly adding, removing, and otherwise massaging numerous #defines and
+code using them, and surrounding comments.
 
-This is *MUCH* better and helpful to understand the changes.
+Oswald Buddenhagen (7):
+  ALSA: emu10k1: comment updates
+  ALSA: emu10k1: fix lineup of EMU_HANA_* defines
+  ALSA: emu10k1: eliminate some unused defines
+  ALSA: emu10k1: remove some bogus defines
+  ALSA: emu10k1: pull in some register definitions from kX-project
+  ALSA: emu10k1: fixup DSP defines
+  ALSA: emu10k1: use more existing defines instead of open-coded numbers
 
-Applied now.  Thanks!
+ include/sound/emu10k1.h              | 685 +++++++++++++--------------
+ include/uapi/sound/emu10k1.h         | 147 ++++--
+ sound/pci/emu10k1/emu10k1.c          |  11 -
+ sound/pci/emu10k1/emu10k1_callback.c |  15 +-
+ sound/pci/emu10k1/emu10k1_main.c     | 125 ++---
+ sound/pci/emu10k1/emufx.c            |  18 +-
+ sound/pci/emu10k1/emumixer.c         |  13 +-
+ sound/pci/emu10k1/emupcm.c           |  39 +-
+ sound/pci/emu10k1/io.c               |  26 +-
+ sound/pci/emu10k1/p16v.c             |  29 +-
+ sound/pci/emu10k1/p16v.h             |   2 +-
+ sound/pci/emu10k1/p17v.h             |   4 +-
+ 12 files changed, 554 insertions(+), 560 deletions(-)
 
+-- 
+2.40.0.152.g15d061e6df
 
-Takashi

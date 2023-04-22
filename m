@@ -2,73 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FA56EB95D
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 15:26:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D16846EBA01
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Apr 2023 17:32:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D7FDEDE;
-	Sat, 22 Apr 2023 15:25:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D7FDEDE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8185ED9;
+	Sat, 22 Apr 2023 17:31:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8185ED9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682169987;
-	bh=koITwj9tn69VRkus+kZjzglCH4HFs3CC0UsaRAA8meA=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1682177549;
+	bh=Dm5rrcpu9z/OXTXKaB0sLOoTA4/+rkmNFHSxl5s5Ap0=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=K3I/0/khKUe3B48GxTM6TP6u7dDQkb/oRgKR5qLQtbu/topvrjdv0KUEgirSXSUW6
-	 /LJTQH1woqaIdU++p+T+rfzrtEttCcnNsiXU0wT3SznmJzqIKR0zQo6fb7urIyauUu
-	 9Hi4omI1Q1cbgxjXw7AxMfZ4jIAOEqPZlkfEKLJA=
+	b=ffj5EU0ARMYl5HovKOuwRQtArEWNi645mXLW/hfNy/8bKRKqLUPrlrTfM8tvk+HX9
+	 BpfYVs9KwxVPtnLqG2PZ3pjlqCMe+6WKGqae7q30xj07yW/FuKXiqnH1bEl54mtRi9
+	 FXqT78/S4ZcA9T7VvREANCcc+fwP7JqrtncHS2fg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D460FF8052D;
-	Sat, 22 Apr 2023 15:24:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A518F80149;
+	Sat, 22 Apr 2023 17:31:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 159E2F80155; Sat, 22 Apr 2023 15:24:43 +0200 (CEST)
+	id 84391F80155; Sat, 22 Apr 2023 17:31:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D281EF800AC
-	for <alsa-devel@alsa-project.org>; Sat, 22 Apr 2023 15:24:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D281EF800AC
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 9AD592420A;
-	Sat, 22 Apr 2023 09:24:30 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pqDE6-R6C-00; Sat, 22 Apr 2023 15:24:30 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 2/2] ALSA: emu10k1: remove unused
- emu->pcm_playback_efx_substream field
-Date: Sat, 22 Apr 2023 15:24:30 +0200
-Message-Id: <20230422132430.1057468-2-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230422132430.1057468-1-oswald.buddenhagen@gmx.de>
-References: <20230422132430.1057468-1-oswald.buddenhagen@gmx.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RW2JYR4FIII254CKBSPZDL6PA2T7MKY5
-X-Message-ID-Hash: RW2JYR4FIII254CKBSPZDL6PA2T7MKY5
-X-MailFrom: ossi@kde.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8D0DF800AC
+	for <alsa-devel@alsa-project.org>; Sat, 22 Apr 2023 17:31:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8D0DF800AC
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=MFWfHHBj;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=6nTE3GjU
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id ED7F221A0B;
+	Sat, 22 Apr 2023 15:31:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1682177484;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1VxSCizd+tOzdu8VSlfp0/Zw3MANz/LFRMNzZK8emAw=;
+	b=MFWfHHBj7TmZ5kJ+vg/GjEvVYXITPK3hQQrd1TfWW+zMnd5hp3K3pErzeDk6jFjZqdv1qi
+	aSV5gQPXuVHMnpwWM1iNR6D9ofP4wkQU9I+/Ed08eKYullLe5CCnpXgqj5kQ9jYQwX0FJE
+	j6nBpJ2UfiUWJCedVLZ3vTnU7M9To7Q=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1682177484;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1VxSCizd+tOzdu8VSlfp0/Zw3MANz/LFRMNzZK8emAw=;
+	b=6nTE3GjUdoF6zW8zmhk1rkUBHfvAUIGR8mT6V6/YYhtC+KZKpDqV2kkWzJyCqUU+nuCdGd
+	4bDwNrvEROcyZSBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CACCC13499;
+	Sat, 22 Apr 2023 15:31:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id dA0UMMz9Q2SYUAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sat, 22 Apr 2023 15:31:24 +0000
+Date: Sat, 22 Apr 2023 17:31:24 +0200
+Message-ID: <87ildoorw3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH] ALSA: emu10k1: fix error codes
+In-Reply-To: <ZEPNVE1MbRtkakRw@ugly>
+References: <20230421172623.1017222-1-oswald.buddenhagen@gmx.de>
+	<87y1mkpdf3.wl-tiwai@suse.de>
+	<ZEPNVE1MbRtkakRw@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: FBSN2EFGCEUNTADKIALLKEB637TBOW3R
+X-Message-ID-Hash: FBSN2EFGCEUNTADKIALLKEB637TBOW3R
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RW2JYR4FIII254CKBSPZDL6PA2T7MKY5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FBSN2EFGCEUNTADKIALLKEB637TBOW3R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -77,43 +116,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Amends historic commit 27ae958cf6 ("emu10k1 driver - add multichannel
-device hw:x,3 [2-8/8]").
+On Sat, 22 Apr 2023 14:04:36 +0200,
+Oswald Buddenhagen wrote:
+> 
+> On Sat, Apr 22, 2023 at 09:46:24AM +0200, Takashi Iwai wrote:
+> > On Fri, 21 Apr 2023 19:26:23 +0200, Oswald Buddenhagen wrote:
+> >> One might argue that this potentially breaks user space, but a)
+> >> this is
+> >> just one driver among many, so it seems unlikely that someone would
+> >> expect (only) the broken codes and b) it seems unlikely that someone
+> >> would check these syscalls for particular errors at all, rather than
+> >> just logging them (this might be debatable for the voice allocator
+> >> calls).
+> > 
+> > I find this is too risky for really little win.
+> > 
+> yes, the gain is relatively low. it merely means applications
+> displaying somewhat less confusing error messages.
+> 
+> > The error code is
+> > returned to user space in quite many cases; e.g. the voice allocator
+> > is called from PCM hw_params, too, and that's most of user-space
+> > programs do actually check.  It could be a surprise if it's changed
+> > without much reason, may trigger unexpected behavior changes.
+> > 
+> of course. hypothetically.
+> but these aren't error codes around which specific error recovery
+> would exist.
+> codes that actually _have_ error recovery built around them tend to be
+> already correct, because people actually tried using them and noticed
+> mistakes in time.
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
----
-v2:
-- paste subject of referenced commit and say that it's historic
----
- include/sound/emu10k1.h    | 1 -
- sound/pci/emu10k1/emupcm.c | 2 --
- 2 files changed, 3 deletions(-)
+Yes, but remember that they adapt how the existing code behaves; so
+even if EBUSY might appears like a better fit, a different error code
+may bring unexpected outcome.  User space programs can do every crazy
+thing, so never underestimate a subtle change if it's visible --
+that's what I've learned from the long development history.
+Especially true, if the stuff is a very old one like this.
 
-diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
-index 39787fecc8d9..d7e49935376e 100644
---- a/include/sound/emu10k1.h
-+++ b/include/sound/emu10k1.h
-@@ -1764,7 +1764,6 @@ struct snd_emu10k1 {
- 	struct snd_pcm_substream *pcm_capture_substream;
- 	struct snd_pcm_substream *pcm_capture_mic_substream;
- 	struct snd_pcm_substream *pcm_capture_efx_substream;
--	struct snd_pcm_substream *pcm_playback_efx_substream;
- 
- 	struct snd_timer *timer;
- 
-diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
-index 48af77ae8020..68334af64741 100644
---- a/sound/pci/emu10k1/emupcm.c
-+++ b/sound/pci/emu10k1/emupcm.c
-@@ -1091,8 +1091,6 @@ static int snd_emu10k1_efx_playback_open(struct snd_pcm_substream *substream)
- 	epcm->type = PLAYBACK_EFX;
- 	epcm->substream = substream;
- 	
--	emu->pcm_playback_efx_substream = substream;
--
- 	runtime->private_data = epcm;
- 	runtime->private_free = snd_emu10k1_pcm_free_substream;
- 	runtime->hw = snd_emu10k1_efx_playback;
--- 
-2.40.0.152.g15d061e6df
+That said, I wouldn't mind changing if it's about a new driver code.
+But this isn't such a case.
 
+> > Of course, if the error code must be corrected, we can fix it.
+> > But I don't see it in this patch description.
+> > 
+> i can provide a rationale for each of the changes, even though i think
+> that the patch context speaks for itself - the theme is always "return
+> an error code whose description better reflects the situation being
+> reported".
+> but none of that would change the fact that it would break code that
+> was specifically designed to rely on this driver's bogus behavior. i
+> just don't think such code exists, because that wouldn't make any
+> sense.
+> so i don't know what your criteria for "must be corrected" are.
+
+So my take is rather to skip this.
+
+
+thanks,
+
+Takashi

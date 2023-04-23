@@ -2,127 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B21946EBF0E
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 13:06:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C74F6EC068
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 16:31:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F4C0F2C;
-	Sun, 23 Apr 2023 13:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F4C0F2C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D88DC82E;
+	Sun, 23 Apr 2023 16:30:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D88DC82E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682248001;
-	bh=FgFVeAb7tXSA4DQW3h92O+VHUEWWJ9SsXjOZQSNfNJs=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1682260273;
+	bh=rZM4uMFYmv6i77nrXW9ho4+CRjeRKmqWcK/ZJiDwP5s=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=N7P+dhDiU/LuX/QK57JOoXBCLJiF2/eyWgI9+rtRBnRmezI0nNeiXIbqxRRgq6FVG
-	 WNUOHpUxURorrndqCDJ0Ll/5A3ADQ2LPldZ6CfIy+7ngjlVDRdtlMlSvB3Etp0jGeR
-	 wdXY8xYF5NfQgGgH10G66CCgQ3QOS+eQMfYar+KI=
+	b=upXqHos3PrPMsINczYc7o8zwjiTdaBw7mejLVfaWYQ8ndk1hzx6Z8AMZBcP3/9D14
+	 y2Nr9cRFoqEy9NzmpYqA1VWJgiPN3iMVXcB7GyBVkk+8IDtJ0Xxnj8uk3WUrDG4YbV
+	 Dp00mI+UthAQGJYmQJABAQxiOKFPYZCHOJxWyg4w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 619ABF8018A;
-	Sun, 23 Apr 2023 13:05:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E60F4F8018A;
+	Sun, 23 Apr 2023 16:30:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07B5CF80236; Sun, 23 Apr 2023 13:05:46 +0200 (CEST)
+	id 9DCFFF80236; Sun, 23 Apr 2023 16:30:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A620BF80137
-	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 13:05:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A620BF80137
+	by alsa1.perex.cz (Postfix) with ESMTPS id 86F1AF80137
+	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 16:30:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86F1AF80137
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=hv77IVeh
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-508418b6d59so5978090a12.3
-        for <alsa-devel@alsa-project.org>;
- Sun, 23 Apr 2023 04:05:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1682247937; x=1684839937;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4oBnCQEBGXtSAEIanLhSekClnyHSr24Ok+VnVMLZrEI=;
-        b=hv77IVehUa9xkU3c4CDNCnhlAG5dlsNmPUNm6jZ3PWzcrnMy5fI+z0sIajzCfXGJy7
-         Ycxfr9xH+wFiFAM/gYRit8kTE+aej+eqdoAVOMta58gih1+KUjG/FPFpJsJhbmp6e9FE
-         kg6b2q11cN9HORCLf6H84PgsgHftBzT1fWdDICqGh9M+kxYaR60O9UqL6rLJFdeJlT8v
-         8IbeMnq/aQ/B5+LPSVj7Ir3JRDEmJL2P8bZmAZMqRlcr0st7TKc77hrDkWdHrCibhVP+
-         k+qOhdY6+wSV/SWIMGJ8WoKe0i/Nw3ugTRsE+q3M6Q9hlAk/9p29WaimxTKk56SeG7rb
-         q+pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682247937; x=1684839937;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4oBnCQEBGXtSAEIanLhSekClnyHSr24Ok+VnVMLZrEI=;
-        b=b3KOV7IIblhGE0nxhy/KRDXM8+AOEjoT+umviHGuA3WdksHJMPHc0GFWiyrsFqjo4G
-         LU2oSc0+9OqMRlD/amIJ3S93YD7VDy4CsocczN0ChnaTJ6sx6K9/5cr41M4fgTxFN+vs
-         b7EZFpOHCIJ0FhnT1B0AlV5bVJA67J1RvbUVDOYK/R4ZPDVVu1bE/6S2MJ4GAHGsWlQt
-         KeWtsaI/gQHGXlXlaBXtJRYDSk+nGNHf/vho/GJqdosUqRHp5orEtt85kCqNvfw0yjBQ
-         6gD2iiypEG/k1o8xsyuRqo2Myf4oFoEkmL9yCVsseh121aGBf/sTceOitIDW1fGRZixy
-         xVug==
-X-Gm-Message-State: AAQBX9ffiifXkNp6i70eISKx1Co8uY6/L63HT5gRblVkQw6uG/YQOg1g
-	j/gq9TBnO/VCVRioiI92IxBrdw==
-X-Google-Smtp-Source: 
- AKy350b1gZdRRS99FXwzdyRQvuYGxvtRfTqL3wNCEdC9oTnowvf0c3qWXdTnD0zdTodXYGJA5CPqbA==
-X-Received: by 2002:a05:6402:14e:b0:505:7d54:db93 with SMTP id
- s14-20020a056402014e00b005057d54db93mr9808233edu.21.1682247937604;
-        Sun, 23 Apr 2023 04:05:37 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:5d52:d466:d57f:118c?
- ([2a02:810d:15c0:828:5d52:d466:d57f:118c])
-        by smtp.gmail.com with ESMTPSA id
- o10-20020aa7c50a000000b0050504648fc4sm3603764edq.80.2023.04.23.04.05.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 23 Apr 2023 04:05:37 -0700 (PDT)
-Message-ID: <b58bdaf6-f0a4-41aa-e271-53cd223e9bb3@linaro.org>
-Date: Sun, 23 Apr 2023 13:05:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH] ASoC: dt-bindings: More dropping unneeded quotes
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>
-References: <20230421214810.1811962-1-robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230421214810.1811962-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 7NB5NZDY6EZYYFQR4S3ZMMX6FV4PCNRU
-X-Message-ID-Hash: 7NB5NZDY6EZYYFQR4S3ZMMX6FV4PCNRU
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=M1geHF1l;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=47ZdJDrS
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1A6671F8C8;
+	Sun, 23 Apr 2023 14:30:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1682260206;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3ZODwOgOj5HnKOQXzSnxjQoXRTlYWXn/6Pt7HYrPD00=;
+	b=M1geHF1lrM5Jp7D4e3IczNXtjA/IVLeO7wKZU4IxCRd/05oSU5Q86aRWKI82wsUhcaiSIE
+	gzquv8DtwsMZNYM6/wHLBigJML6lLppNFvjNnexz2vk2jjQigHL7PVGRyCSpI7GyqkvlQi
+	wXslNGRvTCKSO0J6XLunzM9t4jr64vE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1682260206;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3ZODwOgOj5HnKOQXzSnxjQoXRTlYWXn/6Pt7HYrPD00=;
+	b=47ZdJDrSFyXFStTW1NqndJGyFsbt1UBNXdzr1K3j49D51cHMzzjH9l3imF8FGbKsxsR02m
+	KiH0dYKHv4BewMAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F2A4913498;
+	Sun, 23 Apr 2023 14:30:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id iv45Ou1ARWTxRQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sun, 23 Apr 2023 14:30:05 +0000
+Date: Sun, 23 Apr 2023 16:30:05 +0200
+Message-ID: <87pm7uoemq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 2/2] ALSA: emu10k1: use high-level I/O in set_filterQ()
+In-Reply-To: <ZETxmveuGo8cBqBI@ugly>
+References: <87y1mjnj8t.wl-tiwai@suse.de>
+	<878rejoya4.wl-tiwai@suse.de>
+	<ZETxmveuGo8cBqBI@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 23DFKHYPS64V7KIKIC62ECL5YDZYOZER
+X-Message-ID-Hash: 23DFKHYPS64V7KIKIC62ECL5YDZYOZER
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, patches@opensource.cirrus.com
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7NB5NZDY6EZYYFQR4S3ZMMX6FV4PCNRU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/23DFKHYPS64V7KIKIC62ECL5YDZYOZER/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,16 +116,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 21/04/2023 23:48, Rob Herring wrote:
-> Another batch of dropping unneeded quotes on $id and $schema which were
-> missed in the last round. Once all these are fixed, checking for this can
-> be enabled in yamllint.
+On Sun, 23 Apr 2023 10:51:38 +0200,
+Oswald Buddenhagen wrote:
 > 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+> On Sun, Apr 23, 2023 at 09:25:39AM +0200, Takashi Iwai wrote:
+> > Again, you must have a bit more say here...
+> > For example, you didn't write why this change is needed.
+> > You thought it obvious?  No, readers don't know.
+> > 
+> it is obvious from the patch - the code becomes much shorter and more
+> legible.
+
+It's not obvious unless you read the code changes.  Not obvious
+whether it's a code refactoring without any functional change, etc.
+Such info can be well put in the patch description.
+
+> and someone who just reads the log/blame wouldn't care,
+> because it doesn't actually explain anything. but whatever.
+
+Someone already cared.  See?
+
+> On Sun, Apr 23, 2023 at 09:35:46AM +0200, Takashi Iwai wrote:
+> > On Sat, 22 Apr 2023 18:10:20 +0200,
+> > Oswald Buddenhagen wrote:
+> >> 
+> >> ... and also use more pre-defined constants on the way (some of which
+> >> required adjustment).
+> >> 
+> >> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> > 
+> > Applied this one, but skipped the patch 2.
+> > 
+> which is funny, because that commit message misses the obvious "why"
+> part as well - it just mentions an additional thing that is unique to
+> this patch.
+> 
+> so to be consistent, you should reject both patches and wait for an
+> update.
+
+Right, it was enough for me to reply the same thing again, so I wanted
+just to reduce the pile of XXXX.  I'd reject all at the next time :)
+
+> > BTW, it would be really better if we define some macro for the
+> > highlevel I/O definition.  It's cumbersome to decode and check
+> > manually at review whether the conversion is correct, and it's
+> > error-prone.
+> > 
+> yes, i considered that.
+> i also considered many more refactorings, and had to hold myself back -
+> there are enough nice-to-have patches in this series as-is.
+> i mean, 15 years ago it would have made sense to go crazy, but now the
+> hardware is a bit too obsolete to go much beyond what i actually need
+> for my project. i'm assuming some people outside the western sphere
+> are still using our scrap with linux, but we rarely hear from them, so
+> it's hard to know ...
+
+Yeah, that's a dilemma of maintaining the old legacy stuff.
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
-Best regards,
-Krzysztof
-
+Takashi

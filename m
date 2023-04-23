@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03AEB6EBDA2
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 09:28:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57B886EBDA4
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 09:29:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E89F7F18;
-	Sun, 23 Apr 2023 09:27:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E89F7F18
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BB63F1A;
+	Sun, 23 Apr 2023 09:28:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BB63F1A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682234916;
-	bh=DR2GGs21KNmh/ZtNkVLVuIl5acwrLrQXKO9RzAc5fCI=;
+	s=default; t=1682234966;
+	bh=B2Bxgw0yNro3eG629ss62ZGSbVHmIOmuYPdZjeDlyg4=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Gptc8Dk/GWUMf4XlNxR4XncTa7hyPY7PIot7zmE6JnCuIt3PBxh2NyQe8w0qxa7u7
-	 75JBDVxSVK3S2EQuNY8JjDN5tGAGgB/xkKQpDV55z2gEsnDrusDaNOUlXe6GxfqPQd
-	 wfp9PdZEMDHDWEf//08KqJhSQfyDG7ZSXwWfqr/o=
+	b=V13LyLWYYITNEE6doMYyUpqiwk73JiwgVK4Az8YW0JyqkdrTJuS6PikVWOP9z5foc
+	 gYysPqXfYW84j0mtL5Hh8F1TXvriQEIZzO+f4QNBJm+IeseL1W0BjiBosXQcxNN0Qc
+	 g5RSESk80poa/WCuVwDepdw9mKjubPHv50GdsrbU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FC23F8018A;
-	Sun, 23 Apr 2023 09:27:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66E61F80529;
+	Sun, 23 Apr 2023 09:27:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53524F80236; Sun, 23 Apr 2023 09:26:09 +0200 (CEST)
+	id 31576F80236; Sun, 23 Apr 2023 09:26:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E4E03F80137
-	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 09:25:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4E03F80137
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7E66BF800F8
+	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 09:26:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E66BF800F8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=mFOa4AOs;
+ header.s=susede2_rsa header.b=bm6CfZw9;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=NGrBgM1B
+ header.s=susede2_ed25519 header.b=lz8M3K3o
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 46CAB1F8BD;
-	Sun, 23 Apr 2023 07:25:40 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D5063219FE;
+	Sun, 23 Apr 2023 07:26:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1682234740;
+	t=1682234807;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SEzjrY+HYPO7BOZUSWp3EA+HeQXJV3vHtGcuQltrbak=;
-	b=mFOa4AOsN7nFzykbW9AKLgt2QtFz91Kx5WfGvTPd4iNzl7NS5xcWQu+88lXVJw0V9xoHL/
-	ySLN1kFXBKzr0SmBC7rT+fX070pyas0VdyUjsNva2fWmWzeeelE6akDO7aXNz5dmCMdDpc
-	0waP9SMmemR7bP08NGhRHbqLbx6nhnI=
+	bh=KWoyfofdu2lYQD7UEav9NKsHgoY6ZCvlE+Isruu6bY4=;
+	b=bm6CfZw9eFcU3B08sP3rQyw9OIwWrh4qMRhpanw/VuAwe7HR3DBO9bJYsq9UVvi0tNCO80
+	AetuMfCn2dq0ZIbxqnkOlsFm99Q8XIWccN1Sksl3xSF+EPnBUjI6MsMDSTWGrO2qzHfBHT
+	Jck/2e4SRNeiWb/5pjNyYcK4vAhQe5w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682234740;
+	s=susede2_ed25519; t=1682234807;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SEzjrY+HYPO7BOZUSWp3EA+HeQXJV3vHtGcuQltrbak=;
-	b=NGrBgM1BcnZ8M0ZfcT/XG1sQjnIuOTU7b1drCaMjkQPXyV47lQvQx2YBGp0Sr18DXEUIxl
-	Hht6OBmT5349yhAw==
+	bh=KWoyfofdu2lYQD7UEav9NKsHgoY6ZCvlE+Isruu6bY4=;
+	b=lz8M3K3o2aJKjSTgxhSRPSVi0gZ5+hd7ph8AD8R21j5hlRpF4OOtdbeOfdDeAF/e5lmShn
+	lG55aWZ4o1fgWXAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1FBCA13498;
-	Sun, 23 Apr 2023 07:25:40 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE6EF13498;
+	Sun, 23 Apr 2023 07:26:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 4JCtBnTdRGSmLwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sun, 23 Apr 2023 07:25:40 +0000
-Date: Sun, 23 Apr 2023 09:25:39 +0200
-Message-ID: <878rejoya4.wl-tiwai@suse.de>
+	id MixuKbfdRGQSMAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sun, 23 Apr 2023 07:26:47 +0000
+Date: Sun, 23 Apr 2023 09:26:47 +0200
+Message-ID: <877cu3oy88.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH 2/2] ALSA: emu10k1: use high-level I/O in set_filterQ()
-In-Reply-To: <20230422161021.1143967-2-oswald.buddenhagen@gmx.de>
-References: <20230422161021.1143967-1-oswald.buddenhagen@gmx.de>
-	<20230422161021.1143967-2-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 7/7] ALSA: emu10k1: use more existing defines instead of
+ open-coded numbers
+In-Reply-To: <20230422161021.1143903-8-oswald.buddenhagen@gmx.de>
+References: <20230422161021.1143903-1-oswald.buddenhagen@gmx.de>
+	<20230422161021.1143903-8-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: C4Q73PAVVNOF4E6AHVTWIMM6SB43YVYU
-X-Message-ID-Hash: C4Q73PAVVNOF4E6AHVTWIMM6SB43YVYU
+Message-ID-Hash: WUM4IQCNUQSUEXV6ZW3U42OBVEJOQ4H3
+X-Message-ID-Hash: WUM4IQCNUQSUEXV6ZW3U42OBVEJOQ4H3
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C4Q73PAVVNOF4E6AHVTWIMM6SB43YVYU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WUM4IQCNUQSUEXV6ZW3U42OBVEJOQ4H3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,16 +119,16 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On Sat, 22 Apr 2023 18:10:21 +0200,
 Oswald Buddenhagen wrote:
 > 
+> Using the *_MASK defines for "maximal value" is debatable. I got the
+> idea from FreeBSD, and it sorta makes sense to me.
+> 
+> Some hunks look a bit incomplete, because code that is going to be
+> subsequently removed is not touched here.
+> 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Again, you must have a bit more say here...
-For example, you didn't write why this change is needed.
-You thought it obvious?  No, readers don't know.
-
-BTW, it would be really better if we define some macro for the
-highlevel I/O definition.  It's cumbersome to decode and check
-manually at review whether the conversion is correct, and it's
-error-prone.
+This patch actually broke the build due to A_I2S_CAPTURE_RATE, as
+0-day bot caught.  Any missing patch?
 
 
 thanks,

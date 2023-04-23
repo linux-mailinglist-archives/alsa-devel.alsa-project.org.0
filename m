@@ -2,98 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32C7A6EBDAA
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 09:32:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F276EBDAE
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 09:35:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12743F29;
-	Sun, 23 Apr 2023 09:31:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12743F29
+	by alsa0.perex.cz (Postfix) with ESMTPS id 543D2F23;
+	Sun, 23 Apr 2023 09:35:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 543D2F23
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682235132;
-	bh=hsTeqmaNRinmO7rae9HSazffw5uld4haRWn71+tfWuk=;
+	s=default; t=1682235354;
+	bh=E8BT+NmYofB3sbtmuM6azpnkWFSz+gcGqgr7KvhEKYw=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mIuYaErxvcNupHgIf/ku2UG1RyfFXGPXWOzz8YIbKIU7BUJUkd6M2YHDuKtQ6+2Ri
-	 PURxH2zxLjBowHtrZdS7QnyTcWmLFx7A1jqupg06GWgywxnxSPX0z7kFi4jGcdaUpz
-	 agsE01GR+Gcy/1crjxwHciJdB3m50k750O+d2Zys=
+	b=HNL+vmN+2mOztpycbj+lF2EDZvx+rJotgKjyfT11wL79f71TxDkljYQiW+QA/FDZ6
+	 rO218XKbgTsqCqhn1BoDQdAfDtNYiRMLQdbAhnABKgHTTGuHmAEWnNzg0GsCB3ZegB
+	 1I1+nfNIBdwHkwj5JvmHpAsKwQ5XPQitj4Yprbmo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58F2FF80529;
-	Sun, 23 Apr 2023 09:30:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61201F8018A;
+	Sun, 23 Apr 2023 09:35:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2BCD6F8052D; Sun, 23 Apr 2023 09:30:32 +0200 (CEST)
+	id 47DD4F80236; Sun, 23 Apr 2023 09:34:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1869AF800F8
-	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 09:30:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1869AF800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id E379CF80137
+	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 09:34:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E379CF80137
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=jD27G2qP;
+ header.s=susede2_rsa header.b=C6DGisLb;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=AhK7Ag3Y
+ header.s=susede2_ed25519 header.b=He08ft8O
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C43F621A03;
-	Sun, 23 Apr 2023 07:30:28 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5E0DD1F8B8;
+	Sun, 23 Apr 2023 07:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1682235028;
+	t=1682235296;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ELPNwJOGA9aSfPfmji3EC23Y3A9FbYmqaCee4cHFCqo=;
-	b=jD27G2qPJ2zPHCLbv1V9lUxsJseFVMUqDtCFmHYemYMhN0TjyIgpg88N0xJFSDnBy6pzOO
-	xGoLJrSRWWtfSAdPnOTg8v7jL0jcxRufsqBomGMc8cBMxBmaiaSj7+9jsdhB5U/187dqsy
-	FtDATOLV8NpFe3Vf/9b5lUwDHrok980=
+	bh=g0MrUeC2kJ1KumSvs3T5H6F5Q6lcEmYSpYhiKpRqEoE=;
+	b=C6DGisLbSIW90h70eRmjwEUShLxL3QdpOfsUgc9HhYpMmFErE+YYR92k0+VyIauGmcU67P
+	WVm0PTEaq3mxe1WNRoZAqk0a/osHZvGh7Ohn4o5PcjxVZ/XFLNfor6kBx2DFa++XtUG9sV
+	QfaAos1Jbkehx+hKWX3+ZBgY0GzGTrg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682235028;
+	s=susede2_ed25519; t=1682235296;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ELPNwJOGA9aSfPfmji3EC23Y3A9FbYmqaCee4cHFCqo=;
-	b=AhK7Ag3YXhRiNASh0kt9ySTgtHhz9hFQyaIfUBkN/JKvQaZLHZLeXhKCbIOWEsunXkkKPH
-	ybLqDCoZSaXQ3QCw==
+	bh=g0MrUeC2kJ1KumSvs3T5H6F5Q6lcEmYSpYhiKpRqEoE=;
+	b=He08ft8Ot+GV2ZM6sWDQI5ROlY2EXbW3xLrsPsZp7v5va8juPZVD/gnY00HnzVnJgZFrJU
+	qPZNZ6FSLz0WJ6BA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A579413498;
-	Sun, 23 Apr 2023 07:30:28 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3ECDC13498;
+	Sun, 23 Apr 2023 07:34:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id JY92J5TeRGR/MQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sun, 23 Apr 2023 07:30:28 +0000
-Date: Sun, 23 Apr 2023 09:30:28 +0200
-Message-ID: <87354roy23.wl-tiwai@suse.de>
+	id UpWODqDfRGT3MgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sun, 23 Apr 2023 07:34:56 +0000
+Date: Sun, 23 Apr 2023 09:34:55 +0200
+Message-ID: <871qkboxuo.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] ALSA: emu10k1: skip Sound Blaster-specific hacks for E-MU
- cards
-In-Reply-To: <20230422161021.1143888-1-oswald.buddenhagen@gmx.de>
-References: <20230422161021.1143888-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 1/2] ALSA: emu10k1: fix SNDRV_EMU10K1_IOCTL_SINGLE_STEP
+In-Reply-To: <20230422161021.1144004-1-oswald.buddenhagen@gmx.de>
+References: <20230422161021.1144004-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: KMGMUF4LLNMRHOHE2AIIDDH3LWR6FY47
-X-Message-ID-Hash: KMGMUF4LLNMRHOHE2AIIDDH3LWR6FY47
+Message-ID-Hash: UGKUE3I47W57FKTJM6YQJU3VESIKQJ25
+X-Message-ID-Hash: UGKUE3I47W57FKTJM6YQJU3VESIKQJ25
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KMGMUF4LLNMRHOHE2AIIDDH3LWR6FY47/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UGKUE3I47W57FKTJM6YQJU3VESIKQJ25/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,19 +115,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 22 Apr 2023 18:10:21 +0200,
+On Sat, 22 Apr 2023 18:10:20 +0200,
 Oswald Buddenhagen wrote:
 > 
-> The rev2 cards use CA0108, but the embedded P17V goes entirely unused.
-> Also, A_IOCTL (which is really the GPIO port) is actually the FPGA
-> control port, so messing with it is no good idea.
+> - Use correct address limit for Audigy
+> - Use the right constant to actually make a step on Audigy
+> - Don't store *_DBG_STEP and the address in emu->fx8010.dbg, as
+>   otherwise unrelated operations would make steps, too
 > 
-> The hacks are actually mutually exclusive, so make that explicit while
-> we're at it.
+> This is untested. as10k1 was never ported to Audigy anyway.
 > 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Thanks, applied.
+Applied both patches now.
+Although 0-day bot caught some build error, I couldn't reproduce it,
+so took as is.  Let's see whether it's broken at some config combo.
 
+
+thanks,
 
 Takashi

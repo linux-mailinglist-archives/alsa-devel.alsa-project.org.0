@@ -2,112 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C74F6EC068
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 16:31:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADF916EC18E
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 20:11:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D88DC82E;
-	Sun, 23 Apr 2023 16:30:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D88DC82E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02CD7E86;
+	Sun, 23 Apr 2023 20:11:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02CD7E86
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682260273;
-	bh=rZM4uMFYmv6i77nrXW9ho4+CRjeRKmqWcK/ZJiDwP5s=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=upXqHos3PrPMsINczYc7o8zwjiTdaBw7mejLVfaWYQ8ndk1hzx6Z8AMZBcP3/9D14
-	 y2Nr9cRFoqEy9NzmpYqA1VWJgiPN3iMVXcB7GyBVkk+8IDtJ0Xxnj8uk3WUrDG4YbV
-	 Dp00mI+UthAQGJYmQJABAQxiOKFPYZCHOJxWyg4w=
+	s=default; t=1682273517;
+	bh=4Ut/vWj0gWZlCgYKbFA410fVLji2NBKXHeT19BBcyzs=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hjSH3f1awp4OJ8KRAGNysV/+DBuAB0CjkuVPQac24o4/16VC/I0ylV+mxvXgjqbWd
+	 mZRBhpfYvsIpr+g4eZr+7AdfsYRQ3dQqxFONUGJ9nj9W9bvf4rpKoXLtHs2Z/VavRO
+	 4xatZTeGtpIInbx5QmbUP4YGykbFY8Nf+di3qJ+A=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E60F4F8018A;
-	Sun, 23 Apr 2023 16:30:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5250FF80529;
+	Sun, 23 Apr 2023 20:10:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9DCFFF80236; Sun, 23 Apr 2023 16:30:17 +0200 (CEST)
+	id 45DE4F80236; Sun, 23 Apr 2023 20:10:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86F1AF80137
-	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 16:30:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86F1AF80137
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=M1geHF1l;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=47ZdJDrS
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1A6671F8C8;
-	Sun, 23 Apr 2023 14:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1682260206;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3ZODwOgOj5HnKOQXzSnxjQoXRTlYWXn/6Pt7HYrPD00=;
-	b=M1geHF1lrM5Jp7D4e3IczNXtjA/IVLeO7wKZU4IxCRd/05oSU5Q86aRWKI82wsUhcaiSIE
-	gzquv8DtwsMZNYM6/wHLBigJML6lLppNFvjNnexz2vk2jjQigHL7PVGRyCSpI7GyqkvlQi
-	wXslNGRvTCKSO0J6XLunzM9t4jr64vE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682260206;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3ZODwOgOj5HnKOQXzSnxjQoXRTlYWXn/6Pt7HYrPD00=;
-	b=47ZdJDrSFyXFStTW1NqndJGyFsbt1UBNXdzr1K3j49D51cHMzzjH9l3imF8FGbKsxsR02m
-	KiH0dYKHv4BewMAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F2A4913498;
-	Sun, 23 Apr 2023 14:30:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id iv45Ou1ARWTxRQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sun, 23 Apr 2023 14:30:05 +0000
-Date: Sun, 23 Apr 2023 16:30:05 +0200
-Message-ID: <87pm7uoemq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH 2/2] ALSA: emu10k1: use high-level I/O in set_filterQ()
-In-Reply-To: <ZETxmveuGo8cBqBI@ugly>
-References: <87y1mjnj8t.wl-tiwai@suse.de>
-	<878rejoya4.wl-tiwai@suse.de>
-	<ZETxmveuGo8cBqBI@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 23DFKHYPS64V7KIKIC62ECL5YDZYOZER
-X-Message-ID-Hash: 23DFKHYPS64V7KIKIC62ECL5YDZYOZER
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 24B67F8018A
+	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 20:10:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24B67F8018A
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id D51E82424F;
+	Sun, 23 Apr 2023 14:10:02 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pqe9y-ELj-00; Sun, 23 Apr 2023 20:10:02 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH v2 1/2] ALSA: emu10k1: use high-level I/O functions also
+ during init
+Date: Sun, 23 Apr 2023 20:10:01 +0200
+Message-Id: <20230423181002.1246793-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: MTXXK7E55TPOMU2R6ZC7NGQMFNQMTHVM
+X-Message-ID-Hash: MTXXK7E55TPOMU2R6ZC7NGQMFNQMTHVM
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/23DFKHYPS64V7KIKIC62ECL5YDZYOZER/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MTXXK7E55TPOMU2R6ZC7NGQMFNQMTHVM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,62 +73,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 23 Apr 2023 10:51:38 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Sun, Apr 23, 2023 at 09:25:39AM +0200, Takashi Iwai wrote:
-> > Again, you must have a bit more say here...
-> > For example, you didn't write why this change is needed.
-> > You thought it obvious?  No, readers don't know.
-> > 
-> it is obvious from the patch - the code becomes much shorter and more
-> legible.
+... and also use more pre-defined constants on the way (some of which
+required adjustment). This makes the code much shorter and more legible.
 
-It's not obvious unless you read the code changes.  Not obvious
-whether it's a code refactoring without any functional change, etc.
-Such info can be well put in the patch description.
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+---
+ include/sound/emu10k1.h          |  9 +++++----
+ sound/pci/emu10k1/emu10k1_main.c | 20 ++++++--------------
+ 2 files changed, 11 insertions(+), 18 deletions(-)
 
-> and someone who just reads the log/blame wouldn't care,
-> because it doesn't actually explain anything. but whatever.
+diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
+index 5958cae819fd..05a09826eef0 100644
+--- a/include/sound/emu10k1.h
++++ b/include/sound/emu10k1.h
+@@ -852,10 +852,11 @@
+ #define A_SPDIF_MUTED		0x000000c0
+ 
+ #define A_I2S_CAPTURE_RATE_MASK	0x00000e00	/* This sets the capture PCM rate, but it is    */
+-#define A_I2S_CAPTURE_48000	0x00000000	/* unclear if this sets the ADC rate as well.	*/
+-#define A_I2S_CAPTURE_192000	0x00000200
+-#define A_I2S_CAPTURE_96000	0x00000400
+-#define A_I2S_CAPTURE_44100	0x00000800
++#define A_I2S_CAPTURE_RATE	0x03090076	/* unclear if this sets the ADC rate as well.	*/
++#define A_I2S_CAPTURE_48000	0x0
++#define A_I2S_CAPTURE_192000	0x1
++#define A_I2S_CAPTURE_96000	0x2
++#define A_I2S_CAPTURE_44100	0x4
+ 
+ #define A_EHC_SRC48_MASK	0x0000e000	/* This sets the playback PCM rate on the P16V	*/
+ #define A_EHC_SRC48_BYPASS	0x00000000
+diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
+index e53eb7fd0883..3aca01c70ccb 100644
+--- a/sound/pci/emu10k1/emu10k1_main.c
++++ b/sound/pci/emu10k1/emu10k1_main.c
+@@ -186,10 +186,7 @@ static int snd_emu10k1_init(struct snd_emu10k1 *emu, int enable_ir)
+ 	if (emu->card_capabilities->ca0151_chip) { /* audigy2 */
+ 		/* Hacks for Alice3 to work independent of haP16V driver */
+ 		/* Setup SRCMulti_I2S SamplingRate */
+-		tmp = snd_emu10k1_ptr_read(emu, A_SPDIF_SAMPLERATE, 0);
+-		tmp &= 0xfffff1ff;
+-		tmp |= (0x2<<9);
+-		snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, 0, tmp);
++		snd_emu10k1_ptr_write(emu, A_I2S_CAPTURE_RATE, 0, A_I2S_CAPTURE_96000);
+ 
+ 		/* Setup SRCSel (Enable Spdif,I2S SRCMulti) */
+ 		snd_emu10k1_ptr20_write(emu, SRCSel, 0, 0x14);
+@@ -206,25 +203,20 @@ static int snd_emu10k1_init(struct snd_emu10k1 *emu, int enable_ir)
+ 		/* Hacks for Alice3 to work independent of haP16V driver */
+ 		dev_info(emu->card->dev, "Audigy2 value: Special config.\n");
+ 		/* Setup SRCMulti_I2S SamplingRate */
+-		tmp = snd_emu10k1_ptr_read(emu, A_SPDIF_SAMPLERATE, 0);
+-		tmp &= 0xfffff1ff;
+-		tmp |= (0x2<<9);
+-		snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, 0, tmp);
++		snd_emu10k1_ptr_write(emu, A_I2S_CAPTURE_RATE, 0, A_I2S_CAPTURE_96000);
+ 
+ 		/* Setup SRCSel (Enable Spdif,I2S SRCMulti) */
+-		outl(0x600000, emu->port + 0x20);
+-		outl(0x14, emu->port + 0x24);
++		snd_emu10k1_ptr20_write(emu, P17V_SRCSel, 0, 0x14);
+ 
+ 		/* Setup SRCMulti Input Audio Enable */
+-		outl(0x7b0000, emu->port + 0x20);
+-		outl(0xFF000000, emu->port + 0x24);
++		snd_emu10k1_ptr20_write(emu, P17V_MIXER_I2S_ENABLE, 0, 0xFF000000);
+ 
+ 		/* Setup SPDIF Out Audio Enable */
+ 		/* The Audigy 2 Value has a separate SPDIF out,
+ 		 * so no need for a mixer switch
+ 		 */
+-		outl(0x7a0000, emu->port + 0x20);
+-		outl(0xFF000000, emu->port + 0x24);
++		snd_emu10k1_ptr20_write(emu, P17V_MIXER_SPDIF_ENABLE, 0, 0xFF000000);
++
+ 		tmp = inw(emu->port + A_IOCFG) & ~0x8; /* Clear bit 3 */
+ 		outw(tmp, emu->port + A_IOCFG);
+ 	}
+-- 
+2.40.0.152.g15d061e6df
 
-Someone already cared.  See?
-
-> On Sun, Apr 23, 2023 at 09:35:46AM +0200, Takashi Iwai wrote:
-> > On Sat, 22 Apr 2023 18:10:20 +0200,
-> > Oswald Buddenhagen wrote:
-> >> 
-> >> ... and also use more pre-defined constants on the way (some of which
-> >> required adjustment).
-> >> 
-> >> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-> > 
-> > Applied this one, but skipped the patch 2.
-> > 
-> which is funny, because that commit message misses the obvious "why"
-> part as well - it just mentions an additional thing that is unique to
-> this patch.
-> 
-> so to be consistent, you should reject both patches and wait for an
-> update.
-
-Right, it was enough for me to reply the same thing again, so I wanted
-just to reduce the pile of XXXX.  I'd reject all at the next time :)
-
-> > BTW, it would be really better if we define some macro for the
-> > highlevel I/O definition.  It's cumbersome to decode and check
-> > manually at review whether the conversion is correct, and it's
-> > error-prone.
-> > 
-> yes, i considered that.
-> i also considered many more refactorings, and had to hold myself back -
-> there are enough nice-to-have patches in this series as-is.
-> i mean, 15 years ago it would have made sense to go crazy, but now the
-> hardware is a bit too obsolete to go much beyond what i actually need
-> for my project. i'm assuming some people outside the western sphere
-> are still using our scrap with linux, but we rarely hear from them, so
-> it's hard to know ...
-
-Yeah, that's a dilemma of maintaining the old legacy stuff.
-
-
-Takashi

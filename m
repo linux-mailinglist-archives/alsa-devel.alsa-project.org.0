@@ -2,115 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48A206EBC56
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 03:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03AEB6EBDA2
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 09:28:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E37CEF4;
-	Sun, 23 Apr 2023 03:43:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E37CEF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id E89F7F18;
+	Sun, 23 Apr 2023 09:27:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E89F7F18
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682214251;
-	bh=rbMlUE2f83AY2tWJlSDeJUf4tCMITQmeHmMGq/TvDco=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1682234916;
+	bh=DR2GGs21KNmh/ZtNkVLVuIl5acwrLrQXKO9RzAc5fCI=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=h0Kl9mdybCzge+QBz1GDs7F8P3UmapI8j389dSHcPYuubtYO01hoySTtpVKCM/fBp
-	 gwctxLiet0KAaseqoD90DIlICsbz6I3fFfTp9ad6Z1fi77BDNijeGseyovLaHqJXdf
-	 bmjCIOU7mBoNe3zohm27pkCmkDhZdD2L/irnkK88=
+	b=Gptc8Dk/GWUMf4XlNxR4XncTa7hyPY7PIot7zmE6JnCuIt3PBxh2NyQe8w0qxa7u7
+	 75JBDVxSVK3S2EQuNY8JjDN5tGAGgB/xkKQpDV55z2gEsnDrusDaNOUlXe6GxfqPQd
+	 wfp9PdZEMDHDWEf//08KqJhSQfyDG7ZSXwWfqr/o=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFB82F8018A;
-	Sun, 23 Apr 2023 03:43:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FC23F8018A;
+	Sun, 23 Apr 2023 09:27:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4A61F80236; Sun, 23 Apr 2023 03:43:11 +0200 (CEST)
+	id 53524F80236; Sun, 23 Apr 2023 09:26:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9C141F800AC
-	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 03:43:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C141F800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id E4E03F80137
+	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 09:25:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4E03F80137
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.a=rsa-sha256 header.s=fm3 header.b=xQkibWFH;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=OnZhHhp0
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.west.internal (Postfix) with ESMTP id 13542320025E;
-	Sat, 22 Apr 2023 21:42:58 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Sat, 22 Apr 2023 21:42:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1682214177; x=
-	1682300577; bh=h0Zd5SHr8SPUjUlERDhnGqn8AKSK0aAAhXL+jOzMf/4=; b=x
-	QkibWFHtsmzie5GujOPC0qV3fS+ocg3/cEL3yZ7s74REaLsvbKz7ruosHVhFzo2+
-	+6PPT/6Pmskg421vY8b8wgJ15RRcNnGHRksTY701LRWvsQQZd3XlPZoFt3xj8kNN
-	57+oSCYdeG/bdSRFrtCT4DEzNk8F46DR8PDsQPxSoxKUmdRl0tmxigDi44NEE3t3
-	AsXuysk34b8M5k1u3HfU18Cjj2vhaECxEPREFEhvIr+ieSZVKIBoAoGAEYyrCrKN
-	5gJrKiYUN8+0OU6OOzn9FXfMoDOF76SLnTlxIYlDtmofXhgB3TGP4jMBRl79hVlN
-	1ouDnW/HRG3p7xXNtWnLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1682214177; x=1682300577; bh=h0Zd5SHr8SPUj
-	UlERDhnGqn8AKSK0aAAhXL+jOzMf/4=; b=OnZhHhp0ncYrzk57tKS6ju0qrfAe7
-	/Oh9Jk71CqnR7/1Ulw7gB2m+LZP+Z6Vd+uMHUPIB+7N4Ki4nzudeMI/oCuVaRmBj
-	lOq465NRle2IZLiOnNAwcRfKKLulN6VzSUDVi9NHeovPYrZD7ZdvPWY7kvPlz1OU
-	fznr6s+hVK/0ZlTaHG7BZ9g1pzVXJbbKhRvmgc3lvkQOgs6+7bYZxX8kBQ2TSMKb
-	j3m04Qmki8ld8lifwX90pMgzq5sNdxN/rW4xDO9DnItV7xpCTkPEbP9w6Y//Fvxc
-	OJKFJ4BTSalCFjiB3ykdaEub/85aAbYhFsH3ABHqzosPeuOptY1eQcOAw==
-X-ME-Sender: <xms:IY1EZACmw6eK85jj9dvRFu-b8n8cRzIPf_Y1yOMa6FGpcJg82LtO4w>
-    <xme:IY1EZCjKZ4WlsEpEHqSfPjm39KnFuo7hadMMzZK39VEVmWMqy0OvC3otgAYvWFXmI
-    O19bEapQ917mKqmzr8>
-X-ME-Received: 
- <xmr:IY1EZDlbERFXPBix2ZY3aobMjtzJehBSCVzgIWmd_fFJuNcFHlanMdMziJCkcqTiB1uMMKKpnkHerWLsCGOf6D6Inw>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrfedtjedgheduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfhfgggtuggjsehttd
-    ertddttddvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
-    rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucggtffrrghtthgvrhhnpeevieelhf
-    dukeffheekffduudevvdefudelleefgeeileejheejuedvgefhteevvdenucffohhmrghi
-    nhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
-    hmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:IY1EZGx5yKdZfAXyKwKNKm1EluFfTkphxCavuJ_yATG-uyom4xJCWg>
-    <xmx:IY1EZFR_RmFUj9h2VZTEU8HNaXaTmpq_odiIgamvNlJKz2EQDFwFAA>
-    <xmx:IY1EZBZLwHseKi9QSNkL62qGx_E3CdD3BvqDKA_l9LzVD7AhGQfJIg>
-    <xmx:IY1EZG5Gb7mavoK9xIyOvLJTRkHxhT9VSf0bc2_OgYBGgx-u6693PQ>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 22 Apr 2023 21:42:56 -0400 (EDT)
-Date: Sun, 23 Apr 2023 10:42:52 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: Request to configure libhinawa and hinawa-rs repositories
-Message-ID: <20230423014252.GA86392@workstation>
-Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
-	alsa-devel@alsa-project.org
-References: <20230422005622.GA55854@workstation>
- <42c32ed5-84f4-ad4f-c7b6-ae3a2ad89a8c@perex.cz>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <42c32ed5-84f4-ad4f-c7b6-ae3a2ad89a8c@perex.cz>
-Message-ID-Hash: 7IARRBUSNTANPSIPEZKAXQPWWRYONHMP
-X-Message-ID-Hash: 7IARRBUSNTANPSIPEZKAXQPWWRYONHMP
-X-MailFrom: o-takashi@sakamocchi.jp
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=mFOa4AOs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=NGrBgM1B
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 46CAB1F8BD;
+	Sun, 23 Apr 2023 07:25:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1682234740;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SEzjrY+HYPO7BOZUSWp3EA+HeQXJV3vHtGcuQltrbak=;
+	b=mFOa4AOsN7nFzykbW9AKLgt2QtFz91Kx5WfGvTPd4iNzl7NS5xcWQu+88lXVJw0V9xoHL/
+	ySLN1kFXBKzr0SmBC7rT+fX070pyas0VdyUjsNva2fWmWzeeelE6akDO7aXNz5dmCMdDpc
+	0waP9SMmemR7bP08NGhRHbqLbx6nhnI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1682234740;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SEzjrY+HYPO7BOZUSWp3EA+HeQXJV3vHtGcuQltrbak=;
+	b=NGrBgM1BcnZ8M0ZfcT/XG1sQjnIuOTU7b1drCaMjkQPXyV47lQvQx2YBGp0Sr18DXEUIxl
+	Hht6OBmT5349yhAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1FBCA13498;
+	Sun, 23 Apr 2023 07:25:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 4JCtBnTdRGSmLwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Sun, 23 Apr 2023 07:25:40 +0000
+Date: Sun, 23 Apr 2023 09:25:39 +0200
+Message-ID: <878rejoya4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 2/2] ALSA: emu10k1: use high-level I/O in set_filterQ()
+In-Reply-To: <20230422161021.1143967-2-oswald.buddenhagen@gmx.de>
+References: <20230422161021.1143967-1-oswald.buddenhagen@gmx.de>
+	<20230422161021.1143967-2-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: C4Q73PAVVNOF4E6AHVTWIMM6SB43YVYU
+X-Message-ID-Hash: C4Q73PAVVNOF4E6AHVTWIMM6SB43YVYU
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7IARRBUSNTANPSIPEZKAXQPWWRYONHMP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C4Q73PAVVNOF4E6AHVTWIMM6SB43YVYU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,29 +116,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
-
-On Sat, Apr 22, 2023 at 12:07:31PM +0200, Jaroslav Kysela wrote:
-> On 22. 04. 23 2:56, Takashi Sakamoto wrote:
-> > Hi Jaroslav,
-> > 
-> > Thanks for your administration in many repositories hosting on github.com.
-> > 
-> > I'd like you to change 'About' messages for the two repositories, since
-> > I decide to host some repository in git.kernel.org.
-> > 
-> > * For libhinawa repository
-> >    * 'Mirror of https://git.kernel.org/pub/scm/libs/ieee1394/libhinawa.git/
-> >       for user support and continuous integration '
-> > * For hinawa-rs repository
-> >    * 'Mirror of https://git.kernel.org/pub/scm/libs/ieee1394/hinawa-rs.git/
-> >       for user support and continuous integration '
+On Sat, 22 Apr 2023 18:10:21 +0200,
+Oswald Buddenhagen wrote:
 > 
-> Hi Takashi,
-> 
-> 	the information was changed as requested.
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Thanks, I checked them.
+Again, you must have a bit more say here...
+For example, you didn't write why this change is needed.
+You thought it obvious?  No, readers don't know.
+
+BTW, it would be really better if we define some macro for the
+highlevel I/O definition.  It's cumbersome to decode and check
+manually at review whether the conversion is correct, and it's
+error-prone.
 
 
-Takashi Sakamoto
+thanks,
+
+Takashi

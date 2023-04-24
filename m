@@ -2,141 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B716ECABA
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 12:53:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 935386ECB2D
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 13:19:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26A84F22;
-	Mon, 24 Apr 2023 12:52:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26A84F22
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5983BF22;
+	Mon, 24 Apr 2023 13:18:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5983BF22
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682333603;
-	bh=uXhdpbx5ONYFiyT2nymxMp21BVVa4SJMk+itq5FLHoQ=;
-	h=Date:To:Subject:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=UPZjym32+uy1R6ILCyJd83U/FgmbrXNlFPIbY3WmVY/8rvn2HgjT6BjcWZUL4cOLW
-	 aFTcB5m6H/uX79kFcTio+AZDFB493qMG44FYF7p7oDMw5dumARH7kNSblOspotMz0q
-	 qdiyWXI/w35keRv93r4FKTTfRaIOj8tX3y4lzbfw=
+	s=default; t=1682335175;
+	bh=4mQdcfkDR4Z65AevOz3ZaExDX20jDuLa+KuFQEBBQXw=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=EVENqICaVBF3JJnq1++VR/YKf7w/nOG1Gwq/5798e6J1GwY6ZpL1RunPIkd+/Xstx
+	 wO6/cWSXD7tbsYDDeUj/cMdomqQIn1tZyRGKNJvXWIrgJinlSB+lvmjnQuWjZk2MnL
+	 DespEpbZIaEF1W18xdn5m4sJTRQ6vO5E7Rp3CaHI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DBF4F80162;
-	Mon, 24 Apr 2023 12:52:32 +0200 (CEST)
-Date: Mon, 24 Apr 2023 12:52:16 +0200
-To: Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH 4/4] ASoC: codecs: Add support for the generic IIO
- auxiliary devices
-In-Reply-To: <20230422180814.61d24aa3@jic23-huawei>
-References: <20230421124122.324820-1-herve.codina@bootlin.com>
-	<20230421124122.324820-5-herve.codina@bootlin.com>
-	<20230422180814.61d24aa3@jic23-huawei>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKKKPNVGAG7FBY5MC4LWT22MYYUFWHOZ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168233355197.26.5608594411004238539@mailman-core.alsa-project.org>
-From: Herve Codina via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id AF0AFF80162;
+	Mon, 24 Apr 2023 13:18:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D9A4FF8018A; Mon, 24 Apr 2023 12:52:28 +0200 (CEST)
+	id DA3D0F8018A; Mon, 24 Apr 2023 13:18:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net
- [217.70.178.231])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 80EB1F80104
-	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 12:52:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80EB1F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 36E75F80104
+	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 13:18:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36E75F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=fPVjkvF+
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 12950100009;
-	Mon, 24 Apr 2023 10:52:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1682333539;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yKUWG8XwsHs5cBDxDN0t+v8V3Kca4ChPZTtEEbQ6jZo=;
-	b=fPVjkvF+gFpJ7tMj1skmY/E5xkFUo7OQt7yK5LbLJTw6l4i82qIEJkbSwLUhWPptpI/1ye
-	LiIk7b8Zot3/gtSCwh7psQskWKgCErmDDX63JoPgqJn0d7rn4MQfZ5fXbyzMZkoKCYhPXS
-	xP5QkgnF0/A88IuKccDVlFq855i9FGb7Q4dAt18qiVd7DEfn6eA+fixBF21yofsnkSwIKi
-	k2zD1afAaIAZA7MVQxBYwzbphsFfdkHc7MNauwj9jPzY8ToNG7R7vTalnGyASudyaWhqgZ
-	xXggGc/tZ4wtPRhmUnPB3sDrpTv1yVkL8Q6fHVR4y7tfCNT2HG3tKhQwQzJehQ==
-Date: Mon, 24 Apr 2023 12:52:16 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [PATCH 4/4] ASoC: codecs: Add support for the generic IIO
- auxiliary devices
-Message-ID: <20230424125216.0f279f82@bootlin.com>
-In-Reply-To: <20230422180814.61d24aa3@jic23-huawei>
-References: <20230421124122.324820-1-herve.codina@bootlin.com>
-	<20230421124122.324820-5-herve.codina@bootlin.com>
-	<20230422180814.61d24aa3@jic23-huawei>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-redhat-linux-gnu)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=RaxeCC5B
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D88A46125A;
+	Mon, 24 Apr 2023 11:18:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73F62C433D2;
+	Mon, 24 Apr 2023 11:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1682335110;
+	bh=4mQdcfkDR4Z65AevOz3ZaExDX20jDuLa+KuFQEBBQXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RaxeCC5B9yRnETueKys1OhIiL4bftnlcg1VROXzWSbHLbKb60VpNJahhV+z1PTVkD
+	 da8TFC7ZKvNysgPiWLqXFBSHiJp5e6J+A4Di4eK+2QoOF/zuuN3LUY1KCKuatzWh5D
+	 hh+UlwtP/vDr+pwBQReKbzBh/Jka+CYiOhYxtSZlCB3hCYG1JRfqhqAc8+2rw3UKXr
+	 jfGxRBnKqEGahDXfS5QHTV42lYpouY6Tor9kcZHKIaREORenLhubfhqNjopiGmqGUb
+	 efwci4ZTqrC7hfRztQMHfiaKmmXPnY/Abtc4bU6GoHrYw0V6oorS93GmPfmEBWanSk
+	 JqKza24jeFdrw==
+Date: Mon, 24 Apr 2023 12:18:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v2] ASoC: max98090: make it selectable
+Message-ID: <45939030-c511-4b61-bc44-52120495bbb8@sirena.org.uk>
+References: <20230421211950.20972-1-fido_max@inbox.ru>
+ <0a2eca07-f266-164c-4a9f-f1000ae4efbc@linaro.org>
+ <7fdf1f95-a9bb-8560-729c-b12bee302376@inbox.ru>
+ <600d0c3e-0b5a-88a8-fade-edf3e4dd8ac6@linaro.org>
+ <8805da0f-f79c-f6ad-bdec-7e1183242a79@inbox.ru>
+ <2c308d01-8b9f-5132-6440-ee9166499b55@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: AKKKPNVGAG7FBY5MC4LWT22MYYUFWHOZ
-X-Message-ID-Hash: AKKKPNVGAG7FBY5MC4LWT22MYYUFWHOZ
-X-MailFrom: herve.codina@bootlin.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="aYt/HAvkdawYBBIB"
+Content-Disposition: inline
+In-Reply-To: <2c308d01-8b9f-5132-6440-ee9166499b55@linaro.org>
+X-Cookie: A rolling disk gathers no MOS.
+Message-ID-Hash: 22QRWZUSGTUDN2T7C2R5RN35IQBTAH5P
+X-Message-ID-Hash: 22QRWZUSGTUDN2T7C2R5RN35IQBTAH5P
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Lars-Peter Clausen <lars@metafoo.de>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: Maxim Kochetkov <fido_max@inbox.ru>, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
+ rf@opensource.cirrus.com, ckeepax@opensource.cirrus.com,
+ shumingf@realtek.com, ryans.lee@analog.com, herve.codina@bootlin.com,
+ wangweidong.a@awinic.com, ajye_huang@compal.corp-partner.google.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AKKKPNVGAG7FBY5MC4LWT22MYYUFWHOZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/22QRWZUSGTUDN2T7C2R5RN35IQBTAH5P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,251 +103,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Jonathan, Mark,
 
-On Sat, 22 Apr 2023 18:08:14 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+--aYt/HAvkdawYBBIB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> On Fri, 21 Apr 2023 14:41:22 +0200
-> Herve Codina <herve.codina@bootlin.com> wrote:
-> 
-> > Industrial I/O devices can be present in the audio path.
-> > These devices needs to be used as audio components in order to be fully
-> > integrated in the audio path.
-> > 
-> > This support allows to consider these Industrial I/O devices as auxliary
-> > audio devices and allows to control them using mixer controls.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
-> 
-> Hi Herve,
-> 
-> There are some other IIO devices that might turn up in audio paths. In theory
-> someone might put an IIO supported amplifier in there (though current ones are
-> far to high frequency and expensive for that to make sense).  For now it
-> probably makes sense to support potentiometers as you are doing here,
-> though I'm guessing that in many cases they would be used with some other
-> analog components. Does the transfer function matter at all?
-> 
-> Been many years since I last touched anything in ASoC so questions may
-> be silly ;)
-> 
-> A few comments inline.
-> 
-> Jonathan
-> 
-> > +static int simple_iio_aux_get_volsw(struct snd_kcontrol *kcontrol,
-> > +				    struct snd_ctl_elem_value *ucontrol)
-> > +{
-> > +	struct simple_iio_aux_chan *chan = (struct simple_iio_aux_chan *)kcontrol->private_value;
-> > +	int max = chan->max;
-> > +	int min = chan->min;
-> > +	unsigned int mask = (1 << fls(max)) - 1;  
-> 
-> As below. I'm not following reason for use of mask
-> 
-> > +	unsigned int invert = chan->is_inverted;
-> > +	int ret;
-> > +	int val;
-> > +
-> > +	ret = iio_read_channel_raw(chan->iio_chan, &val);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	ucontrol->value.integer.value[0] = (val & mask) - min;
-> > +	if (invert)
-> > +		ucontrol->value.integer.value[0] = max - ucontrol->value.integer.value[0];
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int simple_iio_aux_put_volsw(struct snd_kcontrol *kcontrol,
-> > +				    struct snd_ctl_elem_value *ucontrol)
-> > +{
-> > +	struct simple_iio_aux_chan *chan = (struct simple_iio_aux_chan *)kcontrol->private_value;
-> > +	int max = chan->max;
-> > +	int min = chan->min;
-> > +	unsigned int mask = (1 << fls(max)) - 1;  
-> 
-> Why is mask needed?  Also seems like handling is making
-> some strong assumptions on form of max and min.
-> So at minimum some comments on reasoning needed.
+On Mon, Apr 24, 2023 at 10:57:38AM +0200, Krzysztof Kozlowski wrote:
+> On 24/04/2023 10:55, Maxim Kochetkov wrote:
 
-This mask was present in the internal ASoC helpers used when
-devices can be accessed using regmap.
-The IIO accesses done by simple_iio_aux_get_volsw() and 
-simple_iio_aux_put_volsw() were based on these internal helpers.
-Not sure about the exact reason to this mask. Maybe Mark can answer.
+> > Exactly. I'm trying to use this codec through generic card.
 
-For these particular use-cases using an IIO channel, the mask present in
-simple_iio_aux_get_volsw() and simple_iio_aux_put_volsw() can be removed.
+> Commit msg does not answer in such way. It suggests removal of
+> unnecessary extra sound card, but extra sound cards are necessary.
+> Otherwise just write in commit what is going to use it.
 
-I will remove in the next iteration except if Mark tell me to keep them.
+The commit message is perfectly fine.
 
-> 
-> > +	unsigned int invert = chan->is_inverted;
-> > +	int val;
-> > +	int ret;
-> > +	int tmp;
-> > +
-> > +	val = ucontrol->value.integer.value[0];
-> > +	if (val < 0)
-> > +		return -EINVAL;
-> > +	if (val > max - min)
-> > +		return -EINVAL;
-> > +
-> > +	val = (val + min) & mask;
-> > +	if (invert)
-> > +		val = max - val;
-> > +
-> > +	ret = iio_read_channel_raw(chan->iio_chan, &tmp);
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	if (tmp == val)
-> > +		return 0;
-> > +
-> > +	ret = iio_write_channel_raw(chan->iio_chan, val);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return 1; /* The value changed */
-> > +}
-> > +  
-> 
-> ...
-> 
-> 
-> 
-> > +static int simple_iio_aux_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device_node *np = pdev->dev.of_node;
-> > +	struct simple_iio_aux_chan *iio_aux_chan;
-> > +	struct simple_iio_aux *iio_aux;
-> > +	int count;
-> > +	u32 tmp;
-> > +	int ret;
-> > +	int i;
-> > +
-> > +	iio_aux = devm_kzalloc(&pdev->dev, sizeof(*iio_aux), GFP_KERNEL);
-> > +	if (!iio_aux)
-> > +		return -ENOMEM;
-> > +
-> > +	iio_aux->dev = &pdev->dev;
-> > +
-> > +	count = of_property_count_strings(np, "io-channel-names");
-> > +	if (count < 0) {
-> > +		dev_err(iio_aux->dev, "%pOF: failed to read io-channel-names\n", np);
-> > +		return count;
-> > +	}
-> > +
-> > +	iio_aux->chans = devm_kmalloc_array(&pdev->dev, count,
-> > +					    sizeof(*iio_aux->chans), GFP_KERNEL);
-> > +	if (!iio_aux->chans)
-> > +		return -ENOMEM;
-> > +	iio_aux->num_chans = count;
-> > +
-> > +	for (i = 0; i < iio_aux->num_chans; i++) {
-> > +		iio_aux_chan = iio_aux->chans + i;
-> > +
-> > +		ret = of_property_read_string_index(np, "io-channel-names", i,
-> > +						    &iio_aux_chan->name);  
-> 
-> Whilst today this will be tightly couple with of, if you can use generic firmware
-> handling where possible (from linux/property.h) it will reduce what needs
-> to be tidied up if anyone fills in the gaps for IIO consumer bindings in ACPI
-> and then someone uses PRP0001 based ACPI bindings.
+Please stop doing these pedantic reviews, they are creating a lot of
+noise and causing hassle for both me and patch submitters.  If this
+commit message has too much information that is most likely a result of
+your prior review.
 
-No device_property_read_*() function family are available to get a value
-from an array using an index.
+--aYt/HAvkdawYBBIB
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I would prefer to keep the of_property_read_*() function family I use for this
-first IIO auxiliary device support.
+-----BEGIN PGP SIGNATURE-----
 
-> 
-> > +		if (ret < 0) {
-> > +			dev_err(iio_aux->dev, "%pOF: failed to read io-channel-names[%d]\n", np, i);  
-> 
-> dev_err_probe() would simplify these cases a little.  Not sure on ASOC view on using
-> that for cases that won't defer.  I tend to take the view it's nicer everywhere
-> for calls in probe() functions.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRGZX8ACgkQJNaLcl1U
+h9CjxQf/fToTOv/WYLyCP5kph6fJ6iScq3x0yC5EocbcCjTmt1Ls0+KpmOQaraFT
+SoezpNwa+ImkODboDPNOt8pTzk5VRE6y4j4R4fD2CXVNvtSaUrNMtSif3bR+445D
+jDN8Y5yRmKJrmyfEXYRoxv2ksbeXLXKtaxff3wLZmCF4FO6PE6GE6fsK6pSTohNZ
+3dEjXGKM72CamkBtSz/cYcukSNzJYNE3MX6t7tWeTbpOOudotkEDCIX1kZqVbWTT
+uir2DoQVCz1AuK25DS6Igv10fr24jffeNAEB1xALprqiNIiASCLpp8Fqx+pXeUru
+w9nPqUlKVeZnp9X1I09O7XgrLdQuRA==
+=joOZ
+-----END PGP SIGNATURE-----
 
-I have the feeling that ASoC uses dev_err_probe() for cases that can defer.
-Mark, can you confirm ?
-
-> 
-> 
-> > +			return ret;
-> > +		}
-> > +
-> > +		iio_aux_chan->iio_chan = devm_iio_channel_get(iio_aux->dev, iio_aux_chan->name);
-> > +		if (IS_ERR(iio_aux_chan->iio_chan)) {
-> > +			ret = PTR_ERR(iio_aux_chan->iio_chan);  
-> 
-> Put that inline instead of setting ret here.
-
-Will be done in the next iteration.
-
-> 
-> > +			return dev_err_probe(iio_aux->dev, ret,
-> > +					     "get IIO channel '%s' failed (%d)\n",
-> > +					     iio_aux_chan->name, ret);
-> > +		}
-> > +
-> > +		tmp = 0;
-> > +		of_property_read_u32_index(np, "invert", i, &tmp);
-> > +		iio_aux_chan->is_inverted = !!tmp;  
-> 
-> As it's a bool this is the same as 
-> 		iio_aux_chan->is_inverted = tmp;
-
-I will remove the '!!' construction.
-
-
-> 
-> > +	}
-> > +
-> > +	platform_set_drvdata(pdev, iio_aux);
-> > +
-> > +	return devm_snd_soc_register_component(iio_aux->dev,
-> > +					       &simple_iio_aux_component_driver,
-> > +					       NULL, 0);
-> > +}
-> > +
-> > +#ifdef CONFIG_OF
-> > +static const struct of_device_id simple_iio_aux_ids[] = {
-> > +	{ .compatible = "simple-iio-aux", },
-> > +	{ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, simple_iio_aux_ids);
-> > +#endif
-> > +
-> > +static struct platform_driver simple_iio_aux_driver = {
-> > +	.driver = {
-> > +		.name = "simple-iio-aux",
-> > +		.of_match_table = of_match_ptr(simple_iio_aux_ids),  
-> 
-> I'd just drop the of_match_ptr()  Whilst this won't work today with other
-> firmwares, we might enable the missing parts at some stage. Also the
-> driver is somewhat pointless without DT so I'd just assume it's always
-> built with it.  Cost is a tiny array on systems with a weird
-> .config
-
-of_match_ptr will be removed (and the #ifdef CONFIG_OF also).
-
-> 
-> > +	},
-> > +	.probe = simple_iio_aux_probe,
-> > +};
-> > +
-> > +module_platform_driver(simple_iio_aux_driver);
-> > +
-> > +MODULE_AUTHOR("Herve Codina <herve.codina@bootlin.com>");
-> > +MODULE_DESCRIPTION("IIO ALSA SoC aux driver");
-> > +MODULE_LICENSE("GPL");  
-> 
-
-Thanks for the review.
-
-Best regards,
-Hervé
+--aYt/HAvkdawYBBIB--

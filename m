@@ -2,98 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90AF46ED273
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 18:28:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D986ED2BA
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 18:43:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2321CF98;
-	Mon, 24 Apr 2023 18:27:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2321CF98
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2039CF9B;
+	Mon, 24 Apr 2023 18:42:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2039CF9B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682353702;
-	bh=fvEq0mh5AUQNzwqp8tKYBSzSOfpXgtSJnYThK3jJ/co=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1682354629;
+	bh=W2mljrhDyi0TjhyfKA4bzziotNkJvHbnNApJePLVD18=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pLWlF2LBO2AwFjBa9Q7JXEZWgzi/bosKS4Blk+vs7mL2jOawTn+P7ZxICRm6bFMXt
-	 apo/rh7q2sSlfPhBZyvl5n61kGXWw+G8MQgLl/ZTqASGdb25aw3AezeRnvS1d5MCpQ
-	 PUY6FjolhgEv9Cx5gdgrF5j+Sn1LAsGFOveRWKns=
+	b=eyQL+Jb3y9o+AE0v2qS3esbq4OMXVpyLJ2hR3XTAtsOBnCLTwVIsRQoWON04sqfSr
+	 sp7/Rj9wwchx1r1yCQejOB2jp9kK06tSfzzxtxNuUK6rZqgU0dJm8SEXPvTDEED030
+	 ox8yqhlzEjrI3loxhlsnv26HPZHdamnCTlsabOPs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AEC5F80162;
-	Mon, 24 Apr 2023 18:27:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60E64F80162;
+	Mon, 24 Apr 2023 18:42:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0EB1F8018A; Mon, 24 Apr 2023 18:27:28 +0200 (CEST)
+	id 4BB29F80236; Mon, 24 Apr 2023 18:42:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 594DEF800AC
-	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 18:27:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594DEF800AC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 07D89F80104
+	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 18:42:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07D89F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=HrxTNc0m
+ header.s=k20201202 header.b=WZnp9zxe
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5421B6267F;
-	Mon, 24 Apr 2023 16:27:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3476BC433EF;
-	Mon, 24 Apr 2023 16:27:17 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 39C7D626F1;
+	Mon, 24 Apr 2023 16:42:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D68C4339B;
+	Mon, 24 Apr 2023 16:42:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682353639;
-	bh=fvEq0mh5AUQNzwqp8tKYBSzSOfpXgtSJnYThK3jJ/co=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HrxTNc0mPXjGr5XtVHzM1S9zf0iUmFMuPC17ws2mi1Bs4gFpZ/hC27u7b+1L7fnbf
-	 Kv1hjkP+zLnF1sfHw0dMhTqZxRjEz0xHmHDJtjIZN8M5cAjZsPhvo0E3OJpnIznBf/
-	 FfNUHkJf0ELeugXGpgUF88t6uH5a6VaoTZdzdA8/t/5M582yND5AHlrAJYd8WiRcHx
-	 Syn1VTKBB21LIO2oRwBlhPLysGKZFWQhihSiHNRO+mxuEF3sggJQAmof9X3kmG221U
-	 Z2r+WEFJU1R/vAZQIGxFt5UAJ0r/8qtTTUiu31IZwZwgIJT1qCtn9u7Zp1YLGAZAAr
-	 ON2KjfHmn87gA==
-Date: Mon, 24 Apr 2023 17:27:14 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Walker Chen <walker.chen@starfivetech.com>
-Subject: Re: [PATCH v2 4/4] riscv: dts: starfive: add tdm node and sound card
-Message-ID: <20230424-roundness-everybody-659599d44963@spud>
-References: <20230420024118.22677-1-walker.chen@starfivetech.com>
- <20230420024118.22677-5-walker.chen@starfivetech.com>
- <20230421-dropper-upstage-200ae7e47092@spud>
- <607f3604-056c-6f3a-b154-0f298b870811@starfivetech.com>
+	s=k20201202; t=1682354565;
+	bh=W2mljrhDyi0TjhyfKA4bzziotNkJvHbnNApJePLVD18=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=WZnp9zxeR241ec5nA8XyduEMDp4SDUbQ/cyRCT9t6UJVb0sS/9Cek3RDZHQvPuqbW
+	 Cs8HLc88f9PV4dtoilg42YFC5a9zys/4on9ghVktGc4kYf17uN1G4t+ZxpBNUwYH5k
+	 uU7HfdfA6lfPDuHqNglQEgqXf7dWxST6ytREfDTySc/aki9xNn2Lt1yMlAkZ561O6Q
+	 r3lmE5kz+K5yD02gRZMYJgCh+7xvD2/wtM62Tx1/O+6NlDYzZANh/s6vU1I0tc6iwX
+	 1j/pIDbxijCIPT8DxxDNubFkDFwWbu9fWKWzsZ9dsjOBavh+zgkldd3jnqWDFO0vb5
+	 TN2Mc0aL6LQ4w==
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20230421183714.35186-1-hdegoede@redhat.com>
+References: <20230421183714.35186-1-hdegoede@redhat.com>
+Subject: Re: [PATCH] ASoC: Intel: soc-acpi-byt: Fix "WM510205" match no
+ longer working
+Message-Id: <168235456414.139006.15008700677407548488.b4-ty@kernel.org>
+Date: Mon, 24 Apr 2023 17:42:44 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="j+Ycr2hphDkEqIhB"
-Content-Disposition: inline
-In-Reply-To: <607f3604-056c-6f3a-b154-0f298b870811@starfivetech.com>
-Message-ID-Hash: CVUZXLC7NQJVT2TPJ47SCFPGCDTEQGEW
-X-Message-ID-Hash: CVUZXLC7NQJVT2TPJ47SCFPGCDTEQGEW
-X-MailFrom: conor@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-00e42
+Message-ID-Hash: OMAFCEFRWGGGXC7JINN4DGVRJBPYXJLH
+X-Message-ID-Hash: OMAFCEFRWGGGXC7JINN4DGVRJBPYXJLH
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CVUZXLC7NQJVT2TPJ47SCFPGCDTEQGEW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OMAFCEFRWGGGXC7JINN4DGVRJBPYXJLH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,67 +97,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 21 Apr 2023 20:37:14 +0200, Hans de Goede wrote:
+> Commit 7e1d728a94ca ("ASoC: Intel: soc-acpi-byt: Add new WM5102 ACPI HID")
+> added an extra HID to wm5102_comp_ids.codecs, but it forgot to bump
+> wm5102_comp_ids.num_codecs, causing the last codec HID in the codecs list
+> to no longer work.
+> 
+> Bump wm5102_comp_ids.num_codecs to fix this.
+> 
+> [...]
 
---j+Ycr2hphDkEqIhB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Mon, Apr 24, 2023 at 11:21:11AM +0800, Walker Chen wrote:
->=20
->=20
-> On 2023/4/22 0:50, Conor Dooley wrote:
-> > Hey Walker,
-> >=20
-> > On Thu, Apr 20, 2023 at 10:41:18AM +0800, Walker Chen wrote:
-> >> Add the tdm controller node and sound card for the StarFive JH7110 SoC.
-> >=20
-> > Is this one of these waveshare things + a visionfive 2?
-> > https://www.waveshare.com/wm8960-audio-hat.htm
->=20
-> Hey Conor,
-> I'm glad to receive your comments.
->=20
-> Now we are using this board + VisionFive2 :
-> https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/
->=20
-> >=20
-> > I'm a bit lost as to why this needs a whole new board, should it not
-> > just be an overlay that you can apply to the existing dts?
-> >=20
-> > Taking this to an extreme, should I expect to see a new devicetree for
-> > everything RPi hat that you decide to use with a VisionFive 2?
->=20
-> For your response, I did some thinking. Because wm8960 codec is not integ=
-rated
->  on the VisionFive2 board, perhaps using overlay is a better way.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Aye. I think so too. From my PoV, if this particular seeed audio board
-is something you're bundling with VisionFive 2 boards on your storefront
-etc, then I'm fine with taking it as an in-tree overlay.
-If it is just a "random" RPi hat (that happens to be exactly what you
-need for testing the audio drivers), then I don't know where to draw a
-line for what is & what is not acceptable for inclusion.
+Thanks!
 
-In both cases, it's Emil's call.
+[1/1] ASoC: Intel: soc-acpi-byt: Fix "WM510205" match no longer working
+      commit: c963e2ec095cb3f855890be53f56f5a6c6fbe371
 
-Cheers,
-Conor.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> > Also, it'd be nice to provide a Link: to where someone can find more
-> > info on this combination of items. Google for "wm8960 visionfive 2"
-> > gives me nothing, nor does "starfive audio card" etc.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---j+Ycr2hphDkEqIhB
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
+Mark
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZEat3wAKCRB4tDGHoIJi
-0jkcAP9PVqqvxUun7YG2AskDTqNN3Vw6Lcltm7vAqHee10z2JQEArKIyMolTkXjQ
-rNlamogL71o+AG5sxWxXqc/9qYTm3wU=
-=z1wj
------END PGP SIGNATURE-----
-
---j+Ycr2hphDkEqIhB--

@@ -2,53 +2,45 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC68C6EC3EF
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 05:33:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EBD66ED04D
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 16:27:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABFB2E8D;
-	Mon, 24 Apr 2023 05:32:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABFB2E8D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C76BF66;
+	Mon, 24 Apr 2023 16:26:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C76BF66
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682307206;
-	bh=haln/ZQFXbHKEi+q9lC8Lq28YHJJk/kz8+zGxts9S7U=;
-	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
+	s=default; t=1682346448;
+	bh=c7DHJOkQW88fnIpJvGmrfst6KPi0Ad81XxnWVE3nZzg=;
+	h=Date:Subject:To:References:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=J9e1UNuSjapjYSsu2FTT2w4ygNDBZ03V2/TGfG9ThiB/SF+u7k/eNBh6ttZfZ1kdr
-	 MVbO0vCs93WDbtVLb/mfsmA1JIOg3xtdnJLfTRUeBQUk892nHNEN6tzhJhEmJE6rwc
-	 cq8+vi0Qc6d+f5oE9EAdk87s8Dfp4RVDYZYczl0U=
+	b=A3xD76YbhINa/XIQar1vSOkVttnIMNSPej+zC6+QIlDAqVaEGOP28/AwXlBQ1Qkhx
+	 p0drQpk3K2RdtB1xzuf1u5vEbwhG5qsuC7iknOwutUxvWDATIuIToh8IMWQy+u/J3d
+	 xpgy4dWiLcCJ0kLxplKNmHUefbyuzHDmSQcT0y6k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBAC7F80104;
-	Mon, 24 Apr 2023 05:32:35 +0200 (CEST)
-To: "robh+dt@kernel.org" <robh+dt@kernel.org>,
-	"krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
-	"broonie@kernel.org" <broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "perex@perex.cz"
-	<perex@perex.cz>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH v2 7/7] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
- properties
-Date: Mon, 24 Apr 2023 03:31:03 +0000
-References: <20230421100905.28045-1-trevor.wu@mediatek.com>
-	 <20230421100905.28045-8-trevor.wu@mediatek.com>
-	 <5e622e88-5287-1ffc-aa9b-c7c85a661fd9@linaro.org>
-In-Reply-To: <5e622e88-5287-1ffc-aa9b-c7c85a661fd9@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTP id 613BDF8053B;
+	Mon, 24 Apr 2023 16:25:45 +0200 (CEST)
+Date: Mon, 24 Apr 2023 08:07:46 +0300
+Subject: Re: [PATCH v2] ASoC: max98090: make it selectable
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ alsa-devel@alsa-project.org
+References: <20230421211950.20972-1-fido_max@inbox.ru>
+ <0a2eca07-f266-164c-4a9f-f1000ae4efbc@linaro.org>
+In-Reply-To: <0a2eca07-f266-164c-4a9f-f1000ae4efbc@linaro.org>
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+X-Mailman-Approved-At: Mon, 24 Apr 2023 14:25:41 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBHIDFCRHOVLUTHWUJM5DEOUKM5Y4BHB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBEBJRRV6YJ5H4ZJ467UUBB2HY3QCQ3W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -58,210 +50,98 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <168230715446.26.4039351488506817459@mailman-core.alsa-project.org>
-From: =?utf-8?b?VHJldm9yIFd1ICjlkLPmlofoia8pIHZpYSBBbHNhLWRldmVs?=
- <alsa-devel@alsa-project.org>
-Reply-To: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-Cc: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+ <168234634459.26.1145154915470924001@mailman-core.alsa-project.org>
+From: Maxim Kochetkov via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Maxim Kochetkov <fido_max@inbox.ru>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, rf@opensource.cirrus.com,
+ ckeepax@opensource.cirrus.com, shumingf@realtek.com, ryans.lee@analog.com,
+ herve.codina@bootlin.com, wangweidong.a@awinic.com,
+ ajye_huang@compal.corp-partner.google.com
 Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1904F8018A; Mon, 24 Apr 2023 05:32:29 +0200 (CEST)
+	id A7E9AF8018A; Mon, 24 Apr 2023 07:08:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-6.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_RPBL,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtpng1.i.mail.ru (smtpng1.i.mail.ru [94.100.181.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6EBBFF80104
-	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 05:32:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EBBFF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5F37DF80137
+	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 07:07:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F37DF80137
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=k0dLpNNm;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com
- header.b=voQUc7BH
-X-UUID: 96aab00ae25011eda9a90f0bb45854f4-20230424
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=r9QsVWGynBeUZIbDx5N+XNTJUXAUH9k22ebwNSJNLKo=;
-	b=k0dLpNNmIpQMMK8ALsHE8/oJzeSz7fkfTSdqOsnJPNuVcER3cOK9Xpm8ehgbHKs8pLK1+r6kNMXROCaLqpla/x0IS61ncxqTRojGCp7rlmbB9GUiatgAR8NMEy7EEZ/ytPbwP3AZ3+jjeNSf57yrVME0kvekPChFfXLX00UaLnM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22,REQID:502c97e7-344c-4f14-81f1-14bafd42dadf,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:120426c,CLOUDID:00780085-cd9c-45f5-8134-710979e3df0e,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-UUID: 96aab00ae25011eda9a90f0bb45854f4-20230424
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
- mailgw01.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1835470973; Mon, 24 Apr 2023 11:32:07 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Mon, 24 Apr 2023 11:32:06 +0800
-Received: from APC01-SG2-obe.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Mon, 24 Apr 2023 11:32:06 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MxCdsdS/xi7W35bGYFStN3NRkCt5YsJZ/l6Pxz+ArrihlPt92ap+ptwNP+yu6mISlf16D0cMHnyFx0qS293R+oIDcY8KSzV0zJw2ylsFqh25mrdGim5dLj30yho7Q5AzsBQQb8QB6FNAI22S9oyCXbCnjtHIv9u8sonIbj6eiHN6eFMo9O4IKCUN6ERV1IFWnI9d5kjZkcXdfVBrV/0M6T2b96W24hC9fZ49HPSS/ZoERC9n2pIjun5wcVFAA4Fow67d8yJ2uIw+AOLjOebGIMdQOFU3pwNGA3Fekjk1Veu2WLip2KMrCVkOoHiVOIrHZJ7t9ea6PFlWHLDo3o2C4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r9QsVWGynBeUZIbDx5N+XNTJUXAUH9k22ebwNSJNLKo=;
- b=TC/gQqaqI2t5blZPB2OZgIRHZ/6Os/zeZoTmSEEKCSDkZwpyZgvqMj0W+eyd/E3gx5mZeEw5WDBAFNwJ/JgamEpqNP32CQSaDFOOxIT+m1OkAgs5bxNGd7hcwvK9iucU+eCbgN+tXARCKJVH1hQ/WmjvtUYaqqf4bsMPXHrqmHDI+AZ4bm8XMph2Ocfiwh7HHCyrTnHzy5i0SWJepb56ntgPnQk8nu/7ugNFIP9OINcKtGDX+cZ90/2Y2fCVi7t970gP2OHyhqBsZw0ToYrFUNXuu0nKVsF0Dmxbd87XDhjvvMPy0gEjTAVgbx3Vudl89M5zdI+xJL+rsKAqpZiqfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r9QsVWGynBeUZIbDx5N+XNTJUXAUH9k22ebwNSJNLKo=;
- b=voQUc7BHCKlB1PYPTENIxUm0O8uB/HTwR4GCOGsn5wxbUynuk2/H1yAPuXJjTcLXxDQmtS6gJrD4Fl47QngtKEAlpurQkVCD8xdwua89ieLK+aZxa4R+plBUfN3NLOqKNRsR45Zfuz+ox7VBl82OAbyR2/dFVaElxARp/IEMHkI=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by TYSPR03MB7450.apcprd03.prod.outlook.com (2603:1096:400:417::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
- 2023 03:31:03 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de%3]) with mapi id 15.20.6319.032; Mon, 24 Apr 2023
- 03:31:03 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "robh+dt@kernel.org" <robh+dt@kernel.org>,
-	"krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
-	"broonie@kernel.org" <broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "perex@perex.cz"
-	<perex@perex.cz>, "angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH v2 7/7] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
- properties
-Thread-Topic: [PATCH v2 7/7] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
- properties
-Thread-Index: AQHZdDllgLpr6s2YxEKDhVFHJHBCTK81+G+AgAPZgQA=
-Date: Mon, 24 Apr 2023 03:31:03 +0000
-Message-ID: <a19a8b8f0156a2542e488f1be13facf45f03ccb2.camel@mediatek.com>
-References: <20230421100905.28045-1-trevor.wu@mediatek.com>
-	 <20230421100905.28045-8-trevor.wu@mediatek.com>
-	 <5e622e88-5287-1ffc-aa9b-c7c85a661fd9@linaro.org>
-In-Reply-To: <5e622e88-5287-1ffc-aa9b-c7c85a661fd9@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|TYSPR03MB7450:EE_
-x-ms-office365-filtering-correlation-id: b31acfb8-1d4d-4107-2901-08db447454d8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- hsXMbgIxN9Zin1E3HjzfBWJu9vU4U3NyY2UpYYy8qFm+Iu+dO/Av+XCqzCpgiXo0ERzS+foN4MG8m9Vj7IjeuWpbPasI3gbQpXCPpRODu+gWj/IZcHu3owRsfqRIifkWYFW2hFs1MRFZuo73KNea98Yo/+VrHEkUJX5vWkWicbjMuX1qW2nwNkiyBLbVJkzp9yO2f03N8RnMxt9yoO5y7qdfRwzo5wqg+1XT6+KWF7GnWA3IHGesBrjBEYYy5hYZJbO2zh5XdWeUtdAymdlzpzLTD6KEOiQaCGavxRpXoov2PVKx6ykV1/TGeC2yOER3WkOmYUvcwA222/1fcJ5bLPRzyAgaE4RRVZWIEkF1tGmGTURfGavII3ZQ3K9ucOsk6IsF7rF6hcuRavew9WW7z7qlWewAtR9EE0BGsSnUMMlGGPYrOs1309ggDOp67ZGXL9vts2DRoj+2igy6T1h9dahXjm5c5lt1f/hhg7GsPtI3Cc2M7PcsXgZukd6GPFtV1hlUvKIk589Z7qLBhotuHebM8LFYbw6YH+5nJm3ekeGw0xI9nMmBO+0zZoHgzSHMmkCSPpWHokWG4R80K3yHBG/LmoYZRGp1igpRosnOwtj0+pTdP6MvGPmPuS4xCFXFJAMpXcm3iHGpkDtynIoLjS54+El6AVgk4NbtQIHlhZUcWTOYwS9Ou5h5qoRP7Pm/
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR03MB6686.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(346002)(39860400002)(136003)(396003)(451199021)(110136005)(54906003)(6486002)(2616005)(83380400001)(6506007)(53546011)(36756003)(85182001)(6512007)(26005)(186003)(71200400001)(478600001)(8936002)(8676002)(41300700001)(38070700005)(66946007)(66476007)(64756008)(66446008)(66556008)(76116006)(91956017)(4326008)(316002)(2906002)(86362001)(7416002)(5660300002)(38100700002)(122000001)(99106002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?RTdXVkpEaE1UVzdzYnRidWROTTNwcUZXSGJyUk1rb1N0SEJGQ2dJbGJlNlVa?=
- =?utf-8?B?U1l4K3FRQVhwR1pxaTh0YkZZY3hlZGRlSmo3c0c0dzNZSCtROW5qMnVGcE5x?=
- =?utf-8?B?UGNwVFIwbzk2Vk8vOGxRc0xsYXhCK1Z4L2hsT1F3cjdhZE0xcW12ZDA5eHFQ?=
- =?utf-8?B?RHFXQXc1RHBUVXF3cVlZOTQzdDJVcm1xbkx0WjNIcDZ5Q25jdm5uZUxzZG1Q?=
- =?utf-8?B?blhyWnhhSHk1SlIvSTRtZzFJanNaRHNyb2labG1JVnpXMFRvdkJsNmMyQ1Q2?=
- =?utf-8?B?MW4xdXBJem90dnp3cWgwaHR3NVFQbFFOdW9TRzFvWGFIWlB3QnYvS25qcFZU?=
- =?utf-8?B?UzIydkRhZFU0YXcveldpejFMNXNRMmZEenkzWk5pMCtCVTFuL3JmMXBBc2px?=
- =?utf-8?B?cnNjVkQ5bVpJMmhMdjUyTGN4VHF6eDlRc2lBTDRkL1JqMkp6VUYxb2JwaXY1?=
- =?utf-8?B?MVRHNk5BZFhneWo3bEZGNWlhYmZPY1lla2ZEVmx0V3NHVGRKa1hMcXVudTNz?=
- =?utf-8?B?eVh1RzZjSC9GMzFJc20xSXdCTDNQaElJVC83ZlhyZUFaenA5QWJ3eW5Xc2ZB?=
- =?utf-8?B?VGJmeHpWTlNMTEJVQUxBeUpDdXBRTktYanFKeTdsNUdWbU9RWkFOM1ZRMDBl?=
- =?utf-8?B?cVhVajNiUThJcXAvK1FnWDNlcEk4Z0daUm10OWpjb01tSVhwdUhFcWl6REE4?=
- =?utf-8?B?SitPMzRFUGFqa2hQSUY1b2VwWXB4bjhXb1ZRMlNOMzZWQUljeUdLbDgyc3BE?=
- =?utf-8?B?cStUYjI5WFNja2JzZWE1blFrMHk3OFI2dWg4eS93bjJLVEZ3NkxGYjY5ZCt1?=
- =?utf-8?B?empUT2d3WGQwc2gzbFlHOU0wdS9XY2FpRzZ3TGJBRm9iUlB6RUVLTk1GRHR4?=
- =?utf-8?B?WnhsZDFmZlcwODFudVl4dnRUMlNUOWVGeEV4MmpFcUd2ZmxwNlRJd0NyRVJR?=
- =?utf-8?B?VCtJSjg0L0pqb0VjaVJMN2c5Y0F1cVV5TWMwbWlFdVZnZmdHWlhqVVNIODlX?=
- =?utf-8?B?Y2x1bGtLblNZVDFjOG11eXdSd0w3L3hkcTBvWWFNek4wVEh3QnBMTTlnYUdO?=
- =?utf-8?B?ZTJ2aWIzRVQwTmpUdG0xaXZnK1pOakw2TFE0bnA1c3hQR0lIcUE5WFNReWI0?=
- =?utf-8?B?cnRMeDlZcXNwcGJ4VnZ5KytLNWtXcHZ0ZFVlKzRUTFR4VEJGU3QxZG9XTWY0?=
- =?utf-8?B?TU1jTkJTMm9QYkhhbDFyNHF6YVV0S3BHZGZFWE45S3IvbU5qZmJiM0JDbUZo?=
- =?utf-8?B?TWMwR2s4dGlMbzJvM2FXOWdtZWVEZHowOWl4RUhRLzg4TUtLU01pRjJPbHAr?=
- =?utf-8?B?WlJ1OE1rcm9iRHpQT05obStzV2pydjhHckU4UWNLeHUyeERTdmtOUDVWNnhv?=
- =?utf-8?B?SDBmTWpaV2cway9Ga0lLd0VYQzliOFE1Unk0WUZjN3Y5VkVoRmJER211SGNm?=
- =?utf-8?B?MHlvb3NSVTdib2t0YXVFK0NtZk43UGhaQ0tKL2Q4a1JHWlNPM0JlTERYeEov?=
- =?utf-8?B?TzRQZG1sdERVMkliaGtVQ0Q1cUZ4anFJMWJOMFN2SVRZYVpSRHVQN1NNa1Nn?=
- =?utf-8?B?TVZWWnVjMTJLTU16WHdDUkdUREJiR3RHM0lJL1JORzFkbVl4c01BZVBCZHo0?=
- =?utf-8?B?aGJYUUtNMiswM0dYOGZLSUdCYWowVzcyZmdVdThEN2E5dCttYTBTamhFQjRu?=
- =?utf-8?B?c29SdjFTVFlSMm9WY1ozTFZXWnUydnVQRzJ6TjlIVS8vcDBDS0dPaklvNTU0?=
- =?utf-8?B?NnhDNzJPdkxsMStLMFZaMUNpeVhSd2ZMMjEzRkJ2Z1d2YWFtYkRxQm5saW9q?=
- =?utf-8?B?a2hjSDdSbktOTHlsOUxQcTRLcVNkTHBOOVFXYzRIRk8zV2tyd3AwUzJBT3JT?=
- =?utf-8?B?YjBkcUJNTndtOExLSW8zYlQ4K1RGRExabmVIazlmbU5xQzQ4TWZpc21EUXRO?=
- =?utf-8?B?bWlsUHpsbkxvNStDbDNUNXNXM09TUzNDRUUwTVFOOGkyMmJXWm9JTGsySllM?=
- =?utf-8?B?WElnZzI4Y1BtL2tjbkEvMjIvSmEyR0RBalFiNGdhMkFrS0xWOElhQnVvaXBU?=
- =?utf-8?B?d1ljdGxFQlB5SnFWMXBicXdlZENqQlErbjNDODg4Vk5rL2FsYnBuQmQyanNK?=
- =?utf-8?B?T0wzNVczRGRwWStVRGFBNjhacStBeG5qNTdtSlNWNGV3cnBPN2NNRUVsN3Br?=
- =?utf-8?B?Z2c9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B011B9DDC048844BB52FD940E2A3FD3F@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256
+ header.s=mail4 header.b=E9nWluW5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
+ s=mail4;
+	h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
+ bh=D97O2zjKCLkxW2B/145nKdu1Mzrxu55I4Ti5/wkQD1I=;
+	t=1682312874;x=1682402874;
+	b=E9nWluW5jw0AewtBMixO3/E2hUZzcWX1KLsnEkLbnYTa6vw1wiklO7ZL/+CyFhEPwlVttUxTdNuE9b1I5rxYQd9pOGa7G3J8etbiFp8Ehd/ZMD+2UKVjwUc3/UtBMRKuJqY0R5guyUgZkbqvQefG+NJw4B1xyISnKn4hgS8XTCf5+6tr3Vg0pzzm1DQun6n/moo25+G2Zo1BhabkQ2Qk8zTMHRWlRXl+oJ2kfd/inXPPoiXvM958GRY6ztlPGFNyfMFTlvQXcXIy939Yd7/Fjazp/dEh4xPyCYngO8vaKtrXULbslEYAowWK/Kjt+wYu9IYAUmKyvSW0TicFGAJlTg==;
+Received: by smtpng1.m.smailru.net with esmtpa (envelope-from
+ <fido_max@inbox.ru>)
+	id 1pqoQW-0007Vt-T5; Mon, 24 Apr 2023 08:07:49 +0300
+Message-ID: <7fdf1f95-a9bb-8560-729c-b12bee302376@inbox.ru>
+Date: Mon, 24 Apr 2023 08:07:46 +0300
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b31acfb8-1d4d-4107-2901-08db447454d8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2023 03:31:03.3144
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- npyUtsDqRbI9Q6UKyYXTcUgQ2zMIJp3FZPJ9M3tYWAl0RNF95kVLrSIDgJapFCB4eR5If9bzv/+EJW+zn6yGnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7450
-X-MTK: N
-Message-ID-Hash: KBHIDFCRHOVLUTHWUJM5DEOUKM5Y4BHB
-X-Message-ID-Hash: KBHIDFCRHOVLUTHWUJM5DEOUKM5Y4BHB
-X-MailFrom: trevor.wu@mediatek.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH v2] ASoC: max98090: make it selectable
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ alsa-devel@alsa-project.org
+References: <20230421211950.20972-1-fido_max@inbox.ru>
+ <0a2eca07-f266-164c-4a9f-f1000ae4efbc@linaro.org>
+Content-Language: en-US
+From: Maxim Kochetkov <fido_max@inbox.ru>
+In-Reply-To: <0a2eca07-f266-164c-4a9f-f1000ae4efbc@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Authentication-Results: smtpng1.m.smailru.net;
+ auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
+X-Mailru-Src: smtp
+X-4EC0790: 10
+X-7564579A: 646B95376F6C166E
+X-77F55803: 
+ 4F1203BC0FB41BD9D2463843EA06979DD5780B9AB69B52B2C5C1FF211AD77DF4182A05F53808504095D3117AAF53475C8F7F332B3471583B3A02D8E5F880BB11CB41373429551B58
+X-7FA49CB5: 
+ FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7FBCED7D376B82B5EEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637BB680D3A894950458638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D840F0EE7A3A5969AFEDE650467819DBEF6F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE7328B01A8D746D8839FA2833FD35BB23D9E625A9149C048EE0AC5B80A05675ACDC26CFBAC0749D213D2E47CDBA5A96583BD4B6F7A4D31EC0BC014FD901B82EE079FA2833FD35BB23D27C277FBC8AE2E8B09CDF8F23AD6196DA471835C12D1D977C4224003CC8364762BB6847A3DEAEFB0F43C7A68FF6260569E8FC8737B5C2249EC8D19AE6D49635B68655334FD4449CB9ECD01F8117BC8BEAAAE862A0553A39223F8577A6DFFEA7CDDB9BF3B882869D543847C11F186F3C59DAA53EE0834AAEE
+X-C1DE0DAB: 
+ 0D63561A33F958A54EE8C99C65B2DEB13A4702118910BE7FB77B1E833D877848F87CCE6106E1FC07E67D4AC08A07B9B0CE135D2742255B35CB5012B2E24CD356
+X-C8649E89: 
+ 1C3962B70DF3F0ADBF74143AD284FC7177DD89D51EBB7742424CF958EAFF5D571004E42C50DC4CA955A7F0CF078B5EC49A30900B95165D34F05B761BB9C2AA449D340A1D3288F47D1AB0EB90A9776D23601C01C512D2F4DB92514C9C58CBDD911D7E09C32AA3244CA1A546AD50BBA0E5F7A423A7C2989DB705AB220A9D022EBC0D282625F6E20647
+X-D57D3AED: 
+ 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2bioj8e+LbpfNszEqxiCUTM679w==
+X-Mailru-Sender: 
+ 689FA8AB762F73933AF1F914F131DBF54D6B136482AA6E18C0A1EA27AEA2984C98CC072019C18A892CA7F8C7C9492E1F2F5E575105D0B01ADBE2EF17B331888EEAB4BC95F72C04283CDA0F3B3F5B9367
+X-Mras: Ok
+X-MailFrom: fido_max@inbox.ru
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: QBEBJRRV6YJ5H4ZJ467UUBB2HY3QCQ3W
+X-Message-ID-Hash: QBEBJRRV6YJ5H4ZJ467UUBB2HY3QCQ3W
+X-Mailman-Approved-At: Mon, 24 Apr 2023 14:25:41 +0000
+CC: lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com,
+ pierre-louis.bossart@linux.intel.com, rf@opensource.cirrus.com,
+ ckeepax@opensource.cirrus.com, shumingf@realtek.com, ryans.lee@analog.com,
+ herve.codina@bootlin.com, wangweidong.a@awinic.com,
+ ajye_huang@compal.corp-partner.google.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KBHIDFCRHOVLUTHWUJM5DEOUKM5Y4BHB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBEBJRRV6YJ5H4ZJ467UUBB2HY3QCQ3W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -270,54 +150,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gRnJpLCAyMDIzLTA0LTIxIGF0IDE4OjQzICswMjAwLCBLcnp5c3p0b2YgS296bG93c2tpIHdy
-b3RlOg0KPiBPbiAyMS8wNC8yMDIzIDEyOjA5LCBUcmV2b3IgV3Ugd3JvdGU6DQo+ID4gQXNzaWdu
-IHRvcF9hMXN5c19ocCBjbG9jayB0byAyNk0sIGFuZCBhZGQgYXBsbDFfZDQgdG8gY2xvY2tzIGZv
-cg0KPiA+IHN3aXRjaGluZw0KPiA+IHRoZSBwYXJlbnQgb2YgdG9wX2Exc3lzX2hwIGR5bmFtaWNh
-bGx5DQo+ID4gT24gdGhlIG90aGVyIGhhbmQsICJtZWRpYXRlayxpbmZyYWNmZyIgaXMgaW5jbHVk
-ZWQgZm9yIGJ1cw0KPiA+IHByb3RlY3Rpb24uDQo+ID4gDQo+ID4gU2lnbmVkLW9mZi1ieTogVHJl
-dm9yIFd1IDx0cmV2b3Iud3VAbWVkaWF0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+ICAuLi4vYmluZGlu
-Z3Mvc291bmQvbWVkaWF0ZWssbXQ4MTg4LWFmZS55YW1sICAgICAgfCAxNg0KPiA+ICsrKysrKysr
-KysrKysrLS0NCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDIgZGVsZXRp
-b25zKC0pDQo+ID4gDQo+ID4gZGlmZiAtLWdpdA0KPiA+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL3NvdW5kL21lZGlhdGVrLG10ODE4OC1hZmUueWFtbA0KPiA+IGIvRG9jdW1l
-bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL21lZGlhdGVrLG10ODE4OC1hZmUueWFt
-bA0KPiA+IGluZGV4IDgyY2NiMzJmMDhmMi4uODEyZTA3MDJjYTM2IDEwMDY0NA0KPiA+IC0tLSBh
-L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9tZWRpYXRlayxtdDgxODgt
-DQo+ID4gYWZlLnlhbWwNCj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3Mvc291bmQvbWVkaWF0ZWssbXQ4MTg4LQ0KPiA+IGFmZS55YW1sDQo+ID4gQEAgLTI5LDYgKzI5
-LDEwIEBAIHByb3BlcnRpZXM6DQo+ID4gICAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9k
-ZWZpbml0aW9ucy9waGFuZGxlDQo+ID4gICAgICBkZXNjcmlwdGlvbjogVGhlIHBoYW5kbGUgb2Yg
-dGhlIG1lZGlhdGVrIHRvcGNrZ2VuIGNvbnRyb2xsZXINCj4gPiANCj4gPiArICBtZWRpYXRlayxp
-bmZyYWNmZzoNCj4gPiArICAgICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25z
-L3BoYW5kbGUNCj4gPiArICAgIGRlc2NyaXB0aW9uOiBUaGUgcGhhbmRsZSBvZiB0aGUgbWVkaWF0
-ZWsgaW5mcmFjZmcgY29udHJvbGxlcg0KPiA+ICsNCj4gPiAgICBwb3dlci1kb21haW5zOg0KPiA+
-ICAgICAgbWF4SXRlbXM6IDENCj4gPiANCj4gPiBAQCAtNTIsNiArNTYsNyBAQCBwcm9wZXJ0aWVz
-Og0KPiA+ICAgICAgICAtIGRlc2NyaXB0aW9uOiBtdXggZm9yIGkyc2kxX21jaw0KPiA+ICAgICAg
-ICAtIGRlc2NyaXB0aW9uOiBtdXggZm9yIGkyc2kyX21jaw0KPiA+ICAgICAgICAtIGRlc2NyaXB0
-aW9uOiBhdWRpbyAyNm0gY2xvY2sNCj4gPiArICAgICAgLSBkZXNjcmlwdGlvbjogYXVkaW8gcGxs
-MSBkaXZpZGUgNA0KPiA+IA0KPiA+ICAgIGNsb2NrLW5hbWVzOg0KPiA+ICAgICAgaXRlbXM6DQo+
-ID4gQEAgLTczLDYgKzc4LDcgQEAgcHJvcGVydGllczoNCj4gPiAgICAgICAgLSBjb25zdDogaTJz
-aTFfbV9zZWwNCj4gPiAgICAgICAgLSBjb25zdDogaTJzaTJfbV9zZWwNCj4gPiAgICAgICAgLSBj
-b25zdDogYWRzcF9hdWRpb18yNm0NCj4gPiArICAgICAgLSBjb25zdDogYXBsbDFfZDQNCj4gPiAN
-Cj4gPiAgICBtZWRpYXRlayxldGRtLWluMS1jb3dvcmstc291cmNlOg0KPiA+ICAgICAgJHJlZjog
-L3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyDQo+ID4gQEAgLTE0Nyw2ICsx
-NTMsOCBAQCByZXF1aXJlZDoNCj4gPiAgICAtIHBvd2VyLWRvbWFpbnMNCj4gPiAgICAtIGNsb2Nr
-cw0KPiA+ICAgIC0gY2xvY2stbmFtZXMNCj4gPiArICAtIGFzc2lnbmVkLWNsb2Nrcw0KPiA+ICsg
-IC0gYXNzaWduZWQtY2xvY2stcGFyZW50cw0KPiANCj4gWW91IHdlcmUgZXhwbGFpbmluZyBpdCBs
-YXN0IHRpbWUsIGJ1dCBpdCBkaWQgbm90IHNvbHZlIG15IGNvbmNlcm5zLg0KPiBSZXF1aXJpbmcg
-dGhlc2UgcHJvcGVydGllcyBtZWFucyB0aGF0IHlvdXIgaGFyZHdhcmUgYm9vdHMgd2l0aA0KPiBp
-bmNvcnJlY3QNCj4gY2xvY2sgcGFyZW50cywgaW5jbHVkaW5nIHJlc3VsdCBvZiBhbnkgZmlybXdh
-cmUsIGFuZCB0aGVyZSBpcyBubyB3YXkNCj4gaXQNCj4gY2FuIGNvcnJlY3RseSB3b3JrIHdpdGhv
-dXQgcmVwYXJlbnRpbmcuIFdoYXQncyBtb3JlLCB0aGlzIG1lYW5zIHRoYXQNCj4geW91ciBjbG9j
-ayBoaWVyYXJjaHkgZG9lcyBub3QgaW5jbHVkZSB0aGVzZSBjbG9ja3MgZm9yIHNvbWUgcmVhc29u
-LA0KPiBlLmcuDQo+IHlvdSBuZWVkIHRvIHJlcGFyZW50IHBhcmVudHMgb2Ygc29tZSBwYXJlbnQg
-b2YgeW91ciBjbG9jayBpbnB1dCwNCj4gb3RoZXJ3aXNlIGRldmljZSBjYW5ub3Qgd29yay4gQ2Fu
-bm90IHdvcmsgbmV2ZXIgZXZlci4NCj4gDQo+IElzIHRoaXMgdGhlIGNhc2U/DQoNClRoYW5rcyBm
-b3IgeW91ciBkZXRhaWxlZCBleHBsYW5hdGlvbi4NCkkganVzdCB0cmllZCB0byBpbml0aWFsaXpl
-IHRoZSBjbG9jayB0byBhbm90aGVyIGNsb2NrIHBhcmVudCBmb3IgcG93ZXINCnNhdmluZywgc28g
-dGhpcyBpcyBub3QgdGhlIGNhc2UuIEluIG90aGVyIHdvcmRzLCBpdCdzIG5vdCBhICJtdXN0IGJl
-Ig0KcHJvcGVydHkuIEkgd2lsbCByZW1vdmUgdGhlbSBpbiBWMy4NCg0KVGhhbmtzLA0KVHJldm9y
-DQoNCj4gDQo+IEhhdmUgaW4gbWluZCB0aGF0IGJpbmRpbmdzIGFyZSB1c2VkIGFsc28gYnkgb3Ro
-ZXIgT1MgYW5kIHByb2plY3RzLA0KPiBsaWtlDQo+IGJvb3Rsb2FkZXJzLCBmaXJtd2FyZSBldGMu
-DQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IEtyenlzenRvZg0KPiANCg==
+
+
+On 23.04.2023 11:22, Krzysztof Kozlowski wrote:
+> On 21/04/2023 23:19, Maxim Kochetkov wrote:
+>> There is no way to select max98090 from menuconfig right now.
+>> Add a Kconfig menu description to allow building the driver standalone.
+>> It will allow this codec to be used by any other I2S master without
+>> adding extra sound card entry in Kconfig.
+> 
+> For your sound card, you need extra sound card entry in Kconfig.
+
+Ok. But why do we allow some other codecs to be selectable?
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v6.3-rc7&id=24ae67c582500
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v6.3-rc7&id=99afc8df8b6f2
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v6.3-rc7&id=3ac9ce8858ae3
+
+

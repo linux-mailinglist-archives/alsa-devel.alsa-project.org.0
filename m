@@ -2,125 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE0D6EC831
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 10:58:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 438CF6EC97C
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 11:53:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4846F29;
-	Mon, 24 Apr 2023 10:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4846F29
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40F7CF27;
+	Mon, 24 Apr 2023 11:52:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F7CF27
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682326719;
-	bh=qAQa4pgWdQ/duGl6AUi6GeoL58Fh9xZljjiwcg2iOCE=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1682330026;
+	bh=8nXbvKN3NVOq1MNMv2BKZhKpGyGFEU9KPwYeI4htA1M=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oqbMweP8DnP3uqBl68mhef9PQSGgm7iKPkFfRVnuBH0uFjL90mWyzEBhnfbN4nnYc
-	 5g+159WUa0tLHQcam2P5BaRvXmTKU31aO676KIaAI8vEjlAXPA0fNkoRo6ZsrW8Vfg
-	 LFOXYfJaYufJspRqSBwXNxa89mJd+WbfKQAMnHaE=
+	b=cuf53ZknlKzIIchWsUnDhkEoE2KDdd4ppHIB5fE1DW+nWy//EVdEI47UQNEzAkGI3
+	 0mTP+hp2euAmrGX1BSaIikztVazCRBLsLU8UxmfvwCFGtXVPItjRfslaT92hxtZvAU
+	 U7X8DNWwa5PReT7TZCQCXt7cpB0Wtc7UxrrlCwv8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37895F80162;
-	Mon, 24 Apr 2023 10:57:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A250BF800AC;
+	Mon, 24 Apr 2023 11:52:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 232D5F8018A; Mon, 24 Apr 2023 10:57:46 +0200 (CEST)
+	id 383EEF8018A; Mon, 24 Apr 2023 11:52:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CFA64F80137
-	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 10:57:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA64F80137
+	by alsa1.perex.cz (Postfix) with ESMTPS id EBB36F800AC
+	for <alsa-devel@alsa-project.org>; Mon, 24 Apr 2023 11:52:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBB36F800AC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=wnoZDMgq
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-506bdf29712so31031103a12.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 24 Apr 2023 01:57:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1682326660; x=1684918660;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=py9y4io0JhKKQaJ7dHvVlaxjI6tdWmAwE0q2TA8Rftw=;
-        b=wnoZDMgqjic8RW3o0ZWmn0DOOE/LZaUDXt4RLG1Y2BKytuMU3u0ougg705ooblBOT4
-         aGMul4S6SKYv6IVQwp+v8jgjv4RSBtwg3ySU8uttopygYwrS+yMMsTXq89IUaiGBK/b3
-         6awmjyPxniVcZJG6F7EG3V5I4bconXMAXxvQ/hTpUByjsV21QpYemmaSZebKtyqDln0A
-         fRf+YHTciYQuZ35NG9cXQbtPryz3319fq8X4grnkTdkECb8OTTKpO90O0m61hTbLdqsr
-         /XvaxedOGnSbCG9cigVghwHpRbVL4+Fo/AIzaRzBr22b0y9WIsXiVLagq6OYaM/epmUG
-         g3wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682326660; x=1684918660;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=py9y4io0JhKKQaJ7dHvVlaxjI6tdWmAwE0q2TA8Rftw=;
-        b=NhTwGq8zkhzmN3pJ0taxwMvejoutmyHWSKqknMjKZS09Bp55qKv+iuFtkOyZJwCQfj
-         rrnr9oJw8i7pmGMObedPJpYMddjNd6F/+Ef0dsmyDNezq66lgwxZ2FDL1eBym3ySK/RS
-         69RyA1JeMLdnn0xDgZ5YMbEli7I23bkWZw6bgRR3xlS4h/LMuYfus0mnz5h3iey0UCve
-         KxkwhRj2UjYMkDFfpytmOMpEfpQ1cui4+7E4iGg7kpWfYAhowDPkTQ1O1llGbPUSGO7I
-         Pd5ZEtMdz1y8uYtRHcn5lXP6bZQ+I6VhT++ewKi9hcnSNR/P1TOtMjRtDKjNufnq5CIb
-         XsRQ==
-X-Gm-Message-State: AAQBX9cuLRb7rVB61V2BowQ/9MCAkLKx68IdK2zDzcKtockt7Ce9JGrb
-	pJrHCGUiQAE476zwWgSQ4E0SZg==
-X-Google-Smtp-Source: 
- AKy350YnWh5dQqxulqiegnnw1JtNJ/toTAVsHsERPqx47Br5ukTw2d4ghl1xLHjty+OA7pZQKeri2Q==
-X-Received: by 2002:a17:906:12:b0:94e:6edc:71bc with SMTP id
- 18-20020a170906001200b0094e6edc71bcmr9036908eja.25.1682326660596;
-        Mon, 24 Apr 2023 01:57:40 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:fcdb:bf53:d053:3a52?
- ([2a02:810d:15c0:828:fcdb:bf53:d053:3a52])
-        by smtp.gmail.com with ESMTPSA id
- lb16-20020a170907785000b0094ee700d8e4sm5243859ejc.44.2023.04.24.01.57.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 24 Apr 2023 01:57:40 -0700 (PDT)
-Message-ID: <2c308d01-8b9f-5132-6440-ee9166499b55@linaro.org>
-Date: Mon, 24 Apr 2023 10:57:38 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=FYctiapf
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8EC0261700;
+	Mon, 24 Apr 2023 09:52:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B832C433EF;
+	Mon, 24 Apr 2023 09:52:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1682329963;
+	bh=8nXbvKN3NVOq1MNMv2BKZhKpGyGFEU9KPwYeI4htA1M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FYctiapfbLl+v3aiA7xN8Q4wOwyqvb4gdGU+zMHB9DiPq5oiH9iFm4VyDM/x8l0IK
+	 EWBqN4LKCvBxZwuR2nMMHJ8ILfNzMfHJDuCAeGEzHD/G5LYObnKm1Am3lKpnxGomp2
+	 b5P9cf7qS26wDU1OxGkEMc9OYD72iutYMkf88wEVbhxyJbkGwrbsO4O/hGrfdYNoud
+	 TrQmiiT3OvxjYCh9WWYnt6+gpqN2Wmb+QzMatz1LWVu3vnrPKEE8Jr4GWHhXf7J80/
+	 mRuKFKHa5U5Oj6sZGPwVQgJ6jOYJX+qkq6Le/M3nkmp1Bx5FufXOGoZbW/ZcRVvOr1
+	 O+kgUXnCW8oJQ==
+Date: Mon, 24 Apr 2023 10:52:00 +0100
+From: Lee Jones <lee@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v6 3/7] mfd: Add support for the Lantiq PEF2256 framer
+Message-ID: <20230424095200.GC8035@google.com>
+References: <20230417171601.74656-1-herve.codina@bootlin.com>
+ <20230417171601.74656-4-herve.codina@bootlin.com>
+ <20230420123946.GB996918@google.com>
+ <20230420151551.78c1288b@bootlin.com>
+ <20230420134703.GC996918@google.com>
+ <20230421092645.56127f11@bootlin.com>
+ <20230421074558.GQ996918@google.com>
+ <054a384b-b0ef-2697-4a70-09868694ec6d@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v2] ASoC: max98090: make it selectable
-Content-Language: en-US
-To: Maxim Kochetkov <fido_max@inbox.ru>, alsa-devel@alsa-project.org
-References: <20230421211950.20972-1-fido_max@inbox.ru>
- <0a2eca07-f266-164c-4a9f-f1000ae4efbc@linaro.org>
- <7fdf1f95-a9bb-8560-729c-b12bee302376@inbox.ru>
- <600d0c3e-0b5a-88a8-fade-edf3e4dd8ac6@linaro.org>
- <8805da0f-f79c-f6ad-bdec-7e1183242a79@inbox.ru>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <8805da0f-f79c-f6ad-bdec-7e1183242a79@inbox.ru>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: KCOIERG6PKHJ6BIJG2ZG2RSMUOFKTRYG
-X-Message-ID-Hash: KCOIERG6PKHJ6BIJG2ZG2RSMUOFKTRYG
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <054a384b-b0ef-2697-4a70-09868694ec6d@linaro.org>
+Message-ID-Hash: 4OBO3M5YJGOWWKABFUDWZ33OYFLLCCXQ
+X-Message-ID-Hash: 4OBO3M5YJGOWWKABFUDWZ33OYFLLCCXQ
+X-MailFrom: lee@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com,
- pierre-louis.bossart@linux.intel.com, rf@opensource.cirrus.com,
- ckeepax@opensource.cirrus.com, shumingf@realtek.com, ryans.lee@analog.com,
- herve.codina@bootlin.com, wangweidong.a@awinic.com,
- ajye_huang@compal.corp-partner.google.com
+CC: Herve Codina <herve.codina@bootlin.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KCOIERG6PKHJ6BIJG2ZG2RSMUOFKTRYG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OBO3M5YJGOWWKABFUDWZ33OYFLLCCXQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,33 +106,140 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 24/04/2023 10:55, Maxim Kochetkov wrote:
-> 
-> 
-> On 24.04.2023 09:40, Krzysztof Kozlowski wrote:
->> On 24/04/2023 07:07, Maxim Kochetkov wrote:
->>>
->>>
->>> On 23.04.2023 11:22, Krzysztof Kozlowski wrote:
->>>> On 21/04/2023 23:19, Maxim Kochetkov wrote:
->>>>> There is no way to select max98090 from menuconfig right now.
->>>>> Add a Kconfig menu description to allow building the driver standalone.
->>>>> It will allow this codec to be used by any other I2S master without
->>>>> adding extra sound card entry in Kconfig.
->>>>
->>>> For your sound card, you need extra sound card entry in Kconfig.
->>>
->>> Ok. But why do we allow some other codecs to be selectable?
->>
->> Mark explained reasons and I also pointed out that some are used through
->> generic card.
-> 
-> Exactly. I'm trying to use this codec through generic card.
+On Fri, 21 Apr 2023, Krzysztof Kozlowski wrote:
 
-Commit msg does not answer in such way. It suggests removal of
-unnecessary extra sound card, but extra sound cards are necessary.
-Otherwise just write in commit what is going to use it.
+> On 21/04/2023 09:45, Lee Jones wrote:
+> > On Fri, 21 Apr 2023, Herve Codina wrote:
+> > 
+> >> Hi Lee, Krzysztof,
+> >>
+> >> On Thu, 20 Apr 2023 14:47:03 +0100
+> >> Lee Jones <lee@kernel.org> wrote:
+> >>
+> >>> On Thu, 20 Apr 2023, Herve Codina wrote:
+> >>>
+> >>>> On Thu, 20 Apr 2023 13:39:46 +0100
+> >>>> Lee Jones <lee@kernel.org> wrote:
+> >>>>   
+> >>>>> On Mon, 17 Apr 2023, Herve Codina wrote:
+> >>>>>   
+> >>>>>> The Lantiq PEF2256 is a framer and line interface component designed to
+> >>>>>> fulfill all required interfacing between an analog E1/T1/J1 line and the
+> >>>>>> digital PCM system highway/H.100 bus.
+> >>>>>>
+> >>>>>> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> >>>>>> ---
+> >>>>>>  drivers/mfd/Kconfig         |  16 +
+> >>>>>>  drivers/mfd/Makefile        |   1 +
+> >>>>>>  drivers/mfd/pef2256-regs.h  | 250 ++++++++++
+> >>>>>>  drivers/mfd/pef2256.c       | 950 ++++++++++++++++++++++++++++++++++++    
+> >>>>>
+> >>>>> 95% of this driver needs to be moved somewhere else.
+> >>>>>
+> >>>>> What is a Framer?  Perhaps sound/ is a good candidate?  
+> >>>>
+> >>>> The pef2256 framer is a device that transfers data to/from a TDM (time-slots
+> >>>> data) from/to quite old telecommunication lines (E1 in my case).
+> >>>> Several subsystem can set/get data to/from the TDM. Each device using their
+> >>>> own time-slots set.
+> >>>>
+> >>>> On my use-case, I have some audio consumer and a not yet upstreamed HDLC
+> >>>> consumer. Both of them uses the framer to know the E1 link state.
+> >>>> The framer needs to be initialized 'globally' and not by a specific consumer
+> >>>> as several consumers can use the framer.  
+> >>>
+> >>> I can't think of a good place for this.
+> >>>
+> >>> If all else fails, it's drivers/misc
+> >>>
+> >>>>>>  include/linux/mfd/pef2256.h |  52 ++
+> >>>>>>  5 files changed, 1269 insertions(+)
+> >>>>>>  create mode 100644 drivers/mfd/pef2256-regs.h
+> >>>>>>  create mode 100644 drivers/mfd/pef2256.c
+> >>>>>>  create mode 100644 include/linux/mfd/pef2256.h    
+> >>>>>
+> >>>>> [...]
+> >>>>>   
+> >>>>>> +static int pef2256_add_audio_devices(struct pef2256 *pef2256)
+> >>>>>> +{
+> >>>>>> +	const char *compatible = "lantiq,pef2256-codec";
+> >>>>>> +	struct mfd_cell *audio_devs;
+> >>>>>> +	struct device_node *np;
+> >>>>>> +	unsigned int count = 0;
+> >>>>>> +	unsigned int i;
+> >>>>>> +	int ret;
+> >>>>>> +
+> >>>>>> +	for_each_available_child_of_node(pef2256->dev->of_node, np) {
+> >>>>>> +		if (of_device_is_compatible(np, compatible))
+> >>>>>> +			count++;
+> >>>>>> +	}    
+> >>>>>
+> >>>>> Converting Device Tree nodes into MFD cells to register with the
+> >>>>> Platform Device API is not a reasonable use-case of MFD.
+> >>>>>
+> >>>>> Have the CODEC driver match on "lantiq,pef2256-codec" and let it
+> >>>>> instantiate itself.  
+> >>>>
+> >>>> As the framer is going to used by several subsystem, I cannot instantiate
+> >>>> it in the specific ASoC subsystem.
+> >>>>   
+> >>>>>
+> >>>>> Your first version using of_platform_populate() was closer to the mark.  
+> >>>>
+> >>>> The issue was that I need MFD cells for the pinctrl part.  
+> >>>
+> >>> Why can't it be represented in DT?
+> >>
+> >> The pinctrl part has no specific compatible string.
+> >> Not sure that a compatible string for pinctrl can be accepted
+> >> as there is only one pinctrl subnode and no specific reg for this
+> >> subnode.
+> >>
+> >> The DT looks like this:
+> >>     framer@2000000 {
+> >>       compatible = "lantiq,pef2256";
+> >>       reg = <0x2000000 0x100>;
+> >>       ...
+> >>       pinctrl {
+> >>         pef2256_rpa_sypr: rpa-pins {
+> >>           pins = "RPA";
+> >>           function = "SYPR";
+> >>         };
+> >>       };
+> >>
+> >>       pef2256_codec0: codec-0 {
+> >>         compatible = "lantiq,pef2256-codec";
+> >>         #sound-dai-cells = <0>;
+> >>         sound-name-prefix = "PEF2256_0";
+> >>       };
+> >>     };
+> >>
+> >> Krzysztof, is it acceptable to have a compatible string in the pinctrl node ?
+> > 
+> > Why wouldn't it be?
+> > 
+> > $ git grep ".compatible" -- drivers/pinctrl/
+> > 
+> >> In this case, it will looks like this:
+> >>     framer@2000000 {
+> >>       compatible = "lantiq,pef2256";
+> >>       reg = <0x2000000 0x100>;
+> >>       ...
+> >>       pinctrl {
+> >>         compatible = "lantiq,pef2256-pinctrl";
+> 
+> If you do not have any resources, there is no point in having separate
+> compatible for separate device node.
 
-Best regards,
-Krzysztof
+That's a new rule.  Is that documented somewhere?  I'm sure we already
+have device nodes for devices whom only operate on shared resources. 
 
+> Anyway this discussions should not be about DT. How Linux drivers are
+> implementing DT is not really a guide how to write DT. Since these
+> series were brought there were some DT decisions made based how you want
+> to write the driver. No, please don't. I also do not see any problems in
+> handling more-or-less complex driver structures without poking the DT.
+> We have already many such device families.
+
+-- 
+Lee Jones [李琼斯]

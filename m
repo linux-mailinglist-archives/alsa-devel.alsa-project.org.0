@@ -2,70 +2,178 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B316EC18C
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Apr 2023 20:11:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB66E6EC39D
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Apr 2023 04:36:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7121BE76;
-	Sun, 23 Apr 2023 20:10:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7121BE76
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED43CE80;
+	Mon, 24 Apr 2023 04:35:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED43CE80
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682273466;
-	bh=gYCtTShPEDSAW/ELj3doqkVt24yJe3rNWxFYw6rbZmQ=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=SQDEJFaFVTIQ8/1SzczjK8Me0wIgCUjb4Rx0b7hwCgtaxZTKHcG8D2U/plAdFwQiA
-	 tfFZuaxaeD3HjMunYq9iqKGE6ivc0K7IFgo80x3Q9dZOJAiFMQ8+2Nr1RZCaqGs5oX
-	 Jo3XBKwkGMHQFC9B8wLtdkFeJc9obnmvhYFf631I=
+	s=default; t=1682303781;
+	bh=oxDv2qgtRqqAZPpPecnBdPV6IE5bq9F/YN9Oie2O/D4=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=COwNdOzRAX/iIHsa8pcmOAXMQRwtX0p82hM1afp2jMImTaabxo95llmtUCxpU1iLL
+	 mNXqiLHsDDIWM5C5QOpoPDXo7NWF3w5QJAF7dzp0KD5oumWHwE5eUd0gUo0UzxOYDj
+	 2vt3NCOM9pgpB3N94OaebJe1EPw5mZVR0mAnCJD4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0D3BF8018A;
-	Sun, 23 Apr 2023 20:10:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C473F80236;
+	Mon, 24 Apr 2023 04:35:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 359F2F8025F; Sun, 23 Apr 2023 20:10:11 +0200 (CEST)
+	id 68649F80236; Mon, 24 Apr 2023 04:35:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No,
+ score=-2.2 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20700.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::700])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EE289F800AC
-	for <alsa-devel@alsa-project.org>; Sun, 23 Apr 2023 20:10:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE289F800AC
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id D716124251;
-	Sun, 23 Apr 2023 14:10:02 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pqe9y-ELp-00; Sun, 23 Apr 2023 20:10:02 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH v2 2/2] ALSA: emu10k1: use high-level I/O in set_filterQ()
-Date: Sun, 23 Apr 2023 20:10:02 +0200
-Message-Id: <20230423181002.1246793-2-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230423181002.1246793-1-oswald.buddenhagen@gmx.de>
-References: <20230423181002.1246793-1-oswald.buddenhagen@gmx.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 488DDF800AC;
+	Mon, 24 Apr 2023 04:35:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 488DDF800AC
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=Ve4GYHcn
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PRrNTtS0G3cwQUF7T123w/Lxz696AZTnvQmCwnPfUoRQzRdUFHo8+iQac2JuGuX0qoMXYxqcoA6opa/Ed0zoy7Dtv9XtBzR3Gra5SvRNHQmBGh+eMtjN+dO3YnB7f0ErQLjVLzmcY2hPX2xCcbLCDBuIeE9Mhedyivj4JasL1WALEZpArFHCC8h/vikRITsMCc88aEKligEXf7lqH0Z4tU5WufmUXtJVshzdEzcb8lvl7LOIJdol1SUeFddjae49r7qOEeYMz2nwrs0T2vP1071z5JLk6Ii9wI2TelPIDpxhUrzHjLSUToG1XwneM5ddHeraBdmZEBXkOpLiYTMM3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FuC8/NbudUW2StN+2wr9fflajXO+sOgoptpkUyhWL6M=;
+ b=dywkoRGO9T7620Ko3BNiHqfCycdycP1M/XppiQVJzSnb+VXNl7S+y2YH6vqbV5naBiPL80a4iwFKDDpewVBJbOTpPfZMuHbCovTFSfIp6wLDRJlE10PIBfNVHdX4/yyLj0uvWLSBpaAMCpIwetavQTps2MGGccmVRG7y4mABgO3mMTmBOFAS9ufSMZYDjJttgKLGjpbVtpS6VdaE5onven5eUJiIpn5FBIvbAn2HO/PIoWkKmwZ3mTj1Ygo87bPam+6dzwI7bAzBVDhA7qN/c7a6cniPfA6iLx5jplRVT56513PZiPPXcu2zMWsjM+tHPnGf+l2zXznZynvlp4gQoA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FuC8/NbudUW2StN+2wr9fflajXO+sOgoptpkUyhWL6M=;
+ b=Ve4GYHcn/FmQMdANED/t42Kh5dEqRjR4lLR7Q2sXgvIi4JdNhpoE6Oma59JmBCGQOLz4BBUtmp7mUAZYeb4V5rdW2l/LGeC2R4dKiS1RMDMyMiOqPuE+dY3m+AccKCUFBjqgdR6z3IbY/zWb1JFJvWZBRzI7OYAZzyWqHvctUy4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by OS0PR01MB5681.jpnprd01.prod.outlook.com (2603:1096:604:b3::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
+ 2023 02:35:02 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::91e7:a94f:9f75:d840]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::91e7:a94f:9f75:d840%5]) with mapi id 15.20.6319.022; Mon, 24 Apr 2023
+ 02:35:02 +0000
+Message-ID: <87bkje0zzf.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: =?UTF-8?B?IkFtYWRldXN6IFPDhYJhd2nDhYRza2ki?=
+ <amadeuszx.slawinski@linux.intel.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Banajit Goswami <bgoswami@quicinc.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Claudiu Beznea
+ <claudiu.beznea@microchip.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, Jaroslav Kysela <perex@perex.cz>,
+ Jerome Brunet <jbrunet@baylibre.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>, Kevin Hilman <khilman@baylibre.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Nicolas Ferre
+ <nicolas.ferre@microchip.com>, Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>, Richard Fitzgerald
+ <rf@opensource.cirrus.com>, Sascha Hauer <s.hauer@pengutronix.de>, Shawn
+ Guo <shawnguo@kernel.org>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Stephan Gerhold
+ <stephan@gerhold.net>, Takashi Iwai <tiwai@suse.com>, Xiubo Li
+ <Xiubo.Lee@gmail.com>
+Subject: [PATCH v2 00/13] ASoC: add and use asoc_dummy_dlc
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Mon, 24 Apr 2023 02:35:01 +0000
+X-ClientProxiedBy: TYBP286CA0008.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:404:ce::20) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BX5ZD3RRV2ITMOQLXZOIU262ZON4UW7K
-X-Message-ID-Hash: BX5ZD3RRV2ITMOQLXZOIU262ZON4UW7K
-X-MailFrom: ossi@kde.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OS0PR01MB5681:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77ae0d26-f086-4a90-f76a-08db446c8162
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	1hc5WYdn5tAYb7ZI4RR8e9AplU+PsB9S0v1q49YbGTzNZt8P8aeE2TT0aramayUZcT0v0JQVXKq3STAO9bKt4G7Ow+ZBltPv8hBdziABeByrm61JEKQaRKVuPS6HF/IiwyTkh3fexDxQB4Rx7SxIrefkLpI06uciRXRmMbQYyKlU+UxIIJoIhqTkV/N01GQvTQ/U/lpQBX73ifitKjGsD9cbFtdapeVJseOcipqo9w+TahoDNtVDNv0t5TKz++VXFhP1niaiRUzoyrofi1kqOVC0xJBlR9B3TTFHmn26KbxuCzJJu+JObQXXWXbXQ6WAKHMMjqGI/3ZDX/4UTPUbfulTbDOGTqghyGBaMs/siJAbKjTd2RZ3VV8tPZ3KUcfqMrPwgFoLMddHGgyd9uP+Yw67Mjpvpx7afPH5KByuwkMVnIwRAjOyaRwCwfs69mQCm9mBxpEOcJPEGH0QXr0u7pwLoLyRkBKgz9mP6gcgSbWkpOKTgdkcdHb9hmG6I0/PJ9QdvwXUOzflXQIpYK33/OtuORogEhCRnfGmte407iLyvFCWs6mbNT4pWGd/+HzZp5MD/JrnoS4Ppr9J+RrDkjhlC7wlV76WIjXF8IrFN/U30UC7moqmsai0C0ESpfdV
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(366004)(451199021)(2906002)(52116002)(6486002)(966005)(2616005)(6512007)(6506007)(26005)(186003)(66946007)(66556008)(66476007)(8676002)(8936002)(316002)(41300700001)(4326008)(478600001)(7406005)(5660300002)(7416002)(54906003)(110136005)(921005)(38350700002)(38100700002)(36756003)(86362001)(83380400001);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?uqU1kb7AIiR1Oz0wrwb430lOmPhIs2WcdlkYRxLnYM5WD5Wo4lT1Y/O8ze8r?=
+ =?us-ascii?Q?FHX7VZfGWgZDNIEsN/ZrXICPY7XzcAFOiuSAvj+2nqsZ/2e3NL9mp1ZgFpjI?=
+ =?us-ascii?Q?nxJny8+6kXVSIw3HeOOlJskvAW6kyQ4npe9A9O8SgStXo0+iUfUQBMArbVHF?=
+ =?us-ascii?Q?mPHATAIZiWF9ZLDmU2FPDI4T8RX/Orc2Zea5sEujL/23ITm38wIzKzlTvT+u?=
+ =?us-ascii?Q?n1TT5H0nT/68EUTHuk+8vN8loj0Qbxe7n4GeSmolLD3DMOwVouQhP1RyR4vm?=
+ =?us-ascii?Q?3VmvJKNRhPar8O2f/VUoP2a6AwooNbMighWz5qusEiPuiRUAFMY/aFZyIxhD?=
+ =?us-ascii?Q?s0aYtzh11aSepc1XD5i870bzzyrpbyHXHFr7UwHrL89kDgwf9Kg4puFxZUI3?=
+ =?us-ascii?Q?BEuSwzG3O7+mZTqnKpSGZSG6quMdRXmls7CIFfg0VEsfBsEucjeEfgJVqPdg?=
+ =?us-ascii?Q?xUl3Ykp1pUVfpPWfmzh9xAdL/BdKoxyeQgT+zkYaOQEP7V4/+VU5a3wCfPQf?=
+ =?us-ascii?Q?xCgIfqZdDDguGErrVSfYxAK3Rl+IMsFy1atYgjAg9yHB9uecgQtZJgHnTkdT?=
+ =?us-ascii?Q?+iS7hTsnWhhuY+ntVfKmiZSHs+xqonGwii1kBR3bdC7zlM+uNSFlY5IaLV3Q?=
+ =?us-ascii?Q?n9PKPEbQwL+raxXD/4q5MJMPuy0yKWYLd6UExvPWdEkQ/kRtKLKGHiqb1WJZ?=
+ =?us-ascii?Q?DSY4qGpiWQdnoarbjG4S+UxeTp68SKffOzrJNDL4GM8nbMYrlFD8LSNMyX91?=
+ =?us-ascii?Q?NEWf7jba1HPLG9290WtnoHBWOQMk1rnKWOWYYweAiySJlVFxZpXCpx+Z9X/w?=
+ =?us-ascii?Q?oPabktWrQil+1sAjg++OlNdsNjWZemzPv2h+GZUG/aPOHvF4vvB2F+Sbrf1S?=
+ =?us-ascii?Q?f7fBC+lHGh1iNbwkniBw//IndQBmf1SfhjC9gaaEWFcivVmT57Cs7xDp6J7C?=
+ =?us-ascii?Q?OEnVwab4PQFpv4g0DpL6u8b5YBSTGQP8iCSLoy3sVXwih4b9z4Cj7dX28z/y?=
+ =?us-ascii?Q?NCM4IdXW5FlNCvBzS/FQF5YNp05DmGXpkUgmXj4j6I9oXzCNbDV9nIr9aYVR?=
+ =?us-ascii?Q?D0gonDcfM8TOhitExzLr0I4zQySuDxbhgrCJgDZFb18+/0x7fhwjPWKdW/ju?=
+ =?us-ascii?Q?G40uIiqg5sfN4OJ4j6zrv4TODyCasxzLiNWqPdET8cklmK6nrYQUDXVqY/Yn?=
+ =?us-ascii?Q?z1WITtZ/mXJDUYOAyMuYWsSRZ03JYSXwNxGQ1wS7MK9C6EKW8EqO8bp2kcF2?=
+ =?us-ascii?Q?NYQlm36stwyHe5IrdIX+ae11YlYociHSRBrG/2k02yjNpKNFHF5blaDEURCw?=
+ =?us-ascii?Q?XdYd05iMt6BzrrvQcZOm5iIKY1it3nrs0vl6taeuo9j3v9tlHZN+KtdLQ8ip?=
+ =?us-ascii?Q?/LsjOctcrnCJUkQUBmWtmVQxBqVMjjLhiHkdkT6Z1+soP8acXnYlL6iLr6/z?=
+ =?us-ascii?Q?bIBLWHPcVx9GYH2sM6RiTz1KsRcnYrlU3lSYNSCcNWkolnqgwBX1qFm/Nseo?=
+ =?us-ascii?Q?RhX+tb9TRJFcPjfhgTpl0R3dy2QXfC6loAlS5aHxI8DX15QP8diilEXWun96?=
+ =?us-ascii?Q?kq9M+S5nz3fi5/Wzk/zsedWhJpBmKONjtw88YFIna3vGjBApkDBa7LPRdedK?=
+ =?us-ascii?Q?VchufdFTATTHjJQsbcFNnWo=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 77ae0d26-f086-4a90-f76a-08db446c8162
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 02:35:02.2815
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ LfCnglRtkOD7U3hh+so4KkB+QYXvupFNIkk/z+RqwFrjJcClMCmMULHf7DiofVo3C0zCEXMXZY5AchHlU27GaLES+yXD3NB/fHduRokRldDsN48FZz38ZvnaqbMxBEO2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS0PR01MB5681
+Message-ID-Hash: UOGSL7IPPTKL7LSBYNR2J7BU3W6S2ZDO
+X-Message-ID-Hash: UOGSL7IPPTKL7LSBYNR2J7BU3W6S2ZDO
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
+CC: Fabio Estevam <festevam@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, alsa-devel@alsa-project.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ sound-open-firmware@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UOGSL7IPPTKL7LSBYNR2J7BU3W6S2ZDO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -74,42 +182,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This makes the code shorter and more legible.
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
----
- include/sound/emu10k1.h              | 3 ++-
- sound/pci/emu10k1/emu10k1_callback.c | 5 +----
- 2 files changed, 3 insertions(+), 5 deletions(-)
+Hi Mark
 
-diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
-index 05a09826eef0..8fe80dcee71b 100644
---- a/include/sound/emu10k1.h
-+++ b/include/sound/emu10k1.h
-@@ -429,7 +429,8 @@
- #define DSL_LOOPENDADDR		0x18000007
- 
- #define CCCA			0x08		/* Filter Q, interp. ROM, byte size, cur. addr register */
--#define CCCA_RESONANCE		0xf0000000	/* Lowpass filter resonance (Q) height			*/
-+#define CCCA_RESONANCE_MASK	0xf0000000	/* Lowpass filter resonance (Q) height			*/
-+#define CCCA_RESONANCE		0x041c0008
- #define CCCA_INTERPROM_MASK	0x0e000000	/* Selects passband of interpolation ROM		*/
- 						/* 1 == full band, 7 == lowpass				*/
- 						/* ROM 0 is used when pitch shifting downward or less	*/
-diff --git a/sound/pci/emu10k1/emu10k1_callback.c b/sound/pci/emu10k1/emu10k1_callback.c
-index 44f2a61c6be8..9455df18f7b2 100644
---- a/sound/pci/emu10k1/emu10k1_callback.c
-+++ b/sound/pci/emu10k1/emu10k1_callback.c
-@@ -532,8 +532,5 @@ set_fm2frq2(struct snd_emu10k1 *hw, struct snd_emux_voice *vp)
- static void
- set_filterQ(struct snd_emu10k1 *hw, struct snd_emux_voice *vp)
- {
--	unsigned int val;
--	val = snd_emu10k1_ptr_read(hw, CCCA, vp->ch) & ~CCCA_RESONANCE;
--	val |= (vp->reg.parm.filterQ << 28);
--	snd_emu10k1_ptr_write(hw, CCCA, vp->ch, val);
-+	snd_emu10k1_ptr_write(hw, CCCA_RESONANCE, vp->ch, vp->reg.parm.filterQ);
- }
+These are v2 patch-set of asoc_dummy_dlc.
+
+Many ASoC drivers are using dummy DAI.
+I have 2 concern about it. 1st one is there is no guarantee that local
+strings ("snd-soc-dummy-dai",  "snd-soc-dummy") are kept until the card
+was binded if it was added at subfunction.
+2nd one is we can use common snd_soc_dai_link_component for it.
+This patch-set adds common asoc_dummy_dlc, and use it.
+
+v1 -> v2
+	- Separate intel patch into 3
+	- Topology codec doesn't use asoc_dummy_dlc
+
+Link: https://lore.kernel.org/r/874jpe3uqh.wl-kuninori.morimoto.gx@renesas.com
+
+Kuninori Morimoto (13):
+  ASoC: soc-utils.c: add asoc_dummy_dlc
+  ASoC: ti: use asoc_dummy_dlc
+  ASoC: sof: use asoc_dummy_dlc
+  ASoC: amd: use asoc_dummy_dlc
+  ASoC: fsl: use asoc_dummy_dlc
+  ASoC: qcom: use asoc_dummy_dlc
+  ASoC: atmel: use asoc_dummy_dlc
+  ASoC: meson: use asoc_dummy_dlc
+  ASoC: intel: avs: use asoc_dummy_dlc
+  ASoC: intel: sof: use asoc_dummy_dlc
+  ASoC: intel: skylake: use asoc_dummy_dlc
+  ASoC: simple_card_utils.c: use asoc_dummy_dlc
+  ASoC: soc-topology.c: add comment for Platform/Codec
+
+ include/sound/simple_card_utils.h            |  1 -
+ include/sound/soc.h                          |  1 +
+ sound/soc/amd/acp/acp-mach-common.c          | 43 ++++++++------------
+ sound/soc/atmel/atmel-classd.c               |  8 ++--
+ sound/soc/atmel/atmel-pdmic.c                |  8 ++--
+ sound/soc/fsl/imx-audmix.c                   | 14 +++----
+ sound/soc/fsl/imx-card.c                     | 11 +----
+ sound/soc/fsl/imx-rpmsg.c                    |  3 +-
+ sound/soc/fsl/imx-spdif.c                    |  8 ++--
+ sound/soc/generic/simple-card-utils.c        |  9 +---
+ sound/soc/intel/avs/boards/i2s_test.c        |  6 +--
+ sound/soc/intel/boards/ehl_rt5660.c          |  8 +---
+ sound/soc/intel/boards/skl_hda_dsp_generic.c |  8 +---
+ sound/soc/intel/boards/sof_cs42l42.c         | 11 +----
+ sound/soc/intel/boards/sof_es8336.c          | 11 +----
+ sound/soc/intel/boards/sof_nau8825.c         | 11 +----
+ sound/soc/intel/boards/sof_pcm512x.c         |  3 +-
+ sound/soc/intel/boards/sof_rt5682.c          | 14 ++-----
+ sound/soc/intel/boards/sof_sdw.c             | 13 +-----
+ sound/soc/intel/boards/sof_ssp_amp.c         | 18 +++-----
+ sound/soc/meson/axg-card.c                   |  8 ++--
+ sound/soc/meson/meson-card-utils.c           | 10 +----
+ sound/soc/qcom/common.c                      | 11 +----
+ sound/soc/soc-topology.c                     | 22 +++++-----
+ sound/soc/soc-utils.c                        |  7 ++++
+ sound/soc/sof/nocodec.c                      |  8 ++--
+ sound/soc/ti/omap-hdmi.c                     |  8 ++--
+ 27 files changed, 89 insertions(+), 194 deletions(-)
+
 -- 
-2.40.0.152.g15d061e6df
+2.25.1
 

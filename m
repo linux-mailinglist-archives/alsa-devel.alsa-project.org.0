@@ -2,28 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999D36EE6D4
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Apr 2023 19:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9DB6EE779
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Apr 2023 20:20:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 801DB10E3;
-	Tue, 25 Apr 2023 19:33:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 801DB10E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74B781085;
+	Tue, 25 Apr 2023 20:19:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74B781085
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682444048;
-	bh=mcnUcuZCsp42gOl0koyvCmjFpEs0zWYiqO16h08PCjA=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Wi90gqkYlNxSKA+DlaoLT8SBfiVz63PwfgpHZql8RTpVbr/hP+pT5q9KWXHVkz5Tc
-	 VEZU+AQK8YhqLg+/xJBK2wR5JTKAgbAFSnq/Y/HG/nm9y9gEhFyxl9+tsLcLtMYXce
-	 aldKKf+KY68RhsYy+iKAklLrMyhq8582Qe7Qx8/E=
+	s=default; t=1682446826;
+	bh=a5e362dR6ySmw3iQpUCph0QtcBgaA6XNxOfsDsKytJ8=;
+	h=Date:From:To:Subject:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hJYlXt7/n12Z+/NphaDoZAzM9C5E9aJS0PRW5xL2qfbKy36n6WyOhRBXNcz4bs+kd
+	 irYtt2Zi2stk8UJ+87o3JmME2UAtKn0f3FJp3POt0PRZGJJpOk+K4wNEaqMNMvlJiu
+	 ZskjuGOXzD6x7WZT3p+ca/3ZWZUeHWY1tXttPNyk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A44CF800F8;
-	Tue, 25 Apr 2023 19:33:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC5DEF8018A;
+	Tue, 25 Apr 2023 20:19:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74DFDF80236; Tue, 25 Apr 2023 19:33:14 +0200 (CEST)
+	id A70FEF80236; Tue, 25 Apr 2023 20:19:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,67 +33,55 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 036C7F800F8
-	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 19:33:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 036C7F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id CB328F800F8
+	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 20:19:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB328F800F8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aMVYvKWD
+ header.s=k20201202 header.b=hUbarVpp
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F32262C2C;
-	Tue, 25 Apr 2023 17:33:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D622AC433EF;
-	Tue, 25 Apr 2023 17:33:06 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 578856100E;
+	Tue, 25 Apr 2023 18:19:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805DDC433D2;
+	Tue, 25 Apr 2023 18:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682443989;
-	bh=mcnUcuZCsp42gOl0koyvCmjFpEs0zWYiqO16h08PCjA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aMVYvKWDZ4NCuDhOb1y5atMlF1Y0M9iCVAWPsMGKAJrdFeuPJ0gC1F2uxB8nbcSiz
-	 dqR13DU+eu0L58BuFuDvnHdjpiAMtLSxQIEGYN3h+2WiiU61WQgz07AD7Q2qVt0eJt
-	 jP94kH2s2qdtjDbjOWXmYaGpSR/ZKSc8Ye4mmFBbuM8QO6Q+8zhcY+FtLBXC019Msb
-	 j7t4LVSoq62WmLyVDQiFcw4t4Cl0YSbwQopnBQ4f0WFe41aHswhlDQBh5goRQR91Rd
-	 rlYvFzwXMr/AxCKV2fIgOAtWmIFeNMxsLjSXq2D1cBTjvfZ2mrD4MRvEESRk9mcVvR
-	 uys9mkE0bMcMA==
-Date: Tue, 25 Apr 2023 18:33:03 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH 1/4] dt-bindings: sound: Add simple-iio-aux
-Message-ID: <7682a443-7ae2-4bc2-9581-304c7e72942d@sirena.org.uk>
-References: <20230421124122.324820-1-herve.codina@bootlin.com>
- <20230421124122.324820-2-herve.codina@bootlin.com>
- <20230425173029.GA1967523-robh@kernel.org>
+	s=k20201202; t=1682446765;
+	bh=a5e362dR6ySmw3iQpUCph0QtcBgaA6XNxOfsDsKytJ8=;
+	h=Date:From:To:Cc:Subject:From;
+	b=hUbarVppEHXayqsLjl4Il6wCkfQW/tj7LIAge1mA22D+CPDvYi9xL0fuAL8c0GZky
+	 iX0Uh7x6sV2naYai+MHUlMcALiypzNGTq87og0UNAq7BfGlp6yMgrDr/dRgZojq7Zx
+	 +7tGAJMTY1XptODsTAeBLUTyjQsiWeI8RBbTAbbX5uq0iSdNnl6MSCYs5eqD6Z4xZw
+	 LNoI3ncfEk86w6aaFgMhYkuqMxgL+fybqVF2rREnco5ALB9JVAduDtP9VOhcnH+NCR
+	 9/pNrcNSQHXT4Oi/naqPpgSbdhalLWijaJLmovHrZhTUwKtMDw/SX/rx4C5YfUbLrm
+	 CaRfNdXdJn5cg==
+Date: Tue, 25 Apr 2023 11:19:24 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: USB sound card freezes USB after resume from suspend
+Message-ID: <20230425111924.05cf8b13@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QVyLAfDfdBkSU7kb"
-Content-Disposition: inline
-In-Reply-To: <20230425173029.GA1967523-robh@kernel.org>
-X-Cookie: The meek don't want it.
-Message-ID-Hash: 46UCJ4I7XGND3OO2UOGTVPVB6A3ZUCNQ
-X-Message-ID-Hash: 46UCJ4I7XGND3OO2UOGTVPVB6A3ZUCNQ
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MLVKW5LEGL3AWZEOJHNZWQXXYTH3Z4XM
+X-Message-ID-Hash: MLVKW5LEGL3AWZEOJHNZWQXXYTH3Z4XM
+X-MailFrom: kuba@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Herve Codina <herve.codina@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, regressions@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/46UCJ4I7XGND3OO2UOGTVPVB6A3ZUCNQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MLVKW5LEGL3AWZEOJHNZWQXXYTH3Z4XM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,36 +90,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi!
 
---QVyLAfDfdBkSU7kb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+For a few weeks now I can't use any USB devices if I suspend my laptop
+with my USB sound card active and resuming it without it connected.
 
-On Tue, Apr 25, 2023 at 12:30:29PM -0500, Rob Herring wrote:
-> On Fri, Apr 21, 2023 at 02:41:19PM +0200, Herve Codina wrote:
+USB worker threads seems to be sitting in:
 
-> > +    aux {
-> > +        compatible = "simple-iio-aux";
-> > +        io-channels = <&iio 0>, <&iio 1>, <&iio 2>, <&iio 3>;
-> > +        io-channel-names = "CH0", "CH1", "CH2", "CH3";
+[<0>] snd_pcm_dev_disconnect+0x1e8/0x280 [snd_pcm]
+[<0>] snd_device_disconnect_all+0x42/0x80 [snd]
+[<0>] snd_card_disconnect+0x128/0x290 [snd]
+[<0>] usb_audio_disconnect+0x11a/0x2c0 [snd_usb_audio]
+[<0>] usb_unbind_interface+0x8c/0x270
+[<0>] device_release_driver_internal+0x1b2/0x230
+[<0>] bus_remove_device+0xd8/0x150
+[<0>] device_del+0x18b/0x410
+[<0>] usb_disable_device+0xc6/0x1e0
+[<0>] usb_disconnect+0xda/0x2c0
+[<0>] usb_disconnect+0xbf/0x2c0
+[<0>] usb_disconnect+0xbf/0x2c0
+[<0>] usb_disconnect+0xbf/0x2c0
+[<0>] hub_event+0xf01/0x1cd0
+[<0>] process_one_work+0x1c4/0x3d0
+[<0>] worker_thread+0x4d/0x380
+[<0>] kthread+0xe6/0x110
+[<0>] ret_from_fork+0x29/0x50
 
-> Not really useful names. Do you have a real example?
+Which is:
 
-I fear those might be real names for channels on an IIO device...
+snd_pcm_dev_disconnect (/usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:818 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:812 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:1129) snd_pcm
 
---QVyLAfDfdBkSU7kb
-Content-Type: application/pgp-signature; name="signature.asc"
+It happens on Fedora 37 and Fedora 38, it seems to have coincided with
+the 6.2 kernel but I'm not 100% sure.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRIDs4ACgkQJNaLcl1U
-h9B3TAf/cTeNpl+HMeW2P0Vb5nstfBc6zxXBQOKy5lEeUHK8Gl78nKrJyAGI1j2A
-XfAyeEhz4pNgn/xIQ/8bV41cnTMawrGJeZiNiq/+3ns2u2V+2XkUPBv6R1B5i629
-xI2lyb4p5VlnX6sRCzcvnXFyl1aT71+Rw9xOAjuJB+l8Y6k86eHVlV9bDIM2w6/3
-TrJtACmWndoZhtS9PK86WA9WYrMnjBflNG6KmeeKxDHl0k/PsCvbpijSZBb6e3QO
-zg8BcfitzHMyCcmTt643bGufvXRarx+y2OdU2glNckGHXPSeCmXHCU/jUNgnLwqW
-d2OEVBQZOmA3Btwz9T+eAUuggPGb6A==
-=ax2u
------END PGP SIGNATURE-----
-
---QVyLAfDfdBkSU7kb--
+The USB devices come back after half an hour or so, silently.
+There's nothing of note in dmesg.

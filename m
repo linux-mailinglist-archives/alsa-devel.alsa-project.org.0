@@ -2,171 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF7C6F2ECE
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 May 2023 08:42:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393C66F2ECF
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 May 2023 08:43:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7BBDE17C9;
-	Mon,  1 May 2023 08:41:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BBDE17C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E4461768;
+	Mon,  1 May 2023 08:42:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E4461768
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682923365;
-	bh=OZcyiWwhcbkoWgk3Q5DWdhzYtywgvrlfNO6pInxnSOw=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=X+l1gSvDqIk0CcOyVgl+AOVuCGZ0ohhuAStu3TgW76JoC3Ad84L0y2A+xwQAm779s
-	 P0B9JhLpy2tG+8MNuVtrzJzeyyBN5Xg/RAJXd5l/tMOrkXYMxsH+DRod/FedNbtLd3
-	 /ydcxPa/3VV+n/K2CZrhicl9mjg9b22uybKbEN64=
+	s=default; t=1682923384;
+	bh=l8qcL7kpJvyP4pXeHScl2BWTlcbxcO/h8Qi96mqjl98=;
+	h=References:In-Reply-To:Date:Subject:To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=BbMTSW6M+9Bto5ED7Aw8QN1vMzE+Avt5UpNexxgpOyyjbN7lUqToUNMNnBw/eB+Va
+	 jjbPx0P9xMJcJFfxx9PozKpcOJjt1HptcJ/xevj/3Ufn4kfIfvqh7j858hwDD6cDOD
+	 mumhm5nxHIABi8L7BfUN7v+pOhmWOpQxRviGdr/E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26930F80557;
-	Mon,  1 May 2023 08:40:19 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C9C6F80236; Tue, 25 Apr 2023 16:48:38 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CE316F80104
-	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 16:48:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE316F80104
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
- header.s=fm2 header.b=qBJOkoVe;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=ZbXzsek9
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-	by mailnew.nyi.internal (Postfix) with ESMTP id B9A47582063;
-	Tue, 25 Apr 2023 10:48:30 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute4.internal (MEProxy); Tue, 25 Apr 2023 10:48:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm2; t=1682434110; x=1682441310; bh=2Z
-	9xscxrsAsgngjIzMB6+vzGDqIX8rHhJnudaSYumkM=; b=qBJOkoVe+VNibxNNQO
-	VK2js4W7TzTuIpkDDa3BLdnOC7eWX0KgROExYuxUdEFqCJsGyLbF+D2tvbjjep3U
-	bAgos8DrJ/Hjkb2ZGyXZzyFpvNCDW+gofoAROAJGv7CQnlCLqe6ATS1J4MJRcmwg
-	4Q4K2ZOUhpVU1cAQnmuGP1cxN/fjHKicRyETbAXCNO2Qviwt8gxnXoRRWuv/7jMb
-	lpg2wS+gSdjofHEnqblqp4x8V5wAiRkLnum/Bj+m5Ab2mWfdXh50k0IcR2nmhcwk
-	FuFT4cztt9au15O9HposWQfpC/GQXa6ocvA7cTgvabmtqhnoORgHy7MV3BJ+J4+o
-	madw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1682434110; x=1682441310; bh=2Z9xscxrsAsgn
-	gjIzMB6+vzGDqIX8rHhJnudaSYumkM=; b=ZbXzsek9V7jy7FBZZjfe3bm2cOnrh
-	g8hTeK6Fhh/HecH47BxVkmvQT4XP9+M+x5KplHQbt5qHnZNNXyfRp06v//jCH0RC
-	DUCYVonbAkK2V/lr/TciWCARVwImuF5DwfEBVrzgz0SHl4MSBuyPKdc91oYeLqSY
-	pE8IfifJ7qSu7D2RWCrnrGGBDOMDaHkY8R6kvjVE+3WFWd4tRjO7Xt6yE3jhSCc/
-	Aij9bWtJ1nykUzu0l0UP7BqeLIIqSMgUzPkplevnEdX0QwHjeP3gh+71Je/iz0dF
-	+ymAW48RTZj+2K+0DcXQ9oCXzPQ8kyrHTzGj8aWYJ9U2KnGQiFEba+s3w==
-X-ME-Sender: <xms:PuhHZDLbuxmUpnoqvk2pbFPZI4YCEbbSxOZ4NXL8FtOSYnAeA4UioA>
-    <xme:PuhHZHJc-XHI78gu6IZO_LN-Huzr4JDWRbrFwQHAhOqfTcfuJqSNIVVshGEm_Ojen
-    4xz68r8IBuWi29LLgA>
-X-ME-Received: 
- <xmr:PuhHZLsgs5wGOs9cdcbI9NeM9EwJqurgjDl5URQyrdXV8HLV8_Bn08oaxPWQYfQojWZpWChXh1eu7rgS2E_nLBg9Mez76dY>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddgkedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtsfertddtvdenucfhrhhomhepofgrgihi
-    mhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtffrrg
-    htthgvrhhnpeeuveduheeutdekvefgudevjeeufedvvdevhfejgfelgfdtkeevueegteek
-    gfelfeenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpe
-    hmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:PuhHZMZd9EIBUl1Wyry-TbjgK_2L_TMsq-N8aN870T0DkJ8bJyUOzw>
-    <xmx:PuhHZKaVF3HvOGKJpBoJT0DtU3QQ5hT6MNvdpXdzvoWzV37ERODA5g>
-    <xmx:PuhHZAB4bMGgrV5lZuu5ELLK3c9LN4lJ_EJCMX6Bpm6vKa8U0femUA>
-    <xmx:PuhHZOgJU5V6hv_jQmVadgi43lNAg_tfkJs7WPvVbbwAPmeqE1qC2w>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 25 Apr 2023 10:48:28 -0400 (EDT)
-Date: Tue, 25 Apr 2023 16:48:27 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Subject: Re: [PATCH v3 29/65] clk: socfpga: gate: Add a determine_rate hook
-Message-ID: <sjlp5ubnpvulgwhhymmfkmmobkgxacyqwagqozodkee3di2qik@3igj6k3zgbk6>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
- <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="635dxoh2qhipywob"
-Content-Disposition: inline
-In-Reply-To: <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
-X-MailFrom: maxime@cerno.tech
-X-Mailman-Rule-Hits: max-recipients
+	by alsa1.perex.cz (Postfix) with ESMTP id AD68CF8055C;
+	Mon,  1 May 2023 08:40:20 +0200 (CEST)
+References: <20230414140203.707729-1-pan@semihalf.com>
+ <6d90ad41-bb2d-41a0-8a4a-922b78967a2e@sirena.org.uk>
+In-Reply-To: <6d90ad41-bb2d-41a0-8a4a-922b78967a2e@sirena.org.uk>
+Date: Tue, 25 Apr 2023 17:58:59 +0200
+Subject: Re: [PATCH 0/9] Add Chameleon v3 ASoC audio
+To: Mark Brown <broonie@kernel.org>
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: CT6E6L7YYC3P77SB5G7VDAU3N3PVS3F4
-X-Message-ID-Hash: CT6E6L7YYC3P77SB5G7VDAU3N3PVS3F4
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Approved-At: Mon, 01 May 2023 06:39:58 +0000
-CC: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Lechner <david@lechnology.com>, Sekhar Nori <nsekhar@ti.com>,
- Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Paul Cercueil <paul@crapouillou.net>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
- patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-phy@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-sunxi@lists.linux.dev, alsa-devel@alsa-project.org,
- linux-mips@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CT6E6L7YYC3P77SB5G7VDAU3N3PVS3F4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/REABTXLRABJPW7GCIMXVBMMG36DJFDEM/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168292321973.26.15976047433962727088@mailman-core.alsa-project.org>
+From: =?utf-8?q?Pawe=C5=82_Anikiel_via_Alsa-devel?=
+ <alsa-devel@alsa-project.org>
+Reply-To: =?UTF-8?Q?Pawe=C5=82_Anikiel?= <pan@semihalf.com>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, dinguyen@kernel.org,
+ lars@metafoo.de, nuno.sa@analog.com, upstream@semihalf.com
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 77C48F80236; Tue, 25 Apr 2023 17:59:18 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A883F80137
+	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 17:59:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A883F80137
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=semihalf.com header.i=@semihalf.com header.a=rsa-sha256
+ header.s=google header.b=ll3RRXB/
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-94a34a14a54so1109488466b.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 25 Apr 2023 08:59:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=semihalf.com; s=google; t=1682438350; x=1685030350;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WlVv7Swj2O3m3L5cE82fdv0axa/JD3/qF8vAE3hvBOE=;
+        b=ll3RRXB/RVF8ksY5feM+iRM7O6hUuJS5r7TOWhZzn0+nzyq/FqkwBI8cPAlpTaR8ia
+         GimbgCjjiy6GHHDfIIy92w7aeFKEW9Z/LtX5DUtoNnv6TchZQISjqelJOnriqe4ZRoTI
+         wHEyr/Ju7ICpKgS3EhsURxGqSivt94F3p0lIbtrSWA7SZ2QTPtLqKCKtorkdpX1uL4FW
+         SRSv4zstbLnKwasiWRiPB67GXc/WlNS2+/Kv016dLdDmMw9Q3jTCgMmyYtvSlWA6dicX
+         JHUoOC3q0WNIS1iFKxREMP5DgaznrRjIaG+qQxQQytDeCPrugYODBVIgHX0cnq8hL9zC
+         4pow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1682438350; x=1685030350;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WlVv7Swj2O3m3L5cE82fdv0axa/JD3/qF8vAE3hvBOE=;
+        b=dJdPS9D8R+HDDn723Z3fwzSA+SJsqj1jmjbLqT2yte9iq9J5btY7K5YfD6mCG4ydyr
+         11heis0o56B8zVpel/a45QF5mtiJaaiiNbMcidkwn19OUlO3BtomVMvabG3Ps0er9/hc
+         Ht88ZKt2Wx3CdG8ZUTTQtK/TOrjze82g+erF2csI7adhzKEKdi47qOaEvr1pJojvcS+f
+         mRAs1CE+ycrrh/Nklds3W+eLReqTPuT0/Pk4AjdvbYE9kZ3sK4OqiZqKXoDv6GbsePdr
+         AndiN75I6EGn1IQxz/0qrkKoxOtqos1jOUa5Gp/Y8JT/tnaqObZ3OEQ2XA6DtGg4Ompq
+         xUTw==
+X-Gm-Message-State: AAQBX9dXFIBGY6+C0OCKrX6IJXG5YYsFFHrf7Q5F+4B7rHsgHoZuEinV
+	0ikQ91jXcXBCQ41l4JerK2yj1B2QScHiltSMV7B6Ig==
+X-Google-Smtp-Source: 
+ AKy350Z6xV1W9xmqBRf3W6EJR3Kb2ztwycysTEDFucgDTYqAdWhplAoM2OTMDqL6AmozTFa+wZ/ng98FtyJI1mEGtSQ=
+X-Received: by 2002:a17:906:2646:b0:94f:31da:8c37 with SMTP id
+ i6-20020a170906264600b0094f31da8c37mr14188025ejc.52.1682438350230; Tue, 25
+ Apr 2023 08:59:10 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230414140203.707729-1-pan@semihalf.com>
+ <6d90ad41-bb2d-41a0-8a4a-922b78967a2e@sirena.org.uk>
+In-Reply-To: <6d90ad41-bb2d-41a0-8a4a-922b78967a2e@sirena.org.uk>
+From: =?UTF-8?Q?Pawe=C5=82_Anikiel?= <pan@semihalf.com>
+Date: Tue, 25 Apr 2023 17:58:59 +0200
+Message-ID: 
+ <CAF9_jYRqr498j=5rgeqELEaZEkMRKqBTiNvRJC2ZduZO+399BQ@mail.gmail.com>
+Subject: Re: [PATCH 0/9] Add Chameleon v3 ASoC audio
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: pan@semihalf.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: REABTXLRABJPW7GCIMXVBMMG36DJFDEM
+X-Message-ID-Hash: REABTXLRABJPW7GCIMXVBMMG36DJFDEM
+X-Mailman-Approved-At: Mon, 01 May 2023 06:39:58 +0000
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, dinguyen@kernel.org,
+ lars@metafoo.de, nuno.sa@analog.com, upstream@semihalf.com
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/REABTXLRABJPW7GCIMXVBMMG36DJFDEM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -175,90 +155,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, Apr 14, 2023 at 6:47=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> On Fri, Apr 14, 2023 at 04:01:54PM +0200, Pawe=C5=82 Anikiel wrote:
+>
+> >  sound/soc/Makefile                            |   1 +
+> >  sound/soc/chameleonv3/Kconfig                 |   7 +
+> >  sound/soc/chameleonv3/Makefile                |   2 +
+> >  sound/soc/chameleonv3/chv3-audio.c            | 111 ++++++
+> >  sound/soc/chameleonv3/chv3-i2s.c              | 347 ++++++++++++++++++
+> >  sound/soc/chameleonv3/chv3-it68051.c          |  41 +++
+>
+> Please at least make a directory for Google as a vendor, we don't want
+> people adding directories for each individual product. That said
+> generally we add machine drivers in the directory for the relevant SoC
+> family, is there any reason that pattern isn't followed here?
 
---635dxoh2qhipywob
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The board is based around an Intel Arria 10 SoC FPGA. The ring buffer
+device and all the routing is implemented inside the FPGA. Is it ok to
+put the machine driver in the product directory in this case?. As for
+the directory path, would sound/soc/google/chameleonv3/* be ok?
 
-Hi Dinh,
-
-On Mon, Apr 24, 2023 at 01:32:28PM -0500, Dinh Nguyen wrote:
-> On 4/4/23 05:11, Maxime Ripard wrote:
-> > The SoCFGPA gate clock implements a mux with a set_parent hook, but
-> > doesn't provide a determine_rate implementation.
-> >=20
-> > This is a bit odd, since set_parent() is there to, as its name implies,
-> > change the parent of a clock. However, the most likely candidate to
-> > trigger that parent change is a call to clk_set_rate(), with
-> > determine_rate() figuring out which parent is the best suited for a
-> > given rate.
-> >=20
-> > The other trigger would be a call to clk_set_parent(), but it's far less
-> > used, and it doesn't look like there's any obvious user for that clock.
-> >=20
-> > So, the set_parent hook is effectively unused, possibly because of an
-> > oversight. However, it could also be an explicit decision by the
-> > original author to avoid any reparenting but through an explicit call to
-> > clk_set_parent().
-> >=20
-> > The latter case would be equivalent to setting the flag
-> > CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
-> > to __clk_mux_determine_rate(). Indeed, if no determine_rate
-> > implementation is provided, clk_round_rate() (through
-> > clk_core_round_rate_nolock()) will call itself on the parent if
-> > CLK_SET_RATE_PARENT is set, and will not change the clock rate
-> > otherwise. __clk_mux_determine_rate() has the exact same behavior when
-> > CLK_SET_RATE_NO_REPARENT is set.
-> >=20
-> > And if it was an oversight, then we are at least explicit about our
-> > behavior now and it can be further refined down the line.
-> >=20
-> > Signed-off-by: Maxime Ripard <maxime@cerno.tech>
-> > ---
-> >   drivers/clk/socfpga/clk-gate.c | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/clk/socfpga/clk-gate.c b/drivers/clk/socfpga/clk-g=
-ate.c
-> > index 32ccda960f28..cbba8462a09e 100644
-> > --- a/drivers/clk/socfpga/clk-gate.c
-> > +++ b/drivers/clk/socfpga/clk-gate.c
-> > @@ -110,6 +110,7 @@ static unsigned long socfpga_clk_recalc_rate(struct=
- clk_hw *hwclk,
-> >   static struct clk_ops gateclk_ops =3D {
-> >   	.recalc_rate =3D socfpga_clk_recalc_rate,
-> > +	.determine_rate =3D __clk_mux_determine_rate,
-> >   	.get_parent =3D socfpga_clk_get_parent,
-> >   	.set_parent =3D socfpga_clk_set_parent,
-> >   };
-> > @@ -166,7 +167,7 @@ void __init socfpga_gate_init(struct device_node *n=
-ode)
-> >   	init.name =3D clk_name;
-> >   	init.ops =3D ops;
-> > -	init.flags =3D 0;
-> > +	init.flags =3D CLK_SET_RATE_NO_REPARENT;
-> >   	init.num_parents =3D of_clk_parent_fill(node, parent_name, SOCFPGA_M=
-AX_PARENTS);
-> >   	if (init.num_parents < 2) {
-> >=20
->=20
-> This patch broke SoCFPGA boot serial port. The characters are mangled.
-
-Do you have any other access to that board? If so, could you dump
-clk_summary in debugfs with and without that patch?
-
-Maxime
-
---635dxoh2qhipywob
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZEfoOwAKCRDj7w1vZxhR
-xavIAP9NdWOgKUDjN4zLo7wwwqFUwBI6vcLYDH178vQMtvLupgD9GDdlERsfJpng
-mzdl0IfdqknQqk5qHgVllUa6sstbpgY=
-=0zSO
------END PGP SIGNATURE-----
-
---635dxoh2qhipywob--
+Regards,
+Pawe=C5=82

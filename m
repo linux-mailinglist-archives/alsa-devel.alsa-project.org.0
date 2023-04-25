@@ -2,113 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D7E6EE3CB
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Apr 2023 16:18:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC0816EE5B8
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Apr 2023 18:28:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16A057F8;
-	Tue, 25 Apr 2023 16:17:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16A057F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E84D105A;
+	Tue, 25 Apr 2023 18:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E84D105A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682432328;
-	bh=fl0E9R5OCj0xvAm4T4t1JP4nnHoV0VoWaDCdmd6NFGc=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1682440094;
+	bh=QlVrH6yTUUUu3PEKmzYtrouSSUrjj5b/iY6JsQdl0io=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PBO7O05k7inwD2ZxyOpGz1gGuDXHBkpCTePpyZO8cICDjDwg7Szi+rfF1y7jgNAsU
-	 xH4+Hmf1zoNBVQl71/NtdS+79nGZ8sMjWNpsBC/vpxzIUP1xJil8Mn3RzyrsiAO/YA
-	 pPJF2GF3ajw0WlIfPEBfZvrnpH5LYSz5Hk6TMp9w=
+	b=FWkWzXQd7D4I3PXEU3OdX1aaexqo1egKPGKc6iWPBur/VdaScfesgTPNhbrjffwqy
+	 KbJ0TlaqGt29igoLyBlLbKtbIlBTNK/yjhpxw2HSkCRnn581GkgRoLjggYnORxilra
+	 cPSd05PDJCfHLOfTECUJfVeGefs8TKSfuMxccoRI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C161F8018A;
-	Tue, 25 Apr 2023 16:17:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08156F8018A;
+	Tue, 25 Apr 2023 18:27:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6DB48F80236; Tue, 25 Apr 2023 16:17:53 +0200 (CEST)
+	id BB935F80236; Tue, 25 Apr 2023 18:27:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 07C59F800F8
-	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 16:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07C59F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id A6510F80137
+	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 18:27:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6510F80137
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=G3Giaw2g;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=642G+HuB
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=H6wIUSzB
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CAF6C219B9;
-	Tue, 25 Apr 2023 14:17:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1682432265;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vu12ON/WesxlB0hJUtT2BAKm7J4iDSBHK3E7w7ezOa8=;
-	b=G3Giaw2g2Rgwxsvklqei7cjg1zNpYrv5GUvC0SuvY7Eee8ybL5VbUob+c5WySTaqO2a2CV
-	bGUmgxESm+U412hv/2bF3BrisuyDMV4H92zO3teUW21XyjNELj7KjceamHu6K3lmNj4d35
-	k2wTllKpyPwtGsvqwbEBFSKBnDVdQRw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682432265;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Vu12ON/WesxlB0hJUtT2BAKm7J4iDSBHK3E7w7ezOa8=;
-	b=642G+HuBISPdlEa06vvW/zGwzFhniASkCXNDqJSCzxPULrQSt8THbI/XA+8Uj7zkjhXWaI
-	x5ed+EPmFmD8vlAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A28EE138E3;
-	Tue, 25 Apr 2023 14:17:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id JFruJgnhR2TgMwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 25 Apr 2023 14:17:45 +0000
-Date: Tue, 25 Apr 2023 16:17:45 +0200
-Message-ID: <875y9kujue.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Reaper Li <reaperlioc@glenfly.com>
-Subject: Re: [PATCH v2] ALSA: hda: Glenfly: add HD Audio PCI IDs and HDMI
- Codec Vendor IDs.
-In-Reply-To: <20230425101524.8020-1-reaperlioc@glenfly.com>
-References: <20230425101524.8020-1-reaperlioc@glenfly.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: YNKY4KN2HSMHDABHW6EI2HDGUH22GS32
-X-Message-ID-Hash: YNKY4KN2HSMHDABHW6EI2HDGUH22GS32
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 67A0362640;
+	Tue, 25 Apr 2023 16:27:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3208AC4339C;
+	Tue, 25 Apr 2023 16:27:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1682440028;
+	bh=QlVrH6yTUUUu3PEKmzYtrouSSUrjj5b/iY6JsQdl0io=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=H6wIUSzBiku2NQOIZJv64SXdY5NMKaThSqTGvdjkezsTTaXmHzccO2q1aE1ettSuH
+	 Fx7TAo6KyOftw6n0MkEy6nBx6XqmTcZ1JRyNUBX5Rjbqfv9gO8uu+cVV5OH5dphElk
+	 o4It0nCuexb6dX9ekALVvhaEivNHGf1Omhw1n/+F7EpfY6Hx5Wij6wnDFLu3mTU0u2
+	 +cisrqGMUqzQadG5+V1WlTZJ3dBOWuGkE33Fg9nevh5tMJEkVH+c/dS7Kcy6O7wzx2
+	 daNVm+lOaW1De4FmyVHmapDuNw2vEEgX9RIvHdSPWYhPo7CbL/cfoNcvxivkHx1Lt0
+	 pSLzmeo3eUg+A==
+Date: Tue, 25 Apr 2023 17:27:01 +0100
+From: Mark Brown <broonie@kernel.org>
+To: =?utf-8?B?UGF3ZcWC?= Anikiel <pan@semihalf.com>
+Subject: Re: [PATCH 1/9] ASoC: Add Chameleon v3 audio
+Message-ID: <c42ea55b-fb2f-417e-882a-a06f7660ea22@sirena.org.uk>
+References: <20230414140203.707729-1-pan@semihalf.com>
+ <20230414140203.707729-2-pan@semihalf.com>
+ <e64b438e-1205-4e54-b8c0-1b9a5d074752@sirena.org.uk>
+ <CAF9_jYTyhJZaCk1zN93Rr5AXAmpk4nu6z0Z9+RQb4HxGQ=zZLQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BUSc4oJN6UGUA/g0"
+Content-Disposition: inline
+In-Reply-To: 
+ <CAF9_jYTyhJZaCk1zN93Rr5AXAmpk4nu6z0Z9+RQb4HxGQ=zZLQ@mail.gmail.com>
+X-Cookie: The meek don't want it.
+Message-ID-Hash: XN4WOM6UJEY65XWMIDZOZ2G6ME4ILUSJ
+X-Message-ID-Hash: XN4WOM6UJEY65XWMIDZOZ2G6ME4ILUSJ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- jasontao <jasontao@glenfly.com>
+CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, dinguyen@kernel.org,
+ lars@metafoo.de, nuno.sa@analog.com, upstream@semihalf.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YNKY4KN2HSMHDABHW6EI2HDGUH22GS32/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XN4WOM6UJEY65XWMIDZOZ2G6ME4ILUSJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,36 +101,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 25 Apr 2023 12:15:24 +0200,
-Reaper Li wrote:
-> 
-> From: jasontao <jasontao@glenfly.com>
-> 
-> Add a set of HD Audio PCI IDS, and the HDMI codec vendor IDs for
-> Glenfly Gpus.
-> 
-> - In default_bdl_pos_adj, set bdl to 128 as Glenfly Gpus have hardware
-> limitation, need to increase hdac interrupt interval.
-> - In azx_first_init, enable polling mode for Glenfly Gpu. When the codec
-> complete the command, it sends interrupt and writes response entries to
-> memory, howerver, the write requests sometimes are not actually
-> synchronized to memory when driver handle hdac interrupt on Glenfly Gpus.
-> If the RIRB status is not updated in the interrupt handler,
-> azx_rirb_get_response keeps trying to recevie a response from rirb until
-> 1s timeout. Enabling polling mode for Glenfly Gpu can fix the issue.
-> - In patch_gf_hdmi, set Glenlfy Gpu Codec's no_sticky_stream as it need
-> driver to do actual clean-ups for the linked codec when switch from one
-> codec to another.
-> 
-> Signed-off-by: jasontao <jasontao@glenfly.com>
-> Signed-off-by: Reaper Li <reaperlioc@glenfly.com>
-> ---
-> v2: add some comments for code and details in the commit log.
 
-This is almost fine, but could just correct minor warnings
-scripts/checkpatch.pl complains?
+--BUSc4oJN6UGUA/g0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Apr 25, 2023 at 05:59:52PM +0200, Pawe=C5=82 Anikiel wrote:
 
-thanks,
+> > > +config SND_SOC_CHV3
+> > > +       tristate "SoC Audio support for Chameleon v3"
+> > > +       select SND_SOC_SSM2602
+> > > +       select SND_SOC_SSM2602_I2C
+> > > +       help
+> > > +         Say Y if you want to add audio support for the Chameleon v3.
 
-Takashi
+> > It woudl be better to have a separate selectable symbol for each drier.
+
+> I'm not sure about this. If I disable just one driver, the entire card
+> fails to probe (even if some audio device doesn't need that driver).
+> Does it then make sense to be able to deselect some drivers? Please
+> correct me if I'm misunderstanding.
+
+Consider what happens if someone for example reuses the I2S controller
+in a different board.
+
+> Having said that, I did try to remove that logic and simply delay
+> hw_pointer by one frame, and it appears to work (the playback seems
+> fine and without glitches). However, I'm worried about calling
+> snd_pcm_period_elapsed() and then reporting that the hw_pointer hasn't
+> actually reached the end of the period. Is that ok to do?
+
+It should be fine, things should be working off the hw_pointer.
+
+> > > +     reg =3D readl(i2s->iobase_irq + I2S_IRQ_CLR);
+> > > +     if (!reg)
+> > > +             return IRQ_NONE;
+
+> > > +     if (reg & I2S_IRQ_RX_BIT)
+> > > +
+> > > +     if (reg & I2S_IRQ_TX_BIT) {
+
+> > > +     writel(reg, i2s->iobase_irq + I2S_IRQ_CLR);
+> > > +
+> > > +     return IRQ_HANDLED;
+> > > +}
+
+> > Really we should only ack things that were handled here and report
+> > appropriately, that's defensive against bugs causing interrupts to
+> > scream and shared interrupts.
+
+> What do you mean by handled? Should I check the hardware pointer and
+> check if a period really has elapsed?
+
+The driver is checking for specific bits in the status register but
+blindly acknowledging all bits that are set, and reporting IRQ_HANDLED
+even if none are set.
+
+> > why is it not being added as a CODEC?
+
+> Do you mean I should put it in sound/soc/codecs/?
+
+Yes.
+
+> Also, I used the name of the HDMI receiver chip (IT68051), but really
+> this goes through some extra processing in an FPGA, so the result has
+> little in common with the chip itself. Do you have any advice on how
+> it should be named?
+
+If it's genuinely unrelated to the capabilities of the actual chip then
+just putting a standalone driver in the platform directory is fine, but
+the code should be clear about that otherwise it looks like the code for
+the device could be shared.
+
+--BUSc4oJN6UGUA/g0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRH/1QACgkQJNaLcl1U
+h9Dm8wf/ZxJq2tRHct/ObrsIzabxytFaYqIRHRmGSuIITeQw0Nwp0PUV9AktEYHU
+LzkBnrkXvhWx3B1+uyWz4hhJLDgV4ZwS45eSGIog/yxESvzksdo0Gyzpl567SvZ/
+/36OW0kNKkiZzaYjkO+xuqSD3JAzTpBZcNoNjFvBemy4EzTm+aiJ/d1OgcAiiup6
+/smFYy8Myt6tABsZonxkrWekTj4kEu3f94/eSOA/sEt31qwaKfkdm7UCOAK8Boxq
+8Vqne9EVAKvBTv+YFJEuRUB4jcgZAj82FuqHZoHLskH5DG2iuhy0HKDT++MlOTRu
+L+2iDVwsc42urmsjklqbShXcIIGXNA==
+=4k1U
+-----END PGP SIGNATURE-----
+
+--BUSc4oJN6UGUA/g0--

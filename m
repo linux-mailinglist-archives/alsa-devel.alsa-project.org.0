@@ -2,28 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744F66EE65A
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Apr 2023 19:07:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C7AE6EE68F
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Apr 2023 19:23:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B93F10E4;
-	Tue, 25 Apr 2023 19:06:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B93F10E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9449B10E2;
+	Tue, 25 Apr 2023 19:23:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9449B10E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682442467;
-	bh=SVkDAenCLc4YxC42MyvcWJ7pLg3jV4kpEunhStZAwQQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FekJiCwc2dde6pCOsqWpOEqcNRirWn19SosEYrKNnKFw8KmZmT8xgn5ypoTzwEl5+
-	 lp+0nAlyB5VL2evyCr5/vLdsijIPJcdWs51mMO/jqQW263AscZ56Rmmhgu1e3ZaomQ
-	 wZToCWktvi2p8g8xyjv6W0JH9f5snzF8iLPUavuY=
+	s=default; t=1682443433;
+	bh=VKteOqI+tR4jwGiz0s3/Zl8oDW+YNdx9hzGF1XdHEMo=;
+	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=piqNoSaEetgn2WRtqtTV4JysPxxMUD3/Lltnhpqtg8q1v9fZD7zVIzCUGmR3DKZCL
+	 IiiONmsE5Bt2B/wIbwGJwu8CLHrMDS4gO1AyW6dGF0+ODT4z3H7RndkR57NRLCPpwB
+	 QfokhCDIfJGdezgR9i1XYL8sl27jtlhdmL5zBoEI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 972A5F8018A;
-	Tue, 25 Apr 2023 19:06:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FE4EF800F8;
+	Tue, 25 Apr 2023 19:23:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63BA3F80236; Tue, 25 Apr 2023 19:06:53 +0200 (CEST)
+	id 381F9F80236; Tue, 25 Apr 2023 19:23:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,47 +33,57 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47C9BF800F8
-	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 19:06:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47C9BF800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35F8DF80137
+	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 19:22:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35F8DF80137
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Exe7xCpN
+ header.s=k20201202 header.b=CIeHLNXw
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id CE3CC63013;
-	Tue, 25 Apr 2023 17:06:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B532C433EF;
-	Tue, 25 Apr 2023 17:06:43 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F396760B2A;
+	Tue, 25 Apr 2023 17:22:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF8FAC433D2;
+	Tue, 25 Apr 2023 17:22:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682442407;
-	bh=SVkDAenCLc4YxC42MyvcWJ7pLg3jV4kpEunhStZAwQQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Exe7xCpNhU6W4Id64yndI8vqNJBAoxVFY7HJL8XxFgU28COkPmxkauWwff9WqFcAb
-	 wZZE9Wpk53xRpYOqCUzJOKFSgq4eby1oeJkqd2RHWSTF6cno4iFdAnTfucZMmyq7gU
-	 OV6J5HvqkocwdSi6W6XcUVLdMOQr2ed+ZhzxEalYLdrCl34vT1ny/8Qdunx1Qx1Ia2
-	 solynDX8vByRMyigLCT4Oep8fADn/0dxGtKLbupBYc7hc9RJCBZg6VdAXLXddZpqs+
-	 vkG8w5FggezAMyKhTeLTLoOukMKv/lAZQ9WStn834b33F+stULspTe8cmH+ASOEsM0
-	 1Xxo38KiT5oNQ==
-Date: Tue, 25 Apr 2023 18:06:38 +0100
+	s=k20201202; t=1682443372;
+	bh=VKteOqI+tR4jwGiz0s3/Zl8oDW+YNdx9hzGF1XdHEMo=;
+	h=From:Date:Subject:To:Cc:From;
+	b=CIeHLNXwrtuZP1fk/mP2JVFX8QiAzb9EH8/FBc5VSnL0x3alVZ26UH1jmp+vrrYd7
+	 BHl60ppi3SsDTAL4oaRPenV6JvwC7N6ypwijCcmDRnPHGufj4N7i+5YSfqfKzOIRPb
+	 a6xH1zGfQoXSymyg940vzVk3Rn18gp0HKZLtRVqoTuNAzPh8kQ/buhwfiB8bCCEtjg
+	 ju6qyVAv1bdlc1f3Q6bUn6Qb6r0JoOceNMNZpqqPAD/Z8Qglq/mG/YkvjF3kYCq/7B
+	 PnTTLtz2m0Ez5snW6A9Sjnf4Nk/bgoZdwubJIw/vZvsUzWSbQFLT2V4x81bg83+G2A
+	 72VYxsKeJPoLw==
 From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?UGF3ZcWC?= Anikiel <pan@semihalf.com>
-Subject: Re: [PATCH 0/9] Add Chameleon v3 ASoC audio
-Message-ID: <b4990c65-7414-4119-be8a-32db4887bd6e@sirena.org.uk>
-References: <20230414140203.707729-1-pan@semihalf.com>
- <6d90ad41-bb2d-41a0-8a4a-922b78967a2e@sirena.org.uk>
- <CAF9_jYRqr498j=5rgeqELEaZEkMRKqBTiNvRJC2ZduZO+399BQ@mail.gmail.com>
+Date: Tue, 25 Apr 2023 18:22:46 +0100
+Subject: [PATCH] ASoC: rt5682: Use a maple tree based register cache
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fYZIDEQRkolnGTx6"
-Content-Disposition: inline
-In-Reply-To: 
- <CAF9_jYRqr498j=5rgeqELEaZEkMRKqBTiNvRJC2ZduZO+399BQ@mail.gmail.com>
-X-Cookie: The meek don't want it.
-Message-ID-Hash: AFWK6XJOWK6TUWZZ4L7DZGVRTNJI63DV
-X-Message-ID-Hash: AFWK6XJOWK6TUWZZ4L7DZGVRTNJI63DV
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20230419-asoc-rt5682-maple-v1-1-ed40369c9099@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAGUMSGQC/x2N0QrCMAwAf2Xk2UBb57T+yvAh66ILajsSUWHs3
+ +18vIPjFjBWYYNzs4DyW0xKruB3DaSJ8o1RxsoQXNi71kckKwn1dehOAZ80PxiPI7nOxegTtVC
+ 7gYxxUMpp2spP0fumZ+WrfP+r/rKuP/A3VeB6AAAA
+To: Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+X-Mailer: b4 0.13-dev-00e42
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2318; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=VKteOqI+tR4jwGiz0s3/Zl8oDW+YNdx9hzGF1XdHEMo=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkSAxp2sZLL3hFa9KQamIgB5LVBhsaT19TwxKWmCMD
+ E8FCPLiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZEgMaQAKCRAk1otyXVSH0EvYB/
+ 9/ZvgAOmb7RxPtTXmPAUyzGqnIhe1YiWSDe9ry8PqS9V7VZiMLecrPa8CkpyTNoZtR7CVaPtYytWDb
+ vx/9GJhs4Ua9/zOHn7EnT6Kikg9H8TE7n1rnVU34v2JfiErArIEmS8533sHpSBjIZmIb2h/b4+EJyK
+ UhEiCEeSPeVKzm63FP3iYRt/JP4rEmVkpaFyLwC5zLjKlAxq+LUa5LhAOWJzSAJaP7iTLNFu8lOwI/
+ t7R3yMY8nu7nPiq1R8wdGqGy3N6tLvc2iV4E2j0cxhTEb2haqkddl9pVgBMqo8X3BTg9p+2soikPdk
+ Emn+XqqCZlUNtGQBKUbpcniduOQO8V
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID-Hash: X6YKPJTDZQPY3FKMXRQDR33QS6SUEQAY
+X-Message-ID-Hash: X6YKPJTDZQPY3FKMXRQDR33QS6SUEQAY
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -82,16 +91,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, dinguyen@kernel.org,
- lars@metafoo.de, nuno.sa@analog.com, upstream@semihalf.com
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AFWK6XJOWK6TUWZZ4L7DZGVRTNJI63DV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X6YKPJTDZQPY3FKMXRQDR33QS6SUEQAY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,40 +107,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+regmap has introduced a maple tree based register cache which makes use of
+this more advanced data structure which has been added to the kernel
+recently. Maple trees are much flatter than rbtrees, meaning that they do
+not grow to such depths when the register map is sparse which makes access
+a bit more efficient. The maple tree cache type is still a bit of a work
+in progress but should be effective for some devices already.
 
---fYZIDEQRkolnGTx6
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+RT5682 seems like a good candidate for maple tree. It only supports single
+register read/write operations so will gain minimal benefit from storing
+the register data in device native format like rbtree does (none for
+SoundWire) and has some sparsity in the register map which is a good fit
+for maple tree.
 
-On Tue, Apr 25, 2023 at 05:58:59PM +0200, Pawe=C5=82 Anikiel wrote:
+Convert to use maple tree. There should be little if any visible difference
+at runtime.
 
-> > Please at least make a directory for Google as a vendor, we don't want
-> > people adding directories for each individual product. That said
-> > generally we add machine drivers in the directory for the relevant SoC
-> > family, is there any reason that pattern isn't followed here?
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/rt5682-sdw.c | 2 +-
+ sound/soc/codecs/rt5682s.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-> The board is based around an Intel Arria 10 SoC FPGA. The ring buffer
-> device and all the routing is implemented inside the FPGA. Is it ok to
-> put the machine driver in the product directory in this case?. As for
-> the directory path, would sound/soc/google/chameleonv3/* be ok?
+diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+index 5f80a5d59b65..fb7951f11c92 100644
+--- a/sound/soc/codecs/rt5682-sdw.c
++++ b/sound/soc/codecs/rt5682-sdw.c
+@@ -79,7 +79,7 @@ static const struct regmap_config rt5682_sdw_indirect_regmap = {
+ 	.max_register = RT5682_I2C_MODE,
+ 	.volatile_reg = rt5682_volatile_register,
+ 	.readable_reg = rt5682_readable_register,
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 	.reg_defaults = rt5682_reg,
+ 	.num_reg_defaults = RT5682_REG_NUM,
+ 	.use_single_read = true,
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index 9c34dca58f54..36102fa2b806 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -3046,7 +3046,7 @@ static const struct regmap_config rt5682s_regmap = {
+ 	.max_register = RT5682S_MAX_REG,
+ 	.volatile_reg = rt5682s_volatile_register,
+ 	.readable_reg = rt5682s_readable_register,
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 	.reg_defaults = rt5682s_reg,
+ 	.num_reg_defaults = ARRAY_SIZE(rt5682s_reg),
+ 	.use_single_read = true,
 
-Does the individual product really need a directory - nobody's going to
-reuse the IP on the FPGA for anything?
+---
+base-commit: 4a670ac3e75e517c96cbd01ef870dbd598c3ce71
+change-id: 20230419-asoc-rt5682-maple-7da060991ca4
 
---fYZIDEQRkolnGTx6
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+-- 
+Mark Brown <broonie@kernel.org>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRICJ4ACgkQJNaLcl1U
-h9A8hQf9HwsB2182A00Mh2ym3mFillUx1BrvfPG2lJuDB/WB4hqK34YYx/p5XvpQ
-O8FpNd77/3voqyPYMKTpScOjMnOHbkR4Y99FlmnLZmHuxYxlPRe9jB9W0VnPuIl/
-Q5FdVI/jOfy5eyjNmFNmbgaDVXKky5zhe41h+sE0Us90DI5zl3p6BBnsEtac91sD
-dBV59kI3YJa8+Djk2XF0ZYacP9eCICenKhKvaVrTP8y5aqHGnXwgHHQD9ahBEfh0
-gu96fnw1xgm6tE3NDceY6hqKChIMOrknSLSZJfQ1It8VJGyc16kCwbCfmQY0uJvV
-u/egzxVNju9UlrquK7Qn4JIir/hVgQ==
-=IxnK
------END PGP SIGNATURE-----
-
---fYZIDEQRkolnGTx6--

@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A47A6EEFB7
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Apr 2023 09:58:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 394756EEFC1
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Apr 2023 10:02:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 292881047;
-	Wed, 26 Apr 2023 09:57:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 292881047
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67C1C104E;
+	Wed, 26 Apr 2023 10:01:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67C1C104E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682495917;
-	bh=Us147tyN1iniph9oo7W/WP0pHUHdexIGmUvvYEj4faw=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1682496142;
+	bh=8JESnXU+DI1Rlbma40r1zJwBveh9DivSvxrzRjyPuWQ=;
+	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rCHU/ovP1ctNjqUBNJbbcOjjVKbkL2ywZzGG41m5VvjRFNMG6JWZYE0i9ah3rVhQx
-	 qmFeLoBLSqA29YaNjOsKRfBLTbtEUkyR/AMBwS8NBDnRGVwJySITd5CEQP5XHu8To1
-	 j+quMf5WBjcdp8oVrFFHuz4rzgPc7IaSOsN6hRXY=
+	b=KhzaeAWGQ4eQt6Au/ad7f6XOoYGFlub2dtpnWaV4CGSiwiluDl+TqgiInpil5xugZ
+	 kO/5+6c05qBXIPL9lFmesjJsFDYp7S8FEhqZYUefkaAgFzyKtWOszshY0JKvneQEId
+	 2MvXXt25IEK5T4dGh8tty6/dPaBaruK9N47KIo2E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 864E4F8018A;
-	Wed, 26 Apr 2023 09:57:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3181F8018A;
+	Wed, 26 Apr 2023 10:01:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A823F80236; Wed, 26 Apr 2023 09:57:43 +0200 (CEST)
+	id E244BF80236; Wed, 26 Apr 2023 10:01:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4ABB9F80104
-	for <alsa-devel@alsa-project.org>; Wed, 26 Apr 2023 09:57:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ABB9F80104
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
-	by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <pza@pengutronix.de>)
-	id 1pra1x-0003Vi-G5; Wed, 26 Apr 2023 09:57:37 +0200
-Received: from pza by ptx.hi.pengutronix.de with local (Exim 4.92)
-	(envelope-from <pza@pengutronix.de>)
-	id 1pra1v-0002QB-7Y; Wed, 26 Apr 2023 09:57:35 +0200
-Date: Wed, 26 Apr 2023 09:57:35 +0200
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Maxim Kochetkov <fido_max@inbox.ru>
-Subject: Re: [PATCH] ASoC: dwc: add reset support
-Message-ID: <20230426075735.GE4724@pengutronix.de>
-References: <20230421193319.14066-1-fido_max@inbox.ru>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 49D44F80104
+	for <alsa-devel@alsa-project.org>; Wed, 26 Apr 2023 10:01:20 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6930A11D5;
+	Wed, 26 Apr 2023 10:01:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6930A11D5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1682496079; bh=LA08Mj7uhWXsX144rk3cRnKnNYVgZqF98ZDwkiwSJyE=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=BjHatFwfvQrvMD6BSbG/cXYO3u6A6u1cI55AMDRvliNhMk4ESPQu4QzFQoVMz+Kl1
+	 v5IUyAvrYsHGfumc6AdbQkPrMm9ZkmaZW5PklxV0sNGfOaCGhxR3NM1bcsxfLiYkGo
+	 iAZoL4KeTcb7L9jDS3QayRGTMK4L7tbEnFI+6CA0=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 26 Apr 2023 10:01:12 +0200 (CEST)
+Message-ID: <7645c6c8-a21c-23d7-5c19-cd2892b98481@perex.cz>
+Date: Wed, 26 Apr 2023 10:01:11 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230421193319.14066-1-fido_max@inbox.ru>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: pza@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: LZF6TC6456BH67SYKTSKHLPPZNMM2TLT
-X-Message-ID-Hash: LZF6TC6456BH67SYKTSKHLPPZNMM2TLT
-X-MailFrom: pza@pengutronix.de
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>, Jakub Kicinski <kuba@kernel.org>
+References: <20230425111924.05cf8b13@kernel.org> <87pm7rtdul.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: USB sound card freezes USB after resume from suspend
+In-Reply-To: <87pm7rtdul.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: KOBM2EM2ND3GGQDWRF54JKI6LN75DZRI
+X-Message-ID-Hash: KOBM2EM2ND3GGQDWRF54JKI6LN75DZRI
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, lgirdwood@gmail.com, broonie@kernel.org,
- tiwai@suse.com, ckeepax@opensource.cirrus.com,
- u.kleine-koenig@pengutronix.de, nicolas.ferre@microchip.com
+CC: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-usb@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ regressions@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LZF6TC6456BH67SYKTSKHLPPZNMM2TLT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KOBM2EM2ND3GGQDWRF54JKI6LN75DZRI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,42 +94,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Maxim,
-
-On Fri, Apr 21, 2023 at 10:33:19PM +0300, Maxim Kochetkov wrote:
-> Some SoC may have resets for I2S subsystem. So add optional reset
-> deassert at startup.
+On 26. 04. 23 7:24, Takashi Iwai wrote:
+> On Tue, 25 Apr 2023 20:19:24 +0200,
+> Jakub Kicinski wrote:
+>>
+>> Hi!
+>>
+>> For a few weeks now I can't use any USB devices if I suspend my laptop
+>> with my USB sound card active and resuming it without it connected.
+>>
+>> USB worker threads seems to be sitting in:
+>>
+>> [<0>] snd_pcm_dev_disconnect+0x1e8/0x280 [snd_pcm]
+>> [<0>] snd_device_disconnect_all+0x42/0x80 [snd]
+>> [<0>] snd_card_disconnect+0x128/0x290 [snd]
+>> [<0>] usb_audio_disconnect+0x11a/0x2c0 [snd_usb_audio]
+>> [<0>] usb_unbind_interface+0x8c/0x270
+>> [<0>] device_release_driver_internal+0x1b2/0x230
+>> [<0>] bus_remove_device+0xd8/0x150
+>> [<0>] device_del+0x18b/0x410
+>> [<0>] usb_disable_device+0xc6/0x1e0
+>> [<0>] usb_disconnect+0xda/0x2c0
+>> [<0>] usb_disconnect+0xbf/0x2c0
+>> [<0>] usb_disconnect+0xbf/0x2c0
+>> [<0>] usb_disconnect+0xbf/0x2c0
+>> [<0>] hub_event+0xf01/0x1cd0
+>> [<0>] process_one_work+0x1c4/0x3d0
+>> [<0>] worker_thread+0x4d/0x380
+>> [<0>] kthread+0xe6/0x110
+>> [<0>] ret_from_fork+0x29/0x50
+>>
+>> Which is:
+>>
+>> snd_pcm_dev_disconnect (/usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:818 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:812 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:1129) snd_pcm
+>>
+>> It happens on Fedora 37 and Fedora 38, it seems to have coincided with
+>> the 6.2 kernel but I'm not 100% sure.
+>>
+>> The USB devices come back after half an hour or so, silently.
+>> There's nothing of note in dmesg.
 > 
-> Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
-> ---
->  sound/soc/dwc/dwc-i2s.c | 9 +++++++++
->  sound/soc/dwc/local.h   | 1 +
->  2 files changed, 10 insertions(+)
+> AFAIK, there has been no similar report, so far.
 > 
-> diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-> index acdf98b2ee9c..8c8bc7116f86 100644
-> --- a/sound/soc/dwc/dwc-i2s.c
-> +++ b/sound/soc/dwc/dwc-i2s.c
-> @@ -17,6 +17,7 @@
->  #include <linux/io.h>
->  #include <linux/interrupt.h>
->  #include <linux/module.h>
-> +#include <linux/reset.h>
->  #include <linux/slab.h>
->  #include <linux/pm_runtime.h>
->  #include <sound/designware_i2s.h>
-> @@ -648,6 +649,14 @@ static int dw_i2s_probe(struct platform_device *pdev)
->  	if (IS_ERR(dev->i2s_base))
->  		return PTR_ERR(dev->i2s_base);
->  
-> +	dev->reset = devm_reset_control_array_get_optional_shared(&pdev->dev);
-> +	if (IS_ERR(dev->reset))
-> +		return PTR_ERR(dev->reset);
-> +
-> +	ret = reset_control_deassert(dev->reset);
+> Is it a regression?  If yes, could you figure out which kernel version
+> starts showing the problem (or at best bisection)?
 
-Since this is a shared reset control, matching reset_control_assert()
-calls are required in the subsequent error paths and in dw_i2s_remove().
+It seems that it may be related to free_chmap():
 
-regards
-Philipp
+(gdb) l *(snd_pcm_dev_disconnect+0x1e8)
+0xef0 is in snd_pcm_dev_disconnect (sound/core/pcm.c:817).
+812	static void free_chmap(struct snd_pcm_str *pstr)
+813	{
+814		if (pstr->chmap_kctl) {
+815			struct snd_card *card = pstr->pcm->card;
+816	
+817			down_write(&card->controls_rwsem);
+818			snd_ctl_remove(card, pstr->chmap_kctl);
+819			up_write(&card->controls_rwsem);
+820			pstr->chmap_kctl = NULL;
+821		}
+
+I think that the chmap should be freed only in snd_pcm_free_stream() to avoid 
+possible nested mutex locks. This operation does not belong to disconnect.
+
+But I cannot reproduce this lock here.
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+

@@ -2,86 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B9DB6EE779
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Apr 2023 20:20:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F30226EED87
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Apr 2023 07:28:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74B781085;
-	Tue, 25 Apr 2023 20:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74B781085
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF2C110FE;
+	Wed, 26 Apr 2023 07:27:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF2C110FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682446826;
-	bh=a5e362dR6ySmw3iQpUCph0QtcBgaA6XNxOfsDsKytJ8=;
-	h=Date:From:To:Subject:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=hJYlXt7/n12Z+/NphaDoZAzM9C5E9aJS0PRW5xL2qfbKy36n6WyOhRBXNcz4bs+kd
-	 irYtt2Zi2stk8UJ+87o3JmME2UAtKn0f3FJp3POt0PRZGJJpOk+K4wNEaqMNMvlJiu
-	 ZskjuGOXzD6x7WZT3p+ca/3ZWZUeHWY1tXttPNyk=
+	s=default; t=1682486903;
+	bh=BAuEfT9KpsyKArZT0YP2MS4KA16Wa9VY6c7P3j/nML8=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=a7DRfXIjeIqijzeaAIA5nrfFJIR1DYlv1D2NpJDMEZp38dQ9+JFCXsm0//G22R1MA
+	 uMt0OWXWnrxp0rC7qZc+m3IKBrYz/A8rNnCah6wDHJPfYzMVUuHcuQVaiggO4RJ+iK
+	 hv6+dpmYLxYkdJXq8d2vgJ+nIsRTTJ4eU5t1xTps=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC5DEF8018A;
-	Tue, 25 Apr 2023 20:19:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 122C2F8018A;
+	Wed, 26 Apr 2023 07:27:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A70FEF80236; Tue, 25 Apr 2023 20:19:32 +0200 (CEST)
+	id 89A04F80236; Wed, 26 Apr 2023 07:25:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CB328F800F8
-	for <alsa-devel@alsa-project.org>; Tue, 25 Apr 2023 20:19:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB328F800F8
+	by alsa1.perex.cz (Postfix) with ESMTPS id E17A5F80104
+	for <alsa-devel@alsa-project.org>; Wed, 26 Apr 2023 07:24:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E17A5F80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hUbarVpp
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=TT97eb7P;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=xvno9iL0
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 578856100E;
-	Tue, 25 Apr 2023 18:19:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805DDC433D2;
-	Tue, 25 Apr 2023 18:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682446765;
-	bh=a5e362dR6ySmw3iQpUCph0QtcBgaA6XNxOfsDsKytJ8=;
-	h=Date:From:To:Cc:Subject:From;
-	b=hUbarVppEHXayqsLjl4Il6wCkfQW/tj7LIAge1mA22D+CPDvYi9xL0fuAL8c0GZky
-	 iX0Uh7x6sV2naYai+MHUlMcALiypzNGTq87og0UNAq7BfGlp6yMgrDr/dRgZojq7Zx
-	 +7tGAJMTY1XptODsTAeBLUTyjQsiWeI8RBbTAbbX5uq0iSdNnl6MSCYs5eqD6Z4xZw
-	 LNoI3ncfEk86w6aaFgMhYkuqMxgL+fybqVF2rREnco5ALB9JVAduDtP9VOhcnH+NCR
-	 9/pNrcNSQHXT4Oi/naqPpgSbdhalLWijaJLmovHrZhTUwKtMDw/SX/rx4C5YfUbLrm
-	 CaRfNdXdJn5cg==
-Date: Tue, 25 Apr 2023 11:19:24 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: USB sound card freezes USB after resume from suspend
-Message-ID: <20230425111924.05cf8b13@kernel.org>
-MIME-Version: 1.0
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E302D218FE;
+	Wed, 26 Apr 2023 05:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1682486690;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DpzYVk5A1Q3UnhopimKwPMkT8MM/RE/0a2B7aQRyojw=;
+	b=TT97eb7PDsXoHzLUu3+PSKeGnjmrzLd40NyATfwcfOnGgeNuouzo0+RXVXUQjzE+qatrV1
+	XjxEfxzyakpq2B7HUFirOTvX5s1APTlnFfPtBUU8EmZNnxcmGPVY9Oh2NL8pu60lv5/ECx
+	kOx/Axi5sJ1UlU2Y5WpNbM1Plar35wo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1682486690;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DpzYVk5A1Q3UnhopimKwPMkT8MM/RE/0a2B7aQRyojw=;
+	b=xvno9iL02BtSs9Y9Hh3mBICyfKvQs8yQpU1hYDwhKdG68MDktCthtQwmcTKCpJRYEra03W
+	ozbBOGe39s4LkqAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B223013499;
+	Wed, 26 Apr 2023 05:24:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 7vSOKqK1SGQXPgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 26 Apr 2023 05:24:50 +0000
+Date: Wed, 26 Apr 2023 07:24:50 +0200
+Message-ID: <87pm7rtdul.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jakub Kicinski <kuba@kernel.org>
+Subject: Re: USB sound card freezes USB after resume from suspend
+In-Reply-To: <20230425111924.05cf8b13@kernel.org>
+References: <20230425111924.05cf8b13@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: MLVKW5LEGL3AWZEOJHNZWQXXYTH3Z4XM
-X-Message-ID-Hash: MLVKW5LEGL3AWZEOJHNZWQXXYTH3Z4XM
-X-MailFrom: kuba@kernel.org
+Message-ID-Hash: FQTS5PQBSTRNTRXTF2NWMPLBPVI6IXTT
+X-Message-ID-Hash: FQTS5PQBSTRNTRXTF2NWMPLBPVI6IXTT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, regressions@lists.linux.dev
+CC: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-usb@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ regressions@lists.linux.dev
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MLVKW5LEGL3AWZEOJHNZWQXXYTH3Z4XM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FQTS5PQBSTRNTRXTF2NWMPLBPVI6IXTT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,38 +117,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi!
+On Tue, 25 Apr 2023 20:19:24 +0200,
+Jakub Kicinski wrote:
+> 
+> Hi!
+> 
+> For a few weeks now I can't use any USB devices if I suspend my laptop
+> with my USB sound card active and resuming it without it connected.
+> 
+> USB worker threads seems to be sitting in:
+> 
+> [<0>] snd_pcm_dev_disconnect+0x1e8/0x280 [snd_pcm]
+> [<0>] snd_device_disconnect_all+0x42/0x80 [snd]
+> [<0>] snd_card_disconnect+0x128/0x290 [snd]
+> [<0>] usb_audio_disconnect+0x11a/0x2c0 [snd_usb_audio]
+> [<0>] usb_unbind_interface+0x8c/0x270
+> [<0>] device_release_driver_internal+0x1b2/0x230
+> [<0>] bus_remove_device+0xd8/0x150
+> [<0>] device_del+0x18b/0x410
+> [<0>] usb_disable_device+0xc6/0x1e0
+> [<0>] usb_disconnect+0xda/0x2c0
+> [<0>] usb_disconnect+0xbf/0x2c0
+> [<0>] usb_disconnect+0xbf/0x2c0
+> [<0>] usb_disconnect+0xbf/0x2c0
+> [<0>] hub_event+0xf01/0x1cd0
+> [<0>] process_one_work+0x1c4/0x3d0
+> [<0>] worker_thread+0x4d/0x380
+> [<0>] kthread+0xe6/0x110
+> [<0>] ret_from_fork+0x29/0x50
+> 
+> Which is:
+> 
+> snd_pcm_dev_disconnect (/usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:818 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:812 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:1129) snd_pcm
+> 
+> It happens on Fedora 37 and Fedora 38, it seems to have coincided with
+> the 6.2 kernel but I'm not 100% sure.
+> 
+> The USB devices come back after half an hour or so, silently.
+> There's nothing of note in dmesg.
 
-For a few weeks now I can't use any USB devices if I suspend my laptop
-with my USB sound card active and resuming it without it connected.
+AFAIK, there has been no similar report, so far.
 
-USB worker threads seems to be sitting in:
+Is it a regression?  If yes, could you figure out which kernel version
+starts showing the problem (or at best bisection)?
 
-[<0>] snd_pcm_dev_disconnect+0x1e8/0x280 [snd_pcm]
-[<0>] snd_device_disconnect_all+0x42/0x80 [snd]
-[<0>] snd_card_disconnect+0x128/0x290 [snd]
-[<0>] usb_audio_disconnect+0x11a/0x2c0 [snd_usb_audio]
-[<0>] usb_unbind_interface+0x8c/0x270
-[<0>] device_release_driver_internal+0x1b2/0x230
-[<0>] bus_remove_device+0xd8/0x150
-[<0>] device_del+0x18b/0x410
-[<0>] usb_disable_device+0xc6/0x1e0
-[<0>] usb_disconnect+0xda/0x2c0
-[<0>] usb_disconnect+0xbf/0x2c0
-[<0>] usb_disconnect+0xbf/0x2c0
-[<0>] usb_disconnect+0xbf/0x2c0
-[<0>] hub_event+0xf01/0x1cd0
-[<0>] process_one_work+0x1c4/0x3d0
-[<0>] worker_thread+0x4d/0x380
-[<0>] kthread+0xe6/0x110
-[<0>] ret_from_fork+0x29/0x50
 
-Which is:
+thanks,
 
-snd_pcm_dev_disconnect (/usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:818 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:812 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:1129) snd_pcm
-
-It happens on Fedora 37 and Fedora 38, it seems to have coincided with
-the 6.2 kernel but I'm not 100% sure.
-
-The USB devices come back after half an hour or so, silently.
-There's nothing of note in dmesg.
+Takashi

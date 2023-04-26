@@ -2,91 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB1D86EF30A
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Apr 2023 13:05:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2CD26EF36F
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Apr 2023 13:30:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AABC4107C;
-	Wed, 26 Apr 2023 13:04:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AABC4107C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4291E1077;
+	Wed, 26 Apr 2023 13:29:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4291E1077
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682507130;
-	bh=s1vGRAuFtgWiv14afUVqjOe1MZ8dZe2Ks8ZxQzeyKT8=;
-	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
+	s=default; t=1682508629;
+	bh=GBEE4elFhwUK1G7W0thBHiV17vI4CyaESyN1ZdJ1tEA=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oN40Sw6OwJvhYZRhc/yjvG+0dvK/twaMjGz5JKwSiHyYlVfImTjyNGg4KhoVgYNfz
-	 lWMzKD319HlX3EWRe21UOy+T0mmjX8DjeG4+kxwqKgcishpt9Sj1vvdv8NZqYDQLtX
-	 QCZh5si6seuFG1r9/cEeUbi1FWQh7MWlclUWSoPY=
+	b=eNccHX3ouo37jQLjN/wtsp4pi57cujfNemDPL1QKnf7gUCJWj/TE7eNrkFxQgPdoH
+	 hfzy6X8MkhH/jLKhTXtjt3/Xg4UWzX+tuPsDqCuh5KGiHXuaS0UUutAXSHlRyWmBT+
+	 bW9dQvetpbDlXCmD0ixCQ4Z9aTyeBXliuXlj61rI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB8D3F8018A;
-	Wed, 26 Apr 2023 13:04:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 504BCF80236;
+	Wed, 26 Apr 2023 13:29:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0A71F80236; Wed, 26 Apr 2023 13:04:32 +0200 (CEST)
+	id 609A7F8025E; Wed, 26 Apr 2023 13:29:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 57046F800AC
-	for <alsa-devel@alsa-project.org>; Wed, 26 Apr 2023 13:04:24 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 17C8711D5;
-	Wed, 26 Apr 2023 13:04:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 17C8711D5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1682507063; bh=Z5AfyzJPQrmIlFFnt6/C2yrchA/TVjV0DYQRCZ7Rq94=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=XIkx1eZ3+VfivIVLcCKOWBpOHgb+Ia9nWev3ayHsF33pDRDpgzUellGVyBd2/nTHv
-	 aYvah3RVn16/SNisWmmshOuz+6J+/qP8eOvxXvqDXh7s1tH1Q/skGM2I0aE/fuUYCH
-	 lNh0H8wBXEQ4tvdiQLiTNEmQOvLqkrin2veerEAs=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9FA52F800AC
+	for <alsa-devel@alsa-project.org>; Wed, 26 Apr 2023 13:29:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA52F800AC
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=J2yPfDkS
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 26 Apr 2023 13:04:16 +0200 (CEST)
-Message-ID: <a2e18eaa-2984-c2ba-f101-e16ad1dae0a0@perex.cz>
-Date: Wed, 26 Apr 2023 13:04:15 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5B53F62C37;
+	Wed, 26 Apr 2023 11:29:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F9EDC4339E;
+	Wed, 26 Apr 2023 11:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1682508560;
+	bh=GBEE4elFhwUK1G7W0thBHiV17vI4CyaESyN1ZdJ1tEA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=J2yPfDkSFMUY3J5xAbChkGYgWDXAj/A7Xc484VfHpLHFwsSG0hmIdwQgAcd8SaeBJ
+	 X1bNrA8GVDyUOt1Kwbb+Q82VgJD9ql+YhZQ70jy72PSRV0LXAhqKnRXFPCKjwGAuCg
+	 5iyAV1pn1vJKr2zie93+Q9jQ6YywB+fdnEPPtQCEK+LVm2IaBi2jYsf6KEOguJVvl/
+	 nCG8MY5LSNhLTq3FRrXqGW2SrJ0bde5UcP7sIA4C45zUo7WG/tkhRfPVI5BKiHEJUv
+	 nDj2UfLuUzDdl9crUlt9yfjyAW6ztmZ6A7gpIfk4nlEX7nd55I2WjZ6Am+kf1++15z
+	 NAoNp751HPrAA==
+Date: Wed, 26 Apr 2023 12:29:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Maxim Kochetkov <fido_max@inbox.ru>
+Subject: Re: [PATCH] ASoC: dwc: add reset support
+Message-ID: <b43effb0-0473-4580-afc3-e9652f821bdd@sirena.org.uk>
+References: <20230421193319.14066-1-fido_max@inbox.ru>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-References: <20230425111924.05cf8b13@kernel.org> <87pm7rtdul.wl-tiwai@suse.de>
- <7645c6c8-a21c-23d7-5c19-cd2892b98481@perex.cz> <87leifjc16.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: USB sound card freezes USB after resume from suspend
-In-Reply-To: <87leifjc16.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: IVYANTP2V7DUSAH5K23IITBTU4PWDGYI
-X-Message-ID-Hash: IVYANTP2V7DUSAH5K23IITBTU4PWDGYI
-X-MailFrom: perex@perex.cz
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="RS4w6fKQ6BRvf/MV"
+Content-Disposition: inline
+In-Reply-To: <20230421193319.14066-1-fido_max@inbox.ru>
+X-Cookie: Drilling for oil is boring.
+Message-ID-Hash: TY4KAUC7KWPIQMUUHALHIUIDBMRTTWKH
+X-Message-ID-Hash: TY4KAUC7KWPIQMUUHALHIUIDBMRTTWKH
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Jakub Kicinski <kuba@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, regressions@lists.linux.dev
+CC: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ p.zabel@pengutronix.de, ckeepax@opensource.cirrus.com,
+ u.kleine-koenig@pengutronix.de, nicolas.ferre@microchip.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IVYANTP2V7DUSAH5K23IITBTU4PWDGYI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TY4KAUC7KWPIQMUUHALHIUIDBMRTTWKH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,91 +96,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 26. 04. 23 10:14, Takashi Iwai wrote:
-> On Wed, 26 Apr 2023 10:01:11 +0200,
-> Jaroslav Kysela wrote:
->>
->> On 26. 04. 23 7:24, Takashi Iwai wrote:
->>> On Tue, 25 Apr 2023 20:19:24 +0200,
->>> Jakub Kicinski wrote:
->>>>
->>>> Hi!
->>>>
->>>> For a few weeks now I can't use any USB devices if I suspend my laptop
->>>> with my USB sound card active and resuming it without it connected.
->>>>
->>>> USB worker threads seems to be sitting in:
->>>>
->>>> [<0>] snd_pcm_dev_disconnect+0x1e8/0x280 [snd_pcm]
->>>> [<0>] snd_device_disconnect_all+0x42/0x80 [snd]
->>>> [<0>] snd_card_disconnect+0x128/0x290 [snd]
->>>> [<0>] usb_audio_disconnect+0x11a/0x2c0 [snd_usb_audio]
->>>> [<0>] usb_unbind_interface+0x8c/0x270
->>>> [<0>] device_release_driver_internal+0x1b2/0x230
->>>> [<0>] bus_remove_device+0xd8/0x150
->>>> [<0>] device_del+0x18b/0x410
->>>> [<0>] usb_disable_device+0xc6/0x1e0
->>>> [<0>] usb_disconnect+0xda/0x2c0
->>>> [<0>] usb_disconnect+0xbf/0x2c0
->>>> [<0>] usb_disconnect+0xbf/0x2c0
->>>> [<0>] usb_disconnect+0xbf/0x2c0
->>>> [<0>] hub_event+0xf01/0x1cd0
->>>> [<0>] process_one_work+0x1c4/0x3d0
->>>> [<0>] worker_thread+0x4d/0x380
->>>> [<0>] kthread+0xe6/0x110
->>>> [<0>] ret_from_fork+0x29/0x50
->>>>
->>>> Which is:
->>>>
->>>> snd_pcm_dev_disconnect (/usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:818 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:812 /usr/src/debug/kernel-6.2.12/linux-6.2.12-300.fc38.x86_64/sound/core/pcm.c:1129) snd_pcm
->>>>
->>>> It happens on Fedora 37 and Fedora 38, it seems to have coincided with
->>>> the 6.2 kernel but I'm not 100% sure.
->>>>
->>>> The USB devices come back after half an hour or so, silently.
->>>> There's nothing of note in dmesg.
->>>
->>> AFAIK, there has been no similar report, so far.
->>>
->>> Is it a regression?  If yes, could you figure out which kernel version
->>> starts showing the problem (or at best bisection)?
->>
->> It seems that it may be related to free_chmap():
->>
->> (gdb) l *(snd_pcm_dev_disconnect+0x1e8)
->> 0xef0 is in snd_pcm_dev_disconnect (sound/core/pcm.c:817).
->> 812	static void free_chmap(struct snd_pcm_str *pstr)
->> 813	{
->> 814		if (pstr->chmap_kctl) {
->> 815			struct snd_card *card = pstr->pcm->card;
->> 816	
->> 817			down_write(&card->controls_rwsem);
->> 818			snd_ctl_remove(card, pstr->chmap_kctl);
->> 819			up_write(&card->controls_rwsem);
->> 820			pstr->chmap_kctl = NULL;
->> 821		}
->>
->> I think that the chmap should be freed only in snd_pcm_free_stream()
->> to avoid possible nested mutex locks. This operation does not belong
->> to disconnect.
-> 
-> A good point, it'll be a patch like below.
 
-It looks good.
+--RS4w6fKQ6BRvf/MV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+On Fri, Apr 21, 2023 at 10:33:19PM +0300, Maxim Kochetkov wrote:
+> Some SoC may have resets for I2S subsystem. So add optional reset
+> deassert at startup.
+>=20
+> Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
+> ---
+>  sound/soc/dwc/dwc-i2s.c | 9 +++++++++
+>  sound/soc/dwc/local.h   | 1 +
+>  2 files changed, 10 insertions(+)
 
-> But we still need to figure out what's actually happening there.
->   
->> But I cannot reproduce this lock here.
-> 
-> Here too.  Could be tied with the config or the device?
+I'd expect to see a binding update along with this?
 
-Perhaps. Jakub, could you do more debugging (printk, traces)?
+--RS4w6fKQ6BRvf/MV
+Content-Type: application/pgp-signature; name="signature.asc"
 
-					Jaroslav
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRJCwoACgkQJNaLcl1U
+h9Burgf/cOG6Bfw+D7ZOtoYVE71WWU91twyrCC0yT1GYiS97ZuEXvrcyZEbRhQpu
+JooNJHEDe6vkoP10hki0TcyAp9X6G/Fd65/9wg2N5wNcztE1v48ZF9wIEvhog2Gg
+rId8+OgQVSWGz+GM8WIOVKrDvXIZwrI9PsuOvu9LSB37mW6jQI3Q9sdTRGuoTuet
+4VIbOPP2vxkXz9HULU2uiIze33fvY6fSIXdxKi5R44xDMnPx8Ne8H+uQn2uFEAZK
+Px7jOg5qt2Shlk+3rOGp3sLHL6x96j4CLWqp6FdTkvyK8C9cSWhzYL26unwf7o/W
+dbpzasgA2K4W/BR7SuUsy9SGsnwyYw==
+=Nu2Z
+-----END PGP SIGNATURE-----
 
+--RS4w6fKQ6BRvf/MV--

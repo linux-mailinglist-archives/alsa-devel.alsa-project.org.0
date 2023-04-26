@@ -2,63 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F5C6EEEA2
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Apr 2023 08:58:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1766EEF49
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Apr 2023 09:25:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15A071071;
-	Wed, 26 Apr 2023 08:57:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15A071071
+	by alsa0.perex.cz (Postfix) with ESMTPS id 470AE1089;
+	Wed, 26 Apr 2023 09:24:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 470AE1089
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682492294;
-	bh=YEtxQwemM8ElH7uDTalSPRuOLzWLhR8ZM28SUEeE//A=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=eTlOVjqwHAFKnyRRbGuxYCitkjvM8ecVgnNvKREww0RcB7rcLiFdhaHSXJCj6PAiI
-	 H3UuyTnMIhEWuDTs7d4owjuhjnhu4aq9JEOxDWc1SCuNm9/sGQMwFyU30RNjv5ZKGY
-	 PNK6VgSycAYWSr5RC9z/Lldwm4tYfCf1Uwbvl6ug=
+	s=default; t=1682493929;
+	bh=sPjy7eTnVKr55W1Tl8WCzW6iwgStiNWvlcU2h/dPajg=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=iQnv++M+O/JqwVukkC3BRYEaHrupN0/gP31T6t8fKGXylwgxgiD+Xc1yz0EQ4tOrf
+	 RzI43ET9SIewGOW7sgdCSZ/L0xZMjbRQOcEo5y/K2Pb0p3ApXHKVNtzXNaBlWHq+2w
+	 /Y1crVnHueZJshmjYNPMw6fO0DzTGBxjcwWm7OOg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55B56F8018A;
-	Wed, 26 Apr 2023 08:57:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FFB9F8018A;
+	Wed, 26 Apr 2023 09:24:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B9EFF80236; Wed, 26 Apr 2023 08:57:19 +0200 (CEST)
+	id AE2A9F80236; Wed, 26 Apr 2023 09:24:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 083B7F800AC
-	for <alsa-devel@alsa-project.org>; Wed, 26 Apr 2023 08:57:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 083B7F800AC
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1682492231896585226-webhooks-bot@alsa-project.org>
-References: <1682492231896585226-webhooks-bot@alsa-project.org>
-Subject: USB Audio (HyperX DuoCast) Microphone record volume is too low
-Message-Id: <20230426065719.7B9EFF80236@alsa1.perex.cz>
-Date: Wed, 26 Apr 2023 08:57:19 +0200 (CEST)
-Message-ID-Hash: 6UU3QNKXXIBKGF3FRLNVAXZEBQMFYYA7
-X-Message-ID-Hash: 6UU3QNKXXIBKGF3FRLNVAXZEBQMFYYA7
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id F01B5F80137
+	for <alsa-devel@alsa-project.org>; Wed, 26 Apr 2023 09:24:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F01B5F80137
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=nAlELxnp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=FsbjWhpA
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 686531FDC9;
+	Wed, 26 Apr 2023 07:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1682493868;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RjYLAEDFyeTu5dr819Sy+0Q2AdDOHKfWmkJpsLmY/IU=;
+	b=nAlELxnpsEXwOVka3P1rHF2HkONuHgtDPDWikNZpkzMfZQZKMsbgTqKEN5hm0mi/+H4537
+	3FJ78ZpPtAbmnfDTpBx1QElx1A2rRuSjR/gkksIWYtJXfIPjPCxKwUAr+WAPNsz/7613mt
+	7tk41f24sls9SRtN3RaOnl8hlScnuhU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1682493868;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RjYLAEDFyeTu5dr819Sy+0Q2AdDOHKfWmkJpsLmY/IU=;
+	b=FsbjWhpAj14ECnaX5QOKoSqwTM927SdcH7F+bWvPBX8rPSJYTvEvF8opJd9IKt3EaWTshB
+	GWaX5giKw34yurBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3EAC0138F0;
+	Wed, 26 Apr 2023 07:24:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 0p9PDqzRSGSgdAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 26 Apr 2023 07:24:28 +0000
+Date: Wed, 26 Apr 2023 09:24:27 +0200
+Message-ID: <87r0s7jec4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH] ALSA: hda: patch_realtek: add quirk for Asus N7601ZM
+In-Reply-To: <9bb98362-8654-292a-06ed-ec6d1bccf5c7@linux.intel.com>
+References: <20230406152725.15191-1-pierre-louis.bossart@linux.intel.com>
+	<87355dt40f.wl-tiwai@suse.de>
+	<9bb98362-8654-292a-06ed-ec6d1bccf5c7@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: PESFJHCGKCXBB4PV7TG6EN7W7O2EBJJH
+X-Message-ID-Hash: PESFJHCGKCXBB4PV7TG6EN7W7O2EBJJH
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Erik Brakkee <erik@brakkee.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6UU3QNKXXIBKGF3FRLNVAXZEBQMFYYA7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PESFJHCGKCXBB4PV7TG6EN7W7O2EBJJH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -67,31 +118,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #308 was opened from nitin88:
+On Wed, 19 Apr 2023 21:23:26 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> Hi Takashi,
+> 
+> On 4/6/23 10:38, Takashi Iwai wrote:
+> > On Thu, 06 Apr 2023 17:27:25 +0200,
+> > Pierre-Louis Bossart wrote:
+> >>
+> >> Add pins and verbs needed to enable speakers and jack.
+> >>
+> >> The pins and verbs configurations were identified by snooping the
+> >> Windows driver commands, with a nice write-up here:
+> >> https://brakkee.org/site/2023/02/07/fixing-sound-on-the-asus-n7601zm/
+> >>
+> >> Reported-by: Erik Brakkee <erik@brakkee.org>
+> >> Tested-by: Erik Brakkee <erik@brakkee.org>
+> >> Link: https://github.com/thesofproject/linux/issues/4176
+> >> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> >> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> >> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> > 
+> > Applied now with a minor correction of the entry (to be sorted in SSID
+> > order).
+> 
+> Apologies if I am missing something but I don't see this patch being
+> applied on the for-next/ branch?
 
-Hi,
-I purchased HyperX DuoCast for office meetings and avoid through whole hoop of Motherboard specific PCIe sound card issues and support as I use pretty much latest hardware. But the sound issues around Linux is still killing me.
+It was in for-linus branch and already merged in Linus tree for 6.3
+final in commit e959f2beec8e655dba79c5a7111beedae5e757e0.
 
-1. My DuoCast hardware gain set to Max and still the record volume is too low.
-2. Alsamixer disabled Mic volume (atleast can't change anything from here)
-3. Pulse Audio Volume Control installed and has 100% volume (under Input devices)
+Currently my for-next and for-linus branches are diverged.
+Will be merged back once after 6.4-rc1 merge window is closed.
 
-I can record the sound clip and it's barely audible. If I set to 150% gain in Pulse Audio Volume Control, its acceptable and others can hear over meetings.
-Can anyone please tell me how do I fix this? Everyone suggests using USB audio and with USB audio, it's pretty much same state.
 
-If I use Logitech Webcam USB Audio for recording, everything works so smooth and recorded audio is on-par with expectations.
+thanks,
 
-Based on 2, 3 - I don't think I have any other hardware issue than most likely Linux audio mess. Because I can increase the mic volume for Logitech in Alsamixer but not for HyperX Duocast.
-I noticed following details
-
-```
-Control: name="PCM Playback Volume", index=0
-    Info: id=8, control=2, cmask=0x3, channels=2, type="S16"
-    Volume: min=-10240, max=-1536, dBmin=-4000, dBmax=-600
-```
-
-Alsa info: 
-[alsa-info.txt](https://github.com/alsa-project/alsa-ucm-conf/files/11329890/alsa-info.txt)
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/308
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Takashi

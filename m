@@ -2,92 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 209726F2EDF
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 May 2023 08:47:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9F46F1307
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Apr 2023 10:10:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 771041757;
-	Mon,  1 May 2023 08:46:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 771041757
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4ACB7126C;
+	Fri, 28 Apr 2023 10:09:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4ACB7126C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682923627;
-	bh=0D4Dgn5F3sEA7IvLDYjbVWuODH84oYDcvdArSlAxftc=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=XC4PUZ1PqFD+G9ALUvmMobsCh4HSqN7Mghm867gywXBppwaCS7uHlu3dI2KSXJpg7
-	 sRrKHFjeULof8VpXP/vQ7v6YFm2RZ1PNd3M2rHf5wh1JbavMXBGJdgscslKwLGU1nj
-	 OhOCcU/9iQwExC130SDlNXtC/7/9JmiPLWdMvwiU=
+	s=default; t=1682669446;
+	bh=woHK9nm9aVbeQCZgfYaqG7vDiEnJXCw9+q5XwacVeq0=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=g0cmN7BxkB6ha06ryMinR+5KFffqeKxvCFWcChYGVlEmLZkBZYKpkr2ES1qFKTNCb
+	 JNyiBv1B6ysdBKXWPV6znEBoIr69Aj/rIpXcqsfCNEpPclMDEpRLLhO5lS9NLF6t+9
+	 WBQPDGtXD4kQrCQWV2f/LkwYgtrORl8BNL5P9ZB4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AE85F805D3;
-	Mon,  1 May 2023 08:41:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60152F80236;
+	Fri, 28 Apr 2023 10:09:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9A754F8025E; Fri, 28 Apr 2023 08:58:19 +0200 (CEST)
+	id DBCE1F8025E; Fri, 28 Apr 2023 10:07:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-6.4 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D9EE9F80137
-	for <alsa-devel@alsa-project.org>; Fri, 28 Apr 2023 08:57:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9EE9F80137
-Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
-	by ex01.ufhost.com (Postfix) with ESMTP id 4840524E2C5;
-	Fri, 28 Apr 2023 14:57:54 +0800 (CST)
-Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX165.cuchost.com
- (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Fri, 28 Apr
- 2023 14:57:54 +0800
-Received: from [192.168.125.124] (183.27.98.45) by EXMBX168.cuchost.com
- (172.16.6.78) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Fri, 28 Apr
- 2023 14:57:53 +0800
-Message-ID: <fda68c53-0beb-59ac-18c1-4e3075b5ee9c@starfivetech.com>
-Date: Fri, 28 Apr 2023 14:57:53 +0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4E598F800F8
+	for <alsa-devel@alsa-project.org>; Fri, 28 Apr 2023 10:07:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E598F800F8
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id E297F23FB4;
+	Fri, 28 Apr 2023 04:07:32 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1psJ8e-7eK-00; Fri, 28 Apr 2023 10:07:32 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH RESEND] ALSA: emu10k1: use more existing defines instead of
+ open-coded numbers
+Date: Fri, 28 Apr 2023 10:07:32 +0200
+Message-Id: <20230428080732.1697695-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v2 3/4] ASoC: starfive: Add JH7110 TDM driver
-To: Mark Brown <broonie@kernel.org>
-References: <20230420024118.22677-1-walker.chen@starfivetech.com>
- <20230420024118.22677-4-walker.chen@starfivetech.com>
- <27e57746-d05b-4983-a631-29306851a478@sirena.org.uk>
-Content-Language: en-US
-From: Walker Chen <walker.chen@starfivetech.com>
-In-Reply-To: <27e57746-d05b-4983-a631-29306851a478@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [183.27.98.45]
-X-ClientProxiedBy: EXCAS066.cuchost.com (172.16.6.26) To EXMBX168.cuchost.com
- (172.16.6.78)
-X-YovoleRuleAgent: yovoleflag
-X-MailFrom: walker.chen@starfivetech.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: EUNOGWYV2Y2QWQDTHG6DK7ETSSLT6DKI
+X-Message-ID-Hash: EUNOGWYV2Y2QWQDTHG6DK7ETSSLT6DKI
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: WD5WSA2SPAOMJXJZZQ6LRQ4KGUXAWT3D
-X-Message-ID-Hash: WD5WSA2SPAOMJXJZZQ6LRQ4KGUXAWT3D
-X-Mailman-Approved-At: Mon, 01 May 2023 06:41:14 +0000
-CC: Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor.dooley@microchip.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WD5WSA2SPAOMJXJZZQ6LRQ4KGUXAWT3D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EUNOGWYV2Y2QWQDTHG6DK7ETSSLT6DKI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,207 +73,422 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Using the *_MASK defines for "maximal value" is debatable. I got the
+idea from FreeBSD, and it sorta makes sense to me.
 
+Some hunks look a bit incomplete, because code that is going to be
+subsequently removed is not touched here.
 
-On 2023/4/20 22:30, Mark Brown wrote:
-> On Thu, Apr 20, 2023 at 10:41:17AM +0800, Walker Chen wrote:
->> Add tdm driver support for the StarFive JH7110 SoC.
-> 
-> This is mostly fine, though the code all feels a bit messy somehow.
-> A lot of this is just coding style, I've highlighted a bunch of things
-> below.  There's also a couple of more substantial issues.
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+---
+this failed to build previously due to a missed logical dependency on
+the "use high-level I/O functions also during init" patch. that patch
+was applied meanwhile, so it's now safe to apply this one as well.
+---
+ sound/pci/emu10k1/emu10k1_callback.c | 15 ++++-----
+ sound/pci/emu10k1/emu10k1_main.c     | 46 ++++++++++++++--------------
+ sound/pci/emu10k1/emufx.c            |  6 ++--
+ sound/pci/emu10k1/emumixer.c         |  8 ++---
+ sound/pci/emu10k1/emupcm.c           | 12 ++++----
+ sound/pci/emu10k1/io.c               | 18 +++++------
+ sound/pci/emu10k1/p16v.c             | 29 ++++++++++--------
+ 7 files changed, 69 insertions(+), 65 deletions(-)
 
-Hey Mark,
-Firstly thanks for your patient review and detailed comments.
-
-> 
->> @@ -0,0 +1,579 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * TDM driver for the StarFive JH7110 SoC
->> + *
->> + * Copyright (C) 2023 StarFive Technology Co., Ltd.
-> 
-> Please make the entire comment a C++ one so things look more
-> intentional.
-
-OK, can reference to other platform's format.
-
-> 
->> +static int jh7110_tdm_syncdiv(struct jh7110_tdm_dev *tdm)
->> +{
->> +	u32 sl, sscale, syncdiv;
->> +
->> +	sl = (tdm->rx.sl >= tdm->tx.sl) ? tdm->rx.sl : tdm->tx.sl;
->> +	sscale = (tdm->rx.sscale >= tdm->tx.sscale) ? tdm->rx.sscale : tdm->tx.sscale;
-> 
-> Please write normal conditional statements to improve legibility.
-
-Will be modified.
-
-> 
->> +static int jh7110_tdm_clk_enable(struct jh7110_tdm_dev *tdm)
->> +{
-> 
->> +       ret = clk_set_parent(tdm->clk_tdm, tdm->clk_tdm_ext);
->> +       if (ret) {
->> +               dev_err(tdm->dev, "Can't set clock source for clk_tdm: %d\n",
->> +ret);
->> +               goto dis_tdm_clk;
->> +       }
-> 
-> It's a bit weird to enable clocks and then reparent afterwards, that
-> seems more likely to run into issues with glitches doing something bad
-> than reparenting with the clock disabled.
-
-This TDM module ultimately uses an external clock. It firstly must uses internal clock 
-before being enabled, and then is switched to external clock, otherwise failed to reset.
-This limitation is determined by the chip.
-
-> 
-> This parenting looks like a system specific configuration (what if
-> the SoC is driving the audio bus?), and might be better done by using
-> the clock bindings.  It's also strange that the driver is reparenting
-> every single time it enables the clocks rather than doing that once on
-> init.
-
-To save power consumption, need to disable clock in suspend() and enable clock in
-resume(). As mentioned above, the internal clock must be selected before enabling 
-clock every time, and then switch to external clock.
-
-> 
->> +static int jh7110_tdm_suspend(struct snd_soc_component *component)
->> +{
->> +	return pm_runtime_force_suspend(component->dev);
->> +}
->> +
->> +static int jh7110_tdm_resume(struct snd_soc_component *component)
->> +{
->> +	struct jh7110_tdm_dev *tdm = snd_soc_component_get_drvdata(component);
->> +
->> +	/* restore context */
->> +	jh7110_tdm_writel(tdm, TDM_PCMGBCR, tdm->saved_pcmgbcr);
->> +	jh7110_tdm_writel(tdm, TDM_PCMDIV, tdm->saved_pcmdiv);
->> +
->> +	return pm_runtime_force_resume(component->dev);
->> +}
-> 
-> It is weird that we restore context that we don't save on suspend, the
-> code *works* but it looks off.
-
-Should be pairing operation in suspend() and resume().
-
-> 
->> +static int jh7110_tdm_hw_params(struct snd_pcm_substream *substream,
->> +				struct snd_pcm_hw_params *params,
->> +				struct snd_soc_dai *dai)
->> +{
->> +	struct jh7110_tdm_dev *tdm = snd_soc_dai_get_drvdata(dai);
->> +	int chan_wl, chan_sl, chan_nr;
->> +	unsigned int data_width;
->> +	unsigned int dma_bus_width;
->> +	struct snd_dmaengine_dai_dma_data *dma_data = NULL;
->> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
->> +	struct snd_soc_dai_link *dai_link = rtd->dai_link;
->> +
->> +	dai_link->stop_dma_first = 1;
-> 
-> A driver shouldn't be forcing dai_link settings, and hw_params is
-> claerly the wrong place to be configuring something like this which
-> never varies at runtime - it should be done on init().  If the DAI
-> really needs this you should extend the core so there's a flag in the
-> dai_driver which gets checked.
-
-Yes, should be done at startup of dai_driver, doing that once on initialize stage.
-
-> 
->> +	switch (chan_nr) {
->> +	case ONE_CHANNEL_SUPPORT:
->> +	case TWO_CHANNEL_SUPPORT:
->> +	case FOUR_CHANNEL_SUPPORT:
->> +	case SIX_CHANNEL_SUPPORT:
->> +	case EIGHT_CHANNEL_SUPPORT:
-> 
-> I am having a *really* hard time finding these definitions (which aren't
-> namespaced...) helpful.  Just write the numbers directly.
-
-OK, will be changed.
-
-> 
->> +static int jh7110_tdm_trigger(struct snd_pcm_substream *substream,
->> +			      int cmd, struct snd_soc_dai *dai)
->> +{
->> +	struct jh7110_tdm_dev *tdm = snd_soc_dai_get_drvdata(dai);
->> +	int ret = 0;
->> +
->> +	switch (cmd) {
->> +	case SNDRV_PCM_TRIGGER_START:
->> +	case SNDRV_PCM_TRIGGER_RESUME:
->> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
->> +		/* restore context */
->> +		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
->> +			jh7110_tdm_writel(tdm, TDM_PCMTXCR, tdm->saved_pcmtxcr);
->> +		else
->> +			jh7110_tdm_writel(tdm, TDM_PCMRXCR, tdm->saved_pcmrxcr);
->> +
->> +		jh7110_tdm_start(tdm, substream);
-> 
-> Why is the write to CR not part of start()?
-
-OK, will be changed.
-
-> 
->> +static void jh7110_tdm_init_params(struct jh7110_tdm_dev *tdm)
->> +{
->> +	tdm->clkpolity = TDM_TX_RASING_RX_FALLING;
->> +	if (tdm->frame_mode == SHORT_LATER) {
->> +		tdm->elm = TDM_ELM_LATE;
->> +		tdm->syncm = TDM_SYNCM_SHORT;
->> +	} else if (tdm->frame_mode == SHORT_EARLY) {
->> +		tdm->elm = TDM_ELM_EARLY;
->> +		tdm->syncm = TDM_SYNCM_SHORT;
->> +	} else {
->> +		tdm->elm = TDM_ELM_EARLY;
->> +		tdm->syncm = TDM_SYNCM_LONG;
->> +	}
-> 
-> This looks like it should be a switch statement, and the defintiions
-> namespaced.  I can't see anyhwere where this ever gets configured to
-> anything other than SHORT_LATER ever being used so might be better to
-> just delete.
-
-Will be modified according to your suggestion.
-
-> 
->> +	tdm->ms_mode = TDM_AS_SLAVE;
-> 
-> Please use the modern provider/consumer terminology for clocking.
-> 
->> +	tdm->clk_tdm_ahb = clks[0].clk;
->> +	tdm->clk_tdm_apb = clks[1].clk;
->> +	tdm->clk_tdm_internal = clks[2].clk;
->> +	tdm->clk_tdm = clks[3].clk;
->> +	tdm->clk_mclk_inner = clks[4].clk;
->> +	tdm->clk_tdm_ext = clks[5].clk;
-> 
-> Given that the driver only ever interacts with the clocks en masse is
-> there any point in having all the specific named variables, that'd mean
-> that the enable/disable could just use loops.
-
-Will be changed.
-
-> 
->> +/*  DMA registers */
->> +#define TDM_FIFO			0x170c0000
->> +#define TDM_FIFO_DEPTH			32
-> 
-> None of the defines in the header are namespaced and some of them (like
-> the above) seem generic enough to be likely to result in conflicts.
-
-Will add unified JH7110_TDM_ prefix.
-
-Thank you very much for your suggestion.
-
-Best regards,
-Walker
+diff --git a/sound/pci/emu10k1/emu10k1_callback.c b/sound/pci/emu10k1/emu10k1_callback.c
+index c6d152575181..9455df18f7b2 100644
+--- a/sound/pci/emu10k1/emu10k1_callback.c
++++ b/sound/pci/emu10k1/emu10k1_callback.c
+@@ -120,9 +120,9 @@ release_voice(struct snd_emux_voice *vp)
+ 	struct snd_emu10k1 *hw;
+ 	
+ 	hw = vp->hw;
+-	dcysusv = 0x8000 | (unsigned char)vp->reg.parm.modrelease;
++	dcysusv = (unsigned char)vp->reg.parm.modrelease | DCYSUSM_PHASE1_MASK;
+ 	snd_emu10k1_ptr_write(hw, DCYSUSM, vp->ch, dcysusv);
+-	dcysusv = 0x8000 | (unsigned char)vp->reg.parm.volrelease | DCYSUSV_CHANNELENABLE_MASK;
++	dcysusv = (unsigned char)vp->reg.parm.volrelease | DCYSUSV_PHASE1_MASK | DCYSUSV_CHANNELENABLE_MASK;
+ 	snd_emu10k1_ptr_write(hw, DCYSUSV, vp->ch, dcysusv);
+ }
+ 
+@@ -138,7 +138,8 @@ terminate_voice(struct snd_emux_voice *vp)
+ 	if (snd_BUG_ON(!vp))
+ 		return;
+ 	hw = vp->hw;
+-	snd_emu10k1_ptr_write(hw, DCYSUSV, vp->ch, 0x807f | DCYSUSV_CHANNELENABLE_MASK);
++	snd_emu10k1_ptr_write(hw, DCYSUSV, vp->ch,
++		DCYSUSV_PHASE1_MASK | DCYSUSV_DECAYTIME_MASK | DCYSUSV_CHANNELENABLE_MASK);
+ 	if (vp->block) {
+ 		struct snd_emu10k1_memblk *emem;
+ 		emem = (struct snd_emu10k1_memblk *)vp->block;
+@@ -347,9 +348,9 @@ start_voice(struct snd_emux_voice *vp)
+ 	}
+ 
+ 	/* channel to be silent and idle */
+-	snd_emu10k1_ptr_write(hw, DCYSUSV, ch, 0x0000);
+-	snd_emu10k1_ptr_write(hw, VTFT, ch, 0x0000FFFF);
+-	snd_emu10k1_ptr_write(hw, CVCF, ch, 0x0000FFFF);
++	snd_emu10k1_ptr_write(hw, DCYSUSV, ch, 0);
++	snd_emu10k1_ptr_write(hw, VTFT, ch, VTFT_FILTERTARGET_MASK);
++	snd_emu10k1_ptr_write(hw, CVCF, ch, CVCF_CURRENTFILTER_MASK);
+ 	snd_emu10k1_ptr_write(hw, PTRX, ch, 0);
+ 	snd_emu10k1_ptr_write(hw, CPF, ch, 0);
+ 
+@@ -453,7 +454,7 @@ start_voice(struct snd_emux_voice *vp)
+ 	/* reset volume */
+ 	temp = (unsigned int)vp->vtarget << 16;
+ 	snd_emu10k1_ptr_write(hw, VTFT, ch, temp | vp->ftarget);
+-	snd_emu10k1_ptr_write(hw, CVCF, ch, temp | 0xff00);
++	snd_emu10k1_ptr_write(hw, CVCF, ch, temp | CVCF_CURRENTFILTER_MASK);
+ 	return 0;
+ }
+ 
+diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
+index 3abdaf1b9624..192208c291d6 100644
+--- a/sound/pci/emu10k1/emu10k1_main.c
++++ b/sound/pci/emu10k1/emu10k1_main.c
+@@ -59,8 +59,8 @@ void snd_emu10k1_voice_init(struct snd_emu10k1 *emu, int ch)
+ {
+ 	snd_emu10k1_ptr_write(emu, DCYSUSV, ch, 0);
+ 	snd_emu10k1_ptr_write(emu, IP, ch, 0);
+-	snd_emu10k1_ptr_write(emu, VTFT, ch, 0xffff);
+-	snd_emu10k1_ptr_write(emu, CVCF, ch, 0xffff);
++	snd_emu10k1_ptr_write(emu, VTFT, ch, VTFT_FILTERTARGET_MASK);
++	snd_emu10k1_ptr_write(emu, CVCF, ch, CVCF_CURRENTFILTER_MASK);
+ 	snd_emu10k1_ptr_write(emu, PTRX, ch, 0);
+ 	snd_emu10k1_ptr_write(emu, CPF, ch, 0);
+ 	snd_emu10k1_ptr_write(emu, CCR, ch, 0);
+@@ -74,7 +74,7 @@ void snd_emu10k1_voice_init(struct snd_emu10k1 *emu, int ch)
+ 
+ 	snd_emu10k1_ptr_write(emu, ATKHLDM, ch, 0);
+ 	snd_emu10k1_ptr_write(emu, DCYSUSM, ch, 0);
+-	snd_emu10k1_ptr_write(emu, IFATN, ch, 0xffff);
++	snd_emu10k1_ptr_write(emu, IFATN, ch, IFATN_FILTERCUTOFF_MASK | IFATN_ATTENUATION_MASK);
+ 	snd_emu10k1_ptr_write(emu, PEFE, ch, 0);
+ 	snd_emu10k1_ptr_write(emu, FMMOD, ch, 0);
+ 	snd_emu10k1_ptr_write(emu, TREMFRQ, ch, 24);	/* 1 Hz */
+@@ -90,10 +90,10 @@ void snd_emu10k1_voice_init(struct snd_emu10k1 *emu, int ch)
+ 
+ 	/* Audigy extra stuffs */
+ 	if (emu->audigy) {
+-		snd_emu10k1_ptr_write(emu, 0x4c, ch, 0); /* ?? */
+-		snd_emu10k1_ptr_write(emu, 0x4d, ch, 0); /* ?? */
+-		snd_emu10k1_ptr_write(emu, 0x4e, ch, 0); /* ?? */
+-		snd_emu10k1_ptr_write(emu, 0x4f, ch, 0); /* ?? */
++		snd_emu10k1_ptr_write(emu, A_CSBA, ch, 0);
++		snd_emu10k1_ptr_write(emu, A_CSDC, ch, 0);
++		snd_emu10k1_ptr_write(emu, A_CSFE, ch, 0);
++		snd_emu10k1_ptr_write(emu, A_CSHG, ch, 0);
+ 		snd_emu10k1_ptr_write(emu, A_FXRT1, ch, 0x03020100);
+ 		snd_emu10k1_ptr_write(emu, A_FXRT2, ch, 0x3f3f3f3f);
+ 		snd_emu10k1_ptr_write(emu, A_SENDAMOUNTS, ch, 0);
+@@ -259,7 +259,7 @@ static int snd_emu10k1_init(struct snd_emu10k1 *emu, int enable_ir)
+ 
+ 	snd_emu10k1_ptr_write(emu, PTB, 0, emu->ptb_pages.addr);
+ 	snd_emu10k1_ptr_write(emu, TCB, 0, 0);	/* taken from original driver */
+-	snd_emu10k1_ptr_write(emu, TCBS, 0, 4);	/* taken from original driver */
++	snd_emu10k1_ptr_write(emu, TCBS, 0, TCBS_BUFFSIZE_256K);	/* taken from original driver */
+ 
+ 	silent_page = (emu->silent_page.addr << emu->address_mode) | (emu->address_mode ? MAP_PTI_MASK1 : MAP_PTI_MASK0);
+ 	for (ch = 0; ch < NUM_G; ch++) {
+@@ -818,7 +818,7 @@ static int snd_emu10k1_emu1010_init(struct snd_emu10k1 *emu)
+ 		/* FPGA netlist already present so clear it */
+ 		/* Return to programming mode */
+ 
+-		snd_emu1010_fpga_write(emu, EMU_HANA_FPGA_CONFIG, 0x02);
++		snd_emu1010_fpga_write(emu, EMU_HANA_FPGA_CONFIG, EMU_HANA_FPGA_CONFIG_HANA);
+ 	}
+ 	snd_emu1010_fpga_read(emu, EMU_HANA_ID, &reg);
+ 	dev_dbg(emu->card->dev, "reg2 = 0x%x\n", reg);
+@@ -858,36 +858,36 @@ static int snd_emu10k1_emu1010_init(struct snd_emu10k1 *emu)
+ 	/* Optical -> ADAT I/O  */
+ 	emu->emu1010.optical_in = 1; /* IN_ADAT */
+ 	emu->emu1010.optical_out = 1; /* OUT_ADAT */
+-	tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : 0) |
+-		(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : 0);
++	tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : EMU_HANA_OPTICAL_IN_SPDIF) |
++		(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : EMU_HANA_OPTICAL_OUT_SPDIF);
+ 	snd_emu1010_fpga_write(emu, EMU_HANA_OPTICAL_TYPE, tmp);
+ 	/* Set no attenuation on Audio Dock pads. */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_ADC_PADS, 0x00);
+ 	emu->emu1010.adc_pads = 0x00;
++	snd_emu1010_fpga_write(emu, EMU_HANA_ADC_PADS, emu->emu1010.adc_pads);
+ 	/* Unmute Audio dock DACs, Headphone source DAC-4. */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_MISC, 0x30);
++	snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_MISC, EMU_HANA_DOCK_PHONES_192_DAC4);
+ 	/* DAC PADs. */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_DAC_PADS, 0x0f);
+-	emu->emu1010.dac_pads = 0x0f;
++	emu->emu1010.dac_pads = EMU_HANA_DOCK_DAC_PAD1 | EMU_HANA_DOCK_DAC_PAD2 |
++				EMU_HANA_DOCK_DAC_PAD3 | EMU_HANA_DOCK_DAC_PAD4;
++	snd_emu1010_fpga_write(emu, EMU_HANA_DAC_PADS, emu->emu1010.dac_pads);
+ 	/* SPDIF Format. Set Consumer mode, 24bit, copy enable */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_SPDIF_MODE, 0x10);
++	snd_emu1010_fpga_write(emu, EMU_HANA_SPDIF_MODE, EMU_HANA_SPDIF_MODE_RX_INVALID);
+ 	/* MIDI routing */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_MIDI_IN, 0x19);
+-	/* Unknown. */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_MIDI_OUT, 0x0c);
++	snd_emu1010_fpga_write(emu, EMU_HANA_MIDI_IN, EMU_HANA_MIDI_INA_FROM_HAMOA | EMU_HANA_MIDI_INB_FROM_DOCK2);
++	snd_emu1010_fpga_write(emu, EMU_HANA_MIDI_OUT, EMU_HANA_MIDI_OUT_DOCK2 | EMU_HANA_MIDI_OUT_SYNC2);
+ 	/* IRQ Enable: All on */
+-	/* snd_emu1010_fpga_write(emu, 0x09, 0x0f ); */
++	/* snd_emu1010_fpga_write(emu, EMU_HANA_IRQ_ENABLE, 0x0f); */
+ 	/* IRQ Enable: All off */
+ 	snd_emu1010_fpga_write(emu, EMU_HANA_IRQ_ENABLE, 0x00);
+ 
+ 	emu->emu1010.internal_clock = 1; /* 48000 */
+ 	/* Default WCLK set to 48kHz. */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_DEFCLOCK, 0x00);
++	snd_emu1010_fpga_write(emu, EMU_HANA_DEFCLOCK, EMU_HANA_DEFCLOCK_48K);
+ 	/* Word Clock source, Internal 48kHz x1 */
+ 	snd_emu1010_fpga_write(emu, EMU_HANA_WCLOCK, EMU_HANA_WCLOCK_INT_48K);
+ 	/* snd_emu1010_fpga_write(emu, EMU_HANA_WCLOCK, EMU_HANA_WCLOCK_INT_48K | EMU_HANA_WCLOCK_4X); */
+ 	/* Audio Dock LEDs. */
+-	snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_LEDS_2, 0x12);
++	snd_emu1010_fpga_write(emu, EMU_HANA_DOCK_LEDS_2, EMU_HANA_DOCK_LEDS_2_LOCK | EMU_HANA_DOCK_LEDS_2_48K);
+ 
+ #if 0
+ 	/* For 96kHz */
+@@ -1014,7 +1014,7 @@ static int snd_emu10k1_emu1010_init(struct snd_emu10k1 *emu)
+ 		EMU_DST_ALICE_I2S2_LEFT, EMU_SRC_DOCK_ADC3_LEFT1);
+ 	snd_emu1010_fpga_link_dst_src_write(emu,
+ 		EMU_DST_ALICE_I2S2_RIGHT, EMU_SRC_DOCK_ADC3_RIGHT1);
+-	snd_emu1010_fpga_write(emu, EMU_HANA_UNMUTE, 0x01); /* Unmute all */
++	snd_emu1010_fpga_write(emu, EMU_HANA_UNMUTE, EMU_UNMUTE);
+ 
+ #if 0
+ 	snd_emu1010_fpga_link_dst_src_write(emu,
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index db211a6e8a47..3f64ccab0e63 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -1355,7 +1355,7 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
+ 	gpr += 2;
+ 
+ 	/* mic capture buffer */	
+-	A_OP(icode, &ptr, iINTERP, A_EXTOUT(A_EXTOUT_MIC_CAP), A_EXTIN(A_EXTIN_AC97_L), 0xcd, A_EXTIN(A_EXTIN_AC97_R));
++	A_OP(icode, &ptr, iINTERP, A_EXTOUT(A_EXTOUT_MIC_CAP), A_EXTIN(A_EXTIN_AC97_L), A_C_40000000, A_EXTIN(A_EXTIN_AC97_R));
+ 
+ 	/* Audigy CD Playback Volume */
+ 	A_ADD_VOLUME_IN(stereo_mix, gpr, A_EXTIN_SPDIF_CD_L);
+@@ -1438,7 +1438,7 @@ A_OP(icode, &ptr, iMAC0, A_GPR(var), A_GPR(var), A_GPR(vol), A_EXTIN(input))
+ 
+ 	/* Stereo Mix Center Playback */
+ 	/* Center = sub = Left/2 + Right/2 */
+-	A_OP(icode, &ptr, iINTERP, A_GPR(tmp), A_GPR(stereo_mix), 0xcd, A_GPR(stereo_mix+1));
++	A_OP(icode, &ptr, iINTERP, A_GPR(tmp), A_GPR(stereo_mix), A_C_40000000, A_GPR(stereo_mix+1));
+ 	A_OP(icode, &ptr, iMAC0, A_GPR(playback+4), A_GPR(playback+4), A_GPR(gpr), A_GPR(tmp));
+ 	snd_emu10k1_init_mono_control(&controls[nctl++], "Center Playback Volume", gpr, 0);
+ 	gpr++;
+@@ -2478,7 +2478,7 @@ int snd_emu10k1_fx8010_tram_setup(struct snd_emu10k1 *emu, u32 size)
+ 	outl(HCFG_LOCKTANKCACHE_MASK | inl(emu->port + HCFG), emu->port + HCFG);
+ 	spin_unlock_irq(&emu->emu_lock);
+ 	snd_emu10k1_ptr_write(emu, TCB, 0, 0);
+-	snd_emu10k1_ptr_write(emu, TCBS, 0, 0);
++	snd_emu10k1_ptr_write(emu, TCBS, 0, TCBS_BUFFSIZE_16K);
+ 	if (emu->fx8010.etram_pages.area != NULL) {
+ 		snd_dma_free_pages(&emu->fx8010.etram_pages);
+ 		emu->fx8010.etram_pages.area = NULL;
+diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
+index 8fce3413f4ae..3ebc7c36a444 100644
+--- a/sound/pci/emu10k1/emumixer.c
++++ b/sound/pci/emu10k1/emumixer.c
+@@ -827,8 +827,8 @@ static int snd_emu1010_optical_out_put(struct snd_kcontrol *kcontrol,
+ 	change = (emu->emu1010.optical_out != val);
+ 	if (change) {
+ 		emu->emu1010.optical_out = val;
+-		tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : 0) |
+-			(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : 0);
++		tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : EMU_HANA_OPTICAL_IN_SPDIF) |
++			(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : EMU_HANA_OPTICAL_OUT_SPDIF);
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_OPTICAL_TYPE, tmp);
+ 	}
+ 	return change;
+@@ -878,8 +878,8 @@ static int snd_emu1010_optical_in_put(struct snd_kcontrol *kcontrol,
+ 	change = (emu->emu1010.optical_in != val);
+ 	if (change) {
+ 		emu->emu1010.optical_in = val;
+-		tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : 0) |
+-			(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : 0);
++		tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : EMU_HANA_OPTICAL_IN_SPDIF) |
++			(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : EMU_HANA_OPTICAL_OUT_SPDIF);
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_OPTICAL_TYPE, tmp);
+ 	}
+ 	return change;
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index b0c0ef342756..e8d2f0f6fbb3 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -352,8 +352,8 @@ static void snd_emu10k1_pcm_init_voice(struct snd_emu10k1 *emu,
+ 	snd_emu10k1_ptr_write(emu, MAPA, voice, silent_page);
+ 	snd_emu10k1_ptr_write(emu, MAPB, voice, silent_page);
+ 	/* modulation envelope */
+-	snd_emu10k1_ptr_write(emu, CVCF, voice, 0xffff);
+-	snd_emu10k1_ptr_write(emu, VTFT, voice, 0xffff);
++	snd_emu10k1_ptr_write(emu, VTFT, voice, VTFT_FILTERTARGET_MASK);
++	snd_emu10k1_ptr_write(emu, CVCF, voice, CVCF_CURRENTFILTER_MASK);
+ 	snd_emu10k1_ptr_write(emu, ATKHLDM, voice, 0);
+ 	snd_emu10k1_ptr_write(emu, DCYSUSM, voice, 0x007f);
+ 	snd_emu10k1_ptr_write(emu, LFOVAL1, voice, 0x8000);
+@@ -621,8 +621,8 @@ static void snd_emu10k1_playback_prepare_voice(struct snd_emu10k1 *emu, struct s
+ 	tmp = runtime->channels == 2 ? (master ? 1 : 2) : 0;
+ 	vattn = mix != NULL ? (mix->attn[tmp] << 16) : 0;
+ 	snd_emu10k1_ptr_write(emu, IFATN, voice, attn);
+-	snd_emu10k1_ptr_write(emu, VTFT, voice, vattn | 0xffff);
+-	snd_emu10k1_ptr_write(emu, CVCF, voice, vattn | 0xffff);
++	snd_emu10k1_ptr_write(emu, VTFT, voice, vattn | VTFT_FILTERTARGET_MASK);
++	snd_emu10k1_ptr_write(emu, CVCF, voice, vattn | CVCF_CURRENTFILTER_MASK);
+ 	snd_emu10k1_ptr_write(emu, DCYSUSV, voice, 0x7f7f);
+ 	snd_emu10k1_voice_clear_loop_stop(emu, voice);
+ }	
+@@ -663,8 +663,8 @@ static void snd_emu10k1_playback_stop_voice(struct snd_emu10k1 *emu, struct snd_
+ 	snd_emu10k1_ptr_write(emu, PTRX_PITCHTARGET, voice, 0);
+ 	snd_emu10k1_ptr_write(emu, CPF_CURRENTPITCH, voice, 0);
+ 	snd_emu10k1_ptr_write(emu, IFATN, voice, 0xffff);
+-	snd_emu10k1_ptr_write(emu, VTFT, voice, 0xffff);
+-	snd_emu10k1_ptr_write(emu, CVCF, voice, 0xffff);
++	snd_emu10k1_ptr_write(emu, VTFT, voice, VTFT_FILTERTARGET_MASK);
++	snd_emu10k1_ptr_write(emu, CVCF, voice, CVCF_CURRENTFILTER_MASK);
+ 	snd_emu10k1_ptr_write(emu, IP, voice, 0);
+ }
+ 
+diff --git a/sound/pci/emu10k1/io.c b/sound/pci/emu10k1/io.c
+index c60573f14ea8..cfb96a67aa35 100644
+--- a/sound/pci/emu10k1/io.c
++++ b/sound/pci/emu10k1/io.c
+@@ -95,8 +95,8 @@ unsigned int snd_emu10k1_ptr20_read(struct snd_emu10k1 * emu,
+ 	regptr = (reg << 16) | chn;
+ 
+ 	spin_lock_irqsave(&emu->emu_lock, flags);
+-	outl(regptr, emu->port + 0x20 + PTR);
+-	val = inl(emu->port + 0x20 + DATA);
++	outl(regptr, emu->port + PTR2);
++	val = inl(emu->port + DATA2);
+ 	spin_unlock_irqrestore(&emu->emu_lock, flags);
+ 	return val;
+ }
+@@ -112,8 +112,8 @@ void snd_emu10k1_ptr20_write(struct snd_emu10k1 *emu,
+ 	regptr = (reg << 16) | chn;
+ 
+ 	spin_lock_irqsave(&emu->emu_lock, flags);
+-	outl(regptr, emu->port + 0x20 + PTR);
+-	outl(data, emu->port + 0x20 + DATA);
++	outl(regptr, emu->port + PTR2);
++	outl(data, emu->port + DATA2);
+ 	spin_unlock_irqrestore(&emu->emu_lock, flags);
+ }
+ 
+@@ -128,7 +128,7 @@ int snd_emu10k1_spi_write(struct snd_emu10k1 * emu,
+ 	/* This function is not re-entrant, so protect against it. */
+ 	spin_lock(&emu->spi_lock);
+ 	if (emu->card_capabilities->ca0108_chip)
+-		reg = 0x3c; /* PTR20, reg 0x3c */
++		reg = P17V_SPI;
+ 	else {
+ 		/* For other chip types the SPI register
+ 		 * is currently unknown. */
+@@ -280,10 +280,10 @@ void snd_emu1010_fpga_link_dst_src_write(struct snd_emu10k1 *emu, u32 dst, u32 s
+ 		return;
+ 	if (snd_BUG_ON(src & ~0x71f))
+ 		return;
+-	snd_emu1010_fpga_write(emu, 0x00, dst >> 8);
+-	snd_emu1010_fpga_write(emu, 0x01, dst & 0x1f);
+-	snd_emu1010_fpga_write(emu, 0x02, src >> 8);
+-	snd_emu1010_fpga_write(emu, 0x03, src & 0x1f);
++	snd_emu1010_fpga_write(emu, EMU_HANA_DESTHI, dst >> 8);
++	snd_emu1010_fpga_write(emu, EMU_HANA_DESTLO, dst & 0x1f);
++	snd_emu1010_fpga_write(emu, EMU_HANA_SRCHI, src >> 8);
++	snd_emu1010_fpga_write(emu, EMU_HANA_SRCLO, src & 0x1f);
+ }
+ 
+ void snd_emu10k1_intr_enable(struct snd_emu10k1 *emu, unsigned int intrenb)
+diff --git a/sound/pci/emu10k1/p16v.c b/sound/pci/emu10k1/p16v.c
+index ce4d3450959c..e7f097cae574 100644
+--- a/sound/pci/emu10k1/p16v.c
++++ b/sound/pci/emu10k1/p16v.c
+@@ -254,19 +254,24 @@ static int snd_p16v_pcm_prepare_playback(struct snd_pcm_substream *substream)
+ 		   emu->p16v_buffer->bytes);
+ #endif /* debug */
+ 	tmp = snd_emu10k1_ptr_read(emu, A_SPDIF_SAMPLERATE, channel);
++	tmp &= ~(A_SPDIF_RATE_MASK | A_EHC_SRC48_MASK);
+         switch (runtime->rate) {
+ 	case 44100:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0xe0e0) | 0x8080);
++	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel,
++				tmp | A_SPDIF_44100 | A_EHC_SRC48_44);
+ 	  break;
+ 	case 96000:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0xe0e0) | 0x4040);
++	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel,
++				tmp | A_SPDIF_96000 | A_EHC_SRC48_96);
+ 	  break;
+ 	case 192000:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0xe0e0) | 0x2020);
++	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel,
++				tmp | A_SPDIF_192000 | A_EHC_SRC48_192);
+ 	  break;
+ 	case 48000:
+ 	default:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0xe0e0) | 0x0000);
++	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel,
++				tmp | A_SPDIF_48000 | A_EHC_SRC48_BYPASS);
+ 	  break;
+ 	}
+ 	/* FIXME: Check emu->buffer.size before actually writing to it. */
+@@ -282,46 +287,44 @@ static int snd_p16v_pcm_prepare_playback(struct snd_pcm_substream *substream)
+ 	//snd_emu10k1_ptr20_write(emu, PLAYBACK_PERIOD_SIZE, channel, frames_to_bytes(runtime, runtime->period_size)<<16); // buffer size in bytes
+ 	snd_emu10k1_ptr20_write(emu, PLAYBACK_PERIOD_SIZE, channel, 0); // buffer size in bytes
+ 	snd_emu10k1_ptr20_write(emu, PLAYBACK_POINTER, channel, 0);
+-	snd_emu10k1_ptr20_write(emu, 0x07, channel, 0x0);
+-	snd_emu10k1_ptr20_write(emu, 0x08, channel, 0);
++	snd_emu10k1_ptr20_write(emu, PLAYBACK_FIFO_END_ADDRESS, channel, 0);
++	snd_emu10k1_ptr20_write(emu, PLAYBACK_FIFO_POINTER, channel, 0);
+ 
+ 	return 0;
+ }
+ 
+ /* prepare capture callback */
+ static int snd_p16v_pcm_prepare_capture(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_emu10k1 *emu = snd_pcm_substream_chip(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	int channel = substream->pcm->device - emu->p16v_device_offset;
+-	u32 tmp;
+ 
+ 	/*
+ 	dev_dbg(emu->card->dev, "prepare capture:channel_number=%d, rate=%d, "
+ 	       "format=0x%x, channels=%d, buffer_size=%ld, period_size=%ld, "
+ 	       "frames_to_bytes=%d\n",
+ 	       channel, runtime->rate, runtime->format, runtime->channels,
+ 	       runtime->buffer_size, runtime->period_size,
+ 	       frames_to_bytes(runtime, 1));
+ 	*/
+-	tmp = snd_emu10k1_ptr_read(emu, A_SPDIF_SAMPLERATE, channel);
+         switch (runtime->rate) {
+ 	case 44100:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0x0e00) | 0x0800);
++	  snd_emu10k1_ptr_write(emu, A_I2S_CAPTURE_RATE, channel, A_I2S_CAPTURE_44100);
+ 	  break;
+ 	case 96000:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0x0e00) | 0x0400);
++	  snd_emu10k1_ptr_write(emu, A_I2S_CAPTURE_RATE, channel, A_I2S_CAPTURE_96000);
+ 	  break;
+ 	case 192000:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0x0e00) | 0x0200);
++	  snd_emu10k1_ptr_write(emu, A_I2S_CAPTURE_RATE, channel, A_I2S_CAPTURE_192000);
+ 	  break;
+ 	case 48000:
+ 	default:
+-	  snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, channel, (tmp & ~0x0e00) | 0x0000);
++	  snd_emu10k1_ptr_write(emu, A_I2S_CAPTURE_RATE, channel, A_I2S_CAPTURE_48000);
+ 	  break;
+ 	}
+ 	/* FIXME: Check emu->buffer.size before actually writing to it. */
+-	snd_emu10k1_ptr20_write(emu, 0x13, channel, 0);
++	snd_emu10k1_ptr20_write(emu, CAPTURE_FIFO_POINTER, channel, 0);
+ 	snd_emu10k1_ptr20_write(emu, CAPTURE_DMA_ADDR, channel, runtime->dma_addr);
+ 	snd_emu10k1_ptr20_write(emu, CAPTURE_BUFFER_SIZE, channel, frames_to_bytes(runtime, runtime->buffer_size) << 16); // buffer size in bytes
+ 	snd_emu10k1_ptr20_write(emu, CAPTURE_POINTER, channel, 0);
+-- 
+2.40.0.152.g15d061e6df
 

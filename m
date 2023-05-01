@@ -2,114 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DAF46F5068
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 08:53:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8916F31C2
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 May 2023 16:03:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61E9513C2;
-	Wed,  3 May 2023 08:52:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61E9513C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84A3917E6;
+	Mon,  1 May 2023 16:02:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84A3917E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683096828;
-	bh=dtQiaaW8W0LIhY5BpofaIONQd53vVMRbZm5B4Pbu0HI=;
-	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
+	s=default; t=1682949790;
+	bh=fInRQWGxctGVhRQ0CaJ96OQfLd21GfZ1Dr3xA0g9AUE=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=J08iqFqftSQZxEFH21AG9jFWT0r+gpz0SsowDp6YcQwkiaf+00v0wsyr7Osr4IcHm
-	 +uiamDilKZgFHjGYq7fhMPKz2WX7BigFZ1oz2MQb2fhw1tAIEDIr5iYIaR9vqtMqoQ
-	 WYQVJjedb1cHoUo0KrVebWY05Swv9ZnSu+M1nBMs=
+	b=mr6y3GRcUEojvhtDUgppvnySc+XNgg7k4/lbhgunSexWRA87J0wKfyd/WQRbGaNQW
+	 mWWBb/vxNY6UHt2vEaUqA0gHV/hm+TN5qlTmBA2/gnhGf9jvXf6aVsZT36FtLV3itU
+	 gSGnVJZzObGZeuQHRL/V/sPn7pthWJW/Dl+O61ZI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA4B5F8055C;
-	Wed,  3 May 2023 08:51:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFDD9F8051B;
+	Mon,  1 May 2023 16:01:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D1ECF8049E; Mon,  1 May 2023 15:16:57 +0200 (CEST)
+	id 761C2F8049E; Mon,  1 May 2023 16:01:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,T_SPF_HELO_TEMPERROR,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-vs1-xe29.google.com (mail-vs1-xe29.google.com
- [IPv6:2607:f8b0:4864:20::e29])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D53A6F80137
-	for <alsa-devel@alsa-project.org>; Mon,  1 May 2023 15:16:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D53A6F80137
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7EB3AF80087
+	for <alsa-devel@alsa-project.org>; Mon,  1 May 2023 16:01:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EB3AF80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=JROj0wwb
-Received: by mail-vs1-xe29.google.com with SMTP id
- ada2fe7eead31-42e507b5cd1so1974393137.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 01 May 2023 06:16:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682947006; x=1685539006;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GbXEvFB7fjq+XNje0q8/whu20PA7ZnvvxDaqHqn67jk=;
-        b=JROj0wwb1l3eOFSLa9rEKJc5s0k0LWcKvx5jCTwdWQmGxxASbdMO8EbUOQWWt2WBl8
-         EqIoTvZQ730nEV+oYwJBvDvsQ/3ZcgJmSEA2V1Eirv4U2xTaCfbVFccvA8qJ4ZEfrL/+
-         5/D8J11SpapU+EGld5Pkl2JZFOWFLu/hWEqpNmzZa7LKbROky9PVnba0MnaFo/2i2mT4
-         RQja4pQ6PqnFjukT02mmYAVAzrJv6pUCKjenHWNdQidQ2UA3FISEsRgYQW/N4X1/CObc
-         IsfPCRrFQsRnDIHJ2oPIf7nu1Wslud1BFu3V67oI6+vTPtJcQedfZ9t/TZWfmkFN95V7
-         RrYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682947006; x=1685539006;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=GbXEvFB7fjq+XNje0q8/whu20PA7ZnvvxDaqHqn67jk=;
-        b=eJi0JEAWoxazzeqPTim/zjeSxGACqt6lb0Ai2PSAd9vgUq7zmTcgl66Pg8j/HNkiJ5
-         nqSQU2emGOheh94gLDNT4VC1QrHgdPlRFi+FT0+znS+AbxPZRzsBc2VwgbGfR3o5zk/L
-         rSaqCvlcydG6Fz0tM69cZGI4rJCQUx2EbrWqNHP8MzEvhdtGKmSlEqj1DzTLtlbG6Uoe
-         0JGjwc2TLhxo6VSRlwNBixEAiSX7T09zMKxEjDwifGC6/EpMmrWv6zelnuZJo+OQeI/J
-         u5/2yoGT6ngCc8H4O/kg0x+L/egGzXeuNnXbsZBl2s54wDYUgeUY07Sye9WGQBn/8pYZ
-         pgxg==
-X-Gm-Message-State: AC+VfDztMqc0bPhcbrXY2VNC2yXb+zkAKNmPlRm7lBq+ydSiZsMxoiXy
-	/3A8EoFbD2vwyYXAtStK2kzFrjT1LhQuxv6C50A=
-X-Google-Smtp-Source: 
- ACHHUZ6iFi8AEfQHzOY3l5qhxjS8jsu2YT5vX7WEuxTKuD680EpS7Vqj7vwUIXg9ZrkmEqwvMrVIWT9N2dzKYnjDEdg=
-X-Received: by 2002:a67:ed49:0:b0:42c:9732:d17f with SMTP id
- m9-20020a67ed49000000b0042c9732d17fmr5847758vsp.1.1682947005662; Mon, 01 May
- 2023 06:16:45 -0700 (PDT)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=gHy6IbyW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1682949670; x=1714485670;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fInRQWGxctGVhRQ0CaJ96OQfLd21GfZ1Dr3xA0g9AUE=;
+  b=gHy6IbyWgiXLxs5uuVPbAR2bGjDLqD+FRnrLqHkEhYMt5YqpIm2pWTmx
+   K+lgN1F3tQEDrSCG9poJFymQhpHPmzbFQTujTks/Nh6NG40AUaLqWtq0S
+   iUwGNOHp9x05LBPQmW7GtsLhPJfZvW2Mx71/lbeMFFJIkUExbAEev1vJ2
+   hu+AOcDRSl/NyKiyubRnwfVgBVL40saMtyoT0gfYa42ZDIsD//9ulUcy7
+   zQzIShKT3YjChXb/V8NrRAWwb9aWYxwO6nPgrWZXQLxzmSKzPUYWaYR1r
+   Az7MzXpksftcmQb2dOMCspEkwdAw1/+64LEA+SIfgdfNzVmWv1oXZAK10
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10697"; a="434464608"
+X-IronPort-AV: E=Sophos;i="5.99,241,1677571200";
+   d="scan'208";a="434464608"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 May 2023 07:00:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10697"; a="870186693"
+X-IronPort-AV: E=Sophos;i="5.99,241,1677571200";
+   d="scan'208";a="870186693"
+Received: from blele-mobl.amr.corp.intel.com (HELO [10.212.170.95])
+ ([10.212.170.95])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 May 2023 07:00:59 -0700
+Message-ID: <c09e9c5e-ddb4-4f92-d573-04b8b2d42349@linux.intel.com>
+Date: Mon, 1 May 2023 08:19:16 -0500
 MIME-Version: 1.0
-References: 
- <CAAJw_ZsbTVd3Es373x_wTNDF7RknGhCD0r+NKUSwAO7HpLAkYA@mail.gmail.com>
- <ZE9B4avbDtIXOu4O@debian.me> <87r0s0pnim.wl-tiwai@suse.de>
-In-Reply-To: <87r0s0pnim.wl-tiwai@suse.de>
-From: Jeff Chua <jeff.chua.linux@gmail.com>
-Date: Mon, 1 May 2023 21:16:35 +0800
-Message-ID: 
- <CAAJw_ZsDdiB=b2PZydQWF2fjSULit3NWE-Bf1icBEryN-GuqUw@mail.gmail.com>
-Subject: Re: linux-6.4 alsa sound broken
-To: Takashi Iwai <tiwai@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: jeff.chua.linux@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.10.0
+Subject: Re: [PATCH] ASoC: Intel: soc-acpi-cht: Add quirk for Nextbook Ares 8A
+ tablet
+Content-Language: en-US
+To: Hans de Goede <hdegoede@redhat.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20230429104721.7176-1-hdegoede@redhat.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230429104721.7176-1-hdegoede@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: GOCMXKPEQHU7S6XTJAWEIEYPGB5YMLSJ
+X-Message-ID-Hash: GOCMXKPEQHU7S6XTJAWEIEYPGB5YMLSJ
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: YH5JFZKDNR74MP7J4NIMS6DKUW5XGFPQ
-X-Message-ID-Hash: YH5JFZKDNR74MP7J4NIMS6DKUW5XGFPQ
-X-Mailman-Approved-At: Wed, 03 May 2023 06:51:20 +0000
-CC: Bagas Sanjaya <bagasdotme@gmail.com>, lkml <linux-kernel@vger.kernel.org>,
- Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
- Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
- Linux Regressions <regressions@lists.linux.dev>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YH5JFZKDNR74MP7J4NIMS6DKUW5XGFPQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GOCMXKPEQHU7S6XTJAWEIEYPGB5YMLSJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,73 +109,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, May 1, 2023 at 2:35=E2=80=AFPM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 01 May 2023 06:36:49 +0200,
-> Bagas Sanjaya wrote:
-> >
-> > On Mon, May 01, 2023 at 11:59:12AM +0800, Jeff Chua wrote:
-> > > Latest git pull from Linus's tree ... playing a simple sound file wil=
-l
-> > > resulted in a lot of echo.
-> > >
-> > > Running on Lenovo X1 with ..
-> > > 00:1f.3 Audio device: Intel Corporation Alder Lake PCH-P High
-> > > Definition Audio Controller (rev 01)
-> > >
-> > > I've bisected and reverted the following patch fixed the problem.
-> > >
-> > > commit 9f656705c5faa18afb26d922cfc64f9fd103c38d
-> >
-> > Thanks for the regression report. However, where is your dmesg and/or A=
-LSA log
-> > when the regression occurs? What is the playback test file?
->
-> Yes, in addition, which driver is used (provide the alsa-info.sh
-> output at best), and which sound backend is used (pipewire, PA or
-> dmix) with which application?
-
-/proc/asound# cat cards devices hwdep pcm timers version
- 0 [PCH            ]: HDA-Intel - HDA Intel PCH
-                      HDA Intel PCH at 0x603e1c8000 irq 147
-  1:        : sequencer
-  2: [ 0- 0]: digital audio playback
-  3: [ 0- 0]: digital audio capture
-  4: [ 0- 3]: digital audio playback
-  5: [ 0- 7]: digital audio playback
-  6: [ 0- 8]: digital audio playback
-  7: [ 0- 9]: digital audio playback
-  8: [ 0- 0]: hardware dependent
-  9: [ 0- 2]: hardware dependent
- 10: [ 0]   : control
- 33:        : timer
-00-00: HDA Codec 0
-00-02: HDA Codec 2
-00-00: ALC287 Analog : ALC287 Analog : playback 1 : capture 1
-00-03: HDMI 0 : HDMI 0 : playback 1
-00-07: HDMI 1 : HDMI 1 : playback 1
-00-08: HDMI 2 : HDMI 2 : playback 1
-00-09: HDMI 3 : HDMI 3 : playback 1
-G0: system timer : 10000.000us (10000000 ticks)
-G3: HR timer : 0.001us (1000000000 ticks)
-P0-0-0: PCM playback 0-0-0 : SLAVE
-P0-0-1: PCM capture 0-0-1 : SLAVE
-P0-3-0: PCM playback 0-3-0 : SLAVE
-P0-7-0: PCM playback 0-7-0 : SLAVE
-P0-8-0: PCM playback 0-8-0 : SLAVE
-P0-9-0: PCM playback 0-9-0 : SLAVE
-Advanced Linux Sound Architecture Driver Version k6.3.0.
 
 
-# test playing with ...
-aplay /usr/share/sounds/alsa/Side_Right.wav
-Playing WAVE '/usr/share/sounds/alsa/Side_Right.wav' : Signed 16 bit
-Little Endian, Rate 48000 Hz, Mono
+On 4/29/23 05:47, Hans de Goede wrote:
+> The Nextbook Ares 8A tablet which has Android as factory OS, has a buggy
+> DSDT with both ESSX8316 and 10EC5651 ACPI devices.
+> 
+> This tablet actually uses an rt5651 codec, but the matching code ends up
+> picking the ESSX8316 device, add a quirk to ignote the ESSX8316 device
+> on this tablet.
+> 
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 
-I'll try to capture the sound ... it's seems to just repeating every
-second until the last second. So, if you just play a "beep", its ok.
+It took me a while to understand the logic: the ES8316 device is ignored
+so the matching code keeps going until it finds the rt5651 later in the
+table
 
->
-> thanks,
->
-> Takashi
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> ---
+>  .../intel/common/soc-acpi-intel-cht-match.c   | 26 +++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
+> diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+> index 6beb00858c33..cdcbf04b8832 100644
+> --- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+> +++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+> @@ -50,6 +50,31 @@ static struct snd_soc_acpi_mach *cht_quirk(void *arg)
+>  		return mach;
+>  }
+>  
+> +/*
+> + * Some tablets with Android factory OS have buggy DSDTs with an ESSX8316 device
+> + * in the ACPI tables. While they are not using an ESS8316 codec. These DSDTs
+> + * also have an ACPI device for the correct codec, ignore the ESSX8316.
+> + */
+> +static const struct dmi_system_id cht_ess8316_not_present_table[] = {
+> +	{
+> +		/* Nextbook Ares 8A */
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Insyde"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "CherryTrail"),
+> +			DMI_MATCH(DMI_BIOS_VERSION, "M882"),
+> +		},
+> +	},
+> +	{ }
+> +};
+> +
+> +static struct snd_soc_acpi_mach *cht_ess8316_quirk(void *arg)
+> +{
+> +	if (dmi_check_system(cht_ess8316_not_present_table))
+> +		return NULL;
+> +
+> +	return arg;
+> +}
+> +
+>  static const struct snd_soc_acpi_codecs rt5640_comp_ids = {
+>  	.num_codecs = 2,
+>  	.codecs = { "10EC5640", "10EC3276" },
+> @@ -113,6 +138,7 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
+>  		.drv_name = "bytcht_es8316",
+>  		.fw_filename = "intel/fw_sst_22a8.bin",
+>  		.board = "bytcht_es8316",
+> +		.machine_quirk = cht_ess8316_quirk,
+>  		.sof_tplg_filename = "sof-cht-es8316.tplg",
+>  	},
+>  	/* some CHT-T platforms rely on RT5640, use Baytrail machine driver */

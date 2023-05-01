@@ -2,98 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 030026F2EB5
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 May 2023 08:36:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4541F6F2EF8
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 May 2023 09:03:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF63F1745;
-	Mon,  1 May 2023 08:35:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF63F1745
+	by alsa0.perex.cz (Postfix) with ESMTPS id 666261750;
+	Mon,  1 May 2023 09:02:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 666261750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1682922997;
-	bh=3lXHzdSra6uan4PWKmapjOnZa9pz0WrDozpVhxxs8Hs=;
+	s=default; t=1682924593;
+	bh=nKgG1imx9UreIxQdgBkBIGgTo5FCnsp7BxD7AGjwctc=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SolT0fNm3jnlHzvsAvQhvXxYmhk+besl6bvegZBzUYy+ooPRwiqHdKlg0YlEKUhv8
-	 vUDiY2Guuk88WqcLroSxDSDd+F7o4SCwebK+MvH70T4tACLOiIzMd31fUK0xwjr/e1
-	 Cq8do8GB3ssxjo1ZoiBf4Hl+0IOrFPJJ6G6d3PSM=
+	b=Wc1iGYoTJvAtnROx32L+MbiXYWxziW+XBYiMZm8mDaTz3Ie0jGDkaTeQl3wilQY+4
+	 HkmUKBtIYNiEsl4np/L4pisOq3QOGhZEpYsS09QR2eYaNDQMAm7lm/onY54L84YB1z
+	 U19vw5nvlmnKWKRB9Rv4c4NUss8Ndr7el6vV3hXE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1665AF80114;
-	Mon,  1 May 2023 08:35:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58A87F80137;
+	Mon,  1 May 2023 09:02:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0723F8049E; Mon,  1 May 2023 08:35:37 +0200 (CEST)
+	id C1B40F8032B; Mon,  1 May 2023 09:02:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 952C1F80114
-	for <alsa-devel@alsa-project.org>; Mon,  1 May 2023 08:35:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 952C1F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13C1BF80114
+	for <alsa-devel@alsa-project.org>; Mon,  1 May 2023 09:02:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13C1BF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ytkJAO25;
+ header.s=susede2_rsa header.b=aOOoF4vs;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=boNZO4p+
+ header.s=susede2_ed25519 header.b=izE8NTdl
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E1539229E6;
-	Mon,  1 May 2023 06:35:29 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 67480205DD;
+	Mon,  1 May 2023 07:02:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1682922929;
+	t=1682924537;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jsloYqMSEMOOvd9htC5rzaQAp9k29H8uw/y83LBBsac=;
-	b=ytkJAO25GaHYnbBjmO9wTkLbt5jg1ZEpzoILcskmMgxq4a/9ta7wQa9zBrymqJ6o5moI5E
-	xATYKSV8LPeTW2+8oXrJ3TUmtcflw4gU4Anah9wsVcBVhuciQoJbtoEJzmZBhLs0jzq2Zc
-	+HzdnLjSvJ8WW4GMdEAYFULdvK2nhMg=
+	bh=RVD+bDRUziRmcnlCJugyMwMeK+xLTveoOrOww/ccp3g=;
+	b=aOOoF4vsEsu4/OGqELhUcGizAwzeeEVQBZIaSnQG86wyL6D4eqbMiphop3NunysTBej+Sf
+	RdRduJFJSM5D39KQk0NfdOn0gtBiBz3GxEn6ndm2+c0afGHPoe5ov9Ydi0SV0iDloxc/Xn
+	8fqpsjMlApAwF2eMq0rG1KoeFXQ9tZQ=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1682922929;
+	s=susede2_ed25519; t=1682924537;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jsloYqMSEMOOvd9htC5rzaQAp9k29H8uw/y83LBBsac=;
-	b=boNZO4p+h7d+XXQvZ2fBQeyedj/Tqvoa9Q+NhopIMTirv1kMKqxLzefByt36Mwmk4LMM6w
-	z5+1m+2bEDKbHeBg==
+	bh=RVD+bDRUziRmcnlCJugyMwMeK+xLTveoOrOww/ccp3g=;
+	b=izE8NTdlnKsbcWp7d7AGiqEzjAum4H6P7N3EsWZkcLmHmtoVG5XWyFH5xfKuEVsVlZ16fT
+	8U26T7n2HUWMi3CQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B2AD813587;
-	Mon,  1 May 2023 06:35:29 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4AED913580;
+	Mon,  1 May 2023 07:02:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id WkW0KrFdT2S5VwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 01 May 2023 06:35:29 +0000
-Date: Mon, 01 May 2023 08:35:29 +0200
-Message-ID: <87r0s0pnim.wl-tiwai@suse.de>
+	id hRxgEfljT2SdYQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 01 May 2023 07:02:17 +0000
+Date: Mon, 01 May 2023 09:02:16 +0200
+Message-ID: <87mt2opm9z.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Jeff Chua <jeff.chua.linux@gmail.com>
-Subject: Re: linux-6.4 alsa sound broken
-In-Reply-To: <ZE9B4avbDtIXOu4O@debian.me>
-References: 
- <CAAJw_ZsbTVd3Es373x_wTNDF7RknGhCD0r+NKUSwAO7HpLAkYA@mail.gmail.com>
-	<ZE9B4avbDtIXOu4O@debian.me>
+To: Ivan Orlov <ivan.orlov0322@gmail.com>
+Subject: Re: Question regarding ALSA modules parameters
+In-Reply-To: <26624923-3529-d161-ae62-7e5ece7b0e3f@gmail.com>
+References: <26624923-3529-d161-ae62-7e5ece7b0e3f@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: K5TEJTFDWTGKFF3NQ44KFYSBE7ZOQEWM
-X-Message-ID-Hash: K5TEJTFDWTGKFF3NQ44KFYSBE7ZOQEWM
+Message-ID-Hash: YUHRBC3UUGEWMUFJV5AJXCJ46I2QDGDL
+X-Message-ID-Hash: YUHRBC3UUGEWMUFJV5AJXCJ46I2QDGDL
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,16 +100,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Bagas Sanjaya <bagasdotme@gmail.com>, lkml <linux-kernel@vger.kernel.org>,
- Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
- Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
- Linux Regressions <regressions@lists.linux.dev>
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K5TEJTFDWTGKFF3NQ44KFYSBE7ZOQEWM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YUHRBC3UUGEWMUFJV5AJXCJ46I2QDGDL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,29 +115,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 01 May 2023 06:36:49 +0200,
-Bagas Sanjaya wrote:
+On Sat, 29 Apr 2023 20:35:19 +0200,
+Ivan Orlov wrote:
 > 
-> On Mon, May 01, 2023 at 11:59:12AM +0800, Jeff Chua wrote:
-> > Latest git pull from Linus's tree ... playing a simple sound file will
-> > resulted in a lot of echo.
-> > 
-> > Running on Lenovo X1 with ..
-> > 00:1f.3 Audio device: Intel Corporation Alder Lake PCH-P High
-> > Definition Audio Controller (rev 01)
-> > 
-> > I've bisected and reverted the following patch fixed the problem.
-> > 
-> > commit 9f656705c5faa18afb26d922cfc64f9fd103c38d
+> Hello!
 > 
-> Thanks for the regression report. However, where is your dmesg and/or ALSA log
-> when the regression occurs? What is the playback test file?
+> I have a question about the typical ALSA driver parameters, and maybe
+> someone can answer me. Why it is necessary for ALSA module to have
+> "index", "id" and "enable" parameters? They are mentioned as required
+> in the "Writing an ALSA driver" and "Advanced Linux Sound Architecture
+> - Driver Configuration guide" articles and used in many ALSA drivers,
+> but for what purpose?
 
-Yes, in addition, which driver is used (provide the alsa-info.sh
-output at best), and which sound backend is used (pipewire, PA or
-dmix) with which application?
+It's for either specifying the order of instances or controlling
+enable/disable of each one when there are multiple devices bound with
+the same driver.  One of typical use cases would be the HD-audio
+driver; there are many machines that have two HD-audio controllers,
+one for HDMI/DP audio and another for onboard analog.  In most cases,
+the second one (onboard analog) is the primary usage, and people would
+like to assign this as the first appearing card.  Then you can pass
+the option like "index=1,0" to swap the assignment slot.
+
+Nowadays with the sound backend like PA or PW that supports dynamic
+configuration, it's little use, but that was a help for static
+configuration in the past.
 
 
-thanks,
+HTH,
 
 Takashi

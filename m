@@ -2,97 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C4E6F45BA
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 May 2023 16:04:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8314F6F45C5
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 May 2023 16:07:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 741291897;
-	Tue,  2 May 2023 16:03:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 741291897
+	by alsa0.perex.cz (Postfix) with ESMTPS id BAFBB189F;
+	Tue,  2 May 2023 16:06:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAFBB189F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683036273;
-	bh=ahRzQHDOC92RvE+UCdR2NC/hfYufdeWGY6/gdyZmvjs=;
+	s=default; t=1683036414;
+	bh=2xDnmX3Uc6EFNXOE0IhbH1wp1LGXv2ZBUw1AZRP0SqM=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eZcOqH+ZgzKqkHKZPmD+6f621AmXBw+fWY6xdSNnWJwj+iyLVZl62hIGCAK7q01at
-	 /kGupwXs0YVv1OAF0JvE6XzWYfyQFj6r7CafTXIeuOuC3LHi652sLr8YzTmJMNfwmP
-	 aFKkPClFjEFz0BnbPe1kQmoDU4NvhNB8A8ZrYRyQ=
+	b=XEb3H8THl19uqBeK+tQnEFrUtoTq7mnFlptWMCziiKq/TqyPIFvYOdGjWTFLYUB9/
+	 F8gzPrFsMakh9EWKgPk64Qi+qpnWqGpOYslmvBdVyv53fmz41trOV/auIghJvremJg
+	 B5tXLYnoSvGsFsOY5K8Sa7lTfYZMhRfXRaxJ0kCA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D2A4F8032B;
-	Tue,  2 May 2023 16:03:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 637E2F8049E;
+	Tue,  2 May 2023 16:06:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D125BF8049E; Tue,  2 May 2023 16:03:38 +0200 (CEST)
+	id C9D3DF804B1; Tue,  2 May 2023 16:06:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 28879F800EC
-	for <alsa-devel@alsa-project.org>; Tue,  2 May 2023 16:03:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28879F800EC
+	by alsa1.perex.cz (Postfix) with ESMTPS id CF968F80137
+	for <alsa-devel@alsa-project.org>; Tue,  2 May 2023 16:05:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF968F80137
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=pqN/Rv0K;
+ header.s=susede2_rsa header.b=Z4HeiI4W;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=diuHXGy5
+ header.s=susede2_ed25519 header.b=AbKBSYmk
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BB14E221F5;
-	Tue,  2 May 2023 14:03:29 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8E85E22207;
+	Tue,  2 May 2023 14:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683036209;
+	t=1683036350;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mWnyS7ic/1ec0mYYaHFkI/ucda4XX8aFubspdAX1pa0=;
-	b=pqN/Rv0K+crnK5A4KsjmiTNZ9yWXwguF3FzIzixl9XKIZ4SqnalUFimAoYHDDr0KK0FpSX
-	W4bymPbtucoVWvhHebaJ5NfljjlszQMciFnVH4Zy/gK0PTOBayIpAdoyzSu1LzF257VVKW
-	0CMlmfMLH42aGR9e+LbC7IeKD1AwjQs=
+	bh=n7qfm/BIliifniRZh2fWTDyVdcB2OVXA92MJl5ux5ys=;
+	b=Z4HeiI4W7lfkU/KiTU30oBWCvKxbLyFIB4GDo/O8MsBA4iSKM1ZpVFI4qEBkezYbLeh7Dq
+	6Arc98Vq4uOzpw/jsQrxBEsud0XFUnquavAh32IRqQAnUI0BOx3nSVYN4m/9laXqUSLmdv
+	Plr+kWgbQ47e1+fFzWw9d6iYp5mvfXw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683036209;
+	s=susede2_ed25519; t=1683036350;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mWnyS7ic/1ec0mYYaHFkI/ucda4XX8aFubspdAX1pa0=;
-	b=diuHXGy5lc8kbINHpvoDeaFNc/wV6Ndc6j5DEqtWTSNIWMcdP/pqAGxN6m4lEfFjyxYlqu
-	N1eCEl6jAPrnkoAQ==
+	bh=n7qfm/BIliifniRZh2fWTDyVdcB2OVXA92MJl5ux5ys=;
+	b=AbKBSYmkFNIeB/GUvkQHdfBlindPfn9DQCVOvzXrcAkGpj0z0uLO/WB+WrXUT9RxHz+Wge
+	DrixlclT2p0ZIlBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89EE4139C3;
-	Tue,  2 May 2023 14:03:29 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 72BB1139C3;
+	Tue,  2 May 2023 14:05:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id x/LXIDEYUWSvcAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 02 May 2023 14:03:29 +0000
-Date: Tue, 02 May 2023 16:03:28 +0200
-Message-ID: <87v8haomof.wl-tiwai@suse.de>
+	id c1cLG74YUWQLcgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 02 May 2023 14:05:50 +0000
+Date: Tue, 02 May 2023 16:05:49 +0200
+Message-ID: <87ttwuomki.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Mark Asselstine <asselsm@gmail.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASUS UM3402YAR using
- CS35L41
-In-Reply-To: <20230501231346.54979-1-asselsm@gmail.com>
-References: <20230501231346.54979-1-asselsm@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH] ALSA: uapi: pcm: control the filling of the silence
+ samples for drain
+In-Reply-To: <20230502115536.986900-1-perex@perex.cz>
+References: <20230502115536.986900-1-perex@perex.cz>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: Q5XNCBH36I7G6ZEPB2VUCCJZ4M5SYWKP
-X-Message-ID-Hash: Q5XNCBH36I7G6ZEPB2VUCCJZ4M5SYWKP
+Message-ID-Hash: 7W6XQSJTVPI3LSXSZ3XRGPWN4O73VAJ7
+X-Message-ID-Hash: 7W6XQSJTVPI3LSXSZ3XRGPWN4O73VAJ7
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,14 +101,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, sbinding@opensource.cirrus.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+CC: ALSA development <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5XNCBH36I7G6ZEPB2VUCCJZ4M5SYWKP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7W6XQSJTVPI3LSXSZ3XRGPWN4O73VAJ7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,15 +116,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 02 May 2023 01:13:46 +0200,
-Mark Asselstine wrote:
+On Tue, 02 May 2023 13:55:36 +0200,
+Jaroslav Kysela wrote:
 > 
-> This Asus Zenbook laptop uses Realtek HDA codec combined with
-> 2xCS35L41 Amplifiers using I2C with External Boost.
+> Introduce SNDRV_PCM_INFO_PERFECT_DRAIN and SNDRV_PCM_HW_PARAMS_NO_DRAIN_SILENCE
+> flags to fully control the filling of the silence samples in the drain ioctl.
+> Actually, the configurable silencing is going to be implemented in the user
+> space [1], but drivers (hardware) may not require this operation. Those flags
+> do the bidirectional setup for this operation:
 > 
-> Signed-off-by: Mark Asselstine <asselsm@gmail.com>
+> 1) driver may notify the presence of the perfect drain
+> 2) user space may not require the filling of the silence samples to inhibit clicks
+> 
+> If we decide to move this operation to the kernel space in future, the
+> SNDRV_PCM_INFO_PERFECT_DRAIN flag may handle this situation without
+> double "silence" processing (user + kernel space).
+> 
+> The ALSA API should be universal, so forcing the behaviour (modifying of
+> the ring buffer with any samples) for the drain operation is not ideal.
+> 
+> [1] https://lore.kernel.org/alsa-devel/20230502115010.986325-1-perex@perex.cz/
+> 
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 
-Thanks, applied now.
+Looks good to me.
 
+Will apply once after 6.5 devel branch is opened.
+
+
+thanks,
 
 Takashi

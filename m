@@ -2,112 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EACD56F6509
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 08:30:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E9906F5F28
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 21:33:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68B4C1841;
-	Thu,  4 May 2023 08:29:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68B4C1841
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D00313C6;
+	Wed,  3 May 2023 21:32:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D00313C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683181845;
-	bh=9HxUsLh0LN/gbc5OfOjW3oy56LsmkFdNyqOVyJl6lWk=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=V0SZzaAaOa05B0knOPJ+aIUzL8+/teZrAZqTNe1JAJ/hP1f1Y0WdX7/vwOyxW0BeH
-	 8Awu9+MoThjqk4jI8SxrrZAriY1xvFhmUY6O5oz8S4tN6LUVjs9Ams7Ah1BLRt4WAy
-	 T3ZGBSgDYg0vkb1/TxlGhaXZG5MiWLVkQ+OJG/qM=
+	s=default; t=1683142424;
+	bh=PJux8VtykERNWl77A/HfDeIHhIuSFZzrx/0nmEW/h2Y=;
+	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=g7puFh5G6HOBYwc+ra99OTawBoufjKLSVZUI8yr7dXSNfTqQdXLjEeUWRH0ZLCnhu
+	 iBxSC3/QTrSHKVkJw/xWo3S0HBCH86/YAXBPxIUS+GJTnRkefF9f15Et7H7oXkBoga
+	 3MeSE1sIROxemYe2VlwRwcLnZJvlyEtDgsaqtFq0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 796E9F8051B;
-	Thu,  4 May 2023 08:29:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63889F8032B;
+	Wed,  3 May 2023 21:32:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B495F8032B; Wed,  3 May 2023 19:51:00 +0200 (CEST)
+	id 4319FF8049E; Wed,  3 May 2023 21:32:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
- [IPv6:2607:f8b0:4864:20::12e])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 78718F800EC
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 21:32:10 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 668F011E6;
+	Wed,  3 May 2023 21:32:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 668F011E6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1683142329; bh=134enEbGMk+lh5qLFrd6rCqMfaAzngLEWDoCerDp574=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=mH1R4hNdkw8mc5omaYOxBvqB+s5qmt34wH6OTqYXyqhtLd+v5/ly3hUNwGdvhf8wb
+	 arX4muFNRvDyhnoLlqXydwS43CBhirbD6HeSl1N2/cX8uT2TWV/mx1mDndmqsx/yiP
+	 ss92gGVOymJwisBmUZ0Hw/HYgbRRiVgNGOinb5KE=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F351EF800EC
-	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 19:50:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F351EF800EC
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=PvJUTiSE
-Received: by mail-il1-x12e.google.com with SMTP id
- e9e14a558f8ab-3315ccc1ce0so6597355ab.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 03 May 2023 10:50:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683136252; x=1685728252;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=e7jQbQ2eUTO2h8zVdPJiBBhsIPjfggv9KTykUBwVf3E=;
-        b=PvJUTiSE4ubhTBNHRTvDZ1sQJrHSex7/Rv5FqXOcaZgEiKnIN2tTkcvwQDq8BEW1Z3
-         mp9w/+C3AwBdcUd7nG7XWC89X2+2L3Xz4xkPGUMUM09GB7c9Y5GthL9kQ7/MumK+Avfv
-         +FzMDj4bK335vNFiDX1YVcdyf7BygKm1h0ft2vbotTvYbUIY1vkKY2YVejU3sNN1HjNT
-         3vgPs2QfEytKA0rIp4Gpq50rWNJ8IAWCTKTr+U9pz/8ZZfP+nneSpVruSJTNU5YkvIGt
-         2oQIeLpISD/znVO7R3cKuhdZJbtzCMcO/qPUP+wd5glBvcPzYvaQHN48jzo8V026CIbR
-         hC7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683136252; x=1685728252;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e7jQbQ2eUTO2h8zVdPJiBBhsIPjfggv9KTykUBwVf3E=;
-        b=ZzkPPpCyVJhVZ+GjbX+UmUEoX8t0wp/uSW/YEQYImqImexScRvZwIKhj/qKTqAZhT0
-         Zt0IMALKtFXUwX5izJjvp9VG77eixFoX+gsBIwQjaJ4N7D3BCeiGtOImSiD7E1HM5nNp
-         VVsE+W8lkKV1pNmqdE7OnX7iAepHvgIRl4EUcgo7yM7FKNTktoQZiARAAEbq2FJMZG3b
-         c+DkLQelvqk1OspgRxZwRu5N+mv+ElJOzo+p9GXkserOBvCHOtsrle/CyhptIBnP9ZYg
-         svLPGRpz5ZxbwvA1uid1P6AKFse8IhsdFFP5YFsQ05UYjC0GOxgpo7+4uXLBdoRNLuL/
-         PvKg==
-X-Gm-Message-State: AC+VfDyYCbL3WHD3YApW2c6QP+8/2hhPflljQV4tnP9WnP/N/In4RpU9
-	5nMPggLYrqvlYjNRtBO5n/k=
-X-Google-Smtp-Source: 
- ACHHUZ6ZiYm0NH798Vu2b6Lk/aAPFkYw/kDOndjNfYsHuM6BNYcu9QekT2opB6GKQzar16ekqEDqDA==
-X-Received: by 2002:a92:c946:0:b0:331:5284:d6b3 with SMTP id
- i6-20020a92c946000000b003315284d6b3mr2820906ilq.7.1683136251904;
-        Wed, 03 May 2023 10:50:51 -0700 (PDT)
-Received: from mrcarrot-aero13.rtr.local (fw.rtr.mntm.org. [66.172.165.2])
-        by smtp.gmail.com with ESMTPSA id
- h4-20020a92c084000000b003261b6acc8asm667139ile.79.2023.05.03.10.50.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 May 2023 10:50:51 -0700 (PDT)
-From: Caleb Harper <calebharp2005@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] alsa: support HP Pavilion Aero 13-be0xxx Mute LED
-Date: Wed,  3 May 2023 12:50:26 -0500
-Message-Id: <20230503175026.6796-1-calebharp2005@gmail.com>
-X-Mailer: git-send-email 2.40.1
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed,  3 May 2023 21:32:03 +0200 (CEST)
+Message-ID: <7b80ef1e-23dd-c523-0663-4bf311c1823a@perex.cz>
+Date: Wed, 3 May 2023 21:32:02 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: calebharp2005@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+References: 
+ <CAAJw_ZsbTVd3Es373x_wTNDF7RknGhCD0r+NKUSwAO7HpLAkYA@mail.gmail.com>
+ <ZE9ngFLRqLkN6faH@ugly> <87wn1pmm4d.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: linux-6.4 alsa sound broken
+In-Reply-To: <87wn1pmm4d.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: VP6Y42PH3IS2OFWWH6OGZ7V5SK2JJK36
+X-Message-ID-Hash: VP6Y42PH3IS2OFWWH6OGZ7V5SK2JJK36
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 2CYEAHNU27Y4GV7LVLGCDGQ7XBOXJZDF
-X-Message-ID-Hash: 2CYEAHNU27Y4GV7LVLGCDGQ7XBOXJZDF
-X-Mailman-Approved-At: Thu, 04 May 2023 06:29:34 +0000
-CC: Caleb Harper <calebharp2005@gmail.com>
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Jeff Chua <jeff.chua.linux@gmail.com>,
+ lkml <linux-kernel@vger.kernel.org>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ ALSA development <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2CYEAHNU27Y4GV7LVLGCDGQ7XBOXJZDF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VP6Y42PH3IS2OFWWH6OGZ7V5SK2JJK36/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,33 +97,135 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch adds support for the mute LED on the HP Pavilion Aero Laptop
-13-be0xxx. The current behavior is that the LED does not turn on at any
-time and does not indicate to the user whether the sound is muted.
+On 03. 05. 23 18:10, Takashi Iwai wrote:
+> On Mon, 01 May 2023 09:17:20 +0200,
+> Oswald Buddenhagen wrote:
+>>
+>> On Mon, May 01, 2023 at 11:59:12AM +0800, Jeff Chua wrote:
+>>> Latest git pull from Linus's tree ... playing a simple sound file will
+>>> resulted in a lot of echo.
+>>>
+>> how _exactly_ does it sound?
+>> have you recorded a file through loopback for us to investigate? best
+>> would be a short sample of a clean wave (sine or sawtooth) with some
+>> leading and trailing silence.
+>>
+>>> Running on Lenovo X1 with ..
+>>> 00:1f.3 Audio device: Intel Corporation Alder Lake PCH-P High
+>>> Definition Audio Controller (rev 01)
+>>>
+>>> I've bisected and reverted the following patch fixed the problem.
+>>>
+>> this seems weird. so my first thought is: are you _sure_ that your
+>> bisect isn't "contaminated" somehow? is the effect consistent across
+>> several reboots with the same build? does re-applying my patch
+>> immediately re-introduce the problem?
+>>
+>> - this code is about silencing. getting dropouts or no playback at all
+>> would be plausible, while echo (that is, repetition) seems surprising.
+>>    theoretically, the driver may be setting a bad fill_silence()
+>> callback   which copies some garbage instead of zeroing, but the HDA
+>> driver   doesn't set one at all (i.e., uses the default one).
+>> - this code must be explicitly enabled, which for all i know is done
+>> by   almost nothing. what players did you try? did you get consistent
+>> results? did you try taking out audio servers from the equation?
+>> - the affected hardware belongs to the extremely widely used HDA
+>> family,   which at the layer the patch is even remotely connected with
+>> is   completely standardized. so _a lot_ of people should be affected,
+>> and   we should be getting reports like yours by the dozen. are we?
+>>
+>> of course i can't exclude the possibility that my patch is affected by
+>> an uninitialized variable or memory corruption (or in the worst case
+>> causes it), which would of course have very hard to predict
+>> effects. but that should be investigated properly instead of just
+>> reverting, lest we might be papering over a much more serious problem.
+> 
+> Oswald, this looks like a real regression by the patch.
+> Specially, this happens with dmix, and the issue doesn't seem specific
+> to the driver.  It happens also with USB-audio, not only with
+> HD-audio.  Just aplay /usr/share/sounds/alsa/Side_Left.wav or whatever
+> there with the dmix config showed the problem.
+> 
+> The dmix uses the silence_size=boundary as a fill-all operation, and
+> it's a free-wheel mode, so supposedly something was overlooked in your
+> code refactoring.
+> 
+> Could you check it and address quickly?  I'd like to fix it before
+> 6.4-rc1 release, so if no fix comes up in a couple of days, I'll have
+> to revert the change for 6.4-rc1.
 
-The solution is to add a PCI quirk to properly recognize and support the
-LED on this device.
+I would revert this patch. It seems that this "do silence right after the playback is finished" mechanism is not handled in the updated code (and I overlooked that, too):
 
-This change has been tested on the device in question using modified
-versions of kernels 6.0.7-6.2.12 on Arch Linux.
+-       ofs = runtime->status->hw_ptr;
+-       frames = new_hw_ptr - ofs;
+-       if ((snd_pcm_sframes_t)frames < 0)
+-           frames += runtime->boundary;
+-       runtime->silence_filled -= frames;
+-       if ((snd_pcm_sframes_t)runtime->silence_filled < 0) {
+-           runtime->silence_filled = 0;
+-           runtime->silence_start = new_hw_ptr;
+-       } else {
+-           runtime->silence_start = ofs;
+-       }
 
-Signed-off-by: Caleb Harper <calebharp2005@gmail.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+It requires to track the old and new hw_ptr, so the removal of the new_hw_ptr argument is not valid. I don't see any easy way to fix this.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index f70d6a33421d..aeffe6bd8b98 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9428,6 +9428,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8898, "HP EliteBook 845 G8 Notebook PC", ALC285_FIXUP_HP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x103c, 0x88d0, "HP Pavilion 15-eh1xxx (mainboard 88D0)", ALC287_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8902, "HP OMEN 16", ALC285_FIXUP_HP_MUTE_LED),
-+	SND_PCI_QUIRK(0x103c, 0x8919, "HP Pavilion Aero Laptop 13-be0xxx", ALC287_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x896d, "HP ZBook Firefly 16 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x896e, "HP EliteBook x360 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8971, "HP EliteBook 830 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+I would probably fix the snd_pcm_playback_hw_avail() call with the old hw_ptr which seems like the only one issue with the original code, because it makes the threshold inaccurate (it is expected to fill more silent samples). Another issue is wrong silence_start for the incremental silence calls.
+
+The patch to fix the original code may look like:
+
+diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+index af1eb136feb0..70795a83e50a 100644
+--- a/sound/core/pcm_lib.c
++++ b/sound/core/pcm_lib.c
+@@ -45,7 +45,7 @@ static int fill_silence_frames(struct snd_pcm_substream *substream,
+  void snd_pcm_playback_silence(struct snd_pcm_substream *substream, snd_pcm_uframes_t new_hw_ptr)
+  {
+  	struct snd_pcm_runtime *runtime = substream->runtime;
+-	snd_pcm_uframes_t frames, ofs, transfer;
++	snd_pcm_uframes_t start, frames, ofs, transfer;
+  	int err;
+  
+  	if (runtime->silence_size < runtime->boundary) {
+@@ -63,12 +63,17 @@ void snd_pcm_playback_silence(struct snd_pcm_substream *substream, snd_pcm_ufram
+  		}
+  		if (runtime->silence_filled >= runtime->buffer_size)
+  			return;
++		/* use appl_ptr as a temporary variable */
++		appl_ptr = runtime->status->hw_ptr;
++		runtime->status->hw_ptr = new_hw_ptr;
+  		noise_dist = snd_pcm_playback_hw_avail(runtime) + runtime->silence_filled;
++		runtime->status->hw_ptr = appl_ptr;
+  		if (noise_dist >= (snd_pcm_sframes_t) runtime->silence_threshold)
+  			return;
+  		frames = runtime->silence_threshold - noise_dist;
+  		if (frames > runtime->silence_size)
+  			frames = runtime->silence_size;
++		start = (runtime->silence_start + runtime->silence_filled) % runtime->boundary;
+  	} else {
+  		if (new_hw_ptr == ULONG_MAX) {	/* initialization */
+  			snd_pcm_sframes_t avail = snd_pcm_playback_hw_avail(runtime);
+@@ -92,12 +97,13 @@ void snd_pcm_playback_silence(struct snd_pcm_substream *substream, snd_pcm_ufram
+  			}
+  		}
+  		frames = runtime->buffer_size - runtime->silence_filled;
++		start = runtime->silence_start;
+  	}
+  	if (snd_BUG_ON(frames > runtime->buffer_size))
+  		return;
+  	if (frames == 0)
+  		return;
+-	ofs = runtime->silence_start % runtime->buffer_size;
++	ofs = start % runtime->buffer_size;
+  	while (frames > 0) {
+  		transfer = ofs + frames > runtime->buffer_size ? runtime->buffer_size - ofs : frames;
+  		err = fill_silence_frames(substream, ofs, transfer);
+
+I'll post a complete patch when we agree on this solution. The runtime->status->hw_ptr may not be even preserved, because it is no used in the rest of code in snd_pcm_update_hw_ptr0(), but the code looks more sane.
+
+					Jaroslav
+
 -- 
-2.40.1
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

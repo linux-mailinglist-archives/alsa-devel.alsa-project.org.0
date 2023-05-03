@@ -2,97 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34F9A6F4FF7
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 08:10:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01A816F4FF8
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 08:10:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E95113B6;
-	Wed,  3 May 2023 08:09:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E95113B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A03BD13C2;
+	Wed,  3 May 2023 08:09:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A03BD13C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683094229;
-	bh=W3B24W/7pztG5G5giIAlR1uik8NhUDtPk8RYZcnaWHM=;
+	s=default; t=1683094239;
+	bh=tmlrL2HvqTaxzewDu3v84KkCJw+zxbjDckd9cuv5lq0=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uwJo2t8a7GXZfQYUHkbR9m16feJdx63CPvvJBHQEVUV+6cvhSql5owZDH0xObLzBY
-	 mORbFCTcTw8fNV3HduUEup+GH0CRJX7iNlC2xyWQ41bCfUKur+78VufA0OTfGnWHal
-	 39T5aZBIr/dkFiJXXVBxyeRTGS59ukY58tpvxXdk=
+	b=RdLhjK5ZASdKY1G2mTo/GgwMD1vGFcxBtLq9mGxYP+xzb4wDccdiDttrlAwz9Jgsq
+	 0jlPF+ZMz484sTonumPoOQmhaAotF0UueA5W5kvxakmAElN9GD21PtzwIj4Ndju+Re
+	 0NcVOkV2500WIPyi6zQvIKrx7ugG0LZFs1L0Vbs0=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D155F8051B;
-	Wed,  3 May 2023 08:08:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0979EF8052E;
+	Wed,  3 May 2023 08:09:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EAB5CF8049E; Wed,  3 May 2023 08:08:18 +0200 (CEST)
+	id 657AAF80533; Wed,  3 May 2023 08:09:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B6AD1F800EC
-	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 08:08:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6AD1F800EC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 87680F804FE
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 08:09:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87680F804FE
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=lM412DW6;
+ header.s=susede2_rsa header.b=GtK0AlUp;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=c2v7kafu
+ header.s=susede2_ed25519 header.b=onBur/FK
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0F9B7222C0;
-	Wed,  3 May 2023 06:08:14 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0EEA61FFD8;
+	Wed,  3 May 2023 06:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683094094;
+	t=1683094142;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qpbCSszVr46DriBA7/WJQ7lj+XHfHPDBGRbf2/7ktVE=;
-	b=lM412DW6Frf8JnO9H/P1wXkkGe837O06CzHtfgyTmQNeUV8f3FFffg9OgESoimKEQvLJ1g
-	6f6yK80WDyeBDYB0MGsGtORA2tYKSjz3hdHJSLP3mlt8xLXQgmZ6vsi8PD5FWWHHYIF8SF
-	YCnYF6dtLxjyIAKKY19fyZkM5Iizi40=
+	bh=+t49PqzNz0xM/24vPeyfoW+k2vwxVL++9FCvg5c33FM=;
+	b=GtK0AlUp22O8tQ30XoNOh0ITR251rdWnN7/BwCI8DHmSg/0iIdcFdPtmTaCQxXOmFmMEUS
+	dPBvUkv058Y5gnCSMR/XMGCm8CmE1dznZ96hAS1X8O8Ri4gPeDj1MMjWVXCh6bO6U7dULh
+	sNkRrpz70L4DVeetXVYKVkN9yqZuPfk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683094094;
+	s=susede2_ed25519; t=1683094142;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qpbCSszVr46DriBA7/WJQ7lj+XHfHPDBGRbf2/7ktVE=;
-	b=c2v7kafuMkO5hc8n85vXXla6Tk3AqZAkOR9HiTRMugEVh2qaIHbTkIdwFbOaymgy6TIFXG
-	AzGExnRA0bGlUQAg==
+	bh=+t49PqzNz0xM/24vPeyfoW+k2vwxVL++9FCvg5c33FM=;
+	b=onBur/FKJUp/7Ddlghcp9lxSTWbqnP5Ups4+6hQriBvywfQ84siBfr8dFU3E1otYMsHI6D
+	MtMibOV1FDf5ZHDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE25113584;
-	Wed,  3 May 2023 06:08:13 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CB68E13584;
+	Wed,  3 May 2023 06:09:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id mK9VNU36UWR5JgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 03 May 2023 06:08:13 +0000
-Date: Wed, 03 May 2023 08:08:13 +0200
-Message-ID: <87h6sune0i.wl-tiwai@suse.de>
+	id OPqlMH36UWTPJgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 03 May 2023 06:09:01 +0000
+Date: Wed, 03 May 2023 08:09:01 +0200
+Message-ID: <87fs8endz6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Luke D. Jones" <luke@ljones.dev>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for 2nd ASUS GU603
-In-Reply-To: <20230503035035.254346-1-luke@ljones.dev>
-References: <20230503035035.254346-1-luke@ljones.dev>
+To: Bagas Sanjaya <bagasdotme@gmail.com>
+Subject: Re: [PATCH] ALSA: docs: Fix code block indentation in ALSA driver
+ example
+In-Reply-To: <20230503035416.62722-1-bagasdotme@gmail.com>
+References: <20230503035416.62722-1-bagasdotme@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: Q3KK4ZM7MGCHEEIX7Y45RETUIMCN5MJL
-X-Message-ID-Hash: Q3KK4ZM7MGCHEEIX7Y45RETUIMCN5MJL
+Message-ID-Hash: HTYTTIXQVGVZAYPATJOPMG2KC6K4YDVE
+X-Message-ID-Hash: HTYTTIXQVGVZAYPATJOPMG2KC6K4YDVE
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,13 +101,18 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+CC: Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
+ Linux Documentation <linux-doc@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, kernel test robot <lkp@intel.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q3KK4ZM7MGCHEEIX7Y45RETUIMCN5MJL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HTYTTIXQVGVZAYPATJOPMG2KC6K4YDVE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,33 +121,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 03 May 2023 05:50:35 +0200,
-Luke D. Jones wrote:
+On Wed, 03 May 2023 05:54:16 +0200,
+Bagas Sanjaya wrote:
 > 
-> Add quirk for GU603 with 0x1c62 variant of codec.
+> Sphinx reports htmldocs warnings:
 > 
-> Signed-off-by: Luke D. Jones <luke@ljones.dev>
-> ---
->  sound/pci/hda/patch_realtek.c | 1 +
->  1 file changed, 1 insertion(+)
+> Documentation/sound/kernel-api/writing-an-alsa-driver.rst:3997: WARNING: Literal block expected; none found.
+> Documentation/sound/kernel-api/writing-an-alsa-driver.rst:4004: WARNING: Literal block expected; none found.
+> Documentation/sound/kernel-api/writing-an-alsa-driver.rst:4009: WARNING: Unexpected indentation.
+> Documentation/sound/kernel-api/writing-an-alsa-driver.rst:4035: WARNING: Literal block expected; none found.
 > 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 3b9f077a227f..4a585050edc3 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -9501,6 +9501,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
->  	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK),
->  	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
-> +	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
->  	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
->  	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA", ALC295_FIXUP_ASUS_DACS),
->  	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
+> These are due to indentation of example driver snippets which is outside
+> the code block scope.
+> 
+> Fix these by indenting code blocks in question to the scope.
+> 
+> Fixes: 4d421eebe1465d ("ALSA: docs: writing-an-alsa-driver.rst: polishing")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/linux-doc/202305021822.4U6XOvGf-lkp@intel.com/
+> Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
 
-Could you try to put the new entry at the right place?
-The table is sorted in the PCI SSID order.
+Thanks, applied.
 
-
-thanks,
 
 Takashi

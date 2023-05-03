@@ -2,94 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FDA6F4E23
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 02:29:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F7B86F4F49
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 05:52:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE1A413DF;
-	Wed,  3 May 2023 02:28:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE1A413DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id C43521355;
+	Wed,  3 May 2023 05:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C43521355
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683073740;
-	bh=NYrACsssrmfPGmWOcmRZXfT33+ftG3IlffU7YP1nyHY=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=mHRFzaYa0t58XdqGmfBMxupybbphJ7LQrZP6A6OXtHCBcjdIDOgDX2SR18pcSGXVq
-	 7qJYgT+J/B/pu4nYzbDMeJi9PKeslnqYd7DyQg9e4E3JJBpnbQiIPWiZkUlR7WmoZZ
-	 SvS4Uny015kgGq7l3FEXbZ+bLbiD6NjNPwnWkYbI=
+	s=default; t=1683085935;
+	bh=AFClTy2hE0oZEnU+mdwdS2eMizyJTni2QwwauWT5LrI=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=DNSwNYWXXogdcdm9jwEvpkP2u1Nx5MqmMiu/Z26KS1n21h2LXqZUuhpmIVc35Gc8g
+	 IGowyH8azwctUtT4cyLA1gEeO2Cu7FUFt/yj3bICPHVNy3c91QKCqqg4ShZ4jw3WcD
+	 X/NsOfjedFq6f51KVI5vENjomLjnZEb0aRbzJfNI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 058EDF8032B;
-	Wed,  3 May 2023 02:28:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC928F8032B;
+	Wed,  3 May 2023 05:51:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29A0CF8049E; Wed,  3 May 2023 02:28:03 +0200 (CEST)
+	id 05565F8049E; Wed,  3 May 2023 05:51:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 13DFEF800EC
-	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 02:27:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13DFEF800EC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9A1E9F800EC
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 05:50:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A1E9F800EC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tKLGj0WK
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6B599617EB;
-	Wed,  3 May 2023 00:27:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73E9BC433D2;
-	Wed,  3 May 2023 00:27:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683073673;
-	bh=NYrACsssrmfPGmWOcmRZXfT33+ftG3IlffU7YP1nyHY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tKLGj0WKZZ2Jx2liro9O4TKwiTokjOB7MujVV/4BMu708nhKYKULt7NqfT4I8zJ7u
-	 haUCLNNiID4OoFA+dgqh0H2o58AmbGH7Bn+pZGlKx3wr338oqwqwUICg2RJ0Digp6d
-	 /5EWpE8FlXGIjir90U1Pe+gwOgD6oNUymU9C040eNEyWmj86ngkArJemNNVruRXxzw
-	 ZZrUnNBSiv4HLyzZivkUPBVA4Mu1xwErVMiNWPptQ5k3W7jx2pn06W1w70BDPEGMGv
-	 K29KmhS20iGrZo6J3R7Tlj+Dp6AQcZf5GFfCAz+aoOsXxp0dA22X3uCTC/pPPQLFjj
-	 WMQkzH4PR530g==
-Date: Wed, 3 May 2023 09:27:48 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <13916275206@139.com>
-Subject: Re: [PATCH v1 3/5] firmware: tasdevice_fmw: tasdevice firmware
- loading lib
-Message-ID: <ZFGqhM0VYFdorkRa@finisterre.sirena.org.uk>
-References: <20230502053235.27066-1-13916275206@139.com>
+ unprotected) header.d=ljones.dev header.i=@ljones.dev header.a=rsa-sha256
+ header.s=fm1 header.b=z3GG90cf;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=bMUc/u2M
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.west.internal (Postfix) with ESMTP id 54DB33200B99;
+	Tue,  2 May 2023 23:50:46 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute2.internal (MEProxy); Tue, 02 May 2023 23:50:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
+	:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1683085845; x=1683172245; bh=twjvR+8FUi
+	ccRKqC2PlVe9ds9MWJ3LKswPKdW5p38AA=; b=z3GG90cfz8byZ5GngRGyFI7qPe
+	6eVXu/I5Rwq/9wTH/Jd6/KtFRDYnzeYkFhB60Hy5euWQd9eUugHcBSxmRIgGm3l/
+	dZygZgk9T7A0QCfJ+Q/c0uyEotymgnS1e8s/Yz6zfMJmjWrmMXmkRLhUYgC919++
+	iDniABXW4ehfCubeOnDDsq4spne6e4i+Vre/E/gz2Tt90HaLFUjs5EwLOmTYcw34
+	+3VO2xX39A56HM6vDoU9k3urkA0AwSbEMr7pX0Dfvm4F5lbbEQkfnxQH7wrHPuK4
+	W/Ce2ClkWF6JvdnotVnICJSuGp6Zrw/QrlsCIm6ZLbvRM2ksLOmBrSf8Ng+Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1683085845; x=1683172245; bh=twjvR+8FUiccR
+	KqC2PlVe9ds9MWJ3LKswPKdW5p38AA=; b=bMUc/u2MrRh2i2PIv8Q/hC8Tbjlx3
+	VATcB/uIHKdg3+cEOVtFsqvqah3jaZbcEId8wluYr0zZxLJZ3gSPns3SF5a6gYYF
+	zg2WxRWowx8B68/UwCvcwtbZDURz7vsooUNmaWzQEbyAYzpAzhl+5w08qxfKhz1N
+	ocJpmqYWXka8Dk5ePxN11PfQe6mya7TfRrNIA8PR6zIwAS6FC58cQ+nRFeu/uogg
+	NDcIJb4Gdy2u8GLNoxEmBBsDgO9KVnc9vtoNaMM6jdbicw+Dvz+rdKoG1DWATDyi
+	un8S5cwg9gj5Cs8e58/HIkwTN0tAbzeDPjSzw+TORKrwJowslik2DQ4Rg==
+X-ME-Sender: <xms:FNpRZH5B8bIdem-i6d5yFYyS7QA4bY6Ex0H5jKQxF4vzPouXPUzMXQ>
+    <xme:FNpRZM4yrt1dP94fagg-4ueHyISGF-zRgLQ-yNMtW-wPMnYaCzTb2Hc6inBvsUJeP
+    V2_TLW7UZwiWvCvElg>
+X-ME-Received: 
+ <xmr:FNpRZOcNGVbvckvzdSI5xKuaq7-LVnkzcQQzFtLup1BAwNAb624KUGrA-qfL>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrfedvjedgjeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
+    ertddtnecuhfhrohhmpedfnfhukhgvucffrdculfhonhgvshdfuceolhhukhgvsehljhho
+    nhgvshdruggvvheqnecuggftrfgrthhtvghrnhepgfdujedthfduudekffefkeeiffdttd
+    dvhfegudduueffuefhfefggeefteevvdegnecuvehluhhsthgvrhfuihiivgeptdenucfr
+    rghrrghmpehmrghilhhfrhhomheplhhukhgvsehljhhonhgvshdruggvvh
+X-ME-Proxy: <xmx:FNpRZILh_5LXitJVcCWfeeb1cZdzh4MGZkmmQI6CcYK2HGSKghR6vQ>
+    <xmx:FNpRZLKUqVdROu54vzw6_9_hCON9AMJiq94P2vzhoSRwHUAwFr-01g>
+    <xmx:FNpRZBzYyp80pd_bhOncjFIHq_h0H6YVps347FA9QDR3JCa38jddvQ>
+    <xmx:FdpRZCXGu2iOCCOoHjB_D82PtT8kgxOsuuNaAYLbNu9ty5UmEj4dpQ>
+Feedback-ID: i5ec1447f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 2 May 2023 23:50:41 -0400 (EDT)
+From: "Luke D. Jones" <luke@ljones.dev>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for 2nd ASUS GU603
+Date: Wed,  3 May 2023 15:50:35 +1200
+Message-Id: <20230503035035.254346-1-luke@ljones.dev>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jHuLl3Qdr+Gp3RDN"
-Content-Disposition: inline
-In-Reply-To: <20230502053235.27066-1-13916275206@139.com>
-X-Cookie: Avoid contact with eyes.
-Message-ID-Hash: AUNHS47TX5BVQ2I73EODUU5W552C4SN5
-X-Message-ID-Hash: AUNHS47TX5BVQ2I73EODUU5W552C4SN5
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 3QJATCLWJCULAJRGNLTDLQBYKH5DNMRC
+X-Message-ID-Hash: 3QJATCLWJCULAJRGNLTDLQBYKH5DNMRC
+X-MailFrom: luke@ljones.dev
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com,
- kevin-lu@ti.com, shenghao-ding@ti.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, x1077012@ti.com, peeyush@ti.com, navada@ti.com,
- gentuser@gmail.com
+CC: alsa-devel@alsa-project.org, tiwai@suse.com,
+ "Luke D. Jones" <luke@ljones.dev>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AUNHS47TX5BVQ2I73EODUU5W552C4SN5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3QJATCLWJCULAJRGNLTDLQBYKH5DNMRC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,46 +125,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Add quirk for GU603 with 0x1c62 variant of codec.
 
---jHuLl3Qdr+Gp3RDN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Luke D. Jones <luke@ljones.dev>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Tue, May 02, 2023 at 01:32:35PM +0800, Shenghao Ding wrote:
-> Create tasdevice firmware lib.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 3b9f077a227f..4a585050edc3 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9501,6 +9501,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
+ 	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
++	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
+ 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA", ALC295_FIXUP_ASUS_DACS),
+ 	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
+-- 
+2.40.0
 
->  drivers/firmware/Kconfig            |    1 +
->  drivers/firmware/Makefile           |    1 +
->  drivers/firmware/ti/Kconfig         |    5 +
->  drivers/firmware/ti/Makefile        |    3 +
->  drivers/firmware/ti/tasdevice-fmw.c | 2380 +++++++++++++++++++++++++++
->  5 files changed, 2390 insertions(+)
-
-Given how large this part of the code for these devices is it definitely
-makes sense to split it into a separate commit like you've done but are
-there any non-audio devices in this series which will share the same
-firmware style?  If not then it probably makes sense to keep the code in
-sound/soc/codecs, though a separate file would still make sense.
-
-There's some devices that do keep firmware interface code in the
-firmware directory but in those cases the devices have other, non-audio,
-functionality which also uses the firmware (eg, always on monitoring)
-but I've not seen any of the tas devices like that.  If there are some
-then the split you've made here makes sense.
-
---jHuLl3Qdr+Gp3RDN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRRqoEACgkQJNaLcl1U
-h9DwJQf/c04X1IDM9RQnB9HFoA2w4Yrd+wID6cNDcMHE05So35+rSAErad/PhU1k
-1pu6mTeujT/5RanZL3cElVkqNaKgGy3bY0Aewu4BB6Jp0AkkM9+uk02lG6KHsnB3
-ZPWke1iHD1uMIyNYAUm9mQM3pTYCmva2EI9/k6vBfAcfuVhBWDgke6GabRPtoaeh
-tpND2K9ckr41xRW0s8GW+SJ+dH9E88V66qGoqez28A/iHjYUupdwEpQAzl6d7R5U
-ICP0sv/RgamEp6yYLT/dj+muh/+gbyanTYvfKDPLfGKKUB8c84gCn4sKbQpEDaSf
-anNb6TU9LQsQRxu8cijdPQ0YwrAvYg==
-=KUlJ
------END PGP SIGNATURE-----
-
---jHuLl3Qdr+Gp3RDN--

@@ -2,107 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61BCC6F4F55
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 05:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B211E6F4F7F
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 06:41:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C64C61355;
-	Wed,  3 May 2023 05:54:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C64C61355
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8F0D138F;
+	Wed,  3 May 2023 06:40:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8F0D138F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683086133;
-	bh=6LXELRL34BN4LPhBXSHO4pfAXrYd4OlwOyi8Y9pLNbI=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=E/9NRzPqiMf1U8ZFgnDQ7a398Fyf+SVyL4zwxVPdKbslYFliq5K1QKw4nVk7rgWiS
-	 jdkk8fXn2MSPBneMzzgyjNGRo4Lsoo87nFDUYTkT2vnnejavqFpjoGovpgmEUe5YRk
-	 zjsvgZugENZeqbZptbZYJjKZHOlc8qZUPUSG4YJE=
+	s=default; t=1683088902;
+	bh=ouAqqueiiGfX7m6JpXrrBiw4EvXj2cQvgigK9Y4iNMU=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=GDQ8vgchzh+lJWiwD0bhDhjo4uypjKQCSI8O6Zl+2cuxmWhgWc6Ryf9baC525ufpK
+	 Gi9B6x4CJ6rSu3SAZCQy5T3ZE8mYSGigtoinBuhf6JlkxO/v5p6URRztkd3EjQ6wX7
+	 Ynjmznt/zQjMDG9PbglFPq7aFR5OQlJbJYCySJLQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE862F8032B;
-	Wed,  3 May 2023 05:54:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF5F9F80137;
+	Wed,  3 May 2023 06:40:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39C78F8049E; Wed,  3 May 2023 05:54:36 +0200 (CEST)
+	id BC058F8049E; Wed,  3 May 2023 06:40:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 43D6AF800EC
-	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 05:54:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43D6AF800EC
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7C743F80137
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 06:40:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C743F80137
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=rDNoWnGh
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-1aae5c2423dso38699975ad.3
+ header.s=20221208 header.b=AP6cSbQM
+Received: by mail-pj1-x102a.google.com with SMTP id
+ 98e67ed59e1d1-24de3a8bfcfso3919632a91.1
         for <alsa-devel@alsa-project.org>;
- Tue, 02 May 2023 20:54:25 -0700 (PDT)
+ Tue, 02 May 2023 21:40:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683086063; x=1685678063;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=6q3+C/O6BV/0gC+jrMbg3MwoGAyt7Cv6nHU3v3zys3I=;
-        b=rDNoWnGhJwAj76Ge80sW8/InyLnBi7jwU23z97T9EoARIFUNIbUaF+GQ2D6DSU+vll
-         BsowuuPL6I9xhwUYyaiYWWm3C01pX1qNTK7LzYk/ZiqHGEhsel0iJBK5GbeC5O/cIUkL
-         dryGwMTYB0/Lsxn6sOHxgqg0DWg6rCzHVtKM6OfSmGKsvLXR1l6emV6kQY8nKt6ppTM8
-         K/k1e28rmsxf4toOeLGhuN/YtinfmiH6IjLZGLmiYE4+q512hzPS9bGYvhb2la5246Ka
-         cdqT1bMUPyYmrk6CgHTVwxzc7wR1NU2mAmSVJgTUU9GMskLiEM/Lfa3XUrwrP6/sBLay
-         ErgQ==
+        d=gmail.com; s=20221208; t=1683088807; x=1685680807;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=77tiXpQ2HjbyMiGi98E0ovy9Ioj8cftg4GmqV7//X1I=;
+        b=AP6cSbQMwHS6YgLcCIuhbKJsz4vaRSY9hCqhPFEtm1HvvnSf0N2gxnGfZTtZNeb3fM
+         TZoK8iW8O8MRog34ymtley4D9V4uy5F6QwMBxbNoC6MOWj60ENUdFc9y3b2u/j6Y1tJz
+         hkHjUFD9D/tzIc6oyyld8M2eNwZryMU6ID3HCJ0OIFfHV+sxQAlh5dWP9F6FXA8pt9hW
+         qUU8Q1dvEAbAMjCbH6dYmU3dC00Dha/cZMaGdMtWi9pq7ekseqAWr/oQr/shKek35CZ2
+         OSNWdXu8oT2IHmDEP+wDrzo+sdwPvFSNLWzCvIF9/pr5vb/SXBHtJnwQNQuLNTNxfiFO
+         g40A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683086063; x=1685678063;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6q3+C/O6BV/0gC+jrMbg3MwoGAyt7Cv6nHU3v3zys3I=;
-        b=Vqp1IlaGZ3ejI6j02gvXcRiZA1hH8kMHWsYZoNndsT2+km6FEToc1V3NFu0ONTE8Yc
-         XjcKEPdNmFP1BITiC5WCiOIJonhHNM5HRi/M87pSVUvq40R3suW0DCJDdbkRUB0qIH/V
-         kr/5DO8uoUtMEdm6qv2j+1Ym/jMM7lbMaEbf+dV8YVETy/RoQTBVW6EptqXiCHmt11tv
-         IVp0a3tUR06lPedB5fdY2qCqSRFNC5+BybONA/fj2PYsXI/OM/i2ZDcZ9xA52oSLJGD6
-         gdGs6rkJt8ce93B6Eh55+tfkOcpJEX+KnByR1za0bGDJXf/pmTGdul61JDTj1Qiaxg8a
-         YRiw==
-X-Gm-Message-State: AC+VfDz6REeIcKAnXHuPCl7D7AZMjFQxneQLC8FfFpLxmfg1L1RM2G0Y
-	3bAbWchu7dj/JRUM1K9gmxzPaYrD+fQ=
+        d=1e100.net; s=20221208; t=1683088807; x=1685680807;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=77tiXpQ2HjbyMiGi98E0ovy9Ioj8cftg4GmqV7//X1I=;
+        b=RbicH52kjHT1WGXhAw0T3YOFQl5SHfAEsQ+kBQmk9r2nZ9D9ykpy1NAWOZmcT/hrpi
+         bBJbQRr4FWGRWYPeoy+xVTi2My2/b/6cmaE7JkxVeHYEvXol9r68QF6fDf3C8lkottDo
+         yyycIK1KkcW/mT58F/Z7O+sGt4fYgsdmUohNGd0wXyqVMHod19UiFvRYJ082bGSsCleu
+         JnXbPngwiLNNgx6BGRM8HCrRRtXtMjbI4cl/1ZQrAlLXPb4s2G7fkvsQQT/aawdknAKI
+         k+MlT0BYU9KLlvdXWBhJJWzqlSYGNveOcIV4wS95ubrhHuyNJhF9iNLhbT4n9/GzT7zU
+         F1zA==
+X-Gm-Message-State: AC+VfDzE+ibWE52Lgsa+cUDHTNVupHlEIV+U91bcN9lGJkRkBJu6UBbZ
+	b2hcWKlPXrzgV/iSzVHfaYk=
 X-Google-Smtp-Source: 
- ACHHUZ4FXkEzCEQcEM1H8rckNkqvjTZZ1HLLDrm2ZrxU2DPEZFArr8JYzLEEi7yxud81InKVTsb4jg==
-X-Received: by 2002:a17:902:e88d:b0:1a6:6fe3:df8d with SMTP id
- w13-20020a170902e88d00b001a66fe3df8dmr899006plg.8.1683086063246;
-        Tue, 02 May 2023 20:54:23 -0700 (PDT)
-Received: from debian.me (subs03-180-214-233-11.three.co.id. [180.214.233.11])
+ ACHHUZ6FVFqaBqyy90CyPDYOpLziIFIxoEYbT12+sSR0gn8lbdxTMRS5XqCfds/MEuQG/S5rDPBXNw==
+X-Received: by 2002:a17:90b:4c46:b0:24d:ed1e:c2db with SMTP id
+ np6-20020a17090b4c4600b0024ded1ec2dbmr11210942pjb.31.1683088806739;
+        Tue, 02 May 2023 21:40:06 -0700 (PDT)
+Received: from [192.168.43.80] (subs32-116-206-28-39.three.co.id.
+ [116.206.28.39])
         by smtp.gmail.com with ESMTPSA id
- c7-20020a170902aa4700b001a1faeac240sm20512918plr.186.2023.05.02.20.54.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 May 2023 20:54:22 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
-	id EA49D10622E; Wed,  3 May 2023 10:54:19 +0700 (WIB)
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
-	Linux Documentation <linux-doc@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ALSA: docs: Fix code block indentation in ALSA driver example
-Date: Wed,  3 May 2023 10:54:16 +0700
-Message-Id: <20230503035416.62722-1-bagasdotme@gmail.com>
-X-Mailer: git-send-email 2.40.1
+ h24-20020a17090a9c1800b00247735d1463sm2276107pjp.39.2023.05.02.21.40.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 May 2023 21:40:06 -0700 (PDT)
+Message-ID: <b449cbf6-8286-e22d-ca87-b1bc3dce29d7@gmail.com>
+Date: Wed, 3 May 2023 11:40:02 +0700
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2821; i=bagasdotme@gmail.com;
- h=from:subject; bh=6LXELRL34BN4LPhBXSHO4pfAXrYd4OlwOyi8Y9pLNbI=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDCmBt16EPVP9HMJw1cC8qGTVAZcZf8692rCv/c3y4A//r
- 828EGOb3FHKwiDGxSArpsgyKZGv6fQuI5EL7WsdYeawMoEMYeDiFICJqLcz/HdaG928N+2fsO23
- 7GWPuuIr9ObPqFrxL47fLLTKoTT8rQzD//LruWeVlM387uu+VpnT0rnkSfrzML3a7PZ5HdJPUph
- mMQIA
-X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
- fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6R7NZQL5R74XTO5KJNWPX57F7AHJMLFL
-X-Message-ID-Hash: 6R7NZQL5R74XTO5KJNWPX57F7AHJMLFL
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: linux-6.4 alsa sound broken
+Content-Language: en-US
+To: Jeff Chua <jeff.chua.linux@gmail.com>, Takashi Iwai <tiwai@suse.de>
+References: 
+ <CAAJw_ZsbTVd3Es373x_wTNDF7RknGhCD0r+NKUSwAO7HpLAkYA@mail.gmail.com>
+ <ZE9B4avbDtIXOu4O@debian.me> <87r0s0pnim.wl-tiwai@suse.de>
+ <CAAJw_ZsDdiB=b2PZydQWF2fjSULit3NWE-Bf1icBEryN-GuqUw@mail.gmail.com>
+ <87fs8gp0i7.wl-tiwai@suse.de>
+ <CAAJw_ZveoPfnBsSkHZqmLiVWATcOosR--6Ds4cdekdi=t1yV7A@mail.gmail.com>
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+In-Reply-To: 
+ <CAAJw_ZveoPfnBsSkHZqmLiVWATcOosR--6Ds4cdekdi=t1yV7A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: M6OV4RK2XSVYYGFPEXJDFK7F4LHVKRUX
+X-Message-ID-Hash: M6OV4RK2XSVYYGFPEXJDFK7F4LHVKRUX
 X-MailFrom: bagasdotme@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,16 +113,16 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+CC: lkml <linux-kernel@vger.kernel.org>,
  Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Bagas Sanjaya <bagasdotme@gmail.com>, kernel test robot <lkp@intel.com>
+ Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
+ Linux Regressions <regressions@lists.linux.dev>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6R7NZQL5R74XTO5KJNWPX57F7AHJMLFL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M6OV4RK2XSVYYGFPEXJDFK7F4LHVKRUX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,73 +131,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Sphinx reports htmldocs warnings:
+On 5/1/23 22:03, Jeff Chua wrote:
+>> There was no description about which sound backend is used.  Is it
+>> PulseAudio, pipewire or dmix/dsnoop?
+> 
+> Just pure alsautils.
+> 
+> arecord -D hw:1,0,0 -f S16_LE -r 48000 recorded.wav
+> aplay -D hw:1,1,0 /local/share/sounds/alsa/Side_Right.wav
+> 
+> [recorded.wav] attached.
+> [Side_Right.wav] attached.
+> aplay: version 1.2.8 by Jaroslav Kysela <perex@perex.cz>
+> arecord: version 1.2.8 by Jaroslav Kysela <perex@perex.cz>
+> 
+> alsautils, alsaplugins alsalibs all using latest git pull.
 
-Documentation/sound/kernel-api/writing-an-alsa-driver.rst:3997: WARNING: Literal block expected; none found.
-Documentation/sound/kernel-api/writing-an-alsa-driver.rst:4004: WARNING: Literal block expected; none found.
-Documentation/sound/kernel-api/writing-an-alsa-driver.rst:4009: WARNING: Unexpected indentation.
-Documentation/sound/kernel-api/writing-an-alsa-driver.rst:4035: WARNING: Literal block expected; none found.
+Are you sure you build alsa tools straight from the git repo?
+Can you also reproduce with latest stable version of these?
+Otherwise it's anyone's guess due to moving parts...
 
-These are due to indentation of example driver snippets which is outside
-the code block scope.
+Thanks.
 
-Fix these by indenting code blocks in question to the scope.
-
-Fixes: 4d421eebe1465d ("ALSA: docs: writing-an-alsa-driver.rst: polishing")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/linux-doc/202305021822.4U6XOvGf-lkp@intel.com/
-Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
----
- .../kernel-api/writing-an-alsa-driver.rst     | 22 +++++++++----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
-
-diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-index c0f97b5e424969..4335c98b3d828f 100644
---- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-+++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
-@@ -3994,21 +3994,21 @@ Driver with A Single Source File
- 
-    Suppose you have a file xyz.c. Add the following two lines::
- 
--  snd-xyz-objs := xyz.o
--  obj-$(CONFIG_SND_XYZ) += snd-xyz.o
-+     snd-xyz-objs := xyz.o
-+     obj-$(CONFIG_SND_XYZ) += snd-xyz.o
- 
- 2. Create the Kconfig entry
- 
-    Add the new entry of Kconfig for your xyz driver::
- 
--  config SND_XYZ
--    tristate "Foobar XYZ"
--    depends on SND
--    select SND_PCM
--    help
--      Say Y here to include support for Foobar XYZ soundcard.
--      To compile this driver as a module, choose M here:
--      the module will be called snd-xyz.
-+     config SND_XYZ
-+       tristate "Foobar XYZ"
-+       depends on SND
-+       select SND_PCM
-+       help
-+         Say Y here to include support for Foobar XYZ soundcard.
-+         To compile this driver as a module, choose M here:
-+         the module will be called snd-xyz.
- 
- The line ``select SND_PCM`` specifies that the driver xyz supports PCM.
- In addition to SND_PCM, the following components are supported for
-@@ -4032,7 +4032,7 @@ located in the new subdirectory, sound/pci/xyz.
- 1. Add a new directory (``sound/pci/xyz``) in ``sound/pci/Makefile``
-    as below::
- 
--  obj-$(CONFIG_SND) += sound/pci/xyz/
-+     obj-$(CONFIG_SND) += sound/pci/xyz/
- 
- 
- 2. Under the directory ``sound/pci/xyz``, create a Makefile::
-
-base-commit: 348551ddaf311c76b01cdcbaf61b6fef06a49144
 -- 
 An old man doll... just what I always wanted! - Clara
 

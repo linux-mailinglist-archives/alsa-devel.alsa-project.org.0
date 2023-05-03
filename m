@@ -2,96 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA15C6F4FF2
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 08:10:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34F9A6F4FF7
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 08:10:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDE3E13B1;
-	Wed,  3 May 2023 08:09:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDE3E13B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E95113B6;
+	Wed,  3 May 2023 08:09:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E95113B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683094203;
-	bh=rpygUAOJVGA6Y69gAnNSn41NVl0YeniOYAEiYzPdRT8=;
+	s=default; t=1683094229;
+	bh=W3B24W/7pztG5G5giIAlR1uik8NhUDtPk8RYZcnaWHM=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IRfQr5zkJN5O8fmhO4i7iB/tv1V48lpgQJyKQf1Wpdy9ehLf9UNiMpRJBOT1iV0RN
-	 7rV60ZsmHmjfN60xBApWbbwMFImEb9dtW7q3SBgKhAMhVU9e4XucRhIY+qst5BBIBS
-	 gL+qA36OaPBsHhQKSWg4II8XNHFdZTqMIjNrPKy4=
+	b=uwJo2t8a7GXZfQYUHkbR9m16feJdx63CPvvJBHQEVUV+6cvhSql5owZDH0xObLzBY
+	 mORbFCTcTw8fNV3HduUEup+GH0CRJX7iNlC2xyWQ41bCfUKur+78VufA0OTfGnWHal
+	 39T5aZBIr/dkFiJXXVBxyeRTGS59ukY58tpvxXdk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CDE0F8032B;
-	Wed,  3 May 2023 08:08:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D155F8051B;
+	Wed,  3 May 2023 08:08:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3F02F8049E; Wed,  3 May 2023 08:06:59 +0200 (CEST)
+	id EAB5CF8049E; Wed,  3 May 2023 08:08:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B0A79F800EC
-	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 08:06:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0A79F800EC
+	by alsa1.perex.cz (Postfix) with ESMTPS id B6AD1F800EC
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 08:08:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6AD1F800EC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=bgNahnK0;
+ header.s=susede2_rsa header.b=lM412DW6;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=fogcCL2i
+ header.s=susede2_ed25519 header.b=c2v7kafu
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 198E81FFD8;
-	Wed,  3 May 2023 06:06:52 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0F9B7222C0;
+	Wed,  3 May 2023 06:08:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683094012;
+	t=1683094094;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=uJyauCRKA1OKuD2J2BLjbo+7WdRbLAPXODKeyqBieVA=;
-	b=bgNahnK0jIVhMQdwFI6wxSrA5z8mhlcU207HYujRgIwZ/+ar1qIoI8UvxTuEosCA81sM7D
-	Se2gi2Aoc7w9u/DS5aCq6YAhw1GRaRsG+q8v+c3BgYyJ7B5PcgjFI03H+3m+mxokRgmK5I
-	Q95bU+4Kf4ZkGpRvCJ40Xm8rjY1geh8=
+	bh=qpbCSszVr46DriBA7/WJQ7lj+XHfHPDBGRbf2/7ktVE=;
+	b=lM412DW6Frf8JnO9H/P1wXkkGe837O06CzHtfgyTmQNeUV8f3FFffg9OgESoimKEQvLJ1g
+	6f6yK80WDyeBDYB0MGsGtORA2tYKSjz3hdHJSLP3mlt8xLXQgmZ6vsi8PD5FWWHHYIF8SF
+	YCnYF6dtLxjyIAKKY19fyZkM5Iizi40=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683094012;
+	s=susede2_ed25519; t=1683094094;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=uJyauCRKA1OKuD2J2BLjbo+7WdRbLAPXODKeyqBieVA=;
-	b=fogcCL2iwIwnpNvbJwTouByyjpBdGNss0x0Jr1gUDCt833IsJdqiRIS7P19jTUTaV0V8Yr
-	lhQXN8IGLQ3P6lBg==
+	bh=qpbCSszVr46DriBA7/WJQ7lj+XHfHPDBGRbf2/7ktVE=;
+	b=c2v7kafuMkO5hc8n85vXXla6Tk3AqZAkOR9HiTRMugEVh2qaIHbTkIdwFbOaymgy6TIFXG
+	AzGExnRA0bGlUQAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D6DEC13584;
-	Wed,  3 May 2023 06:06:51 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DE25113584;
+	Wed,  3 May 2023 06:08:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id NyWKM/v5UWTiJQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 03 May 2023 06:06:51 +0000
-Date: Wed, 03 May 2023 08:06:51 +0200
-Message-ID: <87ildane2s.wl-tiwai@suse.de>
+	id mK9VNU36UWR5JgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 03 May 2023 06:08:13 +0000
+Date: Wed, 03 May 2023 08:08:13 +0200
+Message-ID: <87h6sune0i.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>
-Subject: Re: [PATCH] ALSA: docs: Extend module parameters description
-In-Reply-To: <20230501101634.476297-1-ivan.orlov0322@gmail.com>
-References: <20230501101634.476297-1-ivan.orlov0322@gmail.com>
+To: "Luke D. Jones" <luke@ljones.dev>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for 2nd ASUS GU603
+In-Reply-To: <20230503035035.254346-1-luke@ljones.dev>
+References: <20230503035035.254346-1-luke@ljones.dev>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: NZB3YOEESKXFDPNGZWGLRFKL24ZYSFD7
-X-Message-ID-Hash: NZB3YOEESKXFDPNGZWGLRFKL24ZYSFD7
+Message-ID-Hash: Q3KK4ZM7MGCHEEIX7Y45RETUIMCN5MJL
+X-Message-ID-Hash: Q3KK4ZM7MGCHEEIX7Y45RETUIMCN5MJL
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,16 +100,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, corbet@lwn.net, alsa-devel@alsa-project.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org, himadrispandya@gmail.com,
- linux-kernel-mentees@lists.linuxfoundation.org
+CC: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NZB3YOEESKXFDPNGZWGLRFKL24ZYSFD7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q3KK4ZM7MGCHEEIX7Y45RETUIMCN5MJL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,23 +115,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 01 May 2023 12:16:34 +0200,
-Ivan Orlov wrote:
+On Wed, 03 May 2023 05:50:35 +0200,
+Luke D. Jones wrote:
 > 
-> Common ALSA module parameters look a little bit confusing because of the
-> description lacking, and it took me a while to understand the purpose of
-> their existence. To figure it out I asked the question about them to the
-> "alsa-devel" mailing list, and Takashi Iwai answered me with the text I
-> appended to the ALSA documentation in this patch.
+> Add quirk for GU603 with 0x1c62 variant of codec.
 > 
-> These common module parameters aren't used a lot nowadays, but as I
-> understand they are important for providing compatibility with some
-> existing user-space apps. So in my opinion it is a good idea to document
-> why we need them.
+> Signed-off-by: Luke D. Jones <luke@ljones.dev>
+> ---
+>  sound/pci/hda/patch_realtek.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 3b9f077a227f..4a585050edc3 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -9501,6 +9501,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
+>  	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK),
+>  	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
+> +	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
+>  	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+>  	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA", ALC295_FIXUP_ASUS_DACS),
+>  	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
 
-Thanks, applied.
+Could you try to put the new entry at the right place?
+The table is sorted in the PCI SSID order.
 
+
+thanks,
 
 Takashi

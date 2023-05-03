@@ -2,118 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B211E6F4F7F
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 06:41:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 610206F506F
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 08:54:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8F0D138F;
-	Wed,  3 May 2023 06:40:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8F0D138F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70C5413B6;
+	Wed,  3 May 2023 08:53:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70C5413B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683088902;
-	bh=ouAqqueiiGfX7m6JpXrrBiw4EvXj2cQvgigK9Y4iNMU=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1683096882;
+	bh=Ubuuf8ELpKldZXDSr7xGTRjyea3Jx6rPnRyRHy5aotA=;
+	h=References:In-Reply-To:From:Date:Subject:To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GDQ8vgchzh+lJWiwD0bhDhjo4uypjKQCSI8O6Zl+2cuxmWhgWc6Ryf9baC525ufpK
-	 Gi9B6x4CJ6rSu3SAZCQy5T3ZE8mYSGigtoinBuhf6JlkxO/v5p6URRztkd3EjQ6wX7
-	 Ynjmznt/zQjMDG9PbglFPq7aFR5OQlJbJYCySJLQ=
+	b=t4AJwyfPt2TUIWxvfUS3ADAFFqE6hWuQIPSij2T037eQuX/pO+QtR2TOvM6Zdk8od
+	 NY845P6KOu28A+F5uHHe78WXokM5i0TPWhgA6RLQzD+Llz46zilxm293toCMMrSCK3
+	 jCyodlF1Vb+JHQhm53AbphHdZueLvOkMFI2K9oJs=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF5F9F80137;
-	Wed,  3 May 2023 06:40:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AA3BF805A8;
+	Wed,  3 May 2023 08:52:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC058F8049E; Wed,  3 May 2023 06:40:30 +0200 (CEST)
+	id DE133F8049E; Wed,  3 May 2023 07:43:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com
+ [IPv6:2607:f8b0:4864:20::e31])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7C743F80137
-	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 06:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C743F80137
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27F1FF80087
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 07:43:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27F1FF80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=AP6cSbQM
-Received: by mail-pj1-x102a.google.com with SMTP id
- 98e67ed59e1d1-24de3a8bfcfso3919632a91.1
+ header.s=20221208 header.b=ERzOwCN8
+Received: by mail-vs1-xe31.google.com with SMTP id
+ ada2fe7eead31-430192c84a1so1766611137.1
         for <alsa-devel@alsa-project.org>;
- Tue, 02 May 2023 21:40:09 -0700 (PDT)
+ Tue, 02 May 2023 22:43:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683088807; x=1685680807;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=77tiXpQ2HjbyMiGi98E0ovy9Ioj8cftg4GmqV7//X1I=;
-        b=AP6cSbQMwHS6YgLcCIuhbKJsz4vaRSY9hCqhPFEtm1HvvnSf0N2gxnGfZTtZNeb3fM
-         TZoK8iW8O8MRog34ymtley4D9V4uy5F6QwMBxbNoC6MOWj60ENUdFc9y3b2u/j6Y1tJz
-         hkHjUFD9D/tzIc6oyyld8M2eNwZryMU6ID3HCJ0OIFfHV+sxQAlh5dWP9F6FXA8pt9hW
-         qUU8Q1dvEAbAMjCbH6dYmU3dC00Dha/cZMaGdMtWi9pq7ekseqAWr/oQr/shKek35CZ2
-         OSNWdXu8oT2IHmDEP+wDrzo+sdwPvFSNLWzCvIF9/pr5vb/SXBHtJnwQNQuLNTNxfiFO
-         g40A==
+        d=gmail.com; s=20221208; t=1683092586; x=1685684586;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rsAmWnHYdqf8PxIDTx7JVpNph88uEqYsba4Oi5M9pys=;
+        b=ERzOwCN8Snpnb6R6BMPDcCWmrygLOdCFBKCPjPfmNrRa9r/Bde491tD+EBUO98Pr0p
+         PcYay5OeQR1WNpFBwkdiaJIM3+7iqCOlKWMHHMJye7Atdu9Zb1AXDB2Npq44wRmcUwya
+         fT9UCI9jNpd5nzKnTAiA4RiZ5eQKjVAkYXREU/mWQP0b6z00COHDWedWjnAIFXF1mG2g
+         jVQTFpY3OSTck2RfgXgOJYWJFuIRizX2uecYY6kr6Rg/WxtYCl4mc669GUNBZa33AZM1
+         BV8zqOBEt5IvAUNRKH1DuV38cIW5jEK3tCOuqPoQYxu82LJovSQ7MCSld2eA2GwZEAMP
+         P8Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683088807; x=1685680807;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=77tiXpQ2HjbyMiGi98E0ovy9Ioj8cftg4GmqV7//X1I=;
-        b=RbicH52kjHT1WGXhAw0T3YOFQl5SHfAEsQ+kBQmk9r2nZ9D9ykpy1NAWOZmcT/hrpi
-         bBJbQRr4FWGRWYPeoy+xVTi2My2/b/6cmaE7JkxVeHYEvXol9r68QF6fDf3C8lkottDo
-         yyycIK1KkcW/mT58F/Z7O+sGt4fYgsdmUohNGd0wXyqVMHod19UiFvRYJ082bGSsCleu
-         JnXbPngwiLNNgx6BGRM8HCrRRtXtMjbI4cl/1ZQrAlLXPb4s2G7fkvsQQT/aawdknAKI
-         k+MlT0BYU9KLlvdXWBhJJWzqlSYGNveOcIV4wS95ubrhHuyNJhF9iNLhbT4n9/GzT7zU
-         F1zA==
-X-Gm-Message-State: AC+VfDzE+ibWE52Lgsa+cUDHTNVupHlEIV+U91bcN9lGJkRkBJu6UBbZ
-	b2hcWKlPXrzgV/iSzVHfaYk=
+        d=1e100.net; s=20221208; t=1683092586; x=1685684586;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rsAmWnHYdqf8PxIDTx7JVpNph88uEqYsba4Oi5M9pys=;
+        b=lGBFm705Xdd25tzrU1ksYBORekPhSAYlV1kQqCEdSv1R6chhnbqfzp86Wqqvieder0
+         dXkLyt5G4orKiaPOtiOXufcr2XbGn5QZb/7D2ATDf/SyAlvMmgSRR3oUyYMULDYsZh5d
+         fvb1yhk35SDm1WrsLgk5u7IML/uHMEMVLsNX6m9o976ewrEMs+FcX1GnJcOUyW/xdrvg
+         S6TtZsVdN372f4byLPMcR3Emc+u0C7AR83LwOnmiTkeWz+Y2EEV8bS4uJ9Z4CFkGRjFb
+         oPyz0MFIyXttE/8y+LA8R/0ULIAL/XT7draMOMdeuv+/baSxEEJuwjX7qLuZX+w/n8Yi
+         fBug==
+X-Gm-Message-State: AC+VfDwsC7jHgoNduMMKfjv1ZdF+5g4p0CnCgsSLUZ/+ot3sADW4UWIq
+	vp6pBPdvX9DgZnrvVDoxCGARHUlMXb77h8myk1g=
 X-Google-Smtp-Source: 
- ACHHUZ6FVFqaBqyy90CyPDYOpLziIFIxoEYbT12+sSR0gn8lbdxTMRS5XqCfds/MEuQG/S5rDPBXNw==
-X-Received: by 2002:a17:90b:4c46:b0:24d:ed1e:c2db with SMTP id
- np6-20020a17090b4c4600b0024ded1ec2dbmr11210942pjb.31.1683088806739;
-        Tue, 02 May 2023 21:40:06 -0700 (PDT)
-Received: from [192.168.43.80] (subs32-116-206-28-39.three.co.id.
- [116.206.28.39])
-        by smtp.gmail.com with ESMTPSA id
- h24-20020a17090a9c1800b00247735d1463sm2276107pjp.39.2023.05.02.21.40.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 May 2023 21:40:06 -0700 (PDT)
-Message-ID: <b449cbf6-8286-e22d-ca87-b1bc3dce29d7@gmail.com>
-Date: Wed, 3 May 2023 11:40:02 +0700
+ ACHHUZ7ykK9Pomy4WV89OB6bwk9/UoxMqZtNJrFwUkc6HainGydy65lfIkZPMMydRIzSTL7GURxd1oHI9zPRV9FHxyI=
+X-Received: by 2002:a67:fb11:0:b0:42e:38c1:8a54 with SMTP id
+ d17-20020a67fb11000000b0042e38c18a54mr942121vsr.0.1683092585868; Tue, 02 May
+ 2023 22:43:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: linux-6.4 alsa sound broken
-Content-Language: en-US
-To: Jeff Chua <jeff.chua.linux@gmail.com>, Takashi Iwai <tiwai@suse.de>
 References: 
  <CAAJw_ZsbTVd3Es373x_wTNDF7RknGhCD0r+NKUSwAO7HpLAkYA@mail.gmail.com>
  <ZE9B4avbDtIXOu4O@debian.me> <87r0s0pnim.wl-tiwai@suse.de>
  <CAAJw_ZsDdiB=b2PZydQWF2fjSULit3NWE-Bf1icBEryN-GuqUw@mail.gmail.com>
  <87fs8gp0i7.wl-tiwai@suse.de>
  <CAAJw_ZveoPfnBsSkHZqmLiVWATcOosR--6Ds4cdekdi=t1yV7A@mail.gmail.com>
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-In-Reply-To: 
- <CAAJw_ZveoPfnBsSkHZqmLiVWATcOosR--6Ds4cdekdi=t1yV7A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: M6OV4RK2XSVYYGFPEXJDFK7F4LHVKRUX
-X-Message-ID-Hash: M6OV4RK2XSVYYGFPEXJDFK7F4LHVKRUX
-X-MailFrom: bagasdotme@gmail.com
+ <b449cbf6-8286-e22d-ca87-b1bc3dce29d7@gmail.com>
+In-Reply-To: <b449cbf6-8286-e22d-ca87-b1bc3dce29d7@gmail.com>
+From: Jeff Chua <jeff.chua.linux@gmail.com>
+Date: Wed, 3 May 2023 13:42:55 +0800
+Message-ID: 
+ <CAAJw_Zur2fz7FnO-qyzd_mSoCcroCREcvHKo8sOMrrMDGxXv2g@mail.gmail.com>
+Subject: Re: linux-6.4 alsa sound broken
+To: Bagas Sanjaya <bagasdotme@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: jeff.chua.linux@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: lkml <linux-kernel@vger.kernel.org>,
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: MJ7ZF2YY7VKGKVBI27HPCSQJAMRKLCQM
+X-Message-ID-Hash: MJ7ZF2YY7VKGKVBI27HPCSQJAMRKLCQM
+X-Mailman-Approved-At: Wed, 03 May 2023 06:51:59 +0000
+CC: Takashi Iwai <tiwai@suse.de>, lkml <linux-kernel@vger.kernel.org>,
  Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
  Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
  Linux Regressions <regressions@lists.linux.dev>
@@ -122,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M6OV4RK2XSVYYGFPEXJDFK7F4LHVKRUX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MJ7ZF2YY7VKGKVBI27HPCSQJAMRKLCQM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,28 +122,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 5/1/23 22:03, Jeff Chua wrote:
->> There was no description about which sound backend is used.  Is it
->> PulseAudio, pipewire or dmix/dsnoop?
-> 
-> Just pure alsautils.
-> 
-> arecord -D hw:1,0,0 -f S16_LE -r 48000 recorded.wav
-> aplay -D hw:1,1,0 /local/share/sounds/alsa/Side_Right.wav
-> 
-> [recorded.wav] attached.
-> [Side_Right.wav] attached.
-> aplay: version 1.2.8 by Jaroslav Kysela <perex@perex.cz>
-> arecord: version 1.2.8 by Jaroslav Kysela <perex@perex.cz>
-> 
-> alsautils, alsaplugins alsalibs all using latest git pull.
+On Wed, May 3, 2023 at 12:40=E2=80=AFPM Bagas Sanjaya <bagasdotme@gmail.com=
+> wrote:
+>
+> On 5/1/23 22:03, Jeff Chua wrote:
+> >> There was no description about which sound backend is used.  Is it
+> >> PulseAudio, pipewire or dmix/dsnoop?
+> >
+> > Just pure alsautils.
+> >
+> > arecord -D hw:1,0,0 -f S16_LE -r 48000 recorded.wav
+> > aplay -D hw:1,1,0 /local/share/sounds/alsa/Side_Right.wav
+> >
+> > [recorded.wav] attached.
+> > [Side_Right.wav] attached.
+> > aplay: version 1.2.8 by Jaroslav Kysela <perex@perex.cz>
+> > arecord: version 1.2.8 by Jaroslav Kysela <perex@perex.cz>
+> >
+> > alsautils, alsaplugins alsalibs all using latest git pull.
+>
+> Are you sure you build alsa tools straight from the git repo?
+> Can you also reproduce with latest stable version of these?
+> Otherwise it's anyone's guess due to moving parts...
 
-Are you sure you build alsa tools straight from the git repo?
-Can you also reproduce with latest stable version of these?
-Otherwise it's anyone's guess due to moving parts...
 
-Thanks.
+All cloned from ...
+https://github.com/alsa-project/alsa-lib.git
+https://github.com/alsa-project/alsa-utils.git
+https://github.com/alsa-project/alsa-plugins.git
 
--- 
-An old man doll... just what I always wanted! - Clara
+arecord is symbolic link to aplay.
 
+I just recompiled all the alsa-lib, utils and plugins, and retest and
+it's the same issue.
+
+GNU C Library (GNU libc) development release version 2.37.9000.
+gcc version 11.3.1 20230315 (GCC)
+binutils-2.40
+
+Linux kernel is ...
+commit 348551ddaf311c76b01cdcbaf61b6fef06a49144 (HEAD -> master,
+origin/master, origin/HEAD)
+Merge: 7df047b3f0aa b7badd752de0
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Tue May 2 15:40:41 2023 -0700
+
+
+Thanks,
+Jeff

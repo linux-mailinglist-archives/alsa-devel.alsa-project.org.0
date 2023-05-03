@@ -2,56 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92C8F6F5B9F
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 17:57:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F926F5BB3
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 18:03:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC52312F1;
-	Wed,  3 May 2023 17:56:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC52312F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2830B12E9;
+	Wed,  3 May 2023 18:02:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2830B12E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683129446;
-	bh=+vnhAi6lruD9fZyy96Y34eQ4WntdHCrLSTUPbtGVt6c=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jb6KDbxgNsuF2r7LG6gH/WhYoHXJFgb8R1wHNGnCdJw8LCFqxl+xhpAaI8m3Mq7nq
-	 uvycMW4Z5KwzhR8owAQJiCCliklBzErEuIiw1ZyJDhZ+Aah2OYLSHIQ0Qy3Ew/vcGU
-	 W9hbUj5Ds6KK5d3BIKwrnOm94qFeoIw7ZoRGGw4s=
+	s=default; t=1683129814;
+	bh=z8RIZOiHkqRn0qEz1Tumlr4Newe+r7OIH8Cg666iDqg=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=hLBcGMtb3fuHP1Ch9wZkz1hAbXchjdczWY9cYw18jm1FIuDi3FDlIEdt679MkeeVv
+	 y94bovf7kHg+693k6SmmAAZp4IG9cqKwJ68jbgx+6ffSNE+9Td0AISIRueOHaWgLTd
+	 CwIREE2s0mCXZgFxB/LEPQ73YMi7nkyAku7jVAKE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7CF38F8051B;
-	Wed,  3 May 2023 17:55:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CBC5F8032B;
+	Wed,  3 May 2023 18:02:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0610F8049E; Wed,  3 May 2023 17:55:42 +0200 (CEST)
+	id 2276AF8049E; Wed,  3 May 2023 18:02:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,UPPERCASE_50_75
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 72096F80137
-	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 17:55:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72096F80137
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 2BDA724271;
-	Wed,  3 May 2023 11:55:35 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1puEpK-tut-00; Wed, 03 May 2023 17:55:34 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] pcm: remove duplicate SND_PCM_HW_PARAM_{FIRST,LAST}_*
- #defines
-Date: Wed,  3 May 2023 17:55:34 +0200
-Message-Id: <20230503155534.2121562-1-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
+	by alsa1.perex.cz (Postfix) with ESMTPS id 333C4F80087
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 18:02:29 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6EA8411E9;
+	Wed,  3 May 2023 18:02:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6EA8411E9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1683129748; bh=kPI8WRecLu1DnKOFj6MgJCmAIYBj9x0OReMy1iCCSJY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RIKLqMmrVb0I5ZjmtjBTSSUElpKXKQ2kA1M38Z40Pg+TfSW/6bsTiN+m7RWfh4mXI
+	 ZSiMGQ7HHZTvBURuKGwEUx/J+WWy+tQUQQrZgimpgAi6V41oF6FbMpkLQBMZYcyR8G
+	 38+FpMuilfsafAmED6fNb4I/RQ3d5haAxI1/tQHs=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed,  3 May 2023 18:02:25 +0200 (CEST)
+Message-ID: <66b5e011-17f6-8c71-4f0e-dad66b401a26@perex.cz>
+Date: Wed, 3 May 2023 18:02:24 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UB5FIS2QTMWWYABY7INAFPUCDWQ5KXG7
-X-Message-ID-Hash: UB5FIS2QTMWWYABY7INAFPUCDWQ5KXG7
-X-MailFrom: ossi@kde.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] conf/emu10k1: remove compat with two decades old drivers
+Content-Language: en-US
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+ alsa-devel@alsa-project.org
+References: <20230503155530.2121516-1-oswald.buddenhagen@gmx.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230503155530.2121516-1-oswald.buddenhagen@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: THLQK6QXEIZQVWGMH2574UIW7G2VZPAX
+X-Message-ID-Hash: THLQK6QXEIZQVWGMH2574UIW7G2VZPAX
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -64,7 +84,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UB5FIS2QTMWWYABY7INAFPUCDWQ5KXG7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/THLQK6QXEIZQVWGMH2574UIW7G2VZPAX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -73,42 +93,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
----
-one might also want to re-arrange the remaining items.
----
- src/pcm/pcm_local.h | 4 ----
- 1 file changed, 4 deletions(-)
+On 03. 05. 23 17:55, Oswald Buddenhagen wrote:
+> There really isn't much of a point to clutter the files with this.
+> 
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-diff --git a/src/pcm/pcm_local.h b/src/pcm/pcm_local.h
-index abea6654..6a0e71e7 100644
---- a/src/pcm/pcm_local.h
-+++ b/src/pcm/pcm_local.h
-@@ -48,24 +48,20 @@
- #include "mask.h"
- 
- #define SND_PCM_HW_PARAM_ACCESS SNDRV_PCM_HW_PARAM_ACCESS
--#define SND_PCM_HW_PARAM_FIRST_MASK SNDRV_PCM_HW_PARAM_FIRST_MASK
- #define SND_PCM_HW_PARAM_FORMAT SNDRV_PCM_HW_PARAM_FORMAT
- #define SND_PCM_HW_PARAM_SUBFORMAT SNDRV_PCM_HW_PARAM_SUBFORMAT
--#define SND_PCM_HW_PARAM_LAST_MASK SNDRV_PCM_HW_PARAM_LAST_MASK
- #define SND_PCM_HW_PARAM_SAMPLE_BITS SNDRV_PCM_HW_PARAM_SAMPLE_BITS
--#define SND_PCM_HW_PARAM_FIRST_INTERVAL SNDRV_PCM_HW_PARAM_FIRST_INTERVAL
- #define SND_PCM_HW_PARAM_FRAME_BITS SNDRV_PCM_HW_PARAM_FRAME_BITS
- #define SND_PCM_HW_PARAM_CHANNELS SNDRV_PCM_HW_PARAM_CHANNELS
- #define SND_PCM_HW_PARAM_RATE SNDRV_PCM_HW_PARAM_RATE
- #define SND_PCM_HW_PARAM_PERIOD_TIME SNDRV_PCM_HW_PARAM_PERIOD_TIME
- #define SND_PCM_HW_PARAM_PERIOD_SIZE SNDRV_PCM_HW_PARAM_PERIOD_SIZE
- #define SND_PCM_HW_PARAM_PERIOD_BYTES SNDRV_PCM_HW_PARAM_PERIOD_BYTES
- #define SND_PCM_HW_PARAM_PERIODS SNDRV_PCM_HW_PARAM_PERIODS
- #define SND_PCM_HW_PARAM_BUFFER_TIME SNDRV_PCM_HW_PARAM_BUFFER_TIME
- #define SND_PCM_HW_PARAM_BUFFER_SIZE SNDRV_PCM_HW_PARAM_BUFFER_SIZE
- #define SND_PCM_HW_PARAM_BUFFER_BYTES SNDRV_PCM_HW_PARAM_BUFFER_BYTES
- #define SND_PCM_HW_PARAM_TICK_TIME SNDRV_PCM_HW_PARAM_TICK_TIME
--#define SND_PCM_HW_PARAM_LAST_INTERVAL SNDRV_PCM_HW_PARAM_LAST_INTERVAL
- #define SND_PCM_HW_PARAM_LAST_MASK SNDRV_PCM_HW_PARAM_LAST_MASK
- #define SND_PCM_HW_PARAM_FIRST_MASK SNDRV_PCM_HW_PARAM_FIRST_MASK
- #define SND_PCM_HW_PARAM_LAST_INTERVAL SNDRV_PCM_HW_PARAM_LAST_INTERVAL
+Applied. Thanks.
+
 -- 
-2.40.0.152.g15d061e6df
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

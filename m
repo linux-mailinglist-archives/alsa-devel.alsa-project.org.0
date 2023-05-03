@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73996F573B
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 13:37:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 217B26F5740
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 13:37:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B57B7118E;
-	Wed,  3 May 2023 13:36:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B57B7118E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D96831374;
+	Wed,  3 May 2023 13:36:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D96831374
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683113822;
-	bh=Q8pMDSsF9Xq13eVyTUnJq6+q7ZON3uD2hqLFfrS3fNw=;
+	s=default; t=1683113836;
+	bh=SpOOJq8JL7crlM8KroJBAsYah/iMoTAawM/H+xpav5E=;
 	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From:Reply-To:Cc:From;
-	b=Qy8GPSmePLJBOZeWJM0YzSNPqSsT74UlPpmGhoCZkBeXpitcG7JId2iDA7GKMQKuq
-	 mgCdm1BDWTkiXNHtJh37XKRw7risX2+2nf6TVpRUd1rX7xXhodYCNwkSZ3wDvRSmgU
-	 7kloGtps9dUISrIfmQUk2gNnrv7BYwqzD4OBfPJg=
+	b=XwhnNUXXtcHeYUnlGQqZiuRaOxJ6IHfvYs7cHTO96kr6jjwQqAyKQs7/8OaCwb99P
+	 BxyLV4rT7tGM/7C8kOEB+0ChPs1ma4i9WPGtkMnKhGY6yKOLIPESY25wHDQKi3fio6
+	 zYbTSHrKrwDT+F+5Vbnn4ZJ/hL9p74du19BHiTa8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 397BBF8049E;
-	Wed,  3 May 2023 13:36:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88DCBF8053D;
+	Wed,  3 May 2023 13:36:14 +0200 (CEST)
 To: lgirdwood@gmail.com
-Subject: [PATCH 3/5] ASoC: mediatek: mt8195-afe-pcm: Simplify runtime PM
- during probe
-Date: Wed,  3 May 2023 13:34:11 +0200
+Subject: [PATCH 4/5] ASoC: mediatek: mt8195-afe-pcm: Simplify with
+ dev_err_probe()
+Date: Wed,  3 May 2023 13:34:12 +0200
 In-Reply-To: <20230503113413.149235-1-angelogioacchino.delregno@collabora.com>
 References: <20230503113413.149235-1-angelogioacchino.delregno@collabora.com>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
@@ -39,7 +39,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHZP7RB4FICY4XDD4OQJCVKDC5CUHX2S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G7WTVLI43T5EVL5HB235XK4OQDXKLPXG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -49,7 +49,7 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 MIME-Version: 1.0
 Message-ID: 
- <168311377075.26.14919941665402646886@mailman-core.alsa-project.org>
+ <168311377362.26.2050189008491472468@mailman-core.alsa-project.org>
 From: AngeloGioacchino Del Regno via Alsa-devel <alsa-devel@alsa-project.org>
 Reply-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: broonie@kernel.org, tiwai@suse.com, matthias.bgg@gmail.com,
@@ -67,7 +67,7 @@ Content-Type: message/rfc822
 Content-Disposition: inline
 
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE3D3F8051B; Wed,  3 May 2023 13:36:07 +0200 (CEST)
+	id D8CFAF804FE; Wed,  3 May 2023 13:36:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -75,17 +75,18 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ [46.235.227.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EE8B1F804B1;
-	Wed,  3 May 2023 13:34:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE8B1F804B1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 284E7F8049E;
+	Wed,  3 May 2023 13:34:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 284E7F8049E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=HSzFx8Gb
+ header.a=rsa-sha256 header.s=mail header.b=bSzjfc7E
 Received: from IcarusMOD.eternityproject.eu (unknown
  [IPv6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
@@ -93,31 +94,31 @@ Received: from IcarusMOD.eternityproject.eu (unknown
  SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 2552766056D2;
-	Wed,  3 May 2023 12:34:24 +0100 (BST)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id C896D66056D3;
+	Wed,  3 May 2023 12:34:25 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1683113665;
-	bh=lJinXQ8uqP7CnqlUjGVARURr70ufEO+/YnYRE0JoVQw=;
+	s=mail; t=1683113667;
+	bh=S4CgoCQHjSzDV+ANF2xZcYt7UKYACrFS841NHZgYjfM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HSzFx8GbrJ8qs8mBrbeP+h7EcY1pogSEhyzSPpiZVHTaiFRSXaGbp5P86Vt16B/07
-	 c7V+Xj5slpef3GSmiz/Pf9bnkDA025Mw3wy8GD8HVuedzDpHs1REkrHXWHXaQs8nYw
-	 /J5brCacAgQ3HeDaNVMLMDpgZ4lkPe+LCU+SB0SksECniQJvf0vdahY0Yx7//fAURU
-	 +GvoQmfEw4XOQawfFSXrCABO/+LpP1qxWI3y1jQiPDuCe0ey0iPu9Y/FJmCXAqzLTy
-	 oh2aaralDRQaWp++iEIUJHa+6Lm4w+kgiByyia77GGEm8NnOE4N083/yLbzxO3FkNI
-	 2+9iNKO5hHbrA==
+	b=bSzjfc7ECNNyEtLKzke72Nb5BjqW2QRpVPcqoSbpFvF2xwjJF/b3svXSVsbbdU4uZ
+	 bMqzFyVFxfom3DZbQXCoUehXnTHeLY0zPw5sFMYuMmRBHmq94rQNIvTvx/VG8I9lXs
+	 ms1IL3A7BR6+xmjT0tUQa8e8/RLAvzRS7q8dDlwTSzAZ7BPpKsQiKDtKxRigCQIpge
+	 Ul1dP+WZxhnSfh0wF9j07b13taAGJvaVTKPTVarIpZ8oaIPiIKT5bhtIXuY+A06Ggz
+	 Yb63e99gTZD3e5yyndqPBAF00RCApXbRhoSDI+brPP1T34lSJAkcSTZ5ZiWA2AUl3M
+	 OOWgt+6u7ci6A==
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: lgirdwood@gmail.com
-Subject: [PATCH 3/5] ASoC: mediatek: mt8195-afe-pcm: Simplify runtime PM
- during probe
-Date: Wed,  3 May 2023 13:34:11 +0200
-Message-Id: <20230503113413.149235-4-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 4/5] ASoC: mediatek: mt8195-afe-pcm: Simplify with
+ dev_err_probe()
+Date: Wed,  3 May 2023 13:34:12 +0200
+Message-Id: <20230503113413.149235-5-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230503113413.149235-1-angelogioacchino.delregno@collabora.com>
 References: <20230503113413.149235-1-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JHZP7RB4FICY4XDD4OQJCVKDC5CUHX2S
-X-Message-ID-Hash: JHZP7RB4FICY4XDD4OQJCVKDC5CUHX2S
+Message-ID-Hash: G7WTVLI43T5EVL5HB235XK4OQDXKLPXG
+X-Message-ID-Hash: G7WTVLI43T5EVL5HB235XK4OQDXKLPXG
 X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -141,7 +142,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHZP7RB4FICY4XDD4OQJCVKDC5CUHX2S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G7WTVLI43T5EVL5HB235XK4OQDXKLPXG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,63 +151,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use devm_pm_runtime_enable() and pm_runtime_resume_and_get() to
-to simplify the probe function.
+Shorten the probe function by switching to dev_err_probe() where
+possible.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 45 +++++++---------------
+ 1 file changed, 14 insertions(+), 31 deletions(-)
 
 diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-index 9e45efeada55..a54c16e0aa05 100644
+index a54c16e0aa05..105db11eecec 100644
 --- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
 +++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-@@ -3179,16 +3179,16 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+@@ -3062,10 +3062,8 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	struct snd_soc_component *component;
  
- 	mt8195_afe_parse_of(afe, pdev->dev.of_node);
- 
--	pm_runtime_enable(dev);
--	if (!pm_runtime_enabled(dev)) {
--		ret = mt8195_afe_runtime_resume(dev);
--		if (ret)
--			return ret;
+ 	ret = of_reserved_mem_device_init(dev);
+-	if (ret) {
+-		dev_err(dev, "failed to assign memory region: %d\n", ret);
+-		return ret;
 -	}
--
- 	/* enable clock for regcache get default value from hw */
- 	afe_priv->pm_runtime_bypass_reg_ctl = true;
--	pm_runtime_get_sync(dev);
-+
-+	ret = devm_pm_runtime_enable(dev);
 +	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_resume_and_get(dev);
++		return dev_err_probe(dev, ret, "failed to assign memory region\n");
+ 
+ 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(33));
+ 	if (ret)
+@@ -3089,24 +3087,17 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+ 
+ 	/* initial audio related clock */
+ 	ret = mt8195_afe_init_clock(afe);
+-	if (ret) {
+-		dev_err(dev, "init clock error\n");
+-		return ret;
+-	}
 +	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to resume device\n");
++		return dev_err_probe(dev, ret, "init clock error\n");
  
- 	afe->regmap = devm_regmap_init_mmio(&pdev->dev, afe->base_addr,
- 					    &mt8195_afe_regmap_config);
-@@ -3238,7 +3238,10 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	/* reset controller to reset audio regs before regmap cache */
+ 	rstc = devm_reset_control_get_exclusive(dev, "audiosys");
+-	if (IS_ERR(rstc)) {
+-		ret = PTR_ERR(rstc);
+-		dev_err(dev, "could not get audiosys reset:%d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(rstc))
++		return dev_err_probe(dev, PTR_ERR(rstc), "could not get audiosys reset\n");
  
- 	mt8195_afe_init_registers(afe);
- 
--	pm_runtime_put_sync(dev);
-+	ret = pm_runtime_put_sync(dev);
+ 	ret = reset_control_reset(rstc);
+-	if (ret) {
+-		dev_err(dev, "failed to trigger audio reset:%d\n", ret);
+-		return ret;
+-	}
 +	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to suspend device\n");
-+
- 	afe_priv->pm_runtime_bypass_reg_ctl = false;
++		return dev_err_probe(dev, ret, "failed to trigger audio reset\n");
  
- 	regcache_cache_only(afe->regmap, true);
-@@ -3248,7 +3251,6 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	spin_lock_init(&afe_priv->afe_ctrl_lock);
  
- err_pm_put:
- 	pm_runtime_put_sync(dev);
--	pm_runtime_disable(dev);
+@@ -3143,30 +3134,22 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
  
- 	return ret;
- }
+ 	ret = devm_request_irq(dev, irq_id, mt8195_afe_irq_handler,
+ 			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
+-	if (ret) {
+-		dev_err(dev, "could not request_irq for asys-isr\n");
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "could not request_irq for asys-isr\n");
+ 
+ 	/* init sub_dais */
+ 	INIT_LIST_HEAD(&afe->sub_dais);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
+ 		ret = dai_register_cbs[i](afe);
+-		if (ret) {
+-			dev_warn(dev, "dai register i %d fail, ret %d\n",
+-				 i, ret);
+-			return ret;
+-		}
++		if (ret)
++			return dev_err_probe(dev, ret, "dai cb%i register fail\n", i);
+ 	}
+ 
+ 	/* init dai_driver and component_driver */
+ 	ret = mtk_afe_combine_sub_dai(afe);
+-	if (ret) {
+-		dev_warn(dev, "mtk_afe_combine_sub_dai fail, ret %d\n",
+-			 ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "mtk_afe_combine_sub_dai fail\n");
+ 
+ 	afe->mtk_afe_hardware = &mt8195_afe_hardware;
+ 	afe->memif_fs = mt8195_memif_fs;
 -- 
 2.40.1
 

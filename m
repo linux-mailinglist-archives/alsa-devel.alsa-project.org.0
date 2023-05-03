@@ -2,294 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C19F46F590E
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 15:27:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DC386F5995
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 May 2023 16:13:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DA4013BB;
-	Wed,  3 May 2023 15:26:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DA4013BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 547AE1331;
+	Wed,  3 May 2023 16:12:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 547AE1331
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683120428;
-	bh=tgNJjvwwPo9go3wWzkMgaCBrHWJCN7x77KV6hD4xo1M=;
-	h=To:Subject:Date:References:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=gI90WR5cgvN4dbAIx/tMkVAP0iiHFe/ol6UM+6U62qpozTe8oylz68bh7BkmJcCg1
-	 7IBZQ3XxfhXyfbjXJ7wH5Vu1oPlhfufJps2IRCvHZObb4yhXb9EoQ5P+C1gYAtHKUl
-	 nH7+t30BEIKnJL71jvsQZl44KQl4Thubmz9Vohco=
+	s=default; t=1683123189;
+	bh=Sdc17yyLFNgQb0H5vTTPJSsrbyvScz5vZiBycvsufh0=;
+	h=Date:From:Subject:To:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=JGW1ZLk7Cna5VpOqHy95ijCu8ASn8KDuwxcEt/9tWDsdEUUeiwMpMV8Xl0cov+iKd
+	 pMmHgabB8y+UNujbLcyCfRex71JtcH+HhYRZStCnJvZ9roV/+/St7oPbf8u5z9AoKW
+	 JecsaGDZxm1dVBXC8Ywh4LyM5KSYOkPlNNv8vw6M=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB173F80534;
-	Wed,  3 May 2023 15:26:10 +0200 (CEST)
-To: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH 5/5] ASoC: mediatek: mt8195-afe-pcm: Clean up unnecessary
- functions
-Date: Wed, 3 May 2023 13:25:46 +0000
-References: <20230503113413.149235-1-angelogioacchino.delregno@collabora.com>
-	 <20230503113413.149235-6-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230503113413.149235-6-angelogioacchino.delregno@collabora.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C5NAUXDFXXCAERE22MYQGSMSRHONFDMK/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168312036960.26.10660172325411733100@mailman-core.alsa-project.org>
-From: =?utf-8?b?VHJldm9yIFd1ICjlkLPmlofoia8pIHZpYSBBbHNhLWRldmVs?=
- <alsa-devel@alsa-project.org>
-Reply-To: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-Cc: "sound-open-firmware@alsa-project.org"
- <sound-open-firmware@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ribalda@chromium.org" <ribalda@chromium.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
- =?utf-8?B?WUMgSHVuZyAo5rSq5aCv5L+KKQ==?= <yc.hung@mediatek.com>,
- "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>,
- =?utf-8?B?Q2h1bnh1IExpICjmnY7mmKXml60p?= <Chunxu.Li@mediatek.com>,
- "kernel@collabora.com" <kernel@collabora.com>,
- "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- =?utf-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsyk=?=
- <Allen-KH.Cheng@mediatek.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>,
- "daniel.baluta@nxp.com" <daniel.baluta@nxp.com>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- =?utf-8?B?VGluZ0hhbiBTaGVuICjmsojlu7fnv7Ap?= <TingHan.Shen@mediatek.com>,
- "error27@gmail.com" <error27@gmail.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id A927BF8032B;
+	Wed,  3 May 2023 16:12:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3436F80534; Wed,  3 May 2023 15:26:06 +0200 (CEST)
+	id 73A48F8049E; Wed,  3 May 2023 16:12:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-6.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4ED0F8032B;
-	Wed,  3 May 2023 15:26:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4ED0F8032B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D484F80137
+	for <alsa-devel@alsa-project.org>; Wed,  3 May 2023 16:12:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D484F80137
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=dhAx8fbl;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com
- header.b=RENkkV2/
-X-UUID: 069cc49ae9b611ed9cb5633481061a41-20230503
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
- bh=YcqPHIGPsGgivH18jpMN8d3drlnVLOYWCi0PUPApTpw=;
-	b=dhAx8fbl2+wviY18P+Up4uApVdX/5jajgnRE3260cTJBWslCYNsvpH+yTf3L8WEjxJjCvgcq+U68IWeEFkiMP5/A9c55lUhP3lrDNeTBmnojbFnF7jkv8UJ4jyrfqIXdWq/AxKRrGPA6p/3ubYGl0Xruve7QEHqHZweO4O6gLLM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.23,REQID:1e672c64-8edf-462c-9581-d5ae73cedcf0,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:697ab71,CLOUDID:54a1adbf-e32c-4c97-918d-fbb3fc224d4e,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: 069cc49ae9b611ed9cb5633481061a41-20230503
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw01.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 2015398032; Wed, 03 May 2023 21:25:52 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Wed, 3 May 2023 21:25:51 +0800
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Wed, 3 May 2023 21:25:50 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cWMwS0qNc16gawMTmOioeISIGba0FtANBjbTnb6okfv8iaJaeG5RE6M8Z7ZeOwUn+WcOM7E0ubwLAll3PMEIhvrKmPP0u9qIJanJey8MHqCDoyNw1WWSAxywWFUgZ8ST5kZ+kNtZKvM4hdgYPzEfIVX6lMerolPiu7GSZMRbG9Nx5Sk6wjHoBvxb6r/PPOaJun57epVOESSVp3sVliOYUwEAbPVWqkA9H0vfzjsvk8XEvl4O9W73mEy4WYcbyo9Kg6mlKnI6ztvRD/xFcP1rQzB5Eb7wNYkB0RXkf/BTcG4tgUvUQO0ewgE0Md/XZMWvNwjF7w3TpXiISJQONiSa1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YcqPHIGPsGgivH18jpMN8d3drlnVLOYWCi0PUPApTpw=;
- b=FDJDY4GJ02aGq5KhxPTwvWmefTq/P5RfUhE2PxH+2DlJm2pHS1gXrPwpfIVDUrmWmwXpIxY1LdIfdJwLNaBu8cRJWbiYkaBfEBjD6QporOhr38LDqQyqsr1ueUEx4LV3t73nEKbU1HZcgBgfgyEegwD+MaSwVNZgWK4tuhmzOQI032qhk3hkD7FYdmr5QoW1mzy1l1hXed+6B72pun8TrDPl7AQhd2uqO8oQq6y+VUhjszpOjUo7xiIwjsUCQ0LryehxIl9p0eV2BFlhy6jGs+blaFu8RRv6T/q8HwSpKrfkWMx39yFo7m/H9eqEXuQ5liXFQDw12OJJYJyxRUs31g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YcqPHIGPsGgivH18jpMN8d3drlnVLOYWCi0PUPApTpw=;
- b=RENkkV2/MeASQXmb27yRXLTl+ruowRo3JCkMQNUMHPnHefrodpbpxwGZaJNJC7eytO4H1BsNFvgOsSvJ1zxCsbnIPkIbirzv08zuHu2Vdi4UsmvhTkG27k+7icSf4Zb8ZES2+kjW4wYv1XDpF/GOVqh+3Duqls+1yPE7iZL6rsE=
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com (2603:1096:4:1e9::14)
- by KL1PR03MB6143.apcprd03.prod.outlook.com (2603:1096:820:83::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.21; Wed, 3 May
- 2023 13:25:46 +0000
-Received: from SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de]) by SI2PR03MB6686.apcprd03.prod.outlook.com
- ([fe80::bfa:5a41:b6e1:63de%3]) with mapi id 15.20.6363.022; Wed, 3 May 2023
- 13:25:46 +0000
-From: =?utf-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>
-To: "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"angelogioacchino.delregno@collabora.com"
-	<angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH 5/5] ASoC: mediatek: mt8195-afe-pcm: Clean up unnecessary
- functions
-Thread-Topic: [PATCH 5/5] ASoC: mediatek: mt8195-afe-pcm: Clean up unnecessary
- functions
-Thread-Index: AQHZfbOH5MWsUkCf5kqlRgx3FqWycK9IiiCA
-Date: Wed, 3 May 2023 13:25:46 +0000
-Message-ID: <131123e4dde4d95927bb9ec92aefc50bbde53cd6.camel@mediatek.com>
-References: <20230503113413.149235-1-angelogioacchino.delregno@collabora.com>
-	 <20230503113413.149235-6-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230503113413.149235-6-angelogioacchino.delregno@collabora.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB6686:EE_|KL1PR03MB6143:EE_
-x-ms-office365-filtering-correlation-id: 90bff204-5590-4c21-39ef-08db4bd9e767
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 6RkaRlvyW+fLPZLGFFJendetZsxQRwQZ3FpNNkznDr5x61kEjsaAytZykfPwTzgaNTjO5mEvnf4Q/3Imx3MuC9MsLDB+05ghbe1yzEoIxWyNM4GyPYTNjowyZJ7DFM8M7FN9jnAvXb/dTf/l6KlFJzKGkG6k4FODwbuF9sxsFzF8ejAfzzaMiv3Pz85yojc1YuRu6WxEvPk5/BcpGbjy734y2xL3DZKFUjjHZ2HzYFcZjcIt1Bmr15WLmZJW2So6YPA8qgrtk0hL3koe1IChGBE9IUSRmFRjU3pH7m4U6RrTbh2l/YXbGSDplXPPckGsjRxK38fHG4Fu0iCdPMoAQz1ZM9oJuPitqAxwI75Ol//jG3k54vHECGs9M9ZSU8n4NpzGPekZxilPpQiMhxXyMO5Kb0Nb/5OOYYk+5APl5CBIymaGb7eSndQzxxfOquMA97ajO3c2NYPQPo4y5pegbFsWKyIGzOt+1X9rJu3RWvtRwy93XUEV+Q1bETVnk8EAVPxKbAnAE1l68fhp9T937fZRDf2EgMuPuUx2yUMP0WqLNFCiwrvvl7bwe5vYSDAsiXxSJaMbfRsPeto3WUaVQ8r5q+TL5CHSHr+cCBOuFlcBTwy8Xpt768x8ett2oJ2CBs/tQ8hzZM9ZUdxrThqxeQ==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR03MB6686.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(376002)(366004)(136003)(39860400002)(451199021)(66556008)(66946007)(66446008)(2906002)(66476007)(76116006)(2616005)(86362001)(7416002)(64756008)(5660300002)(36756003)(8676002)(8936002)(91956017)(41300700001)(316002)(4326008)(54906003)(110136005)(478600001)(85182001)(71200400001)(6486002)(26005)(186003)(6506007)(6512007)(83380400001)(122000001)(38070700005)(38100700002)(99106002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?KzBuaG91QzFGQVA5M05lODhaQkFCTFB3MXR6dnhpSG53dEsrb1JGV09wY0hM?=
- =?utf-8?B?RHlLRmF0VHFDS0JYaFV5WlVsemxZTmYxc2UvUllCUW8zcE5vOG04bkMzODVV?=
- =?utf-8?B?NGVFRUVFTVV3Sk16VklGOGdTRzl5dVpGNGNuempONkNSbXAzZ0JoNWVyakhR?=
- =?utf-8?B?Uy8xcDlaaVJPTSt2VDZsUUxiRmhETzBhWnZvQ09RK3dwZ2h2dk9pOE12Tlc5?=
- =?utf-8?B?eVBWVmhnZWRaVWxYM2p1S3BXZDlUM3pYOE1rTnp4MHFla3UyUXNsQktkT0hj?=
- =?utf-8?B?YUVWZnI2ZVkxTjVGQUtob1p6bWRtY1ZPMkYzcnRPSzVnUFRCNWM2S044QlVx?=
- =?utf-8?B?eFA2cnNFL21WREhYUTRJZXVXYitQUTJ4d3MrdE5xNldLZGVMclppVTRnQzB0?=
- =?utf-8?B?ZEU1OEY0K1d0ZDNKeDg2cHlxZDZxVWEwdXJXY1ZzMlJxak13eDA3OE5mWW9H?=
- =?utf-8?B?Z3E2T3hTZ055NWhXUU4zMEFtV2hCRVdUOXlvLzVxRUFiMjBSOER6RTQyVFlC?=
- =?utf-8?B?ZWdkajk2cll5OG9Qd1U3b2NMYUVmZEs5NUMzQWVCOTRSN21aMy94SU9VZTJP?=
- =?utf-8?B?VEd2Zkl3QzlybkNma0lWN3BoWUdPdWJBQnNReFhVdEdCWkxOWFJrUHp2UGsv?=
- =?utf-8?B?aW12c1NzMXhwelZTTVVRa0JrU0lLWEFTeG0vUE5ZNGl5blY3SE5LN0RkYzdU?=
- =?utf-8?B?cm5rU0NESnNQN0NGSlFyK1dkVGdLSGhLMHdWcDF6L2J0eDBYclM5WlZ3RWlp?=
- =?utf-8?B?U3dQanhYWjdZajE0a0x6MXpNUXZUUGdQdzNPQnJCREpXQUt5cjVEQUx3SlZw?=
- =?utf-8?B?TVg3UC9BeDhJUUY1OTd3ckZBYUZtVDJ5aWZOMUk2RFZVd085ZEFVam51L1VM?=
- =?utf-8?B?SHVMeHMyL0xJTHdoSEdPSi93V0ZRRS9PMTIzbXZKTTgxSUhvVFRleEFZZzRE?=
- =?utf-8?B?azVyOWtMczN0dW1uVDlCYnk0QTJmOUNpQlFBTWptMGJidnNIaWtISVpvNGx5?=
- =?utf-8?B?UVBRMUt3UWt5cGhGMVhDSFNCMXhoTUVaRjhuY3ppam5qUnB5b0gxVjExaVNq?=
- =?utf-8?B?dGdmWkUyRlJiYVlOc1U4UW01Q3pkTnJnazNCOGFlY3RtYW8vbnpLUk1HUXIv?=
- =?utf-8?B?NUdWOTNBdXlMRG5TR1FnNjVrMWZZdFhwZUlkOVVja1dwRFFTdnpVWkJwYkVx?=
- =?utf-8?B?NjlUMG9MTnN3ZURZNm9ZOFhza2hCZzh1VVFNNlc2MDR5SGZ0K0dXeDZKSE5M?=
- =?utf-8?B?RXdHUjNoZ1BsZHFFaWZrakFqdTNRSGh0WXlHN3EyOXFQc0Z3dGJjYkt1eklI?=
- =?utf-8?B?WnZwNWZ6bmJDYnlkRXFPd1p2eGxMZnBmWlhWMWs2alRXUkRZK0dkNSsxQ1lj?=
- =?utf-8?B?Y25Fc3Y0UFhzU1czUjZkdHpOVU5tVXhHR09QNFdLditTb29UWFd3bldValMr?=
- =?utf-8?B?YnRKejdWQzNGTC9oVkFMM3ZDT053d0FPdkJLUyt4eEh5aUo4OFF4dTJZZE05?=
- =?utf-8?B?U0RmaHQxTHJ6OTlpQ1ZVcXpKSVE3a2d5ZWVCVWhpOUZSTmllOWljMjBRMU5I?=
- =?utf-8?B?UmZxT21WSi9nWk0zSkNPVEYvWG9oSndZWkxyRmlpY0hXTGZrTnZ2RGo2M3hP?=
- =?utf-8?B?N0E1TVlmTUhVSGdvYUVUZjBIWVMwVHdIaXJKYkVaOFV6ZFBVQnMzZ3hWeWph?=
- =?utf-8?B?eTlnaG5hVzhjelVseDRjQjJLNkMwUUNzOFFJM1pjVXhmMGlZc3VDZkhRbnNq?=
- =?utf-8?B?clpQZkh4T1VSeGZOd3NtbDZPMzVFVU1YYTF2YmtDVVI4NHhDeW5SczlOY1VO?=
- =?utf-8?B?UWhFWmJocGJ4MWV6aGw4R2cwQWtWY1BOaHc4VG5KajdZMEpBVUZMWnFWU2Yw?=
- =?utf-8?B?ZmtvMDMwRHViWkZWS24rL0UrTm83ZWxVTXpDcnc1V0JtU2FhRXo2R1ZWOWJR?=
- =?utf-8?B?aWpXdFFjTjMrVkZLQ3kzV3o1d1QxeDBBQ2RCVUFGR08wbXh4MklBdzVVU1FY?=
- =?utf-8?B?MS9NTG1YTGR5TFRreWxvc2dQVUE2R0NDZTJzZWx0bFRBTVhuRU8zUFdtZzNl?=
- =?utf-8?B?a1dEV0hhSk5iclJoeHFKRXFycmpkNFBjRFFiV0ZueTZmc1kzaWFUWjM3UVFm?=
- =?utf-8?B?QlJjKy8rZWxnbVVSOGE1VVlPd2gxTmpxZXdPSVdWeXp6UkpvSTY2NjBMTVph?=
- =?utf-8?B?VEE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D51A811C311EFA4A8FCA3C765312ECEF@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=R4ZikZhF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1683123126; x=1714659126;
+  h=message-id:date:mime-version:from:subject:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=Sdc17yyLFNgQb0H5vTTPJSsrbyvScz5vZiBycvsufh0=;
+  b=R4ZikZhFGndx/bxDLMNGJZ9vYMMDu+75XYa2fMxxiXY8fTLo2BKeoAjB
+   uKLqoLFxN31Sxt3MFtR+QiGTemeAl0AdZuQIgw06Fxrqw3xek6yvUXpng
+   mPcYQJiCWkZilJUia1r/lsFYwqdqEDnje29ECN1CYsy7YGhUot9rBOZvN
+   ofZtr4p5Bepl27scfi6HRwbv0/NmPahBBCmeUl5XBGEg7sML2xhUyZIcZ
+   eOjlXj0vUg+B/ta03pa3y8uKd/zW4xD3nO9qit4NXR5R9z5rmGG4ToX4M
+   ondUeK7BEc9PjHhxOOgoes+zgMYce1aXrAR3jZr/zF00NNhFca0ssyGFY
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10699"; a="350740566"
+X-IronPort-AV: E=Sophos;i="5.99,247,1677571200";
+   d="scan'208";a="350740566"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2023 07:12:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10699"; a="1026512753"
+X-IronPort-AV: E=Sophos;i="5.99,247,1677571200";
+   d="scan'208";a="1026512753"
+Received: from jshields-mobl.amr.corp.intel.com (HELO [10.209.77.83])
+ ([10.209.77.83])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 May 2023 07:11:59 -0700
+Message-ID: <3dc77f99-2237-80c9-64cf-19e392aaccc9@linux.intel.com>
+Date: Wed, 3 May 2023 09:11:15 -0500
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB6686.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 90bff204-5590-4c21-39ef-08db4bd9e767
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 May 2023 13:25:46.5320
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- oxEV+gFezO2sYV56B4oKaBAFhbz/4XP6g/ZSagmw1d7TknD6jI/4ET6OS/qTM8cyBsMSHKuMf1bTUMZBtRlNnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB6143
-X-MTK: N
-Message-ID-Hash: C5NAUXDFXXCAERE22MYQGSMSRHONFDMK
-X-Message-ID-Hash: C5NAUXDFXXCAERE22MYQGSMSRHONFDMK
-X-MailFrom: trevor.wu@mediatek.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.10.0
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 6/6] soundwire: qcom: do not probe devices before bus/link
+ init
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20230420101617.142225-1-krzysztof.kozlowski@linaro.org>
+ <20230420101617.142225-7-krzysztof.kozlowski@linaro.org>
+ <28141433-2130-e278-0f59-d9ab507b9be3@linux.intel.com>
+ <42fbf7ad-54db-0917-bb85-a1be9f99cc45@linaro.org>
+ <3f618297-e1cd-a46d-5318-c3b77a0fc78d@linux.intel.com>
+ <b3e227d4-1bdf-9f58-a354-e7f798765e91@linaro.org>
+Content-Language: en-US
+In-Reply-To: <b3e227d4-1bdf-9f58-a354-e7f798765e91@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: PKZAUX4ILHPPAEVV7V7WABTWT4TAAWQO
+X-Message-ID-Hash: PKZAUX4ILHPPAEVV7V7WABTWT4TAAWQO
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "sound-open-firmware@alsa-project.org"
- <sound-open-firmware@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "ribalda@chromium.org" <ribalda@chromium.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "u.kleine-koenig@pengutronix.de" <u.kleine-koenig@pengutronix.de>,
- =?utf-8?B?WUMgSHVuZyAo5rSq5aCv5L+KKQ==?= <yc.hung@mediatek.com>,
- "kai.vehmanen@linux.intel.com" <kai.vehmanen@linux.intel.com>,
- =?utf-8?B?Q2h1bnh1IExpICjmnY7mmKXml60p?= <Chunxu.Li@mediatek.com>,
- "kernel@collabora.com" <kernel@collabora.com>,
- "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- =?utf-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsyk=?=
- <Allen-KH.Cheng@mediatek.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
- "ranjani.sridharan@linux.intel.com" <ranjani.sridharan@linux.intel.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "peter.ujfalusi@linux.intel.com" <peter.ujfalusi@linux.intel.com>,
- "daniel.baluta@nxp.com" <daniel.baluta@nxp.com>,
- "nicolas.ferre@microchip.com" <nicolas.ferre@microchip.com>,
- =?utf-8?B?VGluZ0hhbiBTaGVuICjmsojlu7fnv7Ap?= <TingHan.Shen@mediatek.com>,
- "error27@gmail.com" <error27@gmail.com>
+CC: Patrick Lai <quic_plai@quicinc.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C5NAUXDFXXCAERE22MYQGSMSRHONFDMK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKZAUX4ILHPPAEVV7V7WABTWT4TAAWQO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -298,62 +119,106 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gV2VkLCAyMDIzLTA1LTAzIGF0IDEzOjM0ICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gRnVuY3Rpb24gbXQ4MTk1X2FmZV9pbml0X3JlZ2lzdGVycygpIHBlcmZv
-cm1zIGp1c3QgYSBzaW5nbGUgY2FsbCB0bw0KPiByZWdtYXBfbXVsdGlfcmVnX3dyaXRlKCksIGl0
-IHJldHVybnMgaW50IGFuZCBpdCdzIG5vdCBlcnJvciBjaGVja2VkOw0KPiBtb3ZlIHRoYXQgY2Fs
-bCB0byB0aGUgcHJvYmUgZnVuY3Rpb24gYW5kIGFsc28gYWRkIHNvbWUgZXJyb3IgY2hlY2suDQo+
-IA0KPiBXaGlsZSBhdCBpdCwgYWxzbyBtb3ZlIHRoZSBjb250ZW50cyBvZiBtdDgxOTVfYWZlX3Bh
-cnNlX29mKCkgdG8gdGhlDQo+IHByb2JlIGZ1bmN0aW9uIGFzIHdlbGw6IHNpbmNlIHRoaXMgaXMg
-Z2V0dGluZyBhIGhhbmRsZSB0byB0b3Bja2dlbg0KPiBhbmQgc2luY2UgdGhhdCdzIG9wdGlvbmFs
-LCB0aGUgaWZkZWYgZm9yIENPTkZJR19TTkRfU09DX01UNjM1OSBjYW4NCj4gYWxzbyBiZSByZW1v
-dmVkLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQW5nZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8gPA0K
-PiBhbmdlbG9naW9hY2NoaW5vLmRlbHJlZ25vQGNvbGxhYm9yYS5jb20+DQoNCkFja2VkLWJ5OiBU
-cmV2b3IgV3UgPHRyZXZvci53dUBtZWRpYXRlay5jb20+DQoNCj4gLS0tDQo+ICBzb3VuZC9zb2Mv
-bWVkaWF0ZWsvbXQ4MTk1L210ODE5NS1hZmUtcGNtLmMgfCAzMiArKysrKystLS0tLS0tLS0tLS0N
-Cj4gLS0tLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMjQgZGVsZXRpb25z
-KC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL21lZGlhdGVrL210ODE5NS9tdDgxOTUt
-YWZlLXBjbS5jDQo+IGIvc291bmQvc29jL21lZGlhdGVrL210ODE5NS9tdDgxOTUtYWZlLXBjbS5j
-DQo+IGluZGV4IDEwNWRiMTFlZWNlYy4uZDIyY2YxNjY0ZDhhIDEwMDY0NA0KPiAtLS0gYS9zb3Vu
-ZC9zb2MvbWVkaWF0ZWsvbXQ4MTk1L210ODE5NS1hZmUtcGNtLmMNCj4gKysrIGIvc291bmQvc29j
-L21lZGlhdGVrL210ODE5NS9tdDgxOTUtYWZlLXBjbS5jDQo+IEBAIC0zMDMwLDI4ICszMDMwLDYg
-QEAgc3RhdGljIGNvbnN0IHN0cnVjdCByZWdfc2VxdWVuY2UNCj4gbXQ4MTk1X2NnX3BhdGNoW10g
-PSB7DQo+ICAgICAgICAgeyBBVURJT19UT1BfQ09OMSwgMHhmZmZmZmZmOCB9LA0KPiAgfTsNCj4g
-DQo+IC1zdGF0aWMgaW50IG10ODE5NV9hZmVfaW5pdF9yZWdpc3RlcnMoc3RydWN0IG10a19iYXNl
-X2FmZSAqYWZlKQ0KPiAtew0KPiAtICAgICAgIHJldHVybiByZWdtYXBfbXVsdGlfcmVnX3dyaXRl
-KGFmZS0+cmVnbWFwLA0KPiAtICAgICAgICAgICAgICAgICAgICAgICBtdDgxOTVfYWZlX3JlZ19k
-ZWZhdWx0cywNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgQVJSQVlfU0laRShtdDgxOTVfYWZl
-X3JlZ19kZWZhdWx0cykpOw0KPiAtfQ0KPiAtDQo+IC1zdGF0aWMgdm9pZCBtdDgxOTVfYWZlX3Bh
-cnNlX29mKHN0cnVjdCBtdGtfYmFzZV9hZmUgKmFmZSwNCj4gLSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wKQ0KPiAtew0KPiAtI2lmIElTX0VOQUJM
-RUQoQ09ORklHX1NORF9TT0NfTVQ2MzU5KQ0KPiAtICAgICAgIHN0cnVjdCBtdDgxOTVfYWZlX3By
-aXZhdGUgKmFmZV9wcml2ID0gYWZlLT5wbGF0Zm9ybV9wcml2Ow0KPiAtDQo+IC0gICAgICAgYWZl
-X3ByaXYtPnRvcGNrZ2VuID0gc3lzY29uX3JlZ21hcF9sb29rdXBfYnlfcGhhbmRsZShhZmUtDQo+
-ID5kZXYtPm9mX25vZGUsDQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAibWVkaWF0ZQ0KPiBrLHRvcGNrZ2VuIik7DQo+IC0gICAg
-ICAgaWYgKElTX0VSUihhZmVfcHJpdi0+dG9wY2tnZW4pKSB7DQo+IC0gICAgICAgICAgICAgICBk
-ZXZfaW5mbyhhZmUtPmRldiwgIiVzKCkgQ2Fubm90IGZpbmQgdG9wY2tnZW4NCj4gY29udHJvbGxl
-cjogJWxkXG4iLA0KPiAtICAgICAgICAgICAgICAgICAgICAgICAgX19mdW5jX18sIFBUUl9FUlIo
-YWZlX3ByaXYtPnRvcGNrZ2VuKSk7DQo+IC0gICAgICAgfQ0KPiAtI2VuZGlmDQo+IC19DQo+IC0N
-Cj4gIHN0YXRpYyBpbnQgbXQ4MTk1X2FmZV9wY21fZGV2X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9k
-ZXZpY2UgKnBkZXYpDQo+ICB7DQo+ICAgICAgICAgc3RydWN0IG10a19iYXNlX2FmZSAqYWZlOw0K
-PiBAQCAtMzE2MCw3ICszMTM4LDEwIEBAIHN0YXRpYyBpbnQgbXQ4MTk1X2FmZV9wY21fZGV2X3By
-b2JlKHN0cnVjdA0KPiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQo+IA0KPiAgICAgICAgIHBsYXRm
-b3JtX3NldF9kcnZkYXRhKHBkZXYsIGFmZSk7DQo+IA0KPiAtICAgICAgIG10ODE5NV9hZmVfcGFy
-c2Vfb2YoYWZlLCBwZGV2LT5kZXYub2Zfbm9kZSk7DQo+ICsgICAgICAgYWZlX3ByaXYtPnRvcGNr
-Z2VuID0gc3lzY29uX3JlZ21hcF9sb29rdXBfYnlfcGhhbmRsZShkZXYtDQo+ID5vZl9ub2RlLCAi
-bWVkaWF0ZWssdG9wY2tnZW4iKTsNCj4gKyAgICAgICBpZiAoSVNfRVJSKGFmZV9wcml2LT50b3Bj
-a2dlbikpDQo+ICsgICAgICAgICAgICAgICBkZXZfZGJnKGFmZS0+ZGV2LCAiQ2Fubm90IGZpbmQg
-dG9wY2tnZW4gY29udHJvbGxlcjoNCj4gJWxkXG4iLA0KPiArICAgICAgICAgICAgICAgICAgICAg
-ICBQVFJfRVJSKGFmZV9wcml2LT50b3Bja2dlbikpOw0KPiANCj4gICAgICAgICAvKiBlbmFibGUg
-Y2xvY2sgZm9yIHJlZ2NhY2hlIGdldCBkZWZhdWx0IHZhbHVlIGZyb20gaHcgKi8NCj4gICAgICAg
-ICBhZmVfcHJpdi0+cG1fcnVudGltZV9ieXBhc3NfcmVnX2N0bCA9IHRydWU7DQo+IEBAIC0zMjE5
-LDcgKzMyMDAsMTAgQEAgc3RhdGljIGludCBtdDgxOTVfYWZlX3BjbV9kZXZfcHJvYmUoc3RydWN0
-DQo+IHBsYXRmb3JtX2RldmljZSAqcGRldikNCj4gICAgICAgICAgICAgICAgIGdvdG8gZXJyX3Bt
-X3B1dDsNCj4gICAgICAgICB9DQo+IA0KPiAtICAgICAgIG10ODE5NV9hZmVfaW5pdF9yZWdpc3Rl
-cnMoYWZlKTsNCj4gKyAgICAgICByZXQgPSByZWdtYXBfbXVsdGlfcmVnX3dyaXRlKGFmZS0+cmVn
-bWFwLA0KPiBtdDgxOTVfYWZlX3JlZ19kZWZhdWx0cywNCj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIEFSUkFZX1NJWkUobXQ4MTk1X2FmZV9yZWdfZGVmYXVsDQo+IHRzKSk7
-DQo+ICsgICAgICAgaWYgKHJldCkNCj4gKyAgICAgICAgICAgICAgIGdvdG8gZXJyX3BtX3B1dDsN
-Cj4gDQo+ICAgICAgICAgcmV0ID0gcG1fcnVudGltZV9wdXRfc3luYyhkZXYpOw0KPiAgICAgICAg
-IGlmIChyZXQpDQo+IC0tDQo+IDIuNDAuMQ0KPiANCj4gDQo=
+
+
+On 5/3/23 03:00, Krzysztof Kozlowski wrote:
+> On 01/05/2023 15:43, Pierre-Louis Bossart wrote:
+>>
+>>
+>> On 5/1/23 07:24, Krzysztof Kozlowski wrote:
+>>> On 20/04/2023 23:37, Pierre-Louis Bossart wrote:
+>>>>
+>>>>
+>>>> On 4/20/23 05:16, Krzysztof Kozlowski wrote:
+>>>>> Soundwire devices are supposed to be kept in reset state (powered off)
+>>>>> till their probe() or component bind() callbacks.  However if they are
+>>>>> already powered on, then they might enumerate before the master
+>>>>> initializes bus in qcom_swrm_init() leading to occasional errors like:
+>>>>
+>>>> The problem statement is really hard to follow.
+>>>>
+>>>> The peripheral can only be enumerated AFTER
+>>>> a) the manager starts the bus clock and transmitting PING frames
+>>>> b) the peripheral detects the sync words for 16 frames in a row.
+>>>> c) the peripheral reports as Attached in the Device0 slot
+>>>>
+>>>> That sequence holds whether the manager does the enumeration manually or
+>>>> relies on hardware-assisted autoenumeration. This is what the spec requires.
+>>>>
+>>>> So why can't the bus clock start be controlled by the manager driver,
+>>>> and started once all required initializations are done?
+>>>>
+>>>> I mean, there's got to be some sort of parent-child hierarchy with
+>>>> manager first, peripheral(s) second, I don't get how these steps could
+>>>> be inverted or race.
+>>>>
+>>>>>   qcom-soundwire 6d30000.soundwire-controller: Qualcomm Soundwire controller v2.0.0 Registered
+>>>>>   wcd938x_codec audio-codec: bound sdw:0:0217:010d:00:4 (ops wcd938x_sdw_component_ops)
+>>>>>   wcd938x_codec audio-codec: bound sdw:0:0217:010d:00:3 (ops wcd938x_sdw_component_ops)
+>>>>>   qcom-soundwire 6ad0000.soundwire-controller: swrm_wait_for_wr_fifo_avail err write overflow
+>>>>>
+>>>>> The problem primarily lies in Qualcomm Soundwire controller probe() sequence:
+>>>>> 1. request_threaded_irq()
+>>>>> 2. sdw_bus_master_add() - which will cause probe() and component bind()
+>>>>>    of Soundwire devices, e.g. WCD938x codec drivers.  Device drivers
+>>>>>    might already start accessing their registers.
+>>>>
+>>>> not if the bus clock hasn't started...
+>>>>
+>>>>> 3. qcom_swrm_init() - which initializes the link/bus and enables
+>>>>>    interrupts.
+>>>>
+>>>> if you can move the clock start in 3) then problem solved. Why can't
+>>>> this be done?
+>>>
+>>> Responding to all your three responses:
+>>> The clock is enabled in this 3. qcom_swrm_init(), so the old code to my
+>>> knowledge is written exactly how you expect.
+>>>
+>>> However even with stopped clock, the device enumerates at
+>>> sdw_bus_master_add(), before anything is enabled.
+>>
+>> Erm, that's not physically possible...
+>>
+>> The peripheral can report as attached and be enumerated by the manager,
+>> i.e. assigned a non-zero "Device Number" after the peripheral
+>> synchronizes on 16 frames with valid static and dynamic syncwords. That
+>> can only happen if there is a clock toggling and PING frames transmitted
+>> on the data line.
+>>
+>> There's something else at play here.
+> 
+> Yes, I think you are right and that "else" is my limited knowledge on
+> the entire setup.
+> 
+> You gave me awesome hint in email before that probe != enumeration !=
+> initialization, however the wcd938x sound codec drivers were assuming
+> some steps are equal.
+> 
+> wcd938x comes with three devices on two drivers:
+> 1. RX Soundwire device (wcd938x-sdw.c driver)
+> 2. TX Soundwire device, which is used as regmap (also wcd938x-sdw.c driver)
+> 3. platform device (wcd938x.c driver) - glue and component master,
+> actually having most of the code using TX Soundwire device regmap.
+> 
+> The probe of each RX and TX Soundwire devices added components, but that
+> this did not mean devices were enumerated, as you said.
+> 
+> Considering what Mark said about using regcache (and sync it), I am now
+> replacing entire solution with proper regcache handling device
+> enumeration after component bind.
+
+I thought you were talking about ASoC "struct snd_soc_component" but no,
+that's "struct component_ops" in wcd938x-sdw.c
+
+Now I think I get the scope of the problem, I didn't click on the fact
+that it's a platform driver that registers ASoC components, and not the
+SoundWire codec driver.
+
+That's certainly more complicated than any other SoundWire-based systems
+I've seen so far. It's already difficult to keep track of the SoundWire
+peripheral driver .probe(), the ASoC component .probe(), the SoundWire
+bus .update_status() callback and now there's
+the component .bind() added.
+
+Wow. What could possibly go wrong, eh?

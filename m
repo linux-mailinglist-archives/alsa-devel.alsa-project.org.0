@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83AD86F65F5
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 09:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EBEE6F6653
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 09:52:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CEFA18B4;
-	Thu,  4 May 2023 09:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CEFA18B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id D890D1523;
+	Thu,  4 May 2023 09:51:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D890D1523
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683186145;
-	bh=9cQSrtoCccDN4OXHR0DV6eqarc1me06rKxPOC4mHpu4=;
+	s=default; t=1683186734;
+	bh=r3uUz8k4jIaLr561uvaPOG7e/98OOcL3GMdfeEM55/Y=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UZ6q/pXslT7OGNTZYHg+oSEP0VsS7DTiqqSRsN0/lUudtOxmmuI4Y/oXFYwCE92wi
-	 9oziZwonYwh8atSqFwSeVYnXrQzYuG7bnGOBNjlEOlLBm8+iWtonMZylIZv20p5xS6
-	 OXB6T4nrLaSyjvJZWuLfw7a8iWvwxQKFVGTmvKXg=
+	b=vPtC9juX5rLeipGRpcHajfnZcSdxdJzIF+X8FtSPYzcDug7+KpPmnJ3FL5A6hm0TM
+	 cuJcKt7cHvmcFAtuqnuoGcaISPCdRtjpIhD+keJYGIinw0X9zGLPdlHf+FWY/n08Gs
+	 84QO7NDf4/r0aRVZwN2hE9nNNXapzcWcefftK35s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C19CF80529;
-	Thu,  4 May 2023 09:41:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B527F80529;
+	Thu,  4 May 2023 09:51:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84486F8052D; Thu,  4 May 2023 09:41:31 +0200 (CEST)
+	id 64E98F8052D; Thu,  4 May 2023 09:51:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,66 +35,64 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06892F80114
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 09:41:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06892F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 05832F80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 09:51:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05832F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=TpB4y/Co;
+ header.s=susede2_rsa header.b=mW2wMoze;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=DEwKzuEi
+ header.s=susede2_ed25519 header.b=G7fHDH0p
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 823CD21F3B;
-	Thu,  4 May 2023 07:41:27 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BAF6C22BBD;
+	Thu,  4 May 2023 07:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683186087;
+	t=1683186676;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CFJjje3BdDX9S5N24qToNNADMKWKsiOf7YeHFnmAhgs=;
-	b=TpB4y/Co5G/3cZoxxqqhE4U3BEQNYNrjEq/vv1g/saY+TqfzNfRGrOAYs96YgkT3z7D49l
-	A9Bg8bUbEqRAaqqQMz71FvTLojAxpFR+u1vejwpbYtU9Qr9PSpP0IKs89LQqv8t4K//c16
-	p91aWxdiehhGgD3Es680QBnn0vh/OAA=
+	bh=D6geGX1BnObw5oqPndFE/tdK8lnuqzTuO9cPmjbpg4c=;
+	b=mW2wMoze5S6M+Oru53oX2lrZ2iRA22Rmb6EO+FjCRwKjgcy1bJHPWe6SMRaaD21hj7hOdk
+	SCVjcWjp1MfUbuXocZWu25h2xDhWG3ODHUdtOrtWGDmKFQ2wV5pZbIvHHCF93Trb3oORfv
+	QDCovBcO7Q2rOfTQhGHQ07oNiJ9GIck=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683186087;
+	s=susede2_ed25519; t=1683186676;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CFJjje3BdDX9S5N24qToNNADMKWKsiOf7YeHFnmAhgs=;
-	b=DEwKzuEiuLfEFyKhvWRgQ5P0YT5y2dYPPn3IuGonWI3Lvi+EmIwGk7u0HlqOhzSkOSNg2h
-	ckjMeqd4fEKhJaCg==
+	bh=D6geGX1BnObw5oqPndFE/tdK8lnuqzTuO9cPmjbpg4c=;
+	b=G7fHDH0pwwp+ZDvpaXJU7JokzY5sr4zFZtkWxDWtzpaTUejLuIqR3dIhqD4q7UiaDlpudn
+	Atstft649K8n27AA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C702133F7;
-	Thu,  4 May 2023 07:41:27 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 72843133F7;
+	Thu,  4 May 2023 07:51:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ADrhFKdhU2SXGQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 04 May 2023 07:41:27 +0000
-Date: Thu, 04 May 2023 09:41:26 +0200
-Message-ID: <87lei4mtll.wl-tiwai@suse.de>
+	id OdrTGvRjU2T+IAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 04 May 2023 07:51:16 +0000
+Date: Thu, 04 May 2023 09:51:15 +0200
+Message-ID: <87ild8mt58.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Subject: Re: [PATCH] ALSA: usb-audio: Add quirk for Pioneer DDJ-800
-In-Reply-To: <ZFLLzgEcsSF5aIHG@geday>
-References: <ZFLLzgEcsSF5aIHG@geday>
+To: Ruliang Lin <u202112092@hust.edu.cn>
+Subject: Re: [PATCH] sound: caiaq: input: Add error handling for unsupported
+ input methods in `snd_usb_caiaq_input_init`
+In-Reply-To: <20230504065054.3309-1-u202112092@hust.edu.cn>
+References: <20230504065054.3309-1-u202112092@hust.edu.cn>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KFKPM6CLFGK7DMH3PLINWOZXZI62OL5C
-X-Message-ID-Hash: KFKPM6CLFGK7DMH3PLINWOZXZI62OL5C
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 2REEQFINUP3623VOU74SYQ4FAZXLO7JP
+X-Message-ID-Hash: 2REEQFINUP3623VOU74SYQ4FAZXLO7JP
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,13 +100,17 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: ALSA-devel <alsa-devel@alsa-project.org>
+CC: Daniel Mack <zonque@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Karsten Wiese <fzu@wemgehoertderstaat.de>,
+ hust-os-kernel-patches@googlegroups.com, Dongliang Mu <dzm91@hust.edu.cn>,
+ Daniel Mack <daniel@caiaq.org>, Jaroslav Kysela <perex@suse.cz>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KFKPM6CLFGK7DMH3PLINWOZXZI62OL5C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2REEQFINUP3623VOU74SYQ4FAZXLO7JP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,32 +119,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 03 May 2023 23:02:06 +0200,
-Geraldo Nascimento wrote:
+On Thu, 04 May 2023 08:50:53 +0200,
+Ruliang Lin wrote:
 > 
-> One more Pioneer quirk, this time for DDJ-800, which is quite similar like
-> other DJ DDJ models but with slightly different EPs or channels.
+> Smatch complains that:
+> snd_usb_caiaq_input_init() warn: missing error code 'ret'
 > 
-> Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
-> Tested-by: Grégory Desor <gregory.desor@free.fr>
+> This patch adds a new case to handle the situation where the 
+> device does not support any input methods in the 
+> `snd_usb_caiaq_input_init` function. It returns an `-EINVAL` error code 
+> to indicate that no input methods are supported on the device.
 > 
+> Fixes: 523f1dce3743 ("[ALSA] Add Native Instrument usb audio device support")
+> Signed-off-by: Ruliang Lin <u202112092@hust.edu.cn>
+> Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
 > ---
-> 
-> Hi Takashi, this one cropped up in the Mixxx forums as a request and it
-> works. Grégory says Master and Headphones work OK with this patch, MIC
-> inputs are untested. Thanks!
+> The issue is found by static analyzer. The patched code has passed
+> Smatch checker, but remains untested on real device.
 
-Now I applied it, but ....
+Thanks, applied.
 
-> --- sound/usb/quirks-table.h	2023-05-03 17:55:23.133827915 -0300
-> +++ sound/usb/quirks-table.h	2023-05-03 17:56:29.054827946 -0300
-
-... the patch should be applicable with -p1, and here the path prefix
-is missing (usually it's a/sound/usb/quirks-table.h, etc).
-
-Please prepare a correctly formatted patch at the next time.
-
-
-thanks,
 
 Takashi

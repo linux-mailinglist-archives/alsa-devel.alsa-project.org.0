@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FC556F650B
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 08:31:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22E756F63EC
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 06:12:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BD481816;
-	Thu,  4 May 2023 08:30:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BD481816
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E8111717;
+	Thu,  4 May 2023 06:11:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E8111717
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683181870;
+	s=default; t=1683173561;
 	bh=DGzMu0UR7qN4Ii9z2Wd1dG3vUxw/CpUhnj22tEjzdSM=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fQhlkIR8+0v4Phxk99uuJ8oz12STx14+mqOgWpfqHBFFD0SzMyNotrtPD4qF3kb0C
-	 zfJshat+mLaTgJCN+ezt4tQ4ct0LQky6OFnjHd9ycnbD/moA034/K6XzKKp+U8Ay6r
-	 kAPeT7gYSSm7bYovsgYCVCIOlqExSmfIpxrome3M=
+	b=L63efyXoPWN11JorqEl3Z7kHaMIiWfZ/KER3V78BN22kX90h73C1g6gu3zqr0JHQr
+	 kHW8dcIloNx6nfhKoxSYE6ZQRUGQKsKUB7u7JegjbJV/lS/MTFlK3Okfe9jRafqdqA
+	 LlxE4xd/bqLyEjcBn7Z9lc5GF97vaVvqI2Wa6rIM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 244ECF80542;
-	Thu,  4 May 2023 08:29:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE44BF8032B;
+	Thu,  4 May 2023 06:11:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B650FF804B1; Thu,  4 May 2023 05:20:39 +0200 (CEST)
+	id 219ADF804FE; Thu,  4 May 2023 06:10:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,FROM_ADDR_WS,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BD500F8032B
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 05:20:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD500F8032B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B253BF800EC
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 06:10:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B253BF800EC
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=nQHO35IK
+ header.s=k20201202 header.b=blPFlMeD
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AE8816312D;
-	Thu,  4 May 2023 03:20:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAF4FC433D2;
-	Thu,  4 May 2023 03:20:34 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B20DD62867;
+	Thu,  4 May 2023 04:10:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0892EC433EF;
+	Thu,  4 May 2023 04:10:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683170435;
+	s=k20201202; t=1683173452;
 	bh=DGzMu0UR7qN4Ii9z2Wd1dG3vUxw/CpUhnj22tEjzdSM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=nQHO35IKqfq0O1z7tvOkFLvPe5PPBdb+YauC4JNw1vFpdhubxuUcfC6jA5bMYptKQ
-	 CMduH4nTVm6JUn0s2Cw7/eHoavnGLROwRsrhwU0ofi4cyP+UEr7OWoloYV9Yzc1nbu
-	 yaqS1fYcoZueseLSFUWpsvtZcuaMVdE+GzU+dDjkdxleDl4G8KDlRd0+tOp5Yt4G/L
-	 EOu8ZPWSZQh5jHuWgfxBqzWswIe6plBYJGTWdYMAZtR9bkV1Fx8rJp0u2axojPDmKU
-	 prfeSGkBBBdolEl9aBeCC7tuRQXsrjGRnnlqDpr4CEbi7FKXUtuxbGUz9owY1G+dXl
-	 153LCFv7y4+fA==
-From: Mark@alsa-project.org, Brown@alsa-project.org,
-	broonie@kernel.org
+	b=blPFlMeDvYImnFd4KXEeOnBFpo4IJybECBGd6hSQJ1ocl+dmCH6JCLqqcEvESosPo
+	 2YVdD378Eii0tgjMitiqA2Dhe0R7HW75pmCP3Qfpts+kSkzJcPhIBW5GIAqh6qvYVM
+	 Ez5fqNzQt2kfvBeW41/IaM6it5fWxww+qg/YQZ2tIZJWIonn8Subup8P+PUZw4ZuAI
+	 tejnOfO9q1mieAccH8bIkNxcHPqFLhAlgQFC0fSgaNOi/Q47fRxMTPH/bPyNo40nZf
+	 plQp2AzvGZdhnTmOqJ3Vjuu2yvwdG+PUsR+R28er6QQZt4tCMn1T+QbOta/zAHHEhK
+	 zUv9A0T2nkuIg==
+From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org,
@@ -67,21 +66,21 @@ In-Reply-To: <20230503144102.242240-1-krzysztof.kozlowski@linaro.org>
 References: <20230503144102.242240-1-krzysztof.kozlowski@linaro.org>
 Subject: Re: [PATCH v2] ASoC: codecs: wcd938x: fix accessing regmap on
  unattached devices
-Message-Id: <168317043288.151112.17600562636595871953.b4-ty@kernel.org>
-Date: Thu, 04 May 2023 12:20:32 +0900
+Message-Id: <168317344974.155442.12857842090912064660.b4-ty@kernel.org>
+Date: Thu, 04 May 2023 13:10:49 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: YM6XNOX5JEB2TT5YCRXNUJFSUPJ2B7JX
+X-Message-ID-Hash: YM6XNOX5JEB2TT5YCRXNUJFSUPJ2B7JX
 X-MailFrom: broonie@kernel.org
-X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: D2ZV6MMHEFCAV5BILG4HSZNO5DDRVHHR
-X-Message-ID-Hash: D2ZV6MMHEFCAV5BILG4HSZNO5DDRVHHR
-X-Mailman-Approved-At: Thu, 04 May 2023 06:29:39 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 CC: stable@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Patrick Lai <quic_plai@quicinc.com>,
@@ -91,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D2ZV6MMHEFCAV5BILG4HSZNO5DDRVHHR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YM6XNOX5JEB2TT5YCRXNUJFSUPJ2B7JX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

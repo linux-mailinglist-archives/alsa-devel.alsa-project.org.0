@@ -2,91 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646166F628D
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 03:10:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29D926F650A
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 08:30:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10C431725;
-	Thu,  4 May 2023 03:10:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10C431725
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B2771860;
+	Thu,  4 May 2023 08:29:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B2771860
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683162656;
-	bh=eJ5QldeycIa2NTUjoWTmraq9o+Jc5QK64BWRMRqmYoE=;
-	h=Date:From:To:Subject:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Qvdsi9R8hEbh+QtUAgdBGgCpCXsWTUzfB/yuPSHfySHvC6twbr+59FfSPUfC+c1nc
-	 FzMtOUT3UHJB1WA23iSxwKDdAnq8REJt8hRGkd2LfvJP1JQUtT5xdDTijhVtxJ0nEY
-	 OP+5v/Q7ikXVCV8x6tJJf1ZCdfRwCWHPAPvt3TPw=
+	s=default; t=1683181847;
+	bh=b54NE5I89A3lhMM6mWdX+VclYU5RjljTIR3b1SP852c=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=iKXmHl/aM7iOxIip9JeGYcBgn3hBukr/r6ywt0E2j6OKBiE2f633EeRmwGLM5oiSZ
+	 8Iuw5qQG0zrH1DadkVpNH2BgM6R4BvxnQuGKRKg8inPqBUvKVOLohDlzAbSr2dtGrB
+	 Ej+6/hN8jn0bxFM3xya7Pp65dvYPQqpO9/Ay9tnI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59023F80114;
-	Thu,  4 May 2023 03:10:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55E49F8052E;
+	Thu,  4 May 2023 08:29:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE646F8049E; Thu,  4 May 2023 03:10:02 +0200 (CEST)
+	id 45145F804B1; Thu,  4 May 2023 05:20:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+X-Spam-Status: No, score=-2.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,FROM_ADDR_WS,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0D5BF80114;
-	Thu,  4 May 2023 03:09:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0D5BF80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id C4684F80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 05:20:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4684F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=X0b442MX
+ header.s=k20201202 header.b=dyyhnuLU
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id EB3D262F92;
-	Thu,  4 May 2023 01:09:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36FBC433EF;
-	Thu,  4 May 2023 01:09:50 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5C4E761011;
+	Thu,  4 May 2023 03:20:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DFEC433EF;
+	Thu,  4 May 2023 03:20:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683162591;
-	bh=eJ5QldeycIa2NTUjoWTmraq9o+Jc5QK64BWRMRqmYoE=;
-	h=Date:From:To:Cc:Subject:From;
-	b=X0b442MXlGtWVUi5jULE0Huux8t4dvI514DxSEwsRfLJoPmcKyVofn+u22gEoUi1B
-	 6Q25oo9hZ6B5I1jZYfYqnvCV4hcOcl1xMhUdKNUHhMPMvhdo5w4tjK3+SzrDC+/rDa
-	 ZGUOzAMxxa4DUJwnGgtBTIShPSaF/ECIZyTo6PA+UBqhY6zabu7G2Z+hIWF2/Ghs2I
-	 AgXT6z1n48VsN1/2bBWDftUBrBZErNISlLOuwPl6U0ZGoL4k0AwMyc2YGDd4rPnCMj
-	 pABplT6FgW6NtmkM+ujIgSR7/y8qI7Nc9GP+mPX5+AWbyeZWoW6L1IS/i9TXb4QqxD
-	 zNGQjJ5T3jAtg==
-Date: Thu, 4 May 2023 10:09:45 +0900
-From: Mark Brown <broonie@kernel.org>
-To: postmaster@alsa-project.org, sound-open-firmware-owner@alsa-project.org,
-	perex@perex.cz, tiwai@suse.de
-Subject: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC: mediatek:
- mt8195-afe-pcm: Simplify runtime PM during probe]
-Message-ID: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+	s=k20201202; t=1683170428;
+	bh=b54NE5I89A3lhMM6mWdX+VclYU5RjljTIR3b1SP852c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=dyyhnuLU7pFJ1XVdfpjlzBM5Mxtq8K7PoXCGz7pojsdFtzzh6balilcfPSkYHYDAZ
+	 DVfX6AT7NAs/3cKkn40orwrXy45FWa7DFZlIrZt8vSJgLKol2Nraoz8ew/UgVyqIYe
+	 JFFc9vhKWSVu02EONECZcqVfDlZRcJpmphT7AnLaI3tWDCtDCgYTB3HR2mn4xdidTh
+	 Xa8+ebcMPELlInXcTJtRjSQ88ueaS6vASJjKN4BmeS8k++UmhSDOOE7Um+22AzCTa5
+	 rDiEgxqUUrMjsafYjobA1nN1KcRtqEA1RFc+2ubIOBDB8Y0W37mYpjQnCqidjZo53l
+	 gSDi4i3z6k9Kg==
+From: Mark@alsa-project.org, Brown@alsa-project.org,
+	broonie@kernel.org
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Andrey Rakhmatullin <wrar@wrar.name>
+In-Reply-To: <20230501185134.34591-1-wrar@wrar.name>
+References: <20230501185134.34591-1-wrar@wrar.name>
+Subject: Re: [PATCH] ASoC: amd: yc: Add Asus VivoBook Pro 14 OLED M6400RC
+ to the quirks list for acp6x
+Message-Id: <168317042537.151112.11044312649660889161.b4-ty@kernel.org>
+Date: Thu, 04 May 2023 12:20:25 +0900
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cVoURN8e43gh+mdh"
-Content-Disposition: inline
-X-Cookie: Ring around the collar.
-Message-ID-Hash: A2AKSGE5UGHUQBUM4L2TVAWJOTJSUZUY
-X-Message-ID-Hash: A2AKSGE5UGHUQBUM4L2TVAWJOTJSUZUY
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
 X-MailFrom: broonie@kernel.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- sound-open-firmware@alsa-project.org
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: J7PZERA3AFWA3N3CIFVC6G7BHYG7LCZO
+X-Message-ID-Hash: J7PZERA3AFWA3N3CIFVC6G7BHYG7LCZO
+X-Mailman-Approved-At: Thu, 04 May 2023 06:29:39 +0000
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2AKSGE5UGHUQBUM4L2TVAWJOTJSUZUY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J7PZERA3AFWA3N3CIFVC6G7BHYG7LCZO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,115 +95,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, 01 May 2023 22:51:34 +0400, Andrey Rakhmatullin wrote:
+> This is needed (and enough) to get the internal mic visible and working.
+> 
+> 
 
---cVoURN8e43gh+mdh
-Content-Type: multipart/mixed; boundary="bbQifIiVLsKaYT2j"
-Content-Disposition: inline
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
---bbQifIiVLsKaYT2j
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks!
 
-Hi,
+[1/1] ASoC: amd: yc: Add Asus VivoBook Pro 14 OLED M6400RC to the quirks list for acp6x
+      commit: 4a1b5bc73e9ce8373d50fdb8f74badd2b4bf324e
 
-Here's another mail (one of several in this series) that got completely
-mangled by the alsa-project.org mailman to the point of unusability.  I
-didn't see any response to my last mail about this, is there any news on
-fixing mailman to not do this?  It's extremely disruptive to working
-with lore.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
 Mark
 
---bbQifIiVLsKaYT2j
-Content-Type: message/rfc822
-Content-Disposition: inline
-
-Subject: [PATCH 3/5] ASoC: mediatek: mt8195-afe-pcm: Simplify runtime PM
- during probe
-From: AngeloGioacchino Del Regno via Alsa-devel <alsa-devel@alsa-project.org>
-Date: Wed, 03 May 2023 13:34:11 +0200
-Message-Id: <168311377075.26.14919941665402646886@mailman-core.alsa-project.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-
-Use devm_pm_runtime_enable() and pm_runtime_resume_and_get() to
-to simplify the probe function.
-
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-index 9e45efeada55..a54c16e0aa05 100644
---- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-@@ -3179,16 +3179,16 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
- 
- 	mt8195_afe_parse_of(afe, pdev->dev.of_node);
- 
--	pm_runtime_enable(dev);
--	if (!pm_runtime_enabled(dev)) {
--		ret = mt8195_afe_runtime_resume(dev);
--		if (ret)
--			return ret;
--	}
--
- 	/* enable clock for regcache get default value from hw */
- 	afe_priv->pm_runtime_bypass_reg_ctl = true;
--	pm_runtime_get_sync(dev);
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to resume device\n");
- 
- 	afe->regmap = devm_regmap_init_mmio(&pdev->dev, afe->base_addr,
- 					    &mt8195_afe_regmap_config);
-@@ -3238,7 +3238,10 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
- 
- 	mt8195_afe_init_registers(afe);
- 
--	pm_runtime_put_sync(dev);
-+	ret = pm_runtime_put_sync(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to suspend device\n");
-+
- 	afe_priv->pm_runtime_bypass_reg_ctl = false;
- 
- 	regcache_cache_only(afe->regmap, true);
-@@ -3248,7 +3251,6 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
- 
- err_pm_put:
- 	pm_runtime_put_sync(dev);
--	pm_runtime_disable(dev);
- 
- 	return ret;
- }
--- 
-2.40.1
-
---bbQifIiVLsKaYT2j--
-
---cVoURN8e43gh+mdh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRTBdgACgkQJNaLcl1U
-h9DEhwf+IyUedH7iVv1hknTeNHkwqwExWNn8Cm3+LC1hVFbyxZ7csTPIL+a4V4UO
-pVgg5asB9PQGj6d3kCLoCpO9QebO99N/8xIv+mL1RcS89f25mLQGd3Nejkk0X9jf
-5T11JsLwkMl0K/OiDmolj7BsFSxYn79zVA1kAttAkMwE5GED2axO8g536PlNvWmu
-Ls4h9YrFgDluLTbiUW5244KSscJRC9jLYKRezZxq64XZ3UQHwkE2m//FK83d5OXg
-BZBZ7yB9SgP0paolZH0Da+csf6XI0NTzSA7nqMAMAKh3LwcDC0PpUAMZIlLB5xMX
-F0RY7HAlsoaOZ26zer+UuV9I2DjSpQ==
-=Xekk
------END PGP SIGNATURE-----
-
---cVoURN8e43gh+mdh--

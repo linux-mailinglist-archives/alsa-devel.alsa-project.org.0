@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6C1D6F63EE
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 06:13:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D6E6F6402
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 06:23:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C789C176C;
-	Thu,  4 May 2023 06:12:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C789C176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 399B41742;
+	Thu,  4 May 2023 06:22:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 399B41742
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683173618;
-	bh=sVrLPmzQDxx2YHWQ4ndV2++TdlJIKWvNV5OVPHXrFPQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	s=default; t=1683174229;
+	bh=exMwIMNf2HDjkzVg/vgc5dShzanK1eETk2nuIq0YR4U=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=W2GiHQFtp/Wtl/givEvxpU/DwsCFkaV7SqYymZ0fID/QPVgOgpO5TF59lthY/GlAI
-	 Ca0tRgWQsP0tZS7jNQU/8citzrW3aW1qaB3xUEqH0H+J/pqN9ttB/lf81xcQsh668A
-	 apPIEoUlAxGDBaN6W+POfZXQAJDArWO4zwgcRLxY=
+	b=IQ9BXl0eF0hLPFSLInAngvjWVfQ8rUwoyg0b3XHM8u6w+7tapm+g9MICXRwA7IN8V
+	 ht2GT1hSDnW5xPUI+ycWQUi+UfRMwKlE2rlJ+Yz1epI36gYgPRhYU49TCQD49NB2LS
+	 QlFJ+/6dJeJenS/ix39B6pIZcYnDLZQ3zcYYxf1w=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF5B3F8052E;
-	Thu,  4 May 2023 06:11:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 967D0F8032B;
+	Thu,  4 May 2023 06:22:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5DE3F8049E; Thu,  4 May 2023 06:11:02 +0200 (CEST)
+	id 64883F8049E; Thu,  4 May 2023 06:22:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,48 +33,48 @@ X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6E88DF8032B
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 06:10:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E88DF8032B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 33F91F80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 06:22:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33F91F80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VShnAdjx
+ header.s=k20201202 header.b=jgh8mT0T
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 359FC6317B;
-	Thu,  4 May 2023 04:10:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FDEC433EF;
-	Thu,  4 May 2023 04:10:54 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 37FE061CE2;
+	Thu,  4 May 2023 04:22:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099C0C4339B;
+	Thu,  4 May 2023 04:22:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683173455;
-	bh=sVrLPmzQDxx2YHWQ4ndV2++TdlJIKWvNV5OVPHXrFPQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=VShnAdjxE2/1fReQf2d9pl0Qsh2mqT0ZeqK6nn0pALXULSqCNyAysYB2KJUI4nV0q
-	 wSpFDeXkzd7uxD5x+jMIjVfaKUn88RZ57x0rBqICN7pW2lW4Id73eLDjLeNAz5MS2j
-	 eVdknOboP2ybGaV/dEdzRcK6y5+8gFWeev308QjNyXXXaqx8FE0WVyK4A6jTm8zXRG
-	 AQ2HrnjMUogKw23Ie9e4psPC0jiAQ8nJtdYcXUSzsFwUibFluZ3G52r7zFKmKZcxwZ
-	 8AQBdPtG2h2d40cmRKN7B9J6w283EsqDT+B7UHRv24r8nFQzmVGwK/3UJks8+DzLPa
-	 /BNYFQ1jcwubA==
+	s=k20201202; t=1683174158;
+	bh=exMwIMNf2HDjkzVg/vgc5dShzanK1eETk2nuIq0YR4U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jgh8mT0T+ZMEbVlQoIlMMBE1QVmWnOJAFahVVZciUWMhNUg3ZRHkjjaSYRgY/XH9N
+	 ef5K4JrGKaf35pfRsGUJK8cETAbMXc6PwcEff+r2lBqrMXELs8UyS4Sn4jJMWdQLsu
+	 zX3tji7xrPc3zc975Ypo5p98mZ3cbFmffE0hZwvaWqnRgsoIkr3PUJPoMS1aqMEnRa
+	 2Hc2qS8eCJcic27uXj+zeBLGnMCQbubrC+EVF/oyJcRL+z+vqYOq7t2s0eQJgJdPsI
+	 WXMtcYuGz7Rz1SNiQXm+ft8wTKolVoelR0muPCY9093DcTsCwCakJyUxM11L9KQjBM
+	 op6Y33zA3Dp+Q==
+Date: Thu, 4 May 2023 13:22:35 +0900
 From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20230429104721.7176-1-hdegoede@redhat.com>
-References: <20230429104721.7176-1-hdegoede@redhat.com>
-Subject: Re: [PATCH] ASoC: Intel: soc-acpi-cht: Add quirk for Nextbook Ares
- 8A tablet
-Message-Id: <168317345397.155442.10043087191778048606.b4-ty@kernel.org>
-Date: Thu, 04 May 2023 13:10:53 +0900
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH 1/4] dt-bindings: sound: Add simple-iio-aux
+Message-ID: <ZFMzC7OBrcL9l5AH@finisterre.sirena.org.uk>
+References: <20230421124122.324820-1-herve.codina@bootlin.com>
+ <20230421124122.324820-2-herve.codina@bootlin.com>
+ <20230425173029.GA1967523-robh@kernel.org>
+ <20230426093621.3834e703@bootlin.com>
+ <5bcb2741-9212-f1aa-335b-6bc4b6fad448@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: EKYZLUYAN5QQJF3NWUS5PQUYOR42Y4AT
-X-Message-ID-Hash: EKYZLUYAN5QQJF3NWUS5PQUYOR42Y4AT
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gAqgDYGpNO6m8hZu"
+Content-Disposition: inline
+In-Reply-To: <5bcb2741-9212-f1aa-335b-6bc4b6fad448@linaro.org>
+X-Cookie: Avoid contact with eyes.
+Message-ID-Hash: FDFJENSW4GTJOVH6TTDISJEDADDZ7N6D
+X-Message-ID-Hash: FDFJENSW4GTJOVH6TTDISJEDADDZ7N6D
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -82,13 +82,20 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
+CC: Herve Codina <herve.codina@bootlin.com>, Rob Herring <robh@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EKYZLUYAN5QQJF3NWUS5PQUYOR42Y4AT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FDFJENSW4GTJOVH6TTDISJEDADDZ7N6D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,41 +104,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 29 Apr 2023 12:47:21 +0200, Hans de Goede wrote:
-> The Nextbook Ares 8A tablet which has Android as factory OS, has a buggy
-> DSDT with both ESSX8316 and 10EC5651 ACPI devices.
-> 
-> This tablet actually uses an rt5651 codec, but the matching code ends up
-> picking the ESSX8316 device, add a quirk to ignote the ESSX8316 device
-> on this tablet.
-> 
-> [...]
 
-Applied to
+--gAqgDYGpNO6m8hZu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, May 02, 2023 at 09:26:32AM +0200, Krzysztof Kozlowski wrote:
+> On 26/04/2023 09:36, Herve Codina wrote:
+> > Rob Herring <robh@kernel.org> wrote:
+> >> On Fri, Apr 21, 2023 at 02:41:19PM +0200, Herve Codina wrote:
 
-Thanks!
+> >>> simple-iio-aux allows to consider these Industrial I/O devices as
+> >>> auxliary audio devices. =20
 
-[1/1] ASoC: Intel: soc-acpi-cht: Add quirk for Nextbook Ares 8A tablet
-      commit: ec6f82b4c63cc68f8dc03316e725106d242706be
+> >> What makes it simple? Any binding called simple or generic is a trigge=
+r=20
+> >> for me. Best to avoid those terms. :)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> > I choose simple-iio-aux because some simple-* already exists.
+> > For instance simple-audio-amplifier or simple-audio-mux.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> > Do you prefer audio-iio-aux ?
+> > Let me know if I should change.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> It means that often what people call "simple" and "generic" works only
+> for their specific case, because it is not really simple and generic.
+> After some time the "simple" and "generic" becomes "complicated" and
+> "huge". Conclusion: sometimes simple and generic bindings are bad idea
+> and you should have something specific.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> Your description in the binding also does not help to match it to
+> specific, real device. Provide the examples, as Rob asked.
 
-Thanks,
-Mark
+I don't understand what you are looking for here.  IIO is a subsystem
+which represents generic DACs and ADCs (along with other I/O things).
+Audio devices also have DACs and ADCs, somewhat specialised for use in
+audio but more limited by specs and interfaces than by anything
+fundamental.  The goal here is to map DACs and ADCs described as IIO for
+use in an audio context.
 
+ADCs are devices that convert analog signals into digital values, DACs
+are devices that convert digital values into analog signals.
+
+> >> How do support multiple instances? Say you have 2 sound cards (or 1=20
+> >> sound card with multiple audio paths) each with different sets of IIO=
+=20
+> >> channels associated with it. You'd need a link to each 'aux' node. Why=
+=20
+> >> not just add io-channels to the sound card nodes directly? That's=20
+> >> already just a virtual, top-level container node grouping all the=20
+> >> components. I don't see why we need another virtual node grouping a=20
+> >> subset of them.
+
+> > I don't see what you mean.
+> > I use a simple-audio-card and here is a full example using several
+> > instances:
+
+> Just like Rob said: "You'd need a link to each 'aux' node"
+
+> and you did it...
+
+> So now the rest of Rob's answer:
+
+> "Why not just add io-channels to the sound card nodes directly? That's
+> already just a virtual, top-level container node grouping all the
+> components. I don't see why we need another virtual node grouping a
+> subset of them."
+
+> Why do you need another node if it is not really representing a real,
+> separate device?
+
+If nothing else I would expect it to be useful from a comprehensibility
+point of view to bundle multiple IIO devices into a single multi-channel
+audio stream, an individual IIO device is likely to only present a
+single channel of data but it is common to group multiple channels of
+audio data.
+
+--gAqgDYGpNO6m8hZu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRTMwkACgkQJNaLcl1U
+h9CpIgf8DGHa33KFaEBu9orPEvy62t4yb0j+p3Xoar2zISlY832/jm9hk/8oYSdy
+etd75hsgD7l1/K6l08YwHxuJX07geLoyEnyUakiEi+w4rZVBJ8z/Vj+XN2lV6eq8
+VJwUq+kvpY63mjLQodrOLSH9ixNk24ab28aU5CWrw9qUPKfTSLIJLoh9ZkH081eL
+nBl+himFtVaWSmQ4+6l9lDNy4VJianGJ6cQI/66k9H0/LMIvj/HGo4DFbCSGzIRu
+ZXukxdcZCuH8mI9jHPglgmvaYkjyaAmEW3/89b8F/0lOtOpsoDWjAqWhMJhcphhH
+XjquUq/o3sVr1uXMMKdl3fmfUnNhDQ==
+=PI/4
+-----END PGP SIGNATURE-----
+
+--gAqgDYGpNO6m8hZu--

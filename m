@@ -2,89 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3CA6F6C61
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 14:51:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FFD56F6C68
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 14:52:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4F7C21BE;
-	Thu,  4 May 2023 14:50:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4F7C21BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CFAF21ED;
+	Thu,  4 May 2023 14:51:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CFAF21ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683204700;
-	bh=MxgEs/GzsVB7WZOqXAmFEVCgcruFbbjrFwApm8C6NZI=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=XYd4uJtWlzA55aYfuZ4IXnASwFS31wisc1Vq7HBAAfvCFYuqZPlyaFZCKN4BIycV+
-	 otx8CEyhOYWce+A91ALb14ze4Kt4ZcmLRezwCOdIJSs+/lRQn2wpz+UKgzN7eZygjO
-	 2isAy/FYJyv5G6pXDM9hAHS0PvvFFmhFWp/j2hkM=
+	s=default; t=1683204751;
+	bh=cN59kpBlRfCGTd+cOmKcTTtTefW9Vv9/Ke5wrmUylGg=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=HmDYoQy7KaE2lc6dfHTX8ghqKP0AVOPkHofK4I3LmM21E75B7o5xiffY7iUIDo8Zr
+	 9/qz6M4k7AAtUpHvJSm64qrkRt235f/eP3vuok/rOoSXzGVdrm10BA5Vxl2MgmdRo3
+	 22AESJoSPE2JOYXMywkJ4as0LOmOWeTf+5sE+7Ps=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18FD3F80520;
+	by alsa1.perex.cz (Postfix) with ESMTP id A70D2F80529;
 	Thu,  4 May 2023 14:50:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71098F8052E; Thu,  4 May 2023 14:50:44 +0200 (CEST)
+	id 9CC0FF8052D; Thu,  4 May 2023 14:50:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F029EF80114
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 14:50:36 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C2D3D11E7;
-	Thu,  4 May 2023 14:50:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C2D3D11E7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1683204635; bh=/XTriyDwjp3UvA7ORDvIjhf6kGmAe6UslfVjHjjphJc=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=LKihB8bebSU8ejuGORFsGq6GoLH3NkDQuPcdvAQrOlzwJpuvNZ7Iqu246zEZRTcag
-	 vhBwaDp9WmzlESNs2MwxrZSXmSgAhoJCQfbltlvIasPolybgv/Vyax1Rta0dl8CZba
-	 qJcL36AuiH/Vyx9FwryzXVKrzAGPvj1jbzttKBx8=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5AABFF80520
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 14:50:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AABFF80520
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=mp1opBgN;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=trHj9aFe
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Thu,  4 May 2023 14:50:33 +0200 (CEST)
-Message-ID: <3a20cc56-f9e8-a5b1-9cd4-d2fd83ecf999@perex.cz>
-Date: Thu, 4 May 2023 14:50:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: How to mix multiple pcm capture stream into one and save to wav
- file as if it's from one single multi channel alsa card device
-Content-Language: en-US
-To: semiydsemiyd@163.com, alsa-devel@alsa-project.org
-References: <168257479762.20.3215919601496636554@mailman-web.alsa-project.org>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: 
- <168257479762.20.3215919601496636554@mailman-web.alsa-project.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: MD7OIDLQSPSCQB5EUOWUE7BUTZJHTYAM
-X-Message-ID-Hash: MD7OIDLQSPSCQB5EUOWUE7BUTZJHTYAM
-X-MailFrom: perex@perex.cz
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A47BB339FB;
+	Thu,  4 May 2023 12:50:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1683204637;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4ddgO8bMnVjfhP/Xt0SAUhl7ykzin5InbQxnCKhzNJI=;
+	b=mp1opBgNueV3UxaEhxC+6pXMU5bFGoiqRag2Lwizho0AEMldtbPduHlYve3S+wqc1lOp6Z
+	YWiYBc+yN/R2fHwhT/ITj5CkbVSNCx3vNwGaf43BVi4sev0Lz+zwf5hZvKdyWiJnAM+wyI
+	1vTvXk+JfwAazesWvXLv42sjMkkkSOA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1683204637;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4ddgO8bMnVjfhP/Xt0SAUhl7ykzin5InbQxnCKhzNJI=;
+	b=trHj9aFeGVlM4r11eTKN/J+FgIJc7Vcf5lTuiyLrgvqx/5GUEonr7RRijV7otG6QKMffJH
+	nn5HR7GvAgJpwwCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8774D133F7;
+	Thu,  4 May 2023 12:50:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id yHg3IB2qU2T2SQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 04 May 2023 12:50:37 +0000
+Date: Thu, 04 May 2023 14:50:36 +0200
+Message-ID: <87jzxol0pv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH alsa-lib 3/4] pcm: hw: introduce
+ SNDRV_PCM_INFO_PERFECT_DRAIN
+In-Reply-To: <4ed7d609-7189-b08b-50da-81055e70c589@perex.cz>
+References: <20230502115010.986325-1-perex@perex.cz>
+	<20230502115010.986325-4-perex@perex.cz>
+	<87a5ykmrw7.wl-tiwai@suse.de>
+	<4ed7d609-7189-b08b-50da-81055e70c589@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 4AG3QI432Q5WNSDGDA46ASIRDK77DVEY
+X-Message-ID-Hash: 4AG3QI432Q5WNSDGDA46ASIRDK77DVEY
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: ALSA development <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MD7OIDLQSPSCQB5EUOWUE7BUTZJHTYAM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4AG3QI432Q5WNSDGDA46ASIRDK77DVEY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,56 +118,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 27. 04. 23 7:53, semiydsemiyd@163.com wrote:
-> Hi
+On Thu, 04 May 2023 10:31:50 +0200,
+Jaroslav Kysela wrote:
 > 
-> I have 8 alsa capture devices for one card.
-> Each capture device support 1 channel only:
+> On 04. 05. 23 10:18, Takashi Iwai wrote:
+> > On Tue, 02 May 2023 13:50:09 +0200,
+> > Jaroslav Kysela wrote:
+> >> 
+> >> The driver may not require to touch the sample stream
+> >> for the drain operation at all. Handle this situation
+> >> in alsa-lib.
+> >> 
+> >> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> > 
+> > Ideally speaking, the checks and the setups of those new bits should
+> > be coupled with the PCM protocol version check (and the version
+> > bump).
+> > 
+> > But it seems that you've already applied the series, and practically
+> > seen, those bits should be either not set or harmless, so let's cross
+> > fingers.
 > 
-> root@light-a-val:~# arecord -l
-> **** List of CAPTURE Hardware Devices ****
-> card 0: LightSoundCard [Light-Sound-Card], device 0: light-tdm-dai-slot1-ES7210 ADC 0 es7210.5-0042-1 [light-tdm-dai-slot1-ES7210 ADC 0 es7210.5-0042-1]
->    Subdevices: 1/8
->    Subdevice #0: subdevice #0
-> card 0: LightSoundCard [Light-Sound-Card], device 1: light-tdm-dai-slot2-ES7210 ADC 0 es7210.5-0042-1 [light-tdm-dai-slot1-ES7210 ADC 0 es7210.5-0042-1]
->    Subdevices: 2/8
->    Subdevice #1: subdevice #1
-> ...
-> card 0: LightSoundCard [Light-Sound-Card], device 7: light-tdm-dai-slot8-ES7210 ADC 1 es7210.5-0042-1 [light-tdm-dai-slot1-ES7210 ADC 0 es7210.5-0042-1]
->    Subdevices: 8/8
->    Subdevice #7: subdevice #7
-> 
-> the signal comes in TDM format from external codec ES7210 to my soc's TDM controller.
-> each capture device has 1 channel that correspond to one of the slot in TDM. i have 8 TDM slots in configuration. so i have 8 devices in total.
-> 
-> 
-> the reason that i have so many capture devices with 1 channel each is that, our tdm IC design decides that each tdm slot data_register would be assigned a
-> dedicated dma channel. this is quite uncommon. thus i have 8 dma channels for 8 tdm slots.
-> since i can only register one rx dma channel and one tx using devm_snd_dmaengine_pcm_register().
-> like:
-> struct dmaengine_pcm {
-> 	struct dma_chan *chan[SNDRV_PCM_STREAM_LAST + 1];    // there can be only one tx + one rx dma for struct dmaengine_pcm
-> 	...
-> };
-> i have to register like 8 times to create 8 devices.
-> the dts for the cpu dai driver for tdm slot1 would look like:
-> 		tdm: audio_tdm@0xffcb000000 {
-> 			#sound-dai-cells = <0>;
-> ...
-> 			dmas = <&dmac2 31>;
-> 			dma-names = "rx";
-> ...
-> 		};
-> 
-> now...i want to open all the devices at the same time. and have them save to one single wav file. As if i'm opening one single alsa capture device with  8 channels.
-> the saved wav file should look something like this (take this 8 channel wav file for example)
+> Exactly, the current kernel code should skip those new flags, so they
+> are used in alsa-lib only. It's just something like a "reservation"
+> for the kernel space until things are really used there. We can bump
+> the protocol version later (perhaps with other changes).
 
-You may use the multi plugin from alsa-lib, just google "alsa multi plugin" 
-for details.
+If you'd like to include the new drain stuff in ALSA 1.2.9 release, we
+can take the uapi change to 6.4-rc1, too.  But then let's bump the PCM
+protocol version along with it.
 
-				Jaroslav
+So, if you think it's worth aligning with 6.4-rc1, let me know ASAP.
+I planned the submission to Linus in tomorrow, and I'd need to prepare
+and merge the uapi updates soon.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
+thanks,
+
+Takashi

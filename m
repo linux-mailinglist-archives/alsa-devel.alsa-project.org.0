@@ -2,118 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4673C6F64CC
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 08:16:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B3726F6558
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 08:55:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49FAC173D;
-	Thu,  4 May 2023 08:15:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49FAC173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D712217E8;
+	Thu,  4 May 2023 08:55:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D712217E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683180973;
-	bh=zeDgvbZBNeBWNr0Vyc0mh32TNRQLSYl9hCqDt2gsAQc=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1683183350;
+	bh=w/zLzOdtXHjlrcBr+NO3nfrPtCgxraj0WgjEOA4vJPE=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HUqRjaGeCJOF49V1ruKebDz+MwDsabTPReB1C0iE/ooScTB2z8vxBs4XJKjpLedlX
-	 KOKhkekKj2hugRo1WnYWcri0ceZqHoVYB08ZHLOMT2TVRAiOSC24FezXMmGBNw9uuT
-	 7rSu3GLaAqMJAi8p4JMTowUy2uhW2f0o5B3V/LnQ=
+	b=XrgcGzFtLmEWokQ6pI0WnpnN+nXOwoAWlqPMm6kVRrOeph+iKZhNPHxsQNQMtWoRe
+	 vzYvkKSGD43pcB2bpGGErS8CFcimd1DxtL7cE2vPIyqrUEpj0UlQT2AnOvgPaUEfYf
+	 NUaAGiIS4S2uH+JgFJloz/0fg2jLMTPhOVByjhT4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24028F8032B;
-	Thu,  4 May 2023 08:15:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33B5CF8032B;
+	Thu,  4 May 2023 08:55:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9E9DF8049E; Thu,  4 May 2023 08:15:17 +0200 (CEST)
+	id CDBF5F8049E; Thu,  4 May 2023 08:54:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 402E6F80114
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 08:15:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 402E6F80114
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=BXV8Qdqy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=/fYfg4UA
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BE1EE208FE;
-	Thu,  4 May 2023 06:15:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1683180909;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d0sfME+PPZ5V5RFQCvfOfX+BHGbYKlu9VTktkJ7gxMU=;
-	b=BXV8QdqyhL+5kaPtttVPSi8CPQYetVaPlbq4eJYMMaXbH+ITomk8BPJViddT5nyviPzmf9
-	EZFur6SewI/FIE6QjPb6t9ZI+vbnF5Y8P8t4EL14nGHFEI1I9X/eOg3kUVNu5/DFHljGuz
-	dtjOjKG2/XufJARI5DrtQmXq1WKFRaQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683180909;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d0sfME+PPZ5V5RFQCvfOfX+BHGbYKlu9VTktkJ7gxMU=;
-	b=/fYfg4UAJeiaOrTtwcq5d0o7z64GBeEudmhkv8euCcn7QhTVJJFPYTxxiKfNHk7nXZTl7a
-	S5j81fAFCrirplDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 967EC139C3;
-	Thu,  4 May 2023 06:15:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id Nn1nI21NU2TvaQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 04 May 2023 06:15:09 +0000
-Date: Thu, 04 May 2023 08:15:09 +0200
-Message-ID: <87ttwsmxle.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: linux-6.4 alsa sound broken
-In-Reply-To: <ZFK9ZSm34Z3hQPF4@ugly>
-References: 
- <CAAJw_ZsbTVd3Es373x_wTNDF7RknGhCD0r+NKUSwAO7HpLAkYA@mail.gmail.com>
-	<ZE9ngFLRqLkN6faH@ugly>
-	<87wn1pmm4d.wl-tiwai@suse.de>
-	<7b80ef1e-23dd-c523-0663-4bf311c1823a@perex.cz>
-	<ZFK9ZSm34Z3hQPF4@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: CN4JUP5N5OTLD7B6WPJFBTYGCCNHV5SG
-X-Message-ID-Hash: CN4JUP5N5OTLD7B6WPJFBTYGCCNHV5SG
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No,
+ score=-9.3 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
+	by alsa1.perex.cz (Postfix) with ESMTP id 21D28F80137
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 08:54:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21D28F80137
+Received: from [192.168.178.88] (p57bc9658.dip0.t-ipconnect.de
+ [87.188.150.88])
+	by mail.bugwerft.de (Postfix) with ESMTPSA id 7F2DA28054E;
+	Thu,  4 May 2023 06:54:49 +0000 (UTC)
+Message-ID: <81a2e61f-5b30-06c9-6773-70c89c836fa7@zonque.org>
+Date: Thu, 4 May 2023 08:54:24 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH] sound: caiaq: input: Add error handling for unsupported
+ input methods in `snd_usb_caiaq_input_init`
+To: Ruliang Lin <u202112092@hust.edu.cn>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Karsten Wiese <fzu@wemgehoertderstaat.de>
+References: <20230504065054.3309-1-u202112092@hust.edu.cn>
+Content-Language: en-US
+From: Daniel Mack <daniel@zonque.org>
+In-Reply-To: <20230504065054.3309-1-u202112092@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: EBCS2LP5KKNZZPBTCAG33D3JWSSDGS4V
+X-Message-ID-Hash: EBCS2LP5KKNZZPBTCAG33D3JWSSDGS4V
+X-MailFrom: daniel@zonque.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Jeff Chua <jeff.chua.linux@gmail.com>,
- lkml <linux-kernel@vger.kernel.org>, Bagas Sanjaya <bagasdotme@gmail.com>,
- ALSA development <alsa-devel@alsa-project.org>
+CC: hust-os-kernel-patches@googlegroups.com, Dongliang Mu <dzm91@hust.edu.cn>,
+ Jaroslav Kysela <perex@suse.cz>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CN4JUP5N5OTLD7B6WPJFBTYGCCNHV5SG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EBCS2LP5KKNZZPBTCAG33D3JWSSDGS4V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,62 +79,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 03 May 2023 22:00:37 +0200,
-Oswald Buddenhagen wrote:
+On 5/4/23 08:50, Ruliang Lin wrote:
+> Smatch complains that:
+> snd_usb_caiaq_input_init() warn: missing error code 'ret'
 > 
-> On Wed, May 03, 2023 at 09:32:02PM +0200, Jaroslav Kysela wrote:
-> > On 03. 05. 23 18:10, Takashi Iwai wrote:
-> >> The dmix uses the silence_size=boundary as a fill-all operation, and
-> >> it's a free-wheel mode, so supposedly something was overlooked in your
-> >> code refactoring.
-> >> 
-> >> Could you check it and address quickly?  I'd like to fix it before
-> >> 6.4-rc1 release, so if no fix comes up in a couple of days, I'll have
-> >> to revert the change for 6.4-rc1.
-> > 
-> > I would revert this patch.
+> This patch adds a new case to handle the situation where the 
+> device does not support any input methods in the 
+> `snd_usb_caiaq_input_init` function. It returns an `-EINVAL` error code 
+> to indicate that no input methods are supported on the device.
 > 
-> > It seems that this "do silence right after the playback is finished"
-> > mechanism is not handled in the updated code (and I overlooked that,
-> > too):
-> > 
-> no, there is nothing wrong with the code _per se_.
->
-> what's happening is that the dmix plugin doesn't update the
-> application pointer, and somehow gets away with it.
+> Fixes: 523f1dce3743 ("[ALSA] Add Native Instrument usb audio device support")
+> Signed-off-by: Ruliang Lin <u202112092@hust.edu.cn>
+> Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
+
+Acked-by: Daniel Mack <daniel@zonque.org>
+
+
+
+> ---
+> The issue is found by static analyzer. The patched code has passed
+> Smatch checker, but remains untested on real device.
+> ---
+>  sound/usb/caiaq/input.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> that means that it would have never worked with thresholded silencing
-> mode, either, but, well, it uses top-up mode.
+> diff --git a/sound/usb/caiaq/input.c b/sound/usb/caiaq/input.c
+> index 1e2cf2f08eec..84f26dce7f5d 100644
+> --- a/sound/usb/caiaq/input.c
+> +++ b/sound/usb/caiaq/input.c
+> @@ -804,6 +804,7 @@ int snd_usb_caiaq_input_init(struct snd_usb_caiaqdev *cdev)
+>  
+>  	default:
+>  		/* no input methods supported on this device */
+> +		ret = -EINVAL;
+>  		goto exit_free_idev;
+>  	}
+>  
 
-Well, the code made just a wrong interpretation for the behavior with
-silence_size == boundary.  This mode is actually a kind of tailored
-operation for dmix.
-
-In the description of alsa-lib snd_pcm_sw_params_set_silence_size(),
-you can find it:
-
-/**
- * \brief Set silence size inside a software configuration container
- * \param pcm PCM handle
- * \param params Software configuration container
- * \param val Silence size in frames (0 for disabled)
- * \return 0 otherwise a negative error code
- *
- * A portion of playback buffer is overwritten with silence when playback
- * underrun is nearer than silence threshold (see 
- * #snd_pcm_sw_params_set_silence_threshold)
- *
- * The special case is when silence size value is equal or greater than
- * boundary. The unused portion of the ring buffer (initial written samples
- * are untouched) is filled with silence at start. Later, only just processed
- * sample area is filled with silence. Note: silence_threshold must be set to zero.
- */
-
-So, the "top-up" silencing happens only at start, but not after that.
-In the code path of hw_ptr update, it doesn't check the appl_ptr any
-longer, but fills the processed area by the hw_ptr update with
-silence.  That's the intended behavior for use cases of free-wheel
-mode without appl_ptr updates like dmix.
-
-
-Takashi

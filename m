@@ -2,63 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C857E6F656A
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 09:05:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84AAC6F65E4
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 09:36:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A2371843;
-	Thu,  4 May 2023 09:04:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A2371843
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7E59186E;
+	Thu,  4 May 2023 09:35:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7E59186E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683183914;
-	bh=qAFMAmHztRK4PLx5Yt/5IO1j/RWoWPa4vUVm1tTNKJU=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=PAWXJuK4OZeJJL5RHbagAH/K1GS0pPBLf7hdmcLFXC3exgDl+oqbSZhx/FDQhYl1U
-	 /fc4D1sVdThMPMOMG//E90huG4D7v8stYs4yr8ZmbzFBPnuoSGNvsL5KBCtGPsB2aS
-	 tGck7KBWjR3iNBCAcdCqFahKsRWKC/AiABLuOlSs=
+	s=default; t=1683185807;
+	bh=wQiE8HijPuvgAPw6MOgp8hLmpwcxArUcu+cqEuQiU6o=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=NL7118mFqDX0miK7oPdrCEYgJ3oIKeZqktscDfcpUUJrBAZCta6tQYt0fG1A76YLF
+	 nfisjABaJTBGSbxsoheLmPtvmXXPNsKCqtLNFpMFt9EGKCF1QiqaOgQOrtKKCYHsP4
+	 734olhHjfYR57LRmoFh6elsNhse8rrO6IZ/gjwt8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57427F8051B;
-	Thu,  4 May 2023 09:03:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37335F80520;
+	Thu,  4 May 2023 09:35:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F269FF8049E; Thu,  4 May 2023 09:03:29 +0200 (CEST)
+	id F21BAF8052D; Thu,  4 May 2023 09:35:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E120F800EC
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 09:03:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E120F800EC
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1683183808383171558-webhooks-bot@alsa-project.org>
-References: <1683183808383171558-webhooks-bot@alsa-project.org>
-Subject: alsalib assertion using plug+dmix
-Message-Id: <20230504070329.F269FF8049E@alsa1.perex.cz>
-Date: Thu,  4 May 2023 09:03:29 +0200 (CEST)
-Message-ID-Hash: N5GLTCTO4LP2ZGLEKO4IZAUVB6QDCFUO
-X-Message-ID-Hash: N5GLTCTO4LP2ZGLEKO4IZAUVB6QDCFUO
-X-MailFrom: github@alsa-project.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9FA56F804B1;
+	Thu,  4 May 2023 09:35:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FA56F804B1
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=sH0mhAgG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=DJV4+POI
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D25382094D;
+	Thu,  4 May 2023 07:35:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1683185738;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T2BYY1tKnQWGQzdln4JHF0StAV+iWpsQU1ntRmq+P4I=;
+	b=sH0mhAgG5e2u+MqVLYuN2aShySCV/tsMyvmkgLzYt01rnchj6mz77/pYF9m4hmEjItbdVj
+	cDObaVdheRQBiXsJRlOwscl20ShJeDfmDp5hbxIK3K+3W26kF4u+3oUUvint+L0QxTJT34
+	7aTasv2lQ2dF6RUYNoaoLNWHNbeZ6+E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1683185738;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=T2BYY1tKnQWGQzdln4JHF0StAV+iWpsQU1ntRmq+P4I=;
+	b=DJV4+POIHjaJKb4AfyLxmo1BJKvr0TnLCOOmieBIbqW0SHSUQltPoTK4bZ7Vbkb2QBeOEd
+	VZmhnnF08GP0UABg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A6F8B133F7;
+	Thu,  4 May 2023 07:35:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id TRABKEpgU2RCFQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 04 May 2023 07:35:38 +0000
+Date: Thu, 04 May 2023 09:35:38 +0200
+Message-ID: <87o7n0mtv9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: perex@perex.cz
+Subject: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC: mediatek:
+ mt8195-afe-pcm: Simplify runtime PM during probe]
+In-Reply-To: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: VOAVQFB7RC7WPQ32XVCMZNO2TYQU3BRI
+X-Message-ID-Hash: VOAVQFB7RC7WPQ32XVCMZNO2TYQU3BRI
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: Mark Brown <broonie@kernel.org>, postmaster@alsa-project.org,
+ sound-open-firmware-owner@alsa-project.org, alsa-devel@alsa-project.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ sound-open-firmware@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N5GLTCTO4LP2ZGLEKO4IZAUVB6QDCFUO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VOAVQFB7RC7WPQ32XVCMZNO2TYQU3BRI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -67,213 +118,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #314 was opened from npitre:
+On Thu, 04 May 2023 03:09:45 +0200,
+Mark Brown wrote:
+> 
+> Hi,
+> 
+> Here's another mail (one of several in this series) that got completely
+> mangled by the alsa-project.org mailman to the point of unusability.  I
+> didn't see any response to my last mail about this, is there any news on
+> fixing mailman to not do this?  It's extremely disruptive to working
+> with lore.
 
-The espeak program is crashing randomly here. I've been able to isolate 
-the issue in a small test program demonstrating the crash 100% of the time, 
-ending in:
+It seems that alsa-project.org mailman re-sends the post with
+xxx@alsa-project.org address sometimes, indeed.  I don't know the
+condition, but now I noticed it while checking the pending approvals.
+Those that appeared in the list wrongly were likely the posts I
+approved without knowing them being superfluously resent ones.
 
-```
-alsa_quickcrash: pcm.c:3236: snd_pcm_area_copy: Assertion `src < dst || src >= dst + bytes' failed.
-Aborted (core dumped)
-```
+Jaroslav, could you check your mailman configuration?
 
-Here's the test code:
 
-```
-/* to compile: gcc -O2 -Wall -o alsa_quickcrash alsa_quickcrash.c -lasound */
+thanks,
 
-#include <alsa/asoundlib.h>
-#include <stdio.h>
-#include <string.h>
+Takashi
 
-#define DEVICE "test_dummy"
-#define RATE 22050
-#define CHANNELS 1
-#define FORMAT SND_PCM_FORMAT_S16_LE
-#define BUF_MS 60
-
-#define DO(x) if (x < 0) { fprintf(stderr, "%s failed\n", #x); exit(1); }
-
-int main()
-{
-	unsigned int rate = RATE;
-	snd_pcm_uframes_t frames = RATE * BUF_MS / 1000;
-	snd_pcm_t *handle;
-	snd_pcm_hw_params_t *params;
-
-	DO(snd_pcm_hw_params_malloc(&params));
-	DO(snd_pcm_open(&handle, DEVICE, SND_PCM_STREAM_PLAYBACK, 0));
-	DO(snd_pcm_hw_params_any(handle, params));
-	DO(snd_pcm_hw_params_set_access(handle, params, SND_PCM_ACCESS_RW_INTERLEAVED));
-	DO(snd_pcm_hw_params_set_format(handle, params, FORMAT));
-	DO(snd_pcm_hw_params_set_rate_near(handle, params, &rate, 0));
-	DO(snd_pcm_hw_params_set_channels(handle, params, CHANNELS));
-	DO(snd_pcm_hw_params_set_buffer_size_near(handle, params, &frames));
-	DO(snd_pcm_hw_params(handle, params));
-	DO(snd_pcm_prepare(handle));
-
-	printf("PCM config dump:\n");
-	snd_output_t *output = NULL;
-	DO(snd_output_stdio_attach(&output, stdout, 0));
-	DO(snd_pcm_dump(handle, output));
-	printf("\n");
-
-	printf("frames = %ld\n", (long)frames);
-	short data[frames * CHANNELS];
-	memset(data, 0, sizeof(data));
-
-	printf("writing whole buffer\n");
-	DO(snd_pcm_writei(handle, data, frames));
-	printf("writing whole buffer\n");
-	DO(snd_pcm_writei(handle, data, frames));
-	printf("writing whole buffer minus 1 frame\n");
-	DO(snd_pcm_writei(handle, data, frames - 1));
-
-	printf("draining audio\n");
-	DO(snd_pcm_drain(handle));
-	
-	printf("done\n");
-	DO(snd_pcm_close(handle));
-	return 0;
-}
-```
-
-Here's the corresponding .asoundrc content:
-
-```
-pcm.test_dummy {
-    type plug
-    slave.pcm "mix_dummy"
-}
-
-pcm.mix_dummy {
-    type dmix
-    ipc_key 1024
-    ipc_key_add_uid false
-    ipc_perm 0666
-    slave {
-        pcm "hw:0"
-        period_size 1024
-        buffer_size 4096
-        format "S16_LE"
-        rate 48000
-    }
-}
-```
-
-And here's the complete test output:
-
-```
-PCM config dump:
-Plug PCM: Rate conversion PCM (48000, sformat=S16_LE)
-Converter: linear-interpolation
-Protocol version: 10003
-Its setup is:
-  stream       : PLAYBACK
-  access       : RW_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 1
-  rate         : 22050
-  exact rate   : 22050 (22050/1)
-  msbits       : 16
-  buffer_size  : 1411
-  period_size  : 470
-  period_time  : 21333
-  tstamp_mode  : NONE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 470
-  period_event : 0
-  start_threshold  : 1
-  stop_threshold   : 1411
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 3177289537109884928
-Slave: Route conversion PCM (sformat=S16_LE)
-  Transformation table:
-    0 <- 0
-    1 <- 0
-Its setup is:
-  stream       : PLAYBACK
-  access       : MMAP_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 1
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 3072
-  period_size  : 1024
-  period_time  : 21333
-  tstamp_mode  : NONE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 1024
-  period_event : 0
-  start_threshold  : 2
-  stop_threshold   : 3072
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6917529027641081856
-Slave: Direct Stream Mixing PCM
-Its setup is:
-  stream       : PLAYBACK
-  access       : MMAP_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 3072
-  period_size  : 1024
-  period_time  : 21333
-  tstamp_mode  : NONE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 1024
-  period_event : 0
-  start_threshold  : 2
-  stop_threshold   : 3072
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 6917529027641081856
-Hardware PCM card 1 'HDA Intel PCH' device 0 subdevice 0
-Its setup is:
-  stream       : PLAYBACK
-  access       : MMAP_INTERLEAVED
-  format       : S16_LE
-  subformat    : STD
-  channels     : 2
-  rate         : 48000
-  exact rate   : 48000 (48000/1)
-  msbits       : 16
-  buffer_size  : 4096
-  period_size  : 1024
-  period_time  : 21333
-  tstamp_mode  : ENABLE
-  tstamp_type  : MONOTONIC
-  period_step  : 1
-  avail_min    : 1024
-  period_event : 0
-  start_threshold  : 1
-  stop_threshold   : 0
-  silence_threshold: 0
-  silence_size : 0
-  boundary     : 4611686018427387904
-  appl_ptr     : 0
-  hw_ptr       : 2734916609
-
-frames = 1411
-writing whole buffer
-writing whole buffer
-writing whole buffer minus 1 frame
-draining audio
-alsa_quickcrash: pcm.c:3236: snd_pcm_area_copy: Assertion `src < dst || src >= dst + bytes' failed.
-Aborted (core dumped)
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/314
-Repository URL: https://github.com/alsa-project/alsa-lib
+> Thanks,
+> Mark
+> Subject: [PATCH 3/5] ASoC: mediatek: mt8195-afe-pcm: Simplify runtime PM during probe
+> From: AngeloGioacchino Del Regno via Alsa-devel <alsa-devel@alsa-project.org>
+> Date: Wed, 03 May 2023 13:34:11 +0200
+> Message-Id: <168311377075.26.14919941665402646886@mailman-core.alsa-project.org>
+> MIME-Version: 1.0
+> Content-Transfer-Encoding: 7bit
+> 
+> Use devm_pm_runtime_enable() and pm_runtime_resume_and_get() to
+> to simplify the probe function.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 22 ++++++++++++----------
+>  1 file changed, 12 insertions(+), 10 deletions(-)
+> 
+> diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> index 9e45efeada55..a54c16e0aa05 100644
+> --- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> +++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+> @@ -3179,16 +3179,16 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+>  
+>  	mt8195_afe_parse_of(afe, pdev->dev.of_node);
+>  
+> -	pm_runtime_enable(dev);
+> -	if (!pm_runtime_enabled(dev)) {
+> -		ret = mt8195_afe_runtime_resume(dev);
+> -		if (ret)
+> -			return ret;
+> -	}
+> -
+>  	/* enable clock for regcache get default value from hw */
+>  	afe_priv->pm_runtime_bypass_reg_ctl = true;
+> -	pm_runtime_get_sync(dev);
+> +
+> +	ret = devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to resume device\n");
+>  
+>  	afe->regmap = devm_regmap_init_mmio(&pdev->dev, afe->base_addr,
+>  					    &mt8195_afe_regmap_config);
+> @@ -3238,7 +3238,10 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+>  
+>  	mt8195_afe_init_registers(afe);
+>  
+> -	pm_runtime_put_sync(dev);
+> +	ret = pm_runtime_put_sync(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to suspend device\n");
+> +
+>  	afe_priv->pm_runtime_bypass_reg_ctl = false;
+>  
+>  	regcache_cache_only(afe->regmap, true);
+> @@ -3248,7 +3251,6 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
+>  
+>  err_pm_put:
+>  	pm_runtime_put_sync(dev);
+> -	pm_runtime_disable(dev);
+>  
+>  	return ret;
+>  }
+> -- 
+> 2.40.1

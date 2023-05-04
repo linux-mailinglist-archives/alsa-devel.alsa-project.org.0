@@ -2,66 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B426F6F30
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 17:37:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E8956F6FFA
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 18:35:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65A6E2247;
-	Thu,  4 May 2023 17:36:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65A6E2247
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B3BE22E2;
+	Thu,  4 May 2023 18:34:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B3BE22E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683214644;
-	bh=dZtp1xEymwv/NdFhQuGdh8fl2STgF43zKnMTYgF9t+I=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1683218149;
+	bh=z/dciTqC1jIiEAb5wxiVyOC0gP2atC9LmGQpXs3Mkp4=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m72zyBndBc1rIkeUkSEGD/uflEZe/5iXiZfLCMgUHvUlF6mlP9ldiqVLCaCchF09e
-	 A/PxL/kbhm1ccMrUyS2AEWbbmO48lLJ79axuRznwN3nOg0EetAW+Kf1j1IhLSHl1lD
-	 0f6pjuvOGFQyaowsWxpxDDQnrsV+jpA0nKEQyD0M=
+	b=iBZ16jwqPqxL3tMNyjsZDW4z3XbTEcK+u6k8vYTUz1wAOvZoP2/Ty8VdEh3lDM6qX
+	 ldJXGSZkEnCdalZJTG8gUOik9r97N64fqdhXNNKhjjzb5B21nRVBMhTKtCmaYFT/rV
+	 iat+Q0+CExk9B2sVuL3ccOTYYr0aS1iELCQYxOQw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AAD32F80529;
-	Thu,  4 May 2023 17:36:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 516E3F80529;
+	Thu,  4 May 2023 18:34:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC0BBF8052D; Thu,  4 May 2023 17:36:28 +0200 (CEST)
+	id 812A4F8052D; Thu,  4 May 2023 18:34:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9AB6DF80520
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 17:36:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AB6DF80520
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id B348023E69;
-	Thu,  4 May 2023 11:36:11 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pub07-Ktr-00; Thu, 04 May 2023 17:36:11 +0200
-Date: Thu, 4 May 2023 17:36:11 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: Takashi Iwai <tiwai@suse.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 86A32F80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 18:34:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86A32F80114
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=QqQuYNp1;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=EBIVTfta
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 940561FDEC;
+	Thu,  4 May 2023 16:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1683218083;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vuYpgX7W/XiRYR8IvEeb+VgTIWPDRr+qGiuv7y5g3dU=;
+	b=QqQuYNp1HQ1i8+SmFmBrxL4Sui9tWjN9sZcobNTR91RUAAGNH4Q5blqRtBBAb/GuBV5cyt
+	Pp4frL1/d8eKTzcEL8TPlo7WvJcsnbUwcFEcbciw4F6/zI+FVOPTuEtB0LSKAOV770BivR
+	qUbJigpjCHF5t9TASXtlZLSWMPBL82U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1683218083;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vuYpgX7W/XiRYR8IvEeb+VgTIWPDRr+qGiuv7y5g3dU=;
+	b=EBIVTfta9d34TC47n4bvYlpVJ+ehpgydMo7vSlqXsJLIdmrz9nzTLPOrSVDy+OOBeiVacz
+	njcvumYRnMRTTNDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7763B133F7;
+	Thu,  4 May 2023 16:34:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 6nkuHKPeU2QxRAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 04 May 2023 16:34:43 +0000
+Date: Thu, 04 May 2023 18:34:42 +0200
+Message-ID: <87ttwsjbrx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 Subject: Re: [PATCH] ALSA: pcm: fix snd_pcm_playback_silence() with
  free-running mode
-Message-ID: <ZFPQ68qLr2fy1qRs@ugly>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+In-Reply-To: <ZFPQ68qLr2fy1qRs@ugly>
 References: <20230504130007.2208916-1-oswald.buddenhagen@gmx.de>
- <87cz3gkyz9.wl-tiwai@suse.de>
- <c2e501b7-68bc-947b-645e-e425dcd20c65@perex.cz>
- <ZFO5B+1+HaIz4B4X@ugly>
- <877ctokv6x.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <877ctokv6x.wl-tiwai@suse.de>
-Message-ID-Hash: 5FYLYZLDYZA7LN5HHHAZP2N3GTWSVU5L
-X-Message-ID-Hash: 5FYLYZLDYZA7LN5HHHAZP2N3GTWSVU5L
-X-MailFrom: ossi@kde.org
+	<87cz3gkyz9.wl-tiwai@suse.de>
+	<c2e501b7-68bc-947b-645e-e425dcd20c65@perex.cz>
+	<ZFO5B+1+HaIz4B4X@ugly>
+	<877ctokv6x.wl-tiwai@suse.de>
+	<ZFPQ68qLr2fy1qRs@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 2Z7ULJLRBYU7U3OUDXJTJE7XXTQZFWBE
+X-Message-ID-Hash: 2Z7ULJLRBYU7U3OUDXJTJE7XXTQZFWBE
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -74,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5FYLYZLDYZA7LN5HHHAZP2N3GTWSVU5L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2Z7ULJLRBYU7U3OUDXJTJE7XXTQZFWBE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -83,42 +120,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, May 04, 2023 at 04:49:58PM +0200, Takashi Iwai wrote:
->Sorry, that doesn't work.  The review is done upon the patch, and if
->this patch can't be reviewed easily, it's simply no-go.
->
-that's a self-imposed limitation.
+On Thu, 04 May 2023 17:36:11 +0200,
+Oswald Buddenhagen wrote:
+> 
+> On Thu, May 04, 2023 at 04:49:58PM +0200, Takashi Iwai wrote:
+> > Sorry, that doesn't work.  The review is done upon the patch, and if
+> > this patch can't be reviewed easily, it's simply no-go.
+> > 
+> that's a self-imposed limitation.
 
-it's beyond me why in 2023 anyone working on a bigger project is still 
-using a patch-based review process, given the existence of proper review 
-tools like gerrit (and crutches like github and gitlab).
+And that's how the process works.  Over decades.
 
-i always view patches with 10 lines of context, and regularly use the 
-"expand context" widgets to get even more into view.
-in the small projects i maintain i apply more complex patches first and 
-view them with -U10 or more.
+> it's beyond me why in 2023 anyone working on a bigger project is still
+> using a patch-based review process, given the existence of proper
+> review tools like gerrit (and crutches like github and gitlab).
 
-"i don't see enough to judge this" isn't a complaint that would ever 
-occur to me leveling at a contributor.
+All those git-based work flows are based on commits, and commits
+consist of patches.  So, reviewing each commit is nothing but
+reviewing a patch.  IOW, if you do a PR via github, it'll hit the very
+same problem; when the commit is not understandable enough for
+reviewers, it'll be NAK'ed.
 
->Again, the problem is the mixture; it partially reverts to the
->original code while it modifies some part in some other way.
->
-the baseline is irrelevant - it was already broken, and almost 
-impossible to reason about.
+> i always view patches with 10 lines of context, and regularly use the
+> "expand context" widgets to get even more into view.
+> in the small projects i maintain i apply more complex patches first
+> and view them with -U10 or more.
+> 
+> "i don't see enough to judge this" isn't a complaint that would ever
+> occur to me leveling at a contributor.
 
->By reverting the whole and reapplying fixes -- although it'll need
->more steps -- we can see more clearly what change fixes which part.
->
-that's not what actually happens.
-this is all deeply intertwined code. splitting up the patch will merely 
-give you the *illusion* of better understanding the pieces. but to 
-actually make sense of it, you need to see the whole, in its end state, 
-because there are no fully functional intermediate states.
+It's not only about contexts.  It's just not clear what your patch
+does as partial revert and as fix.  I really would like to see one
+change for one fix, and one change for one code refactoring.  It's
+difficult to achieve if we have to partially revert and partially
+fix in a shot.
 
-the original patch was three patches at first. when i was attempting to 
-write proper commit messages explaining what fixes what, i found that 
-it's just impossible to untangle it without lying by omission. so i 
-squashed them and wrote a cumulative description. and you accepted it.
+> > Again, the problem is the mixture; it partially reverts to the
+> > original code while it modifies some part in some other way.
+> > 
+> the baseline is irrelevant - it was already broken, and almost
+> impossible to reason about.
 
-regards
+Reverting temporarily to the original state (even if it's the broken
+state) is the very standard way.  It's a clear way to start from the
+scratch and build up things again more cleanly.
+
+And, if the complain were only mine, I'd reconsider.  But it's not one
+person's view, but multiple reviewers think so, so it's a sign of
+no-go.
+
+> > By reverting the whole and reapplying fixes -- although it'll need
+> > more steps -- we can see more clearly what change fixes which part.
+> > 
+> that's not what actually happens.
+> this is all deeply intertwined code.
+
+Err, I can't follow; in the previous patch and this patch, you added
+more comments, use different terms and variable names, and use
+different way to calculate the hw_avail value, etc -- which are
+basically irrelevant from the behavior fix itself, but they are just
+code refactoring.  Those could be separated easily.
+
+> splitting up the patch will
+> merely give you the *illusion* of better understanding the pieces. but
+> to actually make sense of it, you need to see the whole, in its end
+> state, because there are no fully functional intermediate states.
+
+Again, I can't follow your logic.  Why splitting into small pieces
+can't lead to a better understanding *at all*?  Why you must refuse
+it?  Certainly one needs to take a look at big picture.  But it's a
+different story.
+
+> the original patch was three patches at first. when i was attempting
+> to write proper commit messages explaining what fixes what, i found
+> that it's just impossible to untangle it without lying by omission. so
+> i squashed them and wrote a cumulative description. and you accepted
+> it.
+
+The acceptance of your patch was my failure, yeah.  I should have
+rejected it.  So this failure doesn't happen again.  You're seeing the
+result now.
+
+
+Takashi

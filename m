@@ -2,100 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D6E6F6402
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 06:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4673C6F64CC
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 May 2023 08:16:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 399B41742;
-	Thu,  4 May 2023 06:22:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 399B41742
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49FAC173D;
+	Thu,  4 May 2023 08:15:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49FAC173D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683174229;
-	bh=exMwIMNf2HDjkzVg/vgc5dShzanK1eETk2nuIq0YR4U=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1683180973;
+	bh=zeDgvbZBNeBWNr0Vyc0mh32TNRQLSYl9hCqDt2gsAQc=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IQ9BXl0eF0hLPFSLInAngvjWVfQ8rUwoyg0b3XHM8u6w+7tapm+g9MICXRwA7IN8V
-	 ht2GT1hSDnW5xPUI+ycWQUi+UfRMwKlE2rlJ+Yz1epI36gYgPRhYU49TCQD49NB2LS
-	 QlFJ+/6dJeJenS/ix39B6pIZcYnDLZQ3zcYYxf1w=
+	b=HUqRjaGeCJOF49V1ruKebDz+MwDsabTPReB1C0iE/ooScTB2z8vxBs4XJKjpLedlX
+	 KOKhkekKj2hugRo1WnYWcri0ceZqHoVYB08ZHLOMT2TVRAiOSC24FezXMmGBNw9uuT
+	 7rSu3GLaAqMJAi8p4JMTowUy2uhW2f0o5B3V/LnQ=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 967D0F8032B;
-	Thu,  4 May 2023 06:22:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24028F8032B;
+	Thu,  4 May 2023 08:15:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 64883F8049E; Thu,  4 May 2023 06:22:52 +0200 (CEST)
+	id E9E9DF8049E; Thu,  4 May 2023 08:15:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 33F91F80114
-	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 06:22:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33F91F80114
+	by alsa1.perex.cz (Postfix) with ESMTPS id 402E6F80114
+	for <alsa-devel@alsa-project.org>; Thu,  4 May 2023 08:15:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 402E6F80114
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=jgh8mT0T
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=BXV8Qdqy;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=/fYfg4UA
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 37FE061CE2;
-	Thu,  4 May 2023 04:22:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099C0C4339B;
-	Thu,  4 May 2023 04:22:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683174158;
-	bh=exMwIMNf2HDjkzVg/vgc5dShzanK1eETk2nuIq0YR4U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jgh8mT0T+ZMEbVlQoIlMMBE1QVmWnOJAFahVVZciUWMhNUg3ZRHkjjaSYRgY/XH9N
-	 ef5K4JrGKaf35pfRsGUJK8cETAbMXc6PwcEff+r2lBqrMXELs8UyS4Sn4jJMWdQLsu
-	 zX3tji7xrPc3zc975Ypo5p98mZ3cbFmffE0hZwvaWqnRgsoIkr3PUJPoMS1aqMEnRa
-	 2Hc2qS8eCJcic27uXj+zeBLGnMCQbubrC+EVF/oyJcRL+z+vqYOq7t2s0eQJgJdPsI
-	 WXMtcYuGz7Rz1SNiQXm+ft8wTKolVoelR0muPCY9093DcTsCwCakJyUxM11L9KQjBM
-	 op6Y33zA3Dp+Q==
-Date: Thu, 4 May 2023 13:22:35 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH 1/4] dt-bindings: sound: Add simple-iio-aux
-Message-ID: <ZFMzC7OBrcL9l5AH@finisterre.sirena.org.uk>
-References: <20230421124122.324820-1-herve.codina@bootlin.com>
- <20230421124122.324820-2-herve.codina@bootlin.com>
- <20230425173029.GA1967523-robh@kernel.org>
- <20230426093621.3834e703@bootlin.com>
- <5bcb2741-9212-f1aa-335b-6bc4b6fad448@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gAqgDYGpNO6m8hZu"
-Content-Disposition: inline
-In-Reply-To: <5bcb2741-9212-f1aa-335b-6bc4b6fad448@linaro.org>
-X-Cookie: Avoid contact with eyes.
-Message-ID-Hash: FDFJENSW4GTJOVH6TTDISJEDADDZ7N6D
-X-Message-ID-Hash: FDFJENSW4GTJOVH6TTDISJEDADDZ7N6D
-X-MailFrom: broonie@kernel.org
+	by smtp-out2.suse.de (Postfix) with ESMTPS id BE1EE208FE;
+	Thu,  4 May 2023 06:15:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1683180909;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d0sfME+PPZ5V5RFQCvfOfX+BHGbYKlu9VTktkJ7gxMU=;
+	b=BXV8QdqyhL+5kaPtttVPSi8CPQYetVaPlbq4eJYMMaXbH+ITomk8BPJViddT5nyviPzmf9
+	EZFur6SewI/FIE6QjPb6t9ZI+vbnF5Y8P8t4EL14nGHFEI1I9X/eOg3kUVNu5/DFHljGuz
+	dtjOjKG2/XufJARI5DrtQmXq1WKFRaQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1683180909;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d0sfME+PPZ5V5RFQCvfOfX+BHGbYKlu9VTktkJ7gxMU=;
+	b=/fYfg4UAJeiaOrTtwcq5d0o7z64GBeEudmhkv8euCcn7QhTVJJFPYTxxiKfNHk7nXZTl7a
+	S5j81fAFCrirplDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 967EC139C3;
+	Thu,  4 May 2023 06:15:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id Nn1nI21NU2TvaQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 04 May 2023 06:15:09 +0000
+Date: Thu, 04 May 2023 08:15:09 +0200
+Message-ID: <87ttwsmxle.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: linux-6.4 alsa sound broken
+In-Reply-To: <ZFK9ZSm34Z3hQPF4@ugly>
+References: 
+ <CAAJw_ZsbTVd3Es373x_wTNDF7RknGhCD0r+NKUSwAO7HpLAkYA@mail.gmail.com>
+	<ZE9ngFLRqLkN6faH@ugly>
+	<87wn1pmm4d.wl-tiwai@suse.de>
+	<7b80ef1e-23dd-c523-0663-4bf311c1823a@perex.cz>
+	<ZFK9ZSm34Z3hQPF4@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: CN4JUP5N5OTLD7B6WPJFBTYGCCNHV5SG
+X-Message-ID-Hash: CN4JUP5N5OTLD7B6WPJFBTYGCCNHV5SG
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Herve Codina <herve.codina@bootlin.com>, Rob Herring <robh@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+CC: Jeff Chua <jeff.chua.linux@gmail.com>,
+ lkml <linux-kernel@vger.kernel.org>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ ALSA development <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FDFJENSW4GTJOVH6TTDISJEDADDZ7N6D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CN4JUP5N5OTLD7B6WPJFBTYGCCNHV5SG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,96 +122,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, 03 May 2023 22:00:37 +0200,
+Oswald Buddenhagen wrote:
+> 
+> On Wed, May 03, 2023 at 09:32:02PM +0200, Jaroslav Kysela wrote:
+> > On 03. 05. 23 18:10, Takashi Iwai wrote:
+> >> The dmix uses the silence_size=boundary as a fill-all operation, and
+> >> it's a free-wheel mode, so supposedly something was overlooked in your
+> >> code refactoring.
+> >> 
+> >> Could you check it and address quickly?  I'd like to fix it before
+> >> 6.4-rc1 release, so if no fix comes up in a couple of days, I'll have
+> >> to revert the change for 6.4-rc1.
+> > 
+> > I would revert this patch.
+> 
+> > It seems that this "do silence right after the playback is finished"
+> > mechanism is not handled in the updated code (and I overlooked that,
+> > too):
+> > 
+> no, there is nothing wrong with the code _per se_.
+>
+> what's happening is that the dmix plugin doesn't update the
+> application pointer, and somehow gets away with it.
+> 
+> that means that it would have never worked with thresholded silencing
+> mode, either, but, well, it uses top-up mode.
 
---gAqgDYGpNO6m8hZu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Well, the code made just a wrong interpretation for the behavior with
+silence_size == boundary.  This mode is actually a kind of tailored
+operation for dmix.
 
-On Tue, May 02, 2023 at 09:26:32AM +0200, Krzysztof Kozlowski wrote:
-> On 26/04/2023 09:36, Herve Codina wrote:
-> > Rob Herring <robh@kernel.org> wrote:
-> >> On Fri, Apr 21, 2023 at 02:41:19PM +0200, Herve Codina wrote:
+In the description of alsa-lib snd_pcm_sw_params_set_silence_size(),
+you can find it:
 
-> >>> simple-iio-aux allows to consider these Industrial I/O devices as
-> >>> auxliary audio devices. =20
+/**
+ * \brief Set silence size inside a software configuration container
+ * \param pcm PCM handle
+ * \param params Software configuration container
+ * \param val Silence size in frames (0 for disabled)
+ * \return 0 otherwise a negative error code
+ *
+ * A portion of playback buffer is overwritten with silence when playback
+ * underrun is nearer than silence threshold (see 
+ * #snd_pcm_sw_params_set_silence_threshold)
+ *
+ * The special case is when silence size value is equal or greater than
+ * boundary. The unused portion of the ring buffer (initial written samples
+ * are untouched) is filled with silence at start. Later, only just processed
+ * sample area is filled with silence. Note: silence_threshold must be set to zero.
+ */
 
-> >> What makes it simple? Any binding called simple or generic is a trigge=
-r=20
-> >> for me. Best to avoid those terms. :)
+So, the "top-up" silencing happens only at start, but not after that.
+In the code path of hw_ptr update, it doesn't check the appl_ptr any
+longer, but fills the processed area by the hw_ptr update with
+silence.  That's the intended behavior for use cases of free-wheel
+mode without appl_ptr updates like dmix.
 
-> > I choose simple-iio-aux because some simple-* already exists.
-> > For instance simple-audio-amplifier or simple-audio-mux.
 
-> > Do you prefer audio-iio-aux ?
-> > Let me know if I should change.
-
-> It means that often what people call "simple" and "generic" works only
-> for their specific case, because it is not really simple and generic.
-> After some time the "simple" and "generic" becomes "complicated" and
-> "huge". Conclusion: sometimes simple and generic bindings are bad idea
-> and you should have something specific.
-
-> Your description in the binding also does not help to match it to
-> specific, real device. Provide the examples, as Rob asked.
-
-I don't understand what you are looking for here.  IIO is a subsystem
-which represents generic DACs and ADCs (along with other I/O things).
-Audio devices also have DACs and ADCs, somewhat specialised for use in
-audio but more limited by specs and interfaces than by anything
-fundamental.  The goal here is to map DACs and ADCs described as IIO for
-use in an audio context.
-
-ADCs are devices that convert analog signals into digital values, DACs
-are devices that convert digital values into analog signals.
-
-> >> How do support multiple instances? Say you have 2 sound cards (or 1=20
-> >> sound card with multiple audio paths) each with different sets of IIO=
-=20
-> >> channels associated with it. You'd need a link to each 'aux' node. Why=
-=20
-> >> not just add io-channels to the sound card nodes directly? That's=20
-> >> already just a virtual, top-level container node grouping all the=20
-> >> components. I don't see why we need another virtual node grouping a=20
-> >> subset of them.
-
-> > I don't see what you mean.
-> > I use a simple-audio-card and here is a full example using several
-> > instances:
-
-> Just like Rob said: "You'd need a link to each 'aux' node"
-
-> and you did it...
-
-> So now the rest of Rob's answer:
-
-> "Why not just add io-channels to the sound card nodes directly? That's
-> already just a virtual, top-level container node grouping all the
-> components. I don't see why we need another virtual node grouping a
-> subset of them."
-
-> Why do you need another node if it is not really representing a real,
-> separate device?
-
-If nothing else I would expect it to be useful from a comprehensibility
-point of view to bundle multiple IIO devices into a single multi-channel
-audio stream, an individual IIO device is likely to only present a
-single channel of data but it is common to group multiple channels of
-audio data.
-
---gAqgDYGpNO6m8hZu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRTMwkACgkQJNaLcl1U
-h9CpIgf8DGHa33KFaEBu9orPEvy62t4yb0j+p3Xoar2zISlY832/jm9hk/8oYSdy
-etd75hsgD7l1/K6l08YwHxuJX07geLoyEnyUakiEi+w4rZVBJ8z/Vj+XN2lV6eq8
-VJwUq+kvpY63mjLQodrOLSH9ixNk24ab28aU5CWrw9qUPKfTSLIJLoh9ZkH081eL
-nBl+himFtVaWSmQ4+6l9lDNy4VJianGJ6cQI/66k9H0/LMIvj/HGo4DFbCSGzIRu
-ZXukxdcZCuH8mI9jHPglgmvaYkjyaAmEW3/89b8F/0lOtOpsoDWjAqWhMJhcphhH
-XjquUq/o3sVr1uXMMKdl3fmfUnNhDQ==
-=PI/4
------END PGP SIGNATURE-----
-
---gAqgDYGpNO6m8hZu--
+Takashi

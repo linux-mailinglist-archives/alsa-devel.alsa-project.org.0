@@ -2,115 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015CE6F8102
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 12:45:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C07656F8107
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 12:49:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43FB62C60;
-	Fri,  5 May 2023 12:45:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43FB62C60
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A3ED2C67;
+	Fri,  5 May 2023 12:49:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A3ED2C67
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683283550;
-	bh=hXnxx/cLPhjR+upjuT9hx+fuYJpNLskhTnN4dwo/CZk=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1683283792;
+	bh=LYU3eMcbAH2g5h+qJiLHEi5BDiIgXDe+6i6ZvZ1UUO8=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mB6ZytUTyA83tvAosQy1EVcW7A8JFZGDrau16Kn67v0sluWl6kahCgA5lrpdqPHzi
-	 oH0G3u1uPgE6lNDoIPOS5/2flkl2DToAQwbEyCi5rOd4LzKpBVVTMhAMo78ffTQ/iA
-	 n2V1Om74pu/cw/vwlyGT316pDks1YR+xvBn81D8c=
+	b=U1oCkCKONWE9YzMMXzuJ/NKqEqqiFbd3JMU4zQMfU0laKMW+P7yQ9MfAt91Z0YITa
+	 CJoong4uIg4sVJ+aousIw6wO/Ei2zncsuKyCvFLMggiV2CF2BvlVaq5jGcTU8wpHUK
+	 liLL2LSe2VTjIl3K9QxATq0acEmsv6vXA1ZobQb8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBB88F80529;
-	Fri,  5 May 2023 12:44:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCCACF80529;
+	Fri,  5 May 2023 12:49:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91D05F8052D; Fri,  5 May 2023 12:44:56 +0200 (CEST)
+	id DA713F8052D; Fri,  5 May 2023 12:48:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 765BEF80087
-	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 12:44:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 765BEF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 94D46F80520
+	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 12:48:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D46F80520
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=k4hDdDs5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eIGnJE4g
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=kfT7NabL
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 94B38222FD;
-	Fri,  5 May 2023 10:44:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1683283491;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Du9pJAbjweqduGEek3CyHDGDgJqpOWilNpuYN/EZhZM=;
-	b=k4hDdDs5CKJ2L09Or53xRr1FYBY4dfLZPL5++H8w0qSc5mhyQWmzGN8EqEXI9jYvj6JWYW
-	iagyQmNQGRXhQ9SvpakEmMdQUpA0+k70PtjYsKJv0815qf4YuJ/UCqf0BPsCsfWTOmXjYw
-	utpNd14+nL2vqTWFftX8wB7gAWbJMCk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683283491;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Du9pJAbjweqduGEek3CyHDGDgJqpOWilNpuYN/EZhZM=;
-	b=eIGnJE4g9zAx7JFQg7RduvXW11RDKatpOeueBtTXzji+ctxJoGDini/kaEiIZTkJmAGouR
-	DlEskNZz6T2qGABQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 63A2D13513;
-	Fri,  5 May 2023 10:44:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id LuSOFyPeVGR1AgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 05 May 2023 10:44:51 +0000
-Date: Fri, 05 May 2023 12:44:50 +0200
-Message-ID: <87v8h7hxb1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH 1/5] ALSA: pcm: Revert "ALSA: pcm: rewrite
- snd_pcm_playback_silence()"
-In-Reply-To: <ZFTOpRduzMVakOGx@ugly>
-References: <20230505073813.1219175-1-perex@perex.cz>
-	<20230505073813.1219175-2-perex@perex.cz>
-	<87zg6ji0pn.wl-tiwai@suse.de>
-	<ZFTOpRduzMVakOGx@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 4VCJWNEOZLI2VIJ4QO3BZGBBBWTJ6UU2
-X-Message-ID-Hash: 4VCJWNEOZLI2VIJ4QO3BZGBBBWTJ6UU2
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 14BDB60C94;
+	Fri,  5 May 2023 10:48:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D30EC433EF;
+	Fri,  5 May 2023 10:48:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683283730;
+	bh=LYU3eMcbAH2g5h+qJiLHEi5BDiIgXDe+6i6ZvZ1UUO8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kfT7NabLog3ITolk00hU6G1embvhIs6zENaidhGCHa3p7pBn+fMuP7cgT1EbUrt2w
+	 q3jDKxg9AUSRMV8u5ejn43AnF1c50BBHrB1J/sIuwll8nu3Y4gQZpyUnA9F7JTkutL
+	 1IBTBsCipJYic56bXjoQiUi2fhhqHhBUeS1HX+eQEY2uZ7/UAToIDUM6gOdSosu3Dn
+	 i+8/U2jH2m8I+isy3J5Lw0aofdpoQA60PCQ5tG7c4opwl5kIpkHrHf36i2FAu58Cdp
+	 TYKnqhLfQ6xSVGPYMdsi9lJNy9iM+gHlwMig+zJkApmgByMAHX/+a++vMywlDC5ZoR
+	 +Qr7d6QQnnLGQ==
+Message-ID: <951ee8b3-9764-c7aa-019b-6a181149d6f3@kernel.org>
+Date: Fri, 5 May 2023 12:48:45 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH v2 2/2] ASoC: dt-bindings: designware-i2s: add optional
+ resets
+Content-Language: en-US
+To: Maxim Kochetkov <fido_max@inbox.ru>, alsa-devel@alsa-project.org
+References: <20230504071618.52012-1-fido_max@inbox.ru>
+ <20230504071618.52012-2-fido_max@inbox.ru>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20230504071618.52012-2-fido_max@inbox.ru>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: VLWF6QFLNNK5GH3HHGVOUBNHFV3RBOB3
+X-Message-ID-Hash: VLWF6QFLNNK5GH3HHGVOUBNHFV3RBOB3
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: ALSA development <alsa-devel@alsa-project.org>
+CC: lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com,
+ p.zabel@pengutronix.de, ckeepax@opensource.cirrus.com,
+ u.kleine-koenig@pengutronix.de, nicolas.ferre@microchip.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4VCJWNEOZLI2VIJ4QO3BZGBBBWTJ6UU2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VLWF6QFLNNK5GH3HHGVOUBNHFV3RBOB3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,32 +99,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 05 May 2023 11:38:45 +0200,
-Oswald Buddenhagen wrote:
+On 04/05/2023 09:16, Maxim Kochetkov wrote:
+> Some SoC may have resets for I2S subsystem. So add optional resets support.
+
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC.  It might happen, that command when run on an older
+kernel, gives you outdated entries.  Therefore please be sure you base
+your patches on recent Linux kernel.
+
+You missed at least DT list (maybe more), so this won't be tested.
+Please resend and include all necessary entries.
+
 > 
-> On Fri, May 05, 2023 at 11:31:16AM +0200, Takashi Iwai wrote:
-> > On Fri, 05 May 2023 09:38:09 +0200,
-> > Jaroslav Kysela wrote:
-> >> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-> > 
-> > Better to add Reported-by and the reference for the original thread
-> > reporting the regression,
-> > 
-> i'll post a slight rework of the series shortly, where i'll include
-> this.
+> Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
+> ---
+>  .../devicetree/bindings/sound/snps,designware-i2s.yaml         | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> > as well as the Fixes tag.
-> > 
-> that seems pointless for a revert, as all the info is already included
-> anyway, no?
+> diff --git a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+> index 56e623d4e168..a970fd264b21 100644
+> --- a/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+> +++ b/Documentation/devicetree/bindings/sound/snps,designware-i2s.yaml
+> @@ -36,7 +36,8 @@ properties:
+>      const: i2sclk
+>  
+>    resets:
+> -    maxItems: 1
+> +    items:
+> +      - description: Optional controller resets
 
-People tend to look at Fixes tag to judge whether the commit can fix
-something real or not.  For example, we (at SUSE) regularly check
-Fixes tag to pick up the missing fixing.
-In the case of a revert, it doesn't mean always a fix.  So it's not
-mandatory, but would be still helpful.
 
+This does not make much sense. Your change does nothing. NAK.
 
-thanks,
+Best regards,
+Krzysztof
 
-Takashi

@@ -2,129 +2,184 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48EC16FA164
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:47:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E3AF6FA165
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:48:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C2D312BC;
-	Mon,  8 May 2023 09:47:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C2D312BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 575A212CD;
+	Mon,  8 May 2023 09:47:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 575A212CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683532077;
-	bh=zCZpBn1/gKgYrA+INrfA2aWDQR7Ix34fVLWZqstxgME=;
-	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
-	b=iHGhPKc+OJOBmreDSk83VZJZ1pwfIo51ZwRIIM2OCTYeNjkPlSS8ZyjHPP8IY86mQ
-	 QkZdbUV5dms/Vqk/Ktl+G4twzpf1jEwFKpCkyeKr8CSPO0ISjL1LEziIt89yeCJX8z
-	 pJa9vemjCcpm6+yIYyPVD9nUK+yy4d4yqdRGCpEY=
+	s=default; t=1683532099;
+	bh=DTutEgCIMF28vydDZ/bIJ7FNCahxgFT27xgwey0IUAI=;
+	h=From:Subject:Date:To:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Q+aXkqSETaP8P3PSrK0zNdTwV+6wKKAd7Zp+ETxuYO4eGPLsXLQoXhixsx/4Ah9qR
+	 f0p+IQXQaRsAhZ0Z9Ms3bfZri+9twrA0uPbocQmFjIIf2S9Jx4N+/7X1p7a4DsciF7
+	 rEy1D8lC1qj7UOE4t5wQkllOaCYots6DOAMqnt5E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39256F805AF;
-	Mon,  8 May 2023 09:45:18 +0200 (CEST)
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/1] ASoC: dwc: limit the number of overrun messages
-Date: Fri,  5 May 2023 09:28:20 +0300
-X-Mailman-Rule-Hits: nonmember-moderation
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-X-Mailman-Approved-At: Mon, 08 May 2023 07:45:12 +0000
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NIE4SVROKURNAN4XIBSOMK6MST2JMJNM/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168353191757.26.7569317424052350872@mailman-core.alsa-project.org>
-From: Maxim Kochetkov via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Maxim Kochetkov <fido_max@inbox.ru>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, nicolas.ferre@microchip.com,
- u.kleine-koenig@pengutronix.de, Maxim Kochetkov <fido_max@inbox.ru>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id EB1F9F805B1;
+	Mon,  8 May 2023 09:45:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C87E1F8053B; Fri,  5 May 2023 08:28:31 +0200 (CEST)
+	id 34DE1F8052D; Fri,  5 May 2023 13:25:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,RCVD_IN_VALIDITY_RPBL,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtpng1.i.mail.ru (smtpng1.i.mail.ru [94.100.181.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
+ [64.147.123.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 43C71F80529
-	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 08:28:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43C71F80529
+	by alsa1.perex.cz (Postfix) with ESMTPS id 38ABDF804B1
+	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 13:25:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38ABDF804B1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256
- header.s=mail4 header.b=E44Y6fuw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
- s=mail4;
-	h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=w19r/bnmeQETgryQv1iIi3iN09PWER6hP3yMlsCH8eY=;
-	t=1683268105;x=1683358105;
-	b=E44Y6fuwYk47b9eZ8KsTNC5jTgEBZXu1RmIy94wiBHTqxKcdpF8s15kvu6um4lSIYX1zrNEvQVxP6nfhxY5XYnGIE+ocE30a9vfY9ts416c3JKp7f2GPaXwo00Q4Hmu9wudJXS0KTAMDX8bqf0q+wkfOnirLVL9R66yclY0Y+/MLOzhhEQmxHMhKIB1JCrckkQ7Buz8fX36QXzTpK7GHVzj1GSzxEOwtPqTW3HWdyv5VkBs6DIxWmg+lEAnjcHXpgUTsQ0o1g5/FOK1pnG6Tdu1CDPZBl0+fZWE9vACqqYlx8l4C8noCTiX/jfHrn5OBlTABrO4Huc2sU+qskbcarw==;
-Received: by smtpng1.m.smailru.net with esmtpa (envelope-from
- <fido_max@inbox.ru>)
-	id 1puovW-00028V-MP; Fri, 05 May 2023 09:28:23 +0300
-From: Maxim Kochetkov <fido_max@inbox.ru>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 1/1] ASoC: dwc: limit the number of overrun messages
-Date: Fri,  5 May 2023 09:28:20 +0300
-Message-Id: <20230505062820.21840-1-fido_max@inbox.ru>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=cerno.tech header.i=@cerno.tech header.a=rsa-sha256
+ header.s=fm2 header.b=KdaFzuUu;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=DaRi2Hpz
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailnew.west.internal (Postfix) with ESMTP id EFE7D2B06795;
+	Fri,  5 May 2023 07:25:30 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute4.internal (MEProxy); Fri, 05 May 2023 07:25:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm2; t=1683285930; x=
+	1683293130; bh=l5ioAqLUIgJULjqwKYtOjHFnbY6yI6/LI8d0PR6VtyM=; b=K
+	daFzuUu6XO2LaYjDTphcLLz/GlUPhIOw1rRn6yVXs3eyQLNaa181x0dHDbt9UdLo
+	zyAvbbqqbqt6xguEWLq+Y7XvKxH8h67iwigmG6lIm0397Bk5HScfh1TsqFN0EDMr
+	3LonuK2S0VmFCWYQyaihe+VAnSIiWWLNXU0vMykWBYLbu6ZIqboackHNE0IXfxIR
+	as2IC7+5LWKRCXWB34eIBIQ7u+PTN6mMZnFqmo5giXRuFqZO+hVljeKHPIM7iSCJ
+	w0/C/PvtZnSL78SBaiAHhHXczCOrVc7JURiYnvm0UtZtyN08Y927yIuZ51nxGJWJ
+	3ecp+WM1vrDHFY4zIvbOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:sender
+	:subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1683285930; x=1683293130; bh=l
+	5ioAqLUIgJULjqwKYtOjHFnbY6yI6/LI8d0PR6VtyM=; b=DaRi2HpzSjUslNUfV
+	+Wxt7duSO5/hYNA2h5A0t8XGQfdp9yTBEQp0yK08w8TSdvKz5sBGFEU2WxcXDYpT
+	3cV8qLYkYFXwVAqSQn5mP0rQxnIN5rLXKyv6FoQpSeQftvNw+Pt0H8KyQbRBA+3V
+	IQGGPQvZv/4gTkVAs5uVT8xAQFzSd1BxMmvHV0Sr/oJgrN2OTr53ytLWNCaT4ReU
+	NGN4AezZPVD8DfXd3DwUFL/96oVoikCr64FddmnTRsceoj0N4vJIAsBSHvFmhCSS
+	Bn/XfJIdxzHcBE7TecPZAQ9KKMBG4dR94DVecCEuaTQVrf4Dg/u7t7NWBo5iw5q5
+	1FxcQ==
+X-ME-Sender: <xms:qOdUZNJT030Zgt0JbyFQ_RKM-cy46jwZsLTVl33BJCq45Pe101WL5g>
+    <xme:qOdUZJJ41xlcocWzLm0jnNS7jBIN8KkghbR3IkcuCflIGMbz56nitKYeNXrfi5TeN
+    gViNhbdGkbU6GCTVhU>
+X-ME-Received: 
+ <xmr:qOdUZFvaCVHP_XNid9KfZrJC6EXQ0C-AAcDY8d4bpB7xTzWbi3MxAk88SYyXrBGv0YYlu-vTD2zoc2M2Bibqqrtpo-lEpZk>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrfeefvddggedtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffufffkgggtgffvvefosehtjeertdertdejnecuhfhrohhmpeforgigihhm
+    vgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrfgrth
+    htvghrnhepgfeutdejvdeiheffveetieejtdfhleekleffheejtdfhkeehfeekgedvgeei
+    tddtnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpe
+    dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrgigihhmvgestggvrhhnohdrthgvtghh
+X-ME-Proxy: <xmx:qOdUZOYmJ9ZsaodLa9eaX9Q8q4HKIKwuTBwJAtYSDKF8GpNgXk42fg>
+    <xmx:qOdUZEb46ec3DVsk5A-VwtFLn5NwE5E1PepLOVibVXBwwU6BkntCMA>
+    <xmx:qOdUZCA2HAk2HAzU0PLbBu4ihiyeyzAMLisKixjpCdEI11Zrvkz5Jg>
+    <xmx:qudUZOXd4C3fyX9ywwFJ0Y0vPI9HQrT33VOj41wJMoXxHKeJ6EWEk-kmzE8>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 5 May 2023 07:25:27 -0400 (EDT)
+From: Maxime Ripard <maxime@cerno.tech>
+Subject: [PATCH v4 00/68] clk: Make determine_rate mandatory for muxes
+Date: Fri, 05 May 2023 13:25:02 +0200
+Message-Id: <20221018-clk-range-checks-fixes-v4-0-971d5077e7d2@cerno.tech>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtpng1.m.smailru.net;
- auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
-X-Mailru-Src: smtp
-X-7564579A: EEAE043A70213CC8
-X-77F55803: 
- 4F1203BC0FB41BD9CDD72DB02570E1E69F65CF5A383CA60943DD864320CF4B411313CFAB8367EF908E2BE116634AD74D4F6BBD8AD64DF50C24F29287ACC5C24655FADD5F4B5A515B7B9585C59A2DDEF7
-X-7FA49CB5: 
- FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE716FAD50E497B9C14EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006376AFB9B40001E44068638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D802F15FF47CBB9EA07155B019091615D06F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE71DD432BB81541BCF9FA2833FD35BB23D9E625A9149C048EE0A8783F69A4C1398BDFBBEFFF4125B51D2E47CDBA5A96583BD4B6F7A4D31EC0BC014FD901B82EE079FA2833FD35BB23D27C277FBC8AE2E8B3066B9820929774A389733CBF5DBD5E9B5C8C57E37DE458B9E9CE733340B9D5F3BBE47FD9DD3FB595F5C1EE8F4F765FC8C7ADC89C2F0B2A5E2021AF6380DFAD18AA50765F790063735872C767BF85DA227C277FBC8AE2E8BD00653D74F80EC5F75ECD9A6C639B01B4E70A05D1297E1BBCB5012B2E24CD356
-X-C1DE0DAB: 
- 0D63561A33F958A56E546AF34195C6F10E2829C2CF38B811FE7B195693D6E021F87CCE6106E1FC07E67D4AC08A07B9B0A6C7FFFE744CA7FB9C5DF10A05D560A950611B66E3DA6D700B0A020F03D25A092FFDA4F57982C5F4CB5012B2E24CD356
-X-C8649E89: 
- 1C3962B70DF3F0ADE00A9FD3E00BEEDF77DD89D51EBB7742D3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CFC6C1A3D38B6795CE317A5A611E1D04D2960524E4A57BBC48CC3F3EFA9E2777E3B9228B76B87D064D14EE98CD8E9D35FCC3674DFEE1CD913126CA9985D1D297CD0CB5B17375C3CAE6
-X-D57D3AED: 
- 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojAeDCk4EFldEolkEDguM7oQ==
-X-Mailru-Sender: 
- 689FA8AB762F73933AF1F914F131DBF590C713BA32C72AB5C7F0208CF814589798CC072019C18A892CA7F8C7C9492E1F2F5E575105D0B01ADBE2EF17B331888EEAB4BC95F72C04283CDA0F3B3F5B9367
-X-Mras: Ok
-X-MailFrom: fido_max@inbox.ru
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI7nVGQC/43NzQ6CMAwH8FchOzuztQymJ9/DeIBRZIFAsuGiI
+ by7lZvxIKfm349fFxEpeIrinC0iUPLRTyOH/JAJ11XjnaRvOAtQAFppK93Qy7ANXEeuj7L1T4o
+ SFJ5aNICQK8HHdRVJ1rzoOj4fH8PAzc7HeQqv7VnSXK5/3aSlki1Sa5XRVufq4iiM03Emhm9sJ
+ tjnwMcpSiwachot/Ti4z0F2TpVGY/MSGgNfzrqubzQ7VSJSAQAA
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8811; i=maxime@cerno.tech;
+ h=from:subject:message-id; bh=DTutEgCIMF28vydDZ/bIJ7FNCahxgFT27xgwey0IUAI=;
+ b=owGbwMvMwCX2+D1vfrpE4FHG02pJDCkhzxe9Xxi/3cvxVqX7ota1NvX8JiY10syKs/hVXlh2s5Wr
+ xyh3lLIwiHExyIopssQImy+JOzXrdScb3zyYOaxMIEMYuDgFYCIG0Qz/3R5ZNfhd/XJhS3zivh2awt
+ u3XDHevLprI+OV15f2zRd/0czIcHfvjUN8sh+uf+NwWChWIG+Rz7NssnmgDruxem/tXuG77AA=
+X-Developer-Key: i=maxime@cerno.tech; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-MailFrom: maxime@cerno.tech
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: NIE4SVROKURNAN4XIBSOMK6MST2JMJNM
-X-Message-ID-Hash: NIE4SVROKURNAN4XIBSOMK6MST2JMJNM
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: PB2AT77XLVYUG4FY34VPGUT2HNCSWYCB
+X-Message-ID-Hash: PB2AT77XLVYUG4FY34VPGUT2HNCSWYCB
 X-Mailman-Approved-At: Mon, 08 May 2023 07:45:12 +0000
-CC: lgirdwood@gmail.com, broonie@kernel.org, tiwai@suse.com,
- ckeepax@opensource.cirrus.com, nicolas.ferre@microchip.com,
- u.kleine-koenig@pengutronix.de, Maxim Kochetkov <fido_max@inbox.ru>
+CC: linux-clk@vger.kernel.org, Maxime Ripard <maxime@cerno.tech>,
+ Abel Vesa <abelvesa@kernel.org>, Alessandro Zummo <a.zummo@towertech.it>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, Chen-Yu Tsai <wens@csie.org>,
+ Chen-Yu Tsai <wenst@chromium.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ David Lechner <david@lechnology.com>, Dinh Nguyen <dinguyen@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Markus Schneider-Pargmann <msp@baylibre.com>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Miles Chen <miles.chen@mediatek.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
+ Peng Fan <peng.fan@nxp.com>, Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Samuel Holland <samuel@sholland.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Sekhar Nori <nsekhar@ti.com>, Shawn Guo <shawnguo@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Thierry Reding <thierry.reding@gmail.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-actions@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ NXP Linux Team <linux-imx@nxp.com>, patches@opensource.cirrus.com,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Liam Beguin <liambeguin@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-mediatek@lists.infradead.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Pawel Moll <pawel.moll@arm.com>,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NIE4SVROKURNAN4XIBSOMK6MST2JMJNM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PB2AT77XLVYUG4FY34VPGUT2HNCSWYCB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,35 +188,215 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On slow CPU (FPGA/QEMU emulated) printing overrun messages from
-interrupt handler to uart console may leads to more overrun errors.
-So use dev_err_ratelimited to limit the number of error messages.
+Hi,
 
-Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
+This is a follow-up to a previous series that was printing a warning
+when a mux has a set_parent implementation but is missing
+determine_rate().
+
+The rationale is that set_parent() is very likely to be useful when
+changing the rate, but it's determine_rate() that takes the parenting
+decision. If we're missing it, then the current parent is always going
+to be used, and thus set_parent() will not be used. The only exception
+being a direct call to clk_set_parent(), but those are fairly rare
+compared to clk_set_rate().
+
+Stephen then asked to promote the warning to an error, and to fix up all
+the muxes that are in that situation first. So here it is :)
+
+It was build-tested on x86, arm and arm64.
+
+Affected drivers have been tracked down by the following coccinelle
+script:
+
+virtual report 
+
+@ clk_ops @
+identifier ops;
+position p;
+@@
+
+ struct clk_ops ops@p = {
+   ...
+ };
+
+@ has_set_parent @
+identifier clk_ops.ops;
+identifier set_parent_f;
+@@
+
+  struct clk_ops ops = {
+	.set_parent = set_parent_f,
+  };
+
+@ has_determine_rate @
+identifier clk_ops.ops;
+identifier determine_rate_f;
+@@
+
+  struct clk_ops ops = {
+	.determine_rate = determine_rate_f,
+  };
+
+@ script:python depends on report && has_set_parent && !has_determine_rate @
+ops << clk_ops.ops;
+set_parent_f << has_set_parent.set_parent_f;
+p << clk_ops.p;
+@@
+
+coccilib.report.print_report(p[0], "ERROR: %s has set_parent (%s)" % (ops, set_parent_f))
+
+Berlin is the only user still matching after this series has been
+applied, but it's because it uses a composite clock which throws the
+script off. The driver has been converted and shouldn't be a problem. 
+
+Let me know what you think,
+Maxime
+
+Signed-off-by: Maxime Ripard <maxime@cerno.tech>
 ---
- sound/soc/dwc/dwc-i2s.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v4:
+- Switch from __clk_mux_determine_rate to a new helper
+- Introduced unit tests for that new helper
+- Fix kunit regression
+- Reworded most of the commit logs
+- Link to v3: https://lore.kernel.org/r/20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech
 
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index acdf98b2ee9c..ca20cade6840 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -132,13 +132,13 @@ static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
- 
- 		/* Error Handling: TX */
- 		if (isr[i] & ISR_TXFO) {
--			dev_err(dev->dev, "TX overrun (ch_id=%d)\n", i);
-+			dev_err_ratelimited(dev->dev, "TX overrun (ch_id=%d)\n", i);
- 			irq_valid = true;
- 		}
- 
- 		/* Error Handling: TX */
- 		if (isr[i] & ISR_RXFO) {
--			dev_err(dev->dev, "RX overrun (ch_id=%d)\n", i);
-+			dev_err_ratelimited(dev->dev, "RX overrun (ch_id=%d)\n", i);
- 			irq_valid = true;
- 		}
- 	}
+Changes in v3:
+- Rebased on top of next-20230404
+- Link to v2: https://lore.kernel.org/r/20221018-clk-range-checks-fixes-v2-0-f6736dec138e@cerno.tech
+
+Changes in v2:
+- Drop all the patches already applied
+- Promote the clk registration warning to an error
+- Make all muxes use determine_rate
+- Link to v1: https://lore.kernel.org/r/20221018-clk-range-checks-fixes-v1-0-f3ef80518140@cerno.tech
+
+---
+Maxime Ripard (66):
+      clk: Export clk_hw_forward_rate_request()
+      clk: test: Fix type sign of rounded rate variables
+      clk: lan966x: Remove unused round_rate hook
+      clk: nodrv: Add a determine_rate hook
+      clk: test: Add a determine_rate hook
+      clk: actions: composite: Add a determine_rate hook for pass clk
+      clk: at91: main: Add a determine_rate hook
+      clk: at91: sckc: Add a determine_rate hook
+      clk: berlin: div: Add a determine_rate hook
+      clk: cdce706: Add a determine_rate hook
+      clk: k210: pll: Add a determine_rate hook
+      clk: k210: aclk: Add a determine_rate hook
+      clk: k210: mux: Add a determine_rate hook
+      clk: lmk04832: clkout: Add a determine_rate hook
+      clk: lochnagar: Add a determine_rate hook
+      clk: qoriq: Add a determine_rate hook
+      clk: si5341: Add a determine_rate hook
+      clk: stm32f4: mux: Add a determine_rate hook
+      clk: vc5: mux: Add a determine_rate hook
+      clk: vc5: clkout: Add a determine_rate hook
+      clk: wm831x: clkout: Add a determine_rate hook
+      clk: davinci: da8xx-cfgchip: Add a determine_rate hook
+      clk: davinci: da8xx-cfgchip: Add a determine_rate hook
+      clk: imx: busy: Add a determine_rate hook
+      clk: imx: fixup-mux: Add a determine_rate hook
+      clk: imx: scu: Add a determine_rate hook
+      clk: mediatek: cpumux: Add a determine_rate hook
+      clk: pxa: Add a determine_rate hook
+      clk: renesas: r9a06g032: Add a determine_rate hook
+      clk: socfpga: gate: Add a determine_rate hook
+      clk: stm32: core: Add a determine_rate hook
+      clk: tegra: bpmp: Add a determine_rate hook
+      clk: tegra: super: Add a determine_rate hook
+      clk: tegra: periph: Add a determine_rate hook
+      clk: ux500: prcmu: Add a determine_rate hook
+      clk: ux500: sysctrl: Add a determine_rate hook
+      clk: versatile: sp810: Add a determine_rate hook
+      drm/tegra: sor: Add a determine_rate hook
+      phy: cadence: sierra: Add a determine_rate hook
+      phy: cadence: torrent: Add a determine_rate hook
+      phy: ti: am654-serdes: Add a determine_rate hook
+      phy: ti: j721e-wiz: Add a determine_rate hook
+      rtc: sun6i: Add a determine_rate hook
+      ASoC: tlv320aic32x4: Add a determine_rate hook
+      clk: actions: composite: div: Switch to determine_rate
+      clk: actions: composite: fact: Switch to determine_rate
+      clk: at91: smd: Switch to determine_rate
+      clk: axi-clkgen: Switch to determine_rate
+      clk: cdce706: divider: Switch to determine_rate
+      clk: cdce706: clkout: Switch to determine_rate
+      clk: si5341: Switch to determine_rate
+      clk: si5351: pll: Switch to determine_rate
+      clk: si5351: msynth: Switch to determine_rate
+      clk: si5351: clkout: Switch to determine_rate
+      clk: da8xx: clk48: Switch to determine_rate
+      clk: imx: scu: Switch to determine_rate
+      clk: ingenic: cgu: Switch to determine_rate
+      clk: ingenic: tcu: Switch to determine_rate
+      clk: sprd: composite: Switch to determine_rate
+      clk: st: flexgen: Switch to determine_rate
+      clk: stm32: composite: Switch to determine_rate
+      clk: tegra: periph: Switch to determine_rate
+      clk: tegra: super: Switch to determine_rate
+      ASoC: tlv320aic32x4: pll: Switch to determine_rate
+      ASoC: tlv320aic32x4: div: Switch to determine_rate
+      clk: Forbid to register a mux without determine_rate
+
+Stephen Boyd (2):
+      clk: Move no reparent case into a separate function
+      clk: Introduce clk_hw_determine_rate_no_reparent()
+
+ drivers/clk/actions/owl-composite.c       |  35 ++++--
+ drivers/clk/at91/clk-main.c               |   1 +
+ drivers/clk/at91/clk-smd.c                |  29 +++--
+ drivers/clk/at91/sckc.c                   |   1 +
+ drivers/clk/berlin/berlin2-div.c          |   1 +
+ drivers/clk/clk-axi-clkgen.c              |  14 ++-
+ drivers/clk/clk-cdce706.c                 |  30 ++---
+ drivers/clk/clk-k210.c                    |   3 +
+ drivers/clk/clk-lan966x.c                 |  17 ---
+ drivers/clk/clk-lmk04832.c                |   1 +
+ drivers/clk/clk-lochnagar.c               |   1 +
+ drivers/clk/clk-qoriq.c                   |   1 +
+ drivers/clk/clk-si5341.c                  |  19 ++--
+ drivers/clk/clk-si5351.c                  |  67 ++++++-----
+ drivers/clk/clk-stm32f4.c                 |   1 +
+ drivers/clk/clk-versaclock5.c             |   2 +
+ drivers/clk/clk-wm831x.c                  |   1 +
+ drivers/clk/clk.c                         | 108 ++++++++++++------
+ drivers/clk/clk_test.c                    | 180 +++++++++++++++++++++++++++++-
+ drivers/clk/davinci/da8xx-cfgchip.c       |  12 +-
+ drivers/clk/imx/clk-busy.c                |   1 +
+ drivers/clk/imx/clk-fixup-mux.c           |   1 +
+ drivers/clk/imx/clk-scu.c                 |  20 +++-
+ drivers/clk/ingenic/cgu.c                 |  15 +--
+ drivers/clk/ingenic/tcu.c                 |  19 ++--
+ drivers/clk/mediatek/clk-cpumux.c         |   1 +
+ drivers/clk/pxa/clk-pxa.c                 |   1 +
+ drivers/clk/renesas/r9a06g032-clocks.c    |   1 +
+ drivers/clk/socfpga/clk-gate.c            |   1 +
+ drivers/clk/sprd/composite.c              |  16 ++-
+ drivers/clk/st/clk-flexgen.c              |  15 +--
+ drivers/clk/stm32/clk-stm32-core.c        |  33 ++++--
+ drivers/clk/tegra/clk-bpmp.c              |   1 +
+ drivers/clk/tegra/clk-periph.c            |  17 ++-
+ drivers/clk/tegra/clk-super.c             |  16 ++-
+ drivers/clk/ux500/clk-prcmu.c             |   1 +
+ drivers/clk/ux500/clk-sysctrl.c           |   1 +
+ drivers/clk/versatile/clk-sp810.c         |   1 +
+ drivers/gpu/drm/tegra/sor.c               |   1 +
+ drivers/phy/cadence/phy-cadence-sierra.c  |   1 +
+ drivers/phy/cadence/phy-cadence-torrent.c |   1 +
+ drivers/phy/ti/phy-am654-serdes.c         |   1 +
+ drivers/phy/ti/phy-j721e-wiz.c            |   1 +
+ drivers/rtc/rtc-sun6i.c                   |   1 +
+ include/linux/clk-provider.h              |   2 +
+ sound/soc/codecs/tlv320aic32x4-clk.c      |  33 +++---
+ 46 files changed, 527 insertions(+), 199 deletions(-)
+---
+base-commit: 145e5cddfe8b4bf607510b2dcf630d95f4db420f
+change-id: 20221018-clk-range-checks-fixes-2039f3523240
+
+Best regards,
 -- 
-2.39.2
+Maxime Ripard <maxime@cerno.tech>
 

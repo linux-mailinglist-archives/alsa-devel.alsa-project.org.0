@@ -2,154 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10B1A6F86E2
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 18:38:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88DD26F871D
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 18:56:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7A9F2D55;
-	Fri,  5 May 2023 18:37:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7A9F2D55
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F4B02D4B;
+	Fri,  5 May 2023 18:55:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F4B02D4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683304679;
-	bh=2FFcPgjqPGL1p3hZ36ss91I327mpl5v2YVW6AYg0cRk=;
-	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
-	b=QD3tyQ/FL8wqOmC25otA4qJeoC2/KblB6H2a4S0eVirOLK851KpvQRsnroaBi1J1Z
-	 WORbob5rZ6cufanJe9mwzV0WFzKmKdHfZDe2n7ZnaY2viyNxpZQYLM+9uXw0/ga7Si
-	 gHgNunMjSt4fbv+Hxr7KBQB4ltXne8u7mMryabjg=
+	s=default; t=1683305786;
+	bh=58UbliZMFAdIAv4ur/aEs1B/lfMbw2b6p148XibTlUw=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=STw0HygpHMQjUj35Kh0LKZV55J26IuycenMVpUZL7LIyabjZJ9kxErW94czX3YXzr
+	 Bdgvgzmozz3nqLcwxBo0t4vqFV3gaiTDcknnztrQ6iRHvcao1jxtMfEuS4em6Y1Ont
+	 k99CNqkGjw9clHIRY25WWD7EGPbCSNFJEVtQrUCg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16063F80529;
-	Fri,  5 May 2023 18:37:09 +0200 (CEST)
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Clevo L140AU
-Date: Fri,  5 May 2023 10:36:51 -0600
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UCYH4F6H4OTWPB35ZZ5HZ66JKMC44IGR/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168330462874.26.16477454361923749640@mailman-core.alsa-project.org>
-From: Tim Crawford via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Tim Crawford <tcrawford@system76.com>
-Cc: tiwai@suse.de, productdev@system76.com,
- Jeremy Soller <jeremy@system76.com>, Tim Crawford <tcrawford@system76.com>
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id BF904F8052D;
+	Fri,  5 May 2023 18:55:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2CEBF8052D; Fri,  5 May 2023 18:37:05 +0200 (CEST)
+	id 040CDF80534; Fri,  5 May 2023 18:55:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 542E6F804B1
-	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 18:36:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 542E6F804B1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5AB9AF804B1
+	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 18:55:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AB9AF804B1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=system76.com header.i=@system76.com header.a=rsa-sha256
- header.s=fm3 header.b=oQN/XaZv;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=UV81SAFn
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id 06BE65C01D5;
-	Fri,  5 May 2023 12:36:58 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Fri, 05 May 2023 12:36:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to; s=fm3; t=1683304618; x=1683391018; bh=18LDF5N6hP
-	Zv1yWQqhuAmnt4rM0P3RA1etUVmhzbnCs=; b=oQN/XaZvpSFo7M2XKNCsnKA0EI
-	Pz0I2hGtSM3JjPsaN4PmL3PXD8gDjtQXbfs16L5DPTyZ/qgVc25oftyC/VlZKiPb
-	6BOyopK6rgDwD9/AIEM6VocAjyAk1K4kR+SdUoeaQyNbo/e8quvCt9UkE+Dllb+u
-	C+PZCQvVfkrx8WoMJAGlE0xdw/r2hgsijwtFHkRO4n4Gw5mQTTxrYxjSh8hzLO+t
-	8VQtv3icvuW9shdqlWqTK4E8/R3vCkj0RqOt90OOal2k/JG8MgsPU1dePA4g81jb
-	BlpSUKz1eOQWxy+ePQTMk7bBCYp4R8/TBWLrH8HEB1LZnaE7fqMFtsna9BFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1683304618; x=1683391018; bh=18LDF5N6hPZv1
-	yWQqhuAmnt4rM0P3RA1etUVmhzbnCs=; b=UV81SAFnvJPd9AfpIxqImtPnatrWK
-	QvLYM3PRchTIRkxf9eNYbv4k3noBcB9KFxAZAG1rL/VmCpQhY7ZnN6EqQx9oPsD8
-	D9u6v7fpV7byFFzxEWc8DyD201JeSSGfmp0R3L9pYEkvx6w7EUBbpTnmPHC/3QHo
-	+/02nNw3NbUoi05N92SEGULNxaRhJkhEJvhY6yg0eAwvhnpBNdISBUXKYTIkvwhc
-	SgXhLdcQkDhp8Ib5dhAyvhoh0Ckant5dav7XeqQRtoTyZNh1QUV0C3/xBYRtSP1T
-	cMwAXrIHAa5HwZNV671A4zDWVE8KSO0DUm5K8v/0eT0SOxyP8hD5drE/Q==
-X-ME-Sender: <xms:qTBVZBVFaCJKOKKAT4hU4b34joag76j4zyeJeqdvcXiIk-znFL6sAA>
-    <xme:qTBVZBlkyIH1D2dhX_VKJWv1uRnYqpUd33qipcBbQi4CTdWjiQZ3MwnE00577sZij
-    AxSLzIh9iyzc3KROA>
-X-ME-Received: 
- <xmr:qTBVZNZsrTi5LrkltIWCTQbQzBC7j4e_YSm82mmybfsIXhN-rpXZ91KK7QYAeDTo5KLqKd2Yyj0ZlKnhb8XYrjrNqn3sem2sDb42WBnvhw>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrfeefvddguddtgecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefvihhmucev
-    rhgrfihfohhrugcuoehttghrrgiffhhorhgusehshihsthgvmhejiedrtghomheqnecugg
-    ftrfgrthhtvghrnhepkefgteefvdeivdfhffdtfffgieffhfetgeduudekieefueeutdel
-    fedtveeuheefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
-    homhepthgtrhgrfihfohhrugesshihshhtvghmjeeirdgtohhm
-X-ME-Proxy: <xmx:qTBVZEUHyx-1yzjimagyZqkGLlTwEJqcLzp3yEs3USr0Kz3KA2Mv3g>
-    <xmx:qTBVZLna2bcW3l8vnrDmuhMYFd-WWZPS5ty_Yb_wZqeiR5SgFEJKKQ>
-    <xmx:qTBVZBfztpPWslKqTrP-CztD_K3W3nMvEGIxm0txG_l_j6D42wD1Lg>
-    <xmx:qjBVZJgEjPyTj5-qZ2D9vwpPkQgd4Qr5LJfIHHnfSt2VOAqnYBXmsg>
-Feedback-ID: i1761444e:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 May 2023 12:36:57 -0400 (EDT)
-From: Tim Crawford <tcrawford@system76.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Clevo L140AU
-Date: Fri,  5 May 2023 10:36:51 -0600
-Message-Id: <20230505163651.21257-1-tcrawford@system76.com>
-X-Mailer: git-send-email 2.40.1
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=X4cFhQpe
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-2fddb442d47so1861086f8f.2
+        for <alsa-devel@alsa-project.org>;
+ Fri, 05 May 2023 09:55:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1683305725; x=1685897725;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=L3GpvKdXnUbv3/06jF20p2wjzRq6DzJPnthy2LMuYWA=;
+        b=X4cFhQpexPgpiVzeKDoIVe1f5KH9FnPWl+bvlAJbfLZrhyLSpwgP/sU1IJ1i25x/YD
+         C1vySuirB2jOIt0kNuzjHYK20WAhit8JcVgzBt4ZIjjjMDM++PnXb+5BClRWY608yImG
+         hgCiP2UgDHpaN89G0zTTmnymOMZOuA9jap6sfndvqXHI5t7wwy0Fo9wXX3mpK7pvYeVk
+         s5JwSSsK8R4APt/fcKnlnee51w5MRyQ4P6P7e5s9KD95q2VmV5GTvuUtlYAjK2jmc0Y1
+         jWaYn0HfhjOsxKFfE35gP9i2OZfGjW8stUxYp03FJc7EyS7Qfbz9/KU7LIAaeuBomF+/
+         QtmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683305725; x=1685897725;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=L3GpvKdXnUbv3/06jF20p2wjzRq6DzJPnthy2LMuYWA=;
+        b=ZcHSW2gWAD5dZ7rGi71t5/RcYzCV/PVGvtTsTg6j3XyYXSr3wLBL32frWO+NG+8vSL
+         fjZYBDLb4ljycG/cPlKigybz43qZUZuB4M78DCZ2ezcOkyMplVVpbkAVqEXOUazA0zsu
+         hITQyWJwzAeNiNYWn9m1O4j5oxF4Ms3aSc9//xm0cRopdaKa2bXRgeZV9u2X61sWkZbQ
+         cHAdAsF7Q9ZK9hFbnLVHDxk0flRKkoci+ENeU30kem1nWd1oPhq2jQfSV/jATgeG/lC/
+         3wKBPkrPWUt/YCaVTtJCKhF/Vx4Sdl7OGYlvtwRNVpAIOdbOONvJdlSInKK7oQtBybY4
+         wXKA==
+X-Gm-Message-State: AC+VfDxqRZt2etsdoWbUc3z7T15RSRaIGa19obDVjBk0APdNqnYytq4Z
+	Fw5PwCLpphwa51q1SfCcIdy5Vg==
+X-Google-Smtp-Source: 
+ ACHHUZ7N80D7cGL6BaynTO6FiJRBZXlGZ68zRgHBLAxYl02IPxyDf8TRFR88tz+iZNTUnCjuMiziyQ==
+X-Received: by 2002:adf:e9cc:0:b0:306:45c0:f070 with SMTP id
+ l12-20020adfe9cc000000b0030645c0f070mr1675588wrn.39.1683305725414;
+        Fri, 05 May 2023 09:55:25 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id
+ x7-20020adfffc7000000b002c7066a6f77sm2923551wrs.31.2023.05.05.09.55.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 05 May 2023 09:55:24 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org,
+	tiwai@suse.com
+Subject: [PATCH 0/3] ASoC: hdmi-codec: add component name prefix to controls
+Date: Fri,  5 May 2023 17:55:11 +0100
+Message-Id: <20230505165514.4666-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UCYH4F6H4OTWPB35ZZ5HZ66JKMC44IGR
-X-Message-ID-Hash: UCYH4F6H4OTWPB35ZZ5HZ66JKMC44IGR
-X-MailFrom: tcrawford@system76.com
+Message-ID-Hash: GSXRMG5HBBTUPSWGGIJ72O2A5IF75AZR
+X-Message-ID-Hash: GSXRMG5HBBTUPSWGGIJ72O2A5IF75AZR
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.de, productdev@system76.com,
- Jeremy Soller <jeremy@system76.com>, Tim Crawford <tcrawford@system76.com>
+CC: lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UCYH4F6H4OTWPB35ZZ5HZ66JKMC44IGR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSXRMG5HBBTUPSWGGIJ72O2A5IF75AZR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -158,28 +117,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Jeremy Soller <jeremy@system76.com>
+While adding audio support to two instances of Display port on x13s,
+hdmi-codec failed to add controls as two codec instances were trying
+to add controls with same name.
+    
+snd-sc8280xp sound: control 3:16:0:IEC958 Playback Mask:0 is already present
+snd-sc8280xp sound: control 3:16:0:Playback Channel Map:0 is already present
+hdmi-audio-codec hdmi-audio-codec.4.auto: ASoC: error at snd_soc_pcm_dai_new on i2s-hifi: -16
 
-Fixes headset detection on Clevo L140AU.
+To fix this issue, I have added a new api snd_pcm_add_chmap_ctls_with_prefix()
+to allow to pass asoc component name prefix, which should provide a unique control
+names. We can also make snd_pcm_add_chmap_ctls() take prefix argument to do the same
+this.
 
-Signed-off-by: Jeremy Soller <jeremy@system76.com>
-Signed-off-by: Tim Crawford <tcrawford@system76.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+Srinivas Kandagatla (3):
+  ALSA: pcm: add snd_pcm_add_chmap_ctls_with_prefix
+  ASoC: hdmi-codec: use snd_pcm_add_chmap_ctls_with_prefix to add
+    controls
+  ASoC: hdmi-codec: use snd_soc_cnew to add controls
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 068ce0db9562..570f3478c4e7 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9617,6 +9617,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x7716, "Clevo NS50PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x7717, "Clevo NS70PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x7718, "Clevo L140PU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x7724, "Clevo L140AU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8228, "Clevo NR40BU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8520, "Clevo NH50D[CD]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8521, "Clevo NH77D[CD]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
+ include/sound/pcm.h           |  7 +++++++
+ sound/core/pcm_lib.c          | 30 ++++++++++++++++++++++++++++--
+ sound/soc/codecs/hdmi-codec.c | 10 ++++++----
+ 3 files changed, 41 insertions(+), 6 deletions(-)
+
 -- 
-2.40.1
+2.21.0
 

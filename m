@@ -2,98 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B38596F855F
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 17:16:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C9666F8595
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 17:23:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E05D92D15;
-	Fri,  5 May 2023 17:15:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E05D92D15
+	by alsa0.perex.cz (Postfix) with ESMTPS id 318E32D14;
+	Fri,  5 May 2023 17:23:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318E32D14
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683299782;
-	bh=bRq/vrDbBAa2v99vwD8gWq5cuRnY8I7/EUC2Vg5nOuI=;
+	s=default; t=1683300235;
+	bh=kUfG6Wd4GMNewSYj6UQXSNBDwj+Q+xQXtoP9NNtmPaM=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LxiolCgSwgaBlTclh8mywruRqCIZBylUv7aUazc0ORagA8BwdeRzKt4LM36RqrS5R
-	 ymg0ZGZww4nN9HOv+U5y0ldnGaAJk+noeuPXvcW7GVQVlJaN17bpr3q/Qs5Y/hB4wt
-	 8qs6yecmRWJSgxSskd+xfyNoUVipI5XVnRO0HQyA=
+	b=fIiM+PqbT+7Fes1B+pQUwTIl5zrV8FExKvmGOyI4zxaeOWke4JvMZkzy6zjnLf3kn
+	 q/pZqmKFLv4zftHqwQARotuVTpVif/bJeziVA5NW8qkRCNbXYFUFrmUNQzyMNk+cex
+	 MBm1FcfRxJhaaS3Z6zAzxLkZinRR/7yd3yO1h5QE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EA74F80529;
-	Fri,  5 May 2023 17:15:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C351F80529;
+	Fri,  5 May 2023 17:23:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88446F80529; Fri,  5 May 2023 17:15:28 +0200 (CEST)
+	id 6E96EF8052D; Fri,  5 May 2023 17:23:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC938F80087
-	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 17:15:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC938F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13D56F80520
+	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 17:22:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13D56F80520
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=zJdVhRyw;
+ header.s=susede2_rsa header.b=YM+H7NWT;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=b5HPUwtf
+ header.s=susede2_ed25519 header.b=eezyx4TN
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 11CA22018F;
-	Fri,  5 May 2023 15:15:25 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1CF74201B3;
+	Fri,  5 May 2023 15:22:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683299725;
+	t=1683300178;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rQXhkEDxslMaIbs8zVFGpIVuXLaDUqlVqpZj4V0XniY=;
-	b=zJdVhRywY2h9ZhQ8hrz2GnFtSYZyGUA4vPUjoAWkryA2fgPBjVeJUl9LpuM1RemHntOOSW
-	8e/BSOseLunrMk/s0UUblStSou/J5Ibez5C6+pr9ZE5OAbF2O2LeR4XpP62C7y+vh+1ISz
-	TKIUlaEzQSb3cmFb3qVxKj0EwptNi6c=
+	bh=bUYUgBFcb5VLakve7uhoDoLqc3SPNTwhofaFDHfciOU=;
+	b=YM+H7NWT0Qh+1hBK81R3gT1xrp14R1//4d3+8gAjF2JfAVcevBq0GIpWK2AGREnnMuFqRd
+	LOGjiX0mLjp4GzIxKRYigN5Mm7KKPv26Xa2KUP2x3sovqLnSM078dnGYGILvp5qSUDWQcY
+	zVsYZTSzkM1sDqUniMIzglC8tEeD+v0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683299725;
+	s=susede2_ed25519; t=1683300178;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rQXhkEDxslMaIbs8zVFGpIVuXLaDUqlVqpZj4V0XniY=;
-	b=b5HPUwtfIzbM5aQ4g2aaexXuyZCMd0BvDDsUZBYnIb3AT7VI1tlQUQYV+MMsIRWR+DVOda
-	XWdhKioBMvoZ32Bw==
+	bh=bUYUgBFcb5VLakve7uhoDoLqc3SPNTwhofaFDHfciOU=;
+	b=eezyx4TNgPtBIUfSgaVxtIRrnAypT1ZL1E1SyP1cdtlGozLYL4dBFA3LxPMXpJRDLCXLOw
+	W72zElKO07CrD1Dg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DC52A13513;
-	Fri,  5 May 2023 15:15:24 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E671613488;
+	Fri,  5 May 2023 15:22:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id n1ogNIwdVWTKCgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 05 May 2023 15:15:24 +0000
-Date: Fri, 05 May 2023 17:15:24 +0200
-Message-ID: <87a5yiizcj.wl-tiwai@suse.de>
+	id KsRBNVEfVWQtDgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 05 May 2023 15:22:57 +0000
+Date: Fri, 05 May 2023 17:22:57 +0200
+Message-ID: <877ctmiyzy.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Luke Jones <luke@ljones.dev>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for 2nd ASUS GU603
-In-Reply-To: <L8Z3UR.OO4MSH3SX5VD3@ljones.dev>
-References: <20230503035035.254346-1-luke@ljones.dev>
-	<87h6sune0i.wl-tiwai@suse.de>
-	<L8Z3UR.OO4MSH3SX5VD3@ljones.dev>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 2/7] ALSA: pcm: fix playback silence - use the actual
+ new_hw_ptr for the threshold mode
+In-Reply-To: <20230505103140.2285622-2-oswald.buddenhagen@gmx.de>
+References: <20230505103140.2285622-1-oswald.buddenhagen@gmx.de>
+	<20230505103140.2285622-2-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: KQBKL46MESQACEGR22NDUE4RZPO7NAG4
-X-Message-ID-Hash: KQBKL46MESQACEGR22NDUE4RZPO7NAG4
+Message-ID-Hash: 77FIIHMMRV2Q5CKX75C2AWWHRUTMQ6CZ
+X-Message-ID-Hash: 77FIIHMMRV2Q5CKX75C2AWWHRUTMQ6CZ
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,13 +102,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQBKL46MESQACEGR22NDUE4RZPO7NAG4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/77FIIHMMRV2Q5CKX75C2AWWHRUTMQ6CZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,58 +117,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 04 May 2023 02:41:09 +0200,
-Luke Jones wrote:
+On Fri, 05 May 2023 12:31:35 +0200,
+Oswald Buddenhagen wrote:
 > 
-> On Wed, May 3 2023 at 08:08:13 +0200, Takashi Iwai <tiwai@suse.de>
-> wrote:
-> > On Wed, 03 May 2023 05:50:35 +0200,
-> > Luke D. Jones wrote:
-> >> 
-> >>  Add quirk for GU603 with 0x1c62 variant of codec.
-> >> 
-> >>  Signed-off-by: Luke D. Jones <luke@ljones.dev>
-> >>  ---
-> >>   sound/pci/hda/patch_realtek.c | 1 +
-> >>   1 file changed, 1 insertion(+)
-> >> 
-> >>  diff --git a/sound/pci/hda/patch_realtek.c
-> >> b/sound/pci/hda/patch_realtek.c
-> >>  index 3b9f077a227f..4a585050edc3 100644
-> >>  --- a/sound/pci/hda/patch_realtek.c
-> >>  +++ b/sound/pci/hda/patch_realtek.c
-> >>  @@ -9501,6 +9501,7 @@ static const struct snd_pci_quirk
-> >> alc269_fixup_tbl[] = {
-> >>   	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A",
-> >> ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
-> >>   	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH",
-> >> ALC294_FIXUP_ASUS_DUAL_SPK),
-> >>   	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603",
-> >> ALC289_FIXUP_ASUS_GA401),
-> >>  +	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603",
-> >> ALC289_FIXUP_ASUS_GA401),
-> >>   	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50",
-> >> ALC269_FIXUP_STEREO_DMIC),
-> >>   	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA",
-> >> ALC295_FIXUP_ASUS_DACS),
-> >>   	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL",
-> >> ALC294_FIXUP_ASUS_DUAL_SPK),
-> > 
-> > Could you try to put the new entry at the right place?
-> > The table is sorted in the PCI SSID order.
-> > 
-> > 
-> > thanks,
-> > 
-> > Takashi
+> From: Jaroslav Kysela <perex@perex.cz>
 > 
-> Sure no problem. Sorry, seems I read `0x1c62` and `0x16c2` :(
+> The snd_pcm_playback_hw_avail() function uses runtime->status->hw_ptr.
+> Unfortunately, in case when we call this function from snd_pcm_update_hw_ptr0(),
+> this variable contains the previous hardware pointer. Use the new_hw_ptr
+> argument to calculate hw_avail (filled samples by the user space) to
+> correct the threshold comparison.
+> 
+> The new_hw_ptr argument may also be set to ULONG_MAX which means the
+> initialization phase. In this case, use runtime->status->hw_ptr.
+> 
+> Suggested-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> Reviewed-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-So, which number is correct?  Isn't it 0x16c2?  This sounds more
-reasonable.
+Here misses your Signed-off-by tag.  Ditto for the patch 3.
+It's a legal requirement, and I can't apply patches without it.
 
-In anyway, please resubmit a proper patch after confirming that it's
-really working.
+Could you resubmit the series quickly with your SOB?
 
 
 thanks,

@@ -2,63 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3916F7FA8
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 11:13:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0BDB6F7FCE
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 11:23:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A70382C19;
-	Fri,  5 May 2023 11:12:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A70382C19
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB99C12B9;
+	Fri,  5 May 2023 11:22:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB99C12B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683278025;
-	bh=YpNOQOimKIQ1AXjPvSWIg7kACq77pdiVlDJPutcZu1g=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=C8ai7n3Sa/Urbx2Wvmh9YYf71VhooJf3UEq5FEexD9cPpqZZGWhw2Vbt7FtZRNvIV
-	 /R//5QlXJPpgiAYvG3BNV0K+2OvnvPFSuJkmx/ULIpJyTPkvnknaQtPrqvVha5etzT
-	 gH6/D0AmJlAV5XgU+aYyO1bGQUhvM2yvzyOVSowM=
+	s=default; t=1683278629;
+	bh=9vPhqtgz/qVGgFYbD9UbdKybwsBMkrteVksIhFTGdvg=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=hKdBe9lZzXFh5CBp/P7ee0QF9JEGn6is/dHE/SHxd+av6CfhVXn4GAQ55qT+ZXW9l
+	 vq/NmmQ2uWyU6P52DX4hLXYjaJuRX0Fh6gLnnHt6uYBl5UqOpflRr+8rNRjhVTk1P6
+	 RbjRZ0xG3tT9ZgEFRzKoW2OZrrhsvg+1/4wovTQI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03B6CF804B1;
-	Fri,  5 May 2023 11:12:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D412F80529;
+	Fri,  5 May 2023 11:22:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8DB18F8052D; Fri,  5 May 2023 11:12:51 +0200 (CEST)
+	id AEC7AF8052D; Fri,  5 May 2023 11:22:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0F7DF80520
-	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 11:12:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0F7DF80520
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1683277966404667139-webhooks-bot@alsa-project.org>
-References: <1683277966404667139-webhooks-bot@alsa-project.org>
-Subject: ucm2: USB-Audio: Add support for ALC4080 Gigabyte Z590 AORUS ULTRA
-Message-Id: <20230505091251.8DB18F8052D@alsa1.perex.cz>
-Date: Fri,  5 May 2023 11:12:51 +0200 (CEST)
-Message-ID-Hash: MKZMR7257BJXPEDEZZYRKA2ZJN5LEXH5
-X-Message-ID-Hash: MKZMR7257BJXPEDEZZYRKA2ZJN5LEXH5
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 69EDDF804B1
+	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 11:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69EDDF804B1
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=uJl43poX;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=ZyEZBGTh
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 50D391FD87;
+	Fri,  5 May 2023 09:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1683278569;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/TQQLhq4X72z2eBC+8HjtOU55a4ahnELpSCvb9qoJ9c=;
+	b=uJl43poXTl+54MeX6KIx8rrAs9rK8MkIhDSuZzj0eUrgQekNKIi8KwnNphJUFRsGzGZPcp
+	Ok1ccuKszVIOfsd1qtY/upzUW/pvGcsZNfLoxyV70/h+yvqy+vMMQsM+v00vOtmWLq1OOq
+	JdcrrjsiCDNVnnPELS78vXxkwT9HSj4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1683278569;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/TQQLhq4X72z2eBC+8HjtOU55a4ahnELpSCvb9qoJ9c=;
+	b=ZyEZBGThcd9g4vqHLp6Z98zVXzbuFxa0f4th56l21314m2O8bWt5DmZdLRmLNlioaRI/3l
+	PgaiTzr7kbhQPQBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2843613488;
+	Fri,  5 May 2023 09:22:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id btH7COnKVGQKWQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 05 May 2023 09:22:49 +0000
+Date: Fri, 05 May 2023 11:22:48 +0200
+Message-ID: <871qjvjfo7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 0/5] rewrite snd_pcm_playback_silence() again
+In-Reply-To: <20230505073813.1219175-1-perex@perex.cz>
+References: <20230505073813.1219175-1-perex@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: FQ62Q7VYAXUYBY6MYZWWLCZDAJ3ISXWN
+X-Message-ID-Hash: FQ62Q7VYAXUYBY6MYZWWLCZDAJ3ISXWN
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: ALSA development <alsa-devel@alsa-project.org>,
+ Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+ Jeff Chua <jeff.chua.linux@gmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MKZMR7257BJXPEDEZZYRKA2ZJN5LEXH5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FQ62Q7VYAXUYBY6MYZWWLCZDAJ3ISXWN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -67,12 +117,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf pull request #310 was edited from BearsPunch:
+On Fri, 05 May 2023 09:38:08 +0200,
+Jaroslav Kysela wrote:
+> 
+> This is a split of changes for both patches (the first with the missing
+> top-up mode + later fix with mixups) proposed by Oswald. The aim was to
+> pick only real code changes.
+> 
+> Only the first two patches after revert fixes the current silencing issues.
+> The last two are just cleanups with the extra optimization in the last patch
+> moving the common code to a function.
+> 
+> Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> Cc: Jeff Chua <jeff.chua.linux@gmail.com>
+> 
+> Jaroslav Kysela (5):
+>   ALSA: pcm: Revert "ALSA: pcm: rewrite snd_pcm_playback_silence()"
+>   ALSA: pcm: fix playback silence - use the actual new_hw_ptr for the
+>     threshold mode
+>   ALSA: pcm: fix playback silence - correct the incremental silencing
+>   ALSA: pcm: playback silence - remove extra code
+>   ALSA: pcm: playback silence - move silence variables updates to
+>     separate function
 
-When installed Manjaro I had an issue my audio card was not recognized. USB ID is 0414:a00d and as I see you already have it under if.realtek-alc1220-vb condition, but I have ALC4080. So I manually changed USB-Audio.conf under If.realtek-alc4080 condition from (0414:a0(0e|1[0124])) to (0414:a0(0[de]|1[0124])) and now it works perfectly.
+Thanks, this makes it much easier to digest the whole changes!
 
-But Ubuntu (maybe from 22.04) doesn't have this issue. Does Canonical update alsa-ucm-conf by themselves without pull request to main branch?
+I watch out for a while whether any objection comes up, then apply
+patches in today -- or if we didn't reach to consensus, I'll pick up
+only the first revert patch for 6.4-rc1, at least.
 
-Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/310
-Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/310.patch
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+
+Takashi

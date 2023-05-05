@@ -2,98 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DEE56F8554
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 17:13:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B38596F855F
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 May 2023 17:16:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 239A51511;
-	Fri,  5 May 2023 17:13:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 239A51511
+	by alsa0.perex.cz (Postfix) with ESMTPS id E05D92D15;
+	Fri,  5 May 2023 17:15:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E05D92D15
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683299635;
-	bh=sElbCMfqWS+6vp+KafGqPAQU5wiM2j+lYmYwTHi8VT4=;
+	s=default; t=1683299782;
+	bh=bRq/vrDbBAa2v99vwD8gWq5cuRnY8I7/EUC2Vg5nOuI=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Y17C5l2E8ttsZPMoK1y5Vb7/OHQUGTrR5STH0VKF0KTOkWDFIVZc5N6wdiBiNFCFf
-	 Bpy8icRMffKYo1lShZkjCE8LIAJUi9kb79SCms8yKUSQ6KwbWf1O7QuY82LtoaRxMt
-	 eyRJtX/Wb2Nsm+ayqS2gsJid7u6BUZToJ03bdl6U=
+	b=LxiolCgSwgaBlTclh8mywruRqCIZBylUv7aUazc0ORagA8BwdeRzKt4LM36RqrS5R
+	 ymg0ZGZww4nN9HOv+U5y0ldnGaAJk+noeuPXvcW7GVQVlJaN17bpr3q/Qs5Y/hB4wt
+	 8qs6yecmRWJSgxSskd+xfyNoUVipI5XVnRO0HQyA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D44A8F80529;
-	Fri,  5 May 2023 17:13:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9EA74F80529;
+	Fri,  5 May 2023 17:15:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2095F8052E; Fri,  5 May 2023 17:13:00 +0200 (CEST)
+	id 88446F80529; Fri,  5 May 2023 17:15:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D1ED6F80520
-	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 17:12:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1ED6F80520
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC938F80087
+	for <alsa-devel@alsa-project.org>; Fri,  5 May 2023 17:15:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC938F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=t//ANi2A;
+ header.s=susede2_rsa header.b=zJdVhRyw;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=6YaphH0X
+ header.s=susede2_ed25519 header.b=b5HPUwtf
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A668F22A2B;
-	Fri,  5 May 2023 15:12:54 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 11CA22018F;
+	Fri,  5 May 2023 15:15:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683299574;
+	t=1683299725;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OAXiiw/2yoLDtnaV0LfYLw5M65rc66ax9M/6ZHpOIh4=;
-	b=t//ANi2AiMIevjLLdEJYfmnzn0V5PgzQrTQ1lX0SOXPc+zpZ+gFIk6MVeO/7nVxcyY9tK1
-	Rdx2ALWZiHetUMC147zUkfjEuM/9ityppapruvlb6H1AwGP5lPdrtirXKfS0p5Vf4Ajqi/
-	KAIMkBtpFsCePb7sFncq6dkR2nD4X+0=
+	bh=rQXhkEDxslMaIbs8zVFGpIVuXLaDUqlVqpZj4V0XniY=;
+	b=zJdVhRywY2h9ZhQ8hrz2GnFtSYZyGUA4vPUjoAWkryA2fgPBjVeJUl9LpuM1RemHntOOSW
+	8e/BSOseLunrMk/s0UUblStSou/J5Ibez5C6+pr9ZE5OAbF2O2LeR4XpP62C7y+vh+1ISz
+	TKIUlaEzQSb3cmFb3qVxKj0EwptNi6c=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683299574;
+	s=susede2_ed25519; t=1683299725;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OAXiiw/2yoLDtnaV0LfYLw5M65rc66ax9M/6ZHpOIh4=;
-	b=6YaphH0XrCGPItdLOuBycAH75TggOi1IS0m9QcfSRSuAA9h6LsOKPAS5PNpzjwUOydQZra
-	505Q9iUEYGcMsbBQ==
+	bh=rQXhkEDxslMaIbs8zVFGpIVuXLaDUqlVqpZj4V0XniY=;
+	b=b5HPUwtfIzbM5aQ4g2aaexXuyZCMd0BvDDsUZBYnIb3AT7VI1tlQUQYV+MMsIRWR+DVOda
+	XWdhKioBMvoZ32Bw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4B7CF13513;
-	Fri,  5 May 2023 15:12:54 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DC52A13513;
+	Fri,  5 May 2023 15:15:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 3p2uEfYcVWR/CQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 05 May 2023 15:12:54 +0000
-Date: Fri, 05 May 2023 17:12:53 +0200
-Message-ID: <87bkiyizgq.wl-tiwai@suse.de>
+	id n1ogNIwdVWTKCgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 05 May 2023 15:15:24 +0000
+Date: Fri, 05 May 2023 17:15:24 +0200
+Message-ID: <87a5yiizcj.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix mute and micmute LEDs for an HP
- laptop
-In-Reply-To: <20230505125925.543601-1-kai.heng.feng@canonical.com>
-References: <20230505125925.543601-1-kai.heng.feng@canonical.com>
+To: Luke Jones <luke@ljones.dev>
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for 2nd ASUS GU603
+In-Reply-To: <L8Z3UR.OO4MSH3SX5VD3@ljones.dev>
+References: <20230503035035.254346-1-luke@ljones.dev>
+	<87h6sune0i.wl-tiwai@suse.de>
+	<L8Z3UR.OO4MSH3SX5VD3@ljones.dev>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: XD7BX4DQMWTA6FSN74S7TLDNX7KW7U76
-X-Message-ID-Hash: XD7BX4DQMWTA6FSN74S7TLDNX7KW7U76
+Message-ID-Hash: KQBKL46MESQACEGR22NDUE4RZPO7NAG4
+X-Message-ID-Hash: KQBKL46MESQACEGR22NDUE4RZPO7NAG4
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,20 +101,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, Stefan Binding <sbinding@opensource.cirrus.com>,
- Andy Chi <andy.chi@canonical.com>, Tim Crawford <tcrawford@system76.com>,
- Meng Tang <tangmeng@uniontech.com>, "Luke D. Jones" <luke@ljones.dev>,
- Philipp Jungkamp <p.jungkamp@gmx.net>,
- Kacper =?ISO-8859-2?Q?Michaj=B3ow?= <kasper93@gmail.com>,
- Gabriele Mazzotta <gabriele.mzt@gmail.com>,
- Yuchi Yang <yangyuchi66@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+CC: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XD7BX4DQMWTA6FSN74S7TLDNX7KW7U76/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQBKL46MESQACEGR22NDUE4RZPO7NAG4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,15 +116,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 05 May 2023 14:59:23 +0200,
-Kai-Heng Feng wrote:
+On Thu, 04 May 2023 02:41:09 +0200,
+Luke Jones wrote:
 > 
-> There's another laptop that needs the fixup to enable mute and micmute
-> LEDs. So do it accordingly.
+> On Wed, May 3 2023 at 08:08:13 +0200, Takashi Iwai <tiwai@suse.de>
+> wrote:
+> > On Wed, 03 May 2023 05:50:35 +0200,
+> > Luke D. Jones wrote:
+> >> 
+> >>  Add quirk for GU603 with 0x1c62 variant of codec.
+> >> 
+> >>  Signed-off-by: Luke D. Jones <luke@ljones.dev>
+> >>  ---
+> >>   sound/pci/hda/patch_realtek.c | 1 +
+> >>   1 file changed, 1 insertion(+)
+> >> 
+> >>  diff --git a/sound/pci/hda/patch_realtek.c
+> >> b/sound/pci/hda/patch_realtek.c
+> >>  index 3b9f077a227f..4a585050edc3 100644
+> >>  --- a/sound/pci/hda/patch_realtek.c
+> >>  +++ b/sound/pci/hda/patch_realtek.c
+> >>  @@ -9501,6 +9501,7 @@ static const struct snd_pci_quirk
+> >> alc269_fixup_tbl[] = {
+> >>   	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A",
+> >> ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
+> >>   	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH",
+> >> ALC294_FIXUP_ASUS_DUAL_SPK),
+> >>   	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603",
+> >> ALC289_FIXUP_ASUS_GA401),
+> >>  +	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603",
+> >> ALC289_FIXUP_ASUS_GA401),
+> >>   	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50",
+> >> ALC269_FIXUP_STEREO_DMIC),
+> >>   	SND_PCI_QUIRK(0x1043, 0x1740, "ASUS UX430UA",
+> >> ALC295_FIXUP_ASUS_DACS),
+> >>   	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL",
+> >> ALC294_FIXUP_ASUS_DUAL_SPK),
+> > 
+> > Could you try to put the new entry at the right place?
+> > The table is sorted in the PCI SSID order.
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
 > 
-> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> Sure no problem. Sorry, seems I read `0x1c62` and `0x16c2` :(
 
-Thanks, applied now.
+So, which number is correct?  Isn't it 0x16c2?  This sounds more
+reasonable.
 
+In anyway, please resubmit a proper patch after confirming that it's
+really working.
+
+
+thanks,
 
 Takashi

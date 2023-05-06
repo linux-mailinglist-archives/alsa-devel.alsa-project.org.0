@@ -2,27 +2,27 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75CAC6F911E
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 12:18:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C6216F911F
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 12:19:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E209729F2;
-	Sat,  6 May 2023 12:17:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E209729F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1CD42B58;
+	Sat,  6 May 2023 12:18:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1CD42B58
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683368312;
-	bh=FE6a8TaePop5OFoBL7g8fp7aHS1Z467cVEw1lcuevwI=;
+	s=default; t=1683368362;
+	bh=vIAdWTdHMnqebh/cp4wRPoyCO9le6vMOhb7PhVoi2eA=;
 	h=Subject:To:From:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=AqmnWE1U9bDuSmjXCAbnnjmZ1EYn15tHVzQdx2DAGz96zM3jzk4t12tsdIqaus3yy
-	 QgUGPG0Y2MnxAATJkJ+Ta5tSg4bA0gouE5yUeS08YH3yiTXE61/V7q79oOPvfSPT+x
-	 ZpmJPgY3gGJKgNjTUwP0GfZ/kFiwmidyZxqEpS3o=
+	b=TrngEf+eLgz4746tsWSasoNfKYg1CGdOQveEDWnYmdHLme/XtxBtW3leXDyivIhNl
+	 nCZb5di1zCqHrPt4ezPnPshoWPqnIWz1REplGlcQRAUKjGJvP3JDCyI0RpkSa/WoIn
+	 qB1Gq1gQy29kG4eQmoLH9X6eXivWqKBXDSCiNiyY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E1B3F80529;
-	Sat,  6 May 2023 12:17:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5223F80534;
+	Sat,  6 May 2023 12:17:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1BE3FF8052D; Sat,  6 May 2023 12:17:36 +0200 (CEST)
+	id EB4DDF8053B; Sat,  6 May 2023 12:17:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.3 required=5.0 tests=DATE_IN_PAST_03_06,
@@ -30,45 +30,44 @@ X-Spam-Status: No, score=-4.3 required=5.0 tests=DATE_IN_PAST_03_06,
 	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8FEADF80529
-	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 12:17:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FEADF80529
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3003F8052E
+	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 12:17:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3003F8052E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=g2JNMdfc
+ header.a=rsa-sha256 header.s=korg header.b=Yr25P9BQ
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 445D361A0A;
-	Sat,  6 May 2023 10:17:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B78AC433EF;
-	Sat,  6 May 2023 10:17:21 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id A1CF561A0A;
+	Sat,  6 May 2023 10:17:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E488C433EF;
+	Sat,  6 May 2023 10:17:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1683368242;
-	bh=IzaebC34xnm30FO38AtSRInVDBojZ0h23QIATNug8rI=;
+	s=korg; t=1683368260;
+	bh=fUGEDSEbUV6JN0IzwfuiS+7XQa8Vkmzvr6Wst028jhY=;
 	h=Subject:To:Cc:From:Date:From;
-	b=g2JNMdfcNdKvBvKeHQng2eP3tERgJxBZ3gNtfSTi9Dn67juClg+Z1cyRqryKfCbzq
-	 8Cavzj6dlyHsC85/72wi7Sj+bkiCaT/pydpQsbD1CpZYMeAszSZX81BAgAdu71fx6b
-	 32+d4DtlINWJcc/4YZIYvBQ85bV1i7tkRX8kOico=
+	b=Yr25P9BQ9ZHlJsJX9hNw5nfXHN+NKejiLAdhcautNwVuwTS67jpYrxtDrk0RBF+i9
+	 PF0HZ3IwxnY+NQhba3vvh8bKpxjJuqAyIObpNeCbbv6K3fQomT2PChsllB/KXineei
+	 bkARWJbzFRbAKxB+xlxJBvx34xLDwf22JuFU4/Ik=
 Subject: Patch "sound/oss/dmasound: fix build when drivers are mixed =y/=m"
- has been added to the 5.10-stable tree
+ has been added to the 5.15-stable tree
 To: 
  alsa-devel@alsa-project.org,arnd@arndb.de,geert@linux-m68k.org,gregkh@linuxfoundation.org,lkp@intel.com,perex@perex.cz,rdunlap@infradead.org,tiwai@suse.com,tiwai@suse.de
 From: <gregkh@linuxfoundation.org>
-Date: Sat, 06 May 2023 16:00:12 +0900
-Message-ID: <2023050612-yelp-gents-31e8@gregkh>
+Date: Sat, 06 May 2023 16:00:14 +0900
+Message-ID: <2023050614-gore-attain-18f1@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 X-stable: commit
 X-Patchwork-Hint: ignore 
-Message-ID-Hash: G6RI5TVCZTLAWAZFCRZ65E3OBPCO7XSH
-X-Message-ID-Hash: G6RI5TVCZTLAWAZFCRZ65E3OBPCO7XSH
+Message-ID-Hash: M7FJJDWBYIITKD3YS66S3ISNRTCTGJCR
+X-Message-ID-Hash: M7FJJDWBYIITKD3YS66S3ISNRTCTGJCR
 X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -82,7 +81,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G6RI5TVCZTLAWAZFCRZ65E3OBPCO7XSH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M7FJJDWBYIITKD3YS66S3ISNRTCTGJCR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,12 +95,12 @@ This is a note to let you know that I've just added the patch titled
 
     sound/oss/dmasound: fix build when drivers are mixed =y/=m
 
-to the 5.10-stable tree which can be found at:
+to the 5.15-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      sound-oss-dmasound-fix-build-when-drivers-are-mixed-y-m.patch
-and it can be found in the queue-5.10 subdirectory.
+and it can be found in the queue-5.15 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -194,7 +193,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	mixer_unit = register_sound_mixer(&mixer_fops, -1);
  	if (mixer_unit < 0)
  		return;
-@@ -1176,9 +1171,6 @@ static const struct file_operations sq_f
+@@ -1171,9 +1166,6 @@ static const struct file_operations sq_f
  static int sq_init(void)
  {
  	const struct file_operations *fops = &sq_fops;
@@ -204,7 +203,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  
  	sq_unit = register_sound_dsp(fops, -1);
  	if (sq_unit < 0) {
-@@ -1380,9 +1372,6 @@ static const struct file_operations stat
+@@ -1366,9 +1358,6 @@ static const struct file_operations stat
  
  static int state_init(void)
  {
@@ -214,7 +213,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	state_unit = register_sound_special(&state_fops, SND_DEV_STATUS);
  	if (state_unit < 0)
  		return state_unit ;
-@@ -1400,10 +1389,9 @@ static int state_init(void)
+@@ -1386,10 +1375,9 @@ static int state_init(void)
  int dmasound_init(void)
  {
  	int res ;
@@ -226,7 +225,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  
  	/* Set up sound queue, /dev/audio and /dev/dsp. */
  
-@@ -1422,9 +1410,7 @@ int dmasound_init(void)
+@@ -1408,9 +1396,7 @@ int dmasound_init(void)
  		printk(KERN_ERR "DMA sound driver: Interrupt initialization failed\n");
  		return -ENODEV;
  	}
@@ -236,7 +235,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  
  	printk(KERN_INFO "%s DMA sound driver rev %03d installed\n",
  		dmasound.mach.name, (DMASOUND_CORE_REVISION<<4) +
-@@ -1438,8 +1424,6 @@ int dmasound_init(void)
+@@ -1424,8 +1410,6 @@ int dmasound_init(void)
  	return 0;
  }
  
@@ -245,7 +244,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  void dmasound_deinit(void)
  {
  	if (irq_installed) {
-@@ -1458,8 +1442,6 @@ void dmasound_deinit(void)
+@@ -1444,8 +1428,6 @@ void dmasound_deinit(void)
  		unregister_sound_dsp(sq_unit);
  }
  
@@ -254,7 +253,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  static int dmasound_setup(char *str)
  {
  	int ints[6], size;
-@@ -1503,8 +1485,6 @@ static int dmasound_setup(char *str)
+@@ -1489,8 +1471,6 @@ static int dmasound_setup(char *str)
  
  __setup("dmasound=", dmasound_setup);
  
@@ -263,7 +262,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
      /*
       *  Conversion tables
       */
-@@ -1591,9 +1571,7 @@ char dmasound_alaw2dma8[] = {
+@@ -1577,9 +1557,7 @@ char dmasound_alaw2dma8[] = {
  
  EXPORT_SYMBOL(dmasound);
  EXPORT_SYMBOL(dmasound_init);
@@ -277,6 +276,5 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from rdunlap@infradead.org are
 
-queue-5.10/sound-oss-dmasound-fix-build-when-drivers-are-mixed-y-m.patch
-queue-5.10/driver-core-don-t-require-dynamic_debug-for-initcall_debug-probe-timing.patch
-queue-5.10/ima-allow-fix-uml-builds.patch
+queue-5.15/sound-oss-dmasound-fix-build-when-drivers-are-mixed-y-m.patch
+queue-5.15/ima-allow-fix-uml-builds.patch

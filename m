@@ -2,50 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE82B6FA170
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:49:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D7616FA16F
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:49:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36BA412C6;
-	Mon,  8 May 2023 09:48:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36BA412C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9171812CB;
+	Mon,  8 May 2023 09:48:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9171812CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683532178;
-	bh=5izXgUERm2J1/JVSmHtOH4sy+kAtc1Euv6mWxaW42h4=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZOC5Dzdlar3jpGsWxcis9fYsO9HhFgrwlsmQIYhV71tLoIJBEI5EBAjIvngt4xd71
-	 Qr88xvMyIwtK9EifqYh7g3n52zOVgoJP8mHRpzGwmiJkVUa0KP5q0YEW7NOgB84ETf
-	 KODhRH1Tbz5idVkMAaVfo76ISqwqGKli4F3EduZo=
+	s=default; t=1683532163;
+	bh=NsxtMFdCKTP+dvqmksxfRi2Hty0Gr0MV8WemJ2tEnAc=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=pHK65x1FZD3tlEyadqWlBSW2+WGrtg/UgA30ZDayNnGtGtG+m030TABUS8Y9IRhiX
+	 J21OeHOxLrOmLWZVTaC2TuzUHRsWS2c4d/6Jriix+Z8VjhfcQ6qGZLXB/L8o8rsslV
+	 J8EGC2ECHraoqiRqH/JN9KfI4hWMw/cTSQPfXcxM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E0DEF8055A;
-	Mon,  8 May 2023 09:46:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 843B2F80549;
+	Mon,  8 May 2023 09:45:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23DCDF80534; Sat,  6 May 2023 11:01:47 +0200 (CEST)
+	id 66A0CF80533; Sat,  6 May 2023 11:01:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
- [61.152.239.71])
+Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
 	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E8121F80114
-	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 11:01:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8121F80114
-Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
+	by alsa1.perex.cz (Postfix) with ESMTPS id 09A2DF8052D
+	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 11:01:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09A2DF8052D
+Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
-	by fd01.gateway.ufhost.com (Postfix) with ESMTP id 8569D24DEF0;
-	Sat,  6 May 2023 17:01:17 +0800 (CST)
-Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX165.cuchost.com
- (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Sat, 6 May
- 2023 17:01:17 +0800
+	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
+	by ex01.ufhost.com (Postfix) with ESMTP id 377CC24E251;
+	Sat,  6 May 2023 17:01:18 +0800 (CST)
+Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX166.cuchost.com
+ (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Sat, 6 May
+ 2023 17:01:18 +0800
 Received: from SD-Server.starfivetech.com (183.27.98.219) by
  EXMBX168.cuchost.com (172.16.6.78) with Microsoft SMTP Server (TLS) id
- 15.0.1497.42; Sat, 6 May 2023 17:01:16 +0800
+ 15.0.1497.42; Sat, 6 May 2023 17:01:17 +0800
 From: Walker Chen <walker.chen@starfivetech.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
@@ -54,10 +54,12 @@ To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
 	<conor.dooley@microchip.com>, Emil Renner Berthing
 	<emil.renner.berthing@canonical.com>, Walker Chen
 	<walker.chen@starfivetech.com>
-Subject: [PATCH v3 0/3]  Add TDM audio on StarFive JH7110
-Date: Sat, 6 May 2023 17:01:13 +0800
-Message-ID: <20230506090116.9206-1-walker.chen@starfivetech.com>
+Subject: [PATCH v3 1/3] dt-bindings: sound: Add TDM for StarFive JH7110
+Date: Sat, 6 May 2023 17:01:14 +0800
+Message-ID: <20230506090116.9206-2-walker.chen@starfivetech.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20230506090116.9206-1-walker.chen@starfivetech.com>
+References: <20230506090116.9206-1-walker.chen@starfivetech.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [183.27.98.219]
@@ -70,9 +72,9 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: AH5CMWW2FXPG7JJWKBLAMHMKDDR5V3GN
-X-Message-ID-Hash: AH5CMWW2FXPG7JJWKBLAMHMKDDR5V3GN
-X-Mailman-Approved-At: Mon, 08 May 2023 07:45:55 +0000
+Message-ID-Hash: ILMLVNIQOYU2KMZRC662EROZXTMP7OSM
+X-Message-ID-Hash: ILMLVNIQOYU2KMZRC662EROZXTMP7OSM
+X-Mailman-Approved-At: Mon, 08 May 2023 07:45:54 +0000
 CC: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
 X-Mailman-Version: 3.3.8
@@ -80,7 +82,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AH5CMWW2FXPG7JJWKBLAMHMKDDR5V3GN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ILMLVNIQOYU2KMZRC662EROZXTMP7OSM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -89,99 +91,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patchset adds TDM audio driver for the StarFive JH7110 SoC. The
-first patch adds device tree binding for TDM module. The second patch
-adds tdm driver support for JH7110 SoC. The last patch adds device node
-of tdm and sound card to JH7110 dts.
+Add bindings to describe the TDM driver for the StarFive JH7110 SoC.
 
-The series has been tested on the VisionFive 2 board by plugging an
-audio expansion board. 
-
-For more information of audio expansion board, you can take a look
-at the following webpage:
-https://wiki.seeedstudio.com/ReSpeaker_2_Mics_Pi_HAT/
-
-Changes since v2:
-- Use dt-overlay to describe sound card because need to plug the audio
-  expansion board into the VisionFive2 board.
-- Modified the coding style for driver.
-- Moved assignment of stop_dma_first to startup function of dai_driver.
-- Dropped some useless macro definition.
-- Use loops to get/enable/disable clocks. 
-
-Changes since v1:
-- Rebased on Linux 6.3-rc4.
-- Added the dts file dedicated to describe audio card.
-- Added the item for JH7110 audio board to the dt-binding of StarFive
-  SoC-based boards.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Walker Chen <walker.chen@starfivetech.com>
 ---
-v2: https://lore.kernel.org/all/20230420024118.22677-1-walker.chen@starfivetech.com/
-v1: https://lore.kernel.org/all/20230329153320.31390-1-walker.chen@starfivetech.com/
-
-Walker Chen (3):
-  dt-bindings: sound: Add TDM for StarFive JH7110
-  ASoC: starfive: Add JH7110 TDM driver
-  riscv: dts: starfive: add tdm node and sound card
-
- .../bindings/sound/starfive,jh7110-tdm.yaml   |  98 +++
- MAINTAINERS                                   |   6 +
- arch/riscv/boot/dts/starfive/Makefile         |   3 +
- .../jh7110-starfive-visionfive-2-wm8960.dtso  |  70 +++
- .../jh7110-starfive-visionfive-2.dtsi         |  40 ++
- arch/riscv/boot/dts/starfive/jh7110.dtsi      |  21 +
- sound/soc/Kconfig                             |   1 +
- sound/soc/Makefile                            |   1 +
- sound/soc/starfive/Kconfig                    |  15 +
- sound/soc/starfive/Makefile                   |   2 +
- sound/soc/starfive/jh7110_tdm.c               | 573 ++++++++++++++++++
- sound/soc/starfive/jh7110_tdm.h               | 147 +++++
- 12 files changed, 977 insertions(+)
+ .../bindings/sound/starfive,jh7110-tdm.yaml   | 98 +++++++++++++++++++
+ 1 file changed, 98 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
- create mode 100644 arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2-wm8960.dtso
- create mode 100644 sound/soc/starfive/Kconfig
- create mode 100644 sound/soc/starfive/Makefile
- create mode 100644 sound/soc/starfive/jh7110_tdm.c
- create mode 100644 sound/soc/starfive/jh7110_tdm.h
 
-
-base-commit: 197b6b60ae7bc51dd0814953c562833143b292aa
-prerequisite-patch-id: 30bec4dba6f250a6edd0c2cbab2ce09442e50e8a
-prerequisite-patch-id: bb939c0c7c26b08addfccd890f9d3974b6eaec53
-prerequisite-patch-id: 8a6f135bcabdad4a4bfb21f0c6a0ffd2bb57efe7
-prerequisite-patch-id: c2366f993a9d85e28c06d8d09f064dd5e8b29a61
-prerequisite-patch-id: 50d53a21f91f4087fc80b6f1f72864adfb0002b9
-prerequisite-patch-id: 0df3703af91c30f1ca2c47f5609012f2d7200028
-prerequisite-patch-id: 89f049f951e5acf75aab92541992f816fd0acc0d
-prerequisite-patch-id: 551fae54377090044c3612fca9740a9b359abdd2
-prerequisite-patch-id: c7fdf904f398d478f0ed6d57eb878982bc73329d
-prerequisite-patch-id: 1b2d0982b18da060c82134f05bf3ce16425bac8d
-prerequisite-patch-id: 090ba4b78d47bc19204916e76fdbc70021785388
-prerequisite-patch-id: a5d9e0f7d4f8163f566678894cf693015119f2d9
-prerequisite-patch-id: 4637a8fa2334a45fa6b64351f4e9e28d3e2d60d3
-prerequisite-patch-id: 32647ec60a3b614e1c59ec8e54cb511ae832c22f
-prerequisite-patch-id: aa06658ecf89c92d0dfdd6a4ba6d9e6e67532971
-prerequisite-patch-id: 1387a7e87b446329dfc21f3e575ceae7ebcf954c
-prerequisite-patch-id: 258ea5f9b8bf41b6981345dcc81795f25865d38f
-prerequisite-patch-id: 8b6f2c9660c0ac0ee4e73e4c21aca8e6b75e81b9
-prerequisite-patch-id: dbb0c0151b8bdf093e6ce79fd2fe3f60791a6e0b
-prerequisite-patch-id: 9007c8610fdcd387592475949864edde874c20a2
-prerequisite-patch-id: d57e95d31686772abc4c4d5aa1cadc344dc293cd
-prerequisite-patch-id: 9f911969d0a550648493952c99096d26e05d4d83
-prerequisite-patch-id: 2ddada18ab6ea5cd1da14212aaf59632f5203d40
-prerequisite-patch-id: 80042661ff6156ce577a72e9eb8c0b218b624829
-prerequisite-patch-id: 398744c61913c76a35754de867c4f820ca7a8d99
-prerequisite-patch-id: f59269382164b5d642a5e10443ca447f5caa595c
-prerequisite-patch-id: 1babe83d6bf999bad17584dc595480f9070a5369
-prerequisite-patch-id: 77be3d122d66df813f13088141ce27b21107a341
-prerequisite-patch-id: 9fbb7ad1dd258bb8ff5946c4a0e59de4bfd82a04
-prerequisite-patch-id: 6f6984916dffd0cc66aa733c9b6bd3a55495a50c
-prerequisite-patch-id: 39e1be2a3d1593577ab997f55f59367cba665aa7
-prerequisite-patch-id: 584c256c9acb52ee2773d0c81c3f4977fc18155a
-prerequisite-patch-id: b37ac15032973e1fcd918f157c82a0606775c9e9
-prerequisite-patch-id: 32deea16304859842af5c2151bc41d91cf6dfc9b
-prerequisite-patch-id: 20ac2450fb93b3f69f83fc720fd4800a95e618a6
-prerequisite-patch-id: 6abf359fa445f4104432ddee27044dfbfb128417
+diff --git a/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml b/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
+new file mode 100644
+index 000000000000..abb373fbfa26
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/starfive,jh7110-tdm.yaml
+@@ -0,0 +1,98 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/starfive,jh7110-tdm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JH7110 TDM Controller
++
++description: |
++  The TDM Controller is a Time Division Multiplexed audio interface
++  integrated in StarFive JH7110 SoC, allowing up to 8 channels of
++  audio over a serial interface. The TDM controller can operate both
++  in master and slave mode.
++
++maintainers:
++  - Walker Chen <walker.chen@starfivetech.com>
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    enum:
++      - starfive,jh7110-tdm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: TDM AHB Clock
++      - description: TDM APB Clock
++      - description: TDM Internal Clock
++      - description: TDM Clock
++      - description: Inner MCLK
++      - description: TDM External Clock
++
++  clock-names:
++    items:
++      - const: tdm_ahb
++      - const: tdm_apb
++      - const: tdm_internal
++      - const: tdm
++      - const: mclk_inner
++      - const: tdm_ext
++
++  resets:
++    items:
++      - description: tdm ahb reset line
++      - description: tdm apb reset line
++      - description: tdm core reset line
++
++  dmas:
++    items:
++      - description: RX DMA Channel
++      - description: TX DMA Channel
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++  "#sound-dai-cells":
++    const: 0
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - dmas
++  - dma-names
++  - "#sound-dai-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    tdm@10090000 {
++        compatible = "starfive,jh7110-tdm";
++        reg = <0x10090000 0x1000>;
++        clocks = <&syscrg 184>,
++                 <&syscrg 185>,
++                 <&syscrg 186>,
++                 <&syscrg 187>,
++                 <&syscrg 17>,
++                 <&tdm_ext>;
++        clock-names = "tdm_ahb", "tdm_apb",
++                      "tdm_internal", "tdm",
++                      "mclk_inner", "tdm_ext";
++        resets = <&syscrg 105>,
++                 <&syscrg 107>,
++                 <&syscrg 106>;
++        dmas = <&dma 20>, <&dma 21>;
++        dma-names = "rx","tx";
++        #sound-dai-cells = <0>;
++    };
 -- 
 2.17.1
 

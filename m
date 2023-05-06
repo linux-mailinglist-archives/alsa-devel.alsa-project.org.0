@@ -2,95 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CAD6F8E0C
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 04:28:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF35D6F8EF4
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 07:58:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AD922CCD;
-	Sat,  6 May 2023 04:27:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AD922CCD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5BF22ABF;
+	Sat,  6 May 2023 07:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5BF22ABF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683340100;
-	bh=RsMPKHSmhsPEWxMISqNT/zQWfaSLr9fA9Gp+69DSeL0=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VhvaIoupPmob+RbD1kjRdTG+huY0SjAtj3MXW4iVpffk7jXU4UZl7Yut20nS2zHn8
-	 w5CO894DIYCXp5kf7IrgFz7BebbKYS5dqLm1jAwEyaC7i8/J+FZczvxIAd4Gtjh7KS
-	 WeQ5M0g41GtbG51Vb13MmfBvt1xUWC5c9d9iKSjM=
+	s=default; t=1683352683;
+	bh=7DdsHsw2NZCQ2RLOCk1YMqHyDASox3loQHQGzUwb2Rw=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=fFPp03Lvu2LiYru/I4VCCFWZeTTuxerQx6PJJ3uzAnY6vktiTA0OzexqIVEQQw8Q2
+	 8bqQc07RVNbFV+maPTZ7mNRaZqa09ljWZk5V54hnwwW3ejrqKqicaUZqcRBztQcOk6
+	 QgoQ8r4x7fod1GAwlEFF/4YzvX0VApySfM2XC8Rg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 420E8F80529;
-	Sat,  6 May 2023 04:27:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59BB2F80529;
+	Sat,  6 May 2023 07:57:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9085AF8052D; Sat,  6 May 2023 04:27:23 +0200 (CEST)
+	id A71DFF8052D; Sat,  6 May 2023 07:56:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_03_06,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21A6CF80114
-	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 04:27:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21A6CF80114
-X-UUID: 1b0396f14be747d7ab10c651639d7cbc-20230506
-X-CID-UNFAMILIAR: 1
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_HamU
-X-CID-O-INFO: VERSION:1.1.22,REQID:598fa335-b95e-4456-8747-c87e07d1ef21,IP:5,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:8,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:8
-X-CID-INFO: VERSION:1.1.22,REQID:598fa335-b95e-4456-8747-c87e07d1ef21,IP:5,URL
-	:0,TC:0,Content:-5,EDM:0,RT:0,SF:8,FILE:0,BULK:0,RULE:Release_HamU,ACTION:
-	release,TS:8
-X-CID-META: VersionHash:120426c,CLOUDID:39cbe730-6935-4eab-a959-f84f8da15543,B
-	ulkID:230506102704XXE5XP8C,BulkQuantity:0,Recheck:0,SF:38|24|16|19|44|102,
-	TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-UUID: 1b0396f14be747d7ab10c651639d7cbc-20230506
-X-User: aichao@kylinos.cn
-Received: from localhost.localdomain [(112.64.161.44)] by mailgw
-	(envelope-from <aichao@kylinos.cn>)
-	(Generic MTA)
-	with ESMTP id 1713182569; Sat, 06 May 2023 10:27:03 +0800
-From: Ai Chao <aichao@kylinos.cn>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	sbinding@opensource.cirrus.com,
-	tcrawford@system76.com,
-	andy.chi@canonical.com,
-	tangmeng@uniontech.com,
-	luke@ljones.dev,
-	yangyuchi66@gmail.com,
-	p.jungkamp@gmx.net,
-	kasper93@gmail.com,
-	gabriele.mzt@gmail.com
-Subject: [PATCH] ALSA: hda/realtek: Add a quirk for HP EliteDesk 805
-Date: Sat,  6 May 2023 10:26:53 +0800
-Message-Id: <20230506022653.2074343-1-aichao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0D470F80520
+	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 07:56:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D470F80520
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256
+ header.s=fm3 header.b=tVyeQUA+;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=fCk8zsDa
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailout.nyi.internal (Postfix) with ESMTP id 74B7B5C0088;
+	Sat,  6 May 2023 01:56:10 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute5.internal (MEProxy); Sat, 06 May 2023 01:56:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm3; t=1683352570; x=1683438970; bh=EG
+	S5hZyAL9I43PGeKYKJIudiB349boLUw0HVlFIo3AQ=; b=tVyeQUA+MP9z3eOiSJ
+	CbCDeX/CmDAJLaBykdXzTvPnjxnVzH3lYWd0uTPKAs0HVu6gIVlgjRrpty5ypJWb
+	lzV2PCwX5egBJM/2X4qSNnF8l3oM/tzbisuZ/h+OqjI/FUEQtpvfRUH/3FJ/GhgO
+	rbcq3y5VDdKWBjtyWEWRYBRZnQrEXS+z/2BOfp+CusjSwSoTtKfoZnWO4Mio/Shw
+	p5R38mgA0AgfPvFLVxdRc45n2zfV4Xwphc2yVhX7jAtjdIIXRf10vWxsX1gl0VcH
+	oImHFNOjEfOLvQuIKZwT+UEycWU6TWQL9mnZPsBr8K/msgBfofCbJezUSXTygL3k
+	j0DQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1683352570; x=1683438970; bh=EGS5hZyAL9I43
+	PGeKYKJIudiB349boLUw0HVlFIo3AQ=; b=fCk8zsDaqA/oZLRtVBG1pcijz8cOw
+	LfZRwDUUBra1euNIhrb9FtiH9eF3c7+GqVB/6cYH650FWmnbNdWrkVnkVOO9UxQy
+	/Pb/qs8XSIOYr2wnhkEd0d5NuvBqflUdkGE4n/2J1ohjI/LVTAulHfWuVkxWVrqR
+	M/wY6x6CoMS1sXEHfCnfJW6MvN2SPIFaNocXjVMngCi3MlgG9/VXtBL7701TSJnK
+	HazjBVDqF+UQ2GQrHo/bDhniCdP865TZSa8F4tQ5ib99COw8TpL0J76yIyE4CDIY
+	LsD9irx4/0C5NYDoFNJpOmYEvLdRUi0P5VfQXeGIg0pMQRjLqPHQ5DDkw==
+X-ME-Sender: <xms:-utVZLYpKk0c1uXdWbPclUY4ZcemhsLirLwvP632Fp3F_yM-MZCEjw>
+    <xme:-utVZKZiK0zPoz3JxEaJhMhjetrpyZNe3UehfFB1fFLpGD8aq6XebR8q9oi3V6Ma3
+    ob6WSwB8RROSw>
+X-ME-Received: 
+ <xmr:-utVZN98gkUJSJp5i3_Wt2-PwsqH7CnHzgn99SYP4uF57JmUa5_yU43zOfNCtQ>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrfeeffedguddtvdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgv
+    ghcumffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeeghe
+    euhefgtdeluddtleekfeegjeetgeeikeehfeduieffvddufeefleevtddtvdenucffohhm
+    rghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
+    hmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
+X-ME-Proxy: <xmx:-utVZBrxNpm4DBNCWgzB0Ih2ZiKPqW70OhYgLrELqKpLM287VdC3Gg>
+    <xmx:-utVZGrIPaVi09bP7UmAtrfFcsuqvkS_0KhMf7LAhJFB2qQvhUDkug>
+    <xmx:-utVZHQt_AuizuH-P38OjyNpRd7epwVW5RabTNd_0oj6NbJCBOx9Eg>
+    <xmx:-utVZPZW9PJNqmvsvZb-hYYmwBIuI6IRh8XfORQJsrd7abfimEtCyQ>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 6 May 2023 01:56:08 -0400 (EDT)
+Date: Sat, 6 May 2023 11:09:57 +0900
+From: Greg KH <greg@kroah.com>
+To: yixuanjiang <yixuanjiang@google.com>
+Subject: Re: [PATCH] ASoC: soc-pcm: Fix and cleanup DPCM locking
+Message-ID: <2023050644-dwarf-shabby-d44d@gregkh>
+References: <20230504092142.4190069-1-yixuanjiang@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7HCFKIQ3BSHF6MJESYBVAZOFZ6MWOEWJ
-X-Message-ID-Hash: 7HCFKIQ3BSHF6MJESYBVAZOFZ6MWOEWJ
-X-MailFrom: aichao@kylinos.cn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230504092142.4190069-1-yixuanjiang@google.com>
+Message-ID-Hash: CFQ6BHKGHM5PG7KDYDI5CFID3V3MAPPU
+X-Message-ID-Hash: CFQ6BHKGHM5PG7KDYDI5CFID3V3MAPPU
+X-MailFrom: greg@kroah.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Ai Chao <aichao@kylinos.cn>
+CC: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, stable@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7HCFKIQ3BSHF6MJESYBVAZOFZ6MWOEWJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CFQ6BHKGHM5PG7KDYDI5CFID3V3MAPPU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,25 +136,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add a quirk for HP EliteDesk 805 to fixup ALC3867 headset MIC no sound.
+On Thu, May 04, 2023 at 05:21:42PM +0800, yixuanjiang wrote:
+> From: Takashi Iwai <tiwai@suse.de>
+> 
+> The existing locking for DPCM has several issues
+> a) a confusing mix of card->mutex and card->pcm_mutex.
+> b) a dpcm_lock spinlock added inconsistently and on paths that could
+> be recursively taken. The use of irqsave/irqrestore was also overkill.
+> 
+> The suggested model is:
+> 
+> 1) The pcm_mutex is the top-most protection of BE links in the FE. The
+> pcm_mutex is applied always on either the top PCM callbacks or the
+> external call from DAPM, not taken in the internal functions.
+> 
+> 2) the FE stream lock is taken in higher levels before invoking
+> dpcm_be_dai_trigger()
+> 
+> 3) when adding and deleting a BE, both the pcm_mutex and FE stream
+> lock are taken.
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> [clarification of commit message by plbossart]
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+> Link: https://lore.kernel.org/r/20211207173745.15850-4-pierre-louis.bossart@linux.intel.com
+> Cc: stable@vger.kernel.org # 5.15.x
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
 
-Signed-off-by: Ai Chao <aichao@kylinos.cn>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+What is the git commit id of this patch in Linus's tree?
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 068ce0db9562..cbb3c3f6d502 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -11662,6 +11662,7 @@ static const struct snd_pci_quirk alc662_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x1632, "HP RP5800", ALC662_FIXUP_HP_RP5800),
- 	SND_PCI_QUIRK(0x103c, 0x870c, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
- 	SND_PCI_QUIRK(0x103c, 0x8719, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
-+	SND_PCI_QUIRK(0x103c, 0x872b, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
- 	SND_PCI_QUIRK(0x103c, 0x873e, "HP", ALC671_FIXUP_HP_HEADSET_MIC2),
- 	SND_PCI_QUIRK(0x103c, 0x877e, "HP 288 Pro G6", ALC671_FIXUP_HP_HEADSET_MIC2),
- 	SND_PCI_QUIRK(0x103c, 0x885f, "HP 288 Pro G8", ALC671_FIXUP_HP_HEADSET_MIC2),
--- 
-2.25.1
+thanks,
 
+greg k-h

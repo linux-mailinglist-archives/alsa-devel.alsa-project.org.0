@@ -2,63 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A1006F931D
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 18:34:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98F46F9348
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 19:17:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0F3B29E0;
-	Sat,  6 May 2023 18:33:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0F3B29E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A51D21B2;
+	Sat,  6 May 2023 19:16:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A51D21B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683390857;
-	bh=ZT3/1TkMJL3KuQhEd5DWPy2pAx0/rY2EvwYWOh2wMqI=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=OElpxnpSzo9pH8IJxbSpiS34xM0ofpT6K6mkF69SfXuJZ/8Ya0wfdgPHMQbLQuJbt
-	 iJZc/o+FOJG7D0JS9nrxE+Xd3YoD+dGbidJoybC8ZMU9SkGEVoHCFCTl+bkG2JM1+P
-	 aA/C3uW9W9EdbELY0iCrrFJlrriJ7rQLazY63jQ0=
+	s=default; t=1683393427;
+	bh=uMcoI2DnS0NwiukUjF+ZiM2DidnKVWi9a0SbMENzikM=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=n/E7/yyMHrFK/KK0BeRUeYmadZ4h2nBULzEO+CON+nj+NR5GryjMlCcznUTEtFLie
+	 5dRo5LuPmbh7sVXYa/agUdybS3kXReCemeS+GMMO2Ly2aPy7qP/znq/95qaIyBafrM
+	 boSsso8KkHabS7QBdmOh4NfBJd/TlylzSsiw76KY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EAE9F80529;
-	Sat,  6 May 2023 18:33:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70690F80529;
+	Sat,  6 May 2023 19:16:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8387CF8052D; Sat,  6 May 2023 18:33:22 +0200 (CEST)
+	id 2ABA9F8052D; Sat,  6 May 2023 19:16:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAA65F80087
-	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 18:33:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAA65F80087
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.215])
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B9B4F80087
+	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 19:16:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B9B4F80087
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=Fks/akAA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=XDbPr
+	foM+vd09SU0nLd9OpVWaVSYKPv82lGdDyy/2QU=; b=Fks/akAA1RFcj6Cav+w9B
+	aD1FFWv2XtV6mwY7eHa4AklfcWIh1C8p+eMax+1GWRN/WqgWCgEcymKAVtPtSaUZ
+	Ns72pw8ZiQZVsios5P/T1Ea0qdUa8BhU3pLzghZlGMIbrxvfsyqnluooirsVel+6
+	AspOFQnyU6/+OAkTtNvyuY=
+Received: from localhost.localdomain (unknown [111.43.134.127])
+	by zwqz-smtp-mta-g2-2 (Coremail) with SMTP id
+ _____wAH_qFKi1ZkAC2QBA--.41346S2;
+	Sun, 07 May 2023 01:15:54 +0800 (CST)
+From: frshuov@163.com
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1683390795753814459-webhooks-bot@alsa-project.org>
-References: <1683390795753814459-webhooks-bot@alsa-project.org>
-Subject: Some USB-Audio speakers with non-existent S/PDIF outputs
-Message-Id: <20230506163322.8387CF8052D@alsa1.perex.cz>
-Date: Sat,  6 May 2023 18:33:22 +0200 (CEST)
-Message-ID-Hash: S2Q5T2CEILKG2CUZYRQMHQZRLED4AZZB
-X-Message-ID-Hash: S2Q5T2CEILKG2CUZYRQMHQZRLED4AZZB
-X-MailFrom: github@alsa-project.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for ASUS GU603ZM
+Date: Sun,  7 May 2023 01:15:46 +0800
+Message-Id: <20230506171546.50815-1-frshuov@163.com>
+X-Mailer: git-send-email 2.40.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wAH_qFKi1ZkAC2QBA--.41346S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtr1fZr18AF4fXFW5WFWDtwb_yoWkuFb_Ar
+	W3GFW5GF4UZwnrGFn3Grn5Ar4Iyrn8urZrXFyftFs8Jw4fKa109FnYkrnIkF1xXrW8ur15
+	G3yYyrWrtry5KjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRCyxi3UUUUU==
+X-Originating-IP: [111.43.134.127]
+X-CM-SenderInfo: xiuvx3lry6il2tof0z/1tbisQtnCWMr+EtimQAAsU
+Message-ID-Hash: UOLKBRCYG5LQAS3LNBBFPBTPUHE2YIJN
+X-Message-ID-Hash: UOLKBRCYG5LQAS3LNBBFPBTPUHE2YIJN
+X-MailFrom: frshuov@163.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: tiwai@suse.de, stable@vger.kernel.org, Larry Chi <frshuov@163.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S2Q5T2CEILKG2CUZYRQMHQZRLED4AZZB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UOLKBRCYG5LQAS3LNBBFPBTPUHE2YIJN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -67,22 +86,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib issue #315 was edited from drjhe:
+From: Larry Chi <frshuov@163.com>
 
-I've come across a couple of USB-Audio speaker sets which get configured with non-existent S/PDIF outputs:
+ASUS ROG Zephyrus M16 2022 GU603ZM (1043:1c62)
+added SND_PCI_QUIRK for speaker and headset-mic working properly
 
-- **Creative Pebble V3:** USB ID 041e:3272, ALSA name "Pebble V3"
-- **Jabra SPEAK 510:** USB ID 0b0e:0420, ALSA name "Jabra SPEAK 510 USB"
-- **'Ricco' Elite Silicon-based USB speakers:** USB ID 18c3:6255, ALSA name "USB Audio Device"
+Signed-off-by: Larry Chi <frshuov@163.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The phantom outputs for the Pebble V3 and Jabra can be removed by adding 
-```
-        "Pebble V3" 999
-        "Jabra SPEAK 510 USB" 999
-```
-to the ```USB-Audio.pcm.iec958_device``` section of USB-Audio.conf.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 172ffc2c332b..374a9755d19a 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9522,6 +9522,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1b13, "Asus U41SV", ALC269_FIXUP_INV_DMIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1bbd, "ASUS Z550MA", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1043, 0x1c23, "Asus X55U", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
++    SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603ZM", ALC289_FIXUP_ASUS_GA401),
+ 	SND_PCI_QUIRK(0x1043, 0x1c92, "ASUS ROG Strix G15", ALC285_FIXUP_ASUS_G533Z_PINS),
+ 	SND_PCI_QUIRK(0x1043, 0x1ccd, "ASUS X555UB", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1d42, "ASUS Zephyrus G14 2022", ALC289_FIXUP_ASUS_GA401),
+-- 
+2.40.1
 
-For the Ricco speakers the ALSA name seems a bit too generic to add to USB-Audio.conf -- is there a way to achieve the same effect matching on the USB ID?
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/315
-Repository URL: https://github.com/alsa-project/alsa-lib

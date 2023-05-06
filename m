@@ -2,146 +2,164 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0354E6FA17F
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:50:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 768986FA183
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:50:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44C0512B5;
-	Mon,  8 May 2023 09:49:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44C0512B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id B08E112CE;
+	Mon,  8 May 2023 09:50:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B08E112CE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683532246;
-	bh=CA4u/IXeK7J3w2/Bdalz3rRGJaYJ+Lz0C3UenE6XHm0=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=YLxjP5C2vtuHdH4C1fTPtlQB0cJcLoq3t1VnRvnShOc6v3SHEIO5ROcmPqkS0c7CB
-	 +IcUh2SOH3ENnmYfquPd0dTO3M8YJXf8GNHnSDxZVs6oc7iszLjS8gLTy+2XN1TGdF
-	 aj22omsTTVAtB/sfcMSZ3B1lC0z0vOmFmAtkHdQY=
+	s=default; t=1683532258;
+	bh=FpXVK1Yq4cwUWkdarPFiOHGudO/5KoFdLyphPvvT69M=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ggaLSRdPT/FxCvfZP2Hn8kgSjk9ym2xgVI2Xs7284mQund/p4+Hi0tUmiluEVmN4H
+	 cqDlYRykqoTjyyv4yp2qGAC474+auaJx4iGebFOhdHEXkqWJIp2iQ5EkyK+7oa1O3w
+	 Z8s/BAqt568FkEzRX5ivn/fPRCobpX9Juqvyq8fg=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70DE8F805DA;
-	Mon,  8 May 2023 09:46:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 566E1F805E2;
+	Mon,  8 May 2023 09:46:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D95F0F8052D; Sat,  6 May 2023 14:21:23 +0200 (CEST)
+	id 2053AF8052D; Sat,  6 May 2023 15:48:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 48836F80114
-	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 14:20:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48836F80114
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FLlQPDXr
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_MUA_MOZILLA,
+	FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01olkn2081c.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::81c])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E1CF26122A;
-	Sat,  6 May 2023 12:20:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B26C433EF;
-	Sat,  6 May 2023 12:20:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683375653;
-	bh=CA4u/IXeK7J3w2/Bdalz3rRGJaYJ+Lz0C3UenE6XHm0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=FLlQPDXrXy2NmatuYus52bNNmX2Zsgo3U2ZU1tczHiETfY27oxZoM7cVycfx1W/D1
-	 IIO7ud8tlW5EN4fNZdJMB1cIeij+g5uQA8SC+dE7Cisubw6ScsciOrbScO+3RcLjdK
-	 Q5WUzl242aBCCEsv4D/aHMwcnTuk4CPfT+esIuUbiWIEjQGzb2FNcjr/UTaCtRu343
-	 4f2XQBs39yRB80RCHlAhZ6tCBbS2amsPbHhxtTKXQamuPJfRe8XdPW1yoEUBWes2qA
-	 3nFeW21hHaAuhxhZUksgHC1ioylVTJkK+5BANwX/djZsdk2cLd49KWGsF1vhAk9bob
-	 BRy4pxVQkHbfQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable-commits@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Patch "spi: Replace all spi->chip_select and spi->cs_gpiod references
- with function call" has been added to the 6.3-stable tree
-Date: Sat,  6 May 2023 08:20:39 -0400
-Message-Id: <20230506122043.3952352-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id E131EF80114
+	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 15:48:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E131EF80114
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256
+ header.s=selector1 header.b=BvmhoLDF
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ejSk55v6pyxxpNzohjFubwJI3lpFNBiun9BqmosoeMSascqIHcszAH0/svpi2qrj247BFmz8D6o4mLpFe7ZKz7HgeJKJuzkEAK/f3pb3sNtTk5jW5xuxwU0GodtL/ALNfn+pXTEmGxe5X3Gni/5AkISjrBOnDE4GMXUldoE/UWeH2U2h7hPMaoUZ466YEld4KAz8e72/dAFWhrhZSwu+K5hkHpDTLUm1jMt3XJb8o6CXt3y29hhBYgKSPOjDVlrGp7knkVQCTKfCYQGhT4NPyxxMWIU1uXU9le+aaGVSKKeE4e/8ZhT4i6bvcENm4Xuv3fEXEPeLstX2EQgKDV5dng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FpXVK1Yq4cwUWkdarPFiOHGudO/5KoFdLyphPvvT69M=;
+ b=l1KxlRSYEKSMIcNyv7DyISSqwg1vtbI4P7ZLCDchFZw94Bv51DRcR1Nh7QgqL0FEd8otMBC5qZXl/ow8QodpVEXEP+VhuiV3GjyRp6af0H3a6kKwF6N8L7B1F2i2O4LOoByDOYNsw7MhF55BP9umKnxhnpSQPu3aCyXEb4nXrGImrFJBK238kWT/xZJoAiu6KpUO+7IIc9648kCoijnrvC5vL/nu2BNe2ljuYL1KMWRgm/I4HpEotT3coy1ClM+wIpDEKoK+GE7udEH5hrMSwwK9Th+2MaJHEYdLnaQsJxSI40LfgW50+i2ulUfe8ZNwq8OJyZeOWSrJxifurr9M9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FpXVK1Yq4cwUWkdarPFiOHGudO/5KoFdLyphPvvT69M=;
+ b=BvmhoLDF8G6p+zT9gwGeQA566hqq1H+5XdmpXt0Hqy4FlIA+nrdbvaEi4YqnmOzTn84wnTVcX2j0+PjfWifuzgR8FPwENl8UIGaYPYvwN8mLBiGn4HzNrfahJuaYkIvbX6Ll2vbGN8X2MWFY8m7m5r5TpLQjsHpRCDA4nrnghW81QkN1lgkKzJ2U14Elhkqw1h97970QwjuGhFJkKLF1IMU4wBLT0xlPp6g/HjNoY3FlazpAQ49gC7+PLwCL/OsyYRSjRyoFkYNvFJzMVTGgqIFYB7EkS0A2Q7lSOXfgGx9yemhqZ+wbM51wnyPLAi0LOpWdjL2VX80+uZCUsHyVXw==
+Received: from TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:252::12)
+ by OS3P286MB1663.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:160::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.29; Sat, 6 May
+ 2023 13:48:16 +0000
+Received: from TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::5805:16d6:6ab7:6639]) by TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::5805:16d6:6ab7:6639%2]) with mapi id 15.20.6363.029; Sat, 6 May 2023
+ 13:48:16 +0000
+Message-ID: 
+ <TY3P286MB26118DAB0E0E2BF32C91B19F98739@TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM>
+Date: Sat, 6 May 2023 21:47:55 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH v3 2/3] ASoC: starfive: Add JH7110 TDM driver
+To: Walker Chen <walker.chen@starfivetech.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>
+References: <20230506090116.9206-1-walker.chen@starfivetech.com>
+ <20230506090116.9206-3-walker.chen@starfivetech.com>
+From: Shengyu Qu <wiagn233@outlook.com>
+In-Reply-To: <20230506090116.9206-3-walker.chen@starfivetech.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------fyuHLQM20M2CGNfB03W36Pz0"
+X-TMN: [Bc+WUCseV7v0VlXDBkgE/m3WKRpr6V3B]
+X-ClientProxiedBy: TYCP286CA0233.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c7::19) To TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:252::12)
+X-Microsoft-Original-Message-ID: 
+ <5552c5c7-5912-8595-e5d3-9ed895f23336@outlook.com>
 MIME-Version: 1.0
-X-Patchwork-Hint: ignore
-X-stable: review
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MailFrom: sashal@kernel.org
-X-Mailman-Rule-Hits: max-recipients
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3P286MB2611:EE_|OS3P286MB1663:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68560fd3-81f7-4f29-2874-08db4e388abe
+X-MS-Exchange-SLBlob-MailProps: 
+	dx7TrgQSB6dyQk8NjdEKM5kIQ3nurzkspNh6BcFVcWiZNV6Wde4v9bK1PpCrPIBHxLlofFvqpYaSJgvL3PzcGvHHkZmIWJjK7WTx36Dk6tSX2Wzpd6fLmMry5X2Q16kEYZHBR5/xp14+sbptXTV81buCtHL6dn51CeTaXNwqu5sw2RUlMPnFfH93/IH3z2gb5/wqkCar0eKDA5U8syu+YQ9PlBrmyZNAJd0mZtKMZhKkUQKxd1/OwNH5eRL0zoo4Vbgcf7emCy1vCeu2Ui/XozGS7DUdGKG5gnah5TvRMGA5R3UBMaXzYr/melZOZaCBOjHyEcHHW4geA75y3EtUSqduHiu/MwbeUy2R9ZIWJVY9cQNbNKwGbya48SYPo3ujs1GXeAYe+fONHfp4pUApX8TxyamgiFTT7A3mmkxJNdurFTi/sIyh6bLZ4LK/r497sTAO6/XxSJaV5hpd4iib/N2BNAFxroeSiJq+OVp1fuzN0uzS6g0PFhHNTb44+/ITequ8cCsG/bMlvwM9lRg81DYVovIaX4DYFRYcYN6Q1J/s/EhfjvsOfv3wXfXlO9Af3NZKGdzCcGT5c/TAfjXF/ypNTQfCKO6fqCKr39hVqVxf9q/aJdTFff5jAtoEVWRL1Gpp3R+U7v4mj9NT8Rd0xaqBOG7J2TS4N66KP02AcHT7I0hA5PEDJm49aJfyT9ZQxbYLx+K9AAvcth1SoukN3T73byzxv1W353MOSB0ERpfKrToeXo4m9usQsaXPdrH5sV6hbu0dQS4=
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	TPEZ/g2xQj9aSsfmWW1ru1OtaFq7hcQl2t4XxUscJubnpBBmAGM2QzDs3baGgYizIf9Gia0wZUTxPxzGMqBcpQsUfrcJAqDVKwtBQJ3CL2oo/JA69bqQtTPVwSG8lJGL10Dp5Xw4mktATKorFOOkAGyVEJN+rImH1UA0WCWTGemAI5lXbcjqcRQuQjQ/MJViqO0jWwWAHDsYyqk+IDAW9fTwGohS98FJrqPKf1ECZHwUsY6Vd60+g3VS7+OQVfBq9t8MF2f5sPRKrNGozfU4G6JBwgGMeEByEEnDppEOnnjsEi/iQ1TB3AjblMU60I5IPMMIYzCb04AUZ/+Sp10vMiRsufEKFWLG73ynM9Vo6zE4RDxzCWmbCByqNFUWnlCs6NtkpZ5jNONOsv6WCy9M5C3SdsvHhc/StjrnV0YtSEi4lVTyD/mK9loVuZE+hhlLYWCiDkV17SqqrsZnli2TDTSANR0Hp2Lw+7pdMZiPFdDOvd3WSpad+RAtWvQyNvaFRTtRD0OvY9PCW6NT+tLrnY3C7FVchCJlywdg+kyspJgirfXoDtfdbf5GVnKB7iGIsIKhu9SMaMHPFDm+7jAgKHWBRo2e1+gYgu2/d93xwYrsePua/R2I0dLvVoanaUR6t0EwnlYHuRr8OBDiU72u9A==
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?c3drS25aQS9XRS9HcHZlZDY2bnNQK2JHVWVBR3gvZHVwTzFUdFdmLzdGc21v?=
+ =?utf-8?B?VmhXR1l4ZCsyV0E4K3ZaT0N6TW5zTi82czB4Q3pKV3IrNEYrVDErSlFYQWV4?=
+ =?utf-8?B?R3pPT0xvZkQrZGsyVE00QUtOU1VHdGhybGV1RjM3akNlajVMeHlsM0hoaTIw?=
+ =?utf-8?B?YXpBengzeU5HZ2Zwc2ZQcXRLdkJmaXJ4bUdrT2tGMmUybGczaDd6ZjdZb0di?=
+ =?utf-8?B?NlN1WmYvcmVTS0Z4Vm9jS0VLelhycmwzendDSU1kQm9SL1pZSk12aUdtbkU2?=
+ =?utf-8?B?bVBEcmlKMTRVSS9QeWJlRFh3M3pYankrT0FHRk8rMFAxbXFkMUovdHg1Q2l1?=
+ =?utf-8?B?ek9sRjRGOXdmWjZnUkpSajQ4aWlhb0poa3dGeHJUS1NBYU9wOWdkT0xNeXJ4?=
+ =?utf-8?B?NHFrbHM0ZjRCbmYxdTdmTDZ1UjBpK01UaEJjaDlrOWtyRjdQeWJxV2p4YzV5?=
+ =?utf-8?B?Vkk5ZnZJSC93d2NvWGRKblljR0EyZXdMendCdFBRTW1abEl6NWJSM1N3THJ3?=
+ =?utf-8?B?L2Z4a3RadHR0L09pSEt2WVZuRkNFWUpicGtaaUt0Sjl5Nzhib0Z5aDZkWUJJ?=
+ =?utf-8?B?MTN3cCtxOWlGa085NkpscTVmdVlQN0toZjg5RkRlR1pWcUg1TlhMUXhETm1j?=
+ =?utf-8?B?OFZzdmVEemU5a3YrbzRSbHArS3JId1dFOUo1dDVMUUJERmkrdG0yMVptRUd6?=
+ =?utf-8?B?VEpuQTFLZndwMXVEcURNWDYxOElIYjZRU1IxUkltLzc2eWYwSDd1b2g0d0tB?=
+ =?utf-8?B?clJrcXd2NTh6WFIxdDhNRENTV0lkWEpLMW1vYUJLYmtCdFVzMTRVVlFSREVv?=
+ =?utf-8?B?SW16RzhLS1Y3UXVreXB2T0tITFFROHBUQjRqeHpwN092MGdvVkI4TW84WUhy?=
+ =?utf-8?B?d3A3VGVTaS92dm53Wlp6SUZiSzFTVlA2czd3aUR5WENYUW9WenNuK21vcVpm?=
+ =?utf-8?B?QXlSdXRBWXJMdUpHa1gxeEtKTDJ5RENyMDFYaUZxL2lxbXZGeUFJUTBXMzYr?=
+ =?utf-8?B?ejQ1YTd6NFZHMGZoeE03YjRzRjg4YW5xUjZ2RyszdWNzQzgrRjZPeUpuSkda?=
+ =?utf-8?B?U2VBNmV4aEZzeWk1ZXBEWURNR2xLK2xkcktqc2RxVHRyUEp2SEpHSitIZm95?=
+ =?utf-8?B?aWVaYVl5S1ZKSDQzTlJ5U3dSQnU3dWlCWkdlVktMNHpRTmpxQnk3N1V1Tlgr?=
+ =?utf-8?B?bEdobkV6OGEzdkllWlcxR2wrVm9JZWVqRDRKQXI1NFg5bW9UYkVzdEpHNXBD?=
+ =?utf-8?B?VURRYkhwSXFINlEzWWNocHZHU21rS285QmtCY1BEamxTRmRGSmxCWXliR3VK?=
+ =?utf-8?B?ckRJNnZkWG5yU0lqeUJOZHJCNThqOXdRUXAzTE9EVEVVcm8wZnFRWURtMmdv?=
+ =?utf-8?B?dk5FRmtOdkdwZVBCOExGVlRQbm9YRXprZWt0RDZVRzhzTnBhTGswSUtaMm5t?=
+ =?utf-8?B?UUlqZWhBL3l1TlpUcVA3aEFKckF6WmhGYlVIYURXZXUyenBiek93SGU2MHNU?=
+ =?utf-8?B?enBrZXhKTHYzc3k3Z1duOVZ0QzBRWXlzUG1YUlg4RWh3MDAzeHNWNDBJSWpW?=
+ =?utf-8?B?QWVxZE5vUE5zZzhlUDJCTGZYT0lBU3dzR2JFV1o3SWtuSTZocHArYU1IUm1R?=
+ =?utf-8?B?NU9RS00yQ1VrSjNpK3hpOUlYaVZCUXc9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 68560fd3-81f7-4f29-2874-08db4e388abe
+X-MS-Exchange-CrossTenant-AuthSource: TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2023 13:48:16.1454
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB1663
+X-MailFrom: wiagn233@outlook.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: HU3RSLO3L3BUDU4Q6QQU7EPBMJXK6GOP
-X-Message-ID-Hash: HU3RSLO3L3BUDU4Q6QQU7EPBMJXK6GOP
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: JAVCULXORCOZADNFBT7TLSNQTL2OXFBB
+X-Message-ID-Hash: JAVCULXORCOZADNFBT7TLSNQTL2OXFBB
 X-Mailman-Approved-At: Mon, 08 May 2023 07:45:55 +0000
-CC: Mark Brown <broonie@kernel.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Radu Pirea <radu_nicolae.pirea@upb.ro>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Kamal Dasu <kdasu.kdev@gmail.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- William Zhang <william.zhang@broadcom.com>,
- Kursad Oney <kursad.oney@broadcom.com>,
- Jonas Gorski <jonas.gorski@gmail.com>, Anand Gore <anand.gore@broadcom.com>,
- =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
- Serge Semin <fancer.lancer@gmail.com>, Eddie James <eajames@linux.ibm.com>,
- Vladimir Oltean <olteanv@gmail.com>, Han Xu <han.xu@nxp.com>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Jean-Marie Verdun <verdun@hpe.com>,
- Nick Hawkins <nick.hawkins@hpe.com>, Jay Fang <f.fangjian@huawei.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Conor Dooley <conor.dooley@microchip.com>,
- Daire McNamara <daire.mcnamara@microchip.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- Haibo Chen <haibo.chen@nxp.com>, Yogesh Gaur <yogeshgaur.83@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, Daniel Mack <daniel@zonque.org>,
- Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andi Shyti <andi.shyti@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Masahisa Kojima <masahisa.kojima@linaro.org>,
- Jassi Brar <jaswinder.singh@linaro.org>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Michal Simek <michal.simek@xilinx.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>
+CC: wiagn233@outlook.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HU3RSLO3L3BUDU4Q6QQU7EPBMJXK6GOP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A7H7P2ESPM54KAFLZ2L7ZBZLLF7YXFSI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,2822 +168,618 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This is a note to let you know that I've just added the patch titled
+--------------fyuHLQM20M2CGNfB03W36Pz0
+Content-Type: multipart/mixed; boundary="------------BwlGlbRzy57vcbAQ1MJWzg5K";
+ protected-headers="v1"
+From: Shengyu Qu <wiagn233@outlook.com>
+To: Walker Chen <walker.chen@starfivetech.com>,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>
+Cc: wiagn233@outlook.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org
+Message-ID: <5552c5c7-5912-8595-e5d3-9ed895f23336@outlook.com>
+Subject: Re: [PATCH v3 2/3] ASoC: starfive: Add JH7110 TDM driver
+References: <20230506090116.9206-1-walker.chen@starfivetech.com>
+ <20230506090116.9206-3-walker.chen@starfivetech.com>
+In-Reply-To: <20230506090116.9206-3-walker.chen@starfivetech.com>
 
-    spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
+--------------BwlGlbRzy57vcbAQ1MJWzg5K
+Content-Type: multipart/mixed; boundary="------------00OX142jfUw8FZmI0UQh7Bd7"
 
-to the 6.3-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+--------------00OX142jfUw8FZmI0UQh7Bd7
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-The filename of the patch is:
-     spi-replace-all-spi-chip_select-and-spi-cs_gpiod-ref.patch
-and it can be found in the queue-6.3 subdirectory.
+SGksDQoNCj4gQWRkIHRkbSBkcml2ZXIgc3VwcG9ydCBmb3IgdGhlIFN0YXJGaXZlIEpINzEx
+MCBTb0MuDQo+DQo+IFNpZ25lZC1vZmYtYnk6IFdhbGtlciBDaGVuIDx3YWxrZXIuY2hlbkBz
+dGFyZml2ZXRlY2guY29tPg0KPiAtLS0NCj4gICBNQUlOVEFJTkVSUyAgICAgICAgICAgICAg
+ICAgICAgIHwgICA2ICsNCj4gICBzb3VuZC9zb2MvS2NvbmZpZyAgICAgICAgICAgICAgIHwg
+ICAxICsNCj4gICBzb3VuZC9zb2MvTWFrZWZpbGUgICAgICAgICAgICAgIHwgICAxICsNCj4g
+ICBzb3VuZC9zb2Mvc3RhcmZpdmUvS2NvbmZpZyAgICAgIHwgIDE1ICsNCj4gICBzb3VuZC9z
+b2Mvc3RhcmZpdmUvTWFrZWZpbGUgICAgIHwgICAyICsNCj4gICBzb3VuZC9zb2Mvc3RhcmZp
+dmUvamg3MTEwX3RkbS5jIHwgNTczICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+DQo+ICAgc291bmQvc29jL3N0YXJmaXZlL2poNzExMF90ZG0uaCB8IDE0NyArKysrKysrKw0K
+PiAgIDcgZmlsZXMgY2hhbmdlZCwgNzQ1IGluc2VydGlvbnMoKykNCj4gICBjcmVhdGUgbW9k
+ZSAxMDA2NDQgc291bmQvc29jL3N0YXJmaXZlL0tjb25maWcNCj4gICBjcmVhdGUgbW9kZSAx
+MDA2NDQgc291bmQvc29jL3N0YXJmaXZlL01ha2VmaWxlDQo+ICAgY3JlYXRlIG1vZGUgMTAw
+NjQ0IHNvdW5kL3NvYy9zdGFyZml2ZS9qaDcxMTBfdGRtLmMNCj4gICBjcmVhdGUgbW9kZSAx
+MDA2NDQgc291bmQvc29jL3N0YXJmaXZlL2poNzExMF90ZG0uaA0KPg0KPiBkaWZmIC0tZ2l0
+IGEvTUFJTlRBSU5FUlMgYi9NQUlOVEFJTkVSUw0KPiBpbmRleCA1ZjljNTQ0YmMxODkuLmFk
+ZDg5NjE1ZDMyNyAxMDA2NDQNCj4gLS0tIGEvTUFJTlRBSU5FUlMNCj4gKysrIGIvTUFJTlRB
+SU5FUlMNCj4gQEAgLTE5OTQ1LDYgKzE5OTQ1LDEyIEBAIEY6CURvY3VtZW50YXRpb24vZGV2
+aWNldHJlZS9iaW5kaW5ncy9wb3dlci9zdGFyZml2ZSoNCj4gICBGOglkcml2ZXJzL3NvYy9z
+dGFyZml2ZS9qaDcxeHhfcG11LmMNCj4gICBGOglpbmNsdWRlL2R0LWJpbmRpbmdzL3Bvd2Vy
+L3N0YXJmaXZlLGpoNzExMC1wbXUuaA0KPiAgIA0KPiArU1RBUkZJVkUgSkg3MTEwIFRETSBE
+UklWRVJTDQo+ICtNOglXYWxrZXIgQ2hlbiA8d2Fsa2VyLmNoZW5Ac3RhcmZpdmV0ZWNoLmNv
+bT4NCj4gK1M6CU1haW50YWluZWQNCj4gK0Y6CURvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
+aW5kaW5ncy9zb3VuZC9zdGFyZml2ZSxqaDcxMTAtdGRtLnlhbWwNCj4gK0Y6CXNvdW5kL3Nv
+Yy9zdGFyZml2ZS9qaDcxMTAtdGRtLioNCj4gKw0KPiAgIFNUQVJGSVZFIFNPQyBEUklWRVJT
+DQo+ICAgTToJQ29ub3IgRG9vbGV5IDxjb25vckBrZXJuZWwub3JnPg0KPiAgIFM6CU1haW50
+YWluZWQNCj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9LY29uZmlnIGIvc291bmQvc29jL0tj
+b25maWcNCj4gaW5kZXggODQ4ZmJhZTI2YzNiLi44ZDFkOTQwMWVjZjIgMTAwNjQ0DQo+IC0t
+LSBhL3NvdW5kL3NvYy9LY29uZmlnDQo+ICsrKyBiL3NvdW5kL3NvYy9LY29uZmlnDQo+IEBA
+IC05MSw2ICs5MSw3IEBAIHNvdXJjZSAic291bmQvc29jL3NoL0tjb25maWciDQo+ICAgc291
+cmNlICJzb3VuZC9zb2Mvc29mL0tjb25maWciDQo+ICAgc291cmNlICJzb3VuZC9zb2Mvc3Bl
+YXIvS2NvbmZpZyINCj4gICBzb3VyY2UgInNvdW5kL3NvYy9zcHJkL0tjb25maWciDQo+ICtz
+b3VyY2UgInNvdW5kL3NvYy9zdGFyZml2ZS9LY29uZmlnIg0KPiAgIHNvdXJjZSAic291bmQv
+c29jL3N0aS9LY29uZmlnIg0KPiAgIHNvdXJjZSAic291bmQvc29jL3N0bS9LY29uZmlnIg0K
+PiAgIHNvdXJjZSAic291bmQvc29jL3N1bnhpL0tjb25maWciDQo+IGRpZmYgLS1naXQgYS9z
+b3VuZC9zb2MvTWFrZWZpbGUgYi9zb3VuZC9zb2MvTWFrZWZpbGUNCj4gaW5kZXggNTA3ZWFl
+ZDFkNmExLi42NWFlYjRlZjQwNjggMTAwNjQ0DQo+IC0tLSBhL3NvdW5kL3NvYy9NYWtlZmls
+ZQ0KPiArKysgYi9zb3VuZC9zb2MvTWFrZWZpbGUNCj4gQEAgLTU5LDYgKzU5LDcgQEAgb2Jq
+LSQoQ09ORklHX1NORF9TT0MpCSs9IHNoLw0KPiAgIG9iai0kKENPTkZJR19TTkRfU09DKQkr
+PSBzb2YvDQo+ICAgb2JqLSQoQ09ORklHX1NORF9TT0MpCSs9IHNwZWFyLw0KPiAgIG9iai0k
+KENPTkZJR19TTkRfU09DKQkrPSBzcHJkLw0KPiArb2JqLSQoQ09ORklHX1NORF9TT0MpCSs9
+IHN0YXJmaXZlLw0KPiAgIG9iai0kKENPTkZJR19TTkRfU09DKQkrPSBzdGkvDQo+ICAgb2Jq
+LSQoQ09ORklHX1NORF9TT0MpCSs9IHN0bS8NCj4gICBvYmotJChDT05GSUdfU05EX1NPQykJ
+Kz0gc3VueGkvDQo+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc3RhcmZpdmUvS2NvbmZpZyBi
+L3NvdW5kL3NvYy9zdGFyZml2ZS9LY29uZmlnDQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+
+IGluZGV4IDAwMDAwMDAwMDAwMC4uNzM3Yzk1NmY3YjkzDQo+IC0tLSAvZGV2L251bGwNCj4g
+KysrIGIvc291bmQvc29jL3N0YXJmaXZlL0tjb25maWcNCj4gQEAgLTAsMCArMSwxNSBAQA0K
+PiArIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5DQo+ICtjb25maWcg
+U05EX1NPQ19TVEFSRklWRQ0KPiArCXRyaXN0YXRlICJBdWRpbyBzdXBwb3J0IGZvciBTdGFy
+Rml2ZSBTb0MiDQo+ICsJZGVwZW5kcyBvbiBDT01QSUxFX1RFU1QgfHwgU09DX1NUQVJGSVZF
+DQo+ICsJaGVscA0KPiArCSAgU2F5IFkgb3IgTSBpZiB5b3Ugd2FudCB0byBhZGQgc3VwcG9y
+dCBmb3IgY29kZWNzIGF0dGFjaGVkIHRvDQo+ICsJICB0aGUgU3RhcmZpdmUgU29DcycgQXVk
+aW8gaW50ZXJmYWNlcy4gWW91IHdpbGwgYWxzbyBuZWVkIHRvDQo+ICsJICBzZWxlY3QgdGhl
+IGF1ZGlvIGludGVyZmFjZXMgdG8gc3VwcG9ydCBiZWxvdy4NCj4gKw0KPiArY29uZmlnIFNO
+RF9TT0NfSkg3MTEwX1RETQ0KPiArCXRyaXN0YXRlICJKSDcxMTAgVERNIGRldmljZSBkcml2
+ZXIiDQo+ICsJZGVwZW5kcyBvbiBIQVZFX0NMSyAmJiBTTkRfU09DX1NUQVJGSVZFDQo+ICsJ
+c2VsZWN0IFNORF9TT0NfR0VORVJJQ19ETUFFTkdJTkVfUENNDQo+ICsJaGVscA0KPiArCSAg
+U2F5IFkgb3IgTSBpZiB5b3Ugd2FudCB0byBhZGQgc3VwcG9ydCBmb3IgU3RhckZpdmUgVERN
+IGRyaXZlci4NCj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9zdGFyZml2ZS9NYWtlZmlsZSBi
+L3NvdW5kL3NvYy9zdGFyZml2ZS9NYWtlZmlsZQ0KPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0K
+PiBpbmRleCAwMDAwMDAwMDAwMDAuLmY3ZDk2MDIxMWQ3Mg0KPiAtLS0gL2Rldi9udWxsDQo+
+ICsrKyBiL3NvdW5kL3NvYy9zdGFyZml2ZS9NYWtlZmlsZQ0KPiBAQCAtMCwwICsxLDIgQEAN
+Cj4gKyMgU3RhckZpdmUgUGxhdGZvcm0gU3VwcG9ydA0KPiArb2JqLSQoQ09ORklHX1NORF9T
+T0NfSkg3MTEwX1RETSkgKz0gamg3MTEwX3RkbS5vDQo+IGRpZmYgLS1naXQgYS9zb3VuZC9z
+b2Mvc3RhcmZpdmUvamg3MTEwX3RkbS5jIGIvc291bmQvc29jL3N0YXJmaXZlL2poNzExMF90
+ZG0uYw0KPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiBpbmRleCAwMDAwMDAwMDAwMDAuLjMz
+ZjdjZjQzZTRiZA0KPiAtLS0gL2Rldi9udWxsDQo+ICsrKyBiL3NvdW5kL3NvYy9zdGFyZml2
+ZS9qaDcxMTBfdGRtLmMNCj4gQEAgLTAsMCArMSw1NzMgQEANCj4gKy8vIFNQRFgtTGljZW5z
+ZS1JZGVudGlmaWVyOiBHUEwtMi4wDQo+ICsvKg0KPiArICogamg3MTEwX3RkbS5jIC0tIFN0
+YXJGaXZlIEpINzExMCBURE0gZHJpdmVyDQo+ICsgKg0KPiArICogQ29weXJpZ2h0IChDKSAy
+MDIyLTIwMjMgU3RhckZpdmUgVGVjaG5vbG9neSBDby4sIEx0ZC4NCj4gKyAqDQo+ICsgKiBB
+dXRob3I6IFdhbGtlciBDaGVuIDx3YWxrZXIuY2hlbkBzdGFyZml2ZXRlY2guY29tPg0KPiAr
+ICovDQo+ICsNCj4gKyNpbmNsdWRlIDxsaW51eC9jbGsuaD4NCj4gKyNpbmNsdWRlIDxsaW51
+eC9kZXZpY2UuaD4NCj4gKyNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4NCj4gKyNpbmNsdWRl
+IDxsaW51eC9vZl9pcnEuaD4NCj4gKyNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPg0K
+PiArI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4NCj4gKyNpbmNsdWRlIDxsaW51eC9y
+ZWdtYXAuaD4NCj4gKyNpbmNsdWRlIDxsaW51eC9yZXNldC5oPg0KPiArI2luY2x1ZGUgPHNv
+dW5kL2luaXR2YWwuaD4NCj4gKyNpbmNsdWRlIDxzb3VuZC9wY21fcGFyYW1zLmg+DQo+ICsj
+aW5jbHVkZSA8c291bmQvc29jLmg+DQo+ICsjaW5jbHVkZSA8c291bmQvc29jLWRhaS5oPg0K
+PiArI2luY2x1ZGUgImpoNzExMF90ZG0uaCINCj4gKw0KPiArc3RhdGljIGlubGluZSB1MzIg
+amg3MTEwX3RkbV9yZWFkbChzdHJ1Y3Qgamg3MTEwX3RkbV9kZXYgKnRkbSwgdTE2IHJlZykN
+Cj4gK3sNCj4gKwlyZXR1cm4gcmVhZGxfcmVsYXhlZCh0ZG0tPnRkbV9iYXNlICsgcmVnKTsN
+Cj4gK30NCj4gKw0KPiArc3RhdGljIGlubGluZSB2b2lkIGpoNzExMF90ZG1fd3JpdGVsKHN0
+cnVjdCBqaDcxMTBfdGRtX2RldiAqdGRtLCB1MTYgcmVnLCB1MzIgdmFsKQ0KPiArew0KPiAr
+CXdyaXRlbF9yZWxheGVkKHZhbCwgdGRtLT50ZG1fYmFzZSArIHJlZyk7DQo+ICt9DQo+ICsN
+Cj4gK3N0YXRpYyB2b2lkIGpoNzExMF90ZG1fc2F2ZV9jb250ZXh0KHN0cnVjdCBqaDcxMTBf
+dGRtX2RldiAqdGRtLA0KPiArCQkJCSAgICBzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1
+YnN0cmVhbSkNCj4gK3sNCj4gKwlpZiAoc3Vic3RyZWFtLT5zdHJlYW0gPT0gU05EUlZfUENN
+X1NUUkVBTV9QTEFZQkFDSykNCj4gKwkJdGRtLT5zYXZlZF9wY210eGNyID0gamg3MTEwX3Rk
+bV9yZWFkbCh0ZG0sIFRETV9QQ01UWENSKTsNCj4gKwllbHNlDQo+ICsJCXRkbS0+c2F2ZWRf
+cGNtcnhjciA9IGpoNzExMF90ZG1fcmVhZGwodGRtLCBURE1fUENNUlhDUik7DQo+ICt9DQo+
+ICsNCj4gK3N0YXRpYyB2b2lkIGpoNzExMF90ZG1fc3RhcnQoc3RydWN0IGpoNzExMF90ZG1f
+ZGV2ICp0ZG0sDQo+ICsJCQkgICAgIHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVhbSAqc3Vic3Ry
+ZWFtKQ0KPiArew0KPiArCXUzMiBkYXRhOw0KPiArDQo+ICsJZGF0YSA9IGpoNzExMF90ZG1f
+cmVhZGwodGRtLCBURE1fUENNR0JDUik7DQo+ICsJamg3MTEwX3RkbV93cml0ZWwodGRtLCBU
+RE1fUENNR0JDUiwgZGF0YSB8IFBDTUdCQ1JfRU5BQkxFKTsNCj4gKw0KPiArCS8qIHJlc3Rv
+cmUgY29udGV4dCAqLw0KPiArCWlmIChzdWJzdHJlYW0tPnN0cmVhbSA9PSBTTkRSVl9QQ01f
+U1RSRUFNX1BMQVlCQUNLKQ0KPiArCQlqaDcxMTBfdGRtX3dyaXRlbCh0ZG0sIFRETV9QQ01U
+WENSLCB0ZG0tPnNhdmVkX3BjbXR4Y3IgfCBQQ01UWENSX1RYRU4pOw0KPiArCWVsc2UNCj4g
+KwkJamg3MTEwX3RkbV93cml0ZWwodGRtLCBURE1fUENNUlhDUiwgdGRtLT5zYXZlZF9wY21y
+eGNyIHwgUENNUlhDUl9SWEVOKTsNCj4gK30NCj4gKw0KPiArc3RhdGljIHZvaWQgamg3MTEw
+X3RkbV9zdG9wKHN0cnVjdCBqaDcxMTBfdGRtX2RldiAqdGRtLA0KPiArCQkJICAgIHN0cnVj
+dCBzbmRfcGNtX3N1YnN0cmVhbSAqc3Vic3RyZWFtKQ0KPiArew0KPiArCXVuc2lnbmVkIGlu
+dCB2YWw7DQo+ICsNCj4gKwlpZiAoc3Vic3RyZWFtLT5zdHJlYW0gPT0gU05EUlZfUENNX1NU
+UkVBTV9QTEFZQkFDSykgew0KPiArCQl2YWwgPSBqaDcxMTBfdGRtX3JlYWRsKHRkbSwgVERN
+X1BDTVRYQ1IpOw0KPiArCQl2YWwgJj0gflBDTVRYQ1JfVFhFTjsNCj4gKwkJamg3MTEwX3Rk
+bV93cml0ZWwodGRtLCBURE1fUENNVFhDUiwgdmFsKTsNCj4gKwl9IGVsc2Ugew0KPiArCQl2
+YWwgPSBqaDcxMTBfdGRtX3JlYWRsKHRkbSwgVERNX1BDTVJYQ1IpOw0KPiArCQl2YWwgJj0g
+flBDTVJYQ1JfUlhFTjsNCj4gKwkJamg3MTEwX3RkbV93cml0ZWwodGRtLCBURE1fUENNUlhD
+UiwgdmFsKTsNCj4gKwl9DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgamg3MTEwX3RkbV9z
+eW5jZGl2KHN0cnVjdCBqaDcxMTBfdGRtX2RldiAqdGRtKQ0KPiArew0KPiArCXUzMiBzbCwg
+c3NjYWxlLCBzeW5jZGl2Ow0KPiArDQo+ICsJaWYgKHRkbS0+cnguc2wgPj0gdGRtLT50eC5z
+bCkNCj4gKwkJc2wgPSB0ZG0tPnJ4LnNsOw0KPiArCWVsc2UNCj4gKwkJc2wgPSB0ZG0tPnR4
+LnNsOw0KPiArDQo+ICsJaWYgKHRkbS0+cnguc3NjYWxlID49IHRkbS0+dHguc3NjYWxlKQ0K
+PiArCQlzc2NhbGUgPSB0ZG0tPnJ4LnNzY2FsZTsNCj4gKwllbHNlDQo+ICsJCXNzY2FsZSA9
+IHRkbS0+dHguc3NjYWxlOw0KPiArDQo+ICsJc3luY2RpdiA9IHRkbS0+cGNtY2xrIC8gdGRt
+LT5zYW1wbGVyYXRlIC0gMTsNCj4gKw0KPiArCWlmICgoc3luY2RpdiArIDEpIDwgKHNsICog
+c3NjYWxlKSkgew0KPiArCQlkZXZfZXJyKHRkbS0+ZGV2LCAiRmFpbGVkIHRvIHNldCBzeW5j
+ZGl2IVxuIik7DQo+ICsJCXJldHVybiAtRUlOVkFMOw0KPiArCX0NCj4gKw0KPiArCWlmICh0
+ZG0tPnN5bmNtID09IFRETV9TWU5DTV9MT05HICYmDQo+ICsJICAgICh0ZG0tPnJ4LnNzY2Fs
+ZSA8PSAxIHx8IHRkbS0+dHguc3NjYWxlIDw9IDEpKSB7DQo+ICsJCWlmICgoc3luY2RpdiAr
+IDEpIDw9IHNsKSB7DQo+ICsJCQlkZXZfZXJyKHRkbS0+ZGV2LCAiV3Jvbmcgc3luY2RpdiEg
+SXQgbXVzdCBiZSAoc3luY2RpdisxKSA+IG1heFt0eC5zbCwgcnguc2xdXG4iKTsNCj4gKwkJ
+CXJldHVybiAtRUlOVkFMOw0KPiArCQl9DQo+ICsJfQ0KPiArDQo+ICsJamg3MTEwX3RkbV93
+cml0ZWwodGRtLCBURE1fUENNRElWLCBzeW5jZGl2KTsNCj4gKwlyZXR1cm4gMDsNCj4gK30N
+Cj4gKw0KPiArc3RhdGljIGludCBqaDcxMTBfdGRtX2NvbmZpZyhzdHJ1Y3Qgamg3MTEwX3Rk
+bV9kZXYgKnRkbSwNCj4gKwkJCSAgICAgc3RydWN0IHNuZF9wY21fc3Vic3RyZWFtICpzdWJz
+dHJlYW0pDQo+ICt7DQo+ICsJdTMyIGRhdGFyeCwgZGF0YXR4Ow0KPiArCWludCByZXQ7DQo+
+ICsNCj4gKwlyZXQgPSBqaDcxMTBfdGRtX3N5bmNkaXYodGRtKTsNCj4gKwlpZiAocmV0KQ0K
+PiArCQlyZXR1cm4gcmV0Ow0KPiArDQo+ICsJZGF0YXJ4ID0gKHRkbS0+cnguaWZsIDw8IElG
+TF9CSVQpIHwNCj4gKwkJICAodGRtLT5yeC53bCA8PCBXTF9CSVQpIHwNCj4gKwkJICAodGRt
+LT5yeC5zc2NhbGUgPDwgU1NDQUxFX0JJVCkgfA0KPiArCQkgICh0ZG0tPnJ4LnNsIDw8IFNM
+X0JJVCkgfA0KPiArCQkgICh0ZG0tPnJ4LmxyaiA8PCBMUkpfQklUKTsNCj4gKw0KPiArCWRh
+dGF0eCA9ICh0ZG0tPnR4LmlmbCA8PCBJRkxfQklUKSB8DQo+ICsJCSAgKHRkbS0+dHgud2wg
+PDwgV0xfQklUKSB8DQo+ICsJCSAgKHRkbS0+dHguc3NjYWxlIDw8IFNTQ0FMRV9CSVQpIHwN
+Cj4gKwkJICAodGRtLT50eC5zbCA8PCBTTF9CSVQpIHwNCj4gKwkJICAodGRtLT50eC5scmog
+PDwgTFJKX0JJVCk7DQo+ICsNCj4gKwlpZiAoc3Vic3RyZWFtLT5zdHJlYW0gPT0gU05EUlZf
+UENNX1NUUkVBTV9QTEFZQkFDSykNCj4gKwkJamg3MTEwX3RkbV93cml0ZWwodGRtLCBURE1f
+UENNVFhDUiwgZGF0YXR4KTsNCj4gKwllbHNlDQo+ICsJCWpoNzExMF90ZG1fd3JpdGVsKHRk
+bSwgVERNX1BDTVJYQ1IsIGRhdGFyeCk7DQo+ICsNCj4gKwlyZXR1cm4gMDsNCj4gK30NCj4g
+Kw0KPiArc3RhdGljIHZvaWQgamg3MTEwX3RkbV9jbGtfZGlzYWJsZShzdHJ1Y3Qgamg3MTEw
+X3RkbV9kZXYgKnRkbSkNCj4gK3sNCj4gKwlpbnQgaTsNCj4gKw0KPiArCWZvciAoaSA9IHRk
+bS0+bnVtX2Nsa3MgLSAxOyBpID49IDA7IGktLSkNCj4gKwkJY2xrX2Rpc2FibGVfdW5wcmVw
+YXJlKHRkbS0+Y2xrc1tpXSk7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgamg3MTEwX3Rk
+bV9jbGtfZW5hYmxlKHN0cnVjdCBqaDcxMTBfdGRtX2RldiAqdGRtKQ0KPiArew0KPiArCWlu
+dCBpLCByZXQ7DQo+ICsNCj4gKwlmb3IgKGkgPSAwOyBpIDwgdGRtLT5udW1fY2xrczsgaSsr
+KSB7DQo+ICsJCXJldCA9IGNsa19wcmVwYXJlX2VuYWJsZSh0ZG0tPmNsa3NbaV0pOw0KPiAr
+CQlpZiAocmV0KSB7DQo+ICsJCQl3aGlsZSAoaS0tID4gMCkNCj4gKwkJCQljbGtfZGlzYWJs
+ZV91bnByZXBhcmUodGRtLT5jbGtzW2ldKTsNCj4gKwkJCXJldHVybiByZXQ7DQo+ICsJCX0N
+Cj4gKwl9DQo+ICsNCj4gKwlyZXQgPSByZXNldF9jb250cm9sX2RlYXNzZXJ0KHRkbS0+cmVz
+ZXRzKTsNCj4gKwlpZiAocmV0KSB7DQo+ICsJCWRldl9lcnIodGRtLT5kZXYsICJGYWlsZWQg
+dG8gZGVhc3NlcnQgdGRtIHJlc2V0c1xuIik7DQo+ICsJCWdvdG8gZGlzX3RkbV9jbGs7DQo+
+ICsJfQ0KPiArDQo+ICsJLyogc2VsZWN0IHRkbV9leHQgY2xvY2sgYXMgdGhlIGNsb2NrIHNv
+dXJjZSBmb3IgdGRtICovDQo+ICsJcmV0ID0gY2xrX3NldF9wYXJlbnQodGRtLT5jbGtzWzVd
+LCB0ZG0tPmNsa3NbNF0pOw0KPiArCWlmIChyZXQpIHsNCj4gKwkJZGV2X2Vycih0ZG0tPmRl
+diwgIkNhbid0IHNldCBjbG9jayBzb3VyY2UgZm9yIGNsa190ZG06ICVkXG4iLCByZXQpOw0K
+PiArCQlnb3RvIGRpc190ZG1fY2xrOw0KPiArCX0NCj4gKwlyZXR1cm4gMDsNCj4gKw0KPiAr
+ZGlzX3RkbV9jbGs6DQo+ICsJZm9yIChpID0gdGRtLT5udW1fY2xrcyAtIDE7IGkgPj0gMDsg
+aS0tKQ0KPiArCQljbGtfZGlzYWJsZV91bnByZXBhcmUodGRtLT5jbGtzW2ldKTsNCj4gKw0K
+PiArCXJldHVybiByZXQ7DQo+ICt9DQo+ICsNCj4gKyNpZmRlZiBDT05GSUdfUE0NCj4gK3N0
+YXRpYyBpbnQgamg3MTEwX3RkbV9ydW50aW1lX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2
+KQ0KPiArew0KPiArCXN0cnVjdCBqaDcxMTBfdGRtX2RldiAqdGRtID0gZGV2X2dldF9kcnZk
+YXRhKGRldik7DQo+ICsNCj4gKwlqaDcxMTBfdGRtX2Nsa19kaXNhYmxlKHRkbSk7DQo+ICsJ
+cmV0dXJuIDA7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgamg3MTEwX3RkbV9ydW50aW1l
+X3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+ICt7DQo+ICsJc3RydWN0IGpoNzExMF90
+ZG1fZGV2ICp0ZG0gPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsNCj4gKw0KPiArCXJldHVybiBq
+aDcxMTBfdGRtX2Nsa19lbmFibGUodGRtKTsNCj4gK30NCj4gKyNlbmRpZg0KPiArDQo+ICsj
+aWZkZWYgQ09ORklHX1BNX1NMRUVQDQo+ICtzdGF0aWMgaW50IGpoNzExMF90ZG1fc3VzcGVu
+ZChzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCkNCj4gK3sNCj4gKwkvKiBz
+YXZlIGNvbnRleHQgKi8NCj4gKwl0ZG0tPnNhdmVkX3BjbWdiY3IgPSBqaDcxMTBfdGRtX3Jl
+YWRsKHRkbSwgVERNX1BDTUdCQ1IpOw0KPiArCXRkbS0+c2F2ZWRfcGNtZGl2ID0gamg3MTEw
+X3RkbV9yZWFkbCh0ZG0sIFRETV9QQ01ESVYpOw0KDQp0ZG0gaXNuJ3QgZGVjbGFyZWQgaGVy
+ZS4gSXMgdGhhdCBzYW1lIHdpdGggcmVzdW1lIGZ1bmN0aW9uPw0KDQpCZXN0IHJlZ2FyZHMs
+DQoNClNoZW5neXUNCg0KPiArDQo+ICsJcmV0dXJuIHBtX3J1bnRpbWVfZm9yY2Vfc3VzcGVu
+ZChjb21wb25lbnQtPmRldik7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgamg3MTEwX3Rk
+bV9yZXN1bWUoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQpDQo+ICt7DQo+
+ICsJc3RydWN0IGpoNzExMF90ZG1fZGV2ICp0ZG0gPSBzbmRfc29jX2NvbXBvbmVudF9nZXRf
+ZHJ2ZGF0YShjb21wb25lbnQpOw0KPiArDQo+ICsJLyogcmVzdG9yZSBjb250ZXh0ICovDQo+
+ICsJamg3MTEwX3RkbV93cml0ZWwodGRtLCBURE1fUENNR0JDUiwgdGRtLT5zYXZlZF9wY21n
+YmNyKTsNCj4gKwlqaDcxMTBfdGRtX3dyaXRlbCh0ZG0sIFRETV9QQ01ESVYsIHRkbS0+c2F2
+ZWRfcGNtZGl2KTsNCj4gKw0KPiArCXJldHVybiBwbV9ydW50aW1lX2ZvcmNlX3Jlc3VtZShj
+b21wb25lbnQtPmRldik7DQo+ICt9DQo+ICsNCj4gKyNlbHNlDQo+ICsjZGVmaW5lIGpoNzEx
+MF90ZG1fc3VzcGVuZAlOVUxMDQo+ICsjZGVmaW5lIGpoNzExMF90ZG1fcmVzdW1lCU5VTEwN
+Cj4gKyNlbmRpZg0KPiArDQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9zb2NfY29tcG9u
+ZW50X2RyaXZlciBqaDcxMTBfdGRtX2NvbXBvbmVudCA9IHsNCj4gKwkubmFtZSA9ICJqaDcx
+MTAtdGRtIiwNCj4gKwkuc3VzcGVuZCA9IGpoNzExMF90ZG1fc3VzcGVuZCwNCj4gKwkucmVz
+dW1lCT0gamg3MTEwX3RkbV9yZXN1bWUsDQo+ICt9Ow0KPiArDQo+ICtzdGF0aWMgaW50IGpo
+NzExMF90ZG1fc3RhcnR1cChzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwN
+Cj4gKwkJCSAgICAgIHN0cnVjdCBzbmRfc29jX2RhaSAqY3B1X2RhaSkNCj4gK3sNCj4gKwlz
+dHJ1Y3Qgc25kX3NvY19wY21fcnVudGltZSAqcnRkID0gYXNvY19zdWJzdHJlYW1fdG9fcnRk
+KHN1YnN0cmVhbSk7DQo+ICsJc3RydWN0IHNuZF9zb2NfZGFpX2xpbmsgKmRhaV9saW5rID0g
+cnRkLT5kYWlfbGluazsNCj4gKw0KPiArCWRhaV9saW5rLT5zdG9wX2RtYV9maXJzdCA9IDE7
+DQo+ICsNCj4gKwlyZXR1cm4gMDsNCj4gK30NCj4gKw0KPiArc3RhdGljIGludCBqaDcxMTBf
+dGRtX2h3X3BhcmFtcyhzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwNCj4g
+KwkJCQlzdHJ1Y3Qgc25kX3BjbV9od19wYXJhbXMgKnBhcmFtcywNCj4gKwkJCQlzdHJ1Y3Qg
+c25kX3NvY19kYWkgKmRhaSkNCj4gK3sNCj4gKwlzdHJ1Y3Qgamg3MTEwX3RkbV9kZXYgKnRk
+bSA9IHNuZF9zb2NfZGFpX2dldF9kcnZkYXRhKGRhaSk7DQo+ICsJaW50IGNoYW5fd2wsIGNo
+YW5fc2wsIGNoYW5fbnI7DQo+ICsJdW5zaWduZWQgaW50IGRhdGFfd2lkdGg7DQo+ICsJdW5z
+aWduZWQgaW50IGRtYV9idXNfd2lkdGg7DQo+ICsJc3RydWN0IHNuZF9kbWFlbmdpbmVfZGFp
+X2RtYV9kYXRhICpkbWFfZGF0YSA9IE5VTEw7DQo+ICsJaW50IHJldCA9IDA7DQo+ICsNCj4g
+KwlkYXRhX3dpZHRoID0gcGFyYW1zX3dpZHRoKHBhcmFtcyk7DQo+ICsNCj4gKwl0ZG0tPnNh
+bXBsZXJhdGUgPSBwYXJhbXNfcmF0ZShwYXJhbXMpOw0KPiArCXRkbS0+cGNtY2xrID0gcGFy
+YW1zX2NoYW5uZWxzKHBhcmFtcykgKiB0ZG0tPnNhbXBsZXJhdGUgKiBkYXRhX3dpZHRoOw0K
+PiArDQo+ICsJc3dpdGNoIChwYXJhbXNfZm9ybWF0KHBhcmFtcykpIHsNCj4gKwljYXNlIFNO
+RFJWX1BDTV9GT1JNQVRfUzE2X0xFOg0KPiArCQljaGFuX3dsID0gVERNXzE2QklUX1dPUkRf
+TEVOOw0KPiArCQljaGFuX3NsID0gVERNXzE2QklUX1NMT1RfTEVOOw0KPiArCQlkbWFfYnVz
+X3dpZHRoID0gRE1BX1NMQVZFX0JVU1dJRFRIXzJfQllURVM7DQo+ICsJCWJyZWFrOw0KPiAr
+DQo+ICsJY2FzZSBTTkRSVl9QQ01fRk9STUFUX1MzMl9MRToNCj4gKwkJY2hhbl93bCA9IFRE
+TV8zMkJJVF9XT1JEX0xFTjsNCj4gKwkJY2hhbl9zbCA9IFRETV8zMkJJVF9TTE9UX0xFTjsN
+Cj4gKwkJZG1hX2J1c193aWR0aCA9IERNQV9TTEFWRV9CVVNXSURUSF80X0JZVEVTOw0KPiAr
+CQlicmVhazsNCj4gKw0KPiArCWRlZmF1bHQ6DQo+ICsJCWRldl9lcnIodGRtLT5kZXYsICJ0
+ZG06IHVuc3VwcG9ydGVkIFBDTSBmbXQiKTsNCj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+ICsJ
+fQ0KPiArDQo+ICsJY2hhbl9uciA9IHBhcmFtc19jaGFubmVscyhwYXJhbXMpOw0KPiArCXN3
+aXRjaCAoY2hhbl9ucikgew0KPiArCWNhc2UgMToNCj4gKwljYXNlIDI6DQo+ICsJY2FzZSA0
+Og0KPiArCWNhc2UgNjoNCj4gKwljYXNlIDg6DQo+ICsJCWJyZWFrOw0KPiArCWRlZmF1bHQ6
+DQo+ICsJCWRldl9lcnIodGRtLT5kZXYsICJjaGFubmVsIG5vdCBzdXBwb3J0ZWRcbiIpOw0K
+PiArCQlyZXR1cm4gLUVJTlZBTDsNCj4gKwl9DQo+ICsNCj4gKwlpZiAoc3Vic3RyZWFtLT5z
+dHJlYW0gPT0gU05EUlZfUENNX1NUUkVBTV9QTEFZQkFDSykgew0KPiArCQl0ZG0tPnR4Lnds
+ID0gY2hhbl93bDsNCj4gKwkJdGRtLT50eC5zbCA9IGNoYW5fc2w7DQo+ICsJCXRkbS0+dHgu
+c3NjYWxlID0gY2hhbl9ucjsNCj4gKwkJdGRtLT5wbGF5X2RtYV9kYXRhLmFkZHJfd2lkdGgg
+PSBkbWFfYnVzX3dpZHRoOw0KPiArCQlkbWFfZGF0YSA9ICZ0ZG0tPnBsYXlfZG1hX2RhdGE7
+DQo+ICsJfSBlbHNlIHsNCj4gKwkJdGRtLT5yeC53bCA9IGNoYW5fd2w7DQo+ICsJCXRkbS0+
+cnguc2wgPSBjaGFuX3NsOw0KPiArCQl0ZG0tPnJ4LnNzY2FsZSA9IGNoYW5fbnI7DQo+ICsJ
+CXRkbS0+Y2FwdHVyZV9kbWFfZGF0YS5hZGRyX3dpZHRoID0gZG1hX2J1c193aWR0aDsNCj4g
+KwkJZG1hX2RhdGEgPSAmdGRtLT5jYXB0dXJlX2RtYV9kYXRhOw0KPiArCX0NCj4gKw0KPiAr
+CXNuZF9zb2NfZGFpX3NldF9kbWFfZGF0YShkYWksIHN1YnN0cmVhbSwgZG1hX2RhdGEpOw0K
+PiArDQo+ICsJcmV0ID0gamg3MTEwX3RkbV9jb25maWcodGRtLCBzdWJzdHJlYW0pOw0KPiAr
+CWlmIChyZXQpDQo+ICsJCXJldHVybiByZXQ7DQo+ICsNCj4gKwlqaDcxMTBfdGRtX3NhdmVf
+Y29udGV4dCh0ZG0sIHN1YnN0cmVhbSk7DQo+ICsJcmV0dXJuIDA7DQo+ICt9DQo+ICsNCj4g
+K3N0YXRpYyBpbnQgamg3MTEwX3RkbV90cmlnZ2VyKHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVh
+bSAqc3Vic3RyZWFtLA0KPiArCQkJICAgICAgaW50IGNtZCwgc3RydWN0IHNuZF9zb2NfZGFp
+ICpkYWkpDQo+ICt7DQo+ICsJc3RydWN0IGpoNzExMF90ZG1fZGV2ICp0ZG0gPSBzbmRfc29j
+X2RhaV9nZXRfZHJ2ZGF0YShkYWkpOw0KPiArCWludCByZXQgPSAwOw0KPiArDQo+ICsJc3dp
+dGNoIChjbWQpIHsNCj4gKwljYXNlIFNORFJWX1BDTV9UUklHR0VSX1NUQVJUOg0KPiArCWNh
+c2UgU05EUlZfUENNX1RSSUdHRVJfUkVTVU1FOg0KPiArCWNhc2UgU05EUlZfUENNX1RSSUdH
+RVJfUEFVU0VfUkVMRUFTRToNCj4gKwkJamg3MTEwX3RkbV9zdGFydCh0ZG0sIHN1YnN0cmVh
+bSk7DQo+ICsJCWJyZWFrOw0KPiArDQo+ICsJY2FzZSBTTkRSVl9QQ01fVFJJR0dFUl9TVE9Q
+Og0KPiArCWNhc2UgU05EUlZfUENNX1RSSUdHRVJfU1VTUEVORDoNCj4gKwljYXNlIFNORFJW
+X1BDTV9UUklHR0VSX1BBVVNFX1BVU0g6DQo+ICsJCWpoNzExMF90ZG1fc3RvcCh0ZG0sIHN1
+YnN0cmVhbSk7DQo+ICsJCWJyZWFrOw0KPiArCWRlZmF1bHQ6DQo+ICsJCXJldCA9IC1FSU5W
+QUw7DQo+ICsJCWJyZWFrOw0KPiArCX0NCj4gKwlyZXR1cm4gcmV0Ow0KPiArfQ0KPiArDQo+
+ICtzdGF0aWMgaW50IGpoNzExMF90ZG1fc2V0X2RhaV9mbXQoc3RydWN0IHNuZF9zb2NfZGFp
+ICpjcHVfZGFpLA0KPiArCQkJCSAgdW5zaWduZWQgaW50IGZtdCkNCj4gK3sNCj4gKwlzdHJ1
+Y3Qgamg3MTEwX3RkbV9kZXYgKnRkbSA9IHNuZF9zb2NfZGFpX2dldF9kcnZkYXRhKGNwdV9k
+YWkpOw0KPiArCXVuc2lnbmVkIGludCBnYmNyOw0KPiArCWludCByZXQgPSAwOw0KPiArDQo+
+ICsJLyogc2V0IG1hc3Rlci9zbGF2ZSBhdWRpbyBpbnRlcmZhY2UgKi8NCj4gKwlzd2l0Y2gg
+KGZtdCAmIFNORF9TT0NfREFJRk1UX0NMT0NLX1BST1ZJREVSX01BU0spIHsNCj4gKwljYXNl
+IFNORF9TT0NfREFJRk1UX0JQX0ZQOg0KPiArCQkvKiBjcHUgaXMgbWFzdGVyICovDQo+ICsJ
+CXRkbS0+bXNfbW9kZSA9IFRETV9BU19NQVNURVI7DQo+ICsJCWJyZWFrOw0KPiArCWNhc2Ug
+U05EX1NPQ19EQUlGTVRfQkNfRkM6DQo+ICsJCS8qIGNvZGVjIGlzIG1hc3RlciAqLw0KPiAr
+CQl0ZG0tPm1zX21vZGUgPSBURE1fQVNfU0xBVkU7DQo+ICsJCWJyZWFrOw0KPiArCWNhc2Ug
+U05EX1NPQ19EQUlGTVRfQkNfRlA6DQo+ICsJY2FzZSBTTkRfU09DX0RBSUZNVF9CUF9GQzoN
+Cj4gKwkJcmV0ID0gLUVJTlZBTDsNCj4gKwkJYnJlYWs7DQo+ICsJZGVmYXVsdDoNCj4gKwkJ
+ZGV2X2RiZyh0ZG0tPmRldiwgImR3YyA6IEludmFsaWQgY2xvY2sgcHJvdmlkZXIgZm9ybWF0
+XG4iKTsNCj4gKwkJcmV0ID0gLUVJTlZBTDsNCj4gKwkJYnJlYWs7DQo+ICsJfQ0KPiArDQo+
+ICsJZ2JjciA9ICh0ZG0tPmNsa3BvbGl0eSA8PCBDTEtQT0xfQklUKSB8DQo+ICsJCSh0ZG0t
+PmVsbSA8PCBFTE1fQklUKSB8DQo+ICsJCSh0ZG0tPnN5bmNtIDw8IFNZTkNNX0JJVCkgfA0K
+PiArCQkodGRtLT5tc19tb2RlIDw8IE1TX0JJVCk7DQo+ICsJamg3MTEwX3RkbV93cml0ZWwo
+dGRtLCBURE1fUENNR0JDUiwgZ2Jjcik7DQo+ICsNCj4gKwlyZXR1cm4gcmV0Ow0KPiArfQ0K
+PiArDQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9zb2NfZGFpX29wcyBqaDcxMTBfdGRt
+X2RhaV9vcHMgPSB7DQo+ICsJLnN0YXJ0dXAJPSBqaDcxMTBfdGRtX3N0YXJ0dXAsDQo+ICsJ
+Lmh3X3BhcmFtcwk9IGpoNzExMF90ZG1faHdfcGFyYW1zLA0KPiArCS50cmlnZ2VyCT0gamg3
+MTEwX3RkbV90cmlnZ2VyLA0KPiArCS5zZXRfZm10CT0gamg3MTEwX3RkbV9zZXRfZGFpX2Zt
+dCwNCj4gK307DQo+ICsNCj4gK3N0YXRpYyBpbnQgamg3MTEwX3RkbV9kYWlfcHJvYmUoc3Ry
+dWN0IHNuZF9zb2NfZGFpICpkYWkpDQo+ICt7DQo+ICsJc3RydWN0IGpoNzExMF90ZG1fZGV2
+ICp0ZG0gPSBzbmRfc29jX2RhaV9nZXRfZHJ2ZGF0YShkYWkpOw0KPiArDQo+ICsJc25kX3Nv
+Y19kYWlfaW5pdF9kbWFfZGF0YShkYWksICZ0ZG0tPnBsYXlfZG1hX2RhdGEsICZ0ZG0tPmNh
+cHR1cmVfZG1hX2RhdGEpOw0KPiArCXNuZF9zb2NfZGFpX3NldF9kcnZkYXRhKGRhaSwgdGRt
+KTsNCj4gKwlyZXR1cm4gMDsNCj4gK30NCj4gKw0KPiArI2RlZmluZSBKSDcxMTBfVERNX1JB
+VEVTCVNORFJWX1BDTV9SQVRFXzgwMDBfNDgwMDANCj4gKw0KPiArI2RlZmluZSBKSDcxMTBf
+VERNX0ZPUk1BVFMJKFNORFJWX1BDTV9GTVRCSVRfUzE2X0xFIHwgXA0KPiArCQkJCSBTTkRS
+Vl9QQ01fRk1UQklUX1MzMl9MRSkNCj4gKw0KPiArc3RhdGljIHN0cnVjdCBzbmRfc29jX2Rh
+aV9kcml2ZXIgamg3MTEwX3RkbV9kYWkgPSB7DQo+ICsJLm5hbWUgPSAic2ZfdGRtIiwNCj4g
+KwkuaWQgPSAwLA0KPiArCS5wbGF5YmFjayA9IHsNCj4gKwkJLnN0cmVhbV9uYW1lICAgID0g
+IlBsYXliYWNrIiwNCj4gKwkJLmNoYW5uZWxzX21pbiAgID0gMSwNCj4gKwkJLmNoYW5uZWxz
+X21heCAgID0gOCwNCj4gKwkJLnJhdGVzICAgICAgICAgID0gSkg3MTEwX1RETV9SQVRFUywN
+Cj4gKwkJLmZvcm1hdHMgICAgICAgID0gSkg3MTEwX1RETV9GT1JNQVRTLA0KPiArCX0sDQo+
+ICsJLmNhcHR1cmUgPSB7DQo+ICsJCS5zdHJlYW1fbmFtZSAgICA9ICJDYXB0dXJlIiwNCj4g
+KwkJLmNoYW5uZWxzX21pbiAgID0gMSwNCj4gKwkJLmNoYW5uZWxzX21heCAgID0gOCwNCj4g
+KwkJLnJhdGVzICAgICAgICAgID0gSkg3MTEwX1RETV9SQVRFUywNCj4gKwkJLmZvcm1hdHMg
+ICAgICAgID0gSkg3MTEwX1RETV9GT1JNQVRTLA0KPiArCX0sDQo+ICsJLm9wcyA9ICZqaDcx
+MTBfdGRtX2RhaV9vcHMsDQo+ICsJLnByb2JlID0gamg3MTEwX3RkbV9kYWlfcHJvYmUsDQo+
+ICsJLnN5bW1ldHJpY19yYXRlID0gMSwNCj4gK307DQo+ICsNCj4gK3N0YXRpYyBjb25zdCBz
+dHJ1Y3Qgc25kX3BjbV9oYXJkd2FyZSBqaDcxMTBfcGNtX2hhcmR3YXJlID0gew0KPiArCS5p
+bmZvCQkJPSAoU05EUlZfUENNX0lORk9fTU1BUAkJfA0KPiArCQkJCSAgIFNORFJWX1BDTV9J
+TkZPX01NQVBfVkFMSUQJfA0KPiArCQkJCSAgIFNORFJWX1BDTV9JTkZPX1BBVVNFCQl8DQo+
+ICsJCQkJICAgU05EUlZfUENNX0lORk9fUkVTVU1FCXwNCj4gKwkJCQkgICBTTkRSVl9QQ01f
+SU5GT19JTlRFUkxFQVZFRAl8DQo+ICsJCQkJICAgU05EUlZfUENNX0lORk9fQkxPQ0tfVFJB
+TlNGRVIpLA0KPiArCS5idWZmZXJfYnl0ZXNfbWF4CT0gMTkyNTEyLA0KPiArCS5wZXJpb2Rf
+Ynl0ZXNfbWluCT0gNDA5NiwNCj4gKwkucGVyaW9kX2J5dGVzX21heAk9IDMyNzY4LA0KPiAr
+CS5wZXJpb2RzX21pbgkJPSAxLA0KPiArCS5wZXJpb2RzX21heAkJPSA0OCwNCj4gKwkuZmlm
+b19zaXplCQk9IDE2LA0KPiArfTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRf
+ZG1hZW5naW5lX3BjbV9jb25maWcgamg3MTEwX2RtYWVuZ2luZV9wY21fY29uZmlnID0gew0K
+PiArCS5wY21faGFyZHdhcmUgPSAmamg3MTEwX3BjbV9oYXJkd2FyZSwNCj4gKwkucHJlcGFy
+ZV9zbGF2ZV9jb25maWcgPSBzbmRfZG1hZW5naW5lX3BjbV9wcmVwYXJlX3NsYXZlX2NvbmZp
+ZywNCj4gKwkucHJlYWxsb2NfYnVmZmVyX3NpemUgPSAxOTI1MTIsDQo+ICt9Ow0KPiArDQo+
+ICtzdGF0aWMgdm9pZCBqaDcxMTBfdGRtX2luaXRfcGFyYW1zKHN0cnVjdCBqaDcxMTBfdGRt
+X2RldiAqdGRtKQ0KPiArew0KPiArCXRkbS0+Y2xrcG9saXR5ID0gVERNX1RYX1JBU0lOR19S
+WF9GQUxMSU5HOw0KPiArCXRkbS0+ZWxtID0gVERNX0VMTV9MQVRFOw0KPiArCXRkbS0+c3lu
+Y20gPSBURE1fU1lOQ01fU0hPUlQ7DQo+ICsNCj4gKwl0ZG0tPnJ4LmlmbCA9IFRETV9GSUZP
+X0hBTEY7DQo+ICsJdGRtLT50eC5pZmwgPSBURE1fRklGT19IQUxGOw0KPiArCXRkbS0+cngu
+d2wgPSBURE1fMTZCSVRfV09SRF9MRU47DQo+ICsJdGRtLT50eC53bCA9IFRETV8xNkJJVF9X
+T1JEX0xFTjsNCj4gKwl0ZG0tPnJ4LnNzY2FsZSA9IDI7DQo+ICsJdGRtLT50eC5zc2NhbGUg
+PSAyOw0KPiArCXRkbS0+cngubHJqID0gVERNX0xFRlRfSlVTVElGVDsNCj4gKwl0ZG0tPnR4
+LmxyaiA9IFRETV9MRUZUX0pVU1RJRlQ7DQo+ICsNCj4gKwl0ZG0tPnBsYXlfZG1hX2RhdGEu
+YWRkciA9IEpINzExMF9URE1fRklGTzsNCj4gKwl0ZG0tPnBsYXlfZG1hX2RhdGEuYWRkcl93
+aWR0aCA9IERNQV9TTEFWRV9CVVNXSURUSF8yX0JZVEVTOw0KPiArCXRkbS0+cGxheV9kbWFf
+ZGF0YS5maWZvX3NpemUgPSBKSDcxMTBfVERNX0ZJRk9fREVQVEggLyAyOw0KPiArCXRkbS0+
+cGxheV9kbWFfZGF0YS5tYXhidXJzdCA9IDE2Ow0KPiArDQo+ICsJdGRtLT5jYXB0dXJlX2Rt
+YV9kYXRhLmFkZHIgPSBKSDcxMTBfVERNX0ZJRk87DQo+ICsJdGRtLT5jYXB0dXJlX2RtYV9k
+YXRhLmFkZHJfd2lkdGggPSBETUFfU0xBVkVfQlVTV0lEVEhfMl9CWVRFUzsNCj4gKwl0ZG0t
+PmNhcHR1cmVfZG1hX2RhdGEuZmlmb19zaXplID0gSkg3MTEwX1RETV9GSUZPX0RFUFRIIC8g
+MjsNCj4gKwl0ZG0tPmNhcHR1cmVfZG1hX2RhdGEubWF4YnVyc3QgPSA4Ow0KPiArfQ0KPiAr
+DQo+ICtzdGF0aWMgaW50IGpoNzExMF90ZG1fY2xrX3Jlc2V0X2luaXQoc3RydWN0IHBsYXRm
+b3JtX2RldmljZSAqcGRldiwNCj4gKwkJCQkgICAgIHN0cnVjdCBqaDcxMTBfdGRtX2RldiAq
+dGRtKQ0KPiArew0KPiArCWludCBpLCByZXQ7DQo+ICsNCj4gKwlmb3IgKGkgPSAwOyBpIDwg
+dGRtLT5udW1fY2xrczsgaSsrKSB7DQo+ICsJCXRkbS0+Y2xrc1tpXSA9IGRldm1fY2xrX2dl
+dCgmcGRldi0+ZGV2LCB0ZG0tPmNsa19uYW1lc1tpXSk7DQo+ICsJCWlmIChJU19FUlIodGRt
+LT5jbGtzW2ldKSkgew0KPiArCQkJZGV2X2VycigmcGRldi0+ZGV2LCAiRmFpbGVkIHRvIGdl
+dCBjbG9jazogJXNcbiIsDQo+ICsJCQkJdGRtLT5jbGtfbmFtZXNbaV0pOw0KPiArCQkJcmV0
+dXJuIFBUUl9FUlIodGRtLT5jbGtzW2ldKTsNCj4gKwkJfQ0KPiArCX0NCj4gKw0KPiArCXRk
+bS0+cmVzZXRzID0gZGV2bV9yZXNldF9jb250cm9sX2FycmF5X2dldF9leGNsdXNpdmUoJnBk
+ZXYtPmRldik7DQo+ICsJaWYgKElTX0VSUih0ZG0tPnJlc2V0cykpIHsNCj4gKwkJcmV0ID0g
+UFRSX0VSUih0ZG0tPnJlc2V0cyk7DQo+ICsJCWRldl9lcnIoJnBkZXYtPmRldiwgIkZhaWxl
+ZCB0byBnZXQgdGRtIHJlc2V0cyIpOw0KPiArCQlyZXR1cm4gcmV0Ow0KPiArCX0NCj4gKw0K
+PiArCXJldHVybiBqaDcxMTBfdGRtX2Nsa19lbmFibGUodGRtKTsNCj4gK30NCj4gKw0KPiAr
+c3RhdGljIGludCBqaDcxMTBfdGRtX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBk
+ZXYpDQo+ICt7DQo+ICsJc3RydWN0IGpoNzExMF90ZG1fZGV2ICp0ZG07DQo+ICsJY29uc3Qg
+c3RydWN0IHN0YXJmaXZlX3RkbV9kcml2ZXJkYXRhICpkcml2ZXJfZGF0YTsNCj4gKwlpbnQg
+cmV0Ow0KPiArDQo+ICsJdGRtID0gZGV2bV9remFsbG9jKCZwZGV2LT5kZXYsIHNpemVvZigq
+dGRtKSwgR0ZQX0tFUk5FTCk7DQo+ICsJaWYgKCF0ZG0pDQo+ICsJCXJldHVybiAtRU5PTUVN
+Ow0KPiArDQo+ICsJZHJpdmVyX2RhdGEgPSBvZl9kZXZpY2VfZ2V0X21hdGNoX2RhdGEoJnBk
+ZXYtPmRldik7DQo+ICsJdGRtLT5jbGtfbmFtZXMgPSAoY29uc3QgY2hhciAqKilkcml2ZXJf
+ZGF0YS0+Y2xrX25hbWVzOw0KPiArCXRkbS0+bnVtX2Nsa3MgPSBkcml2ZXJfZGF0YS0+bnVt
+X2Nsa3M7DQo+ICsNCj4gKwl0ZG0tPnRkbV9iYXNlID0gZGV2bV9wbGF0Zm9ybV9pb3JlbWFw
+X3Jlc291cmNlKHBkZXYsIDApOw0KPiArCWlmIChJU19FUlIodGRtLT50ZG1fYmFzZSkpDQo+
+ICsJCXJldHVybiBQVFJfRVJSKHRkbS0+dGRtX2Jhc2UpOw0KPiArDQo+ICsJdGRtLT5kZXYg
+PSAmcGRldi0+ZGV2Ow0KPiArDQo+ICsJcmV0ID0gamg3MTEwX3RkbV9jbGtfcmVzZXRfaW5p
+dChwZGV2LCB0ZG0pOw0KPiArCWlmIChyZXQpIHsNCj4gKwkJZGV2X2VycigmcGRldi0+ZGV2
+LCAiRmFpbGVkIHRvIGVuYWJsZSBhdWRpby10ZG0gY2xvY2tcbiIpOw0KPiArCQlyZXR1cm4g
+cmV0Ow0KPiArCX0NCj4gKw0KPiArCWpoNzExMF90ZG1faW5pdF9wYXJhbXModGRtKTsNCj4g
+Kw0KPiArCWRldl9zZXRfZHJ2ZGF0YSgmcGRldi0+ZGV2LCB0ZG0pOw0KPiArCXJldCA9IGRl
+dm1fc25kX3NvY19yZWdpc3Rlcl9jb21wb25lbnQoJnBkZXYtPmRldiwgJmpoNzExMF90ZG1f
+Y29tcG9uZW50LA0KPiArCQkJCQkgICAgICAmamg3MTEwX3RkbV9kYWksIDEpOw0KPiArCWlm
+IChyZXQgIT0gMCkgew0KPiArCQlkZXZfZXJyKCZwZGV2LT5kZXYsICJGYWlsZWQgdG8gcmVn
+aXN0ZXIgZGFpXG4iKTsNCj4gKwkJcmV0dXJuIHJldDsNCj4gKwl9DQo+ICsNCj4gKwlyZXQg
+PSBkZXZtX3NuZF9kbWFlbmdpbmVfcGNtX3JlZ2lzdGVyKCZwZGV2LT5kZXYsDQo+ICsJCQkJ
+CSAgICAgICZqaDcxMTBfZG1hZW5naW5lX3BjbV9jb25maWcsDQo+ICsJCQkJCSAgICAgIFNO
+RF9ETUFFTkdJTkVfUENNX0ZMQUdfQ09NUEFUKTsNCj4gKwlpZiAocmV0KSB7DQo+ICsJCWRl
+dl9lcnIoJnBkZXYtPmRldiwgIkNvdWxkIG5vdCByZWdpc3RlciBwY206ICVkXG4iLCByZXQp
+Ow0KPiArCQlyZXR1cm4gcmV0Ow0KPiArCX0NCj4gKw0KPiArCXBtX3J1bnRpbWVfZW5hYmxl
+KCZwZGV2LT5kZXYpOw0KPiArI2lmZGVmIENPTkZJR19QTQ0KPiArCWpoNzExMF90ZG1fY2xr
+X2Rpc2FibGUodGRtKTsNCj4gKyNlbmRpZg0KPiArDQo+ICsJcmV0dXJuIDA7DQo+ICt9DQo+
+ICsNCj4gK3N0YXRpYyBpbnQgamg3MTEwX3RkbV9kZXZfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9y
+bV9kZXZpY2UgKnBkZXYpDQo+ICt7DQo+ICsJcG1fcnVudGltZV9kaXNhYmxlKCZwZGV2LT5k
+ZXYpOw0KPiArCXJldHVybiAwOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0
+IHN0YXJmaXZlX3RkbV9kcml2ZXJkYXRhIGpoNzExMF9kcnZkYXRhID0gew0KPiArCS5jbGtf
+bmFtZXMgPSB7Im1jbGtfaW5uZXIiLCAidGRtX2FoYiIsICJ0ZG1fYXBiIiwgInRkbV9pbnRl
+cm5hbCIsICJ0ZG1fZXh0IiwgInRkbSJ9LA0KPiArCS5udW1fY2xrcyA9IDYsDQo+ICt9Ow0K
+PiArDQo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBqaDcxMTBfdGRtX29m
+X21hdGNoW10gPSB7DQo+ICsJeyAuY29tcGF0aWJsZSA9ICJzdGFyZml2ZSxqaDcxMTAtdGRt
+IiwgLmRhdGEgPSAmamg3MTEwX2RydmRhdGEgfSwNCj4gKwl7fQ0KPiArfTsNCj4gKw0KPiAr
+TU9EVUxFX0RFVklDRV9UQUJMRShvZiwgamg3MTEwX3RkbV9vZl9tYXRjaCk7DQo+ICsNCj4g
+K3N0YXRpYyBjb25zdCBzdHJ1Y3QgZGV2X3BtX29wcyBqaDcxMTBfdGRtX3BtX29wcyA9IHsN
+Cj4gKwlTRVRfUlVOVElNRV9QTV9PUFMoamg3MTEwX3RkbV9ydW50aW1lX3N1c3BlbmQsDQo+
+ICsJCQkgICBqaDcxMTBfdGRtX3J1bnRpbWVfcmVzdW1lLCBOVUxMKQ0KPiArfTsNCj4gKw0K
+PiArc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgamg3MTEwX3RkbV9kcml2ZXIgPSB7
+DQo+ICsJLmRyaXZlciA9IHsNCj4gKwkJLm5hbWUgPSAiamg3MTEwLXRkbSIsDQo+ICsJCS5v
+Zl9tYXRjaF90YWJsZSA9IGpoNzExMF90ZG1fb2ZfbWF0Y2gsDQo+ICsJCS5wbSA9ICZqaDcx
+MTBfdGRtX3BtX29wcywNCj4gKwl9LA0KPiArCS5wcm9iZSA9IGpoNzExMF90ZG1fcHJvYmUs
+DQo+ICsJLnJlbW92ZSA9IGpoNzExMF90ZG1fZGV2X3JlbW92ZSwNCj4gK307DQo+ICttb2R1
+bGVfcGxhdGZvcm1fZHJpdmVyKGpoNzExMF90ZG1fZHJpdmVyKTsNCj4gKw0KPiArTU9EVUxF
+X0RFU0NSSVBUSU9OKCJTdGFyRml2ZSBKSDcxMTAgVERNIEFTb0MgRHJpdmVyIik7DQo+ICtN
+T0RVTEVfQVVUSE9SKCJXYWxrZXIgQ2hlbiA8d2Fsa2VyLmNoZW5Ac3RhcmZpdmV0ZWNoLmNv
+bT4iKTsNCj4gK01PRFVMRV9MSUNFTlNFKCJHUEwiKTsNCj4gZGlmZiAtLWdpdCBhL3NvdW5k
+L3NvYy9zdGFyZml2ZS9qaDcxMTBfdGRtLmggYi9zb3VuZC9zb2Mvc3RhcmZpdmUvamg3MTEw
+X3RkbS5oDQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+IGluZGV4IDAwMDAwMDAwMDAwMC4u
+ODBmMTc5NDZhNDVkDQo+IC0tLSAvZGV2L251bGwNCj4gKysrIGIvc291bmQvc29jL3N0YXJm
+aXZlL2poNzExMF90ZG0uaA0KPiBAQCAtMCwwICsxLDE0NyBAQA0KPiArLyogU1BEWC1MaWNl
+bnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4gKyAqDQo+ICsgKiBURE0gZHJpdmVyIGZvciB0
+aGUgU3RhckZpdmUgSkg3MTEwIFNvQw0KPiArICoNCj4gKyAqIENvcHlyaWdodCAoQykgMjAy
+Mi0yMDIzIFN0YXJGaXZlIFRlY2hub2xvZ3kgQ28uLCBMdGQuDQo+ICsgKg0KPiArICogQXV0
+aG9yOiBXYWxrZXIgQ2hlbiA8d2Fsa2VyLmNoZW5Ac3RhcmZpdmV0ZWNoLmNvbT4NCj4gKyAq
+Lw0KPiArDQo+ICsjaWZuZGVmIF9fU05EX1NPQ19TVEFSRklWRV9URE1fSA0KPiArI2RlZmlu
+ZSBfX1NORF9TT0NfU1RBUkZJVkVfVERNX0gNCj4gKw0KPiArI2luY2x1ZGUgPGxpbnV4L2Ns
+ay5oPg0KPiArI2luY2x1ZGUgPGxpbnV4L2RldmljZS5oPg0KPiArI2luY2x1ZGUgPGxpbnV4
+L3R5cGVzLmg+DQo+ICsjaW5jbHVkZSA8c291bmQvZG1hZW5naW5lX3BjbS5oPg0KPiArI2lu
+Y2x1ZGUgPHNvdW5kL3BjbS5oPg0KPiArI2luY2x1ZGUgPGxpbnV4L2RtYWVuZ2luZS5oPg0K
+PiArI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+DQo+ICsNCj4gKyNkZWZpbmUgVERNX1BDTUdC
+Q1IJCQkweDAwDQo+ICsJI2RlZmluZSBQQ01HQkNSX01BU0sJCTB4MWUNCj4gKwkjZGVmaW5l
+IFBDTUdCQ1JfRU5BQkxFCQlCSVQoMCkNCj4gKwkjZGVmaW5lIFBDTUdCQ1JfVFJJVFhFTgkJ
+QklUKDQpDQo+ICsJI2RlZmluZSBDTEtQT0xfQklUCQk1DQo+ICsJI2RlZmluZSBUUklUWEVO
+X0JJVAkJNA0KPiArCSNkZWZpbmUgRUxNX0JJVAkJCTMNCj4gKwkjZGVmaW5lIFNZTkNNX0JJ
+VAkJMg0KPiArCSNkZWZpbmUgTVNfQklUCQkJMQ0KPiArI2RlZmluZSBURE1fUENNVFhDUgkJ
+CTB4MDQNCj4gKwkjZGVmaW5lIFBDTVRYQ1JfVFhFTgkJQklUKDApDQo+ICsJI2RlZmluZSBJ
+RkxfQklUCQkJMTENCj4gKwkjZGVmaW5lIFdMX0JJVAkJCTgNCj4gKwkjZGVmaW5lIFNTQ0FM
+RV9CSVQJCTQNCj4gKwkjZGVmaW5lIFNMX0JJVAkJCTINCj4gKwkjZGVmaW5lIExSSl9CSVQJ
+CQkxDQo+ICsjZGVmaW5lIFRETV9QQ01SWENSCQkJMHgwOA0KPiArCSNkZWZpbmUgUENNUlhD
+Ul9SWEVOCQlCSVQoMCkNCj4gKwkjZGVmaW5lIFBDTVJYQ1JfUlhTTF9NQVNLCTB4Yw0KPiAr
+CSNkZWZpbmUgUENNUlhDUl9SWFNMXzE2QklUCTB4NA0KPiArCSNkZWZpbmUgUENNUlhDUl9S
+WFNMXzMyQklUCTB4OA0KPiArCSNkZWZpbmUgUENNUlhDUl9TQ0FMRV9NQVNLCTB4ZjANCj4g
+KwkjZGVmaW5lIFBDTVJYQ1JfU0NBTEVfMUNICTB4MTANCj4gKyNkZWZpbmUgVERNX1BDTURJ
+VgkJCTB4MGMNCj4gKw0KPiArLyogIERNQSByZWdpc3RlcnMgKi8NCj4gKyNkZWZpbmUgSkg3
+MTEwX1RETV9GSUZPCQkJMHgxNzBjMDAwMA0KPiArI2RlZmluZSBKSDcxMTBfVERNX0ZJRk9f
+REVQVEgJCTMyDQo+ICsjZGVmaW5lIEpINzExMF9URE1fTUFYX0NMT0NLUwkJNg0KPiArDQo+
+ICtlbnVtIFRETV9NQVNURVJfU0xBVkVfTU9ERSB7DQo+ICsJVERNX0FTX01BU1RFUiA9IDAs
+DQo+ICsJVERNX0FTX1NMQVZFLA0KPiArfTsNCj4gKw0KPiArZW51bSBURE1fQ0xLUE9MIHsN
+Cj4gKwkvKiB0eCByYWlzaW5nIGFuZCByeCBmYWxsaW5nICovDQo+ICsJVERNX1RYX1JBU0lO
+R19SWF9GQUxMSU5HID0gMCwNCj4gKwkvKiB0eCBmYWxsaW5nIGFuZCByeCByYWlzaW5nICov
+DQo+ICsJVERNX1RYX0ZBTExJTkdfUlhfUkFTSU5HLA0KPiArfTsNCj4gKw0KPiArZW51bSBU
+RE1fRUxNIHsNCj4gKwkvKiBvbmx5IHdvcmsgd2hpbGUgU1lOQ009MCAqLw0KPiArCVRETV9F
+TE1fTEFURSA9IDAsDQo+ICsJVERNX0VMTV9FQVJMWSwNCj4gK307DQo+ICsNCj4gK2VudW0g
+VERNX1NZTkNNIHsNCj4gKwkvKiBzaG9ydCBmcmFtZSBzeW5jICovDQo+ICsJVERNX1NZTkNN
+X1NIT1JUID0gMCwNCj4gKwkvKiBsb25nIGZyYW1lIHN5bmMgKi8NCj4gKwlURE1fU1lOQ01f
+TE9ORywNCj4gK307DQo+ICsNCj4gK2VudW0gVERNX0lGTCB7DQo+ICsJLyogRklGTyB0byBz
+ZW5kIG9yIHJlY2VpdmVkIDogaGFsZi0xLzIsIFF1YXJ0ZXItMS80ICovDQo+ICsJVERNX0ZJ
+Rk9fSEFMRiA9IDAsDQo+ICsJVERNX0ZJRk9fUVVBUlRFUiwNCj4gK307DQo+ICsNCj4gK2Vu
+dW0gVERNX1dMIHsNCj4gKwkvKiBzZW5kIG9yIHJlY2VpdmVkIHdvcmQgbGVuZ3RoICovDQo+
+ICsJVERNXzhCSVRfV09SRF9MRU4gPSAwLA0KPiArCVRETV8xNkJJVF9XT1JEX0xFTiwNCj4g
+KwlURE1fMjBCSVRfV09SRF9MRU4sDQo+ICsJVERNXzI0QklUX1dPUkRfTEVOLA0KPiArCVRE
+TV8zMkJJVF9XT1JEX0xFTiwNCj4gK307DQo+ICsNCj4gK2VudW0gVERNX1NMIHsNCj4gKwkv
+KiBzZW5kIG9yIHJlY2VpdmVkIHNsb3QgbGVuZ3RoICovDQo+ICsJVERNXzhCSVRfU0xPVF9M
+RU4gPSAwLA0KPiArCVRETV8xNkJJVF9TTE9UX0xFTiwNCj4gKwlURE1fMzJCSVRfU0xPVF9M
+RU4sDQo+ICt9Ow0KPiArDQo+ICtlbnVtIFRETV9MUkogew0KPiArCS8qIGxlZnQtanVzdGlm
+eSBvciByaWdodC1qdXN0aWZ5ICovDQo+ICsJVERNX1JJR0hUX0pVU1RJRlkgPSAwLA0KPiAr
+CVRETV9MRUZUX0pVU1RJRlQsDQo+ICt9Ow0KPiArDQo+ICtzdHJ1Y3QgdGRtX2NoYW5fY2Zn
+IHsNCj4gKwllbnVtIFRETV9JRkwgaWZsOw0KPiArCWVudW0gVERNX1dMICB3bDsNCj4gKwl1
+bnNpZ25lZCBjaGFyIHNzY2FsZTsNCj4gKwllbnVtIFRETV9TTCAgc2w7DQo+ICsJZW51bSBU
+RE1fTFJKIGxyajsNCj4gKwl1bnNpZ25lZCBjaGFyIGVuYWJsZTsNCj4gK307DQo+ICsNCj4g
+K3N0cnVjdCBzdGFyZml2ZV90ZG1fZHJpdmVyZGF0YSB7DQo+ICsJY29uc3QgY2hhciAqY2xr
+X25hbWVzW0pINzExMF9URE1fTUFYX0NMT0NLU107DQo+ICsJaW50IG51bV9jbGtzOw0KPiAr
+fTsNCj4gKw0KPiArc3RydWN0IGpoNzExMF90ZG1fZGV2IHsNCj4gKwl2b2lkIF9faW9tZW0g
+KnRkbV9iYXNlOw0KPiArCXN0cnVjdCBkZXZpY2UgKmRldjsNCj4gKwljb25zdCBjaGFyICoq
+Y2xrX25hbWVzOw0KPiArCXN0cnVjdCBjbGsgKmNsa3NbSkg3MTEwX1RETV9NQVhfQ0xPQ0tT
+XTsNCj4gKwlpbnQgbnVtX2Nsa3M7DQo+ICsJc3RydWN0IHJlc2V0X2NvbnRyb2wgKnJlc2V0
+czsNCj4gKw0KPiArCWVudW0gVERNX0NMS1BPTCBjbGtwb2xpdHk7DQo+ICsJZW51bSBURE1f
+RUxNCWVsbTsNCj4gKwllbnVtIFRETV9TWU5DTQlzeW5jbTsNCj4gKwllbnVtIFRETV9NQVNU
+RVJfU0xBVkVfTU9ERSBtc19tb2RlOw0KPiArDQo+ICsJc3RydWN0IHRkbV9jaGFuX2NmZyB0
+eDsNCj4gKwlzdHJ1Y3QgdGRtX2NoYW5fY2ZnIHJ4Ow0KPiArDQo+ICsJdTE2IHN5bmNkaXY7
+DQo+ICsJdTMyIHNhbXBsZXJhdGU7DQo+ICsJdTMyIHBjbWNsazsNCj4gKw0KPiArCS8qIGRh
+dGEgcmVsYXRlZCB0byBETUEgdHJhbnNmZXJzIGIvdyB0ZG0gYW5kIERNQUMgKi8NCj4gKwlz
+dHJ1Y3Qgc25kX2RtYWVuZ2luZV9kYWlfZG1hX2RhdGEgcGxheV9kbWFfZGF0YTsNCj4gKwlz
+dHJ1Y3Qgc25kX2RtYWVuZ2luZV9kYWlfZG1hX2RhdGEgY2FwdHVyZV9kbWFfZGF0YTsNCj4g
+Kwl1MzIgc2F2ZWRfcGNtZ2JjcjsNCj4gKwl1MzIgc2F2ZWRfcGNtdHhjcjsNCj4gKwl1MzIg
+c2F2ZWRfcGNtcnhjcjsNCj4gKwl1MzIgc2F2ZWRfcGNtZGl2Ow0KPiArfTsNCj4gKw0KPiAr
+I2VuZGlmCS8qIF9fU05EX1NPQ19TVEFSRklWRV9URE1fSCAqLw0K
+--------------00OX142jfUw8FZmI0UQh7Bd7
+Content-Type: application/pgp-keys; name="OpenPGP_0xE3520CC91929C8E7.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xE3520CC91929C8E7.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
+xsFNBGK0ObIBEADaNUAWkFrOUODvbPHJ1LsLhn/7yDzaCNWwniDqa4ip1dpBFFaz
+LV3FGBjT+9pz25rHIFfsQcNOwJdJqREk9g4LgVfiy0H5hLMg9weF4EwtcbgHbv/q
+4Ww/W87mQ12nMCvYLKOVd/NsMQ3Z7QTO0mhG8VQ1Ntqn6jKQA4o9ERu3F+PFVDJx
+0HJ92zTBMzMtYsL7k+8ENOF3Iq1kmkRqf8FOvMObwwXLrEA/vsQ4bwojSKQIud6/
+SJv0w2YmqZDIAvDXxK2v22hzJqXaljmOBF5fz070O6eoTMhIAJy9ByBipiu3tWLX
+Vtoj6QmFIoblnv0Ou6fJY2YN8Kr21vT1MXxdma1el5WW/qxqrKCSrFzVdtAc7y6Q
+tykC6MwC/P36O876vXfWUxrhHHRlnOxnuM6hz87g1kxu9qdromSrsD0gEmGcUjV7
+xsNxut1iV+pZDIpveJdd5KJX5QMk3YzQ7ZTyiFD61byJcCZWtpN8pqwB+X85sxcr
+4V76EX85lmuQiwrIcwbvw5YRX1mRj3YZ4tVYCEaT5x+go6+06Zon3PoAjMfS1uo/
+2MxDuvVmdUkTzPvRWERKRATxay28efrE5uNQSaSNBfLKGvvPTlIoeYpRxLk7BN0x
+i/KZIRpSlIf0REc1eg+leq2Hxv7Xk/xGwSi5gGxLa6SzwXV8RRqKnw2u6QARAQAB
+zSFTaGVuZ3l1IFF1IDx3aWFnbjIzM0BvdXRsb29rLmNvbT7CwY4EEwEKADgWIQSX
+5PUVXUNSaGVT2H/jUgzJGSnI5wUCYrQ5sgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+AQIXgAAKCRDjUgzJGSnI57GwD/9O6kei9M3nbb1PsFlDE1J9H27mlnRWzVJ2S3yJ
+8G1oJo8NSaRO7vcTsYPBYpEL1poDQC5MEGh6FXSiOnyyHrg8StmGLksQE9awuTnl
+nQgvXDQMVtm87r1abBAavP5ru2R9x/Tk63+W/VT2hPekMfHaJwFi1KATSI1AhsF3
+CVoj0yDulz1u0uZlircKdbeEDj+raMO0LA12YxWaWtL/b9XaoAqV9voraKhx+0Ds
+ZS5bWoUvs+715BArPBr4hPqKavsBwOWfzWDTKln2qv8d+glWkmk6dgvZFcV/9JEJ
+Q8B7rOUMX614dqgwi1t71TI0Fbaou3nhAnES1i1it/aomDUCLvRwjGU2oarmUISF
+gvZoGYdB9DfVfY3FWKtfDJ9KLUk9k3BFfBZgeAYoLnFZwa3rMyruCojAGTApZtaa
+LZH/jzQf7FpIGGhDYnvGKXS01nLCHuZSOEvURLnWdgYeOtwKW1IIcnWJtB12Ajz2
+yVu3w4tIchRT3wekMh2c3A3ZDeEjszezhFyXgoRpNYDBzNl6vbqhnopixq5Wh/yA
+j6Ey0YrIUbW9NOhIVCGkP4GyJg756SGzyPny0U4lA+EP7PS3O7tE0I3Q5qzDH1AE
+H2proNlsvjZeG4OZ9XWerI5EoIxrwZcOP9GgprB4TrXUR0ScTy1wTKV1Hn+w3VAv
+6QKtFM7BTQRitDmyARAA0QGaP4NYsHikM9yct02Z/LTMS23Fj4LK2mKTBoEwtC2q
+H3HywXpZ8Ii2RG2tIApKrQFs8yGI4pKqXYq+bE1Kf1+U8IxnG8mqUgI8aiQQUKyZ
+dG0wQqT1w14aawu7Wr4ZlLsudNRcMnUlmf0r5DucIvVi7z9sC2izaf/aLJrMotIp
+Hz9zu+UJa8Gi3FbFewnpfrnlqF9KRGoQjq6FKcryGb1DbbC6K8OJyMBNMyhFp6qM
+/pM4L0tPVCa2KnLQf5Q19eZ3JLMprIbqKLpkh2z0VhDU/jNheC5CbOQuOuwAlYwh
+agPSYDV3cVAa4Ltw1MkTxVtyyanAxi+za6yKSKTSGGzdCCxiPsvR9if8a7tKhVyk
+k4q2DDi0dSC6luYDXD2+hIofYGk6jvTLqVDd6ioFGBE0CgrAZEoT0mK6JXF3lHjn
+zuyWyCfuu7fzg6oDTgx3jhMQJ2P45zwJ7WyIjw1vZ3JeAb+5+D+N+vPblNrF4zRQ
+zRoxpXRdbGbzsBd5BDJ+wyUVG+K5JNJ34AZIfFoDIbtRm3xt2tFrl1TxsqkDbACE
+WeI9H36VhkI3Cm/hbfp2w2zMK3vQGrhNuHybIS/8tJzdP3CizcOmgc61pDi/B6O2
+IXpkQpgz+Cv/ZiecDm1terRLkAeX84u8VcI4wdCkN/Od8ZMJOZ2Ff+DBbUslCmkA
+EQEAAcLBdgQYAQoAIBYhBJfk9RVdQ1JoZVPYf+NSDMkZKcjnBQJitDmyAhsMAAoJ
+EONSDMkZKcjnnIcP/1Px3fsgNqOEwVNH7hm0S2+x/N/t3kz50zpKhczHZ8GWbN3P
+Pt4wkQkdbF+c7V4uXToN4a17bxGdUnA9qljxt8l3aEqd4jBqLn2OJriu21FSnrZO
+pxb1EwWwvnVUwrLxCuV0CFQJdBlYp2ds64aV8PcBOhQ62y1OAvYpAX1cx5UMcHsN
+VeqrWU0mDAOgvqB86JFduq+GmvbJwmh3dA8GnI2xquWaHIdkk06T55xjfFdabwEy
+uRmtKtqxTP/u6BzowkV2A/GLxWf1inH5M81QgGRI2sao6To7sUt45FS+y2zhwh62
+excOcSxcYqKzs/OiYEJjWMv9vYRwaqJGEVhbfGFOjeBOYr+ZCCeARh+z4ilo1C2w
+upQT8VPsFiY9DRYgkAPKlbn9OqJvoD7VhvyelJagSNuRayrrmnEaZMsoRdS22fne
+CVWM0xlGSgPCVD0n9+6unTnVbmF/BZsEg5QufQKqlFSomu1i23lRDPK/1aPc2Iox
+cQPh2fomy8spA5ROzOjLpgqL8ksEtQ75cBoF1K5mcC2Xo1GyDmdQvbIZe+8qwvQ3
+z9EDivvFtEByuZEeC5ixn4n/c9UKwlk+lQeQeN+Bk7l8G9phd4dWxnmWXQ/ONR/a
+LzG+FguuGNZCPpu5dVQH44AXoFjoi9YVscUnWnv8sErY943hM8MUsMQ5D0P2zsFN
+BGK0OekBEACw8Ug2Jo4DF9q3NFOZ7/Vwb6SlKpj3OdBjGTPwRZjV4A5CzbEqXrkl
+TKFNE9CRbxyoNXN1UXXrBb7VHKgyu0rnGPqOb0rtUABz+wMvYuShKOPcWmg6n9Ex
+9UGIsYBMJ01IQMU87qcZUmfxo5eYfniyBnOGB+pbVf1jhOhZWIXlVdmxYbMc+xeh
+W+VHI98BiL14vXWFmpBWFc85BO4AbijDzPtkZhPvB9mj2he+z/XUND+nG3to7xAY
+I0Kxacw55w8HL35Nuv+G7EtUWX5uhpO/dDB0BMcW05s6L6rebpEAAMFVBKIAJUKy
+pvTYcAN+E7yfQAzvl8mNtcVMsFHTr54wTSHR0Xx32G72Ad7dkeqy8HhfkT1Q/5V/
+xzUz1qgmtQtWgA6jnSCYISGOXMjnFhzMG3DVuE5cI/RaPlybHfBsqrtQoxeMMoX1
+qD3Tt3TvwFojOEw4KE3qz1zTcozqLHScukEbNhlcLRUv7KoqSIcnN56YEnhjMu9/
+ysIbFuDyQo9DaieBBWlwTiuvq5L+QKgHsGlVJoetoAcDojCkZxw6VT7S/2sGCETV
+DMiWGTNzHDPGVvutNmx53FI9AtV09pEb2uTPdDDeZZhizbDt0lqGAianXP+/2p1N
+Zh0fMpHJp+W4WXPQ+hRxW4bPo/AXMPEZXkaqqDrMcsTHrwrErCjJ5wARAQABwsOs
+BBgBCgAgFiEEl+T1FV1DUmhlU9h/41IMyRkpyOcFAmK0OekCGwICQAkQ41IMyRkp
+yOfBdCAEGQEKAB0WIQRP/KgY/enlmX5EpW5fvkoEB8mxGQUCYrQ56QAKCRBfvkoE
+B8mxGVNQEACNCgyibR1+BY00hem9CCIZGHqyWfJn9AfiPYIY1OB80LUJXhJULtT8
+DeUUOgMZtywhJvu4rIueOufVzeuC5P0lfO4htBmi2ATQu8bT2h0YxcNL3YKYFoqe
++FiVI7RxR1G2C+fDecyCXUrPtry++NiXdLVeFdDxumCuHZKffqiqFpL/8yDLnaoc
+3aVHPT2Wv0iDU1JeSOC5LKPWFNznA5ZX6uxfiKzSc4E1qi/vr+1twXqwiwfIc9Ib
+NniN59mzfXyKd64Geu1UT2wf1dZzVAcsXWDM4orCyx11eVh7ZKPmmVe9mpwcdh+s
+4t76/WDFbbUe6ZSixOwINRUn16CvUNBxpCKI5RXmpCLj8Z+oUBpyR6c1sdw0uk7F
+o4TcjBsvQXtpkewqyXXyy4NcCpveWPICbh8RmvZx4ScTufXH0FmLMkthuRgH+TqD
+HHFvKNyhHoXWeIQT7oez28oY2a81CKQ+m/TkgNeA6vqmBZYJ1kKK6nc3vbFLc4Jk
+2SRVCNpIvr+E38hxHz5e2n6dtgfgCCb2EEA83TjmX8/2dWZJA4ndML7AaCjw3Xqr
+NbTrVgP99oH+D+7tFxJ+LlLAhIjKs1efKEFlOsXH7QqyO13BUYldhFL+2KjrNFoG
+X9s7f57xIaqwdTd/okf4eBNYkg1+Pcj/AMgEAvRcagMATy2pAGmxMF2YD/9Z6y3I
+oPB+lkSrP3AE1fhBRL/OH7UaLB4pyCpeGLhG5X8xdM9dwRPX+kadflKH2F0GPqUi
+x5O1tJUMEdCb/WpQ9gUAb6Ct1Zntis8hd8pNQIGUT+kpwnpiLVEhbeg5DX459ho8
+N+o6erYR34cUz4o0WFa1TVNFQGKRTWfzyUxxGUUcW2QC5mCwPCPZv69zvW5c0Ddi
+RwUcYGGruslC7cHWXbO8zQ/R2zQcCjnyIniqoyQDTsQlK1oBM6iQMALhej6fsMe7
+zWlA8/0FNj27Ub6biaWmK9aohWTkZtv7bD3IKaQRaq/lBg+2OmDGrSHNREt5T4EO
+85QqMJLnjzQ2/FbA62E+piWzRaChJVUy0Ol6SVJHGascnqT4fWBX0lpZx9A7+XQh
+CtCbX7ETzHPzugeXXyAhVuleaV+yzoSc9+aF2y38WrFczSzFX5APegWZ/8JxEbhJ
+KqOwqSlC+IMwblPA3naZbCiKuTYxiU0Ys3CSdZeFFvSXuvhLJk185anQQjQS874J
+8pkvTd2ueYxp46hde0rCZaAKlhNrp3G1NNUpt5QpjLan6NhmpQ42XfILC4v1Qg7A
+T4vGG0QPhmMhbGgPn+44EYuh8/941mkyaYL0fXyu6l2HoKEZiLerr8vqgc08NvAl
+QW/1QnKz4zA5XUvOrxQsLFF9ie2eG6DWJkdh1M7BTQRitDoIARAAtZRhbhuAfenu
+NS2kPytShodMn4bfP1lSNi/P6vSWVym6s+bQPIbuRYfNvMZMKR1hPF93ERpSCAx9
+bEsLtXJ3w9p2gFOUkn77sw/14v0jPJokQbTfg3dO0PKb+/89q1oVuOyGLhgXW1P/
+ZGdIred56i2vsVfz7NmvPkSATr1bPTocYgpqdGf1+FQp8pDN60aXQ0RJ7rZpOTGx
+/5BvgeraLXCbpy3ibaJF92HDU5QM1AeBs7LpXybFc+DZ+wktULeKemAF2EDnFauQ
+CfGi66MHXGz2Dgy77ladSpz+OvpLTMpubzVeiGXwkNsa/Fs6lv1+arY2dUtHjvvU
+0kLf/arNT+mOCMD8c2aOapgUQhOhM2U2OwRgbJ1y6OVKyN0UN76kDpKSpSsQelpV
+/TfUk4LMTOB+rIfeAwG0NfKsYCzxV2dvX9E4wgAupsryeHYhidFuUwQncPqckOVg
+xXCwOA6GGtMVEQFR0snuVn4ulLgAJy0rJXbYSj8vac4V67X6l2CK8xvgvZUgm2C/
+MoV9XcjoxQzNIMySFDNBmM+rtTOW7Rxn1mlI7se5TOKAlnq+cTuLAu+L/LKNRSoe
+dKYsUUTjHGmewyUNlcHHHQcjMS3jwzZ2a9+YP5KpKJCsT/eqBZoiPAL6V9iCBiM+
+02BKe2R86wK8OqehvxvR2mpFwVPk/H8AEQEAAcLBdgQYAQoAIBYhBJfk9RVdQ1Jo
+ZVPYf+NSDMkZKcjnBQJitDoIAhsgAAoJEONSDMkZKcjn/ecQAJ1Da87OZQnYugWr
+vPQOfsdV9RfyyXONrssGXe8LD/Y6rmzZVu+Bm49F9TF0Qxc+VOrJpv9VVsfOqFJi
+0wykOwyESdVngNrAW9ZWzfIvkEDSpTlaxvzbNEY7pBpvb1xFoSMrou1ro3299XKf
+tlA29RYHiwH1HIC1JPJBWsS4tlahZ9AtGo5p5wVoEKxN6D/SrjLCcFiQJlH1yISc
+sZVFm3qgTuo2g0uzJM0o1Y2B7T8mK/rsm3hUHJlbCrPl/rkYEAlhSUKpawKhldRh
+OeqUUCcjnfdmFgTH/HtTMIlEQA+Ck/T8M5+Zp/nhCpPCx0pTuDdUTRo3tWHL+Nri
+wK+AuZNR+0pevuTYOyD6CV0Hng/3lU86i3gN16GVxNWQjUdQ1ps9InaQhLxsgevQ
+msgzOqo6GUiHQIdxvAtcG7pXv7HRhxsZA+68h8lixiMeE1W30PH1nxn5gN/Ekldj
+c5F9xBu1/vTSX9dGzer1zZZFn4J8lbD6R+keOaroF8Q9S1cYnQbh3vASshmzNgi+
+ISmLtR1a4zjxY2AlKNv+jkdpItjot5dewxVeU5x5i1sXWJ3Dt4xNyFSs2PZs1IuP
+Solmy00hVZdFiGmr8QuMmOo6YagSdVvrryw812k5vAskD5AMC9EGru1Y8e9FddsL
+lMSoVV3z1s8dA1DK95ykSdIFtVZT
+=3Dr4B8
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------00OX142jfUw8FZmI0UQh7Bd7--
 
-commit 37eb046d30e73ab12c596521b75a82ea5e97bbac
-Author: Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>
-Date:   Fri Mar 10 23:02:03 2023 +0530
+--------------BwlGlbRzy57vcbAQ1MJWzg5K--
 
-    spi: Replace all spi->chip_select and spi->cs_gpiod references with function call
-    
-    [ Upstream commit 9e264f3f85a56cc109cc2d6010a48aa89d5c1ff1 ]
-    
-    Supporting multi-cs in spi drivers would require the chip_select & cs_gpiod
-    members of struct spi_device to be an array. But changing the type of these
-    members to array would break the spi driver functionality. To make the
-    transition smoother introduced four new APIs to get/set the
-    spi->chip_select & spi->cs_gpiod and replaced all spi->chip_select and
-    spi->cs_gpiod references with get or set API calls.
-    While adding multi-cs support in further patches the chip_select & cs_gpiod
-    members of the spi_device structure would be converted to arrays & the
-    "idx" parameter of the APIs would be used as array index i.e.,
-    spi->chip_select[idx] & spi->cs_gpiod[idx] respectively.
-    
-    Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-    Acked-by: Heiko Stuebner <heiko@sntech.de> # Rockchip drivers
-    Reviewed-by: Michal Simek <michal.simek@amd.com>
-    Reviewed-by: Cédric Le Goater <clg@kaod.org> # Aspeed driver
-    Reviewed-by: Dhruva Gole <d-gole@ti.com> # SPI Cadence QSPI
-    Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com> # spi-stm32-qspi
-    Acked-by: William Zhang <william.zhang@broadcom.com> # bcm63xx-hsspi driver
-    Reviewed-by: Serge Semin <fancer.lancer@gmail.com> # DW SSI part
-    Link: https://lore.kernel.org/r/167847070432.26.15076794204368669839@mailman-core.alsa-project.org
-    Signed-off-by: Mark Brown <broonie@kernel.org>
-    Stable-dep-of: 45d2af82e0e6 ("spi: mchp-pci1xxxx: Fix improper implementation of disabling chip select lines")
-    Signed-off-by: Sasha Levin <sashal@kernel.org>
+--------------fyuHLQM20M2CGNfB03W36Pz0
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-diff --git a/drivers/spi/spi-altera-core.c b/drivers/spi/spi-altera-core.c
-index 94fe6bf1b9a6a..87e37f48f196e 100644
---- a/drivers/spi/spi-altera-core.c
-+++ b/drivers/spi/spi-altera-core.c
-@@ -80,7 +80,7 @@ static void altera_spi_set_cs(struct spi_device *spi, bool is_high)
- 		altr_spi_writel(hw, ALTERA_SPI_TARGET_SEL, 0);
- 	} else {
- 		altr_spi_writel(hw, ALTERA_SPI_TARGET_SEL,
--				BIT(spi->chip_select));
-+				BIT(spi_get_chipselect(spi, 0)));
- 		hw->imr |= ALTERA_SPI_CONTROL_SSO_MSK;
- 		altr_spi_writel(hw, ALTERA_SPI_CONTROL, hw->imr);
- 	}
-diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
-index bfc3ab5f39eaa..fecead757a3cd 100644
---- a/drivers/spi/spi-amd.c
-+++ b/drivers/spi/spi-amd.c
-@@ -347,7 +347,7 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
- 	case AMD_SPI_V1:
- 		break;
- 	case AMD_SPI_V2:
--		amd_spi_clear_chip(amd_spi, message->spi->chip_select);
-+		amd_spi_clear_chip(amd_spi, spi_get_chipselect(message->spi, 0));
- 		break;
- 	default:
- 		return -ENODEV;
-@@ -364,7 +364,7 @@ static int amd_spi_master_transfer(struct spi_master *master,
- 	struct amd_spi *amd_spi = spi_master_get_devdata(master);
- 	struct spi_device *spi = msg->spi;
- 
--	amd_spi_select_chip(amd_spi, spi->chip_select);
-+	amd_spi_select_chip(amd_spi, spi_get_chipselect(spi, 0));
- 
- 	/*
- 	 * Extract spi_transfers from the spi message and
-diff --git a/drivers/spi/spi-ar934x.c b/drivers/spi/spi-ar934x.c
-index 4a6ecaa0a9c9c..41ef6cf5c5851 100644
---- a/drivers/spi/spi-ar934x.c
-+++ b/drivers/spi/spi-ar934x.c
-@@ -125,7 +125,7 @@ static int ar934x_spi_transfer_one_message(struct spi_controller *ctlr,
- 				iowrite32(reg, sp->base + AR934X_SPI_DATAOUT);
- 			}
- 
--			reg = AR934X_SPI_SHIFT_VAL(spi->chip_select, term,
-+			reg = AR934X_SPI_SHIFT_VAL(spi_get_chipselect(spi, 0), term,
- 						   trx_cur * 8);
- 			iowrite32(reg, sp->base + AR934X_SPI_REG_SHIFT_CTRL);
- 			stat = readl_poll_timeout(
-diff --git a/drivers/spi/spi-armada-3700.c b/drivers/spi/spi-armada-3700.c
-index 4d554b948d711..8584045fc17bb 100644
---- a/drivers/spi/spi-armada-3700.c
-+++ b/drivers/spi/spi-armada-3700.c
-@@ -437,9 +437,9 @@ static void a3700_spi_set_cs(struct spi_device *spi, bool enable)
- 	struct a3700_spi *a3700_spi = spi_controller_get_devdata(spi->controller);
- 
- 	if (!enable)
--		a3700_spi_activate_cs(a3700_spi, spi->chip_select);
-+		a3700_spi_activate_cs(a3700_spi, spi_get_chipselect(spi, 0));
- 	else
--		a3700_spi_deactivate_cs(a3700_spi, spi->chip_select);
-+		a3700_spi_deactivate_cs(a3700_spi, spi_get_chipselect(spi, 0));
- }
- 
- static void a3700_spi_header_set(struct a3700_spi *a3700_spi)
-diff --git a/drivers/spi/spi-aspeed-smc.c b/drivers/spi/spi-aspeed-smc.c
-index 873ff2cf72c9d..b7a9ec550ba16 100644
---- a/drivers/spi/spi-aspeed-smc.c
-+++ b/drivers/spi/spi-aspeed-smc.c
-@@ -296,7 +296,7 @@ static const struct aspeed_spi_data ast2400_spi_data;
- static int do_aspeed_spi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- {
- 	struct aspeed_spi *aspi = spi_controller_get_devdata(mem->spi->master);
--	struct aspeed_spi_chip *chip = &aspi->chips[mem->spi->chip_select];
-+	struct aspeed_spi_chip *chip = &aspi->chips[spi_get_chipselect(mem->spi, 0)];
- 	u32 addr_mode, addr_mode_backup;
- 	u32 ctl_val;
- 	int ret = 0;
-@@ -377,7 +377,8 @@ static const char *aspeed_spi_get_name(struct spi_mem *mem)
- 	struct aspeed_spi *aspi = spi_controller_get_devdata(mem->spi->master);
- 	struct device *dev = aspi->dev;
- 
--	return devm_kasprintf(dev, GFP_KERNEL, "%s.%d", dev_name(dev), mem->spi->chip_select);
-+	return devm_kasprintf(dev, GFP_KERNEL, "%s.%d", dev_name(dev),
-+			      spi_get_chipselect(mem->spi, 0));
- }
- 
- struct aspeed_spi_window {
-@@ -553,7 +554,7 @@ static int aspeed_spi_do_calibration(struct aspeed_spi_chip *chip);
- static int aspeed_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
- {
- 	struct aspeed_spi *aspi = spi_controller_get_devdata(desc->mem->spi->master);
--	struct aspeed_spi_chip *chip = &aspi->chips[desc->mem->spi->chip_select];
-+	struct aspeed_spi_chip *chip = &aspi->chips[spi_get_chipselect(desc->mem->spi, 0)];
- 	struct spi_mem_op *op = &desc->info.op_tmpl;
- 	u32 ctl_val;
- 	int ret = 0;
-@@ -620,7 +621,7 @@ static ssize_t aspeed_spi_dirmap_read(struct spi_mem_dirmap_desc *desc,
- 				      u64 offset, size_t len, void *buf)
- {
- 	struct aspeed_spi *aspi = spi_controller_get_devdata(desc->mem->spi->master);
--	struct aspeed_spi_chip *chip = &aspi->chips[desc->mem->spi->chip_select];
-+	struct aspeed_spi_chip *chip = &aspi->chips[spi_get_chipselect(desc->mem->spi, 0)];
- 
- 	/* Switch to USER command mode if mapping window is too small */
- 	if (chip->ahb_window_size < offset + len) {
-@@ -670,7 +671,7 @@ static int aspeed_spi_setup(struct spi_device *spi)
- {
- 	struct aspeed_spi *aspi = spi_controller_get_devdata(spi->master);
- 	const struct aspeed_spi_data *data = aspi->data;
--	unsigned int cs = spi->chip_select;
-+	unsigned int cs = spi_get_chipselect(spi, 0);
- 	struct aspeed_spi_chip *chip = &aspi->chips[cs];
- 
- 	chip->aspi = aspi;
-@@ -697,7 +698,7 @@ static int aspeed_spi_setup(struct spi_device *spi)
- static void aspeed_spi_cleanup(struct spi_device *spi)
- {
- 	struct aspeed_spi *aspi = spi_controller_get_devdata(spi->master);
--	unsigned int cs = spi->chip_select;
-+	unsigned int cs = spi_get_chipselect(spi, 0);
- 
- 	aspeed_spi_chip_enable(aspi, cs, false);
- 
-diff --git a/drivers/spi/spi-at91-usart.c b/drivers/spi/spi-at91-usart.c
-index fab9d223e24a0..ca05c42ae4a5f 100644
---- a/drivers/spi/spi-at91-usart.c
-+++ b/drivers/spi/spi-at91-usart.c
-@@ -390,7 +390,7 @@ static int at91_usart_spi_setup(struct spi_device *spi)
- 
- 	dev_dbg(&spi->dev,
- 		"setup: bpw %u mode 0x%x -> mr %d %08x\n",
--		spi->bits_per_word, spi->mode, spi->chip_select, mr);
-+		spi->bits_per_word, spi->mode, spi_get_chipselect(spi, 0), mr);
- 
- 	return 0;
- }
-diff --git a/drivers/spi/spi-ath79.c b/drivers/spi/spi-ath79.c
-index 795e88dbef1bd..6c2001cfa3d11 100644
---- a/drivers/spi/spi-ath79.c
-+++ b/drivers/spi/spi-ath79.c
-@@ -71,7 +71,7 @@ static void ath79_spi_chipselect(struct spi_device *spi, int is_active)
- {
- 	struct ath79_spi *sp = ath79_spidev_to_sp(spi);
- 	int cs_high = (spi->mode & SPI_CS_HIGH) ? is_active : !is_active;
--	u32 cs_bit = AR71XX_SPI_IOC_CS(spi->chip_select);
-+	u32 cs_bit = AR71XX_SPI_IOC_CS(spi_get_chipselect(spi, 0));
- 
- 	if (cs_high)
- 		sp->ioc_base |= cs_bit;
-@@ -140,7 +140,7 @@ static int ath79_exec_mem_op(struct spi_mem *mem,
- 	struct ath79_spi *sp = ath79_spidev_to_sp(mem->spi);
- 
- 	/* Ensures that reading is performed on device connected to hardware cs0 */
--	if (mem->spi->chip_select || mem->spi->cs_gpiod)
-+	if (spi_get_chipselect(mem->spi, 0) || spi_get_csgpiod(mem->spi, 0))
- 		return -ENOTSUPP;
- 
- 	/* Only use for fast-read op. */
-diff --git a/drivers/spi/spi-atmel.c b/drivers/spi/spi-atmel.c
-index 5c5678f065f33..7b17604a77608 100644
---- a/drivers/spi/spi-atmel.c
-+++ b/drivers/spi/spi-atmel.c
-@@ -327,10 +327,10 @@ static void cs_activate(struct atmel_spi *as, struct spi_device *spi)
- 	int chip_select;
- 	u32 mr;
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		chip_select = as->native_cs_for_gpio;
- 	else
--		chip_select = spi->chip_select;
-+		chip_select = spi_get_chipselect(spi, 0);
- 
- 	if (atmel_spi_is_v2(as)) {
- 		spi_writel(as, CSR0 + 4 * chip_select, asd->csr);
-@@ -378,10 +378,10 @@ static void cs_deactivate(struct atmel_spi *as, struct spi_device *spi)
- 	int chip_select;
- 	u32 mr;
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		chip_select = as->native_cs_for_gpio;
- 	else
--		chip_select = spi->chip_select;
-+		chip_select = spi_get_chipselect(spi, 0);
- 
- 	/* only deactivate *this* device; sometimes transfers to
- 	 * another device may be active when this routine is called.
-@@ -394,7 +394,7 @@ static void cs_deactivate(struct atmel_spi *as, struct spi_device *spi)
- 
- 	dev_dbg(&spi->dev, "DEactivate NPCS, mr %08x\n", mr);
- 
--	if (!spi->cs_gpiod)
-+	if (!spi_get_csgpiod(spi, 0))
- 		spi_writel(as, CR, SPI_BIT(LASTXFER));
- }
- 
-@@ -800,10 +800,10 @@ static int atmel_spi_set_xfer_speed(struct atmel_spi *as,
- 	unsigned long		bus_hz;
- 	int chip_select;
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		chip_select = as->native_cs_for_gpio;
- 	else
--		chip_select = spi->chip_select;
-+		chip_select = spi_get_chipselect(spi, 0);
- 
- 	/* v1 chips start out at half the peripheral bus speed. */
- 	bus_hz = as->spi_clk;
-@@ -1189,7 +1189,7 @@ static int atmel_spi_setup(struct spi_device *spi)
- 	as = spi_controller_get_devdata(spi->controller);
- 
- 	/* see notes above re chipselect */
--	if (!spi->cs_gpiod && (spi->mode & SPI_CS_HIGH)) {
-+	if (!spi_get_csgpiod(spi, 0) && (spi->mode & SPI_CS_HIGH)) {
- 		dev_warn(&spi->dev, "setup: non GPIO CS can't be active-high\n");
- 		return -EINVAL;
- 	}
-@@ -1201,16 +1201,16 @@ static int atmel_spi_setup(struct spi_device *spi)
- 	 */
- 	initialize_native_cs_for_gpio(as);
- 
--	if (spi->cs_gpiod && as->native_cs_free) {
-+	if (spi_get_csgpiod(spi, 0) && as->native_cs_free) {
- 		dev_err(&spi->dev,
- 			"No native CS available to support this GPIO CS\n");
- 		return -EBUSY;
- 	}
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		chip_select = as->native_cs_for_gpio;
- 	else
--		chip_select = spi->chip_select;
-+		chip_select = spi_get_chipselect(spi, 0);
- 
- 	csr = SPI_BF(BITS, bits - 8);
- 	if (spi->mode & SPI_CPOL)
-@@ -1218,7 +1218,7 @@ static int atmel_spi_setup(struct spi_device *spi)
- 	if (!(spi->mode & SPI_CPHA))
- 		csr |= SPI_BIT(NCPHA);
- 
--	if (!spi->cs_gpiod)
-+	if (!spi_get_csgpiod(spi, 0))
- 		csr |= SPI_BIT(CSAAT);
- 	csr |= SPI_BF(DLYBS, 0);
- 
-@@ -1244,7 +1244,7 @@ static int atmel_spi_setup(struct spi_device *spi)
- 
- 	dev_dbg(&spi->dev,
- 		"setup: bpw %u mode 0x%x -> csr%d %08x\n",
--		bits, spi->mode, spi->chip_select, csr);
-+		bits, spi->mode, spi_get_chipselect(spi, 0), csr);
- 
- 	if (!atmel_spi_is_v2(as))
- 		spi_writel(as, CSR0 + 4 * chip_select, csr);
-diff --git a/drivers/spi/spi-au1550.c b/drivers/spi/spi-au1550.c
-index e008761298da4..da713cdfe0870 100644
---- a/drivers/spi/spi-au1550.c
-+++ b/drivers/spi/spi-au1550.c
-@@ -166,7 +166,7 @@ static void au1550_spi_chipsel(struct spi_device *spi, int value)
- 	switch (value) {
- 	case BITBANG_CS_INACTIVE:
- 		if (hw->pdata->deactivate_cs)
--			hw->pdata->deactivate_cs(hw->pdata, spi->chip_select,
-+			hw->pdata->deactivate_cs(hw->pdata, spi_get_chipselect(spi, 0),
- 					cspol);
- 		break;
- 
-@@ -211,7 +211,7 @@ static void au1550_spi_chipsel(struct spi_device *spi, int value)
- 		} while ((stat & PSC_SPISTAT_DR) == 0);
- 
- 		if (hw->pdata->activate_cs)
--			hw->pdata->activate_cs(hw->pdata, spi->chip_select,
-+			hw->pdata->activate_cs(hw->pdata, spi_get_chipselect(spi, 0),
- 					cspol);
- 		break;
- 	}
-diff --git a/drivers/spi/spi-axi-spi-engine.c b/drivers/spi/spi-axi-spi-engine.c
-index 80c3e38f5c1b5..1ff28784cfbb6 100644
---- a/drivers/spi/spi-axi-spi-engine.c
-+++ b/drivers/spi/spi-axi-spi-engine.c
-@@ -193,7 +193,7 @@ static void spi_engine_gen_cs(struct spi_engine_program *p, bool dry,
- 	unsigned int mask = 0xff;
- 
- 	if (assert)
--		mask ^= BIT(spi->chip_select);
-+		mask ^= BIT(spi_get_chipselect(spi, 0));
- 
- 	spi_engine_program_add_cmd(p, dry, SPI_ENGINE_CMD_ASSERT(1, mask));
- }
-diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
-index 0eee574d3e1f2..7c2f1d1fb3f70 100644
---- a/drivers/spi/spi-bcm-qspi.c
-+++ b/drivers/spi/spi-bcm-qspi.c
-@@ -986,7 +986,7 @@ static int write_to_hw(struct bcm_qspi *qspi, struct spi_device *spi)
- 		if (has_bspi(qspi))
- 			mspi_cdram &= ~1;
- 		else
--			mspi_cdram |= (~(1 << spi->chip_select) &
-+			mspi_cdram |= (~(1 << spi_get_chipselect(spi, 0)) &
- 				       MSPI_CDRAM_PCS);
- 
- 		write_cdram_slot(qspi, slot, mspi_cdram);
-@@ -1046,8 +1046,8 @@ static int bcm_qspi_bspi_exec_mem_op(struct spi_device *spi,
- 			return -EIO;
- 
- 	from = op->addr.val;
--	if (!spi->cs_gpiod)
--		bcm_qspi_chip_select(qspi, spi->chip_select);
-+	if (!spi_get_csgpiod(spi, 0))
-+		bcm_qspi_chip_select(qspi, spi_get_chipselect(spi, 0));
- 	bcm_qspi_write(qspi, MSPI, MSPI_WRITE_LOCK, 0);
- 
- 	/*
-@@ -1126,8 +1126,8 @@ static int bcm_qspi_transfer_one(struct spi_master *master,
- 	int slots;
- 	unsigned long timeo = msecs_to_jiffies(100);
- 
--	if (!spi->cs_gpiod)
--		bcm_qspi_chip_select(qspi, spi->chip_select);
-+	if (!spi_get_csgpiod(spi, 0))
-+		bcm_qspi_chip_select(qspi, spi_get_chipselect(spi, 0));
- 	qspi->trans_pos.trans = trans;
- 	qspi->trans_pos.byte = 0;
- 
-diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
-index 747e03228c487..6b7a3fa93fdf6 100644
---- a/drivers/spi/spi-bcm2835.c
-+++ b/drivers/spi/spi-bcm2835.c
-@@ -1274,9 +1274,9 @@ static int bcm2835_spi_setup(struct spi_device *spi)
- 	 * The SPI core has successfully requested the CS GPIO line from the
- 	 * device tree, so we are done.
- 	 */
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		return 0;
--	if (spi->chip_select > 1) {
-+	if (spi_get_chipselect(spi, 0) > 1) {
- 		/* error in the case of native CS requested with CS > 1
- 		 * officially there is a CS2, but it is not documented
- 		 * which GPIO is connected with that...
-@@ -1301,18 +1301,19 @@ static int bcm2835_spi_setup(struct spi_device *spi)
- 	if (!chip)
- 		return 0;
- 
--	spi->cs_gpiod = gpiochip_request_own_desc(chip, 8 - spi->chip_select,
--						  DRV_NAME,
--						  GPIO_LOOKUP_FLAGS_DEFAULT,
--						  GPIOD_OUT_LOW);
--	if (IS_ERR(spi->cs_gpiod)) {
--		ret = PTR_ERR(spi->cs_gpiod);
-+	spi_set_csgpiod(spi, 0, gpiochip_request_own_desc(chip,
-+							  8 - (spi_get_chipselect(spi, 0)),
-+							  DRV_NAME,
-+							  GPIO_LOOKUP_FLAGS_DEFAULT,
-+							  GPIOD_OUT_LOW));
-+	if (IS_ERR(spi_get_csgpiod(spi, 0))) {
-+		ret = PTR_ERR(spi_get_csgpiod(spi, 0));
- 		goto err_cleanup;
- 	}
- 
- 	/* and set up the "mode" and level */
- 	dev_info(&spi->dev, "setting up native-CS%i to use GPIO\n",
--		 spi->chip_select);
-+		 spi_get_chipselect(spi, 0));
- 
- 	return 0;
- 
-diff --git a/drivers/spi/spi-bcm2835aux.c b/drivers/spi/spi-bcm2835aux.c
-index e285219223308..a3d8f6108477b 100644
---- a/drivers/spi/spi-bcm2835aux.c
-+++ b/drivers/spi/spi-bcm2835aux.c
-@@ -448,7 +448,7 @@ static int bcm2835aux_spi_setup(struct spi_device *spi)
- 	if (spi->mode & SPI_NO_CS)
- 		return 0;
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		return 0;
- 
- 	/* for dt-backwards compatibility: only support native on CS0
-@@ -465,7 +465,7 @@ static int bcm2835aux_spi_setup(struct spi_device *spi)
- 	dev_warn(&spi->dev,
- 		 "Native CS is not supported - please configure cs-gpio in device-tree\n");
- 
--	if (spi->chip_select == 0)
-+	if (spi_get_chipselect(spi, 0) == 0)
- 		return 0;
- 
- 	dev_warn(&spi->dev, "Native CS is not working for cs > 0\n");
-diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
-index cd0a6478f5e7b..d1aeae29fab9c 100644
---- a/drivers/spi/spi-bcm63xx-hsspi.c
-+++ b/drivers/spi/spi-bcm63xx-hsspi.c
-@@ -349,7 +349,7 @@ static int bcm63xx_hsspi_do_prepend_txrx(struct spi_device *spi,
- 					 struct spi_transfer *t)
- {
- 	struct bcm63xx_hsspi *bs = spi_master_get_devdata(spi->master);
--	unsigned int chip_select = spi->chip_select;
-+	unsigned int chip_select = spi_get_chipselect(spi, 0);
- 	u16 opcode = 0, val;
- 	const u8 *tx = t->tx_buf;
- 	u8 *rx = t->rx_buf;
-@@ -441,7 +441,7 @@ static void bcm63xx_hsspi_set_cs(struct bcm63xx_hsspi *bs, unsigned int cs,
- static void bcm63xx_hsspi_set_clk(struct bcm63xx_hsspi *bs,
- 				  struct spi_device *spi, int hz)
- {
--	unsigned int profile = spi->chip_select;
-+	unsigned int profile = spi_get_chipselect(spi, 0);
- 	u32 reg;
- 
- 	reg = DIV_ROUND_UP(2048, DIV_ROUND_UP(bs->speed_hz, hz));
-@@ -468,7 +468,7 @@ static void bcm63xx_hsspi_set_clk(struct bcm63xx_hsspi *bs,
- static int bcm63xx_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t)
- {
- 	struct bcm63xx_hsspi *bs = spi_master_get_devdata(spi->master);
--	unsigned int chip_select = spi->chip_select;
-+	unsigned int chip_select = spi_get_chipselect(spi, 0);
- 	u16 opcode = 0, val;
- 	int pending = t->len;
- 	int step_size = HSSPI_BUFFER_LEN;
-@@ -478,7 +478,7 @@ static int bcm63xx_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t)
- 
- 	bcm63xx_hsspi_set_clk(bs, spi, t->speed_hz);
- 	if (!t->cs_off)
--		bcm63xx_hsspi_set_cs(bs, spi->chip_select, true);
-+		bcm63xx_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), true);
- 
- 	if (tx && rx)
- 		opcode = HSSPI_OP_READ_WRITE;
-@@ -545,14 +545,14 @@ static int bcm63xx_hsspi_setup(struct spi_device *spi)
- 	u32 reg;
- 
- 	reg = __raw_readl(bs->regs +
--			  HSSPI_PROFILE_SIGNAL_CTRL_REG(spi->chip_select));
-+			  HSSPI_PROFILE_SIGNAL_CTRL_REG(spi_get_chipselect(spi, 0)));
- 	reg &= ~(SIGNAL_CTRL_LAUNCH_RISING | SIGNAL_CTRL_LATCH_RISING);
- 	if (spi->mode & SPI_CPHA)
- 		reg |= SIGNAL_CTRL_LAUNCH_RISING;
- 	else
- 		reg |= SIGNAL_CTRL_LATCH_RISING;
- 	__raw_writel(reg, bs->regs +
--		     HSSPI_PROFILE_SIGNAL_CTRL_REG(spi->chip_select));
-+		     HSSPI_PROFILE_SIGNAL_CTRL_REG(spi_get_chipselect(spi, 0)));
- 
- 	mutex_lock(&bs->bus_mutex);
- 	reg = __raw_readl(bs->regs + HSSPI_GLOBAL_CTRL_REG);
-@@ -560,16 +560,16 @@ static int bcm63xx_hsspi_setup(struct spi_device *spi)
- 	/* only change actual polarities if there is no transfer */
- 	if ((reg & GLOBAL_CTRL_CS_POLARITY_MASK) == bs->cs_polarity) {
- 		if (spi->mode & SPI_CS_HIGH)
--			reg |= BIT(spi->chip_select);
-+			reg |= BIT(spi_get_chipselect(spi, 0));
- 		else
--			reg &= ~BIT(spi->chip_select);
-+			reg &= ~BIT(spi_get_chipselect(spi, 0));
- 		__raw_writel(reg, bs->regs + HSSPI_GLOBAL_CTRL_REG);
- 	}
- 
- 	if (spi->mode & SPI_CS_HIGH)
--		bs->cs_polarity |= BIT(spi->chip_select);
-+		bs->cs_polarity |= BIT(spi_get_chipselect(spi, 0));
- 	else
--		bs->cs_polarity &= ~BIT(spi->chip_select);
-+		bs->cs_polarity &= ~BIT(spi_get_chipselect(spi, 0));
- 
- 	mutex_unlock(&bs->bus_mutex);
- 
-@@ -600,7 +600,7 @@ static int bcm63xx_hsspi_do_dummy_cs_txrx(struct spi_device *spi,
- 	 * e. At the end restore the polarities again to their default values.
- 	 */
- 
--	dummy_cs = !spi->chip_select;
-+	dummy_cs = !spi_get_chipselect(spi, 0);
- 	bcm63xx_hsspi_set_cs(bs, dummy_cs, true);
- 
- 	list_for_each_entry(t, &msg->transfers, transfer_list) {
-@@ -633,22 +633,22 @@ static int bcm63xx_hsspi_do_dummy_cs_txrx(struct spi_device *spi,
- 				keep_cs = true;
- 			} else {
- 				if (!t->cs_off)
--					bcm63xx_hsspi_set_cs(bs, spi->chip_select, false);
-+					bcm63xx_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), false);
- 
- 				spi_transfer_cs_change_delay_exec(msg, t);
- 
- 				if (!list_next_entry(t, transfer_list)->cs_off)
--					bcm63xx_hsspi_set_cs(bs, spi->chip_select, true);
-+					bcm63xx_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), true);
- 			}
- 		} else if (!list_is_last(&t->transfer_list, &msg->transfers) &&
- 			   t->cs_off != list_next_entry(t, transfer_list)->cs_off) {
--			bcm63xx_hsspi_set_cs(bs, spi->chip_select, t->cs_off);
-+			bcm63xx_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), t->cs_off);
- 		}
- 	}
- 
- 	bcm63xx_hsspi_set_cs(bs, dummy_cs, false);
- 	if (status || !keep_cs)
--		bcm63xx_hsspi_set_cs(bs, spi->chip_select, false);
-+		bcm63xx_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), false);
- 
- 	return status;
- }
-diff --git a/drivers/spi/spi-bcm63xx.c b/drivers/spi/spi-bcm63xx.c
-index 3686d78c44a6d..787625ce700cb 100644
---- a/drivers/spi/spi-bcm63xx.c
-+++ b/drivers/spi/spi-bcm63xx.c
-@@ -292,7 +292,7 @@ static int bcm63xx_txrx_bufs(struct spi_device *spi, struct spi_transfer *first,
- 	/* Issue the transfer */
- 	cmd = SPI_CMD_START_IMMEDIATE;
- 	cmd |= (prepend_len << SPI_CMD_PREPEND_BYTE_CNT_SHIFT);
--	cmd |= (spi->chip_select << SPI_CMD_DEVICE_ID_SHIFT);
-+	cmd |= (spi_get_chipselect(spi, 0) << SPI_CMD_DEVICE_ID_SHIFT);
- 	bcm_spi_writew(bs, cmd, SPI_CMD);
- 
- 	/* Enable the CMD_DONE interrupt */
-diff --git a/drivers/spi/spi-bcmbca-hsspi.c b/drivers/spi/spi-bcmbca-hsspi.c
-index 3f9e6131ad863..2306bf879784c 100644
---- a/drivers/spi/spi-bcmbca-hsspi.c
-+++ b/drivers/spi/spi-bcmbca-hsspi.c
-@@ -193,7 +193,7 @@ static void bcmbca_hsspi_set_cs(struct bcmbca_hsspi *bs, unsigned int cs,
- static void bcmbca_hsspi_set_clk(struct bcmbca_hsspi *bs,
- 				  struct spi_device *spi, int hz)
- {
--	unsigned int profile = spi->chip_select;
-+	unsigned int profile = spi_get_chipselect(spi, 0);
- 	u32 reg;
- 
- 	reg = DIV_ROUND_UP(2048, DIV_ROUND_UP(bs->speed_hz, hz));
-@@ -251,7 +251,7 @@ static int bcmbca_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t,
- 								struct spi_message *msg)
- {
- 	struct bcmbca_hsspi *bs = spi_master_get_devdata(spi->master);
--	unsigned int chip_select = spi->chip_select;
-+	unsigned int chip_select = spi_get_chipselect(spi, 0);
- 	u16 opcode = 0, val;
- 	int pending = t->len;
- 	int step_size = HSSPI_BUFFER_LEN;
-@@ -312,7 +312,7 @@ static int bcmbca_hsspi_do_txrx(struct spi_device *spi, struct spi_transfer *t,
- 			    PINGPONG_COMMAND_START_NOW;
- 		__raw_writel(reg, bs->regs + HSSPI_PINGPONG_COMMAND_REG(0));
- 
--		if (bcmbca_hsspi_wait_cmd(bs, spi->chip_select))
-+		if (bcmbca_hsspi_wait_cmd(bs, spi_get_chipselect(spi, 0)))
- 			return -ETIMEDOUT;
- 
- 		pending -= curr_step;
-@@ -332,33 +332,33 @@ static int bcmbca_hsspi_setup(struct spi_device *spi)
- 	u32 reg;
- 
- 	reg = __raw_readl(bs->regs +
--			  HSSPI_PROFILE_SIGNAL_CTRL_REG(spi->chip_select));
-+			  HSSPI_PROFILE_SIGNAL_CTRL_REG(spi_get_chipselect(spi, 0)));
- 	reg &= ~(SIGNAL_CTRL_LAUNCH_RISING | SIGNAL_CTRL_LATCH_RISING);
- 	if (spi->mode & SPI_CPHA)
- 		reg |= SIGNAL_CTRL_LAUNCH_RISING;
- 	else
- 		reg |= SIGNAL_CTRL_LATCH_RISING;
- 	__raw_writel(reg, bs->regs +
--		     HSSPI_PROFILE_SIGNAL_CTRL_REG(spi->chip_select));
-+		     HSSPI_PROFILE_SIGNAL_CTRL_REG(spi_get_chipselect(spi, 0)));
- 
- 	mutex_lock(&bs->bus_mutex);
- 	reg = __raw_readl(bs->regs + HSSPI_GLOBAL_CTRL_REG);
- 
- 	if (spi->mode & SPI_CS_HIGH)
--		reg |= BIT(spi->chip_select);
-+		reg |= BIT(spi_get_chipselect(spi, 0));
- 	else
--		reg &= ~BIT(spi->chip_select);
-+		reg &= ~BIT(spi_get_chipselect(spi, 0));
- 	__raw_writel(reg, bs->regs + HSSPI_GLOBAL_CTRL_REG);
- 
- 	if (spi->mode & SPI_CS_HIGH)
--		bs->cs_polarity |= BIT(spi->chip_select);
-+		bs->cs_polarity |= BIT(spi_get_chipselect(spi, 0));
- 	else
--		bs->cs_polarity &= ~BIT(spi->chip_select);
-+		bs->cs_polarity &= ~BIT(spi_get_chipselect(spi, 0));
- 
- 	reg = __raw_readl(bs->spim_ctrl);
--	reg &= ~BIT(spi->chip_select + SPIM_CTRL_CS_OVERRIDE_VAL_SHIFT);
-+	reg &= ~BIT(spi_get_chipselect(spi, 0) + SPIM_CTRL_CS_OVERRIDE_VAL_SHIFT);
- 	if (spi->mode & SPI_CS_HIGH)
--		reg |= BIT(spi->chip_select + SPIM_CTRL_CS_OVERRIDE_VAL_SHIFT);
-+		reg |= BIT(spi_get_chipselect(spi, 0) + SPIM_CTRL_CS_OVERRIDE_VAL_SHIFT);
- 	__raw_writel(reg, bs->spim_ctrl);
- 
- 	mutex_unlock(&bs->bus_mutex);
-@@ -388,16 +388,16 @@ static int bcmbca_hsspi_transfer_one(struct spi_master *master,
- 				keep_cs = true;
- 			} else {
- 				if (!t->cs_off)
--					bcmbca_hsspi_set_cs(bs, spi->chip_select, false);
-+					bcmbca_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), false);
- 
- 				spi_transfer_cs_change_delay_exec(msg, t);
- 
- 				if (!list_next_entry(t, transfer_list)->cs_off)
--					bcmbca_hsspi_set_cs(bs, spi->chip_select, true);
-+					bcmbca_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), true);
- 			}
- 		} else if (!list_is_last(&t->transfer_list, &msg->transfers) &&
- 			   t->cs_off != list_next_entry(t, transfer_list)->cs_off) {
--			bcmbca_hsspi_set_cs(bs, spi->chip_select, t->cs_off);
-+			bcmbca_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), t->cs_off);
- 		}
- 
- 		msg->actual_length += t->len;
-@@ -406,7 +406,7 @@ static int bcmbca_hsspi_transfer_one(struct spi_master *master,
- 	mutex_unlock(&bs->msg_mutex);
- 
- 	if (status || !keep_cs)
--		bcmbca_hsspi_set_cs(bs, spi->chip_select, false);
-+		bcmbca_hsspi_set_cs(bs, spi_get_chipselect(spi, 0), false);
- 
- 	msg->status = status;
- 	spi_finalize_current_message(master);
-diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
-index 64b6a460d739b..fb6d85fd2e864 100644
---- a/drivers/spi/spi-cadence-quadspi.c
-+++ b/drivers/spi/spi-cadence-quadspi.c
-@@ -1355,7 +1355,7 @@ static int cqspi_mem_process(struct spi_mem *mem, const struct spi_mem_op *op)
- 	struct cqspi_st *cqspi = spi_master_get_devdata(mem->spi->master);
- 	struct cqspi_flash_pdata *f_pdata;
- 
--	f_pdata = &cqspi->f_pdata[mem->spi->chip_select];
-+	f_pdata = &cqspi->f_pdata[spi_get_chipselect(mem->spi, 0)];
- 	cqspi_configure(f_pdata, mem->spi->max_speed_hz);
- 
- 	if (op->data.dir == SPI_MEM_DATA_IN && op->data.buf.in) {
-@@ -1561,7 +1561,8 @@ static const char *cqspi_get_name(struct spi_mem *mem)
- 	struct cqspi_st *cqspi = spi_master_get_devdata(mem->spi->master);
- 	struct device *dev = &cqspi->pdev->dev;
- 
--	return devm_kasprintf(dev, GFP_KERNEL, "%s.%d", dev_name(dev), mem->spi->chip_select);
-+	return devm_kasprintf(dev, GFP_KERNEL, "%s.%d", dev_name(dev),
-+			      spi_get_chipselect(mem->spi, 0));
- }
- 
- static const struct spi_controller_mem_ops cqspi_mem_ops = {
-diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index 91db3c973167b..ce4a3145f065b 100644
---- a/drivers/spi/spi-cadence-xspi.c
-+++ b/drivers/spi/spi-cadence-xspi.c
-@@ -409,8 +409,8 @@ static int cdns_xspi_mem_op(struct cdns_xspi_dev *cdns_xspi,
- {
- 	enum spi_mem_data_dir dir = op->data.dir;
- 
--	if (cdns_xspi->cur_cs != mem->spi->chip_select)
--		cdns_xspi->cur_cs = mem->spi->chip_select;
-+	if (cdns_xspi->cur_cs != spi_get_chipselect(mem->spi, 0))
-+		cdns_xspi->cur_cs = spi_get_chipselect(mem->spi, 0);
- 
- 	return cdns_xspi_send_stig_command(cdns_xspi, op,
- 					   (dir != SPI_MEM_NO_DATA));
-diff --git a/drivers/spi/spi-cadence.c b/drivers/spi/spi-cadence.c
-index 6a7f7df1e7764..4ec778de5baf5 100644
---- a/drivers/spi/spi-cadence.c
-+++ b/drivers/spi/spi-cadence.c
-@@ -185,11 +185,11 @@ static void cdns_spi_chipselect(struct spi_device *spi, bool is_high)
- 		/* Select the slave */
- 		ctrl_reg &= ~CDNS_SPI_CR_SSCTRL;
- 		if (!(xspi->is_decoded_cs))
--			ctrl_reg |= ((~(CDNS_SPI_SS0 << spi->chip_select)) <<
-+			ctrl_reg |= ((~(CDNS_SPI_SS0 << spi_get_chipselect(spi, 0))) <<
- 				     CDNS_SPI_SS_SHIFT) &
- 				     CDNS_SPI_CR_SSCTRL;
- 		else
--			ctrl_reg |= (spi->chip_select << CDNS_SPI_SS_SHIFT) &
-+			ctrl_reg |= (spi_get_chipselect(spi, 0) << CDNS_SPI_SS_SHIFT) &
- 				     CDNS_SPI_CR_SSCTRL;
- 	}
- 
-diff --git a/drivers/spi/spi-cavium.c b/drivers/spi/spi-cavium.c
-index 6854c3ce423b3..dfe224defd6ed 100644
---- a/drivers/spi/spi-cavium.c
-+++ b/drivers/spi/spi-cavium.c
-@@ -57,8 +57,8 @@ static int octeon_spi_do_transfer(struct octeon_spi *p,
- 	mpi_cfg.s.cslate = cpha ? 1 : 0;
- 	mpi_cfg.s.enable = 1;
- 
--	if (spi->chip_select < 4)
--		p->cs_enax |= 1ull << (12 + spi->chip_select);
-+	if (spi_get_chipselect(spi, 0) < 4)
-+		p->cs_enax |= 1ull << (12 + spi_get_chipselect(spi, 0));
- 	mpi_cfg.u64 |= p->cs_enax;
- 
- 	if (mpi_cfg.u64 != p->last_cfg) {
-@@ -78,7 +78,7 @@ static int octeon_spi_do_transfer(struct octeon_spi *p,
- 			writeq(d, p->register_base + OCTEON_SPI_DAT0(p) + (8 * i));
- 		}
- 		mpi_tx.u64 = 0;
--		mpi_tx.s.csid = spi->chip_select;
-+		mpi_tx.s.csid = spi_get_chipselect(spi, 0);
- 		mpi_tx.s.leavecs = 1;
- 		mpi_tx.s.txnum = tx_buf ? OCTEON_SPI_MAX_BYTES : 0;
- 		mpi_tx.s.totnum = OCTEON_SPI_MAX_BYTES;
-@@ -103,7 +103,7 @@ static int octeon_spi_do_transfer(struct octeon_spi *p,
- 	}
- 
- 	mpi_tx.u64 = 0;
--	mpi_tx.s.csid = spi->chip_select;
-+	mpi_tx.s.csid = spi_get_chipselect(spi, 0);
- 	if (last_xfer)
- 		mpi_tx.s.leavecs = xfer->cs_change;
- 	else
-diff --git a/drivers/spi/spi-coldfire-qspi.c b/drivers/spi/spi-coldfire-qspi.c
-index 263ce90473277..18e4fd86b2f28 100644
---- a/drivers/spi/spi-coldfire-qspi.c
-+++ b/drivers/spi/spi-coldfire-qspi.c
-@@ -290,9 +290,9 @@ static void mcfqspi_set_cs(struct spi_device *spi, bool enable)
- 	bool cs_high = spi->mode & SPI_CS_HIGH;
- 
- 	if (enable)
--		mcfqspi_cs_select(mcfqspi, spi->chip_select, cs_high);
-+		mcfqspi_cs_select(mcfqspi, spi_get_chipselect(spi, 0), cs_high);
- 	else
--		mcfqspi_cs_deselect(mcfqspi, spi->chip_select, cs_high);
-+		mcfqspi_cs_deselect(mcfqspi, spi_get_chipselect(spi, 0), cs_high);
- }
- 
- static int mcfqspi_transfer_one(struct spi_master *master,
-@@ -324,11 +324,11 @@ static int mcfqspi_transfer_one(struct spi_master *master,
- static int mcfqspi_setup(struct spi_device *spi)
- {
- 	mcfqspi_cs_deselect(spi_master_get_devdata(spi->master),
--			    spi->chip_select, spi->mode & SPI_CS_HIGH);
-+			    spi_get_chipselect(spi, 0), spi->mode & SPI_CS_HIGH);
- 
- 	dev_dbg(&spi->dev,
- 			"bits per word %d, chip select %d, speed %d KHz\n",
--			spi->bits_per_word, spi->chip_select,
-+			spi->bits_per_word, spi_get_chipselect(spi, 0),
- 			(MCFQSPI_BUSCLK / mcfqspi_qmr_baud(spi->max_speed_hz))
- 			/ 1000);
- 
-diff --git a/drivers/spi/spi-davinci.c b/drivers/spi/spi-davinci.c
-index d112c2cac042b..55c9abcb8e3b3 100644
---- a/drivers/spi/spi-davinci.c
-+++ b/drivers/spi/spi-davinci.c
-@@ -199,7 +199,7 @@ static void davinci_spi_chipselect(struct spi_device *spi, int value)
- {
- 	struct davinci_spi *dspi;
- 	struct davinci_spi_config *spicfg = spi->controller_data;
--	u8 chip_sel = spi->chip_select;
-+	u8 chip_sel = spi_get_chipselect(spi, 0);
- 	u16 spidat1 = CS_DEFAULT;
- 
- 	dspi = spi_master_get_devdata(spi->master);
-@@ -212,11 +212,11 @@ static void davinci_spi_chipselect(struct spi_device *spi, int value)
- 	 * Board specific chip select logic decides the polarity and cs
- 	 * line for the controller
- 	 */
--	if (spi->cs_gpiod) {
-+	if (spi_get_csgpiod(spi, 0)) {
- 		if (value == BITBANG_CS_ACTIVE)
--			gpiod_set_value(spi->cs_gpiod, 1);
-+			gpiod_set_value(spi_get_csgpiod(spi, 0), 1);
- 		else
--			gpiod_set_value(spi->cs_gpiod, 0);
-+			gpiod_set_value(spi_get_csgpiod(spi, 0), 0);
- 	} else {
- 		if (value == BITBANG_CS_ACTIVE) {
- 			if (!(spi->mode & SPI_CS_WORD))
-@@ -293,11 +293,11 @@ static int davinci_spi_setup_transfer(struct spi_device *spi,
- 	if (bits_per_word <= 8) {
- 		dspi->get_rx = davinci_spi_rx_buf_u8;
- 		dspi->get_tx = davinci_spi_tx_buf_u8;
--		dspi->bytes_per_word[spi->chip_select] = 1;
-+		dspi->bytes_per_word[spi_get_chipselect(spi, 0)] = 1;
- 	} else {
- 		dspi->get_rx = davinci_spi_rx_buf_u16;
- 		dspi->get_tx = davinci_spi_tx_buf_u16;
--		dspi->bytes_per_word[spi->chip_select] = 2;
-+		dspi->bytes_per_word[spi_get_chipselect(spi, 0)] = 2;
- 	}
- 
- 	if (!hz)
-@@ -415,11 +415,11 @@ static int davinci_spi_setup(struct spi_device *spi)
- 	dspi = spi_master_get_devdata(spi->master);
- 
- 	if (!(spi->mode & SPI_NO_CS)) {
--		if (np && spi->cs_gpiod)
-+		if (np && spi_get_csgpiod(spi, 0))
- 			internal_cs = false;
- 
- 		if (internal_cs)
--			set_io_bits(dspi->base + SPIPC0, 1 << spi->chip_select);
-+			set_io_bits(dspi->base + SPIPC0, 1 << spi_get_chipselect(spi, 0));
- 	}
- 
- 	if (spi->mode & SPI_READY)
-@@ -579,7 +579,7 @@ static int davinci_spi_bufs(struct spi_device *spi, struct spi_transfer *t)
- 		spicfg = &davinci_spi_default_cfg;
- 
- 	/* convert len to words based on bits_per_word */
--	data_type = dspi->bytes_per_word[spi->chip_select];
-+	data_type = dspi->bytes_per_word[spi_get_chipselect(spi, 0)];
- 
- 	dspi->tx = t->tx_buf;
- 	dspi->rx = t->rx_buf;
-diff --git a/drivers/spi/spi-dln2.c b/drivers/spi/spi-dln2.c
-index 0a1fb2bc9e546..5e60e3d5822e7 100644
---- a/drivers/spi/spi-dln2.c
-+++ b/drivers/spi/spi-dln2.c
-@@ -596,12 +596,12 @@ static int dln2_spi_prepare_message(struct spi_master *master,
- 	struct dln2_spi *dln2 = spi_master_get_devdata(master);
- 	struct spi_device *spi = message->spi;
- 
--	if (dln2->cs != spi->chip_select) {
--		ret = dln2_spi_cs_set_one(dln2, spi->chip_select);
-+	if (dln2->cs != spi_get_chipselect(spi, 0)) {
-+		ret = dln2_spi_cs_set_one(dln2, spi_get_chipselect(spi, 0));
- 		if (ret < 0)
- 			return ret;
- 
--		dln2->cs = spi->chip_select;
-+		dln2->cs = spi_get_chipselect(spi, 0);
- 	}
- 
- 	return 0;
-diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-index c3bfb6c84cab2..ae3108c70f508 100644
---- a/drivers/spi/spi-dw-core.c
-+++ b/drivers/spi/spi-dw-core.c
-@@ -103,7 +103,7 @@ void dw_spi_set_cs(struct spi_device *spi, bool enable)
- 	 * support active-high or active-low CS level.
- 	 */
- 	if (cs_high == enable)
--		dw_writel(dws, DW_SPI_SER, BIT(spi->chip_select));
-+		dw_writel(dws, DW_SPI_SER, BIT(spi_get_chipselect(spi, 0)));
- 	else
- 		dw_writel(dws, DW_SPI_SER, 0);
- }
-diff --git a/drivers/spi/spi-dw-mmio.c b/drivers/spi/spi-dw-mmio.c
-index 26c40ea6dd129..d511da766ce82 100644
---- a/drivers/spi/spi-dw-mmio.c
-+++ b/drivers/spi/spi-dw-mmio.c
-@@ -65,7 +65,7 @@ static void dw_spi_mscc_set_cs(struct spi_device *spi, bool enable)
- 	struct dw_spi *dws = spi_master_get_devdata(spi->master);
- 	struct dw_spi_mmio *dwsmmio = container_of(dws, struct dw_spi_mmio, dws);
- 	struct dw_spi_mscc *dwsmscc = dwsmmio->priv;
--	u32 cs = spi->chip_select;
-+	u32 cs = spi_get_chipselect(spi, 0);
- 
- 	if (cs < 4) {
- 		u32 sw_mode = MSCC_SPI_MST_SW_MODE_SW_PIN_CTRL_MODE;
-@@ -138,7 +138,7 @@ static void dw_spi_sparx5_set_cs(struct spi_device *spi, bool enable)
- 	struct dw_spi *dws = spi_master_get_devdata(spi->master);
- 	struct dw_spi_mmio *dwsmmio = container_of(dws, struct dw_spi_mmio, dws);
- 	struct dw_spi_mscc *dwsmscc = dwsmmio->priv;
--	u8 cs = spi->chip_select;
-+	u8 cs = spi_get_chipselect(spi, 0);
- 
- 	if (!enable) {
- 		/* CS override drive enable */
-diff --git a/drivers/spi/spi-falcon.c b/drivers/spi/spi-falcon.c
-index a7d4dffac66b2..4c103dff0d445 100644
---- a/drivers/spi/spi-falcon.c
-+++ b/drivers/spi/spi-falcon.c
-@@ -131,7 +131,7 @@ int falcon_sflash_xfer(struct spi_device *spi, struct spi_transfer *t,
- 				 * especially alen and dumlen.
- 				 */
- 
--				priv->sfcmd = ((spi->chip_select
-+				priv->sfcmd = ((spi_get_chipselect(spi, 0)
- 						<< SFCMD_CS_OFFSET)
- 					       & SFCMD_CS_MASK);
- 				priv->sfcmd |= SFCMD_KEEP_CS_KEEP_SELECTED;
-diff --git a/drivers/spi/spi-fsi.c b/drivers/spi/spi-fsi.c
-index cf1e4f9ebd727..ba3b17d7c9ec2 100644
---- a/drivers/spi/spi-fsi.c
-+++ b/drivers/spi/spi-fsi.c
-@@ -425,7 +425,7 @@ static int fsi_spi_transfer_one_message(struct spi_controller *ctlr,
- 					struct spi_message *mesg)
- {
- 	int rc;
--	u8 seq_slave = SPI_FSI_SEQUENCE_SEL_SLAVE(mesg->spi->chip_select + 1);
-+	u8 seq_slave = SPI_FSI_SEQUENCE_SEL_SLAVE(spi_get_chipselect(mesg->spi, 0) + 1);
- 	unsigned int len;
- 	struct spi_transfer *transfer;
- 	struct fsi_spi *ctx = spi_controller_get_devdata(ctlr);
-diff --git a/drivers/spi/spi-fsl-dspi.c b/drivers/spi/spi-fsl-dspi.c
-index e419642eb10e5..0f9a97ee2e772 100644
---- a/drivers/spi/spi-fsl-dspi.c
-+++ b/drivers/spi/spi-fsl-dspi.c
-@@ -902,19 +902,19 @@ static irqreturn_t dspi_interrupt(int irq, void *dev_id)
- 
- static void dspi_assert_cs(struct spi_device *spi, bool *cs)
- {
--	if (!spi->cs_gpiod || *cs)
-+	if (!spi_get_csgpiod(spi, 0) || *cs)
- 		return;
- 
--	gpiod_set_value_cansleep(spi->cs_gpiod, true);
-+	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), true);
- 	*cs = true;
- }
- 
- static void dspi_deassert_cs(struct spi_device *spi, bool *cs)
- {
--	if (!spi->cs_gpiod || !*cs)
-+	if (!spi_get_csgpiod(spi, 0) || !*cs)
- 		return;
- 
--	gpiod_set_value_cansleep(spi->cs_gpiod, false);
-+	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), false);
- 	*cs = false;
- }
- 
-@@ -938,8 +938,8 @@ static int dspi_transfer_one_message(struct spi_controller *ctlr,
- 
- 		/* Prepare command word for CMD FIFO */
- 		dspi->tx_cmd = SPI_PUSHR_CMD_CTAS(0);
--		if (!spi->cs_gpiod)
--			dspi->tx_cmd |= SPI_PUSHR_CMD_PCS(spi->chip_select);
-+		if (!spi_get_csgpiod(spi, 0))
-+			dspi->tx_cmd |= SPI_PUSHR_CMD_PCS(spi_get_chipselect(spi, 0));
- 
- 		if (list_is_last(&dspi->cur_transfer->transfer_list,
- 				 &dspi->cur_msg->transfers)) {
-@@ -1058,7 +1058,7 @@ static int dspi_setup(struct spi_device *spi)
- 			chip->ctar_val |= SPI_CTAR_LSBFE;
- 	}
- 
--	gpiod_direction_output(spi->cs_gpiod, false);
-+	gpiod_direction_output(spi_get_csgpiod(spi, 0), false);
- 	dspi_deassert_cs(spi, &cs);
- 
- 	spi_set_ctldata(spi, chip);
-@@ -1071,7 +1071,7 @@ static void dspi_cleanup(struct spi_device *spi)
- 	struct chip_data *chip = spi_get_ctldata((struct spi_device *)spi);
- 
- 	dev_dbg(&spi->dev, "spi_device %u.%u cleanup\n",
--		spi->controller->bus_num, spi->chip_select);
-+		spi->controller->bus_num, spi_get_chipselect(spi, 0));
- 
- 	kfree(chip);
- }
-diff --git a/drivers/spi/spi-fsl-espi.c b/drivers/spi/spi-fsl-espi.c
-index f7066bef7b06f..b593055e3d6d5 100644
---- a/drivers/spi/spi-fsl-espi.c
-+++ b/drivers/spi/spi-fsl-espi.c
-@@ -345,7 +345,7 @@ static void fsl_espi_setup_transfer(struct spi_device *spi,
- 
- 	/* don't write the mode register if the mode doesn't change */
- 	if (cs->hw_mode != hw_mode_old)
--		fsl_espi_write_reg(espi, ESPI_SPMODEx(spi->chip_select),
-+		fsl_espi_write_reg(espi, ESPI_SPMODEx(spi_get_chipselect(spi, 0)),
- 				   cs->hw_mode);
- }
- 
-@@ -359,7 +359,7 @@ static int fsl_espi_bufs(struct spi_device *spi, struct spi_transfer *t)
- 	reinit_completion(&espi->done);
- 
- 	/* Set SPCOM[CS] and SPCOM[TRANLEN] field */
--	spcom = SPCOM_CS(spi->chip_select);
-+	spcom = SPCOM_CS(spi_get_chipselect(spi, 0));
- 	spcom |= SPCOM_TRANLEN(t->len - 1);
- 
- 	/* configure RXSKIP mode */
-@@ -492,7 +492,7 @@ static int fsl_espi_setup(struct spi_device *spi)
- 
- 	pm_runtime_get_sync(espi->dev);
- 
--	cs->hw_mode = fsl_espi_read_reg(espi, ESPI_SPMODEx(spi->chip_select));
-+	cs->hw_mode = fsl_espi_read_reg(espi, ESPI_SPMODEx(spi_get_chipselect(spi, 0)));
- 	/* mask out bits we are going to set */
- 	cs->hw_mode &= ~(CSMODE_CP_BEGIN_EDGECLK | CSMODE_CI_INACTIVEHIGH
- 			 | CSMODE_REV);
-diff --git a/drivers/spi/spi-fsl-lpspi.c b/drivers/spi/spi-fsl-lpspi.c
-index 34488de555871..fe69ec8c9d688 100644
---- a/drivers/spi/spi-fsl-lpspi.c
-+++ b/drivers/spi/spi-fsl-lpspi.c
-@@ -425,7 +425,7 @@ static int fsl_lpspi_setup_transfer(struct spi_controller *controller,
- 	if (fsl_lpspi->is_only_cs1)
- 		fsl_lpspi->config.chip_select = 1;
- 	else
--		fsl_lpspi->config.chip_select = spi->chip_select;
-+		fsl_lpspi->config.chip_select = spi_get_chipselect(spi, 0);
- 
- 	if (!fsl_lpspi->config.speed_hz)
- 		fsl_lpspi->config.speed_hz = spi->max_speed_hz;
-diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
-index 85cc71ba624a9..4f16d4676650d 100644
---- a/drivers/spi/spi-fsl-qspi.c
-+++ b/drivers/spi/spi-fsl-qspi.c
-@@ -528,7 +528,7 @@ static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi)
- 	unsigned long rate = spi->max_speed_hz;
- 	int ret;
- 
--	if (q->selected == spi->chip_select)
-+	if (q->selected == spi_get_chipselect(spi, 0))
- 		return;
- 
- 	if (needs_4x_clock(q))
-@@ -544,7 +544,7 @@ static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi)
- 	if (ret)
- 		return;
- 
--	q->selected = spi->chip_select;
-+	q->selected = spi_get_chipselect(spi, 0);
- 
- 	fsl_qspi_invalidate(q);
- }
-@@ -823,7 +823,7 @@ static const char *fsl_qspi_get_name(struct spi_mem *mem)
- 
- 	name = devm_kasprintf(dev, GFP_KERNEL,
- 			      "%s-%d", dev_name(q->dev),
--			      mem->spi->chip_select);
-+			      spi_get_chipselect(mem->spi, 0));
- 
- 	if (!name) {
- 		dev_err(dev, "failed to get memory for custom flash name\n");
-diff --git a/drivers/spi/spi-fsl-spi.c b/drivers/spi/spi-fsl-spi.c
-index 93152144fd2ec..08fa6e38f4eba 100644
---- a/drivers/spi/spi-fsl-spi.c
-+++ b/drivers/spi/spi-fsl-spi.c
-@@ -503,7 +503,7 @@ static void fsl_spi_grlib_cs_control(struct spi_device *spi, bool on)
- 	struct mpc8xxx_spi *mpc8xxx_spi = spi_master_get_devdata(spi->master);
- 	struct fsl_spi_reg __iomem *reg_base = mpc8xxx_spi->reg_base;
- 	u32 slvsel;
--	u16 cs = spi->chip_select;
-+	u16 cs = spi_get_chipselect(spi, 0);
- 
- 	if (cs < mpc8xxx_spi->native_chipselects) {
- 		slvsel = mpc8xxx_spi_read_reg(&reg_base->slvsel);
-diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-index babb039bcb431..301e55fcbde9b 100644
---- a/drivers/spi/spi-geni-qcom.c
-+++ b/drivers/spi/spi-geni-qcom.c
-@@ -391,9 +391,9 @@ static int setup_fifo_params(struct spi_device *spi_slv,
- 			cpha = CPHA;
- 
- 		if (spi_slv->mode & SPI_CS_HIGH)
--			demux_output_inv = BIT(spi_slv->chip_select);
-+			demux_output_inv = BIT(spi_get_chipselect(spi_slv, 0));
- 
--		demux_sel = spi_slv->chip_select;
-+		demux_sel = spi_get_chipselect(spi_slv, 0);
- 		mas->cur_bits_per_word = spi_slv->bits_per_word;
- 
- 		spi_setup_word_len(mas, spi_slv->mode, spi_slv->bits_per_word);
-@@ -469,7 +469,7 @@ static int setup_gsi_xfer(struct spi_transfer *xfer, struct spi_geni_master *mas
- 	peripheral.loopback_en = !!(spi_slv->mode & SPI_LOOP);
- 	peripheral.clock_pol_high = !!(spi_slv->mode & SPI_CPOL);
- 	peripheral.data_pol_high = !!(spi_slv->mode & SPI_CPHA);
--	peripheral.cs = spi_slv->chip_select;
-+	peripheral.cs = spi_get_chipselect(spi_slv, 0);
- 	peripheral.pack_en = true;
- 	peripheral.word_len = xfer->bits_per_word - MIN_WORD_LEN;
- 
-diff --git a/drivers/spi/spi-gpio.c b/drivers/spi/spi-gpio.c
-index 9c8c7948044ed..092afc7679d40 100644
---- a/drivers/spi/spi-gpio.c
-+++ b/drivers/spi/spi-gpio.c
-@@ -230,7 +230,7 @@ static void spi_gpio_chipselect(struct spi_device *spi, int is_active)
- 
- 	/* Drive chip select line, if we have one */
- 	if (spi_gpio->cs_gpios) {
--		struct gpio_desc *cs = spi_gpio->cs_gpios[spi->chip_select];
-+		struct gpio_desc *cs = spi_gpio->cs_gpios[spi_get_chipselect(spi, 0)];
- 
- 		/* SPI chip selects are normally active-low */
- 		gpiod_set_value_cansleep(cs, (spi->mode & SPI_CS_HIGH) ? is_active : !is_active);
-@@ -248,7 +248,7 @@ static int spi_gpio_setup(struct spi_device *spi)
- 	 * initialized from the descriptor lookup.
- 	 */
- 	if (spi_gpio->cs_gpios) {
--		cs = spi_gpio->cs_gpios[spi->chip_select];
-+		cs = spi_gpio->cs_gpios[spi_get_chipselect(spi, 0)];
- 		if (!spi->controller_state && cs)
- 			status = gpiod_direction_output(cs,
- 						  !(spi->mode & SPI_CS_HIGH));
-diff --git a/drivers/spi/spi-gxp.c b/drivers/spi/spi-gxp.c
-index c900c2f39b578..684d63f402f34 100644
---- a/drivers/spi/spi-gxp.c
-+++ b/drivers/spi/spi-gxp.c
-@@ -201,7 +201,7 @@ static ssize_t gxp_spi_write(struct gxp_spi_chip *chip, const struct spi_mem_op
- static int do_gxp_exec_mem_op(struct spi_mem *mem, const struct spi_mem_op *op)
- {
- 	struct gxp_spi *spifi = spi_controller_get_devdata(mem->spi->master);
--	struct gxp_spi_chip *chip = &spifi->chips[mem->spi->chip_select];
-+	struct gxp_spi_chip *chip = &spifi->chips[spi_get_chipselect(mem->spi, 0)];
- 	int ret;
- 
- 	if (op->data.dir == SPI_MEM_DATA_IN) {
-@@ -237,7 +237,7 @@ static const struct spi_controller_mem_ops gxp_spi_mem_ops = {
- static int gxp_spi_setup(struct spi_device *spi)
- {
- 	struct gxp_spi *spifi = spi_controller_get_devdata(spi->master);
--	unsigned int cs = spi->chip_select;
-+	unsigned int cs = spi_get_chipselect(spi, 0);
- 	struct gxp_spi_chip *chip = &spifi->chips[cs];
- 
- 	chip->spifi = spifi;
-diff --git a/drivers/spi/spi-hisi-sfc-v3xx.c b/drivers/spi/spi-hisi-sfc-v3xx.c
-index f07d1045a30a2..7cbcb065bb44c 100644
---- a/drivers/spi/spi-hisi-sfc-v3xx.c
-+++ b/drivers/spi/spi-hisi-sfc-v3xx.c
-@@ -361,7 +361,7 @@ static int hisi_sfc_v3xx_exec_op(struct spi_mem *mem,
- {
- 	struct hisi_sfc_v3xx_host *host;
- 	struct spi_device *spi = mem->spi;
--	u8 chip_select = spi->chip_select;
-+	u8 chip_select = spi_get_chipselect(spi, 0);
- 
- 	host = spi_controller_get_devdata(spi->master);
- 
-diff --git a/drivers/spi/spi-img-spfi.c b/drivers/spi/spi-img-spfi.c
-index 257046f843ffd..1575e78f8b092 100644
---- a/drivers/spi/spi-img-spfi.c
-+++ b/drivers/spi/spi-img-spfi.c
-@@ -413,15 +413,15 @@ static int img_spfi_prepare(struct spi_master *master, struct spi_message *msg)
- 	val = spfi_readl(spfi, SPFI_PORT_STATE);
- 	val &= ~(SPFI_PORT_STATE_DEV_SEL_MASK <<
- 		 SPFI_PORT_STATE_DEV_SEL_SHIFT);
--	val |= msg->spi->chip_select << SPFI_PORT_STATE_DEV_SEL_SHIFT;
-+	val |= spi_get_chipselect(msg->spi, 0) << SPFI_PORT_STATE_DEV_SEL_SHIFT;
- 	if (msg->spi->mode & SPI_CPHA)
--		val |= SPFI_PORT_STATE_CK_PHASE(msg->spi->chip_select);
-+		val |= SPFI_PORT_STATE_CK_PHASE(spi_get_chipselect(msg->spi, 0));
- 	else
--		val &= ~SPFI_PORT_STATE_CK_PHASE(msg->spi->chip_select);
-+		val &= ~SPFI_PORT_STATE_CK_PHASE(spi_get_chipselect(msg->spi, 0));
- 	if (msg->spi->mode & SPI_CPOL)
--		val |= SPFI_PORT_STATE_CK_POL(msg->spi->chip_select);
-+		val |= SPFI_PORT_STATE_CK_POL(spi_get_chipselect(msg->spi, 0));
- 	else
--		val &= ~SPFI_PORT_STATE_CK_POL(msg->spi->chip_select);
-+		val &= ~SPFI_PORT_STATE_CK_POL(spi_get_chipselect(msg->spi, 0));
- 	spfi_writel(spfi, val, SPFI_PORT_STATE);
- 
- 	return 0;
-@@ -450,11 +450,11 @@ static void img_spfi_config(struct spi_master *master, struct spi_device *spi,
- 	div = DIV_ROUND_UP(clk_get_rate(spfi->spfi_clk), xfer->speed_hz);
- 	div = clamp(512 / (1 << get_count_order(div)), 1, 128);
- 
--	val = spfi_readl(spfi, SPFI_DEVICE_PARAMETER(spi->chip_select));
-+	val = spfi_readl(spfi, SPFI_DEVICE_PARAMETER(spi_get_chipselect(spi, 0)));
- 	val &= ~(SPFI_DEVICE_PARAMETER_BITCLK_MASK <<
- 		 SPFI_DEVICE_PARAMETER_BITCLK_SHIFT);
- 	val |= div << SPFI_DEVICE_PARAMETER_BITCLK_SHIFT;
--	spfi_writel(spfi, val, SPFI_DEVICE_PARAMETER(spi->chip_select));
-+	spfi_writel(spfi, val, SPFI_DEVICE_PARAMETER(spi_get_chipselect(spi, 0)));
- 
- 	spfi_writel(spfi, xfer->len << SPFI_TRANSACTION_TSIZE_SHIFT,
- 		    SPFI_TRANSACTION);
-diff --git a/drivers/spi/spi-imx.c b/drivers/spi/spi-imx.c
-index 6c9c87cd14cae..81221594dd972 100644
---- a/drivers/spi/spi-imx.c
-+++ b/drivers/spi/spi-imx.c
-@@ -528,7 +528,7 @@ static int mx51_ecspi_prepare_message(struct spi_imx_data *spi_imx,
- 		ctrl |= MX51_ECSPI_CTRL_DRCTL(spi_imx->spi_drctl);
- 
- 	/* set chip select to use */
--	ctrl |= MX51_ECSPI_CTRL_CS(spi->chip_select);
-+	ctrl |= MX51_ECSPI_CTRL_CS(spi_get_chipselect(spi, 0));
- 
- 	/*
- 	 * The ctrl register must be written first, with the EN bit set other
-@@ -549,22 +549,22 @@ static int mx51_ecspi_prepare_message(struct spi_imx_data *spi_imx,
- 	 * BURST_LENGTH + 1 bits are received
- 	 */
- 	if (spi_imx->slave_mode && is_imx53_ecspi(spi_imx))
--		cfg &= ~MX51_ECSPI_CONFIG_SBBCTRL(spi->chip_select);
-+		cfg &= ~MX51_ECSPI_CONFIG_SBBCTRL(spi_get_chipselect(spi, 0));
- 	else
--		cfg |= MX51_ECSPI_CONFIG_SBBCTRL(spi->chip_select);
-+		cfg |= MX51_ECSPI_CONFIG_SBBCTRL(spi_get_chipselect(spi, 0));
- 
- 	if (spi->mode & SPI_CPOL) {
--		cfg |= MX51_ECSPI_CONFIG_SCLKPOL(spi->chip_select);
--		cfg |= MX51_ECSPI_CONFIG_SCLKCTL(spi->chip_select);
-+		cfg |= MX51_ECSPI_CONFIG_SCLKPOL(spi_get_chipselect(spi, 0));
-+		cfg |= MX51_ECSPI_CONFIG_SCLKCTL(spi_get_chipselect(spi, 0));
- 	} else {
--		cfg &= ~MX51_ECSPI_CONFIG_SCLKPOL(spi->chip_select);
--		cfg &= ~MX51_ECSPI_CONFIG_SCLKCTL(spi->chip_select);
-+		cfg &= ~MX51_ECSPI_CONFIG_SCLKPOL(spi_get_chipselect(spi, 0));
-+		cfg &= ~MX51_ECSPI_CONFIG_SCLKCTL(spi_get_chipselect(spi, 0));
- 	}
- 
- 	if (spi->mode & SPI_CS_HIGH)
--		cfg |= MX51_ECSPI_CONFIG_SSBPOL(spi->chip_select);
-+		cfg |= MX51_ECSPI_CONFIG_SSBPOL(spi_get_chipselect(spi, 0));
- 	else
--		cfg &= ~MX51_ECSPI_CONFIG_SSBPOL(spi->chip_select);
-+		cfg &= ~MX51_ECSPI_CONFIG_SSBPOL(spi_get_chipselect(spi, 0));
- 
- 	if (cfg == current_cfg)
- 		return 0;
-@@ -614,9 +614,9 @@ static void mx51_configure_cpha(struct spi_imx_data *spi_imx,
- 	cpha ^= flip_cpha;
- 
- 	if (cpha)
--		cfg |= MX51_ECSPI_CONFIG_SCLKPHA(spi->chip_select);
-+		cfg |= MX51_ECSPI_CONFIG_SCLKPHA(spi_get_chipselect(spi, 0));
- 	else
--		cfg &= ~MX51_ECSPI_CONFIG_SCLKPHA(spi->chip_select);
-+		cfg &= ~MX51_ECSPI_CONFIG_SCLKPHA(spi_get_chipselect(spi, 0));
- 
- 	writel(cfg, spi_imx->base + MX51_ECSPI_CONFIG);
- }
-@@ -768,8 +768,8 @@ static int mx31_prepare_transfer(struct spi_imx_data *spi_imx,
- 		reg |= MX31_CSPICTRL_POL;
- 	if (spi->mode & SPI_CS_HIGH)
- 		reg |= MX31_CSPICTRL_SSPOL;
--	if (!spi->cs_gpiod)
--		reg |= (spi->chip_select) <<
-+	if (!spi_get_csgpiod(spi, 0))
-+		reg |= (spi_get_chipselect(spi, 0)) <<
- 			(is_imx35_cspi(spi_imx) ? MX35_CSPICTRL_CS_SHIFT :
- 						  MX31_CSPICTRL_CS_SHIFT);
- 
-@@ -868,8 +868,8 @@ static int mx21_prepare_transfer(struct spi_imx_data *spi_imx,
- 		reg |= MX21_CSPICTRL_POL;
- 	if (spi->mode & SPI_CS_HIGH)
- 		reg |= MX21_CSPICTRL_SSPOL;
--	if (!spi->cs_gpiod)
--		reg |= spi->chip_select << MX21_CSPICTRL_CS_SHIFT;
-+	if (!spi_get_csgpiod(spi, 0))
-+		reg |= spi_get_chipselect(spi, 0) << MX21_CSPICTRL_CS_SHIFT;
- 
- 	writel(reg, spi_imx->base + MXC_CSPICTRL);
- 
-diff --git a/drivers/spi/spi-ingenic.c b/drivers/spi/spi-ingenic.c
-index 713a238bee63a..7d4b515a160d9 100644
---- a/drivers/spi/spi-ingenic.c
-+++ b/drivers/spi/spi-ingenic.c
-@@ -263,7 +263,7 @@ static int spi_ingenic_prepare_message(struct spi_controller *ctlr,
- {
- 	struct ingenic_spi *priv = spi_controller_get_devdata(ctlr);
- 	struct spi_device *spi = message->spi;
--	unsigned int cs = REG_SSICR1_FRMHL << spi->chip_select;
-+	unsigned int cs = REG_SSICR1_FRMHL << spi_get_chipselect(spi, 0);
- 	unsigned int ssicr0_mask = REG_SSICR0_LOOP | REG_SSICR0_FSEL;
- 	unsigned int ssicr1_mask = REG_SSICR1_PHA | REG_SSICR1_POL | cs;
- 	unsigned int ssicr0 = 0, ssicr1 = 0;
-@@ -282,7 +282,7 @@ static int spi_ingenic_prepare_message(struct spi_controller *ctlr,
- 
- 	if (spi->mode & SPI_LOOP)
- 		ssicr0 |= REG_SSICR0_LOOP;
--	if (spi->chip_select)
-+	if (spi_get_chipselect(spi, 0))
- 		ssicr0 |= REG_SSICR0_FSEL;
- 
- 	if (spi->mode & SPI_CPHA)
-diff --git a/drivers/spi/spi-intel.c b/drivers/spi/spi-intel.c
-index f4679868c49f1..bc6d22149e7e1 100644
---- a/drivers/spi/spi-intel.c
-+++ b/drivers/spi/spi-intel.c
-@@ -451,7 +451,7 @@ static u32 intel_spi_chip_addr(const struct intel_spi *ispi,
- 	/* Pick up the correct start address */
- 	if (!mem)
- 		return 0;
--	return mem->spi->chip_select == 1 ? ispi->chip0_size : 0;
-+	return (spi_get_chipselect(mem->spi, 0) == 1) ? ispi->chip0_size : 0;
- }
- 
- static int intel_spi_read_reg(struct intel_spi *ispi, const struct spi_mem *mem,
-diff --git a/drivers/spi/spi-jcore.c b/drivers/spi/spi-jcore.c
-index 74c8319c29f17..c42a3358e8c9a 100644
---- a/drivers/spi/spi-jcore.c
-+++ b/drivers/spi/spi-jcore.c
-@@ -68,9 +68,9 @@ static void jcore_spi_program(struct jcore_spi *hw)
- static void jcore_spi_chipsel(struct spi_device *spi, bool value)
- {
- 	struct jcore_spi *hw = spi_master_get_devdata(spi->master);
--	u32 csbit = 1U << (2 * spi->chip_select);
-+	u32 csbit = 1U << (2 * spi_get_chipselect(spi, 0));
- 
--	dev_dbg(hw->master->dev.parent, "chipselect %d\n", spi->chip_select);
-+	dev_dbg(hw->master->dev.parent, "chipselect %d\n", spi_get_chipselect(spi, 0));
- 
- 	if (value)
- 		hw->cs_reg |= csbit;
-diff --git a/drivers/spi/spi-lantiq-ssc.c b/drivers/spi/spi-lantiq-ssc.c
-index aae26f62ea87a..6b191cefb0d4f 100644
---- a/drivers/spi/spi-lantiq-ssc.c
-+++ b/drivers/spi/spi-lantiq-ssc.c
-@@ -388,11 +388,11 @@ static int lantiq_ssc_setup(struct spi_device *spidev)
- {
- 	struct spi_master *master = spidev->master;
- 	struct lantiq_ssc_spi *spi = spi_master_get_devdata(master);
--	unsigned int cs = spidev->chip_select;
-+	unsigned int cs = spi_get_chipselect(spidev, 0);
- 	u32 gpocon;
- 
- 	/* GPIOs are used for CS */
--	if (spidev->cs_gpiod)
-+	if (spi_get_csgpiod(spidev, 0))
- 		return 0;
- 
- 	dev_dbg(spi->dev, "using internal chipselect %u\n", cs);
-@@ -796,7 +796,7 @@ static void lantiq_ssc_handle_err(struct spi_master *master,
- static void lantiq_ssc_set_cs(struct spi_device *spidev, bool enable)
- {
- 	struct lantiq_ssc_spi *spi = spi_master_get_devdata(spidev->master);
--	unsigned int cs = spidev->chip_select;
-+	unsigned int cs = spi_get_chipselect(spidev, 0);
- 	u32 fgpo;
- 
- 	if (!!(spidev->mode & SPI_CS_HIGH) == enable)
-diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-index 701838b6f0c40..edd7430d4c052 100644
---- a/drivers/spi/spi-mem.c
-+++ b/drivers/spi/spi-mem.c
-@@ -325,7 +325,7 @@ int spi_mem_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- 	if (!spi_mem_internal_supports_op(mem, op))
- 		return -ENOTSUPP;
- 
--	if (ctlr->mem_ops && ctlr->mem_ops->exec_op && !mem->spi->cs_gpiod) {
-+	if (ctlr->mem_ops && ctlr->mem_ops->exec_op && !spi_get_csgpiod(mem->spi, 0)) {
- 		ret = spi_mem_access_start(mem);
- 		if (ret)
- 			return ret;
-@@ -808,7 +808,7 @@ int spi_mem_poll_status(struct spi_mem *mem,
- 	    op->data.dir != SPI_MEM_DATA_IN)
- 		return -EINVAL;
- 
--	if (ctlr->mem_ops && ctlr->mem_ops->poll_status && !mem->spi->cs_gpiod) {
-+	if (ctlr->mem_ops && ctlr->mem_ops->poll_status && !spi_get_csgpiod(mem->spi, 0)) {
- 		ret = spi_mem_access_start(mem);
- 		if (ret)
- 			return ret;
-diff --git a/drivers/spi/spi-meson-spicc.c b/drivers/spi/spi-meson-spicc.c
-index d47f2623a60fa..0d45cf8a2e723 100644
---- a/drivers/spi/spi-meson-spicc.c
-+++ b/drivers/spi/spi-meson-spicc.c
-@@ -505,7 +505,7 @@ static int meson_spicc_prepare_message(struct spi_master *master,
- 		conf |= FIELD_PREP(SPICC_DRCTL_MASK, SPICC_DRCTL_IGNORE);
- 
- 	/* Select CS */
--	conf |= FIELD_PREP(SPICC_CS_MASK, spi->chip_select);
-+	conf |= FIELD_PREP(SPICC_CS_MASK, spi_get_chipselect(spi, 0));
- 
- 	/* Default 8bit word */
- 	conf |= FIELD_PREP(SPICC_BITLENGTH_MASK, 8 - 1);
-diff --git a/drivers/spi/spi-microchip-core.c b/drivers/spi/spi-microchip-core.c
-index aeaa1da88f39e..1a90fcfe60151 100644
---- a/drivers/spi/spi-microchip-core.c
-+++ b/drivers/spi/spi-microchip-core.c
-@@ -247,8 +247,8 @@ static void mchp_corespi_set_cs(struct spi_device *spi, bool disable)
- 	struct mchp_corespi *corespi = spi_master_get_devdata(spi->master);
- 
- 	reg = mchp_corespi_read(corespi, REG_SLAVE_SELECT);
--	reg &= ~BIT(spi->chip_select);
--	reg |= !disable << spi->chip_select;
-+	reg &= ~BIT(spi_get_chipselect(spi, 0));
-+	reg |= !disable << spi_get_chipselect(spi, 0);
- 
- 	mchp_corespi_write(corespi, REG_SLAVE_SELECT, reg);
- }
-@@ -265,7 +265,7 @@ static int mchp_corespi_setup(struct spi_device *spi)
- 	 */
- 	if (spi->mode & SPI_CS_HIGH) {
- 		reg = mchp_corespi_read(corespi, REG_SLAVE_SELECT);
--		reg |= BIT(spi->chip_select);
-+		reg |= BIT(spi_get_chipselect(spi, 0));
- 		mchp_corespi_write(corespi, REG_SLAVE_SELECT, reg);
- 	}
- 	return 0;
-diff --git a/drivers/spi/spi-mpc512x-psc.c b/drivers/spi/spi-mpc512x-psc.c
-index 0b4d49ef84de8..1e7d081c141ae 100644
---- a/drivers/spi/spi-mpc512x-psc.c
-+++ b/drivers/spi/spi-mpc512x-psc.c
-@@ -124,17 +124,17 @@ static void mpc512x_psc_spi_activate_cs(struct spi_device *spi)
- 	out_be32(psc_addr(mps, ccr), ccr);
- 	mps->bits_per_word = cs->bits_per_word;
- 
--	if (spi->cs_gpiod) {
-+	if (spi_get_csgpiod(spi, 0)) {
- 		/* gpiolib will deal with the inversion */
--		gpiod_set_value(spi->cs_gpiod, 1);
-+		gpiod_set_value(spi_get_csgpiod(spi, 0), 1);
- 	}
- }
- 
- static void mpc512x_psc_spi_deactivate_cs(struct spi_device *spi)
- {
--	if (spi->cs_gpiod) {
-+	if (spi_get_csgpiod(spi, 0)) {
- 		/* gpiolib will deal with the inversion */
--		gpiod_set_value(spi->cs_gpiod, 0);
-+		gpiod_set_value(spi_get_csgpiod(spi, 0), 0);
- 	}
- }
- 
-diff --git a/drivers/spi/spi-mpc52xx.c b/drivers/spi/spi-mpc52xx.c
-index 7b64e64c65cfe..c474a767fc484 100644
---- a/drivers/spi/spi-mpc52xx.c
-+++ b/drivers/spi/spi-mpc52xx.c
-@@ -101,7 +101,7 @@ static void mpc52xx_spi_chipsel(struct mpc52xx_spi *ms, int value)
- 	int cs;
- 
- 	if (ms->gpio_cs_count > 0) {
--		cs = ms->message->spi->chip_select;
-+		cs = spi_get_chipselect(ms->message->spi, 0);
- 		gpiod_set_value(ms->gpio_cs[cs], value);
- 	} else {
- 		out_8(ms->regs + SPI_PORTDATA, value ? 0 : 0x08);
-diff --git a/drivers/spi/spi-mt65xx.c b/drivers/spi/spi-mt65xx.c
-index 9eab6c20dbc56..21c321f437667 100644
---- a/drivers/spi/spi-mt65xx.c
-+++ b/drivers/spi/spi-mt65xx.c
-@@ -421,7 +421,7 @@ static int mtk_spi_hw_init(struct spi_master *master,
- 
- 	/* pad select */
- 	if (mdata->dev_comp->need_pad_sel)
--		writel(mdata->pad_sel[spi->chip_select],
-+		writel(mdata->pad_sel[spi_get_chipselect(spi, 0)],
- 		       mdata->base + SPI_PAD_SEL_REG);
- 
- 	/* tick delay */
-@@ -735,9 +735,9 @@ static int mtk_spi_setup(struct spi_device *spi)
- 	if (!spi->controller_data)
- 		spi->controller_data = (void *)&mtk_default_chip_info;
- 
--	if (mdata->dev_comp->need_pad_sel && spi->cs_gpiod)
-+	if (mdata->dev_comp->need_pad_sel && spi_get_csgpiod(spi, 0))
- 		/* CS de-asserted, gpiolib will handle inversion */
--		gpiod_direction_output(spi->cs_gpiod, 0);
-+		gpiod_direction_output(spi_get_csgpiod(spi, 0), 0);
- 
- 	return 0;
- }
-diff --git a/drivers/spi/spi-mt7621.c b/drivers/spi/spi-mt7621.c
-index c4cc8e2f85e2f..3e9d396b33bd3 100644
---- a/drivers/spi/spi-mt7621.c
-+++ b/drivers/spi/spi-mt7621.c
-@@ -76,7 +76,7 @@ static inline void mt7621_spi_write(struct mt7621_spi *rs, u32 reg, u32 val)
- static void mt7621_spi_set_cs(struct spi_device *spi, int enable)
- {
- 	struct mt7621_spi *rs = spidev_to_mt7621_spi(spi);
--	int cs = spi->chip_select;
-+	int cs = spi_get_chipselect(spi, 0);
- 	u32 polar = 0;
- 	u32 master;
- 
-diff --git a/drivers/spi/spi-mux.c b/drivers/spi/spi-mux.c
-index 0709e987bd5ab..fa8c1f740c702 100644
---- a/drivers/spi/spi-mux.c
-+++ b/drivers/spi/spi-mux.c
-@@ -51,22 +51,22 @@ static int spi_mux_select(struct spi_device *spi)
- 	struct spi_mux_priv *priv = spi_controller_get_devdata(spi->controller);
- 	int ret;
- 
--	ret = mux_control_select(priv->mux, spi->chip_select);
-+	ret = mux_control_select(priv->mux, spi_get_chipselect(spi, 0));
- 	if (ret)
- 		return ret;
- 
--	if (priv->current_cs == spi->chip_select)
-+	if (priv->current_cs == spi_get_chipselect(spi, 0))
- 		return 0;
- 
- 	dev_dbg(&priv->spi->dev, "setting up the mux for cs %d\n",
--		spi->chip_select);
-+		spi_get_chipselect(spi, 0));
- 
- 	/* copy the child device's settings except for the cs */
- 	priv->spi->max_speed_hz = spi->max_speed_hz;
- 	priv->spi->mode = spi->mode;
- 	priv->spi->bits_per_word = spi->bits_per_word;
- 
--	priv->current_cs = spi->chip_select;
-+	priv->current_cs = spi_get_chipselect(spi, 0);
- 
- 	return 0;
- }
-diff --git a/drivers/spi/spi-mxic.c b/drivers/spi/spi-mxic.c
-index a3dba17390eba..52bd2c49c34e2 100644
---- a/drivers/spi/spi-mxic.c
-+++ b/drivers/spi/spi-mxic.c
-@@ -306,8 +306,8 @@ static u32 mxic_spi_prep_hc_cfg(struct spi_device *spi, u32 flags)
- 		nio = 2;
- 
- 	return flags | HC_CFG_NIO(nio) |
--	       HC_CFG_TYPE(spi->chip_select, HC_CFG_TYPE_SPI_NOR) |
--	       HC_CFG_SLV_ACT(spi->chip_select) | HC_CFG_IDLE_SIO_LVL(1);
-+	       HC_CFG_TYPE(spi_get_chipselect(spi, 0), HC_CFG_TYPE_SPI_NOR) |
-+	       HC_CFG_SLV_ACT(spi_get_chipselect(spi, 0)) | HC_CFG_IDLE_SIO_LVL(1);
- }
- 
- static u32 mxic_spi_mem_prep_op_cfg(const struct spi_mem_op *op,
-@@ -405,7 +405,7 @@ static ssize_t mxic_spi_mem_dirmap_read(struct spi_mem_dirmap_desc *desc,
- 	len = min_t(size_t, len, mxic->linear.size);
- 	writel(len, mxic->regs + LRD_RANGE);
- 	writel(LMODE_CMD0(desc->info.op_tmpl.cmd.opcode) |
--	       LMODE_SLV_ACT(desc->mem->spi->chip_select) |
-+	       LMODE_SLV_ACT(spi_get_chipselect(desc->mem->spi, 0)) |
- 	       LMODE_EN,
- 	       mxic->regs + LRD_CTRL);
- 
-@@ -449,7 +449,7 @@ static ssize_t mxic_spi_mem_dirmap_write(struct spi_mem_dirmap_desc *desc,
- 	len = min_t(size_t, len, mxic->linear.size);
- 	writel(len, mxic->regs + LWR_RANGE);
- 	writel(LMODE_CMD0(desc->info.op_tmpl.cmd.opcode) |
--	       LMODE_SLV_ACT(desc->mem->spi->chip_select) |
-+	       LMODE_SLV_ACT(spi_get_chipselect(desc->mem->spi, 0)) |
- 	       LMODE_EN,
- 	       mxic->regs + LWR_CTRL);
- 
-@@ -524,7 +524,7 @@ static int mxic_spi_mem_exec_op(struct spi_mem *mem,
- 	writel(HC_EN_BIT, mxic->regs + HC_EN);
- 
- 	writel(mxic_spi_mem_prep_op_cfg(op, op->data.nbytes),
--	       mxic->regs + SS_CTRL(mem->spi->chip_select));
-+	       mxic->regs + SS_CTRL(spi_get_chipselect(mem->spi, 0)));
- 
- 	writel(readl(mxic->regs + HC_CFG) | HC_CFG_MAN_CS_ASSERT,
- 	       mxic->regs + HC_CFG);
-diff --git a/drivers/spi/spi-mxs.c b/drivers/spi/spi-mxs.c
-index 55178579f3c6f..98076aa4b1c7e 100644
---- a/drivers/spi/spi-mxs.c
-+++ b/drivers/spi/spi-mxs.c
-@@ -369,7 +369,7 @@ static int mxs_spi_transfer_one(struct spi_master *master,
- 	/* Program CS register bits here, it will be used for all transfers. */
- 	writel(BM_SSP_CTRL0_WAIT_FOR_CMD | BM_SSP_CTRL0_WAIT_FOR_IRQ,
- 	       ssp->base + HW_SSP_CTRL0 + STMP_OFFSET_REG_CLR);
--	writel(mxs_spi_cs_to_reg(m->spi->chip_select),
-+	writel(mxs_spi_cs_to_reg(spi_get_chipselect(m->spi, 0)),
- 	       ssp->base + HW_SSP_CTRL0 + STMP_OFFSET_REG_SET);
- 
- 	list_for_each_entry(t, &m->transfers, transfer_list) {
-diff --git a/drivers/spi/spi-npcm-fiu.c b/drivers/spi/spi-npcm-fiu.c
-index 559d3a5b4062c..86e3978883fef 100644
---- a/drivers/spi/spi-npcm-fiu.c
-+++ b/drivers/spi/spi-npcm-fiu.c
-@@ -288,7 +288,7 @@ static ssize_t npcm_fiu_direct_read(struct spi_mem_dirmap_desc *desc,
- {
- 	struct npcm_fiu_spi *fiu =
- 		spi_controller_get_devdata(desc->mem->spi->master);
--	struct npcm_fiu_chip *chip = &fiu->chip[desc->mem->spi->chip_select];
-+	struct npcm_fiu_chip *chip = &fiu->chip[spi_get_chipselect(desc->mem->spi, 0)];
- 	void __iomem *src = (void __iomem *)(chip->flash_region_mapped_ptr +
- 					     offs);
- 	u8 *buf_rx = buf;
-@@ -315,7 +315,7 @@ static ssize_t npcm_fiu_direct_write(struct spi_mem_dirmap_desc *desc,
- {
- 	struct npcm_fiu_spi *fiu =
- 		spi_controller_get_devdata(desc->mem->spi->master);
--	struct npcm_fiu_chip *chip = &fiu->chip[desc->mem->spi->chip_select];
-+	struct npcm_fiu_chip *chip = &fiu->chip[spi_get_chipselect(desc->mem->spi, 0)];
- 	void __iomem *dst = (void __iomem *)(chip->flash_region_mapped_ptr +
- 					     offs);
- 	const u8 *buf_tx = buf;
-@@ -344,7 +344,7 @@ static int npcm_fiu_uma_read(struct spi_mem *mem,
- 
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_DEV_NUM,
--			   (mem->spi->chip_select <<
-+			   (spi_get_chipselect(mem->spi, 0) <<
- 			    NPCM_FIU_UMA_CTS_DEV_NUM_SHIFT));
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CMD,
- 			   NPCM_FIU_UMA_CMD_CMD, op->cmd.opcode);
-@@ -398,7 +398,7 @@ static int npcm_fiu_uma_write(struct spi_mem *mem,
- 
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_DEV_NUM,
--			   (mem->spi->chip_select <<
-+			   (spi_get_chipselect(mem->spi, 0) <<
- 			    NPCM_FIU_UMA_CTS_DEV_NUM_SHIFT));
- 
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CMD,
-@@ -451,7 +451,7 @@ static int npcm_fiu_manualwrite(struct spi_mem *mem,
- 
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_DEV_NUM,
--			   (mem->spi->chip_select <<
-+			   (spi_get_chipselect(mem->spi, 0) <<
- 			    NPCM_FIU_UMA_CTS_DEV_NUM_SHIFT));
- 	regmap_update_bits(fiu->regmap, NPCM_FIU_UMA_CTS,
- 			   NPCM_FIU_UMA_CTS_SW_CS, 0);
-@@ -545,7 +545,7 @@ static int npcm_fiu_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- {
- 	struct npcm_fiu_spi *fiu =
- 		spi_controller_get_devdata(mem->spi->master);
--	struct npcm_fiu_chip *chip = &fiu->chip[mem->spi->chip_select];
-+	struct npcm_fiu_chip *chip = &fiu->chip[spi_get_chipselect(mem->spi, 0)];
- 	int ret = 0;
- 	u8 *buf;
- 
-@@ -605,7 +605,7 @@ static int npcm_fiu_dirmap_create(struct spi_mem_dirmap_desc *desc)
- {
- 	struct npcm_fiu_spi *fiu =
- 		spi_controller_get_devdata(desc->mem->spi->master);
--	struct npcm_fiu_chip *chip = &fiu->chip[desc->mem->spi->chip_select];
-+	struct npcm_fiu_chip *chip = &fiu->chip[spi_get_chipselect(desc->mem->spi, 0)];
- 	struct regmap *gcr_regmap;
- 
- 	if (!fiu->res_mem) {
-@@ -624,7 +624,7 @@ static int npcm_fiu_dirmap_create(struct spi_mem_dirmap_desc *desc)
- 		chip->flash_region_mapped_ptr =
- 			devm_ioremap(fiu->dev, (fiu->res_mem->start +
- 							(fiu->info->max_map_size *
--						    desc->mem->spi->chip_select)),
-+						    spi_get_chipselect(desc->mem->spi, 0))),
- 					     (u32)desc->info.length);
- 		if (!chip->flash_region_mapped_ptr) {
- 			dev_warn(fiu->dev, "Error mapping memory region, direct read disabled\n");
-@@ -669,9 +669,9 @@ static int npcm_fiu_setup(struct spi_device *spi)
- 	struct npcm_fiu_spi *fiu = spi_controller_get_devdata(ctrl);
- 	struct npcm_fiu_chip *chip;
- 
--	chip = &fiu->chip[spi->chip_select];
-+	chip = &fiu->chip[spi_get_chipselect(spi, 0)];
- 	chip->fiu = fiu;
--	chip->chipselect = spi->chip_select;
-+	chip->chipselect = spi_get_chipselect(spi, 0);
- 	chip->clkrate = spi->max_speed_hz;
- 
- 	fiu->clkrate = clk_get_rate(fiu->clk);
-diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
-index 1c1991a26c153..e9baf93aef7e1 100644
---- a/drivers/spi/spi-nxp-fspi.c
-+++ b/drivers/spi/spi-nxp-fspi.c
-@@ -663,7 +663,7 @@ static void nxp_fspi_select_mem(struct nxp_fspi *f, struct spi_device *spi)
- 	 * Return, if previously selected slave device is same as current
- 	 * requested slave device.
- 	 */
--	if (f->selected == spi->chip_select)
-+	if (f->selected == spi_get_chipselect(spi, 0))
- 		return;
- 
- 	/* Reset FLSHxxCR0 registers */
-@@ -676,9 +676,9 @@ static void nxp_fspi_select_mem(struct nxp_fspi *f, struct spi_device *spi)
- 	size_kb = FSPI_FLSHXCR0_SZ(f->memmap_phy_size);
- 
- 	fspi_writel(f, size_kb, f->iobase + FSPI_FLSHA1CR0 +
--		    4 * spi->chip_select);
-+		    4 * spi_get_chipselect(spi, 0));
- 
--	dev_dbg(f->dev, "Slave device [CS:%x] selected\n", spi->chip_select);
-+	dev_dbg(f->dev, "Slave device [CS:%x] selected\n", spi_get_chipselect(spi, 0));
- 
- 	nxp_fspi_clk_disable_unprep(f);
- 
-@@ -690,7 +690,7 @@ static void nxp_fspi_select_mem(struct nxp_fspi *f, struct spi_device *spi)
- 	if (ret)
- 		return;
- 
--	f->selected = spi->chip_select;
-+	f->selected = spi_get_chipselect(spi, 0);
- }
- 
- static int nxp_fspi_read_ahb(struct nxp_fspi *f, const struct spi_mem_op *op)
-@@ -1055,7 +1055,7 @@ static const char *nxp_fspi_get_name(struct spi_mem *mem)
- 
- 	name = devm_kasprintf(dev, GFP_KERNEL,
- 			      "%s-%d", dev_name(f->dev),
--			      mem->spi->chip_select);
-+			      spi_get_chipselect(mem->spi, 0));
- 
- 	if (!name) {
- 		dev_err(dev, "failed to get memory for custom flash name\n");
-diff --git a/drivers/spi/spi-omap-uwire.c b/drivers/spi/spi-omap-uwire.c
-index 20c87163d612e..5b3a5e654ddd4 100644
---- a/drivers/spi/spi-omap-uwire.c
-+++ b/drivers/spi/spi-omap-uwire.c
-@@ -179,7 +179,7 @@ static void uwire_chipselect(struct spi_device *spi, int value)
- 
- 	w = uwire_read_reg(UWIRE_CSR);
- 	old_cs = (w >> 10) & 0x03;
--	if (value == BITBANG_CS_INACTIVE || old_cs != spi->chip_select) {
-+	if (value == BITBANG_CS_INACTIVE || old_cs != spi_get_chipselect(spi, 0)) {
- 		/* Deselect this CS, or the previous CS */
- 		w &= ~CS_CMD;
- 		uwire_write_reg(UWIRE_CSR, w);
-@@ -193,7 +193,7 @@ static void uwire_chipselect(struct spi_device *spi, int value)
- 		else
- 			uwire_write_reg(UWIRE_SR4, 0);
- 
--		w = spi->chip_select << 10;
-+		w = spi_get_chipselect(spi, 0) << 10;
- 		w |= CS_CMD;
- 		uwire_write_reg(UWIRE_CSR, w);
- 	}
-@@ -210,7 +210,7 @@ static int uwire_txrx(struct spi_device *spi, struct spi_transfer *t)
- 	if (!t->tx_buf && !t->rx_buf)
- 		return 0;
- 
--	w = spi->chip_select << 10;
-+	w = spi_get_chipselect(spi, 0) << 10;
- 	w |= CS_CMD;
- 
- 	if (t->tx_buf) {
-@@ -408,7 +408,7 @@ static int uwire_setup_transfer(struct spi_device *spi, struct spi_transfer *t)
- 		rate /= 8;
- 		break;
- 	}
--	omap_uwire_configure_mode(spi->chip_select, flags);
-+	omap_uwire_configure_mode(spi_get_chipselect(spi, 0), flags);
- 	pr_debug("%s: uwire flags %02x, armxor %lu KHz, SCK %lu KHz\n",
- 			__func__, flags,
- 			clk_get_rate(uwire->ck) / 1000,
-diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
-index 6ba9b0d7710b0..5e404da112a2f 100644
---- a/drivers/spi/spi-omap2-mcspi.c
-+++ b/drivers/spi/spi-omap2-mcspi.c
-@@ -379,7 +379,7 @@ static void omap2_mcspi_rx_callback(void *data)
- {
- 	struct spi_device *spi = data;
- 	struct omap2_mcspi *mcspi = spi_master_get_devdata(spi->master);
--	struct omap2_mcspi_dma *mcspi_dma = &mcspi->dma_channels[spi->chip_select];
-+	struct omap2_mcspi_dma *mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
- 
- 	/* We must disable the DMA RX request */
- 	omap2_mcspi_set_dma_req(spi, 1, 0);
-@@ -391,7 +391,7 @@ static void omap2_mcspi_tx_callback(void *data)
- {
- 	struct spi_device *spi = data;
- 	struct omap2_mcspi *mcspi = spi_master_get_devdata(spi->master);
--	struct omap2_mcspi_dma *mcspi_dma = &mcspi->dma_channels[spi->chip_select];
-+	struct omap2_mcspi_dma *mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
- 
- 	/* We must disable the DMA TX request */
- 	omap2_mcspi_set_dma_req(spi, 0, 0);
-@@ -408,7 +408,7 @@ static void omap2_mcspi_tx_dma(struct spi_device *spi,
- 	struct dma_async_tx_descriptor *tx;
- 
- 	mcspi = spi_master_get_devdata(spi->master);
--	mcspi_dma = &mcspi->dma_channels[spi->chip_select];
-+	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
- 
- 	dmaengine_slave_config(mcspi_dma->dma_tx, &cfg);
- 
-@@ -446,7 +446,7 @@ omap2_mcspi_rx_dma(struct spi_device *spi, struct spi_transfer *xfer,
- 	struct dma_async_tx_descriptor *tx;
- 
- 	mcspi = spi_master_get_devdata(spi->master);
--	mcspi_dma = &mcspi->dma_channels[spi->chip_select];
-+	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
- 	count = xfer->len;
- 
- 	/*
-@@ -591,7 +591,7 @@ omap2_mcspi_txrx_dma(struct spi_device *spi, struct spi_transfer *xfer)
- 	int			wait_res;
- 
- 	mcspi = spi_master_get_devdata(spi->master);
--	mcspi_dma = &mcspi->dma_channels[spi->chip_select];
-+	mcspi_dma = &mcspi->dma_channels[spi_get_chipselect(spi, 0)];
- 
- 	if (cs->word_len <= 8) {
- 		width = DMA_SLAVE_BUSWIDTH_1_BYTE;
-@@ -1062,8 +1062,8 @@ static int omap2_mcspi_setup(struct spi_device *spi)
- 		cs = kzalloc(sizeof(*cs), GFP_KERNEL);
- 		if (!cs)
- 			return -ENOMEM;
--		cs->base = mcspi->base + spi->chip_select * 0x14;
--		cs->phys = mcspi->phys + spi->chip_select * 0x14;
-+		cs->base = mcspi->base + spi_get_chipselect(spi, 0) * 0x14;
-+		cs->phys = mcspi->phys + spi_get_chipselect(spi, 0) * 0x14;
- 		cs->mode = 0;
- 		cs->chconf0 = 0;
- 		cs->chctrl0 = 0;
-@@ -1142,7 +1142,7 @@ static int omap2_mcspi_transfer_one(struct spi_master *master,
- 	u32				chconf;
- 
- 	mcspi = spi_master_get_devdata(master);
--	mcspi_dma = mcspi->dma_channels + spi->chip_select;
-+	mcspi_dma = mcspi->dma_channels + spi_get_chipselect(spi, 0);
- 	cs = spi->controller_state;
- 	cd = spi->controller_data;
- 
-@@ -1158,7 +1158,7 @@ static int omap2_mcspi_transfer_one(struct spi_master *master,
- 
- 	omap2_mcspi_set_enable(spi, 0);
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		omap2_mcspi_set_cs(spi, spi->mode & SPI_CS_HIGH);
- 
- 	if (par_override ||
-@@ -1247,7 +1247,7 @@ static int omap2_mcspi_transfer_one(struct spi_master *master,
- 
- 	omap2_mcspi_set_enable(spi, 0);
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		omap2_mcspi_set_cs(spi, !(spi->mode & SPI_CS_HIGH));
- 
- 	if (mcspi->fifo_depth > 0 && t)
-@@ -1289,7 +1289,7 @@ static bool omap2_mcspi_can_dma(struct spi_master *master,
- {
- 	struct omap2_mcspi *mcspi = spi_master_get_devdata(spi->master);
- 	struct omap2_mcspi_dma *mcspi_dma =
--		&mcspi->dma_channels[spi->chip_select];
-+		&mcspi->dma_channels[spi_get_chipselect(spi, 0)];
- 
- 	if (!mcspi_dma->dma_rx || !mcspi_dma->dma_tx)
- 		return false;
-@@ -1307,7 +1307,7 @@ static size_t omap2_mcspi_max_xfer_size(struct spi_device *spi)
- {
- 	struct omap2_mcspi *mcspi = spi_master_get_devdata(spi->master);
- 	struct omap2_mcspi_dma *mcspi_dma =
--		&mcspi->dma_channels[spi->chip_select];
-+		&mcspi->dma_channels[spi_get_chipselect(spi, 0)];
- 
- 	if (mcspi->max_xfer_len && mcspi_dma->dma_rx)
- 		return mcspi->max_xfer_len;
-diff --git a/drivers/spi/spi-orion.c b/drivers/spi/spi-orion.c
-index 565cd4c48d7bd..13e60976692cc 100644
---- a/drivers/spi/spi-orion.c
-+++ b/drivers/spi/spi-orion.c
-@@ -346,7 +346,7 @@ static void orion_spi_set_cs(struct spi_device *spi, bool enable)
- 	 * as it is handled by a GPIO, but that doesn't matter. What we need
- 	 * is to deassert the old chip select and assert some other chip select.
- 	 */
--	val |= ORION_SPI_CS(spi->chip_select);
-+	val |= ORION_SPI_CS(spi_get_chipselect(spi, 0));
- 
- 	/*
- 	 * Chip select logic is inverted from spi_set_cs(). For lines using a
-@@ -470,7 +470,7 @@ orion_spi_write_read(struct spi_device *spi, struct spi_transfer *xfer)
- 	unsigned int count;
- 	int word_len;
- 	struct orion_spi *orion_spi;
--	int cs = spi->chip_select;
-+	int cs = spi_get_chipselect(spi, 0);
- 	void __iomem *vaddr;
- 
- 	word_len = spi->bits_per_word;
-diff --git a/drivers/spi/spi-pci1xxxx.c b/drivers/spi/spi-pci1xxxx.c
-index 13efbfeff92ce..82d4bfeea1fa4 100644
---- a/drivers/spi/spi-pci1xxxx.c
-+++ b/drivers/spi/spi-pci1xxxx.c
-@@ -116,11 +116,11 @@ static void pci1xxxx_spi_set_cs(struct spi_device *spi, bool enable)
- 	regval = readl(par->reg_base + SPI_MST_CTL_REG_OFFSET(p->hw_inst));
- 	if (enable) {
- 		regval &= ~SPI_MST_CTL_DEVSEL_MASK;
--		regval |= (spi->chip_select << 25);
-+		regval |= (spi_get_chipselect(spi, 0) << 25);
- 		writel(regval,
- 		       par->reg_base + SPI_MST_CTL_REG_OFFSET(p->hw_inst));
- 	} else {
--		regval &= ~(spi->chip_select << 25);
-+		regval &= ~(spi_get_chipselect(spi, 0) << 25);
- 		writel(regval,
- 		       par->reg_base + SPI_MST_CTL_REG_OFFSET(p->hw_inst));
- 
-diff --git a/drivers/spi/spi-pic32-sqi.c b/drivers/spi/spi-pic32-sqi.c
-index 86ad17597f5fd..ed02d17897d19 100644
---- a/drivers/spi/spi-pic32-sqi.c
-+++ b/drivers/spi/spi-pic32-sqi.c
-@@ -267,7 +267,7 @@ static int pic32_sqi_one_transfer(struct pic32_sqi *sqi,
- 	u32 nbits;
- 
- 	/* Device selection */
--	bd_ctrl = spi->chip_select << BD_DEVSEL_SHIFT;
-+	bd_ctrl = spi_get_chipselect(spi, 0) << BD_DEVSEL_SHIFT;
- 
- 	/* half-duplex: select transfer buffer, direction and lane */
- 	if (xfer->rx_buf) {
-diff --git a/drivers/spi/spi-pic32.c b/drivers/spi/spi-pic32.c
-index 7e5c09a7d4890..387673694f911 100644
---- a/drivers/spi/spi-pic32.c
-+++ b/drivers/spi/spi-pic32.c
-@@ -591,7 +591,7 @@ static int pic32_spi_setup(struct spi_device *spi)
- 	 * unreliable/erroneous SPI transactions.
- 	 * To avoid that we will always handle /CS by toggling GPIO.
- 	 */
--	if (!spi->cs_gpiod)
-+	if (!spi_get_csgpiod(spi, 0))
- 		return -EINVAL;
- 
- 	return 0;
-@@ -600,7 +600,7 @@ static int pic32_spi_setup(struct spi_device *spi)
- static void pic32_spi_cleanup(struct spi_device *spi)
- {
- 	/* de-activate cs-gpio, gpiolib will handle inversion */
--	gpiod_direction_output(spi->cs_gpiod, 0);
-+	gpiod_direction_output(spi_get_csgpiod(spi, 0), 0);
- }
- 
- static int pic32_spi_dma_prep(struct pic32_spi *pic32s, struct device *dev)
-diff --git a/drivers/spi/spi-pl022.c b/drivers/spi/spi-pl022.c
-index a17ff839117f9..982407bc5d9f9 100644
---- a/drivers/spi/spi-pl022.c
-+++ b/drivers/spi/spi-pl022.c
-@@ -1587,9 +1587,9 @@ static int pl022_transfer_one_message(struct spi_master *master,
- 
- 	/* Setup the SPI using the per chip configuration */
- 	pl022->cur_chip = spi_get_ctldata(msg->spi);
--	pl022->cur_cs = msg->spi->chip_select;
-+	pl022->cur_cs = spi_get_chipselect(msg->spi, 0);
- 	/* This is always available but may be set to -ENOENT */
--	pl022->cur_gpiod = msg->spi->cs_gpiod;
-+	pl022->cur_gpiod = spi_get_csgpiod(msg->spi, 0);
- 
- 	restore_state(pl022);
- 	flush(pl022);
-diff --git a/drivers/spi/spi-pxa2xx.c b/drivers/spi/spi-pxa2xx.c
-index 32cc82a89ec1e..abcdc1eb1a40f 100644
---- a/drivers/spi/spi-pxa2xx.c
-+++ b/drivers/spi/spi-pxa2xx.c
-@@ -368,7 +368,7 @@ static void lpss_ssp_select_cs(struct spi_device *spi,
- 
- 	value = __lpss_ssp_read_priv(drv_data, config->reg_cs_ctrl);
- 
--	cs = spi->chip_select;
-+	cs = spi_get_chipselect(spi, 0);
- 	cs <<= config->cs_sel_shift;
- 	if (cs != (value & config->cs_sel_mask)) {
- 		/*
-@@ -429,7 +429,7 @@ static void cs_assert(struct spi_device *spi)
- 		spi_controller_get_devdata(spi->controller);
- 
- 	if (drv_data->ssp_type == CE4100_SSP) {
--		pxa2xx_spi_write(drv_data, SSSR, spi->chip_select);
-+		pxa2xx_spi_write(drv_data, SSSR, spi_get_chipselect(spi, 0));
- 		return;
- 	}
- 
-@@ -1217,7 +1217,7 @@ static int setup(struct spi_device *spi)
- 			return -ENOMEM;
- 
- 		if (drv_data->ssp_type == CE4100_SSP) {
--			if (spi->chip_select > 4) {
-+			if (spi_get_chipselect(spi, 0) > 4) {
- 				dev_err(&spi->dev,
- 					"failed setup: cs number must not be > 4.\n");
- 				kfree(chip);
-diff --git a/drivers/spi/spi-qcom-qspi.c b/drivers/spi/spi-qcom-qspi.c
-index c334dfec4117a..33c056fd5f4b7 100644
---- a/drivers/spi/spi-qcom-qspi.c
-+++ b/drivers/spi/spi-qcom-qspi.c
-@@ -311,7 +311,7 @@ static int qcom_qspi_prepare_message(struct spi_master *master,
- 
- 	mstr_cfg = readl(ctrl->base + MSTR_CONFIG);
- 	mstr_cfg &= ~CHIP_SELECT_NUM;
--	if (message->spi->chip_select)
-+	if (spi_get_chipselect(message->spi, 0))
- 		mstr_cfg |= CHIP_SELECT_NUM;
- 
- 	mstr_cfg |= FB_CLK_EN | PIN_WPN | PIN_HOLDN | SBL_EN | FULL_CYCLE_MODE;
-diff --git a/drivers/spi/spi-rb4xx.c b/drivers/spi/spi-rb4xx.c
-index 9f97d18a05c10..3c79a5d85ac26 100644
---- a/drivers/spi/spi-rb4xx.c
-+++ b/drivers/spi/spi-rb4xx.c
-@@ -107,7 +107,7 @@ static int rb4xx_transfer_one(struct spi_master *master,
- 	 * command set was designed to almost not clash with that of the
- 	 * boot flash.
- 	 */
--	if (spi->chip_select == 2)
-+	if (spi_get_chipselect(spi, 0) == 2)
- 		/* MMC */
- 		spi_ioc = AR71XX_SPI_IOC_CS0;
- 	else
-diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
-index 69347b6bf60cd..ce658295579a4 100644
---- a/drivers/spi/spi-rockchip-sfc.c
-+++ b/drivers/spi/spi-rockchip-sfc.c
-@@ -346,7 +346,7 @@ static int rockchip_sfc_xfer_setup(struct rockchip_sfc *sfc,
- 
- 	/* set the Controller */
- 	ctrl |= SFC_CTRL_PHASE_SEL_NEGETIVE;
--	cmd |= mem->spi->chip_select << SFC_CMD_CS_SHIFT;
-+	cmd |= spi_get_chipselect(mem->spi, 0) << SFC_CMD_CS_SHIFT;
- 
- 	dev_dbg(sfc->dev, "sfc addr.nbytes=%x(x%d) dummy.nbytes=%x(x%d)\n",
- 		op->addr.nbytes, op->addr.buswidth,
-diff --git a/drivers/spi/spi-rockchip.c b/drivers/spi/spi-rockchip.c
-index 79242dc5272de..adc5638eff4ba 100644
---- a/drivers/spi/spi-rockchip.c
-+++ b/drivers/spi/spi-rockchip.c
-@@ -246,28 +246,30 @@ static void rockchip_spi_set_cs(struct spi_device *spi, bool enable)
- 	bool cs_asserted = spi->mode & SPI_CS_HIGH ? enable : !enable;
- 
- 	/* Return immediately for no-op */
--	if (cs_asserted == rs->cs_asserted[spi->chip_select])
-+	if (cs_asserted == rs->cs_asserted[spi_get_chipselect(spi, 0)])
- 		return;
- 
- 	if (cs_asserted) {
- 		/* Keep things powered as long as CS is asserted */
- 		pm_runtime_get_sync(rs->dev);
- 
--		if (spi->cs_gpiod)
-+		if (spi_get_csgpiod(spi, 0))
- 			ROCKCHIP_SPI_SET_BITS(rs->regs + ROCKCHIP_SPI_SER, 1);
- 		else
--			ROCKCHIP_SPI_SET_BITS(rs->regs + ROCKCHIP_SPI_SER, BIT(spi->chip_select));
-+			ROCKCHIP_SPI_SET_BITS(rs->regs + ROCKCHIP_SPI_SER,
-+					      BIT(spi_get_chipselect(spi, 0)));
- 	} else {
--		if (spi->cs_gpiod)
-+		if (spi_get_csgpiod(spi, 0))
- 			ROCKCHIP_SPI_CLR_BITS(rs->regs + ROCKCHIP_SPI_SER, 1);
- 		else
--			ROCKCHIP_SPI_CLR_BITS(rs->regs + ROCKCHIP_SPI_SER, BIT(spi->chip_select));
-+			ROCKCHIP_SPI_CLR_BITS(rs->regs + ROCKCHIP_SPI_SER,
-+					      BIT(spi_get_chipselect(spi, 0)));
- 
- 		/* Drop reference from when we first asserted CS */
- 		pm_runtime_put(rs->dev);
- 	}
- 
--	rs->cs_asserted[spi->chip_select] = cs_asserted;
-+	rs->cs_asserted[spi_get_chipselect(spi, 0)] = cs_asserted;
- }
- 
- static void rockchip_spi_handle_err(struct spi_controller *ctlr,
-@@ -541,7 +543,7 @@ static int rockchip_spi_config(struct rockchip_spi *rs,
- 	if (spi->mode & SPI_LSB_FIRST)
- 		cr0 |= CR0_FBM_LSB << CR0_FBM_OFFSET;
- 	if (spi->mode & SPI_CS_HIGH)
--		cr0 |= BIT(spi->chip_select) << CR0_SOI_OFFSET;
-+		cr0 |= BIT(spi_get_chipselect(spi, 0)) << CR0_SOI_OFFSET;
- 
- 	if (xfer->rx_buf && xfer->tx_buf)
- 		cr0 |= CR0_XFM_TR << CR0_XFM_OFFSET;
-@@ -724,7 +726,7 @@ static int rockchip_spi_setup(struct spi_device *spi)
- 	struct rockchip_spi *rs = spi_controller_get_devdata(spi->controller);
- 	u32 cr0;
- 
--	if (!spi->cs_gpiod && (spi->mode & SPI_CS_HIGH) && !rs->cs_high_supported) {
-+	if (!spi_get_csgpiod(spi, 0) && (spi->mode & SPI_CS_HIGH) && !rs->cs_high_supported) {
- 		dev_warn(&spi->dev, "setup: non GPIO CS can't be active-high\n");
- 		return -EINVAL;
- 	}
-@@ -735,10 +737,10 @@ static int rockchip_spi_setup(struct spi_device *spi)
- 
- 	cr0 &= ~(0x3 << CR0_SCPH_OFFSET);
- 	cr0 |= ((spi->mode & 0x3) << CR0_SCPH_OFFSET);
--	if (spi->mode & SPI_CS_HIGH && spi->chip_select <= 1)
--		cr0 |= BIT(spi->chip_select) << CR0_SOI_OFFSET;
--	else if (spi->chip_select <= 1)
--		cr0 &= ~(BIT(spi->chip_select) << CR0_SOI_OFFSET);
-+	if (spi->mode & SPI_CS_HIGH && spi_get_chipselect(spi, 0) <= 1)
-+		cr0 |= BIT(spi_get_chipselect(spi, 0)) << CR0_SOI_OFFSET;
-+	else if (spi_get_chipselect(spi, 0) <= 1)
-+		cr0 &= ~(BIT(spi_get_chipselect(spi, 0)) << CR0_SOI_OFFSET);
- 
- 	writel_relaxed(cr0, rs->regs + ROCKCHIP_SPI_CTRLR0);
- 
-diff --git a/drivers/spi/spi-rspi.c b/drivers/spi/spi-rspi.c
-index 411b1307b7fd8..4d4b98f8eb80f 100644
---- a/drivers/spi/spi-rspi.c
-+++ b/drivers/spi/spi-rspi.c
-@@ -950,7 +950,7 @@ static int rspi_setup(struct spi_device *spi)
- 	struct rspi_data *rspi = spi_controller_get_devdata(spi->controller);
- 	u8 sslp;
- 
--	if (spi->cs_gpiod)
-+	if (spi_get_csgpiod(spi, 0))
- 		return 0;
- 
- 	pm_runtime_get_sync(&rspi->pdev->dev);
-@@ -958,9 +958,9 @@ static int rspi_setup(struct spi_device *spi)
- 
- 	sslp = rspi_read8(rspi, RSPI_SSLP);
- 	if (spi->mode & SPI_CS_HIGH)
--		sslp |= SSLP_SSLP(spi->chip_select);
-+		sslp |= SSLP_SSLP(spi_get_chipselect(spi, 0));
- 	else
--		sslp &= ~SSLP_SSLP(spi->chip_select);
-+		sslp &= ~SSLP_SSLP(spi_get_chipselect(spi, 0));
- 	rspi_write8(rspi, sslp, RSPI_SSLP);
- 
- 	spin_unlock_irq(&rspi->lock);
-@@ -1001,8 +1001,8 @@ static int rspi_prepare_message(struct spi_controller *ctlr,
- 		rspi->spcmd |= SPCMD_LSBF;
- 
- 	/* Configure slave signal to assert */
--	rspi->spcmd |= SPCMD_SSLA(spi->cs_gpiod ? rspi->ctlr->unused_native_cs
--						: spi->chip_select);
-+	rspi->spcmd |= SPCMD_SSLA(spi_get_csgpiod(spi, 0) ? rspi->ctlr->unused_native_cs
-+						: spi_get_chipselect(spi, 0));
- 
- 	/* CMOS output mode and MOSI signal from previous transfer */
- 	rspi->sppcr = 0;
-diff --git a/drivers/spi/spi-s3c64xx.c b/drivers/spi/spi-s3c64xx.c
-index 71d324ec9a70a..f6682bfe484c2 100644
---- a/drivers/spi/spi-s3c64xx.c
-+++ b/drivers/spi/spi-s3c64xx.c
-@@ -891,7 +891,7 @@ static int s3c64xx_spi_setup(struct spi_device *spi)
- 
- 	/* NULL is fine, we just avoid using the FB delay (=0) */
- 	if (IS_ERR(cs)) {
--		dev_err(&spi->dev, "No CS for SPI(%d)\n", spi->chip_select);
-+		dev_err(&spi->dev, "No CS for SPI(%d)\n", spi_get_chipselect(spi, 0));
- 		return -ENODEV;
- 	}
- 
-diff --git a/drivers/spi/spi-sc18is602.c b/drivers/spi/spi-sc18is602.c
-index 983b3621bc2ad..a12adc68731b3 100644
---- a/drivers/spi/spi-sc18is602.c
-+++ b/drivers/spi/spi-sc18is602.c
-@@ -70,7 +70,7 @@ static int sc18is602_txrx(struct sc18is602 *hw, struct spi_message *msg,
- 
- 	if (hw->tlen == 0) {
- 		/* First byte (I2C command) is chip select */
--		hw->buffer[0] = 1 << msg->spi->chip_select;
-+		hw->buffer[0] = 1 << spi_get_chipselect(msg->spi, 0);
- 		hw->tlen = 1;
- 		hw->rindex = 0;
- 	}
-@@ -229,7 +229,7 @@ static int sc18is602_setup(struct spi_device *spi)
- 	struct sc18is602 *hw = spi_master_get_devdata(spi->master);
- 
- 	/* SC18IS602 does not support CS2 */
--	if (hw->id == sc18is602 && spi->chip_select == 2)
-+	if (hw->id == sc18is602 && (spi_get_chipselect(spi, 0) == 2))
- 		return -ENXIO;
- 
- 	return 0;
-diff --git a/drivers/spi/spi-sh-msiof.c b/drivers/spi/spi-sh-msiof.c
-index 9bca3d076f053..87cb975ce9dc0 100644
---- a/drivers/spi/spi-sh-msiof.c
-+++ b/drivers/spi/spi-sh-msiof.c
-@@ -554,7 +554,7 @@ static int sh_msiof_spi_setup(struct spi_device *spi)
- 		spi_controller_get_devdata(spi->controller);
- 	u32 clr, set, tmp;
- 
--	if (spi->cs_gpiod || spi_controller_is_slave(p->ctlr))
-+	if (spi_get_csgpiod(spi, 0) || spi_controller_is_slave(p->ctlr))
- 		return 0;
- 
- 	if (p->native_cs_inited &&
-@@ -587,11 +587,11 @@ static int sh_msiof_prepare_message(struct spi_controller *ctlr,
- 	u32 ss, cs_high;
- 
- 	/* Configure pins before asserting CS */
--	if (spi->cs_gpiod) {
-+	if (spi_get_csgpiod((struct spi_device *)spi, 0)) {
- 		ss = ctlr->unused_native_cs;
- 		cs_high = p->native_cs_high;
- 	} else {
--		ss = spi->chip_select;
-+		ss = spi_get_chipselect((struct spi_device *)spi, 0);
- 		cs_high = !!(spi->mode & SPI_CS_HIGH);
- 	}
- 	sh_msiof_spi_set_pin_regs(p, ss, !!(spi->mode & SPI_CPOL),
-diff --git a/drivers/spi/spi-sh-sci.c b/drivers/spi/spi-sh-sci.c
-index 8f30531e14186..3003dd7c72c8a 100644
---- a/drivers/spi/spi-sh-sci.c
-+++ b/drivers/spi/spi-sh-sci.c
-@@ -108,7 +108,7 @@ static void sh_sci_spi_chipselect(struct spi_device *dev, int value)
- 	struct sh_sci_spi *sp = spi_master_get_devdata(dev->master);
- 
- 	if (sp->info->chip_select)
--		(sp->info->chip_select)(sp->info, dev->chip_select, value);
-+		(sp->info->chip_select)(sp->info, spi_get_chipselect(dev, 0), value);
- }
- 
- static int sh_sci_spi_probe(struct platform_device *dev)
-diff --git a/drivers/spi/spi-sifive.c b/drivers/spi/spi-sifive.c
-index e29e85cee88a2..7840ef940ff8e 100644
---- a/drivers/spi/spi-sifive.c
-+++ b/drivers/spi/spi-sifive.c
-@@ -135,13 +135,13 @@ sifive_spi_prepare_message(struct spi_master *master, struct spi_message *msg)
- 
- 	/* Update the chip select polarity */
- 	if (device->mode & SPI_CS_HIGH)
--		spi->cs_inactive &= ~BIT(device->chip_select);
-+		spi->cs_inactive &= ~BIT(spi_get_chipselect(device, 0));
- 	else
--		spi->cs_inactive |= BIT(device->chip_select);
-+		spi->cs_inactive |= BIT(spi_get_chipselect(device, 0));
- 	sifive_spi_write(spi, SIFIVE_SPI_REG_CSDEF, spi->cs_inactive);
- 
- 	/* Select the correct device */
--	sifive_spi_write(spi, SIFIVE_SPI_REG_CSID, device->chip_select);
-+	sifive_spi_write(spi, SIFIVE_SPI_REG_CSID, spi_get_chipselect(device, 0));
- 
- 	/* Set clock mode */
- 	sifive_spi_write(spi, SIFIVE_SPI_REG_SCKMODE,
-diff --git a/drivers/spi/spi-sn-f-ospi.c b/drivers/spi/spi-sn-f-ospi.c
-index 0aedade8908c4..93fc1f6f39b83 100644
---- a/drivers/spi/spi-sn-f-ospi.c
-+++ b/drivers/spi/spi-sn-f-ospi.c
-@@ -267,7 +267,7 @@ static void f_ospi_config_indir_protocol(struct f_ospi *ospi,
- 	int unit;
- 
- 	/* Set one chip select */
--	writel(BIT(spi->chip_select), ospi->base + OSPI_SSEL);
-+	writel(BIT(spi_get_chipselect(spi, 0)), ospi->base + OSPI_SSEL);
- 
- 	mode = f_ospi_get_mode(ospi, op->cmd.buswidth, 1);
- 	prot |= FIELD_PREP(OSPI_PROT_MODE_CODE_MASK, mode);
-diff --git a/drivers/spi/spi-st-ssc4.c b/drivers/spi/spi-st-ssc4.c
-index 843be803696bc..57aaae39e5f84 100644
---- a/drivers/spi/spi-st-ssc4.c
-+++ b/drivers/spi/spi-st-ssc4.c
-@@ -183,7 +183,7 @@ static int spi_st_setup(struct spi_device *spi)
- 		return -EINVAL;
- 	}
- 
--	if (!spi->cs_gpiod) {
-+	if (!spi_get_csgpiod(spi, 0)) {
- 		dev_err(&spi->dev, "no valid gpio assigned\n");
- 		return -EINVAL;
- 	}
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index 9131660c1afb2..b9e61372dcfbd 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -359,7 +359,7 @@ static int stm32_qspi_get_mode(u8 buswidth)
- static int stm32_qspi_send(struct spi_device *spi, const struct spi_mem_op *op)
- {
- 	struct stm32_qspi *qspi = spi_controller_get_devdata(spi->master);
--	struct stm32_qspi_flash *flash = &qspi->flash[spi->chip_select];
-+	struct stm32_qspi_flash *flash = &qspi->flash[spi_get_chipselect(spi, 0)];
- 	u32 ccr, cr;
- 	int timeout, err = 0, err_poll_status = 0;
- 
-@@ -564,7 +564,7 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
- 	struct spi_mem_op op;
- 	int ret = 0;
- 
--	if (!spi->cs_gpiod)
-+	if (!spi_get_csgpiod(spi, 0))
- 		return -EOPNOTSUPP;
- 
- 	ret = pm_runtime_resume_and_get(qspi->dev);
-@@ -573,7 +573,7 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
- 
- 	mutex_lock(&qspi->lock);
- 
--	gpiod_set_value_cansleep(spi->cs_gpiod, true);
-+	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), true);
- 
- 	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
- 		u8 dummy_bytes = 0;
-@@ -626,7 +626,7 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
- 	}
- 
- end_of_transfer:
--	gpiod_set_value_cansleep(spi->cs_gpiod, false);
-+	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), false);
- 
- 	mutex_unlock(&qspi->lock);
- 
-@@ -669,8 +669,8 @@ static int stm32_qspi_setup(struct spi_device *spi)
- 
- 	presc = DIV_ROUND_UP(qspi->clk_rate, spi->max_speed_hz) - 1;
- 
--	flash = &qspi->flash[spi->chip_select];
--	flash->cs = spi->chip_select;
-+	flash = &qspi->flash[spi_get_chipselect(spi, 0)];
-+	flash->cs = spi_get_chipselect(spi, 0);
- 	flash->presc = presc;
- 
- 	mutex_lock(&qspi->lock);
-diff --git a/drivers/spi/spi-sun4i.c b/drivers/spi/spi-sun4i.c
-index 6000d0761206c..1e3b1922059e3 100644
---- a/drivers/spi/spi-sun4i.c
-+++ b/drivers/spi/spi-sun4i.c
-@@ -167,7 +167,7 @@ static void sun4i_spi_set_cs(struct spi_device *spi, bool enable)
- 	reg = sun4i_spi_read(sspi, SUN4I_CTL_REG);
- 
- 	reg &= ~SUN4I_CTL_CS_MASK;
--	reg |= SUN4I_CTL_CS(spi->chip_select);
-+	reg |= SUN4I_CTL_CS(spi_get_chipselect(spi, 0));
- 
- 	/* We want to control the chip select manually */
- 	reg |= SUN4I_CTL_CS_MANUAL;
-diff --git a/drivers/spi/spi-sun6i.c b/drivers/spi/spi-sun6i.c
-index 23ad052528dbe..46e7c446503a5 100644
---- a/drivers/spi/spi-sun6i.c
-+++ b/drivers/spi/spi-sun6i.c
-@@ -174,7 +174,7 @@ static void sun6i_spi_set_cs(struct spi_device *spi, bool enable)
- 
- 	reg = sun6i_spi_read(sspi, SUN6I_TFR_CTL_REG);
- 	reg &= ~SUN6I_TFR_CTL_CS_MASK;
--	reg |= SUN6I_TFR_CTL_CS(spi->chip_select);
-+	reg |= SUN6I_TFR_CTL_CS(spi_get_chipselect(spi, 0));
- 
- 	if (enable)
- 		reg |= SUN6I_TFR_CTL_CS_LEVEL;
-diff --git a/drivers/spi/spi-synquacer.c b/drivers/spi/spi-synquacer.c
-index dc188f9202c97..733dc8c52b083 100644
---- a/drivers/spi/spi-synquacer.c
-+++ b/drivers/spi/spi-synquacer.c
-@@ -250,7 +250,7 @@ static int synquacer_spi_config(struct spi_master *master,
- 	}
- 
- 	mode = spi->mode;
--	cs = spi->chip_select;
-+	cs = spi_get_chipselect(spi, 0);
- 	speed = xfer->speed_hz;
- 	bpw = xfer->bits_per_word;
- 
-@@ -344,7 +344,7 @@ static int synquacer_spi_config(struct spi_master *master,
- 	sspi->bpw = bpw;
- 	sspi->mode = mode;
- 	sspi->speed = speed;
--	sspi->cs = spi->chip_select;
-+	sspi->cs = spi_get_chipselect(spi, 0);
- 	sspi->bus_width = bus_width;
- 
- 	return 0;
-@@ -488,7 +488,7 @@ static void synquacer_spi_set_cs(struct spi_device *spi, bool enable)
- 	val = readl(sspi->regs + SYNQUACER_HSSPI_REG_DMSTART);
- 	val &= ~(SYNQUACER_HSSPI_DMPSEL_CS_MASK <<
- 		 SYNQUACER_HSSPI_DMPSEL_CS_SHIFT);
--	val |= spi->chip_select << SYNQUACER_HSSPI_DMPSEL_CS_SHIFT;
-+	val |= spi_get_chipselect(spi, 0) << SYNQUACER_HSSPI_DMPSEL_CS_SHIFT;
- 
- 	if (!enable)
- 		val |= SYNQUACER_HSSPI_DMSTOP_STOP;
-diff --git a/drivers/spi/spi-tegra114.c b/drivers/spi/spi-tegra114.c
-index d9be80e3e1bcb..e334183241d72 100644
---- a/drivers/spi/spi-tegra114.c
-+++ b/drivers/spi/spi-tegra114.c
-@@ -747,7 +747,7 @@ static int tegra_spi_set_hw_cs_timing(struct spi_device *spi)
- 	if (setup_dly && hold_dly) {
- 		setup_hold = SPI_SETUP_HOLD(setup_dly - 1, hold_dly - 1);
- 		spi_cs_timing = SPI_CS_SETUP_HOLD(tspi->spi_cs_timing1,
--						  spi->chip_select,
-+						  spi_get_chipselect(spi, 0),
- 						  setup_hold);
- 		if (tspi->spi_cs_timing1 != spi_cs_timing) {
- 			tspi->spi_cs_timing1 = spi_cs_timing;
-@@ -760,9 +760,9 @@ static int tegra_spi_set_hw_cs_timing(struct spi_device *spi)
- 		inactive_cycles--;
- 	cs_state = inactive_cycles ? 0 : 1;
- 	spi_cs_timing = tspi->spi_cs_timing2;
--	SPI_SET_CS_ACTIVE_BETWEEN_PACKETS(spi_cs_timing, spi->chip_select,
-+	SPI_SET_CS_ACTIVE_BETWEEN_PACKETS(spi_cs_timing, spi_get_chipselect(spi, 0),
- 					  cs_state);
--	SPI_SET_CYCLES_BETWEEN_PACKETS(spi_cs_timing, spi->chip_select,
-+	SPI_SET_CYCLES_BETWEEN_PACKETS(spi_cs_timing, spi_get_chipselect(spi, 0),
- 				       inactive_cycles);
- 	if (tspi->spi_cs_timing2 != spi_cs_timing) {
- 		tspi->spi_cs_timing2 = spi_cs_timing;
-@@ -831,8 +831,8 @@ static u32 tegra_spi_setup_transfer_one(struct spi_device *spi,
- 			tegra_spi_writel(tspi, command1, SPI_COMMAND1);
- 
- 		/* GPIO based chip select control */
--		if (spi->cs_gpiod)
--			gpiod_set_value(spi->cs_gpiod, 1);
-+		if (spi_get_csgpiod(spi, 0))
-+			gpiod_set_value(spi_get_csgpiod(spi, 0), 1);
- 
- 		if (is_single_xfer && !(t->cs_change)) {
- 			tspi->use_hw_based_cs = true;
-@@ -846,7 +846,7 @@ static u32 tegra_spi_setup_transfer_one(struct spi_device *spi,
- 				command1 &= ~SPI_CS_SW_VAL;
- 		}
- 
--		if (tspi->last_used_cs != spi->chip_select) {
-+		if (tspi->last_used_cs != spi_get_chipselect(spi, 0)) {
- 			if (cdata && cdata->tx_clk_tap_delay)
- 				tx_tap = cdata->tx_clk_tap_delay;
- 			if (cdata && cdata->rx_clk_tap_delay)
-@@ -855,7 +855,7 @@ static u32 tegra_spi_setup_transfer_one(struct spi_device *spi,
- 				   SPI_RX_TAP_DELAY(rx_tap);
- 			if (command2 != tspi->def_command2_reg)
- 				tegra_spi_writel(tspi, command2, SPI_COMMAND2);
--			tspi->last_used_cs = spi->chip_select;
-+			tspi->last_used_cs = spi_get_chipselect(spi, 0);
- 		}
- 
- 	} else {
-@@ -896,7 +896,7 @@ static int tegra_spi_start_transfer_one(struct spi_device *spi,
- 		command1 |= SPI_TX_EN;
- 		tspi->cur_direction |= DATA_DIR_TX;
- 	}
--	command1 |= SPI_CS_SEL(spi->chip_select);
-+	command1 |= SPI_CS_SEL(spi_get_chipselect(spi, 0));
- 	tegra_spi_writel(tspi, command1, SPI_COMMAND1);
- 	tspi->command1_reg = command1;
- 
-@@ -980,14 +980,14 @@ static int tegra_spi_setup(struct spi_device *spi)
- 
- 	spin_lock_irqsave(&tspi->lock, flags);
- 	/* GPIO based chip select control */
--	if (spi->cs_gpiod)
--		gpiod_set_value(spi->cs_gpiod, 0);
-+	if (spi_get_csgpiod(spi, 0))
-+		gpiod_set_value(spi_get_csgpiod(spi, 0), 0);
- 
- 	val = tspi->def_command1_reg;
- 	if (spi->mode & SPI_CS_HIGH)
--		val &= ~SPI_CS_POL_INACTIVE(spi->chip_select);
-+		val &= ~SPI_CS_POL_INACTIVE(spi_get_chipselect(spi, 0));
- 	else
--		val |= SPI_CS_POL_INACTIVE(spi->chip_select);
-+		val |= SPI_CS_POL_INACTIVE(spi_get_chipselect(spi, 0));
- 	tspi->def_command1_reg = val;
- 	tegra_spi_writel(tspi, tspi->def_command1_reg, SPI_COMMAND1);
- 	spin_unlock_irqrestore(&tspi->lock, flags);
-@@ -1002,8 +1002,8 @@ static void tegra_spi_transfer_end(struct spi_device *spi)
- 	int cs_val = (spi->mode & SPI_CS_HIGH) ? 0 : 1;
- 
- 	/* GPIO based chip select control */
--	if (spi->cs_gpiod)
--		gpiod_set_value(spi->cs_gpiod, 0);
-+	if (spi_get_csgpiod(spi, 0))
-+		gpiod_set_value(spi_get_csgpiod(spi, 0), 0);
- 
- 	if (!tspi->use_hw_based_cs) {
- 		if (cs_val)
-diff --git a/drivers/spi/spi-tegra20-sflash.c b/drivers/spi/spi-tegra20-sflash.c
-index 220ee08c4a06c..f67d0aafa744c 100644
---- a/drivers/spi/spi-tegra20-sflash.c
-+++ b/drivers/spi/spi-tegra20-sflash.c
-@@ -280,7 +280,7 @@ static int tegra_sflash_start_transfer_one(struct spi_device *spi,
- 			command |= SPI_ACTIVE_SCLK_DRIVE_HIGH;
- 		else
- 			command |= SPI_ACTIVE_SCLK_DRIVE_LOW;
--		command |= SPI_CS0_EN << spi->chip_select;
-+		command |= SPI_CS0_EN << spi_get_chipselect(spi, 0);
- 	} else {
- 		command = tsd->command_reg;
- 		command &= ~SPI_BIT_LENGTH(~0);
-diff --git a/drivers/spi/spi-tegra20-slink.c b/drivers/spi/spi-tegra20-slink.c
-index 148043d0c2b84..0afba7dbd93aa 100644
---- a/drivers/spi/spi-tegra20-slink.c
-+++ b/drivers/spi/spi-tegra20-slink.c
-@@ -758,9 +758,9 @@ static int tegra_slink_setup(struct spi_device *spi)
- 	spin_lock_irqsave(&tspi->lock, flags);
- 	val = tspi->def_command_reg;
- 	if (spi->mode & SPI_CS_HIGH)
--		val |= cs_pol_bit[spi->chip_select];
-+		val |= cs_pol_bit[spi_get_chipselect(spi, 0)];
- 	else
--		val &= ~cs_pol_bit[spi->chip_select];
-+		val &= ~cs_pol_bit[spi_get_chipselect(spi, 0)];
- 	tspi->def_command_reg = val;
- 	tegra_slink_writel(tspi, tspi->def_command_reg, SLINK_COMMAND);
- 	spin_unlock_irqrestore(&tspi->lock, flags);
-@@ -781,7 +781,7 @@ static int tegra_slink_prepare_message(struct spi_master *master,
- 	tspi->command_reg |= SLINK_CS_SW | SLINK_CS_VALUE;
- 
- 	tspi->command2_reg = tspi->def_command2_reg;
--	tspi->command2_reg |= SLINK_SS_EN_CS(spi->chip_select);
-+	tspi->command2_reg |= SLINK_SS_EN_CS(spi_get_chipselect(spi, 0));
- 
- 	tspi->command_reg &= ~SLINK_MODES;
- 	if (spi->mode & SPI_CPHA)
-diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
-index 0b9bc3b7f53a7..80c3bd9f8bc15 100644
---- a/drivers/spi/spi-tegra210-quad.c
-+++ b/drivers/spi/spi-tegra210-quad.c
-@@ -829,7 +829,7 @@ static u32 tegra_qspi_setup_transfer_one(struct spi_device *spi, struct spi_tran
- 		tegra_qspi_mask_clear_irq(tqspi);
- 
- 		command1 = tqspi->def_command1_reg;
--		command1 |= QSPI_CS_SEL(spi->chip_select);
-+		command1 |= QSPI_CS_SEL(spi_get_chipselect(spi, 0));
- 		command1 |= QSPI_BIT_LENGTH(bits_per_word - 1);
- 
- 		command1 &= ~QSPI_CONTROL_MODE_MASK;
-@@ -960,11 +960,11 @@ static int tegra_qspi_setup(struct spi_device *spi)
- 
- 	/* keep default cs state to inactive */
- 	val = tqspi->def_command1_reg;
--	val |= QSPI_CS_SEL(spi->chip_select);
-+	val |= QSPI_CS_SEL(spi_get_chipselect(spi, 0));
- 	if (spi->mode & SPI_CS_HIGH)
--		val &= ~QSPI_CS_POL_INACTIVE(spi->chip_select);
-+		val &= ~QSPI_CS_POL_INACTIVE(spi_get_chipselect(spi, 0));
- 	else
--		val |= QSPI_CS_POL_INACTIVE(spi->chip_select);
-+		val |= QSPI_CS_POL_INACTIVE(spi_get_chipselect(spi, 0));
- 
- 	tqspi->def_command1_reg = val;
- 	tegra_qspi_writel(tqspi, tqspi->def_command1_reg, QSPI_COMMAND1);
-diff --git a/drivers/spi/spi-ti-qspi.c b/drivers/spi/spi-ti-qspi.c
-index 60086869bcae4..5914335ff63db 100644
---- a/drivers/spi/spi-ti-qspi.c
-+++ b/drivers/spi/spi-ti-qspi.c
-@@ -533,10 +533,10 @@ static void ti_qspi_enable_memory_map(struct spi_device *spi)
- 	if (qspi->ctrl_base) {
- 		regmap_update_bits(qspi->ctrl_base, qspi->ctrl_reg,
- 				   MEM_CS_MASK,
--				   MEM_CS_EN(spi->chip_select));
-+				   MEM_CS_EN(spi_get_chipselect(spi, 0)));
- 	}
- 	qspi->mmap_enabled = true;
--	qspi->current_cs = spi->chip_select;
-+	qspi->current_cs = spi_get_chipselect(spi, 0);
- }
- 
- static void ti_qspi_disable_memory_map(struct spi_device *spi)
-@@ -572,7 +572,7 @@ static void ti_qspi_setup_mmap_read(struct spi_device *spi, u8 opcode,
- 	memval |= ((addr_width - 1) << QSPI_SETUP_ADDR_SHIFT |
- 		   dummy_bytes << QSPI_SETUP_DUMMY_SHIFT);
- 	ti_qspi_write(qspi, memval,
--		      QSPI_SPI_SETUP_REG(spi->chip_select));
-+		      QSPI_SPI_SETUP_REG(spi_get_chipselect(spi, 0)));
- }
- 
- static int ti_qspi_adjust_op_size(struct spi_mem *mem, struct spi_mem_op *op)
-@@ -623,7 +623,7 @@ static int ti_qspi_exec_mem_op(struct spi_mem *mem,
- 
- 	mutex_lock(&qspi->list_lock);
- 
--	if (!qspi->mmap_enabled || qspi->current_cs != mem->spi->chip_select) {
-+	if (!qspi->mmap_enabled || qspi->current_cs != spi_get_chipselect(mem->spi, 0)) {
- 		ti_qspi_setup_clk(qspi, mem->spi->max_speed_hz);
- 		ti_qspi_enable_memory_map(mem->spi);
- 	}
-@@ -673,11 +673,11 @@ static int ti_qspi_start_transfer_one(struct spi_master *master,
- 	qspi->dc = 0;
- 
- 	if (spi->mode & SPI_CPHA)
--		qspi->dc |= QSPI_CKPHA(spi->chip_select);
-+		qspi->dc |= QSPI_CKPHA(spi_get_chipselect(spi, 0));
- 	if (spi->mode & SPI_CPOL)
--		qspi->dc |= QSPI_CKPOL(spi->chip_select);
-+		qspi->dc |= QSPI_CKPOL(spi_get_chipselect(spi, 0));
- 	if (spi->mode & SPI_CS_HIGH)
--		qspi->dc |= QSPI_CSPOL(spi->chip_select);
-+		qspi->dc |= QSPI_CSPOL(spi_get_chipselect(spi, 0));
- 
- 	frame_len_words = 0;
- 	list_for_each_entry(t, &m->transfers, transfer_list)
-@@ -686,7 +686,7 @@ static int ti_qspi_start_transfer_one(struct spi_master *master,
- 
- 	/* setup command reg */
- 	qspi->cmd = 0;
--	qspi->cmd |= QSPI_EN_CS(spi->chip_select);
-+	qspi->cmd |= QSPI_EN_CS(spi_get_chipselect(spi, 0));
- 	qspi->cmd |= QSPI_FLEN(frame_len_words);
- 
- 	ti_qspi_write(qspi, qspi->dc, QSPI_SPI_DC_REG);
-diff --git a/drivers/spi/spi-topcliff-pch.c b/drivers/spi/spi-topcliff-pch.c
-index cbb60198a7f00..11cfe84714e71 100644
---- a/drivers/spi/spi-topcliff-pch.c
-+++ b/drivers/spi/spi-topcliff-pch.c
-@@ -499,7 +499,7 @@ static inline void pch_spi_select_chip(struct pch_spi_data *data,
- 				       struct spi_device *pspi)
- {
- 	if (data->current_chip != NULL) {
--		if (pspi->chip_select != data->n_curnt_chip) {
-+		if (spi_get_chipselect(pspi, 0) != data->n_curnt_chip) {
- 			dev_dbg(&pspi->dev, "%s : different slave\n", __func__);
- 			data->current_chip = NULL;
- 		}
-@@ -507,7 +507,7 @@ static inline void pch_spi_select_chip(struct pch_spi_data *data,
- 
- 	data->current_chip = pspi;
- 
--	data->n_curnt_chip = data->current_chip->chip_select;
-+	data->n_curnt_chip = spi_get_chipselect(data->current_chip, 0);
- 
- 	dev_dbg(&pspi->dev, "%s :Invoking pch_spi_setup_transfer\n", __func__);
- 	pch_spi_setup_transfer(pspi);
-diff --git a/drivers/spi/spi-wpcm-fiu.c b/drivers/spi/spi-wpcm-fiu.c
-index ab33710d50ac8..f15312fdcdaf0 100644
---- a/drivers/spi/spi-wpcm-fiu.c
-+++ b/drivers/spi/spi-wpcm-fiu.c
-@@ -158,7 +158,7 @@ static int wpcm_fiu_normal_exec(struct spi_mem *mem, const struct spi_mem_op *op
- 	if (op->data.dir == SPI_MEM_DATA_OUT)
- 		wpcm_fiu_set_data(fiu, op->data.buf.out, op->data.nbytes);
- 
--	ret = wpcm_fiu_do_uma(fiu, mem->spi->chip_select, op->addr.nbytes == 3,
-+	ret = wpcm_fiu_do_uma(fiu, spi_get_chipselect(mem->spi, 0), op->addr.nbytes == 3,
- 			      op->data.dir == SPI_MEM_DATA_OUT, op->data.nbytes);
- 
- 	if (op->data.dir == SPI_MEM_DATA_IN)
-@@ -196,7 +196,7 @@ static bool wpcm_fiu_4ba_match(const struct spi_mem_op *op)
- static int wpcm_fiu_4ba_exec(struct spi_mem *mem, const struct spi_mem_op *op)
- {
- 	struct wpcm_fiu_spi *fiu = spi_controller_get_devdata(mem->spi->controller);
--	int cs = mem->spi->chip_select;
-+	int cs = spi_get_chipselect(mem->spi, 0);
- 
- 	wpcm_fiu_ects_assert(fiu, cs);
- 
-@@ -241,7 +241,7 @@ static bool wpcm_fiu_rdid_match(const struct spi_mem_op *op)
- static int wpcm_fiu_rdid_exec(struct spi_mem *mem, const struct spi_mem_op *op)
- {
- 	struct wpcm_fiu_spi *fiu = spi_controller_get_devdata(mem->spi->controller);
--	int cs = mem->spi->chip_select;
-+	int cs = spi_get_chipselect(mem->spi, 0);
- 
- 	/* First transfer */
- 	wpcm_fiu_set_opcode(fiu, op->cmd.opcode);
-@@ -278,7 +278,7 @@ static bool wpcm_fiu_dummy_match(const struct spi_mem_op *op)
- static int wpcm_fiu_dummy_exec(struct spi_mem *mem, const struct spi_mem_op *op)
- {
- 	struct wpcm_fiu_spi *fiu = spi_controller_get_devdata(mem->spi->controller);
--	int cs = mem->spi->chip_select;
-+	int cs = spi_get_chipselect(mem->spi, 0);
- 
- 	wpcm_fiu_ects_assert(fiu, cs);
- 
-@@ -376,7 +376,7 @@ static int wpcm_fiu_adjust_op_size(struct spi_mem *mem, struct spi_mem_op *op)
- static int wpcm_fiu_dirmap_create(struct spi_mem_dirmap_desc *desc)
- {
- 	struct wpcm_fiu_spi *fiu = spi_controller_get_devdata(desc->mem->spi->controller);
--	int cs = desc->mem->spi->chip_select;
-+	int cs = spi_get_chipselect(desc->mem->spi, 0);
- 
- 	if (desc->info.op_tmpl.data.dir != SPI_MEM_DATA_IN)
- 		return -ENOTSUPP;
-@@ -400,7 +400,7 @@ static int wpcm_fiu_dirmap_create(struct spi_mem_dirmap_desc *desc)
- static ssize_t wpcm_fiu_direct_read(struct spi_mem_dirmap_desc *desc, u64 offs, size_t len, void *buf)
- {
- 	struct wpcm_fiu_spi *fiu = spi_controller_get_devdata(desc->mem->spi->controller);
--	int cs = desc->mem->spi->chip_select;
-+	int cs = spi_get_chipselect(desc->mem->spi, 0);
- 
- 	if (offs >= MAX_MEMORY_SIZE_PER_CS)
- 		return -ENOTSUPP;
-diff --git a/drivers/spi/spi-xcomm.c b/drivers/spi/spi-xcomm.c
-index 8628241ec99e4..5d23411f2a3e9 100644
---- a/drivers/spi/spi-xcomm.c
-+++ b/drivers/spi/spi-xcomm.c
-@@ -58,7 +58,7 @@ static int spi_xcomm_sync_config(struct spi_xcomm *spi_xcomm, unsigned int len)
- static void spi_xcomm_chipselect(struct spi_xcomm *spi_xcomm,
- 	struct spi_device *spi, int is_active)
- {
--	unsigned long cs = spi->chip_select;
-+	unsigned long cs = spi_get_chipselect(spi, 0);
- 	uint16_t chipselect = spi_xcomm->chipselect;
- 
- 	if (is_active)
-diff --git a/drivers/spi/spi-xilinx.c b/drivers/spi/spi-xilinx.c
-index 1411548f42553..a2422c1636f4c 100644
---- a/drivers/spi/spi-xilinx.c
-+++ b/drivers/spi/spi-xilinx.c
-@@ -213,7 +213,7 @@ static void xilinx_spi_chipselect(struct spi_device *spi, int is_on)
- 	 */
- 
- 	cs = xspi->cs_inactive;
--	cs ^= BIT(spi->chip_select);
-+	cs ^= BIT(spi_get_chipselect(spi, 0));
- 
- 	/* Activate the chip select */
- 	xspi->write_fn(cs, xspi->regs + XSPI_SSR_OFFSET);
-@@ -228,9 +228,9 @@ static int xilinx_spi_setup_transfer(struct spi_device *spi,
- 	struct xilinx_spi *xspi = spi_master_get_devdata(spi->master);
- 
- 	if (spi->mode & SPI_CS_HIGH)
--		xspi->cs_inactive &= ~BIT(spi->chip_select);
-+		xspi->cs_inactive &= ~BIT(spi_get_chipselect(spi, 0));
- 	else
--		xspi->cs_inactive |= BIT(spi->chip_select);
-+		xspi->cs_inactive |= BIT(spi_get_chipselect(spi, 0));
- 
- 	return 0;
- }
-diff --git a/drivers/spi/spi-xlp.c b/drivers/spi/spi-xlp.c
-index e5707fe5c8f15..3b91cdd5ae21e 100644
---- a/drivers/spi/spi-xlp.c
-+++ b/drivers/spi/spi-xlp.c
-@@ -139,7 +139,7 @@ static int xlp_spi_setup(struct spi_device *spi)
- 	int cs;
- 
- 	xspi = spi_master_get_devdata(spi->master);
--	cs = spi->chip_select;
-+	cs = spi_get_chipselect(spi, 0);
- 	/*
- 	 * The value of fdiv must be between 4 and 65535.
- 	 */
-@@ -350,7 +350,7 @@ static int xlp_spi_transfer_one(struct spi_master *master,
- 	struct xlp_spi_priv *xspi = spi_master_get_devdata(master);
- 	int ret = 0;
- 
--	xspi->cs = spi->chip_select;
-+	xspi->cs = spi_get_chipselect(spi, 0);
- 	xspi->dev = spi->dev;
- 
- 	if (spi_transfer_is_last(master, t))
-diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
-index 78f31b61a2aac..debb53ef19a09 100644
---- a/drivers/spi/spi-zynq-qspi.c
-+++ b/drivers/spi/spi-zynq-qspi.c
-@@ -296,7 +296,7 @@ static void zynq_qspi_chipselect(struct spi_device *spi, bool assert)
- 	/* Select the lower (CS0) or upper (CS1) memory */
- 	if (ctlr->num_chipselect > 1) {
- 		config_reg = zynq_qspi_read(xqspi, ZYNQ_QSPI_LINEAR_CFG_OFFSET);
--		if (!spi->chip_select)
-+		if (!spi_get_chipselect(spi, 0))
- 			config_reg &= ~ZYNQ_QSPI_LCFG_U_PAGE;
- 		else
- 			config_reg |= ZYNQ_QSPI_LCFG_U_PAGE;
-diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index 95ff15665d448..319cdd5a0bdcb 100644
---- a/drivers/spi/spi-zynqmp-gqspi.c
-+++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -468,7 +468,7 @@ static void zynqmp_qspi_chipselect(struct spi_device *qspi, bool is_high)
- 	genfifoentry |= GQSPI_GENFIFO_MODE_SPI;
- 
- 	if (!is_high) {
--		if (!qspi->chip_select) {
-+		if (!spi_get_chipselect(qspi, 0)) {
- 			xqspi->genfifobus = GQSPI_GENFIFO_BUS_LOWER;
- 			xqspi->genfifocs = GQSPI_GENFIFO_CS_LOWER;
- 		} else {
-diff --git a/drivers/spi/spidev.c b/drivers/spi/spidev.c
-index 5a038c6674018..a399c617ca25f 100644
---- a/drivers/spi/spidev.c
-+++ b/drivers/spi/spidev.c
-@@ -393,7 +393,7 @@ spidev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
- 			struct spi_controller *ctlr = spi->controller;
- 
- 			if (ctlr->use_gpio_descriptors && ctlr->cs_gpiods &&
--			    ctlr->cs_gpiods[spi->chip_select])
-+			    ctlr->cs_gpiods[spi_get_chipselect(spi, 0)])
- 				tmp &= ~SPI_CS_HIGH;
- 		}
- 
-@@ -432,7 +432,7 @@ spidev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
- 			}
- 
- 			if (ctlr->use_gpio_descriptors && ctlr->cs_gpiods &&
--			    ctlr->cs_gpiods[spi->chip_select])
-+			    ctlr->cs_gpiods[spi_get_chipselect(spi, 0)])
- 				tmp |= SPI_CS_HIGH;
- 
- 			tmp |= spi->mode & ~SPI_MODE_MASK;
-@@ -805,7 +805,7 @@ static int spidev_probe(struct spi_device *spi)
- 		spidev->devt = MKDEV(SPIDEV_MAJOR, minor);
- 		dev = device_create(spidev_class, &spi->dev, spidev->devt,
- 				    spidev, "spidev%d.%d",
--				    spi->master->bus_num, spi->chip_select);
-+				    spi->master->bus_num, spi_get_chipselect(spi, 0));
- 		status = PTR_ERR_OR_ZERO(dev);
- 	} else {
- 		dev_dbg(&spi->dev, "no minor number available!\n");
-diff --git a/include/trace/events/spi.h b/include/trace/events/spi.h
-index c0d9844befd7a..c0248a8fa79c9 100644
---- a/include/trace/events/spi.h
-+++ b/include/trace/events/spi.h
-@@ -57,7 +57,7 @@ TRACE_EVENT(spi_setup,
- 
- 	TP_fast_assign(
- 		__entry->bus_num = spi->controller->bus_num;
--		__entry->chip_select = spi->chip_select;
-+		__entry->chip_select =  spi_get_chipselect(spi, 0);
- 		__entry->mode = spi->mode;
- 		__entry->bits_per_word = spi->bits_per_word;
- 		__entry->max_speed_hz = spi->max_speed_hz;
-@@ -88,7 +88,7 @@ TRACE_EVENT(spi_set_cs,
- 
- 	TP_fast_assign(
- 		__entry->bus_num = spi->controller->bus_num;
--		__entry->chip_select = spi->chip_select;
-+		__entry->chip_select = spi_get_chipselect(spi, 0);
- 		__entry->mode = spi->mode;
- 		__entry->enable = enable;
- 	),
-@@ -113,7 +113,7 @@ DECLARE_EVENT_CLASS(spi_message,
- 
- 	TP_fast_assign(
- 		__entry->bus_num = msg->spi->controller->bus_num;
--		__entry->chip_select = msg->spi->chip_select;
-+		__entry->chip_select = spi_get_chipselect(msg->spi, 0);
- 		__entry->msg = msg;
- 	),
- 
-@@ -154,7 +154,7 @@ TRACE_EVENT(spi_message_done,
- 
- 	TP_fast_assign(
- 		__entry->bus_num = msg->spi->controller->bus_num;
--		__entry->chip_select = msg->spi->chip_select;
-+		__entry->chip_select = spi_get_chipselect(msg->spi, 0);
- 		__entry->msg = msg;
- 		__entry->frame = msg->frame_length;
- 		__entry->actual = msg->actual_length;
-@@ -197,7 +197,7 @@ DECLARE_EVENT_CLASS(spi_transfer,
- 
- 	TP_fast_assign(
- 		__entry->bus_num = msg->spi->controller->bus_num;
--		__entry->chip_select = msg->spi->chip_select;
-+		__entry->chip_select = spi_get_chipselect(msg->spi, 0);
- 		__entry->xfer = xfer;
- 		__entry->len = xfer->len;
- 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEET/yoGP3p5Zl+RKVuX75KBAfJsRkFAmRWWpUACgkQX75KBAfJ
+sRmD9w/8DbVetfE3tjtXN5vrydk+aDYnv5JxPpfy8n3C6jnRKAFwnsNir5n7OS3P
+lCDI+vm0/czueja8GthlKAu7x9y+tENaCb1+elUM4MJo8e/t7VoJDFbuOROKBtgK
+qLCvlcTKrDMDpzudc2s7yaidPEmbPgcOjgcd+9KnL8/tZo7k6kwrOh5XKi5eLjwl
+2hsKWdfo6Z+vrvLmnepDzTI5C7CkIybUGBjcs8cVNVnxLg9bjtY5un0tgrMPjJO/
+KiDpLzpjTaVTYRUBhI+3CiJBmNWCy8pAnLRKhPX1OjR49ZJP4t758gmh1QVioRDQ
+Ho1UBfAtHjN9bC6yY6oR4nTnSPO69cJV6FG3vYNCyDaJUaFld+/UdE+SNSb63PIn
+v0qJ3tzSM+H6VTgNc28j1kNf/GF9X6ZhGAXE5EjmiONdpJpQak8alU/tERKc6TXf
+HDTIMTQCgLrxuEgoXE83USU5z6m6RdQX26K1YrWNw+UHju/7zwKXzS0o0w+4wn4/
+mp1yQHy6MXN6PiXm/g94l+pkUphE3GxTgnk4ZFETH5kmdF7g2Kx/3PWM0jm8EMVU
+4DsS+pxudakbnhol9oFMP+vtY1/e1KMN6IDFW7kPUP8xGoRvVIjfdU4KzVb4IPeU
+xvX3wQ6h/cG+mJ4uwRqzorc2jIPLUsN5pj7beMgUed6PGJXX0KY=
+=htl6
+-----END PGP SIGNATURE-----
+
+--------------fyuHLQM20M2CGNfB03W36Pz0--

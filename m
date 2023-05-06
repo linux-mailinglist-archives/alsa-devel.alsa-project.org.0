@@ -2,117 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B52E96F8DE4
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 04:18:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97CAD6F8E0C
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 04:28:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5478C2CC9;
-	Sat,  6 May 2023 04:17:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5478C2CC9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AD922CCD;
+	Sat,  6 May 2023 04:27:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AD922CCD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683339509;
-	bh=3RFpQuLeHFXyxkLoT4wuawCKoCnS6d864p3WCt9z25o=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Hh4Sg/UIA0onzkHsYcMhjz+WoaGohNhn6V2nm2zOH+1ito8LouiYpZ2h8DS0QbwpF
-	 pfKmLwkB1lxh6AUS+NtCy+aYp3m18KkwCDQFJ6j5ua5OOaiduBcu29X3KvC44vwwII
-	 gwvEllVS5Kz+Axv98NvWAx3FTBlqWCSzBf+15RtM=
+	s=default; t=1683340100;
+	bh=RsMPKHSmhsPEWxMISqNT/zQWfaSLr9fA9Gp+69DSeL0=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=VhvaIoupPmob+RbD1kjRdTG+huY0SjAtj3MXW4iVpffk7jXU4UZl7Yut20nS2zHn8
+	 w5CO894DIYCXp5kf7IrgFz7BebbKYS5dqLm1jAwEyaC7i8/J+FZczvxIAd4Gtjh7KS
+	 WeQ5M0g41GtbG51Vb13MmfBvt1xUWC5c9d9iKSjM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A77D7F80529;
-	Sat,  6 May 2023 04:17:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 420E8F80529;
+	Sat,  6 May 2023 04:27:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A649F8052D; Sat,  6 May 2023 04:17:34 +0200 (CEST)
+	id 9085AF8052D; Sat,  6 May 2023 04:27:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
- [IPv6:2001:4860:4864:20::2c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 85B49F80114;
-	Sat,  6 May 2023 04:17:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85B49F80114
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=WnYB0K/R
-Received: by mail-oa1-x2c.google.com with SMTP id
- 586e51a60fabf-192adab8f0eso2174781fac.2;
-        Fri, 05 May 2023 19:17:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683339443; x=1685931443;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=OFAVYlj7qY8WZhcMMAJM12ckDqP7+uOsctiYkhqPD0A=;
-        b=WnYB0K/RYIM36yLnuuxz6lN/XysQDCUfJKGMh0sSm42TnuWyqSTG52oCtLHB+Am8/7
-         o8lLDR6pVF4rsykrELZalweAF1I0xU9Av7Qory5tMqSiHGAACFjMNQsl30NCER5OB5/H
-         0Y0KDhni+p7BwBg5V2RF/554t28pNuijL3Kv21aCJBjlN903NIeFgizveXXc0nW4QaXQ
-         faVMHLKcG+g2RBk6CvoLLtDS24/VHumDvAx6+1sxXZVrTI2Ojx5cGUTxrtZufDSNS/bV
-         euxzCSB0IhtLoEG+J9Xsg4/B8kMk5rf4SFrPypd4aCc/IoaUmXxWuVITjNScqHVRM0Q3
-         kOrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683339443; x=1685931443;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OFAVYlj7qY8WZhcMMAJM12ckDqP7+uOsctiYkhqPD0A=;
-        b=aq15uJJwZQlXXQBjTOk8L01So9xa791EYYUeA1la/hBepP1dEhcrNLLw+jLEVSVBXw
-         7gcp6Gfc3ejUvgbvW3jjjl0kLR630foFNko5l5LTkRk6wp08EeifIEq5zOJp5PAXcfLk
-         UMv4t3YdmmL62N3L9HYCnjqqLpNSwGkghEpv+XsUmIy6EN93RZX0fwDMgyO9tH67qPwU
-         cdUkbdDFepMESkw52Wz0tPVBbJoKYpfYnmk0K/GkoN1uuzQz3hM4X6B49s44x+dmHDOR
-         HIF+cILhPD1kk1jcBebfULTXqLyMkOr1xZH/V1Rt4sbh9s/WTLUGenYKOFzEyRcz6q5h
-         pmQQ==
-X-Gm-Message-State: AC+VfDyQY4X9JywjmuRKOw7zNupxrcJjBTpgeXojuFmfm2hGxFCuYN+a
-	prao3KolHhxZTA8ukKAhUew=
-X-Google-Smtp-Source: 
- ACHHUZ4F2DOzT4Z5iHQr9icOfFq60mb19BGPrw3pXmVUqXz1YpEIvdQMPCjtZbMBKTK55/G+ObMDTw==
-X-Received: by 2002:a05:6870:822b:b0:192:96ee:961f with SMTP id
- n43-20020a056870822b00b0019296ee961fmr1723338oae.14.1683339442902;
-        Fri, 05 May 2023 19:17:22 -0700 (PDT)
-Received: from geday ([2804:7f2:8006:8886:6ce0:2667:545a:2a1])
-        by smtp.gmail.com with ESMTPSA id
- v5-20020a056870198500b001807f020a39sm2545038oam.12.2023.05.05.19.17.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 May 2023 19:17:22 -0700 (PDT)
-Date: Fri, 5 May 2023 23:17:19 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC: mediatek:
- mt8195-afe-pcm: Simplify runtime PM during probe]
-Message-ID: <ZFW3KpLU+VJBYQLc@geday>
-References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
- <ZFVpRKM5vxpWWaI9@geday>
- <ZFWbksDaG2EQNqSK@finisterre.sirena.org.uk>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 21A6CF80114
+	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 04:27:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21A6CF80114
+X-UUID: 1b0396f14be747d7ab10c651639d7cbc-20230506
+X-CID-UNFAMILIAR: 1
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_HamU
+X-CID-O-INFO: VERSION:1.1.22,REQID:598fa335-b95e-4456-8747-c87e07d1ef21,IP:5,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:8,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:8
+X-CID-INFO: VERSION:1.1.22,REQID:598fa335-b95e-4456-8747-c87e07d1ef21,IP:5,URL
+	:0,TC:0,Content:-5,EDM:0,RT:0,SF:8,FILE:0,BULK:0,RULE:Release_HamU,ACTION:
+	release,TS:8
+X-CID-META: VersionHash:120426c,CLOUDID:39cbe730-6935-4eab-a959-f84f8da15543,B
+	ulkID:230506102704XXE5XP8C,BulkQuantity:0,Recheck:0,SF:38|24|16|19|44|102,
+	TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 1b0396f14be747d7ab10c651639d7cbc-20230506
+X-User: aichao@kylinos.cn
+Received: from localhost.localdomain [(112.64.161.44)] by mailgw
+	(envelope-from <aichao@kylinos.cn>)
+	(Generic MTA)
+	with ESMTP id 1713182569; Sat, 06 May 2023 10:27:03 +0800
+From: Ai Chao <aichao@kylinos.cn>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	sbinding@opensource.cirrus.com,
+	tcrawford@system76.com,
+	andy.chi@canonical.com,
+	tangmeng@uniontech.com,
+	luke@ljones.dev,
+	yangyuchi66@gmail.com,
+	p.jungkamp@gmx.net,
+	kasper93@gmail.com,
+	gabriele.mzt@gmail.com
+Subject: [PATCH] ALSA: hda/realtek: Add a quirk for HP EliteDesk 805
+Date: Sat,  6 May 2023 10:26:53 +0800
+Message-Id: <20230506022653.2074343-1-aichao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZFWbksDaG2EQNqSK@finisterre.sirena.org.uk>
-Message-ID-Hash: U5BUFI7WDTTC4OQQ4AZBYXJ45AZSYTXA
-X-Message-ID-Hash: U5BUFI7WDTTC4OQQ4AZBYXJ45AZSYTXA
-X-MailFrom: geraldogabriel@gmail.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 7HCFKIQ3BSHF6MJESYBVAZOFZ6MWOEWJ
+X-Message-ID-Hash: 7HCFKIQ3BSHF6MJESYBVAZOFZ6MWOEWJ
+X-MailFrom: aichao@kylinos.cn
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: postmaster@alsa-project.org, sound-open-firmware-owner@alsa-project.org,
- tiwai@suse.de, alsa-devel@alsa-project.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- sound-open-firmware@alsa-project.org
+CC: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Ai Chao <aichao@kylinos.cn>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U5BUFI7WDTTC4OQQ4AZBYXJ45AZSYTXA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7HCFKIQ3BSHF6MJESYBVAZOFZ6MWOEWJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,33 +99,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, May 06, 2023 at 09:13:06AM +0900, Mark Brown wrote:
-> On Fri, May 05, 2023 at 05:38:28PM -0300, Geraldo Nascimento wrote:
-> > On Thu, May 04, 2023 at 10:09:45AM +0900, Mark Brown wrote:
-> 
-> > > Here's another mail (one of several in this series) that got completely
-> > > mangled by the alsa-project.org mailman to the point of unusability.  I
-> > > didn't see any response to my last mail about this, is there any news on
-> > > fixing mailman to not do this?  It's extremely disruptive to working
-> > > with lore.
-> 
-> > Are you complaining about the added headers in the message? Because the
-> > patch itself didn't look mangled from my side. From my understanding,
-> > Jaroslav had to start mangling mail addresses due to strict DMARC rules
-> > which make some servers reject the message from alsa-devel.
-> 
-> Not just the headers in the message, the author information for the mail
-> also got rewritten.  Try applying the patches with git am...
+Add a quirk for HP EliteDesk 805 to fixup ALC3867 headset MIC no sound.
 
-Mark, I think Jaroslav can change the behaviour in the the added Headers in the
-body of the message (the added Headers in the body have e.g. the correct From:
-email information).
+Signed-off-by: Ai Chao <aichao@kylinos.cn>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-If the message body *starts* with the "From:", "Subject:" and "Date:" fields
-I think git-am will pickup the correct information from the body instead of from
-the mangled headers.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 068ce0db9562..cbb3c3f6d502 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -11662,6 +11662,7 @@ static const struct snd_pci_quirk alc662_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x1632, "HP RP5800", ALC662_FIXUP_HP_RP5800),
+ 	SND_PCI_QUIRK(0x103c, 0x870c, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
+ 	SND_PCI_QUIRK(0x103c, 0x8719, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
++	SND_PCI_QUIRK(0x103c, 0x872b, "HP", ALC897_FIXUP_HP_HSMIC_VERB),
+ 	SND_PCI_QUIRK(0x103c, 0x873e, "HP", ALC671_FIXUP_HP_HEADSET_MIC2),
+ 	SND_PCI_QUIRK(0x103c, 0x877e, "HP 288 Pro G6", ALC671_FIXUP_HP_HEADSET_MIC2),
+ 	SND_PCI_QUIRK(0x103c, 0x885f, "HP 288 Pro G8", ALC671_FIXUP_HP_HEADSET_MIC2),
+-- 
+2.25.1
 
-Hopefully...
-
-Good luck,
-Geraldo Nascimento

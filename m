@@ -2,132 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF35D6F8EF4
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 07:58:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A200C6F8EB6
+	for <lists+alsa-devel@lfdr.de>; Sat,  6 May 2023 07:42:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5BF22ABF;
-	Sat,  6 May 2023 07:57:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5BF22ABF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61FC72A72;
+	Sat,  6 May 2023 07:41:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61FC72A72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683352683;
-	bh=7DdsHsw2NZCQ2RLOCk1YMqHyDASox3loQHQGzUwb2Rw=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fFPp03Lvu2LiYru/I4VCCFWZeTTuxerQx6PJJ3uzAnY6vktiTA0OzexqIVEQQw8Q2
-	 8bqQc07RVNbFV+maPTZ7mNRaZqa09ljWZk5V54hnwwW3ejrqKqicaUZqcRBztQcOk6
-	 QgoQ8r4x7fod1GAwlEFF/4YzvX0VApySfM2XC8Rg=
+	s=default; t=1683351749;
+	bh=5UPVFKZv42UUgSBuKEyFp14gYJWebvTKGSItHieR3cA=;
+	h=Date:To:From:Subject:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=TukoD/R2WhvLlJmt2kUsE9csYPLuZ6ejA2mnTyaFJmlmg6LKc/yew/ckA1ctNmhe9
+	 /XiRBOwm8hX/KVKzou5mP6o11Mw588WPNkd0kYPPVFPg3jJpjazHc8gy+L9PrMIeRJ
+	 I+XvBVJEZjuK3LW/DbXMSz0CIkg8TKW7bzcbuAtE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59BB2F80529;
-	Sat,  6 May 2023 07:57:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8E5FF80529;
+	Sat,  6 May 2023 07:41:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A71DFF8052D; Sat,  6 May 2023 07:56:21 +0200 (CEST)
+	id BCF77F8052D; Sat,  6 May 2023 07:40:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.1 required=5.0 tests=DATE_IN_PAST_03_06,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D470F80520
-	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 07:56:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D470F80520
+	by alsa1.perex.cz (Postfix) with ESMTPS id D2B5FF80114
+	for <alsa-devel@alsa-project.org>; Sat,  6 May 2023 07:40:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2B5FF80114
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256
- header.s=fm3 header.b=tVyeQUA+;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=fCk8zsDa
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id 74B7B5C0088;
-	Sat,  6 May 2023 01:56:10 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute5.internal (MEProxy); Sat, 06 May 2023 01:56:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm3; t=1683352570; x=1683438970; bh=EG
-	S5hZyAL9I43PGeKYKJIudiB349boLUw0HVlFIo3AQ=; b=tVyeQUA+MP9z3eOiSJ
-	CbCDeX/CmDAJLaBykdXzTvPnjxnVzH3lYWd0uTPKAs0HVu6gIVlgjRrpty5ypJWb
-	lzV2PCwX5egBJM/2X4qSNnF8l3oM/tzbisuZ/h+OqjI/FUEQtpvfRUH/3FJ/GhgO
-	rbcq3y5VDdKWBjtyWEWRYBRZnQrEXS+z/2BOfp+CusjSwSoTtKfoZnWO4Mio/Shw
-	p5R38mgA0AgfPvFLVxdRc45n2zfV4Xwphc2yVhX7jAtjdIIXRf10vWxsX1gl0VcH
-	oImHFNOjEfOLvQuIKZwT+UEycWU6TWQL9mnZPsBr8K/msgBfofCbJezUSXTygL3k
-	j0DQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1683352570; x=1683438970; bh=EGS5hZyAL9I43
-	PGeKYKJIudiB349boLUw0HVlFIo3AQ=; b=fCk8zsDaqA/oZLRtVBG1pcijz8cOw
-	LfZRwDUUBra1euNIhrb9FtiH9eF3c7+GqVB/6cYH650FWmnbNdWrkVnkVOO9UxQy
-	/Pb/qs8XSIOYr2wnhkEd0d5NuvBqflUdkGE4n/2J1ohjI/LVTAulHfWuVkxWVrqR
-	M/wY6x6CoMS1sXEHfCnfJW6MvN2SPIFaNocXjVMngCi3MlgG9/VXtBL7701TSJnK
-	HazjBVDqF+UQ2GQrHo/bDhniCdP865TZSa8F4tQ5ib99COw8TpL0J76yIyE4CDIY
-	LsD9irx4/0C5NYDoFNJpOmYEvLdRUi0P5VfQXeGIg0pMQRjLqPHQ5DDkw==
-X-ME-Sender: <xms:-utVZLYpKk0c1uXdWbPclUY4ZcemhsLirLwvP632Fp3F_yM-MZCEjw>
-    <xme:-utVZKZiK0zPoz3JxEaJhMhjetrpyZNe3UehfFB1fFLpGD8aq6XebR8q9oi3V6Ma3
-    ob6WSwB8RROSw>
-X-ME-Received: 
- <xmr:-utVZN98gkUJSJp5i3_Wt2-PwsqH7CnHzgn99SYP4uF57JmUa5_yU43zOfNCtQ>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrfeeffedguddtvdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgv
-    ghcumffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeeghe
-    euhefgtdeluddtleekfeegjeetgeeikeehfeduieffvddufeefleevtddtvdenucffohhm
-    rghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
-    hmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
-X-ME-Proxy: <xmx:-utVZBrxNpm4DBNCWgzB0Ih2ZiKPqW70OhYgLrELqKpLM287VdC3Gg>
-    <xmx:-utVZGrIPaVi09bP7UmAtrfFcsuqvkS_0KhMf7LAhJFB2qQvhUDkug>
-    <xmx:-utVZHQt_AuizuH-P38OjyNpRd7epwVW5RabTNd_0oj6NbJCBOx9Eg>
-    <xmx:-utVZPZW9PJNqmvsvZb-hYYmwBIuI6IRh8XfORQJsrd7abfimEtCyQ>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 6 May 2023 01:56:08 -0400 (EDT)
-Date: Sat, 6 May 2023 11:09:57 +0900
-From: Greg KH <greg@kroah.com>
-To: yixuanjiang <yixuanjiang@google.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: Fix and cleanup DPCM locking
-Message-ID: <2023050644-dwarf-shabby-d44d@gregkh>
-References: <20230504092142.4190069-1-yixuanjiang@google.com>
+ unprotected) header.d=infradead.org header.i=@infradead.org
+ header.a=rsa-sha256 header.s=bombadil.20210309 header.b=YsrPgbIv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:Subject:From:Cc:To:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=dFEzHDIu+qBSXPc+L1/bWITnShE9xROgVs7GLl3cwXg=; b=YsrPgbIv0vhEzPJpUgMbE8rLHn
+	zof3DFrUiQ8t+yBWtUo1RrJFFsA7HPTmkMO40nAh0WTvt1AM/QhD1+l60qNDsi/ilppjntazIhG64
+	XwVvQjzVeRBVcW9g7eoV4fl0agOEcrIiMpMu+GFNt0f6NcnS6b3DoBczqe2PBR+BoPyqlKVEsHqex
+	tjtZpbpSMDFxzOjldcmzMdRHF5+FlERSgFJTE4iykR5fu2B7OumKVzbz52WWwi6WrR7S7tR/t3mYx
+	OIwnEKuxfdE6mKpcr+ddNIhrSkoYTMamaBN3Q18NdSoSnNP7Rbr61+MxY5AJZLj4wP2C+17QXDM47
+	O9q+hSXw==;
+Received: from [2601:1c2:980:9ec0::2764]
+	by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+	id 1pvAeU-00CbC9-26;
+	Sat, 06 May 2023 05:40:14 +0000
+Message-ID: <36efe6f3-009c-e849-f9d7-6a643edad8e0@infradead.org>
+Date: Fri, 5 May 2023 22:40:13 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230504092142.4190069-1-yixuanjiang@google.com>
-Message-ID-Hash: CFQ6BHKGHM5PG7KDYDI5CFID3V3MAPPU
-X-Message-ID-Hash: CFQ6BHKGHM5PG7KDYDI5CFID3V3MAPPU
-X-MailFrom: greg@kroah.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Content-Language: en-US
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ stable <stable@vger.kernel.org>, Sasha Levin <sashal@kernel.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: patch for 5.10.stable (sound/oss/dmasound)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: ASMXNXNZZ6QGARRF5CVC4KMF5X7MXQWJ
+X-Message-ID-Hash: ASMXNXNZZ6QGARRF5CVC4KMF5X7MXQWJ
+X-MailFrom: rdunlap@infradead.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, stable@vger.kernel.org
+CC: Michal Marek <michal.lkml@markovi.net>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, kernel test robot <lkp@intel.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CFQ6BHKGHM5PG7KDYDI5CFID3V3MAPPU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ASMXNXNZZ6QGARRF5CVC4KMF5X7MXQWJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,39 +94,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, May 04, 2023 at 05:21:42PM +0800, yixuanjiang wrote:
-> From: Takashi Iwai <tiwai@suse.de>
-> 
-> The existing locking for DPCM has several issues
-> a) a confusing mix of card->mutex and card->pcm_mutex.
-> b) a dpcm_lock spinlock added inconsistently and on paths that could
-> be recursively taken. The use of irqsave/irqrestore was also overkill.
-> 
-> The suggested model is:
-> 
-> 1) The pcm_mutex is the top-most protection of BE links in the FE. The
-> pcm_mutex is applied always on either the top PCM callbacks or the
-> external call from DAPM, not taken in the internal functions.
-> 
-> 2) the FE stream lock is taken in higher levels before invoking
-> dpcm_be_dai_trigger()
-> 
-> 3) when adding and deleting a BE, both the pcm_mutex and FE stream
-> lock are taken.
-> 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> [clarification of commit message by plbossart]
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Link: https://lore.kernel.org/r/20211207173745.15850-4-pierre-louis.bossart@linux.intel.com
-> Cc: stable@vger.kernel.org # 5.15.x
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
+Please apply
 
-What is the git commit id of this patch in Linus's tree?
+commit 9dd7c46346ca
+Author: Randy Dunlap <rdunlap@infradead.org>
+Date:   Tue Apr 5 16:41:18 2022 -0700
 
-thanks,
+    sound/oss/dmasound: fix build when drivers are mixed =y/=m
 
-greg k-h
+to the 5.10 stable tree. The kernel test robot <lkp@intel.com> reported a build
+error on 5.10.y and this patch fixes the build error.
+
+-- 
+~Randy

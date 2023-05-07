@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7F236F9CC0
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 01:35:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F31606F9CC7
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 01:39:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69926F86;
-	Mon,  8 May 2023 01:34:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69926F86
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC0BD11A6;
+	Mon,  8 May 2023 01:38:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC0BD11A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683502515;
-	bh=hBFP+hNGBvmopZe/kOvqDLwcDDMIgLDeBU5wOc2OzN0=;
+	s=default; t=1683502756;
+	bh=hF4mlKMlmMVNKZO62c7NA6hnJlzvS6iWMHHTpIElN7Q=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SbdcTCVxJJ63x6yoPchLahlCCIoedaP8A4SQ1iAKgxRa3Sc6/2pIYNNZ/580LAcxf
-	 OLYyYlDa3zIlKg3gyTHCrfd33kEym7Bf8AoK38Z8zcEJZxzU/iBgnI9xzi0WEQPv+I
-	 1C4YhQOoGMiVOHeYRXMFxCkG0EJTNRoR9OC3lOn8=
+	b=EDMVerm/GvDV4I4ytR15MjdSI7HUIxMlDzLStGs4rfG7fRVF5Wt+4Coqwi/Lh/WQ9
+	 DvEYFVyI/fMHuiW8zPMC/ltWcf2eEt6ySrrT+OZ5UsZ1f81x/75+PheoSSTWhzO1Fa
+	 1AKSGfN7kXt81+BOS/pi4NNVRusqFxWa1P0XOwnA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A192F8014C;
-	Mon,  8 May 2023 01:34:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D7B6F8032D;
+	Mon,  8 May 2023 01:38:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E97EBF8032D; Mon,  8 May 2023 01:34:18 +0200 (CEST)
+	id 726F0F804B1; Mon,  8 May 2023 01:38:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,48 +34,45 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7FDF8F8014C;
-	Mon,  8 May 2023 01:34:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FDF8F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08316F80310
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 01:38:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08316F80310
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=E64Ja36y
+ header.s=k20201202 header.b=NQOWjd+s
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2238060EAA;
-	Sun,  7 May 2023 23:34:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE6BC433D2;
-	Sun,  7 May 2023 23:34:03 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5D95861017;
+	Sun,  7 May 2023 23:38:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A744C433EF;
+	Sun,  7 May 2023 23:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683502444;
-	bh=hBFP+hNGBvmopZe/kOvqDLwcDDMIgLDeBU5wOc2OzN0=;
+	s=k20201202; t=1683502697;
+	bh=hF4mlKMlmMVNKZO62c7NA6hnJlzvS6iWMHHTpIElN7Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E64Ja36yZTLhpE58IaythI36KOgaBC2CcnQHlQAROyZ8KNwetlCFpeh1rgEgtIpRe
-	 aNcT7pG63Qor3TdQnUOnftEOL2ZLoubjFXT11ur6bu9q9kDx13CY3BPWu2HsIPq6TH
-	 XY9Ovq6f2SW9pKB4/h8FXmc2Wwb+MieJ1WlKMHKmOvwDYuLi4XxdT3d0OWkRuIEfsL
-	 /h+DyiFtqMlSHhkuHArG0Phr/2jvENczP8P9KtDb908gb3atd22RNNzgwgF+Yiy82s
-	 c+Pb4Xf80961JqQukyRriGOYZMT92wbXgt+iesFgU05HyD/DwHEqIbyB1qKm6Ao//h
-	 3yJOVZfT/cf7Q==
-Date: Mon, 8 May 2023 08:33:59 +0900
+	b=NQOWjd+syz5RhKdo7VbAJZBTQdfSyojBI+X86DPYncJQm4WVoji/SDAcydCEotyAI
+	 fUaNCfGnzR+kzfcv7rxFPUHxOLIiF2VrPkzAh/A0TwjNeJzilbUKo8wRMrN+uJVQri
+	 x31lVR2ZrxOtbqJii0X2lDKoCmWr5pF7j4fdvDxzAkK2GEPS2PLlv1cmot8IshI0wJ
+	 EbJqfK2OuGWIhm1tYXwACsTfwsmNnb6CqHmfvLE6jekjOl49HynrKaXTh77GKDTOVn
+	 Kn2YMc8KRkxccEwALPm6ugb60Sedy0eCiyyRnPo+oirqdwEQ3LuQoFzZYUihrPDsqZ
+	 BZGG9SqIrKV9A==
+Date: Mon, 8 May 2023 08:38:13 +0900
 From: Mark Brown <broonie@kernel.org>
-To: Geraldo Nascimento <geraldogabriel@gmail.com>
-Subject: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC: mediatek:
- mt8195-afe-pcm: Simplify runtime PM during probe]
-Message-ID: <ZFg1Zwpg+6iK4bqk@finisterre.sirena.org.uk>
-References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
- <ZFVpRKM5vxpWWaI9@geday>
- <ZFWbksDaG2EQNqSK@finisterre.sirena.org.uk>
- <ZFW3KpLU+VJBYQLc@geday>
+To: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH AUTOSEL 6.3 01/24] ASoC: jack: allow multiple interrupt
+ per gpio
+Message-ID: <ZFg2ZWqEBkPsJk+Y@finisterre.sirena.org.uk>
+References: <20230507003022.4070535-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4NwigGF4Uhl2SMkR"
+	protocol="application/pgp-signature"; boundary="tbAMK+HB7r9NrqN0"
 Content-Disposition: inline
-In-Reply-To: <ZFW3KpLU+VJBYQLc@geday>
+In-Reply-To: <20230507003022.4070535-1-sashal@kernel.org>
 X-Cookie: Avoid contact with eyes.
-Message-ID-Hash: E35INTAGHW4PGA2C2HR2E33V5PINWULG
-X-Message-ID-Hash: E35INTAGHW4PGA2C2HR2E33V5PINWULG
+Message-ID-Hash: RGX6KLS4E4GOZOWY72HCLGMS6HUGYZZS
+X-Message-ID-Hash: RGX6KLS4E4GOZOWY72HCLGMS6HUGYZZS
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -83,16 +80,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: postmaster@alsa-project.org, sound-open-firmware-owner@alsa-project.org,
- tiwai@suse.de, alsa-devel@alsa-project.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- sound-open-firmware@alsa-project.org
+CC: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Svyatoslav Ryhel <clamor95@gmail.com>, lgirdwood@gmail.com, tiwai@suse.com,
+ alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E35INTAGHW4PGA2C2HR2E33V5PINWULG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RGX6KLS4E4GOZOWY72HCLGMS6HUGYZZS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,43 +98,34 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---4NwigGF4Uhl2SMkR
+--tbAMK+HB7r9NrqN0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 05, 2023 at 11:17:19PM -0300, Geraldo Nascimento wrote:
-> On Sat, May 06, 2023 at 09:13:06AM +0900, Mark Brown wrote:
+On Sat, May 06, 2023 at 08:29:57PM -0400, Sasha Levin wrote:
+> From: Svyatoslav Ryhel <clamor95@gmail.com>
+>=20
+> [ Upstream commit a2d4051b0bd6dffcd736888ae89a550d6f60b060 ]
+>=20
+> This feature is required for coupled hp-mic quirk used
+> by some Nvidia Tegra 3 based devices work properly.
 
-> > Not just the headers in the message, the author information for the mail
-> > also got rewritten.  Try applying the patches with git am...
+This is a new feature, why is it being backported to stable?
 
-> Mark, I think Jaroslav can change the behaviour in the the added Headers in the
-> body of the message (the added Headers in the body have e.g. the correct From:
-> email information).
-
-> If the message body *starts* with the "From:", "Subject:" and "Date:" fields
-> I think git-am will pickup the correct information from the body instead of from
-> the mangled headers.
-
-> Hopefully...
-
-No, it absolutely doesn't work properly - I only noticed this was
-happening because b4/lore keep picking the copy from alsa-devel which is
-mangled to the point of not being usable.
-
---4NwigGF4Uhl2SMkR
+--tbAMK+HB7r9NrqN0
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRYNWQACgkQJNaLcl1U
-h9D1tAf+OaJRaNVGAXMUZfHxioWSb1fIwVVI2EwQ8msginqF/97kNfNUXkEVslPp
-sSUWZRTW4ti7jqhbMXRzoQUwGvpdlCnWL28z5ZAq7eKBuERS5T4oibdf0eHeX6QC
-NkTZbl8wT3sTHbhzt7AyaICjX2uUuuVSOqfN1d35vDPCwtdCbAqzXCSs1iGLFG2B
-PN/elJM2r0hUvaEpaGz6jrOVKtGmhf83YP/G0WzbLtuxJsWjH596lvIZ0zGDrs4W
-CN4q9r0tnbvPDEBhjGwSlYlXUUGlqTJoyOLTkD46b9Sb/nVwoqsLAzVohKLneJka
-GADvG2DxF/MP3OJeGUCr7P7Mzyu9vg==
-=rA7y
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRYNmQACgkQJNaLcl1U
+h9D06wf/RQ36tbWP2zfR8KTbtG1xEapzGfQXR0iXraOH5jidrnt7NY8YygQqG/ps
+ZAIr/BJRryQaar1+hT95dwMZ+aDPuHPF/+uXTxvzKvg68yaJf/K98zAIx2nIVksX
+A2M0DcCRHf3uwNWEE8Cp/Ho0zfrn5SsKCkYQr1nB9/6Dj/MDHx6lkk4yCyVvcbVs
+sSXY8LSzXWJYeir/xiEEcFvpUhywo9dFr9vSjYmvbNljOdt62pPBhuf/gg8v3X1t
+i5mNXXjhZ2+awaaDlJBgQhbxD8kEnJ8hpSkhB2BIgiBXnE8+2BN0W6HTKcoNw3jl
+XxBwmSkhhXgoadmCQxa5ZDlqsvmjRQ==
+=QChS
 -----END PGP SIGNATURE-----
 
---4NwigGF4Uhl2SMkR--
+--tbAMK+HB7r9NrqN0--

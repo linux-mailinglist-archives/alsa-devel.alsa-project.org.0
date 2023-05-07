@@ -2,117 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61B996F98D4
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 May 2023 16:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF2066F9A3F
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 May 2023 18:51:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C6F31479;
-	Sun,  7 May 2023 16:08:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C6F31479
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB9D61256;
+	Sun,  7 May 2023 18:50:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB9D61256
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683468562;
-	bh=9C8AZjjqCU/5m8O3Fc4EoMDe0i/EmxiMb4bxOMQsWkI=;
-	h=Date:To:From:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=arBqIAt7MB7HO6ziNxACUa2YKUIox0SjPzOr9821ZAECergbM5H/CokBNu9ihmYxG
-	 maTjXiZGy7l37UsmVOlh9mlUOHAb7yubzcMsdJYztkBclS4xL85KiaSU2RHUz1tsSH
-	 XQ3iA+0FCJNhbRe2UqgXt9RuVKRYqpyYZKzy4vqQ=
+	s=default; t=1683478271;
+	bh=Dsbo0UCqPyAX/ztHoW26Vj2EcL905wcNM7CMUDm8wGs=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QVfNZ8Jq6Tj88h2Ax1VlPW26V+jM3DoawaXbM78LZQqQF6Crw0hxDKIVBQN2jE6P6
+	 Ml3fpFp7PPQMO47Lny8s4/pzg6DCgQwv7cnjlbV1qvOmM1fX9+dKCX4JJAl0eMbZqY
+	 3h7WZ2f9OcjrQ4bm6MvkyX+lIRqbDLvPJwJ3K0S8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29388F80310;
-	Sun,  7 May 2023 16:08:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA43EF80310;
+	Sun,  7 May 2023 18:49:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15D1AF8032D; Sun,  7 May 2023 16:07:14 +0200 (CEST)
+	id 83299F8032D; Sun,  7 May 2023 18:48:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A9E54F802E8
-	for <alsa-devel@alsa-project.org>; Sun,  7 May 2023 16:06:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9E54F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8B20DF80217
+	for <alsa-devel@alsa-project.org>; Sun,  7 May 2023 18:48:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B20DF80217
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=rGCvSB7G
-Received: by mail-pj1-x1032.google.com with SMTP id
- 98e67ed59e1d1-24e2b2a27ebso3417149a91.3
-        for <alsa-devel@alsa-project.org>;
- Sun, 07 May 2023 07:06:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683468416; x=1686060416;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yQ+Zv9iPIV5c5mEEYmPeczvWpn9ZYRYUNQh2mIfufVo=;
-        b=rGCvSB7GU9uY+fxg4bXAR7aJ6m+HZcQEKHMVdurBrI+e6BgDtUb24072N2haXoKelu
-         SJhkBnyKxjc1Q9JqIBsiLM26N2tVjqImYVBIuZFmsngGuNk0O5RA+maWkmiORuO2RbzF
-         Z/HHfruvjtBL26lzW0H6n4wAXK7bGunJZiT9Iffs/jLxAlzzRBw++bz5O/gNYSHEMpT5
-         2qDO/fDGSoX2d8LuuAld9P94hPvTK//xJ8x9jkuZaVLg4loOPhA/yD8AE5TI4jCxZDJd
-         4R+BG0jcgYz6RIglz/Mxt2mNqwVUnocZ4najE0tLJ8o44xVFiFH+KLU5EVE+vvLsEYu9
-         SXeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683468416; x=1686060416;
-        h=content-transfer-encoding:subject:from:to:content-language
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=yQ+Zv9iPIV5c5mEEYmPeczvWpn9ZYRYUNQh2mIfufVo=;
-        b=HziYovJdbuGKjGL6H8Dl9Nn8nMtBjEaW93yBTor99SRm47vQYlfIQbKg2uufIJ3u6L
-         /ONNgvgWIfXOYBPYlW5V/sRfaFcfqR8wVt9HeGDglK2jKg7Qz0BlvjN31LSiDAg0k51I
-         LuOuKjYkkjOKogTomH7SCIblBN9WYyfx7jiZEa3QqlHjW3H8V6ZH6phfkO5CXQ6Wxyif
-         WjB8D81xdxLxVZDYDVLIqd0X5mkfRmk23tU+dJHUwG38erwJNkOmoyceiWH3rAQ+Mqyd
-         YaibejazgSLsz8DkD1w7sfA1rUb5BrvEaEsvOMUll3sNZouOkQrHUxJmlcy6QRuRYBYj
-         p/yg==
-X-Gm-Message-State: AC+VfDxfplSJzGdj7gMcfIc3gVLs0j6PqxXc1ekdOAbz0CvG39cv8Ir7
-	UQkGLuc1r9RUYRU0lCYHHGU=
-X-Google-Smtp-Source: 
- ACHHUZ5Zlrg01Q0siCjZqE7g7AXqHbKhr+8KfA/FK7msmbTd/DMW6fvxOFtUzSXxcOIEaEEHpV/YIQ==
-X-Received: by 2002:a17:90a:508:b0:24b:be0c:6134 with SMTP id
- h8-20020a17090a050800b0024bbe0c6134mr8029580pjh.33.1683468415684;
-        Sun, 07 May 2023 07:06:55 -0700 (PDT)
-Received: from [192.168.43.80] (subs28-116-206-12-59.three.co.id.
- [116.206.12.59])
-        by smtp.gmail.com with ESMTPSA id
- jo18-20020a170903055200b001a6a53c3b04sm5205302plb.306.2023.05.07.07.06.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 07 May 2023 07:06:55 -0700 (PDT)
-Message-ID: <466c0d68-5fac-74cc-c32e-23174f48add7@gmail.com>
-Date: Sun, 7 May 2023 21:06:48 +0700
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=bH15PyJR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1683478122; x=1715014122;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Dsbo0UCqPyAX/ztHoW26Vj2EcL905wcNM7CMUDm8wGs=;
+  b=bH15PyJR0ej7toyLO3sbOXR4BCwJfZRwfXF2CmD8aAAHJ2+p9ybzL1I7
+   47Xpn8oXZQjPgTyWLKXIT+rxHH2lq9ZlVTA1f4jVuqfQeTf2YrrMu1xnH
+   LZvWXMha4RUwccEh5bHPjZQ9WSdYtXbsph6lNreusrVdBnFf1f0h89lqz
+   JGAoiHDCKa0Q8OJ5rVJxBUtykWR1TQ/QvztQPUnJng5vz0goHq5BSFEK6
+   +Pk+0XhJDriM+xllhR2pnTtqOT45omtXQmm+5J3URA/JFK3mvb+wAesm6
+   MwiYLZ1jlzJ6LwAnQ4tp6go7auJC7xjhwmCvzo491F1zIx5XpBlTBpfvj
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10703"; a="329121658"
+X-IronPort-AV: E=Sophos;i="5.99,257,1677571200";
+   d="scan'208";a="329121658"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 May 2023 09:48:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10703"; a="763114525"
+X-IronPort-AV: E=Sophos;i="5.99,257,1677571200";
+   d="scan'208";a="763114525"
+Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
+  by fmsmga008.fm.intel.com with ESMTP; 07 May 2023 09:48:35 -0700
+Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1pvhYp-0000o2-17;
+	Sun, 07 May 2023 16:48:35 +0000
+Date: Mon, 8 May 2023 00:47:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: jack1989s@gmail.com, perex@perex.cz, tiwai@suse.com
+Subject: Re: [PATCH] Sound:last.c: fix code syle trailing white space -
+ modify printk()->netdev_dbg() - Possible unnecessary KERN_INFO removed
+Message-ID: <202305080037.fiQIAfoP-lkp@intel.com>
+References: <20230507130021.48112-1-jack1989s@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Content-Language: en-US
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
- Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Fwd: Asus ROG Zephyrus GX701L sound problem
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IJLORECVNKBWST57NWDUJRSXAPDC4K2L
-X-Message-ID-Hash: IJLORECVNKBWST57NWDUJRSXAPDC4K2L
-X-MailFrom: bagasdotme@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230507130021.48112-1-jack1989s@gmail.com>
+Message-ID-Hash: 6NGPRXLFFQD2DJJN7KC2LID4DLSDAP5K
+X-Message-ID-Hash: 6NGPRXLFFQD2DJJN7KC2LID4DLSDAP5K
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+CC: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Federico Di Lembo <jack1989s@gmail.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IJLORECVNKBWST57NWDUJRSXAPDC4K2L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6NGPRXLFFQD2DJJN7KC2LID4DLSDAP5K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,113 +107,67 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Hi,
 
-I notice a year-old bug report on bugzilla [1]. As many developers
-don't take a look on it, I decided to forward it by email. You will
-need to log in to bugzilla in order to contact the reporter.
+kernel test robot noticed the following build errors:
 
-Quoting from the bug report:
+[auto build test ERROR on tiwai-sound/for-next]
+[also build test ERROR on tiwai-sound/for-linus linus/master v6.3 next-20230505]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> Hello,
-> 
-> I must mention right at the beginning that I tried all the solutions I found on the forums, but without success.
-> 
-> The problem exists only with the speakers on the laptop, the microphone works, as do the headphones.
-> 
-> I extracted the audio dump from windows and compared it with the dump from Linux and thus created this pinfcg below.
-> 
-> Please, can someone add a kernel fix for ROG Zephyrus S17 GX701LWS_GX701LWS, Subsystem Id: 0x10431f01?
-> 
-> ```
-> 
-> [codec]
-> 
-> 0x10ec0294 0x10431f01 0
-> 
-> [pincfg]
-> 
-> 0x19 0x03A11050
-> 
-> 0x1a 0x03A11C30
-> 
-> ```
-> 
-> This is what a quirk should look like:
-> 
-> +SND_PCI_QUIRK(0x1043, 0x1f01, “ASUS GX701L”, ALC294_FIXUP_ASUS_SPK)
-> 
-> [ 2.396344] snd_hda_codec_realtek hdaudioC0D0: autoconfig for ALC294: line_outs=1 (0x17/0x0/0x0/0x0/0x0) type:speaker
-> [ 2.396348] snd_hda_codec_realtek hdaudioC0D0: speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-> [ 2.396349] snd_hda_codec_realtek hdaudioC0D0: hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
-> [ 2.396350] snd_hda_codec_realtek hdaudioC0D0: mono: mono_out=0x0
-> [ 2.396351] snd_hda_codec_realtek hdaudioC0D0: inputs:
-> [ 2.396352] snd_hda_codec_realtek hdaudioC0D0: Headset Mic=0x19
-> [ 2.396353] snd_hda_codec_realtek hdaudioC0D0: Internal Mic=0x12
-> 
-> 
-> 
-> 
->     hwinfo --sound  :heavy_check_mark:
->     22: PCI 1f.3: 0403 Audio device
->     [Created at pci.386]
->     Unique ID: nS1_.Qb7ky1jjQRD
->     SysFS ID: /devices/pci0000:00/0000:00:1f.3
->     SysFS BusID: 0000:00:1f.3
->     Hardware Class: sound
->     Model: “Intel Comet Lake PCH cAVS”
->     Vendor: pci 0x8086 “Intel Corporation”
->     Device: pci 0x06c8 “Comet Lake PCH cAVS”
->     SubVendor: pci 0x1043 “ASUSTeK Computer Inc.”
->     SubDevice: pci 0x1f01
->     Driver: “snd_hda_intel”
->     Driver Modules: “snd_hda_intel”
->     Memory Range: 0x94300000-0x94303fff (rw,non-prefetchable)
->     Memory Range: 0x94100000-0x941fffff (rw,non-prefetchable)
->     IRQ: 157 (817 events)
->     Module Alias: “pci:v00008086d000006C8sv00001043sd00001F01bc04sc03i80”
->     Driver Info #0:
->     Driver Status: snd_hda_intel is active
->     Driver Activation Cmd: “modprobe snd_hda_intel”
->     Driver Info #1:
->     Driver Status: snd_soc_skl is active
->     Driver Activation Cmd: “modprobe snd_soc_skl”
->     Driver Info #2:
->     Driver Status: snd_sof_pci_intel_cnl is active
->     Driver Activation Cmd: “modprobe snd_sof_pci_intel_cnl”
->     Config Status: cfg=new, avail=yes, need=no, active=unknown
-> 
->     29: PCI 100.1: 0403 Audio device
->     [Created at pci.386]
->     Unique ID: NXNs.SkelvpPm387
->     Parent ID: vSkL.ZFPYIgTFUyC
->     SysFS ID: /devices/pci0000:00/0000:00:01.0/0000:01:00.1
->     SysFS BusID: 0000:01:00.1
->     Hardware Class: sound
->     Model: “nVidia TU104 HD Audio Controller”
->     Vendor: pci 0x10de “nVidia Corporation”
->     Device: pci 0x10f8 “TU104 HD Audio Controller”
->     SubVendor: pci 0x1043 “ASUSTeK Computer Inc.”
->     SubDevice: pci 0x186f
->     Revision: 0xa1
->     Driver: “snd_hda_intel”
->     Driver Modules: “snd_hda_intel”
->     Memory Range: 0x94080000-0x94083fff (rw,non-prefetchable)
->     IRQ: 17 (1698 events)
->     Module Alias: “pci:v000010DEd000010F8sv00001043sd0000186Fbc04sc03i00”
->     Driver Info #0:
->     Driver Status: snd_hda_intel is active
->     Driver Activation Cmd: “modprobe snd_hda_intel”
->     Config Status: cfg=new, avail=yes, need=no, active=unknown
->     Attached to: #13 (PCI bridge)
-> 
-> 
-> If you need any more data, or smth just say so.
+url:    https://github.com/intel-lab-lkp/linux/commits/jack1989s-gmail-com/Sound-last-c-fix-code-syle-trailing-white-space-modify-printk-netdev_dbg-Possible-unnecessary-KERN_INFO-removed/20230507-210152
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230507130021.48112-1-jack1989s%40gmail.com
+patch subject: [PATCH] Sound:last.c: fix code syle trailing white space - modify printk()->netdev_dbg() - Possible unnecessary KERN_INFO removed
+config: x86_64-kexec (https://download.01.org/0day-ci/archive/20230508/202305080037.fiQIAfoP-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-12) 11.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/467a3e6b911964a967ad7ce544c4426e4d95b14f
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review jack1989s-gmail-com/Sound-last-c-fix-code-syle-trailing-white-space-modify-printk-netdev_dbg-Possible-unnecessary-KERN_INFO-removed/20230507-210152
+        git checkout 467a3e6b911964a967ad7ce544c4426e4d95b14f
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        make W=1 O=build_dir ARCH=x86_64 olddefconfig
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
 
-To the reporter: It seems like the hardware problem, right? If so, can
-you test on different laptop?
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202305080037.fiQIAfoP-lkp@intel.com/
 
-Thanks.
+All errors (new ones prefixed by >>):
 
-[1]: https://bugzilla.kernel.org/show_bug.cgi?id=216392
+   sound/last.c: In function 'alsa_sound_last_init':
+>> sound/last.c:15:9: error: implicit declaration of function 'netdev_dbg'; did you mean 'dev_dbg'? [-Werror=implicit-function-declaration]
+      15 |         netdev_dbg("ALSA device list:\n");
+         |         ^~~~~~~~~~
+         |         dev_dbg
+   cc1: some warnings being treated as errors
+
+
+vim +15 sound/last.c
+
+     9	
+    10	static int __init alsa_sound_last_init(void)
+    11	{
+    12		struct snd_card *card;
+    13		int idx, ok = 0;
+    14	
+  > 15		netdev_dbg("ALSA device list:\n");
+    16		for (idx = 0; idx < SNDRV_CARDS; idx++) {
+    17			card = snd_card_ref(idx);
+    18			if (card) {
+    19				netdev_dbg("  #%i: %s\n", idx, card->longname);
+    20				snd_card_unref(card);
+    21				ok++;
+    22			}
+    23		}
+    24		if (ok == 0)
+    25			netdev_dbg("  No soundcards found.\n");
+    26		return 0;
+    27	}
+    28	
 
 -- 
-An old man doll... just what I always wanted! - Clara
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests

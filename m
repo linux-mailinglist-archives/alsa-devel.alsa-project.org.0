@@ -2,27 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79BC26F9599
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 May 2023 02:35:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7916D6F95A1
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 May 2023 02:35:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0CFE181A;
-	Sun,  7 May 2023 02:34:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0CFE181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 718591849;
+	Sun,  7 May 2023 02:34:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 718591849
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683419728;
-	bh=Gi/XeeeFJGaxdykTW9TYbF0cQECHu1dUcrdCmjj4qbA=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=eDI0FBYDh0W4BUG4tsG9K4t6NX/iaFn5Ubz6O/Iy1H7YWXLbJwEQDqd0LtYgc2frN
-	 YlxSEWQTu2nAu+k9R//HIR53CJ5tTdfSDY41udMVxvU/v4a1BoMlbOGWlfppparayB
-	 wyhWKhKeM7E0/JH54lXsUB4BuIfW7DEyZeUcxYtA=
+	s=default; t=1683419748;
+	bh=40z2ZpojbXuP6tB3+OAoSZu6KHvjy/jbjRj5UZ9K8Nw=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Y45AL/tJZBcSKHIrvCXQt4ernVwWnX2TGsp6S1eNKPEDEQ7LQi+yvFFIk0iOCa8AT
+	 SPAhsNR543KsoFWmx5ghBjjpG1dogw8b8+UPCOYUe4eBQKOoxrWVrLNvxDKByMMqXO
+	 xiISUe4osLh0K/ymGV1RAaKYFcRKO2P9dzJjAH0s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22C96F80310;
-	Sun,  7 May 2023 02:34:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D7D6F80534;
+	Sun,  7 May 2023 02:34:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D66D4F8052E; Sun,  7 May 2023 02:34:24 +0200 (CEST)
+	id E101BF8053D; Sun,  7 May 2023 02:34:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,44 +33,46 @@ X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 35415F80217
-	for <alsa-devel@alsa-project.org>; Sun,  7 May 2023 02:34:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35415F80217
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62847F80534
+	for <alsa-devel@alsa-project.org>; Sun,  7 May 2023 02:34:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62847F80534
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=k66Pu9X0
+ header.s=k20201202 header.b=ZNTKFka9
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 270D160EF0;
-	Sun,  7 May 2023 00:34:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E36C433EF;
-	Sun,  7 May 2023 00:34:20 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 53F2761514;
+	Sun,  7 May 2023 00:34:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECD21C433EF;
+	Sun,  7 May 2023 00:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683419661;
-	bh=Gi/XeeeFJGaxdykTW9TYbF0cQECHu1dUcrdCmjj4qbA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=k66Pu9X0WHvyTew2hQgZuASXzGOHyz/dEXnhtyWsfDhR+7cE09mUD7SFHFKsXZ3+Z
-	 ovPOPRkDMziG++vPT0lOdzYghn7MQNIfAB/8sVjHtI+wUGncZBhDLGrdFYoMCi9CpM
-	 G6CS7azvK8H/he4reS+WTPrOPai1STR791ljnefsYqSyF1CbxF6JNtcPCBy9BQrsX4
-	 ys/+2SW9vY2oVV7HEkWjS9GH36SlvBuOmwHi+5ula0cI6PSyRZrqBafBSTs7Epbhj/
-	 FvwTomEW9oO9MZpht5mXGfH3BV3N/XIxu5UcFQ9c/2Fn5CGpZHRRPPSwWkYYcPLWVf
-	 gTMaJE2iB04gQ==
+	s=k20201202; t=1683419679;
+	bh=40z2ZpojbXuP6tB3+OAoSZu6KHvjy/jbjRj5UZ9K8Nw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ZNTKFka9EdHMVSU7XZnt6Iue1iFrugPRhIeoDqYX9MM3Lz/Wdnxh5PnGBRVa79f0J
+	 ijFiohs2UAT5wCpUlITOX174WlNWv9S3Yc5DfNt11Aiev4w7Du657eR/PiAi0sRxnm
+	 4AwLCZqFqvOgWW+lsCMwnZdckRqushA4d7CW0Nr/MRxQ7PyEb+Xg7JE2mboRZdvBGK
+	 vgGqS35IEq/e/yBDeC2REO3RhyY1vVJXZiiOKFFX/JRe0SsCnEwRwCLFm5km1ENGiY
+	 t8yme+5yU2aFtJLNKw6pIuwC9QE589KnmT6/d16yCR92QTCEYbPQRN8DdFg4nsmfE+
+	 qTtrQcYTcoHPg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 01/19] ASoC: jack: allow multiple interrupt per
- gpio
-Date: Sat,  6 May 2023 20:33:59 -0400
-Message-Id: <20230507003417.4077259-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 05/19] ASoC: tegra: Support coupled mic-hp
+ detection
+Date: Sat,  6 May 2023 20:34:03 -0400
+Message-Id: <20230507003417.4077259-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230507003417.4077259-1-sashal@kernel.org>
+References: <20230507003417.4077259-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MC5SX3O5WUWAG67BEY7E2NS6XBBNNOMN
-X-Message-ID-Hash: MC5SX3O5WUWAG67BEY7E2NS6XBBNNOMN
+Message-ID-Hash: Y5LHLG6GITN36XHUMJH6UY72D5ZHQVG5
+X-Message-ID-Hash: Y5LHLG6GITN36XHUMJH6UY72D5ZHQVG5
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,13 +82,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 CC: Svyatoslav Ryhel <clamor95@gmail.com>, Mark Brown <broonie@kernel.org>,
  Sasha Levin <sashal@kernel.org>, lgirdwood@gmail.com, tiwai@suse.com,
- alsa-devel@alsa-project.org
+ thierry.reding@gmail.com, jonathanh@nvidia.com,
+ jiapeng.chong@linux.alibaba.com, ion@agorria.com, robh@kernel.org,
+ alsa-devel@alsa-project.org, linux-tegra@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MC5SX3O5WUWAG67BEY7E2NS6XBBNNOMN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y5LHLG6GITN36XHUMJH6UY72D5ZHQVG5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,31 +101,59 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 
-[ Upstream commit a2d4051b0bd6dffcd736888ae89a550d6f60b060 ]
+[ Upstream commit eb0b8481c2e03a5ae01f6bea60b42109bd12b6fe ]
 
-This feature is required for coupled hp-mic quirk used
-by some Nvidia Tegra 3 based devices work properly.
+This quirk is used for cases when there is GPIO which detects
+any type of 3.5 Jack insertion and actual type of jack is defined
+by other GPIO. 3.5 Jack GPIO generates interrupt and MIC GPIO
+indicates type of Jack only if 3.5 Jack GPIO is active.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Link: https://lore.kernel.org/r/20230221183211.21964-3-clamor95@gmail.com
+Link: https://lore.kernel.org/r/20230308073502.5421-3-clamor95@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-jack.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/tegra/tegra_asoc_machine.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/sound/soc/soc-jack.c b/sound/soc/soc-jack.c
-index fcece5ca38c69..f951acb2ce362 100644
---- a/sound/soc/soc-jack.c
-+++ b/sound/soc/soc-jack.c
-@@ -367,6 +367,7 @@ int snd_soc_jack_add_gpios(struct snd_soc_jack *jack, int count,
+diff --git a/sound/soc/tegra/tegra_asoc_machine.c b/sound/soc/tegra/tegra_asoc_machine.c
+index 78faa8bcae274..7b6d5d90c3a2d 100644
+--- a/sound/soc/tegra/tegra_asoc_machine.c
++++ b/sound/soc/tegra/tegra_asoc_machine.c
+@@ -51,6 +51,17 @@ static struct snd_soc_jack_gpio tegra_machine_headset_jack_gpio = {
+ };
  
- 		ret = request_any_context_irq(gpiod_to_irq(gpios[i].desc),
- 					      gpio_handler,
-+					      IRQF_SHARED |
- 					      IRQF_TRIGGER_RISING |
- 					      IRQF_TRIGGER_FALLING,
- 					      gpios[i].name,
+ /* Mic Jack */
++static int coupled_mic_hp_check(void *data)
++{
++	struct tegra_machine *machine = (struct tegra_machine *)data;
++
++	/* Detect mic insertion only if 3.5 jack is in */
++	if (gpiod_get_value_cansleep(machine->gpiod_hp_det) &&
++	    gpiod_get_value_cansleep(machine->gpiod_mic_det))
++		return SND_JACK_MICROPHONE;
++
++	return 0;
++}
+ 
+ static struct snd_soc_jack tegra_machine_mic_jack;
+ 
+@@ -183,8 +194,15 @@ int tegra_asoc_machine_init(struct snd_soc_pcm_runtime *rtd)
+ 			return err;
+ 		}
+ 
++		tegra_machine_mic_jack_gpio.data = machine;
+ 		tegra_machine_mic_jack_gpio.desc = machine->gpiod_mic_det;
+ 
++		if (of_property_read_bool(card->dev->of_node,
++					  "nvidia,coupled-mic-hp-det")) {
++			tegra_machine_mic_jack_gpio.desc = machine->gpiod_hp_det;
++			tegra_machine_mic_jack_gpio.jack_status_check = coupled_mic_hp_check;
++		};
++
+ 		err = snd_soc_jack_add_gpios(&tegra_machine_mic_jack, 1,
+ 					     &tegra_machine_mic_jack_gpio);
+ 		if (err)
 -- 
 2.39.2
 

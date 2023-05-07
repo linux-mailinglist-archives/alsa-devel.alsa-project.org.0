@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0DE6F955B
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 May 2023 02:33:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4496F955C
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 May 2023 02:33:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8CDFF1856;
-	Sun,  7 May 2023 02:32:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CDFF1856
+	by alsa0.perex.cz (Postfix) with ESMTPS id 706851884;
+	Sun,  7 May 2023 02:32:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 706851884
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683419592;
-	bh=GDJqL3ApqS/ZnDifmDg2sYO6N0TYZCUCDJ0ATatYnFg=;
+	s=default; t=1683419598;
+	bh=Q2l8J41OyU469PilNyQEOpqfFO7xRFpbCy4X7cgypcQ=;
 	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YW4sjrW8qsvcXS1mWuwhUTt3SMzYwViKnPjoLU5AOpbtgvBhsrsLxAduX3nOR1M6F
-	 FoDFN+buCNshpyZC7N+kHMCgPdX2CzEjO7+HkuRhalPFgXds0gxjA/iRSSji44L+Re
-	 xD5BFbLuXGILHdD2Py00eodGNx4XmSkwsQu5gZZ8=
+	b=TGZkmn9a08DAtWrhOJ5mc4nL3urWJA1rvI3Dr3GUlpbtYlRE3eGuYpIPTjUBdoKtu
+	 erklRh62+vtJZ+Klo+iFjhGJ+8veJsCrLHl4bORVl4l1pDSUlCE3rs8VzpR/JHRgNo
+	 mDC6idskzBIqDkC+zhA4QLVxM8wn0ZORqsbatPAI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25723F8055B;
-	Sun,  7 May 2023 02:31:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9F56F80571;
+	Sun,  7 May 2023 02:31:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 450DBF8055B; Sun,  7 May 2023 02:31:19 +0200 (CEST)
+	id A424EF80578; Sun,  7 May 2023 02:31:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D8C5F80551
-	for <alsa-devel@alsa-project.org>; Sun,  7 May 2023 02:31:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D8C5F80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id 790E6F80558
+	for <alsa-devel@alsa-project.org>; Sun,  7 May 2023 02:31:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 790E6F80558
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EF0nA26M
+ header.s=k20201202 header.b=ceEQ9the
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8CA47609AD;
-	Sun,  7 May 2023 00:31:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DA87C433D2;
-	Sun,  7 May 2023 00:31:12 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1CC8161447;
+	Sun,  7 May 2023 00:31:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2698C433D2;
+	Sun,  7 May 2023 00:31:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683419474;
-	bh=GDJqL3ApqS/ZnDifmDg2sYO6N0TYZCUCDJ0ATatYnFg=;
+	s=k20201202; t=1683419478;
+	bh=Q2l8J41OyU469PilNyQEOpqfFO7xRFpbCy4X7cgypcQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=EF0nA26MVVqWeW6tzMIDBbeT4X5u81Nh1GA1knPS1eoEW8Iu4WsNDSc9g36XtDQYV
-	 T1e1IqelzT7ccVs+vn+OGv5P6V97kLHV0ol47OFbDblUlslUVgxryHoYGwfapyp3b+
-	 Ye1eYFLL7y1aGDf4dURfX2IQY9gKhQbnidgsrQTbxllV/a6O1cGKtejgyn9w0W5fsR
-	 85jFO2f/1y9WGOgi+7IIKtVBvZDjvY0n+ctTL6ofUHP/Bb0ibKCo5HTRL099zP8soG
-	 kA2IZnVLPus28nPU1lH+psGp6t/IHhBxYgU9lN9CwF+HgkCPNV1715YKGIXWi2wRG5
-	 D9qHTUdnyLOdg==
+	b=ceEQ9thejsLBc+KNiikYH8tyYiXHSvy5YzQ3rSDpKVFL6KloKHTsZ5vd1gslrq3hN
+	 rRY5KGl+pf+DTjVft+UeYMAWRbzQy2OQvh1bCLEQY+xr4PriYO2HokQEoufOd0od2f
+	 UEwxoZlRWyNleXTnx8VVjIRX7oa0/lxmJnUOqld1eB39A4GjFZBR2cVyap+Hl8I+ZX
+	 9suKBBPgOLbT0jvSylDV7yobv1/xTSO7K1Tlh5QAJUZHWoceLdIvN7dV63pOfp02y5
+	 ccBuFe3WwDp1jNmLvkH9h1s+jSld4SY6NVDwg7fRu/FmeBMNb44OZdNI+FSkYJezs2
+	 bYmuXVWPJLhjg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.3 16/24] ASoC: amd: Add Dell G15 5525 to quirks list
-Date: Sat,  6 May 2023 20:30:12 -0400
-Message-Id: <20230507003022.4070535-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.3 17/24] ASoC: amd: yc: Add ThinkBook 14 G5+ ARP to
+ quirks list for acp6x
+Date: Sat,  6 May 2023 20:30:13 -0400
+Message-Id: <20230507003022.4070535-17-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230507003022.4070535-1-sashal@kernel.org>
 References: <20230507003022.4070535-1-sashal@kernel.org>
@@ -71,8 +71,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HUB3PITUHXITGKHEIWUOJMIWIERZIDYI
-X-Message-ID-Hash: HUB3PITUHXITGKHEIWUOJMIWIERZIDYI
+Message-ID-Hash: 33XM2QRR6CYE3KN2VIZ57366YOLC2FRH
+X-Message-ID-Hash: 33XM2QRR6CYE3KN2VIZ57366YOLC2FRH
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,17 +80,17 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Cem Kaya <cemkaya.boun@gmail.com>, Mark Brown <broonie@kernel.org>,
+CC: Baishan Jiang <bjiang400@outlook.com>, Mark Brown <broonie@kernel.org>,
  Sasha Levin <sashal@kernel.org>, lgirdwood@gmail.com, tiwai@suse.com,
- mario.limonciello@amd.com, Syed.SabaKareem@amd.com, gbrohammer@outlook.com,
- wimvanboven@gmail.com, aniol@aniolmarti.cat, xazrael@hotmail.com,
+ mario.limonciello@amd.com, Syed.SabaKareem@amd.com, dukzcry@ya.ru,
+ putr4.s@gmail.com, fengwk94@gmail.com, xazrael@hotmail.com,
  alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HUB3PITUHXITGKHEIWUOJMIWIERZIDYI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/33XM2QRR6CYE3KN2VIZ57366YOLC2FRH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,16 +99,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Cem Kaya <cemkaya.boun@gmail.com>
+From: Baishan Jiang <bjiang400@outlook.com>
 
-[ Upstream commit faf15233e59052f4d61cad2da6e56daf33124d96 ]
+[ Upstream commit a8f5da0bf4d85a6ad03810d902aba61c572102a6 ]
 
-Add Dell G15 5525 Ryzen Edition to quirks list for acp6x so that
-internal mic works.
+ThinkBook 14 G5+ ARP uses Ryzen 7735H processor, and has the same
+microphone problem as ThinkBook 14 G4+ ARA.
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=217155
-Signed-off-by: Cem Kaya <cemkaya.boun@gmail.com>
-Link: https://lore.kernel.org/r/20230410183814.260518-1-cemkaya.boun@gmail.com
+Adding 21HY to acp6x quirks table enables microphone for ThinkBook
+14 G5+ ARP.
+
+Signed-off-by: Baishan Jiang <bjiang400@outlook.com>
+Link: https://lore.kernel.org/r/OS3P286MB1711DD6556284B69C79C0C4FE19B9@OS3P286MB1711.JPNP286.PROD.OUTLOOK.COM
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -116,18 +118,18 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+)
 
 diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index a428e17f03259..1d59163a882ca 100644
+index 1d59163a882ca..b9958e5553674 100644
 --- a/sound/soc/amd/yc/acp6x-mach.c
 +++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -45,6 +45,13 @@ static struct snd_soc_card acp6x_card = {
- };
- 
- static const struct dmi_system_id yc_acp_quirk_table[] = {
+@@ -185,6 +185,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "21EN"),
+ 		}
+ 	},
 +	{
 +		.driver_data = &acp6x_card,
 +		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Dell Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Dell G15 5525"),
++			DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "21HY"),
 +		}
 +	},
  	{

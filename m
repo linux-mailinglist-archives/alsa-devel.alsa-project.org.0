@@ -2,105 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 394046FA18D
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:52:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 950336F9FD8
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 08:28:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91A8912FE;
-	Mon,  8 May 2023 09:51:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91A8912FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12DA411C0;
+	Mon,  8 May 2023 08:27:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12DA411C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683532330;
-	bh=WkhMR5D5tb01834+1eW9MD58gsfJiiwdpu1FEdTchEg=;
-	h=From:Date:Subject:To:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=F/0w1xHF8jrbLy7hV826NMMPv8CQNvyOkH1MmjxHSQiVAsM5LKBr9lZXdL0Q/5jl6
-	 mos0477hMiPui6YirKDCCjiHoyH+o4wYhs9hqNgYOFTKl3jNoTbnuEV3dFf8o+0lVS
-	 FrmeYlWG5nbG4ys74BM01uTBTiAQyo5Twfjtnvt4=
+	s=default; t=1683527281;
+	bh=2N7NjTH2VlqAsqbaUR/4INqfOxbZgYbmhjjcV1pq71k=;
+	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=j+XsvFUFi7BJ0T4d4gECtB2wONZEAXuC+sZ2rqRiaWN5p34j7UTB9Au7Pfb6yFcv+
+	 PKew0bgenatA9kR+SfPK5SN47/p9HCAYGOpEQ9f6+XkDhDZePwienuL8Uv98k+gwGD
+	 WCfk5May/IbsMrcv47bCFiTfG4+iEDikZAqoNQEI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 139BAF805F5;
-	Mon,  8 May 2023 09:46:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53B88F80310;
+	Mon,  8 May 2023 08:27:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A760F8032D; Mon,  8 May 2023 05:02:22 +0200 (CEST)
+	id F0465F8032D; Mon,  8 May 2023 08:27:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
- [IPv6:2607:f8b0:4864:20::1132])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
+ [209.85.160.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46F82F802E8
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 05:02:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46F82F802E8
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=JtkuanBe
-Received: by mail-yw1-x1132.google.com with SMTP id
- 00721157ae682-55c939fb24dso35358677b3.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id E9FE7F802E8
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 08:27:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9FE7F802E8
+Received: by mail-oa1-f49.google.com with SMTP id
+ 586e51a60fabf-1928860f63eso2677437fac.0
         for <alsa-devel@alsa-project.org>;
- Sun, 07 May 2023 20:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683514922; x=1686106922;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=EM9Ubq1vKCbrmde66NfhmeEaWj16YcxY8NtZkiWkINs=;
-        b=JtkuanBesqAGz3BWwpSZHk6hojBGzIiQkhaMnMkA4g8Jji1yzmjPoFYDBo1mdi+xUa
-         7oRtt+dTFQRbQvhsMzUL+61t29sc7rajHZLljLspbmTPuzhW2KcwryZryPsJh2LsH3hZ
-         tE2gIY2MMQ3nB/E1be/Vvl0wFzh46gePgKtH/HxTZvBju5RWM46HI3y1JqDLSpb/SDCz
-         su+WrF6/1RyMtuHEj/DIIt9GGadbWwjga8bTK+X/fKMBzVX3JAaISZA/6/ZlGkBzWnKU
-         FgExdM6yuFoFgGoA+cC9w1joFaLwT4N/Mr8XEZWQFOwfxyvdT+BgpNqE7HR8RrGRnnTA
-         G4Jw==
+ Sun, 07 May 2023 23:27:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683514922; x=1686106922;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EM9Ubq1vKCbrmde66NfhmeEaWj16YcxY8NtZkiWkINs=;
-        b=bmWVLO6oorAJ8AuLHbcR9Q2pbz/FCHSYQHkkzbve5vUOJUAOx9MCcCQlV6Vg+m9RoT
-         uu8wYzWjO+zP7j8uiDPoeuDpuGFhl7psiSrcKgnFmF6jRUkjjx+kKvhvT27yOGkHtk2A
-         YLqn355OPIe0Mwfh18WfeVcidnyAZ9gVpRK3SayGCK+OVeUbKWpQ+SCqHcJe4MCDzUuE
-         buPvUZsLne7vLdGFfCBLbs78dINMVLdGsUrsmMBxmVD/PS5tJWzO0Ya1q7YRcePhkYgJ
-         rZUZx/fwIOVZ0nruoZkAYbb0yveqjjwElou96RTJ/cKSrKxvMr9kXP3Yevc2T9y8BvRa
-         FqZw==
-X-Gm-Message-State: AC+VfDw47dP5v3kAqLpDwmo68uS16uzX9skwj8Qm/NnL+2EJrk/Dm4m4
-	4ctFlbouTRJqflXb6j/QjsAdVc33eolwSy+5GMo=
+        d=1e100.net; s=20221208; t=1683527220; x=1686119220;
+        h=date:subject:message-id:references:in-reply-to:cc:to:from
+         :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=witHYv1Hkh138s1daDFZMrxf1YGkxRazduMe4ExLmyE=;
+        b=hKE2y38OVXjX2z+uw4YnUbVPFAdx32tvr25XJ1to1sExGG9DdaxUOPVODHvnTkjrHN
+         gn/CKW5aVBQRggyzWcEA9CV1kNDQ+jtg2dUezM/hcqf+9HbKbWLRoVxmmk51YGk/X9by
+         WdSXZPgARGpROT12RV4qEA0//UWL+10Lo68bvYuZPrASmFZfw+QVCO/OPwzhPn4XvhMh
+         cbFBTNVR0fMWt8gRN4CvHgXCqk0vYY43r3zn45GbMs1L2hAm3tVpjEQ60/41R8JpdAS0
+         bRVP+NQMAKN6WkXLehRJd5sJRuidOQ+zYrhZeaOedhO9EbdTWbRcEdrydABvIhqAm5EY
+         xxZQ==
+X-Gm-Message-State: AC+VfDwOnXj7C/HrZmel4nz0JRr6n8cTm4LXhQDd8JEF++WGJB/HcARA
+	+vkvKIuf7LAustRu2Mtang==
 X-Google-Smtp-Source: 
- ACHHUZ7tMZv8tYXxs3jC3Tst3y9RRf8/win4hiQoN723jII2e00W5Wb6k4bwvPg32x0pxbDMnSSjDceczxn3wSJSdyk=
-X-Received: by 2002:a0d:ccc8:0:b0:55a:6efe:8e2f with SMTP id
- o191-20020a0dccc8000000b0055a6efe8e2fmr8903859ywd.45.1683514922494; Sun, 07
- May 2023 20:02:02 -0700 (PDT)
+ ACHHUZ4IPcRapdZOKJCWtWLeNloyjZMFnl+3ZMAIwpbyb4CfDyFLDZldO69cTTbbsAhM+OmRQZ8ojg==
+X-Received: by 2002:a05:6870:36c6:b0:17f:17a3:6a53 with SMTP id
+ u6-20020a05687036c600b0017f17a36a53mr4261981oak.53.1683527220047;
+        Sun, 07 May 2023 23:27:00 -0700 (PDT)
+Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107])
+        by smtp.gmail.com with ESMTPSA id
+ n3-20020a056870034300b00176d49bb898sm4575083oaf.44.2023.05.07.23.26.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 07 May 2023 23:26:59 -0700 (PDT)
+Received: (nullmailer pid 213415 invoked by uid 1000);
+	Mon, 08 May 2023 06:26:53 -0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-From: Dave Greengas <dave.greengas@gmail.com>
-Date: Sun, 7 May 2023 22:01:51 -0500
-Message-ID: 
- <CAOwgCp_h6w8mpMaXt9w7reTM+dDpvQ1WnhHQK=FHJLwVsn20aQ@mail.gmail.com>
-Subject: Patch for HP Spectre x360 Convertible 14t-ea100 Sound
- (patch_realtek.c)
-To: linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000ee361005fb25dc1c"
-X-MailFrom: dave.greengas@gmail.com
-X-Mailman-Rule-Hits: nonmember-moderation
+From: Rob Herring <robh@kernel.org>
+To: Shenghao Ding <13916275206@139.com>
+In-Reply-To: <20230508054512.719-1-13916275206@139.com>
+References: <20230508054512.719-1-13916275206@139.com>
+Message-Id: <168352721271.213340.3578983696891383785.robh@kernel.org>
+Subject: Re: [PATCH v2 2/5] ASoC: dt-bindings: Add tas2781 amplifier
+Date: Mon, 08 May 2023 01:26:53 -0500
+Message-ID-Hash: 6UOANV57JKEJOC3EANW2O6VESD6SCHTK
+X-Message-ID-Hash: 6UOANV57JKEJOC3EANW2O6VESD6SCHTK
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FU227N5ZIWVTLLNDI47VQJTY5GOQVZJ4
-X-Message-ID-Hash: FU227N5ZIWVTLLNDI47VQJTY5GOQVZJ4
-X-Mailman-Approved-At: Mon, 08 May 2023 07:46:29 +0000
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
-CC: Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Ryan_Chu@wistron.com, navada@ti.com, gentuser@gmail.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, shenghao-ding@ti.com, Sam_Wu@wistron.com,
+ lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, x1077012@ti.com,
+ broonie@kernel.org, kevin-lu@ti.com, devicetree@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, peeyush@ti.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FU227N5ZIWVTLLNDI47VQJTY5GOQVZJ4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6UOANV57JKEJOC3EANW2O6VESD6SCHTK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,56 +110,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---000000000000ee361005fb25dc1c
-Content-Type: text/plain; charset="UTF-8"
 
-The sound for this laptop does not work without a patch to patch_realtek.c.
-I noticed that it has an ALC245 sound card, but a different product id. I
-have been running this patch for months and it works well. There is the
-known issue with the top-mounted speakers, but this is the same as when I
-manually run the hda-verbs as described on a forum post on kernel.org for
-similar models.
+On Mon, 08 May 2023 13:45:12 +0800, Shenghao Ding wrote:
+> Create tas2781.yaml for tas2781 driver.
+> 
+> Signed-off-by: Shenghao Ding <13916275206@139.com>
+> 
+> ---
+> Changes in v7:
+>  - Submit together with tas2781 codec driver code
+>  - Add more detail description for ti,audio-slots
+>  - Keep consistent for "I2C"
+>  - remove reset-gpios description
+>  - For reg, express as constraints instead
+>  - remove unnecessary '|'
+>  Changes to be committed:
+> 	new file:   Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+> ---
+>  .../devicetree/bindings/sound/ti,tas2781.yaml | 90 +++++++++++++++++++
+>  1 file changed, 90 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+> 
 
-I added the following line:
-SND_PCI_QUIRK(0x103c, 0x89da, "HP Spectre x360 14",
-ALC245_FIXUP_HP_X360_AMP),
-Only the model 0x89da is different.
-I ran the diff command against a 62 kernel, but noticed that 63 has the
-same file and showed no commits.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-I have been running this patch successfully for many months on the 62
-branch, but I do not know anyone else with this same laptop model to
-confirm that it works for them.
+yamllint warnings/errors:
 
-If there is a different process for submitting the patch, please let me
-know.
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/rockchip-isp1.example.dtb: camera@3c: port:endpoint:data-lanes: [[1]] is too short
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.example.dtb: camera-sensor@3c: port:endpoint:data-lanes: [[1]] is too short
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.example.dtb: pcie-ep@33800000: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
+	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
 
-Kernel 63 was just released for my distribution and I plan to test the
-patch there as well, but I do not expect it to work differently.
+doc reference errors (make refcheckdocs):
+Documentation/usb/gadget_uvc.rst: Documentation/userspace-api/media/v4l/pixfmt-packed.yuv.rst
+MAINTAINERS: Documentation/devicetree/bindings/pwm/pwm-apple.yaml
 
----------------------------------
-David Greengas
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230508054512.719-1-13916275206@139.com
 
---000000000000ee361005fb25dc1c
-Content-Type: text/x-patch; charset="US-ASCII";
- name="0999-patch_realtek.patch"
-Content-Disposition: attachment; filename="0999-patch_realtek.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_lhe958w50>
-X-Attachment-Id: f_lhe958w50
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-LS0tIC4uLy4uL2xpbnV4NjMvc3JjL2xpbnV4LTYuMy9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0
-ZWsuYwkyMDIzLTA0LTIzIDE0OjAyOjUyLjAwMDAwMDAwMCAtMDUwMAorKysgbGludXgtNi4yL3Nv
-dW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCTIwMjMtMDUtMDcgMTQ6Mjg6MDguOTc5NTI0NzA1
-IC0wNTAwCkBAIC05NDA5LDYgKzk0MDksNyBAQAogCVNORF9QQ0lfUVVJUksoMHgxMDNjLCAweDg3
-ZjUsICJIUCIsIEFMQzI4N19GSVhVUF9IUF9HUElPX0xFRCksCiAJU05EX1BDSV9RVUlSSygweDEw
-M2MsIDB4ODdmNiwgIkhQIFNwZWN0cmUgeDM2MCAxNCIsIEFMQzI0NV9GSVhVUF9IUF9YMzYwX0FN
-UCksCiAJU05EX1BDSV9RVUlSSygweDEwM2MsIDB4ODdmNywgIkhQIFNwZWN0cmUgeDM2MCAxNCIs
-IEFMQzI0NV9GSVhVUF9IUF9YMzYwX0FNUCksCisJU05EX1BDSV9RVUlSSygweDEwM2MsIDB4ODlk
-YSwgIkhQIFNwZWN0cmUgeDM2MCAxNCIsIEFMQzI0NV9GSVhVUF9IUF9YMzYwX0FNUCksCiAJU05E
-X1BDSV9RVUlSSygweDEwM2MsIDB4ODgwNSwgIkhQIFByb0Jvb2sgNjUwIEc4IE5vdGVib29rIFBD
-IiwgQUxDMjM2X0ZJWFVQX0hQX0dQSU9fTEVEKSwKIAlTTkRfUENJX1FVSVJLKDB4MTAzYywgMHg4
-ODBkLCAiSFAgRWxpdGVCb29rIDgzMCBHOCBOb3RlYm9vayBQQyIsIEFMQzI4NV9GSVhVUF9IUF9H
-UElPX0xFRCksCiAJU05EX1BDSV9RVUlSSygweDEwM2MsIDB4ODgxMSwgIkhQIFNwZWN0cmUgeDM2
-MCAxNS1lYjF4eHgiLCBBTEMyODVfRklYVVBfSFBfU1BFQ1RSRV9YMzYwX0VCMSksCg==
---000000000000ee361005fb25dc1c--
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+

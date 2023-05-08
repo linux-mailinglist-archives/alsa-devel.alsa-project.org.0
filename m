@@ -2,89 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 727DB6FA124
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:34:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15BE66FA125
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:35:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA36612AD;
-	Mon,  8 May 2023 09:33:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA36612AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C2DB12AF;
+	Mon,  8 May 2023 09:34:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C2DB12AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683531273;
-	bh=Ewso4HhzAJsqbCT6d20i437Q1SAxJH/VSuHeEApsxno=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1683531324;
+	bh=iBD/inicE5OSbeLiIqQicBppLAV6vTbEgEFJ8lVOL/A=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=El1mCSckZutqzxlPt1CNVQ+1DCX4UAnsVRHFx5544hjw+Xuhi0uxSH9eTWmdozFRc
-	 I8hajF+kTCgN5QJMw9lGuPODjamkPgX89J3Jc9osQhDAyTDb2XRXSN1hZ5mnyVvfTo
-	 gwODGJ6PgoTOHrFUb888UpT6VTUwLCvv8U6gUss0=
+	b=A6TuybmfebLLhqOvkphTOLNbtYLNd5ljEwQM/0KHTikpgXo8E/KF6S1DZhN+W6kgX
+	 3oX6co8k4UqeYcBE8v2EQW4g9VYaPawq35IxU3+eDOIqVzrsRUIemIo5zHlD44cjSc
+	 xzN7OhW2ZtSeuV+vQAk1lyA/SUprmVgO93UCL+OI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73D4EF80310;
-	Mon,  8 May 2023 09:33:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8D12F80534;
+	Mon,  8 May 2023 09:33:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23D60F8032D; Mon,  8 May 2023 09:33:40 +0200 (CEST)
+	id D9030F8053B; Mon,  8 May 2023 09:33:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21540F8014C
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:33:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21540F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9D83FF8052E
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:33:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D83FF8052E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ksQ/haKd
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=RM+IIr2m;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=1cMfDqpb
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 08AD861038;
-	Mon,  8 May 2023 07:33:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93C0C433D2;
-	Mon,  8 May 2023 07:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683531213;
-	bh=Ewso4HhzAJsqbCT6d20i437Q1SAxJH/VSuHeEApsxno=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ksQ/haKdEaXlVJf5aV4SAe7/h6YRzUWHQCOmPabBVhnPsYgPWDktr8vLtVV48Egem
-	 4N/QFzD9aUhobzl9LNc/vuuaRS62YMRs5epnu3teAICr7Up3NVXpKZxx2L27potgiZ
-	 Wg3tYcGgfte+jBAzGZwsHkxInQUbJUZjngdOn5h14yVWOg9TKsX+cI8YvopmOlakH0
-	 CmqtfQ+xEMvl2CsAQeXz4C45wXoAuO/ejo1jo3DhfToz5M0PPsTxn2zA1Mchuqb91q
-	 OeamyywMW7+YLJopIGyCSfqBnp/ZzP0JDMUYNpJpJzGGHr4Cu3tjqjbcxeCOGZMZNB
-	 s60WuEqbbPFaA==
-Date: Mon, 8 May 2023 13:03:29 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Subject: Re: [PATCH v2] soundwire: bus: Don't filter slave alerts
-Message-ID: <ZFilyckgWJlHiBiU@matsya>
-References: <20230418140650.297279-1-ckeepax@opensource.cirrus.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230418140650.297279-1-ckeepax@opensource.cirrus.com>
-Message-ID-Hash: GUF4S724AMA4FPXVHGFKW3IGVCW47WL2
-X-Message-ID-Hash: GUF4S724AMA4FPXVHGFKW3IGVCW47WL2
-X-MailFrom: vkoul@kernel.org
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1AF3E1F891;
+	Mon,  8 May 2023 07:33:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1683531228;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n4WwyeSfpq5sAs08qWxANbJZn+6HDsbNxrTZjnjPSxQ=;
+	b=RM+IIr2mL7MClSyBYXevIiFcoDlfGZDiu7c/TxAo9Xe0gC9kIDS9mBF3VeP3nKtquoyivh
+	l4z1W2jqRBKunsgG7kTOJd3A1fxyl1I9EIIXafmK1MuEAr4s95U7gsC+CLRteoQtyulnLc
+	knQH4jmQ3+R9AVjwWEDMzvqqsuPIcfk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1683531228;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n4WwyeSfpq5sAs08qWxANbJZn+6HDsbNxrTZjnjPSxQ=;
+	b=1cMfDqpbhlqdP4M21VIi+TmRXj1AH8tCz2iOr+ESkz8vgWMe5lNGcwdexvqDaxFvZxjtDD
+	K9J5Wi9+aABSftDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F06671346B;
+	Mon,  8 May 2023 07:33:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id C4SLOdulWGS1NgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 08 May 2023 07:33:47 +0000
+Date: Mon, 08 May 2023 09:33:47 +0200
+Message-ID: <871qjrffac.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 0/6] ALSA: emu10k1: Various improvements related to
+ locking
+In-Reply-To: <20230428095941.1706278-1-oswald.buddenhagen@gmx.de>
+References: <20230428095941.1706278-1-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: UMCLHQJHFUDBUXJCN5VZLOZRHGTPKGDX
+X-Message-ID-Hash: UMCLHQJHFUDBUXJCN5VZLOZRHGTPKGDX
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.intel.com,
- sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GUF4S724AMA4FPXVHGFKW3IGVCW47WL2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UMCLHQJHFUDBUXJCN5VZLOZRHGTPKGDX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,36 +115,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 18-04-23, 15:06, Charles Keepax wrote:
-> It makes sense to have only a single point responsible for ensuring
-> that all currently pending IRQs are handled. The current code in
-> sdw_handle_slave_alerts confusingly splits this process in two.  This
-> code will loop until the asserted IRQs are cleared but it will only
-> handle IRQs that were already asserted when it was called. This
-> means the caller must also loop (either manually, or through its IRQ
-> mechanism) until the IRQs are all handled. It makes sense to either do
-> all the looping in sdw_handle_slave_alerts or do no looping there and
-> let the host controller repeatedly call it until things are handled.
+On Fri, 28 Apr 2023 11:59:35 +0200,
+Oswald Buddenhagen wrote:
 > 
-> There are realistically two sensible host controllers, those that
-> will generate an IRQ when the alert status changes and those
-> that will generate an IRQ continuously whilst the alert status
-> is high. The current code will work fine for the second of those
-> systems but not the first with out additional looping in the host
-> controller.  Removing the code that filters out new IRQs whilst
-> the handler is running enables both types of host controller to be
-> supported and simplifies the code. The code will still only loop up to
-> SDW_READ_INTR_CLEAR_RETRY times, so it shouldn't be possible for it to
-> get completely stuck handling IRQs forever, and if you are generating
-> IRQs faster than you can handle them you likely have bigger problems
-> anyway.
+> ---
 > 
-> This fixes an issue on the Cadence SoundWire IP, which only generates
-> IRQs on an alert status change, where an alert which arrives whilst
-> another alert is being handled will never be handled and will block
-> all future alerts from being handled.
+> This patch series needs to be applied on top of the patch titled "ALSA:
+> emu10k1: use more existing defines instead of open-coded numbers".
+> 
+> Oswald Buddenhagen (6):
+>   ALSA: emu10k1: remove pointless locks from timer code
+>   ALSA: emu10k1: remove pointless locks from /proc code
+>   ALSA: emu10k1: use the right lock in snd_emu10k1_shared_spdif_put()
+>   ALSA: emu10k1: fix locking in snd_emu1010_fpga_link_dst_src_write()
+>   ALSA: core: update comment on snd_card.controls_rwsem
+>   ALSA: emu10k1: remove now superfluous mixer locking
 
-Applied, thanks
+Applied all six patches now.
 
--- 
-~Vinod
+
+thanks,
+
+Takashi

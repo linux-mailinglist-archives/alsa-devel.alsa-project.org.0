@@ -2,117 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E64616FA198
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:53:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0CDC6FA368
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 11:33:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6380A12D8;
-	Mon,  8 May 2023 09:52:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6380A12D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCC4D1299;
+	Mon,  8 May 2023 11:33:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCC4D1299
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683532412;
-	bh=Is2yi1GXjpGEp683Yx8VVVpJ7hhP0Pd2b9hYiB5cfaY=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1683538432;
+	bh=BUiTF445WKprmiPoqtMo0Jeg0gLKQqKsT7/XgTQvkJc=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=W+HxfBhvvAOyJukY1QenRSVWTwfEk9wwMR9I5eb+j4WJvll+MW5VUzqoYeXd4O03+
-	 4i9QYuobZL8NDrnoTuek/CZp9pWqHyxlsOySgmR0dleWD5wEEruU4h1WzJJdVXSssc
-	 boWiwusZian6uq2MfEeipjS7F3v3gfM/R3VCB9Vc=
+	b=mY82XlrG3zF2iWCAaRWNrz3yCiy3mMX+v/mMaJ/C1sLe92Vfj7yHa0Nrxkpyk9hmi
+	 zD8n+p8eTCgV40Gkk3zklsNUr+RKigrnGAJucK7GTYcwRz8hRtQqm16B4BsG3q5grL
+	 w+7fu492pjQCKmfcAeL5j+zupelqkF/cK4X17Skc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1504FF80310;
-	Mon,  8 May 2023 09:52:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB022F80310;
+	Mon,  8 May 2023 11:33:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 57175F8032D; Mon,  8 May 2023 09:52:38 +0200 (CEST)
+	id 95200F8032D; Mon,  8 May 2023 11:32:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-8.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 767BAF80087;
-	Mon,  8 May 2023 09:52:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 767BAF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 364CBF802E8
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 11:32:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 364CBF802E8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=c+fbU/OA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=E8aHcQZS
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A779D1F893;
-	Mon,  8 May 2023 07:52:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1683532349;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R5TP0qM5tkffGrfyIxYL29/3/ZgiCiGBtbr0tWQz3c8=;
-	b=c+fbU/OATMQVAtv7uCO2X5NNHp+OUDFIawoSfn8CjDf50lbAQ4Z6RsKvm+toTYTXXJaXlu
-	yOi4CFYX1bG0H2XAxy8tcojGepSjt4m4xkdYqVmMxcpo7iPDVlDRlCLisg6cQz455fDqfT
-	Ej+OnwVOaevAVlZm7mB++O/LDwa8j3E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683532349;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R5TP0qM5tkffGrfyIxYL29/3/ZgiCiGBtbr0tWQz3c8=;
-	b=E8aHcQZS1lydBQzXYsPzh8mvKGD6sRxsclW1Md1Z7sbKGUB4/YpG8mCzY6ofaTWp/Wc7sB
-	YXMlNbRocIxtffCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7D5C213499;
-	Mon,  8 May 2023 07:52:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id iPW1HT2qWGSaPwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 08 May 2023 07:52:29 +0000
-Date: Mon, 08 May 2023 09:52:29 +0200
-Message-ID: <87wn1jdzuq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: perex@perex.cz
-Subject: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC: mediatek:
- mt8195-afe-pcm: Simplify runtime PM during probe]
-In-Reply-To: <87ednwmssr.wl-tiwai@suse.de>
-References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
-	<87o7n0mtv9.wl-tiwai@suse.de>
-	<87ednwmssr.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: RKDLXPUNP4IEUIXWIZJUECXOQSHFHYKB
-X-Message-ID-Hash: RKDLXPUNP4IEUIXWIZJUECXOQSHFHYKB
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=r8xKe2ue
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-965fc25f009so479830666b.3
+        for <alsa-devel@alsa-project.org>;
+ Mon, 08 May 2023 02:32:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1683538343; x=1686130343;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jaIOfIKT6cUzQnXA2pY8MBVw5AuuF4DUG96T6VN7SUU=;
+        b=r8xKe2ueE6qpZ5q7fx2Jr8j9y8jdvbEl/dJ9MSBywzTaJGn2c/IQr9fhngQwzv+eK8
+         3dKMmSF6g6nSseCp2P2WS3jBDXpqlFLuLSrkAk2YV+myVAs7Aqp/C43Spb3zAe+2Lbs5
+         Wt8RhC2uDN5NrFDxdf6XL5LnzmSxdtpnNvX1jDwngbIY5QuvpurFg0dPfQh7q2v8r7mP
+         tnlzEa9dQfEC9d6v+YdVnGvkRNA19kacCMnSAOKdGIxlmq9ZbzonSHap2R3pxlaEyAUN
+         vBvZyBx30LY5A2TJmL4fkoSn57rXbp1tm4YmcYLRoSxpUO0YYG3HCpauLVXCXCoH9thZ
+         J+UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683538343; x=1686130343;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jaIOfIKT6cUzQnXA2pY8MBVw5AuuF4DUG96T6VN7SUU=;
+        b=P/1wa7wpAUMswF5OFCLCqq9K1Qq6XdHktxUpNcVGyxEXcIoywaFzatEC0RSlNQHRa5
+         DzjOCQiSvzSxCJAWEYvYp60wPVjWZkJdxmcnWKjdgTMRX7l41pkGartg3FgQ0luplw5h
+         cQ/ZuRQETmY2Iy83FhWfJ0TGxxT2amtRd9OFXNtCiWcBTTn33D9rZpBi2Fmd2ZN/DeWt
+         85UUutiGxMzL8zgarWP3uDtGxJm3kWgd/M1Jh3nigxcYNMnrEhqWx2HUV4AB0o8jErsV
+         puWawZkVfXFD9nYxsX55oe/yVlMqV9i2vxUxA5J/4y7Fm0kr5Wry/4N/9+DvLRtT1tgd
+         f7Zg==
+X-Gm-Message-State: AC+VfDyCOuwhNZ4XD/LF7a4rNxNWkeLoRbemdO4PJlsmsirtyj3NH/o/
+	uCi5pETSrQhMD2kOPhxX4WJOZQ==
+X-Google-Smtp-Source: 
+ ACHHUZ7wCYtUf+7LVo6j+oVxWM1xFUqc13NehBZU/lO5rS1cti0ZTm6SDm50E98ky0UvdHVluWukHQ==
+X-Received: by 2002:a17:907:1b24:b0:94e:5c28:1c19 with SMTP id
+ mp36-20020a1709071b2400b0094e5c281c19mr9319621ejc.5.1683538343137;
+        Mon, 08 May 2023 02:32:23 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:50e0:ebdf:b755:b300?
+ ([2a02:810d:15c0:828:50e0:ebdf:b755:b300])
+        by smtp.gmail.com with ESMTPSA id
+ hw6-20020a170907a0c600b0096602a5ab25sm3629254ejc.92.2023.05.08.02.32.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 May 2023 02:32:22 -0700 (PDT)
+Message-ID: <228ebc9d-f70f-3f12-381f-1ef6f24f2f28@linaro.org>
+Date: Mon, 8 May 2023 11:32:21 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 2/5] ASoC: dt-bindings: Add tas2781 amplifier
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>, Shenghao Ding <13916275206@139.com>
+References: <20230508054512.719-1-13916275206@139.com>
+ <168352721271.213340.3578983696891383785.robh@kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <168352721271.213340.3578983696891383785.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 5J36WJGHGV3HRXJBYGFTN2DWBJXKGR6H
+X-Message-ID-Hash: 5J36WJGHGV3HRXJBYGFTN2DWBJXKGR6H
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Mark Brown <broonie@kernel.org>, postmaster@alsa-project.org,
- sound-open-firmware-owner@alsa-project.org, alsa-devel@alsa-project.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- sound-open-firmware@alsa-project.org
+CC: Ryan_Chu@wistron.com, navada@ti.com, gentuser@gmail.com,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, shenghao-ding@ti.com, Sam_Wu@wistron.com,
+ lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, x1077012@ti.com,
+ broonie@kernel.org, kevin-lu@ti.com, devicetree@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, peeyush@ti.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RKDLXPUNP4IEUIXWIZJUECXOQSHFHYKB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5J36WJGHGV3HRXJBYGFTN2DWBJXKGR6H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,124 +127,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 04 May 2023 09:58:44 +0200,
-Takashi Iwai wrote:
+On 08/05/2023 08:26, Rob Herring wrote:
 > 
-> On Thu, 04 May 2023 09:35:38 +0200,
-> Takashi Iwai wrote:
-> > 
-> > On Thu, 04 May 2023 03:09:45 +0200,
-> > Mark Brown wrote:
-> > > 
-> > > Hi,
-> > > 
-> > > Here's another mail (one of several in this series) that got completely
-> > > mangled by the alsa-project.org mailman to the point of unusability.  I
-> > > didn't see any response to my last mail about this, is there any news on
-> > > fixing mailman to not do this?  It's extremely disruptive to working
-> > > with lore.
-> > 
-> > It seems that alsa-project.org mailman re-sends the post with
-> > xxx@alsa-project.org address sometimes, indeed.  I don't know the
-> > condition, but now I noticed it while checking the pending approvals.
+> On Mon, 08 May 2023 13:45:12 +0800, Shenghao Ding wrote:
+>> Create tas2781.yaml for tas2781 driver.
+>>
+>> Signed-off-by: Shenghao Ding <13916275206@139.com>
+>>
+>> ---
+>> Changes in v7:
+>>  - Submit together with tas2781 codec driver code
+>>  - Add more detail description for ti,audio-slots
+>>  - Keep consistent for "I2C"
+>>  - remove reset-gpios description
+>>  - For reg, express as constraints instead
+>>  - remove unnecessary '|'
+>>  Changes to be committed:
+>> 	new file:   Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+>> ---
+>>  .../devicetree/bindings/sound/ti,tas2781.yaml | 90 +++++++++++++++++++
+>>  1 file changed, 90 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+>>
 > 
-> And, I guess it happens when a post comes from a non-subscriber.
-> (But not sure whether this happens always...)
-> It waits for approval, but also mangles the sender address and co.
-> This behavior is new after the mail server update.
+> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+> on your patch (DT_CHECKER_FLAGS is new in v5.13):
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/rockchip-isp1.example.dtb: camera@3c: port:endpoint:data-lanes: [[1]] is too short
+> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.example.dtb: camera-sensor@3c: port:endpoint:data-lanes: [[1]] is too short
+> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.example.dtb: pcie-ep@33800000: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
+> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
+> 
+> doc reference errors (make refcheckdocs):
+> Documentation/usb/gadget_uvc.rst: Documentation/userspace-api/media/v4l/pixfmt-packed.yuv.rst
+> MAINTAINERS: Documentation/devicetree/bindings/pwm/pwm-apple.yaml
+> 
 
-Jaroslav, could you investigate it?  I checked again, and it seems
-that all "approved" posts from non-subscribers are modified to the
-sender addresses with alsa-project.org.  I guess there must be some
-option to prevent it.
+Ignore failures.
 
+Best regards,
+Krzysztof
 
-Takashi
-
-> > Those that appeared in the list wrongly were likely the posts I
-> > approved without knowing them being superfluously resent ones.
-> > 
-> > Jaroslav, could you check your mailman configuration?
-> 
-> So, please check the configuration.  As of now, the post from
-> non-subscriber becomes confusing and unusable for b4.
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> > 
-> > 
-> > thanks,
-> > 
-> > Takashi
-> > 
-> > > Thanks,
-> > > Mark
-> > > Subject: [PATCH 3/5] ASoC: mediatek: mt8195-afe-pcm: Simplify runtime PM during probe
-> > > From: AngeloGioacchino Del Regno via Alsa-devel <alsa-devel@alsa-project.org>
-> > > Date: Wed, 03 May 2023 13:34:11 +0200
-> > > Message-Id: <168311377075.26.14919941665402646886@mailman-core.alsa-project.org>
-> > > MIME-Version: 1.0
-> > > Content-Transfer-Encoding: 7bit
-> > > 
-> > > Use devm_pm_runtime_enable() and pm_runtime_resume_and_get() to
-> > > to simplify the probe function.
-> > > 
-> > > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> > > ---
-> > >  sound/soc/mediatek/mt8195/mt8195-afe-pcm.c | 22 ++++++++++++----------
-> > >  1 file changed, 12 insertions(+), 10 deletions(-)
-> > > 
-> > > diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-> > > index 9e45efeada55..a54c16e0aa05 100644
-> > > --- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-> > > +++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
-> > > @@ -3179,16 +3179,16 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
-> > >  
-> > >  	mt8195_afe_parse_of(afe, pdev->dev.of_node);
-> > >  
-> > > -	pm_runtime_enable(dev);
-> > > -	if (!pm_runtime_enabled(dev)) {
-> > > -		ret = mt8195_afe_runtime_resume(dev);
-> > > -		if (ret)
-> > > -			return ret;
-> > > -	}
-> > > -
-> > >  	/* enable clock for regcache get default value from hw */
-> > >  	afe_priv->pm_runtime_bypass_reg_ctl = true;
-> > > -	pm_runtime_get_sync(dev);
-> > > +
-> > > +	ret = devm_pm_runtime_enable(dev);
-> > > +	if (ret)
-> > > +		return ret;
-> > > +
-> > > +	ret = pm_runtime_resume_and_get(dev);
-> > > +	if (ret)
-> > > +		return dev_err_probe(dev, ret, "Failed to resume device\n");
-> > >  
-> > >  	afe->regmap = devm_regmap_init_mmio(&pdev->dev, afe->base_addr,
-> > >  					    &mt8195_afe_regmap_config);
-> > > @@ -3238,7 +3238,10 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
-> > >  
-> > >  	mt8195_afe_init_registers(afe);
-> > >  
-> > > -	pm_runtime_put_sync(dev);
-> > > +	ret = pm_runtime_put_sync(dev);
-> > > +	if (ret)
-> > > +		return dev_err_probe(dev, ret, "Failed to suspend device\n");
-> > > +
-> > >  	afe_priv->pm_runtime_bypass_reg_ctl = false;
-> > >  
-> > >  	regcache_cache_only(afe->regmap, true);
-> > > @@ -3248,7 +3251,6 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
-> > >  
-> > >  err_pm_put:
-> > >  	pm_runtime_put_sync(dev);
-> > > -	pm_runtime_disable(dev);
-> > >  
-> > >  	return ret;
-> > >  }
-> > > -- 
-> > > 2.40.1

@@ -2,96 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360336FA0D2
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:18:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 276106FA0D5
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:18:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A862A12CC;
-	Mon,  8 May 2023 09:17:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A862A12CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 209E612C3;
+	Mon,  8 May 2023 09:18:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 209E612C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683530312;
-	bh=fjqOmO6Ozf81CVhRftQ43+9Xk8XWRgLvLJAtRE33xb0=;
+	s=default; t=1683530337;
+	bh=5ptfK1W5KZ2siaGteMu7P06Y0JV9SV1eFyqiRwp288o=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ekVoAQgBpcxNSK/m1f88uOToYHW91Ou0VqAy8RPe6AJolHLc2NZjMX4ogQQvi52o9
-	 z6yHAYrtXiw9XFgkY/3Id/syzsPSzgN6nsfNKgeTK+hcrhGhghbaxji8v6VVCZk5bE
-	 0PohByvSDc29Ry5QI0iyyTo9fmWLSLtQte9XHnz4=
+	b=YkEBMip6aQpVNX3QFwM3eVPZ6VIJfcrVcXPUGneONIUkz7Yr9fby0uAKL0YmG/tGx
+	 J+wFiNzDdCSUe8ZXvV19zHD7p5Lb5FfpSWH68hLdkhEizNpauQvRCjagKGJ5X6MO02
+	 sqmYbjbRMrQ1MZhqhh3BkjJ95kyDAjb5+rvTBHEY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7670F80571;
-	Mon,  8 May 2023 09:16:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29795F8052E;
+	Mon,  8 May 2023 09:16:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD8CCF80578; Mon,  8 May 2023 09:16:10 +0200 (CEST)
+	id CE33CF8053D; Mon,  8 May 2023 09:16:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6F6F7F80567
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:16:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F6F7F80567
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5FE35F802E8
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:16:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FE35F802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=BXKyz7pW;
+ header.s=susede2_rsa header.b=WtU58xbv;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=4XFF3rcl
+ header.s=susede2_ed25519 header.b=NT6ajSJc
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D6306220FD;
-	Mon,  8 May 2023 07:16:07 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B4FD11F891;
+	Mon,  8 May 2023 07:16:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683530167;
+	t=1683530208;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RG1cwm1Ig2GkJQZSiRlVJmrkhRbwiD1O6YGlDsLjDAU=;
-	b=BXKyz7pWQu/IsA2tEAaD5hyA709Sq09DKwbUDz9olM4NQ6mDPpnuCS5ZqHhiVlOmm6/2/M
-	4Whor1sI/s7DKit73DFPCZjMIKU4nYMcRb8Q0UAgxw/23ybnjzrKhKFI7DbEyZkzTzi1NL
-	gS8hnyrAkLp9aNJBrjyVnxZ/iaNtbrA=
+	bh=9bBpSGWZHCsPFu7eUnrD04RX7FHJebblDjv0SIWXe2k=;
+	b=WtU58xbvUbbveTlVsCCT3HQTI90wlBcabqEfpjKpXVxBPlrzCpFQj3Mv1hxzAu5NegNwYh
+	Pm2U0yHo4ubntpUv+gJfCiAoliOaJYwSljjzKAghsuGfsC2fCSEYbU+ehrl+Ed9u8AWqux
+	PLi5CS62rmfztYdRxkod5b8OPMZEKlo=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683530167;
+	s=susede2_ed25519; t=1683530208;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RG1cwm1Ig2GkJQZSiRlVJmrkhRbwiD1O6YGlDsLjDAU=;
-	b=4XFF3rclDxgCcr5yCWyhxT1xeuP7gmxx6zGWRLgsk6bGiDojjnTNoeeMBdDArJGr3zCtcR
-	Yk3sNlLdlgdZToBw==
+	bh=9bBpSGWZHCsPFu7eUnrD04RX7FHJebblDjv0SIWXe2k=;
+	b=NT6ajSJcohloz0NHfHCGKR916erLY4lXfHP+KsyN6w8piv71sORE7LF2TC0BtzrJdCZZ7r
+	d+TtCAzUAjzRZUAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B25061346B;
-	Mon,  8 May 2023 07:16:07 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D4B31346B;
+	Mon,  8 May 2023 07:16:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ToCqKrehWGQDLwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 08 May 2023 07:16:07 +0000
-Date: Mon, 08 May 2023 09:16:07 +0200
-Message-ID: <877ctjfg3s.wl-tiwai@suse.de>
+	id DgKjIeChWGRZLwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 08 May 2023 07:16:48 +0000
+Date: Mon, 08 May 2023 09:16:48 +0200
+Message-ID: <875y93fg2n.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo L140AU
-In-Reply-To: <20230505163651.21257-1-tcrawford@system76.com>
-References: <20230505163651.21257-1-tcrawford@system76.com>
+To: "Luke D. Jones" <luke@ljones.dev>
+Subject: Re: [PATCH v2 1/1] ALSA: hda/realtek: Add quirk for 2nd ASUS GU603
+In-Reply-To: <20230505235824.49607-2-luke@ljones.dev>
+References: <20230505235824.49607-1-luke@ljones.dev>
+	<20230505235824.49607-2-luke@ljones.dev>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ZGGAIQA3WM6RACQVGTVEB3HPFIMM7ECX
-X-Message-ID-Hash: ZGGAIQA3WM6RACQVGTVEB3HPFIMM7ECX
+Message-ID-Hash: W53KA26272HEYASA56BREFZQMLXSBJJO
+X-Message-ID-Hash: W53KA26272HEYASA56BREFZQMLXSBJJO
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,14 +101,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org, productdev@system76.com,
- Jeremy Soller <jeremy@system76.com>
+CC: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZGGAIQA3WM6RACQVGTVEB3HPFIMM7ECX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W53KA26272HEYASA56BREFZQMLXSBJJO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,17 +116,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 05 May 2023 18:36:51 +0200,
-Tim Crawford wrote:
+On Sat, 06 May 2023 01:58:24 +0200,
+Luke D. Jones wrote:
 > 
-> From: Jeremy Soller <jeremy@system76.com>
+> Add quirk for GU603 with 0x1c62 variant of codec.
 > 
-> Fixes headset detection on Clevo L140AU.
-> 
-> Signed-off-by: Jeremy Soller <jeremy@system76.com>
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+> Signed-off-by: Luke D. Jones <luke@ljones.dev>
 
-Thanks, applied.
+Thanks, applied now.
 
 
 Takashi

@@ -2,92 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1506FAD38
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 13:32:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2559F6FA91A
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 12:48:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF22E11FD;
-	Mon,  8 May 2023 13:31:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF22E11FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A14611DE;
+	Mon,  8 May 2023 12:47:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A14611DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683545559;
-	bh=+0RE+7ZUlgN+Hud6gu9TQz4rBrwna8HXuIwEzINMsqw=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DPhL2bjj5bgP64lJYWjW+WurTuxKNyeNZa36+l+Uxd3pdTVbxat9G0ZsNfnBSM4ym
-	 dHVrx1YZU5vZIhqaLSWRhjPnGCMgYvVxtA34wVH6nE1ykQ7REZY5THuzduejPtz/pJ
-	 rYwGDla2miC7s+DkNQW2I1RC7rc7yuOMmCgqCH+Y=
+	s=default; t=1683542880;
+	bh=bnN56Y/Kidxs3KpKXuRj9FuWm8L/WeWT+7bFMZxRQEo=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=M79j+0NQbT/7EKKB50q/TbPmz1ZTW7zUggW4e/Ogi+E4KsgrsWASRwMTnXAUSHCbh
+	 YqD1wNLqZYH75uDOr9/YzU/QBYW8QvCLuTTrLkVaJWCmKSu8WYdQbFUraPfYYsOfCp
+	 jtd+ehDDtfjW2A9VoUTHDHhldEY2A6r50elRNBD4=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5CB38F8032D;
-	Mon,  8 May 2023 13:31:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44270F80310;
+	Mon,  8 May 2023 12:47:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 434D2F804B1; Mon,  8 May 2023 13:31:46 +0200 (CEST)
+	id 7CA53F8032D; Mon,  8 May 2023 12:46:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E6358F802E8
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 13:31:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6358F802E8
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=znYrjj8Y
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AE9DC63063;
-	Mon,  8 May 2023 11:31:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9806C433EF;
-	Mon,  8 May 2023 11:31:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1683545496;
-	bh=+0RE+7ZUlgN+Hud6gu9TQz4rBrwna8HXuIwEzINMsqw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=znYrjj8YCF6Y2lD7AmkXKYSERJnhCYQAQtHd0yNANJjhg4nubphj6Uxvy3gnPCQeW
-	 TU5dhmBCf/egk9QRFOPdUnXNbSJLcJVlqcPAJ4A2qp9LZq20FPstTG5zSdRFyH6LLN
-	 AToHswAULzxf0Qciks/RZcU73KbCr8ZMDFCUZnCE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Subject: [PATCH 5.15 058/371] sound/oss/dmasound: fix build when drivers are
- mixed =y/=m
-Date: Mon,  8 May 2023 11:44:19 +0200
-Message-Id: <20230508094814.380911635@linuxfoundation.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230508094811.912279944@linuxfoundation.org>
-References: <20230508094811.912279944@linuxfoundation.org>
-User-Agent: quilt/0.67
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5NBY7QLO26P75ASBYKNURG2HEWCN3GGC
-X-Message-ID-Hash: 5NBY7QLO26P75ASBYKNURG2HEWCN3GGC
-X-MailFrom: gregkh@linuxfoundation.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id 048B7F80087
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 12:46:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 048B7F80087
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E7886200C78;
+	Mon,  8 May 2023 12:46:41 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com
+ (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id AF78520096F;
+	Mon,  8 May 2023 12:46:41 +0200 (CEST)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 2789518002DC;
+	Mon,  8 May 2023 18:46:40 +0800 (+08)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: fsl_micfil: Fix error handler with pm_runtime_enable
+Date: Mon,  8 May 2023 18:16:36 +0800
+Message-Id: <1683540996-6136-1-git-send-email-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Message-ID-Hash: VPS2NEYW3UDOBKAUPJ577JVR2ET5HJH3
+X-Message-ID-Hash: VPS2NEYW3UDOBKAUPJ577JVR2ET5HJH3
+X-MailFrom: shengjiu.wang@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Arnd Bergmann <arnd@arndb.de>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Randy Dunlap <rdunlap@infradead.org>, kernel test robot <lkp@intel.com>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5NBY7QLO26P75ASBYKNURG2HEWCN3GGC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VPS2NEYW3UDOBKAUPJ577JVR2ET5HJH3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,166 +85,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Randy Dunlap <rdunlap@infradead.org>
+There is error message when defer probe happens:
 
-commit 9dd7c46346ca4390f84a7ea9933005eb1b175c15 upstream.
+fsl-micfil-dai 30ca0000.micfil: Unbalanced pm_runtime_enable!
 
-When CONFIG_DMASOUND_ATARI=m and CONFIG_DMASOUND_Q40=y (or vice versa),
-dmasound_core.o can be built without dmasound_deinit() being defined,
-causing a build error:
+Fix the error handler with pm_runtime_enable and add
+fsl_micfil_remove() for pm_runtime_disable.
 
-ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_atari.ko] undefined!
-
-Modify dmasound_core.c and dmasound.h so that dmasound_deinit() is
-always available.
-
-The mixed modes (=y/=m) also mean that several variables and structs
-have to be declared in all cases.
-
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
-Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Link: lore.kernel.org/r/202204032138.EFT9qGEd-lkp@intel.com
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Link: https://lore.kernel.org/r/20220405234118.24830-1-rdunlap@infradead.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 47a70e6fc9a8 ("ASoC: Add MICFIL SoC Digital Audio Interface driver.")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/oss/dmasound/dmasound.h      |    6 ------
- sound/oss/dmasound/dmasound_core.c |   24 +-----------------------
- 2 files changed, 1 insertion(+), 29 deletions(-)
+ sound/soc/fsl/fsl_micfil.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
---- a/sound/oss/dmasound/dmasound.h
-+++ b/sound/oss/dmasound/dmasound.h
-@@ -88,11 +88,7 @@ static inline int ioctl_return(int __use
-      */
- 
- extern int dmasound_init(void);
--#ifdef MODULE
- extern void dmasound_deinit(void);
--#else
--#define dmasound_deinit()	do { } while (0)
--#endif
- 
- /* description of the set-up applies to either hard or soft settings */
- 
-@@ -114,9 +110,7 @@ typedef struct {
-     void *(*dma_alloc)(unsigned int, gfp_t);
-     void (*dma_free)(void *, unsigned int);
-     int (*irqinit)(void);
--#ifdef MODULE
-     void (*irqcleanup)(void);
--#endif
-     void (*init)(void);
-     void (*silence)(void);
-     int (*setFormat)(int);
---- a/sound/oss/dmasound/dmasound_core.c
-+++ b/sound/oss/dmasound/dmasound_core.c
-@@ -206,12 +206,10 @@ module_param(writeBufSize, int, 0);
- 
- MODULE_LICENSE("GPL");
- 
--#ifdef MODULE
- static int sq_unit = -1;
- static int mixer_unit = -1;
- static int state_unit = -1;
- static int irq_installed;
--#endif /* MODULE */
- 
- /* control over who can modify resources shared between play/record */
- static fmode_t shared_resource_owner;
-@@ -391,9 +389,6 @@ static const struct file_operations mixe
- 
- static void mixer_init(void)
- {
--#ifndef MODULE
--	int mixer_unit;
--#endif
- 	mixer_unit = register_sound_mixer(&mixer_fops, -1);
- 	if (mixer_unit < 0)
- 		return;
-@@ -1171,9 +1166,6 @@ static const struct file_operations sq_f
- static int sq_init(void)
- {
- 	const struct file_operations *fops = &sq_fops;
--#ifndef MODULE
--	int sq_unit;
--#endif
- 
- 	sq_unit = register_sound_dsp(fops, -1);
- 	if (sq_unit < 0) {
-@@ -1366,9 +1358,6 @@ static const struct file_operations stat
- 
- static int state_init(void)
- {
--#ifndef MODULE
--	int state_unit;
--#endif
- 	state_unit = register_sound_special(&state_fops, SND_DEV_STATUS);
- 	if (state_unit < 0)
- 		return state_unit ;
-@@ -1386,10 +1375,9 @@ static int state_init(void)
- int dmasound_init(void)
- {
- 	int res ;
--#ifdef MODULE
-+
- 	if (irq_installed)
- 		return -EBUSY;
--#endif
- 
- 	/* Set up sound queue, /dev/audio and /dev/dsp. */
- 
-@@ -1408,9 +1396,7 @@ int dmasound_init(void)
- 		printk(KERN_ERR "DMA sound driver: Interrupt initialization failed\n");
- 		return -ENODEV;
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index 94341e4352b3..3f08082a55be 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -1159,7 +1159,7 @@ static int fsl_micfil_probe(struct platform_device *pdev)
+ 	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to pcm register\n");
+-		return ret;
++		goto err_pm_disable;
  	}
--#ifdef MODULE
- 	irq_installed = 1;
--#endif
  
- 	printk(KERN_INFO "%s DMA sound driver rev %03d installed\n",
- 		dmasound.mach.name, (DMASOUND_CORE_REVISION<<4) +
-@@ -1424,8 +1410,6 @@ int dmasound_init(void)
- 	return 0;
+ 	fsl_micfil_dai.capture.formats = micfil->soc->formats;
+@@ -1169,9 +1169,20 @@ static int fsl_micfil_probe(struct platform_device *pdev)
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to register component %s\n",
+ 			fsl_micfil_component.name);
++		goto err_pm_disable;
+ 	}
+ 
+ 	return ret;
++
++err_pm_disable:
++	pm_runtime_disable(&pdev->dev);
++
++	return ret;
++}
++
++static void fsl_micfil_remove(struct platform_device *pdev)
++{
++	pm_runtime_disable(&pdev->dev);
  }
  
--#ifdef MODULE
--
- void dmasound_deinit(void)
- {
- 	if (irq_installed) {
-@@ -1444,8 +1428,6 @@ void dmasound_deinit(void)
- 		unregister_sound_dsp(sq_unit);
- }
+ static int __maybe_unused fsl_micfil_runtime_suspend(struct device *dev)
+@@ -1232,6 +1243,7 @@ static const struct dev_pm_ops fsl_micfil_pm_ops = {
  
--#else /* !MODULE */
--
- static int dmasound_setup(char *str)
- {
- 	int ints[6], size;
-@@ -1489,8 +1471,6 @@ static int dmasound_setup(char *str)
- 
- __setup("dmasound=", dmasound_setup);
- 
--#endif /* !MODULE */
--
-     /*
-      *  Conversion tables
-      */
-@@ -1577,9 +1557,7 @@ char dmasound_alaw2dma8[] = {
- 
- EXPORT_SYMBOL(dmasound);
- EXPORT_SYMBOL(dmasound_init);
--#ifdef MODULE
- EXPORT_SYMBOL(dmasound_deinit);
--#endif
- EXPORT_SYMBOL(dmasound_write_sq);
- EXPORT_SYMBOL(dmasound_catchRadius);
- #ifdef HAS_8BIT_TABLES
-
+ static struct platform_driver fsl_micfil_driver = {
+ 	.probe = fsl_micfil_probe,
++	.remove_new = fsl_micfil_remove,
+ 	.driver = {
+ 		.name = "fsl-micfil-dai",
+ 		.pm = &fsl_micfil_pm_ops,
+-- 
+2.34.1
 

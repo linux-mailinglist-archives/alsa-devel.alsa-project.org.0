@@ -2,123 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0CDC6FA368
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 11:33:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB1506FAD38
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 13:32:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCC4D1299;
-	Mon,  8 May 2023 11:33:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCC4D1299
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF22E11FD;
+	Mon,  8 May 2023 13:31:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF22E11FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683538432;
-	bh=BUiTF445WKprmiPoqtMo0Jeg0gLKQqKsT7/XgTQvkJc=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1683545559;
+	bh=+0RE+7ZUlgN+Hud6gu9TQz4rBrwna8HXuIwEzINMsqw=;
+	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mY82XlrG3zF2iWCAaRWNrz3yCiy3mMX+v/mMaJ/C1sLe92Vfj7yHa0Nrxkpyk9hmi
-	 zD8n+p8eTCgV40Gkk3zklsNUr+RKigrnGAJucK7GTYcwRz8hRtQqm16B4BsG3q5grL
-	 w+7fu492pjQCKmfcAeL5j+zupelqkF/cK4X17Skc=
+	b=DPhL2bjj5bgP64lJYWjW+WurTuxKNyeNZa36+l+Uxd3pdTVbxat9G0ZsNfnBSM4ym
+	 dHVrx1YZU5vZIhqaLSWRhjPnGCMgYvVxtA34wVH6nE1ykQ7REZY5THuzduejPtz/pJ
+	 rYwGDla2miC7s+DkNQW2I1RC7rc7yuOMmCgqCH+Y=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB022F80310;
-	Mon,  8 May 2023 11:33:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CB38F8032D;
+	Mon,  8 May 2023 13:31:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95200F8032D; Mon,  8 May 2023 11:32:58 +0200 (CEST)
+	id 434D2F804B1; Mon,  8 May 2023 13:31:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 364CBF802E8
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 11:32:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 364CBF802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id E6358F802E8
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 13:31:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6358F802E8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=r8xKe2ue
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-965fc25f009so479830666b.3
-        for <alsa-devel@alsa-project.org>;
- Mon, 08 May 2023 02:32:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1683538343; x=1686130343;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jaIOfIKT6cUzQnXA2pY8MBVw5AuuF4DUG96T6VN7SUU=;
-        b=r8xKe2ueE6qpZ5q7fx2Jr8j9y8jdvbEl/dJ9MSBywzTaJGn2c/IQr9fhngQwzv+eK8
-         3dKMmSF6g6nSseCp2P2WS3jBDXpqlFLuLSrkAk2YV+myVAs7Aqp/C43Spb3zAe+2Lbs5
-         Wt8RhC2uDN5NrFDxdf6XL5LnzmSxdtpnNvX1jDwngbIY5QuvpurFg0dPfQh7q2v8r7mP
-         tnlzEa9dQfEC9d6v+YdVnGvkRNA19kacCMnSAOKdGIxlmq9ZbzonSHap2R3pxlaEyAUN
-         vBvZyBx30LY5A2TJmL4fkoSn57rXbp1tm4YmcYLRoSxpUO0YYG3HCpauLVXCXCoH9thZ
-         J+UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683538343; x=1686130343;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jaIOfIKT6cUzQnXA2pY8MBVw5AuuF4DUG96T6VN7SUU=;
-        b=P/1wa7wpAUMswF5OFCLCqq9K1Qq6XdHktxUpNcVGyxEXcIoywaFzatEC0RSlNQHRa5
-         DzjOCQiSvzSxCJAWEYvYp60wPVjWZkJdxmcnWKjdgTMRX7l41pkGartg3FgQ0luplw5h
-         cQ/ZuRQETmY2Iy83FhWfJ0TGxxT2amtRd9OFXNtCiWcBTTn33D9rZpBi2Fmd2ZN/DeWt
-         85UUutiGxMzL8zgarWP3uDtGxJm3kWgd/M1Jh3nigxcYNMnrEhqWx2HUV4AB0o8jErsV
-         puWawZkVfXFD9nYxsX55oe/yVlMqV9i2vxUxA5J/4y7Fm0kr5Wry/4N/9+DvLRtT1tgd
-         f7Zg==
-X-Gm-Message-State: AC+VfDyCOuwhNZ4XD/LF7a4rNxNWkeLoRbemdO4PJlsmsirtyj3NH/o/
-	uCi5pETSrQhMD2kOPhxX4WJOZQ==
-X-Google-Smtp-Source: 
- ACHHUZ7wCYtUf+7LVo6j+oVxWM1xFUqc13NehBZU/lO5rS1cti0ZTm6SDm50E98ky0UvdHVluWukHQ==
-X-Received: by 2002:a17:907:1b24:b0:94e:5c28:1c19 with SMTP id
- mp36-20020a1709071b2400b0094e5c281c19mr9319621ejc.5.1683538343137;
-        Mon, 08 May 2023 02:32:23 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:50e0:ebdf:b755:b300?
- ([2a02:810d:15c0:828:50e0:ebdf:b755:b300])
-        by smtp.gmail.com with ESMTPSA id
- hw6-20020a170907a0c600b0096602a5ab25sm3629254ejc.92.2023.05.08.02.32.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 May 2023 02:32:22 -0700 (PDT)
-Message-ID: <228ebc9d-f70f-3f12-381f-1ef6f24f2f28@linaro.org>
-Date: Mon, 8 May 2023 11:32:21 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=znYrjj8Y
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id AE9DC63063;
+	Mon,  8 May 2023 11:31:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9806C433EF;
+	Mon,  8 May 2023 11:31:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1683545496;
+	bh=+0RE+7ZUlgN+Hud6gu9TQz4rBrwna8HXuIwEzINMsqw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=znYrjj8YCF6Y2lD7AmkXKYSERJnhCYQAQtHd0yNANJjhg4nubphj6Uxvy3gnPCQeW
+	 TU5dhmBCf/egk9QRFOPdUnXNbSJLcJVlqcPAJ4A2qp9LZq20FPstTG5zSdRFyH6LLN
+	 AToHswAULzxf0Qciks/RZcU73KbCr8ZMDFCUZnCE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Subject: [PATCH 5.15 058/371] sound/oss/dmasound: fix build when drivers are
+ mixed =y/=m
+Date: Mon,  8 May 2023 11:44:19 +0200
+Message-Id: <20230508094814.380911635@linuxfoundation.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230508094811.912279944@linuxfoundation.org>
+References: <20230508094811.912279944@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 2/5] ASoC: dt-bindings: Add tas2781 amplifier
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, Shenghao Ding <13916275206@139.com>
-References: <20230508054512.719-1-13916275206@139.com>
- <168352721271.213340.3578983696891383785.robh@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <168352721271.213340.3578983696891383785.robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5J36WJGHGV3HRXJBYGFTN2DWBJXKGR6H
-X-Message-ID-Hash: 5J36WJGHGV3HRXJBYGFTN2DWBJXKGR6H
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5NBY7QLO26P75ASBYKNURG2HEWCN3GGC
+X-Message-ID-Hash: 5NBY7QLO26P75ASBYKNURG2HEWCN3GGC
+X-MailFrom: gregkh@linuxfoundation.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Ryan_Chu@wistron.com, navada@ti.com, gentuser@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, shenghao-ding@ti.com, Sam_Wu@wistron.com,
- lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, x1077012@ti.com,
- broonie@kernel.org, kevin-lu@ti.com, devicetree@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, peeyush@ti.com
+CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Arnd Bergmann <arnd@arndb.de>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Randy Dunlap <rdunlap@infradead.org>, kernel test robot <lkp@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5J36WJGHGV3HRXJBYGFTN2DWBJXKGR6H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5NBY7QLO26P75ASBYKNURG2HEWCN3GGC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,49 +96,166 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 08/05/2023 08:26, Rob Herring wrote:
-> 
-> On Mon, 08 May 2023 13:45:12 +0800, Shenghao Ding wrote:
->> Create tas2781.yaml for tas2781 driver.
->>
->> Signed-off-by: Shenghao Ding <13916275206@139.com>
->>
->> ---
->> Changes in v7:
->>  - Submit together with tas2781 codec driver code
->>  - Add more detail description for ti,audio-slots
->>  - Keep consistent for "I2C"
->>  - remove reset-gpios description
->>  - For reg, express as constraints instead
->>  - remove unnecessary '|'
->>  Changes to be committed:
->> 	new file:   Documentation/devicetree/bindings/sound/ti,tas2781.yaml
->> ---
->>  .../devicetree/bindings/sound/ti,tas2781.yaml | 90 +++++++++++++++++++
->>  1 file changed, 90 insertions(+)
->>  create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2781.yaml
->>
-> 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/rockchip-isp1.example.dtb: camera@3c: port:endpoint:data-lanes: [[1]] is too short
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.example.dtb: camera-sensor@3c: port:endpoint:data-lanes: [[1]] is too short
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.example.dtb: pcie-ep@33800000: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
-> 	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
-> 
-> doc reference errors (make refcheckdocs):
-> Documentation/usb/gadget_uvc.rst: Documentation/userspace-api/media/v4l/pixfmt-packed.yuv.rst
-> MAINTAINERS: Documentation/devicetree/bindings/pwm/pwm-apple.yaml
-> 
+From: Randy Dunlap <rdunlap@infradead.org>
 
-Ignore failures.
+commit 9dd7c46346ca4390f84a7ea9933005eb1b175c15 upstream.
 
-Best regards,
-Krzysztof
+When CONFIG_DMASOUND_ATARI=m and CONFIG_DMASOUND_Q40=y (or vice versa),
+dmasound_core.o can be built without dmasound_deinit() being defined,
+causing a build error:
+
+ERROR: modpost: "dmasound_deinit" [sound/oss/dmasound/dmasound_atari.ko] undefined!
+
+Modify dmasound_core.c and dmasound.h so that dmasound_deinit() is
+always available.
+
+The mixed modes (=y/=m) also mean that several variables and structs
+have to be declared in all cases.
+
+Suggested-by: Arnd Bergmann <arnd@arndb.de>
+Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Link: lore.kernel.org/r/202204032138.EFT9qGEd-lkp@intel.com
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Link: https://lore.kernel.org/r/20220405234118.24830-1-rdunlap@infradead.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ sound/oss/dmasound/dmasound.h      |    6 ------
+ sound/oss/dmasound/dmasound_core.c |   24 +-----------------------
+ 2 files changed, 1 insertion(+), 29 deletions(-)
+
+--- a/sound/oss/dmasound/dmasound.h
++++ b/sound/oss/dmasound/dmasound.h
+@@ -88,11 +88,7 @@ static inline int ioctl_return(int __use
+      */
+ 
+ extern int dmasound_init(void);
+-#ifdef MODULE
+ extern void dmasound_deinit(void);
+-#else
+-#define dmasound_deinit()	do { } while (0)
+-#endif
+ 
+ /* description of the set-up applies to either hard or soft settings */
+ 
+@@ -114,9 +110,7 @@ typedef struct {
+     void *(*dma_alloc)(unsigned int, gfp_t);
+     void (*dma_free)(void *, unsigned int);
+     int (*irqinit)(void);
+-#ifdef MODULE
+     void (*irqcleanup)(void);
+-#endif
+     void (*init)(void);
+     void (*silence)(void);
+     int (*setFormat)(int);
+--- a/sound/oss/dmasound/dmasound_core.c
++++ b/sound/oss/dmasound/dmasound_core.c
+@@ -206,12 +206,10 @@ module_param(writeBufSize, int, 0);
+ 
+ MODULE_LICENSE("GPL");
+ 
+-#ifdef MODULE
+ static int sq_unit = -1;
+ static int mixer_unit = -1;
+ static int state_unit = -1;
+ static int irq_installed;
+-#endif /* MODULE */
+ 
+ /* control over who can modify resources shared between play/record */
+ static fmode_t shared_resource_owner;
+@@ -391,9 +389,6 @@ static const struct file_operations mixe
+ 
+ static void mixer_init(void)
+ {
+-#ifndef MODULE
+-	int mixer_unit;
+-#endif
+ 	mixer_unit = register_sound_mixer(&mixer_fops, -1);
+ 	if (mixer_unit < 0)
+ 		return;
+@@ -1171,9 +1166,6 @@ static const struct file_operations sq_f
+ static int sq_init(void)
+ {
+ 	const struct file_operations *fops = &sq_fops;
+-#ifndef MODULE
+-	int sq_unit;
+-#endif
+ 
+ 	sq_unit = register_sound_dsp(fops, -1);
+ 	if (sq_unit < 0) {
+@@ -1366,9 +1358,6 @@ static const struct file_operations stat
+ 
+ static int state_init(void)
+ {
+-#ifndef MODULE
+-	int state_unit;
+-#endif
+ 	state_unit = register_sound_special(&state_fops, SND_DEV_STATUS);
+ 	if (state_unit < 0)
+ 		return state_unit ;
+@@ -1386,10 +1375,9 @@ static int state_init(void)
+ int dmasound_init(void)
+ {
+ 	int res ;
+-#ifdef MODULE
++
+ 	if (irq_installed)
+ 		return -EBUSY;
+-#endif
+ 
+ 	/* Set up sound queue, /dev/audio and /dev/dsp. */
+ 
+@@ -1408,9 +1396,7 @@ int dmasound_init(void)
+ 		printk(KERN_ERR "DMA sound driver: Interrupt initialization failed\n");
+ 		return -ENODEV;
+ 	}
+-#ifdef MODULE
+ 	irq_installed = 1;
+-#endif
+ 
+ 	printk(KERN_INFO "%s DMA sound driver rev %03d installed\n",
+ 		dmasound.mach.name, (DMASOUND_CORE_REVISION<<4) +
+@@ -1424,8 +1410,6 @@ int dmasound_init(void)
+ 	return 0;
+ }
+ 
+-#ifdef MODULE
+-
+ void dmasound_deinit(void)
+ {
+ 	if (irq_installed) {
+@@ -1444,8 +1428,6 @@ void dmasound_deinit(void)
+ 		unregister_sound_dsp(sq_unit);
+ }
+ 
+-#else /* !MODULE */
+-
+ static int dmasound_setup(char *str)
+ {
+ 	int ints[6], size;
+@@ -1489,8 +1471,6 @@ static int dmasound_setup(char *str)
+ 
+ __setup("dmasound=", dmasound_setup);
+ 
+-#endif /* !MODULE */
+-
+     /*
+      *  Conversion tables
+      */
+@@ -1577,9 +1557,7 @@ char dmasound_alaw2dma8[] = {
+ 
+ EXPORT_SYMBOL(dmasound);
+ EXPORT_SYMBOL(dmasound_init);
+-#ifdef MODULE
+ EXPORT_SYMBOL(dmasound_deinit);
+-#endif
+ EXPORT_SYMBOL(dmasound_write_sq);
+ EXPORT_SYMBOL(dmasound_catchRadius);
+ #ifdef HAS_8BIT_TABLES
+
 

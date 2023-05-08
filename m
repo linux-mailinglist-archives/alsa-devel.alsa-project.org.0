@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D63696FA0D8
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:19:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 110546FA0D9
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:19:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CECD112CD;
-	Mon,  8 May 2023 09:18:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CECD112CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB4F012B8;
+	Mon,  8 May 2023 09:18:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB4F012B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683530344;
-	bh=9AAdpr7HcWYE9LwaipZ6quiBQeIwACpFrd/bKdEdumA=;
+	s=default; t=1683530368;
+	bh=rSLBtVfitwu3a/Xby+4Z3OnCGdG1t8/mzJs/1hM5L5w=;
 	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rq0IMuG1ehQJ8buqkmZS8keBbT1hktmO4MN/OEBhDdGrZj17sWJ7EBZqVpKIeNJhC
-	 6+JxobpMM+jjX0d15uzLR6XPL9Tfro6h6vG5ATLjuWHTSjHxu5BEsdAElao5oLVFiI
-	 O++isJQTqIWSq1x5TPt1za504Nse6VKUA4jmFewE=
+	b=Wg0oqw4EsbfItE/GbNKhwd2Uir2hw7gGYYhwKuQ4dNpFIym66J2+OMDRmK5GH6pWd
+	 UfxKIoZE4nsCFm3rgRhGb0lPEJiPnIYKZqT3Fl1Rl0giNDwf+CmTSOUdlEiGGSt85f
+	 W5SwWbkU7uBOee3onRhW/ZxoyYNFvcRJ7MhVwT2k=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DBBE0F80564;
-	Mon,  8 May 2023 09:17:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66AACF80310;
+	Mon,  8 May 2023 09:18:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABEF0F8057A; Mon,  8 May 2023 09:17:27 +0200 (CEST)
+	id 92D6FF804B1; Mon,  8 May 2023 09:18:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,63 +36,63 @@ Received: from smtp-out1.suse.de (smtp-out1.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 189FEF80534
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:17:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 189FEF80534
+	by alsa1.perex.cz (Postfix) with ESMTPS id 72621F80310
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:18:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72621F80310
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=HV8V4Vwx;
+ header.s=susede2_rsa header.b=eujF34zD;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=TdQ0BUqO
+ header.s=susede2_ed25519 header.b=t6AEedD+
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 686EF21B66;
-	Mon,  8 May 2023 07:17:24 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EC282220FC;
+	Mon,  8 May 2023 07:18:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683530244;
+	t=1683530311;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lOBQCm8AMjRxtn7j8gmb1VRMaITJi8rIg/Mexro7TZE=;
-	b=HV8V4Vwx/sYcDJpYt8SDiklX74iohR5On2I6TGbK1WEYyhoDJ0SvpQ4wjPd+nK4ULFwEqF
-	9rd+2YLE/3BeuOnCjIUzV9dCISvOEwB6g7x3zwgBclnqaUaWY4SM6gAXWV4AqtOaDIRiU/
-	BAoJN3nGKv/T6lAqy4YILMKbK2RgdBI=
+	bh=wZFc3TJlPan7tctd5pWc4DWVqZ84kWRTL72uD2pO6xY=;
+	b=eujF34zDRsSRbKQuHzqJwn4+ps9r+KqU3IUtXYAna3+FtZUTNnSXRamdO2+Eg38x5h1Xjg
+	15T7szGwh9gvji3ucNGHyApKEfluIAUQjHETL6w5/HGlGc4D/tz7cFceUdA/R220rGa5l0
+	KoHpPrFQXYaDZy4kDIiFEOvwhDYUP34=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683530244;
+	s=susede2_ed25519; t=1683530311;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lOBQCm8AMjRxtn7j8gmb1VRMaITJi8rIg/Mexro7TZE=;
-	b=TdQ0BUqOmDyjNrZ1M5kavayLv5jDUE+bEqP7o6HuT5RXcAuCJekIwQM7oXagG1b4ZWAQ+D
-	UnjshFosdGPJX6CA==
+	bh=wZFc3TJlPan7tctd5pWc4DWVqZ84kWRTL72uD2pO6xY=;
+	b=t6AEedD+dforR9MNr5Mf5D4+u77/e0wFIkZ8TSYZ08VoLy4VdK8V+5rllQSPDraMMVzP+I
+	xEgJ2B/LvE63roBw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1DBF01346B;
-	Mon,  8 May 2023 07:17:24 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD6141346B;
+	Mon,  8 May 2023 07:18:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id UbtHBgSiWGSWLwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 08 May 2023 07:17:24 +0000
-Date: Mon, 08 May 2023 09:17:23 +0200
-Message-ID: <874jonfg1o.wl-tiwai@suse.de>
+	id j7BKMUeiWGQRMAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 08 May 2023 07:18:31 +0000
+Date: Mon, 08 May 2023 09:18:31 +0200
+Message-ID: <873547ffzs.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Ai Chao <aichao@kylinos.cn>
-Subject: Re: [PATCH] ALSA: hda/realtek: Add a quirk for HP EliteDesk 805
-In-Reply-To: <20230506022653.2074343-1-aichao@kylinos.cn>
-References: <20230506022653.2074343-1-aichao@kylinos.cn>
+To: frshuov@163.com
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASUS GU603ZM
+In-Reply-To: <20230506171546.50815-1-frshuov@163.com>
+References: <20230506171546.50815-1-frshuov@163.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: P66OTDQ746JTCXFZWVTBLNOIV37KE7LA
-X-Message-ID-Hash: P66OTDQ746JTCXFZWVTBLNOIV37KE7LA
+Message-ID-Hash: MSQMFYWBDX57GD75R7FCPBTIGUBNEIVS
+X-Message-ID-Hash: MSQMFYWBDX57GD75R7FCPBTIGUBNEIVS
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,17 +100,13 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: tiwai@suse.com, sbinding@opensource.cirrus.com, tcrawford@system76.com,
- andy.chi@canonical.com, tangmeng@uniontech.com, luke@ljones.dev,
- yangyuchi66@gmail.com, p.jungkamp@gmx.net, kasper93@gmail.com,
- gabriele.mzt@gmail.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
+CC: alsa-devel@alsa-project.org, stable@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P66OTDQ746JTCXFZWVTBLNOIV37KE7LA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MSQMFYWBDX57GD75R7FCPBTIGUBNEIVS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,14 +115,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 06 May 2023 04:26:53 +0200,
-Ai Chao wrote:
+On Sat, 06 May 2023 19:15:46 +0200,
+frshuov@163.com wrote:
 > 
-> Add a quirk for HP EliteDesk 805 to fixup ALC3867 headset MIC no sound.
+> From: Larry Chi <frshuov@163.com>
 > 
-> Signed-off-by: Ai Chao <aichao@kylinos.cn>
+> ASUS ROG Zephyrus M16 2022 GU603ZM (1043:1c62)
+> added SND_PCI_QUIRK for speaker and headset-mic working properly
+> 
+> Signed-off-by: Larry Chi <frshuov@163.com>
 
-Thanks, applied now.
+The same fix was already submitted and applied in commit a4671b7fba59
+shortly ago.
 
+
+thanks,
 
 Takashi

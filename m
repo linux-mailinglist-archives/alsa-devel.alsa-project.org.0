@@ -2,124 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76AC76FD4E0
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 05:59:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49F076FD705
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 08:31:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B21B3F4F;
-	Wed, 10 May 2023 05:59:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B21B3F4F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4110F1055;
+	Wed, 10 May 2023 08:30:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4110F1055
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683691198;
-	bh=uujRn4j1RtHVhR7k0wx6EUo8LiOT/vrCYC4+Kzuz6WQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=GaWn95zK74XnUwWCl7aaIhHLcafKItA/TXkC1mnMKzRcMy9apKygyP3kKmjE6MXft
-	 6PrVLwFCtb7grUlX+RL9YA6SZ3E246JNQznfh/weSAgYRxR4o2+8fZ4432bXYY1ySM
-	 K7tE8R0mh5nJlZPYSfddloLRNOY6lZTG8xF3GvMo=
+	s=default; t=1683700307;
+	bh=dBloFJhoaI9etuevx3RcZG3i5lC069MPcR3NIxpX0sM=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=rzX0xsQo+oTH1XoxSx2JZ3wx2sGxYE8gv6eXh8hxejYt/3axDMxuQZs9KWWd6m/1/
+	 asVyKHrzpW4z/9eToB54TsPkqx9BG3FhL2CTYaLWCfOibdcGUrLo4HH+A5sCTESPKv
+	 RyY9w2y7Zs3GyjUkm/oGGE7ArAonx5Xulfiy65Ec=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EAF0F8014C;
-	Wed, 10 May 2023 05:59:06 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C01B0F8032D; Wed, 10 May 2023 05:59:02 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 574FFF802E8;
-	Wed, 10 May 2023 05:58:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 574FFF802E8
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=HF2l7WQI
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-1924ec320c5so5260766fac.1;
-        Tue, 09 May 2023 20:58:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683691135; x=1686283135;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=xNsl/pNeSnMR5DQWhsPAvAhq9kalbjCKMPhOuDJ4s0g=;
-        b=HF2l7WQIlTYGpjWYRRBIGR8rOePFR65TP5KwRJGtcAAvx0AgXgKC2jmeWv10LHIbLx
-         SegfaYkwgPFYrDk+e+xu7HtS0w7YMA9FZglKGYQdc443qAvAmiqHm/xmUnGVx44BH1Sq
-         Gj3rCYcxUa24ITISnJ/G8aWM9XJsRsE6y/zNPsYEpVsx9g1yLzvn7xjjV8vifRrpOTeg
-         ClYWp4rsz3NO9LOr1qLSvXlPkS6h5ReE1vYoMLHHYbrz8xR+BVYkPz/V/ZszGyFcFgb7
-         1fe+J38jq6DNo2dTBsHnVZRVrW12dC/cekMj3I6rt9qEUsYqHcGr1TWZmiSgbPfBrhhs
-         7u+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683691135; x=1686283135;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xNsl/pNeSnMR5DQWhsPAvAhq9kalbjCKMPhOuDJ4s0g=;
-        b=ImURALfeMX+tEhMpBsWDNG+GQkKMwWRbMzMn9/ADz6//Krd4h6Aa+hGO5SGiPDN6Lw
-         KBAg1pwjTvbwNRdtSyCguG6G30C20vWJXQlw4k76ymWtE8U4AvFuZqdwYfaVVetCRWWc
-         OrCZmN9E2rQ+pnj/ZP+YBr9BrcBzpCBVftqVim8dp05e/9V2VyCchOIbirMQatkcHbIr
-         EndkhjXtXLgaGYYqvhci0y2H0P3eAIZqOjd15fuf8n49M1WnZqffbyje3yIgkrBhJlqL
-         UdUcs5x1QDqtOp9fe+jZKNyHl2caa1zMLWlP67Qod20QrZvSjI6j1welWW+5+eXhUInv
-         Wo4g==
-X-Gm-Message-State: AC+VfDwBUVPnjBjhZFu0gfw2v5V9se+dxiGzf+oOrTvPMBOhv40MFgAt
-	MMyHMm7rF2qbCZsb8uPASXk=
-X-Google-Smtp-Source: 
- ACHHUZ5QwGkxKHAFYeUrK1k/LXRxYT5HlMQiIITBVatZN+1/DfxkYM1VE89egDUgyXUuAbiSQbavNA==
-X-Received: by 2002:a05:6870:1842:b0:180:1faa:7c1c with SMTP id
- u2-20020a056870184200b001801faa7c1cmr9970706oaf.46.1683691135033;
-        Tue, 09 May 2023 20:58:55 -0700 (PDT)
-Received: from geday ([2804:7f2:8006:8886:6ce0:2667:545a:2a1])
-        by smtp.gmail.com with ESMTPSA id
- v44-20020a056870956c00b00184591ae6d0sm6689469oal.26.2023.05.09.20.58.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 May 2023 20:58:54 -0700 (PDT)
-Date: Wed, 10 May 2023 00:58:58 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
- mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
-Message-ID: <ZFsWgnAQy5Y/rwyb@geday>
-References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
- <87o7n0mtv9.wl-tiwai@suse.de>
- <87ednwmssr.wl-tiwai@suse.de>
- <87wn1jdzuq.wl-tiwai@suse.de>
- <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
- <ZFoUaNKBkIgbW0rD@finisterre.sirena.org.uk>
- <ff43dccf-ba6d-d7fa-352a-5d5a8c4b977f@perex.cz>
- <ZFpaOVRc2E/CZBHI@finisterre.sirena.org.uk>
- <10075912-5c0b-549f-58e1-1323683d250d@perex.cz>
- <ZFr8B5UFx16sz7S0@finisterre.sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZFr8B5UFx16sz7S0@finisterre.sirena.org.uk>
-Message-ID-Hash: 3FQDUESRCDWWPBAHWXRDEX7KNB6E3DKW
-X-Message-ID-Hash: 3FQDUESRCDWWPBAHWXRDEX7KNB6E3DKW
-X-MailFrom: geraldogabriel@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTP id 505CFF80310;
+	Wed, 10 May 2023 08:30:56 +0200 (CEST)
+To: alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH v2 0/7] Add Chameleon v3 ASoC audio
+Date: Mon,  8 May 2023 13:30:30 +0200
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- sound-open-firmware@alsa-project.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+ header-match-alsa-devel.alsa-project.org-1
+X-Mailman-Approved-At: Wed, 10 May 2023 06:30:50 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3FQDUESRCDWWPBAHWXRDEX7KNB6E3DKW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVFG542LUC2PIG4W27NG4LRHYHOKKO2R/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168370025444.26.1010294303910435639@mailman-core.alsa-project.org>
+From: =?utf-8?q?Pawe=C5=82_Anikiel_via_Alsa-devel?=
+ <alsa-devel@alsa-project.org>
+Reply-To: =?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>
+Cc: tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ dinguyen@kernel.org, lars@metafoo.de, nuno.sa@analog.com,
+ upstream@semihalf.com, amstan@chromium.org,
+ =?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 92593F8032D; Mon,  8 May 2023 13:30:58 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8CA64F802E8
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 13:30:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CA64F802E8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=semihalf.com header.i=@semihalf.com header.a=rsa-sha256
+ header.s=google header.b=LaOiDwcc
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-4ec8eca56cfso4909713e87.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 08 May 2023 04:30:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=semihalf.com; s=google; t=1683545449; x=1686137449;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QROZZg0NcOAM6TrC3FRfcXoXcgrBsF3nV9ljtkhqs/g=;
+        b=LaOiDwccr14aUQfXHiItTJRbSFtax2h3IM/zfRijGPvqXp3g1mZQ4/edBGu1qeOH9c
+         bRteSh1Kbcm6J1asHyYNUnVkn4CKd5EFUpzPeLXSQgOmWKIeXPFWqpXj5ajw7uU0lDqU
+         FrK1AKF+1igGV8vTA4QSP/eeY8c7bz5P8yKE7iChxrRITaG4FW0dGUkYfzA3XuINRfi0
+         ZUC7A1791bXIxS3Dj8UBL3KH+vHmg2lCXVKnDpBW0PYTiS3+gCZHggHzw3AJzWJOBAkD
+         8eCcP+NhlJPExY/TFpbYoU1K7sMTmHqX9AKf+9Cnn3yVUZISIzMz6lKI1Za/4+0jtF5K
+         oPcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683545449; x=1686137449;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QROZZg0NcOAM6TrC3FRfcXoXcgrBsF3nV9ljtkhqs/g=;
+        b=WHrgZpIZuEOAudpjdjwiktEWNLQ3CO3STtQoY9j586F+9z+K4Mf8wms5+5nAV/N8ZR
+         pshuhjzfJxtxP4y8N42xIjprwO8b4AO6ZdquF6lYkIKS32L+acQTtzun7131PQlslDcz
+         ZYQbi2jmI8XzA4IIn5vi8LhyYGC1bPNMzAQZHapzgfFZ/zSD64Yp3EW7URauLF18khFM
+         TYuMcazGhlsqIgGbCEUhKMyuJZmJhDWpoolaC+97Gk3+4CWXW42qmfSJ8BDstHJ/o+vB
+         6C5USh3NmHmIiucIFuRyGuKImqTtxijdqNU3M1KPbOJMxkeFbTzB4FIlNhqyMmcuY+Ql
+         nK0w==
+X-Gm-Message-State: AC+VfDzljReeC2Qm+yX8B0vwPAKGc/UhRaL8XYaMehc3KXClOfv6A1OW
+	CjCI/kzEmBxaqvo8hjLa2HJ9942vdJTFH3K4WwY=
+X-Google-Smtp-Source: 
+ ACHHUZ5wHrOKKIsHA8UkSMl1QDKxcEx3roo4s774AFuy6ZE50c0cAvreNxNsl+gGMfStFlUTxtls3g==
+X-Received: by 2002:a2e:918d:0:b0:2a8:b627:b92f with SMTP id
+ f13-20020a2e918d000000b002a8b627b92fmr2717307ljg.29.1683545449157;
+        Mon, 08 May 2023 04:30:49 -0700 (PDT)
+Received: from panikiel.office.semihalf.net ([83.142.187.84])
+        by smtp.gmail.com with ESMTPSA id
+ k8-20020a2e2408000000b002a8b9353338sm1144406ljk.117.2023.05.08.04.30.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 May 2023 04:30:48 -0700 (PDT)
+From: =?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>
+To: alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lgirdwood@gmail.com,
+	broonie@kernel.org
+Subject: [PATCH v2 0/7] Add Chameleon v3 ASoC audio
+Date: Mon,  8 May 2023 13:30:30 +0200
+Message-ID: <20230508113037.137627-1-pan@semihalf.com>
+X-Mailer: git-send-email 2.40.1.521.gf1e218fcd8-goog
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MailFrom: pan@semihalf.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: UVFG542LUC2PIG4W27NG4LRHYHOKKO2R
+X-Message-ID-Hash: UVFG542LUC2PIG4W27NG4LRHYHOKKO2R
+X-Mailman-Approved-At: Wed, 10 May 2023 06:30:50 +0000
+CC: tiwai@suse.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ dinguyen@kernel.org, lars@metafoo.de, nuno.sa@analog.com,
+ upstream@semihalf.com, amstan@chromium.org,
+ =?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UVFG542LUC2PIG4W27NG4LRHYHOKKO2R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,30 +160,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, May 10, 2023 at 11:05:59AM +0900, Mark Brown wrote:
-> AFAICT the only other option is munging the From without enclosing the
-> message in a wrapper?  That's potentially marginally less harmful but
-> it's still going to break things badly enough that I'm not sure it's a
-> worthwhile improvement.
+The Google Chameleon v3 is a device made for testing audio and video
+paths of other devices. This patchset adds support for ASoC audio on
+this device. It has two audio sources: HDMI audio from the it68051 chip
+(RX only), and analog audio from the ssm2603 chip (RX and TX).
 
-The readymade mitigations for DMARC in mailman 3 are
-"munge_from" and "wrap_message". The fact "wrap_message" messes
-around with signatures in mutt is definitely not a good sign,
-and "munge_from" will change the author's email and name from
-the perspective of git-am.
+The patchset adds the ASoC platform and codec drivers, as well as some
+changes to the existing ssm2602 codec driver.
 
-The middle way could be to patch mailman 3 to "munge_from" while adding
-the correct "From:" as the first thing in the body of the message if it
-doesn't contain one already. This will make git-am pickup the correct
-author's details and it should be some simple logic.
+v2 changes:
+  * Replace chv3-audio machine driver with simple-audio-card
+  * Use regmap_register_patch() in ssm2602 workaround
+  * Remove ssm2602 mute gpio patch, add a gpio hog instead
+  * Simplify hw_pointer logic in chv3-i2s
+  * Commit splits & other misc changes
 
-If Jaroslav is brave enough to maintain this supposed patch to mailman 3
-in case it doesn't get picked-up upstream by the FSF folks...
+Paweł Anikiel (7):
+  ASoC: Add Google Chameleon v3 i2s driver
+  ASoC: Add Google Chameleon v3 codec driver
+  ASoC: dt-bindings: Add Google Chameleon v3 i2s device
+  ASoC: dt-bindings: Add Google Chameleon v3 audio codec
+  ARM: dts: chameleonv3: Add mute gpio hog
+  ARM: dts: chameleonv3: Add Chameleon v3 audio
+  ASoC: ssm2602: Add workaround for playback distortions
 
-I understand the maintainers needs must come first but it will be
-terrible to get the GMail bouncing behaviour again, I don't want to
-press the point since Jaroslav already made the speech I think it
-was needed.
+ .../bindings/sound/google,chv3-codec.yaml     |  31 ++
+ .../bindings/sound/google,chv3-i2s.yaml       |  44 +++
+ .../boot/dts/socfpga_arria10_chameleonv3.dts  |  62 ++++
+ sound/soc/Kconfig                             |   1 +
+ sound/soc/Makefile                            |   1 +
+ sound/soc/codecs/Kconfig                      |   8 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/chv3-codec.c                 |  41 +++
+ sound/soc/codecs/ssm2602.c                    |  15 +
+ sound/soc/google/Kconfig                      |   6 +
+ sound/soc/google/Makefile                     |   2 +
+ sound/soc/google/chv3-i2s.c                   | 338 ++++++++++++++++++
+ 12 files changed, 551 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/google,chv3-codec.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/google,chv3-i2s.yaml
+ create mode 100644 sound/soc/codecs/chv3-codec.c
+ create mode 100644 sound/soc/google/Kconfig
+ create mode 100644 sound/soc/google/Makefile
+ create mode 100644 sound/soc/google/chv3-i2s.c
 
-Thanks,
-Geraldo Nascimento
+-- 
+2.40.1.521.gf1e218fcd8-goog
+

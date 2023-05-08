@@ -2,111 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AAF86FA0C3
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:15:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A98026FA0D0
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:18:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFA2012A0;
-	Mon,  8 May 2023 09:14:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFA2012A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id F03F312BB;
+	Mon,  8 May 2023 09:17:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F03F312BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683530107;
-	bh=ZZJPf8r0Dc0BA1jSWlJV9lwPpg9t9s6IbMReelbNP5s=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=sdXXBau89C7dGPWAkhpR2A7kUBx7oEEMpmV9C9XM+wNNlvJuXeEeouj5aT6sNqtF4
-	 MGFkTWM3un8j91MlLK+5mZhEJ2U6XRNWGslA3AMyxaEygM0CzfTsyqLNIOt3qJfp1n
-	 usuakuejrkNhB/+WaCzRBgWvgYnp3eOB6JTm5RfQ=
+	s=default; t=1683530283;
+	bh=iuAtSUq5G5xS7fUIMc+V+VCORdw14kSzUA1lmsDFlj8=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=ueJQZyZ7ckHkBS9nWC0fLgefqxPhSrhYCLUq1S7AY2o+LERLpX2OCJekOWVehbd3/
+	 9q6cwkkzv6kjH7ystpHWN5NPCoz4XBTF3X9acZYyH8QAiEZefZ1ykW/1cug+fc31jT
+	 pzfabx1r1DvHjWpbdqvt5aHe2Qvex4ZYY6ybW7Gc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 357D7F80310;
-	Mon,  8 May 2023 09:14:17 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF1F1F8032D; Mon,  8 May 2023 09:14:12 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65FCFF80087
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65FCFF80087
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=MwXiYZ1b;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=yxVeGMw7
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6CAB221B66;
-	Mon,  8 May 2023 07:14:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1683530042;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EyknMMdMLlIoJXWiRlmJ/7tqeFXWKoGEexP23LwhMK0=;
-	b=MwXiYZ1bb/fzec5ugdpDqmbLBL5n7VkyYgzO4qzJbxEd6czTFXHCf27DiGfoe2ENtngij9
-	kIq4LLul+ipGg9pwgzGFbliT9RNbBqNKeg6xL3W/uuaQExH8agA8piw49qF/Y9Kp5beqwJ
-	fGg0q24LfC+72PQ6Jkz3VQcR5zSFB/k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683530042;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EyknMMdMLlIoJXWiRlmJ/7tqeFXWKoGEexP23LwhMK0=;
-	b=yxVeGMw71Awc/oO3dRF+UAt2tekQn54jFgyi2AvCI0ZoSnw72PZi6SNohpG7kRP6XSdm1z
-	obITQCNuR7yPTTCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4A8151346B;
-	Mon,  8 May 2023 07:14:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id imcMETqhWGTuLQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 08 May 2023 07:14:02 +0000
-Date: Mon, 08 May 2023 09:14:01 +0200
-Message-ID: <878rdzfg7a.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Subject: Re: [PATCH] ALSA: emu10k1: macro-ize snd_emu10k1_ptr_{read,write}()
-In-Reply-To: <20230428095941.1706263-1-oswald.buddenhagen@gmx.de>
-References: <20230428095941.1706263-1-oswald.buddenhagen@gmx.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ULS2LTUBZBLL22KGZSF3T6EXZFF4DSJW
-X-Message-ID-Hash: ULS2LTUBZBLL22KGZSF3T6EXZFF4DSJW
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTP id 880A8F8055B;
+	Mon,  8 May 2023 09:16:05 +0200 (CEST)
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 0/4] ASoC: mt6359: kselftest fix and driver extension
+Date: Mon, 8 May 2023 15:15:28 +0800
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: alsa-devel@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ULS2LTUBZBLL22KGZSF3T6EXZFF4DSJW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQDVVANXQTE6KPUDWZ6AAG7PD2JQB3OR/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168353016454.26.13053897228618991445@mailman-core.alsa-project.org>
+From: Trevor Wu via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: Trevor Wu <trevor.wu@mediatek.com>
+Cc: trevor.wu@mediatek.com, bicycle.tsai@mediatek.com,
+ ting-fang.hou@mediatek.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id C0E51F8053D; Mon,  8 May 2023 09:15:58 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id C7987F8032D
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 09:15:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7987F8032D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=pJpJ0iXE
+X-UUID: 203f86eaed7011edb20a276fd37b9834-20230508
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=Y1HnJqsO/WkMHXAXN/S1iWJu5d9vaTn7O2ZE737u36k=;
+	b=pJpJ0iXEDWMNBOaMO8oeMXuZZKSVHwQ9FYA9CU6H3UzrhwXGkQGhC0zEytMfNzYY+TZptj4mU3/83yz/yYTqip5/JsLfi7ks11ExwWlzmOFrs13yAacPDNB+aL40zK7IMEBLpArwuEhQk547gdziKI4kQ4+Ty9NBwV6KKkktIB8=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.23,REQID:919588bd-aa8d-4523-814e-cd707e4dc150,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:697ab71,CLOUDID:2a8f1ec0-e32c-4c97-918d-fbb3fc224d4e,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 203f86eaed7011edb20a276fd37b9834-20230508
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw02.mediatek.com
+	(envelope-from <trevor.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1821024758; Mon, 08 May 2023 15:15:35 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Mon, 8 May 2023 15:15:33 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Mon, 8 May 2023 15:15:33 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+Subject: [PATCH 0/4] ASoC: mt6359: kselftest fix and driver extension
+Date: Mon, 8 May 2023 15:15:28 +0800
+Message-ID: <20230508071532.21665-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
+MIME-Version: 1.0
+Content-Type: text/plain
+X-MTK: N
+Message-ID-Hash: DQDVVANXQTE6KPUDWZ6AAG7PD2JQB3OR
+X-Message-ID-Hash: DQDVVANXQTE6KPUDWZ6AAG7PD2JQB3OR
+X-MailFrom: trevor.wu@mediatek.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: trevor.wu@mediatek.com, bicycle.tsai@mediatek.com,
+ ting-fang.hou@mediatek.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQDVVANXQTE6KPUDWZ6AAG7PD2JQB3OR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,40 +144,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 28 Apr 2023 11:59:41 +0200,
-Oswald Buddenhagen wrote:
-> +#define snd_emu10k1_ptr_read(emu, reg, voice) \
-> +	({ \
-> +		u32 data = snd_emu10k1_ptr_read_raw(emu, REG_ADDR(reg, voice)); \
-> +		if (REG_SIZE(reg)) \
-> +			data = REG_VAL_GET(reg, data); \
-> +		data; \
-> +	})
-> +#define snd_emu10k1_ptr_write(emu, reg, voice, data) \
-> +	do { \
-> +		if (REG_SIZE(reg)) \
-> +			snd_emu10k1_ptr_modify(emu, REG_ADDR(reg, voice), \
-> +					       ~REG_MASK(reg), REG_VAL_PUT(reg, data)); \
-> +		else \
-> +			snd_emu10k1_ptr_write_raw(emu, REG_ADDR(reg, voice), data); \
-> +	} while (0)
+The patch series includes a kselftest fix and changes for extending
+driver capability to support more use cases.
 
-Must those be macros?  Not only that macro isn't really safe to use
-for obvious reasons, the expansion would cost significantly as they
-are called in many places.
+Trevor Wu (4):
+  ASoC: mediatek: mt6359: add supply for MTKAIF
+  ASoC: mediatek: mt6359: fix kselftest error of playback gain
+  ASoC: mediatek: mt6359: add mtkaif gpio setting
+  ASoC: mediatek: mt6359: update route for lineout mux
 
-> --- a/sound/pci/emu10k1/io.c
-> +++ b/sound/pci/emu10k1/io.c
-> @@ -18,72 +18,64 @@
->  #include <linux/export.h>
->  #include "p17v.h"
->  
-> -unsigned int snd_emu10k1_ptr_read(struct snd_emu10k1 * emu, unsigned int reg, unsigned int chn)
-> +static inline int check_ptr_reg(struct snd_emu10k1 *emu, u32 reg)
+ sound/soc/codecs/mt6359.c | 152 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 137 insertions(+), 15 deletions(-)
 
-Should be bool.
+-- 
+2.18.0
 
-
-thanks,
-
-Takashi

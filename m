@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACC4E6F9CED
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 02:10:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC246F9D68
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 03:31:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93A0F1341;
-	Mon,  8 May 2023 02:10:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93A0F1341
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1B5B1370;
+	Mon,  8 May 2023 03:30:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1B5B1370
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683504656;
-	bh=A32A0fMavO0Ip81/GDeG/O8Dt1b/AHEN/Q9Ag7VxJ/U=;
+	s=default; t=1683509504;
+	bh=71tKkv/u71avtNDi58s+M3G3sV9kmPvH9mDaj5alk/A=;
 	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=aUs2SWcqRc7w5QEuKTH/VS0+VSVx5t8RY8OhkAImxl7qybFcSNED1Dp9977A8uGjW
-	 PnkLxWtdR7LZNuEgGiQie2ze/GZEPEdiOFPGH4bkp99P4NXdvakGpHGzlMJf6bIpvE
-	 SLzxmuOniz6H6zKumpc6OSrNC/rnRHiZje9Xtd+A=
+	b=nAwHQErpExMWYZ/7WK3m9tCcbD5GMzXvB7JPsQdh3T9nINbG38BqI4rcqgV41paoD
+	 nRVzkRXutWANlC6Kdpc5PfnMAZ2hqIZTJlkSkja+GdecsoriK0dWXFA+1WJrfdu2tU
+	 So38QPzzuZeVXmYjpKkxOKmAVOXpvNvg1b7Hm+Sk=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06245F80310;
-	Mon,  8 May 2023 02:10:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53352F80310;
+	Mon,  8 May 2023 03:30:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D2B7F8032D; Mon,  8 May 2023 02:10:00 +0200 (CEST)
+	id D580CF8032D; Mon,  8 May 2023 03:30:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A88C2F8014C
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 02:09:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A88C2F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A3EDF8014C
+	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 03:30:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A3EDF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YzfMivA8
+ header.s=k20201202 header.b=IdvBvb3s
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 386726106E;
-	Mon,  8 May 2023 00:09:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15E14C433EF;
-	Mon,  8 May 2023 00:09:52 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CBDEE61DD7;
+	Mon,  8 May 2023 01:30:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72C2C4339B;
+	Mon,  8 May 2023 01:30:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683504593;
-	bh=A32A0fMavO0Ip81/GDeG/O8Dt1b/AHEN/Q9Ag7VxJ/U=;
+	s=k20201202; t=1683509437;
+	bh=71tKkv/u71avtNDi58s+M3G3sV9kmPvH9mDaj5alk/A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YzfMivA8lavBpLa0kuam03gytpAKOIxDo3i/gd5rGSh/fBFIhSC2RTH93vddmU8/d
-	 3Bj8mKzdI4jbG3vWlhJ1Wa0SK16Qpvf2ryv/mxvwWgB9SN45Z1Yc0+U4B+mq0Mgg1n
-	 U87vTTdAP2X5ed7PeXOrVt3Kvhd5ST2QlTPn8jmAEhYt1zNIhbSIhcnu6Kv7DozjNw
-	 GbMVLl54RcV3ohYPrabVLFn5WnsvcB4yh8csgfIPnyUb4IalsjnnJJKkg+t0RzW1PH
-	 ggafPW9wR5hSLPRt7fMK8kl4G+eNZHVxoYphhCT0quHS0Q/WABfFnS/B9lqb+JRL5n
-	 mkzcg/jceFgrA==
-Date: Mon, 8 May 2023 09:09:50 +0900
+	b=IdvBvb3sKdbaCJubt4senOcamv3ec20kFlVjpx22nVFzwX6sfJtAbNPbJk+dW6+nH
+	 0Ff+MRKmezq1AfMxuO3SMNsZKbFqghzjJAFuqA63SGFHxBpBs6XIbyQfxL5J9Srra9
+	 1QJgjwVAEB5OA/xVpqcLHpQP+nBGIjBjI23Jyda09T8QVv4GdvomrKqaldYS12SuIq
+	 6Ht+h0GwHpHGJ6YgUFx+OHs47oCAP6Vkc3HLLhZDbdme0t5Omrp8Av4x47VAG+Dhng
+	 n+Ex1plvYWG6XxOiR2l8+jZIyVHuj4Te7T2Yp8Kc5WV0hEWNBhyMp+H7YWtvMD3Rsw
+	 Y/6zf0NnRHtIA==
+Date: Mon, 8 May 2023 10:30:34 +0900
 From: Mark Brown <broonie@kernel.org>
-To: Shengyu Qu <wiagn233@outlook.com>
-Subject: Re: [PATCH v3 2/3] ASoC: starfive: Add JH7110 TDM driver
-Message-ID: <ZFg9zpVEpVSQJrfZ@finisterre.sirena.org.uk>
+To: Walker Chen <walker.chen@starfivetech.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: sound: Add TDM for StarFive JH7110
+Message-ID: <ZFhQujhpbt/7yGGc@finisterre.sirena.org.uk>
 References: <20230506090116.9206-1-walker.chen@starfivetech.com>
- <20230506090116.9206-3-walker.chen@starfivetech.com>
- <TY3P286MB26118DAB0E0E2BF32C91B19F98739@TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM>
+ <20230506090116.9206-2-walker.chen@starfivetech.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9ci+RuukFZBKZOQn"
+	protocol="application/pgp-signature"; boundary="qWpif/cLlKqgWzLh"
 Content-Disposition: inline
-In-Reply-To: 
- <TY3P286MB26118DAB0E0E2BF32C91B19F98739@TY3P286MB2611.JPNP286.PROD.OUTLOOK.COM>
+In-Reply-To: <20230506090116.9206-2-walker.chen@starfivetech.com>
 X-Cookie: Avoid contact with eyes.
-Message-ID-Hash: AV56SGTCDLTIHOMY4YQVLUQI2GDB2SRH
-X-Message-ID-Hash: AV56SGTCDLTIHOMY4YQVLUQI2GDB2SRH
+Message-ID-Hash: GPVHFNISE7FIZB74LROS5G5SIA4PDWZP
+X-Message-ID-Hash: GPVHFNISE7FIZB74LROS5G5SIA4PDWZP
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -81,8 +80,7 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Walker Chen <walker.chen@starfivetech.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+CC: Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor.dooley@microchip.com>,
@@ -94,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AV56SGTCDLTIHOMY4YQVLUQI2GDB2SRH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GPVHFNISE7FIZB74LROS5G5SIA4PDWZP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,40 +102,32 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---9ci+RuukFZBKZOQn
+--qWpif/cLlKqgWzLh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, May 06, 2023 at 09:47:55PM +0800, Shengyu Qu wrote:
-> Hi,
->=20
-> > Add tdm driver support for the StarFive JH7110 SoC.
-> >=20
-> > Signed-off-by: Walker Chen <walker.chen@starfivetech.com>
-> > ---
-> >   MAINTAINERS                     |   6 +
-> >   sound/soc/Kconfig               |   1 +
-> >   sound/soc/Makefile              |   1 +
+On Sat, May 06, 2023 at 05:01:14PM +0800, Walker Chen wrote:
+> Add bindings to describe the TDM driver for the StarFive JH7110 SoC.
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
---9ci+RuukFZBKZOQn
+--qWpif/cLlKqgWzLh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRYPc0ACgkQJNaLcl1U
-h9Dmbwf/Xcbsz/f576Mnx9hVH2Cly67ZCtBddqWB7pV+pDcaXRcceHN3aX2c4LRR
-wCAYUrX+SQu5hXybB4KLamAtL9zqrf0wUmZIMsPAwVSMCj4pgvabvXjvQBhCC/JE
-yF7GbhvWGOIcmO4P4rCUC3wir3XvaZJUTxd31sfqRQ1QuJQld2K4tVn7GpIn+Yqm
-TzwVoWu6phAweem94ZbvQD1LUL8P6jaiFTr+Y7CXhbtjKFyDPWsL//xxzqpzpxeY
-C7I3om/FG2R7stwBxmjLERGtXg2b+JDKqRvUl/RCL1nUzyWa9MyoPQgkooMqnI7h
-sHiUX1OQyLsOMMf6ruvYLbgC28hu0g==
-=Mg6z
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRYULkACgkQJNaLcl1U
+h9BS4Qf8CgZlP8jyB6NeLlBTyYs8KyQY4c35cBZLLJ+/fu2+EGGCptpPCtHXkrnx
+jPTC4V5et4pWy2E4Aqk5vHXKmsR/cvXdjXM1VrdRwculFef0xWwV29F6ru8WrW5J
+pQxXzgHn2PpZrdybJ4RFmABz9V9Pe9NotLtP5yxVCqHemsg09MZSmnqObikbqXi6
+eqXK/b5HAkCHQUEJyisSCY4Fcxz8XaIc1a0bP6+++bwFdnVN0zk6WS499QQWgXc8
+hZNcb1x6hXYav4LKZETl4xFYUHdopNIpL7cbdsvcyF8mRGI68qK84TFxTx9kXqS5
+9ZCLw0ZkIwMad6/JkDdSGqETIZ0R4g==
+=TbwX
 -----END PGP SIGNATURE-----
 
---9ci+RuukFZBKZOQn--
+--qWpif/cLlKqgWzLh--

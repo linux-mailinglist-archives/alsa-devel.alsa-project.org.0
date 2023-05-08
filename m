@@ -2,106 +2,197 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950336F9FD8
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 08:28:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74CBF6FA095
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 May 2023 09:06:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12DA411C0;
-	Mon,  8 May 2023 08:27:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12DA411C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6549E1251;
+	Mon,  8 May 2023 09:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6549E1251
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683527281;
-	bh=2N7NjTH2VlqAsqbaUR/4INqfOxbZgYbmhjjcV1pq71k=;
-	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=j+XsvFUFi7BJ0T4d4gECtB2wONZEAXuC+sZ2rqRiaWN5p34j7UTB9Au7Pfb6yFcv+
-	 PKew0bgenatA9kR+SfPK5SN47/p9HCAYGOpEQ9f6+XkDhDZePwienuL8Uv98k+gwGD
-	 WCfk5May/IbsMrcv47bCFiTfG4+iEDikZAqoNQEI=
+	s=default; t=1683529590;
+	bh=I/fB3sjJJ9hk3+xd7rosjp79QK5hTFTZ2E5S4hIlTUU=;
+	h=To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From:Reply-To:Cc:From;
+	b=cdXwFecStrbaXlBJVK64V8rhvS97wTRx62eGVGXMMkE9/X19dE4ZgJrEojHNgZa6V
+	 UYFufU7nMcKERdtj8PPppCTe4KlmY0hbkzI+95jUG8uMl3piaRng5Ve7mpw1AZE7yM
+	 4Biyobbh211fDBxBUjr9re+CE+SYOclMhCoy7W+s=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53B88F80310;
-	Mon,  8 May 2023 08:27:10 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F0465F8032D; Mon,  8 May 2023 08:27:06 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com
- [209.85.160.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E9FE7F802E8
-	for <alsa-devel@alsa-project.org>; Mon,  8 May 2023 08:27:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9FE7F802E8
-Received: by mail-oa1-f49.google.com with SMTP id
- 586e51a60fabf-1928860f63eso2677437fac.0
-        for <alsa-devel@alsa-project.org>;
- Sun, 07 May 2023 23:27:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683527220; x=1686119220;
-        h=date:subject:message-id:references:in-reply-to:cc:to:from
-         :mime-version:content-transfer-encoding:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=witHYv1Hkh138s1daDFZMrxf1YGkxRazduMe4ExLmyE=;
-        b=hKE2y38OVXjX2z+uw4YnUbVPFAdx32tvr25XJ1to1sExGG9DdaxUOPVODHvnTkjrHN
-         gn/CKW5aVBQRggyzWcEA9CV1kNDQ+jtg2dUezM/hcqf+9HbKbWLRoVxmmk51YGk/X9by
-         WdSXZPgARGpROT12RV4qEA0//UWL+10Lo68bvYuZPrASmFZfw+QVCO/OPwzhPn4XvhMh
-         cbFBTNVR0fMWt8gRN4CvHgXCqk0vYY43r3zn45GbMs1L2hAm3tVpjEQ60/41R8JpdAS0
-         bRVP+NQMAKN6WkXLehRJd5sJRuidOQ+zYrhZeaOedhO9EbdTWbRcEdrydABvIhqAm5EY
-         xxZQ==
-X-Gm-Message-State: AC+VfDwOnXj7C/HrZmel4nz0JRr6n8cTm4LXhQDd8JEF++WGJB/HcARA
-	+vkvKIuf7LAustRu2Mtang==
-X-Google-Smtp-Source: 
- ACHHUZ4IPcRapdZOKJCWtWLeNloyjZMFnl+3ZMAIwpbyb4CfDyFLDZldO69cTTbbsAhM+OmRQZ8ojg==
-X-Received: by 2002:a05:6870:36c6:b0:17f:17a3:6a53 with SMTP id
- u6-20020a05687036c600b0017f17a36a53mr4261981oak.53.1683527220047;
-        Sun, 07 May 2023 23:27:00 -0700 (PDT)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107])
-        by smtp.gmail.com with ESMTPSA id
- n3-20020a056870034300b00176d49bb898sm4575083oaf.44.2023.05.07.23.26.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 May 2023 23:26:59 -0700 (PDT)
-Received: (nullmailer pid 213415 invoked by uid 1000);
-	Mon, 08 May 2023 06:26:53 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Shenghao Ding <13916275206@139.com>
-In-Reply-To: <20230508054512.719-1-13916275206@139.com>
-References: <20230508054512.719-1-13916275206@139.com>
-Message-Id: <168352721271.213340.3578983696891383785.robh@kernel.org>
-Subject: Re: [PATCH v2 2/5] ASoC: dt-bindings: Add tas2781 amplifier
-Date: Mon, 08 May 2023 01:26:53 -0500
-Message-ID-Hash: 6UOANV57JKEJOC3EANW2O6VESD6SCHTK
-X-Message-ID-Hash: 6UOANV57JKEJOC3EANW2O6VESD6SCHTK
-X-MailFrom: robherring2@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DDD9F80310;
+	Mon,  8 May 2023 09:05:39 +0200 (CEST)
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: SOF: amd: Fix NULL pointer crash in
+ acp_sof_ipc_msg_data function
+Date: Mon, 8 May 2023 12:35:08 +0530
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Ryan_Chu@wistron.com, navada@ti.com, gentuser@gmail.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, shenghao-ding@ti.com, Sam_Wu@wistron.com,
- lgirdwood@gmail.com, krzysztof.kozlowski+dt@linaro.org, x1077012@ti.com,
- broonie@kernel.org, kevin-lu@ti.com, devicetree@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, peeyush@ti.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6UOANV57JKEJOC3EANW2O6VESD6SCHTK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SINCZVB6S5ILAGBXCNNNQMUIDD3WHOCD/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168352953853.26.8164483983661499361@mailman-core.alsa-project.org>
+From: V sujith kumar Reddy via Alsa-devel <alsa-devel@alsa-project.org>
+Reply-To: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com, ssabakar@amd.com,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Paul Olaru <paul.olaru@nxp.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id DCA2CF8032D; Mon,  8 May 2023 09:05:34 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: *
+X-Spam-Status: No, score=1.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,SPF_HELO_PASS,
+	T_SCC_BODY_TEXT_LINE,T_SPF_TEMPERROR,URIBL_BLOCKED shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5a::60b])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id E9FCDF80087;
+	Mon,  8 May 2023 09:05:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9FCDF80087
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=xGJGGtLt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J5cvnFHGRAKIBoSFQQN5aRkydYRMriJl6VxEePKJSSttdxQ90FvrzUv0Ydams4K646cfLZCcgu66YACr8ygSxDC6PPPlSloVGE+j6KHpZxnOyAgWyYY8b5OmHD2VbZzL/XlRXLFfwACUUyjN+MQDXvXN9i6MGybAWg2xz0laf2p2iLQcBe46Flel/Tgpv2EaWXh77l8z3O63f4eP1EipSKOBQevnVUrzeUzQVPf03r3ETe2NqHccVmBDlJsE64t4Wbh568ODMc64cZ6udOfOMntrz6wOg+XWo8w9oIjTKSz/Kzd6O1gE12GkNjHNtAthdEEeUo3SkiaTsIPvIS3CCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IoTurC6oONuSRxeT6uhTL53UbU/vNJrDs+75QjE4XPo=;
+ b=L1k+XPy0LzsfCVM/DvdmzmhYoczFXV7ps05jGd9/6NqvyCgmS6kBY1UOtobEOEl7/s+8XhEsjFZmYmKiITwWYfTxE9qNE5/P3E9m1KjHfoZ5tFg4YseJv9tOj8qSGaFHHU9xV3jDjsqdfgJ4fg9HxH8P1Y4mF53nw+3oRjqO4H6N40jB6q6YnKQncmplxlGaPu+0ZyABHjfhUYIgQpmpDv14TBeNHC5UVCW+vJcx4eMBRCk6nEfbd8UI3QK05hITRO2oHROxJtDuHXIlVqnwWTePPC3MqR17cAi6SprcOyH6ncR/sQeuCXTU9rl1jMTAccMNnVdT4OpUkMGyQhLsjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IoTurC6oONuSRxeT6uhTL53UbU/vNJrDs+75QjE4XPo=;
+ b=xGJGGtLtubfrhemKJhpmVpRODkq2D2TbfzH6NqcKNM2nmfE1tnvuEftYk80akUP1R3MZdApY/36lk7/erCpThq2+lq1B4rz2DKF+K01TRsu0Pwgl+xXk1vLUnQXKD6297miY1+79QGAixgQ7+lhZzS0dgxdCl82gU+m4BDlZhP8=
+Received: from BL0PR02CA0081.namprd02.prod.outlook.com (2603:10b6:208:51::22)
+ by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Mon, 8 May
+ 2023 07:05:17 +0000
+Received: from BL02EPF0000C406.namprd05.prod.outlook.com
+ (2603:10b6:208:51:cafe::1a) by BL0PR02CA0081.outlook.office365.com
+ (2603:10b6:208:51::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32 via Frontend
+ Transport; Mon, 8 May 2023 07:05:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0000C406.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6387.18 via Frontend Transport; Mon, 8 May 2023 07:05:17 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 8 May
+ 2023 02:05:16 -0500
+Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Mon, 8 May 2023 02:05:10 -0500
+From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+Subject: [PATCH] ASoC: SOF: amd: Fix NULL pointer crash in
+ acp_sof_ipc_msg_data function
+Date: Mon, 8 May 2023 12:35:08 +0530
+Message-ID: <20230508070510.6100-1-Vsujithkumar.Reddy@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C406:EE_|CH2PR12MB4325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 12f4824e-30a4-47d4-eeaf-08db4f929412
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	qppGI4yAz9SauyVHx9kx14Vk9Y/cLXeS6eeXv3S96NedkBA1cAuDCghnnHHs2oT01SmCi7uo6jzbAwSZ05cqyzX3XoCW/YvBShxkWnQTuM4Nb++VRT/HN6E6yr8vS1O6VNCWkBugsbmHRBqd3gUpD64Uy16ro/8CSrnMeRzYIjUWTqn+dKqASvpKsdDxjmgiZUErSoy8XUZvQbrhlsMZymB3GPb8RkG2P2grYhxUTAohZXGIM6ZrKtFVFOUDEP0bqWyutpSokIv8FrZpEAXF9wmyn1IPfU6PrRVm+ejIvSbKfgn5a4AMjKtTJ2hBzubG6ksba07rv/epVcUrfDCubcUFOlKS+TT2Yeb4WF07BBOQskaMOYazY/A3ExE/zUGC+ZUuR5078md/JusIVedQgsQSkti4DpvPD2xqIUzT+8hcGQQte8YB+CgujMBomR32zDYIQZ9j0NDG25uvbxdevemlF75hEq3oP71sWrcn+yT7TYJlwQ1lOqXBCpzp4VzqCeVjLvkbr/zDI3HjHVmGzj2aP1eG29Rm4FdT7ivLpevMW7AG6wG4VRlHyLeB/1n7SiscUadSIE6rAUOmXICwDvhoXJSbje0EzN7QciQ5NuqoB6BKq9T1kqql5vMp1JQL8+mNE8By407bRBhxf1gRFSOBVRusEVBdThZm5UOtdxbMXs63lJm1px1Qvx0BVS8fSt0lnp8s/YTWM8rQo+YT4vL+AiJ1Zovk1g6bT5ger0w=
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(40470700004)(36840700001)(46966006)(40460700003)(70586007)(70206006)(4326008)(478600001)(7696005)(316002)(110136005)(54906003)(86362001)(36756003)(47076005)(336012)(83380400001)(1076003)(26005)(36860700001)(2616005)(426003)(8676002)(8936002)(5660300002)(41300700001)(7416002)(4744005)(2906002)(82310400005)(40480700001)(356005)(82740400003)(186003)(81166007)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2023 07:05:17.0677
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 12f4824e-30a4-47d4-eeaf-08db4f929412
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	BL02EPF0000C406.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
+Message-ID-Hash: SINCZVB6S5ILAGBXCNNNQMUIDD3WHOCD
+X-Message-ID-Hash: SINCZVB6S5ILAGBXCNNNQMUIDD3WHOCD
+X-MailFrom: Vsujithkumar.Reddy@amd.com
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com, ssabakar@amd.com,
+ V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Paul Olaru <paul.olaru@nxp.com>,
+ Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SINCZVB6S5ILAGBXCNNNQMUIDD3WHOCD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,57 +201,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Check substream and runtime variables before assigning.
 
-On Mon, 08 May 2023 13:45:12 +0800, Shenghao Ding wrote:
-> Create tas2781.yaml for tas2781 driver.
-> 
-> Signed-off-by: Shenghao Ding <13916275206@139.com>
-> 
-> ---
-> Changes in v7:
->  - Submit together with tas2781 codec driver code
->  - Add more detail description for ti,audio-slots
->  - Keep consistent for "I2C"
->  - remove reset-gpios description
->  - For reg, express as constraints instead
->  - remove unnecessary '|'
->  Changes to be committed:
-> 	new file:   Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-> ---
->  .../devicetree/bindings/sound/ti,tas2781.yaml | 90 +++++++++++++++++++
->  1 file changed, 90 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-> 
+Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+---
+ sound/soc/sof/amd/acp-ipc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/rockchip-isp1.example.dtb: camera@3c: port:endpoint:data-lanes: [[1]] is too short
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.example.dtb: camera-sensor@3c: port:endpoint:data-lanes: [[1]] is too short
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/ovti,ov2685.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.example.dtb: pcie-ep@33800000: Unevaluated properties are not allowed ('assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' were unexpected)
-	From schema: /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml
-
-doc reference errors (make refcheckdocs):
-Documentation/usb/gadget_uvc.rst: Documentation/userspace-api/media/v4l/pixfmt-packed.yuv.rst
-MAINTAINERS: Documentation/devicetree/bindings/pwm/pwm-apple.yaml
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230508054512.719-1-13916275206@139.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+diff --git a/sound/soc/sof/amd/acp-ipc.c b/sound/soc/sof/amd/acp-ipc.c
+index 4e0c48a36159..749e856dc601 100644
+--- a/sound/soc/sof/amd/acp-ipc.c
++++ b/sound/soc/sof/amd/acp-ipc.c
+@@ -209,7 +209,12 @@ int acp_sof_ipc_msg_data(struct snd_sof_dev *sdev, struct snd_sof_pcm_stream *sp
+ 		acp_mailbox_read(sdev, offset, p, sz);
+ 	} else {
+ 		struct snd_pcm_substream *substream = sps->substream;
+-		struct acp_dsp_stream *stream = substream->runtime->private_data;
++		struct acp_dsp_stream *stream;
++
++		if (!substream || !substream->runtime)
++			return -ESTRPIPE;
++
++		stream = substream->runtime->private_data;
+ 
+ 		if (!stream)
+ 			return -ESTRPIPE;
+-- 
+2.25.1
 

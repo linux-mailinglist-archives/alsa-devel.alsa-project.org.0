@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C95CB6FC2DC
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 11:34:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68EF26FC2DF
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 11:34:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E1431102;
-	Tue,  9 May 2023 11:33:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E1431102
+	by alsa0.perex.cz (Postfix) with ESMTPS id D11CC110D;
+	Tue,  9 May 2023 11:34:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D11CC110D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683624843;
-	bh=YkP+9nzJf7FuXgkUkk5HPDzH/zBWnTOgyTpPE8pO4lE=;
+	s=default; t=1683624894;
+	bh=zAT0fgZQPXHZLdoOc0Id5s1trwVmxzumIctkxFw5v04=;
 	h=From:To:In-Reply-To:References:Subject:Date:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bxB+2zHEZtTeDL07UmbjMYu8XoumL8pDnguJrxzhorEvvyGEfCPsV8IBHlkXsDgyr
-	 HXiW4c5cvwSMZngJjU0bGmegGXcCY/6WkEjim7B03ridJQY599CSqVG2EV+9Xd8OIU
-	 wi29KT0WBcYAefxcC+rrCC9hSLmbUjyy4gsFkB3o=
+	b=AWKP/u+JmnrbhA55eUd+JHCu9acwj0Dc9NQq9bpoYWZGc+11hKh9dhmsYWTcPgbR8
+	 8rDnSZqExN9X39QPGa1WsBsQnsG+wJfcS5Fku74Dblf9ZTkvDlcHPZz34HnHxLzQQN
+	 rR3AzojzUZNdRvs+p5nTSrOjK3VC0kBmye/u1v3U=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE721F80310;
-	Tue,  9 May 2023 11:33:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8EC6F80542;
+	Tue,  9 May 2023 11:33:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC40BF804B1; Tue,  9 May 2023 11:33:08 +0200 (CEST)
+	id C8264F8032D; Tue,  9 May 2023 11:33:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 64C28F80217;
-	Tue,  9 May 2023 11:33:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64C28F80217
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9BE8BF80087
+	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 11:33:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BE8BF80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Uiiun6tj
+ header.s=k20201202 header.b=aiK285SU
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1476162E8E;
-	Tue,  9 May 2023 09:32:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDACC433EF;
-	Tue,  9 May 2023 09:32:53 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7D122632A7;
+	Tue,  9 May 2023 09:33:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE2CC4339B;
+	Tue,  9 May 2023 09:32:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683624777;
-	bh=YkP+9nzJf7FuXgkUkk5HPDzH/zBWnTOgyTpPE8pO4lE=;
+	s=k20201202; t=1683624779;
+	bh=zAT0fgZQPXHZLdoOc0Id5s1trwVmxzumIctkxFw5v04=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Uiiun6tjTocEOD3UZ+N6NlWAsbsJVSQzEYquYHC9uTm+n5UZa8Rmmq2Cch9VEf1YH
-	 VVaMgZDhzRM+WhF/LzowhK4b64QLO5yIiUXLlu3pJsoNDuP7EaS/NWiFFJBt12wqli
-	 arN/Wq+9tQEBERrJ4SGclVUhh5w0nJd14plnig1GHpsnR5waJCDhdqzSzTbEppgqGX
-	 qvUrMPGYRZdeHW9TSQxhFjt5QrqS11XgT6x/5Q5MM1RHuAr9QEPK8GC48/yVY/qNxe
-	 Av7DJ5zzTW/3kA4hmbUWvTvlWX1poGm7TJW/3zwN7WOgOmRjpbRtwW1zhmS3CO8j01
-	 zMq3dnTzcsaLA==
+	b=aiK285SUHsjEJXsiIuM44hYZoinYd1VRD7OGzqM0hzV+PedzQXbmZphBZzE8dnorO
+	 OgunbGL4hqDlBdvTo5UsP0/JFTfRnSttTDz0Te5M0cQ9vw7aZGrXhAY69A56Q3KJys
+	 rl3U5zXCGgIgfZHDQvswW/06K7O5oBAcDdikK3rUqTOhfo7c83p9YjU6jgn4bkuWWs
+	 AMrp4vK2x21jkg8/hUgDHveWsg8Qgf11Dqz7um4eJPjAHaaDGSTTJ3zeLpsjtElNvM
+	 iEgvoSLHtxjeLgWY0lcVG32FWqcfqAWCI2hEhovw8gw+XeWkKiiDZ1qJVKRVpbJwde
+	 W2yF7zKupU2/Q==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
-In-Reply-To: <20230508070510.6100-1-Vsujithkumar.Reddy@amd.com>
-References: <20230508070510.6100-1-Vsujithkumar.Reddy@amd.com>
-Subject: Re: [PATCH] ASoC: SOF: amd: Fix NULL pointer crash in
- acp_sof_ipc_msg_data function
-Message-Id: <168362477289.305930.16081039230793204822.b4-ty@kernel.org>
-Date: Tue, 09 May 2023 18:32:52 +0900
+To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
+In-Reply-To: <20230421030116.26245-1-jack.yu@realtek.com>
+References: <20230421030116.26245-1-jack.yu@realtek.com>
+Subject: Re: [PATCH v3] ASoC: rt722-sdca: Add RT722 SDCA driver
+Message-Id: <168362477729.305930.12941740250385198889.b4-ty@kernel.org>
+Date: Tue, 09 May 2023 18:32:57 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: OFOFIRIQOY7EF4KETT7RS74CMQJJKZTK
-X-Message-ID-Hash: OFOFIRIQOY7EF4KETT7RS74CMQJJKZTK
+Message-ID-Hash: QJSSRFECG4OA64GIRMDWHHZEBIQIEPUQ
+X-Message-ID-Hash: QJSSRFECG4OA64GIRMDWHHZEBIQIEPUQ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -80,26 +77,14 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com, ssabakar@amd.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Paul Olaru <paul.olaru@nxp.com>,
- Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
- <sound-open-firmware@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>
+CC: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, shumingf@realtek.com, derek.fang@realtek.com
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OFOFIRIQOY7EF4KETT7RS74CMQJJKZTK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QJSSRFECG4OA64GIRMDWHHZEBIQIEPUQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,8 +93,8 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 08 May 2023 12:35:08 +0530, V sujith kumar Reddy wrote:
-> Check substream and runtime variables before assigning.
+On Fri, 21 Apr 2023 11:01:16 +0800, Jack Yu wrote:
+> This is the initial codec driver for rt722-sdca.
 > 
 > 
 
@@ -119,8 +104,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: amd: Fix NULL pointer crash in acp_sof_ipc_msg_data function
-      commit: 051d71e073614a72ad423d6dacba37a7eeff274d
+[1/1] ASoC: rt722-sdca: Add RT722 SDCA driver
+      commit: 7f5d6036ca0059f749414380e19bfc346961353c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

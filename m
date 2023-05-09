@@ -2,116 +2,137 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDB316FD71F
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 08:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13BE56FD721
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 08:36:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E5971057;
-	Wed, 10 May 2023 08:35:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E5971057
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7979510A5;
+	Wed, 10 May 2023 08:35:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7979510A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683700562;
-	bh=bp5m2/s9zA9Ea9TVrVdozjkVv0sxDowNrCh/mBL2GcM=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=INPoxjOvhSZ1OKsXIVKK6InXJh1Wc3ps/aT7EUxzLs2N1W8QH4BojWNQCe1I20D6Q
-	 Ve/TsMdiCdnws/K2ffuKmbimw+kGF/W33uaNCc5r6G1tR1NBs4rn2G5MUYs7aJBKrW
-	 UFEAt+j0Of1P+jsHD77WmDg+kMOGPFfrT42tiEgs=
+	s=default; t=1683700572;
+	bh=MGShGh6VlR3Hv1wloISBcqQ3c580bpsFZyJYjZpPIOc=;
+	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=miWPc6DUqXmKr0JuPEzW0f9k/jzLmuX3jE1NKr+rxxyYpXLej5CqTGyyCBM62j339
+	 RDwyyaMPTE70rpZMAietuQmUvIBulqSER7AGvW6Ubt8d7Wf0JYY/gvwqnsmcZrQNr5
+	 uKmX7pVxHHALzivxqd8iaMe9D1SSEhk8um2BVTjw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0F77F8053D;
-	Wed, 10 May 2023 08:32:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78CB7F80548;
+	Wed, 10 May 2023 08:33:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 350D2F8032D; Tue,  9 May 2023 18:38:58 +0200 (CEST)
+	id 16085F8032D; Tue,  9 May 2023 19:38:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 36514F8014C
-	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 18:38:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36514F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9BFF6F80087
+	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 19:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BFF6F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=IMMiCUBP
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-3f315735514so216055365e9.1
-        for <alsa-devel@alsa-project.org>;
- Tue, 09 May 2023 09:38:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683650327; x=1686242327;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9PRwJ7afnhvG5N+v0cvD49y4wNVJ1gg0C5EbsfgsL+c=;
-        b=IMMiCUBPTkIyKRnJ5FicSbkEMs32j4pjYtKqPIy85vw3TbM2OajKwDxFRae6bhkxJV
-         GOTeLU7kgJMyVHcRGrjbDWLumZ+d17fhV9pc9gp6Erk4A4xnfnGsA6gAYHthgxCZsOHG
-         xzIoFH68+/sz2zNfN8qhXHK+KIKBtGKFpuguBsXfIP3S+l+nAQ/0XE++rhWNbjrGqQqy
-         XXIx25riM1OHU8A6WLMv0xp6QaM2XCNTFBk1V1kdwBRoRWLjiGyaxZxAH+MKNQiSRHiw
-         Dkm/Vx6ZqknWBLScEJr3v1w3OUZvaYo1pVR9FsrcUQwEcodyk6KfARlNRb+4Z9jgMuNv
-         s+RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683650327; x=1686242327;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9PRwJ7afnhvG5N+v0cvD49y4wNVJ1gg0C5EbsfgsL+c=;
-        b=HLWw+vgAMae0pxsVVbBn3BrZDzV63JC/fVDkOLM0+BSMdNHFhvwZCHZj4C7SFpdTZF
-         eGJg6aB63fVU10PXC1NEuKVhxPxk0MrCY3pXXHNUGDTQ6QZh3pU1xuE0JZLlppwmKttV
-         4L1MfAV6UjOyscgfKXDFnm0CdEiNu1WXeNdJlGwHCwuWFEIOK2UpZD32fnUn8C3Ox4Nw
-         pObhXQ9O1DWiLrl8qPqJIUVLWEnGpieXgqzKgrOGQftUTdjkDw7d5aw07aoLU8CTZZ/x
-         vA9ujeCRONIxMiOXp3zH/3S68lruzxt8tM3qIMHA46MuU2HjwG0IcXVc+8c7ARfmlGKi
-         g26Q==
-X-Gm-Message-State: AC+VfDyxikNvgdauDCniOdlmWQEpqvyLxfHiPtr1sZh8gH2TgJfHFyiH
-	AaWg7p+wM7YfpICf9rgSaW0=
-X-Google-Smtp-Source: 
- ACHHUZ6szIfcwpjYTBix40H57HaQDeT+mI/3tygZHWaU1auRMOIJo9upz3bX1rW7I8QsDRlowSeUpw==
-X-Received: by 2002:a5d:680e:0:b0:307:9693:efe1 with SMTP id
- w14-20020a5d680e000000b003079693efe1mr5272677wru.18.1683650327277;
-        Tue, 09 May 2023 09:38:47 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:2f0a:b207:af00::b5e])
-        by smtp.gmail.com with ESMTPSA id
- u1-20020a5d4681000000b003062f894b64sm15097952wrq.22.2023.05.09.09.38.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 May 2023 09:38:46 -0700 (PDT)
-From: Alexandru Sorodoc <ealex95@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH 1/1] ALSA: hda/realtek: Add quirks for ASUS GU604V and GU603V
-Date: Tue,  9 May 2023 19:37:46 +0300
-Message-Id: <20230509163746.6949-1-ealex95@gmail.com>
-X-Mailer: git-send-email 2.40.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=SZZkL4vQ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F22FD635E1;
+	Tue,  9 May 2023 17:38:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505E9C433D2;
+	Tue,  9 May 2023 17:37:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683653903;
+	bh=MGShGh6VlR3Hv1wloISBcqQ3c580bpsFZyJYjZpPIOc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=SZZkL4vQkF3AJdtwH9gbqGDk+xHHq8tV5XNIdopJaR4FlgR4t0ooio/8DGBpkkDI1
+	 9XvZh/u8VrwtVLR6+bWUtuZfy3ka3/YOGDr13I6xXvr+C2HbOIlR3sg+oRq+s6WkaX
+	 Rkqh5xGd0kOzk1YjGukRVB1zds+TGaaDX2jB0kRdTsqYsrkO3Ft7JAKYCh7PMGBLpW
+	 alJPaiC0i7aYN/8emkDIP9Xwx4f44X6MEjZhGFJkaNCeUuWlR3XsB9wLz22IZkVMf/
+	 NN+1vwZ7hdXXNsKoUMdjVg4qk+znXu6AnK8f8h7pRveIc4z909KgFaPptU75ZM77M2
+	 VmsQjc6DYnN7Q==
+Message-ID: <1b766164-b5e8-61ac-bf73-6d2c49c72409@kernel.org>
+Date: Tue, 9 May 2023 12:37:39 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: ealex95@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH v3 29/65] clk: socfpga: gate: Add a determine_rate hook
+Content-Language: en-US
+To: Maxime Ripard <maxime@cerno.tech>
+References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
+ <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
+ <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
+ <sjlp5ubnpvulgwhhymmfkmmobkgxacyqwagqozodkee3di2qik@3igj6k3zgbk6>
+ <57dd81d0-510e-0fab-670d-1109eb8dd974@kernel.org>
+ <tgtfisqxubin4cjj6q26fboirbcnjzcazt5y3m322lw5lskz6l@d3tgz4hdfnk2>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <tgtfisqxubin4cjj6q26fboirbcnjzcazt5y3m322lw5lskz6l@d3tgz4hdfnk2>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: dinguyen@kernel.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 3NJVJ32Q4R2R4KFYX2CUIVWR7LRMHKHT
-X-Message-ID-Hash: 3NJVJ32Q4R2R4KFYX2CUIVWR7LRMHKHT
-X-Mailman-Approved-At: Wed, 10 May 2023 06:32:51 +0000
-CC: Stefan Binding <sbinding@opensource.cirrus.com>,
- Tim Crawford <tcrawford@system76.com>, Andy Chi <andy.chi@canonical.com>,
- Meng Tang <tangmeng@uniontech.com>, "Luke D. Jones" <luke@ljones.dev>,
- Philipp Jungkamp <p.jungkamp@gmx.net>,
- =?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>,
- Yuchi Yang <yangyuchi66@gmail.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Alexandru Sorodoc <ealex95@gmail.com>
+Message-ID-Hash: XX6K4HX2WKN56IRGEZQLUDFBXJUOWPFZ
+X-Message-ID-Hash: XX6K4HX2WKN56IRGEZQLUDFBXJUOWPFZ
+X-Mailman-Approved-At: Wed, 10 May 2023 06:33:09 +0000
+CC: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Max Filippov <jcmvbkbc@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ David Lechner <david@lechnology.com>, Sekhar Nori <nsekhar@ti.com>,
+ Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Peter De Schrijver <pdeschrijver@nvidia.com>,
+ Prashant Gaikwad <pgaikwad@nvidia.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Paul Cercueil <paul@crapouillou.net>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
+ patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-phy@lists.infradead.org, linux-rtc@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, alsa-devel@alsa-project.org,
+ linux-mips@vger.kernel.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3NJVJ32Q4R2R4KFYX2CUIVWR7LRMHKHT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XX6K4HX2WKN56IRGEZQLUDFBXJUOWPFZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,69 +141,221 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These models use 2 CS35L41 amplifiers using SPI for down-facing
-speakers.
+Hi Maxime,
 
-alc285_fixup_speaker2_to_dac1 is needed to fix volume control of the
-down-facing speakers.
+On 5/4/23 12:04, Maxime Ripard wrote:
+> Hi Dinh,
+> 
+> On Thu, Apr 27, 2023 at 02:09:48PM -0500, Dinh Nguyen wrote:
+>> Hi Maxime,
+>>
+>> On 4/25/23 09:48, Maxime Ripard wrote:
+>>> Hi Dinh,
+>>>
+>>> On Mon, Apr 24, 2023 at 01:32:28PM -0500, Dinh Nguyen wrote:
+>>>> On 4/4/23 05:11, Maxime Ripard wrote:
+>>>>> The SoCFGPA gate clock implements a mux with a set_parent hook, but
+>>>>> doesn't provide a determine_rate implementation.
+>>>>>
+>>>>> This is a bit odd, since set_parent() is there to, as its name implies,
+>>>>> change the parent of a clock. However, the most likely candidate to
+>>>>> trigger that parent change is a call to clk_set_rate(), with
+>>>>> determine_rate() figuring out which parent is the best suited for a
+>>>>> given rate.
+>>>>>
+>>>>> The other trigger would be a call to clk_set_parent(), but it's far less
+>>>>> used, and it doesn't look like there's any obvious user for that clock.
+>>>>>
+>>>>> So, the set_parent hook is effectively unused, possibly because of an
+>>>>> oversight. However, it could also be an explicit decision by the
+>>>>> original author to avoid any reparenting but through an explicit call to
+>>>>> clk_set_parent().
+>>>>>
+>>>>> The latter case would be equivalent to setting the flag
+>>>>> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
+>>>>> to __clk_mux_determine_rate(). Indeed, if no determine_rate
+>>>>> implementation is provided, clk_round_rate() (through
+>>>>> clk_core_round_rate_nolock()) will call itself on the parent if
+>>>>> CLK_SET_RATE_PARENT is set, and will not change the clock rate
+>>>>> otherwise. __clk_mux_determine_rate() has the exact same behavior when
+>>>>> CLK_SET_RATE_NO_REPARENT is set.
+>>>>>
+>>>>> And if it was an oversight, then we are at least explicit about our
+>>>>> behavior now and it can be further refined down the line.
+>>>>>
+>>>>> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
+>>>>> ---
+>>>>>     drivers/clk/socfpga/clk-gate.c | 3 ++-
+>>>>>     1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/drivers/clk/socfpga/clk-gate.c b/drivers/clk/socfpga/clk-gate.c
+>>>>> index 32ccda960f28..cbba8462a09e 100644
+>>>>> --- a/drivers/clk/socfpga/clk-gate.c
+>>>>> +++ b/drivers/clk/socfpga/clk-gate.c
+>>>>> @@ -110,6 +110,7 @@ static unsigned long socfpga_clk_recalc_rate(struct clk_hw *hwclk,
+>>>>>     static struct clk_ops gateclk_ops = {
+>>>>>     	.recalc_rate = socfpga_clk_recalc_rate,
+>>>>> +	.determine_rate = __clk_mux_determine_rate,
+>>>>>     	.get_parent = socfpga_clk_get_parent,
+>>>>>     	.set_parent = socfpga_clk_set_parent,
+>>>>>     };
+>>>>> @@ -166,7 +167,7 @@ void __init socfpga_gate_init(struct device_node *node)
+>>>>>     	init.name = clk_name;
+>>>>>     	init.ops = ops;
+>>>>> -	init.flags = 0;
+>>>>> +	init.flags = CLK_SET_RATE_NO_REPARENT;
+>>>>>     	init.num_parents = of_clk_parent_fill(node, parent_name, SOCFPGA_MAX_PARENTS);
+>>>>>     	if (init.num_parents < 2) {
+>>>>>
+>>>>
+>>>> This patch broke SoCFPGA boot serial port. The characters are mangled.
+>>>
+>>> Do you have any other access to that board? If so, could you dump
+>>> clk_summary in debugfs with and without that patch?
+>>>
+>>
+>> That dump from the clk_summary are identical for both cases.
+> 
+> Thanks for testing
+> 
+> I'm a bit confused, there should be no difference in behaviour, and if
+> there was any difference I would expect the clock tree to be somewhat
+> different.
+> 
+> Could you still paste the clk_summary (and dmesg) output? Which UART
+> driver is being used?
+> 
+> Also, is there a way for me to test it somehow?
+> 
 
-Pin configs are needed to enable headset mic detection.
+Apologies, but there is a diff with/without this patch:
 
-Note that these models lack the ACPI _DSD properties needed to
-initialize the amplifiers. They can be added during boot to get working
-sound out of the speakers:
-  https://gist.github.com/lamperez/862763881c0e1c812392b5574727f6ff
-
-Signed-off-by: Alexandru Sorodoc <ealex95@gmail.com>
+With patch:
+<           l4_sp_clk                   3        3        0   100000000 
+         0     0  50000         ?
 ---
- sound/pci/hda/patch_realtek.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+Without patch:
+ >           l4_sp_clk                   4        4        0   100000000 
+          0     0  50000         ?
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index bc062c0a1916..3689c0fca328 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7063,6 +7063,8 @@ enum {
- 	ALC225_FIXUP_DELL1_MIC_NO_PRESENCE,
- 	ALC295_FIXUP_DISABLE_DAC3,
- 	ALC285_FIXUP_SPEAKER2_TO_DAC1,
-+	ALC285_FIXUP_ASUS_SPEAKER2_TO_DAC1,
-+	ALC285_FIXUP_ASUS_HEADSET_MIC,
- 	ALC280_FIXUP_HP_HEADSET_MIC,
- 	ALC221_FIXUP_HP_FRONT_MIC,
- 	ALC292_FIXUP_TPT460,
-@@ -8033,6 +8035,22 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
- 	},
-+	[ALC285_FIXUP_ASUS_SPEAKER2_TO_DAC1] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc285_fixup_speaker2_to_dac1,
-+		.chained = true,
-+		.chain_id = ALC245_FIXUP_CS35L41_SPI_2
-+	},
-+	[ALC285_FIXUP_ASUS_HEADSET_MIC] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x19, 0x03a11050 },
-+			{ 0x1b, 0x03a11c30 },
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_ASUS_SPEAKER2_TO_DAC1
-+	},
- 	[ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -9543,6 +9561,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x8398, "ASUS P1005", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x83ce, "ASUS P1005", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x8516, "ASUS X101CH", ALC269_FIXUP_ASUS_X101),
-+	SND_PCI_QUIRK(0x1043, 0x1473, "ASUS GU604V", ALC285_FIXUP_ASUS_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1043, 0x1483, "ASUS GU603V", ALC285_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x104d, 0x9073, "Sony VAIO", ALC275_FIXUP_SONY_VAIO_GPIO2),
- 	SND_PCI_QUIRK(0x104d, 0x907b, "Sony VAIO", ALC275_FIXUP_SONY_HWEQ),
- 	SND_PCI_QUIRK(0x104d, 0x9084, "Sony VAIO", ALC275_FIXUP_SONY_HWEQ),
--- 
-2.40.1
+The enable/prepare count is 4 instead of 3 in the case of a working 
+UART. The debug uart is using the lp_sp_clk.
 
+
+The Cyclone5 devkits are pretty cheap if you want to get one.
+
+Here is the full out of clk_summary:
+
+# cat /sys/kernel/debug/clk/clk_summary
+                                  enable  prepare protect 
+                 duty  hardware
+    clock                          count    count    count rate 
+accuracy phase  cycle    enable
+-------------------------------------------------------------------------------------------------------
+  osc1                                 5        5        0 25000000 
+     0     0  50000         Y
+     sdram_pll                         0        0        0 800000000 
+      0     0  50000         Y
+        h2f_usr2_clk                   0        0        0 133333333 
+      0     0  50000         Y
+           h2f_user2_clk               0        0        0 133333333 
+      0     0  50000         ?
+        ddr_dq_clk                     0        0        0 400000000 
+      0     0  50000         Y
+           ddr_dq_clk_gate             0        0        0 400000000 
+      0     0  50000         ?
+        ddr_2x_dqs_clk                 0        0        0 800000000 
+      0     0  50000         Y
+           ddr_2x_dqs_clk_gate         0        0        0 800000000 
+      0     0  50000         ?
+        ddr_dqs_clk                    0        0        0 400000000 
+      0     0  50000         Y
+           ddr_dqs_clk_gate            0        0        0 400000000 
+      0     0  50000         ?
+     periph_pll                        3        3        0 1000000000 
+       0     0  50000         Y
+        h2f_usr1_clk                   0        0        0 1953125 
+    0     0  50000         Y
+           h2f_user1_clk               0        0        0 1953125 
+    0     0  50000         ?
+        per_base_clk                   4        4        0 200000000 
+      0     0  50000         Y
+           gpio_db_clk                 0        0        0 32000 
+  0     0  50000         ?
+           can1_clk                    0        0        0 40000000 
+     0     0  50000         ?
+           can0_clk                    0        0        0 100000000 
+      0     0  50000         ?
+           spi_m_clk                   1        1        0 200000000 
+      0     0  50000         ?
+           usb_mp_clk                  1        1        0 200000000 
+      0     0  50000         ?
+           l4_sp_clk                   4        4        0 100000000 
+      0     0  50000         ?
+           l4_mp_clk                   1        1        0 100000000 
+      0     0  50000         ?
+        per_nand_mmc_clk               1        1        0 200000000 
+      0     0  50000         Y
+           nand_x_clk                  0        0        0 200000000 
+      0     0  50000         ?
+              nand_clk                 0        0        0 50000000 
+     0     0  50000         ?
+              nand_ecc_clk             0        0        0 200000000 
+      0     0  50000         ?
+           sdmmc_clk                   1        1        0 200000000 
+      0     0  50000         ?
+              sdmmc_clk_divided        1        1        0 50000000 
+     0     0  50000         ?
+        per_qsi_clk                    0        0        0 1953125 
+    0     0  50000         Y
+        emac1_clk                      1        1        0 250000000 
+      0     0  50000         Y
+           emac_1_clk                  1        1        0 250000000 
+      0     0  50000         ?
+        emac0_clk                      0        0        0 1953125 
+    0     0  50000         Y
+           emac_0_clk                  0        0        0 1953125 
+    0     0  50000         ?
+     dbg_base_clk                      0        0        0 6250000 
+    0     0  50000         Y
+        dbg_timer_clk                  0        0        0 6250000 
+    0     0  50000         ?
+        dbg_trace_clk                  0        0        0 6250000 
+    0     0  50000         ?
+        dbg_at_clk                     0        0        0 6250000 
+    0     0  50000         ?
+           dbg_clk                     0        0        0 3125000 
+    0     0  50000         ?
+     main_pll                          2        3        0 1850000000 
+       0     0  50000         Y
+        cfg_h2f_usr0_clk               0        0        0 123333333 
+      0     0  50000         Y
+           h2f_user0_clk               0        0        0 123333333 
+      0     0  50000         ?
+           cfg_clk                     0        0        0 123333333 
+      0     0  50000         ?
+        main_nand_sdmmc_clk            0        0        0 3613281 
+    0     0  50000         Y
+        main_qspi_clk                  1        1        0 370000000 
+      0     0  50000         Y
+           qspi_clk                    1        1        0 370000000 
+      0     0  50000         ?
+        mainclk                        0        1        0 370000000 
+      0     0  50000         Y
+           l3_mp_clk                   0        0        0 185000000 
+      0     0  50000         ?
+              l3_sp_clk                0        0        0 92500000 
+     0     0  50000         Y
+           l3_main_clk                 0        0        0 370000000 
+      0     0  50000         Y
+           l4_main_clk                 0        1        0 370000000 
+      0     0  50000         ?
+        mpuclk                         1        1        0 925000000 
+      0     0  50000         Y
+           mpu_l2_ram_clk              0        0        0 462500000 
+      0     0  50000         Y
+           mpu_periph_clk              1        1        0 231250000 
+      0     0  50000         Y
+
+
+Dinh

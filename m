@@ -2,137 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13BE56FD721
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 08:36:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A726FD724
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 08:36:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7979510A5;
-	Wed, 10 May 2023 08:35:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7979510A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AAF71097;
+	Wed, 10 May 2023 08:35:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AAF71097
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683700572;
-	bh=MGShGh6VlR3Hv1wloISBcqQ3c580bpsFZyJYjZpPIOc=;
+	s=default; t=1683700590;
+	bh=CW1/dfNr8Zz2U3fHX1my6YUmcTJ2tWZXQwD5R0H4CKg=;
 	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=miWPc6DUqXmKr0JuPEzW0f9k/jzLmuX3jE1NKr+rxxyYpXLej5CqTGyyCBM62j339
-	 RDwyyaMPTE70rpZMAietuQmUvIBulqSER7AGvW6Ubt8d7Wf0JYY/gvwqnsmcZrQNr5
-	 uKmX7pVxHHALzivxqd8iaMe9D1SSEhk8um2BVTjw=
+	b=LiBKwci3aSRInmxIZahmj1JoBTDsIekcrSf/6JsPIU+qNy/bPsnkUqDWIsIiljVAC
+	 qFm1YkE1m9Fxrh8et96wlxfyPUzHBnfaEBPRL+U2L1FdzYC4/E7AGWH4Chqzop7twb
+	 zKw7+lF7I9v5yu6CAtF+Yoeo4aQ9N48QFx9GAAxw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78CB7F80548;
-	Wed, 10 May 2023 08:33:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29261F80553;
+	Wed, 10 May 2023 08:33:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 16085F8032D; Tue,  9 May 2023 19:38:39 +0200 (CEST)
+	id E9EC0F8032D; Tue,  9 May 2023 20:07:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9BFF6F80087
-	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 19:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BFF6F80087
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SZZkL4vQ
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id F22FD635E1;
-	Tue,  9 May 2023 17:38:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 505E9C433D2;
-	Tue,  9 May 2023 17:37:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683653903;
-	bh=MGShGh6VlR3Hv1wloISBcqQ3c580bpsFZyJYjZpPIOc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=SZZkL4vQkF3AJdtwH9gbqGDk+xHHq8tV5XNIdopJaR4FlgR4t0ooio/8DGBpkkDI1
-	 9XvZh/u8VrwtVLR6+bWUtuZfy3ka3/YOGDr13I6xXvr+C2HbOIlR3sg+oRq+s6WkaX
-	 Rkqh5xGd0kOzk1YjGukRVB1zds+TGaaDX2jB0kRdTsqYsrkO3Ft7JAKYCh7PMGBLpW
-	 alJPaiC0i7aYN/8emkDIP9Xwx4f44X6MEjZhGFJkaNCeUuWlR3XsB9wLz22IZkVMf/
-	 NN+1vwZ7hdXXNsKoUMdjVg4qk+znXu6AnK8f8h7pRveIc4z909KgFaPptU75ZM77M2
-	 VmsQjc6DYnN7Q==
-Message-ID: <1b766164-b5e8-61ac-bf73-6d2c49c72409@kernel.org>
-Date: Tue, 9 May 2023 12:37:39 -0500
+	by alsa1.perex.cz (Postfix) with ESMTPS id EF723F80217
+	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 20:07:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF723F80217
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=RJ+iP4UJ
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 349GgReT028290;
+	Tue, 9 May 2023 18:07:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=mVQZRuD+3P2r942mwHwPs57XW9EIasfEdq69rorUZAk=;
+ b=RJ+iP4UJSK48LBKOGpe5CN3lxw4UaVVYKM+iHG6HXagjn2pHdJhR20MxankyDXDI3SUq
+ cn/JGKK+/8vcwkwih92Per7/+ijf3e1EbBQWa1GReSBOljTiWgCx8123ZKpRMDkDw3ZW
+ xVjISRPFunfB3Jj1jg1eBi3MWd62qXFuoAkzFiwYg2vMjfff64PeI3gKaDwxmWy8ve93
+ NklmtABcBDg1I0LH9PqezdIyYh0m6cbxcR7FMnFmlZWLd0BBTo1KA5k2dSOpZj7Vn9tp
+ AvNfgd/tkc9S/cSoN8ZAmiSpiJ8BjAq6Ap6pqrsSmOaw/nXs2jvsnvWxz6dy/vcxzsDg HQ==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qfr508hbe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 09 May 2023 18:07:01 +0000
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+	by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 349I70Ge016716
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 9 May 2023 18:07:00 GMT
+Received: from [10.216.0.143] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Tue, 9 May 2023
+ 11:06:57 -0700
+Message-ID: <94a81b02-e8e0-3b99-f63b-aef288790c82@quicinc.com>
+Date: Tue, 9 May 2023 23:36:46 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH v3 29/65] clk: socfpga: gate: Add a determine_rate hook
-Content-Language: en-US
-To: Maxime Ripard <maxime@cerno.tech>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-29-9a1358472d52@cerno.tech>
- <679921ee-98d4-d6ef-5934-e009fd4b31fc@kernel.org>
- <sjlp5ubnpvulgwhhymmfkmmobkgxacyqwagqozodkee3di2qik@3igj6k3zgbk6>
- <57dd81d0-510e-0fab-670d-1109eb8dd974@kernel.org>
- <tgtfisqxubin4cjj6q26fboirbcnjzcazt5y3m322lw5lskz6l@d3tgz4hdfnk2>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <tgtfisqxubin4cjj6q26fboirbcnjzcazt5y3m322lw5lskz6l@d3tgz4hdfnk2>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] ASoC:codecs: lpass: Fix for KASAN use_after_free out of
+ bounds
+To: Mark Brown <broonie@kernel.org>
+References: <20230509103232.20953-1-quic_visr@quicinc.com>
+ <ZFpaiBs19P2m2i/q@finisterre.sirena.org.uk>
+From: VISHNUVARDHAN RAO RAVULAPATI <quic_visr@quicinc.com>
+In-Reply-To: <ZFpaiBs19P2m2i/q@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MailFrom: dinguyen@kernel.org
-X-Mailman-Rule-Hits: nonmember-moderation
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: MOzKdvGzFMlCiX5w2XRUJWaq9xZ80NnM
+X-Proofpoint-ORIG-GUID: MOzKdvGzFMlCiX5w2XRUJWaq9xZ80NnM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-09_11,2023-05-05_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0
+ priorityscore=1501 mlxscore=0 mlxlogscore=440 bulkscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 impostorscore=0
+ adultscore=0 phishscore=0 suspectscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.12.0-2304280000
+ definitions=main-2305090150
+X-MailFrom: quic_visr@quicinc.com
+X-Mailman-Rule-Hits: implicit-dest
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XX6K4HX2WKN56IRGEZQLUDFBXJUOWPFZ
-X-Message-ID-Hash: XX6K4HX2WKN56IRGEZQLUDFBXJUOWPFZ
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; max-recipients; max-size; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: CXWTNTFTOJCTECQFFV5GVKEDXQMYPIDM
+X-Message-ID-Hash: CXWTNTFTOJCTECQFFV5GVKEDXQMYPIDM
 X-Mailman-Approved-At: Wed, 10 May 2023 06:33:09 +0000
-CC: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- =?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- David Lechner <david@lechnology.com>, Sekhar Nori <nsekhar@ti.com>,
- Abel Vesa <abelvesa@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Peter De Schrijver <pdeschrijver@nvidia.com>,
- Prashant Gaikwad <pgaikwad@nvidia.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Vinod Koul <vkoul@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Alessandro Zummo <a.zummo@towertech.it>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Paul Cercueil <paul@crapouillou.net>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-arm-kernel@lists.infradead.org, linux-actions@lists.infradead.org,
- patches@opensource.cirrus.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-phy@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-sunxi@lists.linux.dev, alsa-devel@alsa-project.org,
- linux-mips@vger.kernel.org
+CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ "moderated list:QCOM AUDIO (ASoC) DRIVERS" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XX6K4HX2WKN56IRGEZQLUDFBXJUOWPFZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CXWTNTFTOJCTECQFFV5GVKEDXQMYPIDM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,221 +132,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Maxime,
 
-On 5/4/23 12:04, Maxime Ripard wrote:
-> Hi Dinh,
-> 
-> On Thu, Apr 27, 2023 at 02:09:48PM -0500, Dinh Nguyen wrote:
->> Hi Maxime,
->>
->> On 4/25/23 09:48, Maxime Ripard wrote:
->>> Hi Dinh,
->>>
->>> On Mon, Apr 24, 2023 at 01:32:28PM -0500, Dinh Nguyen wrote:
->>>> On 4/4/23 05:11, Maxime Ripard wrote:
->>>>> The SoCFGPA gate clock implements a mux with a set_parent hook, but
->>>>> doesn't provide a determine_rate implementation.
->>>>>
->>>>> This is a bit odd, since set_parent() is there to, as its name implies,
->>>>> change the parent of a clock. However, the most likely candidate to
->>>>> trigger that parent change is a call to clk_set_rate(), with
->>>>> determine_rate() figuring out which parent is the best suited for a
->>>>> given rate.
->>>>>
->>>>> The other trigger would be a call to clk_set_parent(), but it's far less
->>>>> used, and it doesn't look like there's any obvious user for that clock.
->>>>>
->>>>> So, the set_parent hook is effectively unused, possibly because of an
->>>>> oversight. However, it could also be an explicit decision by the
->>>>> original author to avoid any reparenting but through an explicit call to
->>>>> clk_set_parent().
->>>>>
->>>>> The latter case would be equivalent to setting the flag
->>>>> CLK_SET_RATE_NO_REPARENT, together with setting our determine_rate hook
->>>>> to __clk_mux_determine_rate(). Indeed, if no determine_rate
->>>>> implementation is provided, clk_round_rate() (through
->>>>> clk_core_round_rate_nolock()) will call itself on the parent if
->>>>> CLK_SET_RATE_PARENT is set, and will not change the clock rate
->>>>> otherwise. __clk_mux_determine_rate() has the exact same behavior when
->>>>> CLK_SET_RATE_NO_REPARENT is set.
->>>>>
->>>>> And if it was an oversight, then we are at least explicit about our
->>>>> behavior now and it can be further refined down the line.
->>>>>
->>>>> Signed-off-by: Maxime Ripard <maxime@cerno.tech>
->>>>> ---
->>>>>     drivers/clk/socfpga/clk-gate.c | 3 ++-
->>>>>     1 file changed, 2 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/clk/socfpga/clk-gate.c b/drivers/clk/socfpga/clk-gate.c
->>>>> index 32ccda960f28..cbba8462a09e 100644
->>>>> --- a/drivers/clk/socfpga/clk-gate.c
->>>>> +++ b/drivers/clk/socfpga/clk-gate.c
->>>>> @@ -110,6 +110,7 @@ static unsigned long socfpga_clk_recalc_rate(struct clk_hw *hwclk,
->>>>>     static struct clk_ops gateclk_ops = {
->>>>>     	.recalc_rate = socfpga_clk_recalc_rate,
->>>>> +	.determine_rate = __clk_mux_determine_rate,
->>>>>     	.get_parent = socfpga_clk_get_parent,
->>>>>     	.set_parent = socfpga_clk_set_parent,
->>>>>     };
->>>>> @@ -166,7 +167,7 @@ void __init socfpga_gate_init(struct device_node *node)
->>>>>     	init.name = clk_name;
->>>>>     	init.ops = ops;
->>>>> -	init.flags = 0;
->>>>> +	init.flags = CLK_SET_RATE_NO_REPARENT;
->>>>>     	init.num_parents = of_clk_parent_fill(node, parent_name, SOCFPGA_MAX_PARENTS);
->>>>>     	if (init.num_parents < 2) {
->>>>>
->>>>
->>>> This patch broke SoCFPGA boot serial port. The characters are mangled.
->>>
->>> Do you have any other access to that board? If so, could you dump
->>> clk_summary in debugfs with and without that patch?
->>>
->>
->> That dump from the clk_summary are identical for both cases.
-> 
-> Thanks for testing
-> 
-> I'm a bit confused, there should be no difference in behaviour, and if
-> there was any difference I would expect the clock tree to be somewhat
-> different.
-> 
-> Could you still paste the clk_summary (and dmesg) output? Which UART
-> driver is being used?
-> 
-> Also, is there a way for me to test it somehow?
-> 
+On 5/9/2023 8:06 PM, Mark Brown wrote:
+> On Tue, May 09, 2023 at 04:02:31PM +0530, Ravulapati Vishnu Vardhan Rao wrote:
+>
+>>   	val = ucontrol->value.enumerated.item[0];
+>> +	if (val < 0 && val > 15)
+>> +		return -EINVAL;
+> Srini is right that it'd be better to read the upper bound from the
+> control, that way it can't geto out of sync.
 
-Apologies, but there is a diff with/without this patch:
+Will address and resend it..
 
-With patch:
-<           l4_sp_clk                   3        3        0   100000000 
-         0     0  50000         ?
----
-Without patch:
- >           l4_sp_clk                   4        4        0   100000000 
-          0     0  50000         ?
-
-The enable/prepare count is 4 instead of 3 in the case of a working 
-UART. The debug uart is using the lp_sp_clk.
+Thanks for review.
 
 
-The Cyclone5 devkits are pretty cheap if you want to get one.
-
-Here is the full out of clk_summary:
-
-# cat /sys/kernel/debug/clk/clk_summary
-                                  enable  prepare protect 
-                 duty  hardware
-    clock                          count    count    count rate 
-accuracy phase  cycle    enable
--------------------------------------------------------------------------------------------------------
-  osc1                                 5        5        0 25000000 
-     0     0  50000         Y
-     sdram_pll                         0        0        0 800000000 
-      0     0  50000         Y
-        h2f_usr2_clk                   0        0        0 133333333 
-      0     0  50000         Y
-           h2f_user2_clk               0        0        0 133333333 
-      0     0  50000         ?
-        ddr_dq_clk                     0        0        0 400000000 
-      0     0  50000         Y
-           ddr_dq_clk_gate             0        0        0 400000000 
-      0     0  50000         ?
-        ddr_2x_dqs_clk                 0        0        0 800000000 
-      0     0  50000         Y
-           ddr_2x_dqs_clk_gate         0        0        0 800000000 
-      0     0  50000         ?
-        ddr_dqs_clk                    0        0        0 400000000 
-      0     0  50000         Y
-           ddr_dqs_clk_gate            0        0        0 400000000 
-      0     0  50000         ?
-     periph_pll                        3        3        0 1000000000 
-       0     0  50000         Y
-        h2f_usr1_clk                   0        0        0 1953125 
-    0     0  50000         Y
-           h2f_user1_clk               0        0        0 1953125 
-    0     0  50000         ?
-        per_base_clk                   4        4        0 200000000 
-      0     0  50000         Y
-           gpio_db_clk                 0        0        0 32000 
-  0     0  50000         ?
-           can1_clk                    0        0        0 40000000 
-     0     0  50000         ?
-           can0_clk                    0        0        0 100000000 
-      0     0  50000         ?
-           spi_m_clk                   1        1        0 200000000 
-      0     0  50000         ?
-           usb_mp_clk                  1        1        0 200000000 
-      0     0  50000         ?
-           l4_sp_clk                   4        4        0 100000000 
-      0     0  50000         ?
-           l4_mp_clk                   1        1        0 100000000 
-      0     0  50000         ?
-        per_nand_mmc_clk               1        1        0 200000000 
-      0     0  50000         Y
-           nand_x_clk                  0        0        0 200000000 
-      0     0  50000         ?
-              nand_clk                 0        0        0 50000000 
-     0     0  50000         ?
-              nand_ecc_clk             0        0        0 200000000 
-      0     0  50000         ?
-           sdmmc_clk                   1        1        0 200000000 
-      0     0  50000         ?
-              sdmmc_clk_divided        1        1        0 50000000 
-     0     0  50000         ?
-        per_qsi_clk                    0        0        0 1953125 
-    0     0  50000         Y
-        emac1_clk                      1        1        0 250000000 
-      0     0  50000         Y
-           emac_1_clk                  1        1        0 250000000 
-      0     0  50000         ?
-        emac0_clk                      0        0        0 1953125 
-    0     0  50000         Y
-           emac_0_clk                  0        0        0 1953125 
-    0     0  50000         ?
-     dbg_base_clk                      0        0        0 6250000 
-    0     0  50000         Y
-        dbg_timer_clk                  0        0        0 6250000 
-    0     0  50000         ?
-        dbg_trace_clk                  0        0        0 6250000 
-    0     0  50000         ?
-        dbg_at_clk                     0        0        0 6250000 
-    0     0  50000         ?
-           dbg_clk                     0        0        0 3125000 
-    0     0  50000         ?
-     main_pll                          2        3        0 1850000000 
-       0     0  50000         Y
-        cfg_h2f_usr0_clk               0        0        0 123333333 
-      0     0  50000         Y
-           h2f_user0_clk               0        0        0 123333333 
-      0     0  50000         ?
-           cfg_clk                     0        0        0 123333333 
-      0     0  50000         ?
-        main_nand_sdmmc_clk            0        0        0 3613281 
-    0     0  50000         Y
-        main_qspi_clk                  1        1        0 370000000 
-      0     0  50000         Y
-           qspi_clk                    1        1        0 370000000 
-      0     0  50000         ?
-        mainclk                        0        1        0 370000000 
-      0     0  50000         Y
-           l3_mp_clk                   0        0        0 185000000 
-      0     0  50000         ?
-              l3_sp_clk                0        0        0 92500000 
-     0     0  50000         Y
-           l3_main_clk                 0        0        0 370000000 
-      0     0  50000         Y
-           l4_main_clk                 0        1        0 370000000 
-      0     0  50000         ?
-        mpuclk                         1        1        0 925000000 
-      0     0  50000         Y
-           mpu_l2_ram_clk              0        0        0 462500000 
-      0     0  50000         Y
-           mpu_periph_clk              1        1        0 231250000 
-      0     0  50000         Y
-
-
-Dinh

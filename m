@@ -2,88 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20AD66FCB81
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 18:41:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 460276FCD06
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 19:52:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 328AB10C2;
-	Tue,  9 May 2023 18:40:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 328AB10C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 318E710AB;
+	Tue,  9 May 2023 19:51:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318E710AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683650464;
-	bh=QKXC51sVfIJBS6ax6eXTfjWFM4TJKoPsJbULSJpNEyI=;
-	h=From:To:Subject:Date:In-Reply-To:References:CC:List-Id:
+	s=default; t=1683654738;
+	bh=rl0m+S5IR8I3CBiopnrAq473qVGLpC68FosKbOtw03Q=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ust916YByUHXPztzE5x1JFF2RBOJ7ir1u+jXIMoljunLdghPQ9wM0vqEzZclug2u1
-	 Av7ZLh1BjPjyaiu7721X9Fo3bkXxPTUrNK+xp99BCMe7kPW8BMw64Duusw+JwXDcQN
-	 KTBbSsRIBvk63dloRRSWFtlw9glgo02PysEwXDvk=
+	b=adOLL+QwaNKa4poQ3uMp3SCfOC8hOoXeN8NXl/dQYY2q7g9fOhxnAag2oCg4kpDWA
+	 syUnBGbxbLaIctrQklvcD0CNzk6FZOJ0rG5UKdNWn/3FSqOPhArUrGz3LDbSOU0BAY
+	 dpXRhZrGa/Vs70LD0lpSDJqclw1b1YUfflDF5U6Y=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 313AFF8014C;
-	Tue,  9 May 2023 18:39:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70F87F8032D;
+	Tue,  9 May 2023 19:51:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D84D9F8053D; Tue,  9 May 2023 18:39:27 +0200 (CEST)
+	id 49E96F8032D; Tue,  9 May 2023 19:51:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_FAIL,
-	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E85FF8014C
-	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 18:39:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E85FF8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A358F80087;
+	Tue,  9 May 2023 19:51:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A358F80087
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=cutebit.org header.i=@cutebit.org header.a=rsa-sha256
- header.s=mail header.b=Iyy1Etgt
-From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
-	t=1683650349; bh=eGud85/h3eSwGCh0iG3yWoR+nfpaGjBgEpdObFXqDHQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iyy1EtgtAoQIkr9NCu401Casgz/FG/fYmL0P8KLrc9WJrSAjFz83DmobRs7fK4cSj
-	 RcgF0WTE+eHLVCKYnlByrmq1NOK/Lv3o+dFeTwQDgwDnqRYmYwxuOAhQx9smDfekC9
-	 7o/CR38GPggITriM/LTw5n6tBw/CgHqITNA9+Xy4=
-To: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-Subject: [PATCH 2/2] ASoC: ssm3515: Add new amp driver
-Date: Tue,  9 May 2023 18:38:28 +0200
-Message-Id: <20230509163828.86003-2-povik+lin@cutebit.org>
-In-Reply-To: <20230509163828.86003-1-povik+lin@cutebit.org>
-References: <20230509163828.86003-1-povik+lin@cutebit.org>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=l4gr2WCS
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 46e09a7af769-6ab0a21dd01so916934a34.0;
+        Tue, 09 May 2023 10:51:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1683654673; x=1686246673;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=e/ZoWuYpp3wZJ+N+YVxQmRoj9RmFwGQAsaf/1+HB5Lk=;
+        b=l4gr2WCSEd9gOV3ZUSmdRYqYggN3uX8HAhosn7/iQZZGIafG14XIfiWNjhX4ibnQEw
+         87YI2M3IkUWvA14to4AUWCgucE/h6d0KfNRBgjXRTP0kiDAxtaK56ml1ra0Ds7xVJRmD
+         ajxY8PmFDNJMGsuWfGiUmdj9o9qiMUBDf8TBDtMIVe4zEwclpnFJw0FPS/8D84UvKTIV
+         Q+/cBiAnnBg/k3/nMEQsnsb/FJ/hC020KwEtf3LwKM0gOkYyTTtoHpoppvYy834J+PSO
+         bbVKabvFOx4VMU9rB/KhDHfsxYr9JwOjpvtFtQdbLVuc3ONBby6r+OIU2dp+O+1d8Zgk
+         Ch5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683654673; x=1686246673;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e/ZoWuYpp3wZJ+N+YVxQmRoj9RmFwGQAsaf/1+HB5Lk=;
+        b=Zxnn1TKtdaVJORz8k+RqfSehrkeZA5+MTq0nij6++NGgGgkTSh5OTQM87Y8eLtyXnU
+         dgcfQc52kxpSbLIlnBCzYnW+myEJVjsItz7lVDaHgnWosthvkZI4BHPPFoM+0cNfPG5D
+         uLcUOcPYv896Yg7ZQSIlfkV2vaj1uTi9LD9klvnNz9jFnbigSbNbKN6n52yzEfAbwtqX
+         ql6RJSw7uUfjjOkpk0qacoE1xDOGKa1DcieT3Z5rquY4sPjzXRhP6e7EWA+ZXQoiN+/N
+         zQXRFum+lqBfRzof8eR0keWe6e7Q+yCzrc0nlT0jWvvzoDvMGsG7UFfQ1mOPd3YX9x5i
+         BNnQ==
+X-Gm-Message-State: AC+VfDzcdR5B8Grfk77Mtt34oB2feL/Em4SHFTyxlyw8SBO9E+PGIk4q
+	Iz5q7jNT3g/IVe6I1Gg7ogE=
+X-Google-Smtp-Source: 
+ ACHHUZ7DNNIJzvWelTj0q/jeINPT/Y7CProN3uqQlka3gLCv5WATI32X0wfgh1KVOk8YLA6/ycXA8Q==
+X-Received: by 2002:a05:6830:16cf:b0:6ab:19ce:539f with SMTP id
+ l15-20020a05683016cf00b006ab19ce539fmr1352548otr.1.1683654673370;
+        Tue, 09 May 2023 10:51:13 -0700 (PDT)
+Received: from geday ([2804:7f2:8006:8886:6ce0:2667:545a:2a1])
+        by smtp.gmail.com with ESMTPSA id
+ k23-20020a056830169700b006a32eb9e0dfsm5374933otr.67.2023.05.09.10.51.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 May 2023 10:51:12 -0700 (PDT)
+Date: Tue, 9 May 2023 14:51:20 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
+ mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
+Message-ID: <ZFqIGCliFRJ3W/ap@geday>
+References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+ <87o7n0mtv9.wl-tiwai@suse.de>
+ <87ednwmssr.wl-tiwai@suse.de>
+ <87wn1jdzuq.wl-tiwai@suse.de>
+ <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HBG3EY6QRUMKZME2Q5PDPURXPJESYZEM
-X-Message-ID-Hash: HBG3EY6QRUMKZME2Q5PDPURXPJESYZEM
-X-MailFrom: povik+lin@cutebit.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
+Message-ID-Hash: WVUIDJ4EMXQ5KK3WLKMISTEI3U7GR4VU
+X-Message-ID-Hash: WVUIDJ4EMXQ5KK3WLKMISTEI3U7GR4VU
+X-MailFrom: geraldogabriel@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: asahi@lists.linux.dev, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+CC: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
+ alsa-devel@alsa-project.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ sound-open-firmware@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HBG3EY6QRUMKZME2Q5PDPURXPJESYZEM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WVUIDJ4EMXQ5KK3WLKMISTEI3U7GR4VU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,560 +123,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Analog Devices' SSM3515 is a mono audio amplifier with digital
-input, equipped on Apple's 2021 iMacs. Add an ASoC driver for it, and
-register both the driver code and schema in MAINTAINERS.
+On Tue, May 09, 2023 at 09:12:55AM +0200, Jaroslav Kysela wrote:
+> I am open to any suggestions, but the default mailman settings (do not do 
+> anything) causes that some (mostly gmail) users do not receive their e-mails 
+> because the ALSA's mail server has a bad reputation. Many companies are using 
+> the google mail service for their domains nowadays.
+>
 
-Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
----
- MAINTAINERS                |   2 +
- sound/soc/codecs/Kconfig   |   6 +
- sound/soc/codecs/Makefile  |   2 +
- sound/soc/codecs/ssm3515.c | 482 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 492 insertions(+)
- create mode 100644 sound/soc/codecs/ssm3515.c
+As a GMail user, I can confirm that I'm not seeing any more bounces
+after mangling started. Usually it'd bounce and I'd have to login to the
+web interface to turn back on my subscription, a real pain.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 460f953f331b..78136300b026 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1990,9 +1990,11 @@ M:	Martin Povišer <povik+lin@cutebit.org>
- L:	asahi@lists.linux.dev
- L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
- S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/adi,ssm3515.yaml
- F:	Documentation/devicetree/bindings/sound/apple,*
- F:	sound/soc/apple/*
- F:	sound/soc/codecs/cs42l83-i2c.c
-+F:	sound/soc/codecs/ssm3515.c
- 
- ARM/ARTPEC MACHINE SUPPORT
- M:	Jesper Nilsson <jesper.nilsson@axis.com>
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 8020097d4e4c..d5665c21b6f3 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1652,6 +1652,12 @@ config SND_SOC_SSM2602_I2C
- 	select SND_SOC_SSM2602
- 	select REGMAP_I2C
- 
-+config SND_SOC_SSM3515
-+	tristate "Analog Devices SSM3515 amplifier driver"
-+	select REGMAP_I2C
-+	depends on I2C
-+	depends on OF
-+
- config SND_SOC_SSM4567
- 	tristate "Analog Devices ssm4567 amplifier driver support"
- 	depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 5cdbae88e6e3..8a35bc01c486 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -256,6 +256,7 @@ snd-soc-ssm2518-objs := ssm2518.o
- snd-soc-ssm2602-objs := ssm2602.o
- snd-soc-ssm2602-spi-objs := ssm2602-spi.o
- snd-soc-ssm2602-i2c-objs := ssm2602-i2c.o
-+snd-soc-ssm3515-objs := ssm3515.o
- snd-soc-ssm4567-objs := ssm4567.o
- snd-soc-sta32x-objs := sta32x.o
- snd-soc-sta350-objs := sta350.o
-@@ -623,6 +624,7 @@ obj-$(CONFIG_SND_SOC_SSM2518)	+= snd-soc-ssm2518.o
- obj-$(CONFIG_SND_SOC_SSM2602)	+= snd-soc-ssm2602.o
- obj-$(CONFIG_SND_SOC_SSM2602_SPI)	+= snd-soc-ssm2602-spi.o
- obj-$(CONFIG_SND_SOC_SSM2602_I2C)	+= snd-soc-ssm2602-i2c.o
-+obj-$(CONFIG_SND_SOC_SSM3515)	+= snd-soc-ssm3515.o
- obj-$(CONFIG_SND_SOC_SSM4567)	+= snd-soc-ssm4567.o
- obj-$(CONFIG_SND_SOC_STA32X)   += snd-soc-sta32x.o
- obj-$(CONFIG_SND_SOC_STA350)   += snd-soc-sta350.o
-diff --git a/sound/soc/codecs/ssm3515.c b/sound/soc/codecs/ssm3515.c
-new file mode 100644
-index 000000000000..278b57d029f6
---- /dev/null
-+++ b/sound/soc/codecs/ssm3515.c
-@@ -0,0 +1,482 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+//
-+// Analog Devices' SSM3515 audio amp driver
-+//
-+// Copyright (C) The Asahi Linux Contributors
-+
-+#include <linux/bits.h>
-+#include <linux/bitfield.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regmap.h>
-+
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/tlv.h>
-+
-+
-+#define SSM3515_PWR		0x00
-+#define SSM3515_PWR_APWDN_EN	BIT(7)
-+#define SSM3515_PWR_BSNS_PWDN	BIT(6)
-+#define SSM3515_PWR_S_RST	BIT(1)
-+#define SSM3515_PWR_SPWDN	BIT(0)
-+
-+#define SSM3515_GEC		0x01
-+#define SSM3515_GEC_EDGE	BIT(4)
-+#define SSM3515_GEC_EDGE_SHIFT	4
-+#define SSM3515_GEC_ANA_GAIN	GENMASK(1, 0)
-+
-+#define SSM3515_DAC		0x02
-+#define SSM3515_DAC_HV		BIT(7)
-+#define SSM3515_DAC_MUTE	BIT(6)
-+#define SSM3515_DAC_HPF		BIT(5)
-+#define SSM3515_DAC_LPM		BIT(4)
-+#define SSM3515_DAC_FS		GENMASK(2, 0)
-+
-+#define SSM3515_DAC_VOL		0x03
-+
-+#define SSM3515_SAI1		0x04
-+#define SSM3515_SAI1_DAC_POL	BIT(7)
-+#define SSM3515_SAI1_BCLK_POL	BIT(6)
-+#define SSM3515_SAI1_TDM_BCLKS	GENMASK(5, 3)
-+#define SSM3515_SAI1_FSYNC_MODE	BIT(2)
-+#define SSM3515_SAI1_SDATA_FMT	BIT(1)
-+#define SSM3515_SAI1_SAI_MODE	BIT(0)
-+
-+#define SSM3515_SAI2		0x05
-+#define SSM3515_SAI2_DATA_WIDTH	BIT(7)
-+#define SSM3515_SAI2_AUTO_SLOT	BIT(4)
-+#define SSM3515_SAI2_TDM_SLOT	GENMASK(3, 0)
-+
-+#define SSM3515_VBAT_OUT	0x06
-+
-+#define SSM3515_STATUS		0x0a
-+#define SSM3515_STATUS_UVLO_REG	BIT(6)
-+#define SSM3515_STATUS_LIM_EG	BIT(5)
-+#define SSM3515_STATUS_CLIP	BIT(4)
-+#define SSM3515_STATUS_AMP_OC	BIT(3)
-+#define SSM3515_STATUS_OTF	BIT(2)
-+#define SSM3515_STATUS_OTW	BIT(1)
-+#define SSM3515_STATUS_BAT_WARN	BIT(0)
-+
-+static bool ssm3515_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case SSM3515_STATUS:
-+	case SSM3515_VBAT_OUT:
-+		return true;
-+
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct reg_default ssm3515_reg_defaults[] = {
-+	{ SSM3515_PWR, 0x81 },
-+	{ SSM3515_GEC, 0x01 },
-+	{ SSM3515_DAC, 0x32 },
-+	{ SSM3515_DAC_VOL, 0x40 },
-+	{ SSM3515_SAI1, 0x11 },
-+	{ SSM3515_SAI2, 0x00 },
-+};
-+
-+static const struct regmap_config ssm3515_i2c_regmap = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.volatile_reg = ssm3515_volatile_reg,
-+	.max_register = 0xb,
-+	.reg_defaults = ssm3515_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(ssm3515_reg_defaults),
-+	.cache_type = REGCACHE_FLAT,
-+};
-+
-+struct ssm3515_data {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	u32 ana_gain;
-+};
-+
-+// The specced range is -71.25...24.00 dB with step size of 0.375 dB,
-+// and a mute item below that. This is represented by -71.62...24.00 dB
-+// with the mute item mapped onto the low end.
-+static DECLARE_TLV_DB_MINMAX_MUTE(ssm3515_dac_volume, -7162, 2400);
-+
-+static const struct snd_kcontrol_new ssm3515_snd_controls[] = {
-+	SOC_SINGLE_TLV("DAC Playback Volume", SSM3515_DAC_VOL,
-+		       0, 255, 1, ssm3515_dac_volume),
-+	SOC_SINGLE("Low EMI Mode Switch", SSM3515_GEC,
-+		   __bf_shf(SSM3515_GEC_EDGE), 1, 0),
-+	SOC_SINGLE("Soft Volume Ramping Switch", SSM3515_DAC,
-+		   __bf_shf(SSM3515_DAC_HV), 1, 1),
-+	SOC_SINGLE("HPF Switch", SSM3515_DAC,
-+		   __bf_shf(SSM3515_DAC_HPF), 1, 0),
-+	SOC_SINGLE("DAC Invert Switch", SSM3515_SAI1,
-+		   __bf_shf(SSM3515_SAI1_DAC_POL), 1, 0),
-+};
-+
-+static void ssm3515_read_faults(struct snd_soc_component *component)
-+{
-+	int ret;
-+
-+	ret = snd_soc_component_read(component, SSM3515_STATUS);
-+	if (ret <= 0) {
-+		/*
-+		 * If the read was erroneous, ASoC core has printed a message,
-+		 * and that's all that's appropriate in handling the error here.
-+		 */
-+		return;
-+	}
-+
-+	dev_err(component->dev, "device reports:%s%s%s%s%s%s%s\n",
-+		FIELD_GET(SSM3515_STATUS_UVLO_REG, ret) ? " voltage regulator fault" : "",
-+		FIELD_GET(SSM3515_STATUS_LIM_EG, ret)   ? " limiter engaged" : "",
-+		FIELD_GET(SSM3515_STATUS_CLIP, ret)     ? " clipping detected" : "",
-+		FIELD_GET(SSM3515_STATUS_AMP_OC, ret)   ? " amp over-current fault" : "",
-+		FIELD_GET(SSM3515_STATUS_OTF, ret)      ? " overtemperature fault" : "",
-+		FIELD_GET(SSM3515_STATUS_OTW, ret)      ? " overtemperature warning" : "",
-+		FIELD_GET(SSM3515_STATUS_BAT_WARN, ret) ? " bat voltage low warning" : "");
-+}
-+
-+static int ssm3515_reset(struct snd_soc_component *component)
-+{
-+	int ret;
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_PWR,
-+			SSM3515_PWR_S_RST, SSM3515_PWR_S_RST);
-+
-+	if (ret < 0)
-+		return ret;
-+	return 0;
-+}
-+
-+static int ssm3515_setup(struct snd_soc_component *component)
-+{
-+	struct ssm3515_data *data =
-+			snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_GEC,
-+			SSM3515_GEC_ANA_GAIN,
-+			FIELD_PREP(SSM3515_GEC_ANA_GAIN, data->ana_gain));
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Start out muted */
-+	ret = snd_soc_component_update_bits(component, SSM3515_DAC,
-+			SSM3515_DAC_MUTE, SSM3515_DAC_MUTE);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Disable the 'master power-down' */
-+	ret = snd_soc_component_update_bits(component, SSM3515_PWR,
-+			SSM3515_PWR_SPWDN, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int ssm3515_probe(struct snd_soc_component *component)
-+{
-+	struct ssm3515_data *data =
-+			snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	ret = ssm3515_reset(component);
-+	if (ret < 0)
-+		return ret;
-+	regmap_reinit_cache(data->regmap, &ssm3515_i2c_regmap);
-+
-+	return ssm3515_setup(component);
-+}
-+
-+static int ssm3515_mute(struct snd_soc_dai *dai, int mute, int direction)
-+{
-+	int ret;
-+
-+	ret = snd_soc_component_update_bits(dai->component,
-+					    SSM3515_DAC,
-+					    SSM3515_DAC_MUTE,
-+					    FIELD_PREP(SSM3515_DAC_MUTE, mute));
-+	if (ret < 0)
-+		return ret;
-+	return 0;
-+}
-+
-+static int ssm3515_hw_params(struct snd_pcm_substream *substream,
-+			     struct snd_pcm_hw_params *params,
-+			     struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	int ret, rateval;
-+
-+	switch (params_format(params)) {
-+	case SNDRV_PCM_FORMAT_S16:
-+	case SNDRV_PCM_FORMAT_S24:
-+		ret = snd_soc_component_update_bits(component,
-+				SSM3515_SAI2, SSM3515_SAI2_DATA_WIDTH,
-+				FIELD_PREP(SSM3515_SAI2_DATA_WIDTH,
-+					   params_width(params) == 16));
-+		if (ret < 0)
-+			return ret;
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	switch (params_rate(params)) {
-+	case 8000 ... 12000:
-+		rateval = 0;
-+		break;
-+	case 16000 ... 24000:
-+		rateval = 1;
-+		break;
-+	case 32000 ... 48000:
-+		rateval = 2;
-+		break;
-+	case 64000 ... 96000:
-+		rateval = 3;
-+		break;
-+	case 128000 ... 192000:
-+		rateval = 4;
-+		break;
-+	case 48001 ... 63999: /* this is ...72000 but overlaps */
-+		rateval = 5;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component,
-+			SSM3515_DAC, SSM3515_DAC_FS,
-+			FIELD_PREP(SSM3515_DAC_FS, rateval));
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int ssm3515_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	bool fpol_inv = false; /* non-inverted: frame starts with low-to-high FSYNC */
-+	int ret;
-+	u8 sai1 = 0;
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_IB_NF:
-+	case SND_SOC_DAIFMT_IB_IF:
-+		sai1 |= SSM3515_SAI1_BCLK_POL;
-+		break;
-+	}
-+
-+	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-+	case SND_SOC_DAIFMT_I2S:
-+		fpol_inv = 1;
-+		sai1 &= ~SSM3515_SAI1_SDATA_FMT; /* 1 bit start delay */
-+		break;
-+	case SND_SOC_DAIFMT_LEFT_J:
-+		fpol_inv = 0;
-+		sai1 |= SSM3515_SAI1_SDATA_FMT; /* no start delay */
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_IF:
-+	case SND_SOC_DAIFMT_IB_IF:
-+		fpol_inv ^= 1;
-+		break;
-+	}
-+
-+	/* Set the serial input to 'TDM mode' */
-+	sai1 |= SSM3515_SAI1_SAI_MODE;
-+
-+	if (fpol_inv) {
-+		/*
-+		 * We configure the codec in a 'TDM mode', in which the
-+		 * FSYNC_MODE bit of SAI1 is supposed to select between
-+		 * what the datasheet calls 'Pulsed FSYNC mode' and '50%
-+		 * FSYNC mode'.
-+		 *
-+		 * Experiments suggest that this bit in fact simply selects
-+		 * the FSYNC polarity, so go with that.
-+		 */
-+		sai1 |= SSM3515_SAI1_FSYNC_MODE;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_SAI1,
-+			SSM3515_SAI1_BCLK_POL | SSM3515_SAI1_SDATA_FMT |
-+			SSM3515_SAI1_SAI_MODE | SSM3515_SAI1_FSYNC_MODE, sai1);
-+
-+	if (ret < 0)
-+		return ret;
-+	return 0;
-+}
-+
-+static int ssm3515_set_tdm_slot(struct snd_soc_dai *dai,
-+				unsigned int tx_mask,
-+				unsigned int rx_mask,
-+				int slots, int slot_width)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	int slot, tdm_bclks_val, ret;
-+
-+	if (tx_mask == 0 || rx_mask != 0)
-+		return -EINVAL;
-+
-+	slot = __ffs(tx_mask);
-+
-+	if (tx_mask & ~BIT(slot))
-+		return -EINVAL;
-+
-+	switch (slot_width) {
-+	case 16:
-+		tdm_bclks_val = 0;
-+		break;
-+	case 24:
-+		tdm_bclks_val = 1;
-+		break;
-+	case 32:
-+		tdm_bclks_val = 2;
-+		break;
-+	case 48:
-+		tdm_bclks_val = 3;
-+		break;
-+	case 64:
-+		tdm_bclks_val = 4;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_SAI1,
-+			SSM3515_SAI1_TDM_BCLKS,
-+			FIELD_PREP(SSM3515_SAI1_TDM_BCLKS, tdm_bclks_val));
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_SAI2,
-+			SSM3515_SAI2_TDM_SLOT,
-+			FIELD_PREP(SSM3515_SAI2_TDM_SLOT, slot));
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int ssm3515_hw_free(struct snd_pcm_substream *substream,
-+			   struct snd_soc_dai *dai)
-+{
-+	/*
-+	 * We don't get live notification of faults, so at least at
-+	 * this time, when playback is over, check if we have tripped
-+	 * over anything and if so, log it.
-+	 */
-+	ssm3515_read_faults(dai->component);
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops ssm3515_dai_ops = {
-+	.mute_stream	= ssm3515_mute,
-+	.hw_params	= ssm3515_hw_params,
-+	.set_fmt	= ssm3515_set_fmt,
-+	.set_tdm_slot	= ssm3515_set_tdm_slot,
-+	.hw_free	= ssm3515_hw_free,
-+};
-+
-+static struct snd_soc_dai_driver ssm3515_dai_driver = {
-+	.name = "SSM3515 SAI",
-+	.id = 0,
-+	.playback = {
-+		.stream_name = "Playback",
-+		.channels_min = 1,
-+		.channels_max = 1,
-+		.rates = SNDRV_PCM_RATE_CONTINUOUS,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
-+	},
-+	.ops = &ssm3515_dai_ops,
-+};
-+
-+static const struct snd_soc_dapm_widget ssm3515_dapm_widgets[] = {
-+	SND_SOC_DAPM_DAC("DAC", NULL, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_OUTPUT("OUT"),
-+};
-+
-+static const struct snd_soc_dapm_route ssm3515_dapm_routes[] = {
-+	{"OUT", NULL, "DAC"},
-+	{"DAC", NULL, "Playback"},
-+};
-+
-+static const struct snd_soc_component_driver ssm3515_asoc_component = {
-+	.probe = ssm3515_probe,
-+	.controls = ssm3515_snd_controls,
-+	.num_controls = ARRAY_SIZE(ssm3515_snd_controls),
-+	.dapm_widgets = ssm3515_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(ssm3515_dapm_widgets),
-+	.dapm_routes = ssm3515_dapm_routes,
-+	.num_dapm_routes = ARRAY_SIZE(ssm3515_dapm_routes),
-+	.endianness = 1,
-+};
-+
-+static int ssm3515_parse_dt(struct ssm3515_data *data)
-+{
-+	int ret;
-+
-+	ret = of_property_read_u32(data->dev->of_node, "adi,ana-gain",
-+				   &data->ana_gain);
-+	if (ret)
-+		return dev_err_probe(data->dev, -EINVAL, "missing adi,ana-gain property\n");
-+
-+	return 0;
-+}
-+
-+static int ssm3515_i2c_probe(struct i2c_client *client)
-+{
-+	struct ssm3515_data *data;
-+	int ret;
-+
-+	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->dev = &client->dev;
-+	i2c_set_clientdata(client, data);
-+
-+	data->regmap = devm_regmap_init_i2c(client, &ssm3515_i2c_regmap);
-+	if (IS_ERR(data->regmap))
-+		return dev_err_probe(data->dev, PTR_ERR(data->regmap),
-+				     "initializing register map");
-+
-+	ret = ssm3515_parse_dt(data);
-+	if (ret < 0)
-+		return ret;
-+
-+	return devm_snd_soc_register_component(data->dev,
-+			&ssm3515_asoc_component,
-+			&ssm3515_dai_driver, 1);
-+}
-+
-+static const struct of_device_id ssm3515_of_match[] = {
-+	{ .compatible = "adi,ssm3515" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, ssm3515_of_match);
-+
-+static struct i2c_driver ssm3515_i2c_driver = {
-+	.driver = {
-+		.name = "ssm3515",
-+		.of_match_table = of_match_ptr(ssm3515_of_match),
-+	},
-+	.probe_new = ssm3515_i2c_probe,
-+};
-+module_i2c_driver(ssm3515_i2c_driver);
-+
-+MODULE_AUTHOR("Martin Povišer <povik+lin@cutebit.org>");
-+MODULE_DESCRIPTION("ASoC SSM3515 audio amp driver");
-+MODULE_LICENSE("Dual MIT/GPL");
--- 
-2.38.3
-
+> 
+> 					Jaroslav
+> 
+> -- 
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 

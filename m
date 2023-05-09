@@ -2,117 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13EC16FBF86
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 08:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 775816FC044
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 09:14:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 984481139;
-	Tue,  9 May 2023 08:47:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 984481139
+	by alsa0.perex.cz (Postfix) with ESMTPS id F24551129;
+	Tue,  9 May 2023 09:13:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F24551129
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683614902;
-	bh=zE91SiQIErqLieU/Zf5M15JCBE/HJqD/UTAak515p94=;
-	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
+	s=default; t=1683616442;
+	bh=A0xPZgIeDZFPx32s6wJOb0SsT6ZvrFd2u8VpMTI3HJg=;
+	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QwizJdSbEWctyfwQkg//os8+s7CcTdBWIZ6C8y5FGiKskJUqDOnykq2VAb0LZgVFC
-	 hZ4AJDbJljxeBY3MRWfD6EBxYMWcJ7tjL5w+YfD4anGltl93314PsR70RXkklwC/FO
-	 mIesKvblEg4Iq+7aIqrJXWRfQwjIhtVyeUVyv2KE=
+	b=iTIrSdagMjtUFj5NJy+cFXG69CkQbXf1HvYY1sxwfiiKU5KIQZRPzy/CGRq+xwYHm
+	 T63quELYkGn3NSKNpcFEGyGiPktyD/P1q5J29W1zydWW2rRv8BzgqLYhYZwJe/CcKB
+	 a9nIoLE84lwa/AqttxhpMjFGIFDD9ux8QM5WYeRo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E74D0F80534;
-	Tue,  9 May 2023 08:46:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 586BFF80217;
+	Tue,  9 May 2023 09:13:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42F63F8053B; Tue,  9 May 2023 08:46:57 +0200 (CEST)
+	id 10D06F8032D; Tue,  9 May 2023 09:13:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C445EF804B1
-	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 08:46:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C445EF804B1
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=0wibozWl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=vr6yJPq3
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D533F8014C;
+	Tue,  9 May 2023 09:13:01 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A5DD111EF;
+	Tue,  9 May 2023 09:13:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A5DD111EF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1683616380; bh=kJd//xxuKk8y6k6kDgGap7+7vvkWFwOK7nJKfrjxYnA=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=bn2R+3+chyekCZoEsEO1eoxNZ+onI4euml6zFp16xXtpij1h9dNxwaXUelgyMWJZ3
+	 BEHKVkGxRlCKlg1Xd8iLi1zJXTMUyohsEOhpTBlFTlPRm62HLaey40LxftOkyGnguU
+	 S8BwSprdshXQdM9CGQyCzP+jR+tUdndwUPWc/8Xc=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2842C1FD5E;
-	Tue,  9 May 2023 06:46:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1683614809;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WRMNHZPbYbrdt2F83wyb0od7K5lWumJsyKttfUv0Jlo=;
-	b=0wibozWlVy9JOruhL3jhkImW1N4jPbEBqsR3WDPvn7yt6bcfUHDy3LNc8AsTrZqiIFQU7P
-	c3RCQoYBFkOEaHQjMPQi9gT3UWrD27sGPmYiLvGhOgmUmb+6CBLuKUZRuS8/8SgWeNmWpI
-	AKrdZJg96wvPVIjv6rZ/KXvIzFsotrc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683614809;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WRMNHZPbYbrdt2F83wyb0od7K5lWumJsyKttfUv0Jlo=;
-	b=vr6yJPq3yl9Of2fgqXO/V1x4SPo8rGhMoSED+FUZLPzde3gqW8oLWOfWxYYcxs7ueeGwb/
-	1DRr8Gq3AhkWZwDQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EA271139B3;
-	Tue,  9 May 2023 06:46:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id RWZHOFjsWWReEgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 09 May 2023 06:46:48 +0000
-Date: Tue, 09 May 2023 08:46:48 +0200
-Message-ID: <871qjq6lyf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Bagas Sanjaya <bagasdotme@gmail.com>
-Subject: Re: Fwd: Asus ROG Zephyrus GX701L sound problem
-In-Reply-To: <466c0d68-5fac-74cc-c32e-23174f48add7@gmail.com>
-References: <466c0d68-5fac-74cc-c32e-23174f48add7@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: V3SRJJTPCQUR6X2CRX2TWB5VOCW7BA6X
-X-Message-ID-Hash: V3SRJJTPCQUR6X2CRX2TWB5VOCW7BA6X
-X-MailFrom: tiwai@suse.de
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Tue,  9 May 2023 09:12:55 +0200 (CEST)
+Message-ID: <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
+Date: Tue, 9 May 2023 09:12:55 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+ <87o7n0mtv9.wl-tiwai@suse.de> <87ednwmssr.wl-tiwai@suse.de>
+ <87wn1jdzuq.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
+ mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
+In-Reply-To: <87wn1jdzuq.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: BO6Y2FNWTHF5O6PR427XZDCMUY5XG7I5
+X-Message-ID-Hash: BO6Y2FNWTHF5O6PR427XZDCMUY5XG7I5
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux ALSA Subsystem Development <alsa-devel@alsa-project.org>,
- Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+CC: Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ sound-open-firmware@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V3SRJJTPCQUR6X2CRX2TWB5VOCW7BA6X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BO6Y2FNWTHF5O6PR427XZDCMUY5XG7I5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,128 +97,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 07 May 2023 16:06:48 +0200,
-Bagas Sanjaya wrote:
+On 08. 05. 23 9:52, Takashi Iwai wrote:
+> On Thu, 04 May 2023 09:58:44 +0200,
+> Takashi Iwai wrote:
+>>
+>> On Thu, 04 May 2023 09:35:38 +0200,
+>> Takashi Iwai wrote:
+>>>
+>>> On Thu, 04 May 2023 03:09:45 +0200,
+>>> Mark Brown wrote:
+>>>>
+>>>> Hi,
+>>>>
+>>>> Here's another mail (one of several in this series) that got completely
+>>>> mangled by the alsa-project.org mailman to the point of unusability.  I
+>>>> didn't see any response to my last mail about this, is there any news on
+>>>> fixing mailman to not do this?  It's extremely disruptive to working
+>>>> with lore.
+>>>
+>>> It seems that alsa-project.org mailman re-sends the post with
+>>> xxx@alsa-project.org address sometimes, indeed.  I don't know the
+>>> condition, but now I noticed it while checking the pending approvals.
+>>
+>> And, I guess it happens when a post comes from a non-subscriber.
+>> (But not sure whether this happens always...)
+>> It waits for approval, but also mangles the sender address and co.
+>> This behavior is new after the mail server update.
 > 
-> Hi,
-> 
-> I notice a year-old bug report on bugzilla [1]. As many developers
-> don't take a look on it, I decided to forward it by email. You will
-> need to log in to bugzilla in order to contact the reporter.
-> 
-> Quoting from the bug report:
-> 
-> > Hello,
-> > 
-> > I must mention right at the beginning that I tried all the solutions I found on the forums, but without success.
-> > 
-> > The problem exists only with the speakers on the laptop, the microphone works, as do the headphones.
-> > 
-> > I extracted the audio dump from windows and compared it with the dump from Linux and thus created this pinfcg below.
-> > 
-> > Please, can someone add a kernel fix for ROG Zephyrus S17 GX701LWS_GX701LWS, Subsystem Id: 0x10431f01?
-> > 
-> > ```
-> > 
-> > [codec]
-> > 
-> > 0x10ec0294 0x10431f01 0
-> > 
-> > [pincfg]
-> > 
-> > 0x19 0x03A11050
-> > 
-> > 0x1a 0x03A11C30
-> > 
-> > ```
-> > 
-> > This is what a quirk should look like:
-> > 
-> > +SND_PCI_QUIRK(0x1043, 0x1f01, “ASUS GX701L”, ALC294_FIXUP_ASUS_SPK)
-> > 
-> > [ 2.396344] snd_hda_codec_realtek hdaudioC0D0: autoconfig for ALC294: line_outs=1 (0x17/0x0/0x0/0x0/0x0) type:speaker
-> > [ 2.396348] snd_hda_codec_realtek hdaudioC0D0: speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
-> > [ 2.396349] snd_hda_codec_realtek hdaudioC0D0: hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
-> > [ 2.396350] snd_hda_codec_realtek hdaudioC0D0: mono: mono_out=0x0
-> > [ 2.396351] snd_hda_codec_realtek hdaudioC0D0: inputs:
-> > [ 2.396352] snd_hda_codec_realtek hdaudioC0D0: Headset Mic=0x19
-> > [ 2.396353] snd_hda_codec_realtek hdaudioC0D0: Internal Mic=0x12
-> > 
-> > 
-> > 
-> > 
-> >     hwinfo --sound  :heavy_check_mark:
-> >     22: PCI 1f.3: 0403 Audio device
-> >     [Created at pci.386]
-> >     Unique ID: nS1_.Qb7ky1jjQRD
-> >     SysFS ID: /devices/pci0000:00/0000:00:1f.3
-> >     SysFS BusID: 0000:00:1f.3
-> >     Hardware Class: sound
-> >     Model: “Intel Comet Lake PCH cAVS”
-> >     Vendor: pci 0x8086 “Intel Corporation”
-> >     Device: pci 0x06c8 “Comet Lake PCH cAVS”
-> >     SubVendor: pci 0x1043 “ASUSTeK Computer Inc.”
-> >     SubDevice: pci 0x1f01
-> >     Driver: “snd_hda_intel”
-> >     Driver Modules: “snd_hda_intel”
-> >     Memory Range: 0x94300000-0x94303fff (rw,non-prefetchable)
-> >     Memory Range: 0x94100000-0x941fffff (rw,non-prefetchable)
-> >     IRQ: 157 (817 events)
-> >     Module Alias: “pci:v00008086d000006C8sv00001043sd00001F01bc04sc03i80”
-> >     Driver Info #0:
-> >     Driver Status: snd_hda_intel is active
-> >     Driver Activation Cmd: “modprobe snd_hda_intel”
-> >     Driver Info #1:
-> >     Driver Status: snd_soc_skl is active
-> >     Driver Activation Cmd: “modprobe snd_soc_skl”
-> >     Driver Info #2:
-> >     Driver Status: snd_sof_pci_intel_cnl is active
-> >     Driver Activation Cmd: “modprobe snd_sof_pci_intel_cnl”
-> >     Config Status: cfg=new, avail=yes, need=no, active=unknown
-> > 
-> >     29: PCI 100.1: 0403 Audio device
-> >     [Created at pci.386]
-> >     Unique ID: NXNs.SkelvpPm387
-> >     Parent ID: vSkL.ZFPYIgTFUyC
-> >     SysFS ID: /devices/pci0000:00/0000:00:01.0/0000:01:00.1
-> >     SysFS BusID: 0000:01:00.1
-> >     Hardware Class: sound
-> >     Model: “nVidia TU104 HD Audio Controller”
-> >     Vendor: pci 0x10de “nVidia Corporation”
-> >     Device: pci 0x10f8 “TU104 HD Audio Controller”
-> >     SubVendor: pci 0x1043 “ASUSTeK Computer Inc.”
-> >     SubDevice: pci 0x186f
-> >     Revision: 0xa1
-> >     Driver: “snd_hda_intel”
-> >     Driver Modules: “snd_hda_intel”
-> >     Memory Range: 0x94080000-0x94083fff (rw,non-prefetchable)
-> >     IRQ: 17 (1698 events)
-> >     Module Alias: “pci:v000010DEd000010F8sv00001043sd0000186Fbc04sc03i00”
-> >     Driver Info #0:
-> >     Driver Status: snd_hda_intel is active
-> >     Driver Activation Cmd: “modprobe snd_hda_intel”
-> >     Config Status: cfg=new, avail=yes, need=no, active=unknown
-> >     Attached to: #13 (PCI bridge)
-> > 
-> > 
-> > If you need any more data, or smth just say so.
-> 
-> To the reporter: It seems like the hardware problem, right? If so, can
-> you test on different laptop?
-> 
-> Thanks.
-> 
-> [1]: https://bugzilla.kernel.org/show_bug.cgi?id=216392
+> Jaroslav, could you investigate it?  I checked again, and it seems
+> that all "approved" posts from non-subscribers are modified to the
+> sender addresses with alsa-project.org.  I guess there must be some
+> option to prevent it.
 
-This is a sort of problems that is difficult to help from the upstream
-side.  The symptom indicates that the likely culprit is some missing
-stuff for speaker amp behind the HD-audio codec, and those are usually
-all vendor-specific; the wild west without laws, and only the vendor
-knows how to drive.
+The answer is DMARC. And the "mangling" applies only to senders which domains 
+have restricted DMARC settings (reject or quarantine) - collabora.com has 
+quarantine. More information:
 
-User may try to apply the existing quirks one-by-one.  If nothing
-helps, they can try tracing the HD-audio verbs on Windows over VM
-(only if allowed).
+https://lore.kernel.org/alsa-devel/6f003598-4cae-a521-233f-2c19eb439359@perex.cz/
 
+I am open to any suggestions, but the default mailman settings (do not do 
+anything) causes that some (mostly gmail) users do not receive their e-mails 
+because the ALSA's mail server has a bad reputation. Many companies are using 
+the google mail service for their domains nowadays.
 
-Takashi
+The information is not lost - the original e-mail is just encapsulated (as an 
+attachmnent) to new with the "allowed from" header for DMARC. But yes, it 
+requires some more work (reply to the attachment, update scripts).
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+

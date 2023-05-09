@@ -2,121 +2,161 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DF176FD71C
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 08:35:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13756FD71D
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 08:35:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2FF4108A;
-	Wed, 10 May 2023 08:34:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2FF4108A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D87CA105A;
+	Wed, 10 May 2023 08:34:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D87CA105A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683700519;
-	bh=5JcGNTbFJwd0CDhwoudGKKUfB4uanA0MgMpv8hObA4E=;
-	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=BYcbciFpWELEHcZbkiWFS6UNqAVux9omwNIpHeAsFtQ1sDJhW9e8Q5ZmsKEUW8hFF
-	 rUtiE/+pvhp01lLlfrsyYTj+B3Tv/wrr3YsTA3NNxKLzcW6l/1VkmoLL9ABD1JG2kt
-	 tR+KyKAWRs6wv6Ppo9uzKDAXSl8CSERPR8ngAtvI=
+	s=default; t=1683700531;
+	bh=3pkxi8HnVp4j+GFddUdHqp1l+BbvCyZpqv3R/RwFTcY=;
+	h=References:In-Reply-To:Date:Subject:To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From:Reply-To:Cc:From;
+	b=LSrpH1O8MVdNTAr78s+SKFv/+sytSDZQBcn9M/sE51hUfz7mRbMevkXCaC94lCbKI
+	 1vdcZbHbMzPpQPWeNJYjM4Va47eGFs2y912E6W58xYw4ye81aw8AaZzlv2EL38dUjl
+	 i+OYZUkrOkBaYAGenICjJwQ9YF4sbfeD9Vr99efM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 488AAF80587;
-	Wed, 10 May 2023 08:32:31 +0200 (CEST)
-Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8A17EF8032D; Tue,  9 May 2023 12:33:17 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2E439F8014C
-	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 12:33:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E439F8014C
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=IDDHVsZD
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3495GDtS013564;
-	Tue, 9 May 2023 10:33:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=5NYZyH8JnBORP5jPv5hizcMDFeQQvvRnjI0fqAP6L3g=;
- b=IDDHVsZDPY1knOFvpzb4Kwb8V+rk8nJnTgp4112/FYlzdVlQU8+v0jCP0xER7yfRPAi4
- d1qcmUezIUwLXyrvwFhrOvHVDtTZUu5PFLhzzQHEgTNxe9QUQOSi32806/g3wf8faOm5
- OB6/9ac9mD+FmXwPJo/sAOoBWC/JTHad/AVKucslK9OB2ELqYQVbw3H2KhPVMyrJXjCv
- 4WWeUTrL+vJzSnEm0EtceGha4kV7K9NJnJrEETTkj3B1Qr3doAKb6nkoV4ql6a57SmE/
- n0mQqfEIuHhJW8tf6ZWEbQPsVUbSf/XgnCywuidPq7MRCiGlEYOUE0nCdsL3JRgWNfwh oQ==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qf78psd5w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 09 May 2023 10:33:04 +0000
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
-	by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 349AX3jR028725
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 9 May 2023 10:33:03 GMT
-Received: from hu-visr-hyd.qualcomm.com (10.80.80.8) by
- nasanex01a.na.qualcomm.com (10.52.223.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Tue, 9 May 2023 03:33:00 -0700
-From: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
-To: 
-Subject: [PATCH] ASoC:codecs: lpass: Fix for KASAN use_after_free out of
- bounds
-Date: Tue, 9 May 2023 16:02:31 +0530
-Message-ID: <20230509103232.20953-1-quic_visr@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: ZsB3yTyR3yptvGvm0OIxM34T_vN8Ml8b
-X-Proofpoint-GUID: ZsB3yTyR3yptvGvm0OIxM34T_vN8Ml8b
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-09_06,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0
- bulkscore=0 mlxlogscore=681 mlxscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2304280000 definitions=main-2305090083
-X-MailFrom: quic_visr@quicinc.com
-X-Mailman-Rule-Hits: implicit-dest
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B52AF805A8;
+	Wed, 10 May 2023 08:32:33 +0200 (CEST)
+References: <20230508113037.137627-1-pan@semihalf.com>
+ <20230508113037.137627-5-pan@semihalf.com>
+ <b8306c55-8551-4c86-f85d-3aebe1ad0ca1@linaro.org>
+ <ZFoYai1Zawd4GGtU@finisterre.sirena.org.uk>
+In-Reply-To: <ZFoYai1Zawd4GGtU@finisterre.sirena.org.uk>
+Date: Tue, 9 May 2023 12:39:31 +0200
+Subject: Re: [PATCH v2 4/7] ASoC: dt-bindings: Add Google Chameleon v3 audio
+ codec
+To: Mark Brown <broonie@kernel.org>
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; max-recipients; max-size; news-moderation; no-subject;
- digests; suspicious-header
-Message-ID-Hash: 3CAS64GYGZXVYBD4UK5LTMI4NOGAI6EY
-X-Message-ID-Hash: 3CAS64GYGZXVYBD4UK5LTMI4NOGAI6EY
+ header-match-alsa-devel.alsa-project.org-1
 X-Mailman-Approved-At: Wed, 10 May 2023 06:32:17 +0000
-CC: quic_visr@quicinc.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- "moderated list:QCOM AUDIO (ASoC) DRIVERS" <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3CAS64GYGZXVYBD4UK5LTMI4NOGAI6EY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WQELXFEWVB5RWSTWRTJNTHIYQAZMOP5T/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
+List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
+MIME-Version: 1.0
+Message-ID: 
+ <168370035179.26.4813933196889513475@mailman-core.alsa-project.org>
+From: =?utf-8?q?Pawe=C5=82_Anikiel_via_Alsa-devel?=
+ <alsa-devel@alsa-project.org>
+Reply-To: =?UTF-8?Q?Pawe=C5=82_Anikiel?= <pan@semihalf.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, dinguyen@kernel.org,
+ lars@metafoo.de, nuno.sa@analog.com, upstream@semihalf.com,
+ amstan@chromium.org
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: by alsa1.perex.cz (Postfix, from userid 50401)
+	id 92192F8032D; Tue,  9 May 2023 12:39:49 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [IPv6:2a00:1450:4864:20::536])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 525F2F80087
+	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 12:39:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 525F2F80087
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=semihalf.com header.i=@semihalf.com header.a=rsa-sha256
+ header.s=google header.b=X+rZIzKP
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-50bc570b4a3so10653747a12.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 09 May 2023 03:39:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=semihalf.com; s=google; t=1683628782; x=1686220782;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wRU5PEt+oDmkOJvCwl4AyqNhX/jjlVJcC8ztVdTKQLE=;
+        b=X+rZIzKPdMbSlBMThdYfAojZTGhcsUbH9SWbS0mPquMKSXjX3kEtZ+AqsebDyh9xaW
+         lE0GJl13J0k49ij3784AOfGHEhBxqujNOV0kvuvfZJjIkaUQOgJutt/4m1iCNvg8jFj3
+         8Mu0H8hPnQmC4hiKwlnrKHAmAkvwgZfdGbd9xwQ7bsR8F/JzpI3Tyk7jUt6MfeYp4kbU
+         IidhgNrwy93u5zMw8bN3Dl9KLC3fObB9FPjP8zLXTEPoODpGUeD0D7WYqZpkU5fqQIRQ
+         KNVpTGiSxyhwmPa5wDelpGQYZ/XivJoLXWJmN/4s+n31zNAdoMCiHmHWFqy9yQ5E9yhj
+         SBpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683628782; x=1686220782;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wRU5PEt+oDmkOJvCwl4AyqNhX/jjlVJcC8ztVdTKQLE=;
+        b=ahMQGeitx1/6z/iA+xUceMIFIK5V3CFPlK0OinlIxo3i6VZHXLIDFNCbOOgCEJ8zrO
+         tu1NP/et//b/Rha/R28psk9ovopw+yOmb+KO7rnjz3pYJMrDjEMpi4tWVie85zwVqOxL
+         Md1YfT97TeZl1MoV4RfE4caV9JY0VOxV+VeoH4AOOnPwifQc49samiLBF2wwuP5ODKCV
+         SPRoqD7aGP7uDQnpMD/KqkcKWgIWAUOov8ACUlBemvf+BU6tixnPueK/7bfQPy+VliJh
+         B4R+ZZOKOdGof3ynEUqwW1umD004VYZazaE5S1dAkXEjZulnvYqea5Vw7WLaJ0cX2S18
+         U7eQ==
+X-Gm-Message-State: AC+VfDybxt4HECM/c6EtjvfwZKyFyLKz70ArTgPUBgm8GDdgJegyKHTG
+	5HRzADbV1VElMrMt+d4I6LlYcB9/6JvKgN0bDS/mEw==
+X-Google-Smtp-Source: 
+ ACHHUZ5X1A7lGSzOUQocjKDUPJO/UZV85RYU+AZC28CWaOm5bVpor/ag+VkqoWqHXFa5J7LyWaMGHQcKCW2raQWEHoo=
+X-Received: by 2002:a17:907:1c03:b0:94e:4489:f24d with SMTP id
+ nc3-20020a1709071c0300b0094e4489f24dmr11943775ejc.61.1683628781939; Tue, 09
+ May 2023 03:39:41 -0700 (PDT)
+MIME-Version: 1.0
+References: <20230508113037.137627-1-pan@semihalf.com>
+ <20230508113037.137627-5-pan@semihalf.com>
+ <b8306c55-8551-4c86-f85d-3aebe1ad0ca1@linaro.org>
+ <ZFoYai1Zawd4GGtU@finisterre.sirena.org.uk>
+In-Reply-To: <ZFoYai1Zawd4GGtU@finisterre.sirena.org.uk>
+From: =?UTF-8?Q?Pawe=C5=82_Anikiel?= <pan@semihalf.com>
+Date: Tue, 9 May 2023 12:39:31 +0200
+Message-ID: 
+ <CAF9_jYSXxmnm80Yq4gD6U5ygHvBTDagR_HM4LcHQT1vq=d7tVw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/7] ASoC: dt-bindings: Add Google Chameleon v3 audio
+ codec
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-MailFrom: pan@semihalf.com
+X-Mailman-Rule-Hits: nonmember-moderation
+X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
+ loop; banned-address; member-moderation;
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: WQELXFEWVB5RWSTWRTJNTHIYQAZMOP5T
+X-Message-ID-Hash: WQELXFEWVB5RWSTWRTJNTHIYQAZMOP5T
+X-Mailman-Approved-At: Wed, 10 May 2023 06:32:17 +0000
+CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, dinguyen@kernel.org,
+ lars@metafoo.de, nuno.sa@analog.com, upstream@semihalf.com,
+ amstan@chromium.org
+X-Mailman-Version: 3.3.8
+Precedence: list
+List-Id: "Alsa-devel mailing list for ALSA developers -
+ http://www.alsa-project.org" <alsa-devel.alsa-project.org>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WQELXFEWVB5RWSTWRTJNTHIYQAZMOP5T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,84 +165,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When we run syzkaller we get below Out of Bounds error.
+On Tue, May 9, 2023 at 11:54=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> On Tue, May 09, 2023 at 08:18:15AM +0200, Krzysztof Kozlowski wrote:
+> > On 08/05/2023 13:30, Pawe=C5=82 Anikiel wrote:
+>
+> > > +  "#sound-dai-cells":
+> > > +    const: 0
+>
+> > No supplies? How do you get power?
+>
+> My understanding is that this is deployed to a FPGA so the power would
+> be going into the FPGA.  In general a memory mapped I2S controller like
+> this will be part of a larger SoC of some kind.
 
-"KASAN: slab-out-of-bounds Read in regcache_flat_read"
+Yes, both the codec and i2s controller are implemented in the FPGA
+part of the Arria 10 SoC.
 
-Below is the backtrace of the issue:
-
-BUG: KASAN: slab-out-of-bounds in regcache_flat_read+0x10c/0x110
-Read of size 4 at addr ffffff8088fbf714 by task syz-executor.4/14144
-CPU: 6 PID: 14144 Comm: syz-executor.4 Tainted: G        W
-Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
-Call trace:
-dump_backtrace+0x0/0x4ec
-show_stack+0x34/0x50
-dump_stack_lvl+0xdc/0x11c
-print_address_description+0x30/0x2d8
-kasan_report+0x178/0x1e4
-__asan_report_load4_noabort+0x44/0x50
-regcache_flat_read+0x10c/0x110
-regcache_read+0xf8/0x5a0
-_regmap_read+0x45c/0x86c
-_regmap_update_bits+0x128/0x290
-regmap_update_bits_base+0xc0/0x15c
-snd_soc_component_update_bits+0xa8/0x22c
-snd_soc_component_write_field+0x68/0xd4
-tx_macro_put_dec_enum+0x1d0/0x268
-snd_ctl_elem_write+0x288/0x474
-
-By Error checking and checking valid values issue gets rectifies.
-
-Signed-off-by: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
----
- sound/soc/codecs/lpass-tx-macro.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index da6fcf7f0991..2fc150b17f29 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -746,6 +746,8 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
- 
- 	val = ucontrol->value.enumerated.item[0];
-+	if (val < 0 && val > 15)
-+		return -EINVAL;
- 
- 	switch (e->reg) {
- 	case CDC_TX_INP_MUX_ADC_MUX0_CFG0:
-@@ -772,6 +774,9 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 	case CDC_TX_INP_MUX_ADC_MUX7_CFG0:
- 		mic_sel_reg = CDC_TX7_TX_PATH_CFG0;
- 		break;
-+	default:
-+		dev_err(component->dev, "Error in configuration!!\n");
-+		return -EINVAL;
- 	}
- 
- 	if (val != 0) {
-@@ -785,10 +790,16 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 			snd_soc_component_write_field(component, mic_sel_reg,
- 						      CDC_TXn_ADC_DMIC_SEL_MASK, 1);
- 			dmic = TX_ADC_TO_DMIC(val);
--			dmic_clk_reg = CDC_TX_TOP_CSR_SWR_DMICn_CTL(dmic);
--			snd_soc_component_write_field(component, dmic_clk_reg,
--						CDC_TX_SWR_DMIC_CLK_SEL_MASK,
--						tx->dmic_clk_div);
-+			if (dmic < 4) {
-+				dmic_clk_reg = CDC_TX_TOP_CSR_SWR_DMICn_CTL(dmic);
-+				snd_soc_component_write_field(component, dmic_clk_reg,
-+							      CDC_TX_SWR_DMIC_CLK_SEL_MASK,
-+								tx->dmic_clk_div);
-+			} else {
-+				dev_err(component->dev, "Error in dmic configuration!!\n");
-+				return -EINVAL;
-+			}
-+
- 		}
- 	}
- 
--- 
-2.17.1
-
+Regards,
+Pawe=C5=82

@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAE176FCD2E
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 20:04:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 246806FCD3B
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 May 2023 20:06:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78A94F93;
-	Tue,  9 May 2023 20:04:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78A94F93
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63A15F58;
+	Tue,  9 May 2023 20:05:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63A15F58
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683655493;
-	bh=/+pf3D1P3cVWgwh5BuEFULDaB515AWFQM8G1gKFJ0T8=;
-	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
+	s=default; t=1683655584;
+	bh=Tdj/22kgA8XkFoA986JPGYnfWwEcnwTjUAalnblqCYg=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vO6SaYoUdIdizGjPECtEWvrtTLrxdt38ghNkG41Zcors0PMxnfnhEsuXU559Z/+pm
-	 ECeuhm+btmBWvpjPAR4MC9SmPc+mitE8QNMUpHos7SwYmHGNkNo4ff10TBiJzsL/N0
-	 RiyDfH+VOskGAUe49J07Hf6g9q2P/IH2gbdR4/60=
+	b=h06LfTh4GM74donBNR9AMdlBg1bSsGRh2fLlaknTgZNkLnwJ3bXs1E4QamHv7mSRw
+	 BgaUA433wgICrsD0LZkhG82WED1c9UwZSXrV1nGyhwK1Kh3XoB+5U5OxNjAGHrJ8Gj
+	 coHhw9F5oPEIjGvsdKZs9rUACTQfSSbDdyj9ls1c=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3401F80310;
-	Tue,  9 May 2023 20:04:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21B23F8032D;
+	Tue,  9 May 2023 20:05:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24250F8032D; Tue,  9 May 2023 20:03:59 +0200 (CEST)
+	id 285BDF804B1; Tue,  9 May 2023 20:05:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 24846F80087;
-	Tue,  9 May 2023 20:03:47 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 479D311F7;
-	Tue,  9 May 2023 20:03:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 479D311F7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1683655426; bh=BbdiZOCCeosaHGdrhPhqVfkMHGsoKiH1sDi3LMaFju8=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=Lz+BUT7mMtYQ80xkJxtJsMKm/TnIE6TQgrskmr4xxfN8rloQUuQt7gdHjfQGyFBZf
-	 fqJiehKErrULc8b8Q35NIUwyrZhxs0pGQeL8DiQqsPcOLfPKa6BS8QtNzbMHIPKwp2
-	 R4GHiJPkb7R/nzZZZMu0TFcl58hPqSlHKDkmCCN8=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4FD00F80310
+	for <alsa-devel@alsa-project.org>; Tue,  9 May 2023 20:05:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FD00F80310
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=Tj8rEfD8
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Tue,  9 May 2023 20:03:40 +0200 (CEST)
-Message-ID: <10075912-5c0b-549f-58e1-1323683d250d@perex.cz>
-Date: Tue, 9 May 2023 20:03:39 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 30429629BC;
+	Tue,  9 May 2023 18:05:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBB86C433EF;
+	Tue,  9 May 2023 18:05:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683655521;
+	bh=Tdj/22kgA8XkFoA986JPGYnfWwEcnwTjUAalnblqCYg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Tj8rEfD8bzoP3ENFKkSFpA1LpSIJGrsf+RXdNrYIADnUN+NMZGhCT2IEPRUyBPrja
+	 eqxRN5d7VgGo0SC5AX6Lk0khulo2GSo8RLS8umt1fKU44FyknV8dUzIsIvx374hh06
+	 0BMTJAP6QOSzEYMiEEZDLEtgxA1EL3cjqwKRNzxIt6h31s7Xfh2BI1+dVxMDywkLFR
+	 umJTE/5AVlKQRBYOdSGi6KW4dFZP1YlUFhIpAa3TYIg3iCPFwrO0B+6gKnFS+0rhvv
+	 hLSgQC1RNqvq5dHpzsKAbFrBarlyE8dY/BM7pQyk2oHXWEc7BuKxyBNOOLIJE0ntEC
+	 iFd572OME5hsg==
+Date: Tue, 9 May 2023 19:05:16 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Walker Chen <walker.chen@starfivetech.com>
+Subject: Re: [PATCH v3 3/3] riscv: dts: starfive: add tdm node and sound card
+Message-ID: <20230509-overheat-pliable-00d60523637e@spud>
+References: <20230506090116.9206-1-walker.chen@starfivetech.com>
+ <20230506090116.9206-4-walker.chen@starfivetech.com>
+ <a0932e84-3813-bbbe-762d-948d75fbcd8a@starfivetech.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
- <87o7n0mtv9.wl-tiwai@suse.de> <87ednwmssr.wl-tiwai@suse.de>
- <87wn1jdzuq.wl-tiwai@suse.de> <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
- <ZFoUaNKBkIgbW0rD@finisterre.sirena.org.uk>
- <ff43dccf-ba6d-d7fa-352a-5d5a8c4b977f@perex.cz>
- <ZFpaOVRc2E/CZBHI@finisterre.sirena.org.uk>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
- mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
-In-Reply-To: <ZFpaOVRc2E/CZBHI@finisterre.sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OJBFNHCURGHJLTHW5YQHH3DH6UMNJVZD
-X-Message-ID-Hash: OJBFNHCURGHJLTHW5YQHH3DH6UMNJVZD
-X-MailFrom: perex@perex.cz
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="cgSWW3RzfwlIKhhN"
+Content-Disposition: inline
+In-Reply-To: <a0932e84-3813-bbbe-762d-948d75fbcd8a@starfivetech.com>
+Message-ID-Hash: Q4ZMTPBHPPNY23IOGBECZXBUYHROWN56
+X-Message-ID-Hash: Q4ZMTPBHPPNY23IOGBECZXBUYHROWN56
+X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- sound-open-firmware@alsa-project.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OJBFNHCURGHJLTHW5YQHH3DH6UMNJVZD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q4ZMTPBHPPNY23IOGBECZXBUYHROWN56/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,123 +101,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 09. 05. 23 16:35, Mark Brown wrote:
-> On Tue, May 09, 2023 at 11:54:18AM +0200, Jaroslav Kysela wrote:
-> 
->> The signature is correct in the encapsulated original e-mail. The b4 should
->> be improved in my opinion.
-> 
-> It's not b4 that's the issue here except in that it causes me to fetch
-> copies of the message that went to the list instead of my inbox which
-> didn't get mangled by the list.  git am just does not understand what's
 
-b4 can detect, if the e-mail is wrapped and use only the wrapped message. The 
-wrapping is the correct semantics per mailman 3 not mangling (see [1]).
+--cgSWW3RzfwlIKhhN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-https://docs.mailman3.org/projects/mailman/en/latest/src/mailman/handlers/docs/dmarc-mitigations.html
+On Tue, May 09, 2023 at 08:52:48PM +0800, Walker Chen wrote:
+> Hi Conor/Emil,
+>=20
+> DT overlay is used to describe combinations of VF2 and hat.
+> Do you have any comments on this patch ?
 
-> happening with attachments.  For example for:
-> 
->     168198605952.26.13645408104113633580@mailman-core.alsa-project.org
-> 
-> if I try to apply it the top of the commit message looks like:
-> 
-> | commit 8f0e0ee514b189cf7b4e7fa09581e3f1d246fa09 (HEAD -> tmp)
-> | Author: Richard Fitzgerald via Alsa-devel <alsa-devel@alsa-project.org>
-> | Date:   Thu Apr 20 11:20:43 2023 +0100
-> |
-> |     ASoC: cs35l56: Remove duplicate mbox log messages
-> |
-> |     Received: by alsa1.perex.cz (Postfix, from userid 50401)
-> |             id 7A47CF80155; Thu, 20 Apr 2023 12:20:56 +0200 (CEST)
-> |     X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-> 
-> with all the headers dumped in there which is just completely mangled.
-> Note the rewritten author.
+Up to Emil :)
 
-You should apply the wrapped message not the capsule.
+I seem to recall that he said at the linux-riscv sync-up call that we
+have* that he was not in favour of overlays for hats like this.
+I'll let him confirm that though, I might very well be misinterpreting or
+misremembering what he said.
 
-> mutt also represents this incredibly badly, it just shows the
-> "attachment" as the body of the message with all the headers dumped in
-> like they're just plain text in the body of the mail - I wouldn't have
-> thought this was an attachment if it hadn't been mentioned in this
-> thread, none of the atacment UI shows.  To reverse the mangling you have
-> to view attachments then save the root of the message to a folder.  AIUI
-> mutt assumes that whatever the root of the message is is intended to be
-> the message body and does the best it can to display it as such.
+Cheers,
+Conor.
 
-I think that you can configure the tool to process this attachment in mutt.
+* https://lore.kernel.org/linux-riscv/mhng-775d4068-6c1e-48a4-a1dc-b4a76ff2=
+6bb3@palmer-ri-x1c9a/
 
-> Lore *does* show the body of the message as an attachment.
+--cgSWW3RzfwlIKhhN
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Yes, the original message is in the attachment - no information is lost.
+-----BEGIN PGP SIGNATURE-----
 
->> As you see, the header and all signatures are correct in the attachment:
-> 
-> None of our tooling or processes understand this, they're working with
-> the top level message.
-> 
->>> Is it possible to take steps to improve the reptuation of the ALSA
->>> servers so this isn't needed, or could we migrate the lists elsewhere (I
-> 
->> It is not possible to talk with gmail administrators. I tried that several
->> times. The outgoing ALSA server is not on any spam list.
-> 
-> I know there is a lot of discussion going round about which hoops to
-> jump through to play nice with gmail, I don't know if there's any new
-> stuff that's come up there recently.
-> 
->>> know we set up linux-sound@vger at one point with the idea of
->>> migrating).
-> 
->> I guess that the vger servers have similar issues, because servers with
->> DMARC enabled on the ingress side can reject e-mails. It's related to e-mail
->> standards.
-> 
-> The issue I'm seeing here is the rewriting which I'm not aware of any
-> other lists having turned on, even infradead ones which are also mailman
-> based.  Either they're just tolerating people having issues with gmail
-> (which seems reasonable TBH) or they're jumping through some additional
-> hoops to avoid issues.
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZFqLXAAKCRB4tDGHoIJi
+0qBCAPsE8YwhVOhYQs79hkq8MKo8na1XocNJROiloe+mcYefYQEA354Svch8qplg
+cy1NtrkXNW4PClswD2VNVAVe/IphjAc=
+=UgFO
+-----END PGP SIGNATURE-----
 
-I checked infradead and they're using mailman 2. Mailman 2 does not support 
-DMARC mitigation.
-
-> I believe vger does sometimes manage some backchannel which probably
-> helps it somewhat.
-
-Using a non-standard mechanism is not a big win.
-
-DMARC is a internet standard - see RFC7489, RFC8616. It means that the mailing 
-lists cannot send e-mails with From from other domains which have restricted 
-policies set by *their* administrators. So basically, all mail servers 
-violates this if they keep the From header. Mailman 3 implemented several 
-types of mitigations and the message wrap is the best one in my eyes. The 
-mangling of the From header or reject e-mails from those senders is even worse 
-(see [1]).
-
-When I turn off the mitigation in mailman, my ALSA server will have bad 
-reputation for gmail users soon in an unpredictable manner. I also saw that 
-ATT incoming mail servers had similar issues. We can expect that the list of 
-the ingress SMTP servers not accepting e-mails based on the DMARC policy will 
-grow. It's something that we don't have under control.
-
-If we don't find that it's time to move forward and accept this policy, I can 
-turn off the mitigation, but in a cost that gmail (and soon maybe other) users 
-will bomb me (they already did last years) that the ALSA mail server does not 
-deliver e-mails for them. Are we a community on internet or not?
-
-Ideally, we should start upgrade and fix our tools...
-
-Let me just know, if you (and Takashi) insist to turn the mitigation off after 
-this discussion. I'll do so...
-
-					Jaroslav
-
-[1] 
-https://docs.mailman3.org/projects/mailman/en/latest/src/mailman/handlers/docs/dmarc-mitigations.html
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+--cgSWW3RzfwlIKhhN--

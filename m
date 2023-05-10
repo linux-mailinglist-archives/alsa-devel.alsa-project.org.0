@@ -2,122 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34D4E6FE342
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:29:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 015C76FE343
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:29:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E1ADF04;
-	Wed, 10 May 2023 19:28:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E1ADF04
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FB0E102F;
+	Wed, 10 May 2023 19:28:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FB0E102F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683739757;
-	bh=uExzRvXty8X32kjiW9cfioyNlEGt0aEPrlKtPh7CHl8=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=QeFrG6asl+YloLBxCe+wM+ZVx2blFqC4LZt2/ccrjsO+P/DYLrqzrm1che6k2kjon
-	 K47ih11n/Wz8TMdGGTewzTiSSwGbTqAc3Dc4T9y6XE9avdwqjOoLhVlRL/Xpcs9kD0
-	 W/p/oMo1AC4SEftLZ+modjvPpLO1jRj8EjjUGwBk=
+	s=default; t=1683739781;
+	bh=F5ds+LcMLaDGkVzsZdJKK8iINzbhG+OZIWrXpTateKs=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=RTdk/mGc7pG7kHjyN0UJp9Kv2sz5uPP0n+3XhM1kSILY5m3I6czUOOz4WlZ/bEpFD
+	 kCi8KB510xilbhXgeMgYDHc+2bDvIjU2RzQIZILrTx9R3+blXLkLP9mf70Jmuf0RbH
+	 VtCk5lAtXnPunL2KUereUsFRpaJbn28TPj8thoZI=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB86DF8055B;
-	Wed, 10 May 2023 19:27:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CA22F80567;
+	Wed, 10 May 2023 19:27:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6D82F8032D; Wed, 10 May 2023 11:18:14 +0200 (CEST)
+	id 8041CF8052E; Wed, 10 May 2023 11:21:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No,
+ score=-5.4 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 194E8F802E8
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 11:18:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 194E8F802E8
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=aGm4T2Im
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-50a20bfe366so1798690a12.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 10 May 2023 02:18:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683710282; x=1686302282;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+jevaS7XjYmubGxCabqB2SEiMi0tGSHztXxg0wz/p34=;
-        b=aGm4T2ImeDl3HjLxeWJMDW3qjdYp5oX4KjuQT3omAd9HqwymdXoVAOkA/zlJqo2y9r
-         a+g/FhkDKXE/hrqKlThAQjXEnj79UA3u4n683UNYF2ARpjRlNeteot0WZJj1d1xM1NnU
-         e+8Gf/afKFiLPxcsyi4hOwFx0S6xU800dzIeUAqAajU8TKHcgh9IBXtbJS+1liinjO74
-         qQ7Cz2z8BNIKGXe1Zjnxmk2GIkXCx79JrJDhv20qtDvHL99Nzk3hqhoEocTodcLYnkTb
-         hdVa7ciWOLHHHOBQXWHW04532l2RiFsHLh5+QGmrBsOta3BpFm8p1/i/eZpimV2Ha3m5
-         BkPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683710282; x=1686302282;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+jevaS7XjYmubGxCabqB2SEiMi0tGSHztXxg0wz/p34=;
-        b=japkg1XcuN+ZfEetm0+PMmmGc6BLfMvP+dkNhiN+Wrm/7RM3z1Wp6dovhq/+Ngvr33
-         JwToHrIds8bDXSln6KhQilU+WEDp4FMI2TO9wmn9bw5205NBG8edG9AQMrq6HMKOAZtb
-         8q/OUBwOstswsiWsvRMNi5jVYB6ZhUFk1LI9ylSJRo9mwKbKD55yDDsU4YaV3eRdj6vC
-         JIVqZ9BHbWRuvuYdKIXcAp6bCrgqITrMXIZG/6sM1JgN+vYVdZC1Xm5e/6hiG0tvuYiS
-         MsA95KEtmrNPmNUaBFypG2X0TJ2KZiCP47G9AIquUf8raisvhcgkKbX7WBSawMPsv9lb
-         VfbA==
-X-Gm-Message-State: AC+VfDzWslDvFMDU4QOE1XVta4Zz8cvqrMiJhCGx0nwmLiMaCcNYY7AD
-	MhIViKgRtv8wC8Qi+AUID/Q=
-X-Google-Smtp-Source: 
- ACHHUZ6kfTMCVyOH550c2jp3dI6n6OyH0zYXAmIdy28wl6JY97gMQHsMTiRNxw/4pjrcSq6Coyc+fg==
-X-Received: by 2002:a05:6402:3482:b0:506:97f2:1a44 with SMTP id
- v2-20020a056402348200b0050697f21a44mr15235342edc.3.1683710282395;
-        Wed, 10 May 2023 02:18:02 -0700 (PDT)
-Received: from [192.168.10.10] ([37.252.94.55])
-        by smtp.gmail.com with ESMTPSA id
- u15-20020aa7db8f000000b0050bc863d32asm1669580edt.27.2023.05.10.02.18.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 May 2023 02:18:02 -0700 (PDT)
-Message-ID: <414e52c8-d1b8-e445-c896-0f19effc6708@gmail.com>
-Date: Wed, 10 May 2023 13:17:59 +0400
+	by alsa1.perex.cz (Postfix) with ESMTPS id A0337F802E8
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 11:21:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0337F802E8
+Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
+	by ex01.ufhost.com (Postfix) with ESMTP id 5816224E2A9;
+	Wed, 10 May 2023 17:21:25 +0800 (CST)
+Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX166.cuchost.com
+ (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Wed, 10 May
+ 2023 17:21:23 +0800
+Received: from [192.168.125.124] (183.27.98.219) by EXMBX168.cuchost.com
+ (172.16.6.78) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Wed, 10 May
+ 2023 17:21:22 +0800
+Message-ID: <f27b7ee7-f23a-35a2-3b82-71f50871dfcc@starfivetech.com>
+Date: Wed, 10 May 2023 17:21:21 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
-Subject: Re: [PATCH] ALSA: PCM: Fix codestyle issues in pcm_native.c
+Subject: Re: [PATCH v3 3/3] riscv: dts: starfive: add tdm node and sound card
 Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>, perex@perex.cz, tiwai@suse.com,
- axboe@kernel.dk, 42.hyeyoo@gmail.com, surenb@google.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-References: <20230510072726.435247-1-ivan.orlov0322@gmail.com>
- <2023051052-recoil-headache-1594@gregkh>
- <f1a912ea-884b-fdcd-1c05-87089f1e97b7@gmail.com>
- <87a5yc626f.wl-tiwai@suse.de> <ZFtT9J0DQI9uSd1x@ugly>
-From: Ivan Orlov <ivan.orlov0322@gmail.com>
-In-Reply-To: <ZFtT9J0DQI9uSd1x@ugly>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MailFrom: ivan.orlov0322@gmail.com
+To: Emil Renner Berthing <emil.renner.berthing@canonical.com>, Conor Dooley
+	<conor@kernel.org>
+CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+	<conor.dooley@microchip.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>
+References: <20230506090116.9206-1-walker.chen@starfivetech.com>
+ <20230506090116.9206-4-walker.chen@starfivetech.com>
+ <a0932e84-3813-bbbe-762d-948d75fbcd8a@starfivetech.com>
+ <20230509-overheat-pliable-00d60523637e@spud>
+ <CAJM55Z9AxMVw=ymfFBb=45nODq89O8dMebzRgo-XD0GKduDBYg@mail.gmail.com>
+From: Walker Chen <walker.chen@starfivetech.com>
+In-Reply-To: 
+ <CAJM55Z9AxMVw=ymfFBb=45nODq89O8dMebzRgo-XD0GKduDBYg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [183.27.98.219]
+X-ClientProxiedBy: EXCAS064.cuchost.com (172.16.6.24) To EXMBX168.cuchost.com
+ (172.16.6.78)
+X-YovoleRuleAgent: yovoleflag
+X-MailFrom: walker.chen@starfivetech.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XAQWQUYIT3R3IENIJK7HJYCZC2LJ4PWX
-X-Message-ID-Hash: XAQWQUYIT3R3IENIJK7HJYCZC2LJ4PWX
+Message-ID-Hash: 2TZIV7NQLF6JISBLUBHHYXQXOCL7X5XH
+X-Message-ID-Hash: 2TZIV7NQLF6JISBLUBHHYXQXOCL7X5XH
 X-Mailman-Approved-At: Wed, 10 May 2023 17:27:05 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XAQWQUYIT3R3IENIJK7HJYCZC2LJ4PWX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2TZIV7NQLF6JISBLUBHHYXQXOCL7X5XH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,29 +100,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10.05.2023 12:21, Oswald Buddenhagen wrote:
-> On Wed, May 10, 2023 at 10:06:16AM +0200, Takashi Iwai wrote:
->> Also, if it's only about white space fix or some indent level issues,
->> that could be rather more noise and disturbs the git change history,
->> e.g. it makes difficult to find out the real code changes via git
->> blame, especially it touches a huge amount of lines like this.
+
+
+On 2023/5/10 16:33, Emil Renner Berthing wrote:
+> On Tue, 9 May 2023 at 20:05, Conor Dooley <conor@kernel.org> wrote:
 >>
->> That said, I'm not going to take such "coding style cleanup" patch
->> blindly.  If it's associated with other real fix or enhancement, I'll
->> happily take it.  Otherwise, I'd rather leave it.
+>> On Tue, May 09, 2023 at 08:52:48PM +0800, Walker Chen wrote:
+>> > Hi Conor/Emil,
+>> >
+>> > DT overlay is used to describe combinations of VF2 and hat.
+>> > Do you have any comments on this patch ?
 >>
-> a maybe less confusing way to put it would be "do whitespace cleanups 
-> only on the lines that contain "real" changes, and maybe in their 
-> immediate proximity for consistency". that means that whitespace-only 
-> patches are by definition not acceptable.
+>> Up to Emil :)
+>>
+>> I seem to recall that he said at the linux-riscv sync-up call that we
+>> have* that he was not in favour of overlays for hats like this.
+>> I'll let him confirm that though, I might very well be misinterpreting or
+>> misremembering what he said.
 > 
-> regards
+> What probably meant was that I didn't want a bunch of different device
+> trees for each combination board * hat. An overlay makes a lot more
+> sense. However, looking through the kernel tree there is a surprising
+> lack of overlays for hats committed already, so I suspect there is
+> some sort of policy around overlays already in place.
+Hi Emil,
 
-Oswald, Takashi, thank you for the explanation! I got it. The acceptance 
-of codestyle cleanup patches vary from one Kernel area to another. I'm 
-curious about the sound subsystem, and decided to fix some obvious 
-things before going to more significant enhancements I probably would 
-able to make.
+About the specific usage of overlay for this board + hat, referenced to the following example in kernel:
+linux/arch/arm64/boot/dts/freescale/imx8mm-venice-gw73xx-0x-imx219.dtso
+That board is connected with imx219 sensor via mipi_csi interface. That patch was accepted in 2022.
 
-Kind regards,
-Ivan Orlov.
+So do you think this way is feasible ?
+Thanks!
+
+Best regards,
+Walker
+ 
+> 
+>> Cheers,
+>> Conor.
+>>
+>> * https://lore.kernel.org/linux-riscv/mhng-775d4068-6c1e-48a4-a1dc-b4a76ff26bb3@palmer-ri-x1c9a/

@@ -2,145 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC32B6FD4DA
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 05:58:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76AC76FD4E0
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 05:59:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59723F4F;
-	Wed, 10 May 2023 05:57:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59723F4F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B21B3F4F;
+	Wed, 10 May 2023 05:59:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B21B3F4F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683691125;
-	bh=BEGf3Lr1pyDymOhopldv+Wa5YbZu4x3DKu1UOrDCphc=;
-	h=To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From:Reply-To:Cc:From;
-	b=k0aWpV7v37m32Eqss6y8prIjbGBk6AyY8RmwDrcxMD+760yGCtdLqmw1O43TFf5G2
-	 BnxcXxntUz5XdP/z+E2rTjS/8oq3fwU9aZvnUz330JrIdpOFEJVXCC5X8xd4XHGBn1
-	 kEVeNl/wjtRN42WoRpKeGrNr2+AuJ4FCdzjgFXxw=
+	s=default; t=1683691198;
+	bh=uujRn4j1RtHVhR7k0wx6EUo8LiOT/vrCYC4+Kzuz6WQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=GaWn95zK74XnUwWCl7aaIhHLcafKItA/TXkC1mnMKzRcMy9apKygyP3kKmjE6MXft
+	 6PrVLwFCtb7grUlX+RL9YA6SZ3E246JNQznfh/weSAgYRxR4o2+8fZ4432bXYY1ySM
+	 K7tE8R0mh5nJlZPYSfddloLRNOY6lZTG8xF3GvMo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 170A2F80579;
-	Wed, 10 May 2023 05:56:10 +0200 (CEST)
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v4 9/9] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
- properties
-Date: Wed, 10 May 2023 11:55:26 +0800
-In-Reply-To: <20230510035526.18137-1-trevor.wu@mediatek.com>
-References: <20230510035526.18137-1-trevor.wu@mediatek.com>
-X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
- loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
-X-Mailman-Version: 3.3.8
-Precedence: list
-List-Id: "Alsa-devel mailing list for ALSA developers -
- http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/22ABFTUOYCDUJX45Z3ZYA7LRYD6ACSTC/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
-List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
-List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
-List-Post: <mailto:alsa-devel@alsa-project.org>
-List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
-List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-MIME-Version: 1.0
-Message-ID: 
- <168369096918.26.4321897205711901795@mailman-core.alsa-project.org>
-From: Trevor Wu via Alsa-devel <alsa-devel@alsa-project.org>
-Reply-To: Trevor Wu <trevor.wu@mediatek.com>
-Cc: trevor.wu@mediatek.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: message/rfc822
-Content-Disposition: inline
-
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EAF0F8014C;
+	Wed, 10 May 2023 05:59:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48063F80564; Wed, 10 May 2023 05:56:05 +0200 (CEST)
+	id C01B0F8032D; Wed, 10 May 2023 05:59:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [IPv6:2001:4860:4864:20::34])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A393CF804B1
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 05:55:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A393CF804B1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 574FFF802E8;
+	Wed, 10 May 2023 05:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 574FFF802E8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=uz2k0e4a
-X-UUID: 81c6b9caeee611edb20a276fd37b9834-20230510
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=ddcLOnX/BO6Na/TZ45he0GMlEEE79LI3w2KyhqO/UCY=;
-	b=uz2k0e4aVvaX2AeJrNAt7/ReltNgN60+zho6nRjN5F0Disja+hTPLZuOynC1g5oOKbnNWbmdKbpmu5txRAajVAmoRclMhphXrW5uq+xQWlJbQ84HHJesSYIKUz2W4Qvg4FckEgyJrG4YFlG3PuSiSok+FCcpBHkhfe23m27x1A4=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.24,REQID:c27aa652-913e-45de-8a8d-07a132005fe1,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:178d4d4,CLOUDID:3f1d516b-2f20-4998-991c-3b78627e4938,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: 81c6b9caeee611edb20a276fd37b9834-20230510
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 805601875; Wed, 10 May 2023 11:55:30 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Wed, 10 May 2023 11:55:29 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Wed, 10 May 2023 11:55:29 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-	<matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>
-Subject: [PATCH v4 9/9] ASoC: dt-bindings: mediatek,mt8188-afe: add audio
- properties
-Date: Wed, 10 May 2023 11:55:26 +0800
-Message-ID: <20230510035526.18137-10-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230510035526.18137-1-trevor.wu@mediatek.com>
-References: <20230510035526.18137-1-trevor.wu@mediatek.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=HF2l7WQI
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-1924ec320c5so5260766fac.1;
+        Tue, 09 May 2023 20:58:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1683691135; x=1686283135;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=xNsl/pNeSnMR5DQWhsPAvAhq9kalbjCKMPhOuDJ4s0g=;
+        b=HF2l7WQIlTYGpjWYRRBIGR8rOePFR65TP5KwRJGtcAAvx0AgXgKC2jmeWv10LHIbLx
+         SegfaYkwgPFYrDk+e+xu7HtS0w7YMA9FZglKGYQdc443qAvAmiqHm/xmUnGVx44BH1Sq
+         Gj3rCYcxUa24ITISnJ/G8aWM9XJsRsE6y/zNPsYEpVsx9g1yLzvn7xjjV8vifRrpOTeg
+         ClYWp4rsz3NO9LOr1qLSvXlPkS6h5ReE1vYoMLHHYbrz8xR+BVYkPz/V/ZszGyFcFgb7
+         1fe+J38jq6DNo2dTBsHnVZRVrW12dC/cekMj3I6rt9qEUsYqHcGr1TWZmiSgbPfBrhhs
+         7u+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683691135; x=1686283135;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xNsl/pNeSnMR5DQWhsPAvAhq9kalbjCKMPhOuDJ4s0g=;
+        b=ImURALfeMX+tEhMpBsWDNG+GQkKMwWRbMzMn9/ADz6//Krd4h6Aa+hGO5SGiPDN6Lw
+         KBAg1pwjTvbwNRdtSyCguG6G30C20vWJXQlw4k76ymWtE8U4AvFuZqdwYfaVVetCRWWc
+         OrCZmN9E2rQ+pnj/ZP+YBr9BrcBzpCBVftqVim8dp05e/9V2VyCchOIbirMQatkcHbIr
+         EndkhjXtXLgaGYYqvhci0y2H0P3eAIZqOjd15fuf8n49M1WnZqffbyje3yIgkrBhJlqL
+         UdUcs5x1QDqtOp9fe+jZKNyHl2caa1zMLWlP67Qod20QrZvSjI6j1welWW+5+eXhUInv
+         Wo4g==
+X-Gm-Message-State: AC+VfDwBUVPnjBjhZFu0gfw2v5V9se+dxiGzf+oOrTvPMBOhv40MFgAt
+	MMyHMm7rF2qbCZsb8uPASXk=
+X-Google-Smtp-Source: 
+ ACHHUZ5QwGkxKHAFYeUrK1k/LXRxYT5HlMQiIITBVatZN+1/DfxkYM1VE89egDUgyXUuAbiSQbavNA==
+X-Received: by 2002:a05:6870:1842:b0:180:1faa:7c1c with SMTP id
+ u2-20020a056870184200b001801faa7c1cmr9970706oaf.46.1683691135033;
+        Tue, 09 May 2023 20:58:55 -0700 (PDT)
+Received: from geday ([2804:7f2:8006:8886:6ce0:2667:545a:2a1])
+        by smtp.gmail.com with ESMTPSA id
+ v44-20020a056870956c00b00184591ae6d0sm6689469oal.26.2023.05.09.20.58.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 May 2023 20:58:54 -0700 (PDT)
+Date: Wed, 10 May 2023 00:58:58 -0300
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
+ mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
+Message-ID: <ZFsWgnAQy5Y/rwyb@geday>
+References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+ <87o7n0mtv9.wl-tiwai@suse.de>
+ <87ednwmssr.wl-tiwai@suse.de>
+ <87wn1jdzuq.wl-tiwai@suse.de>
+ <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
+ <ZFoUaNKBkIgbW0rD@finisterre.sirena.org.uk>
+ <ff43dccf-ba6d-d7fa-352a-5d5a8c4b977f@perex.cz>
+ <ZFpaOVRc2E/CZBHI@finisterre.sirena.org.uk>
+ <10075912-5c0b-549f-58e1-1323683d250d@perex.cz>
+ <ZFr8B5UFx16sz7S0@finisterre.sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Message-ID-Hash: 22ABFTUOYCDUJX45Z3ZYA7LRYD6ACSTC
-X-Message-ID-Hash: 22ABFTUOYCDUJX45Z3ZYA7LRYD6ACSTC
-X-MailFrom: trevor.wu@mediatek.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZFr8B5UFx16sz7S0@finisterre.sirena.org.uk>
+Message-ID-Hash: 3FQDUESRCDWWPBAHWXRDEX7KNB6E3DKW
+X-Message-ID-Hash: 3FQDUESRCDWWPBAHWXRDEX7KNB6E3DKW
+X-MailFrom: geraldogabriel@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: trevor.wu@mediatek.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+CC: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ sound-open-firmware@alsa-project.org,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/22ABFTUOYCDUJX45Z3ZYA7LRYD6ACSTC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3FQDUESRCDWWPBAHWXRDEX7KNB6E3DKW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -149,101 +128,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add apll1_d4 to clocks for switching the parent of top_a1sys_hp
-dynamically and add property "mediatek,infracfg" for bus protection.
+On Wed, May 10, 2023 at 11:05:59AM +0900, Mark Brown wrote:
+> AFAICT the only other option is munging the From without enclosing the
+> message in a wrapper?  That's potentially marginally less harmful but
+> it's still going to break things badly enough that I'm not sure it's a
+> worthwhile improvement.
 
-Because no mt8188 upstream dts exists, the change won't break anything.
-In addition, apll2_d4, apll12_div4, top_a2sys and top_aud_iec are also
-included in clocks, because these clocks are possibly used in the future.
+The readymade mitigations for DMARC in mailman 3 are
+"munge_from" and "wrap_message". The fact "wrap_message" messes
+around with signatures in mutt is definitely not a good sign,
+and "munge_from" will change the author's email and name from
+the perspective of git-am.
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- .../bindings/sound/mediatek,mt8188-afe.yaml   | 30 +++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+The middle way could be to patch mailman 3 to "munge_from" while adding
+the correct "From:" as the first thing in the body of the message if it
+doesn't contain one already. This will make git-am pickup the correct
+author's details and it should be some simple logic.
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
-index 9e877f0d19fb..e6cb711ece77 100644
---- a/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt8188-afe.yaml
-@@ -29,6 +29,10 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: The phandle of the mediatek topckgen controller
- 
-+  mediatek,infracfg:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: The phandle of the mediatek infracfg controller
-+
-   power-domains:
-     maxItems: 1
- 
-@@ -52,6 +56,11 @@ properties:
-       - description: mux for i2si1_mck
-       - description: mux for i2si2_mck
-       - description: audio 26m clock
-+      - description: audio pll1 divide 4
-+      - description: audio pll2 divide 4
-+      - description: clock divider for iec
-+      - description: mux for a2sys clock
-+      - description: mux for aud_iec
- 
-   clock-names:
-     items:
-@@ -73,6 +82,11 @@ properties:
-       - const: top_i2si1
-       - const: top_i2si2
-       - const: adsp_audio_26m
-+      - const: apll1_d4
-+      - const: apll2_d4
-+      - const: apll12_div4
-+      - const: top_a2sys
-+      - const: top_aud_iec
- 
-   mediatek,etdm-in1-cowork-source:
-     $ref: /schemas/types.yaml#/definitions/uint32
-@@ -144,6 +158,7 @@ required:
-   - resets
-   - reset-names
-   - mediatek,topckgen
-+  - mediatek,infracfg
-   - power-domains
-   - clocks
-   - clock-names
-@@ -162,6 +177,7 @@ examples:
-         resets = <&watchdog 14>;
-         reset-names = "audiosys";
-         mediatek,topckgen = <&topckgen>;
-+        mediatek,infracfg = <&infracfg_ao>;
-         power-domains = <&spm 13>; //MT8188_POWER_DOMAIN_AUDIO
-         mediatek,etdm-in2-cowork-source = <2>;
-         mediatek,etdm-out2-cowork-source = <0>;
-@@ -184,7 +200,12 @@ examples:
-                  <&topckgen 78>, //CLK_TOP_I2SO2
-                  <&topckgen 79>, //CLK_TOP_I2SI1
-                  <&topckgen 80>, //CLK_TOP_I2SI2
--                 <&adsp_audio26m 0>; //CLK_AUDIODSP_AUDIO26M
-+                 <&adsp_audio26m 0>, //CLK_AUDIODSP_AUDIO26M
-+                 <&topckgen 132>, //CLK_TOP_APLL1_D4
-+                 <&topckgen 133>, //CLK_TOP_APLL2_D4
-+                 <&topckgen 183>, //CLK_TOP_APLL12_CK_DIV4
-+                 <&topckgen 84>, //CLK_TOP_A2SYS
-+                 <&topckgen 82>; //CLK_TOP_AUD_IEC>;
-         clock-names = "clk26m",
-                       "apll1",
-                       "apll2",
-@@ -202,7 +223,12 @@ examples:
-                       "top_i2so2",
-                       "top_i2si1",
-                       "top_i2si2",
--                      "adsp_audio_26m";
-+                      "adsp_audio_26m",
-+                      "apll1_d4",
-+                      "apll2_d4",
-+                      "apll12_div4",
-+                      "top_a2sys",
-+                      "top_aud_iec";
-     };
- 
- ...
--- 
-2.18.0
+If Jaroslav is brave enough to maintain this supposed patch to mailman 3
+in case it doesn't get picked-up upstream by the FSF folks...
 
+I understand the maintainers needs must come first but it will be
+terrible to get the GMail bouncing behaviour again, I don't want to
+press the point since Jaroslav already made the speech I think it
+was needed.
+
+Thanks,
+Geraldo Nascimento

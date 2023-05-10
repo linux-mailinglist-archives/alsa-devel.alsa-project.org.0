@@ -2,121 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C896B6FE347
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:30:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D8866FE349
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:31:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E058103D;
-	Wed, 10 May 2023 19:29:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E058103D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5399D1047;
+	Wed, 10 May 2023 19:30:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5399D1047
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683739838;
-	bh=XH4T4vZiKRLT3I1DGdLOd8mNk0vYzY/lXvsrEJOsIOo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Q/deyrzmmflx4YayiGlNCitElWFps1qwoqiB8sOS+GxBPhR6FFj4U2bKydxm3nw9A
-	 Ql2uTmmV0U198nkIma+cf4cu0NeBVAnHRZAU0oi9FbapglPIavxgUe/ukWD0skgOxX
-	 hLM0Kfu0bY0YH8tPeyOqfqVyG+gPC7DA5SnvV/KA=
+	s=default; t=1683739864;
+	bh=0bT5NrcOAVzoHodt3oI6D1EM/pGw9sVK/2GQeIWiPAQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:List-Id:List-Archive:List-Help:
+	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HJXBgb7WztGa3dquQ0c8Djhj+KPXWMbrBFTl3XndN0+8FeZ9r2rCV7oKe6IKTZ3kM
+	 wRRg3xLdDDwXo0Eh5T5FWDgW/bVyWIiz3ovGVsO6Nv2t9rNBunRyADH9djZOic18Lp
+	 K5QkJEYMdCK1/8UigcMShXYwWj2PFdtRG8fxRAJw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23D0DF805A8;
-	Wed, 10 May 2023 19:27:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B88B8F805AC;
+	Wed, 10 May 2023 19:27:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B6DA0F804B1; Wed, 10 May 2023 17:34:26 +0200 (CEST)
+	id D16A7F80544; Wed, 10 May 2023 18:20:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_DYNAMIC,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from mail.icequake.net (64-251-151-187.fidnet.com [64.251.151.187])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 26BABF80087
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 17:34:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26BABF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 89E72F8052E
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 18:20:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89E72F8052E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=google header.b=Z64/Qq+w
-Received: by mail-pl1-x636.google.com with SMTP id
- d9443c01a7336-1ab1b79d3a7so51025415ad.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 10 May 2023 08:34:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1683732852; x=1686324852;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=TGdFz0/zjmSNSCKPr7WJdZcKjw9j0mmsRhyFM3AdzZ8=;
-        b=Z64/Qq+whciUuURvLPSSLNXJsMVVO9UzGc7+2vH3ndyWEL8InooBZXNkZ6SsZ8O27D
-         u+mgNx4dIYVksmEe3JICSaS8GP/ZTiEJmObBBJL58PodzvlZ0WFH895OapgWd/xQTjQe
-         T+FNNCtUI6XPelHwAADWkZuEotb2Th824aAsg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683732852; x=1686324852;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TGdFz0/zjmSNSCKPr7WJdZcKjw9j0mmsRhyFM3AdzZ8=;
-        b=ewEe74714tq8oz9kUy8jUocOemubX/IJQvzgKRWYxxlf7dmXzIj4ToxFN92B337VVL
-         TTvDsxESjCfzgNsJ6Q2sAAJ237HQnR2KPUu3/+C0mmbs14SfRdqxiwjjuq1Yn9W8nMG+
-         B85yKeLli4kr0fgMbwSqESwyIY5tYa983iVNzTGN1cQG13/aIysSX7D1fd12/z3HB6AE
-         YWiBnlop0NFq8aUigM3Ep7Bhp4tcAEhI/LazfhIOjbSoRmy/11gnXXCz1L5Zp8V1OMdg
-         g2nLn1lGOECa/XJa20ZKP0P6AKVE6sFF+ULG5S3xhLTV7tc5hJm5o5owzzVJ2QQWRhDJ
-         n2rg==
-X-Gm-Message-State: AC+VfDxP7yZYBDzZvYXssJ+aVMBn4JEon80ro+oIZMVi3YO0Js2qH2XH
-	ivotvkrBGj1e8l9pEPldITF/mg==
-X-Google-Smtp-Source: 
- ACHHUZ42Sjj5AJhiyiK9jmDbF+eqHiaZDBDaaPbfSPKop3diRiUTiPZyrnz94h95O2PfvNk+EhZ5Ow==
-X-Received: by 2002:a17:902:7e84:b0:1aa:f173:2892 with SMTP id
- z4-20020a1709027e8400b001aaf1732892mr16702837pla.57.1683732852375;
-        Wed, 10 May 2023 08:34:12 -0700 (PDT)
-Received: from nitro.local ([2001:4958:15a0:30:e305:5a3c:4c5a:1bc7])
-        by smtp.gmail.com with ESMTPSA id
- n10-20020a170902e54a00b001ac741dfd29sm3926896plf.295.2023.05.10.08.34.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 May 2023 08:34:11 -0700 (PDT)
-Date: Wed, 10 May 2023 11:34:10 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
-	alsa-devel@alsa-project.org,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- sound-open-firmware@alsa-project.org
-Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
- mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
-Message-ID: <20230510-robert-diane-joe-846d41@meerkat>
-References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
- <87o7n0mtv9.wl-tiwai@suse.de>
- <87ednwmssr.wl-tiwai@suse.de>
- <87wn1jdzuq.wl-tiwai@suse.de>
- <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
- <ZFoUaNKBkIgbW0rD@finisterre.sirena.org.uk>
- <ff43dccf-ba6d-d7fa-352a-5d5a8c4b977f@perex.cz>
- <20230509-mug-private-mess-6a36d2@meerkat>
- <31969101-c1cf-4956-6446-2243ccda0c65@perex.cz>
+ unprotected) header.d=icequake.net header.i=@icequake.net header.a=rsa-sha256
+ header.s=mail-1 header.b=n6Ekn8bb
+Received: from mail.icequake.net (aurora [127.0.0.1])
+	by mail.icequake.net (Postfix) with ESMTP id A571CD40D3;
+	Wed, 10 May 2023 11:20:10 -0500 (CDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icequake.net;
+	s=mail-1; t=1683735610; x=1684340410;
+	bh=6cS+j1VRYNpWo0Wuv7yVjob9ieRCBGEGS8tiLASM/To=;
+	h=Date:From:To:Cc:Subject:Reply-To:Subject:From:To:Date;
+	b=n6Ekn8bbIpwtx12UqCvx7E7uvT8FYn3NQ6yxhyq8EjFRcXbGFDEfwswf5uVt9xqH5
+	 /X4TwayNemtg4fB81SW3lqHKjSaPTQDOzpG59/X4Q/VgOBx9OKo0DKPTAjnDKV46uA
+	 mCzhlqA9qJpBy9mXmDTmjQ2ZOkiwI+o0dMDjMfow=
+Received: from localhost (aurora [127.0.0.1])
+	by mail.icequake.net (Postfix) with ESMTP id 7697ED42C7;
+	Wed, 10 May 2023 11:20:10 -0500 (CDT)
+X-Virus-Scanned: Debian amavisd-new at icequake.net
+Received: from mail.icequake.net ([127.0.0.1])
+	by localhost (aurora.icequake.net [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id O_wH484lYCTR; Wed, 10 May 2023 11:20:08 -0500 (CDT)
+Received: from localhost (rrcs-71-42-125-220.sw.biz.rr.com [71.42.125.220])
+	(Authenticated sender: nemesis@icequake.net)
+	by mail.icequake.net (Postfix) with ESMTPSA id A0B2AD40D3;
+	Wed, 10 May 2023 11:20:08 -0500 (CDT)
+Date: Wed, 10 May 2023 11:19:08 -0500
+From: "Ryan C. Underwood" <nemesis-lists@icequake.net>
+To: alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Stefan Binding <sbinding@opensource.cirrus.com>,
+	Meng Tang <tangmeng@uniontech.com>,
+	Andy Chi <andy.chi@canonical.com>,
+	"Luke D. Jones" <luke@ljones.dev>,
+	Philipp Jungkamp <p.jungkamp@gmx.net>,
+	Kacper =?utf-8?Q?Michaj=C5=82ow?= <kasper93@gmail.com>,
+	Yuchi Yang <yangyuchi66@gmail.com>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] snd-hda-intel: Apply HP B&O top speaker profile to Pavilion
+ 15
+Message-ID: <ZFvD/HwNPd6xuCMo@icequake.net>
+Mail-Followup-To: alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Stefan Binding <sbinding@opensource.cirrus.com>,
+	Meng Tang <tangmeng@uniontech.com>,
+	Andy Chi <andy.chi@canonical.com>,
+	"Luke D. Jones" <luke@ljones.dev>,
+	Philipp Jungkamp <p.jungkamp@gmx.net>,
+	Kacper =?utf-8?Q?Michaj=C5=82ow?= <kasper93@gmail.com>,
+	Yuchi Yang <yangyuchi66@gmail.com>, linux-kernel@vger.kernel.org
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="90BXrl9KsEnGw98J"
 Content-Disposition: inline
-In-Reply-To: <31969101-c1cf-4956-6446-2243ccda0c65@perex.cz>
-X-MailFrom: konstantin@linuxfoundation.org
+X-MailFrom: nemesis-lists@icequake.net
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: HJSVN2EBFHA7OST5ALPFBW3BQDJ3VXY4
-X-Message-ID-Hash: HJSVN2EBFHA7OST5ALPFBW3BQDJ3VXY4
+Message-ID-Hash: D64D4FZJDD3ECAEJIZFRJPS533TMMHMS
+X-Message-ID-Hash: D64D4FZJDD3ECAEJIZFRJPS533TMMHMS
 X-Mailman-Approved-At: Wed, 10 May 2023 17:27:06 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
+Reply-To: nemesis@icequake.net
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HJSVN2EBFHA7OST5ALPFBW3BQDJ3VXY4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D64D4FZJDD3ECAEJIZFRJPS533TMMHMS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,62 +114,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, May 10, 2023 at 09:50:24AM +0200, Jaroslav Kysela wrote:
-> > It is perfectly possible to operate a mailing list server and be
-> > DMARC-compliant (at least for DKIM-signed messages) without requiring any of
-> > the horrible things mailman-3 is doing:
-> > 
-> > https://begriffs.com/posts/2018-09-18-dmarc-mailing-list.html
-> 
-> I wish that it was as easy.
 
-It is. We've been operating DMARC-compliant mailing lists for many years now
-without needing to mangle any messages.
+--90BXrl9KsEnGw98J
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> I don't see any references to RFCs in this text,
-> so we cannot verify the contents. As our mailing list does not modify the
-> headers and body, the DKIM is correct for our messages, but it does not work
-> practically (the mitigation was turned on recently, so I know how many
-> bounces were present).
 
-Can you please show me the message that was no longer DMARC-compliant after
-passing through your mailing list server? I will point out what made them
-non-DMARC-compliant, and it won't be some builtin incompatibility between
-DMARC and mailing lists.
+The Pavilion 15 line has B&O top speakers similar to the x360 and
+applying the same profile produces good sound.  Without this, the sound
+would be tinny and underpowered without either applying
+model=3Dalc295-hp-x360 or booting another OS first.
+---
+ sound/pci/hda/patch_realtek.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Also, RFC7960 does not describe this:
-> 
-> https://datatracker.ietf.org/doc/html/rfc7960#section-4.1.3
-> 
-> especially:
-> 
-> https://datatracker.ietf.org/doc/html/rfc7960#section-3.2.3
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index e103bb3693c0..7cb232a23a08 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9335,7 +9335,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] =
+=3D {
+ 	SND_PCI_QUIRK(0x103c, 0x802f, "HP Z240", ALC221_FIXUP_HP_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x103c, 0x8077, "HP", ALC256_FIXUP_HP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x103c, 0x8158, "HP", ALC256_FIXUP_HP_HEADSET_MIC),
+-	SND_PCI_QUIRK(0x103c, 0x820d, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_=
+MIC3),
++	SND_PCI_QUIRK(0x103c, 0x820d, "HP Pavilion 15", ALC295_FIXUP_HP_X360),
+ 	SND_PCI_QUIRK(0x103c, 0x8256, "HP", ALC221_FIXUP_HP_FRONT_MIC),
+ 	SND_PCI_QUIRK(0x103c, 0x827e, "HP x360", ALC295_FIXUP_HP_X360),
+ 	SND_PCI_QUIRK(0x103c, 0x827f, "HP x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
+--=20
+2.39.2
 
-These talk specifically about messages that were modified by the mailing list
-software.
 
-> and see note in:
-> 
-> https://datatracker.ietf.org/doc/html/rfc7960#section-3.2.3.1
-> 
-> So "keep everything unmodified" for DKIM is just only one part of the
-> problem. Perhaps, there's a RFC update somewhere which adds another note.
+--=20
+Ryan C. Underwood, <nemesis@icequake.net>
 
-I can demonstrate to you millions of email messages that passed through the
-mailing list that are still perfectly DMARC compliant -- you seem convinced
-that it's not possible. For example, here's the authentication header set by
-GMail for a message that I recently received via the tools mailing list:
+--90BXrl9KsEnGw98J
+Content-Type: application/pgp-signature; name="signature.asc"
 
-	Authentication-Results: mx.google.com;
-		   dkim=pass header.i=@gmail.com header.s=20221208 header.b=YVg2o3VH;
-		   spf=pass (google.com: domain of [omitted]@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=[omitted]@gmail.com;
-		   dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com
+-----BEGIN PGP SIGNATURE-----
 
-So, I'm just going to repeat this: operating a mailing list and remaining
-DMARC compliant is perfectly possible, provided:
+iF0EABECAB0WIQSqqegowG2kcGXAAAMiiceeH7ruOQUCZFvD+AAKCRAiiceeH7ru
+OWuxAJ4/b/bKgxGdMv4EroO2HzeGV/b85gCdEgaJIiCFKUsShQnEFF+WBEBBYO4=
+=jase
+-----END PGP SIGNATURE-----
 
-- the original message is DKIM-signed
-- all existing headers are unmodified
-- the message body is unmodified
-
--K
+--90BXrl9KsEnGw98J--

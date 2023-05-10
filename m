@@ -2,90 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BFD46FE2CD
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 18:56:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD706FE31A
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:13:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58C811014;
-	Wed, 10 May 2023 18:55:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58C811014
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D9C31016;
+	Wed, 10 May 2023 19:12:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D9C31016
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683737760;
-	bh=gdfDGCkAwLxnq7fj1R5C13I6V4pSD/DIKF1qCqMqIw8=;
-	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
+	s=default; t=1683738808;
+	bh=ipxlx3b9cnnxcE6cG1diEss35YH2JZEjePRBO9K1EW8=;
+	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UV8kdf5DwomYkBXIxxleOtZ+4Ulpg5DnoqjfLoQUQWxSlFCPy8lwj/JIVQfLWPLgF
-	 08ccPjAZb3ExALn1GXSZ0NtP8h4qiP4Z0LS9zOzpFL1rwznwI+tbvTmyxLVHs/VKC1
-	 qaSWC8k4hLiRtGvmCGIhHds9unP/nUCvpchgLSlg=
+	b=H+atuvlshzvKyUpA6D8eViOK1v3/JhVBxrpPi38WoZ2TRBXWS8NKA1Xbw5HaSQUZl
+	 4vbprgap062W8o6PoxxBW5OG44KEVSb/HPXpHg46We8w8OPfq/fakrRkVRP4TFhQH5
+	 X3jVSmhpeilg1aByL8mr0O+cDLLSCYmIpi5P6eXY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B02AAF80310;
-	Wed, 10 May 2023 18:55:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7816EF80310;
+	Wed, 10 May 2023 19:12:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20DD0F8032D; Wed, 10 May 2023 18:55:06 +0200 (CEST)
+	id 85A64F8032D; Wed, 10 May 2023 19:12:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0BECCF80087
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 18:55:02 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 8506511F7;
-	Wed, 10 May 2023 18:55:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 8506511F7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1683737701; bh=Xd+L7eTp5FVpb6D1pWVSz8ugqqmMP0C1GtW3qYGO8PM=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=D7cL/gghe0MMR5G4Y867+CvSAqKMiL1P7AYtYpqwxRxilfmZPzQkF+qylrGX9uwTU
-	 qfyExSsYE8MUpeiYTFhdrNjWq62oPfHuDUEC9ya1S+0EybSCXK/adkkHl4fm0/fLFS
-	 lxQOujO7Zo0Kp7Cz1PfAHTcAaAKWTND73FB0+K50=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 10 May 2023 18:54:58 +0200 (CEST)
-Message-ID: <24e60af6-9585-289c-05e5-5b34370c6dba@perex.cz>
-Date: Wed, 10 May 2023 18:54:57 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Content-Language: en-US
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
- alsa-devel@alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4BEC9F80087
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 19:12:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BEC9F80087
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 6E46D2408D;
+	Wed, 10 May 2023 13:12:20 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pwnMS-sbr-00; Wed, 10 May 2023 19:12:20 +0200
+Date: Wed, 10 May 2023 19:12:20 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH v3] ALSA: pcm: auto-fill buffer with silence when
+ draining playback
+Message-ID: <ZFvQdJ2/d1muNQPO@ugly>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>,
+	alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
 References: <20230510162924.3063817-1-oswald.buddenhagen@gmx.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH v3] ALSA: pcm: auto-fill buffer with silence when draining
- playback
-In-Reply-To: <20230510162924.3063817-1-oswald.buddenhagen@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3CGXNVGL3H77UOSJVKFX63YAVTJ7YSVS
-X-Message-ID-Hash: 3CGXNVGL3H77UOSJVKFX63YAVTJ7YSVS
-X-MailFrom: perex@perex.cz
+ <24e60af6-9585-289c-05e5-5b34370c6dba@perex.cz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <24e60af6-9585-289c-05e5-5b34370c6dba@perex.cz>
+Message-ID-Hash: TP2ZITWHOWCDN4VTBWOJPDKA6FPUQMZE
+X-Message-ID-Hash: TP2ZITWHOWCDN4VTBWOJPDKA6FPUQMZE
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: Takashi Iwai <tiwai@suse.de>
+CC: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3CGXNVGL3H77UOSJVKFX63YAVTJ7YSVS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TP2ZITWHOWCDN4VTBWOJPDKA6FPUQMZE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,24 +79,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10. 05. 23 18:29, Oswald Buddenhagen wrote:
-> Draining will always playback somewhat beyond the end of the filled
-> buffer. This would produce artifacts if the user did not set up the
-> auto-silencing machinery, which is an extremely easy mistake to make, as
-> the API strongly suggests convenient fire-and-forget semantics. This
-> patch makes it work out of the box.
-> 
-> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+On Wed, May 10, 2023 at 06:54:57PM +0200, Jaroslav Kysela wrote:
+>NAK. Already implemented in alsa-lib which is enough for the first 
+>implementation.
+>
+did you read the part below the cut-off line? ;-)
 
-NAK. Already implemented in alsa-lib which is enough for the first 
-implementation. This patch also does not set the perfect drain flag nor 
-handles the silence suppression for the user space (double fill) [1].
+>> you are NOT expected to apply this. i just needed it for my testing
+>> (it's easier to deploy as i'm hacking on the kernel anyway) and wanted
+>> to post it for posterity.
 
-				Jaroslav
+this patch should serve as a template for fixing the bug in the 
+user-space implementation i reported a few days back. i'll post a patch 
+sometimes soon if you don't beat me to it.
 
-[1] https://lore.kernel.org/alsa-devel/20230502115536.986900-1-perex@perex.cz/
+also, i think the drain_silence config should be re-interpreted as 
+overriding the default 1/10th sec "overshoot", rather than nonsensically 
+the total delay irrespective of period size.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+regards

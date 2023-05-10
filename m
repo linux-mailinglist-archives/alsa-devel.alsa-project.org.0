@@ -2,40 +2,40 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A7E6FE11A
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 17:05:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 823866FE153
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 17:12:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 531CE1044;
-	Wed, 10 May 2023 17:04:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 531CE1044
+	by alsa0.perex.cz (Postfix) with ESMTPS id 674E7100F;
+	Wed, 10 May 2023 17:12:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 674E7100F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683731112;
+	s=default; t=1683731574;
 	bh=ht4Xp+j+Z/dsA3sLWnDQF8BKEuqV1FhA2y0sFH1RHBs=;
 	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=s8wllsJXYkbQAKGPnBSthOj5rbeV0lOBmbBMvXRDpsPJ3aV/4pgn7BH+H7Pmo/Z8J
-	 OiysAA5jgM6SfwSt8/z6y1CcjwaZ571S4jKw23l7QXkIttBqNH2uHhYtt4B8sARN5H
-	 rzGmhornglITDcnEv+20DElXba6cN8T5Ma9fmSqs=
+	b=OdFDrkjMRxpNF018s44xTYi0I8/5uo1yQ5oxenotEpL6z3VqCMGf0M9WAcHFuzFti
+	 //P6xLDYedUEkYqiennEFeChyxhaSOas3iZEo8/hZ+CAtdjDFPj+rvsBgToRl+41HK
+	 uxeiKNoWzDfmgJoYczJHxNGSebsHKY87lLYg9iF8=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EB50F8032D;
-	Wed, 10 May 2023 17:04:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA731F80310;
+	Wed, 10 May 2023 17:12:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AA78F804B1; Wed, 10 May 2023 17:04:16 +0200 (CEST)
+	id 2A660F8032D; Wed, 10 May 2023 17:11:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
+	autolearn=unavailable autolearn_force=no version=3.4.6
 Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C28EAF8014C
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 17:03:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C28EAF8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 131EEF80087
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 17:11:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 131EEF80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
@@ -112,7 +112,8 @@ List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NU6DD2SCX2YIRV72UTBMRXUWRQCL7OZC/>
-List-Archive: <>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>

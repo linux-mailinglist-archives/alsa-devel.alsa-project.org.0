@@ -2,116 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 823866FE153
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 17:12:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C21F6FE00C
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 16:24:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 674E7100F;
-	Wed, 10 May 2023 17:12:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 674E7100F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99E441021;
+	Wed, 10 May 2023 16:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99E441021
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683731574;
-	bh=ht4Xp+j+Z/dsA3sLWnDQF8BKEuqV1FhA2y0sFH1RHBs=;
-	h=From:To:Subject:Date:References:In-Reply-To:CC:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OdFDrkjMRxpNF018s44xTYi0I8/5uo1yQ5oxenotEpL6z3VqCMGf0M9WAcHFuzFti
-	 //P6xLDYedUEkYqiennEFeChyxhaSOas3iZEo8/hZ+CAtdjDFPj+rvsBgToRl+41HK
-	 uxeiKNoWzDfmgJoYczJHxNGSebsHKY87lLYg9iF8=
+	s=default; t=1683728656;
+	bh=XuidYcf94+bZ9qtd3OuBtGjKGSO+IpDOM8Be/vVUSBE=;
+	h=From:To:Subject:Date:CC:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LiuKQrVLHIahAVnjkmqRzyqDTsXYwDeW0rFhg/SwPMcCqEpdJbkmJwWWr7n98KJBJ
+	 ZC+ElY46S/n9XRaoC7pKpDWU2C/hbd1YX0czXnyzKDcfpbw82VshmgKatR/6aerFQF
+	 QfXc7a9r2P/F5UzPXsGaPRuGynX09lCnrnDh/njM=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA731F80310;
-	Wed, 10 May 2023 17:12:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5E00F80310;
+	Wed, 10 May 2023 16:23:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A660F8032D; Wed, 10 May 2023 17:11:39 +0200 (CEST)
+	id 1D45FF8032D; Wed, 10 May 2023 16:23:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 131EEF80087
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 17:11:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 131EEF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0B3EAF8014C
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 16:23:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B3EAF8014C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=Hxwzvt/i
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
-	by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 34AE3owP005955;
-	Wed, 10 May 2023 09:03:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1683727430;
-	bh=ht4Xp+j+Z/dsA3sLWnDQF8BKEuqV1FhA2y0sFH1RHBs=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=Hxwzvt/iw0sSmAU7M4sNJbgUfPhy2AveemU93VNCu11exmwR7wOvs18wCsOn/OTnl
-	 iIkCJqv+KFgfmltpvLXCQDu+VZ+GU8tWGM78xAE8nwLA2m7WEERdQbmAWvvJwXW5Sd
-	 BZ2WIPCt0yHAd0QsZAFhCxEParABCFHp0bnrhvQE=
-Received: from DLEE102.ent.ti.com (dlee102.ent.ti.com [157.170.170.32])
-	by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 34AE3onK001992
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 10 May 2023 09:03:50 -0500
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE102.ent.ti.com
- (157.170.170.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 10
- May 2023 09:03:49 -0500
-Received: from DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c]) by
- DLEE101.ent.ti.com ([fe80::91ee:60bc:bfb7:851c%18]) with mapi id
- 15.01.2507.023; Wed, 10 May 2023 09:03:49 -0500
-From: "Ding, Shenghao" <shenghao-ding@ti.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: RE: [EXTERNAL] Re: [PATCH v2 2/5] ASoC: dt-bindings: Add tas2781
- amplifier
-Thread-Topic: [EXTERNAL] Re: [PATCH v2 2/5] ASoC: dt-bindings: Add tas2781
- amplifier
-Thread-Index: AQHZgw2r46dnAmj+dEya5A38wB/fZK9Td3kQ
-Date: Wed, 10 May 2023 14:03:49 +0000
-Message-ID: <c088d7dce83a45168d0dc25fee4a9e35@ti.com>
-References: <20230508054512.719-1-13916275206@139.com>
- <ca9d45cf-8a84-4fbc-e1dd-c96eef36fe25@linaro.org>
-In-Reply-To: <ca9d45cf-8a84-4fbc-e1dd-c96eef36fe25@linaro.org>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.250.160.143]
-x-exclaimer-md-config: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=ov+kCysg
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34ADxGXC003956;
+	Wed, 10 May 2023 09:23:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=uey+YIleiDDyypUbzSZNSiS9ZzZLsk6K8v25sAR5S7E=;
+ b=ov+kCysgyEF5Bzphz/KuH1fhHIO/jKykKmDk3zAmsUhirVvVaXAQAK5R8RPQRewcg7pq
+ riEaQtfoVQN1hjbXfiYjFB1ZredhW5nL4A34XRLQpVZRdzF0w23HDHqfLYGTJMnFOUrr
+ ynCfZ3681mGvJpnKjQzf6dnoPBnJy/B/OSVUqnh4hPU5GwCI4geE7Ou+vy7k2gvohPAx
+ pVyl0kqtoIYMlYYL6TOau4Z+adOycUsmkDm0clU9keBDMeIvVDVEsOUO4ILrzEP+ti5k
+ pGmhH0NdQYZY/9Pif0N5ZXUjGsyURA2LSfnGMP99BGIGRcJaOQKugOJ6aZTXOpIIGFeM mA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7nb23xp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 10 May 2023 09:23:03 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 10 May
+ 2023 09:23:00 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Wed, 10 May 2023 09:23:00 -0500
+Received: from lon-bigdaddy.ad.cirrus.com (unknown [198.61.64.169])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8ABAA11D4;
+	Wed, 10 May 2023 14:23:00 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP EliteBook G10 laptops
+Date: Wed, 10 May 2023 15:22:27 +0100
+Message-ID: <20230510142227.32945-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Message-ID-Hash: NU6DD2SCX2YIRV72UTBMRXUWRQCL7OZC
-X-Message-ID-Hash: NU6DD2SCX2YIRV72UTBMRXUWRQCL7OZC
-X-MailFrom: shenghao-ding@ti.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: QZXuf4eiwk5pFhTFxjyw56lYNa-lsZ8U
+X-Proofpoint-GUID: QZXuf4eiwk5pFhTFxjyw56lYNa-lsZ8U
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 3WHKARF4YCPXN2ZHYMENSYVHEGJ6PKYG
+X-Message-ID-Hash: 3WHKARF4YCPXN2ZHYMENSYVHEGJ6PKYG
+X-MailFrom: prvs=049441bd21=vitalyr@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: "Lu, Kevin" <kevin-lu@ti.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Xu,
- Baojun" <x1077012@ti.com>, "Gupta, Peeyush" <peeyush@ti.com>,
- "Navada Kanyana, Mukund" <navada@ti.com>,
- "gentuser@gmail.com" <gentuser@gmail.com>,
- "Ryan_Chu@wistron.com" <Ryan_Chu@wistron.com>,
- "Sam_Wu@wistron.com" <Sam_Wu@wistron.com>,
- Shenghao Ding <13916275206@139.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
+CC: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org, Vitaly Rodionov <vitalyr@opensource.cirrus.com>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NU6DD2SCX2YIRV72UTBMRXUWRQCL7OZC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3WHKARF4YCPXN2ZHYMENSYVHEGJ6PKYG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,86 +105,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-QW5zd2VywrcgZW1iZWRlZCANCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEty
-enlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4gDQpTZW50
-OiBXZWRuZXNkYXksIE1heSAxMCwgMjAyMyAzOjA0IFBNDQpUbzogU2hlbmdoYW8gRGluZyA8MTM5
-MTYyNzUyMDZAMTM5LmNvbT47IGJyb29uaWVAa2VybmVsLm9yZzsgZGV2aWNldHJlZUB2Z2VyLmtl
-cm5lbC5vcmc7IGtyenlzenRvZi5rb3psb3dza2krZHRAbGluYXJvLm9yZzsgcm9iaCtkdEBrZXJu
-ZWwub3JnOyBsZ2lyZHdvb2RAZ21haWwuY29tOyBwZXJleEBwZXJleC5jejsgcGllcnJlLWxvdWlz
-LmJvc3NhcnRAbGludXguaW50ZWwuY29tDQpDYzogTHUsIEtldmluIDxrZXZpbi1sdUB0aS5jb20+
-OyBEaW5nLCBTaGVuZ2hhbyA8c2hlbmdoYW8tZGluZ0B0aS5jb20+OyBhbHNhLWRldmVsQGFsc2Et
-cHJvamVjdC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IFh1LCBCYW9qdW4gPHgx
-MDc3MDEyQHRpLmNvbT47IEd1cHRhLCBQZWV5dXNoIDxwZWV5dXNoQHRpLmNvbT47IE5hdmFkYSBL
-YW55YW5hLCBNdWt1bmQgPG5hdmFkYUB0aS5jb20+OyBnZW50dXNlckBnbWFpbC5jb207IFJ5YW5f
-Q2h1QHdpc3Ryb24uY29tOyBTYW1fV3VAd2lzdHJvbi5jb20NClN1YmplY3Q6IFtFWFRFUk5BTF0g
-UmU6IFtQQVRDSCB2MiAyLzVdIEFTb0M6IGR0LWJpbmRpbmdzOiBBZGQgdGFzMjc4MSBhbXBsaWZp
-ZXINCg0KT24gMDgvMDUvMjAyMyAwNzo0NSwgU2hlbmdoYW8gRGluZyB3cm90ZToNCj4gQ3JlYXRl
-IHRhczI3ODEueWFtbCBmb3IgdGFzMjc4MSBkcml2ZXIuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBT
-aGVuZ2hhbyBEaW5nIDwxMzkxNjI3NTIwNkAxMzkuY29tPg0KPiANCj4gLS0tDQo+IENoYW5nZXMg
-aW4gdjc6DQoNCllvdXIgc3ViamVjdCBzYXlzIGl0IGlzIHYyIGFuZCBwcmV2aW91c2x5IGl0IHdh
-cyB2Ni4gTWFrZSBpdCBjb25zaXN0ZW50Lg0KW0RpbmddIHYyIGlzIHRoZSB2ZXJzaW9uIG5vIGZv
-ciBhbGwgb2YgdGhlIHBhdGhlcywgaW4gZWFjaCBwYXRjaCB0aGVyZSBpcyBzZXBhcmF0ZWQgIHZl
-cnNpb24sIHY3IGlzIHRoZSB2ZXJzaW9uIG51bWJlciBmb3IgeWFtbA0KPiAgLSBTdWJtaXQgdG9n
-ZXRoZXIgd2l0aCB0YXMyNzgxIGNvZGVjIGRyaXZlciBjb2RlDQoNCkZpeCB5b3VyIHBhdGNoc2V0
-IHRocmVhZGluZy4gSSBkb24ndCB0aGluayBpdCdzIHBvc3NpYmxlIHRvIGFwcGx5IHlvdXIgb25l
-Lg0KDQo+ICAtIEFkZCBtb3JlIGRldGFpbCBkZXNjcmlwdGlvbiBmb3IgdGksYXVkaW8tc2xvdHMN
-Cj4gIC0gS2VlcCBjb25zaXN0ZW50IGZvciAiSTJDIg0KPiAgLSByZW1vdmUgcmVzZXQtZ3Bpb3Mg
-ZGVzY3JpcHRpb24NCj4gIC0gRm9yIHJlZywgZXhwcmVzcyBhcyBjb25zdHJhaW50cyBpbnN0ZWFk
-DQo+ICAtIHJlbW92ZSB1bm5lY2Vzc2FyeSAnfCcNCj4gIENoYW5nZXMgdG8gYmUgY29tbWl0dGVk
-Og0KPiAJbmV3IGZpbGU6ICAgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5k
-L3RpLHRhczI3ODEueWFtbA0KPiAtLS0NCj4gIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5k
-L3RpLHRhczI3ODEueWFtbCB8IDkwIA0KPiArKysrKysrKysrKysrKysrKysrDQo+ICAxIGZpbGUg
-Y2hhbmdlZCwgOTAgaW5zZXJ0aW9ucygrKQ0KPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IA0KPiBEb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291bmQvdGksdGFzMjc4MS55YW1sDQo+IA0K
-PiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL3Rp
-LHRhczI3ODEueWFtbCANCj4gYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mvc291
-bmQvdGksdGFzMjc4MS55YW1sDQo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+IGluZGV4IDAwMDAw
-MDAwMDAwMC4uOTZjMjU4NDg1NWQ0DQo+IC0tLSAvZGV2L251bGwNCj4gKysrIGIvRG9jdW1lbnRh
-dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL3RpLHRhczI3ODEueWFtbA0KPiBAQCAtMCww
-ICsxLDkwIEBADQo+ICsjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMC1vbmx5IE9S
-IEJTRC0yLUNsYXVzZSkgIyBDb3B5cmlnaHQgDQo+ICsoQykgMjAyMiAtIDIwMjMgVGV4YXMgSW5z
-dHJ1bWVudHMgSW5jb3Jwb3JhdGVkICVZQU1MIDEuMg0KPiArLS0tDQo+ICskaWQ6IGh0dHA6Ly9k
-ZXZpY2V0cmVlLm9yZy9zY2hlbWFzL3NvdW5kL3RpLHRhczI3ODEueWFtbCMNCj4gKyRzY2hlbWE6
-IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIw0KPiArDQo+ICt0
-aXRsZTogVGV4YXMgSW5zdHJ1bWVudHMgVEFTMjc4MSBTbWFydEFNUA0KPiArDQo+ICttYWludGFp
-bmVyczoNCj4gKyAgLSBTaGVuZ2hhbyBEaW5nIDxzaGVuZ2hhby1kaW5nQHRpLmNvbT4NCj4gKw0K
-PiArZGVzY3JpcHRpb246DQo+ICsgIFRoZSBUQVMyNzgxIGlzIGEgbW9ubywgZGlnaXRhbCBpbnB1
-dCBDbGFzcy1EIGF1ZGlvIGFtcGxpZmllcg0KPiArICBvcHRpbWl6ZWQgZm9yIGVmZmljaWVudGx5
-IGRyaXZpbmcgaGlnaCBwZWFrIHBvd2VyIGludG8gc21hbGwNCj4gKyAgbG91ZHNwZWFrZXJzLiBJ
-bnRlZ3JhdGVkIGFuIG9uLWNoaXAgRFNQIHN1cHBvcnRzIFRleGFzIEluc3RydW1lbnRzDQo+ICsg
-IFNtYXJ0IEFtcCBzcGVha2VyIHByb3RlY3Rpb24gYWxnb3JpdGhtLiBUaGUgaW50ZWdyYXRlZCBz
-cGVha2VyDQo+ICsgIHZvbHRhZ2UgYW5kIGN1cnJlbnQgc2Vuc2UgcHJvdmlkZXMgZm9yIHJlYWwg
-dGltZQ0KPiArICBtb25pdG9yaW5nIG9mIGxvdWRzcGVha2VyIGJlaGF2aW9yLg0KPiArDQoNCnlv
-dSBtaXNzIGFsbE9mIHdpdGggcmVmIHRvIHNhb3VuZC1kYWktY29tbW9uLg0KW0RpbmddIEFkZCBp
-dCBpbiBuZXh0IHBhdGNoDQo+ICtwcm9wZXJ0aWVzOg0KPiArICBjb21wYXRpYmxlOg0KPiArICAg
-IGVudW06DQo+ICsgICAgICAtIHRpLHRhczI3ODENCj4gKw0KPiArICByZWc6DQo+ICsgICAgZGVz
-Y3JpcHRpb246IEkyQyBhZGRyZXNzIG9mIHRoZSBwcmltYXJ5IGRldmljZS4NCj4gKyAgICBpdGVt
-czoNCj4gKyAgICAgIG1pbmltdW06IDB4MzgNCj4gKyAgICAgIG1heGltdW06IDB4M2YNCj4gKw0K
-PiArICByZXNldC1ncGlvczoNCj4gKyAgICBtYXhJdGVtczogMQ0KPiArDQo+ICsgIGludGVycnVw
-dHM6DQo+ICsgICAgbWF4SXRlbXM6IDENCj4gKw0KPiArICB0aSxhdWRpby1zbG90czoNCj4gKyAg
-ICBkZXNjcmlwdGlvbjoNCj4gKyAgICAgIE11bHRpcGxlIHRhczI3ODFzIGFnZ3JlZ2F0ZSBhcyBv
-bmUgQXVkaW8gQW1wIHRvIHN1cHBvcnQNCj4gKyAgICAgIG11bHRpcGxlIGF1ZGlvIHNsb3RzDQo+
-ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyLWFycmF5
-DQo+ICsgICAgbWF4SXRlbXM6IDQNCg0KWW91IHNhaWQgeW91IGNhbiBoYXZlIGhlcmUgdHdvIGFk
-ZHJlc3Nlcy4gWW91IGRvbid0IGFsbG93IGl0LCB0ZXN0IGl0Lg0KDQpNaXNzaW5nIG1pbkl0ZW1z
-LCBidXQuLi4NCg0KPiArICAgIGl0ZW1zOg0KPiArICAgICAgbWluaW11bTogMHgzOA0KPiArICAg
-ICAgbWF4aW11bTogMHgzZg0KDQouLi4gU28gdGhlc2UgYXJlIGZpeGVkPyBObyBuZWVkIHRvIGVu
-Y29kZSB0aGVtIGluIHN1Y2ggY2FzZS4uLg0KDQphbmQgYW55d2F5IGFjdHVhbGx5IEkgYWdyZWUg
-d2l0aCBSb2IgaGVyZSAtIHRoZXNlIGFkZHJlc3NlcyBzaG91bGQgYmUgcHV0IGluIHJlZy4NCltE
-SU5HXSBpZiBhbGwgdGhlIHB1dCBpbiByZWcsIHRoZSBpMmNfcHJvYmUgd2lsbCBiZSBjYWxsZWQg
-c2V2ZXJhbCB0aW1lLiBUaGUgY29kZSBkb24gbm90IHdhbnQgdG8gcmVnaXN0ZXIgc2V2ZXJhbCBj
-b2RlY3MsIGJ1dCBvbmUgY29kZWMgaW5jbHVkaW5nIHNldmVyYWwgdGFzMjc4MXMuDQoNCj4gKyAg
-ICAgIGRlc2NyaXB0aW9uOg0KPiArICAgICAgICBJMkMgYWRkcmVzcyBvZiB0aGUgZGV2aWNlIGZv
-ciBkaWZmZXJlbnQgYXVkaW8gc2xvdHMsDQo+ICsgICAgICAgIHVzZWxlc3MgaW4gbW9ubyBjYXNl
-Lg0KPiArDQo+ICsgIHRpLGJyb2FkY2FzdC1hZGRyOg0KPiArICAgICRyZWY6IC9zY2hlbWFzL3R5
-cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMg0KPiArICAgIGRlc2NyaXB0aW9uOg0KPiArICAg
-ICAgR2VuZXJpYyBJMkMgYWRkcmVzcyBmb3IgYWxsIHRoZSB0YXMyNzgxIGRldmljZXMgaW4NCj4g
-KyAgICAgIHB1cnBvc2Ugb2YgSTJDIGJyb2FkY2FzdCBkdXJpbmcgdGhlIG11bHRpLWRldmljZQ0K
-PiArICAgICAgd3JpdGVzLCB1c2VsZXNzIGluIG1vbm8gY2FzZS4NCg0KUHJvYmFibHkgeW91IGNh
-biBmaWd1cmUgaXQgb3V0IGZyb20gcHJldmlvdXMgYWRkcmVzc2VzIGFuZCB0aGVyZSBpcyBubyBu
-ZWVkIGZvciB0aGlzIHByb3BlcnR5Lg0KW0RpbmddIHRoaXMgYWRkcmVzcyBpcyB0aGUgY29tbW9u
-IGFkZHJlc3MgZm9yIGFsbCB0aGUgdGFzMjc4MSwgaXQgY2FuIGJlIHVzZWQgZm9yIGRzcCBmaXJt
-d2FyZSBkb3dubG9hZGluZyB0byBhbGwgdGhlIHRhczI3ODFzIGluIHBhcmFsbGVsLCB3aGljaCBj
-YW4gc2F2ZSBtb3JlIGRvd25sb2FkaW5nIHRpbWUNCj4gKw0KPiArICAnI3NvdW5kLWRhaS1jZWxs
-cyc6DQo+ICsgICAgY29uc3Q6IDENCj4gKw0KPiArcmVxdWlyZWQ6DQo+ICsgIC0gY29tcGF0aWJs
-ZQ0KPiArICAtIHJlZw0KPiArDQoNCg0KQmVzdCByZWdhcmRzLA0KS3J6eXN6dG9mDQoNCg==
+Add support for HP EliteBook 835/845/845W/865 G10 laptops
+with CS35L41 amplifiers on I2C/SPI bus connected to Realtek codec.
+
+Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+---
+ sound/pci/hda/patch_realtek.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 172ffc2c332b..9e509356790f 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9458,7 +9458,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8aa3, "HP ProBook 450 G9 (MB 8AA1)", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8aa8, "HP EliteBook 640 G9 (MB 8AA6)", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8aab, "HP EliteBook 650 G9 (MB 8AA9)", ALC236_FIXUP_HP_GPIO_LED),
+-	 SND_PCI_QUIRK(0x103c, 0x8abb, "HP ZBook Firefly 14 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8abb, "HP ZBook Firefly 14 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8ad1, "HP EliteBook 840 14 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8ad2, "HP EliteBook 860 16 inch G9 Notebook PC", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b42, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+@@ -9469,8 +9469,13 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8b47, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b5d, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8b5e, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
++	SND_PCI_QUIRK(0x103c, 0x8b63, "HP Elite Dragonfly 13.5 inch G4", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b65, "HP ProBook 455 15.6 inch G10 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8b66, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
++	SND_PCI_QUIRK(0x103c, 0x8b70, "HP EliteBook 835 G10", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8b72, "HP EliteBook 845 G10", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8b74, "HP EliteBook 845W G10", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8b77, "HP ElieBook 865 G10", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8b7a, "HP", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b7d, "HP", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b87, "HP", ALC236_FIXUP_HP_GPIO_LED),
+@@ -9481,6 +9486,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8b92, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b96, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8bf0, "HP", ALC236_FIXUP_HP_GPIO_LED),
++	SND_PCI_QUIRK(0x103c, 0x8c26, "HP HP EliteBook 800G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+ 	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+-- 
+2.34.1
+

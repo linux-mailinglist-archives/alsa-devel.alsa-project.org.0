@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 601E66FE4FB
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 22:23:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3B936FE591
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 22:51:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B0C1FE4;
-	Wed, 10 May 2023 22:23:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B0C1FE4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C832FFA;
+	Wed, 10 May 2023 22:50:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C832FFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683750232;
-	bh=K0GUlOR4QFLJUalaWA8czdBLmxA0PE/dUqa1IdlNM58=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1683751878;
+	bh=+CClwmlhhoXRV/flrOSGPQcZOJ5y9G17Co5fZemzFmM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZKNAF+/zqhWhTld+yIz8BYIMtboiaofs0q+KZWHYqWbCbNCQt6ypFc5fLBQU5gKzt
-	 kPBiEtNOBhHjnmu6ndDlNqdpMOWfoIt/OjqTlX5/ePSvh05o26LkcPp9Y7LIJRwmTK
-	 HF2ADARb0o0SX/C+1HjZwa49U9AGnBuAtj9AmU70=
+	b=QFXhdUgNtrRckbvwrPq9MgAXTn5ZYzkQWzy/oLXMSe3z2UvZRNPg1e/M+RssCXSy/
+	 iN90k73x1gVlKckVgpFvtbIhYXsvtSuL1QIBWLr5AG6RifRqh35RxL+N1+ue2vTiAS
+	 FRJuyr+xvgx89z16tNJDiXow1t1tMqWUT+RVBqzc=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72417F80310;
-	Wed, 10 May 2023 22:23:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42A2BF80544;
+	Wed, 10 May 2023 22:49:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7984F8032D; Wed, 10 May 2023 22:22:57 +0200 (CEST)
+	id 1A134F8053B; Wed, 10 May 2023 22:49:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,58 +34,55 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7F4C1F80087
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 22:22:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F4C1F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id B6ECFF8032D
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 22:49:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6ECFF8032D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=TQSM9Jbd
+ header.s=k20201202 header.b=iQaRpVFK
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id EBD2C635DA;
-	Wed, 10 May 2023 20:22:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E19C433D2;
-	Wed, 10 May 2023 20:22:45 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 256D7614CB;
+	Wed, 10 May 2023 20:49:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67FBAC433D2;
+	Wed, 10 May 2023 20:49:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683750168;
-	bh=K0GUlOR4QFLJUalaWA8czdBLmxA0PE/dUqa1IdlNM58=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=TQSM9Jbdo2MKbuEXEtf8mlc1NHfEJWAenPeiZ6OuxEetwTlENaz1zIaRwYfYm8Ybl
-	 mFykHJOoMFRz9OcYJXjpEmX9rqgPXAw3sak4bRETTvDhiUaYwVlA3KXUNot/XL1ZM/
-	 29aQj849FvN6rVYc6+QrSrevIUkvmUgDYXkwwqulhNuuRljN5Zhm8FP6j4u7OdGIlQ
-	 oho0Pg8DGjdD9ccVsy9tnExQr6FOdhaTCaPZS+OVCnE+n5LzfTDGDiM+AlJ9ZL+nGq
-	 Yau74pkriEmOH3fDEUkGLRn2Szn8IjR1yj/TCkSDIDk9zPXHGuSMkQyuMt0LnwT+Ut
-	 zgnqc0soAI51A==
-Date: Wed, 10 May 2023 21:22:43 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Walker Chen <walker.chen@starfivetech.com>
-Cc: Emil Renner Berthing <emil.renner.berthing@canonical.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v3 3/3] riscv: dts: starfive: add tdm node and sound card
-Message-ID: <20230510-riveter-ridden-3f056251e623@spud>
-References: <20230506090116.9206-1-walker.chen@starfivetech.com>
- <20230506090116.9206-4-walker.chen@starfivetech.com>
- <a0932e84-3813-bbbe-762d-948d75fbcd8a@starfivetech.com>
- <20230509-overheat-pliable-00d60523637e@spud>
- <CAJM55Z9AxMVw=ymfFBb=45nODq89O8dMebzRgo-XD0GKduDBYg@mail.gmail.com>
- <f27b7ee7-f23a-35a2-3b82-71f50871dfcc@starfivetech.com>
+	s=k20201202; t=1683751757;
+	bh=+CClwmlhhoXRV/flrOSGPQcZOJ5y9G17Co5fZemzFmM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=iQaRpVFKxg1T2PyBc1mT2crUJT2HXBRyDwvw6lNHWLzQQD7twiSsgMAluJaEPbk3K
+	 CxnMkyJvAXq8XqhE1XEDZ6Lm10t1PWUlhlgQBbFwUPgVYqzUMusQNZxMXrtBf2uspV
+	 rcsg68Mi0P9BHPeKer2zmSNYf7NJfYKUDAh2frtUQ/qmXkDiNPrn9DwlXirPMPwu/P
+	 yAQW0kRCDMDALwIA7UXUuduJoMUbiCAliPm2a5fKwIbWC8OprDmSluoCw+dQG0UA8t
+	 qMdUZ59XATel8xIik2OHt24IN5C+/KdkDDXnIzUJjiBnszJaQcSGNw3jFVCG2KSOzL
+	 GVeo+xaJyKobw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Eugene Huang <eugene.huang99@gmail.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	alsa-devel@alsa-project.org
+Subject: [PATCH AUTOSEL 6.3 2/9] soundwire: dmi-quirks: add remapping for
+ Intel 'Rooks County' NUC M15
+Date: Wed, 10 May 2023 16:48:58 -0400
+Message-Id: <20230510204905.104628-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230510204905.104628-1-sashal@kernel.org>
+References: <20230510204905.104628-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="R5rGeiM6/5QEp4La"
-Content-Disposition: inline
-In-Reply-To: <f27b7ee7-f23a-35a2-3b82-71f50871dfcc@starfivetech.com>
-Message-ID-Hash: H2ULRS6NHUNOBPGKNI22CDKNRX64XIG2
-X-Message-ID-Hash: H2ULRS6NHUNOBPGKNI22CDKNRX64XIG2
-X-MailFrom: conor@kernel.org
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: E3H4V7KXUIVGTW2XVGG55U6OCQNPH3HF
+X-Message-ID-Hash: E3H4V7KXUIVGTW2XVGG55U6OCQNPH3HF
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H2ULRS6NHUNOBPGKNI22CDKNRX64XIG2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E3H4V7KXUIVGTW2XVGG55U6OCQNPH3HF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,68 +103,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Eugene Huang <eugene.huang99@gmail.com>
 
---R5rGeiM6/5QEp4La
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+[ Upstream commit 01b33e284ca28cc977bdcfb23be2c719f2139175 ]
 
-On Wed, May 10, 2023 at 05:21:21PM +0800, Walker Chen wrote:
-> On 2023/5/10 16:33, Emil Renner Berthing wrote:
-> > On Tue, 9 May 2023 at 20:05, Conor Dooley <conor@kernel.org> wrote:
-> >>
-> >> On Tue, May 09, 2023 at 08:52:48PM +0800, Walker Chen wrote:
-> >> > Hi Conor/Emil,
-> >> >
-> >> > DT overlay is used to describe combinations of VF2 and hat.
-> >> > Do you have any comments on this patch ?
-> >>
-> >> I seem to recall that he said at the linux-riscv sync-up call that we
-> >> have* that he was not in favour of overlays for hats like this.
-> >> I'll let him confirm that though, I might very well be misinterpreting=
- or
-> >> misremembering what he said.
-> >=20
-> > What probably meant was that I didn't want a bunch of different device
-> > trees for each combination board * hat. An overlay makes a lot more
-> > sense. However, looking through the kernel tree there is a surprising
-> > lack of overlays for hats committed already, so I suspect there is
-> > some sort of policy around overlays already in place.
+Same DSDT problem as the HP Omen 16-k0005TX, except rt1316 amp is on
+link2.
 
-> About the specific usage of overlay for this board + hat, referenced to t=
-he following example in kernel:
-> linux/arch/arm64/boot/dts/freescale/imx8mm-venice-gw73xx-0x-imx219.dtso
-> That board is connected with imx219 sensor via mipi_csi interface. That p=
-atch was accepted in 2022.
+Link: https://github.com/thesofproject/linux/issues/4088
+Signed-off-by: Eugene Huang <eugene.huang99@gmail.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20230314090618.498716-1-yung-chuan.liao@linux.intel.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/soundwire/dmi-quirks.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-Hmm, so spoke to Emil again today about it. In the interest of being
-fair, I did go looking at that particular board & looked through their
-documentation for more information on why there are overlays.
-They do actually sell the bits required to use the overlays, based on
-what I saw in their datasheet for the board & wiki. That said, what is
-done for one arm64 platform does not necessarily apply elsewhere ;)
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
+index 7969881f126dc..58ea013fa918a 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -73,6 +73,23 @@ static const struct adr_remap hp_omen_16[] = {
+ 	{}
+ };
+ 
++/*
++ * Intel NUC M15 LAPRC510 and LAPRC710
++ */
++static const struct adr_remap intel_rooks_county[] = {
++	/* rt711-sdca on link0 */
++	{
++		0x000020025d071100ull,
++		0x000030025d071101ull
++	},
++	/* rt1316-sdca on link2 */
++	{
++		0x000120025d071100ull,
++		0x000230025d131601ull
++	},
++	{}
++};
++
+ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 	/* TGL devices */
+ 	{
+@@ -98,6 +115,14 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)intel_tgl_bios,
+ 	},
++	{
++		/* quirk used for NUC15 'Rooks County' LAPRC510 and LAPRC710 skews */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Intel(R) Client Systems"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "LAPRC"),
++		},
++		.driver_data = (void *)intel_rooks_county,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
+-- 
+2.39.2
 
-I'm not against allowing in-tree overlays for hats/capes/daughter-boards
-that come bundled with a board, but accepting ones for a hat that
-someone decided to use theoretically has no limit! The "someone" in this
-case might be a StarFive developer, but it could be any random one of
-your customers next!
-We've got to draw a line somewhere, so my answer to the overlay *in this
-case* is a no. Sorry.
-When you submit your next version, please drop the overlay from this
-patch.
-Thanks,
-Conor.
-
---R5rGeiM6/5QEp4La
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZFv9EwAKCRB4tDGHoIJi
-0pgOAP9eU2ZWh7+ycauV2k2tsHEtiJcGiCvC1lBDQL6aVqzqJQD/St1K7BA7Q9BW
-NSqEGApfEX6ctSZmnzWY8/sp72lCmQI=
-=JAZI
------END PGP SIGNATURE-----
-
---R5rGeiM6/5QEp4La--

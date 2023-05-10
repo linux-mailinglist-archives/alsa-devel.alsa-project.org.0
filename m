@@ -2,122 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6F8E6FD88E
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 09:50:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A026FD895
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 09:51:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C38A01056;
-	Wed, 10 May 2023 09:49:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C38A01056
+	by alsa0.perex.cz (Postfix) with ESMTPS id F38611040;
+	Wed, 10 May 2023 09:50:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F38611040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683705012;
-	bh=0iFT0ayBFszJQ345SP80d4p4Ju6hYbv7GIJBWwRxOlo=;
-	h=Date:Subject:To:References:From:In-Reply-To:CC:List-Id:
+	s=default; t=1683705093;
+	bh=E5lbOITcCYGQhtYyv/GdwQlnp0R36wuWIDmY6+oXSGA=;
+	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=A+a3EvB3coxMs82u+QD+b2rE+z8iLyk3ZYBWfVvGtC6cTmuzNZ+W7KVjVI3RqvFiW
-	 EiJ9V4K/BqSCfUQq/gesHBpPs97wnCApkLXhLYKtGdmMWwpnNyALdiy1YfJ7poJoqk
-	 FZJ0HL7c56T2uSE/wQ9aXOR9GTdUGzTswid2nG4M=
+	b=B7hlou1A0aLnM3xffRnHshOGU3ZaFxMMN/So66yNB48m6hrNk8Y4MUOBqrBpLiddR
+	 KQTVMaLXqs1EY2aCgjnmDDTVsWZGfIH4lrhaLyfkCG/tGBPIw28uWb8bErqz5EuAen
+	 vKGC9CsYpBYNGf1m0uVzIHDyggHVrPY64BZca7zU=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB6AEF80548;
-	Wed, 10 May 2023 09:48:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD185F802E8;
+	Wed, 10 May 2023 09:50:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D60EFF80549; Wed, 10 May 2023 09:48:42 +0200 (CEST)
+	id DCFD1F8032D; Wed, 10 May 2023 09:50:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 71F02F802E8;
+	Wed, 10 May 2023 09:50:32 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D432811D2;
+	Wed, 10 May 2023 09:50:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D432811D2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1683705030; bh=O7ROJDG1Cr7jeFez+Xpp5NXPOB2XNTdNI/Cu/lLzPec=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=NbDCq5PJjBLpoGTbt137+w9pjL4U8YMzt/5TEPSBVpkRDScLnLSN3+TpjZ++ZtDz8
+	 3vGK4cBA7TIG/REcsOFliY5UFS5aWg1VAvWBa4vkQrIgBhg0tPyL7eieCkP8aYeQPB
+	 PLf053l5ePPVBdMSfG2wVarGMAbeVgQe5LQG0g5Q=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4B46DF8053D
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 09:48:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B46DF8053D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=LjYApUNy
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-965f7bdab6bso1063464266b.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 10 May 2023 00:48:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1683704918; x=1686296918;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/LTnCh6R2977sWOSYvBVeAThbB6LN/VUq0y/VvleozI=;
-        b=LjYApUNyA75roTFOe6acev02+XGsgesQAoaeso8F0QC6chQiAfZ70LKS2yBGCgGxkc
-         5aasKOej1EL2H6X8FB4+93FS0hf584Q9mdZcnjpwVf4CrMHgwMbMKwRqfQR+vIjDHbod
-         f1OPIpGk73zoc/T+e29iAkoNuIg0cYhCzA9IK+6v9MCTRO4g/Mr8qkQ2rm/SAl8efw60
-         pHYJ4ThIS/S8JYwOd4vfU6byfN4abLxQcaaVe9g+lTkxxWgnel3VDFf4Ms6/Nn1Vs0vT
-         01iIfozNouWjaeRYfc8RdO/J5lUh2gVJupapVgOC98ZtHn/AdTI3wGeJ2Z50rqUOavIx
-         ILXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683704918; x=1686296918;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/LTnCh6R2977sWOSYvBVeAThbB6LN/VUq0y/VvleozI=;
-        b=VnPD15S8ymNvNiY2uAIRIUHm4FJG4LIbwCdJjxycKOIMl2AAeJ5B1aeza0wCfywSCG
-         OZYwdHcaMuivQawusszSnht4wwPg8QHNbJLgtv+urqN2AC7d4DogLv/fxg6Z2znB+fA2
-         y5z7dJNsir65BDhifcqjFPnv2rMWEt1+KyXUB1wifi3FxHcVPuPJNHT+z/3c6CglbaBl
-         Ll1TJ43Ypk5hJwNvm9b32Gimrqu2mVwfWIGd6Zz73GQRks2RNG/jYKfKtEewcPxYfATg
-         LyrOdmpGLUdlu+G81X72o+kOEK5/0T2c8TC3XsBiZc39XzuEnLDbg7aqT4PFP/mjqLZX
-         kkcw==
-X-Gm-Message-State: AC+VfDx4TbLDSUs6ViWfBPa4h4QbUyUi9kWrmr2EcJB6AivjLJgUU0Gl
-	5loxG3jTO3SApaDOqKKv7qD6vw==
-X-Google-Smtp-Source: 
- ACHHUZ4AlAVb86LVpUgdppiueLOdqvRCP+H8oHIJil8ScCoOiD+gDNEcggxDcVOlHjnm3d6LSJ2lPA==
-X-Received: by 2002:a17:907:3e13:b0:94e:5679:d950 with SMTP id
- hp19-20020a1709073e1300b0094e5679d950mr17840182ejc.72.1683704918359;
-        Wed, 10 May 2023 00:48:38 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:c175:a0f9:6928:8c9d?
- ([2a02:810d:15c0:828:c175:a0f9:6928:8c9d])
-        by smtp.gmail.com with ESMTPSA id
- w12-20020aa7da4c000000b0050bc5727507sm1588632eds.73.2023.05.10.00.48.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 May 2023 00:48:37 -0700 (PDT)
-Message-ID: <d82491c5-12e6-abbe-5bb9-87d863454b25@linaro.org>
-Date: Wed, 10 May 2023 09:48:35 +0200
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 10 May 2023 09:50:24 +0200 (CEST)
+Message-ID: <31969101-c1cf-4956-6446-2243ccda0c65@perex.cz>
+Date: Wed, 10 May 2023 09:50:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] ASoC: dt-bindings: nau8825: Convert to dtschema
+ Thunderbird/102.9.1
 Content-Language: en-US
-To: AS50 CTLin0 <ctlin0@nuvoton.com>, broonie@kernel.org
-References: <20230510034409.585800-1-CTLIN0@nuvoton.com>
- <39afb004-5f28-2633-a8be-412cb5e74404@linaro.org>
- <36061fee-5491-e829-2c49-27ab81f0aa57@nuvoton.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <36061fee-5491-e829-2c49-27ab81f0aa57@nuvoton.com>
-Content-Type: text/plain; charset=UTF-8
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+ <87o7n0mtv9.wl-tiwai@suse.de> <87ednwmssr.wl-tiwai@suse.de>
+ <87wn1jdzuq.wl-tiwai@suse.de> <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
+ <ZFoUaNKBkIgbW0rD@finisterre.sirena.org.uk>
+ <ff43dccf-ba6d-d7fa-352a-5d5a8c4b977f@perex.cz>
+ <20230509-mug-private-mess-6a36d2@meerkat>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
+ mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
+In-Reply-To: <20230509-mug-private-mess-6a36d2@meerkat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2PITKYICBVKHUWICCSUHXPDH364KTHEJ
-X-Message-ID-Hash: 2PITKYICBVKHUWICCSUHXPDH364KTHEJ
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Message-ID-Hash: BZO3DPY7PQBI72QKNGVJLWQTORR7LZ4Q
+X-Message-ID-Hash: BZO3DPY7PQBI72QKNGVJLWQTORR7LZ4Q
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
- WTLI@nuvoton.com, SJLIN0@nuvoton.com, ctlin0.linux@gmail.com
+CC: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ sound-open-firmware@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2PITKYICBVKHUWICCSUHXPDH364KTHEJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BZO3DPY7PQBI72QKNGVJLWQTORR7LZ4Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,79 +101,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/05/2023 09:42, AS50 CTLin0 wrote:
-> On 5/10/2023 3:19 PM, Krzysztof Kozlowski wrote:
->> On 10/05/2023 05:44, David Lin wrote:
->>> Convert the NAU8825 audio CODEC bindings to DT schema.
->>>
->>> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
->>> ---
->> Version your patches and provide changelog after ---.
+On 09. 05. 23 20:22, Konstantin Ryabitsev wrote:
+> On Tue, May 09, 2023 at 11:54:18AM +0200, Jaroslav Kysela wrote:
+>> The signature is correct in the encapsulated original e-mail. The b4 should
+>> be improved in my opinion.
+> 
+> This is non-fixable. The "mitigations" send messages with a completely
+> different message-id, and this breaks pretty much everything. For example, a
+> message sent to another list would have the original message-id, but a
+> different one if someone retrieves it via the alsa-project subscription. So,
+> if someone responds to the message with the bogus rewritten message-id, it
+> would be in the wrong place in the thread.
+> 
+> This is just not usable for patch workflows.
+> 
+>> For example, here is the original message:
 >>
->> If you just send the same with the same mistakes, that's a NAK.
+>> https://lore.kernel.org/alsa-devel/168311377075.26.14919941665402646886@mailman-core.alsa-project.org/
 > 
-> I know your meanings is to show change log from v1 to v2, but I see
-> previous patch have other missing items.
+> This demonstrates the above problem. This message has a bogus message-id, but
+> it sets in-reply-to of the cover letter. Someone sending their reviewed-by
+> trailer to this patch would, in fact, send it with the cover letter as the
+> parent (meaning it should apply to the entire series).
 
-I don't understand it. It does not matter what else is missing in
-previous patch. You always must version them and always provide changelog.
+The tools should be improved IMHO. The capsule contains References: so if 
+tools extract the wrapped e-mail to get the original Message-ID:, we're good.
 
+>> I guess that the vger servers have similar issues, because servers with
+>> DMARC enabled on the ingress side can reject e-mails. It's related to e-mail
+>> standards.
 > 
-> Therefore, I revise it and included your comments. Anyway, I can back to
-> previous patch and re-send v2 patch with changelog.
-
-Paste it here (and in v3 of course).
-
+> It is perfectly possible to operate a mailing list server and be
+> DMARC-compliant (at least for DKIM-signed messages) without requiring any of
+> the horrible things mailman-3 is doing:
 > 
->>
->>>   .../devicetree/bindings/sound/nau8825.txt     | 111 --------
->>>   .../bindings/sound/nuvoton,nau8825.yaml       | 242 ++++++++++++++++++
->>>   2 files changed, 242 insertions(+), 111 deletions(-)
->>>   delete mode 100644 Documentation/devicetree/bindings/sound/nau8825.txt
->>>   create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8825.yaml
->>>
->>
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +
->>> +unevaluatedProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/gpio/gpio.h>
->>> +    #include <dt-bindings/interrupt-controller/irq.h>
->>> +    i2c {
->>> +        #address-cells = <1>;
->>> +        #size-cells = <0>;
->>> +        nau8825@1a {
->> This is a friendly reminder during the review process.
->>
->> It seems my previous comments were not fully addressed. Maybe my
->> feedback got lost between the quotes, maybe you just forgot to apply it.
->> Please go back to the previous discussion and either implement all
->> requested changes or keep discussing them.
->>
->> Thank you.
->>
->> Best regards,
->> Krzysztof
-> 
-> About node item, maybe I misunderstand your meanings.
-> 
-> When I change from headset: nau8825@1a to audio-codec: nau8825@1a, it
-> will have compiler error.
+> https://begriffs.com/posts/2018-09-18-dmarc-mailing-list.html
 
-That's label, not nodename. Why would even this create a compile error?
+I wish that it was as easy. I don't see any references to RFCs in this text, 
+so we cannot verify the contents. As our mailing list does not modify the 
+headers and body, the DKIM is correct for our messages, but it does not work 
+practically (the mitigation was turned on recently, so I know how many bounces 
+were present).
 
-> 
-> So I use nau8825@1a to submit.However, when I see your latest comment, I
-> seems to understand your point for node name.
-> 
-> The final result will be codec@1a or audio-codec@1a, right?
+Also, RFC7960 does not describe this:
 
-Yes.
+https://datatracker.ietf.org/doc/html/rfc7960#section-4.1.3
 
-Best regards,
-Krzysztof
+especially:
+
+https://datatracker.ietf.org/doc/html/rfc7960#section-3.2.3
+
+and see note in:
+
+https://datatracker.ietf.org/doc/html/rfc7960#section-3.2.3.1
+
+So "keep everything unmodified" for DKIM is just only one part of the problem. 
+Perhaps, there's a RFC update somewhere which adds another note.
+
+				Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 

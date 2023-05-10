@@ -2,120 +2,130 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BE36FE33F
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:28:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D82D86FE340
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:28:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4112D1016;
-	Wed, 10 May 2023 19:28:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4112D1016
+	by alsa0.perex.cz (Postfix) with ESMTPS id B714D103D;
+	Wed, 10 May 2023 19:28:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B714D103D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683739730;
-	bh=AMZo5IqVS5tbE4FpnoECgdG0PDkBvs82bdhf+V6NVRs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1683739736;
+	bh=LMsA6JxRTYWQXM4naAdveOz2WpVCJs1mzJM+iSTf9FA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eMHBGyK77GsLeeZ0kBfsZ4X1Gd5U18EMNwLZrd5NdO/+HirJirOb0OyYJ7BYWmPJE
-	 V0svtnl7sSyRF1wG1qvonN+bwytx3/+Kk0O+o+BzVXjTHCu5IR79LJXKdzCiPvhR/k
-	 ybevsXzurszSAESSQRk9w21qOkTgiJ8pR/9J2PW0=
+	b=vqnw+uWOIYbQU6YrEuHKWDY7ymxwyczrliXu+2pdhOEh2ejDD/s11e56UOUqjhR5q
+	 6eF+4CMnH3b35v2FvO0Il5a6Bau0EYPq6Pjk9bO0C0XFl7XwXQ2vFXu20ZpDhdK8fX
+	 s5WEa+kcTnwysVzj7MZUPF3ze9OkI66illudRr94=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA87CF8053D;
-	Wed, 10 May 2023 19:27:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5194DF80553;
+	Wed, 10 May 2023 19:27:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D0FCF8032D; Wed, 10 May 2023 09:55:25 +0200 (CEST)
+	id 0B2D5F8032D; Wed, 10 May 2023 10:34:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	NICE_REPLY_A,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DE307F8014C
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 09:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE307F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E78FF8014C
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 10:34:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E78FF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=a3T9bDod
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-504d149839bso1717422a12.1
+ unprotected) header.d=canonical.com header.i=@canonical.com
+ header.a=rsa-sha256 header.s=20210705 header.b=TYoNnaq0
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9DDA33F443
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 08:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20210705; t=1683707648;
+	bh=LMsA6JxRTYWQXM4naAdveOz2WpVCJs1mzJM+iSTf9FA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	b=TYoNnaq0fv8X4f6D0swEt3Aa4+rATBtdnWDQ2C/HrCRkHvJx8iwAfpiguvdj6Au9L
+	 +D6KXR0gLhbsFyxdp1GsFRbEUvVjqmsQLB9u1/ZNFJi/ZT/Y1ddUBZi/2ElmyRzWBI
+	 iyopdZHZwfWHhcqge9Klkp8zESLWsofLorhk0qBUKxH5eIIF52KlotfH8hpononLkG
+	 EvAQgGDAR7vxrcR5eshla1HsfrwMreKJjmUFfo7ikqvL2rhy4HnrBlPUysBUAN4QXV
+	 BAvMR8z+++sPg9x7jUZgJkdG7tDJhL1NlG98F59hULMe0cjKEAmFHYEziGCWRHGiFx
+	 ReafP8PAgO11Q==
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-3f397a1df12so12111561cf.2
         for <alsa-devel@alsa-project.org>;
- Wed, 10 May 2023 00:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683705321; x=1686297321;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GIJKyRBEjdyUl/MVV9x2JqKCqHZQzxhquAJ+JI/f5XA=;
-        b=a3T9bDodW1/k5HN5DT6PH4X9lv2Dbf5kR59lnt3ABrgC+Kle9jBuRgvo8pYQuSXECQ
-         npw2L4nGfhgTq/XJKcDxDMFFwxE6PmiTf4k34cjdmZgiYC8ola/kc4pTRb8NuxGYht58
-         qSclKzvYvMKJ8da54yy5Jhn3LL0ITzet4+nykowvYW6vW0OtqD/KbezsfgO/zlonoIGn
-         HjQpf3m2oHdydnewz5Ofg3xmhwForC/o69EppfOEMvMRoZqaa91REZHoBVV6eNiZEXA9
-         DX1OWn9Lpc7fKvsMPh7dG4M8CTWtv16zMcTBYN3ssm2XxJQAxD3qHwmiO4zvLB/iK01X
-         KMIA==
+ Wed, 10 May 2023 01:34:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683705321; x=1686297321;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GIJKyRBEjdyUl/MVV9x2JqKCqHZQzxhquAJ+JI/f5XA=;
-        b=k7tqteBBrIM1i7kePuBvpkbuij69LLKUOD86P1nAs1DiCJxeyRoQb/KiBfXx3oJNTO
-         Fh41TkAMuyWSnnoarzglfbHGhwiGnsCuVU8zhkNL9CrjWvD1QJsEV7ggY+czUjTpGICp
-         +bG3e8ggSUZnwXISNyHjrrBLYMpyDu6+4OfL5gNi203J/9ZmdPkoNd8wokcVq6XWupen
-         /0S6V1q/YyQlc6838BxqdbDEFD6KTvJ6wDT5dkwVJMnLYVTmbe9uW6E+iPlsBfdu1tGv
-         jfvx3WRMFM6zFfmuWciR/GJ7ooYUk3QS7RZ8g8gw+S2AedOwyQOHdj9m5Ds8y1QM/Fnk
-         eLyg==
-X-Gm-Message-State: AC+VfDyvuHb/BePeicU1pMQpqeb3/fP1wYJ0cCyy0i1PgZl6SUE/nvqk
-	ynz97HVQJsoJJc2qfC72Ixk=
+        d=1e100.net; s=20221208; t=1683707647; x=1686299647;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LMsA6JxRTYWQXM4naAdveOz2WpVCJs1mzJM+iSTf9FA=;
+        b=GInOR7g9F4ZncQDe/0wHbOTPxIhf2SsP9pxCWm0AaJe4VCw0/Sy34/hhfJW5q05PQH
+         gfFruak27iytdbK6mAWkDHoi30UUTmCiwtAsaBlL25cL47lW0gyrYp5eA6Y8taEoibsK
+         mJV8lVqkbxRtj+lvRUp6MBXO2HvsrlLg/3OwmVQATOD3atownZHXv6dfj998cuFtI1cW
+         /Z8rbindd6XAbrxcBQwv5aUm7oEBYR44yD9n+QZoZAIc8JAh1OogtkiiAsGh+7hJgHvM
+         0QwFfdSgU9xx40Jg2KycBcgJbAw3WwdiVa8EoDODD4QkLcBkclRBgiUekyMdYinEEhi0
+         Mjyw==
+X-Gm-Message-State: AC+VfDzAFjfW+09opXfn/Q8ZpcbkAeoPzOK7AO/0Wzf4uj0ft7XgePve
+	MrLQoXfq7pM0+t2Rjxj+jfmG9fHggMU8wZSR6xwELN0D+M1kU2Hq1q4IkXrxYwkKovHVTVaW4Na
+	qkAUcA5K/FQ4S3nBpWgKamn7kpl1k+/9ijwG7KsUjsRrrxymWYu4CRvJv
+X-Received: by 2002:ac8:598f:0:b0:3ef:31c4:c8da with SMTP id
+ e15-20020ac8598f000000b003ef31c4c8damr26087995qte.50.1683707647637;
+        Wed, 10 May 2023 01:34:07 -0700 (PDT)
 X-Google-Smtp-Source: 
- ACHHUZ4Etamrv/XEITbdotEx2ui0eic7/8Gzjz6mioeFp38Zuvsrbto00bt1j4JEIfAzxCT4KgGXCQ==
-X-Received: by 2002:a17:906:7794:b0:965:9db5:3823 with SMTP id
- s20-20020a170906779400b009659db53823mr13650720ejm.3.1683705320717;
-        Wed, 10 May 2023 00:55:20 -0700 (PDT)
-Received: from [192.168.10.10] ([37.252.94.55])
-        by smtp.gmail.com with ESMTPSA id
- tk13-20020a170907c28d00b0094f185d82dcsm2313239ejc.21.2023.05.10.00.55.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 10 May 2023 00:55:20 -0700 (PDT)
-Message-ID: <f1a912ea-884b-fdcd-1c05-87089f1e97b7@gmail.com>
-Date: Wed, 10 May 2023 11:55:18 +0400
+ ACHHUZ5DZCX5r73TwM0f7t4oRTD7Y8E8pM8uSWayhN2OzbxOG+SFBnhHTqvrbsOT/q3EKUIZc2ylBzrCQUO23z5q8NA=
+X-Received: by 2002:ac8:598f:0:b0:3ef:31c4:c8da with SMTP id
+ e15-20020ac8598f000000b003ef31c4c8damr26087975qte.50.1683707647399; Wed, 10
+ May 2023 01:34:07 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH] ALSA: PCM: Fix codestyle issues in pcm_native.c
-Content-Language: en-US
-To: ivan.orlov0322@gmail.com
-Cc: perex@perex.cz, tiwai@suse.com, oswald.buddenhagen@gmx.de,
- axboe@kernel.dk, 42.hyeyoo@gmail.com, surenb@google.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linuxfoundation.org
-References: <20230510072726.435247-1-ivan.orlov0322@gmail.com>
- <2023051052-recoil-headache-1594@gregkh>
-From: Ivan Orlov <ivan.orlov0322@gmail.com>
-In-Reply-To: <2023051052-recoil-headache-1594@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: ivan.orlov0322@gmail.com
+References: <20230506090116.9206-1-walker.chen@starfivetech.com>
+ <20230506090116.9206-4-walker.chen@starfivetech.com>
+ <a0932e84-3813-bbbe-762d-948d75fbcd8a@starfivetech.com>
+ <20230509-overheat-pliable-00d60523637e@spud>
+In-Reply-To: <20230509-overheat-pliable-00d60523637e@spud>
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+Date: Wed, 10 May 2023 10:33:51 +0200
+Message-ID: 
+ <CAJM55Z9AxMVw=ymfFBb=45nODq89O8dMebzRgo-XD0GKduDBYg@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] riscv: dts: starfive: add tdm node and sound card
+To: Conor Dooley <conor@kernel.org>
+Cc: Walker Chen <walker.chen@starfivetech.com>,
+ Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor.dooley@microchip.com>, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+X-MailFrom: emil.renner.berthing@canonical.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XAEBYLYAQ5P36N4PLPLJQ2EI5SCSPOTM
-X-Message-ID-Hash: XAEBYLYAQ5P36N4PLPLJQ2EI5SCSPOTM
+Message-ID-Hash: TFBWLGXCAZOIQA6643UCQAV572F7OJ36
+X-Message-ID-Hash: TFBWLGXCAZOIQA6643UCQAV572F7OJ36
 X-Mailman-Approved-At: Wed, 10 May 2023 17:27:05 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TFBWLGXCAZOIQA6643UCQAV572F7OJ36/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,26 +134,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 5/10/23 11:48, Greg KH wrote:
-> - Your patch did many different things all at once, making it difficult
->    to review.  All Linux kernel patches need to only do one thing at a
->    time.  If you need to do multiple things (such as clean up all coding
->    style issues in a file/driver), do it in a sequence of patches, each
->    one doing only one thing.  This will make it easier to review the
->    patches to ensure that they are correct, and to help alleviate any
->    merge issues that larger patches can cause.
-> 
-> If you wish to discuss this problem further, or you have questions about
-> how to resolve this issue, please feel free to respond to this email and
-> Greg will reply once he has dug out from the pending patches received
-> from other developers.
-> 
-> thanks,
-> 
-> greg k-h's patch email bot
+On Tue, 9 May 2023 at 20:05, Conor Dooley <conor@kernel.org> wrote:
+>
+> On Tue, May 09, 2023 at 08:52:48PM +0800, Walker Chen wrote:
+> > Hi Conor/Emil,
+> >
+> > DT overlay is used to describe combinations of VF2 and hat.
+> > Do you have any comments on this patch ?
+>
+> Up to Emil :)
+>
+> I seem to recall that he said at the linux-riscv sync-up call that we
+> have* that he was not in favour of overlays for hats like this.
+> I'll let him confirm that though, I might very well be misinterpreting or
+> misremembering what he said.
 
-Greg's Bot is right, it will be better as a sequence of patches. Sorry 
-for bothering!
+What probably meant was that I didn't want a bunch of different device
+trees for each combination board * hat. An overlay makes a lot more
+sense. However, looking through the kernel tree there is a surprising
+lack of overlays for hats committed already, so I suspect there is
+some sort of policy around overlays already in place.
 
-Kind regards,
-Ivan Orlov.
+> Cheers,
+> Conor.
+>
+> * https://lore.kernel.org/linux-riscv/mhng-775d4068-6c1e-48a4-a1dc-b4a76ff26bb3@palmer-ri-x1c9a/

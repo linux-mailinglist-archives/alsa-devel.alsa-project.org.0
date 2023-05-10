@@ -2,109 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B584A6FE345
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:30:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D646FE346
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:30:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A1B5EFF;
-	Wed, 10 May 2023 19:29:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A1B5EFF
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECB371041;
+	Wed, 10 May 2023 19:29:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECB371041
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683739803;
-	bh=CaqHszddgTyXgu3xb0srGpU7C8sv3zdBncPHByFWhTg=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1683739820;
+	bh=RzMKP6awXlcZOXUe6Nw9/jtMEDu/AFVPsX830ydtebI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GPvB/4eG2x3wOCLoZv3J3VT1hDBYnUg8ssFiR+kV+qIsmIl0KVlflIpqW1wNenACa
-	 PuA06f1TYK45c6sZn/F6t3jmRM23vfyAkvolxRvbAS0QGK3s5G43zNF7j+yncuE10l
-	 Z8HDMHi2PjNfVNoIV1ah47LJ9+XWfTejbWmhdCHY=
+	b=AvH6vHIBflprHOaLAdLErlROqIUdgdw4JCvd54aJ4b7wMKMIaxK/ECvOlbmvH76GO
+	 0kPN2RnTDhxNbvU7NegTdnCqbiWgibGIWwWVKpHmBbgb3EK0Z7WL8ZZwEwnXZiCdv8
+	 LFs+CR6cpNupMadM3slVF54a5TuY0xMA/3wmozNw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D0D1F8057B;
-	Wed, 10 May 2023 19:27:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 876F7F8058C;
+	Wed, 10 May 2023 19:27:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B81CF8032D; Wed, 10 May 2023 16:54:45 +0200 (CEST)
+	id BF936F804B1; Wed, 10 May 2023 17:13:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,HTML_MESSAGE,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [IPv6:2607:f8b0:4864:20::529])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 649CAF8014C
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 16:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 649CAF8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 78B66F80087
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 17:13:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78B66F80087
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=cBN/bqRy
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34A3iPiP002604;
-	Wed, 10 May 2023 09:54:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=content-type :
- message-id : date : mime-version : subject : to : cc : references : from :
- in-reply-to; s=PODMain02222019;
- bh=5NqxY0JDrmwTtwaX1fymwYRbERiM2Ff3n2TGSUJHeVA=;
- b=cBN/bqRyyMeoSHDAnBPkSM+rkw8Sjw78kI5QJ9l+fQ9qvsOJ9T9NoRF+4JTy454unoe9
- PxKARFB99/QoRgf5t5c1nTfvgyTBpstYC8wPDMtrXakezyZv3gKQ2lGDzTTQWMKdozRz
- hZIL91yfYiodO1RaQPeLHFjLvjhczYEIjX4UcT4pOm+VKBbB3tCit10zsnTmeIe5ec35
- NvGrb5JWWaZ6lJSQcDzsQU24NSPqYd7KwM704ZilnEEj9zzyFlEd1F3hxTURfCRT8360
- gEn1KdAYGNO3oyM7p8SNiRYWiD4TKtVkK3/fS26cpDDPiwFQc5W3+RR3jyaxXAjXgO0C /g==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7s42wuy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 10 May 2023 09:54:32 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 10 May
- 2023 09:54:31 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Wed, 10 May 2023 09:54:31 -0500
-Received: from [141.131.206.93] (vkarpovich-ThinkStation-P620.ad.cirrus.com
- [141.131.206.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 099EBB2F;
-	Wed, 10 May 2023 14:54:29 +0000 (UTC)
-Message-ID: <6991f71e-f92a-4edd-c0c6-cfea12e23433@opensource.cirrus.com>
-Date: Wed, 10 May 2023 09:54:29 -0500
+	dkim=pass (1024-bit key,
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=google header.b=PmhG5FLO
+Received: by mail-pg1-x529.google.com with SMTP id
+ 41be03b00d2f7-517ab9a4a13so6641113a12.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 10 May 2023 08:13:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1683731598; x=1686323598;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=dNbzChCwstk8Mo7hN+bmZkFnD7UZ14k52uMeu4gfKcw=;
+        b=PmhG5FLOaE4yb+lqrf+gyZC7pQOhcvK3ZCXacr63fJ91STiPUpkhtcWdvqE4lizFuK
+         7kF0/HAR+PbnOiicXUcIcZ3vTjRJlK79LGXEgl+CDvvNujjjBZTnvGQBUrQd4gdxcoMg
+         zYlp+KpmG2+2Td7CV7UBDNY+psdu3JFO377BY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683731598; x=1686323598;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dNbzChCwstk8Mo7hN+bmZkFnD7UZ14k52uMeu4gfKcw=;
+        b=HW0XI9jTk2udjTXkAj7OQ/A0QG2GCbQNesYjI8Rr0T0qbk3Kdmv9XU13WD3DGRz9VK
+         KEE8n2nPsjVDnv9MZpm2qfUyt0jI95kBfX2pKRVxsCA2zf0G9KtD5uP780YyQT6Ziltd
+         dnHdJ5rYxAUj678GIooWPftWEEJ1asFimfkJT6I0hJU71DiWCiPo1gY5CH7YFHEAT/fm
+         uzthtPHeecAMYZud+cMhOBdAmoGo8K9QqhaoRVSHkENaHqHvL4UzhK84y5mR6KMae05p
+         IxrLCClucWmmYJ/XFYzLIBpjxwkKBLanptLd9ntdq23yCfqq5rkV4fyi9qYeobX8WiDk
+         hK5A==
+X-Gm-Message-State: AC+VfDx3y4H9MAOuze9pVpno5NK+RhukjJt7mVT1MMSBPpX1LAnV13JP
+	32D8CjJnz188KNKE3mf4MLCKgQ==
+X-Google-Smtp-Source: 
+ ACHHUZ4l6+/XXg8d74VQaZYWiSlRVFrNzZnMOB4ONwK3SlBZWpZbzdc7WX5u8cThNizCf2zMVk63UA==
+X-Received: by 2002:a17:903:2804:b0:1a6:d2af:5a3f with SMTP id
+ kp4-20020a170903280400b001a6d2af5a3fmr15627401plb.3.1683731597830;
+        Wed, 10 May 2023 08:13:17 -0700 (PDT)
+Received: from nitro.local ([2001:4958:15a0:30:e305:5a3c:4c5a:1bc7])
+        by smtp.gmail.com with ESMTPSA id
+ s8-20020a170902a50800b001ac8e0ea157sm3902142plq.144.2023.05.10.08.13.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 May 2023 08:13:17 -0700 (PDT)
+Date: Wed, 10 May 2023 11:13:15 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ sound-open-firmware@alsa-project.org
+Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
+ mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
+Message-ID: <20230510-puff-trees-hanoi-69d385@meerkat>
+References: <87ednwmssr.wl-tiwai@suse.de>
+ <87wn1jdzuq.wl-tiwai@suse.de>
+ <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
+ <ZFoUaNKBkIgbW0rD@finisterre.sirena.org.uk>
+ <ff43dccf-ba6d-d7fa-352a-5d5a8c4b977f@perex.cz>
+ <ZFpaOVRc2E/CZBHI@finisterre.sirena.org.uk>
+ <10075912-5c0b-549f-58e1-1323683d250d@perex.cz>
+ <ZFr8B5UFx16sz7S0@finisterre.sirena.org.uk>
+ <ZFsWgnAQy5Y/rwyb@geday>
+ <185f52e2-afa5-87fa-c6c3-594f61e5b911@perex.cz>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH] ASoC: cs35l45: Relicense to GPL only
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, <broonie@kernel.org>
-CC: <pierre-louis.bossart@linux.intel.com>, <u.kleine-koenig@pengutronix.de>,
-        <james.schulman@cirrus.com>, <rf@opensource.cirrus.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>
-References: <20230510092534.3919120-1-ckeepax@opensource.cirrus.com>
-Content-Language: en-US
-From: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
-In-Reply-To: <20230510092534.3919120-1-ckeepax@opensource.cirrus.com>
-X-Proofpoint-ORIG-GUID: Vi5xTbplBs2MzDKLgcMO87hBErtZiISX
-X-Proofpoint-GUID: Vi5xTbplBs2MzDKLgcMO87hBErtZiISX
-X-Proofpoint-Spam-Reason: safe
-X-MailFrom: prvs=04949bf0a8=vkarpovi@opensource.cirrus.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <185f52e2-afa5-87fa-c6c3-594f61e5b911@perex.cz>
+X-MailFrom: konstantin@linuxfoundation.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: VZO52ZPA2I2XA5D45YPO6RTZT2YP2A6A
-X-Message-ID-Hash: VZO52ZPA2I2XA5D45YPO6RTZT2YP2A6A
+Message-ID-Hash: ZYEUFQKY2XNT4QY7XXSEBAOPKYGVLSNI
+X-Message-ID-Hash: ZYEUFQKY2XNT4QY7XXSEBAOPKYGVLSNI
 X-Mailman-Approved-At: Wed, 10 May 2023 17:27:06 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VZO52ZPA2I2XA5D45YPO6RTZT2YP2A6A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZYEUFQKY2XNT4QY7XXSEBAOPKYGVLSNI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,70 +127,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-UmV2aWV3ZWQtYnk6IFZsYWQgS2FycG92aWNoIDx2a2FycG92aUBvcGVuc291cmNlLmNpcnJ1cy5j
-b20+DQoNCk9uIDUvMTAvMjMgMDQ6MjUsIENoYXJsZXMgS2VlcGF4IHdyb3RlOg0KPiBDaXJydXMg
-bmV2ZXIgaW50ZW5kZWQgdG8gdXBzdHJlYW0gZHVhbCBsaWNlbnNlZCBjb2RlLCBjb252ZXJ0IHRv
-DQo+IEdQTCBvbmx5Lg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBDaGFybGVzIEtlZXBheDxja2VlcGF4
-QG9wZW5zb3VyY2UuY2lycnVzLmNvbT4NCj4gLS0tDQo+DQo+IEFwb2xvZ2llcyBmb3IgdGhpcyBi
-dXQgdGhpcyB3YXMgbmV2ZXIgb3VyIGludGVudGlvbiBhbmQgSSBiZWxpZXZlIHRoYXQNCj4gaXQg
-Y2FuIGJlIGEgbGl0dGxlIGxlZ2FsbHkgaW52b2x2ZWQgbWFpbnRhaW5pbmcgZHVhbCBsaWNlbnNl
-ZCBrZXJuZWwgY29kZS4NCj4gRm9ydHVuYXRlbHkgbm90IHRoYXQgbWFueSBwZW9wbGUgb3V0c2lk
-ZSBvZiBDaXJydXMgaGF2ZSBjb250cmlidXRlZCB0bw0KPiB0aGUgZmlsZXMgaW4gcXVlc3Rpb24u
-IEkgaGF2ZSBDQ2VkIGV2ZXJ5b25lIHdobyBoYXMgY29udHJpYnV0ZWQgYm90aA0KPiBpbnRlcm5h
-bGx5IGFuZCBleHRlcm5hbGx5Lg0KPg0KPiBUaGFua3MsDQo+IENoYXJsZXMNCj4NCj4gICBzb3Vu
-ZC9zb2MvY29kZWNzL2NzMzVsNDUtaTJjLmMgICAgfCA0ICsrLS0NCj4gICBzb3VuZC9zb2MvY29k
-ZWNzL2NzMzVsNDUtc3BpLmMgICAgfCA0ICsrLS0NCj4gICBzb3VuZC9zb2MvY29kZWNzL2NzMzVs
-NDUtdGFibGVzLmMgfCAyICstDQo+ICAgc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmMgICAgICAg
-IHwgNCArKy0tDQo+ICAgc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmggICAgICAgIHwgMiArLQ0K
-PiAgIDUgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQ0KPg0K
-PiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LWkyYy5jIGIvc291bmQvc29j
-L2NvZGVjcy9jczM1bDQ1LWkyYy5jDQo+IGluZGV4IDU4MzJlYmI5MGMyYjkuLjc3ZTBmODc1MGYz
-NzUgMTAwNjQ0DQo+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvY3MzNWw0NS1pMmMuYw0KPiArKysg
-Yi9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUtaTJjLmMNCj4gQEAgLTEsNCArMSw0IEBADQo+IC0v
-LyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCBPUiBCU0QtMy1DbGF1c2UNCj4gKy8v
-IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wDQo+ICAgLy8NCj4gICAvLyBjczM1bDQ1
-LWkyYy5jIC0tIENTMzVMNDUgSTJDIGRyaXZlcg0KPiAgIC8vDQo+IEBAIC03Miw1ICs3Miw1IEBA
-IG1vZHVsZV9pMmNfZHJpdmVyKGNzMzVsNDVfaTJjX2RyaXZlcik7DQo+ICAgDQo+ICAgTU9EVUxF
-X0RFU0NSSVBUSU9OKCJJMkMgQ1MzNUw0NSBkcml2ZXIiKTsNCj4gICBNT0RVTEVfQVVUSE9SKCJK
-YW1lcyBTY2h1bG1hbiwgQ2lycnVzIExvZ2ljIEluYyw8amFtZXMuc2NodWxtYW5AY2lycnVzLmNv
-bT4iKTsNCj4gLU1PRFVMRV9MSUNFTlNFKCJEdWFsIEJTRC9HUEwiKTsNCj4gK01PRFVMRV9MSUNF
-TlNFKCJHUEwiKTsNCj4gICBNT0RVTEVfSU1QT1JUX05TKFNORF9TT0NfQ1MzNUw0NSk7DQo+IGRp
-ZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUtc3BpLmMgYi9zb3VuZC9zb2MvY29k
-ZWNzL2NzMzVsNDUtc3BpLmMNCj4gaW5kZXggYTAwYjIzYjQxODBjNS4uNWVmYjc3NTMwY2MzMyAx
-MDA2NDQNCj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LXNwaS5jDQo+ICsrKyBiL3Nv
-dW5kL3NvYy9jb2RlY3MvY3MzNWw0NS1zcGkuYw0KPiBAQCAtMSw0ICsxLDQgQEANCj4gLS8vIFNQ
-RFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wIE9SIEJTRC0zLUNsYXVzZQ0KPiArLy8gU1BE
-WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4gICAvLw0KPiAgIC8vIGNzMzVsNDUtc3Bp
-LmMgLS0gQ1MzNUw0NSBTUEkgZHJpdmVyDQo+ICAgLy8NCj4gQEAgLTc0LDUgKzc0LDUgQEAgbW9k
-dWxlX3NwaV9kcml2ZXIoY3MzNWw0NV9zcGlfZHJpdmVyKTsNCj4gICANCj4gICBNT0RVTEVfREVT
-Q1JJUFRJT04oIlNQSSBDUzM1TDQ1IGRyaXZlciIpOw0KPiAgIE1PRFVMRV9BVVRIT1IoIkphbWVz
-IFNjaHVsbWFuLCBDaXJydXMgTG9naWMgSW5jLDxqYW1lcy5zY2h1bG1hbkBjaXJydXMuY29tPiIp
-Ow0KPiAtTU9EVUxFX0xJQ0VOU0UoIkR1YWwgQlNEL0dQTCIpOw0KPiArTU9EVUxFX0xJQ0VOU0Uo
-IkdQTCIpOw0KPiAgIE1PRFVMRV9JTVBPUlRfTlMoU05EX1NPQ19DUzM1TDQ1KTsNCj4gZGlmZiAt
-LWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvY3MzNWw0NS10YWJsZXMuYyBiL3NvdW5kL3NvYy9jb2Rl
-Y3MvY3MzNWw0NS10YWJsZXMuYw0KPiBpbmRleCA0NjYxMGU2NGU4MTg4Li4wNjZmODNjMGM3YWMy
-IDEwMDY0NA0KPiAtLS0gYS9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUtdGFibGVzLmMNCj4gKysr
-IGIvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LXRhYmxlcy5jDQo+IEBAIC0xLDQgKzEsNCBAQA0K
-PiAtLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgT1IgQlNELTMtQ2xhdXNlDQo+
-ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KPiAgIC8vDQo+ICAgLy8gY3Mz
-NWw0NS10YWJsZXMuYyAtLSBDUzM1TDQ1IEFMU0EgU29DIGF1ZGlvIGRyaXZlcg0KPiAgIC8vDQo+
-IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUuYyBiL3NvdW5kL3NvYy9jb2Rl
-Y3MvY3MzNWw0NS5jDQo+IGluZGV4IGMzMTU5N2Y2YmZhZTEuLmQxZWRiOTg3NmMxMGYgMTAwNjQ0
-DQo+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvY3MzNWw0NS5jDQo+ICsrKyBiL3NvdW5kL3NvYy9j
-b2RlY3MvY3MzNWw0NS5jDQo+IEBAIC0xLDQgKzEsNCBAQA0KPiAtLy8gU1BEWC1MaWNlbnNlLUlk
-ZW50aWZpZXI6IEdQTC0yLjAgT1IgQlNELTMtQ2xhdXNlDQo+ICsvLyBTUERYLUxpY2Vuc2UtSWRl
-bnRpZmllcjogR1BMLTIuMA0KPiAgIC8vDQo+ICAgLy8gY3MzNWw0NS5jIC0gQ1MzNUw0NSBBTFNB
-IFNvQyBhdWRpbyBkcml2ZXINCj4gICAvLw0KPiBAQCAtMTI5Niw0ICsxMjk2LDQgQEAgRVhQT1JU
-X1NZTUJPTF9OU19HUEwoY3MzNWw0NV9wbV9vcHMsIFNORF9TT0NfQ1MzNUw0NSk7DQo+ICAgTU9E
-VUxFX0RFU0NSSVBUSU9OKCJBU29DIENTMzVMNDUgZHJpdmVyIik7DQo+ICAgTU9EVUxFX0FVVEhP
-UigiSmFtZXMgU2NodWxtYW4sIENpcnJ1cyBMb2dpYyBJbmMsPGphbWVzLnNjaHVsbWFuQGNpcnJ1
-cy5jb20+Iik7DQo+ICAgTU9EVUxFX0FVVEhPUigiUmljaGFyZCBGaXR6Z2VyYWxkPHJmQG9wZW5z
-b3VyY2UuY2lycnVzLmNvbT4iKTsNCj4gLU1PRFVMRV9MSUNFTlNFKCJEdWFsIEJTRC9HUEwiKTsN
-Cj4gK01PRFVMRV9MSUNFTlNFKCJHUEwiKTsNCj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2Rl
-Y3MvY3MzNWw0NS5oIGIvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmgNCj4gaW5kZXggMGRhMjg0
-MzlmNjI4Yi4uNjExMzVhMzE2ZGYzMyAxMDA2NDQNCj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9j
-czM1bDQ1LmgNCj4gKysrIGIvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmgNCj4gQEAgLTEsNCAr
-MSw0IEBADQo+IC0vKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCBPUiBCU0QtMy1D
-bGF1c2UgKi8NCj4gKy8qIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wICovDQo+ICAg
-LyoNCj4gICAgKiBjczM1bDQ1LmggLSBDUzM1TDQ1IEFMU0EgU29DIGF1ZGlvIGRyaXZlcg0KPiAg
-ICAq
+On Wed, May 10, 2023 at 08:17:30AM +0200, Jaroslav Kysela wrote:
+> > The middle way could be to patch mailman 3 to "munge_from" while adding
+> > the correct "From:" as the first thing in the body of the message if it
+> > doesn't contain one already. This will make git-am pickup the correct
+> > author's details and it should be some simple logic.
+> 
+> Unfortunately, changing the message body will break the DKIM message
+> integrity (body hash)...
+
+If you change the From: header, the DKIM signature doesn't matter any more, so
+this will work just fine.
+
+-K

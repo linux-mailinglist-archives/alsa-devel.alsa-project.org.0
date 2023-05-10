@@ -2,163 +2,136 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D8866FE349
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:31:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BA0C6FE241
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 18:20:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5399D1047;
-	Wed, 10 May 2023 19:30:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5399D1047
+	by alsa0.perex.cz (Postfix) with ESMTPS id 942761044;
+	Wed, 10 May 2023 18:19:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 942761044
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683739864;
-	bh=0bT5NrcOAVzoHodt3oI6D1EM/pGw9sVK/2GQeIWiPAQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:List-Id:List-Archive:List-Help:
-	 List-Owner:List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HJXBgb7WztGa3dquQ0c8Djhj+KPXWMbrBFTl3XndN0+8FeZ9r2rCV7oKe6IKTZ3kM
-	 wRRg3xLdDDwXo0Eh5T5FWDgW/bVyWIiz3ovGVsO6Nv2t9rNBunRyADH9djZOic18Lp
-	 K5QkJEYMdCK1/8UigcMShXYwWj2PFdtRG8fxRAJw=
+	s=default; t=1683735626;
+	bh=rQhn3NwLPBBwHEi62lF5sP+tdL9nkrA5HSumQjyakjA=;
+	h=Date:To:References:From:Subject:In-Reply-To:CC:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=cO+CM6jLdDqmT8dQvlvRcGh5Ms1+2R4p+Hg4Q3DVWdj/7k29GzdPigmxRgKVzMrA1
+	 pwzrlTlHrUV7UAyHnCgiDY2bOzo8P8BY7QKMiCA7lhj2ZAYPL4A9LgUzVhH1OJSNfi
+	 FnEyFXGIFNr+RmPoss3NiNSoejAqGvojBoH3tbHA=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B88B8F805AC;
-	Wed, 10 May 2023 19:27:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C93B8F80310;
+	Wed, 10 May 2023 18:19:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D16A7F80544; Wed, 10 May 2023 18:20:21 +0200 (CEST)
+	id 3BE76F8032D; Wed, 10 May 2023 18:19:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_DYNAMIC,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail.icequake.net (64-251-151-187.fidnet.com [64.251.151.187])
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 89E72F8052E
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 18:20:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89E72F8052E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=icequake.net header.i=@icequake.net header.a=rsa-sha256
- header.s=mail-1 header.b=n6Ekn8bb
-Received: from mail.icequake.net (aurora [127.0.0.1])
-	by mail.icequake.net (Postfix) with ESMTP id A571CD40D3;
-	Wed, 10 May 2023 11:20:10 -0500 (CDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icequake.net;
-	s=mail-1; t=1683735610; x=1684340410;
-	bh=6cS+j1VRYNpWo0Wuv7yVjob9ieRCBGEGS8tiLASM/To=;
-	h=Date:From:To:Cc:Subject:Reply-To:Subject:From:To:Date;
-	b=n6Ekn8bbIpwtx12UqCvx7E7uvT8FYn3NQ6yxhyq8EjFRcXbGFDEfwswf5uVt9xqH5
-	 /X4TwayNemtg4fB81SW3lqHKjSaPTQDOzpG59/X4Q/VgOBx9OKo0DKPTAjnDKV46uA
-	 mCzhlqA9qJpBy9mXmDTmjQ2ZOkiwI+o0dMDjMfow=
-Received: from localhost (aurora [127.0.0.1])
-	by mail.icequake.net (Postfix) with ESMTP id 7697ED42C7;
-	Wed, 10 May 2023 11:20:10 -0500 (CDT)
-X-Virus-Scanned: Debian amavisd-new at icequake.net
-Received: from mail.icequake.net ([127.0.0.1])
-	by localhost (aurora.icequake.net [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id O_wH484lYCTR; Wed, 10 May 2023 11:20:08 -0500 (CDT)
-Received: from localhost (rrcs-71-42-125-220.sw.biz.rr.com [71.42.125.220])
-	(Authenticated sender: nemesis@icequake.net)
-	by mail.icequake.net (Postfix) with ESMTPSA id A0B2AD40D3;
-	Wed, 10 May 2023 11:20:08 -0500 (CDT)
-Date: Wed, 10 May 2023 11:19:08 -0500
-From: "Ryan C. Underwood" <nemesis-lists@icequake.net>
-To: alsa-devel@alsa-project.org
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Stefan Binding <sbinding@opensource.cirrus.com>,
-	Meng Tang <tangmeng@uniontech.com>,
-	Andy Chi <andy.chi@canonical.com>,
-	"Luke D. Jones" <luke@ljones.dev>,
-	Philipp Jungkamp <p.jungkamp@gmx.net>,
-	Kacper =?utf-8?Q?Michaj=C5=82ow?= <kasper93@gmail.com>,
-	Yuchi Yang <yangyuchi66@gmail.com>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] snd-hda-intel: Apply HP B&O top speaker profile to Pavilion
- 15
-Message-ID: <ZFvD/HwNPd6xuCMo@icequake.net>
-Mail-Followup-To: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Stefan Binding <sbinding@opensource.cirrus.com>,
-	Meng Tang <tangmeng@uniontech.com>,
-	Andy Chi <andy.chi@canonical.com>,
-	"Luke D. Jones" <luke@ljones.dev>,
-	Philipp Jungkamp <p.jungkamp@gmx.net>,
-	Kacper =?utf-8?Q?Michaj=C5=82ow?= <kasper93@gmail.com>,
-	Yuchi Yang <yangyuchi66@gmail.com>, linux-kernel@vger.kernel.org
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4AE4EF8014C;
+	Wed, 10 May 2023 18:19:22 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C564A11F7;
+	Wed, 10 May 2023 18:19:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C564A11F7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1683735561; bh=YJxXXmYujBSOFkyN+o12AQx4kabF5yyXLHiHkL2kR7k=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=OwpEMGd5o3IBKCS4iWzQxeR7/sKFlzH0LMM22DiyvkNPaSy3/YcRblr9bzGhE19WA
+	 7Dcz6on54KV7x7Xhupc6o3VV/ZiQVlkL0JCU6C3zE7pVU1K+6de7uA58Avpdno39X3
+	 kSYdvsJ44mq79YCXfQfaak6zcXKVC9revTtv3QaA=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Wed, 10 May 2023 18:19:15 +0200 (CEST)
+Message-ID: <41443193-1c4a-bfea-f81c-e6658b7addee@perex.cz>
+Date: Wed, 10 May 2023 18:19:15 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="90BXrl9KsEnGw98J"
-Content-Disposition: inline
-X-MailFrom: nemesis-lists@icequake.net
-X-Mailman-Rule-Hits: nonmember-moderation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+References: <ZFMF2cD3nPgpZOpa@finisterre.sirena.org.uk>
+ <87o7n0mtv9.wl-tiwai@suse.de> <87ednwmssr.wl-tiwai@suse.de>
+ <87wn1jdzuq.wl-tiwai@suse.de> <e76c1395-5eb2-849e-120d-1b7389fc97c7@perex.cz>
+ <ZFoUaNKBkIgbW0rD@finisterre.sirena.org.uk>
+ <ff43dccf-ba6d-d7fa-352a-5d5a8c4b977f@perex.cz>
+ <20230509-mug-private-mess-6a36d2@meerkat>
+ <31969101-c1cf-4956-6446-2243ccda0c65@perex.cz>
+ <20230510-robert-diane-joe-846d41@meerkat>
+From: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: DMARC (Was: Re: [alsa-devel@alsa-project.org: [PATCH 3/5] ASoC:
+ mediatek: mt8195-afe-pcm: Simplify runtime PM during probe])
+In-Reply-To: <20230510-robert-diane-joe-846d41@meerkat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: X7LXRMFDTM2RMGAW7FPE3MYXBNDVJTEB
+X-Message-ID-Hash: X7LXRMFDTM2RMGAW7FPE3MYXBNDVJTEB
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: D64D4FZJDD3ECAEJIZFRJPS533TMMHMS
-X-Message-ID-Hash: D64D4FZJDD3ECAEJIZFRJPS533TMMHMS
-X-Mailman-Approved-At: Wed, 10 May 2023 17:27:06 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
+CC: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ sound-open-firmware@alsa-project.org
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: nemesis@icequake.net
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D64D4FZJDD3ECAEJIZFRJPS533TMMHMS/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X7LXRMFDTM2RMGAW7FPE3MYXBNDVJTEB/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On 10. 05. 23 17:34, Konstantin Ryabitsev wrote:
 
---90BXrl9KsEnGw98J
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> So, I'm just going to repeat this: operating a mailing list and remaining
+> DMARC compliant is perfectly possible, provided:
+> 
+> - the original message is DKIM-signed
+> - all existing headers are unmodified
+> - the message body is unmodified
 
+Example of e-mail which is rejected by google's mx servers:
 
-The Pavilion 15 line has B&O top speakers similar to the x360 and
-applying the same profile produces good sound.  Without this, the sound
-would be tinny and underpowered without either applying
-model=3Dalc295-hp-x360 or booting another OS first.
----
- sound/pci/hda/patch_realtek.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+https://lore.kernel.org/alsa-devel/20230510142227.32945-1-vitalyr@opensource.cirrus.com/raw
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e103bb3693c0..7cb232a23a08 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9335,7 +9335,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] =
-=3D {
- 	SND_PCI_QUIRK(0x103c, 0x802f, "HP Z240", ALC221_FIXUP_HP_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x103c, 0x8077, "HP", ALC256_FIXUP_HP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x103c, 0x8158, "HP", ALC256_FIXUP_HP_HEADSET_MIC),
--	SND_PCI_QUIRK(0x103c, 0x820d, "HP Pavilion 15", ALC269_FIXUP_HP_MUTE_LED_=
-MIC3),
-+	SND_PCI_QUIRK(0x103c, 0x820d, "HP Pavilion 15", ALC295_FIXUP_HP_X360),
- 	SND_PCI_QUIRK(0x103c, 0x8256, "HP", ALC221_FIXUP_HP_FRONT_MIC),
- 	SND_PCI_QUIRK(0x103c, 0x827e, "HP x360", ALC295_FIXUP_HP_X360),
- 	SND_PCI_QUIRK(0x103c, 0x827f, "HP x360", ALC269_FIXUP_HP_MUTE_LED_MIC3),
---=20
-2.39.2
+ From the postfix e-mail queue:
 
+https://gist.github.com/perexg/ac06eacd8b3a8f741ef5602ec748e0a8
 
---=20
-Ryan C. Underwood, <nemesis@icequake.net>
+SMTP error:
 
---90BXrl9KsEnGw98J
-Content-Type: application/pgp-signature; name="signature.asc"
+reason=host alt1.aspmx.l.google.com[142.251.9.27] said: 550-5.7.26 
+Unauthenticated email from cirrus.com is not accepted due to domain's 
+550-5.7.26 DMARC policy. Please contact the administrator of cirrus.com domain 
+550-5.7.26 if this was a legitimate mail. Please visit 550-5.7.26 
+https://support.google.com/mail/answer/2451690 to learn about the 450 4.7.26 
+DMARC initiative. mz11-20020a1709071b8b00b009665976cbddsi3525670ejc.170 - 
+gsmtp (in reply to end of DATA command)
 
------BEGIN PGP SIGNATURE-----
+				Jaroslav
 
-iF0EABECAB0WIQSqqegowG2kcGXAAAMiiceeH7ruOQUCZFvD+AAKCRAiiceeH7ru
-OWuxAJ4/b/bKgxGdMv4EroO2HzeGV/b85gCdEgaJIiCFKUsShQnEFF+WBEBBYO4=
-=jase
------END PGP SIGNATURE-----
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
---90BXrl9KsEnGw98J--

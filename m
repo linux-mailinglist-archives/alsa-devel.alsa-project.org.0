@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B91696FE590
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 22:51:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 644CC6FE59B
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 22:51:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FA43FF4;
-	Wed, 10 May 2023 22:50:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FA43FF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83D5C100A;
+	Wed, 10 May 2023 22:50:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83D5C100A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683751876;
-	bh=ozW99ARKrOKVH4wAAidgEU18+/tLSFX0mid2aRRYCN8=;
+	s=default; t=1683751903;
+	bh=+CClwmlhhoXRV/flrOSGPQcZOJ5y9G17Co5fZemzFmM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KxKeCahGhEHkx5wP8tvSvWWXfjW66yyDWU8NrqU1wf4h3aChRkfQUVJCQVubHyzFm
-	 pY2ZTB0u5t8C7tHOtYNHnbqnxg7S//MB3BNTisnyj+9mgiBja043iCYvvLH0QGJnGf
-	 ngbXMOpdFL1qzLo9uzjY1VrOU50dCaoxplA4IUjs=
+	b=SiHbwxFtcA/Agd5FxZ5qF++k2/806cntTOfrcfIzRxK8fAzuezxx/dlm6fRK3n92h
+	 oqiefSGNiZV20j5Z2fwjE6hy0FNrSVxxgIG4FTsXCKkTnPYEP6FXho2hejHtrZB4U+
+	 sJuNUyyD/50ztRcGLB1oHydcWiC1fhREEuN6Vj4E=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0485F80534;
-	Wed, 10 May 2023 22:49:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C9FBF8055B;
+	Wed, 10 May 2023 22:49:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0A8AF804B1; Wed, 10 May 2023 22:49:32 +0200 (CEST)
+	id 594C3F8055C; Wed, 10 May 2023 22:49:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,52 +33,54 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6CB0AF80087
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 22:49:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CB0AF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84902F8055A
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 22:49:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84902F8055A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JVRWDhXU
+ header.s=k20201202 header.b=YCYb5JMu
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 272A864055;
-	Wed, 10 May 2023 20:49:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEAABC433EF;
-	Wed, 10 May 2023 20:49:18 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 73DFD63F11;
+	Wed, 10 May 2023 20:49:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 005BFC4339B;
+	Wed, 10 May 2023 20:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683751759;
-	bh=ozW99ARKrOKVH4wAAidgEU18+/tLSFX0mid2aRRYCN8=;
+	s=k20201202; t=1683751783;
+	bh=+CClwmlhhoXRV/flrOSGPQcZOJ5y9G17Co5fZemzFmM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JVRWDhXU9mCLO6I1ulG1V9/vV6K7HRWNVKJUeY/ke1eyehdZPSHj1ajHjUtJlWejS
-	 h1HqgjH+rwOgoPBDFQFJ9YNsjPvliUU9WMsgtJyEx1MP7dpqMLJjBCbj4dP7ygSVec
-	 pbB0sAIDjJhy42MDDXDX0S1tlMkQM3qgAEGLAahDUe4foCRLs8j5Q0doC141/lqL+o
-	 KzkNftavANgX2zhqm4dVz8s5ZoXwcMjgVVEeIW59fUFBMybadKI9i/FSC19NLXccfk
-	 FoM76YUNju8vgZ21x1R5vTDxZl9VPxtMQtUBwP8W5+UFfsSROdbGaR18G2UBJ8oBCP
-	 ogd6XLn7f3kfg==
+	b=YCYb5JMuX4ac72m8RJ1UY3DMl6QZBQDHDZK6hpeypTP36i9la6gDVGaUKynRUxk0/
+	 dDTa5+1bn+FaJ+UY6ueD74bIqoy7JBBkCFnnvgizXpGyqnL4pla6PPEfMPFG1KYB9K
+	 J7jpEhWln9VH4hW/y+1h6qluprzEtP1KkkEIOSPxGqGGjMvRBcjxMpWNjEglSFMqnC
+	 X8jTLB+YttqWwFHA7GE0g2da1Zpnh2uJLRjTyEDhLLDfS3EGcJCGxJkP5KJnosITUz
+	 KhdJ4aS2LIQEhKk0vD+YB+rlHMBjN+us49xlS2u/ZbnTv9+0ypOlP2B/8NNogZwSi5
+	 /5u0QdVBygWAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Richard Fitzgerald <rf@opensource.cirrus.com>,
+Cc: Eugene Huang <eugene.huang99@gmail.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	yung-chuan.liao@linux.intel.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.3 5/9] soundwire: bus: Fix unbalanced
- pm_runtime_put() causing usage count underflow
-Date: Wed, 10 May 2023 16:49:01 -0400
-Message-Id: <20230510204905.104628-5-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.2 2/9] soundwire: dmi-quirks: add remapping for
+ Intel 'Rooks County' NUC M15
+Date: Wed, 10 May 2023 16:49:19 -0400
+Message-Id: <20230510204926.104747-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230510204905.104628-1-sashal@kernel.org>
-References: <20230510204905.104628-1-sashal@kernel.org>
+In-Reply-To: <20230510204926.104747-1-sashal@kernel.org>
+References: <20230510204926.104747-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 433XD4OHWYSCVCLL2MAJ2CVPHILTTGYN
-X-Message-ID-Hash: 433XD4OHWYSCVCLL2MAJ2CVPHILTTGYN
+Message-ID-Hash: V3SVIFASGTDMM5TPVDB3Z7YIHW72HL64
+X-Message-ID-Hash: V3SVIFASGTDMM5TPVDB3Z7YIHW72HL64
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/433XD4OHWYSCVCLL2MAJ2CVPHILTTGYN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V3SVIFASGTDMM5TPVDB3Z7YIHW72HL64/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,89 +102,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
+From: Eugene Huang <eugene.huang99@gmail.com>
 
-[ Upstream commit e9537962519e88969f5f69cd0571eb4f6984403c ]
+[ Upstream commit 01b33e284ca28cc977bdcfb23be2c719f2139175 ]
 
-This reverts commit
-443a98e649b4 ("soundwire: bus: use pm_runtime_resume_and_get()")
+Same DSDT problem as the HP Omen 16-k0005TX, except rt1316 amp is on
+link2.
 
-Change calls to pm_runtime_resume_and_get() back to pm_runtime_get_sync().
-This fixes a usage count underrun caused by doing a pm_runtime_put() even
-though pm_runtime_resume_and_get() returned an error.
-
-The three affected functions ignore -EACCES error from trying to get
-pm_runtime, and carry on, including a put at the end of the function.
-But pm_runtime_resume_and_get() does not increment the usage count if it
-returns an error. So in the -EACCES case you must not call
-pm_runtime_put().
-
-The documentation for pm_runtime_get_sync() says:
- "Consider using pm_runtime_resume_and_get() ...  as this is likely to
- result in cleaner code."
-
-In this case I don't think it results in cleaner code because the
-pm_runtime_put() at the end of the function would have to be conditional on
-the return value from pm_runtime_resume_and_get() at the top of the
-function.
-
-pm_runtime_get_sync() doesn't have this problem because it always
-increments the count, so always needs a put. The code can just flow through
-and do the pm_runtime_put() unconditionally.
-
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Link: https://github.com/thesofproject/linux/issues/4088
+Signed-off-by: Eugene Huang <eugene.huang99@gmail.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20230406134640.8582-1-rf@opensource.cirrus.com
+Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Link: https://lore.kernel.org/r/20230314090618.498716-1-yung-chuan.liao@linux.intel.com
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/bus.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/soundwire/dmi-quirks.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index b6aca59c31300..7fd99e581a574 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -546,9 +546,11 @@ int sdw_nread(struct sdw_slave *slave, u32 addr, size_t count, u8 *val)
- {
- 	int ret;
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.c
+index 7969881f126dc..58ea013fa918a 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -73,6 +73,23 @@ static const struct adr_remap hp_omen_16[] = {
+ 	{}
+ };
  
--	ret = pm_runtime_resume_and_get(&slave->dev);
--	if (ret < 0 && ret != -EACCES)
-+	ret = pm_runtime_get_sync(&slave->dev);
-+	if (ret < 0 && ret != -EACCES) {
-+		pm_runtime_put_noidle(&slave->dev);
- 		return ret;
-+	}
- 
- 	ret = sdw_nread_no_pm(slave, addr, count, val);
- 
-@@ -570,9 +572,11 @@ int sdw_nwrite(struct sdw_slave *slave, u32 addr, size_t count, const u8 *val)
- {
- 	int ret;
- 
--	ret = pm_runtime_resume_and_get(&slave->dev);
--	if (ret < 0 && ret != -EACCES)
-+	ret = pm_runtime_get_sync(&slave->dev);
-+	if (ret < 0 && ret != -EACCES) {
-+		pm_runtime_put_noidle(&slave->dev);
- 		return ret;
-+	}
- 
- 	ret = sdw_nwrite_no_pm(slave, addr, count, val);
- 
-@@ -1541,9 +1545,10 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
- 
- 	sdw_modify_slave_status(slave, SDW_SLAVE_ALERT);
- 
--	ret = pm_runtime_resume_and_get(&slave->dev);
-+	ret = pm_runtime_get_sync(&slave->dev);
- 	if (ret < 0 && ret != -EACCES) {
- 		dev_err(&slave->dev, "Failed to resume device: %d\n", ret);
-+		pm_runtime_put_noidle(&slave->dev);
- 		return ret;
- 	}
- 
++/*
++ * Intel NUC M15 LAPRC510 and LAPRC710
++ */
++static const struct adr_remap intel_rooks_county[] = {
++	/* rt711-sdca on link0 */
++	{
++		0x000020025d071100ull,
++		0x000030025d071101ull
++	},
++	/* rt1316-sdca on link2 */
++	{
++		0x000120025d071100ull,
++		0x000230025d131601ull
++	},
++	{}
++};
++
+ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 	/* TGL devices */
+ 	{
+@@ -98,6 +115,14 @@ static const struct dmi_system_id adr_remap_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)intel_tgl_bios,
+ 	},
++	{
++		/* quirk used for NUC15 'Rooks County' LAPRC510 and LAPRC710 skews */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Intel(R) Client Systems"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "LAPRC"),
++		},
++		.driver_data = (void *)intel_rooks_county,
++	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc"),
 -- 
 2.39.2
 

@@ -2,128 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 492866FDD59
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 14:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C27B6FDDC0
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 14:25:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD17B103C;
-	Wed, 10 May 2023 13:59:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD17B103C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53F81F3B;
+	Wed, 10 May 2023 14:24:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F81F3B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683720039;
-	bh=Qb0Oc5UusMrzYZBvpQZ44s6QN4KE4mAh94taer7ZLHw=;
-	h=Date:From:To:Subject:References:In-Reply-To:CC:List-Id:
+	s=default; t=1683721508;
+	bh=uqHv729YEy/im++STx8xBlGMK9/ZZaKjYXkpc3lj8wY=;
+	h=Date:From:To:Subject:In-Reply-To:References:CC:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iKKva0aNMtVc5E9mUckZmnxej3b2wrlthq6SIdi/us4Qrp6S1AehzzPqvM7L8smFz
-	 +i1Q1+QIzgCNxKv7qmjIUqhPBR0fw8+uOz2iRKn4Vk3xo680lJ7oQ8YSa/fuaZLSXq
-	 uHS+qpsnVeAvF+XkLUYv9ALk8499Sxis8w1+qXOQ=
+	b=KLu6VkrbkJdxlI24jXT+BKJ5jX9pO02fIkFtPwHi2hRcNJ+S7DV/EY9/ZL6ejj76/
+	 KIBvOoIlPlStASM4JqpG7m37F8GqkBeEvF2+5c1O1SMrHoR0/4PIzBdkLGviA43YxK
+	 ZiGHQuOyLFw5vsMKgfP7egv1NEh21THYSdnBW/CE=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C484F80310;
-	Wed, 10 May 2023 13:59:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 703D3F80310;
+	Wed, 10 May 2023 14:24:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3851EF8032D; Wed, 10 May 2023 13:59:29 +0200 (CEST)
+	id 65AACF8014C; Wed, 10 May 2023 14:22:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2161BF8014C
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 13:59:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2161BF8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4D85AF80087
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 14:21:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D85AF80087
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=D1EKLsRZ
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-965c3f9af2aso1057328666b.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 10 May 2023 04:59:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683719955; x=1686311955;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:sender
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wBh03BIVJ6bBsfdWgoiwpXPJcFGoTrOV/vp+iVHTloM=;
-        b=D1EKLsRZ9GZ3EE2mrLEAHlZJdZsZuTA5tn+mox4JeoT6BFLOEdfVySNpyIG2TT5+pN
-         +l+MrnHviHrT8NJWLa6csqo604JNo/arjFPSSIy4oXN4IB4xo+pjko2n/I1jFkL9r5uL
-         lKXAnnrH2aBlit0xNM9EuTAeaMsKWxkDs68D2ePXajr1Eriy2JGnrr0lkKpzHQTrDJNp
-         V0bodjFUJlaIIvRwIZuMW9fvVV8beKheRDmc8bQ8C2OwOEyaiEIWBoysq0A6SIvzl8kD
-         IKw13w74WWTRUXH6hrUiKgtU2yARMMfY4avsnfic91aSwgXaq4gz9JUZZhRscmi6onSh
-         2zBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683719955; x=1686311955;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:sender
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wBh03BIVJ6bBsfdWgoiwpXPJcFGoTrOV/vp+iVHTloM=;
-        b=NRZBR8BG3jNuPltLRd9ZO7ScF2Vl4LXUu0lrNddtNTdQDd/ZCVdpMF8FvxXWkwiDei
-         vQd5vluy6q1clr+z8ZLHQjP9kLttfXZZZHmVO1G+H/yDovomt+Q+aMybfQNZyJ1wS7y7
-         C1W40hkJF6p7dAcqaxAj+XUPoWp+TkakS5yVj7wLxggspPEqQqPsAQD5Suf+XFssv2N/
-         p5H/TfmBCFRohLJZUHcFMzDWRWeOQhGZkUzNRzy3Hewl3H5GZo+x+mEye745U83wz4uK
-         TLgp/JzU78DauRaGjNPsLPtEPvCCsh3CxO9kvRA4pRW/wVnRFxJEgw0iGy7Z9GBVLR8R
-         U/FA==
-X-Gm-Message-State: AC+VfDy1n5g/1LJln33eQAv+ZAuAtzVyBkeWjTMkVNHWfmZ11SaiCRqv
-	Ut4Suq43+nAGXM21Cqm0AECBXmQm6bHT5w==
-X-Google-Smtp-Source: 
- ACHHUZ5qqw5cgGI6/qLkFeV1i5mxPFvZkUe/ofZQm3xfr4w4TXbnYwlTpXRQ3Oliz8VjGH7gNSPPUQ==
-X-Received: by 2002:a17:907:3606:b0:961:800b:3f57 with SMTP id
- bk6-20020a170907360600b00961800b3f57mr14857074ejc.77.1683719955031;
-        Wed, 10 May 2023 04:59:15 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-242-114.customer.ggaweb.ch.
- [82.192.242.114])
-        by smtp.gmail.com with ESMTPSA id
- m24-20020a1709062b9800b009686a7dc71csm2617945ejg.30.2023.05.10.04.59.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 May 2023 04:59:12 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 1D2B1BE2DE0; Wed, 10 May 2023 13:59:12 +0200 (CEST)
-Date: Wed, 10 May 2023 13:59:12 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH AUTOSEL 5.10 1/3] ASOC: Intel: sof_sdw: add quirk for
- Intel 'Rooks County' NUC M15
-Message-ID: <ZFuHEML1r5Xd6S7g@eldamar.lan>
-References: <20230420110326.506279-1-sashal@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=vz1KplaA;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=lidvnf1l
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 12ACE21963;
+	Wed, 10 May 2023 12:21:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1683721280;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ml6hxm68MI1LxXRhtHu9h6owlh4zW00O6SapO2fPgHk=;
+	b=vz1KplaAbvUeXPMqW5J8Dj8bnOLyZmSMo/ayKmdyOaMFMVzU5qJb+4cQEPdntv/ndVSQlv
+	1TkIlvHsjOQtS1EfmKD05brInJg5mkZBQl69nIBrxotNZJ/hScNGnbIqOlbVFDOBqoo4iL
+	B6XngI3/PlSTgvSg1GLXPcS1Zpoa1/8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1683721280;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ml6hxm68MI1LxXRhtHu9h6owlh4zW00O6SapO2fPgHk=;
+	b=lidvnf1lMRrmJynSWX7CHlhETe0wvnfcp3jB2mBxo94d1pG51tSeQKyFJ4TmReqbRpZJ/U
+	emjy7mHyrMN5RbAA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F02C3138E5;
+	Wed, 10 May 2023 12:21:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id n5U7Oj+MW2SQbQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 10 May 2023 12:21:19 +0000
+Date: Wed, 10 May 2023 14:21:19 +0200
+Message-ID: <878rdwjs1s.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: HDA, power saving and recording
+In-Reply-To: <a7478636-af11-92ab-731c-9b13c582a70d@linux.intel.com>
+References: <a7478636-af11-92ab-731c-9b13c582a70d@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230420110326.506279-1-sashal@kernel.org>
-Message-ID-Hash: LYR6ZRC2VSFL3OXZ47UELVBWQI5TFPOV
-X-Message-ID-Hash: LYR6ZRC2VSFL3OXZ47UELVBWQI5TFPOV
-X-MailFrom: salvatore.bonaccorso@gmail.com
+Message-ID-Hash: 5ZJEO3WMEQKK3HLZ4UTX3IMLRF2LS3IP
+X-Message-ID-Hash: 5ZJEO3WMEQKK3HLZ4UTX3IMLRF2LS3IP
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-CC: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Eugene Huang <eugene.huang99@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?iso-8859-1?Q?P=E9ter?= Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- tiwai@suse.com, gongjun.song@intel.com, shumingf@realtek.com,
- yong.zhi@intel.com, alsa-devel@alsa-project.org
+CC: Cezary Rojewski <cezary.rojewski@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LYR6ZRC2VSFL3OXZ47UELVBWQI5TFPOV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZJEO3WMEQKK3HLZ4UTX3IMLRF2LS3IP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,63 +120,2227 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Sasha,
-
-On Thu, Apr 20, 2023 at 07:03:22AM -0400, Sasha Levin wrote:
-> From: Eugene Huang <eugene.huang99@gmail.com>
+On Tue, 09 May 2023 12:10:06 +0200,
+Amadeusz Sławiński wrote:
 > 
-> [ Upstream commit 3c728b1bc5b99c5275ac5c7788ef814c0e51ef54 ]
+> Hi Takashi,
 > 
-> Same quirks as the 'Bishop County' NUC M15, except the rt711 is in the
-> 'JD2 100K' jack detection mode.
+> I have a question related to HDA codecs, power saving and sending verb
+> configuration. In our tests we test avs driver with HDA codec
+> configuration and we see problem when arecord is started before codec
+> goes to first sleep.
 > 
-> Link: https://github.com/thesofproject/linux/issues/4088
-> Signed-off-by: Eugene Huang <eugene.huang99@gmail.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> Link: https://lore.kernel.org/r/20230314090553.498664-2-yung-chuan.liao@linux.intel.com
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  sound/soc/intel/boards/sof_sdw.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
+> In ASoC code we set power save timeout to 2 seconds [1], if we start
+> recording before codec goes to sleep, we record only silence.
 > 
-> diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-> index f5d8f7951cfc3..eb713e9c2bd22 100644
-> --- a/sound/soc/intel/boards/sof_sdw.c
-> +++ b/sound/soc/intel/boards/sof_sdw.c
-> @@ -175,6 +175,17 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
->  					SOF_SDW_PCH_DMIC |
->  					SOF_RT711_JD_SRC_JD2),
->  	},
-> +	{
-> +		/* NUC15 'Rooks County' LAPRC510 and LAPRC710 skews */
-> +		.callback = sof_sdw_quirk_cb,
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Intel(R) Client Systems"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "LAPRC"),
-> +		},
-> +		.driver_data = (void *)(SOF_SDW_TGL_HDMI |
-> +					SOF_SDW_PCH_DMIC |
-> +					RT711_JD2_100K),
-> +	},
->  	/* TigerLake-SDCA devices */
->  	{
->  		.callback = sof_sdw_quirk_cb,
-> -- 
-> 2.39.2
+> Now I've spend some time investigating the issue and as far as I can
+> tell, when codec is being initialized channels are being set to mute
+> and when one starts stream before first "sleep" it never sends proper
+> configuration to codec.
 
-Is this correct that this can be picked for 5.10.y? I did (by mistake)
-AFAICS this is in 5.10.180-rc1, and building leads to:
+Who does set channels to mute?  Or do you mean that the hardware
+initial value set on the codec is muted?  If yes, anyone should have
+unmuted.  Was it tracked?
 
-sound/soc/intel/boards/sof_sdw.c:187:6: error: ‘RT711_JD2_100K’ undeclared here (not in a function)
-  187 |      RT711_JD2_100K),
-      |      ^~~~~~~~~~~~~~
-make[7]: *** [scripts/Makefile.build:286: sound/soc/intel/boards/sof_sdw.o] Error 1
-make[6]: *** [scripts/Makefile.build:503: sound/soc/intel/boards] Error 2
-make[5]: *** [scripts/Makefile.build:503: sound/soc/intel] Error 2
-make[4]: *** [scripts/Makefile.build:503: sound/soc] Error 2
+> However if one allows codec to go to sleep
+> proper configuration is being send on resume.
 
-Regards,
-Salvatore
+We need to track down in which level the inconsistency happens.
+First of all, we need to check whether the HD-audio regmap holds the
+right value (unmuted) at the time of the first arecord, as well as the
+actual (raw) value from the codec.
+
+
+> I've also managed to reproduce it with non DSP configuration (using
+> snd_hda_intel driver). One needs to set power_save to non zero value
+> and start recording, before it first goes into first sleep.
+> 
+> Here are the steps:
+> 1. Add following to /etc/modprobe.d/test.conf
+> options snd_intel_dspcfg dsp_driver=1
+> options snd_hda_intel power_save=5
+> blacklist snd_hda_intel
+> 2. Reboot the machine
+> 3. Run something like (it is time sensitive, so I just run it all in
+> one line):
+> echo "PRE MODPROBE" > /dev/kmsg; modprobe snd_hda_intel; echo "POST
+> MODPROBE" > /dev/kmsg; sleep 1; echo "PRE ARECORD" > /dev/kmsg;
+> arecord -Dhw:PCH,0 -r48 -c2 -fS16_LE -d 20 -vvv /tmp/cap.wav; echo
+> "POST ARECORD" > /dev/kmsg;
+> 4. Observe silence in above file
+> 5. Run after waiting more than 5 seconds:
+> echo "PRE SECOND ARECORD" > /dev/kmsg; arecord -Dhw:PCH,0 -r48 -c2
+> -fS16_LE -d 20 -vvv /tmp/cap.wav; echo "POST SECOND ARECORD" >
+> /dev/kmsg;
+> 
+> I'm also attaching logs from my reproduction with debug.diff (also
+> attached) applied. Main purpose of debug.diff is to log when
+> snd_hdac_exec_verb() is called and to log backtraces for when record
+> input is muted on load and set on startup.
+> 
+> When looking at attached dmesg, it is easy to see that when first
+> arecord is being run almost no configuration happens.
+
+The driver itself doesn't unmute.  It should be alsactl or PA/PW that
+unmutes.  At the initialization, HDA codec driver calls
+snd_hda_codec_amp_init() for each codec amp, and this reads the
+current value from the chip and updates *only* the regmap cache.
+When a program like alsactl/PA/PW updates the mute/volume, it's
+checked with the regmap cache and updated only if the value differs.
+
+So, the inconsistency may happen at this level, too.  By some reason,
+it might believe the values unchanged, hence the registers might be
+left untouched.
+
+This needs further checks, obviously...
+
+
+thanks,
+
+Takashi
+
+> Now my question is what would be the proper way to fix the issue?
+> 
+> Something like forcing the codec to suspend as soon as it is setup
+> seems to work, but I'm pretty sure it is not the best way...:
+> 
+> diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+> index 2e728aad6771..251466aaef88 100644
+> --- a/sound/pci/hda/hda_codec.c
+> +++ b/sound/pci/hda/hda_codec.c
+> @@ -1049,6 +1049,8 @@ int snd_hda_codec_device_new(struct hda_bus
+> *bus, struct snd_card *card,
+>                 pm_runtime_get_noresume(&codec->core.dev);
+>  #endif
+> 
+> +       pm_runtime_force_suspend(&codec->core.dev);
+> +
+>         return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(snd_hda_codec_device_new);
+> 
+> Do you have any better ideas?
+> 
+> [1]
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/soc/codecs/hda.c#n159
+> diff --git a/sound/hda/hdac_bus.c b/sound/hda/hdac_bus.c
+> index d497414a5538..2d750edb20fc 100644
+> --- a/sound/hda/hdac_bus.c
+> +++ b/sound/hda/hdac_bus.c
+> @@ -118,6 +118,10 @@ int snd_hdac_bus_exec_verb_unlocked(struct hdac_bus *bus, unsigned int addr,
+>  	else if (bus->sync_write)
+>  		res = &tmp;
+>  	for (;;) {
+> +		WARN_ON (cmd == 0x00935080);
+> +		WARN_ON (cmd == 0x00936080);
+> +		WARN_ON (cmd == 0x0093505b);
+> +		WARN_ON (cmd == 0x0093605b);
+>  		trace_hda_send_cmd(bus, cmd);
+>  		err = bus->ops->command(bus, cmd);
+>  		if (err != -EAGAIN)
+> diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
+> index 035b720bf602..4424bfe0499b 100644
+> --- a/sound/hda/hdac_device.c
+> +++ b/sound/hda/hdac_device.c
+> @@ -256,6 +256,7 @@ static unsigned int snd_hdac_make_cmd(struct hdac_device *codec, hda_nid_t nid,
+>  int snd_hdac_exec_verb(struct hdac_device *codec, unsigned int cmd,
+>  		       unsigned int flags, unsigned int *res)
+>  {
+> +	pr_err("DEBUG: %s:%d %s\n", __FILE__, __LINE__, __func__);
+>  	if (codec->exec_verb)
+>  		return codec->exec_verb(codec, cmd, flags, res);
+>  	return snd_hdac_bus_exec_verb(codec->bus, codec->addr, cmd, res);
+> diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
+> index fe3587547cfe..61dfab9306c7 100644
+> --- a/sound/hda/hdac_regmap.c
+> +++ b/sound/hda/hdac_regmap.c
+> @@ -597,10 +597,16 @@ EXPORT_SYMBOL_GPL(snd_hdac_regmap_update_raw_once);
+>   */
+>  void snd_hdac_regmap_sync(struct hdac_device *codec)
+>  {
+> +	pr_err("DEBUG: %s:%d\n", __FILE__, __LINE__);
+>  	if (codec->regmap) {
+> +		pr_err("DEBUG: %s:%d\n", __FILE__, __LINE__);
+>  		mutex_lock(&codec->regmap_lock);
+> +		pr_err("DEBUG: %s:%d\n", __FILE__, __LINE__);
+>  		regcache_sync(codec->regmap);
+> +		pr_err("DEBUG: %s:%d\n", __FILE__, __LINE__);
+>  		mutex_unlock(&codec->regmap_lock);
+> +		pr_err("DEBUG: %s:%d\n", __FILE__, __LINE__);
+>  	}
+> +	pr_err("DEBUG: %s:%d\n", __FILE__, __LINE__);
+>  }
+>  EXPORT_SYMBOL_GPL(snd_hdac_regmap_sync);
+> diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+> index 2e728aad6771..bce4d074df02 100644
+> --- a/sound/pci/hda/hda_codec.c
+> +++ b/sound/pci/hda/hda_codec.c
+> @@ -1049,6 +1049,8 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+>  		pm_runtime_get_noresume(&codec->core.dev);
+>  #endif
+>  
+> +	//pm_runtime_force_suspend(&codec->core.dev);
+> +
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(snd_hda_codec_device_new);
+> diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+> index fc114e522480..c6eed94af72c 100644
+> --- a/sound/pci/hda/hda_generic.c
+> +++ b/sound/pci/hda/hda_generic.c
+> @@ -704,6 +704,8 @@ static bool is_stereo_amps(struct hda_codec *codec, hda_nid_t nid, int dir)
+>  static void init_amp(struct hda_codec *codec, hda_nid_t nid, int dir, int idx)
+>  {
+>  	unsigned int caps = query_amp_caps(codec, nid, dir);
+> +	if (nid == 0x09)
+> +		pr_err("DEBUG: %s:%d caps=0x%08x\n", __FILE__, __LINE__, caps);
+>  	int val = get_amp_val_to_activate(codec, nid, dir, caps, false);
+>  
+>  	if (is_stereo_amps(codec, nid, dir))
+> @@ -5992,7 +5994,9 @@ int snd_hda_gen_init(struct hda_codec *codec)
+>  	/* call init functions of standard auto-mute helpers */
+>  	update_automute_all(codec);
+>  
+> +	pr_err("DEBUG: %s:%d pre snd_hda_regmap_sync\n", __FILE__, __LINE__);
+>  	snd_hda_regmap_sync(codec);
+> +	pr_err("DEBUG: %s:%d post snd_hda_regmap_sync\n", __FILE__, __LINE__);
+>  
+>  	if (spec->vmaster_mute.sw_kctl && spec->vmaster_mute.hook)
+>  		snd_hda_sync_vmaster_hook(&spec->vmaster_mute);
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index e443d88f627f..759089761053 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -910,6 +910,7 @@ static int alc_build_controls(struct hda_codec *codec)
+>  
+>  static void alc_pre_init(struct hda_codec *codec)
+>  {
+> +	pr_err("DEBUG: %s:%d %s\n", __FILE__, __LINE__, __func__);
+>  	alc_fill_eapd_coef(codec);
+>  }
+>  
+> @@ -922,6 +923,7 @@ static int alc_init(struct hda_codec *codec)
+>  {
+>  	struct alc_spec *spec = codec->spec;
+>  
+> +	pr_err("DEBUG: %s:%d %s\n", __FILE__, __LINE__, __func__);
+>  	/* hibernation resume needs the full chip initialization */
+>  	if (is_s4_resume(codec))
+>  		alc_pre_init(codec);
+> @@ -974,6 +976,7 @@ static int alc_resume(struct hda_codec *codec)
+>  {
+>  	struct alc_spec *spec = codec->spec;
+>  
+> +	pr_err("DEBUG: %s:%d %s\n", __FILE__, __LINE__, __func__);
+>  	if (!spec->no_depop_delay)
+>  		msleep(150); /* to avoid pop noise */
+>  	codec->patch_ops.init(codec);
+> @@ -1190,6 +1193,7 @@ static int alc_alloc_spec(struct hda_codec *codec, hda_nid_t mixer_nid)
+>  	struct alc_spec *spec = kzalloc(sizeof(*spec), GFP_KERNEL);
+>  	int err;
+>  
+> +	pr_err("DEBUG: %s:%d %s\n", __FILE__, __LINE__, __func__);
+>  	if (!spec)
+>  		return -ENOMEM;
+>  	codec->spec = spec;
+> @@ -4033,6 +4037,8 @@ static int alc269_resume(struct hda_codec *codec)
+>  {
+>  	struct alc_spec *spec = codec->spec;
+>  
+> +	pr_err("DEBUG: %s:%d %s\n", __FILE__, __LINE__, __func__);
+> +
+>  	if (spec->codec_variant == ALC269_TYPE_ALC269VB)
+>  		alc269vb_toggle_power_output(codec, 0);
+>  	if (spec->codec_variant == ALC269_TYPE_ALC269VB &&
+> @@ -10369,6 +10375,8 @@ static int patch_alc269(struct hda_codec *codec)
+>  	struct alc_spec *spec;
+>  	int err;
+>  
+> +	pr_err("DEBUG: %s:%d %s\n", __FILE__, __LINE__, __func__);
+> +
+>  	err = alc_alloc_spec(codec, 0x0b);
+>  	if (err < 0)
+>  		return err;
+> [    0.000000] microcode: microcode updated early to revision 0x16, date = 2019-08-29
+> [    0.000000] Linux version 6.2.0-rc1+ (amade@DEV2) (gcc (Ubuntu 12.1.0-2ubuntu1~22.04) 12.1.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #111 SMP PREEMPT_DYNAMIC Tue May  9 19:21:02 CEST 2023
+> [    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-rc1+ root=UUID=16f91211-7664-41a5-8d7e-230cc974c4f2 ro resume_offset=34816 resume=UUID=16f91211-7664-41a5-8d7e-230cc974c4f2 snd_soc_avs.ignore_fw_version=1
+> [    0.000000] KERNEL supported cpus:
+> [    0.000000]   Intel GenuineIntel
+> [    0.000000]   AMD AuthenticAMD
+> [    0.000000]   Hygon HygonGenuine
+> [    0.000000]   Centaur CentaurHauls
+> [    0.000000]   zhaoxin   Shanghai  
+> [    0.000000] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+> [    0.000000] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+> [    0.000000] x86/fpu: Supporting XSAVE feature 0x008: 'MPX bounds registers'
+> [    0.000000] x86/fpu: Supporting XSAVE feature 0x010: 'MPX CSR'
+> [    0.000000] x86/fpu: xstate_offset[3]:  576, xstate_sizes[3]:   64
+> [    0.000000] x86/fpu: xstate_offset[4]:  640, xstate_sizes[4]:   64
+> [    0.000000] x86/fpu: Enabled xstate features 0x1b, context size is 704 bytes, using 'compacted' format.
+> [    0.000000] signal: max sigframe size: 2032
+> [    0.000000] BIOS-provided physical RAM map:
+> [    0.000000] BIOS-e820: [mem 0x0000000000000000-0x0000000000057fff] usable
+> [    0.000000] BIOS-e820: [mem 0x0000000000058000-0x0000000000059fff] reserved
+> [    0.000000] BIOS-e820: [mem 0x000000000005a000-0x000000000009dfff] usable
+> [    0.000000] BIOS-e820: [mem 0x000000000009e000-0x00000000000fffff] reserved
+> [    0.000000] BIOS-e820: [mem 0x0000000000100000-0x000000000fffffff] usable
+> [    0.000000] BIOS-e820: [mem 0x0000000010000000-0x0000000012151fff] reserved
+> [    0.000000] BIOS-e820: [mem 0x0000000012152000-0x0000000075b79fff] usable
+> [    0.000000] BIOS-e820: [mem 0x0000000075b7a000-0x0000000078950fff] reserved
+> [    0.000000] BIOS-e820: [mem 0x0000000078951000-0x00000000789b0fff] ACPI NVS
+> [    0.000000] BIOS-e820: [mem 0x00000000789b1000-0x00000000789f0fff] ACPI data
+> [    0.000000] BIOS-e820: [mem 0x00000000789f1000-0x0000000079bfffff] usable
+> [    0.000000] BIOS-e820: [mem 0x0000000079c00000-0x000000007fffffff] reserved
+> [    0.000000] BIOS-e820: [mem 0x00000000d3709000-0x00000000d3709fff] reserved
+> [    0.000000] BIOS-e820: [mem 0x00000000e0000000-0x00000000e3ffffff] reserved
+> [    0.000000] BIOS-e820: [mem 0x00000000fed01000-0x00000000fed01fff] reserved
+> [    0.000000] BIOS-e820: [mem 0x0000000100000000-0x000000017fffffff] usable
+> [    0.000000] NX (Execute Disable) protection: active
+> [    0.000000] e820: update [mem 0x73ad1018-0x73b02257] usable ==> usable
+> [    0.000000] e820: update [mem 0x73ad1018-0x73b02257] usable ==> usable
+> [    0.000000] extended physical RAM map:
+> [    0.000000] reserve setup_data: [mem 0x0000000000000000-0x0000000000057fff] usable
+> [    0.000000] reserve setup_data: [mem 0x0000000000058000-0x0000000000059fff] reserved
+> [    0.000000] reserve setup_data: [mem 0x000000000005a000-0x000000000009dfff] usable
+> [    0.000000] reserve setup_data: [mem 0x000000000009e000-0x00000000000fffff] reserved
+> [    0.000000] reserve setup_data: [mem 0x0000000000100000-0x000000000fffffff] usable
+> [    0.000000] reserve setup_data: [mem 0x0000000010000000-0x0000000012151fff] reserved
+> [    0.000000] reserve setup_data: [mem 0x0000000012152000-0x0000000073ad1017] usable
+> [    0.000000] reserve setup_data: [mem 0x0000000073ad1018-0x0000000073b02257] usable
+> [    0.000000] reserve setup_data: [mem 0x0000000073b02258-0x0000000075b79fff] usable
+> [    0.000000] reserve setup_data: [mem 0x0000000075b7a000-0x0000000078950fff] reserved
+> [    0.000000] reserve setup_data: [mem 0x0000000078951000-0x00000000789b0fff] ACPI NVS
+> [    0.000000] reserve setup_data: [mem 0x00000000789b1000-0x00000000789f0fff] ACPI data
+> [    0.000000] reserve setup_data: [mem 0x00000000789f1000-0x0000000079bfffff] usable
+> [    0.000000] reserve setup_data: [mem 0x0000000079c00000-0x000000007fffffff] reserved
+> [    0.000000] reserve setup_data: [mem 0x00000000d3709000-0x00000000d3709fff] reserved
+> [    0.000000] reserve setup_data: [mem 0x00000000e0000000-0x00000000e3ffffff] reserved
+> [    0.000000] reserve setup_data: [mem 0x00000000fed01000-0x00000000fed01fff] reserved
+> [    0.000000] reserve setup_data: [mem 0x0000000100000000-0x000000017fffffff] usable
+> [    0.000000] efi: EFI v2.60 by EDK II
+> [    0.000000] efi: TPMFinalLog=0x789a9000 SMBIOS=0x75e5d000 SMBIOS 3.0=0x75e5b000 ACPI=0x789f0000 ACPI 2.0=0x789f0014 ESRT=0x78920000 MEMATTR=0x73da3018 RNG=0x789b7018 TPMEventLog=0x73d74018 
+> [    0.000000] random: crng init done
+> [    0.000000] efi: Not removing mem153: MMIO range=[0xd3709000-0xd3709fff] (4KB) from e820 map
+> [    0.000000] efi: Remove mem154: MMIO range=[0xe0000000-0xe3ffffff] (64MB) from e820 map
+> [    0.000000] e820: remove [mem 0xe0000000-0xe3ffffff] reserved
+> [    0.000000] efi: Not removing mem155: MMIO range=[0xfed01000-0xfed01fff] (4KB) from e820 map
+> [    0.000000] SMBIOS 3.1.1 present.
+> [    0.000000] DMI: Intel Corp. Geminilake/GLK RVP2 LP4SD (07), BIOS GELKRVPA.X64.0132.B40.1902131714 02/13/2019
+> [    0.000000] tsc: Fast TSC calibration using PIT
+> [    0.000000] tsc: Detected 1094.400 MHz processor
+> [    0.000045] e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+> [    0.000079] e820: remove [mem 0x000a0000-0x000fffff] usable
+> [    0.000165] last_pfn = 0x180000 max_arch_pfn = 0x400000000
+> [    0.000191] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+> [    0.000560] last_pfn = 0x79c00 max_arch_pfn = 0x400000000
+> [    0.021297] esrt: ESRT header is not in the memory map.
+> [    0.021852] Using GB pages for direct mapping
+> [    0.034351] Secure boot disabled
+> [    0.034359] RAMDISK: [mem 0x3e159000-0x3fffdfff]
+> [    0.034419] ACPI: Early table checksum verification disabled
+> [    0.034437] ACPI: RSDP 0x00000000789F0014 000024 (v02 INTEL )
+> [    0.034473] ACPI: XSDT 0x00000000789BE188 0000FC (v01 INTEL  GLK-SOC  00000003 BRXT 01000013)
+> [    0.034527] ACPI: FACP 0x00000000789E8000 00010C (v05 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.034591] ACPI: DSDT 0x00000000789CE000 0129A7 (v02 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.034637] ACPI: FACS 0x000000007899D000 000040
+> [    0.034672] ACPI: UEFI 0x00000000789A6000 000042 (v01 INTEL  EDK2     00000002 BRXT 01000013)
+> [    0.034716] ACPI: SSDT 0x00000000789EE000 00042F (v02 INTEL  Tpm2Tabl 00001000 INTL 20170831)
+> [    0.034760] ACPI: TPM2 0x00000000789ED000 000034 (v04 INTEL  EDK2     00000002 BRXT 01000013)
+> [    0.034804] ACPI: BDAT 0x00000000789EC000 000030 (v02                 00000000      00000000)
+> [    0.034848] ACPI: HPET 0x00000000789E7000 000038 (v01 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.034891] ACPI: LPIT 0x00000000789E6000 00005C (v01 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.034934] ACPI: APIC 0x00000000789E5000 000084 (v03 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.034977] ACPI: MCFG 0x00000000789E4000 00003C (v01 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.035019] ACPI: NPKT 0x00000000789E3000 000065 (v01 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.035061] ACPI: PRAM 0x00000000789E2000 000030 (v01 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.035105] ACPI: WSMT 0x00000000789E1000 000028 (v01 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.035149] ACPI: SSDT 0x00000000789CA000 003FA6 (v02 INTEL  DptfTab  00000003 BRXT 0100000D)
+> [    0.035191] ACPI: SSDT 0x00000000789C4000 005B87 (v02 INTEL  RVPRtd3  00000003 BRXT 0100000D)
+> [    0.035235] ACPI: SSDT 0x00000000789C2000 0010B6 (v02 INTEL  UsbCTabl 00000003 BRXT 0100000D)
+> [    0.035279] ACPI: SSDT 0x00000000789C1000 000A07 (v01 Intel_ Platform 00001000 INTL 20170831)
+> [    0.035323] ACPI: SSDT 0x00000000789C0000 0000B1 (v01 Intel_ ADebTabl 00001000 INTL 20170831)
+> [    0.035366] ACPI: SSDT 0x00000000789BF000 0004B8 (v02 PmRef  Cpu0Ist  00003000 INTL 20170831)
+> [    0.035410] ACPI: SSDT 0x00000000789EF000 000775 (v02 CpuRef CpuSsdt  00003000 INTL 20170831)
+> [    0.035454] ACPI: SSDT 0x00000000789BD000 00038B (v02 PmRef  Cpu0Tst  00003000 INTL 20170831)
+> [    0.035498] ACPI: SSDT 0x00000000789BC000 0001E8 (v02 PmRef  ApTst    00003000 INTL 20170831)
+> [    0.035541] ACPI: SSDT 0x00000000789B9000 002AA9 (v02 SaSsdt SaSsdt   00003000 INTL 20170831)
+> [    0.035585] ACPI: FPDT 0x00000000789B8000 000044 (v01 INTEL  EDK2     00000002 BRXT 01000013)
+> [    0.035629] ACPI: DBGP 0x00000000789EA000 000034 (v01 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.035673] ACPI: DBG2 0x00000000789EB000 000072 (v00 INTEL  GLK-SOC  00000003 BRXT 0100000D)
+> [    0.035716] ACPI: WDAT 0x00000000789E9000 000104 (v01                 00000000      00000000)
+> [    0.035759] ACPI: NHLT 0x00000000789B2000 001A50 (v00 INTEL  EDK2     00000002 BRXT 01000013)
+> [    0.035796] ACPI: Reserving FACP table memory at [mem 0x789e8000-0x789e810b]
+> [    0.035813] ACPI: Reserving DSDT table memory at [mem 0x789ce000-0x789e09a6]
+> [    0.035829] ACPI: Reserving FACS table memory at [mem 0x7899d000-0x7899d03f]
+> [    0.035844] ACPI: Reserving UEFI table memory at [mem 0x789a6000-0x789a6041]
+> [    0.035860] ACPI: Reserving SSDT table memory at [mem 0x789ee000-0x789ee42e]
+> [    0.035877] ACPI: Reserving TPM2 table memory at [mem 0x789ed000-0x789ed033]
+> [    0.035893] ACPI: Reserving BDAT table memory at [mem 0x789ec000-0x789ec02f]
+> [    0.035909] ACPI: Reserving HPET table memory at [mem 0x789e7000-0x789e7037]
+> [    0.035925] ACPI: Reserving LPIT table memory at [mem 0x789e6000-0x789e605b]
+> [    0.035941] ACPI: Reserving APIC table memory at [mem 0x789e5000-0x789e5083]
+> [    0.035957] ACPI: Reserving MCFG table memory at [mem 0x789e4000-0x789e403b]
+> [    0.035973] ACPI: Reserving NPKT table memory at [mem 0x789e3000-0x789e3064]
+> [    0.035990] ACPI: Reserving PRAM table memory at [mem 0x789e2000-0x789e202f]
+> [    0.036006] ACPI: Reserving WSMT table memory at [mem 0x789e1000-0x789e1027]
+> [    0.036022] ACPI: Reserving SSDT table memory at [mem 0x789ca000-0x789cdfa5]
+> [    0.036039] ACPI: Reserving SSDT table memory at [mem 0x789c4000-0x789c9b86]
+> [    0.036056] ACPI: Reserving SSDT table memory at [mem 0x789c2000-0x789c30b5]
+> [    0.036072] ACPI: Reserving SSDT table memory at [mem 0x789c1000-0x789c1a06]
+> [    0.036091] ACPI: Reserving SSDT table memory at [mem 0x789c0000-0x789c00b0]
+> [    0.036108] ACPI: Reserving SSDT table memory at [mem 0x789bf000-0x789bf4b7]
+> [    0.036125] ACPI: Reserving SSDT table memory at [mem 0x789ef000-0x789ef774]
+> [    0.036144] ACPI: Reserving SSDT table memory at [mem 0x789bd000-0x789bd38a]
+> [    0.036161] ACPI: Reserving SSDT table memory at [mem 0x789bc000-0x789bc1e7]
+> [    0.036178] ACPI: Reserving SSDT table memory at [mem 0x789b9000-0x789bbaa8]
+> [    0.036196] ACPI: Reserving FPDT table memory at [mem 0x789b8000-0x789b8043]
+> [    0.036213] ACPI: Reserving DBGP table memory at [mem 0x789ea000-0x789ea033]
+> [    0.036232] ACPI: Reserving DBG2 table memory at [mem 0x789eb000-0x789eb071]
+> [    0.036252] ACPI: Reserving WDAT table memory at [mem 0x789e9000-0x789e9103]
+> [    0.036271] ACPI: Reserving NHLT table memory at [mem 0x789b2000-0x789b3a4f]
+> [    0.038793] No NUMA configuration found
+> [    0.038803] Faking a node at [mem 0x0000000000000000-0x000000017fffffff]
+> [    0.039050] NODE_DATA(0) allocated [mem 0x17ffd5000-0x17fffffff]
+> [    0.043574] Zone ranges:
+> [    0.043581]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+> [    0.043601]   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+> [    0.043619]   Normal   [mem 0x0000000100000000-0x000000017fffffff]
+> [    0.043636]   Device   empty
+> [    0.043650] Movable zone start for each node
+> [    0.043685] Early memory node ranges
+> [    0.043691]   node   0: [mem 0x0000000000001000-0x0000000000057fff]
+> [    0.043706]   node   0: [mem 0x000000000005a000-0x000000000009dfff]
+> [    0.043718]   node   0: [mem 0x0000000000100000-0x000000000fffffff]
+> [    0.043730]   node   0: [mem 0x0000000012152000-0x0000000075b79fff]
+> [    0.043744]   node   0: [mem 0x00000000789f1000-0x0000000079bfffff]
+> [    0.043757]   node   0: [mem 0x0000000100000000-0x000000017fffffff]
+> [    0.043776] Initmem setup node 0 [mem 0x0000000000001000-0x000000017fffffff]
+> [    0.043847] On node 0, zone DMA: 1 pages in unavailable ranges
+> [    0.043884] On node 0, zone DMA: 2 pages in unavailable ranges
+> [    0.045265] On node 0, zone DMA: 98 pages in unavailable ranges
+> [    0.210866] On node 0, zone DMA32: 8530 pages in unavailable ranges
+> [    0.218122] On node 0, zone DMA32: 11895 pages in unavailable ranges
+> [    0.410868] On node 0, zone Normal: 25600 pages in unavailable ranges
+> [    0.564041] kasan: KernelAddressSanitizer initialized
+> [    0.564092] Reserving Intel graphics memory at [mem 0x7c000000-0x7fffffff]
+> [    0.564522] ACPI: PM-Timer IO Port: 0x408
+> [    0.564580] ACPI: LAPIC_NMI (acpi_id[0x01] high level lint[0x1])
+> [    0.564597] ACPI: LAPIC_NMI (acpi_id[0x02] high level lint[0x1])
+> [    0.564610] ACPI: LAPIC_NMI (acpi_id[0x03] high level lint[0x1])
+> [    0.564622] ACPI: LAPIC_NMI (acpi_id[0x04] high level lint[0x1])
+> [    0.564679] IOAPIC[0]: apic_id 1, version 32, address 0xfec00000, GSI 0-119
+> [    0.564706] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+> [    0.564723] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 low level)
+> [    0.564772] ACPI: Using ACPI (MADT) for SMP configuration information
+> [    0.564784] ACPI: HPET id: 0x8086a701 base: 0xfed00000
+> [    0.564823] TSC deadline timer available
+> [    0.564833] smpboot: Allowing 4 CPUs, 2 hotplug CPUs
+> [    0.565149] PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
+> [    0.565181] PM: hibernation: Registered nosave memory: [mem 0x00058000-0x00059fff]
+> [    0.565213] PM: hibernation: Registered nosave memory: [mem 0x0009e000-0x000fffff]
+> [    0.565247] PM: hibernation: Registered nosave memory: [mem 0x10000000-0x12151fff]
+> [    0.565282] PM: hibernation: Registered nosave memory: [mem 0x73ad1000-0x73ad1fff]
+> [    0.565318] PM: hibernation: Registered nosave memory: [mem 0x73b02000-0x73b02fff]
+> [    0.565356] PM: hibernation: Registered nosave memory: [mem 0x75b7a000-0x78950fff]
+> [    0.565368] PM: hibernation: Registered nosave memory: [mem 0x78951000-0x789b0fff]
+> [    0.565379] PM: hibernation: Registered nosave memory: [mem 0x789b1000-0x789f0fff]
+> [    0.565416] PM: hibernation: Registered nosave memory: [mem 0x79c00000-0x7fffffff]
+> [    0.565427] PM: hibernation: Registered nosave memory: [mem 0x80000000-0xd3708fff]
+> [    0.565439] PM: hibernation: Registered nosave memory: [mem 0xd3709000-0xd3709fff]
+> [    0.565451] PM: hibernation: Registered nosave memory: [mem 0xd370a000-0xfed00fff]
+> [    0.565462] PM: hibernation: Registered nosave memory: [mem 0xfed01000-0xfed01fff]
+> [    0.565474] PM: hibernation: Registered nosave memory: [mem 0xfed02000-0xffffffff]
+> [    0.565496] [mem 0x80000000-0xd3708fff] available for PCI devices
+> [    0.565510] Booting paravirtualized kernel on bare hardware
+> [    0.565524] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
+> [    0.565621] setup_percpu: NR_CPUS:8192 nr_cpumask_bits:4 nr_cpu_ids:4 nr_node_ids:1
+> [    0.566889] percpu: Embedded 77 pages/cpu s278528 r8192 d28672 u524288
+> [    0.567022] pcpu-alloc: s278528 r8192 d28672 u524288 alloc=1*2097152
+> [    0.567046] pcpu-alloc: [0] 0 1 2 3 
+> [    0.567589] Fallback order for Node 0: 0 
+> [    0.567618] Built 1 zonelists, mobility grouping on.  Total pages: 986630
+> [    0.567632] Policy zone: Normal
+> [    0.567642] Kernel command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-rc1+ root=UUID=16f91211-7664-41a5-8d7e-230cc974c4f2 ro resume_offset=34816 resume=UUID=16f91211-7664-41a5-8d7e-230cc974c4f2 snd_soc_avs.ignore_fw_version=1
+> [    0.568360] Unknown kernel command line parameters "BOOT_IMAGE=/boot/vmlinuz-6.2.0-rc1+", will be passed to user space.
+> [    0.569802] Dentry cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+> [    0.570541] Inode-cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+> [    0.573683] mem auto-init: stack:off, heap alloc:on, heap free:off
+> [    0.576410] stackdepot hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+> [    0.576449] software IO TLB: area num 4.
+> [    0.980813] Memory: 3194852K/4009800K available (34816K kernel code, 17199K rwdata, 15056K rodata, 8244K init, 7124K bss, 814692K reserved, 0K cma-reserved)
+> [    0.983762] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+> [    0.984047] ftrace: allocating 61854 entries in 242 pages
+> [    1.042582] ftrace: allocated 242 pages with 5 groups
+> [    1.049475] Dynamic Preempt: voluntary
+> [    1.050795] rcu: Preemptible hierarchical RCU implementation.
+> [    1.050805] rcu: 	RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=4.
+> [    1.050818] 	Trampoline variant of Tasks RCU enabled.
+> [    1.050825] 	Rude variant of Tasks RCU enabled.
+> [    1.050830] 	Tracing variant of Tasks RCU enabled.
+> [    1.050837] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+> [    1.050847] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+> [    1.182585] NR_IRQS: 524544, nr_irqs: 1024, preallocated irqs: 16
+> [    1.184049] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+> [    1.184841] kfence: initialized - using 2097152 bytes for 255 objects at 0x(____ptrval____)-0x(____ptrval____)
+> [    1.185321] Console: colour dummy device 80x25
+> [    1.185341] printk: console [tty0] enabled
+> [    1.192746] ACPI: Core revision 20221020
+> [    1.199890] clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 99544814920 ns
+> [    1.200106] APIC: Switch to symmetric I/O mode setup
+> [    1.201491] x2apic: IRQ remapping doesn't support X2APIC mode
+> [    1.207643] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+> [    1.224032] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0xfc66f4fc7c, max_idle_ns: 440795224246 ns
+> [    1.224124] Calibrating delay loop (skipped), value calculated using timer frequency.. 2188.80 BogoMIPS (lpj=4377600)
+> [    1.224207] pid_max: default: 32768 minimum: 301
+> [    1.252003] LSM: initializing lsm=lockdown,capability,yama,safesetid,integrity,selinux,tomoyo
+> [    1.252353] Yama: becoming mindful.
+> [    1.252599] SELinux:  Initializing.
+> [    1.253286] TOMOYO Linux initialized
+> [    1.254496] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> [    1.254586] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+> [    1.259896] x86/cpu: SGX disabled by BIOS.
+> [    1.259960] CPU0: Thermal monitoring enabled (TM1)
+> [    1.260003] x86/cpu: User Mode Instruction Prevention (UMIP) activated
+> [    1.260272] process: using mwait in idle threads
+> [    1.260316] Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+> [    1.260359] Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+> [    1.260427] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+> [    1.260488] Spectre V2 : Mitigation: Enhanced IBRS
+> [    1.260530] Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+> [    1.260593] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+> [    1.260651] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+> [    1.555572] Freeing SMP alternatives memory: 52K
+> [    1.556420] smpboot: CPU0: Intel(R) Celeron(R) N4020 CPU @ 1.10GHz (family: 0x6, model: 0x7a, stepping: 0x8)
+> [    1.558694] cblist_init_generic: Setting adjustable number of callback queues.
+> [    1.558740] cblist_init_generic: Setting shift to 2 and lim to 1.
+> [    1.559001] cblist_init_generic: Setting shift to 2 and lim to 1.
+> [    1.559303] cblist_init_generic: Setting shift to 2 and lim to 1.
+> [    1.559555] Performance Events: PEBS fmt3+, Goldmont plus events, 32-deep LBR, full-width counters, Intel PMU driver.
+> [    1.559783] ... version:                4
+> [    1.559808] ... bit width:              48
+> [    1.559831] ... generic registers:      4
+> [    1.559854] ... value mask:             0000ffffffffffff
+> [    1.559882] ... max period:             00007fffffffffff
+> [    1.559909] ... fixed-purpose events:   3
+> [    1.559931] ... event mask:             000000070000000f
+> [    1.560306] Estimated ratio of average max frequency by base frequency (times 1024): 2606
+> [    1.560639] rcu: Hierarchical SRCU implementation.
+> [    1.560670] rcu: 	Max phase no-delay instances is 1000.
+> [    1.570783] NMI watchdog: Enabled. Permanently consumes one hw-PMU counter.
+> [    1.571603] smp: Bringing up secondary CPUs ...
+> [    1.573370] x86: Booting SMP configuration:
+> [    1.573400] .... node  #0, CPUs:      #1
+> [    1.586023] smp: Brought up 1 node, 2 CPUs
+> [    1.586023] smpboot: Max logical packages: 2
+> [    1.586023] smpboot: Total of 2 processors activated (4377.60 BogoMIPS)
+> [    1.590205] devtmpfs: initialized
+> [    1.592194] x86/mm: Memory block size: 128MB
+> [    1.631312] ACPI: PM: Registering ACPI NVS region [mem 0x78951000-0x789b0fff] (393216 bytes)
+> [    1.633174] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+> [    1.633260] futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+> [    1.634028] pinctrl core: initialized pinctrl subsystem
+> [    1.637056] PM: RTC time: 14:19:32, date: 2023-05-09
+> [    1.641602] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+> [    1.644786] DMA: preallocated 512 KiB GFP_KERNEL pool for atomic allocations
+> [    1.645036] DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+> [    1.645284] DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+> [    1.645591] audit: initializing netlink subsys (disabled)
+> [    1.645758] audit: type=2000 audit(1683641972.444:1): state=initialized audit_enabled=0 res=1
+> [    1.648163] thermal_sys: Registered thermal governor 'fair_share'
+> [    1.648178] thermal_sys: Registered thermal governor 'bang_bang'
+> [    1.648214] thermal_sys: Registered thermal governor 'step_wise'
+> [    1.648246] thermal_sys: Registered thermal governor 'user_space'
+> [    1.648276] thermal_sys: Registered thermal governor 'power_allocator'
+> [    1.648534] EISA bus registered
+> [    1.648679] cpuidle: using governor ladder
+> [    1.648679] cpuidle: using governor menu
+> [    1.649058] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+> [    1.653205] dca service started, version 1.12.1
+> [    1.653380] PCI: MMCONFIG for domain 0000 [bus 00-3f] at [mem 0xe0000000-0xe3ffffff] (base 0xe0000000)
+> [    1.653462] PCI: not using MMCONFIG
+> [    1.653500] PCI: Using configuration type 1 for base access
+> [    1.655865] kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+> [    1.905692] HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+> [    1.905742] HugeTLB: 16380 KiB vmemmap can be freed for a 1.00 GiB page
+> [    1.905778] HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+> [    1.905809] HugeTLB: 28 KiB vmemmap can be freed for a 2.00 MiB page
+> [    1.909213] cryptd: max_cpu_qlen set to 1000
+> [    1.980117] raid6: sse2x4   gen()  2674 MB/s
+> [    2.048121] raid6: sse2x2   gen()  1951 MB/s
+> [    2.116139] raid6: sse2x1   gen()  1081 MB/s
+> [    2.116170] raid6: using algorithm sse2x4 gen() 2674 MB/s
+> [    2.184130] raid6: .... xor() 687 MB/s, rmw enabled
+> [    2.184165] raid6: using ssse3x2 recovery algorithm
+> [    2.186913] fbcon: Taking over console
+> [    2.187307] ACPI: Added _OSI(Module Device)
+> [    2.187339] ACPI: Added _OSI(Processor Device)
+> [    2.187367] ACPI: Added _OSI(3.0 _SCP Extensions)
+> [    2.187395] ACPI: Added _OSI(Processor Aggregator Device)
+> [    3.432213] ACPI: 12 ACPI AML tables successfully acquired and loaded
+> [    3.609156] ACPI: Dynamic OEM Table Load:
+> [    3.609284] ACPI: SSDT 0xFFFF888101190000 0001B8 (v02 PmRef  Cpu0Cst  00003001 INTL 20170831)
+> [    3.646227] ACPI: Dynamic OEM Table Load:
+> [    3.646337] ACPI: SSDT 0xFFFF888101190800 0001E7 (v02 PmRef  ApIst    00003000 INTL 20170831)
+> [    3.668396] ACPI: Dynamic OEM Table Load:
+> [    3.668499] ACPI: SSDT 0xFFFF888100303C00 0000C9 (v02 PmRef  ApCst    00003000 INTL 20170831)
+> [    3.746107] ACPI: EC: EC started
+> [    3.746136] ACPI: EC: interrupt blocked
+> [    3.927395] ACPI: EC: EC_CMD/EC_SC=0x66, EC_DATA=0x62
+> [    3.927449] ACPI: \_SB_.PCI0.LPCB.H_EC: Boot DSDT EC used to handle transactions
+> [    3.927503] ACPI: Interpreter enabled
+> [    3.928030] ACPI: PM: (supports S0 S3 S4 S5)
+> [    3.928062] ACPI: Using IOAPIC for interrupt routing
+> [    3.929094] PCI: MMCONFIG for domain 0000 [bus 00-3f] at [mem 0xe0000000-0xe3ffffff] (base 0xe0000000)
+> [    4.058372] PCI: MMCONFIG at [mem 0xe0000000-0xe3ffffff] reserved in ACPI motherboard resources
+> [    4.058514] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+> [    4.058559] PCI: Using E820 reservations for host bridge windows
+> [    4.122122] ACPI: Enabled 10 GPEs in block 00 to 7F
+> [    4.229830] ACPI: \_SB_.PCI0.RP01.PXP_: New power resource
+> [    4.459921] ACPI: \_SB_.PCI0.RP01.PXSX.DRST: New power resource
+> [    4.495601] ACPI: \_SB_.PCI0.RP02.PXP_: New power resource
+> [    4.711608] ACPI: \_SB_.PCI0.RP02.PXSX.DRST: New power resource
+> [    4.746327] ACPI: \_SB_.PCI0.RP03.PXP_: New power resource
+> [    4.837602] ACPI: \_SB_.PCI0.RP03.PXSX.DRST: New power resource
+> [    4.862958] ACPI: \_SB_.PCI0.RP04.PXP_: New power resource
+> [    4.896589] ACPI: \_SB_.PCI0.RP04.PXSX.DRST: New power resource
+> [    4.930826] ACPI: \_SB_.PCI0.RP05.PXP_: New power resource
+> [    5.025813] ACPI: \_SB_.PCI0.RP05.PXSX.DRST: New power resource
+> [    5.061323] ACPI: \_SB_.PCI0.RP06.PXP_: New power resource
+> [    5.279681] ACPI: \_SB_.PCI0.RP06.PXSX.DRST: New power resource
+> [    5.291595] ACPI: \_SB_.PCI0.SATA.PRT0.SPPR: New power resource
+> [    5.351811] ACPI: \_SB_.PCI0.SATA.PRT1.SPPR: New power resource
+> [    5.391064] ACPI: \_SB_.PCI0.XHC_.RHUB.HS02.UPPR: New power resource
+> [    5.420571] ACPI: \_SB_.PCI0.XHC_.RHUB.HS03.BTPR: New power resource
+> [    5.448501] ACPI: \_SB_.PCI0.XHC_.RHUB.HS04.UPPR: New power resource
+> [    5.484398] ACPI: \_SB_.PCI0.XHC_.RHUB.HS05.UPPR: New power resource
+> [    5.530198] ACPI: \_SB_.PCI0.XHC_.RHUB.HS07.PX03: New power resource
+> [    5.580516] ACPI: \_SB_.PCI0.XHC_.RHUB.HS09.IBTU.BTPR: New power resource
+> [    5.614373] ACPI: \_SB_.PCI0.XHC_.RHUB.SS02.UPPR: New power resource
+> [    5.662621] ACPI: \_SB_.PCI0.XHC_.RHUB.SS04.UPPR: New power resource
+> [    5.698467] ACPI: \_SB_.PCI0.XHC_.RHUB.SS05.UPPR: New power resource
+> [    5.743955] ACPI: \_SB_.USBC: New power resource
+> [    5.756034] ACPI: \_SB_.SDPR: New power resource
+> [    5.821451] ACPI: \_SB_.PCI0.LSPR: New power resource
+> [    6.544716] ACPI: \_SB_.PCI0.CNVW.WRST: New power resource
+> [    6.559767] ACPI: \_SB_.PCI0.PAUD: New power resource
+> [    6.805142] ACPI: \_TZ_.FN00: New power resource
+> [    6.861310] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+> [    6.861441] acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI HPX-Type3]
+> [    6.926143] acpi PNP0A08:00: _OSC: OS now controls [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR]
+> [    6.926664] acpi PNP0A08:00: [Firmware Info]: MMCONFIG for domain 0000 [bus 00-3f] only partially covers this bridge
+> [    6.978123] PCI host bridge to bus 0000:00
+> [    6.978178] pci_bus 0000:00: root bus resource [io  0x0070-0x0077]
+> [    6.978236] pci_bus 0000:00: root bus resource [io  0x0000-0x006f window]
+> [    6.978292] pci_bus 0000:00: root bus resource [io  0x0078-0x0cf7 window]
+> [    6.978348] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+> [    6.978403] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000fffff window]
+> [    6.978463] pci_bus 0000:00: root bus resource [mem 0x7c000001-0xbfffffff window]
+> [    6.978523] pci_bus 0000:00: root bus resource [mem 0xe0000000-0xefffffff window]
+> [    6.978582] pci_bus 0000:00: root bus resource [mem 0xfea00000-0xfeafffff window]
+> [    6.978641] pci_bus 0000:00: root bus resource [mem 0xfed00000-0xfed003ff window]
+> [    6.978699] pci_bus 0000:00: root bus resource [mem 0xfed01000-0xfed01fff window]
+> [    6.978758] pci_bus 0000:00: root bus resource [mem 0xfed03000-0xfed03fff window]
+> [    6.978817] pci_bus 0000:00: root bus resource [mem 0xfed06000-0xfed06fff window]
+> [    6.978875] pci_bus 0000:00: root bus resource [mem 0xfed08000-0xfed09fff window]
+> [    6.978933] pci_bus 0000:00: root bus resource [mem 0xfed80000-0xfedbffff window]
+> [    6.978992] pci_bus 0000:00: root bus resource [mem 0xfed1c000-0xfed1cfff window]
+> [    6.979050] pci_bus 0000:00: root bus resource [mem 0xfee00000-0xfeefffff window]
+> [    6.979122] pci_bus 0000:00: root bus resource [bus 00-ff]
+> [    7.173928] pci 0000:00:00.0: [8086:31f0] type 00 class 0x060000
+> [    7.178447] pci 0000:00:00.1: [8086:318c] type 00 class 0x118000
+> [    7.178530] pci 0000:00:00.1: reg 0x10: [mem 0x80000000-0x80007fff 64bit]
+> [    7.182893] pci 0000:00:00.3: [8086:3190] type 00 class 0x088000
+> [    7.182970] pci 0000:00:00.3: reg 0x10: [mem 0xa1318000-0xa1318fff 64bit]
+> [    7.184689] pci 0000:00:02.0: [8086:3185] type 00 class 0x030000
+> [    7.184753] pci 0000:00:02.0: reg 0x10: [mem 0xa0000000-0xa0ffffff 64bit]
+> [    7.184810] pci 0000:00:02.0: reg 0x18: [mem 0x90000000-0x9fffffff 64bit pref]
+> [    7.184866] pci 0000:00:02.0: reg 0x20: [io  0x3000-0x303f]
+> [    7.185124] pci 0000:00:02.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
+> [    7.200864] pci 0000:00:0e.0: [8086:3198] type 00 class 0x040100
+> [    7.200947] pci 0000:00:0e.0: reg 0x10: [mem 0xa1310000-0xa1313fff 64bit]
+> [    7.201044] pci 0000:00:0e.0: reg 0x20: [mem 0xa1000000-0xa10fffff 64bit]
+> [    7.201406] pci 0000:00:0e.0: PME# supported from D0 D3hot D3cold
+> [    7.289731] pci 0000:00:0f.0: [8086:319a] type 00 class 0x078000
+> [    7.289833] pci 0000:00:0f.0: reg 0x10: [mem 0xa1319000-0xa1319fff 64bit]
+> [    7.290274] pci 0000:00:0f.0: PME# supported from D3hot
+> [    7.294716] pci 0000:00:11.0: [8086:31a2] type 00 class 0x005007
+> [    7.294810] pci 0000:00:11.0: reg 0x10: [mem 0xa1314000-0xa1315fff 64bit]
+> [    7.294885] pci 0000:00:11.0: reg 0x18: [mem 0xa131a000-0xa131afff 64bit]
+> [    7.309030] pci 0000:00:12.0: [8086:31e3] type 00 class 0x010601
+> [    7.309103] pci 0000:00:12.0: reg 0x10: [mem 0xa1316000-0xa1317fff]
+> [    7.309160] pci 0000:00:12.0: reg 0x14: [mem 0xa133d000-0xa133d0ff]
+> [    7.309219] pci 0000:00:12.0: reg 0x18: [io  0x3080-0x3087]
+> [    7.309273] pci 0000:00:12.0: reg 0x1c: [io  0x3088-0x308b]
+> [    7.309327] pci 0000:00:12.0: reg 0x20: [io  0x3060-0x307f]
+> [    7.309380] pci 0000:00:12.0: reg 0x24: [mem 0xa133b000-0xa133b7ff]
+> [    7.309688] pci 0000:00:12.0: PME# supported from D3hot
+> [    7.326590] pci 0000:00:13.0: [8086:31d8] type 01 class 0x060400
+> [    7.327035] pci 0000:00:13.0: PME# supported from D0 D3hot D3cold
+> [    7.332287] pci 0000:00:13.2: [8086:31da] type 01 class 0x060400
+> [    7.332725] pci 0000:00:13.2: PME# supported from D0 D3hot D3cold
+> [    7.337953] pci 0000:00:15.0: [8086:31a8] type 00 class 0x0c0330
+> [    7.338035] pci 0000:00:15.0: reg 0x10: [mem 0xa1300000-0xa130ffff 64bit]
+> [    7.338397] pci 0000:00:15.0: PME# supported from D3hot D3cold
+> [    7.343060] pci 0000:00:16.0: [8086:31ac] type 00 class 0x118000
+> [    7.343143] pci 0000:00:16.0: reg 0x10: [mem 0xa131b000-0xa131bfff 64bit]
+> [    7.343214] pci 0000:00:16.0: reg 0x18: [mem 0xa131c000-0xa131cfff 64bit]
+> [    7.347671] pci 0000:00:16.1: [8086:31ae] type 00 class 0x118000
+> [    7.347756] pci 0000:00:16.1: reg 0x10: [mem 0xa131d000-0xa131dfff 64bit]
+> [    7.347825] pci 0000:00:16.1: reg 0x18: [mem 0xa131e000-0xa131efff 64bit]
+> [    7.352252] pci 0000:00:16.2: [8086:31b0] type 00 class 0x118000
+> [    7.352334] pci 0000:00:16.2: reg 0x10: [mem 0xa131f000-0xa131ffff 64bit]
+> [    7.352403] pci 0000:00:16.2: reg 0x18: [mem 0xa1320000-0xa1320fff 64bit]
+> [    7.356841] pci 0000:00:16.3: [8086:31b2] type 00 class 0x118000
+> [    7.356925] pci 0000:00:16.3: reg 0x10: [mem 0xa1321000-0xa1321fff 64bit]
+> [    7.356995] pci 0000:00:16.3: reg 0x18: [mem 0xa1322000-0xa1322fff 64bit]
+> [    7.361449] pci 0000:00:17.0: [8086:31b4] type 00 class 0x118000
+> [    7.361533] pci 0000:00:17.0: reg 0x10: [mem 0xa1323000-0xa1323fff 64bit]
+> [    7.361604] pci 0000:00:17.0: reg 0x18: [mem 0xa1324000-0xa1324fff 64bit]
+> [    7.366038] pci 0000:00:17.1: [8086:31b6] type 00 class 0x118000
+> [    7.366121] pci 0000:00:17.1: reg 0x10: [mem 0xa1325000-0xa1325fff 64bit]
+> [    7.366190] pci 0000:00:17.1: reg 0x18: [mem 0xa1326000-0xa1326fff 64bit]
+> [    7.370614] pci 0000:00:17.2: [8086:31b8] type 00 class 0x118000
+> [    7.370697] pci 0000:00:17.2: reg 0x10: [mem 0xa1327000-0xa1327fff 64bit]
+> [    7.370766] pci 0000:00:17.2: reg 0x18: [mem 0xa1328000-0xa1328fff 64bit]
+> [    7.375190] pci 0000:00:17.3: [8086:31ba] type 00 class 0x118000
+> [    7.375273] pci 0000:00:17.3: reg 0x10: [mem 0xa1329000-0xa1329fff 64bit]
+> [    7.375343] pci 0000:00:17.3: reg 0x18: [mem 0xa132a000-0xa132afff 64bit]
+> [    7.379839] pci 0000:00:18.0: [8086:31bc] type 00 class 0x118000
+> [    7.379923] pci 0000:00:18.0: reg 0x10: [mem 0xa132b000-0xa132bfff 64bit]
+> [    7.379993] pci 0000:00:18.0: reg 0x18: [mem 0xa132c000-0xa132cfff 64bit]
+> [    7.384361] pci 0000:00:18.1: [8086:31be] type 00 class 0x118000
+> [    7.384445] pci 0000:00:18.1: reg 0x10: [mem 0xa132d000-0xa132dfff 64bit]
+> [    7.384515] pci 0000:00:18.1: reg 0x18: [mem 0xa132e000-0xa132efff 64bit]
+> [    7.388878] pci 0000:00:18.3: [8086:31ee] type 00 class 0x118000
+> [    7.388961] pci 0000:00:18.3: reg 0x10: [mem 0xa132f000-0xa132ffff 64bit]
+> [    7.389032] pci 0000:00:18.3: reg 0x18: [mem 0xa1330000-0xa1330fff 64bit]
+> [    7.393440] pci 0000:00:19.0: [8086:31c2] type 00 class 0x118000
+> [    7.393523] pci 0000:00:19.0: reg 0x10: [mem 0xa1331000-0xa1331fff 64bit]
+> [    7.393593] pci 0000:00:19.0: reg 0x18: [mem 0xa1332000-0xa1332fff 64bit]
+> [    7.398143] pci 0000:00:19.1: [8086:31c4] type 00 class 0x118000
+> [    7.398226] pci 0000:00:19.1: reg 0x10: [mem 0xa1333000-0xa1333fff 64bit]
+> [    7.398296] pci 0000:00:19.1: reg 0x18: [mem 0xa1334000-0xa1334fff 64bit]
+> [    7.402877] pci 0000:00:19.2: [8086:31c6] type 00 class 0x118000
+> [    7.402961] pci 0000:00:19.2: reg 0x10: [mem 0xa1335000-0xa1335fff 64bit]
+> [    7.403032] pci 0000:00:19.2: reg 0x18: [mem 0xa1336000-0xa1336fff 64bit]
+> [    7.407600] pci 0000:00:1c.0: [8086:31cc] type 00 class 0x080501
+> [    7.407684] pci 0000:00:1c.0: reg 0x10: [mem 0xa1337000-0xa1337fff 64bit]
+> [    7.407754] pci 0000:00:1c.0: reg 0x18: [mem 0xa1338000-0xa1338fff 64bit]
+> [    7.423325] pci 0000:00:1e.0: [8086:31d0] type 00 class 0x080501
+> [    7.423409] pci 0000:00:1e.0: reg 0x10: [mem 0xa1339000-0xa1339fff 64bit]
+> [    7.423479] pci 0000:00:1e.0: reg 0x18: [mem 0xa133a000-0xa133afff 64bit]
+> [    7.427839] pci 0000:00:1f.0: [8086:3197] type 00 class 0x060100
+> [    7.432317] pci 0000:00:1f.1: [8086:31d4] type 00 class 0x0c0500
+> [    7.432437] pci 0000:00:1f.1: reg 0x10: [mem 0xa133c000-0xa133c0ff 64bit]
+> [    7.432574] pci 0000:00:1f.1: reg 0x20: [io  0x3040-0x305f]
+> [    7.435619] pci 0000:01:00.0: [8086:10d3] type 00 class 0x020000
+> [    7.435704] pci 0000:01:00.0: reg 0x10: [mem 0xa1280000-0xa129ffff]
+> [    7.435768] pci 0000:01:00.0: reg 0x14: [mem 0xa1200000-0xa127ffff]
+> [    7.435832] pci 0000:01:00.0: reg 0x18: [io  0x2000-0x201f]
+> [    7.435892] pci 0000:01:00.0: reg 0x1c: [mem 0xa12a0000-0xa12a3fff]
+> [    7.436000] pci 0000:01:00.0: reg 0x30: [mem 0xfffc0000-0xffffffff pref]
+> [    7.436570] pci 0000:01:00.0: PME# supported from D0 D3hot D3cold
+> [    7.441522] pci 0000:00:13.0: PCI bridge to [bus 01]
+> [    7.441569] pci 0000:00:13.0:   bridge window [io  0x2000-0x2fff]
+> [    7.441612] pci 0000:00:13.0:   bridge window [mem 0xa1200000-0xa12fffff]
+> [    7.443119] pci 0000:02:00.0: [10ec:8168] type 00 class 0x020000
+> [    7.443192] pci 0000:02:00.0: reg 0x10: [io  0x1000-0x10ff]
+> [    7.443270] pci 0000:02:00.0: reg 0x18: [mem 0xa1104000-0xa1104fff 64bit]
+> [    7.443338] pci 0000:02:00.0: reg 0x20: [mem 0xa1100000-0xa1103fff 64bit]
+> [    7.443408] pci 0000:02:00.0: Upstream bridge's Max Payload Size set to 128 (was 256, max 256)
+> [    7.443462] pci 0000:02:00.0: Max Payload Size set to 128 (was 128, max 128)
+> [    7.444051] pci 0000:02:00.0: supports D1 D2
+> [    7.444086] pci 0000:02:00.0: PME# supported from D0 D1 D2 D3hot D3cold
+> [    7.448986] pci 0000:00:13.2: PCI bridge to [bus 02]
+> [    7.449031] pci 0000:00:13.2:   bridge window [io  0x1000-0x1fff]
+> [    7.449074] pci 0000:00:13.2:   bridge window [mem 0xa1100000-0xa11fffff]
+> [    8.153812] ACPI: PCI: Interrupt link LNKA configured for IRQ 3
+> [    8.159371] ACPI: PCI: Interrupt link LNKB configured for IRQ 4
+> [    8.164890] ACPI: PCI: Interrupt link LNKC configured for IRQ 5
+> [    8.170434] ACPI: PCI: Interrupt link LNKD configured for IRQ 6
+> [    8.175918] ACPI: PCI: Interrupt link LNKE configured for IRQ 7
+> [    8.181409] ACPI: PCI: Interrupt link LNKF configured for IRQ 9
+> [    8.186905] ACPI: PCI: Interrupt link LNKG configured for IRQ 10
+> [    8.192427] ACPI: PCI: Interrupt link LNKH configured for IRQ 11
+> [    8.979123] ACPI: EC: interrupt unblocked
+> [    8.979167] ACPI: EC: event unblocked
+> [    8.979213] ACPI: EC: EC_CMD/EC_SC=0x66, EC_DATA=0x62
+> [    8.979243] ACPI: EC: GPE=0x25
+> [    8.979288] ACPI: \_SB_.PCI0.LPCB.H_EC: Boot DSDT EC initialization complete
+> [    8.979363] ACPI: \_SB_.PCI0.LPCB.H_EC: EC: Used to handle transactions and events
+> [    8.981906] iommu: Default domain type: Translated 
+> [    8.981906] iommu: DMA domain TLB invalidation policy: lazy mode 
+> [    8.985676] SCSI subsystem initialized
+> [    8.988421] libata version 3.00 loaded.
+> [    8.989112] ACPI: bus type USB registered
+> [    8.989496] usbcore: registered new interface driver usbfs
+> [    8.989697] usbcore: registered new interface driver hub
+> [    8.989876] usbcore: registered new device driver usb
+> [    8.990697] pps_core: LinuxPPS API ver. 1 registered
+> [    8.990728] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+> [    8.990859] PTP clock support registered
+> [    8.991156] EDAC MC: Ver: 3.0.0
+> [    8.993349] Registered efivars operations
+> [    9.002676] NetLabel: Initializing
+> [    9.002716] NetLabel:  domain hash size = 128
+> [    9.002742] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+> [    9.003266] NetLabel:  unlabeled traffic allowed by default
+> [    9.003726] PCI: Using ACPI for IRQ routing
+> [    9.011355] PCI: pci_cache_line_size set to 64 bytes
+> [    9.011785] resource: Expanded resource Reserved due to conflict with PCI Bus 0000:00
+> [    9.011830] e820: reserve RAM buffer [mem 0x00058000-0x0005ffff]
+> [    9.011867] e820: reserve RAM buffer [mem 0x0009e000-0x0009ffff]
+> [    9.011899] e820: reserve RAM buffer [mem 0x73ad1018-0x73ffffff]
+> [    9.011931] e820: reserve RAM buffer [mem 0x75b7a000-0x77ffffff]
+> [    9.011962] e820: reserve RAM buffer [mem 0x79c00000-0x7bffffff]
+> [    9.013009] pci 0000:00:02.0: vgaarb: setting as boot VGA device
+> [    9.013009] pci 0000:00:02.0: vgaarb: bridge control possible
+> [    9.013009] pci 0000:00:02.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+> [    9.013009] vgaarb: loaded
+> [    9.025096] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0, 0, 0, 0, 0, 0
+> [    9.025213] hpet0: 8 comparators, 64-bit 19.200000 MHz counter
+> [    9.027750] clocksource: Switched to clocksource tsc-early
+> [    9.746256] VFS: Disk quotas dquot_6.6.0
+> [    9.746425] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+> [    9.748956] pnp: PnP ACPI init
+> [    9.753696] system 00:00: [io  0x06a4] has been reserved
+> [    9.753775] system 00:00: [io  0x06a0] has been reserved
+> [    9.766244] pnp 00:01: disabling [io  0x164e-0x164f] because it overlaps 0000:00:13.2 BAR 13 [io  0x1000-0x1fff]
+> [    9.767171] system 00:01: [io  0x0680-0x069f] has been reserved
+> [    9.767263] system 00:01: [io  0x0400-0x047f] has been reserved
+> [    9.767335] system 00:01: [io  0x0500-0x05fe] has been reserved
+> [    9.767406] system 00:01: [io  0x0600-0x061f] has been reserved
+> [    9.965795] system 00:03: [mem 0xe0000000-0xefffffff] has been reserved
+> [    9.965883] system 00:03: [mem 0xfea00000-0xfeafffff] has been reserved
+> [    9.965960] system 00:03: [mem 0xfed01000-0xfed01fff] has been reserved
+> [    9.966034] system 00:03: [mem 0xfed03000-0xfed03fff] has been reserved
+> [    9.966107] system 00:03: [mem 0xfed06000-0xfed06fff] has been reserved
+> [    9.966180] system 00:03: [mem 0xfed08000-0xfed09fff] has been reserved
+> [    9.966254] system 00:03: [mem 0xfed80000-0xfedbffff] has been reserved
+> [    9.966327] system 00:03: [mem 0xfed1c000-0xfed1cfff] has been reserved
+> [    9.966400] system 00:03: [mem 0xfee00000-0xfeefffff] has been reserved
+> [   10.000054] pnp: PnP ACPI: found 5 devices
+> [   10.049687] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+> [   10.051341] NET: Registered PF_INET protocol family
+> [   10.051762] IP idents hash table entries: 65536 (order: 7, 524288 bytes, linear)
+> [   10.061524] tcp_listen_portaddr_hash hash table entries: 2048 (order: 3, 32768 bytes, linear)
+> [   10.061732] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+> [   10.061937] TCP established hash table entries: 32768 (order: 6, 262144 bytes, linear)
+> [   10.063120] TCP bind hash table entries: 32768 (order: 8, 1048576 bytes, linear)
+> [   10.064711] TCP: Hash tables configured (established 32768 bind 32768)
+> [   10.065812] MPTCP token hash table entries: 4096 (order: 4, 98304 bytes, linear)
+> [   10.066141] UDP hash table entries: 2048 (order: 4, 65536 bytes, linear)
+> [   10.066366] UDP-Lite hash table entries: 2048 (order: 4, 65536 bytes, linear)
+> [   10.067351] NET: Registered PF_UNIX/PF_LOCAL protocol family
+> [   10.069323] RPC: Registered named UNIX socket transport module.
+> [   10.069360] RPC: Registered udp transport module.
+> [   10.069387] RPC: Registered tcp transport module.
+> [   10.069412] RPC: Registered tcp NFSv4.1 backchannel transport module.
+> [   10.069445] NET: Registered PF_XDP protocol family
+> [   10.069488] pci 0000:01:00.0: can't claim BAR 6 [mem 0xfffc0000-0xffffffff pref]: no compatible bridge window
+> [   10.069627] pci 0000:01:00.0: BAR 6: assigned [mem 0xa12c0000-0xa12fffff pref]
+> [   10.069692] pci 0000:00:13.0: PCI bridge to [bus 01]
+> [   10.069733] pci 0000:00:13.0:   bridge window [io  0x2000-0x2fff]
+> [   10.069781] pci 0000:00:13.0:   bridge window [mem 0xa1200000-0xa12fffff]
+> [   10.069836] pci 0000:00:13.2: PCI bridge to [bus 02]
+> [   10.069872] pci 0000:00:13.2:   bridge window [io  0x1000-0x1fff]
+> [   10.069914] pci 0000:00:13.2:   bridge window [mem 0xa1100000-0xa11fffff]
+> [   10.069977] pci_bus 0000:00: resource 4 [io  0x0070-0x0077]
+> [   10.070015] pci_bus 0000:00: resource 5 [io  0x0000-0x006f window]
+> [   10.070054] pci_bus 0000:00: resource 6 [io  0x0078-0x0cf7 window]
+> [   10.070092] pci_bus 0000:00: resource 7 [io  0x0d00-0xffff window]
+> [   10.070130] pci_bus 0000:00: resource 8 [mem 0x000a0000-0x000fffff window]
+> [   10.070171] pci_bus 0000:00: resource 9 [mem 0x7c000001-0xbfffffff window]
+> [   10.070212] pci_bus 0000:00: resource 10 [mem 0xe0000000-0xefffffff window]
+> [   10.070253] pci_bus 0000:00: resource 11 [mem 0xfea00000-0xfeafffff window]
+> [   10.070295] pci_bus 0000:00: resource 12 [mem 0xfed00000-0xfed003ff window]
+> [   10.070336] pci_bus 0000:00: resource 13 [mem 0xfed01000-0xfed01fff window]
+> [   10.070376] pci_bus 0000:00: resource 14 [mem 0xfed03000-0xfed03fff window]
+> [   10.070417] pci_bus 0000:00: resource 15 [mem 0xfed06000-0xfed06fff window]
+> [   10.070457] pci_bus 0000:00: resource 16 [mem 0xfed08000-0xfed09fff window]
+> [   10.070498] pci_bus 0000:00: resource 17 [mem 0xfed80000-0xfedbffff window]
+> [   10.070538] pci_bus 0000:00: resource 18 [mem 0xfed1c000-0xfed1cfff window]
+> [   10.070581] pci_bus 0000:00: resource 19 [mem 0xfee00000-0xfeefffff window]
+> [   10.070624] pci_bus 0000:01: resource 0 [io  0x2000-0x2fff]
+> [   10.070660] pci_bus 0000:01: resource 1 [mem 0xa1200000-0xa12fffff]
+> [   10.070701] pci_bus 0000:02: resource 0 [io  0x1000-0x1fff]
+> [   10.070737] pci_bus 0000:02: resource 1 [mem 0xa1100000-0xa11fffff]
+> [   10.091532] pci 0000:00:15.0: quirk_usb_early_handoff+0x0/0x9e0 took 12366 usecs
+> [   10.092268] PCI: CLS 64 bytes, default 64
+> [   10.092385] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+> [   10.092418] software IO TLB: mapped [mem 0x000000006dc00000-0x0000000071c00000] (64MB)
+> [   10.093338] Trying to unpack rootfs image as initramfs...
+> [   10.100265] RAPL PMU: API unit is 2^-32 Joules, 3 fixed counters, 655360 ms ovfl timer
+> [   10.100322] RAPL PMU: hw unit of domain package 2^-14 Joules
+> [   10.100354] RAPL PMU: hw unit of domain dram 2^-14 Joules
+> [   10.100383] RAPL PMU: hw unit of domain pp1-gpu 2^-14 Joules
+> [   10.100734] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0xfc66f4fc7c, max_idle_ns: 440795224246 ns
+> [   10.100857] clocksource: Switched to clocksource tsc
+> [   10.115579] Initialise system trusted keyrings
+> [   10.115751] Key type blacklist registered
+> [   10.116304] workingset: timestamp_bits=36 max_order=20 bucket_order=0
+> [   10.116644] zbud: loaded
+> [   10.120375] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+> [   10.123514] NFS: Registering the id_resolver key type
+> [   10.123606] Key type id_resolver registered
+> [   10.123635] Key type id_legacy registered
+> [   10.123763] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+> [   10.123821] nfs4flexfilelayout_init: NFSv4 Flexfile Layout Driver Registering...
+> [   10.124517] fuse: init (API version 7.38)
+> [   10.128300] integrity: Platform Keyring initialized
+> [   10.149212] xor: measuring software checksum speed
+> [   10.151121]    prefetch64-sse  :  5238 MB/sec
+> [   10.153332]    generic_sse     :  4549 MB/sec
+> [   10.153362] xor: using function: prefetch64-sse (5238 MB/sec)
+> [   10.153400] Key type asymmetric registered
+> [   10.153429] Asymmetric key parser 'x509' registered
+> [   10.153682] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 243)
+> [   10.154198] io scheduler mq-deadline registered
+> [   10.154231] io scheduler kyber registered
+> [   10.318361] pcieport 0000:00:13.0: PME: Signaling with IRQ 120
+> [   10.328613] pcieport 0000:00:13.2: PME: Signaling with IRQ 121
+> [   10.330387] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+> [   10.341249] ACPI: AC: AC Adapter [ADP1] (on-line)
+> [   10.342779] input: Lid Switch as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/device:01/PNP0C09:00/PNP0C0D:00/input/input0
+> [   10.344003] ACPI: button: Lid Switch [LID0]
+> [   10.345554] input: Power Button as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0C0C:00/input/input1
+> [   10.346746] ACPI: button: Power Button [PWRB]
+> [   10.818102] thermal LNXTHERM:00: registered as thermal_zone0
+> [   10.818159] ACPI: thermal: Thermal Zone [TZ01] (37 C)
+> [   10.829442] ACPI: battery: Slot [BAT0] (battery present)
+> [   10.831962] ACPI: battery: Slot [BAT1] (battery absent)
+> [   10.833601] ioatdma: Intel(R) QuickData Technology Driver 5.00
+> [   11.083692] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+> [   11.380621] serial8250: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+> [   11.394296] Linux agpgart interface v0.103
+> [   11.489033] ACPI: bus type drm_connector registered
+> [   11.542171] brd: module loaded
+> [   11.583547] loop: module loaded
+> [   11.585695] pci 0000:00:0d.2: [8086:3196] type 00 class 0x0c8000
+> [   11.585794] pci 0000:00:0d.2: reg 0x10: [mem 0xfed01000-0xfed01fff]
+> [   11.602661] idma64 idma64.0: Found Intel integrated DMA 64-bit
+> [   12.543120] Freeing initrd memory: 31380K
+> [   12.597633] idma64 idma64.1: Found Intel integrated DMA 64-bit
+> [   13.584205] idma64 idma64.2: Found Intel integrated DMA 64-bit
+> [   14.568290] idma64 idma64.3: Found Intel integrated DMA 64-bit
+> [   15.557117] idma64 idma64.4: Found Intel integrated DMA 64-bit
+> [   16.542441] idma64 idma64.5: Found Intel integrated DMA 64-bit
+> [   17.524347] idma64 idma64.6: Found Intel integrated DMA 64-bit
+> [   18.508044] idma64 idma64.7: Found Intel integrated DMA 64-bit
+> [   19.487016] idma64 idma64.8: Found Intel integrated DMA 64-bit
+> [   19.492232] dw-apb-uart.8: ttyS1 at MMIO 0xa132b000 (irq = 4, base_baud = 115200) is a 16550A
+> [   19.900780] idma64 idma64.9: Found Intel integrated DMA 64-bit
+> [   19.904878] dw-apb-uart.9: ttyS2 at MMIO 0xa132d000 (irq = 5, base_baud = 115200) is a 16550A
+> [   20.314192] dw-apb-uart.10: ttyS3 at MMIO 0xa132f000 (irq = 7, base_baud = 115200) is a 16550A
+> [   20.720544] idma64 idma64.11: Found Intel integrated DMA 64-bit
+> [   20.736545] idma64 idma64.12: Found Intel integrated DMA 64-bit
+> [   20.753749] idma64 idma64.13: Found Intel integrated DMA 64-bit
+> [   20.762049] ahci 0000:00:12.0: version 3.0
+> [   20.781718] ahci 0000:00:12.0: AHCI 0001.0301 32 slots 1 ports 6 Gbps 0x1 impl SATA mode
+> [   20.781798] ahci 0000:00:12.0: flags: 64bit ncq sntf pm clo only pmp pio slum part deso sadm sds apst 
+> [   20.787689] scsi host0: ahci
+> [   20.790012] ata1: SATA max UDMA/133 abar m2048@0xa133b000 port 0xa133b100 irq 122
+> [   20.795473] tun: Universal TUN/TAP device driver, 1.6
+> [   20.796517] e100: Intel(R) PRO/100 Network Driver
+> [   20.796552] e100: Copyright(c) 1999-2006 Intel Corporation
+> [   20.796840] e1000: Intel(R) PRO/1000 Network Driver
+> [   20.796870] e1000: Copyright (c) 1999-2006 Intel Corporation.
+> [   20.797154] e1000e: Intel(R) PRO/1000 Network Driver
+> [   20.797182] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+> [   20.797685] e1000e 0000:01:00.0: Disabling ASPM  L1
+> [   20.800811] e1000e 0000:01:00.0: Interrupt Throttling Rate (ints/sec) set to dynamic conservative mode
+> [   20.854078] e1000e 0000:01:00.0 0000:01:00.0 (uninitialized): registered PHC clock
+> [   20.909584] e1000e 0000:01:00.0 eth0: (PCI Express:2.5GT/s:Width x1) 68:05:ca:3a:8f:62
+> [   20.909657] e1000e 0000:01:00.0 eth0: Intel(R) PRO/1000 Network Connection
+> [   20.909709] e1000e 0000:01:00.0 eth0: MAC: 3, PHY: 8, PBA No: E46981-008
+> [   20.910048] igb: Intel(R) Gigabit Ethernet Network Driver
+> [   20.910081] igb: Copyright (c) 2007-2014 Intel Corporation.
+> [   20.910414] igbvf: Intel(R) Gigabit Virtual Function Network Driver
+> [   20.910448] igbvf: Copyright (c) 2009 - 2012 Intel Corporation.
+> [   20.910704] ixgbe: Intel(R) 10 Gigabit PCI Express Network Driver
+> [   20.910737] ixgbe: Copyright (c) 1999-2016 Intel Corporation.
+> [   20.911650] i40e: Intel(R) Ethernet Connection XL710 Network Driver
+> [   20.911689] i40e: Copyright (c) 2013 - 2019 Intel Corporation.
+> [   20.912402] ixgb: Intel(R) PRO/10GbE Network Driver
+> [   20.912437] ixgb: Copyright (c) 1999-2008 Intel Corporation.
+> [   20.912674] PPP generic driver version 2.4.2
+> [   20.915321] VFIO - User Level meta-driver version: 0.3
+> [   20.920485] usbcore: registered new interface driver usb-storage
+> [   20.920924] usbcore: registered new interface driver usbserial_generic
+> [   20.921083] usbserial: USB Serial support registered for generic
+> [   20.921248] usbcore: registered new interface driver ftdi_sio
+> [   20.921406] usbserial: USB Serial support registered for FTDI USB Serial Device
+> [   20.921584] usbcore: registered new interface driver pl2303
+> [   20.921724] usbserial: USB Serial support registered for pl2303
+> [   20.922273] i8042: PNP: PS/2 Controller [PNP0303:PS2K] at 0x60,0x64 irq 1
+> [   20.922317] i8042: PNP: PS/2 appears to have AUX port disabled, if this is incorrect please boot with i8042.nopnp
+> [   20.923220] i8042: Warning: Keylock active
+> [   20.923424] serio: i8042 KBD port at 0x60,0x64 irq 1
+> [   20.925471] xhci_hcd 0000:00:15.0: xHCI Host Controller
+> [   20.925717] mousedev: PS/2 mouse device common for all mice
+> [   20.925722] xhci_hcd 0000:00:15.0: new USB bus registered, assigned bus number 1
+> [   20.927321] xhci_hcd 0000:00:15.0: hcc params 0x200077c1 hci version 0x100 quirks 0x0000000000009810
+> [   20.928858] rtc_cmos 00:04: RTC can wake from S4
+> [   20.932992] xhci_hcd 0000:00:15.0: xHCI Host Controller
+> [   20.933088] xhci_hcd 0000:00:15.0: new USB bus registered, assigned bus number 2
+> [   20.933165] xhci_hcd 0000:00:15.0: Host supports USB 3.0 SuperSpeed
+> [   20.933225] rtc_cmos 00:04: registered as rtc0
+> [   20.933447] rtc_cmos 00:04: setting system clock to 2023-05-09T14:19:52 UTC (1683641992)
+> [   20.934091] rtc_cmos 00:04: alarms up to one month, y3k, 242 bytes nvram
+> [   20.934333] i2c_dev: i2c /dev entries driver
+> [   20.934410] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.02
+> [   20.934464] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+> [   20.934507] usb usb1: Product: xHCI Host Controller
+> [   20.934539] usb usb1: Manufacturer: Linux 6.2.0-rc1+ xhci-hcd
+> [   20.934573] usb usb1: SerialNumber: 0000:00:15.0
+> [   20.938403] hub 1-0:1.0: USB hub found
+> [   20.938712] hub 1-0:1.0: 9 ports detected
+> [   20.939660] fail to initialize ptp_kvm
+> [   21.027968] Consider using thermal netlink events interface
+> [   21.152203] atkbd serio0: Failed to deactivate keyboard on isa0060/serio0
+> [   21.268203] ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
+> [   21.273710] ata1.00: ATA-10: INTEL SSDSC2KW240H6,  LSF036C, max UDMA/133
+> [   21.273807] ata1.00: 468862128 sectors, multi 16: LBA48 NCQ (depth 32), AA
+> [   21.274381] ata1.00: Features: Dev-Sleep
+> [   21.275422] ata1.00: configured for UDMA/133
+> [   21.276177] scsi 0:0:0:0: Direct-Access     ATA      INTEL SSDSC2KW24 036C PQ: 0 ANSI: 5
+> [   21.281094] sd 0:0:0:0: [sda] 468862128 512-byte logical blocks: (240 GB/224 GiB)
+> [   21.281279] sd 0:0:0:0: [sda] Write Protect is off
+> [   21.281342] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+> [   21.281586] sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+> [   21.281958] sd 0:0:0:0: [sda] Preferred minimum I/O size 512 bytes
+> [   21.289619] sd 0:0:0:0: Attached scsi generic sg0 type 0
+> [   21.331235]  sda: sda1 sda2
+> [   21.334129] sd 0:0:0:0: [sda] Attached SCSI disk
+> [   21.532447] atkbd serio0: Failed to enable keyboard on isa0060/serio0
+> [   21.533522] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input2
+> [   21.598396] usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 6.02
+> [   21.598467] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+> [   21.598511] usb usb2: Product: xHCI Host Controller
+> [   21.598544] usb usb2: Manufacturer: Linux 6.2.0-rc1+ xhci-hcd
+> [   21.598578] usb usb2: SerialNumber: 0000:00:15.0
+> [   21.603528] hub 2-0:1.0: USB hub found
+> [   21.603839] hub 2-0:1.0: 7 ports detected
+> [   25.372842] device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+> [   25.372990] device-mapper: uevent: version 1.0.3
+> [   25.374072] device-mapper: ioctl: 4.47.0-ioctl (2022-07-28) initialised: dm-devel@redhat.com
+> [   25.374570] platform eisa.0: Probing EISA bus 0
+> [   25.374620] platform eisa.0: EISA: Cannot allocate resource for mainboard
+> [   25.374678] platform eisa.0: Cannot allocate resource for EISA slot 1
+> [   25.374733] platform eisa.0: Cannot allocate resource for EISA slot 2
+> [   25.374786] platform eisa.0: Cannot allocate resource for EISA slot 3
+> [   25.374841] platform eisa.0: Cannot allocate resource for EISA slot 4
+> [   25.374895] platform eisa.0: Cannot allocate resource for EISA slot 5
+> [   25.374950] platform eisa.0: Cannot allocate resource for EISA slot 6
+> [   25.375004] platform eisa.0: Cannot allocate resource for EISA slot 7
+> [   25.375059] platform eisa.0: Cannot allocate resource for EISA slot 8
+> [   25.375103] platform eisa.0: EISA: Detected 0 cards
+> [   25.375198] intel_pstate: Intel P-state driver initializing
+> [   25.377327] sdhci: Secure Digital Host Controller Interface driver
+> [   25.377354] sdhci: Copyright(c) Pierre Ossman
+> [   25.377749] sdhci-pci 0000:00:1c.0: SDHCI controller found [8086:31cc] (rev 6)
+> [   25.377920] sdhci-pltfm: SDHCI platform and OF driver helper
+> [   25.378350] sdhci-pci 0000:00:1e.0: SDHCI controller found [8086:31d0] (rev 6)
+> [   25.384217] ledtrig-cpu: registered to indicate activity on CPUs
+> [   25.384621] pstore: Registered efi_pstore as persistent store backend
+> [   25.384884] hid: raw HID events driver (C) Jiri Kosina
+> [   25.385201] usbcore: registered new interface driver usbhid
+> [   25.385228] usbhid: USB HID core driver
+> [   25.390009] mmc0: SDHCI controller on PCI [0000:00:1e.0] using ADMA 64-bit
+> [   25.391810] drop_monitor: Initializing network drop monitor service
+> [   25.392296] NET: Registered PF_INET6 protocol family
+> [   25.393224] mmc1: CQHCI version 5.10
+> [   25.394222] mmc1: SDHCI controller on PCI [0000:00:1c.0] using ADMA 64-bit
+> [   25.447942] Segment Routing with IPv6
+> [   25.448053] In-situ OAM (IOAM) with IPv6
+> [   25.448176] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+> [   25.450660] NET: Registered PF_PACKET protocol family
+> [   25.451038] Key type dns_resolver registered
+> [   25.452953] microcode: Microcode Update Driver: v2.2.
+> [   25.453232] resctrl: L2 allocation detected
+> [   25.453264] IPI shorthand broadcast: enabled
+> [   25.453316] SSE version of gcm_enc/dec engaged.
+> [   25.499527] sched_clock: Marking stable (25480209844, 15905081)->(25530955829, -34840904)
+> [   25.501155] registered taskstats version 1
+> [   25.501891] Loading compiled-in X.509 certificates
+> [   25.504685] Loaded X.509 cert 'Build time autogenerated kernel key: 48db76464bddc4ac5ffa17201a96417dc8a0c4da'
+> [   25.505288] zswap: loaded using pool lzo/zbud
+> [   25.551689] Key type .fscrypt registered
+> [   25.551707] Key type fscrypt-provisioning registered
+> [   25.557875] Btrfs loaded, crc32c=crc32c-intel, zoned=yes, fsverity=yes
+> [   25.558099] pstore: Using crash dump compression: deflate
+> [   25.558553] Key type trusted registered
+> [   25.585956] Key type encrypted registered
+> [   25.586645] integrity: Loading X.509 certificate: UEFI:db
+> [   25.586933] integrity: Loaded X.509 cert 'Microsoft Corporation UEFI CA 2011: 13adbf4309bd82709c8cd54f316ed522988a1bd4'
+> [   25.586953] integrity: Loading X.509 certificate: UEFI:db
+> [   25.587183] integrity: Loaded X.509 cert 'Microsoft Windows Production PCA 2011: a92902398e16c49778cd90f99e4f9ae17c55af53'
+> [   25.587204] integrity: Loading X.509 certificate: UEFI:db
+> [   25.587427] integrity: Loaded X.509 cert 'Intel Corporation: Intel(R) 2017_SHA2_Key: b1c2384f7cfcba9140a60325cacf8306252b1c59'
+> [   25.590666] Loading compiled-in module X.509 certificates
+> [   25.592916] Loaded X.509 cert 'Build time autogenerated kernel key: 48db76464bddc4ac5ffa17201a96417dc8a0c4da'
+> [   25.592942] ima: Allocated hash algorithm: sha1
+> [   25.626537] ima: No architecture policies found
+> [   25.626711] evm: Initialising EVM extended attributes:
+> [   25.626723] evm: security.selinux
+> [   25.626733] evm: security.SMACK64
+> [   25.626742] evm: security.SMACK64EXEC
+> [   25.626751] evm: security.SMACK64TRANSMUTE
+> [   25.626761] evm: security.SMACK64MMAP
+> [   25.626769] evm: security.apparmor
+> [   25.626778] evm: security.ima
+> [   25.626786] evm: security.capability
+> [   25.626795] evm: HMAC attrs: 0x1
+> [   25.637969] PM:   Magic number: 7:425:333
+> [   25.638287] tty tty54: hash matches
+> [   25.638383] acpi STK0006:07: hash matches
+> [   25.638617] printk: console [netcon0] enabled
+> [   25.638634] netconsole: network logging started
+> [   25.639793] RAS: Correctable Errors collector initialized.
+> [   25.668668] Freeing unused decrypted memory: 2036K
+> [   25.671634] Freeing unused kernel image (initmem) memory: 8244K
+> [   25.680528] Write protecting the kernel read-only data: 51200k
+> [   25.682367] Freeing unused kernel image (rodata/data gap) memory: 1328K
+> [   25.775622] x86/mm: Checked W+X mappings: passed, no W+X pages found.
+> [   25.775708] Run /init as init process
+> [   25.775722]   with arguments:
+> [   25.775728]     /init
+> [   25.775734]   with environment:
+> [   25.775738]     HOME=/
+> [   25.775743]     TERM=linux
+> [   25.775748]     BOOT_IMAGE=/boot/vmlinuz-6.2.0-rc1+
+> [   27.652079] e1000e 0000:01:00.0 enp1s0: renamed from eth0
+> [   27.829563] r8169 0000:02:00.0 eth0: RTL8168h/8111h, 90:49:fa:02:b0:3d, XID 541, IRQ 127
+> [   27.829605] r8169 0000:02:00.0 eth0: jumbo features [frames: 9194 bytes, tx checksumming: ko]
+> [   28.473706] r8169 0000:02:00.0 enp2s0: renamed from eth0
+> [   31.012560] i915 0000:00:02.0: [drm] Unknown revid 0x06
+> [   31.014286] i915 0000:00:02.0: vgaarb: deactivate vga console
+> [   31.015023] i915 0000:00:02.0: [drm] couldn't get memory information
+> [   31.015974] i915 0000:00:02.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=io+mem:owns=io+mem
+> [   31.017457] i915 0000:00:02.0: [drm] Finished loading DMC firmware i915/glk_dmc_ver1_04.bin (v1.4)
+> [   31.510678] i915 0000:00:02.0: [drm] [ENCODER:143:DDI A/PHY A] failed to retrieve link info, disabling eDP
+> [   31.528511] [drm] Initialized i915 1.6.0 20201103 for 0000:00:02.0 on minor 0
+> [   31.582719] ACPI: video: Video Device [GFX0] (multi-head: yes  rom: no  post: no)
+> [   31.590495] input: Video Bus as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A08:00/LNXVIDEO:00/input/input3
+> [   31.595922] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+> [   31.599067] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+> [   33.084287] async_tx: api initialized (async)
+> [   33.492696] random: crng reseeded on system resumption
+> [   33.494037] PM: hibernation: Marking nosave pages: [mem 0x00000000-0x00000fff]
+> [   33.494051] PM: hibernation: Marking nosave pages: [mem 0x00058000-0x00059fff]
+> [   33.494059] PM: hibernation: Marking nosave pages: [mem 0x0009e000-0x000fffff]
+> [   33.494066] PM: hibernation: Marking nosave pages: [mem 0x10000000-0x12151fff]
+> [   33.494198] PM: hibernation: Marking nosave pages: [mem 0x73ad1000-0x73ad1fff]
+> [   33.494204] PM: hibernation: Marking nosave pages: [mem 0x73b02000-0x73b02fff]
+> [   33.494210] PM: hibernation: Marking nosave pages: [mem 0x75b7a000-0x789f0fff]
+> [   33.494392] PM: hibernation: Marking nosave pages: [mem 0x79c00000-0xffffffff]
+> [   33.497838] PM: hibernation: Basic memory bitmaps created
+> [   33.499385] PM: hibernation: Basic memory bitmaps freed
+> [   33.735537] EXT4-fs (sda2): mounted filesystem 16f91211-7664-41a5-8d7e-230cc974c4f2 with ordered data mode. Quota mode: none.
+> [   34.103473] Not activating Mandatory Access Control as /sbin/tomoyo-init does not exist.
+> [   34.444669] systemd[1]: systemd 245.4-4ubuntu3.2 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD +IDN2 -IDN +PCRE2 default-hierarchy=hybrid)
+> [   34.445507] systemd[1]: Detected architecture x86-64.
+> [   34.508724] systemd[1]: Set hostname to <GML-HDA-4>.
+> [   35.293712] systemd[1]: /lib/systemd/system/dbus.socket:5: ListenStream= references a path below legacy directory /var/run/, updating /var/run/dbus/system_bus_socket → /run/dbus/system_bus_socket; please update the unit file accordingly.
+> [   35.442061] systemd[1]: Created slice system-modprobe.slice.
+> [   35.444550] systemd[1]: Created slice system-systemd\x2dfsck.slice.
+> [   35.447093] systemd[1]: Created slice User and Session Slice.
+> [   35.447690] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+> [   35.449403] systemd[1]: Set up automount Arbitrary Executable File Formats File System Automount Point.
+> [   35.449739] systemd[1]: Reached target User and Group Name Lookups.
+> [   35.449999] systemd[1]: Reached target Slices.
+> [   35.450574] systemd[1]: Listening on Device-mapper event daemon FIFOs.
+> [   35.451479] systemd[1]: Listening on LVM2 poll daemon socket.
+> [   35.452094] systemd[1]: Listening on multipathd control socket.
+> [   35.452951] systemd[1]: Listening on Syslog Socket.
+> [   35.453756] systemd[1]: Listening on fsck to fsckd communication Socket.
+> [   35.454295] systemd[1]: Listening on initctl Compatibility Named Pipe.
+> [   35.455573] systemd[1]: Listening on Journal Audit Socket.
+> [   35.456637] systemd[1]: Listening on Journal Socket (/dev/log).
+> [   35.457641] systemd[1]: Listening on Journal Socket.
+> [   35.458564] systemd[1]: Listening on udev Control Socket.
+> [   35.459535] systemd[1]: Listening on udev Kernel Socket.
+> [   35.481603] systemd[1]: Mounting Huge Pages File System...
+> [   35.490197] systemd[1]: Mounting POSIX Message Queue File System...
+> [   35.498985] systemd[1]: Mounting Kernel Debug File System...
+> [   35.507771] systemd[1]: Mounting Kernel Trace File System...
+> [   35.518608] systemd[1]: Starting Journal Service...
+> [   35.541128] systemd[1]: Starting Set the console keyboard layout...
+> [   35.609040] systemd[1]: Starting Create list of static device nodes for the current kernel...
+> [   35.628911] systemd[1]: Starting Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling...
+> [   35.629258] systemd[1]: Condition check resulted in Load Kernel Module drm being skipped.
+> [   35.630611] systemd[1]: Condition check resulted in Set Up Additional Binary Formats being skipped.
+> [   35.630720] systemd[1]: Condition check resulted in File System Check on Root Device being skipped.
+> [   35.648014] systemd[1]: Starting Load Kernel Modules...
+> [   35.680425] systemd[1]: Starting Remount Root and Kernel File Systems...
+> [   35.720779] systemd[1]: Starting udev Coldplug all Devices...
+> [   35.744945] systemd[1]: Starting Uncomplicated firewall...
+> [   35.793720] systemd[1]: Mounted Huge Pages File System.
+> [   35.795363] systemd[1]: Mounted POSIX Message Queue File System.
+> [   35.796852] systemd[1]: Mounted Kernel Debug File System.
+> [   35.798314] systemd[1]: Mounted Kernel Trace File System.
+> [   35.828096] systemd[1]: Finished Create list of static device nodes for the current kernel.
+> [   35.859309] systemd[1]: Finished Uncomplicated firewall.
+> [   35.889503] systemd[1]: Finished Load Kernel Modules.
+> [   35.935277] systemd[1]: Mounting FUSE Control File System...
+> [   35.948701] EXT4-fs (sda2): re-mounted 16f91211-7664-41a5-8d7e-230cc974c4f2. Quota mode: none.
+> [   35.968759] systemd[1]: Mounting Kernel Configuration File System...
+> [   36.051989] systemd[1]: Starting Apply Kernel Variables...
+> [   36.109436] systemd[1]: Finished Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling.
+> [   36.136719] systemd[1]: Finished Remount Root and Kernel File Systems.
+> [   36.145287] systemd[1]: Mounted FUSE Control File System.
+> [   36.146885] systemd[1]: Mounted Kernel Configuration File System.
+> [   36.200951] systemd[1]: Activating swap /swapfile...
+> [   36.202184] systemd[1]: Condition check resulted in Rebuild Hardware Database being skipped.
+> [   36.202369] systemd[1]: Condition check resulted in Platform Persistent Storage Archival being skipped.
+> [   36.220754] systemd[1]: Starting Load/Save Random Seed...
+> [   36.261007] systemd[1]: Starting Create System Users...
+> [   36.272641] Adding 2097148k swap on /swapfile.  Priority:-2 extents:6 across:2260988k SSFS
+> [   36.274451] systemd[1]: Finished Set the console keyboard layout.
+> [   36.282925] systemd[1]: Activated swap /swapfile.
+> [   36.293962] systemd[1]: Finished Apply Kernel Variables.
+> [   36.308605] systemd[1]: Reached target Swap.
+> [   36.386087] systemd[1]: Finished Load/Save Random Seed.
+> [   36.435188] systemd[1]: Finished Create System Users.
+> [   36.473086] systemd[1]: Starting Create Static Device Nodes in /dev...
+> [   36.541845] systemd[1]: Started Journal Service.
+> [   36.665572] systemd-journald[304]: Received client request to flush runtime journal.
+> [   39.840257] acpi device:51: registered as cooling_device6
+> [   39.906934] intel_rapl_common: Found RAPL domain package
+> [   39.906950] intel_rapl_common: Found RAPL domain core
+> [   39.906957] intel_rapl_common: Found RAPL domain uncore
+> [   39.906964] intel_rapl_common: Found RAPL domain dram
+> [   44.596054] loop0: detected capacity change from 0 to 8
+> [   45.152213] Generic FE-GE Realtek PHY r8169-0-200:00: attached PHY driver (mii_bus:phy_addr=r8169-0-200:00, irq=MAC)
+> [   45.351040] r8169 0000:02:00.0 enp2s0: Link is Down
+> [   47.749507] e1000e 0000:01:00.0 enp1s0: NIC Link is Up 1000 Mbps Full Duplex, Flow Control: None
+> [   47.749945] IPv6: ADDRCONF(NETDEV_CHANGE): enp1s0: link becomes ready
+> [  204.135785] PRE MODPROBE
+> [  204.377411] snd_hda_intel 0000:00:0e.0: bound 0000:00:02.0 (ops i915_audio_component_bind_ops [i915])
+> [  204.378431] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power enable
+> [  204.381788] POST MODPROBE
+> [  204.394404] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: enable codec wakeup
+> [  204.397534] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: disable codec wakeup
+> [  204.399185] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Capability version: 0x0
+> [  204.399198] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: HDA capability ID: 0x2
+> [  204.399208] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Found ML capability
+> [  204.399219] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Capability version: 0x0
+> [  204.399227] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: HDA capability ID: 0x3
+> [  204.399236] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Found PP capability offset=800
+> [  204.399248] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Capability version: 0x0
+> [  204.399257] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: HDA capability ID: 0x1
+> [  204.399265] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Found GTS capability offset=500
+> [  204.399277] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Capability version: 0x0
+> [  204.399285] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: HDA capability ID: 0x5
+> [  204.399294] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Found DRSM capability
+> [  204.399304] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Capability version: 0x0
+> [  204.399313] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: HDA capability ID: 0x4
+> [  204.399321] snd_hda_core:snd_hdac_bus_parse_capabilities: snd_hda_intel 0000:00:0e.0: Found SPB capability
+> [  204.399708] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: enable codec wakeup
+> [  204.414113] snd_hda_core:snd_hdac_bus_reset_link: snd_hda_intel 0000:00:0e.0: codec_mask = 0x5
+> [  204.414146] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: disable codec wakeup
+> [  204.415978] snd_hda_codec:probe_codec: snd_hda_intel 0000:00:0e.0: codec #0 probed OK
+> [  204.416244] snd_hda_codec:probe_codec: snd_hda_intel 0000:00:0e.0: codec #2 probed OK
+> [  204.416314] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.416805] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.417026] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.417240] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.417452] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.417667] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.417856] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.418035] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.418256] snd_hda_codec:snd_hda_codec_device_new: snd_hda_intel 0000:00:0e.0: snd_hda_codec_device_new: entry
+> [  204.418289] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.418464] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.418647] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.418828] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.419012] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.419195] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.419378] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.419560] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.419743] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.419927] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.420110] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.421231] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.421315] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.421508] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.421691] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.421874] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422058] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422205] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422273] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422417] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422502] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422665] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422752] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422835] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.422998] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.423062] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.423213] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.423334] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.423522] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.423705] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.423884] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.423958] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.424152] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.424543] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.424743] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.424926] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425086] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425257] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425335] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425500] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425585] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425744] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425815] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.425990] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426064] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426233] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426313] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426477] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426540] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426689] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426773] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.426934] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.427001] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.427148] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.427271] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.427458] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.427646] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.427820] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.427898] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.428065] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.428549] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.428706] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.428772] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.428918] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.428999] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429163] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429230] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429377] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429459] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429620] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429689] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429834] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.429918] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430078] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430147] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430322] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430396] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430567] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430720] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430871] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.430937] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.431086] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.431167] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.431365] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.431548] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.431696] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.431791] snd_hda_codec:snd_hda_codec_device_new: snd_hda_intel 0000:00:0e.0: snd_hda_codec_device_new: entry
+> [  204.431808] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.431940] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.432028] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.432508] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.432719] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.432857] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.432938] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.433099] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.505080] DEBUG: sound/pci/hda/patch_realtek.c:10378 patch_alc269
+> [  204.505122] DEBUG: sound/pci/hda/patch_realtek.c:1196 alc_alloc_spec
+> [  204.505142] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.505616] DEBUG: sound/pci/hda/patch_realtek.c:913 alc_pre_init
+> [  204.505636] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.505825] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.506630] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.506908] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.507236] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.507564] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.507811] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.508009] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.508607] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.508787] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.509004] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.509203] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.509437] snd_hda_codec_realtek hdaudioC0D0: autoconfig for ALC298: line_outs=1 (0x14/0x0/0x0/0x0/0x0) type:speaker
+> [  204.509453] snd_hda_codec_realtek hdaudioC0D0:    speaker_outs=0 (0x0/0x0/0x0/0x0/0x0)
+> [  204.509463] snd_hda_codec_realtek hdaudioC0D0:    hp_outs=1 (0x21/0x0/0x0/0x0/0x0)
+> [  204.509472] snd_hda_codec_realtek hdaudioC0D0:    mono: mono_out=0x0
+> [  204.509479] snd_hda_codec_realtek hdaudioC0D0:    inputs:
+> [  204.509487] snd_hda_codec_realtek hdaudioC0D0:      Mic=0x18
+> [  204.509495] snd_hda_codec_realtek hdaudioC0D0:      Internal Mic=0x12
+> [  204.509522] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.509736] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.509949] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.510113] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.510319] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.510491] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.510659] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.510774] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.510949] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.511118] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.511285] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.511505] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.511706] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.511895] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.512077] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.512573] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.512789] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.513049] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.513275] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.513602] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.513763] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.513871] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.514040] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.514241] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.514412] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.514518] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.514701] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.514857] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.514957] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.515167] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.515376] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.515584] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.515779] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.515951] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.516109] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.516698] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.516900] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.517080] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.517251] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.517458] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.517662] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.517830] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.517934] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.518118] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.518288] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.518392] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.518576] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.518747] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.518878] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.519088] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.519277] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.519567] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.519777] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.519927] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.520039] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.520415] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.520632] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.520782] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521026] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521179] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521279] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521421] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521528] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521696] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521787] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.521941] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.522038] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.522443] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.522634] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.522795] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.522882] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.523039] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.523528] DEBUG: sound/pci/hda/patch_realtek.c:926 alc_init
+> [  204.560475] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.572459] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.668590] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.776775] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.777180] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.777446] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.777822] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.778196] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.778478] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.778857] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.779085] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.779387] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.779598] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.779852] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.780095] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.780392] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.781290] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.781677] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.781957] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.782341] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.782709] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.783095] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.783394] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.783753] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.784117] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.784912] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.785283] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.785527] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.785873] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.786105] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.786347] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.786564] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.786915] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.787169] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.787521] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.787857] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.788192] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.789409] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.789709] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.789966] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.790146] DEBUG: sound/pci/hda/hda_generic.c:708 caps=0x80017f43
+> [  204.790170] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.790376] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.790479] ------------[ cut here ]------------
+> [  204.790485] WARNING: CPU: 0 PID: 810 at sound/hda/hdac_bus.c:122 snd_hdac_bus_exec_verb_unlocked+0x268/0x370 [snd_hda_core]
+> [  204.790563] Modules linked in: snd_hda_codec_realtek(+) snd_hda_codec_generic ledtrig_audio snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core snd_pcm snd_timer snd soundcore dm_multipath x86_pkg_temp_thermal wmi_bmof intel_rapl_msr mei_me mei soc_button_array dptf_power ip_tables x_tables raid10 raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx raid1 raid0 multipath i915 drm_buddy drm_display_helper drm_kms_helper cec r8169 spi_pxa2xx_platform dw_dmac realtek ttm video wmi
+> [  204.790737] CPU: 0 PID: 810 Comm: systemd-udevd Not tainted 6.2.0-rc1+ #111
+> [  204.790748] Hardware name: Intel Corp. Geminilake/GLK RVP2 LP4SD (07), BIOS GELKRVPA.X64.0132.B40.1902131714 02/13/2019
+> [  204.790755] RIP: 0010:snd_hdac_bus_exec_verb_unlocked+0x268/0x370 [snd_hda_core]
+> [  204.790825] Code: 0f 85 1e 01 00 00 48 83 ec 80 44 89 c0 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc 0f 0b e9 5a fe ff ff 0f 0b e9 53 fe ff ff <0f> 0b e9 4c fe ff ff 48 8b 9d 60 ff ff ff 89 85 70 ff ff ff 48 89
+> [  204.790835] RSP: 0018:ffff88810a7cef90 EFLAGS: 00010246
+> [  204.790845] RAX: ffff88810a7cefd0 RBX: 0000000000936080 RCX: ffffffffc0fd0b19
+> [  204.790852] RDX: 1ffff11021939498 RSI: 0000000000000000 RDI: ffff88810c9ca4c0
+> [  204.790859] RBP: ffff88810a7cf038 R08: 0000000000000001 R09: ffff88810a7cefe7
+> [  204.790866] R10: ffffed10214f9dfc R11: 73203a4755424544 R12: ffff88810c9ca028
+> [  204.790873] R13: ffff88810c9ca030 R14: 0000000000000000 R15: 0000000000000000
+> [  204.790880] FS:  00007f3cb8933880(0000) GS:ffff88815c800000(0000) knlGS:0000000000000000
+> [  204.790888] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  204.790894] CR2: 00007f7d167ba428 CR3: 000000010c7d6000 CR4: 0000000000350ef0
+> [  204.790902] Call Trace:
+> [  204.790907]  <TASK>
+> [  204.790915]  ? __pfx_snd_hdac_bus_exec_verb_unlocked+0x10/0x10 [snd_hda_core]
+> [  204.790984]  ? __pfx_mutex_lock+0x10/0x10
+> [  204.790999]  ? __pm_runtime_resume+0x60/0xb0
+> [  204.791014]  codec_exec_verb+0xb9/0x1a0 [snd_hda_codec]
+> [  204.791110]  snd_hdac_exec_verb+0x61/0xa7 [snd_hda_core]
+> [  204.791180]  hda_reg_write+0x132/0x360 [snd_hda_core]
+> [  204.791251]  _regmap_write+0xb1/0x1e0
+> [  204.791265]  _regmap_update_bits+0x174/0x190
+> [  204.791278]  ? __pfx__regmap_update_bits+0x10/0x10
+> [  204.791291]  ? regcache_read+0x8c/0x160
+> [  204.791302]  regmap_update_bits_base+0x84/0xd0
+> [  204.791317]  reg_raw_update_once+0x165/0x190 [snd_hda_core]
+> [  204.791387]  ? __pfx_reg_raw_update_once+0x10/0x10 [snd_hda_core]
+> [  204.791456]  ? _snd_hdac_read_parm+0x1e/0x30 [snd_hda_core]
+> [  204.791524]  ? query_amp_caps+0x12d/0x180 [snd_hda_codec]
+> [  204.791616]  ? __pfx_query_amp_caps+0x10/0x10 [snd_hda_codec]
+> [  204.791706]  ? _printk+0xb2/0xe5
+> [  204.791719]  snd_hdac_regmap_update_raw_once+0x23/0x80 [snd_hda_core]
+> [  204.791790]  snd_hda_codec_amp_init_stereo+0xc2/0xf0 [snd_hda_codec]
+> [  204.791883]  init_amp+0x78/0xc0 [snd_hda_codec_generic]
+> [  204.791925]  snd_hda_activate_path+0x65e/0x750 [snd_hda_codec_generic]
+> [  204.791966]  ? __pfx_snd_hda_activate_path+0x10/0x10 [snd_hda_codec_generic]
+> [  204.792004]  ? regmap_write+0x85/0xb0
+> [  204.792017]  ? snd_hdac_regmap_write_raw+0x5f/0xf0 [snd_hda_core]
+> [  204.792087]  snd_hda_gen_init+0x9b5/0x10e0 [snd_hda_codec_generic]
+> [  204.792159]  ? __pfx_snd_hda_gen_init+0x10/0x10 [snd_hda_codec_generic]
+> [  204.792200]  ? msleep+0x3e/0x50
+> [  204.792216]  alc_init+0xac/0x256 [snd_hda_codec_realtek]
+> [  204.792301]  snd_hda_codec_build_controls+0xe9/0x450 [snd_hda_codec]
+> [  204.792394]  ? __pfx_snd_hda_codec_build_controls+0x10/0x10 [snd_hda_codec]
+> [  204.792486]  ? snd_hda_codec_build_pcms+0x82/0x380 [snd_hda_codec]
+> [  204.792580]  hda_codec_driver_probe+0x138/0x270 [snd_hda_codec]
+> [  204.792671]  really_probe+0x15f/0x550
+> [  204.792685]  __driver_probe_device+0xdc/0x230
+> [  204.792698]  driver_probe_device+0x4f/0x120
+> [  204.792710]  __driver_attach+0x14a/0x2b0
+> [  204.792721]  ? __pfx___driver_attach+0x10/0x10
+> [  204.792732]  bus_for_each_dev+0xf9/0x150
+> [  204.792742]  ? __pfx_bus_for_each_dev+0x10/0x10
+> [  204.792752]  ? preempt_count_sub+0x18/0xc0
+> [  204.792766]  driver_attach+0x2b/0x40
+> [  204.792777]  bus_add_driver+0x2af/0x300
+> [  204.792790]  driver_register+0x11a/0x1b0
+> [  204.792803]  __hda_codec_driver_register+0xcd/0xe0 [snd_hda_codec]
+> [  204.792952]  ? __pfx_init_module+0x10/0x10 [snd_hda_codec_realtek]
+> [  204.793031]  realtek_driver_init+0x23/0xff0 [snd_hda_codec_realtek]
+> [  204.793108]  do_one_initcall+0x97/0x2f0
+> [  204.793123]  ? __pfx_do_one_initcall+0x10/0x10
+> [  204.793135]  ? kasan_set_track+0x25/0x40
+> [  204.793147]  ? kasan_poison+0x55/0x70
+> [  204.793157]  ? kasan_unpoison+0x46/0x70
+> [  204.793167]  ? kasan_poison+0x55/0x70
+> [  204.793176]  ? __asan_register_globals+0x5e/0x80
+> [  204.793192]  do_init_module+0xec/0x340
+> [  204.793207]  load_module+0x372e/0x3860
+> [  204.793219]  ? iov_iter_kvec+0x97/0xc0
+> [  204.793243]  ? __pfx_load_module+0x10/0x10
+> [  204.793258]  ? security_kernel_post_read_file+0x7e/0x90
+> [  204.793272]  ? __kasan_check_write+0x14/0x20
+> [  204.793281]  ? kernel_read_file+0x1c8/0x570
+> [  204.793302]  __do_sys_finit_module+0x131/0x1d0
+> [  204.793315]  ? __do_sys_finit_module+0x131/0x1d0
+> [  204.793327]  ? __pfx___do_sys_finit_module+0x10/0x10
+> [  204.793340]  ? __kasan_check_read+0x11/0x20
+> [  204.793349]  ? __seccomp_filter+0x114/0x830
+> [  204.793368]  ? __kasan_check_write+0x14/0x20
+> [  204.793379]  ? __secure_computing+0xe0/0x170
+> [  204.793390]  __x64_sys_finit_module+0x42/0x50
+> [  204.793403]  do_syscall_64+0x58/0x80
+> [  204.793415]  ? do_syscall_64+0x67/0x80
+> [  204.793426]  ? syscall_exit_to_user_mode+0x26/0x50
+> [  204.793437]  ? do_syscall_64+0x67/0x80
+> [  204.793449]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+> [  204.793462] RIP: 0033:0x7f3cb8bdd70d
+> [  204.793472] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 53 f7 0c 00 f7 d8 64 89 01 48
+> [  204.793481] RSP: 002b:00007ffd776c7e88 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> [  204.793492] RAX: ffffffffffffffda RBX: 000055bdbd5ba030 RCX: 00007f3cb8bdd70d
+> [  204.793500] RDX: 0000000000000000 RSI: 00007f3cb8abaded RDI: 0000000000000010
+> [  204.793506] RBP: 0000000000020000 R08: 0000000000000000 R09: 000055bdbd5686b8
+> [  204.793512] R10: 0000000000000010 R11: 0000000000000246 R12: 00007f3cb8abaded
+> [  204.793519] R13: 0000000000000000 R14: 000055bdbd596f80 R15: 000055bdbd5ba030
+> [  204.793531]  </TASK>
+> [  204.793536] ---[ end trace 0000000000000000 ]---
+> [  204.793707] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.793917] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.794015] ------------[ cut here ]------------
+> [  204.794020] WARNING: CPU: 0 PID: 810 at sound/hda/hdac_bus.c:121 snd_hdac_bus_exec_verb_unlocked+0x25a/0x370 [snd_hda_core]
+> [  204.794093] Modules linked in: snd_hda_codec_realtek(+) snd_hda_codec_generic ledtrig_audio snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core snd_pcm snd_timer snd soundcore dm_multipath x86_pkg_temp_thermal wmi_bmof intel_rapl_msr mei_me mei soc_button_array dptf_power ip_tables x_tables raid10 raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx raid1 raid0 multipath i915 drm_buddy drm_display_helper drm_kms_helper cec r8169 spi_pxa2xx_platform dw_dmac realtek ttm video wmi
+> [  204.794252] CPU: 0 PID: 810 Comm: systemd-udevd Tainted: G        W          6.2.0-rc1+ #111
+> [  204.794262] Hardware name: Intel Corp. Geminilake/GLK RVP2 LP4SD (07), BIOS GELKRVPA.X64.0132.B40.1902131714 02/13/2019
+> [  204.794269] RIP: 0010:snd_hdac_bus_exec_verb_unlocked+0x25a/0x370 [snd_hda_core]
+> [  204.794337] Code: 00 48 8b 45 d0 65 48 2b 04 25 28 00 00 00 0f 85 1e 01 00 00 48 83 ec 80 44 89 c0 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc <0f> 0b e9 5a fe ff ff 0f 0b e9 53 fe ff ff 0f 0b e9 4c fe ff ff 48
+> [  204.794346] RSP: 0018:ffff88810a7cef90 EFLAGS: 00010246
+> [  204.794355] RAX: ffff88810a7cefd0 RBX: 0000000000935080 RCX: ffffffffc0fd0b19
+> [  204.794362] RDX: 1ffff11021939498 RSI: 0000000000000000 RDI: ffff88810c9ca4c0
+> [  204.794369] RBP: ffff88810a7cf038 R08: 0000000000000001 R09: ffff88810a7cefe7
+> [  204.794375] R10: ffffed10214f9dfc R11: 73203a4755424544 R12: ffff88810c9ca028
+> [  204.794382] R13: ffff88810c9ca030 R14: 0000000000000000 R15: 0000000000000000
+> [  204.794389] FS:  00007f3cb8933880(0000) GS:ffff88815c800000(0000) knlGS:0000000000000000
+> [  204.794397] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  204.794403] CR2: 00007f7d167ba428 CR3: 000000010c7d6000 CR4: 0000000000350ef0
+> [  204.794411] Call Trace:
+> [  204.794415]  <TASK>
+> [  204.794422]  ? __pfx_snd_hdac_bus_exec_verb_unlocked+0x10/0x10 [snd_hda_core]
+> [  204.794491]  ? __pfx_mutex_lock+0x10/0x10
+> [  204.794501]  ? __pm_runtime_resume+0x60/0xb0
+> [  204.794515]  codec_exec_verb+0xb9/0x1a0 [snd_hda_codec]
+> [  204.794608]  snd_hdac_exec_verb+0x61/0xa7 [snd_hda_core]
+> [  204.794714]  hda_reg_write+0x132/0x360 [snd_hda_core]
+> [  204.794786]  _regmap_write+0xb1/0x1e0
+> [  204.794800]  _regmap_update_bits+0x174/0x190
+> [  204.794812]  ? __pfx__regmap_update_bits+0x10/0x10
+> [  204.794825]  ? regcache_read+0x8c/0x160
+> [  204.794836]  regmap_update_bits_base+0x84/0xd0
+> [  204.794851]  reg_raw_update_once+0x165/0x190 [snd_hda_core]
+> [  204.794921]  ? __pfx_reg_raw_update_once+0x10/0x10 [snd_hda_core]
+> [  204.794990]  ? _snd_hdac_read_parm+0x1e/0x30 [snd_hda_core]
+> [  204.795057]  ? query_amp_caps+0x12d/0x180 [snd_hda_codec]
+> [  204.795148]  ? __pfx_query_amp_caps+0x10/0x10 [snd_hda_codec]
+> [  204.795238]  ? _printk+0xb2/0xe5
+> [  204.795249]  snd_hdac_regmap_update_raw_once+0x23/0x80 [snd_hda_core]
+> [  204.795372]  snd_hda_codec_amp_init_stereo+0xc2/0xf0 [snd_hda_codec]
+> [  204.795467]  init_amp+0x78/0xc0 [snd_hda_codec_generic]
+> [  204.795508]  snd_hda_activate_path+0x65e/0x750 [snd_hda_codec_generic]
+> [  204.795550]  ? __pfx_snd_hda_activate_path+0x10/0x10 [snd_hda_codec_generic]
+> [  204.795588]  ? regmap_write+0x85/0xb0
+> [  204.795601]  ? snd_hdac_regmap_write_raw+0x5f/0xf0 [snd_hda_core]
+> [  204.795672]  snd_hda_gen_init+0x9b5/0x10e0 [snd_hda_codec_generic]
+> [  204.795713]  ? __pfx_snd_hda_gen_init+0x10/0x10 [snd_hda_codec_generic]
+> [  204.795752]  ? msleep+0x3e/0x50
+> [  204.795768]  alc_init+0xac/0x256 [snd_hda_codec_realtek]
+> [  204.795849]  snd_hda_codec_build_controls+0xe9/0x450 [snd_hda_codec]
+> [  204.795942]  ? __pfx_snd_hda_codec_build_controls+0x10/0x10 [snd_hda_codec]
+> [  204.796033]  ? snd_hda_codec_build_pcms+0x82/0x380 [snd_hda_codec]
+> [  204.796146]  hda_codec_driver_probe+0x138/0x270 [snd_hda_codec]
+> [  204.796293]  really_probe+0x15f/0x550
+> [  204.796308]  __driver_probe_device+0xdc/0x230
+> [  204.796320]  driver_probe_device+0x4f/0x120
+> [  204.796332]  __driver_attach+0x14a/0x2b0
+> [  204.796343]  ? __pfx___driver_attach+0x10/0x10
+> [  204.796354]  bus_for_each_dev+0xf9/0x150
+> [  204.796363]  ? __pfx_bus_for_each_dev+0x10/0x10
+> [  204.796373]  ? preempt_count_sub+0x18/0xc0
+> [  204.796386]  driver_attach+0x2b/0x40
+> [  204.796397]  bus_add_driver+0x2af/0x300
+> [  204.796410]  driver_register+0x11a/0x1b0
+> [  204.796424]  __hda_codec_driver_register+0xcd/0xe0 [snd_hda_codec]
+> [  204.796513]  ? __pfx_init_module+0x10/0x10 [snd_hda_codec_realtek]
+> [  204.796590]  realtek_driver_init+0x23/0xff0 [snd_hda_codec_realtek]
+> [  204.796666]  do_one_initcall+0x97/0x2f0
+> [  204.796679]  ? __pfx_do_one_initcall+0x10/0x10
+> [  204.796692]  ? kasan_set_track+0x25/0x40
+> [  204.796702]  ? kasan_poison+0x55/0x70
+> [  204.796711]  ? kasan_unpoison+0x46/0x70
+> [  204.796721]  ? kasan_poison+0x55/0x70
+> [  204.796730]  ? __asan_register_globals+0x5e/0x80
+> [  204.796745]  do_init_module+0xec/0x340
+> [  204.796760]  load_module+0x372e/0x3860
+> [  204.796772]  ? iov_iter_kvec+0x97/0xc0
+> [  204.796795]  ? __pfx_load_module+0x10/0x10
+> [  204.796810]  ? security_kernel_post_read_file+0x7e/0x90
+> [  204.796822]  ? __kasan_check_write+0x14/0x20
+> [  204.796831]  ? kernel_read_file+0x1c8/0x570
+> [  204.796850]  __do_sys_finit_module+0x131/0x1d0
+> [  204.796863]  ? __do_sys_finit_module+0x131/0x1d0
+> [  204.796876]  ? __pfx___do_sys_finit_module+0x10/0x10
+> [  204.796888]  ? __kasan_check_read+0x11/0x20
+> [  204.796898]  ? __seccomp_filter+0x114/0x830
+> [  204.796916]  ? __kasan_check_write+0x14/0x20
+> [  204.796928]  ? __secure_computing+0xe0/0x170
+> [  204.796938]  __x64_sys_finit_module+0x42/0x50
+> [  204.796952]  do_syscall_64+0x58/0x80
+> [  204.796962]  ? do_syscall_64+0x67/0x80
+> [  204.796974]  ? syscall_exit_to_user_mode+0x26/0x50
+> [  204.796985]  ? do_syscall_64+0x67/0x80
+> [  204.796996]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+> [  204.797009] RIP: 0033:0x7f3cb8bdd70d
+> [  204.797017] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 53 f7 0c 00 f7 d8 64 89 01 48
+> [  204.797026] RSP: 002b:00007ffd776c7e88 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+> [  204.797036] RAX: ffffffffffffffda RBX: 000055bdbd5ba030 RCX: 00007f3cb8bdd70d
+> [  204.797043] RDX: 0000000000000000 RSI: 00007f3cb8abaded RDI: 0000000000000010
+> [  204.797050] RBP: 0000000000020000 R08: 0000000000000000 R09: 000055bdbd5686b8
+> [  204.797056] R10: 0000000000000010 R11: 0000000000000246 R12: 00007f3cb8abaded
+> [  204.797062] R13: 0000000000000000 R14: 000055bdbd596f80 R15: 000055bdbd5ba030
+> [  204.797074]  </TASK>
+> [  204.797080] ---[ end trace 0000000000000000 ]---
+> [  204.800943] DEBUG: sound/pci/hda/hda_generic.c:708 caps=0x80017f43
+> [  204.801003] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.801212] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.801461] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.801708] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.801953] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.802158] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.802368] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.802548] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.802730] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.802913] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.803098] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.803284] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.803433] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.803507] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.803710] DEBUG: sound/pci/hda/hda_generic.c:5997 pre snd_hda_regmap_sync
+> [  204.803730] DEBUG: sound/hda/hdac_regmap.c:600
+> [  204.803745] DEBUG: sound/hda/hdac_regmap.c:602
+> [  204.803757] DEBUG: sound/hda/hdac_regmap.c:604
+> [  204.803770] DEBUG: sound/hda/hdac_regmap.c:606
+> [  204.803783] DEBUG: sound/hda/hdac_regmap.c:608
+> [  204.803795] DEBUG: sound/hda/hdac_regmap.c:610
+> [  204.803808] DEBUG: sound/pci/hda/hda_generic.c:5999 post snd_hda_regmap_sync
+> [  204.803827] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.803983] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.851903] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.852087] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.852266] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.853447] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.853722] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.854044] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.854386] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.854586] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.854794] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.855063] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.855251] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.855555] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.855739] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.855812] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.855977] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.856041] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.856615] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.858479] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.858672] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.858874] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.859068] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.859262] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.859452] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.859787] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.859983] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.861126] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.861334] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.861564] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.861800] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.861990] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.862174] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.862366] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.862551] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.862629] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.862790] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.862923] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.863094] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.863228] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.863508] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.863711] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.863858] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.863944] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.864257] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.866448] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.866639] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.866817] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.866904] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.867061] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.867376] snd_hda_codec_hdmi:generic_hdmi_build_pcms: snd_hda_codec_hdmi hdaudioC0D2: hdmi: pcm_num set to 3
+> [  204.868472] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.868734] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.868903] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869012] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869166] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869254] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869410] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869482] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869654] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869732] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869899] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.869981] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870143] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870231] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870316] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870479] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870565] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870722] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870794] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.870966] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.871043] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.871211] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.871317] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.871508] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.871669] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.871753] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.871913] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.872735] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  204.882764] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power enable
+> [  204.887973] input: HDA Intel PCH Mic as /devices/pci0000:00/0000:00:0e.0/sound/card0/input4
+> [  204.889264] input: HDA Intel PCH Headphone as /devices/pci0000:00/0000:00:0e.0/sound/card0/input5
+> [  204.890006] input: HDA Intel PCH HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:0e.0/sound/card0/input6
+> [  204.890739] input: HDA Intel PCH HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:0e.0/sound/card0/input7
+> [  204.891465] input: HDA Intel PCH HDMI/DP,pcm=8 as /devices/pci0000:00/0000:00:0e.0/sound/card0/input8
+> [  204.905455] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power disable
+> [  205.036296] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  205.036499] DEBUG: sound/pci/hda/hda_generic.c:708 caps=0x80017f43
+> [  205.036547] DEBUG: sound/pci/hda/hda_generic.c:708 caps=0x80017f43
+> [  205.400085] PRE ARECORD
+> [  205.424991] snd_hda_codec:snd_hda_codec_setup_stream: snd_hda_codec_realtek hdaudioC0D0: hda_codec_setup_stream: NID=0x9, stream=0x1, channel=0, format=0x11
+> [  205.425023] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  205.426604] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  205.426909] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  205.436610] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.920547] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.920734] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.920996] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.921236] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.921480] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.921728] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.922007] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.922245] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  209.922466] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power disable
+> [  225.442227] snd_hda_codec:__snd_hda_codec_cleanup_stream: snd_hda_codec_realtek hdaudioC0D0: hda_codec_cleanup_stream: NID=0x9
+> [  225.448488] POST ARECORD
+> [  230.460565] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.556530] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.664562] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.664842] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.665070] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.665279] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.665492] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.665747] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.665949] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.666131] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.666314] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.666497] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.666713] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.666893] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.667109] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.667289] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.684886] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.685161] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.685393] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.685640] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.685882] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.686126] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.686370] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.686584] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.686793] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.686975] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.687189] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.687568] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.687776] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.692752] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.692965] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.693227] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.693512] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.693751] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.694032] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.694267] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  230.695791] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power disable
+> [  255.504592] PRE SECOND ARECORD
+> [  255.541118] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power enable
+> [  255.542616] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: enable codec wakeup
+> [  255.547036] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: disable codec wakeup
+> [  255.548443] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: enable codec wakeup
+> [  255.555362] snd_hda_core:snd_hdac_set_codec_wakeup: snd_hda_intel 0000:00:0e.0: disable codec wakeup
+> [  255.557006] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power disable
+> [  255.557593] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.557810] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.558008] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.558193] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.558405] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.558590] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.558803] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.558985] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.559197] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.559360] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.559439] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.559607] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.559710] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.559901] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.560094] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.560762] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.560968] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.561151] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.561364] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.561530] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.562034] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.562200] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.562384] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.562565] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.562647] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.562831] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.562992] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.563174] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.563275] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.563472] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.563653] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.563839] DEBUG: sound/pci/hda/patch_realtek.c:4040 alc269_resume
+> [  255.563868] DEBUG: sound/pci/hda/patch_realtek.c:926 alc_init
+> [  255.600585] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.612452] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.708590] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.816587] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.816904] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.817274] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.817567] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.817892] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.818229] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.818511] DEBUG: sound/pci/hda/hda_generic.c:708 caps=0x80017f43
+> [  255.818587] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.818863] DEBUG: sound/pci/hda/hda_generic.c:708 caps=0x80017f43
+> [  255.818972] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.819209] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.819454] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.819695] DEBUG: sound/pci/hda/hda_generic.c:5997 pre snd_hda_regmap_sync
+> [  255.819748] DEBUG: sound/hda/hdac_regmap.c:600
+> [  255.819788] DEBUG: sound/hda/hdac_regmap.c:602
+> [  255.819826] DEBUG: sound/hda/hdac_regmap.c:604
+> [  255.819868] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.820192] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.821278] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.821537] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.821811] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.822090] ------------[ cut here ]------------
+> [  255.822106] WARNING: CPU: 1 PID: 825 at sound/hda/hdac_bus.c:123 snd_hdac_bus_exec_verb_unlocked+0x261/0x370 [snd_hda_core]
+> [  255.822323] Modules linked in: snd_hda_codec_hdmi snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core snd_pcm snd_timer snd soundcore dm_multipath x86_pkg_temp_thermal wmi_bmof intel_rapl_msr mei_me mei soc_button_array dptf_power ip_tables x_tables raid10 raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx raid1 raid0 multipath i915 drm_buddy drm_display_helper drm_kms_helper cec r8169 spi_pxa2xx_platform dw_dmac realtek ttm video wmi
+> [  255.822793] CPU: 1 PID: 825 Comm: arecord Tainted: G        W          6.2.0-rc1+ #111
+> [  255.822821] Hardware name: Intel Corp. Geminilake/GLK RVP2 LP4SD (07), BIOS GELKRVPA.X64.0132.B40.1902131714 02/13/2019
+> [  255.822841] RIP: 0010:snd_hdac_bus_exec_verb_unlocked+0x261/0x370 [snd_hda_core]
+> [  255.823041] Code: 2b 04 25 28 00 00 00 0f 85 1e 01 00 00 48 83 ec 80 44 89 c0 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc 0f 0b e9 5a fe ff ff <0f> 0b e9 53 fe ff ff 0f 0b e9 4c fe ff ff 48 8b 9d 60 ff ff ff 89
+> [  255.823067] RSP: 0018:ffff88810994ee78 EFLAGS: 00010246
+> [  255.823095] RAX: ffff88810994eeb8 RBX: 000000000093505b RCX: ffffffffc0fd0b19
+> [  255.823116] RDX: 1ffff11021939498 RSI: 0000000000000000 RDI: ffff88810c9ca4c0
+> [  255.823136] RBP: ffff88810994ef20 R08: 0000000000000001 R09: ffff88810994eecf
+> [  255.823155] R10: ffffed1021329dd9 R11: 73203a4755424544 R12: ffff88810c9ca028
+> [  255.823175] R13: ffff88810c9ca030 R14: 0000000000000000 R15: 0000000000000000
+> [  255.823194] FS:  00007fabfde81440(0000) GS:ffff88815c880000(0000) knlGS:0000000000000000
+> [  255.823217] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  255.823235] CR2: 00007f7d1669db18 CR3: 00000001065c8000 CR4: 0000000000350ee0
+> [  255.823257] Call Trace:
+> [  255.823271]  <TASK>
+> [  255.823294]  ? __pfx_snd_hdac_bus_exec_verb_unlocked+0x10/0x10 [snd_hda_core]
+> [  255.823492]  ? __pfx_mutex_lock+0x10/0x10
+> [  255.823526]  ? __pfx__printk+0x10/0x10
+> [  255.823565]  codec_exec_verb+0xb9/0x1a0 [snd_hda_codec]
+> [  255.823837]  snd_hdac_exec_verb+0x61/0xa7 [snd_hda_core]
+> [  255.824039]  hda_reg_write+0x132/0x360 [snd_hda_core]
+> [  255.824285]  _regmap_write+0xb1/0x1e0
+> [  255.824330]  regcache_sync_block+0x16d/0x370
+> [  255.824363]  ? __pfx_regcache_sync_block+0x10/0x10
+> [  255.824390]  ? vprintk_emit+0xdf/0x330
+> [  255.824439]  regcache_rbtree_sync+0xc3/0x190
+> [  255.824469]  ? __pfx_regcache_rbtree_sync+0x10/0x10
+> [  255.824499]  regcache_sync+0x1e9/0x400
+> [  255.824524]  ? __pfx_mutex_lock+0x10/0x10
+> [  255.824561]  snd_hdac_regmap_sync+0x99/0xf4 [snd_hda_core]
+> [  255.824765]  snd_hda_gen_init+0xcfc/0x10e0 [snd_hda_codec_generic]
+> [  255.824887]  ? __pfx_snd_hda_gen_init+0x10/0x10 [snd_hda_codec_generic]
+> [  255.824999]  ? msleep+0x3e/0x50
+> [  255.825040]  alc_init+0xac/0x256 [snd_hda_codec_realtek]
+> [  255.825245]  alc269_resume+0xb9/0x16f [snd_hda_codec_realtek]
+> [  255.825446]  hda_call_codec_resume+0x214/0x2b0 [snd_hda_codec]
+> [  255.825714]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.825980]  hda_codec_runtime_resume+0x4a/0xb0 [snd_hda_codec]
+> [  255.826244]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.826507]  __rpm_callback+0x69/0x200
+> [  255.826539]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.826802]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.827066]  rpm_callback+0xc5/0xe0
+> [  255.827094]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.827359]  rpm_resume+0x9ce/0xdb0
+> [  255.827393]  ? __pfx_rpm_resume+0x10/0x10
+> [  255.827422]  ? __kasan_check_write+0x14/0x20
+> [  255.827452]  ? _raw_spin_lock_irqsave+0x99/0xf0
+> [  255.827489]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+> [  255.827528]  ? snd_pcm_hw_constraint_minmax+0x8a/0xe0 [snd_pcm]
+> [  255.827756]  __pm_runtime_resume+0x53/0xb0
+> [  255.827789]  snd_hdac_power_up+0x13/0x20 [snd_hda_core]
+> [  255.827986]  azx_pcm_open+0x398/0x600 [snd_hda_codec]
+> [  255.828355]  snd_pcm_open_substream+0x6a3/0xc60 [snd_pcm]
+> [  255.828541]  ? __pfx_snd_pcm_open_substream+0x10/0x10 [snd_pcm]
+> [  255.828643]  ? _raw_spin_unlock_irqrestore+0x27/0x50
+> [  255.828657]  ? add_wait_queue+0xd3/0xf0
+> [  255.828671]  snd_pcm_open.part.0+0x1a4/0x3d0 [snd_pcm]
+> [  255.828751]  ? __pfx_snd_pcm_open.part.0+0x10/0x10 [snd_pcm]
+> [  255.828829]  ? __kasan_check_write+0x14/0x20
+> [  255.828839]  ? _raw_spin_lock+0x88/0xe0
+> [  255.828849]  ? __pfx__raw_spin_lock+0x10/0x10
+> [  255.828859]  ? __pfx_default_wake_function+0x10/0x10
+> [  255.828872]  ? preempt_count_sub+0x18/0xc0
+> [  255.828883]  ? _raw_spin_unlock+0x19/0x40
+> [  255.828893]  ? snd_card_file_add+0x11a/0x150 [snd]
+> [  255.828965]  snd_pcm_capture_open+0x6a/0xa0 [snd_pcm]
+> [  255.829045]  snd_open+0x126/0x260 [snd]
+> [  255.829113]  chrdev_open+0x18b/0x3b0
+> [  255.829126]  ? __pfx_chrdev_open+0x10/0x10
+> [  255.829137]  ? fsnotify_perm.part.0+0xf2/0x280
+> [  255.829149]  ? fsnotify_perm.part.0+0xf2/0x280
+> [  255.829163]  do_dentry_open+0x369/0x750
+> [  255.829176]  ? __pfx_chrdev_open+0x10/0x10
+> [  255.829190]  vfs_open+0x58/0x70
+> [  255.829199]  path_openat+0x1404/0x1c90
+> [  255.829211]  ? kasan_save_stack+0x3c/0x50
+> [  255.829222]  ? kasan_save_alloc_info+0x1e/0x30
+> [  255.829231]  ? __kasan_slab_alloc+0x90/0xa0
+> [  255.829242]  ? getname_flags.part.0+0x3c/0x250
+> [  255.829252]  ? getname+0x4e/0x70
+> [  255.829261]  ? do_sys_openat2+0xdf/0x2c0
+> [  255.829273]  ? __pfx_path_openat+0x10/0x10
+> [  255.829283]  ? avc_has_extended_perms+0x2d9/0x8d0
+> [  255.829298]  do_filp_open+0x156/0x280
+> [  255.829310]  ? __pfx_do_filp_open+0x10/0x10
+> [  255.829325]  ? __kasan_check_write+0x14/0x20
+> [  255.829334]  ? _raw_spin_lock+0x88/0xe0
+> [  255.829344]  ? __pfx__raw_spin_lock+0x10/0x10
+> [  255.829355]  ? _raw_spin_unlock+0x19/0x40
+> [  255.829365]  ? alloc_fd+0x124/0x2a0
+> [  255.829381]  do_sys_openat2+0x11f/0x2c0
+> [  255.829391]  ? __kasan_check_write+0x14/0x20
+> [  255.829401]  ? up_read+0x19/0x90
+> [  255.829414]  ? __pfx_do_sys_openat2+0x10/0x10
+> [  255.829426]  ? snd_ctl_ioctl+0x4eb/0xa50 [snd]
+> [  255.829496]  __x64_sys_openat+0x102/0x160
+> [  255.829506]  ? __pfx___x64_sys_openat+0x10/0x10
+> [  255.829521]  do_syscall_64+0x58/0x80
+> [  255.829534]  ? syscall_exit_to_user_mode+0x26/0x50
+> [  255.829545]  ? do_syscall_64+0x67/0x80
+> [  255.829557]  ? exit_to_user_mode_prepare+0x40/0x180
+> [  255.829571]  ? syscall_exit_to_user_mode+0x26/0x50
+> [  255.829582]  ? do_syscall_64+0x67/0x80
+> [  255.829593]  ? exc_page_fault+0x71/0xe0
+> [  255.829604]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+> [  255.829618] RIP: 0033:0x7fabfe0e7d1b
+> [  255.829629] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
+> [  255.829638] RSP: 002b:00007fff61a24240 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+> [  255.829649] RAX: ffffffffffffffda RBX: 0000000000080802 RCX: 00007fabfe0e7d1b
+> [  255.829656] RDX: 0000000000080802 RSI: 00007fff61a24400 RDI: 00000000ffffff9c
+> [  255.829663] RBP: 00007fff61a24400 R08: 0000000000000000 R09: 0000000000000011
+> [  255.829670] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000080802
+> [  255.829676] R13: 0000000000000004 R14: 0000000000000000 R15: 00007fff61a24400
+> [  255.829688]  </TASK>
+> [  255.829694] ---[ end trace 0000000000000000 ]---
+> [  255.830837] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.830941] ------------[ cut here ]------------
+> [  255.830946] WARNING: CPU: 1 PID: 825 at sound/hda/hdac_bus.c:124 snd_hdac_bus_exec_verb_unlocked+0x155/0x370 [snd_hda_core]
+> [  255.831022] Modules linked in: snd_hda_codec_hdmi snd_hda_codec_realtek snd_hda_codec_generic ledtrig_audio snd_hda_intel snd_intel_dspcfg snd_hda_codec snd_hwdep snd_hda_core snd_pcm snd_timer snd soundcore dm_multipath x86_pkg_temp_thermal wmi_bmof intel_rapl_msr mei_me mei soc_button_array dptf_power ip_tables x_tables raid10 raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx raid1 raid0 multipath i915 drm_buddy drm_display_helper drm_kms_helper cec r8169 spi_pxa2xx_platform dw_dmac realtek ttm video wmi
+> [  255.831186] CPU: 1 PID: 825 Comm: arecord Tainted: G        W          6.2.0-rc1+ #111
+> [  255.831196] Hardware name: Intel Corp. Geminilake/GLK RVP2 LP4SD (07), BIOS GELKRVPA.X64.0132.B40.1902131714 02/13/2019
+> [  255.831203] RIP: 0010:snd_hdac_bus_exec_verb_unlocked+0x155/0x370 [snd_hda_core]
+> [  255.831274] Code: 0f 84 29 01 00 00 81 fb 80 60 93 00 0f 84 2b 01 00 00 81 fb 5b 50 93 00 0f 84 18 01 00 00 81 fb 5b 60 93 00 0f 85 66 ff ff ff <0f> 0b e9 5f ff ff ff 65 8b 15 39 08 07 3f 41 89 d7 be 08 00 00 00
+> [  255.831284] RSP: 0018:ffff88810994ee78 EFLAGS: 00010246
+> [  255.831293] RAX: ffff88810994eeb8 RBX: 000000000093605b RCX: ffffffffc0fd0b19
+> [  255.831301] RDX: 1ffff11021939498 RSI: 0000000000000000 RDI: ffff88810c9ca4c0
+> [  255.831308] RBP: ffff88810994ef20 R08: 0000000000000001 R09: ffff88810994eecf
+> [  255.831315] R10: ffffed1021329dd9 R11: 73203a4755424544 R12: ffff88810c9ca028
+> [  255.831322] R13: ffff88810c9ca030 R14: 0000000000000000 R15: 0000000000000000
+> [  255.831329] FS:  00007fabfde81440(0000) GS:ffff88815c880000(0000) knlGS:0000000000000000
+> [  255.831337] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  255.831344] CR2: 00007f7d1669db18 CR3: 00000001065c8000 CR4: 0000000000350ee0
+> [  255.831352] Call Trace:
+> [  255.831356]  <TASK>
+> [  255.831364]  ? __pfx_snd_hdac_bus_exec_verb_unlocked+0x10/0x10 [snd_hda_core]
+> [  255.831435]  ? __pfx_mutex_lock+0x10/0x10
+> [  255.831448]  ? __pfx__printk+0x10/0x10
+> [  255.831461]  codec_exec_verb+0xb9/0x1a0 [snd_hda_codec]
+> [  255.831561]  snd_hdac_exec_verb+0x61/0xa7 [snd_hda_core]
+> [  255.831633]  hda_reg_write+0x132/0x360 [snd_hda_core]
+> [  255.831706]  _regmap_write+0xb1/0x1e0
+> [  255.831722]  regcache_sync_block+0x16d/0x370
+> [  255.831733]  ? __pfx_regcache_sync_block+0x10/0x10
+> [  255.831743]  ? vprintk_emit+0xdf/0x330
+> [  255.831759]  regcache_rbtree_sync+0xc3/0x190
+> [  255.831770]  ? __pfx_regcache_rbtree_sync+0x10/0x10
+> [  255.831781]  regcache_sync+0x1e9/0x400
+> [  255.831790]  ? __pfx_mutex_lock+0x10/0x10
+> [  255.831804]  snd_hdac_regmap_sync+0x99/0xf4 [snd_hda_core]
+> [  255.831876]  snd_hda_gen_init+0xcfc/0x10e0 [snd_hda_codec_generic]
+> [  255.831920]  ? __pfx_snd_hda_gen_init+0x10/0x10 [snd_hda_codec_generic]
+> [  255.831960]  ? msleep+0x3e/0x50
+> [  255.831974]  alc_init+0xac/0x256 [snd_hda_codec_realtek]
+> [  255.832047]  alc269_resume+0xb9/0x16f [snd_hda_codec_realtek]
+> [  255.832141]  hda_call_codec_resume+0x214/0x2b0 [snd_hda_codec]
+> [  255.832240]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.832336]  hda_codec_runtime_resume+0x4a/0xb0 [snd_hda_codec]
+> [  255.832431]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.832526]  __rpm_callback+0x69/0x200
+> [  255.832537]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.832632]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.832727]  rpm_callback+0xc5/0xe0
+> [  255.832737]  ? __pfx_hda_codec_runtime_resume+0x10/0x10 [snd_hda_codec]
+> [  255.832833]  rpm_resume+0x9ce/0xdb0
+> [  255.832845]  ? __pfx_rpm_resume+0x10/0x10
+> [  255.832856]  ? __kasan_check_write+0x14/0x20
+> [  255.832866]  ? _raw_spin_lock_irqsave+0x99/0xf0
+> [  255.832880]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+> [  255.832894]  ? snd_pcm_hw_constraint_minmax+0x8a/0xe0 [snd_pcm]
+> [  255.832977]  __pm_runtime_resume+0x53/0xb0
+> [  255.832989]  snd_hdac_power_up+0x13/0x20 [snd_hda_core]
+> [  255.833061]  azx_pcm_open+0x398/0x600 [snd_hda_codec]
+> [  255.833160]  snd_pcm_open_substream+0x6a3/0xc60 [snd_pcm]
+> [  255.833240]  ? __pfx_snd_pcm_open_substream+0x10/0x10 [snd_pcm]
+> [  255.833319]  ? _raw_spin_unlock_irqrestore+0x27/0x50
+> [  255.833333]  ? add_wait_queue+0xd3/0xf0
+> [  255.833346]  snd_pcm_open.part.0+0x1a4/0x3d0 [snd_pcm]
+> [  255.833426]  ? __pfx_snd_pcm_open.part.0+0x10/0x10 [snd_pcm]
+> [  255.833504]  ? __kasan_check_write+0x14/0x20
+> [  255.833514]  ? _raw_spin_lock+0x88/0xe0
+> [  255.833524]  ? __pfx__raw_spin_lock+0x10/0x10
+> [  255.833534]  ? __pfx_default_wake_function+0x10/0x10
+> [  255.833547]  ? preempt_count_sub+0x18/0xc0
+> [  255.833558]  ? _raw_spin_unlock+0x19/0x40
+> [  255.833568]  ? snd_card_file_add+0x11a/0x150 [snd]
+> [  255.833640]  snd_pcm_capture_open+0x6a/0xa0 [snd_pcm]
+> [  255.833719]  snd_open+0x126/0x260 [snd]
+> [  255.833787]  chrdev_open+0x18b/0x3b0
+> [  255.833800]  ? __pfx_chrdev_open+0x10/0x10
+> [  255.833811]  ? fsnotify_perm.part.0+0xf2/0x280
+> [  255.833822]  ? fsnotify_perm.part.0+0xf2/0x280
+> [  255.833835]  do_dentry_open+0x369/0x750
+> [  255.833848]  ? __pfx_chrdev_open+0x10/0x10
+> [  255.833862]  vfs_open+0x58/0x70
+> [  255.833872]  path_openat+0x1404/0x1c90
+> [  255.833882]  ? kasan_save_stack+0x3c/0x50
+> [  255.833894]  ? kasan_save_alloc_info+0x1e/0x30
+> [  255.833903]  ? __kasan_slab_alloc+0x90/0xa0
+> [  255.833914]  ? getname_flags.part.0+0x3c/0x250
+> [  255.833924]  ? getname+0x4e/0x70
+> [  255.833933]  ? do_sys_openat2+0xdf/0x2c0
+> [  255.833945]  ? __pfx_path_openat+0x10/0x10
+> [  255.833955]  ? avc_has_extended_perms+0x2d9/0x8d0
+> [  255.833970]  do_filp_open+0x156/0x280
+> [  255.833982]  ? __pfx_do_filp_open+0x10/0x10
+> [  255.833997]  ? __kasan_check_write+0x14/0x20
+> [  255.834007]  ? _raw_spin_lock+0x88/0xe0
+> [  255.834017]  ? __pfx__raw_spin_lock+0x10/0x10
+> [  255.834029]  ? _raw_spin_unlock+0x19/0x40
+> [  255.834038]  ? alloc_fd+0x124/0x2a0
+> [  255.834054]  do_sys_openat2+0x11f/0x2c0
+> [  255.834064]  ? __kasan_check_write+0x14/0x20
+> [  255.834073]  ? up_read+0x19/0x90
+> [  255.834086]  ? __pfx_do_sys_openat2+0x10/0x10
+> [  255.834098]  ? snd_ctl_ioctl+0x4eb/0xa50 [snd]
+> [  255.834168]  __x64_sys_openat+0x102/0x160
+> [  255.834178]  ? __pfx___x64_sys_openat+0x10/0x10
+> [  255.834193]  do_syscall_64+0x58/0x80
+> [  255.834205]  ? syscall_exit_to_user_mode+0x26/0x50
+> [  255.834217]  ? do_syscall_64+0x67/0x80
+> [  255.834228]  ? exit_to_user_mode_prepare+0x40/0x180
+> [  255.834240]  ? syscall_exit_to_user_mode+0x26/0x50
+> [  255.834252]  ? do_syscall_64+0x67/0x80
+> [  255.834262]  ? exc_page_fault+0x71/0xe0
+> [  255.834273]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+> [  255.834287] RIP: 0033:0x7fabfe0e7d1b
+> [  255.834297] Code: 25 00 00 41 00 3d 00 00 41 00 74 4b 64 8b 04 25 18 00 00 00 85 c0 75 67 44 89 e2 48 89 ee bf 9c ff ff ff b8 01 01 00 00 0f 05 <48> 3d 00 f0 ff ff 0f 87 91 00 00 00 48 8b 4c 24 28 64 48 33 0c 25
+> [  255.834306] RSP: 002b:00007fff61a24240 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+> [  255.834317] RAX: ffffffffffffffda RBX: 0000000000080802 RCX: 00007fabfe0e7d1b
+> [  255.834324] RDX: 0000000000080802 RSI: 00007fff61a24400 RDI: 00000000ffffff9c
+> [  255.834331] RBP: 00007fff61a24400 R08: 0000000000000000 R09: 0000000000000011
+> [  255.834338] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000080802
+> [  255.834344] R13: 0000000000000004 R14: 0000000000000000 R15: 00007fff61a24400
+> [  255.834357]  </TASK>
+> [  255.834362] ---[ end trace 0000000000000000 ]---
+> [  255.834540] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.834740] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.834923] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835084] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835169] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835328] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835416] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835499] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835666] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835774] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.835962] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.836393] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.836760] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.838739] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.838901] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.838975] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.839178] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.839358] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.839539] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.839729] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.839873] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.839959] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.840147] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.840388] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.840545] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.840626] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.840788] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.840918] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.841095] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.841279] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.841463] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.841652] DEBUG: sound/hda/hdac_regmap.c:606
+> [  255.841669] DEBUG: sound/hda/hdac_regmap.c:608
+> [  255.841683] DEBUG: sound/hda/hdac_regmap.c:610
+> [  255.841696] DEBUG: sound/pci/hda/hda_generic.c:5999 post snd_hda_regmap_sync
+> [  255.841718] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.841857] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.841936] DEBUG: sound/hda/hdac_regmap.c:600
+> [  255.841951] DEBUG: sound/hda/hdac_regmap.c:602
+> [  255.841964] DEBUG: sound/hda/hdac_regmap.c:604
+> [  255.841977] DEBUG: sound/hda/hdac_regmap.c:606
+> [  255.841989] DEBUG: sound/hda/hdac_regmap.c:608
+> [  255.842001] DEBUG: sound/hda/hdac_regmap.c:610
+> [  255.843169] snd_hda_codec:snd_hda_codec_setup_stream: snd_hda_codec_realtek hdaudioC0D0: hda_codec_setup_stream: NID=0x9, stream=0x1, channel=0, format=0x11
+> [  255.843183] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.843355] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.843435] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  255.852488] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  275.869557] snd_hda_codec:__snd_hda_codec_cleanup_stream: snd_hda_codec_realtek hdaudioC0D0: hda_codec_cleanup_stream: NID=0x9
+> [  275.876317] POST SECOND ARECORD
+> [  281.596554] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.692439] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.800460] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.800769] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.801059] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.801332] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.801604] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.801884] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.802123] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.802342] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.802550] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.802764] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.803008] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.803251] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.803469] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.803709] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.820815] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.821067] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.821315] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.821543] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.821814] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.822070] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.822315] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.822525] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.822740] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.822952] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.823136] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.823347] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.823558] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.823830] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.824050] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.825778] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.825958] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.826218] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.826430] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.826613] DEBUG: sound/hda/hdac_device.c:259 snd_hdac_exec_verb
+> [  281.827936] snd_hda_core:snd_hdac_display_power: snd_hda_intel 0000:00:0e.0: display power disable

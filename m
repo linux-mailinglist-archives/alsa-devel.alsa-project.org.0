@@ -2,117 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155C56FE344
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:29:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B584A6FE345
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 19:30:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CE17107F;
-	Wed, 10 May 2023 19:28:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CE17107F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A1B5EFF;
+	Wed, 10 May 2023 19:29:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A1B5EFF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683739787;
-	bh=xD4SDAmn67SuTmWzZ4Pg/QqTHDDMDk7xLc+cFJ7NhRM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1683739803;
+	bh=CaqHszddgTyXgu3xb0srGpU7C8sv3zdBncPHByFWhTg=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bI/peXaQz1ltzu5IhLPqWlNdsrPctY/rWyo47XphTa4MH/+/PaotuKXqVBj/4Ed3v
-	 2lSmwhEGIAtDG6grVxikIBhLHCYTDMfdt78P5160vCvCDgAw/AfHmN4ZIP+X/7DGmC
-	 9Y03YaydLMm6o2ajLCE6b159ijxNOtS96IymxgXI=
+	b=GPvB/4eG2x3wOCLoZv3J3VT1hDBYnUg8ssFiR+kV+qIsmIl0KVlflIpqW1wNenACa
+	 PuA06f1TYK45c6sZn/F6t3jmRM23vfyAkvolxRvbAS0QGK3s5G43zNF7j+yncuE10l
+	 Z8HDMHi2PjNfVNoIV1ah47LJ9+XWfTejbWmhdCHY=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7E94F80570;
-	Wed, 10 May 2023 19:27:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D0D1F8057B;
+	Wed, 10 May 2023 19:27:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F82CF8053B; Wed, 10 May 2023 14:00:11 +0200 (CEST)
+	id 8B81CF8032D; Wed, 10 May 2023 16:54:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [IPv6:2a00:1450:4864:20::52f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,HTML_MESSAGE,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8A3ECF8052E
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 14:00:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A3ECF8052E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 649CAF8014C
+	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 16:54:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 649CAF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=ax7zBY6Q
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-50bc3a5f462so12467a12.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 10 May 2023 05:00:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1683720000; x=1686312000;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OPosaf8MCsgv6yWNmFA6HsxG7j+lWW9zDOaIVLm0zpY=;
-        b=ax7zBY6QKkRaU/GzkWDmTLjsLMhktpT0tZFnAzY6NwU7sMLMh9GeoeQCIlxwrcpNUV
-         kNCA0uFaCpSDM3UtnDxz7QGNeeGZy76yhRq1w5FKmpVO6Frwrt1WmNFSBxez9X098DtK
-         ef08Xpup/2FB09NUpbxVKDr3cEooVEbhm5xz0oc4UB9sLFNnTgrapexbfbdmpsPFvecD
-         9GK0KN10z7vA1LSGsvOtFp2qLB9NgvXP21DOUN9twmWmadd2lixAEUbRBbM8AkF79zDM
-         HJRI4rHvwAdDPUchkrsCiROTiwfXGsV28calQh1UBniWCdoM5Jgr29Psdv5sBI87YSQq
-         cdXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683720000; x=1686312000;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OPosaf8MCsgv6yWNmFA6HsxG7j+lWW9zDOaIVLm0zpY=;
-        b=iKocV3EzV0anz0jl+CFZoIuUl6IBQ1bUoMmEp7i862fNmmGhatrZeNQNSty2U04lLU
-         +6YMaSeSfHdX7uMJovUxuJRpe5Mfvd+y3Zk/zOd3Zsy1d6kFWjVpvQ79VwcpENyUOQil
-         UC94GAmMOusw4RjG2z2CAlZONu2LGFESkLuS0aogzoGLF2jiGVDY0rCE41RUNvLsKlJ5
-         Pp9/fA2wpOI0LIIHgN20yUUuCTZ41XGO9KZeuLJPxBo8Ue8LVnZIqrr4zGEtp1EI0mo4
-         iEiJBVWteddGDFzm1mLHxu5hKCNOEhSOlvCwBhot5q5Q/9mTiuo7a8jP/7c+qvgbgRmT
-         kdaw==
-X-Gm-Message-State: AC+VfDzlmNGpenMNuNbNIkPnlW8CMW3N3J02vQIY7NYGfIHRFX9oI9u7
-	FYRmDwlbIXQH+hO+9Fq5f1MYGjS3b/UOyJpZLOnWgg==
-X-Google-Smtp-Source: 
- ACHHUZ48tUOtI2HQKCwXUxW/aTOeV3Q3jR+Q1zirxQyJ78c2J7awWW2F19Hr3V8bJW8FX/0a+xcCKnlFCBT+kHNJZpQ=
-X-Received: by 2002:a05:6402:2744:b0:506:90c4:b63b with SMTP id
- z4-20020a056402274400b0050690c4b63bmr103304edd.4.1683720000454; Wed, 10 May
- 2023 05:00:00 -0700 (PDT)
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=cBN/bqRy
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34A3iPiP002604;
+	Wed, 10 May 2023 09:54:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=content-type :
+ message-id : date : mime-version : subject : to : cc : references : from :
+ in-reply-to; s=PODMain02222019;
+ bh=5NqxY0JDrmwTtwaX1fymwYRbERiM2Ff3n2TGSUJHeVA=;
+ b=cBN/bqRyyMeoSHDAnBPkSM+rkw8Sjw78kI5QJ9l+fQ9qvsOJ9T9NoRF+4JTy454unoe9
+ PxKARFB99/QoRgf5t5c1nTfvgyTBpstYC8wPDMtrXakezyZv3gKQ2lGDzTTQWMKdozRz
+ hZIL91yfYiodO1RaQPeLHFjLvjhczYEIjX4UcT4pOm+VKBbB3tCit10zsnTmeIe5ec35
+ NvGrb5JWWaZ6lJSQcDzsQU24NSPqYd7KwM704ZilnEEj9zzyFlEd1F3hxTURfCRT8360
+ gEn1KdAYGNO3oyM7p8SNiRYWiD4TKtVkK3/fS26cpDDPiwFQc5W3+RR3jyaxXAjXgO0C /g==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7s42wuy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 10 May 2023 09:54:32 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 10 May
+ 2023 09:54:31 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
+ Transport; Wed, 10 May 2023 09:54:31 -0500
+Received: from [141.131.206.93] (vkarpovich-ThinkStation-P620.ad.cirrus.com
+ [141.131.206.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 099EBB2F;
+	Wed, 10 May 2023 14:54:29 +0000 (UTC)
+Message-ID: <6991f71e-f92a-4edd-c0c6-cfea12e23433@opensource.cirrus.com>
+Date: Wed, 10 May 2023 09:54:29 -0500
 MIME-Version: 1.0
-References: <20230504092142.4190069-1-yixuanjiang@google.com>
- <2023050644-dwarf-shabby-d44d@gregkh>
-In-Reply-To: <2023050644-dwarf-shabby-d44d@gregkh>
-From: Yixuan Jiang <yixuanjiang@google.com>
-Date: Wed, 10 May 2023 19:59:49 +0800
-Message-ID: 
- <CAGJzVQGxDHa83uV0w4Q35UaGpwNhLpKzcZ5y_qsfd4ELDi+OnA@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: soc-pcm: Fix and cleanup DPCM locking
-To: Greg KH <greg@kroah.com>
-Cc: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
-	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
-	Takashi Iwai <tiwai@suse.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: yixuanjiang@google.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH] ASoC: cs35l45: Relicense to GPL only
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, <broonie@kernel.org>
+CC: <pierre-louis.bossart@linux.intel.com>, <u.kleine-koenig@pengutronix.de>,
+        <james.schulman@cirrus.com>, <rf@opensource.cirrus.com>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>
+References: <20230510092534.3919120-1-ckeepax@opensource.cirrus.com>
+Content-Language: en-US
+From: Vlad Karpovich <vkarpovi@opensource.cirrus.com>
+In-Reply-To: <20230510092534.3919120-1-ckeepax@opensource.cirrus.com>
+X-Proofpoint-ORIG-GUID: Vi5xTbplBs2MzDKLgcMO87hBErtZiISX
+X-Proofpoint-GUID: Vi5xTbplBs2MzDKLgcMO87hBErtZiISX
+X-Proofpoint-Spam-Reason: safe
+X-MailFrom: prvs=04949bf0a8=vkarpovi@opensource.cirrus.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JOAW7EAJPTVWXDI4QDVAUFBVFONFZLBX
-X-Message-ID-Hash: JOAW7EAJPTVWXDI4QDVAUFBVFONFZLBX
-X-Mailman-Approved-At: Wed, 10 May 2023 17:27:05 +0000
+Message-ID-Hash: VZO52ZPA2I2XA5D45YPO6RTZT2YP2A6A
+X-Message-ID-Hash: VZO52ZPA2I2XA5D45YPO6RTZT2YP2A6A
+X-Mailman-Approved-At: Wed, 10 May 2023 17:27:06 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JOAW7EAJPTVWXDI4QDVAUFBVFONFZLBX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VZO52ZPA2I2XA5D45YPO6RTZT2YP2A6A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,66 +113,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Greg KH <greg@kroah.com> =E6=96=BC 2023=E5=B9=B45=E6=9C=886=E6=97=A5 =E9=80=
-=B1=E5=85=AD =E4=B8=8B=E5=8D=881:56=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> On Thu, May 04, 2023 at 05:21:42PM +0800, yixuanjiang wrote:
-> > From: Takashi Iwai <tiwai@suse.de>
-> >
-> > The existing locking for DPCM has several issues
-> > a) a confusing mix of card->mutex and card->pcm_mutex.
-> > b) a dpcm_lock spinlock added inconsistently and on paths that could
-> > be recursively taken. The use of irqsave/irqrestore was also overkill.
-> >
-> > The suggested model is:
-> >
-> > 1) The pcm_mutex is the top-most protection of BE links in the FE. The
-> > pcm_mutex is applied always on either the top PCM callbacks or the
-> > external call from DAPM, not taken in the internal functions.
-> >
-> > 2) the FE stream lock is taken in higher levels before invoking
-> > dpcm_be_dai_trigger()
-> >
-> > 3) when adding and deleting a BE, both the pcm_mutex and FE stream
-> > lock are taken.
-> >
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > [clarification of commit message by plbossart]
-> > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.c=
-om>
-> > Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> > Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> > Link: https://lore.kernel.org/r/20211207173745.15850-4-pierre-louis.bos=
-sart@linux.intel.com
-> > Cc: stable@vger.kernel.org # 5.15.x
-> > Signed-off-by: Mark Brown <broonie@kernel.org>
-> > ---
->
-> What is the git commit id of this patch in Linus's tree?
->
-> thanks,
->
-> greg k-h
-
-Hi Greg,
-For this patch I think it is [3/6] b7898396f4bbe160f546d0c5e9fa17cca9a7d153
-
->From https://lore.kernel.org/all/163953384515.1515253.13641477106348913835.=
-b4-ty@kernel.org/
-Seems there are total 6 patches.
-
-[1/6] ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure
-      commit: d8a9c6e1f6766a16cf02b4e99a629f3c5512c183
-[2/6] ASoC: soc-pcm: align BE 'atomicity' with that of the FE
-      commit: bbf7d3b1c4f40eb02dd1dffb500ba00b0bff0303
-[3/6] ASoC: soc-pcm: Fix and cleanup DPCM locking
-      commit: b7898396f4bbe160f546d0c5e9fa17cca9a7d153
-[4/6] ASoC: soc-pcm: serialize BE triggers
-      commit: b2ae80663008a7662febe7d13f14ea1b2eb0cd51
-[5/6] ASoC: soc-pcm: test refcount before triggering
-      commit: 848aedfdc6ba25ad5652797db9266007773e44dd
-[6/6] ASoC: soc-pcm: fix BE handling of PAUSE_RELEASE
-      commit: 3aa1e96a2b95e2ece198f8dd01e96818971b84df
-
-These 6 patches could directly cherry-pick to in 5.15 without conflict.
+UmV2aWV3ZWQtYnk6IFZsYWQgS2FycG92aWNoIDx2a2FycG92aUBvcGVuc291cmNlLmNpcnJ1cy5j
+b20+DQoNCk9uIDUvMTAvMjMgMDQ6MjUsIENoYXJsZXMgS2VlcGF4IHdyb3RlOg0KPiBDaXJydXMg
+bmV2ZXIgaW50ZW5kZWQgdG8gdXBzdHJlYW0gZHVhbCBsaWNlbnNlZCBjb2RlLCBjb252ZXJ0IHRv
+DQo+IEdQTCBvbmx5Lg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBDaGFybGVzIEtlZXBheDxja2VlcGF4
+QG9wZW5zb3VyY2UuY2lycnVzLmNvbT4NCj4gLS0tDQo+DQo+IEFwb2xvZ2llcyBmb3IgdGhpcyBi
+dXQgdGhpcyB3YXMgbmV2ZXIgb3VyIGludGVudGlvbiBhbmQgSSBiZWxpZXZlIHRoYXQNCj4gaXQg
+Y2FuIGJlIGEgbGl0dGxlIGxlZ2FsbHkgaW52b2x2ZWQgbWFpbnRhaW5pbmcgZHVhbCBsaWNlbnNl
+ZCBrZXJuZWwgY29kZS4NCj4gRm9ydHVuYXRlbHkgbm90IHRoYXQgbWFueSBwZW9wbGUgb3V0c2lk
+ZSBvZiBDaXJydXMgaGF2ZSBjb250cmlidXRlZCB0bw0KPiB0aGUgZmlsZXMgaW4gcXVlc3Rpb24u
+IEkgaGF2ZSBDQ2VkIGV2ZXJ5b25lIHdobyBoYXMgY29udHJpYnV0ZWQgYm90aA0KPiBpbnRlcm5h
+bGx5IGFuZCBleHRlcm5hbGx5Lg0KPg0KPiBUaGFua3MsDQo+IENoYXJsZXMNCj4NCj4gICBzb3Vu
+ZC9zb2MvY29kZWNzL2NzMzVsNDUtaTJjLmMgICAgfCA0ICsrLS0NCj4gICBzb3VuZC9zb2MvY29k
+ZWNzL2NzMzVsNDUtc3BpLmMgICAgfCA0ICsrLS0NCj4gICBzb3VuZC9zb2MvY29kZWNzL2NzMzVs
+NDUtdGFibGVzLmMgfCAyICstDQo+ICAgc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmMgICAgICAg
+IHwgNCArKy0tDQo+ICAgc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmggICAgICAgIHwgMiArLQ0K
+PiAgIDUgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQ0KPg0K
+PiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LWkyYy5jIGIvc291bmQvc29j
+L2NvZGVjcy9jczM1bDQ1LWkyYy5jDQo+IGluZGV4IDU4MzJlYmI5MGMyYjkuLjc3ZTBmODc1MGYz
+NzUgMTAwNjQ0DQo+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvY3MzNWw0NS1pMmMuYw0KPiArKysg
+Yi9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUtaTJjLmMNCj4gQEAgLTEsNCArMSw0IEBADQo+IC0v
+LyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCBPUiBCU0QtMy1DbGF1c2UNCj4gKy8v
+IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wDQo+ICAgLy8NCj4gICAvLyBjczM1bDQ1
+LWkyYy5jIC0tIENTMzVMNDUgSTJDIGRyaXZlcg0KPiAgIC8vDQo+IEBAIC03Miw1ICs3Miw1IEBA
+IG1vZHVsZV9pMmNfZHJpdmVyKGNzMzVsNDVfaTJjX2RyaXZlcik7DQo+ICAgDQo+ICAgTU9EVUxF
+X0RFU0NSSVBUSU9OKCJJMkMgQ1MzNUw0NSBkcml2ZXIiKTsNCj4gICBNT0RVTEVfQVVUSE9SKCJK
+YW1lcyBTY2h1bG1hbiwgQ2lycnVzIExvZ2ljIEluYyw8amFtZXMuc2NodWxtYW5AY2lycnVzLmNv
+bT4iKTsNCj4gLU1PRFVMRV9MSUNFTlNFKCJEdWFsIEJTRC9HUEwiKTsNCj4gK01PRFVMRV9MSUNF
+TlNFKCJHUEwiKTsNCj4gICBNT0RVTEVfSU1QT1JUX05TKFNORF9TT0NfQ1MzNUw0NSk7DQo+IGRp
+ZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUtc3BpLmMgYi9zb3VuZC9zb2MvY29k
+ZWNzL2NzMzVsNDUtc3BpLmMNCj4gaW5kZXggYTAwYjIzYjQxODBjNS4uNWVmYjc3NTMwY2MzMyAx
+MDA2NDQNCj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LXNwaS5jDQo+ICsrKyBiL3Nv
+dW5kL3NvYy9jb2RlY3MvY3MzNWw0NS1zcGkuYw0KPiBAQCAtMSw0ICsxLDQgQEANCj4gLS8vIFNQ
+RFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wIE9SIEJTRC0zLUNsYXVzZQ0KPiArLy8gU1BE
+WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4gICAvLw0KPiAgIC8vIGNzMzVsNDUtc3Bp
+LmMgLS0gQ1MzNUw0NSBTUEkgZHJpdmVyDQo+ICAgLy8NCj4gQEAgLTc0LDUgKzc0LDUgQEAgbW9k
+dWxlX3NwaV9kcml2ZXIoY3MzNWw0NV9zcGlfZHJpdmVyKTsNCj4gICANCj4gICBNT0RVTEVfREVT
+Q1JJUFRJT04oIlNQSSBDUzM1TDQ1IGRyaXZlciIpOw0KPiAgIE1PRFVMRV9BVVRIT1IoIkphbWVz
+IFNjaHVsbWFuLCBDaXJydXMgTG9naWMgSW5jLDxqYW1lcy5zY2h1bG1hbkBjaXJydXMuY29tPiIp
+Ow0KPiAtTU9EVUxFX0xJQ0VOU0UoIkR1YWwgQlNEL0dQTCIpOw0KPiArTU9EVUxFX0xJQ0VOU0Uo
+IkdQTCIpOw0KPiAgIE1PRFVMRV9JTVBPUlRfTlMoU05EX1NPQ19DUzM1TDQ1KTsNCj4gZGlmZiAt
+LWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvY3MzNWw0NS10YWJsZXMuYyBiL3NvdW5kL3NvYy9jb2Rl
+Y3MvY3MzNWw0NS10YWJsZXMuYw0KPiBpbmRleCA0NjYxMGU2NGU4MTg4Li4wNjZmODNjMGM3YWMy
+IDEwMDY0NA0KPiAtLS0gYS9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUtdGFibGVzLmMNCj4gKysr
+IGIvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LXRhYmxlcy5jDQo+IEBAIC0xLDQgKzEsNCBAQA0K
+PiAtLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgT1IgQlNELTMtQ2xhdXNlDQo+
+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KPiAgIC8vDQo+ICAgLy8gY3Mz
+NWw0NS10YWJsZXMuYyAtLSBDUzM1TDQ1IEFMU0EgU29DIGF1ZGlvIGRyaXZlcg0KPiAgIC8vDQo+
+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL2NzMzVsNDUuYyBiL3NvdW5kL3NvYy9jb2Rl
+Y3MvY3MzNWw0NS5jDQo+IGluZGV4IGMzMTU5N2Y2YmZhZTEuLmQxZWRiOTg3NmMxMGYgMTAwNjQ0
+DQo+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvY3MzNWw0NS5jDQo+ICsrKyBiL3NvdW5kL3NvYy9j
+b2RlY3MvY3MzNWw0NS5jDQo+IEBAIC0xLDQgKzEsNCBAQA0KPiAtLy8gU1BEWC1MaWNlbnNlLUlk
+ZW50aWZpZXI6IEdQTC0yLjAgT1IgQlNELTMtQ2xhdXNlDQo+ICsvLyBTUERYLUxpY2Vuc2UtSWRl
+bnRpZmllcjogR1BMLTIuMA0KPiAgIC8vDQo+ICAgLy8gY3MzNWw0NS5jIC0gQ1MzNUw0NSBBTFNB
+IFNvQyBhdWRpbyBkcml2ZXINCj4gICAvLw0KPiBAQCAtMTI5Niw0ICsxMjk2LDQgQEAgRVhQT1JU
+X1NZTUJPTF9OU19HUEwoY3MzNWw0NV9wbV9vcHMsIFNORF9TT0NfQ1MzNUw0NSk7DQo+ICAgTU9E
+VUxFX0RFU0NSSVBUSU9OKCJBU29DIENTMzVMNDUgZHJpdmVyIik7DQo+ICAgTU9EVUxFX0FVVEhP
+UigiSmFtZXMgU2NodWxtYW4sIENpcnJ1cyBMb2dpYyBJbmMsPGphbWVzLnNjaHVsbWFuQGNpcnJ1
+cy5jb20+Iik7DQo+ICAgTU9EVUxFX0FVVEhPUigiUmljaGFyZCBGaXR6Z2VyYWxkPHJmQG9wZW5z
+b3VyY2UuY2lycnVzLmNvbT4iKTsNCj4gLU1PRFVMRV9MSUNFTlNFKCJEdWFsIEJTRC9HUEwiKTsN
+Cj4gK01PRFVMRV9MSUNFTlNFKCJHUEwiKTsNCj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2Rl
+Y3MvY3MzNWw0NS5oIGIvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmgNCj4gaW5kZXggMGRhMjg0
+MzlmNjI4Yi4uNjExMzVhMzE2ZGYzMyAxMDA2NDQNCj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9j
+czM1bDQ1LmgNCj4gKysrIGIvc291bmQvc29jL2NvZGVjcy9jczM1bDQ1LmgNCj4gQEAgLTEsNCAr
+MSw0IEBADQo+IC0vKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCBPUiBCU0QtMy1D
+bGF1c2UgKi8NCj4gKy8qIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wICovDQo+ICAg
+LyoNCj4gICAgKiBjczM1bDQ1LmggLSBDUzM1TDQ1IEFMU0EgU29DIGF1ZGlvIGRyaXZlcg0KPiAg
+ICAq

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E00BD6FF571
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 17:08:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3BB26FF570
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 17:07:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 687A9EE0;
-	Thu, 11 May 2023 17:07:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 687A9EE0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D0C3ED6;
+	Thu, 11 May 2023 17:06:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D0C3ED6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683817691;
-	bh=N6qICPKs0gFERitcYpsAcY+hRoMimHDzdZsQ12fe6Y0=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=j11m/k1okjwQdyAdG2Z/zhDJeaAanbFMO+vqFVNlE3kB/k25VupB41i+II0elRB5S
-	 l09QIGZJLfFb2wG1EQRYfgNez8CbZbkK5mfVqZaNldWYGk8X+hmS0lDKzB4sQgyogu
-	 zTrEnbQvPEXg8l4OV/v0C3vbAeNzAg3DlJwNScNA=
+	s=default; t=1683817641;
+	bh=CSUQEL5n9/eZar15lW4jaif3f1BMAmxtD6wV7xkTSAQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Kubykwvk73t+M7Uroq3Z/lIKkmDdVw6ahiv4OB2s+QiOVzr2vA7eC9qPCw/wG5CVZ
+	 c3uYBvU7PrBpTJ2EKhPTn0Cxmgr+1JNr0tRatEhdZ43DUGL4+3uucOFnyLV6jPIUDD
+	 Y4/b6oU3sxcWfYUpSG+xwM5aye3MUpSBj0Ba5huU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 111B1F8055A; Thu, 11 May 2023 17:06:30 +0200 (CEST)
+	id 1B801F80542; Thu, 11 May 2023 17:06:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF393F8014C;
-	Thu, 11 May 2023 17:06:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD997F8052E;
+	Thu, 11 May 2023 17:06:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81442F80534; Thu, 11 May 2023 17:06:25 +0200 (CEST)
+	id 3D665F80310; Thu, 11 May 2023 17:06:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=2.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,20 +37,20 @@ Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B3BACF8052E
+	by alsa1.perex.cz (Postfix) with ESMTPS id E7822F80310
 	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 17:06:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3BACF8052E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7822F80310
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=cutebit.org header.i=@cutebit.org header.a=rsa-sha256
- header.s=mail header.b=P1x6Sq/Q
+ header.s=mail header.b=m+c9kFV4
 From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
-	t=1683817578; bh=Y2qYN0nC7/bpDhI5lh52Gv/GBqFV2U6L49sbpArIaKo=;
-	h=From:To:Cc:Subject:Date;
-	b=P1x6Sq/QWXxyw/DQe9YPNPoSdkxp3gNAje5YsQTKJK9YuvGSmHpH0+pTQjyPwBcV7
-	 3iRYrof6f6FX/iaZDzYnPn4/p+ZxTf9AoP/8z8g+7eZoOvsAwMAfjY7v7wOWioZdjO
-	 hTNAFj7t82mKLHdogP3SWd2BwouMsyK/RxIUBzEk=
+	t=1683817579; bh=LUXpft4LGfCn5GgpYQv6QU3QQmD6+DR/XZsk9hOWCGg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m+c9kFV4LIiEFh1DscaoTKxX7uZPMsuDU5gVOGJJkRH7CCfqbWyeM/CT3vaMw61Lj
+	 p7bi+S31cUb8snlx/h8qv3YFs5nJD3QoC71AnBotJgty5sj5isC85I2fu2UnYCP+Gt
+	 S09R9hS8PvRFyOJznORnq3ePMbvW2wZWuwu1AUxY=
 To: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -64,14 +65,16 @@ Cc: asahi@lists.linux.dev,
 	alsa-devel@alsa-project.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] ASoC SSM3515 codec driver
-Date: Thu, 11 May 2023 17:05:44 +0200
-Message-Id: <20230511150546.8499-1-povik+lin@cutebit.org>
+Subject: [PATCH v2 1/2] ASoC: dt-bindings: Add adi,ssm3515 amp schema
+Date: Thu, 11 May 2023 17:05:45 +0200
+Message-Id: <20230511150546.8499-2-povik+lin@cutebit.org>
+In-Reply-To: <20230511150546.8499-1-povik+lin@cutebit.org>
+References: <20230511150546.8499-1-povik+lin@cutebit.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: H2K7C3UHVICGOSM4ESWW3SS2XQPC3XNO
-X-Message-ID-Hash: H2K7C3UHVICGOSM4ESWW3SS2XQPC3XNO
+Message-ID-Hash: XY3OFOI6HM74BTUNK4WBT25ZTQW5WQFT
+X-Message-ID-Hash: XY3OFOI6HM74BTUNK4WBT25ZTQW5WQFT
 X-MailFrom: povik+lin@cutebit.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -84,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H2K7C3UHVICGOSM4ESWW3SS2XQPC3XNO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XY3OFOI6HM74BTUNK4WBT25ZTQW5WQFT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,34 +96,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Add a DT schema for the SSM3515 amp by Analog Devices. It's a simple
+mono amplifier with digital input.
 
-Analog Devices SSM3515 is a simple speaker amp that Apple is
-using in their 2021 iMacs, possibly elsewhere. This is a v2
-of an ASoC driver for those, to be used with upcoming ASoC
-support (in upstream kernels anyway) of those platforms.
-
-Martin
-
-Changes since v1:
-https://lore.kernel.org/asahi/0fcc4617-e706-8743-e65d-1ff99f38ddac@linaro.org/T/#t
- - drop 'adi,ana-gain' from the binding
- - move device reset to bus probe
- - fix schema copyright, other schema tweaks
-
-Martin Povišer (2):
-  ASoC: dt-bindings: Add adi,ssm3515 amp schema
-  ASoC: ssm3515: Add new amp driver
-
- .../bindings/sound/adi,ssm3515.yaml           |  49 ++
- MAINTAINERS                                   |   2 +
- sound/soc/codecs/Kconfig                      |   6 +
- sound/soc/codecs/Makefile                     |   2 +
- sound/soc/codecs/ssm3515.c                    | 448 ++++++++++++++++++
- 5 files changed, 507 insertions(+)
+Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+---
+ .../bindings/sound/adi,ssm3515.yaml           | 49 +++++++++++++++++++
+ 1 file changed, 49 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/adi,ssm3515.yaml
- create mode 100644 sound/soc/codecs/ssm3515.c
 
+diff --git a/Documentation/devicetree/bindings/sound/adi,ssm3515.yaml b/Documentation/devicetree/bindings/sound/adi,ssm3515.yaml
+new file mode 100644
+index 000000000000..144450df5869
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/adi,ssm3515.yaml
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/adi,ssm3515.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Analog Devices SSM3515 Audio Amplifier
++
++maintainers:
++  - Martin Povišer <povik+lin@cutebit.org>
++
++description: |
++  SSM3515 is a mono Class-D audio amplifier with digital input.
++
++  https://www.analog.com/media/en/technical-documentation/data-sheets/SSM3515.pdf
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    enum:
++      - adi,ssm3515
++
++  reg:
++    maxItems: 1
++
++  '#sound-dai-cells':
++    const: 0
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      codec@14 {
++        compatible = "adi,ssm3515";
++        reg = <0x14>;
++        #sound-dai-cells = <0>;
++        sound-name-prefix = "Left Tweeter";
++      };
++    };
 -- 
 2.38.3
 

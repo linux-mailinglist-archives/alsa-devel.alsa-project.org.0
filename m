@@ -2,108 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09A676FEF87
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 11:59:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C5E76FEFB2
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 12:11:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 927A01EF;
-	Thu, 11 May 2023 11:58:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927A01EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B79D200;
+	Thu, 11 May 2023 12:11:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B79D200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683799162;
-	bh=DnQTCihVcDEVYe5iX3n7EJa2y10Yf0J+BhpJy+8y8lM=;
+	s=default; t=1683799914;
+	bh=DrKpTd9Bdtm/2cXUYc8D+iAlKYGbQgfeXsqmRFzadsg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=stK+l1gbVhBSt++xMq4mzy21Fm0xaQrjKEF/JXbTopprOq9aWW077wG+J4Z1Re2AS
-	 1YCbTEvJR3TOXTBTgF4g5UwFLRdYTD1MTSYByYQnKj/WlyIbIZxSX9kfZBYJIId8VV
-	 QjMROrp8ioWleVJqL5v4QQesvUFKYM5qfaFHa3gI=
+	b=uI8aFNeeVbpXhzzKzMDxyctAA5nqRNnEUPIVxG7CLODy0QJX5bE8woqCcNsIN1VOi
+	 qCsunWFhfsxFaK/hqAZpboUC++HmKZ0P8hY/F2K2U7lbbkJHzpH0G2GovYr+d1yTxz
+	 K0yQEPNQPVtBNJKiyYgk2fDXngEqwAgzWd/qSJao=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B81EF80310;
-	Thu, 11 May 2023 11:58:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34307F80310;
+	Thu, 11 May 2023 12:11:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 136E7F8032D; Thu, 11 May 2023 11:58:29 +0200 (CEST)
+	id 7985FF8032D; Thu, 11 May 2023 12:10:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 30C98F800BF
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 11:58:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30C98F800BF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 56A50F800BF
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 12:10:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56A50F800BF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=wLUiy/sK
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-96649b412easo865193266b.0
+ header.s=google header.b=QKKUILJ1
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-50bdd7b229cso15256588a12.0
         for <alsa-devel@alsa-project.org>;
- Thu, 11 May 2023 02:58:23 -0700 (PDT)
+ Thu, 11 May 2023 03:10:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1683799102; x=1686391102;
+        d=linaro.org; s=google; t=1683799851; x=1686391851;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=flwRxznwuAYel95+sMOhYZaxHDjgAMi12wSldhudZkk=;
-        b=wLUiy/sKdDyW2vYY1KUBQMZM2bNv7qMq5opS7jaQ39UXL7gYULX908NBz3Hssa3xZF
-         6ct6KCJ6yomPIW6+oJhk6JvsHZAn2zKNPXHjFdtu8+CCyymdKdpgyrUSRfzbJgAasTn/
-         aIhMxdO8fCEFyFg0SIfZBeeZ9iJ6NebnfRppUNhE/E1zek0CZyLBKyMbfQRRHhiwBkgr
-         +LtRfn6rUetGYiJR6QOvyVd+qHMhJhpHuLDPj7qOb/WB55KEDAWK0+s7AeuxNTuk04GU
-         b6Mxk58Z4nld3bpw4UYSjjQ1fzllwXfmroMbUxtaVfAmD6N87EvB89E4/RON0D6UyKrz
-         /3tA==
+        bh=S/wUxk8mb0F4+0m9tdABR100eghiMPixillF1+W81tk=;
+        b=QKKUILJ1i6uW/2PZox53+u9cR2YS8BDWDr74NzdKwjacBu2H7a+mYUd8KgHI252F23
+         yl9NUCxvsA+gWNKKJb2cw+vpO47RtsSqI9V/ZpLFM4ELHq1k7dOeohTd17s+wxD7fXak
+         1h63062C4OjDodYz8tsw5I3Aue0VbcC30auZEsMN206oCyyeFKC2o3AHtF3jvWdin3nq
+         WNQG0ru+LbXQ3U42nVejew1upAgZggdfZJDYCcReHJ3+GpYvmR2nvhKbHNv7rcd+Oduj
+         PQx82ue45JWqsMG+LTTwa+kzfAYAfgCaaXtU1np9sxr7aswwMuJRW4yA4fV9gHAV9Al6
+         3zNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683799102; x=1686391102;
+        d=1e100.net; s=20221208; t=1683799851; x=1686391851;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=flwRxznwuAYel95+sMOhYZaxHDjgAMi12wSldhudZkk=;
-        b=dXsl+5MWNrKKbLmWGk0Ou2j57PqIDkXdFNOeQK1+Y45fWXsdOOx5FOXt5PtcODnySO
-         YM6BAiW1b4kGiwJga9mfAnSa8DGYyE0pYA7CPVBcacAcCBK4ljHrTW3IU2KkJCqD0Saq
-         0z+ofOx0J6WQO0EEN26fSgzdeMjeNSC3UiqexFjC2ooUiJO8ybmSmOwriXpo42L2jaXO
-         l/iROMYRXZdxvCEQn7cPucMPrzltY/p8zaUtHBbJY7HtSE7XxbnC2hF3rS6IdBYI8ICQ
-         Csr0AGD4ipTcUZT5mm/n6UW7CuxoCzr0mRAYSb6YzsRbxYl9K/Oh4/8O0nS2ClEU40GI
-         8pSQ==
-X-Gm-Message-State: AC+VfDxYYh1sX6jUbDp+Mz3ld25OURk0semVMI9FO1zNrd54zqV5UBDK
-	zKn/UbP5rjrM2wuNe/PGowxY8A==
+        bh=S/wUxk8mb0F4+0m9tdABR100eghiMPixillF1+W81tk=;
+        b=aKXpzIbJHLWHaWY3rHe08YqaAGi9ArNngrf4plAlRTJR8+5OZt+vrNPBCviTOXQ+qq
+         TrmDUbopftFUtwSq+51NHu/7QFD/NIXdbRPR5OcLbrRkGE+F5Xq2cQBZ4kZq634ktTFw
+         24ZX9HQ55FAzlXFkSf1fw57bWqXFC7Fi/DkLp6swfdV9PHbqUU0fLR2D85moxYZ1V98i
+         bYJ7rNRriPYBT//0dyzQtjwfHnxfQTXvq8DF42rMG4fNgqZOTHOrulTKfluIU6smoiv9
+         WpYtah0H35P2p4KeAmvSPocHxuaXJY6WhCwSoM2as/TYQeq8ClVnRlUQdivYEjoRcPA2
+         czMQ==
+X-Gm-Message-State: AC+VfDzHC2hbfrK6GCKKLS+sCcWP499OAo4G2GEnMxv66btOsk7nHtTB
+	BxHGYuYJ9D5rI6wUWddsnJnjPA==
 X-Google-Smtp-Source: 
- ACHHUZ5wJWqqCfcn013dbmOg6eTV075b5HIvRHopoYyZNADruM2+gIsxKZuktXAltFCkeuOiblIu8Q==
-X-Received: by 2002:a17:907:6eaa:b0:94a:9ae2:1642 with SMTP id
- sh42-20020a1709076eaa00b0094a9ae21642mr21040424ejc.46.1683799102132;
-        Thu, 11 May 2023 02:58:22 -0700 (PDT)
-Received: from ?IPV6:2a02:810d:15c0:828:7e61:f14a:c3a4:809e?
- ([2a02:810d:15c0:828:7e61:f14a:c3a4:809e])
+ ACHHUZ6YUp8pR6//0HIAOtdezKk0ftjN8kg3Iigpnmrh1Js0rzh2aSz+iqcJ7x1EDbVkL0W6kYlhrA==
+X-Received: by 2002:a17:907:9816:b0:96a:77a2:bba with SMTP id
+ ji22-20020a170907981600b0096a77a20bbamr824087ejc.60.1683799850859;
+        Thu, 11 May 2023 03:10:50 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:41e7:1b68:d38e:1348?
+ ([2a02:810d:15c0:828:41e7:1b68:d38e:1348])
         by smtp.gmail.com with ESMTPSA id
- 13-20020a170906300d00b009659cdb2f98sm3739111ejz.23.2023.05.11.02.58.20
+ z4-20020a17090655c400b009660449b9a3sm3787760ejp.25.2023.05.11.03.10.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 May 2023 02:58:21 -0700 (PDT)
-Message-ID: <7b3a37e8-0210-c539-5b5b-bf8e587707ea@linaro.org>
-Date: Thu, 11 May 2023 11:58:20 +0200
+        Thu, 11 May 2023 03:10:50 -0700 (PDT)
+Message-ID: <d826ded8-69a0-013a-5bcb-256048d62702@linaro.org>
+Date: Thu, 11 May 2023 12:10:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v1 3/3] dt-bindings: ASoC: Add ESS ES9218P codec bindings
+Subject: Re: [PATCH v3] ASoC: dt-bindings: nau8825: Convert to dtschema
 Content-Language: en-US
-To: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>, lgirdwood@gmail.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org
-Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20230510112349.939991-1-aidanmacdonald.0x0@gmail.com>
- <20230510112349.939991-3-aidanmacdonald.0x0@gmail.com>
+To: David Lin <CTLIN0@nuvoton.com>, broonie@kernel.org
+Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
+ WTLI@nuvoton.com, SJLIN0@nuvoton.com, ctlin0.linux@gmail.com
+References: <20230510091914.590752-1-CTLIN0@nuvoton.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230510112349.939991-3-aidanmacdonald.0x0@gmail.com>
+In-Reply-To: <20230510091914.590752-1-CTLIN0@nuvoton.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: RTVBEK6E5BSKLFLBDCPQFZVU2K65AZQS
-X-Message-ID-Hash: RTVBEK6E5BSKLFLBDCPQFZVU2K65AZQS
+Message-ID-Hash: NVXE25C57LYYDXD4TDKQJQ57HYYDADWX
+X-Message-ID-Hash: NVXE25C57LYYDXD4TDKQJQ57HYYDADWX
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -116,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RTVBEK6E5BSKLFLBDCPQFZVU2K65AZQS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NVXE25C57LYYDXD4TDKQJQ57HYYDADWX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,142 +124,246 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 10/05/2023 13:23, Aidan MacDonald wrote:
-> Device tree bindings for the ESS ES9218P codec, which uses an
-> I2C control interface.
+On 10/05/2023 11:19, David Lin wrote:
+> Convert the NAU8825 audio CODEC bindings to DT schema.
 > 
-
-Thank you for your patch. There is something to discuss/improve.
-
-Subject: reverse dt-bindings and ASoC.
-
-Subject: drop second/last, redundant "bindings". The "dt-bindings"
-prefix is already stating that these are bindings.
-
-> Signed-off-by: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-> ---
->  .../bindings/sound/ess,es9218p.yaml           | 104 ++++++++++++++++++
->  1 file changed, 104 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/ess,es9218p.yaml
+> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/ess,es9218p.yaml b/Documentation/devicetree/bindings/sound/ess,es9218p.yaml
-> new file mode 100644
-> index 000000000000..d205b6a8bbb2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/ess,es9218p.yaml
-> @@ -0,0 +1,104 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/ess,es9218p.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> Changes:
+> V2 -> V3:
+>   - refine node name from "nau8825" to "codec" for generic purpose
+> 
+> V1 -> V2:
+>   - add interrupts properties
+>   - add maximum to nuvoton,jack-insert-debounce and nuvoton,jack-eject-debounce properites
+>   - add a enum item for nuvoton,short-key-debounce properites
+>   - add default value for most properites
+>   - add maxItems to clocks properites and mclk entries to clock-names properites
+>   - refine wrong indentation from clocks and clock-names
+>   - refine dts example for interrupts and clocks
+>   - remove headset label from dts example
+
+Thanks.
+
+Still few nits.
+
+
+...
+
 > +
-> +title: ESS ES9218P audio codec
+> +title: NAU8825 audio CODEC
 > +
 > +maintainers:
-> +  - Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+> +  - John Hsu <KCHSU0@nuvoton.com>
 > +
-
-allOf with ref to dai-common.
-
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
 > +properties:
 > +  compatible:
-> +    const: ess,es9218p
+> +    enum:
+> +      - nuvoton,nau8825
 > +
 > +  reg:
 > +    maxItems: 1
 > +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  avdd-supply:
+> +  interrupts:
+> +    maxItems: 1
 > +    description:
-> +      Definition of the regulator used for digital core power supply.
+> +      The CODEC's interrupt output.
 
-Drop "Definition of the regulator used for"
+Drop description.
 
 > +
-> +  vcca-supply:
+> +  nuvoton,jkdet-enable:
 > +    description:
-> +      Definition of the regulator used for oscillator and DAC power supply.
+> +      Enable jack detection via JKDET pin.
+> +    type: boolean
 > +
-
-Ditto
-
-> +  avcc3v3-supply:
+> +  nuvoton,jkdet-pull-enable:
 > +    description:
-> +      Definition of the 3.3V regulator for amplifier, switch, and charge pumps.
-
-Drop "Definition of"
-
-
+> +      Enable JKDET pin pull.
+> +      If set - pin pull enabled, otherwise pin in high impedance state.
+> +    type: boolean
 > +
-> +  avcc1v8-supply:
+> +  nuvoton,jkdet-pull-up:
 > +    description:
-> +      Definition of the 1.8V regulator for amplifier, switch, and charge pumps.
-
-Ditto
-
+> +      Pull-up JKDET pin.
+> +      If set then JKDET pin is pull up, otherwise pull down.
+> +    type: boolean
+> +
+> +  nuvoton,jkdet-polarity:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      JKDET pin polarity.
+> +    enum:
+> +      - 0 # active high
+> +      - 1 # active low
+> +    default: 1
+> +
+> +  nuvoton,vref-impedance:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      VREF Impedance selection.
+> +    enum:
+> +      - 0 # Open
+> +      - 1 # 25 kOhm
+> +      - 2 # 125 kOhm
+> +      - 3 # 2.5 kOhm
+> +    default: 2
+> +
+> +  nuvoton,micbias-voltage:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Micbias voltage level.
+> +    enum:
+> +      - 0 # VDDA
+> +      - 1 # VDDA
+> +      - 2 # VDDA * 1.1
+> +      - 3 # VDDA * 1.2
+> +      - 4 # VDDA * 1.3
+> +      - 5 # VDDA * 1.4
+> +      - 6 # VDDA * 1.53
+> +      - 7 # VDDA * 1.53
+> +    default: 6
+> +
+> +  nuvoton,sar-threshold-num:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Number of buttons supported.
+> +    minimum: 1
+> +    maximum: 4
+> +    default: 4
+> +
+> +  nuvoton,sar-threshold:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description:
+> +      Impedance threshold for each button. Array that contains up to 8 buttons
+> +      configuration. SAR value is calculated as
+> +      SAR = 255 * MICBIAS / SAR_VOLTAGE * R / (2000 + R) where MICBIAS is
+> +      configured by 'nuvoton,micbias-voltage', SAR_VOLTAGE is configured by
+> +      'nuvoton,sar-voltage', R - button impedance.
+> +      Refer datasheet section 10.2 for more information about threshold
+> +      calculation.
+> +    minItems: 1
+> +    maxItems: 4
+> +    items:
+> +      minimum: 0
+> +      maximum: 255
+> +
+> +  nuvoton,sar-hysteresis:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Button impedance measurement hysteresis.
+> +    default: 0
+> +
+> +  nuvoton,sar-voltage:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Reference voltage for button impedance measurement.
+> +    enum:
+> +      - 0 # VDDA
+> +      - 1 # VDDA
+> +      - 2 # VDDA * 1.1
+> +      - 3 # VDDA * 1.2
+> +      - 4 # VDDA * 1.3
+> +      - 5 # VDDA * 1.4
+> +      - 6 # VDDA * 1.53
+> +      - 7 # VDDA * 1.53
+> +    default: 6
+> +
+> +  nuvoton,sar-compare-time:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      SAR compare time.
+> +    enum:
+> +      - 0 # 500 ns
+> +      - 1 # 1 us
+> +      - 2 # 2 us
+> +      - 3 # 4 us
+> +    default: 1
+> +
+> +  nuvoton,sar-sampling-time:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      SAR sampling time.
+> +    enum:
+> +      - 0 # 2 us
+> +      - 1 # 4 us
+> +      - 2 # 8 us
+> +      - 3 # 16 us
+> +    default: 1
+> +
+> +  nuvoton,short-key-debounce:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Button short key press debounce time.
+> +    enum:
+> +      - 0 # 30 ms
+> +      - 1 # 50 ms
+> +      - 2 # 100 ms
+> +      - 3 # 30 ms
+> +    default: 3
+> +
+> +  nuvoton,jack-insert-debounce:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      number from 0 to 7 that sets debounce time to 2^(n+2) ms.
+> +    maximum: 7
+> +    default: 7
+> +
+> +  nuvoton,jack-eject-debounce:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      number from 0 to 7 that sets debounce time to 2^(n+2) ms
+> +    maximum: 7
+> +    default: 0
+> +
+> +  nuvoton,crosstalk-enable:
+> +    description:
+> +      make crosstalk function enable if set.
+> +    type: boolean
+> +
+> +  nuvoton,adcout-drive-strong:
+> +    description:
+> +      make the drive strength of ADCOUT IO PIN strong if set.
+> +      Otherwise, the drive keeps normal strength.
+> +    type: boolean
+> +
+> +  nuvoton,adc-delay-ms:
+> +    description:
+> +      Delay (in ms) to make input path stable and avoid pop noise.
+> +      The default value is 125 and range between 125 to 500 ms.
+> +    minimum: 125
+> +    maximum: 500
+> +    default: 125
 > +
 > +  clocks:
-> +    items:
-> +      - description: clock for master clock (MCLK)
+> +    description:
+> +      list of phandle and clock specifier pairs according to common clock
+> +      bindings for the clocks described in clock-names.
+
+Drop desription.
+
+> +    maxItems: 1
 > +
 > +  clock-names:
+> +    description:
+> +      should include "mclk" for the MCLK master clock.
+
+Drop description.
+
 > +    items:
 > +      - const: mclk
 
-Drop entire names, not really useful.
+You probably want also sound-dai-cells.
 
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Pin used for codec hardware reset, corresponds to the RESETB pin.
-> +
-> +  ess,max-clock-div:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Sets the maximum MCLK divider for generating the internal CLK.
-> +      CLK must be at least 20x the I2C bus speed or I2C transactions
-> +      will fail. The maximum divider should be chosen to ensure that
-> +      CLK will not fall below the limit.
-> +    enum:
-> +      - 1
-> +      - 2
-> +      - 4
-> +      - 8
-> +    default: 1
-
-Why do you need to customize it per board?
-
-> +
-> +  ess,oscillator-pad-bias:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Sets the oscillator pad drive bias. 0 - full bias, 15 - disabled.
-> +    minimum: 0
-> +    maximum: 15
-> +    default: 0
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - "#sound-dai-cells"
-> +  - avdd-supply
-> +  - vcca-supply
-> +  - avcc3v3-supply
-> +  - avcc1v8-supply
-> +  - clocks
-> +  - clock-names
-> +  - reset-gpios
 > +
-> +additionalProperties: false
-
-Instead: unevaluatedProperties: false
-
-
-> +
-> +examples:
+> +unevaluatedProperties: false
 
 Best regards,
 Krzysztof

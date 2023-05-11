@@ -2,86 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD00D6FFA99
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 21:41:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA59F6FFA9A
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 21:41:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCE3E10E;
-	Thu, 11 May 2023 21:40:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCE3E10E
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9975210;
+	Thu, 11 May 2023 21:40:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9975210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683834075;
-	bh=5xu9uGIHVrajYM32ehWqmIZhYoHMYESQ6y3Talu6q1Q=;
+	s=default; t=1683834081;
+	bh=zpV5SE+b+pNWUY2xCtVHyDVz/RSQi2tKBoj7a2cWFUE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i+FuSSkSPAJxt53cNd7/diNuG6hGw8F8fjFqCHVCx4UBdJV+S3bAtakIK949mHsxE
-	 bwSdKlWK9o4zVoOFc/qZYDloWh6nEDr2r/giWF+oPQxZTEc9GeByyzYqhulF95vwto
-	 fO6LZQ8IjgnyjaQoRbYt4P0gRCmKeRDSZI/+A66I=
+	b=ASwtqZA4tPTnEC54ocrodxvkIAnafayOEd/9dkhju4wtOskL6DMyElz5r6GlvVGLu
+	 EWKglkouKqD7/I64JzN+RJp216Ut06XH/cmbjxtFpPv+jaFATGm1oCNb+XRPRvzKUX
+	 L3QsT9pG/b+Hz91kButZkmL1O+KprVjPGGLhMIyw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E48DEF80557; Thu, 11 May 2023 21:40:06 +0200 (CEST)
+	id 60F2BF8055C; Thu, 11 May 2023 21:40:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87CFCF8053B;
-	Thu, 11 May 2023 21:40:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED899F80544;
+	Thu, 11 May 2023 21:40:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6ECB1F80551; Thu, 11 May 2023 21:40:02 +0200 (CEST)
+	id D3481F80548; Thu, 11 May 2023 21:40:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CAFC9F802E8
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 21:39:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAFC9F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id E23A9F80570
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 21:40:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E23A9F80570
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=aQ8Dhpfr
+ header.s=k20201202 header.b=YaYgJvXb
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 39B6E6511B;
-	Thu, 11 May 2023 19:39:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51BD0C4339C;
-	Thu, 11 May 2023 19:39:57 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B6D2B65123;
+	Thu, 11 May 2023 19:40:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CADB0C433A0;
+	Thu, 11 May 2023 19:40:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683833997;
-	bh=5xu9uGIHVrajYM32ehWqmIZhYoHMYESQ6y3Talu6q1Q=;
+	s=k20201202; t=1683834019;
+	bh=zpV5SE+b+pNWUY2xCtVHyDVz/RSQi2tKBoj7a2cWFUE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aQ8DhpfrJk/xO/WEX38DeGnbG0Z21YmSHzfppao7/Nn8bpcfdkuOSLRnaEk8Wrz8t
-	 z5OXL2q0yAq8zXyutP04PlJRLmIgwUNRY26qGACXlQNTJ4074GEuLBCU6z5flkJ/ce
-	 N18NnoTRHGCriO05jsqstkfEpgu3wd2fVVFr2RGeyEQrYKaPRbh9XU9Owh3uIm9YbK
-	 RORYjcKQJ3dG7dnvXlDbiXmII0TIvMluLclmAQ7RwpwKqPod+N+KC9/z1FrAzGCExm
-	 eOSkRDLmWnjQ2I1Ax9KoyquZtjkGe+TlXzIqcZZZoqjtTjcFh1OO9qBWY04q/FbdAr
-	 BojOZ5ViopxnA==
+	b=YaYgJvXbTc6Dkkjsj+WI9dJf9nYQV9MtphoUytEiMefTmlDWXH4QzmyZ6NLTDxmTY
+	 71aa2TTqI8Y777GTmdTQ4QL9QTmJSzJrIfKerwmGWwBwH9Ig+zXbDZcniT9VQyTSsg
+	 XyKhy4SXciv1jpiQ42p96shYosS8EYV0sGGfKJaxUOpkDd62lV6+T54yVT5yypNnpO
+	 PkCF8Ygh4TuaODxnuWQzHQJU3PdPND+Zsxb74xoJZyiYk9X0f5KzSKjvhXqMM34BLO
+	 lNM3NUWBV3LU9Dsfuh1mtKr/SJkzo8G4zNQ6bmkmUmqoCDBCt7a6H24Bi62PulVCMJ
+	 MGl21WZ32bB/g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: jasontao <jasontao@glenfly.com>,
-	Reaper Li <reaperlioc@glenfly.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Hans de Goede <hdegoede@redhat.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	cezary.rojewski@intel.com,
+	liam.r.girdwood@linux.intel.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com,
 	perex@perex.cz,
 	tiwai@suse.com,
-	pierre-louis.bossart@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	rander.wang@intel.com,
-	kai.vehmanen@linux.intel.com,
-	amadeuszx.slawinski@linux.intel.com,
-	orlandoch.dev@gmail.com,
-	bhelgaas@google.com,
-	mkumard@nvidia.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.1 3/9] ALSA: hda: Glenfly: add HD Audio PCI IDs and
- HDMI Codec Vendor IDs.
-Date: Thu, 11 May 2023 15:39:36 -0400
-Message-Id: <20230511193945.623476-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 8/9] ASoC: Intel: soc-acpi-cht: Add quirk for
+ Nextbook Ares 8A tablet
+Date: Thu, 11 May 2023 15:39:41 -0400
+Message-Id: <20230511193945.623476-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230511193945.623476-1-sashal@kernel.org>
 References: <20230511193945.623476-1-sashal@kernel.org>
@@ -89,8 +86,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UQKPFBIV2F5VZCVFW5UIPXMXQILAI2DX
-X-Message-ID-Hash: UQKPFBIV2F5VZCVFW5UIPXMXQILAI2DX
+Message-ID-Hash: GNKCQMAM52HXT5I5JXKWDVNRSLSZLTUN
+X-Message-ID-Hash: GNKCQMAM52HXT5I5JXKWDVNRSLSZLTUN
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQKPFBIV2F5VZCVFW5UIPXMXQILAI2DX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GNKCQMAM52HXT5I5JXKWDVNRSLSZLTUN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,143 +109,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: jasontao <jasontao@glenfly.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit c51e431052e2eacfb23fbf6b39bc6c8770d9827a ]
+[ Upstream commit ec6f82b4c63cc68f8dc03316e725106d242706be ]
 
-Add a set of HD Audio PCI IDS, and the HDMI codec vendor IDs for
-Glenfly Gpus.
+The Nextbook Ares 8A tablet which has Android as factory OS, has a buggy
+DSDT with both ESSX8316 and 10EC5651 ACPI devices.
 
-- In default_bdl_pos_adj, set bdl to 128 as Glenfly Gpus have hardware
-limitation, need to increase hdac interrupt interval.
-- In azx_first_init, enable polling mode for Glenfly Gpu. When the codec
-complete the command, it sends interrupt and writes response entries to
-memory, howerver, the write requests sometimes are not actually
-synchronized to memory when driver handle hdac interrupt on Glenfly Gpus.
-If the RIRB status is not updated in the interrupt handler,
-azx_rirb_get_response keeps trying to recevie a response from rirb until
-1s timeout. Enabling polling mode for Glenfly Gpu can fix the issue.
-- In patch_gf_hdmi, set Glenlfy Gpu Codec's no_sticky_stream as it need
-driver to do actual clean-ups for the linked codec when switch from one
-codec to another.
+This tablet actually uses an rt5651 codec, but the matching code ends up
+picking the ESSX8316 device, add a quirk to ignote the ESSX8316 device
+on this tablet.
 
-Signed-off-by: jasontao <jasontao@glenfly.com>
-Signed-off-by: Reaper Li <reaperlioc@glenfly.com>
-Link: https://lore.kernel.org/r/20230426013059.4329-1-reaperlioc@glenfly.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-Id: <20230429104721.7176-1-hdegoede@redhat.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/hda_intel.c  | 21 +++++++++++++++++++++
- sound/pci/hda/patch_hdmi.c | 22 ++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
+ .../intel/common/soc-acpi-intel-cht-match.c   | 26 +++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 77a592f219472..31e16feaa2b4f 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -227,6 +227,7 @@ enum {
- 	AZX_DRIVER_ATI,
- 	AZX_DRIVER_ATIHDMI,
- 	AZX_DRIVER_ATIHDMI_NS,
-+	AZX_DRIVER_GFHDMI,
- 	AZX_DRIVER_VIA,
- 	AZX_DRIVER_SIS,
- 	AZX_DRIVER_ULI,
-@@ -349,6 +350,7 @@ static const char * const driver_short_names[] = {
- 	[AZX_DRIVER_ATI] = "HDA ATI SB",
- 	[AZX_DRIVER_ATIHDMI] = "HDA ATI HDMI",
- 	[AZX_DRIVER_ATIHDMI_NS] = "HDA ATI HDMI",
-+	[AZX_DRIVER_GFHDMI] = "HDA GF HDMI",
- 	[AZX_DRIVER_VIA] = "HDA VIA VT82xx",
- 	[AZX_DRIVER_SIS] = "HDA SIS966",
- 	[AZX_DRIVER_ULI] = "HDA ULI M5461",
-@@ -1743,6 +1745,12 @@ static int default_bdl_pos_adj(struct azx *chip)
- 	}
- 
- 	switch (chip->driver_type) {
-+	/*
-+	 * increase the bdl size for Glenfly Gpus for hardware
-+	 * limitation on hdac interrupt interval
-+	 */
-+	case AZX_DRIVER_GFHDMI:
-+		return 128;
- 	case AZX_DRIVER_ICH:
- 	case AZX_DRIVER_PCH:
- 		return 1;
-@@ -1858,6 +1866,12 @@ static int azx_first_init(struct azx *chip)
- 		pci_write_config_dword(pci, PCI_BASE_ADDRESS_1, 0);
- 	}
- #endif
-+	/*
-+	 * Fix response write request not synced to memory when handle
-+	 * hdac interrupt on Glenfly Gpus
-+	 */
-+	if (chip->driver_type == AZX_DRIVER_GFHDMI)
-+		bus->polling_mode = 1;
- 
- 	err = pcim_iomap_regions(pci, 1 << 0, "ICH HD audio");
- 	if (err < 0)
-@@ -1959,6 +1973,7 @@ static int azx_first_init(struct azx *chip)
- 			chip->playback_streams = ATIHDMI_NUM_PLAYBACK;
- 			chip->capture_streams = ATIHDMI_NUM_CAPTURE;
- 			break;
-+		case AZX_DRIVER_GFHDMI:
- 		case AZX_DRIVER_GENERIC:
- 		default:
- 			chip->playback_streams = ICH6_NUM_PLAYBACK;
-@@ -2724,6 +2739,12 @@ static const struct pci_device_id azx_ids[] = {
- 	{ PCI_DEVICE(0x1002, 0xab38),
- 	  .driver_data = AZX_DRIVER_ATIHDMI_NS | AZX_DCAPS_PRESET_ATI_HDMI_NS |
- 	  AZX_DCAPS_PM_RUNTIME },
-+	/* GLENFLY */
-+	{ PCI_DEVICE(0x6766, PCI_ANY_ID),
-+	  .class = PCI_CLASS_MULTIMEDIA_HD_AUDIO << 8,
-+	  .class_mask = 0xffffff,
-+	  .driver_data = AZX_DRIVER_GFHDMI | AZX_DCAPS_POSFIX_LPIB |
-+	  AZX_DCAPS_NO_MSI | AZX_DCAPS_NO_64BIT },
- 	/* VIA VT8251/VT8237A */
- 	{ PCI_DEVICE(0x1106, 0x3288), .driver_data = AZX_DRIVER_VIA },
- 	/* VIA GFX VT7122/VX900 */
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 5c6980394dcec..b784ef95390db 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -4489,6 +4489,22 @@ static int patch_via_hdmi(struct hda_codec *codec)
- 	return patch_simple_hdmi(codec, VIAHDMI_CVT_NID, VIAHDMI_PIN_NID);
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+index 6beb00858c33f..cdcbf04b8832f 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+@@ -50,6 +50,31 @@ static struct snd_soc_acpi_mach *cht_quirk(void *arg)
+ 		return mach;
  }
  
-+static int patch_gf_hdmi(struct hda_codec *codec)
++/*
++ * Some tablets with Android factory OS have buggy DSDTs with an ESSX8316 device
++ * in the ACPI tables. While they are not using an ESS8316 codec. These DSDTs
++ * also have an ACPI device for the correct codec, ignore the ESSX8316.
++ */
++static const struct dmi_system_id cht_ess8316_not_present_table[] = {
++	{
++		/* Nextbook Ares 8A */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Insyde"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "CherryTrail"),
++			DMI_MATCH(DMI_BIOS_VERSION, "M882"),
++		},
++	},
++	{ }
++};
++
++static struct snd_soc_acpi_mach *cht_ess8316_quirk(void *arg)
 +{
-+	int err;
++	if (dmi_check_system(cht_ess8316_not_present_table))
++		return NULL;
 +
-+	err = patch_generic_hdmi(codec);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * Glenfly GPUs have two codecs, stream switches from one codec to
-+	 * another, need to do actual clean-ups in codec_cleanup_stream
-+	 */
-+	codec->no_sticky_stream = 1;
-+	return 0;
++	return arg;
 +}
 +
- /*
-  * patch entries
-  */
-@@ -4579,6 +4595,12 @@ HDA_CODEC_ENTRY(0x10de009f, "GPU 9f HDMI/DP",	patch_nvhdmi),
- HDA_CODEC_ENTRY(0x10de00a0, "GPU a0 HDMI/DP",	patch_nvhdmi),
- HDA_CODEC_ENTRY(0x10de8001, "MCP73 HDMI",	patch_nvhdmi_2ch),
- HDA_CODEC_ENTRY(0x10de8067, "MCP67/68 HDMI",	patch_nvhdmi_2ch),
-+HDA_CODEC_ENTRY(0x67663d82, "Arise 82 HDMI/DP",	patch_gf_hdmi),
-+HDA_CODEC_ENTRY(0x67663d83, "Arise 83 HDMI/DP",	patch_gf_hdmi),
-+HDA_CODEC_ENTRY(0x67663d84, "Arise 84 HDMI/DP",	patch_gf_hdmi),
-+HDA_CODEC_ENTRY(0x67663d85, "Arise 85 HDMI/DP",	patch_gf_hdmi),
-+HDA_CODEC_ENTRY(0x67663d86, "Arise 86 HDMI/DP",	patch_gf_hdmi),
-+HDA_CODEC_ENTRY(0x67663d87, "Arise 87 HDMI/DP",	patch_gf_hdmi),
- HDA_CODEC_ENTRY(0x11069f80, "VX900 HDMI/DP",	patch_via_hdmi),
- HDA_CODEC_ENTRY(0x11069f81, "VX900 HDMI/DP",	patch_via_hdmi),
- HDA_CODEC_ENTRY(0x11069f84, "VX11 HDMI/DP",	patch_generic_hdmi),
+ static const struct snd_soc_acpi_codecs rt5640_comp_ids = {
+ 	.num_codecs = 2,
+ 	.codecs = { "10EC5640", "10EC3276" },
+@@ -113,6 +138,7 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
+ 		.drv_name = "bytcht_es8316",
+ 		.fw_filename = "intel/fw_sst_22a8.bin",
+ 		.board = "bytcht_es8316",
++		.machine_quirk = cht_ess8316_quirk,
+ 		.sof_tplg_filename = "sof-cht-es8316.tplg",
+ 	},
+ 	/* some CHT-T platforms rely on RT5640, use Baytrail machine driver */
 -- 
 2.39.2
 

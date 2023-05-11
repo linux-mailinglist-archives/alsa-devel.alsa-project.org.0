@@ -2,28 +2,28 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C13476FE5C7
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 May 2023 22:53:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D9216FE913
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 03:12:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EEA6FFA;
-	Wed, 10 May 2023 22:52:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EEA6FFA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 176AFFCE;
+	Thu, 11 May 2023 03:11:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 176AFFCE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683752004;
-	bh=93lgawgCO2gOMpWhpKKpaOV53cDVxF7QwQnOJtQb0gA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1683767565;
+	bh=M9+WbndZqXjkrw+21DO8YKqOQHdc/suzPYKkitzNKlY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=an3yUTr7wwe/0m4+WMjTH7GNTcy1ob7fOwypwp92sXha3PVDDhOhVYbD3rXFXZQ3n
-	 Vqsgca3pmoL3ak1LKMO5Wu8W+yYlHKhiUWP9x8mZV9QGpmlwy0Wi7FrFtupXFNk2tT
-	 rccc/P9YhtiBEsWmZ/u16kZakftRf18WXekWV7+I=
+	b=RTgIZ/wcehdgnCg0Auw+b5467rjtz+roZFqLgQE+WwcRTkn5u6mY2Dzq6Q5WwVJbd
+	 VNG33orNZx0geFkV+UxsEiKxjCBjqQpc7AcuxJNb6PBLKeTRxmyPUy6MAYuCuHz0qH
+	 L+rJvSRuXPiE3Q2jvvHNPjW8s7IZ/n0p/nVb7REo=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A719F805AC;
-	Wed, 10 May 2023 22:50:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F70CF80310;
+	Thu, 11 May 2023 03:11:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B666F805A8; Wed, 10 May 2023 22:50:14 +0200 (CEST)
+	id D31DAF8032D; Thu, 11 May 2023 03:11:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,57 +33,58 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF669F805A0
-	for <alsa-devel@alsa-project.org>; Wed, 10 May 2023 22:50:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF669F805A0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2045DF8014C
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 03:11:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2045DF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=F30MMBJ0
+ header.s=k20201202 header.b=KjtkEhyY
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 7CD6D64A32;
-	Wed, 10 May 2023 20:50:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B480DC4339C;
-	Wed, 10 May 2023 20:50:09 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E409F63A1F;
+	Thu, 11 May 2023 01:11:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC468C433D2;
+	Thu, 11 May 2023 01:11:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683751809;
-	bh=93lgawgCO2gOMpWhpKKpaOV53cDVxF7QwQnOJtQb0gA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=F30MMBJ0N9ODjnQya76KxLSs/GXj4jrzFso8CApCYPAYBLYBnWEusbyzIahmcjpZV
-	 8UOmo/18qqGs4QR4AevIn0SNInSU2ZuquU2eZbJBpT1eQzg3WTlDkmGrBxKS+UsKuR
-	 zGUguQjw1ilzeKdLTcUFDJIbSKMC2eNShYNTtTi3qyBLH1SwDCVqPeUsjUosEcMeKV
-	 0w6+lv0TFSsrKsz4K07LxevDMtWyQ2ERvcrkLec7rTd3IfVoleJGm8qyz2DrNZzchn
-	 atrOI0XzLEywNY4CdRhTSIgDGjd9IVqKxCHGavS2nX6DJdIsxfReR4DQTrEs8V4yQ9
-	 K+8cy8mb9sgHQ==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	agross@kernel.org,
-	andersson@kernel.org,
-	yung-chuan.liao@linux.intel.com,
-	linux-arm-msm@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.15 2/4] soundwire: qcom: gracefully handle too many
- ports in DT
-Date: Wed, 10 May 2023 16:50:06 -0400
-Message-Id: <20230510205008.104981-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230510205008.104981-1-sashal@kernel.org>
-References: <20230510205008.104981-1-sashal@kernel.org>
+	s=k20201202; t=1683767500;
+	bh=M9+WbndZqXjkrw+21DO8YKqOQHdc/suzPYKkitzNKlY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KjtkEhyYGHIKo2TpcTt5re5oaA6f/6cH7RQLUZm9PY5kI6YvvCNnU1eiyAzwO1amW
+	 KNb3jYOdqygO8hsd1zOEQ7Z8+H1PhCOBC6jQEFOfynZp/hk7mfXL94XwoNyLr7Db/V
+	 sWOvXboJyR7S6GF3/lmtf2zZsZin/0cZf0XU4x1xtmQW2gWlYXYTO52hy7wR1Zpq1t
+	 Ukj5M84eN8it2jp3E0Z3q7lU/vxe4sKWqa7Y6Z1gXnaWBxSW0LNu/06Jralk/P5j9B
+	 d1D4G2k/LS4K8FUCI8dJMXMV3/dhUU7OFdghiXsuiI+Md5tbo9aZE5tUy52tyasFBR
+	 oVqlTFR/DYBwg==
+Date: Thu, 11 May 2023 10:11:37 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Conor Dooley <conor@kernel.org>,
+	Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	asahi@lists.linux.dev, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: Add adi,ssm3515 amp schema
+Message-ID: <ZFxAyeOteYo6nGlU@finisterre.sirena.org.uk>
+References: <20230509163828.86003-1-povik+lin@cutebit.org>
+ <20230509-marxism-plug-759c99ac601c@spud>
+ <f38b984c-e49a-0686-a907-5d86ea93d7bc@linaro.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XM433BDQVUR6SOOVDHOVPMOHSGQYDHJM
-X-Message-ID-Hash: XM433BDQVUR6SOOVDHOVPMOHSGQYDHJM
-X-MailFrom: sashal@kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dVKFyKievi3KFxqa"
+Content-Disposition: inline
+In-Reply-To: <f38b984c-e49a-0686-a907-5d86ea93d7bc@linaro.org>
+X-Cookie: Avoid contact with eyes.
+Message-ID-Hash: UEVZEKS4TKBN42EEISI6OKCWY5MK7TKX
+X-Message-ID-Hash: UEVZEKS4TKBN42EEISI6OKCWY5MK7TKX
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XM433BDQVUR6SOOVDHOVPMOHSGQYDHJM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UEVZEKS4TKBN42EEISI6OKCWY5MK7TKX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,48 +105,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-[ Upstream commit 2367e0ecb498764e95cfda691ff0828f7d25f9a4 ]
+--dVKFyKievi3KFxqa
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-There are two issues related to the number of ports coming from
-Devicetree when exceeding in total QCOM_SDW_MAX_PORTS.  Both lead to
-incorrect memory accesses:
-1. With DTS having too big value of input or output ports, the driver,
-   when copying port parameters from local/stack arrays into 'pconfig'
-   array in 'struct qcom_swrm_ctrl', will iterate over their sizes.
+On Wed, May 10, 2023 at 09:51:50AM +0200, Krzysztof Kozlowski wrote:
+> On 09/05/2023 20:25, Conor Dooley wrote:
+> > On Tue, May 09, 2023 at 06:38:27PM +0200, Martin Povi=C5=A1er wrote:
 
-2. If DTS also has too many parameters for these ports (e.g.
-   qcom,ports-sinterval-low), the driver will overflow buffers on the
-   stack when reading these properties from DTS.
+> >> +        00: 8.4 V Full-Scale Gain Mapping
+> >> +        01: 12.6 V Full-Scale Gain Mapping
+> >> +        10: 14 V Full-Scale Gain Mapping
+> >> +        11: 15 V Full-Scale Gain Mapping
 
-Add a sanity check so incorrect DTS will not cause kernel memory
-corruption.
+> > Putting register values into the DT does not seem correct, although
+> > I know nothing about sound and will have to defer to Krzysztof & Co. on
+> > that front.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-Link: https://lore.kernel.org/r/20230222144412.237832-2-krzysztof.kozlowski@linaro.org
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/soundwire/qcom.c | 3 +++
- 1 file changed, 3 insertions(+)
+> Depends whether these are really voltages or something else (e.g. gain)
+> just related to voltage.
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 500035a1fd460..e76d4cee5e7f4 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -1142,6 +1142,9 @@ static int qcom_swrm_get_port_config(struct qcom_swrm_ctrl *ctrl)
- 	ctrl->num_dout_ports = val;
- 
- 	nports = ctrl->num_dout_ports + ctrl->num_din_ports;
-+	if (nports > QCOM_SDW_MAX_PORTS)
-+		return -EINVAL;
-+
- 	/* Valid port numbers are from 1-14, so mask out port 0 explicitly */
- 	set_bit(0, &ctrl->dout_port_mask);
- 	set_bit(0, &ctrl->din_port_mask);
--- 
-2.39.2
+They are configuring the voltage range that the output will generate.
 
+--dVKFyKievi3KFxqa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRcQMUACgkQJNaLcl1U
+h9Am9gf/eDLq7JsOkXRtURy4HihqO7yPqu3e2S1JEHN+SQ+UjhTk6j7moRz3Ou5V
+Jjs+HhwX+qGWzPfogrNZ/ehao/dQ1ztZUdUIAhYVuGLCsWK2cm874fo5Epyk6pNx
+Cjyyq3QqMiarq67+1Qb7zTj6IRVkLccKa0NneZG6+6xwJKYNltPuCm0x9gSajE9S
+YbGwNzraPv1divCYpxxaJbsM9nxStNqrVh8M7oENo2tBnvxkgE2XdHhhr/Kag2Lr
+QV1SPOOvcQJStFp7+jzw91NsmWahwagu3dQd83hk+hfZ/fyBv13jOFbNfJ0iXGAl
+EZtXHVCvKXztB9LCPFE5rRk3W4jKKA==
+=sDMR
+-----END PGP SIGNATURE-----
+
+--dVKFyKievi3KFxqa--

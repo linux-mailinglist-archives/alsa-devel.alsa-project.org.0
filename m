@@ -2,53 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF9D6FFBCA
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 23:21:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D017D6FFD4B
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 01:30:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 712501DD;
-	Thu, 11 May 2023 23:20:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 712501DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEC951FE;
+	Fri, 12 May 2023 01:29:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEC951FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683840086;
-	bh=UVN59RcW0uyDCITM7v2+mpuLhrYW629Lun0ndhM6vHg=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=gnQ2wy9qV3Las0f9S3J3qa2366cNRN9TGRtkYNhNtDFYSVDikYfPNhK6lF9gdQfbl
-	 wciC5QijSLFzUtbI88tZjQKs9FELwDLmS6JRku/v0tf7/VToDUmuzH/XEjD3Dywtcz
-	 HasGy4KIoZ4CaJ17Jzl1n2W5WjG6UclvZFsW6pLo=
+	s=default; t=1683847811;
+	bh=4myvbo3QGjQDsBcH7VGxTcyJ2CbmgkXUJtpS7N+W5EM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ff5WLGgmW+18xYO98kTB+cbKFUCKy0t60iGgw1/BZfiChANo3QzaDH2vL511tsK3X
+	 3Pob5fjqyey2g9zxSNrcOjG9YpCevTyD7I2Vgcwr5j3zTyYl1n7wFI7J9F5iYAqxY+
+	 iYiGDEiuUE35l5aMTgsCgPlPr2A43M96WotL9Xv0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1DB3F8053D; Thu, 11 May 2023 23:20:35 +0200 (CEST)
+	id 2EB78F80549; Fri, 12 May 2023 01:29:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E5CCF8032D;
-	Thu, 11 May 2023 23:20:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9A48F8032D;
+	Fri, 12 May 2023 01:29:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7AF5BF8052E; Thu, 11 May 2023 23:20:31 +0200 (CEST)
+	id 6C4F0F8052E; Fri, 12 May 2023 01:29:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E21EF8032D
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 23:20:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E21EF8032D
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 98EC6F8014C
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 01:29:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98EC6F8014C
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=myYLVNuy
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CBDD86527E;
+	Thu, 11 May 2023 23:29:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B171C433D2;
+	Thu, 11 May 2023 23:29:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683847746;
+	bh=4myvbo3QGjQDsBcH7VGxTcyJ2CbmgkXUJtpS7N+W5EM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=myYLVNuyqT8Y6ak5xWT6BxWh1ositIfEggGf2sMSrhLYk0Z7KVkWfbRDZeQ2ywYBU
+	 fCFbOJhPVH/FCqT1vJ1Epq83J8r66d9/b2ZJTahXTVDdaKSBQfIEN1Il0hX/XehXt9
+	 2xtrzjbolKgoAETqe3tiOxPjylOmLSbDf6dL9flR/ACZafL4EbBkR1uQ6qE4jukAWT
+	 mExai6eRnN5oumHApi7rFqBwS3EKKhMh/Fs7iz9UHQZnn82YOjkFLt5+DIGPsWD0Jo
+	 bAsyXsurBkS1qFp3Lkj17u1jOlwJJYsrg9vnkVSVY6cjyDjpBJfHHAFEdjSIY37/XL
+	 04oe8jYVeIo8w==
+Date: Thu, 11 May 2023 19:29:05 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: yixuanjiang <yixuanjiang@google.com>
+Cc: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure
+Message-ID: <ZF16QZzmDfu+MQjz@sashalap>
+References: <20230511120841.2096524-1-yixuanjiang@google.com>
+ <20230511120841.2096524-2-yixuanjiang@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1683840021507306099-webhooks-bot@alsa-project.org>
-References: <1683840021507306099-webhooks-bot@alsa-project.org>
-Subject: Looking for alsaunmute script
-Message-Id: <20230511212031.7AF5BF8052E@alsa1.perex.cz>
-Date: Thu, 11 May 2023 23:20:31 +0200 (CEST)
-Message-ID-Hash: 7KDZ4LZ3RXKLRKIMTOGC65BME44XTOF6
-X-Message-ID-Hash: 7KDZ4LZ3RXKLRKIMTOGC65BME44XTOF6
-X-MailFrom: github@alsa-project.org
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20230511120841.2096524-2-yixuanjiang@google.com>
+Message-ID-Hash: OANHKX5D7VUDZVQ2FO62BUD6GS6NQ4K2
+X-Message-ID-Hash: OANHKX5D7VUDZVQ2FO62BUD6GS6NQ4K2
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7KDZ4LZ3RXKLRKIMTOGC65BME44XTOF6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OANHKX5D7VUDZVQ2FO62BUD6GS6NQ4K2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,9 +101,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils issue #211 was opened from DenverEllis:
+On Thu, May 11, 2023 at 08:08:36PM +0800, yixuanjiang wrote:
+>From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>
+>[ Upstream commit d8a9c6e1f6766a16cf02b4e99a629f3c5512c183 ]
 
-I have a friend that is having trouble with their legion 7 laptop. Perusing a very long kernel thread I saw mention of an alsaunmute script and I am having a hard time tracking it down. I believ perex authored it and I saw it mentioned that it was a part of alsa-utils, but alas I have had no luck in finding this script.
+Queued up, thanks!
 
-Issue URL     : https://github.com/alsa-project/alsa-utils/issues/211
-Repository URL: https://github.com/alsa-project/alsa-utils
+-- 
+Thanks,
+Sasha

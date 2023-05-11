@@ -2,80 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B45C86FF573
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 17:08:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1FB56FF606
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 17:32:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6CEAEE7;
-	Thu, 11 May 2023 17:07:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6CEAEE7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CFC0EEB;
+	Thu, 11 May 2023 17:32:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CFC0EEB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683817693;
-	bh=euEGOlDfe4Ckje8yj2ldu9hCNLnhSg713NfOJsx+isw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1683819177;
+	bh=Jn9JpnErbRifP3IjH2UGwVqBuSXHaVi17aor4FRRc9M=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VllXt8Tyk2csaGtXTOjzmnjydZJBAuysapAkle8zudkm0xbZYtM16a/51+hBgprNw
-	 v0eadSCrY0ZwKeHKsR9C96CB0K8pjHZ66qQ409iwVGXoagemsQc/ozdZfJxYIJbP0V
-	 4VOFhuTE3ZpkO/1vLunPRj1Q/Ga/SRkIVz+JSD2c=
+	b=gy+Big/FUg+fFsp3YonEtIBuHwYzCJvaw/V22rd8igtMBdvehC60VVTmscAAD+FT3
+	 uWWy9ArI05QGtjJg8K+HPcgStMP6eb1r1cjmkwqVFWOSNovCApVw9MfUqcQsVKMtOF
+	 B70yGAnueWJ5stcbkqcn+u7fU+0j+NT3n1bbCJAo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3C91F80567; Thu, 11 May 2023 17:06:41 +0200 (CEST)
+	id AE23CF8053B; Thu, 11 May 2023 17:32:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BDE8F80567;
-	Thu, 11 May 2023 17:06:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECBB3F8032D;
+	Thu, 11 May 2023 17:32:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3E48F8056F; Thu, 11 May 2023 17:06:37 +0200 (CEST)
+	id 696ECF8052E; Thu, 11 May 2023 17:32:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_FAIL,
-	SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from hutie.ust.cz (unknown [IPv6:2a03:3b40:fe:f0::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-8.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 506E8F8032D
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 17:06:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 506E8F8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 76004F8014C
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 17:31:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76004F8014C
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=cutebit.org header.i=@cutebit.org header.a=rsa-sha256
- header.s=mail header.b=WzEXWxda
-From: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cutebit.org; s=mail;
-	t=1683817579; bh=cV/aQYkR5cM/rKm67ytuepltXaaABvz64sPUV6o+vGU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WzEXWxda0oh9aquHqBKdyJNaZKZVnFcTaafbfXT7td/m7mi0JlPLJS6HbhogiRLj1
-	 TuuqoavAhCoRER3QMYJO5fPrji7fUS33MU5z0cgLb58N1752i7E3mciy1wzJsqVBiV
-	 yaOvFSCcmscxdtkAvhcxSo/Kvs9d5LVYhL+1Pjo4=
-To: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-Cc: asahi@lists.linux.dev,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] ASoC: ssm3515: Add new amp driver
-Date: Thu, 11 May 2023 17:05:46 +0200
-Message-Id: <20230511150546.8499-3-povik+lin@cutebit.org>
-In-Reply-To: <20230511150546.8499-1-povik+lin@cutebit.org>
-References: <20230511150546.8499-1-povik+lin@cutebit.org>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=hy/k38mF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1683819106; x=1715355106;
+  h=message-id:date:mime-version:from:subject:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=Jn9JpnErbRifP3IjH2UGwVqBuSXHaVi17aor4FRRc9M=;
+  b=hy/k38mFHVl6i9oSxvb3RxKfyJQFjje+dpzWw0gOMDvFUx7wtlQwGZA6
+   Ta12hQIqo4aIfdDgOvMpJW1AgKLl2UyjxIxOhpVDa7iCO5DEaTRHVFCQs
+   E+w67N5NnlmIgVu8MVY3h0+kDTnxGfxbxfMmA8X8nmBltn/QECOfpmbbv
+   hl5jEMBf7/p/cvIqJkPLModZtNmO89C08xuQp6NEllpikBvnR7gHlhe8j
+   RkWa2Pah+739gOgln0kUO9kPwaf50IWsSHGPZBKMxIk9vbdeLNTRY0gbQ
+   uAtZCpkPgUfiYAvm9tG7Q4L1KrV1OPe5+3yBG22eRrj3x0uyB9tXmM1+e
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="416150579"
+X-IronPort-AV: E=Sophos;i="5.99,266,1677571200";
+   d="scan'208";a="416150579"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2023 08:31:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="769382640"
+X-IronPort-AV: E=Sophos;i="5.99,266,1677571200";
+   d="scan'208";a="769382640"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 May 2023 08:31:39 -0700
+Message-ID: <cceaeb53-06df-ced0-1f54-f5c0eb65f824@linux.intel.com>
+Date: Thu, 11 May 2023 17:31:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: HDA, power saving and recording
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <a7478636-af11-92ab-731c-9b13c582a70d@linux.intel.com>
+ <878rdwjs1s.wl-tiwai@suse.de>
+Content-Language: en-US
+In-Reply-To: <878rdwjs1s.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZX3JDUFADIMGRNWXHDUTGAE5DHTJ52BC
-X-Message-ID-Hash: ZX3JDUFADIMGRNWXHDUTGAE5DHTJ52BC
-X-MailFrom: povik+lin@cutebit.org
+Message-ID-Hash: PXQRWMUKF6TJROHCDMCDRHF6URQ4RKBR
+X-Message-ID-Hash: PXQRWMUKF6TJROHCDMCDRHF6URQ4RKBR
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZX3JDUFADIMGRNWXHDUTGAE5DHTJ52BC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PXQRWMUKF6TJROHCDMCDRHF6URQ4RKBR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,526 +110,128 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Analog Devices' SSM3515 is a mono audio amplifier with digital
-input, equipped on Apple's 2021 iMacs. Add an ASoC driver for it, and
-register both the driver code and schema in MAINTAINERS.
+On 5/10/2023 2:21 PM, Takashi Iwai wrote:
+> On Tue, 09 May 2023 12:10:06 +0200,
+> Amadeusz Sławiński wrote:
+>>
+>> Hi Takashi,
+>>
+>> I have a question related to HDA codecs, power saving and sending verb
+>> configuration. In our tests we test avs driver with HDA codec
+>> configuration and we see problem when arecord is started before codec
+>> goes to first sleep.
+>>
+>> In ASoC code we set power save timeout to 2 seconds [1], if we start
+>> recording before codec goes to sleep, we record only silence.
+>>
+>> Now I've spend some time investigating the issue and as far as I can
+>> tell, when codec is being initialized channels are being set to mute
+>> and when one starts stream before first "sleep" it never sends proper
+>> configuration to codec.
+> 
+> Who does set channels to mute?  Or do you mean that the hardware
+> initial value set on the codec is muted?  If yes, anyone should have
+> unmuted.  Was it tracked?
+> 
 
-Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
----
- MAINTAINERS                |   2 +
- sound/soc/codecs/Kconfig   |   6 +
- sound/soc/codecs/Makefile  |   2 +
- sound/soc/codecs/ssm3515.c | 448 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 458 insertions(+)
- create mode 100644 sound/soc/codecs/ssm3515.c
+It is done on probe, first two backtraces in my dmesg show it (one for 
+left and other for right channel). It is something along the lines of:
+hda_codec_driver_probe -> snd_hda_codec_build_controls -> alc_init -> 
+snd_hda_codec_amp_init_stereo and then it writes mute verbs (0x00935080 
+and 0x00936080)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 460f953f331b..78136300b026 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1990,9 +1990,11 @@ M:	Martin Povišer <povik+lin@cutebit.org>
- L:	asahi@lists.linux.dev
- L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
- S:	Maintained
-+F:	Documentation/devicetree/bindings/sound/adi,ssm3515.yaml
- F:	Documentation/devicetree/bindings/sound/apple,*
- F:	sound/soc/apple/*
- F:	sound/soc/codecs/cs42l83-i2c.c
-+F:	sound/soc/codecs/ssm3515.c
- 
- ARM/ARTPEC MACHINE SUPPORT
- M:	Jesper Nilsson <jesper.nilsson@axis.com>
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 8020097d4e4c..d5665c21b6f3 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -1652,6 +1652,12 @@ config SND_SOC_SSM2602_I2C
- 	select SND_SOC_SSM2602
- 	select REGMAP_I2C
- 
-+config SND_SOC_SSM3515
-+	tristate "Analog Devices SSM3515 amplifier driver"
-+	select REGMAP_I2C
-+	depends on I2C
-+	depends on OF
-+
- config SND_SOC_SSM4567
- 	tristate "Analog Devices ssm4567 amplifier driver support"
- 	depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 5cdbae88e6e3..8a35bc01c486 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -256,6 +256,7 @@ snd-soc-ssm2518-objs := ssm2518.o
- snd-soc-ssm2602-objs := ssm2602.o
- snd-soc-ssm2602-spi-objs := ssm2602-spi.o
- snd-soc-ssm2602-i2c-objs := ssm2602-i2c.o
-+snd-soc-ssm3515-objs := ssm3515.o
- snd-soc-ssm4567-objs := ssm4567.o
- snd-soc-sta32x-objs := sta32x.o
- snd-soc-sta350-objs := sta350.o
-@@ -623,6 +624,7 @@ obj-$(CONFIG_SND_SOC_SSM2518)	+= snd-soc-ssm2518.o
- obj-$(CONFIG_SND_SOC_SSM2602)	+= snd-soc-ssm2602.o
- obj-$(CONFIG_SND_SOC_SSM2602_SPI)	+= snd-soc-ssm2602-spi.o
- obj-$(CONFIG_SND_SOC_SSM2602_I2C)	+= snd-soc-ssm2602-i2c.o
-+obj-$(CONFIG_SND_SOC_SSM3515)	+= snd-soc-ssm3515.o
- obj-$(CONFIG_SND_SOC_SSM4567)	+= snd-soc-ssm4567.o
- obj-$(CONFIG_SND_SOC_STA32X)   += snd-soc-sta32x.o
- obj-$(CONFIG_SND_SOC_STA350)   += snd-soc-sta350.o
-diff --git a/sound/soc/codecs/ssm3515.c b/sound/soc/codecs/ssm3515.c
-new file mode 100644
-index 000000000000..784e890031a4
---- /dev/null
-+++ b/sound/soc/codecs/ssm3515.c
-@@ -0,0 +1,448 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+//
-+// Analog Devices' SSM3515 audio amp driver
-+//
-+// Copyright (C) The Asahi Linux Contributors
-+
-+#include <linux/bits.h>
-+#include <linux/bitfield.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regmap.h>
-+
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/tlv.h>
-+
-+
-+#define SSM3515_PWR		0x00
-+#define SSM3515_PWR_APWDN_EN	BIT(7)
-+#define SSM3515_PWR_BSNS_PWDN	BIT(6)
-+#define SSM3515_PWR_S_RST	BIT(1)
-+#define SSM3515_PWR_SPWDN	BIT(0)
-+
-+#define SSM3515_GEC		0x01
-+#define SSM3515_GEC_EDGE	BIT(4)
-+#define SSM3515_GEC_EDGE_SHIFT	4
-+#define SSM3515_GEC_ANA_GAIN	GENMASK(1, 0)
-+
-+#define SSM3515_DAC		0x02
-+#define SSM3515_DAC_HV		BIT(7)
-+#define SSM3515_DAC_MUTE	BIT(6)
-+#define SSM3515_DAC_HPF		BIT(5)
-+#define SSM3515_DAC_LPM		BIT(4)
-+#define SSM3515_DAC_FS		GENMASK(2, 0)
-+
-+#define SSM3515_DAC_VOL		0x03
-+
-+#define SSM3515_SAI1		0x04
-+#define SSM3515_SAI1_DAC_POL	BIT(7)
-+#define SSM3515_SAI1_BCLK_POL	BIT(6)
-+#define SSM3515_SAI1_TDM_BCLKS	GENMASK(5, 3)
-+#define SSM3515_SAI1_FSYNC_MODE	BIT(2)
-+#define SSM3515_SAI1_SDATA_FMT	BIT(1)
-+#define SSM3515_SAI1_SAI_MODE	BIT(0)
-+
-+#define SSM3515_SAI2		0x05
-+#define SSM3515_SAI2_DATA_WIDTH	BIT(7)
-+#define SSM3515_SAI2_AUTO_SLOT	BIT(4)
-+#define SSM3515_SAI2_TDM_SLOT	GENMASK(3, 0)
-+
-+#define SSM3515_VBAT_OUT	0x06
-+
-+#define SSM3515_STATUS		0x0a
-+#define SSM3515_STATUS_UVLO_REG	BIT(6)
-+#define SSM3515_STATUS_LIM_EG	BIT(5)
-+#define SSM3515_STATUS_CLIP	BIT(4)
-+#define SSM3515_STATUS_AMP_OC	BIT(3)
-+#define SSM3515_STATUS_OTF	BIT(2)
-+#define SSM3515_STATUS_OTW	BIT(1)
-+#define SSM3515_STATUS_BAT_WARN	BIT(0)
-+
-+static bool ssm3515_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case SSM3515_STATUS:
-+	case SSM3515_VBAT_OUT:
-+		return true;
-+
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct reg_default ssm3515_reg_defaults[] = {
-+	{ SSM3515_PWR, 0x81 },
-+	{ SSM3515_GEC, 0x01 },
-+	{ SSM3515_DAC, 0x32 },
-+	{ SSM3515_DAC_VOL, 0x40 },
-+	{ SSM3515_SAI1, 0x11 },
-+	{ SSM3515_SAI2, 0x00 },
-+};
-+
-+static const struct regmap_config ssm3515_i2c_regmap = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.volatile_reg = ssm3515_volatile_reg,
-+	.max_register = 0xb,
-+	.reg_defaults = ssm3515_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(ssm3515_reg_defaults),
-+	.cache_type = REGCACHE_FLAT,
-+};
-+
-+struct ssm3515_data {
-+	struct device *dev;
-+	struct regmap *regmap;
-+};
-+
-+// The specced range is -71.25...24.00 dB with step size of 0.375 dB,
-+// and a mute item below that. This is represented by -71.62...24.00 dB
-+// with the mute item mapped onto the low end.
-+static DECLARE_TLV_DB_MINMAX_MUTE(ssm3515_dac_volume, -7162, 2400);
-+
-+static const char * const ssm3515_ana_gain_text[] = {
-+	"8.4 V Span", "12.6 V Span", "14 V Span", "15 V Span",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(ssm3515_ana_gain_enum, SSM3515_GEC,
-+			    __bf_shf(SSM3515_GEC_ANA_GAIN),
-+			    ssm3515_ana_gain_text);
-+
-+static const struct snd_kcontrol_new ssm3515_snd_controls[] = {
-+	SOC_SINGLE_TLV("DAC Playback Volume", SSM3515_DAC_VOL,
-+		       0, 255, 1, ssm3515_dac_volume),
-+	SOC_SINGLE("Low EMI Mode Switch", SSM3515_GEC,
-+		   __bf_shf(SSM3515_GEC_EDGE), 1, 0),
-+	SOC_SINGLE("Soft Volume Ramping Switch", SSM3515_DAC,
-+		   __bf_shf(SSM3515_DAC_HV), 1, 1),
-+	SOC_SINGLE("HPF Switch", SSM3515_DAC,
-+		   __bf_shf(SSM3515_DAC_HPF), 1, 0),
-+	SOC_SINGLE("DAC Invert Switch", SSM3515_SAI1,
-+		   __bf_shf(SSM3515_SAI1_DAC_POL), 1, 0),
-+	SOC_ENUM("DAC Analog Gain Select", ssm3515_ana_gain_enum),
-+};
-+
-+static void ssm3515_read_faults(struct snd_soc_component *component)
-+{
-+	int ret;
-+
-+	ret = snd_soc_component_read(component, SSM3515_STATUS);
-+	if (ret <= 0) {
-+		/*
-+		 * If the read was erroneous, ASoC core has printed a message,
-+		 * and that's all that's appropriate in handling the error here.
-+		 */
-+		return;
-+	}
-+
-+	dev_err(component->dev, "device reports:%s%s%s%s%s%s%s\n",
-+		FIELD_GET(SSM3515_STATUS_UVLO_REG, ret) ? " voltage regulator fault" : "",
-+		FIELD_GET(SSM3515_STATUS_LIM_EG, ret)   ? " limiter engaged" : "",
-+		FIELD_GET(SSM3515_STATUS_CLIP, ret)     ? " clipping detected" : "",
-+		FIELD_GET(SSM3515_STATUS_AMP_OC, ret)   ? " amp over-current fault" : "",
-+		FIELD_GET(SSM3515_STATUS_OTF, ret)      ? " overtemperature fault" : "",
-+		FIELD_GET(SSM3515_STATUS_OTW, ret)      ? " overtemperature warning" : "",
-+		FIELD_GET(SSM3515_STATUS_BAT_WARN, ret) ? " bat voltage low warning" : "");
-+}
-+
-+static int ssm3515_probe(struct snd_soc_component *component)
-+{
-+	int ret;
-+
-+	/* Start out muted */
-+	ret = snd_soc_component_update_bits(component, SSM3515_DAC,
-+			SSM3515_DAC_MUTE, SSM3515_DAC_MUTE);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Disable the 'master power-down' */
-+	ret = snd_soc_component_update_bits(component, SSM3515_PWR,
-+			SSM3515_PWR_SPWDN, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int ssm3515_mute(struct snd_soc_dai *dai, int mute, int direction)
-+{
-+	int ret;
-+
-+	ret = snd_soc_component_update_bits(dai->component,
-+					    SSM3515_DAC,
-+					    SSM3515_DAC_MUTE,
-+					    FIELD_PREP(SSM3515_DAC_MUTE, mute));
-+	if (ret < 0)
-+		return ret;
-+	return 0;
-+}
-+
-+static int ssm3515_hw_params(struct snd_pcm_substream *substream,
-+			     struct snd_pcm_hw_params *params,
-+			     struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	int ret, rateval;
-+
-+	switch (params_format(params)) {
-+	case SNDRV_PCM_FORMAT_S16:
-+	case SNDRV_PCM_FORMAT_S24:
-+		ret = snd_soc_component_update_bits(component,
-+				SSM3515_SAI2, SSM3515_SAI2_DATA_WIDTH,
-+				FIELD_PREP(SSM3515_SAI2_DATA_WIDTH,
-+					   params_width(params) == 16));
-+		if (ret < 0)
-+			return ret;
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	switch (params_rate(params)) {
-+	case 8000 ... 12000:
-+		rateval = 0;
-+		break;
-+	case 16000 ... 24000:
-+		rateval = 1;
-+		break;
-+	case 32000 ... 48000:
-+		rateval = 2;
-+		break;
-+	case 64000 ... 96000:
-+		rateval = 3;
-+		break;
-+	case 128000 ... 192000:
-+		rateval = 4;
-+		break;
-+	case 48001 ... 63999: /* this is ...72000 but overlaps */
-+		rateval = 5;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component,
-+			SSM3515_DAC, SSM3515_DAC_FS,
-+			FIELD_PREP(SSM3515_DAC_FS, rateval));
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int ssm3515_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	bool fpol_inv = false; /* non-inverted: frame starts with low-to-high FSYNC */
-+	int ret;
-+	u8 sai1 = 0;
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_IB_NF:
-+	case SND_SOC_DAIFMT_IB_IF:
-+		sai1 |= SSM3515_SAI1_BCLK_POL;
-+		break;
-+	}
-+
-+	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-+	case SND_SOC_DAIFMT_I2S:
-+		fpol_inv = 1;
-+		sai1 &= ~SSM3515_SAI1_SDATA_FMT; /* 1 bit start delay */
-+		break;
-+	case SND_SOC_DAIFMT_LEFT_J:
-+		fpol_inv = 0;
-+		sai1 |= SSM3515_SAI1_SDATA_FMT; /* no start delay */
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_IF:
-+	case SND_SOC_DAIFMT_IB_IF:
-+		fpol_inv ^= 1;
-+		break;
-+	}
-+
-+	/* Set the serial input to 'TDM mode' */
-+	sai1 |= SSM3515_SAI1_SAI_MODE;
-+
-+	if (fpol_inv) {
-+		/*
-+		 * We configure the codec in a 'TDM mode', in which the
-+		 * FSYNC_MODE bit of SAI1 is supposed to select between
-+		 * what the datasheet calls 'Pulsed FSYNC mode' and '50%
-+		 * FSYNC mode'.
-+		 *
-+		 * Experiments suggest that this bit in fact simply selects
-+		 * the FSYNC polarity, so go with that.
-+		 */
-+		sai1 |= SSM3515_SAI1_FSYNC_MODE;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_SAI1,
-+			SSM3515_SAI1_BCLK_POL | SSM3515_SAI1_SDATA_FMT |
-+			SSM3515_SAI1_SAI_MODE | SSM3515_SAI1_FSYNC_MODE, sai1);
-+
-+	if (ret < 0)
-+		return ret;
-+	return 0;
-+}
-+
-+static int ssm3515_set_tdm_slot(struct snd_soc_dai *dai,
-+				unsigned int tx_mask,
-+				unsigned int rx_mask,
-+				int slots, int slot_width)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	int slot, tdm_bclks_val, ret;
-+
-+	if (tx_mask == 0 || rx_mask != 0)
-+		return -EINVAL;
-+
-+	slot = __ffs(tx_mask);
-+
-+	if (tx_mask & ~BIT(slot))
-+		return -EINVAL;
-+
-+	switch (slot_width) {
-+	case 16:
-+		tdm_bclks_val = 0;
-+		break;
-+	case 24:
-+		tdm_bclks_val = 1;
-+		break;
-+	case 32:
-+		tdm_bclks_val = 2;
-+		break;
-+	case 48:
-+		tdm_bclks_val = 3;
-+		break;
-+	case 64:
-+		tdm_bclks_val = 4;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_SAI1,
-+			SSM3515_SAI1_TDM_BCLKS,
-+			FIELD_PREP(SSM3515_SAI1_TDM_BCLKS, tdm_bclks_val));
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = snd_soc_component_update_bits(component, SSM3515_SAI2,
-+			SSM3515_SAI2_TDM_SLOT,
-+			FIELD_PREP(SSM3515_SAI2_TDM_SLOT, slot));
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int ssm3515_hw_free(struct snd_pcm_substream *substream,
-+			   struct snd_soc_dai *dai)
-+{
-+	/*
-+	 * We don't get live notification of faults, so at least at
-+	 * this time, when playback is over, check if we have tripped
-+	 * over anything and if so, log it.
-+	 */
-+	ssm3515_read_faults(dai->component);
-+	return 0;
-+}
-+
-+static const struct snd_soc_dai_ops ssm3515_dai_ops = {
-+	.mute_stream	= ssm3515_mute,
-+	.hw_params	= ssm3515_hw_params,
-+	.set_fmt	= ssm3515_set_fmt,
-+	.set_tdm_slot	= ssm3515_set_tdm_slot,
-+	.hw_free	= ssm3515_hw_free,
-+};
-+
-+static struct snd_soc_dai_driver ssm3515_dai_driver = {
-+	.name = "SSM3515 SAI",
-+	.id = 0,
-+	.playback = {
-+		.stream_name = "Playback",
-+		.channels_min = 1,
-+		.channels_max = 1,
-+		.rates = SNDRV_PCM_RATE_CONTINUOUS,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE,
-+	},
-+	.ops = &ssm3515_dai_ops,
-+};
-+
-+static const struct snd_soc_dapm_widget ssm3515_dapm_widgets[] = {
-+	SND_SOC_DAPM_DAC("DAC", NULL, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_OUTPUT("OUT"),
-+};
-+
-+static const struct snd_soc_dapm_route ssm3515_dapm_routes[] = {
-+	{"OUT", NULL, "DAC"},
-+	{"DAC", NULL, "Playback"},
-+};
-+
-+static const struct snd_soc_component_driver ssm3515_asoc_component = {
-+	.probe = ssm3515_probe,
-+	.controls = ssm3515_snd_controls,
-+	.num_controls = ARRAY_SIZE(ssm3515_snd_controls),
-+	.dapm_widgets = ssm3515_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(ssm3515_dapm_widgets),
-+	.dapm_routes = ssm3515_dapm_routes,
-+	.num_dapm_routes = ARRAY_SIZE(ssm3515_dapm_routes),
-+	.endianness = 1,
-+};
-+
-+static int ssm3515_i2c_probe(struct i2c_client *client)
-+{
-+	struct ssm3515_data *data;
-+	int ret;
-+
-+	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->dev = &client->dev;
-+	i2c_set_clientdata(client, data);
-+
-+	data->regmap = devm_regmap_init_i2c(client, &ssm3515_i2c_regmap);
-+	if (IS_ERR(data->regmap))
-+		return dev_err_probe(data->dev, PTR_ERR(data->regmap),
-+				     "initializing register map\n");
-+
-+	/* Perform a reset */
-+	ret = regmap_update_bits(data->regmap, SSM3515_PWR,
-+			SSM3515_PWR_S_RST, SSM3515_PWR_S_RST);
-+	if (ret < 0)
-+		return dev_err_probe(data->dev, ret,
-+				     "performing software reset\n");
-+	regmap_reinit_cache(data->regmap, &ssm3515_i2c_regmap);
-+
-+	return devm_snd_soc_register_component(data->dev,
-+			&ssm3515_asoc_component,
-+			&ssm3515_dai_driver, 1);
-+}
-+
-+static const struct of_device_id ssm3515_of_match[] = {
-+	{ .compatible = "adi,ssm3515" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, ssm3515_of_match);
-+
-+static struct i2c_driver ssm3515_i2c_driver = {
-+	.driver = {
-+		.name = "ssm3515",
-+		.of_match_table = of_match_ptr(ssm3515_of_match),
-+	},
-+	.probe_new = ssm3515_i2c_probe,
-+};
-+module_i2c_driver(ssm3515_i2c_driver);
-+
-+MODULE_AUTHOR("Martin Povišer <povik+lin@cutebit.org>");
-+MODULE_DESCRIPTION("ASoC SSM3515 audio amp driver");
-+MODULE_LICENSE("Dual MIT/GPL");
--- 
-2.38.3
+>> However if one allows codec to go to sleep
+>> proper configuration is being send on resume.
+> 
+> We need to track down in which level the inconsistency happens.
+> First of all, we need to check whether the HD-audio regmap holds the
+> right value (unmuted) at the time of the first arecord, as well as the
+> actual (raw) value from the codec.
+> 
+> 
+
+Well, my first idea was that some interaction between power management 
+and regmap goes awry somehow.
+
+>> I've also managed to reproduce it with non DSP configuration (using
+>> snd_hda_intel driver). One needs to set power_save to non zero value
+>> and start recording, before it first goes into first sleep.
+>>
+>> Here are the steps:
+>> 1. Add following to /etc/modprobe.d/test.conf
+>> options snd_intel_dspcfg dsp_driver=1
+>> options snd_hda_intel power_save=5
+>> blacklist snd_hda_intel
+>> 2. Reboot the machine
+>> 3. Run something like (it is time sensitive, so I just run it all in
+>> one line):
+>> echo "PRE MODPROBE" > /dev/kmsg; modprobe snd_hda_intel; echo "POST
+>> MODPROBE" > /dev/kmsg; sleep 1; echo "PRE ARECORD" > /dev/kmsg;
+>> arecord -Dhw:PCH,0 -r48 -c2 -fS16_LE -d 20 -vvv /tmp/cap.wav; echo
+>> "POST ARECORD" > /dev/kmsg;
+>> 4. Observe silence in above file
+>> 5. Run after waiting more than 5 seconds:
+>> echo "PRE SECOND ARECORD" > /dev/kmsg; arecord -Dhw:PCH,0 -r48 -c2
+>> -fS16_LE -d 20 -vvv /tmp/cap.wav; echo "POST SECOND ARECORD" >
+>> /dev/kmsg;
+>>
+>> I'm also attaching logs from my reproduction with debug.diff (also
+>> attached) applied. Main purpose of debug.diff is to log when
+>> snd_hdac_exec_verb() is called and to log backtraces for when record
+>> input is muted on load and set on startup.
+>>
+>> When looking at attached dmesg, it is easy to see that when first
+>> arecord is being run almost no configuration happens.
+> 
+> The driver itself doesn't unmute.  It should be alsactl or PA/PW that
+> unmutes.  At the initialization, HDA codec driver calls
+> snd_hda_codec_amp_init() for each codec amp, and this reads the
+> current value from the chip and updates *only* the regmap cache.
+> When a program like alsactl/PA/PW updates the mute/volume, it's
+> checked with the regmap cache and updated only if the value differs.
+> 
+> So, the inconsistency may happen at this level, too.  By some reason,
+> it might believe the values unchanged, hence the registers might be
+> left untouched.
+> 
+> This needs further checks, obviously...
+> 
+
+And playing with controls is good suggestion, it made it a bit easier to 
+debug. Seems like hda_reg_write() exits early here:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/hda/hdac_regmap.c#n297
+this happens because codec_pm_lock returns -1. While in working case it 
+goes through whole hda_reg_write() function.
+
+So codec_pm_lock() calls snd_hdac_keep_power_up(), according to comment 
+snd_hdac_keep_power_up() returns -1 when codec is not powered up.
+
+With additional logs I see that when snd_hdac_keep_power_up() is called 
+codec->dev->power.usage_count indeed is 0.
+
+
+The call to snd_hda_power_down() which seems to set power to off, seems 
+to be in:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/sound/pci/hda/hda_codec.c#n833
+
+
+So broken order of operations seems to be:
+snd_hda_intel driver gets loaded, it initializes codec. While it 
+initializes it sets amplifier to mute. It finishes initialization and 
+powers off. Then control gets set from alsactl, but as power is off it 
+gets cached. Then capture stream starts and seems to assume that 
+registers were already set, so it doesn't write them to hw. Also using 
+alsamixer while "broken" stream is running doesn't result in any writes 
+being done.
+
+Contrasted with working case:
+Codec is being brought up from sleep, registers get set to proper value 
+via call to snd_hda_regmap_sync(). Capture stream gets started (and 
+assumes that registers were set, and they were this time, as runtime 
+resume sets them) and continues with working volume set.
+
+
+However when I tried to put snd_hda_regmap_sync() in few places while 
+stream is started it doesn't seem to help :/ I will continue looking 
+tomorrow, but any suggestions are still welcome.
 

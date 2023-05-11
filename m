@@ -2,111 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1CC96FF082
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 13:26:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F026FF09F
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 13:39:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AF1382E;
-	Thu, 11 May 2023 13:26:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AF1382E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07C5483E;
+	Thu, 11 May 2023 13:39:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07C5483E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683804416;
-	bh=7ceo9rEx5DWSOqfq2GgQmHg5yNoSKjl9et2SQ/6cC7w=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=VAI0Y1M8uw9a4dZNgkzxCanvab/n1BpNUMWjPfXS01Csxwtr1eHBqyIpeOSjcF7An
-	 ulhtD+gyxFKrd/jnb4AHKB7vwQaNj6SHgGIZtpIJudlkaMLmM6EnAR4hdKB3QM99ry
-	 0ZdA5MBn6vfsv2fxdyMwob+L8TJ1u5ETm3ouDDvo=
+	s=default; t=1683805198;
+	bh=ZVUreU01QijXSA5x0APOp4F7dbtSzxwwMtDNgwbDJGY=;
+	h=References:From:To:Cc:Subject:Date:In-reply-to:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Dq0A3Dx7LYrgERwhmGJ76oj2QwLsd0v5ChR6faQs3e4vfhFqvBDvyTuZ/RnEz/Diw
+	 tRNDJUu82NkyfSFt+wIVtS0OCiV09rpfFDD7Ll7XuN+Xz39t3sC5DgQicqV4S2GXmY
+	 T71zh8+Z699PFGmgXyGbWObXaU1Gd7bRkVD+HNmw=
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92A4CF80310;
-	Thu, 11 May 2023 13:26:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE9FBF80310;
+	Thu, 11 May 2023 13:39:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73BD4F8032D; Thu, 11 May 2023 13:26:02 +0200 (CEST)
+	id EA1A6F8032D; Thu, 11 May 2023 13:39:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C610DF802E8
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 13:25:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C610DF802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9129AF80217
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 13:38:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9129AF80217
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=UhbggxeZ
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34B9SGgS004550;
-	Thu, 11 May 2023 11:25:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type; s=qcppdkim1;
- bh=grbvt0XM5HD4zGTzp5d1D7puYVYO1aksB2M1JqLfzO4=;
- b=UhbggxeZbTUeeaijXWgOJ27Q1LuBikTcymAJ6D7oIgmUokQZsLlz5G57r8g+mFotisWx
- qYHiWW1zlpM8eEkE8LYcDM4sOFkUdqm03yw+K12GlMMEpzq0qUmU4y/T9w+SklHfV2I7
- a+htaRcm1iXBmKkF2Jmv7SVltVUhqJ0SAQFHyazB2v2DCe1lbDUrIOji2EkNZ4BCGkG2
- 5pflzYoSVKiq6sHkiSYTC5Fl3k3MSjWGJX4DgirGfZ9je6sWP0XsAlVyaZx6CtYvbgXb
- XlK1mC5drHM/V4VbHiAH/hnJofIy3PiC3m+QfIAvUkGEWt3d0L22+nb+prOBIfwBsK1N Fg==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qgv1nrhpf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 11 May 2023 11:25:54 +0000
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
-	by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 34BBPrvE002879
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 11 May 2023 11:25:53 GMT
-Received: from hu-visr-hyd.qualcomm.com (10.80.80.8) by
- nasanex01a.na.qualcomm.com (10.52.223.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Thu, 11 May 2023 04:25:50 -0700
-From: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
-To: <quic_visr@quicinc.com>
-CC: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-        Banajit Goswami
-	<bgoswami@quicinc.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>,
-        "moderated list:QCOM AUDIO (ASoC) DRIVERS"
-	<alsa-devel@alsa-project.org>,
-        open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2] ASoC:codecs: lpass: Fix for KASAN use_after_free out of
- bounds
-Date: Thu, 11 May 2023 16:55:32 +0530
-Message-ID: <20230511112532.16106-1-quic_visr@quicinc.com>
-X-Mailer: git-send-email 2.17.1
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=InPcQKUG
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3063208beedso8081178f8f.1
+        for <alsa-devel@alsa-project.org>;
+ Thu, 11 May 2023 04:38:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1683805136; x=1686397136;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :references:from:to:cc:subject:date:message-id:reply-to;
+        bh=p45w9+K64gpNMy6Q3znGQ9JCiUpUiXYonTkSG5/zr20=;
+        b=InPcQKUGjQHsBRVp/7giCggU6RSKuzvc2C3cXQgqa/8PmjCKYOT1bNSC9NINdC15TM
+         ytaow8a7uhKQ8N4jUYwhV7/oyiG948UtOJOxVGDdmaRzRiEBSSRsIhGWghJQ0MxZBqpE
+         j/HRVLotCdj3Ds5Wuqj1K63ScoOJ3weY6TEdCodSnvGtWkZy2QQF+Ez5PhKEcIIpFCTn
+         PcwqIicFOqmN4xqcZpPnr3ByZ6QthKRnxTgfKaMKeWfNOrs6A4R2X+X6WOjfUZUg+pT9
+         bnzaIa3Uiq/rQkAXuUDxj9uKvf47xiNVTRyDiL4P1GugZFsOddxlj5rMu45+JURP3P4D
+         RqvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683805136; x=1686397136;
+        h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+         :references:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=p45w9+K64gpNMy6Q3znGQ9JCiUpUiXYonTkSG5/zr20=;
+        b=TIBnW+afYhNPr8Id3gAkvGWUnY2aTfxxuKl7AYb4qMWCmJmBmB8hxtifl31i0+nZio
+         aE1uzeJR1Rw21xXHKlJcl2SjVawjXmZRJDDP5KAq13hLJeV60TEamfB7EcropFvFPHGB
+         5iFWnZsxeEXR/oJds/BiaYhc+/4rj4qdJt8RNNAJywdViPBbwe653z+wS2/YL+3tV4fI
+         fDIXVguEUpCZMGAsElPUXjvJrFHMv6mRfiGmTACciSiVsW2mC9nc5zvTnmKXLQ8u4doz
+         TAFq0NfPTto09agrbl3Zxoc9hLeFsA6IN+bK50lQVnvUCPQwNhZgjIuEft9HfSRuHFvI
+         Y0Xg==
+X-Gm-Message-State: AC+VfDxX4XDzn1uVkmjlW2IIYBva9JQL18okJuPpYRUd3CGVWez2zRg4
+	/xPg+v+EDUuFI4Efz+uHDHA=
+X-Google-Smtp-Source: 
+ ACHHUZ7wz2P1jH0noS5uAZTq0Fl1VyPVKdrtjH1Tz/xH8FTGxx+9bFnOhBTQyg+tuGFgEzkvGaXfTg==
+X-Received: by 2002:a5d:44cd:0:b0:2f6:208d:2234 with SMTP id
+ z13-20020a5d44cd000000b002f6208d2234mr16092492wrr.2.1683805136129;
+        Thu, 11 May 2023 04:38:56 -0700 (PDT)
+Received: from localhost ([167.98.27.226])
+        by smtp.gmail.com with ESMTPSA id
+ s9-20020a5d5109000000b002ffbf2213d4sm20056411wrt.75.2023.05.11.04.38.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 May 2023 04:38:55 -0700 (PDT)
+References: <20230510112349.939991-1-aidanmacdonald.0x0@gmail.com>
+ <20230510112349.939991-3-aidanmacdonald.0x0@gmail.com>
+ <7b3a37e8-0210-c539-5b5b-bf8e587707ea@linaro.org>
+ <7Zga7RBqLNcaG5ylTIY4Qn7CUdE1IJsW@localhost>
+ <8e98b31a-ef4d-a8bd-32f3-e6f496f2b138@linaro.org>
+From: Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, perex@perex.cz,
+ tiwai@suse.com, alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 3/3] dt-bindings: ASoC: Add ESS ES9218P codec bindings
+Date: Thu, 11 May 2023 12:26:50 +0100
+In-reply-to: <8e98b31a-ef4d-a8bd-32f3-e6f496f2b138@linaro.org>
+Message-ID: <zfuvar6MiqIaW9nvjgvUIhA1t3DkZ9tE@localhost>
 MIME-Version: 1.0
 Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: O2MUXd_E8MM0SNvXnho7Y0goRjqAiDs-
-X-Proofpoint-ORIG-GUID: O2MUXd_E8MM0SNvXnho7Y0goRjqAiDs-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-11_08,2023-05-05_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 mlxlogscore=680
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- phishscore=0 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305110097
-Message-ID-Hash: VZXLBW65MSJINC7ADJ65UNLUGERQSQV7
-X-Message-ID-Hash: VZXLBW65MSJINC7ADJ65UNLUGERQSQV7
-X-MailFrom: quic_visr@quicinc.com
+Message-ID-Hash: HS2SBXAHOHQJFYNNB7XOIZVA5RBTCECK
+X-Message-ID-Hash: HS2SBXAHOHQJFYNNB7XOIZVA5RBTCECK
+X-MailFrom: aidanmacdonald.0x0@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VZXLBW65MSJINC7ADJ65UNLUGERQSQV7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HS2SBXAHOHQJFYNNB7XOIZVA5RBTCECK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,69 +122,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When we run syzkaller we get below Out of Bounds error.
 
-"KASAN: slab-out-of-bounds Read in regcache_flat_read"
+Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> writes:
 
-Below is the backtrace of the issue:
+> On 11/05/2023 12:15, Aidan MacDonald wrote:
+>>
+>> Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org> writes:
+>>
+>>> On 10/05/2023 13:23, Aidan MacDonald wrote:
+>>>> ...
+>>>> +  ess,max-clock-div:
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +    description:
+>>>> +      Sets the maximum MCLK divider for generating the internal CLK.
+>>>> +      CLK must be at least 20x the I2C bus speed or I2C transactions
+>>>> +      will fail. The maximum divider should be chosen to ensure that
+>>>> +      CLK will not fall below the limit.
+>>>> +    enum:
+>>>> +      - 1
+>>>> +      - 2
+>>>> +      - 4
+>>>> +      - 8
+>>>> +    default: 1
+>>>
+>>> Why do you need to customize it per board?
+>>>
+>>
+>> There's no generic API to read or change the bus speed (SCL frequency)
+>> for I2C adapters, so it's impossible to calculate a limit on the MCLK
+>> divider automatically.
+>>
+>> Defaulting to 1 is always safe, but means wasting power at lower sample
+>> rates. If you know what the bus speed is you can use a higher divider
+>> limit to save power, and it has to be done at the board/firmware level
+>> because that's the only place where the bus speed is known.
+>
+> If I understand correctly, you only miss a way to get bus_freq_hz from
+> i2c_timings to calculate the divider by yourself? This looks like Linux
+> limitation, so we shouldn't push it into DT, but rather fix Linux. The
+> I2C bus rate is known, the MCLK rate as well, so divider is possible to
+> deduce.
+>
+> I am actually surprised that I2C core does not store the timings
+> anywhere and each bus host has to deal with it on its own.
+>
+> Best regards,
+> Krzysztof
 
-BUG: KASAN: slab-out-of-bounds in regcache_flat_read+0x10c/0x110
-Read of size 4 at addr ffffff8088fbf714 by task syz-executor.4/14144
-CPU: 6 PID: 14144 Comm: syz-executor.4 Tainted: G        W
-Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
-Call trace:
-dump_backtrace+0x0/0x4ec
-show_stack+0x34/0x50
-dump_stack_lvl+0xdc/0x11c
-print_address_description+0x30/0x2d8
-kasan_report+0x178/0x1e4
-__asan_report_load4_noabort+0x44/0x50
-regcache_flat_read+0x10c/0x110
-regcache_read+0xf8/0x5a0
-_regmap_read+0x45c/0x86c
-_regmap_update_bits+0x128/0x290
-regmap_update_bits_base+0xc0/0x15c
-snd_soc_component_update_bits+0xa8/0x22c
-snd_soc_component_write_field+0x68/0xd4
-tx_macro_put_dec_enum+0x1d0/0x268
-snd_ctl_elem_write+0x288/0x474
+I agree it'd be better if Linux provided access the bus frequency, but
+even if that API was added it will take time for every I2C adapter to
+support it. So in that case we would still need a DT property to provide
+a safe limit or use a safe default, and miss potential power savings.
 
-By Error checking and checking valid values issue gets rectifies.
+I'd prefer to add the DT property to allow power savings to be had now,
+and drop it if/when the kernel gets an API for bus frequency. That will
+be safe from a compatibility point of view -- the property won't be
+providing any useful information so it won't matter if old DTs have it.
 
-Signed-off-by: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
----
- sound/soc/codecs/lpass-tx-macro.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-Changes Since v1:
-    
-    - Check value with enum item value getting from control.
-    - Removing of previously added code which is unwanted as already we get
-      out with -EINVAL if value is out of bound.
-
-diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
-index da6fcf7f0991..de978c3d70b7 100644
---- a/sound/soc/codecs/lpass-tx-macro.c
-+++ b/sound/soc/codecs/lpass-tx-macro.c
-@@ -746,6 +746,8 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
- 
- 	val = ucontrol->value.enumerated.item[0];
-+	if (val >= e->items)
-+		return -EINVAL;
- 
- 	switch (e->reg) {
- 	case CDC_TX_INP_MUX_ADC_MUX0_CFG0:
-@@ -772,6 +774,9 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 	case CDC_TX_INP_MUX_ADC_MUX7_CFG0:
- 		mic_sel_reg = CDC_TX7_TX_PATH_CFG0;
- 		break;
-+	default:
-+		dev_err(component->dev, "Error in configuration!!\n");
-+		return -EINVAL;
- 	}
- 
- 	if (val != 0) {
--- 
-2.17.1
-
+Regards,
+Aidan

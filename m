@@ -2,170 +2,160 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57B006FF9AA
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 20:56:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1868A6FF9AB
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 20:56:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 854451CF;
-	Thu, 11 May 2023 20:55:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 854451CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8886C1E9;
+	Thu, 11 May 2023 20:55:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8886C1E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683831376;
-	bh=eVz9oztp6sTOr/EZz5SzgkYFdSkl8hKTzunVRs5rPhA=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=E+7FQj6Aw+rZQfa9GnP0+FRS8hoA9Kv2mVGGgrQS2EattMP/i+BE2I2V6KWBwaQxS
-	 waJnQSJI4k5bhSI8UnE1T5GkoF39C1+qQjoItOr1qXNaZZ6u1vI04MzHmJAYyegKiZ
-	 0KW/vRazLn4j8rDYT9EuoZzDyCcOZklBl/k0vF4M=
+	s=default; t=1683831382;
+	bh=ue6Mr/Vj5dJskGTMSyU+u/1wSbHfp3R/9KXAMP1kIJk=;
+	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=gjemcje+J5oL3hyZsLSHsh8IggZ+h2jbPNrCi268vk5GjdMolePCBU8VNupEsBlDW
+	 N3M6FefNJQ02J4XzZjE2ro5aSlddRBGQvkMMpfh0bM30k/lHBs2wduJMJ9bem74epT
+	 woNxNxnTrrQqsogUOqhWTiIYKoUCLqgWl9tH+rdM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E88AEF80549; Thu, 11 May 2023 20:54:37 +0200 (CEST)
+	id DF74DF8057A; Thu, 11 May 2023 20:54:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05C29F80549;
-	Thu, 11 May 2023 20:54:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3995CF80567;
+	Thu, 11 May 2023 20:54:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF2DDF8032D; Thu, 11 May 2023 14:09:12 +0200 (CEST)
+	id 3AC6AF804B1; Thu, 11 May 2023 14:09:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [IPv6:2607:f8b0:4864:20::1149])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 026FDF80217
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 14:09:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 026FDF80217
+	by alsa1.perex.cz (Postfix) with ESMTPS id BCF16F802E8
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 14:09:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCF16F802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=2jcOSJhm
-Received: by mail-yb1-xb49.google.com with SMTP id
- 3f1490d57ef6-b9a7766d220so10550826276.2
+ header.s=20221208 header.b=aId7+0de
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-559d8e22306so153963537b3.1
         for <alsa-devel@alsa-project.org>;
- Thu, 11 May 2023 05:09:06 -0700 (PDT)
+ Thu, 11 May 2023 05:09:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1683806944; x=1686398944;
-        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=4BIGv8cvhYCnj6Dn22WjXXNn/Va5F3LdRC3PtF/nvIA=;
-        b=2jcOSJhmLEN7/bRj7Sj6znaj1Kl0FHZXElxAlbn6RkdBwDTuGByQ3mWkAGu9MMPYsf
-         7RpDO2qYYqXMrz7jKDpAUD7ybqdtzRcCvy+sH8ofFNtv0UpHkGTXzgBh9Mpjz7yTnxZz
-         yw95lVbx+YCVSGglSUunEeQGj37yy4fJP5uW2Bs9pN0xZBBFfUscjGPRSJX1OHZ1d0eM
-         Q4IO16YOw9aV10I0AnXHjxaiw8x3YW+xSP1vEWSbOsIs/ybMwlnkP3K09hLE8FhdA8gm
-         zNYnl40i5eTBuFbUBWGpK02SoOrDKJgc/aSlIqRqSs9WqzdHYUNqrootAX0oPeHFPH3f
-         2fiQ==
+        d=google.com; s=20221208; t=1683806955; x=1686398955;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=7K8c0PbSb9/75eHA2UyPAuYfZp6gkS8+sNwMs4nkPsw=;
+        b=aId7+0deecHGhvzHiCpQ99QDZYxs8sOskTVuQh+Id0foMa14spsgvuQ0XA0Z2ZEMuQ
+         XuWIw22ug3J/BYgTc05q7rC0GG7biA1eiBtKmnUHCNLBLOoyslvxzJnEaU8TGLc/hRd0
+         sGUQCfw0KuMjHnNhKyQGQPxbx5ylmXI1mHuScaYgtPCzlzYAgg2QA2K8IcTSnJbeYsHn
+         zWZH0v/FMPmUTNE0s0iRHoD1v2dG094/NHJ2aH6MshBgjyUU9hs4oLsHhGpBd3ak/fT9
+         YFhEv6DkZqGYwPRdsNwLA3e+/2qG2HrjBK7ytxtwTYYJjCXevj13Xfhl7vsPsiuoVNIR
+         fELA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683806944; x=1686398944;
-        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4BIGv8cvhYCnj6Dn22WjXXNn/Va5F3LdRC3PtF/nvIA=;
-        b=Re9SjA+ghOXlH0AgmwcFOK3e3awf0NbYwnlTJhiwUrCxWw/akg6urV5EZh0xWd9cbY
-         RhBfLH6UlknnzIc1mLjrG5KbnHkjcF/OrKz9nEfo8LCvJhK9cl1fyDCz7jAzxQWj3BZR
-         hdmwUlfQUNwep2nP9sXFMqazvSxkJeRMd6GCaCYbjEAjsN+CPyoirpz2YF/mUe90Smn8
-         +iWJ7IAyPxZhlReIr9VR5TS7iGTqRLG833r2dBdOaVB+nZrxP2CZnR1Ig73Jh+m3ncbc
-         /YHJvTgjn0tWpR9fsEv4GwLgOFd/N8ala7e76lcCOZQNaF8tZ/c3T+a1AwTVWN0rOza3
-         wqcg==
-X-Gm-Message-State: AC+VfDyYuhkdpjb1lMvDFe/SkICU+BTe0j0J1mAskq3lT92GMq0RFMGU
-	5feJA7NIqCicSOteRTHT5EATWnR9IDufAcIb1A==
+        d=1e100.net; s=20221208; t=1683806955; x=1686398955;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=7K8c0PbSb9/75eHA2UyPAuYfZp6gkS8+sNwMs4nkPsw=;
+        b=GOtL4cYIMFR0jVsB1Joq2J0E5wyIpCwBjxF7ZoCi1xeo/X6O3lDpA/yQvb4JipXmi7
+         lEUjxm+zzmQ/PrCWtZIBbaLmeUELpAE3faP9vlt5tHb7p1+FHRyfy+R5Ppm/N4eXVbP4
+         TmRMauUcWiZZ7qkavDBMi195Czr4tidKCUpT+m4n38AyDdIpCLExvbqq5SNW5/kQy8Gl
+         DrZseVRSMXn/JPmV5r2ibG0aGE0mZIwSL/eCnMqfGDzEyfeZt1B7+OQsBzsqdEYBepor
+         FmmykdSMLS5IQZpFlExU8odAoQq76wtrl68px5RTlkwcgQqRNkdlz6yct+2QpL7qfMpc
+         PZ6w==
+X-Gm-Message-State: AC+VfDyKb4SjyCsl619axYIctOFk8EiIvl7zuKA8FYs1cHuKMrTFdYEA
+	CUK8sybCLQrIdV87wka4KvSdqdBvo1onBGrwQQ==
 X-Google-Smtp-Source: 
- ACHHUZ4dvFqDJaqvl8s88DKFUSl7ZkE2AINynt5A9USiNed4MrNIKY0HgqUNVoSf+FaBQWxYBrI469iC5WrZlfaHHQ==
+ ACHHUZ649eEZOGu+69lcpa1h2QuufU2JwY+7I6E65DKzbwztYqdOFIXoAXFKOH6AJFiL/OCdeIEENenkhD6EYIzmYA==
 X-Received: from yixuanjiang.ntc.corp.google.com
  ([2401:fa00:fc:202:6c9a:64c9:7e44:6b1d])
- (user=yixuanjiang job=sendgmr) by 2002:a25:1d84:0:b0:ba2:526a:c84e with SMTP
- id d126-20020a251d84000000b00ba2526ac84emr10416404ybd.9.1683806944462; Thu,
- 11 May 2023 05:09:04 -0700 (PDT)
-Date: Thu, 11 May 2023 20:08:35 +0800
+ (user=yixuanjiang job=sendgmr) by 2002:a81:b285:0:b0:559:f1b0:6eb with SMTP
+ id q127-20020a81b285000000b00559f1b006ebmr12820158ywh.4.1683806955346; Thu,
+ 11 May 2023 05:09:15 -0700 (PDT)
+Date: Thu, 11 May 2023 20:08:36 +0800
+In-Reply-To: <20230511120841.2096524-1-yixuanjiang@google.com>
 Mime-Version: 1.0
+References: <20230511120841.2096524-1-yixuanjiang@google.com>
 X-Mailer: git-send-email 2.40.1.521.gf1e218fcd8-goog
-Message-ID: <20230511120841.2096524-1-yixuanjiang@google.com>
-Subject: [PATCH 0/6] Fix soc compress playback deadlock in 5.15
+Message-ID: <20230511120841.2096524-2-yixuanjiang@google.com>
+Subject: [PATCH 1/6] ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure
 From: yixuanjiang <yixuanjiang@google.com>
 To: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
-	yixuanjiang <yixuanjiang@google.com>
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Yixuan Jiang <yixuanjiang@google.com>,
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-MailFrom: 
- 34NpcZAsKCjMnXmjPcYXPcVVddVaT.RdbPahP-STkTaPahP-egdYTRi.dgV@flex--yixuanjiang.bounces.google.com
+ 369pcZAsKCj43n2zfsonfsllttlqj.htrfqxf-ij0jqfqxf-uwtojhy.twl@flex--yixuanjiang.bounces.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: QXNXCIA3X7GPNA3NAUZUKJX2M4H2NZWN
-X-Message-ID-Hash: QXNXCIA3X7GPNA3NAUZUKJX2M4H2NZWN
+Message-ID-Hash: S23O5KK7HDRGVYA4TA5QIXJ3VAI5UPFE
+X-Message-ID-Hash: S23O5KK7HDRGVYA4TA5QIXJ3VAI5UPFE
 X-Mailman-Approved-At: Thu, 11 May 2023 18:54:30 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QXNXCIA3X7GPNA3NAUZUKJX2M4H2NZWN/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S23O5KK7HDRGVYA4TA5QIXJ3VAI5UPFE/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The patch in 5.15
- aa9ff6a4955f ("ASoC: soc-compress: Reposition and add pcm_mutex")
-will cause the deadlock when close compress playback.
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-It needs backport patch
- b7898396f4 ("ASoC: soc-pcm: Fix and cleanup DPCM locking commit")
-to prevent the deadlock issue.
+[ Upstream commit d8a9c6e1f6766a16cf02b4e99a629f3c5512c183 ]
 
-Rootcause is patch b7898396f4 will remove pcm_mutex in soc_pcm_hw_clean
- then patch aa9ff6a4955f add pcm_mutex acqurie back in snd_compr_free
- to fix regression cause from b7898396f4.
-If only apply aa9ff6a4955f, it will acqurie pcm_mutex twice cause the deadlock.
+We allocate a structure in dpcm_be_connect(), which may be called in
+atomic context. Using GFP_KERNEL is not quite right, we have to use
+GFP_ATOMIC to prevent the allocator from sleeping.
 
-There are total 6 patches on these related backport
+Suggested-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Link: https://lore.kernel.org/r/20211207173745.15850-2-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: aa9ff6a4955f ("ASoC: soc-compress: Reposition and add pcm_mutex")
+Signed-off-by: Yixuan Jiang <yixuanjiang@google.com>
+Cc: stable@vger.kernel.org # 5.15+
+---
+ sound/soc/soc-pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[  212.063445] sysrq: Show Blocked State
-[  212.064964] Call trace:
-[  212.064974] __switch_to+0x244/0x454
-[  212.065075] __schedule+0x5fc/0xbdc
-[  212.065092] schedule+0x154/0x258
-[  212.065103] schedule_preempt_disabled+0x30/0x50
-[  212.065115] __mutex_lock+0x36c/0x794
-[  212.065135] __mutex_lock_slowpath+0x1c/0x2c
-[  212.065145] soc_pcm_hw_clean+0x6c/0x364
-[  212.065177] dpcm_be_dai_hw_free+0x20c/0x304
-[  212.065188] soc_compr_free_fe+0x130/0x448
-[  212.065230] snd_compr_free+0xac/0x148
-[  212.065316] __fput+0x104/0x438
-[  212.065347] ____fput+0x18/0x28
-[  212.065409] task_work_run+0x144/0x1f8
-[  212.065474] do_notify_resume+0x1d24/0x27b0
-[  212.065518] el0_svc+0x68/0xc4
-[  212.065601] el0t_64_sync_handler+0x8c/0xfc
-[  212.065610] el0t_64_sync+0x1b0/0x1b4
-
-*** BLURB HERE ***
-
-Pierre-Louis Bossart (4):
-  ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure
-  ASoC: soc-pcm: align BE 'atomicity' with that of the FE
-  ASoC: soc-pcm: test refcount before triggering
-  ASoC: soc-pcm: fix BE handling of PAUSE_RELEASE
-
-Takashi Iwai (2):
-  ASoC: soc-pcm: Fix and cleanup DPCM locking
-  ASoC: soc-pcm: serialize BE triggers
-
- include/sound/soc-dpcm.h |   2 +
- include/sound/soc.h      |   2 -
- sound/soc/soc-core.c     |   1 -
- sound/soc/soc-pcm.c      | 351 +++++++++++++++++++++++++++------------
- 4 files changed, 246 insertions(+), 110 deletions(-)
-
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 3b673477f6215..cffae9b7c2548 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1132,7 +1132,7 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 			return 0;
+ 	}
+ 
+-	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_KERNEL);
++	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_ATOMIC);
+ 	if (!dpcm)
+ 		return -ENOMEM;
+ 
 -- 
 2.40.1.521.gf1e218fcd8-goog
 

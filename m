@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1868A6FF9AB
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 20:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4781F6FF9B2
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 20:57:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8886C1E9;
-	Thu, 11 May 2023 20:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8886C1E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DDD911C;
+	Thu, 11 May 2023 20:56:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DDD911C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683831382;
-	bh=ue6Mr/Vj5dJskGTMSyU+u/1wSbHfp3R/9KXAMP1kIJk=;
+	s=default; t=1683831459;
+	bh=DkitLX5tL4D4rIAR1mvc5FQJv/aacb25zLCPOng3ciU=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gjemcje+J5oL3hyZsLSHsh8IggZ+h2jbPNrCi268vk5GjdMolePCBU8VNupEsBlDW
-	 N3M6FefNJQ02J4XzZjE2ro5aSlddRBGQvkMMpfh0bM30k/lHBs2wduJMJ9bem74epT
-	 woNxNxnTrrQqsogUOqhWTiIYKoUCLqgWl9tH+rdM=
+	b=W1CaZbNSCSZtUZCnbhX3ixnpAByZys2d6g0tIo8EoWIb+25ROiUBkvYxyDrzWQVQC
+	 hrbtYm3RyTipDdwNlNUZ3b+OWE9oH4Zu8biqGwTVHAFuguVZgyVYes+IxfSbVYMCqR
+	 o00FCOhwO7ohYM1tzTmCkn3Cj8HkkWMoUDplCDUM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF74DF8057A; Thu, 11 May 2023 20:54:39 +0200 (CEST)
+	id F3D26F805D2; Thu, 11 May 2023 20:54:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3995CF80567;
-	Thu, 11 May 2023 20:54:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E439F805C9;
+	Thu, 11 May 2023 20:54:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AC6AF804B1; Thu, 11 May 2023 14:09:26 +0200 (CEST)
+	id A1315F8032D; Thu, 11 May 2023 14:10:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,USER_IN_DEF_DKIM_WL shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
- [IPv6:2607:f8b0:4864:20::1149])
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [IPv6:2607:f8b0:4864:20::b49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BCF16F802E8
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 14:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCF16F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 69D59F80217
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 14:09:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69D59F80217
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20221208 header.b=aId7+0de
-Received: by mail-yw1-x1149.google.com with SMTP id
- 00721157ae682-559d8e22306so153963537b3.1
+ header.s=20221208 header.b=Fm3IUSrI
+Received: by mail-yb1-xb49.google.com with SMTP id
+ 3f1490d57ef6-b9a6f15287eso16715117276.1
         for <alsa-devel@alsa-project.org>;
- Thu, 11 May 2023 05:09:17 -0700 (PDT)
+ Thu, 11 May 2023 05:09:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1683806955; x=1686398955;
+        d=google.com; s=20221208; t=1683806960; x=1686398960;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=7K8c0PbSb9/75eHA2UyPAuYfZp6gkS8+sNwMs4nkPsw=;
-        b=aId7+0deecHGhvzHiCpQ99QDZYxs8sOskTVuQh+Id0foMa14spsgvuQ0XA0Z2ZEMuQ
-         XuWIw22ug3J/BYgTc05q7rC0GG7biA1eiBtKmnUHCNLBLOoyslvxzJnEaU8TGLc/hRd0
-         sGUQCfw0KuMjHnNhKyQGQPxbx5ylmXI1mHuScaYgtPCzlzYAgg2QA2K8IcTSnJbeYsHn
-         zWZH0v/FMPmUTNE0s0iRHoD1v2dG094/NHJ2aH6MshBgjyUU9hs4oLsHhGpBd3ak/fT9
-         YFhEv6DkZqGYwPRdsNwLA3e+/2qG2HrjBK7ytxtwTYYJjCXevj13Xfhl7vsPsiuoVNIR
-         fELA==
+        bh=t2dsf61YMVY92FH7C3AkmJ5nwGxSUh4djoxlEJxPoZg=;
+        b=Fm3IUSrIO6dioGkB92APGdJb1osx2Ot5x0wCO0UEqBQxCBUdYRoNP0KTWyt0fb70Z0
+         0GZSXmqWDxptjteEYn/qpcdE3yJHtilD+khIiE1vi4zw/AqIe479LJ4+t3TRLfs0Hdrv
+         qbcjIG5lSktyPDi9KHlTeqCOUH7pHWTNq5r4ShzUSGY7NaUgc2zZwhMJSkbgwMMxOJSC
+         DqRXkK8qmW3F9pIsE4iFTRoojuExst1QgA6FCVanvZ9KBnCHcCJUbqqcmSE2bqSlddut
+         hxMPdslmmdXESjFTPjiGZ4FC5RgqE65456Ln6uVnae+wXDl01twwgL5I6yU553ow6I9w
+         eCbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683806955; x=1686398955;
+        d=1e100.net; s=20221208; t=1683806960; x=1686398960;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7K8c0PbSb9/75eHA2UyPAuYfZp6gkS8+sNwMs4nkPsw=;
-        b=GOtL4cYIMFR0jVsB1Joq2J0E5wyIpCwBjxF7ZoCi1xeo/X6O3lDpA/yQvb4JipXmi7
-         lEUjxm+zzmQ/PrCWtZIBbaLmeUELpAE3faP9vlt5tHb7p1+FHRyfy+R5Ppm/N4eXVbP4
-         TmRMauUcWiZZ7qkavDBMi195Czr4tidKCUpT+m4n38AyDdIpCLExvbqq5SNW5/kQy8Gl
-         DrZseVRSMXn/JPmV5r2ibG0aGE0mZIwSL/eCnMqfGDzEyfeZt1B7+OQsBzsqdEYBepor
-         FmmykdSMLS5IQZpFlExU8odAoQq76wtrl68px5RTlkwcgQqRNkdlz6yct+2QpL7qfMpc
-         PZ6w==
-X-Gm-Message-State: AC+VfDyKb4SjyCsl619axYIctOFk8EiIvl7zuKA8FYs1cHuKMrTFdYEA
-	CUK8sybCLQrIdV87wka4KvSdqdBvo1onBGrwQQ==
+        bh=t2dsf61YMVY92FH7C3AkmJ5nwGxSUh4djoxlEJxPoZg=;
+        b=Lc2NH7n5zxlcGMWwjBxRLaIihgBRXBujtkJ/ehKr7VjHUJ0AzsHtWwOVyFEzpfZgho
+         TW9yjtuAYdxv0dikvjM8DQEQRlACXMdSObd2XnecDNn4eNsugiNagEE9oz+haam5fWmZ
+         3anfevIyrS6hurBSjIMoGDM5alcJsyOFNaXFzmttTFUrB9iwJr4H1MXWiXmcoz29Abjx
+         oZn39ZdQMQohRWwTX1EnBJnN/XbPbqdUkOt6PNzXUJpwKkavIonOd7JI63uY/VeATdmi
+         My11AGhFnr4Dx/XGILcNd/8/sbt27yC79zLdNvLmEHu5U86Mb6pLYeQ5UWmXzIScevkP
+         zE6Q==
+X-Gm-Message-State: AC+VfDzPG46w3Wi4646gBJKm4YoOryOMUuFY+ZxcQjT79pKx8sN8JiCy
+	7jZRWd1TQYc1Rw9oFFOIF0CUZ02yGjCXqZlNjA==
 X-Google-Smtp-Source: 
- ACHHUZ649eEZOGu+69lcpa1h2QuufU2JwY+7I6E65DKzbwztYqdOFIXoAXFKOH6AJFiL/OCdeIEENenkhD6EYIzmYA==
+ ACHHUZ6MK+BdZXJuYQp0xdPqOukDcGy3FtdWiMye4msSsyxhUqmlwxjZSZ+VYlg2JzBOa89RPQhW3k2qNI+UA5zS7w==
 X-Received: from yixuanjiang.ntc.corp.google.com
  ([2401:fa00:fc:202:6c9a:64c9:7e44:6b1d])
- (user=yixuanjiang job=sendgmr) by 2002:a81:b285:0:b0:559:f1b0:6eb with SMTP
- id q127-20020a81b285000000b00559f1b006ebmr12820158ywh.4.1683806955346; Thu,
- 11 May 2023 05:09:15 -0700 (PDT)
-Date: Thu, 11 May 2023 20:08:36 +0800
+ (user=yixuanjiang job=sendgmr) by 2002:a05:6902:d2:b0:b9e:6fce:4f6d with SMTP
+ id i18-20020a05690200d200b00b9e6fce4f6dmr13046837ybs.2.1683806960728; Thu, 11
+ May 2023 05:09:20 -0700 (PDT)
+Date: Thu, 11 May 2023 20:08:37 +0800
 In-Reply-To: <20230511120841.2096524-1-yixuanjiang@google.com>
 Mime-Version: 1.0
 References: <20230511120841.2096524-1-yixuanjiang@google.com>
 X-Mailer: git-send-email 2.40.1.521.gf1e218fcd8-goog
-Message-ID: <20230511120841.2096524-2-yixuanjiang@google.com>
-Subject: [PATCH 1/6] ASoC: soc-pcm: use GFP_ATOMIC for dpcm structure
+Message-ID: <20230511120841.2096524-3-yixuanjiang@google.com>
+Subject: [PATCH 2/6] ASoC: soc-pcm: align BE 'atomicity' with that of the FE
 From: yixuanjiang <yixuanjiang@google.com>
 To: tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org
 Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.de>,
 	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
  Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
@@ -99,22 +99,23 @@ Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 X-MailFrom: 
- 369pcZAsKCj43n2zfsonfsllttlqj.htrfqxf-ij0jqfqxf-uwtojhy.twl@flex--yixuanjiang.bounces.google.com
+ 38NpcZAsKCkM3n2zfsonfsllttlqj.htrfqxf-ij0jqfqxf-uwtojhy.twl@flex--yixuanjiang.bounces.google.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: S23O5KK7HDRGVYA4TA5QIXJ3VAI5UPFE
-X-Message-ID-Hash: S23O5KK7HDRGVYA4TA5QIXJ3VAI5UPFE
-X-Mailman-Approved-At: Thu, 11 May 2023 18:54:30 +0000
+Message-ID-Hash: YY6IRHZQBLUD624ZFMXJMW3EP6U4WM6Y
+X-Message-ID-Hash: YY6IRHZQBLUD624ZFMXJMW3EP6U4WM6Y
+X-Mailman-Approved-At: Thu, 11 May 2023 18:54:31 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S23O5KK7HDRGVYA4TA5QIXJ3VAI5UPFE/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YY6IRHZQBLUD624ZFMXJMW3EP6U4WM6Y/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -123,39 +124,69 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit d8a9c6e1f6766a16cf02b4e99a629f3c5512c183 ]
+[ Upstream commit bbf7d3b1c4f40eb02dd1dffb500ba00b0bff0303 ]
 
-We allocate a structure in dpcm_be_connect(), which may be called in
-atomic context. Using GFP_KERNEL is not quite right, we have to use
-GFP_ATOMIC to prevent the allocator from sleeping.
+Since the flow for DPCM is based on taking a lock for the FE first, we
+need to make sure during the connection between a BE and an FE that
+they both use the same 'atomicity', otherwise we may sleep in atomic
+context.
 
-Suggested-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+If the FE is nonatomic, this patch forces the BE to be nonatomic as
+well. That should have no negative impact since the BE 'inherits' the
+FE properties.
+
+However, if the FE is atomic and the BE is not, then the configuration
+is flagged as invalid.
+
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+[ removed FE stream lock by tiwai ]
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/20211207173745.15850-2-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20211207173745.15850-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Fixes: aa9ff6a4955f ("ASoC: soc-compress: Reposition and add pcm_mutex")
 Signed-off-by: Yixuan Jiang <yixuanjiang@google.com>
 Cc: stable@vger.kernel.org # 5.15+
 ---
- sound/soc/soc-pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/soc-pcm.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 3b673477f6215..cffae9b7c2548 100644
+index cffae9b7c2548..373f20bd14301 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1132,7 +1132,7 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+@@ -1123,6 +1123,8 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
+ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
+ 		struct snd_soc_pcm_runtime *be, int stream)
+ {
++	struct snd_pcm_substream *fe_substream;
++	struct snd_pcm_substream *be_substream;
+ 	struct snd_soc_dpcm *dpcm;
+ 	unsigned long flags;
+ 
+@@ -1132,6 +1134,20 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
  			return 0;
  	}
  
--	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_KERNEL);
-+	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_ATOMIC);
++	fe_substream = snd_soc_dpcm_get_substream(fe, stream);
++	be_substream = snd_soc_dpcm_get_substream(be, stream);
++
++	if (!fe_substream->pcm->nonatomic && be_substream->pcm->nonatomic) {
++		dev_err(be->dev, "%s: FE is atomic but BE is nonatomic, invalid configuration\n",
++			__func__);
++		return -EINVAL;
++	}
++	if (fe_substream->pcm->nonatomic && !be_substream->pcm->nonatomic) {
++		dev_warn(be->dev, "%s: FE is nonatomic but BE is not, forcing BE as nonatomic\n",
++			 __func__);
++		be_substream->pcm->nonatomic = 1;
++	}
++
+ 	dpcm = kzalloc(sizeof(struct snd_soc_dpcm), GFP_ATOMIC);
  	if (!dpcm)
  		return -ENOMEM;
- 
 -- 
 2.40.1.521.gf1e218fcd8-goog
 

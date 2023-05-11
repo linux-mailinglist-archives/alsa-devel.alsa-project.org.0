@@ -2,110 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 241696FF6E4
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 18:16:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 575856FF730
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 May 2023 18:28:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BE93F0B;
-	Thu, 11 May 2023 18:15:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BE93F0B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E30EF15;
+	Thu, 11 May 2023 18:27:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E30EF15
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683821780;
-	bh=HSSlShB2KcfQLb4BwmB1j19GSfgXfbLw0QAkUoEj79U=;
+	s=default; t=1683822518;
+	bh=4HepQnAekV+HY3IeTf66RThzY77MyhZbIqePJQTDXDs=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=gVNAule9bFCheof46//HwM9HWjlFdv0I8TkfLVyEX70mv9OWqvHVT3VTd+N07MYeb
-	 VHLARrcyjH7BWK8Yom1p9e5zmaQ0w5OD70LrvXdvsBJYBlKy9kzzuXqa3zywCcjBYc
-	 0kCUSG343oGDn0/wE0+HCvEt1pbz9rMGIuz1WBOQ=
+	b=KrWf8NIKVAYyiwi6BRkX+NKPjgOihfB18E+sCudYN6LgCYB5W1C4c4pKgBpCyyA21
+	 Nq43pdxrsKA4lwT3SnKZUbEGZ1y/oP2zB0OptHXgC6+pElSuWwVXA3WH0aeRjoDqkp
+	 +2n9WV3+KbnaBM4bEjXLLMLnzKlDAAPmKqBHxgUE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54C93F80542; Thu, 11 May 2023 18:15:29 +0200 (CEST)
+	id 94C9FF80310; Thu, 11 May 2023 18:27:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9980F8032D;
-	Thu, 11 May 2023 18:15:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34DCCF802E8;
+	Thu, 11 May 2023 18:27:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0369AF8052E; Thu, 11 May 2023 18:15:26 +0200 (CEST)
+	id 894C8F8052E; Thu, 11 May 2023 18:27:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C685F8014C
-	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 18:15:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C685F8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0C650F802E8
+	for <alsa-devel@alsa-project.org>; Thu, 11 May 2023 18:27:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C650F802E8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=b0fgib3Q
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-50bc22805d3so13464084a12.1
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=PmisfVof
+Received: by mail-pf1-x42a.google.com with SMTP id
+ d2e1a72fcca58-64115e652eeso59220270b3a.0
         for <alsa-devel@alsa-project.org>;
- Thu, 11 May 2023 09:15:20 -0700 (PDT)
+ Thu, 11 May 2023 09:27:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683821719; x=1686413719;
+        d=chromium.org; s=google; t=1683822434; x=1686414434;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1aLFylek1nRr29niLBba+aU+lTWwRvz+crv9/jvyTVY=;
-        b=b0fgib3Qb+R9WwiEGKsu02MNyBz6T+MDKV6ZV63it1tjIu1KnS9h+5d2xNZqksCS/h
-         cs5nhOwLa6NSx9eAFg1c7dmYuCiUWCT+vfM68V/caR1QgVeKBOMqBcumjDSWkd8+dXit
-         1ypmtiFeZB82MHs07GJcUC+2w3TWLo7erI562o7sOOiaOQG3EmJlZH0UPBtGpHeXwjUD
-         jtVXmxo3RqeXxGtT6oPFMiWCfUyHbqBbpowoo9XxDnonXox7AApqCSDIHThc2pKmFQka
-         MCUMQwTi5azkOq2shk5pQH9g8+w96SSI0ht73pjyw0yw6xhJNDEN1ltpaS0jkDOKtBeR
-         eiHw==
+        bh=hMQTOddVJSa22SR6zcvBJmFXpgRZVXNpCl3DB1GYgq4=;
+        b=PmisfVof65a4l9eAYcp8O+qzOBcGyWPCT4YUzP5gsLa3PQizXpgoIH+Sl0L2ly0Bvk
+         Da1HdA2Z4zb7UsmM3Y8bBO8MaQpBSb+bgRmbew3sn8MgzDgcuNScF5MyME+mQ0GFhtsm
+         ER5LtWKgDF+zGPeqEYWm1ufwRBywXWdJoU08w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683821719; x=1686413719;
+        d=1e100.net; s=20221208; t=1683822434; x=1686414434;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=1aLFylek1nRr29niLBba+aU+lTWwRvz+crv9/jvyTVY=;
-        b=WYZUjYhcBP3bC5tVO9rLuWuYunf8KCYlLgZdHL00AlGOW6/0+RKLD9EP8wl+NIb1m9
-         KqvSB5wcZQUXYGk+wV8cuabumzxGnTERPCDnhCWa7Jqffe9rnZS6MoQVxHO6QrKc9ZUQ
-         ehw3GObX7zGd2n4Wb2jSyEq8ZSquXWV0p1CIFspLcgfaNedUrPWFfecesfICVixV/mg4
-         aICmyyIXyu2dS3UKdq9IgXLkcJqgrY9U4g2GwUpCb01qckmMZgUy3lxOKh0a3U1dYoYD
-         BhIwAfLLK2gRfjNIrpqqPtrGOHnzrs/gwVXUE5+Kl9+e/eHxxHL+9d4nmJj/YQTW5fhI
-         n5aA==
-X-Gm-Message-State: AC+VfDwb7arIOPe275NFLsbsuUTlRhJes/ob/KqsTEttTy+hl6B04QAo
-	VXhYvBo28h/2PqFXILuoWwI=
+        bh=hMQTOddVJSa22SR6zcvBJmFXpgRZVXNpCl3DB1GYgq4=;
+        b=PjiA2QM/LEQFnrCvUIruNQL9PU5MPQ+30vNnoQpHmbvwvqaWHhLtBTklAPOvBjoUuI
+         JxDhG4gx0cd17B6lSXWdLha/pMkKvehrlNpN9F0/VPgFXdeX9nSTx/PVKB7C9zkC5WMd
+         u3WXgGIegaW3Mvi8L4ltWhADAvt76iscY3EMlLYR/exs1gyL6sNC/83xFxxCm38eJn7h
+         Qh4oKEpmP1PKjqBIoLVx84G63A2c16l30VVuq9ooKfVUVsyNDbQdRacQxAohstmenJos
+         xLFMmi0AxfzeRXZMwgrgogj9IxFK47KhaQuC7iOcjZKrSWPbppS91+zrmf6LKNzkx1Hz
+         TOqA==
+X-Gm-Message-State: AC+VfDypSs6+aF6esUDcZlQ91rtXIpZwKpMOnw042nfpFw9tzO2HTOWj
+	SwuYCu/mT4ixeJDGp41Jgv5ZUg==
 X-Google-Smtp-Source: 
- ACHHUZ4MBTYqjmy2urC4b8enhRmflW2Lb0rqrX1C351MXcWfwV8pjGIzhlDmFzNtlq8JbF4XeZ4+vg==
-X-Received: by 2002:a50:ed99:0:b0:504:8929:71ca with SMTP id
- h25-20020a50ed99000000b00504892971camr18032424edr.6.1683821719398;
-        Thu, 11 May 2023 09:15:19 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:2f0a:b207:af00::b5e])
+ ACHHUZ4Ihmqgqf0X43I7liRm06xU2X+VRF6LupG5hiM7Cu/k+aNUgx4MBE0VuGDKsTRGYo+uhIwwpw==
+X-Received: by 2002:a05:6a20:4311:b0:104:2d89:8f89 with SMTP id
+ h17-20020a056a20431100b001042d898f89mr1138807pzk.23.1683822434073;
+        Thu, 11 May 2023 09:27:14 -0700 (PDT)
+Received: from tictac2.mtv.corp.google.com
+ ([2620:15c:9d:2:9915:1a0e:d2b7:87ef])
         by smtp.gmail.com with ESMTPSA id
- f8-20020a056402068800b0050bc9c38fb4sm2992219edy.69.2023.05.11.09.15.17
+ g15-20020a63f40f000000b0053031f7a367sm5217008pgi.85.2023.05.11.09.27.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 11 May 2023 09:15:18 -0700 (PDT)
-From: Alexandru Sorodoc <ealex95@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Stefan Binding <sbinding@opensource.cirrus.com>,
-	Tim Crawford <tcrawford@system76.com>,
-	Andy Chi <andy.chi@canonical.com>,
-	Meng Tang <tangmeng@uniontech.com>,
-	"Luke D. Jones" <luke@ljones.dev>,
-	Philipp Jungkamp <p.jungkamp@gmx.net>,
-	=?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>,
-	Yuchi Yang <yangyuchi66@gmail.com>,
+        Thu, 11 May 2023 09:27:13 -0700 (PDT)
+From: Douglas Anderson <dianders@chromium.org>
+To: Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Douglas Anderson <dianders@chromium.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Chunxu Li <chunxu.li@mediatek.com>,
+	Jiaxin Yu <jiaxin.yu@mediatek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Alexandru Sorodoc <ealex95@gmail.com>
-Subject: [PATCH v2] ALSA: hda/realtek: Add quirks for ASUS GU604V and GU603V
-Date: Thu, 11 May 2023 19:15:10 +0300
-Message-Id: <20230511161510.315170-1-ealex95@gmail.com>
-X-Mailer: git-send-email 2.40.1
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] ASoC: mediatek: mt8186: Fix use-after-free in driver remove
+ path
+Date: Thu, 11 May 2023 09:25:12 -0700
+Message-ID: 
+ <20230511092437.1.I31cceffc8c45bb1af16eb613e197b3df92cdc19e@changeid>
+X-Mailer: git-send-email 2.40.1.606.ga4b1b128d6-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7SWKGPUSRWOD6OWBU43XMVJIPL7UKLCW
-X-Message-ID-Hash: 7SWKGPUSRWOD6OWBU43XMVJIPL7UKLCW
-X-MailFrom: ealex95@gmail.com
+Message-ID-Hash: PGMWWPOKYQAGXOECGOKZ74WRWHNWN6JP
+X-Message-ID-Hash: PGMWWPOKYQAGXOECGOKZ74WRWHNWN6JP
+X-MailFrom: dianders@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7SWKGPUSRWOD6OWBU43XMVJIPL7UKLCW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PGMWWPOKYQAGXOECGOKZ74WRWHNWN6JP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,72 +126,162 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-These models use 2 CS35L41 amplifiers using SPI for down-facing
-speakers.
+When devm runs function in the "remove" path for a device it runs them
+in the reverse order. That means that if you have parts of your driver
+that aren't using devm or are using "roll your own" devm w/
+devm_add_action_or_reset() you need to keep that in mind.
 
-alc285_fixup_speaker2_to_dac1 is needed to fix volume control of the
-down-facing speakers.
+The mt8186 audio driver didn't quite get this right. Specifically, in
+mt8186_init_clock() it called mt8186_audsys_clk_register() and then
+went on to call a bunch of other devm function. The caller of
+mt8186_init_clock() used devm_add_action_or_reset() to call
+mt8186_deinit_clock() but, because of the intervening devm functions,
+the order was wrong.
 
-Pin configs are needed to enable headset mic detection.
+Specifically at probe time, the order was:
+1. mt8186_audsys_clk_register()
+2. afe_priv->clk = devm_kcalloc(...)
+3. afe_priv->clk[i] = devm_clk_get(...)
 
-Note that these models lack the ACPI _DSD properties needed to
-initialize the amplifiers. They can be added during boot to get working
-sound out of the speakers:
-  https://gist.github.com/lamperez/862763881c0e1c812392b5574727f6ff
+At remove time, the order (which should have been 3, 2, 1) was:
+1. mt8186_audsys_clk_unregister()
+3. Free all of afe_priv->clk[i]
+2. Free afe_priv->clk
 
-Signed-off-by: Alexandru Sorodoc <ealex95@gmail.com>
+The above seemed to be causing a use-after-free. Luckily, it's easy to
+fix this by simply using devm more correctly. Let's move the
+devm_add_action_or_reset() to the right place. In addition to fixing
+the use-after-free, code inspection shows that this fixes a leak
+(missing call to mt8186_audsys_clk_unregister()) that would have
+happened if any of the syscon_regmap_lookup_by_phandle() calls in
+mt8186_init_clock() had failed.
+
+Fixes: 55b423d5623c ("ASoC: mediatek: mt8186: support audio clock control in platform driver")
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
 ---
-v2:
-    Fixed position of quirk entries in table
 
- sound/pci/hda/patch_realtek.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ sound/soc/mediatek/mt8186/mt8186-afe-clk.c    |  6 ---
+ sound/soc/mediatek/mt8186/mt8186-afe-clk.h    |  1 -
+ sound/soc/mediatek/mt8186/mt8186-afe-pcm.c    |  4 --
+ sound/soc/mediatek/mt8186/mt8186-audsys-clk.c | 46 ++++++++++---------
+ sound/soc/mediatek/mt8186/mt8186-audsys-clk.h |  1 -
+ 5 files changed, 24 insertions(+), 34 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index bc062c0a1916..4c87a95c5d3d 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7063,6 +7063,8 @@ enum {
- 	ALC225_FIXUP_DELL1_MIC_NO_PRESENCE,
- 	ALC295_FIXUP_DISABLE_DAC3,
- 	ALC285_FIXUP_SPEAKER2_TO_DAC1,
-+	ALC285_FIXUP_ASUS_SPEAKER2_TO_DAC1,
-+	ALC285_FIXUP_ASUS_HEADSET_MIC,
- 	ALC280_FIXUP_HP_HEADSET_MIC,
- 	ALC221_FIXUP_HP_FRONT_MIC,
- 	ALC292_FIXUP_TPT460,
-@@ -8033,6 +8035,22 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
- 	},
-+	[ALC285_FIXUP_ASUS_SPEAKER2_TO_DAC1] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc285_fixup_speaker2_to_dac1,
-+		.chained = true,
-+		.chain_id = ALC245_FIXUP_CS35L41_SPI_2
-+	},
-+	[ALC285_FIXUP_ASUS_HEADSET_MIC] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x19, 0x03a11050 },
-+			{ 0x1b, 0x03a11c30 },
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_ASUS_SPEAKER2_TO_DAC1
-+	},
- 	[ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER] = {
- 		.type = HDA_FIXUP_PINS,
- 		.v.pins = (const struct hda_pintbl[]) {
-@@ -9500,6 +9518,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1313, "Asus K42JZ", ALC269VB_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x13b0, "ASUS Z550SA", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
-+	SND_PCI_QUIRK(0x1043, 0x1473, "ASUS GU604V", ALC285_FIXUP_ASUS_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1043, 0x1483, "ASUS GU603V", ALC285_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
- 	SND_PCI_QUIRK(0x1043, 0x1662, "ASUS GV301QH", ALC294_FIXUP_ASUS_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_2),
+diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-clk.c b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
+index a6b4f29049bb..539e3a023bc4 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
++++ b/sound/soc/mediatek/mt8186/mt8186-afe-clk.c
+@@ -644,9 +644,3 @@ int mt8186_init_clock(struct mtk_base_afe *afe)
+ 
+ 	return 0;
+ }
+-
+-void mt8186_deinit_clock(void *priv)
+-{
+-	struct mtk_base_afe *afe = priv;
+-	mt8186_audsys_clk_unregister(afe);
+-}
+diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-clk.h b/sound/soc/mediatek/mt8186/mt8186-afe-clk.h
+index d5988717d8f2..a9d59e506d9a 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-afe-clk.h
++++ b/sound/soc/mediatek/mt8186/mt8186-afe-clk.h
+@@ -81,7 +81,6 @@ enum {
+ struct mtk_base_afe;
+ int mt8186_set_audio_int_bus_parent(struct mtk_base_afe *afe, int clk_id);
+ int mt8186_init_clock(struct mtk_base_afe *afe);
+-void mt8186_deinit_clock(void *priv);
+ int mt8186_afe_enable_cgs(struct mtk_base_afe *afe);
+ void mt8186_afe_disable_cgs(struct mtk_base_afe *afe);
+ int mt8186_afe_enable_clock(struct mtk_base_afe *afe);
+diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c b/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
+index 41172a82103e..a868a04ed4e7 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
++++ b/sound/soc/mediatek/mt8186/mt8186-afe-pcm.c
+@@ -2848,10 +2848,6 @@ static int mt8186_afe_pcm_dev_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	ret = devm_add_action_or_reset(dev, mt8186_deinit_clock, (void *)afe);
+-	if (ret)
+-		return ret;
+-
+ 	/* init memif */
+ 	afe->memif_32bit_supported = 0;
+ 	afe->memif_size = MT8186_MEMIF_NUM;
+diff --git a/sound/soc/mediatek/mt8186/mt8186-audsys-clk.c b/sound/soc/mediatek/mt8186/mt8186-audsys-clk.c
+index 578969ca91c8..5666be6b1bd2 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-audsys-clk.c
++++ b/sound/soc/mediatek/mt8186/mt8186-audsys-clk.c
+@@ -84,6 +84,29 @@ static const struct afe_gate aud_clks[CLK_AUD_NR_CLK] = {
+ 	GATE_AUD2(CLK_AUD_ETDM_OUT1_BCLK, "aud_etdm_out1_bclk", "top_audio", 24),
+ };
+ 
++static void mt8186_audsys_clk_unregister(void *data)
++{
++	struct mtk_base_afe *afe = data;
++	struct mt8186_afe_private *afe_priv = afe->platform_priv;
++	struct clk *clk;
++	struct clk_lookup *cl;
++	int i;
++
++	if (!afe_priv)
++		return;
++
++	for (i = 0; i < CLK_AUD_NR_CLK; i++) {
++		cl = afe_priv->lookup[i];
++		if (!cl)
++			continue;
++
++		clk = cl->clk;
++		clk_unregister_gate(clk);
++
++		clkdev_drop(cl);
++	}
++}
++
+ int mt8186_audsys_clk_register(struct mtk_base_afe *afe)
+ {
+ 	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+@@ -124,27 +147,6 @@ int mt8186_audsys_clk_register(struct mtk_base_afe *afe)
+ 		afe_priv->lookup[i] = cl;
+ 	}
+ 
+-	return 0;
++	return devm_add_action_or_reset(afe->dev, mt8186_audsys_clk_unregister, afe);
+ }
+ 
+-void mt8186_audsys_clk_unregister(struct mtk_base_afe *afe)
+-{
+-	struct mt8186_afe_private *afe_priv = afe->platform_priv;
+-	struct clk *clk;
+-	struct clk_lookup *cl;
+-	int i;
+-
+-	if (!afe_priv)
+-		return;
+-
+-	for (i = 0; i < CLK_AUD_NR_CLK; i++) {
+-		cl = afe_priv->lookup[i];
+-		if (!cl)
+-			continue;
+-
+-		clk = cl->clk;
+-		clk_unregister_gate(clk);
+-
+-		clkdev_drop(cl);
+-	}
+-}
+diff --git a/sound/soc/mediatek/mt8186/mt8186-audsys-clk.h b/sound/soc/mediatek/mt8186/mt8186-audsys-clk.h
+index b8d6a06e11e8..897a2914dc19 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-audsys-clk.h
++++ b/sound/soc/mediatek/mt8186/mt8186-audsys-clk.h
+@@ -10,6 +10,5 @@
+ #define _MT8186_AUDSYS_CLK_H_
+ 
+ int mt8186_audsys_clk_register(struct mtk_base_afe *afe);
+-void mt8186_audsys_clk_unregister(struct mtk_base_afe *afe);
+ 
+ #endif
 -- 
-2.40.1
+2.40.1.606.ga4b1b128d6-goog
 

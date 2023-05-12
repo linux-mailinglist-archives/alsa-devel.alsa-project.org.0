@@ -2,99 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFE87700331
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 11:02:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17E4C700351
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 11:06:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 179841D6;
-	Fri, 12 May 2023 11:01:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 179841D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BC441E0;
+	Fri, 12 May 2023 11:05:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BC441E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683882122;
-	bh=Oyr2UIGE5GaW5mQPFlc3cgRgGfoM6r0h32gcDg3m3uU=;
+	s=default; t=1683882359;
+	bh=xm4tPxqigx6HHjke+kgLaZ0tO2jI3aR0QQ0l+vUT2+k=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=RwXiT7HhEFXLx0QfhP9CZcjj9ffPEJ9RVcbqaeqfhbYkA7hx8eufloTUgFFkVXvXd
-	 HcEHKWR0V+ozh7D7XbvJHUHiFVvRK5+gvUNKlQ/xmdhresT07ZUy83llT4bybcsQPv
-	 KqCtvPOCz7BFn/cjw/ix8vzmJ2u7AuJu97xU8oi8=
+	b=HaIytGLYF4Xdww/bQ6SCWsJj/dIpKockrXixQ4Z4eqArrxhSth5HBisnucMjEymxF
+	 qzmy2dc7Po4/Ojtu1Vu7+BpQ3F9oF1q6uuWiMAl1WVsunfCZYtmfBZM065o9jOAQ1d
+	 6Kk/iAlpQa58yLg6E7bDq7op+yQ25rxPRO6/Zlx0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C49EF8053D; Fri, 12 May 2023 11:01:11 +0200 (CEST)
+	id ADCE9F8032D; Fri, 12 May 2023 11:05:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31EC2F8032D;
-	Fri, 12 May 2023 11:01:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 115BFF8014C;
+	Fri, 12 May 2023 11:05:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4112F8052E; Fri, 12 May 2023 11:01:07 +0200 (CEST)
+	id 358C8F8052E; Fri, 12 May 2023 11:05:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6A5EAF80087
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 11:01:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A5EAF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F8A1F8014C
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 11:04:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F8A1F8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=kXji4Qkf;
+ header.s=susede2_rsa header.b=wclQSZJk;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=7uJLTg3v
+ header.s=susede2_ed25519 header.b=YmDmqdcU
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B788C227A4;
-	Fri, 12 May 2023 09:01:01 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A659A20459;
+	Fri, 12 May 2023 09:04:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1683882061;
+	t=1683882299;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mXNd6eQ6X7huzKiDKsIcyDIaUBR8M8NVClaH/h4XHhM=;
-	b=kXji4QkfgCIqbDquhJPxJaXbA3YnaP15x8HguHALymX9Xuwx5zn304e6ssS/34V6Vd/qba
-	AzM9FEKNZfLmMhUYFgHsJGqZZmwpUG7HQT/tcX2cwKdKUCXfv3DgOWGVKION8+KHs2A39i
-	2g2RzB0BgPgLGm1iyq+P5uq9Ecg6B7k=
+	bh=7SiVotJRrCi9aOW2pl9zXwW9nMcm1Ssj5lJsvaMv+cM=;
+	b=wclQSZJkzGlUef0QJfYU4en/51o1uSg7WAJ22eIm2WZyve79m8rmDPsQLBiZnaSspeMW/N
+	+4kuxShDvSnHxLrgR98IE7nauBd0mXCvchWO/2sTa9FPgWb9yNVykn5yFomzIMOX718HFf
+	oL3hJLAY1G7v61r3eH0shiOIGVy94V4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683882061;
+	s=susede2_ed25519; t=1683882299;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mXNd6eQ6X7huzKiDKsIcyDIaUBR8M8NVClaH/h4XHhM=;
-	b=7uJLTg3vbHLZc4OjX7Impxon0XJIJTCmLzprZDXeUnN9TwkTVFgrqoIs/vq9i3NrNROjiC
-	EN0zY4O+rgR0IYDQ==
+	bh=7SiVotJRrCi9aOW2pl9zXwW9nMcm1Ssj5lJsvaMv+cM=;
+	b=YmDmqdcURjdlhh3KCFO8/ThYy/GChp0xm2qCjVXtfo9DbzfoOfjD+AosX9cKt9RZ5xbqRg
+	loffJjRLbT3qSLCA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C85713499;
-	Fri, 12 May 2023 09:01:01 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A75413499;
+	Fri, 12 May 2023 09:04:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id TVY1JU0AXmQbMwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 12 May 2023 09:01:01 +0000
-Date: Fri, 12 May 2023 11:01:01 +0200
-Message-ID: <87zg69appu.wl-tiwai@suse.de>
+	id GhVKBTsBXmQWNQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 12 May 2023 09:04:59 +0000
+Date: Fri, 12 May 2023 11:04:58 +0200
+Message-ID: <87wn1dapj9.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Olliver Schinagl <oliver@schinagl.nl>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: snd_hda_codec_cirrus kernel oops
-In-Reply-To: <64d95eb0-dbdb-cff8-a8b1-988dc22b24cd@schinagl.nl>
-References: <64d95eb0-dbdb-cff8-a8b1-988dc22b24cd@schinagl.nl>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Cc: tiwai@suse.com,	Jaroslav Kysela <perex@perex.cz>,	Stefan Binding
+ <sbinding@opensource.cirrus.com>,	Andy Chi <andy.chi@canonical.com>,	Tim
+ Crawford <tcrawford@system76.com>,	Meng Tang <tangmeng@uniontech.com>,
+	"Luke D. Jones" <luke@ljones.dev>,	Philipp Jungkamp <p.jungkamp@gmx.net>,
+	Kacper =?ISO-8859-2?Q?Michaj=B3ow?= <kasper93@gmail.com>,	Yuchi Yang
+ <yangyuchi66@gmail.com>,	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Fix mute and micmute LEDs for yet
+ another HP laptop
+In-Reply-To: <20230512083417.157127-1-kai.heng.feng@canonical.com>
+References: <20230512083417.157127-1-kai.heng.feng@canonical.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: L677SGXWOF642YNJMY77VA4VOXEQGYHN
-X-Message-ID-Hash: L677SGXWOF642YNJMY77VA4VOXEQGYHN
+Message-ID-Hash: X4CPV5BYOLNOUGKETTI5735RCYWE37RK
+X-Message-ID-Hash: X4CPV5BYOLNOUGKETTI5735RCYWE37RK
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L677SGXWOF642YNJMY77VA4VOXEQGYHN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X4CPV5BYOLNOUGKETTI5735RCYWE37RK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,64 +123,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 11 May 2023 17:12:23 +0200,
-Olliver Schinagl wrote:
+On Fri, 12 May 2023 10:34:16 +0200,
+Kai-Heng Feng wrote:
 > 
-> Hey list,
+> There's yet another laptop that needs the fixup to enable mute and
+> micmute LEDs. So do it accordingly.
 > 
-> I've noticed the following crash since the last few days, causing
-> audio to no longer to work. It could be related to me updating the
-> firmware (bios) not too long ago (I load Mac OS every few months via
-> an external drive) which caused the firmware to be updated. Or, it was
-> a kernel update, that came along every few weeks.
-> 
-> I'll try to find my archlinux bugzilla stuff, to report it there as
-> well, but I don't think they are actively patching the sound stuff.
-> 
-> The last commit I'm seeing on `patch_cirrus.c` seems to be from aug
-> 2022, so that can't be it, though incidentally, the change is with
-> regards to support for iMac 12,1 model, which is interesting as the
-> number is the same.
-> 
-> I understand you guys probably get tons of bug reports, but best to
-> leave it here, just in case.
-> 
-> [   90.497004] CPU: 3 PID: 343 Comm: modprobe Not tainted
-> 6.3.1-arch2-1 #1 4c16b0b90f71a940c7f1bb2eb00cdd9db2a83452
-> [   90.497008] Hardware name: Apple
-> Inc. MacBookPro12,1/Mac-E43C1C25D4880AD6, BIOS 481.0.0.0.0 01/12/2023
-> [   90.497010] RIP: 0010:get_line_out_pfx+0x2dd/0x3e0
-> [snd_hda_codec_generic]
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-Can you try to decode which line does it hit?
+Thanks, applied.
 
-Also, as a blind shot, does the patch below work around the bug?
-
-
-thanks,
 
 Takashi
-
--- 8< --
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -1182,7 +1182,7 @@ static const char *get_line_out_pfx(struct hda_codec *codec, int ch,
- 
- 	/* multi-io channels */
- 	if (ch >= cfg->line_outs)
--		return channel_name[ch];
-+		goto fixed_names;
- 
- 	switch (cfg->line_out_type) {
- 	case AUTO_PIN_SPEAKER_OUT:
-@@ -1234,8 +1234,9 @@ static const char *get_line_out_pfx(struct hda_codec *codec, int ch,
- 	if (cfg->line_outs == 1 && !spec->multi_ios)
- 		return "Line Out";
- 
-+ fixed_names:
- 	if (ch >= ARRAY_SIZE(channel_name)) {
--		snd_BUG();
-+		codec_err(codec, "Too many channels in %s: %d\n", __func__, ch);
- 		return "PCM";
- 	}
- 

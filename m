@@ -2,96 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39FE2700A8E
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 16:43:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A490C700ACF
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 16:56:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51671203;
-	Fri, 12 May 2023 16:42:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51671203
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAC94846;
+	Fri, 12 May 2023 16:55:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAC94846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683902622;
-	bh=07ctsY6GojbVLI+iPaRY5brjN2+FPEVenZWe7h49/xI=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=PKuSAH6X4SfdKuD6bosVP8JPsl3eOARF7V+Lamf8bIOK7UAauGirYB/w0uldz7ZI2
-	 TTIBBRfqC+HQmmzssuGbC/oANewRw+k40tCJdrR6SL0Yyhbb4Qzwgw1mJyRAH6LTus
-	 awsZ+be834yF55RdI4aJW7nuhOfazYlU7Xue6Kn0=
+	s=default; t=1683903381;
+	bh=LsQQVwQKDu5wqILYLhD8gDsG8ROmJlBhf0DL4ry9z4M=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=iFp/Wq5AF4AmDqR37D7PIg3unZqrUYg+9Ui5P801K44sj40ThzhPTByIcBmGW7Nqy
+	 6fCNR3Wsth+r1ifq4UAzh0im6FBWffLmq04sPNALaWIkzIq5Qz/0Nig5MRfeEODD69
+	 J/Q24SnaNY4CMfGT3C09qX2GKAnIz3oL7NyxMYg8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7C87F80534; Fri, 12 May 2023 16:42:51 +0200 (CEST)
+	id 113C1F80571; Fri, 12 May 2023 16:54:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62370F80087;
-	Fri, 12 May 2023 16:42:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEAB9F80564;
+	Fri, 12 May 2023 16:54:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5CA3F8052E; Fri, 12 May 2023 16:42:47 +0200 (CEST)
+	id 9CF4EF80567; Fri, 12 May 2023 16:54:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=-4.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8F2EF8014C
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 16:42:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8F2EF8014C
+	by alsa1.perex.cz (Postfix) with ESMTPS id EE03AF80087
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 16:54:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE03AF80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=iRRoyX4j
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34C79TbQ025224;
-	Fri, 12 May 2023 09:42:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=ZcdklHf7gFBbvSHt4aqfeF7+CyANm3zTqWNEbRQXzG4=;
- b=iRRoyX4jveKFbAI+ViJsN0vYmdKh9UxXcLKoncjkx0RXXCfQ3PaxsYlr9Q9KZt666KtX
- 0ZmhbFCNlO7mGnvwyj/RnYPke4PbZZGwtTa8cO9ZwkwhdUbroFJoEOSCkHVc2vSMb7ar
- budIfzYSdJ9OowPPiBk4gtSKVU07WtDynHLHdKKoQum19tHZ7umNn/Zx3gzUKGnPj9PV
- iooD5exIw2sO2/1VXXt4j0Rgx8/3WEp+8bPMTAcq/HuikW+cWaZSx822Oo2KmfoPG3Qj
- +ApMnKz9iVHn3vC8oG0mkuJXa0dQW4jbgY0fI2i7v8BJklfxchHGQLtik8jnxMzavbCe qA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7s46j73-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 12 May 2023 09:42:39 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 12 May
- 2023 09:42:37 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Fri, 12 May 2023 09:42:37 -0500
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2C52C45;
-	Fri, 12 May 2023 14:42:37 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Simon Trimmer
-	<simont@opensource.cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: [PATCH] ASoC: cs35l56: Prevent unbalanced pm_runtime in dsp_work() on
- SoundWire
-Date: Fri, 12 May 2023 15:42:37 +0100
-Message-ID: <20230512144237.739000-1-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=WKIFl5eE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1683903273; x=1715439273;
+  h=message-id:date:mime-version:from:subject:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=LsQQVwQKDu5wqILYLhD8gDsG8ROmJlBhf0DL4ry9z4M=;
+  b=WKIFl5eEDjnCHaqlC5MmhZOQuuBYuIkQ5xH1A+eKmiqu1u59ggMXw9nS
+   pgxwszFjj4OUls95qNg2Ml9gwUkOHiAWWKS7XJHYQpPAOtbz9WhbPIeMu
+   KEnNr3hyVE15KgMGptr0SrM9MnyHM2FJc5sBXFc0sQSkQXMNTyLUS1zRM
+   zIYLmSyuhJHlNEBjmP9OnWzDiA/xD4XHlKxPe+puMyfW5JHd7qq2fICey
+   MBES7wAZNJ78RT6EWBZpWahodJvdEF11DmwZTCMAR90eTYYDAF5U6GZGD
+   cRgLzXhpaJMNXiu3V0dmikQDJJfcygfxuBn2HuHaSWb5pjw9wTnIcLulU
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="437140459"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
+   d="scan'208";a="437140459"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 07:54:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="844441335"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
+   d="scan'208";a="844441335"
+Received: from winkelru-mobl.amr.corp.intel.com (HELO [10.212.144.249])
+ ([10.212.144.249])
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 07:54:28 -0700
+Message-ID: <c79e354d-4d09-a04b-798b-e42bdc47d694@linux.intel.com>
+Date: Fri, 12 May 2023 09:52:21 -0500
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: mqAveudk8OufYnpDhtsyE9Jgo6oG-_H1
-X-Proofpoint-GUID: mqAveudk8OufYnpDhtsyE9Jgo6oG-_H1
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: IVZGN2NLXLOLEEOOR4TTEATAZ4MMLUI3
-X-Message-ID-Hash: IVZGN2NLXLOLEEOOR4TTEATAZ4MMLUI3
-X-MailFrom: prvs=04962df89c=rf@opensource.cirrus.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.10.0
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 06/10] mfd: cs42l43: Add support for cs42l43 core driver
+To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org,
+ lee@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ conor+dt@kernel.org, tglx@linutronix.de, maz@kernel.org,
+ linus.walleij@linaro.org, vkoul@kernel.org
+Cc: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
+ <20230512122838.243002-7-ckeepax@opensource.cirrus.com>
+Content-Language: en-US
+In-Reply-To: <20230512122838.243002-7-ckeepax@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: R44QXHLGSUB2LRWFGMMGA5NQSBS6PIL5
+X-Message-ID-Hash: R44QXHLGSUB2LRWFGMMGA5NQSBS6PIL5
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IVZGN2NLXLOLEEOOR4TTEATAZ4MMLUI3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R44QXHLGSUB2LRWFGMMGA5NQSBS6PIL5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,37 +114,320 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Simon Trimmer <simont@opensource.cirrus.com>
 
-Flush the SoundWire interrupt handler work instead of cancelling it.
 
-When a SoundWire interrupt is triggered the pm_runtime is held
-until the work has completed. It's therefore unsafe to cancel
-the work, it must be flushed.
 
-Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- sound/soc/codecs/cs35l56.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> +static int cs42l43_sdw_update_status(struct sdw_slave *sdw, enum sdw_slave_status status)
+> +{
+> +	struct cs42l43 *cs42l43 = dev_get_drvdata(&sdw->dev);
+> +
+> +	switch (status) {
+> +	case SDW_SLAVE_ATTACHED:
+> +		dev_dbg(cs42l43->dev, "Device attach\n");
+> +
+> +		sdw_write_no_pm(sdw, CS42L43_GEN_INT_MASK_1,
+> +				CS42L43_INT_STAT_GEN1_MASK);
+> +
+> +		cs42l43->attached = true;
+> +
+> +		complete(&cs42l43->device_attach);
+> +		break;
+> +	case SDW_SLAVE_UNATTACHED:
+> +		dev_dbg(cs42l43->dev, "Device detach\n");
+> +
+> +		cs42l43->attached = false;
+> +
+> +		reinit_completion(&cs42l43->device_attach);
+> +		complete(&cs42l43->device_detach);
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int cs42l43_sdw_interrupt(struct sdw_slave *sdw,
+> +				 struct sdw_slave_intr_status *status)
+> +{
+> +	/*
+> +	 * There is only a single bit in GEN_INT_STAT_1 and it doesn't clear if
+> +	 * IRQs are still pending so doing a read/write here after handling the
+> +	 * IRQ is fine.
+> +	 */
+> +	sdw_read_no_pm(sdw, CS42L43_GEN_INT_STAT_1);
+> +	sdw_write_no_pm(sdw, CS42L43_GEN_INT_STAT_1, 1);
+> +
+> +	return 0;
+> +}
 
-diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index 46762f7f1449..d1677d76d018 100644
---- a/sound/soc/codecs/cs35l56.c
-+++ b/sound/soc/codecs/cs35l56.c
-@@ -852,10 +852,11 @@ static void cs35l56_dsp_work(struct work_struct *work)
- 	 */
- 	if (cs35l56->sdw_peripheral) {
- 		cs35l56->sdw_irq_no_unmask = true;
--		cancel_work_sync(&cs35l56->sdw_irq_work);
-+		flush_work(&cs35l56->sdw_irq_work);
- 		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_MASK_1, 0);
- 		sdw_read_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_STAT_1);
- 		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_STAT_1, 0xFF);
-+		flush_work(&cs35l56->sdw_irq_work);
- 	}
- 
- 	ret = cs35l56_mbox_send(cs35l56, CS35L56_MBOX_CMD_SHUTDOWN);
--- 
-2.30.2
+not really getting the comment and code above. Where is the IRQ handled?
+In the 'other non-SoundWire part"?
 
+
+> +static void cs42l43_boot_work(struct work_struct *work)
+> +{
+> +	struct cs42l43 *cs42l43 = container_of(work, struct cs42l43, boot_work);
+> +	unsigned int devid, revid, otp;
+> +	int ret;
+> +
+> +	dev_dbg(cs42l43->dev, "Boot work running\n");
+> +
+> +	ret = cs42l43_wait_for_attach(cs42l43);
+> +	if (ret)
+> +		goto err;
+> +
+> +	if (cs42l43->sdw)
+> +		cs42l43->irq = cs42l43->sdw->irq;
+> +
+> +	ret = regmap_read(cs42l43->regmap, CS42L43_DEVID, &devid);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to read devid: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	switch (devid) {
+> +	case 0x42a43:
+> +		break;
+> +	default:
+> +		dev_err(cs42l43->dev, "Unrecognised devid: 0x%06x\n", devid);
+> +		goto err;
+> +	}
+> +
+> +	ret = regmap_read(cs42l43->regmap, CS42L43_REVID, &revid);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to read rev: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	ret = regmap_read(cs42l43->regmap, CS42L43_OTP_REVISION_ID, &otp);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to read otp rev: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	dev_info(cs42l43->dev,
+> +		 "devid: 0x%06x, rev: 0x%02x, otp: 0x%02x\n", devid, revid, otp);
+> +
+> +	ret = cs42l43_mcu_update(cs42l43);
+> +	if (ret)
+> +		goto err;
+> +
+> +	ret = regmap_register_patch(cs42l43->regmap, cs42l43_reva_patch,
+> +				    ARRAY_SIZE(cs42l43_reva_patch));
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to apply register patch: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	pm_runtime_mark_last_busy(cs42l43->dev);
+> +	pm_runtime_put_autosuspend(cs42l43->dev);
+
+any reason why the two pm_runtime routines are not placed last, just
+before the return?
+
+> +	ret = devm_mfd_add_devices(cs42l43->dev, PLATFORM_DEVID_NONE,
+> +				   cs42l43_devs, ARRAY_SIZE(cs42l43_devs),
+> +				   NULL, 0, NULL);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to add subdevices: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	dev_dbg(cs42l43->dev, "Successfully initialised\n");
+> +
+> +	return;
+> +
+> +err:
+> +	pm_runtime_put_sync(cs42l43->dev);
+> +	cs42l43_dev_remove(cs42l43);
+> +}
+
+
+> +int cs42l43_dev_probe(struct cs42l43 *cs42l43)
+> +{
+> +	int i, ret;
+> +
+> +	dev_set_drvdata(cs42l43->dev, cs42l43);
+> +
+> +	mutex_init(&cs42l43->pll_lock);
+> +	init_completion(&cs42l43->device_attach);
+> +	init_completion(&cs42l43->device_detach);
+> +	init_completion(&cs42l43->firmware_download);
+> +	INIT_WORK(&cs42l43->boot_work, cs42l43_boot_work);
+> +
+> +	regcache_cache_only(cs42l43->regmap, true);
+> +
+> +	cs42l43->reset = devm_gpiod_get_optional(cs42l43->dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(cs42l43->reset)) {
+> +		ret = PTR_ERR(cs42l43->reset);
+> +		dev_err(cs42l43->dev, "Failed to get reset: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	cs42l43->vdd_p = devm_regulator_get(cs42l43->dev, "VDD_P");
+> +	if (IS_ERR(cs42l43->vdd_p)) {
+> +		ret = PTR_ERR(cs42l43->vdd_p);
+> +		dev_err(cs42l43->dev, "Failed to get VDD_P: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	cs42l43->vdd_d = devm_regulator_get(cs42l43->dev, "VDD_D");
+> +	if (IS_ERR(cs42l43->vdd_d)) {
+> +		ret = PTR_ERR(cs42l43->vdd_d);
+> +		dev_err(cs42l43->dev, "Failed to get VDD_D: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	BUILD_BUG_ON(ARRAY_SIZE(cs42l43_core_supplies) != CS42L43_N_SUPPLIES);
+> +
+> +	for (i = 0; i < CS42L43_N_SUPPLIES; i++)
+> +		cs42l43->core_supplies[i].supply = cs42l43_core_supplies[i];
+> +
+> +	ret = devm_regulator_bulk_get(cs42l43->dev, CS42L43_N_SUPPLIES,
+> +				      cs42l43->core_supplies);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to get core supplies: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = cs42l43_power_up(cs42l43);
+> +	if (ret)
+> +		return ret;
+> +
+> +	pm_runtime_set_autosuspend_delay(cs42l43->dev, 250);
+> +	pm_runtime_use_autosuspend(cs42l43->dev);
+> +	pm_runtime_set_active(cs42l43->dev);> +	pm_runtime_get_noresume(cs42l43->dev);
+
+you probably want a comment to explain that the get_noresume() is
+intentional to prevent the device from suspending before the workqueue
+is handled.
+
+> +	pm_runtime_enable(cs42l43->dev);
+> +
+> +	queue_work(system_long_wq, &cs42l43->boot_work);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(cs42l43_dev_probe, MFD_CS42L43);
+
+> +static int __maybe_unused cs42l43_suspend(struct device *dev)
+> +{
+> +	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	dev_dbg(cs42l43->dev, "System suspend\n");
+> +
+> +	/*
+> +	 * Don't care about being resumed here, but we do want force_resume to
+> +	 * always trigger an actual resume, so that register state for the
+> +	 * MCU/GPIOs is returned as soon as possible after system resume
+> +	 */
+> +	pm_runtime_get_noresume(dev);
+> +
+> +	ret = pm_runtime_force_suspend(dev);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to force suspend: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	pm_runtime_put_noidle(dev);
+
+Is the get_noresume/put_noidle useful here? What does it do?
+
+And it seems wrong anyways, if pm_runtime_force_suspend() fails then the
+usage-count is not decreased.
+
+Surprising sequence...
+
+> +
+> +	ret = cs42l43_power_down(cs42l43);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused cs42l43_resume(struct device *dev)
+> +{
+> +	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	dev_dbg(cs42l43->dev, "System resume\n");
+> +
+> +	ret = cs42l43_power_up(cs42l43);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = pm_runtime_force_resume(dev);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to force resume: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused cs42l43_runtime_suspend(struct device *dev)
+> +{
+> +	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+> +
+> +	dev_dbg(cs42l43->dev, "Runtime suspend\n");
+> +
+> +	/*
+> +	 * Whilst we don't power the chip down here, going into runtime
+> +	 * suspend lets the SoundWire bus power down, which means we can't
+> +	 * communicate with the device any more.
+> +	 */
+> +	regcache_cache_only(cs42l43->regmap, true);
+> +
+> +	return 0;
+> +}
+> +
+> +static int __maybe_unused cs42l43_runtime_resume(struct device *dev)
+> +{
+> +	struct cs42l43 *cs42l43 = dev_get_drvdata(dev);
+> +	unsigned int reset_canary;
+> +	int ret;
+> +
+> +	dev_dbg(cs42l43->dev, "Runtime resume\n");
+> +
+> +	ret = cs42l43_wait_for_attach(cs42l43);
+
+is there a specific reason why the existing initialization_complete is
+not used?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(cs42l43->regmap, CS42L43_RELID, &reset_canary);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to check reset canary: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	if (!reset_canary) {
+> +		/*
+> +		 * If the canary has cleared the chip has reset, re-handle the
+> +		 * MCU and mark the cache as dirty to indicate the chip reset.
+> +		 */
+> +		ret = cs42l43_mcu_update(cs42l43);
+> +		if (ret)
+> +			goto err;
+> +
+> +		regcache_mark_dirty(cs42l43->regmap);
+> +	}
+> +
+> +	ret = regcache_sync(cs42l43->regmap);
+> +	if (ret) {
+> +		dev_err(cs42l43->dev, "Failed to restore register cache: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	return 0;
+> +
+> +err:
+> +	regcache_cache_only(cs42l43->regmap, true);
+> +
+> +	return ret;
+> +}

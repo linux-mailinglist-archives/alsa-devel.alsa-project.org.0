@@ -2,99 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0139700ACE
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 16:56:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39FE2700A8E
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 16:43:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C0DE209;
-	Fri, 12 May 2023 16:55:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C0DE209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51671203;
+	Fri, 12 May 2023 16:42:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51671203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683903375;
-	bh=uGW19VCfL7GXY1Mq1+j9cRUyiM2wju2JbHUARR1lJbw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DfphMdtFQgQKJdB/SyukpIZpcHFe2OGFSbNNt4nAXabBO7JdF2GJxKQ8ak2NgJ0R9
-	 gaZqh8RZjUVvjL/IvxBnuHmq/gdr0zhmcG4qTKqc03C8nNb5ZcQfm8lSb12qSH8YGZ
-	 hOJQh65KKW/2JzmRmZC9CmD8PuI0F9TACRh5g8Po=
+	s=default; t=1683902622;
+	bh=07ctsY6GojbVLI+iPaRY5brjN2+FPEVenZWe7h49/xI=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=PKuSAH6X4SfdKuD6bosVP8JPsl3eOARF7V+Lamf8bIOK7UAauGirYB/w0uldz7ZI2
+	 TTIBBRfqC+HQmmzssuGbC/oANewRw+k40tCJdrR6SL0Yyhbb4Qzwgw1mJyRAH6LTus
+	 awsZ+be834yF55RdI4aJW7nuhOfazYlU7Xue6Kn0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9EE1FF80563; Fri, 12 May 2023 16:54:37 +0200 (CEST)
+	id B7C87F80534; Fri, 12 May 2023 16:42:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28C71F80552;
-	Fri, 12 May 2023 16:54:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62370F80087;
+	Fri, 12 May 2023 16:42:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8462F8052E; Fri, 12 May 2023 16:54:32 +0200 (CEST)
+	id C5CA3F8052E; Fri, 12 May 2023 16:42:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58C55F8032D
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 16:54:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58C55F8032D
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8F2EF8014C
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 16:42:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8F2EF8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=nns4EXK5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1683903267; x=1715439267;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=uGW19VCfL7GXY1Mq1+j9cRUyiM2wju2JbHUARR1lJbw=;
-  b=nns4EXK52n942jj5pgasA8G6/XudjTlf9JVVR2RnvdrJ/vMU3q21pCvB
-   gz0/fbx3amM2uexKBo5OstyYChRG8ay9d6OE9HoD2oHb4+DjBnCHG2S+p
-   gxxrLYDfo92U43Pa2RgYyGalczawR62f60ttsWAgJ95v9rHOocXTbbX4Q
-   p1/UlzuEcqN9sbUrAo2FLzVdppzrf6fpXQneqfWxleRmLcCthWj3nXM2z
-   wZNio4Tf4QBjMGQTuH46tOtA7rgk+OaQCxmc6CYXkVSErdOd6VfGLfUXR
-   420p0L1RaapU8ImxvZSm+lKSDBF0KWW8xSedWnU4dd+NzrH+gLi8annnx
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="437140415"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
-   d="scan'208";a="437140415"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 07:54:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="844441294"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
-   d="scan'208";a="844441294"
-Received: from winkelru-mobl.amr.corp.intel.com (HELO [10.212.144.249])
- ([10.212.144.249])
-  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 07:54:22 -0700
-Message-ID: <138e5c73-c33b-806a-b64e-5c93aaefb140@linux.intel.com>
-Date: Fri, 12 May 2023 08:48:40 -0500
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=iRRoyX4j
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34C79TbQ025224;
+	Fri, 12 May 2023 09:42:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=ZcdklHf7gFBbvSHt4aqfeF7+CyANm3zTqWNEbRQXzG4=;
+ b=iRRoyX4jveKFbAI+ViJsN0vYmdKh9UxXcLKoncjkx0RXXCfQ3PaxsYlr9Q9KZt666KtX
+ 0ZmhbFCNlO7mGnvwyj/RnYPke4PbZZGwtTa8cO9ZwkwhdUbroFJoEOSCkHVc2vSMb7ar
+ budIfzYSdJ9OowPPiBk4gtSKVU07WtDynHLHdKKoQum19tHZ7umNn/Zx3gzUKGnPj9PV
+ iooD5exIw2sO2/1VXXt4j0Rgx8/3WEp+8bPMTAcq/HuikW+cWaZSx822Oo2KmfoPG3Qj
+ +ApMnKz9iVHn3vC8oG0mkuJXa0dQW4jbgY0fI2i7v8BJklfxchHGQLtik8jnxMzavbCe qA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7s46j73-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 12 May 2023 09:42:39 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 12 May
+ 2023 09:42:37 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Fri, 12 May 2023 09:42:37 -0500
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2C52C45;
+	Fri, 12 May 2023 14:42:37 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Simon Trimmer
+	<simont@opensource.cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs35l56: Prevent unbalanced pm_runtime in dsp_work() on
+ SoundWire
+Date: Fri, 12 May 2023 15:42:37 +0100
+Message-ID: <20230512144237.739000-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.10.0
-Subject: Re: [PATCH 03/10] ASoC: ak4118: Update to use new component control
- notify helper
-Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, broonie@kernel.org,
- lee@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org, tglx@linutronix.de, maz@kernel.org,
- linus.walleij@linaro.org, vkoul@kernel.org
-Cc: lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-4-ckeepax@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230512122838.243002-4-ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: MCVNWP4WONZHIDSE4EN74LTO46VP7SO7
-X-Message-ID-Hash: MCVNWP4WONZHIDSE4EN74LTO46VP7SO7
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: mqAveudk8OufYnpDhtsyE9Jgo6oG-_H1
+X-Proofpoint-GUID: mqAveudk8OufYnpDhtsyE9Jgo6oG-_H1
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: IVZGN2NLXLOLEEOOR4TTEATAZ4MMLUI3
+X-Message-ID-Hash: IVZGN2NLXLOLEEOOR4TTEATAZ4MMLUI3
+X-MailFrom: prvs=04962df89c=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MCVNWP4WONZHIDSE4EN74LTO46VP7SO7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IVZGN2NLXLOLEEOOR4TTEATAZ4MMLUI3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,48 +112,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+From: Simon Trimmer <simont@opensource.cirrus.com>
 
+Flush the SoundWire interrupt handler work instead of cancelling it.
 
-On 5/12/23 07:28, Charles Keepax wrote:
-> Update the driver to use the new ASoC core control notify helper.
-> This also fixes a bug where the control would not be found if the
-> CODEC was given a name prefix.
-> 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> ---
->  sound/soc/codecs/ak4118.c | 11 ++---------
->  1 file changed, 2 insertions(+), 9 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/ak4118.c b/sound/soc/codecs/ak4118.c
+When a SoundWire interrupt is triggered the pm_runtime is held
+until the work has completed. It's therefore unsafe to cancel
+the work, it must be flushed.
 
-should patches 2, 3, 4 be part of a separate series, they really have
-nothing to do with the Cirrus CS32L43?
+Signed-off-by: Simon Trimmer <simont@opensource.cirrus.com>
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs35l56.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> index b6d9a10bdccdc..74ccfb0d921d6 100644
-> --- a/sound/soc/codecs/ak4118.c
-> +++ b/sound/soc/codecs/ak4118.c
-> @@ -264,8 +264,6 @@ static irqreturn_t ak4118_irq_handler(int irq, void *data)
->  	struct ak4118_priv *ak4118 = data;
->  	struct snd_soc_component *component = ak4118->component;
->  	struct snd_kcontrol_new *kctl_new;
-> -	struct snd_kcontrol *kctl;
-> -	struct snd_ctl_elem_id *id;
->  	unsigned int i;
->  
->  	if (!component)
-> @@ -273,13 +271,8 @@ static irqreturn_t ak4118_irq_handler(int irq, void *data)
->  
->  	for (i = 0; i < ARRAY_SIZE(ak4118_iec958_controls); i++) {
->  		kctl_new = &ak4118_iec958_controls[i];
-> -		kctl = snd_soc_card_get_kcontrol(component->card,
-> -						 kctl_new->name);
-> -		if (!kctl)
-> -			continue;
-> -		id = &kctl->id;
-> -		snd_ctl_notify(component->card->snd_card,
-> -			       SNDRV_CTL_EVENT_MASK_VALUE, id);
-> +
-> +		snd_soc_component_notify_control(component, kctl_new->name);
->  	}
->  
->  	return IRQ_HANDLED;
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index 46762f7f1449..d1677d76d018 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -852,10 +852,11 @@ static void cs35l56_dsp_work(struct work_struct *work)
+ 	 */
+ 	if (cs35l56->sdw_peripheral) {
+ 		cs35l56->sdw_irq_no_unmask = true;
+-		cancel_work_sync(&cs35l56->sdw_irq_work);
++		flush_work(&cs35l56->sdw_irq_work);
+ 		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_MASK_1, 0);
+ 		sdw_read_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_STAT_1);
+ 		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_STAT_1, 0xFF);
++		flush_work(&cs35l56->sdw_irq_work);
+ 	}
+ 
+ 	ret = cs35l56_mbox_send(cs35l56, CS35L56_MBOX_CMD_SHUTDOWN);
+-- 
+2.30.2
+

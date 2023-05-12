@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DB77700614
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 12:56:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12DF700638
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 13:04:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45059F0;
-	Fri, 12 May 2023 12:56:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45059F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C4A34E;
+	Fri, 12 May 2023 13:03:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C4A34E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683889012;
-	bh=GMY+3SSKw5Q8LwG40TVwmH1HK1wtiQEqWHi++O7LOf4=;
+	s=default; t=1683889444;
+	bh=vXKjzsPnBepBXyxQvhPx1zV8ifkuAjlPZXvTtvyyNKw=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=LTsUi68PXW5/b7GzL7dm6RmKLTFWLvsFfg+7foGpLNIVTeksCrTrQkf4y2veP7Lsc
-	 GrJ3Xds1kUpI++qrXKeXL/daxa9ye3FQCaO1P4UO7xO8kOIhRCtzhdsGdmumMVqTgo
-	 2Qt2e0N4Ajm/sRKEuBl96DxeHCCBL25z9KzOxMoQ=
+	b=V3zgeaOWqf6/z35p7fz9MbMpgTScndgj/JGqK6ynbKeGAwkgLkPIqHwUXVe2eeAg7
+	 2fdaWC4bG2UtcVF9H06iNO4sLYreB8wiPeYKpNExy3FzGPBf545acOF0495nkX/CyN
+	 RnZaJpxl3tKOfQvkLz6dsFItS051U4eZ+tcwsrCQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E060F80087; Fri, 12 May 2023 12:56:01 +0200 (CEST)
+	id BD7EBF8052E; Fri, 12 May 2023 13:02:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40C0FF8032D;
-	Fri, 12 May 2023 12:56:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28F2BF8032D;
+	Fri, 12 May 2023 13:02:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4177FF8052E; Fri, 12 May 2023 12:55:57 +0200 (CEST)
+	id AD988F8052E; Fri, 12 May 2023 13:02:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C9B94F802E8
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 12:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9B94F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id A667DF802E8
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 13:02:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A667DF802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YaQ6g5P/
+ header.s=Intel header.b=SJm6d8J6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1683888955; x=1715424955;
+  t=1683889364; x=1715425364;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=GMY+3SSKw5Q8LwG40TVwmH1HK1wtiQEqWHi++O7LOf4=;
-  b=YaQ6g5P/Sw9ec1fGhuX3gZIpaiT5YhDIvheVbFTQCimMmOhWDcb/p7/X
-   3qdOQE0bXfTkmmvWO6aHWYtfUUaok6C7McMAll4PK0RUKkCY+T+txmRYf
-   hqrDCocNJM6ipG42vu5DPPHZC+8s42GcUTcRcsfO97UntGeOZVeGGsNIW
-   JeM0sgriFqMXWXiQ4CwL1yHr7KJmfRf26WaYXgzWfTg69jgazJq+TjikR
-   fBBO/4PFD0rakUd1Mn+CqaaFn8vEpjeRUz1L9FIJdEwGgGXQ8ZHNr2WkY
-   VeAv+sKbrPOKCgrCAxSc0txUGmUN+LBCyHKidUkzZxj3ON+5Zy3tWedS/
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="416394631"
+  bh=vXKjzsPnBepBXyxQvhPx1zV8ifkuAjlPZXvTtvyyNKw=;
+  b=SJm6d8J6lAncozq0XKXH3L8WCowi9muAK85li1DUVnzTdRqFvA3jGM57
+   6zs3XIF7qOgp1RAqfCEaIiUNzyWDrkzPiSFESaI/OAF0N9p2+SAIaJQk7
+   vb6PpeFmoqZMDcQpiUbJQYpPKDmf2kD0efxoAu0cky8TGv+mu5IrO//+p
+   bgaABmOvHVJbExXltPtJDUEDLZ8pOD3FROuTACpp1qw1yupE7tRbss5n7
+   YiBbLz4h7ovnn4MOdOKhL7PIYd6I1CV0smSSh+SeigIHsGQreojdE5s37
+   tcBDs/atjw6fm9GZwdqeYXBVsB2qzNQxvYZSNTljjcPlX8B1Hyz5l/rTU
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="353012586"
 X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
-   d="scan'208";a="416394631"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 03:55:51 -0700
+   d="scan'208";a="353012586"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 04:02:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="730778253"
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="703152535"
 X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
-   d="scan'208";a="730778253"
+   d="scan'208";a="703152535"
 Received: from nhanph1x-mobl.amr.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.249.38.84])
-  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 03:55:49 -0700
+  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 04:02:23 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -75,16 +76,17 @@ Cc: alsa-devel@alsa-project.org,
 	pierre-louis.bossart@linux.intel.com,
 	ranjani.sridharan@linux.intel.com,
 	kai.vehmanen@linux.intel.com,
+	daniel.baluta@nxp.com,
 	yung-chuan.liao@linux.intel.com
-Subject: [PATCH] ASoC: SOF: ipc4-topology: Use set_get_data() to send
- LARGE_CONFIG message
-Date: Fri, 12 May 2023 13:56:42 +0300
-Message-Id: <20230512105642.23437-1-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH] ASoC: SOF: ipc3-topology: Make sure that only one cmd is sent
+ in dai_config
+Date: Fri, 12 May 2023 14:03:17 +0300
+Message-Id: <20230512110317.5180-1-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Q4YAXLPO3QYQTPAWJ5VQFBJQ2JNJP3RJ
-X-Message-ID-Hash: Q4YAXLPO3QYQTPAWJ5VQFBJQ2JNJP3RJ
+Message-ID-Hash: QL3BYXXSWTWWEYXRHSDOO5BAE755G62Q
+X-Message-ID-Hash: QL3BYXXSWTWWEYXRHSDOO5BAE755G62Q
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q4YAXLPO3QYQTPAWJ5VQFBJQ2JNJP3RJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QL3BYXXSWTWWEYXRHSDOO5BAE755G62Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,64 +108,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Instead of open coding the sending of sink format of the copier with
-LARGE_CONFIG_SET message, use the proper function to do so.
+The commands in sof_ipc_dai_config.flags are encoded as bits:
+1 (bit0) - hw_params
+2 (bit1) - hw_free
+4 (bit2) - pause
 
+These are commands, they cannot be combined as one would assume, for
+example
+3 (bit0 | bit1) is invalid.
+
+This can happen right at the second start of a stream as at the end of the
+first stream we set the hw_free command (bit1) and on the second start we
+would OR on top of it the hw_params (bit0).
+
+Fixes: b66bfc3a9810 ("ASoC: SOF: sof-audio: Fix broken early bclk feature for SSP")
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc4-topology.c | 21 +++++++--------------
- 1 file changed, 7 insertions(+), 14 deletions(-)
+ sound/soc/sof/ipc3-topology.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 059eebf0a687..73a45437a3a1 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -2271,11 +2271,11 @@ static int sof_ipc4_set_copier_sink_format(struct snd_sof_dev *sdev,
- 					   int sink_id)
- {
- 	struct sof_ipc4_copier_config_set_sink_format format;
-+	const struct sof_ipc_ops *iops = sdev->ipc->ops;
- 	struct sof_ipc4_base_module_cfg *src_config;
- 	const struct sof_ipc4_audio_format *pin_fmt;
- 	struct sof_ipc4_fw_module *fw_module;
- 	struct sof_ipc4_msg msg = {{ 0 }};
--	u32 header, extension;
+diff --git a/sound/soc/sof/ipc3-topology.c b/sound/soc/sof/ipc3-topology.c
+index fc1eb8e2de2c..ba4ef290b634 100644
+--- a/sound/soc/sof/ipc3-topology.c
++++ b/sound/soc/sof/ipc3-topology.c
+@@ -2103,10 +2103,13 @@ static int sof_ipc3_dai_config(struct snd_sof_dev *sdev, struct snd_sof_widget *
+ 	 * For the case of PAUSE/HW_FREE, since there are no quirks, flags can be used as is.
+ 	 */
  
- 	dev_dbg(sdev->dev, "%s set copier sink %d format\n",
- 		src_widget->widget->name, sink_id);
-@@ -2305,22 +2305,15 @@ static int sof_ipc4_set_copier_sink_format(struct snd_sof_dev *sdev,
- 	msg.data_size = sizeof(format);
- 	msg.data_ptr = &format;
+-	if (flags & SOF_DAI_CONFIG_FLAGS_HW_PARAMS)
++	if (flags & SOF_DAI_CONFIG_FLAGS_HW_PARAMS) {
++		/* Clear stale command */
++		config->flags &= ~SOF_DAI_CONFIG_FLAGS_CMD_MASK;
+ 		config->flags |= flags;
+-	else
++	} else {
+ 		config->flags = flags;
++	}
  
--	header = fw_module->man4_module_entry.id;
--	header |= SOF_IPC4_MOD_INSTANCE(src_widget->instance_id);
--	header |= SOF_IPC4_MSG_TYPE_SET(SOF_IPC4_MOD_LARGE_CONFIG_SET);
--	header |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
--	header |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
-+	msg.primary = fw_module->man4_module_entry.id;
-+	msg.primary |= SOF_IPC4_MOD_INSTANCE(src_widget->instance_id);
-+	msg.primary |= SOF_IPC4_MSG_DIR(SOF_IPC4_MSG_REQUEST);
-+	msg.primary |= SOF_IPC4_MSG_TARGET(SOF_IPC4_MODULE_MSG);
- 
--	extension = SOF_IPC4_MOD_EXT_MSG_SIZE(msg.data_size);
--	extension |=
-+	msg.extension =
- 		SOF_IPC4_MOD_EXT_MSG_PARAM_ID(SOF_IPC4_COPIER_MODULE_CFG_PARAM_SET_SINK_FORMAT);
--	extension |= SOF_IPC4_MOD_EXT_MSG_LAST_BLOCK(1);
--	extension |= SOF_IPC4_MOD_EXT_MSG_FIRST_BLOCK(1);
--
--	msg.primary = header;
--	msg.extension = extension;
- 
--	return sof_ipc_tx_message_no_reply(sdev->ipc, &msg, msg.data_size);
-+	return iops->set_get_data(sdev, &msg, msg.data_size, true);
- }
- 
- static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *sroute)
+ 	/* only send the IPC if the widget is set up in the DSP */
+ 	if (swidget->use_count > 0) {
 -- 
 2.40.1
 

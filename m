@@ -2,112 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94877007D5
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 14:26:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F02E700809
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 14:31:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9BFA1DD;
-	Fri, 12 May 2023 14:25:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9BFA1DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16BF8201;
+	Fri, 12 May 2023 14:30:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16BF8201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683894377;
-	bh=mO4UahnqHBJPAN3TsrL6vpM4Jk/VYgDd65ACi0Kx/YQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=c1H7P3EPpOy32AsizhoZaLKkAqQ/Uv109cNvaPwoSCRy/fiFyzdp9rdgjpqyZTNEa
-	 5IeH13XpsifbPfblKL66gqJLLMfs++fhsj4KqioosWLQTPl1AQXuVYTL3aadyFnbY5
-	 SWRZWOgRAHbJMK7p2ZHIlYYJnAdwDDB0kCWAcTmc=
+	s=default; t=1683894659;
+	bh=XnZOpeLg2jB3NqIeHz+EtsLIk4E/+O+21xYcvDQJ2tI=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=LmS4fGoVBcAEXmrVjcFY+KXS8uJ4ngqmVoh++ETLQUI19jWIHg+wFktLSVr5Rtr7w
+	 egdKKaU+1nBXkF9X7Dz8uiB6DvJ73+ja4tYmrD68rHrrr/zlSVf1k2LynWpTc+NLbw
+	 eY9EMZ6qgW3EZFN9nBOOPC56qzV0EXDeeLfkvXe0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4CD13F80542; Fri, 12 May 2023 14:25:04 +0200 (CEST)
+	id 42F28F8057C; Fri, 12 May 2023 14:29:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB5DCF8032D;
-	Fri, 12 May 2023 14:25:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CAC4F8052E;
+	Fri, 12 May 2023 14:29:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B76EBF8052E; Fri, 12 May 2023 14:25:00 +0200 (CEST)
+	id 33ECDF80551; Fri, 12 May 2023 14:28:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 28DF6F80087
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 14:24:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28DF6F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4071BF8052E
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 14:28:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4071BF8052E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=XoVGJBDy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=o06F/UAC
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7EBDF2054C;
-	Fri, 12 May 2023 12:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1683894297;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AIYXPy66OVB6d4+1LkZtEDQ3+74A6vnfthdUf4xHZAU=;
-	b=XoVGJBDydWV5zyHkkQrtIi4fB9nTBS4NVgmoqQTj7ZMXTM2Wg9dQSe91JEBAUF62yMAVig
-	Lj9eVa91tEvAZa6irjbKwpZh3MokjirxjlrqUwuZrZfLtt5pHR6czz1uKQTNPOs/wNAjl3
-	JzOEJZoVbFUj5JIeua+f+AfZuPhQB8E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683894297;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AIYXPy66OVB6d4+1LkZtEDQ3+74A6vnfthdUf4xHZAU=;
-	b=o06F/UACmk5bapIsYUUo+uXGvVXIC9t+J6fDLQTjOA7toJ+RZgSR9tLa8lpd9pSmPlerCQ
-	6bdqTw8KDHBde1AA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5C45B13466;
-	Fri, 12 May 2023 12:24:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +5QzFRkwXmQEHgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 12 May 2023 12:24:57 +0000
-Date: Fri, 12 May 2023 14:24:56 +0200
-Message-ID: <87bkipag9z.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: HDA, power saving and recording
-In-Reply-To: <7915b40e-a65a-479d-5a2b-062ee3cb432b@linux.intel.com>
-References: <a7478636-af11-92ab-731c-9b13c582a70d@linux.intel.com>
-	<878rdwjs1s.wl-tiwai@suse.de>
-	<cceaeb53-06df-ced0-1f54-f5c0eb65f824@linux.intel.com>
-	<87jzxe5084.wl-tiwai@suse.de>
-	<41417b90-1881-0cbb-52e1-d63923dd8cd6@linux.intel.com>
-	<87ilcxaj3u.wl-tiwai@suse.de>
-	<87fs81ainl.wl-tiwai@suse.de>
-	<7915b40e-a65a-479d-5a2b-062ee3cb432b@linux.intel.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=Ap4aiG0a
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34CCOUoo001858;
+	Fri, 12 May 2023 07:28:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=hhGbqr5I8d1WarBJ8Z9M0P99KfkmGBTeVHbqv5amikE=;
+ b=Ap4aiG0ah8RcwsjPABIbFRIg+kASR6fLmS8xzdDwefldHDuurFAMk4B5MfWBens19A7F
+ XqsvNcGVbfOhOxcWYXKecIBFrSAgJO74wrYn38mIIYAqkA+X+UMxc03E8T/lEUpD8yhz
+ HVs7zEEjJChOknZT4gTqALpDXKTALyzYgJpOoIrcvncv/aHU0brRHDfxiy+qK4D6xEtN
+ /8J3fSPbHlZJTfGzFpEaAlAmujCaALpN9h42TVooNfelT5aaGs1vYsptfCKgDbU3KUrc
+ TBhEdHiK2ZUazkqXvaa+9uON8sgTPRKUvfF8YuVAvSywjrOI919HQNSjPYsYwbkiTgeQ xQ==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7nb5dqx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 12 May 2023 07:28:40 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 12 May
+ 2023 07:28:38 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Fri, 12 May 2023 07:28:38 -0500
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 24FD345;
+	Fri, 12 May 2023 12:28:38 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <tglx@linutronix.de>, <maz@kernel.org>, <linus.walleij@linaro.org>,
+        <vkoul@kernel.org>
+CC: <lgirdwood@gmail.com>, <yung-chuan.liao@linux.intel.com>,
+        <sanyog.r.kale@intel.com>, <pierre-louis.bossart@linux.intel.com>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+        <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 00/10] Add cs42l43 PC focused SoundWire CODEC
+Date: Fri, 12 May 2023 13:28:28 +0100
+Message-ID: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KLUCB7DGABDVYSPMDZU5AM3ACS4DR5HT
-X-Message-ID-Hash: KLUCB7DGABDVYSPMDZU5AM3ACS4DR5HT
-X-MailFrom: tiwai@suse.de
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 8-OvAxXkBH6wUG2stbtfU7YbBv3HFIV3
+X-Proofpoint-GUID: 8-OvAxXkBH6wUG2stbtfU7YbBv3HFIV3
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 63DFZXVJ2FJ7BAQKXOTYAR6C4W46YXAL
+X-Message-ID-Hash: 63DFZXVJ2FJ7BAQKXOTYAR6C4W46YXAL
+X-MailFrom: prvs=0496644b8b=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KLUCB7DGABDVYSPMDZU5AM3ACS4DR5HT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/63DFZXVJ2FJ7BAQKXOTYAR6C4W46YXAL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,119 +113,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 12 May 2023 14:00:54 +0200,
-Amadeusz S³awiñski wrote:
-> 
-> On 5/12/2023 1:33 PM, Takashi Iwai wrote:
-> > On Fri, 12 May 2023 13:23:49 +0200,
-> > Takashi Iwai wrote:
-> >> 
-> >> On Thu, 11 May 2023 19:20:17 +0200,
-> >> Amadeusz S³awiñski wrote:
-> >>> 
-> >>> On 5/11/2023 5:58 PM, Takashi Iwai wrote:
-> >>>> On Thu, 11 May 2023 17:31:37 +0200,
-> >>>> Amadeusz S³awiñski wrote:
-> >>>>> 
-> >>>>> On 5/10/2023 2:21 PM, Takashi Iwai wrote:
-> >>>>>> On Tue, 09 May 2023 12:10:06 +0200,
-> >>>>>> Amadeusz S³awiñski wrote:
-> >>>>> Then capture stream starts and seems to assume that
-> >>>>> registers were already set, so it doesn't write them to hw.
-> >>>> 
-> >>>> ... it seems this didn't happen, and that's the inconsistency.
-> >>>> 
-> >>>> So the further question is:
-> >>>> At the point just before you start recording, is the codec in runtime
-> >>>> suspended?  Or it's running?
-> >>>> 
-> >>>> If it's runtime-suspended, snd_hda_regmap_sync() must be called from
-> >>>> alc269_resume() via runtime-resume, and this must write out the
-> >>>> cached values.  Then the bug can be along with that line.
-> >>>> 
-> >>>> Or if it's running, it means that the previous check of
-> >>>> snd_hdac_keep_power_up() was bogus (or racy).
-> >>>> 
-> >>> 
-> >>> Well, it is in... let's call it semi powered state. When snd_hda_intel
-> >>> driver is loaded with power_save=X option it sets timeout to X seconds
-> >>> and problem only happens when I start the stream before those X
-> >>> seconds pass and it runs first runtime suspend. After it suspends it
-> >>> then uses standard pm_runtime_resume and works correctly. That's why
-> >>> the pm_runtime_force_suspend(&codec->core.dev);  mentioned in first
-> >>> email in thread "fixes" the problem, as it forces it to be instantly
-> >>> suspended instead of waiting for timeout and then later normal
-> >>> resume-play/record-suspend flow can be followed.
-> >> 
-> >> Hm, then maybe it's a bad idea to rely on the usage count there.
-> >> Even if the usage is 0, the device can be still active, and the update
-> >> can be missed.
-> >> 
-> >> How about the patch like below?
-> > 
-> > Scratch that, it returns a wrong value.
-> > A simpler version like below works instead?
-> > 
-> 
-> Yes it was broken, arecord didn't even start capturing ;)
-> 
-> > 
-> > Takashi
-> > 
-> > --- a/sound/hda/hdac_device.c
-> > +++ b/sound/hda/hdac_device.c
-> > @@ -611,10 +611,9 @@ EXPORT_SYMBOL_GPL(snd_hdac_power_up_pm);
-> >   int snd_hdac_keep_power_up(struct hdac_device *codec)
-> >   {
-> >   	if (!atomic_inc_not_zero(&codec->in_pm)) {
-> > -		int ret = pm_runtime_get_if_in_use(&codec->dev);
-> > -		if (!ret)
-> > +		if (!pm_runtime_active(&codec->dev))
-> >   			return -1;
-> > -		if (ret < 0)
-> > +		if (pm_runtime_get_sync(&codec->dev) < 0)
-> >   			return 0;
-> >   	}
-> >   	return 1;
-> 
-> 
-> This one seems to work, as in I'm able to record before first suspend
-> hits. However device stays in D0 when no stream is running...
-> # cat /sys/devices/pci0000\:00/0000\:00\:0e.0/power_state
-> D0
+This patch chain adds support for the Cirrus Logic cs42l43 PC focused
+SoundWire CODEC. Some supporting work is included in the chain,
+including adding an ASoC control notification helper function and
+adding support for IRQs generated by the in-band SoundWire alert
+mechanism.
 
-OK, one step forward.  The previous change was bad in anyway, as we
-shouldn't sync there at all.
+The chain is currently based of v6.4-rc1 because I am not 100% sure
+which tree we want to send everything through. The CODEC support
+has a build dependency on both the SoundWire change and the ASoC
+soc-component change.
 
-So, the problem becomes clearer now: it's in the lazy update mechanism
-that misses the case that has to be written.
+Thanks,
+Charles
 
-Scratch the previous one again, and could you try the following one
-instead?
+Charles Keepax (8):
+  ASoC: soc-component: Add notify control helper function
+  ASoC: ak4118: Update to use new component control notify helper
+  ASoC: wm_adsp: Update to use new component control notify helepr
+  dt-bindings: mfd: cirrus,cs42l43: Add initial DT binding
+  mfd: cs42l43: Add support for cs42l43 core driver
+  irqchip/cs42l43: Add support for the cs42l43 IRQs
+  pinctrl: cs42l43: Add support for the cs42l43
+  ASoC: cs42l43: Add support for the cs42l43
 
+Lucas Tanure (2):
+  soundwire: bus: Allow SoundWire peripherals to register IRQ handlers
+  spi: cs42l43: Add SPI controller support
 
-Takashi
+ .../bindings/mfd/cirrus,cs42l43.yaml          |  212 ++
+ MAINTAINERS                                   |    7 +
+ drivers/irqchip/Kconfig                       |    9 +
+ drivers/irqchip/Makefile                      |    1 +
+ drivers/irqchip/irq-cs42l43.c                 |  170 ++
+ drivers/mfd/Kconfig                           |   23 +
+ drivers/mfd/Makefile                          |    3 +
+ drivers/mfd/cs42l43-i2c.c                     |   86 +
+ drivers/mfd/cs42l43-sdw.c                     |  210 ++
+ drivers/mfd/cs42l43.c                         | 1044 ++++++++
+ drivers/mfd/cs42l43.h                         |   23 +
+ drivers/pinctrl/cirrus/Kconfig                |   11 +
+ drivers/pinctrl/cirrus/Makefile               |    2 +
+ drivers/pinctrl/cirrus/pinctrl-cs42l43.c      |  614 +++++
+ drivers/soundwire/bus.c                       |   31 +
+ drivers/soundwire/bus_type.c                  |   12 +
+ drivers/spi/Kconfig                           |    7 +
+ drivers/spi/Makefile                          |    1 +
+ drivers/spi/spi-cs42l43.c                     |  287 +++
+ include/linux/irqchip/cs42l43.h               |   61 +
+ include/linux/mfd/cs42l43-regs.h              | 1172 +++++++++
+ include/linux/mfd/cs42l43.h                   |   50 +
+ include/linux/soundwire/sdw.h                 |    9 +
+ include/sound/cs42l43.h                       |   84 +
+ include/sound/soc-component.h                 |    4 +
+ sound/soc/codecs/Kconfig                      |   16 +
+ sound/soc/codecs/Makefile                     |    4 +
+ sound/soc/codecs/ak4118.c                     |   11 +-
+ sound/soc/codecs/cs42l43-jack.c               |  946 +++++++
+ sound/soc/codecs/cs42l43-sdw.c                |   75 +
+ sound/soc/codecs/cs42l43.c                    | 2270 +++++++++++++++++
+ sound/soc/codecs/cs42l43.h                    |  117 +
+ sound/soc/codecs/wm_adsp.c                    |   20 +-
+ sound/soc/soc-component.c                     |   22 +
+ 34 files changed, 7586 insertions(+), 28 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/cirrus,cs42l43.yaml
+ create mode 100644 drivers/irqchip/irq-cs42l43.c
+ create mode 100644 drivers/mfd/cs42l43-i2c.c
+ create mode 100644 drivers/mfd/cs42l43-sdw.c
+ create mode 100644 drivers/mfd/cs42l43.c
+ create mode 100644 drivers/mfd/cs42l43.h
+ create mode 100644 drivers/pinctrl/cirrus/pinctrl-cs42l43.c
+ create mode 100644 drivers/spi/spi-cs42l43.c
+ create mode 100644 include/linux/irqchip/cs42l43.h
+ create mode 100644 include/linux/mfd/cs42l43-regs.h
+ create mode 100644 include/linux/mfd/cs42l43.h
+ create mode 100644 include/sound/cs42l43.h
+ create mode 100644 sound/soc/codecs/cs42l43-jack.c
+ create mode 100644 sound/soc/codecs/cs42l43-sdw.c
+ create mode 100644 sound/soc/codecs/cs42l43.c
+ create mode 100644 sound/soc/codecs/cs42l43.h
 
---- a/sound/hda/hdac_regmap.c
-+++ b/sound/hda/hdac_regmap.c
-@@ -293,8 +293,17 @@ static int hda_reg_write(void *context, unsigned int reg, unsigned int val)
- 
- 	if (verb != AC_VERB_SET_POWER_STATE) {
- 		pm_lock = codec_pm_lock(codec);
--		if (pm_lock < 0)
--			return codec->lazy_cache ? 0 : -EAGAIN;
-+		if (pm_lock < 0) {
-+			/* skip the actual write if it's in lazy-update mode
-+			 * and only if the device is actually suspended;
-+			 * the usage count can be zero at transition phase
-+			 * (either suspending/resuming or auto-suspend sleep)
-+			 */
-+			if (codec->lazy_cache &&
-+			    pm_runtime_suspended(&codec->dev))
-+				return 0;
-+			return -EAGAIN;
-+		}
- 	}
- 
- 	if (is_stereo_amp_verb(reg)) {
+-- 
+2.30.2
 

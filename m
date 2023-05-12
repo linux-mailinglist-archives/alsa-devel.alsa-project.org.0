@@ -2,91 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BFFD700DFA
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 19:36:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E49700E14
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 19:47:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC20DE80;
-	Fri, 12 May 2023 19:35:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC20DE80
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC198E7F;
+	Fri, 12 May 2023 19:46:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC198E7F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683912987;
-	bh=wg3oNU6auGQxy1UpZdSyiiXsd+y+dEq40Z+h2qMaXGc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Mt2NbWpJ47BkRQ8AzqZlLJ8Z2AddaSkrk2ahS+FSRMLMyPKqrlZbo7Cd3MvyfTqER
-	 RACJiQ7Irah9qZ5blZUBM2867BJDCj4cBkAWVvw+Vvr6UfVR5ix0QhgYWiVRsKI5jq
-	 ZokHxF2QGVnWbgIo68fZmKNA+k9vpXp7QNzLZrzs=
+	s=default; t=1683913640;
+	bh=wgeVii9IRi5ReIm/wE+3Nuc6XCZ/Cs5Ln5gztqksKxs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=XNgjJNQcP2l8KF7UZRqmPlxpC+H+gGEHmdC41//tLC/FFqYqfHUM4YTXZx7QBjMmh
+	 zwvDKJje6EqqfFilUZ5U6G/ygIrTHTnY6JjoU9mzW8DhGESkiAP0L33cYk2Qmn8Bme
+	 ejMn6BwR2YEGB4TVEBkoSzcnmH7IsmKzfPoCkaoA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0ADAAF805B3; Fri, 12 May 2023 19:34:06 +0200 (CEST)
+	id F2352F80553; Fri, 12 May 2023 19:46:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6538F805B0;
-	Fri, 12 May 2023 19:34:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 619D6F80542;
+	Fri, 12 May 2023 19:46:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 369D5F80580; Fri, 12 May 2023 19:34:00 +0200 (CEST)
+	id 141BEF8014C; Fri, 12 May 2023 19:46:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5899FF80544
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 19:33:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5899FF80544
+	by alsa1.perex.cz (Postfix) with ESMTPS id DEFA3F8014C
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 19:46:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEFA3F8014C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=I8Y/Y31y
+ header.s=Intel header.b=VlQPz1VE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1683912829; x=1715448829;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=wg3oNU6auGQxy1UpZdSyiiXsd+y+dEq40Z+h2qMaXGc=;
-  b=I8Y/Y31yIxaIHXqG21J12XrwxcUDkIKPbCdc2PGp5d6BdneBCPL6leIT
-   j6jvCIMJTGv39VX5kqn6cbJKmw/REzpWmDfEVWlt11iyDLfoNm1an84gq
-   25Qw117wtGv+05KOhoUKlWf6kag0nmJBQC37B/knQlc1JnsAYD0PIs+jU
-   eD/oIbLK41h8fpZBFkku/f78FNkatVd/Au1PFi6qPiH9Qob823xNPxEr8
-   XrRz3WE12qH0W5/SI/s61IW8E3c4skERylZS3ioqo94vaFXGtkX1o5RcG
-   93WNDfq1l9MS5IxDpfUtopXbYg4JUjNwQDDvmqSZrBuT8WnAeQ5+3ZG+P
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="340164743"
+  t=1683913583; x=1715449583;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=wgeVii9IRi5ReIm/wE+3Nuc6XCZ/Cs5Ln5gztqksKxs=;
+  b=VlQPz1VEYk93tSi/sb0ha36kh1Pz1pqbi4/rPfkj6c6IkAouDI/DJgY+
+   0sl9Ztyr67ZqZUJOTYEPWulxQMn93+w5ibyLcPRsgb8zX6ZjD1MgEXOUT
+   d5rOwRWETKLTJ44i1snFzSzlzsqdQU0glRMrUuz3o5/JJj5MkU6KeNILA
+   KHRCT3ojSoNSJpSdyQdjgo77xotCGs+vHAiq+248T8/ju0NpcPbmWr2o8
+   QWPd4VmgwDnuCR6erGMnsnhN/AZeh9MvERreKpAl/24fMFRPBtlqJ40Q+
+   VRzan1cH/lYEWsJaqtSytHQLsa1kHgECCrIWmaesJKS6WGxbQNCnghoqE
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="349688040"
 X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
-   d="scan'208";a="340164743"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 10:33:19 -0700
+   d="scan'208";a="349688040"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 10:46:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="1030160316"
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="812167737"
 X-IronPort-AV: E=Sophos;i="5.99,269,1677571200";
-   d="scan'208";a="1030160316"
+   d="scan'208";a="812167737"
 Received: from winkelru-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.144.249])
-  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 10:33:18 -0700
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 10:46:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
 	broonie@kernel.org,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: [PATCH 8/8] ASoC: Intel: sof_sdw: add quirk for LNL RVP
-Date: Fri, 12 May 2023 12:33:05 -0500
-Message-Id: <20230512173305.65399-9-pierre-louis.bossart@linux.intel.com>
+	vkoul@kernel.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/6] ASoC: SOF: Intel: hda-mlink: fixes and extensions
+Date: Fri, 12 May 2023 12:46:05 -0500
+Message-Id: <20230512174611.84372-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230512173305.65399-1-pierre-louis.bossart@linux.intel.com>
-References: <20230512173305.65399-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TSDTBMJXRUA4T3B3Z2VBBLUGA7ZOEVTG
-X-Message-ID-Hash: TSDTBMJXRUA4T3B3Z2VBBLUGA7ZOEVTG
+Message-ID-Hash: ZQH5ZHDIKLXVCFOLSQEGLVW3VA3VOAX2
+X-Message-ID-Hash: ZQH5ZHDIKLXVCFOLSQEGLVW3VA3VOAX2
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TSDTBMJXRUA4T3B3Z2VBBLUGA7ZOEVTG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQH5ZHDIKLXVCFOLSQEGLVW3VA3VOAX2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,37 +103,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+With additional testing with multiple links and multiple DAI types, we
+found a couple of mistakes with refcounts, base address, missing
+initialization.
 
-We should use RT711_JD2_100K for on board rt711
+A new helper was also added due to a change in the SoundWire
+programming sequences, with the host driver in charge of setting up
+the DMA channel mapping instead of the firmware.
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/intel/boards/sof_sdw.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Pierre-Louis Bossart (6):
+  ASoC: SOF: Intel: hda-mlink: fix sublink refcounting
+  ASoC: SOF: Intel: hda-mlink: add helper to get SoundWire hlink
+  ASoC: SOF: Intel: hda-mlink: fix base_ptr computation
+  ASoC: SOF: Intel: hda-mlink: use 'ml_addr' parameter consistently
+  ASoC: SOF: Intel: hda-mlink: initialize instance_offset member
+  ASoC: SOF: Intel: hda-mlink: add helper to program SoundWire PCMSyCM
+    registers
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index dbcae1d09c55..d16ceef702a7 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -437,6 +437,15 @@ static const struct dmi_system_id sof_sdw_quirk_table[] = {
- 		},
- 		.driver_data = (void *)(RT711_JD2_100K),
- 	},
-+	/* LunarLake devices */
-+	{
-+		.callback = sof_sdw_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Lunar Lake Client Platform"),
-+		},
-+		.driver_data = (void *)(RT711_JD2_100K),
-+	},
- 	{}
- };
- 
+ include/sound/hda-mlink.h       | 14 +++++
+ sound/soc/sof/intel/hda-mlink.c | 96 +++++++++++++++++++++++++++++----
+ 2 files changed, 101 insertions(+), 9 deletions(-)
+
 -- 
 2.37.2
 

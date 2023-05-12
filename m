@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5356700F26
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 21:04:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF678700F3F
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 21:20:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA588EB3;
-	Fri, 12 May 2023 21:03:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA588EB3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91A46EB4;
+	Fri, 12 May 2023 21:19:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91A46EB4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683918274;
-	bh=4YFJUj5gXssy7gs8iKyXUlUTPpWbGN/9UmJPKOvGXds=;
+	s=default; t=1683919216;
+	bh=EE/iazhb6EMwVQkG3o6nsagF6vDUu16BFPQj+H0pjg0=;
 	h=From:Date:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tyebfp+49QT2+TdKB/JrZ3AR3lazkvBqLXAg3typiyejqH9Jb1BJfDmwn77XOjg7u
-	 +r3pm0rOhvSCZiCtygxBDcb/yPehhi02U3mq5KetS0Y/hlhdS8wI/wkTCmO2v0JFt7
-	 1oWO/5w8G9FYoAK90mGhXbKWVjzDlQBm13CTpLPk=
+	b=r1R8k2OFdrfjvjoKz2YDO2pcIGZw+ViUrNPm/W8my7K8VhRUMG0IAtQpd2NWcUgph
+	 4kI3DEwL2Y+l89C3sysVbgmqviFsIXENCNNvL1h8Ac7QQfxgpJcNTBirkhqMJxz7Ds
+	 A5ZMPasWxHwoTp5+eQ1HSHCVKYQrfwEvW0LdiI1A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 922F6F8053D; Fri, 12 May 2023 21:03:22 +0200 (CEST)
+	id E71EAF8052E; Fri, 12 May 2023 21:19:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3B3BF802E8;
-	Fri, 12 May 2023 21:03:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A136F8032D;
+	Fri, 12 May 2023 21:19:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C5C4EF8052E; Fri, 12 May 2023 21:03:17 +0200 (CEST)
+	id 55939F8052E; Fri, 12 May 2023 21:19:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-1.8 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
@@ -38,15 +38,15 @@ Received: from fgw22-7.mail.saunalahti.fi (fgw22-7.mail.saunalahti.fi
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CA4CCF80087
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 21:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA4CCF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id EB5EDF802E8
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 21:19:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB5EDF802E8
 Received: from localhost (88-113-26-95.elisa-laajakaista.fi [88.113.26.95])
 	by fgw22.mail.saunalahti.fi (Halon) with ESMTP
-	id a2075948-f0f7-11ed-a9de-005056bdf889;
-	Fri, 12 May 2023 22:03:09 +0300 (EEST)
+	id e1e3206d-f0f9-11ed-a9de-005056bdf889;
+	Fri, 12 May 2023 22:19:15 +0300 (EEST)
 From: andy.shevchenko@gmail.com
-Date: Fri, 12 May 2023 22:03:08 +0300
+Date: Fri, 12 May 2023 22:19:14 +0300
 To: Charles Keepax <ckeepax@opensource.cirrus.com>
 Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
 	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
@@ -57,16 +57,16 @@ Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
 	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
 	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/10] spi: cs42l43: Add SPI controller support
-Message-ID: <ZF6NbHVD4ay2S83R@surfacebook>
+Subject: Re: [PATCH 08/10] pinctrl: cs42l43: Add support for the cs42l43
+Message-ID: <ZF6RMqElYZVMpWRt@surfacebook>
 References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-10-ckeepax@opensource.cirrus.com>
+ <20230512122838.243002-9-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230512122838.243002-10-ckeepax@opensource.cirrus.com>
-Message-ID-Hash: DM6UII5TTJPO5DIFWUY4JJ6IBWI5XWTP
-X-Message-ID-Hash: DM6UII5TTJPO5DIFWUY4JJ6IBWI5XWTP
+In-Reply-To: <20230512122838.243002-9-ckeepax@opensource.cirrus.com>
+Message-ID-Hash: X2C7NHRJ3MRBE5I3GHVLXZLKGLW2TO7D
+X-Message-ID-Hash: X2C7NHRJ3MRBE5I3GHVLXZLKGLW2TO7D
 X-MailFrom: andy.shevchenko@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -79,7 +79,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DM6UII5TTJPO5DIFWUY4JJ6IBWI5XWTP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X2C7NHRJ3MRBE5I3GHVLXZLKGLW2TO7D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,9 +88,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fri, May 12, 2023 at 01:28:37PM +0100, Charles Keepax kirjoitti:
-> From: Lucas Tanure <tanureal@opensource.cirrus.com>
-> 
+Fri, May 12, 2023 at 01:28:36PM +0100, Charles Keepax kirjoitti:
 > The CS42L43 is an audio CODEC with integrated MIPI SoundWire interface
 > (Version 1.2.1 compliant), I2C, SPI, and I2S/TDM interfaces designed
 > for portable applications. It provides a high dynamic range, stereo
@@ -98,115 +96,258 @@ Fri, May 12, 2023 at 01:28:37PM +0100, Charles Keepax kirjoitti:
 > loudspeakers, and two ADCs for wired headset microphone input or
 > stereo line input. PDM inputs are provided for digital microphones.
 > 
-> The SPI component incorporates a SPI controller interface for
-> communication with other peripheral components.
+> Add a basic pinctrl driver which supports driver strength for the
+> various pins, gpios, and pinmux for the 2 multi-function pins.
 
 ...
 
-> +#define CS42L43_SPI_ROOT_HZ		40000000
+> +#include <linux/pinctrl/consumer.h>
+> +#include <linux/pinctrl/pinctrl.h>
+> +#include <linux/pinctrl/pinmux.h>
+> +#include <linux/pinctrl/pinconf.h>
+> +#include <linux/pinctrl/pinconf-generic.h>
 
-HZ_PER_MHZ?
+Can you order them and split into a separate group that goes...
 
-...
-
-> +		const u8 *block = min_t(const u8 *, buf + CS42L43_FIFO_SIZE, end);
-
-Wouldn't min() work?
-
-...
-
-> +		for (; buf < block - (sizeof(u32) - 1); buf += sizeof(u32))
-> +			regmap_write(regmap, CS42L43_TX_DATA, *(const u32 *)buf);
-
-This casting might be potentially wrong taking alignment into consideration.
-Perhaps you need get_unaligned(). Also here the return value isn't checked,
-while in the read it is.
-
-...
-
-> +		const u8 *block = min_t(const u8 *, buf + CS42L43_FIFO_SIZE, end);
-
-min() ?
-
-...
-
-> +		for (; buf < block - (sizeof(u32) - 1); buf += sizeof(u32)) {
-> +			ret = regmap_read(regmap, CS42L43_RX_DATA, (u32 *)buf);
-
-put_unaligned() ?
-
-> +			if (ret)
-> +				return ret;
-> +		}
-
-...
-
-> +static int cs42l43_prepare_transfer_hardware(struct spi_controller *ctlr)
-> +{
-> +	struct cs42l43_spi *priv = spi_controller_get_devdata(ctlr);
-> +	int ret;
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
 > +
-> +	ret = regmap_write(priv->regmap, CS42L43_BLOCK_EN2, CS42L43_SPI_MSTR_EN_MASK);
-> +	if (ret) {
-> +		dev_err(priv->dev, "Failed to enable SPI controller: %d\n", ret);
 
-> +		return ret;
-> +	}
-> +
-> +	return 0;
+...here?
 
-	return ret; ?
+> +#include "../pinctrl-utils.h"
+
+...
+
+> +struct cs42l43_pin {
+> +	struct device *dev;
+> +	struct regmap *regmap;
+> +	bool shutters_locked;
+
+> +	struct gpio_chip gpio_chip;
+
+If you move this to be the first member you might save a few bytes of code.
+
+> +	struct pinctrl_gpio_range range;
+
+Is it really needed here?
+
+> +};
+
+...
+
+> +#define CS42L43_PIN(_number, _name, _reg, _field) { \
+> +	.number = _number, .name = _name, \
+> +	.drv_data = &((struct cs42l43_pin_data){ \
+> +		.reg = CS42L43_##_reg, \
+> +		.shift = CS42L43_##_field##_DRV_SHIFT, \
+> +		.mask = CS42L43_##_field##_DRV_MASK, \
+> +	}), \
+
+Do you need this to be GCC extention for the value evaluation?
+I mean the compound literal, IIRC, can be used directly as
+
+	.foo = &(struct foo){ ... },
+
+Am I mistaken?
 
 > +}
-> +
-> +static int cs42l43_unprepare_transfer_hardware(struct spi_controller *ctlr)
+
+...
+
+> +#define CS42L43_PINGROUP(_name) \
+
+Use PINCTRL_PINGROUP() instead of open coded.
+
+> +(struct pingroup){				\
+> +	.name = #_name, \
+> +	.pins = cs42l43_pin_##_name##_pins, \
+> +	.npins = ARRAY_SIZE(cs42l43_pin_##_name##_pins) \
+> +}
+
+...
+
+> +enum cs42l43_pin_funcs {
+> +	CS42L43_FUNC_GPIO,
+> +	CS42L43_FUNC_SPDIF,
+> +	CS42L43_FUNC_IRQ,
+> +	CS42L43_FUNC_MIC_SHT,
+> +	CS42L43_FUNC_SPK_SHT,
+
+> +	CS42L43_FUNC_MAX,
+
+No comma for the terminator entry
+
+> +};
+
+...
+
+> +static const char * const cs42l43_pin_funcs[] = {
+> +	"gpio", "spdif", "irq", "mic-shutter", "spk-shutter"
+
+I would keep trailing comma.
+
+> +};
+
+...
+
+> +struct cs42l43_pin_func_group {
+> +	const char * const *groups;
+> +	unsigned int ngroups;
+> +};
+
+We have struct pinfunction.
+
+> +static const struct cs42l43_pin_func_group cs42l43_pin_func_groups[] = {
+> +	{ cs42l43_pin_gpio_groups,	ARRAY_SIZE(cs42l43_pin_gpio_groups) },
+> +	{ cs42l43_pin_spdif_groups,	ARRAY_SIZE(cs42l43_pin_spdif_groups) },
+> +	{ cs42l43_pin_irq_groups,	ARRAY_SIZE(cs42l43_pin_irq_groups) },
+> +	{ cs42l43_pin_shutter_groups,	ARRAY_SIZE(cs42l43_pin_shutter_groups) },
+> +	{ cs42l43_pin_shutter_groups,	ARRAY_SIZE(cs42l43_pin_shutter_groups) },
+
+We have PINCTRL_PINFUNCTION().
+
+> +};
+
+...
+
+> +static int cs42l43_pin_get_func_count(struct pinctrl_dev *pctldev)
 > +{
-> +	struct cs42l43_spi *priv = spi_controller_get_devdata(ctlr);
+> +	BUILD_BUG_ON(ARRAY_SIZE(cs42l43_pin_funcs) != CS42L43_FUNC_MAX);
+> +	BUILD_BUG_ON(ARRAY_SIZE(cs42l43_pin_func_groups) != CS42L43_FUNC_MAX);
+
+Use static_assert() in the global scope instead.
+
+> +
+> +	return ARRAY_SIZE(cs42l43_pin_funcs);
+> +}
+
+...
+
+> +	default:
+> +		reg = CS42L43_GPIO_FN_SEL;
+> +		mask = BIT(group_idx + CS42L43_GPIO1_FN_SEL_SHIFT);
+> +		val = (func_idx == CS42L43_FUNC_GPIO) <<
+> +				(group_idx + CS42L43_GPIO1_FN_SEL_SHIFT);
+
+This would be better as ternary.
+
+> +		break;
+> +	}
+
+...
+
+> +	dev_dbg(priv->dev, "Setting gpio%d to %s\n",
+> +		offset + 1, input ? "input" : "output");
+
+How ' + 1' part won't be confusing?
+
+...
+
+> +static inline int cs42l43_pin_get_db(struct cs42l43_pin *priv, unsigned int pin)
+> +{
+> +	unsigned int val;
 > +	int ret;
 > +
-> +	ret = regmap_write(priv->regmap, CS42L43_BLOCK_EN2, 0);
-> +	if (ret) {
-> +		dev_err(priv->dev, "Failed to disable SPI controller: %d\n", ret);
-> +		return ret;
-> +	}
+> +	if (pin >= CS42L43_NUM_GPIOS)
+> +		return -ENOTSUPP;
 > +
-> +	return 0;
+> +	ret = regmap_read(priv->regmap, CS42L43_GPIO_CTRL2, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val & (CS42L43_GPIO1_DEGLITCH_BYP_MASK << pin))
+> +		return 0;
 
-Ditto.
+> +	else
+
+Redundant.
+
+> +		return 85; // Debounce is roughly 85uS
+
+	// Debounce is roughly 85uS
+	return 85;
 
 > +}
+
+...
+
+> +	dev_dbg(priv->dev, "Set debounce %s for %s\n",
+> +		us ? "on" : "off", cs42l43_pin_pins[pin].name);
+
+str_on_off()
+
+...
+
+> +		++configs;
+> +		--num_configs;
+
+Why preincrements?
 
 ...
 
 > +	if (is_of_node(dev_fwnode(cs42l43->dev))) {
-> +		priv->ctlr->dev.fwnode =
-> +			fwnode_get_named_child_node(dev_fwnode(cs42l43->dev), "spi");
-> +		priv->ctlr->dev.of_node = to_of_node(dev_fwnode(&priv->ctlr->dev));
+> +		device_set_node(priv->dev,
+> +				fwnode_get_named_child_node(dev_fwnode(cs42l43->dev),
+> +							    "pinctrl"));
 > +	} else {
-> +		priv->ctlr->dev.fwnode = dev_fwnode(priv->dev);
+> +		device_set_node(priv->dev, dev_fwnode(cs42l43->dev));
 > +	}
 
-Can you use device_set_node() once you have an fwnode that needs to be passed?
+This can be called once after if.
 
 ...
 
-> +	priv->ctlr->mode_bits = SPI_3WIRE | SPI_CPHA | SPI_CPOL;
+> +	pctldev = devm_pinctrl_register(priv->dev, &cs42l43_pin_desc, priv);
+> +	if (IS_ERR(pctldev)) {
+> +		ret = PTR_ERR(pctldev);
+> +		dev_err(priv->dev, "Failed to register pinctrl: %d\n", ret);
 
-SPI_MODE_X_MASK
+		ret = dev_err_probe();
+
+Same for other similar cases.
+
+> +		goto err_pm;
+> +	}
+
+> +	if (!of_property_read_bool(dev_of_node(cs42l43->dev), "gpio-ranges")) {
+> +		ret = gpiochip_add_pin_range(&priv->gpio_chip, priv->gpio_chip.label,
+> +					     0, 0, CS42L43_NUM_GPIOS);
+> +		if (ret) {
+> +			dev_err(priv->dev, "Failed to add GPIO pin range: %d\n", ret);
+> +			goto err_pm;
+> +		}
+> +	}
+
+Besides the fact that we have a callback for this, why GPIO library can't
+handle this for you already?
 
 ...
 
-> +static struct platform_driver cs42l43_spi_driver = {
+> +static int cs42l43_pin_remove(struct platform_device *pdev)
+> +{
+> +	pm_runtime_disable(&pdev->dev);
+
+This is simply wrong order because it's a mix of non-devm_*() followed by
+devm_*() calls in the probe.
+
+> +	return 0;
+> +}
+
+...
+
+> +static struct platform_driver cs42l43_pin_driver = {
 > +	.driver = {
-> +		.name	= "cs42l43-spi",
+> +		.name	= "cs42l43-pinctrl",
 > +	},
 
 > +
 
-Unneeded blank line.
+Redundant blank line.
 
-> +	.probe		= cs42l43_spi_probe,
-> +	.remove		= cs42l43_spi_remove,
+> +	.probe		= cs42l43_pin_probe,
+> +	.remove		= cs42l43_pin_remove,
 > +};
 
 -- 

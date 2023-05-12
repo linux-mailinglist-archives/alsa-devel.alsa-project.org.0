@@ -2,77 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FFD96FFF16
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 04:55:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8023A6FFFA4
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 06:20:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83AF49F6;
-	Fri, 12 May 2023 04:54:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83AF49F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0185AA4E;
+	Fri, 12 May 2023 06:19:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0185AA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683860127;
-	bh=I+dlY4O4bxWc/K85nwpH1nqjFktPiV0pZFwfoBrV0rM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=tes1dVQx5UX4keKnjVvu6WlVzRHUKdDnCcxGLP9/hewCkq0ahFdW570YOdMzp3Qcl
-	 8FbK7Wl4gTjLtxyRGPLs02ZTcJHwIrmH1lbWmwLkYs/wo71XZpbMKTZmCv9hfY7c5f
-	 mlqUxevQ8+pTv0guXYxbPXm9SH3I1BS7EVY54u2Y=
+	s=default; t=1683865220;
+	bh=ZT00TaH5yteNvbFSoG2NguTfXRoQzCVVxtPo3JI7BwE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=BY5LMacoqC1cUuFc0QiuP37fcCG5UhaixFD6LIH0JtF9qMVE3lADyHQbSN7doLTpA
+	 p+Kg8AAXov2JoaO74Ks+ZyjSJLkZTvaVfN6RAI3K+rZ4aHAZCpECzuaGLsFZuZv56w
+	 +eoYAQLiPd5P29vrl8xpIoGU6OIq7JAPpeIjWLTI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D26F6F8052E; Fri, 12 May 2023 04:54:35 +0200 (CEST)
+	id 3CBBBF8053D; Fri, 12 May 2023 06:19:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E2D7F80087;
-	Fri, 12 May 2023 04:54:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AABF5F8052E;
+	Fri, 12 May 2023 06:19:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DE13F8052E; Fri, 12 May 2023 04:54:30 +0200 (CEST)
+	id A68E1F80534; Fri, 12 May 2023 06:19:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.0 required=5.0 tests=ENV_AND_HDR_SPF_MATCH,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED,
-	USER_IN_DEF_SPF_WL shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from out30-113.freemail.mail.aliyun.com
- (out30-113.freemail.mail.aliyun.com [115.124.30.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C0E7EF8014C;
-	Fri, 12 May 2023 04:54:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0E7EF8014C
-X-Alimail-AntiSpam: 
- AC=PASS;BC=-1|-1;BR=01201311R901e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018045170;MF=jiapeng.chong@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0ViNAMMq_1683860051;
-Received: from localhost(mailfrom:jiapeng.chong@linux.alibaba.com
- fp:SMTPD_---0ViNAMMq_1683860051)
-          by smtp.aliyun-inc.com;
-          Fri, 12 May 2023 10:54:13 +0800
-From: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-To: pierre-louis.bossart@linux.intel.com
-Cc: lgirdwood@gmail.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	daniel.baluta@nxp.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sound-open-firmware@alsa-project.org,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
-	Abaci Robot <abaci@linux.alibaba.com>
-Subject: [PATCH] ASoC: SOF: topology: Fix missing error code in
- sof_route_load()
-Date: Fri, 12 May 2023 10:54:10 +0800
-Message-Id: <20230512025410.52832-1-jiapeng.chong@linux.alibaba.com>
-X-Mailer: git-send-email 2.20.1.7.g153144c
+	by alsa1.perex.cz (Postfix) with ESMTPS id CB19DF802E8
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 06:19:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB19DF802E8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=llZ894fP
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D3FAA61445;
+	Fri, 12 May 2023 04:19:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A23BC433D2;
+	Fri, 12 May 2023 04:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683865150;
+	bh=ZT00TaH5yteNvbFSoG2NguTfXRoQzCVVxtPo3JI7BwE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=llZ894fPQJSmNuAdgy6nOUD0+GNdRpSNw4b9nCxygq5PUYM1Q2BrpcMdqyMFwkfPS
+	 n5Bn1whiNTzkrBmAdKLh7HVdThggtiV9BpyKUS9Yj6Gix0aIMyBWHyRPRrb667moIu
+	 Gy47XtFDddUOKNt65TnA2xxyc5ePFxXE3njzMYXjc1oy5+lP1ua+6QzQ7U1ISbqECU
+	 vr2j0qfn1eCmopN8cqgEBndDMW3mk7TqUJnlgDT/zjQbZYKGl2nEB8gE8rpCNSbB3Q
+	 B+EROqJHEt5R9bq4mi8tDFn2tib8WZLlkGALZKoTT5t+rGLICuJWi/l8hEceUVmOnt
+	 xOMQb08LHDDDg==
+From: Mark Brown <broonie@kernel.org>
+To: David Lin <CTLIN0@nuvoton.com>
+Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
+ WTLI@nuvoton.com, SJLIN0@nuvoton.com, ctlin0.linux@gmail.com
+In-Reply-To: <20230511113607.595184-1-CTLIN0@nuvoton.com>
+References: <20230511113607.595184-1-CTLIN0@nuvoton.com>
+Subject: Re: [PATCH v4] ASoC: dt-bindings: nau8825: Convert to dtschema
+Message-Id: <168386514706.352974.7432872441818177751.b4-ty@kernel.org>
+Date: Fri, 12 May 2023 13:19:07 +0900
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZXEVPMLUTS3KF4YU45TURPULE5RUE3UG
-X-Message-ID-Hash: ZXEVPMLUTS3KF4YU45TURPULE5RUE3UG
-X-MailFrom: jiapeng.chong@linux.alibaba.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: 3Q54IWAAAOMRSEMJRKJPB65ILZZCAKOK
+X-Message-ID-Hash: 3Q54IWAAAOMRSEMJRKJPB65ILZZCAKOK
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -84,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZXEVPMLUTS3KF4YU45TURPULE5RUE3UG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3Q54IWAAAOMRSEMJRKJPB65ILZZCAKOK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,47 +97,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The error code is missing in this code scenario, add the error code
-'-EINVAL' to the return value 'err'.
+On Thu, 11 May 2023 19:36:08 +0800, David Lin wrote:
+> Convert the NAU8825 audio CODEC bindings to DT schema.
+> 
+> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+> 
+> Changes:
+> V3 -> V4:
+>   - remove the description from interrupts, clocks and clock-names properites
+>   - add sound-dai-cells property and update the dts example
+> 
+> [...]
 
-sound/soc/sof/topology.c:2060 sof_route_load() warn: missing error code 'ret'.
+Applied to
 
-Reported-by: Abaci Robot <abaci@linux.alibaba.com>
-Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4935
-Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
----
- sound/soc/sof/topology.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index d3d536b0a8f5..3ca3a72f1805 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -2045,7 +2045,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 	if (!source_swidget) {
- 		dev_err(scomp->dev, "error: source %s not found\n",
- 			route->source);
--		ret = -EINVAL;
- 		goto err;
- 	}
- 
-@@ -2064,7 +2063,6 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 	if (!sink_swidget) {
- 		dev_err(scomp->dev, "error: sink %s not found\n",
- 			route->sink);
--		ret = -EINVAL;
- 		goto err;
- 	}
- 
-@@ -2087,6 +2085,8 @@ static int sof_route_load(struct snd_soc_component *scomp, int index,
- 	return 0;
- err:
- 	kfree(sroute);
-+	ret = -EINVAL;
-+
- 	return ret;
- }
- 
--- 
-2.20.1.7.g153144c
+Thanks!
+
+[1/1] ASoC: dt-bindings: nau8825: Convert to dtschema
+      commit: 35bccf467cefc5ff9c71f10def6279bb974fcd99
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,102 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05758700C14
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 17:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2ABD700C20
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 17:43:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B41EAA4A;
-	Fri, 12 May 2023 17:39:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B41EAA4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4BC80A4E;
+	Fri, 12 May 2023 17:42:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BC80A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683906036;
-	bh=R594R7oTndWc+KHSK/mX1M5ppr3xIDoPTwy/mSiiffI=;
+	s=default; t=1683906195;
+	bh=3gEKuSVEGrHaq3hazRUa+sdFsmghn01+0kYISTMm5h0=;
 	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kYHXxiAiXSFdEQ2oLxMx8DiQmVCW09VpP1JwxcjkyvZEioK/OOFcmeu7bPY8DU95a
-	 v2SmWdp2b/2j/1b0zz6E1xCe2XF8Rn+hOa1h5FZomurlUcJP5+Cg6C37w31PiA+wBH
-	 GLGkemZMZBIAuESfeC50nNLhILfbuttrnfIzB+oA=
+	b=Xu6IMwgccWAqdIsiynIZSd9sogVFGVC9F7QDl1wjzGHb/CSTp5rd6k1/FntKW4VQ5
+	 wFlnaloOT7AJNJgYgcjvVxbrENZuP2qfY2ThJGY86i0QOpC9K60AbFG/fOn2qKIQvh
+	 4O5zSaggp3LkRjejCLEbx2bhkLYY4d/shq/h7w7Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 066B9F8053B; Fri, 12 May 2023 17:39:45 +0200 (CEST)
+	id 69B5FF8014C; Fri, 12 May 2023 17:42:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2ACAF8032D;
-	Fri, 12 May 2023 17:39:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 992A8F8032D;
+	Fri, 12 May 2023 17:42:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7E2FF8052E; Fri, 12 May 2023 17:39:42 +0200 (CEST)
+	id 09E0BF8052E; Fri, 12 May 2023 17:42:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DD1D8F802E8
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 17:39:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD1D8F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5DDA5F802E8
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 17:42:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DDA5F802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=VSxTmOPc
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34C6NKCQ025572;
-	Fri, 12 May 2023 10:39:35 -0500
+ header.s=PODMain02222019 header.b=KVcz6XNP
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34CF3372001679;
+	Fri, 12 May 2023 10:42:13 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=date : from : to : cc
  : subject : message-id : references : mime-version : content-type :
  in-reply-to; s=PODMain02222019;
- bh=i5XbaR6wPdyxlh8zyx4WloWXpUoR+C3CRfciBVzIAAs=;
- b=VSxTmOPcZi9NcVqInr/kQHhQNIfMCF5QHmB7Bw4nEUiK3PO6hqACcA24VWAhEQ5ckCvJ
- vVNoBw37XGbK8DS4HlUw4yn2BRIFQyzuaz1rwkLPGmo9nQQ72hXYfWPyNDOt4HfKme/D
- DocpJebHyGViChYywafHWk+GUqefttUFxHLhk5wWOeJx7gDWZnZJ+vkM8f4wY32KulJL
- AJscRRATFbQCGt1BPTa/gVfvBKfsqsKQkM4fREpmyuWmSlotJlOhl7j5XvWEEDq8MvDq
- T6o+UxzKU8UrhUDBha2nH+jZeSiUjxB8wNx/+058aymOUmtBOMfNYphvI99Li7qt+sfe FA==
+ bh=B37wweTi8+RlFLIzQLpjB1FktiSxeiJrAjQf//Y2odQ=;
+ b=KVcz6XNPSCRthYUSHmT9pCqQ/9v8qMphPkZgTyE+EZpgPhFAXkh44hX6uN/U5yD2Idx2
+ qaQ27W69Ta/X3HyjdqoAPw1zzB0hIdirel6wrB6iQgIqRecq3FCiAM6i9DRsz8iaVs/A
+ 7/25+FGyInLFZrS6Jir0sG/usD5fvdfv9lfSY0XXOOjB6A0mZUpaSfziMPG3/4RiLYuP
+ 8CZ5Z0SWQfPnbYmuESuNe/NKookFvLi3txnBcHX9mik1wszm1FDo+uNLIvKUX+Z1O8gX
+ sS1wNDArZojp1pBhG5xfuMLjMWBbe5tIPFqu7QCEs87hNuMTbeUUNvjJrwrhiY8lo2Qu qw==
 Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7s46nht-1
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3qf7nb5n9d-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 12 May 2023 10:39:35 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+	Fri, 12 May 2023 10:42:12 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
  (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 12 May
- 2023 10:39:34 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Fri, 12 May 2023 10:39:34 -0500
+ 2023 10:42:10 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Fri, 12 May 2023 10:42:10 -0500
 Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
  [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E5FEB45;
-	Fri, 12 May 2023 15:39:33 +0000 (UTC)
-Date: Fri, 12 May 2023 15:39:33 +0000
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 62A4A15A4;
+	Fri, 12 May 2023 15:42:10 +0000 (UTC)
+Date: Fri, 12 May 2023 15:42:10 +0000
 From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Marc Zyngier <maz@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 CC: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
         <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <tglx@linutronix.de>, <linus.walleij@linaro.org>, <vkoul@kernel.org>,
-        <lgirdwood@gmail.com>, <yung-chuan.liao@linux.intel.com>,
-        <sanyog.r.kale@intel.com>, <pierre-louis.bossart@linux.intel.com>,
+        <tglx@linutronix.de>, <maz@kernel.org>, <linus.walleij@linaro.org>,
+        <vkoul@kernel.org>, <lgirdwood@gmail.com>,
+        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
         <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
         <devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
         <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 07/10] irqchip/cs42l43: Add support for the cs42l43 IRQs
-Message-ID: <20230512153933.GH68926@ediswmail.ad.cirrus.com>
+Subject: Re: [PATCH 03/10] ASoC: ak4118: Update to use new component control
+ notify helper
+Message-ID: <20230512154210.GI68926@ediswmail.ad.cirrus.com>
 References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-8-ckeepax@opensource.cirrus.com>
- <86o7mpmvqq.wl-maz@kernel.org>
+ <20230512122838.243002-4-ckeepax@opensource.cirrus.com>
+ <138e5c73-c33b-806a-b64e-5c93aaefb140@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <86o7mpmvqq.wl-maz@kernel.org>
+In-Reply-To: <138e5c73-c33b-806a-b64e-5c93aaefb140@linux.intel.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: sT1b3PRdlU9aj0kIsAk1JOooHdKdtXIK
-X-Proofpoint-GUID: sT1b3PRdlU9aj0kIsAk1JOooHdKdtXIK
+X-Proofpoint-ORIG-GUID: xhtMFVwhjVBZv_0DgtBEWA0ofRcdVbya
+X-Proofpoint-GUID: xhtMFVwhjVBZv_0DgtBEWA0ofRcdVbya
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: ZPU6NNIXN5XQNTGJG2JIPDBQOFNVC7VV
-X-Message-ID-Hash: ZPU6NNIXN5XQNTGJG2JIPDBQOFNVC7VV
+Message-ID-Hash: H3HI245BADDLBTKGNURCHHQYSC2RJOQ2
+X-Message-ID-Hash: H3HI245BADDLBTKGNURCHHQYSC2RJOQ2
 X-MailFrom: prvs=0496644b8b=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZPU6NNIXN5XQNTGJG2JIPDBQOFNVC7VV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H3HI245BADDLBTKGNURCHHQYSC2RJOQ2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,51 +120,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, May 12, 2023 at 04:10:05PM +0100, Marc Zyngier wrote:
-> On Fri, 12 May 2023 13:28:35 +0100,
-> Charles Keepax <ckeepax@opensource.cirrus.com> wrote:
+On Fri, May 12, 2023 at 08:48:40AM -0500, Pierre-Louis Bossart wrote:
+> On 5/12/23 07:28, Charles Keepax wrote:
+> > Update the driver to use the new ASoC core control notify helper.
+> > This also fixes a bug where the control would not be found if the
+> > CODEC was given a name prefix.
 > > 
-> > The CS42L43 is an audio CODEC with integrated MIPI SoundWire interface
-> > (Version 1.2.1 compliant), I2C, SPI, and I2S/TDM interfaces designed
-> > for portable applications. It provides a high dynamic range, stereo
-> > DAC for headphone output, two integrated Class D amplifiers for
-> > loudspeakers, and two ADCs for wired headset microphone input or
-> > stereo line input. PDM inputs are provided for digital microphones.
+> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> > ---
+> >  sound/soc/codecs/ak4118.c | 11 ++---------
+> >  1 file changed, 2 insertions(+), 9 deletions(-)
 > > 
-> > The IRQ chip provides IRQ functionality both to other parts of the
-> > cs42l43 device and to external devices that wish to use its IRQs.
+> > diff --git a/sound/soc/codecs/ak4118.c b/sound/soc/codecs/ak4118.c
 > 
-> Sorry, but this isn't much of an interrupt controller driver. A modern
-> interrupt controller driver is firmware-driven (DT or ACPI, pick your
-> poison), uses irq domains, and uses the irqchip API.
-> 
+> should patches 2, 3, 4 be part of a separate series, they really have
+> nothing to do with the Cirrus CS32L43?
 
-Apologies but I really need a little help clarifying the issues
-here. I am totally happy to fix things up but might need a couple
-pointers.
+Patch 2 has a build dependency on the CODEC patch, 3/4 are
+debatable. I could do the series without these patches and do a
+seperate chain with those three patches and an extra patch to
+convert the cs42l43, if that is preferred to shrink the chain.
 
-1) uses the irqchip API / uses irq domains
-
-The driver does use both the irqchip API and domains, what
-part of the IRQ API are we not using that we should be?
-
-The driver registers an irq domain using
-irq_domain_create_linear.  It requests its parent IRQ using
-request_threaded_irq. It passes IRQs onto the devices requesting
-IRQs from it using handle_nested_irq and irq_find_mapping.
-
-Is the objection here that regmap is making these calls for us,
-rather than them being hard coded into this driver?
-
-2) driver is firmware-driven (DT or ACPI, pick your poison)
-
-The irq chip has representation in firmware, in fact we have
-tested this on both ACPI and DT. Other devices can request
-IRQs from it through firmware, same as they can for any other
-IRQ chip.
-
-Is the objection here the table mapping the register fields that
-are provided as an IRQ on the device?
-
-Thanks kindly for your review and help,
+Thanks,
 Charles

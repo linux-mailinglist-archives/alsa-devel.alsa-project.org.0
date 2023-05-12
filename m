@@ -2,102 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77681700280
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 10:29:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A1570028E
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 May 2023 10:36:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB26C1D7;
-	Fri, 12 May 2023 10:28:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB26C1D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3267B1D7;
+	Fri, 12 May 2023 10:35:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3267B1D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683880157;
-	bh=Ivr46ufQqg3IjsJbLU9abXhSMNg2IXSXV2pT1zpELjA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tb+Nn3XyLZBBa8KJbkKzZg6QVy1tvYEN5FyK9iFQvkcFx9momF8QBJSR/xNIbD8iI
-	 2Mkt9jQS+hTz3DynzBrVYaTKB/pJa+vTt8EtGON+O6K7uLKDyg5zwYCccFSCn4ZuKu
-	 hce93y+wgSviBsky0gk2rIaUemckOuj+P79JfVrU=
+	s=default; t=1683880573;
+	bh=GmuHJUkNGNN5xpj8W6Y/DwZ9aMocAotrRCrDsbxHGvw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ad5W9KvRT1kdnxDQftKv9OP1s6fy8b8Jqebrnurgti2CFBw9G3QMEdt4GHuja4jLy
+	 z76BkGLJy8muDFmAv4VngcL9hylOY/jzPPc/XkG7geuIM5alUkZNh+uz/raS77Q5ku
+	 MDiQdSPRvk3OWXGjbjM7G1OHQMV6z63hmrdXrH+8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F531F8053B; Fri, 12 May 2023 10:28:26 +0200 (CEST)
+	id 9156BF8053B; Fri, 12 May 2023 10:35:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BC5FF802E8;
-	Fri, 12 May 2023 10:28:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F11F2F8032D;
+	Fri, 12 May 2023 10:35:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B12EAF8052E; Fri, 12 May 2023 10:28:21 +0200 (CEST)
+	id D73B3F8032D; Fri, 12 May 2023 10:35:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-relay-canonical-0.canonical.com
+ (smtp-relay-canonical-0.canonical.com [185.125.188.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9237BF802E8
-	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 10:28:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9237BF802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8C71BF80087
+	for <alsa-devel@alsa-project.org>; Fri, 12 May 2023 10:35:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C71BF80087
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=vzrdciWl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=zDqffYIx
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=canonical.com header.i=@canonical.com
+ header.a=rsa-sha256 header.s=20210705 header.b=XgmKbCfr
+Received: from localhost.localdomain (unknown [10.101.196.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5262D22778;
-	Fri, 12 May 2023 08:28:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1683880095;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3mGB+smqRhvtSbDmLxnlDyB2A5TVjgue/Be+0M57G18=;
-	b=vzrdciWlHcUwrcZ/A1T4r0g534r5DXoqdXQIyoU5ABYTdaijhOplVKBxSL2eozD29VkkTz
-	UVSGFcUY6TGlnj8OsCRTXwC4KTL0bg4x3axpAzpd2JBzxPthdd+UWPeCPOkSKEpdx3tiXl
-	5UoXNN6Ekxd7bnPLsi1RBFUrfipeFj0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1683880095;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3mGB+smqRhvtSbDmLxnlDyB2A5TVjgue/Be+0M57G18=;
-	b=zDqffYIxuqv92sD98suDupfD/TSrdKv5llzrnsirLoupG1h+AcY7Uc5NJWTRs7GRpxY31I
-	b4Jk8gPM5GRXA8Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24B5E13466;
-	Fri, 12 May 2023 08:28:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id gGggCJ/4XWTEIgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 12 May 2023 08:28:15 +0000
-Date: Fri, 12 May 2023 10:28:14 +0200
-Message-ID: <871qjmar8h.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: nemesis@icequake.net
-Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] snd-hda-intel: Apply HP B&O top speaker profile to
- Pavilion 15
-In-Reply-To: <ZF0mpcMz3ezP9KQw@icequake.net>
-References: <ZF0mpcMz3ezP9KQw@icequake.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 2JG5PKJECB53RLV5KMKWGVEOIDEWZ7DJ
-X-Message-ID-Hash: 2JG5PKJECB53RLV5KMKWGVEOIDEWZ7DJ
-X-MailFrom: tiwai@suse.de
+	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPSA id 28FE34124F;
+	Fri, 12 May 2023 08:35:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20210705; t=1683880506;
+	bh=lJQxGTCChL8jXShZ1mLzmFjS0MxpED2G4Ao6MmnOj4U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+	b=XgmKbCfrdg2x996gWCGMTKLi7oFMHqO/IriX8Uu7tHjmguH8DYiE7/Tir9ahaAcmp
+	 SoJJtDcWSlNInp8EOhf+q6Hp1hMcV90/Dz+8k04/koSmKLsjomcUfjAOXZPqUZ6+lo
+	 dfCKN7DSLzlO8oF4aVMuAmni1QwgQzQOpFqHF+zTiq7M9ILbkZatrPuWJbzuNF46qN
+	 /mB+yodvsQVAmr0yOqvaIJkCZLYCU6ZxvIowCgRK0zBxUgOcfcri5aNVoZ+yZj1xx/
+	 /1rQ6uyRYK2qh3NBAZDGiCsvkAE5qw7Cvr2mKcXef4GX7QcQZpyw2Wa0Kh03lfrA7S
+	 h7tGBoLxQIaDg==
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: tiwai@suse.com
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Stefan Binding <sbinding@opensource.cirrus.com>,
+	Andy Chi <andy.chi@canonical.com>,
+	Tim Crawford <tcrawford@system76.com>,
+	Meng Tang <tangmeng@uniontech.com>,
+	"Luke D. Jones" <luke@ljones.dev>,
+	Philipp Jungkamp <p.jungkamp@gmx.net>,
+	=?UTF-8?q?Kacper=20Michaj=C5=82ow?= <kasper93@gmail.com>,
+	Yuchi Yang <yangyuchi66@gmail.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Fix mute and micmute LEDs for yet another
+ HP laptop
+Date: Fri, 12 May 2023 16:34:16 +0800
+Message-Id: <20230512083417.157127-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: S3X4FDIXXKZEBRZGBRPSFH6AJ7X73VUA
+X-Message-ID-Hash: S3X4FDIXXKZEBRZGBRPSFH6AJ7X73VUA
+X-MailFrom: kai.heng.feng@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2JG5PKJECB53RLV5KMKWGVEOIDEWZ7DJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S3X4FDIXXKZEBRZGBRPSFH6AJ7X73VUA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,24 +105,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 11 May 2023 19:32:21 +0200,
-Ryan C. Underwood wrote:
-> 
-> 
-> The Pavilion 15 line has B&O top speakers similar to the x360 and
-> applying the same profile produces good sound.  Without this, the
-> sound would be tinny and underpowered without either applying
-> model=alc295-hp-x360 or booting another OS first.
-> 
-> Signed-off-by: Ryan Underwood <nemesis@icequake.net>
+There's yet another laptop that needs the fixup to enable mute and
+micmute LEDs. So do it accordingly.
 
-The patch seems mangled by your mailer (spaces instead of tabs).
-I applied it manually as it's a trivial change.  But at the next time,
-please check your mailer setup.
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Also, please include all maintainers to Cc :)
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 172ffc2c332b..2e3f87e9b4ee 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -9480,6 +9480,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8b8f, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b92, "HP", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8b96, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
++	SND_PCI_QUIRK(0x103c, 0x8b97, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
+ 	SND_PCI_QUIRK(0x103c, 0x8bf0, "HP", ALC236_FIXUP_HP_GPIO_LED),
+ 	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
+-- 
+2.34.1
 
-
-thanks,
-
-Takashi

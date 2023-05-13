@@ -2,155 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF0BA7017E4
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 May 2023 16:40:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6572E701888
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 May 2023 19:38:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25391E0E;
-	Sat, 13 May 2023 16:39:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25391E0E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84850D8;
+	Sat, 13 May 2023 19:37:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84850D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1683988808;
-	bh=ExyfzvUAW4vN02Z+mVoNYoTYoz20fsFioSM+3YgtLFo=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:List-Id:
+	s=default; t=1683999522;
+	bh=gdlFmfP26Irq5OuWqG2qSWBPVO3rR3JWSpH1dsKAR9U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TS0dH0Ooe9CVEVuX8suLtrAczBmodqdSAauf/OrAAyQDRLAMAwaR85K11hyHhDrFK
-	 +g4eYIxb/TK36pTvi25ijSNGkvfklYLt/d/1L2HZqpXcQYgA089MhUnxA7ZopaHGEl
-	 pPdAVRgzR/QtEOaBkXXKO99ebV/vOZUUWscY6wDA=
+	b=iFyVIJn/r3RavA0l7MZSN8F8zFW5GFTOFXeyLBzyzXflf8TD5sjUBhE3yj1hFCAMT
+	 h3RxQOy+Nvx5L9JbV7wFNMtfXlkj39dDX5VmjwZKfWV6zffYmgczNhNOKEvCQengqb
+	 tn1SPQBrls1d7MCFN7P1qSH7v1w8IAKhKQCjEL9Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72068F8014C; Sat, 13 May 2023 16:39:17 +0200 (CEST)
+	id D37B9F8032D; Sat, 13 May 2023 19:37:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17620F8032D;
-	Sat, 13 May 2023 16:39:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B23AF8032D;
+	Sat, 13 May 2023 19:37:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1E8D7F8052E; Sat, 13 May 2023 16:39:09 +0200 (CEST)
+	id 5EEADF8052E; Sat, 13 May 2023 19:37:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [IPv6:2a00:1450:4864:20::62e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C88AF80310
-	for <alsa-devel@alsa-project.org>; Sat, 13 May 2023 16:38:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C88AF80310
+	by alsa1.perex.cz (Postfix) with ESMTPS id B12B6F802E8
+	for <alsa-devel@alsa-project.org>; Sat, 13 May 2023 19:37:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B12B6F802E8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256
- header.s=mail20170921 header.b=lMJjb7YT
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20230513143849epoutp036127c2c2cae6528a3cead6026a1868fe~eutPoHx5t3109031090epoutp03W
-	for <alsa-devel@alsa-project.org>; Sat, 13 May 2023 14:38:49 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20230513143849epoutp036127c2c2cae6528a3cead6026a1868fe~eutPoHx5t3109031090epoutp03W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1683988730;
-	bh=ExyfzvUAW4vN02Z+mVoNYoTYoz20fsFioSM+3YgtLFo=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=lMJjb7YTcUc3PBYIACEC7DNxFnxNKPAUIXNdM4amWUNZF/zFxgrGd78PVjboajmZ/
-	 hjT0SOx4Qy3yJ+G/qKqOXxw9NrZS1NfgI0ZB8HZT5o4yJEux00oYivDk+2bg6oV7vQ
-	 ryD+8mKko7G9YTQf6bTTtefFLt4FU33NYVvJYLmo=
-Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTP id
-	20230513143849epcas5p1160a31e4357afb4f105877cc68774fa4~eutPFsen_0713407134epcas5p1l;
-	Sat, 13 May 2023 14:38:49 +0000 (GMT)
-Received: from epsmges5p1new.samsung.com (unknown [182.195.38.183]) by
-	epsnrtp4.localdomain (Postfix) with ESMTP id 4QJStc1NCkz4x9Pq; Sat, 13 May
-	2023 14:38:48 +0000 (GMT)
-Received: from epcas5p3.samsung.com ( [182.195.41.41]) by
-	epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	4C.AA.54880.8F0AF546; Sat, 13 May 2023 23:38:48 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20230513143847epcas5p1fe373b68084b786f3bf66809688bfc11~eutM5ulUs0954109541epcas5p1j;
-	Sat, 13 May 2023 14:38:47 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
-	epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
-	20230513143847epsmtrp2705b8592b87c5e1f134d52019d260968~eutM47CpC1515715157epsmtrp2F;
-	Sat, 13 May 2023 14:38:47 +0000 (GMT)
-X-AuditID: b6c32a49-8c5ff7000001d660-1f-645fa0f8fce7
-Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
-	epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	21.E7.27706.6F0AF546; Sat, 13 May 2023 23:38:46 +0900 (KST)
-Received: from alimakhtar04 (unknown [107.122.12.5]) by epsmtip1.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20230513143845epsmtip159ced5ec90308a0a16bfbaaa453bf7ca~eutLFcAoy2977329773epsmtip1m;
-	Sat, 13 May 2023 14:38:44 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@linaro.org>,
-	<linux-samsung-soc@vger.kernel.org>, "'Sylwester Nawrocki'"
-	<s.nawrocki@samsung.com>, "'Liam Girdwood'" <lgirdwood@gmail.com>, "'Mark
- Brown'" <broonie@kernel.org>, "'Jaroslav Kysela'" <perex@perex.cz>,
-	"'Takashi Iwai'" <tiwai@suse.com>, <alsa-devel@alsa-project.org>,
-	<linux-kernel@vger.kernel.org>
-Cc: "'Arnd Bergmann'" <arnd@arndb.de>, "'Olof Johansson'" <olof@lixom.net>,
-	<p.rajanbabu@samsung.com>, =?ks_c_5601-1987?B?J8bHxKvB7ic=?=
-	<pankaj.dubey@samsung.com>
-In-Reply-To: <20230513090228.4340-1-krzysztof.kozlowski@linaro.org>
-Subject: RE: [PATCH] ASoC: MAINTAINERS: drop Krzysztof Kozlowski from
- Samsung audio
-Date: Sat, 13 May 2023 20:08:43 +0530
-Message-ID: <000001d985a8$9fd3fb50$df7bf1f0$@samsung.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=evSV/R5f
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-953343581a4so1744715966b.3
+        for <alsa-devel@alsa-project.org>;
+ Sat, 13 May 2023 10:37:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1683999456; x=1686591456;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=phEaoLqXnuHVjhKK/074Q+ATg9GGDFAIHK3RaliX/xs=;
+        b=evSV/R5ffLjVwauCYY48D1u+m+e/VX17IimUCeC218UBpgANY/+ME4eqapH7Yj1bTq
+         xOvbH10IfQYFcEFSpJA/qOGU+H1S+s9SJXp1ym6ZMvaC8bGppNn/tOLlS+eQXhtabKOq
+         ZZiowXQeo7lgL3OsiH2dkUtArpkqSZLBAUQL4F2ivc78Q0SMMtkY1aXWZyWqvNoJoKQ8
+         gX2TKhWmxEJTJ6omiYxBAL6Mtde07NztQGyu/SQD5kN20pM11pHSffzWQm3/D5zFs7hy
+         DdxupsruO6PEYFIfy5VFVeMCgr0uXrYQ0woqBhW2ZrQH02iJ/hhztq/tQSCMWdik/m0b
+         aPEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683999456; x=1686591456;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=phEaoLqXnuHVjhKK/074Q+ATg9GGDFAIHK3RaliX/xs=;
+        b=joj21zVXrpcxXgp/Rl0Jl8D3MiL9LND2USVWQbUL7+KcVBEYXAOefJXEzVyChoWTnJ
+         5Z0Cpm4Ng0kuUx9zrTgOZyWx0juE7zwApkV8eNvNs1Lp0SXMYRMnOq3l6WPtgg6EkgO2
+         yH7EaOB2qk6NGPdbEemnw4JoFsS3Zgb8C0ffkRQDG3AtFmXDWk3G+5hwCZkWHZo3Brf5
+         ZHdQxrm/YcxsiRgEdEvhK4iHHuwUPJCMcAKckBu93zzZ9MXH9tA7Qngx55Dk0QHErscR
+         DIvI1jyX9oTGzWISMc4Yab+3XPunkl82VFkk4vIWaPSPY4QY/QCvghapSpsOp/dWqbCD
+         uUbg==
+X-Gm-Message-State: AC+VfDzixDc064hy1NiSrrlBVyc0KsOVrgdR1k7butwMfuvYDn0/E6tZ
+	32UMLziEmw+rqekZPYtzSp4Wfw==
+X-Google-Smtp-Source: 
+ ACHHUZ7Ff9s2f9f/z+N90bS59Y0tGzNori+ir7oCbpWhVrC2abp4fhHbcXH203MWt1UyD/1QZkhKsw==
+X-Received: by 2002:a17:906:58c8:b0:966:168d:8c5 with SMTP id
+ e8-20020a17090658c800b00966168d08c5mr24174817ejs.57.1683999456087;
+        Sat, 13 May 2023 10:37:36 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:bc2d:23f8:43c2:2aed?
+ ([2a02:810d:15c0:828:bc2d:23f8:43c2:2aed])
+        by smtp.gmail.com with ESMTPSA id
+ jr18-20020a170906515200b00965f5d778e3sm7043541ejc.120.2023.05.13.10.37.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 13 May 2023 10:37:35 -0700 (PDT)
+Message-ID: <a65abc07-eace-eaa6-e821-2eed438e068b@linaro.org>
+Date: Sat, 13 May 2023 19:37:34 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ks_c_5601-1987"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQH8ulEntpu5hcXYUg5WkhbxdD/5AgFi1R7trwa9mgA=
-Content-Language: en-us
-X-Brightmail-Tracker: 
- H4sIAAAAAAAAA01TbUxbZRT2vb29bdGSa8fcu+oMXq1kCJUy2l1wqGQLXsRkZDiNuqS70itl
-	lLbphx/8mNsgY8AG6yZYKsroEEiHgZGOMBDE1sLAMLZRRJQ5iMxlQhlQBg4ws+1lhn/nPOc5
-	5zzP+8HniG5gYn6O1sQYtLSGwMLQNvf27bH/nFOq4v4axEjvdRdC/numl0dWTE5hZNf0JR65
-	5D2BkMMd1RhpHepGyIFRP0Z6LmaS9kuLPLK4o5xLumeKuGTL8nfgdSHV4j+GUasrZwB12XaT
-	R7U6ijFq/JfvMcp75RiX6vbVY1SZ0wGoZucISvlbn80Iez93l5qhVYwhktFm6VQ52uxkIj1T
-	uVspV8TJYmWJ5E4iUkvnMcnEnrcyYlNzNAHxROTHtMYcgDJoo5F4+dVdBp3ZxESqdUZTMsHo
-	VRp9gl5qpPOMZm22VMuYkmRxcfHyAPFgrnrgzo+Yvn3zp5crurlHQFFECRDwIZ4A71nbeSUg
-	jC/COwGsHZ1H2GQBwOHKexw2WQLQ03gfPGrxOR3rhS4Af7ANoWxyF8A/bG40yMLwWNh+/jgW
-	LETgCwi8cHIltIWDNwDYVlrKDbIE+G442XYbC8ab8P3w64rOEI7iEni0cCaghM8X4omw98vP
-	g7AQfxL2V02FFnDweFh3oQZh45dgfe00h5UXCR/crg+NicCT4K2vbgGWswXe9fwU0gDxGT4s
-	rC7nBedDfA+03jezvZvg331OHhuLoX+2C2MpFLSviVlYDX0Nzesn8Rrs8VavywmHp1anEJYu
-	hCeOi1iKBBbMjqBs/DS0rBsPTlwuWwanwXO2DcZsG4zZNhizbTBwDqAOsJXRG/OyGaNcL9My
-	n/x/41m6vFYQetzRae3g5sSc1AUQPnAByOcQEcKiKqVKJFTRn+UzBp3SYNYwRheQB07bwhFv
-	ztIFfofWpJQlJMYlKBSKhMQdChmxRRiV3J8lwrNpE5PLMHrG8KgP4QvERxCrmdvZpmwpifd/
-	U25aWVjz2WVp+pNui22v2CP59osDSw9jriwKGlLmxgeZ9Cr6seQhWVFf4aqoKcaaMcrUjNmJ
-	xbqnUrnPTz+wNka9sG+yqd+jvjZc+nPmNsfiwWcm7JqRox8SmoFDZW/HI8LDZx8XDzqubf01
-	p1fgMDTVOA69mbIzP6aueAGmF0wsWAX1qa6rc5q+6MYhLyr5yP0buFo7fqe+cbpg5OGpsXdm
-	pfuFZ/PfqN73waLkAGrRlT0hng+P6vndPYZdfPcVUY9c+l5aZR6Izi2aJHw7UuaT6tbU5/eO
-	Xn9RHl4+dVhRss3x57jLYyloZSqbun1eZ7PkRgeBGtW0LJpjMNL/AegFLzxlBAAA
-X-Brightmail-Tracker: 
- H4sIAAAAAAAAA+NgFtrFIsWRmVeSWpSXmKPExsWy7bCSnO63BfEpBieeW1pcuXiIyeLvpGPs
-	FlMfPmGz2Pt6K7vFtysdTBaXd81hs5hxfh+Txanrn9ksjm4Mtli09Qu7ReeuflaLw2/aWS02
-	fF/L6MDrseFzE5vH71+TGD12zrrL7rFpVSebx51re9g8rpxoYvXY93YZm0ffllWMHuu3XGXx
-	+LxJLoArissmJTUnsyy1SN8ugStj7+8j7AVTBStOz1zG2MC4ha+LkZNDQsBE4u2WVcwgtpDA
-	bkaJ7g9lEHFpiesbJ7BD2MISK/89B7K5gGqeM0ps33QOrIFNQFdix+I2NpCEiMAPJolVl7aA
-	VTELrGSUuLn/BDNEyxRGibObrrCBtHAKOEs83PYUzBYWCJZ4c+YzmM0ioCrR2PKGqYuRg4NX
-	wFLi2PR6kDCvgKDEyZlPWEBsZqBTGw93Q9naEssWvmaGOE9B4ufTZawgtoiAlcT92fcZIWrE
-	JV4ePcI+gVF4FpJRs5CMmoVk1CwkLQsYWVYxSqYWFOem5xYbFhjmpZbrFSfmFpfmpesl5+du
-	YgRHr5bmDsbtqz7oHWJk4mA8xCjBwawkwts+Mz5FiDclsbIqtSg/vqg0J7X4EKM0B4uSOO+F
-	rpPxQgLpiSWp2ampBalFMFkmDk6pBqaEu7yzZRq5DtTwH7q6a9GdJZd2zFv/Ty834r53Uiff
-	ztmLqx9WeXJ8Evs+r9ux82je2ugrzyafnJNru4shSnabZ2ccd9aJrTfC972qumL84eLV4+e+
-	BikZ3dtw6/VS6aAXMh+m7D70Xm9resgsy8Ntn9c/7Pt3NvaF57dbW5Q4U62vnsia/KOZeTnP
-	mUCW2zXJXWc0VnaK6ejOmFxsvi5hi/S1JTox7wXP/F3g/aLt/4Z9905Pq771QPt2Jb+ysr2e
-	8hS3/R/S75xcK53HfKax34LZs1ponujJ9HN/zZ6/EXl9c1WwsHewWRPbpKJNIhrvvQ7JHOXh
-	u6XSXOh18faXlc+Sz68MeL3a5W6ZUYP5KyWW4oxEQy3mouJEAIL3jIxNAwAA
-X-CMS-MailID: 20230513143847epcas5p1fe373b68084b786f3bf66809688bfc11
-X-Msg-Generator: CA
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230513090242epcas5p34625f5b6f0a180263e6607a38e0c996f
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] ASoC: MAINTAINERS: drop Krzysztof Kozlowski from Samsung
+ audio
+Content-Language: en-US
+To: Alim Akhtar <alim.akhtar@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ 'Sylwester Nawrocki' <s.nawrocki@samsung.com>,
+ 'Liam Girdwood' <lgirdwood@gmail.com>, 'Mark Brown' <broonie@kernel.org>,
+ 'Jaroslav Kysela' <perex@perex.cz>, 'Takashi Iwai' <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: 'Arnd Bergmann' <arnd@arndb.de>, 'Olof Johansson' <olof@lixom.net>,
+ p.rajanbabu@samsung.com, =?UTF-8?B?J+2MkOy5tOymiCc=?=
+ <pankaj.dubey@samsung.com>
 References: 
  <CGME20230513090242epcas5p34625f5b6f0a180263e6607a38e0c996f@epcas5p3.samsung.com>
-	<20230513090228.4340-1-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: NFXKBK55QPM3JLCA7F44APVFVY36UVDK
-X-Message-ID-Hash: NFXKBK55QPM3JLCA7F44APVFVY36UVDK
-X-MailFrom: alim.akhtar@samsung.com
+ <20230513090228.4340-1-krzysztof.kozlowski@linaro.org>
+ <000001d985a8$9fd3fb50$df7bf1f0$@samsung.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <000001d985a8$9fd3fb50$df7bf1f0$@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: FCUEPOJOIG646QFSYSQSXKXFKH6QUF34
+X-Message-ID-Hash: FCUEPOJOIG646QFSYSQSXKXFKH6QUF34
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -162,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NFXKBK55QPM3JLCA7F44APVFVY36UVDK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCUEPOJOIG646QFSYSQSXKXFKH6QUF34/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -171,47 +133,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello Krzysztof,
+On 13/05/2023 16:38, Alim Akhtar wrote:
+> Hello Krzysztof,
+> 
+>> -----Original Message-----
+>> From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> Sent: Saturday, May 13, 2023 2:32 PM
+>> To: linux-samsung-soc@vger.kernel.org; Sylwester Nawrocki
+>> <s.nawrocki@samsung.com>; Liam Girdwood <lgirdwood@gmail.com>;
+>> Mark Brown <broonie@kernel.org>; Jaroslav Kysela <perex@perex.cz>;
+>> Takashi Iwai <tiwai@suse.com>; alsa-devel@alsa-project.org; linux-
+>> kernel@vger.kernel.org
+>> Cc: Alim Akhtar <alim.akhtar@samsung.com>; Arnd Bergmann
+>> <arnd@arndb.de>; Olof Johansson <olof@lixom.net>; Krzysztof Kozlowski
+>> <krzysztof.kozlowski@linaro.org>
+>> Subject: [PATCH] ASoC: MAINTAINERS: drop Krzysztof Kozlowski from
+>> Samsung audio
+>>
+>> Remove Krzysztof Kozlowski from maintainer of Samsung SoC Audio drivers
+>> and change the status to maintenance (no one is reality being paid for
+>> looking at this).
+>>
+> Thank you! For your over the year’s contribution and support in
+> maintaining and enhancing Samsung SoC Audio driver. Your input always helps
+> and I hope that will continue in future as well.
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski <krzysztof.kozlowski=40linaro.org>
-> Sent: Saturday, May 13, 2023 2:32 PM
-> To: linux-samsung-soc=40vger.kernel.org; Sylwester Nawrocki
-> <s.nawrocki=40samsung.com>; Liam Girdwood <lgirdwood=40gmail.com>;
-> Mark Brown <broonie=40kernel.org>; Jaroslav Kysela <perex=40perex.cz>;
-> Takashi Iwai <tiwai=40suse.com>; alsa-devel=40alsa-project.org; linux-
-> kernel=40vger.kernel.org
-> Cc: Alim Akhtar <alim.akhtar=40samsung.com>; Arnd Bergmann
-> <arnd=40arndb.de>; Olof Johansson <olof=40lixom.net>; Krzysztof Kozlowski
-> <krzysztof.kozlowski=40linaro.org>
-> Subject: =5BPATCH=5D ASoC: MAINTAINERS: drop Krzysztof Kozlowski from
-> Samsung audio
->=20
-> Remove Krzysztof Kozlowski from maintainer of Samsung SoC Audio drivers
-> and change the status to maintenance (no one is reality being paid for
-> looking at this).
->=20
-Thank you=21 For your over the year=A1=AFs=20contribution=20and=20support=
-=20in=0D=0Amaintaining=20and=20enhancing=20Samsung=20SoC=20Audio=20driver.=
-=20Your=20input=20always=20helps=0D=0Aand=20I=20hope=20that=20will=20contin=
-ue=20in=20future=20as=20well.=0D=0AWhile=20at=20it,=20I=20know=20Padmanabhn=
-a=20(CCed)=20was=20recently=20doing=20and=20is=20working=20on=0D=0AI2S=20dr=
-iver=20and=20Audio=20codec=20driver=20upstreaming=20to=20add=20support=20fo=
-r=20some=20of=0D=0Athe=20recent=20platforms.=20I=20will=20check=20with=20hi=
-m=20if=20he=20has=20interest=20to=20take=20up=0D=0Athis.=0D=0AOnce=20again=
-=20Thank=20you=21=0D=0A=0D=0A>=20Signed-off-by:=20Krzysztof=20Kozlowski=20<=
-krzysztof.kozlowski=40linaro.org>=0D=0A>=20---=0D=0AReviewed-by:=20Alim=20A=
-khtar=20<alim.akhtar=40samsung.com>=0D=0A=0D=0A>=20=20MAINTAINERS=20=7C=203=
-=20+--=0D=0A>=20=201=20file=20changed,=201=20insertion(+),=202=20deletions(=
--)=0D=0A>=20=0D=0A>=20diff=20--git=20a/MAINTAINERS=20b/MAINTAINERS=0D=0A>=
-=20index=20c7082004ac55..746ec43ff244=20100644=0D=0A>=20---=20a/MAINTAINERS=
-=0D=0A>=20+++=20b/MAINTAINERS=0D=0A>=20=40=40=20-18581,10=20+18581,9=20=40=
-=40=20F:=09Documentation/admin-=0D=0A>=20guide/LSM/SafeSetID.rst=0D=0A>=20=
-=20F:=09security/safesetid/=0D=0A>=20=0D=0A>=20=20SAMSUNG=20AUDIO=20(ASoC)=
-=20DRIVERS=0D=0A>=20-M:=09Krzysztof=20Kozlowski=20<krzysztof.kozlowski=40li=
-naro.org>=0D=0A>=20=20M:=09Sylwester=20Nawrocki=20<s.nawrocki=40samsung.com=
->=0D=0A>=20=20L:=09alsa-devel=40alsa-project.org=20(moderated=20for=20non-s=
-ubscribers)=0D=0A>=20-S:=09Supported=0D=0A>=20+S:=09Maintained=0D=0A>=20=20=
-B:=09mailto:linux-samsung-soc=40vger.kernel.org=0D=0A>=20=20F:=09Documentat=
-ion/devicetree/bindings/sound/samsung*=0D=0A>=20=20F:=09sound/soc/samsung/=
-=0D=0A>=20--=0D=0A>=202.34.1=0D=0A=0D=0A=0D=0A
+Thanks! Although I did not contribute that much to the Samsung Audio
+driver, but rather tried to keep it reviewed and in some shape.
+
+> While at it, I know Padmanabhna (CCed) was recently doing and is working on
+> I2S driver and Audio codec driver upstreaming to add support for some of
+> the recent platforms. I will check with him if he has interest to take up
+> this.
+
+That would be great!
+
+Best regards,
+Krzysztof
+

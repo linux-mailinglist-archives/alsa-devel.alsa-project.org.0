@@ -2,117 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 890BA7018FC
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 May 2023 20:09:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E116701946
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 May 2023 20:39:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92539E93;
-	Sat, 13 May 2023 20:08:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92539E93
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9925AE97;
+	Sat, 13 May 2023 20:38:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9925AE97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684001345;
-	bh=bUfpAFSsgu9MAnC+Eor+H0TMVwSaMcvvmOCuYiHrpII=;
+	s=default; t=1684003173;
+	bh=aVGa0cp4no2C6TpyXM/Z5Bb7McBhk22NagG3MmBM26o=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=j3JrvzFCxF3lF0Zv6GZ7+QyfAnlndZ7Ahipb8t3XeYbFW1q5GT5u5Ii/Jqrvqws4E
-	 z/YHUeiBspkLZAfw+m7pBO1sSyVmJmOcajUwnisxsIgDE1wJN+mwHCZOdLmq3k9G1J
-	 0T+KVPLFNdqpscQyKxtolKyctkyUaYwc/RkxA+J8=
+	b=GAvpDWUn4WJxyuiOt5gAXAOlR9Wg5Z6iDFUORs8OCDAFtEUpxQ56HzLIDEZ5PTKQh
+	 /1XzUsWx/CmLYfZMu7CXEn6G0zsestCwZY1OEcdrnjsLhEHHxFtnE5x4cIHZbiLSJS
+	 imo+se0feoBGXnJw+CwGN9HvILmxNo5HGqGATHKQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53547F8014C; Sat, 13 May 2023 20:08:15 +0200 (CEST)
+	id B706FF80534; Sat, 13 May 2023 20:38:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14911F8032D;
-	Sat, 13 May 2023 20:08:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F251F8032D;
+	Sat, 13 May 2023 20:38:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4CCFF8052E; Sat, 13 May 2023 20:08:11 +0200 (CEST)
+	id 183CBF8052E; Sat, 13 May 2023 20:38:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [IPv6:2a00:1450:4864:20::52a])
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C30EDF802E8
-	for <alsa-devel@alsa-project.org>; Sat, 13 May 2023 20:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C30EDF802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2E94FF802E8
+	for <alsa-devel@alsa-project.org>; Sat, 13 May 2023 20:38:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E94FF802E8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=EVBWjh+d
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-50bc0117683so19778813a12.1
+ header.s=google header.b=DtRnRg/A
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-94a342f7c4cso2020377966b.0
         for <alsa-devel@alsa-project.org>;
- Sat, 13 May 2023 11:08:08 -0700 (PDT)
+ Sat, 13 May 2023 11:38:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1684001287; x=1686593287;
+        d=linaro.org; s=google; t=1684003085; x=1686595085;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Pz3pC3oD+mRQD2yh5jV0jp+d2wnh2+HWJqx/JQaPzB0=;
-        b=EVBWjh+d6IhLcfQHvnPqNtgl2kB1ZPchXw0HXjFU2qSUtuwNy0q6Sp0YZggQOXxfjz
-         oEcw/2Tl/2G+fh5jken5DOv1L2V0oQGBznQKAHYXr5FEYY+2rEcvHxbvLt9IC6T7d2pm
-         j+JUVuj+iQUbkEXes1F1CBctgEWYrWPuR7xLWrMjBF263X4+bzOn/pWNhcqVAypZKXAx
-         ikR1LxkTi5RNV8l0ufwPRld9j5r5vXg8+d6nfVq3ozPse6EdauUgXDDiXX8GGkzWphAd
-         OXs/uwKHfMDIkh+2EG5f+tVdc5Zs9rGtQ8K5jD4iljzDntk+BUytG4wJjg7lSp4gpCJp
-         o9CQ==
+        bh=sVgFhwHOytyuvlsolpGzS2P+RyNCIsvWoWjH/sbEmtE=;
+        b=DtRnRg/A4eLKBxwIOINV8zrS4xA4IQslQOM1D8WygiSvDUYpfbyveH+tFEjP8rN/jZ
+         Cex33mfHaOurVgiHOf87d6mvaI2G4kpeIGagrUkv+SDgE/+VpwSOSBbPbZvvV64SQ5FJ
+         tAetgjBOLVz5i8zr3Tsixz2jeXiso0uhVGUQlbhvoYvYIZUO5LkGscLoRGY9a8KjTCMM
+         SX0Q/gSF0sGtohfiDEYjb+dPZbGuveenifM68sn+HzP+GdV9GFAwWAbYg7JueOwpaLr8
+         jraazG3zD6Leiw+GGzqiSQnUV2Qpe/5g0Rgyy5vuYvofldDRqqCG9qlccj+cR+8ed2HZ
+         QEDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684001287; x=1686593287;
+        d=1e100.net; s=20221208; t=1684003085; x=1686595085;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pz3pC3oD+mRQD2yh5jV0jp+d2wnh2+HWJqx/JQaPzB0=;
-        b=TrXKG0RgR2wtRLcByxPTSd1sY9bMt72/Ok9akcR+CK2o24uRgjYh5QHlERIL+0Q2zI
-         RTA+NH39FeF3TflN8S1wpr4KCcwHAsPjyFNzNE1Cv+qWZ/Pr2KBBKaJGDBiWkanEtbXR
-         tOl8lrpKQwAQ5u1z2CpiK+ABiYzEUe7dhsBRig5ralLB4R421hYhruM4jQcA550jMSJj
-         3Ulo3wPwZUWa4TwYFQ7ifKPCLMwxu0IUuwG7WIRo2fb75h8Fpp4X8odml2nxIrOLNMeM
-         6SYnF3h07XyDoELN7sQf+7psgezk5T1xXHeCStNL8B77ZCxb4ryoDKJrCA9PO4gn14+Z
-         zL2Q==
-X-Gm-Message-State: AC+VfDzVeUGq7omjmbILQhRUWLfp170YOmhbNNuuquzf8j+JReOKJyBx
-	+x1w7FM+EYJoIZlA3DMSyFyQtQ==
+        bh=sVgFhwHOytyuvlsolpGzS2P+RyNCIsvWoWjH/sbEmtE=;
+        b=G7fTBjzzT91E/Vbwo8o2cO4o6VcFByVw5JGm8aqsNOezS6GDfKmM+pEYCoHphKtgtb
+         xBrQlyVm6Knj3Q5rmFQfzFvWn1bcMCFUfQvAd+xbPhdTK+GflREliMaWRDGVqBPe8FKl
+         Sb8dm1zOfr+rW7DE5RrpP8P3EgOOh/grS3a6sP1gURPjUGBuJP6jw7KTmovGLann0mem
+         05RgAoIVIUOgixnGJWV3wknF14rD3IbMcnRxe/yPi9TTYUnBMsg+OiqxnRdMsdramj5V
+         tkkI1T3/fTf9i/F235mregZdzcfRXzXExmTK3cDumralE0W3lCQgDhNNz2XilDAb14o+
+         rdqg==
+X-Gm-Message-State: AC+VfDwdXj9b6BayAjooX8yqQQ6vG9T/tFQSwSVnHfg9W9qrL8alHVzR
+	hUH85fU3iPJ1nVTm5hoj7RuseQ==
 X-Google-Smtp-Source: 
- ACHHUZ7ZC5ghgGrfBuRI4KprxyOU5k85ez2jlpAKSpf+r5Q8qvL256LVhRrTCK365P5OAJhDuRHo/g==
-X-Received: by 2002:a17:907:9405:b0:957:12a6:a00f with SMTP id
- dk5-20020a170907940500b0095712a6a00fmr25591950ejc.21.1684001286843;
-        Sat, 13 May 2023 11:08:06 -0700 (PDT)
+ ACHHUZ79slRCtETc6zkU7ZGXxCapCDmP+cFVxtmTL5H2S439sNsRE0njq6hk/Vnruf0psMaMCUB7+g==
+X-Received: by 2002:a17:907:360c:b0:961:800b:3f1e with SMTP id
+ bk12-20020a170907360c00b00961800b3f1emr27294480ejc.73.1684003085137;
+        Sat, 13 May 2023 11:38:05 -0700 (PDT)
 Received: from ?IPV6:2a02:810d:15c0:828:ba68:e5c9:694e:c6e4?
  ([2a02:810d:15c0:828:ba68:e5c9:694e:c6e4])
         by smtp.gmail.com with ESMTPSA id
- ib10-20020a1709072c6a00b009531d9efcc4sm7023439ejc.133.2023.05.13.11.08.05
+ hu7-20020a170907a08700b00969fa8a3533sm6254835ejc.165.2023.05.13.11.38.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 13 May 2023 11:08:06 -0700 (PDT)
-Message-ID: <db2dcafb-db14-96ab-87cc-88408f3bab4b@linaro.org>
-Date: Sat, 13 May 2023 20:08:05 +0200
+        Sat, 13 May 2023 11:38:04 -0700 (PDT)
+Message-ID: <877338f8-d157-0f91-33a3-fdb03566aa57@linaro.org>
+Date: Sat, 13 May 2023 20:38:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH 05/10] dt-bindings: mfd: cirrus,cs42l43: Add initial DT
- binding
+Subject: Re: [PATCH] ASoC: dt-bindings: nau8824: Convert to dtschema
 Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, tglx@linutronix.de,
- maz@kernel.org, linus.walleij@linaro.org, vkoul@kernel.org,
- lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com, pierre-louis.bossart@linux.intel.com,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-6-ckeepax@opensource.cirrus.com>
- <5969fe82-69cd-34d6-edd1-d16ea741d9cb@linaro.org>
- <20230512161803.GM68926@ediswmail.ad.cirrus.com>
+To: David Lin <CTLIN0@nuvoton.com>, broonie@kernel.org
+Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
+ WTLI@nuvoton.com, SJLIN0@nuvoton.com, ctlin0.linux@gmail.com
+References: <20230512120146.600128-1-CTLIN0@nuvoton.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230512161803.GM68926@ediswmail.ad.cirrus.com>
+In-Reply-To: <20230512120146.600128-1-CTLIN0@nuvoton.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 57TFQQVLWCPS6ASNBZOSIDXSY254W26W
-X-Message-ID-Hash: 57TFQQVLWCPS6ASNBZOSIDXSY254W26W
+Message-ID-Hash: VQY7MXEI2IFFUM3KUFBND6BP6ANN2KN2
+X-Message-ID-Hash: VQY7MXEI2IFFUM3KUFBND6BP6ANN2KN2
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -124,8 +116,7 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/57TFQQVLWCPS6ASNBZOSIDXSY254W26W/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,39 +125,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 12/05/2023 18:18, Charles Keepax wrote:
-> On Fri, May 12, 2023 at 05:25:52PM +0200, Krzysztof Kozlowski wrote:
->> On 12/05/2023 14:28, Charles Keepax wrote:
->>> The CS42L43 is an audio CODEC with integrated MIPI SoundWire interface
->>> (Version 1.2.1 compliant), I2C, SPI, and I2S/TDM interfaces designed
->>> for portable applications. It provides a high dynamic range, stereo
->>> DAC for headphone output, two integrated Class D amplifiers for
->>
->> ...
->>
->>> +
->>> +  interrupt-controller: true
->>> +
->>> +  '#interrupt-cells':
->>> +    const: 2
->>
->> Hm, are you sure? Who is the consumer/user of this interrupt controller?
->>
+On 12/05/2023 14:01, David Lin wrote:
+> Convert the NAU8824 audio CODEC bindings to DT schema.
 > 
-> Anyone who wants the device has GPIOs that can signal IRQs. Some
-> of the other IRQs could be more generally useful, such as some of
-> the jack detection ones.
+> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+> ---
+
+Thank you for your patch. There is something to discuss/improve.
+
+> +
+> +  nuvoton,sar-threshold-num:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Number of buttons supported.
+> +    minimum: 1
+> +    maximum: 4
+> +    default: 4
+> +
+> +  nuvoton,sar-threshold:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description:
+> +      Impedance threshold for each button. Array that contains up to 8 buttons
+> +      configuration. SAR value is calculated as
+> +      SAR = 255 * MICBIAS / SAR_VOLTAGE * R / (2000 + R) where MICBIAS is
+> +      configured by 'nuvoton,micbias-voltage', SAR_VOLTAGE is configured by
+> +      'nuvoton,sar-voltage', R - button impedance.
+> +      Refer datasheet section 10.2 for more information about threshold
+> +      calculation.
+> +    minItems: 1
+> +    maxItems: 4
+
+Your description mentions 8 buttons, so maybe it should be 8 here? Or
+description needs a fix?
+
+> +    items:
+> +      minimum: 0
+> +      maximum: 255
+> +
+> +  nuvoton,sar-hysteresis:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Button impedance measurement hysteresis.
+> +    default: 0
 
 
-OK, makes sense, but it is a bit odd then to have:
-codec {
-  which is GPIO and interrupt controller, but not pin controller
-  pinctrl {
-    pin controller, which is not GPIO and not interrupt controller
-  }
-}
-Maybe all the GPIO/pin/related interrupt properties should be moved to
-pinctrl node?
 
 Best regards,
 Krzysztof

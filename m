@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1425702AE8
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 12:52:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0668D702B2A
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:11:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EABEB208;
-	Mon, 15 May 2023 12:51:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EABEB208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 606CF836;
+	Mon, 15 May 2023 13:10:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 606CF836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684147928;
-	bh=io4J5rFtWRubjfwy7aiwD5CIoNUnGdBdd48t4O4XGbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1684149091;
+	bh=lwjgziLcEsIzBPxxZ1N8abCwzxvPGfURke6CIpHvtww=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jVjEjKAQYW1My8NcT4QkeC9zMd4tXRDil/qHBRRGeJFLqvAyzmTQMmuVF8O8F8QEO
-	 T8B72gmy0hETxOEzgnSmXr0fuJzpVHi7lmvdqOO3stbVV8k1HuNHExBnBD6Rsg/LjL
-	 XxgS9g82m88Jo0cwdOOH4/cQg3HKfPsvlL1eEfqI=
+	b=TNzH3sttSTezV94VSns9XDreJ1VH5e94EyYJePKyf1pwfqwxOfqU+0vyNbZ6hmC/f
+	 sEaU5naucF8mwtU/eTEHAo0EqlMkPnBoWSmNg1Y0WVLZ55yv3FBGH/tZYgp/QQFGBL
+	 roqyZL+w5KR1mYRA55sHBa6ABCvLyS/4M0uFyWEE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A3D50F8016A; Mon, 15 May 2023 12:51:17 +0200 (CEST)
+	id 292BCF80578; Mon, 15 May 2023 13:09:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7EF2F8025A;
-	Mon, 15 May 2023 12:51:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE585F8055A;
+	Mon, 15 May 2023 13:09:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41700F80272; Mon, 15 May 2023 12:51:13 +0200 (CEST)
+	id 8C0B2F80431; Mon, 15 May 2023 13:09:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,55 +35,51 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 873AFF8016D
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 12:51:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 873AFF8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0C066F8016A
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C066F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=lPhi5hYE
+ header.s=k20201202 header.b=YuNMzPkb
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5129C61448;
-	Mon, 15 May 2023 10:51:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB75C4339B;
-	Mon, 15 May 2023 10:51:08 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6CCD6615FE;
+	Mon, 15 May 2023 11:09:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76DBC433EF;
+	Mon, 15 May 2023 11:09:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684147868;
-	bh=io4J5rFtWRubjfwy7aiwD5CIoNUnGdBdd48t4O4XGbw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lPhi5hYEqrh2Bq2YZS6bCRTjHMGCiqPxcEGfOH/RW32uvF2vxqB/EWwBq7cBibMTM
-	 1C3BzSbQJH9K2Ovo9G14Nk4ytYtz0/V+2BYs5ahZHB4fldSqWYXk3jcxiGXwAZ2zgD
-	 sDqlgOzO7s2wvMiH2vOegNgHeYkg2V/dgJaxOWe9b+OPYBF8JDUNto8AwztpSgqdmJ
-	 JvkBWag0E+qGBTVl+l2/XACqvOfPGBp55tGqdaGPw/QV++kA+hNbBCCrh1uTevdBG+
-	 7IZmKxGE7EU2H8jQ78uUYiz0FSPGDEl8l/NdyM3aTelGqsrQ7Xz57awJGIJOkgMoGn
-	 EM5Xec3sGxmmA==
-Date: Mon, 15 May 2023 19:51:05 +0900
+	s=k20201202; t=1684148975;
+	bh=lwjgziLcEsIzBPxxZ1N8abCwzxvPGfURke6CIpHvtww=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=YuNMzPkbzr28+j0Zo8hTdy3k5Ja8MNwey/47bnhvvp39UClQ1RjDBJwvXkB3vK9jb
+	 +FrQrprKO/3/gtG3k7KoorIUtPuMv/luFfVAxrafGmthNLmIDUmKqGIwaWAF/SATn7
+	 DUPtBx9KtK8L5f05ze+WfcJA40mLLtEa0+X7KAE9GVOmHT9xQx0WirJgS7VZdHM5uq
+	 aUYxWWdb6FD/9QlHZvIIlvG1pSS56OmLLhdZCQq7WLyl7x3Fmp4DsRcDBQPu39Lhk2
+	 KcJG5M1oISFsZBpcXsU/H4ckjQ8TmGFpIf/eLrVmvTEARafIxwNF6EanGDG9HGgYmS
+	 i3fXELO7XL3mg==
 From: Mark Brown <broonie@kernel.org>
-To: Walker Chen <walker.chen@starfivetech.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Claudiu Beznea <Claudiu.Beznea@microchip.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
-	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v4 2/3] ASoC: starfive: Add JH7110 TDM driver
-Message-ID: <ZGIOmWyxPGOuWHx+@finisterre.sirena.org.uk>
-References: <20230511091549.28003-1-walker.chen@starfivetech.com>
- <20230511091549.28003-3-walker.chen@starfivetech.com>
- <21bc5b06-3d3e-5a30-a90d-ea9f7abc6575@starfivetech.com>
+To: linux-samsung-soc@vger.kernel.org,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Arnd Bergmann <arnd@arndb.de>,
+ Olof Johansson <olof@lixom.net>
+In-Reply-To: <20230513090228.4340-1-krzysztof.kozlowski@linaro.org>
+References: <20230513090228.4340-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] ASoC: MAINTAINERS: drop Krzysztof Kozlowski from
+ Samsung audio
+Message-Id: <168414897357.394037.3389766402303422512.b4-ty@kernel.org>
+Date: Mon, 15 May 2023 20:09:33 +0900
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nLJs/sEpOhNQJzse"
-Content-Disposition: inline
-In-Reply-To: <21bc5b06-3d3e-5a30-a90d-ea9f7abc6575@starfivetech.com>
-X-Cookie: Avoid contact with eyes.
-Message-ID-Hash: FPN2TTNY33YMBF3LEWAXHDWN2FNMEJKD
-X-Message-ID-Hash: FPN2TTNY33YMBF3LEWAXHDWN2FNMEJKD
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: R4IIBSA34OFD4GUVQS542FR657C3AD7W
+X-Message-ID-Hash: R4IIBSA34OFD4GUVQS542FR657C3AD7W
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FPN2TTNY33YMBF3LEWAXHDWN2FNMEJKD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R4IIBSA34OFD4GUVQS542FR657C3AD7W/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,43 +101,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Sat, 13 May 2023 11:02:28 +0200, Krzysztof Kozlowski wrote:
+> Remove Krzysztof Kozlowski from maintainer of Samsung SoC Audio drivers
+> and change the status to maintenance (no one is reality being paid for
+> looking at this).
+> 
+> 
 
---nLJs/sEpOhNQJzse
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Mon, May 15, 2023 at 04:29:07PM +0800, Walker Chen wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> I have submitted new version of patch for TDM driver. Could you please he=
-lp to review and give your comments?=20
+Thanks!
 
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
+[1/1] ASoC: MAINTAINERS: drop Krzysztof Kozlowski from Samsung audio
+      commit: 647b5f5fdcbaba6f6fd8db69508fcbeb1fdfc2a6
 
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---nLJs/sEpOhNQJzse
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRiDpgACgkQJNaLcl1U
-h9CHJgf8DPHBxTaAmn9FNyXgqSV4aT0FqSJQ2RK6Jgls0b5SpIQuIRWFyk+OHUiw
-PlCg9J1Ohg+YDGsgvrzwqbvU0VcUmxl1IJjEcT4o2di/bm70vkqv5L/Kfm1Vfu35
-SBMzYSScyEW2tk/7A1VJK4ngJssreMyJgu0O1rePTl+fkwxJaFiEnMQCVvcltvfA
-H5lQp1qhqS2zz2jpBbjQJFu6vlvvDIscznZ4ItCfHPGaazC3rO9qbpLSz9jdk1aX
-36mhrJEWN2Q0YEZatiFIb5B2ItoUCW3gj+QLcfaf8dN6gwGDPk+zF2hFbyE0fweh
-k/dF9R3SXQCMhuxtL9ipJ9rVNjD5xQ==
-=WDUc
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---nLJs/sEpOhNQJzse--
+Thanks,
+Mark
+

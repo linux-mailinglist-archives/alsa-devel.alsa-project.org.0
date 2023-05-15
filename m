@@ -2,91 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AFEF708E62
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 05:34:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 733F8708FC2
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 08:19:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AD6B206;
-	Fri, 19 May 2023 05:33:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AD6B206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61620200;
+	Fri, 19 May 2023 08:18:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61620200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684467289;
-	bh=8FZuxtdcNDCBpb+eqQE7LLSk7QkrZ4DcK9YO3sDCf6o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1684477167;
+	bh=YVV9QXLK3zdKirLife6xNZ0Bitd3ouOLZrBQXVFj5bM=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=WbnlRNLdehlklXFjREcl1rb3nl0Soyy01dMESys26JHMOSNMy8KlNtLrWDNTpHQfA
-	 wCcB1KWcejqRjrUqw0wqfN67rPd31pBUeKzJLQSAnrKFvd2WxWjCjp2EtQHmXMJbhu
-	 ekXxSVY3710SWQl6BSZVgHC+aXGqxCRYnrj7VZj0=
+	b=gMhqCEmAwg1VIC/Ipg/RviiCPO0bY3lfv1IxEJViMGT+2zq6XQgqzb4optyYqDoFv
+	 SRRY/5p1L6r7AKIrIS1SR4DrAflHYO4tvg+Pduz5qpGI31Ck0SRRzJX8TiBiMZNUpM
+	 bcu+DUntFtkwVFx0LadIt5xVhYZIX3jpqW9DLpQk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6745CF80272; Fri, 19 May 2023 05:33:58 +0200 (CEST)
+	id CD056F80431; Fri, 19 May 2023 08:18:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6B9EF80087;
-	Fri, 19 May 2023 05:33:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70548F8025A;
+	Fri, 19 May 2023 08:18:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9E8CF80272; Fri, 19 May 2023 05:33:50 +0200 (CEST)
+	id 491A1F80272; Mon, 15 May 2023 14:36:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-0.9 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EB240F8016D
-	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 05:33:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB240F8016D
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Ff7mHDJC
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D8F8164371;
-	Fri, 19 May 2023 03:33:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4DFC433EF;
-	Fri, 19 May 2023 03:33:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684467219;
-	bh=8FZuxtdcNDCBpb+eqQE7LLSk7QkrZ4DcK9YO3sDCf6o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Ff7mHDJCzg53BsY+d6W3AMjxG8kUyDmCubT7U1A2qB/kderJeKkvueI/lMKf5bq8D
-	 9/S4R1Ze6feAnsZIZcbHWPNRyWSj3TZSNBxEBnZTtuofvOKEoYphTO9cDj8itcRX2g
-	 yOGXhG5OLjeC5R8zHTwPtvW7I2Ik7OIvOjRAGs1oa3rQ1Kr088YBzDiiShGR5RgXIN
-	 WKgDp51sP8xE853Z8JndYBNu5nz/p0ymFWVJRROJ/xaHtyNAWH+UB1eCTIN9rNXmgL
-	 ykcRrLutvDeKvLVS+Bcd0H3vK7er/S6+uR3X0wdQU2i5hWcuwuIh0uUVMTsEi7LpGV
-	 4kVjTFHf7mgiQ==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-In-Reply-To: <20230518150250.1121006-1-rf@opensource.cirrus.com>
-References: <20230518150250.1121006-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH 0/3] ASoC: cs35l56: Bugfixes and efficiency improvement
-Message-Id: <168446721839.559735.6041471929366523184.b4-ty@kernel.org>
-Date: Fri, 19 May 2023 12:33:38 +0900
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6ACCFF8016D
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 14:36:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ACCFF8016D
+Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
+	by ex01.ufhost.com (Postfix) with ESMTP id EEBD224DC7D;
+	Mon, 15 May 2023 20:36:32 +0800 (CST)
+Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX165.cuchost.com
+ (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Mon, 15 May
+ 2023 20:36:33 +0800
+Received: from [192.168.125.124] (113.72.146.187) by EXMBX168.cuchost.com
+ (172.16.6.78) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Mon, 15 May
+ 2023 20:36:32 +0800
+Message-ID: <29a30bab-1736-5a57-7bdf-3282d90a6a57@starfivetech.com>
+Date: Mon, 15 May 2023 20:36:31 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH v4 3/3] riscv: dts: starfive: add the node and pins
+ configuration for tdm
+To: Conor Dooley <conor.dooley@microchip.com>
+CC: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+	Claudiu Beznea <Claudiu.Beznea@microchip.com>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Emil Renner Berthing
+	<emil.renner.berthing@canonical.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>
+References: <20230511091549.28003-1-walker.chen@starfivetech.com>
+ <20230511091549.28003-4-walker.chen@starfivetech.com>
+ <cd7803a2-38a0-c498-467f-1ef802645527@starfivetech.com>
+ <20230515-dragonish-diffuser-48a1c6f4c8ae@wendy>
+Content-Language: en-US
+From: Walker Chen <walker.chen@starfivetech.com>
+In-Reply-To: <20230515-dragonish-diffuser-48a1c6f4c8ae@wendy>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: 2NZVHKUA5QPW5JEE2V2IZF5JNC7EC7ZC
-X-Message-ID-Hash: 2NZVHKUA5QPW5JEE2V2IZF5JNC7EC7ZC
-X-MailFrom: broonie@kernel.org
+X-Originating-IP: [113.72.146.187]
+X-ClientProxiedBy: EXCAS062.cuchost.com (172.16.6.22) To EXMBX168.cuchost.com
+ (172.16.6.78)
+X-YovoleRuleAgent: yovoleflag
+X-MailFrom: walker.chen@starfivetech.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: EJJKF4UDFGMDTQPRAOD5HZ7AGU4B736Z
+X-Message-ID-Hash: EJJKF4UDFGMDTQPRAOD5HZ7AGU4B736Z
+X-Mailman-Approved-At: Fri, 19 May 2023 06:16:20 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2NZVHKUA5QPW5JEE2V2IZF5JNC7EC7ZC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EJJKF4UDFGMDTQPRAOD5HZ7AGU4B736Z/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,50 +100,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 18 May 2023 16:02:47 +0100, Richard Fitzgerald wrote:
-> First two patches are bugfixes.
-> Third patch skips the overhead of rebooting the amp after applying
-> firmware files when we know that it isn't necessary.
+
+
+On 2023/5/15 16:58, Conor Dooley wrote:
+> On Mon, May 15, 2023 at 04:44:54PM +0800, Walker Chen wrote:
 > 
-> Simon Trimmer (3):
->   ASoC: cs35l56: Move DSP part string generation so that it is done only
->     once
->   ASoC: cs35l56: sdw_write_no_pm() should be performed under a
->     pm_runtime request
->   ASoC: cs35l56: In secure mode skip SHUTDOWN and RESET around fw
->     download
+>> Hi Conor / Emil,
+>> 
+>> Based on our discussion a few days ago, the new version of patch for dts looks like this,
+>> Please help to review and provide your comments if you feel free.
 > 
-> [...]
+>> On 2023/5/11 17:15, Walker Chen wrote:
+> 
+> It's only been 4 days chief, of which 2 were the weekend, you don't need
+> to bump it yet! You'd be better off asking one of your co-workers to
+> review the content, instead of me. I'll happily apply the patch, with
+> appropriate review, once the dt-binding has been applied by Mark. I do
+> not have the capacity to review the detail of individual patches adding
+> peripherals unfortunately.
+> Getting your co-workers to look at your patches, and doing the same for
+> theirs, is almost always a good idea for speeding up the process
 
-Applied to
+Oh, Conor, perhaps I was too eager to finish the work quickly. Sorry for that!
+Maybe I need to ask my co-worker to review firstly as you said.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/3] ASoC: cs35l56: Move DSP part string generation so that it is done only once
-      commit: 608f1b0dbddec6b2fd766c10bcce2b651995e936
-[2/3] ASoC: cs35l56: sdw_write_no_pm() should be performed under a pm_runtime request
-      commit: c9001a2754528fa5da20e8674b3afbd8c134cc91
-[3/3] ASoC: cs35l56: In secure mode skip SHUTDOWN and RESET around fw download
-      commit: 1a8edfcffa2803afc0ef3a6a48819230cdbda2c9
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Best regards,
+Walker

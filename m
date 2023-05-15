@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0668D702B2A
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:11:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8468D702B24
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:10:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 606CF836;
-	Mon, 15 May 2023 13:10:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 606CF836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 785FA1DD;
+	Mon, 15 May 2023 13:09:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 785FA1DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684149091;
-	bh=lwjgziLcEsIzBPxxZ1N8abCwzxvPGfURke6CIpHvtww=;
+	s=default; t=1684149039;
+	bh=yMPxua+4ik5mZQT5F9qGiCL+s/gRQlcKfSnyEkV157c=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TNzH3sttSTezV94VSns9XDreJ1VH5e94EyYJePKyf1pwfqwxOfqU+0vyNbZ6hmC/f
-	 sEaU5naucF8mwtU/eTEHAo0EqlMkPnBoWSmNg1Y0WVLZ55yv3FBGH/tZYgp/QQFGBL
-	 roqyZL+w5KR1mYRA55sHBa6ABCvLyS/4M0uFyWEE=
+	b=QzDShb7ZrtfyxfL02D59BYawvbEFBjWwK3WVifgvoT+91NL003ORHdGx1mSE51I5G
+	 t5dQ86dRowNmzHMuUK2BE6pStmPzfD6D0UjbQlmnSSti43Yy3/X+EKoMQlaVpJ6SZu
+	 WKYAGxyZvsRGNsKoiusJZkJYP/o/cBROPu6/KgwA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 292BCF80578; Mon, 15 May 2023 13:09:52 +0200 (CEST)
+	id 7EDA7F8053D; Mon, 15 May 2023 13:09:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE585F8055A;
-	Mon, 15 May 2023 13:09:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1099CF802E8;
+	Mon, 15 May 2023 13:09:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C0B2F80431; Mon, 15 May 2023 13:09:46 +0200 (CEST)
+	id 4CE5AF8053D; Mon, 15 May 2023 13:09:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0C066F8016A
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C066F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 29348F8016D
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29348F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YuNMzPkb
+ header.s=k20201202 header.b=C7Nfm4oj
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6CCD6615FE;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5BD0162295;
+	Mon, 15 May 2023 11:09:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4404BC4339B;
 	Mon, 15 May 2023 11:09:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76DBC433EF;
-	Mon, 15 May 2023 11:09:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684148975;
-	bh=lwjgziLcEsIzBPxxZ1N8abCwzxvPGfURke6CIpHvtww=;
+	s=k20201202; t=1684148977;
+	bh=yMPxua+4ik5mZQT5F9qGiCL+s/gRQlcKfSnyEkV157c=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=YuNMzPkbzr28+j0Zo8hTdy3k5Ja8MNwey/47bnhvvp39UClQ1RjDBJwvXkB3vK9jb
-	 +FrQrprKO/3/gtG3k7KoorIUtPuMv/luFfVAxrafGmthNLmIDUmKqGIwaWAF/SATn7
-	 DUPtBx9KtK8L5f05ze+WfcJA40mLLtEa0+X7KAE9GVOmHT9xQx0WirJgS7VZdHM5uq
-	 aUYxWWdb6FD/9QlHZvIIlvG1pSS56OmLLhdZCQq7WLyl7x3Fmp4DsRcDBQPu39Lhk2
-	 KcJG5M1oISFsZBpcXsU/H4ckjQ8TmGFpIf/eLrVmvTEARafIxwNF6EanGDG9HGgYmS
-	 i3fXELO7XL3mg==
+	b=C7Nfm4oj7gD9vWlCJELWLuzGmpGw7/xLSKEqEaNBB+uVZpxvEo0UFuS3Zb3DIx8RJ
+	 hxUGzEKdhcQvwT1Hy1LFT73/u262i77c7L8MLyNfvUpnK6ZfcRuf3p25KIxwrZI8WK
+	 HMCYYQp5svkKOV9AlIKrfafT1p8AM1pDMdo0Oku3GPouMAavyV9/32iZ1OQaE9ViCO
+	 7nwxEZWOuuvPvGfgC8yL5Z78DcDGNyCwQNvw0mRGHS+alnVHzf+HqFnMarlI+Buv33
+	 dCdG51+b/gGjvP2Ku2UnlGbYjZGf+unwO3fyUr8O/2DE/pg6/yeOH2PtbntqaXRHHE
+	 9rtoetLKn+eug==
 From: Mark Brown <broonie@kernel.org>
-To: linux-samsung-soc@vger.kernel.org,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Arnd Bergmann <arnd@arndb.de>,
- Olof Johansson <olof@lixom.net>
-In-Reply-To: <20230513090228.4340-1-krzysztof.kozlowski@linaro.org>
-References: <20230513090228.4340-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH] ASoC: MAINTAINERS: drop Krzysztof Kozlowski from
- Samsung audio
-Message-Id: <168414897357.394037.3389766402303422512.b4-ty@kernel.org>
-Date: Mon, 15 May 2023 20:09:33 +0900
+To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
+ daniel.baluta@nxp.com, yung-chuan.liao@linux.intel.com
+In-Reply-To: <20230512110317.5180-1-peter.ujfalusi@linux.intel.com>
+References: <20230512110317.5180-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH] ASoC: SOF: ipc3-topology: Make sure that only one cmd
+ is sent in dai_config
+Message-Id: <168414897591.394037.11342703411858415648.b4-ty@kernel.org>
+Date: Mon, 15 May 2023 20:09:35 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: R4IIBSA34OFD4GUVQS542FR657C3AD7W
-X-Message-ID-Hash: R4IIBSA34OFD4GUVQS542FR657C3AD7W
+Message-ID-Hash: 37FPB5RZJFRVD4J5AAJTR23ZQHAENJYL
+X-Message-ID-Hash: 37FPB5RZJFRVD4J5AAJTR23ZQHAENJYL
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R4IIBSA34OFD4GUVQS542FR657C3AD7W/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/37FPB5RZJFRVD4J5AAJTR23ZQHAENJYL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,12 +98,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 13 May 2023 11:02:28 +0200, Krzysztof Kozlowski wrote:
-> Remove Krzysztof Kozlowski from maintainer of Samsung SoC Audio drivers
-> and change the status to maintenance (no one is reality being paid for
-> looking at this).
+On Fri, 12 May 2023 14:03:17 +0300, Peter Ujfalusi wrote:
+> The commands in sof_ipc_dai_config.flags are encoded as bits:
+> 1 (bit0) - hw_params
+> 2 (bit1) - hw_free
+> 4 (bit2) - pause
 > 
+> These are commands, they cannot be combined as one would assume, for
+> example
+> 3 (bit0 | bit1) is invalid.
 > 
+> [...]
 
 Applied to
 
@@ -114,8 +116,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: MAINTAINERS: drop Krzysztof Kozlowski from Samsung audio
-      commit: 647b5f5fdcbaba6f6fd8db69508fcbeb1fdfc2a6
+[1/1] ASoC: SOF: ipc3-topology: Make sure that only one cmd is sent in dai_config
+      commit: 4708449eafe60742334606168926985798c9c9b8
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

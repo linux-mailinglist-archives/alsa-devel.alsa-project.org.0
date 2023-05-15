@@ -2,80 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97711702B2F
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:12:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1148702B58
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:21:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0867B86E;
-	Mon, 15 May 2023 13:12:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0867B86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 466CD820;
+	Mon, 15 May 2023 13:20:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 466CD820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684149174;
-	bh=Dvh9tI9Xl3uzM2jJ1Xep2xAC6Nc/oaoWIoRatlpPUfE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1684149702;
+	bh=dEDfYcEDQeuMe4sfkygwgrk6rmDllZJtdpRxKV6do7I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZuoevR0l3a80vktAbtbEdr0u6Sa7PGe1qn6kc4hEGjIjE+ANjU2yZPO9uwTv1ytwd
-	 tN8MmdjwNS+s+8woW98aLCO2IrXo291PMz8hXeVyy+NfxFR4G4uXRpBw8gDgpIQK4O
-	 ONeBaGmxwtetb3Tk+ng+uaxWURs5HBnOyr1FysNo=
+	b=RV3B4dzQvXYk57YsyoMpzGkPKIeQWh54ngFmdYs+pXKraCTjW2oHKE/tlC7WqQ4EC
+	 PVH+kt4tqdLgcwtMnvd3D+lwF8uVP55+eAZBiDXYsMchLzQbv4YsZFPK9Ou1FVqrFP
+	 BEMaJYZy2CFt24CB4VmrKNH4syFiejVmKmW9CVpo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 341A5F805D3; Mon, 15 May 2023 13:10:08 +0200 (CEST)
+	id 0B39DF805A1; Mon, 15 May 2023 13:19:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEE47F805C9;
-	Mon, 15 May 2023 13:10:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 649AFF8057E;
+	Mon, 15 May 2023 13:19:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B68A2F805AE; Mon, 15 May 2023 13:09:58 +0200 (CEST)
+	id 7C04DF80563; Mon, 15 May 2023 13:19:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9B7BDF8057B
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B7BDF8057B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=a8nilyUv
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-6.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8CD676227B;
-	Mon, 15 May 2023 11:09:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4E8C433EF;
-	Mon, 15 May 2023 11:09:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684148988;
-	bh=Dvh9tI9Xl3uzM2jJ1Xep2xAC6Nc/oaoWIoRatlpPUfE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=a8nilyUvosgWLYfZFkc00NkLieMjNhu0fdDIXucxn4MZjLLAzSkjY1MBHmVls528O
-	 bw6Pce54LlBfFJAtCnN6qzksCr3wFKj/3oZ/ywXCiqaCO7nHsusv/WiVh8JvYafmmD
-	 DfU+MMGLUhJKxzSYoXkTKSZxZvTI4RhZDRbY5mIoJihG4/+vs0XRV98R40a+GtxgFu
-	 hnpSrES89Jv9zT9M0F8B6M+v0m4jxQ5WFOhUydaz7YqMQPkl0/9nfJBNK8md5Wm2eG
-	 9UQf7g95XLVOmRgDpyJepSyBEVy+SWZBGrabXMQ/10uG6HIMTQpYUz1poUyV0sO1Mi
-	 EOGwUz7HfoPNg==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com, Simon Trimmer <simont@opensource.cirrus.com>
-In-Reply-To: <20230512144237.739000-1-rf@opensource.cirrus.com>
-References: <20230512144237.739000-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l56: Prevent unbalanced pm_runtime in
- dsp_work() on SoundWire
-Message-Id: <168414898656.394037.4680314609233066357.b4-ty@kernel.org>
-Date: Mon, 15 May 2023 20:09:46 +0900
+	by alsa1.perex.cz (Postfix) with ESMTPS id B63CEF8016D
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:19:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B63CEF8016D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=RDtajWsM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1684149576; x=1715685576;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=dEDfYcEDQeuMe4sfkygwgrk6rmDllZJtdpRxKV6do7I=;
+  b=RDtajWsMES9Gq5Rsz0/xwTUiaovhjBNcHHOoqQ7yR9XWiSon7OGTwy0U
+   kPLNTXJI+umr80TDBk519DCK/Vq2TtUmcnmLczHnsqcEZdSR+f2Hl/x7O
+   chM2YFktDKJFTf/IKHoxkGXwdCtQ4UQHeE+Dl2Ies2CjkuMBQGjph3CfM
+   s8kH8GJUeL457BNzBfOCQbkCP/csB/4A3lIBSYR9VrgC43TU+H2FZIFY/
+   CuMNRi/Ov+f/M2h5gmWfU7N/DV0Kgt4nnx4Hf4VIGnkYw2l+/Wa7joCPH
+   w7uT6LYMzpUBpiaZWSgTXacR6Ak0PTDSqhoogrvAG3hUUOvH5R5j7bfiR
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="335715996"
+X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
+   d="scan'208";a="335715996"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2023 04:19:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="1030874837"
+X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
+   d="scan'208";a="1030874837"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2023 04:19:31 -0700
+Message-ID: <98943bc1-c56c-45aa-06d2-80c618d0585c@linux.intel.com>
+Date: Mon, 15 May 2023 13:19:29 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: NZ4KM3F6QQB53WEC5R3SZC5KSMYOSCAP
-X-Message-ID-Hash: NZ4KM3F6QQB53WEC5R3SZC5KSMYOSCAP
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: HDA, power saving and recording
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <a7478636-af11-92ab-731c-9b13c582a70d@linux.intel.com>
+ <878rdwjs1s.wl-tiwai@suse.de>
+ <cceaeb53-06df-ced0-1f54-f5c0eb65f824@linux.intel.com>
+ <87jzxe5084.wl-tiwai@suse.de>
+ <41417b90-1881-0cbb-52e1-d63923dd8cd6@linux.intel.com>
+ <87ilcxaj3u.wl-tiwai@suse.de> <87fs81ainl.wl-tiwai@suse.de>
+ <7915b40e-a65a-479d-5a2b-062ee3cb432b@linux.intel.com>
+ <87bkipag9z.wl-tiwai@suse.de>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <87bkipag9z.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 5QW4O5NNEM63JKCKBEDL7A3PMYHDWOGR
+X-Message-ID-Hash: 5QW4O5NNEM63JKCKBEDL7A3PMYHDWOGR
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NZ4KM3F6QQB53WEC5R3SZC5KSMYOSCAP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5QW4O5NNEM63JKCKBEDL7A3PMYHDWOGR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,41 +115,125 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 12 May 2023 15:42:37 +0100, Richard Fitzgerald wrote:
-> Flush the SoundWire interrupt handler work instead of cancelling it.
+On 5/12/2023 2:24 PM, Takashi Iwai wrote:
+> On Fri, 12 May 2023 14:00:54 +0200,
+> Amadeusz Sławiński wrote:
+>>
+>> On 5/12/2023 1:33 PM, Takashi Iwai wrote:
+>>> On Fri, 12 May 2023 13:23:49 +0200,
+>>> Takashi Iwai wrote:
+>>>>
+>>>> On Thu, 11 May 2023 19:20:17 +0200,
+>>>> Amadeusz Sławiński wrote:
+>>>>>
+>>>>> On 5/11/2023 5:58 PM, Takashi Iwai wrote:
+>>>>>> On Thu, 11 May 2023 17:31:37 +0200,
+>>>>>> Amadeusz Sławiński wrote:
+>>>>>>>
+>>>>>>> On 5/10/2023 2:21 PM, Takashi Iwai wrote:
+>>>>>>>> On Tue, 09 May 2023 12:10:06 +0200,
+>>>>>>>> Amadeusz Sławiński wrote:
+>>>>>>> Then capture stream starts and seems to assume that
+>>>>>>> registers were already set, so it doesn't write them to hw.
+>>>>>>
+>>>>>> ... it seems this didn't happen, and that's the inconsistency.
+>>>>>>
+>>>>>> So the further question is:
+>>>>>> At the point just before you start recording, is the codec in runtime
+>>>>>> suspended?  Or it's running?
+>>>>>>
+>>>>>> If it's runtime-suspended, snd_hda_regmap_sync() must be called from
+>>>>>> alc269_resume() via runtime-resume, and this must write out the
+>>>>>> cached values.  Then the bug can be along with that line.
+>>>>>>
+>>>>>> Or if it's running, it means that the previous check of
+>>>>>> snd_hdac_keep_power_up() was bogus (or racy).
+>>>>>>
+>>>>>
+>>>>> Well, it is in... let's call it semi powered state. When snd_hda_intel
+>>>>> driver is loaded with power_save=X option it sets timeout to X seconds
+>>>>> and problem only happens when I start the stream before those X
+>>>>> seconds pass and it runs first runtime suspend. After it suspends it
+>>>>> then uses standard pm_runtime_resume and works correctly. That's why
+>>>>> the pm_runtime_force_suspend(&codec->core.dev);  mentioned in first
+>>>>> email in thread "fixes" the problem, as it forces it to be instantly
+>>>>> suspended instead of waiting for timeout and then later normal
+>>>>> resume-play/record-suspend flow can be followed.
+>>>>
+>>>> Hm, then maybe it's a bad idea to rely on the usage count there.
+>>>> Even if the usage is 0, the device can be still active, and the update
+>>>> can be missed.
+>>>>
+>>>> How about the patch like below?
+>>>
+>>> Scratch that, it returns a wrong value.
+>>> A simpler version like below works instead?
+>>>
+>>
+>> Yes it was broken, arecord didn't even start capturing ;)
+>>
+>>>
+>>> Takashi
+>>>
+>>> --- a/sound/hda/hdac_device.c
+>>> +++ b/sound/hda/hdac_device.c
+>>> @@ -611,10 +611,9 @@ EXPORT_SYMBOL_GPL(snd_hdac_power_up_pm);
+>>>    int snd_hdac_keep_power_up(struct hdac_device *codec)
+>>>    {
+>>>    	if (!atomic_inc_not_zero(&codec->in_pm)) {
+>>> -		int ret = pm_runtime_get_if_in_use(&codec->dev);
+>>> -		if (!ret)
+>>> +		if (!pm_runtime_active(&codec->dev))
+>>>    			return -1;
+>>> -		if (ret < 0)
+>>> +		if (pm_runtime_get_sync(&codec->dev) < 0)
+>>>    			return 0;
+>>>    	}
+>>>    	return 1;
+>>
+>>
+>> This one seems to work, as in I'm able to record before first suspend
+>> hits. However device stays in D0 when no stream is running...
+>> # cat /sys/devices/pci0000\:00/0000\:00\:0e.0/power_state
+>> D0
 > 
-> When a SoundWire interrupt is triggered the pm_runtime is held
-> until the work has completed. It's therefore unsafe to cancel
-> the work, it must be flushed.
+> OK, one step forward.  The previous change was bad in anyway, as we
+> shouldn't sync there at all.
+> 
+> So, the problem becomes clearer now: it's in the lazy update mechanism
+> that misses the case that has to be written.
+> 
+> Scratch the previous one again, and could you try the following one
+> instead?
 > 
 > 
-> [...]
+> Takashi
+> 
+> --- a/sound/hda/hdac_regmap.c
+> +++ b/sound/hda/hdac_regmap.c
+> @@ -293,8 +293,17 @@ static int hda_reg_write(void *context, unsigned int reg, unsigned int val)
+>   
+>   	if (verb != AC_VERB_SET_POWER_STATE) {
+>   		pm_lock = codec_pm_lock(codec);
+> -		if (pm_lock < 0)
+> -			return codec->lazy_cache ? 0 : -EAGAIN;
+> +		if (pm_lock < 0) {
+> +			/* skip the actual write if it's in lazy-update mode
+> +			 * and only if the device is actually suspended;
+> +			 * the usage count can be zero at transition phase
+> +			 * (either suspending/resuming or auto-suspend sleep)
+> +			 */
+> +			if (codec->lazy_cache &&
+> +			    pm_runtime_suspended(&codec->dev))
+> +				return 0;
+> +			return -EAGAIN;
+> +		}
+>   	}
+>   
+>   	if (is_stereo_amp_verb(reg)) {
+> 
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: cs35l56: Prevent unbalanced pm_runtime in dsp_work() on SoundWire
-      commit: 17082e09b94cfe60bf39088f3d37c1f10e6c5928
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+With this one we are back to same behavior as without it. When capture 
+is started before first suspend it records silence. After waiting for 
+timeout and suspend it records correctly.
 

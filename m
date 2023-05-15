@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAA6A70257C
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 08:55:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C515C70257D
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 08:55:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2027D1EC;
-	Mon, 15 May 2023 08:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2027D1EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 229B0AE9;
+	Mon, 15 May 2023 08:54:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 229B0AE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684133724;
-	bh=q80CBcxn2QOQK8sFpcJ2zT5Gn5sp4JMMdHxIOJazfZ4=;
+	s=default; t=1684133742;
+	bh=zulnEGWCaE/ce7on2AHJOrEISXuutjX2aua9tmM2yVE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XxaWwOTY83fD3VCDbTkNb4MDxsbemj5x1iVLee5WIbhv7aaGhWtLHqkm6osfTnr2a
-	 +RaH+lGoCY1F9si7vnuew1xWtDD2LVUkt99M6KSO84QwbJmCP25+dynNY5soNXf2p9
-	 gU4i+24ayGqjfN1fdYZY+NcdV0WSjZ1/A8SfIrvY=
+	b=BdChD1QGeIxrMECc9AoTxV7YZOnGICLXLUrQkWWldcA1qiuhj85UeqPQs5ZmD97mT
+	 Cce6tlzX6+qojJDFZXHgowrABPiwhdMgiaXxVpC2yP6tRwkNxDzbiId0/kIT89eFIL
+	 Vfejd2eixRwHtvRkGvRwuQ2+axQ1ZxUh2RUjx1HI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 675C0F8060A; Mon, 15 May 2023 08:51:18 +0200 (CEST)
+	id 8B9EFF80618; Mon, 15 May 2023 08:51:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C04C1F80609;
-	Mon, 15 May 2023 08:51:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C626F80614;
+	Mon, 15 May 2023 08:51:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 865D6F805E6; Mon, 15 May 2023 08:51:04 +0200 (CEST)
+	id 6C76DF805F1; Mon, 15 May 2023 08:51:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,39 +35,39 @@ X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4BB9F80272
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 08:51:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4BB9F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84F5FF80272
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 08:51:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84F5FF80272
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=KRc9/OEX
+ header.s=Intel header.b=fdCpIolM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684133462; x=1715669462;
+  t=1684133464; x=1715669464;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=q80CBcxn2QOQK8sFpcJ2zT5Gn5sp4JMMdHxIOJazfZ4=;
-  b=KRc9/OEXUVPybQJ+yU07+5/5V+44POMI700rEu7hpiajWeQAt0czMG0S
-   E7RkrteswCNLLp0CGdyZskhkTyIYHjWMX2S9cIMcKg4DQeDsdGTHcTZ66
-   e0qsPUt3Lf7gsY3uNo2RNuT7QCI1UvY4ewp4PPHAPcX8F8f+bf8dLe+Uu
-   b10QTGVasbNAnwmaljz4dOqHyJlXpyQ78f0ePL19Fj2vuI+on9QRvQyl/
-   9KO6sf1ATPOhTV9wrdxR8yVNg7nV0151lv8EG2AJhty6ZzcJfgt/zuMf8
-   +tYc6LSgd68okb4CZm1NksyS7vKTJik9UeWc0FRDGhuBUZRaSr6DNe57Y
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="349966461"
+  bh=zulnEGWCaE/ce7on2AHJOrEISXuutjX2aua9tmM2yVE=;
+  b=fdCpIolMLOoOfw22ljH4Nhm3d/vR32QnTEuHVmsGFyeBGgKu3c6UVMFG
+   n1YagvZAIKXPiLzYLgdD4iqfS2Mgo6Ko9ZSK+kcymLTwPEdPi3C2fPKF3
+   X3YpkFnOciVyLrT3PxSuszW57cSL0K9V4M6p7QZaikq+3bwCF5KZDQc4x
+   vYg5XQhpXW9O4/L1yK0R6Y5gQP8f+w/j3w0zSIhZJNt2R53CzRD/pyb/K
+   Oohnwyl2ZXsqmC2G+yHXQEr+hQ0nNiQhAj6JfVTmiUiwDzaAYHSEukMHH
+   v9SP3WFABcjFoPWhxn6cRt3NmQTug9BjBTWK1mzN6RCo9XunSNvBvLCKb
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="349966481"
 X-IronPort-AV: E=Sophos;i="5.99,275,1677571200";
-   d="scan'208";a="349966461"
+   d="scan'208";a="349966481"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2023 23:50:59 -0700
+ 14 May 2023 23:51:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="694908742"
+X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="694908748"
 X-IronPort-AV: E=Sophos;i="5.99,275,1677571200";
-   d="scan'208";a="694908742"
+   d="scan'208";a="694908748"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
   by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2023 23:50:57 -0700
+ 14 May 2023 23:50:59 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org,
@@ -77,18 +77,17 @@ Cc: linux-kernel@vger.kernel.org,
 	vinod.koul@linaro.org,
 	pierre-louis.bossart@linux.intel.com,
 	bard.liao@intel.com
-Subject: [PATCH v2 16/26] soundwire: intel_ace2x: use common helpers for bus
- start/stop
-Date: Mon, 15 May 2023 15:10:32 +0800
-Message-Id: <20230515071042.2038-17-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v2 17/26] soundwire: intel_ace2x: enable wake support
+Date: Mon, 15 May 2023 15:10:33 +0800
+Message-Id: <20230515071042.2038-18-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230515071042.2038-1-yung-chuan.liao@linux.intel.com>
 References: <20230515071042.2038-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IWBW4UM7IRU7CSFT4XAS3KJU6FNEBA5A
-X-Message-ID-Hash: IWBW4UM7IRU7CSFT4XAS3KJU6FNEBA5A
+Message-ID-Hash: XFNSVOJTU2YMDTWITJNLT2U3ATC7PLOF
+X-Message-ID-Hash: XFNSVOJTU2YMDTWITJNLT2U3ATC7PLOF
 X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IWBW4UM7IRU7CSFT4XAS3KJU6FNEBA5A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XFNSVOJTU2YMDTWITJNLT2U3ATC7PLOF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,9 +111,8 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-The sequences are so far identical, so the abstraction is a bit
-over-engineered. In time we will simplify if there is no need to
-special case or work-around programming sequences.
+The WAKEEN and WAKESTS registers were moved to the per-link SHIM_VS
+area.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
@@ -122,26 +120,65 @@ Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/intel_ace2x.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/soundwire/intel_ace2x.c | 38 +++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
 diff --git a/drivers/soundwire/intel_ace2x.c b/drivers/soundwire/intel_ace2x.c
-index 20b8806f7de6..2e33e8a00b55 100644
+index 2e33e8a00b55..fe950b3ea3bc 100644
 --- a/drivers/soundwire/intel_ace2x.c
 +++ b/drivers/soundwire/intel_ace2x.c
-@@ -316,6 +316,12 @@ const struct sdw_intel_hw_ops sdw_intel_lnl_hw_ops = {
+@@ -31,6 +31,41 @@ static void intel_shim_vs_init(struct sdw_intel *sdw)
+ 	usleep_range(10, 15);
+ }
  
- 	.register_dai = intel_register_dai,
- 
-+	.check_clock_stop = intel_check_clock_stop,
-+	.start_bus = intel_start_bus,
-+	.start_bus_after_reset = intel_start_bus_after_reset,
-+	.start_bus_after_clock_stop = intel_start_bus_after_clock_stop,
-+	.stop_bus = intel_stop_bus,
++static int intel_shim_check_wake(struct sdw_intel *sdw)
++{
++	void __iomem *shim_vs;
++	u16 wake_sts;
 +
++	shim_vs = sdw->link_res->shim_vs;
++	wake_sts = intel_readw(shim_vs, SDW_SHIM2_INTEL_VS_WAKESTS);
++
++	return wake_sts & SDW_SHIM2_INTEL_VS_WAKEEN_PWS;
++}
++
++static void intel_shim_wake(struct sdw_intel *sdw, bool wake_enable)
++{
++	void __iomem *shim_vs = sdw->link_res->shim_vs;
++	u16 wake_en;
++	u16 wake_sts;
++
++	wake_en = intel_readw(shim_vs, SDW_SHIM2_INTEL_VS_WAKEEN);
++
++	if (wake_enable) {
++		/* Enable the wakeup */
++		wake_en |= SDW_SHIM2_INTEL_VS_WAKEEN_PWE;
++		intel_writew(shim_vs, SDW_SHIM2_INTEL_VS_WAKEEN, wake_en);
++	} else {
++		/* Disable the wake up interrupt */
++		wake_en &= ~SDW_SHIM2_INTEL_VS_WAKEEN_PWE;
++		intel_writew(shim_vs, SDW_SHIM2_INTEL_VS_WAKEEN, wake_en);
++
++		/* Clear wake status (W1C) */
++		wake_sts = intel_readw(shim_vs, SDW_SHIM2_INTEL_VS_WAKESTS);
++		wake_sts |= SDW_SHIM2_INTEL_VS_WAKEEN_PWS;
++		intel_writew(shim_vs, SDW_SHIM2_INTEL_VS_WAKESTS, wake_sts);
++	}
++}
++
+ static int intel_link_power_up(struct sdw_intel *sdw)
+ {
+ 	struct sdw_bus *bus = &sdw->cdns.bus;
+@@ -325,6 +360,9 @@ const struct sdw_intel_hw_ops sdw_intel_lnl_hw_ops = {
  	.link_power_up = intel_link_power_up,
  	.link_power_down = intel_link_power_down,
  
++	.shim_check_wake = intel_shim_check_wake,
++	.shim_wake = intel_shim_wake,
++
+ 	.sync_arm = intel_sync_arm,
+ 	.sync_go_unlocked = intel_sync_go_unlocked,
+ 	.sync_go = intel_sync_go,
 -- 
 2.25.1
 

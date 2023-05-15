@@ -2,82 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF0D570317B
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 17:24:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5AF70318E
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 17:29:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 246E01E2;
-	Mon, 15 May 2023 17:23:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 246E01E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE7F11E2;
+	Mon, 15 May 2023 17:28:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE7F11E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684164272;
-	bh=+hOnNR3iwu1hE8EO/p0ljAKZ5bwnWHHmPXg/LRDZMlQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1684164558;
+	bh=o4d3wchS2hGWpfF31kHfxYcLQGLrdY5jEIsaF69ZRNA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sE30wElbO21CV+hIMscmgTFR/gwhSXZmFrjE0dhXx6ueE3LSnpr/zXvxU3XLFJOdW
-	 ONntyIEIV382ZfWbmYSUothbrCem9wapWuvXd/UP28ZApvA863mcC6pI67lJyCM3Ng
-	 k4gEFZpj5WHlNNeKz/yryHRlAN9bHPQwgvjcpah4=
+	b=CvQ1hhqP5ZIoaRQXJ2zTe8xfFcMsPPkF9FZZr5lz1EN6XJBwafBI3u56MgUxHaijK
+	 xTjhNt9tt/cmmCun6BdXe6ehe88fEU9bnCSYleEr4kcgqLspCDhhm0V8RF0ieEFrBP
+	 CdnoOKdjZMc8zaIDNcgLo+hj9O0guOyAnvwMF1ec=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2F6BF805AC; Mon, 15 May 2023 17:22:21 +0200 (CEST)
+	id 24B1DF80431; Mon, 15 May 2023 17:28:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A359DF805AE;
-	Mon, 15 May 2023 17:22:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79985F8016D;
+	Mon, 15 May 2023 17:28:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30025F8055B; Mon, 15 May 2023 17:22:11 +0200 (CEST)
+	id EEB80F80272; Mon, 15 May 2023 17:28:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-3.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F1CB3F80549
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 17:22:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1CB3F80549
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rxitXZg/
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6D50061EF9;
-	Mon, 15 May 2023 15:22:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46A8CC433D2;
-	Mon, 15 May 2023 15:22:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684164126;
-	bh=+hOnNR3iwu1hE8EO/p0ljAKZ5bwnWHHmPXg/LRDZMlQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=rxitXZg/cihuhIcSdGhw8g0pHS672Alx8WtUjFo6BpHwVg9rOAyzisheQtzkHEvYI
-	 ifi3/Iqf9JBpawKX1/H9P30RBSt3BiOJOowDkefFG0S21djviCLhnambj+iHzBPdqC
-	 dcw23RVcMpoZpApRbdGXglhik2IMkk2jXa8Qgq5MXe00OsZKrBg2i7m+hFguGnj4/I
-	 vLL2+3/TyuUWZcKMnaeq8+VwldVsLb3MyATxNRWiNHQQDoGNYzqHDDUuXVwdpVoyJ3
-	 wy5RctY4ksMn6HQR5vWi2/fYtJBP217B4q+ZYQ0qzJumgkM/HCdTBY4oDbN56Duy/x
-	 Mev/HtOl5lQ0g==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- yung-chuan.liao@linux.intel.com
-In-Reply-To: <20230515112022.30297-1-peter.ujfalusi@linux.intel.com>
-References: <20230515112022.30297-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: SOF: Intel/ipc4: Do not reset BE DAI
- pipeline during stop/suspend
-Message-Id: <168416412507.413889.488728082419993729.b4-ty@kernel.org>
-Date: Tue, 16 May 2023 00:22:05 +0900
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A7FCF8016D;
+	Mon, 15 May 2023 17:28:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A7FCF8016D
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=CiQDb98Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1684164490; x=1715700490;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=o4d3wchS2hGWpfF31kHfxYcLQGLrdY5jEIsaF69ZRNA=;
+  b=CiQDb98ZiW7vuGKe/4rEuRIFRdEsPIqzkVwl1rImmVxiWwvj7/wVRw4p
+   BFi9n/8EWN67PKEjFd2Pqco8FnTHMB2qI9RkvVMxCmCvoN17mFwpjjSs7
+   ZMZs25YxlDbBFmVnr+tyYVF8+Y9TgsgE+hC0N10RdEsGYepaWaWxdZSYS
+   ZV68556WnMZckSbo+jKO/dNnuiJxWlHQincs/faiPQdBU0Jfz+zLa/tpL
+   bDWaje3SDuon2n+6LkBCWyltK3I2pZOd99fTFLMAMKSX/zuVq1kBfY4P0
+   ybsRe32cunpQDwlBraNrUxL1ZonyczAUKy6/xqrHMQR3e3v49jg3AhwTs
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="340583196"
+X-IronPort-AV: E=Sophos;i="5.99,277,1677571200";
+   d="scan'208";a="340583196"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2023 08:28:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="947452467"
+X-IronPort-AV: E=Sophos;i="5.99,277,1677571200";
+   d="scan'208";a="947452467"
+Received: from molivas-mobl.amr.corp.intel.com (HELO [10.251.17.233])
+ ([10.251.17.233])
+  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2023 08:28:01 -0700
+Message-ID: <8f57c62f-c427-f5df-d517-d4025fe7c65d@linux.intel.com>
+Date: Mon, 15 May 2023 10:28:00 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.10.0
+Subject: Re: [PATCH 1/2] ASoC: SOF: mediatek: add mt8188 audio support
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Trevor Wu <trevor.wu@mediatek.com>, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, daniel.baluta@nxp.com, lgirdwood@gmail.com,
+ tiwai@suse.com, perex@perex.cz, matthias.bgg@gmail.com,
+ yc.hung@mediatek.com, tinghan.shen@mediatek.com,
+ sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20230515052540.9037-1-trevor.wu@mediatek.com>
+ <20230515052540.9037-2-trevor.wu@mediatek.com>
+ <7c784932-951a-65c0-c48f-bfa4c098b2e1@collabora.com>
+ <ZGJKPuf1FX4AYLXl@finisterre.sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ZGJKPuf1FX4AYLXl@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: PH747LRULEAO4OLMZDNR3CDMGUDIYIEM
-X-Message-ID-Hash: PH747LRULEAO4OLMZDNR3CDMGUDIYIEM
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: JAEZM3W2HAE5CLUHIQS7DNH4WJFEPLWK
+X-Message-ID-Hash: JAEZM3W2HAE5CLUHIQS7DNH4WJFEPLWK
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PH747LRULEAO4OLMZDNR3CDMGUDIYIEM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JAEZM3W2HAE5CLUHIQS7DNH4WJFEPLWK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,45 +118,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 15 May 2023 14:20:20 +0300, Peter Ujfalusi wrote:
-> Do not reset pipelines during the stop/suspend triggers in the BE DAI
-> ops as the BE DAI pipeline needs to be left in the PAUSED state. It should
-> only be reset during hw_free. This simplification is already done for
-> the FE pipelines and the DAI trigger only toggles the states between
-> PAUSED and RUNNING.
+
+
+On 5/15/23 10:05, Mark Brown wrote:
+> On Mon, May 15, 2023 at 01:25:44PM +0200, AngeloGioacchino Del Regno wrote:
+>> Il 15/05/23 07:25, Trevor Wu ha scritto:
 > 
-> Regards
-> Peter
+>>> +{
+>>> +	/* common defaults */
+>>> +	memcpy(&sof_mt8188_ops, &sof_mt8186_ops, sizeof(struct snd_sof_dsp_ops));
 > 
-> [...]
+>> Never use sizeof(type), always use destination var size! Anyway, there's more.
+>>
+>> I don't think we need to perform this memcpy: we'll never see an instance of
+>> both mt8186 and mt8188 drivers on the same machine, so you can safely just use
+>> sof_mt8186_ops for mt8188...
+> 
+>>> +	sof_mt8188_ops.drv = mt8188_dai;
+> 
+>> ...which obviously means that this becomes
+> 
+>> 	sof_mt8186_ops.drv = mt8188_dai;
+> 
+> This does have the issue that it then means the ops struct isn't const
+> which isn't ideal.  It's also not the end of the world though so I don't
+> have super strong feelings.
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/2] ASoC: SOF: Intel: hda-dai-ops: Split the get_hext_stream() op for IPC4
-      commit: 81a5d699217d1ae2853d6b022fc110aa95a2ff52
-[2/2] ASoC: SOF: ipc4-pcm: reset all pipelines during FE DAI hw_free
-      commit: 225f37b578a9f6462afd46c976e31977f765c38b
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+We do the same for Intel devices, we have a common structure which is
+copied and only the members that differ in specific SOCs are updated.
+You're right that it's not constant, but it avoids copy-paste of a
+rather large structure just to change a couple of lines.

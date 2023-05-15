@@ -2,87 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00C0B702B2C
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:12:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E661702B2D
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:12:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57C75857;
-	Mon, 15 May 2023 13:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57C75857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 979F4823;
+	Mon, 15 May 2023 13:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 979F4823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684149123;
-	bh=KEaOEqbRtYhzunYdC2/oNS4bINLreQCjokum/W9ombs=;
+	s=default; t=1684149143;
+	bh=AzqOmQc7OrwPNPM/ssnco453fybt0WCECRc/Pyq/wu0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f5CTuBsPFu+/JqZYQqiiL2ba7yaNLQhZa2CyKqVocIk4Kvi5Raavnd5FWuMNhKuUJ
-	 0e+5Q8nJyDVISU+mnD2cwr9T84dlBzCv9d3xac0wVKrXGnmVK5ls9Kwohg6IwFztUb
-	 3QKmUkGY7oRQFsXquTouHb4dZHha72tavlcjA7rM=
+	b=IXOIg1cXscbutyKTPwiCXe5VJfcIdEiZaeuW+PuDAqYXo3PZtE7BzHhjKusMzU8pi
+	 ELqRexd3klW470LSkyIsIew3M+HcRc/x8D8vtjXb35AaL4bnavdT/B8tWt8VNejFCA
+	 m7nzrICRmDV2oV+8zH2zEm+6Bd1gZtuMbow/eIlo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63D72F805AA; Mon, 15 May 2023 13:09:57 +0200 (CEST)
+	id B106FF805AD; Mon, 15 May 2023 13:10:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93340F80588;
-	Mon, 15 May 2023 13:09:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99830F805AD;
+	Mon, 15 May 2023 13:10:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 670C0F8055A; Mon, 15 May 2023 13:09:50 +0200 (CEST)
+	id 53E96F80568; Mon, 15 May 2023 13:09:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4DB5F8025A
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4DB5F8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23558F80431
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23558F80431
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=I8kWKmCN
+ header.s=k20201202 header.b=LB03kSID
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A5FB6615FE;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1300D6229C;
+	Mon, 15 May 2023 11:09:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76926C433D2;
 	Mon, 15 May 2023 11:09:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A94DC4339B;
-	Mon, 15 May 2023 11:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684148985;
-	bh=KEaOEqbRtYhzunYdC2/oNS4bINLreQCjokum/W9ombs=;
+	s=k20201202; t=1684148986;
+	bh=AzqOmQc7OrwPNPM/ssnco453fybt0WCECRc/Pyq/wu0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=I8kWKmCNSXJxEyQqVg5SyQHpH0m6kt/oPeTkr5WHFdQibKL4IrlR3tVsoEkyccdS9
-	 8nrWB5hkWxU88g7ywkEs0FmweXvOOmYIrxmKx0nFNmwOmrGWISiXh4EWzwz/faVwZN
-	 8Bcu2ODWp6SpfNfFz9zecTt9GpgH4UsaeCfnPELleQ6vxk6U1USEF2iyPONES74/H4
-	 wGyixTNp+Qw561VRilHClaTznFAI7OnuwH6kKJpgsy0pNkR7ooAUHK3knKZuizycvL
-	 m2JM3R6KYK7mbf49YcYkNa1pgwjp7HKnNMin0wMojjXsIUxDcgv+q8clEc5dCZ4k9F
-	 ddeTkSqy3XADA==
+	b=LB03kSIDbU5zCmAqtLnCcGqTE1YXvzkj9MSUdYA0qHhOAfityGb7oI8oPH412R67d
+	 Ks5SEV7MYOkjwEIET6zHeE9YRRW8QmzChbrysCVJ7hJSJBh6JHMMhLaZKo6Od+VG1o
+	 bxchNBsaQg2YMEYuCiugpcL4rOjWEirjtHbyoloSuIXYRx4JEiNauacN7t3Xj72YiC
+	 WQI4Ccfk47XWi7M8aa8amEvjCB+IKKU3D+Z5izH/5PiY+9OTwXMOf0obhc08u2Bxb9
+	 06fvUUm+WdL66JKwMPOuB/N9R3OeTQszOV5UsiJNKOq+U3AGUGHp+xugFUItwYNAax
+	 kZUKlPuifOupA==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Douglas Anderson <dianders@chromium.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chunxu Li <chunxu.li@mediatek.com>, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org
-In-Reply-To: 
- <20230511092437.1.I31cceffc8c45bb1af16eb613e197b3df92cdc19e@changeid>
-References: 
- <20230511092437.1.I31cceffc8c45bb1af16eb613e197b3df92cdc19e@changeid>
-Subject: Re: [PATCH] ASoC: mediatek: mt8186: Fix use-after-free in driver
- remove path
-Message-Id: <168414898289.394037.12962945078412931473.b4-ty@kernel.org>
-Date: Mon, 15 May 2023 20:09:42 +0900
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com,
+ Lucas Tanure <tanureal@opensource.cirrus.com>
+In-Reply-To: <20230512154503.741718-1-rf@opensource.cirrus.com>
+References: <20230512154503.741718-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH RESEND] MAINTAINERS: Remove self from Cirrus Codec
+ drivers
+Message-Id: <168414898513.394037.16270681416045014663.b4-ty@kernel.org>
+Date: Mon, 15 May 2023 20:09:45 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: SCVBMXN5SCDS2OGVFMMSHC6Q4T5OLTTJ
-X-Message-ID-Hash: SCVBMXN5SCDS2OGVFMMSHC6Q4T5OLTTJ
+Message-ID-Hash: WRAOHSOSWNNGNHKU6GEG5FIODTSFOZ2H
+X-Message-ID-Hash: WRAOHSOSWNNGNHKU6GEG5FIODTSFOZ2H
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SCVBMXN5SCDS2OGVFMMSHC6Q4T5OLTTJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRAOHSOSWNNGNHKU6GEG5FIODTSFOZ2H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,20 +97,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 11 May 2023 09:25:12 -0700, Douglas Anderson wrote:
-> When devm runs function in the "remove" path for a device it runs them
-> in the reverse order. That means that if you have parts of your driver
-> that aren't using devm or are using "roll your own" devm w/
-> devm_add_action_or_reset() you need to keep that in mind.
+On Fri, 12 May 2023 16:45:03 +0100, Richard Fitzgerald wrote:
+> I'm leaving Cirrus Logic, and will no longer have access to
+> hardware and documentation necessary to be effective in a
+> maintainership role.
 > 
-> The mt8186 audio driver didn't quite get this right. Specifically, in
-> mt8186_init_clock() it called mt8186_audsys_clk_register() and then
-> went on to call a bunch of other devm function. The caller of
-> mt8186_init_clock() used devm_add_action_or_reset() to call
-> mt8186_deinit_clock() but, because of the intervening devm functions,
-> the order was wrong.
 > 
-> [...]
 
 Applied to
 
@@ -125,8 +110,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8186: Fix use-after-free in driver remove path
-      commit: a93d2afd3f77a7331271a0f25c6a11003db69b3c
+[1/1] MAINTAINERS: Remove self from Cirrus Codec drivers
+      commit: dc60b67d259ea63196dcd0400dd43ba062e2e097
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

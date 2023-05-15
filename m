@@ -2,105 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5760D70234F
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 07:29:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 686DA70246A
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 08:21:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99027852;
-	Mon, 15 May 2023 07:28:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99027852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43F66822;
+	Mon, 15 May 2023 08:20:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43F66822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684128545;
-	bh=f3jzTXC6zD1otpPJmKWQ3ixbGHTSeJSFWBQZ/zz1w4E=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1684131675;
+	bh=kOZ9P/+5dvCN4lNZJWAk2XxlQDF+Vjo8xCm5mk1Zn+s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tLB8NspHtAP0wMEvSrR/9+JfLiqZsxetCXpJ2mqtg8jtt+Z1QKXAhRweotrKg6VUG
-	 4EpUqB3WTp59385s0X1Le5C5oubnrGO0/d+0M/85wG9W04kwwV6TZx13SNx2PZvXkd
-	 kyuZGsNY6YZJbmTa1x46kUSALlrBa2rxSATkVzTI=
+	b=nUj5XvZVLRmZ/XhO2/Zir8rR1d0zlxGdaPpvwFxCPs4gJ6zl/+25LiscytHDLxphn
+	 zebegn7TiOSMhTvwwt3qTST8Au5znxYKeIihi/rXTwX9fEPlVfrtIPksbINJecoTMv
+	 w4A7LJvkSCqQ6Ejo7LOhvwCOQfyYid40it2EKUNU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88A7AF8056F; Mon, 15 May 2023 07:27:45 +0200 (CEST)
+	id B20DDF80544; Mon, 15 May 2023 08:20:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EB66F80564;
-	Mon, 15 May 2023 07:27:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B1FBF8025A;
+	Mon, 15 May 2023 08:20:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2451F80272; Mon, 15 May 2023 07:26:11 +0200 (CEST)
+	id 6DF92F80272; Mon, 15 May 2023 08:20:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-6.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47341F8025A;
-	Mon, 15 May 2023 07:25:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47341F8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 69A50F8016D
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 08:20:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69A50F8016D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=IQSM/pSr
-X-UUID: efe4fd10f2e011edb20a276fd37b9834-20230515
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=0Ksvdp8PTKxSr2UBQg5vm1z3nVvtS8V+ddsrIGxDdTY=;
-	b=IQSM/pSre75BeSvmRdXPb1PiucCb/9DwfARAC2wb2PcUBUyH/Ln33fH3P+6+hsviFPbn83u/CUh+WdDkFq5tkZ9ZZsT4cLfS+4wXrO5fslXLDT0aaw9dS9HJWGIxtVeJfiU5NgdvTqolwa8NUL1HrSnUSf3x6w/8GCTegLGhAsA=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.24,REQID:03ed807a-b656-4e22-acdc-1c59aee33a80,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:70
-X-CID-INFO: VERSION:1.1.24,REQID:03ed807a-b656-4e22-acdc-1c59aee33a80,IP:0,URL
-	:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTI
-	ON:quarantine,TS:70
-X-CID-META: VersionHash:178d4d4,CLOUDID:2f21d7c0-e32c-4c97-918d-fbb3fc224d4e,B
-	ulkID:2305151325441VNR2GU5,BulkQuantity:0,Recheck:0,SF:48|38|29|28|17|19,T
-	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-UUID: efe4fd10f2e011edb20a276fd37b9834-20230515
-Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1630727526; Mon, 15 May 2023 13:25:42 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Mon, 15 May 2023 13:25:42 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Mon, 15 May 2023 13:25:42 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <pierre-louis.bossart@linux.intel.com>, <peter.ujfalusi@linux.intel.com>,
-	<yung-chuan.liao@linux.intel.com>, <ranjani.sridharan@linux.intel.com>,
-	<kai.vehmanen@linux.intel.com>, <daniel.baluta@nxp.com>,
-	<broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <trevor.wu@mediatek.com>, <yc.hung@mediatek.com>,
-	<tinghan.shen@mediatek.com>, <sound-open-firmware@alsa-project.org>,
-	<alsa-devel@alsa-project.org>, <linux-mediatek@lists.infradead.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] ASoC: SOF: mediatek: add adsp debug dump
-Date: Mon, 15 May 2023 13:25:40 +0800
-Message-ID: <20230515052540.9037-3-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230515052540.9037-1-trevor.wu@mediatek.com>
-References: <20230515052540.9037-1-trevor.wu@mediatek.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=eT0zT+xS
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-50bc5197d33so22505982a12.1
+        for <alsa-devel@alsa-project.org>;
+ Sun, 14 May 2023 23:20:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1684131613; x=1686723613;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QQk+upFNjcsFg1sTfIoyMrAZ0ApZ4GLo1P0y6xEnNys=;
+        b=eT0zT+xSEQfDoDpnMzqokrZq7gA0Mk4Nl7GfodQ7lqZ4h3G6ka03Cbiveo8IwiPO+b
+         T0VQkylmmVv2AJT5dTNUqMIxGe4DyF3NY7PdPFchGkaYDprgHSqoXIEsUNtkpkM4atpq
+         qC42V8fC4L3TfJT0uKK6DfchiSkdR5T1mXw4ps7hdgoKYW/rCcK91I2HYLSTkiO8c5FF
+         rwwoDlXNR7R7lwAhTa2KIh+zYg4GB4Pb5/ADnSpRV+5zNDfyYKwdCdWo72TMC4faz6xm
+         zjBzHFxbrGpMMfVdRU5378K6p/bo8wRO4P7lTIRQzf5Dor3g3vA5eSERa3n55lA3pF50
+         My2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684131613; x=1686723613;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QQk+upFNjcsFg1sTfIoyMrAZ0ApZ4GLo1P0y6xEnNys=;
+        b=YJea3XcSn2J5bEsfwFQTcG+kpTYps3nUysg2DW2Xa4Cp0ZbDWKOPfGqQ9BG5x+iBm0
+         /7NvLHALovElCNb88HRd9mdh8kTL/Od7FOW6PM170ZI+KUAs9pCHOnQmIOWujv7RLtY3
+         /O87HmAUkJxopY3h9r5cp2pLvaptiW/QOjMM/R2oO19XGcuqs8pd/mtDUpyGM6z8pVk2
+         cevmLyNPqztsjmRsUfd2reFGroPbzSapgaQHtB2Ly7F8nP7/iVFjEWo+KlCxgyUvyuPR
+         yEnq+9rCvsZIHT+fmXSSigX8Gd8tP7/pLZXVCqZ5wEc5TrFRTbefa3tzg0/wuO5mqIws
+         p5ig==
+X-Gm-Message-State: AC+VfDx9w9gkmzgaNvVAyhE80Ei+f4fmjwzW17uYhD/XnnEC2wBcXCdp
+	SwmuZlEjYm8aLkLuZe5JAoC/TQ==
+X-Google-Smtp-Source: 
+ ACHHUZ4d3vzQJ1tsE9pjK4Ao9lH+3iqMv3T57c0i5bYRSlbvDcF9FXiWrVuPBq1Ny5XbBiLytc4Yeg==
+X-Received: by 2002:a17:906:dc8c:b0:96a:6723:da48 with SMTP id
+ cs12-20020a170906dc8c00b0096a6723da48mr14316989ejc.75.1684131613237;
+        Sun, 14 May 2023 23:20:13 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:6470:25b8:7c2d:1992?
+ ([2a02:810d:15c0:828:6470:25b8:7c2d:1992])
+        by smtp.gmail.com with ESMTPSA id
+ jl4-20020a17090775c400b009658475919csm9072367ejc.188.2023.05.14.23.20.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 14 May 2023 23:20:12 -0700 (PDT)
+Message-ID: <21488506-9e91-e7b4-a995-645b70c720bf@linaro.org>
+Date: Mon, 15 May 2023 08:20:11 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-MTK: N
-Message-ID-Hash: W7S7NZRJ6AWDA33KCPJH22JYFZYBXGQC
-X-Message-ID-Hash: W7S7NZRJ6AWDA33KCPJH22JYFZYBXGQC
-X-MailFrom: trevor.wu@mediatek.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] ASoC: dt-bindings: nau8824: Convert to dtschema
+Content-Language: en-US
+To: AS50 CTLin0 <ctlin0@nuvoton.com>, broonie@kernel.org
+Cc: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, YHCHuang@nuvoton.com, KCHSU0@nuvoton.com,
+ WTLI@nuvoton.com, SJLIN0@nuvoton.com, ctlin0.linux@gmail.com
+References: <20230512120146.600128-1-CTLIN0@nuvoton.com>
+ <877338f8-d157-0f91-33a3-fdb03566aa57@linaro.org>
+ <a1afe69d-2bb1-02d8-3573-dec370cc1a9b@nuvoton.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <a1afe69d-2bb1-02d8-3573-dec370cc1a9b@nuvoton.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 76IC5JP7WO5VBXIAM2CK2BAKPY2Y636N
+X-Message-ID-Hash: 76IC5JP7WO5VBXIAM2CK2BAKPY2Y636N
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7S7NZRJ6AWDA33KCPJH22JYFZYBXGQC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/76IC5JP7WO5VBXIAM2CK2BAKPY2Y636N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,81 +128,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add mt8188 and mt8186 .dbg_dump callback to print some information when
-DSP panic occurs.
+On 15/05/2023 04:47, AS50 CTLin0 wrote:
+> On 5/14/2023 2:38 AM, Krzysztof Kozlowski wrote:
+>> On 12/05/2023 14:01, David Lin wrote:
+>>> Convert the NAU8824 audio CODEC bindings to DT schema.
+>>>
+>>> Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+>>> ---
+>> Thank you for your patch. There is something to discuss/improve.
+>>
+>>> +
+>>> +  nuvoton,sar-threshold-num:
+>>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>>> +    description:
+>>> +      Number of buttons supported.
+>>> +    minimum: 1
+>>> +    maximum: 4
+>>> +    default: 4
+>>> +
+>>> +  nuvoton,sar-threshold:
+>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>>> +    description:
+>>> +      Impedance threshold for each button. Array that contains up to 8 buttons
+>>> +      configuration. SAR value is calculated as
+>>> +      SAR = 255 * MICBIAS / SAR_VOLTAGE * R / (2000 + R) where MICBIAS is
+>>> +      configured by 'nuvoton,micbias-voltage', SAR_VOLTAGE is configured by
+>>> +      'nuvoton,sar-voltage', R - button impedance.
+>>> +      Refer datasheet section 10.2 for more information about threshold
+>>> +      calculation.
+>>> +    minItems: 1
+>>> +    maxItems: 4
+>> Your description mentions 8 buttons, so maybe it should be 8 here? Or
+>> description needs a fix?
+> Driver just handle maxima 4 buttons for general application, but the the
+> above description is truly hardware capability with 8 buttons support.
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Yaochun Hung <yc.hung@mediatek.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/mediatek/mt8186/mt8186.c | 22 ++++++++++++++++++++++
- sound/soc/sof/mediatek/mt8186/mt8186.h |  5 +++++
- 2 files changed, 27 insertions(+)
+Then it should be 8.
 
-diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.c b/sound/soc/sof/mediatek/mt8186/mt8186.c
-index 3a9c81418c1f..bb59952885f6 100644
---- a/sound/soc/sof/mediatek/mt8186/mt8186.c
-+++ b/sound/soc/sof/mediatek/mt8186/mt8186.c
-@@ -24,6 +24,7 @@
- #include "../../sof-of-dev.h"
- #include "../../sof-audio.h"
- #include "../adsp_helper.h"
-+#include "../mtk-adsp-common.h"
- #include "mt8186.h"
- #include "mt8186-clk.h"
- 
-@@ -473,6 +474,26 @@ static snd_pcm_uframes_t mt8186_pcm_pointer(struct snd_sof_dev *sdev,
- 	return pos;
- }
- 
-+static void mt8186_adsp_dump(struct snd_sof_dev *sdev, u32 flags)
-+{
-+	u32 dbg_pc, dbg_data, dbg_inst, dbg_ls0stat, dbg_status, faultinfo;
-+
-+	/* dump debug registers */
-+	dbg_pc = snd_sof_dsp_read(sdev, DSP_REG_BAR, DSP_PDEBUGPC);
-+	dbg_data = snd_sof_dsp_read(sdev, DSP_REG_BAR, DSP_PDEBUGDATA);
-+	dbg_inst = snd_sof_dsp_read(sdev, DSP_REG_BAR, DSP_PDEBUGINST);
-+	dbg_ls0stat = snd_sof_dsp_read(sdev, DSP_REG_BAR, DSP_PDEBUGLS0STAT);
-+	dbg_status = snd_sof_dsp_read(sdev, DSP_REG_BAR, DSP_PDEBUGSTATUS);
-+	faultinfo = snd_sof_dsp_read(sdev, DSP_REG_BAR, DSP_PFAULTINFO);
-+
-+	dev_info(sdev->dev, "adsp dump : pc %#x, data %#x, dbg_inst %#x,",
-+		 dbg_pc, dbg_data, dbg_inst);
-+	dev_info(sdev->dev, "ls0stat %#x, status %#x, faultinfo %#x",
-+		 dbg_ls0stat, dbg_status, faultinfo);
-+
-+	mtk_adsp_dump(sdev, flags);
-+}
-+
- static struct snd_soc_dai_driver mt8186_dai[] = {
- {
- 	.name = "SOF_DL1",
-@@ -555,6 +576,7 @@ static struct snd_sof_dsp_ops sof_mt8186_ops = {
- 	.num_drv	= ARRAY_SIZE(mt8186_dai),
- 
- 	/* Debug information */
-+	.dbg_dump = mt8186_adsp_dump,
- 	.debugfs_add_region_item = snd_sof_debugfs_add_region_item_iomem,
- 
- 	/* PM */
-diff --git a/sound/soc/sof/mediatek/mt8186/mt8186.h b/sound/soc/sof/mediatek/mt8186/mt8186.h
-index 5b521c60b4e3..91323f492a1e 100644
---- a/sound/soc/sof/mediatek/mt8186/mt8186.h
-+++ b/sound/soc/sof/mediatek/mt8186/mt8186.h
-@@ -38,6 +38,11 @@ struct snd_sof_dev;
- #define DSP_MBOX3_IRQ_EN		BIT(3)
- #define DSP_MBOX4_IRQ_EN		BIT(4)
- #define DSP_PDEBUGPC			0x013C
-+#define DSP_PDEBUGDATA			0x0140
-+#define DSP_PDEBUGINST			0x0144
-+#define DSP_PDEBUGLS0STAT		0x0148
-+#define DSP_PDEBUGSTATUS		0x014C
-+#define DSP_PFAULTINFO			0x0150
- #define ADSP_CK_EN			0x1000
- #define CORE_CLK_EN			BIT(0)
- #define COREDBG_EN			BIT(1)
--- 
-2.18.0
+Best regards,
+Krzysztof
 

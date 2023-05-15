@@ -2,88 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC70702677
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 09:53:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D148B702773
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 10:42:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8C071E2;
-	Mon, 15 May 2023 09:52:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8C071E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B858F1EF;
+	Mon, 15 May 2023 10:41:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B858F1EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684137215;
-	bh=SiCBDBnlz88gKGLR73uUCWFOWyCRfe4txr9qACADick=;
+	s=default; t=1684140129;
+	bh=GCjBjR6Wy4GKDSV/RsKMrw7IJIr1jrKGwN8maZkTeyA=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ETJNqczIbfFRRShbG9bll/S/o7LnTYsVHEwPedlNyef8gFQ5jx3Ptih1M7yjpCY4m
-	 8JSXsyrhRY3XcBej5fffmoKXrJpatVFqkSs49R+cPkLBZjOkbtbcgzwCQ8MrbO7D1l
-	 KYOEHsrMQ0RW62+DZ+XXy4XJNdErx4DwUCBPBrOI=
+	b=JtBpad9NOFz+T+ytjiqicu3FQ7ux//rTsprwECWNK5rJzxiRj3/a82RhJujItFWi5
+	 PhRXMyVYMqUZsPLDbRA4WnK8NIowKApdqqYppLwwY6yFBfgYVVuBoD1xk3pm9VQVfV
+	 /D1WPIN8HudhHDMD4y8K9gNHrG9TG2GykBZoEo0s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E84D3F8016D; Mon, 15 May 2023 09:52:44 +0200 (CEST)
+	id 419F1F8016A; Mon, 15 May 2023 10:41:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 756A4F8025A;
-	Mon, 15 May 2023 09:52:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F4007F8025A;
+	Mon, 15 May 2023 10:41:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED82AF80272; Mon, 15 May 2023 09:52:41 +0200 (CEST)
+	id 7E4B4F80272; Mon, 15 May 2023 10:41:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BD131F8024E
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 09:52:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD131F8024E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=QV4Q+we6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684137159; x=1715673159;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SiCBDBnlz88gKGLR73uUCWFOWyCRfe4txr9qACADick=;
-  b=QV4Q+we691A+dNfTsrMngXeqA2duvQ+3cOdQx8ZE5OQOXpEX4ySh0Mf8
-   N6vJM7ETw/0EsiMwg9H/26WZloYJ9DM0skR69pzDnNo9gFiqvAoyeM1JI
-   1judB3gflc/c7//7AkCiWux+Izo/wUyTSC0Auxu4IbxBIDJ8680JZAVl+
-   txHEMtpqcKs5eQuAacQNMu7H1L0si+pQuuv4u34/5mjvxBq1CqFHZdZGQ
-   VFwwrFVWNT/Ax3WUJf69xbkDqb3RijGqll5XVlFavJzihfwBBwjRjwzJz
-   5BxRST+OGWOdEUXa8/64WR5KQSC9b1F02kRRjI3WQyKUr8fFynoWoaHIR
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="335676056"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
-   d="scan'208";a="335676056"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 00:52:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="731550650"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
-   d="scan'208";a="731550650"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 00:52:30 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	vkoul@kernel.org
-Cc: vinod.koul@linaro.org,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH] soundwire: intel: read AC timing control register before
- updating it
-Date: Mon, 15 May 2023 16:13:01 +0800
-Message-Id: <20230515081301.12921-1-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6CD8FF8024E
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 10:41:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CD8FF8024E
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id F0FCA24060;
+	Mon, 15 May 2023 04:41:06 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1pyTlS-StX-00; Mon, 15 May 2023 10:41:06 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 1/2] pcm: hw: reinterpret the drain_silence setting
+Date: Mon, 15 May 2023 10:41:05 +0200
+Message-Id: <20230515084106.3447657-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QG5ANTPSWQZH2KUNPLBGOAYJEVN6TGHR
-X-Message-ID-Hash: QG5ANTPSWQZH2KUNPLBGOAYJEVN6TGHR
-X-MailFrom: yung-chuan.liao@linux.intel.com
+Message-ID-Hash: JQEJ73KVE4WEKLSJ3ZVD5477RFB23Z6Q
+X-Message-ID-Hash: JQEJ73KVE4WEKLSJ3ZVD5477RFB23Z6Q
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +66,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QG5ANTPSWQZH2KUNPLBGOAYJEVN6TGHR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JQEJ73KVE4WEKLSJ3ZVD5477RFB23Z6Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,52 +75,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Chao Song <chao.song@linux.intel.com>
+It makes no sense to have a config option which determines the entire
+silencing time, because useful values strongly depend on the period size
+runtime setting.
 
-Start from ACE1.x, DOAISE is added to AC timing control
-register bit 5, it combines with DOAIS to get effective
-timing, and has the default value 1.
+So instead we interpret the setting as an override for the "overhang"
+which is used to compensate FIFOs and IRQ delays. The reasonable worst
+case of this is determined by the hardware, so it makes sense to have
+this as a config option.
 
-The current code fills DOAIS, DACTQE and DODS bits to a
-variable initialized to zero, and updates the variable
-to AC timing control register. With this operation, We
-change DOAISE to 0, and force a much more aggressive
-timing. The timing is even unable to form a working
-waveform on SDA pin on Meteorlake.
+In a next step, we may want to derive the default value from the
+declared FIFO size (whiche few drivers do) and the minimal period size
+(which is generally linked to the FIFO size).
 
-This patch uses read-modify-write operation for the AC
-timing control register access, thus makes sure those
-bits not supposed and intended to change are not touched.
-
-Signed-off-by: Chao Song <chao.song@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- drivers/soundwire/intel.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ src/pcm/pcm_hw.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 238acf5c97a9..8cd2c73ac66f 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -260,7 +260,7 @@ static void intel_shim_init(struct sdw_intel *sdw)
+diff --git a/src/pcm/pcm_hw.c b/src/pcm/pcm_hw.c
+index 8ffebed9..ecc47a76 100644
+--- a/src/pcm/pcm_hw.c
++++ b/src/pcm/pcm_hw.c
+@@ -737,18 +737,19 @@ static int snd_pcm_hw_drain(snd_pcm_t *pcm)
  {
- 	void __iomem *shim = sdw->link_res->shim;
- 	unsigned int link_id = sdw->instance;
--	u16 ioctl = 0, act = 0;
-+	u16 ioctl = 0, act;
+ 	snd_pcm_hw_t *hw = pcm->private_data;
+ 	snd_pcm_sw_params_t sw_params;
++	snd_pcm_uframes_t silence_slack;
+ 	snd_pcm_uframes_t silence_size;
+ 	int err;
  
- 	/* Initialize Shim */
- 	ioctl |= SDW_SHIM_IOCTL_BKE;
-@@ -281,6 +281,7 @@ static void intel_shim_init(struct sdw_intel *sdw)
- 
- 	intel_shim_glue_to_master_ip(sdw);
- 
-+	act = intel_readw(shim, SDW_SHIM_CTMCTL(link_id));
- 	u16p_replace_bits(&act, 0x1, SDW_SHIM_CTMCTL_DOAIS);
- 	act |= SDW_SHIM_CTMCTL_DACTQE;
- 	act |= SDW_SHIM_CTMCTL_DODS;
+ 	if (pcm->stream != SND_PCM_STREAM_PLAYBACK)
+ 		goto __skip_silence;
+ 	if (hw->drain_silence == 0 || hw->perfect_drain)
+ 		goto __skip_silence;
+ 	snd_pcm_sw_params_current_no_lock(pcm, &sw_params);
+-	if (hw->drain_silence > 0) {
+-		silence_size = (pcm->rate * hw->drain_silence) / 1000;
+-		goto __manual_silence;
+-	}
++	if (hw->drain_silence > 0)
++		silence_slack = (pcm->rate * hw->drain_silence) / 1000;
++	else
++		silence_slack = pcm->rate / 10;	/* 1/10th of second */
+ 	/* compute end silence size, align to period size + extra time */
+ 	if ((pcm->boundary % pcm->period_size) == 0) {
+ 		silence_size = pcm->period_size - (*pcm->appl.ptr % pcm->period_size);
+@@ -761,8 +762,7 @@ static int snd_pcm_hw_drain(snd_pcm_t *pcm)
+ 		 */
+ 		silence_size = pcm->period_size;
+ 	}
+-	silence_size += pcm->rate / 10;	/* 1/10th of second */
+-__manual_silence:
++	silence_size += silence_slack;
+ 	if (sw_params.silence_size < silence_size) {
+ 		/* fill the silence soon as possible (in the bellow ioctl
+ 		 * or the next period wake up)
 -- 
-2.25.1
+2.40.0.152.g15d061e6df
 

@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81820702B2B
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:11:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 233DC702B2E
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:12:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09D70847;
-	Mon, 15 May 2023 13:11:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09D70847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5919311C;
+	Mon, 15 May 2023 13:11:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5919311C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684149113;
-	bh=erY1V269dM84aVQvYzrgV/m6HbCdOblSOqyYSO4UOqQ=;
+	s=default; t=1684149162;
+	bh=p0nhVFjvB9qqIfxtKaQ1sz7UN86csj7sPmTqD+GtZfY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Z7NwLz1flpzi5hTYvMnDug7WqbnoyXfTueiHRdJeyPa+Z+wUTL4s4Oo2J0sp7HJEn
-	 mrg8+wIWr5eVuJzu2UnBoXuOwtQ3gM5flnoGFgN9BM9kOj5vfS4UnPQ1M5JVYl6aAa
-	 sLF5PFgm8NEEQvBRG92KIGjNg5YkZBtUrOa4+CZY=
+	b=ePXariNMYN9nULvYsVQhi0mW62K5RxnpT6Iy9Wwfy2H/KB2H+pf/6R5rx7Nn00yX6
+	 suCAWlqFP03eBQw/MB91yGgj9NQ4OBBVVHyIl4AAKHd87RLwu5KoDannM0rKjvdL11
+	 GWiLU5L+ViEM6IhNRwt/+sn41cjB5m9k+mQ1aD5U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E340F8057F; Mon, 15 May 2023 13:09:55 +0200 (CEST)
+	id 7A9E2F805B3; Mon, 15 May 2023 13:10:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60146F8057B;
-	Mon, 15 May 2023 13:09:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2596F805B6;
+	Mon, 15 May 2023 13:10:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81677F802E8; Mon, 15 May 2023 13:09:47 +0200 (CEST)
+	id 9719AF8057C; Mon, 15 May 2023 13:09:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D7FA8F80272
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7FA8F80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6185EF8016D
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:09:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6185EF8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VusDJmU3
+ header.s=k20201202 header.b=igqi8Nen
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 98A206229C;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3B976615FE;
+	Mon, 15 May 2023 11:09:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FE68C433EF;
 	Mon, 15 May 2023 11:09:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2B5C4339B;
-	Mon, 15 May 2023 11:09:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684148981;
-	bh=erY1V269dM84aVQvYzrgV/m6HbCdOblSOqyYSO4UOqQ=;
+	s=k20201202; t=1684148982;
+	bh=p0nhVFjvB9qqIfxtKaQ1sz7UN86csj7sPmTqD+GtZfY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=VusDJmU3xcFdnhzHPLcfaqQoPIwYi4dK8kQ3iHe0YhVrVVr9iB2NXYQIZZr7YS9zx
-	 qtnluCOS2A5Utxttk/a+EiC24VubeeifFgs0v+BoJRKEy1OtHbtzfJGkaX95UpFbZh
-	 0+zbMmahh07/RTYnArgrd53HRxTdQrC+UWzVd/rv/vZb+6lKTpTYKDjEouAxcL0XBh
-	 oZWF5uLLrg8LqYAu+Cg70CKkLYrU4+Wwfahk/4SfoSJ1PX0DnNlYPlAKJN8B4Hbvrb
-	 w0UAi+lxqNfEubu3Z/3myJfudYAb9+V+i2Uekv16mHebhQH641A6ta2MaKXFkGzyj2
-	 HnaWJZVY6I+cQ==
+	b=igqi8Nen0pC29oAUKc0DsUVuj0Ksaz9E1kv2dB4Nwf/Zhgr1+dOKnvWXhAl8kW1Fm
+	 z79ou4FM2cHEDIEGqBPYjPRxZvs6sG45BaowFRwwJ9QZBtk/g3vmbgjqnq4XWv+nJR
+	 W32TaFmhJu51v5jnKVi/HF0sQcMAWpgzvfVSDBYa0V6W91pNJozl+btxUaBOYcQv5R
+	 C0sAjkwL5pYXy4xLA8SIFF8O2qJEvQ+SWL0FsrR+l3sLO70r4IlpED7oRQHX7gxjLM
+	 cEMHzk4Vv2QBlw+xPv/6RIZnBIao9jytIMz/bG1+/G8QIZjZDf4w6FhNtbK8bivlWi
+	 8uCs/LXrJaRHQ==
 From: Mark Brown <broonie@kernel.org>
 To: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
  ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
- cujomalainey@chromium.org
-In-Reply-To: <20230512104638.21376-1-peter.ujfalusi@linux.intel.com>
-References: <20230512104638.21376-1-peter.ujfalusi@linux.intel.com>
-Subject: Re: [PATCH] ASoC: SOF: pm: save io region state in case of errors
- in resume
-Message-Id: <168414897948.394037.14052321590456601179.b4-ty@kernel.org>
-Date: Mon, 15 May 2023 20:09:39 +0900
+ daniel.baluta@nxp.com
+In-Reply-To: <20230512103315.8921-1-peter.ujfalusi@linux.intel.com>
+References: <20230512103315.8921-1-peter.ujfalusi@linux.intel.com>
+Subject: Re: [PATCH 0/3] ASoC: SOF: Various runtime pm fixes, improvements
+Message-Id: <168414898109.394037.2967681837025779257.b4-ty@kernel.org>
+Date: Mon, 15 May 2023 20:09:41 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: MGGX6UMMLMYNNKPSO4OJRCRVNY4OKCNU
-X-Message-ID-Hash: MGGX6UMMLMYNNKPSO4OJRCRVNY4OKCNU
+Message-ID-Hash: 2M4SS3J7XLEW4VBJNBAHJ7DXI4KKOEWU
+X-Message-ID-Hash: 2M4SS3J7XLEW4VBJNBAHJ7DXI4KKOEWU
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MGGX6UMMLMYNNKPSO4OJRCRVNY4OKCNU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2M4SS3J7XLEW4VBJNBAHJ7DXI4KKOEWU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,15 +97,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 12 May 2023 13:46:38 +0300, Peter Ujfalusi wrote:
-> If there are failures in DSP runtime resume, the device state will not
-> reach active and this makes it impossible e.g. to retrieve a possible
-> DSP panic dump via "exception" debugfs node. If
-> CONFIG_SND_SOC_SOF_DEBUG_ENABLE_DEBUGFS_CACHE=y is set, the data in
-> cache is stale. If debugfs cache is not used, the region simply cannot
-> be read.
+On Fri, 12 May 2023 13:33:12 +0300, Peter Ujfalusi wrote:
+> Three patch to correct error path PM runtime handling in few places.
 > 
-> [...]
+> Regards,
+> Peter
+> 
 
 Applied to
 
@@ -113,8 +110,12 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: pm: save io region state in case of errors in resume
-      commit: 171b53be635ac15d4feafeb33946035649b1ca14
+[1/3] ASoC: SOF: debug: conditionally bump runtime_pm counter on exceptions
+      commit: 3de975862f985f1c9e225a0d13aa3d501373f7c3
+[2/3] ASoC: SOF: pcm: fix pm_runtime imbalance in error handling
+      commit: da0fe8fd515a471d373acc3682bfb5522cca4d55
+[3/3] ASoC: SOF: sof-client-probes: fix pm_runtime imbalance in error handling
+      commit: bc424273c74c1565c459c8f2a6ed95caee368d0a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 138DC702AA6
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 12:35:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E073F702AA4
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 12:35:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EDAE208;
-	Mon, 15 May 2023 12:35:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EDAE208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3534B11C;
+	Mon, 15 May 2023 12:34:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3534B11C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684146954;
-	bh=oL6qalyGFoa9GuJZlqijKIJLe/oytodmibNdW7yCUdo=;
+	s=default; t=1684146926;
+	bh=yaCcwoAiAqPtJLz5H09GLpfhdEAobXkof+RSn4AUDuU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=brO1dJw00QlIaRdoKjXDBlY7V2KPhRMjhWTVlpqw+z4YMokyczREaTrMHpk8SO2bf
-	 DP6nfkrzt/CxDyhFEPfhhGWub2n+he3QtWWxawVP/6hr9yMA+irO+HRQ3u4QIO83wh
-	 PuBbR1LRdudLocb6HsUx5niWPqbtfbJVgYrSTRKQ=
+	b=ebysuCuFTR6XpqSYFOLzPkoHK0K7lRwyhLW/KhGfsaxTWytewxSU1GsMcr6sgtMm/
+	 2MRF+cREzbGjnKggctMENln8LUKX8huCrAN2nelaTjNbZyycB/ceOJ0wBzFw4UcM53
+	 sFHGHymoADCXfZQfYCj4JALzwIlYpuqIMo/YlsXc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A51E5F805CB; Mon, 15 May 2023 12:33:26 +0200 (CEST)
+	id 93AAEF805A1; Mon, 15 May 2023 12:33:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CA59F805C2;
-	Mon, 15 May 2023 12:33:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F66BF805A1;
+	Mon, 15 May 2023 12:33:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03332F8057D; Mon, 15 May 2023 12:33:07 +0200 (CEST)
+	id D254FF80549; Mon, 15 May 2023 12:33:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B900DF80272
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 12:32:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B900DF80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id 00655F80431
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 12:32:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00655F80431
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=AF4WCa8B
+ header.s=Intel header.b=hQfRHKAq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684146777; x=1715682777;
+  t=1684146779; x=1715682779;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oL6qalyGFoa9GuJZlqijKIJLe/oytodmibNdW7yCUdo=;
-  b=AF4WCa8B+p68i7e2JOurorjwY1+/bNv0+NEjDQe6PjsAWjgyrNcjg8Bv
-   xts7geWjt1Z1ae76qk8mxkjByG3mnNHSkWc+03hyTPFFCOxCD2KdkwzO+
-   Jiu+NM5GTYOB06LllMBLVskUoj8+BxDcZd8kjYGRG5NjVtYsWAobO5l5T
-   tpJM8Evt/Y9dPk2H9HNy1n0vat3+gdP5xpUvLYW7UfVejcvsm/GqRvxEQ
-   G0PZ4p86//Tfp81JV5+C3S08nB+Jn7usTO+s7l7F5fX3L4mYFW0T+KjJE
-   NJaUqWGqtiBXVRVqFtITyR0LRNbbg9FaGJYde79xeCpz4zY7W6E29hPQK
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="351200386"
+  bh=yaCcwoAiAqPtJLz5H09GLpfhdEAobXkof+RSn4AUDuU=;
+  b=hQfRHKAqwqr71xXSslsGHvOc8C0GK+NUmnEAY3f781wzzAngduJllRbv
+   T+p8DRmy9ogiKgoccyaMrDwBEFzb1D+kTNthknQXY0ab4XL/e+UIvRj3i
+   MZ4fE+DsnkPv9pLRu/vNW7avTw4pyqIw4FFAOa3oxDzpG9GGhrbYuI2ew
+   tXjANSPKnAWbqm8PgDnyA+7ZEKw3qZ9LGM21OZV7vq8xfIsrcLpIqAkG1
+   x5YkbYfS7qe/qopee1bbM5d1xx7lAi6GTG+DHT4SqeBjXMB7v6sKSe0dr
+   2Nw4mPssdY8gxTJo3mUB6yhiQhzPun2YrIk2XLRwhgvAnD6OablOhKMnj
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="351200401"
 X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
-   d="scan'208";a="351200386"
+   d="scan'208";a="351200401"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 03:32:55 -0700
+ 15 May 2023 03:32:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="694967674"
+X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="694967684"
 X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
-   d="scan'208";a="694967674"
+   d="scan'208";a="694967684"
 Received: from lpilolli-mobl.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.48.230])
   by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 03:32:52 -0700
+ 15 May 2023 03:32:55 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -77,17 +77,17 @@ Cc: alsa-devel@alsa-project.org,
 	ranjani.sridharan@linux.intel.com,
 	kai.vehmanen@linux.intel.com,
 	yung-chuan.liao@linux.intel.com
-Subject: [PATCH 5/9] ASoC: SOF: ipc4-topology: Handle output format special
- case
-Date: Mon, 15 May 2023 13:33:32 +0300
-Message-Id: <20230515103336.16132-6-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 6/9] ASoC: SOF: ipc4-topology: Add a new helper function to
+ get the valid bits
+Date: Mon, 15 May 2023 13:33:33 +0300
+Message-Id: <20230515103336.16132-7-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230515103336.16132-1-peter.ujfalusi@linux.intel.com>
 References: <20230515103336.16132-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NNDUFS64JKUNT7CZVRBHKB45DXAFYCR7
-X-Message-ID-Hash: NNDUFS64JKUNT7CZVRBHKB45DXAFYCR7
+Message-ID-Hash: U6YAGECUIQYEGSHJTCJMBAFG4NK4S4DB
+X-Message-ID-Hash: U6YAGECUIQYEGSHJTCJMBAFG4NK4S4DB
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NNDUFS64JKUNT7CZVRBHKB45DXAFYCR7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U6YAGECUIQYEGSHJTCJMBAFG4NK4S4DB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,122 +111,67 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-The current topologies have input/output formats in pairs and even
-though there are multiple output formats, they are all the same. Handle
-this case as if there were only one format in topology. Also, add a check
-for the number of output formats and reports errors where applicable.
+Add a new helper function sof_ipc4_get_valid_bits() to get the valid
+bits in the PCM params.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/ipc4-topology.c | 55 +++++++++++++++++++++++++++++++----
- 1 file changed, 50 insertions(+), 5 deletions(-)
+ sound/soc/sof/ipc4-topology.c | 32 ++++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
 diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index a079dd8eb7e1..f3a6e739e800 100644
+index f3a6e739e800..2903e784a5dd 100644
 --- a/sound/soc/sof/ipc4-topology.c
 +++ b/sound/soc/sof/ipc4-topology.c
-@@ -1033,10 +1033,37 @@ static int sof_ipc4_init_output_audio_fmt(struct snd_sof_dev *sdev,
- 					  struct sof_ipc4_available_audio_format *available_fmt,
- 					  int input_audio_format_index)
- {
-+	struct sof_ipc4_audio_format *out_fmt;
-+	u32 out_rate, out_channels, out_valid_bits;
-+	bool single_format = true;
- 	int i;
+@@ -1075,6 +1075,21 @@ static int sof_ipc4_init_output_audio_fmt(struct snd_sof_dev *sdev,
+ 	return i;
+ }
  
--	/* pick the only available output format */
--	if (available_fmt->num_output_formats == 1)
-+	if (!available_fmt->num_output_formats)
++static int sof_ipc4_get_valid_bits(struct snd_sof_dev *sdev, struct snd_pcm_hw_params *params)
++{
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_S16_LE:
++		return 16;
++	case SNDRV_PCM_FORMAT_S24_LE:
++		return 24;
++	case SNDRV_PCM_FORMAT_S32_LE:
++		return 32;
++	default:
++		dev_err(sdev->dev, "invalid pcm frame format %d\n", params_format(params));
 +		return -EINVAL;
-+
-+	out_fmt = &available_fmt->output_pin_fmts[0].audio_fmt;
-+	out_rate = out_fmt->sampling_frequency;
-+	out_channels = SOF_IPC4_AUDIO_FORMAT_CFG_CHANNELS_COUNT(out_fmt->fmt_cfg);
-+	out_valid_bits = SOF_IPC4_AUDIO_FORMAT_CFG_V_BIT_DEPTH(out_fmt->fmt_cfg);
-+
-+	/* check if all output formats in topology are the same */
-+	for (i = 1; i < available_fmt->num_output_formats; i++) {
-+		u32 _out_rate, _out_channels, _out_valid_bits;
-+
-+		out_fmt = &available_fmt->output_pin_fmts[i].audio_fmt;
-+		_out_rate = out_fmt->sampling_frequency;
-+		_out_channels = SOF_IPC4_AUDIO_FORMAT_CFG_CHANNELS_COUNT(out_fmt->fmt_cfg);
-+		_out_valid_bits = SOF_IPC4_AUDIO_FORMAT_CFG_V_BIT_DEPTH(out_fmt->fmt_cfg);
-+
-+		if (_out_rate != out_rate || _out_channels != out_channels ||
-+		    _out_valid_bits != out_valid_bits) {
-+			single_format = false;
-+			break;
-+		}
 +	}
++}
 +
-+	/* pick the first format if there's only one available or if all formats are the same */
-+	if (single_format)
- 		i = 0;
- 	else
- 		i = input_audio_format_index;
-@@ -1522,6 +1549,11 @@ sof_ipc4_prepare_copier_module(struct snd_sof_widget *swidget,
+ static int sof_ipc4_init_input_audio_fmt(struct snd_sof_dev *sdev,
+ 					 struct snd_sof_widget *swidget,
+ 					 struct sof_ipc4_base_module_cfg *base_config,
+@@ -1093,20 +1108,9 @@ static int sof_ipc4_init_input_audio_fmt(struct snd_sof_dev *sdev,
+ 		return -EINVAL;
+ 	}
  
- 	output_fmt_index = sof_ipc4_init_output_audio_fmt(sdev, &copier_data->base_config,
- 							  available_fmt, ret);
-+	if (output_fmt_index < 0) {
-+		dev_err(sdev->dev, "No output formats in topology for copier %s",
-+			swidget->widget->name);
-+		return output_fmt_index;
-+	}
+-	switch (params_format(params)) {
+-	case SNDRV_PCM_FORMAT_S16_LE:
+-		sample_valid_bits = 16;
+-		break;
+-	case SNDRV_PCM_FORMAT_S24_LE:
+-		sample_valid_bits = 24;
+-		break;
+-	case SNDRV_PCM_FORMAT_S32_LE:
+-		sample_valid_bits = 32;
+-		break;
+-	default:
+-		dev_err(sdev->dev, "invalid pcm frame format %d\n", params_format(params));
+-		return -EINVAL;
+-	}
++	sample_valid_bits = sof_ipc4_get_valid_bits(sdev, params);
++	if (sample_valid_bits < 0)
++		return sample_valid_bits;
  
- 	/*
- 	 * Set the output format. Current topology defines pin 0 input and output formats in pairs.
-@@ -1700,7 +1732,11 @@ static int sof_ipc4_prepare_gain_module(struct snd_sof_widget *swidget,
- 	if (ret < 0)
- 		return ret;
- 
--	sof_ipc4_init_output_audio_fmt(sdev, &gain->base_config, available_fmt, ret);
-+	ret = sof_ipc4_init_output_audio_fmt(sdev, &gain->base_config, available_fmt, ret);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "No output formats for %s", swidget->widget->name);
-+		return ret;
-+	}
- 
- 	/* update pipeline memory usage */
- 	sof_ipc4_update_pipeline_mem_usage(sdev, swidget, &gain->base_config);
-@@ -1726,7 +1762,11 @@ static int sof_ipc4_prepare_mixer_module(struct snd_sof_widget *swidget,
- 	if (ret < 0)
- 		return ret;
- 
--	sof_ipc4_init_output_audio_fmt(sdev, &mixer->base_config, available_fmt, ret);
-+	ret = sof_ipc4_init_output_audio_fmt(sdev, &mixer->base_config, available_fmt, ret);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "No output formats for %s", swidget->widget->name);
-+		return ret;
-+	}
- 
- 	/* update pipeline memory usage */
- 	sof_ipc4_update_pipeline_mem_usage(sdev, swidget, &mixer->base_config);
-@@ -1753,7 +1793,11 @@ static int sof_ipc4_prepare_src_module(struct snd_sof_widget *swidget,
- 	if (ret < 0)
- 		return ret;
- 
--	sof_ipc4_init_output_audio_fmt(sdev, &src->base_config, available_fmt, ret);
-+	ret = sof_ipc4_init_output_audio_fmt(sdev, &src->base_config, available_fmt, ret);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "No output formats for %s", swidget->widget->name);
-+		return ret;
-+	}
- 
- 	/* update pipeline memory usage */
- 	sof_ipc4_update_pipeline_mem_usage(sdev, swidget, &src->base_config);
-@@ -1864,6 +1908,7 @@ static int sof_ipc4_prepare_process_module(struct snd_sof_widget *swidget,
- 	if (ret < 0)
- 		return ret;
- 
-+	/* No need to check the return value. Some processing modules do not have output pins */
- 	output_fmt_index = sof_ipc4_init_output_audio_fmt(sdev, &process->base_config,
- 							  available_fmt, ret);
- 
+ 	if (!pin_fmts_size) {
+ 		dev_err(sdev->dev, "no formats available for %s\n", swidget->widget->name);
 -- 
 2.40.1
 

@@ -2,94 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F165B702B53
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7109F702B59
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 May 2023 13:22:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0CD7827;
-	Mon, 15 May 2023 13:20:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0CD7827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8306D1E3;
+	Mon, 15 May 2023 13:21:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8306D1E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684149679;
-	bh=/w1fTlkl+wLpsOSV/Zz2ppbghLyPLPX/FDTtMFUfHEE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1684149721;
+	bh=T9fUIZM//OsaJoszK2rbswFzc+I4mXJQ/XmvdRAp4Ho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=h7c376G5t2MpCl5/wNWUVBzqr6tL5ryCp6YOh9MI7w5pP0HeJy83VSKWUUcOIDUfw
-	 FVxphAObfBtNq4MDaUyf35gPUOVIM0VYrLD09rhN7QN42Yc2o+xR+b80bDcZXn64t8
-	 y3SoCqp5JufD9X5PT2+cYEAA53/QiCqC8poHwHAs=
+	b=HvuS9Duy6cR60ZNLctScWW1J1M4BtWURJbyLvjrQy7YYO1ljF44VOqD7csdiz9Rtm
+	 6Hbs5rlV27CwZjCOCytTI9yVf4H2nYScxrepCpnoKIYv8tnTuit1zEuboQ2ovoOu/a
+	 AHy+Kn2zUMMqBW23xc0uNhzRWtQb0uFGg1XM2ZQE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 36A96F8055A; Mon, 15 May 2023 13:19:43 +0200 (CEST)
+	id C578FF80272; Mon, 15 May 2023 13:21:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F0EFF80551;
-	Mon, 15 May 2023 13:19:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46E4AF8025A;
+	Mon, 15 May 2023 13:21:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17E11F80544; Mon, 15 May 2023 13:19:38 +0200 (CEST)
+	id 3A639F802E8; Mon, 15 May 2023 13:21:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DDC07F8016A
-	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:19:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDC07F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2932FF8016A
+	for <alsa-devel@alsa-project.org>; Mon, 15 May 2023 13:21:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2932FF8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=KlRZ/nNx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684149576; x=1715685576;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=/w1fTlkl+wLpsOSV/Zz2ppbghLyPLPX/FDTtMFUfHEE=;
-  b=KlRZ/nNxXYRed/dQqrQek5WH/L5KFPdw4FS28tW+DN+ex80oVtJoRWAX
-   jjyaHTHBwogIIFNwpOPKqSiv9XHxl5UxUMcJ7tL1mqX1ibnZQqyb1UXhe
-   ZXEeLgH9MCaDPsPcFp8/KNWe21N4zNyhZmFjtjC21b2PvqneYGVRmWK0B
-   r/HAfkVf0fp/uQCF3Z9/SxC3yJzpXrz5ZnXGh8mrCxGiPeUgh261lOx6k
-   CzxTF8xm9DwVPNIkNmFYWLHqDmaH84PGsEUiFQDEx+t/8+Sqk4lc0vGmC
-   xfc5LfNq7jRlWgTPeLc4K5JynjlwHaBdyMFFQTYBsD4KprxQzyrV4cHbO
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="379336190"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
-   d="scan'208";a="379336190"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 04:19:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="875142101"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200";
-   d="scan'208";a="875142101"
-Received: from lpilolli-mobl.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.48.230])
-  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 04:19:32 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	yung-chuan.liao@linux.intel.com
-Subject: [PATCH 2/2] ASoC: SOF: ipc4-pcm: reset all pipelines during FE DAI
- hw_free
-Date: Mon, 15 May 2023 14:20:22 +0300
-Message-Id: <20230515112022.30297-3-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230515112022.30297-1-peter.ujfalusi@linux.intel.com>
-References: <20230515112022.30297-1-peter.ujfalusi@linux.intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=lxnqPdLb
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9A50C622B1;
+	Mon, 15 May 2023 11:21:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A59C433D2;
+	Mon, 15 May 2023 11:21:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684149662;
+	bh=T9fUIZM//OsaJoszK2rbswFzc+I4mXJQ/XmvdRAp4Ho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lxnqPdLb3m/VqY4ug2kVgU5qZqloUDQHQVPZeluUdr8l3mjkkvoXSaXdxIToBfBtO
+	 Fz8kuh86bJ+B77su2sh0jtfsfCjMgOvg5Z3tLhC6AC2NcrthHURs5hmszzoiqM7f58
+	 kao6P7OhvBtH7deZIW92FOwbCSM99Xyl2dCFlMJOFJ8hJsDoxrZkv90EQfKZEQJUNT
+	 xkpyJiAAMy66g/HsIgDDEvPMdPQHP3AzjjkU3FxZJZIFUzv1rJNMaKZHZJwhY99BnM
+	 fClP+I7y5JGSE+N0ybTcTlCnDS73tXDdg2Vg5outqNhUp+U5xGsR2aXB1ftLLPLTrH
+	 V0ReRNOs0Ouiw==
+Date: Mon, 15 May 2023 20:20:59 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Conor Dooley <conor.dooley@microchip.com>
+Cc: Walker Chen <walker.chen@starfivetech.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Claudiu Beznea <Claudiu.Beznea@microchip.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v4 3/3] riscv: dts: starfive: add the node and pins
+ configuration for tdm
+Message-ID: <ZGIVm6LHMpIylvAC@finisterre.sirena.org.uk>
+References: <20230511091549.28003-1-walker.chen@starfivetech.com>
+ <20230511091549.28003-4-walker.chen@starfivetech.com>
+ <cd7803a2-38a0-c498-467f-1ef802645527@starfivetech.com>
+ <20230515-dragonish-diffuser-48a1c6f4c8ae@wendy>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: AUSZZH7E5TINWIBEEV6MWOYSFM63FXDC
-X-Message-ID-Hash: AUSZZH7E5TINWIBEEV6MWOYSFM63FXDC
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mqP7O91n5Vmg09iP"
+Content-Disposition: inline
+In-Reply-To: <20230515-dragonish-diffuser-48a1c6f4c8ae@wendy>
+X-Cookie: Avoid contact with eyes.
+Message-ID-Hash: PM7RAN3GAYPK4NZDKZ7MQZG5Y333JAU2
+X-Message-ID-Hash: PM7RAN3GAYPK4NZDKZ7MQZG5Y333JAU2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AUSZZH7E5TINWIBEEV6MWOYSFM63FXDC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PM7RAN3GAYPK4NZDKZ7MQZG5Y333JAU2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,172 +108,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Do not reset pipelines during the stop/suspend triggers in the BE DAI
-ops as the BE DAI pipeline needs to be left in the PAUSED state. It should
-only be reset during hw_free. This simplification is already done for
-the FE pipelines and the DAI trigger only toggles the states between
-PAUSED and RUNNING.
+--mqP7O91n5Vmg09iP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-But because the FE DAI hw_free is invoked first and all the pipelines are
-freed during this op, we need to make sure that the BE DAI pipeline also
-gets reset before it is freed. So do not skip the pipelines that have the
-skip_during_fe_trigger flag set when resetting pipelines.
+On Mon, May 15, 2023 at 09:58:12AM +0100, Conor Dooley wrote:
 
-Also, because the pipeline state changes are split between the FE and BE
-DAI ops now, protect the BE DAI pipeline state changes with the
-pipeline_state_mutex as well.
+> It's only been 4 days chief, of which 2 were the weekend, you don't need
+> to bump it yet! You'd be better off asking one of your co-workers to
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- sound/soc/sof/intel/hda-dai-ops.c | 47 ++++++++++++++++++++-----------
- sound/soc/sof/ipc4-pcm.c          |  4 +--
- 2 files changed, 32 insertions(+), 19 deletions(-)
+4 days, 2 of which were the weekend and 4 of which I was on holiday...
 
-diff --git a/sound/soc/sof/intel/hda-dai-ops.c b/sound/soc/sof/intel/hda-dai-ops.c
-index 4c04adff4c45..f121b9e31708 100644
---- a/sound/soc/sof/intel/hda-dai-ops.c
-+++ b/sound/soc/sof/intel/hda-dai-ops.c
-@@ -178,6 +178,7 @@ static void hda_reset_hext_stream(struct snd_sof_dev *sdev, struct hdac_ext_stre
- static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
- 				struct snd_pcm_substream *substream, int cmd)
- {
-+	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
- 	struct snd_sof_widget *pipe_widget;
- 	struct sof_ipc4_pipeline *pipeline;
- 	struct snd_sof_widget *swidget;
-@@ -189,6 +190,8 @@ static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cp
- 	pipe_widget = swidget->spipe->pipe_widget;
- 	pipeline = pipe_widget->private;
- 
-+	mutex_lock(&ipc4_data->pipeline_state_mutex);
-+
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-@@ -199,7 +202,7 @@ static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cp
- 		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
- 						  SOF_IPC4_PIPE_PAUSED);
- 		if (ret < 0)
--			return ret;
-+			goto out;
- 
- 		pipeline->state = SOF_IPC4_PIPE_PAUSED;
- 		break;
-@@ -207,7 +210,8 @@ static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cp
- 		dev_err(sdev->dev, "unknown trigger command %d\n", cmd);
- 		return -EINVAL;
- 	}
--
-+out:
-+	mutex_unlock(&ipc4_data->pipeline_state_mutex);
- 	return 0;
- }
- 
-@@ -237,53 +241,62 @@ static int hda_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
- static int hda_ipc4_post_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
- 				 struct snd_pcm_substream *substream, int cmd)
- {
-+	struct sof_ipc4_fw_data *ipc4_data = sdev->private;
- 	struct snd_sof_widget *pipe_widget;
- 	struct sof_ipc4_pipeline *pipeline;
- 	struct snd_sof_widget *swidget;
- 	struct snd_soc_dapm_widget *w;
--	int ret;
-+	int ret = 0;
- 
- 	w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
- 	swidget = w->dobj.private;
- 	pipe_widget = swidget->spipe->pipe_widget;
- 	pipeline = pipe_widget->private;
- 
-+	mutex_lock(&ipc4_data->pipeline_state_mutex);
-+
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
--	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		if (pipeline->state != SOF_IPC4_PIPE_PAUSED) {
- 			ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
- 							  SOF_IPC4_PIPE_PAUSED);
- 			if (ret < 0)
--				return ret;
-+				goto out;
- 			pipeline->state = SOF_IPC4_PIPE_PAUSED;
- 		}
- 
- 		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
- 						  SOF_IPC4_PIPE_RUNNING);
- 		if (ret < 0)
--			return ret;
-+			goto out;
- 		pipeline->state = SOF_IPC4_PIPE_RUNNING;
-+		swidget->spipe->started_count++;
- 		break;
--	case SNDRV_PCM_TRIGGER_SUSPEND:
--	case SNDRV_PCM_TRIGGER_STOP:
--	{
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
--						  SOF_IPC4_PIPE_RESET);
-+						  SOF_IPC4_PIPE_RUNNING);
- 		if (ret < 0)
--			return ret;
--
--		pipeline->state = SOF_IPC4_PIPE_RESET;
-+			goto out;
-+		pipeline->state = SOF_IPC4_PIPE_RUNNING;
-+		break;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		/*
-+		 * STOP/SUSPEND trigger is invoked only once when all users of this pipeline have
-+		 * been stopped. So, clear the started_count so that the pipeline can be reset
-+		 */
-+		swidget->spipe->started_count = 0;
- 		break;
--	}
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 		break;
- 	default:
- 		dev_err(sdev->dev, "unknown trigger command %d\n", cmd);
--		return -EINVAL;
-+		ret = -EINVAL;
-+		break;
- 	}
--
--	return 0;
-+out:
-+	mutex_unlock(&ipc4_data->pipeline_state_mutex);
-+	return ret;
- }
- 
- static const struct hda_dai_widget_dma_ops hda_ipc4_dma_ops = {
-diff --git a/sound/soc/sof/ipc4-pcm.c b/sound/soc/sof/ipc4-pcm.c
-index 9e2b6c45080d..0c905bd0fab4 100644
---- a/sound/soc/sof/ipc4-pcm.c
-+++ b/sound/soc/sof/ipc4-pcm.c
-@@ -69,7 +69,7 @@ sof_ipc4_add_pipeline_to_trigger_list(struct snd_sof_dev *sdev, int state,
- 	struct snd_sof_widget *pipe_widget = spipe->pipe_widget;
- 	struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
- 
--	if (pipeline->skip_during_fe_trigger)
-+	if (pipeline->skip_during_fe_trigger && state != SOF_IPC4_PIPE_RESET)
- 		return;
- 
- 	switch (state) {
-@@ -108,7 +108,7 @@ sof_ipc4_update_pipeline_state(struct snd_sof_dev *sdev, int state, int cmd,
- 	struct sof_ipc4_pipeline *pipeline = pipe_widget->private;
- 	int i;
- 
--	if (pipeline->skip_during_fe_trigger)
-+	if (pipeline->skip_during_fe_trigger && state != SOF_IPC4_PIPE_RESET)
- 		return;
- 
- 	/* set state for pipeline if it was just triggered */
--- 
-2.40.1
+--mqP7O91n5Vmg09iP
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRiFZoACgkQJNaLcl1U
+h9A3UQf+Pl3EGxms+J3grtXRzBY+ejt6SgLQdSTJw9Uqz7Fwgfsw7oQ+yPWHDHp1
+mXYCBFBWzfWWVh+Q9ogUF7GFDGMM9GmzU2ywgbDvmrxKBugimlXWbEArFWNi9vdr
+qNsA4VX1rXD7qkkDptHDxoHuhcIsef6Rc3SGhCjByAeom+lEgOrPLmLOSxO+Fuh5
+SemO/Tlac48KtG2L+oNRrQW3EVA8buAkkilgRmPpXOBQpJRinJNy/Lfc7KSCqk1U
+MT4BpMeIS0kugU0brTvopy7W8+VuZhuflVhGOn9DWiKPJLz1Dt59TpKcdE9ABGVV
+KcFKmBwEaJacIJQ8yKhiiEakuLImFw==
+=6jDZ
+-----END PGP SIGNATURE-----
+
+--mqP7O91n5Vmg09iP--

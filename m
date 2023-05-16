@@ -2,102 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E190705605
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 20:33:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE59170563B
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 20:45:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8896FA;
-	Tue, 16 May 2023 20:32:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8896FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08798D8;
+	Tue, 16 May 2023 20:44:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08798D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684261979;
-	bh=qnixwnMbNj0SPa9EZrWs3xjbuJFWvZuicF/MQqXBAqw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FiKytbQHwK4BCWcbdgNNM1ZDG8I5sRlPQ/D1K81vxCM5iZ33DT0gNzt5lpLiAmebX
-	 VUKwbSSBf2JodYZrsqFs6ZNTpEzzSWc7HtW8UGEPRg2Va8NxgRnhof/r7sieLryhPC
-	 DHQnI8z4w68xEMdy6z/Xi5ixIUTcbxYnuUvxmvj4=
+	s=default; t=1684262737;
+	bh=RgMLO9hsglRYPANJjzNAsYj1XKjCnS+8sHFmNhpsWZM=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jZ+o6GKWNZobZ4wkSy2PWLYnxzur+v+/bs8NIzow0vSMG8qvCzoHJo1wtvMPW2KuZ
+	 rj7QO+yYn/Qd5Kb5sAAM+bOTbHmrPXzrl8SyZ+6K71dhPI0E4A5jA3DHuJ7x3RPviF
+	 UYM82GW2HspkXvnHXE/lL/wrgAnwYJEAtH9kWcpM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8C6DF80087; Tue, 16 May 2023 20:32:08 +0200 (CEST)
+	id 00A6DF80087; Tue, 16 May 2023 20:44:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BCBBF8025A;
-	Tue, 16 May 2023 20:32:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A08F0F8025A;
+	Tue, 16 May 2023 20:44:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B357EF80272; Tue, 16 May 2023 20:32:01 +0200 (CEST)
+	id DC1DEF80272; Tue, 16 May 2023 20:44:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7A3D9F8016D
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 20:31:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A3D9F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42838F8016D
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 20:44:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42838F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=v1h6hFJo;
+ header.s=susede2_rsa header.b=0QZH74Df;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=bpDzu1zQ
+ header.s=susede2_ed25519 header.b=A/jQwddY
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BDF3421FD9;
-	Tue, 16 May 2023 18:31:47 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6B9BF2002C;
+	Tue, 16 May 2023 18:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1684261907;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x386OonMywIIGFjMtCjM8Hf94ih5k5Fl9S+VqNrEAzA=;
-	b=v1h6hFJo6E/IeYa9OhZ1H5+9oCMTXKu34XC2IXnT19JMm6gIS39+QeccHK+Lkb1FtUolR2
-	Qk8aVVZZ8Z81UBxzsYFNibWPczf66yW6Jj7yS2lyc0ie2uW/O63x7fxM4PVWqPmXE5YYFT
-	j7z3ZCWCj3oSNYKcsS6h+7LQYEHswG0=
+	t=1684262657; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=9LyaA8U7iJDN7a3YsArGrQyoeyWqdbsj39bLqgLxXdI=;
+	b=0QZH74DfYNHBEJaQVw2NWVDYk4EQQBI3MlRN1vZa+s8I6NF/jxEXprXBPd+oK310VBKNaL
+	tps/8X4FzrT8JxucXuUUQ+nAxkAPGM2vJvHlOSptVp4tV5Vuy1lqQqdlur/1Q0JZffHvv9
+	tf+US9VWCEnBlY0WWNWPQV2AVmTTuGI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684261907;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x386OonMywIIGFjMtCjM8Hf94ih5k5Fl9S+VqNrEAzA=;
-	b=bpDzu1zQ7u0Fsm6XZR+j1WlzFjPyeR0ehQZzwuh+xOBSoMbTRnNxnONjuGndzyN+KrFEXp
-	jdiS8uZfEy/JyxAQ==
+	s=susede2_ed25519; t=1684262657;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=9LyaA8U7iJDN7a3YsArGrQyoeyWqdbsj39bLqgLxXdI=;
+	b=A/jQwddY1L3nerzGBMzXElS9VC1SeUFGFZ+XMklWkkNs4v1TFcDzLxBro99Z6hC+0kuru3
+	9iqf6SUJeKL/T2DQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 97DDC138F5;
-	Tue, 16 May 2023 18:31:47 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 37F61138F5;
+	Tue, 16 May 2023 18:44:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id xjA4DRPMY2RqWAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 16 May 2023 18:31:47 +0000
-Date: Tue, 16 May 2023 20:31:45 +0200
-Message-ID: <87bkikdt66.wl-tiwai@suse.de>
+	id 8NfPAAHPY2RhXQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 16 May 2023 18:44:17 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Olliver Schinagl <oliver@schinagl.nl>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: snd_hda_codec_cirrus kernel oops
-In-Reply-To: <6afd694e-8810-8197-3dd0-831daf2130f3@schinagl.nl>
-References: <64d95eb0-dbdb-cff8-a8b1-988dc22b24cd@schinagl.nl>
-	<87zg69appu.wl-tiwai@suse.de>
-	<6afd694e-8810-8197-3dd0-831daf2130f3@schinagl.nl>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: AAET3PZWTCGIM4PIDOZTRL6NQO66PFBT
-X-Message-ID-Hash: AAET3PZWTCGIM4PIDOZTRL6NQO66PFBT
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: hda: Fix Oops by 9.1 surround channel names
+Date: Tue, 16 May 2023 20:44:12 +0200
+Message-Id: <20230516184412.24078-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: JII64KYF6YFEZFAFVGWOU6PK4GHLM3CK
+X-Message-ID-Hash: JII64KYF6YFEZFAFVGWOU6PK4GHLM3CK
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AAET3PZWTCGIM4PIDOZTRL6NQO66PFBT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JII64KYF6YFEZFAFVGWOU6PK4GHLM3CK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,74 +110,6 @@ List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
-
-On Tue, 16 May 2023 18:49:55 +0200,
-Olliver Schinagl wrote:
-> 
-> Hey Takashi,
-> 
-> >> [   90.497004] CPU: 3 PID: 343 Comm: modprobe Not tainted
-> >> 6.3.1-arch2-1 #1 4c16b0b90f71a940c7f1bb2eb00cdd9db2a83452
-> >> [   90.497008] Hardware name: Apple
-> >> Inc. MacBookPro12,1/Mac-E43C1C25D4880AD6, BIOS 481.0.0.0.0 01/12/2023
-> >> [   90.497010] RIP: 0010:get_line_out_pfx+0x2dd/0x3e0
-> >> [snd_hda_codec_generic]
-> > 
-> > Can you try to decode which line does it hit?
-> This was the arch 'vendor' kernel, so not easily? I could have tried
-> though I suppose :)
-> 
-> Instead, I just applied your patch and tried that instead.
-> 
-> > 
-> > Also, as a blind shot, does the patch below work around the bug?
-> [   16.593760] 0x000000000000-0x000000800000 : "BIOS"
-> [   16.603877] snd_hda_codec_cirrus hdaudioC1D0: autoconfig for
-> CS4208: line_outs=5 (0x11/0x12/0x13/0x14/0x1d) type:speaker
-> [   16.603885] snd_hda_codec_cirrus hdaudioC1D0:    speaker_outs=0
-> (0x0/0x0/0x0/0x0/0x0)
-> [   16.603888] snd_hda_codec_cirrus hdaudioC1D0:    hp_outs=1
-> (0x10/0x0/0x0/0x0/0x0)
-> [   16.603890] snd_hda_codec_cirrus hdaudioC1D0:    mono: mono_out=0x0
-> [   16.603892] snd_hda_codec_cirrus hdaudioC1D0:    dig-out=0x1e/0x21
-> [   16.603894] snd_hda_codec_cirrus hdaudioC1D0:    inputs:
-> [   16.603895] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x16
-> [   16.603897] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x15
-> [   16.603899] snd_hda_codec_cirrus hdaudioC1D0:      Mic=0x18
-> [   16.603900] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x19
-> [   16.603902] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1a
-> [   16.603904] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1b
-> [   16.603919] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1c
-> [   16.603921] snd_hda_codec_cirrus hdaudioC1D0:      Line=0x17
-> [   16.603922] snd_hda_codec_cirrus hdaudioC1D0:    dig-in=0x22
-> [   16.605152] snd_hda_codec_cirrus hdaudioC1D0: Too many channels in
-> get_line_out_pfx: 4
-> [   16.605215] snd_hda_codec_cirrus hdaudioC1D0: Too many channels in
-> get_line_out_pfx: 4
-> 
-> the good thing, you fixed the oops; the bad thing, it's no working,
-> but hopefully this helps you gain more insight?
-
-Below is a bit better patch for fixing the Oops.
-
-But, judging from the output above, I guess it won't help completely,
-because the pin configuration looks broken; e.g. it reports too many
-"Internal Mic" pins (which must be only one usually).
-
-That said, the actual breakage (except for kernel Oops) is the pin
-config set by BIOS.  Maybe it doesn't set up things properly *at all*
-You'll need to correct it by providing the full pin config with a
-quirk table.  And for that, you'll need to figure out the pins via
-trial-and-error, for example, with the help of hdajackretask.
-
-
-thanks,
-
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] ALSA: hda: Fix Oops by 9.1 surround channel names
 
 get_line_out_pfx() may trigger an Oops by overflowing the static array
 with more than 8 channels.  This was reported for MacBookPro 12,1 with

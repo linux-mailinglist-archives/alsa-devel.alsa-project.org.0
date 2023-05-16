@@ -2,121 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD050704839
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 10:53:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20E147048C6
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 11:14:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15FBE820;
-	Tue, 16 May 2023 10:52:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15FBE820
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE5537F8;
+	Tue, 16 May 2023 11:13:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE5537F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684227192;
-	bh=5i87WjgwyMiViOIMguz296sht10SHl9HYvunIq8Fdz4=;
+	s=default; t=1684228465;
+	bh=eXubfZwNde4TlS12azWjZtGok3d9uolVC4ANcf1U94A=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Du6595RlWtbVz8wffR0AlwyTBHUk/usjiRoe/Iwkywjx6dIEcfS1KaYNRZUJTHjX6
-	 OHSHexevlcRbjCnzaAEOg4XWQoBfSHQrAsx6u1E5xK3rD/cGoCN7GUVLz/DGxAhUwM
-	 TXiunSUigH8mXus9X+X/XBRzGFIvfnDa6IgGtIy4=
+	b=Nn1l4dc0SdRfoB2QCEvr7cEBky/ckIh/KQcmKFsgWlWZNiq3VCtTggxllhHQp1T9h
+	 f7fu5aOWb6lixuKekoxters+EapvZKlP3Ejpv6WQSwmGZzfTuq+smWLT3hFxaE7iX2
+	 q9f0pCSEqHIb/9CahYWvIa1iJFjq3foCwyIx+iP8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 136EFF80542; Tue, 16 May 2023 10:52:20 +0200 (CEST)
+	id 70D46F80548; Tue, 16 May 2023 11:13:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C64DF8025A;
-	Tue, 16 May 2023 10:52:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E94F6F8025A;
+	Tue, 16 May 2023 11:13:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D2E47F80272; Tue, 16 May 2023 10:52:16 +0200 (CEST)
+	id 0424DF80272; Tue, 16 May 2023 11:13:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CCA14F8025A
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 10:52:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCA14F8025A
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD36EF8016D
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 11:13:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD36EF8016D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QLNhcuAE
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=Nth/E/8A;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=K9sblxm5
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3843C62A33;
-	Tue, 16 May 2023 08:52:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90387C433D2;
-	Tue, 16 May 2023 08:51:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684227119;
-	bh=5i87WjgwyMiViOIMguz296sht10SHl9HYvunIq8Fdz4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=QLNhcuAENyPWj8HBP1xQi92yQxaGrmxituQp8obI3cx7BjaPVB9+qsvvsvlI4Nqgf
-	 u9K1wOfF+YfKEf4fhK3iI5ee+6qgGb8I9l8eonvaN4PeSuzlq+BzFeB/NuzdKw45tc
-	 fn5rSwzJFYbqRvRD2T0Bike6LbN5JyhXXNm+dD+kZ3XAydlEsduQ9US8S7kqe35Cmi
-	 nOjb9Wew+jxCiWaQv9ICqZTPNKMpaXCUsqk/2ytILmk5a7V6VPJtoIPI+sZblVbsoS
-	 l7YSO3KKqTC7c5miN190ZnZXEcXB6xx43fCS6g99KF/COv9tKlP9rtCkDbmUVtCR1M
-	 pCyqIxfYS9kmA==
-Received: from sofa.misterjones.org ([185.219.108.64]
- helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.95)
-	(envelope-from <maz@kernel.org>)
-	id 1pyqPV-00FTKi-5E;
-	Tue, 16 May 2023 09:51:57 +0100
-Date: Tue, 16 May 2023 09:51:56 +0100
-Message-ID: <86h6scmzf7.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	tglx@linutronix.de,
-	linus.walleij@linaro.org,
-	vkoul@kernel.org,
-	lgirdwood@gmail.com,
-	yung-chuan.liao@linux.intel.com,
-	sanyog.r.kale@intel.com,
-	pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
-	devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 07/10] irqchip/cs42l43: Add support for the cs42l43 IRQs
-In-Reply-To: <20230515112554.GA10825@google.com>
-References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
-	<20230512122838.243002-8-ckeepax@opensource.cirrus.com>
-	<86o7mpmvqq.wl-maz@kernel.org>
-	<20230512153933.GH68926@ediswmail.ad.cirrus.com>
-	<86mt29mt2m.wl-maz@kernel.org>
-	<20230515112554.GA10825@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/28.2
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D8C4321B90;
+	Tue, 16 May 2023 09:13:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1684228406;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eQdpy2MOOrcevSvSgyD+ew0L5aNUQ2JCKsIQkAJTdZo=;
+	b=Nth/E/8A8fl0TE82t85d0rWrQURgwhGi3/DqtIEEOfZ+Pt35SZnDLgZ6B9lWHv3KIxjucu
+	5P0NsLa8/VQlMNGQE0s7l967a5v7alPccwqnZTs9Ci0h9KnHEw7wVFydkirUXkg3b3aJIL
+	0/nenUAngvsh3Xxfs9Cqg/BwbIpmJmU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1684228406;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eQdpy2MOOrcevSvSgyD+ew0L5aNUQ2JCKsIQkAJTdZo=;
+	b=K9sblxm5SUBppuoMeWb2K2O92GhPQ9WBF+EfOrXtOZJoTkuuP+HV6HnKgof78iUSyK188Y
+	c9ijaNteKYkRipBw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C0722138F5;
+	Tue, 16 May 2023 09:13:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id KpzhLTZJY2QnQgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 16 May 2023 09:13:26 +0000
+Date: Tue, 16 May 2023 11:13:26 +0200
+Message-ID: <87r0rgej0p.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 0/7] ALSA: emu10k1: various improvements to the
+ DSP-based mixer code
+In-Reply-To: <ZGNBQUZTLrq0689G@ugly>
+References: <877ct9pdeb.wl-tiwai@suse.de>
+	<ZGNBQUZTLrq0689G@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: lee@kernel.org, ckeepax@opensource.cirrus.com,
- broonie@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- conor+dt@kernel.org, tglx@linutronix.de, linus.walleij@linaro.org,
- vkoul@kernel.org, lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com, pierre-louis.bossart@linux.intel.com,
- alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
- SAEximRunCond expanded to false
-Message-ID-Hash: UQATWOW2L4GT4KC245K2PO7ZT2H4PHKK
-X-Message-ID-Hash: UQATWOW2L4GT4KC245K2PO7ZT2H4PHKK
-X-MailFrom: maz@kernel.org
+Message-ID-Hash: ZVWG6MZQDDT2CSV7IHOHN5YJMTP57GTT
+X-Message-ID-Hash: ZVWG6MZQDDT2CSV7IHOHN5YJMTP57GTT
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -128,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQATWOW2L4GT4KC245K2PO7ZT2H4PHKK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZVWG6MZQDDT2CSV7IHOHN5YJMTP57GTT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -137,74 +119,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 15 May 2023 12:25:54 +0100,
-Lee Jones <lee@kernel.org> wrote:
+On Tue, 16 May 2023 10:39:29 +0200,
+Oswald Buddenhagen wrote:
 > 
-> On Fri, 12 May 2023, Marc Zyngier wrote:
-> 
-> > On Fri, 12 May 2023 16:39:33 +0100,
-> > Charles Keepax <ckeepax@opensource.cirrus.com> wrote:
-> > > 
-> > > On Fri, May 12, 2023 at 04:10:05PM +0100, Marc Zyngier wrote:
-> > > > On Fri, 12 May 2023 13:28:35 +0100,
-> > > > Charles Keepax <ckeepax@opensource.cirrus.com> wrote:
-> > > > > 
-> > > > > The CS42L43 is an audio CODEC with integrated MIPI SoundWire interface
-> > > > > (Version 1.2.1 compliant), I2C, SPI, and I2S/TDM interfaces designed
-> > > > > for portable applications. It provides a high dynamic range, stereo
-> > > > > DAC for headphone output, two integrated Class D amplifiers for
-> > > > > loudspeakers, and two ADCs for wired headset microphone input or
-> > > > > stereo line input. PDM inputs are provided for digital microphones.
-> > > > > 
-> > > > > The IRQ chip provides IRQ functionality both to other parts of the
-> > > > > cs42l43 device and to external devices that wish to use its IRQs.
-> > > > 
-> > > > Sorry, but this isn't much of an interrupt controller driver. A modern
-> > > > interrupt controller driver is firmware-driven (DT or ACPI, pick your
-> > > > poison), uses irq domains, and uses the irqchip API.
-> > > > 
-> > > 
-> > > Apologies but I really need a little help clarifying the issues
-> > > here. I am totally happy to fix things up but might need a couple
-> > > pointers.
-> > > 
-> > > 1) uses the irqchip API / uses irq domains
-> > > 
-> > > The driver does use both the irqchip API and domains, what
-> > > part of the IRQ API are we not using that we should be?
-> > > 
-> > > The driver registers an irq domain using
-> > > irq_domain_create_linear.  It requests its parent IRQ using
-> > > request_threaded_irq. It passes IRQs onto the devices requesting
-> > > IRQs from it using handle_nested_irq and irq_find_mapping.
-> > > 
-> > > Is the objection here that regmap is making these calls for us,
-> > > rather than them being hard coded into this driver?
+> > Applied all seven patches now.  Thanks.
 > > 
-> > That's one of the reasons. Look at the existing irqchip drivers: they
-> > have nothing in common with yours. The regmap irqchip abstraction may
-> > be convenient for what you are doing, but the result isn't really an
-> > irqchip driver. It is something that is a small bit of a larger device
-> > and not an interrupt controller driver on its own. The irqchip
-> > subsystem is there for "first class" interrupt controllers.
-> 
-> I'm not aware of another subsystem that deals with !IRQChip level IRQ
-> controllers.  Where do simple or "second class" interrupt controllers
-> go?
+> the last patch ("enable bit-exact playback, part 2: voice
+> attenuation") seems to have got lost.
 
-This isn't an interrupt controller. This is internal signalling, local
-to a single component that has been artificially broken into discrete
-bits, including an interrupt controller. The only *real* interrupts
-here are the GPIOs.
+On indeed, it slipped due to git-am didn't accept it cleanly.
+Now applied manually and pushed out.
 
-I'm happy to see an interrupt controller for the GPIOs. But the rest
-is just internal muck that doesn't really belong here. Where should it
-go? Together with the rest of the stuff that manages the block as a
-whole. Which looks like the MFD subsystem to me.
+Thanks for spotting!
 
-Thanks,
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Takashi

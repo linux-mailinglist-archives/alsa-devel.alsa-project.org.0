@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3497704985
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 11:41:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99522704975
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 11:38:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EE251DA;
-	Tue, 16 May 2023 11:40:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EE251DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id AECDAF0;
+	Tue, 16 May 2023 11:37:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AECDAF0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684230064;
-	bh=feeJ6IDYRSyrOx32tPsHuCqh8d4DGxNlKEcmKiWJmsY=;
+	s=default; t=1684229909;
+	bh=2jmqXbxvcnNxUfQtXoZD9KLQ6O+GdxAkKC5UAdgs79k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i+I8DQ/lATopKavx4SBNqrYckvViIb/nYxVXu862mMIr+t5zL4lfXRnKG4f2U3jKN
-	 badPCKuhh+ldHnGalAGFy1vnK+3Rs/bPs2oH0NOvdWu4i8mrGfkHAIFEuQvoS1V0+m
-	 cwO8y1wcDKackrf8Ek5qmmvCM2j2/3n4RcMORyfE=
+	b=eXnIku9frbU2PNDBEMAmLpYPVvwJ6LeJYLVJFoVJz3O02VBT4+uedew6pC1HFYRR5
+	 t/t/r7ajUbOwD0h+Z+bVWWF+nQg/+WFrZCXE+g4EZMQ9R4uIpEPCYnHQ5KCvxQF4My
+	 2d/uLHrZ1J5G+v9b+LbXrt+796yWJzEfb6RFT2Z0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7B8DF8060F; Tue, 16 May 2023 11:37:10 +0200 (CEST)
+	id 6C9A8F805A0; Tue, 16 May 2023 11:36:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09CE3F80609;
-	Tue, 16 May 2023 11:37:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA2FEF805A1;
+	Tue, 16 May 2023 11:36:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE66DF805F4; Tue, 16 May 2023 11:37:01 +0200 (CEST)
+	id 26D82F80579; Tue, 16 May 2023 11:36:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
@@ -36,29 +36,29 @@ Received: from bluemchen.kde.org (bluemchen.kde.org
  [IPv6:2001:470:142:8::100])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 04940F8055A
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 11:36:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04940F8055A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3651FF802E8
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 11:36:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3651FF802E8
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 350B92429B;
-	Tue, 16 May 2023 05:36:13 -0400 (EDT)
+	by bluemchen.kde.org (Postfix) with ESMTP id DA9BF2428D;
+	Tue, 16 May 2023 05:36:12 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pyr6K-q1X-00; Tue, 16 May 2023 11:36:12 +0200
+	id 1pyr6K-q0A-00; Tue, 16 May 2023 11:36:12 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
 Cc: Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 08/10] ALSA: emu10k1: improve mixer controls for E-MU 1010
- rev2 card
+Subject: [PATCH 4/6] ALSA: emu10k1: rewire {en,dis}abling interrupts for PCM
+ playback
 Date: Tue, 16 May 2023 11:36:10 +0200
-Message-Id: <20230516093612.3536508-9-oswald.buddenhagen@gmx.de>
+Message-Id: <20230516093612.3536451-5-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230516093612.3536508-1-oswald.buddenhagen@gmx.de>
-References: <20230516093612.3536508-1-oswald.buddenhagen@gmx.de>
+In-Reply-To: <20230516093612.3536451-1-oswald.buddenhagen@gmx.de>
+References: <20230516093612.3536451-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7N36MCUKS7TZOVJVEBLARRUH5TXHNSTZ
-X-Message-ID-Hash: 7N36MCUKS7TZOVJVEBLARRUH5TXHNSTZ
+Message-ID-Hash: IA64CMM3WHNY3PXNB6XVUMGAVXOC3MX4
+X-Message-ID-Hash: IA64CMM3WHNY3PXNB6XVUMGAVXOC3MX4
 X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -71,204 +71,138 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7N36MCUKS7TZOVJVEBLARRUH5TXHNSTZ/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IA64CMM3WHNY3PXNB6XVUMGAVXOC3MX4/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This card has rather different inputs/outputs due to switching from the
-AudioDock to the MicroDock.
+We now enable ints even before triggering, and disable them only after
+stopping - otherwise there is a race condition we may plausibly run into
+when we pause/resume near the end of the buffer.
+
+Updating the epcm->running flag is moved the same way, as it affects the
+*_pointer() functions, which are called by the interrupt handler.
+
+Also, factor these out to own functions, for clarity.
+
+For multi-channel, the extra voice is now triggered after all regular
+voices - we wouldn't want to receive an int before all channels have
+passed the period boundary.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- sound/pci/emu10k1/emumixer.c | 106 +++++++++++++++++++++++++++++++++--
- 1 file changed, 100 insertions(+), 6 deletions(-)
+ sound/pci/emu10k1/emupcm.c | 45 ++++++++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 16 deletions(-)
 
-diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
-index 9a59e439a533..395c2b2d96dd 100644
---- a/sound/pci/emu10k1/emumixer.c
-+++ b/sound/pci/emu10k1/emumixer.c
-@@ -172,6 +172,38 @@ static const unsigned short emu1010_src_regs[] = {
- };
- static_assert(ARRAY_SIZE(emu1010_src_regs) == ARRAY_SIZE(emu1010_src_texts));
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index 2b6f5d2bbb3e..7b0ab4e02cfd 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -605,7 +605,9 @@ static void snd_emu10k1_playback_prepare_voice(struct snd_emu10k1 *emu, struct s
+ 	snd_emu10k1_ptr_write(emu, CVCF, voice, vattn | CVCF_CURRENTFILTER_MASK);
+ }	
  
-+/* 1010 rev2 */
-+
-+#define EMU1010b_COMMON_TEXTS \
-+	"Silence", \
-+	PAIR_TEXTS("Dock Mic", "A", "B"), \
-+	LR_TEXTS("Dock ADC1"), \
-+	LR_TEXTS("Dock ADC2"), \
-+	LR_TEXTS("0202 ADC"), \
-+	LR_TEXTS("Dock SPDIF"), \
-+	LR_TEXTS("1010 SPDIF"), \
-+	ADAT_TEXTS("Dock "), \
-+	ADAT_TEXTS("1010 ")
-+
-+static const char * const emu1010b_src_texts[] = {
-+	EMU1010b_COMMON_TEXTS,
-+	DSP_TEXTS,
-+};
-+
-+static const unsigned short emu1010b_src_regs[] = {
-+	EMU_SRC_SILENCE,
-+	PAIR_REGS(EMU_SRC_DOCK_MIC, _A, _B),
-+	LR_REGS(EMU_SRC_DOCK_ADC1),
-+	LR_REGS(EMU_SRC_DOCK_ADC2),
-+	LR_REGS(EMU_SRC_HAMOA_ADC),
-+	LR_REGS(EMU_SRC_MDOCK_SPDIF),
-+	LR_REGS(EMU_SRC_HANA_SPDIF),
-+	ADAT_REGS(EMU_SRC_MDOCK_ADAT),
-+	ADAT_REGS(EMU_SRC_HANA_ADAT),
-+	EMU32_SRC_REGS,
-+};
-+static_assert(ARRAY_SIZE(emu1010b_src_regs) == ARRAY_SIZE(emu1010b_src_texts));
-+
- /* 1616(m) cardbus */
- 
- #define EMU1616_COMMON_TEXTS \
-@@ -245,6 +277,44 @@ static const unsigned short emu1010_output_dflt[] = {
- };
- static_assert(ARRAY_SIZE(emu1010_output_dflt) == ARRAY_SIZE(emu1010_output_dst));
- 
-+/* 1010 rev2 */
-+
-+static const char * const snd_emu1010b_output_texts[] = {
-+	LR_CTLS("Dock DAC1"),
-+	LR_CTLS("Dock DAC2"),
-+	LR_CTLS("Dock DAC3"),
-+	LR_CTLS("Dock SPDIF"),
-+	ADAT_CTLS("Dock "),
-+	LR_CTLS("0202 DAC"),
-+	LR_CTLS("1010 SPDIF"),
-+	ADAT_CTLS("1010 "),
-+};
-+
-+static const unsigned short emu1010b_output_dst[] = {
-+	LR_REGS(EMU_DST_DOCK_DAC1),
-+	LR_REGS(EMU_DST_DOCK_DAC2),
-+	LR_REGS(EMU_DST_DOCK_DAC3),
-+	LR_REGS(EMU_DST_MDOCK_SPDIF),
-+	ADAT_REGS(EMU_DST_MDOCK_ADAT),
-+	LR_REGS(EMU_DST_HAMOA_DAC),
-+	LR_REGS(EMU_DST_HANA_SPDIF),
-+	ADAT_REGS(EMU_DST_HANA_ADAT),
-+};
-+static_assert(ARRAY_SIZE(emu1010b_output_dst) == ARRAY_SIZE(snd_emu1010b_output_texts));
-+
-+static const unsigned short emu1010b_output_dflt[] = {
-+	EMU_SRC_ALICE_EMU32A+0, EMU_SRC_ALICE_EMU32A+1,
-+	EMU_SRC_ALICE_EMU32A+2, EMU_SRC_ALICE_EMU32A+3,
-+	EMU_SRC_ALICE_EMU32A+4, EMU_SRC_ALICE_EMU32A+5,
-+	EMU_SRC_ALICE_EMU32A+0, EMU_SRC_ALICE_EMU32A+1,
-+	EMU_SRC_ALICE_EMU32A+0, EMU_SRC_ALICE_EMU32A+1, EMU_SRC_ALICE_EMU32A+2, EMU_SRC_ALICE_EMU32A+3,
-+	EMU_SRC_ALICE_EMU32A+4, EMU_SRC_ALICE_EMU32A+5, EMU_SRC_ALICE_EMU32A+6, EMU_SRC_ALICE_EMU32A+7,
-+	EMU_SRC_ALICE_EMU32A+0, EMU_SRC_ALICE_EMU32A+1,
-+	EMU_SRC_ALICE_EMU32A+0, EMU_SRC_ALICE_EMU32A+1,
-+	EMU_SRC_ALICE_EMU32A+0, EMU_SRC_ALICE_EMU32A+1, EMU_SRC_ALICE_EMU32A+2, EMU_SRC_ALICE_EMU32A+3,
-+	EMU_SRC_ALICE_EMU32A+4, EMU_SRC_ALICE_EMU32A+5, EMU_SRC_ALICE_EMU32A+6, EMU_SRC_ALICE_EMU32A+7,
-+};
-+
- /* 1616(m) cardbus */
- 
- static const char * const snd_emu1616_output_texts[] = {
-@@ -394,6 +464,21 @@ const struct snd_emu1010_routing_info emu1010_routing_info[] = {
- 		.in_regs = emu1010_input_dst,
- 		.n_ins = ARRAY_SIZE(emu1010_input_dst),
- 	},
-+	{
-+		/* rev2 1010 */
-+		.src_regs = emu1010b_src_regs,
-+		.src_texts = emu1010b_src_texts,
-+		.n_srcs = ARRAY_SIZE(emu1010b_src_texts),
-+
-+		.out_dflts = emu1010b_output_dflt,
-+		.out_regs = emu1010b_output_dst,
-+		.out_texts = snd_emu1010b_output_texts,
-+		.n_outs = ARRAY_SIZE(emu1010b_output_dst),
-+
-+		.in_dflts = emu1010_input_dflt,
-+		.in_regs = emu1010_input_dst,
-+		.n_ins = ARRAY_SIZE(emu1010_input_dst) - 6,
-+	},
- 	{
- 		/* 1616(m) cardbus */
- 		.src_regs = emu1616_src_regs,
-@@ -414,6 +499,8 @@ const struct snd_emu1010_routing_info emu1010_routing_info[] = {
- static unsigned emu1010_idx(struct snd_emu10k1 *emu)
+-static void snd_emu10k1_playback_trigger_voice(struct snd_emu10k1 *emu, struct snd_emu10k1_voice *evoice, int master, int extra)
++static void snd_emu10k1_playback_trigger_voice(struct snd_emu10k1 *emu,
++					       struct snd_emu10k1_voice *evoice,
++					       int master)
  {
- 	if (emu->card_capabilities->emu_model == EMU_MODEL_EMU1616)
-+		return 2;
-+	else if (emu->card_capabilities->emu_model == EMU_MODEL_EMU1010B)
- 		return 1;
- 	else
- 		return 0;
-@@ -576,17 +663,17 @@ static int add_emu1010_source_mixers(struct snd_emu10k1 *emu)
+ 	struct snd_pcm_substream *substream;
+ 	struct snd_pcm_runtime *runtime;
+@@ -624,24 +626,36 @@ static void snd_emu10k1_playback_trigger_voice(struct snd_emu10k1 *emu, struct s
+ 	snd_emu10k1_ptr_write(emu, PTRX_PITCHTARGET, voice, pitch_target);
+ 	if (master || evoice->epcm->type == PLAYBACK_EFX)
+ 		snd_emu10k1_ptr_write(emu, CPF_CURRENTPITCH, voice, pitch_target);
+-	if (extra)
+-		snd_emu10k1_voice_intr_enable(emu, voice);
+ }
  
+-static void snd_emu10k1_playback_stop_voice(struct snd_emu10k1 *emu, struct snd_emu10k1_voice *evoice)
++static void snd_emu10k1_playback_stop_voice(struct snd_emu10k1 *emu,
++					    struct snd_emu10k1_voice *evoice)
+ {
+ 	unsigned int voice;
  
- static const char * const snd_emu1010_adc_pads[] = {
-+	"ADC1 14dB PAD 0202 Capture Switch",
- 	"ADC1 14dB PAD Audio Dock Capture Switch",
- 	"ADC2 14dB PAD Audio Dock Capture Switch",
- 	"ADC3 14dB PAD Audio Dock Capture Switch",
--	"ADC1 14dB PAD 0202 Capture Switch",
- };
+ 	if (evoice == NULL)
+ 		return;
+ 	voice = evoice->number;
+-	snd_emu10k1_voice_intr_disable(emu, voice);
+ 	snd_emu10k1_ptr_write(emu, PTRX_PITCHTARGET, voice, 0);
+ 	snd_emu10k1_ptr_write(emu, CPF_CURRENTPITCH, voice, 0);
+ 	snd_emu10k1_ptr_write(emu, VTFT, voice, VTFT_FILTERTARGET_MASK);
+ 	snd_emu10k1_ptr_write(emu, CVCF, voice, CVCF_CURRENTFILTER_MASK);
+ }
  
- static const unsigned short snd_emu1010_adc_pad_regs[] = {
-+	EMU_HANA_0202_ADC_PAD1,
- 	EMU_HANA_DOCK_ADC_PAD1,
- 	EMU_HANA_DOCK_ADC_PAD2,
- 	EMU_HANA_DOCK_ADC_PAD3,
--	EMU_HANA_0202_ADC_PAD1,
- };
- 
- #define snd_emu1010_adc_pads_info	snd_ctl_boolean_mono_info
-@@ -629,19 +716,19 @@ static const struct snd_kcontrol_new emu1010_adc_pads_ctl = {
- 
- 
- static const char * const snd_emu1010_dac_pads[] = {
-+	"DAC1 0202 14dB PAD Playback Switch",
- 	"DAC1 Audio Dock 14dB PAD Playback Switch",
- 	"DAC2 Audio Dock 14dB PAD Playback Switch",
- 	"DAC3 Audio Dock 14dB PAD Playback Switch",
- 	"DAC4 Audio Dock 14dB PAD Playback Switch",
--	"DAC1 0202 14dB PAD Playback Switch",
- };
- 
- static const unsigned short snd_emu1010_dac_regs[] = {
-+	EMU_HANA_0202_DAC_PAD1,
- 	EMU_HANA_DOCK_DAC_PAD1,
- 	EMU_HANA_DOCK_DAC_PAD2,
- 	EMU_HANA_DOCK_DAC_PAD3,
- 	EMU_HANA_DOCK_DAC_PAD4,
--	EMU_HANA_0202_DAC_PAD1,
- };
- 
- #define snd_emu1010_dac_pads_info	snd_ctl_boolean_mono_info
-@@ -700,10 +787,17 @@ const struct snd_emu1010_pads_info emu1010_pads_info[] = {
- 		.n_dac_ctls = ARRAY_SIZE(snd_emu1010_dac_pads),
- 	},
- 	{
--		/* 1616(m) cardbus */
-+		/* rev2 1010 */
- 		.adc_ctls = snd_emu1010_adc_pads,
--		.n_adc_ctls = ARRAY_SIZE(snd_emu1010_adc_pads) - 2,
-+		.n_adc_ctls = ARRAY_SIZE(snd_emu1010_adc_pads) - 1,
- 		.dac_ctls = snd_emu1010_dac_pads,
-+		.n_dac_ctls = ARRAY_SIZE(snd_emu1010_dac_pads) - 1,
-+	},
-+	{
-+		/* 1616(m) cardbus */
-+		.adc_ctls = snd_emu1010_adc_pads + 1,
-+		.n_adc_ctls = ARRAY_SIZE(snd_emu1010_adc_pads) - 2,
-+		.dac_ctls = snd_emu1010_dac_pads + 1,
- 		.n_dac_ctls = ARRAY_SIZE(snd_emu1010_dac_pads) - 2,
- 	},
- };
++static void snd_emu10k1_playback_set_running(struct snd_emu10k1 *emu,
++					     struct snd_emu10k1_pcm *epcm)
++{
++	epcm->running = 1;
++	snd_emu10k1_voice_intr_enable(emu, epcm->extra->number);
++}
++
++static void snd_emu10k1_playback_set_stopped(struct snd_emu10k1 *emu,
++					      struct snd_emu10k1_pcm *epcm)
++{
++	snd_emu10k1_voice_intr_disable(emu, epcm->extra->number);
++	epcm->running = 0;
++}
++
+ static inline void snd_emu10k1_playback_mangle_extra(struct snd_emu10k1 *emu,
+ 		struct snd_emu10k1_pcm *epcm,
+ 		struct snd_pcm_substream *substream,
+@@ -687,18 +701,18 @@ static int snd_emu10k1_playback_trigger(struct snd_pcm_substream *substream,
+ 		snd_emu10k1_playback_prepare_voice(emu, epcm->voices[0], 1, mix);
+ 		snd_emu10k1_playback_prepare_voice(emu, epcm->voices[1], 0, mix);
+ 		snd_emu10k1_playback_prepare_voice(emu, epcm->extra, 1, NULL);
+-		snd_emu10k1_playback_trigger_voice(emu, epcm->voices[0], 1, 0);
+-		snd_emu10k1_playback_trigger_voice(emu, epcm->voices[1], 0, 0);
+-		snd_emu10k1_playback_trigger_voice(emu, epcm->extra, 1, 1);
+-		epcm->running = 1;
++		snd_emu10k1_playback_set_running(emu, epcm);
++		snd_emu10k1_playback_trigger_voice(emu, epcm->voices[0], 1);
++		snd_emu10k1_playback_trigger_voice(emu, epcm->voices[1], 0);
++		snd_emu10k1_playback_trigger_voice(emu, epcm->extra, 1);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+-		epcm->running = 0;
+ 		snd_emu10k1_playback_stop_voice(emu, epcm->voices[0]);
+ 		snd_emu10k1_playback_stop_voice(emu, epcm->voices[1]);
+ 		snd_emu10k1_playback_stop_voice(emu, epcm->extra);
++		snd_emu10k1_playback_set_stopped(emu, epcm);
+ 		break;
+ 	default:
+ 		result = -EINVAL;
+@@ -836,20 +850,19 @@ static int snd_emu10k1_efx_playback_trigger(struct snd_pcm_substream *substream,
+ 		for (i = 1; i < NUM_EFX_PLAYBACK; i++)
+ 			snd_emu10k1_playback_prepare_voice(emu, epcm->voices[i], 0,
+ 							   &emu->efx_pcm_mixer[i]);
+-		snd_emu10k1_playback_trigger_voice(emu, epcm->voices[0], 0, 0);
+-		snd_emu10k1_playback_trigger_voice(emu, epcm->extra, 1, 1);
+-		for (i = 1; i < NUM_EFX_PLAYBACK; i++)
+-			snd_emu10k1_playback_trigger_voice(emu, epcm->voices[i], 0, 0);
+-		epcm->running = 1;
++		snd_emu10k1_playback_set_running(emu, epcm);
++		for (i = 0; i < NUM_EFX_PLAYBACK; i++)
++			snd_emu10k1_playback_trigger_voice(emu, epcm->voices[i], 0);
++		snd_emu10k1_playback_trigger_voice(emu, epcm->extra, 1);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		epcm->running = 0;
+ 		for (i = 0; i < NUM_EFX_PLAYBACK; i++) {	
+ 			snd_emu10k1_playback_stop_voice(emu, epcm->voices[i]);
+ 		}
+ 		snd_emu10k1_playback_stop_voice(emu, epcm->extra);
++		snd_emu10k1_playback_set_stopped(emu, epcm);
+ 		break;
+ 	default:
+ 		result = -EINVAL;
 -- 
 2.40.0.152.g15d061e6df
 

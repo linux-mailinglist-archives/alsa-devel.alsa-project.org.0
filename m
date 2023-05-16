@@ -2,139 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A50E7704AB7
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 12:34:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8889D704AEA
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 12:42:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0207C828;
-	Tue, 16 May 2023 12:33:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0207C828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F4AE11C;
+	Tue, 16 May 2023 12:41:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F4AE11C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684233259;
-	bh=FtimRf8lEl15l8PdnR0KYmJoBxYzyJsngy/6Bu2pVYQ=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1684233736;
+	bh=XtZbOL9Baj+X/5+/vEMviRA2ZfSayirohcBwgckha8U=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Il1u60pBhhIwbrmC8XhwbnBEmluz/Yfg5RQudwXXwGSljcOWNGXD0a0CqzkghjfOV
-	 3CrqPabhj0mUjXYJZZW5PC0O44L633YZTi3UjtLfKaGD9FjRo4mmlbnUW24uY+gngp
-	 aDHdK6tJQUriP7TOrAcU5H8Id4FHuWWpZ8jTdFcc=
+	b=g6BWfOPD66O+gWIMonhn9ruF5Ngi8S62dPhM+DuDQRnyWX04zj98bi85LgOJIjkhT
+	 SLzTIe/srCwYIelsBYv1MObcdq8YXYjftOa/KZVA56X2e8WLEtUyizs5loX6KqoQat
+	 fKwLcB2oE9q5ePDwdP0AKd9FSJnM4DRicQ/iqVVE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E832FF805D2; Tue, 16 May 2023 12:32:26 +0200 (CEST)
+	id AFE3BF80431; Tue, 16 May 2023 12:41:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84ADEF80549;
-	Tue, 16 May 2023 12:32:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4769DF8025A;
+	Tue, 16 May 2023 12:41:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0D47DF8057D; Tue, 16 May 2023 12:32:24 +0200 (CEST)
+	id E8D0CF80272; Tue, 16 May 2023 12:41:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::619])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D6136F802E8
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 12:32:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6136F802E8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7A349F8016D
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 12:41:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A349F8016D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=dh/QNK8r
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YG1ul2EBNq74IryWeLvkczNc5lOSXN0uXX4GFagBQTuH4wzJyWmBlP64h2YqzzIwqznQ/7O/tjj4uum/synUFWSwlYjGD4oIYD4DrzyO8PFNJMghSQ1BP8lzM7CUNHs+i3jwGyKN24/SwFtlOjcsy9kdvZVUFaPdsQQPWOeHMR3eBeGMOK68O6hoZl1UsynFsmSGfcIYbETxtRoGDO6AoW+58uQwRdZygHqTq3uD+f9y26l5HRktzRm6k2rv2ZGHBh2/kudSVYH15+rnFULcrKVt67vqAfdHyF2obvVlFOK5sp62u3NROc6rYtAQNK4bR887pEgNXaiUm8x8Hu9adA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8HivbUaM1Uo0KUDrQX+KQZ7hl13PDZNmdXUW6SAdFYo=;
- b=oD2KG2HGT7vm7lVX7PX0ZVeW+VPPkMebGYiFsKpFWVt0ps+5AGWik7yi0xvoHFWXym0dPC+Z/Vkp7xrQuBapCR0SOENt2fpYtKBm/ksxIjPVBejUGnHvvI6vOblTj0xauBoOxxGd4gxuE5pSsNiSrDGsgMP1B28c5XU39z7uPOElzyUtH0xideZe9FZqQwxdGadVq9gHRw4s8FnR3KPsip1lyKtqbSXOfocWFQl2YnlbZufKcIKumIf6sjEoHawl7C8rZeYqoIGIVRBGcBh4dmaoDOZNGuIm29mLuN5J6lEp705QUJ41+6iBH+0k2zOtjCo/iK0/yGZv2IPRzIEYeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8HivbUaM1Uo0KUDrQX+KQZ7hl13PDZNmdXUW6SAdFYo=;
- b=dh/QNK8rINy2NVXETRVXdP5bYiW45kB5vOCe2Y2WplAZV3PxJcRA9yKnzsELIXergDGa5wnD4xYt/k4VMWqBuhGMEYxoW0pWc0OpY4pTKNZlaVdfFqShU5IVmjPpINTdUR4l16bJbwh7LhldcC6DiS+JVkWPfzO/KnP9AREdcKs=
-Received: from DS7PR05CA0093.namprd05.prod.outlook.com (2603:10b6:8:56::17) by
- SA1PR12MB7368.namprd12.prod.outlook.com (2603:10b6:806:2b7::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Tue, 16 May
- 2023 10:32:13 +0000
-Received: from DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:56:cafe::15) by DS7PR05CA0093.outlook.office365.com
- (2603:10b6:8:56::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.16 via Frontend
- Transport; Tue, 16 May 2023 10:32:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT040.mail.protection.outlook.com (10.13.173.133) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.15 via Frontend Transport; Tue, 16 May 2023 10:32:13 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 16 May
- 2023 05:32:10 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 16 May
- 2023 03:31:41 -0700
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 16 May 2023 05:31:38 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <--to=broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <Mastan.Katragadda@amd.com>,
-	<Arungopal.kondaveeti@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Syed Saba
- Kareem" <Syed.SabaKareem@amd.com>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH 9/9] ASoC: amd: ps: Add soundwire specific checks in pci
- driver in pm ops.
-Date: Tue, 16 May 2023 16:05:43 +0530
-Message-ID: <20230516103543.2515097-10-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230516103543.2515097-1-Vijendar.Mukunda@amd.com>
-References: <20230516103543.2515097-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=GLaW26NG
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34G8VOmT026320;
+	Tue, 16 May 2023 05:41:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=vAMh92l5h6Q7hcEh6WFWIgGftgCfxqWmMEVQrJ7Twmo=;
+ b=GLaW26NG5Cj9mCLHLw9+IpvJmezaDN8LtyneTOQ9fOY33z71QwCmX3APWVoL2xdasX1h
+ 9dJGd4etzg4pdAU2aM8oQqU0W3KpmL/yqoffLhmSBUCn6zANCtCyFzV+kvHTQwKtKeOT
+ 8IZ4rwiLO1URvD940rPXeSGlhkju4vEjWSDD5OuvWeWAVACUNqxsNzf/jlaU84L9FhEn
+ UllOpj0Jq12/6OZixxWy9B5Bt9JIyt6s9NC8saGsQTUCIXWGHPMydkynQFbk+H0vPZXq
+ DoE00yt1TXPBa+1zK0uTspqYQwq8Vti/x8epmnwcgw4cLNqTVKVYCK/80lDvJO+Z4QPk TA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qj6ymv753-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 May 2023 05:41:15 -0500
+Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Tue, 16 May
+ 2023 05:41:14 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
+ Transport; Tue, 16 May 2023 05:41:14 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2CC28B38;
+	Tue, 16 May 2023 10:41:14 +0000 (UTC)
+Date: Tue, 16 May 2023 10:41:14 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Lee Jones <lee@kernel.org>
+CC: Marc Zyngier <maz@kernel.org>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <tglx@linutronix.de>, <linus.walleij@linaro.org>, <vkoul@kernel.org>,
+        <lgirdwood@gmail.com>, <yung-chuan.liao@linux.intel.com>,
+        <sanyog.r.kale@intel.com>, <pierre-louis.bossart@linux.intel.com>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+        <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 07/10] irqchip/cs42l43: Add support for the cs42l43 IRQs
+Message-ID: <20230516104114.GU68926@ediswmail.ad.cirrus.com>
+References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
+ <20230512122838.243002-8-ckeepax@opensource.cirrus.com>
+ <86o7mpmvqq.wl-maz@kernel.org>
+ <20230512153933.GH68926@ediswmail.ad.cirrus.com>
+ <86mt29mt2m.wl-maz@kernel.org>
+ <20230515112554.GA10825@google.com>
+ <86h6scmzf7.wl-maz@kernel.org>
+ <20230516100936.GF10825@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT040:EE_|SA1PR12MB7368:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5dfcd07-c23c-4f51-0293-08db55f8d011
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	2pk2VsHOxmDPKEYp8gtPSa2aONIRXq3KuatvCGwcV+4BJ0j1fI4Fh1GBmKSbFrCp3S8QkjvyEd32BpVw0fsV794kvRBdPxBXfSfpxzwiK2GIRAppRxoI4HAUH3VIsrT+6+ZdQUC3YsBNKTKfEBO3TQKxEDuUCum3lM+RoX0I2mc/407PVIMNlbmjJVM34N279HiBsXV1Mo1VaAkn6fPZC3lhcW6Rp1M2b6S0zMKtVRn3RgfT3IUVKnEwtX5uQTZF6D31uz2YVRD3oN9aQN4b2hw1sbp7ucFBB09d3yp/l8MLre6kjDNt/XpgUhPTp45M/WaFFyP/J9+/sGlSEo/HwPPLGiQd7LGhZIkmk7u4E7BBIhc9blzuu8+7qJCzIrY7ntC0ATkeG3h1ogohvZeWM7QL/g8vpnkmFVQTiTXrjzjpIs3vCdLLUALUbFkilbftioLnd/As9qv+fIzfSVEGE4ZHsbpARI9pp9a/aCAdLORXh5XOEkh9AS5cz/tUduplfzWnCpYcqRIDqdeXOYIGeEBww5F62hxN3aXIvhzLvhi3gnefQr7qy20vWoH7BGatj+c5304DqVJz7WrtnXAk5gUEnMA/IodMG+BdG0CPE93L4UG2so29JQNDSkZ0d9GeTSwde915ZqiVIu9wth2Hu01jIyyUq5S2XziQ9Pf2J4vmfpveQrLN+Y/7RqDKffoqzZt5dXePaB6T70h4cX+ii5VUp9UiR3nv0oiPDjQhB+SPaKvvJMWLO8dyehIcSqSvwcI9Mv1MrGWNV8f3y8Dcog==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(39860400002)(396003)(376002)(136003)(451199021)(36840700001)(40470700004)(46966006)(36860700001)(70586007)(41300700001)(70206006)(4326008)(47076005)(82740400003)(8676002)(6666004)(7696005)(82310400005)(1076003)(26005)(356005)(336012)(426003)(81166007)(316002)(2616005)(5660300002)(83380400001)(8936002)(2906002)(54906003)(86362001)(478600001)(40460700003)(186003)(40480700001)(36756003)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2023 10:32:13.3302
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- a5dfcd07-c23c-4f51-0293-08db55f8d011
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7368
-Message-ID-Hash: GAFBP7RUTFKFOEFQSP5G5YURMNCEED76
-X-Message-ID-Hash: GAFBP7RUTFKFOEFQSP5G5YURMNCEED76
-X-MailFrom: Vijendar.Mukunda@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230516100936.GF10825@google.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: gMHOED3BHFVkCy5V-NwvIXEY6a_cTz6p
+X-Proofpoint-ORIG-GUID: gMHOED3BHFVkCy5V-NwvIXEY6a_cTz6p
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: EBPDCJIYCR5KXPPG73V5JOVZSOEL6FP7
+X-Message-ID-Hash: EBPDCJIYCR5KXPPG73V5JOVZSOEL6FP7
+X-MailFrom: prvs=05004a7c2f=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -146,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GAFBP7RUTFKFOEFQSP5G5YURMNCEED76/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EBPDCJIYCR5KXPPG73V5JOVZSOEL6FP7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,56 +124,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-AMD Soundwire manager supports different power modes.
-In case of Soundwire Power off Mode, ACP pci parent driver
-should invoke acp de-init and init sequence during suspend/resume
-callbacks.
+On Tue, May 16, 2023 at 11:09:36AM +0100, Lee Jones wrote:
+> On Tue, 16 May 2023, Marc Zyngier wrote:
+> > On Mon, 15 May 2023 12:25:54 +0100,
+> > Lee Jones <lee@kernel.org> wrote:
+> > > On Fri, 12 May 2023, Marc Zyngier wrote:
+> > > > On Fri, 12 May 2023 16:39:33 +0100,
+> > > > Charles Keepax <ckeepax@opensource.cirrus.com> wrote:
+> > > I'm not aware of another subsystem that deals with !IRQChip level IRQ
+> > > controllers.  Where do simple or "second class" interrupt controllers
+> > > go?
+> > 
+> > This isn't an interrupt controller. This is internal signalling, local
+> > to a single component that has been artificially broken into discrete
+> > bits, including an interrupt controller. The only *real* interrupts
+> > here are the GPIOs.
+> > 
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/ps/pci-ps.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+I would question this statement a little, they are fixed function
+IRQs sure but they are still real interrupts. These are lines which
+receive a signal and on an edge they set a stick status bit, which
+causes another signal to generate an edge, they have registers
+which let you mask events, if it walks like a duck and all. The
+only difference between this and a "real" interrupt is whether the
+chip designer or the board designer was the person who decided
+where the wire was connected.
 
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index ba8ec8442a6e..6d688821b3c4 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -656,10 +656,15 @@ static int snd_acp63_probe(struct pci_dev *pci,
- static int __maybe_unused snd_acp63_suspend(struct device *dev)
- {
- 	struct acp63_dev_data *adata;
--	int ret;
-+	int ret = 0;
- 
- 	adata = dev_get_drvdata(dev);
--	ret = acp63_deinit(adata->acp63_base, dev);
-+	if (adata->pdev_mask & ACP63_SDW_DEV_MASK) {
-+		if (adata->acp_reset)
-+			ret = acp63_deinit(adata->acp63_base, dev);
-+	} else {
-+		ret = acp63_deinit(adata->acp63_base, dev);
-+	}
- 	if (ret)
- 		dev_err(dev, "ACP de-init failed\n");
- 	return ret;
-@@ -668,10 +673,15 @@ static int __maybe_unused snd_acp63_suspend(struct device *dev)
- static int __maybe_unused snd_acp63_resume(struct device *dev)
- {
- 	struct acp63_dev_data *adata;
--	int ret;
-+	int ret = 0;
- 
- 	adata = dev_get_drvdata(dev);
--	ret = acp63_init(adata->acp63_base, dev);
-+	if (adata->pdev_mask & ACP63_SDW_DEV_MASK) {
-+		if (adata->acp_reset)
-+			ret = acp63_init(adata->acp63_base, dev);
-+	} else {
-+		ret = acp63_init(adata->acp63_base, dev);
-+	}
- 	if (ret)
- 		dev_err(dev, "ACP init failed\n");
- 	return ret;
--- 
-2.34.1
+> > I'm happy to see an interrupt controller for the GPIOs. But the rest
+> > is just internal muck that doesn't really belong here. Where should it
 
+Internal-ish, granted many of them are primarily useful to the
+device itself. But it is very easy to construct situations where
+say knowing the speaker thermals are high, or that a jack has
+been inserted are useful outside of the CODEC driver itself.
+
+> > go? Together with the rest of the stuff that manages the block as a
+> > whole. Which looks like the MFD subsystem to me.
+> 
+> Very well.  Let's see this "muck" in a patch please!
+
+Groovy I will do a re-spin moving the IRQ stuff to the MFD and
+lets see where we get to.
+
+Thank you all for your help in reviewing this so far.
+
+Thanks,
+Charles

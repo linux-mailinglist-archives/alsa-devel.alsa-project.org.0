@@ -2,110 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F2107056B3
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 21:05:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 218237056DB
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 21:13:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5197810E;
-	Tue, 16 May 2023 21:04:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5197810E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DF72FA;
+	Tue, 16 May 2023 21:13:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DF72FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684263924;
-	bh=TI6HLvuKh/DN+JWZkwAxn440t9SvhKVCOBOH/HBTjkY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=ArWO6Sil77yMS5hha/1YQikJ0vNeXchWckEwLrTN9SCBRSaTATRPi6xxnxWY55Yz/
-	 bmYgPO2nFYUgpTErdE2/1XXV+RdzfEQzWNnBsvuHl6mkBl21sR/trVbSNoTcql/NEq
-	 WtZNAN5dj8u0zF/fEprhtyZH9BMK0aN1FAE5p2dI=
+	s=default; t=1684264432;
+	bh=lPiyxEGcF1KlDHw4ofGuIh2DNUJsPU05Ns6yT7TUp6U=;
+	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=c82yVgIGMi3eaDaJfG6EvNEfDl3CTRICHvwuB1ONRtEQxiwnPexpIm9Z0DMY3FOdF
+	 hra8/Mkpj1DZGzynU1pwPQUNTlPk6QgBFRnX6ObmA/cMzdL9lDK6wccx2GXCEhZ+NV
+	 DwXQ06TPTFPOtyTdFYnhDBDDTpPSqJ1GIWuJ95/c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 93D0CF8016D; Tue, 16 May 2023 21:04:33 +0200 (CEST)
+	id F392CF80087; Tue, 16 May 2023 21:13:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E5EBF8025A;
-	Tue, 16 May 2023 21:04:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE8D5F80087;
+	Tue, 16 May 2023 21:13:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3DDBBF80272; Tue, 16 May 2023 21:04:30 +0200 (CEST)
+	id 6F4F6F80272; Tue, 16 May 2023 21:12:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [IPv6:2607:f8b0:4864:20::f2c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_FAIL,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr
+ [IPv6:2a01:e0c:1:1599::10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 134A5F80087
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:04:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 134A5F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2C006F8016D
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C006F8016D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=YCIgNOuR
-Received: by mail-qv1-xf2c.google.com with SMTP id
- 6a1803df08f44-6216a09ec38so29082896d6.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 16 May 2023 12:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684263862; x=1686855862;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZX3aJGWh9j6fi4Zbxck+TdbVfuJLOzsnRuRtmwi0h5g=;
-        b=YCIgNOuRxAGICG9PO3E4TWClRO4dC2m/394gwLQCEMGSCGSS4Fnoeaw3K+gtklgHAg
-         MdrbkFj/7njcvYzyOUWGHe1FncyZ8sq1k7sX/eLBXRPeYSVFEHNLNt/Xma/Q0PYH5neW
-         gPimepduH6uaEniGwLeolbNIZGqj2ov/0L0Mzq0xwUsDQ1q0lhiFZSlUDE96O3qJMO+Z
-         g0sDwu5o68R0llVAr/YZibnTjl/qi8g6CnDNRA4M9d0t3wBJjSAP2Fk+7atKWiG4eokF
-         s1yhRCh9YfhruWLp2AoNq/KkzLaNtN0cbBTCR6CCgIVoCEelGe7WhJ8eaGpCkVKE6di4
-         fjJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684263862; x=1686855862;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZX3aJGWh9j6fi4Zbxck+TdbVfuJLOzsnRuRtmwi0h5g=;
-        b=JPw5tiy2cDMZozJgDnCARLWUmB465veQTB4/YLXVnAxq4Xv7dF7Hg2v+nAgxL9oom2
-         koPxePgNYdF1yPwjR1ic1vKojZvRaYAlIEbFDaXnmSIzzvK6DF+h0fy7nZeG2idIazsX
-         Gg2Eha/A+p9TdPrf3Jpw4yZGbzgmkXeg6cMkOCAKdnxP2Zlgdwm9vZDFYeKNRMUtD7gE
-         AduHNLZo0NGcXA/6Ih9wIR7nROZ7/F8bWEmtPnEnpF65HVNztYJgqs7rBfMpX87sANRy
-         yISBnrIGIaGcuayVkB8dD8SFn8fzLz1Gj7So1zxBeVmlZlMG/+wWW5iucUYeVrhKk4W1
-         5Qkw==
-X-Gm-Message-State: AC+VfDwyuAwAxGGUjBJpolkvFoAy34myhwuEcRm5CEUmw8stMb8omDkY
-	kpzZ4FCTUEyBUVHBNfIzmeQH3sYXEBdjkMgCJVA=
-X-Google-Smtp-Source: 
- ACHHUZ7o8SFUdFq9oKXTGUhKpKM024MomgycM5cRyraXgXMUY8hYYFWGvp2kmKAoXAMuXsr50mnQ+x3iKUkHuJVog/Q=
-X-Received: by 2002:ad4:5dc9:0:b0:623:557d:91a9 with SMTP id
- m9-20020ad45dc9000000b00623557d91a9mr17484711qvh.31.1684263861900; Tue, 16
- May 2023 12:04:21 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ap2c.com header.i=@ap2c.com header.a=rsa-sha256
+ header.s=ap2cCom header.b=q1HarEY9
+Received: from 82-65-29-218.subs.proxad.net (unknown [82.65.29.218])
+	by smtp1-g21.free.fr (Postfix) with ESMTP id 225F3B0057C
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:50 +0200 (CEST)
+Received: from berkelium.ap2c.org (localhost [127.0.0.1])
+	by 82-65-29-218.subs.proxad.net (Postfix) with ESMTP id CAC131F6
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ap2c.com; s=ap2cCom;
+	t=1684264369; bh=lPiyxEGcF1KlDHw4ofGuIh2DNUJsPU05Ns6yT7TUp6U=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=q1HarEY9m5ml+0pf3l2vmIb4Km6NNcjYTI5HZmCkABDDUFLJenxFL7e/HWFygDmGg
+	 TSpFytmgnIBDDxLgd/oZE+4/FYmKBzr5+/xFBMt9v/oSNfqnhGQF4co1mgy14VeMvq
+	 4kNWpoVbMASuxBPGT69S5m4ZHR27OsHecBXCkUCc=
+X-Virus-Scanned: amavisd-new at ap2c.org
+Received: from 82-65-29-218.subs.proxad.net ([127.0.0.1])
+	by berkelium.ap2c.org (berkelium.ap2c.org [127.0.0.1]) (amavisd-new,
+ port 10024)
+	with ESMTP id gJRyH4V_SFzJ for <alsa-devel@alsa-project.org>;
+	Tue, 16 May 2023 21:12:49 +0200 (CEST)
+Received: from antimony.ap2c.org (unknown
+ [IPv6:2a01:e0a:91c:5c0:fb80:e2b5:bf75:1e18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by 82-65-29-218.subs.proxad.net (Postfix) with ESMTPSA
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:49 +0200 (CEST)
+From: =?ISO-8859-1?Q?Aur=E9lien?= <aurelien@ap2c.com>
+To: alsa-devel@alsa-project.org
+Subject: Re: Patch for Realtek ALC298 on a Samsung Galaxy book
+Date: Tue, 16 May 2023 21:12:48 +0200
+Message-ID: <12207548.O9o76ZdvQC@antimony.ap2c.org>
+In-Reply-To: <441231b80626cca3862320ff8b8d35430234518c@ap2c.com>
+References: <441231b80626cca3862320ff8b8d35430234518c@ap2c.com>
 MIME-Version: 1.0
-References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-9-ckeepax@opensource.cirrus.com>
- <ZF6RMqElYZVMpWRt@surfacebook>
- <20230515101350.GS68926@ediswmail.ad.cirrus.com>
-In-Reply-To: <20230515101350.GS68926@ediswmail.ad.cirrus.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 16 May 2023 22:03:45 +0300
-Message-ID: 
- <CAHp75Vcizrucc-2KFdFNeHNrxCzz4GwX1OzZYyjPH7P9RgnKYQ@mail.gmail.com>
-Subject: Re: [PATCH 08/10] pinctrl: cs42l43: Add support for the cs42l43
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, tglx@linutronix.de,
-	maz@kernel.org, linus.walleij@linaro.org, vkoul@kernel.org,
-	lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: LGHJAL5HX6O6G5ECYLUEPGKAS2SPZXOO
-X-Message-ID-Hash: LGHJAL5HX6O6G5ECYLUEPGKAS2SPZXOO
-X-MailFrom: andy.shevchenko@gmail.com
+Content-Type: text/plain; charset="iso-8859-1"
+Message-ID-Hash: HTY4VKU2BWTD22FVPM6YOW4JSTAHHILT
+X-Message-ID-Hash: HTY4VKU2BWTD22FVPM6YOW4JSTAHHILT
+X-MailFrom: aurelien@ap2c.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LGHJAL5HX6O6G5ECYLUEPGKAS2SPZXOO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HTY4VKU2BWTD22FVPM6YOW4JSTAHHILT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,84 +104,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, May 15, 2023 at 1:13=E2=80=AFPM Charles Keepax
-<ckeepax@opensource.cirrus.com> wrote:
-> On Fri, May 12, 2023 at 10:19:14PM +0300, andy.shevchenko@gmail.com wrote=
-:
-> > Fri, May 12, 2023 at 01:28:36PM +0100, Charles Keepax kirjoitti:
+Hi,=20
 
-...
+I sent this patch in order to get it integrated into the ALSA source code (=
+or=20
+at least in order to discuss this patch) but i got no news.
+How can I do in order to integrate it?
+Thanks in advance.
 
-> > > +   dev_dbg(priv->dev, "Setting gpio%d to %s\n",
-> > > +           offset + 1, input ? "input" : "output");
-> >
-> > How ' + 1' part won't be confusing?
->
-> Kinda an un-avoidable confusion somewhere, the GPIOs in the datasheet are
-> numbered from one. So this makes the debug print match the
-> datasheet name for the pin, which is used in the pinctrl strings
-> as well.
+Aur=E9lien
 
-The problem here is that the entire Linux pin control and GPIO cores
-in their debug/info/error messages will use offset + 0. With the above
-invention it will well make users confused a lot. I think you need a
-Linus W blessing for this.
+Le vendredi 12 mai 2023, 09:04:57 CEST Aur=E9lien a =E9crit :
+> Hi,=20
+>=20
+> Several years ago I sent several mails about problem with Realtek ALC 298
+> sound card not working on Samsung Galaxy book. Due to a computer problem i
+> had to stop working on it. However I succeed to get it working and I'm
+> submitting the patch attached to this email.
+>=20
+> Internal speakers works very well.
+> In order to get headset working I had to hack a little bit since it shares
+> the same pin widget (0x17) with the internal speaker. It seems that the
+> ALSA code have solutions to declare a pin widget as both internal and jack
+> but if I use that it doesn't recognize the presence of the jack.. Maybe I=
+'m
+> wrong somewhere.
+>=20
+> Last but not least i saw that under windows the driver uses another mixer
+> (0xd through the out widget 0x3 rather than mixer 0xc throught the out
+> widget 0x2) when it uses the headset. It offers the opportunity to have a
+> dedicated volume control for the headset independant from the internal
+> speaker. Maybe it could be interesting to do the same under the Linux
+> driver. Unfortunately I don't know how to do that.=20
+>=20
+> Do you think is it possible to integrate this patch to the ALSA code?
+>=20
+> Thanks in advance.
+>=20
+> Aur=E9lien
 
-...
 
-> > > +   if (!of_property_read_bool(dev_of_node(cs42l43->dev), "gpio-range=
-s")) {
-> > > +           ret =3D gpiochip_add_pin_range(&priv->gpio_chip, priv->gp=
-io_chip.label,
-> > > +                                        0, 0, CS42L43_NUM_GPIOS);
-> > > +           if (ret) {
-> > > +                   dev_err(priv->dev, "Failed to add GPIO pin range:=
- %d\n", ret);
-> > > +                   goto err_pm;
-> > > +           }
-> > > +   }
-> >
-> > Besides the fact that we have a callback for this, why GPIO library can=
-'t
-> > handle this for you already?
->
-> Apologies but I am not quite sure I follow you, in the device
-> tree case this will be handled by the GPIO library. But for ACPI
-> this information does not exist so has to be called manually, the
-> library does not necessarily know which values to call with,
-> although admittedly our case is trivial but not all are.
-
-Why can't the firmware provide this information? _DSD() is a part of
-ACPI v5.1 IIRC.
-
-Although it might require moving some code from gpiolib-of.c to
-gpiolib.c with replacing OF APIs with agnostic ones.
-
-...
-
-> > > +static int cs42l43_pin_remove(struct platform_device *pdev)
-> > > +{
-> > > +   pm_runtime_disable(&pdev->dev);
-> >
-> > This is simply wrong order because it's a mix of non-devm_*() followed =
-by
-> > devm_*() calls in the probe.
-> >
->
-> I had missed there are now devm_pm_runtime calls, I will switch
-> to that. But I would like to understand the wrong order, remove
-> will be called before the devm bits are destroyed and it seems
-> reasonable to disable the pm_runtime before destroying the
-> pinctrl device. What exactly would run in the wrong order here?
-
-At the ->remove() stage after this call an IRQ can be fired (or on SMP
-systems any other APIs can be called), for example. So, would it be a
-problem to service it with PM disabled?
-
-But in any case the shuffling ordering like this is prone to subtle
-bugs. I prefer to have strict ordering if there is nothing preventing
-from doing that way.
-
---=20
-With Best Regards,
-Andy Shevchenko

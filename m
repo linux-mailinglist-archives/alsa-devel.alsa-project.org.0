@@ -2,88 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218237056DB
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 21:13:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E16AA7057F4
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 21:51:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DF72FA;
-	Tue, 16 May 2023 21:13:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DF72FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6997FA;
+	Tue, 16 May 2023 21:51:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6997FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684264432;
-	bh=lPiyxEGcF1KlDHw4ofGuIh2DNUJsPU05Ns6yT7TUp6U=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=c82yVgIGMi3eaDaJfG6EvNEfDl3CTRICHvwuB1ONRtEQxiwnPexpIm9Z0DMY3FOdF
-	 hra8/Mkpj1DZGzynU1pwPQUNTlPk6QgBFRnX6ObmA/cMzdL9lDK6wccx2GXCEhZ+NV
-	 DwXQ06TPTFPOtyTdFYnhDBDDTpPSqJ1GIWuJ95/c=
+	s=default; t=1684266719;
+	bh=vrJbb+thE3XsnqrA0f75v2in+7O7pevNPGynZ++e5hM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gm5+KKX4mhMeI3rgkKyVVyHnEPYOfFb09I26gzD7Ce8qQm4lcwMG//Z++Fal4IcHu
+	 LV97CGAYR2c425oJO1T0lySKBCTMiWysL6dz6Xjyz1W+JRJubV0iq8TXaIeehyf2mc
+	 1yRykQEpNuLxWypG7Zec90XP5gHr3LwJnI+yos4I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F392CF80087; Tue, 16 May 2023 21:13:01 +0200 (CEST)
+	id D0233F8016A; Tue, 16 May 2023 21:51:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE8D5F80087;
-	Tue, 16 May 2023 21:13:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D6D2F8025A;
+	Tue, 16 May 2023 21:51:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F4F6F80272; Tue, 16 May 2023 21:12:58 +0200 (CEST)
+	id 5BDE5F80272; Tue, 16 May 2023 21:51:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_FAIL,SPF_HELO_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp1-g21.free.fr (smtp1-g21.free.fr
- [IPv6:2a01:e0c:1:1599::10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2C006F8016D
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C006F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63124F8016A
+	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:50:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63124F8016A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ap2c.com header.i=@ap2c.com header.a=rsa-sha256
- header.s=ap2cCom header.b=q1HarEY9
-Received: from 82-65-29-218.subs.proxad.net (unknown [82.65.29.218])
-	by smtp1-g21.free.fr (Postfix) with ESMTP id 225F3B0057C
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:50 +0200 (CEST)
-Received: from berkelium.ap2c.org (localhost [127.0.0.1])
-	by 82-65-29-218.subs.proxad.net (Postfix) with ESMTP id CAC131F6
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ap2c.com; s=ap2cCom;
-	t=1684264369; bh=lPiyxEGcF1KlDHw4ofGuIh2DNUJsPU05Ns6yT7TUp6U=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=q1HarEY9m5ml+0pf3l2vmIb4Km6NNcjYTI5HZmCkABDDUFLJenxFL7e/HWFygDmGg
-	 TSpFytmgnIBDDxLgd/oZE+4/FYmKBzr5+/xFBMt9v/oSNfqnhGQF4co1mgy14VeMvq
-	 4kNWpoVbMASuxBPGT69S5m4ZHR27OsHecBXCkUCc=
-X-Virus-Scanned: amavisd-new at ap2c.org
-Received: from 82-65-29-218.subs.proxad.net ([127.0.0.1])
-	by berkelium.ap2c.org (berkelium.ap2c.org [127.0.0.1]) (amavisd-new,
- port 10024)
-	with ESMTP id gJRyH4V_SFzJ for <alsa-devel@alsa-project.org>;
-	Tue, 16 May 2023 21:12:49 +0200 (CEST)
-Received: from antimony.ap2c.org (unknown
- [IPv6:2a01:e0a:91c:5c0:fb80:e2b5:bf75:1e18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
- SHA256)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=nh1LnlD0
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by 82-65-29-218.subs.proxad.net (Postfix) with ESMTPSA
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:12:49 +0200 (CEST)
-From: =?ISO-8859-1?Q?Aur=E9lien?= <aurelien@ap2c.com>
-To: alsa-devel@alsa-project.org
-Subject: Re: Patch for Realtek ALC298 on a Samsung Galaxy book
-Date: Tue, 16 May 2023 21:12:48 +0200
-Message-ID: <12207548.O9o76ZdvQC@antimony.ap2c.org>
-In-Reply-To: <441231b80626cca3862320ff8b8d35430234518c@ap2c.com>
-References: <441231b80626cca3862320ff8b8d35430234518c@ap2c.com>
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F31F763DD7;
+	Tue, 16 May 2023 19:50:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167C8C433D2;
+	Tue, 16 May 2023 19:50:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684266653;
+	bh=vrJbb+thE3XsnqrA0f75v2in+7O7pevNPGynZ++e5hM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nh1LnlD0t0THNvDVMhBt7li9Log+fQWxVGvdJw/NtuM/fsAVOhoizufYtKFp70Mv6
+	 OoME9qlmwvFOZfroTn2r4GWypEvnRlAwMgEH/meA+3CNQl5CD9kubIgjl6K+GqRlBF
+	 JJCVNjIVvtPOMwOKQ+mHHu7XBX27qnk3gYqKoODkd2tsXwAA5NWSqn5Ya9RSEXCS2f
+	 tRKQ1aYIduQQmX9VKVJfy5wxQz0gthaWwe0PgijCmxmMNiT6+9zp4bIYroh/NF/z/R
+	 RHbaUT1SsDDr1M9OM0HbRx01n1wFvhmGyVEjiPJlITKOYHhj/buYg6FCbFMO3KlDMt
+	 nEog8AHZhFr3Q==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] ALSA: cs46xx: mark snd_cs46xx_download_image as static
+Date: Tue, 16 May 2023 21:50:41 +0200
+Message-Id: <20230516195046.550584-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-Message-ID-Hash: HTY4VKU2BWTD22FVPM6YOW4JSTAHHILT
-X-Message-ID-Hash: HTY4VKU2BWTD22FVPM6YOW4JSTAHHILT
-X-MailFrom: aurelien@ap2c.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: J36M3VUSP5FP5YS3XXBOJMUR4B3AOKRH
+X-Message-ID-Hash: J36M3VUSP5FP5YS3XXBOJMUR4B3AOKRH
+X-MailFrom: arnd@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HTY4VKU2BWTD22FVPM6YOW4JSTAHHILT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J36M3VUSP5FP5YS3XXBOJMUR4B3AOKRH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,43 +94,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,=20
+From: Arnd Bergmann <arnd@arndb.de>
 
-I sent this patch in order to get it integrated into the ALSA source code (=
-or=20
-at least in order to discuss this patch) but i got no news.
-How can I do in order to integrate it?
-Thanks in advance.
+snd_cs46xx_download_image() was originally called from dsp_spos.c, but
+is now local to cs46xx_lib.c. Mark it as 'static' to avoid a warning
+about it lacking a declaration, and '__maybe_unused' to avoid a warning
+about it being unused when CONFIG_SND_CS46XX_NEW_DSP is disabled:
 
-Aur=E9lien
+sound/pci/cs46xx/cs46xx_lib.c:534:5: error: no previous prototype for 'snd_cs46xx_download_image'
 
-Le vendredi 12 mai 2023, 09:04:57 CEST Aur=E9lien a =E9crit :
-> Hi,=20
->=20
-> Several years ago I sent several mails about problem with Realtek ALC 298
-> sound card not working on Samsung Galaxy book. Due to a computer problem i
-> had to stop working on it. However I succeed to get it working and I'm
-> submitting the patch attached to this email.
->=20
-> Internal speakers works very well.
-> In order to get headset working I had to hack a little bit since it shares
-> the same pin widget (0x17) with the internal speaker. It seems that the
-> ALSA code have solutions to declare a pin widget as both internal and jack
-> but if I use that it doesn't recognize the presence of the jack.. Maybe I=
-'m
-> wrong somewhere.
->=20
-> Last but not least i saw that under windows the driver uses another mixer
-> (0xd through the out widget 0x3 rather than mixer 0xc throught the out
-> widget 0x2) when it uses the headset. It offers the opportunity to have a
-> dedicated volume control for the headset independant from the internal
-> speaker. Maybe it could be interesting to do the same under the Linux
-> driver. Unfortunately I don't know how to do that.=20
->=20
-> Do you think is it possible to integrate this patch to the ALSA code?
->=20
-> Thanks in advance.
->=20
-> Aur=E9lien
+Fixes: 89f157d9e6bf ("[ALSA] cs46xx - Fix PM resume")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/pci/cs46xx/cs46xx_lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
+index 62f45847b351..7d882b33d45e 100644
+--- a/sound/pci/cs46xx/cs46xx_lib.c
++++ b/sound/pci/cs46xx/cs46xx_lib.c
+@@ -531,7 +531,7 @@ static int load_firmware(struct snd_cs46xx *chip)
+ 	return err;
+ }
+ 
+-int snd_cs46xx_download_image(struct snd_cs46xx *chip)
++static __maybe_unused int snd_cs46xx_download_image(struct snd_cs46xx *chip)
+ {
+ 	int idx, err;
+ 	unsigned int offset = 0;
+-- 
+2.39.2
 

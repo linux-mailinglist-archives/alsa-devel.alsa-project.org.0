@@ -2,80 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C16C7057F7
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 May 2023 21:52:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D960F705AF5
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 01:04:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55D751D6;
-	Tue, 16 May 2023 21:51:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55D751D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF6E611C;
+	Wed, 17 May 2023 01:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF6E611C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684266769;
-	bh=rGDLa8XkgnE/YkvzsK/nYCgrTLKkwXQsOq22+QTAt04=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1684278250;
+	bh=SPb1Qiyye5bTrfittZe8ije6CMaptPeS7qDp6IrJHkI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=U5BEln+6+Ftt0HruuJqSDbsqi059Yg8S/JL4SveogNPtmtNUhH18J5Q7CoGmU3eAc
-	 mYZnP+e+N4eii1Qq9ZbiR/FznZ4CdwQSTYtjtAYHOjuVTVXNuWeWefSaJ09olUIOsl
-	 g+wVTl9uatE9LjyqqJ8DPWI/wTa7bmDEYozK/kTo=
+	b=Kh/xPxY3kuRep+52j0UOm69Mzq+PvoOf/rIi99QXQR+aS+7kOOJeUM2tOgYW9Gs+g
+	 BWuqTTEdDsgJZS8rBiZumWtuKWId2lsm7VxTjtKj2Lz+68Zc/ItkOyABC55OKoDE2S
+	 iKYVs+qvtsJlyDaV7OVnjt00eN0u8AhG2kUqU6dw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C58AF80558; Tue, 16 May 2023 21:51:10 +0200 (CEST)
+	id 0C628F8053D; Wed, 17 May 2023 01:03:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAB3EF80551;
-	Tue, 16 May 2023 21:51:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBE66F8025A;
+	Wed, 17 May 2023 01:03:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5B885F80272; Tue, 16 May 2023 21:51:05 +0200 (CEST)
+	id 1D321F8024E; Wed, 17 May 2023 01:03:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [IPv6:2607:f8b0:4864:20::62c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 14CF5F8016D
-	for <alsa-devel@alsa-project.org>; Tue, 16 May 2023 21:51:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14CF5F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 39814F8024E
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 01:03:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39814F8024E
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=m1IpgRBB
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9275A63E9D;
-	Tue, 16 May 2023 19:51:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD352C4339E;
-	Tue, 16 May 2023 19:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684266660;
-	bh=rGDLa8XkgnE/YkvzsK/nYCgrTLKkwXQsOq22+QTAt04=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=m1IpgRBBLrcl0WFodQf64TNhrUk59kE3r4bNQjvPn87giLfVs19v4wJGZfYcT3C0S
-	 qr/twKpbjzTxb3VqgZiwZNHaf1oUEoRgMHtW1cRZORyOtS4ChBGAc+h6jG5IFptuRB
-	 e3/UKJk74C5zz+CfQCPZW4oXXHftpPkahKs53p+0KmVYcT+ZwBEWySlrQba/GWyHzC
-	 12PBOkJYLi8u8hEivmgWd/Dunf4/9CCazNePcOvvNv9RdqzUdtk+OTBQ6LOin1txIU
-	 DXgKMz6CS/nntkXuMiQ+WXLzFM2DxC5C1AoE5PZxAjQLPU3zHaBO9D9Pmx2KeVDPHd
-	 0OddKsQDbL2sQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ALSA: oss: avoid missing-prototype warnings
-Date: Tue, 16 May 2023 21:50:42 +0200
-Message-Id: <20230516195046.550584-2-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230516195046.550584-1-arnd@kernel.org>
-References: <20230516195046.550584-1-arnd@kernel.org>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256
+ header.s=google header.b=gE7NeLlO
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-1ae3f6e5d70so2132985ad.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 16 May 2023 16:03:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1684278185; x=1686870185;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dXAXcPnEMhyYXSrts+BDCr1Z/hTfqLKKX238n2NzWBU=;
+        b=gE7NeLlO01ovd5SVd2T5kargJMuVm0zgZx2TXdH+DmhMqoG71nLkRe/n/8Z5U1vgKs
+         DOCe6yXDkDVVl6oiGGlYOvpB6jEZJWgU6igSk18ouSXh8sIGzFfFlFJhTP2l+UZjvJ6b
+         1o0PCXrRvw7/Yo1M9LxJGNbpeHKWJ4IE7g0Z4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684278185; x=1686870185;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=dXAXcPnEMhyYXSrts+BDCr1Z/hTfqLKKX238n2NzWBU=;
+        b=OXsd4//0xtSCHwa+7ZepXAKgCj8regH+wXcq3A2EqK2xwu/onm6usuFvezTbyX+i8y
+         vKahnrIkz4p/tisojvNxKPIoEis+9d0O1ZLxjcRqtKnKeUN/lENPfmMtjn0/qzxlXObk
+         wL34quQgEFwAlU/EBqL9BCBETGcT250Anw//burD9vmlj1IyLdGtajNxdcXL30RhF6AO
+         pu5d5ThcO82uu/2hEtWn08JGB3YdMNU3rXWCfo8PQo5di52R0c2rkJcpa81qODOoHRE8
+         5FGqu4LQmxmGv9XQjW/Xja/QOQt2Cpj9grX2GqaL9L3CM7AXp/VAqs8hqN3AxGNAQfk1
+         ZPQw==
+X-Gm-Message-State: AC+VfDxvQ6vOuE6PK676l1Ribc5TDxs9zZmgZNjjLWgfdCQLxaqyoOZQ
+	ar4dcEYoSIp80msSgyyFOqzUzTvH9l79iOnhkPc=
+X-Google-Smtp-Source: 
+ ACHHUZ4oOf2bwISyp/5AD8Hr0xONh/+rBbWjC7YRDrXEPyCxoARl8jz9aGjg27JBh+f0JTkSETBq0w==
+X-Received: by 2002:a17:903:1c2:b0:1ac:94b3:3aaa with SMTP id
+ e2-20020a17090301c200b001ac94b33aaamr35032955plh.6.1684278185234;
+        Tue, 16 May 2023 16:03:05 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com.
+ [209.85.214.181])
+        by smtp.gmail.com with ESMTPSA id
+ bi7-20020a170902bf0700b001a9b29b6759sm16030118plb.183.2023.05.16.16.03.04
+        for <alsa-devel@alsa-project.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 May 2023 16:03:04 -0700 (PDT)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-1aaf702c3ccso12315ad.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 16 May 2023 16:03:04 -0700 (PDT)
+X-Received: by 2002:a17:902:f0cb:b0:1ae:4008:5404 with SMTP id
+ v11-20020a170902f0cb00b001ae40085404mr136910pla.0.1684278183867; Tue, 16 May
+ 2023 16:03:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HMM7EFKWH4LPUYSD6HOZALRAQMCPUVLL
-X-Message-ID-Hash: HMM7EFKWH4LPUYSD6HOZALRAQMCPUVLL
-X-MailFrom: arnd@kernel.org
+References: 
+ <20230516164629.1.Ibf79e94b3442eecc0054d2b478779cc512d967fc@changeid>
+In-Reply-To: 
+ <20230516164629.1.Ibf79e94b3442eecc0054d2b478779cc512d967fc@changeid>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 16 May 2023 16:02:52 -0700
+X-Gmail-Original-Message-ID: 
+ <CAD=FV=W76Skw_OFezBRrGf5SZtpMOgtV0S-HVcWmbrmAvFL7vQ@mail.gmail.com>
+Message-ID: 
+ <CAD=FV=W76Skw_OFezBRrGf5SZtpMOgtV0S-HVcWmbrmAvFL7vQ@mail.gmail.com>
+Subject: Re: [PATCH] SoC: rt5682: Disable jack detection interrupt during
+ suspend
+To: Matthias Kaehlcke <mka@chromium.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+	Stephen Boyd <swboyd@chromium.org>, stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: JCAX2RGBEJRN54LEX6RZZD2AJIMKWX6H
+X-Message-ID-Hash: JCAX2RGBEJRN54LEX6RZZD2AJIMKWX6H
+X-MailFrom: dianders@chromium.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +126,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HMM7EFKWH4LPUYSD6HOZALRAQMCPUVLL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JCAX2RGBEJRN54LEX6RZZD2AJIMKWX6H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,57 +135,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Hi,
 
-Two functions are defined and used in pcm_oss.c but also optionally
-used from io.c, with an optional prototype. If CONFIG_SND_PCM_OSS_PLUGINS
-is disabled, this causes a warning as the functions are not static
-and have no prototype:
+On Tue, May 16, 2023 at 9:47=E2=80=AFAM Matthias Kaehlcke <mka@chromium.org=
+> wrote:
+>
+> The rt5682 driver switches its regmap to cache-only when the
+> device suspends and back to regular mode on resume. When the
+> jack detect interrupt fires rt5682_irq() schedules the jack
+> detect work. This can result in invalid reads from the regmap
+> in cache-only mode if the work runs before the device has
+> resumed:
+>
+> [   56.245502] rt5682 9-001a: ASoC: error at soc_component_read_no_lock o=
+n rt5682.9-001a for register: [0x000000f0] -16
+>
+> Disable the jack detection interrupt during suspend and
+> re-enable it on resume. The driver already schedules the
+> jack detection work on resume, so any state change during
+> suspend is still handled.
+>
+> This is essentially the same as commit f7d00a9be147 ("SoC:
+> rt5682s: Disable jack detection interrupt during suspend")
+> for the rt5682s.
+>
+> Cc: stable@kernel.org
+> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
 
-sound/core/oss/pcm_oss.c:1235:19: error: no previous prototype for 'snd_pcm_oss_write3' [-Werror=missing-prototypes]
-sound/core/oss/pcm_oss.c:1266:19: error: no previous prototype for 'snd_pcm_oss_read3' [-Werror=missing-prototypes]
-
-Avoid this by making the prototypes unconditional.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- sound/core/oss/pcm_plugin.h | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/sound/core/oss/pcm_plugin.h b/sound/core/oss/pcm_plugin.h
-index 46e273bd4a78..50a6b50f5db4 100644
---- a/sound/core/oss/pcm_plugin.h
-+++ b/sound/core/oss/pcm_plugin.h
-@@ -141,6 +141,14 @@ int snd_pcm_area_copy(const struct snd_pcm_channel_area *src_channel,
- 
- void *snd_pcm_plug_buf_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t size);
- void snd_pcm_plug_buf_unlock(struct snd_pcm_substream *plug, void *ptr);
-+#else
-+
-+static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
-+static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
-+static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
-+
-+#endif
-+
- snd_pcm_sframes_t snd_pcm_oss_write3(struct snd_pcm_substream *substream,
- 				     const char *ptr, snd_pcm_uframes_t size,
- 				     int in_kernel);
-@@ -151,14 +159,6 @@ snd_pcm_sframes_t snd_pcm_oss_writev3(struct snd_pcm_substream *substream,
- snd_pcm_sframes_t snd_pcm_oss_readv3(struct snd_pcm_substream *substream,
- 				     void **bufs, snd_pcm_uframes_t frames);
- 
--#else
--
--static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
--static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
--static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
--
--#endif
--
- #ifdef PLUGIN_DEBUG
- #define pdprintf(fmt, args...) printk(KERN_DEBUG "plugin: " fmt, ##args)
- #else
--- 
-2.39.2
-
+Reviewed-by: Douglas Anderson <dianders@chromium.org>

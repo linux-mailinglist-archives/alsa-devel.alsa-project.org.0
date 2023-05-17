@@ -2,78 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A143C7072E4
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 22:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AB567072FC
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 22:26:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA27D3E7;
-	Wed, 17 May 2023 22:19:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA27D3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8924D1FA;
+	Wed, 17 May 2023 22:25:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8924D1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684354827;
-	bh=EdzQf92843zcKgv2AnlrdWB7ybXMParLomwvT5wdvTA=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=XAuyilB+3QQSUS4tmcIowOqJi/KD8a1l5PTZCzZK2Q2zKfcEjIC90nGTPg19pOf1r
-	 O0209YJ2Kjwd3Zj6jsT0O+97tIVMB26gipStT3E7y6JRGfFNjy6amURw9+EnU4xqCH
-	 WmBU/r1tWyXS1i3nXhi0y27yvT5JDR0rRV7dPtg8=
+	s=default; t=1684355183;
+	bh=CGoZEOmuJrg+8lefdpITe1mtp2XAM5J5RN/ASvw7H94=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KZMo9nR/nxjVG3aZjbxgfGolnPy6+W6NxtWHoYPloMuuDY9yVY0f/hznjP2tts1Ym
+	 y7qcBUFIXWojU6cj8fPR9Rogl5f8UXVVqm+G1KZmYbjQcMXxHb0b/a8CN++mOxzIJM
+	 YpozrDpvfAwIbMkGDRJ34H5/B5yfq5EKQ3oJZOv4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38140F80558; Wed, 17 May 2023 22:19:37 +0200 (CEST)
+	id 9B5D0F8053D; Wed, 17 May 2023 22:25:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C768EF802E8;
-	Wed, 17 May 2023 22:19:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB6BEF8025A;
+	Wed, 17 May 2023 22:25:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61BA6F80431; Wed, 17 May 2023 22:19:34 +0200 (CEST)
+	id 4B191F80272; Wed, 17 May 2023 22:25:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F1E4FF80272
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 22:19:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1E4FF80272
+	by alsa1.perex.cz (Postfix) with ESMTPS id C1AD1F8016A
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 22:25:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1AD1F8016A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=o8RfhU1X
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=hupOUHwy;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Ppx1NF7P
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B1AC464AFE;
-	Wed, 17 May 2023 20:19:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DBD5C433EF;
-	Wed, 17 May 2023 20:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684354767;
-	bh=EdzQf92843zcKgv2AnlrdWB7ybXMParLomwvT5wdvTA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=o8RfhU1XwiM4CAiJ0QFug+9ik8R3KZGACA7Wx+uHhMfN39xRyRlqwpjJi89DpSwpO
-	 VX9j9xoaXhc8yH4Tada7xU5tVfoD6FtPrzaKg44wuGA72Ftmz8HAJF7kD1D7UtS3oq
-	 raUJ2XTY0FtrhQwZUZm/xjPd8d8vi51p6CR7vtNT13opOO3lfc2yB37eJf7G80dwoc
-	 T93AJN1xJ1C/5Wu/84SnDlo3xNJUTudwXC4W7bD0AOzY25baHIR0EGkvN79pqLFcgJ
-	 SBY3OlQJG8emBV+bP9lIYbruMSq340tWyWv7kkvLBo2aLO4xzX915+HY241YC4RzSQ
-	 7GJ4EeTkIgcOg==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: emu10k1: fix 64-bit integer division
-Date: Wed, 17 May 2023 22:19:17 +0200
-Message-Id: <20230517201920.592909-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KQ2OCX4ZYTPMZ42GXJCHFKUBIFZTMZQ3
-X-Message-ID-Hash: KQ2OCX4ZYTPMZ42GXJCHFKUBIFZTMZQ3
-X-MailFrom: arnd@kernel.org
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 007F822615;
+	Wed, 17 May 2023 20:25:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1684355101;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7Yg6l6dlwufskUkfmjYYJdnjWswl8pdfUEvRuJFdPik=;
+	b=hupOUHwy/6inJUUSBGDrG69r/X7qbwK87E8oMv/ri+EtDeinoesJVIk5qgsyy6oQ0cSeCQ
+	9eKQU/05qVOCK3YfCs/VywY47dM3mZy4Aog6hAoWZyjh7Rv0mYaZT9TXtQ7+VOJOcPzOde
+	RsvxReqFZPLPt6/rYgpy1SgYRNEZwcA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1684355101;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7Yg6l6dlwufskUkfmjYYJdnjWswl8pdfUEvRuJFdPik=;
+	b=Ppx1NF7PNmHFBwkzfh4ghYJVjHcC458OthTSB6n301OEG2PHNZ9ylajeiJVUvEZoaK+4m7
+	kgQJTqaVIYARe8Cw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD5A613478;
+	Wed, 17 May 2023 20:25:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id G7vCMBw4ZWQ8BwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 17 May 2023 20:25:00 +0000
+Date: Wed, 17 May 2023 22:25:00 +0200
+Message-ID: <874joa1zab.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 6/9] ALSA: emu10k1: fix PCM playback buffer size
+ constraints
+In-Reply-To: <20230517174256.3657060-6-oswald.buddenhagen@gmx.de>
+References: <20230517174256.3657060-1-oswald.buddenhagen@gmx.de>
+	<20230517174256.3657060-6-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ZQ52NVST26NP5MROTWSMRGLUSJ3ZCYWO
+X-Message-ID-Hash: ZQ52NVST26NP5MROTWSMRGLUSJ3ZCYWO
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -85,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQ2OCX4ZYTPMZ42GXJCHFKUBIFZTMZQ3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZQ52NVST26NP5MROTWSMRGLUSJ3ZCYWO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,44 +119,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Wed, 17 May 2023 19:42:53 +0200,
+Oswald Buddenhagen wrote:
+> 
+> The period_bytes_min parameter made no sense at all, as it didn't
+> correlate with any hardware limitation.
 
-Division of 64-bit values causes a link failure on 32-bit targets, depending
-on compiler version and target architecture:
+Does the device really work with less than 64 bytes period size?
+I meant not in theory but in practice.  Without any value set,
+dumb applications may try to set 4 bytes for period size, so setting
+some practical limit still makes sense.
 
-ERROR: modpost: "__divdi3" [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
-ERROR: modpost: "__udivdi3" [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
 
-Replace these with the safe div_u64() helpers.
+Takashi
 
-Fixes: bb5ceb43b7bf ("ALSA: emu10k1: fix non-zero mixer control defaults in highres mode")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- sound/pci/emu10k1/emufx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
-index f64b2b4eb348..7c28789720d1 100644
---- a/sound/pci/emu10k1/emufx.c
-+++ b/sound/pci/emu10k1/emufx.c
-@@ -1156,7 +1156,7 @@ snd_emu10k1_init_mono_control(struct snd_emu10k1_fx8010_control_gpr *ctl,
- 		ctl->max = 0x7fffffff;
- 		ctl->tlv = snd_emu10k1_db_linear;
- 		ctl->translation = EMU10K1_GPR_TRANSLATION_NEGATE;
--		defval = defval * 0x80000000LL / 100 - 1;
-+		defval = div_u64(defval * 0x80000000LL, 100) - 1;
- 	} else {
- 		ctl->min = 0;
- 		ctl->max = 100;
-@@ -1178,7 +1178,7 @@ snd_emu10k1_init_stereo_control(struct snd_emu10k1_fx8010_control_gpr *ctl,
- 		ctl->max = 0x7fffffff;
- 		ctl->tlv = snd_emu10k1_db_linear;
- 		ctl->translation = EMU10K1_GPR_TRANSLATION_NEGATE;
--		defval = defval * 0x80000000LL / 100 - 1;
-+		defval = div_u64(defval * 0x80000000LL, 100) - 1;
- 	} else {
- 		ctl->min = 0;
- 		ctl->max = 100;
--- 
-2.39.2
-
+> The same can be said of the buffer_bytes minimum constraint.
+> Instead, apply a buffer_size constraint, which works on frames.
+> 
+> Sync up the constraints of the EFX playback with those of the regular
+> playback, as there is no reason for them to diverge.
+> 
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> ---
+>  sound/pci/emu10k1/emupcm.c | 38 ++++++++++++++++++++++++++------------
+>  1 file changed, 26 insertions(+), 12 deletions(-)
+> 
+> diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+> index feb575922738..5226f0978408 100644
+> --- a/sound/pci/emu10k1/emupcm.c
+> +++ b/sound/pci/emu10k1/emupcm.c
+> @@ -457,9 +457,8 @@ static const struct snd_pcm_hardware snd_emu10k1_efx_playback =
+>  	.rate_max =		48000,
+>  	.channels_min =		NUM_EFX_PLAYBACK,
+>  	.channels_max =		NUM_EFX_PLAYBACK,
+> -	.buffer_bytes_max =	(64*1024),
+> -	.period_bytes_min =	64,
+> -	.period_bytes_max =	(64*1024),
+> +	.buffer_bytes_max =	(128*1024),
+> +	.period_bytes_max =	(128*1024),
+>  	.periods_min =		2,
+>  	.periods_max =		2,
+>  	.fifo_size =		0,
+> @@ -851,7 +850,6 @@ static const struct snd_pcm_hardware snd_emu10k1_playback =
+>  	.channels_min =		1,
+>  	.channels_max =		2,
+>  	.buffer_bytes_max =	(128*1024),
+> -	.period_bytes_min =	64,
+>  	.period_bytes_max =	(128*1024),
+>  	.periods_min =		1,
+>  	.periods_max =		1024,
+> @@ -956,25 +954,46 @@ static int snd_emu10k1_efx_playback_close(struct snd_pcm_substream *substream)
+>  	return 0;
+>  }
+>  
+> +static int snd_emu10k1_playback_set_constraints(struct snd_pcm_runtime *runtime)
+> +{
+> +	int err;
+> +
+> +	// The buffer size must be a multiple of the period size, to avoid a
+> +	// mismatch between the extra voice and the regular voices.
+> +	err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
+> +	if (err < 0)
+> +		return err;
+> +	// The hardware is typically the cache's size of 64 frames ahead.
+> +	// Leave enough time for actually filling up the buffer.
+> +	err = snd_pcm_hw_constraint_minmax(
+> +			runtime, SNDRV_PCM_HW_PARAM_BUFFER_SIZE, 256, UINT_MAX);
+> +	return err;
+> +}
+> +
+>  static int snd_emu10k1_efx_playback_open(struct snd_pcm_substream *substream)
+>  {
+>  	struct snd_emu10k1 *emu = snd_pcm_substream_chip(substream);
+>  	struct snd_emu10k1_pcm *epcm;
+>  	struct snd_emu10k1_pcm_mixer *mix;
+>  	struct snd_pcm_runtime *runtime = substream->runtime;
+> -	int i, j;
+> +	int i, j, err;
+>  
+>  	epcm = kzalloc(sizeof(*epcm), GFP_KERNEL);
+>  	if (epcm == NULL)
+>  		return -ENOMEM;
+>  	epcm->emu = emu;
+>  	epcm->type = PLAYBACK_EFX;
+>  	epcm->substream = substream;
+>  	
+>  	runtime->private_data = epcm;
+>  	runtime->private_free = snd_emu10k1_pcm_free_substream;
+>  	runtime->hw = snd_emu10k1_efx_playback;
+> -	
+> +	err = snd_emu10k1_playback_set_constraints(runtime);
+> +	if (err < 0) {
+> +		kfree(epcm);
+> +		return err;
+> +	}
+> +
+>  	for (i = 0; i < NUM_EFX_PLAYBACK; i++) {
+>  		mix = &emu->efx_pcm_mixer[i];
+>  		for (j = 0; j < 8; j++)
+> @@ -1005,12 +1024,7 @@ static int snd_emu10k1_playback_open(struct snd_pcm_substream *substream)
+>  	runtime->private_data = epcm;
+>  	runtime->private_free = snd_emu10k1_pcm_free_substream;
+>  	runtime->hw = snd_emu10k1_playback;
+> -	err = snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
+> -	if (err < 0) {
+> -		kfree(epcm);
+> -		return err;
+> -	}
+> -	err = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_BYTES, 256, UINT_MAX);
+> +	err = snd_emu10k1_playback_set_constraints(runtime);
+>  	if (err < 0) {
+>  		kfree(epcm);
+>  		return err;
+> -- 
+> 2.40.0.152.g15d061e6df
+> 

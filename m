@@ -2,104 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3866706497
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 11:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05DD67064F1
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 12:14:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84FF91FE;
-	Wed, 17 May 2023 11:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84FF91FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63DB31F7;
+	Wed, 17 May 2023 12:13:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63DB31F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684317135;
-	bh=dp4AjByrGPPW2+s+Gu4zde9gjuLVVm2MN56x4f0uc3E=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1684318449;
+	bh=1uU4ZUJTX21bQmhZtsjWxyW+VP6UbBbwzTiOaVxfGoE=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=F+RL1Cm/0twaozcfmAz4ZO34N+bTfEcyv55+Hhtt+XzOKl/qpP9432+OSEPKG+9/A
-	 0pEdtGoSlobB/+vq9gjPO/SppmPlCMV5wFHSC68z/58xWdP+eZy4X9DlKQnq08thUb
-	 Brbbywk5OhaRpetOuzs1i26daJXaJUNxbklyA9jg=
+	b=DEyd1E54z7kZWpKu/16aHJKBnifU/i53v8qFLFvhOXhlh/sdBVWYI7jIx7kZAZ5kV
+	 MKlGbrAZHoa4FnQ6NfliYF2MA5QzlyBMKEPZQloNyR/oAJNVwXhVdipmgK740fPbIT
+	 5uD6sKcZ/aN4OyIVq25mLFXffn5uIxBmqunG5sMk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EEC00F80580; Wed, 17 May 2023 11:51:02 +0200 (CEST)
+	id E027FF8024E; Wed, 17 May 2023 12:13:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8611CF80579;
-	Wed, 17 May 2023 11:51:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 829A5F8025A;
+	Wed, 17 May 2023 12:13:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 801F6F80578; Wed, 17 May 2023 11:50:59 +0200 (CEST)
+	id F14CEF80272; Wed, 17 May 2023 12:13:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A805F8024E;
-	Wed, 17 May 2023 11:50:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A805F8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4B3BBF8016D
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 12:13:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B3BBF8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=uaaSDLTc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1684317058; x=1715853058;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=dp4AjByrGPPW2+s+Gu4zde9gjuLVVm2MN56x4f0uc3E=;
-  b=uaaSDLTc22WxnAsf4m6tcRq+F5pQBb/bVymW0m6hYpxHVhewA6ZBW5Pm
-   UfmkepeRt8IwPqcXIjSfzoAqKsQkFeWx5gZ8NQzIW1GqyZxT7vYqrcQDo
-   6n1cb3HPbHt8i+RIcJPrHyiOW/ajdDANOfj7QMmGubV3vBsDB1PjK3nAw
-   O3EklAWyNM5vhQ01zD2W/SpGriBVQhyHVp9SCx8D9nyn9z4zDIF7eKscx
-   Zc812V6/kcA6IOJ8RtVKYaY39gfzaxbbjO8PCgVyghpgLVRMjTyvNdtA9
-   H/h9FLPdRF9YUi5o3uRp5zIszT3cKCNciEg/QDgBfJUYhfdwMtWbsmzgW
-   g==;
-X-IronPort-AV: E=Sophos;i="5.99,281,1677567600";
-   d="scan'208";a="211699133"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 17 May 2023 02:50:50 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 17 May 2023 02:50:49 -0700
-Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.115.15) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.21 via Frontend Transport; Wed, 17 May 2023 02:50:37 -0700
-From: Claudiu Beznea <claudiu.beznea@microchip.com>
-To: <perex@perex.cz>, <tiwai@suse.com>, <lgirdwood@gmail.com>,
-	<broonie@kernel.org>, <oder_chiou@realtek.com>, <shengjiu.wang@gmail.com>,
-	<Xiubo.Lee@gmail.com>, <festevam@gmail.com>, <nicoleotsuka@gmail.com>,
-	<shawnguo@kernel.org>, <s.hauer@pengutronix.de>, <kernel@pengutronix.de>,
-	<linux-imx@nxp.com>, <cezary.rojewski@intel.com>,
-	<pierre-louis.bossart@linux.intel.com>, <peter.ujfalusi@linux.intel.com>,
-	<yung-chuan.liao@linux.intel.com>, <ranjani.sridharan@linux.intel.com>,
-	<kai.vehmanen@linux.intel.com>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>, <srinivas.kandagatla@linaro.org>,
-	<bgoswami@quicinc.com>, <vkoul@kernel.org>, <daniel.baluta@nxp.com>,
-	<thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
-	<jarkko.nikula@bitmer.com>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
-	<sound-open-firmware@alsa-project.org>, <linux-tegra@vger.kernel.org>,
-	<linux-omap@vger.kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: [PATCH v2 2/2] ASoC: use pm.h instead of runtime_pm.h
-Date: Wed, 17 May 2023 12:49:03 +0300
-Message-ID: <20230517094903.2895238-3-claudiu.beznea@microchip.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230517094903.2895238-1-claudiu.beznea@microchip.com>
-References: <20230517094903.2895238-1-claudiu.beznea@microchip.com>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=P9lZtHUZ
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34H6sFqA004446;
+	Wed, 17 May 2023 05:13:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to; s=PODMain02222019;
+ bh=Xpb1EWBMfi+Jisb8QnCvI2wmKB3bYLxwbNbSZLNIp3M=;
+ b=P9lZtHUZVwbkmZDE5vVygaoxtsyGAnba+uL/acfYiQBVvTk4+IkqJ2tg01ycyBQHocRU
+ 6dZNsVaypvtbrKVudMv67oGzLxMwzWzP/2hdsNmMwAPwHdbcpZt6W4L8ZB92tMG65hza
+ NCp/K2MblSmvnAMKfKZFuUCb0PS3vzQLufVxQiK0XSJQ6EZbDow3UrhIFL5nMlV3DetT
+ q2D+xV+2SxcVEIjPTkpriFZ12whLcPQ41yiUzGL+KDest4tL6DOAZFpRnX8wkyfICsWR
+ 4LXUZ+17daG1kJZhWiYt6PgJPMWmW9ZlUoGIpqrQ0wKYbKey+jBKw8DL42xXhFpweczb OA==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qj6ymwq4r-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 17 May 2023 05:13:02 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 17 May
+ 2023 05:13:01 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Wed, 17 May 2023 05:13:01 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3234311CA;
+	Wed, 17 May 2023 10:13:01 +0000 (UTC)
+Date: Wed, 17 May 2023 10:13:01 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+CC: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <tglx@linutronix.de>, <maz@kernel.org>, <linus.walleij@linaro.org>,
+        <vkoul@kernel.org>, <lgirdwood@gmail.com>,
+        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
+        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 08/10] pinctrl: cs42l43: Add support for the cs42l43
+Message-ID: <20230517101301.GV68926@ediswmail.ad.cirrus.com>
+References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
+ <20230512122838.243002-9-ckeepax@opensource.cirrus.com>
+ <ZF6RMqElYZVMpWRt@surfacebook>
+ <20230515101350.GS68926@ediswmail.ad.cirrus.com>
+ <CAHp75Vcizrucc-2KFdFNeHNrxCzz4GwX1OzZYyjPH7P9RgnKYQ@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Message-ID-Hash: 5EH46VJHUYCV6ONT74MBVFPGGIZSKSEK
-X-Message-ID-Hash: 5EH46VJHUYCV6ONT74MBVFPGGIZSKSEK
-X-MailFrom: Claudiu.Beznea@microchip.com
+In-Reply-To: 
+ <CAHp75Vcizrucc-2KFdFNeHNrxCzz4GwX1OzZYyjPH7P9RgnKYQ@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: E83zWdV2Sk2QsBLUBUii7rBv6xNydwdo
+X-Proofpoint-ORIG-GUID: E83zWdV2Sk2QsBLUBUii7rBv6xNydwdo
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: SID2U7X6HCN4U2JALOMKBY6JFZQ3TWOF
+X-Message-ID-Hash: SID2U7X6HCN4U2JALOMKBY6JFZQ3TWOF
+X-MailFrom: prvs=050130d673=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5EH46VJHUYCV6ONT74MBVFPGGIZSKSEK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SID2U7X6HCN4U2JALOMKBY6JFZQ3TWOF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,56 +124,76 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Do not include pm_runtime.h header in files where runtime PM support is
-not implemented. Use pm.h instead as suspend to RAM specific
-implementation is available.
+On Tue, May 16, 2023 at 10:03:45PM +0300, Andy Shevchenko wrote:
+> On Mon, May 15, 2023 at 1:13 PM Charles Keepax
+> <ckeepax@opensource.cirrus.com> wrote:
+> > On Fri, May 12, 2023 at 10:19:14PM +0300, andy.shevchenko@gmail.com wrote:
+> > > Fri, May 12, 2023 at 01:28:36PM +0100, Charles Keepax kirjoitti:
+> > > > +   if (!of_property_read_bool(dev_of_node(cs42l43->dev), "gpio-ranges")) {
+> > > > +           ret = gpiochip_add_pin_range(&priv->gpio_chip, priv->gpio_chip.label,
+> > > > +                                        0, 0, CS42L43_NUM_GPIOS);
+> > > > +           if (ret) {
+> > > > +                   dev_err(priv->dev, "Failed to add GPIO pin range: %d\n", ret);
+> > > > +                   goto err_pm;
+> > > > +           }
+> > > > +   }
+> > >
+> > > Besides the fact that we have a callback for this, why GPIO library can't
+> > > handle this for you already?
+> >
+> > Apologies but I am not quite sure I follow you, in the device
+> > tree case this will be handled by the GPIO library. But for ACPI
+> > this information does not exist so has to be called manually, the
+> > library does not necessarily know which values to call with,
+> > although admittedly our case is trivial but not all are.
+> 
+> Why can't the firmware provide this information? _DSD() is a part of
+> ACPI v5.1 IIRC.
+> 
 
-Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
----
- sound/soc/codecs/max98373-i2c.c | 2 +-
- sound/soc/qcom/lpass-sc7180.c   | 2 +-
- sound/soc/qcom/lpass-sc7280.c   | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+I am very very far from confident we can guarantee that will be
+present in the ACPI. The ACPI is typically made for and by the
+Windows side.
 
-diff --git a/sound/soc/codecs/max98373-i2c.c b/sound/soc/codecs/max98373-i2c.c
-index 3d6da4f133de..0fa5ceca62a2 100644
---- a/sound/soc/codecs/max98373-i2c.c
-+++ b/sound/soc/codecs/max98373-i2c.c
-@@ -9,7 +9,7 @@
- #include <linux/mod_devicetable.h>
- #include <linux/of.h>
- #include <linux/of_gpio.h>
--#include <linux/pm_runtime.h>
-+#include <linux/pm.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
- #include <linux/cdev.h>
-diff --git a/sound/soc/qcom/lpass-sc7180.c b/sound/soc/qcom/lpass-sc7180.c
-index 41db6617e2ed..56db852f4eab 100644
---- a/sound/soc/qcom/lpass-sc7180.c
-+++ b/sound/soc/qcom/lpass-sc7180.c
-@@ -12,7 +12,7 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
--#include <linux/pm_runtime.h>
-+#include <linux/pm.h>
- #include <dt-bindings/sound/sc7180-lpass.h>
- #include <sound/pcm.h>
- #include <sound/soc.h>
-diff --git a/sound/soc/qcom/lpass-sc7280.c b/sound/soc/qcom/lpass-sc7280.c
-index d43f480cbae3..bcf18fe8e14d 100644
---- a/sound/soc/qcom/lpass-sc7280.c
-+++ b/sound/soc/qcom/lpass-sc7280.c
-@@ -8,7 +8,7 @@
- #include <linux/module.h>
- #include <sound/pcm.h>
- #include <sound/soc.h>
--#include <linux/pm_runtime.h>
-+#include <linux/pm.h>
- 
- #include <dt-bindings/sound/sc7180-lpass.h>
- 
--- 
-2.34.1
+> Although it might require moving some code from gpiolib-of.c to
+> gpiolib.c with replacing OF APIs with agnostic ones.
+> 
 
+I really think if we want to start doing things that way on ACPI
+platforms someone with a little more clout than us needs to start
+doing it first. If Intel or someone was doing it that way it
+might give us a little more levelage to push it as being the
+"correct" way to do it.
+
+I will switch to the callback, but really don't think we can rely
+on this being in DSD yet.
+
+> 
+> > > > +static int cs42l43_pin_remove(struct platform_device *pdev)
+> > > > +{
+> > > > +   pm_runtime_disable(&pdev->dev);
+> > >
+> > > This is simply wrong order because it's a mix of non-devm_*() followed by
+> > > devm_*() calls in the probe.
+> > >
+> >
+> > I had missed there are now devm_pm_runtime calls, I will switch
+> > to that. But I would like to understand the wrong order, remove
+> > will be called before the devm bits are destroyed and it seems
+> > reasonable to disable the pm_runtime before destroying the
+> > pinctrl device. What exactly would run in the wrong order here?
+> 
+> At the ->remove() stage after this call an IRQ can be fired (or on SMP
+> systems any other APIs can be called), for example. So, would it be a
+> problem to service it with PM disabled?
+> 
+> But in any case the shuffling ordering like this is prone to subtle
+> bugs. I prefer to have strict ordering if there is nothing preventing
+> from doing that way.
+
+Yeah happy enough to use devm_ here, just didn't know it existed
+and wanted to better understand your concerns as I was having
+difficulty seeing the issue.
+
+Thanks,
+Charles

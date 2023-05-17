@@ -2,105 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3DCB706AAA
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 16:12:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5241C706B0B
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 16:26:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D308B1F4;
-	Wed, 17 May 2023 16:11:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D308B1F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D065F0;
+	Wed, 17 May 2023 16:25:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D065F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684332762;
-	bh=V85zZU9K+ebn9I4WS/QhOULxzw4WjXXhE4w7yyJEDSA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1684333592;
+	bh=1Dhwlac21N7ey15bOhy39Z0+Sh+RslIFzrW1eG0d8Dc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IBuXxT3woYh+HGfz8Zwq+CvbeayYLNSMPkufu5W3beZ/rWwvI/jmLxtR2mZ7Mcjf+
-	 8nOHq8QKM+XqxSWLxlZ1sanIGnhWNIoex8u8dmZ+7MqdMcEH78qllSdx2KCYvoUmf7
-	 2FDGMSBD6w8zEh8UVCTkiDifKgD5utkbcKYUbIVo=
+	b=rGR07wlYtipSYn9hSyXGQ5n4ZBskCGwiJEWcVwTsIQbub2fnM3SyAP2hNRY5NgqIA
+	 ZRucwYUyWhEUA4eN0RiwHY1GEkznw+5LqSxxeT1gCK7dqYBB9nwUDFwUhoYyvWdP7d
+	 QxzWJE06Dvo9FmE+lwn+ZOpAIhP5ttAGsmm0xFH8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9022BF80431; Wed, 17 May 2023 16:11:30 +0200 (CEST)
+	id CDF11F8024E; Wed, 17 May 2023 16:25:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17FE7F8025A;
-	Wed, 17 May 2023 16:11:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CBF5F8025A;
+	Wed, 17 May 2023 16:25:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C15C6F80272; Wed, 17 May 2023 16:11:26 +0200 (CEST)
+	id 0D50FF80272; Wed, 17 May 2023 16:25:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ECBCBF8016A
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 16:11:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECBCBF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 384ACF8016A
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 16:25:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 384ACF8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=P67yW/dr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684332683; x=1715868683;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=V85zZU9K+ebn9I4WS/QhOULxzw4WjXXhE4w7yyJEDSA=;
-  b=P67yW/dr/FCnCA5wzscU/Z5u9fSOsAcCo1SONwLkSqfY+CbzaQDkKq09
-   +bVJSo0veZD/PhGm77nHrSHiEO+crb4D2khs3APA1xWWdGoKMsAwupPgX
-   Q7iLmy9xSM07uzUOE0yNJWET9AjdQYq/gqEdCkEP1xp8YQxQ44pr6tHRH
-   g02/vgKapjDQ13LSN2F9VZCBihXXAmoFiIB0mt0KuOLLLvncyVsFmvMKy
-   3sqx3++lCshImg6zFXv5osrTbPsrQK1X2g/CC3WgNttKCIyGAOLmAzNJ7
-   mRg0HKSZ8frP7jvVULNXvwGtEyIgtnI3BpfmLvAH+6B6XQirW7GOYcJwH
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="349273295"
-X-IronPort-AV: E=Sophos;i="5.99,282,1677571200";
-   d="scan'208";a="349273295"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 07:11:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="734709640"
-X-IronPort-AV: E=Sophos;i="5.99,282,1677571200";
-   d="scan'208";a="734709640"
-Received: from rdealba-mobl.amr.corp.intel.com (HELO [10.209.16.101])
- ([10.209.16.101])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 07:11:17 -0700
-Message-ID: <4aae458b-6919-2999-9293-028737c9a6e1@linux.intel.com>
-Date: Wed, 17 May 2023 09:11:16 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=i0C4K8am
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8E0E763D7B;
+	Wed, 17 May 2023 14:25:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E1EC433D2;
+	Wed, 17 May 2023 14:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684333510;
+	bh=1Dhwlac21N7ey15bOhy39Z0+Sh+RslIFzrW1eG0d8Dc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i0C4K8amXrs4WpK0bt4cyjr3Zoz1ySv2+y+FKIS8z/UKEcYSo+pbMGiGsIb6Hcru2
+	 KZfYnis/IKZlbnXk8n8F1kTLDggJNXQjUC+IiFi4C/8+XLLCT3aqwZYNLthxUcaK/e
+	 tFnj77Ht25StijnoYLVWd9ilTEywf7QThhbFvWTZj2jaXQydVNqFFkC5LvEC6G3byX
+	 qL91uNa5lVPwPquhQHREw4Qe1yCYjBXwUl3kN13gEeeR9jEKNoVAlz8DM5WQIYGgbh
+	 la2mPUWaWRAQc8Amz6P8kn4jMX6kH7dMwV3Mmdm7CebANznOtQ+oYliUFWeyY/kEIC
+	 Mou9zngaVJJWw==
+Date: Wed, 17 May 2023 23:25:06 +0900
+From: Mark Brown <broonie@kernel.org>
+To: AS50 CTLin0 <ctlin0@nuvoton.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	lgirdwood@gmail.com, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org, YHCHuang@nuvoton.com,
+	KCHSU0@nuvoton.com, WTLI@nuvoton.com, SJLIN0@nuvoton.com,
+	ctlin0.linux@gmail.com
+Subject: Re: [PATCH] ASoC: dt-bindings: nau8315: Convert to dtschema
+Message-ID: <ZGTjwpR4ZKKtXy4m@finisterre.sirena.org.uk>
+References: <20230516054944.1081808-1-CTLIN0@nuvoton.com>
+ <e2819075-c41f-716b-023f-fb1ad13a3466@linaro.org>
+ <cbeabc50-35f7-70ee-5165-8a785513b1fc@nuvoton.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.10.0
-Subject: Re: [PATCH 08/10] pinctrl: cs42l43: Add support for the cs42l43
-Content-Language: en-US
-To: Andy Shevchenko <andy.shevchenko@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, tglx@linutronix.de,
- maz@kernel.org, linus.walleij@linaro.org, vkoul@kernel.org,
- lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
- sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-9-ckeepax@opensource.cirrus.com>
- <ZF6RMqElYZVMpWRt@surfacebook>
- <20230515101350.GS68926@ediswmail.ad.cirrus.com>
- <CAHp75Vcizrucc-2KFdFNeHNrxCzz4GwX1OzZYyjPH7P9RgnKYQ@mail.gmail.com>
- <20230517101301.GV68926@ediswmail.ad.cirrus.com>
- <CAHp75VchpbiYcd2yaP1WTjX17P0hg3qON5JGAXu08aDVw6Ydkw@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: 
- <CAHp75VchpbiYcd2yaP1WTjX17P0hg3qON5JGAXu08aDVw6Ydkw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: R3JYBST5FLMJJXIFZH4ABTEZ6OMLBYKP
-X-Message-ID-Hash: R3JYBST5FLMJJXIFZH4ABTEZ6OMLBYKP
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="x2XVQy2HSnCc2cWo"
+Content-Disposition: inline
+In-Reply-To: <cbeabc50-35f7-70ee-5165-8a785513b1fc@nuvoton.com>
+X-Cookie: Avoid contact with eyes.
+Message-ID-Hash: XORIHXLVB7MOJ5WGVONPVDNPJPCS22HZ
+X-Message-ID-Hash: XORIHXLVB7MOJ5WGVONPVDNPJPCS22HZ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R3JYBST5FLMJJXIFZH4ABTEZ6OMLBYKP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XORIHXLVB7MOJ5WGVONPVDNPJPCS22HZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,58 +104,34 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--x2XVQy2HSnCc2cWo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 5/17/23 08:59, Andy Shevchenko wrote:
-> On Wed, May 17, 2023 at 1:13 PM Charles Keepax
-> <ckeepax@opensource.cirrus.com> wrote:
->> On Tue, May 16, 2023 at 10:03:45PM +0300, Andy Shevchenko wrote:
->>> On Mon, May 15, 2023 at 1:13 PM Charles Keepax
->>> <ckeepax@opensource.cirrus.com> wrote:
->>>> On Fri, May 12, 2023 at 10:19:14PM +0300, andy.shevchenko@gmail.com wrote:
->>>>> Fri, May 12, 2023 at 01:28:36PM +0100, Charles Keepax kirjoitti:
->>>>>> +   if (!of_property_read_bool(dev_of_node(cs42l43->dev), "gpio-ranges")) {
->>>>>> +           ret = gpiochip_add_pin_range(&priv->gpio_chip, priv->gpio_chip.label,
->>>>>> +                                        0, 0, CS42L43_NUM_GPIOS);
->>>>>> +           if (ret) {
->>>>>> +                   dev_err(priv->dev, "Failed to add GPIO pin range: %d\n", ret);
->>>>>> +                   goto err_pm;
->>>>>> +           }
->>>>>> +   }
->>>>>
->>>>> Besides the fact that we have a callback for this, why GPIO library can't
->>>>> handle this for you already?
->>>>
->>>> Apologies but I am not quite sure I follow you, in the device
->>>> tree case this will be handled by the GPIO library. But for ACPI
->>>> this information does not exist so has to be called manually, the
->>>> library does not necessarily know which values to call with,
->>>> although admittedly our case is trivial but not all are.
->>>
->>> Why can't the firmware provide this information? _DSD() is a part of
->>> ACPI v5.1 IIRC.
->>
->> I am very very far from confident we can guarantee that will be
->> present in the ACPI. The ACPI is typically made for and by the
->> Windows side.
-> 
-> Why? You may insist firmware vendors / OEMs to use that as a
-> requirement to the platforms that would like to use your chip. The
-> _DSD() is part of the specification, I don't see how the above can be
-> an argument.
-> 
-> The times when ACPI == Windows are quite behind.
+On Wed, May 17, 2023 at 11:28:46AM +0800, AS50 CTLin0 wrote:
+> On 5/17/2023 12:10 AM, Krzysztof Kozlowski wrote:
 
-This is one of those Yogi Berra-isms: In theory, there is no difference
-between theory and practice. In practice there is.
+> > The only thing driver is doing is to toggle this pin. If it is missing
+> > the entire driver is noop, thus above comment is a bit funny. It
+> > probably should be mandatory pin. But I see it was there since beginning
+> > so ok.
 
-DSD is not really used indeed for audio devices. Even for SoundWire
-where we inked the requirement to use DSD in a MIPI standardization
-document, the only _DSD properties are for the manager side, the
-peripheral side information is not populated or mostly
-useless/incorrect. Most codec drivers hard-code the properties that were
-intended to be set in the DSDT.
+No, it's not just that - the driver also describes the supported formats
+and rates to the subsystem so we can constrain the DAI appropraitely.
 
-Unless there is firm evidence that the firmware does provide the
-required DSD properties we can assume it does not. We can't force the
-ecosystem to use DSD, even if it makes sense. it's frustrating but it is
-what it is.
+--x2XVQy2HSnCc2cWo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRk478ACgkQJNaLcl1U
+h9CtjQf/U8+HjwzklTu3T4CIP10H9Oh9JrvIuqh5nk+6nXZxz75nPZg+2ugCBUoN
+6W2nhN0DRI6rPf88jFJ/OO0qS6d0Vvf2l3FeXKconU2I71gifGtQxt+hvCsODqkI
+00wulEv+2MNNAec1HyeDLYoF2ezD1s1ZjsKtryhbt3DAWVzXN8X2lExxWpzG2a9b
+6onuu0zVLGlGgYw0BeIE+KhpIzqaRuk9ogJnGxqUlhlnanJXvHfJR75dWEGOPW6m
+6Hf5TqeNZa8xn2d2El3o748/umwUxoimn5/qioGA2S02c7V2ExHW7YICu883ief5
+a0DjxBswhr/PJh5rPX9Hi34ZhZJliA==
+=594/
+-----END PGP SIGNATURE-----
+
+--x2XVQy2HSnCc2cWo--

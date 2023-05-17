@@ -2,33 +2,34 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0EF8706493
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 11:51:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3AF4706496
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 11:52:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A1C61FA;
-	Wed, 17 May 2023 11:50:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A1C61FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56C1F20C;
+	Wed, 17 May 2023 11:51:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56C1F20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684317099;
-	bh=Mtw2/tREMJ9jAsgNoVakn6fr09xbBwzqX6/cCqtFuL4=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Kw3vlc1KtGh/5nQTEGA05XKdWA1z0sX7xg/OR0lFEsU14eBgdksH0dbY6myjkxJw5
-	 Ngpau9Bak1dPW3fn+1ASxLPA1QGUYukt0P/x5wNuxldgeOItHfpv3FP+mTrL3/IK4Z
-	 56GZ10Iessk9V2dmrfFMo0HOGQqJbMcRXMvcWneU=
+	s=default; t=1684317129;
+	bh=vC49oAg5//44c2RdG1ra3PQEuUZQdVtv1rjI27JT7w0=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=iYPcMs4/iphlaIuh2b0JsPkG1Q9JbWP+S7TyNIylzkH4d4H+uisvo7itxll7Jdvxt
+	 8d8v4qRfyTo5wo8bd+v9joCJxWoLQ8vZvlIhD2JIcBVDHtsXUCxAp41F+YcNNz0e5X
+	 nQq72tPBpYwuRGYiIdqIp6CJb6HCuTGANcRJKPrE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC335F80544; Wed, 17 May 2023 11:50:48 +0200 (CEST)
+	id EF950F80571; Wed, 17 May 2023 11:50:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EED1F802E8;
-	Wed, 17 May 2023 11:50:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20E83F80557;
+	Wed, 17 May 2023 11:50:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 01D15F802E8; Wed, 17 May 2023 11:50:43 +0200 (CEST)
+	id DF546F80557; Wed, 17 May 2023 11:50:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
 	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
 	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
@@ -36,39 +37,39 @@ Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7C52F8016D;
-	Wed, 17 May 2023 11:50:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7C52F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 45025F8024E;
+	Wed, 17 May 2023 11:50:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45025F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=edU5PNpU
+ header.a=rsa-sha256 header.s=mchp header.b=CARDD5/8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1684317034; x=1715853034;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Mtw2/tREMJ9jAsgNoVakn6fr09xbBwzqX6/cCqtFuL4=;
-  b=edU5PNpUaT4ovrmDVtbVzEgjfmzUz0hNrZep/DShv0DoEOmRnUgItP8T
-   qVlv2KTrN+JW5QAI5TDWMtwDTv8nsg1lT17vtEqpNvS2k1L9orit9lA8J
-   uPSOGpa2wei6nXFga+I3WyuUq1FrBFbZs61xKrmpfhB1Z+lhizXcmGANg
-   pIcC1ny8HkxW9IdxEpqrwHALRgTP1cwq5Ex3q4yw72A3UdzpCZsG1UCXo
-   F8b8nNdEmY0XalRl8WopOY3pIU2pBZ2lB4QuZVZZCgpkVKw97xLbZKbvp
-   5pl0LpRFYCK6PtuDnVDqHHxcuATwcL63FI9zwqrYZ8hi6xfzdPrMnkmUr
-   Q==;
+  t=1684317041; x=1715853041;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=vC49oAg5//44c2RdG1ra3PQEuUZQdVtv1rjI27JT7w0=;
+  b=CARDD5/8FdZziSTmOjjZh9uG3D/X070o1tkZapnHy2ICdqLYazUC1dYN
+   YnAZQjJMPVkF9FrJzIn2YIwwE8ZfLxzYPvf+IuM332GOCkYCI/6ODIyGO
+   8zGgT9Dfgh2p1lkhF4M4/Z5sBsN8dL2fQCM2w/RWvvV9Z7CaDxoKdURIA
+   x/T5j3QVCtoBRpTNK9XfQbh+BGRhrl7EdCdWkEOeWtVPOAPtNtISiGHBb
+   rKCd5ze93jcypdSR9GyBWXHBND8Zw0jDUNl6TMiY+4X5eyqrv9w+g85GS
+   TAdfTP+kWcStp0WgfdgocPO5da9FmUlINUJItdTPGj/oYtbFFFHe/H6/3
+   g==;
 X-IronPort-AV: E=Sophos;i="5.99,281,1677567600";
-   d="scan'208";a="215854634"
+   d="scan'208";a="215854697"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
   by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 17 May 2023 02:50:22 -0700
+ 17 May 2023 02:50:37 -0700
 Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
  chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 17 May 2023 02:50:19 -0700
+ 15.1.2507.21; Wed, 17 May 2023 02:50:36 -0700
 Received: from m18063-ThinkPad-T460p.mchp-main.com (10.10.115.15) by
  chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.21 via Frontend Transport; Wed, 17 May 2023 02:50:09 -0700
+ 15.1.2507.21 via Frontend Transport; Wed, 17 May 2023 02:50:20 -0700
 From: Claudiu Beznea <claudiu.beznea@microchip.com>
 To: <perex@perex.cz>, <tiwai@suse.com>, <lgirdwood@gmail.com>,
 	<broonie@kernel.org>, <oder_chiou@realtek.com>, <shengjiu.wang@gmail.com>,
@@ -87,15 +88,17 @@ CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
 	<sound-open-firmware@alsa-project.org>, <linux-tegra@vger.kernel.org>,
 	<linux-omap@vger.kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: [PATCH v2 0/2] ASoC: do not include runtime_pm.h if not needed
-Date: Wed, 17 May 2023 12:49:01 +0300
-Message-ID: <20230517094903.2895238-1-claudiu.beznea@microchip.com>
+Subject: [PATCH v2 1/2] ASoC: do not include pm_runtime.h if not used
+Date: Wed, 17 May 2023 12:49:02 +0300
+Message-ID: <20230517094903.2895238-2-claudiu.beznea@microchip.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230517094903.2895238-1-claudiu.beznea@microchip.com>
+References: <20230517094903.2895238-1-claudiu.beznea@microchip.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Message-ID-Hash: G5BS6JYNJQ3BTH4SAQTUEN3OFQUEKZPT
-X-Message-ID-Hash: G5BS6JYNJQ3BTH4SAQTUEN3OFQUEKZPT
+Message-ID-Hash: QK5JO7EN3AKIQQZ6C5MSCBQE5JWMEJXB
+X-Message-ID-Hash: QK5JO7EN3AKIQQZ6C5MSCBQE5JWMEJXB
 X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,44 +111,25 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G5BS6JYNJQ3BTH4SAQTUEN3OFQUEKZPT/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QK5JO7EN3AKIQQZ6C5MSCBQE5JWMEJXB/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi,
+Do not include pm_runtime.h header in files where APIs exported by
+pm_runtime.h are not used.
 
-Series removes the pm_runtime.h inclusion in files where
-APIs exported though pm_runtime.h are not used. In case
-of files that make use of pm.h which comes form pm_runtime.h
-added patch 2/2.
-
-Changes were built with allmodconfig on ARM and x86_64 and checked
-all the changed files were built at least once.
-
-Thank you,
-Claudiu Beznea
-
-Changes in v2:
-- removed cs35l45 handling
-- changed a bit commit description
-- added patch 2/2
-- collected Jarkko Nikula's tag
-
-Claudiu Beznea (2):
-  ASoC: do not include pm_runtime.h if not used
-  ASoC: use pm.h instead of runtime_pm.h
-
+Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
+Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com> # for omap-mcbsp-st.c
+---
  sound/hda/hdac_regmap.c                                   | 1 -
  sound/pci/hda/hda_bind.c                                  | 1 -
  sound/soc/amd/acp/acp-pci.c                               | 1 -
  sound/soc/amd/acp/acp-platform.c                          | 1 -
  sound/soc/codecs/max98090.c                               | 1 -
- sound/soc/codecs/max98373-i2c.c                           | 2 +-
  sound/soc/codecs/pcm186x.c                                | 1 -
  sound/soc/codecs/rk3328_codec.c                           | 1 -
  sound/soc/codecs/rt5682-i2c.c                             | 1 -
@@ -164,8 +148,6 @@ Claudiu Beznea (2):
  sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c | 1 -
  sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c  | 1 -
  sound/soc/mediatek/mt8192/mt8192-afe-control.c            | 2 --
- sound/soc/qcom/lpass-sc7180.c                             | 2 +-
- sound/soc/qcom/lpass-sc7280.c                             | 2 +-
  sound/soc/soc-compress.c                                  | 1 -
  sound/soc/soc-pcm.c                                       | 1 -
  sound/soc/sof/intel/hda-loader-skl.c                      | 1 -
@@ -175,8 +157,393 @@ Claudiu Beznea (2):
  sound/soc/sof/mediatek/mt8195/mt8195-clk.c                | 1 -
  sound/soc/tegra/tegra20_ac97.c                            | 1 -
  sound/soc/ti/omap-mcbsp-st.c                              | 1 -
- 35 files changed, 3 insertions(+), 36 deletions(-)
+ 32 files changed, 33 deletions(-)
 
+diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
+index fe3587547cfe..7cfaa908ff57 100644
+--- a/sound/hda/hdac_regmap.c
++++ b/sound/hda/hdac_regmap.c
+@@ -17,7 +17,6 @@
+ #include <linux/regmap.h>
+ #include <linux/export.h>
+ #include <linux/pm.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/core.h>
+ #include <sound/hdaudio.h>
+ #include <sound/hda_regmap.h>
+diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
+index 890c2f7c33fc..b7ca2a83fbb0 100644
+--- a/sound/pci/hda/hda_bind.c
++++ b/sound/pci/hda/hda_bind.c
+@@ -10,7 +10,6 @@
+ #include <linux/module.h>
+ #include <linux/export.h>
+ #include <linux/pm.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/core.h>
+ #include <sound/hda_codec.h>
+ #include "hda_local.h"
+diff --git a/sound/soc/amd/acp/acp-pci.c b/sound/soc/amd/acp/acp-pci.c
+index a0c84cd07fde..8154fbfd1229 100644
+--- a/sound/soc/amd/acp/acp-pci.c
++++ b/sound/soc/amd/acp/acp-pci.c
+@@ -15,7 +15,6 @@
+ #include <linux/interrupt.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/module.h>
+ 
+ #include "amd.h"
+diff --git a/sound/soc/amd/acp/acp-platform.c b/sound/soc/amd/acp/acp-platform.c
+index 447612a7a762..f220378ec20e 100644
+--- a/sound/soc/amd/acp/acp-platform.c
++++ b/sound/soc/amd/acp/acp-platform.c
+@@ -18,7 +18,6 @@
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
+ #include <sound/soc-dai.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/dma-mapping.h>
+ 
+ #include "amd.h"
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index ad417d80691f..7bc463910d4f 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -10,7 +10,6 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/pm.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/acpi.h>
+diff --git a/sound/soc/codecs/pcm186x.c b/sound/soc/codecs/pcm186x.c
+index dd21803ba13c..451a8fd8fac5 100644
+--- a/sound/soc/codecs/pcm186x.c
++++ b/sound/soc/codecs/pcm186x.c
+@@ -12,7 +12,6 @@
+ #include <linux/init.h>
+ #include <linux/delay.h>
+ #include <linux/pm.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+diff --git a/sound/soc/codecs/rk3328_codec.c b/sound/soc/codecs/rk3328_codec.c
+index 1d523bfd9d84..9697aefc6e03 100644
+--- a/sound/soc/codecs/rk3328_codec.c
++++ b/sound/soc/codecs/rk3328_codec.c
+@@ -11,7 +11,6 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/mfd/syscon.h>
+ #include <sound/dmaengine_pcm.h>
+diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
+index d0041ba1e627..a88fcf507386 100644
+--- a/sound/soc/codecs/rt5682-i2c.c
++++ b/sound/soc/codecs/rt5682-i2c.c
+@@ -11,7 +11,6 @@
+ #include <linux/init.h>
+ #include <linux/delay.h>
+ #include <linux/pm.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/i2c.h>
+ #include <linux/platform_device.h>
+ #include <linux/spi/spi.h>
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index 81163b026b9e..cc12df15ee86 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -11,7 +11,6 @@
+ #include <linux/init.h>
+ #include <linux/delay.h>
+ #include <linux/pm.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/i2c.h>
+ #include <linux/platform_device.h>
+ #include <linux/spi/spi.h>
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+index 2012d6f0071d..962c2cdfa017 100644
+--- a/sound/soc/codecs/tas2562.c
++++ b/sound/soc/codecs/tas2562.c
+@@ -8,7 +8,6 @@
+ #include <linux/errno.h>
+ #include <linux/device.h>
+ #include <linux/i2c.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/gpio/consumer.h>
+diff --git a/sound/soc/codecs/tas5720.c b/sound/soc/codecs/tas5720.c
+index b07c51dc3f72..6dd6c0896eff 100644
+--- a/sound/soc/codecs/tas5720.c
++++ b/sound/soc/codecs/tas5720.c
+@@ -11,7 +11,6 @@
+ #include <linux/errno.h>
+ #include <linux/device.h>
+ #include <linux/i2c.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/regulator/consumer.h>
+diff --git a/sound/soc/codecs/tas6424.c b/sound/soc/codecs/tas6424.c
+index a07cd1e016e0..da89e8c681dd 100644
+--- a/sound/soc/codecs/tas6424.c
++++ b/sound/soc/codecs/tas6424.c
+@@ -11,7 +11,6 @@
+ #include <linux/errno.h>
+ #include <linux/device.h>
+ #include <linux/i2c.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/regulator/consumer.h>
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index 216120b68b64..20d64fe216be 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -15,7 +15,6 @@
+ #include <linux/firmware.h>
+ #include <linux/list.h>
+ #include <linux/pm.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+diff --git a/sound/soc/fsl/imx-audmix.c b/sound/soc/fsl/imx-audmix.c
+index efbcd4a65ca8..c93616e50f4d 100644
+--- a/sound/soc/fsl/imx-audmix.c
++++ b/sound/soc/fsl/imx-audmix.c
+@@ -15,7 +15,6 @@
+ #include <linux/clk.h>
+ #include <sound/soc.h>
+ #include <sound/soc-dapm.h>
+-#include <linux/pm_runtime.h>
+ #include "fsl_sai.h"
+ #include "fsl_audmix.h"
+ 
+diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
+index d3973936426a..29d44c989e5f 100644
+--- a/sound/soc/intel/atom/sst/sst_acpi.c
++++ b/sound/soc/intel/atom/sst/sst_acpi.c
+@@ -15,7 +15,6 @@
+ #include <linux/io.h>
+ #include <linux/platform_device.h>
+ #include <linux/firmware.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/pm_qos.h>
+ #include <linux/dmi.h>
+ #include <linux/acpi.h>
+diff --git a/sound/soc/intel/atom/sst/sst_ipc.c b/sound/soc/intel/atom/sst/sst_ipc.c
+index 4e039c7173d8..3fc2c9a6c44d 100644
+--- a/sound/soc/intel/atom/sst/sst_ipc.c
++++ b/sound/soc/intel/atom/sst/sst_ipc.c
+@@ -15,7 +15,6 @@
+ #include <linux/firmware.h>
+ #include <linux/sched.h>
+ #include <linux/delay.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/soc.h>
+diff --git a/sound/soc/intel/atom/sst/sst_loader.c b/sound/soc/intel/atom/sst/sst_loader.c
+index eea889001c24..bf4ba6bcc429 100644
+--- a/sound/soc/intel/atom/sst/sst_loader.c
++++ b/sound/soc/intel/atom/sst/sst_loader.c
+@@ -20,7 +20,6 @@
+ #include <linux/sched.h>
+ #include <linux/firmware.h>
+ #include <linux/dmaengine.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/pm_qos.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+diff --git a/sound/soc/intel/atom/sst/sst_pci.c b/sound/soc/intel/atom/sst/sst_pci.c
+index 5862fe968083..4058b4f80a0c 100644
+--- a/sound/soc/intel/atom/sst/sst_pci.c
++++ b/sound/soc/intel/atom/sst/sst_pci.c
+@@ -15,7 +15,6 @@
+ #include <linux/pci.h>
+ #include <linux/fs.h>
+ #include <linux/firmware.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/core.h>
+ #include <sound/soc.h>
+ #include <asm/platform_sst_audio.h>
+diff --git a/sound/soc/intel/atom/sst/sst_stream.c b/sound/soc/intel/atom/sst/sst_stream.c
+index ea1ef8a61fa6..862a19ae5429 100644
+--- a/sound/soc/intel/atom/sst/sst_stream.c
++++ b/sound/soc/intel/atom/sst/sst_stream.c
+@@ -15,7 +15,6 @@
+ #include <linux/firmware.h>
+ #include <linux/sched.h>
+ #include <linux/delay.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/soc.h>
+diff --git a/sound/soc/mediatek/mt8186/mt8186-afe-control.c b/sound/soc/mediatek/mt8186/mt8186-afe-control.c
+index d714e9641571..55edf6374578 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-afe-control.c
++++ b/sound/soc/mediatek/mt8186/mt8186-afe-control.c
+@@ -6,7 +6,6 @@
+ // Author: Jiaxin Yu <jiaxin.yu@mediatek.com>
+ 
+ #include "mt8186-afe-common.h"
+-#include <linux/pm_runtime.h>
+ 
+ enum {
+ 	MTK_AFE_RATE_8K = 0,
+diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+index cdf54d1eb50d..0432f9d89020 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-da7219-max98357.c
+@@ -10,7 +10,6 @@
+ #include <linux/input.h>
+ #include <linux/module.h>
+ #include <linux/of_device.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/jack.h>
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
+diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+index 7538274641fd..9c11016f032c 100644
+--- a/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
++++ b/sound/soc/mediatek/mt8186/mt8186-mt6366-rt1019-rt5682s.c
+@@ -12,7 +12,6 @@
+ #include <linux/input.h>
+ #include <linux/module.h>
+ #include <linux/of_device.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/jack.h>
+ #include <sound/pcm_params.h>
+ #include <sound/rt5682.h>
+diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-control.c b/sound/soc/mediatek/mt8192/mt8192-afe-control.c
+index 9163e05e54e1..d01b62e10088 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-afe-control.c
++++ b/sound/soc/mediatek/mt8192/mt8192-afe-control.c
+@@ -6,8 +6,6 @@
+ // Author: Shane Chien <shane.chien@mediatek.com>
+ //
+ 
+-#include <linux/pm_runtime.h>
+-
+ #include "mt8192-afe-common.h"
+ 
+ enum {
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index d8715db5e415..02fdb683f75f 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -20,7 +20,6 @@
+ #include <sound/initval.h>
+ #include <sound/soc-dpcm.h>
+ #include <sound/soc-link.h>
+-#include <linux/pm_runtime.h>
+ 
+ static int snd_soc_compr_components_open(struct snd_compr_stream *cstream)
+ {
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index adb69d7820a8..6365ad8ca7ef 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -14,7 +14,6 @@
+ #include <linux/init.h>
+ #include <linux/delay.h>
+ #include <linux/pinctrl/consumer.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/slab.h>
+ #include <linux/workqueue.h>
+ #include <linux/export.h>
+diff --git a/sound/soc/sof/intel/hda-loader-skl.c b/sound/soc/sof/intel/hda-loader-skl.c
+index 69fdef8f89ae..1e77ca936f80 100644
+--- a/sound/soc/sof/intel/hda-loader-skl.c
++++ b/sound/soc/sof/intel/hda-loader-skl.c
+@@ -15,7 +15,6 @@
+ #include <linux/mm.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/slab.h>
+ #include <sound/hdaudio_ext.h>
+ #include <sound/sof.h>
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index 8de422604ad5..b13acb959653 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -15,7 +15,6 @@
+  * Hardware interface for generic Intel audio DSP HDA IP
+  */
+ 
+-#include <linux/pm_runtime.h>
+ #include <sound/hdaudio_ext.h>
+ #include <sound/hda_register.h>
+ #include <sound/sof.h>
+diff --git a/sound/soc/sof/intel/skl.c b/sound/soc/sof/intel/skl.c
+index 13efdb94d071..d24e64e71b58 100644
+--- a/sound/soc/sof/intel/skl.c
++++ b/sound/soc/sof/intel/skl.c
+@@ -19,7 +19,6 @@
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ #include <linux/pci.h>
+-#include <linux/pm_runtime.h>
+ #include <sound/hdaudio_ext.h>
+ #include <sound/pcm_params.h>
+ #include <sound/sof.h>
+diff --git a/sound/soc/sof/mediatek/mt8186/mt8186-clk.c b/sound/soc/sof/mediatek/mt8186/mt8186-clk.c
+index 2df3b7ae1c6f..cb2ab5884b8c 100644
+--- a/sound/soc/sof/mediatek/mt8186/mt8186-clk.c
++++ b/sound/soc/sof/mediatek/mt8186/mt8186-clk.c
+@@ -8,7 +8,6 @@
+ // Hardware interface for mt8186 DSP clock
+ 
+ #include <linux/clk.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/io.h>
+ 
+ #include "../../sof-audio.h"
+diff --git a/sound/soc/sof/mediatek/mt8195/mt8195-clk.c b/sound/soc/sof/mediatek/mt8195/mt8195-clk.c
+index 9ef08e43aa38..7cffcad00f9b 100644
+--- a/sound/soc/sof/mediatek/mt8195/mt8195-clk.c
++++ b/sound/soc/sof/mediatek/mt8195/mt8195-clk.c
+@@ -7,7 +7,6 @@
+ // Hardware interface for mt8195 DSP clock
+ 
+ #include <linux/clk.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/io.h>
+ #include "mt8195.h"
+ #include "mt8195-clk.h"
+diff --git a/sound/soc/tegra/tegra20_ac97.c b/sound/soc/tegra/tegra20_ac97.c
+index c498145e76e0..a4073a746ae3 100644
+--- a/sound/soc/tegra/tegra20_ac97.c
++++ b/sound/soc/tegra/tegra20_ac97.c
+@@ -19,7 +19,6 @@
+ #include <linux/of.h>
+ #include <linux/of_gpio.h>
+ #include <linux/platform_device.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+diff --git a/sound/soc/ti/omap-mcbsp-st.c b/sound/soc/ti/omap-mcbsp-st.c
+index 8163f453bf36..b047add5d887 100644
+--- a/sound/soc/ti/omap-mcbsp-st.c
++++ b/sound/soc/ti/omap-mcbsp-st.c
+@@ -19,7 +19,6 @@
+ #include <linux/delay.h>
+ #include <linux/io.h>
+ #include <linux/slab.h>
+-#include <linux/pm_runtime.h>
+ 
+ #include "omap-mcbsp.h"
+ #include "omap-mcbsp-priv.h"
 -- 
 2.34.1
 

@@ -2,63 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0837F706FCF
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 19:45:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA867707168
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 20:59:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C9AD206;
-	Wed, 17 May 2023 19:45:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C9AD206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 226231FC;
+	Wed, 17 May 2023 20:58:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 226231FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684345553;
-	bh=h75S2vgBvqNFtnB149ruEj5BsqlJnkZ9eAEbhDRivU8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JVhHqkHvbYoktU8T5kqSmd+RzYsukLV0d3v2mwUwgvHFLKGbAJD3BoggVoOKykO8Y
-	 aKg5GlXlO4ZkmvGtdSlvd0kdzYcBW2w7omAyO0TOkPWSis0wBFU/42czIlqcD/BCCM
-	 B0uza3MoJEX1zJF7YaTb7KTClFTzZ3YeMFHD5drg=
+	s=default; t=1684349941;
+	bh=jOk1c4tiyuSQMndwEWHnBNmOarSoysE6cRmgExFB+90=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=SEdW6bTGkId+0dhFWVhLdntLSEl6SiYqzUAHOC1gxnJjfQn0JyYNgYS4TnFR41gEK
+	 fxfBf1bi9k4+e1x+zFoDrXaM506853ugT/FvAK7AX74dcSbC+zv1l/GDuGlJhcLfhK
+	 +avf9AhWN/Mo5oKE7sISTYsEylhz9oFNYobLVMCY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0240F80542; Wed, 17 May 2023 19:43:31 +0200 (CEST)
+	id 6CCFFF8016D; Wed, 17 May 2023 20:58:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0032FF805B3;
-	Wed, 17 May 2023 19:43:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3511F8025A;
+	Wed, 17 May 2023 20:58:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D1EDF8057C; Wed, 17 May 2023 19:43:20 +0200 (CEST)
+	id A8D00F80272; Wed, 17 May 2023 20:58:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 20683F80431
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 19:43:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20683F80431
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id B62CA2422B;
-	Wed, 17 May 2023 13:42:56 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1pzLAu-LNt-00; Wed, 17 May 2023 19:42:56 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74A1BF8016A
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 20:57:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74A1BF8016A
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=VsDt7DhP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1684349877; x=1715885877;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=jOk1c4tiyuSQMndwEWHnBNmOarSoysE6cRmgExFB+90=;
+  b=VsDt7DhP3+LxyMbZU9SM+4FsNIclLJFBQgKf/661f62l4sqsozn5Uq07
+   NjoM0MZbJ/qDz0g+kctIFju2Db/ebgJW5W2N/bPeCevlAIsUVAsOdOf5u
+   R253XHVX/P0R2K2vCi1g548GrlL/XcQMZptwkfuRDl9WIOh1vzrAY0DTx
+   9EhuDZAqsvD/8iP5IH/JH7XHqQFJ+qXTzjGpWyV3mz3yPKvhLiagWu3KC
+   ZUQCRpBSeW11ved/JBYX5YFLT3FR4+FCU2bJrIgPxhQvT+HxI0ebqzU00
+   a8aFd5ijOhESDYhnlpXkU61/6PElSNNGP6y6wwpbfCzF8scKef+1AkL+x
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="331462913"
+X-IronPort-AV: E=Sophos;i="5.99,283,1677571200";
+   d="scan'208";a="331462913"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2023 11:57:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="766873973"
+X-IronPort-AV: E=Sophos;i="5.99,283,1677571200";
+   d="scan'208";a="766873973"
+Received: from pgopdahl-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.209.16.196])
+  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2023 11:57:50 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 9/9] ALSA: emu10k1: refactor PCM playback address handling
-Date: Wed, 17 May 2023 19:42:56 +0200
-Message-Id: <20230517174256.3657060-9-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230517174256.3657060-1-oswald.buddenhagen@gmx.de>
-References: <20230517174256.3657060-1-oswald.buddenhagen@gmx.de>
+Cc: tiwai@suse.de,
+	broonie@kernel.org,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH] ASoC: soc-pcm: test if a BE can be prepared
+Date: Wed, 17 May 2023 13:57:31 -0500
+Message-Id: <20230517185731.487124-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ISXSSUCA45VCC3LW2BPG6MCHNETBDTTZ
-X-Message-ID-Hash: ISXSSUCA45VCC3LW2BPG6MCHNETBDTTZ
-X-MailFrom: ossi@kde.org
+Message-ID-Hash: LGBIZW3VWNNBZGLUSFGZZ3L672OFCJRX
+X-Message-ID-Hash: LGBIZW3VWNNBZGLUSFGZZ3L672OFCJRX
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -70,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ISXSSUCA45VCC3LW2BPG6MCHNETBDTTZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LGBIZW3VWNNBZGLUSFGZZ3L672OFCJRX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -79,154 +105,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Pull the special handling of extra voices out of
-snd_emu10k1_pcm_init_voice(), simplify snd_emu10k1_playback_pointer(),
-and make the logic overall clearer. Also, add verbose comments.
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+In the BE hw_params configuration, the existing code checks if any of the
+existing FEs are prepared, running, paused or suspended - and skips the
+configuration in those cases. This allows multiple calls of hw_params
+which the ALSA state machine supports.
+
+This check is not handled for the prepare stage, which can lead to the
+same BE being prepared multiple times. This patch adds a check similar to
+that of the hw_params, with the main difference being that the suspended
+state is allowed: the ALSA state machine allows a transition from
+suspended to prepared with hw_params skipped.
+
+This problem was detected on Intel IPC4/SoundWire devices, where the BE
+dailink .prepare stage is used to configure the SoundWire stream with a
+bank switch. Multiple .prepare calls lead to conflicts with the .trigger
+operation with IPC4 configurations. This problem was not detected earlier
+on Intel devices, HDaudio BE dailinks detect that the link is already
+prepared and skip the configuration, and for IPC3 devices there is no BE
+trigger.
+
+Link: https://github.com/thesofproject/sof/issues/7596
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/pci/emu10k1/emupcm.c | 81 ++++++++++++++++++++++++--------------
- 1 file changed, 52 insertions(+), 29 deletions(-)
+ include/sound/soc-dpcm.h |  4 ++++
+ sound/soc/soc-pcm.c      | 20 ++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
-index 2af210961a87..0094f629ad47 100644
---- a/sound/pci/emu10k1/emupcm.c
-+++ b/sound/pci/emu10k1/emupcm.c
-@@ -269,9 +269,6 @@ static void snd_emu10k1_pcm_init_voice(struct snd_emu10k1 *emu,
- 		memcpy(send_amount, &mix->send_volume[tmp][0], 8);
- 	}
+diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+index 4d6ac7699833..ebd24753dd00 100644
+--- a/include/sound/soc-dpcm.h
++++ b/include/sound/soc-dpcm.h
+@@ -122,6 +122,10 @@ int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
+ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
+ 		struct snd_soc_pcm_runtime *be, int stream);
  
--	if (master) {
--		evoice->epcm->ccca_start_addr = start_addr + 64 - 3;
--	}
- 	if (stereo) {
- 		// Not really necessary for the slave, but it doesn't hurt
- 		snd_emu10k1_ptr_write(emu, CPF, voice, CPF_STEREO_MASK);
-@@ -299,12 +296,7 @@ static void snd_emu10k1_pcm_init_voice(struct snd_emu10k1 *emu,
- 		pitch_target = PITCH_48000; /* Disable interpolators on emu1010 card */
- 	else 
- 		pitch_target = emu10k1_calc_pitch_target(runtime->rate);
--	if (extra)
--		snd_emu10k1_ptr_write(emu, CCCA, voice, (end_addr - 3) |
--			      emu10k1_select_interprom(pitch_target) |
--			      (w_16 ? 0 : CCCA_8BITSELECT));
--	else
--		snd_emu10k1_ptr_write(emu, CCCA, voice, (start_addr + 64 - 3) |
-+	snd_emu10k1_ptr_write(emu, CCCA, voice,
- 			      emu10k1_select_interprom(pitch_target) |
- 			      (w_16 ? 0 : CCCA_8BITSELECT));
- 	/* Clear filter delay memory */
-@@ -401,6 +393,7 @@ static int snd_emu10k1_playback_prepare(struct snd_pcm_substream *substream)
- 	snd_emu10k1_pcm_init_voice(emu, 1, 1, epcm->extra, w_16, false,
- 				   start_addr, end_addr, NULL);
- 	start_addr >>= stereo;
-+	epcm->ccca_start_addr = start_addr;
- 	end_addr = start_addr + runtime->buffer_size;
- 	snd_emu10k1_pcm_init_voice(emu, 1, 0, epcm->voices[0], w_16, stereo,
- 				   start_addr, end_addr,
-@@ -428,13 +421,8 @@ static int snd_emu10k1_efx_playback_prepare(struct snd_pcm_substream *substream)
- 	snd_emu10k1_pcm_init_voice(emu, 1, 1, epcm->extra, true, false,
- 				   start_addr, start_addr + (channel_size / 2), NULL);
- 
--	/* only difference with the master voice is we use it for the pointer */
--	snd_emu10k1_pcm_init_voice(emu, 1, 0, epcm->voices[0], true, false,
--				   start_addr, start_addr + channel_size,
--				   &emu->efx_pcm_mixer[0]);
--
--	start_addr += channel_size;
--	for (i = 1; i < NUM_EFX_PLAYBACK; i++) {
-+	epcm->ccca_start_addr = start_addr;
-+	for (i = 0; i < NUM_EFX_PLAYBACK; i++) {
- 		snd_emu10k1_pcm_init_voice(emu, 0, 0, epcm->voices[i], true, false,
- 					   start_addr, start_addr + channel_size,
- 					   &emu->efx_pcm_mixer[i]);
-@@ -539,13 +527,45 @@ static void snd_emu10k1_playback_prepare_voices(struct snd_emu10k1 *emu,
- 						bool w_16, bool stereo,
- 						int channels)
- {
-+	struct snd_pcm_substream *substream = epcm->substream;
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	unsigned eloop_start = epcm->start_addr >> w_16;
-+	unsigned loop_start = eloop_start >> stereo;
-+	unsigned eloop_size = runtime->period_size;
-+	unsigned loop_size = runtime->buffer_size;
- 	u32 sample = w_16 ? 0 : 0x80808080;
- 
-+	// To make the playback actually start at the 1st frame,
-+	// we need to compensate for two circumstances:
-+	// - The actual position is delayed by the cache size (64 frames)
-+	// - The interpolator is centered around the 4th frame
-+	loop_start += 64 - 3;
- 	for (int i = 0; i < channels; i++) {
- 		unsigned voice = epcm->voices[i]->number;
-+		snd_emu10k1_ptr_write(emu, CCCA_CURRADDR, voice, loop_start);
-+		loop_start += loop_size;
- 		snd_emu10k1_playback_fill_cache(emu, voice, sample, stereo);
- 	}
- 
-+	// The interrupt is triggered when CCCA_CURRADDR (CA) wraps around,
-+	// which is ahead of the actual playback position, so the interrupt
-+	// source needs to be delayed.
-+	//
-+	// In principle, this wouldn't need to be the cache's entire size - in
-+	// practice, CCR_CACHEINVALIDSIZE (CIS) > `fetch threshold` has never
-+	// been observed, and assuming 40 _bytes_ should be safe.
-+	//
-+	// The cache fills are somewhat random, which makes it impossible to
-+	// align them with the interrupts. This makes a non-delayed interrupt
-+	// source not practical, as the interrupt handler would have to wait
-+	// for (CA - CIS) >= period_boundary for every channel in the stream.
-+	//
-+	// This is why all other (open) drivers for these chips use timer-based
-+	// interrupts.
-+	//
-+	eloop_start += eloop_size - 3;
-+	snd_emu10k1_ptr_write(emu, CCCA_CURRADDR, epcm->extra->number, eloop_start);
++/* can this BE perform prepare */
++int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
++				 struct snd_soc_pcm_runtime *be, int stream);
 +
- 	// It takes a moment until the cache fills complete,
- 	// but the unmuting takes long enough for that.
+ /* is the current PCM operation for this FE ? */
+ int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream);
+ 
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index adb69d7820a8..4fb1ac8e1c4a 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2405,6 +2405,9 @@ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream)
+ 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
+ 			continue;
+ 
++		if (!snd_soc_dpcm_can_be_prepared(fe, be, stream))
++			continue;
++
+ 		if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_HW_PARAMS) &&
+ 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
+ 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND) &&
+@@ -3042,3 +3045,20 @@ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
+ 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
  }
-@@ -745,24 +765,27 @@ static snd_pcm_uframes_t snd_emu10k1_playback_pointer(struct snd_pcm_substream *
- 	struct snd_emu10k1 *emu = snd_pcm_substream_chip(substream);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_emu10k1_pcm *epcm = runtime->private_data;
--	unsigned int ptr;
-+	int ptr;
- 
- 	if (!epcm->running)
- 		return 0;
+ EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_params);
 +
- 	ptr = snd_emu10k1_ptr_read(emu, CCCA, epcm->voices[0]->number) & 0x00ffffff;
--#if 0	/* Perex's code */
--	ptr += runtime->buffer_size;
- 	ptr -= epcm->ccca_start_addr;
--	ptr %= runtime->buffer_size;
--#else	/* EMU10K1 Open Source code from Creative */
--	if (ptr < epcm->ccca_start_addr)
--		ptr += runtime->buffer_size - epcm->ccca_start_addr;
--	else {
--		ptr -= epcm->ccca_start_addr;
--		if (ptr >= runtime->buffer_size)
--			ptr -= runtime->buffer_size;
--	}
--#endif
++/*
++ * We can only prepare a BE DAI if any of it's FE are not prepared,
++ * running or paused for the specified stream direction.
++ */
++int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
++				 struct snd_soc_pcm_runtime *be, int stream)
++{
++	const enum snd_soc_dpcm_state state[] = {
++		SND_SOC_DPCM_STATE_START,
++		SND_SOC_DPCM_STATE_PAUSED,
++		SND_SOC_DPCM_STATE_PREPARE,
++	};
 +
-+	// This is the size of the whole cache minus the interpolator read-ahead,
-+	// which leads us to the actual playback position.
-+	//
-+	// The cache is constantly kept mostly filled, so in principle we could
-+	// return a more advanced position representing how far the hardware has
-+	// already read the buffer, and set runtime->delay accordingly. However,
-+	// this would be slightly different for every channel (and remarkably slow
-+	// to obtain), so only a fixed worst-case value would be practical.
-+	//
-+	ptr -= 64 - 3;
-+	if (ptr < 0)
-+		ptr += runtime->buffer_size;
-+
- 	/*
- 	dev_dbg(emu->card->dev,
- 	       "ptr = 0x%lx, buffer_size = 0x%lx, period_size = 0x%lx\n",
++	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
++}
++EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_prepared);
 -- 
-2.40.0.152.g15d061e6df
+2.37.2
 

@@ -2,110 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547E0706679
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 13:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B702706680
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 13:19:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 876D91FC;
-	Wed, 17 May 2023 13:17:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 876D91FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6A1A1F6;
+	Wed, 17 May 2023 13:18:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6A1A1F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684322279;
-	bh=FiYgNgYvzQZHBTsYkz9CR3MzXtWoGGqaxLSPfuum1Ss=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=iiNBsAStrx8RnZBxYM90CqXjyeZ6JXTeEL3uYMU2JVjQ28ONK6YpnHQ7eg5Ow2XYq
-	 3eVOpDTJP24GKi0AMiTHjLL3G/au8X/337ck0sRiLaEQLCFPd6cEHq6x2Che6GL2dG
-	 qPWFbNZs2g5kkLoK3x6vAChjkpXIgJX46xO7h+Wc=
+	s=default; t=1684322350;
+	bh=37cCEFHVjT+D0FuT4zmC5b8IYY0OdoxsBXq5zmi5OBg=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=kyG6pYbMCnNecr2ZO/uyVUsNj2DZqzeHC8oo9vmvR3zuTxumv9rDFH5/D4qWVAfxR
+	 X1cCZnPJwPBYSCBSNTAhPncLPOvcfQoSNTiexXKt9VDT/F38rYMcRAkH84GkxTtT6P
+	 GVaWr+yI6q6egbz97UPQA+gOj5WmbQicT3n9VzAc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74593F805C6; Wed, 17 May 2023 13:15:17 +0200 (CEST)
+	id B3C27F805F7; Wed, 17 May 2023 13:16:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A18C9F805C3;
-	Wed, 17 May 2023 13:15:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04592F805F6;
+	Wed, 17 May 2023 13:16:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0B94F80570; Wed, 17 May 2023 13:14:59 +0200 (CEST)
+	id 5DDA3F8056F; Wed, 17 May 2023 13:16:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 63625F8016D
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 13:14:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63625F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id B72E6F80551
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 13:15:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B72E6F80551
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=uMpMaqG1
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-510bcd2d6b8so5692288a12.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 17 May 2023 04:14:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1684322092; x=1686914092;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VnIEpqHICz7MCR44hDCQrdJI2TjC+iEi+weDD/DiHgQ=;
-        b=uMpMaqG1DqCWwx1hCI5PuOhkim7/TDAijWwMpe1ydZKEw+qIhizYVg/cft4VQapzD4
-         vzRLPboKiuQD0ZoY9vRl7zLw4E7JgW6k5CzgJIlwjvUz6TVW1XPRsfFF2wWQ4R14/pZi
-         pAn7ChTywYn6exjMI1vNn5Ih0jSFSXn7AgpetOMZhQr7x0kzU1k+kk9zfhRC/JIaArDl
-         SvoXQkKGfjFzJnPROvYxvC77bUGONoLXl+YQnBK7TWVdHGzUMY0mmb10gDIlZkXpNXgc
-         VmvfNO4QTLaSiJPS+ROPLbAm2awcyFtVjD0nDsFHebUVzUYXb0H8js0WQ+bS39DRONlF
-         zj1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684322092; x=1686914092;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VnIEpqHICz7MCR44hDCQrdJI2TjC+iEi+weDD/DiHgQ=;
-        b=VTh02Bo/lgwmBzkL1zRLuAwyOjGy2tkckB0sSi2hH6sfWMyYiEHg2U6ql8Z2q3DpD3
-         aAREjIOckbZglqGqYVBw2JyM0Ilh4nq70pNzuoWP4v1G3fAtdA1Vh89IvN6Nk0BzXFVk
-         j/L1uDAa+1Y2ORza3yfLAhzA+1Wxjd3+IMGJbcAWAoG2RymLmtW8pOpzR/EXfchb6j3J
-         ND/exWBOKfWSGtCl4BG4y6yYsU02xgnmsyx8Pls3ffXxW6zuBORhzi4oC+E7mBzxnoQk
-         EAy36Kmm8+hY7E6tfzKUJAH8trY6UF4d0zNtqzxvJdUOaeNrwxM1QGrX9QX/Tjtv6EaW
-         G8Gg==
-X-Gm-Message-State: AC+VfDy+/7paTtYtpX0lfj4sNt/59kIcFU+UmJx8K15QL6MuCtbrVH6h
-	up8daMJEDB+q3r/wZQsTzfYLug==
-X-Google-Smtp-Source: 
- ACHHUZ5o/6icRslOMBgpWvrVIHAHLvuvr5xOTVdS5zygNzE9ImG9M96dMpU+Dv/r1s/UxbSnU5g9IA==
-X-Received: by 2002:a17:907:6d25:b0:965:d7c7:24db with SMTP id
- sa37-20020a1709076d2500b00965d7c724dbmr1640573ejc.32.1684322091870;
-        Wed, 17 May 2023 04:14:51 -0700 (PDT)
-Received: from krzk-bin.. ([2a02:810d:15c0:828:c9ff:4c84:dd21:568d])
-        by smtp.gmail.com with ESMTPSA id
- ml18-20020a170906cc1200b0094f124a37c4sm12326880ejb.18.2023.05.17.04.14.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 May 2023 04:14:51 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH 12/12] ASoC: codecs: rt722-sdca: do not store status in state
- container
-Date: Wed, 17 May 2023 13:14:16 +0200
-Message-Id: <20230517111416.424420-12-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230517111416.424420-1-krzysztof.kozlowski@linaro.org>
-References: <20230517111416.424420-1-krzysztof.kozlowski@linaro.org>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=eW2hEbUj
+X-UUID: 2613b2c2f4a411ed9cb5633481061a41-20230517
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=jF5GZyRGb/IcLuhzuqGakVFZy8gHEbuq61zX8J4vkh4=;
+	b=eW2hEbUjarZg20ZE9XYymgsHfi/Rv4/bwBcqG0LtyezuJZQtqClJSSB0xIdl8vJwy3yUvMm//vr3YBpKaN/RhdUEI/9u1JY6WUHkogixkcdpcwYhQapzlS42MLjlfAmtP2WQ4oWRn+jV9quH/0imHYc9jABACIe2wIeJG8TNgek=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.25,REQID:8f9fe578-8947-453b-bcd0-fc1cf8224d78,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:95
+X-CID-INFO: VERSION:1.1.25,REQID:8f9fe578-8947-453b-bcd0-fc1cf8224d78,IP:0,URL
+	:0,TC:0,Content:0,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTION
+	:quarantine,TS:95
+X-CID-META: VersionHash:d5b0ae3,CLOUDID:df19793b-de1e-4348-bc35-c96f92f1dcbb,B
+	ulkID:230517191537PTNBPR4Q,BulkQuantity:0,Recheck:0,SF:17|19|48|38|29|28,T
+	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 2613b2c2f4a411ed9cb5633481061a41-20230517
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
+ mailgw01.mediatek.com
+	(envelope-from <trevor.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1436285328; Wed, 17 May 2023 19:15:36 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Wed, 17 May 2023 19:15:35 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Wed, 17 May 2023 19:15:35 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+	<conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+CC: <trevor.wu@mediatek.com>, <alsa-devel@alsa-project.org>,
+	<linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: [PATCH 0/5] ASoC: mt8188: add new board support
+Date: Wed, 17 May 2023 19:15:29 +0800
+Message-ID: <20230517111534.32630-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ENT44KNLC4ZJI55TTMW66L45ZAJ3OWCS
-X-Message-ID-Hash: ENT44KNLC4ZJI55TTMW66L45ZAJ3OWCS
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain
+X-MTK: N
+Message-ID-Hash: 7KR25RBHATZI7YXPNJHWCKJ7AYWINY75
+X-Message-ID-Hash: 7KR25RBHATZI7YXPNJHWCKJ7AYWINY75
+X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -117,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ENT44KNLC4ZJI55TTMW66L45ZAJ3OWCS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7KR25RBHATZI7YXPNJHWCKJ7AYWINY75/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,50 +114,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Driver in its update status callback stores Soundwire device status in
-state container but it never uses it later.  Simplify the code a bit.
+In the series, we extend the capability of mt8188-mt6359 driver.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- sound/soc/codecs/rt722-sdca-sdw.c | 5 +----
- sound/soc/codecs/rt722-sdca.h     | 1 -
- 2 files changed, 1 insertion(+), 5 deletions(-)
+The following changes are included.
+1. Divide ADDA BE dai into two dais for SOF.
+2. Register hdmi/dp jack pins.
+3. dai_fmt can be configured from device tree.
+4. Add some I2S codecs support.
 
-diff --git a/sound/soc/codecs/rt722-sdca-sdw.c b/sound/soc/codecs/rt722-sdca-sdw.c
-index 0a791a14215e..bfb2dac6bfee 100644
---- a/sound/soc/codecs/rt722-sdca-sdw.c
-+++ b/sound/soc/codecs/rt722-sdca-sdw.c
-@@ -163,9 +163,6 @@ static int rt722_sdca_update_status(struct sdw_slave *slave,
- {
- 	struct rt722_sdca_priv *rt722 = dev_get_drvdata(&slave->dev);
- 
--	/* Update the status */
--	rt722->status = status;
--
- 	if (status == SDW_SLAVE_UNATTACHED)
- 		rt722->hw_init = false;
- 
-@@ -188,7 +185,7 @@ static int rt722_sdca_update_status(struct sdw_slave *slave,
- 	 * Perform initialization only if slave status is present and
- 	 * hw_init flag is false
- 	 */
--	if (rt722->hw_init || rt722->status != SDW_SLAVE_ATTACHED)
-+	if (rt722->hw_init || status != SDW_SLAVE_ATTACHED)
- 		return 0;
- 
- 	/* perform I/O transfers required for Slave initialization */
-diff --git a/sound/soc/codecs/rt722-sdca.h b/sound/soc/codecs/rt722-sdca.h
-index 5bc6184d09aa..44af8901352e 100644
---- a/sound/soc/codecs/rt722-sdca.h
-+++ b/sound/soc/codecs/rt722-sdca.h
-@@ -20,7 +20,6 @@ struct  rt722_sdca_priv {
- 	struct regmap *mbq_regmap;
- 	struct snd_soc_component *component;
- 	struct sdw_slave *slave;
--	enum sdw_slave_status status;
- 	struct sdw_bus_params params;
- 	bool hw_init;
- 	bool first_hw_init;
+In addition, new compatible string "mediatek,mt8188-nau8825" is
+included for a new board support.
+
+Trevor Wu (5):
+  ASoC: mediatek: mt8188: separate ADDA playback dai from capture dai
+  ASoC: mediatek: mt8188-mt6359: register hdmi/dp jack pins
+  ASoC: mediatek: common: soundcard driver add dai_fmt support
+  ASoC: mediatek: mt8188-mt6359: support new board with nau88255
+  ASoC: dt-bindings: mediatek,mt8188-mt6359: update properties
+
+ .../sound/mediatek,mt8188-mt6359.yaml         |  27 +-
+ sound/soc/mediatek/Kconfig                    |   4 +
+ .../mediatek/common/mtk-soundcard-driver.c    |  49 ++-
+ sound/soc/mediatek/mt8188/mt8188-afe-common.h |   3 +-
+ sound/soc/mediatek/mt8188/mt8188-dai-adda.c   |  76 ++--
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c     | 326 +++++++++++++++++-
+ 6 files changed, 431 insertions(+), 54 deletions(-)
+
 -- 
-2.34.1
+2.18.0
 

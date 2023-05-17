@@ -2,101 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2991706AB1
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 16:13:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65943706A7B
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 16:04:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE14D206;
-	Wed, 17 May 2023 16:12:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE14D206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90F801F7;
+	Wed, 17 May 2023 16:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90F801F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684332793;
-	bh=M8HgIw9VAVYTdiooZ92+QUJuNuT32dgIhD+Z/vDMl4s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Ic9sQAP87v8iw52+omo/hf4Ch99UTu6uYsB/ETGja/vB0kWbyIETdNiuU7ZxQcwUl
-	 J8t/hQ2RMQomK36Aho/EQR9stJpdOwhcBBGVH3P6mQU00V0Di+r1FIXlZRIEmGml7x
-	 RQR9H3kV3JkvEoWuZCaFz0oeuXO9oh09f2oBHelM=
+	s=default; t=1684332250;
+	bh=h5W1Z4o9LHPa8lHetePmYyMus46bU3T+L4qAbUkqj2U=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=OKo5ir/CLq9df07xAF0suZkJYGEC5oTqWub+7HixvIHJ/wIX3JZjEy4AO7Uzb6yae
+	 S+pduISqVG2s27mU7Uo2vtyKepOCEwwdWtqWRW9EDshH6pQLly9/2/kJRcKgPIhb55
+	 C/1aWYvgoG0boORS0uc7HLY8mH1zuS+UMuOrD1gQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 61BE7F80563; Wed, 17 May 2023 16:11:54 +0200 (CEST)
+	id 25B2BF8053D; Wed, 17 May 2023 16:03:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26784F80553;
-	Wed, 17 May 2023 16:11:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B77DF8025A;
+	Wed, 17 May 2023 16:03:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC95EF8055B; Wed, 17 May 2023 16:11:50 +0200 (CEST)
+	id DE45AF8016A; Wed, 17 May 2023 16:03:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [IPv6:2607:f8b0:4864:20::b2c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7782DF80551
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 16:11:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7782DF80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8D3FF8016A
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 16:03:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8D3FF8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=faZJtyf9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684332706; x=1715868706;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=M8HgIw9VAVYTdiooZ92+QUJuNuT32dgIhD+Z/vDMl4s=;
-  b=faZJtyf97Qb1Pwq+982QcwtuGPFNXMDedyFr44sbaI4R73DCaHt22Kor
-   X5963M4QeJe92IP4LNHeIM3HyT83VmxQOb4QLvF4P249Hls9RUfBjYO0U
-   Efv8GLVoI8FFYscUaIudyh1Ro9Z/TubPte+kSI7M3S/mmgyPLXerN1LvO
-   x03HbNFTho1OT5NNbc6mxpqE9YF57CVfdN79lxwD7zV67akNmlFgfvP2R
-   o+NEGLWVUD5YxfbMEvrNCiztgNt2KyHu8++1ZwVEvfmKh+EZi7p7L289D
-   xQRISYOZi9Ww7g5o0UjC6r19B0ZaMpOfIiTdk/zAmi3ZxA0i2EF/0lkgY
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="349273438"
-X-IronPort-AV: E=Sophos;i="5.99,282,1677571200";
-   d="scan'208";a="349273438"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 07:11:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="734709685"
-X-IronPort-AV: E=Sophos;i="5.99,282,1677571200";
-   d="scan'208";a="734709685"
-Received: from rdealba-mobl.amr.corp.intel.com (HELO [10.209.16.101])
- ([10.209.16.101])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 07:11:43 -0700
-Message-ID: <a36ec243-feaa-d886-0fe8-bfb07472a89f@linux.intel.com>
-Date: Wed, 17 May 2023 08:40:37 -0500
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=HdfqFplY
+Received: by mail-yb1-xb2c.google.com with SMTP id
+ 3f1490d57ef6-ba86ea269e0so703822276.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 17 May 2023 07:03:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1684332180; x=1686924180;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=EnN81p2MeWO9EzOWTpebA/OMy7HtWZHmn+rKTFE9OqM=;
+        b=HdfqFplYz7Qf9SanlMHtPvfRuEa8h8QgTs2pp24EwWfK02ZbEs06WnBq6Vi4ke8ALC
+         Nu+AHv2FBCR+drvv6EuN666Wt/A5Vbd6xAnLElWstD7ALkee9Q05qV8GX5uhw6uhuuZi
+         B4fBFopzSA1bGTqnA8XRDAxwWETprDKa4PpCCT/WD6+4Bu6UwY3NM5coNv8rZ1teGyAo
+         voZ/fh6D1yfhCuJd5IlTu2kLKijc9Fwju3/gVrSdGdQfY85CWAkIoYQEgmPlOrQ6VZkk
+         +AlktRzrpxoJa4kYyVQXkjwIJz1JbkoFm0dNwWSFMhfmf1JmMhZ34uqN+PWcYHxpY9Wj
+         y2MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684332180; x=1686924180;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=EnN81p2MeWO9EzOWTpebA/OMy7HtWZHmn+rKTFE9OqM=;
+        b=XA8bDuXjClFbiMTtaIKzzo51UGuyiJCjCRAHtkgxHxW29ngueG75ogHI7VkXpvD6HP
+         uGNrMqvGuZUZ7ZVjKuXow2xp7ZNBVqXmrczAwYM5JH1hz/GUsAi+PCRNuczHtiPK+dTX
+         pbA+o3bfDsJba7CkBM5AUwrJxDbcmhhmipi6JnEMVBhqg0fsZwwnW0eYgwW1o22GqPJm
+         Wat0eTcYmURzEf3GMX51hdI+C52B5Gmunnu/O8kpaxcSBrCLibtbmclhmg9yTkk8CiwW
+         qDUCQYf9Zt6krQB8uotUlqbpNJKRJQk3BzYNiFd43ouzShYUytdDkA2mDSAWtVgW+nuK
+         ZA/A==
+X-Gm-Message-State: AC+VfDxbn/U61+4bzPppIBAHEXZo+SktYHcYOZXI+0dqBwfqSmY5AGkv
+	baB7Lh1CxOVz9YBBt5TERpQuCr7m+p7hXBN8lO5cqQ==
+X-Google-Smtp-Source: 
+ ACHHUZ5ebL6rGP7D45jjjmqs/3K8SRxUe+aFYYf5yNPLUOHysTYfhtudOs1R+FMLsNcRKZaBP9DtvPGuDCjBp+f73xA=
+X-Received: by 2002:a05:7500:e568:b0:106:ad71:fc05 with SMTP id
+ rh40-20020a057500e56800b00106ad71fc05mr43929gab.73.1684332180208; Wed, 17 May
+ 2023 07:03:00 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.10.0
-Subject: Re: [PATCH 1/9] ASoC: amd: ps: create platform devices based on acp
- config
-Content-Language: en-US
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
- Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230516103543.2515097-1-Vijendar.Mukunda@amd.com>
- <20230516103543.2515097-2-Vijendar.Mukunda@amd.com>
- <a94650e0-f7b4-b431-5a3c-042ce724cf50@linux.intel.com>
- <c9afc5b7-b07d-1ef5-7c76-f592577f833a@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <c9afc5b7-b07d-1ef5-7c76-f592577f833a@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 3DTCTFA6TSGH4UXVEF6P3FXA6HORZ64A
-X-Message-ID-Hash: 3DTCTFA6TSGH4UXVEF6P3FXA6HORZ64A
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Wed, 17 May 2023 19:32:48 +0530
+Message-ID: 
+ <CA+G9fYsShNP=LALHdMd-Btx3PBtO_CjyBNgpStr9fPGXNbRvdg@mail.gmail.com>
+Subject: next: gcc-8-ppc6xx_defconfig: ERROR: modpost: "__divdi3"
+ [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
+To: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+	Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+	lkft-triage@lists.linaro.org
+Cc: Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Arnd Bergmann <arnd@arndb.de>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+ Anders Roxell <anders.roxell@linaro.org>,
+	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Message-ID-Hash: 3JTYTQXJCX5DVNYVSZPNYHBV7IJSNZIB
+X-Message-ID-Hash: 3JTYTQXJCX5DVNYVSZPNYHBV7IJSNZIB
+X-MailFrom: naresh.kamboju@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3DTCTFA6TSGH4UXVEF6P3FXA6HORZ64A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3JTYTQXJCX5DVNYVSZPNYHBV7IJSNZIB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,105 +119,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Linux next powerpc gcc-8 build failed on Linux next 20230516 and 20230517.
+ - build/gcc-8-ppc6xx_defconfig
+
+Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+
+Build log:
+====
+make --silent --keep-going --jobs=8
+O=/home/tuxbuild/.cache/tuxmake/builds/1/build \
+  ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- \
+  'CC=sccache powerpc64le-linux-gnu-gcc' \
+  'HOSTCC=sccache gcc'
+
+ERROR: modpost: "__divdi3" [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
+ERROR: modpost: "__udivdi3" [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
+make[2]: *** [/builds/linux/scripts/Makefile.modpost:136:
+Module.symvers] Error 1
+make[2]: Target '__modpost' not remade because of errors.
+make[1]: *** [/builds/linux/Makefile:1978: modpost] Error 2
 
 
-On 5/17/23 03:38, Mukunda,Vijendar wrote:
-> On 16/05/23 20:02, Pierre-Louis Bossart wrote:
->>
->> On 5/16/23 05:35, Vijendar Mukunda wrote:
->>> Create platform devices for Soundwire Manager instances and
->>> PDM controller based on ACP pin config selection
->>> and ACPI fw handle for pink sardine platform.
->>>
->>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->>> ---
->>>  sound/soc/amd/ps/acp63.h  |  43 ++++++-
->>>  sound/soc/amd/ps/pci-ps.c | 250 ++++++++++++++++++++++++++++++++++++--
->>>  2 files changed, 280 insertions(+), 13 deletions(-)
->>>
->>> diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
->>> index 2f94448102d0..f27f71116598 100644
->>> --- a/sound/soc/amd/ps/acp63.h
->>> +++ b/sound/soc/amd/ps/acp63.h
->>> @@ -10,7 +10,7 @@
->>>  #define ACP_DEVICE_ID 0x15E2
->>>  #define ACP63_REG_START		0x1240000
->>>  #define ACP63_REG_END		0x1250200
->>> -#define ACP63_DEVS		3
->>> +#define ACP63_DEVS		5
->>>  
->>>  #define ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK	0x00010001
->>>  #define ACP_PGFSM_CNTL_POWER_ON_MASK	1
->>> @@ -55,8 +55,14 @@
->>>  
->>>  #define ACP63_DMIC_ADDR		2
->>>  #define ACP63_PDM_MODE_DEVS		3
->>> -#define ACP63_PDM_DEV_MASK		1
->>>  #define ACP_DMIC_DEV	2
->>> +#define ACP63_SDW0_MODE_DEVS		2
->>> +#define ACP63_SDW0_SDW1_MODE_DEVS	3
->>> +#define ACP63_SDW0_PDM_MODE_DEVS	4
->>> +#define ACP63_SDW0_SDW1_PDM_MODE_DEVS   5
->>> +#define ACP63_DMIC_ADDR			2
->>> +#define ACP63_SDW_ADDR			5
->>> +#define AMD_SDW_MAX_MANAGERS		2
->>>  
->>>  /* time in ms for acp timeout */
->>>  #define ACP_TIMEOUT		500
->>> @@ -80,6 +86,12 @@ enum acp_config {
->>>  	ACP_CONFIG_15,
->>>  };
->>>  
->>> +enum acp_pdev_mask {
->>> +	ACP63_PDM_DEV_MASK = 1,
->>> +	ACP63_SDW_DEV_MASK,
->>> +	ACP63_SDW_PDM_DEV_MASK,
->>> +};
->> a comment or kernel-doc wouldn't hurt to explain the difference between
->> ACP63_PDM_DEV_MASK and ACP63_SDW_PDM_DEV_MASK, the meaning of the 'SDW"
->> prefix is far from obvious.
-> Above enum's are listed to know the platform device masks.
-> For example - if ACP63_PDM_DEV_MASK is set, then ACP PCI driver
-> will create platform device for PDM controller.
-> 
-> If ACP63_SDW_DEV_MASK is set, ACP PCI driver will create platform device
-> nodes for soundwire manager instances based on instance count retrieved
-> by scanning the SoundWire Controller.
-> 
-> If ACP63_SDW_PDM_DEV_MASK is set, ACP PCI driver will create platform device
-> nodes for PDM controller and SoundWire manager instances.
-> 
-> We will add comment for the same.
+links,
+ - https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20230517/testrun/17031706/suite/build/test/gcc-8-ppc6xx_defconfig/log
+ - https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20230517/testrun/17031706/suite/build/test/gcc-8-ppc6xx_defconfig/history/
 
-Ah ok, I completely missed that you could have PDM, SoundWire or
-PDM+SoundWire configurations. I was reading this with SoundWire blinders
-and thought you wanted to have PDM over SoundWire or something.
+Steps to reproduce:
+=======
+# To install tuxmake on your system globally:
+# sudo pip3 install -U tuxmake
+#
+# See https://docs.tuxmake.org/ for complete documentation.
+# Original tuxmake command with fragments listed below.
 
->>> -		dev_dbg(&pci->dev, "No PDM devices found\n");
->>> +		dev_dbg(&pci->dev, "No PDM or Soundwire manager devices found\n");
->> what does this mean? I find this debug adds more confusion.
-> Currently, we are trying to create platform devices for PDM controller and SoundWire
-> Manager instances based on ACP pin config and ACPI _ADDR fields scan under ACP PCI device
-> scope.
-> Earlier We have added support for ACP PDM controller.
-> ACP PIN config supports different audio configurations other than PDM and SoundWire
-> based audio endpoints.
-> 
-> If there is no pdev_mask set, it refers to default switch case.
-> This dev_dbg statement to notify that no PDM and Soundwire manager devices found
-> from ACPI scan.
-> 
-> This patch adds support for platform device creation logic for Soundwire manager instances &
-> PDM controller combinations based on ACP PIN Config and ACPI _ADDR field scan.
-> 
-> Possible combination of platform device nodes:
-> 
-> 1) ACP PDM Controller, dmic-codec, machine driver platform device node
-> 2) ACP PDM Controller , dmic-codec, SW0 manager instance, platform device for SoundWire DMA driver
-> 3) SW0, SW1 SoundWire manager instances, platform device for SoundWire DMA driver
-> 3) ACP PDM Controller, dmic-codec, SDW0, SDW1 manager instances, platform device for SoundWire DMA driver
+ tuxmake --runtime podman --target-arch powerpc --toolchain gcc-8
+--kconfig ppc6xx_defconfig
 
-right, you really want this in the commit message so that reviewers
-understand the various configurations upfront. Trying to
-reverse-engineer the code induces migraines ;-)
 
+--
+Linaro LKFT
+https://lkft.linaro.org

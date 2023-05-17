@@ -2,103 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65943706A7B
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 16:04:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3DCB706AAA
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 16:12:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90F801F7;
-	Wed, 17 May 2023 16:03:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90F801F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D308B1F4;
+	Wed, 17 May 2023 16:11:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D308B1F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684332250;
-	bh=h5W1Z4o9LHPa8lHetePmYyMus46bU3T+L4qAbUkqj2U=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=OKo5ir/CLq9df07xAF0suZkJYGEC5oTqWub+7HixvIHJ/wIX3JZjEy4AO7Uzb6yae
-	 S+pduISqVG2s27mU7Uo2vtyKepOCEwwdWtqWRW9EDshH6pQLly9/2/kJRcKgPIhb55
-	 C/1aWYvgoG0boORS0uc7HLY8mH1zuS+UMuOrD1gQ=
+	s=default; t=1684332762;
+	bh=V85zZU9K+ebn9I4WS/QhOULxzw4WjXXhE4w7yyJEDSA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=IBuXxT3woYh+HGfz8Zwq+CvbeayYLNSMPkufu5W3beZ/rWwvI/jmLxtR2mZ7Mcjf+
+	 8nOHq8QKM+XqxSWLxlZ1sanIGnhWNIoex8u8dmZ+7MqdMcEH78qllSdx2KCYvoUmf7
+	 2FDGMSBD6w8zEh8UVCTkiDifKgD5utkbcKYUbIVo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25B2BF8053D; Wed, 17 May 2023 16:03:20 +0200 (CEST)
+	id 9022BF80431; Wed, 17 May 2023 16:11:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B77DF8025A;
-	Wed, 17 May 2023 16:03:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17FE7F8025A;
+	Wed, 17 May 2023 16:11:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE45AF8016A; Wed, 17 May 2023 16:03:15 +0200 (CEST)
+	id C15C6F80272; Wed, 17 May 2023 16:11:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-7.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8D3FF8016A
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 16:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8D3FF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id ECBCBF8016A
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 16:11:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECBCBF8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=HdfqFplY
-Received: by mail-yb1-xb2c.google.com with SMTP id
- 3f1490d57ef6-ba86ea269e0so703822276.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 17 May 2023 07:03:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1684332180; x=1686924180;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=EnN81p2MeWO9EzOWTpebA/OMy7HtWZHmn+rKTFE9OqM=;
-        b=HdfqFplYz7Qf9SanlMHtPvfRuEa8h8QgTs2pp24EwWfK02ZbEs06WnBq6Vi4ke8ALC
-         Nu+AHv2FBCR+drvv6EuN666Wt/A5Vbd6xAnLElWstD7ALkee9Q05qV8GX5uhw6uhuuZi
-         B4fBFopzSA1bGTqnA8XRDAxwWETprDKa4PpCCT/WD6+4Bu6UwY3NM5coNv8rZ1teGyAo
-         voZ/fh6D1yfhCuJd5IlTu2kLKijc9Fwju3/gVrSdGdQfY85CWAkIoYQEgmPlOrQ6VZkk
-         +AlktRzrpxoJa4kYyVQXkjwIJz1JbkoFm0dNwWSFMhfmf1JmMhZ34uqN+PWcYHxpY9Wj
-         y2MQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684332180; x=1686924180;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EnN81p2MeWO9EzOWTpebA/OMy7HtWZHmn+rKTFE9OqM=;
-        b=XA8bDuXjClFbiMTtaIKzzo51UGuyiJCjCRAHtkgxHxW29ngueG75ogHI7VkXpvD6HP
-         uGNrMqvGuZUZ7ZVjKuXow2xp7ZNBVqXmrczAwYM5JH1hz/GUsAi+PCRNuczHtiPK+dTX
-         pbA+o3bfDsJba7CkBM5AUwrJxDbcmhhmipi6JnEMVBhqg0fsZwwnW0eYgwW1o22GqPJm
-         Wat0eTcYmURzEf3GMX51hdI+C52B5Gmunnu/O8kpaxcSBrCLibtbmclhmg9yTkk8CiwW
-         qDUCQYf9Zt6krQB8uotUlqbpNJKRJQk3BzYNiFd43ouzShYUytdDkA2mDSAWtVgW+nuK
-         ZA/A==
-X-Gm-Message-State: AC+VfDxbn/U61+4bzPppIBAHEXZo+SktYHcYOZXI+0dqBwfqSmY5AGkv
-	baB7Lh1CxOVz9YBBt5TERpQuCr7m+p7hXBN8lO5cqQ==
-X-Google-Smtp-Source: 
- ACHHUZ5ebL6rGP7D45jjjmqs/3K8SRxUe+aFYYf5yNPLUOHysTYfhtudOs1R+FMLsNcRKZaBP9DtvPGuDCjBp+f73xA=
-X-Received: by 2002:a05:7500:e568:b0:106:ad71:fc05 with SMTP id
- rh40-20020a057500e56800b00106ad71fc05mr43929gab.73.1684332180208; Wed, 17 May
- 2023 07:03:00 -0700 (PDT)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=P67yW/dr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1684332683; x=1715868683;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=V85zZU9K+ebn9I4WS/QhOULxzw4WjXXhE4w7yyJEDSA=;
+  b=P67yW/dr/FCnCA5wzscU/Z5u9fSOsAcCo1SONwLkSqfY+CbzaQDkKq09
+   +bVJSo0veZD/PhGm77nHrSHiEO+crb4D2khs3APA1xWWdGoKMsAwupPgX
+   Q7iLmy9xSM07uzUOE0yNJWET9AjdQYq/gqEdCkEP1xp8YQxQ44pr6tHRH
+   g02/vgKapjDQ13LSN2F9VZCBihXXAmoFiIB0mt0KuOLLLvncyVsFmvMKy
+   3sqx3++lCshImg6zFXv5osrTbPsrQK1X2g/CC3WgNttKCIyGAOLmAzNJ7
+   mRg0HKSZ8frP7jvVULNXvwGtEyIgtnI3BpfmLvAH+6B6XQirW7GOYcJwH
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="349273295"
+X-IronPort-AV: E=Sophos;i="5.99,282,1677571200";
+   d="scan'208";a="349273295"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2023 07:11:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="734709640"
+X-IronPort-AV: E=Sophos;i="5.99,282,1677571200";
+   d="scan'208";a="734709640"
+Received: from rdealba-mobl.amr.corp.intel.com (HELO [10.209.16.101])
+ ([10.209.16.101])
+  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 May 2023 07:11:17 -0700
+Message-ID: <4aae458b-6919-2999-9293-028737c9a6e1@linux.intel.com>
+Date: Wed, 17 May 2023 09:11:16 -0500
 MIME-Version: 1.0
-From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Wed, 17 May 2023 19:32:48 +0530
-Message-ID: 
- <CA+G9fYsShNP=LALHdMd-Btx3PBtO_CjyBNgpStr9fPGXNbRvdg@mail.gmail.com>
-Subject: next: gcc-8-ppc6xx_defconfig: ERROR: modpost: "__divdi3"
- [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
-To: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-	Linux-Next Mailing List <linux-next@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
-	lkft-triage@lists.linaro.org
-Cc: Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
- Arnd Bergmann <arnd@arndb.de>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
- Anders Roxell <anders.roxell@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: 3JTYTQXJCX5DVNYVSZPNYHBV7IJSNZIB
-X-Message-ID-Hash: 3JTYTQXJCX5DVNYVSZPNYHBV7IJSNZIB
-X-MailFrom: naresh.kamboju@linaro.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.10.0
+Subject: Re: [PATCH 08/10] pinctrl: cs42l43: Add support for the cs42l43
+Content-Language: en-US
+To: Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: broonie@kernel.org, lee@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, tglx@linutronix.de,
+ maz@kernel.org, linus.walleij@linaro.org, vkoul@kernel.org,
+ lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
+ <20230512122838.243002-9-ckeepax@opensource.cirrus.com>
+ <ZF6RMqElYZVMpWRt@surfacebook>
+ <20230515101350.GS68926@ediswmail.ad.cirrus.com>
+ <CAHp75Vcizrucc-2KFdFNeHNrxCzz4GwX1OzZYyjPH7P9RgnKYQ@mail.gmail.com>
+ <20230517101301.GV68926@ediswmail.ad.cirrus.com>
+ <CAHp75VchpbiYcd2yaP1WTjX17P0hg3qON5JGAXu08aDVw6Ydkw@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: 
+ <CAHp75VchpbiYcd2yaP1WTjX17P0hg3qON5JGAXu08aDVw6Ydkw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: R3JYBST5FLMJJXIFZH4ABTEZ6OMLBYKP
+X-Message-ID-Hash: R3JYBST5FLMJJXIFZH4ABTEZ6OMLBYKP
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3JTYTQXJCX5DVNYVSZPNYHBV7IJSNZIB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R3JYBST5FLMJJXIFZH4ABTEZ6OMLBYKP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,43 +121,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Linux next powerpc gcc-8 build failed on Linux next 20230516 and 20230517.
- - build/gcc-8-ppc6xx_defconfig
-
-Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
-
-Build log:
-====
-make --silent --keep-going --jobs=8
-O=/home/tuxbuild/.cache/tuxmake/builds/1/build \
-  ARCH=powerpc CROSS_COMPILE=powerpc64le-linux-gnu- \
-  'CC=sccache powerpc64le-linux-gnu-gcc' \
-  'HOSTCC=sccache gcc'
-
-ERROR: modpost: "__divdi3" [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
-ERROR: modpost: "__udivdi3" [sound/pci/emu10k1/snd-emu10k1.ko] undefined!
-make[2]: *** [/builds/linux/scripts/Makefile.modpost:136:
-Module.symvers] Error 1
-make[2]: Target '__modpost' not remade because of errors.
-make[1]: *** [/builds/linux/Makefile:1978: modpost] Error 2
 
 
-links,
- - https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20230517/testrun/17031706/suite/build/test/gcc-8-ppc6xx_defconfig/log
- - https://qa-reports.linaro.org/lkft/linux-next-master/build/next-20230517/testrun/17031706/suite/build/test/gcc-8-ppc6xx_defconfig/history/
+On 5/17/23 08:59, Andy Shevchenko wrote:
+> On Wed, May 17, 2023 at 1:13 PM Charles Keepax
+> <ckeepax@opensource.cirrus.com> wrote:
+>> On Tue, May 16, 2023 at 10:03:45PM +0300, Andy Shevchenko wrote:
+>>> On Mon, May 15, 2023 at 1:13 PM Charles Keepax
+>>> <ckeepax@opensource.cirrus.com> wrote:
+>>>> On Fri, May 12, 2023 at 10:19:14PM +0300, andy.shevchenko@gmail.com wrote:
+>>>>> Fri, May 12, 2023 at 01:28:36PM +0100, Charles Keepax kirjoitti:
+>>>>>> +   if (!of_property_read_bool(dev_of_node(cs42l43->dev), "gpio-ranges")) {
+>>>>>> +           ret = gpiochip_add_pin_range(&priv->gpio_chip, priv->gpio_chip.label,
+>>>>>> +                                        0, 0, CS42L43_NUM_GPIOS);
+>>>>>> +           if (ret) {
+>>>>>> +                   dev_err(priv->dev, "Failed to add GPIO pin range: %d\n", ret);
+>>>>>> +                   goto err_pm;
+>>>>>> +           }
+>>>>>> +   }
+>>>>>
+>>>>> Besides the fact that we have a callback for this, why GPIO library can't
+>>>>> handle this for you already?
+>>>>
+>>>> Apologies but I am not quite sure I follow you, in the device
+>>>> tree case this will be handled by the GPIO library. But for ACPI
+>>>> this information does not exist so has to be called manually, the
+>>>> library does not necessarily know which values to call with,
+>>>> although admittedly our case is trivial but not all are.
+>>>
+>>> Why can't the firmware provide this information? _DSD() is a part of
+>>> ACPI v5.1 IIRC.
+>>
+>> I am very very far from confident we can guarantee that will be
+>> present in the ACPI. The ACPI is typically made for and by the
+>> Windows side.
+> 
+> Why? You may insist firmware vendors / OEMs to use that as a
+> requirement to the platforms that would like to use your chip. The
+> _DSD() is part of the specification, I don't see how the above can be
+> an argument.
+> 
+> The times when ACPI == Windows are quite behind.
 
-Steps to reproduce:
-=======
-# To install tuxmake on your system globally:
-# sudo pip3 install -U tuxmake
-#
-# See https://docs.tuxmake.org/ for complete documentation.
-# Original tuxmake command with fragments listed below.
+This is one of those Yogi Berra-isms: In theory, there is no difference
+between theory and practice. In practice there is.
 
- tuxmake --runtime podman --target-arch powerpc --toolchain gcc-8
---kconfig ppc6xx_defconfig
+DSD is not really used indeed for audio devices. Even for SoundWire
+where we inked the requirement to use DSD in a MIPI standardization
+document, the only _DSD properties are for the manager side, the
+peripheral side information is not populated or mostly
+useless/incorrect. Most codec drivers hard-code the properties that were
+intended to be set in the DSDT.
 
-
---
-Linaro LKFT
-https://lkft.linaro.org
+Unless there is firm evidence that the firmware does provide the
+required DSD properties we can assume it does not. We can't force the
+ecosystem to use DSD, even if it makes sense. it's frustrating but it is
+what it is.

@@ -2,89 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA867707168
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 20:59:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D6C87072E1
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 22:20:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 226231FC;
-	Wed, 17 May 2023 20:58:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 226231FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6704E1FC;
+	Wed, 17 May 2023 22:19:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6704E1FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684349941;
-	bh=jOk1c4tiyuSQMndwEWHnBNmOarSoysE6cRmgExFB+90=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=SEdW6bTGkId+0dhFWVhLdntLSEl6SiYqzUAHOC1gxnJjfQn0JyYNgYS4TnFR41gEK
-	 fxfBf1bi9k4+e1x+zFoDrXaM506853ugT/FvAK7AX74dcSbC+zv1l/GDuGlJhcLfhK
-	 +avf9AhWN/Mo5oKE7sISTYsEylhz9oFNYobLVMCY=
+	s=default; t=1684354801;
+	bh=Dvtv8pSNHd/3p5/ADg/iz7hVB6G/ZTgzwrKg3ZudzmM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=LnRGwZXFCHg19P09ZZft3b5ORZlyCQRltlt5TjgCNvC8OaQsjmPWAR3uPjp1a7bJO
+	 bEWd9KiH+unXx62IzsXGy4i71r765l5LRajXMFfkCTENFfieJJcMNJ9D2nOYes9bYQ
+	 48FabHOmJozFIth1Sme3wl12uZJIQyZAhGkZKVkI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CCFFF8016D; Wed, 17 May 2023 20:58:10 +0200 (CEST)
+	id A5B3BF80549; Wed, 17 May 2023 22:19:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3511F8025A;
-	Wed, 17 May 2023 20:58:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4588F8025A;
+	Wed, 17 May 2023 22:19:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8D00F80272; Wed, 17 May 2023 20:58:04 +0200 (CEST)
+	id E7B5FF80272; Wed, 17 May 2023 22:18:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74A1BF8016A
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 20:57:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74A1BF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id E9D96F8016A
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 22:18:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9D96F8016A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=VsDt7DhP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684349877; x=1715885877;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=jOk1c4tiyuSQMndwEWHnBNmOarSoysE6cRmgExFB+90=;
-  b=VsDt7DhP3+LxyMbZU9SM+4FsNIclLJFBQgKf/661f62l4sqsozn5Uq07
-   NjoM0MZbJ/qDz0g+kctIFju2Db/ebgJW5W2N/bPeCevlAIsUVAsOdOf5u
-   R253XHVX/P0R2K2vCi1g548GrlL/XcQMZptwkfuRDl9WIOh1vzrAY0DTx
-   9EhuDZAqsvD/8iP5IH/JH7XHqQFJ+qXTzjGpWyV3mz3yPKvhLiagWu3KC
-   ZUQCRpBSeW11ved/JBYX5YFLT3FR4+FCU2bJrIgPxhQvT+HxI0ebqzU00
-   a8aFd5ijOhESDYhnlpXkU61/6PElSNNGP6y6wwpbfCzF8scKef+1AkL+x
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="331462913"
-X-IronPort-AV: E=Sophos;i="5.99,283,1677571200";
-   d="scan'208";a="331462913"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 11:57:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10713"; a="766873973"
-X-IronPort-AV: E=Sophos;i="5.99,283,1677571200";
-   d="scan'208";a="766873973"
-Received: from pgopdahl-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.209.16.196])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2023 11:57:50 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de,
-	broonie@kernel.org,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH] ASoC: soc-pcm: test if a BE can be prepared
-Date: Wed, 17 May 2023 13:57:31 -0500
-Message-Id: <20230517185731.487124-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.37.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LGBIZW3VWNNBZGLUSFGZZ3L672OFCJRX
-X-Message-ID-Hash: LGBIZW3VWNNBZGLUSFGZZ3L672OFCJRX
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=iaLtxLKX;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=LtLmmsnu
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3A14B22622;
+	Wed, 17 May 2023 20:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1684354731;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v+mR/qksS6Sq/MuwYCqpKG165oYMDJK2AcyjLgtwP+o=;
+	b=iaLtxLKXpNzj1ha+SarH32AT6FiIOtMRdJ5hsRazR17dz2ZLjJ8TuxtjBwHUmS9moFIaj3
+	nFj9DFlYrIf9GUWM16CpZZgcDzGZOI8t70nrym/VNI9efLOHuc6PesTcbWcOp75UuJ+pAu
+	nFUJs+YFy+V7pN6jMtNxSYRrL8pBs1U=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1684354731;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v+mR/qksS6Sq/MuwYCqpKG165oYMDJK2AcyjLgtwP+o=;
+	b=LtLmmsnuuXapwVhJs1Hvwyv8+BQ0GOiTfyP/wCVevaeYR5Xh+hh1qZ5NxPeW49KjzkNYqy
+	92eFQWZNpd+QGaDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0C48E13478;
+	Wed, 17 May 2023 20:18:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id EBJhAas2ZWSABAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 17 May 2023 20:18:51 +0000
+Date: Wed, 17 May 2023 22:18:50 +0200
+Message-ID: <875y8q1zkl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Naresh Kamboju <naresh.kamboju@linaro.org>
+Subject: Re: [PATCH] ALSA: emu10k1: remove runtime 64-bit divisions
+In-Reply-To: <20230517164800.3650699-1-oswald.buddenhagen@gmx.de>
+References: <20230517164800.3650699-1-oswald.buddenhagen@gmx.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: OLO7CTZBLH4CQQZZR46QWJJ7UYCRMASN
+X-Message-ID-Hash: OLO7CTZBLH4CQQZZR46QWJJ7UYCRMASN
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LGBIZW3VWNNBZGLUSFGZZ3L672OFCJRX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OLO7CTZBLH4CQQZZR46QWJJ7UYCRMASN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,86 +120,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+On Wed, 17 May 2023 18:48:00 +0200,
+Oswald Buddenhagen wrote:
+> 
+> 32-bit platforms don't like these. As we're actually dealing with
+> constants, factor out the calculations and pass them in as additional
+> arguments. To keep the call sites clean, wrap the actual functions in
+> macros which generate the arguments.
+> 
+> Fixes: bb5ceb43b7bf ("ALSA: emu10k1: fix non-zero mixer control defaults in highres mode")
+> Fixes: 1298bc978afb ("ALSA: emu10k1: enable bit-exact playback, part 1: DSP attenuation")
+> Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+> 
+> ---
+> 
+> Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+> Cc: Naresh Kamboju <naresh.kamboju@linaro.org>
+> ---
 
-In the BE hw_params configuration, the existing code checks if any of the
-existing FEs are prepared, running, paused or suspended - and skips the
-configuration in those cases. This allows multiple calls of hw_params
-which the ALSA state machine supports.
+Thanks, applied now.
 
-This check is not handled for the prepare stage, which can lead to the
-same BE being prepared multiple times. This patch adds a check similar to
-that of the hw_params, with the main difference being that the suspended
-state is allowed: the ALSA state machine allows a transition from
-suspended to prepared with hw_params skipped.
 
-This problem was detected on Intel IPC4/SoundWire devices, where the BE
-dailink .prepare stage is used to configure the SoundWire stream with a
-bank switch. Multiple .prepare calls lead to conflicts with the .trigger
-operation with IPC4 configurations. This problem was not detected earlier
-on Intel devices, HDaudio BE dailinks detect that the link is already
-prepared and skip the configuration, and for IPC3 devices there is no BE
-trigger.
-
-Link: https://github.com/thesofproject/sof/issues/7596
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- include/sound/soc-dpcm.h |  4 ++++
- sound/soc/soc-pcm.c      | 20 ++++++++++++++++++++
- 2 files changed, 24 insertions(+)
-
-diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
-index 4d6ac7699833..ebd24753dd00 100644
---- a/include/sound/soc-dpcm.h
-+++ b/include/sound/soc-dpcm.h
-@@ -122,6 +122,10 @@ int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
- int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 		struct snd_soc_pcm_runtime *be, int stream);
- 
-+/* can this BE perform prepare */
-+int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
-+				 struct snd_soc_pcm_runtime *be, int stream);
-+
- /* is the current PCM operation for this FE ? */
- int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream);
- 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index adb69d7820a8..4fb1ac8e1c4a 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2405,6 +2405,9 @@ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream)
- 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
- 			continue;
- 
-+		if (!snd_soc_dpcm_can_be_prepared(fe, be, stream))
-+			continue;
-+
- 		if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_HW_PARAMS) &&
- 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
- 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND) &&
-@@ -3042,3 +3045,20 @@ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
- }
- EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_params);
-+
-+/*
-+ * We can only prepare a BE DAI if any of it's FE are not prepared,
-+ * running or paused for the specified stream direction.
-+ */
-+int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
-+				 struct snd_soc_pcm_runtime *be, int stream)
-+{
-+	const enum snd_soc_dpcm_state state[] = {
-+		SND_SOC_DPCM_STATE_START,
-+		SND_SOC_DPCM_STATE_PAUSED,
-+		SND_SOC_DPCM_STATE_PREPARE,
-+	};
-+
-+	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_prepared);
--- 
-2.37.2
-
+Takashi

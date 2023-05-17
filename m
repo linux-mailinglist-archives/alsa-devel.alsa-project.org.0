@@ -2,115 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F4AD708FCC
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 08:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3728708FCB
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 08:21:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FF8D857;
-	Fri, 19 May 2023 08:21:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FF8D857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21A15846;
+	Fri, 19 May 2023 08:20:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21A15846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684477321;
-	bh=9RuE1fzvVGsaV5FWGQsRCwRyfh5hUPhdIKeWyGuIrUc=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1684477298;
+	bh=cReIs5i7pc0uiqCg7lnH+JVrLBMItiFcQMbI2hu6JEM=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HQrjtdFCFfNpsgp8cvFrosj+8Ji477bcQcJg1rFd9sgKUfgo/To1SZzou0+CI4XvI
-	 NWaoB7+l/4QMRNwPYwbwHocOKYWD3pW2X3xfYE7NAevJTW0w62t5QR8uVb6905e2Xl
-	 lHigzAy/TWWzwr8wTCv+UAPsQ0OgKFYC55xTEFEw=
+	b=i0u5lizbqWTcSPeL9HZDRkkQZJfEcsCly3Ivodg1NiOlz1AQbnfDIhKlBsj0B2xs3
+	 7pQ6klt160Ejn8AzmByHavxm5RbRQlDH7LnCrt2O1e6OWHK/5qFHQ3esxTPyNY/sML
+	 4iK13G3LVBww2SbBH+OELDNstYCsB8d+QEqRtZOo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D7410F805E4; Fri, 19 May 2023 08:18:42 +0200 (CEST)
+	id 904C3F805E2; Fri, 19 May 2023 08:18:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1080CF805BF;
+	by alsa1.perex.cz (Postfix) with ESMTP id 660B4F805C1;
 	Fri, 19 May 2023 08:18:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6FA1F80272; Wed, 17 May 2023 00:38:16 +0200 (CEST)
+	id 47871F80272; Wed, 17 May 2023 13:44:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DB158F8016D
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 00:38:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB158F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A501F8016D
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 13:44:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A501F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=YDivJEGL
-Received: by mail-pl1-x635.google.com with SMTP id
- d9443c01a7336-1ae4e264e03so2116985ad.2
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=H+lE8c1R
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-3f50020e0f8so60567485e9.0
         for <alsa-devel@alsa-project.org>;
- Tue, 16 May 2023 15:38:12 -0700 (PDT)
+ Wed, 17 May 2023 04:44:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684276690; x=1686868690;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vbJEV48J4NMFZNK/dI2UJhC6ykl0UhPDNLnBVnRsU/w=;
-        b=YDivJEGLYVwP1jtDneM3aG9yzIVFsayF8eGOctNxhTXvUoqCcpjHyoAk4jJn6Ltznl
-         JlN8qt0k9abFnf1qzJ7NaunmNxststR5Y0oaBCCwpU9RG+ZISekmSNsrvwuH71MXqL+A
-         7aW+i7BQS6IwG2WVZJ1eAZaH2JmGAO367r6c3H7qBgHQqhiYhZ4Kxf06Fjc2JDQN8sjl
-         73xHnK+QAK6KPCQ6ihEDPWEupcG2xzY/4TjNaQ64j41hoV/CN+FZ8sUrRMAOA9ND/DTO
-         NX39ZOhVd0Lxf32oSRyc+rquKVXBO5nQgI/qIhGNGIdGC0pWdwaSb0Lds/80AIO/46Zx
-         /UBw==
+        d=linaro.org; s=google; t=1684323839; x=1686915839;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qiTbxTvoGmb0rvPSQY9gZGcVxttKCHNsaRhfGoOBfNA=;
+        b=H+lE8c1Rv4Jv1dNud1rmbZ696J4yV9EhgBs/HEHcHJbNvoz4jueDXYVUAFunOxxrge
+         lR5BcZRv2wOuVQCTnuAuUTNGTUZ3x996xqpJq6uOF02kTc9Td2JcYTvGeoB66KHGIUlM
+         0ZYGDjTqcZeTyvMg1jHbPeOw8Eog+7FdyB2lr0jRiYNoasE77f1irLSgsszVgwyaZSFu
+         f9DelUyAU2APkkFQfkH/GbtcI6b6ZcLrqwUz6TqUvrmEBeiO5AdJJdiVYsjW7I1kSwv/
+         hwybYiTLJV3n7eTBTm0+hlicz3UUi3wY1LurMS2bFAFtQQp6ATgghGHCWrFqdFklJ3xV
+         4B0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684276690; x=1686868690;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vbJEV48J4NMFZNK/dI2UJhC6ykl0UhPDNLnBVnRsU/w=;
-        b=YRvf7aWj89BjQz3H383EJtQbfmdTQ4OJrUWWjZosK2r0hE9X9Zn059Jcrn8hCchJOA
-         0xAwW0Sl3n+tEVtrNmENHuKymKGcmV3VzmkAz5PRooBs26lcV07IAe0D8L1vSzk9G84m
-         Rnc20CTcRHYDRjmsnPO+oeK0PGwh/dPW/DkYyrVkgENUEemrpdbgyl1Cck0zCQU4BJP5
-         oDoc7X0CPAsJtA8dpibPdT+FIooWfXE6l8bJ6WMcVAFGmT3RJuVEzaivi0fQBjxP3igJ
-         Pm9A8EYwYOqZdMwvHql+kQi/zE8VAa9EXIKcO0r/j2+39skZQPHn0Dz33rjzq/lgmJwq
-         whLA==
-X-Gm-Message-State: AC+VfDy/u/63H6eUeSPmQidZYkLmyHGfnGFR7HQoEBsx5gYnV/le6lr+
-	Znr2eIVqjyTzATns+ylTEN4=
+        d=1e100.net; s=20221208; t=1684323839; x=1686915839;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qiTbxTvoGmb0rvPSQY9gZGcVxttKCHNsaRhfGoOBfNA=;
+        b=JWt+EBIWG64Umhd9h+5vXALbMuq9jGOcKLRORTt9BZNnYLT7mMe19NQv1RwGVgaD6u
+         6rzVoEbcnoTaybW0uq2+y1zKbeZz1xMaaxAI/c19O0y/K17NHOA5tIzmrnRznfaLAaBX
+         Ptyxt8E+wRfR0T82mQn/rOeO3RvSll8ljfHP0M7Fj1ZgETOGAIf6Id3h72cki45tSyn1
+         ZyYuCU98VqssU3aQOYbMjDzNpj3ktrqH4tSWx7aD9aYUxS8/MIPZgpQUuZ39a9FIgxB9
+         8J95mIGJvSoCYSqw2T9jcaA45/d09rXe1gkU21QaKBoQifVHX8oKU0kWaISmCUWt0J27
+         S45A==
+X-Gm-Message-State: AC+VfDyVs+id4uuJZOEcGua2DxrX8IRZ44Bs2nR0yAxoIcha2nl12R72
+	xzmiDQT0nOFy6ZkvYIjcQMF/3g==
 X-Google-Smtp-Source: 
- ACHHUZ5iTa5QxKGz1//jWtHL7A7T+K6xZL1AnrItvgmJyd/LtFNyVTWVse9MTf6JP4ubEdqQtoaViw==
-X-Received: by 2002:a17:902:7b8f:b0:1ae:6a3:d058 with SMTP id
- w15-20020a1709027b8f00b001ae06a3d058mr10887119pll.36.1684276690111;
-        Tue, 16 May 2023 15:38:10 -0700 (PDT)
-Received: from ubuntu777.domain.name (36-228-97-28.dynamic-ip.hinet.net.
- [36.228.97.28])
+ ACHHUZ4efk8RWsWM3C3GXVuiM4Fe1ECwS6n6ko2oL3mvhS40S1N5bQ+BMP2YacfFvyN/A4/M6Ki+FA==
+X-Received: by 2002:a7b:c3ce:0:b0:3f4:2174:b28c with SMTP id
+ t14-20020a7bc3ce000000b003f42174b28cmr1472582wmj.14.1684323839055;
+        Wed, 17 May 2023 04:43:59 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
         by smtp.gmail.com with ESMTPSA id
- ij22-20020a170902ab5600b001ae46ccd19esm1029787plb.63.2023.05.16.15.38.08
+ h2-20020a1ccc02000000b003f421979398sm1981951wmb.26.2023.05.17.04.43.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 May 2023 15:38:09 -0700 (PDT)
-From: Min-Hua Chen <minhuadotchen@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Min-Hua Chen <minhuadotchen@gmail.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: compat_ioctl: use correct snd_ctl_elem_type_t type
-Date: Wed, 17 May 2023 06:38:05 +0800
-Message-Id: <20230516223806.185683-1-minhuadotchen@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Wed, 17 May 2023 04:43:57 -0700 (PDT)
+Date: Wed, 17 May 2023 14:43:51 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: ranjani.sridharan@linux.intel.com
+Cc: alsa-devel@alsa-project.org
+Subject: [bug report] ASoC: SOF: ipc4-pcm: reset all pipelines during FE DAI
+ hw_free
+Message-ID: <787a9124-e49c-4c1b-bcb3-fcf03b2695c8@kili.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: minhuadotchen@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: AXVNHJ562J2OJIVEARY2CNL2KGWDROIJ
-X-Message-ID-Hash: AXVNHJ562J2OJIVEARY2CNL2KGWDROIJ
+Message-ID-Hash: NQWUHNOCIQMJUEZPW6FY43MGXHG4BSZK
+X-Message-ID-Hash: NQWUHNOCIQMJUEZPW6FY43MGXHG4BSZK
 X-Mailman-Approved-At: Fri, 19 May 2023 06:16:22 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXVNHJ562J2OJIVEARY2CNL2KGWDROIJ/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,77 +114,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SNDRV_CTL_ELEM_TYPE_* are type of snd_ctl_elem_type_t, we
-have to __force cast them to int when comparing them with int
-to fix the following sparse warnings.
+Hello Ranjani Sridharan,
 
-sound/core/control_compat.c:203:14: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
-sound/core/control_compat.c:205:14: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
-sound/core/control_compat.c:207:14: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
-sound/core/control_compat.c:209:14: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
-sound/core/control_compat.c:237:21: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
-sound/core/control_compat.c:238:21: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
-sound/core/control_compat.c:270:21: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
-sound/core/control_compat.c:271:21: sparse: warning: restricted snd_ctl_elem_type_t degrades to integer
+The patch 225f37b578a9: "ASoC: SOF: ipc4-pcm: reset all pipelines
+during FE DAI hw_free" from May 15, 2023, leads to the following
+Smatch static checker warning:
 
-Signed-off-by: Min-Hua Chen <minhuadotchen@gmail.com>
----
- sound/core/control_compat.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+	sound/soc/sof/intel/hda-dai-ops.c:215 hda_ipc4_pre_trigger()
+	warn: inconsistent returns '&ipc4_data->pipeline_state_mutex'.
 
-diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
-index d8a86d1a99d6..9cae5d74335c 100644
---- a/sound/core/control_compat.c
-+++ b/sound/core/control_compat.c
-@@ -197,7 +197,7 @@ static int get_ctl_type(struct snd_card *card, struct snd_ctl_elem_id *id,
- 	return err;
- }
- 
--static int get_elem_size(int type, int count)
-+static int get_elem_size(snd_ctl_elem_type_t type, int count)
- {
- 	switch (type) {
- 	case SNDRV_CTL_ELEM_TYPE_INTEGER64:
-@@ -234,8 +234,8 @@ static int copy_ctl_value_from_user(struct snd_card *card,
- 	if (type < 0)
- 		return type;
- 
--	if (type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
--	    type == SNDRV_CTL_ELEM_TYPE_INTEGER) {
-+	if (type == (__force int)SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
-+	    type == (__force int)SNDRV_CTL_ELEM_TYPE_INTEGER) {
- 		for (i = 0; i < count; i++) {
- 			s32 __user *intp = valuep;
- 			int val;
-@@ -244,7 +244,7 @@ static int copy_ctl_value_from_user(struct snd_card *card,
- 			data->value.integer.value[i] = val;
- 		}
- 	} else {
--		size = get_elem_size(type, count);
-+		size = get_elem_size((__force snd_ctl_elem_type_t)type, count);
- 		if (size < 0) {
- 			dev_err(card->dev, "snd_ioctl32_ctl_elem_value: unknown type %d\n", type);
- 			return -EINVAL;
-@@ -267,8 +267,8 @@ static int copy_ctl_value_to_user(void __user *userdata,
- 	struct snd_ctl_elem_value32 __user *data32 = userdata;
- 	int i, size;
- 
--	if (type == SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
--	    type == SNDRV_CTL_ELEM_TYPE_INTEGER) {
-+	if (type == (__force int)SNDRV_CTL_ELEM_TYPE_BOOLEAN ||
-+	    type == (__force int)SNDRV_CTL_ELEM_TYPE_INTEGER) {
- 		for (i = 0; i < count; i++) {
- 			s32 __user *intp = valuep;
- 			int val;
-@@ -277,7 +277,7 @@ static int copy_ctl_value_to_user(void __user *userdata,
- 				return -EFAULT;
- 		}
- 	} else {
--		size = get_elem_size(type, count);
-+		size = get_elem_size((__force snd_ctl_elem_type_t)type, count);
- 		if (copy_to_user(valuep, data->value.bytes.data, size))
- 			return -EFAULT;
- 	}
--- 
-2.34.1
+sound/soc/sof/intel/hda-dai-ops.c
+    178 static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
+    179                                 struct snd_pcm_substream *substream, int cmd)
+    180 {
+    181         struct sof_ipc4_fw_data *ipc4_data = sdev->private;
+    182         struct snd_sof_widget *pipe_widget;
+    183         struct sof_ipc4_pipeline *pipeline;
+    184         struct snd_sof_widget *swidget;
+    185         struct snd_soc_dapm_widget *w;
+    186         int ret;
+    187 
+    188         w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
+    189         swidget = w->dobj.private;
+    190         pipe_widget = swidget->spipe->pipe_widget;
+    191         pipeline = pipe_widget->private;
+    192 
+    193         mutex_lock(&ipc4_data->pipeline_state_mutex);
+    194 
+    195         switch (cmd) {
+    196         case SNDRV_PCM_TRIGGER_START:
+    197         case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+    198                 break;
+    199         case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+    200         case SNDRV_PCM_TRIGGER_SUSPEND:
+    201         case SNDRV_PCM_TRIGGER_STOP:
+    202                 ret = sof_ipc4_set_pipeline_state(sdev, pipe_widget->instance_id,
+    203                                                   SOF_IPC4_PIPE_PAUSED);
+    204                 if (ret < 0)
+    205                         goto out;
 
+Originally we propagated the error code back on this path, but now we
+are returning 0.  Was this intentional?
+
+    206 
+    207                 pipeline->state = SOF_IPC4_PIPE_PAUSED;
+    208                 break;
+    209         default:
+    210                 dev_err(sdev->dev, "unknown trigger command %d\n", cmd);
+    211                 return -EINVAL;
+
+Needs an unlock before returning.
+
+    212         }
+    213 out:
+    214         mutex_unlock(&ipc4_data->pipeline_state_mutex);
+--> 215         return 0;
+    216 }
+
+regards,
+dan carpenter

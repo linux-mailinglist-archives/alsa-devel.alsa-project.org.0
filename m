@@ -2,108 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DD67064F1
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 12:14:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7D5D70666C
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 May 2023 13:16:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63DB31F7;
-	Wed, 17 May 2023 12:13:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63DB31F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B843A1F9;
+	Wed, 17 May 2023 13:15:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B843A1F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684318449;
-	bh=1uU4ZUJTX21bQmhZtsjWxyW+VP6UbBbwzTiOaVxfGoE=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=DEyd1E54z7kZWpKu/16aHJKBnifU/i53v8qFLFvhOXhlh/sdBVWYI7jIx7kZAZ5kV
-	 MKlGbrAZHoa4FnQ6NfliYF2MA5QzlyBMKEPZQloNyR/oAJNVwXhVdipmgK740fPbIT
-	 5uD6sKcZ/aN4OyIVq25mLFXffn5uIxBmqunG5sMk=
+	s=default; t=1684322172;
+	bh=5DZBLVR8fj7Hlj/5x/U4EV4FdPn3n+QxCrvKnSjDzIY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=uH8uXROfw0Wv+SfO+ULKsP9hoDbKBBWqypWBHmLVK/YvnQUniZx1VQO8Kyjt7B/FA
+	 Aat3e5FVDUpXwIBe52GFr6ly3VwVY4hSlwt1Eb/mYOMO4oY1rGlemJlcTqF7P4yE/R
+	 EbC73lYtZA7lo1ayQ+v70O0NLEEsn+1iM5Txrs/o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E027FF8024E; Wed, 17 May 2023 12:13:18 +0200 (CEST)
+	id DB8E2F8055B; Wed, 17 May 2023 13:14:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 829A5F8025A;
-	Wed, 17 May 2023 12:13:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64FE9F80431;
+	Wed, 17 May 2023 13:14:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F14CEF80272; Wed, 17 May 2023 12:13:14 +0200 (CEST)
+	id 2D1FAF80548; Wed, 17 May 2023 13:14:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [IPv6:2a00:1450:4864:20::636])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4B3BBF8016D
-	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 12:13:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B3BBF8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A2D8F8016A
+	for <alsa-devel@alsa-project.org>; Wed, 17 May 2023 13:14:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A2D8F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=P9lZtHUZ
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34H6sFqA004446;
-	Wed, 17 May 2023 05:13:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- content-transfer-encoding : in-reply-to; s=PODMain02222019;
- bh=Xpb1EWBMfi+Jisb8QnCvI2wmKB3bYLxwbNbSZLNIp3M=;
- b=P9lZtHUZVwbkmZDE5vVygaoxtsyGAnba+uL/acfYiQBVvTk4+IkqJ2tg01ycyBQHocRU
- 6dZNsVaypvtbrKVudMv67oGzLxMwzWzP/2hdsNmMwAPwHdbcpZt6W4L8ZB92tMG65hza
- NCp/K2MblSmvnAMKfKZFuUCb0PS3vzQLufVxQiK0XSJQ6EZbDow3UrhIFL5nMlV3DetT
- q2D+xV+2SxcVEIjPTkpriFZ12whLcPQ41yiUzGL+KDest4tL6DOAZFpRnX8wkyfICsWR
- 4LXUZ+17daG1kJZhWiYt6PgJPMWmW9ZlUoGIpqrQ0wKYbKey+jBKw8DL42xXhFpweczb OA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qj6ymwq4r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 17 May 2023 05:13:02 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 17 May
- 2023 05:13:01 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Wed, 17 May 2023 05:13:01 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3234311CA;
-	Wed, 17 May 2023 10:13:01 +0000 (UTC)
-Date: Wed, 17 May 2023 10:13:01 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-CC: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <tglx@linutronix.de>, <maz@kernel.org>, <linus.walleij@linaro.org>,
-        <vkoul@kernel.org>, <lgirdwood@gmail.com>,
-        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
-        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 08/10] pinctrl: cs42l43: Add support for the cs42l43
-Message-ID: <20230517101301.GV68926@ediswmail.ad.cirrus.com>
-References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-9-ckeepax@opensource.cirrus.com>
- <ZF6RMqElYZVMpWRt@surfacebook>
- <20230515101350.GS68926@ediswmail.ad.cirrus.com>
- <CAHp75Vcizrucc-2KFdFNeHNrxCzz4GwX1OzZYyjPH7P9RgnKYQ@mail.gmail.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=sIfEiJbF
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-965f7bdab6bso111872366b.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 17 May 2023 04:14:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1684322079; x=1686914079;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8f/Ov+L9lgAMMtQvsESvWR48vQlBSC6eGHRApShSvK4=;
+        b=sIfEiJbFesnboqrvDwg/JbxitCUki5aOESmQeTg6BQTaFmpQel55ARJNOzBd8Mm4FZ
+         fL+tqM9jp+I4U1fmvk7eAQehUtyk/TO+AAf9RFsKbKkkeNL6LvaF4LYZf9tyVKUlhdHG
+         i/DH2lMxWzJ7WPE4l4CfVfUWeP2GrHWEytoP6jrQX7Zkda97O0tWivR4CwTB9QHVEG1K
+         rBrCq0Y2omMSb5Z4kuCIJMQcJtoef5ryB9wcSy0/JXqX6taG1+ccb7qg58us2ne/Zb0p
+         7V10XrAmSJFkQZ4ZLTGvktUpzOfMUh1Q3cz8HYSdwZJS0JiMw8iiZs2Yq8MuIiFD1/N1
+         tN3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684322079; x=1686914079;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=8f/Ov+L9lgAMMtQvsESvWR48vQlBSC6eGHRApShSvK4=;
+        b=RPb9Sz9qrXXSa1Tc+4wpZCDYn8OY5K+xJ00ViAlMnC1Ox07sTw1kARP5JlmkecRp7Q
+         KkjsbPzhT54csEXrw4WWsj47z/JV5hXp6gZZqjPhlBwCdZxpfnYsdwh9oNG/be22FMww
+         KUadCghb7oeqNfRtY9KoTBLRDZGT/AMrOlagb7LbXnJm7IoiX8g/gsIPAJZopVFZTD6P
+         cUXtiIDyxT72CdWSnQSj9E6QrQnkbBuLZI09q19az6ew6b3OeR/Z6CI+sST7ZspsmSp+
+         /AcLWIrPxPJ1YMc6qcAQXGQIRRst3p6ytN061SMWKQE5PfUJq871utkS1S0Izg6w5zKt
+         WwVA==
+X-Gm-Message-State: AC+VfDw4fHSsxXGrKAYXw2VyFFE1bcGh9qe4dk9S6Bu2bX6ZT94KXy3w
+	oRaKKI+NLN34cjkEj70VbrfwWA==
+X-Google-Smtp-Source: 
+ ACHHUZ4W3Tqy+kmA5/CrSkwq+i+Z6QU84MiGKQFNv45sP/3v7DwL6mlpqoPP47j1FG0KjZyNBcEakA==
+X-Received: by 2002:a17:906:9c83:b0:95f:4889:412a with SMTP id
+ fj3-20020a1709069c8300b0095f4889412amr39964429ejc.33.1684322078958;
+        Wed, 17 May 2023 04:14:38 -0700 (PDT)
+Received: from krzk-bin.. ([2a02:810d:15c0:828:c9ff:4c84:dd21:568d])
+        by smtp.gmail.com with ESMTPSA id
+ ml18-20020a170906cc1200b0094f124a37c4sm12326880ejb.18.2023.05.17.04.14.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 May 2023 04:14:38 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 01/12] ASoC: codecs: rt1308: do not store status in state
+ container
+Date: Wed, 17 May 2023 13:14:05 +0200
+Message-Id: <20230517111416.424420-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: 
- <CAHp75Vcizrucc-2KFdFNeHNrxCzz4GwX1OzZYyjPH7P9RgnKYQ@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: E83zWdV2Sk2QsBLUBUii7rBv6xNydwdo
-X-Proofpoint-ORIG-GUID: E83zWdV2Sk2QsBLUBUii7rBv6xNydwdo
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: SID2U7X6HCN4U2JALOMKBY6JFZQ3TWOF
-X-Message-ID-Hash: SID2U7X6HCN4U2JALOMKBY6JFZQ3TWOF
-X-MailFrom: prvs=050130d673=ckeepax@opensource.cirrus.com
+Message-ID-Hash: NB4HZR5Y4DYO6DHJ2TK6MENQ2GCSELM7
+X-Message-ID-Hash: NB4HZR5Y4DYO6DHJ2TK6MENQ2GCSELM7
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SID2U7X6HCN4U2JALOMKBY6JFZQ3TWOF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NB4HZR5Y4DYO6DHJ2TK6MENQ2GCSELM7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,76 +122,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, May 16, 2023 at 10:03:45PM +0300, Andy Shevchenko wrote:
-> On Mon, May 15, 2023 at 1:13 PM Charles Keepax
-> <ckeepax@opensource.cirrus.com> wrote:
-> > On Fri, May 12, 2023 at 10:19:14PM +0300, andy.shevchenko@gmail.com wrote:
-> > > Fri, May 12, 2023 at 01:28:36PM +0100, Charles Keepax kirjoitti:
-> > > > +   if (!of_property_read_bool(dev_of_node(cs42l43->dev), "gpio-ranges")) {
-> > > > +           ret = gpiochip_add_pin_range(&priv->gpio_chip, priv->gpio_chip.label,
-> > > > +                                        0, 0, CS42L43_NUM_GPIOS);
-> > > > +           if (ret) {
-> > > > +                   dev_err(priv->dev, "Failed to add GPIO pin range: %d\n", ret);
-> > > > +                   goto err_pm;
-> > > > +           }
-> > > > +   }
-> > >
-> > > Besides the fact that we have a callback for this, why GPIO library can't
-> > > handle this for you already?
-> >
-> > Apologies but I am not quite sure I follow you, in the device
-> > tree case this will be handled by the GPIO library. But for ACPI
-> > this information does not exist so has to be called manually, the
-> > library does not necessarily know which values to call with,
-> > although admittedly our case is trivial but not all are.
-> 
-> Why can't the firmware provide this information? _DSD() is a part of
-> ACPI v5.1 IIRC.
-> 
+Driver in its update status callback stores Soundwire device status in
+state container but it never uses it later.  Simplify the code a bit.
 
-I am very very far from confident we can guarantee that will be
-present in the ACPI. The ACPI is typically made for and by the
-Windows side.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ sound/soc/codecs/rt1308-sdw.c | 5 +----
+ sound/soc/codecs/rt1308-sdw.h | 1 -
+ 2 files changed, 1 insertion(+), 5 deletions(-)
 
-> Although it might require moving some code from gpiolib-of.c to
-> gpiolib.c with replacing OF APIs with agnostic ones.
-> 
+diff --git a/sound/soc/codecs/rt1308-sdw.c b/sound/soc/codecs/rt1308-sdw.c
+index 1797af824f60..313e97c94532 100644
+--- a/sound/soc/codecs/rt1308-sdw.c
++++ b/sound/soc/codecs/rt1308-sdw.c
+@@ -304,9 +304,6 @@ static int rt1308_update_status(struct sdw_slave *slave,
+ {
+ 	struct  rt1308_sdw_priv *rt1308 = dev_get_drvdata(&slave->dev);
+ 
+-	/* Update the status */
+-	rt1308->status = status;
+-
+ 	if (status == SDW_SLAVE_UNATTACHED)
+ 		rt1308->hw_init = false;
+ 
+@@ -314,7 +311,7 @@ static int rt1308_update_status(struct sdw_slave *slave,
+ 	 * Perform initialization only if slave status is present and
+ 	 * hw_init flag is false
+ 	 */
+-	if (rt1308->hw_init || rt1308->status != SDW_SLAVE_ATTACHED)
++	if (rt1308->hw_init || status != SDW_SLAVE_ATTACHED)
+ 		return 0;
+ 
+ 	/* perform I/O transfers required for Slave initialization */
+diff --git a/sound/soc/codecs/rt1308-sdw.h b/sound/soc/codecs/rt1308-sdw.h
+index 04ff18fa18e2..f816c73e247e 100644
+--- a/sound/soc/codecs/rt1308-sdw.h
++++ b/sound/soc/codecs/rt1308-sdw.h
+@@ -159,7 +159,6 @@ struct rt1308_sdw_priv {
+ 	struct snd_soc_component *component;
+ 	struct regmap *regmap;
+ 	struct sdw_slave *sdw_slave;
+-	enum sdw_slave_status status;
+ 	struct sdw_bus_params params;
+ 	bool hw_init;
+ 	bool first_hw_init;
+-- 
+2.34.1
 
-I really think if we want to start doing things that way on ACPI
-platforms someone with a little more clout than us needs to start
-doing it first. If Intel or someone was doing it that way it
-might give us a little more levelage to push it as being the
-"correct" way to do it.
-
-I will switch to the callback, but really don't think we can rely
-on this being in DSD yet.
-
-> 
-> > > > +static int cs42l43_pin_remove(struct platform_device *pdev)
-> > > > +{
-> > > > +   pm_runtime_disable(&pdev->dev);
-> > >
-> > > This is simply wrong order because it's a mix of non-devm_*() followed by
-> > > devm_*() calls in the probe.
-> > >
-> >
-> > I had missed there are now devm_pm_runtime calls, I will switch
-> > to that. But I would like to understand the wrong order, remove
-> > will be called before the devm bits are destroyed and it seems
-> > reasonable to disable the pm_runtime before destroying the
-> > pinctrl device. What exactly would run in the wrong order here?
-> 
-> At the ->remove() stage after this call an IRQ can be fired (or on SMP
-> systems any other APIs can be called), for example. So, would it be a
-> problem to service it with PM disabled?
-> 
-> But in any case the shuffling ordering like this is prone to subtle
-> bugs. I prefer to have strict ordering if there is nothing preventing
-> from doing that way.
-
-Yeah happy enough to use devm_ here, just didn't know it existed
-and wanted to better understand your concerns as I was having
-difficulty seeing the issue.
-
-Thanks,
-Charles

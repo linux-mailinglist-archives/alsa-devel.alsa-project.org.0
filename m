@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C39B70846A
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 16:58:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8630970847B
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 17:00:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41DAB74C;
-	Thu, 18 May 2023 16:57:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41DAB74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71E8E3E7;
+	Thu, 18 May 2023 16:59:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71E8E3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684421927;
-	bh=xD9RMg89D8hz1W1Aya5/+k2IDlQojx5rIOQV2kGTtFY=;
+	s=default; t=1684422011;
+	bh=WqhjrcTjM55qKIuEVQafyKz2gKnhSrOdv1cEJkZN5Ew=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=j4wqM1uEL7OECFUH9toqx58wNDXZva4AGo/GWFycZxfK5OTqw/wysb5EcZ6l8AT/1
-	 mEJxBtW8RxLnYNPosGcOqGj/hnxabEDSWluVmG8LSiH5NpwKznuNSbNOoWeUS4sg3R
-	 sPaxknY4TNTaMb/i9IYivbaieZtD04CznPGL3rcw=
+	b=PHS66qH4Qg6L0apuV5Zk3vbB6rxD9RsP7T941OysNhj4ufYPsdRuVRWInjLtCH1mT
+	 x7feL0x+QRDiOyV4WXIoZlrGn4AXJZLQUl7E4va8Je3RX/MKZXNndzWL32+v8PdZnP
+	 GdMqW/XTBtrosXhnsz1EU1sq+0OmTjaO4S93t9BU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB14CF80557; Thu, 18 May 2023 16:57:30 +0200 (CEST)
+	id 3524BF80548; Thu, 18 May 2023 16:58:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D13FF80557;
-	Thu, 18 May 2023 16:57:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC389F802E8;
+	Thu, 18 May 2023 16:58:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9ECE8F8055C; Thu, 18 May 2023 16:57:27 +0200 (CEST)
+	id ADB50F80272; Thu, 18 May 2023 16:58:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,66 +37,66 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 793C7F80549
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 16:57:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 793C7F80549
+	by alsa1.perex.cz (Postfix) with ESMTPS id 99106F8016D
+	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 16:58:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99106F8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=V0rJRnxh;
+ header.s=susede2_rsa header.b=hR0jJqmS;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=gRuYR/ve
+ header.s=susede2_ed25519 header.b=Zx2xpnnE
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0E57F1FD75;
-	Thu, 18 May 2023 14:57:25 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 64D2A1FD69;
+	Thu, 18 May 2023 14:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1684421845;
+	t=1684421933;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NKm7UnJXxUz8+Mni+/wR0N95Q9CbfIEi+RV2hKTcEog=;
-	b=V0rJRnxhSbeJgLZ+o1t1MHIg60MqZkOVjw37bOkL2M3jQCjX+mKCYdqqXrEYcTMEG5arrP
-	7te+e+See3Asu3ZJoKMVu+R971qriNQPXNAKAlbYH/Xes2J+nQph+w03dCHr9h0/HLDLqc
-	A/Y2oFDk2cP8zsZcUzae5N/fWVbuvNU=
+	bh=89SQliDZRHX4ZJAT103UljwxcE0SBFEl0513LTYVYns=;
+	b=hR0jJqmSrnURVgZcHwE1Qbd6RFacRaL/qt/QwLYYwSvL0K3qYC3AS+E7XBBwhkb6BurISi
+	Kgr9wqUJTTcjzF9GGtZqy+ipWLahNRBkB20+IhVhkxvOk8vyvOSbIb2u7ZFL1ow5wGc1xG
+	aAmsVfMuBHTbOJ5UObDPfGjau5KYL30=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684421845;
+	s=susede2_ed25519; t=1684421933;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NKm7UnJXxUz8+Mni+/wR0N95Q9CbfIEi+RV2hKTcEog=;
-	b=gRuYR/veq5Fc0nmmsHmXDwPeLEqsZO4J82ZVbXjCgVYqLbTM3wxJPXgaSx2bW1bVNE1JRX
-	fBBPblvLIzojxuDQ==
+	bh=89SQliDZRHX4ZJAT103UljwxcE0SBFEl0513LTYVYns=;
+	b=Zx2xpnnEO4fbSVfaUrP7zXdGYYV8naxECCghp8PdmFmxiyIbxxTyA5rlbanB9jwJ/dwt+T
+	3Ev1LK6QLBfWTYDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BDC481390B;
-	Thu, 18 May 2023 14:57:24 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 220F51390B;
+	Thu, 18 May 2023 14:58:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 1vwvK9Q8ZmQhaAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 18 May 2023 14:57:24 +0000
-Date: Thu, 18 May 2023 16:57:23 +0200
-Message-ID: <87pm6xhelo.wl-tiwai@suse.de>
+	id iqW5BS09ZmTXaAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 18 May 2023 14:58:53 +0000
+Date: Thu, 18 May 2023 16:58:52 +0200
+Message-ID: <87o7mhhej7.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 Cc: alsa-devel@alsa-project.org,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 0/2] ALSA: emu10k1: various improvements to the DSP-based
- mixer code
-In-Reply-To: <20230518140339.3722279-1-oswald.buddenhagen@gmx.de>
-References: <20230518140339.3722279-1-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 0/7] ALSA: emu10k1: refactoring of the playback voice
+ management
+In-Reply-To: <20230518140947.3725394-1-oswald.buddenhagen@gmx.de>
+References: <20230518140947.3725394-1-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: HVBOPJUW2JURL45CLMXSPIYBMMRHZSD2
-X-Message-ID-Hash: HVBOPJUW2JURL45CLMXSPIYBMMRHZSD2
+Message-ID-Hash: OJSTOA5DKK65UPFE6QUWOLYX6MH2VCAY
+X-Message-ID-Hash: OJSTOA5DKK65UPFE6QUWOLYX6MH2VCAY
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HVBOPJUW2JURL45CLMXSPIYBMMRHZSD2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OJSTOA5DKK65UPFE6QUWOLYX6MH2VCAY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,15 +118,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 18 May 2023 16:03:37 +0200,
+On Thu, 18 May 2023 16:09:40 +0200,
 Oswald Buddenhagen wrote:
 > 
 > 
-> Oswald Buddenhagen (2):
->   ALSA: emu10k1: enable bit-exact playback, part 3: pitch
->   ALSA: emu10k1: enable bit-exact playback, part 4: send amounts
+> Oswald Buddenhagen (7):
+>   ALSA: emu10k1: simplify freeing synth voices
+>   ALSA: emu10k1: don't forget to reset reclaimed synth voices
+>   ALSA: emu10k1: improve voice status display in /proc
+>   ALSA: emu10k1: make freeing untouched playback voices cheap
+>   ALSA: emu10k1: centralize freeing PCM voices
+>   ALSA: emu10k1: make snd_emu10k1_voice_alloc() assign voices' epcm
+>   ALSA: emu10k1: revamp playback voice allocator
 
-Applied both patches now.  Thanks.
+I applied partially, patches 1-4.
+For the rest, please resubmit with corrections.
 
+
+thanks,
 
 Takashi

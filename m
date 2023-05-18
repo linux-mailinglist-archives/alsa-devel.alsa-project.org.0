@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC5707086A9
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 19:21:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 536637086AA
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 19:22:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C73F4208;
-	Thu, 18 May 2023 19:21:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C73F4208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AA427F8;
+	Thu, 18 May 2023 19:21:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AA427F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684430516;
-	bh=piOq5yMlSJS5vyyMJbxfeW2jBDmCAz3nZ9BEF7MQFns=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=nLHGDDepfrg0phqt/dCSMfsLUWpZZs/mD0KQoWvFwxdLe8HlVgmpwqZO6lsMFGA+v
-	 pxdx+/6yHo6htGs0lnUOW2QXXrBG29yrr8+hXf/yUO9aWLA5OL2sVN1khloI6PB/7O
-	 76AMIKdW7+Z18a8ys/HIlTa7VeveigNrH/uOgRYI=
+	s=default; t=1684430526;
+	bh=DLOKbaMrOU5RlLa2tug+EkZRejY+0mDEJnMAV7PKXrQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=SR6A1MuVO/trI10H0jCxS9lLRUp/DAjBXm/SZLQo5n9z8m5sgNdB5VCkwDEx++YpR
+	 lYZDIQ9C1u1C1jyT8d6so2hd1z1xUxyzm7IZR5+J31fesHA+jbu+0iasUC38fyJ2Db
+	 Ridi2EeLVsYsFx3s2Z/vd6vVZ+FjFF8q0R7gOZd4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5EDCDF80567; Thu, 18 May 2023 19:20:30 +0200 (CEST)
+	id C837BF8057A; Thu, 18 May 2023 19:20:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D4C9F8055A;
-	Thu, 18 May 2023 19:20:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71DE7F8056F;
+	Thu, 18 May 2023 19:20:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA0C5F80552; Thu, 18 May 2023 19:20:25 +0200 (CEST)
+	id CB8F7F8055C; Thu, 18 May 2023 19:20:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,49 +35,48 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E096AF8016A
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 19:20:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E096AF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 66464F8053D
+	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 19:20:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66464F8053D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=l2dQIRYA
+ header.s=k20201202 header.b=g4X4S+mj
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C8CC665119;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5106065107;
+	Thu, 18 May 2023 17:20:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65487C433D2;
 	Thu, 18 May 2023 17:20:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC832C433EF;
-	Thu, 18 May 2023 17:20:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684430420;
-	bh=piOq5yMlSJS5vyyMJbxfeW2jBDmCAz3nZ9BEF7MQFns=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=l2dQIRYABelwZpNXnjfqP2r6MmhIcv4jS3+TCeML5UpseyRQk91f1zUpvu4CHzOtp
-	 Du1cAZP4IG6qlTLUOkWgbEhCLi88RKyAl2pzn68l3oXV27ChA16srcBEWS37JQK6OJ
-	 9fDrz0KL6kb89bhq5SDIMAS9+yyFNmGaFA+8SWJbjNvwuVbw6eRsuD1ZrQtBlyu6VF
-	 Nay2Qwk285GUkFGngih/Y4UfP/MVn4JsYzpDiiAYlZa61AviwjnrgCyQ6eQBCu48dK
-	 igDrXLLP77ewA/vSuPz6/9mRD+7K3TdflZ5jplI8spMX2j+foB+OAXyT+iopP69oOW
-	 hA37MOEQWqptw==
+	s=k20201202; t=1684430424;
+	bh=DLOKbaMrOU5RlLa2tug+EkZRejY+0mDEJnMAV7PKXrQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=g4X4S+mjiN/yX1Ba9+Hw7K7Nmv84tLINKt6/W4jYQi78l+FOFc3Zk5g3l82TVMgM8
+	 t2pnhMGmHA/jbnT5rVE68YlFUpjLBtbDiUXxliDtHsGncOmP8zZEJ+YyY8fsbO/c24
+	 vuFLK72XDvoBCwuqyOTW/zowtTQcoks/BpsDDhJwT3fAkHwVhY77dCIlu1eF4F2BUe
+	 XvLQ7CB9gURpCv8EYNcSxu7yPCZEvHUpat4xowYquWaelcy6kxC8d2b8QBd6Z/6ZQu
+	 Tqm+lNw8yc9awZYTNKQaTqkZETYQfVDv++GkuFrpmc2M4+cM4VHamcDov/46wKlW72
+	 pwV/fyNbLA/NQ==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: perex@perex.cz, tiwai@suse.com, matthias.bgg@gmail.com,
- nfraprado@collabora.com, wenst@chromium.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, kernel@collabora.com
-In-Reply-To: <20230517151516.343037-1-angelogioacchino.delregno@collabora.com>
-References: <20230517151516.343037-1-angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH] ASoC: mediatek: mt8192-mt6359: Remove " Jack" from
- Headphone pin name
-Message-Id: <168443041576.472592.13647493326207546899.b4-ty@kernel.org>
-Date: Fri, 19 May 2023 02:20:15 +0900
+To: Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230518072753.7361-1-krzysztof.kozlowski@linaro.org>
+References: <20230518072753.7361-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [RESEND PATCH 00/12] ASoC: codecs: do not store status in
+ state containe
+Message-Id: <168443042102.472592.16533029797391259590.b4-ty@kernel.org>
+Date: Fri, 19 May 2023 02:20:21 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: SY4XNDBCMSXAJIKUMCG5AHJKNQ4WLTDF
-X-Message-ID-Hash: SY4XNDBCMSXAJIKUMCG5AHJKNQ4WLTDF
+Message-ID-Hash: U7PQH7NALBUNCWMUESBDZZUXR3X4BDEG
+X-Message-ID-Hash: U7PQH7NALBUNCWMUESBDZZUXR3X4BDEG
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,23 +89,22 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SY4XNDBCMSXAJIKUMCG5AHJKNQ4WLTDF/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7PQH7NALBUNCWMUESBDZZUXR3X4BDEG/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 17 May 2023 17:15:16 +0200, AngeloGioacchino Del Regno wrote:
-> Function jack_kctl_name_gen() will remove the redundant " Jack" from
-> the name, if present, and then it will add it back, so that all of
-> the controls are named "(pin-name) Jack".
+On Thu, 18 May 2023 09:27:41 +0200, Krzysztof Kozlowski wrote:
+> Resend due to missing cover letter, so adding per-series tags was
+> not possible.
 > 
-> Remove " Jack" from the Headphone pin name to spare some CPU cycles.
+> Added Rb tag.
 > 
-> This commit brings no functional changes.
+> Best regards,
+> Krzysztof
 > 
 > [...]
 
@@ -116,8 +114,30 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: mediatek: mt8192-mt6359: Remove " Jack" from Headphone pin name
-      commit: cbbc0ec6dea09c815f1d1ef0abaf3f2ec89ff11f
+[01/12] ASoC: codecs: rt1308: do not store status in state container
+        commit: cc3ff544a296b5b4bb021f4dc415b53a6955b980
+[02/12] ASoC: codecs: rt1316: do not store status in state container
+        commit: 70207b95b2245502496443475c9fc4eb72ba3b66
+[03/12] ASoC: codecs: rt1318: do not store status in state container
+        commit: 28eb1e4224c3b3ff29fe4c29bcdc011d3a0ffd07
+[04/12] ASoC: codecs: rt5682: do not store status in state container
+        commit: 758665b15acc1adb21a833c6456746ffbce07ed7
+[05/12] ASoC: codecs: rt700: do not store status in state container
+        commit: 9564c9f691128bc2dc69de02f7eed205d9b2513f
+[06/12] ASoC: codecs: rt711-sdca: do not store status in state container
+        commit: 8322947e9228ef7f8c3dd13822d32c491f9488e7
+[07/12] ASoC: codecs: rt711: do not store status in state container
+        commit: 22e15c18b4a91c71bf66de06187b8a3199bb8cad
+[08/12] ASoC: codecs: rt712-sdca-dmic: do not store status in state container
+        commit: d7a79616fc723305094fd7391085428b7a893636
+[09/12] ASoC: codecs: rt712-sdca: do not store status in state container
+        commit: 5cd02f96f49a7e6d2f8b96ddc42092776b554873
+[10/12] ASoC: codecs: rt715-sdca: do not store status in state container
+        commit: cda72c89d082f5953fab9948fc1212ca0df11d96
+[11/12] ASoC: codecs: rt715: do not store status in state container
+        commit: 0315dac5406c9c0b8e334195aa01c4ec155adf47
+[12/12] ASoC: codecs: rt722-sdca: do not store status in state container
+        commit: b932f21f6678659bd434c0d47e3bebc94bae0a51
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

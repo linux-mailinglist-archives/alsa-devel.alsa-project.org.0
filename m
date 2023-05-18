@@ -2,82 +2,120 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF6D7089F5
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 22:57:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44267708B8D
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 00:27:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53F061FE;
-	Thu, 18 May 2023 22:57:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F061FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA4AE1FA;
+	Fri, 19 May 2023 00:26:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA4AE1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684443473;
-	bh=2kvhsQX3ua3F3nuiniINthxEYicobxtIUS0bjfwTDFs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FayeBBX2h+ONr0474fREwOGKfHfnEGT+5Eocm9fmcnH8qZd070DOhPg4JmTnmqkkw
-	 dMzy3brwCqZPfyCxT6WWHKMIZFZ0BOtW/Ww/+7UkszzQvTLiKuXaoIEmwhDNSxpBkZ
-	 iBRp5L49zippn/HPiMDZhNlvKpEK2VAkq53QH11U=
+	s=default; t=1684448867;
+	bh=fHuljI8cDUiCkIQ/e8XExer4nED2xRmBiNlk+cePeZc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=if5odlrO9ywzIRP6k9R7s6q8brm9SMy2iT6aUX4bJXkrCVhAfMLCCaQz48R9o/Mnh
+	 CRqGvNWfiTd2IHvxhg19J53F8rYPOOQ6wUwaMsOtSvYdExmpHDDnZ8vNameU4+BEHU
+	 Z7PvPSvxaMiYGwzFw/aJnPdlu7QpFdIDRTCXxZuc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B905EF80542; Thu, 18 May 2023 22:57:02 +0200 (CEST)
+	id 1A3D9F8024E; Fri, 19 May 2023 00:26:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6931CF8025A;
-	Thu, 18 May 2023 22:57:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DA20F8025A;
+	Fri, 19 May 2023 00:26:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6883AF80272; Thu, 18 May 2023 22:56:59 +0200 (CEST)
+	id B716AF80272; Fri, 19 May 2023 00:26:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 63E29F80087
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 22:56:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63E29F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id C25E3F8024E
+	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 00:26:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C25E3F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=a/WbYFpJ
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 48BB660AB3;
-	Thu, 18 May 2023 20:56:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B74C433D2;
-	Thu, 18 May 2023 20:56:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684443408;
-	bh=2kvhsQX3ua3F3nuiniINthxEYicobxtIUS0bjfwTDFs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=a/WbYFpJcHfzazuvSLaBTUuEZf8dLJrrlKE+yolmEkDJZPqVJrIhqgaaYhTWlh45z
-	 jaBe9aoLXThELMzekfR2Torp01i9JFKzgIhKvtTckNsEN3psF4YeVEDpHB1KwRG4iu
-	 NfFcvpXFY2vblG+pAfQZhwXbkz4w5mHtVyRTpc2N0QbM/P810eY2ybGXu6ykdPlSOH
-	 umeAy1XNG6V9Ku/9jujma4Rqmx3rRkLLeG691nMJW36e7f0u+dLYbnq98KlKAgL0FW
-	 gcaDVtDFEHQUMgPEk7T2QrnttlBdGkvJoG9TdjpJY6PCSuOsGnBj4+xH24J7fXvGVS
-	 y+9ns56zuMP7A==
-Date: Thu, 18 May 2023 21:56:44 +0100
-From: Conor Dooley <conor@kernel.org>
-To: David Rau <David.Rau.opensource@dm.renesas.com>
-Cc: krzysztof.kozlowski+dt@linaro.org, support.opensource@diasemi.com,
-	lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
-	conor+dt@kernel.org, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: dt-bindings: dialog,da7219: convert to dtschema
-Message-ID: <20230518-voice-puppy-2a533ec28ac8@spud>
-References: <20230518091449.17984-1-David.Rau.opensource@dm.renesas.com>
+ unprotected) header.d=ljones.dev header.i=@ljones.dev header.a=rsa-sha256
+ header.s=fm2 header.b=EvWSMR2s;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=CI/1R4yY
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailout.nyi.internal (Postfix) with ESMTP id B78F75C00E7;
+	Thu, 18 May 2023 18:26:32 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute4.internal (MEProxy); Thu, 18 May 2023 18:26:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm2; t=1684448792; x=
+	1684535192; bh=6TwGgJbBVoZV95OFOrW5qUj6HCHeiZRKa7KzYY7F1mg=; b=E
+	vWSMR2s4WTMKBUieZOSrmpN+9MI1n8S3Efa9oWlQCGFG9fgHTxxd96RFURKl154d
+	ULoCNWAzdS1NimT4SteO+B5qJr5/OfBUBr8mHZpOgCybWF0msMnT6npHmft97ZID
+	YJGcpvL1cjz31VvhAMH4NPp7YBw766M3XbxmSf0+qhPnxkqtB8FgmKfadvtxs9pM
+	UF8dRl/uCWPUnIBDTHA9zYGxhrAbLDm2knPh4kvrLvLKj0AohwMqp1zZQDqx5y1T
+	0E8pW+V9Z8xJwXIhZTnJjpFReIG2hAIWaNtlg0+QsE9/wJalC0WSy2My5Npz2fpG
+	+CLgIIYiB+kw4v26enirA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:sender
+	:subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1684448792; x=1684535192; bh=6
+	TwGgJbBVoZV95OFOrW5qUj6HCHeiZRKa7KzYY7F1mg=; b=CI/1R4yYIaTvkAF2V
+	2s3rR2F/S7H1PSztrI10gu3k8kHmmBzOtbvBStMcaXhcbPRG+w96IADmAsPeQJCM
+	8G34s6EnWqGWoqReyTERnizPkT9QIwoMyGWoSEGEzo4FBeSiGCXSbKRE6AwHlPrY
+	5vDhnhWG/5N3FxG5TZSRCOjwDqE4kiFNON5ft2GpeUvq6hX23Knl+gU2fHBGowxi
+	n1MuTuKvtbL/L13aCoObDZaf6q0v1b/8ZqkYSC8oyfiMdKZNZfytZOGdzt5fqrDr
+	OO/p7n1G6DBUvd7fid2XutBAPhZoLNdBYd76lgPh9xfuy/R6S2b4kbBt0u5Q3Ieu
+	zZxrA==
+X-ME-Sender: <xms:F6ZmZLxR-KJOjDA2PTxY5Eo9DJhTchs95xMMqehGHPGtclbFAVwG3A>
+    <xme:F6ZmZDTRbyayWrzAhYGleNbl5yrUUCpTIwkn2jdmE3JeBTNMuws6CKvDO48owuqEn
+    7o8hId96sGqp3cx1pg>
+X-ME-Received: 
+ <xmr:F6ZmZFUj4b7rsDd7fJ6MvhwVHJZ32YnuCl1FH7HA7sf-jlbt_siVA4VnnbNp9X9YBLAtow>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrfeeigedgudduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkfgggfgtsehtufertd
+    dttddvnecuhfhrohhmpefnuhhkvgculfhonhgvshcuoehluhhkvgeslhhjohhnvghsrdgu
+    vghvqeenucggtffrrghtthgvrhhnpedugfdtfedtkeekhfdthedugfdufeeghfehffekje
+    dukeeljeehleduffeuhfejjeenucffohhmrghinhepghhithhhuhgsrdgtohhmpdhkvghr
+    nhgvlhdrohhrghdpshhpihhnihgtshdrnhgvthdplhhinhhugihmihhnthdrtghomhdphh
+    hprdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mheplhhukhgvsehljhhonhgvshdruggvvh
+X-ME-Proxy: <xmx:F6ZmZFjV2RhmD_Z_S_-zVv4y5LMNYkYIB0hGxRLDUVNVuFKEKFBW4A>
+    <xmx:F6ZmZNCq0INHpUlEH7JJ9Hy9xjrRs-qvdv4jm4V_X6Jv1iqbX3ACDA>
+    <xmx:F6ZmZOI29vG_fRS-d53d06sRvAgsxyF8hskUn3AkpWCE-xaS-hdKBg>
+    <xmx:GKZmZFZopau2GuThF3VngsOL-Yyf1nvfy_kc6BcfnyqPyPNmL3zWUg>
+Feedback-ID: i5ec1447f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 18 May 2023 18:26:26 -0400 (EDT)
+From: Luke Jones <luke@ljones.dev>
+To: linux-kernel@vger.kernel.org
+Cc: tiwai@suse.com, sbinding@opensource.cirrus.com, perex@perex.cz,
+ tangmeng@uniontech.com, andy.chi@canonical.com, p.jungkamp@gmx.net,
+ kasper93@gmail.com, yangyuchi66@gmail.com, armas@codux.tech,
+ ealex95@gmail.com, james.schulman@cirrus.com, david.rhodes@cirrus.com,
+ tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
+ patches@opensource.cirrus.com, alsa-devel@alsa-project.org
+Subject: CSC3551 and devices missing related _DSD bits
+Date: Fri, 19 May 2023 10:26:22 +1200
+Message-ID: <1991650.PYKUYFuaPT@fedora>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="POx6Lz9VgPmVxdU/"
-Content-Disposition: inline
-In-Reply-To: <20230518091449.17984-1-David.Rau.opensource@dm.renesas.com>
-Message-ID-Hash: FCPEH2E2JU5W6ECTUAV4MLGTGR4M7BFU
-X-Message-ID-Hash: FCPEH2E2JU5W6ECTUAV4MLGTGR4M7BFU
-X-MailFrom: conor@kernel.org
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Message-ID-Hash: ILWD6P2M5NQQIMCYPOIWFANVOD53MZW7
+X-Message-ID-Hash: ILWD6P2M5NQQIMCYPOIWFANVOD53MZW7
+X-MailFrom: luke@ljones.dev
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +127,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCPEH2E2JU5W6ECTUAV4MLGTGR4M7BFU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ILWD6P2M5NQQIMCYPOIWFANVOD53MZW7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,150 +136,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Takashi (and all others),
 
---POx6Lz9VgPmVxdU/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+We're beginning to encounter more and more laptops from ASUS in the ROG range 
+where the bass speakers are connected to a cirrus amp, and the driver for 
+cirrus is unable to pick this up due to being missing a _DSD section in the 
+ACPI (SSDT). I've emailed engineers at ASUS I have contact with about this but 
+it is unlikely that we will see corrections for each and every model + variant 
+they have. The models we have seen so far are:
+- GX650P
+- GU604V
+- GA402X
+And there have been numerous forum postings in various places with the exact 
+same issue for other models from ASUS that are not in the ROG group I deal 
+with - oh and also some Lenovo and HP devices also.
 
-Hey David,
+Some of the logs are:
 
-On Thu, May 18, 2023 at 09:14:49AM +0000, David Rau wrote:
-> - Convert Dialog DA7219 bindings to DT schema format.
-> - Add Jack insertion detection polarity selection.
-> - Remove unused `dlg,ldo-lvl` parameter.
+[    5.542312] Serial bus multi instantiate pseudo device driver CSC3551:00: 
+Instantiated 2 I2C devices.
+[    5.717261] cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: Error: ACPI _DSD 
+Properties are missing for HID CSC3551.
+[    5.717269] cs35l41-hda i2c-CSC3551:00-cs35l41-hda.0: error -EINVAL: 
+Platform not supported
+[    5.717286] cs35l41-hda: probe of i2c-CSC3551:00-cs35l41-hda.0 failed with 
+error -22
+[    5.717734] cs35l41-hda i2c-CSC3551:00-cs35l41-hda.1: Error: ACPI _DSD 
+Properties are missing for HID CSC3551.
+[    5.717737] cs35l41-hda i2c-CSC3551:00-cs35l41-hda.1: error -EINVAL: 
+Platform not supported
+[    5.717750] cs35l41-hda: probe of i2c-CSC3551:00-cs35l41-hda.1 failed with 
+error -22
 
-Could you please split this out, so that the conversion is done in a
-patch of its own, with the addition separate (unless it is my
-unfamiliarity with sound at play, and the addition is required as part
-of the conversion).
+and:
 
-> diff --git a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
-> new file mode 100644
-> index 000000000000..32dfc4559052
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
-> @@ -0,0 +1,240 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/dialog,da7219.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Dialog Semiconductor DA7219 Audio Codec
-> +
-> +maintainers:
-> +  - David Rau <David.Rau.opensource@dm.renesas.com>
-> +
-> +description:
-> +  The DA7219 is an ultra low-power audio codec with
-> +  in-built advanced accessory detection (AAD) for mobile
-> +  computing and accessory applications, which supports
-> +  sample rates up to 96 kHz at 24-bit resolution.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - dlg,da7219
+[    3.343851] cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: Error: ACPI _DSD 
+Properties are missing for HID CSC3551.
+[    3.343854] cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: error -EINVAL: 
+Platform not supported
+[    3.343855] cs35l41-hda: probe of spi1-CSC3551:00-cs35l41-hda.0 failed with 
+error -22
+[    3.345544] cs35l41-hda spi1-CSC3551:00-cs35l41-hda.1: Error: ACPI _DSD 
+Properties are missing for HID CSC3551.
+[    3.345546] cs35l41-hda spi1-CSC3551:00-cs35l41-hda.1: error -EINVAL: 
+Platform not supported
+[    3.345548] cs35l41-hda: probe of spi1-CSC3551:00-cs35l41-hda.1 failed with 
+error -22
 
-This is just a const.
+So there are SPI connected, and I2C connected.
 
-> +  reg:
-> +    description:
-> +      The I2C slave address of the DA7219.
-> +    maxItems: 1
+Alex has already submitted the related patch_realtek work for the GU604V and 
+no doubt there will be some follow up patches from myself or others for the 
+other models. Alex has attempted to patch the Cirrus related parts in kernel 
+direct with:
+1. https://github.com/bno1/linux-xanmod-gu604/blob/acpi-hack/
+patch03_gu604v_speaker_acpi_hack.patch
+2. https://github.com/bno1/linux-xanmod-gu604/blob/acpi-hack/
+patch04_gu604v_spi_cs_gpio_hack.patch
+both of these patches have been tested and working for over a week.
 
-Drop the description please, it's stating the obvious IMO.
+>From what I see the patch04_gu604v_spi_cs_gpio_hack patch needs to shift to 
+the cirrus driver sound/pci/hda/cs35l41_hda.c, and that driver must now have a 
+quirk table - unless we can somehow add the cirrus related bits to the realtek 
+code? I've personally not played with this beyond keeping an eye on it all and 
+am reluctant to begin work on a solution until I've had some input on the 
+direction it should take.
 
-> +  interrupts:
-> +    description:
-> +      Interrupt for DA7219 IRQ line.
-> +    maxItems: 1
+In any case, this is not an isolated issue and we could benefit from putting 
+in place some quirk or similar to accommodate for laptops where the vendor for 
+some reason does not include the _DSD parts for use with the cirrus driver. 
+The trend is looking so far like this practice will continue regardless of the 
+vendor.
 
-Ditto here.
+Known reports:
+- https://bugzilla.kernel.org/show_bug.cgi?id=216194
+- https://www.spinics.net/lists/alsa-devel/msg146434.html
+- https://gist.github.com/lamperez/862763881c0e1c812392b5574727f6ff
+- https://forums.linuxmint.com/viewtopic.php?t=392762
+- https://h30434.www3.hp.com/t5/Notebook-Operating-System-and-Recovery/Envy-x360-2022-13-b0074TU-Audio-not-working-in-Linux-Fedora/td-p/8644641
 
-> +
-> +  VDD-supply:
-> +    description:
-> +      VDD power supply for the device.
-
-I would say and here, but there seem to be dozens of other similar
-properties in sound.
-
-> +
-> +  VDDMIC-supply:
-> +    description:
-> +      VDDMIC power supply for the device.
-> +
-> +  VDDIO-supply:
-> +    description:
-> +      VDDIO power supply for the device.
-> +
-> +  interrupt-names:
-> +    description:
-> +      Name associated with interrupt line.
-> +      Should be "wakeup" if interrupt is to be used to wake system,
-> +      otherwise "irq" should be used.
-
-Please encode these names using the items: field. + oneOf.
-
-> +
-> +  wakeup-source:
-
-type: boolean
-
-> +    description:
-> +      Flag to indicate this device can wake system (suspend/resume).
-> +
-> +  "#clock-cells":
-> +    description:
-> +      Two clock sources provided.
-
-Drop the description here please.
-
-> +    const: 1
-> +
-> +  clock-output-names:
-> +    description:
-> +      Names given for DAI clock outputs (WCLK & BCLK).
-
-Please encode these as items:
-
-> +
-> +  clocks:
-> +    description:
-> +      phandle and clock specifier for codec MCLK.
-
-maxItems: 1 & given the clock name I think you can drop both
-descriptions from here and clock-names.
+Regards,
+Luke
 
 
-> +  "da7219_aad":
 
-Drop the quotes please.
-
-> +      dlg,jack-ins-det-pty:
-> +        enum: ["low", "high"]
-> +        description:
-> +          Polarity for jack insertion detection.
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-
-Yeah, please do the change from txt -> yaml as one patch and this as
-another.
-
-Cheers,
-Conor.
-
-
---POx6Lz9VgPmVxdU/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZGaRDAAKCRB4tDGHoIJi
-0onwAP9JET5WHCuSIsy/Osee2vEftKPtKRv8yf7av6zgfkMa1AEA81M4t/QUZdmA
-D1EW+0Z1W0eLENDipaCCK9PEXAD3Ogw=
-=B/fJ
------END PGP SIGNATURE-----
-
---POx6Lz9VgPmVxdU/--

@@ -2,90 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69A30708920
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 22:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AF6D7089F5
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 22:57:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 725D31FA;
-	Thu, 18 May 2023 22:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 725D31FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53F061FE;
+	Thu, 18 May 2023 22:57:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F061FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684440607;
-	bh=kXEoI/MUqXSOlgrXvsOJmCghoMDgJk9+/YDxliWR/9w=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=rsw9jPyUh+Q7B1/PdfkOnL8HrwcoUYFWQpcuX8/qHgaLJi7Xrxm9SlWsR7RZxUZe+
-	 MPvEgRbMrA0ppLhfYZ6YoKhDX3UA7GKnRZdbufj3tjTKJi5KRzj14gONsb1DjjsBiQ
-	 ncdc18lQn41nE0Ol+KvUfHQZbw2OkZryVIIkgJmI=
+	s=default; t=1684443473;
+	bh=2kvhsQX3ua3F3nuiniINthxEYicobxtIUS0bjfwTDFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=FayeBBX2h+ONr0474fREwOGKfHfnEGT+5Eocm9fmcnH8qZd070DOhPg4JmTnmqkkw
+	 dMzy3brwCqZPfyCxT6WWHKMIZFZ0BOtW/Ww/+7UkszzQvTLiKuXaoIEmwhDNSxpBkZ
+	 iBRp5L49zippn/HPiMDZhNlvKpEK2VAkq53QH11U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C2C4F80272; Thu, 18 May 2023 22:08:54 +0200 (CEST)
+	id B905EF80542; Thu, 18 May 2023 22:57:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46065F80087;
-	Thu, 18 May 2023 22:08:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6931CF8025A;
+	Thu, 18 May 2023 22:57:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE91CF80272; Thu, 18 May 2023 22:08:51 +0200 (CEST)
+	id 6883AF80272; Thu, 18 May 2023 22:56:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C0C9F80087
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 22:08:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C0C9F80087
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pzjvO-000103-6P; Thu, 18 May 2023 22:08:34 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pzjvL-0019tE-HV; Thu, 18 May 2023 22:08:31 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1pzjvK-005kSy-FU; Thu, 18 May 2023 22:08:30 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	alsa-devel@alsa-project.org,
-	kernel@pengutronix.de
-Subject: [PATCH] soundwire: amd: Improve error message in remove callback
-Date: Thu, 18 May 2023 22:08:23 +0200
-Message-Id: <20230518200823.249795-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63E29F80087
+	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 22:56:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63E29F80087
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=a/WbYFpJ
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 48BB660AB3;
+	Thu, 18 May 2023 20:56:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B74C433D2;
+	Thu, 18 May 2023 20:56:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684443408;
+	bh=2kvhsQX3ua3F3nuiniINthxEYicobxtIUS0bjfwTDFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=a/WbYFpJcHfzazuvSLaBTUuEZf8dLJrrlKE+yolmEkDJZPqVJrIhqgaaYhTWlh45z
+	 jaBe9aoLXThELMzekfR2Torp01i9JFKzgIhKvtTckNsEN3psF4YeVEDpHB1KwRG4iu
+	 NfFcvpXFY2vblG+pAfQZhwXbkz4w5mHtVyRTpc2N0QbM/P810eY2ybGXu6ykdPlSOH
+	 umeAy1XNG6V9Ku/9jujma4Rqmx3rRkLLeG691nMJW36e7f0u+dLYbnq98KlKAgL0FW
+	 gcaDVtDFEHQUMgPEk7T2QrnttlBdGkvJoG9TdjpJY6PCSuOsGnBj4+xH24J7fXvGVS
+	 y+9ns56zuMP7A==
+Date: Thu, 18 May 2023 21:56:44 +0100
+From: Conor Dooley <conor@kernel.org>
+To: David Rau <David.Rau.opensource@dm.renesas.com>
+Cc: krzysztof.kozlowski+dt@linaro.org, support.opensource@diasemi.com,
+	lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+	conor+dt@kernel.org, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: dialog,da7219: convert to dtschema
+Message-ID: <20230518-voice-puppy-2a533ec28ac8@spud>
+References: <20230518091449.17984-1-David.Rau.opensource@dm.renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2113;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=kXEoI/MUqXSOlgrXvsOJmCghoMDgJk9+/YDxliWR/9w=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkZoW2bhAWVTSOr6/rGPIIzuDYm6TsLGBtuYkyx
- O4txTnChKGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZGaFtgAKCRCPgPtYfRL+
- TmmTB/4yRo3GnaGeLWjcsm7sFm1ThXExzfHFYcSssMcKU+8BOWYHF+mTbrikWI1JOuk3eX7VoK8
- u47VxNm13gL/6MccC8EZEdL0SWN5ZG+jzhfpseJzVrcJvRsYE4/SmhQM69XbDsQ0Rfe2pyr7mBc
- f3N22goEAoeoxm4Sae/UmuJbHTimO8Z03Dvavh8JyOnRqERJWwUXzf1q3z+xwOhSL5LfrLwdQtW
- Q2UikhWutWpGoc8+aD8mdW1eAkIp6nQVzFWF9yhFsuWmIs4XaJNrTzoV9oBKW2Gbk4uSbqMOLcf
- kqxGXt+M5uRngTrpwzztqAm2BTC5PTSmv6Myr25HaFEjawsP
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: G5D5ZZOBGCIXRFTSSAIY3U5UIO53UQZI
-X-Message-ID-Hash: G5D5ZZOBGCIXRFTSSAIY3U5UIO53UQZI
-X-MailFrom: ukl@pengutronix.de
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="POx6Lz9VgPmVxdU/"
+Content-Disposition: inline
+In-Reply-To: <20230518091449.17984-1-David.Rau.opensource@dm.renesas.com>
+Message-ID-Hash: FCPEH2E2JU5W6ECTUAV4MLGTGR4M7BFU
+X-Message-ID-Hash: FCPEH2E2JU5W6ECTUAV4MLGTGR4M7BFU
+X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G5D5ZZOBGCIXRFTSSAIY3U5UIO53UQZI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCPEH2E2JU5W6ECTUAV4MLGTGR4M7BFU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,61 +98,150 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Returning an error code in the remove callback yields to an error
-message
 
-	remove callback returned a non-zero value. This will be ignored.
+--POx6Lz9VgPmVxdU/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-After that the device is removed anyhow. Improve the error message to at
-least say what the actual problem is. While touching that code, convert
-the driver to the .remove_new() callback which returns no value with the
-same effect as returning zero in a .remove() callback.
+Hey David,
 
-As the return value is ignored by the core the only effect of this patch
-is to improve the error message. (And the motivating effect is that
-there is one less driver using .remove().)
+On Thu, May 18, 2023 at 09:14:49AM +0000, David Rau wrote:
+> - Convert Dialog DA7219 bindings to DT schema format.
+> - Add Jack insertion detection polarity selection.
+> - Remove unused `dlg,ldo-lvl` parameter.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- drivers/soundwire/amd_manager.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Could you please split this out, so that the conversion is done in a
+patch of its own, with the addition separate (unless it is my
+unfamiliarity with sound at play, and the addition is required as part
+of the conversion).
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 9fb7f91ca182..08aeb7ed00e1 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -972,15 +972,18 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
--static int amd_sdw_manager_remove(struct platform_device *pdev)
-+static void amd_sdw_manager_remove(struct platform_device *pdev)
- {
- 	struct amd_sdw_manager *amd_manager = dev_get_drvdata(&pdev->dev);
-+	int ret;
- 
- 	pm_runtime_disable(&pdev->dev);
- 	cancel_work_sync(&amd_manager->probe_work);
- 	amd_disable_sdw_interrupts(amd_manager);
- 	sdw_bus_master_delete(&amd_manager->bus);
--	return amd_disable_sdw_manager(amd_manager);
-+	ret = amd_disable_sdw_manager(amd_manager);
-+	if (ret)
-+		dev_err(&pdev->dev, "Failed to disable device (%pe)\n", ERR_PTR(ret));
- }
- 
- static int amd_sdw_clock_stop(struct amd_sdw_manager *amd_manager)
-@@ -1194,7 +1197,7 @@ static const struct dev_pm_ops amd_pm = {
- 
- static struct platform_driver amd_sdw_driver = {
- 	.probe	= &amd_sdw_manager_probe,
--	.remove = &amd_sdw_manager_remove,
-+	.remove_new = &amd_sdw_manager_remove,
- 	.driver = {
- 		.name	= "amd_sdw_manager",
- 		.pm = &amd_pm,
+> diff --git a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
+> new file mode 100644
+> index 000000000000..32dfc4559052
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
+> @@ -0,0 +1,240 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/dialog,da7219.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Dialog Semiconductor DA7219 Audio Codec
+> +
+> +maintainers:
+> +  - David Rau <David.Rau.opensource@dm.renesas.com>
+> +
+> +description:
+> +  The DA7219 is an ultra low-power audio codec with
+> +  in-built advanced accessory detection (AAD) for mobile
+> +  computing and accessory applications, which supports
+> +  sample rates up to 96 kHz at 24-bit resolution.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - dlg,da7219
 
-base-commit: ac9a78681b921877518763ba0e89202254349d1b
--- 
-2.39.2
+This is just a const.
 
+> +  reg:
+> +    description:
+> +      The I2C slave address of the DA7219.
+> +    maxItems: 1
+
+Drop the description please, it's stating the obvious IMO.
+
+> +  interrupts:
+> +    description:
+> +      Interrupt for DA7219 IRQ line.
+> +    maxItems: 1
+
+Ditto here.
+
+> +
+> +  VDD-supply:
+> +    description:
+> +      VDD power supply for the device.
+
+I would say and here, but there seem to be dozens of other similar
+properties in sound.
+
+> +
+> +  VDDMIC-supply:
+> +    description:
+> +      VDDMIC power supply for the device.
+> +
+> +  VDDIO-supply:
+> +    description:
+> +      VDDIO power supply for the device.
+> +
+> +  interrupt-names:
+> +    description:
+> +      Name associated with interrupt line.
+> +      Should be "wakeup" if interrupt is to be used to wake system,
+> +      otherwise "irq" should be used.
+
+Please encode these names using the items: field. + oneOf.
+
+> +
+> +  wakeup-source:
+
+type: boolean
+
+> +    description:
+> +      Flag to indicate this device can wake system (suspend/resume).
+> +
+> +  "#clock-cells":
+> +    description:
+> +      Two clock sources provided.
+
+Drop the description here please.
+
+> +    const: 1
+> +
+> +  clock-output-names:
+> +    description:
+> +      Names given for DAI clock outputs (WCLK & BCLK).
+
+Please encode these as items:
+
+> +
+> +  clocks:
+> +    description:
+> +      phandle and clock specifier for codec MCLK.
+
+maxItems: 1 & given the clock name I think you can drop both
+descriptions from here and clock-names.
+
+
+> +  "da7219_aad":
+
+Drop the quotes please.
+
+> +      dlg,jack-ins-det-pty:
+> +        enum: ["low", "high"]
+> +        description:
+> +          Polarity for jack insertion detection.
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+
+Yeah, please do the change from txt -> yaml as one patch and this as
+another.
+
+Cheers,
+Conor.
+
+
+--POx6Lz9VgPmVxdU/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZGaRDAAKCRB4tDGHoIJi
+0onwAP9JET5WHCuSIsy/Osee2vEftKPtKRv8yf7av6zgfkMa1AEA81M4t/QUZdmA
+D1EW+0Z1W0eLENDipaCCK9PEXAD3Ogw=
+=B/fJ
+-----END PGP SIGNATURE-----
+
+--POx6Lz9VgPmVxdU/--

@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 536637086AA
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 19:22:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48C387086F5
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 19:32:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AA427F8;
-	Thu, 18 May 2023 19:21:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AA427F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84F42DE;
+	Thu, 18 May 2023 19:31:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84F42DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684430526;
-	bh=DLOKbaMrOU5RlLa2tug+EkZRejY+0mDEJnMAV7PKXrQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=SR6A1MuVO/trI10H0jCxS9lLRUp/DAjBXm/SZLQo5n9z8m5sgNdB5VCkwDEx++YpR
-	 lYZDIQ9C1u1C1jyT8d6so2hd1z1xUxyzm7IZR5+J31fesHA+jbu+0iasUC38fyJ2Db
-	 Ridi2EeLVsYsFx3s2Z/vd6vVZ+FjFF8q0R7gOZd4=
+	s=default; t=1684431133;
+	bh=+5h/6N8I0UV/l06NAtCmeaQnePCeUKDhjroTzI85C4U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Wq8RFRMc6dsPaybZPyh4kFQnAvgeZNgAtC49yJiDCeBFV/rCvi/qRLl3A86MKaqd8
+	 zrtD/CxxOy2daKDt7Hh4FB0d1e0v5e0yqO//yDexSjwDXtYlT74Czt3+oX9xow4b/w
+	 +K7VGs5F/MYlogB8fnRLxAHBNs8lMJ5Nv6B8SKQM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C837BF8057A; Thu, 18 May 2023 19:20:32 +0200 (CEST)
+	id 0B133F80431; Thu, 18 May 2023 19:31:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71DE7F8056F;
-	Thu, 18 May 2023 19:20:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F66AF8025A;
+	Thu, 18 May 2023 19:31:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB8F7F8055C; Thu, 18 May 2023 19:20:28 +0200 (CEST)
+	id DF509F802E8; Thu, 18 May 2023 19:31:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 66464F8053D
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 19:20:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66464F8053D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 16935F8016A
+	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 19:31:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16935F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=g4X4S+mj
+ header.s=k20201202 header.b=UyCONONY
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5106065107;
-	Thu, 18 May 2023 17:20:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65487C433D2;
-	Thu, 18 May 2023 17:20:21 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F0510619E1;
+	Thu, 18 May 2023 17:31:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9169EC433D2;
+	Thu, 18 May 2023 17:31:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684430424;
-	bh=DLOKbaMrOU5RlLa2tug+EkZRejY+0mDEJnMAV7PKXrQ=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=g4X4S+mjiN/yX1Ba9+Hw7K7Nmv84tLINKt6/W4jYQi78l+FOFc3Zk5g3l82TVMgM8
-	 t2pnhMGmHA/jbnT5rVE68YlFUpjLBtbDiUXxliDtHsGncOmP8zZEJ+YyY8fsbO/c24
-	 vuFLK72XDvoBCwuqyOTW/zowtTQcoks/BpsDDhJwT3fAkHwVhY77dCIlu1eF4F2BUe
-	 XvLQ7CB9gURpCv8EYNcSxu7yPCZEvHUpat4xowYquWaelcy6kxC8d2b8QBd6Z/6ZQu
-	 Tqm+lNw8yc9awZYTNKQaTqkZETYQfVDv++GkuFrpmc2M4+cM4VHamcDov/46wKlW72
-	 pwV/fyNbLA/NQ==
+	s=k20201202; t=1684431066;
+	bh=+5h/6N8I0UV/l06NAtCmeaQnePCeUKDhjroTzI85C4U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=UyCONONYRD7xFmaZobBaYzr3h53pKq6TKE/mJ9CLm97V9nCbkH2GSJY5V/wVFuLDU
+	 NfoUw1EyeldIQPWq1FDRsvhBgUMAs8zaGHpHbNimdLNUVM8Dt+8Y1Lz6UN7ZQgToZw
+	 CEVEuvH+EsPsF4qmI8M8Zb3LyoDcFeyYf/Xk+WWgD1KR5jOGqoMcmq0auvfBeZQrka
+	 jxaK+JvOr5wxot37R5ER4ClVdZcoX5MJB0fuNgddNuGj8hc0bCYI6W0dq/G899ejcB
+	 SwJGJBM32phimhm5p3ABV0N56nn/nvrmz7U4L3+xGhc0JpFemTh6F4j1VPCxAUpPwG
+	 MTOYTKN4msMhA==
 From: Mark Brown <broonie@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230518072753.7361-1-krzysztof.kozlowski@linaro.org>
-References: <20230518072753.7361-1-krzysztof.kozlowski@linaro.org>
-Subject: Re: [RESEND PATCH 00/12] ASoC: codecs: do not store status in
- state containe
-Message-Id: <168443042102.472592.16533029797391259590.b4-ty@kernel.org>
-Date: Fri, 19 May 2023 02:20:21 +0900
+To: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ "moderated list:QCOM AUDIO (ASoC) DRIVERS" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20230511112532.16106-1-quic_visr@quicinc.com>
+References: <20230511112532.16106-1-quic_visr@quicinc.com>
+Subject: Re: [PATCH v2] ASoC:codecs: lpass: Fix for KASAN use_after_free
+ out of bounds
+Message-Id: <168443106443.480335.16812738995271810180.b4-ty@kernel.org>
+Date: Fri, 19 May 2023 02:31:04 +0900
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: U7PQH7NALBUNCWMUESBDZZUXR3X4BDEG
-X-Message-ID-Hash: U7PQH7NALBUNCWMUESBDZZUXR3X4BDEG
+Message-ID-Hash: TEHOWTJRGFY5Y6IVMET6EJJRF7YH5D6R
+X-Message-ID-Hash: TEHOWTJRGFY5Y6IVMET6EJJRF7YH5D6R
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,22 +91,42 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U7PQH7NALBUNCWMUESBDZZUXR3X4BDEG/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TEHOWTJRGFY5Y6IVMET6EJJRF7YH5D6R/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 18 May 2023 09:27:41 +0200, Krzysztof Kozlowski wrote:
-> Resend due to missing cover letter, so adding per-series tags was
-> not possible.
+On Thu, 11 May 2023 16:55:32 +0530, Ravulapati Vishnu Vardhan Rao wrote:
+> When we run syzkaller we get below Out of Bounds error.
 > 
-> Added Rb tag.
+> "KASAN: slab-out-of-bounds Read in regcache_flat_read"
 > 
-> Best regards,
-> Krzysztof
+> Below is the backtrace of the issue:
+> 
+> BUG: KASAN: slab-out-of-bounds in regcache_flat_read+0x10c/0x110
+> Read of size 4 at addr ffffff8088fbf714 by task syz-executor.4/14144
+> CPU: 6 PID: 14144 Comm: syz-executor.4 Tainted: G        W
+> Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
+> Call trace:
+> dump_backtrace+0x0/0x4ec
+> show_stack+0x34/0x50
+> dump_stack_lvl+0xdc/0x11c
+> print_address_description+0x30/0x2d8
+> kasan_report+0x178/0x1e4
+> __asan_report_load4_noabort+0x44/0x50
+> regcache_flat_read+0x10c/0x110
+> regcache_read+0xf8/0x5a0
+> _regmap_read+0x45c/0x86c
+> _regmap_update_bits+0x128/0x290
+> regmap_update_bits_base+0xc0/0x15c
+> snd_soc_component_update_bits+0xa8/0x22c
+> snd_soc_component_write_field+0x68/0xd4
+> tx_macro_put_dec_enum+0x1d0/0x268
+> snd_ctl_elem_write+0x288/0x474
 > 
 > [...]
 
@@ -114,30 +136,8 @@ Applied to
 
 Thanks!
 
-[01/12] ASoC: codecs: rt1308: do not store status in state container
-        commit: cc3ff544a296b5b4bb021f4dc415b53a6955b980
-[02/12] ASoC: codecs: rt1316: do not store status in state container
-        commit: 70207b95b2245502496443475c9fc4eb72ba3b66
-[03/12] ASoC: codecs: rt1318: do not store status in state container
-        commit: 28eb1e4224c3b3ff29fe4c29bcdc011d3a0ffd07
-[04/12] ASoC: codecs: rt5682: do not store status in state container
-        commit: 758665b15acc1adb21a833c6456746ffbce07ed7
-[05/12] ASoC: codecs: rt700: do not store status in state container
-        commit: 9564c9f691128bc2dc69de02f7eed205d9b2513f
-[06/12] ASoC: codecs: rt711-sdca: do not store status in state container
-        commit: 8322947e9228ef7f8c3dd13822d32c491f9488e7
-[07/12] ASoC: codecs: rt711: do not store status in state container
-        commit: 22e15c18b4a91c71bf66de06187b8a3199bb8cad
-[08/12] ASoC: codecs: rt712-sdca-dmic: do not store status in state container
-        commit: d7a79616fc723305094fd7391085428b7a893636
-[09/12] ASoC: codecs: rt712-sdca: do not store status in state container
-        commit: 5cd02f96f49a7e6d2f8b96ddc42092776b554873
-[10/12] ASoC: codecs: rt715-sdca: do not store status in state container
-        commit: cda72c89d082f5953fab9948fc1212ca0df11d96
-[11/12] ASoC: codecs: rt715: do not store status in state container
-        commit: 0315dac5406c9c0b8e334195aa01c4ec155adf47
-[12/12] ASoC: codecs: rt722-sdca: do not store status in state container
-        commit: b932f21f6678659bd434c0d47e3bebc94bae0a51
+[1/1] ASoC:codecs: lpass: Fix for KASAN use_after_free out of bounds
+      commit: 75e5fab7db0cecb6e16b22c34608f0b40a4c7cd1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

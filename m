@@ -2,229 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D539F708FD7
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 08:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76B9E708FD9
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 08:24:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 543AFDF4;
-	Fri, 19 May 2023 08:22:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 543AFDF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AA13A4E;
+	Fri, 19 May 2023 08:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AA13A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684477427;
-	bh=uSTkrbAO7Ncg5G3B0H2CZkAdV5X66E3cgDWt/Md9oFY=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1684477456;
+	bh=wjbUd8BoTg5a78NIafsTenLuhWLuVKd5j207tCSwiBg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m0e+sRKSxIk/sKceNjH0oL7b3uOeEduPzsNJtD8wU6KGtSFr+2b8ybUddXFBtJ3FZ
-	 dlC3wIbj5wJMz7w4ZZp2ChMNHQE8WtVSEFdl8GhA1Yi7WDpk4DBS5V1wJpMzm2Pgu9
-	 toHe7egvNIoySiNcTxEXkT2H38J9SUfTxKl05yYY=
+	b=SyzhUuq1onLKozcAKYR4sTKesEpmLvQwc5SPOvvw2yhH/ffX6dn8X5awVdcn/LH66
+	 sduZRKw6jdQ9sIRrkTZgF7n72wZRoRW1/Ysf+7Mak8AIkR0mqIrBxISpYHIwY/NmDt
+	 Pyr02VCSpPTQMrhTz0Tvi8QlYkEkTxj8h0lqV8js=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D98E4F80614; Fri, 19 May 2023 08:18:54 +0200 (CEST)
+	id 0514AF80638; Fri, 19 May 2023 08:18:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C03EFF805F9;
-	Fri, 19 May 2023 08:18:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28182F80618;
+	Fri, 19 May 2023 08:18:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86413F80272; Thu, 18 May 2023 09:39:07 +0200 (CEST)
+	id 4259AF80272; Thu, 18 May 2023 16:24:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from 7of9.schinagl.nl (7of9.schinagl.nl [185.238.129.13])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 495FAF8016D
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 09:39:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 495FAF8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 70DBDF8016D
+	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 16:24:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70DBDF8016D
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=zk2Xw9lQ;
 	dkim=pass (1024-bit key,
- unprotected) header.d=microchiptechnology.onmicrosoft.com
- header.i=@microchiptechnology.onmicrosoft.com header.a=rsa-sha256
- header.s=selector2-microchiptechnology-onmicrosoft-com header.b=uPCry+jA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1684395545; x=1715931545;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=uSTkrbAO7Ncg5G3B0H2CZkAdV5X66E3cgDWt/Md9oFY=;
-  b=zk2Xw9lQjX8zNWqu7unGJLetgoCP4H1UG+lsh9XKC49lWdaVV+tj6z1F
-   NT6AKm6bpbFGCzRGVmUC9saETqHG5LWP+uV9ocfmgx3uXgw+Io4X5IaR3
-   jDZuMeKrBE0TTNcg5ogUl/YClg10YX9OSD6bBywUqCnMK0RaBXrxv/Pty
-   /K8zb8I45pTRLo/5XKMcGvIJd3sZD2+5U49RAOIT8F7hMI2AdK0gAQbfA
-   ejFqoiqC1XxvsN7XA0zVkB8NjTvbxOGJuSrwDU/oNK3NYGt4lntgxej7a
-   1mMZacimKGGQfAy8J4vLA6Th/hJUbI9Yo5LazGicVu5N4tU9nEnegeGwW
-   Q==;
-X-IronPort-AV: E=Sophos;i="5.99,284,1677567600";
-   d="scan'208";a="216051304"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 18 May 2023 00:38:59 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Thu, 18 May 2023 00:38:56 -0700
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21 via Frontend
- Transport; Thu, 18 May 2023 00:38:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GQ8EcSQ3zIME+DehnLyKp3iC6hs5lqNO2r1QhZRcIrcKJ5amBYZXfyLh2R3zzIOHt3SUx3CrVc2SuDi7UZcND2oCdBSd25+K55L49Na2FoChSML36h/7eDX/v2mBBWdTVHOh2Ql7qSEsaBXmM9P6v3gIAnU83hkIGLfEZy+9gq6DCIMEMZ6QaD2fIouh1szhagXnC3VEnHS+Zjmusn62n+lP6MMASytPTt0B/SzFk4exFP0v8OG5jcSS9Dbbyt/IR5BM3VcdbQRWBXdmE055XuYoSY9h9nrHOLGvA2vRaBuxX02ZJRai5oihnbUQL37VviGrN1rHUw+XAwqRWXbXtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uSTkrbAO7Ncg5G3B0H2CZkAdV5X66E3cgDWt/Md9oFY=;
- b=R2XOx3FP97KJ5N2kRw5ERbcXxZyPs/yS1Y8Ckc8xXfJqE2MC6gCnaFozox8Pmqz/Ml9s1zWDhMnSMcs28e7dp8nkBzpLdhsHq86knJnpjj1PjIhFAktMJ64Y0UuvPggB2InfEOLk3131OLN20FnlnU4fMe0auYErufmOZFgzDsbMSactYN0wi9O1lu85IBHERNMlFU4yg8IPzitbfV5bcy7zxZoqxB0AzshBkf5uNkkAnDWcQySibOxacoOxs+a/qel23jY2sa3YnNVa3YoQ/0ZV9/taySaCEg74LFxAqPoIBi2/JvARyp4pwK3arBoVbgGzb1nEznvCGqVBxzt9Bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=microchiptechnology.onmicrosoft.com;
- s=selector2-microchiptechnology-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uSTkrbAO7Ncg5G3B0H2CZkAdV5X66E3cgDWt/Md9oFY=;
- b=uPCry+jAcMt3FOJ6CpO42Ij5cauJuKEPWo4ykMorVhwwH7oIVU4oiLbr9km0sA69pqVF+h5HOnsPq5kB6HA4IfrExc3TPdFmDI7r8IP4sMduAtF6/nLW6e1pI8RS/7j/wl9iatWKNLZtK9r49Ec4ktR7bSQytmUFEbbjOIxaqMU=
-Received: from SJ2PR11MB7648.namprd11.prod.outlook.com (2603:10b6:a03:4c3::17)
- by DS0PR11MB8017.namprd11.prod.outlook.com (2603:10b6:8:115::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Thu, 18 May
- 2023 07:38:54 +0000
-Received: from SJ2PR11MB7648.namprd11.prod.outlook.com
- ([fe80::27bf:a69f:806f:67be]) by SJ2PR11MB7648.namprd11.prod.outlook.com
- ([fe80::27bf:a69f:806f:67be%5]) with mapi id 15.20.6411.019; Thu, 18 May 2023
- 07:38:54 +0000
-From: <Claudiu.Beznea@microchip.com>
-To: <maxime@cerno.tech>, <mturquette@baylibre.com>, <sboyd@kernel.org>,
-	<afaerber@suse.de>, <mani@kernel.org>, <Nicolas.Ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <jcmvbkbc@gmail.com>,
-	<ckeepax@opensource.cirrus.com>, <rf@opensource.cirrus.com>,
-	<mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>,
-	<luca.ceresoli@bootlin.com>, <david@lechnology.com>, <nsekhar@ti.com>,
-	<abelvesa@kernel.org>, <shawnguo@kernel.org>, <s.hauer@pengutronix.de>,
-	<kernel@pengutronix.de>, <festevam@gmail.com>, <linux-imx@nxp.com>,
-	<matthias.bgg@gmail.com>, <geert+renesas@glider.be>, <dinguyen@kernel.org>,
-	<pdeschrijver@nvidia.com>, <pgaikwad@nvidia.com>, <thierry.reding@gmail.com>,
-	<jonathanh@nvidia.com>, <ulf.hansson@linaro.org>, <linus.walleij@linaro.org>,
-	<airlied@gmail.com>, <daniel@ffwll.ch>, <vkoul@kernel.org>,
-	<kishon@kernel.org>, <a.zummo@towertech.it>, <wens@csie.org>,
-	<jernej.skrabec@gmail.com>, <samuel@sholland.org>, <lgirdwood@gmail.com>,
-	<broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
-	<paul@crapouillou.net>, <orsonzhai@gmail.com>,
-	<baolin.wang@linux.alibaba.com>, <zhang.lyra@gmail.com>
-CC: <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<angelogioacchino.delregno@collabora.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-actions@lists.infradead.org>,
-	<patches@opensource.cirrus.com>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-mediatek@lists.infradead.org>, <linux-renesas-soc@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-phy@lists.infradead.org>, <linux-rtc@vger.kernel.org>,
-	<linux-sunxi@lists.linux.dev>, <alsa-devel@alsa-project.org>,
-	<linux-mips@vger.kernel.org>
-Subject: Re: [PATCH v3 46/65] clk: at91: smd: Switch to determine_rate
-Thread-Topic: [PATCH v3 46/65] clk: at91: smd: Switch to determine_rate
-Thread-Index: AQHZiVvMh8mlcLuc5k2DWCq7QLqcHw==
-Date: Thu, 18 May 2023 07:38:54 +0000
-Message-ID: <ca4e1c30-1faf-f4e5-980b-20f5307a580c@microchip.com>
-References: <20221018-clk-range-checks-fixes-v3-0-9a1358472d52@cerno.tech>
- <20221018-clk-range-checks-fixes-v3-46-9a1358472d52@cerno.tech>
-In-Reply-To: <20221018-clk-range-checks-fixes-v3-46-9a1358472d52@cerno.tech>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR11MB7648:EE_|DS0PR11MB8017:EE_
-x-ms-office365-filtering-correlation-id: ab55f6ba-3d35-435f-a903-08db5772ee99
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- 1W9jjSH6AuCOEUHJUPkFhxD27c4UwT4ID1jj/+NZQFo9ilnqG7bi2ehJ7Chx7c46LrT04adEQ9nCjE69Ujv0ae5AShM7lK8rNORQVzVKs8uULjRt65zVqEwr/kl0kF/BtseO53w8/X0NP8e2PJa+XrhIDV3DyvCvlh0dMM7PifHinGnCoTjwyw9EcIfn9lKFrrVHa2URZ/mkwd/KEVXrMI3TxBY+dbrH4FByhyuzkzSwuzw9l+6zFzJaLvGGt8K6qHhMsTRufnPSAFWKhLB/W5DvPYtznSeNjiUthvfJmt9UmCxR/Gex4KVC+yXj2nkFWZSXNLdvrmfIQd6da/KXR3orMqkEmcw2pm624i3COXCU1qQ+DFAV3xRyXxY1n9WEmFZ/fxfTYVzlfoj7JXAjBK+BrUc3viWROF/3EhtrhfRcYLYZSutge+O2nFPfMph8SFTUMrnXdVn0WvHrgovl10pd5cyD9DkZyh+PPURErNAr6olGoVfeoaQmd2jHNx7uMH6h4nleb4B6ZGRkn9lLVjmOxUuFtz/QPyNvQfQmhDwhRlf1c+FI3Kv9vBk7lC2CfLeTpk+Pb1tRT/eBPWsV8wdy5THZLQeOElUqWDwY3mMyILWbCjwWvoGrXmBrapGUVWUDKAt1vJHekNqnfa9H+QcNlGna5WmJ2rsxHmk4cmNUHlyoVlREIDHqah8Ypm6ez/4UW/v/ypmnMQ7nBVa7Iw==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB7648.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(39860400002)(136003)(396003)(346002)(366004)(451199021)(110136005)(2906002)(91956017)(41300700001)(316002)(54906003)(478600001)(7406005)(7416002)(7366002)(31686004)(71200400001)(6486002)(66946007)(8676002)(66446008)(4326008)(8936002)(66556008)(76116006)(66476007)(64756008)(5660300002)(6506007)(26005)(53546011)(186003)(2616005)(83380400001)(36756003)(86362001)(38070700005)(921005)(38100700002)(122000001)(6512007)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?QUs1cGFIRGZ2Nnl3NnVkZjdCYTJMWE0yU3ljMW1RS3dSUFZSM1Q5dFFaYUhL?=
- =?utf-8?B?dXkzT0phSzlROHdCMWdQVUZjT2pGWWcxeENHcytHNU9vdGgwRGNPT050RGxn?=
- =?utf-8?B?bG5LMFNPWGtNU0NLWlEya1U5SDdQd1VzUUI3RVpuV0ZjTHN0WndoNzVQNFBl?=
- =?utf-8?B?a1p3UTJpWjJPTkZxWnVrR0FWVUpQSWdSNWdrb2U4dVFmRjZZRE9ocDlYN1hT?=
- =?utf-8?B?WERudGI5TzhrZDdFZUdWMm1ZOTlINWJTUGUyQUEvOEtYRkVpRXZhNE1jR3RT?=
- =?utf-8?B?RDVVajhoc1pTL2FyTzk0dHY5UHNlbG5jbnlaZ1paaysyVXZRTFl1QXpOcWFZ?=
- =?utf-8?B?Q3VuNS9oSWVXdXZMKzlPK1lhcnlYUmlHQmFscmVYczZ3bkgycWZicEFyN3RG?=
- =?utf-8?B?dGRmWVc3RjdqUzhlVE1pSjdNQ0RZQXVoaDhpK0pCczIrcjlVWUhiSkJVekxW?=
- =?utf-8?B?MW9ZbG9hNTNmR1FQMWZlaU42eFJoYm5rTnRIVElUWktidjZVcENhL0twZTBO?=
- =?utf-8?B?UEw2SDVCTGtsRFZWazNBZXN0aHZpbVFmelE2ekdTZ2tnR0FFemhZQjhwSjFn?=
- =?utf-8?B?eFhSVWFKY3NlVEIySXZHY3lJY011L0RPSWFUbDhPM2daN2xLZVZpUjk1d0VW?=
- =?utf-8?B?TGRQSXRHV3lDcTdDNmp1RkdKL1BjbVdVdEVXc2FhMUJFWkh6aExYbkNqSHpH?=
- =?utf-8?B?OVdNTit6Yzl4WGw1ejJLbVo2WGE4ZmJid1dBSzI0eEYwVGhVa2N5QWdDS2dT?=
- =?utf-8?B?ZG1oQ2JzMkg3d3ArTDFNRE8ySFp0QmJMenQvcTVlNkVKMkJ6MW84TEh1WWRL?=
- =?utf-8?B?RVVhbUtIL1JJbmFqSEQySFRseENIQ1VTeHVoU25VbDd0QzRLa0FYdDFoa2Fm?=
- =?utf-8?B?YWhHZVpuc1RPc0hBUlhrMWNoRWhwSXZJT1V2WkFxRFF3T3o2UXVYZEk2ZDhU?=
- =?utf-8?B?ajZhWlJiZE14SXAzMWlndER2Y3FERXRuNUpiVGU1NFV6bXpNYTdLbE1TdG1Q?=
- =?utf-8?B?NHVENStLRnM1UUk0ZmhwMjFHYXpUU0tJMzU2ZWgrbkVoeEFaQTI4SHJ2bG5s?=
- =?utf-8?B?Q3FDV0pmcnl6RzBESWNxUHFUYnFJcExTRU1LK0YvdXV6amxuek1mK01sSkJa?=
- =?utf-8?B?VlFPdnJ5ZXRadnpUaTVudTBiemYwdU14eEVDSGhVTkh0RmNQZ0V1WDFOOERY?=
- =?utf-8?B?M25NcjEra0hOMUlsc2pBQ2QwUzNWSFB6NWhOVk8raEhRZjdGMXhpd0RlUEcz?=
- =?utf-8?B?N2VBTitiSy81OUQ5ck8wNHFpQ29JSGtVV09ZbkpQcGVyNHA4TEdwOWRqM0Rq?=
- =?utf-8?B?WjhCUzVIaklWOU42bElxZHNoeko4UHVxaCtTVyswaEpyTWNXUUJKc1IvZG1O?=
- =?utf-8?B?eGhERTAyeG5YSVJxQ2JVeXVTNFJqMEc5SG9UUkpzOXpSeHdxcnRMNFF2ZUsy?=
- =?utf-8?B?d0l0ZG5xVUhRd0paSFFNUVp5d1RGZk1LR0RzWWE5Yk1wL29XRkRlcmQvUG5U?=
- =?utf-8?B?TDNOQ2tScFdJekxRL2FuN3dEMGo4YUhjMFhHU1VpRkhRTHBUWGNXWFNaamx1?=
- =?utf-8?B?WGRhUnBBZDRjbkkzYmxETllacTduWmdJTmUvRElMVWN3eFRiOHFoVkxteWtx?=
- =?utf-8?B?anp3cUcrUytZQ1VGVUM5QTAwQ01YU2JncHNLUmRiZXZ3bGRvYlJLYjhwL0Zx?=
- =?utf-8?B?Q1NwR0pyV0JhQVFFQ2x2dFlWdUVMZ1RWOTlxS2Nmc2drZHZUdEVINHBVbGJJ?=
- =?utf-8?B?cHk3dHB1RDM0VWc4MDJ1M0xtZC8xZmxKcmlBTitOTkZZNDNJcGEweGh6Q1d4?=
- =?utf-8?B?R005cWhpV1AyQ1hpN05RQ0UreG13NWNoUWdlWE8ybVVnSEVHcUxOZFVSSnNM?=
- =?utf-8?B?RlB3Nm5RVnJlU01uUGNQbUptSjNLdGpRcjY1K2ZGVnVIeHZDQlljZlpNSG9k?=
- =?utf-8?B?cEJpMTF5d0o1NXZNZVh4eHRpQ09sTlRnQWhrKzQ3TUFQeFNLam5ESGYwaDVI?=
- =?utf-8?B?VElIN01vbDJITWNkUFA5eWFYVGRmdUpzSEFJMENvZjhLT3dLdE1MQ3lJdjcz?=
- =?utf-8?B?dE1hN0Q5a3UvbXRFS2hSVzhISkkwb0VnMEl4TTBjL0RhamxsTHh2cFFmUUhE?=
- =?utf-8?Q?Tknp64AFOs0aW/Y0Ca/7yY1y/?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <3DD7ECCC95B9014AB73596C62ABF099D@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ unprotected) header.d=schinagl.nl header.i=@schinagl.nl header.a=rsa-sha256
+ header.s=7of9 header.b=tPxnT2Ji
+Received: from [10.2.12.48] (unknown [10.2.12.48])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by 7of9.schinagl.nl (Postfix) with ESMTPSA id 37F0818CCD7E;
+	Thu, 18 May 2023 16:24:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=schinagl.nl; s=7of9;
+	t=1684419843; bh=wjbUd8BoTg5a78NIafsTenLuhWLuVKd5j207tCSwiBg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=tPxnT2JiCSgrGJhTJF0qRA9J8kLrFnXijmNuoLRh97/z37UdGAQ/CeOnxYMm0n1sS
+	 rqewOPrANwxSSUc7rpvExAucqfnTjvweU5Pz+OAevAhyQc9NW6SwuApkjC6NP0+Xmk
+	 9yCr5mIc5ElU0AjvhdWpuiBF8H+APXSjT/t41Osk=
+Message-ID: <d6e3b9ea-f98f-6404-e1ee-6973d68b64c1@schinagl.nl>
+Date: Thu, 18 May 2023 16:24:02 +0200
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7648.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- ab55f6ba-3d35-435f-a903-08db5772ee99
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2023 07:38:54.3655
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- tIHhA4JV6XGm3rx5F/qQ0KuLDMr+ApqTlMwb8yKOan+wL9HsAdxRpZF7IK+WSL5XYR+LHfkrIt/p3oqci7HB1qTSrkKEsfWH8Ivy4uxtKxY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8017
-X-MailFrom: Claudiu.Beznea@microchip.com
-X-Mailman-Rule-Hits: max-recipients
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: snd_hda_codec_cirrus kernel oops
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org
+References: <64d95eb0-dbdb-cff8-a8b1-988dc22b24cd@schinagl.nl>
+ <87zg69appu.wl-tiwai@suse.de>
+ <6afd694e-8810-8197-3dd0-831daf2130f3@schinagl.nl>
+ <87bkikdt66.wl-tiwai@suse.de>
+Content-Language: nl
+From: Olliver Schinagl <oliver@schinagl.nl>
+In-Reply-To: <87bkikdt66.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MailFrom: oliver@schinagl.nl
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: OVUYXIMN3M27MF2SXAH4WCHZJPERPZPT
-X-Message-ID-Hash: OVUYXIMN3M27MF2SXAH4WCHZJPERPZPT
-X-Mailman-Approved-At: Fri, 19 May 2023 06:17:01 +0000
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: WCNXYDZGQ3AO4MIW6WFNJ7D26N6YXCZC
+X-Message-ID-Hash: WCNXYDZGQ3AO4MIW6WFNJ7D26N6YXCZC
+X-Mailman-Approved-At: Fri, 19 May 2023 06:17:35 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OVUYXIMN3M27MF2SXAH4WCHZJPERPZPT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WCNXYDZGQ3AO4MIW6WFNJ7D26N6YXCZC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -233,76 +93,147 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gMDQuMDQuMjAyMyAxMzoxMSwgTWF4aW1lIFJpcGFyZCB3cm90ZToNCj4gRVhURVJOQUwgRU1B
-SUw6IERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3Uga25v
-dyB0aGUgY29udGVudCBpcyBzYWZlDQo+IA0KPiBUaGUgQXRtZWwgU0FNOXg1IFNNRCBjbG9ja3Mg
-aW1wbGVtZW50cyBhIG11eCB3aXRoIGEgc2V0X3BhcmVudA0KPiBob29rLCBidXQgZG9lc24ndCBw
-cm92aWRlIGEgZGV0ZXJtaW5lX3JhdGUgaW1wbGVtZW50YXRpb24uDQo+IA0KPiBUaGlzIGlzIGEg
-Yml0IG9kZCwgc2luY2Ugc2V0X3BhcmVudCgpIGlzIHRoZXJlIHRvLCBhcyBpdHMgbmFtZSBpbXBs
-aWVzLA0KPiBjaGFuZ2UgdGhlIHBhcmVudCBvZiBhIGNsb2NrLiBIb3dldmVyLCB0aGUgbW9zdCBs
-aWtlbHkgY2FuZGlkYXRlIHRvDQo+IHRyaWdnZXIgdGhhdCBwYXJlbnQgY2hhbmdlIGlzIGEgY2Fs
-bCB0byBjbGtfc2V0X3JhdGUoKSwgd2l0aA0KPiBkZXRlcm1pbmVfcmF0ZSgpIGZpZ3VyaW5nIG91
-dCB3aGljaCBwYXJlbnQgaXMgdGhlIGJlc3Qgc3VpdGVkIGZvciBhDQo+IGdpdmVuIHJhdGUuDQo+
-IA0KPiBUaGUgb3RoZXIgdHJpZ2dlciB3b3VsZCBiZSBhIGNhbGwgdG8gY2xrX3NldF9wYXJlbnQo
-KSwgYnV0IGl0J3MgZmFyIGxlc3MNCj4gdXNlZCwgYW5kIGl0IGRvZXNuJ3QgbG9vayBsaWtlIHRo
-ZXJlJ3MgYW55IG9idmlvdXMgdXNlciBmb3IgdGhhdCBjbG9jay4NCj4gDQo+IFNvLCB0aGUgc2V0
-X3BhcmVudCBob29rIGlzIGVmZmVjdGl2ZWx5IHVudXNlZCwgcG9zc2libHkgYmVjYXVzZSBvZiBh
-bg0KPiBvdmVyc2lnaHQuIEhvd2V2ZXIsIGl0IGNvdWxkIGFsc28gYmUgYW4gZXhwbGljaXQgZGVj
-aXNpb24gYnkgdGhlDQo+IG9yaWdpbmFsIGF1dGhvciB0byBhdm9pZCBhbnkgcmVwYXJlbnRpbmcg
-YnV0IHRocm91Z2ggYW4gZXhwbGljaXQgY2FsbCB0bw0KPiBjbGtfc2V0X3BhcmVudCgpLg0KPiAN
-Cj4gVGhlIGRyaXZlciBkb2VzIGltcGxlbWVudCByb3VuZF9yYXRlKCkgdGhvdWdoLCB3aGljaCBt
-ZWFucyB0aGF0IHdlIGNhbg0KPiBjaGFuZ2UgdGhlIHJhdGUgb2YgdGhlIGNsb2NrLCBidXQgd2Ug
-d2lsbCBuZXZlciBnZXQgdG8gY2hhbmdlIHRoZQ0KPiBwYXJlbnQuDQo+IA0KPiBIb3dldmVyLCBJ
-dCdzIGhhcmQgdG8gdGVsbCB3aGV0aGVyIGl0J3MgYmVlbiBkb25lIG9uIHB1cnBvc2Ugb3Igbm90
-Lg0KPiANCj4gU2luY2Ugd2UnbGwgc3RhcnQgbWFuZGF0aW5nIGEgZGV0ZXJtaW5lX3JhdGUoKSBp
-bXBsZW1lbnRhdGlvbiwgbGV0J3MNCj4gY29udmVydCB0aGUgcm91bmRfcmF0ZSgpIGltcGxlbWVu
-dGF0aW9uIHRvIGEgZGV0ZXJtaW5lX3JhdGUoKSwgd2hpY2gNCj4gd2lsbCBhbHNvIG1ha2UgdGhl
-IGN1cnJlbnQgYmVoYXZpb3IgZXhwbGljaXQuIEFuZCBpZiBpdCB3YXMgYW4NCj4gb3ZlcnNpZ2h0
-LCB0aGUgY2xvY2sgYmVoYXZpb3VyIGNhbiBiZSBhZGp1c3RlZCBsYXRlciBvbi4NCj4gDQo+IFNp
-Z25lZC1vZmYtYnk6IE1heGltZSBSaXBhcmQgPG1heGltZUBjZXJuby50ZWNoPg0KDQpSZXZpZXdl
-ZC1ieTogQ2xhdWRpdSBCZXpuZWEgPGNsYXVkaXUuYmV6bmVhQG1pY3JvY2hpcC5jb20+DQoNClRl
-c3RlZC1ieTogQ2xhdWRpdSBCZXpuZWEgPGNsYXVkaXUuYmV6bmVhQG1pY3JvY2hpcC5jb20+DQoN
-Cj4gLS0tDQo+ICBkcml2ZXJzL2Nsay9hdDkxL2Nsay1zbWQuYyB8IDI5ICsrKysrKysrKysrKysr
-KysrLS0tLS0tLS0tLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMTIg
-ZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9jbGsvYXQ5MS9jbGstc21k
-LmMgYi9kcml2ZXJzL2Nsay9hdDkxL2Nsay1zbWQuYw0KPiBpbmRleCAxNjAzNzg0MzhmMWIuLjA5
-YzY0OWM4NTk4ZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9jbGsvYXQ5MS9jbGstc21kLmMNCj4g
-KysrIGIvZHJpdmVycy9jbGsvYXQ5MS9jbGstc21kLmMNCj4gQEAgLTM2LDI2ICszNiwzMSBAQCBz
-dGF0aWMgdW5zaWduZWQgbG9uZyBhdDkxc2FtOXg1X2Nsa19zbWRfcmVjYWxjX3JhdGUoc3RydWN0
-IGNsa19odyAqaHcsDQo+ICAgICAgICAgcmV0dXJuIHBhcmVudF9yYXRlIC8gKHNtZGRpdiArIDEp
-Ow0KPiAgfQ0KPiANCj4gLXN0YXRpYyBsb25nIGF0OTFzYW05eDVfY2xrX3NtZF9yb3VuZF9yYXRl
-KHN0cnVjdCBjbGtfaHcgKmh3LCB1bnNpZ25lZCBsb25nIHJhdGUsDQo+IC0gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgKnBhcmVudF9yYXRlKQ0K
-PiArc3RhdGljIGludCBhdDkxc2FtOXg1X2Nsa19zbWRfZGV0ZXJtaW5lX3JhdGUoc3RydWN0IGNs
-a19odyAqaHcsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHN0cnVjdCBjbGtfcmF0ZV9yZXF1ZXN0ICpyZXEpDQo+ICB7DQo+ICAgICAgICAgdW5zaWduZWQg
-bG9uZyBkaXY7DQo+ICAgICAgICAgdW5zaWduZWQgbG9uZyBiZXN0cmF0ZTsNCj4gICAgICAgICB1
-bnNpZ25lZCBsb25nIHRtcDsNCj4gDQo+IC0gICAgICAgaWYgKHJhdGUgPj0gKnBhcmVudF9yYXRl
-KQ0KPiAtICAgICAgICAgICAgICAgcmV0dXJuICpwYXJlbnRfcmF0ZTsNCj4gKyAgICAgICBpZiAo
-cmVxLT5yYXRlID49IHJlcS0+YmVzdF9wYXJlbnRfcmF0ZSkgew0KPiArICAgICAgICAgICAgICAg
-cmVxLT5yYXRlID0gcmVxLT5iZXN0X3BhcmVudF9yYXRlOw0KPiArICAgICAgICAgICAgICAgcmV0
-dXJuIDA7DQo+ICsgICAgICAgfQ0KPiANCj4gLSAgICAgICBkaXYgPSAqcGFyZW50X3JhdGUgLyBy
-YXRlOw0KPiAtICAgICAgIGlmIChkaXYgPiBTTURfTUFYX0RJVikNCj4gLSAgICAgICAgICAgICAg
-IHJldHVybiAqcGFyZW50X3JhdGUgLyAoU01EX01BWF9ESVYgKyAxKTsNCj4gKyAgICAgICBkaXYg
-PSByZXEtPmJlc3RfcGFyZW50X3JhdGUgLyByZXEtPnJhdGU7DQo+ICsgICAgICAgaWYgKGRpdiA+
-IFNNRF9NQVhfRElWKSB7DQo+ICsgICAgICAgICAgICAgICByZXEtPnJhdGUgPSByZXEtPmJlc3Rf
-cGFyZW50X3JhdGUgLyAoU01EX01BWF9ESVYgKyAxKTsNCj4gKyAgICAgICAgICAgICAgIHJldHVy
-biAwOw0KPiArICAgICAgIH0NCj4gDQo+IC0gICAgICAgYmVzdHJhdGUgPSAqcGFyZW50X3JhdGUg
-LyBkaXY7DQo+IC0gICAgICAgdG1wID0gKnBhcmVudF9yYXRlIC8gKGRpdiArIDEpOw0KPiAtICAg
-ICAgIGlmIChiZXN0cmF0ZSAtIHJhdGUgPiByYXRlIC0gdG1wKQ0KPiArICAgICAgIGJlc3RyYXRl
-ID0gcmVxLT5iZXN0X3BhcmVudF9yYXRlIC8gZGl2Ow0KPiArICAgICAgIHRtcCA9IHJlcS0+YmVz
-dF9wYXJlbnRfcmF0ZSAvIChkaXYgKyAxKTsNCj4gKyAgICAgICBpZiAoYmVzdHJhdGUgLSByZXEt
-PnJhdGUgPiByZXEtPnJhdGUgLSB0bXApDQo+ICAgICAgICAgICAgICAgICBiZXN0cmF0ZSA9IHRt
-cDsNCj4gDQo+IC0gICAgICAgcmV0dXJuIGJlc3RyYXRlOw0KPiArICAgICAgIHJlcS0+cmF0ZSA9
-IGJlc3RyYXRlOw0KPiArICAgICAgIHJldHVybiAwOw0KPiAgfQ0KPiANCj4gIHN0YXRpYyBpbnQg
-YXQ5MXNhbTl4NV9jbGtfc21kX3NldF9wYXJlbnQoc3RydWN0IGNsa19odyAqaHcsIHU4IGluZGV4
-KQ0KPiBAQCAtOTgsNyArMTAzLDcgQEAgc3RhdGljIGludCBhdDkxc2FtOXg1X2Nsa19zbWRfc2V0
-X3JhdGUoc3RydWN0IGNsa19odyAqaHcsIHVuc2lnbmVkIGxvbmcgcmF0ZSwNCj4gDQo+ICBzdGF0
-aWMgY29uc3Qgc3RydWN0IGNsa19vcHMgYXQ5MXNhbTl4NV9zbWRfb3BzID0gew0KPiAgICAgICAg
-IC5yZWNhbGNfcmF0ZSA9IGF0OTFzYW05eDVfY2xrX3NtZF9yZWNhbGNfcmF0ZSwNCj4gLSAgICAg
-ICAucm91bmRfcmF0ZSA9IGF0OTFzYW05eDVfY2xrX3NtZF9yb3VuZF9yYXRlLA0KPiArICAgICAg
-IC5kZXRlcm1pbmVfcmF0ZSA9IGF0OTFzYW05eDVfY2xrX3NtZF9kZXRlcm1pbmVfcmF0ZSwNCj4g
-ICAgICAgICAuZ2V0X3BhcmVudCA9IGF0OTFzYW05eDVfY2xrX3NtZF9nZXRfcGFyZW50LA0KPiAg
-ICAgICAgIC5zZXRfcGFyZW50ID0gYXQ5MXNhbTl4NV9jbGtfc21kX3NldF9wYXJlbnQsDQo+ICAg
-ICAgICAgLnNldF9yYXRlID0gYXQ5MXNhbTl4NV9jbGtfc21kX3NldF9yYXRlLA0KPiANCj4gLS0N
-Cj4gMi4zOS4yDQo+IA0KDQo=
+Hey Takashi,
+
+I've applied the patch you've listed below. Is there some 'fool-proof' 
+way to produce _any_ output however? I've stopped pulse/pipe audio, and 
+only use aplay + alsamixer. Back to basics as they say. For aplay, I use 
+-D sysdefault:CARD=PCH (which was listed as a cirrus card with -L).
+
+Alsamixer was used to ensure all volumes are open.
+
+Without anything running, I was able to use hdajackretask to apply 
+settings. But then, what to put. I get that I have to figure out, what 
+is routed where (i'll try to find the schematic for the macbook pro 
+12,1), but hence my question, is there some way to produce something? In 
+hdajackretask I've enabled all pins, overriden them all, and set them 
+all to the same configuration. 'Internal, internal, speaker, 
+other-analog, green, not-present, 1, front'. I figured, by setting up 
+verything to the internal speaker, I must get sound out of something, 
+but alas.
+
+I also have a Macbook pro from 1 or 2 generations earlier, 11,2 afaik, 
+where the sound still does work. I've used the same config hdajackretask 
+showed was in use there, but (obviously?) that didn't work.
+
+So I'm a bit grasping at straws. Trying _every_ combination is a bit much?
+
+Olliver
+
+On 16-05-2023 20:31, Takashi Iwai wrote:
+> On Tue, 16 May 2023 18:49:55 +0200,
+> Olliver Schinagl wrote:
+>>
+>> Hey Takashi,
+>>
+>>>> [   90.497004] CPU: 3 PID: 343 Comm: modprobe Not tainted
+>>>> 6.3.1-arch2-1 #1 4c16b0b90f71a940c7f1bb2eb00cdd9db2a83452
+>>>> [   90.497008] Hardware name: Apple
+>>>> Inc. MacBookPro12,1/Mac-E43C1C25D4880AD6, BIOS 481.0.0.0.0 01/12/2023
+>>>> [   90.497010] RIP: 0010:get_line_out_pfx+0x2dd/0x3e0
+>>>> [snd_hda_codec_generic]
+>>>
+>>> Can you try to decode which line does it hit?
+>> This was the arch 'vendor' kernel, so not easily? I could have tried
+>> though I suppose :)
+>>
+>> Instead, I just applied your patch and tried that instead.
+>>
+>>>
+>>> Also, as a blind shot, does the patch below work around the bug?
+>> [   16.593760] 0x000000000000-0x000000800000 : "BIOS"
+>> [   16.603877] snd_hda_codec_cirrus hdaudioC1D0: autoconfig for
+>> CS4208: line_outs=5 (0x11/0x12/0x13/0x14/0x1d) type:speaker
+>> [   16.603885] snd_hda_codec_cirrus hdaudioC1D0:    speaker_outs=0
+>> (0x0/0x0/0x0/0x0/0x0)
+>> [   16.603888] snd_hda_codec_cirrus hdaudioC1D0:    hp_outs=1
+>> (0x10/0x0/0x0/0x0/0x0)
+>> [   16.603890] snd_hda_codec_cirrus hdaudioC1D0:    mono: mono_out=0x0
+>> [   16.603892] snd_hda_codec_cirrus hdaudioC1D0:    dig-out=0x1e/0x21
+>> [   16.603894] snd_hda_codec_cirrus hdaudioC1D0:    inputs:
+>> [   16.603895] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x16
+>> [   16.603897] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x15
+>> [   16.603899] snd_hda_codec_cirrus hdaudioC1D0:      Mic=0x18
+>> [   16.603900] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x19
+>> [   16.603902] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1a
+>> [   16.603904] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1b
+>> [   16.603919] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1c
+>> [   16.603921] snd_hda_codec_cirrus hdaudioC1D0:      Line=0x17
+>> [   16.603922] snd_hda_codec_cirrus hdaudioC1D0:    dig-in=0x22
+>> [   16.605152] snd_hda_codec_cirrus hdaudioC1D0: Too many channels in
+>> get_line_out_pfx: 4
+>> [   16.605215] snd_hda_codec_cirrus hdaudioC1D0: Too many channels in
+>> get_line_out_pfx: 4
+>>
+>> the good thing, you fixed the oops; the bad thing, it's no working,
+>> but hopefully this helps you gain more insight?
+> 
+> Below is a bit better patch for fixing the Oops.
+> 
+> But, judging from the output above, I guess it won't help completely,
+> because the pin configuration looks broken; e.g. it reports too many
+> "Internal Mic" pins (which must be only one usually).
+> 
+> That said, the actual breakage (except for kernel Oops) is the pin
+> config set by BIOS.  Maybe it doesn't set up things properly *at all*
+> You'll need to correct it by providing the full pin config with a
+> quirk table.  And for that, you'll need to figure out the pins via
+> trial-and-error, for example, with the help of hdajackretask.
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+> -- 8< --
+> From: Takashi Iwai <tiwai@suse.de>
+> Subject: [PATCH] ALSA: hda: Fix Oops by 9.1 surround channel names
+> 
+> get_line_out_pfx() may trigger an Oops by overflowing the static array
+> with more than 8 channels.  This was reported for MacBookPro 12,1 with
+> Cirrus codec.
+> 
+> As a workaround, extend for the 9.1 channels and also fix the
+> potential Oops by unifying the code paths accessing the same array
+> with the proper size check.
+> 
+> Reported-by: Olliver Schinagl <oliver@schinagl.nl>
+> Cc: <stable@vger.kernel.org>
+> Link: https://lore.kernel.org/r/64d95eb0-dbdb-cff8-a8b1-988dc22b24cd@schinagl.nl
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>   sound/pci/hda/hda_generic.c | 7 ++++---
+>   1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+> index fc114e522480..dbf7aa88e0e3 100644
+> --- a/sound/pci/hda/hda_generic.c
+> +++ b/sound/pci/hda/hda_generic.c
+> @@ -1155,8 +1155,8 @@ static bool path_has_mixer(struct hda_codec *codec, int path_idx, int ctl_type)
+>   	return path && path->ctls[ctl_type];
+>   }
+>   
+> -static const char * const channel_name[4] = {
+> -	"Front", "Surround", "CLFE", "Side"
+> +static const char * const channel_name[] = {
+> +	"Front", "Surround", "CLFE", "Side", "Back",
+>   };
+>   
+>   /* give some appropriate ctl name prefix for the given line out channel */
+> @@ -1182,7 +1182,7 @@ static const char *get_line_out_pfx(struct hda_codec *codec, int ch,
+>   
+>   	/* multi-io channels */
+>   	if (ch >= cfg->line_outs)
+> -		return channel_name[ch];
+> +		goto fixed_name;
+>   
+>   	switch (cfg->line_out_type) {
+>   	case AUTO_PIN_SPEAKER_OUT:
+> @@ -1234,6 +1234,7 @@ static const char *get_line_out_pfx(struct hda_codec *codec, int ch,
+>   	if (cfg->line_outs == 1 && !spec->multi_ios)
+>   		return "Line Out";
+>   
+> + fixed_name:
+>   	if (ch >= ARRAY_SIZE(channel_name)) {
+>   		snd_BUG();
+>   		return "PCM";

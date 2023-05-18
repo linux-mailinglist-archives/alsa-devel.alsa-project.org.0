@@ -2,77 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3EBA707681
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 01:38:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0608170775F
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 03:22:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A340B1FA;
-	Thu, 18 May 2023 01:37:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A340B1FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1A1D1FE;
+	Thu, 18 May 2023 03:21:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1A1D1FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684366726;
-	bh=vuVnTgWxQpmJvzDxdn+D8W/c3eqLsteSK4ZcsNFRCWM=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=GNK0K7lC3SfoPsV7bDP/FLJahQaf2QdK0/rHBz8uTxqaUQH7VPQryzyXMcTHA/diF
-	 9RBHNaNuAjrV4KjwcL/a6Es7aD7pIoJfh/nxjVuV3+oGBa9W5xVrFZ32XEt1GgyJtR
-	 5cn+eOojBsFLp1ZlvwufBFKZFsb4Th86xMr2ir5c=
+	s=default; t=1684372967;
+	bh=39nlpA1RzHT8pYtCTp7PaqpEp2GiJkE0xxzjQjCCJt4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=fSa0H18thKk5+GOMInnu1h+VqeoPnEB1U+cl4/DUyd8nZdfL5CT1ZbGJizI2b5T9C
+	 oUfKuxQGLL1/LqbbbZwAWufcDijy/Nuwdsbrso9Hqo73jZvEvJxtRJbIKDcImLFGgt
+	 KayqNbQQD/KbpO0ePj0O0BGGoHokddULLVuICtz0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C1303F8016A; Thu, 18 May 2023 01:37:55 +0200 (CEST)
+	id A224AF80548; Thu, 18 May 2023 03:21:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 333D1F8025A;
-	Thu, 18 May 2023 01:37:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21A37F8025A;
+	Thu, 18 May 2023 03:21:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E60EF80272; Thu, 18 May 2023 01:37:50 +0200 (CEST)
+	id 717DDF80272; Thu, 18 May 2023 03:21:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D52BBF8016A
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 01:37:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D52BBF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 864E1F80087
+	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 03:21:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 864E1F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZR4CEugP
+ header.s=k20201202 header.b=VJbDv6aj
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5D7D2613DC;
-	Wed, 17 May 2023 23:37:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9EBC433D2;
-	Wed, 17 May 2023 23:37:35 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 02BD360EE1;
+	Thu, 18 May 2023 01:21:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C94C433D2;
+	Thu, 18 May 2023 01:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684366656;
-	bh=vuVnTgWxQpmJvzDxdn+D8W/c3eqLsteSK4ZcsNFRCWM=;
-	h=Date:From:To:Cc:Subject:From;
-	b=ZR4CEugP/P7xzTDnDOwqF8irR5Aqly5oOVFgm39EYAr3YxL/mz15CQYmt07ORgnNT
-	 mWq5eSMHGxolIF3ruJl/f1MCNIuW1BdMldwb3RqUNpJPXFM5xitC9aPCRZMcP3kR1B
-	 n1PoRgntGJfHRH8WY0ktB5Is4aIu9sOruaZlivc1RI3R4Jdzrz8XdGrfDQZ+bgSa/t
-	 CBxkcPhaQbK+fhkCS52rm6JIlh2WPixlOyl4ECJQwSBmBXlktkEFsnjuYQzv1SK5d3
-	 6EwoyHO4KIK6EwpsSxdnNgFRuQMsmkZHxGUU0e5Bl7K78qrq8GWSl5EIQr3YhuJjFC
-	 yE5isIMMgJW5A==
-Date: Wed, 17 May 2023 17:38:26 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH][next] ALSA: mixart: Replace one-element arrays with simple
- object declarations
-Message-ID: <ZGVlcpuvx1rSOMP8@work>
+	s=k20201202; t=1684372899;
+	bh=39nlpA1RzHT8pYtCTp7PaqpEp2GiJkE0xxzjQjCCJt4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VJbDv6ajSYowXXmI2QVZPIBUIpSCiJJTwHk/4Ss/A8iw122GoQdaeokaN/PTTn7t/
+	 1sgZd+F201kueh+PljtzEr7kDDM56tWWr7ZcVeWm+c9r+DM+PiiFGkAFgCdHmdhAA9
+	 xXHpnXwImJJLQCxCoED4lwOAfwVloALt1s7fvDKzI3A0YGGhU7s+rR6lm7j2Hem/8f
+	 JAaWakaOI5Ushi4/4/RBW51AZa+L6PZKX+IwCDh0xmFAgbWmFpVT5pu0iUfel5kDmj
+	 UxdxUrhSxJDtD+vNIajcU9S2eDGjRtpJQqthQ1AhpX95qEEmEMXne1KWO4ehYz1U9H
+	 5vq9YJX5uzd0Q==
+Date: Thu, 18 May 2023 10:21:31 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Min-Hua Chen <minhuadotchen@gmail.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org, perex@perex.cz,
+	peter.ujfalusi@gmail.com, tiwai@suse.com
+Subject: Re: [PATCH] ALSA: ti: Use pcm_for_each_format() macro for PCM format
+ iteration
+Message-ID: <ZGV9m6KbuIMWOX13@finisterre.sirena.org.uk>
+References: <ZGTltcv6hSlJWLnh@finisterre.sirena.org.uk>
+ <20230517234215.3520-1-minhuadotchen@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YRHTtDTD+Ecy08wI"
 Content-Disposition: inline
-Message-ID-Hash: GQFJNGHTMX44QGABKYBC6YOSK3DUN5YX
-X-Message-ID-Hash: GQFJNGHTMX44QGABKYBC6YOSK3DUN5YX
-X-MailFrom: gustavoars@kernel.org
+In-Reply-To: <20230517234215.3520-1-minhuadotchen@gmail.com>
+X-Cookie: Avoid contact with eyes.
+Message-ID-Hash: JDNT3P5UDCX3EE6QL47NDMWZFQSI6GIW
+X-Message-ID-Hash: JDNT3P5UDCX3EE6QL47NDMWZFQSI6GIW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -84,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GQFJNGHTMX44QGABKYBC6YOSK3DUN5YX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDNT3P5UDCX3EE6QL47NDMWZFQSI6GIW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -93,115 +100,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-One-element arrays are deprecated, and we are replacing them with flexible
-array members, instead. However, in this case it seems those one-element
-arrays have never actually been used as fake flexible arrays.
 
-See this code that dates from Linux-2.6.12-rc2 initial git repository build
-(commit 1da177e4c3f4 ("Linux-2.6.12-rc2")):
+--YRHTtDTD+Ecy08wI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-sound/pci/mixart/mixart_core.h:
- 215 struct mixart_stream_state_req
- 216 {
- 217         u32                 delayed;
- 218         u64                 scheduler;
- 219         u32                 reserved4np[3];
- 220         u32                 stream_count;  /* set to 1 for instance */
- 221         struct mixart_flow_info  stream_info;   /* could be an array[stream_cou    nt] */
- 222 } __attribute__((packed));
+On Thu, May 18, 2023 at 07:42:15AM +0800, Min-Hua Chen wrote:
 
-sound/pci/mixart/mixart.c:
- 388
- 389         memset(&stream_state_req, 0, sizeof(stream_state_req));
- 390         stream_state_req.stream_count = 1;
- 391         stream_state_req.stream_info.stream_desc.uid_pipe = stream->pipe->group_uid;
- 392         stream_state_req.stream_info.stream_desc.stream_idx = stream->substream->number;
- 393
+> Thanks for your comment. I think the subject should be changed to:=20
+> "ASoC: ti: davinci-mcasp: Use pcm_for_each_format() macro".
 
-So, taking the code above as example, replace multiple one-element
-arrays with simple object declarations, and refactor the rest of the
-code, accordingly.
+Yes.
 
-This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-routines on memcpy() and help us make progress towards globally
-enabling -fstrict-flex-arrays=3 [1].
+--YRHTtDTD+Ecy08wI
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This results in no differences in binary output.
+-----BEGIN PGP SIGNATURE-----
 
-Link: https://github.com/KSPP/linux/issues/79
-Link: https://github.com/KSPP/linux/issues/296
-Link: https://gcc.gnu.org/pipermail/gcc-patches/2022-October/602902.html [1]
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
----
- sound/pci/mixart/mixart.c      | 8 ++++----
- sound/pci/mixart/mixart_core.h | 7 +++----
- 2 files changed, 7 insertions(+), 8 deletions(-)
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRlfZQACgkQJNaLcl1U
+h9Daywf4/uVAMHN0cNVICkG/0mGaj3iO98U13izxrGtmT/G/SPp+zrr6oe5q3+jK
+sAbxQPnNuGINxqmQtj9vQye1H1EK8gsEMdet7JGA+wMomX4xdrKDktSc5PH7/Elw
+TmKKFTbQQZqxlYbx7EYuTbEVWrz8bxHz3oOYEXhZkAo34NIka4mlvZBp7mf5v2bM
+eNmTjgcFBciliKvr4V0w/2Aaty/sNHxNT9MieZcAb0DoLQ9v74R86b4wZONwxur+
+rI7cBtr2v0wL9A6uku7Kagmn3kkRYGpNkQzMWx+WqCfaaXN2bTQe7wgrMdHfnWrD
+S7CSZIU4+oy1Lf+x48RQGVDs5L4b
+=gxBk
+-----END PGP SIGNATURE-----
 
-diff --git a/sound/pci/mixart/mixart.c b/sound/pci/mixart/mixart.c
-index 1b078b789604..7ceaf6a7a77e 100644
---- a/sound/pci/mixart/mixart.c
-+++ b/sound/pci/mixart/mixart.c
-@@ -98,7 +98,7 @@ static int mixart_set_pipe_state(struct mixart_mgr *mgr,
- 
- 	memset(&group_state, 0, sizeof(group_state));
- 	group_state.pipe_count = 1;
--	group_state.pipe_uid[0] = pipe->group_uid;
-+	group_state.pipe_uid = pipe->group_uid;
- 
- 	if(start)
- 		request.message_id = MSG_STREAM_START_STREAM_GRP_PACKET;
-@@ -185,7 +185,7 @@ static int mixart_set_clock(struct mixart_mgr *mgr,
- 	clock_properties.clock_mode = CM_STANDALONE;
- 	clock_properties.frequency = rate;
- 	clock_properties.nb_callers = 1; /* only one entry in uid_caller ! */
--	clock_properties.uid_caller[0] = pipe->group_uid;
-+	clock_properties.uid_caller = pipe->group_uid;
- 
- 	dev_dbg(&mgr->pci->dev, "mixart_set_clock to %d kHz\n", rate);
- 
-@@ -565,8 +565,8 @@ static int mixart_set_format(struct mixart_stream *stream, snd_pcm_format_t form
- 
- 	stream_param.pipe_count = 1;      /* set to 1 */
- 	stream_param.stream_count = 1;    /* set to 1 */
--	stream_param.stream_desc[0].uid_pipe = stream->pipe->group_uid;
--	stream_param.stream_desc[0].stream_idx = stream->substream->number;
-+	stream_param.stream_desc.uid_pipe = stream->pipe->group_uid;
-+	stream_param.stream_desc.stream_idx = stream->substream->number;
- 
- 	request.message_id = MSG_STREAM_SET_INPUT_STAGE_PARAM;
- 	request.uid = (struct mixart_uid){0,0};
-diff --git a/sound/pci/mixart/mixart_core.h b/sound/pci/mixart/mixart_core.h
-index 2f0e29ed5d63..ac74b2133c97 100644
---- a/sound/pci/mixart/mixart_core.h
-+++ b/sound/pci/mixart/mixart_core.h
-@@ -231,7 +231,7 @@ struct mixart_group_state_req
- 	u64           scheduler;
- 	u32           reserved4np[2];
- 	u32           pipe_count;    /* set to 1 for instance */
--	struct mixart_uid  pipe_uid[1];   /* could be an array[pipe_count] */
-+	struct mixart_uid  pipe_uid;
- } __attribute__((packed));
- 
- struct mixart_group_state_resp
-@@ -314,7 +314,7 @@ struct mixart_clock_properties
- 	u32 format;
- 	u32 board_mask;
- 	u32 nb_callers; /* set to 1 (see below) */
--	struct mixart_uid uid_caller[1];
-+	struct mixart_uid uid_caller;
- } __attribute__((packed));
- 
- struct mixart_clock_properties_resp
-@@ -401,8 +401,7 @@ struct mixart_stream_param_desc
- 	u32 reserved4np[3];
- 	u32 pipe_count;                           /* set to 1 (array size !) */
- 	u32 stream_count;                         /* set to 1 (array size !) */
--	struct mixart_txx_stream_desc stream_desc[1];  /* only one stream per command, but this could be an array */
--
-+	struct mixart_txx_stream_desc stream_desc;
- } __attribute__((packed));
- 
- 
--- 
-2.34.1
-
+--YRHTtDTD+Ecy08wI--

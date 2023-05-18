@@ -2,104 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18C66707E00
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 12:25:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B24B707E30
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 May 2023 12:35:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D37F20C;
-	Thu, 18 May 2023 12:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D37F20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3121D1FE;
+	Thu, 18 May 2023 12:34:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3121D1FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684405554;
-	bh=sNVhO6R4xkmS+JqHG9MHNYJJEBLZJLK4nTgZADB4jkc=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1684406100;
+	bh=NIMesTxIQNJ9l9r+DIuX8MqZBgX/brCH6bSN8KR2WKY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i/TqDCngBVFm6IDEpGbMRSenjf0AyHZzmy2NI+o22fgkZ70CeLJ9ibO+DIbORzWs3
-	 DswLeEk2BlXxvskpLmVGPxkMiIMT1+DvgZEqvLtck2pMPxRbC2rlUszt8MQG9EpF5q
-	 ZyCiKTm7CfWzUH1Cj/LzPAcLVVb+wPQCpsC/k0/I=
+	b=EAI5LMAnXzzfHa93hWVFShjDhaa28rusK1iCKwLu8Twu3cPJ7AG1LyYHIvT5xcfDz
+	 muDSca7Uh5cTVXxcXsKbqMPcuW1AEhvNVhRNF5ZhxfX+5wY28lbQC3RqB187VmTFsq
+	 1KamDZR2G7XtFLC/5QoLbkpDR9z/6syWh62bHGnI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0916BF80553; Thu, 18 May 2023 12:24:56 +0200 (CEST)
+	id 58BF7F8016D; Thu, 18 May 2023 12:33:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79CD5F80542;
-	Thu, 18 May 2023 12:24:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD9B6F8025A;
+	Thu, 18 May 2023 12:33:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69146F80544; Thu, 18 May 2023 12:24:52 +0200 (CEST)
+	id 915D4F80272; Thu, 18 May 2023 12:33:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [IPv6:2a00:1450:4864:20::633])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AE267F80431
-	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 12:24:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE267F80431
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62F2AF8016D
+	for <alsa-devel@alsa-project.org>; Thu, 18 May 2023 12:33:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62F2AF8016D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=oBZlbnrq
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34IAEK8L002605;
-	Thu, 18 May 2023 05:24:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=lrR7AD4kdjzP/JrB+dgSF3zDq0ke3uwqNOkUksFHFwU=;
- b=oBZlbnrqQlqdIB+O3RTCGVGq23p1KhBI9v53NycD0xCHz64u7RjuTQZgIVNx3SHF8aFG
- 5ma8TA4JQurVe8TwSfNc5689ek/gmvwmi7YlIUglV3RNm5iJ6dJo1vIKjanhdK0kPzD0
- nKuYmIwnJ0QQQH41yMprOr9aEmra7BL4waoE32GFy25n2m2t8s6ByfNe6oqCdz5GZbfP
- DodBgJuZumac6e8K5bqHxA2S3jtGll3J5X8k2lhXkEqSGAM4L9YJVp9FwUX98/ea1hc+
- 5myL1TRvf5dR+Ab2tWoMYeROPAqXxMaXCqlf4HJpJn69UaRkTNDlyDgIA3tqG9oDakQb MA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3qj7y16rye-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 18 May 2023 05:24:45 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 18 May
- 2023 05:24:42 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Thu, 18 May 2023 05:24:42 -0500
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3D11411AA;
-	Thu, 18 May 2023 10:24:42 +0000 (UTC)
-Date: Thu, 18 May 2023 10:24:42 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-CC: <broonie@kernel.org>, <lee@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <tglx@linutronix.de>, <maz@kernel.org>, <linus.walleij@linaro.org>,
-        <vkoul@kernel.org>, <lgirdwood@gmail.com>,
-        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
-        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 06/10] mfd: cs42l43: Add support for cs42l43 core driver
-Message-ID: <20230518102442.GZ68926@ediswmail.ad.cirrus.com>
-References: <20230512122838.243002-1-ckeepax@opensource.cirrus.com>
- <20230512122838.243002-7-ckeepax@opensource.cirrus.com>
- <73438e58-bd96-818d-1f43-5681b0d1a1de@linaro.org>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=iNzIegnv
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-96598a7c5e0so294921266b.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 18 May 2023 03:33:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1684405998; x=1686997998;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=G5DY7urOobiZRjR4OZIaCLmieV4AgS5HJDFTf9UwQ/Q=;
+        b=iNzIegnvt/v1fYGMpoz9S98aOmexlCzQv28VuU/BJtCYsN/YFiuledKJJU82aaTO2X
+         QFANvBymphaZl0YqelxhZ5qN5/UXKPKS8dF1hu2OC622ogu2FUl+qy7wFrhNlKA6+Zti
+         5yLLHbVuhb9H4XD2WTkxWeNiPKO7WPuTYn9CgNWscdCeVao8YuYa1Kvxb4ihG2Mmt9j2
+         e/idYHt0+nwycKdQBM+EHbRPTLLr6NHAhCG8z0LTMkxGXEiA/pKmCrif2e39JJ21Sz/O
+         2WSDSuvKJ5FqH3M8Gm2CXPlMtXFzXdZbuE6y078K5mvux2sqdNctv/6kb9H/SSm9sGNT
+         4+4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684405998; x=1686997998;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=G5DY7urOobiZRjR4OZIaCLmieV4AgS5HJDFTf9UwQ/Q=;
+        b=l1sA9NMB4rDmNx6X+tFf89FmQOAokBRzWciKwgrJ+gB/+6RVG311BRkclVxP4yFrUz
+         LmBS6Yiw3w6Wpa/oCxeUhf+6if3h9GgRX96D4KdLbBG9HhJjmFW5kPshicUF93EaoGXU
+         uAutBa40MdiI/XMmAN5JUQDQNrcEt1iW5HjqGC6wmQRaUwStsCpqpIc13JCpD+ir/C+L
+         0De5UcAHHB5JgweIBBGsqYFVDoSjDotEzvD98/O748rCVqKmbpajRF4V8qtmaX7sJ6db
+         NZg3tKc+l+79hLSn5WEwFpzV6urBmpRX79igIsRguVgXBVJQS5/48dgTK7Yb1Nt+3+jH
+         qIFw==
+X-Gm-Message-State: AC+VfDyjLaGhEin2ocxR2t/W8IAyYiBChooxg462SqWim06QlwtsT8Kf
+	d1eWg1Jv8kBfZ3mclnVrt2T3Og==
+X-Google-Smtp-Source: 
+ ACHHUZ7XP3poLOlWhhHsfzSWukjrGK+hIXKzIa0zdvIlPCzVZhQVUHfqf8Fja+Sd1wTHDINFUlDorg==
+X-Received: by 2002:a17:907:728e:b0:96a:e7cc:b8b1 with SMTP id
+ dt14-20020a170907728e00b0096ae7ccb8b1mr16378653ejc.56.1684405998503;
+        Thu, 18 May 2023 03:33:18 -0700 (PDT)
+Received: from ?IPV6:2a02:810d:15c0:828:a2b:c408:5834:f48e?
+ ([2a02:810d:15c0:828:a2b:c408:5834:f48e])
+        by smtp.gmail.com with ESMTPSA id
+ bv17-20020a170906b1d100b00965c529f103sm777804ejb.86.2023.05.18.03.33.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 May 2023 03:33:18 -0700 (PDT)
+Message-ID: <cc4109d6-3125-0738-537d-34f9fa2c2fa1@linaro.org>
+Date: Thu, 18 May 2023 12:33:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <73438e58-bd96-818d-1f43-5681b0d1a1de@linaro.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: HL2reE85ez4JiS5HLok3m55m27gUTNMJ
-X-Proofpoint-ORIG-GUID: HL2reE85ez4JiS5HLok3m55m27gUTNMJ
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 7GOGCN4IMOTIUXLK22GQQMLMZVM73AMH
-X-Message-ID-Hash: 7GOGCN4IMOTIUXLK22GQQMLMZVM73AMH
-X-MailFrom: prvs=0502bbb445=ckeepax@opensource.cirrus.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [RESEND PATCH 00/12] ASoC: codecs: do not store status in state
+ containe
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20230518072753.7361-1-krzysztof.kozlowski@linaro.org>
+ <ZGX8v3qjkmfMf+J1@finisterre.sirena.org.uk>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <ZGX8v3qjkmfMf+J1@finisterre.sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: PANXCE7AUE5QI6COKJMXKRVBT3DIATAQ
+X-Message-ID-Hash: PANXCE7AUE5QI6COKJMXKRVBT3DIATAQ
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7GOGCN4IMOTIUXLK22GQQMLMZVM73AMH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PANXCE7AUE5QI6COKJMXKRVBT3DIATAQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,89 +127,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, May 12, 2023 at 05:16:42PM +0200, Krzysztof Kozlowski wrote:
-> On 12/05/2023 14:28, Charles Keepax wrote:
-> > +static int cs42l43_soft_reset(struct cs42l43 *cs42l43)
-> > +{
-> > +	static const struct reg_sequence reset[] = {
-> > +		{ CS42L43_SFT_RESET, 0x5A000000 },
-> > +	};
-> > +	unsigned long time;
-> > +
-> > +	dev_dbg(cs42l43->dev, "Soft resetting\n");
+On 18/05/2023 12:23, Mark Brown wrote:
+> On Thu, May 18, 2023 at 09:27:41AM +0200, Krzysztof Kozlowski wrote:
+>> Hi,
+>>
+>> Resend due to missing cover letter, so adding per-series tags was
+>> not possible.
 > 
-> Drop simple debug statements for function entry/exit. There are other
-> tools in kernel to do such debugging.
+> Please write proper cover letters, but don't resend for this.  You
+> constantly raise small review errors in other people's submissions...
 
-I mean I guess I can begrudingly drop them, there sure are other
-tools but often just firing on debug is nice/simple/easy and
-they are not really marking function entry/exit as much as they
-are marking important events.
+Since you asked for a cover letter and you did not apply the patchset (I
+checked in your tree), that seemed like a feedback for something you
+want me to fix.
 
-> > +struct cs42l43_patch_header {
-> > +	__le16 version;
-> > +	__le16 size;
-> > +	u8 reserved;
-> > +	u8 secure;
-> > +	__le16 bss_size;
-> > +	__le32 apply_addr;
-> > +	__le32 checksum;
-> > +	__le32 sha;
-> > +	__le16 swrev;
-> > +	__le16 patchid;
-> > +	__le16 ipxid;
-> > +	__le16 romver;
-> > +	__le32 load_addr;
-> > +} __packed;
-> 
-> Put all structs together at the top.
+If you want to give feedback which person should not immediately fix,
+please state it explicitly or through applying patches.
 
-Can do.
+If you give imprecise messages, don't be surprised you receive different
+results.
 
-> > +	hdr = (void *)&firmware->data[0];
-> 
-> Aren't you dropping here const? Why? That's not recommended programming.
+Best regards,
+Krzysztof
 
-Yeah that is fair will fix that up.
-
-> > +	ret = regmap_register_patch(cs42l43->regmap, cs42l43_reva_patch,
-> > +				    ARRAY_SIZE(cs42l43_reva_patch));
-> > +	if (ret) {
-> > +		dev_err(cs42l43->dev, "Failed to apply register patch: %d\n", ret);
-> > +		goto err;
-> > +	}
-> > +
-> > +	pm_runtime_mark_last_busy(cs42l43->dev);
-> > +	pm_runtime_put_autosuspend(cs42l43->dev);
-> > +
-> > +	ret = devm_mfd_add_devices(cs42l43->dev, PLATFORM_DEVID_NONE,
-> > +				   cs42l43_devs, ARRAY_SIZE(cs42l43_devs),
-> 
-> I don't why adding devices is not in probe. They use the same regmap
-> right? So there will be no problem in probing them from MFD probe.
-
-Well except SoundWire is a bit of a special boy, the hardware is
-not necessarily available in probe, the hardware is only available
-at some point later when the device attaches. Doing it this way all
-of the attaching (and various detach/attach cycles the device needs
-during configuration) are over by the time the child drivers bind, so
-they don't all need special code to handle that.
-
-> > +	cs42l43->reset = devm_gpiod_get_optional(cs42l43->dev, "reset", GPIOD_OUT_LOW);
-> > +	if (IS_ERR(cs42l43->reset)) {
-> > +		ret = PTR_ERR(cs42l43->reset);
-> > +		dev_err(cs42l43->dev, "Failed to get reset: %d\n", ret);
-> 
-> return dev_err_probe
-
-Yeah will put those in.
-
-> > +	cs42l43->vdd_p = devm_regulator_get(cs42l43->dev, "VDD_P");
-> 
-> Why these are not part of bulk get?
-
-The comment right above explains this, VDD_P needs to be on for at
-least 50uS before any other supply.
-
-Thanks,
-Charles

@@ -2,107 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC188709037
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 09:14:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6148170913C
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 10:03:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C559E208;
-	Fri, 19 May 2023 09:13:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C559E208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E8A4201;
+	Fri, 19 May 2023 10:02:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E8A4201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684480440;
-	bh=wi10oNdSuEDJZN3FuMhmysbHki+FdSOch5ReUU1Zvdo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=T1DVft+20q6UTBnx5+XOc1a3CX0IIce9r44YdwWhsDRFs00Uctb+QClT9QwOKNAVA
-	 nz/9Hidl7NHvS3dbJVGrVkrPqxooWpoDxlAo+QYFoYKBUznEAQqrKnfl4rPV26rzcc
-	 HUMVlasLdn/MpWXAUui+ymTfW9+2RL7ue2tY63qc=
+	s=default; t=1684483388;
+	bh=DAS7L5KEc9MUi0Rsomsrs7r6pV4PGQEftrN3GBuvJrY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=sQ6S+3SGOQPvQTemHVeGh1RpqEhfaBjXJPGmY02dhdj4jcK5KklgPGrAsx6P4NfZx
+	 AkuPgzvWsf0DApcLo+pzn8sDnn4oTCTfEuH9oLiQSYiIHWfly7QEdMikvz9dJ3QkuR
+	 zas3ABXz6UFnjB7Zk7IuvSqHMANzD1cUpx8JA8BI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A29B9F802E8; Fri, 19 May 2023 09:12:43 +0200 (CEST)
+	id 8FBB6F80431; Fri, 19 May 2023 10:02:17 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F56CF8024E;
-	Fri, 19 May 2023 09:12:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CCD1F80272;
+	Fri, 19 May 2023 10:02:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50F2CF8025A; Fri, 19 May 2023 09:12:39 +0200 (CEST)
+	id 51765F802E8; Fri, 19 May 2023 10:02:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from n169-110.mail.139.com (n169-110.mail.139.com [120.232.169.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AD07BF80087
-	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 09:12:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD07BF80087
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=erEyJCDA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=XYsyWbHM
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B6BCD2230F;
-	Fri, 19 May 2023 07:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1684480344;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rOtQ5Mw3ZhNy2oYykHN5gEBjT166jrpCIX9C2UfrJ6o=;
-	b=erEyJCDAJidwdfKvyCSTm538swnbBc4RMHwSboQYa3H1XX2TWzS64CnXyy7rFc+l9YP7JX
-	8M5JQRImYlMMihbDdlfzOwbBbjeeJDGNOumT5WGn5iO4onRwXshsZ8E4vb0zI3aoX3js9e
-	Wwzq7dOSZSphplwJpiKH+1R9VNM3d8A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684480344;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rOtQ5Mw3ZhNy2oYykHN5gEBjT166jrpCIX9C2UfrJ6o=;
-	b=XYsyWbHM3JOG4mcZ9UWlCvMIz/bA90uy8PoqCgCJVcD4w5QqbceHdyUEj++wcAEOSCRCYe
-	b0m6BYzoIOQNJ2Bw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9933213A12;
-	Fri, 19 May 2023 07:12:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 2ixtJFghZ2QyZgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 19 May 2023 07:12:24 +0000
-Date: Fri, 19 May 2023 09:12:24 +0200
-Message-ID: <87pm6w23s7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Olliver Schinagl <oliver@schinagl.nl>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: snd_hda_codec_cirrus kernel oops
-In-Reply-To: <f96b9b82-8bfe-ad98-c7d8-b6d7ac401961@schinagl.nl>
-References: <64d95eb0-dbdb-cff8-a8b1-988dc22b24cd@schinagl.nl>
-	<87zg69appu.wl-tiwai@suse.de>
-	<6afd694e-8810-8197-3dd0-831daf2130f3@schinagl.nl>
-	<87bkikdt66.wl-tiwai@suse.de>
-	<d6e3b9ea-f98f-6404-e1ee-6973d68b64c1@schinagl.nl>
-	<87y1llhfzq.wl-tiwai@suse.de>
-	<f96b9b82-8bfe-ad98-c7d8-b6d7ac401961@schinagl.nl>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: SC2UFP2ITLZQ7CQNSMDZUVDPSWB3WTLR
-X-Message-ID-Hash: SC2UFP2ITLZQ7CQNSMDZUVDPSWB3WTLR
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7BD63F8024E
+	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 10:01:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BD63F8024E
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[39.144.39.119])
+	by rmsmtp-lg-appmail-03-12081 (RichMail) with SMTP id 2f3164672ce4423-404a4;
+	Fri, 19 May 2023 16:01:44 +0800 (CST)
+X-RM-TRANSID: 2f3164672ce4423-404a4
+From: Shenghao Ding <13916275206@139.com>
+To: broonie@kernel.org,
+	devicetree@vger.kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	robh+dt@kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com
+Cc: kevin-lu@ti.com,
+	shenghao-ding@ti.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	x1077012@ti.com,
+	peeyush@ti.com,
+	navada@ti.com,
+	gentuser@gmail.com,
+	Ryan_Chu@wistron.com,
+	Sam_Wu@wistron.com,
+	Shenghao Ding <13916275206@139.com>
+Subject: [PATCH v3 1/5] ASoC: tas2781: Add Header file for tas2781 driver
+Date: Fri, 19 May 2023 16:01:35 +0800
+Message-Id: <20230519080135.20167-1-13916275206@139.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: GEJBVXAHAMNDOU76ACIVJ55ERXQDYDFW
+X-Message-ID-Hash: GEJBVXAHAMNDOU76ACIVJ55ERXQDYDFW
+X-MailFrom: 13916275206@139.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +83,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SC2UFP2ITLZQ7CQNSMDZUVDPSWB3WTLR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GEJBVXAHAMNDOU76ACIVJ55ERXQDYDFW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,224 +92,433 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 18 May 2023 17:11:53 +0200,
-Olliver Schinagl wrote:
-> 
-> Hey Takashi,
-> 
-> On 18-05-2023 16:27, Takashi Iwai wrote:
-> > On Thu, 18 May 2023 16:24:02 +0200,
-> > Olliver Schinagl wrote:
-> >> 
-> >> Hey Takashi,
-> >> 
-> >> I've applied the patch you've listed below. Is there some 'fool-proof'
-> >> way to produce _any_ output however? I've stopped pulse/pipe audio,
-> >> and only use aplay + alsamixer. Back to basics as they say. For aplay,
-> >> I use -D sysdefault:CARD=PCH (which was listed as a cirrus card with
-> >> -L).
-> >> 
-> >> Alsamixer was used to ensure all volumes are open.
-> >> 
-> >> Without anything running, I was able to use hdajackretask to apply
-> >> settings. But then, what to put. I get that I have to figure out, what
-> >> is routed where (i'll try to find the schematic for the macbook pro
-> >> 12,1), but hence my question, is there some way to produce something?
-> >> In hdajackretask I've enabled all pins, overriden them all, and set
-> >> them all to the same configuration. 'Internal, internal, speaker,
-> >> other-analog, green, not-present, 1, front'. I figured, by setting up
-> >> verything to the internal speaker, I must get sound out of something,
-> >> but alas.
-> >> 
-> >> I also have a Macbook pro from 1 or 2 generations earlier, 11,2 afaik,
-> >> where the sound still does work. I've used the same config
-> >> hdajackretask showed was in use there, but (obviously?) that didn't
-> >> work.
-> >> 
-> >> So I'm a bit grasping at straws. Trying _every_ combination is a bit much?
-> > 
-> > It's the hard part.  I'd try to copy the pin config of the existing
-> > models at first, then try shooting one pin by one if it doesn't work.
-> 
-> Ok, so no easy way :) I did try copying things, but didn't get sound either.
-> 
-> I did find the schematics for the 2013 and 2014 models of the macbook;
-> no luck yet on the 2015 (mine). But all 3 have the same model number
-> (A1502), and looking at the schematic (not even sure if it is just a
-> new revision, or actually for the different boards) they seem more or
-> less identical. Especially on the audio part. The nice thing is it
-> tells me what pins things are connected to :) But again, might not be
-> a perfect match to my board (crosses fingers).
-> 
-> What is interesting, the schematics [0] actually list the HDA configuration.
-> 
-> CODEC OUTPUT SIGNAL PATHS
-> 
-> FUNCTION   VOLUME    CONVERTER  PIN COMPLEX  MUTE CONTROL
-> 
-> HP/HS OUT  0x02 (2)  0x02 (2)   0x10 (16)    N/A
-> TWEETERS   0x03 (3)  0x03 (3)   0x12 (18)    CODEC GPIO0
-> SUB        0x04 (4)  0x04 (4)   0x13 (19)    CODEC GPIO0
-> SPDIF OUT  N/A       0x0e (14)  0x21 (33)    N/A
-> 
-> DMIC 1               0x09 (9)   0x1c (18)
-> DMIC 2               0x09 (9)   0x1c (18)
-> 
-> HEADSET MIC          0x07 (7)   0x18 (24)
-> 
-> OTHER CODEC GPIO LINES
-> LEFT SPEAKER ID      GPIO2 INPUT             HIGH = FG, LOW = MERRY
-> RIGHT SPEAKER ID     GPIO3 INPUT             HIGH = FG, LOW = MERRY
-> DFET CONTROL         GPIO4 OUTPUT            HIGH = DFETs OPEN
-> 
-> Granted, that should yield the same infomration I can copy from the
-> other one, but I'm trying to understand what this would mean. Function
-> is obvious, aswell as the pin-complex, it's what hdajackretasks calls
-> pin ID. But the rest is a bit iffy. E.g. what would the volume column
-> indicate? What about the 'converter'? And the GPIO's? Are the's GPIO's
-> of the codec? Maybe my confusion mostly comes as I'm not sure how to
-> relate those fields to hdajackretask.
+Create Header file for  tas2781 driver.
 
-It's a good information.
-It corresponds to spec->gpio_eapd_speaker, and GPIO2 would be the bit
-0x04, GPIO3 would be 0x08, so it should be set to 0x0c.  The headphone
-has no GPIO assignment, so spec->gpio_eapd_headphone=0.
+Signed-off-by: Shenghao Ding <13916275206@139.com>
 
-But subwoofers seem to have the GPIO controls as well, and the gpio
-bit 0x01 should be set.  For that, we'll need to modify cs_automute()
-function.  But let's investigate this later.
+---
+Changes in v3:
+ - correct some enums have capitalized Chn, chn to all
+ Changes to be committed:
+	new file:   include/sound/tas2781-dsp.h
+	new file:   include/sound/tas2781-tlv.h
+	new file:   include/sound/tas2781.h
+---
+ include/sound/tas2781-dsp.h | 190 ++++++++++++++++++++++++++++++++++++
+ include/sound/tas2781-tlv.h |  22 +++++
+ include/sound/tas2781.h     | 176 +++++++++++++++++++++++++++++++++
+ 3 files changed, 388 insertions(+)
+ create mode 100644 include/sound/tas2781-dsp.h
+ create mode 100644 include/sound/tas2781-tlv.h
+ create mode 100644 include/sound/tas2781.h
 
-FWIW, the GPIO bits can be flipped on the fly, too.  Use hda-verb for
-setting SET_GPIO_MASK, SET_GPIO_DIRECTION and SET_GPIO_DATA.
+diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
+new file mode 100644
+index 000000000000..b05f20bc4a1f
+--- /dev/null
++++ b/include/sound/tas2781-dsp.h
+@@ -0,0 +1,190 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable
++// algo coefficient setting for one, two, or even multiple
++// TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#ifndef __TASDEVICE_DSP_H__
++#define __TASDEVICE_DSP_H__
++
++#define MAIN_ALL_DEVICES			0x0d
++#define MAIN_DEVICE_A				0x01
++#define MAIN_DEVICE_B				0x08
++#define MAIN_DEVICE_C				0x10
++#define MAIN_DEVICE_D				0x14
++#define COEFF_DEVICE_A				0x03
++#define COEFF_DEVICE_B				0x0a
++#define COEFF_DEVICE_C				0x11
++#define COEFF_DEVICE_D				0x15
++#define PRE_DEVICE_A				0x04
++#define PRE_DEVICE_B				0x0b
++#define PRE_DEVICE_C				0x12
++#define PRE_DEVICE_D				0x16
++
++#define PPC3_VERSION				0x4100
++#define PPC3_VERSION_TAS2781			0x14c00
++#define RCA_CONFIGID_BYPASS_ALL			0
++#define TASDEVICE_DEVICE_SUM			8
++#define TASDEVICE_CONFIG_SUM			64
++
++enum channel {
++	top_left_Chn,
++	top_right_chn,
++	bottom_left_Chn,
++	bottom_right_chn,
++	max_chn,
++};
++
++enum tasdevice_dsp_dev_idx {
++	TASDEVICE_DSP_TAS_2555 = 0,
++	TASDEVICE_DSP_TAS_2555_STEREO,
++	TASDEVICE_DSP_TAS_2557_MONO,
++	TASDEVICE_DSP_TAS_2557_DUAL_MONO,
++	TASDEVICE_DSP_TAS_2559,
++	TASDEVICE_DSP_TAS_2563,
++	TASDEVICE_DSP_TAS_2563_DUAL_MONO = 7,
++	TASDEVICE_DSP_TAS_2563_QUAD,
++	TASDEVICE_DSP_TAS_2563_21,
++	TASDEVICE_DSP_TAS_2781,
++	TASDEVICE_DSP_TAS_2781_DUAL_MONO,
++	TASDEVICE_DSP_TAS_2781_21,
++	TASDEVICE_DSP_TAS_2781_QUAD,
++	TASDEVICE_DSP_TAS_MAX_DEVICE
++};
++
++struct tasdevice_fw_fixed_hdr {
++	unsigned int fwsize;
++	unsigned int ppcver;
++	unsigned int drv_ver;
++};
++
++struct tasdevice_dspfw_hdr {
++	struct tasdevice_fw_fixed_hdr fixed_hdr;
++	unsigned short device_family;
++	unsigned short device;
++	unsigned char ndev;
++};
++
++struct tasdev_blk {
++	int nr_retry;
++	unsigned int type;
++	unsigned char is_pchksum_present;
++	unsigned char pchksum;
++	unsigned char is_ychksum_present;
++	unsigned char ychksum;
++	unsigned int nr_cmds;
++	unsigned int blk_size;
++	unsigned int nr_subblocks;
++	unsigned char *data;
++};
++
++struct tasdevice_data {
++	char name[64];
++	unsigned int nr_blk;
++	struct tasdev_blk *dev_blks;
++};
++
++struct tasdevice_prog {
++	unsigned int prog_size;
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_config {
++	unsigned int cfg_size;
++	char name[64];
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_calibration {
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_fw {
++	struct tasdevice_dspfw_hdr fw_hdr;
++	unsigned short nr_programs;
++	struct tasdevice_prog *programs;
++	unsigned short nr_configurations;
++	struct tasdevice_config *configs;
++	unsigned short nr_calibrations;
++	struct tasdevice_calibration *calibrations;
++	struct device *dev;
++};
++
++enum tasdevice_dsp_fw_state {
++	TASDEVICE_DSP_FW_NONE = 0,
++	TASDEVICE_DSP_FW_PENDING,
++	TASDEVICE_DSP_FW_FAIL,
++	TASDEVICE_DSP_FW_ALL_OK,
++};
++
++enum tasdevice_bin_blk_type {
++	TASDEVICE_BIN_BLK_COEFF = 1,
++	TASDEVICE_BIN_BLK_POST_POWER_UP,
++	TASDEVICE_BIN_BLK_PRE_SHUTDOWN,
++	TASDEVICE_BIN_BLK_PRE_POWER_UP,
++	TASDEVICE_BIN_BLK_POST_SHUTDOWN
++};
++
++struct tasdevice_rca_hdr {
++	unsigned int img_sz;
++	unsigned int checksum;
++	unsigned int binary_version_num;
++	unsigned int drv_fw_version;
++	unsigned char plat_type;
++	unsigned char dev_family;
++	unsigned char reserve;
++	unsigned char ndev;
++	unsigned char devs[TASDEVICE_DEVICE_SUM];
++	unsigned int nconfig;
++	unsigned int config_size[TASDEVICE_CONFIG_SUM];
++};
++
++struct tasdev_blk_data {
++	unsigned char dev_idx;
++	unsigned char block_type;
++	unsigned short yram_checksum;
++	unsigned int block_size;
++	unsigned int n_subblks;
++	unsigned char *regdata;
++};
++
++struct tasdevice_config_info {
++	unsigned int nblocks;
++	unsigned int real_nblocks;
++	unsigned char active_dev;
++	struct tasdev_blk_data **blk_data;
++};
++
++struct tasdevice_rca {
++	struct tasdevice_rca_hdr fw_hdr;
++	int ncfgs;
++	struct tasdevice_config_info **cfg_info;
++	int profile_cfg_id;
++};
++
++void tasdevice_select_cfg_blk(void *context, int conf_no,
++	unsigned char block_type);
++void tasdevice_config_info_remove(void *context);
++void tasdevice_dsp_remove(void *context);
++int tasdevice_dsp_parser(void *context);
++int tasdevice_rca_parser(void *context, const struct firmware *fmw);
++void tasdevice_dsp_remove(void *context);
++void tasdevice_calbin_remove(void *context);
++int tasdevice_select_tuningprm_cfg(void *context, int prm,
++	int cfg_no, int rca_conf_no);
++int tasdevice_prmg_load(void *context, int prm_no);
++int tasdevice_prmg_calibdata_load(void *context, int prm_no);
++void tasdevice_tuning_switch(void *context, int state);
++int tas2781_load_calibration(void *context, char *file_name,
++	enum channel i);
++
++#endif
+diff --git a/include/sound/tas2781-tlv.h b/include/sound/tas2781-tlv.h
+new file mode 100644
+index 000000000000..f4310dce655a
+--- /dev/null
++++ b/include/sound/tas2781-tlv.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable
++// algo coefficient setting for one, two, or even multiple
++// TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#ifndef __TAS2781_TLV_H__
++#define __TAS2781_TLV_H__
++
++static const DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
++static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
++
++#endif /* __TAS2781_LIB_H__ */
+diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
+new file mode 100644
+index 000000000000..c98955bda07e
+--- /dev/null
++++ b/include/sound/tas2781.h
+@@ -0,0 +1,176 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable
++// algo coefficient setting for one, two, or even multiple
++// TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#ifndef __TAS2781_H__
++#define __TAS2781_H__
++
++#include <linux/kernel.h>
++#include "tas2781-dsp.h"
++
++/* version number */
++#define TAS2781_DRV_VER			1
++#define SMARTAMP_MODULE_NAME		"tas2781"
++#define TAS2781_GLOBAL_ADDR	0x40
++#define TASDEVICE_RATES			(SNDRV_PCM_RATE_44100 |\
++	SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |\
++	SNDRV_PCM_RATE_88200)
++#define TASDEVICE_MAX_CHANNELS		8
++
++#define TASDEVICE_FORMATS		(SNDRV_PCM_FMTBIT_S16_LE | \
++	SNDRV_PCM_FMTBIT_S24_LE | \
++	SNDRV_PCM_FMTBIT_S32_LE)
++
++/*PAGE Control Register (available in page0 of each book) */
++#define TASDEVICE_PAGE_SELECT		0x00
++#define TASDEVICE_BOOKCTL_PAGE		0x00
++#define TASDEVICE_BOOKCTL_REG		127
++#define TASDEVICE_BOOK_ID(reg)		(reg / (256 * 128))
++#define TASDEVICE_PAGE_ID(reg)		((reg % (256 * 128)) / 128)
++#define TASDEVICE_PAGE_REG(reg)		((reg % (256 * 128)) % 128)
++#define TASDEVICE_PGRG(reg)		(reg % (256 * 128))
++#define TASDEVICE_REG(book, page, reg)	(((book * 256 * 128) + \
++					(page * 128)) + reg)
++
++/*Software Reset */
++#define TAS2781_REG_SWRESET		TASDEVICE_REG(0x0, 0X0, 0x02)
++#define TAS2781_REG_SWRESET_RESET	BIT(0)
++
++/* Enable Global addresses */
++#define TAS2781_MISC_CFG2		TASDEVICE_REG(0x0, 0X0, 0x07)
++#define TAS2781_GLOBAL_ADDR_MASK	BIT(1)
++#define TAS2781_GLOBAL_ADDR_ENABLE	BIT(1)
++
++/*I2C Checksum */
++#define TASDEVICE_I2CChecksum		TASDEVICE_REG(0x0, 0x0, 0x7E)
++
++/* Volume control */
++#define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1A)
++#define TAS2781_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
++#define TAS2781_AMP_LEVEL_MASK		GENMASK(5, 1)
++
++#define TASDEVICE_CMD_SING_W		0x1
++#define TASDEVICE_CMD_BURST		0x2
++#define TASDEVICE_CMD_DELAY		0x3
++#define TASDEVICE_CMD_FIELD_W		0x4
++
++enum audio_device {
++	TAS2781	= 0,
++};
++
++struct tasdevice {
++	struct tasdevice_fw *cali_data_fmw;
++	unsigned int dev_addr;
++	unsigned int err_code;
++	unsigned char cur_book;
++	short cur_prog;
++	short cur_conf;
++	bool is_loading;
++	bool is_loaderr;
++};
++
++/*
++ * This item is used to store the generic i2c address of
++ * all the tas2781 devices for I2C broadcast during the multi-device
++ * writes, useless in mono case.
++ */
++struct global_addr {
++	int ref_cnt;
++	unsigned int dev_addr;
++	unsigned char cur_book;
++};
++
++struct tasdevice_irqinfo {
++	int irq_gpio;
++	int irq;
++};
++
++struct calidata {
++	unsigned char *data;
++	unsigned long total_sz;
++};
++
++struct tasdevice_priv {
++	struct tasdevice tasdevice[max_chn];
++	struct tasdevice_irqinfo irq_info;
++	struct global_addr glb_addr;
++	struct tasdevice_rca rcabin;
++	struct tasdevice_fw *fmw;
++	struct regmap *regmap;
++	struct mutex codec_lock;
++	struct calidata cali_data;
++	struct gpio_desc *reset;
++	struct device *dev;
++	struct tm tm;
++
++	unsigned char crc8_lkp_tbl[CRC8_TABLE_SIZE];
++	unsigned char cal_binaryname[max_chn][64];
++	unsigned char coef_binaryname[64];
++	unsigned char rca_binaryname[64];
++	unsigned char dev_name[32];
++	unsigned char ndev;
++	unsigned int magic_num;
++	unsigned int chip_id;
++	unsigned int sysclk;
++	const char *acpi_subsystem_id;
++	int index;
++	int cur_prog;
++	int cur_conf;
++	int fw_state;
++	void *client;
++	void *codec;
++	bool isacpi;
++	bool playback_started;
++	void (*set_global_mode)(struct tasdevice_priv *tas_priv);
++	int (*fw_parse_variable_header)(struct tasdevice_priv *tas_priv,
++		const struct firmware *fmw, int offset);
++	int (*fw_parse_program_data)(struct tasdevice_priv *tas_priv,
++		struct tasdevice_fw *tas_fmw,
++		const struct firmware *fmw, int offset);
++	int (*fw_parse_configuration_data)(struct tasdevice_priv *tas_priv,
++		struct tasdevice_fw *tas_fmw,
++		const struct firmware *fmw, int offset);
++	int (*tasdevice_load_block)(struct tasdevice_priv *tas_priv,
++		struct tasdev_blk *block);
++};
++
++void tas2781_reset(struct tasdevice_priv *tas_dev);
++int tascodec_init(struct tasdevice_priv *tas_priv, void *codec,
++	void (*cont)(const struct firmware *fw, void *context));
++struct tasdevice_priv *tasdevice_kzalloc(struct i2c_client *i2c);
++int tasdevice_init(struct tasdevice_priv *tas_priv);
++void tasdevice_remove(struct tasdevice_priv *tas_priv);
++int tasdevice_dev_read(struct tasdevice_priv *tas_priv,
++	enum channel chn, unsigned int reg, unsigned int *value);
++int tasdevice_dev_write(struct tasdevice_priv *tas_priv,
++	enum channel chn, unsigned int reg, unsigned int value);
++int tasdevice_dev_bulk_write(
++	struct tasdevice_priv *tas_priv, enum channel chn,
++	unsigned int reg, unsigned char *p_data, unsigned int n_length);
++int tasdevice_dev_bulk_read(struct tasdevice_priv *tas_priv,
++	enum channel chn, unsigned int reg, unsigned char *p_data,
++	unsigned int n_length);
++int tasdevice_dev_update_bits(
++	struct tasdevice_priv *tasdevice, enum channel chn,
++	unsigned int reg, unsigned int mask, unsigned int value);
++int tasdevice_amp_putvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++int tasdevice_amp_getvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++int tasdevice_digital_putvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++int tasdevice_digital_getvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++
++#endif /* __TAS2781_H__ */
+-- 
+2.34.1
 
 
-Takashi
-
-> 
-> Olliver
-> 
-> [0]:
-> https://www.alisaler.com/macbook-pro-retina-13-a1502-x304-mlb-820-4924-schematic/
-> 
-> > 
-> > 
-> > Takashi
-> > 
-> >> 
-> >> Olliver
-> >> 
-> >> On 16-05-2023 20:31, Takashi Iwai wrote:
-> >>> On Tue, 16 May 2023 18:49:55 +0200,
-> >>> Olliver Schinagl wrote:
-> >>>> 
-> >>>> Hey Takashi,
-> >>>> 
-> >>>>>> [   90.497004] CPU: 3 PID: 343 Comm: modprobe Not tainted
-> >>>>>> 6.3.1-arch2-1 #1 4c16b0b90f71a940c7f1bb2eb00cdd9db2a83452
-> >>>>>> [   90.497008] Hardware name: Apple
-> >>>>>> Inc. MacBookPro12,1/Mac-E43C1C25D4880AD6, BIOS 481.0.0.0.0 01/12/2023
-> >>>>>> [   90.497010] RIP: 0010:get_line_out_pfx+0x2dd/0x3e0
-> >>>>>> [snd_hda_codec_generic]
-> >>>>> 
-> >>>>> Can you try to decode which line does it hit?
-> >>>> This was the arch 'vendor' kernel, so not easily? I could have tried
-> >>>> though I suppose :)
-> >>>> 
-> >>>> Instead, I just applied your patch and tried that instead.
-> >>>> 
-> >>>>> 
-> >>>>> Also, as a blind shot, does the patch below work around the bug?
-> >>>> [   16.593760] 0x000000000000-0x000000800000 : "BIOS"
-> >>>> [   16.603877] snd_hda_codec_cirrus hdaudioC1D0: autoconfig for
-> >>>> CS4208: line_outs=5 (0x11/0x12/0x13/0x14/0x1d) type:speaker
-> >>>> [   16.603885] snd_hda_codec_cirrus hdaudioC1D0:    speaker_outs=0
-> >>>> (0x0/0x0/0x0/0x0/0x0)
-> >>>> [   16.603888] snd_hda_codec_cirrus hdaudioC1D0:    hp_outs=1
-> >>>> (0x10/0x0/0x0/0x0/0x0)
-> >>>> [   16.603890] snd_hda_codec_cirrus hdaudioC1D0:    mono: mono_out=0x0
-> >>>> [   16.603892] snd_hda_codec_cirrus hdaudioC1D0:    dig-out=0x1e/0x21
-> >>>> [   16.603894] snd_hda_codec_cirrus hdaudioC1D0:    inputs:
-> >>>> [   16.603895] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x16
-> >>>> [   16.603897] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x15
-> >>>> [   16.603899] snd_hda_codec_cirrus hdaudioC1D0:      Mic=0x18
-> >>>> [   16.603900] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x19
-> >>>> [   16.603902] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1a
-> >>>> [   16.603904] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1b
-> >>>> [   16.603919] snd_hda_codec_cirrus hdaudioC1D0:      Internal Mic=0x1c
-> >>>> [   16.603921] snd_hda_codec_cirrus hdaudioC1D0:      Line=0x17
-> >>>> [   16.603922] snd_hda_codec_cirrus hdaudioC1D0:    dig-in=0x22
-> >>>> [   16.605152] snd_hda_codec_cirrus hdaudioC1D0: Too many channels in
-> >>>> get_line_out_pfx: 4
-> >>>> [   16.605215] snd_hda_codec_cirrus hdaudioC1D0: Too many channels in
-> >>>> get_line_out_pfx: 4
-> >>>> 
-> >>>> the good thing, you fixed the oops; the bad thing, it's no working,
-> >>>> but hopefully this helps you gain more insight?
-> >>> 
-> >>> Below is a bit better patch for fixing the Oops.
-> >>> 
-> >>> But, judging from the output above, I guess it won't help completely,
-> >>> because the pin configuration looks broken; e.g. it reports too many
-> >>> "Internal Mic" pins (which must be only one usually).
-> >>> 
-> >>> That said, the actual breakage (except for kernel Oops) is the pin
-> >>> config set by BIOS.  Maybe it doesn't set up things properly *at all*
-> >>> You'll need to correct it by providing the full pin config with a
-> >>> quirk table.  And for that, you'll need to figure out the pins via
-> >>> trial-and-error, for example, with the help of hdajackretask.
-> >>> 
-> >>> 
-> >>> thanks,
-> >>> 
-> >>> Takashi
-> >>> 
-> >>> -- 8< --
-> >>> From: Takashi Iwai <tiwai@suse.de>
-> >>> Subject: [PATCH] ALSA: hda: Fix Oops by 9.1 surround channel names
-> >>> 
-> >>> get_line_out_pfx() may trigger an Oops by overflowing the static array
-> >>> with more than 8 channels.  This was reported for MacBookPro 12,1 with
-> >>> Cirrus codec.
-> >>> 
-> >>> As a workaround, extend for the 9.1 channels and also fix the
-> >>> potential Oops by unifying the code paths accessing the same array
-> >>> with the proper size check.
-> >>> 
-> >>> Reported-by: Olliver Schinagl <oliver@schinagl.nl>
-> >>> Cc: <stable@vger.kernel.org>
-> >>> Link: https://lore.kernel.org/r/64d95eb0-dbdb-cff8-a8b1-988dc22b24cd@schinagl.nl
-> >>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> >>> ---
-> >>>    sound/pci/hda/hda_generic.c | 7 ++++---
-> >>>    1 file changed, 4 insertions(+), 3 deletions(-)
-> >>> 
-> >>> diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-> >>> index fc114e522480..dbf7aa88e0e3 100644
-> >>> --- a/sound/pci/hda/hda_generic.c
-> >>> +++ b/sound/pci/hda/hda_generic.c
-> >>> @@ -1155,8 +1155,8 @@ static bool path_has_mixer(struct hda_codec *codec, int path_idx, int ctl_type)
-> >>>    	return path && path->ctls[ctl_type];
-> >>>    }
-> >>>    -static const char * const channel_name[4] = {
-> >>> -	"Front", "Surround", "CLFE", "Side"
-> >>> +static const char * const channel_name[] = {
-> >>> +	"Front", "Surround", "CLFE", "Side", "Back",
-> >>>    };
-> >>>      /* give some appropriate ctl name prefix for the given line out
-> >>> channel */
-> >>> @@ -1182,7 +1182,7 @@ static const char *get_line_out_pfx(struct hda_codec *codec, int ch,
-> >>>      	/* multi-io channels */
-> >>>    	if (ch >= cfg->line_outs)
-> >>> -		return channel_name[ch];
-> >>> +		goto fixed_name;
-> >>>      	switch (cfg->line_out_type) {
-> >>>    	case AUTO_PIN_SPEAKER_OUT:
-> >>> @@ -1234,6 +1234,7 @@ static const char *get_line_out_pfx(struct hda_codec *codec, int ch,
-> >>>    	if (cfg->line_outs == 1 && !spec->multi_ios)
-> >>>    		return "Line Out";
-> >>>    + fixed_name:
-> >>>    	if (ch >= ARRAY_SIZE(channel_name)) {
-> >>>    		snd_BUG();
-> >>>    		return "PCM";
-> >> 
-> 

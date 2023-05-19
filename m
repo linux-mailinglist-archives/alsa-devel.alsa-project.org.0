@@ -2,157 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D7A7709303
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 11:28:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4325C70932E
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 11:32:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E942A1FC;
-	Fri, 19 May 2023 11:27:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E942A1FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DD191FC;
+	Fri, 19 May 2023 11:31:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DD191FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684488514;
-	bh=K15U/3KARvuYQQoNEPxezHORjxvdQ8sR2EA9AEz6W1U=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OjOkwLEKxmQ4D3AWe572GBHBFDP51ybvK9jqr43LtpDS0/CZa0377KT9n32vHhK/F
-	 2ovygjHwYWkkB3Eh7Vnn5EGOegMkYofzGjJbklHB4iukT4rFc2u0tHVE7RGA5CREuQ
-	 8rPEsLP2sMdu0jiAQA8pGlKI74PgQrNDSK0U75oM=
+	s=default; t=1684488753;
+	bh=Qp2uRLDk13JnXiR5lOU+eg6EPzn6LadDPzhUndWT5Mw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=TXtTC1/1dmQZ9e1l0MjOoISfL5ecodshfIDZg/CPGvFUsQsbUZnCxVakVqrYePTXb
+	 t0Wr0EmgGu7NRsxv1kJFmDb21rv11h4uHMgE+xAbtL8j6wCI/qiXuy5JEj5b+/t1GJ
+	 2tFkQ0GJH2/fcZ9aLVQvkuPM9HPGdJj1jeWVGEfI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48A5EF8016D; Fri, 19 May 2023 11:27:21 +0200 (CEST)
+	id 4FFEAF80558; Fri, 19 May 2023 11:31:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3A3CF8024E;
-	Fri, 19 May 2023 11:27:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC517F80553;
+	Fri, 19 May 2023 11:31:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DD14F8025A; Fri, 19 May 2023 11:27:16 +0200 (CEST)
+	id 0ED6CF80087; Fri, 19 May 2023 11:31:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20710.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::710])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A9350F80087
-	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 11:27:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9350F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7CFD0F80087
+	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 11:31:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CFD0F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=dm.renesas.com header.i=@dm.renesas.com
- header.a=rsa-sha256 header.s=selector1 header.b=OKBLdVZg
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q/Y/DYRcsYDiFntfnA2UGDpI4RVskvMlomDpHVAa+m9BWPar13ibuT+HIpkHHQ5WlQWHME03zazQv48UY/S5F9DslR69ZPJ4UIytjy4r8aQCpVnC2XjPejZ7K7h7MowCDsUoAvmiAHX0WlG3+IRWcgEzW9w2w9DuVrTBOSmQMM1fE2EBdIPDC4dGkSZPNywjyMU7WxU0OyQHfvXaN0pIPjy9TwbjMBU/ILmHcPUOVeqPhNi4NGmHuNADjqETprQu1tGltAA/NTSBZ9tRalFY1kkTyj8el1tEqcPftQxz2YubcNN9kyVIuIsk+Dro2UGB4LPrhCoxdd7OEmgmSGNz4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2/sHu7VPf/jow5IOJbA1ZWTIH6S2lqXeafN59Oi7VMw=;
- b=Rcg5jp2iEBYDhvAynVjv/hQ0oveTmiIyBOAXn9sb0FJDQBTEVZ9O4UkvTDYCPJ4qfmXWgI+ekzQgK1/wFSZCfAf9IQ9qBawCSIHCj30X91ne6NVWSwo7UID9k1+L/Aj3qimlRjopMT8CTw0UYSQhVBR4XcW/UpKqsMOdHGj8zptSdtImhp+KNbOMDzNfoxvfgbltVwS3JzQhsm7TV2CKFtm20DkSK3Sg3fQmzEwe5f8NCrnvFlC5kH1kbZKzGk0Zfgy1lEmB4CaKzskqo3Bgt/elT5GlcLN00pl68TIGErtejegUDifkqm6cfBdR2dGpI5o9gWmlQd1vi1uJxSDulg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dm.renesas.com; dmarc=pass action=none
- header.from=dm.renesas.com; dkim=pass header.d=dm.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dm.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2/sHu7VPf/jow5IOJbA1ZWTIH6S2lqXeafN59Oi7VMw=;
- b=OKBLdVZgbfhoh4gteMF3LwepHTyKmZT3xaIx0LsKnS9kEymIAGi5jUo9QeZpaPmOgUE40kYW2tJru4e85e/uXl/6+4E9IRH+VbtGnp1ZtUv5VdeIjWab53iiEMfwww//oseVN/FOy0uuPe5nXLNAIoeN/2mmJXhjnAiAua8x4Dw=
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
- by TYCPR01MB11054.jpnprd01.prod.outlook.com (2603:1096:400:3a7::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.21; Fri, 19 May
- 2023 09:27:05 +0000
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::2de2:b2ee:d931:157]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::2de2:b2ee:d931:157%6]) with mapi id 15.20.6411.017; Fri, 19 May 2023
- 09:27:05 +0000
-From: David.Rau.opensource <David.Rau.opensource@dm.renesas.com>
-To: Conor Dooley <conor@kernel.org>, David.Rau.opensource
-	<David.Rau.opensource@dm.renesas.com>
-CC: "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
-	"support.opensource@diasemi.com" <support.opensource@diasemi.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>, "broonie@kernel.org"
-	<broonie@kernel.org>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] ASoC: dt-bindings: dialog,da7219: convert to dtschema
-Thread-Topic: [PATCH] ASoC: dt-bindings: dialog,da7219: convert to dtschema
-Thread-Index: AQHZiWlFaZwxsGlTVki4XJjWobXVBq9gg64AgADQwAA=
-Date: Fri, 19 May 2023 09:27:05 +0000
-Message-ID: 
- <OS3PR01MB6641D9BC9D36AA0D4741F84FCD7C9@OS3PR01MB6641.jpnprd01.prod.outlook.com>
-References: <20230518091449.17984-1-David.Rau.opensource@dm.renesas.com>
- <20230518-voice-puppy-2a533ec28ac8@spud>
-In-Reply-To: <20230518-voice-puppy-2a533ec28ac8@spud>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=dm.renesas.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS3PR01MB6641:EE_|TYCPR01MB11054:EE_
-x-ms-office365-filtering-correlation-id: 64ad9fb1-5211-4918-a047-08db584b3622
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- oumM8Gd84pC/1E3Nf3k9CXmiAe3afGMVqF25XbGU2uFFjyqIguoncu4b/1pQw7y3voASqe4toiHRNOvZ7VtzNoftNXtJbK74yUVxl0kZJqVS2hOGNP3GSZe5SBR/b9k1Q7vtUEpqe5cpOLis8iFvgapQ1DDZPhtKgRn+odepSA9Ed4PwXTuCXXHdIQmJUm9HphyMsPQQkhpWqgiJq04O/JMDUSUwbaT6ttugw4O41YoO/WeQEkiBXnKHRMNLQLuOcnFJGHejPS3A9aw1JR979XYaTls+e5mqPVcyYIBKMITUxsoZDD1uziM6b1ydDUmBd7XUGJManHgDv6d3ytyx6i8pY1kW2eIZD3oZSc98Fkiqlj9Rgsf9xugtZDGJBu/aNhFag3EGJVZKFJQZihNF3uLackHo09XRDhd6M9cwTN53RGjU6FrcLAd1qthfTNAgTGPbOq+YpInXSp/TXf3e6SfORMfdTs3VmD9iWCyFpRsh0XfG+ekLvgtwY6rYEGvuX4/UyKKI6WG9AnNeBzrw8RUk5gKTszCHjo3mNYwkQ/bTAzWJa9KJfO877g+WJICn1waowYa/7w35zzvAJ0ZO9D1QTILoDwtAjbvirrAaSLQ=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB6641.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(346002)(376002)(39860400002)(366004)(451199021)(86362001)(33656002)(55016003)(8936002)(26005)(8676002)(5660300002)(9686003)(6506007)(53546011)(55236004)(186003)(52536014)(7416002)(316002)(54906003)(66446008)(66946007)(110136005)(66556008)(76116006)(966005)(41300700001)(64756008)(66476007)(7696005)(4326008)(478600001)(71200400001)(38100700002)(122000001)(38070700005)(83380400001)(2906002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?rHaX4iNBSc4Yr0YrSakalvCEyCzfaea4lh8mebkJlgtqhjkkV7TuQ8e0WxOv?=
- =?us-ascii?Q?8oAPux9u/D7Tch54mnNrvChRu0hQZSc28NW63VeDDP8+3wP/4IOi0ah0nykX?=
- =?us-ascii?Q?Fvd36rk2t9htrfxqnanVo74RKpj5MycJsixVRdsr7cVzQ88AVOSdsan1g9qQ?=
- =?us-ascii?Q?QktsiDnruTyU9FFhJHTVYBqFPSIPz3W0iJWhb/3shnWtRHIKRTmvMApL70Ki?=
- =?us-ascii?Q?rTNDPmVZYqi36o+VO6z71sZeTmmDw3sIIB2FztuXlIx3J8VCzGxwxWtTBRIZ?=
- =?us-ascii?Q?apVfkXFe7yfqrSVvnmn6PRo2CZ2Dd+Q/BYUEaGtqLr/TXzNn6XTPzcoyCnO1?=
- =?us-ascii?Q?PY3uSPUHNdwA5+l63rqz5bP0LItR7oj3CDXLkgdJNEVcz4w3z/YxFCUDKs2E?=
- =?us-ascii?Q?hOXjqbbFAbyIgEJHblrehKuXgxhPNzmHmxUcwWOyjw8guVkJYwETJaP4Ol51?=
- =?us-ascii?Q?6/w9x79JzH1Vrq+CyZkxFYemdgBTMrfYFc2qTr3FhSjJjfn+zSwfElTl9hwn?=
- =?us-ascii?Q?/0XS7XRU9h7Dx0jlnyRcR0i/6IJD3/HL8LohSjd0K3X4B940QTjFNHDkd1YN?=
- =?us-ascii?Q?bqj0g1kb3HOblKtNm8y8qnOFxg9EIwaUo4ZoGWogYzP+KdAZ1I1iu8AXqFe0?=
- =?us-ascii?Q?mWbuzqFH9o8yS9GCXBYIjfega3al3nPVgMDdgy3cASUAGWJQ3KLhD4iEy7Zc?=
- =?us-ascii?Q?DVAcQD+tipLuR9plOLWJJ+dtv7ZYtfhgNGJ3hhfrKymYAwzKtYbH5ot5VLJs?=
- =?us-ascii?Q?E48lXMXcEv3ebKrcoKVGiDDrpU4khQGp27Opv9gQ+jpIT3wbtUb/ozRJ5v2l?=
- =?us-ascii?Q?eN88MSvMcnrhF02z+jIZ2oKBzs+D26TkNqjBy9CAnuMk8EVo+av6YtsevSVg?=
- =?us-ascii?Q?pYzK7fW7JHS05eQiK3HCts/+z14X6mLO8ORxAUff3pnDrNtAZVYEUNqhB3/2?=
- =?us-ascii?Q?jyNl5bMVHc7tnoJgpXKVQ1L9k+Gs0TNhWtJFCBcSUcg/mo8o/JQmyDBTo6JQ?=
- =?us-ascii?Q?FscttDMH7OJVX2rFO0NehadUvJc1tSWT2QQulJuDWORzx427DEeCOIRpuF8l?=
- =?us-ascii?Q?ITMmZxYA6cINPvEENij9aK0POX+g79mqnrw7GflVMKcsK81SCL1bkZ5XZA8+?=
- =?us-ascii?Q?zAIRMbmLSWMBBsFpddiffPbq+RZmXIa1gS0c8Np2vVSZV2WQPD3sqrNwV6Wt?=
- =?us-ascii?Q?V6MjFKbP67MwYg5oDf7/Vp8lqKGR1Cd5biubOjLdvr+Ul17RWaABcVscL75m?=
- =?us-ascii?Q?plgrHbPmwix5ryc0aL+5XLSV581ZYkXMoDylul3QSEuVagDS0SAX/xtshxQf?=
- =?us-ascii?Q?K5p5+svVD9JBssPQiSodDvndmpxNmzk2Q4HQeDY/K2zoHIiSvWCq83DP+0WA?=
- =?us-ascii?Q?CHHG1rk6pQxngpDh5NFOsMmiQhUAicyYG6a6iXqyLPHnDKtfvGiAZ0NpJykp?=
- =?us-ascii?Q?t/HYk08mxzpDQX9dtsBHWfokKLhlQoaXOP8sFaFSdhMiUOhiy4cTxrCpZCbO?=
- =?us-ascii?Q?pVJXIkODwrhGUCFnrnBKYeUAV7zY5o93jhIznz78vnIt9rbUH/U9zJ4/6AhG?=
- =?us-ascii?Q?jvM6376q0VcuCgWX2mf6h5+tMFZOWKi4IpP/fW1U?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=tB6EqhCS;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=bR6dSBXO
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DF21722245;
+	Fri, 19 May 2023 09:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1684488688;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=KZ/M1xl0Qi9Qr3MsXW4Bp0NVv7pwTZ+lB5C3/VZAk4k=;
+	b=tB6EqhCStrvD/jy1rRvzboPGwcWKiIu7icvSsCuIj34O7kIORHTic7gmIdCy6IBhgGQ8Cj
+	1/US6GWyJb3o9I9sNfREgS8Z0lSZjIvfPafCJ4unLlTWMydlKIxWCfLLfrkB6iMGKYs4Ci
+	rbvVSH7pEnIogEMKJnT0dueObGnr/Kc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1684488688;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=KZ/M1xl0Qi9Qr3MsXW4Bp0NVv7pwTZ+lB5C3/VZAk4k=;
+	b=bR6dSBXO6E+kd2Wd3M/dKQuH7t5WuFmWQgXOrQ0F1cFQIMPXElwtHJHPKOXk+EULQqFcMD
+	sR1MFgBFuS/sGvDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AA6D213A12;
+	Fri, 19 May 2023 09:31:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id r0yQKPBBZ2RXJAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 19 May 2023 09:31:28 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org
+Subject: [PATCH 00/36] ALSA: Add MIDI 2.0 support
+Date: Fri, 19 May 2023 11:30:38 +0200
+Message-Id: <20230519093114.28813-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-OriginatorOrg: dm.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 64ad9fb1-5211-4918-a047-08db584b3622
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2023 09:27:05.7028
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- D2rGvuXLBdxK3ACvWkxDLzowH2TGMVPjjCRiL8sypLYi9BTVbIr7WBe/ZstXkz4h0a40wU7mbUenj7SYWhAB4QcqT++fDb4brwidRVfmrg0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11054
-Message-ID-Hash: M2CNJYY4UYVVBZMPCE3MX2E6XX3JJYLD
-X-Message-ID-Hash: M2CNJYY4UYVVBZMPCE3MX2E6XX3JJYLD
-X-MailFrom: David.Rau.opensource@dm.renesas.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: E2XL65INQUIV3HBV4QGUXI7WW2CCQCKD
+X-Message-ID-Hash: E2XL65INQUIV3HBV4QGUXI7WW2CCQCKD
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -164,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OVA2DXPSSD5U2UMZDYQ7EPGUKHJVX6HA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2XL65INQUIV3HBV4QGUXI7WW2CCQCKD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -173,148 +115,156 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
+
+this is a (largish) patch set for adding the support of MIDI 2.0
+functionality, mainly targeted for USB devices.  MIDI 2.0 is a
+complete overhaul of the 40-years old MIDI 1.0.  Unlike MIDI 1.0 byte
+stream, MIDI 2.0 uses packets in 32bit words for Universal MIDI Packet
+(UMP) protocol.  It supports both MIDI 1.0 commands for compatibility
+and the extended MIDI 2.0 commands for higher resolutions and more
+functions.
+
+For supporting the UMP, the patch set extends the existing ALSA
+rawmidi and sequencer interfaces, and adds the USB MIDI 2.0 support to
+the standard USB-audio driver.
+
+The rawmidi for UMP has a different device name (/dev/snd/umpC*D*) and
+it reads/writes UMP packet data in 32bit CPU-native endianness.  For
+the old MIDI 1.0 applications, the legacy rawmidi interface is
+provided, too.
+
+As default, USB-audio driver will take the alternate setting for MIDI
+2.0 interface, and the compatibility with MIDI 1.0 is provided via the
+rawmidi common layer.  However, user may let the driver falling back
+to the old MIDI 1.0 interface by a module option, too.
+
+A UMP-capable rawmidi device can create the corresponding ALSA
+sequencer client(s) to support the UMP Endpoint and UMP Group
+connections.  As a nature of ALSA sequencer, arbitrary connections
+between clients/ports are allowed, and the ALSA sequencer core
+performs the automatic conversions for the connections between a new
+UMP sequencer client and a legacy MIDI 1.0 sequencer client.  It
+allows the existing application to use MIDI 2.0 devices without
+changes.
+
+The MIDI-CI, which is another major extension in MIDI 2.0, isn't
+covered by this patch set.  It would be implemented rather in
+user-space.
+
+Roughly speaking, the first half of this patch set is for extending
+the rawmidi and USB-audio, and the second half is for extending the
+ALSA sequencer interface.
+
+The patch set is based on 6.4-rc2 kernel, but all patches can be
+cleanly applicable on 6.2 and 6.3 kernels, too (while 6.1 and older
+kernels would need minor adjustment for uapi header changes).
+
+The updates for alsa-lib and alsa-utils will follow shortly later.
+
+The author thanks members of MIDI Association OS/API Working Group,
+especially Andrew Mee, for great helps for the initial design and
+debugging / testing the drivers.
 
 
------Original Message-----
-From: Conor Dooley <conor@kernel.org>=20
-Sent: Friday, May 19, 2023 04:57
-To: David.Rau.opensource <David.Rau.opensource@dm.renesas.com>
-Cc: krzysztof.kozlowski+dt@linaro.org; support.opensource@diasemi.com; lgir=
-dwood@gmail.com; broonie@kernel.org; robh+dt@kernel.org; conor+dt@kernel.or=
-g; alsa-devel@alsa-project.org; devicetree@vger.kernel.org; linux-kernel@vg=
-er.kernel.org
-Subject: Re: [PATCH] ASoC: dt-bindings: dialog,da7219: convert to dtschema
+Takashi
 
-> Hey David,
+---
 
-On Thu, May 18, 2023 at 09:14:49AM +0000, David Rau wrote:
-> - Convert Dialog DA7219 bindings to DT schema format.
-> - Add Jack insertion detection polarity selection.
-> - Remove unused `dlg,ldo-lvl` parameter.
+Takashi Iwai (36):
+  ALSA: rawmidi: Pass rawmidi directly to snd_rawmidi_kernel_open()
+  ALSA: rawmidi: Add ioctl callback to snd_rawmidi_global_ops
+  ALSA: rawmidi: UMP support
+  ALSA: rawmidi: Skip UMP devices at SNDRV_CTL_IOCTL_RAWMIDI_NEXT_DEVICE
+  ALSA: ump: Additional proc output
+  ALSA: usb-audio: Manage number of rawmidis globally
+  ALSA: usb-audio: Define USB MIDI 2.0 specs
+  ALSA: usb-audio: USB MIDI 2.0 UMP support
+  ALSA: usb-audio: Get UMP EP name string from USB interface
+  ALSA: usb-audio: Trim superfluous "MIDI" suffix from UMP EP name
+  ALSA: usb-audio: Create UMP blocks from USB MIDI GTBs
+  ALSA: ump: Redirect rawmidi substream access via own helpers
+  ALSA: ump: Add legacy raw MIDI support
+  ALSA: usb-audio: Enable the legacy raw MIDI support
+  ALSA: usb-audio: Inform inconsistent protocols in GTBs
+  ALSA: seq: Clear padded bytes at expanding events
+  ALSA: seq: Add snd_seq_expand_var_event_at() helper
+  ALSA: seq: Treat snd_seq_client object directly in client drivers
+  ALSA: seq: Drop dead code for the old broadcast support
+  ALSA: seq: Check the conflicting port at port creation
+  ALSA: seq: Check validity before creating a port object
+  ALSA: seq: Prohibit creating ports with special numbers
+  ALSA: seq: Introduce SNDRV_SEQ_IOCTL_USER_PVERSION ioctl
+  ALSA: seq: Add UMP support
+  ALSA: seq: Add port inactive flag
+  ALSA: seq: Support MIDI 2.0 UMP Endpoint port
+  ALSA: seq: Add port direction to snd_seq_port_info
+  ALSA: seq: Add UMP group number to snd_seq_port_info
+  ALSA: seq: Automatic conversion of UMP events
+  ALSA: seq: Allow suppressing UMP conversions
+  ALSA: seq: Bind UMP device
+  ALSA: seq: ump: Create UMP Endpoint port for broadcast
+  ALSA: seq: Add ioctls for client UMP info query and setup
+  ALSA: seq: Print UMP Endpoint and Block information in proc outputs
+  ALSA: seq: Add UMP group filter
+  ALSA: docs: Add MIDI 2.0 documentation
 
-> Could you please split this out, so that the conversion is done in a patc=
-h of its own, with the addition separate (unless it is my unfamiliarity wit=
-h sound at play, and the addition is > required as part of the conversion).
+ Documentation/sound/designs/index.rst    |    1 +
+ Documentation/sound/designs/midi-2.0.rst |  342 ++++++
+ include/linux/usb/midi-v2.h              |   94 ++
+ include/sound/asequencer.h               |    4 +
+ include/sound/rawmidi.h                  |   16 +-
+ include/sound/seq_device.h               |    1 +
+ include/sound/seq_kernel.h               |   10 +
+ include/sound/ump.h                      |  175 ++++
+ include/sound/ump_msg.h                  |  540 ++++++++++
+ include/uapi/sound/asequencer.h          |   83 +-
+ include/uapi/sound/asound.h              |   58 +-
+ sound/core/Kconfig                       |   13 +
+ sound/core/Makefile                      |    3 +
+ sound/core/rawmidi.c                     |  233 +++--
+ sound/core/rawmidi_compat.c              |    4 +
+ sound/core/seq/Kconfig                   |   14 +
+ sound/core/seq/Makefile                  |    3 +
+ sound/core/seq/seq_clientmgr.c           |  577 +++++++----
+ sound/core/seq/seq_clientmgr.h           |   27 +-
+ sound/core/seq/seq_compat.c              |    3 +
+ sound/core/seq/seq_dummy.c               |    9 +
+ sound/core/seq/seq_memory.c              |   98 +-
+ sound/core/seq/seq_memory.h              |   19 +-
+ sound/core/seq/seq_midi.c                |   12 +-
+ sound/core/seq/seq_ports.c               |   46 +-
+ sound/core/seq/seq_ports.h               |   23 +-
+ sound/core/seq/seq_ump_client.c          |  464 +++++++++
+ sound/core/seq/seq_ump_convert.c         | 1203 ++++++++++++++++++++++
+ sound/core/seq/seq_ump_convert.h         |   22 +
+ sound/core/seq/seq_virmidi.c             |    1 +
+ sound/core/ump.c                         |  677 ++++++++++++
+ sound/core/ump_convert.c                 |  520 ++++++++++
+ sound/core/ump_convert.h                 |   43 +
+ sound/usb/Kconfig                        |   11 +
+ sound/usb/Makefile                       |    1 +
+ sound/usb/card.c                         |   12 +-
+ sound/usb/midi.c                         |    7 +-
+ sound/usb/midi.h                         |    5 +-
+ sound/usb/midi2.c                        | 1189 +++++++++++++++++++++
+ sound/usb/midi2.h                        |   33 +
+ sound/usb/quirks.c                       |    8 +-
+ sound/usb/usbaudio.h                     |    2 +
+ 42 files changed, 6274 insertions(+), 332 deletions(-)
+ create mode 100644 Documentation/sound/designs/midi-2.0.rst
+ create mode 100644 include/linux/usb/midi-v2.h
+ create mode 100644 include/sound/ump.h
+ create mode 100644 include/sound/ump_msg.h
+ create mode 100644 sound/core/seq/seq_ump_client.c
+ create mode 100644 sound/core/seq/seq_ump_convert.c
+ create mode 100644 sound/core/seq/seq_ump_convert.h
+ create mode 100644 sound/core/ump.c
+ create mode 100644 sound/core/ump_convert.c
+ create mode 100644 sound/core/ump_convert.h
+ create mode 100644 sound/usb/midi2.c
+ create mode 100644 sound/usb/midi2.h
 
-Hey Conor,
-Thanks a lot for the kind suggestions.
-I just submitted another patch to do the conversion only.
-
-> diff --git=20
-> a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml=20
-> b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
-> new file mode 100644
-> index 000000000000..32dfc4559052
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
-> @@ -0,0 +1,240 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) %YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/dialog,da7219.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Dialog Semiconductor DA7219 Audio Codec
-> +
-> +maintainers:
-> +  - David Rau <David.Rau.opensource@dm.renesas.com>
-> +
-> +description:
-> +  The DA7219 is an ultra low-power audio codec with
-> +  in-built advanced accessory detection (AAD) for mobile
-> +  computing and accessory applications, which supports
-> +  sample rates up to 96 kHz at 24-bit resolution.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - dlg,da7219
-
-This is just a const.
-
-> +  reg:
-> +    description:
-> +      The I2C slave address of the DA7219.
-> +    maxItems: 1
-
-> Drop the description please, it's stating the obvious IMO.
-
-> +  interrupts:
-> +    description:
-> +      Interrupt for DA7219 IRQ line.
-> +    maxItems: 1
-
-> Ditto here.
-
-> +
-> +  VDD-supply:
-> +    description:
-> +      VDD power supply for the device.
-
-> I would say and here, but there seem to be dozens of other similar proper=
-ties in sound.
-
-> +
-> +  VDDMIC-supply:
-> +    description:
-> +      VDDMIC power supply for the device.
-> +
-> +  VDDIO-supply:
-> +    description:
-> +      VDDIO power supply for the device.
-> +
-> +  interrupt-names:
-> +    description:
-> +      Name associated with interrupt line.
-> +      Should be "wakeup" if interrupt is to be used to wake system,
-> +      otherwise "irq" should be used.
-
-> Please encode these names using the items: field. + oneOf.
-
-> +
-> +  wakeup-source:
-
-> type: boolean
-
-> +    description:
-> +      Flag to indicate this device can wake system (suspend/resume).
-> +
-> +  "#clock-cells":
-> +    description:
-> +      Two clock sources provided.
-
-> Drop the description here please.
-
-> +    const: 1
-> +
-> +  clock-output-names:
-> +    description:
-> +      Names given for DAI clock outputs (WCLK & BCLK).
-
-> Please encode these as items:
-
-> +
-> +  clocks:
-> +    description:
-> +      phandle and clock specifier for codec MCLK.
-
-> maxItems: 1 & given the clock name I think you can drop both descriptions=
- from here and clock-names.
-
-
-> +  "da7219_aad":
-
-> Drop the quotes please.
-
-> +      dlg,jack-ins-det-pty:
-> +        enum: ["low", "high"]
-> +        description:
-> +          Polarity for jack insertion detection.
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-
-> Yeah, please do the change from txt -> yaml as one patch and this as anot=
-her.
-
-Cheers,
-Conor.
+-- 
+2.35.3
 

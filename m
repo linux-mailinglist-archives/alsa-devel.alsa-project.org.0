@@ -2,85 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD384709800
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 15:13:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C48709725
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 14:16:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E98081FE;
-	Fri, 19 May 2023 15:12:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E98081FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA053200;
+	Fri, 19 May 2023 14:16:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA053200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684501981;
-	bh=v1r0gkCrrTU6g3cAA+Cei5Y3vKCC6lB4xTy+3dGEcEI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=r5BwqDPdyOXyVNXP3OQVj69U83jNiuqRVWh0/+NiEMT89fmI9hZnwlXuEB6zOUiV1
-	 SbDlq2ZEkX2Qx3I+MskchOqhiqwHREuOJaWOxASCNHARTlVQtoH2TVuyEE8zbNTaIv
-	 FLoqgxGFZycccRgmQ7Mzn9DCgZviwRU+Ff6ctdT4=
+	s=default; t=1684498616;
+	bh=Iai1OfRmrVp7IIXY9Gxe7CSQi5jqnxuD/YtgpnyUqNw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FKrlg6JkhQenosj11XQLMOMjv6TCGzZEBHYavkNAJ+nmkw6wfOxNrNosZdomeq3PN
+	 k8tXT+/TAhcxgxUcFxPHAWFSIsZep72VCGTri34Mw6/c/1DZ+/bL06aXxGRoVc4/Uh
+	 Ke0C/Ng+vJDMXBcvx2ZVQ5DalZfLY6jpLm6udz50=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77AC3F80548; Fri, 19 May 2023 15:11:47 +0200 (CEST)
+	id 1C5A7F80551; Fri, 19 May 2023 14:16:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC176F8025A;
-	Fri, 19 May 2023 15:11:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54516F80272;
+	Fri, 19 May 2023 14:16:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A412F80272; Fri, 19 May 2023 15:11:44 +0200 (CEST)
+	id 0EEB5F80087; Fri, 19 May 2023 14:16:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 82110F80087
-	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 15:11:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82110F80087
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VKIuJ+Yk
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C3E546172B;
-	Fri, 19 May 2023 13:11:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B023AC433EF;
-	Fri, 19 May 2023 13:11:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684501896;
-	bh=v1r0gkCrrTU6g3cAA+Cei5Y3vKCC6lB4xTy+3dGEcEI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VKIuJ+Yk/FPlF7dJQZW3Vz73Vv8xyLUPBQariSReOHBLxmTL6jvSvOLPvCv6jSf1c
-	 oEbjWOqpwobRD1koqPXXWsD/oVdZ0uBl8KxuDX3XNWAD0xWvB48J5l1DakqIRHfEtb
-	 7CAecvJJPUW78ydUE33P5pJ+04Qotz9OKrPe9aYHVeJ5XpiwMmzwl2zcZJ3gg8RF1c
-	 zGO28dnJ3k7jgxi1jhCl+N0lta/f8o1dUIo8Y/+9/B7r52IheQrvip6GsdwhdIODDO
-	 ZNI92z2GNQuUcj2Haa8MIRyp3v7Jwcx8zPPwsNFFAJEv1uKrbuCrCjzfRErjZl0Tcf
-	 3dNa5pgE7AzYA==
-Date: Fri, 19 May 2023 22:11:33 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [RESEND PATCH 00/12] ASoC: codecs: do not store status in state
- containe
-Message-ID: <ZGd1hZSO4zdO8gdD@finisterre.sirena.org.uk>
-References: <20230518072753.7361-1-krzysztof.kozlowski@linaro.org>
- <ZGX8v3qjkmfMf+J1@finisterre.sirena.org.uk>
- <cc4109d6-3125-0738-537d-34f9fa2c2fa1@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id BC48CF80087
+	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 14:15:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC48CF80087
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=mytY+ihq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1684498559; x=1716034559;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Iai1OfRmrVp7IIXY9Gxe7CSQi5jqnxuD/YtgpnyUqNw=;
+  b=mytY+ihqT5oXVO574rmDQFLzA/zAG2UOA28n1vOhGiS/bdRHtQ5++I6H
+   AWdwaOXqFKTHLnU1RTA9i3L3xbWE7H5D8qblsyLKyrdG00mTdyM8oLLwD
+   cE3Zx8edYO2sqF+nrzfa6L9LAZxGlHADIQAher5A5HUXjpdj6D0dKEhEF
+   Nfc7LrI8U91k972SdzFLksW8HJjlKKI3/5cCd/o/c7ASoGuknHbg3pG0j
+   GlAGS7iUa6oEehhZEmgnzUIvsncQULWPGzb3fUFRR7bVSQtweGLwKAdZY
+   MWb1qiyxk8c4d4sAO/xIMnR6qNYdYer0E6WmEZ0BU0Bu8hDtaubN3pORr
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10714"; a="355584393"
+X-IronPort-AV: E=Sophos;i="6.00,176,1681196400";
+   d="scan'208";a="355584393"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2023 05:15:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10714"; a="733283649"
+X-IronPort-AV: E=Sophos;i="6.00,176,1681196400";
+   d="scan'208";a="733283649"
+Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
+  by orsmga008.jf.intel.com with ESMTP; 19 May 2023 05:15:51 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	alsa-devel@alsa-project.org,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 0/7] ASoC: Intel: Fixes
+Date: Fri, 19 May 2023 22:17:04 +0200
+Message-Id: <20230519201711.4073845-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yt+Eq0IulzcknXCj"
-Content-Disposition: inline
-In-Reply-To: <cc4109d6-3125-0738-537d-34f9fa2c2fa1@linaro.org>
-X-Cookie: Avoid contact with eyes.
-Message-ID-Hash: 2XN3VHK4VVEX7KT3OWS3HVNU7T4RC7QX
-X-Message-ID-Hash: 2XN3VHK4VVEX7KT3OWS3HVNU7T4RC7QX
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ZRYQXXF6WGMELUJZR76MBXU3T73TYLQL
+X-Message-ID-Hash: ZRYQXXF6WGMELUJZR76MBXU3T73TYLQL
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2XN3VHK4VVEX7KT3OWS3HVNU7T4RC7QX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZRYQXXF6WGMELUJZR76MBXU3T73TYLQL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,45 +105,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Series of fixes for issues found during development and testing,
+primarly for avs driver.
 
---yt+Eq0IulzcknXCj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Amadeusz Sławiński (4):
+  ASoC: Intel: avs: Fix module lookup
+  ASoC: Intel: avs: Access path components under lock
+  ASoC: Intel: avs: Fix avs_path_module::instance_id size
+  ASoC: Intel: avs: Add missing checks on FE startup
 
-On Thu, May 18, 2023 at 12:33:17PM +0200, Krzysztof Kozlowski wrote:
-> On 18/05/2023 12:23, Mark Brown wrote:
+Cezary Rojewski (3):
+  ASoC: Intel: Skylake: Fix declaration of enum skl_ch_cfg
+  ASoC: Intel: avs: Fix declaration of enum avs_channel_config
+  ASoC: Intel: avs: Account for UID of ACPI device
 
-> > Please write proper cover letters, but don't resend for this.  You
-> > constantly raise small review errors in other people's submissions...
+ include/sound/soc-acpi.h                |  1 +
+ include/uapi/sound/skl-tplg-interface.h |  3 ++-
+ sound/soc/intel/avs/apl.c               |  6 +++++-
+ sound/soc/intel/avs/avs.h               |  4 ++--
+ sound/soc/intel/avs/board_selection.c   |  2 +-
+ sound/soc/intel/avs/control.c           | 22 +++++++++++++++-------
+ sound/soc/intel/avs/dsp.c               |  4 ++--
+ sound/soc/intel/avs/messages.h          |  2 +-
+ sound/soc/intel/avs/path.h              |  2 +-
+ sound/soc/intel/avs/pcm.c               | 23 ++++++++++++++++++-----
+ sound/soc/intel/avs/probes.c            |  2 +-
+ 11 files changed, 49 insertions(+), 22 deletions(-)
 
-> Since you asked for a cover letter and you did not apply the patchset (I
-> checked in your tree), that seemed like a feedback for something you
-> want me to fix.
+-- 
+2.34.1
 
-> If you want to give feedback which person should not immediately fix,
-> please state it explicitly or through applying patches.
-
-> If you give imprecise messages, don't be surprised you receive different
-> results.
-
-I should not need to explain to you that a cover letter should have some
-useful description of the patch series it is a cover letter for, there's
-a degree of obviousnes one should expect to be understood especially by
-someone who is clearly very aware of kernel processes.
-
---yt+Eq0IulzcknXCj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRndYQACgkQJNaLcl1U
-h9AyMgf/WmqY17FrUpqZnaDAXyTwfGznPp86Z6f5ThcJoY1/vTjabJm7/9ymvIzc
-qmVqQ3nwFrAMToRZrA6iurFTB9t8udktqK123v/7fjj4WIfN4sbvizrj/vZPIZJW
-Fa7MVT0uh1stw50px5PqenQRkqUrLrM95GPtyowTv6YWDFJVCI0J3LXrwe57j9e8
-9ncBcMeGxafKBz0k4VM3k8dnz4hH6mDBhTa0e04iSoxpC3VV9xW67LauJSWbSXMR
-56evNWwrD8SeWLUDI+1JtNRjUMkhuRjq9u54zfeZ329BBfOu9/Cb/uitNnzEMspL
-aMQhL23uF3uLQi+lGmjIK2xztRY6BQ==
-=v8Cm
------END PGP SIGNATURE-----
-
---yt+Eq0IulzcknXCj--

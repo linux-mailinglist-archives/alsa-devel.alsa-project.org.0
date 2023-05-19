@@ -2,131 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C450709462
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 12:03:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2C53709463
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 12:03:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8508820;
-	Fri, 19 May 2023 12:02:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8508820
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3D12868;
+	Fri, 19 May 2023 12:02:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3D12868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684490589;
-	bh=pF4aUokmviPHccaRMPz+vj9pID2OVq509jauZCn8DpA=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=NYAzNJdS7u2EQf/MGmekir5ZCsxup/w1zXIsz+gUr9H5nI3kSo/kCIBp7wkrx6m3W
-	 RX5SkhiryZWG68pT3rhcSvzJE1rLdavrDjTxZBXrmHlvA8J6XNrkvFEBR/o1YnCR54
-	 0U/gGOjxx+KQ9NuibrjJvN52syruLdtSMTQBL4J0=
+	s=default; t=1684490617;
+	bh=cueDEeu9LwYwRtg/PPG7Jds7brTh9N4K6rj4sNADgMY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=tIcfNRyqzH/+tytSyPZbtAn+Pxy3ibpvfk0BvAbr7IPUAQa8GY8hsxiYNqta6kAu0
+	 zobQtmc9V1UiyQ1lf13KEqIHjpcv2I3dJO9wsUFEnvy5TTnlAXDvgsmrjpC5ZEC9Ki
+	 S7yN7bHzLLCaa/GzcPQ7YSMwj2EdW4B0NLqkewaA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4F1EAF8053D; Fri, 19 May 2023 12:01:56 +0200 (CEST)
+	id D47A5F80558; Fri, 19 May 2023 12:01:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EEBBF8024E;
-	Fri, 19 May 2023 12:01:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D3B9F80551;
+	Fri, 19 May 2023 12:01:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0883FF8025A; Fri, 19 May 2023 08:44:19 +0200 (CEST)
+	id 37591F80638; Fri, 19 May 2023 11:32:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F01C1F80087;
-	Fri, 19 May 2023 08:44:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F01C1F80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9BCB7F805A8
+	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 11:31:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BCB7F805A8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256
- header.s=corp-2023-03-30 header.b=vHpJsLtO
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34IIwuPT031081;
-	Fri, 19 May 2023 06:44:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding;
- s=corp-2023-03-30; bh=4oNhK5bI3ELvlGqoTiZpXVakPRt4I4zhn01DypkCTuU=;
- b=vHpJsLtOCuGjDVvI+Grka5J69Lq73Mo5k1ajAMUbJlV6/cigVbSQDK9PwrdCaXhcQ2Zq
- Ep/RqTrmUhXvU/AtokzjlzJNidDEsJM3aRfTPZzFxRrUQV7fEq1DjboyRJUFUWMoE/x4
- yyalZGSFJTxL9lau1Xo1tHpCE1RzbatfQ+44pv7ax0qYQu/sQZGh4rpd1b3Mz+/owabY
- 4pnVZeH1pW9+lipLHGLoPwQh/ke8jW5R4lqb+kXs9PJrfCCQDbOueioD0QDl3CXN+6nv
- u7qBCd/xn0yRdbpuHYbXGlHtOCt9BIAt43k4gdVHRTOGpdE250T2/QG9rZrjBXaHyrAg HQ==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3qj0ye9dw8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 19 May 2023 06:44:11 +0000
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 34J4sQX0032130;
-	Fri, 19 May 2023 06:44:10 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3qj10ds5s0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 19 May 2023 06:44:10 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 34J6i9Sp020634;
-	Fri, 19 May 2023 06:44:09 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
-	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3qj10ds5rg-1;
-	Fri, 19 May 2023 06:44:09 +0000
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-        Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-        Daniel Baluta <daniel.baluta@nxp.com>,
- Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Rander Wang <rander.wang@intel.com>,
- Jyri Sarha <jyri.sarha@intel.com>,
-        sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
-        linux-kernel@vger.kernel.org
-Cc: harshit.m.mogalapalli@oracle.com, error27@gmail.com,
-        dan.carpenter@linaro.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH next] ASoC: SOF: Intel: hda-dai: Fix locking in
- hda_ipc4_pre_trigger()
-Date: Thu, 18 May 2023 23:44:01 -0700
-Message-Id: <20230519064404.1659637-1-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.40.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=xmdCtVYr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=r+BrIYhp
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 154A11FE49;
+	Fri, 19 May 2023 09:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1684488706;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rq5WlanO/xh2oW9do+M5eMsEpGumjDX5yZ06jjyViW0=;
+	b=xmdCtVYrMgwQIeQg0Ri8h19UQBkqc32+m50ERp7tzbSnLmUipAumuzu1SJ/phdaGpGr1e5
+	1ZgL/fk8c6FVnpguGTKnhuqyOQrpti/LK/H+C+rorBRPFOZiiJKM5Z9WuE4hOpAXUwr0s9
+	29s7vHtwPm0hy1t2+xcRRUUUZY+vO4I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1684488706;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Rq5WlanO/xh2oW9do+M5eMsEpGumjDX5yZ06jjyViW0=;
+	b=r+BrIYhpRWPNhyt1t2aruu0CAFCh5kY4Dd+eoUor1IqBUVTilS+3Pmn4fR+mslChitAuvI
+	dgV2YxBk2vRF0cDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EC14813A12;
+	Fri, 19 May 2023 09:31:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id eMzSOAFCZ2RXJAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 19 May 2023 09:31:45 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 27/36] ALSA: seq: Add port direction to snd_seq_port_info
+Date: Fri, 19 May 2023 11:31:05 +0200
+Message-Id: <20230519093114.28813-28-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20230519093114.28813-1-tiwai@suse.de>
+References: <20230519093114.28813-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-19_04,2023-05-17_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
- adultscore=0
- malwarescore=0 mlxscore=0 spamscore=0 bulkscore=0 phishscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305190057
-X-Proofpoint-ORIG-GUID: wCdIePPxMFhs_7bZc9g6lp4a3Jb7qIx4
-X-Proofpoint-GUID: wCdIePPxMFhs_7bZc9g6lp4a3Jb7qIx4
-X-MailFrom: harshit.m.mogalapalli@oracle.com
-X-Mailman-Rule-Hits: nonmember-moderation
+X-MailFrom: tiwai@suse.de
+X-Mailman-Rule-Hits: administrivia
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: A6QCY7OVYJ4YLL67DADWDYU63RQEWYQ5
-X-Message-ID-Hash: A6QCY7OVYJ4YLL67DADWDYU63RQEWYQ5
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ implicit-dest; max-recipients; max-size; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: CNHJ36SXPCVREUDN4JY4IYE7TS2RCNPL
+X-Message-ID-Hash: CNHJ36SXPCVREUDN4JY4IYE7TS2RCNPL
 X-Mailman-Approved-At: Fri, 19 May 2023 10:01:53 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A6QCY7OVYJ4YLL67DADWDYU63RQEWYQ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CNHJ36SXPCVREUDN4JY4IYE7TS2RCNPL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,49 +120,176 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-hda_ipc4_pre_trigger() has two issues:
- 1. In the default case, we are returning without unlocking the mutex.
- 2. In case SNDRV_PCM_TRIGGER_STOP: when ret is less than zero it goes
-    to out, unlocks but returns zero instead of a negative value.
+Add a new field "direction" to snd_seq_port_info for allowing a client
+to tell the expected direction of the port access.  A port might still
+allow subscriptions for read/write (e.g. for MIDI-CI) even if the
+primary usage of the port is a single direction (either input or
+output only).  This new "direction" field can help to indicate such
+cases.
 
-Fix this by changing the final return value to 'ret' instead of zero,
-and initialize 'ret' to zero in the start of the function.
+When the direction is unspecified at creating a port and the port has
+either read or write capability, the corresponding direction bits are
+set automatically as default.
 
-Fixes: 225f37b578a9 ("ASoC: SOF: ipc4-pcm: reset all pipelines during FE DAI hw_free")
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
-Only compile tested. This is found using static anlysis with Smatch.
----
- sound/soc/sof/intel/hda-dai-ops.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/uapi/sound/asequencer.h |  9 ++++++++-
+ sound/core/seq/seq_clientmgr.c  | 16 ++++++++++++++--
+ sound/core/seq/seq_dummy.c      |  1 +
+ sound/core/seq/seq_midi.c       |  4 ++++
+ sound/core/seq/seq_ports.c      | 13 +++++++++++++
+ sound/core/seq/seq_ports.h      |  2 ++
+ sound/core/seq/seq_virmidi.c    |  1 +
+ 7 files changed, 43 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai-ops.c b/sound/soc/sof/intel/hda-dai-ops.c
-index 5a508e118e3d..1e58256c8003 100644
---- a/sound/soc/sof/intel/hda-dai-ops.c
-+++ b/sound/soc/sof/intel/hda-dai-ops.c
-@@ -183,7 +183,7 @@ static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cp
- 	struct sof_ipc4_pipeline *pipeline;
- 	struct snd_sof_widget *swidget;
- 	struct snd_soc_dapm_widget *w;
--	int ret;
-+	int ret = 0;
+diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
+index 67532c46b115..eae1e0b0bf37 100644
+--- a/include/uapi/sound/asequencer.h
++++ b/include/uapi/sound/asequencer.h
+@@ -455,6 +455,12 @@ struct snd_seq_remove_events {
+ #define SNDRV_SEQ_PORT_FLG_TIMESTAMP	(1<<1)
+ #define SNDRV_SEQ_PORT_FLG_TIME_REAL	(1<<2)
  
- 	w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
- 	swidget = w->dobj.private;
-@@ -208,11 +208,11 @@ static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cp
- 		break;
- 	default:
- 		dev_err(sdev->dev, "unknown trigger command %d\n", cmd);
--		return -EINVAL;
-+		ret = -EINVAL;
++/* port direction */
++#define SNDRV_SEQ_PORT_DIR_UNKNOWN	0
++#define SNDRV_SEQ_PORT_DIR_INPUT	1
++#define SNDRV_SEQ_PORT_DIR_OUTPUT	2
++#define SNDRV_SEQ_PORT_DIR_BIDIRECTION	3
++
+ struct snd_seq_port_info {
+ 	struct snd_seq_addr addr;	/* client/port numbers */
+ 	char name[64];			/* port name */
+@@ -471,7 +477,8 @@ struct snd_seq_port_info {
+ 	void *kernel;			/* reserved for kernel use (must be NULL) */
+ 	unsigned int flags;		/* misc. conditioning */
+ 	unsigned char time_queue;	/* queue # for timestamping */
+-	char reserved[59];		/* for future use */
++	unsigned char direction;	/* port usage direction (r/w/bidir) */
++	char reserved[58];		/* for future use */
+ };
+ 
+ 
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 061b3e2bece1..33aa6c5c5c9e 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -2440,6 +2440,17 @@ static void snd_seq_info_dump_subscribers(struct snd_info_buffer *buffer,
+ 
+ #define FLAG_PERM_DUPLEX(perm) ((perm) & SNDRV_SEQ_PORT_CAP_DUPLEX ? 'X' : '-')
+ 
++static const char *port_direction_name(unsigned char dir)
++{
++	static const char *names[4] = {
++		"-", "In", "Out", "In/Out"
++	};
++
++	if (dir > SNDRV_SEQ_PORT_DIR_BIDIRECTION)
++		return "Invalid";
++	return names[dir];
++}
++
+ static void snd_seq_info_dump_ports(struct snd_info_buffer *buffer,
+ 				    struct snd_seq_client *client)
+ {
+@@ -2449,12 +2460,13 @@ static void snd_seq_info_dump_ports(struct snd_info_buffer *buffer,
+ 	list_for_each_entry(p, &client->ports_list_head, list) {
+ 		if (p->capability & SNDRV_SEQ_PORT_CAP_INACTIVE)
+ 			continue;
+-		snd_iprintf(buffer, "  Port %3d : \"%s\" (%c%c%c%c)\n",
++		snd_iprintf(buffer, "  Port %3d : \"%s\" (%c%c%c%c) [%s]\n",
+ 			    p->addr.port, p->name,
+ 			    FLAG_PERM_RD(p->capability),
+ 			    FLAG_PERM_WR(p->capability),
+ 			    FLAG_PERM_EX(p->capability),
+-			    FLAG_PERM_DUPLEX(p->capability));
++			    FLAG_PERM_DUPLEX(p->capability),
++			    port_direction_name(p->direction));
+ 		snd_seq_info_dump_subscribers(buffer, &p->c_src, 1, "    Connecting To: ");
+ 		snd_seq_info_dump_subscribers(buffer, &p->c_dest, 0, "    Connected From: ");
  	}
- out:
- 	mutex_unlock(&ipc4_data->pipeline_state_mutex);
--	return 0;
-+	return ret;
+diff --git a/sound/core/seq/seq_dummy.c b/sound/core/seq/seq_dummy.c
+index 8c18d8c4177e..2e8844ee32ed 100644
+--- a/sound/core/seq/seq_dummy.c
++++ b/sound/core/seq/seq_dummy.c
+@@ -127,6 +127,7 @@ create_port(int idx, int type)
+ 	pinfo.capability |= SNDRV_SEQ_PORT_CAP_WRITE | SNDRV_SEQ_PORT_CAP_SUBS_WRITE;
+ 	if (duplex)
+ 		pinfo.capability |= SNDRV_SEQ_PORT_CAP_DUPLEX;
++	pinfo.direction = SNDRV_SEQ_PORT_DIR_BIDIRECTION;
+ 	pinfo.type = SNDRV_SEQ_PORT_TYPE_MIDI_GENERIC
+ 		| SNDRV_SEQ_PORT_TYPE_SOFTWARE
+ 		| SNDRV_SEQ_PORT_TYPE_PORT;
+diff --git a/sound/core/seq/seq_midi.c b/sound/core/seq/seq_midi.c
+index 2b5fff80de58..44302d98950e 100644
+--- a/sound/core/seq/seq_midi.c
++++ b/sound/core/seq/seq_midi.c
+@@ -367,6 +367,10 @@ snd_seq_midisynth_probe(struct device *_dev)
+ 		if ((port->capability & (SNDRV_SEQ_PORT_CAP_WRITE|SNDRV_SEQ_PORT_CAP_READ)) == (SNDRV_SEQ_PORT_CAP_WRITE|SNDRV_SEQ_PORT_CAP_READ) &&
+ 		    info->flags & SNDRV_RAWMIDI_INFO_DUPLEX)
+ 			port->capability |= SNDRV_SEQ_PORT_CAP_DUPLEX;
++		if (port->capability & SNDRV_SEQ_PORT_CAP_READ)
++			port->direction |= SNDRV_SEQ_PORT_DIR_INPUT;
++		if (port->capability & SNDRV_SEQ_PORT_CAP_WRITE)
++			port->direction |= SNDRV_SEQ_PORT_DIR_OUTPUT;
+ 		port->type = SNDRV_SEQ_PORT_TYPE_MIDI_GENERIC
+ 			| SNDRV_SEQ_PORT_TYPE_HARDWARE
+ 			| SNDRV_SEQ_PORT_TYPE_PORT;
+diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
+index 842ea3fb2800..3734e6352f5e 100644
+--- a/sound/core/seq/seq_ports.c
++++ b/sound/core/seq/seq_ports.c
+@@ -357,6 +357,16 @@ int snd_seq_set_port_info(struct snd_seq_client_port * port,
+ 	port->time_real = (info->flags & SNDRV_SEQ_PORT_FLG_TIME_REAL) ? 1 : 0;
+ 	port->time_queue = info->time_queue;
+ 
++	/* direction */
++	port->direction = info->direction;
++	/* fill default port direction */
++	if (!port->direction) {
++		if (info->capability & SNDRV_SEQ_PORT_CAP_READ)
++			port->direction |= SNDRV_SEQ_PORT_DIR_INPUT;
++		if (info->capability & SNDRV_SEQ_PORT_CAP_WRITE)
++			port->direction |= SNDRV_SEQ_PORT_DIR_OUTPUT;
++	}
++
+ 	return 0;
  }
  
- static int hda_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
+@@ -394,6 +404,9 @@ int snd_seq_get_port_info(struct snd_seq_client_port * port,
+ 		info->time_queue = port->time_queue;
+ 	}
+ 
++	/* direction */
++	info->direction = port->direction;
++
+ 	return 0;
+ }
+ 
+diff --git a/sound/core/seq/seq_ports.h b/sound/core/seq/seq_ports.h
+index 44f0e9e96bbf..dce733ab2398 100644
+--- a/sound/core/seq/seq_ports.h
++++ b/sound/core/seq/seq_ports.h
+@@ -72,6 +72,8 @@ struct snd_seq_client_port {
+ 	int midi_voices;
+ 	int synth_voices;
+ 		
++	/* direction */
++	unsigned char direction;
+ };
+ 
+ struct snd_seq_client;
+diff --git a/sound/core/seq/seq_virmidi.c b/sound/core/seq/seq_virmidi.c
+index f5cae49500c8..1b9260108e48 100644
+--- a/sound/core/seq/seq_virmidi.c
++++ b/sound/core/seq/seq_virmidi.c
+@@ -385,6 +385,7 @@ static int snd_virmidi_dev_attach_seq(struct snd_virmidi_dev *rdev)
+ 	pinfo->capability |= SNDRV_SEQ_PORT_CAP_WRITE | SNDRV_SEQ_PORT_CAP_SYNC_WRITE | SNDRV_SEQ_PORT_CAP_SUBS_WRITE;
+ 	pinfo->capability |= SNDRV_SEQ_PORT_CAP_READ | SNDRV_SEQ_PORT_CAP_SYNC_READ | SNDRV_SEQ_PORT_CAP_SUBS_READ;
+ 	pinfo->capability |= SNDRV_SEQ_PORT_CAP_DUPLEX;
++	pinfo->direction = SNDRV_SEQ_PORT_DIR_BIDIRECTION;
+ 	pinfo->type = SNDRV_SEQ_PORT_TYPE_MIDI_GENERIC
+ 		| SNDRV_SEQ_PORT_TYPE_SOFTWARE
+ 		| SNDRV_SEQ_PORT_TYPE_PORT;
 -- 
-2.31.1
+2.35.3
 

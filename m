@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EB5B7093D0
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 11:39:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB27F7093D3
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 11:40:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EF096C0;
-	Fri, 19 May 2023 11:39:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EF096C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 453939F6;
+	Fri, 19 May 2023 11:39:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 453939F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684489195;
-	bh=lckn1RY9K9pVAC4clmx5az/6Nk6MBNw2wzA7lDvq/YA=;
+	s=default; t=1684489225;
+	bh=qXkeXoazixd/QX48vQSMzY2HULagmIKJqnOPlV7NfLc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=N+9ZIIJsaiHqoA4jsvZV6hkUxll0kiDIrK67fkslLLqLluvU7pSg7kcTLBHyyxSdW
-	 TDQ6YD8/t7v2L3ZmT7NnvsTL49Iz/vsTkfld0BETz65JEVfhafTgO7QtwuGVyVcXEc
-	 //zW0xsEpzo+o4sZQSePcGS4ibtJnbjHIjRCsWb8=
+	b=XZxhdHlPFN8EgL1SU1SscuQUEra/3lx8tjbAZxAaPIAveOKqSpPJYsg5rfTwuPVEZ
+	 B7x/JVott+0ta9kfv5kTdw7XztuWNd0AOXhSPGqXAKKrODrS1nOOSqEEmFH+7bJnIj
+	 jmLo9qIimb7IiUJLY8iiSkkBOh9kumu/NzhbJazs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACBC0F806B2; Fri, 19 May 2023 11:33:11 +0200 (CEST)
+	id 74D98F806C7; Fri, 19 May 2023 11:33:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 018AAF806AB;
-	Fri, 19 May 2023 11:33:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1456F806C3;
+	Fri, 19 May 2023 11:33:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 86E85F8061D; Fri, 19 May 2023 11:32:26 +0200 (CEST)
+	id 3C31AF80634; Fri, 19 May 2023 11:32:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,66 +37,66 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A9179F8059F
-	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 11:31:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9179F8059F
+	by alsa1.perex.cz (Postfix) with ESMTPS id E37A1F805AD
+	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 11:31:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E37A1F805AD
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Tb01SPTc;
+ header.s=susede2_rsa header.b=t7lu+feE;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=5W3NBTuN
+ header.s=susede2_ed25519 header.b=SiGNHPyo
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 79C1D1FE32;
-	Fri, 19 May 2023 09:31:45 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A0F6E1FE4B;
+	Fri, 19 May 2023 09:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1684488705;
+	t=1684488706;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2+RpWE2NZDs8GDcSdQQB/krXW5Qc0Hs3H7MPd7ENoC4=;
-	b=Tb01SPTcZmt2Q43U+liM+rn0ks3yrGMCjZmTX7gr6H/KoZEqAdp9yubdY6beTYJHXn9gB+
-	2fljSCv9VXifViyljsuPFUW3QTWkXqAQaUzPnJKi/dQr38qphG0EXIE9NFv9xQMOIEOI//
-	/PjSRWZ6qx/XngrmhXiWLB1RRE2HQBA=
+	bh=l1TEiSv0o3bNfukbYFt8AXhybPoVqwjpcYPyqBGQTlU=;
+	b=t7lu+feEt5qu08v1HxYzhYtAgR26S8XfPKpBY9i2AbGehY1sFLM7RRq20VG586tX+M7K6U
+	0dw6GDIbF3s1QmD1tt8+3FsAB4BVK8ykc9ETxp99WiA2/7qXhxZxXm9/oSydnzibrd+ria
+	3nC8iJwCLZm+CwXBzK6KEaJZDlxo15Y=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684488705;
+	s=susede2_ed25519; t=1684488706;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2+RpWE2NZDs8GDcSdQQB/krXW5Qc0Hs3H7MPd7ENoC4=;
-	b=5W3NBTuN0kD9NlR856Ik24KGixq22iqLEmTiH5GjBVMzjC6iMY7ClXO7csozySZihMQI5R
-	oIAQq9ShWotdRvCQ==
+	bh=l1TEiSv0o3bNfukbYFt8AXhybPoVqwjpcYPyqBGQTlU=;
+	b=SiGNHPyoOJ4hegNpZQlBYziB2Db4EVTTfePySayMLHwHBrrnYtWgot+/fUzKsQ/R6Np+Jg
+	UweSkC+GMZiO1ZAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5427B13A12;
-	Fri, 19 May 2023 09:31:45 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7FC6E13A12;
+	Fri, 19 May 2023 09:31:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id gKe1EwFCZ2RXJAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 19 May 2023 09:31:45 +0000
+	id 6CDZHQJCZ2RXJAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 19 May 2023 09:31:46 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 26/36] ALSA: seq: Support MIDI 2.0 UMP Endpoint port
-Date: Fri, 19 May 2023 11:31:04 +0200
-Message-Id: <20230519093114.28813-27-tiwai@suse.de>
+Subject: [PATCH 28/36] ALSA: seq: Add UMP group number to snd_seq_port_info
+Date: Fri, 19 May 2023 11:31:06 +0200
+Message-Id: <20230519093114.28813-29-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230519093114.28813-1-tiwai@suse.de>
 References: <20230519093114.28813-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6EBK6SWOMKMLM4TSSQHGT2ESOB5OV52B
-X-Message-ID-Hash: 6EBK6SWOMKMLM4TSSQHGT2ESOB5OV52B
+Message-ID-Hash: 2UELYGEM7ATFBABXSQPBMCO6UFVUC3Q7
+X-Message-ID-Hash: 2UELYGEM7ATFBABXSQPBMCO6UFVUC3Q7
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6EBK6SWOMKMLM4TSSQHGT2ESOB5OV52B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UELYGEM7ATFBABXSQPBMCO6UFVUC3Q7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,148 +118,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This is an extension to ALSA sequencer infrastructure to support the
-MIDI 2.0 UMP Endpoint port.  It's a "catch-all" port that is supposed
-to be present for each UMP Endpoint.  When this port is read via
-subscription, it sends any events from all ports (UMP Groups) found in
-the same client.
-
-A UMP Endpoint port can be created with the new capability bit
-SNDRV_SEQ_PORT_CAP_UMP_ENDPOINT.  Although the port assignment isn't
-strictly defined, it should be the port number 0.
+Add yet more new filed "ump_group" to snd_seq_port_info for specifying
+the associated UMP Group number for each sequencer port.  This will be
+referred in the upcoming automatic UMP conversion in sequencer core.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/uapi/sound/asequencer.h |  1 +
- sound/core/seq/seq_clientmgr.c  | 47 +++++++++++++++++++++++++++------
- sound/core/seq/seq_clientmgr.h  |  1 +
- 3 files changed, 41 insertions(+), 8 deletions(-)
+ include/uapi/sound/asequencer.h | 3 ++-
+ sound/core/seq/seq_ports.c      | 9 +++++++--
+ sound/core/seq/seq_ports.h      | 3 ++-
+ 3 files changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
-index c6ca6609790b..67532c46b115 100644
+index eae1e0b0bf37..2470eaa5edc5 100644
 --- a/include/uapi/sound/asequencer.h
 +++ b/include/uapi/sound/asequencer.h
-@@ -428,6 +428,7 @@ struct snd_seq_remove_events {
- #define SNDRV_SEQ_PORT_CAP_SUBS_WRITE	(1<<6)	/* allow write subscription */
- #define SNDRV_SEQ_PORT_CAP_NO_EXPORT	(1<<7)	/* routing not allowed */
- #define SNDRV_SEQ_PORT_CAP_INACTIVE	(1<<8)	/* inactive port */
-+#define SNDRV_SEQ_PORT_CAP_UMP_ENDPOINT	(1<<9)	/* MIDI 2.0 UMP Endpoint port */
+@@ -478,7 +478,8 @@ struct snd_seq_port_info {
+ 	unsigned int flags;		/* misc. conditioning */
+ 	unsigned char time_queue;	/* queue # for timestamping */
+ 	unsigned char direction;	/* port usage direction (r/w/bidir) */
+-	char reserved[58];		/* for future use */
++	unsigned char ump_group;	/* 0 = UMP EP (no conversion), 1-16 = UMP group number */
++	char reserved[57];		/* for future use */
+ };
  
- 	/* port type */
- #define SNDRV_SEQ_PORT_TYPE_SPECIFIC	(1<<0)	/* hardware specific */
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index 6508ce63f761..061b3e2bece1 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -239,6 +239,7 @@ static struct snd_seq_client *seq_create_client1(int client_index, int poolsize)
- 	mutex_init(&client->ports_mutex);
- 	INIT_LIST_HEAD(&client->ports_list_head);
- 	mutex_init(&client->ioctl_mutex);
-+	client->ump_endpoint_port = -1;
  
- 	/* find free slot in the client table */
- 	spin_lock_irq(&clients_lock);
-@@ -680,20 +681,17 @@ static int snd_seq_deliver_single_event(struct snd_seq_client *client,
- /*
-  * send the event to all subscribers:
-  */
--static int deliver_to_subscribers(struct snd_seq_client *client,
--				  struct snd_seq_event *event,
--				  int atomic, int hop)
-+static int __deliver_to_subscribers(struct snd_seq_client *client,
-+				    struct snd_seq_event *event,
-+				    struct snd_seq_client_port *src_port,
-+				    int atomic, int hop)
- {
- 	struct snd_seq_subscribers *subs;
- 	int err, result = 0, num_ev = 0;
--	struct snd_seq_client_port *src_port;
- 	union __snd_seq_event event_saved;
- 	size_t saved_size;
- 	struct snd_seq_port_subs_info *grp;
+diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
+index 3734e6352f5e..6926e14055f3 100644
+--- a/sound/core/seq/seq_ports.c
++++ b/sound/core/seq/seq_ports.c
+@@ -357,8 +357,12 @@ int snd_seq_set_port_info(struct snd_seq_client_port * port,
+ 	port->time_real = (info->flags & SNDRV_SEQ_PORT_FLG_TIME_REAL) ? 1 : 0;
+ 	port->time_queue = info->time_queue;
  
--	src_port = snd_seq_port_use_ptr(client, event->source.port);
--	if (src_port == NULL)
--		return -EINVAL; /* invalid source port */
- 	/* save original event record */
- 	saved_size = snd_seq_event_packet_size(event);
- 	memcpy(&event_saved, event, saved_size);
-@@ -733,6 +731,31 @@ static int deliver_to_subscribers(struct snd_seq_client *client,
- 	return (result < 0) ? result : num_ev;
+-	/* direction */
++	/* UMP direction and group */
+ 	port->direction = info->direction;
++	port->ump_group = info->ump_group;
++	if (port->ump_group > SNDRV_UMP_MAX_GROUPS)
++		port->ump_group = 0;
++
+ 	/* fill default port direction */
+ 	if (!port->direction) {
+ 		if (info->capability & SNDRV_SEQ_PORT_CAP_READ)
+@@ -404,8 +408,9 @@ int snd_seq_get_port_info(struct snd_seq_client_port * port,
+ 		info->time_queue = port->time_queue;
+ 	}
+ 
+-	/* direction */
++	/* UMP direction and group */
+ 	info->direction = port->direction;
++	info->ump_group = port->ump_group;
+ 
+ 	return 0;
  }
+diff --git a/sound/core/seq/seq_ports.h b/sound/core/seq/seq_ports.h
+index dce733ab2398..c6c138edceab 100644
+--- a/sound/core/seq/seq_ports.h
++++ b/sound/core/seq/seq_ports.h
+@@ -72,8 +72,9 @@ struct snd_seq_client_port {
+ 	int midi_voices;
+ 	int synth_voices;
+ 		
+-	/* direction */
++	/* UMP direction and group */
+ 	unsigned char direction;
++	unsigned char ump_group;
+ };
  
-+static int deliver_to_subscribers(struct snd_seq_client *client,
-+				  struct snd_seq_event *event,
-+				  int atomic, int hop)
-+{
-+	struct snd_seq_client_port *src_port;
-+	int ret = 0, ret2;
-+
-+	src_port = snd_seq_port_use_ptr(client, event->source.port);
-+	if (src_port) {
-+		ret = __deliver_to_subscribers(client, event, src_port, atomic, hop);
-+		snd_seq_port_unlock(src_port);
-+	}
-+
-+	if (client->ump_endpoint_port < 0 ||
-+	    event->source.port == client->ump_endpoint_port)
-+		return ret;
-+
-+	src_port = snd_seq_port_use_ptr(client, client->ump_endpoint_port);
-+	if (!src_port)
-+		return ret;
-+	ret2 = __deliver_to_subscribers(client, event, src_port, atomic, hop);
-+	snd_seq_port_unlock(src_port);
-+	return ret2 < 0 ? ret2 : ret;
-+}
-+
- /* deliver an event to the destination port(s).
-  * if the event is to subscribers or broadcast, the event is dispatched
-  * to multiple targets.
-@@ -1257,6 +1280,9 @@ static int snd_seq_ioctl_create_port(struct snd_seq_client *client, void *arg)
- 		return -EPERM;
- 	if (client->type == USER_CLIENT && info->kernel)
- 		return -EINVAL;
-+	if ((info->capability & SNDRV_SEQ_PORT_CAP_UMP_ENDPOINT) &&
-+	    client->ump_endpoint_port >= 0)
-+		return -EBUSY;
- 
- 	if (info->flags & SNDRV_SEQ_PORT_FLG_GIVEN_PORT)
- 		port_idx = info->addr.port;
-@@ -1286,6 +1312,8 @@ static int snd_seq_ioctl_create_port(struct snd_seq_client *client, void *arg)
- 	info->addr = port->addr;
- 
- 	snd_seq_set_port_info(port, info);
-+	if (info->capability & SNDRV_SEQ_PORT_CAP_UMP_ENDPOINT)
-+		client->ump_endpoint_port = port->addr.port;
- 	snd_seq_system_client_ev_port_start(port->addr.client, port->addr.port);
- 	snd_seq_port_unlock(port);
- 
-@@ -1305,8 +1333,11 @@ static int snd_seq_ioctl_delete_port(struct snd_seq_client *client, void *arg)
- 		return -EPERM;
- 
- 	err = snd_seq_delete_port(client, info->addr.port);
--	if (err >= 0)
-+	if (err >= 0) {
-+		if (client->ump_endpoint_port == info->addr.port)
-+			client->ump_endpoint_port = -1;
- 		snd_seq_system_client_ev_port_exit(client->number, info->addr.port);
-+	}
- 	return err;
- }
- 
-diff --git a/sound/core/seq/seq_clientmgr.h b/sound/core/seq/seq_clientmgr.h
-index 5657f8091835..bb973d36ce78 100644
---- a/sound/core/seq/seq_clientmgr.h
-+++ b/sound/core/seq/seq_clientmgr.h
-@@ -50,6 +50,7 @@ struct snd_seq_client {
- 	struct mutex ports_mutex;
- 	struct mutex ioctl_mutex;
- 	int convert32;		/* convert 32->64bit */
-+	int ump_endpoint_port;
- 
- 	/* output pool */
- 	struct snd_seq_pool *pool;		/* memory pool for this client */
+ struct snd_seq_client;
 -- 
 2.35.3
 

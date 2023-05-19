@@ -2,107 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DC1270944E
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 11:59:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C450709462
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 12:03:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60DD1825;
-	Fri, 19 May 2023 11:58:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60DD1825
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8508820;
+	Fri, 19 May 2023 12:02:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8508820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684490341;
-	bh=FE8s+NBZqQ/ssG1pt++a2gCcj+eyY0JJylveLlt/h9A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WkxOw1/jbxszfCShzpPYLsItCN0JEqFqxeQkdCnEe+QIZHWaBwoEzs4DTyJ65sMlu
-	 nV7OYdX31W5b3aKrWXxw3IXDGrcQ3eZP8OnCoC+ScF65FvB9WrgQrCVpNSW3ycs8lR
-	 7XwTQ8t/jAMWqZos3EGdLHMu3scO4AtnRi1IVWok=
+	s=default; t=1684490589;
+	bh=pF4aUokmviPHccaRMPz+vj9pID2OVq509jauZCn8DpA=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=NYAzNJdS7u2EQf/MGmekir5ZCsxup/w1zXIsz+gUr9H5nI3kSo/kCIBp7wkrx6m3W
+	 RX5SkhiryZWG68pT3rhcSvzJE1rLdavrDjTxZBXrmHlvA8J6XNrkvFEBR/o1YnCR54
+	 0U/gGOjxx+KQ9NuibrjJvN52syruLdtSMTQBL4J0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 211EFF80549; Fri, 19 May 2023 11:57:46 +0200 (CEST)
+	id 4F1EAF8053D; Fri, 19 May 2023 12:01:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A76BBF8024E;
-	Fri, 19 May 2023 11:57:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EEBBF8024E;
+	Fri, 19 May 2023 12:01:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0BBC1F8025A; Fri, 19 May 2023 11:57:44 +0200 (CEST)
+	id 0883FF8025A; Fri, 19 May 2023 08:44:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1E3A6F8016D
-	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 11:57:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E3A6F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id F01C1F80087;
+	Fri, 19 May 2023 08:44:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F01C1F80087
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=SdRkx3lw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684490262; x=1716026262;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=FE8s+NBZqQ/ssG1pt++a2gCcj+eyY0JJylveLlt/h9A=;
-  b=SdRkx3lwp54hten4Gc0mQz8/aGJCHFla5lKmZ8bTG4nOpGli3cm5t2ux
-   9vEc5e4GfDxXlU9nWqbvFxaD7mXLO4zRVFLVkMnBZa6mccY/U9a5j4+4W
-   QQFqPumqO6tjoijXaCkkXyab1Zo7QSG6Djkb7ALt9fx2TjPWPupEKRhar
-   +6FKtOwiPzjFafvelgxNkXAYOOthTP5UiPgLG3kklUPr+Qtcb1sawa3Eu
-   6PqllOgNWX72wynIayFCIuIrFt8xy9GzxrxI9NOKPtUi+Q4q8QBQsUqr+
-   P8wgqW73V61aJ68YAvH+elpZPhrjJOHCXmjIhWYqu5ktazYGsOFBi3tQT
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10714"; a="380544406"
-X-IronPort-AV: E=Sophos;i="6.00,176,1681196400";
-   d="scan'208";a="380544406"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2023 02:57:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10714"; a="652994429"
-X-IronPort-AV: E=Sophos;i="6.00,176,1681196400";
-   d="scan'208";a="652994429"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
-  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2023 02:57:30 -0700
-Message-ID: <2e84d6f3-902f-d6f3-0084-ddfbd61ffa1f@linux.intel.com>
-Date: Fri, 19 May 2023 11:57:28 +0200
+ unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256
+ header.s=corp-2023-03-30 header.b=vHpJsLtO
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34IIwuPT031081;
+	Fri, 19 May 2023 06:44:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding;
+ s=corp-2023-03-30; bh=4oNhK5bI3ELvlGqoTiZpXVakPRt4I4zhn01DypkCTuU=;
+ b=vHpJsLtOCuGjDVvI+Grka5J69Lq73Mo5k1ajAMUbJlV6/cigVbSQDK9PwrdCaXhcQ2Zq
+ Ep/RqTrmUhXvU/AtokzjlzJNidDEsJM3aRfTPZzFxRrUQV7fEq1DjboyRJUFUWMoE/x4
+ yyalZGSFJTxL9lau1Xo1tHpCE1RzbatfQ+44pv7ax0qYQu/sQZGh4rpd1b3Mz+/owabY
+ 4pnVZeH1pW9+lipLHGLoPwQh/ke8jW5R4lqb+kXs9PJrfCCQDbOueioD0QDl3CXN+6nv
+ u7qBCd/xn0yRdbpuHYbXGlHtOCt9BIAt43k4gdVHRTOGpdE250T2/QG9rZrjBXaHyrAg HQ==
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3qj0ye9dw8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 19 May 2023 06:44:11 +0000
+Received: from pps.filterd
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 34J4sQX0032130;
+	Fri, 19 May 2023 06:44:10 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3qj10ds5s0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 19 May 2023 06:44:10 +0000
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 34J6i9Sp020634;
+	Fri, 19 May 2023 06:44:09 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
+ [10.129.136.47])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
+ 3qj10ds5rg-1;
+	Fri, 19 May 2023 06:44:09 +0000
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+        Liam Girdwood <lgirdwood@gmail.com>,
+        Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+        Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+        Daniel Baluta <daniel.baluta@nxp.com>,
+ Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Rander Wang <rander.wang@intel.com>,
+ Jyri Sarha <jyri.sarha@intel.com>,
+        sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+        linux-kernel@vger.kernel.org
+Cc: harshit.m.mogalapalli@oracle.com, error27@gmail.com,
+        dan.carpenter@linaro.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH next] ASoC: SOF: Intel: hda-dai: Fix locking in
+ hda_ipc4_pre_trigger()
+Date: Thu, 18 May 2023 23:44:01 -0700
+Message-Id: <20230519064404.1659637-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 08/20] ASoC: soc-pcm.c: cleanup soc_get_playback_capture()
-Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-References: <87353uqjiu.wl-kuninori.morimoto.gx@renesas.com>
- <87r0rep4we.wl-kuninori.morimoto.gx@renesas.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <87r0rep4we.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: VWOPSGDM5YSH73CSHAK226G6ZX4ZDTPN
-X-Message-ID-Hash: VWOPSGDM5YSH73CSHAK226G6ZX4ZDTPN
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-19_04,2023-05-17_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ adultscore=0
+ malwarescore=0 mlxscore=0 spamscore=0 bulkscore=0 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305190057
+X-Proofpoint-ORIG-GUID: wCdIePPxMFhs_7bZc9g6lp4a3Jb7qIx4
+X-Proofpoint-GUID: wCdIePPxMFhs_7bZc9g6lp4a3Jb7qIx4
+X-MailFrom: harshit.m.mogalapalli@oracle.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: A6QCY7OVYJ4YLL67DADWDYU63RQEWYQ5
+X-Message-ID-Hash: A6QCY7OVYJ4YLL67DADWDYU63RQEWYQ5
+X-Mailman-Approved-At: Fri, 19 May 2023 10:01:53 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VWOPSGDM5YSH73CSHAK226G6ZX4ZDTPN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A6QCY7OVYJ4YLL67DADWDYU63RQEWYQ5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,261 +135,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 5/18/2023 7:47 AM, Kuninori Morimoto wrote:
-> Current soc_get_playback_capture() (A) is checking playback/capture
-> availability for DPCM (X) / Normal (Y) / Codec2Codec (Z) connections.
-> 
-> (A)	static int soc_get_playback_capture(...)
-> 	{
-> 		...
->   ^		if (dai_link->dynamic || dai_link->no_pcm) {
->   |			...
->   |(a)			if (dai_link->dpcm_playback) {
->   |				...
->   | ^				for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
->   |(*)					...
->   | v				}
->   |				...
-> (X)			}
->   |(b)			if (dai_link->dpcm_capture) {
->   |				...
->   | ^				for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
->   |(*)					...
->   | v				}
->   |				...
->   v			}
-> 		} else {
->   ^ ^			/* Adapt stream for codec2codec links */
->   |(Z)			int cpu_capture = ...
->   | v			int cpu_playback = ...
-> (Y)
->   | ^			for_each_rtd_codec_dais(rtd, i, codec_dai) {
->   |(*)				...
->   v v			}
-> 		}
-> 		...
-> 	}
-> 
-> (*) part is checking each DAI's availability.
-> 
-> At first, (X) part is for DPCM, and it checks playback/capture
-> availability if dai_link has dpcm_playback/capture flag (a)(b).
-> But we are already using playback/capture_only flag.
-> for Normal (Y) and Codec2Codec (Z). We can use this flags for DPCM too.
-> 
-> Before				After
-> 	dpcm_playback = 1;	=>	/* no flags */
-> 	dpcm_capture  = 1;
-> 
-> 	dpcm_playback = 1;	=>	playback_only = 1;
-> 
-> 	dpcm_capture = 1;	=>	capture_only = 1;
-> 
-> This patch enables both flags case, but dpcm_playback/capture flags
-> will be removed if all driver were switched to new playback/capture_only
-> flags.
-> 
-> Here, CPU <-> Codec relationship is like this
-> 
-> 	DPCM
-> 		[CPU/dummy]-[dummy/Codec]
-> 		^^^^^^^^^^^
-> 	Normal
-> 		[CPU/Codec]
-> 		^^^^^^^^^^^
-> 
-> (X) part is checking only CPU       DAI, and
-> (Y) part is checking both CPU/Codec DAI
-> 
-> This means (X)/(Y) are checking same position.
-> Because dammy DAI is always available,
-> we can share same code for all cases (= X/Y/Z).
-> 
-> This patch merge these.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->   sound/soc/soc-pcm.c | 75 +++++++++++++--------------------------------
->   1 file changed, 22 insertions(+), 53 deletions(-)
-> 
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index af5d4e1effdf..f47ddf660c57 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -2732,7 +2732,10 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
->   				    int *playback, int *capture)
->   {
->   	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-> +	struct snd_soc_dai *codec_dai;
->   	struct snd_soc_dai *cpu_dai;
-> +	int cpu_capture  = SNDRV_PCM_STREAM_CAPTURE;
-> +	int cpu_playback = SNDRV_PCM_STREAM_PLAYBACK;
->   	int tmp_playback = 0;
->   	int tmp_capture  = 0;
->   	int i;
-> @@ -2748,61 +2751,27 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
->   		return -EINVAL;
->   	}
->   
-> -	if (dai_link->dynamic || dai_link->no_pcm) {
-> -		int stream;
-> -
-> -		if (dai_link->dpcm_playback) {
-> -			stream = SNDRV_PCM_STREAM_PLAYBACK;
-> +	/* Adapt stream for codec2codec links */
-> +	if (dai_link->c2c_params) {
-> +		cpu_capture  = SNDRV_PCM_STREAM_PLAYBACK;
-> +		cpu_playback = SNDRV_PCM_STREAM_CAPTURE;
-> +	}
->   
-> -			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-> -				if (snd_soc_dai_stream_valid(cpu_dai, stream)) {
-> -					tmp_playback = 1;
-> -					break;
-> -				}
-> -			}
-> -			if (!tmp_playback) {
-> -				dev_err(rtd->card->dev,
-> -					"No CPU DAIs support playback for stream %s\n",
-> -					dai_link->stream_name);
-> -				return -EINVAL;
-> -			}
-> -		}
-> -		if (dai_link->dpcm_capture) {
-> -			stream = SNDRV_PCM_STREAM_CAPTURE;
-> +	/* REMOVE ME */
-> +	if (dai_link->dpcm_playback && !dai_link->dpcm_capture)
-> +		dai_link->playback_only = 1;
-> +	if (!dai_link->dpcm_playback && dai_link->dpcm_capture)
-> +		dai_link->capture_only = 1;
->   
-> -			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-> -				if (snd_soc_dai_stream_valid(cpu_dai, stream)) {
-> -					tmp_capture = 1;
-> -					break;
-> -				}
-> -			}
-> -
-> -			if (!tmp_capture) {
-> -				dev_err(rtd->card->dev,
-> -					"No CPU DAIs support capture for stream %s\n",
-> -					dai_link->stream_name);
-> -				return -EINVAL;
-> -			}
-> -		}
-> -	} else {
-> -		struct snd_soc_dai *codec_dai;
-> -
-> -		/* Adapt stream for codec2codec links */
-> -		int cpu_capture = dai_link->c2c_params ?
-> -			SNDRV_PCM_STREAM_PLAYBACK : SNDRV_PCM_STREAM_CAPTURE;
-> -		int cpu_playback = dai_link->c2c_params ?
-> -			SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
-> -
-> -		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-> -			cpu_dai = asoc_rtd_to_cpu(rtd, i);
-> -
-> -			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
-> -			    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
-> -				tmp_playback = 1;
-> -			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
-> -			    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
-> -				tmp_capture = 1;
-> -		}
-> +	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-> +		codec_dai = asoc_rtd_to_codec(rtd, i); /* get paired codec */
-> +
-> +		if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
-> +		    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
-> +			tmp_playback = 1;
-> +		if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
-> +		    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
-> +			tmp_capture = 1;
->   	}
->   
->   	if (dai_link->playback_only)
+hda_ipc4_pre_trigger() has two issues:
+ 1. In the default case, we are returning without unlocking the mutex.
+ 2. In case SNDRV_PCM_TRIGGER_STOP: when ret is less than zero it goes
+    to out, unlocks but returns zero instead of a negative value.
 
-I put the patchset to test and it fails to enumerate devices on our 
-platforms.
+Fix this by changing the final return value to 'ret' instead of zero,
+and initialize 'ret' to zero in the start of the function.
 
-Bisect leads me to this patch, here is dmesg fragment:
+Fixes: 225f37b578a9 ("ASoC: SOF: ipc4-pcm: reset all pipelines during FE DAI hw_free")
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+---
+Only compile tested. This is found using static anlysis with Smatch.
+---
+ sound/soc/sof/intel/hda-dai-ops.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-[   34.609909] snd_soc_avs:avs_component_probe: avs_hdaudio 
-avs_hdaudio.2: probing hdaudioB0D2-platform card hdaudioB0D2
-[   34.612274] snd_soc_core:soc_tplg_load_header: avs_hdaudio 
-avs_hdaudio.2: ASoC: Got 0x490 bytes of type 8 version 0 vendor 0 at pass 0
-[   34.612456] snd_soc_core:soc_tplg_load_header: avs_hdaudio 
-avs_hdaudio.2: ASoC: Got 0x7ec bytes of type 5 version 0 vendor 0 at pass 3
-[   34.612477] snd_soc_core:soc_tplg_dapm_widget_elems_load: avs_hdaudio 
-avs_hdaudio.2: ASoC: adding 6 DAPM widgets
-[   34.612493] snd_soc_core:soc_tplg_dapm_widget_create: avs_hdaudio 
-avs_hdaudio.2: ASoC: creating DAPM widget hdmi1_fe id 17
-[   34.612774] snd_soc_core:soc_tplg_dapm_widget_create: avs_hdaudio 
-avs_hdaudio.2: ASoC: creating DAPM widget hdmi1_be id 17
-[   34.613025] snd_soc_core:soc_tplg_dapm_widget_create: avs_hdaudio 
-avs_hdaudio.2: ASoC: creating DAPM widget hdmi2_fe id 17
-[   34.613297] snd_soc_core:soc_tplg_dapm_widget_create: avs_hdaudio 
-avs_hdaudio.2: ASoC: creating DAPM widget hdmi2_be id 17
-[   34.613552] snd_soc_core:soc_tplg_dapm_widget_create: avs_hdaudio 
-avs_hdaudio.2: ASoC: creating DAPM widget hdmi3_fe id 17
-[   34.613823] snd_soc_core:soc_tplg_dapm_widget_create: avs_hdaudio 
-avs_hdaudio.2: ASoC: creating DAPM widget hdmi3_be id 17
-[   34.614077] snd_soc_core:soc_tplg_load_header: avs_hdaudio 
-avs_hdaudio.2: ASoC: Got 0xab0 bytes of type 7 version 0 vendor 0 at pass 4
-[   34.614272] snd_soc_core:snd_soc_register_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Registered DAI 'HDMI1-dai'
-[   34.614290] snd_soc_core:snd_soc_dapm_new_dai_widgets: snd_soc_avs 
-0000:00:0e.0: ASoC: adding HDMI1-playback widget
-[   34.614453] snd_soc_core:snd_soc_add_pcm_runtime: avs_hdaudio 
-avs_hdaudio.2: ASoC: binding HDMI1
-[   34.615192] snd_soc_core:snd_soc_register_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Registered DAI 'HDMI2-dai'
-[   34.615210] snd_soc_core:snd_soc_dapm_new_dai_widgets: snd_soc_avs 
-0000:00:0e.0: ASoC: adding HDMI2-playback widget
-[   34.615371] snd_soc_core:snd_soc_add_pcm_runtime: avs_hdaudio 
-avs_hdaudio.2: ASoC: binding HDMI2
-[   34.616060] snd_soc_core:snd_soc_register_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Registered DAI 'HDMI3-dai'
-[   34.616077] snd_soc_core:snd_soc_dapm_new_dai_widgets: snd_soc_avs 
-0000:00:0e.0: ASoC: adding HDMI3-playback widget
-[   34.616235] snd_soc_core:snd_soc_add_pcm_runtime: avs_hdaudio 
-avs_hdaudio.2: ASoC: binding HDMI3
-[   34.616858] snd_soc_core:soc_tplg_pcm_elems_load: avs_hdaudio 
-avs_hdaudio.2: ASoC: adding 3 PCM DAIs
-[   34.616876] snd_soc_core:soc_tplg_load_header: avs_hdaudio 
-avs_hdaudio.2: ASoC: Got 0x4a4 bytes of type 4 version 0 vendor 0 at pass 5
-[   34.616895] snd_soc_core:soc_tplg_dapm_graph_elems_load: avs_hdaudio 
-avs_hdaudio.2: ASoC: adding 9 DAPM routes for index 0
-[   34.617601] avs_hdaudio avs_hdaudio.2: ASoC: Parent card not yet 
-available, widget card binding deferred
-[   34.618153] snd_soc_core:snd_soc_add_pcm_runtime: avs_hdaudio 
-avs_hdaudio.2: ASoC: binding hdaudioB0D2 link0
-[   34.618724] snd_soc_core:snd_soc_add_pcm_runtime: avs_hdaudio 
-avs_hdaudio.2: ASoC: binding hdaudioB0D2 link1
-[   34.619221] snd_soc_core:snd_soc_add_pcm_runtime: avs_hdaudio 
-avs_hdaudio.2: ASoC: binding hdaudioB0D2 link2
-[   34.619973]  probing-LINK: substream (null) has no playback, no capture
-[   34.620016] avs_hdaudio avs_hdaudio.2: ASoC: can't create pcm (null) :-22
-[   34.620196] snd_soc_core:snd_soc_unregister_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Unregistered DAI 'hdaudioB0D2-cpu0'
-[   34.620309] snd_soc_core:snd_soc_unregister_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Unregistered DAI 'hdaudioB0D2-cpu1'
-[   34.620419] snd_soc_core:snd_soc_unregister_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Unregistered DAI 'hdaudioB0D2-cpu2'
-[   34.621254] snd_soc_core:snd_soc_unregister_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Unregistered DAI 'HDMI3-dai'
-[   34.621837] snd_soc_core:snd_soc_unregister_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Unregistered DAI 'HDMI2-dai'
-[   34.622704] snd_soc_core:snd_soc_unregister_dai: snd_soc_avs 
-0000:00:0e.0: ASoC: Unregistered DAI 'HDMI1-dai'
-[   34.623620] snd_soc_core:snd_soc_unregister_dai: snd_hda_codec_hdmi 
-hdaudioB0D2: ASoC: Unregistered DAI 'HDMI 0'
-[   34.623695] snd_soc_core:snd_soc_unregister_dai: snd_hda_codec_hdmi 
-hdaudioB0D2: ASoC: Unregistered DAI 'HDMI 1'
-[   34.623769] snd_soc_core:snd_soc_unregister_dai: snd_hda_codec_hdmi 
-hdaudioB0D2: ASoC: Unregistered DAI 'HDMI 2'
-[   34.624779] snd_hda_core:snd_hdac_display_power: snd_soc_avs 
-0000:00:0e.0: display power disable
-[   34.628057] avs_hdaudio: probe of avs_hdaudio.2 failed with error -22
-
+diff --git a/sound/soc/sof/intel/hda-dai-ops.c b/sound/soc/sof/intel/hda-dai-ops.c
+index 5a508e118e3d..1e58256c8003 100644
+--- a/sound/soc/sof/intel/hda-dai-ops.c
++++ b/sound/soc/sof/intel/hda-dai-ops.c
+@@ -183,7 +183,7 @@ static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cp
+ 	struct sof_ipc4_pipeline *pipeline;
+ 	struct snd_sof_widget *swidget;
+ 	struct snd_soc_dapm_widget *w;
+-	int ret;
++	int ret = 0;
+ 
+ 	w = snd_soc_dai_get_widget(cpu_dai, substream->stream);
+ 	swidget = w->dobj.private;
+@@ -208,11 +208,11 @@ static int hda_ipc4_pre_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cp
+ 		break;
+ 	default:
+ 		dev_err(sdev->dev, "unknown trigger command %d\n", cmd);
+-		return -EINVAL;
++		ret = -EINVAL;
+ 	}
+ out:
+ 	mutex_unlock(&ipc4_data->pipeline_state_mutex);
+-	return 0;
++	return ret;
+ }
+ 
+ static int hda_trigger(struct snd_sof_dev *sdev, struct snd_soc_dai *cpu_dai,
+-- 
+2.31.1
 

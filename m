@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52CAF709394
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 11:37:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64CC9709365
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 May 2023 11:36:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 830B66C0;
-	Fri, 19 May 2023 11:36:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 830B66C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F393850;
+	Fri, 19 May 2023 11:36:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F393850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684489064;
-	bh=VT9aJ8QR9SXycXsCnSYYb57PjuYpWA/FvRPaMcEeLDE=;
+	s=default; t=1684489016;
+	bh=Ofz0it+STKe5D8nVBmCtOaABmkYZ+geGDS3qoiQAhKQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jJT7CljVqYXrhicE44Iu4exPKJZwEM+aKDTf4hGdgyHZK6GrFRVoVBbeD7G7gql+o
-	 fqT2t6dOihWOOQik6rEeaemAwgoQzHaf0zxfTNgy0+jRPBN27+mYJdzcghNRv86nmV
-	 5VgXl6nUWBVQ8C0niGV0HdNmpgixXzVcFdJa8mUg=
+	b=OJpfeR5NwuOwJ8RDXZ0mMfarwWfF+ssY3e1JVgu9L4YrBgVJkcqfsppQMPk6sZihR
+	 gqm0EXTDG+sKfeuPe6vaDjm+dN9F9ws1TGN+SKIo4i7HE6TYeOJxUE4iCLHr70sFuE
+	 B2GRGjQH9I75n/JRjsuE0ThmTj/UFqlEIpX7tk38=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25828F805B1; Fri, 19 May 2023 11:32:48 +0200 (CEST)
+	id D809AF8063D; Fri, 19 May 2023 11:32:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BA73F805C1;
-	Fri, 19 May 2023 11:32:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98F83F805AC;
+	Fri, 19 May 2023 11:32:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 145D6F8060C; Fri, 19 May 2023 11:32:16 +0200 (CEST)
+	id CFBF0F80605; Fri, 19 May 2023 11:32:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8F2F4F8055A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4330EF80564
 	for <alsa-devel@alsa-project.org>; Fri, 19 May 2023 11:31:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F2F4F8055A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4330EF80564
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=wVRD7iSa;
+ header.s=susede2_rsa header.b=q9TNsrmW;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ZF+ghNd+
+ header.s=susede2_ed25519 header.b=z0SPz73a
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 489561FE49;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CF6211FE4B;
 	Fri, 19 May 2023 09:31:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -61,43 +60,44 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7jFwvQhPbaTE9XDubVl2nxiKqr9SWq2+eRDsG198Imk=;
-	b=wVRD7iSaEAGMIsem0FvTs+skpMfBorqD+6Dj7LuL4mo50B0hq1HEZLoXpS+m4DlcdS8fyk
-	UDXmIiO+80HVJDiA0+8dO1FRHo0xLsOdJszd5WOCyl0zDXyUXgPJnh0Ssbl+hyg16AwlLW
-	emq2ohuID6r+vadRtDITcrynRMW9yrU=
+	bh=xtUBn64TCPUL2NIYTOf1vmSRVo+5qn88GJVMSzzNLZI=;
+	b=q9TNsrmWsdCHjDwkrpA+p5dUpGzXPbOBWcWsz/Rqg+vVOV0B1qVcn1KoggxC1duFFYKMDC
+	Sze+35i89kP1Xi6R5ND6fk90BLdHaiRRYkvOHC6qvx616EgNIASPfYvi++DeDUmfgdKrJ3
+	bmtWP0Mv19mJdIhRFHTd/5ZE1ifonSA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1684488700;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7jFwvQhPbaTE9XDubVl2nxiKqr9SWq2+eRDsG198Imk=;
-	b=ZF+ghNd+/0Nl37TJVFjtLOga+jxT8+MYTPfl4IQ5ozptbtFupQvwIOtQfh2vQRVuuLjwHE
-	1/TsnCk8Ib6rBvAQ==
+	bh=xtUBn64TCPUL2NIYTOf1vmSRVo+5qn88GJVMSzzNLZI=;
+	b=z0SPz73a2RxbdU1dzaMht1HPJB3CSz13K6b72hJWOtsaSpqMaKGq7AhiGUypI4rbbkevt7
+	OWd3KTDNz/nSDtDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2214713A12;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AE34F13A12;
 	Fri, 19 May 2023 09:31:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id UBBcB/xBZ2RXJAAAMHmgww
+	id UI9gKfxBZ2RXJAAAMHmgww
 	(envelope-from <tiwai@suse.de>); Fri, 19 May 2023 09:31:40 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 17/36] ALSA: seq: Add snd_seq_expand_var_event_at() helper
-Date: Fri, 19 May 2023 11:30:55 +0200
-Message-Id: <20230519093114.28813-18-tiwai@suse.de>
+Subject: [PATCH 18/36] ALSA: seq: Treat snd_seq_client object directly in
+ client drivers
+Date: Fri, 19 May 2023 11:30:56 +0200
+Message-Id: <20230519093114.28813-19-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230519093114.28813-1-tiwai@suse.de>
 References: <20230519093114.28813-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CD4QCZRPZFGWSPYWUP4IO64Q2F6HNKYW
-X-Message-ID-Hash: CD4QCZRPZFGWSPYWUP4IO64Q2F6HNKYW
+Message-ID-Hash: 6CZOXC7Z7H2O5M4YDBD3FGZLMCYFQIO2
+X-Message-ID-Hash: 6CZOXC7Z7H2O5M4YDBD3FGZLMCYFQIO2
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -110,188 +110,64 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CD4QCZRPZFGWSPYWUP4IO64Q2F6HNKYW/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6CZOXC7Z7H2O5M4YDBD3FGZLMCYFQIO2/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Create a new variant of snd_seq_expand_var_event() for expanding the
-data starting from the given byte offset.  It'll be used by the new
-UMP sequencer code later.
+Introduce the new helpers, snd_seq_kernel_client_get() and _put() for
+kernel client drivers to treat the snd_seq_client more directly.
+This allows us to reduce the exported symbols and APIs at each time we
+need to access some field in future.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/seq_kernel.h  |  2 +
- sound/core/seq/seq_memory.c | 86 +++++++++++++++++++++++++++++--------
- 2 files changed, 69 insertions(+), 19 deletions(-)
+ sound/core/seq/seq_clientmgr.c | 15 +++++++++++++++
+ sound/core/seq/seq_clientmgr.h |  4 ++++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/include/sound/seq_kernel.h b/include/sound/seq_kernel.h
-index 658911926f3a..527e7f8ad661 100644
---- a/include/sound/seq_kernel.h
-+++ b/include/sound/seq_kernel.h
-@@ -70,6 +70,8 @@ int snd_seq_kernel_client_ctl(int client, unsigned int cmd, void *arg);
- typedef int (*snd_seq_dump_func_t)(void *ptr, void *buf, int count);
- int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char *buf,
- 			     int in_kernel, int size_aligned);
-+int snd_seq_expand_var_event_at(const struct snd_seq_event *event, int count,
-+				char *buf, int offset);
- int snd_seq_dump_var_event(const struct snd_seq_event *event,
- 			   snd_seq_dump_func_t func, void *private_data);
- 
-diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
-index c8d26bce69ff..a8d2db439f86 100644
---- a/sound/core/seq/seq_memory.c
-+++ b/sound/core/seq/seq_memory.c
-@@ -63,8 +63,9 @@ static int get_var_len(const struct snd_seq_event *event)
- 	return event->data.ext.len & ~SNDRV_SEQ_EXT_MASK;
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 2d707afa1ef1..98e8032a32e2 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -2390,6 +2390,21 @@ int snd_seq_kernel_client_write_poll(int clientid, struct file *file, poll_table
  }
+ EXPORT_SYMBOL(snd_seq_kernel_client_write_poll);
  
--int snd_seq_dump_var_event(const struct snd_seq_event *event,
--			   snd_seq_dump_func_t func, void *private_data)
-+static int dump_var_event(const struct snd_seq_event *event,
-+			  snd_seq_dump_func_t func, void *private_data,
-+			  int offset, int maxlen)
- {
- 	int len, err;
- 	struct snd_seq_event_cell *cell;
-@@ -72,10 +73,16 @@ int snd_seq_dump_var_event(const struct snd_seq_event *event,
- 	len = get_var_len(event);
- 	if (len <= 0)
- 		return len;
-+	if (len <= offset)
-+		return 0;
-+	if (maxlen && len > offset + maxlen)
-+		len = offset + maxlen;
- 
- 	if (event->data.ext.len & SNDRV_SEQ_EXT_USRPTR) {
- 		char buf[32];
- 		char __user *curptr = (char __force __user *)event->data.ext.ptr;
-+		curptr += offset;
-+		len -= offset;
- 		while (len > 0) {
- 			int size = sizeof(buf);
- 			if (len < size)
-@@ -91,20 +98,35 @@ int snd_seq_dump_var_event(const struct snd_seq_event *event,
- 		return 0;
- 	}
- 	if (!(event->data.ext.len & SNDRV_SEQ_EXT_CHAINED))
--		return func(private_data, event->data.ext.ptr, len);
-+		return func(private_data, event->data.ext.ptr + offset,
-+			    len - offset);
- 
- 	cell = (struct snd_seq_event_cell *)event->data.ext.ptr;
- 	for (; len > 0 && cell; cell = cell->next) {
- 		int size = sizeof(struct snd_seq_event);
-+		char *curptr = (char *)&cell->event;
-+
-+		if (offset >= size) {
-+			offset -= size;
-+			len -= size;
-+			continue;
-+		}
- 		if (len < size)
- 			size = len;
--		err = func(private_data, &cell->event, size);
-+		err = func(private_data, curptr + offset, size - offset);
- 		if (err < 0)
- 			return err;
-+		offset = 0;
- 		len -= size;
- 	}
- 	return 0;
- }
-+
-+int snd_seq_dump_var_event(const struct snd_seq_event *event,
-+			   snd_seq_dump_func_t func, void *private_data)
++/* get a sequencer client object; for internal use from a kernel client */
++struct snd_seq_client *snd_seq_kernel_client_get(int id)
 +{
-+	return dump_var_event(event, func, private_data, 0, 0);
++	return snd_seq_client_use_ptr(id);
 +}
- EXPORT_SYMBOL(snd_seq_dump_var_event);
- 
- 
-@@ -132,11 +154,27 @@ static int seq_copy_in_user(void *ptr, void *src, int size)
- 	return 0;
- }
- 
-+static int expand_var_event(const struct snd_seq_event *event,
-+			    int offset, int size, char *buf, bool in_kernel)
++EXPORT_SYMBOL_GPL(snd_seq_kernel_client_get);
++
++/* put a sequencer client object; for internal use from a kernel client */
++void snd_seq_kernel_client_put(struct snd_seq_client *cptr)
 +{
-+	if (event->data.ext.len & SNDRV_SEQ_EXT_USRPTR) {
-+		if (! in_kernel)
-+			return -EINVAL;
-+		if (copy_from_user(buf,
-+				   (char __force __user *)event->data.ext.ptr + offset,
-+				   size))
-+			return -EFAULT;
-+		return 0;
-+	}
-+	return dump_var_event(event,
-+			     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
-+			     &buf, offset, size);
++	if (cptr)
++		snd_seq_client_unlock(cptr);
 +}
++EXPORT_SYMBOL_GPL(snd_seq_kernel_client_put);
 +
- int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char *buf,
- 			     int in_kernel, int size_aligned)
- {
--	int len, newlen;
--	int err;
-+	int len, newlen, err;
+ /*---------------------------------------------------------------------------*/
  
- 	len = get_var_len(event);
- 	if (len < 0)
-@@ -146,25 +184,35 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
- 		newlen = roundup(len, size_aligned);
- 	if (count < newlen)
- 		return -EAGAIN;
--
--	if (event->data.ext.len & SNDRV_SEQ_EXT_USRPTR) {
--		if (! in_kernel)
--			return -EINVAL;
--		if (copy_from_user(buf, (void __force __user *)event->data.ext.ptr, len))
--			return -EFAULT;
--	} else {
--		err = snd_seq_dump_var_event(event,
--					     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
--					     &buf);
--		if (err < 0)
--			return err;
--	}
-+	err = expand_var_event(event, 0, len, buf, in_kernel);
-+	if (err < 0)
-+		return err;
- 	if (len != newlen)
- 		memset(buf + len, 0, newlen - len);
- 	return newlen;
- }
- EXPORT_SYMBOL(snd_seq_expand_var_event);
+ #ifdef CONFIG_SND_PROC_FS
+diff --git a/sound/core/seq/seq_clientmgr.h b/sound/core/seq/seq_clientmgr.h
+index 8cdd0ee53fb1..f05704e45ab4 100644
+--- a/sound/core/seq/seq_clientmgr.h
++++ b/sound/core/seq/seq_clientmgr.h
+@@ -88,4 +88,8 @@ void snd_seq_client_ioctl_unlock(int clientid);
  
-+int snd_seq_expand_var_event_at(const struct snd_seq_event *event, int count,
-+				char *buf, int offset)
-+{
-+	int len, err;
+ extern int seq_client_load[15];
+ 
++/* for internal use between kernel sequencer clients */
++struct snd_seq_client *snd_seq_kernel_client_get(int client);
++void snd_seq_kernel_client_put(struct snd_seq_client *cptr);
 +
-+	len = get_var_len(event);
-+	if (len < 0)
-+		return len;
-+	if (len <= offset)
-+		return 0;
-+	len -= offset;
-+	if (len > count)
-+		len = count;
-+	err = expand_var_event(event, offset, count, buf, true);
-+	if (err < 0)
-+		return err;
-+	return len;
-+}
-+EXPORT_SYMBOL_GPL(snd_seq_expand_var_event_at);
-+
- /*
-  * release this cell, free extended data if available
-  */
+ #endif
 -- 
 2.35.3
 

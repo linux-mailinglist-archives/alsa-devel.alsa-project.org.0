@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D434370A895
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 May 2023 16:55:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7544A70A89B
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 May 2023 16:57:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07D02827;
-	Sat, 20 May 2023 16:54:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07D02827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 841FD1F6;
+	Sat, 20 May 2023 16:56:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 841FD1F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684594537;
-	bh=1s6XLro0lXvhLVx3ly6dPly3R9ZHgeLXXPmDrrYCj8Q=;
+	s=default; t=1684594620;
+	bh=Z/R4mmeHsP49TYkTgS4cqGnaYEMW61PCfS8aseuU0to=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=U9boDkuwvGVZHfHWN/uqLSEwfKQ8Puwk2mcUfG0UfYxJURyHH5jRvrrNUbRn/fNKt
-	 iTAM60K8di4hQhxUSRpap/pH5hBwPJQKKRXvoh4qHryC/O4zPsEowJ2w2CMatdVPd0
-	 iJtxEbfZNQ8tD1IYHwo4jLlHF7GtAriDedNu1NoI=
+	b=ZA7iFmhv92kHamJKm6UkYFUce1tCIw0xL6nDQNw0/OKnvRH1kx74DEH9dljAcmYf1
+	 r3mzvBwkHC3/5iqh8CofhJ7iOrVygBtbhLXupi9ca1u1kCP9nIJ9T1v8ZREU+GafpN
+	 1mzhHhiCqILGLZyiMJp/HQVNoDwoe37y6Uj8S6Nc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 33A87F80431; Sat, 20 May 2023 16:54:17 +0200 (CEST)
+	id 479D9F8053D; Sat, 20 May 2023 16:56:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55388F8025A;
-	Sat, 20 May 2023 16:54:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECDAEF8025A;
+	Sat, 20 May 2023 16:56:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B0D6F80272; Sat, 20 May 2023 16:54:13 +0200 (CEST)
+	id 693CBF80272; Sat, 20 May 2023 16:56:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,34 +35,32 @@ Received: from smtp.smtpout.orange.fr (smtp-27.smtpout.orange.fr
  [80.12.242.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 11F01F8016D
-	for <alsa-devel@alsa-project.org>; Sat, 20 May 2023 16:54:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11F01F8016D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5358FF8016A
+	for <alsa-devel@alsa-project.org>; Sat, 20 May 2023 16:56:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5358FF8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
- header.s=t20230301 header.b=CQsi4hW5
+ header.s=t20230301 header.b=esUdMWBL
 Received: from pop-os.home ([86.243.2.178])
 	by smtp.orange.fr with ESMTPA
-	id 0NyCq5nVtRkO40NyCqQaRc; Sat, 20 May 2023 16:54:10 +0200
+	id 0O00q7RjWHWsH0O01qRG48; Sat, 20 May 2023 16:56:03 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1684594450;
-	bh=4Jkf7tHnTYvxjLJZ8lnVCybLulN7KeUyeXRkBsmgzrk=;
+	s=t20230301; t=1684594563;
+	bh=bpLpYwHdElG8Zrz72XZdWqpkdWbasWrKHm81qJngWNM=;
 	h=From:To:Cc:Subject:Date;
-	b=CQsi4hW5hW8Fi6yChUdbDdgH8S3NNSLxiKVNSkKVHPjl1VoDPJ3kAezwkUamXg7xr
-	 pkaR5tD7fPeTqTejMYZzMX/7m8DJVFCGqyaQCSqeYsgzI82E7SRHweAZ20iyS7w2dH
-	 nYO2sdq/e4yK91+N5su1cuC89GaajG3e/UWjY546vTZUA87XOsZyzuKD3fd9UgNNrR
-	 x5pGqWAH12CrIanHxxFo6dKPWxXeEUF14DEQfLngxmh3Sh0JzwQdjN+jIuqwQE7Wjq
-	 VlI5LLoNDS2sXTny/zYkgNBE6yxnY8ro3IQhCR43HUtxCpYSQ5w3gs4LPtEx7k4TfH
-	 8qQDCVAbS+96w==
+	b=esUdMWBLA/phoUXHm4JrlWfMI2UdxVyfevFMmMduOK0jOBFkLSDf3VzJpbi/iO2Rj
+	 9Jv1y74+6CMKzngQNBOl0ul5oJ2dlSxrYU/mJA3ZcNelQjj4wcZBpWrDDdNv/oP49q
+	 C2PTMQmDBu1OfRWeknabq78rfQE57kp8AWWXK1dXMuIzqIzn9OF34r5Hq76d+3oX3u
+	 BTa8VDKgyir2/HrIH5zN+xuhTQrmM/D6GyWdZn2lWHBaqblzqZHKY7jcCcRfebZ7il
+	 M/WvdvtmLtie2wXciOf/Ey6Xgi/3I3eV36zXk6ZfRr7WPx64IfaX+08f3glUi9AP1N
+	 1yvBcMnrcPc7Q==
 X-ME-Helo: pop-os.home
 X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sat, 20 May 2023 16:54:10 +0200
+X-ME-Date: Sat, 20 May 2023 16:56:03 +0200
 X-ME-IP: 86.243.2.178
 From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: James Schulman <james.schulman@cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
+To: Oder Chiou <oder_chiou@realtek.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
@@ -70,17 +68,16 @@ To: James Schulman <james.schulman@cirrus.com>,
 Cc: linux-kernel@vger.kernel.org,
 	kernel-janitors@vger.kernel.org,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com
-Subject: [PATCH] ASoC: cs53l30: Use the devm_clk_get_optional() helper
-Date: Sat, 20 May 2023 16:54:06 +0200
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: rt5659: Use the devm_clk_get_optional() helper
+Date: Sat, 20 May 2023 16:56:00 +0200
 Message-Id: 
- <3219effee5c7f190530bdb1ef8ec35cb142e3611.1684594433.git.christophe.jaillet@wanadoo.fr>
+ <5b44b2fddd8973e949e4ae2132971b147cfd1ec1.1684594544.git.christophe.jaillet@wanadoo.fr>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BYNE6N2XZ43UCH6UUCIRCYDQ3WD3MDOE
-X-Message-ID-Hash: BYNE6N2XZ43UCH6UUCIRCYDQ3WD3MDOE
+Message-ID-Hash: WS5FQVRVGTYQNXAM2XWWME2BNYBCGKWT
+X-Message-ID-Hash: WS5FQVRVGTYQNXAM2XWWME2BNYBCGKWT
 X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BYNE6N2XZ43UCH6UUCIRCYDQ3WD3MDOE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WS5FQVRVGTYQNXAM2XWWME2BNYBCGKWT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,31 +104,30 @@ This saves some LoC and improves the semantic.
 
 Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 ---
- sound/soc/codecs/cs53l30.c | 10 +++-------
+ sound/soc/codecs/rt5659.c | 10 +++-------
  1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/codecs/cs53l30.c b/sound/soc/codecs/cs53l30.c
-index 51ca66e7b3ea..21962b828ab1 100644
---- a/sound/soc/codecs/cs53l30.c
-+++ b/sound/soc/codecs/cs53l30.c
-@@ -990,14 +990,10 @@ static int cs53l30_i2c_probe(struct i2c_client *client)
- 	}
+diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
+index 22bb57029bc0..df6f0d769bbd 100644
+--- a/sound/soc/codecs/rt5659.c
++++ b/sound/soc/codecs/rt5659.c
+@@ -4141,13 +4141,9 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
+ 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
  
  	/* Check if MCLK provided */
--	cs53l30->mclk = devm_clk_get(dev, "mclk");
-+	cs53l30->mclk = devm_clk_get_optional(dev, "mclk");
- 	if (IS_ERR(cs53l30->mclk)) {
--		if (PTR_ERR(cs53l30->mclk) != -ENOENT) {
--			ret = PTR_ERR(cs53l30->mclk);
--			goto error;
--		}
+-	rt5659->mclk = devm_clk_get(&i2c->dev, "mclk");
+-	if (IS_ERR(rt5659->mclk)) {
+-		if (PTR_ERR(rt5659->mclk) != -ENOENT)
+-			return PTR_ERR(rt5659->mclk);
 -		/* Otherwise mark the mclk pointer to NULL */
--		cs53l30->mclk = NULL;
-+		ret = PTR_ERR(cs53l30->mclk);
-+		goto error;
- 	}
+-		rt5659->mclk = NULL;
+-	}
++	rt5659->mclk = devm_clk_get_optional(&i2c->dev, "mclk");
++	if (IS_ERR(rt5659->mclk))
++		return PTR_ERR(rt5659->mclk);
  
- 	/* Fetch the MUTE control */
+ 	rt5659_calibrate(rt5659);
+ 
 -- 
 2.34.1
 

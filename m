@@ -2,57 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D7470A605
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 May 2023 09:04:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7C1570A606
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 May 2023 09:04:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E02BC74C;
-	Sat, 20 May 2023 09:03:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E02BC74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 431A67F4;
+	Sat, 20 May 2023 09:03:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 431A67F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684566243;
-	bh=yvQbYHMdYYD58E7u6Rw+COilYfr6yB5XntHX5xoAz+E=;
+	s=default; t=1684566258;
+	bh=7g5lgg8K6ULr4rCfFJMUM9g1W70gZv1L9Jtq0z+f3xA=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=OiHbSndBrL1a09v3Lj9T41m4Zk7Z3LxGq0DYdvLc5rhd4dpduT4Rsq4H7/TLQ6c3R
-	 i9qjMcZoulzHVDLURLopg8cFYL0BWwKkALmiTlynt4Ii+I59Jp61h2WMK30Bsfate8
-	 od1+/JSOereaSEj5Cmg88F4VzGh9G75pYcW9yvyA=
+	b=P/06dZ81xtU1yJnOMdNNQFs7HulTTfvtU2T6svPk8w/MvJyRar4jPABh5GU1KelCG
+	 u6JBmygL/sao0AyiT3CCGQtkwgXDV+fyeRjot8Ow6Tu+tVivx5BQkThY74h0QNisVY
+	 /HlpGhRSBF6kMgeWGF0YZaQo6qwcl/hHqFLRJSWg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8D46F80557; Sat, 20 May 2023 09:02:38 +0200 (CEST)
+	id 12E02F8025A; Sat, 20 May 2023 09:02:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2908F8025A;
-	Sat, 20 May 2023 09:02:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54EFBF8053D;
+	Sat, 20 May 2023 09:02:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 798E2F80551; Sat, 20 May 2023 09:00:36 +0200 (CEST)
+	id B9112F80549; Sat, 20 May 2023 09:00:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 24C9AF80087
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E5AEF8025A
 	for <alsa-devel@alsa-project.org>; Sat, 20 May 2023 09:00:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24C9AF80087
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E5AEF8025A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ODfRP6Nq;
+ header.s=susede2_rsa header.b=vUIpOhkx;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=GAHtawJY
+ header.s=susede2_ed25519 header.b=XGeiQVvq
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 85CB122039;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id AEA511FD6C;
 	Sat, 20 May 2023 07:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -60,42 +60,42 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Lv8lzvPi2AwYV+W+LyidROa3ulPVQZs2GlpTau91ivU=;
-	b=ODfRP6NqB13bO7i+g8T6PdN2nymQyVgsnKgNihFYg5CqeQtulIJWTUZ1JYFOjmEe519Te5
-	Y3qXrToxXwIts7tv2LopMdyaR9wk/TgXJafechvk/YTuUnUIseeC2AWDsrBkmPRChWt+pG
-	OEUHhtrjQyDr2IiRD1yCbQNekBTD+3U=
+	bh=1GqwfBOie39jVzprd95QeelYmlNjzR/oK6v665L/0rc=;
+	b=vUIpOhkxGWV6O7mdocsZJRzaYywGwPSMjwpAb+B50Hjv6nnealdEVOeVXgG8SePJmH55uE
+	wzzC73dESrsCcxdfBeetiIlFokSZMC51RzZtoXP45wTUTrkla+Ywk/pRIbV0TIMu1gZp3s
+	4RSKrHPrYlGwQibsQTTxN0MEZ9jHl0Q=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1684566025;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Lv8lzvPi2AwYV+W+LyidROa3ulPVQZs2GlpTau91ivU=;
-	b=GAHtawJY2kcUAwKHgCKwgvW21Y7ZeJxlXg84LMIHGTWE5G3cVIDfhS/4qP3NF/dQgBtT+O
-	073OpJoLrJDskSDw==
+	bh=1GqwfBOie39jVzprd95QeelYmlNjzR/oK6v665L/0rc=;
+	b=XGeiQVvqg+lo4Cvkwd68SMuCSviTo+WyK0b7n09d3PVdf+qdOfbCBbXpBanquMZAHGQSRC
+	FtxHXOZ5h+FjLiDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6BD97139F5;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A09E134F5;
 	Sat, 20 May 2023 07:00:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id cMiFGQlwaGTwGwAAMHmgww
+	id CPLGIAlwaGTwGwAAMHmgww
 	(envelope-from <tiwai@suse.de>); Sat, 20 May 2023 07:00:25 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib 1/8] uapi: Update rawmidi API to 2.0.3
-Date: Sat, 20 May 2023 09:00:14 +0200
-Message-Id: <20230520070021.1301-2-tiwai@suse.de>
+Subject: [PATCH alsa-lib 2/8] rawmidi: Add UMP ioctl support
+Date: Sat, 20 May 2023 09:00:15 +0200
+Message-Id: <20230520070021.1301-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230520070021.1301-1-tiwai@suse.de>
 References: <20230520070021.1301-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: DBXD57IBXU76TT7PE264ZYN5YQMM7OQR
-X-Message-ID-Hash: DBXD57IBXU76TT7PE264ZYN5YQMM7OQR
+Message-ID-Hash: UXCKXHWFUM4IY5LEZRA47NWV33RO6IGC
+X-Message-ID-Hash: UXCKXHWFUM4IY5LEZRA47NWV33RO6IGC
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DBXD57IBXU76TT7PE264ZYN5YQMM7OQR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UXCKXHWFUM4IY5LEZRA47NWV33RO6IGC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,112 +117,108 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Copied from the kernel uapi header for rawmidi API.
-A few new structs and constants for UMP are defined in addition to a
-few new ioctls.
+Just implement internal callbacks for two new ioctls for UMP
+(ump_endpoint_info and ump_block_info).  No public API functions are
+added yet here.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/uapi/asound.h | 58 ++++++++++++++++++++++++++++++++++++-
- 1 file changed, 57 insertions(+), 1 deletion(-)
+ src/rawmidi/rawmidi.c       | 19 +++++++++++++++++++
+ src/rawmidi/rawmidi_hw.c    | 26 +++++++++++++++++++++++++-
+ src/rawmidi/rawmidi_local.h |  5 +++++
+ 3 files changed, 49 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/uapi/asound.h b/include/sound/uapi/asound.h
-index 62a0364fc3cd..a09089814c7b 100644
---- a/include/sound/uapi/asound.h
-+++ b/include/sound/uapi/asound.h
-@@ -706,7 +706,7 @@ enum {
-  *  Raw MIDI section - /dev/snd/midi??
-  */
+diff --git a/src/rawmidi/rawmidi.c b/src/rawmidi/rawmidi.c
+index 570e06755456..8dca9312c6d9 100644
+--- a/src/rawmidi/rawmidi.c
++++ b/src/rawmidi/rawmidi.c
+@@ -1120,3 +1120,22 @@ ssize_t snd_rawmidi_tread(snd_rawmidi_t *rawmidi, struct timespec *tstamp, void
+ 		return -ENOTSUP;
+ 	return (rawmidi->ops->tread)(rawmidi, tstamp, buffer, size);
+ }
++
++#ifndef DOXYGEN
++/*
++ * internal API functions for obtaining UMP info from rawmidi instance
++ */
++int _snd_rawmidi_ump_endpoint_info(snd_rawmidi_t *rmidi, void *info)
++{
++	if (!rmidi->ops->ump_endpoint_info)
++		return -ENXIO;
++	return rmidi->ops->ump_endpoint_info(rmidi, info);
++}
++
++int _snd_rawmidi_ump_block_info(snd_rawmidi_t *rmidi, void *info)
++{
++	if (!rmidi->ops->ump_block_info)
++		return -ENXIO;
++	return rmidi->ops->ump_block_info(rmidi, info);
++}
++#endif /* DOXYGEN */
+diff --git a/src/rawmidi/rawmidi_hw.c b/src/rawmidi/rawmidi_hw.c
+index e5bb3ee3b31c..69e5e02f1d6a 100644
+--- a/src/rawmidi/rawmidi_hw.c
++++ b/src/rawmidi/rawmidi_hw.c
+@@ -272,6 +272,28 @@ static ssize_t snd_rawmidi_hw_tread(snd_rawmidi_t *rmidi, struct timespec *tstam
+ 	return ret + result;
+ }
  
--#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 2)
-+#define SNDRV_RAWMIDI_VERSION		SNDRV_PROTOCOL_VERSION(2, 0, 3)
- 
- enum {
- 	SNDRV_RAWMIDI_STREAM_OUTPUT = 0,
-@@ -717,6 +717,7 @@ enum {
- #define SNDRV_RAWMIDI_INFO_OUTPUT		0x00000001
- #define SNDRV_RAWMIDI_INFO_INPUT		0x00000002
- #define SNDRV_RAWMIDI_INFO_DUPLEX		0x00000004
-+#define SNDRV_RAWMIDI_INFO_UMP			0x00000008
- 
- struct snd_rawmidi_info {
- 	unsigned int device;		/* RO/WR (control): device number */
-@@ -775,6 +776,57 @@ struct snd_rawmidi_status {
- 	unsigned char reserved[16];	/* reserved for future use */
++static int snd_rawmidi_hw_ump_endpoint_info(snd_rawmidi_t *rmidi, void *buf)
++{
++	snd_rawmidi_hw_t *hw = rmidi->private_data;
++
++	if (rmidi->version < SNDRV_PROTOCOL_VERSION(2, 0, 3))
++		return -ENXIO;
++	if (ioctl(hw->fd, SNDRV_UMP_IOCTL_ENDPOINT_INFO, buf) < 0)
++		return -errno;
++	return 0;
++}
++
++static int snd_rawmidi_hw_ump_block_info(snd_rawmidi_t *rmidi, void *buf)
++{
++	snd_rawmidi_hw_t *hw = rmidi->private_data;
++
++	if (rmidi->version < SNDRV_PROTOCOL_VERSION(2, 0, 3))
++		return -ENXIO;
++	if (ioctl(hw->fd, SNDRV_UMP_IOCTL_BLOCK_INFO, buf) < 0)
++		return -errno;
++	return 0;
++}
++
+ static const snd_rawmidi_ops_t snd_rawmidi_hw_ops = {
+ 	.close = snd_rawmidi_hw_close,
+ 	.nonblock = snd_rawmidi_hw_nonblock,
+@@ -282,7 +304,9 @@ static const snd_rawmidi_ops_t snd_rawmidi_hw_ops = {
+ 	.drain = snd_rawmidi_hw_drain,
+ 	.write = snd_rawmidi_hw_write,
+ 	.read = snd_rawmidi_hw_read,
+-	.tread = snd_rawmidi_hw_tread
++	.tread = snd_rawmidi_hw_tread,
++	.ump_endpoint_info = snd_rawmidi_hw_ump_endpoint_info,
++	.ump_block_info = snd_rawmidi_hw_ump_block_info,
  };
  
-+/* UMP EP Protocol / JRTS capability bits */
-+#define SNDRV_UMP_EP_INFO_PROTO_MIDI_MASK	0x0300
-+#define SNDRV_UMP_EP_INFO_PROTO_MIDI1		0x0100 /* MIDI 1.0 */
-+#define SNDRV_UMP_EP_INFO_PROTO_MIDI2		0x0200 /* MIDI 2.0 */
-+#define SNDRV_UMP_EP_INFO_PROTO_JRTS_MASK	0x0003
-+#define SNDRV_UMP_EP_INFO_PROTO_JRTS_TX		0x0001 /* JRTS Transmit */
-+#define SNDRV_UMP_EP_INFO_PROTO_JRTS_RX		0x0002 /* JRTS Receive */
-+
-+/* UMP Endpoint information */
-+struct snd_ump_endpoint_info {
-+	int card;			/* card number */
-+	int device;			/* device number */
-+	unsigned int flags;		/* additional info */
-+	unsigned int protocol_caps;	/* protocol capabilities */
-+	unsigned int protocol;		/* current protocol */
-+	unsigned int num_blocks;	/* # of function blocks */
-+	unsigned short version;		/* UMP major/minor version */
-+	unsigned short padding[7];
-+	unsigned char name[128];	/* endpoint name string */
-+	unsigned char product_id[128];	/* unique product id string */
-+	unsigned char reserved[32];
-+} __packed;
-+
-+/* UMP direction */
-+#define SNDRV_UMP_DIR_INPUT		0x01
-+#define SNDRV_UMP_DIR_OUTPUT		0x02
-+#define SNDRV_UMP_DIR_BIDIRECTION	0x03
-+
-+/* UMP block info flags */
-+#define SNDRV_UMP_BLOCK_IS_MIDI1	(1U << 0) /* MIDI 1.0 port w/o restrict */
-+#define SNDRV_UMP_BLOCK_IS_LOWSPEED	(1U << 1) /* 31.25Kbps B/W MIDI1 port */
-+
-+/* UMP groups and blocks */
-+#define SNDRV_UMP_MAX_GROUPS		16
-+#define SNDRV_UMP_MAX_BLOCKS		32
-+
-+/* UMP Block information */
-+struct snd_ump_block_info {
-+	int card;			/* card number */
-+	int device;			/* device number */
-+	unsigned char block_id;		/* block ID (R/W) */
-+	unsigned char direction;	/* UMP direction */
-+	unsigned char active;		/* Activeness */
-+	unsigned char first_group;	/* first group ID */
-+	unsigned char num_groups;	/* number of groups */
-+	unsigned char padding[3];
-+	unsigned int flags;		/* various info flags */
-+	unsigned char name[128];	/* block name string */
-+	unsigned char reserved[32];
-+} __packed;
-+
- #define SNDRV_RAWMIDI_IOCTL_PVERSION	_IOR('W', 0x00, int)
- #define SNDRV_RAWMIDI_IOCTL_INFO	_IOR('W', 0x01, struct snd_rawmidi_info)
- #define SNDRV_RAWMIDI_IOCTL_USER_PVERSION _IOW('W', 0x02, int)
-@@ -782,6 +834,9 @@ struct snd_rawmidi_status {
- #define SNDRV_RAWMIDI_IOCTL_STATUS	_IOWR('W', 0x20, struct snd_rawmidi_status)
- #define SNDRV_RAWMIDI_IOCTL_DROP	_IOW('W', 0x30, int)
- #define SNDRV_RAWMIDI_IOCTL_DRAIN	_IOW('W', 0x31, int)
-+/* Additional ioctls for UMP rawmidi devices */
-+#define SNDRV_UMP_IOCTL_ENDPOINT_INFO	_IOR('W', 0x40, struct snd_ump_endpoint_info)
-+#define SNDRV_UMP_IOCTL_BLOCK_INFO	_IOR('W', 0x41, struct snd_ump_block_info)
  
- /*
-  *  Timer section - /dev/snd/timer
-@@ -1114,6 +1169,7 @@ struct snd_ctl_tlv {
- #define SNDRV_CTL_IOCTL_RAWMIDI_NEXT_DEVICE _IOWR('U', 0x40, int)
- #define SNDRV_CTL_IOCTL_RAWMIDI_INFO	_IOWR('U', 0x41, struct snd_rawmidi_info)
- #define SNDRV_CTL_IOCTL_RAWMIDI_PREFER_SUBDEVICE _IOW('U', 0x42, int)
-+#define SNDRV_CTL_IOCTL_UMP_NEXT_DEVICE	_IOWR('U', 0x43, int)
- #define SNDRV_CTL_IOCTL_POWER		_IOWR('U', 0xd0, int)
- #define SNDRV_CTL_IOCTL_POWER_STATE	_IOR('U', 0xd1, int)
+diff --git a/src/rawmidi/rawmidi_local.h b/src/rawmidi/rawmidi_local.h
+index 4a88e7e4a5ba..7025542f6774 100644
+--- a/src/rawmidi/rawmidi_local.h
++++ b/src/rawmidi/rawmidi_local.h
+@@ -35,6 +35,8 @@ typedef struct {
+ 	ssize_t (*write)(snd_rawmidi_t *rawmidi, const void *buffer, size_t size);
+ 	ssize_t (*read)(snd_rawmidi_t *rawmidi, void *buffer, size_t size);
+ 	ssize_t (*tread)(snd_rawmidi_t *rawmidi, struct timespec *tstamp, void *buffer, size_t size);
++	int (*ump_endpoint_info)(snd_rawmidi_t *rmidi, void *buf);
++	int (*ump_block_info)(snd_rawmidi_t *rmidi, void *buf);
+ } snd_rawmidi_ops_t;
  
+ struct _snd_rawmidi {
+@@ -62,3 +64,6 @@ int snd_rawmidi_virtual_open(snd_rawmidi_t **inputp, snd_rawmidi_t **outputp,
+ 			     int merge, int mode);
+ 
+ #define snd_rawmidi_conf_generic_id(id)	_snd_conf_generic_id(id)
++
++int _snd_rawmidi_ump_endpoint_info(snd_rawmidi_t *rmidi, void *info);
++int _snd_rawmidi_ump_block_info(snd_rawmidi_t *rmidi, void *info);
 -- 
 2.35.3
 

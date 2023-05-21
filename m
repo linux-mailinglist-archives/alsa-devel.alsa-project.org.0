@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3486E70B4CE
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 08:05:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B76E70B4D0
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 08:06:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF995825;
-	Mon, 22 May 2023 08:05:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF995825
+	by alsa0.perex.cz (Postfix) with ESMTPS id BC842828;
+	Mon, 22 May 2023 08:05:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC842828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684735556;
-	bh=riFo5U67YxEhOHRPne0Bl0CMreiNdBgezXhzIYahq5A=;
+	s=default; t=1684735574;
+	bh=PwXV7UGWYgDJvuxIyJO5o25uzCZWgVImqRuctezOljU=;
 	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=uu4I9/s7E6119Atiu36hVonae4RzqGppDfkgszRN77p0cUSHgrUi8dMtdA3dKmVDJ
-	 FDm68IjrLFW34By1KYV0nAyJ7jl9AR0Byc96s+BI2lNbwXDy8GofQfUEtuXjtnx2mF
-	 R4LWOlEW7mNP8gn2dLuGCGekY9GMLaSsJ7OLWXwk=
+	b=kO9yEdGeMeg67QzNe3HhsRjHi689JTa36O+p7JieskEhGFvRLdPz+QZ1Vahwg398R
+	 Avnhe7Mv3yYNcbXDgsRG9zW55Tyw+aPrJ5BB+fbo5U9KNusdFwHKLyNeEHX5xHpW7Z
+	 NvM9i6005qrA8Cqqs/D6Po3bdS6ILEJndh9VWoYA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C709F80551; Mon, 22 May 2023 08:04:55 +0200 (CEST)
+	id 59575F80553; Mon, 22 May 2023 08:04:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1A66F80425;
-	Mon, 22 May 2023 08:04:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B99EDF8053D;
+	Mon, 22 May 2023 08:04:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFD77F800DF; Sun, 21 May 2023 07:18:03 +0200 (CEST)
+	id D9C3FF8024E; Sun, 21 May 2023 08:55:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,UPPERCASE_75_100,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0135F800DF
-	for <alsa-devel@alsa-project.org>; Sun, 21 May 2023 07:13:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0135F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8BD5F80086
+	for <alsa-devel@alsa-project.org>; Sun, 21 May 2023 08:55:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8BD5F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=nyDH2LwM
+ header.s=Intel header.b=L2RdzoHL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684646002; x=1716182002;
+  t=1684652122; x=1716188122;
   h=date:from:to:cc:subject:message-id:mime-version;
-  bh=riFo5U67YxEhOHRPne0Bl0CMreiNdBgezXhzIYahq5A=;
-  b=nyDH2LwMhNnx7IBI4gZhcNicWIT6R0x1RT3D5rvgOQhz0M24Af6O0sLQ
-   W6jgzWS73ruLF7znrWXQAzjkW99EFLh35jwrMzdmpDweYDGLkt2TqrIze
-   1CckvOzg/aEzItfrjbh2F9YDNVngf89QFCNxShfK2TwsXIkr0Jm6w5HIH
-   iZvM3fyhq6jYuH94LhvrVRFe1hZH/Q/BZIQocK1xgsXeqsnG4UO1tACv5
-   seoph/uBKFD6BuSGo/Tk2fFWOhVJ4mxB4BHpRbm0Ju5sud0YwoAAs82FF
-   jfH2nhoM1APFNFOR6imnA5mWKt051/dGAwkkpb7qxcbX+JwnU6hiL0fmZ
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10716"; a="332279481"
+  bh=PwXV7UGWYgDJvuxIyJO5o25uzCZWgVImqRuctezOljU=;
+  b=L2RdzoHLHVOPd8mKY8F4wzXuoKtlBEPnk/CMDt7KWjgbOJLa/T2XkN4i
+   TDIfTdtNLTXPd88B2ZPLvGtro1MWpbrf1ldGX8KXPdvKiiyOL+zqbuVoB
+   1EkUYFj7Lw6Kxcn4uK+pYpbbwij+9AA2r42i55E1zufAu44E0ss9uV9YR
+   pRkald3QFwzZLTvtQihBNQG0uLuCU+9l/IYBOEaEB9Y8hPZTVn50vXBnh
+   SQfyjr24nh8bw/z3GHCsp4ZYI9xX4ym96ohhC0WoP+z5mg9JqL0RkSmOZ
+   GNZkD3ztQZVf7nGY4MbKc1xH+RScTpuAoJSQrAlodnEqZWfoVv4/4XcVb
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10716"; a="355904184"
 X-IronPort-AV: E=Sophos;i="6.00,181,1681196400";
-   d="scan'208";a="332279481"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 May 2023 22:13:14 -0700
+   d="scan'208";a="355904184"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 May 2023 23:55:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10716"; a="768114726"
+X-IronPort-AV: E=McAfee;i="6600,9927,10716"; a="697259872"
 X-IronPort-AV: E=Sophos;i="6.00,181,1681196400";
-   d="scan'208";a="768114726"
+   d="scan'208";a="697259872"
 Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
-  by fmsmga008.fm.intel.com with ESMTP; 20 May 2023 22:13:11 -0700
+  by orsmga007.jf.intel.com with ESMTP; 20 May 2023 23:55:13 -0700
 Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
 	(envelope-from <lkp@intel.com>)
-	id 1q0bNX-000Bzk-0M;
-	Sun, 21 May 2023 05:13:11 +0000
-Date: Sun, 21 May 2023 13:13:06 +0800
+	id 1q0cyG-000C1c-24;
+	Sun, 21 May 2023 06:55:12 +0000
+Date: Sun, 21 May 2023 14:54:21 +0800
 From: kernel test robot <lkp@intel.com>
 To: Takashi Iwai <tiwai@suse.de>
 Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
 	alsa-devel@alsa-project.org
-Subject: [tiwai-sound:topic/midi20 11/36] sound/usb/midi2.c:826:59: warning:
- variable 'type' is uninitialized when used here
-Message-ID: <202305211230.xsXqNmFC-lkp@intel.com>
+Subject: [tiwai-sound:topic/midi20 13/36] sound/core/ump.c:608:15: warning:
+ variable 'info_flags' set but not used
+Message-ID: <202305211419.wjYDzRY7-lkp@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="9oO2F2RiYfB0RPNv"
+Content-Type: multipart/mixed; boundary="ZoK9i7D0w2RZl2Mt"
 Content-Disposition: inline
 X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Hits: max-size
@@ -88,15 +88,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; news-moderation; no-subject;
  digests; suspicious-header
-Message-ID-Hash: THEPMC66HLAKLCMUHBOPCHEWWH5N2Q7H
-X-Message-ID-Hash: THEPMC66HLAKLCMUHBOPCHEWWH5N2Q7H
+Message-ID-Hash: YDVZ32AEONTFTI7ST4TPP4B6G6QF7BDC
+X-Message-ID-Hash: YDVZ32AEONTFTI7ST4TPP4B6G6QF7BDC
 X-Mailman-Approved-At: Mon, 22 May 2023 06:03:20 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/THEPMC66HLAKLCMUHBOPCHEWWH5N2Q7H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YDVZ32AEONTFTI7ST4TPP4B6G6QF7BDC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,35 +106,35 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---9oO2F2RiYfB0RPNv
+--ZoK9i7D0w2RZl2Mt
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git topic/midi20
 head:   9e08987ec08f99983e56b33fa1762a57b6216b2a
-commit: a9822209474cc230d43b7df9833b25cb3c544b6f [11/36] ALSA: usb-audio: Create UMP blocks from USB MIDI GTBs
+commit: 3a425eaae00098e9fe5d6a5eaaac1760f15f0fa8 [13/36] ALSA: ump: Add legacy raw MIDI support
 config: hexagon-allmodconfig
 compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project b0fb98227c90adf2536c9ad644a74d5e92961111)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
-        # https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/commit/?id=a9822209474cc230d43b7df9833b25cb3c544b6f
+        # https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/commit/?id=3a425eaae00098e9fe5d6a5eaaac1760f15f0fa8
         git remote add tiwai-sound https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
         git fetch --no-tags tiwai-sound topic/midi20
-        git checkout a9822209474cc230d43b7df9833b25cb3c544b6f
+        git checkout 3a425eaae00098e9fe5d6a5eaaac1760f15f0fa8
         # save the config file
         mkdir build_dir && cp config build_dir/.config
         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/tty/serial/ sound/core/ sound/usb/
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash drivers/tty/serial/ sound/core/
 
 If you fix the issue, kindly add following tag where applicable
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202305211230.xsXqNmFC-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202305211419.wjYDzRY7-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
-   In file included from sound/usb/midi2.c:10:
-   In file included from include/linux/usb.h:16:
+   In file included from sound/core/ump.c:12:
+   In file included from include/sound/rawmidi.h:11:
    In file included from include/linux/interrupt.h:11:
    In file included from include/linux/hardirq.h:11:
    In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
@@ -151,8 +151,8 @@ All warnings (new ones prefixed by >>):
    include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
    #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
                                                      ^
-   In file included from sound/usb/midi2.c:10:
-   In file included from include/linux/usb.h:16:
+   In file included from sound/core/ump.c:12:
+   In file included from include/sound/rawmidi.h:11:
    In file included from include/linux/interrupt.h:11:
    In file included from include/linux/hardirq.h:11:
    In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
@@ -166,8 +166,8 @@ All warnings (new ones prefixed by >>):
    include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
    #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
                                                      ^
-   In file included from sound/usb/midi2.c:10:
-   In file included from include/linux/usb.h:16:
+   In file included from sound/core/ump.c:12:
+   In file included from include/sound/rawmidi.h:11:
    In file included from include/linux/interrupt.h:11:
    In file included from include/linux/hardirq.h:11:
    In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
@@ -184,102 +184,66 @@ All warnings (new ones prefixed by >>):
    include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
            __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
                                                          ~~~~~~~~~~ ^
->> sound/usb/midi2.c:826:59: warning: variable 'type' is uninitialized when used here [-Wuninitialized]
-                   usb_audio_dbg(umidi->chip, "Unsupported GTB type %d\n", type);
-                                                                           ^~~~
-   sound/usb/usbaudio.h:79:36: note: expanded from macro 'usb_audio_dbg'
-           dev_dbg(&(chip)->dev->dev, fmt, ##args)
-                                             ^~~~
-   include/linux/dev_printk.h:155:39: note: expanded from macro 'dev_dbg'
-           dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
-                                                ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:272:19: note: expanded from macro 'dynamic_dev_dbg'
-                              dev, fmt, ##__VA_ARGS__)
-                                          ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:248:59: note: expanded from macro '_dynamic_func_call'
-           _dynamic_func_call_cls(_DPRINTK_CLASS_DFLT, fmt, func, ##__VA_ARGS__)
-                                                                    ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:246:65: note: expanded from macro '_dynamic_func_call_cls'
-           __dynamic_func_call_cls(__UNIQUE_ID(ddebug), cls, fmt, func, ##__VA_ARGS__)
-                                                                          ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:222:15: note: expanded from macro '__dynamic_func_call_cls'
-                   func(&id, ##__VA_ARGS__);                       \
-                               ^~~~~~~~~~~
-   sound/usb/midi2.c:801:10: note: initialize the variable 'type' to silence this warning
-           int type, err;
-                   ^
-                    = 0
+>> sound/core/ump.c:608:15: warning: variable 'info_flags' set but not used [-Wunused-but-set-variable]
+           unsigned int info_flags = SNDRV_RAWMIDI_INFO_UMP;
+                        ^
    7 warnings generated.
 
 
-vim +/type +826 sound/usb/midi2.c
+vim +/info_flags +608 sound/core/ump.c
 
-   794	
-   795	/* create a UMP block from a GTB entry */
-   796	static int create_gtb_block(struct snd_usb_midi2_ump *rmidi, int dir, int blk)
-   797	{
-   798		struct snd_usb_midi2_interface *umidi = rmidi->umidi;
-   799		const struct usb_ms20_gr_trm_block_descriptor *desc;
-   800		struct snd_ump_block *fb;
-   801		int type, err;
-   802	
-   803		desc = find_group_terminal_block(umidi, blk);
-   804		if (!desc)
-   805			return 0;
-   806	
-   807		usb_audio_dbg(umidi->chip,
-   808			      "GTB %d: type=%d, group=%d/%d, protocol=%d, in bw=%d, out bw=%d\n",
-   809			      blk, desc->bGrpTrmBlkType, desc->nGroupTrm,
-   810			      desc->nNumGroupTrm, desc->bMIDIProtocol,
-   811			      __le16_to_cpu(desc->wMaxInputBandwidth),
-   812			      __le16_to_cpu(desc->wMaxOutputBandwidth));
-   813	
-   814		/* assign the direction */
-   815		switch (desc->bGrpTrmBlkType) {
-   816		case USB_MS_GR_TRM_BLOCK_TYPE_BIDIRECTIONAL:
-   817			type = SNDRV_UMP_DIR_BIDIRECTION;
-   818			break;
-   819		case USB_MS_GR_TRM_BLOCK_TYPE_INPUT_ONLY:
-   820			type = SNDRV_UMP_DIR_INPUT;
-   821			break;
-   822		case USB_MS_GR_TRM_BLOCK_TYPE_OUTPUT_ONLY:
-   823			type = SNDRV_UMP_DIR_OUTPUT;
-   824			break;
-   825		default:
- > 826			usb_audio_dbg(umidi->chip, "Unsupported GTB type %d\n", type);
-   827			return 0; /* unsupported */
-   828		}
-   829	
-   830		/* guess work: set blk-1 as the (0-based) block ID */
-   831		err = snd_ump_block_new(rmidi->ump, blk - 1, type,
-   832					desc->nGroupTrm, desc->nNumGroupTrm,
-   833					&fb);
-   834		if (err == -EBUSY)
-   835			return 0; /* already present */
-   836		else if (err)
-   837			return err;
-   838	
-   839		if (desc->iBlockItem)
-   840			usb_string(rmidi->dev, desc->iBlockItem,
-   841				   fb->info.name, sizeof(fb->info.name));
-   842	
-   843		if (__le16_to_cpu(desc->wMaxInputBandwidth) == 1 ||
-   844		    __le16_to_cpu(desc->wMaxOutputBandwidth) == 1)
-   845			fb->info.flags |= SNDRV_UMP_BLOCK_IS_MIDI1 |
-   846				SNDRV_UMP_BLOCK_IS_LOWSPEED;
-   847	
-   848		usb_audio_dbg(umidi->chip,
-   849			      "Created a UMP block %d from GTB, name=%s\n",
-   850			      blk, fb->info.name);
-   851		return 0;
-   852	}
-   853	
+   604	
+   605	int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
+   606					  char *id, int device)
+   607	{
+ > 608		unsigned int info_flags = SNDRV_RAWMIDI_INFO_UMP;
+   609		struct snd_rawmidi *rmidi;
+   610		bool input, output;
+   611		int err;
+   612	
+   613		err = snd_ump_convert_init(ump);
+   614		if (err < 0)
+   615			return err;
+   616	
+   617		input = ump->core.info_flags & SNDRV_RAWMIDI_INFO_INPUT;
+   618		output = ump->core.info_flags & SNDRV_RAWMIDI_INFO_OUTPUT;
+   619		if (input)
+   620			info_flags |= SNDRV_RAWMIDI_INFO_INPUT;
+   621		if (output)
+   622			info_flags |= SNDRV_RAWMIDI_INFO_OUTPUT;
+   623		if (input && output)
+   624			info_flags |= SNDRV_RAWMIDI_INFO_DUPLEX;
+   625	
+   626		err = snd_rawmidi_new(ump->core.card, id, device,
+   627				      output ? 16 : 0, input ? 16 : 0,
+   628				      &rmidi);
+   629		if (err < 0) {
+   630			snd_ump_convert_free(ump);
+   631			return err;
+   632		}
+   633	
+   634		if (input)
+   635			snd_rawmidi_set_ops(rmidi, SNDRV_RAWMIDI_STREAM_INPUT,
+   636					    &snd_ump_legacy_input_ops);
+   637		if (output)
+   638			snd_rawmidi_set_ops(rmidi, SNDRV_RAWMIDI_STREAM_OUTPUT,
+   639					    &snd_ump_legacy_output_ops);
+   640		rmidi->info_flags = ump->core.info_flags & ~SNDRV_RAWMIDI_INFO_UMP;
+   641		rmidi->ops = &snd_ump_legacy_ops;
+   642		rmidi->private_data = ump;
+   643		ump->legacy_rmidi = rmidi;
+   644		ump_dbg(ump, "Created a legacy rawmidi #%d (%s)\n", device, id);
+   645		return 0;
+   646	}
+   647	EXPORT_SYMBOL_GPL(snd_ump_attach_legacy_rawmidi);
+   648	#endif /* CONFIG_SND_UMP_LEGACY_RAWMIDI */
+   649	
 
 -- 
 0-DAY CI Kernel Test Service
 https://github.com/intel/lkp-tests/wiki
 
---9oO2F2RiYfB0RPNv
+--ZoK9i7D0w2RZl2Mt
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: attachment; filename=config
 
@@ -6974,6 +6938,7 @@ CONFIG_SND_HWDEP=m
 CONFIG_SND_SEQ_DEVICE=m
 CONFIG_SND_RAWMIDI=m
 CONFIG_SND_UMP=m
+CONFIG_SND_UMP_LEGACY_RAWMIDI=y
 CONFIG_SND_COMPRESS_OFFLOAD=m
 CONFIG_SND_JACK=y
 CONFIG_SND_JACK_INPUT_DEV=y
@@ -12654,4 +12619,4 @@ CONFIG_WARN_MISSING_DOCUMENTS=y
 CONFIG_WARN_ABI_ERRORS=y
 # end of Documentation
 
---9oO2F2RiYfB0RPNv--
+--ZoK9i7D0w2RZl2Mt--

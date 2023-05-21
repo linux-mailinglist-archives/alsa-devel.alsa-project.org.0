@@ -2,116 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB28670ACEA
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 May 2023 10:04:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C558070AD14
+	for <lists+alsa-devel@lfdr.de>; Sun, 21 May 2023 11:06:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD66282B;
-	Sun, 21 May 2023 10:03:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD66282B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1CBE827;
+	Sun, 21 May 2023 11:05:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1CBE827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684656267;
-	bh=nK73Ye6ejAUaeGEcoS926wqHKbD0assrjUqiWGa+uHQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cxH9SkNTZZtvrhnTCnlHPjVBsaaza/kPBf/gGXGJoV+dMVrtcHje6olp1yb0pZwe5
-	 lCLHw/NwonZ5ivmBUF1FuIh65M/B/usCPn9vLzYSNKpyG855PTF+FVZ+QXzVt3sBTd
-	 fzh2W5x+7TIQLpmlD13fQfseqZ4274BpUv5dIjsM=
+	s=default; t=1684659978;
+	bh=7PVs/ap5yk40NFLi5wZrLigSpQHsGNSWazIrT8z2sfQ=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=tYSLimeb5dA2rzKugvQQGv/ZLppw4RW3+3RrV/6lgTUodeM7rLv0f/0Odv3Fg0n4c
+	 RnDdECjRmmOciVGUJinS9M4ZTSy4Vu6Md2WgkEjTfFbzNIboDRoXrKXmSVQ9WgX9RO
+	 dYPL1n6z9eihsZcrJuWB8aArcYZFysFUKBwbrT1Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2FC3F8016A; Sun, 21 May 2023 10:03:35 +0200 (CEST)
+	id 33E0FF80425; Sun, 21 May 2023 11:05:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB90BF80249;
-	Sun, 21 May 2023 10:03:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB680F80249;
+	Sun, 21 May 2023 11:05:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0EEF7F8024E; Sun, 21 May 2023 10:02:58 +0200 (CEST)
+	id B275AF8024E; Sun, 21 May 2023 11:05:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0669FF8016A
-	for <alsa-devel@alsa-project.org>; Sun, 21 May 2023 10:02:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0669FF8016A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=g7+YFBuK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=8OBNf4Pi
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 779031FD7B;
-	Sun, 21 May 2023 08:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1684656165;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pCK3meqcPobnyOfFHNVNquedHciiEj56/ANbHw3V9G0=;
-	b=g7+YFBuKM8l4Dzz/5km5k9RkyklczO+aJCZDx7HB6Wg0fueUKjgrTy+ACYvF9vfMDaXRPd
-	Z3+sk1771dLOfc5jDPJOLMkxiZVMdCv7H2+gPk1jPW8x/F3ZefExcGHXyWks10NxwDyrYW
-	D7bzKBp5Hzi5XD1jYlGkZdaxGzfMPS4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684656165;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pCK3meqcPobnyOfFHNVNquedHciiEj56/ANbHw3V9G0=;
-	b=8OBNf4PibLW2junhTZok8nZ8XLPBMpy+chGHjUvmsfyxlvSYkrS45BQbKXL3SdZttcOPBZ
-	l5igGOtL/05LfMBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 142501346B;
-	Sun, 21 May 2023 08:02:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id cODvAyXQaWT0LgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sun, 21 May 2023 08:02:45 +0000
-Date: Sun, 21 May 2023 10:02:44 +0200
-Message-ID: <871qjayuvv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Shenghao Ding <13916275206@139.com>
-Cc: broonie@kernel.org,
-	devicetree@vger.kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	robh+dt@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com,
-	shenghao-ding@ti.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	x1077012@ti.com,
-	peeyush@ti.com,
-	navada@ti.com,
-	gentuser@gmail.com,
-	Ryan_Chu@wistron.com,
-	Sam_Wu@wistron.com
-Subject: Re: [PATCH v3 4/5] ALSA: hda/tas2781: Add tas2781 HDA driver
-In-Reply-To: <20230519080227.20224-1-13916275206@139.com>
-References: <20230519080227.20224-1-13916275206@139.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: RLQIEP57HO5HQBUIHX7KWJF5ZSV2XGKY
-X-Message-ID-Hash: RLQIEP57HO5HQBUIHX7KWJF5ZSV2XGKY
-X-MailFrom: tiwai@suse.de
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id C6728F800DF
+	for <alsa-devel@alsa-project.org>; Sun, 21 May 2023 11:05:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6728F800DF
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1684659915435691595-webhooks-bot@alsa-project.org>
+References: <1684659915435691595-webhooks-bot@alsa-project.org>
+Subject: Add Korean translations
+Message-Id: <20230521090522.B275AF8024E@alsa1.perex.cz>
+Date: Sun, 21 May 2023 11:05:22 +0200 (CEST)
+Message-ID-Hash: EQGIJOMO5RQLNXU2ZOU5CDGSFTZGDUM2
+X-Message-ID-Hash: EQGIJOMO5RQLNXU2ZOU5CDGSFTZGDUM2
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -123,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RLQIEP57HO5HQBUIHX7KWJF5ZSV2XGKY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EQGIJOMO5RQLNXU2ZOU5CDGSFTZGDUM2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,319 +69,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 19 May 2023 10:02:27 +0200,
-Shenghao Ding wrote:
-> 
-> Create tas2781 HDA driver.
-> 
-> Signed-off-by: Shenghao Ding <13916275206@139.com>
+alsa-project/alsa-utils pull request #214 was opened from yi-yunseok:
 
-First of all, please give more description.  It's far more changes
-than written in four words.
+As a sub.
 
-Also, don't forget to put me on Cc.  I almost overlooked this one.
-
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 172ffc2c332b..f5b912f90018 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> +static int comp_match_tas2781_dev_name(struct device *dev, void *data)
-> +{
-> +	struct scodec_dev_name *p = data;
-> +	const char *d = dev_name(dev);
-> +	int n = strlen(p->bus);
-> +	char tmp[32];
-> +
-> +	/* check the bus name */
-> +	if (strncmp(d, p->bus, n))
-> +		return 0;
-> +	/* skip the bus number */
-> +	if (isdigit(d[n]))
-> +		n++;
-> +	/* the rest must be exact matching */
-> +	snprintf(tmp, sizeof(tmp), "-%s:00", p->hid);
-> +
-> +	return !strcmp(d + n, tmp);
-> +}
-
-You don't use the index here...
-
-> +static void tas2781_generic_fixup(struct hda_codec *cdc, int action,
-> +	const char *bus, const char *hid, int count)
-> +{
-> +	struct device *dev = hda_codec_dev(cdc);
-> +	struct alc_spec *spec = cdc->spec;
-> +	struct scodec_dev_name *rec;
-> +	int ret, i;
-> +
-> +	switch (action) {
-> +	case HDA_FIXUP_ACT_PRE_PROBE:
-> +		for (i = 0; i < count; i++) {
-> +			rec = devm_kmalloc(dev, sizeof(*rec), GFP_KERNEL);
-> +			if (!rec)
-> +				return;
-> +			rec->bus = bus;
-> +			rec->hid = hid;
-> +			rec->index = i;
-
-... and assigning here.  It means that the multiple instances would
-silently break.  It's better to catch here instead.
-
-> +static void tas2781_fixup_i2c(struct hda_codec *cdc,
-> +	const struct hda_fixup *fix, int action)
-> +{
-> +	 tas2781_generic_fixup(cdc, action, "i2c", "TIAS2781", 1);
-> +}
-> +
->  /* for alc295_fixup_hp_top_speakers */
->  #include "hp_x360_helper.c"
->  
-> @@ -7201,6 +7260,8 @@ enum {
->  	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN,
->  	ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS,
->  	ALC236_FIXUP_DELL_DUAL_CODECS,
-> +	ALC287_FIXUP_TAS2781_I2C_2,
-> +	ALC287_FIXUP_TAS2781_I2C_4
->  };
->  
->  /* A special fixup for Lenovo C940 and Yoga Duet 7;
-> @@ -9189,6 +9250,18 @@ static const struct hda_fixup alc269_fixups[] = {
->  		.chained = true,
->  		.chain_id = ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
->  	},
-> +	[ALC287_FIXUP_TAS2781_I2C_2] = {
-> +		.type = HDA_FIXUP_FUNC,
-> +		.v.func = tas2781_fixup_i2c,
-> +		.chained = true,
-> +		.chain_id = ALC269_FIXUP_THINKPAD_ACPI,
-> +	},
-> +	[ALC287_FIXUP_TAS2781_I2C_4] = {
-> +		.type = HDA_FIXUP_FUNC,
-> +		.v.func = tas2781_fixup_i2c,
-> +		.chained = true,
-> +		.chain_id = ALC269_FIXUP_THINKPAD_ACPI,
-> +	},
-
-What's a difference between *_2 and *_4?
-
-> --- /dev/null
-> +++ b/sound/pci/hda/tas2781_hda_i2c.c
-> +static int tas2781_acpi_get_i2c_resource(struct acpi_resource
-> +	*ares, void *data)
-> +{
-> +	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *)data;
-> +	struct acpi_resource_i2c_serialbus *sb;
-> +
-> +	if (i2c_acpi_get_i2c_resource(ares, &sb)) {
-> +		if (sb->slave_address != TAS2781_GLOBAL_ADDR) {
-> +			tas_priv->tasdevice[tas_priv->ndev].dev_addr =
-> +				(unsigned int) sb->slave_address;
-> +			tas_priv->ndev++;
-> +		} else
-> +			tas_priv->glb_addr.dev_addr = TAS2781_GLOBAL_ADDR;
-> +
-
-Did you run checkpatch.pl?  I thought it would complain.
-
-> +static void tas2781_hda_playback_hook(struct device *dev, int action)
-> +{
-> +	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-> +	int ret = 0;
-> +
-> +	dev_info(tas_priv->dev, "%s: action = %d\n", __func__, action);
-
-Don't use dev_info().  It'd be dev_dbg() at most.
-
-> +	switch (action) {
-> +	case HDA_GEN_PCM_ACT_OPEN:
-> +		pm_runtime_get_sync(dev);
-> +		mutex_lock(&tas_priv->codec_lock);
-> +		tas_priv->cur_conf = 0;
-> +		tas_priv->rcabin.profile_cfg_id = 1;
-> +		tasdevice_tuning_switch(tas_priv, 0);
-> +		mutex_unlock(&tas_priv->codec_lock);
-> +		break;
-> +	case HDA_GEN_PCM_ACT_CLOSE:
-> +		mutex_lock(&tas_priv->codec_lock);
-> +		tasdevice_tuning_switch(tas_priv, 1);
-> +		mutex_unlock(&tas_priv->codec_lock);
-> +
-> +		pm_runtime_mark_last_busy(dev);
-> +		pm_runtime_put_autosuspend(dev);
-> +		break;
-> +	default:
-> +		dev_warn(tas_priv->dev, "Playback action not supported: %d\n",
-> +			action);
-> +		break;
-> +	}
-> +
-> +	if (ret)
-> +		dev_err(tas_priv->dev, "Regmap access fail: %d\n", ret);
-
-The ret is never used.
-
-> +static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
-> +		struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-> +
-> +	tas_priv->rcabin.profile_cfg_id = ucontrol->value.integer.value[0];
-> +
-> +	return 1;
-
-It should return 0 if the value is unchanged.
-(Ditto for other *_put functions)
-
-> +static int tasdevice_create_control(struct tasdevice_priv *tas_priv)
-> +{
-> +	char prof_ctrl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-> +	struct hda_codec *codec = tas_priv->codec;
-> +	struct snd_kcontrol_new prof_ctrl = {
-> +		.name = prof_ctrl_name,
-> +		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-> +		.info = tasdevice_info_profile,
-> +		.get = tasdevice_get_profile_id,
-> +		.put = tasdevice_set_profile_id,
-> +	};
-> +	int ret;
-> +
-> +	/* Create a mixer item for selecting the active profile */
-> +	scnprintf(prof_ctrl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
-> +		"tasdev-profile-id");
-
-A too bad name as a control element.  Use a more readable one.
-
-> +static int tasdevice_info_programs(struct snd_kcontrol *kcontrol,
-> +			struct snd_ctl_elem_info *uinfo)
-> +{
-> +	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-> +	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-> +
-> +	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-> +	uinfo->count = 1;
-> +	uinfo->value.integer.min = 0;
-> +	uinfo->value.integer.max = (int)tas_fw->nr_programs;
-
-The cast is superfluous.
-
-> +static int tasdevice_info_configurations(
-> +	struct snd_kcontrol *kcontrol, struct snd_ctl_elem_info *uinfo)
-> +{
-> +	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
-> +	struct tasdevice_fw *tas_fw = tas_priv->fmw;
-> +
-> +	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
-> +	uinfo->count = 1;
-> +	uinfo->value.integer.min = 0;
-> +	uinfo->value.integer.max = (int)tas_fw->nr_configurations - 1;
-
-Ditto.
-
-> +/**
-> + * tas2781_digital_getvol - get the volum control
-> + * @kcontrol: control pointer
-> + * @ucontrol: User data
-> + * Customer Kcontrol for tas2781 is primarily for regmap booking, paging
-> + * depends on internal regmap mechanism.
-> + * tas2781 contains book and page two-level register map, especially
-> + * book switching will set the register BXXP00R7F, after switching to the
-> + * correct book, then leverage the mechanism for paging to access the
-> + * register.
-> + */
-
-You shouldn't use the kerneldoc marker "/**" for local static
-functions.  It's not a part of API.
-
-> +static int tasdevice_dsp_create_ctrls(struct tasdevice_priv
-> +	*tas_priv)
-> +{
-> +	char prog_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-> +	char conf_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-> +	struct hda_codec *codec = tas_priv->codec;
-> +	struct snd_kcontrol_new prog_ctl = {
-> +		.name = prog_name,
-> +		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-> +		.info = tasdevice_info_programs,
-> +		.get = tasdevice_program_get,
-> +		.put = tasdevice_program_put,
-> +	};
-> +	struct snd_kcontrol_new conf_ctl = {
-> +		.name = conf_name,
-> +		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-> +		.info = tasdevice_info_configurations,
-> +		.get = tasdevice_config_get,
-> +		.put = tasdevice_config_put,
-> +	};
-> +	int ret;
-> +
-> +	scnprintf(prog_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "tasdev-prog-id");
-> +	scnprintf(conf_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "tasdev-conf-id");
-
-Please use better names.
-
-> +static void tas2781_apply_calib(struct tasdevice_priv *tas_priv)
-> +{
-> +	unsigned char page_array[CALIB_MAX] = {0x17, 0x18, 0x18, 0x0d, 0x18};
-> +	unsigned char rgno_array[CALIB_MAX] = {0x74, 0x0c, 0x14, 0x3c, 0x7c};
-
-Should be static const arrays.
-
-> +static int tas2781_save_calibration(struct tasdevice_priv *tas_priv)
-> +{
-> +	efi_guid_t efi_guid = EFI_GUID(0x02f9af02, 0x7734, 0x4233, 0xb4, 0x3d,
-> +		0x93, 0xfe, 0x5a, 0xa3, 0x5d, 0xb3);
-> +	static efi_char16_t efi_name[] = L"CALI_DATA";
-> +	struct hda_codec *codec = tas_priv->codec;
-> +	unsigned int subid = codec->core.subsystem_id & 0xFFFF;
-> +	struct tm *tm = &tas_priv->tm;
-> +	unsigned int attr, crc;
-> +	unsigned int *tmp_val;
-> +	efi_status_t status;
-> +	int ret = 0;
-> +
-> +	//Lenovo devices
-> +	if ((subid == 0x387d) || (subid == 0x387e) || (subid == 0x3881)
-> +		|| (subid == 0x3884) || (subid == 0x3886) || (subid == 0x38a7)
-> +		|| (subid == 0x38a8) || (subid == 0x38ba) || (subid == 0x38bb)
-> +		|| (subid == 0x38be) || (subid == 0x38bf) || (subid == 0x38c3)
-> +		|| (subid == 0x38cb) || (subid == 0x38cd))
-> +		efi_guid = EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc, 0x09,
-> +			0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92);
-
-Here can be a problem: the device ID is embedded here, and it's hard
-to find out.  You'd better to make it some quirk flag that is set in a
-common place and check the flag here instead of checking ID at each
-place.
-
-> +	crc = crc32(~0, tas_priv->cali_data.data, 84) ^ ~0;
-> +	dev_info(tas_priv->dev, "cali crc 0x%08x PK tmp_val 0x%08x\n",
-> +		crc, tmp_val[21]);
-
-If it's a dev_info() output, make it more understandable.
-
-> +	if (crc == tmp_val[21]) {
-> +		time64_to_tm(tmp_val[20], 0, tm);
-> +		dev_info(tas_priv->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
-> +			tm->tm_year, tm->tm_mon, tm->tm_mday,
-> +			tm->tm_hour, tm->tm_min, tm->tm_sec);
-
-Ditto.  Or, make them a debug print instead.
-
-> +static int tas2781_runtime_suspend(struct device *dev)
-> +{
-> +	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-> +	int i, ret = 0;
-> +
-> +	dev_info(tas_priv->dev, "Runtime Suspend\n");
-
-It must be a debug print.  Otherwise it'll be too annoying.
-
-Also, as a minor nitpicking, there are many functions that set ret = 0
-at the beginning but never used.  The unconditional 0 initialization
-is often a bad sign indicating that the author doesn't think fully of
-the code flow.  Please revisit those.
-
-
-thanks,
-
-Takashi
+Request URL   : https://github.com/alsa-project/alsa-utils/pull/214
+Patch URL     : https://github.com/alsa-project/alsa-utils/pull/214.patch
+Repository URL: https://github.com/alsa-project/alsa-utils

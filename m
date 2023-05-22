@@ -2,102 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D2570B662
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 09:22:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C47F570B695
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 09:33:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5123620C;
-	Mon, 22 May 2023 09:21:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5123620C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7723D1F7;
+	Mon, 22 May 2023 09:32:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7723D1F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684740151;
-	bh=jGWSmm9gv7/pVW8niI5WePIe+zZc0wYiCQwetGTeemo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1684740804;
+	bh=+mtRdSaVYScohMoZvnn2EcZ8Ar9NBmGDbGfgH3a1vTo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OKdRDzV2y8XQ8aZErqTfNuSu6Z+6QwI2G9U3Y7felmkhfOJQdi/j3mbmFFxVj2gFb
-	 9HrbREUX2cpbi8M5Vzmrr/bBHEJ1PSVAZtb9hhrk7lzmSAC4IC91uVmQOz11qa4jP9
-	 met3619wLDJed/ZbwXWsj5VXxxaHZ00yysXkCfmM=
+	b=cWMLCe6bxxlQpdfaTcPY5mZRKI96DMWCvUIj3J3AQf0maMNBNqpjHIRcwhKGvQHc3
+	 ohJmNBZRGd7MyblP47C2eUkMIlEvsBeP3DZaCeNAqCPUQrr8YINUttcp++g6KJgNar
+	 oH9T83WSjN7z6pj6prcsrhDCuNqbkWg+vBYIKrQA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 546FCF80542; Mon, 22 May 2023 09:21:40 +0200 (CEST)
+	id AE289F8053D; Mon, 22 May 2023 09:32:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6C8BF80249;
-	Mon, 22 May 2023 09:21:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6673DF80249;
+	Mon, 22 May 2023 09:32:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D010F8024E; Mon, 22 May 2023 09:21:36 +0200 (CEST)
+	id 6DF76F8024E; Mon, 22 May 2023 09:32:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-2.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6BDB8F80053
-	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 09:21:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BDB8F80053
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=YYqPrN04;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=dMuYKASk
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0E73F8016A
+	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 09:32:23 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C4FFC1E3C;
+	Mon, 22 May 2023 09:32:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C4FFC1E3C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+	t=1684740742; bh=YMJ/ZtR0fiKGFr3XfuUF0CoNeP/TWv2UdxOVuNCX3As=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=5PWYoq5P8aa24G1Hyj5EKI6ANao+S804hrw4K0O5QTMxG4rNXcu9Ppe2zrEcZNYyx
+	 I+qm5aIhENiUU9lg8nNbcVXVHWrLrvse76rDAxtU5S1+A5jIaX1RYCnlyFVoKHgT9G
+	 ebvSYq1QHMkNAQiwQ5n1fa9vAfO2YjI8P8Nf1ByE=
+Received: from [192.168.100.98] (unknown [192.168.100.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B89931FDAF;
-	Mon, 22 May 2023 07:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1684740092;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fcpnjW2vqXIXtmdGf9iNyCE90YLY5sYWaK5RSd3g/nA=;
-	b=YYqPrN04PSml0QeTXS+T4SeOEBEzCq32saDGEcqeQC9FVFMUuSRg0eSXjTvUT5Dae49oU3
-	hbvwooj5b9RDllB9dMeiqJQ749e32z2Ncihu1ZXNqGgn13l/oGBCXcdKymnGYSQ6nWt9K3
-	lx/vKfidcUXOxQWpq0uavNS4aDUVJwc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684740092;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fcpnjW2vqXIXtmdGf9iNyCE90YLY5sYWaK5RSd3g/nA=;
-	b=dMuYKASknN9uqvzt08LIArz6f5OlnQVVl9LgxjkHOgqHwV+qJvRu+iMue/HSWaBigt222V
-	22i0niDBjYOciuCQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A20013336;
-	Mon, 22 May 2023 07:21:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id B2B3JPwXa2STMQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 22 May 2023 07:21:32 +0000
-Date: Mon, 22 May 2023 09:21:32 +0200
-Message-ID: <87mt1wygoz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
+	(Authenticated sender: perex)
+	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+	Mon, 22 May 2023 09:32:20 +0200 (CEST)
+Message-ID: <28f94a8c-ae3b-4ffb-d9e4-5196eb2b7881@perex.cz>
+Date: Mon, 22 May 2023 09:32:19 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH 23/36] ALSA: seq: Introduce SNDRV_SEQ_IOCTL_USER_PVERSION
+ ioctl
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
 Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH 03/36] ALSA: rawmidi: UMP support
-In-Reply-To: <d22c2686-9b36-40b7-f284-17e8b78a04ac@perex.cz>
 References: <20230519093114.28813-1-tiwai@suse.de>
-	<20230519093114.28813-4-tiwai@suse.de>
-	<d22c2686-9b36-40b7-f284-17e8b78a04ac@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: ASFYXLAWPNPRXA4PFDRCMYFBNJMTXPHW
-X-Message-ID-Hash: ASFYXLAWPNPRXA4PFDRCMYFBNJMTXPHW
-X-MailFrom: tiwai@suse.de
+ <20230519093114.28813-24-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20230519093114.28813-24-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: P6Q4JQYDOA7GO7BFNQRIWSOB4C5FAJM4
+X-Message-ID-Hash: P6Q4JQYDOA7GO7BFNQRIWSOB4C5FAJM4
+X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ASFYXLAWPNPRXA4PFDRCMYFBNJMTXPHW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P6Q4JQYDOA7GO7BFNQRIWSOB4C5FAJM4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,74 +96,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 22 May 2023 08:34:20 +0200,
-Jaroslav Kysela wrote:
+On 19. 05. 23 11:31, Takashi Iwai wrote:
+> For the future extension of ALSA sequencer ABI, introduce a new ioctl
+> SNDRV_SEQ_IOCTL_USER_PVERSION.  This is similar like the ioctls used
+> in PCM and other interfaces, for an application to specify its
+> supporting ABI version.
 > 
-> On 19. 05. 23 11:30, Takashi Iwai wrote:
-> > This patch adds the support helpers for UMP (Universal MIDI Packet) in
-> > ALSA core.
-> > 
-> > The basic design is that a rawmidi instance is assigned to each UMP
-> > Endpoint.  A UMP Endpoint provides a UMP stream, typically
-> > bidirectional (but can be also uni-directional, too), which may hold
-> > up to 16 UMP Groups, where each UMP (input/output) Group corresponds
-> > to the traditional MIDI I/O Endpoint.
-> > 
-> > Additionally, the ALSA UMP abstraction provides the multiple UMP
-> > Blocks that can be assigned to each UMP Endpoint.  A UMP Block is a
-> > metadata to hold the UMP Group clusters, and can represent the
-> > functions assigned to each UMP Group.  A typical implementation of UMP
-> > Block is the Group Terminal Blocks of USB MIDI 2.0 specification.
-> > 
-> > For distinguishing from the legacy byte-stream MIDI device, a new
-> > device "umpC*D*" will be created, instead of the standard (MIDI 1.0)
-> > devices "midiC*D*".  The UMP instance can be identified by the new
-> > rawmidi info bit SNDRV_RAWMIDI_INFO_UMP, too.
-> > 
-> > A UMP rawmidi device reads/writes only in 4-bytes words alignment,
-> > stored in CPU native endianness.
-> > 
-> > The transmit and receive functions take care of the input/out data
-> > alignment, and may return zero or aligned size, and the params ioctl
-> > may return -EINVAL when the given input/output buffer size isn't
-> > aligned.
-> > 
-> > A few new UMP-specific ioctls are added for obtaining the new UMP
-> > endpoint and block information.
-> > 
-> > As of this commit, no ALSA sequencer instance is attached to UMP
-> > devices yet.  They will be supported by later patches.
-> > 
-> > Along with those changes, the protocol version for rawmidi is bumped
-> > to 2.0.3.
-> > 
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> The use of this ioctl will be mandatory for the upcoming UMP support.
 > 
-> Reviewed-by: Jaroslav Kysela
-> 
-> except:
-> 
-> > +/* UMP Endpoint information */
-> > +struct snd_ump_endpoint_info {
-> > +	int card;			/* card number */
-> > +	int device;			/* device number */
-> 
-> I suspect that those two fields were added to enumerate devices in the
-> control API. But this extension seems to be missing in your
-> patches. There is only SNDRV_CTL_IOCTL_UMP_NEXT_DEVICE
-> implemented. Otherwise those two fields are not useful.
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-The SNDRV_CTL_IOCTL_UMP_NEXT_DEVICE is looping over rawmidi, and
-snd_rawmidi_info is provided for (kernel) UMP implementation.
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
-I took over those fields from snd_rawmidi_info, and they are supposed
-to be referred rather from sequencer clients/ports (as well as from
-the UMP rawmidi).  Then it could be useful when a user-space sequencer
-client implements the UMP in future, and distinguish its identity.
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
-But, it's no big deal to drop those, too.
-
-
-thanks,
-
-Takashi

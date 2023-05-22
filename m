@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33E0870B52D
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 08:38:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 011DE70B533
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 08:41:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38C0720C;
-	Mon, 22 May 2023 08:37:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38C0720C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E3EF822;
+	Mon, 22 May 2023 08:40:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E3EF822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684737506;
-	bh=Bo/IPiyXlfOSaqEHLLOVLILFh5SunUvciEFec8V4U1s=;
+	s=default; t=1684737659;
+	bh=R+FMX+JoIRs3gcqHYZ4RAdPn9Obj4KViC2p+94A/OmQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eV52xmhicOoC3Pez+j4yLA8uLvbGBUkC2j/t4z1qaODw41ZFJuRlvJyQxsAx8qvSL
-	 1VDCkinTaFiWrYVbHvCpqld+/YkQjGECL+8qAJdwhnc92gdgMc4JEZuGQCtHSZR28k
-	 LfFfsaBzpYzTFXuMW1KB8qhnnWWSWOJPkB/Vg3gk=
+	b=Wia624px/nLBt9Fa3/VUkJ91XqUmEXpMwaT/ZMWTrTx4HmM4V1SjWsY9IT8gwudUj
+	 pGwM2OmWlC+ur4P+wK3s1CE0mmwze6waU2T/aUkc8Jf013RajjJoAOpC45J4U271/8
+	 aZE+wv23l56idH7O86lD9L3LeuQ3WdSNSmzwLoVY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 017DAF8016A; Mon, 22 May 2023 08:37:35 +0200 (CEST)
+	id 0CA0DF8053D; Mon, 22 May 2023 08:39:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C73EEF80249;
-	Mon, 22 May 2023 08:37:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AE1CF80249;
+	Mon, 22 May 2023 08:39:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF6BDF8024E; Mon, 22 May 2023 08:37:31 +0200 (CEST)
+	id 7C01DF8024E; Mon, 22 May 2023 08:39:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,42 +37,42 @@ Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E5208F8016A
-	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 08:37:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84ADDF80086
+	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 08:39:41 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5DC961E35;
-	Mon, 22 May 2023 08:37:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5DC961E35
+	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 492571E2D;
+	Mon, 22 May 2023 08:39:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 492571E2D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1684737448; bh=Z+wgQr2djj0mYrK6FwnTDhUs1THNxxCuuNK30B12I/g=;
+	t=1684737580; bh=WLPeJmjqhNZJRajGazb7h+30PLCuDPl1VHxezExcNjI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dIleVkGw9OEw/Naj0QvRYJ7uV9Cqop3LKJ9ubABf+/5DjeQejKBvBIQ6hQ2V9iTcK
-	 9cFukQO/3e0UDRBRJrPeSJBlkCv5rywy6Wa4KYtpq2HVbIEqSOjfggX3KXITNMKGIu
-	 h9sTb+/tvVlqlxrP+grrn4fsUg+/LmP33qfzMMRo=
+	b=F+mdatBp3Q6Uam3xMV8kEnbI1IoKPXJSaFpYmKgnaYj3h/eidHpvuk20HL7QnVcjt
+	 s2VnK4MDf66vVtSKGkh7Gr6FhIdU5GCWktqMVeWea0TvaD+JfHV/pLufFUCbN2X0oC
+	 +vZurQu4q7Kl5NvLqQu/54BGyHRSoioFdEnzwXtM=
 Received: from [192.168.100.98] (unknown [192.168.100.98])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: perex)
 	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon, 22 May 2023 08:37:26 +0200 (CEST)
-Message-ID: <b403fdec-0eb8-8830-2310-d584c2114b8a@perex.cz>
-Date: Mon, 22 May 2023 08:37:26 +0200
+	Mon, 22 May 2023 08:39:38 +0200 (CEST)
+Message-ID: <3b92b8a5-5307-bcf6-9147-79881d6a55a3@perex.cz>
+Date: Mon, 22 May 2023 08:39:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH 05/36] ALSA: ump: Additional proc output
+Subject: Re: [PATCH 06/36] ALSA: usb-audio: Manage number of rawmidis globally
 Content-Language: en-US
 To: Takashi Iwai <tiwai@suse.de>
 Cc: alsa-devel@alsa-project.org
 References: <20230519093114.28813-1-tiwai@suse.de>
- <20230519093114.28813-6-tiwai@suse.de>
+ <20230519093114.28813-7-tiwai@suse.de>
 From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20230519093114.28813-6-tiwai@suse.de>
+In-Reply-To: <20230519093114.28813-7-tiwai@suse.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DHMJDVDGFRGA6FXWRCQDFW5KDKCMVQ7T
-X-Message-ID-Hash: DHMJDVDGFRGA6FXWRCQDFW5KDKCMVQ7T
+Message-ID-Hash: PBEYN7T46AKB7DKLCWGDLINU2Y5Y3F37
+X-Message-ID-Hash: PBEYN7T46AKB7DKLCWGDLINU2Y5Y3F37
 X-MailFrom: perex@perex.cz
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -85,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DHMJDVDGFRGA6FXWRCQDFW5KDKCMVQ7T/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PBEYN7T46AKB7DKLCWGDLINU2Y5Y3F37/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,12 +95,11 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 19. 05. 23 11:30, Takashi Iwai wrote:
-> UMP devices may have more interesting information than the traditional
-> rawmidi.  Extend the rawmidi_global_ops to allow the optional proc
-> info output and show some more bits in the proc file for UMP.
-> 
-> Note that the "Groups" field shows the first and the last UMP Groups,
-> and both numbers are 1-based (i.e. the first group is 1).
+> We're going to create rawmidi objects for MIDI 2.0 in a different code
+> from the current code for USB-MIDI 1.0.  As a preliminary work, this
+> patch adds the number of rawmidi objects to keep globally in a
+> USB-audio card instance, so that it can be referred from both MIDI 1.0
+> and 2.0 code.
 > 
 > Signed-off-by: Takashi Iwai <tiwai@suse.de>
 

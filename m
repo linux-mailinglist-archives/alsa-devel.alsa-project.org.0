@@ -2,96 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82E1070CAFB
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 22:29:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3EEF70CB28
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 22:34:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AC541EF;
-	Mon, 22 May 2023 22:29:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AC541EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70C68206;
+	Mon, 22 May 2023 22:33:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70C68206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684787395;
-	bh=06gJ26y6/+tD6/04ZXWm0S0iHd38ABjCkIpWuxdpj2I=;
+	s=default; t=1684787682;
+	bh=Nx56cbf63OXaAUSBYAnLL+ze08ugHBspK4d6BmMPYso=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fgDD1lfn5OARnviWYrBsBGos3re6POlA4sQ8rWTnY8z+V9zzwOTv8dAw45f93Yw7A
-	 7mbEnh3ZWKWi8yahYrQZ2Mwi7KBr5DAXizJFyrDF/g3fyYSIr3UW6RuU9dLPKzc8DU
-	 5bFACKTwOCO5Y/HLV5VdRpQECVesgtjnmJorSq8Q=
+	b=lU4E1aUHgyR/Gzv0UOJmTW1rVtxm9QHLv0dpI+oHKdPkR/WYtI91GhjkpBU9OsCJb
+	 PqTBD8lypR0xPtSbCSvI92C++lsnIwCHPhn/reNMYnc+jhzeZ8SfWpqbBoOkFp0JOs
+	 XsXtAyE7zvjHIJi3WQQG0mO0lrwOj5JW5TmUovq0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C4449F80553; Mon, 22 May 2023 22:29:04 +0200 (CEST)
+	id 5EA2AF8016A; Mon, 22 May 2023 22:33:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AC54F80249;
-	Mon, 22 May 2023 22:29:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4E01F80249;
+	Mon, 22 May 2023 22:33:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B91ECF8024E; Mon, 22 May 2023 22:28:58 +0200 (CEST)
+	id 3BB07F8024E; Mon, 22 May 2023 22:33:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E0758F8016A;
-	Mon, 22 May 2023 22:28:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0758F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id EAA5EF80086;
+	Mon, 22 May 2023 22:33:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAA5EF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fB4cuQvH
+ header.s=Intel header.b=gclKp644
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684787333; x=1716323333;
+  t=1684787602; x=1716323602;
   h=message-id:subject:from:to:cc:date:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=06gJ26y6/+tD6/04ZXWm0S0iHd38ABjCkIpWuxdpj2I=;
-  b=fB4cuQvHVZ3QTfAdI8J7BM4DIpbQ2xT4agsZpRcIE9X51cX8L+OxWKxF
-   ngmEmqOkEziSSwbKxG+7d+KgTgoNTY3xbsTe22rLIOhzwlj2Kxqno3W/4
-   3pbABvH9j1yhgUyjM0/UcRNGHuFNfBJuJqNekDB/yv1GanyDdu2VEGryP
-   luvtpgD3yzr6KZ0ZfVsB0h4qrqfhov3blfgs3Bbg+bPZecrzo3V+x03LH
-   XP8CRvAg3IjjLeJa0MTHyn0EvMJN0tj+Rmg/hlxARZHdSw4EuHC4FfqPW
-   b3Iq1nQXyj7vcyisVGLoFYTrZBDCQhFhRb8yM5XwmXWHBRb113CcqvGXF
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="333396981"
+  bh=Nx56cbf63OXaAUSBYAnLL+ze08ugHBspK4d6BmMPYso=;
+  b=gclKp644M68PYC4+1NDuYCSMnvrWyE8MkqlnBRZuYmBs+TE3i/s0Xc+P
+   JNr+AZvuYd49qIfknpsXk1M1mmq/pODGjgm4ZkSSzdTFr9np+8cZFrqiu
+   HTZFfZbB2D9DBDxSqyCHGO4MSttERLnKH2R24NP79pN88yOwWW8EKvTnt
+   WURO4aR3L64Q+Ggin6GZWkqnEcIUF/U8LeLAIAu0HmiHb44MQQCBMGAGG
+   jG2bLpxnd0UjqADSyT/waLvdIDOIno4ygfROQvExkzDWh6/iTjbfQYyGZ
+   oaD/nBb7goRKbQe8AeRK0V1m/XtYeeYdPkcIh4Wm9l+cLTomKV3hYobbx
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="439389512"
 X-IronPort-AV: E=Sophos;i="6.00,184,1681196400";
-   d="scan'208";a="333396981"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2023 13:28:37 -0700
+   d="scan'208";a="439389512"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2023 13:33:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="827824711"
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="1033750097"
 X-IronPort-AV: E=Sophos;i="6.00,184,1681196400";
-   d="scan'208";a="827824711"
+   d="scan'208";a="1033750097"
 Received: from avelapox-mobl.amr.corp.intel.com ([10.212.71.122])
-  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2023 13:28:36 -0700
-Message-ID: <58928aec02be483e8a188fcc6e53d805a24534aa.camel@linux.intel.com>
-Subject: Re: [PATCH next] ASoC: SOF: Intel: hda-dai: Fix locking in
- hda_ipc4_pre_trigger()
+  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2023 13:33:16 -0700
+Message-ID: <ffc0ebdded5e8ec3a00c07347f17f1b78640324f.camel@linux.intel.com>
+Subject: Re: [PATCH -next] ASoC: SOF: ipc4-topology: Fix an unsigned
+ comparison which can never be negative
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, Pierre-Louis
- Bossart <pierre-louis.bossart@linux.intel.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Kai Vehmanen
- <kai.vehmanen@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, Mark
- Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Rander Wang <rander.wang@intel.com>, Jyri Sarha
- <jyri.sarha@intel.com>, sound-open-firmware@alsa-project.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Cc: error27@gmail.com, dan.carpenter@linaro.org,
-	kernel-janitors@vger.kernel.org
-Date: Mon, 22 May 2023 13:28:30 -0700
-In-Reply-To: <20230519064404.1659637-1-harshit.m.mogalapalli@oracle.com>
-References: <20230519064404.1659637-1-harshit.m.mogalapalli@oracle.com>
+To: Yang Li <yang.lee@linux.alibaba.com>, perex@perex.cz
+Cc: tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com,  peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com,  daniel.baluta@nxp.com,
+ kai.vehmanen@linux.intel.com, broonie@kernel.org,
+ sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>
+Date: Mon, 22 May 2023 13:33:16 -0700
+In-Reply-To: <20230516081116.71370-1-yang.lee@linux.alibaba.com>
+References: <20230516081116.71370-1-yang.lee@linux.alibaba.com>
 Content-Type: text/plain; charset="UTF-8"
 User-Agent: Evolution 3.36.5-0ubuntu1 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 7RSJEGIJPVVTQQGQTTWXXKRE2WNJLBOC
-X-Message-ID-Hash: 7RSJEGIJPVVTQQGQTTWXXKRE2WNJLBOC
+Message-ID-Hash: UNHLPTG6JO67SSGGHO3VUJERQGXJ3634
+X-Message-ID-Hash: UNHLPTG6JO67SSGGHO3VUJERQGXJ3634
 X-MailFrom: ranjani.sridharan@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7RSJEGIJPVVTQQGQTTWXXKRE2WNJLBOC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UNHLPTG6JO67SSGGHO3VUJERQGXJ3634/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,24 +109,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 2023-05-18 at 23:44 -0700, Harshit Mogalapalli wrote:
-> hda_ipc4_pre_trigger() has two issues:
->  1. In the default case, we are returning without unlocking the
-> mutex.
->  2. In case SNDRV_PCM_TRIGGER_STOP: when ret is less than zero it
-> goes
->     to out, unlocks but returns zero instead of a negative value.
+On Tue, 2023-05-16 at 16:11 +0800, Yang Li wrote:
+> The return value from the call to sof_ipc4_get_valid_bits() is int.
+> However, the return value is being assigned to an unsigned
+> int variable 'out_ref_valid_bits', so making it an int.
 > 
-> Fix this by changing the final return value to 'ret' instead of zero,
-> and initialize 'ret' to zero in the start of the function.
+> Eliminate the following warning:
+> ./sound/soc/sof/ipc4-topology.c:1537:6-24: WARNING: Unsigned
+> expression compared with zero: out_ref_valid_bits < 0
 > 
-> Fixes: 225f37b578a9 ("ASoC: SOF: ipc4-pcm: reset all pipelines during
-> FE DAI hw_free")
-> Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-> ---
-> Only compile tested. This is found using static anlysis with Smatch.
-> ---
-Thanks for this fix. LGTM.
+> Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+> Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4985
+> Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 
+LGTM, thanks!
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 

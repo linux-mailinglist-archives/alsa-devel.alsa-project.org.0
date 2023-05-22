@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95FDA70C543
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 20:35:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BA7070C540
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 20:34:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18E2A84A;
-	Mon, 22 May 2023 20:34:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18E2A84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA60A1FA;
+	Mon, 22 May 2023 20:33:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA60A1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684780502;
-	bh=m2u1Fynpu0Q6HiRGvTPXsGDwoeAMSJbQ90gprxvwMVE=;
+	s=default; t=1684780473;
+	bh=XAXCCp+4iACwZFaEUSigJa9p6OzPE1evsHYjiRa7ZYc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ArBJ4i4nozzWcLFaRmTaN5ptqsZRFT7qzQ6mnv02HNJnat0Ls3oDlKJJVRrQGeJAr
-	 LdrSPNxK7kAqph96UOHgtfUyGels7AXYiFuH4SDSTP3Kae9HnPNkkKl/dBL5JzfAKE
-	 sPiKxnAD6J35YIme8Pv0X3kpZk4W7e+CfLbw2TFg=
+	b=LkJxBBosAla/2tBj2a6fUMyjlv+YC/bA5y611zRor/06wM8t41Y4o8R/3bQvlRKer
+	 ynoiZIUyvv5ohYDFU1zKmlMtuSZhNojc8gxWnBw5YQjw+xplz3fsDFwwLivZjgZ0dD
+	 4hV1/nUlNfifUMMgllv+g8lbTEjwOveKmu5uuaVk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF836F805AC; Mon, 22 May 2023 20:33:33 +0200 (CEST)
+	id BAB49F80548; Mon, 22 May 2023 20:33:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6676FF805A9;
-	Mon, 22 May 2023 20:33:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC59FF80249;
+	Mon, 22 May 2023 20:33:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38F85F80557; Mon, 22 May 2023 20:33:28 +0200 (CEST)
+	id 2186AF8026A; Mon, 22 May 2023 20:33:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,46 +35,47 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9893CF80425
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7F885F8026A
 	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 20:32:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9893CF80425
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F885F8026A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=DONIhgCA
+ header.s=Intel header.b=Kdi+83qj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1684780334; x=1716316334;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=m2u1Fynpu0Q6HiRGvTPXsGDwoeAMSJbQ90gprxvwMVE=;
-  b=DONIhgCAfUwq1tPO8Y8p31auec35lzY4ZBh1bDNdw5hxHA3r7E4XsTGT
-   oRMWGwdu0szhnOc+hP2zU0J7MUljLpUvQ8bBNBuZf7m+nLRmlrrqq4BjW
-   S3nqrNPnGre9aeAdtjmxFwHTsUgatGj47zX1CcyvM0zK1MiiMWTZwon/2
-   qv3Fyy80kaIkdo1S3ap5h+rRLV7sJBbzhwd9DOV7B2Cb9nk2aUPpFigk6
-   /W/Jr6RqXP7XdDBFjTpDTA6ZtcpfcbVICWWwdpuwSn5DSy4/FkbDoXEhB
-   xRgBJYlxA6V3EXYMGgAVc8Z5s0tI43n64mSZgkoOYPZszIPHaaH+qRu8s
+  bh=XAXCCp+4iACwZFaEUSigJa9p6OzPE1evsHYjiRa7ZYc=;
+  b=Kdi+83qjwckUUUWT3tI1n9saOyj7e68hinyz83mg49joU54mZqhVzyL0
+   h9ezRzC9/S22yFkfCkuL20YbyEf2yONWGi7kNuHNcL2aV8VQURpo4gruY
+   m968zkSbZ3krDECUa3N2/8Y//5UvqF29Ll9Cz5WsZlRp2q173Y0ucD75b
+   yNFEZiuZeU15WmL8+nuBW32GfDPuxn0P6+glQeBhlDC1Mkb73DfOyQ2MZ
+   sjHHgenjEOxAct+jLeuaMg2rEAOQTdQR4dfT2nMybw7dSK/VRTKqqrF3i
+   7mFBeebT7afRg1H1Ir9V/84wbhAdezwsblNJ5Zsztpz3UNz2i+aVoDAv1
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="356235154"
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="356235165"
 X-IronPort-AV: E=Sophos;i="6.00,184,1681196400";
-   d="scan'208";a="356235154"
+   d="scan'208";a="356235165"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2023 11:31:49 -0700
+ 22 May 2023 11:31:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="697740840"
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="697740842"
 X-IronPort-AV: E=Sophos;i="6.00,184,1681196400";
-   d="scan'208";a="697740840"
+   d="scan'208";a="697740842"
 Received: from ljgreene-mobl.amr.corp.intel.com (HELO [10.209.124.121])
  ([10.209.124.121])
   by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2023 11:31:48 -0700
-Message-ID: <42774a4f-ae1e-7d25-6b01-67f5af8400a4@linux.intel.com>
-Date: Mon, 22 May 2023 11:39:49 -0500
+ 22 May 2023 11:31:50 -0700
+Message-ID: <fea3c862-1470-7911-ff77-5d945b1d77cf@linux.intel.com>
+Date: Mon, 22 May 2023 13:12:06 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH V2 4/9] ASoC: amd: ps: add SoundWire dma driver dma ops
+Subject: Re: [PATCH V2 5/9] ASoC: amd: ps: add support for SoundWire DMA
+ interrupts
 Content-Language: en-US
 To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
 Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
@@ -84,13 +85,13 @@ Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
  Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
  open list <linux-kernel@vger.kernel.org>
 References: <20230522133122.166841-1-Vijendar.Mukunda@amd.com>
- <20230522133122.166841-5-Vijendar.Mukunda@amd.com>
+ <20230522133122.166841-6-Vijendar.Mukunda@amd.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230522133122.166841-5-Vijendar.Mukunda@amd.com>
+In-Reply-To: <20230522133122.166841-6-Vijendar.Mukunda@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: O3J4LPWI5YHA2RZ5GSMJM4FF3WD6NSL5
-X-Message-ID-Hash: O3J4LPWI5YHA2RZ5GSMJM4FF3WD6NSL5
+Message-ID-Hash: I755WHYZLM3QN64KOG3J353IRWE6PMJG
+X-Message-ID-Hash: I755WHYZLM3QN64KOG3J353IRWE6PMJG
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O3J4LPWI5YHA2RZ5GSMJM4FF3WD6NSL5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I755WHYZLM3QN64KOG3J353IRWE6PMJG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,55 +114,126 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
-> +union acp_sdw_dma_count {
-> +	struct {
-> +	u32 low;
-> +	u32 high;
-> +	} bcount;
 
-indentation seems off?
+On 5/22/23 08:31, Vijendar Mukunda wrote:
+> Initialize workqueue for SoundWire DMA interrupts handling.
+> Whenever audio data equal to the SoundWire FIFO watermark level
+> are produced/consumed, interrupt is generated.
+> Acknowledge the interrupt and schedule the workqueue.
 
-> +	u64 bytescount;
-> +};
-> +
-> +struct sdw_dma_ring_buf_reg {
-> +	u32 reg_dma_size;
-> +	u32 reg_fifo_addr;
-> +	u32 reg_fifo_size;
-> +	u32 reg_ring_buf_size;
-> +	u32 reg_ring_buf_addr;
-> +	u32 water_mark_size_reg;
-> +	u32 pos_low_reg;
-> +	u32 pos_high_reg;
->  };
->\
-> +static void acp63_config_dma(struct acp_sdw_dma_stream *stream, void __iomem *acp_base,
-> +			     u32 stream_id)
+It would help to explain why a work queue is needed is the first place,
+as opposed to handling periods in the interrupt thread.
+
+> +static void acp63_sdw_dma_workthread(struct work_struct *work)
 > +{
-> +	u16 page_idx;
-> +	u32 low, high, val;
-> +	u32 sdw_dma_pte_offset;
-> +	dma_addr_t addr;
+> +	struct acp63_dev_data *adata = container_of(work, struct acp63_dev_data,
+> +						    acp_sdw_dma_work);
+> +	struct sdw_dma_dev_data *sdw_dma_data;
+> +	u32 stream_index;
+> +	u16 pdev_index;
 > +
-> +	addr = stream->dma_addr;
-> +	sdw_dma_pte_offset = SDW_PTE_OFFSET(stream->instance);
-> +	val = sdw_dma_pte_offset + (stream_id * 256);
-
-what is this 256 magic value? use a defined or << 8 ?
+> +	pdev_index = adata->sdw_dma_dev_index;
+> +	sdw_dma_data = dev_get_drvdata(&adata->pdev[pdev_index]->dev);
 > +
-> +	/* Group Enable */
-> +	writel(ACP_SDW_SRAM_PTE_OFFSET | BIT(31), acp_base + ACPAXI2AXI_ATU_BASE_ADDR_GRP_2);
-> +	writel(PAGE_SIZE_4K_ENABLE, acp_base + ACPAXI2AXI_ATU_PAGE_SIZE_GRP_2);
-> +	for (page_idx = 0; page_idx < stream->num_pages; page_idx++) {
-> +		/* Load the low address of page int ACP SRAM through SRBM */
-> +		low = lower_32_bits(addr);
-> +		high = upper_32_bits(addr);
-> +
-> +		writel(low, acp_base + ACP_SCRATCH_REG_0 + val);
-> +		high |= BIT(31);
-> +		writel(high, acp_base + ACP_SCRATCH_REG_0 + val + 4);
-> +		val += 8;
-> +		addr += PAGE_SIZE;
+> +	for (stream_index = 0; stream_index < ACP63_SDW0_DMA_MAX_STREAMS; stream_index++) {
+> +		if (adata->sdw0_dma_intr_stat[stream_index]) {
+> +			if (sdw_dma_data->sdw0_dma_stream[stream_index])
+> +				snd_pcm_period_elapsed(sdw_dma_data->sdw0_dma_stream[stream_index]);
+> +			adata->sdw0_dma_intr_stat[stream_index] = 0;
+> +		}
 > +	}
-> +	writel(0x1, acp_base + ACPAXI2AXI_ATU_CTRL);
+> +	for (stream_index = 0; stream_index < ACP63_SDW1_DMA_MAX_STREAMS; stream_index++) {
+> +		if (adata->sdw1_dma_intr_stat[stream_index]) {
+> +			if (sdw_dma_data->sdw1_dma_stream[stream_index])
+> +				snd_pcm_period_elapsed(sdw_dma_data->sdw1_dma_stream[stream_index]);
+> +			adata->sdw1_dma_intr_stat[stream_index] = 0;
+> +		}
+> +	}
+
+I am not clear on the benefits of the workqueue which only tests a flag
+that's set ...
+
 > +}
+> +
+>  static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
+>  {
+>  	struct acp63_dev_data *adata;
+>  	struct pdm_dev_data *ps_pdm_data;
+>  	struct amd_sdw_manager *amd_manager;
+>  	u32 ext_intr_stat, ext_intr_stat1;
+> +	u32 stream_id = 0;
+>  	u16 irq_flag = 0;
+> +	u16 sdw_dma_irq_flag = 0;
+>  	u16 pdev_index;
+> +	u16 index;
+>  
+>  	adata = dev_id;
+>  	if (!adata)
+> @@ -148,7 +178,57 @@ static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
+>  			snd_pcm_period_elapsed(ps_pdm_data->capture_stream);
+>  		irq_flag = 1;
+>  	}
+> -	if (irq_flag)
+> +	if (ext_intr_stat & ACP_SDW_DMA_IRQ_MASK) {
+> +		for (index = ACP_AUDIO2_RX_THRESHOLD; index <= ACP_AUDIO0_TX_THRESHOLD; index++) {
+> +			if (ext_intr_stat & BIT(index)) {
+> +				writel(BIT(index), adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+> +				switch (index) {
+> +				case ACP_AUDIO0_TX_THRESHOLD:
+> +					stream_id = ACP_SDW0_AUDIO0_TX;
+> +					break;
+> +				case ACP_AUDIO1_TX_THRESHOLD:
+> +					stream_id = ACP_SDW0_AUDIO1_TX;
+> +					break;
+> +				case ACP_AUDIO2_TX_THRESHOLD:
+> +					stream_id = ACP_SDW0_AUDIO2_TX;
+> +					break;
+> +				case ACP_AUDIO0_RX_THRESHOLD:
+> +					stream_id = ACP_SDW0_AUDIO0_RX;
+> +					break;
+> +				case ACP_AUDIO1_RX_THRESHOLD:
+> +					stream_id = ACP_SDW0_AUDIO1_RX;
+> +					break;
+> +				case ACP_AUDIO2_RX_THRESHOLD:
+> +					stream_id = ACP_SDW0_AUDIO2_RX;
+> +					break;
+> +				}
+> +
+> +				adata->sdw0_dma_intr_stat[stream_id] = 1;
+
+.. here ...
+> +				sdw_dma_irq_flag = 1;
+> +			}
+> +		}
+> +	}
+> +
+> +	/* SDW1 BT RX */
+> +	if (ext_intr_stat1 & ACP_P1_AUDIO1_RX_THRESHOLD) {
+> +		writel(ACP_P1_AUDIO1_RX_THRESHOLD,
+> +		       adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
+> +		adata->sdw1_dma_intr_stat[ACP_SDW1_AUDIO1_RX] = 1;
+
+... and here ...
+
+> +		sdw_dma_irq_flag = 1;
+> +	}
+> +
+> +	/* SDW1 BT TX*/
+> +	if (ext_intr_stat1 & ACP_P1_AUDIO1_TX_THRESHOLD) {
+> +		writel(ACP_P1_AUDIO1_TX_THRESHOLD,
+> +		       adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
+> +		adata->sdw1_dma_intr_stat[ACP_SDW1_AUDIO1_TX] = 1;
+
+... or here ...
+
+> +		sdw_dma_irq_flag = 1;
+> +	}
+> +
+> +	if (sdw_dma_irq_flag)
+> +		schedule_work(&adata->acp_sdw_dma_work);
+> +
+> +	if (irq_flag || sdw_dma_irq_flag)
+>  		return IRQ_HANDLED;
+>  	else
+>  		return IRQ_NONE;
+

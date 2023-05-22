@@ -2,80 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D5EA70BCC1
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 14:00:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C7C70BCCE
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 14:01:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5242B827;
-	Mon, 22 May 2023 13:59:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5242B827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ED7482B;
+	Mon, 22 May 2023 14:00:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ED7482B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684756819;
-	bh=xHnjERT5FZtqzFmkuHvXLeUQSZk5eNe4r7w61xQbd1g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1684756861;
+	bh=R2DOdvjwp3GeH7BdIHkjq051TV8iqIPJQXZZzznb2Gw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iaT4TXyyY4lrkRmLjcCudFH13ttvh17xxbTDmCc8CZ5FOzBCQkTWPFir8EgQd5U0D
-	 OdkbEqc31ak6xQpyKDOQa/PGoabEy69azwM/c1m1i42DUt7owFCRYwpMX0MIAnZZeh
-	 RLyGlkozTQiZIri30V8cC7eXzALY/JPnJ+xd66RY=
+	b=rHQLiyEiZ/W8/NJwoTym91Jk+vD3PUelGoldgDm2+A0PPyPalJ6alV0eiB2vOM5Se
+	 kwTaHYPnRxjUxvixYXVlKgM7IpiplZiCDErTs+SCBP61304PFoB30tMmd06cfEWf64
+	 Yp5iiPDKHE1Hrsnh3XRWEK8iPhFEGyN2DzBgm4NQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0EA75F80548; Mon, 22 May 2023 13:59:26 +0200 (CEST)
+	id BFBFFF80553; Mon, 22 May 2023 14:00:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72794F80249;
-	Mon, 22 May 2023 13:59:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2979CF8053D;
+	Mon, 22 May 2023 14:00:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B7CAF8024E; Mon, 22 May 2023 13:59:23 +0200 (CEST)
+	id 6CD60F80544; Mon, 22 May 2023 14:00:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 50C6BF80053
-	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 13:59:19 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id DA2C11E3E;
-	Mon, 22 May 2023 13:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz DA2C11E3E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1684756757; bh=en8cQlQnT+uJt6aE5F5Vu4ts2AgAlAof50FY+z9esDw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Syzxsvrv/tgEuyZiNaZMDCfbpIWXEa7A3uE6sltzHRb1FL34FyOP+r65NpYS6L9TA
-	 7Nkrj5VdSTVeM0ErmhD1NgSFj3nH5+BOvaJfSnyiQ9yieiWU1A4wFkIF3NCt+ot0cx
-	 uDORRm+L5fkxGHTvgZCqqwYiEinsOtJyrgt+hUiY=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id 230E2F80249
+	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 13:59:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 230E2F80249
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=qHKQbh6w;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=nuw5oxmN
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Mon, 22 May 2023 13:59:15 +0200 (CEST)
-Message-ID: <908275dd-5cc9-75c0-0dde-ab884a7cc58f@perex.cz>
-Date: Mon, 22 May 2023 13:59:15 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH 24/36] ALSA: seq: Add UMP support
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
-References: <20230519093114.28813-1-tiwai@suse.de>
- <20230519093114.28813-25-tiwai@suse.de>
- <643cd65f-74f3-97b8-f48a-6cb25772095d@perex.cz> <87jzx0yevr.wl-tiwai@suse.de>
- <87h6s4y7vw.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <87h6s4y7vw.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 23X35RRZEO5DA73UVA7F2G2T6O3XGQP2
-X-Message-ID-Hash: 23X35RRZEO5DA73UVA7F2G2T6O3XGQP2
-X-MailFrom: perex@perex.cz
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9D7DA1FEAA;
+	Mon, 22 May 2023 11:59:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1684756793;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wTXdnsTIOpts+ngHHMSt9G0bm+NoUyBrowWRidAO2Nc=;
+	b=qHKQbh6wY2MNNQTFNhGrOOiY8nMGEc1TkHIZcZx1jfaABnWfq36pxR3EFOZQJEC5VwYtJQ
+	m2sbSRil+kJ6SEJ0zZ5TYCvikBK8VDNhmdGMurxW/fLdm3gC4lwsjnINu9b/qtBpmP58a8
+	IC/x1pKqToZo7mmwl+pmt4PPN01xLAU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1684756793;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wTXdnsTIOpts+ngHHMSt9G0bm+NoUyBrowWRidAO2Nc=;
+	b=nuw5oxmNgsLPzP3xjuG/8vVrfiUjxXMIJ2mEV3/yAfUT+OIqGyRI3csw1JeBuESgcDm2gC
+	vpHXDZ14SBwqTrAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B2E513336;
+	Mon, 22 May 2023 11:59:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id zuKsDTlZa2TtSQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 22 May 2023 11:59:53 +0000
+Date: Mon, 22 May 2023 13:59:52 +0200
+Message-ID: <87cz2sy3t3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Niklas Schnelle <schnelle@linux.ibm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,	Jaroslav Kysela <perex@perex.cz>,	Takashi
+ Iwai <tiwai@suse.com>,	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,	Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+ <u.kleine-koenig@pengutronix.de>,	Mauro Carvalho Chehab
+ <mchehab@kernel.org>,	Alan Stern <stern@rowland.harvard.edu>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,	Geert Uytterhoeven
+ <geert@linux-m68k.org>,	Paul Walmsley <paul.walmsley@sifive.com>,	Palmer
+ Dabbelt <palmer@dabbelt.com>,	Albert Ou <aou@eecs.berkeley.edu>,
+	linux-kernel@vger.kernel.org,	linux-arch@vger.kernel.org,
+	linux-pci@vger.kernel.org,	Arnd Bergmann <arnd@kernel.org>,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH v5 32/44] sound: add HAS_IOPORT dependencies
+In-Reply-To: <20230522105049.1467313-33-schnelle@linux.ibm.com>
+References: <20230522105049.1467313-1-schnelle@linux.ibm.com>
+	<20230522105049.1467313-33-schnelle@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: P7SYTVSRUAROLP5KT6SYWDUERXO3KOH7
+X-Message-ID-Hash: P7SYTVSRUAROLP5KT6SYWDUERXO3KOH7
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -87,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/23X35RRZEO5DA73UVA7F2G2T6O3XGQP2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/P7SYTVSRUAROLP5KT6SYWDUERXO3KOH7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,61 +127,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22. 05. 23 12:31, Takashi Iwai wrote:
-> On Mon, 22 May 2023 10:00:40 +0200,
-> Takashi Iwai wrote:
->>
->> On Mon, 22 May 2023 09:34:45 +0200,
->> Jaroslav Kysela wrote:
->>>
->>> On 19. 05. 23 11:31, Takashi Iwai wrote:
->>>> Starting from this commit, we add the basic support of UMP (Universal
->>>> MIDI Packet) events on ALSA sequencer infrastructure.  The biggest
->>>> change here is that, for transferring UMP packets that are up to 128
->>>> bits, we extend the data payload of ALSA sequencer event record when
->>>> the client is declared to support for the new UMP events.
->>>>
->>>> A new event flag bit, SNDRV_SEQ_EVENT_UMP, is defined and it shall be
->>>> set for the UMP packet events that have the larger payload of 128
->>>> bits, defined as struct snd_seq_ump_event.
->>>>
->>>> For applications that want to access the UMP packets, first of all, a
->>>> sequencer client has to declare the user-protocol to match with the
->>>> latest one via the new SNDRV_SEQ_IOCTL_USER_PVERSION; otherwise it's
->>>> treated as if a legacy client without UMP support.
->>>>
->>>> Then the client can switch to the new UMP mode (MIDI 1.0 or MIDI 2.0)
->>>> with a new field, midi_version, in snd_seq_client_info.  When switched
->>>> to UMP mode (midi_version = 1 or 2), the client can write the UMP
->>>> events with SNDRV_SEQ_EVENT_UMP flag.  For reads, the alignment size
->>>> is changed from snd_seq_event (28 bytes) to snd_seq_ump_event (32
->>>> bytes).  When a UMP sequencer event is delivered to a legacy sequencer
->>>> client, it's ignored or handled as an error.
->>>
->>> The internal struct snd_seq_event_cell is also extended by 4 bytes. I
->>> think that it is worth to note this in this commit (the memory
->>> footprint is slightly growing).
->>
->> Yes, will do that.  But note that the size growth of
->> snd_seq_event_cell happens only for 32bit archs (there was already
->> padding on 64bit archs).
->>
->>> Maybe handle !SND_UMP here, but we can
->>> wait, if someone really requires this optimization.
->>
->> Right, I began with that, but I threw it away in the end as it becomes
->> unnecessarily complex.
+On Mon, 22 May 2023 12:50:37 +0200,
+Niklas Schnelle wrote:
 > 
-> Actually the optimization with CONFIG_SND_SEQ_UMP was already done;
-> unless CONFIG_SND_SEQ_UMP is set, the old size of snd_seq_event_cell
-> is still kept.  The definition of union __snd_seq_event in
-> seq_memory.c takes care of the conditional builds.
+> In a future patch HAS_IOPORT=n will result in inb()/outb() and friends
+> not being declared. We thus need to add HAS_IOPORT as dependency for
+> those drivers using them.
+> 
+> Co-developed-by: Arnd Bergmann <arnd@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@kernel.org>
+> Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
 
-I see now. All is fine. Thanks for the clarification.
+Looks good to me.  Would you like the patch picked up through
+sound.git tree, or rather apply all through a different tree?
+In the latter case:
 
-					Jaroslav
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 
+thanks,
+
+Takashi

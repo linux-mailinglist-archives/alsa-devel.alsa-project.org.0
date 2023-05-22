@@ -2,103 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0553170BA33
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 12:32:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5765770BA95
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 May 2023 12:52:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10950209;
-	Mon, 22 May 2023 12:31:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10950209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99227822;
+	Mon, 22 May 2023 12:51:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99227822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684751568;
-	bh=81hCSt8+B0uByXWcx/eG15X//leyMcS/VqPcJT0Flec=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1684752767;
+	bh=Y7TP7tGkU2XWu855jBYpQLzwZhkKGfHPwkwCuHoa+6w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CrYlxHiQ/SRZfnIfKq1VmFg5GZP83j5UYSlcepcmNzLj7QAyyhtR5rrN4siIfGdT9
-	 0e7I+mML/UfdqSLEgUOBKplbHRYUSf8CDs1nT1JagF9m1DumlRqi5msm0gCxYUqfE1
-	 MJRbqV+7iatxOTjP+jqYQ/9WGLoQZWQ242ZF1N1Q=
+	b=chjHowusK7leWQ07zPTcyPJj/9D664BOWZ+JUNPsirU23KGpIAQwlXUIQqHNDBQWn
+	 H1+wL71bWnItd0Dx3G5R/ZnqLhDUnq5YU45hDSQP9a1+TQiSIKdbG4smXsU6z6W366
+	 Q3I54sjDnd802lUjgp/QoHn9fNsqm2WSl6e31dIU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 12840F8053D; Mon, 22 May 2023 12:31:56 +0200 (CEST)
+	id 28A84F80549; Mon, 22 May 2023 12:51:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B59EBF80249;
-	Mon, 22 May 2023 12:31:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6BC4F80249;
+	Mon, 22 May 2023 12:51:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8E1DF8024E; Mon, 22 May 2023 12:31:52 +0200 (CEST)
+	id CE529F8024E; Mon, 22 May 2023 12:51:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C19FF8016A
-	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 12:31:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C19FF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3995EF8016A
+	for <alsa-devel@alsa-project.org>; Mon, 22 May 2023 12:51:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3995EF8016A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=JWKOUhPD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=GQjHxhdj
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B1B161FDBB;
-	Mon, 22 May 2023 10:31:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1684751507;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YuKTCvKe7x62a/fstls2qgjAFO+8ikAQTzZ5OA2WZpA=;
-	b=JWKOUhPDbmwuTp8TYdV2P0Ge52HjOifoC09t095JgB/TI20amNNVg+5euKs4NMqDjF5NaJ
-	lCEc13W939JhawvMG2Ya2+V2BGeHXarYlZzmC572EQt9yv9r5KjA/VgzVpmyeI28NIGpFD
-	iXMGInURxBSbIAqN+qwY6t5OxKMVM7A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684751507;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YuKTCvKe7x62a/fstls2qgjAFO+8ikAQTzZ5OA2WZpA=;
-	b=GQjHxhdj2GpEkzLx/ZX2DT4KEhLFDPgYhhHFYGulpr/OOg7evQ7IkYEfylwwWscv7Y9zlq
-	ekbPyfAkNINm3QAg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93F2213776;
-	Mon, 22 May 2023 10:31:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id JZpDI5NEa2StFgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 22 May 2023 10:31:47 +0000
-Date: Mon, 22 May 2023 12:31:47 +0200
-Message-ID: <87h6s4y7vw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH 24/36] ALSA: seq: Add UMP support
-In-Reply-To: <87jzx0yevr.wl-tiwai@suse.de>
-References: <20230519093114.28813-1-tiwai@suse.de>
-	<20230519093114.28813-25-tiwai@suse.de>
-	<643cd65f-74f3-97b8-f48a-6cb25772095d@perex.cz>
-	<87jzx0yevr.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: Z3MKYVCWWZHJLQL65OJFMRQZFTPGWTBC
-X-Message-ID-Hash: Z3MKYVCWWZHJLQL65OJFMRQZFTPGWTBC
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=cOWdtLk7
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34MAHbjo005972;
+	Mon, 22 May 2023 10:51:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=O9dpf7Q283NisVnMhr51JTFURgmkSPiRlRv8xVJ6JnI=;
+ b=cOWdtLk7norGsYKSF2Yv0XE3Wm6bVnBE/1SZwr7zSriq5v8GQ9L+6uSF2RYXPbnAKuk0
+ iKEqSWznI2UgLIKkuKsdmxWH9LBE/sseqVQbXjlwDlTa1oI0fwyD7K9LXezyYsTW6h1m
+ f40qqAL323ckT2/JOlihpiwk1gSShJBzRB7JvusKh7L0ibAZaUOntcGGYXMFuh0pKem+
+ HnEWKA6fJ2iXD6YHPhUxq9aiIFWdeSE2VkMzHfXqboj8E5Zpjr5Hqvg0YDzPfoawCgX6
+ 6/x9iehqWOrw7y8DHq4eFtYvrrFJBpK/QjEMuEHIfwcaSnMn1vMB/Z1/Y1vs2PoEoSDb tw==
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3qq78bh2r3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 May 2023 10:51:26 +0000
+Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
+	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 34MAShFw013591;
+	Mon, 22 May 2023 10:51:26 GMT
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+ [169.51.49.102])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3qq78bh2pn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 May 2023 10:51:26 +0000
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+	by ppma06ams.nl.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 34M3JgQZ019624;
+	Mon, 22 May 2023 10:51:23 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma06ams.nl.ibm.com (PPS) with ESMTPS id 3qppc3gw88-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 May 2023 10:51:23 +0000
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 34MApJoc32899328
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 22 May 2023 10:51:19 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3B0F020043;
+	Mon, 22 May 2023 10:51:19 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BC6EB20040;
+	Mon, 22 May 2023 10:51:18 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 22 May 2023 10:51:18 +0000 (GMT)
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Arnd Bergmann <arnd@arndb.de>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Alan Stern <stern@rowland.harvard.edu>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Geert Uytterhoeven <geert@linux-m68k.org>,
+        Paul Walmsley <paul.walmsley@sifive.com>,
+        Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+        linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+        linux-pci@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
+        alsa-devel@alsa-project.org
+Subject: [PATCH v5 32/44] sound: add HAS_IOPORT dependencies
+Date: Mon, 22 May 2023 12:50:37 +0200
+Message-Id: <20230522105049.1467313-33-schnelle@linux.ibm.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230522105049.1467313-1-schnelle@linux.ibm.com>
+References: <20230522105049.1467313-1-schnelle@linux.ibm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: g25wPk0YgvfPpBI_V1s4QLiOmXEU0-8s
+X-Proofpoint-GUID: PPmE4GZvq6MSBW9E0geEK_JesysGPXOT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-22_06,2023-05-22_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 priorityscore=1501
+ mlxlogscore=999 adultscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305220089
+Message-ID-Hash: EORAUM5TZKX2PHXFFLOAMY7Q6BEPTABK
+X-Message-ID-Hash: EORAUM5TZKX2PHXFFLOAMY7Q6BEPTABK
+X-MailFrom: schnelle@linux.ibm.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +141,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z3MKYVCWWZHJLQL65OJFMRQZFTPGWTBC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EORAUM5TZKX2PHXFFLOAMY7Q6BEPTABK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,57 +150,359 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 22 May 2023 10:00:40 +0200,
-Takashi Iwai wrote:
-> 
-> On Mon, 22 May 2023 09:34:45 +0200,
-> Jaroslav Kysela wrote:
-> > 
-> > On 19. 05. 23 11:31, Takashi Iwai wrote:
-> > > Starting from this commit, we add the basic support of UMP (Universal
-> > > MIDI Packet) events on ALSA sequencer infrastructure.  The biggest
-> > > change here is that, for transferring UMP packets that are up to 128
-> > > bits, we extend the data payload of ALSA sequencer event record when
-> > > the client is declared to support for the new UMP events.
-> > > 
-> > > A new event flag bit, SNDRV_SEQ_EVENT_UMP, is defined and it shall be
-> > > set for the UMP packet events that have the larger payload of 128
-> > > bits, defined as struct snd_seq_ump_event.
-> > > 
-> > > For applications that want to access the UMP packets, first of all, a
-> > > sequencer client has to declare the user-protocol to match with the
-> > > latest one via the new SNDRV_SEQ_IOCTL_USER_PVERSION; otherwise it's
-> > > treated as if a legacy client without UMP support.
-> > > 
-> > > Then the client can switch to the new UMP mode (MIDI 1.0 or MIDI 2.0)
-> > > with a new field, midi_version, in snd_seq_client_info.  When switched
-> > > to UMP mode (midi_version = 1 or 2), the client can write the UMP
-> > > events with SNDRV_SEQ_EVENT_UMP flag.  For reads, the alignment size
-> > > is changed from snd_seq_event (28 bytes) to snd_seq_ump_event (32
-> > > bytes).  When a UMP sequencer event is delivered to a legacy sequencer
-> > > client, it's ignored or handled as an error.
-> > 
-> > The internal struct snd_seq_event_cell is also extended by 4 bytes. I
-> > think that it is worth to note this in this commit (the memory
-> > footprint is slightly growing).
-> 
-> Yes, will do that.  But note that the size growth of
-> snd_seq_event_cell happens only for 32bit archs (there was already
-> padding on 64bit archs).
-> 
-> > Maybe handle !SND_UMP here, but we can
-> > wait, if someone really requires this optimization.
-> 
-> Right, I began with that, but I threw it away in the end as it becomes
-> unnecessarily complex.
+In a future patch HAS_IOPORT=n will result in inb()/outb() and friends
+not being declared. We thus need to add HAS_IOPORT as dependency for
+those drivers using them.
 
-Actually the optimization with CONFIG_SND_SEQ_UMP was already done;
-unless CONFIG_SND_SEQ_UMP is set, the old size of snd_seq_event_cell
-is still kept.  The definition of union __snd_seq_event in
-seq_memory.c takes care of the conditional builds.
+Co-developed-by: Arnd Bergmann <arnd@kernel.org>
+Signed-off-by: Arnd Bergmann <arnd@kernel.org>
+Signed-off-by: Niklas Schnelle <schnelle@linux.ibm.com>
+---
+ sound/drivers/Kconfig |  3 +++
+ sound/isa/Kconfig     |  1 +
+ sound/pci/Kconfig     | 45 ++++++++++++++++++++++++++++++++-----------
+ sound/pcmcia/Kconfig  |  1 +
+ 4 files changed, 39 insertions(+), 11 deletions(-)
 
-What I meant was to adjust the cell size dynamically depending on the
-supported midi_version, and this will make things too flaky.
+diff --git a/sound/drivers/Kconfig b/sound/drivers/Kconfig
+index be3009746f3a..864991d8776d 100644
+--- a/sound/drivers/Kconfig
++++ b/sound/drivers/Kconfig
+@@ -128,6 +128,7 @@ config SND_VIRMIDI
+ 
+ config SND_MTPAV
+ 	tristate "MOTU MidiTimePiece AV multiport MIDI"
++	depends on HAS_IOPORT
+ 	select SND_RAWMIDI
+ 	help
+ 	  To use a MOTU MidiTimePiece AV multiport MIDI adapter
+@@ -152,6 +153,7 @@ config SND_MTS64
+ 
+ config SND_SERIAL_U16550
+ 	tristate "UART16550 serial MIDI driver"
++	depends on HAS_IOPORT
+ 	select SND_RAWMIDI
+ 	help
+ 	  To include support for MIDI serial port interfaces, say Y here
+@@ -185,6 +187,7 @@ config SND_SERIAL_GENERIC
+ 
+ config SND_MPU401
+ 	tristate "Generic MPU-401 UART driver"
++	depends on HAS_IOPORT
+ 	select SND_MPU401_UART
+ 	help
+ 	  Say Y here to include support for MIDI ports compatible with
+diff --git a/sound/isa/Kconfig b/sound/isa/Kconfig
+index 6ffa48dd5983..f8159179e38d 100644
+--- a/sound/isa/Kconfig
++++ b/sound/isa/Kconfig
+@@ -23,6 +23,7 @@ menuconfig SND_ISA
+ 	bool "ISA sound devices"
+ 	depends on ISA || COMPILE_TEST
+ 	depends on ISA_DMA_API
++	depends on HAS_IOPORT
+ 	default y
+ 	help
+ 	  Support for sound devices connected via the ISA bus.
+diff --git a/sound/pci/Kconfig b/sound/pci/Kconfig
+index 861958451ef5..787868c9e91b 100644
+--- a/sound/pci/Kconfig
++++ b/sound/pci/Kconfig
+@@ -26,7 +26,7 @@ config SND_ALS300
+ 	select SND_PCM
+ 	select SND_AC97_CODEC
+ 	select SND_OPL3_LIB
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say 'Y' or 'M' to include support for Avance Logic ALS300/ALS300+
+ 
+@@ -36,6 +36,7 @@ config SND_ALS300
+ config SND_ALS4000
+ 	tristate "Avance Logic ALS4000"
+ 	depends on ISA_DMA_API
++	depends on HAS_IOPORT
+ 	select SND_OPL3_LIB
+ 	select SND_MPU401_UART
+ 	select SND_PCM
+@@ -51,7 +52,7 @@ config SND_ALI5451
+ 	tristate "ALi M5451 PCI Audio Controller"
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for the integrated AC97 sound
+ 	  device on motherboards using the ALi M5451 Audio Controller
+@@ -96,6 +97,7 @@ config SND_ATIIXP_MODEM
+ 
+ config SND_AU8810
+ 	tristate "Aureal Advantage"
++	depends on HAS_IOPORT
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+ 	help
+@@ -110,6 +112,7 @@ config SND_AU8810
+ 
+ config SND_AU8820
+ 	tristate "Aureal Vortex"
++	depends on HAS_IOPORT
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+ 	help
+@@ -123,6 +126,7 @@ config SND_AU8820
+ 
+ config SND_AU8830
+ 	tristate "Aureal Vortex 2"
++	depends on HAS_IOPORT
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+ 	help
+@@ -157,7 +161,7 @@ config SND_AZT3328
+ 	select SND_RAWMIDI
+ 	select SND_AC97_CODEC
+ 	select SND_TIMER
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for Aztech AZF3328 (PCI168)
+ 	  soundcards.
+@@ -193,6 +197,7 @@ config SND_BT87X_OVERCLOCK
+ 
+ config SND_CA0106
+ 	tristate "SB Audigy LS / Live 24bit"
++	depends on HAS_IOPORT
+ 	select SND_AC97_CODEC
+ 	select SND_RAWMIDI
+ 	select SND_VMASTER
+@@ -205,6 +210,7 @@ config SND_CA0106
+ 
+ config SND_CMIPCI
+ 	tristate "C-Media 8338, 8738, 8768, 8770"
++	depends on HAS_IOPORT
+ 	select SND_OPL3_LIB
+ 	select SND_MPU401_UART
+ 	select SND_PCM
+@@ -221,6 +227,7 @@ config SND_OXYGEN_LIB
+ 
+ config SND_OXYGEN
+ 	tristate "C-Media 8786, 8787, 8788 (Oxygen)"
++	depends on HAS_IOPORT
+ 	select SND_OXYGEN_LIB
+ 	select SND_PCM
+ 	select SND_MPU401_UART
+@@ -246,6 +253,7 @@ config SND_OXYGEN
+ 
+ config SND_CS4281
+ 	tristate "Cirrus Logic (Sound Fusion) CS4281"
++	depends on HAS_IOPORT
+ 	select SND_OPL3_LIB
+ 	select SND_RAWMIDI
+ 	select SND_AC97_CODEC
+@@ -257,6 +265,7 @@ config SND_CS4281
+ 
+ config SND_CS46XX
+ 	tristate "Cirrus Logic (Sound Fusion) CS4280/CS461x/CS462x/CS463x"
++	depends on HAS_IOPORT
+ 	select SND_RAWMIDI
+ 	select SND_AC97_CODEC
+ 	select FW_LOADER
+@@ -290,6 +299,7 @@ config SND_CS5530
+ config SND_CS5535AUDIO
+ 	tristate "CS5535/CS5536 Audio"
+ 	depends on X86_32 || MIPS || COMPILE_TEST
++	depends on HAS_IOPORT
+ 	select SND_PCM
+ 	select SND_AC97_CODEC
+ 	help
+@@ -307,6 +317,7 @@ config SND_CS5535AUDIO
+ 
+ config SND_CTXFI
+ 	tristate "Creative Sound Blaster X-Fi"
++	depends on HAS_IOPORT
+ 	select SND_PCM
+ 	help
+ 	  If you want to use soundcards based on Creative Sound Blastr X-Fi
+@@ -468,7 +479,7 @@ config SND_EMU10K1
+ 	select SND_AC97_CODEC
+ 	select SND_TIMER
+ 	select SND_SEQ_DEVICE if SND_SEQUENCER != n
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y to include support for Sound Blaster PCI 512, Live!,
+ 	  Audigy and E-MU APS/0404/1010/1212/1616/1820 soundcards.
+@@ -491,7 +502,7 @@ config SND_EMU10K1X
+ 	tristate "Emu10k1X (Dell OEM Version)"
+ 	select SND_AC97_CODEC
+ 	select SND_RAWMIDI
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for the Dell OEM version of the
+ 	  Sound Blaster Live!.
+@@ -501,6 +512,7 @@ config SND_EMU10K1X
+ 
+ config SND_ENS1370
+ 	tristate "(Creative) Ensoniq AudioPCI 1370"
++	depends on HAS_IOPORT
+ 	select SND_RAWMIDI
+ 	select SND_PCM
+ 	help
+@@ -511,6 +523,7 @@ config SND_ENS1370
+ 
+ config SND_ENS1371
+ 	tristate "(Creative) Ensoniq AudioPCI 1371/1373"
++	depends on HAS_IOPORT
+ 	select SND_RAWMIDI
+ 	select SND_AC97_CODEC
+ 	help
+@@ -525,7 +538,7 @@ config SND_ES1938
+ 	select SND_OPL3_LIB
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for soundcards based on ESS Solo-1
+ 	  (ES1938, ES1946, ES1969) chips.
+@@ -537,7 +550,7 @@ config SND_ES1968
+ 	tristate "ESS ES1968/1978 (Maestro-1/2/2E)"
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for soundcards based on ESS Maestro
+ 	  1/2/2E chips.
+@@ -569,6 +582,7 @@ config SND_ES1968_RADIO
+ 
+ config SND_FM801
+ 	tristate "ForteMedia FM801"
++	depends on HAS_IOPORT
+ 	select SND_OPL3_LIB
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+@@ -624,7 +638,7 @@ config SND_ICE1712
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+ 	select BITREVERSE
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for soundcards based on the
+ 	  ICE1712 (Envy24) chip.
+@@ -640,6 +654,7 @@ config SND_ICE1712
+ 
+ config SND_ICE1724
+ 	tristate "ICE/VT1724/1720 (Envy24HT/PT)"
++	depends on HAS_IOPORT
+ 	select SND_RAWMIDI
+ 	select SND_AC97_CODEC
+ 	select SND_VMASTER
+@@ -712,7 +727,7 @@ config SND_LX6464ES
+ config SND_MAESTRO3
+ 	tristate "ESS Allegro/Maestro3"
+ 	select SND_AC97_CODEC
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for soundcards based on ESS Maestro 3
+ 	  (Allegro) chips.
+@@ -753,6 +768,7 @@ config SND_NM256
+ 
+ config SND_PCXHR
+ 	tristate "Digigram PCXHR"
++	depends on HAS_IOPORT
+ 	select FW_LOADER
+ 	select SND_PCM
+ 	select SND_HWDEP
+@@ -764,6 +780,7 @@ config SND_PCXHR
+ 
+ config SND_RIPTIDE
+ 	tristate "Conexant Riptide"
++	depends on HAS_IOPORT
+ 	select FW_LOADER
+ 	select SND_OPL3_LIB
+ 	select SND_MPU401_UART
+@@ -808,6 +825,7 @@ config SND_RME9652
+ config SND_SE6X
+ 	tristate "Studio Evolution SE6X"
+ 	depends on SND_OXYGEN=n && SND_VIRTUOSO=n  # PCI ID conflict
++	depends on HAS_IOPORT
+ 	select SND_OXYGEN_LIB
+ 	select SND_PCM
+ 	select SND_MPU401_UART
+@@ -830,7 +848,7 @@ config SND_SONICVIBES
+ 	select SND_OPL3_LIB
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for soundcards based on the S3
+ 	  SonicVibes chip.
+@@ -842,7 +860,7 @@ config SND_TRIDENT
+ 	tristate "Trident 4D-Wave DX/NX; SiS 7018"
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+-	depends on ZONE_DMA
++	depends on ZONE_DMA && HAS_IOPORT
+ 	help
+ 	  Say Y here to include support for soundcards based on Trident
+ 	  4D-Wave DX/NX or SiS 7018 chips.
+@@ -852,6 +870,7 @@ config SND_TRIDENT
+ 
+ config SND_VIA82XX
+ 	tristate "VIA 82C686A/B, 8233/8235 AC97 Controller"
++	depends on HAS_IOPORT
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+ 	help
+@@ -863,6 +882,7 @@ config SND_VIA82XX
+ 
+ config SND_VIA82XX_MODEM
+ 	tristate "VIA 82C686A/B, 8233 based Modems"
++	depends on HAS_IOPORT
+ 	select SND_AC97_CODEC
+ 	help
+ 	  Say Y here to include support for the integrated MC97 modem on
+@@ -873,6 +893,7 @@ config SND_VIA82XX_MODEM
+ 
+ config SND_VIRTUOSO
+ 	tristate "Asus Virtuoso 66/100/200 (Xonar)"
++	depends on HAS_IOPORT
+ 	select SND_OXYGEN_LIB
+ 	select SND_PCM
+ 	select SND_MPU401_UART
+@@ -889,6 +910,7 @@ config SND_VIRTUOSO
+ 
+ config SND_VX222
+ 	tristate "Digigram VX222"
++	depends on HAS_IOPORT
+ 	select SND_VX_LIB
+ 	help
+ 	  Say Y here to include support for Digigram VX222 soundcards.
+@@ -898,6 +920,7 @@ config SND_VX222
+ 
+ config SND_YMFPCI
+ 	tristate "Yamaha YMF724/740/744/754"
++	depends on HAS_IOPORT
+ 	select SND_OPL3_LIB
+ 	select SND_MPU401_UART
+ 	select SND_AC97_CODEC
+diff --git a/sound/pcmcia/Kconfig b/sound/pcmcia/Kconfig
+index 10291c43cb18..2e3dfc1ff540 100644
+--- a/sound/pcmcia/Kconfig
++++ b/sound/pcmcia/Kconfig
+@@ -4,6 +4,7 @@
+ menuconfig SND_PCMCIA
+ 	bool "PCMCIA sound devices"
+ 	depends on PCMCIA
++	depends on HAS_IOPORT
+ 	default y
+ 	help
+ 	  Support for sound devices connected via the PCMCIA bus.
+-- 
+2.39.2
 
-
-Takashi

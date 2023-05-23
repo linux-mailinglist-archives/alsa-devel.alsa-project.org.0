@@ -2,154 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E535170D73A
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 10:23:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A2570D78A
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 10:34:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C53AB843;
-	Tue, 23 May 2023 10:22:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C53AB843
+	by alsa0.perex.cz (Postfix) with ESMTPS id B95C9839;
+	Tue, 23 May 2023 10:33:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95C9839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684830213;
-	bh=CxoM14/2K0Qrrl0Q1Ei05D7LMP6+jfa+isXPMJgaxdg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Gvd90zR7h5oxo5XKB8YyAOKnzypgsPg91HuRiTAjI+QhvAELHWk9PLxW5mXZLlYM3
-	 xuhRisli9nmWtbBJHDR1SopJ+gemlk/REhdCyjZxk/NqMbzIyYixOgR756xUWSZzg3
-	 p6q0nSx1aoqoDPy+fmVCItNWkiMG7A2Rh5HrFxDM=
+	s=default; t=1684830881;
+	bh=qLDLJN38LoB1QlVj9g094jCz31rMVA2Zqq98usG66Vc=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=eBUIxhSQSMr3OZPWhAAVeiJe16rLipv1HXJ9dhdBwVCygNbA1XUk06eAZH8gL7nG2
+	 dfDTsRqNYP5NNmdeGA+rvV2skgVgoRFc6uhfnyr8bDsarBBQq+82wPL6e3B1WD24Bk
+	 J5IBfg5ccawBX2DILNVQdQlKbcuq3tsVTfi8tNik=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 079A5F8056F; Tue, 23 May 2023 10:21:54 +0200 (CEST)
+	id B0263F8053D; Tue, 23 May 2023 10:33:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E8BBF80551;
-	Tue, 23 May 2023 10:21:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB2FFF800DF;
+	Tue, 23 May 2023 10:33:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78510F8024E; Tue, 23 May 2023 10:21:48 +0200 (CEST)
+	id 96271F8024E; Tue, 23 May 2023 10:33:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2071b.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::71b])
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on2060a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feae::60a])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 75783F80086
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 10:21:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75783F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id AF648F80086
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 10:33:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF648F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=dm.renesas.com header.i=@dm.renesas.com
- header.a=rsa-sha256 header.s=selector1 header.b=QwcXTx0A
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=GuoswnjV
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gvu7LCK/Sz/UZh7J+n+fnfFmSzFJklPJ1UZLyOTPr8qHbeNUbScLIAa1Nn+x9yadqHWI6gNLLQ+UTGk/ggKyPuLt4pTBVMPlOUPH6ctuLSQe4685iVlO3E8KdaUNRU0GbVtbSAP7mDGfiL15SvTgv30dSzmI26zD75uTG751in1aGnIBaFO4QKBehmyfmNqpR/sUBkg4Del12yG3G+2qNBwbtfQgkqo52p0ABd/C9sAtp3KILGwuEWQNOhOTbRUluoQOoZkItch9BCSrqc6AciAE4hkp9kZC+i6Rhzf9iRSgM0/HOBLecmEm+H9iRAkzYTftuHZTh4IHVKfmHYt49A==
+ b=L27OCqGSjoBsgefTuexTRYFnGW+9Kn/x9wX5I5RgYSoGTreyd5emQxcTwvKoqFxc5x5q5JGnwa6mSRzcneMHC7QwUOmQB9Fj+QTapQ8dsjILGD7H3L5Hq1XwJJZzCi9R8P2kxrXtkn0sbrWtRjc8Wis8UJXL9vz4LjhtlCBi1vZkCMsBD5mLeA7FyTtKlHdD71fw36GwnX1NwDS/qtIcwdLzw6BT+zvCGeZAQ8EmV0mWoAlQRW1ASkJSdwayYRfYeqw3nvU9oVSRJaZy/SeZrEIVm6kkVoiJcjlNokwgoW/j9NF2h0Vq2p6iVip1bJDgXk/zVljFQqoxYCTLjydjlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tyl0ERCDU/+Tn1KkfWVKp0nmoTdIQGLAKV6LcUxqOYE=;
- b=eaDFHf3faYIAgoLoxOyqC9cnBfv9Yo/EyrzL1iSFd+13WAdfdIIUU8a9IB4jUpqByZdy6h6YrduPU36PGrqKbKrbQ2wozDgnn0tmNyoKCJeDpSS5BBd9JDpcX2UpoLJhnTY1NoIBcuZDqhNTwa8JIQ474ayjdw3HpIUy3xVhxP6SnbXyxiPXiCMsQ4FPa6/D6wxQu1+CjSWfviQw1M8fSJjfh6ppcqzPNshvN4r1EBmH9ERGUXGaMAcETR75HkRxcfwai1YIndHzU9IfK2itwHuHzW+ktrXi3oyaWI7wgFPd7xdzqYK13wfU76JH7b+vCZbBcWw+qhIZgubs0SLswQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=dm.renesas.com; dmarc=pass action=none
- header.from=dm.renesas.com; dkim=pass header.d=dm.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dm.renesas.com;
+ bh=qFXnpjbjY05OYJdXLyOLt2Abodf2/A0H8pT6MT2jljU=;
+ b=I5AG8Lo4b6ozN4vMb8G+Cy8zyzAV/nVJxUFrnFrw2WuxYYuVdNiMPthWEkWNcjV3GC6Utc+jY02UuJwPxF3DoeF4cbI4LpLEi/zQj/U1qlpUHF4bC+4e4NBL3k52V1U1WkckI6N3zHms929/QyOyPeFaHgNOzY08PmbOgqg/KBb1LNBKmO/aRsKrjrm3yG7tSHGQmlnRCikkg2pneJP16AFgjIblr+H1jTkn9dhLdq+HNeutPqDiYypyTabfSjKNPOK1xBdovZ2hAJA2otwKiHMJ15LnGFZxfpj8wPHISxr7OfC/6HKnRT2woOCTGcz8A52wCQKaiseeakDPoLk4XQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=nuvoton.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tyl0ERCDU/+Tn1KkfWVKp0nmoTdIQGLAKV6LcUxqOYE=;
- b=QwcXTx0ADJ8bC8H+nl7DR8MnNnKWRefTcYtYks0p9ahvlwwF5xIhtBqIxmndLIIiYrsFp+q5YCT/qmBKa5esLAtGwg059qxLuKo8JGQvgXU5w7+jI8F1236qbhRkx0otkYVMP8ypuP3zzLNq+gmuOZiooK0QCm6GbLv+jv4bwbs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=dm.renesas.com;
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
- by TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8) with
+ bh=qFXnpjbjY05OYJdXLyOLt2Abodf2/A0H8pT6MT2jljU=;
+ b=GuoswnjV5FxFln+RqpC7mvyoN9WoSmzqrpJqgLMJyG6aFnTJ9e3EiNDTTKi8+JSJJXsiejjYQ1mhbuIBODAfr+23lqqp3g/ieyH/f98X/7lv55Al1ucSYE0vO9+AGv958COhUxIThpG/WpbwALutYHS96Qn/XhcTomlvbvrSc/4=
+Received: from SG2PR02CA0035.apcprd02.prod.outlook.com (2603:1096:3:18::23) by
+ TYSPR03MB7910.apcprd03.prod.outlook.com (2603:1096:400:481::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Tue, 23 May
- 2023 08:21:37 +0000
-Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::2de2:b2ee:d931:157]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
- ([fe80::2de2:b2ee:d931:157%6]) with mapi id 15.20.6411.029; Tue, 23 May 2023
- 08:21:36 +0000
-From: David Rau <David.Rau.opensource@dm.renesas.com>
-To: conor+dt@kernel.org
-Cc: support.opensource@diasemi.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Rau <David.Rau.opensource@dm.renesas.com>
-Subject: [ASoC: da7219: Add Jack insertion detection polarity selection 2/2]
-  ASoC: dt-bindings: da7219: Add jack-ins-det-pty property
-Date: Tue, 23 May 2023 08:21:01 +0000
-Message-Id: <20230523082101.380-2-David.Rau.opensource@dm.renesas.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20230523082101.380-1-David.Rau.opensource@dm.renesas.com>
-References: <20230523082101.380-1-David.Rau.opensource@dm.renesas.com>
-Content-Type: text/plain
-X-ClientProxiedBy: OS3P301CA0007.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:604:21d::14) To OS3PR01MB6641.jpnprd01.prod.outlook.com
- (2603:1096:604:10b::11)
+ 2023 08:33:28 +0000
+Received: from SG2APC01FT0052.eop-APC01.prod.protection.outlook.com
+ (2603:1096:3:18:cafe::64) by SG2PR02CA0035.outlook.office365.com
+ (2603:1096:3:18::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.29 via Frontend
+ Transport; Tue, 23 May 2023 08:33:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS04.nuvoton.com; pr=C
+Received: from NTHCCAS04.nuvoton.com (175.98.123.7) by
+ SG2APC01FT0052.mail.protection.outlook.com (10.13.36.166) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.6433.14 via Frontend Transport; Tue, 23 May 2023 08:33:27 +0000
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Tue, 23
+ May 2023 16:33:26 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server id 15.1.2176.2 via Frontend Transport;
+ Tue, 23 May 2023 16:33:26 +0800
+From: David Lin <CTLIN0@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
+	<YHCHuang@nuvoton.com>, <KCHSU0@nuvoton.com>, <WTLI@nuvoton.com>,
+	<SJLIN0@nuvoton.com>, <ctlin0.linux@gmail.com>, David Lin
+	<CTLIN0@nuvoton.com>
+Subject: [PATCH] ASoC: nau8825: Add pre-charge actions for input
+Date: Tue, 23 May 2023 16:33:04 +0800
+Message-ID: <20230523083303.98436-1-CTLIN0@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB6641:EE_|TY3PR01MB11797:EE_
-X-MS-Office365-Filtering-Correlation-Id: d24c3dd0-e830-420b-257d-08db5b66b9e5
+X-MS-TrafficTypeDiagnostic: SG2APC01FT0052:EE_|TYSPR03MB7910:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca961614-96d5-44f0-8609-08db5b6861bf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	/OUb7z6FWh6cORLxEFEkmovgP1WoJ6BiOD5NCLXfFzj7CA7bTs79jO/cc6QRRe0ZGQoMFrnvXLH5vdTErWXRaXvU/Yo1fN87ICZwoNUBd7JvXZinLEsj5ZjqcA7Rghvn/koU46bLgObzH/PGCBGzjXINKsbR2pKJg5awM+S7vFzuqjygUnjP/k/KnJJSx63cJoTJeKX1XdW/7xOBgW9xZZKOuNbwD9wJqOrHrGIlfUcQf0aNMZ2LrzmJ51AsZ1EiVH4UrrgN0poDyTF/2vTJob47o4JaMnfu2bh65pkOSwBlxKJqYjGnaYU+UvdemsjBlwOmb4W+1/PbUnmHG2k8ZkAPA35UiV9xr1FTdoLTw7wEuKFjpdy4LA5jAKtFiphCI+qw9WdcWG5Vnz3fUYZCMII/q7/vwMDeNCyZpHeq5hLQXaafQrOW1jW0f8rZmxqWhEMbM3mqZCI/Att9ZC90HeDhigyfVeTTqFz9yT7tqnAZZp0zBY2klOO67qrda85/q/UYfOdXjyRRE9R+PSG9CZ3S2La62huW2WmU0Vxd+Fb+bKNeR5lfNCjnMwscV0oNoz8/Iy6bcs4Z4VBsxoRLHDkMzy+nrx2OwO2zrrgaVPA76Hz47wp3tZstsFZdURSv
+	JIfrauUTw12xn4Yw/FnI+j3uDfHWiG0KoYYxsJ+VFAVpFP5N3BQyOk4xpw+ADMdbaDKU7It5ALOm5ugmcJIJSQgPnm+WBk7/jDeRELLLe+7ZiH0w5Rhf5uH6/fRJJr98dNrbj7NYx4o/t0DiBgy2YAlCTVg5HTFDd6vAsoBxCGQPUlnHY09CgxRb1aIcifsmYcI0aeQOiQ3nw3vh1oLJz/U7Z6B6veVMjXykv3zmdLRGmUgH1f2ZoIMS7GVhwZRzqOBDNgXILiufVBFvGUrX5aJLPl/Vy23u5kFCfC5igt7vCi/NGuw2GOL2BOCP/iz/X01nlqFP+Nzy+KOyUZqmIQrlmvBBZ+nDkBs7tgXtlhmbAaXTDNkzY7wZJK2LdAC8t4yqxhBU20wPhthrWivmZkyN0+1Vwktn5afhSojPM9WzpuwDDcmuyO6JlZ/vctUtukLA9e+KVac8jdnuQejQ0CNSChioaBm5Bt4DhiShl0XV3H8Z/YM+hKnFfPYjEvMResuGCD1arzTuygeU4/1YWMuEpcNgE0MuFvyTqsAOFud6Dh6KNa/RW7AvwIsYxkFqFkRmz2bAf3tCvvUpyt0FiMNMaarYMhDacmuXyk1/yQNpGYhkV43cC0h3XL7c7P2hCyfp51LXhdkwAVwBVdLEZucCHE/HF23stMpSZtEV0oxiMfvTy0x9JzQrUAL28MEgqmIdoI9hYrX8+0EJ09bU7y+t9lBbJomvvgAD6k6322r3xYNuAWFesyBvRpp0TLm4sK6Ohcr42jql+CMaHYaJw/DZlGX4vaZK01Pgqa9s8Qk=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB6641.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(366004)(136003)(396003)(376002)(39860400002)(451199021)(107886003)(6512007)(8676002)(8936002)(83380400001)(103116003)(38350700002)(38100700002)(86362001)(6506007)(2616005)(2906002)(41300700001)(52116002)(66946007)(66556008)(66476007)(4326008)(316002)(6666004)(6486002)(5660300002)(26005)(186003)(1076003)(478600001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?69l7xOLyJfplMESNRJMD+muoJUvTgxDaICVK7DiBDOtyq7ujXmfUXBsz1PrZ?=
- =?us-ascii?Q?KGAten+oBeJv4yehExde69gkrcFqhf8QE69N6j1/SH+w8eD2p25DZs3sAty7?=
- =?us-ascii?Q?jfjj9TdfaOPssVOYFkTIAJXrfb5vpDbJvOctD14Gb5TzogjmtUGjxAQkou20?=
- =?us-ascii?Q?ywfohHAgxXrBtV8Gs70t7ovfszdGz+QlGxLQ7/HSMc6WfUaIhKWhuzXa8UJ5?=
- =?us-ascii?Q?+d5FyNCP9gwTwdBIMIoHqCSkGB3E6gwvsaigIhr3U/PkJrveMsL0r197XjGY?=
- =?us-ascii?Q?dtHvjkv6wWmB5sR1692cXFwPfCKzm3UriqJFvzBWoN+aI1IXMBEu0DNMdB2t?=
- =?us-ascii?Q?WKGvJjtHA3b910+uHT1hTBxcRR4JU5yD2i4DCWalS0ajcfOi8ERG5Z5W1nPh?=
- =?us-ascii?Q?vWlzQ24+7BBoR+Lgb+T1BSY5kv9l49eVEPZ/e7fNBxmBdWG4iG1p1JV5HlMf?=
- =?us-ascii?Q?Y4YBFAH554yraUlL/YFJcNq9ycq6v9HRvr1yJyjjqBvhTI2EEv9QMFqgfh5V?=
- =?us-ascii?Q?bpwB3qkGUH9bmjWWxEwznloIR+PfC3MyXPqRB+4cSeAxeAGP6aSncLixB8G1?=
- =?us-ascii?Q?0HWvKi3qw86HUq49nj8yYLcRNFakjwbk+Piuu6KdXkuNgObXOhE2yDm0z6cs?=
- =?us-ascii?Q?u+5ZNTVqKBrMlbZYbmO0p3qQ69uQ9R4mTrjy/fJ5VE/hWqkipNtE3LZ+qmMu?=
- =?us-ascii?Q?KWXhctqC5V86hwtcTR5jcEHV7bQRq49J9jNEKUbNUnLF5msLGpt4XZS14LXv?=
- =?us-ascii?Q?PgjKbVN+2LoHZUOtLNDME67lYBwWUnZxmBkn3fHnBmp0H7ycg8wXXqJuwkn5?=
- =?us-ascii?Q?BEEZ0FX3AB7lWGQKMNSYsqzvrSiL6FCmIJgH30CJ2YkcnPjUnQZqf6hvuRer?=
- =?us-ascii?Q?DMvo8UAJye94AQJYlIZllA7r4LtKdk5nfX6Fs4NPHPwUQK/1VmHWZC24h3z1?=
- =?us-ascii?Q?3wo3ktvn5hjFtYOWVmjDCXGznALWNowUnWl3R0BZXt7QW2+Se6ucJ+fOaKB4?=
- =?us-ascii?Q?4JdSUBraAgqCKBloyJ6tII6Nlv0Lt+EntYLBk/p3oDePILFsPrwk+mMqwG03?=
- =?us-ascii?Q?1Ly1d6hhjk3SYTUCFZV9Jd+OI/muFrY7JhUrTwQvj3yrSaBoMOLKOBTqUBuX?=
- =?us-ascii?Q?3rKGbjYw+2GVJK5hAEa22Z2s8bfaoXeQdzH7j3dquiRbFgpR0nPFSf72urir?=
- =?us-ascii?Q?AcdUpD9r26dAwNvbBHH9Jf94IPt40O7SSAark10Jm1zsZACmyYYw6vCEm3P0?=
- =?us-ascii?Q?IFxqDpn5K1OXvQDEErRHkMqawkNPw6x5ZGGcNaaEFiMarlobQ4GlZvdRZbx5?=
- =?us-ascii?Q?XYYZuHkXQXuQSeQbMoQhzs/ZSALGjFkbwKViakY7DgUZsA/rptOAYzsLfPb3?=
- =?us-ascii?Q?LXmviGi6XQNWTqqpSb2/uRwC9sG14QEuLbeIdtGnz4tkHicwzaTFojHmcXe8?=
- =?us-ascii?Q?n2vkuljNkqrbhMkJ1W3jeWnuaRlgNqnX6ppQppwWGwuSYUOugf7F131bIk0c?=
- =?us-ascii?Q?L/85sHzfWSDk23SqsGhWC4JDUb6bzHkA/ytfKR2oRgdPf0jfpMtD3/rZfVbT?=
- =?us-ascii?Q?aJzUZXhQ/PLNRdc1AGKdsT1DemBvO4fUoo69zY9192D7wXn3WonDrAR5gb0U?=
- =?us-ascii?Q?uA=3D=3D?=
-X-OriginatorOrg: dm.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- d24c3dd0-e830-420b-257d-08db5b66b9e5
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 08:21:36.8958
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS04.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(336012)(426003)(47076005)(41300700001)(2616005)(83380400001)(186003)(2906002)(36860700001)(6916009)(4326008)(70586007)(70206006)(316002)(6666004)(478600001)(54906003)(5660300002)(1076003)(26005)(107886003)(8676002)(8936002)(40480700001)(82310400005)(82740400003)(81166007)(356005)(33656002)(86362001)(36756003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 08:33:27.6475
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Pz+koEk3D3wq4Hi80vuhD7xrre3SaFMbmi5WRcddSYNHT7IvJBccGvEX4T7FZEQgwWg6U6PKPsh0rduWWC5b0MwAA21k98pSaBtak7lhWCM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11797
-Message-ID-Hash: E364G3OOX56SYBL4ZD6ELEHFOTZY3JVR
-X-Message-ID-Hash: E364G3OOX56SYBL4ZD6ELEHFOTZY3JVR
-X-MailFrom: David.Rau.opensource@dm.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ ca961614-96d5-44f0-8609-08db5b6861bf
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS04.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	SG2APC01FT0052.eop-APC01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7910
+Message-ID-Hash: TKNJM5E2OOALRSJKMC4JA64AYAXWRQXZ
+X-Message-ID-Hash: TKNJM5E2OOALRSJKMC4JA64AYAXWRQXZ
+X-MailFrom: CTLIN0@nuvoton.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -161,7 +138,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E364G3OOX56SYBL4ZD6ELEHFOTZY3JVR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TKNJM5E2OOALRSJKMC4JA64AYAXWRQXZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -170,39 +147,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add `dlg,jack-ins-det-pty` property for Jack insertion detection
-polarity selection.
+Adding pre-charge actions to make FEPGA power stable faster. It
+improve the recording quality at the beginning. Thus, it is also
+meaningfully to decrease the final adc delay time.
 
-Signed-off-by: David Rau <David.Rau.opensource@dm.renesas.com>
+Signed-off-by: David Lin <CTLIN0@nuvoton.com>
 ---
- Documentation/devicetree/bindings/sound/dialog,da7219.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/soc/codecs/nau8825.c | 30 ++++++++++++++++++++++++++++--
+ sound/soc/codecs/nau8825.h |  7 +++++++
+ 2 files changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
-index 9160f68696dd..bb5af48ab1e1 100644
---- a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
-+++ b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
-@@ -122,6 +122,12 @@ properties:
-           Debounce time for jack insertion (ms).
-         $ref: /schemas/types.yaml#/definitions/uint32
+diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
+index 775c8e0cb09e..cc3e18207c42 100644
+--- a/sound/soc/codecs/nau8825.c
++++ b/sound/soc/codecs/nau8825.c
+@@ -911,6 +911,32 @@ static bool nau8825_volatile_reg(struct device *dev, unsigned int reg)
+ 	}
+ }
  
-+      dlg,jack-ins-det-pty:
-+        enum: ["low", "high"]
-+        description:
-+          Polarity for jack insertion detection.
-+        $ref: /schemas/types.yaml#/definitions/string
++static int nau8825_fepga_event(struct snd_soc_dapm_widget *w,
++			       struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++	struct nau8825 *nau8825 = snd_soc_component_get_drvdata(component);
 +
-       dlg,jack-det-rate:
-         enum: ["32_64", "64_128", "128_256", "256_512"]
-         description:
-@@ -215,6 +221,7 @@ examples:
-               dlg,btn-cfg = <50>;
-               dlg,mic-det-thr = <500>;
-               dlg,jack-ins-deb = <20>;
-+              dlg,jack-ins-det-pty = "low";
-               dlg,jack-det-rate = "32_64";
-               dlg,jack-rem-deb = <1>;
++	switch (event) {
++	case SND_SOC_DAPM_POST_PMU:
++		regmap_update_bits(nau8825->regmap, NAU8825_REG_FEPGA,
++				   NAU8825_ACDC_CTRL_MASK,
++				   NAU8825_ACDC_VREF_MICP | NAU8825_ACDC_VREF_MICN);
++		regmap_update_bits(nau8825->regmap, NAU8825_REG_BOOST,
++				   NAU8825_DISCHRG_EN, NAU8825_DISCHRG_EN);
++		msleep(40);
++		regmap_update_bits(nau8825->regmap, NAU8825_REG_BOOST,
++				   NAU8825_DISCHRG_EN, 0);
++		regmap_update_bits(nau8825->regmap, NAU8825_REG_FEPGA,
++				   NAU8825_ACDC_CTRL_MASK, 0);
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
+ static int nau8825_adc_event(struct snd_soc_dapm_widget *w,
+ 		struct snd_kcontrol *kcontrol, int event)
+ {
+@@ -1127,8 +1153,8 @@ static const struct snd_soc_dapm_widget nau8825_dapm_widgets[] = {
+ 	SND_SOC_DAPM_INPUT("MIC"),
+ 	SND_SOC_DAPM_MICBIAS("MICBIAS", NAU8825_REG_MIC_BIAS, 8, 0),
  
+-	SND_SOC_DAPM_PGA("Frontend PGA", NAU8825_REG_POWER_UP_CONTROL, 14, 0,
+-		NULL, 0),
++	SND_SOC_DAPM_PGA_E("Frontend PGA", NAU8825_REG_POWER_UP_CONTROL, 14, 0,
++			   NULL, 0, nau8825_fepga_event, SND_SOC_DAPM_POST_PMU),
+ 
+ 	SND_SOC_DAPM_ADC_E("ADC", NULL, SND_SOC_NOPM, 0, 0,
+ 		nau8825_adc_event, SND_SOC_DAPM_POST_PMU |
+diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
+index 44b62bc3880f..38ce052aed50 100644
+--- a/sound/soc/codecs/nau8825.h
++++ b/sound/soc/codecs/nau8825.h
+@@ -442,10 +442,17 @@
+ /* BOOST (0x76) */
+ #define NAU8825_PRECHARGE_DIS	(1 << 13)
+ #define NAU8825_GLOBAL_BIAS_EN	(1 << 12)
++#define NAU8825_DISCHRG_EN	(1 << 11)
+ #define NAU8825_HP_BOOST_DIS		(1 << 9)
+ #define NAU8825_HP_BOOST_G_DIS	(1 << 8)
+ #define NAU8825_SHORT_SHUTDOWN_EN	(1 << 6)
+ 
++/* FEPGA (0x77) */
++#define NAU8825_ACDC_CTRL_SFT		14
++#define NAU8825_ACDC_CTRL_MASK		(0x3 << NAU8825_ACDC_CTRL_SFT)
++#define NAU8825_ACDC_VREF_MICP		(0x1 << NAU8825_ACDC_CTRL_SFT)
++#define NAU8825_ACDC_VREF_MICN		(0x2 << NAU8825_ACDC_CTRL_SFT)
++
+ /* POWER_UP_CONTROL (0x7f) */
+ #define NAU8825_POWERUP_INTEGR_R	(1 << 5)
+ #define NAU8825_POWERUP_INTEGR_L	(1 << 4)
 -- 
-2.17.1
+2.25.1
 

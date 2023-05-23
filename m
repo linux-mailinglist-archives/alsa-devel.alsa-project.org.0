@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 694FE70E27E
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 18:56:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DEF570E285
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 18:59:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7648207;
-	Tue, 23 May 2023 18:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7648207
+	by alsa0.perex.cz (Postfix) with ESMTPS id C364F208;
+	Tue, 23 May 2023 18:58:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C364F208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684861003;
-	bh=pomwoSPiBagnqeBo1aMvvY7T/pCTXzc7pVKQDxkbTdw=;
+	s=default; t=1684861145;
+	bh=ZOgRWSUZeAQRQ5r1OvrZ23h8E9WcL1BECJs8FsCwu4Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uc+ULhntMHZgFwdw4VNAjly3oqWtkIN1ckqTVDAO/HikJFd1XZghbPD1pZbkuFLlO
-	 O+BUc/qThv1dYUy/V2Zz350vmAVkXlLfRh+cYJup9JgbIqqjQOZrjJ0+PUus8O9WLf
-	 z1U1JynSFocyP9+lDe7OPMq2TSEDqEj6mnyyrC4M=
+	b=eyNS/L4T6BeCzUtXJMPHCzI852aI95P5K/b4mk1fumqAAJloMN2iEJc9GqBMQ1qjt
+	 HcYTFaLL6tB8d4UyOOSzvTwun88zvMuTMWgOJXDEPGPmXFCJ4JyCX9G4H4sWO0qu0M
+	 DS5gVh5TnF6XSQdcNUnwFe+aug/uhJdVeyOGoVBg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E531F80086; Tue, 23 May 2023 18:55:53 +0200 (CEST)
+	id 438FCF80086; Tue, 23 May 2023 18:58:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33B46F80249;
-	Tue, 23 May 2023 18:55:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B34FAF80249;
+	Tue, 23 May 2023 18:58:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 449B9F80086; Tue, 23 May 2023 18:55:50 +0200 (CEST)
+	id 408F5F8024E; Tue, 23 May 2023 18:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,49 +35,48 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1892EF80086
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 18:55:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1892EF80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id B2701F8016A
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 18:58:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2701F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BJ0MuBn8
+ header.s=k20201202 header.b=OkVDIoD4
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9F009634A2;
-	Tue, 23 May 2023 16:55:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0243AC4339B;
-	Tue, 23 May 2023 16:55:42 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 82E8D634A1;
+	Tue, 23 May 2023 16:58:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0C8C433EF;
+	Tue, 23 May 2023 16:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684860945;
-	bh=pomwoSPiBagnqeBo1aMvvY7T/pCTXzc7pVKQDxkbTdw=;
+	s=k20201202; t=1684861087;
+	bh=ZOgRWSUZeAQRQ5r1OvrZ23h8E9WcL1BECJs8FsCwu4Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BJ0MuBn8tEKDAW+Ohjeh71k2Z/7EieejwAIdQ7soPsQyLyaqBKuRhd9TX4x/w5XmB
-	 qNRZJAH0VWH+Gz7ha0agE97H0Z4A1AxQ2JQNLE0DYtrOQWziAmMoxUlBvXpF+fu6h8
-	 wg3Flh+X5sjlC1GdNZXFfUdGhddTXMzvQ/iolm1McnIdrn/HgRy7DVYHk3R8MVGbHm
-	 QqM+etwfEE2M2cAEyV2qfwO/W4Tq6By4WAtf5V/w6WbS+ps3Xaq4tBZ38saaRcM/vX
-	 wjOaQMp1e2iKN3TMR8OAWbPpx4lRxbx98ccKOEJ4cgvxdeCTxk2L0dX6xUwPOvpmWo
-	 rs9rfEjuZWA7A==
-Date: Tue, 23 May 2023 17:55:39 +0100
+	b=OkVDIoD4tEZoLdZ/xUfE9c+NUefU1OXooZ6auYkikWy6kMyqxJ0YfM/3oeOMdICLB
+	 N71Z05lVrelwQcnV0tTYQNrwylc8R3oER3PixagiICfpxB8wRdfD2ZHT05b+DjqGTg
+	 WRq1Ldi65dSA5GhYYuXKGrUavb62X9tFFTy6tjgo0H4RoLGCKTnNpP1+DKw0UbiPbp
+	 l9FrvjrSCFXD+xAi/+SerSyMRUiL6yhHtzsopL4zFam/qUaoeYVLbqgwq1bM+Z/4/S
+	 zckmWsg0rZxyhB16hRhBE6U3QlOhxEyw3lVQ0KNJu5TjEmAaUTkDfKyccFwvMAfuyp
+	 15JnQwxRWAYgw==
+Date: Tue, 23 May 2023 17:58:02 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/2] ASoC: codecs: wsa883x: do not set can_multi_write
- flag
-Message-ID: <00283665-e44f-457b-b2c9-1acf59d1cbd8@sirena.org.uk>
-References: <20230523154605.4284-1-srinivas.kandagatla@linaro.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org,
+	ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] regmap: sdw: check for invalid multi-register writes
+ config
+Message-ID: <dd2d2484-13f9-4fa6-85d2-5a540f137b3a@sirena.org.uk>
+References: <20230523154747.5429-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2MlvJV6gocLMBKO+"
+	protocol="application/pgp-signature"; boundary="KttESI1M0xs/s7UC"
 Content-Disposition: inline
-In-Reply-To: <20230523154605.4284-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20230523154747.5429-1-srinivas.kandagatla@linaro.org>
 X-Cookie: Beware of low-flying butterflies.
-Message-ID-Hash: BPKXFEH4MCHQ4YVHRIDZDORQCRC4YGNL
-X-Message-ID-Hash: BPKXFEH4MCHQ4YVHRIDZDORQCRC4YGNL
+Message-ID-Hash: AVSEFNFNKQ3OIBKFGC52XZMCAQZE7S3K
+X-Message-ID-Hash: AVSEFNFNKQ3OIBKFGC52XZMCAQZE7S3K
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BPKXFEH4MCHQ4YVHRIDZDORQCRC4YGNL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AVSEFNFNKQ3OIBKFGC52XZMCAQZE7S3K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,34 +99,34 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---2MlvJV6gocLMBKO+
+--KttESI1M0xs/s7UC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, May 23, 2023 at 04:46:04PM +0100, Srinivas Kandagatla wrote:
-> regmap-sdw does not support multi register writes, so there is
-> no point in setting this flag. This also leads to incorrect
-> programming of WSA codecs with regmap_multi_reg_write() call.
+On Tue, May 23, 2023 at 04:47:47PM +0100, Srinivas Kandagatla wrote:
 
-> This invalid configuration should have been rejected by regmap-sdw.
+> +	/* Only bulk writes are supported not multi-register writes */
+> +	if (config->can_multi_write)
+> +		return -ENOTSUPP;
+> +
 
-Does the CODEC support mulitple writes?  If so it seems better to leave
-the flag set and just do the appropriate fix in the regmap code until
-such time as it's updated to be able to exercise it.
+This doesn't seem like the right fix - I'd expect us to simply choose
+not to use multiple writes, with an additional flag/check for bus
+support.
 
---2MlvJV6gocLMBKO+
+--KttESI1M0xs/s7UC
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRs8AoACgkQJNaLcl1U
-h9AWNQf+IPYCRW1gnzWLgW1rC4g+MrykjJLRYtWWmcSWeEZXIsXOZOOTd+SIspbF
-xq5Zao7SjZqfhKbAzBKNw7KCRc65si32UyccKO+iIhrRUQ3kKn3cCuX4sOuiCWmk
-H22WwBb93WnP51cQAMiTMtBa1x+i/W05l4f155sDsj5g/FrP8CqQK/TFxTrGYGLd
-nysG9PKq74NEmvYUeOMkGxprnyGeRbfeT7PWTtQJMCfkkNc7DK3mvCWiCrmX2X7k
-xDPMDocsnGHBs8b0/sw/+e7w40F77Jxn/vlZQs7jiURWnyocxMGcW9qOMhv/aZhb
-GbCKKHEDuCLpeEFOQlarMbKJXRsSiw==
-=qDCW
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRs8JkACgkQJNaLcl1U
+h9BO1Qf/SF8Vg2vHrhREne+0bKejDxWWk5D1YXA1nuKMm6xnfjwxmxE0E4nsuZmC
+2H94Qqjuyv2OFRrF8zvY5zczDzfbSiVbmCA3D8udwnFSz+QjbnPluIMPQOOa3pPi
+44OIgVJWruEu1ofWtlv0YzCmWaEkkd0EMcQQo0A2i2MFDSeqYKhsnskOPKyDQR7g
+I2JszY5qdCiH1FMyHEbJKHutlAm14xf5NfWClIxxkp7n85mmsbu7AtXskC8MdCQw
+xN6FaRL6JCEO60zdl/ahFHEYyPdTcdtMHEogKFdI9uM9GOwB3qyf3lDnd97dBXR+
+ychovc+cRMUbDRKjYTeNDasKMVOgeg==
+=daRG
 -----END PGP SIGNATURE-----
 
---2MlvJV6gocLMBKO+--
+--KttESI1M0xs/s7UC--

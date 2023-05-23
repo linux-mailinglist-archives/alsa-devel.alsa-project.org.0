@@ -2,93 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0292070DA9E
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 12:35:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C84470DAD2
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 12:47:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4500883B;
-	Tue, 23 May 2023 12:34:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4500883B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72650208;
+	Tue, 23 May 2023 12:47:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72650208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684838117;
-	bh=YhYlVHuTPUgKz2Kr6kzVOAvGYVNPbVP6crHZXP4gfCE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=RVeKJ8YjPP4f6xe4ENOa+04O8CRbPZr2mEpGt5bVcekOgov1VBp49gc6LlLVj/0pu
-	 360g1UHkBqE30csFQe82eAc9pnuvhX+mm58Rvm06SLpQVHtmJqsw5cY3RNZaAb0BpA
-	 baLn8qtTp8mgr5Octc48fQENJrnfLUG8dqUyhV5g=
+	s=default; t=1684838870;
+	bh=TI2Zy09jlQccktzM59HWSLHsvt3YJrL+qpM5wwdd1O0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=GcNiA6G2ELarRuaWXXUvMkcNXiE1tdZgpVFa4+b8FcN4LjgTJuSI9kn7Y3GmZfuYp
+	 mAIKA4q/SzGDT1Lq78rymy1/Yzl3LkJ2GZVDB6Fm6TzeLvwUqL1IvrmwqRo97u5iD5
+	 0npKyM50k5o1p9iwee7GZDC8OPTQes5x7ePtH9ZY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFA9EF8057B; Tue, 23 May 2023 12:33:55 +0200 (CEST)
+	id A3874F80558; Tue, 23 May 2023 12:46:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52FE3F80558;
-	Tue, 23 May 2023 12:33:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 47920F80549;
+	Tue, 23 May 2023 12:46:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1CB14F80578; Tue, 23 May 2023 12:33:51 +0200 (CEST)
+	id EDAA1F8024E; Tue, 23 May 2023 12:46:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CCA32F8026A
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 12:33:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCA32F8026A
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=NNFaTnTj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684838001; x=1716374001;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=YhYlVHuTPUgKz2Kr6kzVOAvGYVNPbVP6crHZXP4gfCE=;
-  b=NNFaTnTjI/Scww8GHL2gyNXve1k+yIfc0kYVKp+qanRIf78fZP6xZfoj
-   V8+6unPAkmUXsZdgzDr/6fuoZtVIa1WK3CLydjjMw83ybRQf5aoSdwELs
-   8QPgvs6svO2eEQCwyh9/apKOnUaiPS0uDfQDvvsgG+eDgH1H4foEjm5KX
-   4jzozRCXRCCPuXtpZh8rOxQcpdeD3iQTSe6yjStR191g50nTs+Zk11QRf
-   Gd7BXwfoTNH+d3eUl5ANJxH9GLEdkMBQO4yOH+AT2vnZVshoNTqkLFsLq
-   8AV0gEdw3DqVQCqjvVrjcCShwYs1reM5eRQuDhGm7jJiC9wO5OiZJduN8
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="333562979"
-X-IronPort-AV: E=Sophos;i="6.00,185,1681196400";
-   d="scan'208";a="333562979"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 03:31:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="681333532"
-X-IronPort-AV: E=Sophos;i="6.00,185,1681196400";
-   d="scan'208";a="681333532"
-Received: from nmkenne1-mobl2.ger.corp.intel.com (HELO
- pujfalus-desk.ger.corp.intel.com) ([10.252.53.154])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 03:31:25 -0700
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	rander.wang@intel.com
-Subject: [PATCH 3/3] ASoC: SOF: Intel: tgl: unify core_put on IPC3 & IPC4 path
-Date: Tue, 23 May 2023 13:32:17 +0300
-Message-Id: <20230523103217.20412-4-peter.ujfalusi@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230523103217.20412-1-peter.ujfalusi@linux.intel.com>
-References: <20230523103217.20412-1-peter.ujfalusi@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13266F8016A
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 12:46:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13266F8016A
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id B7A0424152;
+	Tue, 23 May 2023 06:46:12 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1q1PWu-pjy-00; Tue, 23 May 2023 12:46:12 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: [PATCH 1/2] ALSA: emu10k1: introduce higher-level voice manipulation
+ functions
+Date: Tue, 23 May 2023 12:46:11 +0200
+Message-Id: <20230523104612.198884-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: S3YQFXSZ6CVI3BCSE2CYBJM5XFNJNIUD
-X-Message-ID-Hash: S3YQFXSZ6CVI3BCSE2CYBJM5XFNJNIUD
-X-MailFrom: peter.ujfalusi@linux.intel.com
+Message-ID-Hash: 2KP6DBD5G4I3AZMNR5HVQBTH5LGYGDOA
+X-Message-ID-Hash: 2KP6DBD5G4I3AZMNR5HVQBTH5LGYGDOA
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +67,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/S3YQFXSZ6CVI3BCSE2CYBJM5XFNJNIUD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2KP6DBD5G4I3AZMNR5HVQBTH5LGYGDOA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,49 +76,143 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Rander Wang <rander.wang@intel.com>
+This adds snd_emu10k1_pcm_init_{voices,extra_voice}() and
+snd_emu10k1_playback_{un,}mute_voices() to slightly abstract by voice
+function and potential stereo property.
 
-Firmware may do context saving before powering off primary core, so driver
-needs to send ipc msg by set_core_state. In IPC4 path, firmware needs to
-save current context to IMR before powering off primary core. Firmware
-does nothing for set_core_state message in IPC3 path. So IPC4 and IPC3
-can share the same operation sequence.
-
-Signed-off-by: Rander Wang <rander.wang@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- sound/soc/sof/intel/tgl.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ sound/pci/emu10k1/emupcm.c | 70 +++++++++++++++++++++++++++++---------
+ 1 file changed, 53 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/sof/intel/tgl.c b/sound/soc/sof/intel/tgl.c
-index 2713b7dc7931..8e2b07e1612b 100644
---- a/sound/soc/sof/intel/tgl.c
-+++ b/sound/soc/sof/intel/tgl.c
-@@ -39,14 +39,18 @@ static int tgl_dsp_core_get(struct snd_sof_dev *sdev, int core)
- static int tgl_dsp_core_put(struct snd_sof_dev *sdev, int core)
- {
- 	const struct sof_ipc_pm_ops *pm_ops = sdev->ipc->ops->pm;
-+	int ret;
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index 0036593cca7c..65af94d08b47 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -312,6 +312,30 @@ static void snd_emu10k1_pcm_init_voice(struct snd_emu10k1 *emu,
+ 	spin_unlock_irqrestore(&emu->reg_lock, flags);
+ }
+ 
++static void snd_emu10k1_pcm_init_voices(struct snd_emu10k1 *emu,
++					struct snd_emu10k1_voice *evoice,
++					bool w_16, bool stereo,
++					unsigned int start_addr,
++					unsigned int end_addr,
++					struct snd_emu10k1_pcm_mixer *mix)
++{
++	snd_emu10k1_pcm_init_voice(emu, 1, 0, evoice, w_16, stereo,
++				   start_addr, end_addr, mix);
++	if (stereo)
++		snd_emu10k1_pcm_init_voice(emu, 0, 0, evoice + 1, w_16, true,
++					   start_addr, end_addr, mix);
++}
 +
-+	if (pm_ops->set_core_state) {
-+		ret = pm_ops->set_core_state(sdev, core, false);
-+		if (ret < 0)
-+			return ret;
-+	}
++static void snd_emu10k1_pcm_init_extra_voice(struct snd_emu10k1 *emu,
++					     struct snd_emu10k1_voice *evoice,
++					     bool w_16,
++					     unsigned int start_addr,
++					     unsigned int end_addr)
++{
++	snd_emu10k1_pcm_init_voice(emu, 1, 1, evoice, w_16, false,
++				   start_addr, end_addr, NULL);
++}
++
+ static int snd_emu10k1_playback_hw_params(struct snd_pcm_substream *substream,
+ 					  struct snd_pcm_hw_params *hw_params)
+ {
+@@ -393,18 +417,15 @@ static int snd_emu10k1_playback_prepare(struct snd_pcm_substream *substream)
  
- 	/* power down primary core and return */
- 	if (core == SOF_DSP_PRIMARY_CORE)
- 		return hda_dsp_core_reset_power_down(sdev, BIT(core));
- 
--	if (pm_ops->set_core_state)
--		return pm_ops->set_core_state(sdev, core, false);
--
+ 	start_addr = epcm->start_addr >> w_16;
+ 	end_addr = start_addr + runtime->period_size;
+-	snd_emu10k1_pcm_init_voice(emu, 1, 1, epcm->extra, w_16, false,
+-				   start_addr, end_addr, NULL);
++	snd_emu10k1_pcm_init_extra_voice(emu, epcm->extra, w_16,
++					 start_addr, end_addr);
+ 	start_addr >>= stereo;
+ 	epcm->ccca_start_addr = start_addr;
+ 	end_addr = start_addr + runtime->buffer_size;
+-	snd_emu10k1_pcm_init_voice(emu, 1, 0, epcm->voices[0], w_16, stereo,
+-				   start_addr, end_addr,
+-				   &emu->pcm_mixer[substream->number]);
+-	if (stereo)
+-		snd_emu10k1_pcm_init_voice(emu, 0, 0, epcm->voices[0] + 1, w_16, true,
+-					   start_addr, end_addr,
+-					   &emu->pcm_mixer[substream->number]);
++	snd_emu10k1_pcm_init_voices(emu, epcm->voices[0], w_16, stereo,
++				    start_addr, end_addr,
++				    &emu->pcm_mixer[substream->number]);
++
  	return 0;
  }
  
+@@ -421,8 +442,8 @@ static int snd_emu10k1_efx_playback_prepare(struct snd_pcm_substream *substream)
+ 
+ 	channel_size = runtime->buffer_size;
+ 
+-	snd_emu10k1_pcm_init_voice(emu, 1, 1, epcm->extra, true, false,
+-				   start_addr, start_addr + (channel_size / 2), NULL);
++	snd_emu10k1_pcm_init_extra_voice(emu, epcm->extra, true,
++					 start_addr, start_addr + (channel_size / 2));
+ 
+ 	epcm->ccca_start_addr = start_addr;
+ 	for (i = 0; i < NUM_EFX_PLAYBACK; i++) {
+@@ -598,12 +619,31 @@ static void snd_emu10k1_playback_unmute_voice(struct snd_emu10k1 *emu,
+ 	snd_emu10k1_playback_commit_volume(emu, evoice, vattn);
+ }	
+ 
++static void snd_emu10k1_playback_unmute_voices(struct snd_emu10k1 *emu,
++					       struct snd_emu10k1_voice *evoice,
++					       bool stereo,
++					       struct snd_emu10k1_pcm_mixer *mix)
++{
++	snd_emu10k1_playback_unmute_voice(emu, evoice, stereo, true, mix);
++	if (stereo)
++		snd_emu10k1_playback_unmute_voice(emu, evoice + 1, true, false, mix);
++}
++
+ static void snd_emu10k1_playback_mute_voice(struct snd_emu10k1 *emu,
+ 					    struct snd_emu10k1_voice *evoice)
+ {
+ 	snd_emu10k1_playback_commit_volume(emu, evoice, 0);
+ }
+ 
++static void snd_emu10k1_playback_mute_voices(struct snd_emu10k1 *emu,
++					     struct snd_emu10k1_voice *evoice,
++					     bool stereo)
++{
++	snd_emu10k1_playback_mute_voice(emu, evoice);
++	if (stereo)
++		snd_emu10k1_playback_mute_voice(emu, evoice + 1);
++}
++
+ static void snd_emu10k1_playback_commit_pitch(struct snd_emu10k1 *emu,
+ 					      u32 voice, u32 pitch_target)
+ {
+@@ -680,22 +720,18 @@ static int snd_emu10k1_playback_trigger(struct snd_pcm_substream *substream,
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 		mix = &emu->pcm_mixer[substream->number];
+-		snd_emu10k1_playback_unmute_voice(emu, epcm->voices[0], stereo, true, mix);
+-		if (stereo)
+-			snd_emu10k1_playback_unmute_voice(emu, epcm->voices[0] + 1, true, false, mix);
++		snd_emu10k1_playback_unmute_voices(emu, epcm->voices[0], stereo, mix);
+ 		snd_emu10k1_playback_set_running(emu, epcm);
+ 		snd_emu10k1_playback_trigger_voice(emu, epcm->voices[0]);
+ 		snd_emu10k1_playback_trigger_voice(emu, epcm->extra);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 		snd_emu10k1_playback_stop_voice(emu, epcm->voices[0]);
+ 		snd_emu10k1_playback_stop_voice(emu, epcm->extra);
+ 		snd_emu10k1_playback_set_stopped(emu, epcm);
+-		snd_emu10k1_playback_mute_voice(emu, epcm->voices[0]);
+-		if (stereo)
+-			snd_emu10k1_playback_mute_voice(emu, epcm->voices[0] + 1);
++		snd_emu10k1_playback_mute_voices(emu, epcm->voices[0], stereo);
+ 		break;
+ 	default:
+ 		result = -EINVAL;
 -- 
-2.40.1
+2.40.0.152.g15d061e6df
 

@@ -2,99 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 142EF70E4A3
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 20:27:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C6070E01A
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 17:14:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA3BB825;
-	Tue, 23 May 2023 20:26:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA3BB825
+	by alsa0.perex.cz (Postfix) with ESMTPS id B44CA820;
+	Tue, 23 May 2023 17:13:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B44CA820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684866425;
-	bh=kH22TXuJtFmSJ2fWfIGz1kwHZ5/aELJIPwlWwy6uGcE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=l6s5LPaKaxrc3/rOfjqw/Y05RSej0hszOfm4DTxs7JRlNZm66temIJhuH9cQssE8i
-	 pcum56GRnhyy4jRfNIdN3GemfLMgPa6fwpDT0tZezXVOSJzXO3GMYcr6F95wzdi10E
-	 B+XeqcHPCHgq6rSjispteUhFll3oPvyiNMrMZNe8=
+	s=default; t=1684854865;
+	bh=fTYqDpnPeDecn81aQqoaXRxxGGYnBNI/2bFaRrPz8f4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=SHgh31Y0xBh3L0xekJdba9aCMwC2F1z8zGfUyfjn3aM15a/rtfWPbZsf1yFZuPJtF
+	 k7y4xvGFsK7cF9tL1/y4BfULtab3kkFfqdJzxL3aic3hQjHzLOkLevuuktBEaofVOh
+	 DvyCFtXVsxf1sbP2hzXbtmHhjjA/OsAEIhrHOwNY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66E4FF8057F; Tue, 23 May 2023 20:25:10 +0200 (CEST)
+	id 78D53F800DF; Tue, 23 May 2023 17:12:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0283FF8057B;
-	Tue, 23 May 2023 20:25:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25ECCF80552;
+	Tue, 23 May 2023 17:12:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3329F80553; Tue, 23 May 2023 20:25:02 +0200 (CEST)
+	id C70E5F8024E; Tue, 23 May 2023 17:12:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.4 required=5.0 tests=DATE_IN_PAST_03_06,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,
-	RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1D812F80249
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 20:24:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D812F80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id BD28DF800DF
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 17:12:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD28DF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=BWypFKFI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684866299; x=1716402299;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=kH22TXuJtFmSJ2fWfIGz1kwHZ5/aELJIPwlWwy6uGcE=;
-  b=BWypFKFIfjQqDLETI+VGji0MBVIn795wr9iIaasTvIvblrFFRyh6apAK
-   5gAzk0ojEw1IioBLUHFg0sbEkTqdDLxOp0ZG/d3vFMQmOqxRoujZia8sg
-   JAMjMdKqlFaXC40SfLePCXLYgVHOY1p4ZqqCUjczgYhlIS2ytCtLJ/az4
-   PjNCVrheMfuHhSf1LYVRxRPWlK2OeYeaw7A2CLwY5/XcmIXxAdTCVEpcp
-   f40Hh2O7TUpuucPP8rPklzTWqkITj1rr6llTQ3JDNvtGUmQIuUE/dO+9O
-   mdf8t/uAWMTXZ8rKNRzY0245rToLo+VIxVVIR+vGTfMHN9XXXZlXJjx+y
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="342786285"
-X-IronPort-AV: E=Sophos;i="6.00,187,1681196400";
-   d="scan'208";a="342786285"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 11:24:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="736974314"
-X-IronPort-AV: E=Sophos;i="6.00,187,1681196400";
-   d="scan'208";a="736974314"
-Received: from srusakov-mobl.amr.corp.intel.com (HELO [10.209.35.87])
- ([10.209.35.87])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 11:24:39 -0700
-Message-ID: <64948d51-dc5d-adb7-4929-74a827a004a2@linux.intel.com>
-Date: Tue, 23 May 2023 10:03:15 -0500
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=TSmhYRr+
+Received: (Authenticated sender: herve.codina@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPA id 6D690C000C;
+	Tue, 23 May 2023 15:12:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1684854749;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=44LW4D+dEQ4642r5zsLapFoXq9b1JcRYCd7i3HkCKYM=;
+	b=TSmhYRr+lsHjhiKF/pnRF7qFR3c7YLwMNGErcOAdJzgvH65cnroU6fGyh0hzPo2ZdfE7GJ
+	a9Vxf9vSpCPRBXGZ3tVcWomX++WuAl3nWH2mlbzQkWwpAFDucsO6MdvD6mmTHSVIH6d6G+
+	+af87BadCTLNfjxOVFgIOuAZgZaW1o/58W3oAFaTrXIf44iHdcF+KfoD8pEpeUfP3fqDTs
+	9O5aoRFqE5I3MsxGhM4LF7k/aKCWyLuDWjXr61zR546f5Lww8WaHpWrL0TRfhjmXBWyGG3
+	4zLenMx4cSwu7xhw3zyD4KErAPRtf7NSjpwtb04vjHBhO6mOA7H4skh+JpDWfw==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v2 0/9] Add support for IIO devices in ASoC
+Date: Tue, 23 May 2023 17:12:14 +0200
+Message-Id: <20230523151223.109551-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH V2 6/9] ASoC: amd: ps: add pm ops support for SoundWire
- dma driver
-Content-Language: en-US
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, open list <linux-kernel@vger.kernel.org>
-References: <20230522133122.166841-1-Vijendar.Mukunda@amd.com>
- <20230522133122.166841-7-Vijendar.Mukunda@amd.com>
- <b3812c08-96fe-f125-66c6-a7db518a37ba@linux.intel.com>
- <f69b31e4-79f0-b7f5-097b-0e11699867b9@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <f69b31e4-79f0-b7f5-097b-0e11699867b9@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WRQXFBT74KY4HC2XY35IOWF3RPZCIOLJ
-X-Message-ID-Hash: WRQXFBT74KY4HC2XY35IOWF3RPZCIOLJ
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Message-ID-Hash: 33Z3OBEZOJ5EN3E7PI5Q73XEVRA7U63A
+X-Message-ID-Hash: 33Z3OBEZOJ5EN3E7PI5Q73XEVRA7U63A
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRQXFBT74KY4HC2XY35IOWF3RPZCIOLJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/33Z3OBEZOJ5EN3E7PI5Q73XEVRA7U63A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,104 +104,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Several weeks ago, I sent a series [1] for adding a potentiometer as an
+auxiliary device in ASoC. The feedback was that the potentiometer should
+be directly handled in IIO (as other potentiometers) and something more
+generic should be present in ASoC in order to have a binding to import
+some IIO devices into sound cards.
 
->>> @@ -464,16 +488,79 @@ static int acp63_sdw_platform_probe(struct platform_device *pdev)
->>>  	status = devm_snd_soc_register_component(&pdev->dev,
->>>  						 &acp63_sdw_component,
->>>  						 NULL, 0);
->>> -	if (status)
->>> +	if (status) {
->>>  		dev_err(&pdev->dev, "Fail to register sdw dma component\n");
->>> +		return status;
->>> +	}
->>> +	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
->>> +	pm_runtime_use_autosuspend(&pdev->dev);
->>> +	pm_runtime_enable(&pdev->dev);
->>> +	pm_runtime_allow(&pdev->dev);
->> Can you remind me why you need the pm_runtime_allow()? I can't recall
->> where the _forbid() is done.
-> We have used pm_runtime_allow() to allow the device immediately
-> enter runtime suspend state. Yes you are correct. If we use pm_runtime_allow(),
-> then in remove sequence we should use pm_runtime_forbid call.
->> Also is there not a pm_runtime_set_active() missing?
-> 
-> 
-> We will change the sequence as mentioned below.
-> 
-> in probe sequence , we will use
-> 
->     pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
->     pm_runtime_use_autosuspend(&pdev->dev);
->     pm_runtime_mark_last_busy(&pdev->dev);
->     pm_runtime_set_active(&pdev->dev);
->     pm_runtime_enable(&pdev->dev);
-> 
-> In remove sequence
-> 
-> pm_runtime_disable(&pdev->dev);
+The series related to the IIO potentiometer device is already under
+review [2].
 
-sounds about right.
+This series introduces audio-iio-aux. Its goal is to offer the binding
+between IIO and ASoC.
+It exposes attached IIO devices as ASoC auxiliary devices and allows to
+control them through mixer controls.
 
->>
->>> +	return 0;
->>> +}
->>>  
->>> -	return status;
->>> +static int acp63_sdw_platform_remove(struct platform_device *pdev)
->>> +{
->>> +	pm_runtime_disable(&pdev->dev);
->>> +	return 0;
->>>  }
->>>  
->>> +static int __maybe_unused acp63_sdw_pcm_resume(struct device *dev)
->>> +{
->>> +	struct sdw_dma_dev_data *sdw_data;
->>> +	struct acp_sdw_dma_stream *stream;
->>> +	struct snd_pcm_runtime *runtime;
->>> +	u32 period_bytes, buf_size, water_mark_size_reg;
->>> +	int ret;
->>> +	int index;
->>> +
->>> +	sdw_data = dev_get_drvdata(dev);
->>> +	for (index = 0; index < ACP63_SDW0_DMA_MAX_STREAMS; index++) {
->>> +		if (sdw_data->sdw0_dma_stream[index] &&
->>> +		    sdw_data->sdw0_dma_stream[index]->runtime) {
->>> +			water_mark_size_reg = sdw0_dma_ring_buf_reg[index].water_mark_size_reg;
->>> +			runtime = sdw_data->sdw0_dma_stream[index]->runtime;
->>> +			stream = runtime->private_data;
->>> +			period_bytes = frames_to_bytes(runtime, runtime->period_size);
->>> +			buf_size = frames_to_bytes(runtime, runtime->buffer_size);
->>> +			acp63_config_dma(stream, sdw_data->acp_base, index);
->>> +			ret = acp63_configure_sdw_ringbuffer(sdw_data->acp_base, index,
->>> +							     buf_size, ACP_SDW0);
->>> +			if (ret)
->>> +				return ret;
->>> +			writel(period_bytes, sdw_data->acp_base + water_mark_size_reg);
->>> +		}
->>> +	}
->>> +	for (index = 0; index < ACP63_SDW1_DMA_MAX_STREAMS; index++) {
->>> +		if (sdw_data->sdw1_dma_stream[index] &&
->>> +		    sdw_data->sdw1_dma_stream[index]->runtime) {
->>> +			water_mark_size_reg = sdw1_dma_ring_buf_reg[index].water_mark_size_reg;
->>> +			runtime = sdw_data->sdw1_dma_stream[index]->runtime;
->>> +			stream = runtime->private_data;
->>> +			period_bytes = frames_to_bytes(runtime, runtime->period_size);
->>> +			buf_size = frames_to_bytes(runtime, runtime->buffer_size);
->>> +			acp63_config_dma(stream, sdw_data->acp_base, index);
->>> +			ret = acp63_configure_sdw_ringbuffer(sdw_data->acp_base, index,
->>> +							     buf_size, ACP_SDW1);
->>> +			if (ret)
->>> +				return ret;
->>> +			writel(period_bytes, sdw_data->acp_base + water_mark_size_reg);
->>> +		}
->>> +	}
->> Isn't this set of configurations something that needs to be done already
->> somewhere else, i.e. could there be a common helper?
-> In hw_params() callback, we are setting period_bytes and buf_size from
-> params structure. We are extracting same variables from runtime structures
-> in resume() callback.
-> We can implement a helper function to further simplify above logic
-> instead of having two separate loops.
+On my system, the IIO device is a potentiometer and it is present in an
+amplifier design present in the audio path.
 
-ok
+Compare to the previous iteration
+  https://lore.kernel.org/linux-kernel/20230421124122.324820-1-herve.codina@bootlin.com/
+This v2 series mainly:
+ - updates the binding using a simple-card subnode and handles this new
+   subnode in the simple-card driver.
+ - Improves existing IIO code and documentation.
+ - Renames simple-iio-aux to audio-iio-aux and fixes the driver itself.
+
+Best regards,
+Hervé
+
+[1] https://lore.kernel.org/linux-kernel/20230203111422.142479-1-herve.codina@bootlin.com/
+[2] https://lore.kernel.org/linux-kernel/20230421085245.302169-1-herve.codina@bootlin.com/
+
+Changes v1 -> v2
+  - Patch 1
+    Rename simple-iio-aux to audio-iio-aux
+    Rename invert to snd-control-invert-range
+    Remove the /schemas/iio/iio-consumer.yaml reference
+    Remove the unneeded '|' after description
+
+  - Patch 2 (new in v2)
+    Introduce the simple-audio-card additional-devs subnode
+
+  - Patch 3 (new in v2)
+    Check err before switch() in iio_channel_read_max()
+
+  - Patch 4 (new in v2)
+    Fix raw reads and raw writes documentation
+
+  - Patch 5 (patch 2 in v1)
+    Check err before switch() in iio_channel_read_min()
+    Fix documentation
+
+  - Patch 6 (path 3 in v1)
+    No changes
+
+  - Patch 7 (patch 4 in v1)
+    Rename simple-iio-aux to audio-iio-aux
+    Rename invert to snd-control-invert-range
+    Remove the mask usage from audio_iio_aux_{get,put}_volsw helpers
+    Use directly PTR_ERR() in dev_err_probe() parameter
+    Remove the '!!' construction
+    Remove of_match_ptr()
+
+  - Patch 8 (new in v2)
+    Add a missing of_node_put() in the simple-card driver
+
+  - Patch 9 (new in v2)
+    Handle additional-devs in the simple-card driver
+
+Herve Codina (9):
+  ASoC: dt-bindings: Add audio-iio-aux
+  ASoC: dt-bindings: simple-card: Add additional-devs subnode
+  iio: inkern: Check error explicitly in iio_channel_read_max()
+  iio: consumer.h: Fix raw values documentation notes
+  iio: inkern: Add a helper to query an available minimum raw value
+  ASoC: soc-dapm.h: Add a helper to build a DAPM widget dynamically
+  ASoC: codecs: Add support for the generic IIO auxiliary devices
+  ASoC: simple-card: Add missing of_node_put() in case of error
+  ASoC: simple-card: Handle additional devices
+
+ .../bindings/sound/audio-iio-aux.yaml         |  64 ++++
+ .../bindings/sound/simple-card.yaml           |  53 +++
+ drivers/iio/inkern.c                          |  75 ++++-
+ include/linux/iio/consumer.h                  |  37 ++-
+ include/sound/soc-dapm.h                      |  12 +-
+ sound/soc/codecs/Kconfig                      |  12 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/audio-iio-aux.c              | 302 ++++++++++++++++++
+ sound/soc/generic/simple-card.c               |  53 ++-
+ 9 files changed, 596 insertions(+), 14 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/audio-iio-aux.yaml
+ create mode 100644 sound/soc/codecs/audio-iio-aux.c
+
+-- 
+2.40.1
 

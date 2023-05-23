@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 638D070E784
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:40:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6539D70E77B
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:39:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A3C0209;
-	Tue, 23 May 2023 23:39:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A3C0209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B63F208;
+	Tue, 23 May 2023 23:38:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B63F208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684878007;
-	bh=EsrAPhxo3puyaSj7ajd+Tc6o7LeA04zB5AYHMx4iR0M=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=uD/67+xf4nF+3xqFUjIx0ogyBIdF7j6hRIMl63eK+koc/q3FS0ZFUzNi0Z8umhYkz
-	 6x0Pta/t0CscolrxCBL5g+QrInNJLWaKL4tqak+96zTH30EhkC+gEB79HHRZo6Nd+D
-	 actgGrPWcvmCvktYb8DATt/twe7NE0TYc7BQAAwQ=
+	s=default; t=1684877988;
+	bh=KDw2ZLbAjb9ApTiS0Uv1aBM7bX9yFQks2YcBbU/B23c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=qUxHTREwBwPLMEJeV0907+Gqh3nK/7BX8OP9iVN3mUyKbzLr0P68YE4Z7KZD84QB5
+	 VJFqTkpRr16vga/AvSmcQ0tZD34Ac+5QM89H/eGPiWQBVblq6blKxQu4RXt41/+LzM
+	 lWmE+QN+PWTxN1mJoXgawFBg1L6+poBwoL9uSNP8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44DF1F80553; Tue, 23 May 2023 23:38:48 +0200 (CEST)
+	id 11603F80548; Tue, 23 May 2023 23:38:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 885D8F8055B;
-	Tue, 23 May 2023 23:38:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EADA2F80249;
+	Tue, 23 May 2023 23:38:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72FD4F80544; Tue, 23 May 2023 23:38:43 +0200 (CEST)
+	id B965EF80548; Tue, 23 May 2023 23:38:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,52 +38,53 @@ Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6345AF8016A
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:38:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6345AF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id AA3C8F80249
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:38:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA3C8F80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=Opz4IE1p
+ header.s=20221208 header.b=IxRFm84j
 Received: by mail-oi1-x22a.google.com with SMTP id
- 5614622812f47-3909756b8b1so134190b6e.1
+ 5614622812f47-394440f483fso199894b6e.3
         for <alsa-devel@alsa-project.org>;
- Tue, 23 May 2023 14:38:33 -0700 (PDT)
+ Tue, 23 May 2023 14:38:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684877912; x=1687469912;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=arqptb0OK5jJvfCDv3LmhvqgIyzYXs27jb/mT9pkapg=;
-        b=Opz4IE1pgS3b+YNtQXnRxbTZ9Xc9wk5U+dXsSL5bASel6njkJGJD1McpafVnUDHNTX
-         gAM4ZPUaaJCttEi/15Ylm6U6nsOFg4s8BYTdHzPAFYp4uuIrXYXUKZU70TgAy1/4OB07
-         SvEvCUEUqfEyGxcdtHbzXOUPPhkXt9soUGYhOpJyWbrhhrl70Blyek6cf+IWtLZHMhld
-         TRoKc6pH4+b3eMrHDHH30ZCzpOHEcv4oc7nBKHnR5TEvYRNIvGV+/Cdibx61eLZlKtSt
-         dyn8dE4RbO6sxAfKUBsUrhkF6LUmIQdGuoI04kAsnDoZK/y1p5DtIzw6hZD4bagNJSs5
-         BZng==
+        d=gmail.com; s=20221208; t=1684877913; x=1687469913;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VI4om0ZWAsAxPDpD0mRnXUe2apysOtTyxuri6O2D2jQ=;
+        b=IxRFm84jrNoDiWcn5yW738bsCP5iCB0+EmH3a0i5BluwYlfXaNm4/LO8GY3bKEzmJk
+         aCUSC36WK9GhGYMwwepdNTbFoMHV+9TH1Ejv1JYzw5H3OvwuyM24dFrcbPcCDReJJ6Kr
+         8cvW4zgnlcdef4f+/ud0PKulsS+offM0b4j5G/PpjSgQvaMfFsEU1iSRwDnvXhDXcRTe
+         46yPBK/3n5BC8K/XM8nT30CAWlpnUdlK4IHeL9973nRjPXGsjhek9YbZ+zWCLD1/L+ew
+         iHluVRTd64DZ++VBCcP8GyEJxneQgfoWmLWDH2UJdk4ZZDp6zVOqV7imaCV51v09G+Cr
+         f/kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684877912; x=1687469912;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=arqptb0OK5jJvfCDv3LmhvqgIyzYXs27jb/mT9pkapg=;
-        b=hWCVxBv3UtYEOnjPVzIdelR+Kl8ozg5ieYPIVCwNa7Ab5loj1zTskcDiUNChamAQ1c
-         Nlotzv4O46wvs3QwGBbOmREoSba4UVLXKm7osSAeCjAglUoIRmca7RRA4SGLeMIH0vBS
-         2OetAYmEyzIDgRFYHeLwCabIvixz7yMCDSKFEEjcW1cSuQu15eYLmX/9fvYdWCuky7xV
-         ieR+6iGGIMV/mr6QlvM0Fhx5SvVZ2cBnHcymGIXPQMBBN6Yzp3uql9XNwYcwgxXaU9sQ
-         Gkwmq1c0grROT1FaWWcT+x4ixxOBjzj4lZM1HPTJJ8gkX93k/egbebcznEAMJP5SVV8L
-         +b5Q==
-X-Gm-Message-State: AC+VfDzdqQQ7/LKQRdxV9IwM4kjTjLlWvBsc83b+Dlvw/uOhY7+TsHhg
-	875brhaGXe2VQxcwl9bvTyo=
+        d=1e100.net; s=20221208; t=1684877913; x=1687469913;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VI4om0ZWAsAxPDpD0mRnXUe2apysOtTyxuri6O2D2jQ=;
+        b=MvhCzVafb06QM5zK7x58jNA9Da5B8bm3nt4/Vn4PI7A/3iIpJsxUXFBAUp1jXdkZ7V
+         a6gpHRsg76M5zpqfBLe++RqcdEtkrU0TEg97i6qJxBGeTbUSR/uzDO20R2ZGTJDlh9XM
+         srIjrLBd74CJp6m202zi3IXj+4A92xHEfUJPBTV7C6BaAiyJTEj6dB4omfTilDP/MsEb
+         2uOaWRxz/hskrhEnYIrqiHY39DK/O/iNNAJjjF9cVTNt20Erk136CNbSg8RmA4zm9ZQH
+         kJqQ4+yucSYim7jPxI0b/RGFqO9nCxPP1J8vb9VbGW0MMQkXA1KEdC5Lbrp6ZHKhyYrn
+         ZkWg==
+X-Gm-Message-State: AC+VfDysHbw+KqFI40VZJk0VvIXaAxlbHNkVUctRejLU9vOB/lf3D+OG
+	36JFDck1eLbsMc9k6FdUMnM=
 X-Google-Smtp-Source: 
- ACHHUZ4NZdtIsaO5n44Zn7IKr1DzCMLgEaBZw8ilmvOfkDar/T7XjSOMt5GKhFnsBoinBC59QI98xQ==
-X-Received: by 2002:a05:6808:216:b0:396:42a9:9877 with SMTP id
- l22-20020a056808021600b0039642a99877mr7898056oie.37.1684877911885;
-        Tue, 23 May 2023 14:38:31 -0700 (PDT)
+ ACHHUZ49snHGywQm22s3ZruIpUwwW0LIO0zG7T/h5lkdyPqari17yoPFvSZJS3L1hb8wzc7tjabbWQ==
+X-Received: by 2002:a05:6808:4043:b0:398:9ae:50cc with SMTP id
+ cz3-20020a056808404300b0039809ae50ccmr4312004oib.41.1684877912654;
+        Tue, 23 May 2023 14:38:32 -0700 (PDT)
 Received: from localhost.localdomain ([75.28.21.198])
         by smtp.gmail.com with ESMTPSA id
  y83-20020acae156000000b0037832f60518sm4442359oig.14.2023.05.23.14.38.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 May 2023 14:38:31 -0700 (PDT)
+        Tue, 23 May 2023 14:38:32 -0700 (PDT)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-rockchip@lists.infradead.org
 Cc: alsa-devel@alsa-project.org,
@@ -100,14 +102,16 @@ Cc: alsa-devel@alsa-project.org,
 	krzysztof.kozlowski+dt@linaro.org,
 	robh+dt@kernel.org,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH 0/6] Add Support for RK3588s Indiedroid Nova
-Date: Tue, 23 May 2023 16:38:19 -0500
-Message-Id: <20230523213825.120077-1-macroalpha82@gmail.com>
+Subject: [PATCH 1/6] ASoC: es8328: Enabling support for 12Mhz sysclk
+Date: Tue, 23 May 2023 16:38:20 -0500
+Message-Id: <20230523213825.120077-2-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230523213825.120077-1-macroalpha82@gmail.com>
+References: <20230523213825.120077-1-macroalpha82@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NDDMCRG3WYZ44AQVHPO6UA2BA35TWA6I
-X-Message-ID-Hash: NDDMCRG3WYZ44AQVHPO6UA2BA35TWA6I
+Message-ID-Hash: IMB6GWGEDA4ASGD6HREP3XYD2TCOGBDV
+X-Message-ID-Hash: IMB6GWGEDA4ASGD6HREP3XYD2TCOGBDV
 X-MailFrom: macroalpha82@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -120,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NDDMCRG3WYZ44AQVHPO6UA2BA35TWA6I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IMB6GWGEDA4ASGD6HREP3XYD2TCOGBDV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,29 +135,50 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Add support for the RK3588s based Indiedroid Nova. Note that this
-series is dependent on regulator support for the RK806 being
-upstreamed.
+Enable support for 12Mhz sysclk on es8328. This sysclk value is used on
+the Indiedroid Nova rk3588s based single board computer.
 
-https://lore.kernel.org/linux-rockchip/20230515152044.GT10825@google.com/
+Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+Signed-off-by: Chris Zhong <zyw@rock-chips.com>
+---
+ sound/soc/codecs/es8328.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-Chris Morgan (6):
-  ASoC: es8328: Enabling support for 12Mhz sysclk
-  arm64: dts: rockchip: add default pinctrl for rk3588 emmc
-  arm64: dts: rockchip: Add sdio node to rk3588
-  dt-bindings: vendor-prefixes: add Indiedroid
-  dt-bindings: arm: rockchip: Add Indiedroid Nova
-  arm64: dts: rockchip: Add Indiedroid Nova board
-
- .../devicetree/bindings/arm/rockchip.yaml     |   5 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +
- .../dts/rockchip/rk3588s-indiedroid-nova.dts  | 761 ++++++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588s.dtsi     |  18 +
- sound/soc/codecs/es8328.c                     |  17 +
- 6 files changed, 804 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
-
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index 160adc706cc6..3918be5fc3f1 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -36,6 +36,16 @@ static const struct snd_pcm_hw_constraint_list constraints_12288 = {
+ 	.list	= rates_12288,
+ };
+ 
++static unsigned int ratios_12000[] = {
++	8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100, 48000,
++	48000, 88235, 96000,
++};
++
++static struct snd_pcm_hw_constraint_list constraints_12000 = {
++	.count = ARRAY_SIZE(ratios_12000),
++	.list = ratios_12000,
++};
++
+ static const unsigned int rates_11289[] = {
+ 	8018, 11025, 22050, 44100, 88200,
+ };
+@@ -577,6 +587,13 @@ static int es8328_set_sysclk(struct snd_soc_dai *codec_dai,
+ 		es8328->sysclk_constraints = &constraints_12288;
+ 		es8328->mclk_ratios = ratios_12288;
+ 		break;
++	case 24000000:
++		mclkdiv2 = 1;
++		fallthrough;
++	case 12000000:
++		es8328->sysclk_constraints = &constraints_12000;
++		es8328->mclk_ratios = ratios_12000;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
 -- 
 2.34.1
 

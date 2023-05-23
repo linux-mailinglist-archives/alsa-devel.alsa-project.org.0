@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3496D70E810
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:53:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ED4970E904
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 00:19:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 937BB209;
-	Tue, 23 May 2023 23:52:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 937BB209
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD47A204;
+	Wed, 24 May 2023 00:18:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD47A204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684878807;
-	bh=Q7Cfr0P4JrgFbeW6Lss/x27KCWc3NQnkwpmV1bMsJko=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Wb6l08h5iF1Tbh+BtUmotb8X2RdYKqE5rQWBXJTo1IKgaxQV1aG5abvL9t/lu2fqY
-	 xr16VmHUujxAX3hRAtaST1Ti1jVa8/BraTT0h21VXeyHhWoqOZxHlzkt88je05hh6e
-	 tjfxbCi9ryYhctoZ0UpC0gJw0pLx+8KUW4f29VHA=
+	s=default; t=1684880366;
+	bh=veuGFlBxvJfC7X2QtcsRIS3sb0+f5+8pwpEBphVcea0=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=eN94/TNaFBFMnn31mECOIL/brq3SspMhgrCXnRB5bDPTOP/j7iqxYoShXyEQ302YB
+	 GtothnZgQoDfuW+mGJx8RfLgXTHyqPnNtWGo1sIxF2pt7uo8mqPTc/aRkOTiWqqDCO
+	 clXbImj5kjwgRV+xQEwEYeZ3F94nBH1WTo3pgHgg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE14DF8024E; Tue, 23 May 2023 23:52:13 +0200 (CEST)
+	id 2CC28F80249; Wed, 24 May 2023 00:18:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7420DF80249;
-	Tue, 23 May 2023 23:52:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3866F80249;
+	Wed, 24 May 2023 00:18:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E63E6F8024E; Tue, 23 May 2023 23:52:09 +0200 (CEST)
+	id 111F4F8024E; Wed, 24 May 2023 00:18:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,52 +35,58 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5DDB7F800DF
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:52:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DDB7F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 09CAFF80086
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 00:18:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09CAFF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BhgpD96f
+ header.s=k20201202 header.b=JR708gZp
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2C7A963661;
-	Tue, 23 May 2023 21:52:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524C3C433EF;
-	Tue, 23 May 2023 21:52:02 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CEBB8626FD;
+	Tue, 23 May 2023 22:18:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55445C433D2;
+	Tue, 23 May 2023 22:18:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684878725;
-	bh=Q7Cfr0P4JrgFbeW6Lss/x27KCWc3NQnkwpmV1bMsJko=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BhgpD96fUG6XX5nLgvCkOJqbrtkEXkh9ZWfhRo6SaGPraqQ4um5v/iQJ9cigo9D71
-	 LMFq1CH09FvTqUpbRdjWer1gOveDipuZ+KciU7Se9VKTCyw3MwmoV2xkhqKIpKLsVv
-	 3NJa0sZ7Ra0CiJMsg6C2i2RUNWKVRsuxPHwXwWZXgJOH+tTvvnAFAVIyw8MKZCKg8d
-	 nl74Q+CFewYespiRJyLQfJJvxT8879v/zogt9/N5juU2gRlemaDSx+zERHT1g+2MCh
-	 azlcDBLIVAbucxT9skYHlqDiVOlGRbHK4Iwm3zpDKzxe17dZO2ZaHxEm+zKYwLIkfI
-	 yQ2KOXJvwmUDQ==
-Date: Tue, 23 May 2023 22:51:59 +0100
+	s=k20201202; t=1684880307;
+	bh=veuGFlBxvJfC7X2QtcsRIS3sb0+f5+8pwpEBphVcea0=;
+	h=From:Date:Subject:To:Cc:From;
+	b=JR708gZp1IuCASbi+tDPkn5+t1JnIHoMs9mSTcig2R+T9CxxXkdHsf9XBy+XyjTMv
+	 yYwWMFkESn+z5kokf/CGwqfLEeIsN15IZBhIhmrFXtQ9gBrmiwb+43+q9nCPr0eYvF
+	 PTXJUdA/APWCtM7dK3DXD1X1sLP39HdwmrCRUrtsL1mZQTPDQW26H49PNClitjQ+WM
+	 tzXIciRH24k2j0G55oHXFX2pxazGzoc/q0Yvm8xc5aHKw54H7TUsjowK/GEjEyApLD
+	 PHp1WQs8I3B/t57U0PuaTX1DZBrBBP7WFFZsM7Pv7vgUPgd3B0RYQcBVp2lAkkEK3y
+	 joL3vYR+Z+10A==
 From: Mark Brown <broonie@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, zyw@rock-chips.com,
-	sebastian.reichel@collabora.com, andyshrk@163.com,
-	jagan@amarulasolutions.com, perex@perex.cz, tiwai@suse.com,
-	lgirdwood@gmail.com, heiko@sntech.de, conor+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH 1/6] ASoC: es8328: Enabling support for 12Mhz sysclk
-Message-ID: <b64c91e0-1dab-4ae1-8fcc-512da08856bc@sirena.org.uk>
-References: <20230523213825.120077-1-macroalpha82@gmail.com>
- <20230523213825.120077-2-macroalpha82@gmail.com>
+Date: Tue, 23 May 2023 23:18:19 +0100
+Subject: [PATCH] regmap: maple: Drop the RCU read lock while syncing
+ registers
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MEioEb2XHIcEnWAi"
-Content-Disposition: inline
-In-Reply-To: <20230523213825.120077-2-macroalpha82@gmail.com>
-X-Cookie: Beware of low-flying butterflies.
-Message-ID-Hash: KNH6PWUASNPP3OAFTRYASSICSSQEKKCZ
-X-Message-ID-Hash: KNH6PWUASNPP3OAFTRYASSICSSQEKKCZ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20230523-regcache-maple-sync-lock-v1-1-530e4d68dfab@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAKo7bWQC/x2NSwrDMAwFrxK0rsC1cQq9SulCVtTYJLWDDP0Qc
+ vc4Wc6DebNCFU1S4d6toPJJNZXc4HrpgCPlUTANjcEa64y3DlVGJo6Cb1pmwfrPjHPhCf1NyPl
+ +4N4EaHqgKhiUMsfj4Ft0OuZF5ZV+Z/Hx3LYdNbKb+IEAAAA=
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.13-dev-bfdf5
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1507; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=veuGFlBxvJfC7X2QtcsRIS3sb0+f5+8pwpEBphVcea0=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkbTux4oldhXQTi6/rzUziSGq1Bbp/Z2NlJcHmVfx7
+ fiVpr36JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZG07sQAKCRAk1otyXVSH0LrfB/
+ wLlMLGMlNDljolW7vhDGSgSVC1ef3/0xxRYT7v8CnysolmzHP09D4O5rX4blrw9D7+pL81KrAAc0Ht
+ 4lHCGE18Z4FCHuKpEkul+vpL9FrhysJMxVh0QKwCXZ0bXuqU9xoPWAlI1sUQcG/Po8uJJLvXFg5tVF
+ 3pBPGhev+JPpfl2wZqH+CR8R4l7NgSZ90syYXXAnYL1Q7uCaxbiA3nkpUAmahZCPNku9jlJw6NIPC4
+ 3vHz4xm7SGYbsvnhiJ/P1taHJH+93gUh5qCRxUcWumlg2wpXu3Y2MeL/hNbnSY4cFjI5K/7d4HqeAm
+ a5l6fPwiwaFf5V8hfh/7zgbxGqCfZh
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-ID-Hash: A26UXEGVXAWL55KYE2F5FN6VWA46VOHF
+X-Message-ID-Hash: A26UXEGVXAWL55KYE2F5FN6VWA46VOHF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KNH6PWUASNPP3OAFTRYASSICSSQEKKCZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A26UXEGVXAWL55KYE2F5FN6VWA46VOHF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,36 +108,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Unfortunately the maple tree requires us to explicitly lock it so we need
+to take the RCU read lock while iterating. When syncing this means that we
+end up trying to write out register values while holding the RCU read lock
+which triggers lockdep issues since that is an atomic context but most
+buses can't be used in atomic context. Pause the iteration and drop the
+lock for each register we check to avoid this.
 
---MEioEb2XHIcEnWAi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/base/regmap/regcache-maple.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-On Tue, May 23, 2023 at 04:38:20PM -0500, Chris Morgan wrote:
-> From: Chris Morgan <macromorgan@hotmail.com>
->=20
-> Enable support for 12Mhz sysclk on es8328. This sysclk value is used on
-> the Indiedroid Nova rk3588s based single board computer.
->=20
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> Signed-off-by: Chris Zhong <zyw@rock-chips.com>
+diff --git a/drivers/base/regmap/regcache-maple.c b/drivers/base/regmap/regcache-maple.c
+index 9b1b559107ef..c2e3a0f6c218 100644
+--- a/drivers/base/regmap/regcache-maple.c
++++ b/drivers/base/regmap/regcache-maple.c
+@@ -203,15 +203,18 @@ static int regcache_maple_sync(struct regmap *map, unsigned int min,
+ 
+ 	mas_for_each(&mas, entry, max) {
+ 		for (r = max(mas.index, lmin); r <= min(mas.last, lmax); r++) {
++			mas_pause(&mas);
++			rcu_read_unlock();
+ 			ret = regcache_sync_val(map, r, entry[r - mas.index]);
+ 			if (ret != 0)
+ 				goto out;
++			rcu_read_lock();
+ 		}
+ 	}
+ 
+-out:
+ 	rcu_read_unlock();
+ 
++out:
+ 	map->cache_bypass = false;
+ 
+ 	return ret;
 
-If you're sending the patch your signoff should be last in the list.
+---
+base-commit: 44c026a73be8038f03dbdeef028b642880cf1511
+change-id: 20230523-regcache-maple-sync-lock-57ea356dc60b
 
---MEioEb2XHIcEnWAi
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+-- 
+Mark Brown <broonie@kernel.org>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRtNX4ACgkQJNaLcl1U
-h9DKXAf+PmCPuedgkWKSejXYwuSyAr/YT9+cJ/FMkwbGhCdYTQkQGbX//jFXuj4r
-fajuP100UTTCcpLlkb0QiIaIC0rNeLTvxgxKErj0W/PN3GGnzQXWCiOmADPhUwqS
-pgmOnVv7DDojIAHgC2eWC3dItIl8tDDhhHunyoTJhQU46ghg8X6ewltUfwwwaJER
-J+kESa5vrYFY+1FMHSARmoIiT1iXNC4b0zX3Ahtmf1i2u8dgI3pJHC+R7r41Ohpx
-J+XydzeMne5mle8InUeIR3VIyY8sjxwyuA8sNekXtzsEj8YUix0PEbGb4ScxroT3
-QIx0zUt71BJZhow4qXkmRS0jnKSA0Q==
-=zOUN
------END PGP SIGNATURE-----
-
---MEioEb2XHIcEnWAi--

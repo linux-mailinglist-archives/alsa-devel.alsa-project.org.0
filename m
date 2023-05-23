@@ -2,83 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 059A170E5DB
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 21:42:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 571BF70E5FB
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 21:51:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91471204;
-	Tue, 23 May 2023 21:41:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91471204
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB961206;
+	Tue, 23 May 2023 21:50:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB961206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684870955;
-	bh=0k+c3qp+hT/FnTIabF/tvyr485sFCPqurohdQ1Wmvg0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1684871470;
+	bh=0kgIbzjX9fgNjWHC6MDxSyK2sgeMFDKHe414S+s4B1c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ed7bS7wIKKVyovaSyljC68Q/pNv+oclzNTyaSOfyJvdrVVAgdGy0QBKMrnDYwFng2
-	 Mgc3eoLIMCF5fNEDf5JGipvMYytV5tw1Pj6I0MKuyli8UjoVCobIVx1Cm8cPHoZKZ3
-	 9EuKnSkADg+MoqukY7X7KNP95SsMWlZtLyBKmMWU=
+	b=lbeJfoREMW7C3MEHKRZp/Ty82Amo8PIqU522JMytpGx5CRPIqv+BKYKEf/LNFD33Y
+	 GTtze3gHnRx3YaLzy7Q8EFB9ob+J58ryt4OPUiZ7JJs4bqPWhUw2hnVo4BCutcRNnk
+	 8cyhWaDjbRorfFnEAe9Bj85BPHBzja+iwqGEqmb0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF6DCF80548; Tue, 23 May 2023 21:41:44 +0200 (CEST)
+	id 1A240F8026A; Tue, 23 May 2023 21:50:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E6EEF80249;
-	Tue, 23 May 2023 21:41:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E478F8024E;
+	Tue, 23 May 2023 21:50:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69DD3F8024E; Tue, 23 May 2023 21:41:40 +0200 (CEST)
+	id A57E8F8024E; Tue, 23 May 2023 21:50:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AE68EF8016A
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 21:41:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE68EF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9507BF8016A;
+	Tue, 23 May 2023 21:50:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9507BF8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YTWYaq3h
+ header.s=k20201202 header.b=p9UHvbQk
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 43181601D7;
-	Tue, 23 May 2023 19:41:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D8EC433EF;
-	Tue, 23 May 2023 19:41:32 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 56B4E63591;
+	Tue, 23 May 2023 19:50:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10449C4339B;
+	Tue, 23 May 2023 19:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684870894;
-	bh=0k+c3qp+hT/FnTIabF/tvyr485sFCPqurohdQ1Wmvg0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YTWYaq3hcBNFbJEBhhlcfrhVNacPYmQemdO5J2oJyFCamj+S9mFXmcLKNMQ4veADS
-	 Xh6Az6Ex1dQfeonR2xlXbtxBqnY4UUBlK62T+6JLln+YzuvwbJ8ujowyug7b0L7DsO
-	 we9q1cH+VMYZ8W/9YqcnAFGGvAuZ6XGgoFHdXtut2xEAvmu++lAWxDsm9JzgPawolK
-	 garDBhdL3brQxCRzbMj1yxZkmF67RAm4zH7VwqOZ0JE1L40AA8/HY2uTQyEFghVYVJ
-	 JiMKre9XPM0ByACQ16d0CZIGB3YmSR8Rto9bCXhp2as6lpyK4BcDKFAqlrmQDWl5ad
-	 /ejcOqyGF4aVQ==
-Date: Tue, 23 May 2023 20:41:29 +0100
+	s=k20201202; t=1684871409;
+	bh=0kgIbzjX9fgNjWHC6MDxSyK2sgeMFDKHe414S+s4B1c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=p9UHvbQk1P7RQdr3geFPkC6JG4ciBbDKkYgvIjLZqwG6fKWZTagvB9KcUWRATmT4O
+	 PkG1y64ukNE0H/1s89SL4xncrVlMk5ZKDGCpIk91hHmzJNeWCdDvcmu69Y6wsHaAdo
+	 jlZqOxJrzHgzWTyj6FihQ4vPPEkF+7d/RtuYe4s4lN9msGdSWXVj/kzCflKktTNJrP
+	 sHhknRlsikKxc7NDI/ISTkjNH4UI21bpdnfY0Zq7J/Ar/VO0ECYHsGrosMUvHsmO8P
+	 bU1S7Dn2xpxTxmT9PxWQc/9dZolMzNVvvRVcOXJnA5q+oFmQzdooi+zIibfGEieV/P
+	 ItCsrpnDQUWzw==
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: rt5682: Use a maple tree based register cache
-Message-ID: <92ec3b6d-999e-4b35-8bce-b0213824eb63@sirena.org.uk>
-References: <20230419-asoc-rt5682-maple-v1-1-ed40369c9099@kernel.org>
- <1ce6bb84-3140-3953-e995-00eb7b16f386@linux.intel.com>
+To: perex@perex.cz, Yang Li <yang.lee@linux.alibaba.com>
+Cc: tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ daniel.baluta@nxp.com, kai.vehmanen@linux.intel.com,
+ sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>
+In-Reply-To: <20230516081116.71370-1-yang.lee@linux.alibaba.com>
+References: <20230516081116.71370-1-yang.lee@linux.alibaba.com>
+Subject: Re: [PATCH -next] ASoC: SOF: ipc4-topology: Fix an unsigned
+ comparison which can never be negative
+Message-Id: <168487140577.278276.4105417647413959490.b4-ty@kernel.org>
+Date: Tue, 23 May 2023 20:50:05 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FkDjINFkwfZZX0BZ"
-Content-Disposition: inline
-In-Reply-To: <1ce6bb84-3140-3953-e995-00eb7b16f386@linux.intel.com>
-X-Cookie: Beware of low-flying butterflies.
-Message-ID-Hash: IYEUFWVNTQAZFMFDPXUIYPW4ADONHYDO
-X-Message-ID-Hash: IYEUFWVNTQAZFMFDPXUIYPW4ADONHYDO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: T2U5NJGMHAULGKBBIAXVS23EWAYV2YFU
+X-Message-ID-Hash: T2U5NJGMHAULGKBBIAXVS23EWAYV2YFU
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IYEUFWVNTQAZFMFDPXUIYPW4ADONHYDO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T2U5NJGMHAULGKBBIAXVS23EWAYV2YFU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,83 +100,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, 16 May 2023 16:11:16 +0800, Yang Li wrote:
+> The return value from the call to sof_ipc4_get_valid_bits() is int.
+> However, the return value is being assigned to an unsigned
+> int variable 'out_ref_valid_bits', so making it an int.
+> 
+> Eliminate the following warning:
+> ./sound/soc/sof/ipc4-topology.c:1537:6-24: WARNING: Unsigned expression compared with zero: out_ref_valid_bits < 0
+> 
+> [...]
 
---FkDjINFkwfZZX0BZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Tue, May 23, 2023 at 02:24:53PM -0500, Pierre-Louis Bossart wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> I don't see any other changes to this codec driver and the first problem
-> detected seemed to happen when we did an upstream merge last week.
-> Unfortunately the last merge was on April 24 (sof-dev-rebase-20230424)
-> which is just the day before this commit was added...
+Thanks!
 
-Try this:
+[1/1] ASoC: SOF: ipc4-topology: Fix an unsigned comparison which can never be negative
+      commit: fcbc3aaccfd57c7e71eac36bf1a8f063f19ceefa
 
-=46rom 5953e9de359674ff2d95fe4c241bc7880d6d0d82 Mon Sep 17 00:00:00 2001
-=46rom: Mark Brown <broonie@kernel.org>
-Date: Tue, 23 May 2023 20:40:22 +0100
-Subject: [PATCH] regmap: maple: Drop the RCU read lock while syncing regist=
-ers
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Unfortunately the maple tree requires us to explicitly lock it so we need
-to take the RCU read lock while iterating. When syncing this means that we
-end up trying to write out register values while holding the RCU read lock
-which triggers lockdep issues since that is an atomic context but most
-buses can't be used in atomic context. Pause the iteration and drop the
-lock for each register we check to avoid this.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- drivers/base/regmap/regcache-maple.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-diff --git a/drivers/base/regmap/regcache-maple.c b/drivers/base/regmap/reg=
-cache-maple.c
-index 2d2d5d7ee447..14f6f49af097 100644
---- a/drivers/base/regmap/regcache-maple.c
-+++ b/drivers/base/regmap/regcache-maple.c
-@@ -203,15 +203,18 @@ static int regcache_maple_sync(struct regmap *map, un=
-signed int min,
-=20
- 	mas_for_each(&mas, entry, max) {
- 		for (r =3D max(mas.index, lmin); r <=3D min(mas.last, lmax); r++) {
-+			mas_pause(&mas);
-+			rcu_read_unlock();
- 			ret =3D regcache_sync_val(map, r, entry[r - mas.index]);
- 			if (ret !=3D 0)
- 				goto out;
-+			rcu_read_lock();
- 		}
- 	}
-=20
--out:
- 	rcu_read_unlock();
-=20
-+out:
- 	map->cache_bypass =3D false;
-=20
- 	return ret;
---=20
-2.30.2
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
+Thanks,
+Mark
 
---FkDjINFkwfZZX0BZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRtFugACgkQJNaLcl1U
-h9CWcgf9EaTd3BkCsWHJcyaj9CFfx161IAItun5Zers1a7vr2zo5DqQS8H9F2ROL
-oGxOS9shq4q7MFCP0HDlLnI3UI+IkTUZruC777xkOc2mlbsWYGsXIPiaGuCuuUvH
-2iZi9Fl+LPNVCQKMp7aqzSa7atoR34PVvFESsUALPjW9Rqd/y9O5E5XkCf/Nls5Q
-zTfQ+QaTXuBjYgqEEpp6PEY6jug5OJmkjJ+qLBZ2qVgkeDFIyjti0kh/+68sAPwh
-gTHldc2idDqnNAiAqznJ5djh7gMXdolT1RBM+YG1DK6nKrgIB1gpIiy70e0WWcFD
-QXU1H6k0ROA8RdfaJqOxLYyiR++joQ==
-=zZvr
------END PGP SIGNATURE-----
-
---FkDjINFkwfZZX0BZ--

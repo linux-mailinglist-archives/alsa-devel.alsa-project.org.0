@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DED6B70E7A2
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:46:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3496D70E810
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:53:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17E7082C;
-	Tue, 23 May 2023 23:45:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17E7082C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 937BB209;
+	Tue, 23 May 2023 23:52:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 937BB209
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684878359;
-	bh=zHVq50k7DbZjqBSZlH/G4JnZ1dYJHDa4rC6ODp4owhk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1684878807;
+	bh=Q7Cfr0P4JrgFbeW6Lss/x27KCWc3NQnkwpmV1bMsJko=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bVE5u+AzbJWEVQym4BIEQ5Ng1CO6RfIX26i0b+iV2f68j5O0RbggXDKlDa6pu9i5f
-	 QlUpIrgjucSJqhlYVVh3Bf4XefufVqDwnJmxTPspxOn4YZwV/01eJ9P+iyM7hWq7yA
-	 lAMHtjTnMi2VDxAu3lS9LK1nv9v5uzQlziIuEGo4=
+	b=Wb6l08h5iF1Tbh+BtUmotb8X2RdYKqE5rQWBXJTo1IKgaxQV1aG5abvL9t/lu2fqY
+	 xr16VmHUujxAX3hRAtaST1Ti1jVa8/BraTT0h21VXeyHhWoqOZxHlzkt88je05hh6e
+	 tjfxbCi9ryYhctoZ0UpC0gJw0pLx+8KUW4f29VHA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DA20AF80567; Tue, 23 May 2023 23:44:20 +0200 (CEST)
+	id EE14DF8024E; Tue, 23 May 2023 23:52:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1661FF80548;
-	Tue, 23 May 2023 23:44:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7420DF80249;
+	Tue, 23 May 2023 23:52:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DF9FF8024E; Tue, 23 May 2023 23:44:13 +0200 (CEST)
+	id E63E6F8024E; Tue, 23 May 2023 23:52:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,47 +36,52 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 90F3AF800DF
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:44:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90F3AF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5DDB7F800DF
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:52:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DDB7F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AzR5ZlIh
+ header.s=k20201202 header.b=BhgpD96f
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F2B2625CA;
-	Tue, 23 May 2023 21:44:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3D75C4339C;
-	Tue, 23 May 2023 21:44:07 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 2C7A963661;
+	Tue, 23 May 2023 21:52:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524C3C433EF;
+	Tue, 23 May 2023 21:52:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684878249;
-	bh=zHVq50k7DbZjqBSZlH/G4JnZ1dYJHDa4rC6ODp4owhk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AzR5ZlIhTpi5h4bYNEPttRp0VDE9+KDUccSlJ203y698CwH4MU4uO+JxJ+16nz3Fo
-	 j8ekD8gRJRcD5koVOa+fpC3EI1zqnZTmCoPqzMMzjORIkU6fqC9fAk3Z2oqPj7bg6w
-	 V0WqgPdv40lNMDDv/xsBZZRdlg+Bt0shtMS4JZ0NEoy5VzYAlZk2rPHogyhx1ECSuA
-	 tAzMaG5aRz8QJoHsqeVvtljroas5Veu15NEJRdwPJnYxyRWsj0ARuHy/J+QzcvYDOo
-	 voGJ9uPTvst/DVbZabbeGIR6BGPdDtZKVhxxYErvopByCjxbXVea6BEB0n8sgd11vv
-	 dHPlnsURAC/LQ==
+	s=k20201202; t=1684878725;
+	bh=Q7Cfr0P4JrgFbeW6Lss/x27KCWc3NQnkwpmV1bMsJko=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BhgpD96fUG6XX5nLgvCkOJqbrtkEXkh9ZWfhRo6SaGPraqQ4um5v/iQJ9cigo9D71
+	 LMFq1CH09FvTqUpbRdjWer1gOveDipuZ+KciU7Se9VKTCyw3MwmoV2xkhqKIpKLsVv
+	 3NJa0sZ7Ra0CiJMsg6C2i2RUNWKVRsuxPHwXwWZXgJOH+tTvvnAFAVIyw8MKZCKg8d
+	 nl74Q+CFewYespiRJyLQfJJvxT8879v/zogt9/N5juU2gRlemaDSx+zERHT1g+2MCh
+	 azlcDBLIVAbucxT9skYHlqDiVOlGRbHK4Iwm3zpDKzxe17dZO2ZaHxEm+zKYwLIkfI
+	 yQ2KOXJvwmUDQ==
+Date: Tue, 23 May 2023 22:51:59 +0100
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@oss.nxp.com>
-Cc: linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, daniel.baluta@gmail.com
-In-Reply-To: <20230503081049.73847-1-daniel.baluta@oss.nxp.com>
-References: <20230503081049.73847-1-daniel.baluta@oss.nxp.com>
-Subject: Re: [PATCH 0/2] Improve support for sof_ipc{3|4}_bytes_ext_put
-Message-Id: <168487824751.297010.12344595686520411932.b4-ty@kernel.org>
-Date: Tue, 23 May 2023 22:44:07 +0100
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org, zyw@rock-chips.com,
+	sebastian.reichel@collabora.com, andyshrk@163.com,
+	jagan@amarulasolutions.com, perex@perex.cz, tiwai@suse.com,
+	lgirdwood@gmail.com, heiko@sntech.de, conor+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH 1/6] ASoC: es8328: Enabling support for 12Mhz sysclk
+Message-ID: <b64c91e0-1dab-4ae1-8fcc-512da08856bc@sirena.org.uk>
+References: <20230523213825.120077-1-macroalpha82@gmail.com>
+ <20230523213825.120077-2-macroalpha82@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: HTO7IK5PVDLQOGYMTNKWSCK2V6KJORZ7
-X-Message-ID-Hash: HTO7IK5PVDLQOGYMTNKWSCK2V6KJORZ7
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MEioEb2XHIcEnWAi"
+Content-Disposition: inline
+In-Reply-To: <20230523213825.120077-2-macroalpha82@gmail.com>
+X-Cookie: Beware of low-flying butterflies.
+Message-ID-Hash: KNH6PWUASNPP3OAFTRYASSICSSQEKKCZ
+X-Message-ID-Hash: KNH6PWUASNPP3OAFTRYASSICSSQEKKCZ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HTO7IK5PVDLQOGYMTNKWSCK2V6KJORZ7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KNH6PWUASNPP3OAFTRYASSICSSQEKKCZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,46 +103,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 03 May 2023 11:10:47 +0300, Daniel Baluta wrote:
-> This patch series provides better handling of cases where sending
-> a data blob to FW results in a validation error.
-> 
-> In this case we restore to the last good known value instead of keeping
-> the data that firwmare rejected.
-> 
-> Paul Olaru (2):
->   ASoC: sof: Improve sof_ipc3_bytes_ext_put function
->   ASoC: sof: Improve sof_ipc4_bytes_ext_put function
-> 
-> [...]
 
-Applied to
+--MEioEb2XHIcEnWAi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, May 23, 2023 at 04:38:20PM -0500, Chris Morgan wrote:
+> From: Chris Morgan <macromorgan@hotmail.com>
+>=20
+> Enable support for 12Mhz sysclk on es8328. This sysclk value is used on
+> the Indiedroid Nova rk3588s based single board computer.
+>=20
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> Signed-off-by: Chris Zhong <zyw@rock-chips.com>
 
-Thanks!
+If you're sending the patch your signoff should be last in the list.
 
-[1/2] ASoC: sof: Improve sof_ipc3_bytes_ext_put function
-      commit: 299f6c752f8f7dabb62fe4df62ebd233b58402bd
-[2/2] ASoC: sof: Improve sof_ipc4_bytes_ext_put function
-      commit: db38d86d0c54e0dbea063e915ce3e1fe394af444
+--MEioEb2XHIcEnWAi
+Content-Type: application/pgp-signature; name="signature.asc"
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-----BEGIN PGP SIGNATURE-----
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRtNX4ACgkQJNaLcl1U
+h9DKXAf+PmCPuedgkWKSejXYwuSyAr/YT9+cJ/FMkwbGhCdYTQkQGbX//jFXuj4r
+fajuP100UTTCcpLlkb0QiIaIC0rNeLTvxgxKErj0W/PN3GGnzQXWCiOmADPhUwqS
+pgmOnVv7DDojIAHgC2eWC3dItIl8tDDhhHunyoTJhQU46ghg8X6ewltUfwwwaJER
+J+kESa5vrYFY+1FMHSARmoIiT1iXNC4b0zX3Ahtmf1i2u8dgI3pJHC+R7r41Ohpx
+J+XydzeMne5mle8InUeIR3VIyY8sjxwyuA8sNekXtzsEj8YUix0PEbGb4ScxroT3
+QIx0zUt71BJZhow4qXkmRS0jnKSA0Q==
+=zOUN
+-----END PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--MEioEb2XHIcEnWAi--

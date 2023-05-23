@@ -2,103 +2,152 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4CAF70D699
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 10:04:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFDE270D737
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 10:23:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BDD3886;
-	Tue, 23 May 2023 10:03:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BDD3886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63D6E827;
+	Tue, 23 May 2023 10:22:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63D6E827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684829067;
-	bh=M52WtGxPz090GfvqS7pb3cJFU2GarqyrYb6177LvXUo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=oKl5iHPxsrg9Fav/v/0HR8QtviZPlHm9sE89aU/+/FVluljQ8lvfLlbzyjK8h77xc
-	 oMt3xbW1JlI0rUirqq3yiDRsxuLvm96feguxpiIeL3gbQtXwsysj+2Eq75Wy85hFH2
-	 wYZzGNOK3Q7ekqFzELSEIkCDr4sDoIwMgucy3ovw=
+	s=default; t=1684830185;
+	bh=Ww064OOaXARraJEeig8eYZwsic10/5bt44Hw+6zsw0o=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ohjx/zzeyQ3dJh5SOVOknyk666ql6+y8VwAYXfchlOE9PGwZS2WddKdurHU6HFIK8
+	 s0lJUdiC0KvxWg+90FQvCDXSsCnbVmy6cdopdsrw6GbQDzt+gE/Nq6pn4Usgn3zape
+	 KLbCsoxeACVTHgr7k2K1xkDgp+idPvl5NElOceWA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4BE98F806E7; Tue, 23 May 2023 09:56:20 +0200 (CEST)
+	id CBED6F80549; Tue, 23 May 2023 10:21:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A986CF806E7;
-	Tue, 23 May 2023 09:56:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09B53F80249;
+	Tue, 23 May 2023 10:21:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E698BF80588; Tue, 23 May 2023 09:55:59 +0200 (CEST)
+	id E689FF800DF; Tue, 23 May 2023 10:21:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=AC_FROM_MANY_DOTS,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on2071b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::71b])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC5A7F8057D
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 09:54:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC5A7F8057D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4E3B5F800DF
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 10:21:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E3B5F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=iwbrCBK4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=65L+LsDr
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 978542041D;
-	Tue, 23 May 2023 07:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1684828453;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OH6U4rT8EGIg2wRGbAhHHHcKP8gZmbdiQQCnZVG0uog=;
-	b=iwbrCBK4TaTcMJec35k4YWNVxYEWIkMVLrB05aWJYhr5g60WRbRRtJJalxXfKjIzRRCU9q
-	rm0i+MxHJr838XqqJKb0tuev9JTMEUMy818aFPAyHdUxIeAFrybZmFwPsiXr8z3GQbBLF0
-	+dokmoX5TKwfkc6kzhzq8qCmsikaj7E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684828453;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OH6U4rT8EGIg2wRGbAhHHHcKP8gZmbdiQQCnZVG0uog=;
-	b=65L+LsDrEIWPztWB7uL7QaFmKtrAc80jlelPvm/YvIyDYyp5YhQioEQma3jr5doJWcdf7x
-	/xGSohlxmwn0cJAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2521A13588;
-	Tue, 23 May 2023 07:54:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id qOP2BCVxbGT4KgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 23 May 2023 07:54:13 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 37/37] ALSA: docs: Add MIDI 2.0 documentation
-Date: Tue, 23 May 2023 09:53:58 +0200
-Message-Id: <20230523075358.9672-38-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230523075358.9672-1-tiwai@suse.de>
-References: <20230523075358.9672-1-tiwai@suse.de>
+ unprotected) header.d=dm.renesas.com header.i=@dm.renesas.com
+ header.a=rsa-sha256 header.s=selector1 header.b=D8mzwO0n
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K1Rk8OxQObx7ABBrGhVnFMp06bsYqP+g8EKqi6SwAcIkJ0LjSwrdbei0248ftD9PWgvYjnSiPkh0esIp8BFCXhhMdgzC8memD9yvWZboEvkwrDLDw1J7m7W+G24szOijoQHaVwwraK33T1myHtgwM6Zb4mKjnTVs0tQ1ierImgJMq7n7V0R6EIfVfdEUW0a8hjmexBz7mRWHY7pUKl48q9FvbGth5NB3RtFyUDFW12XxO6Png4MwrmkckbdSl7ttWolAkgDXamdPLPuFEgwPGpu29JKUH9Y8asTZ/XYGDioXIevoCBL07idIPjSej2Zu9j6Oa8QVjbydyRqRArsNbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M2tC1skomVw6R7pr+O2yYDxhqGxtD1WeQwOsrr96SlU=;
+ b=ZwIBYg3AZIEAHL0Lm5Ha3dJzG4VO91SPAlX/6kaR1ImqAkti0fmSk36/Xtv27di1AHc9rEpGZjsFGvFuoYFm2Gj5MCy2dyJDqRYjUQAi8ieBpBaedjx5qXvKCHN9DzM+y/lyDl9Upya6VYvvNe4ZZLYB4l7u4N1ImH5YuiLHtXxez0XJ6NIIuDZ8S/M/R1RjyGgGjuV4y4pzkBP2K8aKVi9zgVC4OZYZu1nA8lT5GRxLfdXXpkB1GRpDIvbrRWD5c26CzEfFsPHo9oDNegJ9o4CfM/sOeX3KdAYxC2sOveeWaSliGrGENqjoqYeSVjh42sGcBMiMd9nbwpmy6mOwqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=dm.renesas.com; dmarc=pass action=none
+ header.from=dm.renesas.com; dkim=pass header.d=dm.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dm.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M2tC1skomVw6R7pr+O2yYDxhqGxtD1WeQwOsrr96SlU=;
+ b=D8mzwO0ngiPf9EiLFcPXzoJJUDTJBBog8esSRwXdiGUqDhR2EKj+vBPHC3eIOrobyjmtinIY1eGgN/3pCEyGHePWn5aT6FbA/8Rn4qOn/lUv0Q0t3rvSYAnvztlNc14H0lE6+N9TRkSGpEpo1z+xyeIfy8TVWL4xcDBivIN2imM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=dm.renesas.com;
+Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com (2603:1096:604:10b::11)
+ by TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Tue, 23 May
+ 2023 08:21:32 +0000
+Received: from OS3PR01MB6641.jpnprd01.prod.outlook.com
+ ([fe80::2de2:b2ee:d931:157]) by OS3PR01MB6641.jpnprd01.prod.outlook.com
+ ([fe80::2de2:b2ee:d931:157%6]) with mapi id 15.20.6411.029; Tue, 23 May 2023
+ 08:21:31 +0000
+From: David Rau <David.Rau.opensource@dm.renesas.com>
+To: conor+dt@kernel.org
+Cc: support.opensource@diasemi.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Rau <David.Rau.opensource@dm.renesas.com>
+Subject: [ASoC: da7219: Add Jack insertion detection polarity selection 1/2]
+  ASoC: dt-bindings: dialog,da7219: convert to dtschema
+Date: Tue, 23 May 2023 08:21:00 +0000
+Message-Id: <20230523082101.380-1-David.Rau.opensource@dm.renesas.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: OS3P301CA0007.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:604:21d::14) To OS3PR01MB6641.jpnprd01.prod.outlook.com
+ (2603:1096:604:10b::11)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: G3LFL2J7HG26G72LT23ZASAREO4GGT54
-X-Message-ID-Hash: G3LFL2J7HG26G72LT23ZASAREO4GGT54
-X-MailFrom: tiwai@suse.de
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB6641:EE_|TY3PR01MB11797:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79e95256-0b38-49d4-099e-08db5b66b4e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	UYrA7hwS5TTV5IxNk1CgaRU99oDmMeBQA+qnMh5viSSs8tAarfegx7oKqW17aTpHvqag/781r0AI5340BEh7PCqgG94v9++YbDC+8DiC69gqE6sXA6Tbs2XmFPJ0B9V4HXpcZkkDiH99EuPjdgrtG7DgiwxpIgxU3i/cYhi+m0hpDhJXlo/+PO2lZW/LecL3PDCl/0w+yh2B2a+GfNS/Njo54221PVZNRIu8BNatplgDvaVYAPI0Wk3uB5ayGxMNsYZvJxHE1w0WTI1v7RgEF+bm9dRs91c308b8o1DYreoFEZvCVFdQIIjAJ3YXlCbRdmWgOSYFNkABF5qpR7XzLw/ERjCIyBJGy8tPG3w1iqjWqM4jkyCdpLySJecroer2BiI0ooS62cQqpOr4gsg/eFVTlA2MoFczEp9Q/RVhzEtTpfCacZRS6DPAcm8mGmh0Nt8IGqbnQhpDB3I2pcxN9BnFYTmlyN4dcmULxtZpoSn8W8T9RE+2NyYUHO6MUj3VgjRXKWlmh9jEX3GAbmB6KtlYNiHxFREBeMdZJ0ddd857ZM9O34b/ENYShg2GRuE6ra5SddrANFeTxJvPuYhoi4YZi0icFa4hMaJlBNSUNGQ=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB6641.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(366004)(136003)(396003)(376002)(39860400002)(451199021)(107886003)(6512007)(8676002)(8936002)(83380400001)(103116003)(38350700002)(38100700002)(86362001)(40140700001)(6506007)(2616005)(2906002)(41300700001)(52116002)(66946007)(66556008)(66476007)(4326008)(316002)(6666004)(6486002)(966005)(5660300002)(26005)(186003)(1076003)(478600001);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?NYEyuf0rfYSp4Mggsy0gecyge37Fs2XATtFGpoIbDgvcGvCHAlUxHdtUStJv?=
+ =?us-ascii?Q?myc9JtGoCAejiTngp/b5UewTLllSbfuYW35kpvhvYhnfMYmBwUQ3OzHiTHgA?=
+ =?us-ascii?Q?O8phEJY4nJFFbpKgTNNSVaEFTdEWkcbvad1pUkdQ6ul97ah5vP+8kQrmUXpK?=
+ =?us-ascii?Q?j4tbSWQXpaDxy4gzb9OLVYLVir/GLq/+hVujzCnP873DWPimS+NtPPi7dteN?=
+ =?us-ascii?Q?Kj2sWU9L/Tx+HqMTGH7cih05U+0k0hBDj66MNCM7WmMnoPAgLymUkRLKTi37?=
+ =?us-ascii?Q?WW6D0N7E7842WR7yTwI5GKOD+AMd48ECoak30nYvBNdQLm81ERZjtU+dmgcE?=
+ =?us-ascii?Q?7br9O9HHeNsYoU4UT48LwGML+bUlCRPDp20wLlFQbi6NISg0FOGyrIlSSDhs?=
+ =?us-ascii?Q?iwY/2TLr9U0lmtV6xGmujK6zJ2hPFkYlBuxUYlFuoi3mH6/BMCelgP9t1osQ?=
+ =?us-ascii?Q?Pu8xV4a/KGat0A3x4bZIkDDIpDDJrNrvpqM/IEZlK8hmC2bhNZj+100uLS++?=
+ =?us-ascii?Q?9zkWnmm/npB8xEnylu0NIDaC4qOqDbWm1GUYJACc2vnfcogEz/R0wJ+Hjekw?=
+ =?us-ascii?Q?k9fXJoUswEyikqaNvCOy27TJ+P+ktLEMHT21JUfmrX+ypYxLMJvi6xXzS13q?=
+ =?us-ascii?Q?3vNDPt/fvv/7jVHBfMZWE6QWr3daK0ro++3e6F1LAClMpHGcNAuxebcQHqXm?=
+ =?us-ascii?Q?84x3GcSCkQVUlsYxv3ZNyW3vZ3RrF94woA8BPR0mZfec+2mMktqGpcNRUXSE?=
+ =?us-ascii?Q?tUMBUNw6KlKrLbNWoQsW6HlZg/KrzYb+CVkdSwo+/8BaZipLjBveyDtc2UxV?=
+ =?us-ascii?Q?BH+v/SPsDJT3yJzN0PI6d2A2b+JDCos0q/HP67FA9iV4955Vq3l9Dc/nPeBM?=
+ =?us-ascii?Q?NEaq6qoPnVXltiUdsojkT92ciIKB4WgV2zr31jsenhKxtrPqZgqAZJRjWfH8?=
+ =?us-ascii?Q?ALvUlnFcRJXOIod4qui6+mUv9Tl3xmN/L82tlaEXDxKvDr0b8IDXzrroQqfq?=
+ =?us-ascii?Q?PX6hfIxDILuxisggM3UfZmgpohv/pmrfo8feb2Rik2T/nBP83es8Lgmnu3OO?=
+ =?us-ascii?Q?Tm6xw8qQbK9F+FwDd1VBcKq+tZa8syqE9y/Uv69YXt7Y+z/xdJqXMWimjTgt?=
+ =?us-ascii?Q?xFknuf80eDn9gh1ufFyzPRhQo4tbAsGY2Z2Q+8rquv9WQ8IfsEmzOP/1PEnJ?=
+ =?us-ascii?Q?o1cozRaViWQ+rEwA8foApni0TG/iyBs0ZR+ZIKQ3EmZE9yWcK+LzqJqvn9Vx?=
+ =?us-ascii?Q?r8FEYeIS00VvFA7k+yppwcsDkfm9ANpdKW3g4fwILkxmw6FERX2uzlsRBN17?=
+ =?us-ascii?Q?Y2zEFUMD4wR6dCDx1sXCozqSxOb46DzA3tTPGSDRlk56164IjDwfXbwd46cK?=
+ =?us-ascii?Q?Q/OM06aFt287Sqyr3OVh3Al3FwlnkDUQivMl9j6PyHWa24YmvaS7FTaONFrE?=
+ =?us-ascii?Q?rhavpNassSnf6gU2inGIz9xyI6qtkrxLtwg8+MdpUG7WUhlNnuUK1Hshrc2Z?=
+ =?us-ascii?Q?zEUR9cYqNf90tQCU8dFVQorSksuYy9J1maTt5kdMISIcou0IdiOpB3FsVe29?=
+ =?us-ascii?Q?XVdgT8s4sbSePLe7HKAiZxYAilAxvw7ig6ptucAKXw8h+fjJ8gma4SRaq7JP?=
+ =?us-ascii?Q?FA=3D=3D?=
+X-OriginatorOrg: dm.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 79e95256-0b38-49d4-099e-08db5b66b4e5
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB6641.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 08:21:31.8347
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ C8SWp2u1UxV2jtFK0mAJt1FlhKTA7e+PuyKT+BWmF9kqsrNgUNZkE0oRFNFL6ENufGMlHQhN0dwHczvdKHKkmA2FeD+m7ESDcmwjpRVwICk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11797
+Message-ID-Hash: UQERR4OB3DRITREMY4JJLXWIWR3KNDDY
+X-Message-ID-Hash: UQERR4OB3DRITREMY4JJLXWIWR3KNDDY
+X-MailFrom: David.Rau.opensource@dm.renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +159,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G3LFL2J7HG26G72LT23ZASAREO4GGT54/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQERR4OB3DRITREMY4JJLXWIWR3KNDDY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,384 +168,371 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add the brief document for describing the MIDI 2.0 implementation on
-Linux kernel.  Both rawmidi and sequencer API extensions are
-described.
+- Convert Dialog DA7219 bindings to DT schema format.
+- Remove unused `dlg,ldo-lvl` property.
 
-Acked-by: Jaroslav Kysela <perex@perex.cz>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: David Rau <David.Rau.opensource@dm.renesas.com>
 ---
- Documentation/sound/designs/index.rst    |   1 +
- Documentation/sound/designs/midi-2.0.rst | 351 +++++++++++++++++++++++
- 2 files changed, 352 insertions(+)
- create mode 100644 Documentation/sound/designs/midi-2.0.rst
+ .../devicetree/bindings/sound/da7219.txt      | 112 ---------
+ .../bindings/sound/dialog,da7219.yaml         | 230 ++++++++++++++++++
+ 2 files changed, 230 insertions(+), 112 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/da7219.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/dialog,da7219.yaml
 
-diff --git a/Documentation/sound/designs/index.rst b/Documentation/sound/designs/index.rst
-index 1eb08e7bae52..b79db9ad8732 100644
---- a/Documentation/sound/designs/index.rst
-+++ b/Documentation/sound/designs/index.rst
-@@ -15,3 +15,4 @@ Designs and Implementations
-    oss-emulation
-    seq-oss
-    jack-injection
-+   midi-2.0
-diff --git a/Documentation/sound/designs/midi-2.0.rst b/Documentation/sound/designs/midi-2.0.rst
+diff --git a/Documentation/devicetree/bindings/sound/da7219.txt b/Documentation/devicetree/bindings/sound/da7219.txt
+deleted file mode 100644
+index add1caf26ac2..000000000000
+--- a/Documentation/devicetree/bindings/sound/da7219.txt
++++ /dev/null
+@@ -1,112 +0,0 @@
+-Dialog Semiconductor DA7219 Audio Codec bindings
+-
+-DA7219 is an audio codec with advanced accessory detect features.
+-
+-======
+-
+-Required properties:
+-- compatible : Should be "dlg,da7219"
+-- reg: Specifies the I2C slave address
+-
+-- interrupts : IRQ line info for DA7219.
+-  (See Documentation/devicetree/bindings/interrupt-controller/interrupts.txt for
+-   further information relating to interrupt properties)
+-
+-- VDD-supply: VDD power supply for the device
+-- VDDMIC-supply: VDDMIC power supply for the device
+-- VDDIO-supply: VDDIO power supply for the device
+-  (See Documentation/devicetree/bindings/regulator/regulator.txt for further
+-   information relating to regulators)
+-
+-Optional properties:
+-- interrupt-names : Name associated with interrupt line. Should be "wakeup" if
+-  interrupt is to be used to wake system, otherwise "irq" should be used.
+-- wakeup-source: Flag to indicate this device can wake system (suspend/resume).
+-
+-- #clock-cells :  Should be set to '<1>', two clock sources provided;
+-- clock-output-names : Names given for DAI clock outputs (WCLK & BCLK);
+-
+-- clocks : phandle and clock specifier for codec MCLK.
+-- clock-names : Clock name string for 'clocks' attribute, should be "mclk".
+-
+-- dlg,micbias-lvl : Voltage (mV) for Mic Bias
+-	[<1600>, <1800>, <2000>, <2200>, <2400>, <2600>]
+-- dlg,mic-amp-in-sel : Mic input source type
+-	["diff", "se_p", "se_n"]
+-
+-Deprecated properties:
+-- dlg,ldo-lvl : Required internal LDO voltage (mV) level for digital engine
+-  (LDO unavailable in production HW so property no longer required).
+-
+-======
+-
+-Child node - 'da7219_aad':
+-
+-Optional properties:
+-- dlg,micbias-pulse-lvl : Mic bias higher voltage pulse level (mV).
+-	[<2800>, <2900>]
+-- dlg,micbias-pulse-time : Mic bias higher voltage pulse duration (ms)
+-- dlg,btn-cfg : Periodic button press measurements for 4-pole jack (ms)
+-	[<2>, <5>, <10>, <50>, <100>, <200>, <500>]
+-- dlg,mic-det-thr : Impedance threshold for mic detection measurement (Ohms)
+-	[<200>, <500>, <750>, <1000>]
+-- dlg,jack-ins-deb : Debounce time for jack insertion (ms)
+-	[<5>, <10>, <20>, <50>, <100>, <200>, <500>, <1000>]
+-- dlg,jack-det-rate: Jack type detection latency (3/4 pole)
+-	["32ms_64ms", "64ms_128ms", "128ms_256ms", "256ms_512ms"]
+-- dlg,jack-rem-deb : Debounce time for jack removal (ms)
+-	[<1>, <5>, <10>, <20>]
+-- dlg,a-d-btn-thr : Impedance threshold between buttons A and D
+-	[0x0 - 0xFF]
+-- dlg,d-b-btn-thr : Impedance threshold between buttons D and B
+-	[0x0 - 0xFF]
+-- dlg,b-c-btn-thr : Impedance threshold between buttons B and C
+-	[0x0 - 0xFF]
+-- dlg,c-mic-btn-thr : Impedance threshold between button C and Mic
+-	[0x0 - 0xFF]
+-- dlg,btn-avg : Number of 8-bit readings for averaged button measurement
+-	[<1>, <2>, <4>, <8>]
+-- dlg,adc-1bit-rpt : Repeat count for 1-bit button measurement
+-	[<1>, <2>, <4>, <8>]
+-
+-======
+-
+-Example:
+-
+-	codec: da7219@1a {
+-		compatible = "dlg,da7219";
+-		reg = <0x1a>;
+-
+-		interrupt-parent = <&gpio6>;
+-		interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
+-
+-		VDD-supply = <&reg_audio>;
+-		VDDMIC-supply = <&reg_audio>;
+-		VDDIO-supply = <&reg_audio>;
+-
+-		#clock-cells = <1>;
+-		clock-output-names = "dai-wclk", "dai-bclk";
+-
+-		clocks = <&clks 201>;
+-		clock-names = "mclk";
+-
+-		dlg,ldo-lvl = <1200>;
+-		dlg,micbias-lvl = <2600>;
+-		dlg,mic-amp-in-sel = "diff";
+-
+-		da7219_aad {
+-			dlg,btn-cfg = <50>;
+-			dlg,mic-det-thr = <500>;
+-			dlg,jack-ins-deb = <20>;
+-			dlg,jack-det-rate = "32ms_64ms";
+-			dlg,jack-rem-deb = <1>;
+-
+-			dlg,a-d-btn-thr = <0xa>;
+-			dlg,d-b-btn-thr = <0x16>;
+-			dlg,b-c-btn-thr = <0x21>;
+-			dlg,c-mic-btn-thr = <0x3E>;
+-
+-			dlg,btn-avg = <4>;
+-			dlg,adc-1bit-rpt = <1>;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/sound/dialog,da7219.yaml b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
 new file mode 100644
-index 000000000000..d55b0a4c6acb
+index 000000000000..9160f68696dd
 --- /dev/null
-+++ b/Documentation/sound/designs/midi-2.0.rst
-@@ -0,0 +1,351 @@
-+=================
-+MIDI 2.0 on Linux
-+=================
-+
-+General
-+=======
-+
-+MIDI 2.0 is an extended protocol for providing higher resolutions and
-+more fine controls over the legacy MIDI 1.0.  The fundamental changes
-+introduced for supporting MIDI 2.0 are:
-+
-+- Support of Universal MIDI Packet (UMP)
-+- Support of MIDI 2.0 protocol messages
-+- Transparent conversions between UMP and legacy MIDI 1.0 byte stream
-+- MIDI-CI for property and profile configurations
-+
-+UMP is a new container format to hold all MIDI protocol 1.0 and MIDI
-+2.0 protocol messages.  Unlike the former byte stream, it's 32bit
-+aligned, and each message can be put in a single packet.  UMP can send
-+the events up to 16 "UMP Groups", where each UMP Group contain up to
-+16 MIDI channels.
-+
-+MIDI 2.0 protocol is an extended protocol to achieve the higher
-+resolution and more controls over the old MIDI 1.0 protocol.
-+
-+MIDI-CI is a high-level protocol that can talk with the MIDI device
-+for the flexible profiles and configurations.  It's represented in the
-+form of special SysEx.
-+
-+For Linux implementations, the kernel supports the UMP transport and
-+the encoding/decoding of MIDI protocols on UMP, while MIDI-CI is
-+supported in user-space over the standard SysEx.
-+
-+As of this writing, only USB MIDI device supports the UMP and Linux
-+2.0 natively.  The UMP support itself is pretty generic, hence it
-+could be used by other transport layers, although it could be
-+implemented differently (e.g. as a ALSA sequencer client), too.
-+
-+The access to UMP devices are provided in two ways: the access via
-+rawmidi device and the access via ALSA sequencer API.
-+
-+ALSA sequencer API was extended to allow the payload of UMP packets.
-+It's allowed to connect freely between MIDI 1.0 and MIDI 2.0 sequencer
-+clients, and the events are converted transparently.
-+
-+
-+Kernel Configuration
-+====================
-+
-+The following new configs are added for supporting MIDI 2.0:
-+`CONFIG_SND_UMP`, `CONFIG_SND_UMP_LEGACY_RAWMIDI`,
-+`CONFIG_SND_SEQ_UMP`, `CONFIG_SND_SEQ_UMP_CLIENT`, and
-+`CONFIG_SND_USB_AUDIO_MIDI_V2`.  The first visible one is
-+`CONFIG_SND_USB_AUDIO_MIDI_V2`, and when you choose it (to set `=y`),
-+the core support for UMP (`CONFIG_SND_UMP`) and the sequencer binding
-+(`CONFIG_SND_SEQ_UMP_CLIENT`) will be automatically selected.
-+
-+Additionally, `CONFIG_SND_UMP_LEGACY_RAWMIDI=y` will enable the
-+support for the legacy raw MIDI device for UMP Endpoints.
-+
-+
-+Rawmidi Device with USB MIDI 2.0
-+================================
-+
-+When a device supports MIDI 2.0, the USB-audio driver probes and uses
-+the MIDI 2.0 interface (that is found always at the altset 1) as
-+default instead of the MIDI 1.0 interface (at altset 0).  You can
-+switch back to the binding with the old MIDI 1.0 interface by passing
-+`midi2_enable=0` option to snd-usb-audio driver module, too.
-+
-+When the MIDI 2.0 device is probed, the kernel creates a rawmidi
-+device for each UMP Endpoint of the device.  Its device name is
-+`/dev/snd/umpC*D*` and different from the standard rawmidi device name
-+`/dev/snd/midiC*D*` for MIDI 1.0, in order to avoid confusing the
-+legacy applications accessing mistakenly to UMP devices.
-+
-+You can read and write UMP packet data directly from/to this UMP
-+rawmidi device.  For example, reading via `hexdump` like below will
-+show the incoming UMP packets of the card 0 device 0 in the hex
-+format::
-+
-+  % hexdump -C /dev/snd/umpC0D0
-+  00000000  01 07 b0 20 00 07 b0 20  64 3c 90 20 64 3c 80 20  |... ... d<. d<. |
-+
-+Unlike the MIDI 1.0 byte stream, UMP is a 32bit packet, and the size
-+for reading or writing the device is also aligned to 32bit (which is 4
-+bytes).
-+
-+The 32-bit words in the UMP packet payload are always in CPU native
-+endianness.  Transport drivers are responsible to convert UMP words
-+from / to system endianness to required transport endianness / byte
-+order.
-+
-+When `CONFIG_SND_UMP_LEGACY_RAWMIDI` is set, the driver creates
-+another standard raw MIDI device additionally as `/dev/snd/midiC*D*`.
-+This contains 16 substreams, and each substream corresponds to a
-+(0-based) UMP Group.  Legacy applications can access to the specified
-+group via each substream in MIDI 1.0 byte stream format.  With the
-+ALSA rawmidi API, you can open the arbitrary substream, while just
-+opening `/dev/snd/midiC*D*` will end up with opening the first
-+substream.
-+
-+Each UMP Endpoint can provide the additional information, constructed
-+from USB MIDI 2.0 descriptors.  And a UMP Endpoint may contain one or
-+more UMP Blocks, where UMP Block is an abstraction introduced in the
-+ALSA UMP implementations to represent the associations among UMP
-+Groups.  UMP Block corresponds to Group Terminal Block (GTB) in USB
-+MIDI 2.0 specifications but provide a few more generic information.
-+The information of UMP Endpoints and UMP Blocks are found in the proc
-+file `/proc/asound/card*/midi*`.  For example::
-+
-+  % cat /proc/asound/card1/midi0
-+  ProtoZOA MIDI
-+  
-+  Type: UMP
-+  EP Name: ProtoZOA
-+  EP Product ID: ABCD12345678
-+  UMP Version: 0x0000
-+  Protocol Caps: 0x00000100
-+  Protocol: 0x00000100
-+  Num Blocks: 3
-+  
-+  Block 0 (ProtoZOA Main)
-+    Direction: bidirection
-+    Active: Yes
-+    Groups: 1-1
-+    Is MIDI1: No
-+
-+  Block 1 (ProtoZOA Ext IN)
-+    Direction: output
-+    Active: Yes
-+    Groups: 2-2
-+    Is MIDI1: Yes (Low Speed)
-+  ....
-+
-+Note that `Groups` field shown in the proc file above indicates the
-+1-based UMP Group numbers (from-to).
-+
-+Those additional UMP Endpoint and UMP Block information can be
-+obtained via the new ioctls `SNDRV_UMP_IOCTL_ENDPOINT_INFO` and
-+`SNDRV_UMP_IOCTL_BLOCK_INFO`, respectively.
-+
-+The rawmidi name and the UMP Endpoint name are usually identical, and
-+in the case of USB MIDI, it's taken from `iInterface` of the
-+corresponding USB MIDI interface descriptor.  If it's not provided,
-+it's copied from `iProduct` of the USB device descriptor as a
-+fallback.
-+
-+The Endpoint Product ID is a string field and supposed to be unique.
-+It's copied from `iSerialNumber` of the device for USB MIDI.
-+
-+The protocol capabilities and the actual protocol bits are defined in
-+`asound.h`.
-+
-+
-+ALSA Sequencer with USB MIDI 2.0
-+================================
-+
-+In addition to the rawmidi interfaces, ALSA sequencer interface
-+supports the new UMP MIDI 2.0 device, too.  Now, each ALSA sequencer
-+client may set its MIDI version (0, 1 or 2) to declare itself being
-+either the legacy, UMP MIDI 1.0 or UMP MIDI 2.0 device, respectively.
-+The first, legacy client is the one that sends/receives the old
-+sequencer event as was.  Meanwhile, UMP MIDI 1.0 and 2.0 clients send
-+and receive in the extended event record for UMP.  The MIDI version is
-+seen in the new `midi_version` field of `snd_seq_client_info`.
-+
-+A UMP packet can be sent/received in a sequencer event embedded by
-+specifying the new event flag bit `SNDRV_SEQ_EVENT_UMP`.  When this
-+flag is set, the event has 16 byte (128 bit) data payload for holding
-+the UMP packet.  Without the `SNDRV_SEQ_EVENT_UMP` bit flag, the event
-+is treated as a legacy event as it was (with max 12 byte data
-+payload).
-+
-+With `SNDRV_SEQ_EVENT_UMP` flag set, the type field of a UMP sequencer
-+event is ignored (but it should be set to 0 as default).
-+
-+The type of each client can be seen in `/proc/asound/seq/clients`.
-+For example::
-+
-+  % cat /proc/asound/seq/clients
-+  Client info
-+    cur  clients : 3
-+  ....
-+  Client  14 : "Midi Through" [Kernel Legacy]
-+    Port   0 : "Midi Through Port-0" (RWe-)
-+  Client  20 : "ProtoZOA" [Kernel UMP MIDI1]
-+    UMP Endpoint: ProtoZOA
-+    UMP Block 0: ProtoZOA Main [Active]
-+      Groups: 1-1
-+    UMP Block 1: ProtoZOA Ext IN [Active]
-+      Groups: 2-2
-+    UMP Block 2: ProtoZOA Ext OUT [Active]
-+      Groups: 3-3
-+    Port   0 : "MIDI 2.0" (RWeX) [In/Out]
-+    Port   1 : "ProtoZOA Main" (RWeX) [In/Out]
-+    Port   2 : "ProtoZOA Ext IN" (-We-) [Out]
-+    Port   3 : "ProtoZOA Ext OUT" (R-e-) [In]
-+
-+Here you can find two types of kernel clients, "Legacy" for client 14,
-+and "UMP MIDI1" for client 20, which is a USB MIDI 2.0 device.
-+A USB MIDI 2.0 client gives always the port 0 as "MIDI 2.0" and the
-+rest ports from 1 for each UMP Group (e.g. port 1 for Group 1).
-+In this example, the device has three active groups (Main, Ext IN and
-+Ext OUT), and those are exposed as sequencer ports from 1 to 3.
-+The "MIDI 2.0" port is for a UMP Endpoint, and its difference from
-+other UMP Group ports is that UMP Endpoint port sends the events from
-+the all ports on the device ("catch-all"), while each UMP Group port
-+sends only the events from the given UMP Group.
-+
-+Note that, although each UMP sequencer client usually creates 16
-+ports, those ports that don't belong to any UMP Blocks (or belonging
-+to inactive UMP Blocks) are marked as inactive, and they don't appear
-+in the proc outputs.  In the example above, the sequencer ports from 4
-+to 16 are present but not shown there.
-+
-+The proc file above shows the UMP Block information, too.  The same
-+entry (but with more detailed information) is found in the rawmidi
-+proc output.
-+
-+When clients are connected between different MIDI versions, the events
-+are translated automatically depending on the client's version, not
-+only between the legacy and the UMP MIDI 1.0/2.0 types, but also
-+between UMP MIDI 1.0 and 2.0 types, too.  For example, running
-+`aseqdump` program on the ProtoZOA Main port in the legacy mode will
-+give you the output like::
-+
-+  % aseqdump -p 20:1
-+  Waiting for data. Press Ctrl+C to end.
-+  Source  Event                  Ch  Data
-+   20:1   Note on                 0, note 60, velocity 100
-+   20:1   Note off                0, note 60, velocity 100
-+   20:1   Control change          0, controller 11, value 4
-+
-+When you run `aseqdump` in MIDI 2.0 mode, it'll receive the high
-+precision data like::
-+
-+  % aseqdump -u 2 -p 20:1
-+  Waiting for data. Press Ctrl+C to end.
-+  Source  Event                  Ch  Data
-+   20:1   Note on                 0, note 60, velocity 0xc924, attr type = 0, data = 0x0
-+   20:1   Note off                0, note 60, velocity 0xc924, attr type = 0, data = 0x0
-+   20:1   Control change          0, controller 11, value 0x2000000
-+
-+while the data is automatically converted by ALSA sequencer core.
-+
-+
-+Rawmidi API Extensions
-+======================
-+
-+* The additional UMP Endpoint information can be obtained via the new
-+  ioctl `SNDRV_UMP_IOCTL_ENDPOINT_INFO`.  It contains the associated
-+  card and device numbers, the bit flags, the protocols, the number of
-+  UMP Blocks, the name string of the endpoint, etc.
-+
-+  The protocols are specified in two field, the protocol capabilities
-+  and the current protocol.  Both contain the bit flags specifying the
-+  MIDI protocol version (`SNDRV_UMP_EP_INFO_PROTO_MIDI1` or
-+  `SNDRV_UMP_EP_INFO_PROTO_MIDI2`) in the upper byte and the jitter
-+  reduction timestamp (`SNDRV_UMP_EP_INFO_PROTO_JRTS_TX` and
-+  `SNDRV_UMP_EP_INFO_PROTO_JRTS_RX`) in the lower byte.
-+
-+  A UMP Endpoint may contain up to 32 UMP Blocks, and the number of
-+  the currently assigned blocks are shown in the Endpoint information.
-+
-+* Each UMP Block information can be obtained via another new ioctl
-+  `SNDRV_UMP_IOCTL_BLOCK_INFO`.  The block ID number (0-based) has to
-+  be passed for the block to query.  The received data contains the
-+  associated the direction of the block, the first associated group ID
-+  (0-based) and the number of groups, the name string of the block,
-+  etc.
-+
-+  The direction is either `SNDRV_UMP_DIR_INPUT`,
-+  `SNDRV_UMP_DIR_OUTPUT` or `SNDRV_UMP_DIR_BIDIRECTION`.
-+
-+
-+Control API Extensions
-+======================
-+
-+* The new ioctl `SNDRV_CTL_IOCTL_UMP_NEXT_DEVICE` is introduced for
-+  querying the next UMP rawmidi device, while the existing ioctl
-+  `SNDRV_CTL_IOCTL_RAWMIDI_NEXT_DEVICE` queries only the legacy
-+  rawmidi devices.
-+
-+  For setting the subdevice (substream number) to be opened, use the
-+  ioctl `SNDRV_CTL_IOCTL_RAWMIDI_PREFER_SUBDEVICE` like the normal
-+  rawmidi.
-+
-+* Two new ioctls `SNDRV_CTL_IOCTL_UMP_ENDPOINT_INFO` and
-+  `SNDRV_CTL_IOCTL_UMP_BLOCK_INFO` provide the UMP Endpoint and UMP
-+  Block information of the specified UMP device via ALSA control API
-+  without opening the actual (UMP) rawmidi device.
-+  The `card` field is ignored upon inquiry, always tied with the card
-+  of the control interface.
-+
-+
-+Sequencer API Extensions
-+========================
-+
-+* `midi_version` field is added to `snd_seq_client_info` to indicate
-+  the current MIDI version (either 0, 1 or 2) of each client.
-+  When `midi_version` is 1 or 2, the alignment of read from a UMP
-+  sequencer client is also changed from the former 28 bytes to 32
-+  bytes for the extended payload.  The alignment size for the write
-+  isn't changed, but each event size may differ depending on the new
-+  bit flag below.
-+
-+* `SNDRV_SEQ_EVENT_UMP` flag bit is added for each sequencer event
-+  flags.  When this bit flag is set, the sequencer event is extended
-+  to have a larger payload of 16 bytes instead of the legacy 12
-+  bytes, and the event contains the UMP packet in the payload.
-+
-+* The new sequencer port type bit (`SNDRV_SEQ_PORT_TYPE_MIDI_UMP`)
-+  indicates the port being UMP-capable.
-+
-+* The sequencer ports have new capability bits to indicate the
-+  inactive ports (`SNDRV_SEQ_PORT_CAP_INACTIVE`) and the UMP Endpoint
-+  port (`SNDRV_SEQ_PORT_CAP_UMP_ENDPOINT`).
-+
-+* The event conversion of ALSA sequencer clients can be suppressed the
-+  new filter bit `SNDRV_SEQ_FILTER_NO_CONVERT` set to the client info.
-+  For example, the kernel pass-through client (`snd-seq-dummy`) sets
-+  this flag internally.
-+
-+* The port information gained the new field `direction` to indicate
-+  the direction of the port (either `SNDRV_SEQ_PORT_DIR_INPUT`,
-+  `SNDRV_SEQ_PORT_DIR_OUTPUT` or `SNDRV_SEQ_PORT_DIR_BIDIRECTION`).
-+
-+* Another additional field for the port information is `ump_group`
-+  which specifies the associated UMP Group Number (1-based).
-+  When it's non-zero, the UMP group field in the UMP packet updated
-+  upon delivery to the specified group (corrected to be 0-based).
-+  Each sequencer port is supposed to set this field if it's a port to
-+  specific to a certain UMP group.
-+
-+* Each client may set the additional event filter for UMP Groups in
-+  `group_filter` bitmap.  The filter consists of bitmap from 1-based
-+  Group numbers.  For example, when the bit 1 is set, messages from
-+  Group 1 (i.e. the very first group) are filtered and not delivered.
-+  The bit 0 is reserved for future use.
-+
-+* Two new ioctls are added for UMP-capable clients:
-+  `SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO` and
-+  `SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO`.  They are used to get and set
-+  either `snd_ump_endpoint_info` or `snd_ump_block_info` data
-+  associated with the sequencer client.  The USB MIDI driver provides
-+  those information from the underlying UMP rawmidi, while a
-+  user-space client may provide its own data via `*_SET` ioctl.
-+  For an Endpoint data, pass 0 to the `type` field, while for a Block
-+  data, pass the block number + 1 to the `type` field.
-+  Setting the data for a kernel client shall result in an error.
++++ b/Documentation/devicetree/bindings/sound/dialog,da7219.yaml
+@@ -0,0 +1,230 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/dialog,da7219.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dialog Semiconductor DA7219 Audio Codec
++
++maintainers:
++  - David Rau <David.Rau.opensource@dm.renesas.com>
++
++description:
++  The DA7219 is an ultra low-power audio codec with
++  in-built advanced accessory detection (AAD) for mobile
++  computing and accessory applications, which supports
++  sample rates up to 96 kHz at 24-bit resolution.
++
++properties:
++  compatible:
++    const: dlg,da7219
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  VDD-supply:
++    description:
++      VDD power supply for the device.
++
++  VDDMIC-supply:
++    description:
++      VDDMIC power supply for the device.
++
++  VDDIO-supply:
++    description:
++      VDDIO power supply for the device.
++
++  interrupt-names:
++    description:
++      Should be "wakeup" if interrupt is to be used to wake system,
++      otherwise "irq" should be used.
++    enum:
++      - wakeup
++      - irq
++
++  wakeup-source:
++    type: boolean
++    description:
++      Flag to indicate this device can wake system (suspend/resume).
++
++  "#clock-cells":
++    const: 1
++
++  clock-output-names:
++    minItems: 2
++    maxItems: 2
++    description:
++      Name given for DAI WCLK and BCLK outputs.
++
++  clocks:
++    maxItems: 1
++    description:
++      phandle and clock specifier for codec MCLK.
++
++  clock-names:
++    const: mclk
++
++  dlg,micbias-lvl:
++    enum: [1600, 1800, 2000, 2200, 2400, 2600]
++    description:
++      Voltage (mV) for Mic Bias.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  dlg,mic-amp-in-sel:
++    enum: ["diff", "se_p", "se_n"]
++    description:
++      Mic input source type.
++
++      diff - Differential.
++
++      se_p - MIC_P.
++      Positive differential analog microphone input.
++
++      se_n - MIC_N.
++      Negative differential analog microphone input.
++    $ref: /schemas/types.yaml#/definitions/string
++
++  da7219_aad:
++    type: object
++    description:
++      Configuration of advanced accessory detection.
++    properties:
++      dlg,micbias-pulse-lvl:
++        enum: [2800, 2900]
++        description:
++          Mic bias higher voltage pulse level (mV).
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      dlg,micbias-pulse-time:
++        description:
++          Mic bias higher voltage pulse duration (ms).
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++
++      dlg,btn-cfg:
++        enum: [2, 5, 10, 50, 100, 200, 500]
++        description:
++          Periodic button press measurements for 4-pole jack (ms).
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      dlg,mic-det-thr:
++        enum: [200, 500, 750, 1000]
++        description:
++          Impedance threshold for mic detection measurement (Ohms).
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      dlg,jack-ins-deb:
++        enum: [5, 10, 20, 50, 100, 200, 500, 1000]
++        description:
++          Debounce time for jack insertion (ms).
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      dlg,jack-det-rate:
++        enum: ["32_64", "64_128", "128_256", "256_512"]
++        description:
++          Jack type (3/4 pole) detection latency (ms).
++        $ref: /schemas/types.yaml#/definitions/string
++
++      dlg,jack-rem-deb:
++        enum: [1, 5, 10, 20]
++        description:
++          Debounce time for jack removal (ms).
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      dlg,a-d-btn-thr:
++        description:
++          Impedance threshold between buttons A and D.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 255
++
++      dlg,d-b-btn-thr:
++        description:
++          Impedance threshold between buttons D and B.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 255
++
++      dlg,b-c-btn-thr:
++        description:
++          Impedance threshold between buttons B and C.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 255
++
++      dlg,c-mic-btn-thr:
++        description:
++          Impedance threshold between button C and Mic.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 255
++
++      dlg,btn-avg:
++        enum: [1, 2, 4, 8]
++        description:
++          Number of 8-bit readings for averaged button measurement.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      dlg,adc-1bit-rpt:
++        enum: [1, 2, 4, 8]
++        description:
++          Repeat count for 1-bit button measurement.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - VDD-supply
++  - VDDMIC-supply
++  - VDDIO-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      codec: da7219@1a {
++          compatible = "dlg,da7219";
++          reg = <0x1a>;
++
++          interrupt-parent = <&gpio6>;
++          interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
++
++          VDD-supply = <&vdd_reg>;
++          VDDMIC-supply = <&vddmic_reg>;
++          VDDIO-supply = <&vddio_reg>;
++
++          #clock-cells = <1>;
++          clock-output-names = "da7219-dai-wclk", "da7219-dai-bclk";
++
++          clocks = <&clks 201>;
++          clock-names = "mclk";
++
++          dlg,micbias-lvl = <2600>;
++          dlg,mic-amp-in-sel = "diff";
++
++          da7219_aad {
++              dlg,btn-cfg = <50>;
++              dlg,mic-det-thr = <500>;
++              dlg,jack-ins-deb = <20>;
++              dlg,jack-det-rate = "32_64";
++              dlg,jack-rem-deb = <1>;
++
++              dlg,a-d-btn-thr = <0xa>;
++              dlg,d-b-btn-thr = <0x16>;
++              dlg,b-c-btn-thr = <0x21>;
++              dlg,c-mic-btn-thr = <0x3E>;
++
++              dlg,btn-avg = <4>;
++              dlg,adc-1bit-rpt = <1>;
++          };
++      };
++    };
 -- 
-2.35.3
+2.17.1
 

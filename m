@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 405E270E7A0
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:45:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DED6B70E7A2
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:46:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4BEE820;
-	Tue, 23 May 2023 23:45:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4BEE820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17E7082C;
+	Tue, 23 May 2023 23:45:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17E7082C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684878356;
-	bh=jl2wdJNruwvnUiqYoU0FPPH9cZQ8q3wjXa6NzeQjbhE=;
+	s=default; t=1684878359;
+	bh=zHVq50k7DbZjqBSZlH/G4JnZ1dYJHDa4rC6ODp4owhk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lT8cVJ4SUbCoixm/dFP4ZseqGQ+u8IIAo0LWq8QoeSuacQ4ta735GxWlinIUiTiaW
-	 pHF+7S+iWYMLc9FrslXLht5bMMN2hzpCSUd7PtAccxk8MvXTRXhRmC9u44wrgUdVVv
-	 K8JisiyPqarfEZukSqbJYV20yR94LsV2how/mAOE=
+	b=bVE5u+AzbJWEVQym4BIEQ5Ng1CO6RfIX26i0b+iV2f68j5O0RbggXDKlDa6pu9i5f
+	 QlUpIrgjucSJqhlYVVh3Bf4XefufVqDwnJmxTPspxOn4YZwV/01eJ9P+iyM7hWq7yA
+	 lAMHtjTnMi2VDxAu3lS9LK1nv9v5uzQlziIuEGo4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E6A6F8055C; Tue, 23 May 2023 23:44:18 +0200 (CEST)
+	id DA20AF80567; Tue, 23 May 2023 23:44:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5E15F80551;
-	Tue, 23 May 2023 23:44:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1661FF80548;
+	Tue, 23 May 2023 23:44:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6445FF8024E; Tue, 23 May 2023 23:44:12 +0200 (CEST)
+	id 2DF9FF8024E; Tue, 23 May 2023 23:44:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,46 +36,47 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5696FF80249
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:44:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5696FF80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 90F3AF800DF
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:44:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90F3AF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Xy8yDNPA
+ header.s=k20201202 header.b=AzR5ZlIh
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D26A763576;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F2B2625CA;
+	Tue, 23 May 2023 21:44:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3D75C4339C;
 	Tue, 23 May 2023 21:44:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31FCC433EF;
-	Tue, 23 May 2023 21:44:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684878247;
-	bh=jl2wdJNruwvnUiqYoU0FPPH9cZQ8q3wjXa6NzeQjbhE=;
+	s=k20201202; t=1684878249;
+	bh=zHVq50k7DbZjqBSZlH/G4JnZ1dYJHDa4rC6ODp4owhk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Xy8yDNPA1reeDezVtad/Tzl+j+ZfhB40u+jSOrLN9W8Umqs3LNLU/a32br+1jko3m
-	 t6rYgkv+dviyyg9fbKJdeJsnVufiy8iHJGODeIJfAt1pCher0cb83zIRVU11elDXrK
-	 5ql5XbvQwuMH36nT4/N9kuZc6634Yeq0CamJH4zvSFrKSHCjGU50ncF20Vy7lo7bg2
-	 6UrraVdXX9lwiNitM5O43WITCDWJQMoC+CjJ8vHAglsoB8Ernfu+6Cqvcsivh5qtfj
-	 XRVbxr3x43yHJT4jgcE+OC/wzKxKBRL4eLds2p4M9SMJSR/NIb0QGKzEeyJPS8aRLf
-	 0CanQHNFThBAQ==
+	b=AzR5ZlIhTpi5h4bYNEPttRp0VDE9+KDUccSlJ203y698CwH4MU4uO+JxJ+16nz3Fo
+	 j8ekD8gRJRcD5koVOa+fpC3EI1zqnZTmCoPqzMMzjORIkU6fqC9fAk3Z2oqPj7bg6w
+	 V0WqgPdv40lNMDDv/xsBZZRdlg+Bt0shtMS4JZ0NEoy5VzYAlZk2rPHogyhx1ECSuA
+	 tAzMaG5aRz8QJoHsqeVvtljroas5Veu15NEJRdwPJnYxyRWsj0ARuHy/J+QzcvYDOo
+	 voGJ9uPTvst/DVbZabbeGIR6BGPdDtZKVhxxYErvopByCjxbXVea6BEB0n8sgd11vv
+	 dHPlnsURAC/LQ==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, Anup Sharma <anupnewsmail@gmail.com>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <ZFUFAmBJXvkQAG7m@yoga>
-References: <ZFUFAmBJXvkQAG7m@yoga>
-Subject: Re: [PATCH] ASoC: dt-bindings: rt1016: Convert to dtschema
-Message-Id: <168487824551.297010.16643781919959380552.b4-ty@kernel.org>
-Date: Tue, 23 May 2023 22:44:05 +0100
+To: alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@oss.nxp.com>
+Cc: linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ kai.vehmanen@linux.intel.com, daniel.baluta@gmail.com
+In-Reply-To: <20230503081049.73847-1-daniel.baluta@oss.nxp.com>
+References: <20230503081049.73847-1-daniel.baluta@oss.nxp.com>
+Subject: Re: [PATCH 0/2] Improve support for sof_ipc{3|4}_bytes_ext_put
+Message-Id: <168487824751.297010.12344595686520411932.b4-ty@kernel.org>
+Date: Tue, 23 May 2023 22:44:07 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: 4GRQEL4MELLOTV2H3PIMSPEQ5GCONQQF
-X-Message-ID-Hash: 4GRQEL4MELLOTV2H3PIMSPEQ5GCONQQF
+Message-ID-Hash: HTO7IK5PVDLQOGYMTNKWSCK2V6KJORZ7
+X-Message-ID-Hash: HTO7IK5PVDLQOGYMTNKWSCK2V6KJORZ7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -88,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4GRQEL4MELLOTV2H3PIMSPEQ5GCONQQF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HTO7IK5PVDLQOGYMTNKWSCK2V6KJORZ7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,10 +98,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 05 May 2023 19:00:42 +0530, Anup Sharma wrote:
-> Convert the RT1016 Stereo Audio Amplifier bindings to DT schema
+On Wed, 03 May 2023 11:10:47 +0300, Daniel Baluta wrote:
+> This patch series provides better handling of cases where sending
+> a data blob to FW results in a validation error.
 > 
+> In this case we restore to the last good known value instead of keeping
+> the data that firwmare rejected.
 > 
+> Paul Olaru (2):
+>   ASoC: sof: Improve sof_ipc3_bytes_ext_put function
+>   ASoC: sof: Improve sof_ipc4_bytes_ext_put function
+> 
+> [...]
 
 Applied to
 
@@ -108,8 +117,10 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: rt1016: Convert to dtschema
-      commit: d8b44d8df4d932db3d88b2e79c67ffbd2c72e4dd
+[1/2] ASoC: sof: Improve sof_ipc3_bytes_ext_put function
+      commit: 299f6c752f8f7dabb62fe4df62ebd233b58402bd
+[2/2] ASoC: sof: Improve sof_ipc4_bytes_ext_put function
+      commit: db38d86d0c54e0dbea063e915ce3e1fe394af444
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

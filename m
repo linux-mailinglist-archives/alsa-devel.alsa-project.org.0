@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C20E70D696
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 10:04:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0704870D697
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 10:04:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C928EA0;
-	Tue, 23 May 2023 10:03:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C928EA0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1717EEA3;
+	Tue, 23 May 2023 10:03:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1717EEA3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684829042;
-	bh=v/VMMCGDFx31LhFtLZJM/13EXSC2ClBrNLvyuyDA9iY=;
+	s=default; t=1684829046;
+	bh=2S5bfPVDlHq2XWH5E9lmadAP9vsgL5Zpzg3k5L+MxQY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kaLxZG7W6BkEJcWIafDhM2ayzQep9YArkLmAaVPROm+8rc57dKg2P1+M9hjwDvbcB
-	 PGaBfz3nME9GQprTwP5VrrLtWzFpiaQvN1oJtcUG02ehy7xbDkoLSjyJHHD5LFuFP8
-	 Yh9eDlFqhkHb0i9wdznS0GPcxenzjjyVYTTSOFl4=
+	b=Hnwer4VO2FTHU08pgJgFXINim5H/unM5MClJtobLs2SUhHXRW50wXGYyCE3C41j4n
+	 ftEVma8IFGZ2PwR7WXNPPt2AomK49wc7pSQ59hwjYeqEhDuWAtkkEtIgyLC6HArdof
+	 xyoGRWhuDnkilSB9enK7LkNpJILshMHP6iGXXIvs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4055DF805D8; Tue, 23 May 2023 09:56:11 +0200 (CEST)
+	id 1A613F805BF; Tue, 23 May 2023 09:56:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F01BBF805D8;
-	Tue, 23 May 2023 09:56:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10F00F805BF;
+	Tue, 23 May 2023 09:56:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85CD6F806C0; Tue, 23 May 2023 09:55:53 +0200 (CEST)
+	id 3C068F806C3; Tue, 23 May 2023 09:55:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DB49DF80086
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 09:54:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB49DF80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id D230FF80588
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 09:54:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D230FF80588
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=aaJRyh4s;
+ header.s=susede2_rsa header.b=oNNRfBQT;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=/8mwtXmx
+ header.s=susede2_ed25519 header.b=J2iFqDWu
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 92F8521B10;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E51532041B;
 	Tue, 23 May 2023 07:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -61,44 +60,44 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+VA/WrJJegm1Ay7NPirvOeFMKFPeb95a1/jKrr24UbE=;
-	b=aaJRyh4sFpjNqCrTCopyym9NXknyjC08PF5EjYtxHnesTwZcCS51rLL2pioTu5Vy2MPahv
-	5/wEScvskbA5d2Si95V0yTUDtrLzXc5LAm+rM9QedPtbr9bwHro06dDxEHSSAPV19cM5ie
-	NGNpfN9R5cvAUzMF4fBhLOKcOGI+lcs=
+	bh=fHQrHilsIqjDo5H9WbGUCwqE2MfITTbQXGoxi+ShiBk=;
+	b=oNNRfBQT3taA3ZwcuPQW/0mjshFULGlgmhc6kUnxcP8nnH5tPXrF/DB4aNRMlcOifEu9S1
+	7G3q00cEOGbbQHw9nLRq5ojJZG+q3Ye31sSq/++yc1uJ5ZuBO+T6tw2qQy3i4aCeYF15Xu
+	//7rUUx0bJyePpwtbxVdUE5X7CltAWw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1684828452;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+VA/WrJJegm1Ay7NPirvOeFMKFPeb95a1/jKrr24UbE=;
-	b=/8mwtXmxiCRVG20SxuXvU41UBX0f6cqlo8lOTVJK8vqQ+AkhPcbjPnPKHumgzbiLQQFK7s
-	NjN+/9ULv0HoCRAQ==
+	bh=fHQrHilsIqjDo5H9WbGUCwqE2MfITTbQXGoxi+ShiBk=;
+	b=J2iFqDWuHzBL+wLK3QYiN/SFbj/S1l1zrT7vBaa0QmuU+J8kKwPwdBGsqrixTAy+cv+AyK
+	5fzyDyRPTjodJEAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4FA4713A1A;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 965A513588;
 	Tue, 23 May 2023 07:54:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id sFtzEiRxbGT4KgAAMHmgww
+	id WCEtIiRxbGT4KgAAMHmgww
 	(envelope-from <tiwai@suse.de>); Tue, 23 May 2023 07:54:12 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 34/37] ALSA: seq: Add ioctls for client UMP info query and
- setup
-Date: Tue, 23 May 2023 09:53:55 +0200
-Message-Id: <20230523075358.9672-35-tiwai@suse.de>
+Subject: [PATCH v2 35/37] ALSA: seq: Print UMP Endpoint and Block information
+ in proc outputs
+Date: Tue, 23 May 2023 09:53:56 +0200
+Message-Id: <20230523075358.9672-36-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230523075358.9672-1-tiwai@suse.de>
 References: <20230523075358.9672-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QYRSHP46Z4QN6LYZH5FLVD7T62FBA7PV
-X-Message-ID-Hash: QYRSHP46Z4QN6LYZH5FLVD7T62FBA7PV
+Message-ID-Hash: OQOFKEFUL7MMGJAZH2QQHPT32PKNTUFO
+X-Message-ID-Hash: OQOFKEFUL7MMGJAZH2QQHPT32PKNTUFO
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,316 +110,74 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QYRSHP46Z4QN6LYZH5FLVD7T62FBA7PV/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OQOFKEFUL7MMGJAZH2QQHPT32PKNTUFO/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add new ioctls for sequencer clients to query and set the UMP endpoint
-and block information.
+This patch enhances the /proc/asound/seq/clients output to show a few
+more information about the assigned UMP Endpoint and Blocks.
 
-As a sequencer client corresponds to a UMP Endpoint, one UMP Endpoint
-information can be assigned at most to a single sequencer client while
-multiple UMP block infos can be assigned by passing the type with the
-offset of block id (i.e. type = block_id + 1).
-
-For the kernel client, only SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO is
-allowed.
+The "Groups" are shown in 1-based group number to align with the
+sequencer client name and port number.
 
 Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/uapi/sound/asequencer.h |  14 ++++
- sound/core/seq/seq_clientmgr.c  | 120 +++++++++++++++++++++++++++++++-
- sound/core/seq/seq_clientmgr.h  |   4 +-
- sound/core/seq/seq_compat.c     |   2 +
- sound/core/seq/seq_ump_client.c |  15 ++++
- 5 files changed, 153 insertions(+), 2 deletions(-)
+ sound/core/seq/seq_clientmgr.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
-index 3fa6b17aa7a2..c75f594f21e3 100644
---- a/include/uapi/sound/asequencer.h
-+++ b/include/uapi/sound/asequencer.h
-@@ -585,6 +585,18 @@ struct snd_seq_query_subs {
- 	char reserved[64];	/* for future use */
- };
- 
-+/*
-+ * UMP-specific information
-+ */
-+/* type of UMP info query */
-+#define SNDRV_SEQ_CLIENT_UMP_INFO_ENDPOINT	0
-+#define SNDRV_SEQ_CLIENT_UMP_INFO_BLOCK		1
-+
-+struct snd_seq_client_ump_info {
-+	int client;			/* client number to inquire/set */
-+	int type;			/* type to inquire/set */
-+	unsigned char info[512];	/* info (either UMP ep or block info) */
-+} __packed;
- 
- /*
-  *  IOCTL commands
-@@ -598,6 +610,8 @@ struct snd_seq_query_subs {
- 
- #define SNDRV_SEQ_IOCTL_GET_CLIENT_INFO	_IOWR('S', 0x10, struct snd_seq_client_info)
- #define SNDRV_SEQ_IOCTL_SET_CLIENT_INFO	_IOW ('S', 0x11, struct snd_seq_client_info)
-+#define SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO	_IOWR('S', 0x12, struct snd_seq_client_ump_info)
-+#define SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO	_IOWR('S', 0x13, struct snd_seq_client_ump_info)
- 
- #define SNDRV_SEQ_IOCTL_CREATE_PORT	_IOWR('S', 0x20, struct snd_seq_port_info)
- #define SNDRV_SEQ_IOCTL_DELETE_PORT	_IOW ('S', 0x21, struct snd_seq_port_info)
 diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index 3b1adcb1ccdd..03ca78ea2cce 100644
+index 03ca78ea2cce..8cce8061ca55 100644
 --- a/sound/core/seq/seq_clientmgr.c
 +++ b/sound/core/seq/seq_clientmgr.c
-@@ -14,6 +14,7 @@
- #include <linux/kmod.h>
- 
- #include <sound/seq_kernel.h>
-+#include <sound/ump.h>
- #include "seq_clientmgr.h"
- #include "seq_memory.h"
- #include "seq_queue.h"
-@@ -71,6 +72,10 @@ static int snd_seq_deliver_single_event(struct snd_seq_client *client,
- 					struct snd_seq_event *event,
- 					int filter, int atomic, int hop);
- 
-+#if IS_ENABLED(CONFIG_SND_SEQ_UMP)
-+static void free_ump_info(struct snd_seq_client *client);
-+#endif
-+
- /*
-  */
- static inline unsigned short snd_seq_file_flags(struct file *file)
-@@ -382,6 +387,9 @@ static int snd_seq_release(struct inode *inode, struct file *file)
- 		seq_free_client(client);
- 		if (client->data.user.fifo)
- 			snd_seq_fifo_delete(&client->data.user.fifo);
-+#if IS_ENABLED(CONFIG_SND_SEQ_UMP)
-+		free_ump_info(client);
-+#endif
- 		put_pid(client->data.user.owner);
- 		kfree(client);
+@@ -2120,6 +2120,33 @@ static void terminate_ump_info_strings(void *p, int type)
  	}
-@@ -1282,7 +1290,6 @@ static int snd_seq_ioctl_set_client_info(struct snd_seq_client *client,
- 	if (client->user_pversion >= SNDRV_PROTOCOL_VERSION(1, 0, 3))
- 		client->midi_version = client_info->midi_version;
- 	memcpy(client->event_filter, client_info->event_filter, 32);
--
- 	return 0;
  }
  
-@@ -2087,6 +2094,108 @@ static int snd_seq_ioctl_query_next_port(struct snd_seq_client *client,
- 	return 0;
- }
- 
-+#if IS_ENABLED(CONFIG_SND_SEQ_UMP)
-+#define NUM_UMP_INFOS (SNDRV_UMP_MAX_BLOCKS + 1)
-+
-+static void free_ump_info(struct snd_seq_client *client)
++#ifdef CONFIG_SND_PROC_FS
++static void dump_ump_info(struct snd_info_buffer *buffer,
++			  struct snd_seq_client *client)
 +{
++	struct snd_ump_endpoint_info *ep;
++	struct snd_ump_block_info *bp;
 +	int i;
 +
 +	if (!client->ump_info)
 +		return;
-+	for (i = 0; i < NUM_UMP_INFOS; i++)
-+		kfree(client->ump_info[i]);
-+	kfree(client->ump_info);
-+	client->ump_info = NULL;
-+}
-+
-+static void terminate_ump_info_strings(void *p, int type)
-+{
-+	if (type == SNDRV_SEQ_CLIENT_UMP_INFO_ENDPOINT) {
-+		struct snd_ump_endpoint_info *ep = p;
-+		ep->name[sizeof(ep->name) - 1] = 0;
-+	} else {
-+		struct snd_ump_block_info *bp = p;
-+		bp->name[sizeof(bp->name) - 1] = 0;
++	ep = client->ump_info[SNDRV_SEQ_CLIENT_UMP_INFO_ENDPOINT];
++	if (ep && *ep->name)
++		snd_iprintf(buffer, "  UMP Endpoint: \"%s\"\n", ep->name);
++	for (i = 0; i < SNDRV_UMP_MAX_BLOCKS; i++) {
++		bp = client->ump_info[i + 1];
++		if (bp && *bp->name) {
++			snd_iprintf(buffer, "  UMP Block %d: \"%s\" [%s]\n",
++				    i, bp->name,
++				    bp->active ? "Active" : "Inactive");
++			snd_iprintf(buffer, "    Groups: %d-%d\n",
++				    bp->first_group + 1,
++				    bp->first_group + bp->num_groups);
++		}
 +	}
-+}
-+
-+/* UMP-specific ioctls -- called directly without data copy */
-+static int snd_seq_ioctl_client_ump_info(struct snd_seq_client *caller,
-+					 unsigned int cmd,
-+					 unsigned long arg)
-+{
-+	struct snd_seq_client_ump_info __user *argp =
-+		(struct snd_seq_client_ump_info __user *)arg;
-+	struct snd_seq_client *cptr;
-+	int client, type, err = 0;
-+	size_t size;
-+	void *p;
-+
-+	if (get_user(client, &argp->client) || get_user(type, &argp->type))
-+		return -EFAULT;
-+	if (cmd == SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO &&
-+	    caller->number != client)
-+		return -EPERM;
-+	if (type < 0 || type >= NUM_UMP_INFOS)
-+		return -EINVAL;
-+	if (type == SNDRV_SEQ_CLIENT_UMP_INFO_ENDPOINT)
-+		size = sizeof(struct snd_ump_endpoint_info);
-+	else
-+		size = sizeof(struct snd_ump_block_info);
-+	cptr = snd_seq_client_use_ptr(client);
-+	if (!cptr)
-+		return -ENOENT;
-+
-+	mutex_lock(&cptr->ioctl_mutex);
-+	if (!cptr->midi_version) {
-+		err = -EBADFD;
-+		goto error;
-+	}
-+
-+	if (cmd == SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO) {
-+		if (!cptr->ump_info)
-+			p = NULL;
-+		else
-+			p = cptr->ump_info[type];
-+		if (!p) {
-+			err = -ENODEV;
-+			goto error;
-+		}
-+		if (copy_to_user(argp->info, p, size)) {
-+			err = -EFAULT;
-+			goto error;
-+		}
-+	} else {
-+		if (cptr->type != USER_CLIENT) {
-+			err = -EBADFD;
-+			goto error;
-+		}
-+		if (!cptr->ump_info) {
-+			cptr->ump_info = kcalloc(NUM_UMP_INFOS,
-+						 sizeof(void *), GFP_KERNEL);
-+			if (!cptr->ump_info) {
-+				err = -ENOMEM;
-+				goto error;
-+			}
-+		}
-+		p = memdup_user(argp->info, size);
-+		if (IS_ERR(p)) {
-+			err = PTR_ERR(p);
-+			goto error;
-+		}
-+		kfree(cptr->ump_info[type]);
-+		terminate_ump_info_strings(p, type);
-+		cptr->ump_info[type] = p;
-+	}
-+
-+ error:
-+	mutex_unlock(&cptr->ioctl_mutex);
-+	snd_seq_client_unlock(cptr);
-+	return err;
 +}
 +#endif
 +
- /* -------------------------------------------------------- */
- 
- static const struct ioctl_handler {
-@@ -2157,6 +2266,15 @@ static long snd_seq_ioctl(struct file *file, unsigned int cmd,
- 	if (snd_BUG_ON(!client))
- 		return -ENXIO;
- 
+ /* UMP-specific ioctls -- called directly without data copy */
+ static int snd_seq_ioctl_client_ump_info(struct snd_seq_client *caller,
+ 					 unsigned int cmd,
+@@ -2654,6 +2681,9 @@ void snd_seq_info_clients_read(struct snd_info_entry *entry,
+ 			    c, client->name,
+ 			    client->type == USER_CLIENT ? "User" : "Kernel",
+ 			    midi_version_string(client->midi_version));
 +#if IS_ENABLED(CONFIG_SND_SEQ_UMP)
-+	/* exception - handling large data */
-+	switch (cmd) {
-+	case SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO:
-+	case SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO:
-+		return snd_seq_ioctl_client_ump_info(client, cmd, arg);
-+	}
++		dump_ump_info(buffer, client);
 +#endif
-+
- 	for (handler = ioctl_handlers; handler->cmd > 0; ++handler) {
- 		if (handler->cmd == cmd)
- 			break;
-diff --git a/sound/core/seq/seq_clientmgr.h b/sound/core/seq/seq_clientmgr.h
-index 97762892ffab..be3fe555f233 100644
---- a/sound/core/seq/seq_clientmgr.h
-+++ b/sound/core/seq/seq_clientmgr.h
-@@ -12,7 +12,6 @@
- #include "seq_ports.h"
- #include "seq_lock.h"
- 
--
- /* client manager */
- 
- struct snd_seq_user_client {
-@@ -59,6 +58,9 @@ struct snd_seq_client {
- 		struct snd_seq_user_client user;
- 		struct snd_seq_kernel_client kernel;
- 	} data;
-+
-+	/* for UMP */
-+	void **ump_info;
- };
- 
- /* usage statistics */
-diff --git a/sound/core/seq/seq_compat.c b/sound/core/seq/seq_compat.c
-index c0ce6236dc7f..1e35bf086a51 100644
---- a/sound/core/seq/seq_compat.c
-+++ b/sound/core/seq/seq_compat.c
-@@ -86,6 +86,8 @@ static long snd_seq_ioctl_compat(struct file *file, unsigned int cmd, unsigned l
- 	case SNDRV_SEQ_IOCTL_SYSTEM_INFO:
- 	case SNDRV_SEQ_IOCTL_GET_CLIENT_INFO:
- 	case SNDRV_SEQ_IOCTL_SET_CLIENT_INFO:
-+	case SNDRV_SEQ_IOCTL_GET_CLIENT_UMP_INFO:
-+	case SNDRV_SEQ_IOCTL_SET_CLIENT_UMP_INFO:
- 	case SNDRV_SEQ_IOCTL_SUBSCRIBE_PORT:
- 	case SNDRV_SEQ_IOCTL_UNSUBSCRIBE_PORT:
- 	case SNDRV_SEQ_IOCTL_CREATE_QUEUE:
-diff --git a/sound/core/seq/seq_ump_client.c b/sound/core/seq/seq_ump_client.c
-index 600b061ac8c3..e24833804094 100644
---- a/sound/core/seq/seq_ump_client.c
-+++ b/sound/core/seq/seq_ump_client.c
-@@ -47,6 +47,7 @@ struct seq_ump_client {
- 	struct snd_rawmidi_file out_rfile; /* rawmidi for output */
- 	struct seq_ump_input_buffer input; /* input parser context */
- 	struct seq_ump_group groups[SNDRV_UMP_MAX_GROUPS]; /* table of groups */
-+	void *ump_info[SNDRV_UMP_MAX_BLOCKS + 1]; /* shadow of seq client ump_info */
- };
- 
- /* number of 32bit words for each UMP message type */
-@@ -384,6 +385,8 @@ static int snd_seq_ump_probe(struct device *_dev)
- 	struct snd_ump_endpoint *ump = dev->private_data;
- 	struct snd_card *card = dev->card;
- 	struct seq_ump_client *client;
-+	struct snd_ump_block *fb;
-+	struct snd_seq_client *cptr;
- 	int p, err;
- 
- 	client = kzalloc(sizeof(*client), GFP_KERNEL);
-@@ -400,6 +403,10 @@ static int snd_seq_ump_probe(struct device *_dev)
- 		goto error;
- 	}
- 
-+	client->ump_info[0] = &ump->info;
-+	list_for_each_entry(fb, &ump->block_list, list)
-+		client->ump_info[fb->info.block_id + 1] = &fb->info;
-+
- 	setup_client_midi_version(client);
- 	update_group_attrs(client);
- 
-@@ -413,6 +420,14 @@ static int snd_seq_ump_probe(struct device *_dev)
- 	if (err < 0)
- 		goto error;
- 
-+	cptr = snd_seq_kernel_client_get(client->seq_client);
-+	if (!cptr) {
-+		err = -EINVAL;
-+		goto error;
-+	}
-+	cptr->ump_info = client->ump_info;
-+	snd_seq_kernel_client_put(cptr);
-+
- 	ump->seq_client = client;
- 	ump->seq_ops = &seq_ump_ops;
- 	return 0;
+ 		snd_seq_info_dump_ports(buffer, client);
+ 		if (snd_seq_write_pool_allocated(client)) {
+ 			snd_iprintf(buffer, "  Output pool :\n");
 -- 
 2.35.3
 

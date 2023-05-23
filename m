@@ -2,81 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7811B70E79C
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:45:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 405E270E7A0
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:45:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B9C0206;
-	Tue, 23 May 2023 23:44:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B9C0206
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4BEE820;
+	Tue, 23 May 2023 23:45:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4BEE820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684878306;
-	bh=aMl8XSo6MAGNcouj2r0VodRBmRxEH/7FWMSr7kUooIk=;
+	s=default; t=1684878356;
+	bh=jl2wdJNruwvnUiqYoU0FPPH9cZQ8q3wjXa6NzeQjbhE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ALGKKqy/uwqwpwgUEWKXKDBzxyrWeesZJ8wErqKHH7rTfqr06oa0ZOkQSfBzJU8po
-	 FJyA3x073C8eHJmQN4UpiEfcEhHSabY0pjBUeV3ZgmkBkkP4oXGFXXi5YnI7RMxSVZ
-	 6foc7oTlVtO0l9WevfoqvjFmiy3KIwwZ/fsmHnK0=
+	b=lT8cVJ4SUbCoixm/dFP4ZseqGQ+u8IIAo0LWq8QoeSuacQ4ta735GxWlinIUiTiaW
+	 pHF+7S+iWYMLc9FrslXLht5bMMN2hzpCSUd7PtAccxk8MvXTRXhRmC9u44wrgUdVVv
+	 K8JisiyPqarfEZukSqbJYV20yR94LsV2how/mAOE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 81A00F80542; Tue, 23 May 2023 23:44:15 +0200 (CEST)
+	id 8E6A6F8055C; Tue, 23 May 2023 23:44:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3F5DF80249;
-	Tue, 23 May 2023 23:44:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5E15F80551;
+	Tue, 23 May 2023 23:44:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C40F6F8026A; Tue, 23 May 2023 23:44:11 +0200 (CEST)
+	id 6445FF8024E; Tue, 23 May 2023 23:44:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C2FB9F800DF
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:44:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2FB9F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5696FF80249
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:44:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5696FF80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tjSA5U+N
+ header.s=k20201202 header.b=Xy8yDNPA
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id DCB99625BD;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D26A763576;
+	Tue, 23 May 2023 21:44:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31FCC433EF;
 	Tue, 23 May 2023 21:44:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D798FC433D2;
-	Tue, 23 May 2023 21:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684878245;
-	bh=aMl8XSo6MAGNcouj2r0VodRBmRxEH/7FWMSr7kUooIk=;
+	s=k20201202; t=1684878247;
+	bh=jl2wdJNruwvnUiqYoU0FPPH9cZQ8q3wjXa6NzeQjbhE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=tjSA5U+NoSiz6ZoJmbQJK45dwGsdDMEhNmzvUZaejH8oRc2vJlqaDRTZUflFch0rd
-	 DnWr9fz+bio2zkQHI3MY1gpw+qbTpkQ2rgcPF5c5F5AfaBBbQiaU0jny6DtFW7Z/KO
-	 nQQvwBCemNOgUPPwpBu6VLMnCTjllEH/TKAhxGbkDSrWfJTFpeu8zuKVEMJg1tcrAo
-	 U9JqoAbRAITAfxrmx7AhMdVY1ocNyav7ZhgVyaSDg8VgIJDQCSWFokDkvahFvNgWdu
-	 U/xYu/ULg5ZsaJQN0i+MuiKcIr9kgucz0bPYjNNxUqzZxs7gpu5eehmGBlrikH/AjJ
-	 q/AfUqIMRvTsw==
+	b=Xy8yDNPA1reeDezVtad/Tzl+j+ZfhB40u+jSOrLN9W8Umqs3LNLU/a32br+1jko3m
+	 t6rYgkv+dviyyg9fbKJdeJsnVufiy8iHJGODeIJfAt1pCher0cb83zIRVU11elDXrK
+	 5ql5XbvQwuMH36nT4/N9kuZc6634Yeq0CamJH4zvSFrKSHCjGU50ncF20Vy7lo7bg2
+	 6UrraVdXX9lwiNitM5O43WITCDWJQMoC+CjJ8vHAglsoB8Ernfu+6Cqvcsivh5qtfj
+	 XRVbxr3x43yHJT4jgcE+OC/wzKxKBRL4eLds2p4M9SMJSR/NIb0QGKzEeyJPS8aRLf
+	 0CanQHNFThBAQ==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- Trevor Wu <trevor.wu@mediatek.com>
-Cc: bicycle.tsai@mediatek.com, ting-fang.hou@mediatek.com,
- alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20230508071532.21665-1-trevor.wu@mediatek.com>
-References: <20230508071532.21665-1-trevor.wu@mediatek.com>
-Subject: Re: [PATCH 0/4] ASoC: mt6359: kselftest fix and driver extension
-Message-Id: <168487824257.297010.16948141699377522681.b4-ty@kernel.org>
-Date: Tue, 23 May 2023 22:44:02 +0100
+To: lgirdwood@gmail.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, Anup Sharma <anupnewsmail@gmail.com>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <ZFUFAmBJXvkQAG7m@yoga>
+References: <ZFUFAmBJXvkQAG7m@yoga>
+Subject: Re: [PATCH] ASoC: dt-bindings: rt1016: Convert to dtschema
+Message-Id: <168487824551.297010.16643781919959380552.b4-ty@kernel.org>
+Date: Tue, 23 May 2023 22:44:05 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: Z5543WGLFOUMS4BIJYPYAHD6T6KSKS4M
-X-Message-ID-Hash: Z5543WGLFOUMS4BIJYPYAHD6T6KSKS4M
+Message-ID-Hash: 4GRQEL4MELLOTV2H3PIMSPEQ5GCONQQF
+X-Message-ID-Hash: 4GRQEL4MELLOTV2H3PIMSPEQ5GCONQQF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5543WGLFOUMS4BIJYPYAHD6T6KSKS4M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4GRQEL4MELLOTV2H3PIMSPEQ5GCONQQF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,17 +97,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 08 May 2023 15:15:28 +0800, Trevor Wu wrote:
-> The patch series includes a kselftest fix and changes for extending
-> driver capability to support more use cases.
+On Fri, 05 May 2023 19:00:42 +0530, Anup Sharma wrote:
+> Convert the RT1016 Stereo Audio Amplifier bindings to DT schema
 > 
-> Trevor Wu (4):
->   ASoC: mediatek: mt6359: add supply for MTKAIF
->   ASoC: mediatek: mt6359: fix kselftest error of playback gain
->   ASoC: mediatek: mt6359: add mtkaif gpio setting
->   ASoC: mediatek: mt6359: update route for lineout mux
 > 
-> [...]
 
 Applied to
 
@@ -116,14 +108,8 @@ Applied to
 
 Thanks!
 
-[1/4] ASoC: mediatek: mt6359: add supply for MTKAIF
-      commit: 1a3eb4bb9826fd317358113ca048ed60184c6442
-[2/4] ASoC: mediatek: mt6359: fix kselftest error of playback gain
-      commit: acd4d219798769a6c1080bcfa7953e165dd8d681
-[3/4] ASoC: mediatek: mt6359: add mtkaif gpio setting
-      commit: 24f398e74ba0a53bc95421f7eb139f4dc0207bb2
-[4/4] ASoC: mediatek: mt6359: update route for lineout mux
-      commit: 104ce27bcbfb204001a300498aa192235bd0836f
+[1/1] ASoC: dt-bindings: rt1016: Convert to dtschema
+      commit: d8b44d8df4d932db3d88b2e79c67ffbd2c72e4dd
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

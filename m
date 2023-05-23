@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 571BF70E5FB
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 21:51:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7342870E603
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 21:52:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB961206;
-	Tue, 23 May 2023 21:50:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB961206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D490839;
+	Tue, 23 May 2023 21:51:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D490839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684871470;
-	bh=0kgIbzjX9fgNjWHC6MDxSyK2sgeMFDKHe414S+s4B1c=;
+	s=default; t=1684871522;
+	bh=/uQB4FK0lydPawdhLkoFI5hgLqs3cAp8GENHDctEgK8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lbeJfoREMW7C3MEHKRZp/Ty82Amo8PIqU522JMytpGx5CRPIqv+BKYKEf/LNFD33Y
-	 GTtze3gHnRx3YaLzy7Q8EFB9ob+J58ryt4OPUiZ7JJs4bqPWhUw2hnVo4BCutcRNnk
-	 8cyhWaDjbRorfFnEAe9Bj85BPHBzja+iwqGEqmb0=
+	b=q2FIgmYKV9p9zgvkh+VGNVoaKZ4voZYPHlbL4SJxYNMbUqiCrOVfeeRq3Old9pTsK
+	 JjZHvphq/NNv+wxz0r0LBtEBGPkJH2NRYx36OTmV9JOPZWIEhl6WGzFNlP8jrVFZo4
+	 K1x6eJn3OWeXHH3halRBAidN2SbrZ2/PVZRZogss=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A240F8026A; Tue, 23 May 2023 21:50:19 +0200 (CEST)
+	id 81CD6F80564; Tue, 23 May 2023 21:50:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E478F8024E;
-	Tue, 23 May 2023 21:50:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F157AF80557;
+	Tue, 23 May 2023 21:50:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A57E8F8024E; Tue, 23 May 2023 21:50:15 +0200 (CEST)
+	id 63C05F80552; Tue, 23 May 2023 21:50:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,50 +35,56 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9507BF8016A;
-	Tue, 23 May 2023 21:50:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9507BF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id D92CEF800DF;
+	Tue, 23 May 2023 21:50:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D92CEF800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=p9UHvbQk
+ header.s=k20201202 header.b=jBPbahj1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 56B4E63591;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F9C763633;
+	Tue, 23 May 2023 19:50:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6ACC433EF;
 	Tue, 23 May 2023 19:50:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10449C4339B;
-	Tue, 23 May 2023 19:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684871409;
-	bh=0kgIbzjX9fgNjWHC6MDxSyK2sgeMFDKHe414S+s4B1c=;
+	s=k20201202; t=1684871414;
+	bh=/uQB4FK0lydPawdhLkoFI5hgLqs3cAp8GENHDctEgK8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=p9UHvbQk1P7RQdr3geFPkC6JG4ciBbDKkYgvIjLZqwG6fKWZTagvB9KcUWRATmT4O
-	 PkG1y64ukNE0H/1s89SL4xncrVlMk5ZKDGCpIk91hHmzJNeWCdDvcmu69Y6wsHaAdo
-	 jlZqOxJrzHgzWTyj6FihQ4vPPEkF+7d/RtuYe4s4lN9msGdSWXVj/kzCflKktTNJrP
-	 sHhknRlsikKxc7NDI/ISTkjNH4UI21bpdnfY0Zq7J/Ar/VO0ECYHsGrosMUvHsmO8P
-	 bU1S7Dn2xpxTxmT9PxWQc/9dZolMzNVvvRVcOXJnA5q+oFmQzdooi+zIibfGEieV/P
-	 ItCsrpnDQUWzw==
+	b=jBPbahj1WF4/+OVVUdhRNPsYZB+L2kIRtGlet+6p/RbavHHd0rSbENerN3E5RX3qR
+	 jxKkGHSB1jzxuthBFFIHH5UG1JMu09PoVCHQ+O1IGhZbIF/tqxK8j3Sv/EQph3iz0Y
+	 ffrKxcceSnPfNQ59XQAQW1tzvu0uZNKxy4SZVZsbmTyNAvSDnDrEohZYDXeUJ0bVsb
+	 np2v9g2lZ09dzs+itlQFCXaQu1LX+kt8la2JS1HeApc/D6OAc/JoTedr6PFKMNCDX/
+	 U4NrFAwRZUcdx8JVp49OCytwcByYdVYoBVSEbh5gHXHBhqHkZUWA6hrQy4jOnfgL5a
+	 KDZnuGtbd5aHA==
 From: Mark Brown <broonie@kernel.org>
-To: perex@perex.cz, Yang Li <yang.lee@linux.alibaba.com>
-Cc: tiwai@suse.com, pierre-louis.bossart@linux.intel.com,
- lgirdwood@gmail.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
- daniel.baluta@nxp.com, kai.vehmanen@linux.intel.com,
- sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>
-In-Reply-To: <20230516081116.71370-1-yang.lee@linux.alibaba.com>
-References: <20230516081116.71370-1-yang.lee@linux.alibaba.com>
-Subject: Re: [PATCH -next] ASoC: SOF: ipc4-topology: Fix an unsigned
- comparison which can never be negative
-Message-Id: <168487140577.278276.4105417647413959490.b4-ty@kernel.org>
-Date: Tue, 23 May 2023 20:50:05 +0100
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Rander Wang <rander.wang@intel.com>,
+ Jyri Sarha <jyri.sarha@intel.com>, sound-open-firmware@alsa-project.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: error27@gmail.com, dan.carpenter@linaro.org,
+ kernel-janitors@vger.kernel.org
+In-Reply-To: <20230519064404.1659637-1-harshit.m.mogalapalli@oracle.com>
+References: <20230519064404.1659637-1-harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH next] ASoC: SOF: Intel: hda-dai: Fix locking in
+ hda_ipc4_pre_trigger()
+Message-Id: <168487140940.278276.10853655095714956345.b4-ty@kernel.org>
+Date: Tue, 23 May 2023 20:50:09 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: T2U5NJGMHAULGKBBIAXVS23EWAYV2YFU
-X-Message-ID-Hash: T2U5NJGMHAULGKBBIAXVS23EWAYV2YFU
+Message-ID-Hash: K2TDSWTPLAUNZ54NBHZRSHMCD5WHJ3EB
+X-Message-ID-Hash: K2TDSWTPLAUNZ54NBHZRSHMCD5WHJ3EB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T2U5NJGMHAULGKBBIAXVS23EWAYV2YFU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K2TDSWTPLAUNZ54NBHZRSHMCD5WHJ3EB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,13 +106,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 16 May 2023 16:11:16 +0800, Yang Li wrote:
-> The return value from the call to sof_ipc4_get_valid_bits() is int.
-> However, the return value is being assigned to an unsigned
-> int variable 'out_ref_valid_bits', so making it an int.
+On Thu, 18 May 2023 23:44:01 -0700, Harshit Mogalapalli wrote:
+> hda_ipc4_pre_trigger() has two issues:
+>  1. In the default case, we are returning without unlocking the mutex.
+>  2. In case SNDRV_PCM_TRIGGER_STOP: when ret is less than zero it goes
+>     to out, unlocks but returns zero instead of a negative value.
 > 
-> Eliminate the following warning:
-> ./sound/soc/sof/ipc4-topology.c:1537:6-24: WARNING: Unsigned expression compared with zero: out_ref_valid_bits < 0
+> Fix this by changing the final return value to 'ret' instead of zero,
+> and initialize 'ret' to zero in the start of the function.
 > 
 > [...]
 
@@ -116,8 +123,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: SOF: ipc4-topology: Fix an unsigned comparison which can never be negative
-      commit: fcbc3aaccfd57c7e71eac36bf1a8f063f19ceefa
+[1/1] ASoC: SOF: Intel: hda-dai: Fix locking in hda_ipc4_pre_trigger()
+      commit: ed67a3404a8806a57c0015ce97bd3e6d61e7aa22
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

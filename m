@@ -2,111 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE32570E2A6
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 19:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFBF70E2B7
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 19:26:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2A98207;
-	Tue, 23 May 2023 19:13:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2A98207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A01C207;
+	Tue, 23 May 2023 19:25:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A01C207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684862068;
-	bh=KleJvOcuNB65vqzdP/lVt/paUiLP19OaPWVvtuQb2JI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1684862781;
+	bh=hZem+bw/YpKsx96rrifNWNXdixYFstBba2CYEgc/T6g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=twxbsKh0YEcFNH8vBPWZSOm8JEI/oxX6O3uGbpYEwrZUo+8JRyZEgP4R3ywIKV867
-	 L8bAVsOrv1o88zcPzZ+o/L8ZDff53tBx/Vi+KVHpo4T4T8Vhbvg4ypxil056RecsrY
-	 8cu8fuhOsLPU8xxVe8KZG3jmel9RjQyAJMxYzhjU=
+	b=R/o7Pzu+rOf2qErYtYwvbVZrqIjMpk1sHQIdfGxrMfDHyKSpksZmNBOKS2ZAi9pXC
+	 y+CgoLY4J1mXARpJv9zQUZcxANV27NaZ8KV5Sq9CTe7yriTSwMHK/JSZ/2GFeovLab
+	 iBLFTZMeSZZijf2yGk0PAkVUqQH4RYJesSTFLfrU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B1A6F80549; Tue, 23 May 2023 19:13:36 +0200 (CEST)
+	id 5B89CF80249; Tue, 23 May 2023 19:25:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA868F80249;
-	Tue, 23 May 2023 19:13:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E798CF80249;
+	Tue, 23 May 2023 19:25:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54E30F8024E; Tue, 23 May 2023 19:13:32 +0200 (CEST)
+	id D0018F8024E; Tue, 23 May 2023 19:25:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6BA8FF8016A
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 19:13:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BA8FF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13721F8016A
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 19:25:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13721F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=JTmAXusT
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-3f423521b10so1061445e9.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 23 May 2023 10:13:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1684862007; x=1687454007;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LOCz9RmdVTOhhgpghZZJPcHjAiJmOglm8+PVBiqiJ8M=;
-        b=JTmAXusTTWbezv+kPsqc/VpadaF11BibQj/KIeC96y9uQq9onicO38T4JD9dwJPb2q
-         ZH7lOkREYl3UKh+dvdB9buIxpLqZsrPl3NQ4DP5rRWPfWHUHfnDKRsj7SjSENgxjGG2V
-         JCBY3qvDGHvDRexp1ap9XNwVujjRZ4XcqdaKyuDRRo5y8tuPHQVc2zu0/7/QQ/G0GkX/
-         s+NzAXQU4P8GP5b8d1Qtlj7szLyrQfKHsqHlXp0/jy4hjmHIVxUg5oJ/TfBewcJUD5AD
-         4vGxVDKTvz8vN5AMujK+A2ZoW1+5Fv6zxrzFWipcousRaGPwmWRHlaOmPwHnt+FO4KfN
-         THYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684862007; x=1687454007;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LOCz9RmdVTOhhgpghZZJPcHjAiJmOglm8+PVBiqiJ8M=;
-        b=NT6HxXyl9UUyP2VeCEZ+FNO9Ym8sjk+3Cn7cnuHV5YEiEDJm7Aziczy4Y5K4dqF4Wq
-         faGNXNeizYor83pqTQApqLfh0rq6KmcZHJia/5bH6ulRDUwy7WdaOfMjDPtI2t2GQtgb
-         nKiKqV8qE3NxD8zkjvopef83fz0ruT9Jhrzoz52kvLOcZvunxBA14zxlucW7kHgpvBSi
-         1A7TH/zzcN8SNvfcTMOKUU865XHufLxzPP0swuPhYcO9ivOD4Hhzpp+QSY5x699if7yF
-         e2SDA4xD4rtQVeBHchXehhb21CWv/pRWGafDY8kQDauZI0uZBDCf8qZ3LnSwOU6rphUC
-         SZjQ==
-X-Gm-Message-State: AC+VfDxexZdfQAC2oso3KO3/+/C5FLC2aB6EokgL097S/2hyaqz+bfk1
-	JeYUr4IO+If04aZ21+B2tVZqpw==
-X-Google-Smtp-Source: 
- ACHHUZ5WSgfukiscV+11TkJVeTmzV96VC51JBJR1AfJN9Q4/xg4yAEFQ1pBpwNuiqAnOJ217YowYmw==
-X-Received: by 2002:adf:f8c4:0:b0:30a:9cb2:badd with SMTP id
- f4-20020adff8c4000000b0030a9cb2baddmr2525866wrq.46.1684862007071;
-        Tue, 23 May 2023 10:13:27 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- a9-20020a5d5709000000b0030922ba6d0csm11587461wrv.45.2023.05.23.10.13.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 May 2023 10:13:26 -0700 (PDT)
-Message-ID: <1f34ca48-75cc-d824-2230-7375146ad970@linaro.org>
-Date: Tue, 23 May 2023 18:13:25 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=CWQsINp8
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D05AE62D05;
+	Tue, 23 May 2023 17:25:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7717C433D2;
+	Tue, 23 May 2023 17:25:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684862722;
+	bh=hZem+bw/YpKsx96rrifNWNXdixYFstBba2CYEgc/T6g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CWQsINp88A7hoy48glJuXnfc3JCjt3kDEhepUVQ9SEyjhPvs1YBvdL0uc95t6UvrF
+	 tzv9SKhj8PKfs+SuaIsa+BwtolCHTKGN29n7rWBsVGs+R0clBApQ7fQOUPUTzyiBjN
+	 jPtMlfNp22SRQx+dFgISC34Ooe/5HcRzSmLwq3HOyNiV7RcOORbWT8HselDTw3wVBV
+	 FRIc9jWalv6c3qJtdsko9iz85YyL9ndqYxD8BnBgoNSphvjg/s8qVumU95MyKdR0Je
+	 1u5mmlmlT+l7SIU9ouh4PFUcKoVHMLLcorvnD19j6DwKlLXcSHBBeIqohKDZqFW73b
+	 XdkiqLtzZtl4w==
+Date: Tue, 23 May 2023 18:25:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: gregkh@linuxfoundation.org, rafael@kernel.org,
+	ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
 Subject: Re: [PATCH] regmap: sdw: check for invalid multi-register writes
  config
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-Cc: gregkh@linuxfoundation.org, rafael@kernel.org,
- ckeepax@opensource.cirrus.com, tanureal@opensource.cirrus.com,
- linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Message-ID: <f9484905-fc8d-450a-bc52-00ba99db0d1f@sirena.org.uk>
 References: <20230523154747.5429-1-srinivas.kandagatla@linaro.org>
  <dd2d2484-13f9-4fa6-85d2-5a540f137b3a@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <dd2d2484-13f9-4fa6-85d2-5a540f137b3a@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: OF2VEZJXULS5ONTPCJV3VPR3QZEUPTVK
-X-Message-ID-Hash: OF2VEZJXULS5ONTPCJV3VPR3QZEUPTVK
-X-MailFrom: srinivas.kandagatla@linaro.org
+ <1f34ca48-75cc-d824-2230-7375146ad970@linaro.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oa+ySSvabEXrwp8E"
+Content-Disposition: inline
+In-Reply-To: <1f34ca48-75cc-d824-2230-7375146ad970@linaro.org>
+X-Cookie: Beware of low-flying butterflies.
+Message-ID-Hash: RUVXVH6OY3AC46SH5BJZZSKT55HS7V3G
+X-Message-ID-Hash: RUVXVH6OY3AC46SH5BJZZSKT55HS7V3G
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OF2VEZJXULS5ONTPCJV3VPR3QZEUPTVK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RUVXVH6OY3AC46SH5BJZZSKT55HS7V3G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,22 +101,43 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--oa+ySSvabEXrwp8E
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 23/05/2023 17:58, Mark Brown wrote:
-> On Tue, May 23, 2023 at 04:47:47PM +0100, Srinivas Kandagatla wrote:
-> 
->> +	/* Only bulk writes are supported not multi-register writes */
->> +	if (config->can_multi_write)
->> +		return -ENOTSUPP;
->> +
-> 
-> This doesn't seem like the right fix - I'd expect us to simply choose
-> not to use multiple writes, with an additional flag/check for bus
-> support.
-Is there a way to check if bus support multi-register writes?
+On Tue, May 23, 2023 at 06:13:25PM +0100, Srinivas Kandagatla wrote:
+> On 23/05/2023 17:58, Mark Brown wrote:
+> > On Tue, May 23, 2023 at 04:47:47PM +0100, Srinivas Kandagatla wrote:
 
-All I can see from the code is that regmap can_multi_write is set based 
-on regmap_config from device and write callback from bus.
+> > > +	/* Only bulk writes are supported not multi-register writes */
+> > > +	if (config->can_multi_write)
+> > > +		return -ENOTSUPP;
 
+> > This doesn't seem like the right fix - I'd expect us to simply choose
+> > not to use multiple writes, with an additional flag/check for bus
+> > support.
 
---srini
+> Is there a way to check if bus support multi-register writes?
+
+> All I can see from the code is that regmap can_multi_write is set based on
+> regmap_config from device and write callback from bus.
+
+No, that'd be the additional flag/check bit - see also my question about
+if this is something the hardware actually has or not on the CODEC patch.
+
+--oa+ySSvabEXrwp8E
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRs9vwACgkQJNaLcl1U
+h9C9qQf/auuUdT7K6tq7nbLMF/9lM7W/KynIXf3fmUgnWGNiCTCQ/zZTZwMuY5Ec
+24PUvz8TnI/gwcFmKwzgOxvD51YTXGTcUHxB1bVv2Ol4nYh4kcULH4iTRlum71qC
+D6zDXorhSconpwGee90Dlcq5Y7hX9O2bVLvyJLByfBXhsm2xR0/tt9leRuIWKIJu
+PoKJtBBTUTtFUCeOLq2Uy8M9lrY5iDKVIpzJxhvf9DIeWukao/tBQSPgCbnd88sE
+w/DJJ5YxrC+qBox+QgNZtbHFbxtm3RMxZJZpiraG4ti/4MxhbvuQJYzvJcGG+XkM
+FRILCfhwat7ClnuVQMReWeIq7y8CYA==
+=DdSa
+-----END PGP SIGNATURE-----
+
+--oa+ySSvabEXrwp8E--

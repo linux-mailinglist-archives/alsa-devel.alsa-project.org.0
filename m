@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98C770DAA4
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 12:35:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2957770DA9D
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 12:35:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBE09206;
-	Tue, 23 May 2023 12:34:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBE09206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 781AD74C;
+	Tue, 23 May 2023 12:34:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 781AD74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684838134;
-	bh=NI+C//hd7W0yl5NlOzcXIC8Gc6fq0RP/Oi6Ay9Zf89Y=;
+	s=default; t=1684838111;
+	bh=vSPN9jQ33fX+3MFvPWXcfWPHPvRiplw21/tSgG4k9b8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fDMgS2eL8BnUMGBtwdi9coKS6ouYHavlo2bfg3hMZM1xmGJs51cpQtxagy6yZaWEL
-	 aaqHza+2xFOow2IKRxOvRSR8LPL2Snoj/qv0YyO1DKyelpbK2j5Htl8SLgk6hXIB5c
-	 siH4yCXAjZmjjg1SQ2TSLbogd/LZo47psYGpQROA=
+	b=sz/4hC2IlK9o/MXLB35puJSpvWmEsziNWbAjF3ivBAJSJIJ8WvMNenmGgizC7PZEJ
+	 KMQ8dFHhxdUlBzjlxMQ6panpIji3QnWx1aC6XkYwvtzHcaqIxsKflV/LtLNc5kQ+AW
+	 HKmIXE7Oa8vo0G79L6CCylRSn+7XpzuwFyf6DCag=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02828F80589; Tue, 23 May 2023 12:33:57 +0200 (CEST)
+	id EB758F80564; Tue, 23 May 2023 12:33:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BEFBF80587;
-	Tue, 23 May 2023 12:33:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD216F80553;
+	Tue, 23 May 2023 12:33:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D24D0F80568; Tue, 23 May 2023 12:33:51 +0200 (CEST)
+	id BF6CBF80249; Tue, 23 May 2023 12:33:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D283DF800DF
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 12:33:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D283DF800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4CA84F80249
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 12:33:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA84F80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=aDqwHh2/
+ header.s=Intel header.b=Z0Zjor2y
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1684837999; x=1716373999;
+  t=1684838000; x=1716374000;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=NI+C//hd7W0yl5NlOzcXIC8Gc6fq0RP/Oi6Ay9Zf89Y=;
-  b=aDqwHh2/PkOOjSP9jOvx3tHAjeXEAAs5E40spdY9/UkPTlLXYLp5Q6oM
-   3k7VWT+5bJ6HG7a407x1F/kLr1iu8Z57vW8rQNePdn1VHqKdi75cFQWgS
-   gFBhxC2ZysCXTJO11Rk82GDWl+bnNhEUZYagMywhR/ogINes+irqic2ib
-   POlL2hbSgm8wOr/vJJegpaL06pfVZQXMrcwaJr/I1nSZq7p2w3RTIj08i
-   lyKuTTHSurksvrSFbAJNT6XfZnQVMgQXHxXNEhEWk969OjyB/yBQAIb9F
-   ijnY4Z/tub+OIOHt18rDp8Q88L0ehWq0VhWyMtcppuRjf7o7YgACeZ5zD
+  bh=vSPN9jQ33fX+3MFvPWXcfWPHPvRiplw21/tSgG4k9b8=;
+  b=Z0Zjor2yudEGphpm2HeQ+/2dBtE+mUjNGMZnrO5JDL7qSidXWrl2fqVP
+   tvrZLe7tnLgkab/3eqGJZ+CDlOwuZavN25POwC9laoPwcyRXvlO16rXtj
+   hYZpA6fHX7H9FYeu6V9gDIUW+XxGvgCX5b9NI5Xmi4Gve1PiUto/qX/R9
+   eyRm6uQ46n4oq2OZEAP7OFg6V/2c4t161SevEjM6YU1gy05oVLOw39OL6
+   IiQy3SL7xrDlwb+brKf2XcQGgpf+TG0gYPoM/nd0QqJo+NQU3ptb5RmeZ
+   SkIzH7S1QsqEoM+vGrFtPgJG5mGgMEYWM+zWICV39BWAjBw6HQGLfpiCu
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="333562947"
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="333562960"
 X-IronPort-AV: E=Sophos;i="6.00,185,1681196400";
-   d="scan'208";a="333562947"
+   d="scan'208";a="333562960"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
   by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 03:31:23 -0700
+ 23 May 2023 03:31:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="681333518"
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="681333522"
 X-IronPort-AV: E=Sophos;i="6.00,185,1681196400";
-   d="scan'208";a="681333518"
+   d="scan'208";a="681333522"
 Received: from nmkenne1-mobl2.ger.corp.intel.com (HELO
  pujfalus-desk.ger.corp.intel.com) ([10.252.53.154])
   by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 03:31:21 -0700
+ 23 May 2023 03:31:23 -0700
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 To: lgirdwood@gmail.com,
 	broonie@kernel.org
@@ -77,18 +77,18 @@ Cc: alsa-devel@alsa-project.org,
 	ranjani.sridharan@linux.intel.com,
 	kai.vehmanen@linux.intel.com,
 	rander.wang@intel.com
-Subject: [PATCH 1/3] ASoC: SOF: Intel: mtl: setup primary core info on
- MeteorLake platform
-Date: Tue, 23 May 2023 13:32:15 +0300
-Message-Id: <20230523103217.20412-2-peter.ujfalusi@linux.intel.com>
+Subject: [PATCH 2/3] ASoC: SOF: Intel: mtl: add core_get & put support on
+ MeterLake platforms
+Date: Tue, 23 May 2023 13:32:16 +0300
+Message-Id: <20230523103217.20412-3-peter.ujfalusi@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230523103217.20412-1-peter.ujfalusi@linux.intel.com>
 References: <20230523103217.20412-1-peter.ujfalusi@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VBON3CCOPTX3HZOACOCI55LGLXEER5MI
-X-Message-ID-Hash: VBON3CCOPTX3HZOACOCI55LGLXEER5MI
+Message-ID-Hash: RT4CLKKH5ATJIMPDTCTN4ZQTBK5JMRSC
+X-Message-ID-Hash: RT4CLKKH5ATJIMPDTCTN4ZQTBK5JMRSC
 X-MailFrom: peter.ujfalusi@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,9 +101,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VBON3CCOPTX3HZOACOCI55LGLXEER5MI/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RT4CLKKH5ATJIMPDTCTN4ZQTBK5JMRSC/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -112,7 +111,12 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Rander Wang <rander.wang@intel.com>
 
-Set primary core mask and refcount.
+In core_get case, driver can power up primary core and don't need to send
+ipc message to fw. Non-primary core should be powered up by fw with ipc
+message.
+
+In core_put case, driver should first send ipc message to fw to disable dsp
+core then power down primary core if the target is primary core.
 
 Signed-off-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -120,51 +124,60 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/sof/intel/mtl.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ sound/soc/sof/intel/mtl.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
-index 46caf3ccde66..4788ba3b25aa 100644
+index 4788ba3b25aa..a847ae3ed4e9 100644
 --- a/sound/soc/sof/intel/mtl.c
 +++ b/sound/soc/sof/intel/mtl.c
-@@ -361,11 +361,17 @@ static int mtl_dsp_core_power_up(struct snd_sof_dev *sdev, int core)
- 	ret = snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_BAR, MTL_DSP2CXCTL_PRIMARY_CORE, dspcxctl,
- 					    (dspcxctl & cpa) == cpa, HDA_DSP_REG_POLL_INTERVAL_US,
- 					    HDA_DSP_RESET_TIMEOUT_US);
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(sdev->dev, "%s: timeout on MTL_DSP2CXCTL_PRIMARY_CORE read\n",
- 			__func__);
-+		return ret;
-+	}
- 
--	return ret;
-+	/* set primary core mask and refcount to 1 */
-+	sdev->enabled_cores_mask = BIT(SOF_DSP_PRIMARY_CORE);
-+	sdev->dsp_core_ref_count[SOF_DSP_PRIMARY_CORE] = 1;
-+
-+	return 0;
+@@ -624,6 +624,36 @@ static u64 mtl_dsp_get_stream_hda_link_position(struct snd_sof_dev *sdev,
+ 	return ((u64)llp_u << 32) | llp_l;
  }
  
- static int mtl_dsp_core_power_down(struct snd_sof_dev *sdev, int core)
-@@ -388,10 +394,15 @@ static int mtl_dsp_core_power_down(struct snd_sof_dev *sdev, int core)
- 					    !(dspcxctl & MTL_DSP2CXCTL_PRIMARY_CORE_CPA_MASK),
- 					    HDA_DSP_REG_POLL_INTERVAL_US,
- 					    HDA_DSP_PD_TIMEOUT * USEC_PER_MSEC);
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(sdev->dev, "failed to power down primary core\n");
-+		return ret;
-+	}
- 
--	return ret;
-+	sdev->enabled_cores_mask = 0;
-+	sdev->dsp_core_ref_count[SOF_DSP_PRIMARY_CORE] = 0;
++static int mtl_dsp_core_get(struct snd_sof_dev *sdev, int core)
++{
++	const struct sof_ipc_pm_ops *pm_ops = sdev->ipc->ops->pm;
++
++	if (core == SOF_DSP_PRIMARY_CORE)
++		return mtl_dsp_core_power_up(sdev, SOF_DSP_PRIMARY_CORE);
++
++	if (pm_ops->set_core_state)
++		return pm_ops->set_core_state(sdev, core, true);
 +
 +	return 0;
- }
++}
++
++static int mtl_dsp_core_put(struct snd_sof_dev *sdev, int core)
++{
++	const struct sof_ipc_pm_ops *pm_ops = sdev->ipc->ops->pm;
++	int ret;
++
++	if (pm_ops->set_core_state) {
++		ret = pm_ops->set_core_state(sdev, core, false);
++		if (ret < 0)
++			return ret;
++	}
++
++	if (core == SOF_DSP_PRIMARY_CORE)
++		return mtl_dsp_core_power_down(sdev, SOF_DSP_PRIMARY_CORE);
++
++	return 0;
++}
++
+ /* Meteorlake ops */
+ struct snd_sof_dsp_ops sof_mtl_ops;
+ EXPORT_SYMBOL_NS(sof_mtl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
+@@ -660,7 +690,8 @@ int sof_mtl_ops_init(struct snd_sof_dev *sdev)
+ 	sof_mtl_ops.parse_platform_ext_manifest = NULL;
  
- static int mtl_power_down_dsp(struct snd_sof_dev *sdev)
+ 	/* dsp core get/put */
+-	/* TODO: add core_get and core_put */
++	sof_mtl_ops.core_get = mtl_dsp_core_get;
++	sof_mtl_ops.core_put = mtl_dsp_core_put;
+ 
+ 	sof_mtl_ops.get_stream_position = mtl_dsp_get_stream_hda_link_position;
+ 
 -- 
 2.40.1
 

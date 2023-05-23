@@ -2,81 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0F7A70E6A0
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 22:40:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 638D070E784
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 23:40:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7DC4206;
-	Tue, 23 May 2023 22:39:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7DC4206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A3C0209;
+	Tue, 23 May 2023 23:39:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A3C0209
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684874434;
-	bh=2PLqWR+i15J+SV534O/7WQhY4Oxjwkyn8L/Dppp68zc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=I+L8MC6FMY8gz6uPOC7NXcIEArFObWQE0XVWwZOwcDt+AmrtJcpLWh0HQisd7y2yx
-	 Ibs0ND8BNS5kqwrzvAkrg4JbZ+Wo82v75nzqGt4E2brl51BlkI+oMqp2vOUyv6ZR9w
-	 7YzR4NnK+EfgSYijHX/WXuBEblo/4xLzyAxdR9rY=
+	s=default; t=1684878007;
+	bh=EsrAPhxo3puyaSj7ajd+Tc6o7LeA04zB5AYHMx4iR0M=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=uD/67+xf4nF+3xqFUjIx0ogyBIdF7j6hRIMl63eK+koc/q3FS0ZFUzNi0Z8umhYkz
+	 6x0Pta/t0CscolrxCBL5g+QrInNJLWaKL4tqak+96zTH30EhkC+gEB79HHRZo6Nd+D
+	 actgGrPWcvmCvktYb8DATt/twe7NE0TYc7BQAAwQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F24BF80544; Tue, 23 May 2023 22:39:43 +0200 (CEST)
+	id 44DF1F80553; Tue, 23 May 2023 23:38:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17A92F80249;
-	Tue, 23 May 2023 22:39:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 885D8F8055B;
+	Tue, 23 May 2023 23:38:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5B827F8024E; Tue, 23 May 2023 22:39:38 +0200 (CEST)
+	id 72FD4F80544; Tue, 23 May 2023 23:38:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5DF38F800DF
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 22:39:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF38F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6345AF8016A
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 23:38:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6345AF8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=SST6f6Ct
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3621561CD9;
-	Tue, 23 May 2023 20:39:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61ECCC4339C;
-	Tue, 23 May 2023 20:39:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684874367;
-	bh=2PLqWR+i15J+SV534O/7WQhY4Oxjwkyn8L/Dppp68zc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=SST6f6Cta/7ajLms92C3ZvmWJnOkt2aYPPMhshGPYM8CoEtjsDFeRlNAX6243gW0L
-	 IHA64M0/oXPGYlp5JifRs0InO/RAOqAuQw9eLaWkGRCzB1mf5QL1J8I6Rp4QUcwulS
-	 qYcpm62yJCMS5Ylzl0z6Uum026RMSIwbWgQKK3f+9HGwtXP4oSh8dgkN/FvWBz6IMC
-	 g4WNTcf5Miw/w83klKCbS8JMbu/FqvhyoNEepejm65jMsO7YItISUWDQWwnlDX/GUL
-	 LfwDn/Xt/O/K4QNJUvaSeqX37BWdkJfewte+0IpY/AJXRFI9TgtJ3G1EEYxUwpgKb/
-	 DotQ5K7EOeI/w==
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Stefan Binding <sbinding@opensource.cirrus.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-In-Reply-To: <20230414152552.574502-1-sbinding@opensource.cirrus.com>
-References: <20230414152552.574502-1-sbinding@opensource.cirrus.com>
-Subject: Re: (subset) [PATCH v1 0/4] Fixes and cleanup for CS35L41 HDA
-Message-Id: <168487436612.287432.3938851801782775444.b4-ty@kernel.org>
-Date: Tue, 23 May 2023 21:39:26 +0100
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=Opz4IE1p
+Received: by mail-oi1-x22a.google.com with SMTP id
+ 5614622812f47-3909756b8b1so134190b6e.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 23 May 2023 14:38:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1684877912; x=1687469912;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=arqptb0OK5jJvfCDv3LmhvqgIyzYXs27jb/mT9pkapg=;
+        b=Opz4IE1pgS3b+YNtQXnRxbTZ9Xc9wk5U+dXsSL5bASel6njkJGJD1McpafVnUDHNTX
+         gAM4ZPUaaJCttEi/15Ylm6U6nsOFg4s8BYTdHzPAFYp4uuIrXYXUKZU70TgAy1/4OB07
+         SvEvCUEUqfEyGxcdtHbzXOUPPhkXt9soUGYhOpJyWbrhhrl70Blyek6cf+IWtLZHMhld
+         TRoKc6pH4+b3eMrHDHH30ZCzpOHEcv4oc7nBKHnR5TEvYRNIvGV+/Cdibx61eLZlKtSt
+         dyn8dE4RbO6sxAfKUBsUrhkF6LUmIQdGuoI04kAsnDoZK/y1p5DtIzw6hZD4bagNJSs5
+         BZng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684877912; x=1687469912;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=arqptb0OK5jJvfCDv3LmhvqgIyzYXs27jb/mT9pkapg=;
+        b=hWCVxBv3UtYEOnjPVzIdelR+Kl8ozg5ieYPIVCwNa7Ab5loj1zTskcDiUNChamAQ1c
+         Nlotzv4O46wvs3QwGBbOmREoSba4UVLXKm7osSAeCjAglUoIRmca7RRA4SGLeMIH0vBS
+         2OetAYmEyzIDgRFYHeLwCabIvixz7yMCDSKFEEjcW1cSuQu15eYLmX/9fvYdWCuky7xV
+         ieR+6iGGIMV/mr6QlvM0Fhx5SvVZ2cBnHcymGIXPQMBBN6Yzp3uql9XNwYcwgxXaU9sQ
+         Gkwmq1c0grROT1FaWWcT+x4ixxOBjzj4lZM1HPTJJ8gkX93k/egbebcznEAMJP5SVV8L
+         +b5Q==
+X-Gm-Message-State: AC+VfDzdqQQ7/LKQRdxV9IwM4kjTjLlWvBsc83b+Dlvw/uOhY7+TsHhg
+	875brhaGXe2VQxcwl9bvTyo=
+X-Google-Smtp-Source: 
+ ACHHUZ4NZdtIsaO5n44Zn7IKr1DzCMLgEaBZw8ilmvOfkDar/T7XjSOMt5GKhFnsBoinBC59QI98xQ==
+X-Received: by 2002:a05:6808:216:b0:396:42a9:9877 with SMTP id
+ l22-20020a056808021600b0039642a99877mr7898056oie.37.1684877911885;
+        Tue, 23 May 2023 14:38:31 -0700 (PDT)
+Received: from localhost.localdomain ([75.28.21.198])
+        by smtp.gmail.com with ESMTPSA id
+ y83-20020acae156000000b0037832f60518sm4442359oig.14.2023.05.23.14.38.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 May 2023 14:38:31 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	zyw@rock-chips.com,
+	sebastian.reichel@collabora.com,
+	andyshrk@163.com,
+	jagan@amarulasolutions.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	lgirdwood@gmail.com,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	robh+dt@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH 0/6] Add Support for RK3588s Indiedroid Nova
+Date: Tue, 23 May 2023 16:38:19 -0500
+Message-Id: <20230523213825.120077-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: 2YSCYVDB7IE7IUFK6IJWEFSNARY3EGEM
-X-Message-ID-Hash: 2YSCYVDB7IE7IUFK6IJWEFSNARY3EGEM
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: NDDMCRG3WYZ44AQVHPO6UA2BA35TWA6I
+X-Message-ID-Hash: NDDMCRG3WYZ44AQVHPO6UA2BA35TWA6I
+X-MailFrom: macroalpha82@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2YSCYVDB7IE7IUFK6IJWEFSNARY3EGEM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NDDMCRG3WYZ44AQVHPO6UA2BA35TWA6I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,43 +129,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 14 Apr 2023 16:25:48 +0100, Stefan Binding wrote:
-> Several minor issues were found during additional testing and
-> static analysis. These patches fix these minor issues.
-> 
-> Stefan Binding (4):
->   ALSA: hda: cs35l41: Clean up Firmware Load Controls
->   ALSA: hda: cs35l41: Fix endian conversions
->   ALSA: cs35l41: Fix default regmap values for some registers
->   ALSA: hda/realtek: Delete cs35l41 component master during free
-> 
-> [...]
+From: Chris Morgan <macromorgan@hotmail.com>
 
-Applied to
+Add support for the RK3588s based Indiedroid Nova. Note that this
+series is dependent on regulator support for the RK806 being
+upstreamed.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+https://lore.kernel.org/linux-rockchip/20230515152044.GT10825@google.com/
 
-Thanks!
+Chris Morgan (6):
+  ASoC: es8328: Enabling support for 12Mhz sysclk
+  arm64: dts: rockchip: add default pinctrl for rk3588 emmc
+  arm64: dts: rockchip: Add sdio node to rk3588
+  dt-bindings: vendor-prefixes: add Indiedroid
+  dt-bindings: arm: rockchip: Add Indiedroid Nova
+  arm64: dts: rockchip: Add Indiedroid Nova board
 
-[3/4] ALSA: cs35l41: Fix default regmap values for some registers
-      commit: e2d035f5a7d597bbabc268e236ec6c0408c4af0e
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3588s-indiedroid-nova.dts  | 761 ++++++++++++++++++
+ arch/arm64/boot/dts/rockchip/rk3588s.dtsi     |  18 +
+ sound/soc/codecs/es8328.c                     |  17 +
+ 6 files changed, 804 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-indiedroid-nova.dts
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+-- 
+2.34.1
 

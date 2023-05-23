@@ -2,91 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D227370E027
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 17:16:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5557D70E0D5
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 17:47:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F956886;
-	Tue, 23 May 2023 17:15:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F956886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1722D204;
+	Tue, 23 May 2023 17:46:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1722D204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684854975;
-	bh=Q3Tagmkm9x49TqXtMJXK2UPLv+r91Z8Cc0MknZnDSRo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=TOSYvxWfL1myr/lXDzNNk0znXhXstjFReRWX9F38bZUKky3CNejhcS2ZDy07EmuLT
-	 A111YphF1aKdLYgdt46Y0z3GKOzJN9fHWRCanFKSa6WE7sH1fb09XqGaQOnaaa7LgE
-	 dmdRGZMX12se3LV47bR23BNT60OmVD+aNvRu8W74=
+	s=default; t=1684856847;
+	bh=DZAJhfnYRSa7iGmUkW2ZPvzu87HPo+s2rOulnRFJEGc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=fZON7Z6mFvGBKuJasbgcWsglagrPCoXQADKpWJ7YugGTFIfEmpPeO3TtIXbQwQnXU
+	 0i6y8ucRCFBGfDWCbsc1wH563D2Ut5uVzlOeVITkCLICHqi9IVv8WpWr0degQ7CmDN
+	 29/b+8qW1d22iDaiZ8wO2cyNCun3U4rx3LIwmKGY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E8FCF805E7; Tue, 23 May 2023 17:13:07 +0200 (CEST)
+	id 34AE2F8024E; Tue, 23 May 2023 17:46:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73949F805E0;
-	Tue, 23 May 2023 17:13:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2A79F80249;
+	Tue, 23 May 2023 17:46:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66F13F805C4; Tue, 23 May 2023 17:13:03 +0200 (CEST)
+	id 19135F8026A; Tue, 23 May 2023 17:46:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H2,
+X-Spam-Status: No, score=-1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_SBL_CSS,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8CF9AF805AA
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 17:12:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CF9AF805AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7B312F80086
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 17:46:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B312F80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=IZBvW7uf
-Received: (Authenticated sender: herve.codina@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPA id A8BFCC0002;
-	Tue, 23 May 2023 15:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1684854776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rIgj9hYW8BvuR/TDsfHXr8sG/1TWuLwG/JP4/jjJtyQ=;
-	b=IZBvW7ufNfmBKRdFYU2zKdQY3poFbD6ku8VIEy0wSJzRFfUMQ0lvdQcbQgs2nS17SfIzAJ
-	tLUjKVqr/RSK7nBgjE3CoOTiMCIp0G/fRadFVnuY0keir3Y0Zu9X3iHCw/YGNgrnIad82L
-	Eqx7GWI1MMPrNJMmDBI/VGXLaDqO6NWhIpdOJsFyMSEZ4+GmP+nUdTb9p+/bWwEBhDC9sG
-	Ym5KhIssszuqIewM+VlX8ZKrLKhStOhiN6uZQfi4yIfw7GzyClaK76oKoB/XSHOO77k4jk
-	HPX5OOXyOts4LDfxRTS1ssBs0dqdxpb0dYgCQz9/mueuDAEHgZRj9BZ4vHYvow==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=nWNoA6Sj
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-3f6042d60b5so26592655e9.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 23 May 2023 08:46:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1684856783; x=1687448783;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PfRw2ALokx9vLy8rQUgzg1qNBvtdQEE/4htl4GPyFIo=;
+        b=nWNoA6Sjt7sar6bT5Wo7aS7Yc7m34FIb/IPgWD81u2XmfxqZy8KlLpQjOWv16/jon5
+         r9ollhVW6YH7NfbuUpGGiFI2PoQsBLoeInpaFEAFlbMtNr/hC+EMEAcNhtOpzJEyLd54
+         7C+AXOqYLclUAvF/sNsb2Bph/vJoPsj+7wFJnrV9n36DSEjRrJ5DivQ7lCMZJVhG2E+x
+         osQRnx+JV6XS7XazzwU6kFsLuDGgV0o3IEblDcwD6iDseVAZKJZb3xcMuuydJ0O53+D/
+         1kAnyuwPYstnRQs46f5u26CXhFu20A3z+IeYSdm+azQaZs3NGE6eO/K3Ila8h2n5Gpqw
+         TGZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684856783; x=1687448783;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PfRw2ALokx9vLy8rQUgzg1qNBvtdQEE/4htl4GPyFIo=;
+        b=gPEY0V6p9FJL64uzhPvxcr95c1LyotVDgI0Qd/MDGUFhdaS6p27RFQdltRAR6FZV8S
+         3KsTCSaPB1t2QWm0A4aQ+R/U3PNlwdxSsBnj4tjsBwo7+aIo3ntR31rUXO19ZcfWEcNH
+         QOYBNNKXknu0SKGPogADJwyyoF7XzOuED4Tg+S9jdQhN5ceQWXw4fU8Zp3R/1wfGCbyu
+         KaiKbYT3LZPeysIAu3gCzi9BomwsrHPWtmn2TU8pIbByutfjKvPzkadCCKh4aTRXglLY
+         ncNwjhalwWk9hcIfnTEp635JwWveBuq/PyTTdrHFVxtnjurREovtJFUXxHbH/WLzI1tS
+         rJCg==
+X-Gm-Message-State: AC+VfDw69Y50ePrncbz3vLcM5d7PeNGxN0LXjuettXg3a+eDIXDMR3tN
+	94zdjzuMH/4aQSsPRAwLbT+3Dw==
+X-Google-Smtp-Source: 
+ ACHHUZ71Rz/9C0SXOP97Z5WNP/e5538De6w5FC/OjCJcrWWF8rV5viic9V4O3MIuQsYQihYn5e5MXA==
+X-Received: by 2002:a1c:e905:0:b0:3f5:fbd0:94ab with SMTP id
+ q5-20020a1ce905000000b003f5fbd094abmr7809138wmc.3.1684856783483;
+        Tue, 23 May 2023 08:46:23 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id
+ f4-20020a1c6a04000000b003f1978bbcd6sm3374063wmc.3.2023.05.23.08.46.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 May 2023 08:46:22 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	lgirdwood@gmail.com,
+	ckeepax@opensource.cirrus.com,
+	kuninori.morimoto.gx@renesas.com,
 	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v2 9/9] ASoC: simple-card: Handle additional devices
-Date: Tue, 23 May 2023 17:12:23 +0200
-Message-Id: <20230523151223.109551-10-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230523151223.109551-1-herve.codina@bootlin.com>
-References: <20230523151223.109551-1-herve.codina@bootlin.com>
+	pierre-louis.bossart@linux.intel.com,
+	alsa-devel@alsa-project.org,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH 1/2] ASoC: codecs: wsa883x: do not set can_multi_write flag
+Date: Tue, 23 May 2023 16:46:04 +0100
+Message-Id: <20230523154605.4284-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XF4R46IGI7VPPGCNOKAR6WX6AYY3F5LL
-X-Message-ID-Hash: XF4R46IGI7VPPGCNOKAR6WX6AYY3F5LL
-X-MailFrom: herve.codina@bootlin.com
+Message-ID-Hash: G6ZBEYNGQPEBNOBJOYSNAVXAA3HPJME3
+X-Message-ID-Hash: G6ZBEYNGQPEBNOBJOYSNAVXAA3HPJME3
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -98,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XF4R46IGI7VPPGCNOKAR6WX6AYY3F5LL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G6ZBEYNGQPEBNOBJOYSNAVXAA3HPJME3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,126 +123,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-An additional-devs subnode can be present in the simple-card top node.
-This subnode is used to declared some "virtual" additional devices.
+regmap-sdw does not support multi register writes, so there is
+no point in setting this flag. This also leads to incorrect
+programming of WSA codecs with regmap_multi_reg_write() call.
 
-Create related devices from this subnode and avoid this subnode presence
-to interfere with the already supported subnodes analysis.
+This invalid configuration should have been rejected by regmap-sdw.
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Fixes: 43b8c7dc85a1 ("ASoC: codecs: add wsa883x amplifier support")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/generic/simple-card.c | 52 +++++++++++++++++++++++++++++++--
- 1 file changed, 50 insertions(+), 2 deletions(-)
+ sound/soc/codecs/wsa883x.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 5a5e4ecd0f61..4992ab433d6a 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -348,6 +348,7 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct device_node *top = dev->of_node;
- 	struct device_node *node;
-+	struct device_node *add_devs;
- 	uintptr_t dpcm_selectable = (uintptr_t)of_device_get_match_data(dev);
- 	bool is_top = 0;
- 	int ret = 0;
-@@ -359,6 +360,8 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 		is_top = 1;
- 	}
+diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
+index b83b5b0d4bab..2faf66c60703 100644
+--- a/sound/soc/codecs/wsa883x.c
++++ b/sound/soc/codecs/wsa883x.c
+@@ -946,7 +946,6 @@ static struct regmap_config wsa883x_regmap_config = {
+ 	.writeable_reg = wsa883x_writeable_register,
+ 	.reg_format_endian = REGMAP_ENDIAN_NATIVE,
+ 	.val_format_endian = REGMAP_ENDIAN_NATIVE,
+-	.can_multi_write = true,
+ 	.use_single_read = true,
+ };
  
-+	add_devs = of_get_child_by_name(top, PREFIX "additional-devs");
-+
- 	/* loop for all dai-link */
- 	do {
- 		struct asoc_simple_data adata;
-@@ -367,6 +370,12 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 		struct device_node *np;
- 		int num = of_get_child_count(node);
- 
-+		/* Skip additional-devs node */
-+		if (node == add_devs) {
-+			node = of_get_next_child(top, node);
-+			continue;
-+		}
-+
- 		/* get codec */
- 		codec = of_get_child_by_name(node, is_top ?
- 					     PREFIX "codec" : "codec");
-@@ -380,12 +389,15 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 
- 		/* get convert-xxx property */
- 		memset(&adata, 0, sizeof(adata));
--		for_each_child_of_node(node, np)
-+		for_each_child_of_node(node, np) {
-+			if (np == add_devs)
-+				continue;
- 			simple_parse_convert(dev, np, &adata);
-+		}
- 
- 		/* loop for all CPU/Codec node */
- 		for_each_child_of_node(node, np) {
--			if (plat == np)
-+			if (plat == np || add_devs == np)
- 				continue;
- 			/*
- 			 * It is DPCM
-@@ -428,6 +440,7 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 	} while (!is_top && node);
- 
-  error:
-+	of_node_put(add_devs);
- 	of_node_put(node);
- 	return ret;
- }
-@@ -652,6 +665,36 @@ static int simple_soc_probe(struct snd_soc_card *card)
- 	return 0;
- }
- 
-+static void simple_populate_aux_release(struct device *dev, void *res)
-+{
-+	of_platform_depopulate(*(struct device **)res);
-+}
-+
-+static int simple_populate_aux(struct asoc_simple_priv *priv)
-+{
-+	struct device *dev = simple_priv_to_dev(priv);
-+	struct device_node *node;
-+	struct device **ptr;
-+	int ret;
-+
-+	node = of_get_child_by_name(dev->of_node, PREFIX "additional-devs");
-+	if (!node)
-+		return 0;
-+
-+	ptr = devres_alloc(simple_populate_aux_release, sizeof(*ptr), GFP_KERNEL);
-+	if (!ptr)
-+		return -ENOMEM;
-+
-+	ret = of_platform_populate(node, NULL, NULL, dev);
-+	if (ret) {
-+		devres_free(ptr);
-+	} else {
-+		*ptr = dev;
-+		devres_add(dev, ptr);
-+	}
-+	return ret;
-+}
-+
- static int asoc_simple_probe(struct platform_device *pdev)
- {
- 	struct asoc_simple_priv *priv;
-@@ -688,6 +731,11 @@ static int asoc_simple_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	if (np && of_device_is_available(np)) {
-+		ret = simple_populate_aux(priv);
-+		if (ret < 0) {
-+			dev_err_probe(dev, ret, "populate aux error\n");
-+			goto err;
-+		}
- 
- 		ret = simple_parse_of(priv, li);
- 		if (ret < 0) {
 -- 
-2.40.1
+2.21.0
 

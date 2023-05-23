@@ -2,163 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBC370D50F
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 09:33:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C08870D618
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 09:55:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71CB21E7;
-	Tue, 23 May 2023 09:32:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71CB21E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29D90204;
+	Tue, 23 May 2023 09:54:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29D90204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684827189;
-	bh=IozBopeEunNXvo09ymfQezqrXxKARwMwpgWHJ0YEyzs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tOFApT4ubZigZv54ZdR14kgzeHveg1Lz+Qxu4pO4FRdtam5jV33MHMXI20lllfQb/
-	 pppETiTTo46RVS7dsaXFCMEB2iB+6idbr6vwNCCpw+f8z1aTkY4R3LpNl4u5dESbqi
-	 Hv2pU+WMWcTPxw/9T/g/vERuEAgqlyxCzara7U5c=
+	s=default; t=1684828508;
+	bh=FR8g3ABjvu/IxJCIxTbzi08ssHUnu0sCb1Msaky/aUc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ORBjr0LYCVHnx7ifF4xvVs1B6o/aT24nA7dBHW5xXl34zioJ4x6dL/Lru0LeQDrio
+	 M0DR3WRtA3W7QdeHp66ohbmI52YMR6IrWFmWbwGBmCARZ8cqAtJUg38Or5d/eTfpfX
+	 4B0MCvgM6JzQ/UmALHDLbjeNtAq4FH6MKFwaQYR4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5B52F80544; Tue, 23 May 2023 09:32:18 +0200 (CEST)
+	id 308F6F805A0; Tue, 23 May 2023 09:54:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1429EF80249;
-	Tue, 23 May 2023 09:32:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6629F80589;
+	Tue, 23 May 2023 09:54:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BB21F8024E; Tue, 23 May 2023 09:32:14 +0200 (CEST)
+	id 79BA8F8057A; Tue, 23 May 2023 09:54:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20607.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::607])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D209BF8016A
-	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 09:32:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D209BF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2A45F800DF
+	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 09:54:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2A45F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=DvgKQsBt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ie6I188o0IqWK/Ae+JMNpe1u8zXqGGktrU3OtgJHHmF77xnCeDYYpOB/YcOx70iVq0S64i4YtnK1cBJD8z8EXJLcgKajtzlgiAKeRkqokwB8oMTz4gzR187cEApRG9ArWlASV6l3FUNrZwJYiZZVAIQDHD2oMg8d/yvWHEw96a/fibhcj6tXjTg8+WJ47vf8exmudblXLOwWwOAaJTo0QqIKGhGrPQZuKA5AwauBauOW0umsxYixAVgR+YLp4pdlba2dH/vaequNVwpA381Y17bpyC9nAHFWGPxdKCTQZWt5FknzJ/e/Cvfu1ekK9OtY4/AKW/luu6R4SVEOwnLJSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bWaYzCvZ4TCdv+bfI+ekVDIDQhIJ5QNTtAK6cm16YQM=;
- b=KfJo8ZGz9bR+iDnRYq/5dLMnc9C+93pEV1Oihym+5FGETh6TXreZ9VdzW6K88DwJ92HAIk/XtK6Lnzq/+fjh7Hb1pBTgk57OlUOiORE4yZ94/E0fwQrZU1gGfMjrpOZ111OhBaujBu2v7ZDlwEBp3LnMU4jJB+ylNEoz8gPyRrVMyRUgCV6zbNPT2Z/EclAmwlW65n2xeu6f0Eo34KG4g0SZYey7b5NiFwnQ8skw1XoYpS1duEJ/89/bwmmhvgJVPizYO/cWDV0ELVJo9O4/ERJyGhdrEu8vIOTFFBUCddY56grezpC5RDSXaX36spsIg8ylzKFx8if9D4DC4+NnPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bWaYzCvZ4TCdv+bfI+ekVDIDQhIJ5QNTtAK6cm16YQM=;
- b=DvgKQsBtWuAT3wdT12FxqqPgo9yTvNAJAXqghepnzlWb39FV2jfG0RAxq3dO+eFrGUzQ3h+XbcN3HCXi4FNZakA39Uxck2XaLefUYx+awoxUwUGznm2CPXZq1fduz/O1Zq8xkKVTLD52B1Yshydj/JvfxvEVDeW22AsbG224B1A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by DM6PR12MB4944.namprd12.prod.outlook.com (2603:10b6:5:1ba::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Tue, 23 May
- 2023 07:32:00 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::7c50:6c99:76d:f952]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::7c50:6c99:76d:f952%7]) with mapi id 15.20.6411.028; Tue, 23 May 2023
- 07:32:00 +0000
-Message-ID: <2dfeee7c-32bd-c054-22ff-3a2266e62c90@amd.com>
-Date: Tue, 23 May 2023 13:06:59 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH V2 5/9] ASoC: amd: ps: add support for SoundWire DMA
- interrupts
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230522133122.166841-1-Vijendar.Mukunda@amd.com>
- <20230522133122.166841-6-Vijendar.Mukunda@amd.com>
- <fea3c862-1470-7911-ff77-5d945b1d77cf@linux.intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <fea3c862-1470-7911-ff77-5d945b1d77cf@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0216.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:ea::14) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=0+gK4+ns;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Vw8Lvgqq
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1FF75202B8;
+	Tue, 23 May 2023 07:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1684828442;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=50iN8PoDEfx2Uk7D1T/wI/NQfHj1ELvra2IISlZVxRQ=;
+	b=0+gK4+nsHInHkK2lBLls4UfdGOlQdJUoGlKuq9F/OERRTNZQIw7hpyO6vj8R7dd9nhmpVj
+	3WHc4Chouas+mUkQoDnLGJLe530nVhL6AfXPVwHindKfUbDTHRRtVy3nfA/FKnzxJENMq5
+	vX3ahgPLUrYIuRsz7f06SgpJt1cUJo4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1684828442;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=50iN8PoDEfx2Uk7D1T/wI/NQfHj1ELvra2IISlZVxRQ=;
+	b=Vw8LvgqqpOuXdoHkzXrOOJECQk1J7uldbrGnt36AwBKD2H7Umchw7nE2NiTjkhLRyTSS+I
+	DvoWI2kUDw/sMjCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C09E813588;
+	Tue, 23 May 2023 07:54:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id AVRyLBlxbGT4KgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 23 May 2023 07:54:01 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
+Date: Tue, 23 May 2023 09:53:21 +0200
+Message-Id: <20230523075358.9672-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|DM6PR12MB4944:EE_
-X-MS-Office365-Filtering-Correlation-Id: 778a200b-d8ad-4df0-65f6-08db5b5fcb6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	e9OwTc9KxwvqBq7hSym1aVFUUqbRNS5fFHNELVlymYJCeG+RNEOFr12hPBh7v41HNZ5cVfPAkDfyRzd0y+fGhLtUU9sOju68yQEiuiBRqP5rLxYTTNKNNgbR1TdGj4GM8juZkuWeYOSkpPE0YH2mfVK2A6p0Y0yHa7czQxhqLpLfivMY6Lb/c0jlbTZTjNRmAhWcL64UNXI++Fijv6DLcNS5XGx6KBwjuU+KCeQRbMP2d5ErGmZQzNLoKtVzU1ALiGLSN4wwLumA+JPZi0QE84JIqed7Qu9LVOMimU3el7qdRZF7gl4ZXhmiant1jwkeOPR0jTVm4eBRT9MCywOM/o8MKauIhR9vZzJMziyK8XgrijiAps4j+XgAKXXjGmzrSCZd5CLbbQrnIv/sGOc8TVk/MKM7vHMCg8TuO8USwEuE1jx5Cx055BDu6b4iLfMi2ZUDnNKZdhztr5/C+FVi0bjb6NcMMzsIlQTqFMwJcMMZ01nCFIvvCHw2aoNeXAoBhqN2DcpYzSF/1yv0+zeMiw+7YA9+XQem5miOwOC6FvtdZo1/es1bTED0AT+Z27guf7RNBBuB3FQbTGiuBxr8JS4g4KwTZDUfHGjtMA36DZvi/thPltRgkB/tqNOGKWnNBTvIZjPr4hkvqnPXC5qOiQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(396003)(366004)(346002)(136003)(451199021)(41300700001)(66556008)(66476007)(66946007)(2906002)(186003)(478600001)(26005)(6486002)(4326008)(316002)(31686004)(5660300002)(54906003)(6512007)(8936002)(8676002)(53546011)(36756003)(2616005)(6506007)(83380400001)(86362001)(31696002)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?S3pacEdmcGRiOVVGM0U5aWdTS3c0a3JnczVmSlppeTQvdDJKTFpzQXB4UDJk?=
- =?utf-8?B?ZmJQQ3dCQVlkaWdBd0lBQXlCVDQvcDlVVnFiM0o3RU91WEZPRFZJNXZDMk5u?=
- =?utf-8?B?MDF3eUM3dVNDaTZxc1hmMUI4WUI5NWJOUzdNT3VZWXJkUERpZ0U0WHBBT0Jj?=
- =?utf-8?B?blVCOHJSM1NTZVpROVYwU0ZZNTdMRlRpVmRJeU1BQk5tS2hTODJqWEhtdzdj?=
- =?utf-8?B?NXVYY0k1VEVKbWV3aW5UaHo5cUx0RnlPOEtNS3FYUG1MdTdmeTBYRHU1WVc2?=
- =?utf-8?B?UktyakhGTDg3dEdIYUMzTEhmZ0x0N3hwNzZtbUNVVEdjTmFNanM2K3grbERR?=
- =?utf-8?B?MzVMczFlMHFlREc0ZWJOc1JodXNwVkdlWTlkUU9TS1hJMEppOGxKQno5ZEtK?=
- =?utf-8?B?QWVnYnJrNzRnV0JlMWwxbUllOGIrZFZucVlMRUE3a1lIbEJmaUprWFF5b2ll?=
- =?utf-8?B?TllnakRYSVJjU2hUZm54NEJqNVlMUUR1VlB4cFU3SDB2a3FRS1ZmRmdreThR?=
- =?utf-8?B?NmZvNzQyKzAzZUoxSDd0eTFjbXQ0dllBVmh2RTRjREhwREZQUmplVDVSa0E3?=
- =?utf-8?B?RDNjNUgyaXQvWitaYUFXMFVwNXR3WWdXWC9ySXVUS1djenRqUGVqWXE5RThD?=
- =?utf-8?B?emUwQ3N4SDI1bFU0TTgvUGpQZTl1YjlITG92NFBCQllNODFlQlNYNnc0NjRi?=
- =?utf-8?B?cWFrcngyOVBJWGNrME5GeWs2aXdWci9WRlhUaWozZDhkQUNaV01PYk5ibitH?=
- =?utf-8?B?ZWJwUVZ3a0EveFNoMkk0bXdaZUtIdmM3TVp1bE95MlR3NndFbjN3UEo1cmFl?=
- =?utf-8?B?MEtqazRzSlpmL0dza1B5QnZlaXpKSks3bXh5OEt1YTN1TWJUV0VjSkpiZlkz?=
- =?utf-8?B?bkdOYkFnWmdiaEpGeC80VTk4NmR2UGRNclJIZ0ordlFuY3dzdWhpWElzdmNw?=
- =?utf-8?B?VzJkWm1JYnp0NmJEd2VPVUZod1VsMzVpejRVSlZMR2dQZk0rNXhsOEl6NjBV?=
- =?utf-8?B?aXVXQVE1QUVRRzl5T2NXMmRpcElMNUNSaFg5VGd6ZGZqa2RTT3BRd0JrSkxL?=
- =?utf-8?B?VG9PSTBaR1JEeXZITWJsUmlyNVhScWpCNmtpVU5Kc3RsdHVaSDcyT0lKazMv?=
- =?utf-8?B?YWhGN1lqZmJVdE9lTHJTUllvbUtWV2VMZzJDdytqMnNkTVQyOWRUSFJ0eUl4?=
- =?utf-8?B?cERzdTkvWUFGY2M3eFY0RzdBWkFVeXp4cmEvcUdyZnVFUmxBKzJhTEl2OTl0?=
- =?utf-8?B?eUtCUDNzc1dzbkxlYlZXZnRzN2IrYmkxVGV5emUwLzdWSytzUkkxWHBEVmdE?=
- =?utf-8?B?dFJlL2drdkIwdTVFMExQeWhXbitZd2VpR0JqQ2FYblNFcjFxZThXMDFCbmlP?=
- =?utf-8?B?TjZWSEs1Z3llQ1JCSTM3ZDc4d2RzK3NNUkQxT05zWXVIT2IyVGVZYW5NMVRw?=
- =?utf-8?B?MGIwcjJ2YmNVeUU3YXVQaFAwY2Rta2Foem5ocEE4TDBWaWNlRVdqRm5kcEhl?=
- =?utf-8?B?blAvVjd4YXNUank5THl6RzAxUjNRWm5NNktKUnRBRmhLdDlXdnVRTkVNSFdC?=
- =?utf-8?B?MWRyRmZQQTNZaUlLUmY4YmtXeGNhblNUWkJCbWhJeHBja2ZKWU5TRWtMZzNs?=
- =?utf-8?B?WSs3MFMzZ25MWlgxQ25sU2o0M01TUGl4U21aU2dXbGZKSjRzTjV3dzYzQ3JY?=
- =?utf-8?B?MHpMM3dySEg2dU5WQXR5RXZET0V2aTdFKzNyRDNJR0FsL2lYeXNaRW16ZkRU?=
- =?utf-8?B?R0dVQzc3Z3BwU0thZUZJNC9aWGNIa3FFSVNOdXZvQnFPTFROTlpuT0dEamov?=
- =?utf-8?B?S1gxVThieXdMT1o4emErUG5zTXU0N0JhTWwxSStQZDdLQXVCai9nUkt0SWVK?=
- =?utf-8?B?QncrN3dTTjJmT1NnWmtoRmUrd3N4RlhXR1BFL1l2NEw0WkUvQmNKTmV0bDkr?=
- =?utf-8?B?NW5Ec3JsVHNWV29waW9XaGxTcGtobC9JdWZTWXdrbm5GVGliUmxhN2x2MFJv?=
- =?utf-8?B?YXpRM1lBZVhOWU9OcWFFNE15czJlQ2VOZTd2L0VyS2Rjd2RVWk1GTWJiQUJ0?=
- =?utf-8?B?V1V5UDRwZ2djVG9OemJQaWpLY1RkV1pYWUJIRjNVbnRDQU1FSU5yY3N5RFcx?=
- =?utf-8?Q?CY9pTZEpimHTGDvGKZzhuK4VV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 778a200b-d8ad-4df0-65f6-08db5b5fcb6a
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 07:31:59.7872
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 3Xqb1nEIjZf4+kbPMST6mlHfZPARfPHYthrw101W+NnSBQnsQFj93T3I/UMC8bbGmqY79LOzXQId9CZNwgCmrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4944
-Message-ID-Hash: NZTOF5Y6B4A3BJ5TLNMSPUK2DXIQVCNU
-X-Message-ID-Hash: NZTOF5Y6B4A3BJ5TLNMSPUK2DXIQVCNU
-X-MailFrom: Vijendar.Mukunda@amd.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: CF5HIPGTMEELYLHI57B4PUDVZJ42P7MR
+X-Message-ID-Hash: CF5HIPGTMEELYLHI57B4PUDVZJ42P7MR
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -170,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NZTOF5Y6B4A3BJ5TLNMSPUK2DXIQVCNU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CF5HIPGTMEELYLHI57B4PUDVZJ42P7MR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,137 +113,172 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 22/05/23 23:42, Pierre-Louis Bossart wrote:
->
-> On 5/22/23 08:31, Vijendar Mukunda wrote:
->> Initialize workqueue for SoundWire DMA interrupts handling.
->> Whenever audio data equal to the SoundWire FIFO watermark level
->> are produced/consumed, interrupt is generated.
->> Acknowledge the interrupt and schedule the workqueue.
-> It would help to explain why a work queue is needed is the first place,
-> as opposed to handling periods in the interrupt thread.
-For SoundWire DAI link, we are setting nonatomic flag to true.
-If we return period elapsed from hard irq handler instead of workqueue,
-soft lock up is observed during stream closure.
+Hi,
 
-We can use interrupt thread as well. To have a symmetry with
-SoundWire manager work queues, we have used workqueue for
-DMA interrupts.
+this is a revised patch set for adding the support of MIDI 2.0
+functionality.  Only a few minor updates since v1 as below:
 
->> +static void acp63_sdw_dma_workthread(struct work_struct *work)
->> +{
->> +	struct acp63_dev_data *adata = container_of(work, struct acp63_dev_data,
->> +						    acp_sdw_dma_work);
->> +	struct sdw_dma_dev_data *sdw_dma_data;
->> +	u32 stream_index;
->> +	u16 pdev_index;
->> +
->> +	pdev_index = adata->sdw_dma_dev_index;
->> +	sdw_dma_data = dev_get_drvdata(&adata->pdev[pdev_index]->dev);
->> +
->> +	for (stream_index = 0; stream_index < ACP63_SDW0_DMA_MAX_STREAMS; stream_index++) {
->> +		if (adata->sdw0_dma_intr_stat[stream_index]) {
->> +			if (sdw_dma_data->sdw0_dma_stream[stream_index])
->> +				snd_pcm_period_elapsed(sdw_dma_data->sdw0_dma_stream[stream_index]);
->> +			adata->sdw0_dma_intr_stat[stream_index] = 0;
->> +		}
->> +	}
->> +	for (stream_index = 0; stream_index < ACP63_SDW1_DMA_MAX_STREAMS; stream_index++) {
->> +		if (adata->sdw1_dma_intr_stat[stream_index]) {
->> +			if (sdw_dma_data->sdw1_dma_stream[stream_index])
->> +				snd_pcm_period_elapsed(sdw_dma_data->sdw1_dma_stream[stream_index]);
->> +			adata->sdw1_dma_intr_stat[stream_index] = 0;
->> +		}
->> +	}
-> I am not clear on the benefits of the workqueue which only tests a flag
-> that's set ...
-In top half, we are checking all stream irq mask and setting
-corresponding stream id index in interrupt status array when dma
-irq is raised.
+* Bump CTL protocol version to 2.0.9
+* Add two more ioctls for control API to receive UMP EP and block info
+* Minor compile warning fixes
+* Documentation fix and addition of two new ioctls
+* Put acks
 
-Our intention is to handle snd_pcm_period_elapsed in process context.
-if the flag is set, call the period elapsed for the substream based on stream
-id in work queue.
->
->> +}
->> +
->>  static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
->>  {
->>  	struct acp63_dev_data *adata;
->>  	struct pdm_dev_data *ps_pdm_data;
->>  	struct amd_sdw_manager *amd_manager;
->>  	u32 ext_intr_stat, ext_intr_stat1;
->> +	u32 stream_id = 0;
->>  	u16 irq_flag = 0;
->> +	u16 sdw_dma_irq_flag = 0;
->>  	u16 pdev_index;
->> +	u16 index;
->>  
->>  	adata = dev_id;
->>  	if (!adata)
->> @@ -148,7 +178,57 @@ static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
->>  			snd_pcm_period_elapsed(ps_pdm_data->capture_stream);
->>  		irq_flag = 1;
->>  	}
->> -	if (irq_flag)
->> +	if (ext_intr_stat & ACP_SDW_DMA_IRQ_MASK) {
->> +		for (index = ACP_AUDIO2_RX_THRESHOLD; index <= ACP_AUDIO0_TX_THRESHOLD; index++) {
->> +			if (ext_intr_stat & BIT(index)) {
->> +				writel(BIT(index), adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
->> +				switch (index) {
->> +				case ACP_AUDIO0_TX_THRESHOLD:
->> +					stream_id = ACP_SDW0_AUDIO0_TX;
->> +					break;
->> +				case ACP_AUDIO1_TX_THRESHOLD:
->> +					stream_id = ACP_SDW0_AUDIO1_TX;
->> +					break;
->> +				case ACP_AUDIO2_TX_THRESHOLD:
->> +					stream_id = ACP_SDW0_AUDIO2_TX;
->> +					break;
->> +				case ACP_AUDIO0_RX_THRESHOLD:
->> +					stream_id = ACP_SDW0_AUDIO0_RX;
->> +					break;
->> +				case ACP_AUDIO1_RX_THRESHOLD:
->> +					stream_id = ACP_SDW0_AUDIO1_RX;
->> +					break;
->> +				case ACP_AUDIO2_RX_THRESHOLD:
->> +					stream_id = ACP_SDW0_AUDIO2_RX;
->> +					break;
->> +				}
->> +
->> +				adata->sdw0_dma_intr_stat[stream_id] = 1;
-> .. here ...
-Please refer above comment.
->> +				sdw_dma_irq_flag = 1;
->> +			}
->> +		}
->> +	}
->> +
->> +	/* SDW1 BT RX */
->> +	if (ext_intr_stat1 & ACP_P1_AUDIO1_RX_THRESHOLD) {
->> +		writel(ACP_P1_AUDIO1_RX_THRESHOLD,
->> +		       adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
->> +		adata->sdw1_dma_intr_stat[ACP_SDW1_AUDIO1_RX] = 1;
-> ... and here ...
->
->> +		sdw_dma_irq_flag = 1;
->> +	}
->> +
->> +	/* SDW1 BT TX*/
->> +	if (ext_intr_stat1 & ACP_P1_AUDIO1_TX_THRESHOLD) {
->> +		writel(ACP_P1_AUDIO1_TX_THRESHOLD,
->> +		       adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
->> +		adata->sdw1_dma_intr_stat[ACP_SDW1_AUDIO1_TX] = 1;
-> ... or here ...
->
->> +		sdw_dma_irq_flag = 1;
->> +	}
->> +
->> +	if (sdw_dma_irq_flag)
->> +		schedule_work(&adata->acp_sdw_dma_work);
->> +
->> +	if (irq_flag || sdw_dma_irq_flag)
->>  		return IRQ_HANDLED;
->>  	else
->>  		return IRQ_NONE;
+The latest code is found in topic/midi20 branch of sound git tree.
+
+And below is the cover letter of v1, which is still valid:
+
+Hi,
+
+this is a (largish) patch set for adding the support of MIDI 2.0
+functionality, mainly targeted for USB devices.  MIDI 2.0 is a
+complete overhaul of the 40-years old MIDI 1.0.  Unlike MIDI 1.0 byte
+stream, MIDI 2.0 uses packets in 32bit words for Universal MIDI Packet
+(UMP) protocol.  It supports both MIDI 1.0 commands for compatibility
+and the extended MIDI 2.0 commands for higher resolutions and more
+functions.
+
+For supporting the UMP, the patch set extends the existing ALSA
+rawmidi and sequencer interfaces, and adds the USB MIDI 2.0 support to
+the standard USB-audio driver.
+
+The rawmidi for UMP has a different device name (/dev/snd/umpC*D*) and
+it reads/writes UMP packet data in 32bit CPU-native endianness.  For
+the old MIDI 1.0 applications, the legacy rawmidi interface is
+provided, too.
+
+As default, USB-audio driver will take the alternate setting for MIDI
+2.0 interface, and the compatibility with MIDI 1.0 is provided via the
+rawmidi common layer.  However, user may let the driver falling back
+to the old MIDI 1.0 interface by a module option, too.
+
+A UMP-capable rawmidi device can create the corresponding ALSA
+sequencer client(s) to support the UMP Endpoint and UMP Group
+connections.  As a nature of ALSA sequencer, arbitrary connections
+between clients/ports are allowed, and the ALSA sequencer core
+performs the automatic conversions for the connections between a new
+UMP sequencer client and a legacy MIDI 1.0 sequencer client.  It
+allows the existing application to use MIDI 2.0 devices without
+changes.
+
+The MIDI-CI, which is another major extension in MIDI 2.0, isn't
+covered by this patch set.  It would be implemented rather in
+user-space.
+
+Roughly speaking, the first half of this patch set is for extending
+the rawmidi and USB-audio, and the second half is for extending the
+ALSA sequencer interface.
+
+The patch set is based on 6.4-rc2 kernel, but all patches can be
+cleanly applicable on 6.2 and 6.3 kernels, too (while 6.1 and older
+kernels would need minor adjustment for uapi header changes).
+
+The updates for alsa-lib and alsa-utils will follow shortly later.
+
+The author thanks members of MIDI Association OS/API Working Group,
+especially Andrew Mee, for great helps for the initial design and
+debugging / testing the drivers.
+
+
+Takashi
+
+---
+
+Takashi Iwai (37):
+  ALSA: rawmidi: Pass rawmidi directly to snd_rawmidi_kernel_open()
+  ALSA: rawmidi: Add ioctl callback to snd_rawmidi_global_ops
+  ALSA: rawmidi: UMP support
+  ALSA: rawmidi: Skip UMP devices at SNDRV_CTL_IOCTL_RAWMIDI_NEXT_DEVICE
+  ALSA: ump: Add ioctls to inquiry UMP EP and Block info via control API
+  ALSA: ump: Additional proc output
+  ALSA: usb-audio: Manage number of rawmidis globally
+  ALSA: usb-audio: Define USB MIDI 2.0 specs
+  ALSA: usb-audio: USB MIDI 2.0 UMP support
+  ALSA: usb-audio: Get UMP EP name string from USB interface
+  ALSA: usb-audio: Trim superfluous "MIDI" suffix from UMP EP name
+  ALSA: usb-audio: Create UMP blocks from USB MIDI GTBs
+  ALSA: ump: Redirect rawmidi substream access via own helpers
+  ALSA: ump: Add legacy raw MIDI support
+  ALSA: usb-audio: Enable the legacy raw MIDI support
+  ALSA: usb-audio: Inform inconsistent protocols in GTBs
+  ALSA: seq: Clear padded bytes at expanding events
+  ALSA: seq: Add snd_seq_expand_var_event_at() helper
+  ALSA: seq: Treat snd_seq_client object directly in client drivers
+  ALSA: seq: Drop dead code for the old broadcast support
+  ALSA: seq: Check the conflicting port at port creation
+  ALSA: seq: Check validity before creating a port object
+  ALSA: seq: Prohibit creating ports with special numbers
+  ALSA: seq: Introduce SNDRV_SEQ_IOCTL_USER_PVERSION ioctl
+  ALSA: seq: Add UMP support
+  ALSA: seq: Add port inactive flag
+  ALSA: seq: Support MIDI 2.0 UMP Endpoint port
+  ALSA: seq: Add port direction to snd_seq_port_info
+  ALSA: seq: Add UMP group number to snd_seq_port_info
+  ALSA: seq: Automatic conversion of UMP events
+  ALSA: seq: Allow suppressing UMP conversions
+  ALSA: seq: Bind UMP device
+  ALSA: seq: ump: Create UMP Endpoint port for broadcast
+  ALSA: seq: Add ioctls for client UMP info query and setup
+  ALSA: seq: Print UMP Endpoint and Block information in proc outputs
+  ALSA: seq: Add UMP group filter
+  ALSA: docs: Add MIDI 2.0 documentation
+
+ Documentation/sound/designs/index.rst    |    1 +
+ Documentation/sound/designs/midi-2.0.rst |  351 +++++++
+ include/linux/usb/midi-v2.h              |   94 ++
+ include/sound/asequencer.h               |    4 +
+ include/sound/rawmidi.h                  |   15 +-
+ include/sound/seq_device.h               |    1 +
+ include/sound/seq_kernel.h               |   10 +
+ include/sound/ump.h                      |  175 ++++
+ include/sound/ump_msg.h                  |  540 ++++++++++
+ include/uapi/sound/asequencer.h          |   83 +-
+ include/uapi/sound/asound.h              |   62 +-
+ sound/core/Kconfig                       |   13 +
+ sound/core/Makefile                      |    3 +
+ sound/core/rawmidi.c                     |  264 +++--
+ sound/core/rawmidi_compat.c              |    4 +
+ sound/core/seq/Kconfig                   |   14 +
+ sound/core/seq/Makefile                  |    3 +
+ sound/core/seq/seq_clientmgr.c           |  577 +++++++----
+ sound/core/seq/seq_clientmgr.h           |   27 +-
+ sound/core/seq/seq_compat.c              |    3 +
+ sound/core/seq/seq_dummy.c               |    9 +
+ sound/core/seq/seq_memory.c              |   98 +-
+ sound/core/seq/seq_memory.h              |   19 +-
+ sound/core/seq/seq_midi.c                |   12 +-
+ sound/core/seq/seq_ports.c               |   47 +-
+ sound/core/seq/seq_ports.h               |   23 +-
+ sound/core/seq/seq_ump_client.c          |  464 +++++++++
+ sound/core/seq/seq_ump_convert.c         | 1203 ++++++++++++++++++++++
+ sound/core/seq/seq_ump_convert.h         |   22 +
+ sound/core/seq/seq_virmidi.c             |    1 +
+ sound/core/ump.c                         |  668 ++++++++++++
+ sound/core/ump_convert.c                 |  520 ++++++++++
+ sound/core/ump_convert.h                 |   43 +
+ sound/usb/Kconfig                        |   11 +
+ sound/usb/Makefile                       |    1 +
+ sound/usb/card.c                         |   12 +-
+ sound/usb/midi.c                         |    7 +-
+ sound/usb/midi.h                         |    5 +-
+ sound/usb/midi2.c                        | 1190 +++++++++++++++++++++
+ sound/usb/midi2.h                        |   33 +
+ sound/usb/quirks.c                       |    8 +-
+ sound/usb/usbaudio.h                     |    2 +
+ 42 files changed, 6306 insertions(+), 336 deletions(-)
+ create mode 100644 Documentation/sound/designs/midi-2.0.rst
+ create mode 100644 include/linux/usb/midi-v2.h
+ create mode 100644 include/sound/ump.h
+ create mode 100644 include/sound/ump_msg.h
+ create mode 100644 sound/core/seq/seq_ump_client.c
+ create mode 100644 sound/core/seq/seq_ump_convert.c
+ create mode 100644 sound/core/seq/seq_ump_convert.h
+ create mode 100644 sound/core/ump.c
+ create mode 100644 sound/core/ump_convert.c
+ create mode 100644 sound/core/ump_convert.h
+ create mode 100644 sound/usb/midi2.c
+ create mode 100644 sound/usb/midi2.h
+
+-- 
+2.35.3
 

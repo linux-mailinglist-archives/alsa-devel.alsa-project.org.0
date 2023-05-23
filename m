@@ -2,56 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F07C670D66A
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 09:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86EA570D676
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 May 2023 10:00:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DCA7823;
-	Tue, 23 May 2023 09:58:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DCA7823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A1BCA4C;
+	Tue, 23 May 2023 09:59:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A1BCA4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684828773;
-	bh=Q7XChJ81USTG6I1MONPEPJD6E97CLOOIs2e4XH0YjnA=;
+	s=default; t=1684828825;
+	bh=yBsVux825mRojnBmf7SlCALNmsxCmgJfQPi1hDtPuSM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AOkIvdW5brVSwJBDHgB/D9vXvbCx9/M3p5/1PaHFyvmoMb6stvnyjQKJkmLgnSozL
-	 ZPqC1WxD17jhrNAnc5YuMDZJRkXAOjLRI4Yz0KILy/RP3/wpQogyCj6+GA/qge3xq3
-	 Ti4sgNGp0hfxpHi/ZoTCKclBo8kNkT1xZsi9y1Vo=
+	b=aTK+dn6yhTnJEFr6Kuwda1l+8VOXcFdhzm4RVrOjz7MZhO7DeRsekyMiQyKA9wztt
+	 S8U84YgSk9OAGFNXiqrngEhN8TdRybXd3Lz8ijPSzuziWpNQUpYVFDPEkgd484gnii
+	 GYLVnwsap8rycuer8sOtIjhTXg9kjKNXChHcS1EA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 80A88F8064C; Tue, 23 May 2023 09:55:10 +0200 (CEST)
+	id D9907F80681; Tue, 23 May 2023 09:55:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6DB1F80633;
-	Tue, 23 May 2023 09:55:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0B8EF80673;
+	Tue, 23 May 2023 09:55:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1FD72F80624; Tue, 23 May 2023 09:55:00 +0200 (CEST)
+	id E7238F80638; Tue, 23 May 2023 09:55:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_FILL_THIS_FORM_SHORT,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8B699F8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC610F8055A
 	for <alsa-devel@alsa-project.org>; Tue, 23 May 2023 09:54:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B699F8055C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC610F8055A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=z3Y44aRl;
+ header.s=susede2_rsa header.b=EUqXzLC0;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=21+OBiQx
+ header.s=susede2_ed25519 header.b=aUmxVBbe
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 39B9D2040F;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BB467219EE;
 	Tue, 23 May 2023 07:54:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -60,43 +61,44 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=y2o6vAzyvCPRZAh3qVpJkQiDsJRDhW9KZ1VjQNePS50=;
-	b=z3Y44aRlV4mYA4B7ea1B/gUOtaUvgKz7qtVU4lAp3KohD1iA1jBhm9xsrWolAX2xjX/pTc
-	kDvn69jdbchOjqEFrHAXvBTYWU+Q+UOtbHiPWAr+2tjxs6x0tKgeQkAXu1RjkK73MFCKJO
-	TZjpcZoW5L+oILANixNkv6IdnJ3MIYQ=
+	bh=duuZwN1C9IUQLQQEAFsw/JZ4JxAL3kzU5sIEEpm2/Z8=;
+	b=EUqXzLC0QgGY2mNYInw54Hs0O9Ti2wyrYx1zPwp5ZJnHqF7bq+RQGr7r0NWYKth1JsXRlD
+	Wmtn2Z/18DlKT50ZVuq0ujLJUSnIhKh/49QV6wy0BDW3yFy9hM6ny2TUPXp9H5VszRR15o
+	jDSAAdpo2ZeNse13KJMYTKQLbcpIVnM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1684828448;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=y2o6vAzyvCPRZAh3qVpJkQiDsJRDhW9KZ1VjQNePS50=;
-	b=21+OBiQxTDs5Qa3HfTXcDDS8/Il/54WP7Gav2H8dItEnAv4/bMOJlSe/te9NxwOYz70ZMZ
-	JlFuQtVvXRj3aLDQ==
+	bh=duuZwN1C9IUQLQQEAFsw/JZ4JxAL3kzU5sIEEpm2/Z8=;
+	b=aUmxVBbexQ+QEfvys+3GiVCD2BcAxLFBuvh/IvWCESBt9h97lPmuHSZGjM9gPOTWbmhYsD
+	Pyh6xWc+EdLd5QAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 03AD913588;
-	Tue, 23 May 2023 07:54:07 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7FF0913588;
+	Tue, 23 May 2023 07:54:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id AJQmOx9xbGT4KgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 23 May 2023 07:54:07 +0000
+	id 6AueHSBxbGT4KgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 23 May 2023 07:54:08 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 18/37] ALSA: seq: Add snd_seq_expand_var_event_at() helper
-Date: Tue, 23 May 2023 09:53:39 +0200
-Message-Id: <20230523075358.9672-19-tiwai@suse.de>
+Subject: [PATCH v2 20/37] ALSA: seq: Drop dead code for the old broadcast
+ support
+Date: Tue, 23 May 2023 09:53:41 +0200
+Message-Id: <20230523075358.9672-21-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230523075358.9672-1-tiwai@suse.de>
 References: <20230523075358.9672-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: K4OWB37FNPKRUWG6BJO5DWSB3BPT5N4Y
-X-Message-ID-Hash: K4OWB37FNPKRUWG6BJO5DWSB3BPT5N4Y
+Message-ID-Hash: OUYQEZ5IR7L6EWADBTTJFO6X2ID66E57
+X-Message-ID-Hash: OUYQEZ5IR7L6EWADBTTJFO6X2ID66E57
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K4OWB37FNPKRUWG6BJO5DWSB3BPT5N4Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OUYQEZ5IR7L6EWADBTTJFO6X2ID66E57/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,180 +120,145 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Create a new variant of snd_seq_expand_var_event() for expanding the
-data starting from the given byte offset.  It'll be used by the new
-UMP sequencer code later.
+The broadcast and multicast supports have been never enabled.
+Let's drop the dead code.
 
 Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/seq_kernel.h  |  2 +
- sound/core/seq/seq_memory.c | 86 +++++++++++++++++++++++++++++--------
- 2 files changed, 69 insertions(+), 19 deletions(-)
+ sound/core/seq/seq_clientmgr.c | 105 +--------------------------------
+ 1 file changed, 1 insertion(+), 104 deletions(-)
 
-diff --git a/include/sound/seq_kernel.h b/include/sound/seq_kernel.h
-index 658911926f3a..527e7f8ad661 100644
---- a/include/sound/seq_kernel.h
-+++ b/include/sound/seq_kernel.h
-@@ -70,6 +70,8 @@ int snd_seq_kernel_client_ctl(int client, unsigned int cmd, void *arg);
- typedef int (*snd_seq_dump_func_t)(void *ptr, void *buf, int count);
- int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char *buf,
- 			     int in_kernel, int size_aligned);
-+int snd_seq_expand_var_event_at(const struct snd_seq_event *event, int count,
-+				char *buf, int offset);
- int snd_seq_dump_var_event(const struct snd_seq_event *event,
- 			   snd_seq_dump_func_t func, void *private_data);
- 
-diff --git a/sound/core/seq/seq_memory.c b/sound/core/seq/seq_memory.c
-index c8d26bce69ff..a8d2db439f86 100644
---- a/sound/core/seq/seq_memory.c
-+++ b/sound/core/seq/seq_memory.c
-@@ -63,8 +63,9 @@ static int get_var_len(const struct snd_seq_event *event)
- 	return event->data.ext.len & ~SNDRV_SEQ_EXT_MASK;
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 98e8032a32e2..019af1343325 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -711,93 +711,6 @@ static int deliver_to_subscribers(struct snd_seq_client *client,
+ 	return (result < 0) ? result : num_ev;
  }
  
--int snd_seq_dump_var_event(const struct snd_seq_event *event,
--			   snd_seq_dump_func_t func, void *private_data)
-+static int dump_var_event(const struct snd_seq_event *event,
-+			  snd_seq_dump_func_t func, void *private_data,
-+			  int offset, int maxlen)
- {
- 	int len, err;
- 	struct snd_seq_event_cell *cell;
-@@ -72,10 +73,16 @@ int snd_seq_dump_var_event(const struct snd_seq_event *event,
- 	len = get_var_len(event);
- 	if (len <= 0)
- 		return len;
-+	if (len <= offset)
-+		return 0;
-+	if (maxlen && len > offset + maxlen)
-+		len = offset + maxlen;
- 
- 	if (event->data.ext.len & SNDRV_SEQ_EXT_USRPTR) {
- 		char buf[32];
- 		char __user *curptr = (char __force __user *)event->data.ext.ptr;
-+		curptr += offset;
-+		len -= offset;
- 		while (len > 0) {
- 			int size = sizeof(buf);
- 			if (len < size)
-@@ -91,20 +98,35 @@ int snd_seq_dump_var_event(const struct snd_seq_event *event,
- 		return 0;
- 	}
- 	if (!(event->data.ext.len & SNDRV_SEQ_EXT_CHAINED))
--		return func(private_data, event->data.ext.ptr, len);
-+		return func(private_data, event->data.ext.ptr + offset,
-+			    len - offset);
- 
- 	cell = (struct snd_seq_event_cell *)event->data.ext.ptr;
- 	for (; len > 0 && cell; cell = cell->next) {
- 		int size = sizeof(struct snd_seq_event);
-+		char *curptr = (char *)&cell->event;
-+
-+		if (offset >= size) {
-+			offset -= size;
-+			len -= size;
-+			continue;
-+		}
- 		if (len < size)
- 			size = len;
--		err = func(private_data, &cell->event, size);
-+		err = func(private_data, curptr + offset, size - offset);
- 		if (err < 0)
- 			return err;
-+		offset = 0;
- 		len -= size;
- 	}
- 	return 0;
- }
-+
-+int snd_seq_dump_var_event(const struct snd_seq_event *event,
-+			   snd_seq_dump_func_t func, void *private_data)
-+{
-+	return dump_var_event(event, func, private_data, 0, 0);
-+}
- EXPORT_SYMBOL(snd_seq_dump_var_event);
- 
- 
-@@ -132,11 +154,27 @@ static int seq_copy_in_user(void *ptr, void *src, int size)
- 	return 0;
- }
- 
-+static int expand_var_event(const struct snd_seq_event *event,
-+			    int offset, int size, char *buf, bool in_kernel)
-+{
-+	if (event->data.ext.len & SNDRV_SEQ_EXT_USRPTR) {
-+		if (! in_kernel)
-+			return -EINVAL;
-+		if (copy_from_user(buf,
-+				   (char __force __user *)event->data.ext.ptr + offset,
-+				   size))
-+			return -EFAULT;
-+		return 0;
-+	}
-+	return dump_var_event(event,
-+			     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
-+			     &buf, offset, size);
-+}
-+
- int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char *buf,
- 			     int in_kernel, int size_aligned)
- {
--	int len, newlen;
--	int err;
-+	int len, newlen, err;
- 
- 	len = get_var_len(event);
- 	if (len < 0)
-@@ -146,25 +184,35 @@ int snd_seq_expand_var_event(const struct snd_seq_event *event, int count, char
- 		newlen = roundup(len, size_aligned);
- 	if (count < newlen)
- 		return -EAGAIN;
 -
--	if (event->data.ext.len & SNDRV_SEQ_EXT_USRPTR) {
--		if (! in_kernel)
--			return -EINVAL;
--		if (copy_from_user(buf, (void __force __user *)event->data.ext.ptr, len))
--			return -EFAULT;
--	} else {
--		err = snd_seq_dump_var_event(event,
--					     in_kernel ? seq_copy_in_kernel : seq_copy_in_user,
--					     &buf);
--		if (err < 0)
--			return err;
+-#ifdef SUPPORT_BROADCAST 
+-/*
+- * broadcast to all ports:
+- */
+-static int port_broadcast_event(struct snd_seq_client *client,
+-				struct snd_seq_event *event,
+-				int atomic, int hop)
+-{
+-	int num_ev = 0, err, result = 0;
+-	struct snd_seq_client *dest_client;
+-	struct snd_seq_client_port *port;
+-
+-	dest_client = get_event_dest_client(event, SNDRV_SEQ_FILTER_BROADCAST);
+-	if (dest_client == NULL)
+-		return 0; /* no matching destination */
+-
+-	read_lock(&dest_client->ports_lock);
+-	list_for_each_entry(port, &dest_client->ports_list_head, list) {
+-		event->dest.port = port->addr.port;
+-		/* pass NULL as source client to avoid error bounce */
+-		err = snd_seq_deliver_single_event(NULL, event,
+-						   SNDRV_SEQ_FILTER_BROADCAST,
+-						   atomic, hop);
+-		if (err < 0) {
+-			/* save first error that occurs and continue */
+-			if (!result)
+-				result = err;
+-			continue;
+-		}
+-		num_ev++;
 -	}
-+	err = expand_var_event(event, 0, len, buf, in_kernel);
-+	if (err < 0)
-+		return err;
- 	if (len != newlen)
- 		memset(buf + len, 0, newlen - len);
- 	return newlen;
- }
- EXPORT_SYMBOL(snd_seq_expand_var_event);
+-	read_unlock(&dest_client->ports_lock);
+-	snd_seq_client_unlock(dest_client);
+-	event->dest.port = SNDRV_SEQ_ADDRESS_BROADCAST; /* restore */
+-	return (result < 0) ? result : num_ev;
+-}
+-
+-/*
+- * send the event to all clients:
+- * if destination port is also ADDRESS_BROADCAST, deliver to all ports.
+- */
+-static int broadcast_event(struct snd_seq_client *client,
+-			   struct snd_seq_event *event, int atomic, int hop)
+-{
+-	int err, result = 0, num_ev = 0;
+-	int dest;
+-	struct snd_seq_addr addr;
+-
+-	addr = event->dest; /* save */
+-
+-	for (dest = 0; dest < SNDRV_SEQ_MAX_CLIENTS; dest++) {
+-		/* don't send to itself */
+-		if (dest == client->number)
+-			continue;
+-		event->dest.client = dest;
+-		event->dest.port = addr.port;
+-		if (addr.port == SNDRV_SEQ_ADDRESS_BROADCAST)
+-			err = port_broadcast_event(client, event, atomic, hop);
+-		else
+-			/* pass NULL as source client to avoid error bounce */
+-			err = snd_seq_deliver_single_event(NULL, event,
+-							   SNDRV_SEQ_FILTER_BROADCAST,
+-							   atomic, hop);
+-		if (err < 0) {
+-			/* save first error that occurs and continue */
+-			if (!result)
+-				result = err;
+-			continue;
+-		}
+-		num_ev += err;
+-	}
+-	event->dest = addr; /* restore */
+-	return (result < 0) ? result : num_ev;
+-}
+-
+-
+-/* multicast - not supported yet */
+-static int multicast_event(struct snd_seq_client *client, struct snd_seq_event *event,
+-			   int atomic, int hop)
+-{
+-	pr_debug("ALSA: seq: multicast not supported yet.\n");
+-	return 0; /* ignored */
+-}
+-#endif /* SUPPORT_BROADCAST */
+-
+-
+ /* deliver an event to the destination port(s).
+  * if the event is to subscribers or broadcast, the event is dispatched
+  * to multiple targets.
+@@ -826,15 +739,6 @@ static int snd_seq_deliver_event(struct snd_seq_client *client, struct snd_seq_e
+ 	if (event->queue == SNDRV_SEQ_ADDRESS_SUBSCRIBERS ||
+ 	    event->dest.client == SNDRV_SEQ_ADDRESS_SUBSCRIBERS)
+ 		result = deliver_to_subscribers(client, event, atomic, hop);
+-#ifdef SUPPORT_BROADCAST
+-	else if (event->queue == SNDRV_SEQ_ADDRESS_BROADCAST ||
+-		 event->dest.client == SNDRV_SEQ_ADDRESS_BROADCAST)
+-		result = broadcast_event(client, event, atomic, hop);
+-	else if (event->dest.client >= SNDRV_SEQ_MAX_CLIENTS)
+-		result = multicast_event(client, event, atomic, hop);
+-	else if (event->dest.port == SNDRV_SEQ_ADDRESS_BROADCAST)
+-		result = port_broadcast_event(client, event, atomic, hop);
+-#endif
+ 	else
+ 		result = snd_seq_deliver_single_event(client, event, 0, atomic, hop);
  
-+int snd_seq_expand_var_event_at(const struct snd_seq_event *event, int count,
-+				char *buf, int offset)
-+{
-+	int len, err;
-+
-+	len = get_var_len(event);
-+	if (len < 0)
-+		return len;
-+	if (len <= offset)
-+		return 0;
-+	len -= offset;
-+	if (len > count)
-+		len = count;
-+	err = expand_var_event(event, offset, count, buf, true);
-+	if (err < 0)
-+		return err;
-+	return len;
-+}
-+EXPORT_SYMBOL_GPL(snd_seq_expand_var_event_at);
-+
- /*
-  * release this cell, free extended data if available
-  */
+@@ -936,14 +840,7 @@ static int snd_seq_client_enqueue_event(struct snd_seq_client *client,
+ 	if (event->queue == SNDRV_SEQ_ADDRESS_SUBSCRIBERS) {
+ 		event->dest.client = SNDRV_SEQ_ADDRESS_SUBSCRIBERS;
+ 		event->queue = SNDRV_SEQ_QUEUE_DIRECT;
+-	} else
+-#ifdef SUPPORT_BROADCAST
+-		if (event->queue == SNDRV_SEQ_ADDRESS_BROADCAST) {
+-			event->dest.client = SNDRV_SEQ_ADDRESS_BROADCAST;
+-			event->queue = SNDRV_SEQ_QUEUE_DIRECT;
+-		}
+-#endif
+-	if (event->dest.client == SNDRV_SEQ_ADDRESS_SUBSCRIBERS) {
++	} else if (event->dest.client == SNDRV_SEQ_ADDRESS_SUBSCRIBERS) {
+ 		/* check presence of source port */
+ 		struct snd_seq_client_port *src_port = snd_seq_port_use_ptr(client, event->source.port);
+ 		if (src_port == NULL)
 -- 
 2.35.3
 

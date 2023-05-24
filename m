@@ -2,79 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10E5970F6A1
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 14:37:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B69A870F6F3
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 14:53:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D3091EC;
-	Wed, 24 May 2023 14:36:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D3091EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 348EB1FA;
+	Wed, 24 May 2023 14:52:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348EB1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684931828;
-	bh=6azGPYo4HE4MOwk+GOtH1Ev1feI3M+XZsbmx1stI+Rk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WDfWAuaccdJ1O+bjoTkFn794HiXqIoSkk0eA/Ec/sair2NqMTsDtz87nH5S9UGIsA
-	 KVtkN0O9VWC5Wq1PhJr/oMcWinEiFfPAOmP0ajsGAJpos3J1gDvAbKywqMWGi0MZXq
-	 7nJkJTmE7542IGWpxHEpDyiDTGbCTXSYzGXjfNIk=
+	s=default; t=1684932825;
+	bh=sL0+8KuOa9A67PymV+hN4W31tvxMrPQ1NzxLJ/HOaWo=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Tn9ibgk3gZHtYKgIzNvLdNNYI2rR/ON6Qjr6oCk1OluceiEXm7vuBr6Sb+Y3xAQo8
+	 hxrBV6rEdmjYgMP+dDwUnp9ueeMC9rFCGt1dUa21MCNPqhnOxYzXtHxVhFXgTGTWyE
+	 +eN6PZwxLQUALbR1q8nWuVQZevVzdcQMsnOtRP6Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3846CF80086; Wed, 24 May 2023 14:36:17 +0200 (CEST)
+	id 975D4F8053D; Wed, 24 May 2023 14:52:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6D51F8016A;
-	Wed, 24 May 2023 14:36:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50FF6F80249;
+	Wed, 24 May 2023 14:52:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EAB3F80249; Wed, 24 May 2023 14:36:12 +0200 (CEST)
+	id D7775F8024E; Wed, 24 May 2023 14:52:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6AF94F80053
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 14:35:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AF94F80053
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1q1nib-00080c-CC; Wed, 24 May 2023 14:35:53 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1q1niY-002URL-Vz; Wed, 24 May 2023 14:35:51 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1q1niY-007Ygk-95; Wed, 24 May 2023 14:35:50 +0200
-Date: Wed, 24 May 2023 14:35:47 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org, patches@opensource.cirrus.com
-Subject: Re: [PATCH] ASoC: cs35l45: Relicense to GPL only
-Message-ID: <20230524123547.inixua4uwypttn4m@pengutronix.de>
-References: <20230510092534.3919120-1-ckeepax@opensource.cirrus.com>
- <20230524090556.GC68926@ediswmail.ad.cirrus.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2813BF8016A
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 14:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2813BF8016A
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=AEt5e2SS
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34O7EHi8016889;
+	Wed, 24 May 2023 07:52:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=58Kmklmo85pMmm6rKi1qDz7LQqbxVEf8Bnt8pzdan2s=;
+ b=AEt5e2SSTeI6sIZ5KcIqRqKsHjV8yjyNTdIn/nALQCTjVKT2DfXm6aqHfxWMZB3iZTkP
+ uxOS/VbmQKD3QjJhPe+FyFuxlagMDxJlLe26nbb8mdIhP9CG+zh6gNDjnh0qyvlyWKVs
+ ItOifItfVusIRCd7fBV5bWFCZ7AOvzCThLtTUiqUCTS7oMvXJ27PoGD1JBTh4TkhWE7g
+ 0uoyXfiku8nUxZmv0ce/YnKB8dWln5451PIPlEjCCCI8lPaMEiEmBPPpCK8FVCakAHI3
+ CdC+89cFRW4LJf6bRmEGJs+sf6AZSF+vAs8Bwm3P03dQ073fyJ91BdYtXwsq/PvUlPgh iA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qptmm579h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 24 May 2023 07:52:42 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 24 May
+ 2023 07:52:40 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Wed, 24 May 2023 07:52:40 -0500
+Received: from lon-bigdaddy.ad.cirrus.com (unknown [198.61.64.168])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id AEE74B2F;
+	Wed, 24 May 2023 12:52:40 +0000 (UTC)
+From: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <linux-kernel@vger.kernel.org>,
+        Vitaly Rodionov
+	<vitalyr@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs42l42: Add PLL ratio table values
+Date: Wed, 24 May 2023 13:52:36 +0100
+Message-ID: <20230524125236.57149-1-vitalyr@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6o7dkdstgta35bdu"
-Content-Disposition: inline
-In-Reply-To: <20230524090556.GC68926@ediswmail.ad.cirrus.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: 6SJDZOEW7ZACBKYLSJYRJF6PCEUDA4WP
-X-Message-ID-Hash: 6SJDZOEW7ZACBKYLSJYRJF6PCEUDA4WP
-X-MailFrom: ukl@pengutronix.de
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: 8v6aVXJaTUTlk3K8eyW9-3V6ula6VOD6
+X-Proofpoint-GUID: 8v6aVXJaTUTlk3K8eyW9-3V6ula6VOD6
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: SNCBRLO6TUX75T7P7Q2KLX557PGQXNZ2
+X-Message-ID-Hash: SNCBRLO6TUX75T7P7Q2KLX557PGQXNZ2
+X-MailFrom: prvs=0508e4ba84=vitalyr@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -86,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6SJDZOEW7ZACBKYLSJYRJF6PCEUDA4WP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SNCBRLO6TUX75T7P7Q2KLX557PGQXNZ2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,61 +110,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Add 4.8Mhz 9.6Mhz and 19.2MHz SCLK values
+for MCLK 12MHz and 12.288MHz requested by Intel.
 
---6o7dkdstgta35bdu
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs42l42.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Hello Charles,
+diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
+index e3edaa1a2761..8aa6af21e52c 100644
+--- a/sound/soc/codecs/cs42l42.c
++++ b/sound/soc/codecs/cs42l42.c
+@@ -646,12 +646,19 @@ static const struct cs42l42_pll_params pll_ratio_table[] = {
+ 	{ 3072000,  1, 0x00, 0x3E, 0x800000, 0x03, 0x10, 12000000, 125, 1},
+ 	{ 4000000,  1, 0x00, 0x30, 0x800000, 0x03, 0x10, 12000000,  96, 1},
+ 	{ 4096000,  1, 0x00, 0x2E, 0xE00000, 0x03, 0x10, 12000000,  94, 1},
++	{ 4800000,  1, 0x01, 0x50, 0x000000, 0x03, 0x10, 12000000,  80, 2},
++	{ 4800000,  1, 0x01, 0x50, 0x000000, 0x01, 0x10, 12288000,  82, 2},
+ 	{ 5644800,  1, 0x01, 0x40, 0x000000, 0x03, 0x10, 11289600, 128, 1},
+ 	{ 6000000,  1, 0x01, 0x40, 0x000000, 0x03, 0x10, 12000000, 128, 1},
+ 	{ 6144000,  1, 0x01, 0x3E, 0x800000, 0x03, 0x10, 12000000, 125, 1},
++	{ 6144000,  1, 0x01, 0x40, 0x000000, 0x03, 0x10, 12288000, 128, 1},
++	{ 9600000,  1, 0x02, 0x50, 0x000000, 0x03, 0x10, 12000000,  80, 2},
++	{ 9600000,  1, 0x02, 0x50, 0x000000, 0x01, 0x10, 12288000,  82, 2},
+ 	{ 11289600, 0, 0, 0, 0, 0, 0, 11289600, 0, 1},
+ 	{ 12000000, 0, 0, 0, 0, 0, 0, 12000000, 0, 1},
+ 	{ 12288000, 0, 0, 0, 0, 0, 0, 12288000, 0, 1},
++	{ 19200000, 1, 0x03, 0x50, 0x000000, 0x03, 0x10, 12000000,  80, 2},
++	{ 19200000, 1, 0x03, 0x50, 0x000000, 0x01, 0x10, 12288000,  82, 2},
+ 	{ 22579200, 1, 0x03, 0x40, 0x000000, 0x03, 0x10, 11289600, 128, 1},
+ 	{ 24000000, 1, 0x03, 0x40, 0x000000, 0x03, 0x10, 12000000, 128, 1},
+ 	{ 24576000, 1, 0x03, 0x40, 0x000000, 0x03, 0x10, 12288000, 128, 1}
+-- 
+2.34.1
 
-On Wed, May 24, 2023 at 09:05:56AM +0000, Charles Keepax wrote:
-> On Wed, May 10, 2023 at 10:25:34AM +0100, Charles Keepax wrote:
-> > Cirrus never intended to upstream dual licensed code, convert to
-> > GPL only.
-> >=20
-> > Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> > ---
-> >=20
-> > Apologies for this but this was never our intention and I believe that
-> > it can be a little legally involved maintaining dual licensed kernel co=
-de.
-> > Fortunately not that many people outside of Cirrus have contributed to
-> > the files in question. I have CCed everyone who has contributed both
-> > internally and externally.
->=20
-> Pierre, Uwe,
->=20
-> Apologies for chasing but it would be really helpful to get an
-> ack for this one, we need the approval of everyone who
-> contributed to fix the licensing issue.
-
-I'd say removing a license option isn't so critical; and my contribution
-probably isn't relevant for the copyright, but INAL and for avoidance of
-doubt:
-
-Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---6o7dkdstgta35bdu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmRuBKIACgkQj4D7WH0S
-/k5olgf7BDIiY/dqgkPuB0MzWyahmLx81EHrw04Z0zbUg/145ryr0USWf2RfKjH8
-Hn8moUPPyUJvlXXlnxM9agjGXpsEM860poQN3umSJqBjNHn+tJonHT72+CIDLYZ1
-yOO52nhWdWvgX1az7/CmdY5eIH4uBMVeC/eaiw5/5WUIwcn9NQoTScR6D8HgrTwk
-d07oHnYxyKLFtxL61OLFKfIvY9weA78xZ4aKI9myqWePS9engf/QvTOgpr9m2aGx
-qkqUx/W8EKYNpTsCNXvXOLpakNKs4uwPibiIhQ8byHTQtRJMT3ZWZvTvDDjDofbz
-00ca9a8ZCvanrVcXiqgQalYKfsj2mw==
-=U/BL
------END PGP SIGNATURE-----
-
---6o7dkdstgta35bdu--

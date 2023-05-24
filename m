@@ -2,102 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1088170F3DE
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 12:14:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D20870F3EA
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 12:15:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E78D204;
-	Wed, 24 May 2023 12:13:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E78D204
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAB79208;
+	Wed, 24 May 2023 12:14:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAB79208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684923289;
-	bh=eqo46ynbflv4fjGPGAkSYN+nSwn59iWzirbfD1d1CSY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1684923347;
+	bh=fAJ/9c94p8jokuPvjpX6AG9SWXwN966uEum3K7/L5Io=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZjMdZ7oNEamBDSdXJX5ulbIgLfx/HwFrIzVIkUl2yrxY4VHprkWm3XtiPo4CRJnxy
-	 RvjYw+rlxk4vwu0RXmupVqUnAvVVLaTg7gQXWY2iNhfO3SGANo8PJoNYV5wmc2au8x
-	 slKrOrPzEPWH9w0CYA8tDDFra15TAN5Xo1EYuEv0=
+	b=aR2NXh6qMck5D4pVR3jhSLrywDYZIcT9MsMFvnbb2p3rPgQSPmuAwdjewXJgCHrV0
+	 +3rlE6nOFU1JFvA8NqIkwkFUEV6Din6Bvzex/St58ZGOBIMy5/nu41CxIKYNtRSBVh
+	 2Nj0HCFeKSveD2Q2yJT5Q+0/l4n3teVUSYKCCZsc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A231F80249; Wed, 24 May 2023 12:13:58 +0200 (CEST)
+	id 78B42F8016A; Wed, 24 May 2023 12:14:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A52C7F80053;
-	Wed, 24 May 2023 12:13:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17C7AF80249;
+	Wed, 24 May 2023 12:14:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFB9EF8024E; Wed, 24 May 2023 12:13:55 +0200 (CEST)
+	id D79C1F8024E; Wed, 24 May 2023 12:14:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00173F8016A
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 12:13:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00173F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3DB42F80053
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 12:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DB42F80053
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=tWX8GcY4;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=MpIU7DMf
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ldjdLCGh
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 929EB223CD;
-	Wed, 24 May 2023 10:13:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1684923233;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RlN5yKXXxesrzH9sf9U+OaC8f2LsokDpunkQxFtIJvk=;
-	b=tWX8GcY4LCf737gUxOGUwUv2HsBj4+gCNwLZbVwmdsz7mJsnwPSL6Xywtqu0k4+mZyncpB
-	AsOLC3POmrWJX0ybpKyxDXulzB6nc7zGpmpzJWu1yGKo5mvIRfdMzrGs85wgCcvSKGlNQv
-	D2Z3j+0RZxjB+QkThuJyUfRhjM3UiVw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1684923233;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RlN5yKXXxesrzH9sf9U+OaC8f2LsokDpunkQxFtIJvk=;
-	b=MpIU7DMfuEKsaBnkRB+rgN2U/dc3pP6P1sBGvuN3qT9xWBKvgjby9cXwficz72T58ieiBF
-	LeCbw331lOBo6bCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F1EE13425;
-	Wed, 24 May 2023 10:13:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id zcjwGWHjbWRRGwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 24 May 2023 10:13:53 +0000
-Date: Wed, 24 May 2023 12:13:52 +0200
-Message-ID: <87h6s2dokf.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 0/4] ALSA: emu10k1: capture-related improvements
-In-Reply-To: <20230523200709.236059-1-oswald.buddenhagen@gmx.de>
-References: <20230523200709.236059-1-oswald.buddenhagen@gmx.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: UOQBPPLRXGUVMNTAULU72BGIFNKTYAFX
-X-Message-ID-Hash: UOQBPPLRXGUVMNTAULU72BGIFNKTYAFX
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 99CEF60F33;
+	Wed, 24 May 2023 10:14:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E532C433EF;
+	Wed, 24 May 2023 10:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684923289;
+	bh=fAJ/9c94p8jokuPvjpX6AG9SWXwN966uEum3K7/L5Io=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ldjdLCGh1uJ2M+preJPllwAzA6UDUxpQe8I8E1hlH4nW6nl9d4QGUIeCmTMqQIgiM
+	 CLmDOqEenSAc4r4QZK1oGI0HV7Ct0tml1f3T7LT7B0Kj4QZdgWDPBOi85bRQVze75f
+	 2CpNRWl/8prOXlR2o0f7Avs8Hk+tv2146Azgq0wEmhyW/MKfUzfDnFDIXWKZgkJZK8
+	 s6y54Y7AHbsRvGjYwI4a9nciGV42iyf9290zNc04bFFbE0PLzsM2TMW0pjmisztVIf
+	 eR0MN8ZZizkp3pftej78bPpPX3RLjg3HHVDMXyibFE5BtnJz7WrLuMOmD9hkX9BaO7
+	 +oVzzJ68zDkgw==
+Date: Wed, 24 May 2023 11:14:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
+	ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
+	linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH 1/2] ASoC: codecs: wsa883x: do not set can_multi_write
+ flag
+Message-ID: <8becb36a-107a-4d92-8279-d4c55edc9076@sirena.org.uk>
+References: <20230523154605.4284-1-srinivas.kandagatla@linaro.org>
+ <00283665-e44f-457b-b2c9-1acf59d1cbd8@sirena.org.uk>
+ <c37b88ae-7f54-3c07-666f-010a5fd84bd1@linaro.org>
+ <d94e734c-e816-4b3f-9fb3-a6589063c05a@sirena.org.uk>
+ <af7b7d4f-d7ab-b5ef-e639-9a8b13de54ee@linaro.org>
+ <c24b2f1c-3b08-492f-954c-c4f10ae5ad81@sirena.org.uk>
+ <bdceb6e4-9de8-07ab-502b-c526e97a592d@linaro.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="U1MramEXXsC4AvQ1"
+Content-Disposition: inline
+In-Reply-To: <bdceb6e4-9de8-07ab-502b-c526e97a592d@linaro.org>
+X-Cookie: You will be divorced within a year.
+Message-ID-Hash: VPSVVEFFQNYY7N5A7IKHFMYYQFDF6XQ3
+X-Message-ID-Hash: VPSVVEFFQNYY7N5A7IKHFMYYQFDF6XQ3
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UOQBPPLRXGUVMNTAULU72BGIFNKTYAFX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VPSVVEFFQNYY7N5A7IKHFMYYQFDF6XQ3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,17 +106,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 23 May 2023 22:07:05 +0200,
-Oswald Buddenhagen wrote:
-> 
-> 
-> Oswald Buddenhagen (4):
->   ALSA: emu10k1: fix capture buffer size confusion
->   ALSA: emu10k1: fix support for 24 kHz capture
->   ALSA: emu10k1: don't restrict capture channel count to powers of two
->   ALSA: emu10k1: fix multi-channel capture config for E-MU cards
 
-Applied all patches now.  Thanks.
+--U1MramEXXsC4AvQ1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, May 24, 2023 at 11:09:32AM +0100, Srinivas Kandagatla wrote:
+> On 24/05/2023 10:48, Mark Brown wrote:
 
-Takashi
+> > > Is write callback used for both Bulk writes and multi-writes?
+
+> > Only multi-write at this point but we probably should consider redoing
+> > bulk writes to use it as well.
+
+> By the looks of the code, its other way around.
+
+No, that's not possible.  A bulk write requires a contiguous block of
+registers so can be expressed in terms of a multi-write but a write with
+discontiguous registers can't be done as a bulk write.
+
+--U1MramEXXsC4AvQ1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRt45MACgkQJNaLcl1U
+h9B2eQf8DvRiVD+RF/FcRMx48sGR2udjLtdDRSP3D/qN/Ht8RF0lD3oGS9RB7mM2
+SZ+/ZLN3kvqUZTrCu345E3N8cZJIsjFS11WmGi+BrNmJy10sUWkD4BS6vN1a+yG6
+lHJIs/Gz1F3+bs/QTJK0F2Otd8qnr3F2CoOqsb437m1xuACiwnJKqqdGmuGF6cAc
+9IXDbCS2LVUSOhkO6eKxM8IfSC5KHkY4DfxE73gHUykUSjUq5C30iEjTGvjccfn4
+FvuzM6t8klOkTbIKNYRw5SDb9r2ilRbz90I+tUEl+ujWP4aFfCWbk/krV9zYaYmL
+EDQ+KE7k21XmjWKkf6bu2tAK66CktA==
+=WB4b
+-----END PGP SIGNATURE-----
+
+--U1MramEXXsC4AvQ1--

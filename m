@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F3A170EFB9
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 09:43:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 294E470EFBC
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 09:44:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1718E204;
-	Wed, 24 May 2023 09:43:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1718E204
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7530D6C0;
+	Wed, 24 May 2023 09:43:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7530D6C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684914237;
-	bh=JWCo/GiQIjgEd33TLlVz5h/VBvQ/u8Y9VSES2Wef+Cs=;
+	s=default; t=1684914249;
+	bh=iHcb9BFc/X1bbxtUKpaxg5GTnEgeVVJ1yraooXSIn1k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fVAD6CpUNARi0k3TiiRrVGK5mdIknEXyVwMP4iVHlAlAgQXH/Gc3Zz/gPk1maPIzF
-	 nyLtcPplfQJcG2sdq2AUx57+gRzi29UT54Fq2pYUlsqA/6LHrjHsb/e/uQ8BcKauC5
-	 llKEJygqjdua3DaHcYft/BWHiGwP4xqT/4iDjgdE=
+	b=TBjWVkGqoI/aooIvWmkodRiUcSp47wEInFwL62i3KShFjBpKOoBw0lioMW6Y1R/2K
+	 eDlzzsHRN4g3wv7B3YYACOs3NGLk1Mx0dm/8DpFMSbxh2dCZ+hPInutW34yzkK7T2/
+	 3yjUc8M+kxHu1DRohSUx+vYphYxYy9BJvocBbhzU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19EFFF8057B; Wed, 24 May 2023 09:42:16 +0200 (CEST)
+	id 8BBCCF805A9; Wed, 24 May 2023 09:42:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6092DF80553;
-	Wed, 24 May 2023 09:42:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DB55F80580;
+	Wed, 24 May 2023 09:42:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD64BF80553; Wed, 24 May 2023 09:42:10 +0200 (CEST)
+	id 50185F80544; Wed, 24 May 2023 09:42:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,31 +37,31 @@ Received: from madras.collabora.co.uk (madras.collabora.co.uk
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2EFCF8016A
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 09:42:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2EFCF8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A62EF80544
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 09:42:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A62EF80544
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=guHh2BSY
+ header.a=rsa-sha256 header.s=mail header.b=J+8qeUL7
 Received: from localhost (unknown [188.27.34.213])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 2EC2F66059A4;
-	Wed, 24 May 2023 08:42:06 +0100 (BST)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 8E2276606E75;
+	Wed, 24 May 2023 08:42:09 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1684914126;
-	bh=JWCo/GiQIjgEd33TLlVz5h/VBvQ/u8Y9VSES2Wef+Cs=;
+	s=mail; t=1684914129;
+	bh=iHcb9BFc/X1bbxtUKpaxg5GTnEgeVVJ1yraooXSIn1k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=guHh2BSYUS5UFvmOnh4vu8yu95UUSTNL+6Y80h+c0yZCnhsjVELoebtXgv1s+kNvU
-	 YoAz+N+yTIWAGBVBXWvngfo+VXZUc6meYNielFhHZxlueddOveDw8wI/YzLOpAMXtI
-	 z0tNjhsfuSwhGOmos0t5yD/wW5RnwtVfoQhlx5QyzXh0p704epqPb96bfl3nclpZ3m
-	 4fipHtiioj1Z5mR16Pn1+akbINwMUwdYoUWg61UPKftKOGV6Ussew+lpNEjgDe8ozs
-	 nqNRVN0Tr4Rzi0xt0XjGzcI62ml4VP/8hMp8makZZDi4uAgN0p/eVXP2pt531T7j6T
-	 IsnTEQ5tiQTbw==
+	b=J+8qeUL7wLbyiWwOGcaIp1izZ9pvs2pzG+kKXf9VtlAgV1aIEOY3nxevi9XfcUKox
+	 OJYLHKoWg5DkHcg+7a+QJ2cYqYVkIu+fQSFLepbmnDNtTJ3Zd8d16JA/IdUFarzm47
+	 X8RCPTHLDCeJ4b3zHJk4BIndaoGdwRhmmq3KMKL0a+0qdlaWxy8dfVlc7UH9yeoNeO
+	 vZORLe//LBSSgoVn94ITNS7MyHXzs6xmatvyGP48TYxFNkwVTbYxxDWVLk4HT8n0MO
+	 sgZo60pPr98ZANmyBLKDfNi+GXtIqw5rG3kmYjOFaN11/wzxgq+B7OtZsGRBwy7v7V
+	 dcYJc7OARA6jA==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -83,17 +83,17 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	kernel@collabora.com
-Subject: [PATCH 2/3] ASoC: es8316: Do not set rate constraints for unsupported
- MCLKs
-Date: Wed, 24 May 2023 10:41:55 +0300
-Message-Id: <20230524074156.147387-3-cristian.ciocaltea@collabora.com>
+Subject: [PATCH 3/3] arm64: dts: rockchip: Assign ES8316 MCLK rate on
+ rk3588-rock-5b
+Date: Wed, 24 May 2023 10:41:56 +0300
+Message-Id: <20230524074156.147387-4-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230524074156.147387-1-cristian.ciocaltea@collabora.com>
 References: <20230524074156.147387-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SG2MX4FAQ75E2LXYHQ37PSDBASADJHA7
-X-Message-ID-Hash: SG2MX4FAQ75E2LXYHQ37PSDBASADJHA7
+Message-ID-Hash: VT5T5TVS2JR47Z2BYJLMCTO6XEENLWEM
+X-Message-ID-Hash: VT5T5TVS2JR47Z2BYJLMCTO6XEENLWEM
 X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SG2MX4FAQ75E2LXYHQ37PSDBASADJHA7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VT5T5TVS2JR47Z2BYJLMCTO6XEENLWEM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,61 +115,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-When using the codec through the generic audio graph card, there are at
-least two calls of es8316_set_dai_sysclk(), with the effect of limiting
-the allowed sample rates according to the MCLK/LRCK ratios supported by
-the codec:
+The I2S0_8CH_MCLKOUT clock rate on Rock 5B board defaults to 12 MHz and
+it is used to provide the master clock (MCLK) for the ES8316 audio
+codec.
 
-1. During audio card setup, to set the initial MCLK - see
-   asoc_simple_init_dai().
+On sound card initialization, this limits the allowed sample rates
+according to the MCLK/LRCK ratios supported by the codec, which results
+in the following non-standard rates: 15625, 30000, 31250, 46875.
 
-2. Before opening a stream, to update MCLK, according to the stream
-   sample rate and the multiplication factor - see
-   asoc_simple_hw_params().
+Hence, the very first access of the sound card fails:
 
-In some cases the initial MCLK might be set to a frequency that doesn't
-match any of the supported ratios, e.g. 12287999 instead of 12288000,
-which is only 1 Hz below the supported clock, as that is what the
-hardware reports. This creates an empty list of rate constraints, which
-is further passed to snd_pcm_hw_constraint_list() via
-es8316_pcm_startup(), and causes the following error on the very first
-access of the sound card:
-
-  $ speaker-test -D hw:Analog,0 -F S16_LE -c 2 -t wav
   Broken configuration for playback: no configurations available: Invalid argument
   Setting of hwparams failed: Invalid argument
 
-Note that all subsequent retries succeed thanks to the updated MCLK set
-at point 2 above, which uses a computed frequency value instead of a
-reading from the hardware registers. Normally this would have mitigated
-the issue, but es8316_pcm_startup() executes before the 2nd call to
-es8316_set_dai_sysclk(), hence it cannot make use of the updated
-constraints.
+However, all subsequent attempts will succeed, as the audio graph card
+will request a correct clock frequency, based on the stream sample rate
+and the multiplication factor.
 
-Since es8316_pcm_hw_params() performs anyway a final validation of MCLK
-against the stream sample rate and the supported MCLK/LRCK ratios, fix
-the issue by ensuring that sysclk_constraints list is only set when at
-least one supported sample rate is autodetected by the codec.
+Assign MCLK to 12.288 MHz, which allows the codec to advertise most of
+the standard sample rates.
 
-Fixes: b8b88b70875a ("ASoC: add es8316 codec driver")
+Fixes: 55529fe3f32d ("arm64: dts: rockchip: Add rk3588-rock-5b analog audio")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- sound/soc/codecs/es8316.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index 773c94fd3547..a78c0049a30c 100644
---- a/sound/soc/codecs/es8316.c
-+++ b/sound/soc/codecs/es8316.c
-@@ -386,7 +386,7 @@ static int es8316_set_dai_sysclk(struct snd_soc_dai *codec_dai,
- 			es8316->allowed_rates[count++] = freq / ratio;
- 	}
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+index 3e4aee8f70c1..30cdd366813f 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b.dts
+@@ -133,6 +133,8 @@ es8316: audio-codec@11 {
+ 		reg = <0x11>;
+ 		clocks = <&cru I2S0_8CH_MCLKOUT>;
+ 		clock-names = "mclk";
++		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
++		assigned-clock-rates = <12288000>;
+ 		#sound-dai-cells = <0>;
  
--	es8316->sysclk_constraints.list = es8316->allowed_rates;
-+	es8316->sysclk_constraints.list = count ? es8316->allowed_rates : NULL;
- 	es8316->sysclk_constraints.count = count;
- 
- 	return 0;
+ 		port {
 -- 
 2.40.1
 

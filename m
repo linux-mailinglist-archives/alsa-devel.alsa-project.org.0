@@ -2,112 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1776C70FBD1
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 18:40:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C66C37125C8
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 13:44:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0BC2204;
-	Wed, 24 May 2023 18:39:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0BC2204
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6C8A82C;
+	Fri, 26 May 2023 13:43:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6C8A82C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684946434;
-	bh=bWCXE/OOk5RKGqCRmEcVQwJ33xzqnhuTnvej+AoXsas=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1685101444;
+	bh=jrNaUKV55pYJB5mKAAv6IabDAOzlS6+ZNJsdjzsVunA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=e+5iVa5FvFMHfNoYt/UiPV17IRFL/1n9MfrUOmLUIL//8f1AfTNTQxdqTZduEZ2wz
-	 EvMWZBSzO23D/ABwH5Qzi29cbys745biBpnaRicawAqo77XCKvohJsdZxvn9821D19
-	 5KsIjuXUpdRKKmsCXMhn1atMBE5+QD3Kzz7WKAFE=
+	b=bMOPRB3yScNS34WMa9wZHDNdViytSuBpT6Z5HtvqMbqiJrulGx1juhX18W6H+/0qn
+	 RHRBwXnPKr3Rc0Lk0MY++3zdbUX8V4Sp+NcMcCkVVbnLt9ycaRpMZLU3LLJCsLtKvl
+	 UUSkfwAAKVlND/iJ2wsAobV6r07NGOJ5dBM2vYKE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B851CF80548; Wed, 24 May 2023 16:10:21 +0200 (CEST)
+	id 46272F8026A; Fri, 26 May 2023 13:42:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 545EAF80249;
-	Wed, 24 May 2023 16:10:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B57B7F8026A;
+	Fri, 26 May 2023 13:42:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB742F8024E; Wed, 24 May 2023 16:10:17 +0200 (CEST)
+	id D385BF80552; Wed, 24 May 2023 16:12:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	NICE_REPLY_A,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8C3D3F80053
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 16:10:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C3D3F80053
+	by alsa1.perex.cz (Postfix) with ESMTPS id B75F7F80549
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 16:12:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B75F7F80549
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=i7PT2Nr1
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34OCLYBD028139;
-	Wed, 24 May 2023 09:10:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=4CRN6cX3nFejeH9of7HvnG8/+qVlZ/0uL+vakv3omEM=;
- b=i7PT2Nr1WPHPUUsNGfdf/tPz5aayfT4/TvV/4MU3rQzRbsTgzZRqCoBMiXxxzzbFsbIi
- ml6UqPD87fwQ0YXBKe9P9bchpbCWxh7Fpo0G4J5I9hvV7oilhY01VhU8+YX9gvjNLsgx
- BrM9xmjlva29K6I70OQ07oPsKXAXS0PpqC9xfvr9nCpBdaA+xRb/DT6z2u3AA+TMelw7
- 7MeK4rJL4O8HCZRk0K4DK65hhffwgW7B2UW6LOFVh9dAQWUqhDCaK/JpWH7Qb/u5oWix
- FoB8iQ+WY+HIRsaQmXoOVh+Gu8+N8ZRN1grbx5iHBxQikuqLo6yPuvP7MdU65lq85l2r hQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3qsde8gerk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 24 May 2023 09:10:08 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 24 May
- 2023 09:10:06 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Wed, 24 May 2023 09:10:06 -0500
-Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D708411D4;
-	Wed, 24 May 2023 14:10:05 +0000 (UTC)
-Message-ID: <19426e6c-d719-b85b-8ef2-f0f3fd3fa12e@opensource.cirrus.com>
-Date: Wed, 24 May 2023 15:10:05 +0100
+ unprotected) header.d=baylibre-com.20221208.gappssmtp.com
+ header.i=@baylibre-com.20221208.gappssmtp.com header.a=rsa-sha256
+ header.s=20221208 header.b=LHhbslmT
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-3f60e536250so13312675e9.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 24 May 2023 07:12:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20221208.gappssmtp.com; s=20221208; t=1684937560;
+ x=1687529560;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zm+/ZRBOZldlqL53b66Kc1VMqiVBWlw5REXJ3gKRg4Y=;
+        b=LHhbslmTHVtT9aRVJDuMWr6LDB2MF3ACI6tD/x5vOsxgQkBYgqvwDD2fM+JU9yS1rR
+         XzvkbnASGuJZNpMiKuI2/qFlqr16uMdAr8lTmipfrNJb6s/OVD8XXt9gOBHYaPg/xnR6
+         B6iJpZtoz1xSwOhBJMS1ND9SZv6/Ekphr0o7uDD2vsM7YYmyvFT+Fe4QprO+akeUiG81
+         5TpJskzGdjOImOoOwC/fPDAGUD5jOnCl7oGrQ95IAJMqiik4rjNWC8EVUculVpwDP3Dp
+         /2dVOwmVQ6isKH5XKbxJzxmAJGeP4NF0aaOh5tW8/GzYrRbooI3r6d8C9kyvJyTeU1I0
+         RUMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684937560; x=1687529560;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zm+/ZRBOZldlqL53b66Kc1VMqiVBWlw5REXJ3gKRg4Y=;
+        b=UhQLl4H0d7huWskxEThMlg9x7hoKq1dun/3BX+v8xHHoBu7gXNjBQwdcafxRAQyMFU
+         mwGaWz2mULTvkXRhlsdlTgt73vL00RNJGS2WMvCp9S8gqgnmoRWu+mm2E81VV9SVX+9l
+         +0ivRFvuGYNfZkYS+1QwvOSZ/ClT2iykI6mybP65/mxbJRp0xiy2ZzwKVbP3b1ZY+//e
+         EhYg6luHPAZsILG58P+w7SqSnWW71fu7gqfMBhhldksC/ghzpoBPSK3DM/KXCju7D5Yg
+         vTZlgL8po8CtHiFO4BQ0VIpduWQvbuIuTakFIQbrWDnIsAaxNNWJXUFN9WCv7MG1OYPy
+         6rfw==
+X-Gm-Message-State: AC+VfDyKEwAIJ9uzNScHbukGJ6jel6GSz320qowaPxXeKft3WnpTByn9
+	rBPmwSA7mvr/p4BFjrfHDzJe/g==
+X-Google-Smtp-Source: 
+ ACHHUZ7ZiBQArVsrxbnbOPfcgyP4nY6sB/SNzM2bGxT5NtG/F1Eh5MP/d2t7lgX/aqnh4urNKvrplQ==
+X-Received: by 2002:a7b:cbc9:0:b0:3f6:84:3df6 with SMTP id
+ n9-20020a7bcbc9000000b003f600843df6mr9846304wmi.10.1684937560071;
+        Wed, 24 May 2023 07:12:40 -0700 (PDT)
+Received: from [192.168.1.172] (158.22.5.93.rev.sfr.net. [93.5.22.158])
+        by smtp.gmail.com with ESMTPSA id
+ 13-20020a05600c24cd00b003f4dde07956sm2444460wmu.42.2023.05.24.07.12.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 24 May 2023 07:12:39 -0700 (PDT)
+Message-ID: <cb2e035d-2630-2eca-3f15-b04e4d81c699@baylibre.com>
+Date: Wed, 24 May 2023 16:12:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH] ASoC: cs42l42: Add PLL ratio table values
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 4/7] ASoC: mediatek: common: soundcard driver add
+ dai_fmt support
 Content-Language: en-US
-To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>,
-        Mark Brown
-	<broonie@kernel.org>
-CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <linux-kernel@vger.kernel.org>
-References: <20230524125236.57149-1-vitalyr@opensource.cirrus.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <20230524125236.57149-1-vitalyr@opensource.cirrus.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
+ lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com
+Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20230523021933.3422-1-trevor.wu@mediatek.com>
+ <20230523021933.3422-5-trevor.wu@mediatek.com>
+From: Alexandre Mergnat <amergnat@baylibre.com>
+In-Reply-To: <20230523021933.3422-5-trevor.wu@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: hKuRP4Ug16q1rqZKtMu8kii27k9k3AFW
-X-Proofpoint-GUID: hKuRP4Ug16q1rqZKtMu8kii27k9k3AFW
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: CKKD7R5UAUTZ3XNZHG2X46Q64666VSVY
-X-Message-ID-Hash: CKKD7R5UAUTZ3XNZHG2X46Q64666VSVY
-X-MailFrom: prvs=050894cdcc=rf@opensource.cirrus.com
+X-MailFrom: amergnat@baylibre.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: VCFRHONWG3PQB6MW7DZ6ULLX53URMZYE
+X-Message-ID-Hash: VCFRHONWG3PQB6MW7DZ6ULLX53URMZYE
+X-Mailman-Approved-At: Fri, 26 May 2023 11:42:19 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CKKD7R5UAUTZ3XNZHG2X46Q64666VSVY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VCFRHONWG3PQB6MW7DZ6ULLX53URMZYE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,38 +131,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 24/05/2023 13:52, Vitaly Rodionov wrote:
-> Add 4.8Mhz 9.6Mhz and 19.2MHz SCLK values
-> for MCLK 12MHz and 12.288MHz requested by Intel.
+On 23/05/2023 04:19, Trevor Wu wrote:
+> There are two changes included in the patch.
 > 
-> Signed-off-by: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+> First, add set_dailink_daifmt() function, so dai_fmt can be updated by
+> the configuration in dai-link sub node.
+> 
+> Second, remove codec phandle from required property in dai-link sub node.
+> For example, user possibly needs to update dai-format for all etdm
+> co-clock dai-links, but codec doesn't need to be specified in capture
+> dai-link for a speaker amp.
+> 
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 > ---
->   sound/soc/codecs/cs42l42.c | 7 +++++++
->   1 file changed, 7 insertions(+)
+>   .../mediatek/common/mtk-soundcard-driver.c    | 49 ++++++++++++++++++-
+>   1 file changed, 48 insertions(+), 1 deletion(-)
 > 
-> diff --git a/sound/soc/codecs/cs42l42.c b/sound/soc/codecs/cs42l42.c
-> index e3edaa1a2761..8aa6af21e52c 100644
-> --- a/sound/soc/codecs/cs42l42.c
-> +++ b/sound/soc/codecs/cs42l42.c
-> @@ -646,12 +646,19 @@ static const struct cs42l42_pll_params pll_ratio_table[] = {
->   	{ 3072000,  1, 0x00, 0x3E, 0x800000, 0x03, 0x10, 12000000, 125, 1},
->   	{ 4000000,  1, 0x00, 0x30, 0x800000, 0x03, 0x10, 12000000,  96, 1},
->   	{ 4096000,  1, 0x00, 0x2E, 0xE00000, 0x03, 0x10, 12000000,  94, 1},
-> +	{ 4800000,  1, 0x01, 0x50, 0x000000, 0x03, 0x10, 12000000,  80, 2},
-> +	{ 4800000,  1, 0x01, 0x50, 0x000000, 0x01, 0x10, 12288000,  82, 2},
->   	{ 5644800,  1, 0x01, 0x40, 0x000000, 0x03, 0x10, 11289600, 128, 1},
->   	{ 6000000,  1, 0x01, 0x40, 0x000000, 0x03, 0x10, 12000000, 128, 1},
->   	{ 6144000,  1, 0x01, 0x3E, 0x800000, 0x03, 0x10, 12000000, 125, 1},
-> +	{ 6144000,  1, 0x01, 0x40, 0x000000, 0x03, 0x10, 12288000, 128, 1},
-> +	{ 9600000,  1, 0x02, 0x50, 0x000000, 0x03, 0x10, 12000000,  80, 2},
-> +	{ 9600000,  1, 0x02, 0x50, 0x000000, 0x01, 0x10, 12288000,  82, 2},
->   	{ 11289600, 0, 0, 0, 0, 0, 0, 11289600, 0, 1},
->   	{ 12000000, 0, 0, 0, 0, 0, 0, 12000000, 0, 1},
->   	{ 12288000, 0, 0, 0, 0, 0, 0, 12288000, 0, 1},
-> +	{ 19200000, 1, 0x03, 0x50, 0x000000, 0x03, 0x10, 12000000,  80, 2},
-> +	{ 19200000, 1, 0x03, 0x50, 0x000000, 0x01, 0x10, 12288000,  82, 2},
->   	{ 22579200, 1, 0x03, 0x40, 0x000000, 0x03, 0x10, 11289600, 128, 1},
->   	{ 24000000, 1, 0x03, 0x40, 0x000000, 0x03, 0x10, 12000000, 128, 1},
->   	{ 24576000, 1, 0x03, 0x40, 0x000000, 0x03, 0x10, 12288000, 128, 1}
+> diff --git a/sound/soc/mediatek/common/mtk-soundcard-driver.c b/sound/soc/mediatek/common/mtk-soundcard-driver.c
+> index 738093451ccb..5e291092046b 100644
+> --- a/sound/soc/mediatek/common/mtk-soundcard-driver.c
+> +++ b/sound/soc/mediatek/common/mtk-soundcard-driver.c
+> @@ -22,7 +22,7 @@ static int set_card_codec_info(struct snd_soc_card *card,
+>   
+>   	codec_node = of_get_child_by_name(sub_node, "codec");
+>   	if (!codec_node)
+> -		return -EINVAL;
 
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+IMO, the debug or info print should be welcome here because the behavior
+change: dai link info parse will not stop if the codec node is NULL.
+That could help to understand what is happening during init.
+
+
+
+Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
+
+-- 
+Regards,
+Alexandre
+

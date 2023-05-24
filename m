@@ -2,84 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E24D70F4CB
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 13:06:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5062D70F4FB
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 13:22:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B48F56C0;
-	Wed, 24 May 2023 13:05:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B48F56C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EA9C1EC;
+	Wed, 24 May 2023 13:21:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EA9C1EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684926392;
-	bh=y4WSNpY8SSlTpEkkRsMR3TAjOQ7RO5pCexsKa6zngko=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1684927350;
+	bh=nTH1NoAMCZFcFLltEl2TmIhRP4t6fm9BWWNijr/Xzv4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XDFmV+r3DLsVAhL39p9rHlD3JExAHB21wIwfo/dQOrb8gGPEN4AkWqIT6B7PsgDqV
-	 b/N/ru4TC5o0N/S2p/axpG8koyU5dV95fgiULfg0hxWeGT6ai7J0dWTBD2xAv2rSdQ
-	 ApChAn65TnPXL5RJskITTJuiI9G+eXWhpOxC+5DU=
+	b=p9CXqjXnarWhqVSFa1mld723pd6BIIkU4Jo/0Rmy6vI0vYO0+R4n08jd8NOiQl1ur
+	 0Kc/1FUNuFUgcQiGu8IBXHvZQFq/ERKexzSTYqiEdJI5Rtt73OaOJH0LHfa80964zb
+	 xu/LPZgopi9deiZph4mmMeD0Z/EnU/bSsMyS3cUo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D908F8055B; Wed, 24 May 2023 13:04:54 +0200 (CEST)
+	id 57A6EF80086; Wed, 24 May 2023 13:21:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1444F80551;
-	Wed, 24 May 2023 13:04:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08E25F8016A;
+	Wed, 24 May 2023 13:21:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F7ECF8016A; Wed, 24 May 2023 13:04:50 +0200 (CEST)
+	id 2D1E4F80249; Wed, 24 May 2023 13:21:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21FA1F80053
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 13:04:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21FA1F80053
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=L/pMlrXc
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 946C363BAF;
-	Wed, 24 May 2023 11:04:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BA9C433A0;
-	Wed, 24 May 2023 11:04:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684926274;
-	bh=y4WSNpY8SSlTpEkkRsMR3TAjOQ7RO5pCexsKa6zngko=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=L/pMlrXcgXt6WJjXMv4dfRYRfzLEBarU/2p8aA+heUgPV+acQkfqSzi+gk38g7uUl
-	 bBZhvJDCIqazncp3Q997xhWffiPHkas9lwRdnTwCoY7pKwuKjNkN+yFmDZwtknsiLV
-	 dGXCcl1LVgMkTLOUP0Hvu8hB8rlNuOUvjOKFA/rWkmVbBw2YcXUtCmQdsvBDczTOBj
-	 QTSRj6upQLkfPWmcoo2oOkjogx5ggtBpxxUNlTmI8foKlwtyzDYV0nY2Rua7EdW0bI
-	 QUJ0eBbASpaIoZR/LOMfoKMYleR0zst0L18QI4XqLRpabkh3xP8apUWJ0o08Aw7wD/
-	 k++pHEcNZkgbQ==
-From: Mark Brown <broonie@kernel.org>
-To: Maxim Kochetkov <fido_max@inbox.ru>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20230512110343.66664-1-fido_max@inbox.ru>
-References: <20230512110343.66664-1-fido_max@inbox.ru>
-Subject: Re: [PATCH 1/1] ASoC: dwc: move DMA init to snd_soc_dai_driver
- probe()
-Message-Id: <168492627199.37175.12727003456067615127.b4-ty@kernel.org>
-Date: Wed, 24 May 2023 12:04:31 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 546E7F80086
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 13:21:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 546E7F80086
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=fotEiQdK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1684927291; x=1716463291;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=nTH1NoAMCZFcFLltEl2TmIhRP4t6fm9BWWNijr/Xzv4=;
+  b=fotEiQdK6bBX6TqD40YoPPCiKLmtSTPeTOaHRUBsR7IwMhEVwHkBf3Jl
+   itgeljwcPeABEGKUnpbUyArKD+eZCLtpMwQbQBVYzR11KAgouQML/vw0b
+   uEIsAfKxRwSQgXa63RCpeZJDcqQu6O1e3lmnrFUJ/7Ainuee0xqYcgNeM
+   3skpq0FpeH/hKzbZApijuxkBhAlxsWFcqKkrUgUBROFKfxRgO9ffYv2cG
+   oyJUw+rzBwg+2Su/G/sYnpy7ba0gwOuQ80PnBQGz/iW6jVcITBI301Gao
+   xHATSTw5LTq69p2Dq4/9kpt80FEAlery/keYKDnXuHYWv12YjOGPGRldu
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="419246208"
+X-IronPort-AV: E=Sophos;i="6.00,189,1681196400";
+   d="scan'208";a="419246208"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2023 04:21:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="848712780"
+X-IronPort-AV: E=Sophos;i="6.00,189,1681196400";
+   d="scan'208";a="848712780"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 May 2023 04:21:11 -0700
+Message-ID: <ab3f0c0a-62fd-a468-b3cf-0e4b59bac6ae@linux.intel.com>
+Date: Wed, 24 May 2023 13:21:09 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: 5CROFKVPNL6A4EWQQLXP4PERUIVCP4RV
-X-Message-ID-Hash: 5CROFKVPNL6A4EWQQLXP4PERUIVCP4RV
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 08/20] ASoC: soc-pcm.c: cleanup soc_get_playback_capture()
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <87353uqjiu.wl-kuninori.morimoto.gx@renesas.com>
+ <87r0rep4we.wl-kuninori.morimoto.gx@renesas.com>
+ <2e84d6f3-902f-d6f3-0084-ddfbd61ffa1f@linux.intel.com>
+ <87lehh2db4.wl-kuninori.morimoto.gx@renesas.com>
+ <8f977a29-14c2-a160-5eea-10fce6a73742@linux.intel.com>
+ <87wn10ncyi.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <87wn10ncyi.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 7HUM2BASCPJ4PQKUGYBY7CK4ZSXR2QXI
+X-Message-ID-Hash: 7HUM2BASCPJ4PQKUGYBY7CK4ZSXR2QXI
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5CROFKVPNL6A4EWQQLXP4PERUIVCP4RV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7HUM2BASCPJ4PQKUGYBY7CK4ZSXR2QXI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,71 +115,156 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 12 May 2023 14:03:42 +0300, Maxim Kochetkov wrote:
-> When using DMA mode we are facing with Oops:
-> [  396.458157] Unable to handle kernel access to user memory without uaccess routines at virtual address 000000000000000c
-> [  396.469374] Oops [#1]
-> [  396.471839] Modules linked in:
-> [  396.475144] CPU: 0 PID: 114 Comm: arecord Not tainted 6.0.0-00164-g9a8eccdaf2be-dirty #68
-> [  396.483619] Hardware name: YMP ELCT FPGA (DT)
-> [  396.488156] epc : dmaengine_pcm_open+0x1d2/0x342
-> [  396.493227]  ra : dmaengine_pcm_open+0x1d2/0x342
-> [  396.498140] epc : ffffffff807fe346 ra : ffffffff807fe346 sp : ffffffc804e138f0
-> [  396.505602]  gp : ffffffff817bf730 tp : ffffffd8042c8ac0 t0 : 6500000000000000
-> [  396.513045]  t1 : 0000000000000064 t2 : 656e69676e65616d s0 : ffffffc804e13990
-> [  396.520477]  s1 : ffffffd801b86a18 a0 : 0000000000000026 a1 : ffffffff816920f8
-> [  396.527897]  a2 : 0000000000000010 a3 : fffffffffffffffe a4 : 0000000000000000
-> [  396.535319]  a5 : 0000000000000000 a6 : ffffffd801b87040 a7 : 0000000000000038
-> [  396.542740]  s2 : ffffffd801b94a00 s3 : 0000000000000000 s4 : ffffffd80427f5e8
-> [  396.550153]  s5 : ffffffd80427f5e8 s6 : ffffffd801b44410 s7 : fffffffffffffff5
-> [  396.557569]  s8 : 0000000000000800 s9 : 0000000000000001 s10: ffffffff8066d254
-> [  396.564978]  s11: ffffffd8059cf768 t3 : ffffffff817d5577 t4 : ffffffff817d5577
-> [  396.572391]  t5 : ffffffff817d5578 t6 : ffffffc804e136e8
-> [  396.577876] status: 0000000200000120 badaddr: 000000000000000c cause: 000000000000000d
-> [  396.586007] [<ffffffff806839f4>] snd_soc_component_open+0x1a/0x68
-> [  396.592439] [<ffffffff807fdd62>] __soc_pcm_open+0xf0/0x502
-> [  396.598217] [<ffffffff80685d86>] soc_pcm_open+0x2e/0x4e
-> [  396.603741] [<ffffffff8066cea4>] snd_pcm_open_substream+0x442/0x68e
-> [  396.610313] [<ffffffff8066d1ea>] snd_pcm_open+0xfa/0x212
-> [  396.615868] [<ffffffff8066d39c>] snd_pcm_capture_open+0x3a/0x60
-> [  396.622048] [<ffffffff8065b35a>] snd_open+0xa8/0x17a
-> [  396.627421] [<ffffffff801ae036>] chrdev_open+0xa0/0x218
-> [  396.632893] [<ffffffff801a5a28>] do_dentry_open+0x17c/0x2a6
-> [  396.638713] [<ffffffff801a6d9a>] vfs_open+0x1e/0x26
-> [  396.643850] [<ffffffff801b8544>] path_openat+0x96e/0xc96
-> [  396.649518] [<ffffffff801b9390>] do_filp_open+0x7c/0xf6
-> [  396.655034] [<ffffffff801a6ff2>] do_sys_openat2+0x8a/0x11e
-> [  396.660765] [<ffffffff801a735a>] sys_openat+0x50/0x7c
-> [  396.666068] [<ffffffff80003aca>] ret_from_syscall+0x0/0x2
-> [  396.674964] ---[ end trace 0000000000000000 ]---
+On 5/23/2023 1:49 AM, Kuninori Morimoto wrote:
 > 
-> [...]
+> Hi Amadeusz
+> 
+>>> static int soc_get_playback_capture(...)
+>>> {
+>>> 	...
+>>> (A)	if (dai_link->dynamic || dai_link->no_pcm) {
+>>> 		...
+>>> 		if (dai_link->dpcm_playback) {
+>>> 			...
+>>> (B)			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+>>> 				...
+>>> 			}
+>>> 			...
+>>> 		}
+>>> 		if (dai_link->dpcm_capture) {
+>>> 			...
+>>> (B)			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+>>> 				...
+>>> 			}
+>>> 		}
+>>> 		...
+>>> 	}
+>>> }
+>>>
+>>> It checks CPU (B) when no_pcm (A) on original.
+>>> But I think "no_pcm - CPU" is dummy DAI -> above check is no meaning.
+>>> After the patch, it checks both CPU/Codec.
+> (snip)
+>>> I wonder is your Codec which is connected to no_pcm DAI valid ?
+>>
+>> I'm not sure what do you mean, if it is valid? It works fine before this
+>> patch ;)
+> 
+> Ah, sorry, let me explain detail.
+> 
+> 	static int soc_get_playback_capture(...)
+> 	{
+> 		...
+> (A)		if (dai_link->dynamic || dai_link->no_pcm) {
+> 			int stream;
+> 
+> 			if (dai_link->dpcm_playback) {
+> 				stream = SNDRV_PCM_STREAM_PLAYBACK;
+> 
+> (B)				for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+> (C)					if (snd_soc_dai_stream_valid(cpu_dai, stream)) {
+> 						has_playback = 1;
+> 						break;
+> 					}
+> 				}
+> 			...
+> 	}
+> 
+> Before appling the patch, in DPCM case (A), it checks CPU valid only (B)/(C).
+> In many case, DPCM is like this
+> 
+> 	dynamic			no_pcm
+> 	[CPU/dummy-Codec] - [dummy-CPU/Codec]
+> 
+> I noticed that before the patch, it checks dummy DAI only for no_pcm case.
+> But after appling the patch, it will check both CPU and Codec
+> valid (X)/(Y)/(Z).
+> 
+> I think this was changed after patch.
+> So, my question was what happen for snd_soc_dai_stream_valid() on your Codec.
+> 
+> # I notcied that avs_create_dai_links() is not using dummy CPU on no_pcm case...
+> 
+> 
+> 	static int soc_get_playback_capture(...)
+> 	{
+> 		...
+> (X)		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
+> (Y)			codec_dai = asoc_rtd_to_codec(rtd, i); /* get paired codec */
+> 
+> (Z)			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
+> (Z)			    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
+> 				has_playback = 1;
+> (Z)			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
+> (Z)			    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
+> 				has_capture = 1;
+> 		}
+> 		...
+> 	}
+> 
+> Thank you for your help !!
+> 
 
-Applied to
+Hi,
+sorry for small delay, I've debugged the issue. Seems like one less 
+critical problem is in ASoC HDA codec, which blocks HDA and HDMI probing 
+altogether in our driver, something like this should fix this:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+commit ed93e4fbc045b8da7906484a9c88e6b53864949b (HEAD)
+Author: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Date:   Wed May 24 20:54:44 2023 +0200
 
-Thanks!
+     ASoC: codecs: hda: Fix probe codec definition
 
-[1/1] ASoC: dwc: move DMA init to snd_soc_dai_driver probe()
-      commit: 011a8719d6105dcb48077ea7a6a88ac019d4aa50
+     In order to properly bind snd_soc_dai_driver its snd_soc_pcm_stream 
+need
+     to provide channels_min value, otherwise ASoC framework may think that
+     stream is improper.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+     Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+diff --git a/sound/soc/codecs/hda.c b/sound/soc/codecs/hda.c
+index d57b043d6bfe..62fd99f530bf 100644
+--- a/sound/soc/codecs/hda.c
++++ b/sound/soc/codecs/hda.c
+@@ -341,6 +341,8 @@ static const struct snd_soc_dapm_widget 
+hda_dapm_widgets[] = {
+  static struct snd_soc_dai_driver card_binder_dai = {
+         .id = -1,
+         .name = "codec-probing-DAI",
++       .capture.channels_min = 1,
++       .playback.channels_min = 1,
+  };
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+  static int hda_hdev_attach(struct hdac_device *hdev)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+
+With the above fixed, there is issue with how HDMI is being initialized 
+and I consider it a blocker. So it needs to be fixed first before this 
+patchset can be merged. I did simple patch like:
+
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 64a944016c78..e84c3e46557e 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -2317,6 +2317,7 @@ static int generic_hdmi_build_pcms(struct 
+hda_codec *codec)
+                 if (spec->pcm_used >= ARRAY_SIZE(spec->pcm_rec))
+                         break;
+                 /* other pstr fields are set in open */
++               pstr->channels_min = 1;
+         }
+
+         return 0;
+
+and it works for testing purposes, but as commented in code, those 
+fields are initialized later (in hdmi_pcm_open()), which apparently in 
+case of ASoC binding is too late. Likely those assignments need to be 
+moved earlier.
+
+Another thing that should probably be done is some kind of look through 
+ASoC codec files to make sure that they all define channels_min 
+properly, otherwise there may be more unexpected failures.
 
 Thanks,
-Mark
-
+Amadeusz

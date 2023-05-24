@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D13570EBD2
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 05:22:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 721F970EBD4
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 05:23:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9629A1F9;
-	Wed, 24 May 2023 05:21:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9629A1F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9D05820;
+	Wed, 24 May 2023 05:22:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9D05820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684898566;
-	bh=tyZWRsubAKNNLGZWpMZL7z3IIw04o7z88Pfq8Tb45AI=;
+	s=default; t=1684898617;
+	bh=jZb2J/2BiASQalgS/yJ7f/ejKhYI1nMG0+oaxhGhyqM=;
 	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=JaYvO/NOO672eoErvVjAAQzIN8kXNUbHhzR/t2k4R29GE9uUrMRglhmm2PJ1pN8G6
-	 9GE8fczFj26AYS0+wdcX8oXqxWK+LEVLgpRuaPp035Sv1wa/ewEfklzpapXJIEt6MK
-	 12BAtyEvseCHI+8nB2ASJMVsdPbAEiD6LdEd9C7A=
+	b=loacQ1JoGJScNh+lyc1s9xTSFQ4SYrYbl4ZE+zKPL/K+XC0VucWveBR6LNjxn1QuH
+	 IYfiz4ts8c1sjRfwVxlI4nI3ZgQUDRsNj0NXoZLO26n4fNfkuxBTrYdcNJEPpEaoX5
+	 AvjJUT9oTI4TD2Fa9hV+NEIB7RrykLd7o2VSKZP4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3F7BF80086; Wed, 24 May 2023 05:21:55 +0200 (CEST)
+	id B4AEBF80563; Wed, 24 May 2023 05:22:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81646F80249;
-	Wed, 24 May 2023 05:21:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06E5FF80551;
+	Wed, 24 May 2023 05:22:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08D1FF8024E; Wed, 24 May 2023 05:21:50 +0200 (CEST)
+	id C4810F80249; Wed, 24 May 2023 05:22:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
  [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEA18F8016A
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 05:21:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEA18F8016A
+	by alsa1.perex.cz (Postfix) with ESMTP id 36397F80249
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 05:22:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36397F80249
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
+From: GitHub pull_request - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1684898502652824640-webhooks-bot@alsa-project.org>
-References: <1684898502652824640-webhooks-bot@alsa-project.org>
-Subject: tooplogy: pre-processor: Add support for object arrays
-Message-Id: <20230524032150.08D1FF8024E@alsa1.perex.cz>
-Date: Wed, 24 May 2023 05:21:50 +0200 (CEST)
-Message-ID-Hash: OBTMXJYOJIA5V2BWU2DHTNBCHV47S6RE
-X-Message-ID-Hash: OBTMXJYOJIA5V2BWU2DHTNBCHV47S6RE
+In-Reply-To: <1684898536201057196-webhooks-bot@alsa-project.org>
+References: <1684898536201057196-webhooks-bot@alsa-project.org>
+Subject: topology: pre-processor: Add support for object arrays
+Message-Id: <20230524032217.C4810F80249@alsa1.perex.cz>
+Date: Wed, 24 May 2023 05:22:17 +0200 (CEST)
+Message-ID-Hash: AXKLQ26NXIAGB747QF5BLPVFQDULXRMP
+X-Message-ID-Hash: AXKLQ26NXIAGB747QF5BLPVFQDULXRMP
 X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -60,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OBTMXJYOJIA5V2BWU2DHTNBCHV47S6RE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXKLQ26NXIAGB747QF5BLPVFQDULXRMP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,7 +69,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-utils pull request #216 was opened from ranj063:
+alsa-project/alsa-utils pull request #216 was edited from ranj063:
 
 Introduce a new keyword, "Objects" to instantiate multiple objects of the same class with different attirbutes. For example
 

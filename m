@@ -2,86 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D841170FF41
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 22:31:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DB68710008
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 23:31:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B53D31F9;
-	Wed, 24 May 2023 22:30:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B53D31F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 072281F9;
+	Wed, 24 May 2023 23:31:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 072281F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684960272;
-	bh=Re1wX3W69i3ZIaz/pAHTYuHqgqHaZa0o99T50sYnC2o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1684963917;
+	bh=ZhxPI6yBtBdhZEiyO9wGhdKxon/G0xigzrPJMnA88c0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AocNjVv8tCB8bhOhhhDrZiM0O61LeJtMN4f63zIfLtByjF96vUtc5hNyZ3EFCipRv
-	 xTq5LN0f47p9XeyZYl66YZ8Friw6J/BVY82t3n3a2swuYvLVTG0DF+fYlgn+Qsj86H
-	 qW0QUA8nTTXWirv0w63W/ZXEOuXpykMOkXQ7umw4=
+	b=oriPB5WstYRwKcqGP97qjPJ4SBO4VCNrBGCuAGr2xYkjA7QaRv+4x3BHauC96d26j
+	 gpkL5cbZEgILHm2F+HZ2m6p40XQDvAU7L2SC55DuVQMe1jhq7SkacNzbLOnemmvSCo
+	 5285poyCek9luBXw6CLGmZZRC8Awx3tnkz4zbm5M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D4D2F8053D; Wed, 24 May 2023 22:30:21 +0200 (CEST)
+	id C1748F8024E; Wed, 24 May 2023 23:31:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1104F8016A;
-	Wed, 24 May 2023 22:30:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB74CF8016A;
+	Wed, 24 May 2023 23:31:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AC66DF80249; Wed, 24 May 2023 22:30:16 +0200 (CEST)
+	id 0AA16F80249; Wed, 24 May 2023 23:30:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 29536F80053
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 22:30:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29536F80053
+	by alsa1.perex.cz (Postfix) with ESMTPS id E10E3F80007
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 23:30:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E10E3F80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Mg4kwL3o
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 4F06C6358F;
-	Wed, 24 May 2023 20:30:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A08C433EF;
-	Wed, 24 May 2023 20:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684960209;
-	bh=Re1wX3W69i3ZIaz/pAHTYuHqgqHaZa0o99T50sYnC2o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mg4kwL3o57bXoA1rQ6/zA/RBTwv5ThG2jMwI463FUwVvKyBs091tMNv4sMhxeJY1u
-	 gHphGhu0tmAB5HNCImzeX/QjK/QwDQUBX1uiVwGgvGBtmoRuBi8hpF4QymkFEMjbLN
-	 vRuBLhHE1DDMsxM84S8Tc42oc5OHmAJ1rxSKGTlKUmSbniVaUuxw2VN8t96jS2+AsB
-	 9Dt+Uo4O/ihAA9+EkCUIA4gFbMhPopJrMGHVfmTxvLqQciciTWlVoXjVc+xeJ9+POS
-	 62p4oiXW+4rd0YJjyW91Oay1ixSDJNcIBhuof97KLE7Av1Vsyc27aGzg4/mMCS35G5
-	 XOVCyPevoI5rQ==
-Date: Wed, 24 May 2023 21:30:03 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, zyw@rock-chips.com,
-	sebastian.reichel@collabora.com, andyshrk@163.com,
-	jagan@amarulasolutions.com, broonie@kernel.org, perex@perex.cz,
-	tiwai@suse.com, lgirdwood@gmail.com, heiko@sntech.de,
-	conor+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	robh+dt@kernel.org, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH 4/6] dt-bindings: vendor-prefixes: add Indiedroid
-Message-ID: <20230524-extrovert-unhidden-35e289c28bc4@spud>
-References: <20230523213825.120077-1-macroalpha82@gmail.com>
- <20230523213825.120077-5-macroalpha82@gmail.com>
+ unprotected) header.d=ljones.dev header.i=@ljones.dev header.a=rsa-sha256
+ header.s=fm2 header.b=DWK5uy3p;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=bLAo2kdo
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailout.nyi.internal (Postfix) with ESMTP id 699F45C0082;
+	Wed, 24 May 2023 17:30:41 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute5.internal (MEProxy); Wed, 24 May 2023 17:30:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1684963841; x=1685050241; bh=ZhxPI6yBtBdhZEiyO9wGhdKxon/G0xigzrP
+	JMnA88c0=; b=DWK5uy3p54JIMLb4pxi5mpr2xZiEar2Cpd5CYlWYViJlq+uF+6D
+	qg3aXRrXeRWU4JpJjMKc0L7LMtMbmOkd9qav5dqEfCpBQx8dNls71bK9ZlXDk5cp
+	H2a1Ty/IpxStBE8hh4stAp+6rv6JBymlU1Ikh+B89ghrEPA3TStCLxHIXlpaJCSi
+	H+wsi/KwYG4GSb3tHGLP9CPii6gI719zKPd7EiQCtO1jK9HkftpMS9V0il6aMct2
+	PHopXRnpDSWQn8HozPuhjBcEWOsxa+ZcNwhGM52mVXn/dvrxPfjchg2Ak2f4LVMT
+	n5jrmKpd0VM+zxT6wYTDSlDvTjFDnCUwRGA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1684963841; x=1685050241; bh=ZhxPI6yBtBdhZEiyO9wGhdKxon/G0xigzrP
+	JMnA88c0=; b=bLAo2kdoO59YKVcSgOgM4af1cfzuoO7OXUG9yySmffhMrkcL7oC
+	Izctj0E5u73uRYA4y/SnwskzPtcgNx4kzZUyFf78Kb0VH9zLKhnqYnZTutlP3A9u
+	eB4JWpK/ndbiwOaJ3lzgGZwnXiWlxlY/IpehTLngfLbATL9VdQV7l1CQofvSrZL+
+	lnDY3yV1FLXZaZV5CY6UdhPnk72pAT0XoVa+/RWzx2hDTi2JuEBezDP6eT0JXjUy
+	EWLt//YcETuO3dBY3n9gSHsxOh7Nas0NLzvaELFHQTRKe04MVjjHaN09GyXz/55K
+	VMDqRSeyRJDYr3WGRWDPUZ7qg9bxkFDYYlQ==
+X-ME-Sender: <xms:AIJuZBxejtj57Iwne4G_CIrr32n0RAZklgidMPL6GbujRH_kBsoAkg>
+    <xme:AIJuZBRW8W617XA_v7sKsUCO1jVwpgFjDnC51E18-5JpWOX3dHSP42hPDNRRaOLW1
+    Rmj9DhE9cYaHB4ROMs>
+X-ME-Received: 
+ <xmr:AIJuZLX257nVK25sdqSqyl-kEw6rN_GBIzwHytptB-Kw-DH5xkTTR0Wwye_IgnMi0Uofbw>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrfeejhedgudeitdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpefkuffhvfevffgjfhgtgfgfggesthhqredttderjeenucfhrhhomhepnfhu
+    khgvucflohhnvghsuceolhhukhgvsehljhhonhgvshdruggvvheqnecuggftrfgrthhtvg
+    hrnhepkeefffeujeevueejueegleelhedtgedvledukedttdffhfeifeelvdduheefjeei
+    necuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheplhhukh
+    gvsehljhhonhgvshdruggvvh
+X-ME-Proxy: <xmx:AIJuZDgVKjnhh2jOeeUTPNItVzYy5S81lWGsnPh-jMdh5yHb4C-UFQ>
+    <xmx:AIJuZDAd34FAY0EkC9RPRy-fb2O6aWt6uEAmwjtljrcyIdEqryf4Ig>
+    <xmx:AIJuZMIpX8ldk79re0AM4ZSk9ltkXUIsqdj8Pr6ckJi2FkJJF9QHSQ>
+    <xmx:AYJuZFzTE28zX4JjF_IRMg7S6JFIE0fQPWQKxnQWNrh3WrkuJsquSw>
+Feedback-ID: i5ec1447f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 24 May 2023 17:30:32 -0400 (EDT)
+Message-ID: <19d69a5da8f1d4017ac14ed87f927ab82278073d.camel@ljones.dev>
+Subject: Re: CSC3551 and devices missing related _DSD bits
+From: Luke Jones <luke@ljones.dev>
+To: Stuart Henderson <stuarth@opensource.cirrus.com>, Takashi Iwai
+	 <tiwai@suse.de>
+Cc: linux-kernel@vger.kernel.org, tiwai@suse.com,
+	sbinding@opensource.cirrus.com, perex@perex.cz, tangmeng@uniontech.com,
+	andy.chi@canonical.com, p.jungkamp@gmx.net, kasper93@gmail.com,
+	yangyuchi66@gmail.com, armas@codux.tech, ealex95@gmail.com,
+	james.schulman@cirrus.com, david.rhodes@cirrus.com,
+	tanureal@opensource.cirrus.com, rf@opensource.cirrus.com,
+	patches@opensource.cirrus.com, alsa-devel@alsa-project.org
+Date: Thu, 25 May 2023 09:30:24 +1200
+In-Reply-To: <b4c202b2-ab29-e2aa-b141-0c967b2c1645@opensource.cirrus.com>
+References: <1991650.PYKUYFuaPT@fedora> <87jzx3zaf8.wl-tiwai@suse.de>
+	 <b4c202b2-ab29-e2aa-b141-0c967b2c1645@opensource.cirrus.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.1 (by Flathub.org) 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="JhSCHFoVTqpyyaDA"
-Content-Disposition: inline
-In-Reply-To: <20230523213825.120077-5-macroalpha82@gmail.com>
-Message-ID-Hash: AURGHEEO2QAJBQEMKHZ4TALG2LANDAAN
-X-Message-ID-Hash: AURGHEEO2QAJBQEMKHZ4TALG2LANDAAN
-X-MailFrom: conor@kernel.org
+Message-ID-Hash: MWVXA674ADN3XPNGTYLJYZMYFOOU4SMH
+X-Message-ID-Hash: MWVXA674ADN3XPNGTYLJYZMYFOOU4SMH
+X-MailFrom: luke@ljones.dev
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +133,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AURGHEEO2QAJBQEMKHZ4TALG2LANDAAN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MWVXA674ADN3XPNGTYLJYZMYFOOU4SMH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,57 +142,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
---JhSCHFoVTqpyyaDA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, May 23, 2023 at 04:38:23PM -0500, Chris Morgan wrote:
-> From: Chris Morgan <macromorgan@hotmail.com>
+On Wed, 2023-05-24 at 17:36 +0100, Stuart Henderson wrote:
 >=20
-> Indiedroid is a sub-brand of Ameridroid for their line of single board
-> computers.
-> https://indiedroid.us/
+> > The problem is that this can really easily blow up your machine if
+> > some incorrect bit is applied.=C2=A0 And more easily applicable, more
+> > chance to break by novice users, simply by believing what a chat
+> > bot
+> > speaks :)
+> > That's the very reason why this kind of change should be via ACPI
+> > table officially set up by the vendor.=C2=A0 That said, the question is
+> > only who and how can be responsible for this kind of change.=C2=A0 It's
+> > no technical issue, per se.
+> >=20
+> > If BIOS can't be updated, at least, the configuration change has to
+> > be
+> > confirmed by ASUS people.=C2=A0 If ASUS still ignores the inquires and
+> > requests, we may put the quirk but with a bit fat warning (and
+> > maybe
+> > complaints to ASUS) to be shown in the log as a very last resort.
+> >=20
+> > Let's see what happens.
 >=20
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> ---
->  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> Thanks Takashi.
 >=20
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index 82d39ab0231b..632662be6e65 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -655,6 +655,8 @@ patternProperties:
->      description: Iron Device Corporation
->    "^isee,.*":
->      description: ISEE 2007 S.L.
-> +  "^indiedroid,.*":
-> +    description: Indiedroid
-
-Can you add this in alphabetical order please?
-
-Thanks,
-Conor.
-
->    "^isil,.*":
->      description: Intersil
->    "^issi,.*":
-> --=20
-> 2.34.1
+> Just a note to say we're not ignoring this and are investigating the=20
+> best way to support released laptops with ACPI incompatible with
+> Linux.=C2=A0=20
+> We're hoping this is going to be less of an issue going forward.=C2=A0
+> Please=20
+> bear with us while we look into this.
 >=20
 
---JhSCHFoVTqpyyaDA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZG5zywAKCRB4tDGHoIJi
-0rCyAQC6g1aHwj9B2sWQaarQoBN801M7WnTwLfkYIxU09ubawgD9Ff4oypI/ENYj
-QNlwt1Ep76ScIy+5QNgO5eQo4By9kww=
-=CwXw
------END PGP SIGNATURE-----
-
---JhSCHFoVTqpyyaDA--
+This is great news, thank you Stuart. If you need testing done at all
+on a wide range please reach out to me and I will enlist the help of
+those with the affected laptops I mentioned.

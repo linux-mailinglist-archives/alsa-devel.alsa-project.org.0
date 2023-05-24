@@ -2,86 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0C270F19B
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 10:59:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AAB770F1C8
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 11:07:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58BDD1F9;
-	Wed, 24 May 2023 10:58:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58BDD1F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AB41204;
+	Wed, 24 May 2023 11:06:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AB41204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684918744;
-	bh=D5d6mBIlSxvhMaND02II0k3IaiNYbeQM4kSCl9JoOmw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1684919244;
+	bh=xTKph1EZnb+HTsh9Iwnb/jj597hKlSSml/2mGDR8RbU=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=V/aegddmG+92B1lUL8sh9i1xb+lWBImYJui2y10E3zQbRkhgAF8kktB/Nj90YHOMW
-	 qZX8RDtRGPpbT+VcgoJJD7SBSC303QB76CPVGmRYjdq06R5ffL1ZdTAvG4ynSDGqVZ
-	 yCclqCUpE80P020AFceqLewyB6AWtBoCzF+5tR50=
+	b=caYKxhCIKfjN8xJyVWXA2Td791IuAsB2foubjXI3evrx5EPsg24s/Wdn3qZKNOvEC
+	 H46j5Yobak4OUP/f8W+x/y5Ah8Nc4MIq43+fgXPfyvAibUUEOyDt9IufZwXEMU0Atb
+	 xn6h2Na4Ugil8blN80pczMxlK0IMjtd9FkmwAgbU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF73FF80549; Wed, 24 May 2023 10:58:13 +0200 (CEST)
+	id E3FF9F80549; Wed, 24 May 2023 11:06:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 76E64F80249;
-	Wed, 24 May 2023 10:58:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F7CFF8024E;
+	Wed, 24 May 2023 11:06:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA401F8024E; Wed, 24 May 2023 10:58:09 +0200 (CEST)
+	id 2053BF8026A; Wed, 24 May 2023 11:06:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7504CF80086
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 10:58:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7504CF80086
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=g7cxjMCm
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 36ECB63B1A;
-	Wed, 24 May 2023 08:58:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EE4C433D2;
-	Wed, 24 May 2023 08:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684918682;
-	bh=D5d6mBIlSxvhMaND02II0k3IaiNYbeQM4kSCl9JoOmw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=g7cxjMCmb6oKhOdh5jbG0/aWdwmk5EY0zmVXs9YHngGMybX5ACa6LQgQGPw/FUUTq
-	 gaFb2Fa92W48YR2fBls55A0+2O2p6KIxnfd0i+ubwrP0imJWsWk1AdTOc1hB4oPk3e
-	 qh9pUb1tM/UFqfqqdRv7qZWPQYk15beuM3ddznUrwb21n/E4K3zEjzwku+/uwOobh8
-	 RnErEpSEndTGhIm1kEgLkmsWC5yXgTTMYS+ba63TwzTjFcSDZ8GAh+QbdIqTcndZlO
-	 IOFbm2lwiJIuUq+eHJC9ZhQvn7bzU/D37n7Q9rClnDZTiYnqRrDV2jHC+eWr3dUy87
-	 ahBYR23M9J8jg==
-Date: Wed, 24 May 2023 09:57:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/2] ASoC: codecs: wsa883x: do not set can_multi_write
- flag
-Message-ID: <d94e734c-e816-4b3f-9fb3-a6589063c05a@sirena.org.uk>
-References: <20230523154605.4284-1-srinivas.kandagatla@linaro.org>
- <00283665-e44f-457b-b2c9-1acf59d1cbd8@sirena.org.uk>
- <c37b88ae-7f54-3c07-666f-010a5fd84bd1@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E96FF80053
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 11:06:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E96FF80053
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=FEdV7ahy
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34O5bg1h014263;
+	Wed, 24 May 2023 04:05:58 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=uzfT3zTEiD3ss3IpphzPV77dyiwKRiVQ7W/KRC08H4E=;
+ b=FEdV7ahystegIXvoI23lI6UpN6uixv3n/nS3d05eUUQZM8shAbHl//yx7Axg8/cq4kGK
+ eQhk91wqJKze/F+rVOBOFADVd/QjwZTBh9txIbvOOlhAGQZmdEI9w9KHdJm7H/QDLI+q
+ ekM+KrweYLa3HDegJ/AsT680Ab9GyJCuzstXzOPEkQvv3ez/IUDHncrGAPx0durBBzX7
+ cCT3aa3XIP46BuFMLQ1F0A+Q233pHjgJOaG8r06CloZY4abtaFVFauu7hFqN2Av9UnyX
+ J4aXcNRVbWbfAcjHn3+eQVSc9AqrCuIBXsy766vraXJee8z1yb1KXhwC719gd6qVaZdD uw==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qptmm504u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 24 May 2023 04:05:58 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Wed, 24 May
+ 2023 04:05:57 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Wed, 24 May 2023 04:05:57 -0500
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id E5FE411D4;
+	Wed, 24 May 2023 09:05:56 +0000 (UTC)
+Date: Wed, 24 May 2023 09:05:56 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>, <pierre-louis.bossart@linux.intel.com>,
+        <u.kleine-koenig@pengutronix.de>
+CC: <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs35l45: Relicense to GPL only
+Message-ID: <20230524090556.GC68926@ediswmail.ad.cirrus.com>
+References: <20230510092534.3919120-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="etqstALKWZ9H8K4L"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <c37b88ae-7f54-3c07-666f-010a5fd84bd1@linaro.org>
-X-Cookie: You will be divorced within a year.
-Message-ID-Hash: SAPCJ6RTAGK5YHU2V2OWCZA2QYQ3GG2F
-X-Message-ID-Hash: SAPCJ6RTAGK5YHU2V2OWCZA2QYQ3GG2F
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20230510092534.3919120-1-ckeepax@opensource.cirrus.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-ORIG-GUID: RwA5E8b8e1mHtmfuFZNOWKlk5INpBUBt
+X-Proofpoint-GUID: RwA5E8b8e1mHtmfuFZNOWKlk5INpBUBt
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: YMPYT4LD44KVE72G6IB6GRWLMR7DK32K
+X-Message-ID-Hash: YMPYT4LD44KVE72G6IB6GRWLMR7DK32K
+X-MailFrom: prvs=05086b7afd=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SAPCJ6RTAGK5YHU2V2OWCZA2QYQ3GG2F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YMPYT4LD44KVE72G6IB6GRWLMR7DK32K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,36 +111,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Wed, May 10, 2023 at 10:25:34AM +0100, Charles Keepax wrote:
+> Cirrus never intended to upstream dual licensed code, convert to
+> GPL only.
+> 
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+> 
+> Apologies for this but this was never our intention and I believe that
+> it can be a little legally involved maintaining dual licensed kernel code.
+> Fortunately not that many people outside of Cirrus have contributed to
+> the files in question. I have CCed everyone who has contributed both
+> internally and externally.
 
---etqstALKWZ9H8K4L
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pierre, Uwe,
 
-On Wed, May 24, 2023 at 09:51:00AM +0100, Srinivas Kandagatla wrote:
-> On 23/05/2023 17:55, Mark Brown wrote:
+Apologies for chasing but it would be really helpful to get an
+ack for this one, we need the approval of everyone who
+contributed to fix the licensing issue.
 
-> > Does the CODEC support mulitple writes?  If so it seems better to leave
-
-> No, the codec itself does not support multi-write. All the codec register
-> level interface is via SoundWire Bus. which also does not support with the
-> existing code.
-
-I'm unclear, is this a limitation of the hardware or of the current
-Soundwire code?
-
---etqstALKWZ9H8K4L
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRt0ZQACgkQJNaLcl1U
-h9AOMgf/WO5YS4C+JsjQSfwCknP55UoFjGXPXq3xXsBDSAWWsAoYmn1YChO63rdG
-SdIFrP/9qYLeBViWCnkc6eoDNAx/yCcgt2EOyNHe6AaOK1NFiFItGVfb0EZH9pzE
-irNrK33iUtmj5wFJBS7/xk4G3zrW9rjd8PHIQw/f23uo+Ghv44zptBrOC8FCP4q+
-wjbtQ/XzpsZlyudpHg1ABYEw4qdsML0F6cj+P/t8/Y0NCiYESnhBt6bazvEl2LAf
-fcWuSbSrRxcyVyWgIGwwg/HRnXVROs8pX9kLlj/Y+ek8jHP5TObHNuiRrVh95OJM
-o279APGUrW9DQldUk5LGDKDxNV8uIw==
-=c42b
------END PGP SIGNATURE-----
-
---etqstALKWZ9H8K4L--
+Thanks,
+Charles

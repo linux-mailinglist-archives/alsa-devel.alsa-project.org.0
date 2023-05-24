@@ -2,88 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1FEE70F36C
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 11:50:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20DC570F3C7
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 May 2023 12:10:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0EAC3E7;
-	Wed, 24 May 2023 11:49:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0EAC3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F8A61F9;
+	Wed, 24 May 2023 12:09:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F8A61F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1684921806;
-	bh=XOfwDSgrY2BQhVwfm4T7jxksI5sC8k9yj6vj9mTkvlM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1684923035;
+	bh=YueSUVCmpGPiwOfpPnIHv0hVmq2kXwftACAhsTc/YUA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FGQ9veiNDI8HCTCAo8bEOJUAO2A/tk5E1Bi5y/3MzCTUli3flm5jIGTT+qPfjPpro
-	 qOW/WM1amc0LoZLZvHKYEO9OUENLY7VgPJR+BFhpJnxhkJnSBiGNyL78URZsxtY4bm
-	 iQ894u/VUS+l0IFw7UOWK5nsXF3A0sBISxFMJ8Vk=
+	b=l1N228v5LlPyZFchKJ4bOAfddgEfWMd1fwW+eyLp0xnN6VxF6u4kLdGvL5RYtKQvO
+	 TRjf7pKufnvEb+2oJ7bQ9HLQDAXiFChIq8Ph7hij2Ba8Y+KyLlOtmWX1O8dFPW1IKW
+	 Od2Mni55Cd2beIMYcRq4JXAHq1/QCU95lqPeHEQY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD09BF80053; Wed, 24 May 2023 11:48:54 +0200 (CEST)
+	id 88DBEF8024E; Wed, 24 May 2023 12:09:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06719F80249;
-	Wed, 24 May 2023 11:48:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FA40F80249;
+	Wed, 24 May 2023 12:09:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6AFE5F8026A; Wed, 24 May 2023 11:48:51 +0200 (CEST)
+	id 5E301F8024E; Wed, 24 May 2023 12:09:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2BCA5F80053
-	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 11:48:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BCA5F80053
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1651F8016A
+	for <alsa-devel@alsa-project.org>; Wed, 24 May 2023 12:09:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1651F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=q8FQMMbu
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E32BB6006F;
-	Wed, 24 May 2023 09:48:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624AAC433D2;
-	Wed, 24 May 2023 09:48:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684921725;
-	bh=XOfwDSgrY2BQhVwfm4T7jxksI5sC8k9yj6vj9mTkvlM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=q8FQMMbuxu8++UlKgK+2WH+jnW7nU7KvYQ3d72jMUrVBi152HGqALC7FI6cPr629p
-	 kGMe23Nbzdmlh+o4Setd5gKGS5XLGdYS7LM8VIZVLpm6j6JJPKCPHTYwbNAdU0ICPk
-	 kn0InzG/zSzzW9zgywbBWuEM/pkS4Un9Xo+sXGx3H8CPEmnX2IczUe7IGDAoLyBfG/
-	 RgeNMN1LCSjHVRnV8PxIgeitELI17VBcIFc/eeZnqV/WNumZAQubxM6rTezEZvrjSI
-	 mvlXB9tdOPbZwOnMJcCXppkuaoFkErHSEqeQnY23fvNBoQD8XoG1NxtG4r3YnCO0u3
-	 r28sUd9i/COFg==
-Date: Wed, 24 May 2023 10:48:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=YGNM3Rgu
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-3f601c57d8dso7001865e9.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 24 May 2023 03:09:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1684922974; x=1687514974;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mkWYRILc4zy51036RiiXREJqmRLbxu9AB+NtWj3Jni8=;
+        b=YGNM3RguBhMUXngIJqlzwDDyrWHYTLPV2xGHTVfWE9MTPH8PGd8fAht8TnnHCOgJPJ
+         DJ9Ef6jgsu6MQRw7ud6tN3KsnUFpBV12BTvyXayg4nhFmsUF0UY9DTUo2EvU+NaJF6dq
+         Z7pP1kDLLmywsTj9Vk/8L8a8yOnHdZKWdGGuqxWhd/gJ512zN7EhaYhoVFJ2dVKtpwyA
+         5CeUlkPHLeEOfVyYe84JvLYmt1SRIW4EGYtjJBIDGz7fmhnMKYgcXb9hEt4sshPCSY04
+         7O+OWw3oUgwFFTslI0Yzw6tItCg8NOgEBrDTT5HS/lv532EGVlL5qzxgVn8+xZYQvC3b
+         Dbsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684922974; x=1687514974;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mkWYRILc4zy51036RiiXREJqmRLbxu9AB+NtWj3Jni8=;
+        b=Uw0ffnId8AzcswJCOhnhRWguCj302qw/6BLFZE3KC9Y3oHTcIOVysiEEMl3MxiwuYV
+         5U9P+de12mG1VtyMpHtvSbHKTuNDVn2zAN+U+0vMfqqyzw+h+URmhJVG0GUgywHN9Gyk
+         WmLy/yRT5/6XZWjj77if33BPKq4hc8D84vauzP73udZEXNwFU6cRXbN1SD3LhGMGWN04
+         V2T6lPX+Jir0uBPzC9IDwWgtHPNbC0pqGt+oW6STvu2eyLC4vMwuSPKPHOzNUM/IUeln
+         RR7DLtkMmovId/3ckNJjTUbFS4FK5YxcRgxjrnebo8OVsJCY/2EmBk2/VsWFOQBNMBQx
+         +9Hw==
+X-Gm-Message-State: AC+VfDyr6xXU/Gt58fhk/AXRIB2v+qRCs2GXSR5KzL80tZ3nlqPEj/VD
+	7ouqBzlXeMEWflychAtMGWbxwA==
+X-Google-Smtp-Source: 
+ ACHHUZ59u3mMLKjfTqBnaTrhebMf6WVp1mzKWUJdDg/MYHjYyDzloa73nCjuMEQFrhQ3qMK9cZnqIw==
+X-Received: by 2002:a05:600c:1e01:b0:3f6:b44:3163 with SMTP id
+ ay1-20020a05600c1e0100b003f60b443163mr3986833wmb.12.1684922974446;
+        Wed, 24 May 2023 03:09:34 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ i1-20020a05600c354100b003f61177faffsm3488271wmq.0.2023.05.24.03.09.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 24 May 2023 03:09:33 -0700 (PDT)
+Message-ID: <bdceb6e4-9de8-07ab-502b-c526e97a592d@linaro.org>
+Date: Wed, 24 May 2023 11:09:32 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 Subject: Re: [PATCH 1/2] ASoC: codecs: wsa883x: do not set can_multi_write
  flag
-Message-ID: <c24b2f1c-3b08-492f-954c-c4f10ae5ad81@sirena.org.uk>
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
+ ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
+ linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
+ alsa-devel@alsa-project.org
 References: <20230523154605.4284-1-srinivas.kandagatla@linaro.org>
  <00283665-e44f-457b-b2c9-1acf59d1cbd8@sirena.org.uk>
  <c37b88ae-7f54-3c07-666f-010a5fd84bd1@linaro.org>
  <d94e734c-e816-4b3f-9fb3-a6589063c05a@sirena.org.uk>
  <af7b7d4f-d7ab-b5ef-e639-9a8b13de54ee@linaro.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Z25BQUiQltUZUpg7"
-Content-Disposition: inline
-In-Reply-To: <af7b7d4f-d7ab-b5ef-e639-9a8b13de54ee@linaro.org>
-X-Cookie: You will be divorced within a year.
-Message-ID-Hash: JXRMNLJCAA7NHSWKODVL7PPA6DRUUTJC
-X-Message-ID-Hash: JXRMNLJCAA7NHSWKODVL7PPA6DRUUTJC
-X-MailFrom: broonie@kernel.org
+ <c24b2f1c-3b08-492f-954c-c4f10ae5ad81@sirena.org.uk>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <c24b2f1c-3b08-492f-954c-c4f10ae5ad81@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: W7GJNJ7AGFZ32HULNDW3Z2JZSG4NG6AM
+X-Message-ID-Hash: W7GJNJ7AGFZ32HULNDW3Z2JZSG4NG6AM
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JXRMNLJCAA7NHSWKODVL7PPA6DRUUTJC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7GJNJ7AGFZ32HULNDW3Z2JZSG4NG6AM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,49 +132,36 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---Z25BQUiQltUZUpg7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Wed, May 24, 2023 at 10:42:21AM +0100, Srinivas Kandagatla wrote:
-> On 24/05/2023 09:57, Mark Brown wrote:
+On 24/05/2023 10:48, Mark Brown wrote:
+> On Wed, May 24, 2023 at 10:42:21AM +0100, Srinivas Kandagatla wrote:
+>> On 24/05/2023 09:57, Mark Brown wrote:
+> 
+>>> I'm unclear, is this a limitation of the hardware or of the current
+>>> Soundwire code?
+> 
+>> Its both.
+> 
+>> Codec itself does not have any private write callback to support this and
+>> AFAIU Qualcomm Soundwire controller does not have any such hw facility to
+>> program multi-registers for device at one shot.
+> 
+> How about the *CODEC* hardware?
+> 
+No, Codec does not have any such interface to write to device registers 
+directly without going via Soundwire.
 
-> > I'm unclear, is this a limitation of the hardware or of the current
-> > Soundwire code?
+>> Is write callback used for both Bulk writes and multi-writes?
+> 
+> Only multi-write at this point but we probably should consider redoing
+> bulk writes to use it as well.
 
-> Its both.
+By the looks of the code, its other way around.
 
-> Codec itself does not have any private write callback to support this and
-> AFAIU Qualcomm Soundwire controller does not have any such hw facility to
-> program multi-registers for device at one shot.
-
-How about the *CODEC* hardware?
-
-> Is write callback used for both Bulk writes and multi-writes?
-
-Only multi-write at this point but we probably should consider redoing
-bulk writes to use it as well.
-
-> Is multi-write feature of regmap bus or device?
-
-Well, I don't think any buses that understand registers have implemented
-it yet but there's nothing fundamental that means that a bus couldn't
-usefully do something with multi-write.  The current users all use raw
-buses that don't know anything about registers or values.
-
---Z25BQUiQltUZUpg7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRt3XcACgkQJNaLcl1U
-h9CdRgf+Nhy3duqWiV/9INno44wrOWxhqUR8tBBmnKtwdQwe1czT+kEXwFf8iJ4k
-Yi6z8w3tWfDOXyW7cxhrgWqraV9oE7XMyhNK0NNx9qWR4gDWItAmxzriB67iIJnd
-3wyVoz61coztitpVVkdEgI8mFqqeKluRkDxtYrWDPRSHguQtt3e+Pw+bTY8QvtvW
-GDbPdrLrUSIl7ZUn/J6Rfbs6C3iuQ+6Mh8udyNIq8angXzBVT0Dyn9pKb5hjPusf
-RN7PlaPjYDG00J8cg9QPhkfY9RWJs1S3JlaxBJ9lkTQx5gffEe4rPhBNkqXpAOVH
-/40RVfp952NEWhOjy/LlgCwEZW68hA==
-=9Wc1
------END PGP SIGNATURE-----
-
---Z25BQUiQltUZUpg7--
+> 
+>> Is multi-write feature of regmap bus or device?
+> 
+> Well, I don't think any buses that understand registers have implemented
+> it yet but there's nothing fundamental that means that a bus couldn't
+> usefully do something with multi-write.  The current users all use raw
+> buses that don't know anything about registers or values.

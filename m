@@ -2,104 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0AAA711434
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:37:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 068E1711478
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:40:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF3D5886;
-	Thu, 25 May 2023 20:36:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF3D5886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F9C4827;
+	Thu, 25 May 2023 20:39:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F9C4827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685039827;
-	bh=t/ms0pwOAuDnl9IxrHsVJUCzq/i6WgFJfupJsy3w7/E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1685040008;
+	bh=IkGBsXi3C4HEnccIyBaIOzBJS5i014sdapMrMLHbqrQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fRlgd7HzSJ5IO17TjhYGdQRAzgRLbbLotNNx1BFR73dM9GSqLN9pRvqoxDpat2zuT
-	 fblU3TmM7pEC7GOLAP8SzzSgRpeqRf388OehHtU6rVDcWEhsqxiwm+MirWmlawE2SA
-	 g1v2vXwh7RrttWR8sm178yoTYYYMUM3LEVgqIGrM=
+	b=AuXgISUn3DSVdVBqM7DhkjeuhP05JJhEC6SdUaGmM9mi5zgnqEdGGHOaXJ4NqSowk
+	 qRMI+CUpaU+ndT+oouAWZgcYoTPPkrzH+vgLLhP/ED5UQCQsyuXDgjASOMtlYpL4Uq
+	 z6f3ici7bwpKW7/f2eapuPwlXhBtTWdL0cxL2pT0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE535F8055A; Thu, 25 May 2023 20:36:02 +0200 (CEST)
+	id F1297F8016A; Thu, 25 May 2023 20:38:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B006F800DF;
-	Thu, 25 May 2023 20:36:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95E2CF8016A;
+	Thu, 25 May 2023 20:38:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD92EF80552; Thu, 25 May 2023 20:35:58 +0200 (CEST)
+	id 34B71F8016A; Thu, 25 May 2023 20:38:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [IPv6:2a00:1450:4864:20::632])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 34A04F800DF
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:35:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34A04F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 82AC6F8016A
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:38:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82AC6F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=g9JfbEY9
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-96f50e26b8bso171815666b.2
-        for <alsa-devel@alsa-project.org>;
- Thu, 25 May 2023 11:35:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685039753; x=1687631753;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7LfxAZR8t52u4AO1SI5kqvS9LLBpQSJuHQCFUX9OzGQ=;
-        b=g9JfbEY9bxh9EFIPrAmrY+rOfrj+WxxnuJ/cu8Dy8jgAuxdkF7fJ2GQ1kUODnVFDDz
-         +hBd/VU0QaeUH2K+JB3vk6q2kH+7eqi54cjsOTvNUgE5r+nXS3C6PV2JrI6tjglNMGAP
-         h/52M9XN3BDzkpN0nx83F6MNLOM075WaOwoUQGDGM7nsbMETbyvN+F9OJ45JlObjkAoB
-         VlsoaCqwUJr1ckApxtYKGoKag0/TgNw/iB25yH2nu1Y7nHljvljytaCKr5NSJ0pMBcGT
-         QlO0NXoj8ryYtS/Hk5r5LLvG0XWLQeHITLweEidUZmOz49K4Ax6Fy5RV+mBaYxZzNg7S
-         Y7mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685039753; x=1687631753;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7LfxAZR8t52u4AO1SI5kqvS9LLBpQSJuHQCFUX9OzGQ=;
-        b=fI3Vqn2DTV9TPO/e3dENgQhcsl/uYe7LXEvmAie2o9dYQDRUOe8mE28xa8+QbnTvyo
-         IJKySnHmenZZI0JEmTccX1OEdHUseVEw18zrz8EnfkV41F3DNJK/sv0bXL6zC8PhSEhm
-         2EVM9xjvyK8pev47CIN2Gu8avULoZGf8JeYGclJzF330q4qX5ncMXW8cNlYPxpKfaINU
-         oY5qguJeK6dLO5Gr/7vCe3gnhsarC3bldjTR8w0oILY/OAKO+9Ru0a7JcghHX4FUn/c0
-         CQ8JGBzoXXNrMk7JkmRYG4Q/LsQJPkiwZhMlvJT8AFbONpZChfcUA3P5H1XfTJmJ/Io/
-         O0kg==
-X-Gm-Message-State: AC+VfDyfCYlxHoF7Y/1j6YNyqnjEvH5uc/q3ELRUGdzkO4h5Tm7Ak7B5
-	k74L4JD5sX2oMAwu1Mv1rbjrVWvwbDBwlo92SBo=
-X-Google-Smtp-Source: 
- ACHHUZ6HhImvycIW5y9vQ9Fb6/lTe4cNBTqpqgaXHCHK9T60sVxAPi6KnVa8R196FbkpqvqTomfV6C0HgBOSM2p6AwU=
-X-Received: by 2002:a17:906:6a0c:b0:96f:3e35:748a with SMTP id
- qw12-20020a1709066a0c00b0096f3e35748amr3072640ejc.6.1685039753202; Thu, 25
- May 2023 11:35:53 -0700 (PDT)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gLVSvAVi
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 74862610A1;
+	Thu, 25 May 2023 18:38:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108BEC4339C;
+	Thu, 25 May 2023 18:38:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685039915;
+	bh=IkGBsXi3C4HEnccIyBaIOzBJS5i014sdapMrMLHbqrQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=gLVSvAViejIOrxyght+WiypNqnN7raxM69nqUz8SBxINPZnGLCbgpn3ezSUdcJNkI
+	 7bAkF6nVfZd8V0OTvfqjyHUM2ERh0DEIXrOsTHegXG+Bjs6u+MPiZaQO/hchXD0lEM
+	 bfbbt5aDYynyhfe34Pi1SXHeIRZYhaW6+csjIfB00ezikQwiTRWGeF8hJnQxW8tFea
+	 ks0uD8h8Q34DxAesDQ2JaQoVZyIcRT4rgyrR/u3kr/JsxV8xdHSkDf2YA78TJvfN0v
+	 12ufBUkBk+jJiAYf8z/RYLw9zpV76sR5VXHLU8IonsH+RPkSJDT9JHaE/juOUaRGH4
+	 5OOTz5CxUng2Q==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org
+Subject: [PATCH AUTOSEL 6.1 49/57] ALSA: oss: avoid missing-prototype warnings
+Date: Thu, 25 May 2023 14:35:59 -0400
+Message-Id: <20230525183607.1793983-49-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230525183607.1793983-1-sashal@kernel.org>
+References: <20230525183607.1793983-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20230525122837.649627-1-daniel.baluta@oss.nxp.com>
- <69c2b7cd-f211-47ef-b42a-609ee792de11@sirena.org.uk>
-In-Reply-To: <69c2b7cd-f211-47ef-b42a-609ee792de11@sirena.org.uk>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 25 May 2023 21:35:40 +0300
-Message-ID: 
- <CAEnQRZAseAmOHLBsBQuW+SqEFbT-pbrjpUiPhSuv8Ww2VoJf_w@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: SOF: imx: Add OF machine descriptors for i.MX
- platforms
-To: Mark Brown <broonie@kernel.org>
-Cc: Daniel Baluta <daniel.baluta@oss.nxp.com>, alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com,
-	yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
-	kai.vehmanen@linux.intel.com, linux-imx@nxp.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: ZAER6GKO3BZCPDKYTX42UBN2BKFAVKAL
-X-Message-ID-Hash: ZAER6GKO3BZCPDKYTX42UBN2BKFAVKAL
-X-MailFrom: daniel.baluta@gmail.com
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: YZ7EXVDWXKADRKIAUOUAMVYVPCE2CKX6
+X-Message-ID-Hash: YZ7EXVDWXKADRKIAUOUAMVYVPCE2CKX6
+X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZAER6GKO3BZCPDKYTX42UBN2BKFAVKAL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YZ7EXVDWXKADRKIAUOUAMVYVPCE2CKX6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,29 +101,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, May 25, 2023 at 8:07=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> On Thu, May 25, 2023 at 03:28:37PM +0300, Daniel Baluta wrote:
->
-> > +static struct snd_sof_of_mach sof_imx8_machs[] =3D {
-> > +     {
-> > +             .compatible =3D "fsl,imx8qxp",
-> > +             .drv_name =3D "asoc-simple-card",
-> > +             .sof_tplg_filename =3D "sof-imx8.tplg",
-> > +     },
-> > +     {
-> > +             .compatible =3D "fsl,imx8qm",
-> > +             .drv_name =3D "asoc-simple-card",
-> > +             .sof_tplg_filename =3D "sof-imx8.tplg",
-> > +     },
-> > +     {}
->
-> It seems a bit sad to be adding simple-card rather than audio-graph-card
-> at this point - is there some great reason for this?
+From: Arnd Bergmann <arnd@arndb.de>
 
-This is what we used so far and it works pretty well for us.
+[ Upstream commit 040b5a046a9e18098580d3ccd029e2318fca7859 ]
 
-Is there a plan to deprecate simple-card? And switch to audio-graph-card?
+Two functions are defined and used in pcm_oss.c but also optionally
+used from io.c, with an optional prototype. If CONFIG_SND_PCM_OSS_PLUGINS
+is disabled, this causes a warning as the functions are not static
+and have no prototype:
 
-We could have a look at this if this is the correct direction.
+sound/core/oss/pcm_oss.c:1235:19: error: no previous prototype for 'snd_pcm_oss_write3' [-Werror=missing-prototypes]
+sound/core/oss/pcm_oss.c:1266:19: error: no previous prototype for 'snd_pcm_oss_read3' [-Werror=missing-prototypes]
+
+Avoid this by making the prototypes unconditional.
+
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Link: https://lore.kernel.org/r/20230516195046.550584-2-arnd@kernel.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/core/oss/pcm_plugin.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/sound/core/oss/pcm_plugin.h b/sound/core/oss/pcm_plugin.h
+index 46e273bd4a786..50a6b50f5db4c 100644
+--- a/sound/core/oss/pcm_plugin.h
++++ b/sound/core/oss/pcm_plugin.h
+@@ -141,6 +141,14 @@ int snd_pcm_area_copy(const struct snd_pcm_channel_area *src_channel,
+ 
+ void *snd_pcm_plug_buf_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t size);
+ void snd_pcm_plug_buf_unlock(struct snd_pcm_substream *plug, void *ptr);
++#else
++
++static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
++static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
++static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
++
++#endif
++
+ snd_pcm_sframes_t snd_pcm_oss_write3(struct snd_pcm_substream *substream,
+ 				     const char *ptr, snd_pcm_uframes_t size,
+ 				     int in_kernel);
+@@ -151,14 +159,6 @@ snd_pcm_sframes_t snd_pcm_oss_writev3(struct snd_pcm_substream *substream,
+ snd_pcm_sframes_t snd_pcm_oss_readv3(struct snd_pcm_substream *substream,
+ 				     void **bufs, snd_pcm_uframes_t frames);
+ 
+-#else
+-
+-static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
+-static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
+-static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
+-
+-#endif
+-
+ #ifdef PLUGIN_DEBUG
+ #define pdprintf(fmt, args...) printk(KERN_DEBUG "plugin: " fmt, ##args)
+ #else
+-- 
+2.39.2
+

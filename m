@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AE96711503
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:43:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01785711507
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:43:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6739C82A;
-	Thu, 25 May 2023 20:42:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6739C82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22210E11;
+	Thu, 25 May 2023 20:42:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22210E11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685040206;
-	bh=IkGBsXi3C4HEnccIyBaIOzBJS5i014sdapMrMLHbqrQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Dmm9tr7NTNANw3hnPrvttC2OTSAmMeEcZITDTBThDyAFjYjQIp/TuPfW7ZHggMhmJ
-	 0WLwGN4uUVXX1H/4On0+pYIsM+19DvwS7psRRV+eHM/V2x1a0PjVK6uTPSitv/dIYo
-	 sEe6qP/JQmB625O3KwItI3MkGMnTGDx0y+xO0E2w=
+	s=default; t=1685040219;
+	bh=mQZOCKaKu/hy1ed/IVeQUFZPlBqiN0A0UWtyYRHjdh8=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=cKxc4SSJbHsm4QqpFKbbK2AlT/tzWjv3g43ddgMIy+g9+6N8jCqHcwfCn4ryQ65nH
+	 uRAUj8pxL77OFO/8TPaPPCopuQZF5zcpteZqbqx7T4br7Xmn6yvDg+h2h5AtS7LwRu
+	 iqbSxdznEy2lgoPGPaxkNFpsKgNzlhctzt+gJWZ8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 277F7F8053D; Thu, 25 May 2023 20:42:35 +0200 (CEST)
+	id D523DF8055B; Thu, 25 May 2023 20:42:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D242F8016A;
-	Thu, 25 May 2023 20:42:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74FE1F80544;
+	Thu, 25 May 2023 20:42:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACB66F80249; Thu, 25 May 2023 20:42:31 +0200 (CEST)
+	id BB035F80549; Thu, 25 May 2023 20:42:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,52 +34,54 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EC505F800DF
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:42:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC505F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37942F8024E
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:42:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37942F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OCfHu7u2
+ header.s=k20201202 header.b=GA3qVSS0
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D766F64948;
-	Thu, 25 May 2023 18:42:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC441C433D2;
-	Thu, 25 May 2023 18:42:27 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 2873561CBB;
+	Thu, 25 May 2023 18:42:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60251C433EF;
+	Thu, 25 May 2023 18:42:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685040148;
-	bh=IkGBsXi3C4HEnccIyBaIOzBJS5i014sdapMrMLHbqrQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OCfHu7u2oaBO+YhrTHYlqC/Rs5mwh+FYE6b/lZBo5wpUman+zDEZhuGhwa/FOFMBZ
-	 tDv+zxw7Y74Pv7QvIBwu6r5ayU5ubNse7EOKABAEBn62Q9CmCTTclPOXOFbZFfHjhS
-	 vKIU3sXRPbLfwsQfjp4y/KrEDScbVcjTJQ3IJjHFJL0OOWfnr0rgDX84E+IyZMmAlx
-	 q9xVKViGNaBzL3HyXYlJ/w4bOpEPhr7f2oDPbsE/TxEPvuRw1w+jyhp8tYlZnMLRZW
-	 5CGqwCaxP10A0zEo6eILZgkAKM2p0aw/84ZfJzUm7DYJDXxx8DtnbqO1GUOxkq5nmp
-	 CmMF6b/LXLDRQ==
+	s=k20201202; t=1685040161;
+	bh=mQZOCKaKu/hy1ed/IVeQUFZPlBqiN0A0UWtyYRHjdh8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=GA3qVSS0YhFVDBWBH3yw34RGB4XSYzbp7xIW8YDdKz2fAIeX7LDdBm/Pv/P++QH3n
+	 O+dbBwvUB8oaMXMKaT1LY90QS9IcvQEQ3Md87AjyjzKXAR6VskzEhTozXN6DLaeR2V
+	 JhFWpPc13qEj64Ex8aq43RRGR+RzGusygWS45UJIMA8pDBykHj57fOfRJOMAyoFr7y
+	 yXR9v2eT3dSwOs12qTSkycfMOK2od3oVGzT7CPHcKHwN8z7nwB+gX6xThREmFcacuT
+	 AKfPdXkG26R2Obw0B7CXSTm/NbgJEVFA+VBFpXHPEPsiTf9O291eaHygyuGrZN7O3n
+	 NhMLnlnxoegyw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Maxim Kochetkov <fido_max@inbox.ru>,
 	Sasha Levin <sashal@kernel.org>,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
+	ckeepax@opensource.cirrus.com,
+	nicolas.ferre@microchip.com,
+	u.kleine-koenig@pengutronix.de,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.10 28/31] ALSA: oss: avoid missing-prototype
- warnings
-Date: Thu, 25 May 2023 14:40:59 -0400
-Message-Id: <20230525184105.1909399-28-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 01/27] ASoC: dwc: limit the number of overrun
+ messages
+Date: Thu, 25 May 2023 14:42:10 -0400
+Message-Id: <20230525184238.1943072-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230525184105.1909399-1-sashal@kernel.org>
-References: <20230525184105.1909399-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: R3HBB6GRKMDLDSIEY2WK5YSGJGP5YITP
-X-Message-ID-Hash: R3HBB6GRKMDLDSIEY2WK5YSGJGP5YITP
+Message-ID-Hash: LWRTOD2LQNOXBSDMYVHT7WQVWEMP7UFL
+X-Message-ID-Hash: LWRTOD2LQNOXBSDMYVHT7WQVWEMP7UFL
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R3HBB6GRKMDLDSIEY2WK5YSGJGP5YITP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LWRTOD2LQNOXBSDMYVHT7WQVWEMP7UFL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,62 +103,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Maxim Kochetkov <fido_max@inbox.ru>
 
-[ Upstream commit 040b5a046a9e18098580d3ccd029e2318fca7859 ]
+[ Upstream commit ab6ecfbf40fccf74b6ec2ba7ed6dd2fc024c3af2 ]
 
-Two functions are defined and used in pcm_oss.c but also optionally
-used from io.c, with an optional prototype. If CONFIG_SND_PCM_OSS_PLUGINS
-is disabled, this causes a warning as the functions are not static
-and have no prototype:
+On slow CPU (FPGA/QEMU emulated) printing overrun messages from
+interrupt handler to uart console may leads to more overrun errors.
+So use dev_err_ratelimited to limit the number of error messages.
 
-sound/core/oss/pcm_oss.c:1235:19: error: no previous prototype for 'snd_pcm_oss_write3' [-Werror=missing-prototypes]
-sound/core/oss/pcm_oss.c:1266:19: error: no previous prototype for 'snd_pcm_oss_read3' [-Werror=missing-prototypes]
-
-Avoid this by making the prototypes unconditional.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Link: https://lore.kernel.org/r/20230516195046.550584-2-arnd@kernel.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru
+Link: https://lore.kernel.org/r/20230505062820.21840-1-fido_max@inbox.ru
+Signed-off-by: Mark Brown <broonie@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/oss/pcm_plugin.h | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/dwc/dwc-i2s.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/core/oss/pcm_plugin.h b/sound/core/oss/pcm_plugin.h
-index 46e273bd4a786..50a6b50f5db4c 100644
---- a/sound/core/oss/pcm_plugin.h
-+++ b/sound/core/oss/pcm_plugin.h
-@@ -141,6 +141,14 @@ int snd_pcm_area_copy(const struct snd_pcm_channel_area *src_channel,
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 65112b9d8588a..90b8814d7506a 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -132,13 +132,13 @@ static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
  
- void *snd_pcm_plug_buf_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t size);
- void snd_pcm_plug_buf_unlock(struct snd_pcm_substream *plug, void *ptr);
-+#else
-+
-+static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
-+static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
-+static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
-+
-+#endif
-+
- snd_pcm_sframes_t snd_pcm_oss_write3(struct snd_pcm_substream *substream,
- 				     const char *ptr, snd_pcm_uframes_t size,
- 				     int in_kernel);
-@@ -151,14 +159,6 @@ snd_pcm_sframes_t snd_pcm_oss_writev3(struct snd_pcm_substream *substream,
- snd_pcm_sframes_t snd_pcm_oss_readv3(struct snd_pcm_substream *substream,
- 				     void **bufs, snd_pcm_uframes_t frames);
+ 		/* Error Handling: TX */
+ 		if (isr[i] & ISR_TXFO) {
+-			dev_err(dev->dev, "TX overrun (ch_id=%d)\n", i);
++			dev_err_ratelimited(dev->dev, "TX overrun (ch_id=%d)\n", i);
+ 			irq_valid = true;
+ 		}
  
--#else
--
--static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
--static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
--static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
--
--#endif
--
- #ifdef PLUGIN_DEBUG
- #define pdprintf(fmt, args...) printk(KERN_DEBUG "plugin: " fmt, ##args)
- #else
+ 		/* Error Handling: TX */
+ 		if (isr[i] & ISR_RXFO) {
+-			dev_err(dev->dev, "RX overrun (ch_id=%d)\n", i);
++			dev_err_ratelimited(dev->dev, "RX overrun (ch_id=%d)\n", i);
+ 			irq_valid = true;
+ 		}
+ 	}
 -- 
 2.39.2
 

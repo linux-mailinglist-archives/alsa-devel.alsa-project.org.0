@@ -2,90 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CE547113F3
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:34:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CACAA7113F7
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:35:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7AF0822;
-	Thu, 25 May 2023 20:34:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7AF0822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24E201E4;
+	Thu, 25 May 2023 20:34:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24E201E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685039697;
-	bh=Ia5yIrHma2Z+l6uTvw7SQJwrOjKMLXKh1gYs3ErSs6E=;
+	s=default; t=1685039726;
+	bh=mfi9pA8TtpQSlQKzzbalZaPXkKkmtsGD+l1SjdXJ0yA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FKVxjtorK360x+q6jN2GNi2pNVe+J2DuZr8DcIt/MKN9wOrEi6wPysgK9dtE9kPg/
-	 h0GeEd4H6iaN46ww9DCMUz3Nui6lVhJugY/KF4vCdMMnxiGEqspfU2c92U0gulk/xk
-	 Q4O5+pAcNauLpJwPMW5r1fH0/vQGO3QOxyoUiu0Y=
+	b=lhB/yL/lHl4Ql3I+v5TLvgFYw5GgirSdo1w4LsVZzsVzs8B+m+fHupSK93mV94VQP
+	 7fGdcIRqDB5jOX4/FXq34hDinCOHL+tfqeZNIxPhfU5404httDVPQPkm4k2XvpZdPg
+	 LAKm6sY6ToC/9pa4lzQb8acW2QuBRsaRq++EjkEI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 643F6F805AB; Thu, 25 May 2023 20:33:11 +0200 (CEST)
+	id 92120F8024E; Thu, 25 May 2023 20:34:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E788F80542;
-	Thu, 25 May 2023 20:33:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D498EF8026A;
+	Thu, 25 May 2023 20:34:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1237F80587; Thu, 25 May 2023 20:33:07 +0200 (CEST)
+	id 14636F80544; Thu, 25 May 2023 20:34:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4468F80587
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:33:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4468F80587
+	by alsa1.perex.cz (Postfix) with ESMTPS id DE4B0F80007;
+	Thu, 25 May 2023 20:34:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE4B0F80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KCrzC6Ap
+ header.s=k20201202 header.b=jMmhHDXj
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A985D648B5;
-	Thu, 25 May 2023 18:33:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C721C4339E;
-	Thu, 25 May 2023 18:33:00 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D0A2E60BA8;
+	Thu, 25 May 2023 18:34:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFCD1C43446;
+	Thu, 25 May 2023 18:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685039581;
-	bh=Ia5yIrHma2Z+l6uTvw7SQJwrOjKMLXKh1gYs3ErSs6E=;
+	s=k20201202; t=1685039641;
+	bh=mfi9pA8TtpQSlQKzzbalZaPXkKkmtsGD+l1SjdXJ0yA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KCrzC6Apcoma2r28QW6EVMYby6zo1TQzAeeUZsw0PcqAw86HJBt3CPReidYpqFUp8
-	 JLaRAVkCdijz4cVPgt36RUyqEmjhKz0sBIfPar8tDgv/ZhhrcRkaEqZnNqKldhKSUL
-	 SSIGPdtRxdN8VRgs1OxkU9KD83R0vXojIUL9DuWaOy/IE2m7euO+5iZFewnjPZwS02
-	 F6jj6OFX56de62GbcDKv46wyaLmwJZs5wgT4vkTFhp50cdsRP+bdVswU/Xj9I0/ggM
-	 d1aVveWancGZuYo4778v7bS/9GWC+Ueo7nZBN+R3sipqUEsXfirRX3fErOzkr1OtMo
-	 4hriMMz5Kdcpw==
+	b=jMmhHDXjlkRpJASzSF9KjbU/al7RDFy/oyrMSzeH1lXy5Kta8j08ftqGGluFT3xiw
+	 4bMz1s7XsoNB5qunFzwSiLF7PFzc58qGSGC488/gbO/gCDVna6b3JNuIotmQzle4/a
+	 5DvPMTwLufzddSPZQT58eX+a09KYKL9l61nJIIIHWJjOOEEyBWvx4c4KZcv4AHe1m4
+	 093WFaYrXtq8QFoO6Lx5Ex0+T5My4Y2D9HyhId4uPZDh4r42/5xqXO0m2GHlhIT9ge
+	 K4nazGzymsbPEr7m+Wh6wcaIODFsrSJpk4DfYnIwpIiwXQe+bjCsEUOxRALnSEWR1V
+	 a8cDifdUxrw8g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>,
-	lars@metafoo.de,
-	nuno.sa@analog.com,
 	lgirdwood@gmail.com,
+	peter.ujfalusi@linux.intel.com,
+	yung-chuan.liao@linux.intel.com,
+	ranjani.sridharan@linux.intel.com,
+	daniel.baluta@nxp.com,
 	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
+	sound-open-firmware@alsa-project.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.3 14/67] ASoC: ssm2602: Add workaround for playback
- distortions
-Date: Thu, 25 May 2023 14:30:51 -0400
-Message-Id: <20230525183144.1717540-14-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.3 31/67] ASoC: SOF: debug: conditionally bump
+ runtime_pm counter on exceptions
+Date: Thu, 25 May 2023 14:31:08 -0400
+Message-Id: <20230525183144.1717540-31-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230525183144.1717540-1-sashal@kernel.org>
 References: <20230525183144.1717540-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZPKSTNH5OUWJMVISGKJTEEKZCQPMXZVI
-X-Message-ID-Hash: ZPKSTNH5OUWJMVISGKJTEEKZCQPMXZVI
+Message-ID-Hash: BTBYHCE6LTI2G7KMJQTF5WCGV4ILW6NV
+X-Message-ID-Hash: BTBYHCE6LTI2G7KMJQTF5WCGV4ILW6NV
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZPKSTNH5OUWJMVISGKJTEEKZCQPMXZVI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BTBYHCE6LTI2G7KMJQTF5WCGV4ILW6NV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,135 +108,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Paweł Anikiel <pan@semihalf.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit f63550e2b165208a2f382afcaf5551df9569e1d4 ]
+[ Upstream commit 3de975862f985f1c9e225a0d13aa3d501373f7c3 ]
 
-Apply a workaround for what appears to be a hardware quirk.
+When a firmware IPC error happens during a pm_runtime suspend, we
+ignore the error and suspend anyways. However, the code
+unconditionally increases the runtime_pm counter. This results in a
+confusing configuration where the code will suspend, resume but never
+suspend again due to the use of pm_runtime_get_noresume().
 
-The problem seems to happen when enabling "whole chip power" (bit D7
-register R6) for the very first time after the chip receives power. If
-either "output" (D4) or "DAC" (D3) aren't powered on at that time,
-playback becomes very distorted later on.
+The intent of the counter increase was to prevent entry in D3, but if
+that transition to D3 is already started it cannot be stopped. In
+addition, there's no point in that case in trying to prevent anything,
+the firmware error is handled and the next resume will re-initialize
+the firmware completely.
 
-This happens on the Google Chameleon v3, as well as on a ZYBO Z7-10:
-https://ez.analog.com/audio/f/q-a/543726/solved-ssm2603-right-output-offset-issue/480229
-I suspect this happens only when using an external MCLK signal (which
-is the case for both of these boards).
+This patch changes the logic to prevent suspend when the device is
+pm_runtime active and has a use_count > 0.
 
-Here are some experiments run on a Google Chameleon v3. These were run
-in userspace using a wrapper around the i2cset utility:
-ssmset() {
-        i2cset -y 0 0x1a $(($1*2)) $2
-}
-
-For each of the following sequences, we apply power to the ssm2603
-chip, set the configuration registers R0-R5 and R7-R8, run the selected
-sequence, and check for distortions on playback.
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x07 # chip, out, dac
-  OK
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x87 # out, dac
-  ssmset 0x06 0x07 # chip
-  OK
-
-  (disable MCLK)
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x1f # chip
-  ssmset 0x06 0x07 # out, dac
-  (enable MCLK)
-  OK
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x1f # chip
-  ssmset 0x06 0x07 # out, dac
-  NOT OK
-
-  ssmset 0x06 0x1f # chip
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x07 # out, dac
-  NOT OK
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x0f # chip, out
-  ssmset 0x06 0x07 # dac
-  NOT OK
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x17 # chip, dac
-  ssmset 0x06 0x07 # out
-  NOT OK
-
-For each of the following sequences, we apply power to the ssm2603
-chip, run the selected sequence, issue a reset with R15, configure
-R0-R5 and R7-R8, run one of the NOT OK sequences from above, and check
-for distortions.
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x07 # chip, out, dac
-  OK
-
-  (disable MCLK)
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x07 # chip, out, dac
-  (enable MCLK after reset)
-  NOT OK
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x17 # chip, dac
-  NOT OK
-
-  ssmset 0x09 0x01 # core
-  ssmset 0x06 0x0f # chip, out
-  NOT OK
-
-  ssmset 0x06 0x07 # chip, out, dac
-  NOT OK
-
-Signed-off-by: Paweł Anikiel <pan@semihalf.com
-Link: https://lore.kernel.org/r/20230508113037.137627-8-pan@semihalf.com
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com
+Link: https://lore.kernel.org/r/20230512103315.8921-2-peter.ujfalusi@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/ssm2602.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ sound/soc/sof/debug.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/ssm2602.c b/sound/soc/codecs/ssm2602.c
-index cbbe83b85adaf..cf7927222be15 100644
---- a/sound/soc/codecs/ssm2602.c
-+++ b/sound/soc/codecs/ssm2602.c
-@@ -53,6 +53,18 @@ static const struct reg_default ssm2602_reg[SSM2602_CACHEREGNUM] = {
- 	{ .reg = 0x09, .def = 0x0000 }
- };
- 
-+/*
-+ * ssm2602 register patch
-+ * Workaround for playback distortions after power up: activates digital
-+ * core, and then powers on output, DAC, and whole chip at the same time
-+ */
-+
-+static const struct reg_sequence ssm2602_patch[] = {
-+	{ SSM2602_ACTIVE, 0x01 },
-+	{ SSM2602_PWR,    0x07 },
-+	{ SSM2602_RESET,  0x00 },
-+};
-+
- 
- /*Appending several "None"s just for OSS mixer use*/
- static const char *ssm2602_input_select[] = {
-@@ -589,6 +601,9 @@ static int ssm260x_component_probe(struct snd_soc_component *component)
- 		return ret;
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index ade0507328af4..5042312b1b98d 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -437,8 +437,8 @@ void snd_sof_handle_fw_exception(struct snd_sof_dev *sdev, const char *msg)
+ 		/* should we prevent DSP entering D3 ? */
+ 		if (!sdev->ipc_dump_printed)
+ 			dev_info(sdev->dev,
+-				 "preventing DSP entering D3 state to preserve context\n");
+-		pm_runtime_get_noresume(sdev->dev);
++				 "Attempting to prevent DSP from entering D3 state to preserve context\n");
++		pm_runtime_get_if_in_use(sdev->dev);
  	}
  
-+	regmap_register_patch(ssm2602->regmap, ssm2602_patch,
-+			      ARRAY_SIZE(ssm2602_patch));
-+
- 	/* set the update bits */
- 	regmap_update_bits(ssm2602->regmap, SSM2602_LINVOL,
- 			    LINVOL_LRIN_BOTH, LINVOL_LRIN_BOTH);
+ 	/* dump vital information to the logs */
 -- 
 2.39.2
 

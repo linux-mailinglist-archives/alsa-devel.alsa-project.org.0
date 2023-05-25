@@ -2,86 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01785711507
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:43:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2E27711508
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:43:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22210E11;
-	Thu, 25 May 2023 20:42:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22210E11
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EDFEDEF;
+	Thu, 25 May 2023 20:42:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EDFEDEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685040219;
-	bh=mQZOCKaKu/hy1ed/IVeQUFZPlBqiN0A0UWtyYRHjdh8=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=cKxc4SSJbHsm4QqpFKbbK2AlT/tzWjv3g43ddgMIy+g9+6N8jCqHcwfCn4ryQ65nH
-	 uRAUj8pxL77OFO/8TPaPPCopuQZF5zcpteZqbqx7T4br7Xmn6yvDg+h2h5AtS7LwRu
-	 iqbSxdznEy2lgoPGPaxkNFpsKgNzlhctzt+gJWZ8=
+	s=default; t=1685040226;
+	bh=uBKma2Aqhkrx3VqK+20ig6xk1tNDVIK+ji+ozjbFkRw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=pXzP8u4JNNc1vhEAFmtaCTI88k3f+or0PvPfsugwzm99igWHcrud/FnHdXCj+2CkI
+	 8tCLi91bWI6oF3d1zS+4Z8rnegrf2HED/1W3A4aK79CqAcCt8RAgzjB06XQkjIyGs+
+	 fSq4EJ6tVodbC6NQvXepGRmnuiP0En5I4qnDoEWc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D523DF8055B; Thu, 25 May 2023 20:42:48 +0200 (CEST)
+	id 8A062F8056F; Thu, 25 May 2023 20:42:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74FE1F80544;
-	Thu, 25 May 2023 20:42:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05F05F80558;
+	Thu, 25 May 2023 20:42:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB035F80549; Thu, 25 May 2023 20:42:44 +0200 (CEST)
+	id EFCA8F80549; Thu, 25 May 2023 20:42:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 37942F8024E
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:42:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37942F8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3F55CF8024E
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:42:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F55CF8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GA3qVSS0
+ header.s=k20201202 header.b=YOSuypOx
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 2873561CBB;
-	Thu, 25 May 2023 18:42:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60251C433EF;
-	Thu, 25 May 2023 18:42:40 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 2222760C23;
+	Thu, 25 May 2023 18:42:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACB0C4339C;
+	Thu, 25 May 2023 18:42:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685040161;
-	bh=mQZOCKaKu/hy1ed/IVeQUFZPlBqiN0A0UWtyYRHjdh8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=GA3qVSS0YhFVDBWBH3yw34RGB4XSYzbp7xIW8YDdKz2fAIeX7LDdBm/Pv/P++QH3n
-	 O+dbBwvUB8oaMXMKaT1LY90QS9IcvQEQ3Md87AjyjzKXAR6VskzEhTozXN6DLaeR2V
-	 JhFWpPc13qEj64Ex8aq43RRGR+RzGusygWS45UJIMA8pDBykHj57fOfRJOMAyoFr7y
-	 yXR9v2eT3dSwOs12qTSkycfMOK2od3oVGzT7CPHcKHwN8z7nwB+gX6xThREmFcacuT
-	 AKfPdXkG26R2Obw0B7CXSTm/NbgJEVFA+VBFpXHPEPsiTf9O291eaHygyuGrZN7O3n
-	 NhMLnlnxoegyw==
+	s=k20201202; t=1685040164;
+	bh=uBKma2Aqhkrx3VqK+20ig6xk1tNDVIK+ji+ozjbFkRw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YOSuypOxPo69RTNtZUKZ+ZO6dcAF9bSatSAFQF7UYzHXex7BVlvVTuf+DMVEDAFAT
+	 UwPxjIFrS9NBWP9erIZwZEf/5jYGxQwJZ4T7n6rnw3+m6GnigJW7vsTNqQ/oAUK2MD
+	 KRoVi8+eQEarkqCmby6P8/D7s/ujTCIbrlkYc/ifv7mrcSo07Ph0kKlF1re2fPds7I
+	 lMPUXGq5oQUBSaETdQqga04nu0F2sBpc6/dTPOrAatdJsysW68xk0o2MH2g8T5N6RL
+	 EhtHwxhfWE0G3t/i6jObdHLngE8KN8WEJ4UYW5QKdGQD8PQGDM9erT/0REZacZSl/q
+	 DU4xoBvoAoFdA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Maxim Kochetkov <fido_max@inbox.ru>,
+Cc: =?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>,
 	Sasha Levin <sashal@kernel.org>,
+	lars@metafoo.de,
+	nuno.sa@analog.com,
 	lgirdwood@gmail.com,
 	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
-	ckeepax@opensource.cirrus.com,
-	nicolas.ferre@microchip.com,
-	u.kleine-koenig@pengutronix.de,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.4 01/27] ASoC: dwc: limit the number of overrun
- messages
-Date: Thu, 25 May 2023 14:42:10 -0400
-Message-Id: <20230525184238.1943072-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 03/27] ASoC: ssm2602: Add workaround for playback
+ distortions
+Date: Thu, 25 May 2023 14:42:12 -0400
+Message-Id: <20230525184238.1943072-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230525184238.1943072-1-sashal@kernel.org>
+References: <20230525184238.1943072-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LWRTOD2LQNOXBSDMYVHT7WQVWEMP7UFL
-X-Message-ID-Hash: LWRTOD2LQNOXBSDMYVHT7WQVWEMP7UFL
+Message-ID-Hash: PCS62RFSZVX2HOOXRWFWXYTTI4GOYAKC
+X-Message-ID-Hash: PCS62RFSZVX2HOOXRWFWXYTTI4GOYAKC
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LWRTOD2LQNOXBSDMYVHT7WQVWEMP7UFL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PCS62RFSZVX2HOOXRWFWXYTTI4GOYAKC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,42 +107,135 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Maxim Kochetkov <fido_max@inbox.ru>
+From: Paweł Anikiel <pan@semihalf.com>
 
-[ Upstream commit ab6ecfbf40fccf74b6ec2ba7ed6dd2fc024c3af2 ]
+[ Upstream commit f63550e2b165208a2f382afcaf5551df9569e1d4 ]
 
-On slow CPU (FPGA/QEMU emulated) printing overrun messages from
-interrupt handler to uart console may leads to more overrun errors.
-So use dev_err_ratelimited to limit the number of error messages.
+Apply a workaround for what appears to be a hardware quirk.
 
-Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru
-Link: https://lore.kernel.org/r/20230505062820.21840-1-fido_max@inbox.ru
+The problem seems to happen when enabling "whole chip power" (bit D7
+register R6) for the very first time after the chip receives power. If
+either "output" (D4) or "DAC" (D3) aren't powered on at that time,
+playback becomes very distorted later on.
+
+This happens on the Google Chameleon v3, as well as on a ZYBO Z7-10:
+https://ez.analog.com/audio/f/q-a/543726/solved-ssm2603-right-output-offset-issue/480229
+I suspect this happens only when using an external MCLK signal (which
+is the case for both of these boards).
+
+Here are some experiments run on a Google Chameleon v3. These were run
+in userspace using a wrapper around the i2cset utility:
+ssmset() {
+        i2cset -y 0 0x1a $(($1*2)) $2
+}
+
+For each of the following sequences, we apply power to the ssm2603
+chip, set the configuration registers R0-R5 and R7-R8, run the selected
+sequence, and check for distortions on playback.
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # chip, out, dac
+  OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x87 # out, dac
+  ssmset 0x06 0x07 # chip
+  OK
+
+  (disable MCLK)
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x1f # chip
+  ssmset 0x06 0x07 # out, dac
+  (enable MCLK)
+  OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x1f # chip
+  ssmset 0x06 0x07 # out, dac
+  NOT OK
+
+  ssmset 0x06 0x1f # chip
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # out, dac
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x0f # chip, out
+  ssmset 0x06 0x07 # dac
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x17 # chip, dac
+  ssmset 0x06 0x07 # out
+  NOT OK
+
+For each of the following sequences, we apply power to the ssm2603
+chip, run the selected sequence, issue a reset with R15, configure
+R0-R5 and R7-R8, run one of the NOT OK sequences from above, and check
+for distortions.
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # chip, out, dac
+  OK
+
+  (disable MCLK)
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # chip, out, dac
+  (enable MCLK after reset)
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x17 # chip, dac
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x0f # chip, out
+  NOT OK
+
+  ssmset 0x06 0x07 # chip, out, dac
+  NOT OK
+
+Signed-off-by: Paweł Anikiel <pan@semihalf.com
+Link: https://lore.kernel.org/r/20230508113037.137627-8-pan@semihalf.com
 Signed-off-by: Mark Brown <broonie@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/dwc/dwc-i2s.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/ssm2602.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index 65112b9d8588a..90b8814d7506a 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -132,13 +132,13 @@ static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
+diff --git a/sound/soc/codecs/ssm2602.c b/sound/soc/codecs/ssm2602.c
+index 464a4d7873bba..b797f620e3521 100644
+--- a/sound/soc/codecs/ssm2602.c
++++ b/sound/soc/codecs/ssm2602.c
+@@ -53,6 +53,18 @@ static const struct reg_default ssm2602_reg[SSM2602_CACHEREGNUM] = {
+ 	{ .reg = 0x09, .def = 0x0000 }
+ };
  
- 		/* Error Handling: TX */
- 		if (isr[i] & ISR_TXFO) {
--			dev_err(dev->dev, "TX overrun (ch_id=%d)\n", i);
-+			dev_err_ratelimited(dev->dev, "TX overrun (ch_id=%d)\n", i);
- 			irq_valid = true;
- 		}
++/*
++ * ssm2602 register patch
++ * Workaround for playback distortions after power up: activates digital
++ * core, and then powers on output, DAC, and whole chip at the same time
++ */
++
++static const struct reg_sequence ssm2602_patch[] = {
++	{ SSM2602_ACTIVE, 0x01 },
++	{ SSM2602_PWR,    0x07 },
++	{ SSM2602_RESET,  0x00 },
++};
++
  
- 		/* Error Handling: TX */
- 		if (isr[i] & ISR_RXFO) {
--			dev_err(dev->dev, "RX overrun (ch_id=%d)\n", i);
-+			dev_err_ratelimited(dev->dev, "RX overrun (ch_id=%d)\n", i);
- 			irq_valid = true;
- 		}
+ /*Appending several "None"s just for OSS mixer use*/
+ static const char *ssm2602_input_select[] = {
+@@ -588,6 +600,9 @@ static int ssm260x_component_probe(struct snd_soc_component *component)
+ 		return ret;
  	}
+ 
++	regmap_register_patch(ssm2602->regmap, ssm2602_patch,
++			      ARRAY_SIZE(ssm2602_patch));
++
+ 	/* set the update bits */
+ 	regmap_update_bits(ssm2602->regmap, SSM2602_LINVOL,
+ 			    LINVOL_LRIN_BOTH, LINVOL_LRIN_BOTH);
 -- 
 2.39.2
 

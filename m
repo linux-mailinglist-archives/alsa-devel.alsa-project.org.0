@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 581A7710F33
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 17:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1087C710F25
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 17:08:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2780822;
-	Thu, 25 May 2023 17:10:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2780822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C62DD8;
+	Thu, 25 May 2023 17:07:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C62DD8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685027455;
-	bh=6ndoGLXc9Wabm0gj8oKsn2BHSvsrVATQX3AbQvss/vI=;
+	s=default; t=1685027297;
+	bh=2zp5/wN7TLu8HJheDqmyR+xe7IUJuZ9bo0ZiO9BgRj4=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vl5q/PzP+o6ZbAOlYoiHM33peIq3pkF7uaBBgNkvwpOgBOh6sUiMe2SbV9j20rjLi
-	 Mvzv8cjY2Ib7gT3rs9A2ac3M9ZiiRpbFYiNwKqjb3VVP2M/RoKELvERbaFj/cFyHQT
-	 VHQhfv0ZhmNtMNWbzQGGEOu8GG1zZ3qhF87RW3Ww=
+	b=Z1WHP2WpT3eWDeZvqdgZ+Cpo98EV4wJhRw4BubRExgsOXuuOJCwn/PPos9pHTLIZg
+	 P05wj4Ds/9fB0o6AlguUmVeLtixnJjpXHRgEJKZr44bQYg+hZ2EaP4YQEKec+W4MXX
+	 OZve8tIDrrToYHV5CopH2LMg0y3DlqjQmJfDmy64=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D6DEF805F1; Thu, 25 May 2023 17:08:02 +0200 (CEST)
+	id 7002CF8055C; Thu, 25 May 2023 17:07:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B9B2F805EC;
-	Thu, 25 May 2023 17:08:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66698F80557;
+	Thu, 25 May 2023 17:07:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC9EEF8016A; Thu, 25 May 2023 17:07:44 +0200 (CEST)
+	id A4808F80553; Thu, 25 May 2023 17:07:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,31 +36,31 @@ Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
  [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4DF08F8016A
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 17:07:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DF08F8016A
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5DA4F8016A
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 17:07:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5DA4F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=p5d4V2Rm
+ header.s=PODMain02222019 header.b=rGX52Yrr
 Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
 	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34PEE1BH025344;
-	Thu, 25 May 2023 10:07:06 -0500
+ 34PEE1BI025344;
+	Thu, 25 May 2023 10:07:07 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=PODMain02222019;
- bh=YTFWU+MhIORTvxxidwK1NyZQlYDjXyonRb28HJ1jWEo=;
- b=p5d4V2Rm6DkzOAx/sp7YqniUj1fo943ZxdY0MQisA2W7b6bgPnks8lGYyzb5p3QJ/rJf
- EyTa1Ftg3+BVDcfajTLjBXDRuh0X2McEr9I9e6liubtSTNq8tEZXFEqt7F97NmSsVuIU
- fmIp8lvNER4dYjMqcHoWcB+GFe9osN72ITG2Q6pIbF1Buk8H0Ap827i5mRkr2eQzGlna
- Dex5u2CYnAnym3tmSGfNskwsqbr1/0UrV/lGDZiaV6ekYLVOe3CcOaqIL6oTo19TUN8f
- xJ9m/o6cXmunWk3WbOokj2VSsWWdOExWt0ZJkdOxtq2AH1bs5OxH7IhMfIZrICiN67Eu qw==
+ bh=eBwdAq8lZQg1yEfXJUU7I54E6UwOgSKapYiE7PVYkIs=;
+ b=rGX52YrrVAcMvKP0DUf5L0y8hD/XXzK7+0glyElsb4hQsXBNwhzxbu6jfD+RGfypXqxz
+ M3O5HhxzeEY45nX/PJjR//C74fryYubFCAe2IpnesM7tg/Zl9CuU/MvT3FBeZGBeAM6M
+ Ukkeh8OjAQ4TuzTSZWagaeTc/tR5UtDjmbCUHS2vZj5qRewOV6meTSqhmXVOTPzuFhDW
+ 5WXHWBiV15jpXMki0G6D+EshcUkNlBy8zRfFIK9QZJxHhQVMJ8TMPahonER/ATrgfcRt
+ UQn7utA5vGsdStf+cm7kOADerUZDvYRYR7PZ1tXCWj963mJMLNGsKtpR3JsayXzsqZjV cQ==
 Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qptmm70m7-3
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qptmm70m7-4
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 25 May 2023 10:07:06 -0500
+	Thu, 25 May 2023 10:07:07 -0500
 Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
  (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 25 May
@@ -70,7 +70,7 @@ Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
  15.2.1118.26 via Frontend Transport; Thu, 25 May 2023 10:07:03 -0500
 Received: from EDIN4L06LR3.ad.cirrus.com (EDIN4L06LR3.ad.cirrus.com
  [198.61.65.166])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 260B015B4;
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 885E611D4;
 	Thu, 25 May 2023 15:07:03 +0000 (UTC)
 From: Richard Fitzgerald <rf@opensource.cirrus.com>
 To: <tiwai@suse.com>, <broonie@kernel.org>, <perex@perex.cz>
@@ -78,21 +78,20 @@ CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
         <patches@opensource.cirrus.com>,
         Richard Fitzgerald
 	<rf@opensource.cirrus.com>
-Subject: [PATCH 05/13] ASoC: cs35l56: Move runtime suspend/resume to shared
- library
-Date: Thu, 25 May 2023 16:06:51 +0100
-Message-ID: <20230525150659.25409-6-rf@opensource.cirrus.com>
+Subject: [PATCH 06/13] ASoC: cs35l56: Move cs_dsp init into shared library
+Date: Thu, 25 May 2023 16:06:52 +0100
+Message-ID: <20230525150659.25409-7-rf@opensource.cirrus.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230525150659.25409-1-rf@opensource.cirrus.com>
 References: <20230525150659.25409-1-rf@opensource.cirrus.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 6Ue6YrMAH2QxjrErGvGGc8tXD-n3GX8m
-X-Proofpoint-GUID: 6Ue6YrMAH2QxjrErGvGGc8tXD-n3GX8m
+X-Proofpoint-ORIG-GUID: HA3lLzwnNYLffZRtTB-CgFFdcuXe8dQo
+X-Proofpoint-GUID: HA3lLzwnNYLffZRtTB-CgFFdcuXe8dQo
 X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: LVEZ6CISL73MAPODAP4G764XAQ5N6S4O
-X-Message-ID-Hash: LVEZ6CISL73MAPODAP4G764XAQ5N6S4O
+Message-ID-Hash: XZCD5ILM2FHII7D4OE56JUJJMBZURMQO
+X-Message-ID-Hash: XZCD5ILM2FHII7D4OE56JUJJMBZURMQO
 X-MailFrom: prvs=050971c6a2=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LVEZ6CISL73MAPODAP4G764XAQ5N6S4O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XZCD5ILM2FHII7D4OE56JUJJMBZURMQO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,346 +113,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The majority of runtime_suspend and runtime_resume handling
-doesn't have anything specific to the ASoC driver, so can be
-shared by the HDA driver. Move this code into the shared
-library.
+Move the code that initialized the struct cs_dsp members
+into the shared library so that the HDA driver can use it.
 
 Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 ---
- include/sound/cs35l56.h           |   2 +
- sound/soc/codecs/cs35l56-sdw.c    |   4 +-
- sound/soc/codecs/cs35l56-shared.c | 118 +++++++++++++++++++++++++++++
- sound/soc/codecs/cs35l56.c        | 120 +-----------------------------
- sound/soc/codecs/cs35l56.h        |   2 -
- 5 files changed, 126 insertions(+), 120 deletions(-)
+ include/sound/cs35l56.h           |  2 +-
+ sound/soc/codecs/cs35l56-shared.c | 18 ++++++++++++++++--
+ sound/soc/codecs/cs35l56.c        | 11 +----------
+ 3 files changed, 18 insertions(+), 13 deletions(-)
 
 diff --git a/include/sound/cs35l56.h b/include/sound/cs35l56.h
-index 4d270eb23473..4a885c2321c1 100644
+index 4a885c2321c1..e97c7ccfc051 100644
 --- a/include/sound/cs35l56.h
 +++ b/include/sound/cs35l56.h
-@@ -281,6 +281,8 @@ void cs35l56_system_reset(struct cs35l56_base *cs35l56_base, bool is_soundwire);
- int cs35l56_irq_request(struct cs35l56_base *cs35l56_base, int irq);
- irqreturn_t cs35l56_irq(int irq, void *data);
+@@ -269,7 +269,6 @@ extern struct regmap_config cs35l56_regmap_i2c;
+ extern struct regmap_config cs35l56_regmap_spi;
+ extern struct regmap_config cs35l56_regmap_sdw;
+ 
+-extern const struct cs_dsp_region cs35l56_dsp1_regions[CS35L56_NUM_DSP_REGIONS];
+ extern const char * const cs35l56_tx_input_texts[CS35L56_NUM_INPUT_SRC];
+ extern const unsigned int cs35l56_tx_input_values[CS35L56_NUM_INPUT_SRC];
+ 
+@@ -283,6 +282,7 @@ irqreturn_t cs35l56_irq(int irq, void *data);
  int cs35l56_is_fw_reload_needed(struct cs35l56_base *cs35l56_base);
-+int cs35l56_runtime_suspend_common(struct cs35l56_base *cs35l56_base);
-+int cs35l56_runtime_resume_common(struct cs35l56_base *cs35l56_base, bool is_soundwire);
+ int cs35l56_runtime_suspend_common(struct cs35l56_base *cs35l56_base);
+ int cs35l56_runtime_resume_common(struct cs35l56_base *cs35l56_base, bool is_soundwire);
++void cs35l56_init_cs_dsp(struct cs35l56_base *cs35l56_base, struct cs_dsp *cs_dsp);
  int cs35l56_get_bclk_freq_id(unsigned int freq);
  void cs35l56_fill_supply_names(struct regulator_bulk_data *data);
  
-diff --git a/sound/soc/codecs/cs35l56-sdw.c b/sound/soc/codecs/cs35l56-sdw.c
-index e6c9e8bce22c..09d255cc7652 100644
---- a/sound/soc/codecs/cs35l56-sdw.c
-+++ b/sound/soc/codecs/cs35l56-sdw.c
-@@ -424,7 +424,7 @@ static int __maybe_unused cs35l56_sdw_runtime_suspend(struct device *dev)
- 	if (!cs35l56->base.init_done)
- 		return 0;
- 
--	return cs35l56_runtime_suspend(dev);
-+	return cs35l56_runtime_suspend_common(&cs35l56->base);
- }
- 
- static int __maybe_unused cs35l56_sdw_runtime_resume(struct device *dev)
-@@ -441,7 +441,7 @@ static int __maybe_unused cs35l56_sdw_runtime_resume(struct device *dev)
- 	if (ret < 0)
- 		return ret;
- 
--	ret = cs35l56_runtime_resume_common(cs35l56);
-+	ret = cs35l56_runtime_resume_common(&cs35l56->base, true);
- 	if (ret)
- 		return ret;
- 
 diff --git a/sound/soc/codecs/cs35l56-shared.c b/sound/soc/codecs/cs35l56-shared.c
-index 93cd898dbab6..194fa08e1cc2 100644
+index 194fa08e1cc2..82e5edef1b3f 100644
 --- a/sound/soc/codecs/cs35l56-shared.c
 +++ b/sound/soc/codecs/cs35l56-shared.c
-@@ -408,6 +408,124 @@ int cs35l56_is_fw_reload_needed(struct cs35l56_base *cs35l56_base)
+@@ -526,14 +526,28 @@ int cs35l56_runtime_resume_common(struct cs35l56_base *cs35l56_base, bool is_sou
  }
- EXPORT_SYMBOL_NS_GPL(cs35l56_is_fw_reload_needed, SND_SOC_CS35L56_SHARED);
+ EXPORT_SYMBOL_NS_GPL(cs35l56_runtime_resume_common, SND_SOC_CS35L56_SHARED);
  
-+static const struct reg_sequence cs35l56_hibernate_seq[] = {
-+	/* This must be the last register access */
-+	REG_SEQ0(CS35L56_DSP_VIRTUAL1_MBOX_1, CS35L56_MBOX_CMD_HIBERNATE_NOW),
-+};
-+
-+static const struct reg_sequence cs35l56_hibernate_wake_seq[] = {
-+	REG_SEQ0(CS35L56_DSP_VIRTUAL1_MBOX_1, CS35L56_MBOX_CMD_WAKEUP),
-+};
-+
-+int cs35l56_runtime_suspend_common(struct cs35l56_base *cs35l56_base)
-+{
-+	unsigned int val;
-+	int ret;
-+
-+	if (!cs35l56_base->init_done)
-+		return 0;
-+
-+	/* Firmware must have entered a power-save state */
-+	ret = regmap_read_poll_timeout(cs35l56_base->regmap,
-+				       CS35L56_TRANSDUCER_ACTUAL_PS,
-+				       val, (val >= CS35L56_PS3),
-+				       CS35L56_PS3_POLL_US,
-+				       CS35L56_PS3_TIMEOUT_US);
-+	if (ret)
-+		dev_warn(cs35l56_base->dev, "PS3 wait failed: %d\n", ret);
-+
-+	/* Clear BOOT_DONE so it can be used to detect a reboot */
-+	regmap_write(cs35l56_base->regmap, CS35L56_IRQ1_EINT_4, CS35L56_OTP_BOOT_DONE_MASK);
-+
-+	if (!cs35l56_base->can_hibernate) {
-+		regcache_cache_only(cs35l56_base->regmap, true);
-+		dev_dbg(cs35l56_base->dev, "Suspended: no hibernate");
-+
-+		return 0;
-+	}
-+
-+	/*
-+	 * Enable auto-hibernate. If it is woken by some other wake source
-+	 * it will automatically return to hibernate.
-+	 */
-+	cs35l56_mbox_send(cs35l56_base, CS35L56_MBOX_CMD_ALLOW_AUTO_HIBERNATE);
-+
-+	/*
-+	 * Must enter cache-only first so there can't be any more register
-+	 * accesses other than the controlled hibernate sequence below.
-+	 */
-+	regcache_cache_only(cs35l56_base->regmap, true);
-+
-+	regmap_multi_reg_write_bypassed(cs35l56_base->regmap,
-+					cs35l56_hibernate_seq,
-+					ARRAY_SIZE(cs35l56_hibernate_seq));
-+
-+	dev_dbg(cs35l56_base->dev, "Suspended: hibernate");
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_NS_GPL(cs35l56_runtime_suspend_common, SND_SOC_CS35L56_SHARED);
-+
-+int cs35l56_runtime_resume_common(struct cs35l56_base *cs35l56_base, bool is_soundwire)
-+{
-+	unsigned int val;
-+	int ret;
-+
-+	if (!cs35l56_base->init_done)
-+		return 0;
-+
-+	if (!cs35l56_base->can_hibernate)
-+		goto out_sync;
-+
-+	if (!is_soundwire) {
-+		/*
-+		 * Dummy transaction to trigger I2C/SPI auto-wake. This will NAK on I2C.
-+		 * Must be done before releasing cache-only.
-+		 */
-+		regmap_multi_reg_write_bypassed(cs35l56_base->regmap,
-+						cs35l56_hibernate_wake_seq,
-+						ARRAY_SIZE(cs35l56_hibernate_wake_seq));
-+
-+		usleep_range(CS35L56_CONTROL_PORT_READY_US,
-+			     CS35L56_CONTROL_PORT_READY_US + 400);
-+	}
-+
-+out_sync:
-+	regcache_cache_only(cs35l56_base->regmap, false);
-+
-+	ret = cs35l56_wait_for_firmware_boot(cs35l56_base);
-+	if (ret) {
-+		dev_err(cs35l56_base->dev, "Hibernate wake failed: %d\n", ret);
-+		goto err;
-+	}
-+
-+	ret = cs35l56_mbox_send(cs35l56_base, CS35L56_MBOX_CMD_PREVENT_AUTO_HIBERNATE);
-+	if (ret)
-+		goto err;
-+
-+	/* BOOT_DONE will be 1 if the amp reset */
-+	regmap_read(cs35l56_base->regmap, CS35L56_IRQ1_EINT_4, &val);
-+	if (val & CS35L56_OTP_BOOT_DONE_MASK) {
-+		dev_dbg(cs35l56_base->dev, "Registers reset in suspend\n");
-+		regcache_mark_dirty(cs35l56_base->regmap);
-+	}
-+
-+	regcache_sync(cs35l56_base->regmap);
-+
-+	dev_dbg(cs35l56_base->dev, "Resumed");
-+
-+	return 0;
-+
-+err:
-+	regmap_write(cs35l56_base->regmap, CS35L56_DSP_VIRTUAL1_MBOX_1,
-+		     CS35L56_MBOX_CMD_HIBERNATE_NOW);
-+
-+	regcache_cache_only(cs35l56_base->regmap, true);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_NS_GPL(cs35l56_runtime_resume_common, SND_SOC_CS35L56_SHARED);
-+
- const struct cs_dsp_region cs35l56_dsp1_regions[] = {
+-const struct cs_dsp_region cs35l56_dsp1_regions[] = {
++static const struct cs_dsp_region cs35l56_dsp1_regions[] = {
  	{ .type = WMFW_HALO_PM_PACKED,	.base = CS35L56_DSP1_PMEM_0 },
  	{ .type = WMFW_HALO_XM_PACKED,	.base = CS35L56_DSP1_XMEM_PACKED_0 },
+ 	{ .type = WMFW_HALO_YM_PACKED,	.base = CS35L56_DSP1_YMEM_PACKED_0 },
+ 	{ .type = WMFW_ADSP2_XM,	.base = CS35L56_DSP1_XMEM_UNPACKED24_0 },
+ 	{ .type = WMFW_ADSP2_YM,	.base = CS35L56_DSP1_YMEM_UNPACKED24_0 },
+ };
+-EXPORT_SYMBOL_NS_GPL(cs35l56_dsp1_regions, SND_SOC_CS35L56_SHARED);
++
++void cs35l56_init_cs_dsp(struct cs35l56_base *cs35l56_base, struct cs_dsp *cs_dsp)
++{
++	cs_dsp->num = 1;
++	cs_dsp->type = WMFW_HALO;
++	cs_dsp->rev = 0;
++	cs_dsp->dev = cs35l56_base->dev;
++	cs_dsp->regmap = cs35l56_base->regmap;
++	cs_dsp->base = CS35L56_DSP1_CORE_BASE;
++	cs_dsp->base_sysinfo = CS35L56_DSP1_SYS_INFO_ID;
++	cs_dsp->mem = cs35l56_dsp1_regions;
++	cs_dsp->num_mems = ARRAY_SIZE(cs35l56_dsp1_regions);
++	cs_dsp->no_core_startstop = true;
++}
++EXPORT_SYMBOL_NS_GPL(cs35l56_init_cs_dsp, SND_SOC_CS35L56_SHARED);
+ 
+ static const u32 cs35l56_bclk_valid_for_pll_freq_table[] = {
+ 	[0x0C] = 128000,
 diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
-index c1c7b7e408c3..ce8142249f05 100644
+index ce8142249f05..8b9b5822d515 100644
 --- a/sound/soc/codecs/cs35l56.c
 +++ b/sound/soc/codecs/cs35l56.c
-@@ -852,132 +852,20 @@ static const struct snd_soc_component_driver soc_component_dev_cs35l56 = {
- 	.suspend_bias_off = 1, /* see cs35l56_system_resume() */
- };
+@@ -1019,18 +1019,9 @@ static int cs35l56_dsp_init(struct cs35l56_private *cs35l56)
+ 	INIT_WORK(&cs35l56->dsp_work, cs35l56_dsp_work);
  
--static const struct reg_sequence cs35l56_hibernate_seq[] = {
--	/* This must be the last register access */
--	REG_SEQ0(CS35L56_DSP_VIRTUAL1_MBOX_1, CS35L56_MBOX_CMD_HIBERNATE_NOW),
--};
--
--static const struct reg_sequence cs35l56_hibernate_wake_seq[] = {
--	REG_SEQ0(CS35L56_DSP_VIRTUAL1_MBOX_1, CS35L56_MBOX_CMD_WAKEUP),
--};
--
--int cs35l56_runtime_suspend(struct device *dev)
-+static int __maybe_unused cs35l56_runtime_suspend_i2c_spi(struct device *dev)
- {
- 	struct cs35l56_private *cs35l56 = dev_get_drvdata(dev);
--	unsigned int val;
--	int ret;
+ 	dsp = &cs35l56->dsp;
++	cs35l56_init_cs_dsp(&cs35l56->base, &dsp->cs_dsp);
+ 	dsp->part = "cs35l56";
+-	dsp->cs_dsp.num = 1;
+-	dsp->cs_dsp.type = WMFW_HALO;
+-	dsp->cs_dsp.rev = 0;
+ 	dsp->fw = 12;
+-	dsp->cs_dsp.dev = cs35l56->base.dev;
+-	dsp->cs_dsp.regmap = cs35l56->base.regmap;
+-	dsp->cs_dsp.base = CS35L56_DSP1_CORE_BASE;
+-	dsp->cs_dsp.base_sysinfo = CS35L56_DSP1_SYS_INFO_ID;
+-	dsp->cs_dsp.mem = cs35l56_dsp1_regions;
+-	dsp->cs_dsp.num_mems = ARRAY_SIZE(cs35l56_dsp1_regions);
+-	dsp->cs_dsp.no_core_startstop = true;
+ 	dsp->wmfw_optional = true;
  
--	if (!cs35l56->base.init_done)
--		return 0;
--
--	/* Firmware must have entered a power-save state */
--	ret = regmap_read_poll_timeout(cs35l56->base.regmap,
--				       CS35L56_TRANSDUCER_ACTUAL_PS,
--				       val, (val >= CS35L56_PS3),
--				       CS35L56_PS3_POLL_US,
--				       CS35L56_PS3_TIMEOUT_US);
--	if (ret)
--		dev_warn(cs35l56->base.dev, "PS3 wait failed: %d\n", ret);
--
--	/* Clear BOOT_DONE so it can be used to detect a reboot */
--	regmap_write(cs35l56->base.regmap, CS35L56_IRQ1_EINT_4, CS35L56_OTP_BOOT_DONE_MASK);
--
--	if (!cs35l56->base.can_hibernate) {
--		regcache_cache_only(cs35l56->base.regmap, true);
--		dev_dbg(dev, "Suspended: no hibernate");
--
--		return 0;
--	}
--
--	/*
--	 * Enable auto-hibernate. If it is woken by some other wake source
--	 * it will automatically return to hibernate.
--	 */
--	cs35l56_mbox_send(&cs35l56->base, CS35L56_MBOX_CMD_ALLOW_AUTO_HIBERNATE);
--
--	/*
--	 * Must enter cache-only first so there can't be any more register
--	 * accesses other than the controlled hibernate sequence below.
--	 */
--	regcache_cache_only(cs35l56->base.regmap, true);
--
--	regmap_multi_reg_write_bypassed(cs35l56->base.regmap,
--					cs35l56_hibernate_seq,
--					ARRAY_SIZE(cs35l56_hibernate_seq));
--
--	dev_dbg(dev, "Suspended: hibernate");
--
--	return 0;
-+	return cs35l56_runtime_suspend_common(&cs35l56->base);
- }
--EXPORT_SYMBOL_NS_GPL(cs35l56_runtime_suspend, SND_SOC_CS35L56_CORE);
- 
- static int __maybe_unused cs35l56_runtime_resume_i2c_spi(struct device *dev)
- {
- 	struct cs35l56_private *cs35l56 = dev_get_drvdata(dev);
- 
--	if (!cs35l56->base.init_done)
--		return 0;
--
--	return cs35l56_runtime_resume_common(cs35l56);
-+	return cs35l56_runtime_resume_common(&cs35l56->base, false);
- }
- 
--int cs35l56_runtime_resume_common(struct cs35l56_private *cs35l56)
--{
--	unsigned int val;
--	int ret;
--
--	if (!cs35l56->base.can_hibernate)
--		goto out_sync;
--
--	if (!cs35l56->sdw_peripheral) {
--		/*
--		 * Dummy transaction to trigger I2C/SPI auto-wake. This will NAK on I2C.
--		 * Must be done before releasing cache-only.
--		 */
--		regmap_multi_reg_write_bypassed(cs35l56->base.regmap,
--						cs35l56_hibernate_wake_seq,
--						ARRAY_SIZE(cs35l56_hibernate_wake_seq));
--
--		usleep_range(CS35L56_CONTROL_PORT_READY_US,
--			     CS35L56_CONTROL_PORT_READY_US + 400);
--	}
--
--out_sync:
--	regcache_cache_only(cs35l56->base.regmap, false);
--
--	ret = cs35l56_wait_for_firmware_boot(&cs35l56->base);
--	if (ret) {
--		dev_err(cs35l56->base.dev, "Hibernate wake failed: %d\n", ret);
--		goto err;
--	}
--
--	ret = cs35l56_mbox_send(&cs35l56->base, CS35L56_MBOX_CMD_PREVENT_AUTO_HIBERNATE);
--	if (ret)
--		goto err;
--
--	/* BOOT_DONE will be 1 if the amp reset */
--	regmap_read(cs35l56->base.regmap, CS35L56_IRQ1_EINT_4, &val);
--	if (val & CS35L56_OTP_BOOT_DONE_MASK) {
--		dev_dbg(cs35l56->base.dev, "Registers reset in suspend\n");
--		regcache_mark_dirty(cs35l56->base.regmap);
--	}
--
--	regcache_sync(cs35l56->base.regmap);
--
--	dev_dbg(cs35l56->base.dev, "Resumed");
--
--	return 0;
--
--err:
--	regmap_write(cs35l56->base.regmap, CS35L56_DSP_VIRTUAL1_MBOX_1,
--		     CS35L56_MBOX_CMD_HIBERNATE_NOW);
--
--	regcache_cache_only(cs35l56->base.regmap, true);
--
--	return ret;
--}
--EXPORT_SYMBOL_NS_GPL(cs35l56_runtime_resume_common, SND_SOC_CS35L56_CORE);
--
- int cs35l56_system_suspend(struct device *dev)
- {
- 	struct cs35l56_private *cs35l56 = dev_get_drvdata(dev);
-@@ -1416,7 +1304,7 @@ void cs35l56_remove(struct cs35l56_private *cs35l56)
- EXPORT_SYMBOL_NS_GPL(cs35l56_remove, SND_SOC_CS35L56_CORE);
- 
- const struct dev_pm_ops cs35l56_pm_ops_i2c_spi = {
--	SET_RUNTIME_PM_OPS(cs35l56_runtime_suspend, cs35l56_runtime_resume_i2c_spi, NULL)
-+	SET_RUNTIME_PM_OPS(cs35l56_runtime_suspend_i2c_spi, cs35l56_runtime_resume_i2c_spi, NULL)
- 	SYSTEM_SLEEP_PM_OPS(cs35l56_system_suspend, cs35l56_system_resume)
- 	LATE_SYSTEM_SLEEP_PM_OPS(cs35l56_system_suspend_late, cs35l56_system_resume_early)
- 	NOIRQ_SYSTEM_SLEEP_PM_OPS(cs35l56_system_suspend_no_irq, cs35l56_system_resume_no_irq)
-diff --git a/sound/soc/codecs/cs35l56.h b/sound/soc/codecs/cs35l56.h
-index f39f8fa9e37e..8159c3e217d9 100644
---- a/sound/soc/codecs/cs35l56.h
-+++ b/sound/soc/codecs/cs35l56.h
-@@ -55,8 +55,6 @@ struct cs35l56_private {
- 
- extern const struct dev_pm_ops cs35l56_pm_ops_i2c_spi;
- 
--int cs35l56_runtime_suspend(struct device *dev);
--int cs35l56_runtime_resume_common(struct cs35l56_private *cs35l56);
- int cs35l56_system_suspend(struct device *dev);
- int cs35l56_system_suspend_late(struct device *dev);
- int cs35l56_system_suspend_no_irq(struct device *dev);
+ 	dev_dbg(cs35l56->base.dev, "DSP system name: '%s'\n", dsp->system_name);
 -- 
 2.30.2
 

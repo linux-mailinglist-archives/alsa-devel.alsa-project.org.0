@@ -2,118 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18DEA7109EC
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 12:18:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C11DA710ADA
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 13:26:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94DDD200;
-	Thu, 25 May 2023 12:17:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94DDD200
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5EE4206;
+	Thu, 25 May 2023 13:25:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5EE4206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685009896;
-	bh=v0Cw0kspc7z+dpbmPVSQp0UtSDZwToivhH9HmGi5m10=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=tvfmObCZb9RCWVE9uL3spR4xOxhabpdhLUKAhL2rnsLxLWJTlnV+nmrh47qnB38AP
-	 jYX4VdtYWJDZScc9j50alU9HN2kJgmAzK9tbHAgBpKbIWUv5JC2KpWNlW0if5xc5AG
-	 32UnQ4IxoLS5TbNBb+hfCz2TXoa5o5R9t+KuMG28=
+	s=default; t=1685014002;
+	bh=ZKoh5qkJk/W2To+PrhNjYMj3CZ4X2s8wgUNVQ+Car8s=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=QPgeHF+aKrhmqRXmRe7aVpvE1SEmCA5rpqDPrrCiEhzA5S0kkn3ODgV5zWyKtJalN
+	 /JHCfFWxTVYA2vxsajW10DuNEpGqHok7HHhoBOfomCUOP3WO6ZRWrEZdOK33oHSzmS
+	 7pWOKTcWzeXUsN3Q0uKHJIG6neyLw32kSicD9JQI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D131F8026A; Thu, 25 May 2023 12:17:25 +0200 (CEST)
+	id 9EFD5F8053D; Thu, 25 May 2023 13:25:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5816F8016A;
-	Thu, 25 May 2023 12:17:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15C09F8016A;
+	Thu, 25 May 2023 13:25:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4AD8DF80249; Thu, 25 May 2023 12:17:22 +0200 (CEST)
+	id 9A354F80249; Thu, 25 May 2023 13:25:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20603.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::603])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BBCB6F800DF
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 12:17:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBCB6F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id C8604F800DF
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 13:25:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8604F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=tajXQptf;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=UF9kgZKg
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C0792184B;
-	Thu, 25 May 2023 10:17:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1685009834;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MnTmE6EQWdlEaDGHFNIvx4Wu3l2UV5scp/VW9xLQVKw=;
-	b=tajXQptfamw71EWf+YOTZGhdU35kfzVTI0FBpeCUF5LSmw2OTxHq9WIgWOYz5BnRxfvDie
-	ePHUPoI6V0r4bwAP3x8xpa6H4AVV11OFg/J4uMy9RNeHuQweZfI7yRUWNDE9c5FvthZirB
-	e7oidbYABF0+YVtPd/D+XWMygfijfZo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1685009834;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MnTmE6EQWdlEaDGHFNIvx4Wu3l2UV5scp/VW9xLQVKw=;
-	b=UF9kgZKglfmEsvLDCrM3LOa1E39s+t5exXgNKC8QQAA11NuKo5J9o4syMCk+rDXjc6Xd1o
-	hcLqiNADK7CfSwBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 59C76134B2;
-	Thu, 25 May 2023 10:17:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ptoKFao1b2S3dgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 25 May 2023 10:17:14 +0000
-Date: Thu, 25 May 2023 12:17:14 +0200
-Message-ID: <87353kd8b9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Kailang <kailang@realtek.com>
-Cc: "Joseph C. Sible" <josephcsible@gmail.com>,
-	Bagas Sanjaya
-	<bagasdotme@gmail.com>,
-	"regressions@lists.linux.dev"
-	<regressions@lists.linux.dev>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>
-Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-In-Reply-To: <7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
-References: <bug-217440-225600@https.bugzilla.kernel.org/>
-	<CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
-	<ZGB0cVVI7OgaJU6t@debian.me>
-	<CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
-	<87cz338ix4.wl-tiwai@suse.de>
-	<CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
-	<874jodlnmi.wl-tiwai@suse.de>
-	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
-	<87fs7mdofi.wl-tiwai@suse.de>
-	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: CU3W7TGFD3G6GK5XRCB2I3FPHXYJNSWZ
-X-Message-ID-Hash: CU3W7TGFD3G6GK5XRCB2I3FPHXYJNSWZ
-X-MailFrom: tiwai@suse.de
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=frC3SPyl
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fZOiKk/649LXIRdS9EEHzpGbVmzZ6IMgIXLnEVPD9csMjqZqwC+V/TFKUJUEPQ4zsu9B5luqGJnydz8q+EFhHWeKcr4Sp4no2m3NvQRlC264F8HNL3t+ZnAxckG6Jr5M+aoIUG03gNBle5N5NC1jl+2Y6AOl+Ld59loopOvwQDQP6pMkhn6F/I/4qotiyYDX7ZiGyHRIiCXECdfe2p8RAbvTcT5z98jef78IfF+fob5SsHk9kqrADsn6ALqlN6M8X/JQ7gcXrxQC7EKKmwngJlBhiCQ6B4HjsG7GBFDdjYq+S7+P9w1XmRO4R45eowLRCGeyPJFKwckmP2kZqMcFJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sLsEbhoWS7fzniBAl/0fEaIPombo+keItzi4f2MVq6s=;
+ b=QbkSQ4ivy7rkRLwbdOkLD+ZWzKWZ4ouqQkZtBltDEyW9UhGNi4mWjwKS0JXxocrx6pFCvu7R3eye93PdIAfMK/GREeidNZ+4KA+skogAxm5bQqval7uEOKIOiJ2y4O9RkGilXUz63T6rASPYJzjtri1z3M1Fwn18Og2i6gwVfuA3FvTUs7TLj1+jmI9nxM2XCF2bj3pY37KpnItKPl3XmWDWJ+oyUV9gS81Q6Tos+0by3EGRfYOZKfhaaj7ndx6BwktSVFALbMJeVYoWkRkDbeJuuYQrEuHfsjOb/+bYpggQmjuaNvY45gHs260JW0rDZmoVFLALotmKp3/1S+Mp4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sLsEbhoWS7fzniBAl/0fEaIPombo+keItzi4f2MVq6s=;
+ b=frC3SPyleup2Xiiyf3nJaCNqdYsimgy8WNVdXKfIFPfkCAqWvR45K1kS44lplDF1T2gnsXfqFU07p82b99aWgJXXqWJcaVZKe9IVdsj78QYj+b6bFQSfvrWc27p3T9JFED3hCc0TfQWv23o3K/7aKbYUZnG7eiIAn+n0b1d5080=
+Received: from BLAPR03CA0051.namprd03.prod.outlook.com (2603:10b6:208:32d::26)
+ by DS0PR12MB7972.namprd12.prod.outlook.com (2603:10b6:8:14f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.16; Thu, 25 May
+ 2023 11:25:03 +0000
+Received: from BL02EPF000145BA.namprd05.prod.outlook.com
+ (2603:10b6:208:32d:cafe::2f) by BLAPR03CA0051.outlook.office365.com
+ (2603:10b6:208:32d::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.18 via Frontend
+ Transport; Thu, 25 May 2023 11:25:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF000145BA.mail.protection.outlook.com (10.167.241.210) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6433.7 via Frontend Transport; Thu, 25 May 2023 11:25:03 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 25 May
+ 2023 06:25:02 -0500
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Thu, 25 May 2023 06:24:58 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<Mastan.Katragadda@amd.com>, <Arungopal.kondaveeti@amd.com>,
+	<mario.limonciello@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, "open
+ list" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: amd: ps: fix for acp_lock access in pdm driver
+Date: Thu, 25 May 2023 16:59:55 +0530
+Message-ID: <20230525113000.1290758-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF000145BA:EE_|DS0PR12MB7972:EE_
+X-MS-Office365-Filtering-Correlation-Id: a859d088-cf7b-46a6-38fe-08db5d12af1c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	lH8X/XDgMPJJrghL9J0IqW5g96PZujMjxtWTDWpJSkn4if6vjH09W61Di7DcKVYQbgBVJBQKfCkYZPtK957OaILyaC/gM4gQB4O9P2wIqG4QBBCgZzHj99kNVUFVWrjzdwhG0t2MygXKCnYJCVurx5A3uEy/F8O5rYgl3Qq1j2tg1ceDWfSpbK3g9D5k8Hv+c7X+cu8dF352GR6ttlo4a4TSjcWOPK1JeIZiggdmlkBZHPnNbWssX5KuhXDtMHM+8y2O5r8pjhzmHoSZ9t3kEIMMNh0kYnao+JwC2HFIKEMnHA/4TC3KLP6kERsKnIUW2Ij03ohqinD911yMg40epRLYp32GBd8gbbpMcdAgA8gQtn87BB4tiRUziGjmUMQGpD9lSr5ZxJXj0PumAlOb6EU/j5hxUyEUDc30kZ8hZRDf+yuJ5iBvEEr9fHDUR7WLMDozK+jWM9UonfWFVQlskXop7O7AXeLVzK8y7FLFqBIrZcsetgJjiaTwp9oLt1jmmUs2k5e7+be9lv4+UWe81QKmZJMXlTuBtfmwM/FtjN9LB2o5Ji8w7F13hFX2VdK184YSxw0buI12dzFQnoGxkPmwlBVsgNZlv0aH9PeKdP6JJELIgT/4d8z5pt8eb/5ZU4hIC3cJy6wLfqUKL3dtWN8B2xEcAKvg9QaZ95lyLHOLanKin7I5YRHuSS5TNJ5uunEzDwvYUc8wPAzLT3BiTgyq5EDzb/2OXJc9bf3K1XJSwzPfwRBipa+fHbgtr3mBGb83AYFJWUxfxuyAQg+C6w==
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(6666004)(7696005)(40460700003)(41300700001)(26005)(1076003)(8676002)(8936002)(5660300002)(36756003)(36860700001)(2616005)(47076005)(82310400005)(83380400001)(2906002)(426003)(336012)(186003)(86362001)(356005)(81166007)(40480700001)(82740400003)(6916009)(4326008)(70586007)(70206006)(54906003)(478600001)(316002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 11:25:03.1245
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ a859d088-cf7b-46a6-38fe-08db5d12af1c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	BL02EPF000145BA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7972
+Message-ID-Hash: FRQZ2EDGVWRP4HXRK2KN3M352WH3ITTH
+X-Message-ID-Hash: FRQZ2EDGVWRP4HXRK2KN3M352WH3ITTH
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +140,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CU3W7TGFD3G6GK5XRCB2I3FPHXYJNSWZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FRQZ2EDGVWRP4HXRK2KN3M352WH3ITTH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,85 +149,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 25 May 2023 11:21:38 +0200,
-Kailang wrote:
-> 
-> 
-> 
-> > -----Original Message-----
-> > From: Takashi Iwai <tiwai@suse.de>
-> > Sent: Wednesday, May 24, 2023 6:17 PM
-> > To: Kailang <kailang@realtek.com>
-> > Cc: Joseph C. Sible <josephcsible@gmail.com>; Bagas Sanjaya
-> > <bagasdotme@gmail.com>; regressions@lists.linux.dev; perex@perex.cz;
-> > tiwai@suse.com; alsa-devel@alsa-project.org
-> > Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP
-> > 15z-fc000 on warm boot
-> > 
-> > 
-> > External mail.
-> > 
-> > 
-> > 
-> > On Thu, 18 May 2023 07:44:23 +0200,
-> > Kailang wrote:
-> > >
-> > > > -----Original Message-----
-> > > > From: Takashi Iwai <tiwai@suse.de>
-> > > > Sent: Monday, May 15, 2023 9:40 PM
-> > > > To: Joseph C. Sible <josephcsible@gmail.com>
-> > > > Cc: Bagas Sanjaya <bagasdotme@gmail.com>;
-> > > > regressions@lists.linux.dev; Kailang <kailang@realtek.com>;
-> > > > perex@perex.cz; tiwai@suse.com; alsa-devel@alsa-project.org
-> > > > Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP
-> > > > 15z-fc000 on warm boot
-> > > >
-> > > >
-> > > > External mail.
-> > > >
-> > > >
-> > > >
-> > > > On Sun, 14 May 2023 23:48:55 +0200,
-> > > > Joseph C. Sible wrote:
-> > > > >
-> > > > > On 5/14/23, Takashi Iwai wrote:
-> > > > > > The patch changes two places (the change in alc_shutup_pins()
-> > > > > > and alc256_shutup()), and I guess the latter is the culprit.
-> > > > > > Could you verify that only reverting the latter fixes the problem?
-> > > > >
-> > > > > Yes, only reverting the latter fixes the problem. I just tried a
-> > > > > kernel consisting of 6.3.2 plus the below change, and it works fine:
-> > > > >
-> > > > > --- a/sound/pci/hda/patch_realtek.c
-> > > > > +++ b/sound/pci/hda/patch_realtek.c
-> > > > > @@ -3638,8 +3638,7 @@ static void alc256_shutup(struct hda_codec
-> > > > *codec)
-> > > > >         /* If disable 3k pulldown control for alc257, the Mic
-> > > > > detection will not work correctly
-> > > > >          * when booting with headset plugged. So skip setting it
-> > > > > for the codec alc257
-> > > > >          */
-> > > > > -       if (codec->core.vendor_id != 0x10ec0236 &&
-> > > > > -           codec->core.vendor_id != 0x10ec0257)
-> > > > > +       if (codec->core.vendor_id != 0x10ec0257)
-> > > > >                 alc_update_coef_idx(codec, 0x46, 0, 3 << 12);
-> > > > >
-> > > > >         if (!spec->no_shutup_pins)
-> > > >
-> > > > OK, thanks for confirmation.
-> > > >
-> > > > Kailang, could you check this issue?
-> > >
-> > > OK. I will take it a look for these days.
-> > 
-> > Kailang, any chance to get this fixed?
-> Sorry! My test machine didn't work. I couldn't have a machine to do this test.
-> But I find one ChromeBook with ALC236 today.
+Sending the mutex address(acp_lock) as platform
+data during ACP PDM platform driver register sequence,
+its creating copy of the platform data.
+Referencing this platform data in ACP PDM driver results
+incorrect reference to the common lock usage.
 
-Thanks!
+Instead of directly passing the lock address as platform
+data, retrieve it from parent driver data structure
+and use the same lock reference in ACP PDM driver.
 
-I already submitted a PR to Linus for 6.4-rc4, and the next PR will be
-likely in two weeks, so we have a bit of time :)
+Fixes: 45aa83cb9388 ("ASoC: amd: ps: use acp_lock to protect common registers in pdm driver")
 
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/amd/ps/pci-ps.c     |  3 +--
+ sound/soc/amd/ps/ps-pdm-dma.c | 10 +++++-----
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-Takashi
+diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+index c957718abefc..54752d6040d6 100644
+--- a/sound/soc/amd/ps/pci-ps.c
++++ b/sound/soc/amd/ps/pci-ps.c
+@@ -198,8 +198,7 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
+ 	case ACP63_PDM_DEV_MASK:
+ 		adata->pdm_dev_index  = 0;
+ 		acp63_fill_platform_dev_info(&pdevinfo[0], parent, NULL, "acp_ps_pdm_dma",
+-					     0, adata->res, 1, &adata->acp_lock,
+-					     sizeof(adata->acp_lock));
++					     0, adata->res, 1, NULL, 0);
+ 		acp63_fill_platform_dev_info(&pdevinfo[1], parent, NULL, "dmic-codec",
+ 					     0, NULL, 0, NULL, 0);
+ 		acp63_fill_platform_dev_info(&pdevinfo[2], parent, NULL, "acp_ps_mach",
+diff --git a/sound/soc/amd/ps/ps-pdm-dma.c b/sound/soc/amd/ps/ps-pdm-dma.c
+index 3ecc6cf3fd34..bdbbb797c74d 100644
+--- a/sound/soc/amd/ps/ps-pdm-dma.c
++++ b/sound/soc/amd/ps/ps-pdm-dma.c
+@@ -358,12 +358,12 @@ static int acp63_pdm_audio_probe(struct platform_device *pdev)
+ {
+ 	struct resource *res;
+ 	struct pdm_dev_data *adata;
++	struct acp63_dev_data *acp_data;
++	struct device *parent;
+ 	int status;
+ 
+-	if (!pdev->dev.platform_data) {
+-		dev_err(&pdev->dev, "platform_data not retrieved\n");
+-		return -ENODEV;
+-	}
++	parent = pdev->dev.parent;
++	acp_data = dev_get_drvdata(parent);
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	if (!res) {
+ 		dev_err(&pdev->dev, "IORESOURCE_MEM FAILED\n");
+@@ -379,7 +379,7 @@ static int acp63_pdm_audio_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	adata->capture_stream = NULL;
+-	adata->acp_lock = pdev->dev.platform_data;
++	adata->acp_lock = &acp_data->acp_lock;
+ 	dev_set_drvdata(&pdev->dev, adata);
+ 	status = devm_snd_soc_register_component(&pdev->dev,
+ 						 &acp63_pdm_component,
+-- 
+2.34.1
+

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74CF71142D
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EA4711432
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:36:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 20807852;
-	Thu, 25 May 2023 20:35:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20807852
+	by alsa0.perex.cz (Postfix) with ESMTPS id D1C2C84A;
+	Thu, 25 May 2023 20:36:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1C2C84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685039771;
-	bh=hJg46VfbTWxIwGTGG7h6AktdrZprwQtapsxWqyAjKFw=;
+	s=default; t=1685039814;
+	bh=IkGBsXi3C4HEnccIyBaIOzBJS5i014sdapMrMLHbqrQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gbX/lgLeI1xDdB0fO0MrFVChDDom/1mhML0LL7A30nK+NfIe9yz7r6O0jIGPlJnBL
-	 PstnAoQYhMRrLGsv1n2XuPM0Ihahgi2qStJeP1I0DilHV4EB0OtY9tDmNG5BQC+njZ
-	 XALOIO3oXmyH3vOr7kS9XBDMclwNpAAIjQm4vqz0=
+	b=hwcs0sl1LB2x+jZPo34Vj8di+wkiucckto0n8rShVuw/6oYf3iAyYPMDfPNFmAd8m
+	 jivLJK5uhWnz5S41z2Z1osOTb4Muoc6TshAe3/Q4AgN8flbbEhjoqNPZK+/WuezuXH
+	 NSg37UYmAqOoF2m6JhS7mVN585O+Hsn1okDkxbUg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 998F4F805C4; Thu, 25 May 2023 20:34:19 +0200 (CEST)
+	id 65BCEF8016A; Thu, 25 May 2023 20:35:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07DB3F805BA;
-	Thu, 25 May 2023 20:34:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 063CAF80249;
+	Thu, 25 May 2023 20:35:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE457F80588; Thu, 25 May 2023 20:34:14 +0200 (CEST)
+	id 509BCF8024E; Thu, 25 May 2023 20:35:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,60 +36,51 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E21A9F800DF;
-	Thu, 25 May 2023 20:34:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E21A9F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7D7C9F80007
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:35:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D7C9F80007
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tf6HnR8M
+ header.s=k20201202 header.b=oX18NGoG
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D1B1A60BA8;
-	Thu, 25 May 2023 18:34:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1020C433D2;
-	Thu, 25 May 2023 18:34:05 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4D0AC648ED;
+	Thu, 25 May 2023 18:35:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6741C4339B;
+	Thu, 25 May 2023 18:35:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685039647;
-	bh=hJg46VfbTWxIwGTGG7h6AktdrZprwQtapsxWqyAjKFw=;
+	s=k20201202; t=1685039746;
+	bh=IkGBsXi3C4HEnccIyBaIOzBJS5i014sdapMrMLHbqrQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tf6HnR8Mnux8LnCEJlsaH0qc5u4BtM3WOwbUBnLC3yruO0AEzN+Ed2Bq4gxzYDewR
-	 LBzs6XrDX9OuSj2wm6zcpK9nyAZf2H8RvrNGfa7rJwJLQBQKRBKeL6oP1XYC1PTECT
-	 WWz+XvuhoCqIKm8Gd9SP8FboPPaNFeE85MKhkesntqdQwQJcJqGa1GJgoY/lERGn90
-	 kE0MeqpGFJ8Lf1TESoW+sRdPBUJpwJrgsx36djWiu6iKamq6IxNQNP+e8kkqwl2ltl
-	 BvrEAQ6FjY59woaSYsvpQ8njgTnvPbDWje7FzD6UxGQKXBcAkcpA9wcNvBKNluaVSg
-	 KSnvPsETNcLRw==
+	b=oX18NGoGwKRubN4m86agItHaYWeY3rZA29OLTGvGyfCrm4vSjlHL1x0w/C4VyWZ9l
+	 +vl+B6OZcyKwsqEpDcvz8/qmeHJdgdY8LautzJW3GM1UzTq9SDetjdVX5lsc7LbkzX
+	 gzZXeqhdv0NgjyBGH2tmf1Fc4odZO5J+1CJRiPByUjEIIL6jWVVQAFGmp0gipfdtYK
+	 egSHXgdWSkGPagRdzgiJh0OSokI4WO+ZriQ+HOrRvZjuiojiw1r+Yry8UlJXA75rnM
+	 iuH8RQ9FlQfdb8wcNguf47Jvn+f/dfhs4nXfNbZgynfhWHHoAVXFUtOSWfVUdX4E1A
+	 EcQgCRuX+YNMw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>,
-	pierre-louis.bossart@linux.intel.com,
-	lgirdwood@gmail.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com,
-	daniel.baluta@nxp.com,
-	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
-	sound-open-firmware@alsa-project.org,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.3 34/67] ASoC: SOF: pm: save io region state in case
- of errors in resume
-Date: Thu, 25 May 2023 14:31:11 -0400
-Message-Id: <20230525183144.1717540-34-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.3 59/67] ALSA: oss: avoid missing-prototype warnings
+Date: Thu, 25 May 2023 14:31:36 -0400
+Message-Id: <20230525183144.1717540-59-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230525183144.1717540-1-sashal@kernel.org>
 References: <20230525183144.1717540-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7JMMEDJ6Z7PQKWT6YU2VLB4B2FIDW7HL
-X-Message-ID-Hash: 7JMMEDJ6Z7PQKWT6YU2VLB4B2FIDW7HL
+Message-ID-Hash: BZTPGKOAAJWFZKQ77G6RZURCAH2FYL4A
+X-Message-ID-Hash: BZTPGKOAAJWFZKQ77G6RZURCAH2FYL4A
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7JMMEDJ6Z7PQKWT6YU2VLB4B2FIDW7HL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BZTPGKOAAJWFZKQ77G6RZURCAH2FYL4A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,69 +102,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-[ Upstream commit 171b53be635ac15d4feafeb33946035649b1ca14 ]
+[ Upstream commit 040b5a046a9e18098580d3ccd029e2318fca7859 ]
 
-If there are failures in DSP runtime resume, the device state will not
-reach active and this makes it impossible e.g. to retrieve a possible
-DSP panic dump via "exception" debugfs node. If
-CONFIG_SND_SOC_SOF_DEBUG_ENABLE_DEBUGFS_CACHE=y is set, the data in
-cache is stale. If debugfs cache is not used, the region simply cannot
-be read.
+Two functions are defined and used in pcm_oss.c but also optionally
+used from io.c, with an optional prototype. If CONFIG_SND_PCM_OSS_PLUGINS
+is disabled, this causes a warning as the functions are not static
+and have no prototype:
 
-To allow debugging these scenarios, update the debugfs cache contents in
-resume error handler. User-space can then later retrieve DSP panic and
-other state via debugfs (requires SOF debugfs cache to be enabled in
-build).
+sound/core/oss/pcm_oss.c:1235:19: error: no previous prototype for 'snd_pcm_oss_write3' [-Werror=missing-prototypes]
+sound/core/oss/pcm_oss.c:1266:19: error: no previous prototype for 'snd_pcm_oss_read3' [-Werror=missing-prototypes]
 
-Reported-by: Curtis Malainey <cujomalainey@chromium.org
-Link: https://github.com/thesofproject/linux/issues/4274
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com
-Link: https://lore.kernel.org/r/20230512104638.21376-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org
+Avoid this by making the prototypes unconditional.
+
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Link: https://lore.kernel.org/r/20230516195046.550584-2-arnd@kernel.org
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/pm.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ sound/core/oss/pcm_plugin.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index 85412aeb1ca16..40f392efd8246 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -159,7 +159,7 @@ static int sof_resume(struct device *dev, bool runtime_resume)
- 		ret = tplg_ops->set_up_all_pipelines(sdev, false);
- 		if (ret < 0) {
- 			dev_err(sdev->dev, "Failed to restore pipeline after resume %d\n", ret);
--			return ret;
-+			goto setup_fail;
- 		}
- 	}
+diff --git a/sound/core/oss/pcm_plugin.h b/sound/core/oss/pcm_plugin.h
+index 46e273bd4a786..50a6b50f5db4c 100644
+--- a/sound/core/oss/pcm_plugin.h
++++ b/sound/core/oss/pcm_plugin.h
+@@ -141,6 +141,14 @@ int snd_pcm_area_copy(const struct snd_pcm_channel_area *src_channel,
  
-@@ -173,6 +173,18 @@ static int sof_resume(struct device *dev, bool runtime_resume)
- 			dev_err(sdev->dev, "ctx_restore IPC error during resume: %d\n", ret);
- 	}
- 
-+setup_fail:
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_ENABLE_DEBUGFS_CACHE)
-+	if (ret < 0) {
-+		/*
-+		 * Debugfs cannot be read in runtime suspend, so cache
-+		 * the contents upon failure. This allows to capture
-+		 * possible DSP coredump information.
-+		 */
-+		sof_cache_debugfs(sdev);
-+	}
+ void *snd_pcm_plug_buf_alloc(struct snd_pcm_substream *plug, snd_pcm_uframes_t size);
+ void snd_pcm_plug_buf_unlock(struct snd_pcm_substream *plug, void *ptr);
++#else
++
++static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
++static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
++static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
++
 +#endif
 +
- 	return ret;
- }
+ snd_pcm_sframes_t snd_pcm_oss_write3(struct snd_pcm_substream *substream,
+ 				     const char *ptr, snd_pcm_uframes_t size,
+ 				     int in_kernel);
+@@ -151,14 +159,6 @@ snd_pcm_sframes_t snd_pcm_oss_writev3(struct snd_pcm_substream *substream,
+ snd_pcm_sframes_t snd_pcm_oss_readv3(struct snd_pcm_substream *substream,
+ 				     void **bufs, snd_pcm_uframes_t frames);
  
+-#else
+-
+-static inline snd_pcm_sframes_t snd_pcm_plug_client_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t drv_size) { return drv_size; }
+-static inline snd_pcm_sframes_t snd_pcm_plug_slave_size(struct snd_pcm_substream *handle, snd_pcm_uframes_t clt_size) { return clt_size; }
+-static inline int snd_pcm_plug_slave_format(int format, const struct snd_mask *format_mask) { return format; }
+-
+-#endif
+-
+ #ifdef PLUGIN_DEBUG
+ #define pdprintf(fmt, args...) printk(KERN_DEBUG "plugin: " fmt, ##args)
+ #else
 -- 
 2.39.2
 

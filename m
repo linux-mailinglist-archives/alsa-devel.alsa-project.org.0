@@ -2,110 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB6257125D2
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 13:46:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC898710759
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 10:31:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 135A3206;
-	Fri, 26 May 2023 13:45:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 135A3206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AD8C1FC;
+	Thu, 25 May 2023 10:30:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AD8C1FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685101566;
-	bh=vgG8kRbhQf6vPQAWhe7I0iMwxujg2aFZfFNABg8RBnc=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ks3klxfNsSdxinZRHUIriiIPYdLkgzhfiaXM9YZ+DH6Aj0Fe3tIwP+9Sn+h4smMt3
-	 plI3HkdbhghvxjByO8svqSmVBiWzNVZkzXH24c2ipj9cSaYq6KYnr2/wTLg21uUAh8
-	 Zhv7YfTcNcOe+XVS+O7UP/CmxPoKfrULMbd4oaeg=
+	s=default; t=1685003478;
+	bh=Fn8NgvJqj1KC/mby+9lw7DFvcbqnPv3J/V/JEbRylHU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=PZIxWJHfpd3pGDsRexKE4H1NURPZlERkILdJEfkP6TGI7705UUU8mK6Se2kQAWH/A
+	 eBq+x2rcYW6ePU4APDYO1hDD5HOwBwysljj444iTzK5BdNIfvxdcTw1Bsj+d1O7wSD
+	 xf1j8pZZrr+FYC2te1abtuCrHxY0GHuwWdmZgISw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08788F805D5; Fri, 26 May 2023 13:43:50 +0200 (CEST)
+	id 0FCC1F800DF; Thu, 25 May 2023 10:30:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 486FBF8058C;
-	Fri, 26 May 2023 13:43:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 966EBF8016A;
+	Thu, 25 May 2023 10:30:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2AD83F80007; Thu, 25 May 2023 10:00:20 +0200 (CEST)
+	id CDF21F80249; Thu, 25 May 2023 10:29:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6099EF80007
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 10:00:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6099EF80007
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6881EF800DF
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 10:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6881EF800DF
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=uOOoGCe2
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-3f606a80d34so2003845e9.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 25 May 2023 01:00:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1685001615; x=1687593615;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gWA2hFNdK5GzZoFmwlA1f9qkQkbSpHPZqFW4w1b1GmE=;
-        b=uOOoGCe2oAUtaYJs9RVWlm/uUC24fSiSeA1cmxT3BdARVgaY2ZJ7sRvMB2lG5nwZbF
-         pljLy0ru1y1VwLesFOI4lkJIvTx9MT0KAY6lOq3PPmbmQKmGG09tXzmpwtP1Oucjxvyq
-         hC9gI8VjNDxTHf5BnS6ocOultyCzinteysbSmc+I35a+y0/oY/cx1yeGeARpE+8R+2Ax
-         sVADBrvQ7UY5YvbNv+RDMqsrxTVH3kYggFlUWFlWn8gOOixIx8CQRMQb+bUMGX2mElBS
-         d+ek6ykO+NtF/USLWo7Qt89q8hLhYuH5zzFwm8Fy4aKd3TIzt6dkNvHyzpocKSjzXdYd
-         rPzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685001615; x=1687593615;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gWA2hFNdK5GzZoFmwlA1f9qkQkbSpHPZqFW4w1b1GmE=;
-        b=V+TKYEwbG1vrUNdAbCRWiG16+yS0pkq+3tNfy8cdBP6IWrk1O+XWn3QQEHMujPnkM6
-         ck2dkulmphWh79aUX7g6rVW3bLxyvv5cs0QpOvp78zRO4wuhYgqjIfYj8zhDphYGo56v
-         BIyDVJ451Y99Se1RvDtNxy/yo6kzgLyF8ddvnL14OH7FSe8Op1s6FTYxpvC0xz/vGcV1
-         OCbmp1EuCcbLJOuN1dFlE4sCNs3T7SmFuiUQalQ4EUBrVrasjM51fo0viQe9KzNNGZm/
-         gaIGaIVjpS0+v11KHuAKFbXYfgIygOQvjLgf2k9jomU+oGfKl4Uq6RzZV3HfxoqLOuso
-         xbew==
-X-Gm-Message-State: AC+VfDz4DUodn/7HJlAnJw2qq40VO7gsdVAkNac86ZksWbey9XeFQ+bP
-	gHiUQyyZoYxToiRhOQTmavbdEA==
-X-Google-Smtp-Source: 
- ACHHUZ4a55sghU/vdd07TRY1xaEdq0OWOK95Wo0G5S5fGKsV7fJcHSmAAmTEJ8noNZebytP2TaKfWQ==
-X-Received: by 2002:a05:600c:c5:b0:3f6:795:6d1a with SMTP id
- u5-20020a05600c00c500b003f607956d1amr1907259wmm.22.1685001614735;
-        Thu, 25 May 2023 01:00:14 -0700 (PDT)
-Received: from localhost ([102.36.222.112])
-        by smtp.gmail.com with ESMTPSA id
- k15-20020a05600c0b4f00b003f611b2aedesm1152139wmr.38.2023.05.25.01.00.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 May 2023 01:00:13 -0700 (PDT)
-Date: Thu, 25 May 2023 11:00:10 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: tiwai@suse.de
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=a8iy/tJs;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=CkA5Xks4
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 540A81F890;
+	Thu, 25 May 2023 08:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1685003350;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8fZiQFElqJdXLdgPPGanRTiB1x221Q3vu1zvFvnjky0=;
+	b=a8iy/tJsvOXd3Gxi+S11+hN9RqS14GxTJ4E6trbIKXxb61GiWFd4pgQ2tgMht+QcsY6dpj
+	LpD9/Sfcwz0X9xAPgauKPoojQt4RKXO0HcIytWPA/l7qMvhCWEcFwqd9PKft/Rd1K8jZFU
+	zWkRcX51OEAcrcSrMhOUxgqedRwCpXU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1685003350;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8fZiQFElqJdXLdgPPGanRTiB1x221Q3vu1zvFvnjky0=;
+	b=CkA5Xks4DEkN4J185U5V+miaB9C3ghAc7FIUvneMrkOZgyLKyOT2J6pFYBaA3JnkG5eE5Q
+	C4x7XN9ylHB4j+CA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3306713356;
+	Thu, 25 May 2023 08:29:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id DgDkClYcb2Q3OgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 25 May 2023 08:29:10 +0000
+Date: Thu, 25 May 2023 10:29:09 +0200
+Message-ID: <87bki8ddbe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dan Carpenter <dan.carpenter@linaro.org>
 Cc: alsa-devel@alsa-project.org
-Subject: [bug report] ALSA: ump: Add legacy raw MIDI support
-Message-ID: <0fbc0b27-54b8-4cda-800e-37e7a03fed39@kili.mountain>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-MailFrom: dan.carpenter@linaro.org
-X-Mailman-Rule-Hits: nonmember-moderation
+Subject: Re: [bug report] ALSA: ump: Add legacy raw MIDI support
+In-Reply-To: <4683198a-84f6-4238-9e87-c70667d84523@kili.mountain>
+References: <4683198a-84f6-4238-9e87-c70667d84523@kili.mountain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 4ZER4IXD6QVHFVVUF3T6QHZA3HM7NOHN
+X-Message-ID-Hash: 4ZER4IXD6QVHFVVUF3T6QHZA3HM7NOHN
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: JEPLHTUBNCJWWNMZT5AB4VCRT2UBJWCH
-X-Message-ID-Hash: JEPLHTUBNCJWWNMZT5AB4VCRT2UBJWCH
-X-Mailman-Approved-At: Fri, 26 May 2023 11:43:42 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JEPLHTUBNCJWWNMZT5AB4VCRT2UBJWCH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4ZER4IXD6QVHFVVUF3T6QHZA3HM7NOHN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,85 +116,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello Takashi Iwai,
+On Thu, 25 May 2023 09:57:47 +0200,
+Dan Carpenter wrote:
+> 
+> Hello Takashi Iwai,
+> 
+> The patch 0b5288f5fe63: "ALSA: ump: Add legacy raw MIDI support" from
+> May 23, 2023, leads to the following Smatch static checker warning:
+> 
+> 	sound/core/ump_convert.c:343 cvt_legacy_cmd_to_ump()
+> 	warn: duplicate check 'buf[2]' (previous on line 333)
+> 
+> sound/core/ump_convert.c
+>     305 static int cvt_legacy_cmd_to_ump(struct snd_ump_endpoint *ump,
+>     306                                  struct ump_cvt_to_ump *cvt,
+>     307                                  unsigned char group, u32 *data,
+>     308                                  unsigned char bytes)
+>     309 {
+>     310         const unsigned char *buf = cvt->buf;
+>     311         struct ump_cvt_to_ump_bank *cc;
+>     312         union snd_ump_midi2_msg *midi2 = (union snd_ump_midi2_msg *)data;
+>     313         unsigned char status, channel;
+>     314 
+>     315         BUILD_BUG_ON(sizeof(union snd_ump_midi1_msg) != 4);
+>     316         BUILD_BUG_ON(sizeof(union snd_ump_midi2_msg) != 8);
+>     317 
+>     318         /* for MIDI 1.0 UMP, it's easy, just pack it into UMP */
+>     319         if (ump->info.protocol & SNDRV_UMP_EP_INFO_PROTO_MIDI1) {
+>     320                 data[0] = ump_compose(UMP_MSG_TYPE_MIDI1_CHANNEL_VOICE,
+>     321                                       group, 0, buf[0]);
+>     322                 data[0] |= buf[1] << 8;
+>     323                 if (bytes > 2)
+>     324                         data[0] |= buf[2];
+>     325                 return 4;
+>     326         }
+>     327 
+>     328         status = *buf >> 4;
+>     329         channel = *buf & 0x0f;
+>     330         cc = &cvt->bank[channel];
+>     331 
+>     332         /* special handling: treat note-on with 0 velocity as note-off */
+>     333         if (status == UMP_MSG_STATUS_NOTE_ON && !buf[2])
+>     334                 status = UMP_MSG_STATUS_NOTE_OFF;
+> 
+> This if statment
+> 
+>     335 
+>     336         /* initialize the packet */
+>     337         data[0] = ump_compose(UMP_MSG_TYPE_MIDI2_CHANNEL_VOICE,
+>     338                               group, status, channel);
+>     339         data[1] = 0;
+>     340 
+>     341         switch (status) {
+>     342         case UMP_MSG_STATUS_NOTE_ON:
+> --> 343                 if (!buf[2])
+>     344                         status = UMP_MSG_STATUS_NOTE_OFF;
+> 
+> and this one are the same.  One could be deleted.
 
-The patch 0b5288f5fe63: "ALSA: ump: Add legacy raw MIDI support" from
-May 23, 2023, leads to the following Smatch static checker warning:
+Correct.  I'll submit a fix patch.
 
-	sound/core/ump_convert.c:460 do_convert_to_ump()
-	warn: right shifting more than type allows 8 vs 8
 
-sound/core/ump_convert.c
-    419 static int do_convert_to_ump(struct snd_ump_endpoint *ump,
-    420                              unsigned char group, unsigned char c, u32 *data)
-    421 {
-    422         /* bytes for 0x80-0xf0 */
-    423         static unsigned char cmd_bytes[8] = {
-    424                 3, 3, 3, 3, 2, 2, 3, 0
-    425         };
-    426         /* bytes for 0xf0-0xff */
-    427         static unsigned char system_bytes[16] = {
-    428                 0, 2, 3, 2, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1
-    429         };
-    430         struct ump_cvt_to_ump *cvt = &ump->out_cvts[group];
-    431         unsigned char bytes;
-    432 
-    433         if (c == UMP_MIDI1_MSG_SYSEX_START) {
-    434                 cvt->in_sysex = 1;
-    435                 cvt->len = 0;
-    436                 return 0;
-    437         }
-    438         if (c == UMP_MIDI1_MSG_SYSEX_END) {
-    439                 if (!cvt->in_sysex)
-    440                         return 0; /* skip */
-    441                 return cvt_legacy_sysex_to_ump(cvt, group, data, true);
-    442         }
-    443 
-    444         if ((c & 0xf0) == UMP_MIDI1_MSG_REALTIME) {
-    445                 bytes = system_bytes[c & 0x0f];
-    446                 if (!bytes)
-    447                         return 0; /* skip */
-    448                 if (bytes == 1) {
-    449                         data[0] = ump_compose(UMP_MSG_TYPE_SYSTEM, group, 0, c);
-    450                         return 4;
-    451                 }
-    452                 cvt->buf[0] = c;
-    453                 cvt->len = 1;
-    454                 cvt->cmd_bytes = bytes;
-    455                 cvt->in_sysex = 0; /* abort SysEx */
-    456                 return 0;
-    457         }
-    458 
-    459         if (c & 0x80) {
---> 460                 bytes = cmd_bytes[(c >> 8) & 7];
-                                           ^^^^^^
-Based on the if statement, it looks like c >> 4 was intended.
+Thanks!
 
-    461                 cvt->buf[0] = c;
-    462                 cvt->len = 1;
-    463                 cvt->cmd_bytes = bytes;
-    464                 cvt->in_sysex = 0; /* abort SysEx */
-    465                 return 0;
-    466         }
-    467 
-    468         if (cvt->in_sysex) {
-    469                 cvt->buf[cvt->len++] = c;
-    470                 if (cvt->len == 6)
-    471                         return cvt_legacy_sysex_to_ump(cvt, group, data, false);
-    472                 return 0;
-    473         }
-    474 
-    475         if (!cvt->len)
-    476                 return 0;
-    477 
-    478         cvt->buf[cvt->len++] = c;
-    479         if (cvt->len < cvt->cmd_bytes)
-    480                 return 0;
-    481         cvt->len = 1;
-    482         if ((cvt->buf[0] & 0xf0) == UMP_MIDI1_MSG_REALTIME)
-    483                 return cvt_legacy_system_to_ump(cvt, group, data);
-    484         return cvt_legacy_cmd_to_ump(ump, cvt, group, data, cvt->cmd_bytes);
-    485 }
-
-regards,
-dan carpenter
+Takashi

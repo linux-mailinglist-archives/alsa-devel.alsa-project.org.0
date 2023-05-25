@@ -2,97 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF785710DD7
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 16:02:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45255710EDC
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 16:58:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC45C839;
-	Thu, 25 May 2023 16:01:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC45C839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61CA6200;
+	Thu, 25 May 2023 16:57:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61CA6200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685023337;
-	bh=HHEnCqDTVAiMHpx8oMxvWbopMv+wgvd+ZakTFFuAT2k=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1685026691;
+	bh=xSCR3xzh1AVE6419MbW9C5LH8QmAA5EiVTzhTG7OXUg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=vLLVNfEdapoS3z/QcWTipnxyRe4WvugJFd1lPYxuKRZfELMoypDb1VzjuYvZikp6k
-	 Io1TIYndTBb373RgEmJLujOAmA7dVFa5J7To3i/Dp5YJnSc3GHH6sDEQFpHaDDCfNS
-	 1lkydSmc7yqsDYHXdj+z1yOolZCCuMsWco9Ahfy8=
+	b=dqvMl5CK1lDchxW4LOQxD5BiEXF95jR+q8bXqvpwjwFf/xPrr99uVCciG5FnJT2j9
+	 w7jLNXAhSuimbcZb2a31W/At+mrZcIKZp0X/yNZGdtEETNiKUNqFOpBf0YQGiS7Qy2
+	 m6phvbw54NEc4WB40nph/p8wT0Bo3yAaisFF3phQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3CD8BF8057B; Thu, 25 May 2023 16:00:23 +0200 (CEST)
+	id 43C36F80053; Thu, 25 May 2023 16:57:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2B84F80578;
-	Thu, 25 May 2023 16:00:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDD5BF8016A;
+	Thu, 25 May 2023 16:57:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A1BAF80551; Thu, 25 May 2023 16:00:17 +0200 (CEST)
+	id EADE5F80249; Thu, 25 May 2023 16:57:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B5BECF8024E
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 16:00:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5BECF8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 13DC3F800DF
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 16:57:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13DC3F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=KXx5GHEJ
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34P8Mm6P016336;
-	Thu, 25 May 2023 09:00:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=6wz2vaNUW7aZwUs1r4Wrw1zVQNO/7hVTjslreqKkGKE=;
- b=KXx5GHEJEI67PDyzhvihgN06vrxfDxinV/ILLli7yUj4tFC5YZ1UAzRCRz+KcGVaJZDv
- f1hNMLXayHEuok1FW+Fl4Dc/bbhUNW7C/CjLr8pJz/Z2vd58uulg5aGNafD0IdrsBRLT
- hLdj0X0XkMDGVxUZ6VfoQYWAUpLF2T6xQeFfafICdvRzX7N+4fHEop1eUIciNjnwZpG8
- SfrbZ0Ai24Nw6SKbTTme7H/QoXIoa/5j4oQ2p9dMkBAradaAMuxSHgJfxwsuiDXaDjCT
- UHRcZcxT5JKysfoVpif6CCenxHLHyiEsEPqxDT6fvEB9F8IOSSkMWIo5fA3PU4QHy8x/ fw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3qsde8hsqk-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 25 May 2023 09:00:06 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 25 May
- 2023 09:00:03 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Thu, 25 May 2023 09:00:03 -0500
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.43])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 8DE8815B4;
-	Thu, 25 May 2023 14:00:03 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Stefan Binding
-	<sbinding@opensource.cirrus.com>
-Subject: [PATCH RESEND v1 3/3] ALSA: hda/realtek: Delete cs35l41 component
- master during free
-Date: Thu, 25 May 2023 14:59:55 +0100
-Message-ID: <20230525135955.2108140-4-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230525135955.2108140-1-sbinding@opensource.cirrus.com>
-References: <20230525135955.2108140-1-sbinding@opensource.cirrus.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=o1Hpkiv1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 607CA64676;
+	Thu, 25 May 2023 14:57:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D6EC433D2;
+	Thu, 25 May 2023 14:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685026623;
+	bh=xSCR3xzh1AVE6419MbW9C5LH8QmAA5EiVTzhTG7OXUg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=o1Hpkiv1XgsqH1ntBabvWS4gqCEzcsBotNfdcck+phxnX1s3a4Q3EUCsPp5nMvVWt
+	 +20FWqCBmQvUDynu3kwHha3Wtl8BdccF14FO4ORS0/zkoKgFanTz6au/Zq9ffcK87h
+	 v/njmB2I/Jyd2ePikTjNNMRtFBYm/BOz0iOsLZIwBGAwIUd4m9yfIHLdkBPlX1P38u
+	 gX9lrh3rmV8urSExmr2m8BPsoOZItKPND0Eh9FS9K8nik9/G8TD4mLdJuZ98WHmjO4
+	 VvkYwxolzFkPEdPiwig6/okhohVzB39nfz8GO1W0+DCp4XDgYSKsueZXjqheHW4IFw
+	 aLmmGrGvc8bLw==
+From: Mark Brown <broonie@kernel.org>
+To: Vitaly Rodionov <vitalyr@opensource.cirrus.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20230524125236.57149-1-vitalyr@opensource.cirrus.com>
+References: <20230524125236.57149-1-vitalyr@opensource.cirrus.com>
+Subject: Re: [PATCH] ASoC: cs42l42: Add PLL ratio table values
+Message-Id: <168502662226.304042.4675453488843160773.b4-ty@kernel.org>
+Date: Thu, 25 May 2023 15:57:02 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: nxDTKbOQ0DHagdHqVxAuRyG70FBAwcGv
-X-Proofpoint-GUID: nxDTKbOQ0DHagdHqVxAuRyG70FBAwcGv
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: YFTOXCHGHXY5N3PHKT5UBH3TIHR2HLOG
-X-Message-ID-Hash: YFTOXCHGHXY5N3PHKT5UBH3TIHR2HLOG
-X-MailFrom: prvs=0509245bd3=sbinding@opensource.cirrus.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: BVL5EFGNR7J36C53SW4KGLKIGLFRQCUG
+X-Message-ID-Hash: BVL5EFGNR7J36C53SW4KGLKIGLFRQCUG
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YFTOXCHGHXY5N3PHKT5UBH3TIHR2HLOG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BVL5EFGNR7J36C53SW4KGLKIGLFRQCUG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,26 +96,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This ensures that the driver is properly cleaned up when freed.
+On Wed, 24 May 2023 13:52:36 +0100, Vitaly Rodionov wrote:
+> Add 4.8Mhz 9.6Mhz and 19.2MHz SCLK values
+> for MCLK 12MHz and 12.288MHz requested by Intel.
+> 
+> 
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
+Applied to
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 7b5f194513c7b..e3774903918fe 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6757,6 +6757,8 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
- 		else
- 			spec->gen.pcm_playback_hook = comp_generic_playback_hook;
- 		break;
-+	case HDA_FIXUP_ACT_FREE:
-+		component_master_del(dev, &comp_master_ops);
- 	}
- }
- 
--- 
-2.34.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: cs42l42: Add PLL ratio table values
+      commit: 13e75f4b03217226f110c5bb5d11720adb5ca9d1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

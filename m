@@ -2,112 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C965B710DB8
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 15:58:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C61BA710DCF
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 16:01:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C20EB200;
-	Thu, 25 May 2023 15:57:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C20EB200
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04D751E8;
+	Thu, 25 May 2023 16:00:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04D751E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685023088;
-	bh=hIMk49WSAntmRpXZ3LWtOaRO3o9HO9ckAcwplUfZNbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=S7PfOVSQxwpb7CnVTiksQO92yFtSTZd8s0wsXGWQlXw2ojyNU6RQHBLh2eSoFeuwB
-	 TG0B1QaaSoRuPNE+M8Vgd/cpGiF5XAhNl+i+2qd17kOc1SyoyHtaOYvwY8C+WTp5PO
-	 sm4N4qNXMX3u7m3HihSq1xgaQEJtCQLsLNRXso54=
+	s=default; t=1685023265;
+	bh=xXzINa+KY1GYF6BsZfYGeSWE4yfgT4jnHA1Il4Tdd00=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=MMIhXtUzXHMYKCiGLg3nMddCgJjf9R3xrymu+Q110WNexSQdQT0WzFY9/vM03OQBp
+	 iiILe0ciyfOIgqpCbSp/o19xAdJXCyEktz24WnVDaqtkIQ4LLMchmSa9KKCUs2ifXv
+	 gv488AAW8zZEjtVHSUhRNCYGp3+ohfbMhGWgrv7E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3412CF8016A; Thu, 25 May 2023 15:57:18 +0200 (CEST)
+	id 2C33CF80425; Thu, 25 May 2023 16:00:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAE46F8016A;
-	Thu, 25 May 2023 15:57:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A90E1F80249;
+	Thu, 25 May 2023 16:00:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C734DF80249; Thu, 25 May 2023 15:57:13 +0200 (CEST)
+	id 02BE2F80425; Thu, 25 May 2023 16:00:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BB944F800DF
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 15:57:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB944F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0D5C9F80053
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 16:00:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D5C9F80053
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=TTAz3FOg
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-55db055b412so8453437b3.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 25 May 2023 06:57:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685023027; x=1687615027;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XDo5JGpMh+sfqhz2XW6FMxspF0XjVpH9YEGVgGeMjUw=;
-        b=TTAz3FOgo7dOFNI7aoiwX/0ljg5lz0wR0gFOezPqt9E1Ubrz1VqGe6aviRVmBjQGxY
-         mXF1M4aX7QL2DpYmXW1TLEnGsA82U73NiD17Sw4DpyLEEwxDd2CN8/TSuyiebDJmdOph
-         9lipSq39yElmxJTXAJncx/josTWvpCiYdKGmBZImHlwizI4ySjj7iYIFLn4+gNqcXAzs
-         5TtwqWH0jseD8nGeXTCwlMNZ9CzR5pQTY1ZGIT8VvzV0c28G2BmAPDp9CEHdDsMMBy8T
-         pKHknHW4hdN5A5n6z4//aTrHaniwuIvHJsTye3wn20Oy2P21nWwS90GzEUC3GRbupZ6U
-         sOEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685023027; x=1687615027;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XDo5JGpMh+sfqhz2XW6FMxspF0XjVpH9YEGVgGeMjUw=;
-        b=SKQXel+siKX2kYc3bR3O8Q/Sg6v48/zC33vieHERKb5zkK/lvhCCxRv7PAgw0RK6dJ
-         k2ZHqYtNsK1hFGD4v43nbTAdte/zZtFGgZnxLRArPzlIQxzthunOt7g+5hrCO09oKef7
-         XQPs9vIg1l24wXYlRhQGlsAXan8UV75wa5uELPA374eSzCx71HQg7X6bnVrK59TOukpB
-         PehXa+G/FF+jC8+FbZyKJx8elB0zJmoxRC0jGgs8HpsEdxX3HzUWTpp4p8+xTApX4rG8
-         izY+aJ63lKVtANm81/2+c9EShmXGPeaI9FWU3wfzi7uZ6SvRxd9AAyj8ZnjuoJknxKnz
-         Mmbw==
-X-Gm-Message-State: AC+VfDwg6JTtQdCvrY/OJ/DTJYGwSZSaJKJSOAwIiJRRQZMJj+lbdB4Z
-	lzEY1f1+OgeOW4+5sw94UBE=
-X-Google-Smtp-Source: 
- ACHHUZ5FiUL0rUUkvwykB8kqe+2IeLANHjnUXgIdMT6rP0bdidLHdnLmRMsDhL1wP2uFZ72SwMPzNw==
-X-Received: by 2002:a81:4ec7:0:b0:561:987e:27a with SMTP id
- c190-20020a814ec7000000b00561987e027amr3756808ywb.10.1685023027566;
-        Thu, 25 May 2023 06:57:07 -0700 (PDT)
-Received: from neuromancer. ([75.28.21.198])
-        by smtp.gmail.com with ESMTPSA id
- c184-20020a0df3c1000000b00555df877a4csm371333ywf.102.2023.05.25.06.57.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 May 2023 06:57:07 -0700 (PDT)
-Message-ID: <646f6933.0d0a0220.e2a16.15a9@mx.google.com>
-X-Google-Original-Message-ID: <ZG9pMemLwjqAuaWz@neuromancer.>
-Date: Thu, 25 May 2023 08:57:05 -0500
-From: Chris Morgan <macroalpha82@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: linux-rockchip@lists.infradead.org, alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org, zyw@rock-chips.com,
-	sebastian.reichel@collabora.com, andyshrk@163.com,
-	jagan@amarulasolutions.com, broonie@kernel.org, perex@perex.cz,
-	tiwai@suse.com, lgirdwood@gmail.com, heiko@sntech.de,
-	conor+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	robh+dt@kernel.org, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH 4/6] dt-bindings: vendor-prefixes: add Indiedroid
-References: <20230523213825.120077-1-macroalpha82@gmail.com>
- <20230523213825.120077-5-macroalpha82@gmail.com>
- <20230524-extrovert-unhidden-35e289c28bc4@spud>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=eZxZiJcH
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34PBPhU1006105;
+	Thu, 25 May 2023 09:00:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=eCUB3/UAkA9+tomxghvik6imKdz8/+ICfTEkpKQI8uY=;
+ b=eZxZiJcHrmr+vZMK/3sW3OqEVSBH7BJDsmS4mTaGmw7CsbkcFPDBz2pVwto92Vd7KS6Y
+ OuuDADJWsyE5vC2e0y9bhoZY+WVPV58pJtsNklLv3fYBOBPfZmAUtvF5wusR/p+4zAgU
+ UFITRSVKq4vPfI8g5GQj4gTLi5A6E7Pb0ZE0RNba9sy5KDGywPuCb4Z1Fv1I05/+uCiJ
+ 7mu78YzUYQuVlL68sEEmPLQu41s1kfkiv041kIZfJqV1ezvdknLJnflRhtAvl4rDI6vG
+ xwPOvRN2pLW5MHYs5+l4etPuIDrH31qxLXB01BXUZH6WvCGow0qNlXlphBeN8feFN9lv aA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qptmm6wbf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 25 May 2023 09:00:04 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 25 May
+ 2023 09:00:03 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Thu, 25 May 2023 09:00:03 -0500
+Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.43])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id DBC6311D4;
+	Thu, 25 May 2023 14:00:02 +0000 (UTC)
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Stefan Binding
+	<sbinding@opensource.cirrus.com>
+Subject: [PATCH RESEND v1 0/3] Fixes and cleanup for CS35L41 HDA
+Date: Thu, 25 May 2023 14:59:52 +0100
+Message-ID: <20230525135955.2108140-1-sbinding@opensource.cirrus.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230524-extrovert-unhidden-35e289c28bc4@spud>
-Message-ID-Hash: WZAUSFPZFQ54QJLZIHCRE42NB4LJE6DT
-X-Message-ID-Hash: WZAUSFPZFQ54QJLZIHCRE42NB4LJE6DT
-X-MailFrom: macroalpha82@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-ORIG-GUID: VhJfL1LOPdClfRFRPp5aDzebKY6BtOK9
+X-Proofpoint-GUID: VhJfL1LOPdClfRFRPp5aDzebKY6BtOK9
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: QINSF4OIUGUZWJTW547O2B5T2N4GJNH7
+X-Message-ID-Hash: QINSF4OIUGUZWJTW547O2B5T2N4GJNH7
+X-MailFrom: prvs=0509245bd3=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZAUSFPZFQ54QJLZIHCRE42NB4LJE6DT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QINSF4OIUGUZWJTW547O2B5T2N4GJNH7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,45 +109,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, May 24, 2023 at 09:30:03PM +0100, Conor Dooley wrote:
-> On Tue, May 23, 2023 at 04:38:23PM -0500, Chris Morgan wrote:
-> > From: Chris Morgan <macromorgan@hotmail.com>
-> > 
-> > Indiedroid is a sub-brand of Ameridroid for their line of single board
-> > computers.
-> > https://indiedroid.us/
-> > 
-> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> > ---
-> >  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > index 82d39ab0231b..632662be6e65 100644
-> > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > @@ -655,6 +655,8 @@ patternProperties:
-> >      description: Iron Device Corporation
-> >    "^isee,.*":
-> >      description: ISEE 2007 S.L.
-> > +  "^indiedroid,.*":
-> > +    description: Indiedroid
-> 
-> Can you add this in alphabetical order please?
+Several minor issues were found during additional testing and
+static analysis. These patches fix these minor issues.
 
-D'oh. Simple mistake, sorry. I'll fix it in V2.
+Stefan Binding (3):
+  ALSA: hda: cs35l41: Clean up Firmware Load Controls
+  ALSA: hda: cs35l41: Fix endian conversions
+  ALSA: hda/realtek: Delete cs35l41 component master during free
 
-Thank you.
+ sound/pci/hda/cs35l41_hda.c   | 40 ++++++++++++++++-------------------
+ sound/pci/hda/patch_realtek.c |  2 ++
+ 2 files changed, 20 insertions(+), 22 deletions(-)
 
-> 
-> Thanks,
-> Conor.
-> 
-> >    "^isil,.*":
-> >      description: Intersil
-> >    "^issi,.*":
-> > -- 
-> > 2.34.1
-> > 
-
+-- 
+2.34.1
 

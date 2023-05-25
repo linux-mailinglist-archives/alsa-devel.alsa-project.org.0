@@ -2,82 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E49D71147E
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:40:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85608711482
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:40:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FD49DF6;
-	Thu, 25 May 2023 20:39:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FD49DF6
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8FE7204;
+	Thu, 25 May 2023 20:40:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8FE7204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685040043;
-	bh=VAAY/+MJFj1XrcKHKiMSRG7NQwjKRBVFLOzOLTJ3UcE=;
+	s=default; t=1685040057;
+	bh=5S9NBUo9UX7UvqDms7p77VakqIs61wZCNv5X+vmHGuc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Bk07CxHe3IdSNzXumTvIeHu835eEGmW+pfZskKpFfjEf1rj8qFcKKFOEpQPBWibbw
-	 NkNbU1j1XH6WtMkqZh0iLjr5EPTp+PRm5+nqHNjtJwzUwLfV37qM1DgHZDvGLsF/HG
-	 alzx79xGRORtNnrSE9QkzKUjb41+fI325pF9EqOs=
+	b=ISvvvqPrGZH7haOe6MTl1cc6PO9CqCJbWN51B4Xhm3hnP69xTuXZSnXE2In/JDVFg
+	 y0bWuxMY097m2ZU5ZT+2UmflkiOfsjfJt5bjZ58Zl9+86I/B3OtfZNdZG/cdT/W6hG
+	 3Xy8Ixu7NdH+1eujniaYtoO3ubpvQKolHkGJr3J0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F1E66F8055C; Thu, 25 May 2023 20:39:33 +0200 (CEST)
+	id B2D6BF8057D; Thu, 25 May 2023 20:39:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73C35F80558;
-	Thu, 25 May 2023 20:39:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31CAFF80578;
+	Thu, 25 May 2023 20:39:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BF80F8055C; Thu, 25 May 2023 20:39:30 +0200 (CEST)
+	id CF434F8055C; Thu, 25 May 2023 20:39:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84298F80551
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:39:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84298F80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id 16A90F80551
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:39:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16A90F80551
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=E+fU0wTM
+ header.s=k20201202 header.b=C+enwHvg
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5D55864929;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E89516495D;
+	Thu, 25 May 2023 18:39:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489C2C433AA;
 	Thu, 25 May 2023 18:39:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8084BC433EF;
-	Thu, 25 May 2023 18:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685039966;
-	bh=VAAY/+MJFj1XrcKHKiMSRG7NQwjKRBVFLOzOLTJ3UcE=;
+	s=k20201202; t=1685039968;
+	bh=5S9NBUo9UX7UvqDms7p77VakqIs61wZCNv5X+vmHGuc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=E+fU0wTMoscUDKAq4SWV63IInUt9Bm+giVRp0CgjleA+8qKMcJGHsKt7V8q+UO7bo
-	 keWx+OMIbXj6kI+Xw94CXjiEs9gV3/j/av0nDeAduKNGDLH22TehrBocJYj389nWJZ
-	 6PUE6+bQabAJ/MCQ0M/TrDZ/7WGcC8Kc7TbJtf/OpBPDmdtJNtjTh3sjVn46Kt8IsE
-	 4HtXbMekPOnaGxcDE0x24zE9GPrlS8izHLyLaz8zxvUcYIyB7y2/jWnbc6xOq8fpaZ
-	 KJlmlST/sFZGzv2iiZNH4kGgCfwrl2l53pd8jGCuPAFPInA5zqPdv0k2V1hxX+Iamn
-	 zm94ZLPZg4HUA==
+	b=C+enwHvgVxQaaCwRTuBCpShHGt1TyEosMQgMlf6AJW7Graq6KNU3Mq9VSiE4/XccA
+	 e2ETPvqpG3mkrzKIClT4lQGxao5LAd3ukxUyQd7f6JWxJSff8VeobkDn/HMUl37aLN
+	 qtRW4EPCw5Y9bTPCakYvrd4YHVv2HbI6XHbOgP3XMMt1629bLueh2nTnnz8+4ykSo+
+	 96MFld2f+1GCyD/9kMk0A7IsTwK7Fm/BusDOwhgSP0NC3Ih5ANwmP33WMHHXn0dakc
+	 GmNs/OgYuAKhVafnBPxn/JG26RKHdUJKaM6OMKIiUoNx6v6UUgMpA1zcyiKOZsfVTJ
+	 H+Tmgit8tix/g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
+Cc: =?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>,
 	Sasha Levin <sashal@kernel.org>,
+	lars@metafoo.de,
+	nuno.sa@analog.com,
 	lgirdwood@gmail.com,
 	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	afd@ti.com,
-	shifu0704@thundersoft.com,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.15 07/43] ASoC: dt-bindings: Adjust #sound-dai-cells
- on TI's single-DAI codecs
-Date: Thu, 25 May 2023 14:38:18 -0400
-Message-Id: <20230525183854.1855431-7-sashal@kernel.org>
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org
+Subject: [PATCH AUTOSEL 5.15 08/43] ASoC: ssm2602: Add workaround for playback
+ distortions
+Date: Thu, 25 May 2023 14:38:19 -0400
+Message-Id: <20230525183854.1855431-8-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230525183854.1855431-1-sashal@kernel.org>
 References: <20230525183854.1855431-1-sashal@kernel.org>
@@ -86,8 +84,8 @@ Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ATVDY7QGQRUTDADQO6XZC436KIYMW2FP
-X-Message-ID-Hash: ATVDY7QGQRUTDADQO6XZC436KIYMW2FP
+Message-ID-Hash: ZAQ5ZE7IYZRX3PGTR6ODRGYBNAFK7PCT
+X-Message-ID-Hash: ZAQ5ZE7IYZRX3PGTR6ODRGYBNAFK7PCT
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -100,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ATVDY7QGQRUTDADQO6XZC436KIYMW2FP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZAQ5ZE7IYZRX3PGTR6ODRGYBNAFK7PCT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,96 +107,135 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Martin Povišer <povik+lin@cutebit.org>
+From: Paweł Anikiel <pan@semihalf.com>
 
-[ Upstream commit efb2bfd7b3d210c479b9361c176d7426e5eb8663 ]
+[ Upstream commit f63550e2b165208a2f382afcaf5551df9569e1d4 ]
 
-A bunch of TI's codecs have binding schemas which force #sound-dai-cells
-to one despite those codecs only having a single DAI. Allow for bindings
-with zero DAI cells and deprecate the former non-zero value.
+Apply a workaround for what appears to be a hardware quirk.
 
-Signed-off-by: Martin Povišer <povik+lin@cutebit.org
-Link: https://lore.kernel.org/r/20230509153412.62847-1-povik+lin@cutebit.org
+The problem seems to happen when enabling "whole chip power" (bit D7
+register R6) for the very first time after the chip receives power. If
+either "output" (D4) or "DAC" (D3) aren't powered on at that time,
+playback becomes very distorted later on.
+
+This happens on the Google Chameleon v3, as well as on a ZYBO Z7-10:
+https://ez.analog.com/audio/f/q-a/543726/solved-ssm2603-right-output-offset-issue/480229
+I suspect this happens only when using an external MCLK signal (which
+is the case for both of these boards).
+
+Here are some experiments run on a Google Chameleon v3. These were run
+in userspace using a wrapper around the i2cset utility:
+ssmset() {
+        i2cset -y 0 0x1a $(($1*2)) $2
+}
+
+For each of the following sequences, we apply power to the ssm2603
+chip, set the configuration registers R0-R5 and R7-R8, run the selected
+sequence, and check for distortions on playback.
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # chip, out, dac
+  OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x87 # out, dac
+  ssmset 0x06 0x07 # chip
+  OK
+
+  (disable MCLK)
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x1f # chip
+  ssmset 0x06 0x07 # out, dac
+  (enable MCLK)
+  OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x1f # chip
+  ssmset 0x06 0x07 # out, dac
+  NOT OK
+
+  ssmset 0x06 0x1f # chip
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # out, dac
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x0f # chip, out
+  ssmset 0x06 0x07 # dac
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x17 # chip, dac
+  ssmset 0x06 0x07 # out
+  NOT OK
+
+For each of the following sequences, we apply power to the ssm2603
+chip, run the selected sequence, issue a reset with R15, configure
+R0-R5 and R7-R8, run one of the NOT OK sequences from above, and check
+for distortions.
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # chip, out, dac
+  OK
+
+  (disable MCLK)
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x07 # chip, out, dac
+  (enable MCLK after reset)
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x17 # chip, dac
+  NOT OK
+
+  ssmset 0x09 0x01 # core
+  ssmset 0x06 0x0f # chip, out
+  NOT OK
+
+  ssmset 0x06 0x07 # chip, out, dac
+  NOT OK
+
+Signed-off-by: Paweł Anikiel <pan@semihalf.com
+Link: https://lore.kernel.org/r/20230508113037.137627-8-pan@semihalf.com
 Signed-off-by: Mark Brown <broonie@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/tas2562.yaml | 6 ++++--
- Documentation/devicetree/bindings/sound/tas2764.yaml | 6 ++++--
- Documentation/devicetree/bindings/sound/tas2770.yaml | 6 ++++--
- 3 files changed, 12 insertions(+), 6 deletions(-)
+ sound/soc/codecs/ssm2602.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/tas2562.yaml b/Documentation/devicetree/bindings/sound/tas2562.yaml
-index acd4bbe697315..4adaf92233c8e 100644
---- a/Documentation/devicetree/bindings/sound/tas2562.yaml
-+++ b/Documentation/devicetree/bindings/sound/tas2562.yaml
-@@ -52,7 +52,9 @@ properties:
-     description: TDM TX current sense time slot.
+diff --git a/sound/soc/codecs/ssm2602.c b/sound/soc/codecs/ssm2602.c
+index 7964e922b07f6..0a3540c5cdb5c 100644
+--- a/sound/soc/codecs/ssm2602.c
++++ b/sound/soc/codecs/ssm2602.c
+@@ -53,6 +53,18 @@ static const struct reg_default ssm2602_reg[SSM2602_CACHEREGNUM] = {
+ 	{ .reg = 0x09, .def = 0x0000 }
+ };
  
-   '#sound-dai-cells':
--    const: 1
-+    # The codec has a single DAI, the #sound-dai-cells=<1>; case is left in for backward
-+    # compatibility but is deprecated.
-+    enum: [0, 1]
++/*
++ * ssm2602 register patch
++ * Workaround for playback distortions after power up: activates digital
++ * core, and then powers on output, DAC, and whole chip at the same time
++ */
++
++static const struct reg_sequence ssm2602_patch[] = {
++	{ SSM2602_ACTIVE, 0x01 },
++	{ SSM2602_PWR,    0x07 },
++	{ SSM2602_RESET,  0x00 },
++};
++
  
- required:
-   - compatible
-@@ -69,7 +71,7 @@ examples:
-      codec: codec@4c {
-        compatible = "ti,tas2562";
-        reg = <0x4c>;
--       #sound-dai-cells = <1>;
-+       #sound-dai-cells = <0>;
-        interrupt-parent = <&gpio1>;
-        interrupts = <14>;
-        shutdown-gpios = <&gpio1 15 0>;
-diff --git a/Documentation/devicetree/bindings/sound/tas2764.yaml b/Documentation/devicetree/bindings/sound/tas2764.yaml
-index 5bf8c76ecda11..1ffe1a01668fe 100644
---- a/Documentation/devicetree/bindings/sound/tas2764.yaml
-+++ b/Documentation/devicetree/bindings/sound/tas2764.yaml
-@@ -46,7 +46,9 @@ properties:
-     description: TDM TX voltage sense time slot.
+ /*Appending several "None"s just for OSS mixer use*/
+ static const char *ssm2602_input_select[] = {
+@@ -589,6 +601,9 @@ static int ssm260x_component_probe(struct snd_soc_component *component)
+ 		return ret;
+ 	}
  
-   '#sound-dai-cells':
--    const: 1
-+    # The codec has a single DAI, the #sound-dai-cells=<1>; case is left in for backward
-+    # compatibility but is deprecated.
-+    enum: [0, 1]
- 
- required:
-   - compatible
-@@ -63,7 +65,7 @@ examples:
-      codec: codec@38 {
-        compatible = "ti,tas2764";
-        reg = <0x38>;
--       #sound-dai-cells = <1>;
-+       #sound-dai-cells = <0>;
-        interrupt-parent = <&gpio1>;
-        interrupts = <14>;
-        reset-gpios = <&gpio1 15 0>;
-diff --git a/Documentation/devicetree/bindings/sound/tas2770.yaml b/Documentation/devicetree/bindings/sound/tas2770.yaml
-index 027bebf4e8cf5..aceba9ed813ef 100644
---- a/Documentation/devicetree/bindings/sound/tas2770.yaml
-+++ b/Documentation/devicetree/bindings/sound/tas2770.yaml
-@@ -54,7 +54,9 @@ properties:
-       - 1 # Falling edge
- 
-   '#sound-dai-cells':
--    const: 1
-+    # The codec has a single DAI, the #sound-dai-cells=<1>; case is left in for backward
-+    # compatibility but is deprecated.
-+    enum: [0, 1]
- 
- required:
-   - compatible
-@@ -71,7 +73,7 @@ examples:
-      codec: codec@41 {
-        compatible = "ti,tas2770";
-        reg = <0x41>;
--       #sound-dai-cells = <1>;
-+       #sound-dai-cells = <0>;
-        interrupt-parent = <&gpio1>;
-        interrupts = <14>;
-        reset-gpio = <&gpio1 15 0>;
++	regmap_register_patch(ssm2602->regmap, ssm2602_patch,
++			      ARRAY_SIZE(ssm2602_patch));
++
+ 	/* set the update bits */
+ 	regmap_update_bits(ssm2602->regmap, SSM2602_LINVOL,
+ 			    LINVOL_LRIN_BOTH, LINVOL_LRIN_BOTH);
 -- 
 2.39.2
 

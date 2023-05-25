@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47A23711435
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:37:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF3CE711436
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 May 2023 20:37:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D3951E4;
-	Thu, 25 May 2023 20:36:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D3951E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id E569886F;
+	Thu, 25 May 2023 20:36:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E569886F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685039845;
-	bh=30LUA668h7VdTQuEqajPXaMTBzrCOVJwFLuPF9LjHBo=;
+	s=default; t=1685039862;
+	bh=TQ11Nxh2OcO48SMDrGUoUDr9OLdFd43bQOf6sBAJnKo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BJAf127/oEXXdREWKBI3yUadRdkcDSI2D3klq/Ui/8Gr0rf6IU9FdbuvZ4l5bnUon
-	 kwdnt24pRS64YUvsh8nIFWziFYEbTSX6e8f684ExqbFzKm3ON5sCav8eFl5PlPvQT9
-	 VfSgQP9Jg6t6SRILm87BSX7BXdj/EEVyAib9gK4g=
+	b=s2SiOzqvfN+9W2z9HCvqD1F2mNh7wH49vWGnOAi2qYaA3wXIZTzlIldSWFzV7PunQ
+	 V4UPJCCFofKLy4yKrjIYTwsohMmmSSi9OvcGol28sGgD0SqP2qYLi123mnbZt5CYjv
+	 fQhn6+S5LooK0+6blpUxx3rmJm/gXTzvAaWfzrmY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38F0AF80564; Thu, 25 May 2023 20:36:23 +0200 (CEST)
+	id B818AF8057C; Thu, 25 May 2023 20:36:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1C02F80549;
-	Thu, 25 May 2023 20:36:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 544DDF8056F;
+	Thu, 25 May 2023 20:36:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D155DF8055C; Thu, 25 May 2023 20:36:19 +0200 (CEST)
+	id ED483F80563; Thu, 25 May 2023 20:36:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,47 +36,46 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 41A99F80249
-	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:36:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41A99F80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id 52311F80249
+	for <alsa-devel@alsa-project.org>; Thu, 25 May 2023 20:36:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52311F80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=IuUfepG1
+ header.s=k20201202 header.b=iw33W8jE
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B419564902;
-	Thu, 25 May 2023 18:36:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0167AC433D2;
-	Thu, 25 May 2023 18:36:14 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3F8FF6490E;
+	Thu, 25 May 2023 18:36:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F29F9C4339B;
+	Thu, 25 May 2023 18:36:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685039776;
-	bh=30LUA668h7VdTQuEqajPXaMTBzrCOVJwFLuPF9LjHBo=;
+	s=k20201202; t=1685039780;
+	bh=TQ11Nxh2OcO48SMDrGUoUDr9OLdFd43bQOf6sBAJnKo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IuUfepG12olIeB2lzTa7tGatEJi2UUccya/fNmL6b7wPDQUpg8G4y9Hf2JbXY4d8y
-	 +f0jF+dsHPW+gis9zOKYcdy6VGdcYs6c8IyQbPYS/469rUlnQ65pDeIGt3NgM7FXeG
-	 NDG31+D6N0bqLwxkmfu2gw6BwZusxHn3Sv+C/tKWdFgnLWE24VinD/PEWjWhhGPJoN
-	 BDxin0Fugq0IHAu62DjMoR+dCtYLKtYWuW0Z9/U9Xm/goUlbqHmNu3ls3gT52zjSup
-	 1qNqYHHSL+UaLp8jMSc7hSMWlFU3S4bRQcsXbT86/0ZpARTIln9GHNM+KEzFGqe9og
-	 NaRHElROTzQKw==
+	b=iw33W8jEQA5JmcqmlGypc4W9exG4eJHZcDjW7lmHN3lIN8vyBaY+hZlXI2JVkSDTx
+	 MzvX9YTz/qYkQDIAXiyaQeLkFU/ZNbJ2/BnhZm5ESjPX/XOuiNFWjTDEmHfh4sRJ57
+	 EG0qopa/bQqElqTHJXivlk6t0Fy0nRFfbdFamy8Bkm8BfmKfxT4Vhbg+5zCfUasCe6
+	 HvWDbibdGClBv0ZUvia5a4u6DeIaN2kCnVMJIvhT3HZ7AX330lqQhNYUfXliu8/pDh
+	 XSScN6i9ySC+wzJ0ClJgXRQqxwE09wEdz3sFjLWUyiWvNiSaqdXWRPhjBgxLzYozup
+	 zzHSk70Glunjw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Jeremy Soller <jeremy@system76.com>,
+Cc: Maxim Kochetkov <fido_max@inbox.ru>,
 	Sasha Levin <sashal@kernel.org>,
 	lgirdwood@gmail.com,
 	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
-	mario.limonciello@amd.com,
-	Syed.SabaKareem@amd.com,
-	xazrael@hotmail.com,
+	ckeepax@opensource.cirrus.com,
+	u.kleine-koenig@pengutronix.de,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.1 03/57] ASoC: amd: yc: Add DMI entry to support
- System76 Pangolin 12
-Date: Thu, 25 May 2023 14:35:13 -0400
-Message-Id: <20230525183607.1793983-3-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 04/57] ASoC: dwc: limit the number of overrun
+ messages
+Date: Thu, 25 May 2023 14:35:14 -0400
+Message-Id: <20230525183607.1793983-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230525183607.1793983-1-sashal@kernel.org>
 References: <20230525183607.1793983-1-sashal@kernel.org>
@@ -84,8 +83,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: D6JDE7CPOXXIVVQTE5EIFW542PZZ6P3I
-X-Message-ID-Hash: D6JDE7CPOXXIVVQTE5EIFW542PZZ6P3I
+Message-ID-Hash: WQHPIQJBWEQQHYPXS3XVGXFYFK7GJRAC
+X-Message-ID-Hash: WQHPIQJBWEQQHYPXS3XVGXFYFK7GJRAC
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D6JDE7CPOXXIVVQTE5EIFW542PZZ6P3I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WQHPIQJBWEQQHYPXS3XVGXFYFK7GJRAC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,39 +106,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Jeremy Soller <jeremy@system76.com>
+From: Maxim Kochetkov <fido_max@inbox.ru>
 
-[ Upstream commit 7b9891ad25246b18b5ccc19518da7abc7763aa0a ]
+[ Upstream commit ab6ecfbf40fccf74b6ec2ba7ed6dd2fc024c3af2 ]
 
-Add pang12 quirk to enable the internal microphone.
+On slow CPU (FPGA/QEMU emulated) printing overrun messages from
+interrupt handler to uart console may leads to more overrun errors.
+So use dev_err_ratelimited to limit the number of error messages.
 
-Signed-off-by: Jeremy Soller <jeremy@system76.com
-Signed-off-by: Tim Crawford <tcrawford@system76.com
-Link: https://lore.kernel.org/r/20230505161458.19676-1-tcrawford@system76.com
+Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru
+Link: https://lore.kernel.org/r/20230505062820.21840-1-fido_max@inbox.ru
 Signed-off-by: Mark Brown <broonie@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/soc/dwc/dwc-i2s.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 0acdf0156f075..b844f321d139e 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -276,6 +276,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8A22"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "System76"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "pang12"),
-+		}
-+	},
- 	{}
- };
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 7f7dd07c63b2f..3496301582b22 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -132,13 +132,13 @@ static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
  
+ 		/* Error Handling: TX */
+ 		if (isr[i] & ISR_TXFO) {
+-			dev_err(dev->dev, "TX overrun (ch_id=%d)\n", i);
++			dev_err_ratelimited(dev->dev, "TX overrun (ch_id=%d)\n", i);
+ 			irq_valid = true;
+ 		}
+ 
+ 		/* Error Handling: TX */
+ 		if (isr[i] & ISR_RXFO) {
+-			dev_err(dev->dev, "RX overrun (ch_id=%d)\n", i);
++			dev_err_ratelimited(dev->dev, "RX overrun (ch_id=%d)\n", i);
+ 			irq_valid = true;
+ 		}
+ 	}
 -- 
 2.39.2
 

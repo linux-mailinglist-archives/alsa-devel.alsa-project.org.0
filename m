@@ -2,108 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD617121DA
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 10:11:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6DA67123BF
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 11:35:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9982207;
-	Fri, 26 May 2023 10:10:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9982207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20F40208;
+	Fri, 26 May 2023 11:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20F40208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685088660;
-	bh=ccDx5YlZ6ffA+9dPtnyn5Mdi/wPHAsWHRGGANrun8go=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=d4Ysn4QcorK+CkGBMLexikoPucWsgIwTELwCBP5nsrx6h2bFEBJm/XWHzwCcGVCdR
-	 vfmThv61Y2wnyD6a/Fv42pubQH1VV2XOyGXSzk21arwhBJ3mK+y+81mxK35lNZOjj8
-	 5RcM4Wb0J4KWGKYegpUgdntcmqAM/1cb+o4P6h8Q=
+	s=default; t=1685093709;
+	bh=0ohz2WD1WBSio0as4iFXBTl8CAp6e4mj/H1YNmJCdY0=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=iIG3JgugXudhpfOOMW41lYmwN0rjqDvOoEAAtEM9tjExD85ffQtVx6K4GpXVciE2c
+	 xHhDOYMsJ1e35ifwlaMUWHDzK4XiBXNcTErFBmeqKgJ1Q+Df2gp27XeRE9mF+vgYYt
+	 FW+rgcCb+apykcNudue3xwNKTOeOBc7qtiN79p0g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 151ADF80542; Fri, 26 May 2023 10:09:59 +0200 (CEST)
+	id 398C8F8016A; Fri, 26 May 2023 11:33:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B2D5F8016A;
-	Fri, 26 May 2023 10:09:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A307F8016A;
+	Fri, 26 May 2023 11:33:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20A08F80249; Fri, 26 May 2023 10:09:51 +0200 (CEST)
+	id 2410EF80548; Fri, 26 May 2023 11:32:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	RDNS_NONE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A3CDF80086
-	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 10:09:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A3CDF80086
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 34Q89IPV0002638,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 34Q89IPV0002638
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
-	Fri, 26 May 2023 16:09:18 +0800
-Received: from RTEXMBS06.realtek.com.tw (172.21.6.99) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Fri, 26 May 2023 16:09:30 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Fri, 26 May 2023 16:09:29 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::4d7:e49a:674a:598]) by
- RTEXMBS01.realtek.com.tw ([fe80::4d7:e49a:674a:598%5]) with mapi id
- 15.01.2375.007; Fri, 26 May 2023 16:09:29 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>
-CC: "Joseph C. Sible" <josephcsible@gmail.com>,
-        Bagas Sanjaya
-	<bagasdotme@gmail.com>,
-        "regressions@lists.linux.dev"
-	<regressions@lists.linux.dev>,
-        "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
-        "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>
-Subject: RE: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-Thread-Topic: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-Thread-Index: 
- AQHZhdSOD7kY6mXBDkGA3ryhp811r69Yu5SAgAASNACAAA22gIAA7n+AgAEJrYCABLe/YIAJNIWAgAIHAcD//4tyAIAB8UZw
-Date: Fri, 26 May 2023 08:09:29 +0000
-Message-ID: <1170325957764b4cbd7cd3639575f285@realtek.com>
-References: <bug-217440-225600@https.bugzilla.kernel.org/>
-	<CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
-	<ZGB0cVVI7OgaJU6t@debian.me>
-	<CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
-	<87cz338ix4.wl-tiwai@suse.de>
-	<CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
-	<874jodlnmi.wl-tiwai@suse.de>	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
-	<87fs7mdofi.wl-tiwai@suse.de>	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
- <87353kd8b9.wl-tiwai@suse.de>
-In-Reply-To: <87353kd8b9.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.106]
-x-kse-serverinfo: RTEXMBS06.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by alsa1.perex.cz (Postfix) with ESMTPS id 00701F8001F
+	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 11:32:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00701F8001F
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=Y8qmVRwu
+X-UUID: 26291ad0fba811edb20a276fd37b9834-20230526
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=908mJvgM7Ffh4vh5j/v5y7glqS/XQvRCpUkMddBwUKc=;
+	b=Y8qmVRwu0EX/DJfKSw/0kMd7hqfiexFb08yrTvVTtI9M9jg4rXu9Yf2JKLc2bzgG8ybuFYtD1nQZzUN4xIY2f+jdnf0nMXOsoE0v2Eeah5MrcQDloqtN/yGs0okhUXvVBekjneUhSIMxs/1QwHcZ6ap7nN4r64gd8SHPGdINqlY=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.25,REQID:29ed3b9c-878b-41e9-95ba-a8c475b7060c,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:d5b0ae3,CLOUDID:fbcca53c-7aa7-41f3-a6bd-0433bee822f3,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 26291ad0fba811edb20a276fd37b9834-20230526
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
+ mailgw02.mediatek.com
+	(envelope-from <trevor.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 2076542957; Fri, 26 May 2023 17:31:53 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Fri, 26 May 2023 17:31:51 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Fri, 26 May 2023 17:31:51 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+	<conor+dt@kernel.org>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+CC: <trevor.wu@mediatek.com>, <amergnat@baylibre.com>,
+	<alsa-devel@alsa-project.org>, <linux-mediatek@lists.infradead.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Subject: [PATCH v3 0/7] ASoC: mt8188: add new board support
+Date: Fri, 26 May 2023 17:31:43 +0800
+Message-ID: <20230526093150.22923-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: CI4S4SJD7JYRNCXZI3ZVMDWLQZ465M7H
-X-Message-ID-Hash: CI4S4SJD7JYRNCXZI3ZVMDWLQZ465M7H
-X-MailFrom: kailang@realtek.com
+Content-Type: text/plain
+X-MTK: N
+Message-ID-Hash: CP2OKFLACOMIR44JA24GN4FBXR6G2344
+X-Message-ID-Hash: CP2OKFLACOMIR44JA24GN4FBXR6G2344
+X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CI4S4SJD7JYRNCXZI3ZVMDWLQZ465M7H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CP2OKFLACOMIR44JA24GN4FBXR6G2344/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,126 +111,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Takashi,
+In the series, we extend the capability of mt8188-mt6359 driver.
 
-I test the ALC236 for do below line. It passed on reboot OS.
-=3D=3D> alc_update_coef_idx(codec, 0x46, 0, 3 << 12);  /* 3K pull low */
+The following changes are included.
+1. Divide ADDA BE dai into two dais for SOF.
+2. Register hdmi/dp jack pins.
+3. dai_fmt can be configured from device tree.
+4. Add some I2S codecs support.
 
-I also test it without 3K pull low. It also passed on reboot OS.
+In addition, new compatible string "mediatek,mt8188-nau8825" is
+included for a new board support.
 
-I think this machine was the special case for this issue.
+Changes since v2:
+  - unify coding style based on reviewer's suggestion
+  - fix typo
+  
+Changes since v1:
+  - add "Headphone Jack" for Nau8825
+  - separate binding patch 2 from patch 6, and rename the subject
+  - clean up debugfs for freed widget
 
-Hi Joseph,
+Trevor Wu (7):
+  ASoC: mediatek: mt8188: separate ADDA playback dai from capture dai
+  ASoC: dt-bindings: mediatek,mt8188-mt6359: remove ADDA_BE from
+    link-name
+  ASoC: mediatek: mt8188-mt6359: register hdmi/dp jack pins
+  ASoC: mediatek: common: soundcard driver add dai_fmt support
+  ASoC: soc-dapm.c: clean up debugfs for freed widget
+  ASoC: mediatek: mt8188-mt6359: support new board with nau88255
+  ASoC: dt-bindings: mediatek,mt8188-mt6359: add NAU8825 support
 
-Could you test it with below model name?
-=3D=3D> alc-chrome-book
+ .../sound/mediatek,mt8188-mt6359.yaml         |  27 +-
+ sound/soc/mediatek/Kconfig                    |   4 +
+ .../mediatek/common/mtk-soundcard-driver.c    |  53 ++-
+ sound/soc/mediatek/mt8188/mt8188-afe-common.h |   3 +-
+ sound/soc/mediatek/mt8188/mt8188-dai-adda.c   |  73 ++--
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c     | 386 +++++++++++++++++-
+ sound/soc/soc-dapm.c                          |  16 +
+ 7 files changed, 507 insertions(+), 55 deletions(-)
 
-BR
-Kailang.
+-- 
+2.18.0
 
-> -----Original Message-----
-> From: Takashi Iwai <tiwai@suse.de>
-> Sent: Thursday, May 25, 2023 6:17 PM
-> To: Kailang <kailang@realtek.com>
-> Cc: Joseph C. Sible <josephcsible@gmail.com>; Bagas Sanjaya
-> <bagasdotme@gmail.com>; regressions@lists.linux.dev; perex@perex.cz;
-> tiwai@suse.com; alsa-devel@alsa-project.org
-> Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP
-> 15z-fc000 on warm boot
->=20
->=20
-> External mail.
->=20
->=20
->=20
-> On Thu, 25 May 2023 11:21:38 +0200,
-> Kailang wrote:
-> >
-> >
-> >
-> > > -----Original Message-----
-> > > From: Takashi Iwai <tiwai@suse.de>
-> > > Sent: Wednesday, May 24, 2023 6:17 PM
-> > > To: Kailang <kailang@realtek.com>
-> > > Cc: Joseph C. Sible <josephcsible@gmail.com>; Bagas Sanjaya
-> > > <bagasdotme@gmail.com>; regressions@lists.linux.dev; perex@perex.cz;
-> > > tiwai@suse.com; alsa-devel@alsa-project.org
-> > > Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP
-> > > 15z-fc000 on warm boot
-> > >
-> > >
-> > > External mail.
-> > >
-> > >
-> > >
-> > > On Thu, 18 May 2023 07:44:23 +0200,
-> > > Kailang wrote:
-> > > >
-> > > > > -----Original Message-----
-> > > > > From: Takashi Iwai <tiwai@suse.de>
-> > > > > Sent: Monday, May 15, 2023 9:40 PM
-> > > > > To: Joseph C. Sible <josephcsible@gmail.com>
-> > > > > Cc: Bagas Sanjaya <bagasdotme@gmail.com>;
-> > > > > regressions@lists.linux.dev; Kailang <kailang@realtek.com>;
-> > > > > perex@perex.cz; tiwai@suse.com; alsa-devel@alsa-project.org
-> > > > > Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from
-> > > > > HP
-> > > > > 15z-fc000 on warm boot
-> > > > >
-> > > > >
-> > > > > External mail.
-> > > > >
-> > > > >
-> > > > >
-> > > > > On Sun, 14 May 2023 23:48:55 +0200, Joseph C. Sible wrote:
-> > > > > >
-> > > > > > On 5/14/23, Takashi Iwai wrote:
-> > > > > > > The patch changes two places (the change in
-> > > > > > > alc_shutup_pins() and alc256_shutup()), and I guess the latte=
-r is the
-> culprit.
-> > > > > > > Could you verify that only reverting the latter fixes the pro=
-blem?
-> > > > > >
-> > > > > > Yes, only reverting the latter fixes the problem. I just tried
-> > > > > > a kernel consisting of 6.3.2 plus the below change, and it work=
-s fine:
-> > > > > >
-> > > > > > --- a/sound/pci/hda/patch_realtek.c
-> > > > > > +++ b/sound/pci/hda/patch_realtek.c
-> > > > > > @@ -3638,8 +3638,7 @@ static void alc256_shutup(struct
-> > > > > > hda_codec
-> > > > > *codec)
-> > > > > >         /* If disable 3k pulldown control for alc257, the Mic
-> > > > > > detection will not work correctly
-> > > > > >          * when booting with headset plugged. So skip setting
-> > > > > > it for the codec alc257
-> > > > > >          */
-> > > > > > -       if (codec->core.vendor_id !=3D 0x10ec0236 &&
-> > > > > > -           codec->core.vendor_id !=3D 0x10ec0257)
-> > > > > > +       if (codec->core.vendor_id !=3D 0x10ec0257)
-> > > > > >                 alc_update_coef_idx(codec, 0x46, 0, 3 << 12);
-> > > > > >
-> > > > > >         if (!spec->no_shutup_pins)
-> > > > >
-> > > > > OK, thanks for confirmation.
-> > > > >
-> > > > > Kailang, could you check this issue?
-> > > >
-> > > > OK. I will take it a look for these days.
-> > >
-> > > Kailang, any chance to get this fixed?
-> > Sorry! My test machine didn't work. I couldn't have a machine to do thi=
-s test.
-> > But I find one ChromeBook with ALC236 today.
->=20
-> Thanks!
->=20
-> I already submitted a PR to Linus for 6.4-rc4, and the next PR will be li=
-kely in
-> two weeks, so we have a bit of time :)
->=20
->=20
-> Takashi
->=20
-> ------Please consider the environment before printing this e-mail.

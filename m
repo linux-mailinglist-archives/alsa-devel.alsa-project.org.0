@@ -2,119 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4C5B7125AF
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 13:37:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1662A71267D
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 14:22:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC30F86F;
-	Fri, 26 May 2023 13:36:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC30F86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B528204;
+	Fri, 26 May 2023 14:21:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B528204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685101038;
-	bh=QRRgK5ld1oWz1a8rNroYopRDOm2mpuB+uIk9TTaCKA0=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1685103719;
+	bh=pbT6QZPKSb7UcVvwwWshDYnGp5RYLW0NMCNyheXhWKs=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SWtUobJ5ftTlxG+PE5HGViWvZCYbYh2880kqKCL3IqDnttc4qo+KFiacGNfxSLLYT
-	 r6PrCN6iv/jtJqLPUloUDsCIVn3TMIEEXl4AgIcEG0n7Fym0oK0dMSSUyPBk+mBINE
-	 j2Q5LS18+RMULmY3lV/OJFUVmgf7ONFmXBcqYSSw=
+	b=HUt0gpw856gpbRWX0ZLHzvjwZepjAjwfjn08nvanMMhXLxudF8EFHh3jzm4xis8X1
+	 X0MOYOv7CPWVytaxtoBr/1+SLNvKurQcaH/3XDwxfXmrFuvF4fTtjOp/RqTTmEIa/Q
+	 lLs9IDGClzDn/o0rwgAVTLuQaZNprLGGnTyL+EbA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63AD7F805E1; Fri, 26 May 2023 13:34:24 +0200 (CEST)
+	id C4B5CF8001F; Fri, 26 May 2023 14:20:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0269BF805CB;
-	Fri, 26 May 2023 13:34:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 666FFF8016A;
+	Fri, 26 May 2023 14:20:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB021F805C8; Fri, 26 May 2023 13:34:19 +0200 (CEST)
+	id 92468F80249; Fri, 26 May 2023 14:20:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 92264F805C7
-	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 13:34:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92264F805C7
+	by alsa1.perex.cz (Postfix) with ESMTPS id BA2E4F8001F
+	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 14:20:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA2E4F8001F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=F0J2/uIi
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34Q8bru7017114;
-	Fri, 26 May 2023 11:34:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=4l04U8ScpSzOar6vhPfePpeMKhfTNryVB8CWo9BK0eo=;
- b=F0J2/uIido0DhTXcIbliuI0v2dUbwNakSUwkC5RtA8sF3xHeE7j5ZtvwsmH5re6D2vDa
- 6GTYyfuzkWxFhLDD08YB3fjol1fFvP8IMBJHjvhbKTZARuDbNTC0ySoBnBYBlRTd4dFO
- 6JmjzRTQ8GqJ6ZaUJ5/rgntNmopRvSFVlKWEY1/xfDVO5FOVU7BToHgoH2TnvhK+egeN
- hgxum7/IDdXRx0YBoTyxO4yM5ll1pFMFSn8rChZOwK+SH3AM3yVtfgodJ1NovMyBbNWX
- i2+SUWbTf1n+3L8PBlRQvZwSacuPOY2epV9b32r9h4T4EXrU8CKNUut4vzmubuaqyNvh QQ==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qtp4wgrq2-1
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=d4TNlwFu
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34QBYFLH030993;
+	Fri, 26 May 2023 07:20:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=8FRvUnxeEwWZA99tu0bOyIubM9mJTTwebRYyDDCDp1M=;
+ b=d4TNlwFuHIF7v+/nQZCuH+xjWv7fnu4l2ynjznlpiJpCjLp//a+w9st69/po+suYGOBr
+ 1tBsUSS1cfykLtxbSannu7qDCXTVIXXBRaefxe4C7SDcW9D3rm8v5m191bF+72zAeIae
+ EOv4x96FQMufJqyLW4m86O+fgcVFj1rC0rt8UPLxFvqgF02S7ZdsQRHvD7huPSKZq7IC
+ iXlMZkT1CskFhZBBTMRbm5Qa3fZsc91Ugx2/fzrfBD2Oa3Zprc+tYi6xdollPVx/rMCH
+ FbOe0pNeVsOc9ZjF233FQeDeYorN6jcS57z/sYUbVwXjcyQPkdlB3f5UF4xiM+vBH9M5 Kg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qptmm8d5c-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 26 May 2023 11:34:15 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
-	by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 34QBYE0D021597
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 26 May 2023 11:34:14 GMT
-Received: from hu-mohs-hyd.qualcomm.com (10.80.80.8) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Fri, 26 May 2023 04:34:08 -0700
-From: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-To: <krzysztof.kozlowski+dt@linaro.org>, <vkoul@kernel.org>,
-        <agross@kernel.org>, <andersson@kernel.org>, <robh+dt@kernel.org>,
-        <broonie@kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <quic_rohkumar@quicinc.com>, <srinivas.kandagatla@linaro.org>,
-        <dianders@chromium.org>, <swboyd@chromium.org>,
-        <judyhsiao@chromium.org>, <alsa-devel@alsa-project.org>,
-        <quic_rjendra@quicinc.com>, <konrad.dybcio@somainline.org>,
-        <mka@chromium.org>, <quic_visr@quicinc.com>
-CC: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>,
-        Mohammad Rafi Shaik
-	<quic_mohs@quicinc.com>
-Subject: [PATCH v6 8/8] arm64: dts: qcom: sc7280: Add qcom,adsp-pil-mode
- property in clock nodes
-Date: Fri, 26 May 2023 17:02:58 +0530
-Message-ID: <20230526113258.1467276-9-quic_mohs@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230526113258.1467276-1-quic_mohs@quicinc.com>
-References: <20230526113258.1467276-1-quic_mohs@quicinc.com>
+	Fri, 26 May 2023 07:20:34 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 26 May
+ 2023 07:20:32 -0500
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Fri, 26 May 2023 07:20:32 -0500
+Received: from [198.61.65.166] (EDIN4L06LR3.ad.cirrus.com [198.61.65.166])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5F4F2B38;
+	Fri, 26 May 2023 12:20:32 +0000 (UTC)
+Message-ID: <7c5f776d-bf17-ea3d-a4ee-3ac54194a215@opensource.cirrus.com>
+Date: Fri, 26 May 2023 13:20:32 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: N6zYUlCqEDRjeKEMw-tKWic8NGv_jo4h
-X-Proofpoint-ORIG-GUID: N6zYUlCqEDRjeKEMw-tKWic8NGv_jo4h
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-26_01,2023-05-25_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- spamscore=0 phishscore=0 adultscore=0 clxscore=1015 suspectscore=0
- malwarescore=0 bulkscore=0 impostorscore=0 mlxlogscore=999
- lowpriorityscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2304280000 definitions=main-2305260098
-Message-ID-Hash: HAKQSDO7EA2SAIPKRVHY3U3KA2VHWR5B
-X-Message-ID-Hash: HAKQSDO7EA2SAIPKRVHY3U3KA2VHWR5B
-X-MailFrom: quic_mohs@quicinc.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 13/13] ALSA: hda/cs35l56: Add driver for Cirrus Logic
+ CS35L56 amplifier
+Content-Language: en-US
+To: <Claudiu.Beznea@microchip.com>, <tiwai@suse.com>, <broonie@kernel.org>,
+        <perex@perex.cz>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>, <simont@opensource.cirrus.com>
+References: <20230525150659.25409-1-rf@opensource.cirrus.com>
+ <20230525150659.25409-14-rf@opensource.cirrus.com>
+ <6ff4235d-f8d0-3c3f-cc67-18aadee2afbc@microchip.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+In-Reply-To: <6ff4235d-f8d0-3c3f-cc67-18aadee2afbc@microchip.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: RWDcGByEdYWf6UE-LrUN2hVXgR0W9kqc
+X-Proofpoint-GUID: RWDcGByEdYWf6UE-LrUN2hVXgR0W9kqc
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: KQARUIMYOU3FGGKXPGYYL2V4574GEDB4
+X-Message-ID-Hash: KQARUIMYOU3FGGKXPGYYL2V4574GEDB4
+X-MailFrom: prvs=0510bc6290=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HAKQSDO7EA2SAIPKRVHY3U3KA2VHWR5B/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KQARUIMYOU3FGGKXPGYYL2V4574GEDB4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,48 +116,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
+On 26/5/23 05:40, Claudiu.Beznea@microchip.com wrote:
+> On 25.05.2023 18:06, Richard Fitzgerald wrote:
+>> EXTERNAL EMAIL: Do not click links or open attachments unless you know the content is safe
+>>
+>> From: Simon Trimmer <simont@opensource.cirrus.com>
+>>
+>> Add a driver for the Cirrus Logic CS35L56 amplifier. This uses the same
+>> component binding API as the CS35L41 driver. This is not a standalone
+>> HDA device; it provides control of the CS35L56 for systems that use a
+>> combination of an HDA codec and CS35L56 amplifiers with audio routed
+>> through the HDA codec.
+>>
 
-Add "qcom,adsp-pil-mode" property in clock nodes for herobrine
-crd revision 3 board specific device tree.
-This is to register clocks conditionally by differentiating ADSP
-based platforms and legacy path platforms.
-Also disable lpass_core clock, as it is creating conflict
-with ADSP clocks and it is not required for ADSP based platforms.
+<SNIP>
 
-Signed-off-by: Srinivasa Rao Mandadapu <quic_srivasam@quicinc.com>
-Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
----
- .../qcom/sc7280-herobrine-audioreach-wcd9385.dtsi    | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+>> +
+>> +       cs35l56->base.reset_gpio = devm_gpiod_get_index_optional(cs35l56->base.dev,
+>> +                                                                "reset",
+>> +                                                                cs35l56->index,
+>> +                                                                GPIOD_OUT_LOW);
+>> +       if (IS_ERR(cs35l56->base.reset_gpio)) {
+> 
+> devm_gpiod_get_index_optional() can also return NULL.
+> 
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
-index c02ca393378f..876a29178d46 100644
---- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-audioreach-wcd9385.dtsi
-@@ -197,6 +197,14 @@ q6prmcc: clock-controller {
- 	};
- };
- 
-+&lpass_aon {
-+	qcom,adsp-pil-mode;
-+};
-+
-+&lpass_core {
-+	status = "disabled";
-+};
-+
- &lpass_rx_macro {
- 	/delete-property/ power-domains;
- 	/delete-property/ power-domain-names;
-@@ -239,3 +247,7 @@ &lpass_va_macro {
- 
- 	status = "okay";
- };
-+
-+&lpasscc {
-+	qcom,adsp-pil-mode;
-+};
--- 
-2.25.1
+Yes, that is expected. It's optional. It's not an error.
+In that case cs35l56->base.reset_gpio will already be NULL.
 
+>> +               ret = PTR_ERR(cs35l56->base.reset_gpio);
+>> +
+>> +               /*
+>> +                * If RESET is shared the first amp to probe will grab the reset
+>> +                * line and reset all the amps
+>> +                */
+>> +               if (ret != -EBUSY)
+>> +                       return dev_err_probe(cs35l56->base.dev, ret, "Failed to get reset GPIO\n");
+>> +
+>> +               dev_info(cs35l56->base.dev, "Reset GPIO busy, assume shared reset\n");
+>> +               cs35l56->base.reset_gpio = NULL;
+>> +       }
+>> +
+>> +       return 0;
+>> +
+>> +err:
+>> +       dev_err(cs35l56->base.dev, "Failed property %s: %d\n", property, ret);
+>> +
+>> +       return ret;
+>> +}

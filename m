@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D42F7123C0
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 11:35:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07E4D7123C9
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 11:36:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6926B200;
-	Fri, 26 May 2023 11:34:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6926B200
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E66383A;
+	Fri, 26 May 2023 11:36:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E66383A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685093736;
-	bh=fW0X9UopUVx0gek5c3eMeZkEo8Y9PYjOzh7zjeAFs2I=;
+	s=default; t=1685093815;
+	bh=nAMk/gXSpo2vHR1RXguZkLEiD7Tx54praMJ74D9ehfo=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TNeexTU2ZxeePJwjHPzkQiTGkOHoe66nOLHYcJ0ro6dmJ7JAcHWF7e3wqFIeIl3LA
-	 R6aMd3iFoDf+l8hwihIckLtY2P6lUaTt3THZ1OTYya1m2xCiwO4W6NaqAeg/wfcX29
-	 hC35lBmMqgG7DRhqCjjsCsK/al9RnnhBVTUiczDM=
+	b=emahTl1COSWgnCyZxTr/HoRKLhCDI2d3ckXfH3bPsz7+oEO2u96w04UnRvdYKdD5b
+	 /NHT96rqa/Y+oX2ijBUldBfNPggm15MKdjpHPhdlKpMYthgxUmaGYnAtKRX4NUtXbf
+	 LRSUQlObrH8orcQqa9Ml6GzwLLMTGmMLiWY8Lc0A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0AF9F80551; Fri, 26 May 2023 11:33:56 +0200 (CEST)
+	id CA22EF805C2; Fri, 26 May 2023 11:34:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41245F80549;
-	Fri, 26 May 2023 11:33:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5607FF805C2;
+	Fri, 26 May 2023 11:34:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C8B2F80544; Fri, 26 May 2023 11:32:17 +0200 (CEST)
+	id 41F45F8016A; Fri, 26 May 2023 11:33:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,34 +37,34 @@ Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 642DFF8024E
-	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 11:32:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 642DFF8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id C485EF80425
+	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 11:32:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C485EF80425
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=Qi83iR7v
-X-UUID: 26433bd6fba811ed9cb5633481061a41-20230526
+ header.s=dk header.b=ABJUaI4q
+X-UUID: 2644b2e0fba811ed9cb5633481061a41-20230526
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=mediatek.com; s=dk;
 	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=1q2I0P/EJE4EG+vpgvtuD6vlkEYRo1XSxPqu4poQKHU=;
-	b=Qi83iR7vVhrP2/xlNTXB2fXjVig5Jm0TRGbHSifCBf2YKQ/PMqolHpHp2axkj9FlNyoD7bk0UAbS4LzlzMLG/OP97B4R8Gs3k2yX7XuveCHS4kiZD9vXCGmGwUICxqCkfsF2kh1dOdEeP9M3TvG4etj4CxqaZVqXrrWbIsJ7ZDM=;
+ bh=sd5yPw3/wE38i3l3MK8vJlooJQohfmtH9XPZpB48tMw=;
+	b=ABJUaI4qzJl0b87wmJTU6NF1iZZ7J/oQobwyI+E6J0FZqE/UY2kstPqN3r7wzyFq1Z2sFowgI3Qr7LRf9zx4lxQyUohDKMEjxmlOGMdfzzowNR22zOwZqaOJaPYy+506h++FATDBdlMj9/TCbBMJcZ9H0OP3nuKxud3NtCeUuOQ=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.25,REQID:5b91b357-ed11-4553-ba8e-378224788132,IP:0,U
+X-CID-O-INFO: VERSION:1.1.25,REQID:28a101e1-afb8-4fa1-9515-8057995b0a60,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:d5b0ae3,CLOUDID:f90a753c-de1e-4348-bc35-c96f92f1dcbb,B
+X-CID-META: VersionHash:d5b0ae3,CLOUDID:fb0a753c-de1e-4348-bc35-c96f92f1dcbb,B
 	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
 	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: 26433bd6fba811ed9cb5633481061a41-20230526
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 2644b2e0fba811ed9cb5633481061a41-20230526
 Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by
  mailgw01.mediatek.com
 	(envelope-from <trevor.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1757040730; Fri, 26 May 2023 17:31:53 +0800
+	with ESMTP id 1812540403; Fri, 26 May 2023 17:31:53 +0800
 Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
  mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -81,18 +81,18 @@ CC: <trevor.wu@mediatek.com>, <amergnat@baylibre.com>,
 	<alsa-devel@alsa-project.org>, <linux-mediatek@lists.infradead.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<devicetree@vger.kernel.org>
-Subject: [PATCH v3 2/7] ASoC: dt-bindings: mediatek,mt8188-mt6359: remove
- ADDA_BE from link-name
-Date: Fri, 26 May 2023 17:31:45 +0800
-Message-ID: <20230526093150.22923-3-trevor.wu@mediatek.com>
+Subject: [PATCH v3 3/7] ASoC: mediatek: mt8188-mt6359: register hdmi/dp jack
+ pins
+Date: Fri, 26 May 2023 17:31:46 +0800
+Message-ID: <20230526093150.22923-4-trevor.wu@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20230526093150.22923-1-trevor.wu@mediatek.com>
 References: <20230526093150.22923-1-trevor.wu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-MTK: N
-Message-ID-Hash: NJEZ7LNECE6IEHNRU5DHJMQON7JUICIG
-X-Message-ID-Hash: NJEZ7LNECE6IEHNRU5DHJMQON7JUICIG
+Message-ID-Hash: MQPTVKIJJM7BZVYFNBQTAEQLYK63DVD3
+X-Message-ID-Hash: MQPTVKIJJM7BZVYFNBQTAEQLYK63DVD3
 X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJEZ7LNECE6IEHNRU5DHJMQON7JUICIG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MQPTVKIJJM7BZVYFNBQTAEQLYK63DVD3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,29 +114,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-ADDA_BE is used to connect to mt6359. For machine mt8188-mt6359, codec
-for ADDA_BE must be mt6359 which are configured on the machine driver.
-Besides, ADDA_BE is divided into two dais, UL_SRC_BE and DL_SRC_BE.
-As a result, remove ADDA_BE from items of link-name.
+Some userspace applications need jack control events, so register hdmi
+and dp jack pins to activate jack control events.
 
 Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
 ---
- .../devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml        | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c | 27 +++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-index 6640272b3f4f..3d2c01b693be 100644
---- a/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt8188-mt6359.yaml
-@@ -42,7 +42,6 @@ patternProperties:
-           we are going to update parameters in this node.
-         items:
-           enum:
--            - ADDA_BE
-             - DPTX_BE
-             - ETDM1_IN_BE
-             - ETDM2_IN_BE
+diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+index 833bc362dad2..6c3f36e2fffd 100644
+--- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
++++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+@@ -151,6 +151,20 @@ struct mt8188_mt6359_priv {
+ 	struct snd_soc_jack hdmi_jack;
+ };
+ 
++static struct snd_soc_jack_pin mt8188_hdmi_jack_pins[] = {
++	{
++		.pin = "HDMI",
++		.mask = SND_JACK_LINEOUT,
++	},
++};
++
++static struct snd_soc_jack_pin mt8188_dp_jack_pins[] = {
++	{
++		.pin = "DP",
++		.mask = SND_JACK_LINEOUT,
++	},
++};
++
+ struct mt8188_card_data {
+ 	const char *name;
+ 	unsigned long quirk;
+@@ -159,6 +173,8 @@ struct mt8188_card_data {
+ static const struct snd_soc_dapm_widget mt8188_mt6359_widgets[] = {
+ 	SND_SOC_DAPM_HP("Headphone", NULL),
+ 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_SINK("HDMI"),
++	SND_SOC_DAPM_SINK("DP"),
+ };
+ 
+ static const struct snd_kcontrol_new mt8188_mt6359_controls[] = {
+@@ -396,8 +412,10 @@ static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+ 	int ret = 0;
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
+-				    &priv->hdmi_jack);
++	ret = snd_soc_card_jack_new_pins(rtd->card, "HDMI Jack",
++					 SND_JACK_LINEOUT, &priv->hdmi_jack,
++					 mt8188_hdmi_jack_pins,
++					 ARRAY_SIZE(mt8188_hdmi_jack_pins));
+ 	if (ret) {
+ 		dev_info(rtd->dev, "%s, new jack failed: %d\n", __func__, ret);
+ 		return ret;
+@@ -417,8 +435,9 @@ static int mt8188_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+ 	int ret = 0;
+ 
+-	ret = snd_soc_card_jack_new(rtd->card, "DP Jack", SND_JACK_LINEOUT,
+-				    &priv->dp_jack);
++	ret = snd_soc_card_jack_new_pins(rtd->card, "DP Jack", SND_JACK_LINEOUT,
++					 &priv->dp_jack, mt8188_dp_jack_pins,
++					 ARRAY_SIZE(mt8188_dp_jack_pins));
+ 	if (ret) {
+ 		dev_info(rtd->dev, "%s, new jack failed: %d\n", __func__, ret);
+ 		return ret;
 -- 
 2.18.0
 

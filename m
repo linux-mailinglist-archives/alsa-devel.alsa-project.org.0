@@ -2,93 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 836EE712E7F
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 22:51:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54EFA712EC9
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 23:13:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1706B1F6;
-	Fri, 26 May 2023 22:51:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1706B1F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 533F61FE;
+	Fri, 26 May 2023 23:12:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 533F61FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685134312;
-	bh=u2pUNkS5fZozLOh7rSHqZXHrI4TBQUdlzHCzUXGF1o0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=QX7ZL8aDvlW6rugbVflNlTgydtTAl8THFS9lLeULsIZSDCghp5JvjIkXHyItjmd7M
-	 1eebCbKX6f9frr+5Sm1lc/MCI1e3OLftJSQUWfKhuGfMotj5MgqdeVUIjYK7N5VDqU
-	 fc/jrLLP/Ygjuu+BMSfhFXf6HSGDOGYC0NylpjUc=
+	s=default; t=1685135583;
+	bh=yLAN0fb7/SLx7o9BrUk2uUB9UelVB2ogt07/y0GY7dY=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=d65Zn9GHVDSGMJVFgoSLylweqLdI7g1mi5FFf7pyaLxUKjtHbTAXJb+UDtY1+kUJ6
+	 HzAj838l9B0PmBDUpthAuqne8Jvb0Sf/d0JKrl+MOOAc2JqsJkn75CUg2Vlwho6dix
+	 q5cy72kcY9zIDmxCWxbWXdzOCyzNVC01ymtAfx8o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F219F80544; Fri, 26 May 2023 22:51:01 +0200 (CEST)
+	id AC76EF8026A; Fri, 26 May 2023 23:12:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 69B24F8016A;
-	Fri, 26 May 2023 22:51:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59E95F8016A;
+	Fri, 26 May 2023 23:12:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6CAD9F80249; Fri, 26 May 2023 22:50:57 +0200 (CEST)
+	id CD622F80249; Fri, 26 May 2023 23:12:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 23C13F8001F
-	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 22:50:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23C13F8001F
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=dppojxzd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685134254; x=1716670254;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=u2pUNkS5fZozLOh7rSHqZXHrI4TBQUdlzHCzUXGF1o0=;
-  b=dppojxzdC2ahAn1vIVLuuGEyfaWWdmNOHrlVkMeDzy6J2YO+9fVp3+Zr
-   arURtftjkoS2T9WfPDqGkfDgocM93m36z77m3kdDgIrarnBJDfOOXM2rl
-   Nadb52ENgYdCMsqNVUjREIt66qKVUtoZueejIvD9lz2CFISjEhw21ZACZ
-   ZSvS6sDsY5LCdQ3n7PghUVZWUJ8k6XAgXmkR2ezSdMK3SpIknsytqVMrP
-   dAzfIYavJQzBIIoFCtZKtmX7fny9UrsxJe/WhmZoZM4cex1b1b0FNMX9b
-   6o8QettYb47j4IJFGKRoACwMiT2LCRAHMjskUvKg4O8ZIq78Wd6NoE2Zr
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="420061787"
-X-IronPort-AV: E=Sophos;i="6.00,195,1681196400";
-   d="scan'208";a="420061787"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 13:50:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="682842266"
-X-IronPort-AV: E=Sophos;i="6.00,195,1681196400";
-   d="scan'208";a="682842266"
-Received: from bedriarm-mobl1.amr.corp.intel.com (HELO [10.209.48.113])
- ([10.209.48.113])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 13:50:50 -0700
-Message-ID: <145987ea-0706-9bca-dc75-803a0625a8a2@linux.intel.com>
-Date: Fri, 26 May 2023 15:50:49 -0500
+X-Spam-Status: No, score=-3.4 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URI_HEX
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 96A3BF80053
+	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 23:12:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96A3BF80053
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 0/3] ASoC: SOF: Intel: mtl: Enable multicore support
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, rander.wang@intel.com
-References: <20230523103217.20412-1-peter.ujfalusi@linux.intel.com>
- <168487142215.278276.6191766858062306959.b4-ty@kernel.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <168487142215.278276.6191766858062306959.b4-ty@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AJ347FW4NJO3YSBUCQWFSQYHVE4UZV5O
-X-Message-ID-Hash: AJ347FW4NJO3YSBUCQWFSQYHVE4UZV5O
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1685135523595964670-webhooks-bot@alsa-project.org>
+References: <1685135523595964670-webhooks-bot@alsa-project.org>
+Subject: alsa-lib fails test with clang-16
+Message-Id: <20230526211207.CD622F80249@alsa1.perex.cz>
+Date: Fri, 26 May 2023 23:12:07 +0200 (CEST)
+Message-ID-Hash: 23TADLK65HCF6ITW5LEZCGQUIKXJS55A
+X-Message-ID-Hash: 23TADLK65HCF6ITW5LEZCGQUIKXJS55A
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +60,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AJ347FW4NJO3YSBUCQWFSQYHVE4UZV5O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/23TADLK65HCF6ITW5LEZCGQUIKXJS55A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,59 +69,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mark,
+alsa-project/alsa-lib issue #323 was opened from fsvm88:
 
-> On Tue, 23 May 2023 13:32:14 +0300, Peter Ujfalusi wrote:
->> The following series will enable multicore support on MTL platforms similarly
->> to other Intel platforms.
->>
->> The TGL patch is included to simplify the core_put implementation.
->>
->> Multicore support can be enabled by updated topologies, with current set of
->> tplg files this series is not introducing any runtime change.
->>
->> [...]
-> 
-> Applied to
-> 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> 
-> Thanks!
+Hello,
 
-Looks like patch1 was not applied:
+While building is fine, testing alsa-lib on Gentoo fails since clang-16, due to clang-16 defaulting to c99.
 
-[PATCH 1/3] ASoC: SOF: Intel: mtl: setup primary core info on MeteorLake
-platform
+The problem is at `alsa-lib-1.2.8/test/oldapi.c`, in the typedef declaration, which leads to the following error:
+```
+alsa-lib-1.2.8/test/oldapi.c:40:6: error: incompatible function pointer types assigning to 'myfcn *' (aka 'void (*)(void *)') from 'int (*)(const snd_pcm_hw_params_t *)' (aka 'int (*)(const struct _snd_pcm_hw_params *)') [-Werror,-Wincompatible-func
+        fcn = &snd_pcm_hw_params_get_access;
+            ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
-was there anything wrong with it or is this a b4/script issue?
+[This is the Gentoo bug with all the information](https://bugs.gentoo.org/885551)
 
-Please let us know if we need to resend it or modify it.
+[I have created a patch based on the compiler's suggestion](https://885551.bugs.gentoo.org/attachment.cgi?id=861055), but I'm not sure if it's the right way to solve this.
 
-Thanks,
--Pierre
-
-
-> [2/3] ASoC: SOF: Intel: mtl: add core_get & put support on MeterLake platforms
->       commit: c6d15567a4d5dd51ecccc332d514c6dc21bce652
-> [3/3] ASoC: SOF: Intel: tgl: unify core_put on IPC3 & IPC4 path
->       commit: 1b167ba8a20152041d3af0c0cbbfd710f1e93e4b
-> 
-> All being well this means that it will be integrated into the linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.
-> 
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems and
-> send followup patches addressing any issues that are reported if needed.
-> 
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
-> 
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
-> 
-> Thanks,
-> Mark
-> 
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/323
+Repository URL: https://github.com/alsa-project/alsa-lib

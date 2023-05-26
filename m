@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F386712E4E
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 22:44:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58E23712E4F
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 22:44:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFEEC3E7;
-	Fri, 26 May 2023 22:43:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFEEC3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE5721FC;
+	Fri, 26 May 2023 22:43:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE5721FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685133849;
-	bh=ZFbr7rgyIv06z42HHlBXVYCpuVWMAKW5RiuYXygDhX0=;
+	s=default; t=1685133854;
+	bh=vf8ODbSAgf5UWt39HwG2bjF9nNF6glT8g+Rg41XQYAE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oGBh2t3A6DfHDVxDs2d6GPL533j3dTh7nopE6Yai3Swa2KPdCaP+o1XIycEthieG1
-	 7wv/sUDvZ8n1AYwPFlNVtt+FmHHA9x+ye7g7nS8aFOp8aWdcuJCHFy1dMecD9R98Lr
-	 7j3ld8XbJvKTLauxr+/v3t1NGBHm0+ket0WY12eY=
+	b=Iabysxfcxqs2KUfjqo1/s0h1bggGcpHUNY71Hr5lGR2TrczBvdgKs2scoIZNuRhiU
+	 3SQyoWuv+vPtCnAUqc9b77xQjgQAG9f9dQJ7a1iCga4D7KIJhrWbOHz92PSZUBvNv4
+	 OXgZXBOb+TemAmahx0IwPY5ni48iRYovU9r9VwPw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8A65F80548; Fri, 26 May 2023 22:42:29 +0200 (CEST)
+	id 60708F80571; Fri, 26 May 2023 22:42:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3EEBF80548;
-	Fri, 26 May 2023 22:42:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B61A2F80564;
+	Fri, 26 May 2023 22:42:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79E21F8026A; Fri, 26 May 2023 22:42:23 +0200 (CEST)
+	id A41D3F80249; Fri, 26 May 2023 22:42:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 38371F80086
-	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 22:42:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38371F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08742F8016A
+	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 22:42:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08742F8016A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gxI0You8
+ header.s=Intel header.b=SeJuQVjM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685133734; x=1716669734;
+  t=1685133736; x=1716669736;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ZFbr7rgyIv06z42HHlBXVYCpuVWMAKW5RiuYXygDhX0=;
-  b=gxI0You8p5oqdqTqaCu4Qq/alqwaxQ8JHNYRgJC2tl6U1JzIg2EKIziY
-   252sW4iM7Uj5o2jJpm5ny+37C94CRvfqFWCwgvMMblzz4xc/zj5zrytrI
-   WzhfYAfWiXX4nXRL5D/OPhdm34FviMBLAE+QUtnHv/mYIqwbgxYUvOiUZ
-   spMUYWVGVZSqHG+RvGU1F/QMYAlOD0CQfR7rBlwW8Y3WUKHmFEgbPgs9e
-   W+AZfPGIVP+SJqwlR6AF4IinA5VMQ/jMWthkQuy2lhIUfdzT+lu7fz7Dk
-   md2+lTi4ddg4hq8R/k/sjwO7SVygouerSRdQEx/ha+nOrspk0ZS6FZuem
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="333926231"
+  bh=vf8ODbSAgf5UWt39HwG2bjF9nNF6glT8g+Rg41XQYAE=;
+  b=SeJuQVjMgoNncbbmMzrgF4kWVpZYUnMESaAAMCkjeuFI+prUYWz6LPg/
+   f6zdTJD7wr876n/L6nwfWkQgQUYjUB7R6pW4BYNPaX+vfJQgIWeujzzNz
+   ebUCurqtSmE9LdDbB43ws1uz7++cgtDy+gekhDLSa3nT+KeDCaYYtlmrD
+   lWCBLfc6MPoXpich8xiGNimjafl8p8f20jlxg2Ru0I4JToJV0Tl1N1wjp
+   NyxF2kk5pZCp19T1ua1kdNEqOIS3GdZqQKpxf0wLJ7HW6BV/Sl5CQaQ7f
+   3gMrJ7nt9ZvaNvBHS7NO8EGv/rb808z32hmYsQzJ2+8Mqq80ME9HB6Gpy
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="333926237"
 X-IronPort-AV: E=Sophos;i="6.00,195,1681196400";
-   d="scan'208";a="333926231"
+   d="scan'208";a="333926237"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
   by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 13:41:59 -0700
+ 26 May 2023 13:42:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="699527110"
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="699527114"
 X-IronPort-AV: E=Sophos;i="6.00,195,1681196400";
-   d="scan'208";a="699527110"
+   d="scan'208";a="699527114"
 Received: from bedriarm-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.209.48.113])
   by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 13:41:58 -0700
+ 26 May 2023 13:41:59 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -76,20 +76,18 @@ Cc: tiwai@suse.de,
 	Jaroslav Kysela <perex@perex.cz>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Subject: [PATCH 1/3] ASoC: topology: Allow partial matching when finding DAI
- link
-Date: Fri, 26 May 2023 15:41:47 -0500
-Message-Id: <20230526204149.456068-2-pierre-louis.bossart@linux.intel.com>
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 2/3] ASoC: SOF: topology: Use partial match for connecting DAI
+ link and DAI widget
+Date: Fri, 26 May 2023 15:41:48 -0500
+Message-Id: <20230526204149.456068-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230526204149.456068-1-pierre-louis.bossart@linux.intel.com>
 References: <20230526204149.456068-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: XTTDE5DY33CO2BUEKHDQQAMUC5QDS4CX
-X-Message-ID-Hash: XTTDE5DY33CO2BUEKHDQQAMUC5QDS4CX
+Message-ID-Hash: E7P3B227HOJHNW2F5Y6KVA34JOBDKV35
+X-Message-ID-Hash: E7P3B227HOJHNW2F5Y6KVA34JOBDKV35
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XTTDE5DY33CO2BUEKHDQQAMUC5QDS4CX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E7P3B227HOJHNW2F5Y6KVA34JOBDKV35/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,37 +111,33 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-This allows for setting shorter link names in topology. For example,
-for the HDA Analog DAI link, just "Analog" would suffice instead of
-"Analog Playback and Capture"
+This allows setting shorter names for the widget stream names in
+topology. For example, in the case of HDA Analog DAI link, the stream
+name is "Analog Playback and Capture". But it is enough to match "Analog"
+in the DAI link stream name with a widget's stream name. This is needed
+to set more meaningful names for the DAI widgets using the stream name
+in topology.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
 ---
- sound/soc/soc-topology.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/sof/topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index 20fd46a41cbb..8add361e87c6 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -2030,11 +2030,11 @@ static struct snd_soc_dai_link *snd_soc_find_dai_link(struct snd_soc_card *card,
- 		if (link->id != id)
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index f160dc454b44..698129dccc7d 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1077,7 +1077,7 @@ static int sof_connect_dai_widget(struct snd_soc_component *scomp,
+ 	list_for_each_entry(rtd, &card->rtd_list, list) {
+ 		/* does stream match DAI link ? */
+ 		if (!rtd->dai_link->stream_name ||
+-		    strcmp(w->sname, rtd->dai_link->stream_name))
++		    !strstr(rtd->dai_link->stream_name, w->sname))
  			continue;
  
--		if (name && (!link->name || strcmp(name, link->name)))
-+		if (name && (!link->name || !strstr(link->name, name)))
- 			continue;
- 
--		if (stream_name && (!link->stream_name
--				    || strcmp(stream_name, link->stream_name)))
-+		if (stream_name && (!link->stream_name ||
-+				    !strstr(link->stream_name, stream_name)))
- 			continue;
- 
- 		return link;
+ 		for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
 -- 
 2.37.2
 

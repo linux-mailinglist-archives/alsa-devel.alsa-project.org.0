@@ -2,94 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DBC8712939
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 17:17:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E742571296D
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 May 2023 17:27:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59A81204;
-	Fri, 26 May 2023 17:16:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59A81204
+	by alsa0.perex.cz (Postfix) with ESMTPS id C783B20C;
+	Fri, 26 May 2023 17:26:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C783B20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685114258;
-	bh=LLz0+zvxX6CoFwnzdsrdEUYWzn+dFIGiZH3RZUqXhyQ=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=hMaxtxb9OGyGWVjEAJXR6vx2BIvTWTF+pI8DP1Xjhe7226NNZf89VcS8MGpVAUAJ9
-	 fSPEa6WJN+WAsPaPSaW3O9a+ZA9xsjvMWp6IsHFY6fNBlkyycJ+yh7T8xcz8yqJl3M
-	 BWvmt1FtnkprGY9tF8R4UNpt4wPRHwuBEKnQ2IbE=
+	s=default; t=1685114826;
+	bh=zxx7OmAFKO9T9Ao0oqSq594bi3DhPycIlfbuWJawS1U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=QbO0/sM6KmgYK+OSWJpC3qdnTp/0m/GapAo8YfaznyN185CBH3e3w9T0eksihwBC5
+	 VyyW2ZIiPI+vE03xkLjQuIK5dyEpuN8s25Qn79g27KeB4HgO8/YYmwiAaG2HMta5rk
+	 i34LYSupK9rv6jzPKJHkw/ahYdOOZY1QYczqEoJg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EDDC6F80086; Fri, 26 May 2023 17:16:25 +0200 (CEST)
+	id 1CDDEF80548; Fri, 26 May 2023 17:25:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 889A8F8016A;
-	Fri, 26 May 2023 17:16:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9644AF8016A;
+	Fri, 26 May 2023 17:25:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4C86F80249; Fri, 26 May 2023 17:16:21 +0200 (CEST)
+	id F27BEF80249; Fri, 26 May 2023 17:25:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1EDFBF80086
-	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 17:16:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EDFBF80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 99947F80053
+	for <alsa-devel@alsa-project.org>; Fri, 26 May 2023 17:25:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99947F80053
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Fymzidrp
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34Q4b2kW012318;
-	Fri, 26 May 2023 10:16:15 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=R2cuF2q8hWBAbj2kjD++mt5sEI+csPWq+eYx5d4AG+8=;
- b=FymzidrpNL9jF1caz633/lGKGwUg1caE/rV4kBq0MkqbfG0k1Q6tr62CM8SfHZbXRVYF
- 7WN1iparNaz683a7b4xVYf3CJXxK3LBOWyRhI9D1QIJTbN2v1fpjNRJI6dxkhTGfNrd1
- XMzGo3zd055iAGO7Bo+Ct0wFCsfu1vdLGAAPd/YXyDLJQpH36LHpt1Qs7YNW8abwQKuQ
- NB1vvJr4MAYCn62tMWoddnfArqIiVL5ksPmq4G4RUJRYfHJb/b+Ha1Yq0pmwYhJKWbB3
- QHXu8/uRLN/NKj6nxnujod4iAWpcPIlqKhph2mRPTKBscXZiErk/2XTzF0ygY80eG9Q7 vA==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3qptmm8n6d-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 26 May 2023 10:16:14 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 26 May
- 2023 10:16:12 -0500
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Fri, 26 May 2023 10:16:12 -0500
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (unknown [198.90.238.24])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id A618311A8;
-	Fri, 26 May 2023 15:16:12 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Stefan Binding
-	<sbinding@opensource.cirrus.com>
-Subject: [PATCH v1] ALSA: hda/realtek: Add quirks for Asus ROG 2024 laptops
- using CS35L41
-Date: Fri, 26 May 2023 16:16:05 +0100
-Message-ID: <20230526151605.2114720-1-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=MqTsjnOm
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 70FB76152F;
+	Fri, 26 May 2023 15:25:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04FE0C433EF;
+	Fri, 26 May 2023 15:25:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685114732;
+	bh=zxx7OmAFKO9T9Ao0oqSq594bi3DhPycIlfbuWJawS1U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MqTsjnOmr+vQCY4WkJ3s+5S5Jly1Ubce4C3EmAf3MMcvFhc8HqFO3XylWETLCnxrp
+	 6Jz09dvXDe6nihy6nRsGbds8fkQsnp+Sz1C3pP4VlNXy4l/Z1Nbjx1nYZP7K5W5W6I
+	 y2hhSy7fAAT+VbrHAIGAmJIkvahW619OB6m6qXJWsVv7j1Cj91L/NUZvdJpYhfWmQ8
+	 AYp7UiK5WZwA87BYNJpQHrvbO4cmMM6Va8cYJ8C4hjD1KKXwR27l+BB1tAndd1HjM+
+	 x4SNfMzmXKsNcTNATTil39kS0GQhbAY2AULmcdbUWPB7HlR1U2/HJ2fiuGPIos3zXD
+	 psErak4pglxeQ==
+Date: Fri, 26 May 2023 16:25:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Claudiu.Beznea@microchip.com
+Cc: rf@opensource.cirrus.com, tiwai@suse.com, perex@perex.cz,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com, simont@opensource.cirrus.com
+Subject: Re: [PATCH 13/13] ALSA: hda/cs35l56: Add driver for Cirrus Logic
+ CS35L56 amplifier
+Message-ID: <e06d149f-1da4-4d7e-89de-208e0e8335d4@sirena.org.uk>
+References: <20230525150659.25409-1-rf@opensource.cirrus.com>
+ <20230525150659.25409-14-rf@opensource.cirrus.com>
+ <6ff4235d-f8d0-3c3f-cc67-18aadee2afbc@microchip.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: 3yORX1w-c408tPE5iyBbKjybFhlN-80s
-X-Proofpoint-GUID: 3yORX1w-c408tPE5iyBbKjybFhlN-80s
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: AXU3SZGVG5P7C6XI4IX4OLF23BCSFAI6
-X-Message-ID-Hash: AXU3SZGVG5P7C6XI4IX4OLF23BCSFAI6
-X-MailFrom: prvs=0510524318=sbinding@opensource.cirrus.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yAJCG2p31xUBZol5"
+Content-Disposition: inline
+In-Reply-To: <6ff4235d-f8d0-3c3f-cc67-18aadee2afbc@microchip.com>
+X-Cookie: A Smith & Wesson beats four aces.
+Message-ID-Hash: 5T3L2XTZ6BPVULLMKSAC4B72Q2NY7R5L
+X-Message-ID-Hash: 5T3L2XTZ6BPVULLMKSAC4B72Q2NY7R5L
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXU3SZGVG5P7C6XI4IX4OLF23BCSFAI6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5T3L2XTZ6BPVULLMKSAC4B72Q2NY7R5L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,35 +101,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
----
- sound/pci/hda/patch_realtek.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 7b5f194513c7b..6f8e83b45c6f3 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9547,6 +9547,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1a8f, "ASUS UX582ZS", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x1b11, "ASUS UX431DA", ALC294_FIXUP_ASUS_COEF_1B),
- 	SND_PCI_QUIRK(0x1043, 0x1b13, "Asus U41SV", ALC269_FIXUP_INV_DMIC),
-+	SND_PCI_QUIRK(0x1043, 0x1b93, "ASUS G614JVR/JIR", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x1bbd, "ASUS Z550MA", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x1c23, "Asus X55U", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
-@@ -9565,6 +9566,11 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1f12, "ASUS UM5302", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x1043, 0x1f92, "ASUS ROG Flow X16", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE", ALC256_FIXUP_ASUS_AIO_GPIO2),
-+	SND_PCI_QUIRK(0x1043, 0x3A20, "ASUS G614JZR", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3A30, "ASUS G814JVR/JIR	", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3A40, "ASUS G814JZR", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3A50, "ASUS G834JYR/JZR", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3A60, "ASUS G634JYR/JZR", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x834a, "ASUS S101", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x8398, "ASUS P1005", ALC269_FIXUP_STEREO_DMIC),
--- 
-2.34.1
+--yAJCG2p31xUBZol5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, May 26, 2023 at 04:40:23AM +0000, Claudiu.Beznea@microchip.com wrot=
+e:
+> On 25.05.2023 18:06, Richard Fitzgerald wrote:
+> > EXTERNAL EMAIL: Do not click links or open attachments unless you know =
+the content is safe
+> >=20
+> > From: Simon Trimmer <simont@opensource.cirrus.com>
+> >=20
+> > Add a driver for the Cirrus Logic CS35L56 amplifier. This uses the same
+> > component binding API as the CS35L41 driver. This is not a standalone
+> > HDA device; it provides control of the CS35L56 for systems that use a
+
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
+
+--yAJCG2p31xUBZol5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmRwz2cACgkQJNaLcl1U
+h9A0eAf+ICSD1M5+iPd16MJkaGEt4sMBiQBwOB0zDiDTXy4LkQt5viUWy7Qga8P4
+9XJzdkhjK8aASywb4ihzQoDjOE8CKJ1dh1t6jQ5GoM64YIGfM/vXyfCkwk2MyVc2
+IX+9TowNt8ISXeOhThVVoqdwsUbgucYrqiK5EgBN+Xkjrz6lbblHB6YnrHpD2B10
+YMwydxaQX1RUZmT/0dSl5hNbDZQ0COye3BGykiDeysWAfQB9QJPTtZcOONoqgHHN
+hpyDdbIeAzaV1MwMd1MaDD44xKHGjbfotfWREW+jeZUwqaAs8qbAtNuHGeAhVO5X
+58kMCF9alh35VwOwrBY0WFT7mzYFYQ==
+=kDHu
+-----END PGP SIGNATURE-----
+
+--yAJCG2p31xUBZol5--

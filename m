@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E765E71341F
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 May 2023 12:42:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DB18713420
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 May 2023 12:42:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D41E1FE;
-	Sat, 27 May 2023 12:41:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D41E1FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD097826;
+	Sat, 27 May 2023 12:41:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD097826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685184143;
-	bh=8Isxwih0uAr3zq1l6ccw91UiAglHni0Ws5Oq5epCgug=;
+	s=default; t=1685184165;
+	bh=uTfcgi+lhkriPaXy2kU439QU60IlPz9ZzUpA1gh+Li4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dpMbV14qhLdkATsi/tF0xAkyh0B2cTfQ8r9pg13zZB+9Ixh0ARu7K1+QOqJnBgLEc
-	 WmLPBpw2/LFLmVqS6jWwKxX4o+byuEsu4DWnIa8iWZIkfm9nl/YFIxNML01MmYegyu
-	 4xydsxPCHpDfcyUQWJ1WHjfQ51kr8HQNENLBkS6Q=
+	b=hfJ6Oo+cZLs4xPFObWReNV37uNsgWL7VYeqvKInQSQyZ4Gw+9DGwU+s21IVj9abvW
+	 g7l8xoSsByBa7pntc0SK3b3Y6I5AhzB4utCjurYXT/DK/7Syv2AVdzYbkLL/26i6kx
+	 Kesl47NB6JkUmSww9ycVx4RNcgOq4OvVM2CzqSH8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AFFCF8056F; Sat, 27 May 2023 12:40:43 +0200 (CEST)
+	id C7BDCF8057A; Sat, 27 May 2023 12:41:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD5C1F80563;
-	Sat, 27 May 2023 12:40:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31B14F8057A;
+	Sat, 27 May 2023 12:41:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92B3AF80564; Sat, 27 May 2023 12:40:39 +0200 (CEST)
+	id 5F7FFF8057B; Sat, 27 May 2023 12:40:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 20B43F800DF
-	for <alsa-devel@alsa-project.org>; Sat, 27 May 2023 12:40:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20B43F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44202F80567
+	for <alsa-devel@alsa-project.org>; Sat, 27 May 2023 12:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44202F80567
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=P63HBa+p
+ header.s=k20201202 header.b=WxZdPIGV
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id CA3336118D;
-	Sat, 27 May 2023 10:40:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE54C433EF;
-	Sat, 27 May 2023 10:40:06 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 254C461BA3;
+	Sat, 27 May 2023 10:40:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F8C6C433EF;
+	Sat, 27 May 2023 10:40:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685184007;
-	bh=8Isxwih0uAr3zq1l6ccw91UiAglHni0Ws5Oq5epCgug=;
+	s=k20201202; t=1685184052;
+	bh=uTfcgi+lhkriPaXy2kU439QU60IlPz9ZzUpA1gh+Li4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=P63HBa+pLzOSxeK2Gt8+V/G29qLAkj0FIWwT177wpeWTv2OkzRyq32e76VRWeslf7
-	 LxMq6VtYf5JWwZzcUWcLr0hL77u/wVniZPbPIzh8qMo/GWBvRWWPqWcXRHVcMgib+G
-	 FdpWXzXw5uTUTbMTgVZXyAX70wF31rqXNZyxyoFq9aTxR8/PJ7Mf+kb1GxTLcCCWlm
-	 /DTFbLtGTRNV2TIOzh+MPk1bpb6fndhXhBPsRHIpjiZBUCO9i8lk35F1hAueFDmzfi
-	 kMA/NMtPksWOifI65yHktvH0phKq3UPmmM/GDy7jmLIm7MXvcSLiIphUad1ipofu2G
-	 eDUPMnTeGTOPg==
-Date: Sat, 27 May 2023 16:10:03 +0530
+	b=WxZdPIGVAWhALQGmiG9+jgxdfOOKkje5eZjF9o/rk60AF19aSguj+h9UTDXzhGpcQ
+	 e4J0kwdQuwgEzbp/PVcD5rMYzA6MbxlP1yPBcenM2Iik68XOcizaJmQ3G1uzB3t7BC
+	 GGr9xhNt/kqXYjHUC9K7rRlmluB9fOfjM1xOopbMlqgSweNG7Dwr75MOc8MlJR9uB/
+	 CXpUTJ73KJuNFuSXG8Lrjd8n3Mlrw52ZuK+F64BgR/5lYmC9FxlzKBFXyxOt96k2wj
+	 E1T5/ywzITNQqM372SjAvquJUf3+PoYQMsY3GbeOExN1HzPIfXkj66Iy3UAKHrxE88
+	 wAO3Pq4PFkZ2A==
+Date: Sat, 27 May 2023 16:10:48 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -70,16 +70,16 @@ Cc: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
 	Sanyog Kale <sanyog.r.kale@intel.com>,
 	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [RESEND PATCH] soundwire: qcom: drop unused struct
- qcom_swrm_ctrl members
-Message-ID: <ZHHeA7TU3YQS5Bib@matsya>
-References: <20230515132000.399745-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH] soundwire: qcom: add proper error paths in
+ qcom_swrm_startup()
+Message-ID: <ZHHeMGzeqQlNnc3x@matsya>
+References: <20230517163736.997553-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230515132000.399745-1-krzysztof.kozlowski@linaro.org>
-Message-ID-Hash: JA7UADYDISXQ2PUQQDNLLCA6N2RGIHKP
-X-Message-ID-Hash: JA7UADYDISXQ2PUQQDNLLCA6N2RGIHKP
+In-Reply-To: <20230517163736.997553-1-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: YSVJGN4LAMMVWTAWM7QH27AA73DV7XT5
+X-Message-ID-Hash: YSVJGN4LAMMVWTAWM7QH27AA73DV7XT5
 X-MailFrom: vkoul@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,16 +92,18 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JA7UADYDISXQ2PUQQDNLLCA6N2RGIHKP/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YSVJGN4LAMMVWTAWM7QH27AA73DV7XT5/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 15-05-23, 15:20, Krzysztof Kozlowski wrote:
-> Drop unused members from the driver state container: struct qcom_swrm_ctrl.
+On 17-05-23, 18:37, Krzysztof Kozlowski wrote:
+> Reverse actions in qcom_swrm_startup() error paths to avoid leaking
+> stream memory and keeping runtime PM unbalanced.
 
 Applied, thanks
 

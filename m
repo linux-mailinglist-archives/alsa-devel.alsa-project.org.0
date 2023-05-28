@@ -2,126 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8727971A3AA
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 18:05:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70992713745
+	for <lists+alsa-devel@lfdr.de>; Sun, 28 May 2023 02:10:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C84B20C;
-	Thu,  1 Jun 2023 18:04:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C84B20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 413131FE;
+	Sun, 28 May 2023 02:10:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 413131FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685635522;
-	bh=nUoECVLRxlk5PhzKkg4dDm1t4lvHXNbI3fI46dOaoDU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
+	s=default; t=1685232653;
+	bh=UZRnujyyKniRxq6Jza54gh5dPp6YrNQDDwA3s5Cv5WQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JaribTizODmU3762bHnNEENerVCTvA4u4mF43FquvblR9SIRduwTj2bMQFo1mUMUc
-	 bHagGT5J3IBHRCkY5KR7JaIlghZmtPr3EO0fnh3kZg7F/Bpyaxw0+0PFE97vMG1aEu
-	 ovxQlfhYDjlzhEp/x3m0ehW/NM/GEj7qnsF9+TLo=
+	b=L1cty1VmJTstemVs4ewNsXGHnXbpgc/1/f/p9IffN/bzPJ5q5Sh4kpsqyl53wRqVb
+	 tgMGKZSckgkZ0WRS+Rh3BPLMwzA+8r9gXxaLpcw+6fG7HO+j/2pIyquhZX0xwEigSj
+	 JVaBi/X5lBELlgF9kjvNDBx5lIihFwy5PGtR0FJU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 866DDF805C2; Thu,  1 Jun 2023 18:02:44 +0200 (CEST)
+	id E2E82F80510; Sun, 28 May 2023 02:09:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E81CEF805BA;
-	Thu,  1 Jun 2023 18:02:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A3E9F8026A;
+	Sun, 28 May 2023 02:09:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5EF03F8042F; Sun, 28 May 2023 02:03:02 +0200 (CEST)
+	id 6BD71F8042F; Sun, 28 May 2023 02:09:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [IPv6:2a00:1450:4864:20::634])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	T_SCC_BODY_TEXT_LINE,T_SPF_TEMPERROR,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 68D36F80086
-	for <alsa-devel@alsa-project.org>; Sun, 28 May 2023 02:02:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68D36F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id B3192F800DF
+	for <alsa-devel@alsa-project.org>; Sun, 28 May 2023 02:09:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3192F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=codux-tech.20221208.gappssmtp.com
- header.i=@codux-tech.20221208.gappssmtp.com header.a=rsa-sha256
- header.s=20221208 header.b=5QJYWg6l
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-96f683e8855so292159466b.2
-        for <alsa-devel@alsa-project.org>;
- Sat, 27 May 2023 17:02:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=codux-tech.20221208.gappssmtp.com; s=20221208; t=1685232168;
- x=1687824168;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=pn96ezoRd+kD6OC2feIeXuvQ04GPTaNsZwk75x3SKpA=;
-        b=5QJYWg6lkvic6q8CB3VDg5QlHMs3aRaVAulnB6hctcs+bVGJvYvdEyopC1GnvCF2fa
-         9dd3n6DcNkZPFcM0ro2T2KBUKhG1AN4kBxnAmyKmZviVuzietWMtudvjDdDskkFHyh4I
-         bJbTHn5JLK7OgefSEcWi7LT1+XHkqcbBdyWGpX1lVvh03iSxBtSu7tSf+oYQs5/+W803
-         Hsl/4canGASw3Gs3k8OOl2YPnkRELRO39VX4o9p+tguEkBGob5ic88Y1EZs+Grj13dUO
-         ugcn2clfa0Ql1XK+L54rYulum9tYKjCdKBKIWvWk0EJFPQSJ90lVf7UonOPECXDTbYom
-         yjeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685232168; x=1687824168;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pn96ezoRd+kD6OC2feIeXuvQ04GPTaNsZwk75x3SKpA=;
-        b=HX0irlOoQXfPDlpnoTqyYMnoTbE9g/6d/ajKa5jutY3mk7cBgUDgi96KePd8Ttzzlu
-         2Us1zhpyjwJTJmb0h9eNCYmamJAwPFEV9XfZAgTbwQcGVcjwYwl9cmMGnk322wwVmacr
-         +ltUDS9eznnE3BD3TssvnHyz2d/cBsYHkVeaAUTxGfeKhbKda8sCcmYc4koIAvcfEfKg
-         0kVdbj7PKe1minTwwRyXkf29GDxpISf8UiUdPz6586K5iacFFb7tZLcChHM2SEy4xAun
-         1ReVFqQbcsf+NXHEoBUHr0/pRCL9Z24K9d4vjORz3SorL94QGznqXGbBsLNaiP13fkY6
-         A11A==
-X-Gm-Message-State: AC+VfDzNNUTvymM+BTO6nltIVkuAcrGcQn/cUVOMIB1XsIkDu+II6Zn5
-	eA/9i8XuXY2cd76Hwoi2j8LhhQ==
-X-Google-Smtp-Source: 
- ACHHUZ5k4uUZCxIXm/MMV4I1In8fofzlnJRv4MR9ALBC0GRjigS0SQxp5kgZOaiqb2oUqPwnDPD8FQ==
-X-Received: by 2002:a17:907:a08a:b0:973:943e:f715 with SMTP id
- hu10-20020a170907a08a00b00973943ef715mr6025607ejc.41.1685232168665;
-        Sat, 27 May 2023 17:02:48 -0700 (PDT)
-Received: from deepblue.zlan.intra (wan.zappel.net. [90.187.13.225])
-        by smtp.gmail.com with ESMTPSA id
- a9-20020a170906244900b0096629607bb2sm3979325ejb.98.2023.05.27.17.02.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 27 May 2023 17:02:48 -0700 (PDT)
-Message-ID: <12102f7419c5e44cd2133aa769e25dbd16f4e0c9.camel@codux.tech>
-Subject: Re: CSC3551 and devices missing related _DSD bits
-From: Armas Spann <armas@codux.tech>
-To: Luke Jones <luke@ljones.dev>, Stuart Henderson
-	 <stuarth@opensource.cirrus.com>, Takashi Iwai <tiwai@suse.de>
-Cc: linux-kernel@vger.kernel.org, tiwai@suse.com,
-	sbinding@opensource.cirrus.com, perex@perex.cz, tangmeng@uniontech.com,
-	andy.chi@canonical.com, p.jungkamp@gmx.net, kasper93@gmail.com,
-	yangyuchi66@gmail.com, ealex95@gmail.com, james.schulman@cirrus.com,
-	david.rhodes@cirrus.com, tanureal@opensource.cirrus.com,
-	rf@opensource.cirrus.com, patches@opensource.cirrus.com,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=WacHRwkF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1685232576; x=1716768576;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UZRnujyyKniRxq6Jza54gh5dPp6YrNQDDwA3s5Cv5WQ=;
+  b=WacHRwkFOZOWRoWu/KruoBSQeH0v83k4A1woCK3vkfAdBQCAbP/J5WQ7
+   3RVfL2ifGVSHZ/ELM7n1v7w0lDXGZyqIQygoYapFDT71EtkX6Lc2y+bQ1
+   jricXS/m3Omuo0s7gm2LvfzN0qNNDT9xJExlDlP+wZTYItpzSs86SOpaq
+   P7AFHSiU7rzTXAK1Wd7XXun9Qm1270u1wLq0RDX4zMTeFc1GoK2fBtvlH
+   LTQoZbRlB1GJMzVaRQqG/E1k/sQROBTf15ME84WXyeQj6J9fhmkZ8f7eG
+   gDEHyMuLPvoPeG+mZwq4U43Hv3hMOSZXeShwImGm2B3pR4McBk15boQaG
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10723"; a="334815474"
+X-IronPort-AV: E=Sophos;i="6.00,198,1681196400";
+   d="scan'208";a="334815474"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2023 17:09:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10723"; a="849932955"
+X-IronPort-AV: E=Sophos;i="6.00,198,1681196400";
+   d="scan'208";a="849932955"
+Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
+  by fmsmga001.fm.intel.com with ESMTP; 27 May 2023 17:09:29 -0700
+Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1q33yS-000KGm-2w;
+	Sun, 28 May 2023 00:09:28 +0000
+Date: Sun, 28 May 2023 08:08:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
 	alsa-devel@alsa-project.org
-Date: Sun, 28 May 2023 02:02:46 +0200
-In-Reply-To: <19d69a5da8f1d4017ac14ed87f927ab82278073d.camel@ljones.dev>
-References: <1991650.PYKUYFuaPT@fedora> <87jzx3zaf8.wl-tiwai@suse.de>
-	 <b4c202b2-ab29-e2aa-b141-0c967b2c1645@opensource.cirrus.com>
-	 <19d69a5da8f1d4017ac14ed87f927ab82278073d.camel@ljones.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.1 
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Takashi Iwai <tiwai@suse.de>, Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 3/6] ALSA: emu10k1: actually disassemble DSP instructions
+ in /proc
+Message-ID: <202305280731.yycJIsaL-lkp@intel.com>
+References: <20230526101659.437969-4-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
-X-MailFrom: armas@codux.tech
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230526101659.437969-4-oswald.buddenhagen@gmx.de>
+Message-ID-Hash: LSOBHOKX2U4JDIKE6H3Q6SIPF4TRAC4P
+X-Message-ID-Hash: LSOBHOKX2U4JDIKE6H3Q6SIPF4TRAC4P
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: IJI6C6BOXW7LA4GPCFDEGANDCZKQ2WUR
-X-Message-ID-Hash: IJI6C6BOXW7LA4GPCFDEGANDCZKQ2WUR
-X-Mailman-Approved-At: Thu, 01 Jun 2023 16:02:26 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IJI6C6BOXW7LA4GPCFDEGANDCZKQ2WUR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LSOBHOKX2U4JDIKE6H3Q6SIPF4TRAC4P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,107 +108,102 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Takashi, Hi Stuart (and of course, all others in here),
+Hi Oswald,
 
-would you mind to evaluate this small (pseudo-)patch to be harmless?=20
-(concerning the blow-up theory the first answer in this converstion)
+kernel test robot noticed the following build warnings:
 
-I won't push it upstream right now but I want to know if this patch
-might be harmfull. I'm owning a GA402XY myself and we digged out that
-the initial setting of the cr3551 can be done via:
+[auto build test WARNING on tiwai-sound/for-next]
+[also build test WARNING on tiwai-sound/for-linus linus/master v6.4-rc3 next-20230525]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/sound/pci/hda/cs35l41_hda.c b/sound/pci/hda/cs35l41_hda.c
-index 75020edd39e7..eaa06751bd48 100644
---- a/sound/pci/hda/cs35l41_hda.c
-+++ b/sound/pci/hda/cs35l41_hda.c
-@@ -1243,6 +1243,12 @@ static int cs35l41_no_acpi_dsd(struct
-cs35l41_hda *cs35l41, struct device *physd
- 		hw_cfg->bst_type =3D CS35L41_EXT_BOOST;
- 		hw_cfg->gpio1.func =3D CS35l41_VSPK_SWITCH;
- 		hw_cfg->gpio1.valid =3D true;
-+	} else if (strncmp(hid, "CSC3551", 7) =3D=3D 0 && strcmp(cs35l41-
->acpi_subsystem_id, "10431463") =3D=3D 0) {
-+		// TESTING - (Hook for GA402X)
-+		dev_warn(cs35l41->dev, "Warning: ASUS didn't provide
-the needed ACPI _DSD properties for GA402X series, using defaults..");
-+		hw_cfg->bst_type =3D CS35L41_EXT_BOOST;
-+		hw_cfg->gpio1.func =3D CS35l41_VSPK_SWITCH;
-+		hw_cfg->gpio1.valid =3D true;
- 	} else {
- 		/*
- 		 * Note: CLSA010(0/1) are special cases which use a
-slightly different design.
+url:    https://github.com/intel-lab-lkp/linux/commits/Oswald-Buddenhagen/ALSA-emu10k1-hide-absent-2nd-pointer-offset-register-set-from-proc/20230526-182102
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230526101659.437969-4-oswald.buddenhagen%40gmx.de
+patch subject: [PATCH 3/6] ALSA: emu10k1: actually disassemble DSP instructions in /proc
+config: x86_64-randconfig-a014-20230528 (https://download.01.org/0day-ci/archive/20230528/202305280731.yycJIsaL-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build):
+        mkdir -p ~/bin
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/13e0e28f29ed98ae73420158c2a879c4e32c694a
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Oswald-Buddenhagen/ALSA-emu10k1-hide-absent-2nd-pointer-offset-register-set-from-proc/20230526-182102
+        git checkout 13e0e28f29ed98ae73420158c2a879c4e32c694a
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=x86_64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang ~/bin/make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash sound/pci/emu10k1/
 
---
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202305280731.yycJIsaL-lkp@intel.com/
 
-Which for our devices(GA402XY) enables the DAC to be used (it's still
-quiet, as we don't know/set the right limits for boost/ind/cap at the
-moment).
+All warnings (new ones prefixed by >>):
 
-The above will be called in our HDA_Quirk
-(sound/pci/hda/patch_realtek.c)
-
-```pseudo
-	[ALC285_FIXUP_ASUS_GA402XY] =3D {
-		.type =3D HDA_FIXUP_FUNC,
-		.v.func =3D cs35l41_fixup_i2c_two,
-		// ....
-	},
-```
-
-The cs3551 init be loaded by the above quirk wich is bound to and
-checks its ID internally again(acpi_subsystem_id):
-
-```pseudo
-SND_PCI_QUIRK(0x1043, 0x1463, "Asus Zephyrus G14 2023",
-ALC285_FIXUP_ASUS_GA402XY),
-```
+>> sound/pci/emu10k1/emuproc.c:417:41: warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
+                               "                              " + 30 - clamp(65 - len, 0, 30),
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+   include/sound/info.h:107:54: note: expanded from macro 'snd_iprintf'
+           seq_printf((struct seq_file *)(buf)->buffer, fmt, ##args)
+                                                               ^~~~
+   sound/pci/emu10k1/emuproc.c:417:41: note: use array indexing to silence this warning
+                               "                              " + 30 - clamp(65 - len, 0, 30),
+                                                                ^
+                               &                                [
+   include/sound/info.h:107:54: note: expanded from macro 'snd_iprintf'
+           seq_printf((struct seq_file *)(buf)->buffer, fmt, ##args)
+                                                               ^
+   1 warning generated.
 
 
-Many thanks in advance!
+vim +/int +417 sound/pci/emu10k1/emuproc.c
 
-Best regards
-Armas
+   380	
+   381	static void snd_emu10k1_proc_acode_read(struct snd_info_entry *entry,
+   382					        struct snd_info_buffer *buffer)
+   383	{
+   384		u32 pc;
+   385		struct snd_emu10k1 *emu = entry->private_data;
+   386		static const char * const insns[16] = {
+   387			"MAC0", "MAC1", "MAC2", "MAC3", "MACINT0", "MACINT1", "ACC3", "MACMV",
+   388			"ANDXOR", "TSTNEG", "LIMITGE", "LIMITLT", "LOG", "EXP", "INTERP", "SKIP",
+   389		};
+   390	
+   391		snd_iprintf(buffer, "FX8010 Instruction List '%s'\n", emu->fx8010.name);
+   392		snd_iprintf(buffer, "  Code dump      :\n");
+   393		for (pc = 0; pc < (emu->audigy ? 1024 : 512); pc++) {
+   394			u32 low, high;
+   395			int len;
+   396			char buf[100];
+   397			char *bufp = buf;
+   398				
+   399			low = snd_emu10k1_efx_read(emu, pc * 2);
+   400			high = snd_emu10k1_efx_read(emu, pc * 2 + 1);
+   401			if (emu->audigy) {
+   402				bufp += sprintf(bufp, "    %-7s  ", insns[(high >> 24) & 0x0f]);
+   403				bufp += disasm_audigy_reg(bufp, (high >> 12) & 0x7ff, "");
+   404				bufp += disasm_audigy_reg(bufp, (high >> 0) & 0x7ff, ", ");
+   405				bufp += disasm_audigy_reg(bufp, (low >> 12) & 0x7ff, ", ");
+   406				bufp += disasm_audigy_reg(bufp, (low >> 0) & 0x7ff, ", ");
+   407			} else {
+   408				bufp += sprintf(bufp, "    %-7s  ", insns[(high >> 20) & 0x0f]);
+   409				bufp += disasm_sblive_reg(bufp, (high >> 10) & 0x3ff, "");
+   410				bufp += disasm_sblive_reg(bufp, (high >> 0) & 0x3ff, ", ");
+   411				bufp += disasm_sblive_reg(bufp, (low >> 10) & 0x3ff, ", ");
+   412				bufp += disasm_sblive_reg(bufp, (low >> 0) & 0x3ff, ", ");
+   413			}
+   414			len = (int)(ptrdiff_t)(bufp - buf);
+   415			snd_iprintf(buffer, "%s %s /* 0x%04x: 0x%08x%08x */\n",
+   416				    buf,
+ > 417				    "                              " + 30 - clamp(65 - len, 0, 30),
+   418				    pc, high, low);
+   419		}
+   420	}
+   421	
 
-
-On Thu, 2023-05-25 at 09:30 +1200, Luke Jones wrote:
-> On Wed, 2023-05-24 at 17:36 +0100, Stuart Henderson wrote:
-> >=20
-> > > The problem is that this can really easily blow up your machine
-> > > if
-> > > some incorrect bit is applied.=C2=A0 And more easily applicable, more
-> > > chance to break by novice users, simply by believing what a chat
-> > > bot
-> > > speaks :)
-> > > That's the very reason why this kind of change should be via ACPI
-> > > table officially set up by the vendor.=C2=A0 That said, the question
-> > > is
-> > > only who and how can be responsible for this kind of change.=C2=A0
-> > > It's
-> > > no technical issue, per se.
-> > >=20
-> > > If BIOS can't be updated, at least, the configuration change has
-> > > to
-> > > be
-> > > confirmed by ASUS people.=C2=A0 If ASUS still ignores the inquires an=
-d
-> > > requests, we may put the quirk but with a bit fat warning (and
-> > > maybe
-> > > complaints to ASUS) to be shown in the log as a very last resort.
-> > >=20
-> > > Let's see what happens.
-> >=20
-> > Thanks Takashi.
-> >=20
-> > Just a note to say we're not ignoring this and are investigating
-> > the=20
-> > best way to support released laptops with ACPI incompatible with
-> > Linux.=C2=A0=20
-> > We're hoping this is going to be less of an issue going forward.=C2=A0
-> > Please=20
-> > bear with us while we look into this.
-> >=20
->=20
-> This is great news, thank you Stuart. If you need testing done at all
-> on a wide range please reach out to me and I will enlist the help of
-> those with the affected laptops I mentioned.
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

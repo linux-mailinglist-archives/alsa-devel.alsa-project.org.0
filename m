@@ -2,92 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87BCE7146E6
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 May 2023 11:14:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E10871478A
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 May 2023 11:57:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A935220C;
-	Mon, 29 May 2023 11:13:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A935220C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6400B208;
+	Mon, 29 May 2023 11:56:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6400B208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685351656;
-	bh=CS+64cfGMkifnvf19CsNASk9Hl347b/hzZ7/jaFoKSQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1685354237;
+	bh=xuK/+5pKjBEliOvLaCYMAQodAG04Uxlr7QKqpWw2gBs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ma2sfayyS9QdBZjvNRw1+Ji5FX3eQED4b93XKA//AGRDGUPHvmhfF4h50T7j3s4Qq
-	 NXyzaLC6Imvn+wrR0AR4tY8cPmpAdq+HtkAE4yJ9A8eC/mbpJTQGCN4h5IMNBD1J7e
-	 SaizyPOT9AQTPsTpm/MQt2Ypq67pVvbFQ8PE+PSw=
+	b=n4JiTWmmqBUtv/pkbim1ACpdUBj3GHrSlYzcbo+w17n0B7YU9tb8Z6cLLg9mxGDWC
+	 pfoAHFfRjYDurfmSw2NnOSoKOJL/WuuslQJwS/e0weUyQ6Z/EO74H91e0l+XEUDJLc
+	 zNv8uizUDQbrMHXPJBb6HjIyYzZv6agElbuLAu8M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25E11F80542; Mon, 29 May 2023 11:12:52 +0200 (CEST)
+	id ABFB7F8042F; Mon, 29 May 2023 11:56:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4FDB8F8026A;
-	Mon, 29 May 2023 11:12:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89422F8026A;
+	Mon, 29 May 2023 11:56:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0842F8016B; Mon, 29 May 2023 11:06:46 +0200 (CEST)
+	id BB9E9F8042F; Mon, 29 May 2023 11:55:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from bluemchen.kde.org (bluemchen.kde.org
+ [IPv6:2001:470:142:8::100])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B9CD3F8016B
-	for <alsa-devel@alsa-project.org>; Mon, 29 May 2023 11:04:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9CD3F8016B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RSFmr2DG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685351089; x=1716887089;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CS+64cfGMkifnvf19CsNASk9Hl347b/hzZ7/jaFoKSQ=;
-  b=RSFmr2DGhoRarnz5zfwyOz2q5QiQf1DGLxqKsrme1+R1wM8W/7tPeLYs
-   hkIlE3vfrwZ9/FRZoyegSewnDFoC6c6z1v4lsJtfQUYNDCZJqQo56+Zy0
-   mZirbM15XEPSDfist9nhfzbDgmaLw8GbD1p5Y1I/kPFNbkvNcSth/FrJe
-   1afOm4On7W+0pSDr/kYyrFt36xfL0FQLZ7XnBuQG8cMNlvVYrG6MykidD
-   OS5scB2oFBBI7R3goPbzxKCTXtRFGFtL7Htefnrd9yA4eo4AOTv7hUH/J
-   9E7qQrEwDi0aaXzEof43IsJZeRRKn0Hv8pQ6qfCpGXIRq4VSDr1K89MjJ
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10724"; a="418144388"
-X-IronPort-AV: E=Sophos;i="6.00,200,1681196400";
-   d="scan'208";a="418144388"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2023 02:04:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10724"; a="709186687"
-X-IronPort-AV: E=Sophos;i="6.00,200,1681196400";
-   d="scan'208";a="709186687"
-Received: from lkp-server01.sh.intel.com (HELO dea6d5a4f140) ([10.239.97.150])
-  by fmsmga007.fm.intel.com with ESMTP; 29 May 2023 02:04:42 -0700
-Received: from kbuild by dea6d5a4f140 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1q3Yny-000Kx8-16;
-	Mon, 29 May 2023 09:04:42 +0000
-Date: Mon, 29 May 2023 17:03:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
-	alsa-devel@alsa-project.org
-Cc: oe-kbuild-all@lists.linux.dev, Takashi Iwai <tiwai@suse.de>,
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4111BF800DF
+	for <alsa-devel@alsa-project.org>; Mon, 29 May 2023 11:55:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4111BF800DF
+Received: from ugly.fritz.box (localhost [127.0.0.1])
+	by bluemchen.kde.org (Postfix) with ESMTP id 6F47B20076;
+	Mon, 29 May 2023 05:55:04 -0400 (EDT)
+Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
+	id 1q3Zai-LR9-00; Mon, 29 May 2023 11:55:04 +0200
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+To: alsa-devel@alsa-project.org
+Cc: Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 3/6] ALSA: emu10k1: actually disassemble DSP instructions
- in /proc
-Message-ID: <202305291658.Q6wZncPQ-lkp@intel.com>
-References: <20230526101659.437969-4-oswald.buddenhagen@gmx.de>
+Subject: [PATCH v2] ALSA: emu10k1: actually disassemble DSP instructions in
+ /proc
+Date: Mon, 29 May 2023 11:55:04 +0200
+Message-Id: <20230529095504.559054-1-oswald.buddenhagen@gmx.de>
+X-Mailer: git-send-email 2.40.0.152.g15d061e6df
+In-Reply-To: <20230526101659.437969-1-oswald.buddenhagen@gmx.de>
+References: <20230526101659.437969-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230526101659.437969-4-oswald.buddenhagen@gmx.de>
-Message-ID-Hash: VBDERQC43QJUKM363DHKSV4MLJAA55TH
-X-Message-ID-Hash: VBDERQC43QJUKM363DHKSV4MLJAA55TH
-X-MailFrom: lkp@intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: PKJT22CULXKJNLE6M6PKDLJUR4WG4XZO
+X-Message-ID-Hash: PKJT22CULXKJNLE6M6PKDLJUR4WG4XZO
+X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +71,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VBDERQC43QJUKM363DHKSV4MLJAA55TH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKJT22CULXKJNLE6M6PKDLJUR4WG4XZO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,60 +80,191 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Oswald,
+fx8010_acode is supposed to be a human-readable representation; the
+binary is already in fx8010_code.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-[auto build test WARNING on tiwai-sound/for-next]
-[also build test WARNING on tiwai-sound/for-linus linus/master v6.4-rc4 next-20230525]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+---
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Oswald-Buddenhagen/ALSA-emu10k1-hide-absent-2nd-pointer-offset-register-set-from-proc/20230526-182102
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-patch link:    https://lore.kernel.org/r/20230526101659.437969-4-oswald.buddenhagen%40gmx.de
-patch subject: [PATCH 3/6] ALSA: emu10k1: actually disassemble DSP instructions in /proc
-config: x86_64-randconfig-s021-20230528 (https://download.01.org/0day-ci/archive/20230529/202305291658.Q6wZncPQ-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-12) 11.3.0
-reproduce:
-        # apt-get install sparse
-        # sparse version: v0.6.4-39-gce1a6720-dirty
-        # https://github.com/intel-lab-lkp/linux/commit/13e0e28f29ed98ae73420158c2a879c4e32c694a
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Oswald-Buddenhagen/ALSA-emu10k1-hide-absent-2nd-pointer-offset-register-set-from-proc/20230526-182102
-        git checkout 13e0e28f29ed98ae73420158c2a879c4e32c694a
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        make W=1 C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=x86_64 olddefconfig
-        make W=1 C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=x86_64 SHELL=/bin/bash sound/pci/emu10k1/
+v2:
+- fixed bot warnings
+---
+ sound/pci/emu10k1/emuproc.c | 149 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 130 insertions(+), 19 deletions(-)
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202305291658.Q6wZncPQ-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> sound/pci/emu10k1/emuproc.c:294:21: sparse: sparse: Using plain integer as NULL pointer
-   sound/pci/emu10k1/emuproc.c:316:21: sparse: sparse: Using plain integer as NULL pointer
-
-vim +294 sound/pci/emu10k1/emuproc.c
-
-   282	
-   283	static const struct emu10k1_reg_entry sblive_reg_entries[] = {
-   284		{    0, 0x10, "FXBUS" },
-   285		{ 0x10, 0x10, "EXTIN" },
-   286		{ 0x20, 0x10, "EXTOUT" },
-   287		{ 0x30, 0x10, "FXBUS2" },
-   288		{ 0x40, 0x20, NULL },  // Constants
-   289		{ 0x100, 0x100, "GPR" },
-   290		{ 0x200, 0x80, "ITRAM_DATA" },
-   291		{ 0x280, 0x20, "ETRAM_DATA" },
-   292		{ 0x300, 0x80, "ITRAM_ADDR" },
-   293		{ 0x380, 0x20, "ETRAM_ADDR" },
- > 294		{ 0x400, 0, 0 }
-   295	};
-   296	
-
+diff --git a/sound/pci/emu10k1/emuproc.c b/sound/pci/emu10k1/emuproc.c
+index 89ea3adff322..10290fc86fcf 100644
+--- a/sound/pci/emu10k1/emuproc.c
++++ b/sound/pci/emu10k1/emuproc.c
+@@ -275,37 +275,148 @@ static void snd_emu10k1_proc_rates_read(struct snd_info_entry *entry,
+ 	}
+ }
+ 
+-static void snd_emu10k1_proc_acode_read(struct snd_info_entry *entry, 
++struct emu10k1_reg_entry {
++	unsigned short base, size;
++	const char *name;
++};
++
++static const struct emu10k1_reg_entry sblive_reg_entries[] = {
++	{    0, 0x10, "FXBUS" },
++	{ 0x10, 0x10, "EXTIN" },
++	{ 0x20, 0x10, "EXTOUT" },
++	{ 0x30, 0x10, "FXBUS2" },
++	{ 0x40, 0x20, NULL },  // Constants
++	{ 0x100, 0x100, "GPR" },
++	{ 0x200, 0x80, "ITRAM_DATA" },
++	{ 0x280, 0x20, "ETRAM_DATA" },
++	{ 0x300, 0x80, "ITRAM_ADDR" },
++	{ 0x380, 0x20, "ETRAM_ADDR" },
++	{ 0x400, 0, NULL }
++};
++
++static const struct emu10k1_reg_entry audigy_reg_entries[] = {
++	{    0, 0x40, "FXBUS" },
++	{ 0x40, 0x10, "EXTIN" },
++	{ 0x50, 0x10, "P16VIN" },
++	{ 0x60, 0x20, "EXTOUT" },
++	{ 0x80, 0x20, "FXBUS2" },
++	{ 0xa0, 0x10, "EMU32OUTH" },
++	{ 0xb0, 0x10, "EMU32OUTL" },
++	{ 0xc0, 0x20, NULL },  // Constants
++	// This can't be quite right - overlap.
++	//{ 0x100, 0xc0, "ITRAM_CTL" },
++	//{ 0x1c0, 0x40, "ETRAM_CTL" },
++	{ 0x160, 0x20, "A3_EMU32IN" },
++	{ 0x1e0, 0x20, "A3_EMU32OUT" },
++	{ 0x200, 0xc0, "ITRAM_DATA" },
++	{ 0x2c0, 0x40, "ETRAM_DATA" },
++	{ 0x300, 0xc0, "ITRAM_ADDR" },
++	{ 0x3c0, 0x40, "ETRAM_ADDR" },
++	{ 0x400, 0x200, "GPR" },
++	{ 0x600, 0, NULL }
++};
++
++static const char * const emu10k1_const_entries[] = {
++	"C_00000000",
++	"C_00000001",
++	"C_00000002",
++	"C_00000003",
++	"C_00000004",
++	"C_00000008",
++	"C_00000010",
++	"C_00000020",
++	"C_00000100",
++	"C_00010000",
++	"C_00000800",
++	"C_10000000",
++	"C_20000000",
++	"C_40000000",
++	"C_80000000",
++	"C_7fffffff",
++	"C_ffffffff",
++	"C_fffffffe",
++	"C_c0000000",
++	"C_4f1bbcdc",
++	"C_5a7ef9db",
++	"C_00100000",
++	"GPR_ACCU",
++	"GPR_COND",
++	"GPR_NOISE0",
++	"GPR_NOISE1",
++	"GPR_IRQ",
++	"GPR_DBAC",
++	"GPR_DBACE",
++	"???",
++};
++
++static int disasm_emu10k1_reg(char *buffer,
++			      const struct emu10k1_reg_entry *entries,
++			      unsigned reg, const char *pfx)
++{
++	for (int i = 0; ; i++) {
++		unsigned base = entries[i].base;
++		unsigned size = entries[i].size;
++		if (!size)
++			return sprintf(buffer, "%s0x%03x", pfx, reg);
++		if (reg >= base && reg < base + size) {
++			const char *name = entries[i].name;
++			reg -= base;
++			if (name)
++				return sprintf(buffer, "%s%s(%u)", pfx, name, reg);
++			return sprintf(buffer, "%s%s", pfx, emu10k1_const_entries[reg]);
++		}
++	}
++}
++
++static int disasm_sblive_reg(char *buffer, unsigned reg, const char *pfx)
++{
++	return disasm_emu10k1_reg(buffer, sblive_reg_entries, reg, pfx);
++}
++
++static int disasm_audigy_reg(char *buffer, unsigned reg, const char *pfx)
++{
++	return disasm_emu10k1_reg(buffer, audigy_reg_entries, reg, pfx);
++}
++
++static void snd_emu10k1_proc_acode_read(struct snd_info_entry *entry,
+ 				        struct snd_info_buffer *buffer)
+ {
+ 	u32 pc;
+ 	struct snd_emu10k1 *emu = entry->private_data;
++	static const char * const insns[16] = {
++		"MAC0", "MAC1", "MAC2", "MAC3", "MACINT0", "MACINT1", "ACC3", "MACMV",
++		"ANDXOR", "TSTNEG", "LIMITGE", "LIMITLT", "LOG", "EXP", "INTERP", "SKIP",
++	};
++	static const char spaces[] = "                              ";
++	const int nspaces = sizeof(spaces) - 1;
+ 
+ 	snd_iprintf(buffer, "FX8010 Instruction List '%s'\n", emu->fx8010.name);
+ 	snd_iprintf(buffer, "  Code dump      :\n");
+ 	for (pc = 0; pc < (emu->audigy ? 1024 : 512); pc++) {
+ 		u32 low, high;
++		int len;
++		char buf[100];
++		char *bufp = buf;
+ 			
+ 		low = snd_emu10k1_efx_read(emu, pc * 2);
+ 		high = snd_emu10k1_efx_read(emu, pc * 2 + 1);
+-		if (emu->audigy)
+-			snd_iprintf(buffer, "    OP(0x%02x, 0x%03x, 0x%03x, 0x%03x, 0x%03x) /* 0x%04x: 0x%08x%08x */\n",
+-				    (high >> 24) & 0x0f,
+-				    (high >> 12) & 0x7ff,
+-				    (high >> 0) & 0x7ff,
+-				    (low >> 12) & 0x7ff,
+-				    (low >> 0) & 0x7ff,
+-				    pc,
+-				    high, low);
+-		else
+-			snd_iprintf(buffer, "    OP(0x%02x, 0x%03x, 0x%03x, 0x%03x, 0x%03x) /* 0x%04x: 0x%08x%08x */\n",
+-				    (high >> 20) & 0x0f,
+-				    (high >> 10) & 0x3ff,
+-				    (high >> 0) & 0x3ff,
+-				    (low >> 10) & 0x3ff,
+-				    (low >> 0) & 0x3ff,
+-				    pc,
+-				    high, low);
++		if (emu->audigy) {
++			bufp += sprintf(bufp, "    %-7s  ", insns[(high >> 24) & 0x0f]);
++			bufp += disasm_audigy_reg(bufp, (high >> 12) & 0x7ff, "");
++			bufp += disasm_audigy_reg(bufp, (high >> 0) & 0x7ff, ", ");
++			bufp += disasm_audigy_reg(bufp, (low >> 12) & 0x7ff, ", ");
++			bufp += disasm_audigy_reg(bufp, (low >> 0) & 0x7ff, ", ");
++		} else {
++			bufp += sprintf(bufp, "    %-7s  ", insns[(high >> 20) & 0x0f]);
++			bufp += disasm_sblive_reg(bufp, (high >> 10) & 0x3ff, "");
++			bufp += disasm_sblive_reg(bufp, (high >> 0) & 0x3ff, ", ");
++			bufp += disasm_sblive_reg(bufp, (low >> 10) & 0x3ff, ", ");
++			bufp += disasm_sblive_reg(bufp, (low >> 0) & 0x3ff, ", ");
++		}
++		len = (int)(ptrdiff_t)(bufp - buf);
++		snd_iprintf(buffer, "%s %s /* 0x%04x: 0x%08x%08x */\n",
++			    buf, &spaces[nspaces - clamp(65 - len, 0, nspaces)],
++			    pc, high, low);
+ 	}
+ }
+ 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.40.0.152.g15d061e6df
+

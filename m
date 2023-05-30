@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A2671651E
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 16:51:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76C28716520
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 16:52:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA4E8851;
-	Tue, 30 May 2023 16:51:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA4E8851
+	by alsa0.perex.cz (Postfix) with ESMTPS id B664B86E;
+	Tue, 30 May 2023 16:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B664B86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685458313;
-	bh=qjj6m+lC16duLp3hPHppC5au/qGJoHgh/gs//9VcMX0=;
+	s=default; t=1685458335;
+	bh=4CKApwcCvc2x5D4brJkIGqna36w2ffENLHRsgkUl3kE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ARXzJBx4DoezKRWd9FototXwy/4IOHQ6u7qSkgccICzG0AjerW381Rmw3aKmNoqHM
-	 TOTgUIFLRwcArpKq904CkfDy9wUyrwaqlPE8E35xN7C8AbtVTZ5kr0W7iqrJHMwiFz
-	 tVxUkt6hL3insodXOozN+WOyUdieB8FLpNIQXSgc=
+	b=FbP4MTQ7WZarVeqB6VdD8ZAnENadI69TSqeFG6B2wbB6a+oP7PrEbzmttIOdzM54a
+	 vAd3nPtxhSlyNTjvGRZXi+CotoTJOGqQM/LpgWRHxPV8/zEoUNm0xcMkZYYdFXM3AW
+	 u4ZdntfhBS44YeEq7EbqxMJ/S/1uURiJBBS/ZssY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05B27F805C7; Tue, 30 May 2023 16:49:24 +0200 (CEST)
+	id 93E61F805C5; Tue, 30 May 2023 16:49:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E3CAF805BE;
-	Tue, 30 May 2023 16:49:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF2A0F805C8;
+	Tue, 30 May 2023 16:49:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C814F805AA; Tue, 30 May 2023 16:49:19 +0200 (CEST)
+	id 02A83F805C0; Tue, 30 May 2023 16:49:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 05BDDF805AA
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 16:49:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05BDDF805AA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46EE9F805B3
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 16:49:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46EE9F805B3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=TwckJzmI
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-51496f57e59so4008264a12.2
+ header.s=google header.b=aPeYmCNt
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2af2e908163so49816531fa.2
         for <alsa-devel@alsa-project.org>;
- Tue, 30 May 2023 07:49:15 -0700 (PDT)
+ Tue, 30 May 2023 07:49:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1685458153; x=1688050153;
+        d=linaro.org; s=google; t=1685458156; x=1688050156;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=g8G0c0mpPhFQo7i+RrdSfLHYDtYE35R5vJ/b+M/gxuM=;
-        b=TwckJzmIHLNkTEHE3PeH0rFIRq6IgHs6ns9hHaVT+YPvGvMq0zVOCf9i3GguI1d4gZ
-         ++87FyS17cHjFpyYYP11L6B1mQU4Qo74fZSooFervsiBR+0ar8BkWpaVXwtpZJ22dllW
-         F4As95G3fMbOJoMJg6N8HhzdnsqtbXz5JGTeY2R8J4hUP1ovNUrwdSrIKFEDFkBMxgWS
-         VOOZWJYhhEWYhR9zQGpR4NKq5NMj69QmgmJqj/PlGAuQQv3USs+CB94ozMps71kYZ+cw
-         UxnmmPyVuSIi0a0b5aN2HgHzEreZKBY9iaovEdyc1IzjG70Ypp+EX32+456crShhdma/
-         B9aA==
+        bh=07SVfkqZ0qgipCgWqf2WUuDolS+hCGhbSje3XLty2Ao=;
+        b=aPeYmCNt05cObjx95ndQCrOdKmC01qE9rKbj1E0y9u+++2RIcqlsWtlkGyGI2n1xbU
+         AghcT3BWhigFLgjE4GPxSIys40q1Sl8bw+sC08K6jVCsHQe1FDuz+txGGgs4K7+tN9lv
+         D+4p4yaduPEphpO5OXOqcpkPAhLrj3akuiJimPh+rPajTiJxAjHzij7o/Rb5N41Szij0
+         Vfjo2jfGnHworYtyq2Bgw0ZYnG2uSy5rKuQvaYzL13g1eDccob4no3SUelsX3xA+WyXc
+         Qeq3VqRPuVvPCLgdqEFa3pTldVfXGj5yH9H+3Chlgzhm00nwJTyVe701en4WhppjApJz
+         aTzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685458153; x=1688050153;
+        d=1e100.net; s=20221208; t=1685458156; x=1688050156;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=g8G0c0mpPhFQo7i+RrdSfLHYDtYE35R5vJ/b+M/gxuM=;
-        b=iIoMB+cyYNU2wtJXm1MVhXng8epGZSsgAJGAGfOm47tmXQ4cq8Bv24TqEy1g3W1q+s
-         PzZOG1cWuFWKwMjNvfak6aNv9WStLAP1uxNe8AccvXEhku/vIsHupeVByzppnKdweHE3
-         WBB95dx76cJnSjPhwClEBKZh2bHHnLSpQAPZlp5yvdKSbBBUM6Au0bf9kmOWF1lebr5e
-         RnAOvhFEPlamSNw0+NOtQLtv8NgwAIY331eG2ovd00RZ8M+Z643FCx9GzLfQ2nuViWwD
-         OSL22LciLUXb2Wbv2GbIdIVjPMBJMGjbv+slrMAQKlWnayWVNim4ghm283fba+cPWkaR
-         XUxw==
-X-Gm-Message-State: AC+VfDwirf+7UYf3B9+PMke7cjYLTRd2zLPEZJAn80X+KuNGGzFlHwa5
-	LY0gkUUgv6k6PsDK+zhJ5zAsPw==
+        bh=07SVfkqZ0qgipCgWqf2WUuDolS+hCGhbSje3XLty2Ao=;
+        b=NFniH0GlLEen2aaqEKsx/7AYOZrqqBuYEYb4qxZWJDLBlnSNkVRT2QERdHJpGKLyOf
+         q944ErGwMxMJYHiNJAQlXwdhsT3WF9lRWclq+H3I40ca3WtkCy+Yrn3oZU+j+3dnkUIw
+         QVwg4OxNhDOahSv9wYhMtEVcRqEAYCNVsX4oBoffRH87R7l+10glcPg537+DH3vDOaDq
+         eHKuFZRG/WDBeDn6smvY10uK+rW01LMxvxJV2cASHdeFajpAiGSUEnaZnPX7BYDs78RS
+         knNUNZ0Fsuvu1dCgxlTccypnNutiQ6299+feUv4QwZxsLemn0PqSVgY7ENKRGUIAnH14
+         12Fw==
+X-Gm-Message-State: AC+VfDySbrrrcxU6k4m1x6vOXa10b5BLJp5oFJIqZB0KzJuctMmlSwCW
+	ckb9XID0Pru+7aHQkIiezwf5YQ==
 X-Google-Smtp-Source: 
- ACHHUZ4bhaXhOGjXcCnROMILTcaXL9g90bzH/pnqZRsukzbQfT55KK4gcDyEoP7X+Mzn6P4JbZvAeA==
-X-Received: by 2002:aa7:c59a:0:b0:514:9319:ebff with SMTP id
- g26-20020aa7c59a000000b005149319ebffmr1869786edq.24.1685458153812;
-        Tue, 30 May 2023 07:49:13 -0700 (PDT)
+ ACHHUZ4eIHTpavdLEXQppq1HffGyODpAFKw+HJwL/rxKmW3KOl/YjNnJCyJOlMEXir4uXif/y/NFgw==
+X-Received: by 2002:a2e:c42:0:b0:2ac:67f7:25a2 with SMTP id
+ o2-20020a2e0c42000000b002ac67f725a2mr897767ljd.50.1685458156521;
+        Tue, 30 May 2023 07:49:16 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.199.204])
         by smtp.gmail.com with ESMTPSA id
- q21-20020aa7cc15000000b00514b2717ec6sm631283edt.28.2023.05.30.07.49.10
+ q21-20020aa7cc15000000b00514b2717ec6sm631283edt.28.2023.05.30.07.49.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 30 May 2023 07:49:13 -0700 (PDT)
+        Tue, 30 May 2023 07:49:16 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Vinod Koul <vkoul@kernel.org>,
 	Kishon Vijay Abraham I <kishon@kernel.org>,
@@ -114,16 +114,16 @@ Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
 	Rob Herring <robh@kernel.org>,
 	Tony Lindgren <tony@atomide.com>,
 	Oleksij Rempel <o.rempel@pengutronix.de>
-Subject: [PATCH 6/7] dt-bindings: timestamp: restrict node name suffixes
-Date: Tue, 30 May 2023 16:48:50 +0200
-Message-Id: <20230530144851.92059-7-krzysztof.kozlowski@linaro.org>
+Subject: [PATCH 7/7] dt-bindings: watchdog: restrict node name suffixes
+Date: Tue, 30 May 2023 16:48:51 +0200
+Message-Id: <20230530144851.92059-8-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
 References: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 44VBQNLEDNWP24MPYPL72NL7HTHOZ3TL
-X-Message-ID-Hash: 44VBQNLEDNWP24MPYPL72NL7HTHOZ3TL
+Message-ID-Hash: RUTF5P47WEXOLMFRVNZTQMOGAQ5X4VJX
+X-Message-ID-Hash: RUTF5P47WEXOLMFRVNZTQMOGAQ5X4VJX
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -136,7 +136,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/44VBQNLEDNWP24MPYPL72NL7HTHOZ3TL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RUTF5P47WEXOLMFRVNZTQMOGAQ5X4VJX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -157,21 +157,26 @@ Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Cc: Tony Lindgren <tony@atomide.com>
 Cc: Oleksij Rempel <o.rempel@pengutronix.de>
 ---
- .../bindings/timestamp/hardware-timestamps-common.yaml          | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/devicetree/bindings/watchdog/watchdog.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/timestamp/hardware-timestamps-common.yaml b/Documentation/devicetree/bindings/timestamp/hardware-timestamps-common.yaml
-index fd6a7b51f571..95f42acd0c54 100644
---- a/Documentation/devicetree/bindings/timestamp/hardware-timestamps-common.yaml
-+++ b/Documentation/devicetree/bindings/timestamp/hardware-timestamps-common.yaml
-@@ -17,7 +17,7 @@ description:
+diff --git a/Documentation/devicetree/bindings/watchdog/watchdog.yaml b/Documentation/devicetree/bindings/watchdog/watchdog.yaml
+index 519b48889eb1..f0a584af1223 100644
+--- a/Documentation/devicetree/bindings/watchdog/watchdog.yaml
++++ b/Documentation/devicetree/bindings/watchdog/watchdog.yaml
+@@ -17,11 +17,11 @@ description: |
+ select:
+   properties:
+     $nodename:
+-      pattern: "^watchdog(@.*|-[0-9a-f])?$"
++      pattern: "^watchdog(@.*|-([0-9]|[1-9][0-9]+))?$"
  
  properties:
    $nodename:
--    pattern: "^timestamp(@.*|-[0-9a-f])?$"
-+    pattern: "^timestamp(@.*|-([0-9]|[1-9][0-9]+))?$"
+-    pattern: "^(timer|watchdog)(@.*|-[0-9a-f])?$"
++    pattern: "^(timer|watchdog)(@.*|-([0-9]|[1-9][0-9]+))?$"
  
-   "#timestamp-cells":
+   timeout-sec:
      description:
 -- 
 2.34.1

@@ -2,81 +2,125 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5C5E716B5B
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 19:42:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD8C716B85
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 19:48:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06B0E825;
-	Tue, 30 May 2023 19:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06B0E825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7027E3E7;
+	Tue, 30 May 2023 19:47:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7027E3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685468545;
-	bh=3w78bON1nlLndTYQBkqJdw+vPRGsIhPOJ5x5/f8khPw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1685468894;
+	bh=8kQsIgbTFGXpLg1Hn+3x+6lqlkOuB6eo9hRDYKaKKKs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lDgU6hNX+HSIIM3CX0Qg5tXMKthpuLg+aq94PBAzI1zIG++uYq4PmSoLMg8Q8eCZI
-	 WNyXyCbXTFrMYVGvU33lu1xluKKeSpZyeGCnfFc5cYeMUK/01ZK1iBspSkpoGxYSyj
-	 uhhORlm2g9vPjJr97V+/UN9ShFqvnQfOPFlrSzgI=
+	b=KAstwo6ZfzLq0cJFTQS1eFc28nDoL3+QzG2IrwrjQoMlIueCmJcbPiq93iD0ypXAS
+	 gQJMgcXz2x7Vc5QB36JNmwMLy2FVweVg9XFVVV4WZ5/tHKn46hMXgk9KpnM/5jR51l
+	 Lp9r3/52BMaq40DXQvjwJc4Dvs269QqU2MWk2Clw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1D9EEF8055A; Tue, 30 May 2023 19:40:49 +0200 (CEST)
+	id C665DF80542; Tue, 30 May 2023 19:47:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 994D5F804FC;
-	Tue, 30 May 2023 19:40:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 471EAF8026A;
+	Tue, 30 May 2023 19:47:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D61DF80552; Tue, 30 May 2023 19:40:46 +0200 (CEST)
+	id 4603DF8042F; Tue, 30 May 2023 19:47:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25421F8016B
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 19:40:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25421F8016B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3CCF9F8016B
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 19:47:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CCF9F8016B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mnDJkRzO
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3FAB262D5F;
-	Tue, 30 May 2023 17:40:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA268C433D2;
-	Tue, 30 May 2023 17:40:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685468436;
-	bh=3w78bON1nlLndTYQBkqJdw+vPRGsIhPOJ5x5/f8khPw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=mnDJkRzOdr20zkHipq3EaPa8w3A5BC3y9DHzSkIwv0M/mi+G2VqLnV3nsM7syYwT2
-	 0juJ7hR1mRXPconWpgZ+0r2m930oE8YOv/5YZkO3maoDhrPscOjIwr6yi6C2P6ChxC
-	 bV1DsBbXjZMdaT2b2EEGJZ8AdmYVDJ3fXHiOyfJkO+f6gBRg6rA9XxUmPMwXGbjR6a
-	 oK3EUD3OFyYzi9HeB1VkaTEMR2OYvraPiWLP1oa+pqB4ZG6/12wbcYLTKNpKiwdStY
-	 2y2mfzbHY61dfay/CmQBA65RYiNZTWoMTjNAf/7b4z9iLILZm9Br1/2t+DHjM7rFTw
-	 xoZuXgKQLKAxA==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de, Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20230526204149.456068-1-pierre-louis.bossart@linux.intel.com>
-References: <20230526204149.456068-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/3] ASoC: topology: allow for partial dailink
- stream_name match
-Message-Id: <168546843541.690777.13510507677430208531.b4-ty@kernel.org>
-Date: Tue, 30 May 2023 18:40:35 +0100
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=OdR4Y7H6
+Received: by mail-pf1-x429.google.com with SMTP id
+ d2e1a72fcca58-64d41763796so3519721b3a.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 30 May 2023 10:47:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1685468834; x=1688060834;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4KFcanc4CjzN6hzpjon4X1hruFFYHDR7ugE4zm99DHQ=;
+        b=OdR4Y7H6Nx7sBNTAd11PEkft3yN3efyKaIhV51v9ftLHVjNGbfszMwZosHkg5dbvth
+         fGKbqJWOkQEJBu9OgQv5/ubfry9JCPiWIKt6agjG7Z9uG13BkYg/lmLuPtIG+hdVAG/t
+         WztyPKjFqolTIx3oqTGSy0hNZ+bgyO77i/EWyvAzYxdfOPWR07on947GOAxT3K1cYvcb
+         dRauGNu4twfMxT+IxF3YuBxl3FxAjvRZnR2zhmO1CoAm7Y/bEdSRRZJFIh55JuuGY2HO
+         NLZFONHUXgPe1Yd+JHK7+pyUnZAn8kTI1QC+L6ulzm5YhZyWROjecxT8gFsQvLpmTQwL
+         jOxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685468834; x=1688060834;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4KFcanc4CjzN6hzpjon4X1hruFFYHDR7ugE4zm99DHQ=;
+        b=EtIglNCpsr5aD176cClcsGPmmjL6AFc/kNNcCM9vDJ/CXLB0cqVAPaTzskawhgPB64
+         ZDIv0Pl8yQBxP+mDsyfFJs9LM000iIwD+eN9UYBKOY9ZjlTiAeDNBnvpLzq4RAAnnk0T
+         RxMi1uvYFCHq7eN1QqwB0WEDMN+P+ZsNJD3Ews+zmxRWFRJ1Vxre9CiyOUwB1IUUFXUx
+         gUhTr2hWjtVBE2g7kFvxvj5RI6WWf2CxwbKH0p36wakGjrU6TDcAU+abwdPN8NOQ0suQ
+         yoTKpQbsDxrJK1EgcHBjdIIAHMmGnqagr48+dF8o51yKtxgeqqD54phBVBOEZsYPdqxb
+         qugg==
+X-Gm-Message-State: AC+VfDxMuimuxw0G6gtKaVt3d5PQ4x6pICq4feVm5reVJbmpXe3PoKgN
+	dm19dWqjeI2rcz/o6fowzVA=
+X-Google-Smtp-Source: 
+ ACHHUZ5H1oTyoutcnUo3XiPYYzwua35COz5cA3FRa6JU3oW4ADLdTbZES7lj7v/2W8drbB6s7qiXwA==
+X-Received: by 2002:a17:903:24e:b0:1af:ff02:bc19 with SMTP id
+ j14-20020a170903024e00b001afff02bc19mr3552294plh.26.1685468834029;
+        Tue, 30 May 2023 10:47:14 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+        by smtp.gmail.com with ESMTPSA id
+ b4-20020a170902b60400b001a6f7744a27sm10604029pls.87.2023.05.30.10.47.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 May 2023 10:47:13 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 30 May 2023 10:47:11 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	Alessandro Zummo <a.zummo@towertech.it>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Mark Brown <broonie@kernel.org>, Dipen Patel <dipenp@nvidia.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Dilip Kota <eswara.kota@linux.intel.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-spi@vger.kernel.org, timestamp@lists.linux.dev,
+	linux-watchdog@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>
+Subject: Re: [PATCH 7/7] dt-bindings: watchdog: restrict node name suffixes
+Message-ID: <2aaba5d8-37ad-4086-a81d-0d3e78cf5664@roeck-us.net>
+References: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
+ <20230530144851.92059-8-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: HRA5BJRBHMET3HIP34C7LPPJ5YRBGAIV
-X-Message-ID-Hash: HRA5BJRBHMET3HIP34C7LPPJ5YRBGAIV
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230530144851.92059-8-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: 7ONSGEWL5RB7JAXCPCYIITPK3MLZHSLJ
+X-Message-ID-Hash: 7ONSGEWL5RB7JAXCPCYIITPK3MLZHSLJ
+X-MailFrom: groeck7@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +132,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HRA5BJRBHMET3HIP34C7LPPJ5YRBGAIV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ONSGEWL5RB7JAXCPCYIITPK3MLZHSLJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,47 +141,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 26 May 2023 15:41:46 -0500, Pierre-Louis Bossart wrote:
-> The topology file and the machine driver rely on common definitions
-> for the dailink stream_name.  To avoid any backwards-compatibility
-> problems, the machine driver stream names are set in stone and cannot
-> be modified.
+On Tue, May 30, 2023 at 04:48:51PM +0200, Krzysztof Kozlowski wrote:
+> Make the pattern matching node names a bit stricter to improve DTS
+> consistency.  The pattern is restricted to -N suffixes to decimal
+> numbers.
 > 
-> This is problematic when we try to name some of the topology widgets
-> after the stream_name, since the widget name is limited to 44
-> characters
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+
 > 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/3] ASoC: topology: Allow partial matching when finding DAI link
-      commit: e018e0b346706d0a0d7d7f884f3850cc0903abc2
-[2/3] ASoC: SOF: topology: Use partial match for connecting DAI link and DAI widget
-      commit: fe88788779fc30a4117dc2f9db4b50182679bb67
-[3/3] ASoC: SOF: Intel: HDA: Limit the number of dai drivers for nocodec mode
-      commit: 0f7b6a433097808e7f3e82f837ccc1353f070e4a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+> ---
+> 
+> Cc: Tony Lindgren <tony@atomide.com>
+> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+> ---
+>  Documentation/devicetree/bindings/watchdog/watchdog.yaml | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/watchdog.yaml b/Documentation/devicetree/bindings/watchdog/watchdog.yaml
+> index 519b48889eb1..f0a584af1223 100644
+> --- a/Documentation/devicetree/bindings/watchdog/watchdog.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/watchdog.yaml
+> @@ -17,11 +17,11 @@ description: |
+>  select:
+>    properties:
+>      $nodename:
+> -      pattern: "^watchdog(@.*|-[0-9a-f])?$"
+> +      pattern: "^watchdog(@.*|-([0-9]|[1-9][0-9]+))?$"
+>  
+>  properties:
+>    $nodename:
+> -    pattern: "^(timer|watchdog)(@.*|-[0-9a-f])?$"
+> +    pattern: "^(timer|watchdog)(@.*|-([0-9]|[1-9][0-9]+))?$"
+>  
+>    timeout-sec:
+>      description:
+> -- 
+> 2.34.1
+> 

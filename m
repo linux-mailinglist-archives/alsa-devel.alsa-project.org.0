@@ -2,151 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A431715BD1
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 12:31:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B61715BF3
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 12:37:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39FB4208;
-	Tue, 30 May 2023 12:31:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39FB4208
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C5506C1;
+	Tue, 30 May 2023 12:37:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C5506C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685442712;
-	bh=JFzENw8FVHp82ia1vN9xJ5SkGYyv5IjUm6WugxAROwM=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=j1+SiMn7yByqcHOzwMLtG80ptBImZHplRVndj7DSHCNsQEGvz7S6WeA/Hwy8BLE0o
-	 dLET1bbvObVcacLqWF0NvniGC40YzDrCEdaMWSeaxTZnQD63S743X7fTdjAyCMX9At
-	 oekjtDiF4WA0BCC6Jvh4t51usFMrYZgUwoJDcbco=
+	s=default; t=1685443074;
+	bh=wkrQ3IlIK4yNRUmaBcT1vxCto+8cJmP60mSI1vVDM/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=i18XwZ4EGgZugaGznt+dstoXC2tI52CpvnQOk/vJAPRHRuoMHLQAhHL+HT1d8Sjvd
+	 rtUN8VHilH4NTJ+5bFNrglrdSg8hxa9e09+Fc/HIjdEjw+2yemtBQU1cD04cKISuV0
+	 VQQob4mWo3lg1OQk2XvozxM+g4+H24V8xEcd/1CA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97A4EF8026A; Tue, 30 May 2023 12:31:01 +0200 (CEST)
+	id BBB8DF80542; Tue, 30 May 2023 12:36:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB9FFF8026A;
-	Tue, 30 May 2023 12:31:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C896F8026A;
+	Tue, 30 May 2023 12:36:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C726F8042F; Tue, 30 May 2023 12:30:53 +0200 (CEST)
+	id 0E6BBF8042F; Tue, 30 May 2023 12:36:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20604.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e1a::604])
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 99934F8016B
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 12:36:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99934F8016B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=j9ePu7KH
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9C2FDF8016B
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 12:30:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C2FDF8016B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=E8pygQAh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AXGPBaXubFDmxCZy8hAbdHYBfxQJ6bm958tAsh4kEXQzTDI/1+6pzRsIGVxzXXGdYcmZAsy0F2IfelQGF71LW3YJcFfweaWJBxsIHH7EYn2TCzZuIVqNaSglXLPGou74H/KGlbMY6MiD+p95mXsOpNkDO5EhPv74dGyafM/ZbMLOkomusTsay4FdVbYTIVIfnS77wUD7lz22hN3LS7oXBjICYVBS13Mq4GY8W4KUW0iIyOgF3Xo8VKER/K8n52539WwwnVqhZS8yPmeX8tc70sjS9nGbldGj+J1/i08KH7kWBdL2hpzDnFjSd6fpnA0yhVVBzeeDjIlsV7VoQJugtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f7AMVWF9xVZUTxz9DTSUBCzeMv6541p4nFNehZgUFrc=;
- b=he/1mVkeB3i/IS0OlJDUsX3HZx7qljSn0wEppWyxSbPQ900tX/BlhvjnYr+QYtSLuPqHLNuRwvRyCC5s8XG1w/6OLptmao1XZMF3b+j0dr0sHYtouVwseRXt2jMfBkbCX8TvhGDfPsAA28p353npkjzCCkXslzoUoTVitUJk4qkh6VEmtKGez5X9SOPZ5ac+06tulRE1eLjhCVX/fN1Om93Fm0l+ItI0TcBxLgDJYsOS7w4sXZhemLrrNtZ0etoZg5XVTmslDdOfwGIE9vEaqMHt301gAb2Ac4vtE+IpUogfM+y5dg//KOhJzTDHm220zkCJAb3ESuyfQ8ZYIZcseg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f7AMVWF9xVZUTxz9DTSUBCzeMv6541p4nFNehZgUFrc=;
- b=E8pygQAh2k/0oMxyPVN/b0Ee1935WI8fKJNQNNqyPkE0QjA3yORGY5i5OgWicNfv/5kOMyw4bz3s/YCpC6SKUAOG+9qoKbC5E1gTDt024xtSGitAMN4XfaMGw4FyrVUCovnvod0fNPNs/x8cXGPHjq9dYH9W4h+SJn1bsn6YSpo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
- by DB9PR04MB8154.eurprd04.prod.outlook.com (2603:10a6:10:243::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
- 2023 10:30:34 +0000
-Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::a853:185d:bef3:e335]) by DB9PR04MB9498.eurprd04.prod.outlook.com
- ([fe80::a853:185d:bef3:e335%7]) with mapi id 15.20.6433.022; Tue, 30 May 2023
- 10:30:34 +0000
-From: Chancel Liu <chancel.liu@nxp.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com
-Cc: Chancel Liu <chancel.liu@nxp.com>
-Subject: [PATCH] ASoC: fsl_sai: Enable BCI bit if SAI works on synchronous
- mode with BYP asserted
-Date: Tue, 30 May 2023 18:30:12 +0800
-Message-Id: <20230530103012.3448838-1-chancel.liu@nxp.com>
-X-Mailer: git-send-email 2.25.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR02CA0047.apcprd02.prod.outlook.com
- (2603:1096:4:196::14) To DB9PR04MB9498.eurprd04.prod.outlook.com
- (2603:10a6:10:360::21)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 56B8E6215D;
+	Tue, 30 May 2023 10:36:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19424C433D2;
+	Tue, 30 May 2023 10:36:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685442980;
+	bh=wkrQ3IlIK4yNRUmaBcT1vxCto+8cJmP60mSI1vVDM/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=j9ePu7KHUDodU/8sSY0XQDmDhk1U9eWdjASPU8JNScHV2LXbnntOZCuFTrKUbM3/M
+	 7O1GzSORNt6yYTUFodm+YzqGjpet7giH9Cc/TqWgELrtLgqikz6Cm7tFbgzCk76oHu
+	 xGtu0uFfZ4N8E4wYpOLK8lsYFpIpK4xorEqspievHUlqfRf55jO7fa+/BnXmVA9LjN
+	 /MxG4x4cm8XgJwftzUkWWzwFCd5n4EJreHCaI33j7F8uw/2ItUeFUGytQ5y8M8Zuv8
+	 fpn5Z3vJO7WYnmJxM22ZuZs9rQ82ZcOvJ9tOr+aLp3u9pyNS+/GE4pfMkEJ8Vet8wt
+	 vuwO2cZk5VJ2Q==
+Date: Tue, 30 May 2023 11:36:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: lgirdwood@gmail.com, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+	kai.vehmanen@linux.intel.com, rander.wang@intel.com
+Subject: Re: [PATCH 0/3] ASoC: SOF: Intel: mtl: Enable multicore support
+Message-ID: <2fe23257-3e81-40e6-9ecb-99951e15d5d6@sirena.org.uk>
+References: <20230523103217.20412-1-peter.ujfalusi@linux.intel.com>
+ <168487142215.278276.6191766858062306959.b4-ty@kernel.org>
+ <145987ea-0706-9bca-dc75-803a0625a8a2@linux.intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DB9PR04MB8154:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2783b6e-80ff-46dd-459a-08db60f8e6fc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	ykOjkwBsf99AETd9DPGSaET+lDuFBNluxzKBFpRf6SGR2CgEI5S7njDInVmBzfiBrd0NMsKfO1Dk6zHSes7bjIXw6wjfcRBc28K9bt+TIrLHZNPTwgL3xO1mpT9B6cNdSmQBkSuDv/4E1FjzQh61FQEdnTdr+qE2mNz9pSWzk2X17Vbgf4eKaYtozmFXGk8i0GKekheFO1UrBC7Do5cgEx9dohxrLrbYHMSvReX0Wb1+0+9QmYrLb7UQcTk/LT4rxYt+2GFa9V9KQrzlcK96E07nIx+BXdGOnXJsknkL4wOq+YNsZaDP8UTgoUpbbgaZOyu/YhpnxE3ZOL/ZejYfm2YhW52UEZx/lsNd7t/DOhdfAPZPey1E7gDrzlEF6/SDxcR3GmGZfABBlHwLob6F+7neZprncW5g7hWCy6W8eVPgki/enZpkgpFQjYWxyLzvClleVf93WKAtF8vMuFwBwgPvzaeClAY4wcY4hs073esuVhkfzFhYObjMI6d6+v/OjN3y10OkrNs2msdbz3x0qqrDTXXgp7yhA5mJNfGoOlbK4c6SqOaoUlZ9Q+XAyUK/GQQdySGpr+pxIYp0DE+YhdRuPEpzy86XVma5CZg6dsAkUvs1WMNHUYBVBKUEGCTQMZanlRj/K42LlnyX/WRs0g==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(366004)(396003)(376002)(136003)(451199021)(478600001)(8676002)(8936002)(7416002)(44832011)(5660300002)(36756003)(2906002)(86362001)(921005)(4326008)(66476007)(66556008)(66946007)(316002)(38350700002)(38100700002)(41300700001)(2616005)(186003)(1076003)(6506007)(6512007)(26005)(52116002)(6486002)(6666004)(83380400001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?vwnbwn9nptZY6f7/uhaM7y/qgzvCL+tRZ+X2gwd7IK2NFinRCWUxwHOkCYCi?=
- =?us-ascii?Q?z5FAycBgBk2xKA6CAHrNfBBwcjBSYho3t6uhJ7dsyAKJpfHcC1TYlofxf8x3?=
- =?us-ascii?Q?+k9k5q6v0q+gXd0vjYg7AMbYf8BUVhgAzGYU7YJD9aP5Q6VdRFG/EFx+Zpzl?=
- =?us-ascii?Q?QK3YyLdBHmPZgSuSPzuE6ZGAKjwHuuxZLx9xFVisztRcg/jTbdfnff/kmS5T?=
- =?us-ascii?Q?l/fETYrU6QFqJm9MMSHu/w87VRi8UVaI9d2YrKwVnVVaIS1CZ/waYLw0krA9?=
- =?us-ascii?Q?C0WvzuQ5HfUURKDURKH5MuRghFqrwf4viuWkr2WCReKwvhSyRxfXPLPxoI/0?=
- =?us-ascii?Q?Q5Pkz2Y4tBfZc7/2bhz6VJ9fbYyRfv0WzqLcLJPd/Dh+hkYQto/tbUVJS3h4?=
- =?us-ascii?Q?96k8AEi1Z/77Pd8Qbtto55zgD5rdASUJTzuyBvqmDehTS7LTAGb6qhIEUlD7?=
- =?us-ascii?Q?Uj44ht7LPobwI5wKKGv28+JW30GojAcyonfI3bGg2KDDowwnOBPbAPHgEKCo?=
- =?us-ascii?Q?yuOEYK0ert3sKW6CWME/L3QVcaKQTEF+jj0ugVU7xupJKsGkR+bjaulkIQEP?=
- =?us-ascii?Q?6UqxrmPkTZD/mIRq34+iB1vn440NUovv2MTAc1CrKX0TuEAm4besUja0aGq4?=
- =?us-ascii?Q?T30ihw1lL9TZAOuRuLvWuzlLfTnq2deGSXOlGeR8zEelfibcAve/oy+PyTsm?=
- =?us-ascii?Q?ATssShmto4nKmOVhl0OtYUnpZoszKqiuX5moVajtlfbhImB2uJq57XFo3aAF?=
- =?us-ascii?Q?hhVZ/rNVTkZ69bRE1I5l+KvW7qkqNDrLnczvGxn2qGIo3YGPFr0FEwspbDKo?=
- =?us-ascii?Q?kAxphPLTKKR1gJ0HcSsRJuxRqAuvkHxUcr/nXL/sQ6PYEI3emSB+e3cIhQPd?=
- =?us-ascii?Q?HW+0zyRlomCV4KPPAIcz3Vw3GD3gBz8BHk62llsX85B0RAYOzx3Ia8OgNvXv?=
- =?us-ascii?Q?w90YsF9S3Vp7xm0lnkxiSt3vXlNrIyg7Zs8ss30x0cdLY4hYtauna99piwMB?=
- =?us-ascii?Q?IF8hEHRyvH5AACd/fZv4cWFG2sL1Bp/nIG7ZTijecpzcfYccPxavLO4mI6VO?=
- =?us-ascii?Q?ls/mU4MHK8fzJsFZM0TPq1k7LVrbvkmuXUn/ikNFgjbvSImfhkMhlhhOgtcB?=
- =?us-ascii?Q?+wKrwrI/hYm8yGqQ9zgKy/BGKW7QU4GaYQuG38RDTp7cbJZszlQ7yEICqnWf?=
- =?us-ascii?Q?StGyenFXSTOWQulHmbYMME3WrgLnsn1CG0xkX44eVw2jmSPENu8owXJfm0/H?=
- =?us-ascii?Q?5PpxtWpfBqTFnU8NOEIOZ7ebSMe9o67l5q4mu6lrf7BavI0IUg9E4fpsXMel?=
- =?us-ascii?Q?g3EjmNJIm8zSwVgwr5BzsO51kXQE9nUXEoPDm1J1ebVUyRLd7VRFG0SYXKND?=
- =?us-ascii?Q?YXN1XkoZpkXR9vwSHZTj5dtig78J9G8h/HNX0T+XlTToF2NHv/NMXrjwQQEI?=
- =?us-ascii?Q?ApRbA9eqoPV1cv71IQPwJEJpksa8nI05zSSzW5q/ee8hSSaqR92jJ9jF6ubx?=
- =?us-ascii?Q?2dQWn9GtzdMrgW8I/mdLO4Gh2EE473B1vc3EuTgk1syrOB3xbGoz7m3OM2js?=
- =?us-ascii?Q?nonTRm9pnCNKJkpe+gE+q/tckr963pBkqZdpyYtZ?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- f2783b6e-80ff-46dd-459a-08db60f8e6fc
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 10:30:34.8329
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- CdH8IP4b2TEZEpm7aoQNh24qfsfZCbkyT6QngvZQNh10KMKeAwyeWb3GTdp/4hsP4mq1wHXzPElkv1GK28a/7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8154
-Message-ID-Hash: OTZCXSKP7A2OQ7EYEXVGURDEBJGNK2AD
-X-Message-ID-Hash: OTZCXSKP7A2OQ7EYEXVGURDEBJGNK2AD
-X-MailFrom: chancel.liu@nxp.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="trau4cy7XZ4hmSMw"
+Content-Disposition: inline
+In-Reply-To: <145987ea-0706-9bca-dc75-803a0625a8a2@linux.intel.com>
+X-Cookie: I've read SEVEN MILLION books!!
+Message-ID-Hash: FSQDUNXZZPU2AZCT6SC5VCVAQA5IERBE
+X-Message-ID-Hash: FSQDUNXZZPU2AZCT6SC5VCVAQA5IERBE
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -158,71 +91,46 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OTZCXSKP7A2OQ7EYEXVGURDEBJGNK2AD/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FSQDUNXZZPU2AZCT6SC5VCVAQA5IERBE/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-There's an issue on SAI synchronous mode that TX/RX side can't get BCLK
-from RX/TX it sync with if BYP bit is asserted. It's a workaround to
-fix it that enable SION of IOMUX pad control and assert BCI.
 
-For example if TX sync with RX which means both TX and RX are using clk
-form RX and BYP=1. TX can get BCLK only if the following two conditions
-are valid:
-1. SION of RX BCLK IOMUX pad is set to 1
-2. BCI of TX is set to 1
+--trau4cy7XZ4hmSMw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
----
- sound/soc/fsl/fsl_sai.c | 11 +++++++++--
- sound/soc/fsl/fsl_sai.h |  1 +
- 2 files changed, 10 insertions(+), 2 deletions(-)
+On Fri, May 26, 2023 at 03:50:49PM -0500, Pierre-Louis Bossart wrote:
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index d9344025dc16..5e09f634c61b 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -491,14 +491,21 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
- 	regmap_update_bits(sai->regmap, reg, FSL_SAI_CR2_MSEL_MASK,
- 			   FSL_SAI_CR2_MSEL(sai->mclk_id[tx]));
- 
--	if (savediv == 1)
-+	if (savediv == 1) {
- 		regmap_update_bits(sai->regmap, reg,
- 				   FSL_SAI_CR2_DIV_MASK | FSL_SAI_CR2_BYP,
- 				   FSL_SAI_CR2_BYP);
--	else
-+		if (fsl_sai_dir_is_synced(sai, adir))
-+			regmap_update_bits(sai->regmap, FSL_SAI_xCR2(tx, ofs),
-+					   FSL_SAI_CR2_BCI, FSL_SAI_CR2_BCI);
-+		else
-+			regmap_update_bits(sai->regmap, FSL_SAI_xCR2(tx, ofs),
-+					   FSL_SAI_CR2_BCI, 0);
-+	} else {
- 		regmap_update_bits(sai->regmap, reg,
- 				   FSL_SAI_CR2_DIV_MASK | FSL_SAI_CR2_BYP,
- 				   savediv / 2 - 1);
-+	}
- 
- 	if (sai->soc_data->max_register >= FSL_SAI_MCTL) {
- 		/* SAI is in master mode at this point, so enable MCLK */
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 3eb994aef36a..8254c3547b87 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -116,6 +116,7 @@
- 
- /* SAI Transmit and Receive Configuration 2 Register */
- #define FSL_SAI_CR2_SYNC	BIT(30)
-+#define FSL_SAI_CR2_BCI		BIT(28)
- #define FSL_SAI_CR2_MSEL_MASK	(0x3 << 26)
- #define FSL_SAI_CR2_MSEL_BUS	0
- #define FSL_SAI_CR2_MSEL_MCLK1	BIT(26)
--- 
-2.25.1
+> Looks like patch1 was not applied:
 
+> [PATCH 1/3] ASoC: SOF: Intel: mtl: setup primary core info on MeteorLake
+> platform
+
+> was there anything wrong with it or is this a b4/script issue?
+
+> Please let us know if we need to resend it or modify it.
+
+I imagine it ended up looking like it was already applied, please
+resend.
+
+--trau4cy7XZ4hmSMw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR10Z4ACgkQJNaLcl1U
+h9DaSggAhMzRdD0X+sLAOwv2sRGtrjeV+ANKqa5PXWAI9cTDYOc7V9fzjJsVWuwE
+jce/PLDxoxYYBzeCPGhdDUgbfb/tFM71WIr9EiH3IH8obs6oRGF0A0Tfxt0K22p2
+DWEC6xTO1w8OpOeNBTPWjdkqKTpk1nouwMceA0GqyO1fYPxcP6YZGEz4KKIiwx/j
+agWD37CltAX2laLLcJ/+BLR8Ip0JZ53o6vFEN/vNoJnXqGRU+V0MhudB6C7YWc8g
+FvXaQxDvqYs5BOXLI0ntPi/YwYbfyhEc0Y4oBVeI2q6JwQ+Pc4wBZPQvArSYndEI
+DJ2SsbDQjCn6T7+Bfh4x2GY18NhB+Q==
+=tqVy
+-----END PGP SIGNATURE-----
+
+--trau4cy7XZ4hmSMw--

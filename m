@@ -2,94 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F6427164B2
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 16:46:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 891B1716500
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 16:49:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 331AD6C0;
-	Tue, 30 May 2023 16:45:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 331AD6C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 848D9208;
+	Tue, 30 May 2023 16:49:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 848D9208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685457986;
-	bh=6kREo6AOjlbkv6izoJghoqHkomjsL7ElGbjU2YWwSlU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=lBn5HKgV1BqkGwDNr8Dgf1TSIwGuslZNAymDwCcLBCVtDmwDse6jYcIDnsuvjfHX0
-	 R4cWmZFu8qTIaTqj4yHqxOuyHkNGOWNOCZH449b93iBS6SkUHgxHmhpLmqDztUyezO
-	 eiTO3s4Om+9XYDqdRnwBhGCDwdXuJq/571B6i2Ng=
+	s=default; t=1685458198;
+	bh=GcAuHZEcow9hik/LJK+VDfxCnFXDFSi+9NN8y44Dsfo=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Z9Q/upczA74/btSjePw7lOIqVl52QAgCHRVS+1wgGjL309/6Bp+oz2DOtELQNhYN6
+	 sFve24Z6xxhrBh1XBqCep2auC7VpdeLj0Yot6FARm2iZnz0EuG2xCZZe+QA8QUkJzk
+	 BtpekqDFNFVJVKKwoRyC7Vaok3i4/rtF8gJFy2CQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9CFD9F800DF; Tue, 30 May 2023 16:45:35 +0200 (CEST)
+	id 66B9EF8042F; Tue, 30 May 2023 16:49:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58EB2F8026A;
-	Tue, 30 May 2023 16:45:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05F49F8042F;
+	Tue, 30 May 2023 16:49:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7DDAF8042F; Tue, 30 May 2023 16:45:30 +0200 (CEST)
+	id 27415F804FC; Tue, 30 May 2023 16:49:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [IPv6:2a00:1450:4864:20::52e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1A4E4F8016B
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 16:45:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A4E4F8016B
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0289F8016B
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 16:48:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0289F8016B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lhdgXFTH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685457926; x=1716993926;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=6kREo6AOjlbkv6izoJghoqHkomjsL7ElGbjU2YWwSlU=;
-  b=lhdgXFTHjUZX8/SUBW3Tj671BiLhveD5EqplqhJw+mVN4JBAxSVRENdg
-   9oBCkHw2RdHp/Pgl1klzAcXfBJAnW/IWXurKZu9ol2dxj0CafKtAwmLtb
-   IPnYXPdY3OBq8UEaKqJGpKshhiKJb7kzw0U+v4FDEl0xxlEpZY6TCkSN/
-   NDZ3P+qrkO8G2iE3x4x99WfM4g3isBQu4nBXtGVlbjL9GWvznkT9gEWrr
-   +cUHqGfrMsXr1w4//srmP19EykcleOEts8UC8m74jeOXf6hXEMRznZ5c0
-   LFa37me8O3ni5LgGL8jWTDzc+mFbRMEHsduPjjaEfN3lBPlMw9YM2Ywi6
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="353776719"
-X-IronPort-AV: E=Sophos;i="6.00,204,1681196400";
-   d="scan'208";a="353776719"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 07:45:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="771570337"
-X-IronPort-AV: E=Sophos;i="6.00,204,1681196400";
-   d="scan'208";a="771570337"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 07:45:12 -0700
-Message-ID: <13b6c019-1034-4f59-4d8f-fb9f478b7764@linux.intel.com>
-Date: Tue, 30 May 2023 16:45:10 +0200
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=q6DaxHgq
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-51458187be1so8039204a12.2
+        for <alsa-devel@alsa-project.org>;
+ Tue, 30 May 2023 07:48:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1685458136; x=1688050136;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=iV7Orb1i2HT8c6ntLQeDsScnfo8QsjoWIKrRpD+mlDM=;
+        b=q6DaxHgqELE2tu8Q1AxgIsCDpH+TNAJJHJp6Q7g8/Fkd/88Tk4TUy/ri0mT4Ktg5Mo
+         8loUDrV8rgOV4A6XNocbQ8st6LPKLPsCoM9M7NfuJiiPgFmWodAuWDMcEhGTqfI+4Tzf
+         71FhpeXfe33npOU4xXk8C/+4upzoWtXD+5OuR9V4CwEY+McHM/HpsrVpr/f2HM5wwk11
+         q6ItDg0BTxwcfJWB6uZBQGx+4pwaP2uzwuVXxHf91dLVKqsCTNfh3dg7BgyEkITCyOjh
+         IHl3EJehb7WHjyFD+D9eQjjetOZhYahUl2+MIzDnN4ovGk7najQrxWq/MU940DgRFDiZ
+         Y5Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685458136; x=1688050136;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iV7Orb1i2HT8c6ntLQeDsScnfo8QsjoWIKrRpD+mlDM=;
+        b=aKL7RaVGJ/SeRpw+O+j+odrM3YH4moCb0OqPUbaATipmBljh6DQxvxWbv6B1YnAagc
+         alcyqzQpmGXDT1T4tMbVBCWXRw41QGQ3cs9iPQ6YPbJy7Rqj4DKNaKsDHXWgbf4s8qCG
+         AOLf2WpbQ5u0FFy2nSx7kw7kbylaz/QWI0O/51SbVl/anGSuerg28DuMkjA3RULW1h9O
+         93XbcZbKa5+XeWskJnwJhu+fwdtLUytm61xaV9u7ZrituiiSuddavVMlg1xclBCnWr++
+         KvApTiBKNmpMtznQ8B68ajDLpa2FDNMA5jQLGe0RzadyaR51ZuK3Tg77b384Hyhxkjb0
+         N/TA==
+X-Gm-Message-State: AC+VfDz/wdnravsEa5PDBv+BBNEXnviPygm8cQQ+hFjigIMxgS1xpMTT
+	0n5PoHup73mgF6WvpkUGOYjN6A==
+X-Google-Smtp-Source: 
+ ACHHUZ57600gdJ8fZghoBNthDb/ZJ2da044/ygwaZp54+5w2nAm+4l+5lOMfpN+gAlzBZIyE3wXFJQ==
+X-Received: by 2002:aa7:d9c4:0:b0:50d:fcfb:861b with SMTP id
+ v4-20020aa7d9c4000000b0050dfcfb861bmr1926404eds.0.1685458136376;
+        Tue, 30 May 2023 07:48:56 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.199.204])
+        by smtp.gmail.com with ESMTPSA id
+ q21-20020aa7cc15000000b00514b2717ec6sm631283edt.28.2023.05.30.07.48.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 30 May 2023 07:48:55 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Alessandro Zummo <a.zummo@towertech.it>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Mark Brown <broonie@kernel.org>,
+	Dipen Patel <dipenp@nvidia.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Dilip Kota <eswara.kota@linux.intel.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-spi@vger.kernel.org,
+	timestamp@lists.linux.dev,
+	linux-watchdog@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>
+Subject: [PATCH 0/7] dt-bindings: restrict node name suffixes
+Date: Tue, 30 May 2023 16:48:44 +0200
+Message-Id: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 4/5] ASoC: soc-pcm.c: use temporary variable at
- soc_get_playback_capture()
-Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-References: <87zg5mzlrc.wl-kuninori.morimoto.gx@renesas.com>
- <87ttvuzlqe.wl-kuninori.morimoto.gx@renesas.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <87ttvuzlqe.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6YIRUWPXN744DWIK76H6I423NM4TBMCX
-X-Message-ID-Hash: 6YIRUWPXN744DWIK76H6I423NM4TBMCX
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Message-ID-Hash: YMXIFMVGA5XQWWRAJDCKFIHQS4YE7PON
+X-Message-ID-Hash: YMXIFMVGA5XQWWRAJDCKFIHQS4YE7PON
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6YIRUWPXN744DWIK76H6I423NM4TBMCX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YMXIFMVGA5XQWWRAJDCKFIHQS4YE7PON/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,116 +140,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 5/30/2023 2:50 AM, Kuninori Morimoto wrote:
-> soc_get_playback_capture() (A) returns number of substreams for
-> playback/capture (B).
-> 
-> (A)	static int soc_get_playback_capture(...,
-> (B)					int *playback, int *capture)
-> 	{
-> 		...
-> 		for_each_xxx(...) {
-> 			if (xxx)
-> 				return -EINVAL;
-> =>			*playback = 1;
-> 			...
-> =>			*capture = 1;
-> 			...
-> 		}
-> 		...
-> 	}
-> 
-> But, it is directly updating playback/capture which is the result of this
-> function even though it might be error. It should be updated in case of
-> succeed only. This patch updates it.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->   sound/soc/soc-pcm.c | 27 ++++++++++++++++-----------
->   1 file changed, 16 insertions(+), 11 deletions(-)
-> 
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 47da3be0ff46..b3d569e7ba61 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -2733,6 +2733,8 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
->   {
->   	struct snd_soc_dai_link *dai_link = rtd->dai_link;
->   	struct snd_soc_dai *cpu_dai;
-> +	int has_playback = 0;
-> +	int has_capture  = 0;
->   	int i;
->   
->   	if (dai_link->dynamic && dai_link->num_cpus > 1) {
-> @@ -2748,11 +2750,11 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
->   
->   			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
->   				if (snd_soc_dai_stream_valid(cpu_dai, stream)) {
-> -					*playback = 1;
-> +					has_playback = 1;
->   					break;
->   				}
->   			}
-> -			if (!*playback) {
-> +			if (!has_playback) {
->   				dev_err(rtd->card->dev,
->   					"No CPU DAIs support playback for stream %s\n",
->   					dai_link->stream_name);
-> @@ -2764,12 +2766,12 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
->   
->   			for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
->   				if (snd_soc_dai_stream_valid(cpu_dai, stream)) {
-> -					*capture = 1;
-> +					has_capture = 1;
->   					break;
->   				}
->   			}
->   
-> -			if (!*capture) {
-> +			if (!has_capture) {
->   				dev_err(rtd->card->dev,
->   					"No CPU DAIs support capture for stream %s\n",
->   					dai_link->stream_name);
-> @@ -2798,30 +2800,33 @@ static int soc_get_playback_capture(struct snd_soc_pcm_runtime *rtd,
->   
->   			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
->   			    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
-> -				*playback = 1;
-> +				has_playback = 1;
->   			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
->   			    snd_soc_dai_stream_valid(cpu_dai,   cpu_capture))
-> -				*capture = 1;
-> +				has_capture = 1;
->   		}
->   	}
->   
->   	if (dai_link->playback_only) {
-> -		*playback = 1;
-> -		*capture = 0;
-> +		has_playback = 1;
-> +		has_capture = 0;
->   	}
->   
->   	if (dai_link->capture_only) {
-> -		*playback = 0;
-> -		*capture = 1;
-> +		has_playback = 0;
-> +		has_capture = 1;
->   	}
->   
-> -	if (!*playback && !*capture) {
-> +	if (!has_playback && !has_capture) {
->   		dev_err(rtd->dev, "substream %s has no playback, no capture\n",
->   			dai_link->stream_name);
->   
->   		return -EINVAL;
->   	}
->   
-> +	*playback = has_playback;
-> +	*capture  = has_capture;
-> +
->   	return 0;
->   }
->   
+Hi,
 
-Reviewed-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Tree-wide cleanup of DTS node name suffixes "-N", e.g. "pwm-5", so we allow
+only decimal numbers.  In few cases narrow the pattern to also disallow
+multiple suffixes, e.g. "pwm-5-5".
+
+No dependencies, can be applied by individual subsystems.
+
+Cc: Tony Lindgren <tony@atomide.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+
+Link: https://lore.kernel.org/all/20221127182232.GA128974-robh@kernel.org/
+
+Best regards,
+Krzysztof
+
+Krzysztof Kozlowski (7):
+  dt-bindings: phy: intel,combo-phy: restrict node name suffixes
+  dt-bindings: pwm: restrict node name suffixes
+  dt-bindings: rtc: restrict node name suffixes
+  dt-bindings: slimbus: restrict node name suffixes
+  spi: dt-bindings: restrict node name suffixes
+  dt-bindings: timestamp: restrict node name suffixes
+  dt-bindings: watchdog: restrict node name suffixes
+
+ Documentation/devicetree/bindings/phy/intel,combo-phy.yaml    | 2 +-
+ Documentation/devicetree/bindings/pwm/pwm.yaml                | 2 +-
+ Documentation/devicetree/bindings/rtc/rtc.yaml                | 2 +-
+ Documentation/devicetree/bindings/slimbus/slimbus.yaml        | 2 +-
+ Documentation/devicetree/bindings/spi/spi-controller.yaml     | 2 +-
+ .../bindings/timestamp/hardware-timestamps-common.yaml        | 2 +-
+ Documentation/devicetree/bindings/watchdog/watchdog.yaml      | 4 ++--
+ 7 files changed, 8 insertions(+), 8 deletions(-)
+
+-- 
+2.34.1
+

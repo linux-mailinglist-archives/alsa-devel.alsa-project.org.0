@@ -2,71 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C796A7156B4
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 09:27:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 361697156B3
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 09:27:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6D63826;
-	Tue, 30 May 2023 09:26:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6D63826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F9FD823;
+	Tue, 30 May 2023 09:26:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F9FD823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685431668;
-	bh=kE+jRaue/tIB6XeFoW83cSt/n2J4RON2gknVR7pXSWo=;
+	s=default; t=1685431666;
+	bh=f9gT+VNRDA/WhnG7D2/yHcFUZ7CDW+2alpbYtRWO1+g=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ZnUHbKXc2+cSSeM8q7VLR+YqZAPQAW9j1ff29N/ecb1ExXSP+TgDnzXsMHceRJbp2
-	 oGU3H+mjeLAAwT0JxlrpigI77JAwJ+XJiYHUeBhbxrx31qkmEZpFdtsdkpWpDt/V6n
-	 vl1EPOhNcQai1mhb8SJdH5k8+BmmoOZ95w2fsAWo=
+	b=froNnT7399yyXfBP3sCnmWFblzwsYY9orX6mz1f6FTPTJF80fNd2jLtq2l9gvwh+X
+	 lQAiSW/CFsFx/YruVCU1u2GY25UYSrewAkAu3Ob3U7GVBoYuezxK9V/aE2Xook+wTj
+	 b46q+nPjKA85hxwfZZCbLYbAeuObAlI23Il/lCvQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3CD70F80557; Tue, 30 May 2023 09:26:57 +0200 (CEST)
+	id DC531F8026A; Tue, 30 May 2023 09:26:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE20FF80551;
-	Tue, 30 May 2023 09:26:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 798F0F8026A;
+	Tue, 30 May 2023 09:26:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 05508F8042F; Tue, 30 May 2023 09:25:36 +0200 (CEST)
+	id A45F5F804FC; Tue, 30 May 2023 09:25:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RDNS_NONE,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no
+	autolearn=no autolearn_force=no version=3.4.6
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC178F8042F
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7C02F800DF
 	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 09:25:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC178F8042F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7C02F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=LxGw87Y3
-X-UUID: 2021d562febb11edb20a276fd37b9834-20230530
+ header.s=dk header.b=TcE86lzx
+X-UUID: 202f9328febb11edb20a276fd37b9834-20230530
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=mediatek.com; s=dk;
 	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=xlrhZtbxfrc35++jAF11o1f5lYhJQaGzlPdB6IuX7OM=;
-	b=LxGw87Y3I1aEAR9bJFNhj4wdOP2rhD0NUVPnKEaZkSz8hDppDTmI3e9MdvR9HNmYjaRKYObF6mWH1yO19tDZeKLFG1HVGWP0lymRKV+X2RiHGSP/+oII4xpPy8mmg3jSuATAtXgXJUuoAW08jtwpVLn+ecPqcqyuN+NnPFbQ2dE=;
+ bh=lIKAt4HMr2p4IkgApLRXAfBriTNNZGw4fHYmGN2BFrQ=;
+	b=TcE86lzxCrwiIpphKFBvjtAj1/9K3S3Yl42G1IbqDXqOquJR1oxodT5GZzbCfsHTARH4jJIVNXL4NSy+ZZBp1e3uDpY5ekkGRSvDHEBBnSHI+aaVMEm/WVKdbpPBcYecoGqdYbXzYcRle93OfGeYMYvG6WldxlXs64uPL9/OB7E=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.25,REQID:e1220dec-b947-4816-9233-ea6ed1203cb3,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:d5b0ae3,CLOUDID:8d156e6d-2f20-4998-991c-3b78627e4938,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-UUID: 2021d562febb11edb20a276fd37b9834-20230530
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
+X-CID-O-INFO: VERSION:1.1.25,REQID:f31388f6-ff34-4a95-80be-39708c5c5cb5,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:70
+X-CID-INFO: VERSION:1.1.25,REQID:f31388f6-ff34-4a95-80be-39708c5c5cb5,IP:0,URL
+	:0,TC:0,Content:-25,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTI
+	ON:quarantine,TS:70
+X-CID-META: VersionHash:d5b0ae3,CLOUDID:943cc93c-de1e-4348-bc35-c96f92f1dcbb,B
+	ulkID:230530152518J2789DCU,BulkQuantity:0,Recheck:0,SF:28|17|19|48|38|29,T
+	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-UUID: 202f9328febb11edb20a276fd37b9834-20230530
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
  mailgw02.mediatek.com
 	(envelope-from <trevor.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1410977904; Tue, 30 May 2023 15:25:16 +0800
+	with ESMTP id 730806003; Tue, 30 May 2023 15:25:17 +0800
 Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.2.1118.26; Tue, 30 May 2023 15:25:15 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
@@ -79,18 +83,18 @@ To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
 CC: <trevor.wu@mediatek.com>, <dianders@chromium.org>,
 	<alsa-devel@alsa-project.org>, <linux-mediatek@lists.infradead.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/2] ASoC: mediatek: mt8188: fix use-after-free in driver
+Subject: [PATCH 2/2] ASoC: mediatek: mt8195: fix use-after-free in driver
  remove path
-Date: Tue, 30 May 2023 15:25:13 +0800
-Message-ID: <20230530072514.22001-2-trevor.wu@mediatek.com>
+Date: Tue, 30 May 2023 15:25:14 +0800
+Message-ID: <20230530072514.22001-3-trevor.wu@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20230530072514.22001-1-trevor.wu@mediatek.com>
 References: <20230530072514.22001-1-trevor.wu@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-MTK: N
-Message-ID-Hash: TWRNUPN5TPZPN2C3OLMNEMU6KDEC4PT3
-X-Message-ID-Hash: TWRNUPN5TPZPN2C3OLMNEMU6KDEC4PT3
+Message-ID-Hash: ZZ36PCMKWV4SFAMWZTSEG6DY446IP5M7
+X-Message-ID-Hash: ZZ36PCMKWV4SFAMWZTSEG6DY446IP5M7
 X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TWRNUPN5TPZPN2C3OLMNEMU6KDEC4PT3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZ36PCMKWV4SFAMWZTSEG6DY446IP5M7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,92 +116,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-During mt8188_afe_init_clock(), mt8188_audsys_clk_register() was called
-followed by several other devm functions. The caller of
-mt8188_afe_init_clock() utilized devm_add_action_or_reset() to call
-mt8188_afe_deinit_clock(). However, the order was incorrect, causing a
-use-after-free issue during remove time.
+During mt8195_afe_init_clock(), mt8195_audsys_clk_register() was called
+followed by several other devm functions. At mt8195_afe_deinit_clock()
+located at mt8195_afe_pcm_dev_remove(), mt8195_audsys_clk_unregister()
+was called.
+
+However, there was an issue with the order in which these functions were
+called. Specifically, the remove callback of platform_driver was called
+before devres released the resource, resulting in a use-after-free issue
+during remove time.
 
 At probe time, the order of calls was:
-1. mt8188_audsys_clk_register
+1. mt8195_audsys_clk_register
 2. afe_priv->clk = devm_kcalloc
 3. afe_priv->clk[i] = devm_clk_get
 
 At remove time, the order of calls was:
-1. mt8188_audsys_clk_unregister
+1. mt8195_audsys_clk_unregister
 3. free afe_priv->clk[i]
 2. free afe_priv->clk
 
-To resolve the problem, it's necessary to move devm_add_action_or_reset()
-to the appropriate position so that the remove order can be 3->2->1.
+To resolve the problem, we can utilize devm_add_action_or_reset() in
+mt8195_audsys_clk_register() so that the remove order can be changed to
+3->2->1.
 
-Fixes: f6b026479b13 ("ASoC: mediatek: mt8188: support audio clock control")
+Fixes: 6746cc858259 ("ASoC: mediatek: mt8195: add platform driver")
 Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
 ---
- sound/soc/mediatek/mt8188/mt8188-afe-clk.c    |  7 ---
- sound/soc/mediatek/mt8188/mt8188-afe-clk.h    |  1 -
- sound/soc/mediatek/mt8188/mt8188-afe-pcm.c    |  4 --
- sound/soc/mediatek/mt8188/mt8188-audsys-clk.c | 47 ++++++++++---------
- sound/soc/mediatek/mt8188/mt8188-audsys-clk.h |  1 -
- 5 files changed, 24 insertions(+), 36 deletions(-)
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c    |  5 --
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.h    |  1 -
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    |  4 --
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.c | 47 ++++++++++---------
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.h |  1 -
+ 5 files changed, 24 insertions(+), 34 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8188/mt8188-afe-clk.c b/sound/soc/mediatek/mt8188/mt8188-afe-clk.c
-index 4c24d0b9e90d..e69c1bb2cb23 100644
---- a/sound/soc/mediatek/mt8188/mt8188-afe-clk.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-afe-clk.c
-@@ -436,13 +436,6 @@ int mt8188_afe_init_clock(struct mtk_base_afe *afe)
+diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+index 9ca2cb8c8a9c..f35318ae0739 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
++++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+@@ -410,11 +410,6 @@ int mt8195_afe_init_clock(struct mtk_base_afe *afe)
  	return 0;
  }
  
--void mt8188_afe_deinit_clock(void *priv)
+-void mt8195_afe_deinit_clock(struct mtk_base_afe *afe)
 -{
--	struct mtk_base_afe *afe = priv;
--
--	mt8188_audsys_clk_unregister(afe);
+-	mt8195_audsys_clk_unregister(afe);
 -}
 -
- int mt8188_afe_enable_clk(struct mtk_base_afe *afe, struct clk *clk)
+ int mt8195_afe_enable_clk(struct mtk_base_afe *afe, struct clk *clk)
  {
  	int ret;
-diff --git a/sound/soc/mediatek/mt8188/mt8188-afe-clk.h b/sound/soc/mediatek/mt8188/mt8188-afe-clk.h
-index 904505d10841..ec53c171c170 100644
---- a/sound/soc/mediatek/mt8188/mt8188-afe-clk.h
-+++ b/sound/soc/mediatek/mt8188/mt8188-afe-clk.h
-@@ -111,7 +111,6 @@ int mt8188_afe_get_default_mclk_source_by_rate(int rate);
- int mt8188_get_apll_by_rate(struct mtk_base_afe *afe, int rate);
- int mt8188_get_apll_by_name(struct mtk_base_afe *afe, const char *name);
- int mt8188_afe_init_clock(struct mtk_base_afe *afe);
--void mt8188_afe_deinit_clock(void *priv);
- int mt8188_afe_enable_clk(struct mtk_base_afe *afe, struct clk *clk);
- void mt8188_afe_disable_clk(struct mtk_base_afe *afe, struct clk *clk);
- int mt8188_afe_set_clk_rate(struct mtk_base_afe *afe, struct clk *clk,
-diff --git a/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c b/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
-index c3fd32764da0..6a24b339444b 100644
---- a/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-afe-pcm.c
-@@ -3256,10 +3256,6 @@ static int mt8188_afe_pcm_dev_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "init clock error");
+diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.h b/sound/soc/mediatek/mt8195/mt8195-afe-clk.h
+index 40663e31becd..a08c0ee6c860 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-afe-clk.h
++++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.h
+@@ -101,7 +101,6 @@ int mt8195_afe_get_mclk_source_clk_id(int sel);
+ int mt8195_afe_get_mclk_source_rate(struct mtk_base_afe *afe, int apll);
+ int mt8195_afe_get_default_mclk_source_by_rate(int rate);
+ int mt8195_afe_init_clock(struct mtk_base_afe *afe);
+-void mt8195_afe_deinit_clock(struct mtk_base_afe *afe);
+ int mt8195_afe_enable_clk(struct mtk_base_afe *afe, struct clk *clk);
+ void mt8195_afe_disable_clk(struct mtk_base_afe *afe, struct clk *clk);
+ int mt8195_afe_prepare_clk(struct mtk_base_afe *afe, struct clk *clk);
+diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+index d22cf1664d8a..a0f2012211fb 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
++++ b/sound/soc/mediatek/mt8195/mt8195-afe-pcm.c
+@@ -3224,15 +3224,11 @@ static int mt8195_afe_pcm_dev_probe(struct platform_device *pdev)
  
--	ret = devm_add_action_or_reset(dev, mt8188_afe_deinit_clock, (void *)afe);
--	if (ret)
--		return ret;
+ static void mt8195_afe_pcm_dev_remove(struct platform_device *pdev)
+ {
+-	struct mtk_base_afe *afe = platform_get_drvdata(pdev);
 -
- 	spin_lock_init(&afe_priv->afe_ctrl_lock);
+ 	snd_soc_unregister_component(&pdev->dev);
  
- 	mutex_init(&afe->irq_alloc_lock);
-diff --git a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
-index be1c53bf4729..05d6f9d78e10 100644
---- a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.c
-@@ -138,6 +138,29 @@ static const struct afe_gate aud_clks[CLK_AUD_NR_CLK] = {
- 	GATE_AUD6(CLK_AUD_GASRC11, "aud_gasrc11", "top_asm_h", 11),
+ 	pm_runtime_disable(&pdev->dev);
+ 	if (!pm_runtime_status_suspended(&pdev->dev))
+ 		mt8195_afe_runtime_suspend(&pdev->dev);
+-
+-	mt8195_afe_deinit_clock(afe);
+ }
+ 
+ static const struct of_device_id mt8195_afe_pcm_dt_match[] = {
+diff --git a/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c b/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c
+index e0670e0dbd5b..09bd1a020421 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c
++++ b/sound/soc/mediatek/mt8195/mt8195-audsys-clk.c
+@@ -148,6 +148,29 @@ static const struct afe_gate aud_clks[CLK_AUD_NR_CLK] = {
+ 	GATE_AUD6(CLK_AUD_GASRC19, "aud_gasrc19", "top_asm_h", 19),
  };
  
-+static void mt8188_audsys_clk_unregister(void *data)
++static void mt8195_audsys_clk_unregister(void *data)
 +{
 +	struct mtk_base_afe *afe = (struct mtk_base_afe *)data;
-+	struct mt8188_afe_private *afe_priv = afe->platform_priv;
++	struct mt8195_afe_private *afe_priv = afe->platform_priv;
 +	struct clk *clk;
 +	struct clk_lookup *cl;
 +	int i;
@@ -217,19 +229,19 @@ index be1c53bf4729..05d6f9d78e10 100644
 +	}
 +}
 +
- int mt8188_audsys_clk_register(struct mtk_base_afe *afe)
+ int mt8195_audsys_clk_register(struct mtk_base_afe *afe)
  {
- 	struct mt8188_afe_private *afe_priv = afe->platform_priv;
-@@ -179,27 +202,5 @@ int mt8188_audsys_clk_register(struct mtk_base_afe *afe)
+ 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
+@@ -188,27 +211,5 @@ int mt8195_audsys_clk_register(struct mtk_base_afe *afe)
  		afe_priv->lookup[i] = cl;
  	}
  
 -	return 0;
 -}
 -
--void mt8188_audsys_clk_unregister(struct mtk_base_afe *afe)
+-void mt8195_audsys_clk_unregister(struct mtk_base_afe *afe)
 -{
--	struct mt8188_afe_private *afe_priv = afe->platform_priv;
+-	struct mt8195_afe_private *afe_priv = afe->platform_priv;
 -	struct clk *clk;
 -	struct clk_lookup *cl;
 -	int i;
@@ -247,17 +259,17 @@ index be1c53bf4729..05d6f9d78e10 100644
 -
 -		clkdev_drop(cl);
 -	}
-+	return devm_add_action_or_reset(afe->dev, mt8188_audsys_clk_unregister, afe);
++	return devm_add_action_or_reset(afe->dev, mt8195_audsys_clk_unregister, afe);
  }
-diff --git a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.h b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.h
-index 6c5f463ad7e4..45b0948c4a06 100644
---- a/sound/soc/mediatek/mt8188/mt8188-audsys-clk.h
-+++ b/sound/soc/mediatek/mt8188/mt8188-audsys-clk.h
+diff --git a/sound/soc/mediatek/mt8195/mt8195-audsys-clk.h b/sound/soc/mediatek/mt8195/mt8195-audsys-clk.h
+index 239d31016ba7..69db2dd1c9e0 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-audsys-clk.h
++++ b/sound/soc/mediatek/mt8195/mt8195-audsys-clk.h
 @@ -10,6 +10,5 @@
- #define _MT8188_AUDSYS_CLK_H_
+ #define _MT8195_AUDSYS_CLK_H_
  
- int mt8188_audsys_clk_register(struct mtk_base_afe *afe);
--void mt8188_audsys_clk_unregister(struct mtk_base_afe *afe);
+ int mt8195_audsys_clk_register(struct mtk_base_afe *afe);
+-void mt8195_audsys_clk_unregister(struct mtk_base_afe *afe);
  
  #endif
 -- 

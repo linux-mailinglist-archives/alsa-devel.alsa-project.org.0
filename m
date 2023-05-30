@@ -2,94 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE63C71A3B7
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 18:06:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D2A07169AC
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 18:34:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B03A83B;
-	Thu,  1 Jun 2023 18:05:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B03A83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F4703E7;
+	Tue, 30 May 2023 18:33:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F4703E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685635573;
-	bh=sxsmSWqieY7uTweaVylgA+c+zNLN194RzyxmoPVSV8I=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=GXTMBR12/OfLl761GtyFpFZpHRm0aQBNk4NCPfIybv1KNjU/zziCmWE3l7fgqQuc4
-	 MRn4PZAZyHzfvCh5lmkfkWJvuGO8QMApfd+eimvSR6SAMpc+m24MYUp7qrCk8J9M2G
-	 wWM0m8yvy0NDjCsTaVrRQxHOBBpp3bVuorGh/ImE=
+	s=default; t=1685464476;
+	bh=DNwpD4OplMyhLT5dVEs1KQZfjWEPePdvQ4W++l8K88Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=DpYCaB1S480VOvC/Z6aMaOtAS03cwBvX8gV49pVtGoNo0xZ39NNy4s19rv/K/jg8a
+	 X83Zxw4jLl1N36JjUQrxA/X6MH+paNsCDtPlWIAxMscFXSAQiNHOvYQTNl5OPOu2MZ
+	 ml950+K+v5jn/bxskfUYax9B5r2MiTvRM6K7SIfM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADFC5F805EA; Thu,  1 Jun 2023 18:02:52 +0200 (CEST)
+	id 37AD2F8055A; Tue, 30 May 2023 18:32:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9B12F805E1;
-	Thu,  1 Jun 2023 18:02:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08ADAF80544;
+	Tue, 30 May 2023 18:32:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E55A6F8055B; Tue, 30 May 2023 18:33:18 +0200 (CEST)
+	id BB47EF8042F; Tue, 30 May 2023 18:32:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.217])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5884DF8042F
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 18:32:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5884DF8042F
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3D89DF8026A
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 18:32:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D89DF8026A
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=onK1rnO+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=ZptMN
-	5b1HFyj0M+tXHUCEbylco9ZmxRdPWPDQJlP/Bs=; b=onK1rnO+EYkJtYR+wNumM
-	+ZgqUdwMyzLbsmWtYCmNVG3nZ1XyztXBsVgNrPMVJhjItx3f3IPh7nrCRZK6u/pm
-	aS21qfzXVZVbpUg7E/Cp6WVGJCDFFfUBjzheq4xqQN6XnAnnuWW/EsxaxfgNL8dr
-	yGT2BCDwmKQE0ro+axY4hI=
-Received: from lizhe.. (unknown [120.245.132.246])
-	by zwqz-smtp-mta-g1-1 (Coremail) with SMTP id
- _____wBXj0cOJXZkGoMHBA--.32862S4;
-	Wed, 31 May 2023 00:32:54 +0800 (CST)
-From: Lizhe <sensor1010@163.com>
-To: james.schulman@cirrus.com,
-	david.rhodes@cirrus.com,
-	tanureal@opensource.cirrus.com,
-	rf@opensource.cirrus.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org
-Cc: patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	Lizhe <sensor1010@163.com>
-Subject: [PATCH] dirvers/gpio: remove redundant reset gpio suffix
-Date: Wed, 31 May 2023 00:32:10 +0800
-Message-Id: <20230530163210.4324-1-sensor1010@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=unghP9Aa
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id BA44E6168A;
+	Tue, 30 May 2023 16:32:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655A4C433EF;
+	Tue, 30 May 2023 16:32:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685464354;
+	bh=DNwpD4OplMyhLT5dVEs1KQZfjWEPePdvQ4W++l8K88Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=unghP9Aa+yOD5ZyOgg8us62DMte4l0C4kSMmmBtINXTl/dDjrpor651IDOYP9EfYx
+	 tSjUbw7QfpfpiL0jNaePVOVp/cEj8RvgqfoKGix6TX/jGQXMnNh5jGTU+mmYlnHMQw
+	 q7sQ04YDtAMGH9ETN24VD6065D63GNTbxJeV/6VyOyrXooTabjzYwIsYxsmcPhwPj2
+	 GvE6P3rKmThzhI8l9H1Tvp9DyW0aRDN+JGmTj6ppsgEbtJwgBtm/5phAT9ZqtZKgXY
+	 6fgbUfW1Kao7sZEhHNnnpof0Vns6gyE5yJ9lcJcjabs4RQBHAiJRGMkfU5vCXezOAQ
+	 ZGf1jvZoJ7ozQ==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, drosdeck <edson.drosdeck@gmail.com>
+Cc: perex@perex.cz, tiwai@suse.com, ckeepax@opensource.cirrus.com,
+ savagecin@gmail.com, SJLIN0@nuvoton.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20230529181911.632851-1-edson.drosdeck@gmail.com>
+References: <20230529181911.632851-1-edson.drosdeck@gmail.com>
+Subject: Re: [PATCH] ASoC: nau8824: Add quirk to active-high jack-detect
+Message-Id: <168546435213.570240.2930478439187494724.b4-ty@kernel.org>
+Date: Tue, 30 May 2023 17:32:32 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wBXj0cOJXZkGoMHBA--.32862S4
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtF1kGF1kWrWUCF4xXr15CFg_yoWfJFX_Ga
-	yF9a1UZ34jvFs29ry5uaySyw4vvFn3Ar4Skrn2kr1DA3W5Z3Z8tanFyrnxCFs5Wa97WFy8
-	XFnF9r4YyFZ7tjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRKfHUJUUUUU==
-X-Originating-IP: [120.245.132.246]
-X-CM-SenderInfo: 5vhq20jurqiii6rwjhhfrp/xtbBlxZ-q2I0ZKQeYAAAs9
-X-MailFrom: sensor1010@163.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: JDOR4QLFSXQXKIOR2IMQB3V4QD3JAMHC
+X-Message-ID-Hash: JDOR4QLFSXQXKIOR2IMQB3V4QD3JAMHC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 5L7QQUOSV5IDKAMX2AQ7U4DHL4ZAI7UJ
-X-Message-ID-Hash: 5L7QQUOSV5IDKAMX2AQ7U4DHL4ZAI7UJ
-X-Mailman-Approved-At: Thu, 01 Jun 2023 16:02:27 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5L7QQUOSV5IDKAMX2AQ7U4DHL4ZAI7UJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JDOR4QLFSXQXKIOR2IMQB3V4QD3JAMHC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,27 +96,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-no need to add the suffix "gpio" or "gpios" after "reset", as they will
-be automatically added, see of_find_gpio().
+On Mon, 29 May 2023 15:19:11 -0300, drosdeck wrote:
+> Add  entries for Positivo laptops: CW14Q01P, K1424G, N14ZP74G to the
+> DMI table, so that  active-high jack-detect will work properly on
+> these laptops.
+> 
+> 
 
-Signed-off-by: Lizhe <sensor1010@163.com>
----
- sound/soc/codecs/cs35l34.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied to
 
-diff --git a/sound/soc/codecs/cs35l34.c b/sound/soc/codecs/cs35l34.c
-index b3f98023e6a7..cbf0f2f4f9df 100644
---- a/sound/soc/codecs/cs35l34.c
-+++ b/sound/soc/codecs/cs35l34.c
-@@ -1061,7 +1061,7 @@ static int cs35l34_i2c_probe(struct i2c_client *i2c_client)
- 		dev_err(&i2c_client->dev, "Failed to request IRQ: %d\n", ret);
- 
- 	cs35l34->reset_gpio = devm_gpiod_get_optional(&i2c_client->dev,
--				"reset-gpios", GPIOD_OUT_LOW);
-+				"reset", GPIOD_OUT_LOW);
- 	if (IS_ERR(cs35l34->reset_gpio)) {
- 		ret = PTR_ERR(cs35l34->reset_gpio);
- 		goto err_regulator;
--- 
-2.34.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: nau8824: Add quirk to active-high jack-detect
+      commit: e384dba03e3294ce7ea69e4da558e9bf8f0e8946
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

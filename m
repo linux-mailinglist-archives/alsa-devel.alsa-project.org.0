@@ -2,147 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F9C7152AC
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 02:52:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A41617152FA
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 03:29:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04D6D82C;
-	Tue, 30 May 2023 02:51:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04D6D82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50385204;
+	Tue, 30 May 2023 03:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50385204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685407945;
-	bh=eXkDvqezi7ERAGj77f83+BFDRaBmKx1vpn1imIQSQqc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Date:List-Id:
+	s=default; t=1685410144;
+	bh=ukXT6Bh5smYL2Spb247twejireCaoX3i2aRiwoQSWIk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qgUIc2vLyIwZGF87RdK7qVXpXHdc9x5dD5vSnXBkpbLE7bI1R7lbXCBv23HPQ1NWq
-	 LVPKcyjqCDP31LebrsVkdtTeha+SPqjcLcWC08Xl7E2dDejS3I7LtaDB3lm1LEi/mB
-	 hqcYaaKjaLT0IulukmbDjeWjKmbEmgB+r72WP4pQ=
+	b=laxZ/HAkaCJuQTgd8ljfYJCa7n5nrYHWa4dfDNi0FTuQUG1AS3YiYPEXXqub5GxnH
+	 mmnGXKOGmcOlE+1LC64OKey3kb4sR2yxN6U2fDjPu3jxnf8W/rmhOUh0c0Bu/H4ReU
+	 gJg6Wdm6AYwe+R7pBGXdxdC5F/YEMkibkXFRFuy4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEFAEF80589; Tue, 30 May 2023 02:50:28 +0200 (CEST)
+	id 90ACCF8016B; Tue, 30 May 2023 03:28:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02FF8F80589;
-	Tue, 30 May 2023 02:50:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 167B2F8026A;
+	Tue, 30 May 2023 03:28:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C707DF80564; Tue, 30 May 2023 02:50:13 +0200 (CEST)
+	id 773E4F8042F; Tue, 30 May 2023 03:28:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20727.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::727])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 704DCF8055C
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 02:50:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 704DCF8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 676B5F8016B
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 03:27:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 676B5F8016B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=UVZ27NEv
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JbO3rTHKtFAJqQIiOKpU6PqW4o0GKgXrMT69eW6u/Qo2rQ9jztuyE1mD2VJW89fpWfOKTj4cNlKZ894kGiPXOCSTZ9omuXTFbrDWE3myBu8muWwE5IWm2Uzhm7k4mRfpC5HJ1LpDBN3RirOsLmy7LNBuRpTmheX6sPvR8A/KpDW/lRASQEqSbpJsn1gJLJw3vdW3+giOliVNEjNlwAasOaSbpGBOq1zSJ07/o2TwSEm/cFPHd4yudT/qUsvi4NZVyS7R4DXjtoZp+4vpMg2EKoEQFIte9IuuPv1vZqZWwTfOetR4a1clccqj5J92ggaG4EaE2Oxf+dmlD/bi5ZNnBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=URYLGPDTAxi+1oEIac+j4tw5WMwXWhid+7elBPBpCKA=;
- b=hPOZ7qqEWYQpVNSZTrtajIJfid3SqBGn8TlC4kzzxKUI2vr1AILIG4ET9qJBd2g0NtPpsOX7q7+wNm0CYZ0VEbkg9axv41yOWELKluJGQHZ4AENmDz0hvPIkRcdwPjyY3PpUNFigd+KkSsfsTkYIAVYduDYHZUgQpdEcJ47Llk3M9jPKLVSqcpqHXo7VNYfjcZNySHTsrEvf6iJTOdpiwPhF1TBpusz22gr1YUCJIQv6UHywU/zgLyXDUiWEnVcDYnXAwCyU1IuYoAOEwfjagCoUZP/uM8zgvk0Dpwa1JpshZ9ePe9u/tporUZ0E8oOPzJQOEFPVmQoh61pjKDjLZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=URYLGPDTAxi+1oEIac+j4tw5WMwXWhid+7elBPBpCKA=;
- b=UVZ27NEvFHFJh+H5UY+n0Y7pFfp0JRxrAdK5OZ7/xydGlZ6/m7KIZo2s1FMTE3K9s0iTckFnbdpSj4owe5fj9rI1Kk2wbrXT2HYguyCpRF0fsgyRa4HXzIUuXRQO8g+dbQyGhFNBvGeCljpnxCdVPrj5yxgfE8ODu4GKy9RKEJs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by OS7PR01MB11502.jpnprd01.prod.outlook.com (2603:1096:604:243::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
- 2023 00:50:08 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840%7]) with mapi id 15.20.6433.022; Tue, 30 May 2023
- 00:50:08 +0000
-Message-ID: <87sfbezlq8.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 5/5] ASoC: soc-pcm.c: tidyup playback/capture_only at
- soc_get_playback_capture()
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-In-Reply-To: <87zg5mzlrc.wl-kuninori.morimoto.gx@renesas.com>
-References: <87zg5mzlrc.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset=ISO-8859-2
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 30 May 2023 00:50:08 +0000
-X-ClientProxiedBy: TYCPR01CA0169.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::12) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com
+ header.a=rsa-sha256 header.s=fm1 header.b=WJcFuFSs;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=egwwFQ4m
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id 3924B5C015E;
+	Mon, 29 May 2023 21:27:54 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute2.internal (MEProxy); Mon, 29 May 2023 21:27:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1685410074; x=1685496474; bh=ee8T0nsTwYkPJtf/GidBBNELiQmMobIP6a/
+	GDsC4shM=; b=WJcFuFSsU0BmVWMUesDmL99KaRPwqHyd5vvRJubyLekHhkXAIKP
+	mmLqZTxtg7WPpMTHbFKZjVSr7kCYjyEO2wObdjSlFCR1vNGACcVoHimQL6E3r8jR
+	+askNn1ya6nVjh0kCgCFgi4/Oi37G+Gy9SbbUOuoNUksg7T6VWNls7za/mJvOpK1
+	yT6ew4A2HgTFw61YPHhUvSB1sn8wGmWzcUScr5oratTIvnSvCN0YfMyTaR32xakt
+	uC8tsy9lNRK9jkxTpl8Cvo9BWjVcL4k/CKXNGe4ugqeQ2b9Yl8qu9LaimQezVPg9
+	ku7Inluy859oDr0faAmfreSOkMlUfTcabgQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1685410074; x=1685496474; bh=ee8T0nsTwYkPJ
+	tf/GidBBNELiQmMobIP6a/GDsC4shM=; b=egwwFQ4m+mg/OLfE4QBbtr3Su6Unt
+	buqZb4Nx2wpN3jqAwmXZjyqbcg8R/waqeffAlyyTrityxp3PNZIaWoWfrnBXXpqr
+	rqWfK5eWqu0jxFwFOmc8Ck8NmNBHZPxKq3sl6c+DUhf9e6c9bd9dOsnGNBR6s1BN
+	cEHiK8arh0t/Q4YpmW4Xc9fl2SgVxa9M9kyOzsKzW5KxRxh0xIfawdaCErZ2ZYHn
+	sTI3HIvCpQhOEEnRit+uCQUNuqyAZ7A08uBxLomKqxlCNm+vLQehn8VLI0b/PipH
+	LDUqVwVchUvEfyR2CNII3hc2xXbTaErlITkjaLAs2wGOSvnqSNTRWGBcQ==
+X-ME-Sender: <xms:GVF1ZJwOT1MIZtJ0dwjNsDnqUgGYaBX-cfgDbUpcY1Ajuo8KVxyfQA>
+    <xme:GVF1ZJR8j4eoFXvHrIyMEiIT72s1uk_cpsqEjCsv6aaE_39_eGjhWEs4pGN67cYHv
+    WXbvLyVnLMYGg>
+X-ME-Received: 
+ <xmr:GVF1ZDVb1clKNtyVrZGPGq0IxC2DyxCPf6ZCW0hR7PtP1zK839uc9it6TCla>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrfeekiedggeehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepuedv
+    uddvuedugeegjeeivdffuefhheevudfhleektdefvddugedtvddtleffveeunecuffhomh
+    grihhnpehmrghrmhgrrhgvkhdrnhgvthdphihouhhtuhgsvgdrtghomhdpghhithhhuhgs
+    rdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+    epmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:GVF1ZLjfiO9TFX3KYwwhyNqfcCv1XNLa8rgvig__xTWcmEP50hU-qA>
+    <xmx:GVF1ZLBVKgA1nW3ixFEONP5ssweE_uZV0aOljoEYNJzePWdh8YTIFA>
+    <xmx:GVF1ZEI4KTrppsCJOCKHYTzcilLPcE9JpmKAXVgcTC1ENsxbKrS0kw>
+    <xmx:GlF1ZCOkcx7cm-Dp1Dy7YGReAgOmVwDgOhP7c58fJY0_qu_QbVQ9mw>
+Feedback-ID: i1568416f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 29 May 2023 21:27:51 -0400 (EDT)
+Date: Tue, 30 May 2023 03:27:48 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	Alex Xu <alex_y_xu@yahoo.ca>, Harald Arnesen <harald@skogtun.org>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: Audio output heavily distorted on Xen PV dom0 if not recording
+ (Intel ADL)
+Message-ID: <ZHVRFK0bKK3rm3FX@mail-itl>
+References: <ZGJSRmtZ5SBOLe5u@mail-itl>
+ <87a5y5pdq1.wl-tiwai@suse.de>
+ <ZGKhPxwfXJaxnjZt@mail-itl>
+ <e84d7ffe-1a7f-be3c-4c29-c66ab0432bb3@linux.intel.com>
+ <ZGLH/oATVzX8VvN9@mail-itl>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|OS7PR01MB11502:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e26ed81-5b9c-4073-6622-08db60a7d0e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	0pnogVFUgUihx3w1SAffmMvfchwg7fpPPuS97wnxhruWtl9qHDHtfjs/GOvYrN3grac5v2rBoAvIp+vFp5nmLE5k9gMslUNISewthmrm4kA1Ag3x7emZmJg89Bv6r+4/7wiAlxDeQIokJBliPbT+SBUq+qXT0dDpqh+jMQmaYRfF3l0XBnvD8sHW2AMDQ8y+oMoQ/SFnuMT+Bm2qu7SLC4tfchxe9wuCjSnFa+znGCKrhkdZWaBCzxetxhxWi1HAV20AftbWJqRl31z725d7T0wxBN/Ewcest6ghevqREpx8cVbWvzv7QJoDHFZ6ijLIgwAoWPts2J/Q1dr+1NkJAEQVTlcaIjaGH1ww5YVnFb5xdZ/AtC2NAEpwOA8qOhZdXhUtJnW87kGt5M2TNisK3JOsSfpD6wNWad2XrNIK24Ru4F8wYBMg/p3rKcisEJNUA+G29LV+I7qnwYZT+42IjEotQE68MQtnnC2lcLYdQ88KYLy/oMecRQiMRHAURwJOixUwGYYwtIYR2xEChKxtc4rB8CrULJU87apTLywxI4dyZcsloNNMlKRTwTdlZDvjeO0zKVEjnvBEoD2F+5OMzjPlfOkginIsKSZex+IG9f7HMLmi1gmwpqJSeaZw0/ZE
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(346002)(39860400002)(396003)(136003)(451199021)(186003)(2616005)(38350700002)(38100700002)(41300700001)(83380400001)(6506007)(26005)(6512007)(6486002)(52116002)(478600001)(6916009)(4326008)(66476007)(66946007)(66556008)(316002)(5660300002)(8676002)(8936002)(2906002)(86362001)(36756003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?iso-8859-2?Q?QbD/0E97QUkkXo8ImAXTU1Z0T6Kxg2yhs1hdVjUoO1CEucehMmnkRJwuNC?=
- =?iso-8859-2?Q?MW4J6LCQKabC5DlXKg2lihZQEwQTYkrH1P+LlWuQkIsmqtR6N/FHEzQdXw?=
- =?iso-8859-2?Q?cENj2b0/gF+yUh9PbL1XQDaLVDdomRX+OAxLaBP0gaqnDtnHSfz7UrPIai?=
- =?iso-8859-2?Q?GLlGr5Lsojh+pWsUjgWx8/dusXZOcufrdGvn5/eJm1ojGesSzW0DBkQh3r?=
- =?iso-8859-2?Q?rL6ydaL4wuqk//3FuP2WSBNNL1CugAsQJ6i1znKIQG/tGisYbt3DMVJ08P?=
- =?iso-8859-2?Q?ApcURNFzrnZ96gNmqfwxHNfQY5P/i2izLYDFoQobZDAGyo4z/Rm3p+BASh?=
- =?iso-8859-2?Q?3neMEmf+/ShHdLNQE+9585mDp3H0KF6q8VXt1WdxeHphFz4x7w9gl7iREh?=
- =?iso-8859-2?Q?H3RxyGKTjfv9drNYFAizUMxewiSf854fPtUrcJTGJ2ETOUCwB6v1Sl6vYf?=
- =?iso-8859-2?Q?TcHOg37pyxVPo1YJF3sPIeSNjZ6fQLkoWKUFjptYa3xfJLpQVpBJfUrCpm?=
- =?iso-8859-2?Q?QTHWouNLEXmiHz2358F/bWW32gcrObe217k8XF1DS6sWMleYMr2aXY61ZB?=
- =?iso-8859-2?Q?v4f9pzDiicvK6c9ZMyW2Ffz7wtlQqRcmCKeE1yYjqFQBfq+x9x8EmsQlMP?=
- =?iso-8859-2?Q?T5NvjBH7jz+DpA1HgtACFyJnPkMl9hgjv76H/mqdRNkVV0ytuTvuZq7S7H?=
- =?iso-8859-2?Q?+wmAmV8HQw8M5/s/MNp+/ITCffzWDPvMC4i7B+z1Ro47AIZ23ryOc0S6I2?=
- =?iso-8859-2?Q?gij1vPM5l0x+GIn3ynySkz5XYIR+7qrI5OLB3An6qnO6xthT0aKQVF6J6k?=
- =?iso-8859-2?Q?BeMsM22X3eNkTkOwhy3VzMFHlSnGqpu5AMdSxXiedVYvwiZbTZkBJOWzC7?=
- =?iso-8859-2?Q?gIl4XPnrk4HShBchpupI0yw2C3JWi7G4ZDEmM5pNUeWXVue+eqrX5ky+rh?=
- =?iso-8859-2?Q?maUxe9Oz234mFgBnlfRZzi6LQ41gTHvcxDZx+wa1GlZJZ322wZk5DIsPOX?=
- =?iso-8859-2?Q?YNMg8VG7v4HtW0g8HVpFT6+UBkwvXo8XupP5k95vaTTfqmhIV8XV7Fon3q?=
- =?iso-8859-2?Q?u+0MUXLR03t+u87D1hXi3DPi8xAytLk9hUw5hTNUhDT59xxWBNIV3dZhUv?=
- =?iso-8859-2?Q?RjEz97JZVF9iBwZ7eDx3fEZFS6ReBvHTnk+DFeI6Gqo3AlXe7qBovo0ygg?=
- =?iso-8859-2?Q?zAyZy5ad7ud8w9gMiquCXuzvLykpUmPy1p+hVoh9qP3Knjlkz5jlpozQvf?=
- =?iso-8859-2?Q?erqvAy+7r2bQpaHlNwbR5Uc8Qq6fJTTjEDJdfFB5D+RIvXpaNtDvo6Uz1z?=
- =?iso-8859-2?Q?XNl1wZstaacDQrrkm57zm07RXM5W+a0HG1i/sfXov9Y1t0OUweiwOqIvz4?=
- =?iso-8859-2?Q?OQn0GlGmKKRWBapPN5sN4Vp213u4gtpbHeu+f9KMX84fhxwnygZ4VoLGD3?=
- =?iso-8859-2?Q?JTEnEfO2huxXp66SYdjFF70P37BbOhY7jhKaXEMcDbhFnBRC14Sx+BSS9o?=
- =?iso-8859-2?Q?Seaa8KjnPHDvRO93QkCkdkWAT56qpZsIwObN1lBInylDxwpK+OCwnFjasS?=
- =?iso-8859-2?Q?xugLf/KSqM2/phcbSvCVsS+W+WMHuW/jzjXEHS4WWEExw4yrFUnQ5gT9be?=
- =?iso-8859-2?Q?/TOhUxBGc5UphjwHqm9X7ZRc3IdJJykkiyR40MqPMCc081QT73lmkRcUGf?=
- =?iso-8859-2?Q?u+jhOlQRiXxB/zRLcus=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 9e26ed81-5b9c-4073-6622-08db60a7d0e0
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 00:50:08.4357
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- ykkZgKzFS5DV43C7AWSlXKd9iax8UIjxL/RpFa4C28WGqNMDFNg9WKMCcW5svjtdgsLG508ANDRsTkkP00kcmvLwEpCAS7otj0Q2bA4JGMRVgUWQC1xqbj5KEZAz673J
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB11502
-Message-ID-Hash: FA566JKZIF3H2GQPXSFFSYMBFVDIPXBA
-X-Message-ID-Hash: FA566JKZIF3H2GQPXSFFSYMBFVDIPXBA
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Pm5LpxYnk361F182"
+Content-Disposition: inline
+In-Reply-To: <ZGLH/oATVzX8VvN9@mail-itl>
+Message-ID-Hash: RZTOCR2QZEQ3CBRRVC6MGFV4QAIP5LNC
+X-Message-ID-Hash: RZTOCR2QZEQ3CBRRVC6MGFV4QAIP5LNC
+X-MailFrom: marmarek@invisiblethingslab.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -154,7 +134,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FA566JKZIF3H2GQPXSFFSYMBFVDIPXBA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZTOCR2QZEQ3CBRRVC6MGFV4QAIP5LNC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -163,56 +143,111 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-soc_get_playback_capture() (A) returns number of substreams for
-playback/capture, and then, we can use playback/capture_only flag (X)(Y).
 
-(A)     static int soc_get_playback_capture(...)
-	{
-		...
-(X)		if (dai_link->playback_only) {
-(*)			*playback =3D 1;
-			*capture =3D 0;
-		}
+--Pm5LpxYnk361F182
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 30 May 2023 03:27:48 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+	Alex Xu <alex_y_xu@yahoo.ca>, Harald Arnesen <harald@skogtun.org>,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: Audio output heavily distorted on Xen PV dom0 if not recording
+ (Intel ADL)
 
-(Y)		if (dai_link->capture_only) {
-			*playback =3D 0;
-(*)			*capture =3D 1;
-		}
-		...
-	}
+On Tue, May 16, 2023 at 02:02:06AM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> On Mon, May 15, 2023 at 06:56:22PM -0500, Pierre-Louis Bossart wrote:
+> >=20
+> >=20
+> >=20
+> > >>> I have a rather interesting issue on HP EliteBook 1040, with Intel =
+ADL
+> > >>> HDA. Sometimes (often) audio output is heavily distorted, but then
+> > >>> opening pavucontrol or just launching `parecord /dev/null` fixes th=
+e issue
+> > >>> instantly. But, when the mixer or recording is closed, then few sec=
+onds
+> > >>> later issue comes back.
+> > >>>
+> > >>> You can hear this at https://cloud.marmarek.net/s/46prqZnwrqDkBdD
+> > >>> Initially recording was running, then about 10s stopped and you can
+> > >>> hear the issue few seconds later. Then I starter recording again, a=
+nd
+> > >>> the issue is gone.
+> > >>> This is how it should sound: https://youtube.com/watch?v=3D4Tr0otui=
+QuU
+> > >>> I do not see any kernel messages when issue happens.
+> > >>>
+> > >>> The issue happens on Linux 6.1.26, 6.2.10, and 6.3.2. I haven't tes=
+ted
+> > >>> other versions. It happens only when running under Xen (in PV dom0)=
+=2E The
+> > >>> very same Linux started directly works fine. Full dmesg of both nat=
+ive
+> > >>> and Xen boots is at https://gist.github.com/marmarek/548ee792824463=
+44a172109bcd943930
+> > >>>
+> > >>> When running Linux 6.3.2 there, I noticed that just after boot first
+> > >>> playback is okay, but if I start and stop recording it breaks. And =
+then
+> > >>> after some time of idle it fixes itself again. I have not observed =
+this
+> > >>> behavior on 6.2.10 (it was broken initially too), but I could be al=
+so
+> > >>> doing some things differently.=20
+> > >>>
+> > >>> I have few other ADL-based systems (but not HP), and they do not sh=
+ow
+> > >>> this issue, only this HP laptop is affected. Example dmesg from ano=
+ther
+> > >>> ADL-based system:
+> > >>> https://gist.github.com/marmarek/38c5ba3ec58f9300fbc1842ddc9fa4f5
+> >=20
+> > >>
+> > >> Could you try to switch to the legacy HD-audio driver (e.g. by passi=
+ng
+> > >> snd_intel_dspcfg.dsp_driver=3D1 option) and check whether the issue
+> > >> persists or not?  This will narrow down whether it's SOF-specific
+> > >> problem or not, at least.
+> > >=20
+> > > This does help! With snd_intel_dspcfg.dsp_driver=3D1 the issue doesn't
+> > > happen anymore, the audio output just works the whole time. But, the
+> > > built-in microphone disappeared, only external (unplugged) is listed.=
+ I
+> > > guess that's kind-of expected.
+> >=20
+> > Can you check what happens with a headphone and the SOF driver?
+> >=20
+> > The SOF driver doesn't really know/care what is on the other side of the
+> > HDaudio bus, so it'd be good to rule-out an amplifier-specific
+> > configuration issue.
+>=20
+> The same happens with headphones.
 
-But this flag should not have effect to opposite side stream (*).
-This patch tidyup it.
+Any ideas? In the meantime I tried updating alsa-sof-firmware to 2.2.5,
+but it didn't help.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Amadeusz S=B3awi=F1ski <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/soc-pcm.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
-
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index b3d569e7ba61..159670612de3 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2807,15 +2807,11 @@ static int soc_get_playback_capture(struct snd_soc_=
-pcm_runtime *rtd,
- 		}
- 	}
-=20
--	if (dai_link->playback_only) {
--		has_playback =3D 1;
-+	if (dai_link->playback_only)
- 		has_capture =3D 0;
--	}
-=20
--	if (dai_link->capture_only) {
-+	if (dai_link->capture_only)
- 		has_playback =3D 0;
--		has_capture =3D 1;
--	}
-=20
- 	if (!has_playback && !has_capture) {
- 		dev_err(rtd->dev, "substream %s has no playback, no capture\n",
 --=20
-2.25.1
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--Pm5LpxYnk361F182
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmR1URUACgkQ24/THMrX
+1yyW6Af+LBKFkltDCZ2jPZidq2vCzyvQM6M8sOIQLaHQhdky22E0/pQhE22k4R0q
+5glutLsT4KmJUfnLGNd/GDD3csMEbEJoZDH1Gbcd7t1CeQpaRmpqPd4RFxYTL1Sc
+ISLX+p8cJXUp1+61vnwWOQzoEJMHS7aVq9V6y8eXYkCL21IzzQPIHugfrQWwpSCF
+P7ju8Va4rB4SJoKQegYhFxscP0AMXfLc9aZwLD4TrhCV85lyPnLhGUZlNY5ngszx
+zPV+7a2Aze436+ACydVcsuty547rXAkIWB9wcje0YQFH2c1MGRzJX2GqYJtUOrlD
+XHfeNxFIHh1no1o3qWzV/wcMRxW5lA==
+=Q8vr
+-----END PGP SIGNATURE-----
+
+--Pm5LpxYnk361F182--

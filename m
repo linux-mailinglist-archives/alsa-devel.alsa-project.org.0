@@ -2,197 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AEA6715635
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 09:07:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4007156AF
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 09:26:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40ED6206;
-	Tue, 30 May 2023 09:06:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40ED6206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 264FD3E7;
+	Tue, 30 May 2023 09:25:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264FD3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685430432;
-	bh=M1sCd9loaRSAp2UF0iAYNVoLAiUwvMeulIqIsDc44pM=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Ts/VSSj2qRhqdXRdPz3b6d5cVnJ3OU5RSg9hejU8KH6n2AwYNuEmV8i7dFfiFxUV6
-	 zHQwrOuYeMBV+YVAhizHz/58sBHJdpxRUVxfxbEgdxZVdlMKYt7yshDAUG0W+vm94Z
-	 jp5rK34a96Rhiysl89hbs8+Exa5MB91u+Ze2OGB8=
+	s=default; t=1685431587;
+	bh=Zltm2R2AxIrPPAvm4PeiHMU9xGUHkry2hMOCoJcufnc=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Z1tdi7Tp66ad93DPzXsd33AGgfZiu7kqiEL3r9eoy0jafretIR+h7VVkrT6DYG0z5
+	 czpPIcJEXnkSZ4jCsKQwsvGjQh/6JK2DEMNpAUefGtMS9vQ+IXGpc0sfVti9vf+kBb
+	 ALolMqKXZS6Yv1fM/xjWi1TC/HxG8tdpvQronr54=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D40AF80510; Tue, 30 May 2023 09:06:21 +0200 (CEST)
+	id 40819F80542; Tue, 30 May 2023 09:25:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40667F8026A;
-	Tue, 30 May 2023 09:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBAF9F8026A;
+	Tue, 30 May 2023 09:25:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E6907F8042F; Tue, 30 May 2023 09:06:17 +0200 (CEST)
+	id 72492F80510; Tue, 30 May 2023 09:25:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RDNS_NONE,SPF_HELO_PASS,
+	T_SCC_BODY_TEXT_LINE,T_SPF_TEMPERROR,UNPARSEABLE_RELAY,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E0489F800DF
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 09:06:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0489F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id E57ECF80149
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 09:25:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E57ECF80149
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=vpawFsUm;
 	dkim=pass (1024-bit key,
- unprotected) header.d=microchiptechnology.onmicrosoft.com
- header.i=@microchiptechnology.onmicrosoft.com header.a=rsa-sha256
- header.s=selector2-microchiptechnology-onmicrosoft-com header.b=GhTXgpS5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1685430375; x=1716966375;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=M1sCd9loaRSAp2UF0iAYNVoLAiUwvMeulIqIsDc44pM=;
-  b=vpawFsUm0yjZJQIxw0VuIN78rDaWUzdaGRN/xesjSBrVffbkNCxlgQS2
-   p9Ki95f/VzfaZA05W9p6oQqxlYYQPKKvtSfdFWGNiApsmWkoiu2CWtfQZ
-   ME9eDVYwWdq4DnbD2LRceF5NjgtlF3SGa/sKtCXOkOPsaow+8ygRSaMm+
-   Ie6VxiA5qfnsjcYlC2Sf03639iML0LFHRnIyxfmlrU/u/+f80+PdS2Zql
-   Lof4pRi+sGGAOfDX/PuKrkz6w66L8d95XWwsXf/O4FZiAtjdQZJwjj1vr
-   cDVePDAW2738/utRw1ek4WceRf32cEbtbb033BfVMf2WPAw5Na2QZiXyq
-   Q==;
-X-IronPort-AV: E=Sophos;i="6.00,203,1681196400";
-   d="scan'208";a="213663059"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 30 May 2023 00:06:09 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Tue, 30 May 2023 00:06:07 -0700
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (10.10.215.89) by
- email.microchip.com (10.10.87.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21 via Frontend
- Transport; Tue, 30 May 2023 00:06:07 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZdyX+I7MCEJcufOVI+Wicmc8ufVWcRQxvStEwN8nDWeRZEea+ZfhD1lZSliOCps6mXne/hYxoL/S3Cb3Fyd9KWRorZJRTVygpc9ezChZpnjZZvOnrChw3Fd5xTswGiMi8MMWJF2TksqWDOaeQ7ZmFuo5/iVLpP7m7X30MH1z2q/q5YQdgqCMwx6f65Zkjk4Q52mvTNtD7ozLGl9sCqNLKUqjqTDFKsRZ+mLaSex+HQB1up46uD+dA9+Ox7NO181Ql5SAC/JyKoemV2pEs4tTYsflvWb8wKNVF9gxQF9oiHvpTSHP7xh4+5ohE0wf4pThqF8cYm9dmCf9nquKjZAX+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M1sCd9loaRSAp2UF0iAYNVoLAiUwvMeulIqIsDc44pM=;
- b=XdZvaSF8vSI2LYy2pHDlSToeDccgTLpzROz1SahMBWcuIv6QlRtRhzjG5ZAyOd5TJVE4kCX5LwYiKowJ4OtJydqJjwr5H7/7F8s6+groWFbQfY54nRdiqqdBCkaVAJpyLETFzrlTlq8x0/tR4PcRyxp8fnx/wjXwcX3zSGR7Kua3ws+ReFFS6E9vTkW3L/EbhwqH4qb7iAeP+YvjtRZDk5GGTp8HSL97JBcd+X23G0JHV2vOHIzOBoj1BHzs/tYE9E96K/83D//1jlOR59YJodtfz0xIam5QvzKuRshyEWnmJxkstcAAtylNhFiJ3jjxXW4jQTtoksAbywART1AUXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microchip.com; dmarc=pass action=none
- header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=microchiptechnology.onmicrosoft.com;
- s=selector2-microchiptechnology-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M1sCd9loaRSAp2UF0iAYNVoLAiUwvMeulIqIsDc44pM=;
- b=GhTXgpS5Oj4euUVeBKwdKecRvhg/9fu6JS61zQ+M4cHZt6XKyCNGE1yf5WkroNZKj3KhWdYFA/oAQEZJh/SKtTzXRWfSD9KmEL6AGCN/OlpnwkmHTjIvkXyNjmRfEkbDuLgcjLQ61DMRgfWQcfl2CqesT8iov2O6kjoSmMLnAuw=
-Received: from SJ2PR11MB7648.namprd11.prod.outlook.com (2603:10b6:a03:4c3::17)
- by CY5PR11MB6284.namprd11.prod.outlook.com (2603:10b6:930:20::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
- 2023 07:06:04 +0000
-Received: from SJ2PR11MB7648.namprd11.prod.outlook.com
- ([fe80::27bf:a69f:806f:67be]) by SJ2PR11MB7648.namprd11.prod.outlook.com
- ([fe80::27bf:a69f:806f:67be%5]) with mapi id 15.20.6433.020; Tue, 30 May 2023
- 07:06:04 +0000
-From: <Claudiu.Beznea@microchip.com>
-To: <walker.chen@starfivetech.com>, <broonie@kernel.org>,
-	<lgirdwood@gmail.com>, <perex@perex.cz>, <tiwai@suse.com>,
-	<robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-	<Conor.Dooley@microchip.com>, <emil.renner.berthing@canonical.com>,
-	<hal.feng@starfivetech.com>
-CC: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v5 2/3] ASoC: starfive: Add JH7110 TDM driver
-Thread-Topic: [PATCH v5 2/3] ASoC: starfive: Add JH7110 TDM driver
-Thread-Index: AQHZksLQbOi9N2ZAKkCgvv+8WuoIua9yZN8A
-Date: Tue, 30 May 2023 07:06:04 +0000
-Message-ID: <7a1a3ac3-10ec-9935-bca1-023cec6c0024@microchip.com>
-References: <20230526145402.450-1-walker.chen@starfivetech.com>
- <20230526145402.450-3-walker.chen@starfivetech.com>
- <143e2fa2-e85d-8036-4f74-ca250c026c1b@microchip.com>
-In-Reply-To: <143e2fa2-e85d-8036-4f74-ca250c026c1b@microchip.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microchip.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR11MB7648:EE_|CY5PR11MB6284:EE_
-x-ms-office365-filtering-correlation-id: 08b1d116-f1d8-40c2-1aa6-08db60dc555b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- /cnmVuIwtldZpVhn18/e2B8Zou6Gf+rq9qLtHznPxnO57jIyWyLC/TjukoQQR8c6tbthfYbG+cNPrcaMeBAW6OPbf6Yamj8LB48ZHWsurtvhcM4KJu984YyajQi6jnZ5GSaRVblTjBfMmk1dpEEbajT5PpWYvX+jAi6M/2oFtqnucCLYNu6O+LUkTS6DeLG+h70zM8df0s/a4EytedkNPgcMRtN9FoYVvo1CrCX95o2BSMFU76+L+ElJBPA3i0vzXWfF2ZArh9Y6sde+FRLO1Tb0sYb8HjRsKqrn1eBKSNIzWD2Q22vapwJ0Bavbwe03bib2LEnF4n3mzKHWTHda6lJaoiGxXrxSgn8C2t11uqVGr4dTf2BGcTHLkHynTkQNySabtfMj5lsxXj4URJNGqyxAZFfzTOAWUvmucFhyyZ2Uyip01jqKrc6PfwxWIkAJCWZq0X6/lpdGSVqPrtro5tSokALPyF694FXOQHjvQ62iBW2PGgHHofeAhB8R1FaJgmN0h7Jk1/aHkK/dxLZo4ut2tln0B0xDrPa5RVESuplYRqrdUFCYBjI/Tqa49yedi+hL5zz0ElsC5LcwbvPW/EqXbSMkDtf3nT+ctDZZlA0SOrofaRs+Khd5Rt+YF2ednOgSkBEUEqrgOpEbQbiKSFEvZpCEPTv8gZQwnKs0DPRp1sFWX6SQZwL1dpNvO9SJoQ6i42hLjf7oOc/Rn04ttw==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB7648.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(366004)(396003)(39860400002)(136003)(346002)(451199021)(31686004)(478600001)(66446008)(91956017)(64756008)(76116006)(66946007)(66556008)(66476007)(38070700005)(110136005)(54906003)(4326008)(316002)(36756003)(86362001)(31696002)(6512007)(6506007)(53546011)(26005)(186003)(41300700001)(8676002)(8936002)(7416002)(4744005)(2906002)(6486002)(71200400001)(5660300002)(38100700002)(2616005)(122000001)(921005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?Q3RiKzB5OW9ua2wwY1JodWFLWXhtV1M5TVo0QS92ekNrNjQ3UVZxZ3NQQ1hh?=
- =?utf-8?B?M0U5OXczWlZpbk5VdkNyZjZnczl2R2FwMU9FK0VjZ0grczcxdzAzbDVPR2I1?=
- =?utf-8?B?VkFJRTlqTno3NkxUbG9XUkV0QnoxbjRWU1RCY2hGejVTakxLbHNEbDg5MHNL?=
- =?utf-8?B?bGd5MExlaUhvc2IwVW1ZNDR1dHQvTExUYmtzZW9kTlhTS3c2Z3o4VkVoemc0?=
- =?utf-8?B?ejk3Ylp6RWhFcWF1aC8xcXVzeTNPZlJqUEoxTldqamthM1FNczFHOFM2OWMx?=
- =?utf-8?B?Vm5YSmJrRm9qc0MxRUtnOWo5RXNNdjQwUDRPTFlDTFJGTVZKWDlhLzVpRjEr?=
- =?utf-8?B?d0FOakJhWWpIcjl4bDlYMUlKNDUyd3VtVzN0UGNHS3ZUcWN2QllQK3BVeTBO?=
- =?utf-8?B?dHBaM2YxS0hPYkZKRGR4YnpmbGM4TlJGWEttYk5GWGY3L1MyNER2dlh3WGVQ?=
- =?utf-8?B?a09WcFd3UzloMGJrK3FoNlp1SHpNVU9KZVhSZ2JXU2swYytmNENOZnFLNDMy?=
- =?utf-8?B?QUhzdlZBU2xIeDdIcXRjaGZPUzkrMEEzdVE1RGdQbzRvSms5NS9wTzROc2ZW?=
- =?utf-8?B?VnpFQnpENGhyUS9LYW5qd2kyTzdTZVZLTkpOUllnM0lhd3Z6alFsenJ1K29s?=
- =?utf-8?B?bHpvNDVCTHB5Q0xYWnJSUnN2MVFxVlJMSm0vNDl0ajhEZFBtdWNCeGZvS2RY?=
- =?utf-8?B?dGZHNmZsV0w3MU1mczBKT2wzUms0ZjQrR05xaW5mdFhuYmttbjFSMUJzY1lx?=
- =?utf-8?B?K3BvMXlFbHBHY3dOYzRRVlAyME1oUkIrZFM4SGZ1aWJEV1ZMNlBhOE16QWpq?=
- =?utf-8?B?Wk5nZ2RKVE16eldLaXpNZzBsVHhtRE5sTS9RNWIveU9PdVZuMGtPSlJpU2tI?=
- =?utf-8?B?ZWt5cUZzREgxbTVTMDJYQ0loMC9RNjQ2SS9YNVNkRHhWdXlUeVM0RVlkRSts?=
- =?utf-8?B?MFg1SWNFZG5Sb1dlZ01oVVR2TWZQMzd2Rlh3cGk5UnBTcnZzZ0pCTmVyQ01U?=
- =?utf-8?B?eFEvb0ZpNmxPYkxlMUUrSGVuKyt5MnBRWmorVzFURHBMQ1oxbzhsUWJ2TXIr?=
- =?utf-8?B?MWpQSWM0aEpUREhSZmpFTXlaWGJYREljNEZvM0ZxNFE5aUFyY0hXTHZTMUJO?=
- =?utf-8?B?cU8weTNDcDQ3bmFPME5NeHBhZVZ6QUtJTVoyY0ZBK3BOQnN5MDlHN2g2T1FZ?=
- =?utf-8?B?VXBkbVNYbkZob29SRU1hamNKVkhuMC9EbWRBOGZnN0Z2U3l2VVBJTVlkcXl0?=
- =?utf-8?B?RnREVlJJTVU2TGkxWUxocU5YeXBMbm50aER0SEFLTjRzNFBScGJDNlRhSXV4?=
- =?utf-8?B?Yms0eG1LZHVZWCtmM0tReGNpNmxSQjVUZHcrdGp5cXdrV29zWmlZS2NMY3lH?=
- =?utf-8?B?cWpQSFNNdHZTL1ZwNlluVmhmS25WZFpTcVMyUGlOdGJ4NjlQWkVCL3gzRTNY?=
- =?utf-8?B?QWVQcGkyRjVDaTVOQmsxTVdBVzA0S0U2eUhmOWtOQTV3eDAwNjR2bXFjK0Vn?=
- =?utf-8?B?NzFpS2dCdVlGZWwwYVpmMk1VTFY5TmZlUFJEMHM5UGFFTjR3cUsvb3BFekNi?=
- =?utf-8?B?NDBjaVZtOVh1UXFmUjkrcEYyQjVNV1VRWXY0bEdlVG41dGJOaVhMQlo5aWQx?=
- =?utf-8?B?RFJFbTFLY3Y4bHY2K3ZoWnVlTnd2b1Q2bmhpMVZndEJyRmNzQ2RWdHUrem4x?=
- =?utf-8?B?WFdjMTBoTHFJblM0eVF2eGZUd1I3RmdraWI2OVhVMk9iVmdheTIveHkwblpC?=
- =?utf-8?B?ZGRabVBZVlpabXNGaDZDQnkzZldvZ2E4dlF2dUt3RTBmZkYxQ0VvUWtMWTBT?=
- =?utf-8?B?K2R6NWZSV09DREZPR05LTDFzQk5MRDBkb2pGNk9sTDZ2YTRtRXVBWk4vNFZ3?=
- =?utf-8?B?ZUt6VW4zcmdWbnhQRDllWXdLYW40Z24ycGJTN1BidU9LQkVjUEVvRWJMMXVC?=
- =?utf-8?B?U0E5ZVlrY1Fnano3WUd4bzRETkNxNksrR3ZkRnR3NHlib0NxQm1RL3FBM0Na?=
- =?utf-8?B?blFKbWlJOFB6MCtndjE1SGQwU3c0WnFka2h1dkxhR0R3OUp0SEVod2o5Z21V?=
- =?utf-8?B?Q1lhOGlqWTRmMWEvMVBpYllMUUtZcHI1YlNzSFNWUjB4UDNZTXNtMGtsVWZW?=
- =?utf-8?B?MGU0WGxwR0kxcDVLV1p5UENIMktXdVVoNUgrOUlmTXhPc2luWWFUdVJwM0kz?=
- =?utf-8?B?Rnc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <78087D165833404BB92F5459463720DA@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=Fr1i6xv/
+X-UUID: 1f89d58cfebb11ed9cb5633481061a41-20230530
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=lcVgzDnwtNvgtRzgKZvBdGmZF84zux1HWIzZnSVuVT0=;
+	b=Fr1i6xv/Jq2693VVauWvWzAW9GSq5gW2ywM+/UXEcYDab6V42T/M2k4R9PgYcxLmf8rKJ7uO6mT27w/H5oUTceb4E+HzC/ySlNgoIW8xjgmejNjtqtr3MOoaKf+8SMJ70DIQF34E8cpCbTAu2doUksvfc8XJSId/HGsOpxg9q40=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.25,REQID:92f5f90f-28d4-453a-8190-7419dceaddb3,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:90
+X-CID-INFO: VERSION:1.1.25,REQID:92f5f90f-28d4-453a-8190-7419dceaddb3,IP:0,URL
+	:0,TC:0,Content:-5,EDM:0,RT:0,SF:95,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTIO
+	N:quarantine,TS:90
+X-CID-META: VersionHash:d5b0ae3,CLOUDID:49f0f93c-7aa7-41f3-a6bd-0433bee822f3,B
+	ulkID:23053015251666P1DBLZ,BulkQuantity:0,Recheck:0,SF:38|29|28|17|19|48,T
+	C:nil,Content:0,EDM:-3,IP:nil,URL:1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-UUID: 1f89d58cfebb11ed9cb5633481061a41-20230530
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com
+	(envelope-from <trevor.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 987928084; Tue, 30 May 2023 15:25:15 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Tue, 30 May 2023 15:25:15 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Tue, 30 May 2023 15:25:15 +0800
+From: Trevor Wu <trevor.wu@mediatek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <matthias.bgg@gmail.com>,
+	<angelogioacchino.delregno@collabora.com>
+CC: <trevor.wu@mediatek.com>, <dianders@chromium.org>,
+	<alsa-devel@alsa-project.org>, <linux-mediatek@lists.infradead.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/2] ASoC: mediatek: fix use-after-free in driver remove path
+Date: Tue, 30 May 2023 15:25:12 +0800
+Message-ID: <20230530072514.22001-1-trevor.wu@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7648.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 08b1d116-f1d8-40c2-1aa6-08db60dc555b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 May 2023 07:06:04.4101
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- n2uapvBBYAXHw21n4/ASm1U8U2BNgqPdLtFV0rwcHFK2u7vabyKWDqUlVjK92dlAZshR1atWYPJtHdBQmdEytxU7IvJ+cJoRb3Ls6rX2A78=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6284
-Message-ID-Hash: 3ZAVQC2JG3QNOY6IFY5XD4N356ZNZATN
-X-Message-ID-Hash: 3ZAVQC2JG3QNOY6IFY5XD4N356ZNZATN
-X-MailFrom: Claudiu.Beznea@microchip.com
+Content-Type: text/plain
+X-MTK: N
+Message-ID-Hash: 7QNPYN5DIHVKURGHMMS4BIVX2JKOWNVO
+X-Message-ID-Hash: 7QNPYN5DIHVKURGHMMS4BIVX2JKOWNVO
+X-MailFrom: trevor.wu@mediatek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -204,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3ZAVQC2JG3QNOY6IFY5XD4N356ZNZATN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7QNPYN5DIHVKURGHMMS4BIVX2JKOWNVO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -213,15 +112,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gMzAuMDUuMjAyMyAwOTo0NywgQ2xhdWRpdSBCZXpuZWEgLSBNMTgwNjMgd3JvdGU6DQo+PiAr
-ICAgICAgICNkZWZpbmUgQ0xLUE9MX0JJVCAgICAgICAgICAgICAgNQ0KPj4gKyAgICAgICAjZGVm
-aW5lIFRSSVRYRU5fQklUICAgICAgICAgICAgIDQNCj4+ICsgICAgICAgI2RlZmluZSBFTE1fQklU
-ICAgICAgICAgICAgICAgICAzDQo+PiArICAgICAgICNkZWZpbmUgU1lOQ01fQklUICAgICAgICAg
-ICAgICAgMg0KPj4gKyAgICAgICAjZGVmaW5lIE1TX0JJVCAgICAgICAgICAgICAgICAgIDENCj4g
-SW5zdGVhZCBvZiB0aGVzZSAqX0JJVCBkZWZpbmVzIGFzIHBsYWluIG51bWJlcnMgeW91IGNhbiBk
-ZWZpbmVkIHRoZW0gdXNpbmcNCj4gQklUKCkgbWFjcm8gYW5kIHVzZSBtYWNyb3MgaW4gcGxhY2Ug
-aW5zdGVhZCBvZg0KPiAgICAgICAgZW51bSBURE1fQ0xLUE9MIGNsa3BvbGl0eTsNCj4gICAgICAg
-IGVudW0gVERNX0VMTSAgICBlbG07DQo+ICAgICAgICBlbnVtIFRETV9TWU5DTSAgc3luY207DQo+
-ICAgICAgICBlbnVtIFRETV9NQVNURVJfU0xBVkVfTU9ERSBtc19tb2RlOw0KDQpTb21ldGhpbmcg
-aGFwcGVucyB3LyBteSBlbWFpbCBjbGllbnQgYW5kIEkgc2VudCB0aGlzIHNlY3Rpb24gYnkgYWNj
-aWRlbnQuDQpUaHVzIHlvdSBjYW4gaWdub3JlIGl0Lg0K
+These patches concern modifications made in mt8186[1]. The clock
+unregistration mechanism used in mt8188 and mt8195 is similar with
+mt8186, resulting in the same problem existing within the driver.
+Therefore, the solution has also been applied to these two platforms.
+
+[1] https://lore.kernel.org/all/20230511092437.1.I31cceffc8c45bb1af16eb613e197b3df92cdc19e@changeid/
+
+Trevor Wu (2):
+  ASoC: mediatek: mt8188: fix use-after-free in driver remove path
+  ASoC: mediatek: mt8195: fix use-after-free in driver remove path
+
+ sound/soc/mediatek/mt8188/mt8188-afe-clk.c    |  7 ---
+ sound/soc/mediatek/mt8188/mt8188-afe-clk.h    |  1 -
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c    |  4 --
+ sound/soc/mediatek/mt8188/mt8188-audsys-clk.c | 47 ++++++++++---------
+ sound/soc/mediatek/mt8188/mt8188-audsys-clk.h |  1 -
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c    |  5 --
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.h    |  1 -
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    |  4 --
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.c | 47 ++++++++++---------
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.h |  1 -
+ 10 files changed, 48 insertions(+), 70 deletions(-)
+
+-- 
+2.18.0
+

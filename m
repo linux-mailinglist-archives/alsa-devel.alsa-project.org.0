@@ -2,85 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8F2716B5D
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 19:42:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A64B716B63
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 19:43:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D04F82C;
-	Tue, 30 May 2023 19:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D04F82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 302F620C;
+	Tue, 30 May 2023 19:43:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 302F620C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685468545;
-	bh=NWzyPIenxHpyYo1mucKzHij5CxtkM5ZDEfEPep5bjA8=;
+	s=default; t=1685468634;
+	bh=rJRQG+7pp2ythOpT+U1Yxy5qJud46ffW3tXHC1cJQ18=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IqBRka6owwW7dGh1l6QLqdheLoHqTkBacnkwLNQMJjm1u4oKuDL/2yBE/si5q0kgz
-	 +6SPhkGYKmP3c+LX8U+bMZfro8q4Lj4ViFbyEzRwWFKqpJypKeTW894v2Xdl0WzWUX
-	 5naoGlldNF+ZlucGzN2yPHqZzsEjmNFWd0jE7S/k=
+	b=Cbc2XWcFfJzFXAb92q1jgb2bSbxzJPw3Zy41S1o88C4O23Q31z+ChmkQ5hENeyf+B
+	 +A3M1YmeUaucxsVwFf7tW+NwM4G75c4KoIscwil4RbBTfdXzzBskdu/VU9Y4Uz9Gjx
+	 KyzcFQ7Lb0vlBH1oj0iyTo6TRMnWZs8XV28ttQos=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77A29F80567; Tue, 30 May 2023 19:40:52 +0200 (CEST)
+	id E9DD1F80544; Tue, 30 May 2023 19:43:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C006F80564;
-	Tue, 30 May 2023 19:40:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89B74F8026A;
+	Tue, 30 May 2023 19:43:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E42AF80551; Tue, 30 May 2023 19:40:48 +0200 (CEST)
+	id 7145EF804FC; Tue, 30 May 2023 19:42:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.7 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 20191F800DF;
-	Tue, 30 May 2023 19:40:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20191F800DF
+	by alsa1.perex.cz (Postfix) with ESMTPS id 685A3F8026A
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 19:40:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 685A3F8026A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=GH655kjg
+ header.s=k20201202 header.b=g/eaa+Vk
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 83D7C62BF4;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9EBD86316B;
+	Tue, 30 May 2023 17:40:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AFE6C433EF;
 	Tue, 30 May 2023 17:40:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4394C4339C;
-	Tue, 30 May 2023 17:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685468432;
-	bh=NWzyPIenxHpyYo1mucKzHij5CxtkM5ZDEfEPep5bjA8=;
+	s=k20201202; t=1685468435;
+	bh=rJRQG+7pp2ythOpT+U1Yxy5qJud46ffW3tXHC1cJQ18=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=GH655kjgZ20iqGzNX8pQDiizWa1wpnlbzlPCqwtIKP/IyXqpI0iWjBiPe3Atr/A/E
-	 GKYRZO1mS4riDqhFMWHTO4wp4gkHJ+1ZzgzL8u0kyQNc3FB64yA2oyKs6/6fZmEfjl
-	 MwZByPDyJupnZuB71giHi/yt0qIxLlBP+96bZ/gjjVEi26cCzKuUmlfixG24JZcVfH
-	 +Ru3vQOLyQji5bbiibOepQNMhdEqEXPaCAqkJwdfe8ANNlOLMS3WlKdwtpcJukczPv
-	 oFUDTNIHHwCgwM+u7NRhxAdGYkt3YSR8KVKVxwy+CWTZeWwpP8vXU5KvfV8ykYzbgE
-	 SO/xbqp98td5w==
+	b=g/eaa+VkSqVBJrewcVGbIIwnK1as5OUVU/bykCkf6EDM8TzirjbIbfYJrY0MA+7yL
+	 akc7keX6WJeHG4v2XTGtgGYbW+92NXga8PTIUotdvYlZu1kdyemGhqj1r39zEw2z3A
+	 LZnRjYZhmIygPHWUG1ip2I0DzYzEkFJmxUHeF7xdw6mt0A8MXTKFRGx754hzpIPcpa
+	 qnE/H4R1RR3u8r474THGPb9dsB/xrn11RZO6td7yKJcr4u9LU6w2xAojrbFXqIMSyx
+	 8EQTvGntHhmbjf1V3On6D9OuKFBLvBiHKqDfC6g43RL34JsZCsGqN9CxxZM7I679Cn
+	 a7GALizRryUhA==
 From: Mark Brown <broonie@kernel.org>
-To: pierre-louis.bossart@linux.intel.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, daniel.baluta@nxp.com, lgirdwood@gmail.com,
- tiwai@suse.com, perex@perex.cz, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, Trevor Wu <trevor.wu@mediatek.com>
-Cc: yc.hung@mediatek.com, tinghan.shen@mediatek.com,
- sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20230523025933.30494-1-trevor.wu@mediatek.com>
-References: <20230523025933.30494-1-trevor.wu@mediatek.com>
-Subject: Re: [PATCH v2 0/2] ASoC: SOF: add mt8188 audio support
-Message-Id: <168546842851.690777.4334822736947724679.b4-ty@kernel.org>
-Date: Tue, 30 May 2023 18:40:28 +0100
+To: Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Min-Hua Chen <minhuadotchen@gmail.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20230519211636.3699-1-minhuadotchen@gmail.com>
+References: <20230519211636.3699-1-minhuadotchen@gmail.com>
+Subject: Re: [PATCH v2] SoC: ti: davinci-mcasp: Use pcm_for_each_format()
+ macro
+Message-Id: <168546843313.690777.2915258997696909322.b4-ty@kernel.org>
+Date: Tue, 30 May 2023 18:40:33 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: JWM6YB2XW4R6PE53JOPWQXYXYRCB7FBX
-X-Message-ID-Hash: JWM6YB2XW4R6PE53JOPWQXYXYRCB7FBX
+Message-ID-Hash: AX6QNAQG3NO2Y2SDKLBNIV5NMSH5IJ3L
+X-Message-ID-Hash: AX6QNAQG3NO2Y2SDKLBNIV5NMSH5IJ3L
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JWM6YB2XW4R6PE53JOPWQXYXYRCB7FBX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AX6QNAQG3NO2Y2SDKLBNIV5NMSH5IJ3L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,13 +98,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 23 May 2023 10:59:31 +0800, Trevor Wu wrote:
-> This series adds mt8188 audio support and dbg_dump callback for
-> mt8186 and mt8188.
+On Sat, 20 May 2023 05:16:36 +0800, Min-Hua Chen wrote:
+> Use pcm_for_each_format for the PCM format iteration and fix the
+> following sparse warnings.
 > 
-> Changes since v1:
->   - fix typo
->   - adopt reviewer's suggestion
+> sound/soc/ti/davinci-mcasp.c:1336:26: sparse: warning: restricted snd_pcm_format_t degrades to integer
+> sound/soc/ti/davinci-mcasp.c:1358:26: sparse: warning: restricted snd_pcm_format_t degrades to integer
+> sound/soc/ti/davinci-mcasp.c:1438:26: sparse: warning: restricted snd_pcm_format_t degrades to integer
 > 
 > [...]
 
@@ -118,10 +114,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: mediatek: add mt8188 audio support
-      commit: 0f3d5585ad20a23bf70d09deae2e0d84e745055e
-[2/2] ASoC: SOF: mediatek: add adsp debug dump
-      (no commit info)
+[1/1] SoC: ti: davinci-mcasp: Use pcm_for_each_format() macro
+      commit: c3079282fdf7285b4133d6d1a7901b7923d6db09
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

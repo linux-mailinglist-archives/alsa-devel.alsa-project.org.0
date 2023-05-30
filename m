@@ -2,101 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66825715A4E
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 11:37:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A431715BD1
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 12:31:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 393616C0;
-	Tue, 30 May 2023 11:36:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 393616C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39FB4208;
+	Tue, 30 May 2023 12:31:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39FB4208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685439443;
-	bh=t3IbGaJMNEkWwrjDgogwQStnwAPEhanueTaQCr8mZOs=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=lIeg/I5EpY0giaVLa9stQgu9NdrSo+HM5TP8hFDPpMJU/zi0OCCMntLQWcZed1rBP
-	 dLR5HADt9aBunBsy0cJvCiQUA4cWq6/nIs/U8GWtjX8Au60Dnpu+vzdvKU8xxFpzWn
-	 MJxwCDB79hI0nS71PswDVuxUun7X9fk4bolyoL4k=
+	s=default; t=1685442712;
+	bh=JFzENw8FVHp82ia1vN9xJ5SkGYyv5IjUm6WugxAROwM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=j1+SiMn7yByqcHOzwMLtG80ptBImZHplRVndj7DSHCNsQEGvz7S6WeA/Hwy8BLE0o
+	 dLET1bbvObVcacLqWF0NvniGC40YzDrCEdaMWSeaxTZnQD63S743X7fTdjAyCMX9At
+	 oekjtDiF4WA0BCC6Jvh4t51usFMrYZgUwoJDcbco=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A18B7F80548; Tue, 30 May 2023 11:36:04 +0200 (CEST)
+	id 97A4EF8026A; Tue, 30 May 2023 12:31:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E3A9F8026A;
-	Tue, 30 May 2023 11:36:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB9FFF8026A;
+	Tue, 30 May 2023 12:31:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 084BFF8042F; Tue, 30 May 2023 11:34:25 +0200 (CEST)
+	id 4C726F8042F; Tue, 30 May 2023 12:30:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20604.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e1a::604])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 11FEEF80149
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 11:34:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11FEEF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9C2FDF8016B
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 12:30:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C2FDF8016B
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=FEvk9mUu
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34U8fdTM024574;
-	Tue, 30 May 2023 04:34:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=KHDijHzgsVXY1MQfmw7OOY+PLkzfOlr/Cua2+1zmRfs=;
- b=FEvk9mUuRCqyJYHdD1whGFFj5kV4MctpWzcVqd85UicdaXvfWSrCfpl80aIALoeVu1Fe
- 1gdt03ogMxv6qHsxBCZrD96yeDIhrK2A/by27Sg6q6rfQo4cXwtTGxFI6cyIPX5TsQrj
- dSPKGORI4hzkFdC1164eG2nhB43DNZMxZWR7oX0jFArg7j1wUTtctuJI9CIGV8XC7vC/
- 1Aasqu5XCnM1px0toPhNO5UxN5sa4IWxhexDHloh4boIcUGIJ1Xc7702TpODsM2anDa1
- VKyH48r6mTd7wCf6RdbtoSiBd1VXGT1vFFD41xQCitkl8yKYYmGrsUa3adKkyCJ8WkF4 jw==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3quf90txf1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 30 May 2023 04:34:13 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Tue, 30 May
- 2023 10:34:11 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Tue, 30 May 2023 10:34:11 +0100
-Received: from [198.90.251.127] (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2C485475;
-	Tue, 30 May 2023 09:34:11 +0000 (UTC)
-Message-ID: <e64614db-8633-55ad-f5db-68ef8a371dfa@opensource.cirrus.com>
-Date: Tue, 30 May 2023 10:34:11 +0100
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=E8pygQAh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AXGPBaXubFDmxCZy8hAbdHYBfxQJ6bm958tAsh4kEXQzTDI/1+6pzRsIGVxzXXGdYcmZAsy0F2IfelQGF71LW3YJcFfweaWJBxsIHH7EYn2TCzZuIVqNaSglXLPGou74H/KGlbMY6MiD+p95mXsOpNkDO5EhPv74dGyafM/ZbMLOkomusTsay4FdVbYTIVIfnS77wUD7lz22hN3LS7oXBjICYVBS13Mq4GY8W4KUW0iIyOgF3Xo8VKER/K8n52539WwwnVqhZS8yPmeX8tc70sjS9nGbldGj+J1/i08KH7kWBdL2hpzDnFjSd6fpnA0yhVVBzeeDjIlsV7VoQJugtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f7AMVWF9xVZUTxz9DTSUBCzeMv6541p4nFNehZgUFrc=;
+ b=he/1mVkeB3i/IS0OlJDUsX3HZx7qljSn0wEppWyxSbPQ900tX/BlhvjnYr+QYtSLuPqHLNuRwvRyCC5s8XG1w/6OLptmao1XZMF3b+j0dr0sHYtouVwseRXt2jMfBkbCX8TvhGDfPsAA28p353npkjzCCkXslzoUoTVitUJk4qkh6VEmtKGez5X9SOPZ5ac+06tulRE1eLjhCVX/fN1Om93Fm0l+ItI0TcBxLgDJYsOS7w4sXZhemLrrNtZ0etoZg5XVTmslDdOfwGIE9vEaqMHt301gAb2Ac4vtE+IpUogfM+y5dg//KOhJzTDHm220zkCJAb3ESuyfQ8ZYIZcseg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f7AMVWF9xVZUTxz9DTSUBCzeMv6541p4nFNehZgUFrc=;
+ b=E8pygQAh2k/0oMxyPVN/b0Ee1935WI8fKJNQNNqyPkE0QjA3yORGY5i5OgWicNfv/5kOMyw4bz3s/YCpC6SKUAOG+9qoKbC5E1gTDt024xtSGitAMN4XfaMGw4FyrVUCovnvod0fNPNs/x8cXGPHjq9dYH9W4h+SJn1bsn6YSpo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
+ by DB9PR04MB8154.eurprd04.prod.outlook.com (2603:10a6:10:243::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
+ 2023 10:30:34 +0000
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::a853:185d:bef3:e335]) by DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::a853:185d:bef3:e335%7]) with mapi id 15.20.6433.022; Tue, 30 May 2023
+ 10:30:34 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com
+Cc: Chancel Liu <chancel.liu@nxp.com>
+Subject: [PATCH] ASoC: fsl_sai: Enable BCI bit if SAI works on synchronous
+ mode with BYP asserted
+Date: Tue, 30 May 2023 18:30:12 +0800
+Message-Id: <20230530103012.3448838-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0047.apcprd02.prod.outlook.com
+ (2603:1096:4:196::14) To DB9PR04MB9498.eurprd04.prod.outlook.com
+ (2603:10a6:10:360::21)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v3 12/12] ALSA: hda/cs35l56: Add driver for Cirrus Logic
- CS35L56 amplifier
-Content-Language: en-US
-To: <Claudiu.Beznea@microchip.com>, <tiwai@suse.com>, <broonie@kernel.org>,
-        <perex@perex.cz>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>, <simont@opensource.cirrus.com>
-References: <20230526122852.4552-1-rf@opensource.cirrus.com>
- <20230526122852.4552-13-rf@opensource.cirrus.com>
- <4ec68c42-dbab-5006-c6a5-0be147a7d0f1@microchip.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-In-Reply-To: <4ec68c42-dbab-5006-c6a5-0be147a7d0f1@microchip.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 9XoKl8oyEkvkJrjyPkZbuGQy29DXhfpT
-X-Proofpoint-ORIG-GUID: 9XoKl8oyEkvkJrjyPkZbuGQy29DXhfpT
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: PPCULR5TDILB34WLKZCKJAWC7TI6MXMJ
-X-Message-ID-Hash: PPCULR5TDILB34WLKZCKJAWC7TI6MXMJ
-X-MailFrom: prvs=151462e483=rf@opensource.cirrus.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DB9PR04MB8154:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2783b6e-80ff-46dd-459a-08db60f8e6fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	ykOjkwBsf99AETd9DPGSaET+lDuFBNluxzKBFpRf6SGR2CgEI5S7njDInVmBzfiBrd0NMsKfO1Dk6zHSes7bjIXw6wjfcRBc28K9bt+TIrLHZNPTwgL3xO1mpT9B6cNdSmQBkSuDv/4E1FjzQh61FQEdnTdr+qE2mNz9pSWzk2X17Vbgf4eKaYtozmFXGk8i0GKekheFO1UrBC7Do5cgEx9dohxrLrbYHMSvReX0Wb1+0+9QmYrLb7UQcTk/LT4rxYt+2GFa9V9KQrzlcK96E07nIx+BXdGOnXJsknkL4wOq+YNsZaDP8UTgoUpbbgaZOyu/YhpnxE3ZOL/ZejYfm2YhW52UEZx/lsNd7t/DOhdfAPZPey1E7gDrzlEF6/SDxcR3GmGZfABBlHwLob6F+7neZprncW5g7hWCy6W8eVPgki/enZpkgpFQjYWxyLzvClleVf93WKAtF8vMuFwBwgPvzaeClAY4wcY4hs073esuVhkfzFhYObjMI6d6+v/OjN3y10OkrNs2msdbz3x0qqrDTXXgp7yhA5mJNfGoOlbK4c6SqOaoUlZ9Q+XAyUK/GQQdySGpr+pxIYp0DE+YhdRuPEpzy86XVma5CZg6dsAkUvs1WMNHUYBVBKUEGCTQMZanlRj/K42LlnyX/WRs0g==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(366004)(396003)(376002)(136003)(451199021)(478600001)(8676002)(8936002)(7416002)(44832011)(5660300002)(36756003)(2906002)(86362001)(921005)(4326008)(66476007)(66556008)(66946007)(316002)(38350700002)(38100700002)(41300700001)(2616005)(186003)(1076003)(6506007)(6512007)(26005)(52116002)(6486002)(6666004)(83380400001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?vwnbwn9nptZY6f7/uhaM7y/qgzvCL+tRZ+X2gwd7IK2NFinRCWUxwHOkCYCi?=
+ =?us-ascii?Q?z5FAycBgBk2xKA6CAHrNfBBwcjBSYho3t6uhJ7dsyAKJpfHcC1TYlofxf8x3?=
+ =?us-ascii?Q?+k9k5q6v0q+gXd0vjYg7AMbYf8BUVhgAzGYU7YJD9aP5Q6VdRFG/EFx+Zpzl?=
+ =?us-ascii?Q?QK3YyLdBHmPZgSuSPzuE6ZGAKjwHuuxZLx9xFVisztRcg/jTbdfnff/kmS5T?=
+ =?us-ascii?Q?l/fETYrU6QFqJm9MMSHu/w87VRi8UVaI9d2YrKwVnVVaIS1CZ/waYLw0krA9?=
+ =?us-ascii?Q?C0WvzuQ5HfUURKDURKH5MuRghFqrwf4viuWkr2WCReKwvhSyRxfXPLPxoI/0?=
+ =?us-ascii?Q?Q5Pkz2Y4tBfZc7/2bhz6VJ9fbYyRfv0WzqLcLJPd/Dh+hkYQto/tbUVJS3h4?=
+ =?us-ascii?Q?96k8AEi1Z/77Pd8Qbtto55zgD5rdASUJTzuyBvqmDehTS7LTAGb6qhIEUlD7?=
+ =?us-ascii?Q?Uj44ht7LPobwI5wKKGv28+JW30GojAcyonfI3bGg2KDDowwnOBPbAPHgEKCo?=
+ =?us-ascii?Q?yuOEYK0ert3sKW6CWME/L3QVcaKQTEF+jj0ugVU7xupJKsGkR+bjaulkIQEP?=
+ =?us-ascii?Q?6UqxrmPkTZD/mIRq34+iB1vn440NUovv2MTAc1CrKX0TuEAm4besUja0aGq4?=
+ =?us-ascii?Q?T30ihw1lL9TZAOuRuLvWuzlLfTnq2deGSXOlGeR8zEelfibcAve/oy+PyTsm?=
+ =?us-ascii?Q?ATssShmto4nKmOVhl0OtYUnpZoszKqiuX5moVajtlfbhImB2uJq57XFo3aAF?=
+ =?us-ascii?Q?hhVZ/rNVTkZ69bRE1I5l+KvW7qkqNDrLnczvGxn2qGIo3YGPFr0FEwspbDKo?=
+ =?us-ascii?Q?kAxphPLTKKR1gJ0HcSsRJuxRqAuvkHxUcr/nXL/sQ6PYEI3emSB+e3cIhQPd?=
+ =?us-ascii?Q?HW+0zyRlomCV4KPPAIcz3Vw3GD3gBz8BHk62llsX85B0RAYOzx3Ia8OgNvXv?=
+ =?us-ascii?Q?w90YsF9S3Vp7xm0lnkxiSt3vXlNrIyg7Zs8ss30x0cdLY4hYtauna99piwMB?=
+ =?us-ascii?Q?IF8hEHRyvH5AACd/fZv4cWFG2sL1Bp/nIG7ZTijecpzcfYccPxavLO4mI6VO?=
+ =?us-ascii?Q?ls/mU4MHK8fzJsFZM0TPq1k7LVrbvkmuXUn/ikNFgjbvSImfhkMhlhhOgtcB?=
+ =?us-ascii?Q?+wKrwrI/hYm8yGqQ9zgKy/BGKW7QU4GaYQuG38RDTp7cbJZszlQ7yEICqnWf?=
+ =?us-ascii?Q?StGyenFXSTOWQulHmbYMME3WrgLnsn1CG0xkX44eVw2jmSPENu8owXJfm0/H?=
+ =?us-ascii?Q?5PpxtWpfBqTFnU8NOEIOZ7ebSMe9o67l5q4mu6lrf7BavI0IUg9E4fpsXMel?=
+ =?us-ascii?Q?g3EjmNJIm8zSwVgwr5BzsO51kXQE9nUXEoPDm1J1ebVUyRLd7VRFG0SYXKND?=
+ =?us-ascii?Q?YXN1XkoZpkXR9vwSHZTj5dtig78J9G8h/HNX0T+XlTToF2NHv/NMXrjwQQEI?=
+ =?us-ascii?Q?ApRbA9eqoPV1cv71IQPwJEJpksa8nI05zSSzW5q/ee8hSSaqR92jJ9jF6ubx?=
+ =?us-ascii?Q?2dQWn9GtzdMrgW8I/mdLO4Gh2EE473B1vc3EuTgk1syrOB3xbGoz7m3OM2js?=
+ =?us-ascii?Q?nonTRm9pnCNKJkpe+gE+q/tckr963pBkqZdpyYtZ?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f2783b6e-80ff-46dd-459a-08db60f8e6fc
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 10:30:34.8329
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ CdH8IP4b2TEZEpm7aoQNh24qfsfZCbkyT6QngvZQNh10KMKeAwyeWb3GTdp/4hsP4mq1wHXzPElkv1GK28a/7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8154
+Message-ID-Hash: OTZCXSKP7A2OQ7EYEXVGURDEBJGNK2AD
+X-Message-ID-Hash: OTZCXSKP7A2OQ7EYEXVGURDEBJGNK2AD
+X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +158,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PPCULR5TDILB34WLKZCKJAWC7TI6MXMJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OTZCXSKP7A2OQ7EYEXVGURDEBJGNK2AD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,67 +167,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 30/05/2023 08:39, Claudiu.Beznea@microchip.com wrote:
-> On 26.05.2023 15:28, Richard Fitzgerald wrote:
->> +static int cs35l56_hda_request_firmware_file(struct cs35l56_hda *cs35l56,
->> +                                            const struct firmware **firmware, char **filename,
->> +                                            const char *dir, const char *system_name,
->> +                                            const char *amp_name,
->> +                                            const char *filetype)
->> +{
->> +       char *s, c;
->> +       int ret = 0;
->> +
->> +       if (system_name && amp_name)
->> +               *filename = kasprintf(GFP_KERNEL, "%scs35l56%s-%02x-dsp1-misc-%s-%s.%s", dir,
->> +                                     cs35l56->base.secured ? "s" : "", cs35l56->base.rev,
->> +                                     system_name, amp_name, filetype);
->> +       else if (system_name)
->> +               *filename = kasprintf(GFP_KERNEL, "%scs35l56%s-%02x-dsp1-misc-%s.%s", dir,
->> +                                     cs35l56->base.secured ? "s" : "", cs35l56->base.rev,
->> +                                     system_name, filetype);
->> +       else
->> +               *filename = kasprintf(GFP_KERNEL, "%scs35l56%s-%02x-dsp1-misc.%s", dir,
->> +                                     cs35l56->base.secured ? "s" : "", cs35l56->base.rev,
->> +                                     filetype);
->> +
->> +       if (!*filename)
->> +               return -ENOMEM;
->> +
->> +       /*
->> +        * Make sure that filename is lower-case and any non alpha-numeric
->> +        * characters except full stop and forward slash are replaced with
->> +        * hyphens.
->> +        */
->> +       s = *filename;
->> +       while (*s) {
->> +               c = *s;
->> +               if (isalnum(c))
->> +                       *s = tolower(c);
->> +               else if (c != '.' && c != '/')
->> +                       *s = '-';
->> +               s++;
->> +       }
->> +
->> +       ret = firmware_request_nowarn(firmware, *filename, cs35l56->base.dev);
->> +       if (ret) {
->> +               dev_dbg(cs35l56->base.dev, "Failed to request '%s'\n", *filename);
->> +               kfree(*filename);
->> +               *filename = NULL;
->> +       } else {
->> +               dev_dbg(cs35l56->base.dev, "Found '%s'\n", *filename);
-> 
-> I may be wrong but *filename seems leaked to me on this path. I noticed it
-> is could be duplicated on cs_dsp_debugfs_save_wmfwname() but the original
-> copy seems left aside.
-> 
+There's an issue on SAI synchronous mode that TX/RX side can't get BCLK
+from RX/TX it sync with if BYP bit is asserted. It's a workaround to
+fix it that enable SION of IOMUX pad control and assert BCI.
 
-It's not a leak. The file has been found so the name of the found
-file is returned (it's used by other code). But there is a leak of that
-memory elsewhere.
+For example if TX sync with RX which means both TX and RX are using clk
+form RX and BYP=1. TX can get BCLK only if the following two conditions
+are valid:
+1. SION of RX BCLK IOMUX pad is set to 1
+2. BCI of TX is set to 1
 
->> +       }
->> +
->> +       return ret;
->> +}
-> 
+Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+---
+ sound/soc/fsl/fsl_sai.c | 11 +++++++++--
+ sound/soc/fsl/fsl_sai.h |  1 +
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index d9344025dc16..5e09f634c61b 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -491,14 +491,21 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
+ 	regmap_update_bits(sai->regmap, reg, FSL_SAI_CR2_MSEL_MASK,
+ 			   FSL_SAI_CR2_MSEL(sai->mclk_id[tx]));
+ 
+-	if (savediv == 1)
++	if (savediv == 1) {
+ 		regmap_update_bits(sai->regmap, reg,
+ 				   FSL_SAI_CR2_DIV_MASK | FSL_SAI_CR2_BYP,
+ 				   FSL_SAI_CR2_BYP);
+-	else
++		if (fsl_sai_dir_is_synced(sai, adir))
++			regmap_update_bits(sai->regmap, FSL_SAI_xCR2(tx, ofs),
++					   FSL_SAI_CR2_BCI, FSL_SAI_CR2_BCI);
++		else
++			regmap_update_bits(sai->regmap, FSL_SAI_xCR2(tx, ofs),
++					   FSL_SAI_CR2_BCI, 0);
++	} else {
+ 		regmap_update_bits(sai->regmap, reg,
+ 				   FSL_SAI_CR2_DIV_MASK | FSL_SAI_CR2_BYP,
+ 				   savediv / 2 - 1);
++	}
+ 
+ 	if (sai->soc_data->max_register >= FSL_SAI_MCTL) {
+ 		/* SAI is in master mode at this point, so enable MCLK */
+diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
+index 3eb994aef36a..8254c3547b87 100644
+--- a/sound/soc/fsl/fsl_sai.h
++++ b/sound/soc/fsl/fsl_sai.h
+@@ -116,6 +116,7 @@
+ 
+ /* SAI Transmit and Receive Configuration 2 Register */
+ #define FSL_SAI_CR2_SYNC	BIT(30)
++#define FSL_SAI_CR2_BCI		BIT(28)
+ #define FSL_SAI_CR2_MSEL_MASK	(0x3 << 26)
+ #define FSL_SAI_CR2_MSEL_BUS	0
+ #define FSL_SAI_CR2_MSEL_MCLK1	BIT(26)
+-- 
+2.25.1
+

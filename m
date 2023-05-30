@@ -2,90 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE342716DCD
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 21:43:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DF49716E1F
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 May 2023 21:51:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A9841DF;
-	Tue, 30 May 2023 21:42:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A9841DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82E681E3;
+	Tue, 30 May 2023 21:51:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82E681E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685475807;
-	bh=C/ZCDt9dxkFqBdenxsotP/gQkEWd0TJC2yhywFPrxlU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1685476318;
+	bh=ICAyyY/G2neb8xYlcuJNszwGs48m9YnxEHhqOcYCTFM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=s0qoWHt2WNwW2lXo5540Xlc+Lbxxr7aGAEvxnsjiuCLyx1jcLc9FfRximvVWFXYtW
-	 Keg3AsQNzJ5xdDSv1FH7RtoFVcvaoKJ8a4/tUFCyTPREeiTbTNkIU0mX3I5jwcDgZl
-	 lBg6Ltteroh1G29KlmztCgvsI/a0ZLFFN17NueHk=
+	b=p4uOKWPnbeTA4Ou+B154NOYJVFMr0iPKD81mAJJlB3o/Dv+54BjK3wmkGvawM7F4N
+	 4j8C/JDQsbNGYQH+hpbWLW84s97MqYcSth/rpcVLjEv7uHUWilV7G4t1c2i3C3QG7v
+	 RfpuUNsRu+uY6b5Tv+D4zLNaDJxTbRDi3vknfIkI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 50247F8026A; Tue, 30 May 2023 21:42:35 +0200 (CEST)
+	id 25C56F8016B; Tue, 30 May 2023 21:51:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E83FF8026A;
-	Tue, 30 May 2023 21:42:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB4BFF8026A;
+	Tue, 30 May 2023 21:51:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21A7EF8042F; Tue, 30 May 2023 21:42:29 +0200 (CEST)
+	id 48185F8042F; Tue, 30 May 2023 21:51:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46C88F80149
-	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 21:42:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46C88F80149
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=K93thLG6
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 81BD6630D5;
-	Tue, 30 May 2023 19:42:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2055C433EF;
-	Tue, 30 May 2023 19:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685475733;
-	bh=C/ZCDt9dxkFqBdenxsotP/gQkEWd0TJC2yhywFPrxlU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=K93thLG6dvDqETIhFEajld3t2N4JSaO+9Xro4KcquZXq1aN8xBW+sXicFMELWgaLN
-	 pH7eC573JWpTDi9D957EgYNr4EObZ099H9tylABVhlNPWiginmSVtQalMUMe7LzTSg
-	 B+My6btPtnLo87e2Akm6IJ4pUY5VJ7eWcfWTemfBXPUkOKZUb+uzyjw5+5yZdIgVrq
-	 x9X35u5rfa/oLL3HeFZY9F3/sj2eOg3MarOTrLMKtgJFhyW3oSNdhqpR80NrGqe2Md
-	 0Olhr1iNLouKS4XBHXt74Mw4/0YZWyVOU/f7YG+9R5Zo8OoYcVIdLUP997A/59oh4H
-	 54LZ17CBqO6AQ==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Zhu Ning <zhuning0077@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- David Yang <yangxiaohua@everest-semi.com>,
- Daniel Drake <drake@endlessm.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, kernel@collabora.com
-In-Reply-To: <20230530181140.483936-1-cristian.ciocaltea@collabora.com>
-References: <20230530181140.483936-1-cristian.ciocaltea@collabora.com>
-Subject: Re: (subset) [PATCH v2 0/3] ES8316 audio codec fixes on Rock5B
-Message-Id: <168547572955.1446927.6113726229906083649.b4-ty@kernel.org>
-Date: Tue, 30 May 2023 20:42:09 +0100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 626D2F8016B
+	for <alsa-devel@alsa-project.org>; Tue, 30 May 2023 21:50:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 626D2F8016B
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Ibhafh5x
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1685476258; x=1717012258;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=ICAyyY/G2neb8xYlcuJNszwGs48m9YnxEHhqOcYCTFM=;
+  b=Ibhafh5xiLT4OhYk+h5vHu3lOnW1Q4nTdJIDCVX8CJMz0lJPQ4zx5tlk
+   4JO2VRwAeCsza+jqDY+A7KS6UFtx4ZZpYMcOAejHCB5HKBAtqL6rRi7Io
+   VkchKNdTj6oAirDdOj0uQl8qr+x+GtmX9fYpDOMlzq08uBmYwT9PiazVX
+   YcdwmEeJ7kpNoPdb/J+eXcaOwwBZ8Q+0zvmWoDfYoD3zzCg0KwWP3LRHT
+   K8+3f3YYHSBKq2RQ6h8genmTLm7ZmaDBuayKYPicieovrHGKDvBa6iHp9
+   U32UeNTLw6WMD6OcU9keEbqGd23MUsGag5AMjMp/Z6NvoK2CqDIH5EJjT
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="358286130"
+X-IronPort-AV: E=Sophos;i="6.00,205,1681196400";
+   d="scan'208";a="358286130"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 12:50:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="706566180"
+X-IronPort-AV: E=Sophos;i="6.00,205,1681196400";
+   d="scan'208";a="706566180"
+Received: from crkwon-mobl1.amr.corp.intel.com (HELO [10.212.250.160])
+ ([10.212.250.160])
+  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 12:50:53 -0700
+Message-ID: <c1c55305-127f-f100-5372-03e84293c0d5@linux.intel.com>
+Date: Tue, 30 May 2023 14:50:52 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH 0/5] ASoC: minor cleanup for soc_get_playback_capture()
+Content-Language: en-US
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+References: <87zg5mzlrc.wl-kuninori.morimoto.gx@renesas.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <87zg5mzlrc.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: ABHNBMKUPWQIJBESL6HJB6JX4JCLSATU
-X-Message-ID-Hash: ABHNBMKUPWQIJBESL6HJB6JX4JCLSATU
-X-MailFrom: broonie@kernel.org
+Message-ID-Hash: PQWOUMJEU35V5SA5ICBOOKDN7OI3MY7U
+X-Message-ID-Hash: PQWOUMJEU35V5SA5ICBOOKDN7OI3MY7U
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ABHNBMKUPWQIJBESL6HJB6JX4JCLSATU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PQWOUMJEU35V5SA5ICBOOKDN7OI3MY7U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,45 +107,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 30 May 2023 21:11:37 +0300, Cristian Ciocaltea wrote:
-> This patch series handles a few issues related to the ES8316 audio
-> codec, discovered while doing some testing on the Rock 5B board.
+
+
+> This is minor cleanup patches for soc_get_playback_capture().
 > 
-> Changes in v2:
->  - Preserved original dB gain range in PATCH 1
->  - Rewrote PATCH 2 conditional statement, per Mark's review
->  - Rebased series onto next-20230530
->  - v1: https://lore.kernel.org/all/20230524074156.147387-1-cristian.ciocaltea@collabora.com/
+> Link: https://lore.kernel.org/r/87ttw1gqgn.wl-kuninori.morimoto.gx@renesas.com
+> Link: https://lore.kernel.org/r/87353uqjiu.wl-kuninori.morimoto.gx@renesas.com
+> Link: https://lore.kernel.org/r/ab3f0c0a-62fd-a468-b3cf-0e4b59bac6ae@linux.intel.com
 > 
-> [...]
+> Kuninori Morimoto (5):
+>   ASoC: soc-pcm.c: indicate error if stream has no playback no capture
+>   ASoC: soc-pcm.c: use dai_link on soc_get_playback_capture()
+>   ASoC: soc-pcm.c: cleanup soc_get_playback_capture() error
+>   ASoC: soc-pcm.c: use temporary variable at soc_get_playback_capture()
+>   ASoC: soc-pcm.c: tidyup playback/capture_only at soc_get_playback_capture()
 
-Applied to
+Very nice cleanup, thank you Morimoto-san for splitting the steps in
+different patches to make the changes simple to identify.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Thanks!
-
-[1/3] ASoC: es8316: Increment max value for ALC Capture Target Volume control
-      commit: 6f073429037cd79d7311cd8236311c53f5ea8f01
-[2/3] ASoC: es8316: Do not set rate constraints for unsupported MCLKs
-      commit: 60413129ee2b38a80347489270af7f6e1c1de4d0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+FWIW test results can be found at the following link (no new issues
+found) https://github.com/thesofproject/linux/pull/4392

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19BB9717447
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 05:17:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C032717446
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 05:17:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69326839;
-	Wed, 31 May 2023 05:16:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69326839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EC3A820;
+	Wed, 31 May 2023 05:16:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EC3A820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685503067;
-	bh=GccidoCGBBrPr39HCfpwoXhpbs9LH6bwAbwZCyps1i8=;
+	s=default; t=1685503060;
+	bh=cDPxAfvdGUM1tm5hvXaDY204P9qt4B3UxsBRfKyYP3M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=m0SkG30oPpfe/+EM97APQndqtc5hWcW4YrOnNhFdZ4ZzEcbMNsxaeHNkGnYeA9DIy
-	 UeNjHIS9D7icZH90YDvopQvS+NF37YrdZuXWpNW2meZWCcu1AhspVHEeyHxS3Uy2Pp
-	 4tPcNRFIRqJD2lS/roZCXUMzRHPmatMEAxNQ6W/Q=
+	b=K3yQX2CuZuuCrb2Iul1xYp0oDkq/HKqPX3vJjORgl4EFpJcu+suTY0rOS7DIIU9LC
+	 bzA4AWM7UCi73wb1AkgwzAhz3LDsHR1CxxoaZblBzkFbtCi+s/eTFXnoP/pitdKTz9
+	 pXpapbdCWisALPElXfTTAznLSPlJxN5MsSif3qEg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D9CCF80564; Wed, 31 May 2023 05:16:09 +0200 (CEST)
+	id 6CF63F8055C; Wed, 31 May 2023 05:16:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE2AFF80558;
-	Wed, 31 May 2023 05:16:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 749DBF80553;
+	Wed, 31 May 2023 05:16:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3517F80086; Wed, 31 May 2023 05:16:02 +0200 (CEST)
+	id 4EB2DF80528; Wed, 31 May 2023 05:15:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,39 +36,39 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 119C6F80086
-	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 05:15:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 119C6F80086
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E546F8026A
+	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 05:15:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E546F8026A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=T7Pm8uTT
+ header.s=Intel header.b=E8cW8vR4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685502942; x=1717038942;
+  t=1685502943; x=1717038943;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=GccidoCGBBrPr39HCfpwoXhpbs9LH6bwAbwZCyps1i8=;
-  b=T7Pm8uTTs+cb9ETeOqpeIG2IPSYjA5CxEPjI9G7aYvw46VO2QvB8+30P
-   fRK84xxLe3KIRdxr5EUowEh6Yg15H90/8cU5P3wXwA6AW7JdjV7FLG+lJ
-   T6GCt8byy+Cq1Xl8fzWG+6QXC+YYR4O6Wkr2LKr4o72L4TeLChpb+2A9w
-   455ej+yJb4u5jlsyBmYq/kaCiiZ2/imlxekgSLpm8L4Ej9cremZUMgKRa
-   58zTEJMiz3cHfiISOIIHTIas3johhomfJnOdX4rFYp8+fUFNLlQYsUMX6
-   qMud4cspzCCCIPybq4anqVWL0DxITXo1LmWKtd6sygWi78vCrrJ5TUddY
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="357507656"
+  bh=cDPxAfvdGUM1tm5hvXaDY204P9qt4B3UxsBRfKyYP3M=;
+  b=E8cW8vR4L5BAtmkJt6TAfIuxQTEPQIJ4ok5sGTKQ8m+CVpXo4/Jz8APq
+   RrHNxhRctM3maKXMkteUcSXIL+wsSxnLdfosJlbXyOBs0zFeTUujHIeA7
+   4EEy/kDPUwImbSxHNSPLHp+eHeZiSc1ajnGylkiZULI3KoXrEZ8HE5lUj
+   1HebgK25eeDNpsTkn111f4suGPSiH62jCsHxUCWTQOBLW6AA+JHrKCoth
+   AOAehOaa4lbiUKGuyxnpclw2qpWvem8vDBSN3WhUZvAXdd076+R9EUtyH
+   GxcNSAkELT/Fccis/wcr/eMT1pZyHdW36BW63ffPghu9iFzhMMXEXhbsn
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="357507662"
 X-IronPort-AV: E=Sophos;i="6.00,205,1681196400";
-   d="scan'208";a="357507656"
+   d="scan'208";a="357507662"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 20:15:36 -0700
+ 30 May 2023 20:15:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="739769481"
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="739769514"
 X-IronPort-AV: E=Sophos;i="6.00,205,1681196400";
-   d="scan'208";a="739769481"
+   d="scan'208";a="739769514"
 Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
   by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 20:15:34 -0700
+ 30 May 2023 20:15:36 -0700
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	vkoul@kernel.org
@@ -76,16 +76,16 @@ Cc: vinod.koul@linaro.org,
 	linux-kernel@vger.kernel.org,
 	pierre-louis.bossart@linux.intel.com,
 	bard.liao@intel.com
-Subject: [PATCH 1/4] soundwire: add enum to control device number allocation
-Date: Wed, 31 May 2023 11:37:33 +0800
-Message-Id: <20230531033736.792464-2-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH 2/4] soundwire: introduce SDW_DEV_NUM_ALLOC_IDA_WAKE_ONLY
+Date: Wed, 31 May 2023 11:37:34 +0800
+Message-Id: <20230531033736.792464-3-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230531033736.792464-1-yung-chuan.liao@linux.intel.com>
 References: <20230531033736.792464-1-yung-chuan.liao@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: G6QBNUJJROXTX6MFOWESUQ2MITAGCVYX
-X-Message-ID-Hash: G6QBNUJJROXTX6MFOWESUQ2MITAGCVYX
+Message-ID-Hash: OIHP6MIO5EAQUOQR7HF4PM7KGHYF5COF
+X-Message-ID-Hash: OIHP6MIO5EAQUOQR7HF4PM7KGHYF5COF
 X-MailFrom: yung-chuan.liao@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G6QBNUJJROXTX6MFOWESUQ2MITAGCVYX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OIHP6MIO5EAQUOQR7HF4PM7KGHYF5COF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,117 +109,99 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Commit c60561014257 ("soundwire: bus: allow device number to be unique
-at system level") introduced two strategies to allocate device
-numbers.
+This patch adds a new Device Number allocation strategy, with the IDA
+used only for devices that are wake-capable.
 
-a) a default unconstrained allocation, where each bus can allocate
-Device Numbers independently.
+"regular" devices such as amplifiers will use Device Numbers
+[1..min_ida-1].
 
-b) an ida-based allocation. In this case each Device Number will be
-unique at the system-level.
+"wake-capable" devices such as jack or microphone codecs will use
+Device Numbers [min_ida..11].
 
-The IDA-based allocation is useful to simplify debug, but it was also
-introduced as a prerequisite to deal with the Intel Lunar Lake
-hardware programming sequences: the wake-ups have to be handled with a
-system-unique SDI address at the HDaudio controller level.
-
-At the time, the restriction introduced by the IDA to 8 devices total
-seemed perfectly fine, but recently hardware vendors created
-configurations with more than 8 devices.
-
-This patch provides an iso-functionality change, with the allocation
-selected with an enum instead of an 'ida_min' value. Follow-up patches
-will add a new allocation strategy to allow for more than 8 devices
-using information on the type of devices, and only use the IDA-based
-allocation for devices capable of generating a wake.
+This hybrid strategy extends the number of supported devices in a
+system by only constraining the allocation if required, e.g. in the
+case of Intel LunarLake platforms the wake-capable devices are
+required to have a unique address to use the HDaudio SDI and HDAudio
+WAKEEN/WAKESTS registers.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Rander Wang <rander.wang@intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 ---
- drivers/soundwire/bus.c             |  4 ++--
- drivers/soundwire/intel_auxdevice.c |  1 +
- include/linux/soundwire/sdw.h       | 16 +++++++++++++++-
- 3 files changed, 18 insertions(+), 3 deletions(-)
+ drivers/soundwire/bus.c       | 26 +++++++++++++++++++++-----
+ include/linux/soundwire/sdw.h |  4 ++++
+ 2 files changed, 25 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index b44f8d0affa6..e8c1c55a2a73 100644
+index e8c1c55a2a73..6f465cce8369 100644
 --- a/drivers/soundwire/bus.c
 +++ b/drivers/soundwire/bus.c
-@@ -159,7 +159,7 @@ static int sdw_delete_slave(struct device *dev, void *data)
+@@ -159,7 +159,9 @@ static int sdw_delete_slave(struct device *dev, void *data)
  
  	if (slave->dev_num) { /* clear dev_num if assigned */
  		clear_bit(slave->dev_num, bus->assigned);
--		if (bus->dev_num_ida_min)
-+		if (bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA)
+-		if (bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA)
++		if (bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA ||
++		    (bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA_WAKE_ONLY &&
++		     slave->prop.wake_capable))
  			ida_free(&sdw_peripheral_ida, slave->dev_num);
  	}
  	list_del_init(&slave->node);
-@@ -701,7 +701,7 @@ static int sdw_get_device_num(struct sdw_slave *slave)
+@@ -699,17 +701,31 @@ EXPORT_SYMBOL(sdw_compare_devid);
+ /* called with bus_lock held */
+ static int sdw_get_device_num(struct sdw_slave *slave)
  {
++	struct sdw_bus *bus = slave->bus;
  	int bit;
  
--	if (slave->bus->dev_num_ida_min) {
-+	if (slave->bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA) {
+-	if (slave->bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA) {
++	if (bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA ||
++	    (bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA_WAKE_ONLY &&
++	     slave->prop.wake_capable)) {
  		bit = ida_alloc_range(&sdw_peripheral_ida,
- 				      slave->bus->dev_num_ida_min, SDW_MAX_DEVICES,
+-				      slave->bus->dev_num_ida_min, SDW_MAX_DEVICES,
++				      bus->dev_num_ida_min, SDW_MAX_DEVICES,
  				      GFP_KERNEL);
-diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
-index 0daa6ca9a224..30f3d2ab80fd 100644
---- a/drivers/soundwire/intel_auxdevice.c
-+++ b/drivers/soundwire/intel_auxdevice.c
-@@ -165,6 +165,7 @@ static int intel_link_probe(struct auxiliary_device *auxdev,
- 	cdns->msg_count = 0;
- 
- 	bus->link_id = auxdev->id;
-+	bus->dev_num_alloc = SDW_DEV_NUM_ALLOC_IDA;
- 	bus->dev_num_ida_min = INTEL_DEV_NUM_IDA_MIN;
- 	bus->clk_stop_timeout = 1;
- 
+ 		if (bit < 0)
+ 			goto err;
+ 	} else {
+-		bit = find_first_zero_bit(slave->bus->assigned, SDW_MAX_DEVICES);
+-		if (bit == SDW_MAX_DEVICES) {
++		int max_devices = SDW_MAX_DEVICES;
++
++		if (bus->dev_num_alloc == SDW_DEV_NUM_ALLOC_IDA_WAKE_ONLY &&
++		    !slave->prop.wake_capable) {
++			max_devices = bus->dev_num_ida_min - 1;
++
++			/* range check */
++			if (max_devices < 1 || max_devices > SDW_MAX_DEVICES)
++				return -EINVAL;
++		}
++
++		bit = find_first_zero_bit(bus->assigned, max_devices);
++		if (bit == max_devices) {
+ 			bit = -ENODEV;
+ 			goto err;
+ 		}
 diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index c076a3f879b3..4656d6d0f3bb 100644
+index 4656d6d0f3bb..8a7541ac735e 100644
 --- a/include/linux/soundwire/sdw.h
 +++ b/include/linux/soundwire/sdw.h
-@@ -864,6 +864,17 @@ struct sdw_master_ops {
- 	void (*new_peripheral_assigned)(struct sdw_bus *bus, int dev_num);
- };
- 
-+/**
-+ * enum sdw_dev_num_alloc - Device Number allocation strategies
-+ * @SDW_DEV_NUM_ALLOC_DEFAULT: unconstrained first-come-first-serve allocation,
-+ * using range [1, 11]
-+ * @SDW_DEV_NUM_ALLOC_IDA: IDA-based allocation, using range [ida_min, 11]
-+ */
-+enum sdw_dev_num_alloc {
-+	SDW_DEV_NUM_ALLOC_DEFAULT = 0,
-+	SDW_DEV_NUM_ALLOC_IDA,
-+};
-+
- /**
-  * struct sdw_bus - SoundWire bus
-  * @dev: Shortcut to &bus->md->dev to avoid changing the entire code.
-@@ -895,9 +906,11 @@ struct sdw_master_ops {
-  * meaningful if multi_link is set. If set to 1, hardware-based
-  * synchronization will be used even if a stream only uses a single
-  * SoundWire segment.
-+ * @dev_num_alloc: bus-specific device number allocation
-  * @dev_num_ida_min: if set, defines the minimum values for the IDA
-  * used to allocate system-unique device numbers. This value needs to be
-- * identical across all SoundWire bus in the system.
-+ * identical across all SoundWire bus in the system. Only used if @sdw_num_alloc
-+ * is not default.
+@@ -869,10 +869,14 @@ struct sdw_master_ops {
+  * @SDW_DEV_NUM_ALLOC_DEFAULT: unconstrained first-come-first-serve allocation,
+  * using range [1, 11]
+  * @SDW_DEV_NUM_ALLOC_IDA: IDA-based allocation, using range [ida_min, 11]
++ * @SDW_DEV_NUM_ALLOC_IDA_WAKE_ONLY: Hybrid allocation where wake-capable devices rely on
++ * IDA-based allocation and range [ida_min, 11], while regular devices rely on default
++ * allocation in range [1, ida_min - 1]
   */
- struct sdw_bus {
- 	struct device *dev;
-@@ -922,6 +935,7 @@ struct sdw_bus {
- 	u32 bank_switch_timeout;
- 	bool multi_link;
- 	int hw_sync_min_links;
-+	enum sdw_dev_num_alloc dev_num_alloc;
- 	int dev_num_ida_min;
+ enum sdw_dev_num_alloc {
+ 	SDW_DEV_NUM_ALLOC_DEFAULT = 0,
+ 	SDW_DEV_NUM_ALLOC_IDA,
++	SDW_DEV_NUM_ALLOC_IDA_WAKE_ONLY,
  };
  
+ /**
 -- 
 2.25.1
 

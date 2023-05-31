@@ -2,166 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 386D971781A
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 09:25:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D155717916
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 09:55:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 071CC207;
-	Wed, 31 May 2023 09:24:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 071CC207
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5B3E206;
+	Wed, 31 May 2023 09:54:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5B3E206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685517923;
-	bh=qN1N/hbWErJDeQcXcy4UPBFMwEqFJoAGig4iNoqI9lE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=vDApmb6hSiIG15J3FP3AmTTQJ23sdghVVvT5atzqYGFjost+CwxrFsmjgS7XNm4wt
-	 KBl40SdfRCbn+FsouIX5Vog8TwYsDFClFEvOGGsbErNZpt+EGWluAyJciUxAzBgMOp
-	 IfvYbVINymSY+0ZHZsbKlA8PkFC2noIA+qnXsgQU=
+	s=default; t=1685519722;
+	bh=5zicIIzM9MlGT6mHk+tsechuyWaWf6jQjXt5N64CIMs=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=fMGTAXTLPmKyyq1Cr/wNF1nSeeeS+ROWo9KHtV4LNO1xlZccPuoVshpDGxls6P+fR
+	 OiLc0FRtU90U/W5/XNWqvK61IgZ5WogPpuGKuS8X6y3yQbhPLxjSC6wjvXKbNyO0Wt
+	 28XU9MWaRQGhc4UNVsCnke6f5cVg+cq9vPPmdN0w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72D71F8026A; Wed, 31 May 2023 09:24:32 +0200 (CEST)
+	id 135EDF80544; Wed, 31 May 2023 09:54:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F03D6F8026A;
-	Wed, 31 May 2023 09:24:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C054BF8026A;
+	Wed, 31 May 2023 09:54:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85AB4F8042F; Wed, 31 May 2023 09:24:13 +0200 (CEST)
+	id 1B243F8042F; Wed, 31 May 2023 09:54:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20613.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::613])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on20616.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feae::616])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2472AF80149
-	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 09:24:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2472AF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6AC3CF80086
+	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 09:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AC3CF80086
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=5pvwvgqj
+ unprotected) header.d=nuvoton.com header.i=@nuvoton.com header.a=rsa-sha256
+ header.s=selector1 header.b=QrFgdDR5
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d5skxZEoUEbpkXS8+jc96wzFzqMJr6x5eeRLO2mVS0EhuPnrSilxtZbWz0nLW9ozHKM8YgshNucQiXdRlCEu0d/2ArFjL1bSRzoy1soyyE9mEyjup4QdhkTMREHTdf2oRr6lndKVRAcZNvRXOW1LB8jzaw2vNMApw2DQYltLSWXXxvQ89IgH0aGqWR6rR+LWBRC9Zr4WzWuSs0Nu2G+ntI1kT3igwuYWiDoAqgfVh24LGi7zhPWZcUiLmnN1gOsqeE264XbISllXacewtRTxBamPb4SzuNH8mYtMp/wfDyhaAYBkJ9qtUcRdR0xckhxzhUwdPawG4ulM+FUKQlPprA==
+ b=g8p/X2NLq6tpOVi5psZRuVrZrbYNsb96+l6Eg/RsAJz7nM/RKsfaylxjkEb98+lbRk9FR7G3kF48Ix5SSa6+G5daVOXnusOLrWhxHgEsxDX8osX6cIPeUIJ8l3MWqsBzdzprpAp0O5aOsWJZSFyoEr/B59EhrGLR99pWygU10wSnRcmUMwZALdRDnKUvQ0gIgeGzvStwlUcAn7FKBTk9UdyPN6MrbHJGV25ZZENWKvfAYMLf8bmCZMnziA2lKEkllGkINkRtRSO9yjQX4an88XVIrtJkRlxEqOMz9nTA+RFesJrkCvYWTDqLhNJQsFciVQJ8avDECAEWracRXIURtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OkfzkDis49ejdcSjbdoEXgZCuD7z4UzD9kAkIqc4Ckk=;
- b=UjY6ykrTW0Xa+yUKtGlvIcsUFTHktx6P7KY5HrZMYL46GIIWUXCdtqhurkh8+r2IaZprbkrsMynILamWnhwW8Tt7DoE+DZ2KkezIbcB07OX9SmKNbOy/j7WZ8YbbGILym/a/GQSRNQhqlrUtDboXcDCRLJGPvCRhygDOsGgF+PPlHh61Ov8rPcpK3g9bnNsLt26pdtM6TrkgekDm8c935nhxzAWLbomesPSU6+BLnh8C0siWflaYD3X1wRAPo8NPOdoWGZ3scx9VW8CM6IBvt6pdDH2V+6hNzgSFegIIKZxKJNMm8w2bg35/CVlH5yxck4aFEo/2lu2obia8NpEDGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=5JYYxRHrB+nOD4qnLlRHqKUAzyeWpd8i+UiOD6hnxro=;
+ b=lR8xsnfbLTOf5PoxQoXC89qmpHZuIwUp+fb/eFH0j1gnMWCknsVwC6ONW4qH8UyS6zbmtfHrtEDSS3hUIFChM6GD4C26KNL2nv+GhPjRQTYngnQnSKx1FPim17gjEX5TkR+yVI4guqtRlLxZAl8VET7EwcLVQ6PLvY/zEEB833mpn2smHpca4RHC6aJsmuXCKlRvVCR24el/7c3RL4z2zdeLiWItyvzUKDh8399yHe9+XEBP/Tjv2E5koRBvRw7poVVoEljjaKvreA5GUx6zneQOp4i4EcHtG6CTfxEIheM0ru/ipItSXpNNU7I006cWcob2f4b6ZLQ3uje1jgBbow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 211.75.126.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=nuvoton.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OkfzkDis49ejdcSjbdoEXgZCuD7z4UzD9kAkIqc4Ckk=;
- b=5pvwvgqjCq35nheLcWHfzqB08HRsV4e3DyuX17TXgYA5pmBkefpP5t8ML0nOT8GlTY4NXVTzxyp+tyrBvmN15S+45SrAdTm8k8+Y52ikmyIeZdRjjmYbW8tsKn0J4/gZOghSpwI9qQTHcQYLoj2mBYqP3FQQksY3ZlQ206a2IOw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by DS7PR12MB5984.namprd12.prod.outlook.com (2603:10b6:8:7f::18) with
+ bh=5JYYxRHrB+nOD4qnLlRHqKUAzyeWpd8i+UiOD6hnxro=;
+ b=QrFgdDR5Yb1GfqbTrfqsvJtf+eSPx2zNOFtOnFVIDBT+Isiy9BMt+zfACU2mHHf8IzbWVsZ+Uma8Z3+p+rYqAmWfbsAlso9zpWIFgHzNKu8MWfqYJgDI8SgT580SzXHdEsk2fpIM8UyGDDvHmubNCBZHNYzepdx2CQI6zE/rRmY=
+Received: from TY2PR06CA0039.apcprd06.prod.outlook.com (2603:1096:404:2e::27)
+ by TYUPR03MB7112.apcprd03.prod.outlook.com (2603:1096:400:35f::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Wed, 31 May
- 2023 07:23:59 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::8700:a051:2ddf:d350]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::8700:a051:2ddf:d350%5]) with mapi id 15.20.6433.022; Wed, 31 May 2023
- 07:23:58 +0000
-Message-ID: <af5b0669-2621-7fce-358c-76dca7b521c5@amd.com>
-Date: Wed, 31 May 2023 12:58:46 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH V2 5/9] ASoC: amd: ps: add support for SoundWire DMA
- interrupts
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230522133122.166841-1-Vijendar.Mukunda@amd.com>
- <20230522133122.166841-6-Vijendar.Mukunda@amd.com>
- <fea3c862-1470-7911-ff77-5d945b1d77cf@linux.intel.com>
- <2dfeee7c-32bd-c054-22ff-3a2266e62c90@amd.com>
- <f11f3370-0b72-cb1f-21cf-c574ef03fd72@linux.intel.com>
- <017abf89-a1aa-0c85-e244-a56c05b7c6e2@amd.com>
-In-Reply-To: <017abf89-a1aa-0c85-e244-a56c05b7c6e2@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0104.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9b::6) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+ 2023 07:54:09 +0000
+Received: from TYZAPC01FT003.eop-APC01.prod.protection.outlook.com
+ (2603:1096:404:2e:cafe::d9) by TY2PR06CA0039.outlook.office365.com
+ (2603:1096:404:2e::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22 via Frontend
+ Transport; Wed, 31 May 2023 07:54:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 211.75.126.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 211.75.126.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.75.126.7; helo=NTHCCAS01.nuvoton.com; pr=C
+Received: from NTHCCAS01.nuvoton.com (211.75.126.7) by
+ TYZAPC01FT003.mail.protection.outlook.com (10.118.152.92) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.22 via Frontend Transport; Wed, 31 May 2023 07:54:09 +0000
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Wed, 31 May
+ 2023 15:54:08 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server id 15.1.2176.2 via Frontend Transport;
+ Wed, 31 May 2023 15:54:08 +0800
+From: David Lin <CTLIN0@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <alsa-devel@alsa-project.org>,
+	<YHCHuang@nuvoton.com>, <KCHSU0@nuvoton.com>, <WTLI@nuvoton.com>,
+	<SJLIN0@nuvoton.com>, <ctlin0.linux@gmail.com>, David Lin
+	<CTLIN0@nuvoton.com>
+Subject: [PATCH] ASoC: nau8825: Add the management of headset detection for
+ power saving
+Date: Wed, 31 May 2023 15:53:35 +0800
+Message-ID: <20230531075334.168637-1-CTLIN0@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|DS7PR12MB5984:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4d66883-15f2-40c8-acfc-08db61a7ffd2
+X-MS-TrafficTypeDiagnostic: TYZAPC01FT003:EE_|TYUPR03MB7112:EE_
+X-MS-Office365-Filtering-Correlation-Id: d101b3b5-e97f-4cbb-65e8-08db61ac3753
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	72aQecFX8/OaTHJ7POHbSUt54xttQTabtk9a04Di5HOejVaTANYDlehtKbQXpAdoNbDzeysUTalGgdquYWUQYDpj58jZjUkNbZNdJye8lE4UzKqF5bfCykRXChY2FqJOOAT4d/RYUDAFr5KGZADQXLs3QKqhaDF0ezjUAd1uXBCU1zAAKG0Y7rdd1ev4GeJHYB0Vqwb/jQKLSwUAOG2pPNmHVf89qfA+qUk80hYbr0q0Y21YIQ1SMi0UvA2A41/W2vngKj3r2jS13Wc0AfVTsXyI/my/pteMix14bsDCbg2aXI4oAR7Zd2jBLjOsg4pNbnhgJ6YwLhA8x7pyflIk/dfG6DzaE/r8rGLWaikcrBFvfh1ZJaGGNKc+rUnPzsRs27YY5JEyXRYagpc+ThM7T8pXITgyhp2FcqC4iE9Y+C77n2dfKKYSXNozapfFWbASYpKQ1UGXfhS+iS7kC8Rl0AFQGBMOaXnD/T2XFoIMIZWFbwfriCyfPBaUQ9/fUccMiiw0HfhNT6Jd06nBMalWIMZcWp+WYGIsSyOcOKQjY5EnCeIR7+YtgGyq9KLksH63bymONp9kdvvTU8uAoR1SZt4ZPl1EDTWw//YTTQKLZf+l0smgjd8PlHBVV8vFv6qlSWmrQu0/kCd26y8gCFzYTQ==
+	u6bSQjMDW2l1jauOhBpEDhnvV0D+zXq/2d5tbqPKFx2A+r3Lk3/92o/24G+Eob/hfb6g/5XCMF66Y88hMjnB1ygnX+VAjshZ8/Jt+IWNalYE6AtpbjgiXT7KKOREOvj4vN0T56JpNReP1P2+ZGKNCNFkC1UwhoSaeee9MRz8Pi58Lrqcm26+Xwfnpi9TRfsUYWyp9IrrRsmnE19P5uG5M/ZFU8VZgyHjVW+JIvvjk4rxZXrpgobjH3PRjs2MWBWw7eUxAmNBLyPXwdJfF61MpB1tN6GUffr98H9HKm7loLI7Z0Yww821YVYUKTxDuYrVQNCjIINvZTzdHAt2rxwBTzkjQqHCL3j8/qEYraMJGSjbbtiZk1lZwMNA59ORVQJJyB10qpd7KxsDPGRiPy7eyyggJp3r1KaEEJOJXx8AP487Up93Pr2aaJSKWE0ixR+gSWwiw3v1IzhpJ5DYm/IT6jxIKQ96kh4557xIOEogizygHJVCgBkhAGiEAczlN58p7AWNi6uUK7DkAjF/UUkbstJtxvycJUsV0aVULNylDIG1mO56+N7pgDK1HUqygf2fKx0o/JcNlbRNLgPX1TsjOsjKPQtXx1bOUuyT4Seb51PCCPT/eTh3Nxp7dauheCg4wLm0V5/IAjegkrZFoa+Hwlv5mz/0v4ZGh69s56NsAM3B8yRpZsMVKEwm8DQeTZCvjx9ZTt2rgkOfPutU0Al3q+LzKi2HcBN1e69qF68rP2OKjcpbJVBPVTEDOGHEOOZ9
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(451199021)(8676002)(478600001)(8936002)(54906003)(41300700001)(316002)(5660300002)(86362001)(6666004)(6486002)(4326008)(31686004)(66556008)(66946007)(53546011)(6512007)(6506007)(66476007)(31696002)(26005)(186003)(2616005)(83380400001)(2906002)(36756003)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?anFsT2gwb2k3Q1loV3FXYVlicWxPRUh0djlQRWtsR2ovVGZoenhhc2V5L2E3?=
- =?utf-8?B?c0VlQVkvTHVRUmJYYjZSSTNqVDltV3VmMlFGdUVWblFkYldySHlQcG9UdGVk?=
- =?utf-8?B?R0lzV2lkcGE3MEloOGh4Q3BNbGRmM3Y2QmYwdmtZN3ZLTXBWUVFrUGxGTHpJ?=
- =?utf-8?B?MHpxV3NLU2xtSTZTSDBuOU9DTld1d2l5TmpFTTFyUWFLYzAvbFFob3ZtdExn?=
- =?utf-8?B?bEljMHlKaTJqMUFJM0FrWXkyd0hOa0k1enZYbmp1cTdFbkVnTExqSm1pT05y?=
- =?utf-8?B?WHlHQ0REMnRBNlZnRWVwSngwMzR0ZDB4a3VyNGdzRkZMVXExTUpFL1UxVkVu?=
- =?utf-8?B?azhNOXpGWkJzbEt6c2NsMk9FdUduRGJFUzBVc0cxS2tDUTUyYzVMUVZuTnFH?=
- =?utf-8?B?NjA1cENGcEZTK1Z4SEFSMVRPWk9Rbm9HTEY3WXRoUE1sa3BzTFBkVjlrSzRY?=
- =?utf-8?B?MFY4S01nVTdNQTRldTF4RmNDSFU0OGJXL29ZeTh1VnUzWTJya1BMUE8rUnRt?=
- =?utf-8?B?c0hUUjJmQ1lYTEsvU1FVUE85MEJyc2xzQjV0bWdIRy9YdFNMbVRhTXBJWWty?=
- =?utf-8?B?SW8yTlRMZDZkcVpDb1VBbjIrT3IyOFFaeVdLdng1NVM1OE9IeUJ5RzNnWW5Y?=
- =?utf-8?B?SjY4c1cyV3Zyc3Q3bGViekgxVytPWDN2Yk9tQVJoRGVNdlpaTWhxZnVjMkg1?=
- =?utf-8?B?SkxzVk8xcWlIUzhVUGVjU2R0a1c1cGpMamN2bGV1c2NRQjFXdUNsZmUwaHEx?=
- =?utf-8?B?aURSRGRuWDFYdHVSWUYrZ1ArNnI1ZE13TGJPWG1kOUk5SmQ4V1ZGUFk0Y2o2?=
- =?utf-8?B?czNsbFdySng2Uk15QWUxcEFIeWVhYjlqenFHLzhpUkM1N20wZ1VDOStzb1ZI?=
- =?utf-8?B?YWpzY3REV0hmcU1iam9LZ3NyUmQxNDY5T2NIWTdTeHB3ZjN3cGNxR3pWc0xK?=
- =?utf-8?B?b3I1RkIrR0Jkay9WNnEyZEhkYlZ1TVJmVk1SR1VLUEs1ZTVMbVNrcWVtS1Vo?=
- =?utf-8?B?cnhIVjlscXZucEZGWG9ZVFoxZzRDUDF3bkxVMUl0SW5BSTdFN2dwVG8rZndo?=
- =?utf-8?B?WXhlUE1UVUJqbVh2OEthZTlCRDRkMmRFR2o3ZmNyWXRlcFpjNnFsS0lvQ2ZW?=
- =?utf-8?B?aklZejFuZW9vR3JvQ2J2clRIaDJPT2VoYTNmOHdZckJ1OTBlMks4cXd6bTYw?=
- =?utf-8?B?bWJISFN4QnlleVBkNGJaNTBBbzYvYVNpcERYZ21ZQm9MbmZFSFBpbkNHNWJP?=
- =?utf-8?B?UlZ5MUJocjRtZjZkQTJEOWFxM1VNaCtTVU45WkFlNStqMzZPZklndWRub1Jt?=
- =?utf-8?B?cHdXT0loM082V3ZuTytrMDJqL0YxdHhmdFRETUpTZXUwN3JnQ2NiMWRaajYx?=
- =?utf-8?B?b0U5OWN5dXlQUmk0eWVLdVhZaE10eTVET1N5UFRLNzY1TmcrWWd5aUhZbFUv?=
- =?utf-8?B?aUk4VFZSOVVycGl4OG1ib243WVlwUExSYW4wVkdVM1h0T2NEM3pzZlUyWERW?=
- =?utf-8?B?SG5yZHc2N25rczJ3S3VER1h5b2lpcDVUNDAzVVhwNStPYmUxU0htdHhQbHhz?=
- =?utf-8?B?cUM2N3V1ZDlYZGxiYVVoZjZaQmtHQmY1OXpxcDlnRjl1Z2Q0YStKaUdSeHpU?=
- =?utf-8?B?amZKZldJbDF3UGpmZzR4RXFqZWgwdWdyYWQxVWlKQmpHMklpSktqdXAyMG4v?=
- =?utf-8?B?clZxU1lqVFM3Y0FrbGxEVUZzYzdUOHBQRXF3REI3dVlUQ044WXpWc2NsdzhO?=
- =?utf-8?B?UUlGUzczaVhTRVJLbnpHdy9sYU81NGVzc2RjRUNjU2ZBb3ZGbzREbWRJVUp4?=
- =?utf-8?B?NllCRUUwQ1RNNjVNSGtrdlM0M25OQWEwRk1pRkRibGd5ZGxyU2ludndhS1dt?=
- =?utf-8?B?QmNCUUlmOS9UVExjQkUwY3RsOGkrSWlVQ3ZTTDYvbnFRWWVMenBSTjFnYkhS?=
- =?utf-8?B?VmE4amN3aHlPa04xR1JVelBKTzE4RTR2anJUV1NRNThjSmQ1eWVrYmkwNHJj?=
- =?utf-8?B?RnRVTGhpcVBmMzFXemt1VUR5dXJjdnUzc0czdDQrRFlRRE5QcXB1RjJEbEJk?=
- =?utf-8?B?c0dzSVQzeG5JcGk1U1Y3UC95QWVXYlhYR0RhaCttNC9Ga2I2ck1jc3dPR200?=
- =?utf-8?Q?s9aVbBcbY3ccAMFbQ+jJl+w36?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- e4d66883-15f2-40c8-acfc-08db61a7ffd2
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 07:23:58.6430
+	CIP:211.75.126.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS01.nuvoton.com;PTR:211-75-126-7.hinet-ip.hinet.net;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199021)(36840700001)(40470700004)(46966006)(2906002)(186003)(2616005)(54906003)(26005)(336012)(426003)(1076003)(478600001)(47076005)(83380400001)(86362001)(40460700003)(36860700001)(8936002)(81166007)(82740400003)(356005)(8676002)(41300700001)(40480700001)(316002)(5660300002)(70586007)(70206006)(6666004)(33656002)(82310400005)(36756003)(107886003)(6916009)(4326008);DIR:OUT;SFP:1101;
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 07:54:09.2757
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- HlVH3QDfmMd5hFVDQDpP1Rk7CsmcFEq9Liv0YM3YhbCaZ/HxWOhADA41kIHr9Rbw8mE5zGxcYvPXqIjML/YXSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5984
-Message-ID-Hash: 7X4CMP4IM3JK6HGRQSOMYBS2LJDL6S4N
-X-Message-ID-Hash: 7X4CMP4IM3JK6HGRQSOMYBS2LJDL6S4N
-X-MailFrom: Vijendar.Mukunda@amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ d101b3b5-e97f-4cbb-65e8-08db61ac3753
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[211.75.126.7];Helo=[NTHCCAS01.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	TYZAPC01FT003.eop-APC01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYUPR03MB7112
+Message-ID-Hash: GVHUIUY2XMZPGUIPF6P2XUR2QZOQYCKW
+X-Message-ID-Hash: GVHUIUY2XMZPGUIPF6P2XUR2QZOQYCKW
+X-MailFrom: CTLIN0@nuvoton.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -173,7 +139,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7X4CMP4IM3JK6HGRQSOMYBS2LJDL6S4N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GVHUIUY2XMZPGUIPF6P2XUR2QZOQYCKW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -182,78 +148,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 24/05/23 13:15, Mukunda,Vijendar wrote:
-> On 23/05/23 20:30, Pierre-Louis Bossart wrote:
->> On 5/23/23 02:36, Mukunda,Vijendar wrote:
->>> On 22/05/23 23:42, Pierre-Louis Bossart wrote:
->>>> On 5/22/23 08:31, Vijendar Mukunda wrote:
->>>>> Initialize workqueue for SoundWire DMA interrupts handling.
->>>>> Whenever audio data equal to the SoundWire FIFO watermark level
->>>>> are produced/consumed, interrupt is generated.
->>>>> Acknowledge the interrupt and schedule the workqueue.
->>>> It would help to explain why a work queue is needed is the first place,
->>>> as opposed to handling periods in the interrupt thread.
->>> For SoundWire DAI link, we are setting nonatomic flag to true.
->>> If we return period elapsed from hard irq handler instead of workqueue,
->>> soft lock up is observed during stream closure.
->>>
->>> We can use interrupt thread as well. To have a symmetry with
->>> SoundWire manager work queues, we have used workqueue for
->>> DMA interrupts.
->> Oh, I completely missed the model here.
->>
->> If you are using the bottom half/hard irq handler to read status
->> information, the natural thing to do would be to have an irq thread, no?
->>
->> Not sure I see the benefit of aligning with the manager work queues -
->> unless it makes your life simpler to avoid race conditions with
->> cancel_work_sync()?
-> We can implement request_threaded_irq() and move the handling of
-> DMA interrupts to thread function whereas we need to handle SoundWire
-> manager interrupts in top half only. Reason as follows.
->
-> As per our design, we are not masking the interrupts in top half and
-> restoring mask after thread execution like Intel and
-> our IP supports line based interrupts. If we move SoundWire manager
-> interrupt handling to thread function, we have observed interrupts are
-> reported but not handled properly due to thread execution is in progress
-> sometimes.
-> we will add comments for this design constraint in the code if we have to
-> go with threaded_irq implementation.
->
-> @Bossart: we are waiting for your reply.
->>>>> +static void acp63_sdw_dma_workthread(struct work_struct *work)
->>>>> +{
->>>>> +	struct acp63_dev_data *adata = container_of(work, struct acp63_dev_data,
->>>>> +						    acp_sdw_dma_work);
->>>>> +	struct sdw_dma_dev_data *sdw_dma_data;
->>>>> +	u32 stream_index;
->>>>> +	u16 pdev_index;
->>>>> +
->>>>> +	pdev_index = adata->sdw_dma_dev_index;
->>>>> +	sdw_dma_data = dev_get_drvdata(&adata->pdev[pdev_index]->dev);
->>>>> +
->>>>> +	for (stream_index = 0; stream_index < ACP63_SDW0_DMA_MAX_STREAMS; stream_index++) {
->>>>> +		if (adata->sdw0_dma_intr_stat[stream_index]) {
->>>>> +			if (sdw_dma_data->sdw0_dma_stream[stream_index])
->>>>> +				snd_pcm_period_elapsed(sdw_dma_data->sdw0_dma_stream[stream_index]);
->>>>> +			adata->sdw0_dma_intr_stat[stream_index] = 0;
->>>>> +		}
->>>>> +	}
->>>>> +	for (stream_index = 0; stream_index < ACP63_SDW1_DMA_MAX_STREAMS; stream_index++) {
->>>>> +		if (adata->sdw1_dma_intr_stat[stream_index]) {
->>>>> +			if (sdw_dma_data->sdw1_dma_stream[stream_index])
->>>>> +				snd_pcm_period_elapsed(sdw_dma_data->sdw1_dma_stream[stream_index]);
->>>>> +			adata->sdw1_dma_intr_stat[stream_index] = 0;
->>>>> +		}
->>>>> +	}
->>>> I am not clear on the benefits of the workqueue which only tests a flag
->>>> that's set ...
->>> In top half, we are checking all stream irq mask and setting
->>> corresponding stream id index in interrupt status array when dma
->>> irq is raised.
->>>
->>> Our intention is to handle snd_pcm_period_elapsed in process context.
->>> if the flag is set, call the period elapsed for the substream based on stream
->>> id in work queue.
+The patch is to manage HSD feature for power saving. The detail is to
+disable HSD feature after the headset detection is done. When the jack
+is inserted, the HSD feature will be enabled again.
+
+Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+---
+ sound/soc/codecs/nau8825.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
+index cc3e18207c42..f6dd84b32e0b 100644
+--- a/sound/soc/codecs/nau8825.c
++++ b/sound/soc/codecs/nau8825.c
+@@ -1704,6 +1704,10 @@ static void nau8825_setup_auto_irq(struct nau8825 *nau8825)
+ {
+ 	struct regmap *regmap = nau8825->regmap;
+ 
++	/* Enable HSD function */
++	regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL,
++			   NAU8825_HSD_AUTO_MODE, NAU8825_HSD_AUTO_MODE);
++
+ 	/* Enable headset jack type detection complete interruption and
+ 	 * jack ejection interruption.
+ 	 */
+@@ -1955,6 +1959,9 @@ static int nau8825_jack_insert(struct nau8825 *nau8825)
+ 	regmap_update_bits(regmap, NAU8825_REG_CLK_DIVIDER,
+ 			   NAU8825_CLK_MCLK_SRC_MASK, 0xf);
+ 
++	/* Disable HSD function */
++	regmap_update_bits(regmap, NAU8825_REG_HSD_CTRL, NAU8825_HSD_AUTO_MODE, 0);
++
+ 	/* Leaving HPOL/R grounded after jack insert by default. They will be
+ 	 * ungrounded as part of the widget power up sequence at the beginning
+ 	 * of playback to reduce pop.
+-- 
+2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AB5E7182F7
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 15:46:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FDD971830A
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 15:46:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C903684D;
-	Wed, 31 May 2023 15:45:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C903684D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53C3E844;
+	Wed, 31 May 2023 15:46:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53C3E844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685540795;
-	bh=HVFzA5/xpPgFBqpHQHkv/BgPv5Wfc3xZi5LakHxOE1s=;
+	s=default; t=1685540817;
+	bh=yTvGYZKMtbvpn8hx6xbK+us0fWAKex22JtEMAQuudeg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DIrZ3JQQEbhdPa9uuSlo3SaBufgT5GZ6yYbsNq4gCJ9MFcWDhcJdfpejNsGxR5U/6
-	 ZFXPsK/Nx1KWF59bYu3pnPiPHXP1CrZMbe1XkWNe3kTMqMeEFaVN4g1vlKpF/C0m1h
-	 hnWxyDJmEJcEbTPnpKNGiukpW0XXYGk+mUlK2qUc=
+	b=JvTfTg9hW2BYT2KLCbUrQQrL/p8p2q3Pf15qIC+rJWxsLCNmI7Jc/PnFX5ObmH+4k
+	 mCNJ2kk3SwWjFxBDTCSHSW/s0gQNhC1go/lJUp9QiBjitnT6gkL305fQ52iTo6TPa/
+	 IUA8U4gxK2mnbgZ/wgY/NL4h78I6Qc/jrUJW+t74=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D609EF80553; Wed, 31 May 2023 15:44:42 +0200 (CEST)
+	id B1F14F805A0; Wed, 31 May 2023 15:44:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F0FDF80553;
-	Wed, 31 May 2023 15:44:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E564F8057C;
+	Wed, 31 May 2023 15:44:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 506D1F80557; Wed, 31 May 2023 15:44:38 +0200 (CEST)
+	id 7D573F8057F; Wed, 31 May 2023 15:44:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,44 +35,47 @@ X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CB758F80548
-	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 15:44:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB758F80548
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91839F800DF
+	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 15:44:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91839F800DF
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=NsiwJP7a
+ header.s=k20201202 header.b=r3HUR8rL
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id BA74063B74;
-	Wed, 31 May 2023 13:44:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530B2C433D2;
-	Wed, 31 May 2023 13:44:33 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7B5BC63B94;
+	Wed, 31 May 2023 13:44:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACF8BC433EF;
+	Wed, 31 May 2023 13:44:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685540674;
-	bh=HVFzA5/xpPgFBqpHQHkv/BgPv5Wfc3xZi5LakHxOE1s=;
+	s=k20201202; t=1685540689;
+	bh=yTvGYZKMtbvpn8hx6xbK+us0fWAKex22JtEMAQuudeg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NsiwJP7aM88UHBoohtu87dqi4Na1c3X2cA8vnZqjvhR4zq7e03oU73DXMuOq9pXsS
-	 suV6kEe4LqKu331f99CUGYkTge8O3nXEzliABqedoKn9WQ6H5DPaahHqOrqASRT1zr
-	 E/9KMvbCz0uA1Hu1go8CeGUh1b3idIdHLN5NkWKDNbGiHtX8AFALW41izTO6E83rjA
-	 QndQqNP22lTKZWROxG3WNETx2IySRrGIS2eBtj+u+2W6MFIDC5veIs7MngvhksUtl4
-	 TzNKUOYeS6Ql+eAzIaH9rFu7bxhGst5Kz4cHLChD3hFBABGkyl3ejE5KyQ2Lq67/Nb
-	 bntTrUuapEuKQ==
+	b=r3HUR8rLjtw3wXWgMsLk/DMMVlIz7Y9PcAjNLLkBS4X0Ax+FS2KxzXAg+XOT8gXTi
+	 hPYstT3I6N2x64tZL/Ky1BNrfeIOgNbbFUXG35kH9IFuBiAb17O5ot7ntal0X6caeu
+	 3EwNo+CbCfrH51PJiubizq1lOdnzMAJYyBadZu8xsnW/fscPyjNfS87iNahJuLzbI7
+	 MkapNaLssC8WyqyWjCH9cTyeyT1mLrt/Na9jqu0VoBwO0CjgqNLBOH6H7jtbv7Yr3E
+	 xJ1N7UpDHEs5EUXmNErq3irGTqP5+jZl34nPwxnkRkpsOfjeqDX4oMBPoUL4FycRZn
+	 w7xdKO8JDeVnw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+Cc: Maxim Kochetkov <fido_max@inbox.ru>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	lgirdwood@gmail.com,
-	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
+	ckeepax@opensource.cirrus.com,
+	u.kleine-koenig@pengutronix.de,
+	nicolas.ferre@microchip.com,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 5.10 13/21] ASoC: soc-pcm: test if a BE can be
- prepared
-Date: Wed, 31 May 2023 09:44:06 -0400
-Message-Id: <20230531134415.3384458-13-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.10 19/21] ASoC: dwc: move DMA init to
+ snd_soc_dai_driver probe()
+Date: Wed, 31 May 2023 09:44:12 -0400
+Message-Id: <20230531134415.3384458-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230531134415.3384458-1-sashal@kernel.org>
 References: <20230531134415.3384458-1-sashal@kernel.org>
@@ -80,8 +83,8 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: R4TQT55VZZ6NWEYH47NCBC6MNVOWRERU
-X-Message-ID-Hash: R4TQT55VZZ6NWEYH47NCBC6MNVOWRERU
+Message-ID-Hash: NBCNIM2IZIAM4TGCYCOQ3AIKQTZXWGY7
+X-Message-ID-Hash: NBCNIM2IZIAM4TGCYCOQ3AIKQTZXWGY7
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R4TQT55VZZ6NWEYH47NCBC6MNVOWRERU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NBCNIM2IZIAM4TGCYCOQ3AIKQTZXWGY7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,91 +106,144 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+From: Maxim Kochetkov <fido_max@inbox.ru>
 
-[ Upstream commit e123036be377ddf628226a7c6d4f9af5efd113d3 ]
+[ Upstream commit 011a8719d6105dcb48077ea7a6a88ac019d4aa50 ]
 
-In the BE hw_params configuration, the existing code checks if any of the
-existing FEs are prepared, running, paused or suspended - and skips the
-configuration in those cases. This allows multiple calls of hw_params
-which the ALSA state machine supports.
+When using DMA mode we are facing with Oops:
+[  396.458157] Unable to handle kernel access to user memory without uaccess routines at virtual address 000000000000000c
+[  396.469374] Oops [#1]
+[  396.471839] Modules linked in:
+[  396.475144] CPU: 0 PID: 114 Comm: arecord Not tainted 6.0.0-00164-g9a8eccdaf2be-dirty #68
+[  396.483619] Hardware name: YMP ELCT FPGA (DT)
+[  396.488156] epc : dmaengine_pcm_open+0x1d2/0x342
+[  396.493227]  ra : dmaengine_pcm_open+0x1d2/0x342
+[  396.498140] epc : ffffffff807fe346 ra : ffffffff807fe346 sp : ffffffc804e138f0
+[  396.505602]  gp : ffffffff817bf730 tp : ffffffd8042c8ac0 t0 : 6500000000000000
+[  396.513045]  t1 : 0000000000000064 t2 : 656e69676e65616d s0 : ffffffc804e13990
+[  396.520477]  s1 : ffffffd801b86a18 a0 : 0000000000000026 a1 : ffffffff816920f8
+[  396.527897]  a2 : 0000000000000010 a3 : fffffffffffffffe a4 : 0000000000000000
+[  396.535319]  a5 : 0000000000000000 a6 : ffffffd801b87040 a7 : 0000000000000038
+[  396.542740]  s2 : ffffffd801b94a00 s3 : 0000000000000000 s4 : ffffffd80427f5e8
+[  396.550153]  s5 : ffffffd80427f5e8 s6 : ffffffd801b44410 s7 : fffffffffffffff5
+[  396.557569]  s8 : 0000000000000800 s9 : 0000000000000001 s10: ffffffff8066d254
+[  396.564978]  s11: ffffffd8059cf768 t3 : ffffffff817d5577 t4 : ffffffff817d5577
+[  396.572391]  t5 : ffffffff817d5578 t6 : ffffffc804e136e8
+[  396.577876] status: 0000000200000120 badaddr: 000000000000000c cause: 000000000000000d
+[  396.586007] [<ffffffff806839f4>] snd_soc_component_open+0x1a/0x68
+[  396.592439] [<ffffffff807fdd62>] __soc_pcm_open+0xf0/0x502
+[  396.598217] [<ffffffff80685d86>] soc_pcm_open+0x2e/0x4e
+[  396.603741] [<ffffffff8066cea4>] snd_pcm_open_substream+0x442/0x68e
+[  396.610313] [<ffffffff8066d1ea>] snd_pcm_open+0xfa/0x212
+[  396.615868] [<ffffffff8066d39c>] snd_pcm_capture_open+0x3a/0x60
+[  396.622048] [<ffffffff8065b35a>] snd_open+0xa8/0x17a
+[  396.627421] [<ffffffff801ae036>] chrdev_open+0xa0/0x218
+[  396.632893] [<ffffffff801a5a28>] do_dentry_open+0x17c/0x2a6
+[  396.638713] [<ffffffff801a6d9a>] vfs_open+0x1e/0x26
+[  396.643850] [<ffffffff801b8544>] path_openat+0x96e/0xc96
+[  396.649518] [<ffffffff801b9390>] do_filp_open+0x7c/0xf6
+[  396.655034] [<ffffffff801a6ff2>] do_sys_openat2+0x8a/0x11e
+[  396.660765] [<ffffffff801a735a>] sys_openat+0x50/0x7c
+[  396.666068] [<ffffffff80003aca>] ret_from_syscall+0x0/0x2
+[  396.674964] ---[ end trace 0000000000000000 ]---
 
-This check is not handled for the prepare stage, which can lead to the
-same BE being prepared multiple times. This patch adds a check similar to
-that of the hw_params, with the main difference being that the suspended
-state is allowed: the ALSA state machine allows a transition from
-suspended to prepared with hw_params skipped.
+It happens because of play_dma_data/capture_dma_data pointers are NULL.
+Current implementation assigns these pointers at snd_soc_dai_driver
+startup() callback and reset them back to NULL at shutdown(). But
+soc_pcm_open() sequence uses DMA pointers in dmaengine_pcm_open()
+before snd_soc_dai_driver startup().
+Most generic DMA capable I2S drivers use snd_soc_dai_driver probe()
+callback to init DMA pointers only once at probe. So move DMA init
+to dw_i2s_dai_probe and drop shutdown() and startup() callbacks.
 
-This problem was detected on Intel IPC4/SoundWire devices, where the BE
-dailink .prepare stage is used to configure the SoundWire stream with a
-bank switch. Multiple .prepare calls lead to conflicts with the .trigger
-operation with IPC4 configurations. This problem was not detected earlier
-on Intel devices, HDaudio BE dailinks detect that the link is already
-prepared and skip the configuration, and for IPC3 devices there is no BE
-trigger.
-
-Link: https://github.com/thesofproject/sof/issues/7596
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com
-Link: https://lore.kernel.org/r/20230517185731.487124-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org
+Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
+Link: https://lore.kernel.org/r/20230512110343.66664-1-fido_max@inbox.ru
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/sound/soc-dpcm.h |  4 ++++
- sound/soc/soc-pcm.c      | 20 ++++++++++++++++++++
- 2 files changed, 24 insertions(+)
+ sound/soc/dwc/dwc-i2s.c | 41 +++++++++--------------------------------
+ 1 file changed, 9 insertions(+), 32 deletions(-)
 
-diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
-index 0f6c50b17bba8..bd8795198a7d6 100644
---- a/include/sound/soc-dpcm.h
-+++ b/include/sound/soc-dpcm.h
-@@ -121,6 +121,10 @@ int snd_soc_dpcm_can_be_free_stop(struct snd_soc_pcm_runtime *fe,
- int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 		struct snd_soc_pcm_runtime *be, int stream);
- 
-+/* can this BE perform prepare */
-+int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
-+				 struct snd_soc_pcm_runtime *be, int stream);
-+
- /* is the current PCM operation for this FE ? */
- int snd_soc_dpcm_fe_can_update(struct snd_soc_pcm_runtime *fe, int stream);
- 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index fb874f924bbe3..e52c030bd17a2 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2332,6 +2332,9 @@ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream)
- 		if (!snd_soc_dpcm_be_can_update(fe, be, stream))
- 			continue;
- 
-+		if (!snd_soc_dpcm_can_be_prepared(fe, be, stream))
-+			continue;
-+
- 		if ((be->dpcm[stream].state != SND_SOC_DPCM_STATE_HW_PARAMS) &&
- 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
- 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND) &&
-@@ -2972,3 +2975,20 @@ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 36da0f01571a1..3e14fac6666e9 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -183,30 +183,6 @@ static void i2s_stop(struct dw_i2s_dev *dev,
+ 	}
  }
- EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_params);
-+
-+/*
-+ * We can only prepare a BE DAI if any of it's FE are not prepared,
-+ * running or paused for the specified stream direction.
-+ */
-+int snd_soc_dpcm_can_be_prepared(struct snd_soc_pcm_runtime *fe,
-+				 struct snd_soc_pcm_runtime *be, int stream)
+ 
+-static int dw_i2s_startup(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *cpu_dai)
+-{
+-	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(cpu_dai);
+-	union dw_i2s_snd_dma_data *dma_data = NULL;
+-
+-	if (!(dev->capability & DWC_I2S_RECORD) &&
+-			(substream->stream == SNDRV_PCM_STREAM_CAPTURE))
+-		return -EINVAL;
+-
+-	if (!(dev->capability & DWC_I2S_PLAY) &&
+-			(substream->stream == SNDRV_PCM_STREAM_PLAYBACK))
+-		return -EINVAL;
+-
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		dma_data = &dev->play_dma_data;
+-	else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
+-		dma_data = &dev->capture_dma_data;
+-
+-	snd_soc_dai_set_dma_data(cpu_dai, substream, (void *)dma_data);
+-
+-	return 0;
+-}
+-
+ static void dw_i2s_config(struct dw_i2s_dev *dev, int stream)
+ {
+ 	u32 ch_reg;
+@@ -305,12 +281,6 @@ static int dw_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static void dw_i2s_shutdown(struct snd_pcm_substream *substream,
+-		struct snd_soc_dai *dai)
+-{
+-	snd_soc_dai_set_dma_data(dai, substream, NULL);
+-}
+-
+ static int dw_i2s_prepare(struct snd_pcm_substream *substream,
+ 			  struct snd_soc_dai *dai)
+ {
+@@ -382,8 +352,6 @@ static int dw_i2s_set_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
+ }
+ 
+ static const struct snd_soc_dai_ops dw_i2s_dai_ops = {
+-	.startup	= dw_i2s_startup,
+-	.shutdown	= dw_i2s_shutdown,
+ 	.hw_params	= dw_i2s_hw_params,
+ 	.prepare	= dw_i2s_prepare,
+ 	.trigger	= dw_i2s_trigger,
+@@ -624,6 +592,14 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
+ 
+ }
+ 
++static int dw_i2s_dai_probe(struct snd_soc_dai *dai)
 +{
-+	const enum snd_soc_dpcm_state state[] = {
-+		SND_SOC_DPCM_STATE_START,
-+		SND_SOC_DPCM_STATE_PAUSED,
-+		SND_SOC_DPCM_STATE_PREPARE,
-+	};
++	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(dai);
 +
-+	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
++	snd_soc_dai_init_dma_data(dai, &dev->play_dma_data, &dev->capture_dma_data);
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_prepared);
++
+ static int dw_i2s_probe(struct platform_device *pdev)
+ {
+ 	const struct i2s_platform_data *pdata = pdev->dev.platform_data;
+@@ -642,6 +618,7 @@ static int dw_i2s_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	dw_i2s_dai->ops = &dw_i2s_dai_ops;
++	dw_i2s_dai->probe = dw_i2s_dai_probe;
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	dev->i2s_base = devm_ioremap_resource(&pdev->dev, res);
 -- 
 2.39.2
 

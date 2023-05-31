@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A850E7182C9
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 15:45:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F378F7182CD
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 15:45:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D99AF74C;
-	Wed, 31 May 2023 15:44:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D99AF74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 800C9836;
+	Wed, 31 May 2023 15:44:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 800C9836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685540725;
-	bh=iFJEowEoUDRgZP74DXM1b0/nKlercBiGuQHhIiZB0oU=;
+	s=default; t=1685540731;
+	bh=cCf3tJQ4w5561OUSdVs1qUeV/NIHF1MMYZMFvn77Q/0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iWOcAlqLejUoCkEqlSVMz/ijdnxqVXWcjMSogMb2uZSe/IbkjfrZvk7puOewru+aT
-	 dEPG247bOI6anT43iNMPYwjDUw+t+OHHESoEzfMZn/kSdEuAroH4w2J6dAJwvr/4KJ
-	 PN3vKH/IWTxPRB2qEW5tu7I1NXnqubiB125aQ0U0=
+	b=BdqyEpC3+CMIch2F2lm8Ari1PnqF5zoMeyGaQ3O39KTYBnmsOV57aJRzGYicRaRFb
+	 ez8gR1u1T21afhdlLSs+tdWAMuNz5o5ZZQNRbTf40GiStv4dDzvk2SdYNXcltA1Bpj
+	 OIYerWoDwKlA9l4G004CGSqxBDaVZmffqCHE4z7Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69BCCF805C7; Wed, 31 May 2023 15:43:26 +0200 (CEST)
+	id 05455F8056F; Wed, 31 May 2023 15:43:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB532F80552;
-	Wed, 31 May 2023 15:43:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63E55F80086;
+	Wed, 31 May 2023 15:43:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32E3FF805AE; Wed, 31 May 2023 15:43:22 +0200 (CEST)
+	id 077ECF8056F; Wed, 31 May 2023 15:43:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0AA1F8057A
-	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 15:43:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0AA1F8057A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 724C7F805A0
+	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 15:43:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 724C7F805A0
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=X1xhiYiT
+ header.s=k20201202 header.b=XDuXJxYU
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id DFB0763B00;
-	Wed, 31 May 2023 13:43:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AF6C433D2;
-	Wed, 31 May 2023 13:43:04 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3E47263B52;
+	Wed, 31 May 2023 13:43:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C3FC433D2;
+	Wed, 31 May 2023 13:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685540585;
-	bh=iFJEowEoUDRgZP74DXM1b0/nKlercBiGuQHhIiZB0oU=;
+	s=k20201202; t=1685540616;
+	bh=cCf3tJQ4w5561OUSdVs1qUeV/NIHF1MMYZMFvn77Q/0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=X1xhiYiTlcn/OnrFDOWRyXKxtVt2WILTStO3mj73Xe8+RkVnd5pkP2g4/KKB7bsFJ
-	 7xp4zT6kJFJSRoUW44+OV6EtIAalyYKK0Q7gZnfPMMUJQn37QVwAVXz8iuSBN5Fane
-	 UCWLvJSVEzwVJcfhqAB8NdoIz3kK4W0XZWpzcdTfp85J0gPVBG6hQ6hTpZ3IAdGFJr
-	 E6MkgyAtYOQjbTbwgpfl9mg2QO/WyzTR2fVsFIt9+wMNYIxwQhUZ9C8OnAaUtYhlh/
-	 XJjHdIFPmo6MWT+Njd8P1B/dkYDFYNO1H8RqklXWSEWfpiF7MHnB7nwU5fsG/sIbe4
-	 6HZotC3BYmBqw==
+	b=XDuXJxYUxiJVq3MwnzNt44U908xX/LsfHZr7szh/XaajJC9DkQA6GxfKhg6xUN9ht
+	 MGjbik/Hy0ImeRj8B26dxXaIjL/+4xzcwk8rNL/iKFKL9SR83Tc2tQ0KUDyGav+Eq6
+	 VQwYUm6gK8GqDWemrnLJOhc7YAmbnpCcp+sQIOJiXHrGcfogjrPYzJeT+rhYJJNz8F
+	 Fj2cD2rWS4NYw08bQNVwrf3+zhJ3qfew6C719n0noq/xkpVLKRvHQ4yRxEehzcFYQa
+	 WBF2+y5QQrlgX155Eq8sUiHyJ/MGmkXA4yed1hdvIuYcEh+iSiBpY57fxqMoK7EMmf
+	 aJDukehYs1aUQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Maxim Kochetkov <fido_max@inbox.ru>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>,
 	Sasha Levin <sashal@kernel.org>,
+	srinivas.kandagatla@linaro.org,
+	bgoswami@quicinc.com,
 	lgirdwood@gmail.com,
+	broonie@kernel.org,
 	perex@perex.cz,
 	tiwai@suse.com,
-	ckeepax@opensource.cirrus.com,
-	u.kleine-koenig@pengutronix.de,
 	alsa-devel@alsa-project.org
-Subject: [PATCH AUTOSEL 6.1 29/33] ASoC: dwc: move DMA init to
- snd_soc_dai_driver probe()
-Date: Wed, 31 May 2023 09:41:55 -0400
-Message-Id: <20230531134159.3383703-29-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 11/24] ASoC: lpass: Fix for KASAN use_after_free
+ out of bounds
+Date: Wed, 31 May 2023 09:43:07 -0400
+Message-Id: <20230531134320.3384102-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230531134159.3383703-1-sashal@kernel.org>
-References: <20230531134159.3383703-1-sashal@kernel.org>
+In-Reply-To: <20230531134320.3384102-1-sashal@kernel.org>
+References: <20230531134320.3384102-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: YQX57SGEHUDSULVKLY75IF2B3OUWJT6M
-X-Message-ID-Hash: YQX57SGEHUDSULVKLY75IF2B3OUWJT6M
+Message-ID-Hash: 34LISLYWSEACJIDQUNR5RGWZSO3FANS6
+X-Message-ID-Hash: 34LISLYWSEACJIDQUNR5RGWZSO3FANS6
 X-MailFrom: sashal@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YQX57SGEHUDSULVKLY75IF2B3OUWJT6M/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/34LISLYWSEACJIDQUNR5RGWZSO3FANS6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,144 +106,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Maxim Kochetkov <fido_max@inbox.ru>
+From: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com>
 
-[ Upstream commit 011a8719d6105dcb48077ea7a6a88ac019d4aa50 ]
+[ Upstream commit 75e5fab7db0cecb6e16b22c34608f0b40a4c7cd1 ]
 
-When using DMA mode we are facing with Oops:
-[  396.458157] Unable to handle kernel access to user memory without uaccess routines at virtual address 000000000000000c
-[  396.469374] Oops [#1]
-[  396.471839] Modules linked in:
-[  396.475144] CPU: 0 PID: 114 Comm: arecord Not tainted 6.0.0-00164-g9a8eccdaf2be-dirty #68
-[  396.483619] Hardware name: YMP ELCT FPGA (DT)
-[  396.488156] epc : dmaengine_pcm_open+0x1d2/0x342
-[  396.493227]  ra : dmaengine_pcm_open+0x1d2/0x342
-[  396.498140] epc : ffffffff807fe346 ra : ffffffff807fe346 sp : ffffffc804e138f0
-[  396.505602]  gp : ffffffff817bf730 tp : ffffffd8042c8ac0 t0 : 6500000000000000
-[  396.513045]  t1 : 0000000000000064 t2 : 656e69676e65616d s0 : ffffffc804e13990
-[  396.520477]  s1 : ffffffd801b86a18 a0 : 0000000000000026 a1 : ffffffff816920f8
-[  396.527897]  a2 : 0000000000000010 a3 : fffffffffffffffe a4 : 0000000000000000
-[  396.535319]  a5 : 0000000000000000 a6 : ffffffd801b87040 a7 : 0000000000000038
-[  396.542740]  s2 : ffffffd801b94a00 s3 : 0000000000000000 s4 : ffffffd80427f5e8
-[  396.550153]  s5 : ffffffd80427f5e8 s6 : ffffffd801b44410 s7 : fffffffffffffff5
-[  396.557569]  s8 : 0000000000000800 s9 : 0000000000000001 s10: ffffffff8066d254
-[  396.564978]  s11: ffffffd8059cf768 t3 : ffffffff817d5577 t4 : ffffffff817d5577
-[  396.572391]  t5 : ffffffff817d5578 t6 : ffffffc804e136e8
-[  396.577876] status: 0000000200000120 badaddr: 000000000000000c cause: 000000000000000d
-[  396.586007] [<ffffffff806839f4>] snd_soc_component_open+0x1a/0x68
-[  396.592439] [<ffffffff807fdd62>] __soc_pcm_open+0xf0/0x502
-[  396.598217] [<ffffffff80685d86>] soc_pcm_open+0x2e/0x4e
-[  396.603741] [<ffffffff8066cea4>] snd_pcm_open_substream+0x442/0x68e
-[  396.610313] [<ffffffff8066d1ea>] snd_pcm_open+0xfa/0x212
-[  396.615868] [<ffffffff8066d39c>] snd_pcm_capture_open+0x3a/0x60
-[  396.622048] [<ffffffff8065b35a>] snd_open+0xa8/0x17a
-[  396.627421] [<ffffffff801ae036>] chrdev_open+0xa0/0x218
-[  396.632893] [<ffffffff801a5a28>] do_dentry_open+0x17c/0x2a6
-[  396.638713] [<ffffffff801a6d9a>] vfs_open+0x1e/0x26
-[  396.643850] [<ffffffff801b8544>] path_openat+0x96e/0xc96
-[  396.649518] [<ffffffff801b9390>] do_filp_open+0x7c/0xf6
-[  396.655034] [<ffffffff801a6ff2>] do_sys_openat2+0x8a/0x11e
-[  396.660765] [<ffffffff801a735a>] sys_openat+0x50/0x7c
-[  396.666068] [<ffffffff80003aca>] ret_from_syscall+0x0/0x2
-[  396.674964] ---[ end trace 0000000000000000 ]---
+When we run syzkaller we get below Out of Bounds error.
 
-It happens because of play_dma_data/capture_dma_data pointers are NULL.
-Current implementation assigns these pointers at snd_soc_dai_driver
-startup() callback and reset them back to NULL at shutdown(). But
-soc_pcm_open() sequence uses DMA pointers in dmaengine_pcm_open()
-before snd_soc_dai_driver startup().
-Most generic DMA capable I2S drivers use snd_soc_dai_driver probe()
-callback to init DMA pointers only once at probe. So move DMA init
-to dw_i2s_dai_probe and drop shutdown() and startup() callbacks.
+"KASAN: slab-out-of-bounds Read in regcache_flat_read"
 
-Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
-Link: https://lore.kernel.org/r/20230512110343.66664-1-fido_max@inbox.ru
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Below is the backtrace of the issue:
+
+BUG: KASAN: slab-out-of-bounds in regcache_flat_read+0x10c/0x110
+Read of size 4 at addr ffffff8088fbf714 by task syz-executor.4/14144
+CPU: 6 PID: 14144 Comm: syz-executor.4 Tainted: G        W
+Hardware name: Qualcomm Technologies, Inc. sc7280 CRD platform (rev5+) (DT)
+Call trace:
+dump_backtrace+0x0/0x4ec
+show_stack+0x34/0x50
+dump_stack_lvl+0xdc/0x11c
+print_address_description+0x30/0x2d8
+kasan_report+0x178/0x1e4
+__asan_report_load4_noabort+0x44/0x50
+regcache_flat_read+0x10c/0x110
+regcache_read+0xf8/0x5a0
+_regmap_read+0x45c/0x86c
+_regmap_update_bits+0x128/0x290
+regmap_update_bits_base+0xc0/0x15c
+snd_soc_component_update_bits+0xa8/0x22c
+snd_soc_component_write_field+0x68/0xd4
+tx_macro_put_dec_enum+0x1d0/0x268
+snd_ctl_elem_write+0x288/0x474
+
+By Error checking and checking valid values issue gets rectifies.
+
+Signed-off-by: Ravulapati Vishnu Vardhan Rao <quic_visr@quicinc.com
+Link: https://lore.kernel.org/r/20230511112532.16106-1-quic_visr@quicinc.com
+Signed-off-by: Mark Brown <broonie@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/dwc/dwc-i2s.c | 41 +++++++++--------------------------------
- 1 file changed, 9 insertions(+), 32 deletions(-)
+ sound/soc/codecs/lpass-tx-macro.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
-index 7f7dd07c63b2f..d2dd865e5ad89 100644
---- a/sound/soc/dwc/dwc-i2s.c
-+++ b/sound/soc/dwc/dwc-i2s.c
-@@ -183,30 +183,6 @@ static void i2s_stop(struct dw_i2s_dev *dev,
+diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-tx-macro.c
+index 35d148e60c334..4377e91733b87 100644
+--- a/sound/soc/codecs/lpass-tx-macro.c
++++ b/sound/soc/codecs/lpass-tx-macro.c
+@@ -743,6 +743,8 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
+ 	struct tx_macro *tx = snd_soc_component_get_drvdata(component);
+ 
+ 	val = ucontrol->value.enumerated.item[0];
++	if (val >= e->items)
++		return -EINVAL;
+ 
+ 	switch (e->reg) {
+ 	case CDC_TX_INP_MUX_ADC_MUX0_CFG0:
+@@ -769,6 +771,9 @@ static int tx_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
+ 	case CDC_TX_INP_MUX_ADC_MUX7_CFG0:
+ 		mic_sel_reg = CDC_TX7_TX_PATH_CFG0;
+ 		break;
++	default:
++		dev_err(component->dev, "Error in configuration!!\n");
++		return -EINVAL;
  	}
- }
  
--static int dw_i2s_startup(struct snd_pcm_substream *substream,
--		struct snd_soc_dai *cpu_dai)
--{
--	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(cpu_dai);
--	union dw_i2s_snd_dma_data *dma_data = NULL;
--
--	if (!(dev->capability & DWC_I2S_RECORD) &&
--			(substream->stream == SNDRV_PCM_STREAM_CAPTURE))
--		return -EINVAL;
--
--	if (!(dev->capability & DWC_I2S_PLAY) &&
--			(substream->stream == SNDRV_PCM_STREAM_PLAYBACK))
--		return -EINVAL;
--
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--		dma_data = &dev->play_dma_data;
--	else if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
--		dma_data = &dev->capture_dma_data;
--
--	snd_soc_dai_set_dma_data(cpu_dai, substream, (void *)dma_data);
--
--	return 0;
--}
--
- static void dw_i2s_config(struct dw_i2s_dev *dev, int stream)
- {
- 	u32 ch_reg;
-@@ -305,12 +281,6 @@ static int dw_i2s_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static void dw_i2s_shutdown(struct snd_pcm_substream *substream,
--		struct snd_soc_dai *dai)
--{
--	snd_soc_dai_set_dma_data(dai, substream, NULL);
--}
--
- static int dw_i2s_prepare(struct snd_pcm_substream *substream,
- 			  struct snd_soc_dai *dai)
- {
-@@ -382,8 +352,6 @@ static int dw_i2s_set_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- }
- 
- static const struct snd_soc_dai_ops dw_i2s_dai_ops = {
--	.startup	= dw_i2s_startup,
--	.shutdown	= dw_i2s_shutdown,
- 	.hw_params	= dw_i2s_hw_params,
- 	.prepare	= dw_i2s_prepare,
- 	.trigger	= dw_i2s_trigger,
-@@ -625,6 +593,14 @@ static int dw_configure_dai_by_dt(struct dw_i2s_dev *dev,
- 
- }
- 
-+static int dw_i2s_dai_probe(struct snd_soc_dai *dai)
-+{
-+	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(dai);
-+
-+	snd_soc_dai_init_dma_data(dai, &dev->play_dma_data, &dev->capture_dma_data);
-+	return 0;
-+}
-+
- static int dw_i2s_probe(struct platform_device *pdev)
- {
- 	const struct i2s_platform_data *pdata = pdev->dev.platform_data;
-@@ -643,6 +619,7 @@ static int dw_i2s_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	dw_i2s_dai->ops = &dw_i2s_dai_ops;
-+	dw_i2s_dai->probe = dw_i2s_dai_probe;
- 
- 	dev->i2s_base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(dev->i2s_base))
+ 	if (val != 0) {
 -- 
 2.39.2
 

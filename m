@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34E7C7184F0
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 16:27:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D932371868A
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 May 2023 17:39:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8231320C;
-	Wed, 31 May 2023 16:26:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8231320C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1DB66207;
+	Wed, 31 May 2023 17:38:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1DB66207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685543262;
-	bh=uZrecblMyFP3eudphYm0KjVCQrjhgwqr75yaoD6auEc=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=NIpffmMkcCvCSrjTD0UGhPsN8t2VslvS7qFN/wirYR8GgBdmOwHTh4CZh5jdg0DgY
-	 NixBwEXb5JVrdyx6Eo8p4KJisd7kemxXFnOf4yt8pJAwBS7Me1GXn2XdpmbWUIsI2T
-	 ibUisUopPSqXqDL+daQ0amMNWIIx0Q8NbR61Q8VU=
+	s=default; t=1685547573;
+	bh=6DI2DHRWOc9zMk59x0sHc4F3JGtBtQ2RPhE5y3189E0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=tPN2yFuz1Lh5Q0b1ryJytIk+nAy3KmxUccC76qz7Zln04mqj4dc6OGrERNV1KVCuK
+	 W5S1P0tQCjg2DGY6JSGglfIRH3Vhd9sgT6laKk0XUSUvXMl3XuGjn4OdWtlFeB8MF4
+	 SiyWYr/f2FV7MU13A8NTyQVaWbFv9NA2jYBYhZnU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E07EF80149; Wed, 31 May 2023 16:26:51 +0200 (CEST)
+	id C0538F8026A; Wed, 31 May 2023 17:38:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E0B3F8026A;
-	Wed, 31 May 2023 16:26:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B76E9F8026A;
+	Wed, 31 May 2023 17:38:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC842F8026A; Wed, 31 May 2023 16:26:46 +0200 (CEST)
+	id 7F283F8042F; Wed, 31 May 2023 17:38:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,46 +35,44 @@ X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BC66CF80149
-	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 16:26:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC66CF80149
+	by alsa1.perex.cz (Postfix) with ESMTPS id D773EF80149
+	for <alsa-devel@alsa-project.org>; Wed, 31 May 2023 17:38:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D773EF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ZfJXgOnt
+ header.s=k20201202 header.b=t6keJnQe
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A6F64614A2;
-	Wed, 31 May 2023 14:26:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D04F6C433EF;
-	Wed, 31 May 2023 14:26:36 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7164A6118B;
+	Wed, 31 May 2023 15:38:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A015C433D2;
+	Wed, 31 May 2023 15:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685543198;
-	bh=uZrecblMyFP3eudphYm0KjVCQrjhgwqr75yaoD6auEc=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=ZfJXgOnttHUiKqjYtLk8ldIUuyeZAQw1z9o2Bh+OW9frmPTAw2QDsQrn1tRKpby64
-	 njcuDgN1TCjVm5i80RVq4BZLomYD2/sJkL2IW6cTkrpnL2y/IZiOGznYHub3syK4OE
-	 7kALI0kIzjOAKM1nHY/+TQKux0vYXyNCl6Ru/exT7eMKV1AgwHFd13BMjmKk4ayBsv
-	 Y1lusZSNYPWnTM5NhKh0q3UZ3f/f+NDg4jKWa1SKgfGs6ICzbuqD1hXNNxDgAhbKMe
-	 AqlzGD6tIUA5u9ZR690ev0CeXJEidq7jOwUv30P8PgCx+dlf4towWShf7qDIYSXvGr
-	 ASYThJsOxYqgQ==
+	s=k20201202; t=1685547497;
+	bh=6DI2DHRWOc9zMk59x0sHc4F3JGtBtQ2RPhE5y3189E0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=t6keJnQeBk9PfD2pdHKnE06p4FRWh4o1iijTE9iAq9h8kNGQcMKzK3nc+ScgXBCtJ
+	 Pr/XO3y8ZDcbzr1ScAQAJlYjHFiMzaUSQEs+pIyxy/9mkQ8A74XSrp5/6cWHjXpi5w
+	 SFzk6w80c8ptgQHOyKFH5pPCeRc91mOMJ6AeZvi5ZSNh0O53gLWuLcB3VzUFXDsDHj
+	 N6j1JNG43fo+7ONffElq0mzxOdL80Ssv/YTeSqjNJmD8kYXYZ2QCMrlWFUQu5YQ2do
+	 Vn/6krjMfIqeHbxVggrfn2byCu+FD8rfD8J5zX7YiOY1KS0732F2c42YxIpy6y9j2g
+	 jJGxpd1XfTu5w==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Sicong Jiang <kevin.jiangsc@gmail.com>
-In-Reply-To: <20230531090635.89565-1-kevin.jiangsc@gmail.com>
-References: <20230531090635.89565-1-kevin.jiangsc@gmail.com>
-Subject: Re: [PATCH] ASoC: amd: yc: Add Thinkpad Neo14 to quirks list for
- acp6x
-Message-Id: <168554319655.98519.9217752703548854880.b4-ty@kernel.org>
-Date: Wed, 31 May 2023 15:26:36 +0100
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <87zg5mzlrc.wl-kuninori.morimoto.gx@renesas.com>
+References: <87zg5mzlrc.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH 0/5] ASoC: minor cleanup for soc_get_playback_capture()
+Message-Id: <168554749705.125455.17566588901813177203.b4-ty@kernel.org>
+Date: Wed, 31 May 2023 16:38:17 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: EWBIXYGQ7SLULLJCQ4OOW3FZFDN7MRPU
-X-Message-ID-Hash: EWBIXYGQ7SLULLJCQ4OOW3FZFDN7MRPU
+Message-ID-Hash: A2SYR3SLP7OAZULI6ODYOG524YUTNJJD
+X-Message-ID-Hash: A2SYR3SLP7OAZULI6ODYOG524YUTNJJD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,20 +85,29 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EWBIXYGQ7SLULLJCQ4OOW3FZFDN7MRPU/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A2SYR3SLP7OAZULI6ODYOG524YUTNJJD/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 31 May 2023 21:06:35 +1200, Sicong Jiang wrote:
-> Thinkpad Neo14 Ryzen Edition uses Ryzen 6800H processor, and adding to
-> quirks list for acp6x will enable internal mic.
+On Tue, 30 May 2023 00:49:27 +0000, Kuninori Morimoto wrote:
+> This is minor cleanup patches for soc_get_playback_capture().
 > 
+> Link: https://lore.kernel.org/r/87ttw1gqgn.wl-kuninori.morimoto.gx@renesas.com
+> Link: https://lore.kernel.org/r/87353uqjiu.wl-kuninori.morimoto.gx@renesas.com
+> Link: https://lore.kernel.org/r/ab3f0c0a-62fd-a468-b3cf-0e4b59bac6ae@linux.intel.com
 > 
+> Kuninori Morimoto (5):
+>   ASoC: soc-pcm.c: indicate error if stream has no playback no capture
+>   ASoC: soc-pcm.c: use dai_link on soc_get_playback_capture()
+>   ASoC: soc-pcm.c: cleanup soc_get_playback_capture() error
+>   ASoC: soc-pcm.c: use temporary variable at soc_get_playback_capture()
+>   ASoC: soc-pcm.c: tidyup playback/capture_only at soc_get_playback_capture()
+> 
+> [...]
 
 Applied to
 
@@ -108,8 +115,16 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: amd: yc: Add Thinkpad Neo14 to quirks list for acp6x
-      commit: 57d1e8900495cf1751cec74db16fe1a0fe47efbb
+[1/5] ASoC: soc-pcm.c: indicate error if stream has no playback no capture
+      commit: 092830cf550667d5fa6286605167d232f2c1f61e
+[2/5] ASoC: soc-pcm.c: use dai_link on soc_get_playback_capture()
+      commit: cfcb31c456b15e298f88fb5ebedf7b32b009d32d
+[3/5] ASoC: soc-pcm.c: cleanup soc_get_playback_capture() error
+      commit: a1c0221fa5baeae6c9dc30294c2c6d01f1f4379b
+[4/5] ASoC: soc-pcm.c: use temporary variable at soc_get_playback_capture()
+      commit: c3e9b6d6ef5a0a3e841c3aa29e7afc48a0b73806
+[5/5] ASoC: soc-pcm.c: tidyup playback/capture_only at soc_get_playback_capture()
+      commit: e1f653ce847bab7285dd135cabe3ce544e574c75
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

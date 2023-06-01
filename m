@@ -2,93 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9413B71EFBD
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 18:54:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E8771F0CC
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 19:31:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E00941DC;
-	Thu,  1 Jun 2023 18:53:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E00941DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76D4A207;
+	Thu,  1 Jun 2023 19:30:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76D4A207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685638445;
-	bh=bhdAFTRphoPxW/9JmfSMKhCJWRqyEDl5R+kjnpRDSLg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Emq2FNol5tcJC6LqyKCSESzcXB1zhOpO7SK90lqnnY5TbsdDdvU9Q9e+vwhWlLqt/
-	 21wyEPcJGD2yICunxpV7w3KEaqJafnMxHW9+/aUPkhHJozQvwHqZFpXncmZ1dqbouF
-	 fD6LWILLjKx4VA1JdCRrP36FnN/f0tieAtcDx9lM=
+	s=default; t=1685640683;
+	bh=RMEAphzv5SI4Uf4hnlQBzgxd/Z3ppGKtTQ5LM+Upek4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=PJfqKKFfLzZqlnPluTlEvXXqcRjMkuJP9yNsJgjkkVbql+jsFghbYZX/Dk5SZk0KO
+	 iA277yoI03rApxoA7Y2lrAV8/R1zaTitbX64hKmVXTe06SwZtUaehFdOTqHyqm8ajQ
+	 HArONEJ9VcjQgK+VQBFadhjhlHudu6jzWdazcXyo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5722FF8058C; Thu,  1 Jun 2023 18:52:28 +0200 (CEST)
+	id C7C77F8047D; Thu,  1 Jun 2023 19:30:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D18EF8056F;
-	Thu,  1 Jun 2023 18:52:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66C1DF80132;
+	Thu,  1 Jun 2023 19:30:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E2B89F80580; Thu,  1 Jun 2023 18:52:24 +0200 (CEST)
+	id B8B4EF80132; Thu,  1 Jun 2023 19:30:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.smtpout.orange.fr (smtp-19.smtpout.orange.fr
+ [80.12.242.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5EC64F8016B
-	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 18:52:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EC64F8016B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B87EF800C1
+	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 19:30:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B87EF800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=l9IMMXEo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685638321; x=1717174321;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=bhdAFTRphoPxW/9JmfSMKhCJWRqyEDl5R+kjnpRDSLg=;
-  b=l9IMMXEoWl1tlLQT8q2AWHoEuPjIZvuOv412Lnu1vD+KMErdSf35ENoa
-   u1JGB4JsarDnzusreU0q7kV/n7RTsfhIebd9p/aZHoLyglgN3V9QtcoFr
-   cthfeDzcTsnngvrjoSdsztL1opouoZ8MQY0EL0J+IPbBTfn2NW35ZN+Vi
-   8h3zWRTjXSVYy99p83DEl7rAkPzOHQafZKCavaGL4ivBszOP5Cd83Uag7
-   PtoSqK+R2t5Wff7dgnmK68Mhg5m/UTkSk76VoDEuujoIUF4+R5tl+b/ZP
-   LtjMnh+xohF7ceUDaG7AxzY8rv2n3MBoMDywbS/nZft+mGtqbmRpLq2kQ
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="421426894"
-X-IronPort-AV: E=Sophos;i="6.00,210,1681196400";
-   d="scan'208";a="421426894"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2023 09:51:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="777283287"
-X-IronPort-AV: E=Sophos;i="6.00,210,1681196400";
-   d="scan'208";a="777283287"
-Received: from rcelisco-mobl.amr.corp.intel.com (HELO [10.212.207.82])
- ([10.212.207.82])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2023 09:51:57 -0700
-Message-ID: <9bcc7daa-744d-a092-91fa-07c0c869b386@linux.intel.com>
-Date: Thu, 1 Jun 2023 11:43:17 -0500
+ unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256
+ header.s=t20230301 header.b=hEQw/usF
+Received: from pop-os.home ([86.243.2.178])
+	by smtp.orange.fr with ESMTPA
+	id 4m7qqKkRYe9XV4m7qqJitg; Thu, 01 Jun 2023 19:30:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1685640618;
+	bh=rhggJM25UscX66J1Ug1pJJ1oVkQChGg3ni6GqVZhFI0=;
+	h=From:To:Cc:Subject:Date;
+	b=hEQw/usFf5yS+y9l4ClFR8rgeZwr2277zC+d2Mk73yPZjHgov2C9HuWtcnxXuChk3
+	 wD8vpbixpGVJtCJoCRO3FNPLN8dON09RpnfHLZbYdz8sheqbwP/nrdWgN1ERr2kIMx
+	 LkrEFfXDsYMJmUDxGpbh3sfPP0cK5Lxe4hKUc0Br7+GXhSSe4WUjwFnwA18lEb9nXh
+	 fYQCz1GoLvK946K59PwI7IAbtVItKflaWfb0yS6dsU3uK6k4uTe1mPyBwtkQ0A99cu
+	 S0OphpjdSucfnF2u9NJ4wUzWLIVvUAaq08Xx8GayAB5iILrKzn7Xke+Ja+ZT/Ov3Yi
+	 HcGfLUBumtO1A==
+X-ME-Helo: pop-os.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Thu, 01 Jun 2023 19:30:18 +0200
+X-ME-IP: 86.243.2.178
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	sound-open-firmware@alsa-project.org,
+	alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: SOF: ipc4-topology: Use size_t for variable passed to
+ kzalloc()
+Date: Thu,  1 Jun 2023 19:30:12 +0200
+Message-Id: 
+ <a311e4ae83406f714c9d1f7f2f857284265e581c.1685640591.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 1/4] soundwire: stream: Add missing clear of
- alloc_slave_rt
-Content-Language: en-US
-To: Charles Keepax <ckeepax@opensource.cirrus.com>, vkoul@kernel.org
-Cc: yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20230601161622.1808135-1-ckeepax@opensource.cirrus.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230601161622.1808135-1-ckeepax@opensource.cirrus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: QXCMOOYD7RX57V6DDS6MPRTBC6WVDRII
-X-Message-ID-Hash: QXCMOOYD7RX57V6DDS6MPRTBC6WVDRII
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: WGV2APYAR5L2YDIJ2FNKQDUZNSJTN5AX
+X-Message-ID-Hash: WGV2APYAR5L2YDIJ2FNKQDUZNSJTN5AX
+X-MailFrom: christophe.jaillet@wanadoo.fr
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QXCMOOYD7RX57V6DDS6MPRTBC6WVDRII/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WGV2APYAR5L2YDIJ2FNKQDUZNSJTN5AX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,36 +106,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+struct_size() checks for overflow, but assigning its result to just a u32
+may still overflow after a successful check.
 
+Use a size_t instead in order to be cleaner.
 
-On 6/1/23 11:16, Charles Keepax wrote:
-> The current path that skips allocating the slave runtime does not clear
-> the alloc_slave_rt flag, this is clearly incorrect. Add the missing
-> clear, so the runtime won't be erroneously cleaned up.
-> 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Based on analysis from Dan Carpenter on another patch (see [1]).
 
-Sounds about right, thanks
+[1]: https://lore.kernel.org/all/00e84595-e2c9-48ea-8737-18da34eaafbf@kili.mountain/
+---
+ sound/soc/sof/ipc4-topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index db64e0cb8663..50faa4c88b97 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -881,7 +881,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
+ 	/* allocate memory for base config extension if needed */
+ 	if (process->init_config == SOF_IPC4_MODULE_INIT_CONFIG_TYPE_BASE_CFG_WITH_EXT) {
+ 		struct sof_ipc4_base_module_cfg_ext *base_cfg_ext;
+-		u32 ext_size = struct_size(base_cfg_ext, pin_formats,
++		size_t ext_size = struct_size(base_cfg_ext, pin_formats,
+ 						swidget->num_input_pins + swidget->num_output_pins);
+ 
+ 		base_cfg_ext = kzalloc(ext_size, GFP_KERNEL);
+-- 
+2.34.1
 
-> ---
->  drivers/soundwire/stream.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index c2191c07442b0..379228f221869 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -2021,8 +2021,10 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
->  
->  skip_alloc_master_rt:
->  	s_rt = sdw_slave_rt_find(slave, stream);
-> -	if (s_rt)
-> +	if (s_rt) {
-> +		alloc_slave_rt = false;
->  		goto skip_alloc_slave_rt;
-> +	}
->  
->  	s_rt = sdw_slave_rt_alloc(slave, m_rt);
->  	if (!s_rt) {

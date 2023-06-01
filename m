@@ -2,164 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F3C719FFB
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 16:29:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6F3971A2EB
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 17:45:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 08932206;
-	Thu,  1 Jun 2023 16:28:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08932206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0CED51FA;
+	Thu,  1 Jun 2023 17:44:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CED51FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685629757;
-	bh=uSCq8PHvcWRXeuKYSQaTjuluATQLsLYEUggCXbJj3PY=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1685634332;
+	bh=6wfuvEex59Ok6T5gRrkfMoK/HR47V0aNeFPlA0QEhM8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FfJDLzgJHCzfRgHmHSTQ0paglOnAJErpMrPt4PyXx2PnJQ4y0MenuHuPPpgNeIlO1
-	 NZif7ZQckz3XgR4SPhi5wBDOmk3su/qGH1F0IXA5FcrzBSOGjv1HvQlOWfoIX3YDd2
-	 wUtJNH745agWep/Qc2rLIJynhYGLxXDrjzUE+QY0=
+	b=YisW1+5VULuQrIuaAmayu+B4sr87PJfOWkTGAl8xEHQIzV9b8aygS/wsh9Q58uyrl
+	 82Du+8mZsRI9LRaGYCpmhkn++FO3plmc9FIAdWfdF8B16U3A84tw4xl9zn/Cehvv4r
+	 5V13dE1tlWx/EODCKq3IeVhn2vtzANOmTMsYGf4s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 06CB6F804DA; Thu,  1 Jun 2023 16:28:25 +0200 (CEST)
+	id 3DDB0F800ED; Thu,  1 Jun 2023 17:44:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11BD8F800C8;
-	Thu,  1 Jun 2023 16:28:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B53C7F80132;
+	Thu,  1 Jun 2023 17:44:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB885F80149; Thu,  1 Jun 2023 16:28:18 +0200 (CEST)
+	id 37644F80199; Thu,  1 Jun 2023 17:44:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20620.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::620])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DCA03F800ED
-	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 16:28:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCA03F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id BFFA7F800ED
+	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 17:44:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFFA7F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=infinera.com header.i=@infinera.com header.a=rsa-sha256
- header.s=selector1 header.b=B+UJeuB0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D6k+JODIpEnPwBnjev+1Gs4rjXvuGBeF7a6A+hE95DzkrR+wH+DjgwHwod/H6MwwiZ7idba1zlwqaorNjouD2YIx9H6+3kFH16mCFf1/wgQofYL+3f9dFGFjpm7BtxRRzRk9Kn9LhEXbi3TkZBv4pkxGjkZtrdXrrCbVim0Jvp8dkBgJRYT6EkwCxNRDGtzDbb1BVLa4ebiQ3/+2U7vSYUdlqQ8ESvZjmJyYe9l4sm3H2ZsajAM6KuIvbf3h25DAi22vn5FTxyHxuL0Wln9IflWbdCQnnfFgPzXUzb8W9bZ71EPdMvHp0Z3p9S77FFWEK5vGXVqi3zbrfWi3aq0usg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uSCq8PHvcWRXeuKYSQaTjuluATQLsLYEUggCXbJj3PY=;
- b=afgTMRX1/D+jTa0IppJOuRL2Vo4ypqWAYJKp0Xrfxpn2hf8t9g0FaG2eUdXOF9qbkmAH1477yWLJ6UQETDZks/4ATctLpiYndwCVeK4wdk5zHps7Rsw/x1VqfZ4co9kBJReoTm9pAUN9xT48I6Wzi49WyuduDEFUKNwsOXueADoeK62tp89Xj+TIJZSzZqgC4yMVLe+fY/jmC272GUQybFSeGVxnMLowE+eSfSdK3zg2UhHXx9244uZTITTS/KxXxTaJMMuvDW9/RuuQfSZUK7pDNyBO+nNt2gTZBBdjJl5FnY3kjjZ4ZoH644jvNx626tPUH+DPSxXLoLXTEjk94A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=infinera.com; dmarc=pass action=none header.from=infinera.com;
- dkim=pass header.d=infinera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=infinera.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uSCq8PHvcWRXeuKYSQaTjuluATQLsLYEUggCXbJj3PY=;
- b=B+UJeuB0pBiCZnLdfVj17OcH/ewARnHni7hZ4JOVOy85TO+6q5gCj/lwIUt9Vv/H11nRQ+7WwB05y+2pXVccj4E+Yq8eJ6Xum+yblyDpTAC9WFke3noV4oW0eJUbSPcYYOWjeMD+uLJElI67oQyRi+iRO2cl8MpY21JpXDpvmuIXvA9rzgUBJThnEFx4H72WQYLGremgHbBohzLliH3+mUqS10esbW8GC7MAkifIGo3x+NuA6JjyA9WnJTHFfddTXQH8OoT2stqOKp7ODx1Ne6iXGx/7NKHMNcHwYUKBCxnnc7HPZY5f5W/yyoSMY92Z3097iNsWJEkLG4lf03ggzw==
-Received: from PH0PR10MB4615.namprd10.prod.outlook.com (2603:10b6:510:36::24)
- by IA1PR10MB7538.namprd10.prod.outlook.com (2603:10b6:208:44b::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.24; Thu, 1 Jun
- 2023 14:28:06 +0000
-Received: from PH0PR10MB4615.namprd10.prod.outlook.com
- ([fe80::f01a:585:8d6:3d3c]) by PH0PR10MB4615.namprd10.prod.outlook.com
- ([fe80::f01a:585:8d6:3d3c%6]) with mapi id 15.20.6455.020; Thu, 1 Jun 2023
- 14:28:05 +0000
-From: Joakim Tjernlund <Joakim.Tjernlund@infinera.com>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"perex@perex.cz" <perex@perex.cz>, "michael@ralston.id.au"
-	<michael@ralston.id.au>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH] ALSA: usb-audio: Fix "cannot set freq 48000 to ep 0x3"
- msgs
-Thread-Topic: [PATCH] ALSA: usb-audio: Fix "cannot set freq 48000 to ep 0x3"
- msgs
-Thread-Index: AQHZlIqVywGBgPuStUSeT/ugy2IRmK92AXUA
-Date: Thu, 1 Jun 2023 14:28:05 +0000
-Message-ID: <202bbbc0f51522e8545783c4c5577d12a8e2d56d.camel@infinera.com>
-References: <20230601131116.1014250-1-joakim.tjernlund@infinera.com>
-In-Reply-To: <20230601131116.1014250-1-joakim.tjernlund@infinera.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.48.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=infinera.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR10MB4615:EE_|IA1PR10MB7538:EE_
-x-ms-office365-filtering-correlation-id: 1112e550-d6a9-49e8-40d9-08db62ac6a2c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- vWAXPoVX1PWY0bRzgxY8br82xVJ/+TnATo3wVnPjVyHUHPEb2whP++L7Y2REi9qaSDs0BsAw7AJ8gCTZnrXOsmpStzmBB5BoJL5tguleb4thCyjF4iCI2YX0k1dgvwYIBQN5lIhUUojWj+Oyh8MKUvGxsgHESI5anUOQ9lamhJGPCc+fxSWyvUaq8U5Q2xOgI7FPe/QB8a/6sOu1uyvWdsafpvn9J625G7PwKB3E+D/TOKRQ+Le+Pir/887/dY1dHK1eUQZwc0gieRGpUTrgiITIUO44/66ikuwYffRbTDw/Q7/dAKeIpIPKUME7ml/oy0t7qd5TcGZmKE1on0clRYEiVciDj3luH93JNrWgVT5mntI0QXX+0X7LDgcJumJnf3QH4GIO76QKdDzM9zvOMFbIPu+5euBMOqnVY6whZ26zwJh/RwryjUJ8aauAKjOXwaUSbAP8lWwqH4WirkK+tRyFGbWoz1epdF8qL3p64Z6JinojFXB7efo67bnGyUF4bIIq8UUnTKHzmDuAAcQFi1qJ5NT+RwtJDejazVEiDFXZ598mdQxsGKCebyL1GeLKF0z4VaDpxZVUPai9rQ8F8Z+pfPVMRmmMTikQelsS28dJpnofaCmFAxUlNPvATa1Y
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR10MB4615.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(39860400002)(376002)(366004)(396003)(451199021)(186003)(38070700005)(66946007)(66476007)(66446008)(91956017)(64756008)(76116006)(66556008)(4326008)(36756003)(2616005)(6512007)(83380400001)(86362001)(2906002)(6506007)(8936002)(8676002)(5660300002)(38100700002)(6486002)(478600001)(41300700001)(122000001)(71200400001)(316002)(110136005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?cmRWb3gzTFJBRGFEVThnMkNacjJtbTVnTjYzMmxKRUQ4NGR1aVN4RnEwMFVh?=
- =?utf-8?B?SXJqVXp4STl3M2x4NGpkM0grNi9qRXE3L0NoMytPbERuZUZNNlRQVWNqL2VP?=
- =?utf-8?B?WEptMUd3QkJ2bS9HRXZxbjJUQU54TWdXaTRZeXpubW5IbnVzUkdoU3dFM2RV?=
- =?utf-8?B?eklOK1BxOHFHVGZJaWFuTHhjaXUxQXhuWUQxRS9seDNaREpvaE8xNk9RbGVG?=
- =?utf-8?B?dUxtNVI4Z0EyN0tBSEVEZzQxUCs5VitzbUlCT1VnQjJwTitoMVc1WjlUU0d2?=
- =?utf-8?B?eEZGNDdKbXBncHBmL3Zab3NPckpEc3ZIL2dtTTdTVXFBK3dGanBTY040OEtP?=
- =?utf-8?B?V25qUGtBc1RSUitQbzZ4cmhKQ2hjU29oZlc5QWxsV1ZXUEF1YmdTOGZXVGRr?=
- =?utf-8?B?ZUZrMSt4RG94R0p3MDhMQzlpZWd0TzVsQmltMjV3NUpnZnFoVmtOTFVWZm5m?=
- =?utf-8?B?dUNIUWs3cGFJdU54bk1PbXdmODlQUWxTdWxLYXc1VXNQb1l6NVp1UVQvWEhC?=
- =?utf-8?B?ZlVuNXFzcDNHblZaOFVTUmJITTN0NDVWTTE1K2JiMmNlME5YVSt6VGJpK3JY?=
- =?utf-8?B?dDBjRVZvRExocWNyRTM2elh3YzlJT1ZUelVENWxjWTNNTEJNRWh5eURWZkwz?=
- =?utf-8?B?NDBlN3VCQWlnekRQK1AzZmZpeUE2MFlGMW15V0VGYThZUE9TK3BXUHJBWnBO?=
- =?utf-8?B?MGZoMTBsR3g0aDNLakh0d25ORXZRYnN0ZXdPVzQ5T0s0d0toakh3V1NZNllO?=
- =?utf-8?B?RExyZWlWSk85a25TdFFqNktUeWtHeWFYRDRzem9kZXVnMDNrNEtQQnBRcjNG?=
- =?utf-8?B?S01kRDcxWmoreE90elRDV0h1czBveXFYTVhRREtQS3ZxUG4reHhsZjJ4SDh0?=
- =?utf-8?B?Zk8xakJCNkxBKzdWcFZnZTFQdlBNVFFaY0hqMGJSaXpBYkI4dXB4QnB4aWpl?=
- =?utf-8?B?T1JpWVl2K2d6V0ZOYS9TUmc4TGxnb01KUUo5bUNQT0NaN0hJZXZLZHViSjJw?=
- =?utf-8?B?Y0pvR1RzQkV2VURsQmI4VmdZcXFORDliRm9MS2k2WVJxV0hOOElKaDhxeWdG?=
- =?utf-8?B?a05NTGYvKzVIajlZWDFrSG9wZ3BkSUo1RkdZK1dvRmlrdlp0blhGcjZOMkRo?=
- =?utf-8?B?OExMaElDNVhJcGFQUUVES1pZQjllWjhoM0JpOC9HaERmNTd1a3h3ckY4b01y?=
- =?utf-8?B?dXpqNjJNNE9wVmxaVTI1cGZGaVdXNHFSMTFnVmFKaUM0aFpINllmdndubkUv?=
- =?utf-8?B?b3l5M24vZFFOUkhCckxNakZlS1prOXZERWlkT2xBN2FvNmE5aGQ1V0tjUWJn?=
- =?utf-8?B?QUFOdytZVkp4WFZiNHlmd2NUb1lodTk3disrWEpzcHp5QkZKTk9ZdHM2aVRn?=
- =?utf-8?B?T1oxSG9PT0lzRDRZcW9PTTFTUEV0WVd3czlGc1k1ZUQ2ejV6N0o3dVlCUDY1?=
- =?utf-8?B?Q2FFT1QvdEQ4bitaQytVQVByU0xNaXoxTnZIWVNRN0ZhUUFQSUE5Z1E2Y0xQ?=
- =?utf-8?B?YzQxdHB4SHRKaHJQUmdWR2tlVHZGcEFhSXh6bCtZUzJycFJ4Wk8yNWIyblAz?=
- =?utf-8?B?dnZuTjV4ZVZOSS81eTNUOFNqdjVMRUJlMlFKZzRrWERSdG5XWm9meVpqWkdI?=
- =?utf-8?B?WmE3YThZVXRlWUI4Q0V3a0lUVC85T0d3UnpIUFdHNmRuQnN2bnpONTBYdUlj?=
- =?utf-8?B?S2tFZ0FNMUw3ZS9CeEFlSDFEY3BuUXZWZmQ4T01xWnhBN1phRjlhelMrOVBh?=
- =?utf-8?B?djhUaUR1Q1ZzZ05TSDFZd3pEMmRkRk9CSDlYY2NhNitjUlliWGVzOVRueU9Q?=
- =?utf-8?B?TkNHTG9FamZRWWorc1lkNThWVlp4aHBuZTJlR2hLSkVIMnRrdzhkYWg2VDgr?=
- =?utf-8?B?ZkQ1M3ViaUtPeThYZTVRZTFhZ0YzWTFnZ0NYQ3VGeExuQkVBVjBYQVREZHVL?=
- =?utf-8?B?dSswUDNmZmRmbjBhMVhpOFBlTExUR0l0M3NWbVB2c3BjekwzQXROamlNdFkx?=
- =?utf-8?B?NDZwMXZScVNjSDNGcnplL2FRU0lsaHl1eW5nNnkyOWJjVVM0NnlVRTNPYUFK?=
- =?utf-8?B?dWExN2owajNON1prc1dSU1R1dlRTL050WG16c0NPd00wR0tobW9sbUhjNmoz?=
- =?utf-8?B?UDUxZ2prYkI1UHpkWHN6YUkwUzlPTVBBdmZ3eFNkbVhRTDhFNGRwS0wvN1hz?=
- =?utf-8?Q?b9dGHr6YN8VLmIcu6qONzm5GsSwGL0+JQPGtreQH966X?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <04BF16871710AB4792CDAFB6D0B339B7@namprd10.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ZqvvUnO/
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C4F2C640E6;
+	Thu,  1 Jun 2023 15:44:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6FAC433EF;
+	Thu,  1 Jun 2023 15:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685634268;
+	bh=6wfuvEex59Ok6T5gRrkfMoK/HR47V0aNeFPlA0QEhM8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=ZqvvUnO/0qfrMMhnw3xdHydTy+Y8BJRfv87V1KJ9TvwRrbOBm1vH4kx+bc/BXg0S4
+	 eR9mepejozTdE7nmqzwznxeTOrt32CR96/BljyQbeZlkZ7aEwBcxmcJ6ZN92DtCBXH
+	 GcVer9bs2bPDkAYjZsn6weI9nRIkxj2kAS0cZU8Mrmi8kNfPZz9mWnjL/0WsZTQBnS
+	 cGNKH0v+cCrodvUzd5XAiMLz4XBDCDta6EmixY2D4MsR8U+jysWux25USD2YV37sN+
+	 E/Pvpq4mNP9RoEVjJJmiT6jVUTETmwrcKGFrfXOX+Jsgum6Juz8ibk3AN/PiftsDtx
+	 H1ZIZuRUAxaQA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ Trevor Wu <trevor.wu@mediatek.com>
+Cc: dianders@chromium.org, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20230601033318.10408-1-trevor.wu@mediatek.com>
+References: <20230601033318.10408-1-trevor.wu@mediatek.com>
+Subject: Re: [PATCH v2 0/2] ASoC: mediatek: fix use-after-free in driver
+ remove path
+Message-Id: <168563426581.132600.16426299018571667864.b4-ty@kernel.org>
+Date: Thu, 01 Jun 2023 16:44:25 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: infinera.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR10MB4615.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 1112e550-d6a9-49e8-40d9-08db62ac6a2c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2023 14:28:05.8040
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 285643de-5f5b-4b03-a153-0ae2dc8aaf77
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- 3P+uqPzoMPca8iAyz0OEmyI4cwe9f7DiGCfnEq+wVrn/+ZhG+FwhjHY8Lakg3VWseXCyovRUhYYcij6MigWkTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB7538
-Message-ID-Hash: IDOZSD64CMKAQ5QC5OBEN5XNKT5S6LJU
-X-Message-ID-Hash: IDOZSD64CMKAQ5QC5OBEN5XNKT5S6LJU
-X-MailFrom: Joakim.Tjernlund@infinera.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: 66QFUGQBD4OR7YAGUBWUOAVWOV5G4JXE
+X-Message-ID-Hash: 66QFUGQBD4OR7YAGUBWUOAVWOV5G4JXE
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -171,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDOZSD64CMKAQ5QC5OBEN5XNKT5S6LJU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/66QFUGQBD4OR7YAGUBWUOAVWOV5G4JXE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,26 +99,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-QWRkaW5nIE1pY2hhZWwgUmFsc3RvbiA8bWljaGFlbEByYWxzdG9uLmlkLmF1Pg0KDQpIZSBkaWQg
-aGF2ZSBwcm9ibGVtcyB3aXRoIGhpcyBiZWhyaW5nZXIgVU1DNDA0SEQgZGV2aWNlIHdoZW4gdGhp
-cyB3aG9sZSBzZXEuIHdhcyByZW1vdmVkLg0KUmFsc3RvbiwgY2FuIHlvdSB0cnkgaWYgdGhlIGJl
-bG93IGNoYW5nZSBhZmZlY3RzIHlvdXIgZGV2aWNlPw0KDQogSm9ja2UNCg0KT24gVGh1LCAyMDIz
-LTA2LTAxIGF0IDE1OjExICswMjAwLCBKb2FraW0gVGplcm5sdW5kIHdyb3RlOg0KPiBPbiBzb21l
-IFVTQiBzcGVha2VyIGRldmljZXMoSmFicmEvTG9naXRlY2gpIHdlIHNlZSBhYm92ZSBlcnJvcg0K
-PiBtc2cgd2hlbiBjb25uZWN0aW5nIGRldmljZSB0byBjb21wdXRlciBhbmQga2VybmVsIGlzIHBy
-b2JpbmcgdGhlIGRldmljZS4NCj4gDQo+IE1vdmluZyB0aGUgc25kX3VzYl9pbml0X3NhbXBsZV9y
-YXRlKCkgdG8gYWZ0ZXIgdXNiX3NldF9pbnRlcmZhY2UoKSBtYWtlcw0KPiB0aGUgZXJyb3IgZ28g
-YXdheS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEpvYWtpbSBUamVybmx1bmQgPGpvYWtpbS50amVy
-bmx1bmRAaW5maW5lcmEuY29tPg0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiAtLS0N
-Cj4gIHNvdW5kL3VzYi9zdHJlYW0uYyB8IDIgKy0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
-dGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL3NvdW5kL3VzYi9zdHJl
-YW0uYyBiL3NvdW5kL3VzYi9zdHJlYW0uYw0KPiBpbmRleCBmMTBmNGU2ZDNmYjguLmQ5YWM4NjYz
-YTQ4YiAxMDA2NDQNCj4gLS0tIGEvc291bmQvdXNiL3N0cmVhbS5jDQo+ICsrKyBiL3NvdW5kL3Vz
-Yi9zdHJlYW0uYw0KPiBAQCAtMTIyNiw4ICsxMjI2LDggQEAgc3RhdGljIGludCBfX3NuZF91c2Jf
-cGFyc2VfYXVkaW9faW50ZXJmYWNlKHN0cnVjdCBzbmRfdXNiX2F1ZGlvICpjaGlwLA0KPiAgCQkv
-KiB0cnkgdG8gc2V0IHRoZSBpbnRlcmZhY2UuLi4gKi8NCj4gIAkJdXNiX3NldF9pbnRlcmZhY2Uo
-Y2hpcC0+ZGV2LCBpZmFjZV9ubywgMCk7DQo+ICAJCXNuZF91c2JfaW5pdF9waXRjaChjaGlwLCBm
-cCk7DQo+IC0JCXNuZF91c2JfaW5pdF9zYW1wbGVfcmF0ZShjaGlwLCBmcCwgZnAtPnJhdGVfbWF4
-KTsNCj4gIAkJdXNiX3NldF9pbnRlcmZhY2UoY2hpcC0+ZGV2LCBpZmFjZV9ubywgYWx0bm8pOw0K
-PiArCQlzbmRfdXNiX2luaXRfc2FtcGxlX3JhdGUoY2hpcCwgZnAsIGZwLT5yYXRlX21heCk7DQo+
-ICAJfQ0KPiAgCXJldHVybiAwOw0KPiAgfQ0KDQo=
+On Thu, 01 Jun 2023 11:33:16 +0800, Trevor Wu wrote:
+> These patches concern modifications made in mt8186[1]. The clock
+> unregistration mechanism used in mt8188 and mt8195 is similar with
+> mt8186, resulting in the same problem existing within the driver.
+> Therefore, the solution has also been applied to these two platforms.
+> 
+> [1] https://lore.kernel.org/all/20230511092437.1.I31cceffc8c45bb1af16eb613e197b3df92cdc19e@changeid/
+> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/2] ASoC: mediatek: mt8188: fix use-after-free in driver remove path
+      commit: fd67a7a1a22ce47fcbc094c4b6e164c34c652cbe
+[2/2] ASoC: mediatek: mt8195: fix use-after-free in driver remove path
+      commit: dc93f0dcb436dfd24a06c5b3c0f4c5cd9296e8e5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

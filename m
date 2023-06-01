@@ -2,88 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF76719B02
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 13:30:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96FE2719C8C
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 14:50:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C48C8207;
-	Thu,  1 Jun 2023 13:29:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C48C8207
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD4474E;
+	Thu,  1 Jun 2023 14:49:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD4474E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685619030;
-	bh=YRpFV9EHccLiEr00ihV1MVHY1R0+dLRW9dyu9NplvMI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=UUBPBifBNKVbW3N1oE3AGhEaYWVPPSEqVs4DI1XU5isyKUSWAc9dbw4F6fR1S8/AG
-	 4aQsyG+r1yfE60plgHkLfGXb9mF8tKqLS33pVsWwpxf3SDNBoeNVq6HO6nA1Q1inis
-	 VO2tJuHnAhPUAabMrTXKU5ZyHisP62+8B8gnapyQ=
+	s=default; t=1685623814;
+	bh=Xh1lxC0+hRLhc1RZRzbRLXKxbwl3StTGuIwymclgVzY=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Q3bafoNZj5X49iq863Pbsfcxp9YhpNtHkz0LQSAEYVVw9N4Yg0CfiBuxA5po4yEx3
+	 L3WRGsdfaiV4SXTQSY3KcElu2CLNqloe4RiAIr9/FazxxELKwt80o5qol71/W7QVOq
+	 0o2KL8oPcZw0vZgjJMbrvVb1lSLxZHgTciKOdo/0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 34E7CF80549; Thu,  1 Jun 2023 13:29:40 +0200 (CEST)
+	id E8547F800ED; Thu,  1 Jun 2023 14:49:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD3F1F80132;
-	Thu,  1 Jun 2023 13:29:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86F01F80132;
+	Thu,  1 Jun 2023 14:49:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B92EF80149; Thu,  1 Jun 2023 13:29:36 +0200 (CEST)
+	id D6393F80149; Thu,  1 Jun 2023 14:49:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94058F800ED
-	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 13:29:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94058F800ED
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KSWlNENd
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 485CD643CE;
-	Thu,  1 Jun 2023 11:29:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A217CC433EF;
-	Thu,  1 Jun 2023 11:29:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685618968;
-	bh=YRpFV9EHccLiEr00ihV1MVHY1R0+dLRW9dyu9NplvMI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KSWlNENd8xqQprpGuF8Mhh0IbIukZI5MPrw5orokNRPf8E+42PK1wiHIOYFSNEf7w
-	 644oct61rq004fmUbO7GU84F7lBCfbxqX+h+0hi2qsfira7vhjzDXfc0FaIh6Q5l0d
-	 8MuUwpPPSMlP4/bk6jA3hdxGZkxMsjAQ/a3Pbv1tX1BFmNpNkG3LYqlA3dGOT572AV
-	 T0dgJxIx+ACORWzL0Gispcl3WTq52rqE7kAzSZRgNv801uENOqemHGhLdzJm+e3/BW
-	 NBkDychAbx9brsohEl9IFmkZWLcDQgIJIxVBH1iidKntxmZ815jjDVLMyl8wdbtix5
-	 l6VMQctt3QhdQ==
-Date: Thu, 1 Jun 2023 12:29:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Trevor Wu <trevor.wu@mediatek.com>
-Cc: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	amergnat@baylibre.com, alsa-devel@alsa-project.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 7/7] ASoC: dt-bindings: mediatek,mt8188-mt6359: add
- NAU8825 support
-Message-ID: <df12a113-109a-438c-9a6f-ece021550b69@sirena.org.uk>
-References: <20230526093150.22923-1-trevor.wu@mediatek.com>
- <20230526093150.22923-8-trevor.wu@mediatek.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73AD8F800C1
+	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 14:49:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73AD8F800C1
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=BOE56TmR
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3517gbC6006318;
+	Thu, 1 Jun 2023 07:49:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=Hx1i5w0nyq9m1kcDij6XJIcwI5RdLT1oMRmwl9V+aAY=;
+ b=BOE56TmRBFMI+h6wValPkdM4oEacJCxKpdOREBByZ+4f1ztrUCDpQnWsFtTMUQ50+I4p
+ 6T1K/km7UApK4Zud9SV8j/Hvz7tzhcfaEbV8ftyYfTsxBVGptNXdUgoKAQV6R3s6UdSj
+ k29Zd+I/mcVv1OrWU9YWgQjivsJstnrF+l0XIXqbNKvupP2NtabZLPOhWR/rjWQBB0J+
+ f2XLUE2gj4K8l4aYC0ZiwKC6+H29btrTpE6B/iqJGMtL+sY4YibXFcbd+qVn97brCx1A
+ JDbc9JoDQnx6wlDrHSnlwdY8Vd5saRc/8CQwXaFCO+KH3toALLZakadyaze2nam4Ghvl yw==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3que9mx9sd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 01 Jun 2023 07:49:09 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 1 Jun
+ 2023 13:49:08 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Thu, 1 Jun 2023 13:49:08 +0100
+Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
+ [198.90.251.127])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id EE916468;
+	Thu,  1 Jun 2023 12:49:07 +0000 (UTC)
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>,
+        Richard Fitzgerald
+	<rf@opensource.cirrus.com>
+Subject: [PATCH] ASoC: cs35l56: Remove NULL check from
+ cs35l56_sdw_dai_set_stream()
+Date: Thu, 1 Jun 2023 13:49:07 +0100
+Message-ID: <20230601124907.3128170-1-rf@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JmksfPfyy4Bj0Tfi"
-Content-Disposition: inline
-In-Reply-To: <20230526093150.22923-8-trevor.wu@mediatek.com>
-X-Cookie: Positively no smoking.
-Message-ID-Hash: MTW634INSVFAARJAEK3BB44YME6SLSKN
-X-Message-ID-Hash: MTW634INSVFAARJAEK3BB44YME6SLSKN
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-GUID: NABGbYFSE8FDOgVXM9iuPK9CV-Gr3zMT
+X-Proofpoint-ORIG-GUID: NABGbYFSE8FDOgVXM9iuPK9CV-Gr3zMT
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: 7DYEV4K44S5EJ33NLUV46CRVMDAY4EOQ
+X-Message-ID-Hash: 7DYEV4K44S5EJ33NLUV46CRVMDAY4EOQ
+X-MailFrom: prvs=151698faa0=rf@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MTW634INSVFAARJAEK3BB44YME6SLSKN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7DYEV4K44S5EJ33NLUV46CRVMDAY4EOQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,39 +111,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The dma pointer must be set to the passed stream pointer, even
+if that pointer is NULL.
 
---JmksfPfyy4Bj0Tfi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Fixes: e49611252900 ("ASoC: cs35l56: Add driver for Cirrus Logic CS35L56")
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+---
+ sound/soc/codecs/cs35l56.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-On Fri, May 26, 2023 at 05:31:50PM +0800, Trevor Wu wrote:
+diff --git a/sound/soc/codecs/cs35l56.c b/sound/soc/codecs/cs35l56.c
+index 3c07bd1e959e..c03f9d3c9a13 100644
+--- a/sound/soc/codecs/cs35l56.c
++++ b/sound/soc/codecs/cs35l56.c
+@@ -704,9 +704,6 @@ static int cs35l56_sdw_dai_hw_free(struct snd_pcm_substream *substream,
+ static int cs35l56_sdw_dai_set_stream(struct snd_soc_dai *dai,
+ 				      void *sdw_stream, int direction)
+ {
+-	if (!sdw_stream)
+-		return 0;
+-
+ 	snd_soc_dai_dma_data_set(dai, direction, sdw_stream);
+ 
+ 	return 0;
+-- 
+2.30.2
 
-> +      dai-format:
-> +        description: audio format.
-> +        items:
-> +          enum:
-> +            - i2s
-> +            - right_j
-> +            - left_j
-> +            - dsp_a
-> +            - dsp_b
-
-Why is this a DT property - why not just pick one in the driver given
-that it's for a machine with a specific CODEC?
-
---JmksfPfyy4Bj0Tfi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR4gREACgkQJNaLcl1U
-h9AxeAf/ehUGBygKINW6H+yy1gZ0HlpXhYS4swWucFmZqVQIaksZAUR2ly+8bPzD
-Puhp4M5k+HV/+H+VLnmi1MGn803l5bD1q3Y4Ecy5mMz8cSzQx3tNEwL+htYaUeg6
-pchi7gBYaiBd3nVWeEWelIsBx+1UYRURJ3r+YoCXRVAHaYCsbJynauBKCOAizCfG
-W7MItpvce9g75QWSuifAPhQOEggg5eo6eGlq7omEVkvzUrExfGSM5L8bCMdGar90
-dqHOrZSq0B0q2w6yGGG9KFvcqvSbnErkngpBeI33DBTDfCIhHuytcB+M3pLhFOnc
-nKhBAj+1yD+OMbQC+HYc94d+bsXErQ==
-=Zpw4
------END PGP SIGNATURE-----
-
---JmksfPfyy4Bj0Tfi--

@@ -2,114 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C9DD7199C1
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 12:30:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5CF0719AEB
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Jun 2023 13:23:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0300D20C;
-	Thu,  1 Jun 2023 12:30:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0300D20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E6FB4E;
+	Thu,  1 Jun 2023 13:23:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E6FB4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685615451;
-	bh=Qb6Jaon/ft7XSSxBzb3Av8xvgXZ8XSlBJEDZ4WbQQQ8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1685618632;
+	bh=sUmhHU1fbhyU+RUYWStGTJNMxjAzPmJ//EgW00C5mZw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jVJnCRmWp6201OGyfqNy7OeMzlFCf0Fvbxdyvhk1fhc6iIohQHjYNk4RnAnuXKzkY
-	 gIaD8qQsRAIomDSKiuMuwBao+TULH+yfse1PUI/Y9L8HHKSKqHUYmcCRFQxVsHaZUV
-	 cEDxzIvXVlvmlBHtUvQ2JV8R4TZNGjt09aUVrLVo=
+	b=eaty0oVsLn+k3a/1eKml8+gNjX3rSBzPnoTLqGGcO+1cNoGCVbM14NWKkZS1NBviI
+	 3X1ffhZKUho3v6FLonknyJRRMf3vA0Fe3v6HSU8+XxSr4Jaa7cPfF3NSnG0OsM4OjV
+	 /YiPIPsztkaYaw7xrusWk4yNmicRmkCKlPn/rBRs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFBC9F80494; Thu,  1 Jun 2023 12:29:59 +0200 (CEST)
+	id 155E6F80132; Thu,  1 Jun 2023 13:23:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A65F4F80132;
-	Thu,  1 Jun 2023 12:29:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1512F80132;
+	Thu,  1 Jun 2023 13:23:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 89053F80149; Thu,  1 Jun 2023 12:29:56 +0200 (CEST)
+	id 451B5F80149; Thu,  1 Jun 2023 13:22:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 845ECF800ED
-	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 12:29:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 845ECF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 92D13F800C1
+	for <alsa-devel@alsa-project.org>; Thu,  1 Jun 2023 13:22:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92D13F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=kP/zj0HA
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-4f3b314b1d7so713217e87.1
+ header.s=google header.b=eZ9To0SI
+Received: by mail-qt1-x831.google.com with SMTP id
+ d75a77b69052e-3f829e958bdso5611151cf.3
         for <alsa-devel@alsa-project.org>;
- Thu, 01 Jun 2023 03:29:49 -0700 (PDT)
+ Thu, 01 Jun 2023 04:22:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1685615386; x=1688207386;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Bp5xxOt20GHMe9x9oOlssfGvZFl/WMiJaJ496BlN+YU=;
-        b=kP/zj0HAKnPgUuu7Tgrr++eMwujhAUwYvyrnwCZ/9sgnT+z3G/B9L7afSaX3QAuF8P
-         OTVqXxoPZuNQoH3tVYg3GcEoXykvO+m9pSIXC9dc6fIAIgBFju39VCg+nwYFuEyaghAa
-         WowicwdIuIuZCFgRVT3glsVxtcr+I6blVFTOjMWrdlQ2auo+WkrX3ll5yCzHnJIUTjpV
-         0feMbLTg9/RnvDvZa75U8hZjLJgblauY4ofKLWvvOENre3/Rr2JdodDXLwLkMMxjz7QM
-         Jwc2xLW5XnqBplIZRlUS6StIxQO0xDRRhS+JYilIIrao7koEBMod3b6pIgtByUeHTFAg
-         QAWg==
+        d=linaro.org; s=google; t=1685618570; x=1688210570;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sUmhHU1fbhyU+RUYWStGTJNMxjAzPmJ//EgW00C5mZw=;
+        b=eZ9To0SI50DTVI2dAf2RP1StKYs+cyEqUpAF2574fnqGhgB2TAaZ0gBa8bYXdn/j0x
+         FuBa8X6m1Y1EYf3bzxSBu2csTyMGZkE9/fuq0cSSE1h5sqzqaZhxg4bU1VFvtPSzv9lW
+         5QLOOoGgY2C/+BRg+CxZVUgRFDUMQ2vepXR8quVdyenHux1FM0wWOKni7MlZMsghXV69
+         FUODS4sK/uZiVM1aOfjh7UXurbvyBjLO3yR32V+j2o7vSqQ5w39O3/jGmJebHAl220wl
+         l2YbU4dB3dhyKQsqpA//vOIfL9sewdZswWZOJLPoyEsCk6buDMIeXHjvUR1hnxPzY0TO
+         4ZUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685615386; x=1688207386;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bp5xxOt20GHMe9x9oOlssfGvZFl/WMiJaJ496BlN+YU=;
-        b=gVcNpLVHiGszMlkWQdIL6tcyKumsE0ynC6Jx4tNvoLQyC0y9mP2GNNhK4t8aFctRXg
-         7qQjtJJgazTbWcz6bj347N/OCG83gNlIaHLyS2WaPhTfNNyK6SWD1rjn5SB1ujjamFqZ
-         a+fdxBmXqBMF6R2o6kPK9Barn+qQPuJI3XekA8LHSsc/f+Tvnzys141CZBg8pZl8Ap2w
-         txw7xka6LueobmSEW8Nj2lemvumUXMt2p/dnTT5ubfr+yDLL1MWLMUrC6JH6KRyce70c
-         8CXOkD7mNe9aGA1B08v+Z9GVKDy3SNUBCu/xmbSh1rOCL/f9iEYZhcxBmDhVj3cr56X4
-         +hYw==
-X-Gm-Message-State: AC+VfDymqBqyX0CDiDrHHDyL7PJ8q4xRenNh1t+1RAbBK9TjaIW2hfVz
-	n/JGRJxL7/gWsTakilks1qCGWA==
+        d=1e100.net; s=20221208; t=1685618570; x=1688210570;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=sUmhHU1fbhyU+RUYWStGTJNMxjAzPmJ//EgW00C5mZw=;
+        b=dOlB2rYNCxF8mIIk5mbtrisZTGv8c+IJb7GMlZWjvLTDgF5LnWBXwygmvxmLPALWvA
+         X7DpXQM2t+60v6QFQ78djdVqNA/y8kBGZj4PPfzJBKb/DjaeWJ1XITCwKS1HytAgjIOI
+         ylg66rpSWOawRSyEfAEcSqUcwdpmdEOGuYZ1mG3yGdudnMYzgjgbcWp6/XSNspVsF7pV
+         m/tDJ1rhe71ynoZWkJ/1GGsVkc3VItJM2PghjazrmB0ZHeX+gJmshbb0128qC4khRumz
+         TlSMh52mN9rRXHajgcB4fmNVm6YrkT0+GXPbYaLS8YPlEoNLqRYagjqicSyTsLiX5NaC
+         qbdA==
+X-Gm-Message-State: AC+VfDyPsNV2DbX37d7ulqY/NHrMlW80d/7OeWW0/9kRyomyzhK+wDcY
+	/BBnxfJquOEhIrkSnV7ru5Br2xCa4l5UioVrlidhXw==
 X-Google-Smtp-Source: 
- ACHHUZ4OWftVrfoV87qYQLL4OGbRoiW1uL9XruidkQ3APydLZi5AlKND7uOLjblqaNOABc+5UzXDmQ==
-X-Received: by 2002:a05:6512:66:b0:4f4:b3a6:4140 with SMTP id
- i6-20020a056512006600b004f4b3a64140mr1036037lfo.42.1685615385755;
-        Thu, 01 Jun 2023 03:29:45 -0700 (PDT)
-Received: from [192.168.1.101] (abyj77.neoplus.adsl.tpnet.pl. [83.9.29.77])
-        by smtp.gmail.com with ESMTPSA id
- x28-20020ac25ddc000000b004f4b0493749sm1038511lfq.303.2023.06.01.03.29.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Jun 2023 03:29:45 -0700 (PDT)
-Message-ID: <8e5380cd-2ee4-95be-14df-add5ff440088@linaro.org>
-Date: Thu, 1 Jun 2023 12:29:43 +0200
+ ACHHUZ672XhBtqgSSO+77bYpfA5o+5/XdJD5UDVXzB2ag05nisa3IUi07jZC+Cq76E6sC0H/aS/YY93daCCv9WmxO/Y=
+X-Received: by 2002:a05:622a:182a:b0:3f6:b055:81ff with SMTP id
+ t42-20020a05622a182a00b003f6b05581ffmr9265467qtc.50.1685618569842; Thu, 01
+ Jun 2023 04:22:49 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH] soundwire: qcom: fix storing port config out-of-bounds
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, kernel test robot <lkp@intel.com>,
- Dan Carpenter <error27@gmail.com>
-References: <20230601102525.609627-1-krzysztof.kozlowski@linaro.org>
-From: Konrad Dybcio <konrad.dybcio@linaro.org>
-In-Reply-To: <20230601102525.609627-1-krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UYCAG2USAGIJ2OCP6IBQ6QGTHGWHHNGP
-X-Message-ID-Hash: UYCAG2USAGIJ2OCP6IBQ6QGTHGWHHNGP
-X-MailFrom: konrad.dybcio@linaro.org
+References: <20230530122112.1314458-1-ckeepax@opensource.cirrus.com>
+ <20230530122112.1314458-5-ckeepax@opensource.cirrus.com>
+In-Reply-To: <20230530122112.1314458-5-ckeepax@opensource.cirrus.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 1 Jun 2023 13:22:49 +0200
+Message-ID: 
+ <CACRpkdb-jk50gO_Y-7NKQfLjPOH6ZwL37YsQJoJNfoqS+N8NVw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] pinctrl: cs42l43: Add support for the cs42l43
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: broonie@kernel.org, lee@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+	vkoul@kernel.org, robh+dt@kernel.org, conor+dt@kernel.org,
+	lgirdwood@gmail.com, yung-chuan.liao@linux.intel.com,
+ sanyog.r.kale@intel.com,
+	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: MG6AXLEXMO55I67HSD6K6ZKD4ADKFIW7
+X-Message-ID-Hash: MG6AXLEXMO55I67HSD6K6ZKD4ADKFIW7
+X-MailFrom: linus.walleij@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UYCAG2USAGIJ2OCP6IBQ6QGTHGWHHNGP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MG6AXLEXMO55I67HSD6K6ZKD4ADKFIW7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,41 +123,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, May 30, 2023 at 2:21=E2=80=AFPM Charles Keepax
+<ckeepax@opensource.cirrus.com> wrote:
 
+> The CS42L43 is an audio CODEC with integrated MIPI SoundWire interface
+> (Version 1.2.1 compliant), I2C, SPI, and I2S/TDM interfaces designed
+> for portable applications. It provides a high dynamic range, stereo
+> DAC for headphone output, two integrated Class D amplifiers for
+> loudspeakers, and two ADCs for wired headset microphone input or
+> stereo line input. PDM inputs are provided for digital microphones.
+>
+> Add a basic pinctrl driver which supports driver strength for the
+> various pins, gpios, and pinmux for the 2 multi-function pins.
+>
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-On 1.06.2023 12:25, Krzysztof Kozlowski wrote:
-> The 'qcom_swrm_ctrl->pconfig' has size of QCOM_SDW_MAX_PORTS (14),
-> however we index it starting from 1, not 0, to match real port numbers.
-> This can lead to writing port config past 'pconfig' bounds and
-> overwriting next member of 'qcom_swrm_ctrl' struct.  Reported also by
-> smatch:
-> 
->   drivers/soundwire/qcom.c:1269 qcom_swrm_get_port_config() error: buffer overflow 'ctrl->pconfig' 14 <= 14
-> 
-> Fixes: 9916c02ccd74 ("soundwire: qcom: cleanup internal port config indexing")
-> Cc: <stable@vger.kernel.org>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Link: https://lore.kernel.org/r/202305201301.sCJ8UDKV-lkp@intel.com/
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
-Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+This version looks acceptable to me!
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
 
-Konrad
->  drivers/soundwire/qcom.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 7cb1b7eba814..88a772075907 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
-> @@ -202,7 +202,8 @@ struct qcom_swrm_ctrl {
->  	u32 intr_mask;
->  	u8 rcmd_id;
->  	u8 wcmd_id;
-> -	struct qcom_swrm_port_config pconfig[QCOM_SDW_MAX_PORTS];
-> +	/* Port numbers are 1 - 14 */
-> +	struct qcom_swrm_port_config pconfig[QCOM_SDW_MAX_PORTS + 1];
->  	struct sdw_stream_runtime *sruntime[SWRM_MAX_DAIS];
->  	enum sdw_slave_status status[SDW_MAX_DEVICES + 1];
->  	int (*reg_read)(struct qcom_swrm_ctrl *ctrl, int reg, u32 *val);
+I guess it will be merged with the rest.
+
+Yours,
+Linus Walleij

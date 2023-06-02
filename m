@@ -2,127 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E67737227EB
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:55:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403B37227EE
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:55:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9D481FE;
-	Mon,  5 Jun 2023 15:54:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9D481FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E997839;
+	Mon,  5 Jun 2023 15:54:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E997839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685973307;
-	bh=bjCG6Z1H4Y9mgflhUJNA4NwiuQy7EB2yOZM2exbxbcc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1685973317;
+	bh=Xfy1ZFQ0QE1wDshzrRpdeGSVpnkt6+xgJkDN7uwdJDg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qkKnyOCvQ+gofmx0Y/Y0T9+KJRGVgxa6/gai0DevbqgtDz/ZBX/XczmCbx+bgG4ah
-	 /YoQu+RHeX1jezjdjtfzwOV7hy8mEgx85DpZrLv00hkfG3fhp/F/C+ZD3NIwzH3UY/
-	 i1mt/lPsynyQM7eFZfphdVMzIxt/O8gIX0UyJUvw=
+	b=iRw+KBLIWw3al7Xt+l2uCGBcavHVEiQCxB6vji+PLKfjD/ycu6zJt5qrLzT5dkg91
+	 gUL8oQnaxu1lwaCOzEQgyGGqO4Zo6l09yA8SZs5tsTSpe3RpoxUNY+YrsFxF776ei5
+	 YhJbsaDWITngq9GOm8eOOXBcFaDEqsxzLQ7BwpRI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 14FD7F80588; Mon,  5 Jun 2023 15:52:55 +0200 (CEST)
+	id 26072F805AD; Mon,  5 Jun 2023 15:52:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 780AAF80588;
-	Mon,  5 Jun 2023 15:52:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DE1FF805AB;
+	Mon,  5 Jun 2023 15:52:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25559F80132; Fri,  2 Jun 2023 11:04:01 +0200 (CEST)
+	id 21C12F8016B; Fri,  2 Jun 2023 11:51:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06430F80199
-	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 11:03:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06430F80199
+	by alsa1.perex.cz (Postfix) with ESMTPS id B286BF800ED
+	for <sound-open-firmware@alsa-project.org>;
+ Fri,  2 Jun 2023 11:51:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B286BF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=pqrs.dk header.i=@pqrs.dk header.a=rsa-sha256
- header.s=google header.b=aG3Fb8X3
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-51640b9ed95so241326a12.2
-        for <alsa-devel@alsa-project.org>;
- Fri, 02 Jun 2023 02:03:51 -0700 (PDT)
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=P+KNl/Nx
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-3f6d7abe934so17467385e9.2
+        for <sound-open-firmware@alsa-project.org>;
+ Fri, 02 Jun 2023 02:51:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pqrs.dk; s=google; t=1685696629; x=1688288629;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FMKaght3EZRcwtR4hLhGpGozkma4rbwmuu+0lxvlO3A=;
-        b=aG3Fb8X3K9WKKxNliXyqCzqEZZLOAoC6+28JL4RDvnce9WPai1yKdx0ChsOA6lzB7y
-         sgOHuV1st30My66XqPWbpZNBLehHxsHl9kFZRb4hR8CuRGTZfAUA8pTLXzixnF/cixb5
-         jPt1Pdg3POHJ5A2WTe56XJ2P0GNmJmOCmrvIIQUviHJgSY5tVV5CvfpKte6P6z/3oh4l
-         PSHUkwTIQqidY85LpUOWYubwIctytCIgg7cbqb6ySfLJr/0Jw9w1RQU2wNtJGYmfrmaS
-         RZyfs8UuR7zTmy/p6b+RZIJkHQg+dM/aGHLTvzNl2PD0I6gI2Ldpn2M+nbY4iTKv7H4X
-         d5Lw==
+        d=linaro.org; s=google; t=1685699490; x=1688291490;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=zGtSPD/KSvWTuHa/AA+uczmQU/ENOiQMfRsZQeajJ5I=;
+        b=P+KNl/NxHb1htEUlM/JYGx6KvK0eHnRM1/FNkMDOULUzpQN5tQYzbSeWXp3UJz/mpr
+         EQm1ZN77g2419QZCiDqctQYEzlaus5armw/606j9Rrxu4M3n3btbrexCK7Rp6QGfj6gS
+         mOHrDofQiL181qUvzVK7sItn/sbDLHtqL/QX/EVic5HLWHr1NCYlK0G131KduHfxRcjH
+         SMqnAgmXBnVv3L6y+jnIOWVk1CPIHPa6gre93EgFakek5vS8YyOlLQSjA2+1z39qZU+X
+         SYVslyW20kz2S1z75HvMLjKPMk64OoPwK+hJPy2UchNMx70/lB+0qvlOVmraGe3QZIGF
+         DM3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685696629; x=1688288629;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FMKaght3EZRcwtR4hLhGpGozkma4rbwmuu+0lxvlO3A=;
-        b=EChcYmdgDRuJAcwp1pLgSqmEZ/tDH7sgg3OV3W5W7wUkvD72cvDPtX+vRZSGo3mJya
-         4GdgBod8whVzRNlo7YRJ5SF8y5jQGQdara0yHvAGu9+Lvbhz90/lhkC0J6pogdhSw/0L
-         Ik3pDH/ScdVL4yTPkhlOkqCh/VnXFSp4k5WRd0aQd/MW1qGLBu6d37AX2vMLyLejA3BT
-         HTfm4sXD3KKiQSbB0ENu6EDxcH3Q5d4kUetYAmEPgFcyKuoIQbWvUCc7Eby3XdlQoplg
-         /EDg76dE4BKT2NzSk0FyAnYI7Uvcdak+AuQwJE4SbuP+4eOCTsRuvb2Fdn1lbf8Ja02P
-         LRSA==
-X-Gm-Message-State: AC+VfDzxZcxrr5SGvEOpl+vNLV1Db6CnEyYgJxxQTZApQNK0H9qb53xu
-	y17Ppab8at6gH/2D709D5Srbxg==
+        d=1e100.net; s=20221208; t=1685699490; x=1688291490;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zGtSPD/KSvWTuHa/AA+uczmQU/ENOiQMfRsZQeajJ5I=;
+        b=P+pNjDZB8XyJ6GsQZF2ssg9a5rPSBZ4WQvcsLzrxDdJ5xld2U69i4MoEGByvy7EuDc
+         Y4htYC8+xi8O4UGWHzMv0nITakrVEKKBZGG1TNpT0iaJqu+SKeaHwjTUpwaWyoWYxaYH
+         eX0wln217GSR/YiVPs15yJwtkT5wncdk0JUHly+D4xkVbVz3yL8beUI5GGsKYoHRhtql
+         dNeRWuDP0Y36zdEJ63iJ4wJsygb8VxleneWQM1Gf+18B+EgEHX2jCNuWqYg+vLJt4wzZ
+         QwKGciZrQwiGeyI8G5maybU69Y6AozIX92qwyhH3prKwUqCawu353vb+SWI4eT1TgBsC
+         5udw==
+X-Gm-Message-State: AC+VfDwSLM3o2F6Drc6ilcz3wGYkm5k+A24RC+ln8lmmkicMPfGLCWIr
+	0jONZGebZpeMfehCeNnnBlFv0w==
 X-Google-Smtp-Source: 
- ACHHUZ4jmlviWCEZ9d2sqlZKV0HRtlTNsu09RrXOh72/ySDy+4DwbEEj8oyV65wODyolmmip16qHpg==
-X-Received: by 2002:a17:906:d550:b0:974:6334:f6b2 with SMTP id
- cr16-20020a170906d55000b009746334f6b2mr806371ejc.22.1685696629567;
-        Fri, 02 Jun 2023 02:03:49 -0700 (PDT)
-Received: from localhost.localdomain (80.71.142.18.ipv4.parknet.dk.
- [80.71.142.18])
+ ACHHUZ6A1brfLCWWqQzljL7Mxmx2fPEHJx0/q/zn0bbgPiI4NqAwmYm0kU04EGZGKPiNYZHBwKX3cw==
+X-Received: by 2002:adf:e988:0:b0:307:95d1:d7d0 with SMTP id
+ h8-20020adfe988000000b0030795d1d7d0mr4253499wrm.39.1685699489831;
+        Fri, 02 Jun 2023 02:51:29 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
         by smtp.gmail.com with ESMTPSA id
- w23-20020a170906385700b009707fa1c316sm488031ejc.213.2023.06.02.02.03.49
+ p5-20020a5d4585000000b003078354f774sm1185082wrq.36.2023.06.02.02.51.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Jun 2023 02:03:49 -0700 (PDT)
-From: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin@pqrs.dk>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] ASoC: simple-card: parse symmetric-clock-roles property
-Date: Fri,  2 Jun 2023 11:03:21 +0200
-Message-Id: <20230602090322.1876359-5-alvin@pqrs.dk>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230602090322.1876359-1-alvin@pqrs.dk>
-References: <20230602090322.1876359-1-alvin@pqrs.dk>
+        Fri, 02 Jun 2023 02:51:28 -0700 (PDT)
+Date: Fri, 2 Jun 2023 12:51:24 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	sound-open-firmware@alsa-project.org, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: Use size_t for variable passed
+ to kzalloc()
+Message-ID: <311dd225-9d30-4100-a779-bd0a9499535f@kadam.mountain>
+References: 
+ <a311e4ae83406f714c9d1f7f2f857284265e581c.1685640591.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MailFrom: alvin@pqrs.dk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: 
+ <a311e4ae83406f714c9d1f7f2f857284265e581c.1685640591.git.christophe.jaillet@wanadoo.fr>
+X-MailFrom: dan.carpenter@linaro.org
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
- header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 7EP5RR44L5P67K54ABLBIV6MMIDG52SQ
-X-Message-ID-Hash: 7EP5RR44L5P67K54ABLBIV6MMIDG52SQ
-X-Mailman-Approved-At: Mon, 05 Jun 2023 13:52:46 +0000
+ header-match-sound-open-firmware.alsa-project.org-0;
+ header-match-sound-open-firmware.alsa-project.org-1
+Message-ID-Hash: FTNOYDJCHG4FVOVUVGJZXNMG2BSWMURK
+X-Message-ID-Hash: FTNOYDJCHG4FVOVUVGJZXNMG2BSWMURK
+X-Mailman-Approved-At: Mon, 05 Jun 2023 13:52:47 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7EP5RR44L5P67K54ABLBIV6MMIDG52SQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FTNOYDJCHG4FVOVUVGJZXNMG2BSWMURK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,39 +132,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Alvin Šipraga <alsi@bang-olufsen.dk>
+On Thu, Jun 01, 2023 at 07:30:12PM +0200, Christophe JAILLET wrote:
+> struct_size() checks for overflow, but assigning its result to just a u32
+> may still overflow after a successful check.
+> 
+> Use a size_t instead in order to be cleaner.
+> 
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
+> Based on analysis from Dan Carpenter on another patch (see [1]).
+> 
+> [1]: https://lore.kernel.org/all/00e84595-e2c9-48ea-8737-18da34eaafbf@kili.mountain/
+> ---
+>  sound/soc/sof/ipc4-topology.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+> index db64e0cb8663..50faa4c88b97 100644
+> --- a/sound/soc/sof/ipc4-topology.c
+> +++ b/sound/soc/sof/ipc4-topology.c
+> @@ -881,7 +881,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
+>  	/* allocate memory for base config extension if needed */
+>  	if (process->init_config == SOF_IPC4_MODULE_INIT_CONFIG_TYPE_BASE_CFG_WITH_EXT) {
+>  		struct sof_ipc4_base_module_cfg_ext *base_cfg_ext;
+> -		u32 ext_size = struct_size(base_cfg_ext, pin_formats,
+> +		size_t ext_size = struct_size(base_cfg_ext, pin_formats,
+>  						swidget->num_input_pins + swidget->num_output_pins);
 
-The property, when set, specifies that both ends of the dai-link should
-have the same clock consumer/provider roles. As with other simple-card
-properties, a prefix can be specified.
+The temptation would be to change the addition as well:
 
-Signed-off-by: Alvin Šipraga <alsi@bang-olufsen.dk>
----
- sound/soc/generic/simple-card.c | 4 ++++
- 1 file changed, 4 insertions(+)
+	size_t ext_size = struct_size(base_cfg_ext, pin_formats,
+				      size_add(swidget->num_input_pins, swidget->num_output_pins);
 
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 5a5e4ecd0f61..4513e30948b7 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -181,6 +181,7 @@ static int simple_link_init(struct asoc_simple_priv *priv,
- {
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
-+	char prop[128];
- 	int ret;
- 
- 	ret = asoc_simple_parse_daifmt(dev, node, codec,
-@@ -188,6 +189,9 @@ static int simple_link_init(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		return 0;
- 
-+	snprintf(prop, sizeof(prop), "%ssymmetric-clock-roles", prefix);
-+	dai_link->symmetric_clock_roles = of_property_read_bool(node, prop);
-+
- 	dai_link->init			= asoc_simple_dai_init;
- 	dai_link->ops			= &simple_ops;
- 
--- 
-2.40.0
+These values can only be in the 0-8 range so it's not a real bug.
 
+Smatch cannot parse this data correctly to verify that it is safe.
+Maybe in two years Smatch will be able to.  Probably a human who is
+unfamiliar with this code can figure out that it is safe within 15
+minutes?
+
+I think the change to size_t doesn't hurt anyone and there isn't any
+downside to it.  The size_add() change is slightly less readable than
+just adding the numbers but I think eventually people will just get used
+to it.
+
+regards,
+dan carpenter

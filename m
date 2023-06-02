@@ -2,110 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 338AD71FC3D
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jun 2023 10:41:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D60D17227E2
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:53:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53C56207;
-	Fri,  2 Jun 2023 10:40:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53C56207
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8A756C0;
+	Mon,  5 Jun 2023 15:52:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8A756C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685695290;
-	bh=kWWbDmaNDYKkmbZIbYZWA0s/rYZpNtl0eZpJsh6DakE=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Kzx9MWEHpatJuNgKvnP6EbLj4kMi7e5DedLaFWDiwHP0mUz2WW/90wJMNYHutRneq
-	 DszsRbq65DU4edbc8WGW4mC022l1Cs5bj+PwdIb3JhC50rEDKlsinPSMp+dsnplHE2
-	 MZOHOe7yw1yn6zgqep+QRCKnOAo51Y8Z6FhsEoTI=
+	s=default; t=1685973213;
+	bh=gRsU/q1A3MaJhGNG7ZrfpA8gsrLwCMAkTNR5+WZY19I=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=rKUFeHYbagr8DJBTUAyURIh0BpJKCl0a66LA1NoBojxdv5kzoJXV8e+If/mcwCww/
+	 fLRGoAGUNYfaCAeELLsrUebsfB7DAVU6f+jy4pFqIyIZ8UZWbZ9IPT5qVkQY8sTyhR
+	 7HpI44lV+Ux8ybIT6hYYOb2+cBwmQ61nqxnmanoY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19E06F800C1; Fri,  2 Jun 2023 10:40:40 +0200 (CEST)
+	id 301ABF80290; Mon,  5 Jun 2023 15:52:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B57BBF80149;
-	Fri,  2 Jun 2023 10:40:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC3E9F80155;
+	Mon,  5 Jun 2023 15:52:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22B2EF80149; Fri,  2 Jun 2023 10:40:36 +0200 (CEST)
+	id D9C9AF8016B; Fri,  2 Jun 2023 11:03:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4CFC6F800C1
-	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 10:40:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CFC6F800C1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18568F800ED
+	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 11:03:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18568F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=X1TcL9ZZ
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3526wiZD012031;
-	Fri, 2 Jun 2023 03:40:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=w1yToQ4xYtRWD93hY3+RgYhmhFxNDQN6QX6WBdFeg9I=;
- b=X1TcL9ZZ0xw6K+GbJHWrxLNu8ELMBgSBhbAWVuv6fHSzUnD/voJn4imIpTECK3O7fIW4
- pxGRNCUWYypgBFff0c3UelcawYusjMen+s4ph08Gc+vI83QfirjKDGMNTGhEkZEl9m9Q
- E582mEFDwfAH4WlGbf44yKxvTj1c+f4dDPYCZDfZv0L7HI7jwQ3YcgZo98MT1gNxVuKV
- V+jbIh1VXPLOq8eVyqINJMWsJXljbQHFijrwqPiQ4t1VXtf8PQtgZWRyZg2Y8rKfTDuo
- zUi6pMajVwSXNvWJKFjLfVajemQvHm353uLJe0UyWTaYlQ6Nf9TBfpIBwQ0tirP7Yqm0 KQ==
-Received: from ediex01.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3quf90y5tj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 02 Jun 2023 03:40:30 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 2 Jun
- 2023 09:40:28 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Fri, 2 Jun 2023 09:40:28 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0573311AA;
-	Fri,  2 Jun 2023 08:40:28 +0000 (UTC)
-Date: Fri, 2 Jun 2023 08:40:28 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-CC: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
-        <sanyog.r.kale@intel.com>, <alsa-devel@alsa-project.org>,
-        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>
-Subject: Re: [PATCH 3/4] soundwire: stream: Remove unnecessary gotos
-Message-ID: <20230602084028.GL68926@ediswmail.ad.cirrus.com>
-References: <20230601161622.1808135-1-ckeepax@opensource.cirrus.com>
- <20230601161622.1808135-3-ckeepax@opensource.cirrus.com>
- <40d09b30-3323-f438-0f12-bc322ee389e9@linux.intel.com>
+ unprotected) header.d=pqrs.dk header.i=@pqrs.dk header.a=rsa-sha256
+ header.s=google header.b=KC3pRTXt
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-9707313e32eso276131466b.2
+        for <alsa-devel@alsa-project.org>;
+ Fri, 02 Jun 2023 02:03:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pqrs.dk; s=google; t=1685696623; x=1688288623;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4z0aWs+76DsOLK1ZdUfTJiO33aieMzJYwE+Vw+aqL5o=;
+        b=KC3pRTXttgRIUpt/J5diupn1SqWtaBkgdDbiDRQ9CHSU5XfIvtNfmd13SWzWayo0BX
+         HUdX9gDctfwufnP09F5pk6O9FrRX9CPNX0VquDeoRD3xBs+lbLQULNZy2P5SHbu5QOp+
+         vVWx2jGeYcbasf0SzGdw2+wev5PColDikoe8BxdKye8N6UOHmNUWu7zWwkWKnIls/aWz
+         uOrgsS3LVLZ9/5YpqWY1MowwGZxt0EEyS3xhHdy3nQFyEAXAyfxIn4DNEmt8hJ80Qqmv
+         Ih3npZIPQS+r5V3KrJ7tu7rOGu3425u8cI7pePSUbWQAZABx4ktAkyKBM4nbWPA7g8oT
+         dnKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685696623; x=1688288623;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4z0aWs+76DsOLK1ZdUfTJiO33aieMzJYwE+Vw+aqL5o=;
+        b=gnBW6ddSVamdW7KV9PVZkmevhszTf/9hl6VFDI878AmrgkUOwywWX60jnFrqe9cwcE
+         vXRYABo/0oDrQUrGej7YaHgJJLN7mh/lRQHcECy+F6M4E5mewSS0/owb3mzbqTkNQfHD
+         eWxCziX89tHok8MbY3CbMQ2Cv28m0tCOM/IE9lKO0GyseNdjrBJ4vrw6sbPQyX8bp/kC
+         y8rb02TrevrzwiGu4WbAjVbFnLdFS3Z1GCE9sLOh6wxbGKqH68TV65enWV62uMqkKMI8
+         EESY0J34cicyoUbKrAWg+rDMayzfyVBQn8O0tJhPh9C37/Qm74f3iCC5E5VFzMnRgt+I
+         fodA==
+X-Gm-Message-State: AC+VfDzUZG7exe8DoYB98bqWqTyH1cCzXqmWPQVwAGT1Zl5T7+546DoX
+	U9QJBRIUX7Z0gqzEFjQRvvTcVQ==
+X-Google-Smtp-Source: 
+ ACHHUZ5CDb7hi9sRLxSyOLWk2zLbnISHdDPJk09PJ3HtrxN665G3O5E6naqR5vu6cmuvrQV4abNDig==
+X-Received: by 2002:a17:907:8a11:b0:93e:fa12:aa1a with SMTP id
+ sc17-20020a1709078a1100b0093efa12aa1amr11368431ejc.1.1685696623017;
+        Fri, 02 Jun 2023 02:03:43 -0700 (PDT)
+Received: from localhost.localdomain (80.71.142.18.ipv4.parknet.dk.
+ [80.71.142.18])
+        by smtp.gmail.com with ESMTPSA id
+ w23-20020a170906385700b009707fa1c316sm488031ejc.213.2023.06.02.02.03.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Jun 2023 02:03:42 -0700 (PDT)
+From: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin@pqrs.dk>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] ASoC: support dai-links with symmetric clock roles
+Date: Fri,  2 Jun 2023 11:03:17 +0200
+Message-Id: <20230602090322.1876359-1-alvin@pqrs.dk>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <40d09b30-3323-f438-0f12-bc322ee389e9@linux.intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: sQvX313UjsnuWXd-PJKU6jNIu23NB9DA
-X-Proofpoint-ORIG-GUID: sQvX313UjsnuWXd-PJKU6jNIu23NB9DA
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: NGALCIVTQHZKOUT5E26QUO77XFBOKAFO
-X-Message-ID-Hash: NGALCIVTQHZKOUT5E26QUO77XFBOKAFO
-X-MailFrom: prvs=1517dd3c90=ckeepax@opensource.cirrus.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MailFrom: alvin@pqrs.dk
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: UNPBL63SYQRKSHJDG7R3Q7VCND7FFUJL
+X-Message-ID-Hash: UNPBL63SYQRKSHJDG7R3Q7VCND7FFUJL
+X-Mailman-Approved-At: Mon, 05 Jun 2023 13:52:39 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NGALCIVTQHZKOUT5E26QUO77XFBOKAFO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UNPBL63SYQRKSHJDG7R3Q7VCND7FFUJL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,29 +127,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jun 01, 2023 at 11:37:33AM -0500, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 6/1/23 11:16, Charles Keepax wrote:
-> > There is a lot of code using gotos to skip small sections of code, this
-> > is a fairly dubious use of a goto, especially when the level of
-> > intentation is really low. Most of this code doesn't even breach 80
-> > characters when naively shifted over.
-> > 
-> > Simplify the code a bit, by replacing these unnecessary gotos with
-> > simple ifs.
-> 
-> it's probably ok but far from simple to review with the inverted states
-> for variables. I don't have the time and energy to revisit this...
-> 
-> I would err on the side of if it ain't broke don't fix it here.
-> 
+From: Alvin Šipraga <alsi@bang-olufsen.dk>
 
-The current code is pretty oddly written, as you say it does work
-through. I will try splitting the patch into separate patches for
-inverting the varible and dropping the goto's. That should make
-review slightly easier and both changes make the code clearer in
-their own right anyway.
+Currently the ASoC core always assumes that one end of a dai-link is a 
+clock provider and the other a consumer. This series adds support for
+configuring dai-links where both ends are actually clock consumers.
 
-Thanks,
-Charles
+Alvin Šipraga (4):
+  ASoC: dt-bindings: document new symmetric-clock-role flag
+  ASoC: core: add support for dai-links with symmetric clock roles
+  ASoC: audio-graph-card2: parse symmetric-clock-roles property
+  ASoC: simple-card: parse symmetric-clock-roles property
+
+ .../devicetree/bindings/sound/simple-card.yaml        | 11 +++++++++++
+ include/sound/soc.h                                   |  3 +++
+ sound/soc/generic/audio-graph-card2.c                 |  7 ++++++-
+ sound/soc/generic/simple-card.c                       |  4 ++++
+ sound/soc/soc-core.c                                  |  4 +++-
+ 5 files changed, 27 insertions(+), 2 deletions(-)
+
+-- 
+2.40.0
+

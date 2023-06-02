@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E59C77227E9
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:54:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E67737227EB
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:55:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 431D1843;
-	Mon,  5 Jun 2023 15:53:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 431D1843
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9D481FE;
+	Mon,  5 Jun 2023 15:54:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9D481FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685973271;
-	bh=PjXX2zE4e2Lq8yVi0PfGCjj2tGLEeRhhAMqZOho1kN0=;
+	s=default; t=1685973307;
+	bh=bjCG6Z1H4Y9mgflhUJNA4NwiuQy7EB2yOZM2exbxbcc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Vvq3NJhRUnmZQ8s+ZffcEZfbhF1tEhN0VTVWk8xcrLyzS691ZEb13/vmuKrL/Qo05
-	 ejVdMKBMd2aQ77imIZJe56oHKzKA1yq8c9Bdjhkj3wvX0kAkSjjrCFseBRYMn1yD1M
-	 qYva34U9oQ7b8PayzF+1oSQ8E7DYdgYwgE8hf4/0=
+	b=qkKnyOCvQ+gofmx0Y/Y0T9+KJRGVgxa6/gai0DevbqgtDz/ZBX/XczmCbx+bgG4ah
+	 /YoQu+RHeX1jezjdjtfzwOV7hy8mEgx85DpZrLv00hkfG3fhp/F/C+ZD3NIwzH3UY/
+	 i1mt/lPsynyQM7eFZfphdVMzIxt/O8gIX0UyJUvw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63768F80570; Mon,  5 Jun 2023 15:52:50 +0200 (CEST)
+	id 14FD7F80588; Mon,  5 Jun 2023 15:52:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B90C7F8055C;
-	Mon,  5 Jun 2023 15:52:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 780AAF80588;
+	Mon,  5 Jun 2023 15:52:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C157F804DA; Fri,  2 Jun 2023 11:03:58 +0200 (CEST)
+	id 25559F80132; Fri,  2 Jun 2023 11:04:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [IPv6:2a00:1450:4864:20::532])
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [IPv6:2a00:1450:4864:20::535])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 27434F800ED
-	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 11:03:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27434F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 06430F80199
+	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 11:03:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06430F80199
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=pqrs.dk header.i=@pqrs.dk header.a=rsa-sha256
- header.s=google header.b=W7A072+4
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-514859f3ffbso2644329a12.1
+ header.s=google header.b=aG3Fb8X3
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-51640b9ed95so241326a12.2
         for <alsa-devel@alsa-project.org>;
- Fri, 02 Jun 2023 02:03:49 -0700 (PDT)
+ Fri, 02 Jun 2023 02:03:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pqrs.dk; s=google; t=1685696628; x=1688288628;
+        d=pqrs.dk; s=google; t=1685696629; x=1688288629;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ppOouDsw2ZJBp9Pb63smrW3GHRr3r6Vq+ntYkWdxiUU=;
-        b=W7A072+4L5LVDFH8xeLtIvjZhQinq7JukGEfUyDMsfu3Ltgt+G1BtIcw7ak1xEEHGl
-         hAUqRouAfhJg//9Q+p9+8CJGUpYPUOHUrUGQLFmt/FgEgERYhiqusJZ/e0ZQu9O6eSc4
-         DmqOcdWC7yH1yDWj3Mg1nCVroO1VyUTPGMiUYTYRge94t/W+DcZlKQs6ItelryoyQ93m
-         AEse3zS9XK/8Xz0VxP5mXPBfOf9dJj5ZVZ6CBqR4kiMc1Y4YCpeB0HjfKGSca7+rNxCz
-         j7/GQhJUvGMovqQPDjqKV+Ah7gqBFlQFoVekcAxbhOM1gWsPj9HXrKGxgdKQrIOH6NjA
-         ZO6g==
+        bh=FMKaght3EZRcwtR4hLhGpGozkma4rbwmuu+0lxvlO3A=;
+        b=aG3Fb8X3K9WKKxNliXyqCzqEZZLOAoC6+28JL4RDvnce9WPai1yKdx0ChsOA6lzB7y
+         sgOHuV1st30My66XqPWbpZNBLehHxsHl9kFZRb4hR8CuRGTZfAUA8pTLXzixnF/cixb5
+         jPt1Pdg3POHJ5A2WTe56XJ2P0GNmJmOCmrvIIQUviHJgSY5tVV5CvfpKte6P6z/3oh4l
+         PSHUkwTIQqidY85LpUOWYubwIctytCIgg7cbqb6ySfLJr/0Jw9w1RQU2wNtJGYmfrmaS
+         RZyfs8UuR7zTmy/p6b+RZIJkHQg+dM/aGHLTvzNl2PD0I6gI2Ldpn2M+nbY4iTKv7H4X
+         d5Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685696628; x=1688288628;
+        d=1e100.net; s=20221208; t=1685696629; x=1688288629;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ppOouDsw2ZJBp9Pb63smrW3GHRr3r6Vq+ntYkWdxiUU=;
-        b=kvQoHbNUULsDT+SFAE6H3LgD+NWdUNG9kUgpHVqTaUujzZlMxOYt+ZxR7YW3eDwbRH
-         m5uOjogRdP0Gv3kmRTlojiegKZ1L2t4cpiS1CgsVsfgl9Ka5CH2ac3PtP8N+EjqHXg4+
-         6rySdLWql3NRFTMXdshtMnPz6u9+oZTGyVwqvyIcuqpZwClPctIfWzk04yLO5x+p5YQL
-         VFpaGLB0qmDRhcNZaituuG+fVxwdKcR08ZWhwteEU41Fr2gc5j/E/xUJaJSMoT5SUf9c
-         UIEmsaL/9uirm3AV9oc5Z8K1N10sSK6Nt59ch6NxeGiIJikrkpxJIn6gHimeYI4LA2Ux
-         6EbQ==
-X-Gm-Message-State: AC+VfDzvT8QVh5KXyGs9qb1+p/jMXpBuaKGI5rS/7t7cxLz04D6lwRHh
-	Bt+Xer3H1BbO8d/hjwgP64EF1g==
+        bh=FMKaght3EZRcwtR4hLhGpGozkma4rbwmuu+0lxvlO3A=;
+        b=EChcYmdgDRuJAcwp1pLgSqmEZ/tDH7sgg3OV3W5W7wUkvD72cvDPtX+vRZSGo3mJya
+         4GdgBod8whVzRNlo7YRJ5SF8y5jQGQdara0yHvAGu9+Lvbhz90/lhkC0J6pogdhSw/0L
+         Ik3pDH/ScdVL4yTPkhlOkqCh/VnXFSp4k5WRd0aQd/MW1qGLBu6d37AX2vMLyLejA3BT
+         HTfm4sXD3KKiQSbB0ENu6EDxcH3Q5d4kUetYAmEPgFcyKuoIQbWvUCc7Eby3XdlQoplg
+         /EDg76dE4BKT2NzSk0FyAnYI7Uvcdak+AuQwJE4SbuP+4eOCTsRuvb2Fdn1lbf8Ja02P
+         LRSA==
+X-Gm-Message-State: AC+VfDzxZcxrr5SGvEOpl+vNLV1Db6CnEyYgJxxQTZApQNK0H9qb53xu
+	y17Ppab8at6gH/2D709D5Srbxg==
 X-Google-Smtp-Source: 
- ACHHUZ4S9FTeGd8RGDT+UXj2VgaTZT2QVwDEvvsYF+21upP5MdbUrrtn+d9nL+oT4j4acVNL6wfeEg==
-X-Received: by 2002:a17:907:d17:b0:966:eb8:2f12 with SMTP id
- gn23-20020a1709070d1700b009660eb82f12mr10334273ejc.11.1685696628034;
-        Fri, 02 Jun 2023 02:03:48 -0700 (PDT)
+ ACHHUZ4jmlviWCEZ9d2sqlZKV0HRtlTNsu09RrXOh72/ySDy+4DwbEEj8oyV65wODyolmmip16qHpg==
+X-Received: by 2002:a17:906:d550:b0:974:6334:f6b2 with SMTP id
+ cr16-20020a170906d55000b009746334f6b2mr806371ejc.22.1685696629567;
+        Fri, 02 Jun 2023 02:03:49 -0700 (PDT)
 Received: from localhost.localdomain (80.71.142.18.ipv4.parknet.dk.
  [80.71.142.18])
         by smtp.gmail.com with ESMTPSA id
- w23-20020a170906385700b009707fa1c316sm488031ejc.213.2023.06.02.02.03.47
+ w23-20020a170906385700b009707fa1c316sm488031ejc.213.2023.06.02.02.03.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Jun 2023 02:03:47 -0700 (PDT)
+        Fri, 02 Jun 2023 02:03:49 -0700 (PDT)
 From: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin@pqrs.dk>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -99,10 +99,9 @@ Cc: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
 	alsa-devel@alsa-project.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/4] ASoC: audio-graph-card2: parse symmetric-clock-roles
- property
-Date: Fri,  2 Jun 2023 11:03:20 +0200
-Message-Id: <20230602090322.1876359-4-alvin@pqrs.dk>
+Subject: [PATCH 4/4] ASoC: simple-card: parse symmetric-clock-roles property
+Date: Fri,  2 Jun 2023 11:03:21 +0200
+Message-Id: <20230602090322.1876359-5-alvin@pqrs.dk>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230602090322.1876359-1-alvin@pqrs.dk>
 References: <20230602090322.1876359-1-alvin@pqrs.dk>
@@ -115,15 +114,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: WT7X56H34JRDGZNKKUM75PVRQ7PFS4GA
-X-Message-ID-Hash: WT7X56H34JRDGZNKKUM75PVRQ7PFS4GA
+Message-ID-Hash: 7EP5RR44L5P67K54ABLBIV6MMIDG52SQ
+X-Message-ID-Hash: 7EP5RR44L5P67K54ABLBIV6MMIDG52SQ
 X-Mailman-Approved-At: Mon, 05 Jun 2023 13:52:46 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WT7X56H34JRDGZNKKUM75PVRQ7PFS4GA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7EP5RR44L5P67K54ABLBIV6MMIDG52SQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,52 +134,36 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 From: Alvin Šipraga <alsi@bang-olufsen.dk>
 
 The property, when set, specifies that both ends of the dai-link should
-have the same clock consumer/provider roles. Like with parsing of DAI
-format, the property can be specified in multiple places:
-
-	ports {
- (A)
-		port {
- (B)
-			endpoint {
- (C)
-			};
-		};
-	};
-
-So each place has to be checked. In case the clock roles are symmetric,
-there is then no need to flip the role when parsing the DAI format on
-the CPU side, as it should then be the same on the Codec side.
+have the same clock consumer/provider roles. As with other simple-card
+properties, a prefix can be specified.
 
 Signed-off-by: Alvin Šipraga <alsi@bang-olufsen.dk>
 ---
- sound/soc/generic/audio-graph-card2.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/soc/generic/simple-card.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 25aa79dd55b3..9b4ebfd0c0b6 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -721,13 +721,18 @@ static void graph_link_init(struct asoc_simple_priv *priv,
- 	if (of_node_name_eq(ports, "ports"))
- 		graph_parse_daifmt(ports, &daifmt, &bit_frame);	/* (A) */
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index 5a5e4ecd0f61..4513e30948b7 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -181,6 +181,7 @@ static int simple_link_init(struct asoc_simple_priv *priv,
+ {
+ 	struct device *dev = simple_priv_to_dev(priv);
+ 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
++	char prop[128];
+ 	int ret;
  
-+	if (of_property_read_bool(ep, "symmetric-clock-roles") ||
-+	    of_property_read_bool(port, "symmetric-clock-roles") ||
-+	    of_property_read_bool(ports, "symmetric-clock-roles"))
-+		dai_link->symmetric_clock_roles = 1;
+ 	ret = asoc_simple_parse_daifmt(dev, node, codec,
+@@ -188,6 +189,9 @@ static int simple_link_init(struct asoc_simple_priv *priv,
+ 	if (ret < 0)
+ 		return 0;
+ 
++	snprintf(prop, sizeof(prop), "%ssymmetric-clock-roles", prefix);
++	dai_link->symmetric_clock_roles = of_property_read_bool(node, prop);
 +
- 	/*
- 	 * convert bit_frame
- 	 * We need to flip clock_provider if it was CPU node,
- 	 * because it is Codec base.
- 	 */
- 	daiclk = snd_soc_daifmt_clock_provider_from_bitmap(bit_frame);
--	if (is_cpu_node)
-+	if (is_cpu_node && !dai_link->symmetric_clock_roles)
- 		daiclk = snd_soc_daifmt_clock_provider_flipped(daiclk);
+ 	dai_link->init			= asoc_simple_dai_init;
+ 	dai_link->ops			= &simple_ops;
  
- 	dai_link->dai_fmt	= daifmt | daiclk;
 -- 
 2.40.0
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F96720A51
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jun 2023 22:30:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 653B6720A5A
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jun 2023 22:31:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEDB4828;
-	Fri,  2 Jun 2023 22:29:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEDB4828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E31E1FE;
+	Fri,  2 Jun 2023 22:30:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E31E1FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685737826;
-	bh=awpwyubtmhnnNndQN6CyyVyikHgGbaotccuv9IspnT0=;
+	s=default; t=1685737868;
+	bh=MmA8UYKfGmHsVSLb7enDaQEXS1iXeL+huBcS5VzUCp0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LwIZRmjWrV3lH7iB2hD+QnQmNMnXR3TPxtT49O7AAL49GT0BeKFyV0EW1gH8v1XV8
-	 R5hTfDvVWK8CTOq8/hFukVfFB39mAsjfckPbNXVi1VgmHL2A5agxDPKeD5ebMrgG/a
-	 +viZluYBmHGXKj1aEinh5AFhpCvbSAwXrMX1mHPk=
+	b=ua+jgo7Lc1t0qdeUq9p+szOEvJE6mYNfsh7fVy3b5bRjVAHxs9qh8xatzsQ1gtVVT
+	 CRfb3z7xNH9AmalBHXJd1Zj/UJhxU7ov8Pvk38Ft2phCn0YsAoLNK4rM6A3AyRbPhN
+	 +l4vxSjr4NY+tHrOAsuVakpmZeSIUTLKPp6P0tVY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39F74F8068D; Fri,  2 Jun 2023 22:24:34 +0200 (CEST)
+	id 2D5C0F806A6; Fri,  2 Jun 2023 22:24:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A42FF8068C;
-	Fri,  2 Jun 2023 22:24:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DCB2F805AD;
+	Fri,  2 Jun 2023 22:24:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 823C8F8062E; Fri,  2 Jun 2023 22:24:09 +0200 (CEST)
+	id 5817FF8062F; Fri,  2 Jun 2023 22:24:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BAE75F80568
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E3EFF8056F
 	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 22:23:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAE75F80568
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E3EFF8056F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=DXhIZi/d
+ header.s=Intel header.b=BkJWclVm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1685737398; x=1717273398;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=awpwyubtmhnnNndQN6CyyVyikHgGbaotccuv9IspnT0=;
-  b=DXhIZi/djz4q7JX7p3cDeEEsnSF0snyG6XZabscClbRXMcPRNWbMq879
-   CuDFRNtUOKlra07BL5aSudCtdqxN+2eL3ggk7wMZRQlCmAb4wVdu3ZHoU
-   Z1sy66Mw/+XXAQPaFI4pc3cRjEaEUMfX27SPJeDWtjDPzDYgR0JarBFLj
-   L6TNqRxq3w0/nfBlG8IArbsGlNGyLxSUAaQlbyO+Jex9uRoSfakgH2LmB
-   iFd/MhHepCwootgZfrqIuIPThbFi8Z7IoqFaa0dFzTAL4kWC2lDyLnN0a
-   /ZjRvi+M6Aa8o28owiwo18jYxzeo88EIELgrUk4iTzqinUoxY8vq+mrVd
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10729"; a="354811336"
+  bh=MmA8UYKfGmHsVSLb7enDaQEXS1iXeL+huBcS5VzUCp0=;
+  b=BkJWclVmuwo2AkiftTkziONUPTwOHNsjoepRorXlxLQyWHS5auALXBBj
+   Eosykvl9sFsMNytnjHFVuAQ/p5vz5dvqYMm8U4RodfVarPYjqC2FIwOzv
+   z9PnAru/DMHaa+BjdNTRwavt0+V7VgiV8+RLEu4s47Bh+/f++tBxb3cBr
+   A5ehDbocwyLxEl+gIe8NsmVzFxjEbO52JsRrg/+ZWGt7Nk7xLoqmeHZYu
+   RKBcRQzRPBTYyh/gYOmCgXQ0Ouy+dG617nWUiU+zIy96F3qsxfE2LdPvi
+   BkYE0U5XDBEnpIZbR/J0F7qe7/7JCVOZnUb7cJKzPuWriov6R13o5DXFk
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10729"; a="354811343"
 X-IronPort-AV: E=Sophos;i="6.00,214,1681196400";
-   d="scan'208";a="354811336"
+   d="scan'208";a="354811343"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2023 13:23:04 -0700
+ 02 Jun 2023 13:23:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10729"; a="773020053"
+X-IronPort-AV: E=McAfee;i="6600,9927,10729"; a="773020058"
 X-IronPort-AV: E=Sophos;i="6.00,214,1681196400";
-   d="scan'208";a="773020053"
+   d="scan'208";a="773020058"
 Received: from clatorre-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.212.190.110])
   by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2023 13:23:03 -0700
+ 02 Jun 2023 13:23:04 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -78,17 +78,16 @@ Cc: tiwai@suse.de,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Yong Zhi <yong.zhi@intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 25/28] ASoC: Intel: sof_sdw: Modify maxim helper functions and
- structure names
-Date: Fri,  2 Jun 2023 15:22:22 -0500
-Message-Id: <20230602202225.249209-26-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 26/28] ASoC: Intel: sof_sdw: Add support for MAX98363 codec
+Date: Fri,  2 Jun 2023 15:22:23 -0500
+Message-Id: <20230602202225.249209-27-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230602202225.249209-1-pierre-louis.bossart@linux.intel.com>
 References: <20230602202225.249209-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KAEGSOXX7DJ3DZJHNDOJMB7XXIN72W6Y
-X-Message-ID-Hash: KAEGSOXX7DJ3DZJHNDOJMB7XXIN72W6Y
+Message-ID-Hash: L4Q7CHELNCQLWKZ4SCGWQLZAFYOJL5YG
+X-Message-ID-Hash: L4Q7CHELNCQLWKZ4SCGWQLZAFYOJL5YG
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KAEGSOXX7DJ3DZJHNDOJMB7XXIN72W6Y/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L4Q7CHELNCQLWKZ4SCGWQLZAFYOJL5YG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,9 +111,8 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Uday M Bhat <uday.m.bhat@intel.com>
 
-Init function and structure names are modified to use maxim
-instead of max98373. Card components and speaker names are
-updated based on part id.
+Add support for MAX98363 soundwire codec. Update build
+configuration to include this codec.
 
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
@@ -122,147 +120,71 @@ Signed-off-by: Yong Zhi <yong.zhi@intel.com>
 Signed-off-by: Uday M Bhat <uday.m.bhat@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_sdw.c        |  2 +-
- sound/soc/intel/boards/sof_sdw_common.h | 12 +++---
- sound/soc/intel/boards/sof_sdw_maxim.c  | 52 +++++++++++++++----------
- 3 files changed, 39 insertions(+), 27 deletions(-)
+ sound/soc/intel/boards/Kconfig         |  1 +
+ sound/soc/intel/boards/sof_sdw.c       | 13 +++++++++++++
+ sound/soc/intel/boards/sof_sdw_maxim.c |  6 ++++++
+ 3 files changed, 20 insertions(+)
 
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index 799a51f23b84..f472f603ab75 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -662,6 +662,7 @@ config SND_SOC_INTEL_SOUNDWIRE_SOF_MACH
+ 	depends on MFD_INTEL_LPSS || COMPILE_TEST
+ 	depends on SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES || COMPILE_TEST
+ 	depends on SOUNDWIRE
++	select SND_SOC_MAX98363
+ 	select SND_SOC_MAX98373_I2C
+ 	select SND_SOC_MAX98373_SDW
+ 	select SND_SOC_RT700_SDW
 diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index 60ce8100e1dc..04d050eac00d 100644
+index 04d050eac00d..6caf598c7aeb 100644
 --- a/sound/soc/intel/boards/sof_sdw.c
 +++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -805,7 +805,7 @@ static struct sof_sdw_codec_info codec_info_list[] = {
- 				.dai_name = "max98373-aif1",
- 				.dai_type = SOF_SDW_DAI_TYPE_AMP,
- 				.dailink = {SDW_AMP_OUT_DAI_ID, SDW_AMP_IN_DAI_ID},
--				.init = sof_sdw_mx8373_init,
-+				.init = sof_sdw_maxim_init,
- 			},
+@@ -810,6 +810,19 @@ static struct sof_sdw_codec_info codec_info_list[] = {
  		},
  		.dai_num = 1,
-diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index f98d1ded5b1a..64cfa5d1aceb 100644
---- a/sound/soc/intel/boards/sof_sdw_common.h
-+++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -182,12 +182,12 @@ int sof_sdw_rt715_sdca_init(struct snd_soc_card *card,
- 			    struct sof_sdw_codec_info *info,
- 			    bool playback);
- 
--/* MAX98373 support */
--int sof_sdw_mx8373_init(struct snd_soc_card *card,
--			const struct snd_soc_acpi_link_adr *link,
--			struct snd_soc_dai_link *dai_links,
--			struct sof_sdw_codec_info *info,
--			bool playback);
-+/* MAXIM codec support */
-+int sof_sdw_maxim_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
-+		       struct snd_soc_dai_link *dai_links,
-+		       struct sof_sdw_codec_info *info,
-+		       bool playback);
- 
- /* RT5682 support */
- int sof_sdw_rt5682_init(struct snd_soc_card *card,
+ 	},
++	{
++		.part_id = 0x8363,
++		.dais = {
++			{
++				.direction = {true, false},
++				.dai_name = "max98363-aif1",
++				.dai_type = SOF_SDW_DAI_TYPE_AMP,
++				.dailink = {SDW_AMP_OUT_DAI_ID, SDW_UNUSED_DAI_ID},
++				.init = sof_sdw_maxim_init,
++			},
++		},
++		.dai_num = 1,
++	},
+ 	{
+ 		.part_id = 0x5682,
+ 		.dais = {
 diff --git a/sound/soc/intel/boards/sof_sdw_maxim.c b/sound/soc/intel/boards/sof_sdw_maxim.c
-index 3d7df58c0f1d..3cc47ae98c5e 100644
+index 3cc47ae98c5e..8d40a83ad98e 100644
 --- a/sound/soc/intel/boards/sof_sdw_maxim.c
 +++ b/sound/soc/intel/boards/sof_sdw_maxim.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- // Copyright (c) 2020 Intel Corporation
- //
--// sof_sdw_max98373 - Helpers to handle 2x MAX98373
-+// sof_sdw_maxim - Helpers to handle maxim codecs
- // codec devices from generic machine driver
- 
- #include <linux/device.h>
-@@ -13,12 +13,15 @@
- #include "sof_sdw_common.h"
+@@ -14,6 +14,7 @@
  #include "sof_maxim_common.h"
  
--static const struct snd_soc_dapm_widget mx8373_widgets[] = {
-+static int maxim_part_id;
-+#define SOF_SDW_PART_ID_MAX98373 0x8373
-+
-+static const struct snd_soc_dapm_widget maxim_widgets[] = {
- 	SND_SOC_DAPM_SPK("Left Spk", NULL),
- 	SND_SOC_DAPM_SPK("Right Spk", NULL),
- };
+ static int maxim_part_id;
++#define SOF_SDW_PART_ID_MAX98363 0x8363
+ #define SOF_SDW_PART_ID_MAX98373 0x8373
  
--static const struct snd_kcontrol_new mx8373_controls[] = {
-+static const struct snd_kcontrol_new maxim_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Left Spk"),
- 	SOC_DAPM_PIN_SWITCH("Right Spk"),
- };
-@@ -29,22 +32,25 @@ static int spk_init(struct snd_soc_pcm_runtime *rtd)
- 	int ret;
+ static const struct snd_soc_dapm_widget maxim_widgets[] = {
+@@ -148,6 +149,11 @@ int sof_sdw_maxim_init(struct snd_soc_card *card,
  
- 	card->components = devm_kasprintf(card->dev, GFP_KERNEL,
--					  "%s spk:mx8373",
--					  card->components);
-+					  "%s spk:mx%04x",
-+					  card->components, maxim_part_id);
- 	if (!card->components)
- 		return -ENOMEM;
- 
--	ret = snd_soc_add_card_controls(card, mx8373_controls,
--					ARRAY_SIZE(mx8373_controls));
-+	dev_dbg(card->dev, "soundwire maxim card components assigned : %s\n",
-+		card->components);
-+
-+	ret = snd_soc_add_card_controls(card, maxim_controls,
-+					ARRAY_SIZE(maxim_controls));
- 	if (ret) {
--		dev_err(card->dev, "mx8373 ctrls addition failed: %d\n", ret);
-+		dev_err(card->dev, "mx%04x ctrls addition failed: %d\n", maxim_part_id, ret);
- 		return ret;
- 	}
- 
--	ret = snd_soc_dapm_new_controls(&card->dapm, mx8373_widgets,
--					ARRAY_SIZE(mx8373_widgets));
-+	ret = snd_soc_dapm_new_controls(&card->dapm, maxim_widgets,
-+					ARRAY_SIZE(maxim_widgets));
- 	if (ret) {
--		dev_err(card->dev, "mx8373 widgets addition failed: %d\n", ret);
-+		dev_err(card->dev, "mx%04x widgets addition failed: %d\n", maxim_part_id, ret);
- 		return ret;
- 	}
- 
-@@ -130,19 +136,25 @@ static int mx8373_sdw_late_probe(struct snd_soc_card *card)
- 	return snd_soc_dapm_sync(dapm);
- }
- 
--int sof_sdw_mx8373_init(struct snd_soc_card *card,
--			const struct snd_soc_acpi_link_adr *link,
--			struct snd_soc_dai_link *dai_links,
--			struct sof_sdw_codec_info *info,
--			bool playback)
-+int sof_sdw_maxim_init(struct snd_soc_card *card,
-+		       const struct snd_soc_acpi_link_adr *link,
-+		       struct snd_soc_dai_link *dai_links,
-+		       struct sof_sdw_codec_info *info,
-+		       bool playback)
- {
- 	info->amp_num++;
- 	if (info->amp_num == 2)
- 		dai_links->init = spk_init;
- 
--	info->codec_card_late_probe = mx8373_sdw_late_probe;
--
--	dai_links->ops = &max_98373_sdw_ops;
--
-+	maxim_part_id = info->part_id;
-+	switch (maxim_part_id) {
-+	case SOF_SDW_PART_ID_MAX98373:
-+		info->codec_card_late_probe = mx8373_sdw_late_probe;
-+		dai_links->ops = &max_98373_sdw_ops;
+ 	maxim_part_id = info->part_id;
+ 	switch (maxim_part_id) {
++	case SOF_SDW_PART_ID_MAX98363:
++		/* Default ops are set in function init_dai_link.
++		 * called as part of function create_sdw_dailink
++		 */
 +		break;
-+	default:
-+		dev_err(card->dev, "Invalid maxim_part_id %#x\n", maxim_part_id);
-+		return -EINVAL;
-+	}
- 	return 0;
- }
+ 	case SOF_SDW_PART_ID_MAX98373:
+ 		info->codec_card_late_probe = mx8373_sdw_late_probe;
+ 		dai_links->ops = &max_98373_sdw_ops;
 -- 
 2.37.2
 

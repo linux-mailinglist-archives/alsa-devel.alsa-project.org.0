@@ -2,94 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B48A671FA71
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jun 2023 09:00:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D23C571FC38
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Jun 2023 10:39:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B6BC3E7;
-	Fri,  2 Jun 2023 08:59:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B6BC3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1C1F20C;
+	Fri,  2 Jun 2023 10:39:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1C1F20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685689230;
-	bh=GyY9J6rQp4cPjbTr/YEgV3e4S74jAvAlSN8bu3VpIW0=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qFtIbHYL84RjaajHPEwY4R0qEYbir+MU5lRZdWL6Z+Hn6SmjbwMjSNJh25UgvV0Pe
-	 MoIb6fb/gowDk1v7zMyHwNElTaDpKKgrPJEmyIhBGK6mrxMhKj3qhXMntJPIpEhsWf
-	 FpF5knfqz9b0MdicO07EnrRgegYc4a6D8ggkZnOM=
+	s=default; t=1685695191;
+	bh=s5EVH4S+f52mJ3zYCWnpPAoXxh33mCN2oAgx8yzlZzU=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=mRiyMrJqpTvxjiLGqHI257zHmi2rfik1KeZud0rRUbPtObA2HJdXx/emabK+Wj54m
+	 fk50frQxN2X0EQNjzlaBiGsDE7ZHbHTFPn581XcmSQclIDXtvy6TeoDo7NKDY3C0gn
+	 hmV3nSs3QtJ1VbwWob9i7GGySx24d55OjaQ+OH0k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B776F80132; Fri,  2 Jun 2023 08:59:17 +0200 (CEST)
+	id 20F0BF80149; Fri,  2 Jun 2023 10:38:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3277FF80132;
-	Fri,  2 Jun 2023 08:59:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE2B5F80132;
+	Fri,  2 Jun 2023 10:38:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22475F80149; Fri,  2 Jun 2023 08:58:58 +0200 (CEST)
+	id A5EEDF80149; Fri,  2 Jun 2023 10:38:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8FE39F800ED
-	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 08:58:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FE39F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 35C41F800C1
+	for <alsa-devel@alsa-project.org>; Fri,  2 Jun 2023 10:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35C41F800C1
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=j3OA/9cs
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4effb818c37so2230312e87.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 01 Jun 2023 23:58:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685689132; x=1688281132;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=GyY9J6rQp4cPjbTr/YEgV3e4S74jAvAlSN8bu3VpIW0=;
-        b=j3OA/9csKljxEapfMtD0DS057Oi4S+e0eRNu4Pb/B/P1IJUyoePrnQKiUQ8OLb2soM
-         TxXdv5VeERUkv0Yq+MMp4tO3OL+zyABtz3UJXIzji8ovCMOJM4rkzcPGgZJFzE/7h3fr
-         Xcb3ur0r2rhQzF3YNIq1o1nhd9RMlZ02gpKZR4epCYoq9HioGmAZIfoPVsnpMBhEwhTw
-         voYuU8vd3jEutuSlqUYJV+obqiep4hItQoegG7rg/rKs5/Vbh+1c4DZYAr83ytSlUxsr
-         jfjaOY2pWWbfIJuzgSp27kkyE3O30dH+ShL7mvpKjnVT3swHqlYo22gslfDaH6W92t9A
-         ECbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685689132; x=1688281132;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GyY9J6rQp4cPjbTr/YEgV3e4S74jAvAlSN8bu3VpIW0=;
-        b=gANbo6iBbkH2MfoM7/06FpDFTgL1J2IDxBKqGGf8RwdQmJtm9DwHnOVsTFUaFn8o3g
-         gTqukSnNJj2JXpCG77TpSaJLPEV4eEkRL2ZKKx2bfAlcvHzr8kUMPYhDxpFBKvxHR9U+
-         AmbbNa+cwmsiyRhn8juZ2Cavojhw572ufQhxw41sGa7zcwN2UDr4FdCgDlUpzEKKzVPo
-         BS9hGU3sp+OnFiPXsqWC8M4yF3ZmNcbMXknxXuiaYbcVDdqufRFKeXZVOfmc8dqRBrD8
-         ozXzAs1OZrkzEFvLShg7+PXotj6+VpN8JGlJGeyC1CAioLvZNyu+5a3rc1Eh2L1uRfpa
-         gvbw==
-X-Gm-Message-State: AC+VfDwszA+NAaNb81j9g0St3raNeOd/ETyYg/64pC6ESCIrsbXXaWk8
-	zM+DMidYIdzBBuq1SxFoItBBqshrp+vXfpTmhvvezZ4dpb8=
-X-Google-Smtp-Source: 
- ACHHUZ5CGQK9dHKu++ozLHt5Gwq3Z5NWZmEg2fP8lJuv5ib9orBaegSmLQHHo0C6IC7fzkTq5epG1AU7RSLEiW6rklA=
-X-Received: by 2002:a05:6512:98b:b0:4f5:a17f:4897 with SMTP id
- w11-20020a056512098b00b004f5a17f4897mr1208152lft.43.1685689132036; Thu, 01
- Jun 2023 23:58:52 -0700 (PDT)
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=hZo2EPAH
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35273kMd018220;
+	Fri, 2 Jun 2023 03:38:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=gXsHwXIkqIMPI+sU77tOM2/Q0dJ8eT8YqESfqpSpNww=;
+ b=hZo2EPAHqAvS4bLxSPIRXIKHFOF/bnglY6aTEYtUhpLFUbZoi4imV2Mipf/XwqwJ0uP7
+ SJWKMUkNQPp9ZCfD/H0bParGBbagDNJSCMdsHos6X3skgDrOQoq5wDqENjNLR2wBRslg
+ ZgBQHn4u1caoSDCgYkQ3vSHv9w4FkwmBnW38idiXaL1qHdMYnpsvZ24h+FTQ9ENmejPd
+ dmb8pd47QMgCQ7H+4Yg9QkIqaOTeqXJKF7J1wGk18ni6ap69qNcRb/+AnhwbuAA13R5G
+ xkBnO6IEFueqGcx1EpHNYc9wNl5xWBDAp4iN479/PTHbeN0xgAsivCLlaavERFBEcASL mQ==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3quf90y5s3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 02 Jun 2023 03:38:12 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 2 Jun
+ 2023 09:38:10 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Fri, 2 Jun 2023 09:38:10 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 57E8715A4;
+	Fri,  2 Jun 2023 08:38:10 +0000 (UTC)
+Date: Fri, 2 Jun 2023 08:38:10 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+CC: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
+        <sanyog.r.kale@intel.com>, <alsa-devel@alsa-project.org>,
+        <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>
+Subject: Re: [PATCH 4/4] soundwire: stream: Tidy do_bank_switch error messages
+Message-ID: <20230602083810.GK68926@ediswmail.ad.cirrus.com>
+References: <20230601161622.1808135-1-ckeepax@opensource.cirrus.com>
+ <20230601161622.1808135-4-ckeepax@opensource.cirrus.com>
+ <4e90380f-b328-5806-4305-0a794cadc550@linux.intel.com>
 MIME-Version: 1.0
-From: =?UTF-8?B?Sm/Dq2wgS3LDpGhlbWFubg==?= <jkraehemann@gmail.com>
-Date: Fri, 2 Jun 2023 08:58:41 +0200
-Message-ID: 
- <CA+Owze4JqFjyYoWO_EDY6BoPAhoXdkXqjBLRMLAG7LsOaCbOXA@mail.gmail.com>
-Subject: GSequencer enters MIDI awards a second time
-To: alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: CYJZSFHNWZCQJBP7KN36PERFLNATZBSR
-X-Message-ID-Hash: CYJZSFHNWZCQJBP7KN36PERFLNATZBSR
-X-MailFrom: jkraehemann@gmail.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <4e90380f-b328-5806-4305-0a794cadc550@linux.intel.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: 8C9lHObPsMRu1WPHQ1nYgXrAnLxE34WY
+X-Proofpoint-ORIG-GUID: 8C9lHObPsMRu1WPHQ1nYgXrAnLxE34WY
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: LLHKZ6KICOFTZ2PAO7GUYT7JZWJD7VUX
+X-Message-ID-Hash: LLHKZ6KICOFTZ2PAO7GUYT7JZWJD7VUX
+X-MailFrom: prvs=1517dd3c90=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CYJZSFHNWZCQJBP7KN36PERFLNATZBSR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LLHKZ6KICOFTZ2PAO7GUYT7JZWJD7VUX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,13 +114,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi all,
+On Thu, Jun 01, 2023 at 11:34:10AM -0500, Pierre-Louis Bossart wrote:
+> On 6/1/23 11:16, Charles Keepax wrote:
+> > Every error path in do_bank_switch prints an error message so there is no
+> > need for the callers to also print error messages. Indeed in multi-master
+> > cases these extra messages are confusing because they print out against a
+> > random bus device whereas the do_bank_switch messages print against the bus
+> > that actually failed.
+> 
+> Errm, what?
+> 
+> There is no way to know which bus failed in multi-master mode, and the
+> 'stream' can span multiple buses so the use of pr_err was intentional.
 
-Please check and vote for your favorite sequencer:
+Apologies this is the commit message not quite keeping pace with
+the code base. Originally when I wrote the patch the error
+message after do_bank_switch were a "dev_err(bus->dev", that was
+then fixed up in commit d014688eb373 ("soundwire: stream: remove
+bus->dev from logs on multiple buses").
 
-https://www.midi.org/component/zoo/item/advanced-gtk-sequencer-2?Itemid=3D1=
-423
+> There's just no other way to report issues, and I don't see why one
+> would remove such logs and fail silently.
+> 
+> I just don't get what you are trying to address.
+>
 
-cheers, Jo=C3=ABl
+The current code would say produce something like:
 
-http://gsequencer.org
+Bank switch failed: -5
+_sdw_prepare_stream: do_bank_switch failed: -5
+
+I am sensing you are keen to keep both error messages, so fair
+enough I will drop that. Although worth noting originally before
+that patch I mention above this would have been:
+
+Bank switch failed: -5
+do_bank_switch failed: -5
+
+Which is really what I was attempting to address, that is clearly
+redundant. Now with the addition of the function in the print I
+guess it is slightly less redundant.
+
+> > This also allows clean up of a couple of if's and variable initialisations
+> > that were only there to silence potentially uninitialised variable
+> > warnings on the bus variable.
+> 
+> That should be a separate patch IMHO.
+> 
+
+I will trim the patch down to leave the duplicate error messages
+and just remove those bits.
+
+Thanks,
+Charles

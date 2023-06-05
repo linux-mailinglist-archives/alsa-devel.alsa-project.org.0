@@ -2,84 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20296722A42
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 17:08:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45BC6722AEF
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 17:25:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53452820;
-	Mon,  5 Jun 2023 17:07:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53452820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21DB474C;
+	Mon,  5 Jun 2023 17:24:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21DB474C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685977684;
-	bh=eidswOiIHb6J7g9gZ8YGCj4/t5ooFfmlHRG0/DCt9gw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1685978700;
+	bh=og2G0qioU1lNRGyf6Db5mgIz9SLWyvKUdn5ToqAL4pI=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=XKbabuLyduJ1j3sdvU/0DW+SKl/5KMqqppPckxFa47rC5HCQzqGOGfh+EXadzD51N
-	 OaVFDZbAvlEPBGMVosBkObIikZH0vLYfsgc54CQhwNWGOp5HYyrjKWP4KRh/iPiWBZ
-	 xKo05bCIt9bm12G0akgagsFW4Sv9ibA8FOeB95nE=
+	b=D7iy2CEj0ZTQ8QfF+XZAJ/yH0dy4sJQJp+cPJXAZlHMOb4vM0NCfyXlLD2VHuSl4g
+	 281h0mbgrnT0RWKM94UueHVxFWyYUDX84v5da5yyrRD7Xt6hxzzv/JV/LAKGvmlFgl
+	 Kh4ULyhClgGXhn4ypf5RSNTl8NaYvq2URMQPMzAo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8279AF80199; Mon,  5 Jun 2023 17:07:13 +0200 (CEST)
+	id 7D163F804DA; Mon,  5 Jun 2023 17:24:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2960CF8016C;
-	Mon,  5 Jun 2023 17:07:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1753AF8016C;
+	Mon,  5 Jun 2023 17:24:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C8B2F80199; Mon,  5 Jun 2023 17:07:10 +0200 (CEST)
+	id 44770F80199; Mon,  5 Jun 2023 17:24:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8C1DEF80155
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 17:07:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C1DEF80155
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=L1WqGVNK
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 702A661A55;
-	Mon,  5 Jun 2023 15:07:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708D1C433EF;
-	Mon,  5 Jun 2023 15:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685977619;
-	bh=eidswOiIHb6J7g9gZ8YGCj4/t5ooFfmlHRG0/DCt9gw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=L1WqGVNKM0LMprpTuSPW88ttxsQya+6RCSHywsjoqhCt9c0U8etTahbFiEC6fRl/z
-	 vf5ygXd303eAmHGnO3775BYbGeLj3HGVeqeS7Bm7PLl6IMJiSYFZOB+8yeuL4XGnw+
-	 GB/8G7iZrh5AzEBiWSiciPIu26R5t/QEfayVRJIM08LIGs3RPUJz9P6dYvUveXvjEJ
-	 TrMyhTMzCuraxUl851ANQEAyd9bosIc9csPwZCyRMtWtpCdnQ1fI2hDRQLIWIbXwsj
-	 rITVGnMABV6X4/drtvOMpvlV3beCXUl6EsatriH3gRVV+EKYJo48qvYje43d5CSfr0
-	 LDeHdJQHqLJgQ==
-Date: Mon, 5 Jun 2023 16:06:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: YingKun Meng <mengyingkun@loongson.cn>, lgirdwood@gmail.com,
-	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
-	loongson-kernel@lists.loongnix.cn
-Subject: Re: [PATCH 3/3] ASoC: dt-bindings: Add support for Loongson audio
- card
-Message-ID: <9fb3da48-a20b-4e2f-b84a-733f96126ebe@sirena.org.uk>
-References: <20230605120934.2306548-1-mengyingkun@loongson.cn>
- <20230605120934.2306548-3-mengyingkun@loongson.cn>
- <118d13ef-a247-cf88-5084-afdebc6b7651@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4A19F80130
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 17:24:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4A19F80130
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=SuFG+NYO
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3558e8qJ010267;
+	Mon, 5 Jun 2023 10:23:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=uVmiTfqw7mNMn6Bzor8qN+zV9QQNIDAGFDMziJpJE20=;
+ b=SuFG+NYOcggQgxA4azHkNp9/VLKBi9gRkHgOavnPxGKUnYrGhiUVWKgHTz4wkvEk2Ej6
+ hLlSx/3WmWJmPLrYrDF2u4huit6QxPVg2Q+XlEIveAdRU1jjh+XTTw84kEQcBV+YIGlO
+ uVkCti6JSnsckNk56mu8lCapFn7RGCrGdqC+5MpNnhEqA+yzQ9YjCvwtmBoPpXQz77sY
+ 6auErS2Zj0qjMdufWn+Qvtg5VInFjShRJzdrPFAv+C27ORQSKBYslO2OUibt96Q/Ea4B
+ 0bXZmPtYs+iDpidqCQQnHl+pZLbwSQSB+P2/4cx4YM5iMTrA1OVZEH2LU5C8yylFauqF Vg==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3r01xna11f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Jun 2023 10:23:57 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Mon, 5 Jun
+ 2023 16:23:55 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Mon, 5 Jun 2023 16:23:55 +0100
+Received: from [198.90.238.35] (LONN2DGDQ73.ad.cirrus.com [198.90.238.35])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7597D11AA;
+	Mon,  5 Jun 2023 15:23:55 +0000 (UTC)
+Message-ID: <21d2e747-f911-e9d4-2c55-e31c76c9d2bc@opensource.cirrus.com>
+Date: Mon, 5 Jun 2023 16:23:55 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="v/cqJIry2Sg0YIf1"
-Content-Disposition: inline
-In-Reply-To: <118d13ef-a247-cf88-5084-afdebc6b7651@kernel.org>
-X-Cookie: Biggest security gap -- an open mouth.
-Message-ID-Hash: 2WXYRGZALSML5G2MJTXZM7URRC4ER4KF
-X-Message-ID-Hash: 2WXYRGZALSML5G2MJTXZM7URRC4ER4KF
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH RESEND v1 2/3] ALSA: hda: cs35l41: Fix endian conversions
+To: Takashi Iwai <tiwai@suse.de>
+CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>
+References: <20230525135955.2108140-1-sbinding@opensource.cirrus.com>
+ <20230525135955.2108140-3-sbinding@opensource.cirrus.com>
+ <87zg5eidcb.wl-tiwai@suse.de>
+ <ff8d0da4-10f7-31a7-5cf9-7a4c0e009192@opensource.cirrus.com>
+ <878rcyhwvk.wl-tiwai@suse.de>
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+In-Reply-To: <878rcyhwvk.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: Lkg6Khi7KamQ91EwYW0YOCtQrNfT2HqX
+X-Proofpoint-GUID: Lkg6Khi7KamQ91EwYW0YOCtQrNfT2HqX
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: H33CDUOVEFG273JELJLAJVI6ZWNAXQWX
+X-Message-ID-Hash: H33CDUOVEFG273JELJLAJVI6ZWNAXQWX
+X-MailFrom: prvs=1520dfaea3=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2WXYRGZALSML5G2MJTXZM7URRC4ER4KF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H33CDUOVEFG273JELJLAJVI6ZWNAXQWX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,41 +116,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Takashi,
 
---v/cqJIry2Sg0YIf1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 05/06/2023 14:17, Takashi Iwai wrote:
+> On Mon, 05 Jun 2023 14:50:54 +0200,
+> Stefan Binding wrote:
+>> Hi Takashi,
+>>
+>> On 05/06/2023 08:21, Takashi Iwai wrote:
+>>> On Thu, 25 May 2023 15:59:54 +0200,
+>>> Stefan Binding wrote:
+>>>> @@ -379,10 +379,10 @@ static int cs35l41_save_calibration(struct cs35l41_hda *cs35l41)
+>>>>      				/* Calibration can only be applied
+>>>> whilst the DSP is not running */
+>>>>    				ret = cs35l41_apply_calibration(cs35l41,
+>>>> -								cpu_to_be32(cl->calAmbient),
+>>>> -								cpu_to_be32(cl->calR),
+>>>> -								cpu_to_be32(cl->calStatus),
+>>>> -								cpu_to_be32(cl->calR + 1));
+>>>> +								(__be32)cpu_to_be32(cl->calAmbient),
+>>>> +								(__be32)cpu_to_be32(cl->calR),
+>>>> +								(__be32)cpu_to_be32(cl->calStatus),
+>>>> +								(__be32)cpu_to_be32(cl->calR + 1));
+>>> Do we really need those cast?  Even if yes, it must be with __force
+>>> prefix for the endian cast in general.
+>> These casts were added because we found some warnings when we ran the
+>> static analyzer sparse locally.
+>> I think these warnings are very minor, and we can drop this patch if
+>> you prefer?
+> The warnings must be bogus, or maybe pointing to other things?
+> The cpu_to_be32() macro itself must return a __be32 value, hence it
+> makes no sense to add an extra cast .
+>
+> If the static analysis still shows such a warning, it should be fixed
+> differently -- either fix the analyzer or fix the cpu_to_be32() macro
+> itself.
+>
+> The changes of the argument types to __be32 are fine.  I'm arguing
+> only about those unnecessary cast.
 
-On Mon, Jun 05, 2023 at 04:45:38PM +0200, Krzysztof Kozlowski wrote:
-> On 05/06/2023 14:09, YingKun Meng wrote:
+You are correct, I double checked and the cast is not needed. I'll push 
+up a v2.
 
-> > +title: Loongson generic ASoC audio sound card.
+Thanks,
 
-> What is a "generic audio card"? Does it even match hardware? Bindings
-> are supposed to describe hardware, which is usually very specific.
+Stefan
 
-The concept of a generic, reusable sound card seems reasonably clear -
-there's a bunch of in tree examples already and the idea that we have to
-pull together multiple bits of hardware to make a useful sound subsystem
-is a known thing.
-
-> Also: Drop full stop. It's a title.
-
-Shouldn't this be checked by the tooling?
-
---v/cqJIry2Sg0YIf1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR9+g4ACgkQJNaLcl1U
-h9BgRgf/UjZGQKyfV2oVwePqSNHH0HwTGYid7NA5rMUyPXEpnfbliL3giOXSCz2x
-KzLiuvPawEC9UtkLOs1BRIjKqU8nI9E0I7WgIkr69HhWP9aWxh7ssxmZSUOL4lG7
-TqJpq1YNSWQenNPZxu+p/vrJFO/WQMfNk/mhrnYZXDQdMhQV63jvZ7+e3i+lm6/q
-KkpoiPKLX/7yu2KQjtGrhqSftdg7H50YGvxx5eC+PqhI/YJK+F29CiiG6X4DJtz1
-z6Dzw36EbwyX6BvP8rtcHoW9FhBw/AXXuus91jJqnGxzYRZ1+omUX6jrTytGgAwR
-mT9RQweeNJKwgOJIlgdF8OL/e1JD1w==
-=Omhv
------END PGP SIGNATURE-----
-
---v/cqJIry2Sg0YIf1--
+>
+>
+> thanks,
+>
+> Takashi

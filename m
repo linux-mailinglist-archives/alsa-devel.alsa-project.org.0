@@ -2,125 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8085722CD7
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 18:40:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DED0723757
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 08:12:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 676381D6;
-	Mon,  5 Jun 2023 18:39:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 676381D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id D07A1847;
+	Tue,  6 Jun 2023 08:11:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D07A1847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685983199;
-	bh=uQ5eYBMv1+0hFlNUMUHgxCuvIvdPblAYGABAdLDPGOg=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Toh5Uw7kqZ+TUX9BsEeqq3SyAMsImDEKXCl6/c7isA4JFqOlox6yzzv051NOasbG9
-	 czlstb5m/EtEUDfJ8zvAPwMz1phXBFb2fcAqQcDVJ2nedqm7JfYUe7HnxO4FXKXOj1
-	 3yrzz0CrImy9I6SWCbn/DsmE1IQ/gK4a+i6pSrFQ=
+	s=default; t=1686031945;
+	bh=0/SEa1+QK/S1pwf87rIZ/2RyLZE/h3augkTvqyVw3hE=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=tmFUUafJ2giBfLWrxrSU2QBsbzT+Mq47xqT79EueqS4gKUX7QBdB4wwg4S0DYjJ+5
+	 wo3KE48yjWMwBHkdJYbTgrUYIrIBQUi8ub+PfrCeg6oOHw83CE2uC0jHCAJQUwDUIp
+	 jt3cDkl2+Teebi4FMS13U5ZE5TT2XH0SvIFdicio=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAA04F80520; Mon,  5 Jun 2023 18:39:08 +0200 (CEST)
+	id 2DFDCF805D8; Tue,  6 Jun 2023 08:09:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 766FCF8016C;
-	Mon,  5 Jun 2023 18:39:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 562B5F805CB;
+	Tue,  6 Jun 2023 08:09:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66C04F80199; Mon,  5 Jun 2023 18:39:04 +0200 (CEST)
+	id 8D4A2F80199; Mon,  5 Jun 2023 19:05:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-6.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93777F80130
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 18:38:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93777F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=system76.com header.i=@system76.com header.a=rsa-sha256
- header.s=fm1 header.b=eagZALtl;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=yfo0UPOF
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
-	by mailout.west.internal (Postfix) with ESMTP id 1E05F320097D;
-	Mon,  5 Jun 2023 12:38:53 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute6.internal (MEProxy); Mon, 05 Jun 2023 12:38:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=system76.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1685983132; x=1686069532; bh=t9dA6/jsfw
-	zH+WIvoFyzqiB8dF+kJEOAWD1dNT3qGfI=; b=eagZALtlnh7Pnh3y5exe95lxjr
-	ECNTXbqqhd+PRzY5Hbkm9rW0gf10TdcwsB/d2c+xhTe5pzMUvereupKoZzosk0HH
-	RC4Rhzi9akwdpemW8rkAoTtd4wY3g8+zc91qHGngisiaQircNErwI8VExnHr/XDL
-	p4SNJFDVXoA8MZmpV3Vf5ACf4OwnDNTzJPIxBPAAmcnG4DvO4shvRcqXSeE2h9Ky
-	bCWNhifhN5fMm11we9ostOS4cklzvybxty/JvqR9Ykbzf7jAEf0UJPTehVzxfDRR
-	zsKeTJhUUmBZSlOfjIxVS+4xv9FGfHdT5+t2SzYXtvewD6OZf1LHKrcnZbaA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1685983132; x=1686069532; bh=t9dA6/jsfwzH+
-	WIvoFyzqiB8dF+kJEOAWD1dNT3qGfI=; b=yfo0UPOFhvZg0+s7AxwnoEcHXfIr9
-	mOn8qpbGw9Kygydd8/uqHrSZ/BNLerYHdz1JbwAoFzBgrQBtvUXfovQOnxpACqLX
-	5XIwG9evoXOs+yNgd8KcUa1mzX+saeAfA0l6kQKo+T7dY6KAIEHyd9CPaLwRHRiG
-	T4VD5VrDEBKV47X9EucrSiTo/k5NN53qOAD2ZaYPGJR/ekEVf1TTSTI1zlmZPo3W
-	F/2CY86lV3ZlbtQLY7DVz24BSjsT8Cy9upm0oABOnsok/L749LvZpL2njmVqCcn+
-	V8z7i8cEl8dbUxXiM2apxQi8GISHAJOnJ9w9Bp8v7Ib2Q0CjX+9/+Iq3g==
-X-ME-Sender: <xms:nA9-ZFfd5lQrDz0xq4f3UQbA6r2QKwfx8B4ssKC3Tcztx5LpP8qPHg>
-    <xme:nA9-ZDOEUle2Yjn-RjyvvjuoY7b283lKNobK7uS43wGj6XSSlrwPek3PDk6uDLDSi
-    pegmaa5Zkg5hXgkkA>
-X-ME-Received: 
- <xmr:nA9-ZOhzTGFXepm6HE5CHzrKc9CfrNH8aqDSbgGDtgr1X6UZXAC8BRIXRKQWcEy6AQ0O0JCdSKNl3MgoCjYhRMeCSWqs0zc_d-_XnieMrg>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedvhedrfeelledguddtgecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvvefufffkofgggfestdekre
-    dtredttdenucfhrhhomhepvfhimhcuvehrrgiffhhorhguuceothgtrhgrfihfohhruges
-    shihshhtvghmjeeirdgtohhmqeenucggtffrrghtthgvrhhnpeekgfetfedviedvhffftd
-    ffgfeifffhteeguddukeeifeeuuedtleeftdevueehfeenucevlhhushhtvghrufhiiigv
-    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehttghrrgiffhhorhgusehshihsthgvmh
-    ejiedrtghomh
-X-ME-Proxy: <xmx:nA9-ZO81c2w8YyeAKiZcLQAeA4d1YtmSg71_gxtjIUKl84Mc87cFHw>
-    <xmx:nA9-ZBt1GuYUZ1JAWpcWqIYPfiLjz7uaIJORdDAFfp9fySMJMNkrLg>
-    <xmx:nA9-ZNG6RJ5MIFNYktpqWIAsGuF4JNTRbz1-R2Q1OzMab1mT2JqysQ>
-    <xmx:nA9-ZK7q1oZUXdtf0uAJIqYIKNTPeiGznGjzDvlTbCyOcITVlvd4Fg>
-Feedback-ID: i1761444e:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Jun 2023 12:38:51 -0400 (EDT)
-From: Tim Crawford <tcrawford@system76.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de,
-	productdev@system76.com,
-	Tim Crawford <tcrawford@system76.com>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NS50AU
-Date: Mon,  5 Jun 2023 10:38:34 -0600
-Message-Id: <20230605163834.24653-1-tcrawford@system76.com>
-X-Mailer: git-send-email 2.40.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 568E3F80155
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 19:05:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 568E3F80155
+Received: from lhrpeml500005.china.huawei.com (unknown [172.18.147.226])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4QZg1N2bmLz67ftX;
+	Tue,  6 Jun 2023 01:03:52 +0800 (CST)
+Received: from localhost (10.126.171.223) by lhrpeml500005.china.huawei.com
+ (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 5 Jun
+ 2023 18:05:48 +0100
+Date: Mon, 5 Jun 2023 18:05:47 +0100
+From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+CC: Herve Codina <herve.codina@bootlin.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Kuninori
+ Morimoto" <kuninori.morimoto.gx@renesas.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-iio@vger.kernel.org>, Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 5/9] iio: inkern: Add a helper to query an available
+ minimum raw value
+Message-ID: <20230605180547.0000528b@Huawei.com>
+In-Reply-To: 
+ <CAHp75Vec3fXT6phqvLGSn0c09USCXXF6ZoE+X1VNJGM6jyf=aQ@mail.gmail.com>
+References: <20230523151223.109551-1-herve.codina@bootlin.com>
+	<20230523151223.109551-6-herve.codina@bootlin.com>
+	<ZHtIdTZbULl6t4RT@surfacebook>
+	<20230605094637.7615b689@bootlin.com>
+	<CAHp75Vec3fXT6phqvLGSn0c09USCXXF6ZoE+X1VNJGM6jyf=aQ@mail.gmail.com>
+Organization: Huawei Technologies Research and Development (UK) Ltd.
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6CY6V2XLOKKO6CA6RP2H5OMO7BTELZXA
-X-Message-ID-Hash: 6CY6V2XLOKKO6CA6RP2H5OMO7BTELZXA
-X-MailFrom: tcrawford@system76.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [10.126.171.223]
+X-ClientProxiedBy: lhrpeml100006.china.huawei.com (7.191.160.224) To
+ lhrpeml500005.china.huawei.com (7.191.163.240)
+X-CFilter-Loop: Reflected
+X-MailFrom: jonathan.cameron@huawei.com
+X-Mailman-Rule-Hits: implicit-dest
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ administrivia; max-recipients; max-size; news-moderation; no-subject;
+ digests; suspicious-header
+Message-ID-Hash: QVLQZGKDYZBVV6WU7UH2K7Z2CKTURKPC
+X-Message-ID-Hash: QVLQZGKDYZBVV6WU7UH2K7Z2CKTURKPC
+X-Mailman-Approved-At: Tue, 06 Jun 2023 06:09:01 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6CY6V2XLOKKO6CA6RP2H5OMO7BTELZXA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QVLQZGKDYZBVV6WU7UH2K7Z2CKTURKPC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,25 +103,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Fixes headset detection on Clevo NS50AU.
+On Mon, 5 Jun 2023 12:45:24 +0300
+Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
 
-Signed-off-by: Tim Crawford <tcrawford@system76.com>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+> On Mon, Jun 5, 2023 at 10:46=E2=80=AFAM Herve Codina <herve.codina@bootli=
+n.com> wrote:
+> > On Sat, 3 Jun 2023 17:04:37 +0300
+> > andy.shevchenko@gmail.com wrote: =20
+> > > Tue, May 23, 2023 at 05:12:19PM +0200, Herve Codina kirjoitti: =20
+>=20
+> ...
+>=20
+> > > > +           case IIO_VAL_INT:
+> > > > +                   *val =3D vals[--length]; =20
+> > > =20
+> > > > +                   while (length) { =20
+> > >
+> > >                       while (length--) {
+> > >
+> > > will do the job and at the same time...
+> > > =20
+> > > > +                           if (vals[--length] < *val)
+> > > > +                                   *val =3D vals[length]; =20
+> > >
+> > > ...this construction becomes less confusing (easier to parse). =20
+> >
+> > Indeed, I will change in the next iteration. =20
+>=20
+> And looking into above line, this whole construction I would prefer to
+> have a macro in minmax.h like
+>=20
+> #define min_array(array, len) \
+> {( \
+>   typeof(len) __len =3D (len); \
+>   typeof(*(array)) __element =3D (array)[--__len]; \
+>   while (__len--) \
+>     __element =3D min(__element, (array)[__len]); \
+>   __element; \
+> )}
+>=20
+> (it might need more work, but you got the idea)
+>=20
+> > > > +                   }
+> > > > +                   break; =20
+>=20
+> ...
+>=20
+> > > > +           default:
+> > > > +                   /* FIXME: learn about min for other iio values =
+*/ =20
+> > >
+> > > I believe in a final version this comment won't be here. =20
+> >
+> > We have the same FIXME comment in the iio_channel_read_max() function I
+> > copied to create this iio_channel_read_min() and, to be honest, I
+> > don't really know how to handle these other cases.
+> >
+> > In this series, I would prefer to keep this FIXME. =20
+>=20
+> I see, Jonathan needs to be involved here then.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 172ffc2c332b..345847ef8350 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9608,6 +9608,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x5101, "Clevo S510WU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x5157, "Clevo W517GU1", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x51a1, "Clevo NS50MU", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x51b1, "Clevo NS50AU", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x5630, "Clevo NP50RNJS", ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x70a1, "Clevo NB70T[HJK]", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x70b3, "Clevo NK70SB", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--- 
-2.40.1
+It's really more of a TODO when someone needs it than a FIXME.
+I'm not particularly keen to see a bunch of code supporting cases
+that no one uses, but it's useful to call out where the code would
+go if other cases were to be supported.
+
+Perhaps soften it to a note that doesn't have the work FIXME in it.
+
+Jonathan
+
+
+>=20
+> > > > +                   return -EINVAL; =20
+>=20
 

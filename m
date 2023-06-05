@@ -2,81 +2,167 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A948E722737
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:18:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F6B722746
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:22:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59523828;
-	Mon,  5 Jun 2023 15:18:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59523828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53FF5823;
+	Mon,  5 Jun 2023 15:22:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FF5823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685971133;
-	bh=SGsAGVrSqKqwUbt7JXQCFYcn8EXvmNfwpHAaExlrrFE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1685971376;
+	bh=YwSKyOfdzBo1uAfnE7zgfS1AbcwbpmATaa++9CDquSU=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=F+VEVq5YLxI+xCiKGYUEWBlUVGpZT0+NOyQoIUVROxcRVZcL4jA/mkKtoQbmSGt0t
-	 XAvobFb/Pf/n41X/Tqol0RM+I0JgSoJx/SukhMKBmnNyIh8HePXOPJmW0ECdSjCnPN
-	 ZQxkrZOHD76oWP8mU+l3YOm6oucorWQdxlQmV4jY=
+	b=WWa/v8HiMqigQkXbODVGMcjLP/bb4K4EGJO2JMGHLoCHHnCgQC51hbGAc1ScqIEl3
+	 xVdUrleFJVM74ergcwigJM2mN9Z/8ayod2qmrLSKpUgg8s4Pj6PChz9oe05jV8gSHY
+	 GPmkFO1F0tlVmeNlCV91RwP6o+IB7ZgmZ32Tauto=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD6CDF80254; Mon,  5 Jun 2023 15:17:57 +0200 (CEST)
+	id 1B430F80520; Mon,  5 Jun 2023 15:22:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74D26F80130;
-	Mon,  5 Jun 2023 15:17:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B1F0F8016C;
+	Mon,  5 Jun 2023 15:22:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3E68DF804DA; Mon,  5 Jun 2023 15:17:53 +0200 (CEST)
+	id 3C50BF80199; Mon,  5 Jun 2023 15:22:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16DF4F80199
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 15:17:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16DF4F80199
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=C58oqxJo
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20615.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e83::615])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 286A761156;
-	Mon,  5 Jun 2023 13:17:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D773C433EF;
-	Mon,  5 Jun 2023 13:17:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685971067;
-	bh=SGsAGVrSqKqwUbt7JXQCFYcn8EXvmNfwpHAaExlrrFE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=C58oqxJolO0WvmjWrd4Xn0Kcf2c4dkOI3G9BagcES3ULZk9Zqcfaa97VdQz9Edrbl
-	 amYy+HTtXZ1eh49cFk2W5N1AP9ZPhpgCYOVqTdrM0D8YaVFlKY1Nk6UEMeprRr+TK7
-	 z+SqTuHYwdgZHsj7Ul8XUYQHR1xQ0omtk79pQZogNW36CYUDZIneK5WniAZz2jVGFl
-	 zbznDXdO7rTjqC1tG0FImrSANZhaaAl1CpmVGizMLo41k2bnnQ9JXOorbKrcRyuq2I
-	 mlPcGUlpiQeeTIhUMSYyIP/+AZoLHfxS/Yf40WHH1NuGGX+etwdGyuBIUfPaGw1okJ
-	 c1cwc/P2vjYwg==
-Date: Mon, 5 Jun 2023 14:17:43 +0100
-From: Mark Brown <broonie@kernel.org>
-To: YingKun Meng <mengyingkun@loongson.cn>
-Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org,
-	loongarch@lists.linux.dev, loongson-kernel@lists.loongnix.cn
-Subject: Re: [PATCH 1/3] ASoC: Add support for Loongson I2S controller
-Message-ID: <f88a4985-0dc1-4599-8656-2029c0825495@sirena.org.uk>
-References: <20230605120934.2306548-1-mengyingkun@loongson.cn>
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0D03F80155
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 15:21:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D03F80155
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=infinera.com header.i=@infinera.com header.a=rsa-sha256
+ header.s=selector1 header.b=TMFVIOLZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UgVzf7LFJ9aNRiHGBKug8zWlL2YtcxdXZMc8nj/LkH36Mu0Hrh1hW+maNzlWa/nK6mWb1Q5wrrGXrWxinCO/dQ+bRqh+E/3z+WyjYq4VOFdTU4kTyMewcJ45IYydrJfIAk/ggZJMsHTBvkhH4T+Gt0SRAiZu1UREfigIjaeCW/CqiiueYeI1XhyxOuBc5YXk5IMN8Pm1llkoDuwJgiwRaP7Ux2zW+QsRT88IQaalZ4sQdj/CEZcEC50ekWaT1Q95LLbv7GRmUmhIJNjkAzoJTByZ0Bic4eWceqQ79O1o60yj0isNKnVMor+RuvQPqXD7w9gTv0vfr1rShJyN0wvACg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YwSKyOfdzBo1uAfnE7zgfS1AbcwbpmATaa++9CDquSU=;
+ b=SRGJtu5Vc9w0b7T2ODfxAQGKhBqXASCC4H/H+9yVoCESFpAw09Pf8q0j4bXVia+/hSCt6zPtH18DJ2kSuB8SIjy4w2euJqcbu0irikAtNIWdu7X/z1LDHaCuVtgfVZCFpImPeh6eP2OLua9IxbADG+xOqjjIXB4vQECBW6AjLz8UvvsH8Kjhq3suHE2Zh0cX8QPWH8Khi5i68lMt0Us4zcsliQ0nsIffWO9L1GAB1KB7lsWLM0IGUU3ZZs8wqEx3wkvG5yzExcBbTQ5AXod6zqQLTdczjk5JZZg4wKqqST0j6rAJI4ukcwKvjTk/nsZBtxm15BGFLSpZTrnDKcfm8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=infinera.com; dmarc=pass action=none header.from=infinera.com;
+ dkim=pass header.d=infinera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=infinera.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YwSKyOfdzBo1uAfnE7zgfS1AbcwbpmATaa++9CDquSU=;
+ b=TMFVIOLZDHcs5KmMz/evun3JUwLuzMmTL25bgY2lRsozMQs968vC+8+NHpqiDuxWw9inj5VJWOKZONp8LrhNfmk4Uod7ebJyWLO2vQ4rDuJa0u3NZ1KQjCKEqJMXME0JuIGSSSjDWeNTnMV6Pe69rmMjEx+ysnLM4ikoZriK4DQSJej23WN80tmSNKUdV3DG2k8sfnK9DZYToveZMAbulNF8ybfbHG+48mOKuwFidAWUxVvOBjE5TFI0H/3obrUCoR0diRGf2Xd7IHuD6kvj673q2BuPQjkKKeQc66JHfbjOp2rrn6yAZ7o2dq1mz+z7xTamaW6lMDnSYQ26hxjIag==
+Received: from PH0PR10MB4615.namprd10.prod.outlook.com (2603:10b6:510:36::24)
+ by BLAPR10MB4851.namprd10.prod.outlook.com (2603:10b6:208:332::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Mon, 5 Jun
+ 2023 13:21:52 +0000
+Received: from PH0PR10MB4615.namprd10.prod.outlook.com
+ ([fe80::f01a:585:8d6:3d3c]) by PH0PR10MB4615.namprd10.prod.outlook.com
+ ([fe80::f01a:585:8d6:3d3c%6]) with mapi id 15.20.6455.030; Mon, 5 Jun 2023
+ 13:21:52 +0000
+From: Joakim Tjernlund <Joakim.Tjernlund@infinera.com>
+To: "tiwai@suse.de" <tiwai@suse.de>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "perex@perex.cz"
+	<perex@perex.cz>, "michael@ralston.id.au" <michael@ralston.id.au>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"tiwai@suse.com" <tiwai@suse.com>, "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>
+Subject: Re: [PATCH] ALSA: usb-audio: Fix "cannot set freq 48000 to ep 0x3"
+ msgs
+Thread-Topic: [PATCH] ALSA: usb-audio: Fix "cannot set freq 48000 to ep 0x3"
+ msgs
+Thread-Index: AQHZlIqVywGBgPuStUSeT/ugy2IRmK92AXUAgAXXGQCAAF+9gA==
+Date: Mon, 5 Jun 2023 13:21:51 +0000
+Message-ID: <892df5be364e29f776ac8db2dd9e928de5a2f2a4.camel@infinera.com>
+References: <20230601131116.1014250-1-joakim.tjernlund@infinera.com>
+	 <202bbbc0f51522e8545783c4c5577d12a8e2d56d.camel@infinera.com>
+	 <87pm6aicin.wl-tiwai@suse.de>
+In-Reply-To: <87pm6aicin.wl-tiwai@suse.de>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.48.2 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=infinera.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR10MB4615:EE_|BLAPR10MB4851:EE_
+x-ms-office365-filtering-correlation-id: ed96e288-9dd2-4c02-c5dd-08db65c7d343
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ OEwCH/YHPJ3b7Y8wtegWS3zS+3i/q4eO0rYcpBX0Jbv3+MLCvOYz0IiDZhweVAf/qtd6KnpnVVwJHklgoIw2DZeJUhlHd0LuXnUgLG3ip28MECxw6Aj6SAiifYv+vr5utxN3katktgdpplt92g839F9uP7y92To7F06UTYvszl5dC6p0gg4HUk21qxRfit6jpUvkjVLnfQ2PD4lRhgdHc9wCgHQEVZxNfG1nWBCiSh4YnfNDBX7YkucFC+0uwHwHS4qcVakNjB396Hc98Pd5pfYrkSNJlFQsrZt402IHeOcJ9WkeWzlENt4vCcbJMDyHchb6QALQDdXEAP/vwHP0RvFx3Ab7nmyHtT6E6DEeV/sVYFpQpBRPLI7D+bsqMFpeVIMLe63qpCLqQTtO/GZumb9Bt7Abwq8ORWypxDdT3CquJtsWFQdOoWk/UwNUWSQDlLiZVZ/O8nZ0TpA25xB9qnudmZ8VudhFbc97UWFyvheSJPoJOl3pTWH7dV49nKR9J2P/Alxdczjs3EEDWMo5Tz8Gm+2Pzyf31Lr2ko1NYDZ9Ozd5fvBlMKsJCUGa37A9ayPdjfrK6gpKBFE0k0GNSzWYW0wr2UhR+fBL+hKL7eqjwXYF7sX4M9DRaHrf7V2x
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR10MB4615.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(396003)(346002)(376002)(39850400004)(451199021)(6512007)(6506007)(36756003)(83380400001)(86362001)(38070700005)(122000001)(38100700002)(186003)(2616005)(41300700001)(54906003)(2906002)(478600001)(76116006)(66946007)(91956017)(66476007)(66556008)(66446008)(64756008)(6916009)(4326008)(8936002)(8676002)(316002)(5660300002)(6486002)(71200400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?SEJrMHhuMG82RE8yNjhiOXhMTlp0ODdiUkUvTmRET080OXIzdW5tZlkwcnB0?=
+ =?utf-8?B?S2c2M21FNzlaSlR1SUlFakRSNSs0UEJJNEhDbU8wK3FaQ3JpYWRrclViaWkv?=
+ =?utf-8?B?RUZ0N3FjOTNIaTRiLzZrSVV1VGtESVU4UGt4R25oSWJTeVBaSm5jTG80STlG?=
+ =?utf-8?B?MlUrVkwrM0FaS1puV2lUc0pYUC9NcW43d2FGd1F2bDhuMTdpamhaa1kwZDI3?=
+ =?utf-8?B?RERBYmxvTU43QkdOeEVFSUx3RjBFcklpTWh3R0hPSk9nN2pYNjF3YzZMUHo4?=
+ =?utf-8?B?R1ZVR1d1L3NKK1N1MnlVMWdMeUwyQStmN3Y4ZWpqR05VS1BvZXhSclhpcENE?=
+ =?utf-8?B?MEJtRk9CSDJzdXdyUDVQTWZyLy90SmpFM2ZYOFJCNC94ZytWb1hvbkY4b0hR?=
+ =?utf-8?B?RUx1eGxIa0ovaUN0aXM4NnJQYlZOY0xUckt0T0t4UnBZYVhwSjRnaDB6VnNo?=
+ =?utf-8?B?R2srSFBGQ2w0VDZidUtaUk5KelhpVjNSaHU3NWlGbTM4RnprVHVObGl3VVF4?=
+ =?utf-8?B?NTN0MXdMeWt5THhDZ0JGU3dXUmN4UDZwemN3ZGMyZWVPL1UyVkZUUDhQYWZM?=
+ =?utf-8?B?QjdSQnlKU1VCSGJDNEVJT3M2TkhIcTZpb0hUSEZOd2trK0dHOGF1RW51Njh2?=
+ =?utf-8?B?Sm1JQ0YwWldVTG9Dc3J6TTA5bU4vT2RWTFpkcUtZTW5uc21TdG4zclV4aVRR?=
+ =?utf-8?B?S0twMTdWaXVwOXdCeGtIdzdCdEh1YTE0TlUrYzVPOUVaWUNYeVF2UnoyS0FP?=
+ =?utf-8?B?aG1idWxjUThTOFBNQTF4Zml5d290YnFZeTFuNmkxelBWUUtsVGY1OFNmdTJP?=
+ =?utf-8?B?STVKcGFYVXo5UU1BaXZ6ZVgybUpDR0VISWxjWlZzQnNTMGY2U0lZc3pKYmVm?=
+ =?utf-8?B?S2JQN096TE1OWFhYR2lvVFVFeFZ1ZXd4SkcyVXdKeEJ3M0hmSXpvcm9kMmxz?=
+ =?utf-8?B?UmYwa0VmcWlmQWJRdEYyTEVEMFZ6MkRLWW5MZ2xkZHlWSGhxN2g0eVBnUmdZ?=
+ =?utf-8?B?KzYzSGt0VzBaTlU0cGNzU1ZsbjlvMWd5SllZTnk2M1NnNGIxZzZYdlhoa0wr?=
+ =?utf-8?B?Vi9wSWxzaW5ib1NJUkxHKzFmQS9EZUdTNWJvTFJsTXdYRHJMb0VaSFNMY2NC?=
+ =?utf-8?B?SUJuZWl6YkcxUXAwS3IybDZJcDdFOWNtQllkRStOU25qN0pnMkJFeVJPdHZG?=
+ =?utf-8?B?dFdnbHJYUTMzRFJESnVhYURtOVhMQzh1VUpBUStFeWFXaTJ4c0F0OCtrQ2lq?=
+ =?utf-8?B?TEoyNUZSdzlKS1B0ZVRYdnFiYjlSNWxKSGZ6dnhzYjVNdG16SXQyTnFzTEhi?=
+ =?utf-8?B?NS9kWDlRcHhrNGFWSTVEMnFsdUxGc2ViOXk1aC80bVd6OVZyWitFYXlOcnNN?=
+ =?utf-8?B?cTdlTGVRQ2FRaEpEd0ZtR3dobkRLb3JpSExrdnVGMjZBdm9hNjVzb3FMMVRl?=
+ =?utf-8?B?bTc5ZmJLd3c3NlhkOXpzYW9DbW95cFF1V0hlazZPU2ZvWFlHbGluMUd6eURx?=
+ =?utf-8?B?aFB4dktuQjZLc0FsZW1GVkdqVWR6VG1jV1p4aWdpTkpmMmZ2aG1LcHlxRjQ1?=
+ =?utf-8?B?RW9zbklqeDlMM2FJSDhqZTVYMXNCTXFuZ2k3YUdFRUhlSzk1WFNUVmRabEJx?=
+ =?utf-8?B?dG1ySUt3ZmVBUW1YZkNsWGtaQWdkMzh2dnBjQUU3SHA0SFEyYnBuSWdSYVZ4?=
+ =?utf-8?B?bmdUdTVYRXhZcVpvU1BTQThsQzBGYW9LNm9ud1RXajVrMzlDVjhVS3AxYkJv?=
+ =?utf-8?B?cGFPT3JSN244ekR2dFlaWWNpQUNvT1poa3J0R3duTEIzbmdFc3RuSjVQTFhm?=
+ =?utf-8?B?OWdkSldRdEs1blIrZUQvRTZBVW5yQmlWVSttajFoYkptMVVsaGVCZTdZcWVm?=
+ =?utf-8?B?YzkrTVlIWWdGTzhxZ1BaTktnclZxMmpUYVdHUTh4OTRwUzB1bGV6b29mMzZn?=
+ =?utf-8?B?blNDTjIrMkV1RXd6Y09lczhVOUtCWXg1WllrSW9MWDZDSEthUTJzYXk3VkNV?=
+ =?utf-8?B?S3h3dEFjazRhSnJhL2NpamJXb2JvVnIxVWduOVdjSnRmNmxBK0VHRXpsQjB1?=
+ =?utf-8?B?OUN4QTlMRDhzT3VrOHRrT2w2RnlzM0NFemxtTVAzWEdGbWpOK2VwaGZmTk5D?=
+ =?utf-8?B?STd6UWszOFZVM2t0aW5pRVRBRmloWGxLbTFGNjVVRWZVajNGM2VEOXJ1cjlw?=
+ =?utf-8?Q?SHXxwN+Ubw66sLz0YtFIyAUyeLwl8CdlLJhiuTNZ69cb?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <DDB18C49CEF24248941DFC7B8C3BAF38@namprd10.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BoAetZG8U0jkcF7v"
-Content-Disposition: inline
-In-Reply-To: <20230605120934.2306548-1-mengyingkun@loongson.cn>
-X-Cookie: Biggest security gap -- an open mouth.
-Message-ID-Hash: TVCBMEJREMHPLF2Y3WIWUL7G7AQNFVDH
-X-Message-ID-Hash: TVCBMEJREMHPLF2Y3WIWUL7G7AQNFVDH
-X-MailFrom: broonie@kernel.org
+X-OriginatorOrg: infinera.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR10MB4615.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ ed96e288-9dd2-4c02-c5dd-08db65c7d343
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2023 13:21:51.9994
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 285643de-5f5b-4b03-a153-0ae2dc8aaf77
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ zXAqwddihc3EpAQ1A+o0Hkxp+a0aR0P4MZFXq13dWgUaKviteIE8qL0rwSF8IMOMZO18VkObmdpW9v9+R0+14A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB4851
+Message-ID-Hash: LGDASAR6WF5L7INM3XCUOZ7OUCDFIEK2
+X-Message-ID-Hash: LGDASAR6WF5L7INM3XCUOZ7OUCDFIEK2
+X-MailFrom: Joakim.Tjernlund@infinera.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -88,7 +174,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TVCBMEJREMHPLF2Y3WIWUL7G7AQNFVDH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LGDASAR6WF5L7INM3XCUOZ7OUCDFIEK2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -97,67 +183,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
---BoAetZG8U0jkcF7v
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jun 05, 2023 at 08:09:32PM +0800, YingKun Meng wrote:
-
-> +			regmap_read_poll_timeout_atomic(i2s->regmap,
-> +						LS_I2S_CTRL, val,
-> +						!(val & I2S_CTRL_MCLK_READY),
-> +						10, 2000);
-
-The driver is waiting for status bits to change in the regmap but...
-
-> +		pr_err("buf len not multiply of period len\n");
-
-Use dev_ functions to log things please.
-
-> +static const struct regmap_config loongson_i2s_regmap_config =3D {
-> +	.reg_bits =3D 32,
-> +	.reg_stride =3D 4,
-> +	.val_bits =3D 32,
-> +	.max_register =3D 0x110,
-> +	.cache_type =3D REGCACHE_FLAT,
-> +};
-
-=2E..there are no volatile registers in the regmap so we will never read
-=66rom the hardware.  I don't understand how this can work?
-
-> +	i2s->reg_base =3D pci_iomap(pdev, BAR_NUM, 0);
-> +	if (!i2s->reg_base) {
-> +		dev_err(&pdev->dev, "pci_iomap_error\n");
-> +		ret =3D -EIO;
-> +		goto err_release;
-> +	}
-
-pcim_iomap()?
-
-> +	dev_set_name(&pdev->dev, "%s", loongson_i2s_dai.name);
-
-Don't log static information like this, it just adds noise and makes the
-boot slower.
-
-> +	pci_disable_device(pdev);
-
-pcim_enable_device() too.
-
---BoAetZG8U0jkcF7v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR94HYACgkQJNaLcl1U
-h9BFUgf5AXvsVIgWvo+jhUt1AcZpA6XupVdE4xlXM5TdaMAaZmx2ngdVrqlnqHo0
-2r95znx9+wfqcikJcBwCYUz3GHg4Pp1djO4lxfUshg7ixYXL8jUH4zeUiDeOrHB1
-NwNV+HRQJagRLUkSWr0LGiglrRqW4+zRtxbF5xH2xNkMY3dp0LDFZ0JXy+/5rKol
-PK1MfPS6sLAnvXQkX2QMFHj4OEHX6JWKMAT5Ay0iUZIAph8d6FhhwYzGDe4vMHFm
-aLF4PZcuMtiaDakkwFqMGn3ttIf2X7sQNaB9T5FG0juxqc5rT/bW21LCjN5z6TSB
-dtSQKEGv5YU7Pk7u9kcabpa73VblVg==
-=4kkP
------END PGP SIGNATURE-----
-
---BoAetZG8U0jkcF7v--
+T24gTW9uLCAyMDIzLTA2LTA1IGF0IDA5OjM5ICswMjAwLCBUYWthc2hpIEl3YWkgd3JvdGU6DQo+
+IE9uIFRodSwgMDEgSnVuIDIwMjMgMTY6Mjg6MDUgKzAyMDAsDQo+IEpvYWtpbSBUamVybmx1bmQg
+d3JvdGU6DQo+ID4gDQo+ID4gQWRkaW5nIE1pY2hhZWwgUmFsc3RvbiA8bWljaGFlbEByYWxzdG9u
+LmlkLmF1Pg0KPiA+IA0KPiA+IEhlIGRpZCBoYXZlIHByb2JsZW1zIHdpdGggaGlzIGJlaHJpbmdl
+ciBVTUM0MDRIRCBkZXZpY2Ugd2hlbiB0aGlzIHdob2xlIHNlcS4gd2FzIHJlbW92ZWQuDQo+ID4g
+UmFsc3RvbiwgY2FuIHlvdSB0cnkgaWYgdGhlIGJlbG93IGNoYW5nZSBhZmZlY3RzIHlvdXIgZGV2
+aWNlPw0KPiANCj4gU29ycnkgZm9yIHRoZSBsYXRlIHJlYWN0aW9uLCBhcyBJJ3ZlIGJlZW4gb2Zm
+IGluIHRoZSBsYXN0IHdlZWtzLg0KDQpOUC4NCg0KPiANCj4gVGhlIGNvZGUgc2VxdWVuY2UgdGhl
+cmUgc2VlbXMgcHJldHR5IHNlbnNpdGl2ZSwgYW5kIHN3YXBwaW5nIG9yDQo+IGRyb3BwaW5nIHRo
+ZSBjYWxsIG1pZ2h0IGJyZWFrIHRoaW5ncyBlYXNpbHkgb24gY2VydGFpbiBkZXZpY2VzLA0KPiB1
+bmZvcnR1bmF0ZWx5LiAgU28sIEkgZ3Vlc3Mgd2UgY2FuJ3QgdGFrZSB0aGUgcGF0Y2ggYXMgaXMu
+ICBJZiBhbnksIHdlDQo+IG5lZWQgdG8gZmlkZGxlIHRoZSBjYWxsIG9yZGVyIGRlcGVuZGluZyBv
+biB0aGUgZGV2aWNlIHF1aXJrIG9yIHN1Y2guDQo+IEkgZ3Vlc3Mgd2UgbWF5IHRyeSB0byBmaXQg
+d2l0aCB0aGUgZXhpc3RpbmcgcXVpcmsgZmxhZy4gIExldCBtZSBjaGVjaw0KPiBpdCBsYXRlci4N
+Cg0KeWVzLCB0aGlzIGlzIHRyaWNreS4gVG8gbWUgaXQgbG9vayBsaWtlIHRoaXMgY29kZSB3aWxs
+IGFsd2F5cyBzZXQgNDgwMDAgc2FtcGxlIHJhdGUgYW5kDQpub3QgYWxsIGRldmljZXMgc3VwcG9y
+dCB0aGF0IG9uIGFsbCBFUHMuDQpNYXliZSBvbmUgY2FuIGdldCBhd2F5IHdpdGggbm90IHNldHRp
+bmcgc2FtcGxlIHJhdGUgYXQgYWxsPyBKdXN0IGd1ZXNzaW5nIHRob3VnaC4NCg0KIEpvY2tlDQoN
+Cj4gDQo+IA0KPiB0aGFua3MsDQo+IA0KPiBUYWthc2hpDQo+IA0KPiANCj4gPiAgSm9ja2UNCj4g
+PiANCj4gPiBPbiBUaHUsIDIwMjMtMDYtMDEgYXQgMTU6MTEgKzAyMDAsIEpvYWtpbSBUamVybmx1
+bmQgd3JvdGU6DQo+ID4gPiBPbiBzb21lIFVTQiBzcGVha2VyIGRldmljZXMoSmFicmEvTG9naXRl
+Y2gpIHdlIHNlZSBhYm92ZSBlcnJvcg0KPiA+ID4gbXNnIHdoZW4gY29ubmVjdGluZyBkZXZpY2Ug
+dG8gY29tcHV0ZXIgYW5kIGtlcm5lbCBpcyBwcm9iaW5nIHRoZSBkZXZpY2UuDQo+ID4gPiANCj4g
+PiA+IE1vdmluZyB0aGUgc25kX3VzYl9pbml0X3NhbXBsZV9yYXRlKCkgdG8gYWZ0ZXIgdXNiX3Nl
+dF9pbnRlcmZhY2UoKSBtYWtlcw0KPiA+ID4gdGhlIGVycm9yIGdvIGF3YXkuDQo+ID4gPiANCj4g
+PiA+IFNpZ25lZC1vZmYtYnk6IEpvYWtpbSBUamVybmx1bmQgPGpvYWtpbS50amVybmx1bmRAaW5m
+aW5lcmEuY29tPg0KPiA+ID4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcNCj4gPiA+IC0tLQ0K
+PiA+ID4gIHNvdW5kL3VzYi9zdHJlYW0uYyB8IDIgKy0NCj4gPiA+ICAxIGZpbGUgY2hhbmdlZCwg
+MSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4gPiA+IA0KPiA+ID4gZGlmZiAtLWdpdCBh
+L3NvdW5kL3VzYi9zdHJlYW0uYyBiL3NvdW5kL3VzYi9zdHJlYW0uYw0KPiA+ID4gaW5kZXggZjEw
+ZjRlNmQzZmI4Li5kOWFjODY2M2E0OGIgMTAwNjQ0DQo+ID4gPiAtLS0gYS9zb3VuZC91c2Ivc3Ry
+ZWFtLmMNCj4gPiA+ICsrKyBiL3NvdW5kL3VzYi9zdHJlYW0uYw0KPiA+ID4gQEAgLTEyMjYsOCAr
+MTIyNiw4IEBAIHN0YXRpYyBpbnQgX19zbmRfdXNiX3BhcnNlX2F1ZGlvX2ludGVyZmFjZShzdHJ1
+Y3Qgc25kX3VzYl9hdWRpbyAqY2hpcCwNCj4gPiA+ICAJCS8qIHRyeSB0byBzZXQgdGhlIGludGVy
+ZmFjZS4uLiAqLw0KPiA+ID4gIAkJdXNiX3NldF9pbnRlcmZhY2UoY2hpcC0+ZGV2LCBpZmFjZV9u
+bywgMCk7DQo+ID4gPiAgCQlzbmRfdXNiX2luaXRfcGl0Y2goY2hpcCwgZnApOw0KPiA+ID4gLQkJ
+c25kX3VzYl9pbml0X3NhbXBsZV9yYXRlKGNoaXAsIGZwLCBmcC0+cmF0ZV9tYXgpOw0KPiA+ID4g
+IAkJdXNiX3NldF9pbnRlcmZhY2UoY2hpcC0+ZGV2LCBpZmFjZV9ubywgYWx0bm8pOw0KPiA+ID4g
+KwkJc25kX3VzYl9pbml0X3NhbXBsZV9yYXRlKGNoaXAsIGZwLCBmcC0+cmF0ZV9tYXgpOw0KPiA+
+ID4gIAl9DQo+ID4gPiAgCXJldHVybiAwOw0KPiA+ID4gIH0NCj4gPiANCg0K

@@ -2,86 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 705A77229FD
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 16:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20296722A42
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 17:08:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECA8174C;
-	Mon,  5 Jun 2023 16:55:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECA8174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53452820;
+	Mon,  5 Jun 2023 17:07:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53452820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685976993;
-	bh=dsKLKUnSC7Lzve2PHpaN+dv2LWO64PBoXx6bYC755Pc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1685977684;
+	bh=eidswOiIHb6J7g9gZ8YGCj4/t5ooFfmlHRG0/DCt9gw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o2yhmhtpNKdeY5q9eieEd5EjwI6mF0S+IqGdb4d+MwcX6peMrQf5Ix/kV+miVL5ZJ
-	 EqR1FLZynxyqn7T1ySRdoREbGyHcsxKnP6vv93fHx60zTAoO8O6M6r+2fI2ZvOrNlc
-	 HMBWzaYuglC01M09lix+XaxVA8xf+Z/t8f67zX7s=
+	b=XKbabuLyduJ1j3sdvU/0DW+SKl/5KMqqppPckxFa47rC5HCQzqGOGfh+EXadzD51N
+	 OaVFDZbAvlEPBGMVosBkObIikZH0vLYfsgc54CQhwNWGOp5HYyrjKWP4KRh/iPiWBZ
+	 xKo05bCIt9bm12G0akgagsFW4Sv9ibA8FOeB95nE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40F5AF8016C; Mon,  5 Jun 2023 16:55:42 +0200 (CEST)
+	id 8279AF80199; Mon,  5 Jun 2023 17:07:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD2C2F8016C;
-	Mon,  5 Jun 2023 16:55:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2960CF8016C;
+	Mon,  5 Jun 2023 17:07:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47B81F80199; Mon,  5 Jun 2023 16:55:39 +0200 (CEST)
+	id 5C8B2F80199; Mon,  5 Jun 2023 17:07:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 42029F80155
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 16:55:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42029F80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8C1DEF80155
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 17:07:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C1DEF80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=S+ftYoYQ
+ header.s=k20201202 header.b=L1WqGVNK
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id A5DB96265A;
-	Mon,  5 Jun 2023 14:55:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE453C433D2;
-	Mon,  5 Jun 2023 14:55:31 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 702A661A55;
+	Mon,  5 Jun 2023 15:07:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708D1C433EF;
+	Mon,  5 Jun 2023 15:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685976934;
-	bh=dsKLKUnSC7Lzve2PHpaN+dv2LWO64PBoXx6bYC755Pc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=S+ftYoYQpGacxIKa1yAwv29a0D6wK+DJ8wWpQS81Tn5VEHNH5AgLMa/6KT2WcIagp
-	 PYvpxKY74SRtx2px4TO5oGTiNPZFtOH5g1J2LMTirs2dR21jf/bS2+oS1wpX1ZxJlb
-	 s24I+RSMcID6gT51C2FznLmM1yULh21mEM+pWlppWUktdAiwWAv4EMxCsTpkmQu0hF
-	 kSLzQKgVykmHaGWoXwiullH/KtGtSDjT3cwOpfjShLeukH1kiFgvlK4OVLv/vaQeId
-	 dHM0BEhKEGzuzqFYF87Mkco4taALMOroPQgNoND5sxIqXmG0NYk9g0R1SuBgfgRdve
-	 vmTK05vOr3/fg==
+	s=k20201202; t=1685977619;
+	bh=eidswOiIHb6J7g9gZ8YGCj4/t5ooFfmlHRG0/DCt9gw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=L1WqGVNKM0LMprpTuSPW88ttxsQya+6RCSHywsjoqhCt9c0U8etTahbFiEC6fRl/z
+	 vf5ygXd303eAmHGnO3775BYbGeLj3HGVeqeS7Bm7PLl6IMJiSYFZOB+8yeuL4XGnw+
+	 GB/8G7iZrh5AzEBiWSiciPIu26R5t/QEfayVRJIM08LIGs3RPUJz9P6dYvUveXvjEJ
+	 TrMyhTMzCuraxUl851ANQEAyd9bosIc9csPwZCyRMtWtpCdnQ1fI2hDRQLIWIbXwsj
+	 rITVGnMABV6X4/drtvOMpvlV3beCXUl6EsatriH3gRVV+EKYJo48qvYje43d5CSfr0
+	 LDeHdJQHqLJgQ==
+Date: Mon, 5 Jun 2023 16:06:54 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
- Arnd Bergmann <arnd@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Randy Dunlap <rdunlap@infradead.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20230605085839.2157268-1-arnd@kernel.org>
-References: <20230605085839.2157268-1-arnd@kernel.org>
-Subject: Re: [PATCH] [v2] ASoC: amd: vangogh: select
- CONFIG_SND_AMD_ACP_CONFIG
-Message-Id: <168597693169.38149.4954524469531400415.b4-ty@kernel.org>
-Date: Mon, 05 Jun 2023 15:55:31 +0100
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: YingKun Meng <mengyingkun@loongson.cn>, lgirdwood@gmail.com,
+	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn
+Subject: Re: [PATCH 3/3] ASoC: dt-bindings: Add support for Loongson audio
+ card
+Message-ID: <9fb3da48-a20b-4e2f-b84a-733f96126ebe@sirena.org.uk>
+References: <20230605120934.2306548-1-mengyingkun@loongson.cn>
+ <20230605120934.2306548-3-mengyingkun@loongson.cn>
+ <118d13ef-a247-cf88-5084-afdebc6b7651@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: JJHK27FWNIZBMLYXB3QZ5SXXMLCMCLIR
-X-Message-ID-Hash: JJHK27FWNIZBMLYXB3QZ5SXXMLCMCLIR
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v/cqJIry2Sg0YIf1"
+Content-Disposition: inline
+In-Reply-To: <118d13ef-a247-cf88-5084-afdebc6b7651@kernel.org>
+X-Cookie: Biggest security gap -- an open mouth.
+Message-ID-Hash: 2WXYRGZALSML5G2MJTXZM7URRC4ER4KF
+X-Message-ID-Hash: 2WXYRGZALSML5G2MJTXZM7URRC4ER4KF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -94,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JJHK27FWNIZBMLYXB3QZ5SXXMLCMCLIR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2WXYRGZALSML5G2MJTXZM7URRC4ER4KF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,41 +100,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 05 Jun 2023 10:58:29 +0200, Arnd Bergmann wrote:
-> The vangogh driver just gained a link time dependency that now causes
-> randconfig builds to fail:
-> 
-> x86_64-linux-ld: sound/soc/amd/vangogh/pci-acp5x.o: in function `snd_acp5x_probe':
-> pci-acp5x.c:(.text+0xbb): undefined reference to `snd_amd_acp_find_config'
-> 
-> 
-> [...]
 
-Applied to
+--v/cqJIry2Sg0YIf1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Mon, Jun 05, 2023 at 04:45:38PM +0200, Krzysztof Kozlowski wrote:
+> On 05/06/2023 14:09, YingKun Meng wrote:
 
-Thanks!
+> > +title: Loongson generic ASoC audio sound card.
 
-[1/1] ASoC: amd: vangogh: select CONFIG_SND_AMD_ACP_CONFIG
-      commit: 812a05256d673b2b9c5db906775d1e6625ba4787
+> What is a "generic audio card"? Does it even match hardware? Bindings
+> are supposed to describe hardware, which is usually very specific.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+The concept of a generic, reusable sound card seems reasonably clear -
+there's a bunch of in tree examples already and the idea that we have to
+pull together multiple bits of hardware to make a useful sound subsystem
+is a known thing.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> Also: Drop full stop. It's a title.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Shouldn't this be checked by the tooling?
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--v/cqJIry2Sg0YIf1
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR9+g4ACgkQJNaLcl1U
+h9BgRgf/UjZGQKyfV2oVwePqSNHH0HwTGYid7NA5rMUyPXEpnfbliL3giOXSCz2x
+KzLiuvPawEC9UtkLOs1BRIjKqU8nI9E0I7WgIkr69HhWP9aWxh7ssxmZSUOL4lG7
+TqJpq1YNSWQenNPZxu+p/vrJFO/WQMfNk/mhrnYZXDQdMhQV63jvZ7+e3i+lm6/q
+KkpoiPKLX/7yu2KQjtGrhqSftdg7H50YGvxx5eC+PqhI/YJK+F29CiiG6X4DJtz1
+z6Dzw36EbwyX6BvP8rtcHoW9FhBw/AXXuus91jJqnGxzYRZ1+omUX6jrTytGgAwR
+mT9RQweeNJKwgOJIlgdF8OL/e1JD1w==
+=Omhv
+-----END PGP SIGNATURE-----
+
+--v/cqJIry2Sg0YIf1--

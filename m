@@ -2,79 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 065D8722DAE
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 19:31:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7E3722DBF
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 19:37:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B84A823;
-	Mon,  5 Jun 2023 19:30:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B84A823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B62574C;
+	Mon,  5 Jun 2023 19:36:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B62574C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685986301;
-	bh=8fr3qa00GOsjuxbEPlfwIPeLmLPQt+VVpRdMD/o6eMU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1685986657;
+	bh=eOM1QQpaTQIMrgVqkxLpu8cchSBKMYQp6H/dwtHfVrc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eiz/ehH4bbmuxa1X9mCakAfK5gusBVUJYXXN4zw5Js2qP/i3eblpv4lVcyy2Q9Bnk
-	 PTSFrEgSx4O4lNrz+Kqgep0sYL597uj3gyfwQ/MC1hRx7zaRIVqHUozhuW4wDR0VQx
-	 iJu/0UqOKz9SlPvUxf4GJBapytJwtZFwQrjzRNo4=
+	b=n1V2VK1ej5lrcZIeCF24Zu/tT1/AgbSBdcK4m/lWxlBfIvaq14JTezGN6QjO7VJHD
+	 CdXdnRf7S+Jf9GZv+OT/iumYGbovMZaPw4qMNwMcRUgep96BwOuom+L5ftk0X8viAN
+	 84jIcX5ty8Tkr1p4aPidbN0hx4Hz2Dr2pcYy6XNs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF1CEF800ED; Mon,  5 Jun 2023 19:30:48 +0200 (CEST)
+	id 84BB2F80520; Mon,  5 Jun 2023 19:36:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D5DFF8016C;
-	Mon,  5 Jun 2023 19:30:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B63FF8016C;
+	Mon,  5 Jun 2023 19:36:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5B94F80254; Mon,  5 Jun 2023 19:30:44 +0200 (CEST)
+	id 92893F80199; Mon,  5 Jun 2023 19:36:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84ADBF80155
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 19:30:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84ADBF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5EC26F800ED
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 19:36:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EC26F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Vy8+4BMf
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B0366628AD;
-	Mon,  5 Jun 2023 17:30:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43892C4339E;
-	Mon,  5 Jun 2023 17:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685986236;
-	bh=8fr3qa00GOsjuxbEPlfwIPeLmLPQt+VVpRdMD/o6eMU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Vy8+4BMfOOj+OV52fa+lSrWTOXgIEk/glYR1lDcY2DLiFW9MoFCgHYayxRI2tcuCA
-	 0m7Sy/p7MzdZddxtcbPsYTQspxY9mIsxeubXxDtRQ0PCvVoRpqqNVeCO9rTfw7YZXk
-	 ZzbGL9IvJOGKGX+7XpRKo+1XICg7nDYSign/cAhtyz0KPt5b7ctjKXSp9rdA105LYX
-	 lM+jPN98cC9qwcONxNQ5m79drMCyVGIPO9II7XmznC6HJAMjW8mHAa4TYgQvOI8d4g
-	 QWg3qr7uFXrNseiMJpw/2resHDEC+pnqR/WGhFLBhd57q/Ks5u1xb4ZGzXizbqoAHE
-	 +lP+Eq7azEkFw==
-From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de, Vinod Koul <vkoul@kernel.org>
-In-Reply-To: <20230602205620.310879-1-pierre-louis.bossart@linux.intel.com>
-References: <20230602205620.310879-1-pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH 0/9] ASoC: SOF: Intel: LunarLake preparation patches
-Message-Id: <168598623499.103672.2858781216173017006.b4-ty@kernel.org>
-Date: Mon, 05 Jun 2023 18:30:34 +0100
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=fi5uoXdA
+X-GND-Sasl: herve.codina@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1685986599;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Yjxc+85Bq54GZEvP6akAc9UZPm7vVtcD2MajvGxNqiY=;
+	b=fi5uoXdANbPmsJUCGLlp8YkQvRea5sm2llsgEt0TFFbN/DiK/ijhu1QIs5Lb2SHJSBwlTa
+	xdRattLNG7l9JpgH7Z2IWlWWnCWosU1xEqePGqf0QzTm5HkuErSI72aB0EIN6+4amnT0Ga
+	8P+eqvTkLDpUBP2q2wVkWdPbKHMPlb/UrWbta2UWHEFpzfSkXWd8qOJMTia0XbM4I72MNo
+	htz4tOzOJNwc7ZqbKvRPvV4SamC6GjcYV5Yf3fFGzU1Qozhdsb7h7PJ7F8Vnc6JSTYkcZc
+	ETtauzV/LnDHBQc6O1Sj8LPo50Bx0osDRQ1RHgVz9XCDZ+P/SY/4l7DojYpbKA==
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A2C4E20004;
+	Mon,  5 Jun 2023 17:36:37 +0000 (UTC)
+Date: Mon, 5 Jun 2023 19:36:36 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Kuninori
+ Morimoto" <kuninori.morimoto.gx@renesas.com>,
+ <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>, Christophe
+ Leroy <christophe.leroy@csgroup.eu>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 5/9] iio: inkern: Add a helper to query an available
+ minimum raw value
+Message-ID: <20230605193636.5239a271@bootlin.com>
+In-Reply-To: <20230605180547.0000528b@Huawei.com>
+References: <20230523151223.109551-1-herve.codina@bootlin.com>
+	<20230523151223.109551-6-herve.codina@bootlin.com>
+	<ZHtIdTZbULl6t4RT@surfacebook>
+	<20230605094637.7615b689@bootlin.com>
+	<CAHp75Vec3fXT6phqvLGSn0c09USCXXF6ZoE+X1VNJGM6jyf=aQ@mail.gmail.com>
+	<20230605180547.0000528b@Huawei.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: RMBA3RGACCG2JDKLUHFRCVKDWZ5WPF7J
-X-Message-ID-Hash: RMBA3RGACCG2JDKLUHFRCVKDWZ5WPF7J
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: DORZVNHBU45ALHXP3QGTY2UPAQ6VJFSQ
+X-Message-ID-Hash: DORZVNHBU45ALHXP3QGTY2UPAQ6VJFSQ
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -86,66 +118,55 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RMBA3RGACCG2JDKLUHFRCVKDWZ5WPF7J/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DORZVNHBU45ALHXP3QGTY2UPAQ6VJFSQ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 02 Jun 2023 15:56:11 -0500, Pierre-Louis Bossart wrote:
-> This patchset adds the changes required for the hda-dai extension to
-> deal with SSSP/DMIC/SoundWire starting with LunarLake, as well as the
-> new TLV IPC to provide the DMA stream_tag to the DSP firmware.
+Hi Jonathan, Andy,
+
+On Mon, 5 Jun 2023 18:05:47 +0100
+Jonathan Cameron <Jonathan.Cameron@Huawei.com> wrote:
+
+> On Mon, 5 Jun 2023 12:45:24 +0300
+> Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
 > 
-> LunarLake support for SSP/DMIC is ready but is gated by the patch
-> "ASoC: SOF: Intel: shim: add enum for ACE 2.0 IP used in LunarLake"
-> currently only present in the SoundWire tree.
+...
+> > > > > +           default:
+> > > > > +                   /* FIXME: learn about min for other iio values */    
+> > > >
+> > > > I believe in a final version this comment won't be here.    
+> > >
+> > > We have the same FIXME comment in the iio_channel_read_max() function I
+> > > copied to create this iio_channel_read_min() and, to be honest, I
+> > > don't really know how to handle these other cases.
+> > >
+> > > In this series, I would prefer to keep this FIXME.    
+> > 
+> > I see, Jonathan needs to be involved here then.  
 > 
-> [...]
+> It's really more of a TODO when someone needs it than a FIXME.
+> I'm not particularly keen to see a bunch of code supporting cases
+> that no one uses, but it's useful to call out where the code would
+> go if other cases were to be supported.
+> 
+> Perhaps soften it to a note that doesn't have the work FIXME in it.
+> 
+> Jonathan
+> 
 
-Applied to
+Right, I will change to /* TODO: learn about max for other iio values */
+in the next iteration (both iio_channel_read_max() and iio_channel_read_min())
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+Regards,
+Hervé
 
-Thanks!
-
-[1/9] ASoC: SOF: Intel: hda-dai: add error checks to prevent static analysis warnings
-      commit: c4be6024d51d3930459a61d4c91990f20264c60b
-[2/9] ASoC: SOF: Intel: hda-dai: add codec_dai_set_stream callback
-      commit: 2205c63d8d216b44127560cc564b2098843553e2
-[3/9] ASoC: SOF: Intel: hda-dai: add calc_stream_format callback
-      commit: 767cda3fdac0faec84dc3fd654bd9d09b55eef40
-[4/9] ASoC: SOF: Intel: hda-dai: add get_hlink callback
-      commit: d1bf58474d17a77a26bc27ff85a4e5c4fefc0934
-[5/9] ASoC: SOF: ipc4-topology: extend ALH-specific data structure
-      commit: e186e1f237c1e2447a83059d48439ffcefbf5a93
-[6/9] ASoC: SOF: ipc4-topology: introduce DMA config TLV
-      commit: 116bc1503652c72541d63f67c74b2ff1e4532f03
-[7/9] ASoC: SOF: ipc4-topology: add DMA config TLV to IPC data
-      commit: a0659f81c348946383526b764ad66d9900ea2cb9
-[8/9] ASoC: SOF: Intel: mtl: prepare for code reuse
-      commit: 730025cffedc6b8887d72031795796ac6d9947c3
-[9/9] ASoC: SOF: Intel: hda: add helper to extract SoundWire link count
-      commit: d3e7c32b7d5c7132edca6d84499ec8ac2f060aa7
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+> 
+> >   
+> > > > > +                   return -EINVAL;    
+> >   
+> 

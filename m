@@ -2,84 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDCF4722924
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 16:46:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C62B77229BB
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 16:49:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DED1D820;
-	Mon,  5 Jun 2023 16:45:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DED1D820
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE2A074C;
+	Mon,  5 Jun 2023 16:49:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE2A074C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685976409;
-	bh=W29DiFd00K8hukRzh7m2tWsdPBE9ZZWXYOwuKdLzUOM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=keRo+4rgr8T0MQyypns3jGEwMq3TUY3Ni+/7KFRNZTtC402F1H5tfHgIOVALoe8uu
-	 e+N0qZi5kCroU/RsE1h9pYGUZp6DHL4m5DW8xSPAADqmyS61FNrEDkA2Skqj6+N/vx
-	 UdEQcMV8fjUshBokDv/xWZ1n83LHLXM1Y0706EkY=
+	s=default; t=1685976590;
+	bh=pLgnot7GrxGQfhgSHONBTPkF9lZwnqUnXogvVruYOXw=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FDRbg1jMSgaaKNOSHCFVwMq4639OlmF4vCJB1HabF/xcsAumB80l4G2Ds275cgNLD
+	 R4y87ou3U2tbXMn+DTrdCTfH3YekyLGg0DalhmtlbQzhth1jucNB/ttJAR46SGfjwf
+	 wOjJzHPjai20syERYcFpv/6atTQlzbhJYX05z2uA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53741F80544; Mon,  5 Jun 2023 16:45:58 +0200 (CEST)
+	id 498D1F80557; Mon,  5 Jun 2023 16:48:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6A82F8016C;
-	Mon,  5 Jun 2023 16:45:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B554F80548;
+	Mon,  5 Jun 2023 16:48:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9BEC5F80199; Mon,  5 Jun 2023 16:45:53 +0200 (CEST)
+	id 22870F80199; Mon,  5 Jun 2023 16:48:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6BFBFF80155
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 16:45:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BFBFF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1FFDFF80155
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 16:48:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FFDFF80155
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JaVIG1v4
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=2ShDTX0h;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=xR0PCrYH
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6B23262605;
-	Mon,  5 Jun 2023 14:45:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5148C433D2;
-	Mon,  5 Jun 2023 14:45:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685976345;
-	bh=W29DiFd00K8hukRzh7m2tWsdPBE9ZZWXYOwuKdLzUOM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JaVIG1v4rnNauxEFhjHpUvkm8iUPJoZmdzYPWadpgRZzAlfu2SzMTdt3iLmsLsbcF
-	 WnNI3LYmykUmviomBVf1KPJr9dTMls3dyAo3YB/pjePzaIcP9nVTIAl7Kp7T7HSo0K
-	 aTsOL0veP2X/YvXjgT73JhicFhMHtmV2pgrn/bsj9iyLpqWY69bSOgIk+SWi8/byKd
-	 Md0hhTIzirzyu7/tXH25UWzZwhOUz82jfuGY5rvpIz+Vzp5/xwb9bRvMayDlVo9EP6
-	 0lpvzFPNJi3rjzzeIJTZkIVBAOV4qHtX3Xu9R/QnwZgbG2glDuBa02l/pf/G9gp05M
-	 /rhDQdltDH3Tw==
-Message-ID: <118d13ef-a247-cf88-5084-afdebc6b7651@kernel.org>
-Date: Mon, 5 Jun 2023 16:45:38 +0200
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D21FD21B5B;
+	Mon,  5 Jun 2023 14:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1685976481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=feAukb2LCzN3dc5mffNcaeofTYKQrjuHkiI++GeYCI4=;
+	b=2ShDTX0hnK/q5x7nggUQFZbX8zokguWPkXerl8ZeslsdkrNrTv8kUWEyJc1aKd+HRSh5u4
+	SGP5Boo5+gPajBEX0ORNUEUdahv4qgtykUpPfT/uUINbpaoIwNyaWiFI2pRbhYMx0ImUgD
+	hWaihgeQSdbyq5bJ2rdhOtrrG3WZNR0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1685976481;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=feAukb2LCzN3dc5mffNcaeofTYKQrjuHkiI++GeYCI4=;
+	b=xR0PCrYH2ATwZJh+CTXT7HLTNxupH8gEAsyFxhD06PPKWVbwsNBJgLRITs2UXecmhBwk7d
+	TLbUHz36ZlFZdzCQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B87C0139C8;
+	Mon,  5 Jun 2023 14:48:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id pnD0K6H1fWQMXwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 05 Jun 2023 14:48:01 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH 1/2] ALSA: usb-audio: Use __le16 for 16bit USB descriptor
+ fields
+Date: Mon,  5 Jun 2023 16:47:57 +0200
+Message-Id: <20230605144758.6677-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH 3/3] ASoC: dt-bindings: Add support for Loongson audio
- card
-To: YingKun Meng <mengyingkun@loongson.cn>, lgirdwood@gmail.com,
- broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
- loongson-kernel@lists.loongnix.cn
-References: <20230605120934.2306548-1-mengyingkun@loongson.cn>
- <20230605120934.2306548-3-mengyingkun@loongson.cn>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20230605120934.2306548-3-mengyingkun@loongson.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: PKGMICDNUMHIAW34GKLODHGQTT7YR6ZI
-X-Message-ID-Hash: PKGMICDNUMHIAW34GKLODHGQTT7YR6ZI
-X-MailFrom: krzk@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: WSRUHOIEPEUCHPJRXVLTR2FQ7H7BPI6P
+X-Message-ID-Hash: WSRUHOIEPEUCHPJRXVLTR2FQ7H7BPI6P
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKGMICDNUMHIAW34GKLODHGQTT7YR6ZI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WSRUHOIEPEUCHPJRXVLTR2FQ7H7BPI6P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,89 +112,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 05/06/2023 14:09, YingKun Meng wrote:
-> From: Yingkun Meng <mengyingkun@loongson.cn>
-> 
-> The audio card uses loongson I2S controller present in 7axxx/2kxxx chips
-> to transfer audio data.
+Use proper notion for 16bit values for fixing the sparse warnings.
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC.  It might happen, that command when run on an older
-kernel, gives you outdated entries.  Therefore please be sure you base
-your patches on recent Linux kernel.
+Fixes: f8ddb0fb3289 ("ALSA: usb-audio: Define USB MIDI 2.0 specs")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202305260528.wcqjXso8-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202305270534.odwHL9F0-lkp@intel.com/
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ include/linux/usb/midi-v2.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-You missed at least DT list (maybe more), so this won't be tested.
-Please resend and include all necessary entries.
-
-> 
-> Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
-> ---
->  .../sound/loongson,ls-audio-card.yaml         | 64 +++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
-> new file mode 100644
-> index 000000000000..f1d6ee346bb3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
-> @@ -0,0 +1,64 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/loongson-audio-card.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Loongson generic ASoC audio sound card.
-
-What is a "generic audio card"? Does it even match hardware? Bindings
-are supposed to describe hardware, which is usually very specific.
-
-Also: Drop full stop. It's a title.
-
-
-> +
-> +maintainers:
-> +  - Yingkun Meng <mengyingkun@loongson.cn>
-> +
-> +description:
-> +  Generic ASoC audio device for loongson platform.
-> +
-> +properties:
-> +  compatible:
-> +    const: loongson,ls-audio-card
-> +
-> +  model:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: User specified audio sound card name
-> +
-> +  mclk-fs:
-> +    $ref: simple-card.yaml#/definitions/mclk-fs
-> +
-> +  cpu:
-> +    description: Holds subnode which indicates cpu dai.
-> +    type: object
-> +    additionalProperties: false
-> +    properties:
-> +      sound-dai:
-> +        maxItems: 1
-
-In the cpu: required with sound-dai
-
-> +
-> +  codec:
-> +    description: Holds subnode which indicates codec dai.
-> +    type: object
-> +    additionalProperties: false
-> +    properties:
-> +      sound-dai:
-> +        maxItems: 1
-
-In the codec: required with sound-dai
-
-No multiple dai links? Are you sure this card is so limited?
-
-
-Best regards,
-Krzysztof
+diff --git a/include/linux/usb/midi-v2.h b/include/linux/usb/midi-v2.h
+index ebbffcae0417..16f09d959a2d 100644
+--- a/include/linux/usb/midi-v2.h
++++ b/include/linux/usb/midi-v2.h
+@@ -73,7 +73,7 @@ struct usb_ms20_gr_trm_block_header_descriptor {
+ 	__u8  bLength;			/* 5 */
+ 	__u8  bDescriptorType;		/* USB_DT_CS_GR_TRM_BLOCK */
+ 	__u8  bDescriptorSubtype;	/* USB_MS_GR_TRM_BLOCK_HEADER */
+-	__u16 wTotalLength;		/* Total number of bytes */
++	__le16 wTotalLength;		/* Total number of bytes */
+ } __packed;
+ 
+ /* 5.4.2.1 Group Terminal Block Descriptor */
+@@ -87,8 +87,8 @@ struct usb_ms20_gr_trm_block_descriptor {
+ 	__u8  nNumGroupTrm;		/* Number of member Group Terminals spanned */
+ 	__u8  iBlockItem;		/* String ID of Block item */
+ 	__u8  bMIDIProtocol;		/* Default MIDI protocol */
+-	__u16 wMaxInputBandwidth;	/* Max input bandwidth capability in 4kB/s */
+-	__u16 wMaxOutputBandwidth;	/* Max output bandwidth capability in 4kB/s */
++	__le16 wMaxInputBandwidth;	/* Max input bandwidth capability in 4kB/s */
++	__le16 wMaxOutputBandwidth;	/* Max output bandwidth capability in 4kB/s */
+ } __packed;
+ 
+ #endif /* __LINUX_USB_MIDI_V2_H */
+-- 
+2.35.3
 

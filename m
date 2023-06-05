@@ -2,94 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05AB6722801
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:57:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FBB972258D
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 14:23:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C91CE828;
-	Mon,  5 Jun 2023 15:56:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C91CE828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 565396C1;
+	Mon,  5 Jun 2023 14:22:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 565396C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685973469;
-	bh=IHZ6T0HRBDFBYIf0Ym5bo1yUI0MC4kCwudRgb4mV5dg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1685967827;
+	bh=RG/sVuLzHHaXk4V4qOv1AU1NRzho4Tut9DnxdceFTDk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=bEYIQpSUR6nzI+C71855db5IxONKIe72F/IM+zu7lRy7cnFR8kuBQZRf3+omgugh9
-	 1oT3BkOpQdVDKeaOls8aDJiD0iiZvhwIgVrr9yrQmN6vw0l4fvvHvlbyqfG6S+qZUT
-	 4jRQGkffZ5fuweI+Zx0of3uhgK5cN+UvyGtq18YA=
+	b=ApLrxJ0DsaecgmGlfOm/zz2YJnfd8aDRG+fZJOndNmWEWRbdWTEWRwXfFjNLCc3y3
+	 dietJTfm/9SmpXDXtj6ztEeT2ylj1YVWM8YutU6fo4lYj9EvO6/PbeLBlKTV27MH8T
+	 J2bN+XJVK3JLA0j3CYSjxlJC9FSqf0EaTMCFBrnw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 04463F805E1; Mon,  5 Jun 2023 15:55:23 +0200 (CEST)
+	id C857AF80520; Mon,  5 Jun 2023 14:22:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 545DDF805AE;
-	Mon,  5 Jun 2023 15:55:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85A82F8016C;
+	Mon,  5 Jun 2023 14:22:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A8E4F8016C; Mon,  5 Jun 2023 14:10:10 +0200 (CEST)
+	id E0079F80254; Mon,  5 Jun 2023 14:22:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66850F80199
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 14:09:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66850F80199
-Received: from loongson.cn (unknown [10.180.13.124])
-	by gateway (Coremail) with SMTP id _____8Dx9vCG0H1k+BMAAA--.210S3;
-	Mon, 05 Jun 2023 20:09:42 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.180.13.124])
-	by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxauWC0H1k_3AAAA--.2032S6;
-	Mon, 05 Jun 2023 20:09:42 +0800 (CST)
-From: YingKun Meng <mengyingkun@loongson.cn>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	loongarch@lists.linux.dev,
-	loongson-kernel@lists.loongnix.cn,
-	Yingkun Meng <mengyingkun@loongson.cn>
-Subject: [PATCH 3/3] ASoC: dt-bindings: Add support for Loongson audio card
-Date: Mon,  5 Jun 2023 20:09:34 +0800
-Message-Id: <20230605120934.2306548-3-mengyingkun@loongson.cn>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20230605120934.2306548-1-mengyingkun@loongson.cn>
-References: <20230605120934.2306548-1-mengyingkun@loongson.cn>
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B85AF80130
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 14:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B85AF80130
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bKwK3Guo
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 504A060BB5;
+	Mon,  5 Jun 2023 12:22:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26BA0C433D2;
+	Mon,  5 Jun 2023 12:22:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685967766;
+	bh=RG/sVuLzHHaXk4V4qOv1AU1NRzho4Tut9DnxdceFTDk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=bKwK3Guo5usWClTGIX1KsZugxGTOwUCmNYL1JyjPDQbPT3AxIMKbFuWzD+xa06pSg
+	 YWuLvRSyT5jAKHQ4Vx/FCTRSfpzBsKcXfBqccNglRXw61HZUJBc68PRwa55qKcnzkM
+	 2Abs+TryP3wgPKN6NkWlsxl0oUK81qp1nKZBZpOjgMfiiNyaDUSdVPb5oIdx2qpCCf
+	 JOsmAYK6dew557oVpjnn7UE/meNolRroAenk7cXZapT8Jia51MpxCtb80yCqSWBHzU
+	 wYeTSE5ZRSWZ62yWvlIyyJgK+aFPAX0bD3vbo6vK625Y331nv7emEwESR5fV1Gy9Ud
+	 cNBOp06XFo/dQ==
+From: Mark Brown <broonie@kernel.org>
+To: David Lin <CTLIN0@nuvoton.com>
+Cc: lgirdwood@gmail.com, alsa-devel@alsa-project.org, YHCHuang@nuvoton.com,
+ KCHSU0@nuvoton.com, WTLI@nuvoton.com, SJLIN0@nuvoton.com,
+ ctlin0.linux@gmail.com
+In-Reply-To: <20230602040924.188913-1-CTLIN0@nuvoton.com>
+References: <20230602040924.188913-1-CTLIN0@nuvoton.com>
+Subject: Re: [PATCH 0/3] Add NAU8825C support
+Message-Id: <168596776485.22528.4449942736234980502.b4-ty@kernel.org>
+Date: Mon, 05 Jun 2023 13:22:44 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxauWC0H1k_3AAAA--.2032S6
-X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQANDGR8fwASxAASsj
-X-Coremail-Antispam: 1Uk129KBj93XoW7tF4fuF1UWw15WF47ZFWDtrc_yoW8Zw1Dpw
-	s3C34UGrWxt3W7C395ZFWxAw4fJasayFsrXF42qw1UGFWDKa4FqwsIk3W5u3W2kFn5Jay7
-	Wa4rGr1xGas3CwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
-	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAF
-	wI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7V
-	AKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x
-	0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU84xRDUUUUU==
-X-MailFrom: mengyingkun@loongson.cn
-X-Mailman-Rule-Hits: nonmember-moderation
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: DLW3VPESEVFXZFISJQOXIE3WDBLUUDGC
+X-Message-ID-Hash: DLW3VPESEVFXZFISJQOXIE3WDBLUUDGC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: B7RBD4ZQIK4Y2MHGAHXM3GTI2EB5F5XU
-X-Message-ID-Hash: B7RBD4ZQIK4Y2MHGAHXM3GTI2EB5F5XU
-X-Mailman-Approved-At: Mon, 05 Jun 2023 13:55:12 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B7RBD4ZQIK4Y2MHGAHXM3GTI2EB5F5XU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DLW3VPESEVFXZFISJQOXIE3WDBLUUDGC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,87 +96,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Yingkun Meng <mengyingkun@loongson.cn>
+On Fri, 02 Jun 2023 12:09:21 +0800, David Lin wrote:
+> This series adds nau8825c support. The driver can be used on
+> NAU8825B and NAU8825C.
+> 
+> David Lin (3):
+>   ASoC: nau8825: Add registers patch for NAU8825C
+>   ASoC: nau8825: Update the calculation of FLL for NAU8825C
+>   ASoC: nau8825: Update output control for NAU8825C
+> 
+> [...]
 
-The audio card uses loongson I2S controller present in 7axxx/2kxxx chips
-to transfer audio data.
+Applied to
 
-Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
----
- .../sound/loongson,ls-audio-card.yaml         | 64 +++++++++++++++++++
- 1 file changed, 64 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
-new file mode 100644
-index 000000000000..f1d6ee346bb3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
-@@ -0,0 +1,64 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/loongson-audio-card.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Loongson generic ASoC audio sound card.
-+
-+maintainers:
-+  - Yingkun Meng <mengyingkun@loongson.cn>
-+
-+description:
-+  Generic ASoC audio device for loongson platform.
-+
-+properties:
-+  compatible:
-+    const: loongson,ls-audio-card
-+
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: User specified audio sound card name
-+
-+  mclk-fs:
-+    $ref: simple-card.yaml#/definitions/mclk-fs
-+
-+  cpu:
-+    description: Holds subnode which indicates cpu dai.
-+    type: object
-+    additionalProperties: false
-+    properties:
-+      sound-dai:
-+        maxItems: 1
-+
-+  codec:
-+    description: Holds subnode which indicates codec dai.
-+    type: object
-+    additionalProperties: false
-+    properties:
-+      sound-dai:
-+        maxItems: 1
-+
-+required:
-+  - compatible
-+  - model
-+  - mclk-fs
-+  - cpu
-+  - codec
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    sound {
-+        compatible = "loongson,ls-audio-card";
-+        model = "loongson-audio";
-+        mclk-fs = <512>;
-+
-+        cpu {
-+            sound-dai = <&i2s>;
-+        };
-+        codec {
-+             sound-dai = <&es8323>;
-+        };
-+    };
--- 
-2.33.0
+Thanks!
+
+[1/3] ASoC: nau8825: Add registers patch for NAU8825C
+      commit: b81a2cc9a2f2314dad78ca14f12d2fbf8e071c3e
+[2/3] ASoC: nau8825: Update the calculation of FLL for NAU8825C
+      commit: 6d64c33f0f0018bd26836680175b4ee05f3cf54c
+[3/3] ASoC: nau8825: Update output control for NAU8825C
+      commit: 955b503b6317859632c7ea214babfa22305d1de4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

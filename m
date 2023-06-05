@@ -2,85 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D645722095
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 10:09:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09D7B722180
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 10:55:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F9D41D9;
-	Mon,  5 Jun 2023 10:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F9D41D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C63C6C1;
+	Mon,  5 Jun 2023 10:54:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C63C6C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685952561;
-	bh=TpPjlkIU5EWObdMV+nSZFG8cwg9HbzjckLadCVt3k1I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1685955313;
+	bh=bwIyH+W2QvehNlhNjGOVDbJb4LN1LY6sRbOj4M03krk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JHKLGCCUe3mGb+SXLD+3lz8jFZdkf/7k550i/9JsCo2Lmn4GiqaoqSVPB7jlWbJuX
-	 +tPzAjgPjBD1Rj4qxzqI5DAFiVCUvg1Qpt6TfqwPQ04PZI4lHqPP6HPKZflKwOgd2w
-	 RJcV3rGBYTF8lA09GfOxipIHM3I4z8PAvgGniGCo=
+	b=sEVIMKtMPY3T3nRMYVCt9JghwPaZzOLP31sn7BkDOEF/+gFPiLoGgZVZHWrdoZZSp
+	 v4lXHa9CVZQ1TqyyciQuRs9FDZko3mrMkpwdKxviqunxQm72ALl99WQtmY1Eo4PbWF
+	 0U480W/YKTiXPS+7XG80K0OcQoJVe1M8SNHns5xI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F48EF80520; Mon,  5 Jun 2023 10:08:30 +0200 (CEST)
+	id A56E5F80494; Mon,  5 Jun 2023 10:54:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49879F80155;
-	Mon,  5 Jun 2023 10:08:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23294F8016C;
+	Mon,  5 Jun 2023 10:54:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A941BF8016C; Mon,  5 Jun 2023 10:08:25 +0200 (CEST)
+	id 6FE25F80199; Mon,  5 Jun 2023 10:54:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7FFF2F80130
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 10:08:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FFF2F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id EFD90F80155
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 10:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFD90F80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=OkBB8p7a
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D4524611C6;
-	Mon,  5 Jun 2023 08:08:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453B1C433EF;
-	Mon,  5 Jun 2023 08:08:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685952497;
-	bh=TpPjlkIU5EWObdMV+nSZFG8cwg9HbzjckLadCVt3k1I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OkBB8p7aQFZz1fRe9MXHNxHv4DKDVy3UOSy0DG9k3ykbAtkiudIIntqqEcOGyNmQJ
-	 BiSk+A07iKDwgupsiINQ96xNs6ro1W8hoL99J37uXiHxPhiUKALpIX4lvxEYBBWl2x
-	 CNcp2/kCEJBWkdSit/+vwSBet9u8mGtC+oV/eyY4TVSwgm04vO8M4EGVrBW4cgIr+5
-	 AID8/GwHIQowmhK9TosI6J5U9VcrtIm6KEqojJ4muD48HDkENeesGUqPUPShBFzczD
-	 1eGlXMiV+iEw/lgjWphpRxYVj0Kayd9Yg7h8+He4bpzJ4qSwu7Unzch1ONJSsMG3u8
-	 bJb1KFkr9xmDA==
-Received: from johan by xi.lan with local (Exim 4.94.2)
-	(envelope-from <johan@kernel.org>)
-	id 1q65GU-00081o-Cn; Mon, 05 Jun 2023 10:08:34 +0200
-Date: Mon, 5 Jun 2023 10:08:34 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, perex@perex.cz,
-	tiwai@suse.com, lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
-	kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/2] ASoC: codecs: wsa883x: do not set can_multi_write
- flag
-Message-ID: <ZH2YAmBY-GNKABSB@hovoldconsulting.com>
-References: <20230523154605.4284-1-srinivas.kandagatla@linaro.org>
- <168492769030.49784.4719862081052299023.b4-ty@kernel.org>
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=WDaiNeGp
+X-GND-Sasl: herve.codina@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1685955249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dNvkGsaRNjcLUAaRAQc2wTZtlEs619LxRWDYK7s9IYw=;
+	b=WDaiNeGp/8dW6v+ebqBLy0MPRo35NcuuRkxke6vf8dj8iHnv5Nl6xKEKMBGvu3VvsREio8
+	sDRcdg9puN/CvYQJb68brM5++QqwFvsZsz71TJrspS9Cmj2Z3785dOBfNEcjaW/nNYIZUx
+	DR4nw6QbTBQmnaF8CnzvwCAlu9yIWWblgKAkQru2+p183k8RpBWbfjuHpHwLAvtdmDOcHP
+	UVgnW/riry09OBZ7IviYz6ag1wV9o3fs1lij42CwZ8vQpC52/iEAlAGi60WDAGCvV2CcbB
+	289lKtWAcOcXHzS3SOO9YwRZHw2q6YOftNf9Zn+MqlmPFyr666NuUf9vSlA0lw==
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5089E1C0005;
+	Mon,  5 Jun 2023 08:54:06 +0000 (UTC)
+Date: Mon, 5 Jun 2023 10:54:05 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: andy.shevchenko@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori
+ Morimoto <kuninori.morimoto.gx@renesas.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 6/9] ASoC: soc-dapm.h: Add a helper to build a DAPM
+ widget dynamically
+Message-ID: <20230605105405.39bcebef@bootlin.com>
+In-Reply-To: <ZHtJLxNReoc4Yjqj@surfacebook>
+References: <20230523151223.109551-1-herve.codina@bootlin.com>
+	<20230523151223.109551-7-herve.codina@bootlin.com>
+	<ZHtJLxNReoc4Yjqj@surfacebook>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <168492769030.49784.4719862081052299023.b4-ty@kernel.org>
-Message-ID-Hash: FB7MZ3A33S7NXNUSFO6MES6SDPHOUL3U
-X-Message-ID-Hash: FB7MZ3A33S7NXNUSFO6MES6SDPHOUL3U
-X-MailFrom: johan@kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 7HEBRJJVDRSYZOETKSQBS7CGBDLJKRGI
+X-Message-ID-Hash: 7HEBRJJVDRSYZOETKSQBS7CGBDLJKRGI
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FB7MZ3A33S7NXNUSFO6MES6SDPHOUL3U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7HEBRJJVDRSYZOETKSQBS7CGBDLJKRGI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,36 +121,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, May 24, 2023 at 12:28:10PM +0100, Mark Brown wrote:
-> On Tue, 23 May 2023 16:46:04 +0100, Srinivas Kandagatla wrote:
-> > regmap-sdw does not support multi register writes, so there is
-> > no point in setting this flag. This also leads to incorrect
-> > programming of WSA codecs with regmap_multi_reg_write() call.
+On Sat, 3 Jun 2023 17:07:43 +0300
+andy.shevchenko@gmail.com wrote:
+
+> Tue, May 23, 2023 at 05:12:20PM +0200, Herve Codina kirjoitti:
+> > The SND_SOC_DAPM_* helpers family are used to build widgets array in a
+> > static way.
 > > 
-> > This invalid configuration should have been rejected by regmap-sdw.
+> > Introduce SND_SOC_DAPM_WIDGET() in order to use the SND_SOC_DAPM_*
+> > helpers family in a dynamic way. The different SND_SOC_DAPM_* parameters
+> > can be computed by the code and the widget can be built based on this
+> > parameter computation.
+> > For instance:
+> >   static int create_widget(char *input_name)
+> >   {
+> > 	struct snd_soc_dapm_widget widget;
+> > 	char name*;
+> > 	...
+> > 	name = input_name;
+> > 	if (!name)
+> > 		name = "default";
 > > 
-> > 
-> > [...]
+> > 	widget = SND_SOC_DAPM_WIDGET(SND_SOC_DAPM_INPUT(name));
+> > 	...
+> >   }  
 > 
-> Applied to
+> Maybe instead of adding a helper, simply convert those macros to provide
+> a compaund literal? (See, for example,
+> https://elixir.bootlin.com/linux/v6.4-rc4/source/include/linux/pinctrl/pinctrl.h#L42)
 > 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> 
-> Thanks!
-> 
-> [1/2] ASoC: codecs: wsa883x: do not set can_multi_write flag
->       commit: 40ba0411074485e2cf1bf8ee0f3db27bdff88394
-> [2/2] ASoC: codecs: wsa881x: do not set can_multi_write flag
->       commit: 6e7a6d4797ef521c0762914610ed682e102b9d36
 
-These were merged for 6.5 but the corresponding sanity check for regmap
-has now been included in 6.4-rc5 which consequently breaks these codecs
-(similar for wcd938x-sdw):
+Indeed, I will convert macros and remove the helper in the next iteration.
 
-[   11.443485] wsa883x-codec sdw:0:0217:0202:00:1: error -ENOTSUPP: regmap_init failed
-[   11.443525] wsa883x-codec sdw:0:0217:0202:00:1: Probe of wsa883x-codec failed: -524
-[   11.443554] wsa883x-codec: probe of sdw:0:0217:0202:00:1 failed with error -52
-
-Is it possible to get also these fixes into 6.4 final?
-
-Johan
+Thanks for the review,
+Hervé

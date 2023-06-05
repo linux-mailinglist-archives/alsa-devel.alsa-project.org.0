@@ -2,101 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D66FC722D6A
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 19:14:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC4A5722D94
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 19:23:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9CDD820;
-	Mon,  5 Jun 2023 19:13:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9CDD820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F0BA6C1;
+	Mon,  5 Jun 2023 19:22:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F0BA6C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685985253;
-	bh=j7MxTxNLARwIIJt/wj0s8TbyX780R7QojCcXeK1ohFI=;
+	s=default; t=1685985827;
+	bh=iksAL1nPzHckm7+3rUlyb9XTjfgicZlIf5CNH8kZVfw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OjrObLNL6PSvugCGhvRB7gs/S7Km+XbSLQV1tBAw3P6WZ8K8E+0/EbnqmF+/fnyDb
-	 zr23dkumQ3ibes3u82JAEgjQtvKCV0nNV2n2ga96dZD+4v7CaXAx1kiGTzCS2aR7bA
-	 wAViZnli6eDufSI8yc3UdA6ucgluxljfM1ick7H8=
+	b=D4BEyStClguuJgZGbYhKy8FlRjIzf8ir/IFoL14pDqJrOBD7RLC33K1uCVwreXlVw
+	 vUtmG/on62ufPHvfDTrTM1MWHoiRwrK3PvX1IlXYMJAHC6ok8ToqSvxEut2iBGfzvY
+	 9OVLGm5lkJ11qPDoOh1Sdz6WwXlJTUV1Ux+C3HCk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBBBAF80520; Mon,  5 Jun 2023 19:13:22 +0200 (CEST)
+	id 5D206F804DA; Mon,  5 Jun 2023 19:22:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 565DDF8016C;
-	Mon,  5 Jun 2023 19:13:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAE1EF8016C;
+	Mon,  5 Jun 2023 19:22:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A968AF80199; Mon,  5 Jun 2023 19:13:18 +0200 (CEST)
+	id BF91FF80199; Mon,  5 Jun 2023 19:22:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::221])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94D34F80155
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 19:13:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D34F80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 86DA0F800ED
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 19:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86DA0F800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=KhVoo/40;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=9s2Fsd1z
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4D30B21BB2;
-	Mon,  5 Jun 2023 17:13:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1685985194;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=J7ev+niT
+X-GND-Sasl: herve.codina@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1685985768;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=XQbJGXlWRRPgKeh1+4oXJ9lQYO/+bSNL8pzTBwzOi8I=;
-	b=KhVoo/409zBg2/YSQGq9x4CJYmjs/RCAVTtetYmGRwmcwnAF+OUiNrmWAU9GEgvdZpViRb
-	AzsTeHxLY5GMnZI77Wi1BPwBAHey7S4sG1uUBxpQb+FELhoEIu8vb+ujJ0ju29NtP4TR+1
-	TewoeUvpJSKBwB6j6mpMFxwjDMoR4PI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1685985194;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XQbJGXlWRRPgKeh1+4oXJ9lQYO/+bSNL8pzTBwzOi8I=;
-	b=9s2Fsd1zrbVq6hdl5cXWfZdBXnb5vKHbDToKlLJSejXu1G3t1I6urHsiHH+TqwTpsPxoAe
-	dQMXpMbdsHbz/2DQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1959C139C8;
-	Mon,  5 Jun 2023 17:13:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id pVBbBaoXfmQvLQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 05 Jun 2023 17:13:14 +0000
-Date: Mon, 05 Jun 2023 19:13:13 +0200
-Message-ID: <875y81hlxy.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tim Crawford <tcrawford@system76.com>
-Cc: alsa-devel@alsa-project.org,
-	productdev@system76.com
-Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NS50AU
-In-Reply-To: <20230605163834.24653-1-tcrawford@system76.com>
-References: <20230605163834.24653-1-tcrawford@system76.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: KASJ33LSACV474G5TPWLRNH22W6LB3RA
-X-Message-ID-Hash: KASJ33LSACV474G5TPWLRNH22W6LB3RA
-X-MailFrom: tiwai@suse.de
+	bh=Berwdtb2uXHQbSksaaVPK3mZrvObJ1lWrE4UzrcIf8M=;
+	b=J7ev+niTsg1xzPdC/Z0LVxKv4Z42cGvd9zc2KeBD1xxv+tqyeHe/4J8ImQTFJ1AoRgwgFN
+	6ojrllCzR4ja6qcd8Etya0M3KkgPxP7cdNUzzM1mBqdz0+9jfeouUaa6+qH29biRkSjfrN
+	DEIv/KSc/UuFrVmO58z9vm5utSERq6eCX49QApf1GYrUKVvHRTAtTYXX/eis3QNiXJMu6m
+	unP5K6zs/HR9ux7R15lM8AbrvRMKbugnYtaMO8wRVXXYMabKWLmZaZTrLy4l+nDei2D3CH
+	yOnw8Ft+VslMGLTB3zGn7OVLUIwcfgiqpz9hy1ufyO1B+48vf2k025F3lQLDcw==
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 30441240009;
+	Mon,  5 Jun 2023 17:22:46 +0000 (UTC)
+Date: Mon, 5 Jun 2023 19:22:45 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Kuninori Morimoto
+ <kuninori.morimoto.gx@renesas.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 7/9] ASoC: codecs: Add support for the generic IIO
+ auxiliary devices
+Message-ID: <20230605192245.4132e0ae@bootlin.com>
+In-Reply-To: <20230528183855.0c95d308@jic23-huawei>
+References: <20230523151223.109551-1-herve.codina@bootlin.com>
+ <20230523151223.109551-8-herve.codina@bootlin.com>
+ <20230528183855.0c95d308@jic23-huawei>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: ZKCDKSHFTAGNZPP4K7WHBH35O4YL5JEP
+X-Message-ID-Hash: ZKCDKSHFTAGNZPP4K7WHBH35O4YL5JEP
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KASJ33LSACV474G5TPWLRNH22W6LB3RA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZKCDKSHFTAGNZPP4K7WHBH35O4YL5JEP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,14 +120,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 05 Jun 2023 18:38:34 +0200,
-Tim Crawford wrote:
+Hi Jonathan,
+
+On Sun, 28 May 2023 18:38:55 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
+
+> On Tue, 23 May 2023 17:12:21 +0200
+> Herve Codina <herve.codina@bootlin.com> wrote:
 > 
-> Fixes headset detection on Clevo NS50AU.
+> > Industrial I/O devices can be present in the audio path.
+> > These devices needs to be used as audio components in order to be fully
+> > integrated in the audio path.
+> > 
+> > This support allows to consider these Industrial I/O devices as auxliary
+> > audio devices and allows to control them using mixer controls.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > ---  
 > 
-> Signed-off-by: Tim Crawford <tcrawford@system76.com>
+> > diff --git a/sound/soc/codecs/audio-iio-aux.c b/sound/soc/codecs/audio-iio-aux.c
+> > new file mode 100644
+> > index 000000000000..21575c4b35fd
+> > --- /dev/null
+> > +++ b/sound/soc/codecs/audio-iio-aux.c
+> > @@ -0,0 +1,302 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +//
+> > +// audio-iio-aux.c  --  ALSA SoC glue to use IIO devices as audio components
+> > +//
+> > +// Copyright 2023 CS GROUP France
+> > +//
+> > +// Author: Herve Codina <herve.codina@bootlin.com>
+> > +
+> > +#include <linux/iio/consumer.h>
+> > +#include <linux/module.h>  
+> 
+> #include <linux/mod_devicetable.h> ideally to pick up
+> the of_device_id definition without bouncing through some non 
+> obvious header path.
 
-Applied now.  Thanks.
+Right, <linux/module.h> will be replaced by <linux/mod_devicetable.h> in the
+next iteration.
 
+Thanks for the review,
+Hervé
 
-Takashi
+> 
+> 
+> > +#include <linux/slab.h>
+> > +#include <sound/soc.h>
+> > +#include <sound/tlv.h>  
+> 
+> Otherwise, the IIO elements of this look good.  So for those at least
+> Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+> 
+> I don't have enough knowledge of the snd stuff to review those
+> parts.
+> 
+> Jonathan
+> 
+> 

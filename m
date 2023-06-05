@@ -2,87 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6DE722653
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 14:49:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14B8872265D
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 14:52:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59594826;
-	Mon,  5 Jun 2023 14:48:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59594826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4904E827;
+	Mon,  5 Jun 2023 14:51:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4904E827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685969378;
-	bh=Qyu3UggzGA1YR+k6SEA+ebAB9j7ENCch/bB9WJ5W0sA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1685969522;
+	bh=6Gi6mmYAUeRmDVlWC4JCzRkKrqBe4bF3In5pngh9cMI=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dvan2eF9VTCF1TsswSZjPsMAJBdaJGqz+HimUukL5moo7DIZYlM5AZRxh4yWp6lnb
-	 wNr9B7p0SWxXWWowftJR++ev6LPzJ3MsmFDasQaoSXUr9oE/LVMewHEeXopqWk0022
-	 DuGCTGot9uIBVLYCEabN/ZGPulxDrn7xqmdkgMUQ=
+	b=Zdy80lVy8Vhd4DWOB0G5wXXtkD9EHZgh/e8zxhLeALARtRU5PbRdwKccgwuppmbx7
+	 uYLeDVaefAOrR8jh3Q7xLC1Lwuo5EnEGsZIFKSfM5cZ1nrJHrye1WeG7lQeZcgp+7d
+	 ytQ8eDzYqmg3rBzMuaBBHJrboX5DZmOuH8TjGR50=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20FA4F80520; Mon,  5 Jun 2023 14:48:48 +0200 (CEST)
+	id BAAC0F80520; Mon,  5 Jun 2023 14:51:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7185F8016C;
-	Mon,  5 Jun 2023 14:48:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 662F9F800ED;
+	Mon,  5 Jun 2023 14:51:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F3B26F80254; Mon,  5 Jun 2023 14:48:44 +0200 (CEST)
+	id 6E207F80199; Mon,  5 Jun 2023 14:51:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 25AF9F80130
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 14:48:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25AF9F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=k9kyc8n0
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 00CD1623AF;
-	Mon,  5 Jun 2023 12:48:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FC40C4339E;
-	Mon,  5 Jun 2023 12:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685969321;
-	bh=Qyu3UggzGA1YR+k6SEA+ebAB9j7ENCch/bB9WJ5W0sA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=k9kyc8n0XuRdxbMm+wyCIqE3/jmhPXRajQtviFmBwL/NsNiXdwO0eAxKVyr/Cl+dx
-	 kIMsdED1jZQJHj8uKjWtMwHKe2QoBgfB1MYmoqyORu6DCMMx+Y2q90JLbwVm4l89Y2
-	 sfkMhx/DGATI2/s/oe0TwcUIhcVRdJsp4ia+JDtMcjUYq9zvGWXoYJlOTMs6n5BYTa
-	 TjAx5mo06sSewd7VKLk3O1BXkWmfKXuZln5hZK0nlMXXAFeO85SQigYsIu0akgUUuo
-	 cjoh8ip+OoL5xr5/Mcc8Lxl9AlWGlOYBKGS9+LDu16CgalK2u1vO6yfd1KscXtVOFn
-	 sdzIQqBfNKMHg==
-Date: Mon, 5 Jun 2023 13:48:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	Randy Dunlap <rdunlap@infradead.org>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] [v2] ASoC: amd: vangogh: select CONFIG_SND_AMD_ACP_CONFIG
-Message-ID: <3d9657dc-7180-484f-9fef-b50597571db3@sirena.org.uk>
-References: <20230605085839.2157268-1-arnd@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 59564F800ED
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 14:50:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59564F800ED
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=lWb5nHMt
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3558e8hD010267;
+	Mon, 5 Jun 2023 07:50:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=yU9eshyqKAIkJa4SLDx3YPJnfeTYlRKTxJ/oaNHkkXI=;
+ b=lWb5nHMtT0fcm7O84i2QCHRlsOoeVdXBTFYaVhaUi1Q124K4ALl7g4sLTKDPgx+168f7
+ YyPVMtgLDq9Ymu6603cjx4K+BkKOTrfRhNQoCFzIThC7hSf+WRwDlK00nxSxlsQkw1yb
+ yFT/A/O21qCdwDHj705mFlrSO6vCcGNZ0FGvLWG+vGJ59GFUENS2s8/ls9BQ2WSxWFX6
+ ir7KRFegR1zoXVFJ3zLlYplW9FSgWFaN599bDz4zKMbOU7A4EPwNUONKe/d2jThRxApK
+ UpFstf9dabk5WWwAlI629BI5L9s376nZAkly90g+F6AxW05kJfPbSTztnlV92Ff4Ulwo kQ==
+Received: from ediex01.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3r01xn9tw4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Jun 2023 07:50:56 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Mon, 5 Jun
+ 2023 13:50:54 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Mon, 5 Jun 2023 13:50:54 +0100
+Received: from [198.90.238.35] (LONN2DGDQ73.ad.cirrus.com [198.90.238.35])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5AC9C458;
+	Mon,  5 Jun 2023 12:50:54 +0000 (UTC)
+Message-ID: <ff8d0da4-10f7-31a7-5cf9-7a4c0e009192@opensource.cirrus.com>
+Date: Mon, 5 Jun 2023 13:50:54 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="X0xc3FjzGMYuJlCL"
-Content-Disposition: inline
-In-Reply-To: <20230605085839.2157268-1-arnd@kernel.org>
-X-Cookie: Biggest security gap -- an open mouth.
-Message-ID-Hash: VWXTMFD5TJDRIJVULE5EUW4M5OW4BACW
-X-Message-ID-Hash: VWXTMFD5TJDRIJVULE5EUW4M5OW4BACW
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH RESEND v1 2/3] ALSA: hda: cs35l41: Fix endian conversions
+To: Takashi Iwai <tiwai@suse.de>
+CC: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
+        <patches@opensource.cirrus.com>
+References: <20230525135955.2108140-1-sbinding@opensource.cirrus.com>
+ <20230525135955.2108140-3-sbinding@opensource.cirrus.com>
+ <87zg5eidcb.wl-tiwai@suse.de>
+From: Stefan Binding <sbinding@opensource.cirrus.com>
+In-Reply-To: <87zg5eidcb.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: -7NHbr8YGozgAH0ikn2DmeYWPwtQUtCc
+X-Proofpoint-GUID: -7NHbr8YGozgAH0ikn2DmeYWPwtQUtCc
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: AGDPNL4I55EJDDCGTDMOXBTETVBZ5K3J
+X-Message-ID-Hash: AGDPNL4I55EJDDCGTDMOXBTETVBZ5K3J
+X-MailFrom: prvs=1520dfaea3=sbinding@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VWXTMFD5TJDRIJVULE5EUW4M5OW4BACW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AGDPNL4I55EJDDCGTDMOXBTETVBZ5K3J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,34 +114,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Takashi,
 
---X0xc3FjzGMYuJlCL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 05/06/2023 08:21, Takashi Iwai wrote:
+> On Thu, 25 May 2023 15:59:54 +0200,
+> Stefan Binding wrote:
+>> @@ -379,10 +379,10 @@ static int cs35l41_save_calibration(struct cs35l41_hda *cs35l41)
+>>   
+>>   				/* Calibration can only be applied whilst the DSP is not running */
+>>   				ret = cs35l41_apply_calibration(cs35l41,
+>> -								cpu_to_be32(cl->calAmbient),
+>> -								cpu_to_be32(cl->calR),
+>> -								cpu_to_be32(cl->calStatus),
+>> -								cpu_to_be32(cl->calR + 1));
+>> +								(__be32)cpu_to_be32(cl->calAmbient),
+>> +								(__be32)cpu_to_be32(cl->calR),
+>> +								(__be32)cpu_to_be32(cl->calStatus),
+>> +								(__be32)cpu_to_be32(cl->calR + 1));
+> Do we really need those cast?  Even if yes, it must be with __force
+> prefix for the endian cast in general.
 
-On Mon, Jun 05, 2023 at 10:58:29AM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> The vangogh driver just gained a link time dependency that now causes
-> randconfig builds to fail:
+These casts were added because we found some warnings when we ran the 
+static analyzer sparse locally.
+I think these warnings are very minor, and we can drop this patch if you 
+prefer?
 
-Actually git copes fine with applying this on top of v1 so no problem
-here.
+Thanks,
 
---X0xc3FjzGMYuJlCL
-Content-Type: application/pgp-signature; name="signature.asc"
+Stefan
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR92aMACgkQJNaLcl1U
-h9DWDgf+P/YOsGOt5xQicO9/+srfiaQTDUojnL0mHrEPBbWUabFo5NnA64FHthnL
-fAEgu7knokysnWiJfvDIMASYtGcGHKiOsnuCj8Tv7swdMf8g7Q5BnmPVZ7T7gEOz
-zF/8NvIH/k6H31lVxtsjbbwL8fKNAVulgdBZFhT8NJJMpNLonpOiG/ddkqmzVbwR
-0NkNoc5zS9vfzuTCYnbMIyphbhLJLNK6k4KW9MFt/v6HZA92tS7lrV9sLtzKC2wJ
-f/mpybZAoo8k2auRAuTW/MmEa8dHavNCjDXipNpR6klASA+0zDbCyBPaVyqMHNT3
-duVIulp+I/GndA3AQcdEfS3yLlruFw==
-=HBlX
------END PGP SIGNATURE-----
-
---X0xc3FjzGMYuJlCL--
+>
+> thanks,
+>
+> Takashi

@@ -2,181 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B25E7227FE
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:57:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 573E4722800
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:57:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 270A274C;
-	Mon,  5 Jun 2023 15:56:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 270A274C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A9BEA4E;
+	Mon,  5 Jun 2023 15:56:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A9BEA4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685973424;
-	bh=PW/7TuyGczVznWIf05w+hmMxYtm4F7K9onGBVc8t6LE=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OMkiByrJ+oXxIE29yB1CHoo72QXvT6tIl7yRpujVXSkAZ5FCSskeqa8j13kfHfgbI
-	 iA7uwqoLGaEQNK5EGXrI3IMNm+jrpOGHJKXES7apxBpYWpoRlbo8vyWzuVQwdGQQRD
-	 ZbKlh2nhJFSE1+siUn04RkL1oYlYYFFAy9lPQF3U=
+	s=default; t=1685973444;
+	bh=P/QcgomrEFCK9fQPuUQLRZeGp2QhONYHaUs6hegCjwM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=uHhG2Yxusuz5fHD5Y709QsAbEx72bSseWFGGO2CVMD313Q0j4bwYOekB48Ggz3IZk
+	 GgfylR2hHpK0bcxFDv7YqAm2IQApPZJK1bbmhpMBAN+le/8Gsq4KDyH5/FErwmudXR
+	 h7aVTWEVqmLhQLHfDfOgA1H5ji32vwIejiVSAuJU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69DCEF8057F; Mon,  5 Jun 2023 15:55:16 +0200 (CEST)
+	id E16CEF805D7; Mon,  5 Jun 2023 15:55:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0D67F8057F;
-	Mon,  5 Jun 2023 15:55:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 804EFF805C7;
+	Mon,  5 Jun 2023 15:55:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0010F80199; Mon,  5 Jun 2023 13:42:56 +0200 (CEST)
+	id 23EA7F80254; Mon,  5 Jun 2023 14:10:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20701.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe1a::701])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F27FDF80130
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 13:42:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F27FDF80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=bang-olufsen.dk header.i=@bang-olufsen.dk
- header.a=rsa-sha256 header.s=selector1 header.b=Irv+8CaE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BIhpxwslfDMeIaGUciiHDFB4QSxRPYJaMoIcuKARpKC3ecAFohn0hFfdsA+8dnsvdt0ueFjf6znmZMMIpAQ8c+qYnfBG3adG16PRmiD4VVeSEgvQyW88gdg/pfPVv6aQLQCca94NcGPQ58YbRpJaa2WZOAvoKmdWu5u8FzUb4DbXihgJ4W+784eEh1xlc0hBnF8dKxj7xO7geZoOduYZoF9maxA6irj5CjAjyxssn3KXASzAw2eSFd527EzyoDiBWPXzkCG9wVbKekuxUoqWl3LWx07RofKtp4GR7PHvNJTlK+S8v0LSoBHFKiVOpR6VSaZ3ubgJtnDVJyxBX0hFIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PW/7TuyGczVznWIf05w+hmMxYtm4F7K9onGBVc8t6LE=;
- b=Nof8WijzpHI5r6CiCGa9Je6qQH7WyqkZIseG4odK+7g1mzIoK+hKGo42HBaR1Ydhum+aLBriu86xWy6Eb7ULBOixyJrSa2p9CvqXATnzrVXCpFN3PE9Hxpb6lV7IplP/cSWDTZAAnR0rXHsuE6EfxnChdz2SoIjdmVogqwdAOf/ZMCSjzeoUFd3Viob+x66La/T8P0ulekQYz8IWSCWVv40u+BSGIxhydraXuQfFn9RtfdFpiFm1gds0vswD1yZ2kbNVu3FIZ09jPt09X5MpKWdwE54zwTzMD4MWX3pPl7ZPYIXoqqkPYaPU33CJMBZnXSGLNSixvUMj57t/ZqFWUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bang-olufsen.dk; dmarc=pass action=none
- header.from=bang-olufsen.dk; dkim=pass header.d=bang-olufsen.dk; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bang-olufsen.dk;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PW/7TuyGczVznWIf05w+hmMxYtm4F7K9onGBVc8t6LE=;
- b=Irv+8CaE/DsZj39OfkbBR9eFDdLCzOf1Y6c1KBln0izpC+qmUtZrKwBSlXe85djeMcUPH0CLfuxJOxulVB5lMyusIYXkexBtV3ucq9bLIGdq4VuOkmh9/Z6r6mQhQ3wAsrwHMgSIIFfZkOcZHFvu7iuviAMgGcsErIp404tamWk=
-Received: from AM6PR03MB3943.eurprd03.prod.outlook.com (2603:10a6:20b:26::24)
- by AS4PR03MB8183.eurprd03.prod.outlook.com (2603:10a6:20b:4f4::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.24; Mon, 5 Jun
- 2023 11:42:44 +0000
-Received: from AM6PR03MB3943.eurprd03.prod.outlook.com
- ([fe80::b8e6:a92f:367e:801f]) by AM6PR03MB3943.eurprd03.prod.outlook.com
- ([fe80::b8e6:a92f:367e:801f%7]) with mapi id 15.20.6455.030; Mon, 5 Jun 2023
- 11:42:44 +0000
-From: =?utf-8?B?QWx2aW4gxaBpcHJhZ2E=?= <ALSI@bang-olufsen.dk>
-To: Mark Brown <broonie@kernel.org>
-CC: =?utf-8?B?QWx2aW4gxaBpcHJhZ2E=?= <alvin@pqrs.dk>, Liam Girdwood
-	<lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/4] ASoC: dt-bindings: document new symmetric-clock-role
- flag
-Thread-Topic: [PATCH 1/4] ASoC: dt-bindings: document new symmetric-clock-role
- flag
-Thread-Index: AQHZlTEkbjROoMVD8k+Rhl00q7eUT693ZJ6AgAAIGwCAAAHAAIAErNKA
-Date: Mon, 5 Jun 2023 11:42:44 +0000
-Message-ID: <epx43xeghpqcourix74uyjdm6kpovlqocx7l34z3bvumk7ehfb@sfvjvladp2oh>
-References: <20230602090322.1876359-1-alvin@pqrs.dk>
- <20230602090322.1876359-2-alvin@pqrs.dk>
- <3fe93662-82b0-4834-b6c3-473669c66210@sirena.org.uk>
- <7csvw25vhyal2jsznb3jykuijxqpk7bzyguxvl7cyitosgga2w@pxmkce22cm3d>
- <91b6d02a-25d5-4835-942e-3f8072bd8897@sirena.org.uk>
-In-Reply-To: <91b6d02a-25d5-4835-942e-3f8072bd8897@sirena.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bang-olufsen.dk;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM6PR03MB3943:EE_|AS4PR03MB8183:EE_
-x-ms-office365-filtering-correlation-id: 65fa999f-6aab-4803-712a-08db65b9f9ff
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- fplj57rCnE0UCXNRM/vZF8xxFuIRImvbe12p1+qObwLsIYOGE28qo6eKFYybuRM5+5eZdVK/hoo3wnx/7iiwvnOD+Dk9KwkgfwUEvG9NJqo5X9ZoXm+w8ekroTthYkLhsKMCcRaXOLDgyJWrUrCZmmDdhcVxUYeKUy0uOqH/dbA9TdMRDXcUdLm+tD0MdIkgSANFTdwioAORgw6xOwmYP+xbjAsqFG3y5Za94JOcxsot+UaCIFBvHJrgzWP6ZLfuPcaacoCcZ6U73w+Ck4Gx1E+nvpU/xYSO4kQIY8sUDkHCtjiKqkB7NoxqECg8O5kgk1IB7MVdiSHh+jnFosDV8SkD/QZz+wUqDDV77R9f550vXqzvJ9qOmw/9GDbETrl5DzECkdHViE5h3MqokrD5HxzmbHvMCZ9UZz+pCLJE3Rnsm8tDXfwbPlR+b+8n0NOX9aHbZ7VRgqSgDSQ1cZ8iGa9OriGrbNrIZnwZFsac0BVjdOIc7BbeqIU2fBvThr62fDOqVK2WF4Pp+YT0Pv9fwG/Uz/f6uIFE2CtRO/nzCkHSiY7tZ88hlGu666e5z8U2zrXryJXGsd+l57Ic0wm0Tab4HEvhS4sM0W2iW7pxCvOuOQk5+SVG9LLpE1a64OdP
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR03MB3943.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(346002)(396003)(136003)(39850400004)(366004)(376002)(451199021)(71200400001)(478600001)(6486002)(86362001)(66574015)(83380400001)(33716001)(85182001)(9686003)(186003)(38070700005)(26005)(85202003)(38100700002)(122000001)(6512007)(6506007)(4326008)(7416002)(6916009)(66556008)(64756008)(76116006)(66946007)(66476007)(91956017)(66446008)(2906002)(5660300002)(8676002)(316002)(41300700001)(54906003)(8936002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?TExXWXJGNElVY1RJcmhuMHNpVnBQUHBRWFZ1Rng2TVBENUhLMG5MMFBXR3Nq?=
- =?utf-8?B?YXRWQnRVbVlXMllkU245Q2JpdjlPdi90eXZDbW5oa0NDN0pzNzNyY05kUk5R?=
- =?utf-8?B?T0JzRG4xY3Y0U2YyN1hhc1RlTDREbGZsUEEzU3g3WnV0Z3NYUitub2F6UGM2?=
- =?utf-8?B?TWNwSjUyZWdiTW1EMThEK2FNY0pndmY1WFExSWxCM2t3Z3lYWnFNTDFYK2tq?=
- =?utf-8?B?cHQ4T2h2ZTM5YVk2b09icmk2VFREZkhISmsvd3l5NHdmbDRaemlYcjRkMmxh?=
- =?utf-8?B?UGhOQi92K2RjbHY4ZGVjUTZtRElWN21XQU14ZHVRUFdBM1F5aEVDUUIzQi90?=
- =?utf-8?B?bndZM2gxWGsyM0UvSzRkN1Frc29oRWxjVHhLd1hxVDJ6UW92SXJzcFZ2WXp1?=
- =?utf-8?B?dUZxdlFON0hYTmVabi9IVURidW5scms0M05odmRzZXJaVnFOS3FvNzd1Qnly?=
- =?utf-8?B?V2t3dzc1Rk4ydnI3dk56UmE5aFhzTEZ1WU1oemwwMGdUUU5Jdm9PM3FIbUZl?=
- =?utf-8?B?Q1R1eHBvcjRnWXdqbU5lMElYZVg1SFZvdGJUYjhGWU96a1I4Z2pINHhDdlMv?=
- =?utf-8?B?Y3VUR3lvKzVRQjhRWjFkSTVGNGVlNW5pZG5kWjRka1d1T1Q1a1Z0WWZFdHR0?=
- =?utf-8?B?c0k0ejhKelo3cHlNN2JSc3ZCNXMwbTZhT2xLck1JcjREbGY5elArN3ExNktO?=
- =?utf-8?B?NzlETm5lNGw3MXp2c3Z0Qm5rUzhheSs0Z1pzVElzTHFyWUsyR0ZMaHE2ZzhP?=
- =?utf-8?B?U3F0ZC9yQlFkZjRkeHd5RzJEY2RmbjZVWlR4OVIyYTVCTnBTK3hLaTZDWDc3?=
- =?utf-8?B?blJ2Z2xwMjB3bTIzcXp1UnE1RlVTdUFEbG5rRmMrRElRa3VNUC9CdDcxSEhU?=
- =?utf-8?B?Zk83UjNzamkzU2FhRTJqZk96YmI4VXRud1ZFL21WUWgrTlNsOUp0aDdMcGdl?=
- =?utf-8?B?WXpVckFwUWQxM2loeE1jZWNhVUJkTTJhbGgrcloyTVc4VXowSElUbnBudzJJ?=
- =?utf-8?B?VE1NY3JWOWJ2cVFwNFNwendZQ3BVSFQ4UVBQWmxoUXRlZWRCa0N5d0pXeXdo?=
- =?utf-8?B?bWJ4RndTd0hlRzJSUGw1dXRNWllMYlA0aFoyTldBVG1iS1RWRzVjZ05icHBm?=
- =?utf-8?B?Q3RiTm5tV2h2L0VqMEJUTkM0elVKTGZCcGkxWCtBVjdMUXJ5V01oeStNOHFk?=
- =?utf-8?B?YnEzYTRlVWlEb1ZTcjR3RnJBRHVCRUxtVXJiVW1BbkdjNzg3eEFBT3g0cHBM?=
- =?utf-8?B?Z3E5Q3VROU90WXk0a0dqVStEK25ySHVleDdsRmJ6OVkxdU44c2RQY1hlK1R1?=
- =?utf-8?B?K2Jyc2F4d3gvT2FmbUFvVVpMaFR1VWE0a3oxZmloenFSaExPYXlDUk1QR0cr?=
- =?utf-8?B?Ky9NMnhmMSszV2wrWDB2eUloU2haUFgyYk1PdisxNHdJME5mM0xGd1gyM2k0?=
- =?utf-8?B?dGpER3FLRXlZOC9zcXY1UDlJTFd2NVZzQTRpR25WVXozaEFTd010SmNYSTd1?=
- =?utf-8?B?RjVHdzlVVHdJM3dSYU1XaVU4V1VZcEhmTkxWZVdvam8xWXNLalU4aVg3eWRm?=
- =?utf-8?B?RUlTN3VJbG5Bd2N2SDJRNitoQkx2eUxCTjA2eXNXN2lrdnlpdzYwYmp5N0lw?=
- =?utf-8?B?cmlOT2F6cVBzRHZsSGM1ZEJUc0hFekhDb25ITVJzU3A1cjNqK2pGUFF5Q0VZ?=
- =?utf-8?B?OGFEdXdpWHJHcnp0YmR4YmVyRHN2WUxYRHhUYVR1THBqdGMwSkpRNTFMRGhj?=
- =?utf-8?B?SGpVVXVHUHB1WTNSZUdiSGxwUmhXeHhCbzJWNnd2RW1HUUhNNG5WdDA2VGpG?=
- =?utf-8?B?VmJHS3dYQXE0THd0TW1pK0JIMUZqZjl1TUJabENmbFlqVmdKdGtRUHREMlNK?=
- =?utf-8?B?Q1lPdVFjeEV4citJSURma1NQY3YwS1BhTDJkMG9hUzBhRkllaWNPYW5KbDZK?=
- =?utf-8?B?MWdjSC94S3MrZmlzQTM4aWtmR2FkZ2JIV09TamVPdDRYVEIwaVArcWhlNXZn?=
- =?utf-8?B?aGJSbzYzSjV2WHFxelJ4WmtJelZBWXRHN1lPYWxnWjhUTU4ybGpyUm5tWSt1?=
- =?utf-8?B?ejdUeFRmRWVyZW5qKzFNQmFEY3F5ZjFGQXlUU3VuZTdpeW8yNFNzTDhrQ0Ji?=
- =?utf-8?Q?Wh2ADpE8vG/JNzItZ/goxwQ1H?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <48648B97CCF33B45937F9EF3A440A99F@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by alsa1.perex.cz (Postfix) with ESMTP id 97FC3F800ED
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 14:09:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97FC3F800ED
+Received: from loongson.cn (unknown [10.180.13.124])
+	by gateway (Coremail) with SMTP id _____8BxWPGC0H1k7hMAAA--.433S3;
+	Mon, 05 Jun 2023 20:09:39 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.180.13.124])
+	by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxauWC0H1k_3AAAA--.2032S4;
+	Mon, 05 Jun 2023 20:09:38 +0800 (CST)
+From: YingKun Meng <mengyingkun@loongson.cn>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn,
+	Yingkun Meng <mengyingkun@loongson.cn>
+Subject: [PATCH 1/3] ASoC: Add support for Loongson I2S controller
+Date: Mon,  5 Jun 2023 20:09:32 +0800
+Message-Id: <20230605120934.2306548-1-mengyingkun@loongson.cn>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-X-OriginatorOrg: bang-olufsen.dk
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR03MB3943.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 65fa999f-6aab-4803-712a-08db65b9f9ff
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2023 11:42:44.0409
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 210d08b8-83f7-470a-bc96-381193ca14a1
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- gJxmoetPZHBjiuY0Z+y6E1msU7p7j3f+BS7hahjQSKv4Hr25t5Pc0CYNfSXtwbNuZB9q7uZE3W/7in5bS7w90Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR03MB8183
-X-MailFrom: ALSI@bang-olufsen.dk
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8AxauWC0H1k_3AAAA--.2032S4
+X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQANDGR8fwASxAAOs-
+X-Coremail-Antispam: 1Uk129KBj9fXoWfWF1xuryUWr4kGr1UGF4DAwc_yoW5Gr18Ao
+	WI9F93W3yrZr1UZFyYqr1rWF1UXF15Wa1avws7Ar98C3WFyFyDGa47Gw17GF1fua1rtr48
+	Ar95trs3Ww42vr47l-sFpf9Il3svdjkaLaAFLSUrUUUU8b8apTn2vfkv8UJUUUU8wcxFpf
+	9Il3svdxBIdaVrn0xqx4xG64xvF2IEw4CE5I8CrVC2j2Jv73VFW2AGmfu7bjvjm3AaLaJ3
+	UjIYCTnIWjp_UUUYD7kC6x804xWl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI
+	8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
+	Y2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14
+	v26r1j6r4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8JVW8Jr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
+	6r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
+	vIr41l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_
+	Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
+	AY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
+	cVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+	IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVj
+	vjDU0xZFpf9x07jjWlkUUUUU=
+X-MailFrom: mengyingkun@loongson.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: WD54O25BFXZOQVS7QKZJEFR6RYNLQ4BS
-X-Message-ID-Hash: WD54O25BFXZOQVS7QKZJEFR6RYNLQ4BS
+Message-ID-Hash: 2ANFQLMHIB4TWNTJBEV6NBNWFFKFYNRA
+X-Message-ID-Hash: 2ANFQLMHIB4TWNTJBEV6NBNWFFKFYNRA
 X-Mailman-Approved-At: Mon, 05 Jun 2023 13:55:12 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WD54O25BFXZOQVS7QKZJEFR6RYNLQ4BS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2ANFQLMHIB4TWNTJBEV6NBNWFFKFYNRA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -185,35 +96,862 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-T24gRnJpLCBKdW4gMDIsIDIwMjMgYXQgMDE6MTk6MDhQTSArMDEwMCwgTWFyayBCcm93biB3cm90
-ZToNCj4gT24gRnJpLCBKdW4gMDIsIDIwMjMgYXQgMTI6MTI6NTJQTSArMDAwMCwgQWx2aW4gxaBp
-cHJhZ2Egd3JvdGU6DQo+ID4gT24gRnJpLCBKdW4gMDIsIDIwMjMgYXQgMTI6NDM6NTFQTSArMDEw
-MCwgTWFyayBCcm93biB3cm90ZToNCj4gDQo+ID4gPiBXaHkgd291bGQgd2UgaGF2ZSBhIHByb3Bl
-cnR5IGZvciB0aGlzIGFuZCBub3QganVzdCBkZXNjcmliZSB3aGF0ZXZlciB0aGUNCj4gPiA+IGFj
-dHVhbCBjbG9ja2luZyBhcnJhbmdlbWVudCBpcz8NCj4gDQo+ID4gU3VyZSAtIGxldCBtZSBqdXN0
-IGVsYWJvcmF0ZSBvbiBteSB0aGlua2luZyBhbmQgbWF5YmUgeW91IGNhbiBoZWxwIG1lIHdpdGgg
-YQ0KPiA+IGJldHRlciBhcHByb2FjaDoNCj4gDQo+ID4gVGhlIGNsb2NraW5nIGFycmFuZ2VtZW50
-IGlzIGVuY29kZWQgaW4gdGhlIGRhaV9mbXQgZmllbGQgb2Ygc25kX3NvY19kYWlfbGluaywNCj4g
-PiBidXQgdGhpcyBpcyBhIHNpbmdsZSB2YWx1ZSB0aGF0IGRlc2NyaWJlcyB0aGUgZm9ybWF0IG9u
-IGJvdGggZW5kcy4gVGhlIGN1cnJlbnQNCj4gPiBiZWhhdmlvdXIgb2YgQVNvQyBpcyB0byBmbGlw
-IHRoZSBjbG9jayByb2xlcyBlbmNvZGVkIGluIGRhaV9mbXQgd2hlbiBhcHBseWluZyBpdA0KPiA+
-IHRvIHRoZSBDUFUgc2lkZSBvZiB0aGUgbGluay4NCj4gDQo+ID4gTG9va2luZyBmcm9tIGEgRFQg
-cGVyc3BlY3RpdmUsIGlmIEkgZG8gbm90IHNwZWNpZnkgZS5nLiBiaXRjbG9jay1tYXN0ZXIgb24N
-Cj4gPiBlaXRoZXIgc2lkZSBvZiB0aGUgbGluaywgdGhlbiB0aGUgZGFpX2ZtdCB3aWxsIGRlc2Ny
-aWJlIHRoZSBjb2RlYyBhcyBhIGJpdGNsb2NrDQo+ID4gY29uc3VtZXIgYW5kIChhZnRlciBmbGlw
-cGluZykgdGhlIENQVSBhcyBhIHByb3ZpZGVyLiBUaGF0J3MgdGhlIGRlZmF1bHQNCj4gPiBpbXBs
-aWNhdGlvbiBvZiB0aGUgRFQgYmluZGluZ3MgYW5kIEkgY2FuJ3QgYnJlYWsgY29tcGF0aWJpbGl0
-eSB0aGVyZS4NCj4gDQo+IE5vbmUgb2YgdGhpcyBhZGRyZXNzZXMgbXkgcXVlc3Rpb24uICBUbyBy
-ZXBlYXQgd2h5IHdvdWxkIHdlIG5vdCBqdXN0DQo+IGRlc2NyaWJlIHRoZSBhY3R1YWwgY2xvY2tp
-bmcgYXJyYW5nZW1lbnQgaGVyZSAtIHRoaXMgcHJvcGVydHkgZG9lcyBub3QNCj4gc3BlY2lmeSB3
-aGVyZSB0aGUgY2xvY2sgYWN0dWFsbHkgY29tZXMgZnJvbSBhdCBhbGwsIHdlJ3JlIHN0aWxsIGdv
-aW5nIHRvDQo+IG5lZWQgYWRkaXRpb25hbCBpbmZvcm1hdGlvbiBmb3IgdGhhdCBhbmQgaWYgd2Un
-dmUgZGVzY3JpYmVkIHRoYXQgY2xvY2sNCj4gdGhlbiB3ZSBhbHJlYWR5IGtub3cgaXQncyB0aGVy
-ZSB3aXRob3V0IGhhdmluZyB0byBzcGVjaWZ5IGFueSBtb3JlDQo+IHByb3BlcnRpZXMuDQoNCk1h
-eWJlIEkgb3ZlcmNvbXBsaWNhdGVkIHlvdXIgcG9pbnQgd2l0aCBteSBwcmV2aW91cyByZXBseS4g
-U29tZSBxdWVzdGlvbnMgdG8NCmNsYXJpZnk6DQoNCjEuIFlvdSBkb24ndCBsaWtlIHRoZSBEVCBw
-cm9wZXJ0eSBiZWNhdXNlIGl0IHNob3VsZCBiZSBpbmZlcnJhYmxlIGJ5IG90aGVyDQptZWFucy4g
-Q29ycmVjdD8NCg0KMi4gQXMgZm9yIHRoZSBmbGFnIGFkZGVkIHRvIHNuZF9zb2NfZGFpX2xpbmss
-IGRvIHlvdSB0aGluayB0aGF0IGlzIGFuIE9LDQphcHByb2FjaD8NCg0KSnVzdCB3YW50IHRvIHVu
-ZGVyc3RhbmQgd2hpY2ggZGlyZWN0aW9uIHlvdSB3b3VsZCBsaWtlIG1lIHRvIGZvY3VzIHRoZQ0K
-ZWZmb3J0Lg0KDQpLaW5kIHJlZ2FyZHMsDQpBbHZpbg==
+From: Yingkun Meng <mengyingkun@loongson.cn>
+
+Loongson I2S controller is found on 7axxx/2kxxx chips from loongson,
+it is a PCI device with two private DMA controllers, one for playback,
+the other for capture.
+
+The driver supports the use of DTS or ACPI to describe device resources.
+
+Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
+---
+ sound/soc/Kconfig                     |   1 +
+ sound/soc/Makefile                    |   1 +
+ sound/soc/loongson/Kconfig            |  15 +
+ sound/soc/loongson/Makefile           |   4 +
+ sound/soc/loongson/loongson_i2s.c     | 209 +++++++++++
+ sound/soc/loongson/loongson_i2s.h     |  70 ++++
+ sound/soc/loongson/loongson_i2s_pci.c | 478 ++++++++++++++++++++++++++
+ 7 files changed, 778 insertions(+)
+ create mode 100644 sound/soc/loongson/Kconfig
+ create mode 100644 sound/soc/loongson/Makefile
+ create mode 100644 sound/soc/loongson/loongson_i2s.c
+ create mode 100644 sound/soc/loongson/loongson_i2s.h
+ create mode 100644 sound/soc/loongson/loongson_i2s_pci.c
+
+diff --git a/sound/soc/Kconfig b/sound/soc/Kconfig
+index 4b6e5a802880..bfa9622e1ab1 100644
+--- a/sound/soc/Kconfig
++++ b/sound/soc/Kconfig
+@@ -79,6 +79,7 @@ source "sound/soc/google/Kconfig"
+ source "sound/soc/hisilicon/Kconfig"
+ source "sound/soc/jz4740/Kconfig"
+ source "sound/soc/kirkwood/Kconfig"
++source "sound/soc/loongson/Kconfig"
+ source "sound/soc/img/Kconfig"
+ source "sound/soc/intel/Kconfig"
+ source "sound/soc/mediatek/Kconfig"
+diff --git a/sound/soc/Makefile b/sound/soc/Makefile
+index 9d9b228e4508..8376fdb217ed 100644
+--- a/sound/soc/Makefile
++++ b/sound/soc/Makefile
+@@ -46,6 +46,7 @@ obj-$(CONFIG_SND_SOC)	+= fsl/
+ obj-$(CONFIG_SND_SOC)	+= google/
+ obj-$(CONFIG_SND_SOC)	+= hisilicon/
+ obj-$(CONFIG_SND_SOC)	+= jz4740/
++obj-$(CONFIG_SND_SOC)	+= loongson/
+ obj-$(CONFIG_SND_SOC)	+= img/
+ obj-$(CONFIG_SND_SOC)	+= intel/
+ obj-$(CONFIG_SND_SOC)	+= mediatek/
+diff --git a/sound/soc/loongson/Kconfig b/sound/soc/loongson/Kconfig
+new file mode 100644
+index 000000000000..fd477e7da6e0
+--- /dev/null
++++ b/sound/soc/loongson/Kconfig
+@@ -0,0 +1,15 @@
++# SPDX-License-Identifier: GPL-2.0
++menu "SoC Audio for Loongson CPUs"
++	depends on LOONGARCH || COMPILE_TEST
++
++config SND_SOC_LOONGSON_I2S_PCI
++	tristate "Loongson I2S-PCI Device Driver"
++	select REGMAP_MMIO
++	help
++	  Say Y or M if you want to add support for I2S driver for
++	  Loongson I2S controller.
++
++	  The controller is found in loongson bridge chips or SoCs,
++	  and work as a PCI device.
++
++endmenu
+diff --git a/sound/soc/loongson/Makefile b/sound/soc/loongson/Makefile
+new file mode 100644
+index 000000000000..cfd0de1b1b22
+--- /dev/null
++++ b/sound/soc/loongson/Makefile
+@@ -0,0 +1,4 @@
++# SPDX-License-Identifier: GPL-2.0
++#Platform Support
++snd-soc-loongson-i2s-pci-objs := loongson_i2s_pci.o loongson_i2s.o
++obj-$(CONFIG_SND_SOC_LOONGSON_I2S_PCI) += snd-soc-loongson-i2s-pci.o
+diff --git a/sound/soc/loongson/loongson_i2s.c b/sound/soc/loongson/loongson_i2s.c
+new file mode 100644
+index 000000000000..00793964237f
+--- /dev/null
++++ b/sound/soc/loongson/loongson_i2s.c
+@@ -0,0 +1,209 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Loongson-2K I2S master mode driver
++ *
++ * Copyright (C) 2022 Loongson Technology Corporation Limited
++ */
++
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/delay.h>
++#include <linux/pm_runtime.h>
++#include <linux/dma-mapping.h>
++#include <sound/soc.h>
++#include <linux/regmap.h>
++#include <sound/pcm_params.h>
++#include "loongson_i2s.h"
++
++#define LOONGSON_I2S_FORMATS (SNDRV_PCM_FMTBIT_S8 | \
++			SNDRV_PCM_FMTBIT_S16_LE | \
++			SNDRV_PCM_FMTBIT_S20_3LE | \
++			SNDRV_PCM_FMTBIT_S24_LE)
++
++static int loongson_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
++				struct snd_soc_dai *dai)
++{
++	struct loongson_i2s *i2s = snd_soc_dai_get_drvdata(dai);
++	u32 val;
++	int ret = 0;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++		/* Enable MCLK */
++		if (i2s->rev_id == 1) {
++			regmap_update_bits(i2s->regmap, LS_I2S_CTRL,
++					   I2S_CTRL_MCLK_EN,
++					   I2S_CTRL_MCLK_EN);
++			regmap_read_poll_timeout_atomic(i2s->regmap,
++						LS_I2S_CTRL, val,
++						!(val & I2S_CTRL_MCLK_READY),
++						10, 2000);
++		}
++
++		/* Enable master mode */
++		regmap_update_bits(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_MASTER,
++				   I2S_CTRL_MASTER);
++		if (i2s->rev_id == 1) {
++			regmap_read_poll_timeout_atomic(i2s->regmap,
++						LS_I2S_CTRL, val,
++						!(val & I2S_CTRL_CLK_READY),
++						10, 2000);
++		}
++		fallthrough;
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++			regmap_update_bits(i2s->regmap, LS_I2S_CTRL,
++					   I2S_CTRL_TX_EN | I2S_CTRL_TX_DMA_EN,
++					   I2S_CTRL_TX_EN | I2S_CTRL_TX_DMA_EN);
++		else
++			regmap_update_bits(i2s->regmap, LS_I2S_CTRL,
++					   I2S_CTRL_RX_EN | I2S_CTRL_RX_DMA_EN,
++					   I2S_CTRL_RX_EN | I2S_CTRL_RX_DMA_EN);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++			regmap_update_bits(i2s->regmap, LS_I2S_CTRL,
++					I2S_CTRL_TX_EN | I2S_CTRL_TX_DMA_EN, 0);
++		else
++			regmap_update_bits(i2s->regmap, LS_I2S_CTRL,
++					I2S_CTRL_RX_EN | I2S_CTRL_RX_DMA_EN, 0);
++		break;
++	default:
++		ret = -EINVAL;
++	}
++
++	return ret;
++}
++
++static int loongson_i2s_hw_params(struct snd_pcm_substream *substream,
++				  struct snd_pcm_hw_params *params,
++				  struct snd_soc_dai *dai)
++{
++	struct loongson_i2s *i2s = snd_soc_dai_get_drvdata(dai);
++	u32 clk_rate = i2s->clk_rate;
++	u32 sysclk = i2s->sysclk;
++	u32 bits = params_width(params);
++	u32 chans = params_channels(params);
++	u32 fs = params_rate(params);
++	u32 bclk_ratio, mclk_ratio;
++	u32 mclk_ratio_frac;
++	u32 val = 0;
++
++	if (i2s->rev_id == 0) {
++		bclk_ratio = DIV_ROUND_CLOSEST(clk_rate,
++					       (bits * chans * fs * 2)) - 1;
++		mclk_ratio = DIV_ROUND_CLOSEST(clk_rate, (sysclk * 2)) - 1;
++
++		/* According to 2k1000LA user manual, set bits == depth */
++		val |= (bits << 24);
++		val |= (bits << 16);
++		val |= (bclk_ratio << 8);
++		val |= mclk_ratio;
++		regmap_write(i2s->regmap, LS_I2S_CFG, val);
++	} else if (i2s->rev_id == 1) {
++		bclk_ratio = DIV_ROUND_CLOSEST(sysclk,
++					       (bits * chans * fs * 2)) - 1;
++		mclk_ratio = clk_rate / sysclk;
++		mclk_ratio_frac = DIV_ROUND_CLOSEST(((u64)clk_rate << 16),
++						    sysclk) - (mclk_ratio << 16);
++
++		regmap_read(i2s->regmap, LS_I2S_CFG, &val);
++		val |= (bits << 24);
++		val |= (bclk_ratio << 8);
++		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++			val |= (bits << 16);
++		else
++			val |= bits;
++		regmap_write(i2s->regmap, LS_I2S_CFG, val);
++
++		val = (mclk_ratio_frac << 16) | mclk_ratio;
++		regmap_write(i2s->regmap, LS_I2S_CFG1, val);
++	} else
++		dev_err(i2s->dev, "I2S revision invalid\n");
++
++	return 0;
++}
++
++static int loongson_i2s_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
++				       unsigned int freq, int dir)
++{
++	struct loongson_i2s *i2s = snd_soc_dai_get_drvdata(dai);
++
++	i2s->sysclk = freq;
++
++	return 0;
++}
++
++static const struct snd_soc_dai_ops loongson_i2s_dai_ops = {
++	.trigger	= loongson_i2s_trigger,
++	.hw_params	= loongson_i2s_hw_params,
++	.set_sysclk	= loongson_i2s_set_dai_sysclk,
++};
++
++static int loongson_i2s_dai_probe(struct snd_soc_dai *cpu_dai)
++{
++	struct loongson_i2s *i2s = dev_get_drvdata(cpu_dai->dev);
++
++	snd_soc_dai_init_dma_data(cpu_dai, &i2s->playback_dma_data,
++				  &i2s->capture_dma_data);
++	snd_soc_dai_set_drvdata(cpu_dai, i2s);
++
++	return 0;
++}
++
++struct snd_soc_dai_driver loongson_i2s_dai = {
++	.name = "loongson-i2s",
++	.probe = loongson_i2s_dai_probe,
++	.playback = {
++		.stream_name = "CPU-Playback",
++		.channels_min = 1,
++		.channels_max = 2,
++		.rates = SNDRV_PCM_RATE_8000_96000,
++		.formats = LOONGSON_I2S_FORMATS,
++	},
++	.capture = {
++		.stream_name = "CPU-Capture",
++		.channels_min = 1,
++		.channels_max = 2,
++		.rates = SNDRV_PCM_RATE_8000_96000,
++		.formats = LOONGSON_I2S_FORMATS,
++	},
++	.ops = &loongson_i2s_dai_ops,
++	.symmetric_rate = 1,
++};
++
++static int i2s_suspend(struct device *dev)
++{
++	struct loongson_i2s *i2s = dev_get_drvdata(dev);
++
++	regcache_cache_only(i2s->regmap, true);
++
++	return 0;
++}
++
++static int i2s_resume(struct device *dev)
++{
++	struct loongson_i2s *i2s = dev_get_drvdata(dev);
++	int ret;
++
++	regcache_cache_only(i2s->regmap, false);
++	regcache_mark_dirty(i2s->regmap);
++	ret = regcache_sync(i2s->regmap);
++
++	return ret;
++}
++
++const struct dev_pm_ops loongson_i2s_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(i2s_suspend, i2s_resume)
++};
++
++void loongson_i2s_init(struct loongson_i2s *i2s)
++{
++	if (i2s->rev_id == 1) {
++		regmap_write(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_RESET);
++		udelay(200);
++	}
++}
+diff --git a/sound/soc/loongson/loongson_i2s.h b/sound/soc/loongson/loongson_i2s.h
+new file mode 100644
+index 000000000000..a743c34b8968
+--- /dev/null
++++ b/sound/soc/loongson/loongson_i2s.h
+@@ -0,0 +1,70 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * ALSA I2S interface for the Loongson chip
++ *
++ */
++#ifndef _LOONGSON_I2S_H
++#define _LOONGSON_I2S_H
++
++#include <linux/regmap.h>
++#include <sound/dmaengine_pcm.h>
++
++/* I2S Common Registers */
++#define LS_I2S_VER	0x00 /* I2S Version */
++#define LS_I2S_CFG	0x04 /* I2S Config */
++#define LS_I2S_CTRL	0x08 /* I2S Control */
++#define LS_I2S_RX_DATA	0x0C /* I2S DMA RX Address */
++#define LS_I2S_TX_DATA	0x10 /* I2S DMA TX Address */
++
++/* 2K2000 I2S Specify Registers */
++#define LS_I2S_CFG1	0x14 /* I2S Config1 */
++
++/* 7A2000 I2S Specify Registers */
++#define LS_I2S_TX_ORDER	0x100 /* TX DMA Order */
++#define LS_I2S_RX_ORDER 0x110 /* RX DMA Order */
++
++/* Loongson I2S Control Register */
++#define I2S_CTRL_MCLK_READY	(1 << 16) /* MCLK ready */
++#define I2S_CTRL_MASTER		(1 << 15) /* Master mode */
++#define I2S_CTRL_MSB		(1 << 14) /* MSB bit order */
++#define I2S_CTRL_RX_EN		(1 << 13) /* RX enable */
++#define I2S_CTRL_TX_EN		(1 << 12) /* TX enable */
++#define I2S_CTRL_RX_DMA_EN	(1 << 11) /* DMA RX enable */
++#define I2S_CTRL_CLK_READY	(1 << 8)  /* BCLK ready */
++#define I2S_CTRL_TX_DMA_EN	(1 << 7)  /* DMA TX enable */
++#define I2S_CTRL_RESET		(1 << 4)  /* Controller soft reset */
++#define I2S_CTRL_MCLK_EN	(1 << 3)  /* Enable MCLK */
++#define I2S_CTRL_RX_INT_EN	(1 << 1)  /* RX interrupt enable */
++#define I2S_CTRL_TX_INT_EN	(1 << 0)  /* TX interrupt enable */
++
++#define LS_I2S_DRVNAME		"loongson-i2s"
++
++struct loongson_dma_data {
++	u64 dev_addr;			/* device physical address for DMA */
++	void __iomem *order_addr;	/* DMA order register */
++	u32 irq;			/* DMA irq */
++};
++
++struct loongson_i2s {
++	struct device *dev;
++	union {
++		struct snd_dmaengine_dai_dma_data playback_dma_data;
++		struct loongson_dma_data tx_dma_data;
++	};
++	union {
++		struct snd_dmaengine_dai_dma_data capture_dma_data;
++		struct loongson_dma_data rx_dma_data;
++	};
++	struct regmap *regmap;
++	void __iomem *reg_base;
++	u32 rev_id;
++	u32 clk_rate;
++	u32 sysclk;
++};
++
++extern const struct dev_pm_ops loongson_i2s_pm;
++extern struct snd_soc_dai_driver loongson_i2s_dai;
++
++void loongson_i2s_init(struct loongson_i2s *i2s);
++
++#endif
+diff --git a/sound/soc/loongson/loongson_i2s_pci.c b/sound/soc/loongson/loongson_i2s_pci.c
+new file mode 100644
+index 000000000000..e4b8c654b12c
+--- /dev/null
++++ b/sound/soc/loongson/loongson_i2s_pci.c
+@@ -0,0 +1,478 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Loongson-2K I2S master mode driver
++ *
++ * Copyright (C) 2022 Loongson Technology Corporation Limited
++ */
++
++#include <linux/module.h>
++#include <linux/delay.h>
++#include <linux/pm_runtime.h>
++#include <linux/dma-mapping.h>
++#include <linux/acpi.h>
++#include <linux/pci.h>
++#include <sound/soc.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include "loongson_i2s.h"
++
++/* DMA dma_order Register */
++#define DMA_ORDER_STOP          (1 << 4) /* DMA stop */
++#define DMA_ORDER_START         (1 << 3) /* DMA start */
++#define DMA_ORDER_ASK_VALID     (1 << 2) /* DMA ask valid flag */
++#define DMA_ORDER_AXI_UNCO      (1 << 1) /* Uncache access */
++#define DMA_ORDER_ADDR_64       (1 << 0) /* 64bits address support */
++
++#define DMA_ORDER_ASK_MASK      (~0x1fUL) /* Ask addr mask */
++#define DMA_ORDER_CTRL_MASK     (0x0fUL)  /* Control mask  */
++
++#define BAR_NUM 0
++
++/*
++ * DMA registers descriptor.
++ */
++struct loongson_dma_desc {
++	u32 order;		/* Next descriptor address register */
++	u32 saddr;		/* Source address register */
++	u32 daddr;		/* Device address register */
++	u32 length;		/* Total length register */
++	u32 step_length;	/* Memory stride register */
++	u32 step_times;		/* Repeat time register */
++	u32 cmd;		/* Command register */
++	u32 stats;		/* Status register */
++	u32 order_hi;		/* Next descriptor high address register */
++	u32 saddr_hi;		/* High source address register */
++	u32 res[6];		/* Reserved */
++};
++
++struct loongson_runtime_data {
++	struct loongson_dma_data *dma_data;
++
++	struct loongson_dma_desc *dma_desc_arr;
++	dma_addr_t dma_desc_arr_phy;
++
++	struct loongson_dma_desc *dma_pos_desc;
++	dma_addr_t dma_pos_desc_phy;
++};
++
++static const struct snd_pcm_hardware ls_pcm_hardware = {
++	.info = SNDRV_PCM_INFO_MMAP |
++		SNDRV_PCM_INFO_INTERLEAVED |
++		SNDRV_PCM_INFO_MMAP_VALID |
++		SNDRV_PCM_INFO_RESUME |
++		SNDRV_PCM_INFO_PAUSE,
++	.formats = (SNDRV_PCM_FMTBIT_S8 |
++		SNDRV_PCM_FMTBIT_S16_LE |
++		SNDRV_PCM_FMTBIT_S20_3LE |
++		SNDRV_PCM_FMTBIT_S24_LE),
++	.period_bytes_min = 128,
++	.period_bytes_max = 128 * 1024,
++	.periods_min = 1,
++	.periods_max = PAGE_SIZE / sizeof(struct loongson_dma_desc),
++	.buffer_bytes_max = 1024 * 1024,
++};
++
++static struct
++loongson_dma_desc *dma_desc_save(struct loongson_runtime_data *prtd)
++{
++	void __iomem *order_reg = prtd->dma_data->order_addr;
++	u64 val;
++
++	val = (u64)prtd->dma_pos_desc_phy & DMA_ORDER_ASK_MASK;
++	val |= (readq(order_reg) & DMA_ORDER_CTRL_MASK);
++	val |= DMA_ORDER_ASK_VALID;
++	writeq(val, order_reg);
++
++	while (readl(order_reg) & DMA_ORDER_ASK_VALID)
++		udelay(2);
++
++	return prtd->dma_pos_desc;
++}
++
++static int loongson_pcm_trigger(struct snd_soc_component *component,
++				struct snd_pcm_substream *substream, int cmd)
++{
++	struct loongson_runtime_data *prtd = substream->runtime->private_data;
++	struct device *dev = substream->pcm->card->dev;
++	void __iomem *order_reg = prtd->dma_data->order_addr;
++	u64 val;
++	int ret = 0;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		val = prtd->dma_pos_desc_phy & DMA_ORDER_ASK_MASK;
++		if (dev->coherent_dma_mask == DMA_BIT_MASK(64))
++			val |= DMA_ORDER_ADDR_64;
++		else
++			val &= ~DMA_ORDER_ADDR_64;
++		val |= (readq(order_reg) & DMA_ORDER_CTRL_MASK);
++		val |= DMA_ORDER_START;
++		writeq(val, order_reg);
++
++		while ((readl(order_reg) & DMA_ORDER_START))
++			udelay(2);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		dma_desc_save(prtd);
++
++		/* dma stop */
++		val = readq(order_reg) | DMA_ORDER_STOP;
++		writeq(val, order_reg);
++		udelay(1000);
++
++		break;
++	default:
++		ret = -EINVAL;
++	}
++
++	return ret;
++}
++
++static int loongson_pcm_hw_params(struct snd_soc_component *component,
++				  struct snd_pcm_substream *substream,
++				  struct snd_pcm_hw_params *params)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct loongson_runtime_data *prtd = runtime->private_data;
++	size_t buf_len = params_buffer_bytes(params);
++	size_t period_len = params_period_bytes(params);
++	dma_addr_t order_addr, mem_addr;
++	struct loongson_dma_desc *desc;
++	u32 num_periods;
++	int i;
++
++	if (buf_len % period_len) {
++		pr_err("buf len not multiply of period len\n");
++		return -EINVAL;
++	}
++
++	num_periods = buf_len / period_len;
++	if (!num_periods) {
++		pr_err("dma data too small\n");
++		return -EINVAL;
++	}
++
++	snd_pcm_set_runtime_buffer(substream, &substream->dma_buffer);
++	runtime->dma_bytes = buf_len;
++
++	/* initialize dma descriptor array */
++	mem_addr = runtime->dma_addr;
++	order_addr = prtd->dma_desc_arr_phy;
++	for (i = 0; i < num_periods; i++) {
++		desc = &prtd->dma_desc_arr[i];
++
++		/* next descriptor physical address */
++		order_addr += sizeof(*desc);
++		desc->order = order_addr | BIT(0);
++		desc->order_hi = order_addr >> 32;
++
++		desc->saddr = mem_addr;
++		desc->saddr_hi = mem_addr >> 32;
++		desc->daddr = prtd->dma_data->dev_addr;
++
++		desc->cmd = BIT(0);
++		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++			desc->cmd |= BIT(12);
++
++		desc->length = period_len >> 2;
++		desc->step_length = 0;
++		desc->step_times = 1;
++
++		mem_addr += period_len;
++	}
++	if (num_periods > 0) {
++		desc = &prtd->dma_desc_arr[num_periods - 1];
++		desc->order = prtd->dma_desc_arr_phy | BIT(0);
++		desc->order_hi = prtd->dma_desc_arr_phy >> 32;
++	}
++
++	/* init position descriptor */
++	*prtd->dma_pos_desc = *prtd->dma_desc_arr;
++
++	return 0;
++}
++
++static snd_pcm_uframes_t
++loongson_pcm_pointer(struct snd_soc_component *component,
++		     struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct loongson_runtime_data *prtd = runtime->private_data;
++	struct loongson_dma_desc *desc;
++	snd_pcm_uframes_t x;
++	u64 addr;
++
++	desc = dma_desc_save(prtd);
++	addr = ((u64)desc->saddr_hi << 32) | desc->saddr;
++
++	x = bytes_to_frames(runtime, addr - runtime->dma_addr);
++	if (x == runtime->buffer_size)
++		x = 0;
++	return x;
++}
++
++static irqreturn_t loongson_pcm_dma_irq(int irq, void *devid)
++{
++	struct snd_pcm_substream *substream = devid;
++
++	snd_pcm_period_elapsed(substream);
++	return IRQ_HANDLED;
++}
++
++static int loongson_pcm_open(struct snd_soc_component *component,
++			     struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_card *card = substream->pcm->card;
++	struct loongson_runtime_data *prtd;
++	struct loongson_dma_data *dma_data;
++	int ret;
++
++	/*
++	 * For mysterious reasons (and despite what the manual says)
++	 * playback samples are lost if the DMA count is not a multiple
++	 * of the DMA burst size.  Let's add a rule to enforce that.
++	 */
++	snd_pcm_hw_constraint_step(runtime, 0,
++				   SNDRV_PCM_HW_PARAM_PERIOD_BYTES, 128);
++	snd_pcm_hw_constraint_step(runtime, 0,
++				   SNDRV_PCM_HW_PARAM_BUFFER_BYTES, 128);
++	snd_pcm_hw_constraint_integer(substream->runtime,
++				      SNDRV_PCM_HW_PARAM_PERIODS);
++	snd_soc_set_runtime_hwparams(substream, &ls_pcm_hardware);
++
++	prtd = kzalloc(sizeof(*prtd), GFP_KERNEL);
++	if (!prtd)
++		return -ENOMEM;
++
++	prtd->dma_desc_arr = dma_alloc_coherent(card->dev, PAGE_SIZE,
++						&prtd->dma_desc_arr_phy,
++						GFP_KERNEL);
++	if (!prtd->dma_desc_arr) {
++		ret = -ENOMEM;
++		goto desc_err;
++	}
++
++	prtd->dma_pos_desc = dma_alloc_coherent(card->dev,
++						sizeof(*prtd->dma_pos_desc),
++						&prtd->dma_pos_desc_phy,
++						GFP_KERNEL);
++	if (!prtd->dma_pos_desc) {
++		ret = -ENOMEM;
++		goto pos_err;
++	}
++
++	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
++	ret = request_irq(dma_data->irq, loongson_pcm_dma_irq,
++			  IRQF_TRIGGER_RISING, LS_I2S_DRVNAME, substream);
++	if (ret < 0)
++		goto irq_err;
++
++	prtd->dma_data = dma_data;
++	substream->runtime->private_data = prtd;
++
++	return 0;
++irq_err:
++	dma_free_coherent(card->dev, sizeof(*prtd->dma_pos_desc),
++			  prtd->dma_pos_desc, prtd->dma_pos_desc_phy);
++pos_err:
++	dma_free_coherent(card->dev, PAGE_SIZE, prtd->dma_desc_arr,
++			  prtd->dma_desc_arr_phy);
++desc_err:
++	kfree(prtd);
++
++	return ret;
++}
++
++static int loongson_pcm_close(struct snd_soc_component *component,
++			      struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_card *card = substream->pcm->card;
++	struct loongson_runtime_data *prtd = substream->runtime->private_data;
++	struct loongson_dma_data *dma_data;
++
++	dma_free_coherent(card->dev, PAGE_SIZE, prtd->dma_desc_arr,
++			  prtd->dma_desc_arr_phy);
++
++	dma_free_coherent(card->dev, sizeof(*prtd->dma_pos_desc),
++			  prtd->dma_pos_desc, prtd->dma_pos_desc_phy);
++
++	dma_data = snd_soc_dai_get_dma_data(asoc_rtd_to_cpu(rtd, 0), substream);
++	free_irq(dma_data->irq, substream);
++
++	kfree(prtd);
++	return 0;
++}
++
++static int loongson_pcm_mmap(struct snd_soc_component *component,
++			     struct snd_pcm_substream *substream,
++			     struct vm_area_struct *vma)
++{
++	return remap_pfn_range(vma, vma->vm_start,
++			substream->dma_buffer.addr >> PAGE_SHIFT,
++			vma->vm_end - vma->vm_start, vma->vm_page_prot);
++}
++
++static int loongson_pcm_new(struct snd_soc_component *component,
++			    struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_pcm *pcm = rtd->pcm;
++
++	return snd_pcm_set_fixed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
++					    pcm->card->dev,
++					    ls_pcm_hardware.buffer_bytes_max);
++}
++
++static const struct snd_soc_component_driver loongson_i2s_component = {
++	.name		= LS_I2S_DRVNAME,
++	.open		= loongson_pcm_open,
++	.close		= loongson_pcm_close,
++	.hw_params	= loongson_pcm_hw_params,
++	.trigger	= loongson_pcm_trigger,
++	.pointer	= loongson_pcm_pointer,
++	.mmap		= loongson_pcm_mmap,
++	.pcm_construct	= loongson_pcm_new,
++};
++
++static const struct regmap_config loongson_i2s_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = 0x110,
++	.cache_type = REGCACHE_FLAT,
++};
++
++static int loongson_i2s_pci_probe(struct pci_dev *pdev,
++				  const struct pci_device_id *pid)
++{
++	const struct fwnode_handle *fwnode = pdev->dev.fwnode;
++	struct loongson_dma_data *tx_data, *rx_data;
++	struct loongson_i2s *i2s;
++	int ret;
++
++	if (pci_enable_device(pdev)) {
++		dev_err(&pdev->dev, "pci_enable_device failed\n");
++		return -ENODEV;
++	}
++
++	ret = pci_request_region(pdev, BAR_NUM, LS_I2S_DRVNAME);
++	if (ret) {
++		dev_err(&pdev->dev, "request regions failed %d\n", ret);
++		goto err_disable;
++	}
++
++	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
++	if (!i2s) {
++		ret = -ENOMEM;
++		goto err_release;
++	}
++	i2s->rev_id = pdev->revision;
++	i2s->dev = &pdev->dev;
++	pci_set_drvdata(pdev, i2s);
++
++	i2s->reg_base = pci_iomap(pdev, BAR_NUM, 0);
++	if (!i2s->reg_base) {
++		dev_err(&pdev->dev, "pci_iomap_error\n");
++		ret = -EIO;
++		goto err_release;
++	}
++
++	i2s->regmap = devm_regmap_init_mmio(&pdev->dev, i2s->reg_base,
++					    &loongson_i2s_regmap_config);
++	if (IS_ERR(i2s->regmap)) {
++		dev_err(&pdev->dev, "Failed to initialize register map");
++		ret = PTR_ERR(i2s->regmap);
++		goto err_unmap;
++	}
++
++	tx_data = &i2s->tx_dma_data;
++	rx_data = &i2s->rx_dma_data;
++
++	tx_data->dev_addr = (u64)i2s->reg_base + LS_I2S_TX_DATA;
++	tx_data->order_addr = i2s->reg_base + LS_I2S_TX_ORDER;
++
++	rx_data->dev_addr = (u64)i2s->reg_base + LS_I2S_RX_DATA;
++	rx_data->order_addr = i2s->reg_base + LS_I2S_RX_ORDER;
++
++	tx_data->irq = fwnode_irq_get_byname(fwnode, "tx");
++	if (tx_data->irq < 0) {
++		dev_err(&pdev->dev, "dma tx irq invalid\n");
++		ret = tx_data->irq;
++		goto err_unmap;
++	}
++
++	rx_data->irq = fwnode_irq_get_byname(fwnode, "rx");
++	if (rx_data->irq < 0) {
++		dev_err(&pdev->dev, "dma rx irq invalid\n");
++		ret = rx_data->irq;
++		goto err_unmap;
++	}
++
++	device_property_read_u32(&pdev->dev, "clock-frequency", &i2s->clk_rate);
++	if (!i2s->clk_rate) {
++		dev_err(&pdev->dev, "clock-frequency property invalid\n");
++		ret = -EINVAL;
++		goto err_unmap;
++	}
++
++	dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
++
++	dev_set_name(&pdev->dev, "%s", loongson_i2s_dai.name);
++
++	loongson_i2s_init(i2s);
++
++	ret = devm_snd_soc_register_component(&pdev->dev,
++					      &loongson_i2s_component,
++					      &loongson_i2s_dai, 1);
++	if (ret) {
++		dev_err(&pdev->dev, "register DAI failed %d\n", ret);
++		goto err_unmap;
++	}
++
++	return 0;
++
++err_unmap:
++	pci_iounmap(pdev, i2s->reg_base);
++err_release:
++	pci_release_region(pdev, BAR_NUM);
++err_disable:
++	pci_disable_device(pdev);
++	return ret;
++}
++
++static void loongson_i2s_pci_remove(struct pci_dev *pdev)
++{
++	struct loongson_i2s *i2s = dev_get_drvdata(&pdev->dev);
++
++	pci_iounmap(pdev, i2s->reg_base);
++	pci_release_region(pdev, BAR_NUM);
++	pci_disable_device(pdev);
++}
++
++static const struct pci_device_id loongson_i2s_ids[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_LOONGSON, 0x7a27) },
++	{ },
++};
++MODULE_DEVICE_TABLE(pci, loongson_i2s_ids);
++
++static struct pci_driver loongson_i2s_driver = {
++	.name = "loongson-i2s-pci",
++	.id_table = loongson_i2s_ids,
++	.probe = loongson_i2s_pci_probe,
++	.remove = loongson_i2s_pci_remove,
++	.driver = {
++		.owner = THIS_MODULE,
++		.pm = pm_sleep_ptr(&loongson_i2s_pm),
++	},
++};
++module_pci_driver(loongson_i2s_driver);
++
++MODULE_DESCRIPTION("Loongson I2S Master Mode ASoC Driver");
++MODULE_AUTHOR("Loongson Technology Corporation Limited");
++MODULE_LICENSE("GPL");
+
+base-commit: 1fbcc5ab1c7a172ef1159b154c296fe1e9ce209b
+-- 
+2.33.0
+

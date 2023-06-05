@@ -2,112 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E6D7227B3
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 15:44:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410FB722835
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 16:07:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B196674C;
-	Mon,  5 Jun 2023 15:43:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B196674C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F262823;
+	Mon,  5 Jun 2023 16:06:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F262823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685972648;
-	bh=hPUHeN677i8Ur+K2rytfDCT+Mci9uS4opeJWtFaCMsI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1685974037;
+	bh=mHjHp8VOUPP1jbmWEvOLVEiZEZ1RZWF7zfsNuFYmspw=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=X45H8ZDVYIVTRprbfzLdGy+ReKiWU9Kkucm+gIH3yDLVuQ3nK6vmGb6DUAG0UEkwG
-	 K5ihOV/nrWCio4IienO/POZhPfoqbkP2SOrgKcS9uxQ+ELCq7A7Kzs42yiZ9UJvUzK
-	 Lz7anBSlQLvqTDEICOGD/o3nHKV48Dzyc8T/s3a8=
+	b=sNFxboC3hyxnFY7FKTGU8luR42dIUUvzwNN6vc5WfCkI3FprhG+VijAGdIWWR5xCX
+	 ptQ4V9rIFQoYnUyY8Rk3/SqhxPK5ELUq+YaJkNOb+yn6kzIe9OhmsFWlVSA55uzDAa
+	 DOCjP2WX8EVLFYHZyy1shNGMw6LJA8Cud6nzoMVc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0A5EF80199; Mon,  5 Jun 2023 15:43:17 +0200 (CEST)
+	id DD806F80155; Mon,  5 Jun 2023 16:06:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50D45F80130;
-	Mon,  5 Jun 2023 15:43:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B986AF80155;
+	Mon,  5 Jun 2023 16:06:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46681F80199; Mon,  5 Jun 2023 15:43:13 +0200 (CEST)
+	id 97F41F80199; Mon,  5 Jun 2023 16:06:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 16CF9F80155
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 15:43:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16CF9F80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id E5A09F80155
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 16:06:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5A09F80155
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=cnVfBFXi;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=1Zqw9BAU
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E97081FE6E;
-	Mon,  5 Jun 2023 13:43:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1685972584;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DRKm7O+HgSR55AAbKOdib+1LRmlh1hA+3NtduQerOLY=;
-	b=cnVfBFXi3YM+Wa8DaRZ/TueqMy/AyaY3F/LyYpenA+7DNR+uoymrc4MMOWLxi8uMW4K6Uc
-	mg0yFYZ9rJkxX4rcKN2VGbq1OvoGJCPJizBZn1BMNKO/8koLRrH3KRTRij7mUPEL+JgQkz
-	v52Yi5vjUkGTiiTGAnaRXiVOLGYn5Eo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1685972584;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DRKm7O+HgSR55AAbKOdib+1LRmlh1hA+3NtduQerOLY=;
-	b=1Zqw9BAUK3ZkaB5twVNZYJbYm8BBBW79E71nAr885te/h73lKAIqq39ZBrduWtNp/yLEAI
-	vDiO03NqB/ol1hDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B4A4F139C7;
-	Mon,  5 Jun 2023 13:43:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id D7EgK2jmfWQnOwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 05 Jun 2023 13:43:04 +0000
-Date: Mon, 05 Jun 2023 15:43:04 +0200
-Message-ID: <877csihvo7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Joakim Tjernlund <Joakim.Tjernlund@infinera.com>
-Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"perex@perex.cz"
-	<perex@perex.cz>,
-	"michael@ralston.id.au" <michael@ralston.id.au>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>
-Subject: Re: [PATCH] ALSA: usb-audio: Fix "cannot set freq 48000 to ep 0x3"
- msgs
-In-Reply-To: <892df5be364e29f776ac8db2dd9e928de5a2f2a4.camel@infinera.com>
-References: <20230601131116.1014250-1-joakim.tjernlund@infinera.com>
-	<202bbbc0f51522e8545783c4c5577d12a8e2d56d.camel@infinera.com>
-	<87pm6aicin.wl-tiwai@suse.de>
-	<892df5be364e29f776ac8db2dd9e928de5a2f2a4.camel@infinera.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: DSSPSJWKLEOER6OG7H56IWU7OQUSSWTL
-X-Message-ID-Hash: DSSPSJWKLEOER6OG7H56IWU7OQUSSWTL
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256
+ header.s=fm1 header.b=W3bHrz7m;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=HD/d+9rS
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+	by mailout.west.internal (Postfix) with ESMTP id 7862A3200201;
+	Mon,  5 Jun 2023 10:05:58 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+  by compute6.internal (MEProxy); Mon, 05 Jun 2023 10:05:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm1; t=1685973958; x=1686060358; bh=vj
+	Gipo9mK2gEPtbuw/KN8gwYPMoVX58vmmTJhQl882c=; b=W3bHrz7mE2YMCDQzTz
+	zTUo1l4p6JGc8xJJnsCfUmzU5H1IEAS3bejpEgus17Vg4Vmx8p54jnbjSsBYiPsx
+	/MjP8O0DEN+ixvJ8psSHyAR+raKkEdZhOYOA+qDNwKGjLm2dVHrbqUGHoZB62lnv
+	HXwtyVBEgex91ii1Gx7Y+Kbrmjoi8Y3GNdalOJ1V9SKeDSriKlyDw6IZYbMuGD+N
+	Yu/t/KHJ/Vztihw6El/Pa/rF0SLMptWUsepxB0wBr21y58gdTFtUUrinXn/1hGYK
+	KSL5j1Kd3LVcam8V+zg9mlx7aDB6KlZvtOFz21a0i6YwdDWwQfjJHvjRbEIE2ogF
+	7bxw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1685973958; x=1686060358; bh=vjGipo9mK2gEP
+	tbuw/KN8gwYPMoVX58vmmTJhQl882c=; b=HD/d+9rSb4T6OLLK0sTBZTEEEDGJ9
+	wOn+mt0SMmraxPndAXYc58L4jRIsbrXd811UIZDaKh9RvWKtNrUKUe94qe4cHJCT
+	qy4J1xuqQsaYWgJUcHoy9jokDCy8xnoGJKccl8XH55OCubc83mvJkV4opXhh8hLu
+	nR8yOLzyeNAnCn6mQ0zNmyMfvGA58b5vUXDeKmxNdsM4HH5mZ1fRJnANbIY9BR8F
+	z9L6vHFwJlaLDKNm/auIyvZP0+RfXvNxlWWHkaTN9nDwUywJKIFpja3r7xY5UEvf
+	ZV+pFAuzuwnf/WyCXdcU6qVTBmwIygL0zM4NDFNCLMM2kcuXXMW9iyGww==
+X-ME-Sender: <xms:xet9ZBY7djPN7mWj6Ptl9eT4Yk7oKA991YrkGAHBWQSSv2YNEAEBHQ>
+    <xme:xet9ZIYIq_YlJQg64XloNmXXO8xBghVAEeT4PFmYgtxX3lIWvC2-t9m24o2-iQmdh
+    oNLw30JhLOWjnss4fc>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedvhedrfeelledgjeefucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
+    nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+    htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
+    teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+    hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:xet9ZD9dY7eOAwSvgacZASdX8t4bVwgzWrG-phr3AFct5LajD1XNEw>
+    <xmx:xet9ZPq5DDhTpGmHtuBo66-FeAzeGIlK48OuOzfDwFyJ50Z2vSbitQ>
+    <xmx:xet9ZMqPPceibRpDqUG4AhLx9dnaLIrB6ryYiBrBuTD3-avUUvLDag>
+    <xmx:xut9ZIcTMG9dfGdWDo0Wi9H6kv1V959A2L4secHKpskvrw2NeAfQng>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+	id 1018BB6008D; Mon,  5 Jun 2023 10:05:57 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-447-ge2460e13b3-fm-20230525.001-ge2460e13
+Mime-Version: 1.0
+Message-Id: <23227e36-a56f-478c-920f-9393028f13b2@app.fastmail.com>
+In-Reply-To: <3d9657dc-7180-484f-9fef-b50597571db3@sirena.org.uk>
+References: <20230605085839.2157268-1-arnd@kernel.org>
+ <3d9657dc-7180-484f-9fef-b50597571db3@sirena.org.uk>
+Date: Mon, 05 Jun 2023 16:05:36 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Mark Brown" <broonie@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
+Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Jaroslav Kysela" <perex@perex.cz>,
+ "Takashi Iwai" <tiwai@suse.com>,
+ "Venkata Prasad Potturu" <venkataprasad.potturu@amd.com>,
+ "Vijendar Mukunda" <Vijendar.Mukunda@amd.com>,
+ "Syed Saba Kareem" <Syed.SabaKareem@amd.com>,
+ "Randy Dunlap" <rdunlap@infradead.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] [v2] ASoC: amd: vangogh: select CONFIG_SND_AMD_ACP_CONFIG
+Content-Type: text/plain
+Message-ID-Hash: 4KDLFZ32D54XELAPF5JJZP3ZYFZMMGAT
+X-Message-ID-Hash: 4KDLFZ32D54XELAPF5JJZP3ZYFZMMGAT
+X-MailFrom: arnd@arndb.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +128,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DSSPSJWKLEOER6OG7H56IWU7OQUSSWTL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4KDLFZ32D54XELAPF5JJZP3ZYFZMMGAT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,82 +137,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 05 Jun 2023 15:21:51 +0200,
-Joakim Tjernlund wrote:
-> 
-> On Mon, 2023-06-05 at 09:39 +0200, Takashi Iwai wrote:
-> > On Thu, 01 Jun 2023 16:28:05 +0200,
-> > Joakim Tjernlund wrote:
-> > > 
-> > > Adding Michael Ralston <michael@ralston.id.au>
-> > > 
-> > > He did have problems with his behringer UMC404HD device when this whole seq. was removed.
-> > > Ralston, can you try if the below change affects your device?
-> > 
-> > Sorry for the late reaction, as I've been off in the last weeks.
-> 
-> NP.
-> 
-> > 
-> > The code sequence there seems pretty sensitive, and swapping or
-> > dropping the call might break things easily on certain devices,
-> > unfortunately.  So, I guess we can't take the patch as is.  If any, we
-> > need to fiddle the call order depending on the device quirk or such.
-> > I guess we may try to fit with the existing quirk flag.  Let me check
-> > it later.
-> 
-> yes, this is tricky. To me it look like this code will always set 48000 sample rate and
-> not all devices support that on all EPs.
-> Maybe one can get away with not setting sample rate at all? Just guessing though.
+On Mon, Jun 5, 2023, at 14:48, Mark Brown wrote:
+> On Mon, Jun 05, 2023 at 10:58:29AM +0200, Arnd Bergmann wrote:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>> 
+>> The vangogh driver just gained a link time dependency that now causes
+>> randconfig builds to fail:
+>
+> Actually git copes fine with applying this on top of v1 so no problem
+> here.
 
-I guess it should work without setting the rate explicitly, but as
-already mentioned, some devices (firmware) might need it.  Who knows.
+Ok, good. There is no harm in having the dependency in both
+places, there is just a duplicate changelog text now with two
+commits, but that's probably still better than having another
+commit to revert the first.
 
-The vendors apparently test only with Windows and/or MacOS, and
-issuing unexpected commands (or missing the expected command) can
-screw up firmware...
-
-
-Takashi
-
-> 
->  Jocke
-> 
-> > 
-> > 
-> > thanks,
-> > 
-> > Takashi
-> > 
-> > 
-> > >  Jocke
-> > > 
-> > > On Thu, 2023-06-01 at 15:11 +0200, Joakim Tjernlund wrote:
-> > > > On some USB speaker devices(Jabra/Logitech) we see above error
-> > > > msg when connecting device to computer and kernel is probing the device.
-> > > > 
-> > > > Moving the snd_usb_init_sample_rate() to after usb_set_interface() makes
-> > > > the error go away.
-> > > > 
-> > > > Signed-off-by: Joakim Tjernlund <joakim.tjernlund@infinera.com>
-> > > > Cc: stable@vger.kernel.org
-> > > > ---
-> > > >  sound/usb/stream.c | 2 +-
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/sound/usb/stream.c b/sound/usb/stream.c
-> > > > index f10f4e6d3fb8..d9ac8663a48b 100644
-> > > > --- a/sound/usb/stream.c
-> > > > +++ b/sound/usb/stream.c
-> > > > @@ -1226,8 +1226,8 @@ static int __snd_usb_parse_audio_interface(struct snd_usb_audio *chip,
-> > > >  		/* try to set the interface... */
-> > > >  		usb_set_interface(chip->dev, iface_no, 0);
-> > > >  		snd_usb_init_pitch(chip, fp);
-> > > > -		snd_usb_init_sample_rate(chip, fp, fp->rate_max);
-> > > >  		usb_set_interface(chip->dev, iface_no, altno);
-> > > > +		snd_usb_init_sample_rate(chip, fp, fp->rate_max);
-> > > >  	}
-> > > >  	return 0;
-> > > >  }
-> > > 
-> 
+     Arnd

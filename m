@@ -2,95 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18AFB722B22
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 17:34:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F2C722C0D
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 18:00:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5403C826;
-	Mon,  5 Jun 2023 17:33:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5403C826
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA77C820;
+	Mon,  5 Jun 2023 17:59:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA77C820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685979269;
-	bh=rAHM6DvV3VJT3R/WBysjXErRxOuVArCg43JFmBytPlw=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZL2nwk8mWYrCOpgdsuOqcV0PhBzvAehKeLklaOVoO6u6jhkbEMxzOZAk4bIMZy0fy
-	 ZSX88JOKGDb/xoiuyMkrNZJ0V0feLGcRCILLGL9Q0cK//0/1Y3vPTvRpDoXsCAx4wv
-	 AHptSGIn+KeqQIjT4VHKBOb8tcejS+o4yBdXQIO8=
+	s=default; t=1685980847;
+	bh=Ys4G7efCl5ftcSfvykLM9U7hkneQAUwi2fkIi20ePq8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=uuNf7YnPx4/8ydL9orWpUprMFGTk4WrTCyHja+m+70F8hxOITYtd7MQspweifjxs1
+	 pIS/P49vkp9qfuQn/ObCzwuZan+UkvkZrvmhWorPDHhYT8p5Ddf75DNytDOAlxROjN
+	 JOKuiXHNdPkkE3LRUQhjx18qUNbAg+xntWoMktDI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF260F80130; Mon,  5 Jun 2023 17:33:31 +0200 (CEST)
+	id 19BC3F80130; Mon,  5 Jun 2023 17:59:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 446C4F8016C;
-	Mon,  5 Jun 2023 17:33:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A94FDF8016C;
+	Mon,  5 Jun 2023 17:59:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 048B2F80199; Mon,  5 Jun 2023 17:33:27 +0200 (CEST)
+	id 15793F80199; Mon,  5 Jun 2023 17:59:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A4D0FF80155
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 17:33:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4D0FF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id E8F6AF80130
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 17:59:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8F6AF80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=hpq3Nr/8
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 355ES8aR017344;
-	Mon, 5 Jun 2023 10:33:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=PODMain02222019;
- bh=j9Vd629XbmuFZZxflafRW54IgsX0EdbQvogf3LwJiqU=;
- b=hpq3Nr/8bKKbn/HR7sABfwfSaA3I4U8JhxGhHQxpNYgVspqRUkTHLF6v4eqhPXpGIY7V
- z3QXUMMjSttgYmDSXVjLjvazH5HABOSVy1fTmaSEwP3UfCxP+7WOHCqxu1Z31z53OD3U
- WT5PHOi/vMCaEODPpypuSbejbwvLzF1gQQ1hQdka6cUS3EAwifRf36x6uo9ndLEUB24a
- 1Fw94t5/A6oJnZb/QiCq0V2pIR3x55iNfIdnscksJoZYlxiLSgKwrCp4psmPDnKA+iWQ
- 4gWicq7V7BczEL57UCK59l+bFwS/18/Cx94se2+2CK3kKsAfzkImEqkI+Il2k0RkbfSr PQ==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3r02x1a00k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Jun 2023 10:33:21 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Mon, 5 Jun
- 2023 16:33:19 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Mon, 5 Jun 2023 16:33:19 +0100
-Received: from sbinding-cirrus-dsktp2.ad.cirrus.com (NEWNC1SL3J3.ad.cirrus.com
- [198.90.238.20])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 03CE7B2F;
-	Mon,  5 Jun 2023 15:33:18 +0000 (UTC)
-From: Stefan Binding <sbinding@opensource.cirrus.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Stefan Binding
-	<sbinding@opensource.cirrus.com>
-Subject: [PATCH v2] ALSA: hda/realtek: Add quirks for Asus ROG 2024 laptops
- using CS35L41
-Date: Mon, 5 Jun 2023 16:33:08 +0100
-Message-ID: <20230605153308.448550-1-sbinding@opensource.cirrus.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: pjal5m3okcbWEVyN5Q2e5W_97u8oFOPd
-X-Proofpoint-GUID: pjal5m3okcbWEVyN5Q2e5W_97u8oFOPd
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: KHGAHBU26BENPU6QFXHJNEBVDIJBBR4F
-X-Message-ID-Hash: KHGAHBU26BENPU6QFXHJNEBVDIJBBR4F
-X-MailFrom: prvs=1520dfaea3=sbinding@opensource.cirrus.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=bZd+M9W8;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=UlwtviBf
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5096821B6A;
+	Mon,  5 Jun 2023 15:59:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1685980787;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Eu1I2VxNxYLelYuXRTRPQCjYwD1s0kHSvFJ6uQbX/Qo=;
+	b=bZd+M9W82Iwoclc4xCkuwxs6UCznZcie2+5UT5mR8QG9kfX4y6EU7UML9GuB6u5qPOANKo
+	+F/EgDdSKcjt4XAavJTvRwYWQi9DKf8RwX5QuhCHo5prf28+uJQ5TJRUs7zY4W9xQD68gJ
+	zjVH0w0elFSL+N8An5UIFJS7yZVDua4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1685980787;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Eu1I2VxNxYLelYuXRTRPQCjYwD1s0kHSvFJ6uQbX/Qo=;
+	b=UlwtviBfR9fQUT7zL0anBTXbCBU12CAkeTq1a3UQx9aE0pf1a/On5yr8PzpUZP9U+/8hb2
+	Uf+X2TtFRiFmffBQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2F8F3139C7;
+	Mon,  5 Jun 2023 15:59:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id NCVjCnMGfmRhBwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 05 Jun 2023 15:59:47 +0000
+Date: Mon, 05 Jun 2023 17:59:46 +0200
+Message-ID: <87sfb5hpcd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Gong, Sishuai" <sishuai@purdue.edu>
+Cc: "tiwai@suse.com" <tiwai@suse.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: A data race between snd_seq_oss_midi_open and
+ snd_seq_oss_midi_filemode
+In-Reply-To: <7DC9AF71-F481-4ABA-955F-76C535661E33@purdue.edu>
+References: <7DC9AF71-F481-4ABA-955F-76C535661E33@purdue.edu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: NS6PA52C5I62CRUR3WKERLPE7H3D6PI3
+X-Message-ID-Hash: NS6PA52C5I62CRUR3WKERLPE7H3D6PI3
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -102,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KHGAHBU26BENPU6QFXHJNEBVDIJBBR4F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NS6PA52C5I62CRUR3WKERLPE7H3D6PI3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,38 +119,156 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add support for Asus ROG 2024 models using CS35L41 SPI with Internal
-Boost.
+On Mon, 29 May 2023 22:11:24 +0200,
+Gong, Sishuai wrote:
+> 
+> Hi there,
+> 
+> We found a data race could happen between snd_seq_oss_midi_open() and
+> snd_seq_oss_midi_filemode() over the variable mdev->opened.
+> 
+> When running concurrently, snd_seq_oss_midi_open() makes the return
+> value of snd_seq_oss_midi_filemode() non-deterministic:
+> Thread-1							Thread-2
+> //snd_seq_oss_midi_filemode()		//snd_seq_oss_midi_open()
+> if (mdev->opened & PERM_WRITE)
+> 	mode |= SNDRV_SEQ_OSS_FILE_WRITE;
+> 								mdev->opened |= PERM_READ;
+> if (mdev->opened & PERM_READ)
+> 	mode |= SNDRV_SEQ_OSS_FILE_READ;
+> 
+> It is not clear to us that whether this is a serious problem but we would like
+> to report this just in case.
 
-Signed-off-by: Stefan Binding <sbinding@opensource.cirrus.com>
+Thanks for the report.  Yes, the value may be overridden with the
+race, as the code there has no protection.  But this shouldn't bring
+too serious problems like data corruption.  At most, it'll lead to
+some errors by doubly opens or such.
+
+In anyway, below is the attempt to address the issue.
+
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: seq: oss: Fix racy open/close of MIDI devices
+
+Although snd_seq_oss_midi_open() and snd_seq_oss_midi_close() can be
+called concurrently from different code paths, we have no proper data
+protection against races.  Introduce open_mutex to each seq_oss_midi
+object for avoiding the races.
+
+Reported-by: "Gong, Sishuai" <sishuai@purdue.edu>
+Closes: https://lore.kernel.org/r/7DC9AF71-F481-4ABA-955F-76C535661E33@purdue.edu
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/hda/patch_realtek.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/core/seq/oss/seq_oss_midi.c | 35 +++++++++++++++++++------------
+ 1 file changed, 22 insertions(+), 13 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 7b5f194513c7b..fe6c2b54329c7 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9547,6 +9547,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1a8f, "ASUS UX582ZS", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x1b11, "ASUS UX431DA", ALC294_FIXUP_ASUS_COEF_1B),
- 	SND_PCI_QUIRK(0x1043, 0x1b13, "Asus U41SV", ALC269_FIXUP_INV_DMIC),
-+	SND_PCI_QUIRK(0x1043, 0x1b93, "ASUS G614JVR/JIR", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x1bbd, "ASUS Z550MA", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1043, 0x1c23, "Asus X55U", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
-@@ -9565,6 +9566,11 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1f12, "ASUS UM5302", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x1043, 0x1f92, "ASUS ROG Flow X16", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x3030, "ASUS ZN270IE", ALC256_FIXUP_ASUS_AIO_GPIO2),
-+	SND_PCI_QUIRK(0x1043, 0x3a20, "ASUS G614JZR", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3a30, "ASUS G814JVR/JIR", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3a40, "ASUS G814JZR", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3a50, "ASUS G834JYR/JZR", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x3a60, "ASUS G634JYR/JZR", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x831a, "ASUS P901", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x834a, "ASUS S101", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x8398, "ASUS P1005", ALC269_FIXUP_STEREO_DMIC),
+diff --git a/sound/core/seq/oss/seq_oss_midi.c b/sound/core/seq/oss/seq_oss_midi.c
+index 07efb38f58ac..f2940b29595f 100644
+--- a/sound/core/seq/oss/seq_oss_midi.c
++++ b/sound/core/seq/oss/seq_oss_midi.c
+@@ -37,6 +37,7 @@ struct seq_oss_midi {
+ 	struct snd_midi_event *coder;	/* MIDI event coder */
+ 	struct seq_oss_devinfo *devinfo;	/* assigned OSSseq device */
+ 	snd_use_lock_t use_lock;
++	struct mutex open_mutex;
+ };
+ 
+ 
+@@ -172,6 +173,7 @@ snd_seq_oss_midi_check_new_port(struct snd_seq_port_info *pinfo)
+ 	mdev->flags = pinfo->capability;
+ 	mdev->opened = 0;
+ 	snd_use_lock_init(&mdev->use_lock);
++	mutex_init(&mdev->open_mutex);
+ 
+ 	/* copy and truncate the name of synth device */
+ 	strscpy(mdev->name, pinfo->name, sizeof(mdev->name));
+@@ -322,15 +324,17 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 	int perm;
+ 	struct seq_oss_midi *mdev;
+ 	struct snd_seq_port_subscribe subs;
++	int err;
+ 
+ 	mdev = get_mididev(dp, dev);
+ 	if (!mdev)
+ 		return -ENODEV;
+ 
++	mutex_lock(&mdev->open_mutex);
+ 	/* already used? */
+ 	if (mdev->opened && mdev->devinfo != dp) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return -EBUSY;
++		err = -EBUSY;
++		goto unlock;
+ 	}
+ 
+ 	perm = 0;
+@@ -340,14 +344,14 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 		perm |= PERM_READ;
+ 	perm &= mdev->flags;
+ 	if (perm == 0) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return -ENXIO;
++		err = -ENXIO;
++		goto unlock;
+ 	}
+ 
+ 	/* already opened? */
+ 	if ((mdev->opened & perm) == perm) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return 0;
++		err = 0;
++		goto unlock;
+ 	}
+ 
+ 	perm &= ~mdev->opened;
+@@ -372,13 +376,17 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 	}
+ 
+ 	if (! mdev->opened) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return -ENXIO;
++		err = -ENXIO;
++		goto unlock;
+ 	}
+ 
+ 	mdev->devinfo = dp;
++	err = 0;
++
++ unlock:
++	mutex_unlock(&mdev->open_mutex);
+ 	snd_use_lock_free(&mdev->use_lock);
+-	return 0;
++	return err;
+ }
+ 
+ /*
+@@ -393,10 +401,9 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
+ 	mdev = get_mididev(dp, dev);
+ 	if (!mdev)
+ 		return -ENODEV;
+-	if (! mdev->opened || mdev->devinfo != dp) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return 0;
+-	}
++	mutex_lock(&mdev->open_mutex);
++	if (!mdev->opened || mdev->devinfo != dp)
++		goto unlock;
+ 
+ 	memset(&subs, 0, sizeof(subs));
+ 	if (mdev->opened & PERM_WRITE) {
+@@ -415,6 +422,8 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
+ 	mdev->opened = 0;
+ 	mdev->devinfo = NULL;
+ 
++ unlock:
++	mutex_unlock(&mdev->open_mutex);
+ 	snd_use_lock_free(&mdev->use_lock);
+ 	return 0;
+ }
 -- 
-2.34.1
+2.35.3
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE9C7722DB1
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 19:32:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 065D8722DAE
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 19:31:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DEA782A;
-	Mon,  5 Jun 2023 19:31:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DEA782A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B84A823;
+	Mon,  5 Jun 2023 19:30:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B84A823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685986350;
-	bh=WdV07oy/o91QEHR/yUMXPJbDhkHpn84JHUxwqIBH/a4=;
+	s=default; t=1685986301;
+	bh=8fr3qa00GOsjuxbEPlfwIPeLmLPQt+VVpRdMD/o6eMU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=i1XC9P8w3RwTcgF2lEI8lTMVjuYj/rIv8AZmRPQC2ZrjzyMJkEnio5sNpfpo6Yw/6
-	 XNNhCbI44IKhidADVXvxolT9jOB905K5Ok3r22f+TaaY8jnavdO1uMaeX2iMmxaZSs
-	 dKmXnzIZqY3oytGWUKyZ55vL/FQ8ovCa9PzOFp00=
+	b=eiz/ehH4bbmuxa1X9mCakAfK5gusBVUJYXXN4zw5Js2qP/i3eblpv4lVcyy2Q9Bnk
+	 PTSFrEgSx4O4lNrz+Kqgep0sYL597uj3gyfwQ/MC1hRx7zaRIVqHUozhuW4wDR0VQx
+	 iJu/0UqOKz9SlPvUxf4GJBapytJwtZFwQrjzRNo4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD78AF80549; Mon,  5 Jun 2023 19:30:50 +0200 (CEST)
+	id CF1CEF800ED; Mon,  5 Jun 2023 19:30:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A2FFF80548;
-	Mon,  5 Jun 2023 19:30:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D5DFF8016C;
+	Mon,  5 Jun 2023 19:30:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DC990F80199; Mon,  5 Jun 2023 19:30:46 +0200 (CEST)
+	id B5B94F80254; Mon,  5 Jun 2023 19:30:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,49 +35,45 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 94F20F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 84ADBF80155
 	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 19:30:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94F20F800ED
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84ADBF80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=WV4/J8Lx
+ header.s=k20201202 header.b=Vy8+4BMf
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5983261719;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B0366628AD;
+	Mon,  5 Jun 2023 17:30:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43892C4339E;
 	Mon,  5 Jun 2023 17:30:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35EAC433EF;
-	Mon,  5 Jun 2023 17:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685986234;
-	bh=WdV07oy/o91QEHR/yUMXPJbDhkHpn84JHUxwqIBH/a4=;
+	s=k20201202; t=1685986236;
+	bh=8fr3qa00GOsjuxbEPlfwIPeLmLPQt+VVpRdMD/o6eMU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=WV4/J8LxaHbnn83o/tFnncB95q1CEMouX8J6cEuJJ8BqIw+HxGKjSw4SggwJCclmh
-	 bnjh16AvaQ+oXOk/C2vdQJGn1GFxuKQmc1VpkASsn8yAii3JkrBkBAuCWx+ctWSvGu
-	 gt0Wog/LH9xfYCD5PsdFl3k5fIzFI5ZR7PIZw5mSkX+yMxSo5wUOHvGk3ZiCs2m7YD
-	 sONooxx9S7MoWNN43+spGjmJwv+bC+aRgusr/ZmSoHbfAPAs7p1qAj2D86ugm2indf
-	 wV3HvFI+N8Kt4VB73e7JiGcVPHCJYokX7vCk8UclcXKmq2AqPB5BMdTqAucGNrMvPq
-	 Y6nAGTf53zMbg==
+	b=Vy8+4BMfOOj+OV52fa+lSrWTOXgIEk/glYR1lDcY2DLiFW9MoFCgHYayxRI2tcuCA
+	 0m7Sy/p7MzdZddxtcbPsYTQspxY9mIsxeubXxDtRQ0PCvVoRpqqNVeCO9rTfw7YZXk
+	 ZzbGL9IvJOGKGX+7XpRKo+1XICg7nDYSign/cAhtyz0KPt5b7ctjKXSp9rdA105LYX
+	 lM+jPN98cC9qwcONxNQ5m79drMCyVGIPO9II7XmznC6HJAMjW8mHAa4TYgQvOI8d4g
+	 QWg3qr7uFXrNseiMJpw/2resHDEC+pnqR/WGhFLBhd57q/Ks5u1xb4ZGzXizbqoAHE
+	 +lP+Eq7azEkFw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- Trevor Wu <trevor.wu@mediatek.com>
-Cc: amergnat@baylibre.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20230526093150.22923-1-trevor.wu@mediatek.com>
-References: <20230526093150.22923-1-trevor.wu@mediatek.com>
-Subject: Re: [PATCH v3 0/7] ASoC: mt8188: add new board support
-Message-Id: <168598623165.103672.7353425800916087713.b4-ty@kernel.org>
-Date: Mon, 05 Jun 2023 18:30:31 +0100
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de, Vinod Koul <vkoul@kernel.org>
+In-Reply-To: <20230602205620.310879-1-pierre-louis.bossart@linux.intel.com>
+References: <20230602205620.310879-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/9] ASoC: SOF: Intel: LunarLake preparation patches
+Message-Id: <168598623499.103672.2858781216173017006.b4-ty@kernel.org>
+Date: Mon, 05 Jun 2023 18:30:34 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: Z7SAY23T3F2F7RUTIYZ6DEU2V6AW7ABE
-X-Message-ID-Hash: Z7SAY23T3F2F7RUTIYZ6DEU2V6AW7ABE
+Message-ID-Hash: RMBA3RGACCG2JDKLUHFRCVKDWZ5WPF7J
+X-Message-ID-Hash: RMBA3RGACCG2JDKLUHFRCVKDWZ5WPF7J
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,23 +86,22 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z7SAY23T3F2F7RUTIYZ6DEU2V6AW7ABE/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RMBA3RGACCG2JDKLUHFRCVKDWZ5WPF7J/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 26 May 2023 17:31:43 +0800, Trevor Wu wrote:
-> In the series, we extend the capability of mt8188-mt6359 driver.
+On Fri, 02 Jun 2023 15:56:11 -0500, Pierre-Louis Bossart wrote:
+> This patchset adds the changes required for the hda-dai extension to
+> deal with SSSP/DMIC/SoundWire starting with LunarLake, as well as the
+> new TLV IPC to provide the DMA stream_tag to the DSP firmware.
 > 
-> The following changes are included.
-> 1. Divide ADDA BE dai into two dais for SOF.
-> 2. Register hdmi/dp jack pins.
-> 3. dai_fmt can be configured from device tree.
-> 4. Add some I2S codecs support.
+> LunarLake support for SSP/DMIC is ready but is gated by the patch
+> "ASoC: SOF: Intel: shim: add enum for ACE 2.0 IP used in LunarLake"
+> currently only present in the SoundWire tree.
 > 
 > [...]
 
@@ -116,20 +111,24 @@ Applied to
 
 Thanks!
 
-[1/7] ASoC: mediatek: mt8188: separate ADDA playback dai from capture dai
-      commit: 2a7a1ae95c84d4199736872bfbc39d01f4b6b0ab
-[2/7] ASoC: dt-bindings: mediatek,mt8188-mt6359: remove ADDA_BE from link-name
-      commit: 9fba0d3ec0a074d1a7c094b2cb722f135215fab0
-[3/7] ASoC: mediatek: mt8188-mt6359: register hdmi/dp jack pins
-      commit: 73cf2b3f2b45fa4c231e8e84ae5d8cc80947d799
-[4/7] ASoC: mediatek: common: soundcard driver add dai_fmt support
-      commit: c0e7390e6d3f42b9a15a0e72add21facb8e17790
-[5/7] ASoC: soc-dapm.c: clean up debugfs for freed widget
-      commit: 8ad13cdc92f66333ae475251ae7722313f84e496
-[6/7] ASoC: mediatek: mt8188-mt6359: support new board with nau88255
-      commit: 9f08dcbddeb307793bbfff036db213d2cdf03a50
-[7/7] ASoC: dt-bindings: mediatek,mt8188-mt6359: add NAU8825 support
-      commit: ee02b869dcad7ba3772b58e93dd90ab4f932fac5
+[1/9] ASoC: SOF: Intel: hda-dai: add error checks to prevent static analysis warnings
+      commit: c4be6024d51d3930459a61d4c91990f20264c60b
+[2/9] ASoC: SOF: Intel: hda-dai: add codec_dai_set_stream callback
+      commit: 2205c63d8d216b44127560cc564b2098843553e2
+[3/9] ASoC: SOF: Intel: hda-dai: add calc_stream_format callback
+      commit: 767cda3fdac0faec84dc3fd654bd9d09b55eef40
+[4/9] ASoC: SOF: Intel: hda-dai: add get_hlink callback
+      commit: d1bf58474d17a77a26bc27ff85a4e5c4fefc0934
+[5/9] ASoC: SOF: ipc4-topology: extend ALH-specific data structure
+      commit: e186e1f237c1e2447a83059d48439ffcefbf5a93
+[6/9] ASoC: SOF: ipc4-topology: introduce DMA config TLV
+      commit: 116bc1503652c72541d63f67c74b2ff1e4532f03
+[7/9] ASoC: SOF: ipc4-topology: add DMA config TLV to IPC data
+      commit: a0659f81c348946383526b764ad66d9900ea2cb9
+[8/9] ASoC: SOF: Intel: mtl: prepare for code reuse
+      commit: 730025cffedc6b8887d72031795796ac6d9947c3
+[9/9] ASoC: SOF: Intel: hda: add helper to extract SoundWire link count
+      commit: d3e7c32b7d5c7132edca6d84499ec8ac2f060aa7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

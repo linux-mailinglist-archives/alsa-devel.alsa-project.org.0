@@ -2,152 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC7E0721B43
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 02:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17C08721F5F
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Jun 2023 09:17:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C814920C;
-	Mon,  5 Jun 2023 02:36:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C814920C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51D1B823;
+	Mon,  5 Jun 2023 09:16:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51D1B823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1685925421;
-	bh=KegLlEeBLwb4/o1njYBRY5GGFQaqN+QBZZGnRogT6HQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1685949453;
+	bh=XSAjfmELzSvMowuGhC3AKAECBP+EvRyQgh8e4EWFWOo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=alvySYRnZg+iTrETuGyrCCrmKDv1YMgMjS9st51aeZ4HlpGLT7iF9yhlvfc1UAXzv
-	 qLZdS0Itjj9cHifh3VdOYQdqpjMfn8stwLAbEf3DoAdZ2hJlYox/MclvHaVMmckA1t
-	 VtFb/Dxb5egHItrrJHCleMXTdsxs3g0OihuPDW9I=
+	b=IsDLo8zamJYl6blF8tsln3NT5spcCiZ+52VoZCmR0eOM9HPc5W5WwJFtKrrssLmWp
+	 chy+Ya5+isazZpKB1lZniOGHUHn/OnnISNGCB/Ss4AWi2R4gnWrGw5br3mK0EGjs1b
+	 blrW6fzvwko+CykF2SZw4DGF79vUMPIocIPTgQKs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5345FF80130; Mon,  5 Jun 2023 02:36:11 +0200 (CEST)
+	id 51B28F8016C; Mon,  5 Jun 2023 09:16:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20230F800ED;
-	Mon,  5 Jun 2023 02:36:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 805A1F80199;
+	Mon,  5 Jun 2023 09:16:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 273CFF80199; Mon,  5 Jun 2023 02:36:08 +0200 (CEST)
+	id 3E062F80199; Mon,  5 Jun 2023 09:14:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20712.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::712])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 638E1F80130
-	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 02:36:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 638E1F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8634BF80130
+	for <alsa-devel@alsa-project.org>; Mon,  5 Jun 2023 09:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8634BF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=Mkc+i42X
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OsBrub58ea3GmKE06vw7agLiJz5cLJ6I9AI/PhZV/Ex64Jj7FORRIG7dU5E1Jexiko4Uv7N9N4DLTrk0bHYBF07wgbWb2nK75s38Ro5HdOrzmE45VLg3EOhXe6lFlgENuoVNrD9g2prnyeVBxd4ZDFQ5JNVPKWb6lCH8OwSCjxCEF5HjczuGwo85rdNGPTxlLj1WJtDkhU5lC9N8NgFvKJKag8JT6q75d1AKHqCX6gnB5xE8NxycHVLhDdNcLB2x9E7DB794Qze7B8MhI5noW+DgcivThrKxslRbjY6sd5RvXk2T7dKf48EqFOyUkM0Sw2oUAj08Zop27bYHiJvOnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S4yBuLMiY8K9kzak5NOKSyfYsnUOeSYAqiIAITcfWYw=;
- b=GqXoqlXEqYfiKWQZQrz1G6X/AIfOva5T/567iSDSsyStTRkMbbBVXYLTVNQbN9w0qCm6zHd2t//RDUpr/BAAyvQnQH87gcYGZB3M1np9Kicj4nzPaAqEIWh1HVSu2JIGiguIefUjcNLuUubR0D0whIWG/e0fD3iGa7uMcz0kdnkWNq0upgkak9TD8WQzfnWSh7fHi9jMohrOHs0fLS79jX2ATK0veLN47PWYa92v6J5mZhaE0Nn/0Vexestpqk2OauFAcgzIOngrsEZ658R4a1cMKRx+kpbyWumtDJb74WihA6qqvHQd889l7v6d8UHKj1a8k7slshgFnPCyHHu7GA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S4yBuLMiY8K9kzak5NOKSyfYsnUOeSYAqiIAITcfWYw=;
- b=Mkc+i42XwUsDXAKR9ptdn2DCNnORfuLRvAdOcnNtb2/+739icFskbrLX2b5Ud0CzB0JtOSS/a84sNDAwhDAZQNtyAQjNWiGL+EwpZw2o8fWyFw0dDgtLhqne7VShnRywHwkJGsP0grjzAY76DqxqWjei6bme+CI1t9ugv6AUmyk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYCPR01MB11386.jpnprd01.prod.outlook.com (2603:1096:400:3b9::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Mon, 5 Jun
- 2023 00:35:56 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840%6]) with mapi id 15.20.6455.030; Mon, 5 Jun 2023
- 00:35:56 +0000
-Message-ID: <871qiqiw44.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Alvin =?ISO-8859-2?Q?=A9ipraga?= <alvin@pqrs.dk>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,	Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>,	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Alvin
- =?ISO-8859-2?Q?=A9ipraga?= <alsi@bang-olufsen.dk>,
-	alsa-devel@alsa-project.org,	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] ASoC: audio-graph-card2: parse symmetric-clock-roles
- property
-In-Reply-To: <20230602090322.1876359-4-alvin@pqrs.dk>
-References: <20230602090322.1876359-1-alvin@pqrs.dk>
-	<20230602090322.1876359-4-alvin@pqrs.dk>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Mon, 5 Jun 2023 00:35:56 +0000
-X-ClientProxiedBy: TYCPR01CA0169.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::12) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB11386:EE_
-X-MS-Office365-Filtering-Correlation-Id: 349937df-40e8-411a-e0a7-08db655cd381
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	41V2Q22Ll3TOHIXmeJ9lQnyKLpyuvJXi5SqnhPCihC7iYGYWasUraCPiFfWjx31Vt1c3gvQ1bBgaspaAoKf62xM5h7uqZoOIUdv/3ZpA0ILXIws9XOIp3OCohwHdwWmsO+So/tJfOmAR7PvA295AqaMUvD9mreqHvyyI90V7f8yM4QS3yAOneDcPSpcSbKlCY7NyYG5Zx+qSQ96mzLM5Y6dCIvjDjPtZ0KhOQf2AA0NlOfWb3gMJr+V0wa6KjpA9ua91nP/21xQnf57dA+YZyZ0Jhn+xusOg02t/kvhEgP47JBypCu+4sZhP4C7xOoUdTO+4m/fEdvrzlA8//iAIxaiO6V5dWUtmnMm2i6TTmORe2fMJE/e8Zqax+IUbt62IZgggNREihUap3xAqCIQwFemuibiFu6gmuvlMNrZLxwMQk3X9x8oUXxEhGlgwlRkcXldXf7eKNmyN4RBnuAL3U+qlnqc6Mx0IKbfO0NDKjTzmZTvupsUIj8InO+BGBZ1XYcyWxwhWrBgYXskhZBaEVLY8fIFk9L4uaWTx7GQN3uHp/nHIGXtbBtK7PvX8e0F8WSJIAw5jfMssKRCN39jbRW+viVxN2WBLUwV+Bn+jDvUVp/CGA4+rZz/xdiwJSgZK
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(451199021)(478600001)(4744005)(2906002)(36756003)(6486002)(52116002)(2616005)(83380400001)(6512007)(6506007)(26005)(86362001)(38100700002)(38350700002)(186003)(5660300002)(316002)(7416002)(8676002)(8936002)(66946007)(6916009)(4326008)(66556008)(66476007)(54906003)(41300700001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?+CFDqa3RZdcB9IDsfmV4I6LDDxflYTV+4+2GaqH8ULOk5peCqX+U7U8Eg3Ec?=
- =?us-ascii?Q?7jKnPtBxl3c6ZMZhRclv54bw8HytSYTijQU6o3f9Q+w5tgpzFZ4brx4LgHnq?=
- =?us-ascii?Q?2TIQJYkU20wMMagcMVgBaqZ2hETsL7M/M+tHvw2aleVbXxz4NOP2jOTFeeAa?=
- =?us-ascii?Q?Z+OWAbvbGavzgMg4POQwgGSW+ekmHbxvshp0ago39vBrk4Uf/Zy+XSlWlLoi?=
- =?us-ascii?Q?SsFDhRfix8rjMyR24npG+i7Ocq2CACV7vkACFSfbRWP8YZvFk4EQP/73LlxZ?=
- =?us-ascii?Q?ewEsgPtQNeyjuhImGZgjFVvq84qXwb4RdNGTSMhqXz1WPDBqfnc8SaNqSdjz?=
- =?us-ascii?Q?BDmbuu0s2v1IjqqhviL0B6T0b3V4cbyPtZ0a/4GjLeTlODTKhQfLPQNnQ9Kk?=
- =?us-ascii?Q?ATINLmhEag/3ZGx/9wuJiyJ0iZzJYQMu+b1AX0NlkTvz8J0p9dsHaKIEiQg4?=
- =?us-ascii?Q?oXQkbfa84eI/qFRD3Ai+nXCRfQz2nSTq3smlo5w29w4Ty+vbY4PAah7IOkgU?=
- =?us-ascii?Q?gARmsflS/pQUmZnnuuoph5TT1AH2jiyR/+Q60bDGZQaYS46SIs+/fjJXpAAd?=
- =?us-ascii?Q?tVxm5h5BM0q0k/oYnjhhDmLq21t0in2dS+jF+Q4ZUudfb/jqEbFY23iZg6TK?=
- =?us-ascii?Q?CPkoIoZUwFsKbLm+teys/oYHCVJ2Vsx3CZeXhlhQUmh7R/6y0gKjMnYECnaq?=
- =?us-ascii?Q?OqNaQIPzknH0lrBMMrEA74eGSZ3voMykiTi5lVfjU7H5Ejn+JvZI04xh2dWc?=
- =?us-ascii?Q?a+asQdt+cl0VkqG0Nz04WO66V7z+JltS1M/NfROayNiUX1GTr2vnwPLJdIao?=
- =?us-ascii?Q?xqCmK4msafLSfDw7kGAuPOQCpybgQ0sW6GEHMqfXvgmRuUQ30mcUqKPwCJG7?=
- =?us-ascii?Q?INZWKDukomyCN6D0VnLS/BMOWnvtZUbFl0aS57ATLs+QWSigPGjXi8Pq5pRC?=
- =?us-ascii?Q?18mUX4UgWLn+4ZM3dPXW/RdWDoyJH4I7AfUgcDU76mtTQhYQFVv/6E66OGDW?=
- =?us-ascii?Q?XSwaDm++M5WUiDjDJapt7dG0Wuh6kR7DEWWsF7/SJ4vXmroIPz83CAf2OiUU?=
- =?us-ascii?Q?vfgSclucx2luFbK/yQPSOXeXfcVIZ27B3egbndeR9Efnl6vYog8dRw0oEFB8?=
- =?us-ascii?Q?3Sjcadh/G7Jd3vK5LCdmy6MYpIMzPwHbpnU883Q7ouuhbj13TUzEOd2OSTWg?=
- =?us-ascii?Q?BrbtZ2EiOu75FnRtuC4k12BkzdvUZwL0fkGqERl6iXpiZPrkBB8gtUNJ2x3p?=
- =?us-ascii?Q?OFr//dWsfD3LjWQROcNHPwwk0FyiquRlq6S7Y7YWHGjqtqaEFRGqcezllX1E?=
- =?us-ascii?Q?j4/XEpft3FoXPjyiI0aVQIT/gGCLZiDDCgfZNf9aop9cv49oOJ1hEUOTsH9q?=
- =?us-ascii?Q?n73cnCWHBC65bNel2e+RqzvFRyN2txqh9y63xtOFrL0UfkltiqK5kqTuMyIS?=
- =?us-ascii?Q?ZBNQw7m7Op01o9bmepnijUIffVPrI3IbPs21D5biBcysxtQSUMjkdX1dCza8?=
- =?us-ascii?Q?uMJbHFy6bRbov1I8ra+IaNxMhyIvX72S6uBx94BPcqzAUl8WZa30QGRujkk/?=
- =?us-ascii?Q?tTFDPWWwXUa+XtICd7KI1PiL4Uxg8RnNlkqXfX6G2hJkpSUNORQVgjQsi+o9?=
- =?us-ascii?Q?AVSAkGnffbM4xQfOYJg8QzE=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 349937df-40e8-411a-e0a7-08db655cd381
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2023 00:35:56.4091
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Miub9P10zm68pwA6iXntOIZSmCyUs0ostT50Q7YZkzHioV0CaIIWE/hnk6KzZtcXjCItpodYDqMETEaEVSdLfO+X+Snzgb1j9qm51kaXX4qRlppy6t6C25Dsh/2aRO1y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11386
-Message-ID-Hash: 4N6ZFU6F7A3KBAHRWDZTDC5XYJFFNXVC
-X-Message-ID-Hash: 4N6ZFU6F7A3KBAHRWDZTDC5XYJFFNXVC
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=u+meWo3J;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=IsVsqe2z
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B82B11F8AB;
+	Mon,  5 Jun 2023 07:14:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1685949289;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6PNAzC4+lF/Nlwf1tBYjOxSIek3iH+12i0TgWraECWQ=;
+	b=u+meWo3JyCK/uZg2779nZH6YEZQvsGTzNo2jl0K20h11klgXJNO17VBH4KI4J9KhC3Oqnc
+	FdPU+vzHSwStreEH9jav1CNnQZpEIDI2JSiBaWjQowfMTEkDthaxeZK+b4oGcGgz6DMdRG
+	62+wkKoPJgQF5M2HcvP7p8kcupJg5cs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1685949289;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6PNAzC4+lF/Nlwf1tBYjOxSIek3iH+12i0TgWraECWQ=;
+	b=IsVsqe2z0kcrx+VpG0MAL+77b8UNjmfxeNVEIVwXqkdijleynkiYZQsgbABE45K+ZkjfJ6
+	+QbDr6/NSF1XtEAw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8703A139C7;
+	Mon,  5 Jun 2023 07:14:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id lz3nH2mLfWS6ZQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 05 Jun 2023 07:14:49 +0000
+Date: Mon, 05 Jun 2023 09:14:49 +0200
+Message-ID: <873536js7q.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Joseph C. Sible" <josephcsible@gmail.com>
+Cc: Kailang <kailang@realtek.com>,
+	Bagas Sanjaya <bagasdotme@gmail.com>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"perex@perex.cz" <perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+ on warm boot
+In-Reply-To: 
+ <CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
+References: <bug-217440-225600@https.bugzilla.kernel.org/>
+	<CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
+	<ZGB0cVVI7OgaJU6t@debian.me>
+	<CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
+	<87cz338ix4.wl-tiwai@suse.de>
+	<CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
+	<874jodlnmi.wl-tiwai@suse.de>
+	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
+	<87fs7mdofi.wl-tiwai@suse.de>
+	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
+	<87353kd8b9.wl-tiwai@suse.de>
+	<1170325957764b4cbd7cd3639575f285@realtek.com>
+	<CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: CZI23YEMD63LQFOV574B23VJ77HJV3QB
+X-Message-ID-Hash: CZI23YEMD63LQFOV574B23VJ77HJV3QB
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -159,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4N6ZFU6F7A3KBAHRWDZTDC5XYJFFNXVC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CZI23YEMD63LQFOV574B23VJ77HJV3QB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -168,35 +138,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 26 May 2023 16:58:58 +0200,
+Joseph C. Sible wrote:
+> 
+> On Fri, May 26, 2023 at 4:09 AM Kailang <kailang@realtek.com> wrote:
+> > Hi Joseph,
+> >
+> > Could you test it with below model name?
+> > ==> alc-chrome-book
+> 
+> Yes, manually overriding the model name to "alc-chrome-book" makes it
+> work properly even on an unmodified 6.3.4 kernel.
 
-Hi Alvin
+Kailang or Joseph, any of you can submit a fix patch?
+Or shall I cook the one, as it's a trivial change?
 
-> --- a/sound/soc/generic/audio-graph-card2.c
-> +++ b/sound/soc/generic/audio-graph-card2.c
-(snip)
->  	/*
->  	 * convert bit_frame
->  	 * We need to flip clock_provider if it was CPU node,
->  	 * because it is Codec base.
->  	 */
->  	daiclk = snd_soc_daifmt_clock_provider_from_bitmap(bit_frame);
-> -	if (is_cpu_node)
-> +	if (is_cpu_node && !dai_link->symmetric_clock_roles)
->  		daiclk = snd_soc_daifmt_clock_provider_flipped(daiclk);
->  
->  	dai_link->dai_fmt	= daifmt | daiclk;
 
-Hmm ? I'm confusing
-[2/4] patch handling fliping, and [3/4] also handling fliping.
-Nothing changed ?
+thanks,
 
-Current SND_SOC_DAIFMT_xx_xx are very confusable,
-framework and driver are different (flipped).
-and also, audio-graph-card2 is using intuitive DT settings
-(need flip for CPU).
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+Takashi

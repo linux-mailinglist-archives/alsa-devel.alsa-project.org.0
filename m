@@ -2,117 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97AA6724228
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 14:31:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80C1D72424A
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 14:37:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF0AA82B;
-	Tue,  6 Jun 2023 14:30:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF0AA82B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79921823;
+	Tue,  6 Jun 2023 14:36:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79921823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686054696;
-	bh=Zo7SJ45EcNlLvazoSRUaZFuv3OFZNtt0OgdOhX+GQ9o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1686055025;
+	bh=Xy6ssZaCe3RYiLzHBR7bawSyF583K8GqhO9fA+JAscs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NWM38QSaytfx3ax7LoyCv+L9PvxbBtMZFnPj9kBEubQvmgVSSWoGt4L3Jb0GpxSKR
-	 WdCN1AeYdYG+2yC1/lYp5gEwkeqBduPmq85tJrIWV9Xs2neaGSPbBa9qTVFIZ4oQOi
-	 ta4ugObhtO39PdvK1P6gnXv8FiW64zkydJSpIVHQ=
+	b=PwEbVVgp8+M2eDGlGHaFyBfoBIJo77pZKlztDhbQYrKlPC/mVH6+V787pmV5UDWZG
+	 vl/b5FExXHvp+rxww/btNlOf3HDpmUQO+wyY6ql2GhyG1IHz1aseAyFdYBLhjkrhMS
+	 4QHxbW3v3YCMfdm+3BS8Z/XZS7++nRs99MGyD6Eg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03D84F8016C; Tue,  6 Jun 2023 14:29:56 +0200 (CEST)
+	id 6AD33F8016C; Tue,  6 Jun 2023 14:35:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B3CFF8016C;
-	Tue,  6 Jun 2023 14:29:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4DA5F8016C;
+	Tue,  6 Jun 2023 14:35:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ABF8CF80199; Tue,  6 Jun 2023 14:29:51 +0200 (CEST)
+	id 495C3F80199; Tue,  6 Jun 2023 14:35:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 892C0F800C8
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 14:29:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 892C0F800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2CF95F800C8
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 14:35:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CF95F800C8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=IpNPSsZF
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-977e0fbd742so295207266b.2
-        for <alsa-devel@alsa-project.org>;
- Tue, 06 Jun 2023 05:29:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1686054588; x=1688646588;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IWikzPZh1zj0Jzec8+iwxQzR4oRLa0VpL+JvaJGvhls=;
-        b=IpNPSsZFEKJSvceLXdy306ddTKK0i9CHCuV0Ga9Z1pUmOuR1HClSLLk1gSLTRch0BA
-         HB0toQBkGC8tYf5tr22ugA6iyZ8dC5ZUJby7XM92Pkj3Hx/jUqnWHapLmcQg7AEcJhx8
-         ydELIzuXQqmqaOM3ZsSfF6t5ATY2uY8CKoYpTprBRZjHXdOIa/HLPPZtIgmsVxqA3meL
-         ElohgLKkIsH77MWCI0VhbvwzY6lWIXWmYiuidArTQBwnvcN4S5euF6x14PtR9RB0YqSN
-         ywKsWdqikwPUSYLGdUleMp7OZ5WuFTY3O6UnKWgJoczuD3q+BhSxWmNCdGQrnGAZVja2
-         QuYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686054588; x=1688646588;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IWikzPZh1zj0Jzec8+iwxQzR4oRLa0VpL+JvaJGvhls=;
-        b=Vd4DlgXBYYivFi0k2DC2jVQrzIeBW47FL0XR5n2uvYOIAxpSGUVbGaegZvxorzhL0B
-         SVJVvabVJ4pt7/ICnEBRxONr4zfB71AkcYtIELMM2se6yxdgJQqZ6OzNrS9ZX7NRrXhk
-         azmxktorGKKAAzmgtPeMKY0Z9ofDnPvulv7IzIKoLsndNy6rQ5REUKhrqi0AkearvKqk
-         XDJPSyztssp1yzShHh/dHPIPoZkgXRWDOPMeNJwWNW5DZKuiPkahxE5VafBDSd2+sPNs
-         OtpZE5dF5dPINyClkmg5SG7TjxTtvm66QfSLGShKuekxrFh3h5rRpiY04ibFkFN6+Raf
-         rfYw==
-X-Gm-Message-State: AC+VfDzsq6/2oa1Q2bEF+Q2k3w30RbmIpUi7DE84fW5/ZPzd+OqCWCz4
-	9hA0CeWErtaZZ73O5AqehvFJ7w==
-X-Google-Smtp-Source: 
- ACHHUZ5zOg8bkEZM/LhbfO1EfpnR310YUUK4irlHnUHd29W7mmxUx2p7kOjYjbn0vsniaRz/2W3tQw==
-X-Received: by 2002:a17:907:9688:b0:96f:2b3f:61 with SMTP id
- hd8-20020a170907968800b0096f2b3f0061mr2668594ejc.7.1686054587815;
-        Tue, 06 Jun 2023 05:29:47 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
-        by smtp.gmail.com with ESMTPSA id
- h27-20020a1709062ddb00b00965cfc209d5sm5499841eji.8.2023.06.06.05.29.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Jun 2023 05:29:47 -0700 (PDT)
-Message-ID: <ef6bc190-ca7e-485e-ae45-e03fddfd3f0c@linaro.org>
-Date: Tue, 6 Jun 2023 14:29:45 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: document audio of graph port
- for cs42l51
-Content-Language: en-US
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
- James Schulman <james.schulman@cirrus.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Lucas Tanure <tanureal@opensource.cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
- <20230606115605.1633595-3-olivier.moysan@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230606115605.1633595-3-olivier.moysan@foss.st.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DPWIYCUH77T47RRFQYOUHYS4SXOT3DXB
-X-Message-ID-Hash: DPWIYCUH77T47RRFQYOUHYS4SXOT3DXB
-X-MailFrom: krzysztof.kozlowski@linaro.org
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=t6M8Ndlw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=7M63XcvT
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6E628219A2;
+	Tue,  6 Jun 2023 12:35:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1686054938;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MyvPm/70IVaTMkUngj2z+Ro7QVFz2mZ6FwZUOscZ5nc=;
+	b=t6M8Ndlwif7NqWQUEjQpcLCoaeW6BQOoJ1lkQ5XLwCrZS/v56NgtrnQSYQ0EiVsiTjR6+o
+	80mkYVWK1GS9rWsH+8AXAG5mrgINuPmuQSEaw74uEFDXB5xAZoag9smVMIPbrun71W3/hg
+	853tOiDY5XtAm2y1U1Fly/PJOLDRBY0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1686054938;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MyvPm/70IVaTMkUngj2z+Ro7QVFz2mZ6FwZUOscZ5nc=;
+	b=7M63XcvTRamLiEq/OYBCTPEcfRdDjIlMcZ7cg4AHMcXmBM3gfMclF6jBs9KBp5r0w910Oi
+	GHcx6VeUTOupG5AA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4604713519;
+	Tue,  6 Jun 2023 12:35:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id 2uufDhoof2TSPgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 06 Jun 2023 12:35:38 +0000
+Date: Tue, 06 Jun 2023 14:35:37 +0200
+Message-ID: <878rcwsr8m.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: control: Keep the previous numid at
+ snd_ctl_rename_id()
+In-Reply-To: <82b3dc7a-16f7-6c8d-766c-acd219e60f5b@perex.cz>
+References: <20230606094035.14808-1-tiwai@suse.de>
+	<82b3dc7a-16f7-6c8d-766c-acd219e60f5b@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: X5MFJHKYS7UGBQSBZZOP522EMVFGB4UP
+X-Message-ID-Hash: X5MFJHKYS7UGBQSBZZOP522EMVFGB4UP
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -124,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DPWIYCUH77T47RRFQYOUHYS4SXOT3DXB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X5MFJHKYS7UGBQSBZZOP522EMVFGB4UP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,17 +119,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 06/06/2023 13:56, Olivier Moysan wrote:
-> When linking the CS42L51 to another DAI component, according
-> to audio graph cards bindings, an OF graph port property is expected
-> in the node. Document the port property.
+On Tue, 06 Jun 2023 13:15:20 +0200,
+Jaroslav Kysela wrote:
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
+> On 06. 06. 23 11:40, Takashi Iwai wrote:
+> > We don't need to change the numid at each time snd_ctl_rename_id() is
+> > called, as the control element size itself doesn't change.  Let's keep
+> > the previous numid value.
+> 
+> I would also highlight in the comment that snd_ctl_rename_id() should
+> be used only in the card initialization phase. It may cause issues
+> with the user space (persistent numid) for the dynamic controls.
+
+Sounds good.  I'll add the note in the commit.
+
+> Reviewed-by: Jaroslav Kysela <perex@perex.cz>
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Thanks!
 
-Best regards,
-Krzysztof
-
+Takashi

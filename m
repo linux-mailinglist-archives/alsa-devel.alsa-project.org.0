@@ -2,118 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 801BA724840
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 17:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBED672488A
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 18:10:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB7D96C1;
-	Tue,  6 Jun 2023 17:52:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7D96C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0CF76C0;
+	Tue,  6 Jun 2023 18:09:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0CF76C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686066818;
-	bh=M8ZVzf/xM9mk2CcTNB1oxdhSs6eRdQmTWowifi77Na0=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1686067804;
+	bh=fg9grFN03T96RMAQ3uDRwXV58lQ8uRbjPOYDIdaProo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=b0ABcmdx3JMQ/3jdz/57fg5joUwwxtRkQhp7QD+zRtxpe9PpUQ9st9xvFl4jUPDtF
-	 jbTjsl3MwQYQwEZ7xag4yFeQHwnngrCRnnIwSQ0lproPoAXw1cRPpGgDJp3gtTrxrn
-	 EoG+Y1WIwxdy1CmnVu1+P54FllivuXvoNJaqxprE=
+	b=vRLK+P9jcomW3X/AnRU17CwYspjPAIG1i2WaopLHerRjccfRjZ/PSlJfp1bg7Bs+K
+	 BHkSMHrqAJ3dbH8qUAd84AKGdidghMzhcOqzo67/XDJspRVLsRohe6NuWIbxmY+MTh
+	 oBjqOzarjHXNRaVQoe6UM1u8mCiefSJrkG4fqVoY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EC1D6F800ED; Tue,  6 Jun 2023 17:52:47 +0200 (CEST)
+	id 3CE0FF80155; Tue,  6 Jun 2023 18:09:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D0D5F8016C;
-	Tue,  6 Jun 2023 17:52:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFA92F8016C;
+	Tue,  6 Jun 2023 18:09:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB62FF80199; Tue,  6 Jun 2023 17:52:43 +0200 (CEST)
+	id 4421EF80199; Tue,  6 Jun 2023 18:09:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F072AF800ED
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 17:52:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F072AF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5D01BF80155
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 18:08:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D01BF80155
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=5phnNVXA
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 356DEQeu008547;
-	Tue, 6 Jun 2023 17:52:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=5IUJcU++ZB9s6cZHOpqcQtT4Gl5x6kOb3LYpwx9uNqM=;
- b=5phnNVXAg0S1bGNk39K8BxToytCsg8Awgy5cWSNaAaDB1msYRI+sCqDzr4omyICCRDOV
- 0Vs+hX1js3kygaZM5B0OMx2w53sxupvpjQx8JwPuOb/ZPTSBhK99R93Ft0SV9c7uEmIU
- DHxbc+n8O2P5FlDyMAlpZKFW2N9mr61riQ811ikQxF/SzCy3pPhQrBEDQ1yKxwIl2dmJ
- U11hPHhxZTrl75WdHP/GaOhFk11o6rcpQIl8koQVdBqxxKikw5gz13gi+RfT3RrhmI6W
- 905hfF6h3a/1FuElAEmWHuRIoRJCkm8PliGu1SGljYt3tpRu97Me8vlpyX+Tj4gTwv0O WA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3r25gp0whn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Jun 2023 17:52:36 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 42E9110002A;
-	Tue,  6 Jun 2023 17:52:16 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1868422D195;
-	Tue,  6 Jun 2023 17:52:16 +0200 (CEST)
-Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 6 Jun
- 2023 17:52:14 +0200
-Message-ID: <fd5b0cb6-a6ae-0ff5-d657-ddde6651ac9f@foss.st.com>
-Date: Tue, 6 Jun 2023 17:52:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH 0/3] ASoC: stm32: fix dtbs_check warnings
-Content-Language: en-US
-To: Olivier Moysan <olivier.moysan@foss.st.com>,
-        James Schulman
-	<james.schulman@cirrus.com>,
-        David Rhodes <david.rhodes@cirrus.com>,
-        "Lucas
- Tanure" <tanureal@opensource.cirrus.com>,
-        Richard Fitzgerald
-	<rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>,
-        Rob Herring <robh+dt@kernel.org>,
-        Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-        Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>
-CC: Alexandre Torgue <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>
-References: <20230531140912.819373-1-olivier.moysan@foss.st.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230531140912.819373-1-olivier.moysan@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.201.21.93]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-06_11,2023-06-06_02,2023-05-22_02
-Message-ID-Hash: LZTVARRHTRPLFYLFZQI5IARWPMVCLPFV
-X-Message-ID-Hash: LZTVARRHTRPLFYLFZQI5IARWPMVCLPFV
-X-MailFrom: prvs=4521a004af=alexandre.torgue@foss.st.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=i9BCozyp;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=+SDfGjWg
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E808E1FD76;
+	Tue,  6 Jun 2023 16:08:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1686067731;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PycypA7axz39mXLYMtchHaSe+zTrMDNXV0DpGEAJ6eo=;
+	b=i9BCozypUOlltIztiAskCoWbpUnhNoaCi5acVAA2XIBrN4UbHD5/qgyOUL/JTIlMeAdkTs
+	QGuetlDnzGEsMhLeBWjiiY0K1qqb1VSyLVkOaFKAeyE4XxX2W5Qu0+ubYMY6Qkg2Sc9fUx
+	83IcmIHFWM7NFTJ12tO2+8an4mVhZ7o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1686067731;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PycypA7axz39mXLYMtchHaSe+zTrMDNXV0DpGEAJ6eo=;
+	b=+SDfGjWgX7jB7waRcQF20tEk4MtOeVGwWSnOSpRHeJ19X4v+eybtodlqkwwY4lP2QT9cKd
+	SAYttEWqdKIsLFCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9136C13776;
+	Tue,  6 Jun 2023 16:08:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id nNCDIhNaf2SNMwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 06 Jun 2023 16:08:51 +0000
+Date: Tue, 06 Jun 2023 18:08:51 +0200
+Message-ID: <874jnkfu98.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shenghao Ding <13916275206@139.com>
+Cc: broonie@kernel.org,
+	devicetree@vger.kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	robh+dt@kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com,
+	kevin-lu@ti.com,
+	shenghao-ding@ti.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	x1077012@ti.com,
+	peeyush@ti.com,
+	navada@ti.com,
+	gentuser@gmail.com,
+	Ryan_Chu@wistron.com,
+	Sam_Wu@wistron.com
+Subject: Re: [PATCH v4 5/6] ALSA: hda/tas2781: Add tas2781 HDA driver
+In-Reply-To: <20230527223613.11106-1-13916275206@139.com>
+References: <20230527223613.11106-1-13916275206@139.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: VSLF3DPXWVBBPPP5UY6OEGASCHTF3TM7
+X-Message-ID-Hash: VSLF3DPXWVBBPPP5UY6OEGASCHTF3TM7
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +123,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LZTVARRHTRPLFYLFZQI5IARWPMVCLPFV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VSLF3DPXWVBBPPP5UY6OEGASCHTF3TM7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,33 +132,210 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Mark
+On Sun, 28 May 2023 00:36:13 +0200,
+Shenghao Ding wrote:
+> 
+> Create tas2781 HDA driver.
+> 
+> Signed-off-by: Shenghao Ding <13916275206@139.com>
 
-On 5/31/23 16:09, Olivier Moysan wrote:
-> Fix dtbs_check warnings in STM32MP15 DK boards Devices Trees for
-> STM32 I2S and Cirrus CS42L51 codec.
-> 
-> - Add OF graph port property in I2S and CS42L51 DT bindings.
->    Fixes warnings:
->    audio-controller@4000b000: Unevaluated properties are not allowed
->    ('port' was unexpected)
->    cs42l51@4a: Unevaluated properties are not allowed
->    ('port' was unexpected)
-> - Correct OF graph DAI audio format property for STM32MP15x Dkx I2S node
-> 
-> Olivier Moysan (3):
->    ASoC: dt-bindings: stm32: document audio of graph port for i2s
->    ASoC: dt-bindings: document audio of graph port for cs42l51
->    ARM: dts: stm32: fix i2s endpoint format property for stm32mp15xx-dkx
-> 
->   Documentation/devicetree/bindings/sound/cirrus,cs42l51.yaml | 4 ++++
->   Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml   | 4 ++++
->   arch/arm/boot/dts/stm32mp15xx-dkx.dtsi                      | 2 +-
->   3 files changed, 9 insertions(+), 1 deletion(-)
-> 
+You still give too short text for this kind of largish and intensive
+changes.  Please write more about what the patch does, caveats,
+whatever worth to mention.
 
-Bindings patches have been acked, do you plan to take patches [1][2] in 
-your ASOC tree ? I'll take patch[3].
+> --- /dev/null
+> +++ b/sound/pci/hda/tas2781_hda_i2c.c
+> +static int tas2781_acpi_get_i2c_resource(struct acpi_resource
+> +	*ares, void *data)
 
-cheers
-Alex
+The line break there looks weird...
+
+> +{
+> +	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *)data;
+
+Superfluous cast.
+
+> +static int tas2781_hda_read_acpi(struct tasdevice_priv *tas_priv,
+> +	const char *hid)
+> +{
+> +	struct acpi_device *adev;
+> +	struct device *physdev;
+> +	LIST_HEAD(resources);
+> +	const char *sub;
+> +	int ret;
+> +
+> +	adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
+> +	if (!adev) {
+> +		dev_err(tas_priv->dev,
+> +			"Failed to find an ACPI device for %s\n", hid);
+> +		return -ENODEV;
+> +	}
+> +	strcpy(tas_priv->dev_name, hid);
+
+Safer to use strscpy().
+
+> +	physdev = get_device(acpi_get_first_physical_node(adev));
+> +	acpi_dev_put(adev);
+> +
+> +	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
+> +	if (IS_ERR(sub))
+> +		sub = NULL;
+> +	dev_info(tas_priv->dev, "subid = %s\n", sub);
+> +
+> +	tas_priv->acpi_subsystem_id = sub;
+> +
+> +	ret = acpi_dev_get_resources(adev, &resources,
+> +		tas2781_acpi_get_i2c_resource, tas_priv);
+
+Referencing adev after acpi_dev_put() doesn't sound good.
+acpi_dev_put() should be done later instead.
+
+> +static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
+> +		struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
+> +	int ret = 0;
+> +
+> +	if (tas_priv->rcabin.profile_cfg_id !=
+> +		ucontrol->value.integer.value[0]) {
+> +		tas_priv->rcabin.profile_cfg_id =
+> +			ucontrol->value.integer.value[0];
+> +		ret = 0;
+
+Should be ret=1 when the value changes.
+
+Also, you should check the given value.  It's not checked in the core
+side, so any random value can be passed by user-space.
+(Ditto for other *_put() functions.)
+
+> +static int tasdevice_create_control(struct tasdevice_priv *tas_priv)
+> +{
+> +	char prof_ctrl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
+> +	struct hda_codec *codec = tas_priv->codec;
+> +	struct snd_kcontrol_new prof_ctrl = {
+> +		.name = prof_ctrl_name,
+> +		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
+> +		.info = tasdevice_info_profile,
+> +		.get = tasdevice_get_profile_id,
+> +		.put = tasdevice_set_profile_id,
+> +	};
+> +	int ret;
+> +
+> +	/* Create a mixer item for selecting the active profile */
+> +	scnprintf(prof_ctrl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
+> +		"spk-profile-id");
+
+The control name is way too ugly.  It's not understandable for human.
+Please use a more descriptive name.
+
+Also, you need no temporary name buffer.  Just pass the constant
+string to the name field.
+
+> +static int tasdevice_dsp_create_ctrls(struct tasdevice_priv
+> +	*tas_priv)
+> +{
+....
+> +	scnprintf(prog_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "spk-prog-id");
+> +	scnprintf(conf_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN, "spk-conf-id");
+
+Again, too ugly names.  Be more descriptive.
+
+> +static int tas2781_save_calibration(struct tasdevice_priv *tas_priv)
+> +{
+> +	efi_guid_t efi_guid = EFI_GUID(0x02f9af02, 0x7734, 0x4233, 0xb4, 0x3d,
+> +		0x93, 0xfe, 0x5a, 0xa3, 0x5d, 0xb3);
+> +	static efi_char16_t efi_name[] = L"CALI_DATA";
+> +	struct tm *tm = &tas_priv->tm;
+> +	unsigned int attr, crc;
+> +	unsigned int *tmp_val;
+> +	efi_status_t status;
+> +	int ret = 0;
+> +
+> +	//Lenovo devices
+> +	if (tas_priv->catlog_id == LENOVO)
+> +		efi_guid = EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc, 0x09,
+> +			0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92);
+> +
+> +	tas_priv->cali_data.total_sz = 0;
+> +	/* Get real size of UEFI variable */
+> +	status = efi.get_variable(efi_name, &efi_guid, &attr,
+> +		&tas_priv->cali_data.total_sz, tas_priv->cali_data.data);
+> +	if (status == EFI_BUFFER_TOO_SMALL) {
+> +		ret = -ENODEV;
+> +		/* Allocate data buffer of data_size bytes */
+> +		tas_priv->cali_data.data = devm_kzalloc(tas_priv->dev,
+> +			tas_priv->cali_data.total_sz, GFP_KERNEL);
+> +		if (!tas_priv->cali_data.data)
+> +			return -ENOMEM;
+> +		/* Get variable contents into buffer */
+> +		status = efi.get_variable(efi_name, &efi_guid, &attr,
+> +			&tas_priv->cali_data.total_sz,
+> +			tas_priv->cali_data.data);
+> +		if (status != EFI_SUCCESS) {
+> +			ret = -EINVAL;
+> +			goto out;
+> +		}
+
+... so at this point, the function still keeps ret=-ENODEV, and it
+ends up with the final error code to be returned?  It's not clear from
+the code whether it's the intended flow.
+
+> +static void tasdevice_fw_ready(const struct firmware *fmw,
+> +	void *context)
+> +{
+> +	struct tasdevice_priv *tas_priv = (struct tasdevice_priv *)context;
+
+Superfluous cast.
+
+> +	struct hda_codec *codec = tas_priv->codec;
+> +	int i, ret = 0;
+
+Superfluous initialization.
+
+> +static int tas2781_hda_bind(struct device *dev, struct device *master,
+> +	void *master_data)
+> +{
+> +	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
+> +	struct hda_component *comps = master_data;
+> +	struct hda_codec *codec;
+> +	unsigned int subid;
+> +	int ret;
+> +
+> +	if (!comps || tas_priv->index < 0 ||
+> +		tas_priv->index >= HDA_MAX_COMPONENTS)
+> +		return -EINVAL;
+> +
+> +	comps = &comps[tas_priv->index];
+> +	if (comps->dev)
+> +		return -EBUSY;
+> +
+> +	codec = comps->codec;
+> +	subid = codec->core.subsystem_id & 0xFFFF;
+> +
+> +	//Lenovo devices
+> +	if ((subid == 0x387d) || (subid == 0x387e) || (subid == 0x3881)
+> +		|| (subid == 0x3884) || (subid == 0x3886) || (subid == 0x38a7)
+> +		|| (subid == 0x38a8) || (subid == 0x38ba) || (subid == 0x38bb)
+> +		|| (subid == 0x38be) || (subid == 0x38bf) || (subid == 0x38c3)
+> +		|| (subid == 0x38cb) || (subid == 0x38cd))
+> +		tas_priv->catlog_id = LENOVO;
+> +	else
+> +		tas_priv->catlog_id = OTHERS;
+
+Hmm, I don't like checking subid here, but we can live with it for
+now...
+
+> +static int tas2781_runtime_suspend(struct device *dev)
+> +{
+> +	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
+> +	int i;
+> +
+> +	dev_info(tas_priv->dev, "Runtime Suspend\n");
+
+Don't spew at each runtime suspend/resume.  It'll be way too much.
+It should be dev_dbg(), if any.
+
+
+thanks,
+
+Takashi

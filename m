@@ -2,105 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F3F17244F6
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 15:55:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 665C272480B
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 17:41:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 271023E7;
-	Tue,  6 Jun 2023 15:54:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271023E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61C70822;
+	Tue,  6 Jun 2023 17:41:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61C70822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686059705;
-	bh=gshFwdZTdQofOhq52O0cGUhy9+ehZThzejNjkCLczOU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1686066113;
+	bh=+Yd7V++zdvA2vEUkR1sYRPT7hNptU858SN5zGbFEXrY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PkXXf19R1E3hnYKcSGm9y2AS0ola9cGBHZhZcJiZO7GvgQaM6eZbI+k77a+36EeAC
-	 jBRRBXjjUuocVyhXGiFycNLnTYCaaVhHDzIpl4LMvDZ2zv3HJ9bvWNXYVO1O/VOBXM
-	 s9h3sl4gjWBWO+NaT+78CfOAV8ALbiuP3WXlLTqU=
+	b=SbwfF3NTG3uujfKDsBwMk3XzcuqYtE94cZYo93c+O6sM8COcHlGPvhEYMtS6E5Wwu
+	 FkWp97DK0gGmDfMgl6u1tDmVU2udafmQG0pa8UfglQMdwD7XyuG9Q/AOd1dlX7wewa
+	 DbxbU6nJ9R2ljrRtdVuK+r71HAhZIedFAZzcyalo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E23E8F804DA; Tue,  6 Jun 2023 15:54:14 +0200 (CEST)
+	id AE3D2F80254; Tue,  6 Jun 2023 17:40:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9768EF8016C;
-	Tue,  6 Jun 2023 15:54:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A30CF80290;
+	Tue,  6 Jun 2023 17:40:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C760F80199; Tue,  6 Jun 2023 15:54:12 +0200 (CEST)
+	id 5F2E3F80494; Tue,  6 Jun 2023 17:40:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::226])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0E05DF800ED
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 15:54:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E05DF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id E60BEF800ED
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 17:40:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E60BEF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=lFDCNIwY
-X-GND-Sasl: herve.codina@bootlin.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1686059647;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SAhoSqGeAkfXPjkbbMuSr5Vpspi7VqAd/1OCMoVSMQI=;
-	b=lFDCNIwYTXXY3EsOHA8kz+XStHjjrzljUTbDoxAtgSr4GJEJYQXHeyrdjEzj457b9yKekc
-	yO8KmG7ay0HhebF7nIA1fCRk50oKmItgXzWG2OsMyLli5WDozzodqD5R8UTUAaztRe3TYv
-	JQIxBmOlQ81IBhb9zRTEisNVJ+Cq0iZFgtVp2JgUUdXFkXGLNaodXPat6py6ds//t8XpIP
-	B0ibMMPLIre1pzHE4nfLEJdOqRtwbXpRQbeaKu0WIPMem+y+ni+shghIj72ST7kI2JLIa/
-	2jz7LsM/vBTBKuLk/of+AeYR2hlGmhO8AzkLSZQQ5JPJEdNpi9+JuKqs1Sl/Jg==
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 243ADC0010;
-	Tue,  6 Jun 2023 13:54:05 +0000 (UTC)
-Date: Tue, 6 Jun 2023 15:54:04 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: andy.shevchenko@gmail.com
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 7/9] ASoC: codecs: Add support for the generic IIO
- auxiliary devices
-Message-ID: <20230606155404.28ada064@bootlin.com>
-In-Reply-To: <ZHuFywIrTnEFpX6e@surfacebook>
-References: <20230523151223.109551-1-herve.codina@bootlin.com>
-	<20230523151223.109551-8-herve.codina@bootlin.com>
-	<ZHuFywIrTnEFpX6e@surfacebook>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=TwzyV5dZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1686066025; x=1717602025;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=+Yd7V++zdvA2vEUkR1sYRPT7hNptU858SN5zGbFEXrY=;
+  b=TwzyV5dZjPNKDyT1lX8de+pvutymGTutF29p5sfmi4ix6/FwJln0XFjY
+   8a6tX9yXHFJ7DMEZi+56T6ERRb8fzE+1+ve06kKhAIC+AK3U2zbO40gnA
+   pOZkoGxnUXxderz+h4+tEJm+LOxIvG1U7EDvnZK0oFfNXL2GtYGFGx2ah
+   a4iJW22iGjfLvf/6zmeWM0DjQ8msKChO0+TKZenevyrfGKaTR/IcmuQzp
+   rRJWatClOv8OY2C+TCpcqKyK5gAe9AyPWilxgtB6br5e5GgPb31imXe/R
+   4gBtaOPrKLVZAnT7DHMunoNn43lB5CxMJym0na5WbOA/PsPckNNgj2yRT
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="422550126"
+X-IronPort-AV: E=Sophos;i="6.00,221,1681196400";
+   d="scan'208";a="422550126"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2023 08:39:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="955816512"
+X-IronPort-AV: E=Sophos;i="6.00,221,1681196400";
+   d="scan'208";a="955816512"
+Received: from pdonvalk-mobl2.amr.corp.intel.com (HELO [10.255.231.168])
+ ([10.255.231.168])
+  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2023 08:39:06 -0700
+Message-ID: <00aeb130-b3d0-ebab-51da-4e590eef8c7b@linux.intel.com>
+Date: Tue, 6 Jun 2023 09:00:12 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH V3 1/9] ASoC: amd: ps: create platform devices based on
+ acp config
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20230606060724.2038680-1-Vijendar.Mukunda@amd.com>
+ <20230606060724.2038680-2-Vijendar.Mukunda@amd.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230606060724.2038680-2-Vijendar.Mukunda@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: R5LWM75MEJWU4LTON5TGDVKNOJTLPPGW
-X-Message-ID-Hash: R5LWM75MEJWU4LTON5TGDVKNOJTLPPGW
-X-MailFrom: herve.codina@bootlin.com
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: CGOB6RGM7IZPXP5W74YDBZWFQ6DCSULB
+X-Message-ID-Hash: CGOB6RGM7IZPXP5W74YDBZWFQ6DCSULB
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R5LWM75MEJWU4LTON5TGDVKNOJTLPPGW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CGOB6RGM7IZPXP5W74YDBZWFQ6DCSULB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,305 +113,183 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Andy,
-
-On Sat, 3 Jun 2023 21:26:19 +0300
-andy.shevchenko@gmail.com wrote:
-
-> Tue, May 23, 2023 at 05:12:21PM +0200, Herve Codina kirjoitti:
-> > Industrial I/O devices can be present in the audio path.
-> > These devices needs to be used as audio components in order to be fully
-> > integrated in the audio path.
-> > 
-> > This support allows to consider these Industrial I/O devices as auxliary
-> > audio devices and allows to control them using mixer controls.  
-> 
-> ...
-> 
-> > +// audio-iio-aux.c  --  ALSA SoC glue to use IIO devices as audio components  
-> 
-> Putting file name into file is not a good idea in case the file will be renamed
-> in the future.
-
-Indeed, the file name will be removed in the nest iteration.
-
-> 
-> ...
-> 
-> > +struct audio_iio_aux_chan {
-> > +	struct iio_channel *iio_chan;
-> > +	const char *name;
-> > +	bool is_invert_range;  
-> 
-> If you put bool after int:s it may save a few bytes in some cases.
-
-I will mode is_invert_range after the int members.
-
-> 
-> > +	int max;
-> > +	int min;  
-> 
-> Wondering if there is already a data type for the ranges (like linear_range.h,
-> but not sure it's applicable here).
-
-Seems not applicable here.
- - IIO does not use linear_range or something similar. It just uses simple int.
- - ASoC does not use linear_range or something similar. It just uses simple long.
-
-So, I keep the simple int min and max.
-
-> 
-> > +};  
-> 
-> ...
-> 
-> > +	if (val < 0)
-> > +		return -EINVAL;
-> > +	if (val > max - min)  
-> 
-> Btw, who will validate that max > min?
-
-By construction,
-min = 0
-max = iio_read_max_channel_raw() - iio_read_min_channel_raw()
-
-and iio_read_max_channel_raw() returns a value greater or equal to
-iio_read_min_channel_raw().
-
-But to be sure, I will check the last asumption at probe() and swap
-the minimum and maximum values if needed.
-
-> 
-> > +		return -EINVAL;  
-> 
-> ...
-> 
-> > +	return 1; /* The value changed */  
-> 
-> Perhaps this 1 needs a definition?
-
-Yes but to be coherent, in ASoC code, many places need to be changed too
-in order to use the newly defined value.
-I don't think these modifications should be part of this series.
-
-> 
-> ...
-> 
-> > +static struct snd_soc_dapm_widget widgets[3] = {0};
-> > +static struct snd_soc_dapm_route routes[2] = {0};  
-> 
-> 0:s are not needed. Moreover, the entire assingments are redundant
-> as this is guaranteed by the C standard.
-
-Indeed, the 0 assignment will be removed in the next iteration.
-
-> 
-> ...
-> 
-> > +	char *input_name = NULL;
-> > +	char *output_name = NULL;
-> > +	char *pga_name = NULL;  
-> 
-> Redundant assignments if you properly label the freeing.
-
-I will rework the error paths (gotos) to avoid these assignement.
-
-> 
-> ...
-> 
-> > +	BUILD_BUG_ON(ARRAY_SIZE(widgets) < 3);  
-> 
-> Use static_assert() at the place where the array is defined.
-
-Will be done in next iteration.
-
-> 
-> ...
-> 
-> > +	BUILD_BUG_ON(ARRAY_SIZE(routes) < 2);  
-> 
-> Ditto.
-Will be done in next iteration.
-
-> 
-> ...
-> 
-> > +end:  
-> 
-> out_free:
-> 
-> > +	/* Allocated names are no more needed (duplicated in ASoC internals) */
-> > +	kfree(pga_name);
-> > +	kfree(output_name);
-> > +	kfree(input_name);
-> > +
-> > +	return ret;  
-> 
-> ...
-> 
-> > +	for (i = 0; i < iio_aux->num_chans; i++) {
-> > +		chan = iio_aux->chans + i;
-> > +
-> > +		ret = iio_read_max_channel_raw(chan->iio_chan, &chan->max);
-> > +		if (ret) {
-> > +			dev_err(component->dev, "chan[%d] %s: Cannot get max raw value (%d)\n",
-> > +				i, chan->name, ret);
-> > +			return ret;  
-> 
-> It sounds like a part of ->probe() flow, correct?
-> Can dev_err_probe() be used here?
-
-Will be changed in the next iteration.
-
-> 
-> > +		}
-> > +
-> > +		ret = iio_read_min_channel_raw(chan->iio_chan, &chan->min);
-> > +		if (ret) {
-> > +			dev_err(component->dev, "chan[%d] %s: Cannot get min raw value (%d)\n",
-> > +				i, chan->name, ret);
-> > +			return ret;  
-> 
-> Ditto.
-
-Will be changed in the next iteration.
-
-> 
-> > +		}
-> > +
-> > +		/* Set initial value */
-> > +		ret = iio_write_channel_raw(chan->iio_chan,
-> > +					    chan->is_invert_range ? chan->max : chan->min);
-> > +		if (ret) {
-> > +			dev_err(component->dev, "chan[%d] %s: Cannot set initial value (%d)\n",
-> > +				i, chan->name, ret);
-> > +			return ret;  
-> 
-> Ditto.
-
-Will be changed in the next iteration.
-
-> 
-> > +		}  
-> 
-> ...
-> 
-> > +		dev_dbg(component->dev, "chan[%d]: Added %s (min=%d, max=%d, invert=%s)\n",
-> > +			i, chan->name, chan->min, chan->max,
-> > +			chan->is_invert_range ? "on" : "off");  
-> 
-> str_on_off()
-
-Indeed, I didn't know str_on_off().
-Thanks for pointing.
-Will be use in next iteration.
-
-> 
-> > +	}  
-> 
-> ...
-> 
-> > +	count = of_property_count_strings(np, "io-channel-names");
-> > +	if (count < 0) {  
-> 
-> > +		dev_err(iio_aux->dev, "%pOF: failed to read io-channel-names\n", np);
-> > +		return count;  
-> 
-> 		return dev_err_probe();
-Will be changed in next iteration.
-> 
-> > +	}  
-> 
-> ...
-> 
-> > +	for (i = 0; i < iio_aux->num_chans; i++) {
-> > +		iio_aux_chan = iio_aux->chans + i;
-> > +
-> > +		ret = of_property_read_string_index(np, "io-channel-names", i,
-> > +						    &iio_aux_chan->name);
-> > +		if (ret < 0) {
-> > +			dev_err(iio_aux->dev, "%pOF: failed to read io-channel-names[%d]\n", np, i);
-> > +			return ret;  
-> 
-> Ditto.
-Will be changed in next iteration.
-> 
-> > +		}  
-> 
-> > +		tmp = 0;
-> > +		of_property_read_u32_index(np, "snd-control-invert-range", i, &tmp);  
-> 
-> > +		iio_aux_chan->is_invert_range = tmp;  
-> 
-> You can use this variable directly.
-
-Not sure, is_invert_range is a bool and tmp is a u32.
-
-In previous iteration, I wrote
-  iio_aux_chan->is_invert_range = !!tmp;
-
-> 
-> > +	}  
-> 
-> Btw, can you avoid using OF APIs? It's better to have device property/fwnode
-> API to be used from day 1.
-
-Hum, this comment was raised in the previous iteration
-  https://lore.kernel.org/linux-kernel/20230501162456.3448c494@jic23-huawei/
-
-I didn't find any equivalent to of_property_read_u32_index() in the 
-device_property_read_*() function family.
-I mean I did find anything available to get a value from an array using an index.
-
-In the previous iteration it was concluded that keeping OF APIs in this series
-seemed "reasonable".
-
-> 
-> ...
-> 
-> > +	platform_set_drvdata(pdev, iio_aux);  
-> 
-> Which callback is using this driver data?
-
-None -> I will remove platform_set_drvdata().
-
-> 
-> ...
-> 
-> > +static const struct of_device_id audio_iio_aux_ids[] = {
-> > +	{ .compatible = "audio-iio-aux", },  
-> 
-> Inner comma is not needed.
-
-Will be fixed.
-
-> 
-> > +	{ }
-> > +};  
-> 
-> ...
-> 
-> > +static struct platform_driver audio_iio_aux_driver = {
-> > +	.driver = {
-> > +		.name = "audio-iio-aux",
-> > +		.of_match_table = audio_iio_aux_ids,
-> > +	},
-> > +	.probe = audio_iio_aux_probe,
-> > +};  
-> 
-> > +  
-> 
-> Redundant blank line
-
-Will be fixed.
-
-> 
-> > +module_platform_driver(audio_iio_aux_driver);  
-> 
 
 
 
--- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> +/**
+> + * acp_pdev_mask corresponds to platform device mask based on audio endpoint combinations.
+> + * acp_pdev_mask will be calculated based on ACPI Scan under ACP PCI device and
+> + * ACP PIN Configuration.
+> + * Based acp_pdev_mask, platform devices will be created.
+> + * Below are possible platform device combinations.
+> + * 1) ACP PDM Controller, dmic-codec, machine driver platform device node
+> + * 2) ACP PDM Controller , dmic-codec, SW0 SoundWire manager instance, platform device for
+> + *    SoundWire DMA driver
+> + * 3) SW0, SW1 SoundWire manager instances, platform device for SoundWire DMA driver
+> + * 4) ACP PDM Controller, dmic-codec, SDW0, SDW1 manager instances, platform device for
+> + *    SoundWire DMA driver
+> + * ACP63_PDM_DEV_MASK corresponds to platform device mask for ACP PDM controller.
+> + * ACP63_SDW_DEV_MASK corresponds to platform device mask for SDW manager instances.
+> + * ACP63_SDW_PDM_DEV_MASK corresponds to platform device mask for ACP PDM + SDW manager combination
+> + */
+> +enum acp_pdev_mask {
+> +	ACP63_PDM_DEV_MASK = 1,
+> +	ACP63_SDW_DEV_MASK,
+> +	ACP63_SDW_PDM_DEV_MASK,
+> +};
+
+This does not look like a mask, the definitions prevent bit-wise
+operations from happening.
+
+Either use BIT(0), BIT(1), BIT(2) or GENMASK(1, 0), or demote this to a
+regular enum (e.g. pdev_config or something)
+
+> +
+>  struct pdm_stream_instance {
+>  	u16 num_pages;
+>  	u16 channels;
+> @@ -95,14 +144,38 @@ struct pdm_dev_data {
+>  	struct snd_pcm_substream *capture_stream;
+>  };
+>  
+> +/**
+> + * struct acp63_dev_data - acp pci driver context
+> + * @acp63_base: acp mmio base
+> + * @res: resource
+> + * @pdev: array of child platform device node structures
+> + * @acp_lock: used to protect acp common registers
+> + * @sdw_fw_node: SoundWire controller fw node handle
+> + * @pdev_mask: platform device mask
+> + * @pdev_count: platform devices count
+> + * @pdm_dev_index: pdm platform device index
+> + * @sdw_manager_count: SoundWire manager instance count
+> + * @sdw0_dev_index: SoundWire Manager-0 platform device index
+> + * @sdw1_dev_index: SoundWire Manager-1 platform device index
+> + * @sdw_dma_dev_index: SoundWire DMA controller platform device index
+> + * @acp_reset: flag set to true when bus reset is applied across all
+> + * the active SoundWire manager instances
+> + */
+> +
+>  struct acp63_dev_data {
+>  	void __iomem *acp63_base;
+>  	struct resource *res;
+>  	struct platform_device *pdev[ACP63_DEVS];
+>  	struct mutex acp_lock; /* protect shared registers */
+> +	struct fwnode_handle *sdw_fw_node;
+>  	u16 pdev_mask;
+>  	u16 pdev_count;
+>  	u16 pdm_dev_index;
+> +	u8 sdw_manager_count;
+> +	u16 sdw0_dev_index;
+> +	u16 sdw1_dev_index;
+> +	u16 sdw_dma_dev_index;
+> +	bool acp_reset;
+>  };
+>  
+>  int snd_amd_acp_find_config(struct pci_dev *pci);
+> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+> index 54752d6040d6..816c22e7f1ab 100644
+> --- a/sound/soc/amd/ps/pci-ps.c
+> +++ b/sound/soc/amd/ps/pci-ps.c
+> @@ -6,6 +6,7 @@
+>   */
+>  
+>  #include <linux/pci.h>
+> +#include <linux/bitops.h>
+>  #include <linux/module.h>
+>  #include <linux/io.h>
+>  #include <linux/delay.h>
+> @@ -15,6 +16,7 @@
+>  #include <sound/pcm_params.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/iopoll.h>
+> +#include <linux/soundwire/sdw_amd.h>
+>  
+>  #include "acp63.h"
+>  
+> @@ -119,37 +121,162 @@ static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
+>  	return IRQ_NONE;
+>  }
+>  
+> -static void get_acp63_device_config(u32 config, struct pci_dev *pci,
+> -				    struct acp63_dev_data *acp_data)
+> +static int sdw_amd_scan_controller(struct device *dev)
+> +{
+> +	struct acp63_dev_data *acp_data;
+> +	struct fwnode_handle *link;
+> +	char name[32];
+> +	u32 sdw_manager_bitmap;
+> +	u8 count = 0;
+> +	u32 acp_sdw_power_mode = 0;
+> +	int index;
+> +	int ret;
+> +
+> +	acp_data = dev_get_drvdata(dev);
+> +	acp_data->acp_reset = true;
+> +	/* Found controller, find links supported */
+> +	ret = fwnode_property_read_u32_array((acp_data->sdw_fw_node), "mipi-sdw-manager-list",
+> +					     &sdw_manager_bitmap, 1);
+
+IIRC this is only defined in the DisCo 2.0 spec, previous editions had a
+'mipi-master-count'. A comment would not hurt to point to the minimal
+DisCo spec version.
+
+> +
+> +	if (ret) {
+> +		dev_err(dev, "Failed to read mipi-sdw-manager-list: %d\n", ret);
+> +		return -EINVAL;
+> +	}
+> +	count = hweight32(sdw_manager_bitmap);
+> +	/* Check count is within bounds */
+> +	if (count > AMD_SDW_MAX_MANAGERS) {
+> +		dev_err(dev, "Manager count %d exceeds max %d\n", count, AMD_SDW_MAX_MANAGERS);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (!count) {
+> +		dev_dbg(dev, "No SoundWire Managers detected\n");
+> +		return -EINVAL;
+> +	}
+> +	dev_dbg(dev, "ACPI reports %d SoundWire Manager devices\n", count);
+> +	acp_data->sdw_manager_count = count;
+> +	for (index = 0; index < count; index++) {
+> +		snprintf(name, sizeof(name), "mipi-sdw-link-%d-subproperties", index);
+> +		link = fwnode_get_named_child_node(acp_data->sdw_fw_node, name);
+> +		if (!link) {
+> +			dev_err(dev, "Manager node %s not found\n", name);
+> +			return -EIO;
+> +		}
+> +
+> +		ret = fwnode_property_read_u32(link, "amd-sdw-power-mode", &acp_sdw_power_mode);
+> +		if (ret)
+> +			return ret;
+> +		/*
+> +		 * when SoundWire configuration is selected from acp pin config,
+> +		 * based on manager instances count, acp init/de-init sequence should be
+> +		 * executed as part of PM ops only when Bus reset is applied for the active
+> +		 * SoundWire manager instances.
+> +		 */
+> +		if (acp_sdw_power_mode != AMD_SDW_POWER_OFF_MODE) {
+> +			acp_data->acp_reset = false;
+> +			return 0;
+> +		}
+> +	}
+> +	return 0;
+> +}
+> +
+> +static int get_acp63_device_config(u32 config, struct pci_dev *pci, struct acp63_dev_data *acp_data)
+>  {
+>  	struct acpi_device *dmic_dev;
+> +	struct acpi_device *sdw_dev;
+>  	const union acpi_object *obj;
+>  	bool is_dmic_dev = false;
+> +	bool is_sdw_dev = false;
+> +	int ret;
+>  
+>  	dmic_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), ACP63_DMIC_ADDR, 0);
+>  	if (dmic_dev) {
+> +		/* is_dmic_dev flag will be set when ACP PDM controller device exists */
+>  		if (!acpi_dev_get_property(dmic_dev, "acp-audio-device-type",
+
+usually properties start with the 'mipi-' or 'vendor-' prefix. Is there
+a missing 'amd-' here or is 'acp-' unique enough?

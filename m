@@ -2,119 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793AC7248AD
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 18:13:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD34D7249DC
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 19:09:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96277820;
-	Tue,  6 Jun 2023 18:12:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96277820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99C87825;
+	Tue,  6 Jun 2023 19:08:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99C87825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686068025;
-	bh=FnAvb5y9BDmkkptHiwYeJkM0SQQwJcgHh7ucUo7f4pU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1686071345;
+	bh=qp/u/3DWgKbPKKJUrLgLb7LymAUsvQXXNxNnNbPhvyw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SopHB31tCdHWmeB/ZTlgOm4IV1T6MYVCDXd1BJ7o4OVw9+Oce+qaqOJ4upiRBXuSN
-	 Ez2TabkO5UegtxmmlklbrftntVzxv8WKWHX6wtOdxxCD2KRWZlWbzmUElisWXfkt+z
-	 tUdueOPwkVUvn07fVfYXHC1uxo+KUBBIuEDGS08I=
+	b=W7Xbg6JcDTF7r3/s/sMUZZwYRoIC0n5tOFfRFZav0fK0xSug9T3un5cz+QmLFoscV
+	 ueb2Y+nvGsamRF7TOUEEucxmAQK0xCsGD4KEfaODOXKsX4S9H2NEPyUR1MummMb8MS
+	 Fa/aNxmABiDkUMZnIkqEQfbuONdC2jLYaqK9u3aY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 536AEF8016C; Tue,  6 Jun 2023 18:12:55 +0200 (CEST)
+	id DB33DF80520; Tue,  6 Jun 2023 19:07:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBD1CF8016C;
-	Tue,  6 Jun 2023 18:12:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18599F8016C;
+	Tue,  6 Jun 2023 19:07:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 964DCF80199; Tue,  6 Jun 2023 18:12:51 +0200 (CEST)
+	id 5AEFEF80199; Tue,  6 Jun 2023 19:07:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,T_SPF_HELO_TEMPERROR shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8F243F800ED
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 18:12:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F243F800ED
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=OptcxMpQ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=tvPzVWUi
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E05D921998;
-	Tue,  6 Jun 2023 16:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1686067963;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tDS8AHR+6l5pU0D3pqB/j9UJ3eqzXU7CXq0Fenh1CAE=;
-	b=OptcxMpQcKnCWmaZR2xro+4sgXmK9PuvO1jzEY0syZscIKVRr/nLOkwliN61O8845uNXi5
-	GT5dkptMzUzFqL2lXMw/QfdkFc7iFeTu+cXRsuOHegpiD36MwXwqpjseNeVsV28If0kpK3
-	SPLj+lUESLCfZj5Urxzl9XWDoTlLsiA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686067963;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tDS8AHR+6l5pU0D3pqB/j9UJ3eqzXU7CXq0Fenh1CAE=;
-	b=tvPzVWUiurx4PtC5gkrfOcMaMPl2TYleMBtyaUPenBzIeoMg4O7lBsU99ycSSRTPFw9jjx
-	TePHsGARLn5i6aBQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7700913519;
-	Tue,  6 Jun 2023 16:12:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id Qf0zG/taf2RtNQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 06 Jun 2023 16:12:43 +0000
-Date: Tue, 06 Jun 2023 18:12:43 +0200
-Message-ID: <871qiofu2s.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Shenghao Ding <13916275206@139.com>,
+	by alsa1.perex.cz (Postfix) with ESMTPS id D3477F80155
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 19:07:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3477F80155
+Received: from [91.65.34.120] (helo=phil.lan)
+	by gloria.sntech.de with esmtpsa  (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <heiko@sntech.de>)
+	id 1q6a9N-0001ED-9t; Tue, 06 Jun 2023 19:07:17 +0200
+From: Heiko Stuebner <heiko@sntech.de>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Zhu Ning <zhuning0077@gmail.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	David Yang <yangxiaohua@everest-semi.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Daniel Drake <drake@endlessm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	robh+dt@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com,
-	shenghao-ding@ti.com,
+	linux-rockchip@lists.infradead.org,
+	kernel@collabora.com,
 	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	x1077012@ti.com,
-	peeyush@ti.com,
-	navada@ti.com,
-	gentuser@gmail.com,
-	Ryan_Chu@wistron.com,
-	Sam_Wu@wistron.com
-Subject: Re: [PATCH v4 5/6] ALSA: hda/tas2781: Add tas2781 HDA driver
-In-Reply-To: <65ef4914-dc0e-4f0f-a6f8-3016931488bd@sirena.org.uk>
-References: <20230527223613.11106-1-13916275206@139.com>
-	<874jnkfu98.wl-tiwai@suse.de>
-	<65ef4914-dc0e-4f0f-a6f8-3016931488bd@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: BNAM4KBAOPNSM7QWCHKB7ULWVU46GSPL
-X-Message-ID-Hash: BNAM4KBAOPNSM7QWCHKB7ULWVU46GSPL
-X-MailFrom: tiwai@suse.de
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/3] ES8316 audio codec fixes on Rock5B
+Date: Tue,  6 Jun 2023 19:07:09 +0200
+Message-Id: <168607097312.1436521.13454183292358558195.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230530181140.483936-1-cristian.ciocaltea@collabora.com>
+References: <20230530181140.483936-1-cristian.ciocaltea@collabora.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: DZ2TZKGNAY6L424FLI7FB4EXFSE57MWM
+X-Message-ID-Hash: DZ2TZKGNAY6L424FLI7FB4EXFSE57MWM
+X-MailFrom: heiko@sntech.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -126,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BNAM4KBAOPNSM7QWCHKB7ULWVU46GSPL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DZ2TZKGNAY6L424FLI7FB4EXFSE57MWM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -135,30 +99,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 06 Jun 2023 18:10:13 +0200,
-Mark Brown wrote:
+On Tue, 30 May 2023 21:11:37 +0300, Cristian Ciocaltea wrote:
+> This patch series handles a few issues related to the ES8316 audio
+> codec, discovered while doing some testing on the Rock 5B board.
 > 
-> On Tue, Jun 06, 2023 at 06:08:51PM +0200, Takashi Iwai wrote:
-> > Shenghao Ding wrote:
+> Changes in v2:
+>  - Preserved original dB gain range in PATCH 1
+>  - Rewrote PATCH 2 conditional statement, per Mark's review
+>  - Rebased series onto next-20230530
+>  - v1: https://lore.kernel.org/all/20230524074156.147387-1-cristian.ciocaltea@collabora.com/
 > 
-> > > +	//Lenovo devices
-> > > +	if ((subid == 0x387d) || (subid == 0x387e) || (subid == 0x3881)
-> > > +		|| (subid == 0x3884) || (subid == 0x3886) || (subid == 0x38a7)
-> > > +		|| (subid == 0x38a8) || (subid == 0x38ba) || (subid == 0x38bb)
-> > > +		|| (subid == 0x38be) || (subid == 0x38bf) || (subid == 0x38c3)
-> > > +		|| (subid == 0x38cb) || (subid == 0x38cd))
-> > > +		tas_priv->catlog_id = LENOVO;
-> > > +	else
-> > > +		tas_priv->catlog_id = OTHERS;
-> 
-> > Hmm, I don't like checking subid here, but we can live with it for
-> > now...
-> 
-> Might be more idiomatically/neatly written as a switch statement though.
+> [...]
 
-Yes, it'll make it easier to add a new entry, too.
+Applied, thanks!
 
+[3/3] arm64: dts: rockchip: Assign ES8316 MCLK rate on rk3588-rock-5b
+      commit: 28ee08cef4f838c343013330a3cd12674c4dd113
 
-thanks,
-
-Takashi
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>

@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CA8724583
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 16:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1900B7243B8
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 15:08:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21C5184B;
-	Tue,  6 Jun 2023 16:15:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21C5184B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 487356C0;
+	Tue,  6 Jun 2023 15:07:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 487356C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686061005;
-	bh=gMjHyvne6Agp54WGv+UFFXIKF10PxNqoZ0FJ4APZ9UI=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=TcpE4ckvtu8xI4G6efpzprhynL65gnfJoqumizAhmxPQZGbZC8tcIOTG04XvWcoG3
-	 auy/I8t0GPpYbTBY7N3Wv1icuQcLZ36AB8YjrM60PlPpybQPt9mkYkA1a7AQt9M4FW
-	 gEqtZViNwT1L/1NC0yydfIjO09TxLJubGt7tFczw=
+	s=default; t=1686056880;
+	bh=we2pu8aUOHA8UubDuAkoGkbGSgYMZCI04YsgSiPDeMs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Gd11qz0PzPdAPYenUVAY8030lRgwGWYQuNbQZCSuZncrltpzUZA4Pgxi6l0c+QUVs
+	 DW/jhWrdR1V7oa4qBxFoiD+z9SFPGi/N+mBrhsvvUuhhRr6a3GXUT4CyKhA6A7v2GJ
+	 GQj6TukJjOH+1GasyzRcygwej0tD5hwpMkrSz4Jo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0605F80568; Tue,  6 Jun 2023 16:15:03 +0200 (CEST)
+	id A7954F80520; Tue,  6 Jun 2023 15:06:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CFAFF80568;
-	Tue,  6 Jun 2023 16:15:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EBCDF8016C;
+	Tue,  6 Jun 2023 15:06:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 951F3F80199; Tue,  6 Jun 2023 15:03:50 +0200 (CEST)
+	id 8F349F80199; Tue,  6 Jun 2023 15:06:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
- [61.152.239.71])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A0A62F800C8
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 15:03:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0A62F800C8
-Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
-	by fd01.gateway.ufhost.com (Postfix) with ESMTP id 25F6D80B6;
-	Tue,  6 Jun 2023 21:03:29 +0800 (CST)
-Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX165.cuchost.com
- (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Tue, 6 Jun
- 2023 21:03:29 +0800
-Received: from [192.168.125.124] (183.27.98.75) by EXMBX168.cuchost.com
- (172.16.6.78) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Tue, 6 Jun
- 2023 21:03:28 +0800
-Message-ID: <c459ff05-7e7b-ffb9-d0ba-2daaeffcc0a6@starfivetech.com>
-Date: Tue, 6 Jun 2023 21:03:27 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [bug report] ASoC: starfive: Add JH7110 TDM driver
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@linaro.org>
-CC: <alsa-devel@alsa-project.org>
-References: <ZH7t6Nc+NTcGpq/3@moroto>
-From: Walker Chen <walker.chen@starfivetech.com>
-In-Reply-To: <ZH7t6Nc+NTcGpq/3@moroto>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [183.27.98.75]
-X-ClientProxiedBy: EXCAS062.cuchost.com (172.16.6.22) To EXMBX168.cuchost.com
- (172.16.6.78)
-X-YovoleRuleAgent: yovoleflag
-X-MailFrom: walker.chen@starfivetech.com
-X-Mailman-Rule-Hits: nonmember-moderation
+	by alsa1.perex.cz (Postfix) with ESMTPS id 63E94F800C8
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 15:06:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63E94F800C8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=bGXYD2Da
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 33A16632AA;
+	Tue,  6 Jun 2023 13:06:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F30AC433EF;
+	Tue,  6 Jun 2023 13:06:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686056782;
+	bh=we2pu8aUOHA8UubDuAkoGkbGSgYMZCI04YsgSiPDeMs=;
+	h=From:To:Cc:Subject:Date:From;
+	b=bGXYD2Dao9zpHic6FWjuWRtoTkUAfyLDnbW1iVzwcasgh99c1nHIG9F8YSUKhfFQQ
+	 Eam/RvzYM/ouDe1h5OjvuWNceKqMIFbiVEQMKxFT97VKZ5UMujsKglzTrkOhNN3KXa
+	 6vlK1OUmi+6pi1I500BOaNTEG4tNsZtuvUI2pQvL8pomnhih/rLilY2IRKeYzcc/hW
+	 NCb0SH49TbV4ikmRSLvClZBKhaUVVrQWiN/fR8tbWOX+YmCmbXEfCvYavi8LYczzKr
+	 9AldIBYYUpGibsa0kAHj4973m1of6f6elGYIVgsISmSGrh82h1xDLlfkPEwP3FGigB
+	 nmcJ94yRe7w/A==
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] ASoC fixes for v6.4-rc6
+Date: Tue, 06 Jun 2023 14:06:10 +0100
+Message-Id: <20230606130622.3F30AC433EF@smtp.kernel.org>
+Message-ID-Hash: VVB7NKRSHHG3ABWNCEZMQQUQGDVZKTMV
+X-Message-ID-Hash: VVB7NKRSHHG3ABWNCEZMQQUQGDVZKTMV
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: FMVGJ2KZJDSNXLTNCLHZSNIRHT3G64QT
-X-Message-ID-Hash: FMVGJ2KZJDSNXLTNCLHZSNIRHT3G64QT
-X-Mailman-Approved-At: Tue, 06 Jun 2023 14:14:54 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FMVGJ2KZJDSNXLTNCLHZSNIRHT3G64QT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VVB7NKRSHHG3ABWNCEZMQQUQGDVZKTMV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -91,58 +88,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+The following changes since commit 011a8719d6105dcb48077ea7a6a88ac019d4aa50:
 
-On 2023/6/6 16:27, Dan Carpenter wrote:
-> Hello Walker Chen,
-> 
-> The patch fd4762b6b5cf: "ASoC: starfive: Add JH7110 TDM driver" from
-> May 26, 2023, leads to the following Smatch static checker warning:
-> 
-> 	sound/soc/starfive/jh7110_tdm.c:584 jh7110_tdm_clk_reset_get()
-> 	warn: passing zero to 'PTR_ERR'
-> 
-> sound/soc/starfive/jh7110_tdm.c
->     564 static int jh7110_tdm_clk_reset_get(struct platform_device *pdev,
->     565                                     struct jh7110_tdm_dev *tdm)
->     566 {
->     567         int ret;
->     568 
->     569         tdm->clks[0].id = "mclk_inner";
->     570         tdm->clks[1].id = "tdm_ahb";
->     571         tdm->clks[2].id = "tdm_apb";
->     572         tdm->clks[3].id = "tdm_internal";
->     573         tdm->clks[4].id = "tdm_ext";
->     574         tdm->clks[5].id = "tdm";
->     575 
->     576         ret = devm_clk_bulk_get(&pdev->dev, ARRAY_SIZE(tdm->clks), tdm->clks);
->     577         if (ret) {
->     578                 dev_err(&pdev->dev, "Failed to get tdm clocks\n");
->     579                 return ret;
->     580         }
->     581 
->     582         tdm->resets = devm_reset_control_array_get_exclusive(&pdev->dev);
-> 
-> The devm_reset_control_array_get() function returns NULL if it's
-> an optional request.  But this is not optional.
-> 
->     583         if (IS_ERR_OR_NULL(tdm->resets)) {
-> 
-> So that means this should be an if (IS_ERR()) check.
-> 
-> --> 584                 ret = PTR_ERR(tdm->resets);
->     585                 dev_err(&pdev->dev, "Failed to get tdm resets");
-> 
-> Or if optional was intended then NULL should not be treated as an error
-> case, but as a special kind of success case (no error message).  See
-> my blog for a long form of this information:
-> 
-> https://staticthinking.wordpress.com/2022/08/01/mixing-error-pointers-and-null/
-> 
+  ASoC: dwc: move DMA init to snd_soc_dai_driver probe() (2023-05-23 21:39:30 +0100)
 
-Hi Dan,
+are available in the Git repository at:
 
-Thanks for your testing.
-Yes, should use IS_ERR() to check. I am preparing to submit a patch to fix this issue.
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v6.4-rc6
 
-Best regards,
-Walker
+for you to fetch changes up to 32cf0046a652116d6a216d575f3049a9ff9dd80d:
+
+  ASoC: fsl_sai: Enable BCI bit if SAI works on synchronous mode with BYP asserted (2023-06-02 12:54:07 +0100)
+
+----------------------------------------------------------------
+ASoC: Fixes for v6.4
+
+A lot of routine driver specific fixes here, nothing in the core though
+there are a couple of fixes for the generic cards.  There's also a few
+new quirks for x86 platforms.
+
+----------------------------------------------------------------
+Chancel Liu (1):
+      ASoC: fsl_sai: Enable BCI bit if SAI works on synchronous mode with BYP asserted
+
+Edson Juliano Drosdeck (1):
+      ASoC: nau8824: Add quirk to active-high jack-detect
+
+Herve Codina (1):
+      ASoC: simple-card: Add missing of_node_put() in case of error
+
+Mark Brown (1):
+      ASoC: mediatek: fix use-after-free in driver remove
+
+Richard Fitzgerald (1):
+      ASoC: cs35l56: Remove NULL check from cs35l56_sdw_dai_set_stream()
+
+Robert Hancock (1):
+      ASoC: simple-card-utils: fix PCM constraint error check
+
+Ryan Lee (2):
+      ASoC: max98363: Removed 32bit support
+      ASoC: max98363: limit the number of channel to 1
+
+Sicong Jiang (1):
+      ASoC: amd: yc: Add Thinkpad Neo14 to quirks list for acp6x
+
+Srinivas Kandagatla (3):
+      ASoC: codecs: wsa883x: do not set can_multi_write flag
+      ASoC: codecs: wsa881x: do not set can_multi_write flag
+      ASoC: codecs: wcd938x-sdw: do not set can_multi_write flag
+
+Trevor Wu (2):
+      ASoC: mediatek: mt8188: fix use-after-free in driver remove path
+      ASoC: mediatek: mt8195: fix use-after-free in driver remove path
+
+Vijendar Mukunda (1):
+      ASoC: amd: ps: fix for acp_lock access in pdm driver
+
+ sound/soc/amd/ps/pci-ps.c                     |  3 +-
+ sound/soc/amd/ps/ps-pdm-dma.c                 | 10 +++---
+ sound/soc/amd/yc/acp6x-mach.c                 |  7 ++++
+ sound/soc/codecs/cs35l56.c                    |  3 --
+ sound/soc/codecs/max98363.c                   |  4 +--
+ sound/soc/codecs/nau8824.c                    | 24 ++++++++++++++
+ sound/soc/codecs/wcd938x-sdw.c                |  1 -
+ sound/soc/codecs/wsa881x.c                    |  1 -
+ sound/soc/codecs/wsa883x.c                    |  1 -
+ sound/soc/fsl/fsl_sai.c                       | 11 +++++--
+ sound/soc/fsl/fsl_sai.h                       |  1 +
+ sound/soc/generic/simple-card-utils.c         |  2 +-
+ sound/soc/generic/simple-card.c               |  1 +
+ sound/soc/mediatek/mt8188/mt8188-afe-clk.c    |  7 ----
+ sound/soc/mediatek/mt8188/mt8188-afe-clk.h    |  1 -
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c    |  4 ---
+ sound/soc/mediatek/mt8188/mt8188-audsys-clk.c | 47 ++++++++++++++-------------
+ sound/soc/mediatek/mt8188/mt8188-audsys-clk.h |  1 -
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c    |  5 ---
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.h    |  1 -
+ sound/soc/mediatek/mt8195/mt8195-afe-pcm.c    |  4 ---
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.c | 47 ++++++++++++++-------------
+ sound/soc/mediatek/mt8195/mt8195-audsys-clk.h |  1 -
+ 23 files changed, 99 insertions(+), 88 deletions(-)

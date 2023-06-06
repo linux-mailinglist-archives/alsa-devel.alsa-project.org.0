@@ -2,82 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CB317244F0
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 15:52:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3F17244F6
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 15:55:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5424883B;
-	Tue,  6 Jun 2023 15:52:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5424883B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 271023E7;
+	Tue,  6 Jun 2023 15:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 271023E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686059578;
-	bh=AXhUydbYyEMKr38lmLrX/4C6TkA2YSsKpLSO2kmGAgs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1686059705;
+	bh=gshFwdZTdQofOhq52O0cGUhy9+ehZThzejNjkCLczOU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ie1Z5aWnlr1gLDHrQG4vfCcNgOsSIhEQHKhyK4LGyMTvBiQqc+zgg4JNYnSLZbD9b
-	 0yN0gn43aGks1obeHFLSYjRh6ys3CxtzxlblcHriOlIecdW/RjWpu/cb5Ao2GibxXl
-	 +oS0RXZ0/1Ei4+LbZFJHRXBJ3g8fmKcLGYiM6kFo=
+	b=PkXXf19R1E3hnYKcSGm9y2AS0ola9cGBHZhZcJiZO7GvgQaM6eZbI+k77a+36EeAC
+	 jBRRBXjjUuocVyhXGiFycNLnTYCaaVhHDzIpl4LMvDZ2zv3HJ9bvWNXYVO1O/VOBXM
+	 s9h3sl4gjWBWO+NaT+78CfOAV8ALbiuP3WXlLTqU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59B63F800ED; Tue,  6 Jun 2023 15:51:57 +0200 (CEST)
+	id E23E8F804DA; Tue,  6 Jun 2023 15:54:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E36C5F80199;
-	Tue,  6 Jun 2023 15:51:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9768EF8016C;
+	Tue,  6 Jun 2023 15:54:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0C08F80254; Tue,  6 Jun 2023 15:51:53 +0200 (CEST)
+	id 0C760F80199; Tue,  6 Jun 2023 15:54:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::226])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2F076F8016C
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 15:51:52 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 90FB51E3D;
-	Tue,  6 Jun 2023 15:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 90FB51E3D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1686059511; bh=dDuiJtC24VzdW+Dfhr7wI+sSeuZ/1y/CLCgGZYk1WFQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Y37Wc0IGEPj2SS76VZrwz5gyRGe+FVQFJw47RA36sbU94kvhIAwWA0QmdJero4UrL
-	 ZN15FvQkFg84cVKzgWO8IDnsMDFVtsSqoEFkED0lkGCCRxk1EzDBhguE3hsClVBkRW
-	 SFGicwNFTfAryhHQBaZW7foa4GfKafG/T0RveYVw=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Tue,  6 Jun 2023 15:51:39 +0200 (CEST)
-Message-ID: <fd26e84e-10d0-c4d8-c3a5-0bfbb5e06b88@perex.cz>
-Date: Tue, 6 Jun 2023 15:51:39 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0E05DF800ED
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 15:54:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E05DF800ED
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=lFDCNIwY
+X-GND-Sasl: herve.codina@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1686059647;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SAhoSqGeAkfXPjkbbMuSr5Vpspi7VqAd/1OCMoVSMQI=;
+	b=lFDCNIwYTXXY3EsOHA8kz+XStHjjrzljUTbDoxAtgSr4GJEJYQXHeyrdjEzj457b9yKekc
+	yO8KmG7ay0HhebF7nIA1fCRk50oKmItgXzWG2OsMyLli5WDozzodqD5R8UTUAaztRe3TYv
+	JQIxBmOlQ81IBhb9zRTEisNVJ+Cq0iZFgtVp2JgUUdXFkXGLNaodXPat6py6ds//t8XpIP
+	B0ibMMPLIre1pzHE4nfLEJdOqRtwbXpRQbeaKu0WIPMem+y+ni+shghIj72ST7kI2JLIa/
+	2jz7LsM/vBTBKuLk/of+AeYR2hlGmhO8AzkLSZQQ5JPJEdNpi9+JuKqs1Sl/Jg==
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 243ADC0010;
+	Tue,  6 Jun 2023 13:54:05 +0000 (UTC)
+Date: Tue, 6 Jun 2023 15:54:04 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: andy.shevchenko@gmail.com
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori
+ Morimoto <kuninori.morimoto.gx@renesas.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 7/9] ASoC: codecs: Add support for the generic IIO
+ auxiliary devices
+Message-ID: <20230606155404.28ada064@bootlin.com>
+In-Reply-To: <ZHuFywIrTnEFpX6e@surfacebook>
+References: <20230523151223.109551-1-herve.codina@bootlin.com>
+	<20230523151223.109551-8-herve.codina@bootlin.com>
+	<ZHuFywIrTnEFpX6e@surfacebook>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH v3 3/3] selftests: ALSA: Add test for the 'pcmtest' driver
-Content-Language: en-US
-To: Ivan Orlov <ivan.orlov0322@gmail.com>, tiwai@suse.com, corbet@lwn.net,
- broonie@kernel.org, skhan@linuxfoundation.org
-Cc: alsa-devel@alsa-project.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- gregkh@linuxfoundation.org, himadrispandya@gmail.com,
- linux-kernel-mentees@lists.linuxfoundation.org
-References: <20230606133807.14089-1-ivan.orlov0322@gmail.com>
- <20230606133807.14089-3-ivan.orlov0322@gmail.com>
-From: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20230606133807.14089-3-ivan.orlov0322@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: Q32T34CAWBNQC67ESFL3I4LNGY24EEPQ
-X-Message-ID-Hash: Q32T34CAWBNQC67ESFL3I4LNGY24EEPQ
-X-MailFrom: perex@perex.cz
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: R5LWM75MEJWU4LTON5TGDVKNOJTLPPGW
+X-Message-ID-Hash: R5LWM75MEJWU4LTON5TGDVKNOJTLPPGW
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -89,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q32T34CAWBNQC67ESFL3I4LNGY24EEPQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R5LWM75MEJWU4LTON5TGDVKNOJTLPPGW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,25 +121,305 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 06. 06. 23 15:38, Ivan Orlov wrote:
-> This test covers the new Virtual PCM Test Driver, including the capturing,
-> playback and ioctl redefinition functionalities for both interleaved and
-> non-interleaved access modes. This test is also helpful as an usage example
-> of the 'pcmtest' driver.
-> 
-> We have a lot of different virtual media drivers, which can be used for
-> testing of the userspace applications and media subsystem middle layer.
-> However, all of them are aimed at testing the video functionality and
-> simulating the video devices. For audio devices we have only snd-dummy
-> module, which is good in simulating the correct behavior of an ALSA device.
-> I decided to write a tool, which would help to test the userspace ALSA
-> programs (and the PCM middle layer as well) under unusual circumstances
-> to figure out how they would behave. So I came up with this Virtual PCM
-> Test Driver.
+Hi Andy,
 
-Acked-by: Jaroslav Kysela <perex@perex.cz>
+On Sat, 3 Jun 2023 21:26:19 +0300
+andy.shevchenko@gmail.com wrote:
+
+> Tue, May 23, 2023 at 05:12:21PM +0200, Herve Codina kirjoitti:
+> > Industrial I/O devices can be present in the audio path.
+> > These devices needs to be used as audio components in order to be fully
+> > integrated in the audio path.
+> > 
+> > This support allows to consider these Industrial I/O devices as auxliary
+> > audio devices and allows to control them using mixer controls.  
+> 
+> ...
+> 
+> > +// audio-iio-aux.c  --  ALSA SoC glue to use IIO devices as audio components  
+> 
+> Putting file name into file is not a good idea in case the file will be renamed
+> in the future.
+
+Indeed, the file name will be removed in the nest iteration.
+
+> 
+> ...
+> 
+> > +struct audio_iio_aux_chan {
+> > +	struct iio_channel *iio_chan;
+> > +	const char *name;
+> > +	bool is_invert_range;  
+> 
+> If you put bool after int:s it may save a few bytes in some cases.
+
+I will mode is_invert_range after the int members.
+
+> 
+> > +	int max;
+> > +	int min;  
+> 
+> Wondering if there is already a data type for the ranges (like linear_range.h,
+> but not sure it's applicable here).
+
+Seems not applicable here.
+ - IIO does not use linear_range or something similar. It just uses simple int.
+ - ASoC does not use linear_range or something similar. It just uses simple long.
+
+So, I keep the simple int min and max.
+
+> 
+> > +};  
+> 
+> ...
+> 
+> > +	if (val < 0)
+> > +		return -EINVAL;
+> > +	if (val > max - min)  
+> 
+> Btw, who will validate that max > min?
+
+By construction,
+min = 0
+max = iio_read_max_channel_raw() - iio_read_min_channel_raw()
+
+and iio_read_max_channel_raw() returns a value greater or equal to
+iio_read_min_channel_raw().
+
+But to be sure, I will check the last asumption at probe() and swap
+the minimum and maximum values if needed.
+
+> 
+> > +		return -EINVAL;  
+> 
+> ...
+> 
+> > +	return 1; /* The value changed */  
+> 
+> Perhaps this 1 needs a definition?
+
+Yes but to be coherent, in ASoC code, many places need to be changed too
+in order to use the newly defined value.
+I don't think these modifications should be part of this series.
+
+> 
+> ...
+> 
+> > +static struct snd_soc_dapm_widget widgets[3] = {0};
+> > +static struct snd_soc_dapm_route routes[2] = {0};  
+> 
+> 0:s are not needed. Moreover, the entire assingments are redundant
+> as this is guaranteed by the C standard.
+
+Indeed, the 0 assignment will be removed in the next iteration.
+
+> 
+> ...
+> 
+> > +	char *input_name = NULL;
+> > +	char *output_name = NULL;
+> > +	char *pga_name = NULL;  
+> 
+> Redundant assignments if you properly label the freeing.
+
+I will rework the error paths (gotos) to avoid these assignement.
+
+> 
+> ...
+> 
+> > +	BUILD_BUG_ON(ARRAY_SIZE(widgets) < 3);  
+> 
+> Use static_assert() at the place where the array is defined.
+
+Will be done in next iteration.
+
+> 
+> ...
+> 
+> > +	BUILD_BUG_ON(ARRAY_SIZE(routes) < 2);  
+> 
+> Ditto.
+Will be done in next iteration.
+
+> 
+> ...
+> 
+> > +end:  
+> 
+> out_free:
+> 
+> > +	/* Allocated names are no more needed (duplicated in ASoC internals) */
+> > +	kfree(pga_name);
+> > +	kfree(output_name);
+> > +	kfree(input_name);
+> > +
+> > +	return ret;  
+> 
+> ...
+> 
+> > +	for (i = 0; i < iio_aux->num_chans; i++) {
+> > +		chan = iio_aux->chans + i;
+> > +
+> > +		ret = iio_read_max_channel_raw(chan->iio_chan, &chan->max);
+> > +		if (ret) {
+> > +			dev_err(component->dev, "chan[%d] %s: Cannot get max raw value (%d)\n",
+> > +				i, chan->name, ret);
+> > +			return ret;  
+> 
+> It sounds like a part of ->probe() flow, correct?
+> Can dev_err_probe() be used here?
+
+Will be changed in the next iteration.
+
+> 
+> > +		}
+> > +
+> > +		ret = iio_read_min_channel_raw(chan->iio_chan, &chan->min);
+> > +		if (ret) {
+> > +			dev_err(component->dev, "chan[%d] %s: Cannot get min raw value (%d)\n",
+> > +				i, chan->name, ret);
+> > +			return ret;  
+> 
+> Ditto.
+
+Will be changed in the next iteration.
+
+> 
+> > +		}
+> > +
+> > +		/* Set initial value */
+> > +		ret = iio_write_channel_raw(chan->iio_chan,
+> > +					    chan->is_invert_range ? chan->max : chan->min);
+> > +		if (ret) {
+> > +			dev_err(component->dev, "chan[%d] %s: Cannot set initial value (%d)\n",
+> > +				i, chan->name, ret);
+> > +			return ret;  
+> 
+> Ditto.
+
+Will be changed in the next iteration.
+
+> 
+> > +		}  
+> 
+> ...
+> 
+> > +		dev_dbg(component->dev, "chan[%d]: Added %s (min=%d, max=%d, invert=%s)\n",
+> > +			i, chan->name, chan->min, chan->max,
+> > +			chan->is_invert_range ? "on" : "off");  
+> 
+> str_on_off()
+
+Indeed, I didn't know str_on_off().
+Thanks for pointing.
+Will be use in next iteration.
+
+> 
+> > +	}  
+> 
+> ...
+> 
+> > +	count = of_property_count_strings(np, "io-channel-names");
+> > +	if (count < 0) {  
+> 
+> > +		dev_err(iio_aux->dev, "%pOF: failed to read io-channel-names\n", np);
+> > +		return count;  
+> 
+> 		return dev_err_probe();
+Will be changed in next iteration.
+> 
+> > +	}  
+> 
+> ...
+> 
+> > +	for (i = 0; i < iio_aux->num_chans; i++) {
+> > +		iio_aux_chan = iio_aux->chans + i;
+> > +
+> > +		ret = of_property_read_string_index(np, "io-channel-names", i,
+> > +						    &iio_aux_chan->name);
+> > +		if (ret < 0) {
+> > +			dev_err(iio_aux->dev, "%pOF: failed to read io-channel-names[%d]\n", np, i);
+> > +			return ret;  
+> 
+> Ditto.
+Will be changed in next iteration.
+> 
+> > +		}  
+> 
+> > +		tmp = 0;
+> > +		of_property_read_u32_index(np, "snd-control-invert-range", i, &tmp);  
+> 
+> > +		iio_aux_chan->is_invert_range = tmp;  
+> 
+> You can use this variable directly.
+
+Not sure, is_invert_range is a bool and tmp is a u32.
+
+In previous iteration, I wrote
+  iio_aux_chan->is_invert_range = !!tmp;
+
+> 
+> > +	}  
+> 
+> Btw, can you avoid using OF APIs? It's better to have device property/fwnode
+> API to be used from day 1.
+
+Hum, this comment was raised in the previous iteration
+  https://lore.kernel.org/linux-kernel/20230501162456.3448c494@jic23-huawei/
+
+I didn't find any equivalent to of_property_read_u32_index() in the 
+device_property_read_*() function family.
+I mean I did find anything available to get a value from an array using an index.
+
+In the previous iteration it was concluded that keeping OF APIs in this series
+seemed "reasonable".
+
+> 
+> ...
+> 
+> > +	platform_set_drvdata(pdev, iio_aux);  
+> 
+> Which callback is using this driver data?
+
+None -> I will remove platform_set_drvdata().
+
+> 
+> ...
+> 
+> > +static const struct of_device_id audio_iio_aux_ids[] = {
+> > +	{ .compatible = "audio-iio-aux", },  
+> 
+> Inner comma is not needed.
+
+Will be fixed.
+
+> 
+> > +	{ }
+> > +};  
+> 
+> ...
+> 
+> > +static struct platform_driver audio_iio_aux_driver = {
+> > +	.driver = {
+> > +		.name = "audio-iio-aux",
+> > +		.of_match_table = audio_iio_aux_ids,
+> > +	},
+> > +	.probe = audio_iio_aux_probe,
+> > +};  
+> 
+> > +  
+> 
+> Redundant blank line
+
+Will be fixed.
+
+> 
+> > +module_platform_driver(audio_iio_aux_driver);  
+> 
+
+
 
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com

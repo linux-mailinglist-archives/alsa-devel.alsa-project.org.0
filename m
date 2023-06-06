@@ -2,114 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85FF1724643
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 16:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E050B724683
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 16:41:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 159E774C;
-	Tue,  6 Jun 2023 16:35:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 159E774C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04B946C1;
+	Tue,  6 Jun 2023 16:40:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04B946C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686062170;
-	bh=RuoxOwX5Les5Cr77RpAppFWfYTdEPZ2evFR09CC8ZNA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1686062467;
+	bh=ghbtpfgzEXDZlStE43dHNyo9glR2yfvAKES2S5iqao0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HJmLtPmYiUxInj9FC/j8N231F8ZjoDkAr6NZ1OvQW65wagjX25hGMTw84FkKyqZPu
-	 jLGf4qo5VRETJLssbPfGPiG9zr9dTw+3D3UTbYq7rihckazepnT7jgmI1SVwf3WyLc
-	 v3g6wMxs/cQrXHWFRKap5hUg4IfeEytO+nozaDNY=
+	b=l5s1w6Gq5e3/Jx8SX5qsKSi1VqKC8lBDhQuh7amA6LyJNJ+KQZOtIS2hZzhVzGFhe
+	 LNHK4eXBRIFx23a3sYh8o5kBkX4fpPjwbyitHh5nlW7X29pWnEscMeQH6IJQtXIcbX
+	 NG+t+AUYRig1o5pUotkiz4Wv+rg3CqqL3fKSvDOs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7853AF80254; Tue,  6 Jun 2023 16:35:19 +0200 (CEST)
+	id 42A86F80520; Tue,  6 Jun 2023 16:40:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE1C0F8016C;
-	Tue,  6 Jun 2023 16:35:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6C51F8016C;
+	Tue,  6 Jun 2023 16:40:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E836BF80254; Tue,  6 Jun 2023 16:35:13 +0200 (CEST)
+	id E530AF80199; Tue,  6 Jun 2023 16:40:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [IPv6:2607:f8b0:4864:20::f35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 67C08F8016C
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 16:35:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67C08F8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id CB22CF800ED
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 16:40:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB22CF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=DQ4FMvX5
-Received: by mail-qv1-xf35.google.com with SMTP id
- 6a1803df08f44-62621035d15so64097136d6.2
-        for <alsa-devel@alsa-project.org>;
- Tue, 06 Jun 2023 07:35:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686062099; x=1688654099;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ubLsalXSoy/Ya10j4ymkpZHgwVV8ccg0Uc0f0PWrIso=;
-        b=DQ4FMvX55hxTjxUqA6lurcdL4gQPjBbU5gNhBtcH5A+gC3g2zP3YEBdnzduPLhsQPv
-         kfR0j6vjSv/US5i3jQw970qqRxMujQhC12EodC1oeIXAnWZu31OjO4vpwYlzCtXM/xP2
-         Rt0QbRah1lQnu952QHwtPkW1Yi/AaSTbTivbKBFsOHDkrnolCLp7ZuBsEfvMtBR/Cug5
-         Q9usEQZoV9xz3lYxkBCj4H2RlWHDWSYdtvau0WOyWOo7u938Xtas9t3QuBuyDOOfV10/
-         xMLcioR2KTX4CwuFQBQBq/9At8fg36faSZOQ+QgIZjurlLzUAZd6kGNanT63iCGuQYvW
-         TyMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686062099; x=1688654099;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ubLsalXSoy/Ya10j4ymkpZHgwVV8ccg0Uc0f0PWrIso=;
-        b=PNBUlUbNvOoydPB2/tdTnjaHq2c6SKTjksLRXHWEs0S0YKYKItjVycGNZVDqLRn8/Y
-         L0GWQEjVKEyxint3qL9I8Fjm/FeeHwQDmvPGa6/LmB5lPrhg7yK2wGpbylWHMALx0lWX
-         ZekQvWQWXBZ64xvlaCRKyHyDHX45yLzeIWS7FOrOPebRGYfMrLrsZWw4zLjYAqLzTegq
-         69/Hkp5suciGNm4D46G2T56HrUnuZQUXvTK7Gm3+iY4pKHqPwrZYc7QH27yu1Npna4a2
-         3SvMhqOhURTYiXVrG5IcJ2oqVj/31aMOkH2fz+WcF0KaLtiY8KCw+yhzs9L0YwmOj6C1
-         QmYA==
-X-Gm-Message-State: AC+VfDxjxoCBabRQteyFiL7tTK6nd66j+/PaiYA7o+J+OYuSFKE6O5On
-	uGnJ4nbPb5D5x96s1XfremHDL/KH3Q9HijIfmgM=
-X-Google-Smtp-Source: 
- ACHHUZ58EJc1NimrHm9HFKUT0yEW5424HAkwblu4NVsObmM2kI1uHfYW3uevL77UxjMv7aNkCKK/m62X0P8q3i6Lnnk=
-X-Received: by 2002:a05:6214:b62:b0:629:78ae:80e3 with SMTP id
- ey2-20020a0562140b6200b0062978ae80e3mr3064231qvb.24.1686062098766; Tue, 06
- Jun 2023 07:34:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230523151223.109551-1-herve.codina@bootlin.com>
- <20230523151223.109551-8-herve.codina@bootlin.com>
- <ZHuFywIrTnEFpX6e@surfacebook>
- <20230606155404.28ada064@bootlin.com>
-In-Reply-To: <20230606155404.28ada064@bootlin.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 6 Jun 2023 17:34:22 +0300
-Message-ID: 
- <CAHp75Vd00N8z7kgTb=WTZHJW3XhsKbLfhTTKPjnCvKUSfL+xDQ@mail.gmail.com>
-Subject: Re: [PATCH v2 7/9] ASoC: codecs: Add support for the generic IIO
- auxiliary devices
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=h9bki2II
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 940B162CAC;
+	Tue,  6 Jun 2023 14:40:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749F4C433D2;
+	Tue,  6 Jun 2023 14:40:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686062405;
+	bh=ghbtpfgzEXDZlStE43dHNyo9glR2yfvAKES2S5iqao0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h9bki2IIyHiObYwlt0XmTTgUGm8+InDcRMFw+o9s5a89DTT5WIBZFbGXQBjF2yGjr
+	 dUfmvE1sb5uGpA9/T+SZji32Q9ia4LFIrIiX1iLyMdVMtLK3tOL/B3DqGzWKI8nEr4
+	 ABFEy56A3uRC3y9xb0KUyOBtuxFH+K0ZI+2JL4sptX/J8sqviCqB1xTeR0o/kgDord
+	 tA+jZBs1UZgpOjeTEwP44O+9CrEpxUSQ+nVE2bi5+oe9pifrnVJsEeSkAZ5Ef40GJU
+	 dB+JysfYjL/5rR+DIUyFi2USlyfiZrvu+i8Ypfk85+3d9EZEWenb2kNvViqPkV5QGB
+	 FGuJhiyyW69TQ==
+Date: Tue, 6 Jun 2023 15:39:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alvin =?utf-8?Q?=C5=A0ipraga?= <ALSI@bang-olufsen.dk>
+Cc: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin@pqrs.dk>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: 3DHUAOAV5OIYF4DCQ5N2XVQAIV5QGL7C
-X-Message-ID-Hash: 3DHUAOAV5OIYF4DCQ5N2XVQAIV5QGL7C
-X-MailFrom: andy.shevchenko@gmail.com
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: document new symmetric-clock-role
+ flag
+Message-ID: <9ea5a0be-606e-4c65-914f-c249d3f1b513@sirena.org.uk>
+References: <20230602090322.1876359-1-alvin@pqrs.dk>
+ <20230602090322.1876359-2-alvin@pqrs.dk>
+ <3fe93662-82b0-4834-b6c3-473669c66210@sirena.org.uk>
+ <7csvw25vhyal2jsznb3jykuijxqpk7bzyguxvl7cyitosgga2w@pxmkce22cm3d>
+ <91b6d02a-25d5-4835-942e-3f8072bd8897@sirena.org.uk>
+ <aesymtpx5bkfkvlbt2d6o3gn4zjzsbyiwxiuqziohgovy7oaoo@kt2n6v7kmuw7>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GvMNWsvRI2cx5zFa"
+Content-Disposition: inline
+In-Reply-To: <aesymtpx5bkfkvlbt2d6o3gn4zjzsbyiwxiuqziohgovy7oaoo@kt2n6v7kmuw7>
+X-Cookie: Keep out of the sunlight.
+Message-ID-Hash: UQQZDUMY3FT4EA3S4TRC77BADQF3J2V2
+X-Message-ID-Hash: UQQZDUMY3FT4EA3S4TRC77BADQF3J2V2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3DHUAOAV5OIYF4DCQ5N2XVQAIV5QGL7C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQQZDUMY3FT4EA3S4TRC77BADQF3J2V2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,100 +110,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jun 6, 2023 at 4:54=E2=80=AFPM Herve Codina <herve.codina@bootlin.c=
-om> wrote:
-> On Sat, 3 Jun 2023 21:26:19 +0300
-> andy.shevchenko@gmail.com wrote:
-> > Tue, May 23, 2023 at 05:12:21PM +0200, Herve Codina kirjoitti:
 
-...
+--GvMNWsvRI2cx5zFa
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> > > +   int max;
-> > > +   int min;
-> >
-> > Wondering if there is already a data type for the ranges (like linear_r=
-ange.h,
-> > but not sure it's applicable here).
->
-> Seems not applicable here.
->  - IIO does not use linear_range or something similar. It just uses simpl=
-e int.
->  - ASoC does not use linear_range or something similar. It just uses simp=
-le long.
->
-> So, I keep the simple int min and max.
+On Fri, Jun 02, 2023 at 12:42:49PM +0000, Alvin =C5=A0ipraga wrote:
 
-Sure.
+> Yes I see what you mean. On my platform the clock source is actually desc=
+ribed
+> by the common clock framework, so I would want to use that. If it were a
+> component driver then it would most likely be a codec that is part of the
+> dai-link anyway. So what about having two struct clk pointers in struct
+> snd_soc_dai?
+>=20
+>     struct snd_soc_dai {
+>         /* ... */
+>         struct clk *bitclock_provider;
+>         struct clk *frameclock_provider;
+>         /* ... */
+>     };
 
-...
+> If non-NULL I could then have the ASoC core enable/disable the clocks on =
+demand?
+> I would say in hw_params/hw_free, albeit that runs after set_fmt.
 
-> > > +   return 1; /* The value changed */
-> >
-> > Perhaps this 1 needs a definition?
->
-> Yes but to be coherent, in ASoC code, many places need to be changed too
-> in order to use the newly defined value.
-> I don't think these modifications should be part of this series.
+hw_params() can be called repeatedly so that's not a good fit but
+broadly yes.
 
-Yes, we are all for consistency.
+> Having said that, I see ASoC doesn't really use the CCF much... am I way =
+off?
 
-...
+Ideally we'd be representing more of the clocking via the clock
+framework but at present yes.
 
-> > > +   for (i =3D 0; i < iio_aux->num_chans; i++) {
-> > > +           iio_aux_chan =3D iio_aux->chans + i;
-> > > +
-> > > +           ret =3D of_property_read_string_index(np, "io-channel-nam=
-es", i,
-> > > +                                               &iio_aux_chan->name);
-> > > +           if (ret < 0) {
-> > > +                   dev_err(iio_aux->dev, "%pOF: failed to read io-ch=
-annel-names[%d]\n", np, i);
-> > > +                   return ret;
-> >
-> > Ditto.
-> Will be changed in next iteration.
-> >
-> > > +           }
-> >
-> > > +           tmp =3D 0;
-> > > +           of_property_read_u32_index(np, "snd-control-invert-range"=
-, i, &tmp);
-> >
-> > > +           iio_aux_chan->is_invert_range =3D tmp;
-> >
-> > You can use this variable directly.
->
-> Not sure, is_invert_range is a bool and tmp is a u32.
+> I don't think it's feasible to modify every component driver to explicitly
+> handle this and then ignore any CBP_CFP bits set in its call to set_fmt -=
+ this
+> is why I want help from the ASoC core.
 
-Ah, I see.
+Sure, but that's not going to impact the DT bindings.  All these things
+are driven from the machine driver.
 
-> In previous iteration, I wrote
->   iio_aux_chan->is_invert_range =3D !!tmp;
->
-> > > +   }
-> >
-> > Btw, can you avoid using OF APIs? It's better to have device property/f=
-wnode
-> > API to be used from day 1.
->
-> Hum, this comment was raised in the previous iteration
->   https://lore.kernel.org/linux-kernel/20230501162456.3448c494@jic23-huaw=
-ei/
->
-> I didn't find any equivalent to of_property_read_u32_index() in the
-> device_property_read_*() function family.
-> I mean I did find anything available to get a value from an array using a=
-n index.
+> > If simple-card can't be made to work that's fine, it's deprecated
+> > anyway.
 
-This is done by reading the entire array at once and then parsing as
-you wish in the code, device_property_read_u32_array() is for that.
+> Ah OK, I didn't know that. Right now I'm using graph-card2, that's not
+> deprecated, right?
 
-> In the previous iteration it was concluded that keeping OF APIs in this s=
-eries
-> seemed "reasonable".
+Yes, audio-graph-card replaces simple-card.
 
-Maybe, but consider the above.
+--GvMNWsvRI2cx5zFa
+Content-Type: application/pgp-signature; name="signature.asc"
 
---
-With Best Regards,
-Andy Shevchenko
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR/RT4ACgkQJNaLcl1U
+h9AOGAf9EegtL3c4zrX74J8pQRZd4hNb4Sdz7YOKInPb59JgB7ox9bswVlvLt+d4
+BrkL3O10PUppYenoCq91zVnJV7QCXrJNwmt2PxxoAEm2QODPTgDGYF7qqIYVFqqZ
+DFeRW8iIXBl5H5pzm3ubN1JnnUBTBoN1HklWggVlPm6QDVMJlPa5DtmGtgXfICin
+bF7AZl/jmdRkl419mnCVn8IqnbxtxBkMdOfll8Mhl5m37708v/GBSJuu9NuMucYT
+qqPl8DAzGmFux4oQWugYZJo8xsjaHNOLbb+i3Lv1tXeW24BrM/G/o2tzXNs5NGl5
+RecfVJxwWf7elqqloUovb6ii2Be/HA==
+=EUDa
+-----END PGP SIGNATURE-----
+
+--GvMNWsvRI2cx5zFa--

@@ -2,130 +2,324 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83087724592
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 16:18:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5987C724593
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 16:18:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 973DD86E;
-	Tue,  6 Jun 2023 16:17:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 973DD86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 977D7829;
+	Tue,  6 Jun 2023 16:17:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 977D7829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686061109;
-	bh=ny1HkKwrsjATE96eqd6pSygh4G1+wOcUhM9bNnQ+0f4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=aXzGewDWu2Amhd57iwJp/gyA/+OA9VMIjQqh5V0OePU94bT6xALb3VJt5R9TkmSsm
-	 vWYpOo4iC9Bg7rkIGbcILnsv3TdfYwJzALk8gmARgCujvX1lZ78KajyhpiGz5igcfx
-	 wHzKb+CEr3qY7+aRjsG1GiYwDUh5/ZH5J1/phpOg=
+	s=default; t=1686061112;
+	bh=+d2w4NiXYBH0QcGmRyoMEooA0WvYZIIUuLlPdhVfJak=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hrtZaMnTXpqtW0MvOUP6UflqAo61NAifiEW59RmfSIR0v88Me8zVfHRn1FqVQzew/
+	 6/EynyQQfIpZOJ+dji5Ez3enwGQFucmBKdtOjV5FyTxxDvQYcTwbHU83gBROCs5ROI
+	 V4Qm9X+OojO7NP+pHGbFIlz1yq990tovFHomX9og=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42E91F805E7; Tue,  6 Jun 2023 16:15:21 +0200 (CEST)
+	id 179FDF805E9; Tue,  6 Jun 2023 16:15:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87519F805E0;
-	Tue,  6 Jun 2023 16:15:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A2E7F805E9;
+	Tue,  6 Jun 2023 16:15:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4392EF80199; Tue,  6 Jun 2023 15:28:17 +0200 (CEST)
+	id 1F39AF80290; Tue,  6 Jun 2023 15:38:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by alsa1.perex.cz (Postfix) with ESMTP id E081EF800ED
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 15:28:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E081EF800ED
-Received: from loongson.cn (unknown [223.106.25.146])
-	by gateway (Coremail) with SMTP id _____8BxKupANH9kKTEAAA--.383S3;
-	Tue, 06 Jun 2023 21:27:28 +0800 (CST)
-Received: from localhost.localdomain (unknown [223.106.25.146])
-	by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxfcrVM39kyHICAA--.1597S6;
-	Tue, 06 Jun 2023 21:25:45 +0800 (CST)
-From: Yanteng Si <siyanteng@loongson.cn>
-To: tiwai@suse.com
-Cc: Yanteng Si <siyanteng@loongson.cn>,
-	perex@perex.cz,
-	chenhuacai@loongson.cn,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 46BD6F800ED
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 15:38:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46BD6F800ED
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=OlPD8dk9
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-94ea38c90ccso126680466b.1
+        for <alsa-devel@alsa-project.org>;
+ Tue, 06 Jun 2023 06:38:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1686058706; x=1688650706;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=xdfK41i9ogLoXuG8nVzwi1HHjDuvaM8RBF4uVZdQ5zA=;
+        b=OlPD8dk9OEttqxELJsG49IBnkoTCNh1dHC47S0ZDvxh9e4LslctJojKXJUo2f6gmfC
+         cnphpW6rIEEohgVN0mVADJRBCtGmTIRmRPJTI7+CT+Z/KGDnsB+SYz4NUJ4w78QdXNFk
+         tYE/q60GU2shTjlubbovKZy6l7yly8S6azBaaIN1IvPUsDzq50ZSS54hqvsgID9Dj2Al
+         KcXM3/JGEP3NkRWctQ/deI0ez6pRhByvGh5lHTFBFxh6JjnqcnwyGw5oyuaBJ+DlIely
+         nsBAJYi/9u5Pek5BWdciSipWARH8dEtHB1v/hPI77podyYKPYhTIziVgYFS5zE2lU+OU
+         KqBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686058706; x=1688650706;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xdfK41i9ogLoXuG8nVzwi1HHjDuvaM8RBF4uVZdQ5zA=;
+        b=HA4wwgDN8YGZeEFQjrCW4bBwmIZO20Ui+UYY4/z3NR3gTtjnQuErsLp6+HBVE8nrwn
+         Q4vn2fQmY2PwVbZBbVRf1A84chCD5QVHo198KxdW6GKVPTroomMJvp3ixYqgbRkM8P1u
+         AxTABIXMmxXDG8+4EcE2ySSCjNS44AkIoqvrmUQqPgMgKn+d5KAPsxM2mvDdRA6T0+oC
+         5YRrCgnF0+rdbsdXkq8RdOqW3VxaWWUr3wrlwxwKeOdcM3hK/xnN5loujUbpBEVqCUgh
+         dKKqrDkAOQiMHmvsAp5pV/AoXxRUf8LSy6/D17jcclj6Jm8f3nr5gg3NcY3dkFyIBdNf
+         syaw==
+X-Gm-Message-State: AC+VfDx/1G5Qj9u0XCRaje/CCkLjtJOfJAylWqRe3voAlNhrVSfVFDgt
+	x6UUPWBmy8vQLs6GQkAnMxw=
+X-Google-Smtp-Source: 
+ ACHHUZ41ZZ2VXhAaUdYwSB5wGyF7c81EUR7ZLJfUyTPiowT7O8K6TKnNodrKJG7p9iRsM6qwCSpRug==
+X-Received: by 2002:a17:906:748d:b0:977:c853:fba6 with SMTP id
+ e13-20020a170906748d00b00977c853fba6mr2109890ejl.2.1686058705522;
+        Tue, 06 Jun 2023 06:38:25 -0700 (PDT)
+Received: from ivan-HLYL-WXX9.. ([178.160.196.94])
+        by smtp.gmail.com with ESMTPSA id
+ m8-20020a1709066d0800b00977d7ccd9fdsm2837775ejr.95.2023.06.06.06.38.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Jun 2023 06:38:25 -0700 (PDT)
+From: Ivan Orlov <ivan.orlov0322@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	corbet@lwn.net,
+	broonie@kernel.org,
+	skhan@linuxfoundation.org
+Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
 	alsa-devel@alsa-project.org,
-	loongarch@lists.linux.dev,
-	loongson-kernel@lists.loongnix.cn,
-	Yingkun Meng <mengyingkun@loongson.cn>
-Subject: [PATCH v2 4/4] ALSA: hda/intel: Workaround for WALLCLK register for
- loongson controller
-Date: Tue,  6 Jun 2023 21:25:30 +0800
-Message-Id: 
- <0a45d46670e54dcf4d0a2a744d89e44554f8744b.1686057365.git.siyanteng@loongson.cn>
-X-Mailer: git-send-email 2.31.4
-In-Reply-To: <cover.1686057365.git.siyanteng@loongson.cn>
-References: <cover.1686057365.git.siyanteng@loongson.cn>
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	himadrispandya@gmail.com,
+	linux-kernel-mentees@lists.linuxfoundation.org
+Subject: [PATCH v3 1/3] docs: sound: add 'pcmtest' driver documentation
+Date: Tue,  6 Jun 2023 17:38:05 +0400
+Message-Id: <20230606133807.14089-1-ivan.orlov0322@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxfcrVM39kyHICAA--.1597S6
-X-CM-SenderInfo: pvl1t0pwhqwqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj9xXoWrZrW8ZF1fZw4rXrykAFW8uFX_yoWfAFgEgr
-	sFvr1kW3s8JrnxKr1F9FnrXF43ta4kAFy8WFn7tF47Jan5KFWFq34kArnxCFyxZw48XF1Y
-	kwnFqryF9r1rKosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
-	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
-	cSsGvfJTRUUUbx8YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
-	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Cr1j6rxdM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
-	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMI
-	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07UMGQDUUUUU
-	=
-X-MailFrom: siyanteng@loongson.cn
+X-MailFrom: ivan.orlov0322@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: X2CBGWAPUXFTLOURLKYD4F63YYHHP6HG
-X-Message-ID-Hash: X2CBGWAPUXFTLOURLKYD4F63YYHHP6HG
+Message-ID-Hash: DJA7XEHCXCNJ2JMIZA4LNYCALVQOZLH3
+X-Message-ID-Hash: DJA7XEHCXCNJ2JMIZA4LNYCALVQOZLH3
 X-Mailman-Approved-At: Tue, 06 Jun 2023 14:15:08 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X2CBGWAPUXFTLOURLKYD4F63YYHHP6HG/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DJA7XEHCXCNJ2JMIZA4LNYCALVQOZLH3/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On loongson controller, the value of WALLCLK register
-is always 0, which is meaningless, so we return directly.
+Add documentation for the new Virtual PCM Test Driver. It covers all
+possible usage cases: errors and delay injections, random and
+pattern-based data generation, playback and ioctl redefinition
+functionalities testing.
 
-Signed-off-by: Yanteng Si <siyanteng@loongson.cn>
-Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
+We have a lot of different virtual media drivers, which can be used for
+testing of the userspace applications and media subsystem middle layer.
+However, all of them are aimed at testing the video functionality and
+simulating the video devices. For audio devices we have only snd-dummy
+module, which is good in simulating the correct behavior of an ALSA device.
+I decided to write a tool, which would help to test the userspace ALSA
+programs (and the PCM middle layer as well) under unusual circumstances
+to figure out how they would behave. So I came up with this Virtual PCM
+Test Driver.
+
+This new Virtual PCM Test Driver has several features which can be useful
+during the userspace ALSA applications testing/fuzzing, or testing/fuzzing
+of the PCM middle layer. Not all of them can be implemented using the
+existing virtual drivers (like dummy or loopback). Here is what can this
+driver do:
+
+- Simulate both capture and playback processes
+- Check the playback stream for containing the looped pattern
+- Generate random or pattern-based capture data
+- Inject delays into the playback and capturing processes
+- Inject errors during the PCM callbacks
+
+Also, this driver can check the playback stream for containing the
+predefined pattern, which is used in the corresponding selftest to check
+the PCM middle layer data transferring functionality. Additionally, this
+driver redefines the default RESET ioctl, and the selftest covers this PCM
+API functionality as well.
+
+The driver supports both interleaved and non-interleaved access modes, and
+have separate pattern buffers for each channel. The driver supports up to
+4 channels and up to 8 substreams.
+
+Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
 ---
- sound/pci/hda/hda_intel.c | 3 +++
- 1 file changed, 3 insertions(+)
+V1 -> V2:
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 0222a1721b4d..56b42d786c8b 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -655,6 +655,9 @@ static int azx_position_ok(struct azx *chip, struct azx_dev *azx_dev)
- 	unsigned int pos;
- 	snd_pcm_uframes_t hwptr, target;
- 
-+	if (chip->driver_type == AZX_DRIVER_LOONGSON)
-+		return 1;
+- Rename the driver from from 'valsa' to 'pcmtest'.
+- Implement support for interleaved and non-interleaved access modes
+- Add support for 8 substreams and 4 channels
+- Extend supported formats
+- Extend and rewrite in C the selftest for the driver
+
+V2 -> V3:
+
+- Add separate pattern buffers for each channel
+- Speed up the capture data generation when using interleaved access mode
+- Extend the corresponding selftest to cover the multiple channels
+capturing and playback functionalities when using interleaved access mode.
+- Fix documentation issues
+
+ Documentation/sound/cards/index.rst   |   1 +
+ Documentation/sound/cards/pcmtest.rst | 120 ++++++++++++++++++++++++++
+ 2 files changed, 121 insertions(+)
+ create mode 100644 Documentation/sound/cards/pcmtest.rst
+
+diff --git a/Documentation/sound/cards/index.rst b/Documentation/sound/cards/index.rst
+index c016f8c3b88b..49c1f2f688f8 100644
+--- a/Documentation/sound/cards/index.rst
++++ b/Documentation/sound/cards/index.rst
+@@ -17,3 +17,4 @@ Card-Specific Information
+    hdspm
+    serial-u16550
+    img-spdif-in
++   pcmtest
+diff --git a/Documentation/sound/cards/pcmtest.rst b/Documentation/sound/cards/pcmtest.rst
+new file mode 100644
+index 000000000000..e163522f3205
+--- /dev/null
++++ b/Documentation/sound/cards/pcmtest.rst
+@@ -0,0 +1,120 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
- 	wallclk = azx_readl(chip, WALLCLK) - azx_dev->core.start_wallclk;
- 	if (wallclk < (azx_dev->core.period_wallclk * 2) / 3)
- 		return -1;	/* bogus (too early) interrupt */
++The Virtual PCM Test Driver
++===========================
++
++The Virtual PCM Test Driver emulates a generic PCM device, and can be used for
++testing/fuzzing of the userspace ALSA applications, as well as for testing/fuzzing of
++the PCM middle layer. Additionally, it can be used for simulating hard to reproduce
++problems with PCM devices.
++
++What can this driver do?
++~~~~~~~~~~~~~~~~~~~~~~~~
++
++At this moment the driver can do the following things:
++	* Simulate both capture and playback processes
++	* Generate random or pattern-based capturing data
++	* Inject delays into the playback and capturing processes
++	* Inject errors during the PCM callbacks
++
++It supports up to 8 substreams and 4 channels. Also it supports both interleaved and
++non-interleaved access modes.
++
++Also, this driver can check the playback stream for containing the predefined pattern,
++which is used in the corresponding selftest (alsa/pcmtest-test.sh) to check the PCM middle
++layer data transferring functionality. Additionally, this driver redefines the default
++RESET ioctl, and the selftest covers this PCM API functionality as well.
++
++Configuration
++-------------
++
++The driver has several parameters besides the common ALSA module parameters:
++
++	* fill_mode (bool) - Buffer fill mode (see below)
++	* inject_delay (int)
++	* inject_hwpars_err (bool)
++	* inject_prepare_err (bool)
++	* inject_trigger_err (bool)
++
++
++Capture Data Generation
++-----------------------
++
++The driver has two modes of data generation: the first (0 in the fill_mode parameter)
++means random data generation, the second (1 in the fill_mode) - pattern-based
++data generation. Let's look at the second mode.
++
++First of all, you may want to specify the pattern for data generation. You can do it
++by writing the pattern to the debugfs file. There are pattern buffer debugfs entries
++for each channel, as well as entries which contain the pattern buffer length.
++
++	* /sys/kernel/debug/pcmtest/fill_pattern[0-3]
++	* /sys/kernel/debug/pcmtest/fill_pattern[0-3]_len
++
++To set the pattern for the channel 0 you can execute the following command:
++
++.. code-block:: bash
++
++	echo -n mycoolpattern > /sys/kernel/debug/pcmtest/fill_pattern0
++
++Then, after every capture action performed on the 'pcmtest' device the buffer for the
++channel 0 will contain 'mycoolpatternmycoolpatternmycoolpatternmy...'.
++
++The pattern itself can be up to 4096 bytes long.
++
++Delay injection
++---------------
++
++The driver has 'inject_delay' parameter, which has very self-descriptive name and
++can be used for time delay/speedup simulations. The parameter has integer type, and
++it means the delay added between module's internal timer ticks.
++
++If the 'inject_delay' value is positive, the buffer will be filled slower, if it is
++negative - faster. You can try it yourself by starting a recording in any
++audiorecording application (like Audacity) and selecting the 'pcmtest' device as a
++source.
++
++This parameter can be also used for generating a huge amount of sound data in a very
++short period of time (with the negative 'inject_delay' value).
++
++Errors injection
++----------------
++
++This module can be used for injecting errors into the PCM communication process. This
++action can help you to figure out how the userspace ALSA program behaves under unusual
++circumstances.
++
++For example, you can make all 'hw_params' PCM callback calls return EBUSY error by
++writing '1' to the 'inject_hwpars_err' module parameter:
++
++.. code-block:: bash
++
++	echo 1 > /sys/module/snd_pcmtest/parameters/inject_hwpars_err
++
++Errors can be injected into the following PCM callbacks:
++
++	* hw_params (EBUSY)
++	* prepare (EINVAL)
++	* trigger (EINVAL)
++
++Playback test
++-------------
++
++This driver can be also used for the playback functionality testing - every time you
++write the playback data to the 'pcmtest' PCM device and close it, the driver checks the
++buffer for containing the looped pattern (which is specified in the fill_pattern
++debugfs file for each channel). If the playback buffer content represents the looped
++pattern, 'pc_test' debugfs entry is set into '1'. Otherwise, the driver sets it to '0'.
++
++ioctl redefinition test
++-----------------------
++
++The driver redefines the 'reset' ioctl, which is default for all PCM devices. To test
++this functionality, we can trigger the reset ioctl and check the 'ioctl_test' debugfs
++entry:
++
++.. code-block:: bash
++
++	cat /sys/kernel/debug/pcmtest/ioctl_test
++
++If the ioctl is triggered successfully, this file will contain '1', and '0' otherwise.
 -- 
-2.31.4
+2.34.1
 

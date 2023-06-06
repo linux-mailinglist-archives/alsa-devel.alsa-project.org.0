@@ -2,94 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E050B724683
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 16:41:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C20572480D
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 17:42:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04B946C1;
-	Tue,  6 Jun 2023 16:40:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04B946C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEFED836;
+	Tue,  6 Jun 2023 17:41:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEFED836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686062467;
-	bh=ghbtpfgzEXDZlStE43dHNyo9glR2yfvAKES2S5iqao0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686066144;
+	bh=GelMQS7A/Lfhb0VxgBucg1eyg9fuPuwktHizh8Kwk48=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=l5s1w6Gq5e3/Jx8SX5qsKSi1VqKC8lBDhQuh7amA6LyJNJ+KQZOtIS2hZzhVzGFhe
-	 LNHK4eXBRIFx23a3sYh8o5kBkX4fpPjwbyitHh5nlW7X29pWnEscMeQH6IJQtXIcbX
-	 NG+t+AUYRig1o5pUotkiz4Wv+rg3CqqL3fKSvDOs=
+	b=kPx66iePsl4pQeiueyFRlvlEl0/e24X9ATMkFsvhtKUfZAukG01kuvmxIOoO66SSE
+	 MFdS2gndbB0T6jMvMITbbCzVwKcxtU+JwpZ8TyaWVYbT1d7qsEnoNS8P2a1GPjxnY1
+	 uuyntVzbiPZvH6jDmACbyTcVhnV3T3avMT+53Bik=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42A86F80520; Tue,  6 Jun 2023 16:40:16 +0200 (CEST)
+	id 7428EF80564; Tue,  6 Jun 2023 17:40:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6C51F8016C;
-	Tue,  6 Jun 2023 16:40:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22DC7F80564;
+	Tue,  6 Jun 2023 17:40:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E530AF80199; Tue,  6 Jun 2023 16:40:12 +0200 (CEST)
+	id A3504F80544; Tue,  6 Jun 2023 17:40:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CB22CF800ED
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 16:40:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB22CF800ED
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=h9bki2II
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 940B162CAC;
-	Tue,  6 Jun 2023 14:40:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749F4C433D2;
-	Tue,  6 Jun 2023 14:40:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686062405;
-	bh=ghbtpfgzEXDZlStE43dHNyo9glR2yfvAKES2S5iqao0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=h9bki2IIyHiObYwlt0XmTTgUGm8+InDcRMFw+o9s5a89DTT5WIBZFbGXQBjF2yGjr
-	 dUfmvE1sb5uGpA9/T+SZji32Q9ia4LFIrIiX1iLyMdVMtLK3tOL/B3DqGzWKI8nEr4
-	 ABFEy56A3uRC3y9xb0KUyOBtuxFH+K0ZI+2JL4sptX/J8sqviCqB1xTeR0o/kgDord
-	 tA+jZBs1UZgpOjeTEwP44O+9CrEpxUSQ+nVE2bi5+oe9pifrnVJsEeSkAZ5Ef40GJU
-	 dB+JysfYjL/5rR+DIUyFi2USlyfiZrvu+i8Ypfk85+3d9EZEWenb2kNvViqPkV5QGB
-	 FGuJhiyyW69TQ==
-Date: Tue, 6 Jun 2023 15:39:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alvin =?utf-8?Q?=C5=A0ipraga?= <ALSI@bang-olufsen.dk>
-Cc: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin@pqrs.dk>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/4] ASoC: dt-bindings: document new symmetric-clock-role
- flag
-Message-ID: <9ea5a0be-606e-4c65-914f-c249d3f1b513@sirena.org.uk>
-References: <20230602090322.1876359-1-alvin@pqrs.dk>
- <20230602090322.1876359-2-alvin@pqrs.dk>
- <3fe93662-82b0-4834-b6c3-473669c66210@sirena.org.uk>
- <7csvw25vhyal2jsznb3jykuijxqpk7bzyguxvl7cyitosgga2w@pxmkce22cm3d>
- <91b6d02a-25d5-4835-942e-3f8072bd8897@sirena.org.uk>
- <aesymtpx5bkfkvlbt2d6o3gn4zjzsbyiwxiuqziohgovy7oaoo@kt2n6v7kmuw7>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0F30DF800C8
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 17:40:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F30DF800C8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=oI4GuyBg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1686066027; x=1717602027;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=GelMQS7A/Lfhb0VxgBucg1eyg9fuPuwktHizh8Kwk48=;
+  b=oI4GuyBgbHiFqDt+549dnUpSWG4ceIXPg6fyzbNCT76cmwDBBWZO0oEf
+   FGkMNvdGT+SAWQqHUt/dtIVpV3wGnu3CQzPnssR+uBVsgFiFN1Lmzp/k/
+   ykoUVTweE8JWnSVr4oJzkGb5C004S3P7KGj7LFKj5zb2Dq6b6mfbiwjJD
+   zXNFlcFZlWt8qJgNo2qiNqMaZnh/ofSIZhlIhv7XjbZ47g9lmDIBJw52W
+   vry+2+pHpLHm/yAGT/Qf6P36wvD8tVz4ED5VTe+qM+Kk965iID/hBCbsb
+   oKOQo+m3gFxuTb7bSeq6fNvy6yvCVR0uxK+/3v9B4vxGtppxAe7/JezZk
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="422550153"
+X-IronPort-AV: E=Sophos;i="6.00,221,1681196400";
+   d="scan'208";a="422550153"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2023 08:39:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="955816518"
+X-IronPort-AV: E=Sophos;i="6.00,221,1681196400";
+   d="scan'208";a="955816518"
+Received: from pdonvalk-mobl2.amr.corp.intel.com (HELO [10.255.231.168])
+ ([10.255.231.168])
+  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2023 08:39:09 -0700
+Message-ID: <652a07e4-49be-7715-cc77-b05f1727a496@linux.intel.com>
+Date: Tue, 6 Jun 2023 09:49:10 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GvMNWsvRI2cx5zFa"
-Content-Disposition: inline
-In-Reply-To: <aesymtpx5bkfkvlbt2d6o3gn4zjzsbyiwxiuqziohgovy7oaoo@kt2n6v7kmuw7>
-X-Cookie: Keep out of the sunlight.
-Message-ID-Hash: UQQZDUMY3FT4EA3S4TRC77BADQF3J2V2
-X-Message-ID-Hash: UQQZDUMY3FT4EA3S4TRC77BADQF3J2V2
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH V3 2/9] ASoC: amd: ps: handle SoundWire interrupts in acp
+ pci driver
+Content-Language: en-US
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20230606060724.2038680-1-Vijendar.Mukunda@amd.com>
+ <20230606060724.2038680-3-Vijendar.Mukunda@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230606060724.2038680-3-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: BNEUXHIIEZBFCO4UCBYTIPIZTWCI7YRQ
+X-Message-ID-Hash: BNEUXHIIEZBFCO4UCBYTIPIZTWCI7YRQ
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UQQZDUMY3FT4EA3S4TRC77BADQF3J2V2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BNEUXHIIEZBFCO4UCBYTIPIZTWCI7YRQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,69 +114,76 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---GvMNWsvRI2cx5zFa
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+>  static void acp63_disable_interrupts(void __iomem *acp_base)
+> @@ -102,23 +103,60 @@ static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
+>  {
+>  	struct acp63_dev_data *adata;
+>  	struct pdm_dev_data *ps_pdm_data;
+> -	u32 val;
+> +	struct amd_sdw_manager *amd_manager;
+> +	u32 ext_intr_stat, ext_intr_stat1;
+> +	u16 irq_flag = 0;
+>  	u16 pdev_index;
+>  
+>  	adata = dev_id;
+>  	if (!adata)
+>  		return IRQ_NONE;
+> +	/* ACP interrupts will be cleared by reading particular bit and writing
+> +	 * same value to the status register. writing zero's doesn't have any
+> +	 * effect.
+> +	 * Bit by bit checking of IRQ field is implemented.
+> +	 */
+> +	ext_intr_stat = readl(adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+> +	if (ext_intr_stat & ACP_SDW0_STAT) {
+> +		writel(ACP_SDW0_STAT, adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+> +		pdev_index = adata->sdw0_dev_index;
+> +		amd_manager = dev_get_drvdata(&adata->pdev[pdev_index]->dev);
+> +		if (amd_manager)
 
-On Fri, Jun 02, 2023 at 12:42:49PM +0000, Alvin =C5=A0ipraga wrote:
+can this test be false?
 
-> Yes I see what you mean. On my platform the clock source is actually desc=
-ribed
-> by the common clock framework, so I would want to use that. If it were a
-> component driver then it would most likely be a codec that is part of the
-> dai-link anyway. So what about having two struct clk pointers in struct
-> snd_soc_dai?
->=20
->     struct snd_soc_dai {
->         /* ... */
->         struct clk *bitclock_provider;
->         struct clk *frameclock_provider;
->         /* ... */
->     };
+> +			schedule_work(&amd_manager->amd_sdw_irq_thread);
+> +		irq_flag = 1;
+> +	}
+>  
+> -	val = readl(adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+> -	if (val & BIT(PDM_DMA_STAT)) {
+> +	ext_intr_stat1 = readl(adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
+> +	if (ext_intr_stat1 & ACP_SDW1_STAT) {
+> +		writel(ACP_SDW1_STAT, adata->acp63_base + ACP_EXTERNAL_INTR_STAT1);
+> +		pdev_index = adata->sdw1_dev_index;
+> +		amd_manager = dev_get_drvdata(&adata->pdev[pdev_index]->dev);
+> +		if (amd_manager)
 
-> If non-NULL I could then have the ASoC core enable/disable the clocks on =
-demand?
-> I would say in hw_params/hw_free, albeit that runs after set_fmt.
+can this be false?
 
-hw_params() can be called repeatedly so that's not a good fit but
-broadly yes.
-
-> Having said that, I see ASoC doesn't really use the CCF much... am I way =
-off?
-
-Ideally we'd be representing more of the clocking via the clock
-framework but at present yes.
-
-> I don't think it's feasible to modify every component driver to explicitly
-> handle this and then ignore any CBP_CFP bits set in its call to set_fmt -=
- this
-> is why I want help from the ASoC core.
-
-Sure, but that's not going to impact the DT bindings.  All these things
-are driven from the machine driver.
-
-> > If simple-card can't be made to work that's fine, it's deprecated
-> > anyway.
-
-> Ah OK, I didn't know that. Right now I'm using graph-card2, that's not
-> deprecated, right?
-
-Yes, audio-graph-card replaces simple-card.
-
---GvMNWsvRI2cx5zFa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmR/RT4ACgkQJNaLcl1U
-h9AOGAf9EegtL3c4zrX74J8pQRZd4hNb4Sdz7YOKInPb59JgB7ox9bswVlvLt+d4
-BrkL3O10PUppYenoCq91zVnJV7QCXrJNwmt2PxxoAEm2QODPTgDGYF7qqIYVFqqZ
-DFeRW8iIXBl5H5pzm3ubN1JnnUBTBoN1HklWggVlPm6QDVMJlPa5DtmGtgXfICin
-bF7AZl/jmdRkl419mnCVn8IqnbxtxBkMdOfll8Mhl5m37708v/GBSJuu9NuMucYT
-qqPl8DAzGmFux4oQWugYZJo8xsjaHNOLbb+i3Lv1tXeW24BrM/G/o2tzXNs5NGl5
-RecfVJxwWf7elqqloUovb6ii2Be/HA==
-=EUDa
------END PGP SIGNATURE-----
-
---GvMNWsvRI2cx5zFa--
+> +			schedule_work(&amd_manager->amd_sdw_irq_thread);
+> +		irq_flag = 1;
+> +	}
+> +
+> +	if (ext_intr_stat & ACP_ERROR_IRQ) {
+> +		writel(ACP_ERROR_IRQ, adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+> +		/* TODO: Report SoundWire Manager instance errors */
+> +		writel(0, adata->acp63_base + ACP_SW0_I2S_ERROR_REASON);
+> +		writel(0, adata->acp63_base + ACP_SW1_I2S_ERROR_REASON);
+> +		writel(0, adata->acp63_base + ACP_ERROR_STATUS);
+> +		irq_flag = 1;
+> +	}
+> +
+> +	if (ext_intr_stat & BIT(PDM_DMA_STAT)) {
+>  		pdev_index = adata->pdm_dev_index;
+>  		ps_pdm_data = dev_get_drvdata(&adata->pdev[pdev_index]->dev);
+>  		writel(BIT(PDM_DMA_STAT), adata->acp63_base + ACP_EXTERNAL_INTR_STAT);
+>  		if (ps_pdm_data->capture_stream)
+>  			snd_pcm_period_elapsed(ps_pdm_data->capture_stream);
+> -		return IRQ_HANDLED;
+> +		irq_flag = 1;
+>  	}
+> -	return IRQ_NONE;
+> +	if (irq_flag)
+> +		return IRQ_HANDLED;
+> +	else
+> +		return IRQ_NONE;
+>  }
+>  
+>  static int sdw_amd_scan_controller(struct device *dev)

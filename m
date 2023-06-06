@@ -2,128 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2155723730
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 08:08:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64878723732
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 08:08:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 380D7823;
+	by alsa0.perex.cz (Postfix) with ESMTPS id E02C883A;
 	Tue,  6 Jun 2023 08:07:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 380D7823
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E02C883A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686031682;
-	bh=NnkiC/4E8UNZ1wh3vyXGSH7R70NVkhMAZPq8QjWiIOw=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=WhSk7TrgGnMPoSEU86NMY6XvC9PyFKQmmow8d6B5fFSJTrSNRicicCkwCq/py3GWA
-	 v1seOXAGuzd616f/jZWxB+R3qfLSj14cPSBDqnspakAQA3eqJyctOpj7HdnLQ89gog
-	 I+OsTj9cgyfB/Su6gxn8Hbd9o7If9YeK3JuahKqc=
+	s=default; t=1686031683;
+	bh=lFDQTpObqaEYTe76V9nCFYeMWSnSzqI+5J+JUsGXiKA=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=qmdol+H1WC18/iyT7KDlSVdM8II6HPvBRgEuqvAzpAQR7PWeV0WZ27+0cg9LZLrg4
+	 DwRpHalqOvg5DlGSTjfYPBB8G6lPZfy/MqUipUsfds9D//ZHI5IV5kcR5SqfureGc6
+	 EszmyjB5eI0MLOx5Po97NI7NVfI5K/q1Q6kaawgs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10F33F80571; Tue,  6 Jun 2023 08:06:22 +0200 (CEST)
+	id 4729CF80548; Tue,  6 Jun 2023 08:06:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA116F8055C;
-	Tue,  6 Jun 2023 08:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B73C9F80290;
+	Tue,  6 Jun 2023 08:06:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 92003F80494; Tue,  6 Jun 2023 08:02:53 +0200 (CEST)
+	id 50F1FF80290; Tue,  6 Jun 2023 08:03:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20621.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::621])
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2062a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eb2::62a])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 633FAF80155
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 08:02:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 633FAF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23FAAF8016C
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 08:02:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23FAAF8016C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=QrHY6efc
+ header.s=selector1 header.b=wAkniom8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LElmFg04acsNZDbqRnBcgVGUsvRl7HksNuJUhuioUVLvjoA8/KPmiL/95PJL2onqjDx7GIRxsbvJUo1whL9Z3vhi2aif7vrCsb5zFVBMJcNwfYdIw7ch/reiKwgz1MSAMjwlk31keYWuiC2cGt+H1MxdgXRY/gsAXxkIatVQxcNV1mW9RnduOKtVqfPaxeaBr8TO//MFmyaxH0SCKom4u1ohHBAhwX6cKWg7/dXIYYhM9J0PeYAlSE0Q/UuBg59KQYNP8m1AnMYgKulAVpzpR9P1nSYPFltIrYalHopaZHbDNVd0lXr6ETgsaENBfOuLKa+42+OE3FHZNGdJkQiSTQ==
+ b=cIx/M7KtuuPAVDTYGQu7EefOr4v4UeOGMboQ8E8T3TF2aI2Fmt+P5AK8NmUyE0wOf+yZiXKVYhPQp1sDzCLRAgqAtjaN3hbG/SY9t8S1mcXUMdtOwkPZT0hJr+tSHrkFuDqIY/14AckdBq2rXQ0N1tpXE2siRKAotEWazuvhqcCAPiamZrprf/9lKmCJ9MvskGihJwXxfA2o0h2GXzdJSrecaWo8/1g9ELaRzICEdHIDW9KgFguoj3nTbDOSxkd+qbhiPoTaWAFSnfSf5kGXE13tx5LW/BeLDhrkpGvTxSWHe9rBpH5D3NPQ9f6g/LlU0e3ghKupaLmfa+WuElN9SA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EynJSgGPqLwaCpfQCpi26NCueBbHAh7beNg+WWXvT/k=;
- b=mvnvGV+TW4hp3U/CojeYTTA2e4Opb993zkSF/bFNUmsH5uPxlYdeKqYfjUPnQQx34WMscYz9DPn0m7oqMBh9E9pjhheP7i8ggil0EnmNtNJK02kVDl34fU5gMSJUg6udKiNBzeit4NNFk1NO2bDMTqOoq/NSSC0vwitXN81vF+LDmr8ZNvRUDWw2zdnHdTZ3ndBCBKGjZD+xYPvvmhe+VoOyUqBPeqpgg41lS4XKLGUsvlb33MNDS+7ZBS1Ccjx2tVgLxtPunqDJFYBR+LpDNEdsdDTMaUpQ/r1cdglAxWbDx7X4tMSUJrTK+sFn40dq3MGRRu41Z7GfDYuMkXZTzA==
+ bh=WgthKiXxAUgPxC14rwaLbmN/KrQAgJl9IsBC6DCTynM=;
+ b=G54EBkoZ0qm1xJcTIJ9i5Wb5G/k6RmvR3hoA2dHC6aVaph5jVtBjUQN0NifL8ZpKno2kAdYl/oeBraeGnrse4yka9VoWMszRfS/nI/3LSwD7NgjtWi4DBtfVTjLst6XsAdqiOnQn8HE49c5K4CNMCOftH+nAlCQzkHj6HY5noGrLDbcqVTIFuN28K1i4tu3SA995KSQ0xB5uD/C1NoNo4JPM6MlQSzUe76NAwlm4/VQrAKozJsqvP4K/2kkHx2tpyQDOqJVFUGkQv3DgM24d8JdQY/HtduYb0gdXxlhUi5cM4k/FovWnrHH5OVYDwdtXYIcceMSXGrnd4SqoMmoLrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EynJSgGPqLwaCpfQCpi26NCueBbHAh7beNg+WWXvT/k=;
- b=QrHY6efcxagJBai1f/zlap6ma/n11yW3VlTEanp1js9NJSL04mfuR04VJ5CFcN9VcdiAskPFud9qs31TcwzVzGdoOtK/2QnvdY3nKQLJCnsX0uKv2lTxvuA8NHogs6brTng/vugfwyg0j6mn+UlLeWzmzTq4RSRddlHKnk966m8=
-Received: from DM6PR04CA0022.namprd04.prod.outlook.com (2603:10b6:5:334::27)
- by SA0PR12MB4559.namprd12.prod.outlook.com (2603:10b6:806:9e::23) with
+ bh=WgthKiXxAUgPxC14rwaLbmN/KrQAgJl9IsBC6DCTynM=;
+ b=wAkniom8RUhfYBNE3x73bUYfol+YNo4rTCfFLmKRRJe/9AzAR9XNqFF+RFTI0joUKyDwePDn1blJzurwwhx+pY+aCSFNGcDpRU3kCXiziIR704pvK4V7CCJgQr4zdqrpkPDWsSIe+Cu1tnq5Zx94OA4TlcLvmlLhTpwyp1jcWIQ=
+Received: from MW4PR04CA0280.namprd04.prod.outlook.com (2603:10b6:303:89::15)
+ by PH7PR12MB7819.namprd12.prod.outlook.com (2603:10b6:510:27f::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.26; Tue, 6 Jun
- 2023 06:02:34 +0000
-Received: from CY4PEPF0000EDD4.namprd03.prod.outlook.com
- (2603:10b6:5:334:cafe::32) by DM6PR04CA0022.outlook.office365.com
- (2603:10b6:5:334::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.28; Tue, 6 Jun
+ 2023 06:02:43 +0000
+Received: from CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:89:cafe::80) by MW4PR04CA0280.outlook.office365.com
+ (2603:10b6:303:89::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33 via Frontend
- Transport; Tue, 6 Jun 2023 06:02:34 +0000
+ Transport; Tue, 6 Jun 2023 06:02:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD4.mail.protection.outlook.com (10.167.241.208) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6477.13 via Frontend Transport; Tue, 6 Jun 2023 06:02:34 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT034.mail.protection.outlook.com (10.13.174.248) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6455.33 via Frontend Transport; Tue, 6 Jun 2023 06:02:43 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 6 Jun
- 2023 01:02:32 -0500
+ 2023 01:02:42 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 5 Jun
+ 2023 23:02:42 -0700
 Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 6 Jun 2023 01:02:30 -0500
+ via Frontend Transport; Tue, 6 Jun 2023 01:02:38 -0500
 From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 To: <broonie@kernel.org>
 CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
 	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
 	<Mastan.Katragadda@amd.com>, <Arungopal.kondaveeti@amd.com>,
-	<mario.limonciello@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Subject: [PATCH V3 0/9] ASoC: amd: ps: add SoundWire support
-Date: Tue, 6 Jun 2023 11:37:15 +0530
-Message-ID: <20230606060724.2038680-1-Vijendar.Mukunda@amd.com>
+	<mario.limonciello@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: [PATCH V3 1/9] ASoC: amd: ps: create platform devices based on acp
+ config
+Date: Tue, 6 Jun 2023 11:37:16 +0530
+Message-ID: <20230606060724.2038680-2-Vijendar.Mukunda@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230606060724.2038680-1-Vijendar.Mukunda@amd.com>
+References: <20230606060724.2038680-1-Vijendar.Mukunda@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD4:EE_|SA0PR12MB4559:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12c8e84a-0411-4f3a-40aa-08db66539f46
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT034:EE_|PH7PR12MB7819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7db24de6-c5a8-47a3-1d85-08db6653a4ab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	JC4/UGvfT+ZyzUmWdt0DqLdBeJAdfbYx3dzl8Ev8dMJvWhUKzKsFnN5+da/D074kmzq8kC1S+l06ZSZ2hc9aTI3bt/UFz8jXWlWRqW91lq5HtYprWIKk7zYCn213ycVykpTdxe8beO9FE3aaJm9/5Ikl1cL6/zbXrtejHJajOlCR58CXKzY60HcOkPauFm3auXwhauQcmh6wR76ofhQ002cz9hzpWKR/wOTNmkpNndzgYVjHY4TdCSJQ624sjlqaF9fA5y/McxPyJJLTGldP83y7TAEeUVEWqdsy0Lui4ShT2UJ4+wxCIDxiWNQc0EoztQAJcaorE09i2Of7ZyWnZI+Y8H3XbfZjZJeR29gm7HUpOdneULBGz3mMtr1WCyHm/Vt5EMJYajKDQ7dW+4jFKVMH/PfTNYZtq8UtbBQMJPdZrRmEPhwy0pGEXVyBvzZTl5J0Zn44ySCyz0h0+F6lskWOiytu/krJJd6Jizs+XJiGnBMH26mB5ChLvwyktrUWxXSzlTRvR1hkBwAsfi1IK9znlRRDqpp6CXxMBc80Ughgr2mKTCWnil/9Fvjx+QtxXvI0s0ZY3VHNAaIG8BJYIKm7IKHjaz/yAqeys1u89g6zjg4mFJiv6SRf37TlejDIMIS6eX8fpN/YT45E9YtNIAH5rBRp+gL+mLiomKf1/4egwFGZx7WMRogmUgh+E9yFfY3AlEkxPI3niPPTHC2wzxsMQt9AiNssH0tG2u1LZa3mfrjvqv08f8suVgUr9bax1+N1EpkwIRW6GUR7gbUOqA==
+	ALjGTvY6QwI4n6rGm3J5Ny7XkM17pZBpMWufKtS9/EAaI9WyMmT+6+qh7a8T4+GEC9RjwM+o1pvVPhLF4QWCzXdKjKv/nkPdFGHx9WbqtH6Xm27MVeTDKJQip2kBAuskG/I5oJMGvUSFSL/FBngmNk5WcqUsUv9ejuYwlULyXhZUBcomMwbmwbSq8YVs8u6rHVS/tHMLSibBGInLPWzpWff0v5vZ+HxE5sOCvsYcs0XIVDaEzgRfy+3zEmgLY3+iyYzbVmLV1VEuyyAVCJs1JCP/EO+97kQgNLE69JOcgF5OUUOUEQX6twOSR0yI9kKgyDNmAQ8/Elq7sdMFuSgie7Gfpz5aakgIfnT3sdLTtw8QvqDPoBQ32mbstwJUKk2hgHs/dkvDSPbHzkC0nQOCxxwcLeeaUK1aG9iTVLi/quyj8wSHO+ERwd5JCHD/T++z5ge/VUGW6nCUmQg/m8/doagtRBk8etLl8QgcoiipKbUwkP3JjE9jVbRue1SFteOCi461Boaedh3aV01vQEnVmFTh4UFK+mBNViRak+qhZ7DV71BWQSLkW0ey+pIbfl7Z2oWkGOzbLVDvzPbCFI77hf+Ax3Xl+xspOexiOKt+oZlGe8pOhyFjvpmJJb8AViTcjtYZ5nzXvgVBnOnKtqMGdJMwpJqRjDmCAnR/VwcXNl7OZ2bYpqgP7g5/wMTR+3FdfXbP7sXyV/EU4Q0K2WGvN2sH9YZHe+5nUJ4+iTlrTM+LmN0ekpQzXTo6YGOXBQ7XfIweAJAx+jiERix0z49gzg==
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199021)(40470700004)(46966006)(36840700001)(83380400001)(1076003)(186003)(70586007)(70206006)(86362001)(4326008)(2616005)(5660300002)(6916009)(336012)(426003)(8936002)(47076005)(8676002)(478600001)(2906002)(82310400005)(7696005)(82740400003)(40460700003)(356005)(316002)(81166007)(54906003)(6666004)(26005)(41300700001)(40480700001)(36860700001)(36756003)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(396003)(136003)(376002)(451199021)(46966006)(40470700004)(36840700001)(47076005)(41300700001)(316002)(186003)(83380400001)(4326008)(30864003)(6916009)(426003)(336012)(2906002)(36860700001)(8936002)(5660300002)(8676002)(40460700003)(70206006)(70586007)(82740400003)(2616005)(356005)(81166007)(86362001)(1076003)(478600001)(36756003)(26005)(82310400005)(54906003)(40480700001)(7696005)(6666004)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 06:02:34.2619
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 06:02:43.2491
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 12c8e84a-0411-4f3a-40aa-08db66539f46
+ 7db24de6-c5a8-47a3-1d85-08db6653a4ab
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	CY4PEPF0000EDD4.namprd03.prod.outlook.com
+	CO1NAM11FT034.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4559
-Message-ID-Hash: WH2IS6R7XRSW7OCPHWXRMOWUVSXKA6QR
-X-Message-ID-Hash: WH2IS6R7XRSW7OCPHWXRMOWUVSXKA6QR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7819
+Message-ID-Hash: NIFGTKPD7ARCHMPO4V3WJCVODHP7ZYYB
+X-Message-ID-Hash: NIFGTKPD7ARCHMPO4V3WJCVODHP7ZYYB
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -136,7 +147,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WH2IS6R7XRSW7OCPHWXRMOWUVSXKA6QR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NIFGTKPD7ARCHMPO4V3WJCVODHP7ZYYB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -145,64 +156,468 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch series add support for
-	- Platform device creation for SoundWire Manager instances and
-	  PDM controller.
-	- SoundWire DMA driver.
-	- Interrupt handling for SoundWire manager related interrupts,
-	  SoundWire DMA interrupts and ACP error interrupts.
-	- ACP PCI driver PM ops modification with respect to SoundWire
-	  Power modes.
+Based on ACP pin configuration and scanning child devices
+under ACP pci device ACPI scope, platform device mask(pdev_mask)
+and platform device count(pdev_count) will be calculated.
 
-Changes since v1:
-	- update "soundwire" as "SoundWire" in code.
-	- add comments for platform device mask and platform device
-	  count
-	- remove unused variables in acp pci driver private data
-	  structure
-	- refactor dma enable register structures in SoundWire DMA driver
-	- add TODO comments in IRQ handler
-	- update IRQ mask values using bit macros
-	- Fix build error reported in Makefile
-	- rename "sdw_dma_stream_instance" structure name as "acp_sdw_dma_stream"
+Using pdev_mask and pdev_count values, ACP PCI driver will
+create platform devices for Pink Sardine platform.
 
-changes since v2:
-	- add comments in irq handler.
-	- remove workqueue for SoundWire DMA interrupts and use thread
-	  implementation for DMA interrupt handling.
-	- add error checks in sdw_amd_scan_controller()
-	- remove passing "acp_lock" as platform resource for SoundWire DMA driver
-	  and PDM driver.
-	- retrieve "acp_lock" reference from parent driver directly and
-	  use the reference in SoundWire DMA driver.
-	- add handling for acp pci driver probe even when no ACP PDM or
-	  SoundWire manager platform devices created.
-	- Fix indentation for acp_sdw_dma_count structure variables.
-	- Use macro instead of hard coded values for FIFO offset and PTE offset.
-	- Change pm_runtime enable sequence in SoundWire DMA driver
-	  probe function.
-	- Refactor system level resume callback in SoundWire DMA
-	  driver.
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/amd/ps/acp63.h  |  81 +++++++++++-
+ sound/soc/amd/ps/pci-ps.c | 252 ++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 318 insertions(+), 15 deletions(-)
+
+diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
+index 2f94448102d0..95bb1cef900a 100644
+--- a/sound/soc/amd/ps/acp63.h
++++ b/sound/soc/amd/ps/acp63.h
+@@ -10,7 +10,7 @@
+ #define ACP_DEVICE_ID 0x15E2
+ #define ACP63_REG_START		0x1240000
+ #define ACP63_REG_END		0x1250200
+-#define ACP63_DEVS		3
++#define ACP63_DEVS		5
  
-Vijendar Mukunda (9):
-  ASoC: amd: ps: create platform devices based on acp config
-  ASoC: amd: ps: handle SoundWire interrupts in acp pci driver
-  ASoC: amd: ps: add SoundWire dma driver
-  ASoC: amd: ps: add SoundWire dma driver dma ops
-  ASoC: amd: ps: add support for SoundWire DMA interrupts
-  ASoC: amd: ps: add pm ops support for SoundWire dma driver
-  ASoC: amd: ps: enable SoundWire dma driver build
-  ASoC: amd: update comments in Kconfig file
-  ASoC: amd: ps: Add SoundWire specific checks in pci driver in pm ops.
-
- sound/soc/amd/Kconfig         |   3 +-
- sound/soc/amd/ps/Makefile     |   2 +
- sound/soc/amd/ps/acp63.h      | 180 ++++++++++-
- sound/soc/amd/ps/pci-ps.c     | 400 +++++++++++++++++++++--
- sound/soc/amd/ps/ps-sdw-dma.c | 579 ++++++++++++++++++++++++++++++++++
- 5 files changed, 1138 insertions(+), 26 deletions(-)
- create mode 100644 sound/soc/amd/ps/ps-sdw-dma.c
-
+ #define ACP_SOFT_RESET_SOFTRESET_AUDDONE_MASK	0x00010001
+ #define ACP_PGFSM_CNTL_POWER_ON_MASK	1
+@@ -53,11 +53,38 @@
+ /* time in ms for runtime suspend delay */
+ #define ACP_SUSPEND_DELAY_MS	2000
+ 
+-#define ACP63_DMIC_ADDR		2
+-#define ACP63_PDM_MODE_DEVS		3
+-#define ACP63_PDM_DEV_MASK		1
+ #define ACP_DMIC_DEV	2
+ 
++/* ACP63_PDM_MODE_DEVS corresponds to platform devices count for ACP PDM configuration */
++#define ACP63_PDM_MODE_DEVS		3
++
++/*
++ * ACP63_SDW0_MODE_DEVS corresponds to platform devices count for
++ * SW0 SoundWire manager instance configuration
++ */
++#define ACP63_SDW0_MODE_DEVS		2
++
++/*
++ * ACP63_SDW0_SDW1_MODE_DEVS corresponds to platform devices count for SW0 + SW1 SoundWire manager
++ * instances configuration
++ */
++#define ACP63_SDW0_SDW1_MODE_DEVS	3
++
++/*
++ * ACP63_SDW0_PDM_MODE_DEVS corresponds to platform devices count for SW0 manager
++ * instance + ACP PDM controller configuration
++ */
++#define ACP63_SDW0_PDM_MODE_DEVS	4
++
++/*
++ * ACP63_SDW0_SDW1_PDM_MODE_DEVS corresponds to platform devices count for
++ * SW0 + SW1 SoundWire manager instances + ACP PDM controller configuration
++ */
++#define ACP63_SDW0_SDW1_PDM_MODE_DEVS   5
++#define ACP63_DMIC_ADDR			2
++#define ACP63_SDW_ADDR			5
++#define AMD_SDW_MAX_MANAGERS		2
++
+ /* time in ms for acp timeout */
+ #define ACP_TIMEOUT		500
+ 
+@@ -80,6 +107,28 @@ enum acp_config {
+ 	ACP_CONFIG_15,
+ };
+ 
++/**
++ * acp_pdev_mask corresponds to platform device mask based on audio endpoint combinations.
++ * acp_pdev_mask will be calculated based on ACPI Scan under ACP PCI device and
++ * ACP PIN Configuration.
++ * Based acp_pdev_mask, platform devices will be created.
++ * Below are possible platform device combinations.
++ * 1) ACP PDM Controller, dmic-codec, machine driver platform device node
++ * 2) ACP PDM Controller , dmic-codec, SW0 SoundWire manager instance, platform device for
++ *    SoundWire DMA driver
++ * 3) SW0, SW1 SoundWire manager instances, platform device for SoundWire DMA driver
++ * 4) ACP PDM Controller, dmic-codec, SDW0, SDW1 manager instances, platform device for
++ *    SoundWire DMA driver
++ * ACP63_PDM_DEV_MASK corresponds to platform device mask for ACP PDM controller.
++ * ACP63_SDW_DEV_MASK corresponds to platform device mask for SDW manager instances.
++ * ACP63_SDW_PDM_DEV_MASK corresponds to platform device mask for ACP PDM + SDW manager combination
++ */
++enum acp_pdev_mask {
++	ACP63_PDM_DEV_MASK = 1,
++	ACP63_SDW_DEV_MASK,
++	ACP63_SDW_PDM_DEV_MASK,
++};
++
+ struct pdm_stream_instance {
+ 	u16 num_pages;
+ 	u16 channels;
+@@ -95,14 +144,38 @@ struct pdm_dev_data {
+ 	struct snd_pcm_substream *capture_stream;
+ };
+ 
++/**
++ * struct acp63_dev_data - acp pci driver context
++ * @acp63_base: acp mmio base
++ * @res: resource
++ * @pdev: array of child platform device node structures
++ * @acp_lock: used to protect acp common registers
++ * @sdw_fw_node: SoundWire controller fw node handle
++ * @pdev_mask: platform device mask
++ * @pdev_count: platform devices count
++ * @pdm_dev_index: pdm platform device index
++ * @sdw_manager_count: SoundWire manager instance count
++ * @sdw0_dev_index: SoundWire Manager-0 platform device index
++ * @sdw1_dev_index: SoundWire Manager-1 platform device index
++ * @sdw_dma_dev_index: SoundWire DMA controller platform device index
++ * @acp_reset: flag set to true when bus reset is applied across all
++ * the active SoundWire manager instances
++ */
++
+ struct acp63_dev_data {
+ 	void __iomem *acp63_base;
+ 	struct resource *res;
+ 	struct platform_device *pdev[ACP63_DEVS];
+ 	struct mutex acp_lock; /* protect shared registers */
++	struct fwnode_handle *sdw_fw_node;
+ 	u16 pdev_mask;
+ 	u16 pdev_count;
+ 	u16 pdm_dev_index;
++	u8 sdw_manager_count;
++	u16 sdw0_dev_index;
++	u16 sdw1_dev_index;
++	u16 sdw_dma_dev_index;
++	bool acp_reset;
+ };
+ 
+ int snd_amd_acp_find_config(struct pci_dev *pci);
+diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+index 54752d6040d6..816c22e7f1ab 100644
+--- a/sound/soc/amd/ps/pci-ps.c
++++ b/sound/soc/amd/ps/pci-ps.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/pci.h>
++#include <linux/bitops.h>
+ #include <linux/module.h>
+ #include <linux/io.h>
+ #include <linux/delay.h>
+@@ -15,6 +16,7 @@
+ #include <sound/pcm_params.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/iopoll.h>
++#include <linux/soundwire/sdw_amd.h>
+ 
+ #include "acp63.h"
+ 
+@@ -119,37 +121,162 @@ static irqreturn_t acp63_irq_handler(int irq, void *dev_id)
+ 	return IRQ_NONE;
+ }
+ 
+-static void get_acp63_device_config(u32 config, struct pci_dev *pci,
+-				    struct acp63_dev_data *acp_data)
++static int sdw_amd_scan_controller(struct device *dev)
++{
++	struct acp63_dev_data *acp_data;
++	struct fwnode_handle *link;
++	char name[32];
++	u32 sdw_manager_bitmap;
++	u8 count = 0;
++	u32 acp_sdw_power_mode = 0;
++	int index;
++	int ret;
++
++	acp_data = dev_get_drvdata(dev);
++	acp_data->acp_reset = true;
++	/* Found controller, find links supported */
++	ret = fwnode_property_read_u32_array((acp_data->sdw_fw_node), "mipi-sdw-manager-list",
++					     &sdw_manager_bitmap, 1);
++
++	if (ret) {
++		dev_err(dev, "Failed to read mipi-sdw-manager-list: %d\n", ret);
++		return -EINVAL;
++	}
++	count = hweight32(sdw_manager_bitmap);
++	/* Check count is within bounds */
++	if (count > AMD_SDW_MAX_MANAGERS) {
++		dev_err(dev, "Manager count %d exceeds max %d\n", count, AMD_SDW_MAX_MANAGERS);
++		return -EINVAL;
++	}
++
++	if (!count) {
++		dev_dbg(dev, "No SoundWire Managers detected\n");
++		return -EINVAL;
++	}
++	dev_dbg(dev, "ACPI reports %d SoundWire Manager devices\n", count);
++	acp_data->sdw_manager_count = count;
++	for (index = 0; index < count; index++) {
++		snprintf(name, sizeof(name), "mipi-sdw-link-%d-subproperties", index);
++		link = fwnode_get_named_child_node(acp_data->sdw_fw_node, name);
++		if (!link) {
++			dev_err(dev, "Manager node %s not found\n", name);
++			return -EIO;
++		}
++
++		ret = fwnode_property_read_u32(link, "amd-sdw-power-mode", &acp_sdw_power_mode);
++		if (ret)
++			return ret;
++		/*
++		 * when SoundWire configuration is selected from acp pin config,
++		 * based on manager instances count, acp init/de-init sequence should be
++		 * executed as part of PM ops only when Bus reset is applied for the active
++		 * SoundWire manager instances.
++		 */
++		if (acp_sdw_power_mode != AMD_SDW_POWER_OFF_MODE) {
++			acp_data->acp_reset = false;
++			return 0;
++		}
++	}
++	return 0;
++}
++
++static int get_acp63_device_config(u32 config, struct pci_dev *pci, struct acp63_dev_data *acp_data)
+ {
+ 	struct acpi_device *dmic_dev;
++	struct acpi_device *sdw_dev;
+ 	const union acpi_object *obj;
+ 	bool is_dmic_dev = false;
++	bool is_sdw_dev = false;
++	int ret;
+ 
+ 	dmic_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), ACP63_DMIC_ADDR, 0);
+ 	if (dmic_dev) {
++		/* is_dmic_dev flag will be set when ACP PDM controller device exists */
+ 		if (!acpi_dev_get_property(dmic_dev, "acp-audio-device-type",
+ 					   ACPI_TYPE_INTEGER, &obj) &&
+ 					   obj->integer.value == ACP_DMIC_DEV)
+ 			is_dmic_dev = true;
+ 	}
+ 
++	sdw_dev = acpi_find_child_device(ACPI_COMPANION(&pci->dev), ACP63_SDW_ADDR, 0);
++	if (sdw_dev) {
++		acp_data->sdw_fw_node = acpi_fwnode_handle(sdw_dev);
++		ret = sdw_amd_scan_controller(&pci->dev);
++		/* is_sdw_dev flag will be set when SoundWire Manager device exists */
++		if (!ret)
++			is_sdw_dev = true;
++	}
++	if (!is_dmic_dev && !is_sdw_dev)
++		return -ENODEV;
++	dev_dbg(&pci->dev, "Audio Mode %d\n", config);
+ 	switch (config) {
+-	case ACP_CONFIG_0:
+-	case ACP_CONFIG_1:
++	case ACP_CONFIG_4:
++	case ACP_CONFIG_5:
++	case ACP_CONFIG_10:
++	case ACP_CONFIG_11:
++		if (is_dmic_dev) {
++			acp_data->pdev_mask = ACP63_PDM_DEV_MASK;
++			acp_data->pdev_count = ACP63_PDM_MODE_DEVS;
++		}
++		break;
+ 	case ACP_CONFIG_2:
+ 	case ACP_CONFIG_3:
+-	case ACP_CONFIG_9:
+-	case ACP_CONFIG_15:
+-		dev_dbg(&pci->dev, "Audio Mode %d\n", config);
++		if (is_sdw_dev) {
++			switch (acp_data->sdw_manager_count) {
++			case 1:
++				acp_data->pdev_mask = ACP63_SDW_DEV_MASK;
++				acp_data->pdev_count = ACP63_SDW0_MODE_DEVS;
++				break;
++			case 2:
++				acp_data->pdev_mask = ACP63_SDW_DEV_MASK;
++				acp_data->pdev_count = ACP63_SDW0_SDW1_MODE_DEVS;
++				break;
++			default:
++				return -EINVAL;
++			}
++		}
+ 		break;
+-	default:
+-		if (is_dmic_dev) {
++	case ACP_CONFIG_6:
++	case ACP_CONFIG_7:
++	case ACP_CONFIG_12:
++	case ACP_CONFIG_8:
++	case ACP_CONFIG_13:
++	case ACP_CONFIG_14:
++		if (is_dmic_dev && is_sdw_dev) {
++			switch (acp_data->sdw_manager_count) {
++			case 1:
++				acp_data->pdev_mask = ACP63_SDW_PDM_DEV_MASK;
++				acp_data->pdev_count = ACP63_SDW0_PDM_MODE_DEVS;
++				break;
++			case 2:
++				acp_data->pdev_mask = ACP63_SDW_PDM_DEV_MASK;
++				acp_data->pdev_count = ACP63_SDW0_SDW1_PDM_MODE_DEVS;
++				break;
++			default:
++				return -EINVAL;
++			}
++		} else if (is_dmic_dev) {
+ 			acp_data->pdev_mask = ACP63_PDM_DEV_MASK;
+ 			acp_data->pdev_count = ACP63_PDM_MODE_DEVS;
++		} else if (is_sdw_dev) {
++			switch (acp_data->sdw_manager_count) {
++			case 1:
++				acp_data->pdev_mask = ACP63_SDW_DEV_MASK;
++				acp_data->pdev_count = ACP63_SDW0_MODE_DEVS;
++				break;
++			case 2:
++				acp_data->pdev_mask = ACP63_SDW_DEV_MASK;
++				acp_data->pdev_count = ACP63_SDW0_SDW1_MODE_DEVS;
++				break;
++			default:
++				return -EINVAL;
++			}
+ 		}
+ 		break;
++	default:
++		break;
+ 	}
++	return 0;
+ }
+ 
+ static void acp63_fill_platform_dev_info(struct platform_device_info *pdevinfo,
+@@ -173,6 +300,7 @@ static void acp63_fill_platform_dev_info(struct platform_device_info *pdevinfo,
+ 
+ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data *adata, u32 addr)
+ {
++	struct acp_sdw_pdata *sdw_pdata;
+ 	struct platform_device_info pdevinfo[ACP63_DEVS];
+ 	struct device *parent;
+ 	int index;
+@@ -204,8 +332,104 @@ static int create_acp63_platform_devs(struct pci_dev *pci, struct acp63_dev_data
+ 		acp63_fill_platform_dev_info(&pdevinfo[2], parent, NULL, "acp_ps_mach",
+ 					     0, NULL, 0, NULL, 0);
+ 		break;
++	case ACP63_SDW_DEV_MASK:
++		if (adata->pdev_count == ACP63_SDW0_MODE_DEVS) {
++			sdw_pdata = devm_kzalloc(&pci->dev, sizeof(struct acp_sdw_pdata),
++						 GFP_KERNEL);
++			if (!sdw_pdata) {
++				ret = -ENOMEM;
++				goto de_init;
++			}
++
++			sdw_pdata->instance = 0;
++			sdw_pdata->acp_sdw_lock = &adata->acp_lock;
++			adata->sdw0_dev_index = 0;
++			adata->sdw_dma_dev_index = 1;
++			acp63_fill_platform_dev_info(&pdevinfo[0], parent, adata->sdw_fw_node,
++						     "amd_sdw_manager", 0, adata->res, 1,
++						     sdw_pdata, sizeof(struct acp_sdw_pdata));
++			acp63_fill_platform_dev_info(&pdevinfo[1], parent, NULL, "amd_ps_sdw_dma",
++						     0, adata->res, 1, NULL, 0);
++		} else if (adata->pdev_count == ACP63_SDW0_SDW1_MODE_DEVS) {
++			sdw_pdata = devm_kzalloc(&pci->dev, sizeof(struct acp_sdw_pdata) * 2,
++						 GFP_KERNEL);
++			if (!sdw_pdata) {
++				ret = -ENOMEM;
++				goto de_init;
++			}
++
++			sdw_pdata[0].instance = 0;
++			sdw_pdata[1].instance = 1;
++			sdw_pdata[0].acp_sdw_lock = &adata->acp_lock;
++			sdw_pdata[1].acp_sdw_lock = &adata->acp_lock;
++			sdw_pdata->acp_sdw_lock = &adata->acp_lock;
++			adata->sdw0_dev_index = 0;
++			adata->sdw1_dev_index = 1;
++			adata->sdw_dma_dev_index = 2;
++			acp63_fill_platform_dev_info(&pdevinfo[0], parent, adata->sdw_fw_node,
++						     "amd_sdw_manager", 0, adata->res, 1,
++						     &sdw_pdata[0], sizeof(struct acp_sdw_pdata));
++			acp63_fill_platform_dev_info(&pdevinfo[1], parent, adata->sdw_fw_node,
++						     "amd_sdw_manager", 1, adata->res, 1,
++						     &sdw_pdata[1], sizeof(struct acp_sdw_pdata));
++			acp63_fill_platform_dev_info(&pdevinfo[2], parent, NULL, "amd_ps_sdw_dma",
++						     0, adata->res, 1, NULL, 0);
++		}
++		break;
++	case ACP63_SDW_PDM_DEV_MASK:
++		if (adata->pdev_count == ACP63_SDW0_PDM_MODE_DEVS) {
++			sdw_pdata = devm_kzalloc(&pci->dev, sizeof(struct acp_sdw_pdata),
++						 GFP_KERNEL);
++			if (!sdw_pdata) {
++				ret = -ENOMEM;
++				goto de_init;
++			}
++
++			sdw_pdata->instance = 0;
++			sdw_pdata->acp_sdw_lock = &adata->acp_lock;
++			adata->pdm_dev_index = 0;
++			adata->sdw0_dev_index = 1;
++			adata->sdw_dma_dev_index = 2;
++			acp63_fill_platform_dev_info(&pdevinfo[0], parent, NULL, "acp_ps_pdm_dma",
++						     0, adata->res, 1, NULL, 0);
++			acp63_fill_platform_dev_info(&pdevinfo[1], parent, adata->sdw_fw_node,
++						     "amd_sdw_manager", 0, adata->res, 1,
++						     sdw_pdata, sizeof(struct acp_sdw_pdata));
++			acp63_fill_platform_dev_info(&pdevinfo[2], parent, NULL, "amd_ps_sdw_dma",
++						     0, adata->res, 1, NULL, 0);
++			acp63_fill_platform_dev_info(&pdevinfo[3], parent, NULL, "dmic-codec",
++						     0, NULL, 0, NULL, 0);
++		} else if (adata->pdev_count == ACP63_SDW0_SDW1_PDM_MODE_DEVS) {
++			sdw_pdata = devm_kzalloc(&pci->dev, sizeof(struct acp_sdw_pdata) * 2,
++						 GFP_KERNEL);
++			if (!sdw_pdata) {
++				ret = -ENOMEM;
++				goto de_init;
++			}
++			sdw_pdata[0].instance = 0;
++			sdw_pdata[1].instance = 1;
++			sdw_pdata[0].acp_sdw_lock = &adata->acp_lock;
++			sdw_pdata[1].acp_sdw_lock = &adata->acp_lock;
++			adata->pdm_dev_index = 0;
++			adata->sdw0_dev_index = 1;
++			adata->sdw1_dev_index = 2;
++			adata->sdw_dma_dev_index = 3;
++			acp63_fill_platform_dev_info(&pdevinfo[0], parent, NULL, "acp_ps_pdm_dma",
++						     0, adata->res, 1, NULL, 0);
++			acp63_fill_platform_dev_info(&pdevinfo[1], parent, adata->sdw_fw_node,
++						     "amd_sdw_manager", 0, adata->res, 1,
++						     &sdw_pdata[0], sizeof(struct acp_sdw_pdata));
++			acp63_fill_platform_dev_info(&pdevinfo[2], parent, adata->sdw_fw_node,
++						     "amd_sdw_manager", 1, adata->res, 1,
++						     &sdw_pdata[1], sizeof(struct acp_sdw_pdata));
++			acp63_fill_platform_dev_info(&pdevinfo[3], parent, NULL, "amd_ps_sdw_dma",
++						     0, adata->res, 1, NULL, 0);
++			acp63_fill_platform_dev_info(&pdevinfo[4], parent, NULL, "dmic-codec",
++						     0, NULL, 0, NULL, 0);
++		}
++		break;
+ 	default:
+-		dev_dbg(&pci->dev, "No PDM devices found\n");
++		dev_dbg(&pci->dev, "No PDM or SoundWire manager devices found\n");
+ 		return 0;
+ 	}
+ 
+@@ -289,12 +513,18 @@ static int snd_acp63_probe(struct pci_dev *pci,
+ 		goto de_init;
+ 	}
+ 	val = readl(adata->acp63_base + ACP_PIN_CONFIG);
+-	get_acp63_device_config(val, pci, adata);
++	ret = get_acp63_device_config(val, pci, adata);
++	/* ACP PCI driver probe should be continued even PDM or SoundWire Devices are not found */
++	if (ret) {
++		dev_err(&pci->dev, "get acp device config failed:%d\n", ret);
++		goto skip_pdev_creation;
++	}
+ 	ret = create_acp63_platform_devs(pci, adata, addr);
+ 	if (ret < 0) {
+ 		dev_err(&pci->dev, "ACP platform devices creation failed\n");
+ 		goto de_init;
+ 	}
++skip_pdev_creation:
+ 	pm_runtime_set_autosuspend_delay(&pci->dev, ACP_SUSPEND_DELAY_MS);
+ 	pm_runtime_use_autosuspend(&pci->dev);
+ 	pm_runtime_put_noidle(&pci->dev);
 -- 
 2.34.1
 

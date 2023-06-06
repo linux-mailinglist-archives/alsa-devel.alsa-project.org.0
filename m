@@ -2,87 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D94FA7259F4
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 11:19:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F15D67259FD
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 11:20:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 094DE820;
-	Wed,  7 Jun 2023 11:18:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 094DE820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A55583E;
+	Wed,  7 Jun 2023 11:19:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A55583E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686129569;
-	bh=bGeds45bFwJ0F+y2m+U0QeFDun8UxZvM9W/iIjCHF/s=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Oar3M1XLoAysN0bLfbQGDhJQXtYhVCUb9CpCbxHCR4Ci+VThnWWp999Q3B6u4Ba+Z
-	 gUURbXUOgyJXD5t75JTnPx+uLLXxwfJnysiDUPXMfffTpy0hzpXFVaItSaPZIAsr57
-	 uQ4Pzm2w25iGrTCebBQM4ANiOtK2v0QEnewH5VKw=
+	s=default; t=1686129627;
+	bh=FFjgi79uI3l8AWS0t8w4W8wnoptzDyJKmiyxi6Zr4KI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=uUP07pnHSjsQei/GeLbM350quLEyqauq1M2lQEcGjDBs3Dz0F7cfBmdj2hy0ksjMO
+	 rSybRTauUAufb4C0rWctpxvSWTUFhxNsPOeOg2SV7KNq4OSb70sdHRLANrzBcAxmxV
+	 5u5z5AbfgRfe/VjplC42nu3gf4bQifBZCuxgVPn4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78790F80544; Wed,  7 Jun 2023 11:18:38 +0200 (CEST)
+	id 19AD3F80568; Wed,  7 Jun 2023 11:18:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E34D9F800C8;
-	Wed,  7 Jun 2023 11:18:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B8A0F8055C;
+	Wed,  7 Jun 2023 11:18:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 00305F80290; Tue,  6 Jun 2023 21:33:12 +0200 (CEST)
+	id 8C45AF80254; Tue,  6 Jun 2023 21:33:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [IPv6:2a00:1450:4864:20::629])
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4DF9FF800C8
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 21:32:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DF9FF800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id BB863F80199
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 21:33:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB863F80199
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=pAQMVEAO
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-977fae250easo47344866b.1
+ header.s=20221208 header.b=BmF4GM4d
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-977fae250easo47345966b.1
         for <alsa-devel@alsa-project.org>;
- Tue, 06 Jun 2023 12:32:59 -0700 (PDT)
+ Tue, 06 Jun 2023 12:33:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686079978; x=1688671978;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9Llw+p2vlgg/1Qp0Ib93C9pJ3yXrnXuMUpa4JHx8IQg=;
-        b=pAQMVEAOsjJvF1UrbMN7QGjH5oJEX2lJg0qTdAhENKryd5cWAfcIaEAUXFbmtkCAMg
-         ZncrXjPN8rVAhk6Goc+jImvQxrPVFsFP71Qer3iWGcBUKCGRT3MscXAM2lTMJbJPqAql
-         IWYi30n3wcIUY7iPHFYSpLvys2yPSKvofvCgOZe3tjFdCWavUfxkgaMHZd9d6n38MwwV
-         JHa61tXJw6nOHcxwq2/1tq4Ny3GUO6QGMAq5bjn0UitXIdqFBSVoH2Nc72y3DINps30H
-         h6oXxgaekyUlIMp4Qg7sM683BAe/UEFvTy8zfPprbwVzxmLzJ3Coik00mJdP0U4awLMb
-         z/7Q==
+        d=gmail.com; s=20221208; t=1686079984; x=1688671984;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DIbuhKmUTIZoKWeijqhhTH3Pgju8jGCnZvHFwRR1EN8=;
+        b=BmF4GM4dScSVF+T0e7Ve9jwk+yaP5wCKG6TST6PTNs4vmycWUgPSlMucn8PPDwOHJK
+         PnSetu6PWvzVMTsf2J1gBcOR3/O1eBoWNS1hAaN+ADG/7kSRWQYwyd0kGdf6CqaTAXv5
+         PjcgP6yCfU0pNMpMYJ/9yhTXhHedH9LdM10dvWXw7zS/LZXXya1mL0Fmxx8+uLyYg+XT
+         uE2gbs9hD7roC9F/zaoYdG/j3CW4sYaVNN/YaN7wmau2NtMt9etdqvTQT/0YDqiJKgU2
+         //kuQIg0ixU13X4nvSp4GbwYJBmkd0Fb+ruu1LZ3L1xsHa/rs/EFHNo7Awf4OZNWVRSd
+         tStw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686079978; x=1688671978;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9Llw+p2vlgg/1Qp0Ib93C9pJ3yXrnXuMUpa4JHx8IQg=;
-        b=DVUpNpVJlYogp9dtH/neTes9iOBRaROeBa8VA9D2VSpUAYwuNhDt+pnwusULyCeWCt
-         i98tA6M/COLjk9r7rQrw0q7KRIIa5MriUfFaN+HL7nzAWBQHVRE+SOrr+kNrmrNFFVyM
-         tt6NILCL2WE7kuf6SRKTxbRnfX0ecJHWigpbXGemc0ZrP96MwkGDCq++rq/mAp2pG+v9
-         kWOg7vbMu1San4z1WaJrsFXvtDx1NzCQ+VLiCfT5HHEGWZFCpnAhg4s3Q3y3UYKsWiEw
-         tUYr55baCKUsCWpSVROyNkwR6ZHg8yH5ouylLniTFD/12pwUDjb7a9Uo6EcbjSB8oJPE
-         AgrA==
-X-Gm-Message-State: AC+VfDwjIanHge6Qnyr48C/6trXbl5kiKGnGhKS7/ZGQFjFssvauMv6G
-	n2edO3bFP6Zng+9HKNBIHSc=
+        d=1e100.net; s=20221208; t=1686079984; x=1688671984;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=DIbuhKmUTIZoKWeijqhhTH3Pgju8jGCnZvHFwRR1EN8=;
+        b=RT4RvGRcmDC3VacKIu3y9Fxwm+6Sm5PoW+KfkZXP1u2sa5WsBWF2NlPoonBezqUlM1
+         nK9nQJX1dlNO+7d84Fs/ZaiwIf5CyvW19FRvH1fLt/P9KsL71xfN3FurIoeHn32fM/NN
+         p90bGHrRC11g0RpaH9vYZ0OuqWVPsW76YESzKEugfj1iBYIpWCE8PoIKT9Pz8jQ8vpCx
+         3XuXqfJP17iU7OPs0cfW3YlcFzAyKOmzq+6AHGAw9vMifYw3CSOnTIp7rxvxVNvbiiH8
+         uUL6xwPcUKLpp3UQps6YbKNPcD/jlLp3phQg7JkJ1+vJ2haW7yt3RotRyfkrJFtrGZEi
+         cXxw==
+X-Gm-Message-State: AC+VfDw9D6wh4NFIobftBR5NdFmvdWztGcHsDNKqGuQNPgDJlPOqq47j
+	Wn9zSnmyi/zLyxPK9MaASn4=
 X-Google-Smtp-Source: 
- ACHHUZ5jFCfr/1Qc1DnxmK7q8vJcve4bklFBOmr5gPeVPwgeqKKtld3+i0oDgTfF/JpXiwyINc/yQA==
+ ACHHUZ4gkFKwR0w5flk7iskbAKUND30vrQMjPDVm0gSGhCD0LFp2HWUndR2V1MOrIOEefCwy55zSkg==
 X-Received: by 2002:a17:906:7288:b0:974:5ec0:5246 with SMTP id
- b8-20020a170906728800b009745ec05246mr3147086ejl.7.1686079977850;
-        Tue, 06 Jun 2023 12:32:57 -0700 (PDT)
+ b8-20020a170906728800b009745ec05246mr3147311ejl.7.1686079983368;
+        Tue, 06 Jun 2023 12:33:03 -0700 (PDT)
 Received: from ivan-HLYL-WXX9.. ([141.136.85.182])
         by smtp.gmail.com with ESMTPSA id
- lu5-20020a170906fac500b0096f89fd4bf8sm5904401ejb.122.2023.06.06.12.32.56
+ lu5-20020a170906fac500b0096f89fd4bf8sm5904401ejb.122.2023.06.06.12.33.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Jun 2023 12:32:57 -0700 (PDT)
+        Tue, 06 Jun 2023 12:33:03 -0700 (PDT)
 From: Ivan Orlov <ivan.orlov0322@gmail.com>
 To: perex@perex.cz,
 	tiwai@suse.com,
@@ -97,10 +100,12 @@ Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
 	gregkh@linuxfoundation.org,
 	himadrispandya@gmail.com,
 	linux-kernel-mentees@lists.linuxfoundation.org
-Subject: [PATCH v4 1/3] docs: sound: add 'pcmtest' driver documentation
-Date: Tue,  6 Jun 2023 23:32:52 +0400
-Message-Id: <20230606193254.20791-1-ivan.orlov0322@gmail.com>
+Subject: [PATCH v4 3/3] selftests: ALSA: Add test for the 'pcmtest' driver
+Date: Tue,  6 Jun 2023 23:32:54 +0400
+Message-Id: <20230606193254.20791-3-ivan.orlov0322@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230606193254.20791-1-ivan.orlov0322@gmail.com>
+References: <20230606193254.20791-1-ivan.orlov0322@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-MailFrom: ivan.orlov0322@gmail.com
@@ -109,15 +114,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: E4KKU35S6KFJBKWD46GQRLUIYYKKCY4D
-X-Message-ID-Hash: E4KKU35S6KFJBKWD46GQRLUIYYKKCY4D
-X-Mailman-Approved-At: Wed, 07 Jun 2023 09:18:34 +0000
+Message-ID-Hash: KFPJU7VTPFZV65IT76SVNCDQ4Z2G2FMJ
+X-Message-ID-Hash: KFPJU7VTPFZV65IT76SVNCDQ4Z2G2FMJ
+X-Mailman-Approved-At: Wed, 07 Jun 2023 09:18:36 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E4KKU35S6KFJBKWD46GQRLUIYYKKCY4D/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KFPJU7VTPFZV65IT76SVNCDQ4Z2G2FMJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,10 +131,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add documentation for the new Virtual PCM Test Driver. It covers all
-possible usage cases: errors and delay injections, random and
-pattern-based data generation, playback and ioctl redefinition
-functionalities testing.
+This test covers the new Virtual PCM Test Driver, including the capturing,
+playback and ioctl redefinition functionalities for both interleaved and
+non-interleaved access modes. This test is also helpful as an usage example
+of the 'pcmtest' driver.
 
 We have a lot of different virtual media drivers, which can be used for
 testing of the userspace applications and media subsystem middle layer.
@@ -148,8 +153,8 @@ existing virtual drivers (like dummy or loopback). Here is what can this
 driver do:
 
 - Simulate both capture and playback processes
-- Check the playback stream for containing the looped pattern
 - Generate random or pattern-based capture data
+- Check the playback stream for containing the looped pattern
 - Inject delays into the playback and capturing processes
 - Inject errors during the PCM callbacks
 
@@ -185,146 +190,363 @@ V3 -> V4:
 
 - Fix issue in the selftest: there was a typo in the fscanf argument.
 
- Documentation/sound/cards/index.rst   |   1 +
- Documentation/sound/cards/pcmtest.rst | 120 ++++++++++++++++++++++++++
- 2 files changed, 121 insertions(+)
- create mode 100644 Documentation/sound/cards/pcmtest.rst
+ tools/testing/selftests/alsa/Makefile         |   2 +-
+ .../selftests/alsa/test-pcmtest-driver.c      | 333 ++++++++++++++++++
+ 2 files changed, 334 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/alsa/test-pcmtest-driver.c
 
-diff --git a/Documentation/sound/cards/index.rst b/Documentation/sound/cards/index.rst
-index c016f8c3b88b..49c1f2f688f8 100644
---- a/Documentation/sound/cards/index.rst
-+++ b/Documentation/sound/cards/index.rst
-@@ -17,3 +17,4 @@ Card-Specific Information
-    hdspm
-    serial-u16550
-    img-spdif-in
-+   pcmtest
-diff --git a/Documentation/sound/cards/pcmtest.rst b/Documentation/sound/cards/pcmtest.rst
+diff --git a/tools/testing/selftests/alsa/Makefile b/tools/testing/selftests/alsa/Makefile
+index 901949db80ad..5af9ba8a4645 100644
+--- a/tools/testing/selftests/alsa/Makefile
++++ b/tools/testing/selftests/alsa/Makefile
+@@ -12,7 +12,7 @@ LDLIBS+=-lpthread
+ 
+ OVERRIDE_TARGETS = 1
+ 
+-TEST_GEN_PROGS := mixer-test pcm-test
++TEST_GEN_PROGS := mixer-test pcm-test test-pcmtest-driver
+ 
+ TEST_GEN_PROGS_EXTENDED := libatest.so
+ 
+diff --git a/tools/testing/selftests/alsa/test-pcmtest-driver.c b/tools/testing/selftests/alsa/test-pcmtest-driver.c
 new file mode 100644
-index 000000000000..e163522f3205
+index 000000000000..71931b240a83
 --- /dev/null
-+++ b/Documentation/sound/cards/pcmtest.rst
-@@ -0,0 +1,120 @@
-+.. SPDX-License-Identifier: GPL-2.0
++++ b/tools/testing/selftests/alsa/test-pcmtest-driver.c
+@@ -0,0 +1,333 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * This is the test which covers PCM middle layer data transferring using
++ * the virtual pcm test driver (snd-pcmtest).
++ *
++ * Copyright 2023 Ivan Orlov <ivan.orlov0322@gmail.com>
++ */
++#include <string.h>
++#include <alsa/asoundlib.h>
++#include "../kselftest_harness.h"
 +
-+The Virtual PCM Test Driver
-+===========================
++#define CH_NUM 4
 +
-+The Virtual PCM Test Driver emulates a generic PCM device, and can be used for
-+testing/fuzzing of the userspace ALSA applications, as well as for testing/fuzzing of
-+the PCM middle layer. Additionally, it can be used for simulating hard to reproduce
-+problems with PCM devices.
++struct pattern_buf {
++	char buf[1024];
++	int len;
++};
 +
-+What can this driver do?
-+~~~~~~~~~~~~~~~~~~~~~~~~
++struct pattern_buf patterns[CH_NUM];
 +
-+At this moment the driver can do the following things:
-+	* Simulate both capture and playback processes
-+	* Generate random or pattern-based capturing data
-+	* Inject delays into the playback and capturing processes
-+	* Inject errors during the PCM callbacks
++struct pcmtest_test_params {
++	unsigned long buffer_size;
++	unsigned long period_size;
++	unsigned long channels;
++	unsigned int rate;
++	snd_pcm_access_t access;
++	size_t sec_buf_len;
++	size_t sample_size;
++	int time;
++	snd_pcm_format_t format;
++};
 +
-+It supports up to 8 substreams and 4 channels. Also it supports both interleaved and
-+non-interleaved access modes.
++static int read_patterns(void)
++{
++	FILE *fp, *fpl;
++	int i;
++	char pf[64];
++	char plf[64];
 +
-+Also, this driver can check the playback stream for containing the predefined pattern,
-+which is used in the corresponding selftest (alsa/pcmtest-test.sh) to check the PCM middle
-+layer data transferring functionality. Additionally, this driver redefines the default
-+RESET ioctl, and the selftest covers this PCM API functionality as well.
++	for (i = 0; i < CH_NUM; i++) {
++		sprintf(plf, "/sys/kernel/debug/pcmtest/fill_pattern%d_len", i);
++		fpl = fopen(plf, "r");
++		if (!fpl)
++			return -1;
++		fscanf(fpl, "%u", &patterns[i].len);
++		fclose(fpl);
 +
-+Configuration
-+-------------
++		sprintf(pf, "/sys/kernel/debug/pcmtest/fill_pattern%d", i);
++		fp = fopen(pf, "r");
++		if (!fp) {
++			fclose(fpl);
++			return -1;
++		}
++		fread(patterns[i].buf, 1, patterns[i].len, fp);
++		fclose(fp);
++	}
 +
-+The driver has several parameters besides the common ALSA module parameters:
++	return 0;
++}
 +
-+	* fill_mode (bool) - Buffer fill mode (see below)
-+	* inject_delay (int)
-+	* inject_hwpars_err (bool)
-+	* inject_prepare_err (bool)
-+	* inject_trigger_err (bool)
++static int get_test_results(char *debug_name)
++{
++	int result;
++	FILE *f;
++	char fname[128];
 +
++	sprintf(fname, "/sys/kernel/debug/pcmtest/%s", debug_name);
 +
-+Capture Data Generation
-+-----------------------
++	f = fopen(fname, "r");
++	if (!f) {
++		printf("Failed to open file\n");
++		return -1;
++	}
++	fscanf(f, "%d", &result);
++	fclose(f);
 +
-+The driver has two modes of data generation: the first (0 in the fill_mode parameter)
-+means random data generation, the second (1 in the fill_mode) - pattern-based
-+data generation. Let's look at the second mode.
++	return result;
++}
 +
-+First of all, you may want to specify the pattern for data generation. You can do it
-+by writing the pattern to the debugfs file. There are pattern buffer debugfs entries
-+for each channel, as well as entries which contain the pattern buffer length.
++static size_t get_sec_buf_len(unsigned int rate, unsigned long channels, snd_pcm_format_t format)
++{
++	return rate * channels * snd_pcm_format_physical_width(format) / 8;
++}
 +
-+	* /sys/kernel/debug/pcmtest/fill_pattern[0-3]
-+	* /sys/kernel/debug/pcmtest/fill_pattern[0-3]_len
++static int setup_handle(snd_pcm_t **handle, snd_pcm_sw_params_t *swparams,
++			snd_pcm_hw_params_t *hwparams, struct pcmtest_test_params *params,
++			int card, snd_pcm_stream_t stream)
++{
++	char pcm_name[32];
++	int err;
 +
-+To set the pattern for the channel 0 you can execute the following command:
++	sprintf(pcm_name, "hw:%d,0,0", card);
++	err = snd_pcm_open(handle, pcm_name, stream, 0);
++	if (err < 0)
++		return err;
++	snd_pcm_hw_params_any(*handle, hwparams);
++	snd_pcm_hw_params_set_rate_resample(*handle, hwparams, 0);
++	snd_pcm_hw_params_set_access(*handle, hwparams, params->access);
++	snd_pcm_hw_params_set_format(*handle, hwparams, params->format);
++	snd_pcm_hw_params_set_channels(*handle, hwparams, params->channels);
++	snd_pcm_hw_params_set_rate_near(*handle, hwparams, &params->rate, 0);
++	snd_pcm_hw_params_set_period_size_near(*handle, hwparams, &params->period_size, 0);
++	snd_pcm_hw_params_set_buffer_size_near(*handle, hwparams, &params->buffer_size);
++	snd_pcm_hw_params(*handle, hwparams);
++	snd_pcm_sw_params_current(*handle, swparams);
 +
-+.. code-block:: bash
++	snd_pcm_hw_params_set_rate_resample(*handle, hwparams, 0);
++	snd_pcm_sw_params_set_avail_min(*handle, swparams, params->period_size);
++	snd_pcm_hw_params_set_buffer_size_near(*handle, hwparams, &params->buffer_size);
++	snd_pcm_hw_params_set_period_size_near(*handle, hwparams, &params->period_size, 0);
++	snd_pcm_sw_params(*handle, swparams);
++	snd_pcm_hw_params(*handle, hwparams);
 +
-+	echo -n mycoolpattern > /sys/kernel/debug/pcmtest/fill_pattern0
++	return 0;
++}
 +
-+Then, after every capture action performed on the 'pcmtest' device the buffer for the
-+channel 0 will contain 'mycoolpatternmycoolpatternmycoolpatternmy...'.
++FIXTURE(pcmtest) {
++	int card;
++	snd_pcm_sw_params_t *swparams;
++	snd_pcm_hw_params_t *hwparams;
++	struct pcmtest_test_params params;
++};
 +
-+The pattern itself can be up to 4096 bytes long.
++FIXTURE_TEARDOWN(pcmtest) {
++}
 +
-+Delay injection
-+---------------
++FIXTURE_SETUP(pcmtest) {
++	char *card_name;
++	int err;
 +
-+The driver has 'inject_delay' parameter, which has very self-descriptive name and
-+can be used for time delay/speedup simulations. The parameter has integer type, and
-+it means the delay added between module's internal timer ticks.
++	if (geteuid())
++		SKIP(exit(-1), "This test needs root to run!");
 +
-+If the 'inject_delay' value is positive, the buffer will be filled slower, if it is
-+negative - faster. You can try it yourself by starting a recording in any
-+audiorecording application (like Audacity) and selecting the 'pcmtest' device as a
-+source.
++	err = read_patterns();
++	if (err)
++		SKIP(exit(-1), "Can't read patterns. Probably, module isn't loaded");
 +
-+This parameter can be also used for generating a huge amount of sound data in a very
-+short period of time (with the negative 'inject_delay' value).
++	card_name = malloc(127);
++	ASSERT_NE(card_name, NULL);
++	self->params.buffer_size = 16384;
++	self->params.period_size = 4096;
++	self->params.channels = CH_NUM;
++	self->params.rate = 8000;
++	self->params.access = SND_PCM_ACCESS_RW_INTERLEAVED;
++	self->params.format = SND_PCM_FORMAT_S16_LE;
++	self->card = -1;
++	self->params.sample_size = snd_pcm_format_physical_width(self->params.format) / 8;
 +
-+Errors injection
-+----------------
++	self->params.sec_buf_len = get_sec_buf_len(self->params.rate, self->params.channels,
++						   self->params.format);
++	self->params.time = 4;
 +
-+This module can be used for injecting errors into the PCM communication process. This
-+action can help you to figure out how the userspace ALSA program behaves under unusual
-+circumstances.
++	while (snd_card_next(&self->card) >= 0) {
++		if (self->card == -1)
++			break;
++		snd_card_get_name(self->card, &card_name);
++		if (!strcmp(card_name, "PCM-Test"))
++			break;
++	}
++	free(card_name);
++	ASSERT_NE(self->card, -1);
++}
 +
-+For example, you can make all 'hw_params' PCM callback calls return EBUSY error by
-+writing '1' to the 'inject_hwpars_err' module parameter:
++/*
++ * Here we are trying to send the looped monotonically increasing sequence of bytes to the driver.
++ * If our data isn't corrupted, the driver will set the content of 'pc_test' debugfs file to '1'
++ */
++TEST_F(pcmtest, playback) {
++	snd_pcm_t *handle;
++	unsigned char *it;
++	size_t write_res;
++	int test_results;
++	int i, cur_ch, pos_in_ch;
++	void *samples;
++	struct pcmtest_test_params *params = &self->params;
 +
-+.. code-block:: bash
++	samples = calloc(self->params.sec_buf_len * self->params.time, 1);
++	ASSERT_NE(samples, NULL);
 +
-+	echo 1 > /sys/module/snd_pcmtest/parameters/inject_hwpars_err
++	snd_pcm_sw_params_alloca(&self->swparams);
++	snd_pcm_hw_params_alloca(&self->hwparams);
 +
-+Errors can be injected into the following PCM callbacks:
++	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams, params,
++			       self->card, SND_PCM_STREAM_PLAYBACK), 0);
++	snd_pcm_format_set_silence(params->format, samples,
++				   params->rate * params->channels * params->time);
++	it = samples;
++	for (i = 0; i < self->params.sec_buf_len * params->time; i++) {
++		cur_ch = (i / params->sample_size) % CH_NUM;
++		pos_in_ch = i / params->sample_size / CH_NUM * params->sample_size
++			    + (i % params->sample_size);
++		it[i] = patterns[cur_ch].buf[pos_in_ch % patterns[cur_ch].len];
++	}
++	write_res = snd_pcm_writei(handle, samples, params->rate * params->time);
++	ASSERT_GE(write_res, 0);
 +
-+	* hw_params (EBUSY)
-+	* prepare (EINVAL)
-+	* trigger (EINVAL)
++	snd_pcm_close(handle);
++	free(samples);
++	test_results = get_test_results("pc_test");
++	ASSERT_EQ(test_results, 1);
++}
 +
-+Playback test
-+-------------
++/*
++ * Here we test that the virtual alsa driver returns looped and monotonically increasing sequence
++ * of bytes. In the interleaved mode the buffer will contain samples in the following order:
++ * C0, C1, C2, C3, C0, C1, ...
++ */
++TEST_F(pcmtest, capture) {
++	snd_pcm_t *handle;
++	unsigned char *it;
++	size_t read_res;
++	int i, cur_ch, pos_in_ch;
++	void *samples;
++	struct pcmtest_test_params *params = &self->params;
 +
-+This driver can be also used for the playback functionality testing - every time you
-+write the playback data to the 'pcmtest' PCM device and close it, the driver checks the
-+buffer for containing the looped pattern (which is specified in the fill_pattern
-+debugfs file for each channel). If the playback buffer content represents the looped
-+pattern, 'pc_test' debugfs entry is set into '1'. Otherwise, the driver sets it to '0'.
++	samples = calloc(self->params.sec_buf_len * self->params.time, 1);
++	ASSERT_NE(samples, NULL);
 +
-+ioctl redefinition test
-+-----------------------
++	snd_pcm_sw_params_alloca(&self->swparams);
++	snd_pcm_hw_params_alloca(&self->hwparams);
 +
-+The driver redefines the 'reset' ioctl, which is default for all PCM devices. To test
-+this functionality, we can trigger the reset ioctl and check the 'ioctl_test' debugfs
-+entry:
++	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams,
++			       params, self->card, SND_PCM_STREAM_CAPTURE), 0);
++	snd_pcm_format_set_silence(params->format, samples,
++				   params->rate * params->channels * params->time);
++	read_res = snd_pcm_readi(handle, samples, params->rate * params->time);
++	ASSERT_GE(read_res, 0);
++	snd_pcm_close(handle);
++	it = (unsigned char *)samples;
++	for (i = 0; i < self->params.sec_buf_len * self->params.time; i++) {
++		cur_ch = (i / params->sample_size) % CH_NUM;
++		pos_in_ch = i / params->sample_size / CH_NUM * params->sample_size
++			    + (i % params->sample_size);
++		ASSERT_EQ(it[i], patterns[cur_ch].buf[pos_in_ch % patterns[cur_ch].len]);
++	}
++	free(samples);
++}
 +
-+.. code-block:: bash
++// Test capture in the non-interleaved access mode. The are buffers for each recorded channel
++TEST_F(pcmtest, ni_capture) {
++	snd_pcm_t *handle;
++	struct pcmtest_test_params params = self->params;
++	char **chan_samples;
++	size_t i, j, read_res;
 +
-+	cat /sys/kernel/debug/pcmtest/ioctl_test
++	chan_samples = calloc(CH_NUM, sizeof(*chan_samples));
++	ASSERT_NE(chan_samples, NULL);
 +
-+If the ioctl is triggered successfully, this file will contain '1', and '0' otherwise.
++	snd_pcm_sw_params_alloca(&self->swparams);
++	snd_pcm_hw_params_alloca(&self->hwparams);
++
++	params.access = SND_PCM_ACCESS_RW_NONINTERLEAVED;
++
++	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams,
++			       &params, self->card, SND_PCM_STREAM_CAPTURE), 0);
++
++	for (i = 0; i < CH_NUM; i++)
++		chan_samples[i] = calloc(params.sec_buf_len * params.time, 1);
++
++	for (i = 0; i < 1; i++) {
++		read_res = snd_pcm_readn(handle, (void **)chan_samples, params.rate * params.time);
++		ASSERT_GE(read_res, 0);
++	}
++	snd_pcm_close(handle);
++
++	for (i = 0; i < CH_NUM; i++) {
++		for (j = 0; j < params.rate * params.time; j++)
++			ASSERT_EQ(chan_samples[i][j], patterns[i].buf[j % patterns[i].len]);
++		free(chan_samples[i]);
++	}
++	free(chan_samples);
++}
++
++TEST_F(pcmtest, ni_playback) {
++	snd_pcm_t *handle;
++	struct pcmtest_test_params params = self->params;
++	char **chan_samples;
++	size_t i, j, read_res;
++	int test_res;
++
++	chan_samples = calloc(CH_NUM, sizeof(*chan_samples));
++	ASSERT_NE(chan_samples, NULL);
++
++	snd_pcm_sw_params_alloca(&self->swparams);
++	snd_pcm_hw_params_alloca(&self->hwparams);
++
++	params.access = SND_PCM_ACCESS_RW_NONINTERLEAVED;
++
++	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams,
++			       &params, self->card, SND_PCM_STREAM_PLAYBACK), 0);
++
++	for (i = 0; i < CH_NUM; i++) {
++		chan_samples[i] = calloc(params.sec_buf_len * params.time, 1);
++		for (j = 0; j < params.sec_buf_len * params.time; j++)
++			chan_samples[i][j] = patterns[i].buf[j % patterns[i].len];
++	}
++
++	for (i = 0; i < 1; i++) {
++		read_res = snd_pcm_writen(handle, (void **)chan_samples, params.rate * params.time);
++		ASSERT_GE(read_res, 0);
++	}
++
++	snd_pcm_close(handle);
++	test_res = get_test_results("pc_test");
++	ASSERT_EQ(test_res, 1);
++
++	for (i = 0; i < CH_NUM; i++)
++		free(chan_samples[i]);
++	free(chan_samples);
++}
++
++/*
++ * Here we are testing the custom ioctl definition inside the virtual driver. If it triggers
++ * successfully, the driver sets the content of 'ioctl_test' debugfs file to '1'.
++ */
++TEST_F(pcmtest, reset_ioctl) {
++	snd_pcm_t *handle;
++	unsigned char *it;
++	int test_res;
++	struct pcmtest_test_params *params = &self->params;
++
++	snd_pcm_sw_params_alloca(&self->swparams);
++	snd_pcm_hw_params_alloca(&self->hwparams);
++
++	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams, params,
++			       self->card, SND_PCM_STREAM_CAPTURE), 0);
++	snd_pcm_reset(handle);
++	test_res = get_test_results("ioctl_test");
++	ASSERT_EQ(test_res, 1);
++	snd_pcm_close(handle);
++}
++
++TEST_HARNESS_MAIN
 -- 
 2.34.1
 

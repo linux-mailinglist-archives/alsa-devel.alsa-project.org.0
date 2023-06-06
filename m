@@ -2,76 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A9B07240AB
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 13:17:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6A93724159
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Jun 2023 13:56:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D9B6825;
-	Tue,  6 Jun 2023 13:16:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D9B6825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A3E03E8;
+	Tue,  6 Jun 2023 13:55:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A3E03E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686050232;
-	bh=5pEdumKdvtXScO6aNZx1aflcM0+X9p1ADt2o/O0yqS4=;
-	h=Date:To:References:From:Subject:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=CCHfW5wi0HAEvcE16UHDWG03OVHmBv7uXGjCZt2k2f8OD+DA0U+rmvEvlzSiHDywT
-	 JHc/mutcMVrwd4teafmh6bWwzn+SV4GAjwwt6cWV3ArXcoobfFouYS2izKJOI6vVhR
-	 YRVeDDQcpTtmmLnQQGuYWxoYpF5yPFX9pFWe+rOw=
+	s=default; t=1686052579;
+	bh=AwQKK+vTDce/hOWPJg3SWi3sPnJdf83ZO5vJmOamOkE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rtR0bGaJwKQkkAVlD7GW/1bGYxRfNe+oVuOBwdpf1AWTodIzLKEOjkBlC3GHH3Gwo
+	 YXOSfVjwNdxDmkMkr0ghVEXBKlec2DEbUCExfvggp0j5FG5yK1V6PUj42VgEyYhnFt
+	 slc0g8NAZQMJUOimoKhiGlq6mPvGC0WR4MdwqVGA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A1559F8055A; Tue,  6 Jun 2023 13:15:34 +0200 (CEST)
+	id D1CB2F800ED; Tue,  6 Jun 2023 13:55:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30B2CF80520;
-	Tue,  6 Jun 2023 13:15:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5881F8016C;
+	Tue,  6 Jun 2023 13:55:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6519FF80494; Tue,  6 Jun 2023 13:15:31 +0200 (CEST)
+	id 62526F80199; Tue,  6 Jun 2023 13:55:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2D6F8F80155
-	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 13:15:29 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 42A281E3B;
-	Tue,  6 Jun 2023 13:15:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 42A281E3B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1686050128; bh=Ub+SuwhwAG2eaGWTGXctoxxlBkoBAab2/hXPQa7ZHHw=;
-	h=Date:To:References:From:Subject:In-Reply-To:From;
-	b=M/eOZW3bffBmSs/mBH04waQ6Of5sKlXvTWYKie7/WyGClf+95rdHSxz0fKl0mUQ0m
-	 HGgwGva8CzIap7ezO2jxDD3uNisuWiNwwCxCNZXQ5a6B0rT8WqqB2cbLFXZ3eNFk4j
-	 YNK6gfr0uPcRCbcBP7VzcRENGBJ74/U/E/y7wdN8=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4ABECF800C8
+	for <alsa-devel@alsa-project.org>; Tue,  6 Jun 2023 13:55:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ABECF800C8
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=DHNG6V6/
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Tue,  6 Jun 2023 13:15:26 +0200 (CEST)
-Message-ID: <1e1f3e8b-999f-e0e1-7040-22429a431f72@perex.cz>
-Date: Tue, 6 Jun 2023 13:15:26 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 405BF62FC5;
+	Tue,  6 Jun 2023 11:55:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1754C433EF;
+	Tue,  6 Jun 2023 11:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686052516;
+	bh=AwQKK+vTDce/hOWPJg3SWi3sPnJdf83ZO5vJmOamOkE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=DHNG6V6/38Q7F4e45zExoOMuNwCarV2zw+iIG35cAsmapdi8OaU9g06REmXqAlMru
+	 wOgDlyyrGzdqiEAI/GUMHr7dvvi8qgZhxFcdZtpHZv0gmDgJQsQOiRVeCOWzgH3UEg
+	 gmdVkHWaVpCkhRFOEsi+YyalTDPx0gdnxnfXbd5ugn9lybnz40mzUf7waFN/RwBqBf
+	 a0lKyXkT7j1al+Q+DzxKI4+V/qK0BRS40FyzHcXKUd9vfM525paXPA+A0UYa6fvkFo
+	 R3VEwThIWwtxYmuWzrY8vFfeerJVAMj/CvNs7s2j2FDYDjVpZxieRebU8vgNkAlTPB
+	 /3O6z3ZiBP9+w==
+From: Mark Brown <broonie@kernel.org>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
+In-Reply-To: <20230605143238.4001982-1-rf@opensource.cirrus.com>
+References: <20230605143238.4001982-1-rf@opensource.cirrus.com>
+Subject: Re: [PATCH] firmware: cs_dsp: Log correct region name in bin error
+ messages
+Message-Id: <168605251548.20864.13850925270775082245.b4-ty@kernel.org>
+Date: Tue, 06 Jun 2023 12:55:15 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
-References: <20230606093855.14685-1-tiwai@suse.de>
-Content-Language: en-US
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 0/4] ALSA: Fix kctl->id initialization
-In-Reply-To: <20230606093855.14685-1-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2WD7HP4JRX4KNL6QBZNPFCTIKHUY62VK
-X-Message-ID-Hash: 2WD7HP4JRX4KNL6QBZNPFCTIKHUY62VK
-X-MailFrom: perex@perex.cz
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: YZ5Y6TWRY7HCWTPVUCED2QGTLT64YBNN
+X-Message-ID-Hash: YZ5Y6TWRY7HCWTPVUCED2QGTLT64YBNN
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -83,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2WD7HP4JRX4KNL6QBZNPFCTIKHUY62VK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YZ5Y6TWRY7HCWTPVUCED2QGTLT64YBNN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -92,20 +97,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 06. 06. 23 11:38, Takashi Iwai wrote:
-> Inspired by the recent Jaroslav's fix patch, I skimmed over the tree
-> and found that there are a few other similar bugs.  Here is a patch
-> set to address them.  Most of them are just shuffling the call order,
-> while the one in HD-audio is changed to use snd_ctl_replace_id()
-> helper.
+On Mon, 05 Jun 2023 15:32:38 +0100, Richard Fitzgerald wrote:
+> In cs_dsp_load_coeff() region_name should be set in the XM/YM/ZM
+> cases otherwise any errors will log the region as "Unknown".
+> 
+> While doing this also change one error message that logged the
+> region type ID to log the region_name instead. This makes it
+> consistent with other messages in the same function.
+> 
+> [...]
 
-For all patches in the set:
+Applied to
 
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Thanks. I planned to check the other code today later, but you're really fast.
+Thanks!
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+[1/1] firmware: cs_dsp: Log correct region name in bin error messages
+      commit: ad24919540fb4df83981d469b5253cc1aecca939
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

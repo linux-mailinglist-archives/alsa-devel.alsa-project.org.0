@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F6217254DC
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 08:55:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AABC7254F4
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 09:00:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7ABAD827;
-	Wed,  7 Jun 2023 08:54:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ABAD827
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9F7174C;
+	Wed,  7 Jun 2023 09:00:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9F7174C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686120938;
-	bh=pTRVAtpIXmwbcp5F+bQx1q7S7HxeJXmISaLM+tmqens=;
+	s=default; t=1686121257;
+	bh=eWVEWXgHZ5GBEO92cKTjD4UIO91veQo9o7ZKOA7zHHw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=t/MX8bY2XelrtyWhlPZX7EJ6TazzV/sfLPW9SMvA9y6+YuS0VDFJk0DipFn5n/1Je
-	 Nq1jpHdjTrlGUhexR2GM3gjdkURIBHBrhIdb9VNw/ICymRRq0d1BZRoAT+M2nWcmNP
-	 e4nZjVDuFo76QPwgMosnSODOSZ+rcXq5ySwZxzdg=
+	b=tqL5V/gt8i5FwZ2TgjoN9ef8H814fR5wm6BHUDGAbNWjEM24P/huP7Iks7KFOe2oR
+	 zkfn/4CD0E5so4v3GtbognbbT1jpdmWVOo2JGJdhNAyzK6EG5B1uIl1/C2x2HCw/EK
+	 QLi7URMnRSaP8kts776vmbFrHB5K6hFF/3qtTiOM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C18CF80130; Wed,  7 Jun 2023 08:54:48 +0200 (CEST)
+	id 56118F80199; Wed,  7 Jun 2023 09:00:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D890BF8016C;
-	Wed,  7 Jun 2023 08:54:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAC9BF8016C;
+	Wed,  7 Jun 2023 09:00:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19CB1F80199; Wed,  7 Jun 2023 08:54:44 +0200 (CEST)
+	id 43235F80199; Wed,  7 Jun 2023 09:00:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::600])
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20621.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8b::621])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 04CE1F800C8
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 08:54:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04CE1F800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id C7CBCF800C8
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 08:59:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7CBCF800C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=sOKhNGjA
+ header.s=selector1 header.b=WmMx7WHm
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VMVSduP8eGT0MxnLr/QLQPLtxC4itkQ/XHQl4oRLBPMFEJRGLQRv6uZ8zfifFiNuYhSB3x12qgOaB4ped0TVHENOChsINUHZ7N1MsCZsN9fftEKHwRzQ/Z+qEgxVl19XIkfdYsnMaO/8fyoJTxknqKIvCErEEWs8HcFbjYlxrBpobzolIbGfwmDuE97Zupa5qaWEx5Yk79APYn6jJzXMjJLR4XbsUNqcdE2J8SFmg+N5L4EGp4W8MbgajFTFCE+01NV0VthMKLHw2z1jqYKN+1bAPGu/xDeB8fHNeDuRVOTZ3Nu8EFnEZRfRBrSiJ97uUWL2amUWjpMBksVOpcpVSg==
+ b=boyzI9tDYgX0GbCbPGyrqNVQIjrxG4IW/OyH9GuLHByO5kb7Wna15O+8vluhytMdXFZY5jd1/bCLytpvYHER+e9ZxB/Rsq0iZg8HSTxLtCfOYnA/tVxzaWNdi5QJmQKyCQWTztl8tdWRxMGzHN0rKCZ+4iMe6FUqVwx6qd0YzMIPlEH2H1+FFpNGx6a4EXMIXpTm7/TCQ52n8iZCXxbBi9LJj4gl0r8sfkpdYgC0UZKOHwPH4drTyNWRWhJShVINfk2ZIHbxBbct263MdgKmcvEFzgYM7Jb/22A+7K/32P89p52va+vFgjR9R6lEZ91wlfoHndcxU0w5bOFCyetsiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OklhDx3O48TLC6piVQfQ+mDYhqXwP5LOZkiE6YcWWvE=;
- b=RzdDC/a7PFtJAQLBqshF812Cc5vbDvQ85/ZoMwgwgjmNtMKfxg0JHd1mHEY+TDFThkaUIPrpohmlum/0s4sAfdJV4lqNxv4qfZLPXOD/xlE3YfcDm0N6IzSanK8Cl5Lt7NjU0iBhtyoVS0MJ8Z6GpZj+EL4CrnVchxteTUrFldHoTMIvknTqETE6U+M2+A7KQiQ/NSaFdgrYVUHOJXsdiasIWbndYIKc9GwYRqyQWX1NvLd2MCKPtlQYnUbNEFHaDRyVjJ7dVNL6MjtoYDxM8gurZRfsYbczfs3iDPBnKrG/9c5a+Jj39S3UuKRzSrj6YxHmx3cJV9ZEe6DtwMs3uw==
+ bh=SR46HJ6hvBH8CS/VGE83IDCAFzpUXifklWZbppdQt40=;
+ b=QHHRrTRceAkRCRgKZBdUFWFum+jejIpkTKl20dvEaR6Q8Z6BlAvT+lo02U7yhtxnkCJx1hHbAaKDA7TI8ctPMxH781bihrLWEjeMWK4pgJp9/pXr9FAA5I51iMXTpeV4/IXxQdYy0jLD0nsS8/SD8zRBL5YRFsP4J1vs4pNg95rlrVnU/hu7GuqHlKOY3eLh9qxdMq0Ru5B2drQ/C2OMd0FI/ukKJ2ANfdTXE36KhL/mrFhyjgzfgairyex/Yfvwsp0ULeTEQ+OUk2UhrdPHU/LswYkVDgr4+gDmTdh3UkMZXecWdWnKjxQJz9q25RYE+DepLgb+fexVpyG3AyC4yw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OklhDx3O48TLC6piVQfQ+mDYhqXwP5LOZkiE6YcWWvE=;
- b=sOKhNGjA14ijtb0N1lpLr+lzyzItgjzMY3fSa77nyj6kikYb8TNYA6o5Hq6iZeP45wl+3DVzLnQ8uI79GBFDiM/zUq8BRQARZyg174OIKbrSZ2XnkW5SBlzRvQ6iECPrRx1HEahs4q6QssJYB2Nvi/Z8CE6DvT/YhmsptqQfOEU=
+ bh=SR46HJ6hvBH8CS/VGE83IDCAFzpUXifklWZbppdQt40=;
+ b=WmMx7WHmU+lcuR4QR4VdDtJ1YucTZhoTrlsijapy7hRUUxRKsgfzS5ICABVW6zVgozKzewHUoNjfXtBZVTxh62wSj9DAUXeNcCVt/bxpRwRBfIoZ5XLt5FHR/k007kMnhpsT1+rq86S9aV/8FR/OY8g1agaCbxe+qgf0hc0OGXA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by DS0PR12MB6584.namprd12.prod.outlook.com (2603:10b6:8:d0::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6455.33; Wed, 7 Jun 2023 06:54:30 +0000
+ by DM4PR12MB6040.namprd12.prod.outlook.com (2603:10b6:8:af::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Wed, 7 Jun
+ 2023 06:59:53 +0000
 Received: from DM6PR12MB4123.namprd12.prod.outlook.com
  ([fe80::8760:2e89:1243:2b5d]) by DM6PR12MB4123.namprd12.prod.outlook.com
  ([fe80::8760:2e89:1243:2b5d%6]) with mapi id 15.20.6455.030; Wed, 7 Jun 2023
- 06:54:30 +0000
-Message-ID: <38044626-ec8d-7841-01dc-f062eff8451a@amd.com>
-Date: Wed, 7 Jun 2023 12:29:12 +0530
+ 06:59:53 +0000
+Message-ID: <7d4016a7-871e-91d3-8744-7dc10d809d35@amd.com>
+Date: Wed, 7 Jun 2023 12:34:34 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH V3 9/9] ASoC: amd: ps: Add SoundWire specific checks in
- pci driver in pm ops.
+Subject: Re: [PATCH V3 4/9] ASoC: amd: ps: add SoundWire dma driver dma ops
 Content-Language: en-US
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  broonie@kernel.org
@@ -84,79 +84,79 @@ Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
  Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
  open list <linux-kernel@vger.kernel.org>
 References: <20230606060724.2038680-1-Vijendar.Mukunda@amd.com>
- <20230606060724.2038680-10-Vijendar.Mukunda@amd.com>
- <b9487589-7149-cdbe-59f3-d5279f25b02e@linux.intel.com>
+ <20230606060724.2038680-5-Vijendar.Mukunda@amd.com>
+ <7ed3e421-ad04-746a-e252-45bc83f76256@linux.intel.com>
 From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <b9487589-7149-cdbe-59f3-d5279f25b02e@linux.intel.com>
+In-Reply-To: <7ed3e421-ad04-746a-e252-45bc83f76256@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0028.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:97::7) To DM6PR12MB4123.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN3PR01CA0153.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:c8::18) To DM6PR12MB4123.namprd12.prod.outlook.com
  (2603:10b6:5:21f::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|DS0PR12MB6584:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1750dfa-fb03-4e12-f0b5-08db67240b1e
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|DM4PR12MB6040:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e8ec5d9-0e19-438d-87ba-08db6724cb41
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	GFrEyT0EUD0mYnQteBZ3KBtKbRRh3ndudIp4lV2xH/8/RXN6+aiGiGDKiJEKp0zGhuCjznaRY6XTcRfm/6lHMXLSteydTDDNzMnQJtvfLm5eM/KOTD4hOUFmnHQu9eCelaIVO53qkBVylhqbfqQExeICahISx1IwjBQrr7CoGx8fn6jwGxoaMrOonDjMsKZlpi9AiPcX+QQZiWXf+WD40CrAS6M6rSayaGzbssjvldtQW9QOpe3PoUnW/j56OZLbW//Bhm/n/CUZaMdEiWlZ8eQVkNp6wXgO9e4svDzCqUfyYq+K6YGZjj+KIb/CtAVePmKWTSS5SMl2vgB5KratNMJw216n/x79db+X1kxRB1FgqJ9XRXXMa25JfryqpRbcpKvpvo17xbhAMBM4x5tsJXcs0ianB+AGA2FLWFmLx/VxWHICtmcgGVxRAUwJDm7qyJgZcLaNHsFTl+7pC+zwCcrZJydH18yUaBi/szxt7t77B2m9jYdP3eTNUgoSxJMXdpe8QPTEiaaQ1XcTaOLKZk6JN+GAN26Q9duJGffPkJqInGW33sQ4HGe5yuYsT+de4+IBjryzNC73tIhbOiP6Nj1JApr3yX4Lu8LP5hfimf/L7iBkK5JSOUBVpiNfawE02Hg5bRN9XHgs6tMysb7/EA==
+	DCvHPuSRZrn4I9zuXP+VHI2yEA9m9RWG+Mp2jrVJJi7Oa/8EPM0AE639nfNJL5e321AAjCVtINMX/Vy3/sAjLf+6QEQxOndz57Mm/fDQFtnAZMrfZhxG/OmbvbgLf8C7WGgpMaS0Aiy/JomJAwV+uvn31TrcPLs/APUe8wjjg+r8sfGl4usuJpeGnXp5P6nQIqbrUrogPyL1GFRnipFIynFBf3pnfFV0tTRnleTqgwOsWbxlCexp3idO3c3E20VC2kgBnkKkFYvzGsAdYFl/JnaJxKfY/xObrqfcMS396vS4szVvIQknRVNute8e8hgUc4fftgXkc5awqk+qGCkO5s8Duo0RAouyrz8b/4TKRIRKhr/jhLNzPo3XM0xBk+c4JBYLAWd7zskxh5xn9pnrmDOUbkcKAqrw/jah3CJJZkX4lgCpr2A8pQDS8H7Rq1v5OirAxrPT5CflzcoJC04gVrg7Q8HWU7zyCZs5plkmSnoRboIrJi4dHpb+et2R9soOavvRDxEgOYB48D4B3Y3Ch3BgIIMYHI8yrPmLh8OWbnHxfF2E6sp5SKqqKMy6WdN3/74f+x3uDc/4pKzE2yUZlR1wMbxFad/ebVdkmE5j+3lN2cKr/OdZgQn69sHid/ffrfo7jFP2Eo0ilkvyIR3awQ==
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(366004)(39860400002)(376002)(396003)(451199021)(54906003)(478600001)(5660300002)(8676002)(8936002)(4326008)(66946007)(66556008)(66476007)(316002)(41300700001)(38100700002)(2616005)(186003)(83380400001)(6486002)(6666004)(53546011)(6512007)(6506007)(26005)(31696002)(86362001)(36756003)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(346002)(366004)(376002)(396003)(451199021)(83380400001)(2906002)(2616005)(31696002)(36756003)(86362001)(38100700002)(41300700001)(6486002)(316002)(6666004)(5660300002)(8936002)(8676002)(478600001)(54906003)(66946007)(66556008)(66476007)(4326008)(31686004)(6506007)(53546011)(6512007)(26005)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?ZFo4bWl5WXRWa1pHVDJzUkViRllyVXFraFlyMGlSRi8zUEZRNDlISmlrYjEw?=
- =?utf-8?B?QVUxNVYwQVRDandQc1ltdm9qbzBVUjF4c3I0WndiWW84RzZodERJbnZ6Z2oy?=
- =?utf-8?B?N05zbEtNZ1hTTm40d1ZUbCtObnQ0Qzg3bmxTQXJNOEZpTTVIb2tlTUF2clBx?=
- =?utf-8?B?Y1k0aDE0UW5TeXlrWmsxeXdHcFBNb2VjUmVUaXQzcEljUkQycm1SQkRJU1hY?=
- =?utf-8?B?Q3VoTmZvRGVtTGdMblc4U2dObnV4d1dnS2xLdGNJaFk5Smp0QjM0L2RPNjdV?=
- =?utf-8?B?NnVvWmFWRGRqMnMxYW9xUnhpR3gxRW9KZVVJSWE2a1B0VmtzV2k3TkNnYTV3?=
- =?utf-8?B?STFDWmtDZVRwTS8vTFc5bEMxV0NVLzFEczBqZ04wbGxGSnhNZVVkLzhEYmw4?=
- =?utf-8?B?TWtoY0wwL0I1U0ZSa1p1L2lVTzRKOS85M1lxWG5mU1JYTnRTdmt1dk5yaVRr?=
- =?utf-8?B?YlRCSUZ2T3VUWVhJSXVNUnkyVTlpZVkzOFNmdWc0bWNuM1pabm41RUd4WnVW?=
- =?utf-8?B?WFJ5emRtcVNhMVRKQ09TU0VOa3lncWVtY2tEcUtWaW8vOHdVRytNT2tqL3Jn?=
- =?utf-8?B?dG9URE52UTNuMi95dUx3UmlzRW1uTFJ6UzFSNEM2c21scXc2WkhWcjU2QUZJ?=
- =?utf-8?B?blpXTnZTQzJOTDJaTmtUVTh2MGRoRHdmeUg5OHkyaVlGS3NQNm1LbWxacUZz?=
- =?utf-8?B?SExyYTVGZEVTR0dKS2pRdmVwSmZJMzB6OGVXM0htbC9iOVA4T1NXd1hYRC9W?=
- =?utf-8?B?cjNvdTI4T3VGL2NmaTVNY2o2UWZsZjR1UGw5c245WTBYYjhpUjBPc0RWbXZz?=
- =?utf-8?B?MUt1VXZPZDN3QzNCQkREWU8xN2ZJcEpYK3VWOVY2d0pjSHlReW45Qks3cm9M?=
- =?utf-8?B?YzB1TUpOVGtzOExCcnc3L3lYakM3a0N2SjN5Y1lSMFNBbzFOV2dTK2toR3Yz?=
- =?utf-8?B?YnA2NHdVMGJKZFVyeUp6TlV2ajdvai9MN0ljREZiaWJCSG9mRmJkVEl1cWpW?=
- =?utf-8?B?dHh2cmQzcGVWUmR6OTNYQ0xsbmMzemM0aEZSZ3BWczdLeFJoVThSL055cHJH?=
- =?utf-8?B?THhBalpRak1HZFg4UEdhb1VMaEVublM2Q3ljazFCYkphcnFQUkdDMUlsb1Fk?=
- =?utf-8?B?N1hjNXBqMUVtcXVBcmZiR2dDbEh2OWY4cVhRd0FOSXkyQ2NuQWN0UTZGVy9l?=
- =?utf-8?B?TDUyYk9yNVNleEkrUCtlMHNLc0gxby9udlduc3BwK0tTOC9nYndlcDY5T1dW?=
- =?utf-8?B?MU9FaFVzM2hDdnRHNDNMWkhma2QwV2s1ckpZYmRPbDBhSE1uZ1RrQmRVK2Uv?=
- =?utf-8?B?b3hrNk5XazNMNXBBQ1BvMXZ2RUpubXVFeTRWbnRPbG81aGpCaVRabVZka01X?=
- =?utf-8?B?M3doNVF3NngvQkcrWnllSk9SNDJtRFRmcXhsUXppOXY4M09SRUdVU0hreEth?=
- =?utf-8?B?TGhtWFlEeFhsM1VDSkw2TmpoYmkzMHVqa1ZKbEc0ZEJ6QnM3bUlqTElCK1px?=
- =?utf-8?B?eHVSL001NFR1NGdDalFLOVovekVBZ3NWMzYwMGFsbmhNQ3h3c3pBZkM5MTVX?=
- =?utf-8?B?a0F6OVZmZGtaNkJBZ0Y2eFp1R1BPY1Bzd0pncXZ5Sndtc3pFRno3MlpGR0gv?=
- =?utf-8?B?clJIZGVCblU1VEhpZnVVWWozTmpSUVhtRjF2N3FoT3N1VEFOQ1U2dDBIMDAx?=
- =?utf-8?B?VGNmQUV5UE1IZkFWYzJIL2NtQjY4eXFlWUdTUllOY2lneFA1UmFOS1lVVnp6?=
- =?utf-8?B?Qjhyc21qbTljTVNhNDFFUDlxem9MZ3pOVGtsU3ZQTDZYVEtRa2d6TDJkQnRI?=
- =?utf-8?B?cmlJUkJkbmw3UUtXSzdHaWFCMGlzVGt5TFpkS0l5R20zcGNEWWg3b25yQlpI?=
- =?utf-8?B?aEtzOFdGU1ByNkFiNStzVTJNcldYRmh6UGJ1dHNVRkh2MEJVRFlHM1ZkQ0c0?=
- =?utf-8?B?V0RuRXRWNkxxV1p2YnlEZk5zSzRHWGVkbzhnSlRyb0ZDRlNhdWFKVkJxT212?=
- =?utf-8?B?dUpJRU1CbUt4c3VXTUNROERDT2lJVmZycnBWRHVuZy8vRXVQQjFBQVgzaHdy?=
- =?utf-8?B?M2kyQTVhQk4ydTd2SjBUeXRFc2FBZ2wvL0pjRWNaZmZQd2o5YkZ1bFp3dEpu?=
- =?utf-8?Q?aK7pKM/T/hKoseAAA9MJL0S27?=
+	=?utf-8?B?N3RzWjh3cG5sV0Z4MkNUVDFvQUsrcDI5Ty9BNEQwYkkxT1VXSUtRWWJ2LzdW?=
+ =?utf-8?B?eW91WmR2Y1EzRStsOWxHemZoVFBXR0I4UmlxUk8zaUhSNmJKeGswa1RWMk13?=
+ =?utf-8?B?bGpZMjNURGtVTWtkRjFPWlBvTy94cmdmY0tvQnE0ZGgwWE5tK1Y1TnZ1VVFk?=
+ =?utf-8?B?MjZuVFJKaytsNHFSUFJVZURyM1lyMDhabXZXNkkrVnFya2xHL09uc09JdThk?=
+ =?utf-8?B?bWJMdCtlZ0lLS2hsTG91d1l1dVVrbkRmRDFLalVxcnhMaldLTk91K0JoQzNp?=
+ =?utf-8?B?VVZtN1FaQ2tiSkV2OVB6dXBNL1kyQUdpL0lwanNXdlFEZW9oMUJwTXBiaWZu?=
+ =?utf-8?B?Y1RCMVg0RzQ2VStnZkJpbDJudWROcjB5M2w0TFl2WE9qTVZUMndhTEN1SmRU?=
+ =?utf-8?B?bm1PSmdXakJ6Zlk0MTZZN05GQ21zcHdROUo5YTc1NS9naEpkbVU5WCs3NEJn?=
+ =?utf-8?B?cnQ5V05Cck0zODdEaTR3d3ZydU56OUtPc3RUQVQrODY5WURtbXB4QVhRUnZR?=
+ =?utf-8?B?VURtQTVFb0dCNEUwZ1JLYjFMTkIyUGlHZHBoWFhaUlpRYXA5UnFUQVVOcStO?=
+ =?utf-8?B?UEU3WkF4Rk5pTXhSc2ZnUi81Ymx5S3JzVGprR3BOazJXeDRta3dQbk4zYUlk?=
+ =?utf-8?B?OE40ZXNjWWl5cDFubTZIVVAxUmRLZzlCWGZrYloxWGY2dmM1dnBqbUJZVUw1?=
+ =?utf-8?B?bnc2c2ZNcEY1L0o0ZG5jNUV5ZnViWEtPSE9MZkJoWEdwUVV5amxvUG9EM2hV?=
+ =?utf-8?B?WjJPb1lEbU8wYTRMT3V0UThBTm1EbXVmOTdKd1A5WWdPYi9iNjhzRXdpcHVx?=
+ =?utf-8?B?STl4LzR2ZFcyNmY4K0FMa3JYRXJhQ3BXcWs0VWhSWU1ReHNoMWF2alZqNlhS?=
+ =?utf-8?B?SERVTlMvaDRWNmJPYUFTeXF3ZG8xc0R4UUtDYzNQT213Y1pHT2ZjZ0tNbWM0?=
+ =?utf-8?B?eFhnL3JNaWpFcXc0aWxTelh3NFJBR2tDdSsxQjBPWGpzZkZZS0NDSkJsWGx6?=
+ =?utf-8?B?K3ovUnZ2ZWFCTGtCYlcya3ZLbFNIUkN0YnNNLysxQ1puNkhqLzl5Y3luSHFq?=
+ =?utf-8?B?c1UyWVVsSG1zT3NVanZKa0hsN08reGZMRlpWbmU4Y1haQk5vWGc0VEZTVlNr?=
+ =?utf-8?B?NVlUWTY4L2FZWjNnV1U4QkhrNlB1Zkg1N291emR5UW1SQ2lUSktsYXhERjEz?=
+ =?utf-8?B?d2FsQ2RZNFY2My9SYlRWc3VtelV1eU5ZNlhmdEJuVmlBd1k3Y3R6b3BlVnhz?=
+ =?utf-8?B?MXpRL0pSaUNla2hLREJEZVg3Y1lpZVRvaHduVVViOHl1dzcrd0V5QThramlP?=
+ =?utf-8?B?d1hkT1JWOGpUdEtrRVZhQ3JQanlEMUJrQXZZWE9DUlNKdXAxRldPcENtVk1H?=
+ =?utf-8?B?Q3N4WUhVM0p3T295bjQvdmVTNVp4UlMxdktISWRQUEgwTUEwdFN3RXZwYjBy?=
+ =?utf-8?B?Z1JIOFRnbzlrVGxyUU9jNm0wRkh0ZlVGZWIvZzJXZEFmV0tzR0c4UDJhK0Qz?=
+ =?utf-8?B?dkY0bXV3RnBDaHpPZ3RHTW1kSERGSjFSVVcwanBDcmJkSml3UlNaVnBteHhm?=
+ =?utf-8?B?a0p2Y0xLbnNpd1pHbFc0dzZIemtlUTJzTnRnaGlyTGJOVUNCNEU5VzhPdytJ?=
+ =?utf-8?B?TVRsMGg5Z3dubmRJV1JYa0dkWWNqMUxDcUNsbE9vK3E4dFM1eTYwRWxwUzlx?=
+ =?utf-8?B?UTl4TmlVeVBJMG93UXZhczgyUUZsRTFFcjRuWStRMlVQT0ROMURTeURXclZ5?=
+ =?utf-8?B?bmtNQ3lTdUsxbFVEbGYyNVo4SmltbWRWZE55RHlPUXNHZm9HcXEyN09ROVho?=
+ =?utf-8?B?d1NlYVp1UHRwcXQwRDVwNnBxL1MvdTdKQUxpZmd6NUxMOENxa0FGMlRSRjBC?=
+ =?utf-8?B?Yzhpc2h4V0UzcFlHbHVna1dXVWtTRFpGTkwzOXl4elJBQ2hrb0grVytyUDZB?=
+ =?utf-8?B?T1NwY3ZiL0k2elh6YndCeEhhLzIzbzlORU9DRnBDVDBWNWMwYStWaFRKQzF1?=
+ =?utf-8?B?S3FvdjhReTZwY1Rld3U2YWt5SlV4VVNlbWJJZUJzZzNNeVMrRGFialIrZkto?=
+ =?utf-8?B?eXNKb2RHWVVHeDNvNWxpMDJ1c2lZUFc4TG91S2Z4cFpOYXpLa2tBUWd4cHh1?=
+ =?utf-8?Q?tVgtCAB+HJX/fcAgEo5dtKfta?=
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- f1750dfa-fb03-4e12-f0b5-08db67240b1e
+ 4e8ec5d9-0e19-438d-87ba-08db6724cb41
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 06:54:30.7104
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 06:59:53.2912
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- xaBS1Yiu8wnw/JmwVcbX8Gi5dDF/FrXHY3mQ5o32TXMwdo/7jlkhMauWVqvm/5MOfEzufL2PBMaUUwySFEO4Pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6584
-Message-ID-Hash: HZ4NIMP3SPX2H2DAEHT2J7EGOL2QUXYT
-X-Message-ID-Hash: HZ4NIMP3SPX2H2DAEHT2J7EGOL2QUXYT
+ wjS1XfpDd+AhRNdWqf8/MnnA4nUOvbNJ4qhITTay4BXu2qOZwrOjWjEPDJMDv2tfesJaoGfFJcv03F/QJgG4YA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6040
+Message-ID-Hash: OCG47EQKTUWF57OVJYEZ3744V7QLCCUR
+X-Message-ID-Hash: OCG47EQKTUWF57OVJYEZ3744V7QLCCUR
 X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -169,7 +169,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HZ4NIMP3SPX2H2DAEHT2J7EGOL2QUXYT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OCG47EQKTUWF57OVJYEZ3744V7QLCCUR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -178,69 +178,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 06/06/23 20:36, Pierre-Louis Bossart wrote:
->
-> On 6/6/23 01:07, Vijendar Mukunda wrote:
->> AMD SoundWire manager supports different power modes.
->> In case of SoundWire Power off Mode, ACP pci parent driver
->> should invoke acp de-init and init sequence during suspend/resume
->> callbacks.
->>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> ---
->>  sound/soc/amd/ps/pci-ps.c | 18 ++++++++++++++----
->>  1 file changed, 14 insertions(+), 4 deletions(-)
->>
->> diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
->> index daf54fe9cafd..5802a701b3b1 100644
->> --- a/sound/soc/amd/ps/pci-ps.c
->> +++ b/sound/soc/amd/ps/pci-ps.c
->> @@ -662,10 +662,15 @@ static int snd_acp63_probe(struct pci_dev *pci,
->>  static int __maybe_unused snd_acp63_suspend(struct device *dev)
->>  {
->>  	struct acp63_dev_data *adata;
->> -	int ret;
->> +	int ret = 0;
->>  
->>  	adata = dev_get_drvdata(dev);
->> -	ret = acp63_deinit(adata->acp63_base, dev);
->> +	if (adata->pdev_mask & ACP63_SDW_DEV_MASK) {
-> And now back to my comment from the first patch, you are using a
-> bit-wise operation with an enum which is not explicitly defined as a
-> mask. This test would be true for ACP63_SDW_PDM_DEV_MASK as well.
-Already provided explanation for the same , in patch 1 review
-comments. Please refer that one.
->
-> +enum acp_pdev_mask {
-> +	ACP63_PDM_DEV_MASK = 1,
-> +	ACP63_SDW_DEV_MASK,
-> +	ACP63_SDW_PDM_DEV_MASK,
-> +};
->
->> +		if (adata->acp_reset)
->> +			ret = acp63_deinit(adata->acp63_base, dev);
->> +	} else {
->> +		ret = acp63_deinit(adata->acp63_base, dev);
+On 06/06/23 21:08, Pierre-Louis Bossart wrote:
+>> +static int acp63_sdw_dma_start(struct snd_pcm_substream *substream, void __iomem *acp_base)
+>> +{
+>> +	struct acp_sdw_dma_stream *stream;
+>> +	u32 stream_id;
+>> +	u32 sdw_dma_en_reg;
+>> +	u32 sdw_dma_en_stat_reg;
+>> +	u32 sdw_dma_stat;
+>> +
+>> +	stream = substream->runtime->private_data;
+>> +	stream_id = stream->stream_id;
+>> +	switch (stream->instance) {
+>> +	case ACP_SDW0:
+>> +		sdw_dma_en_reg = sdw0_dma_enable_reg[stream_id];
+>> +		break;
+>> +	case ACP_SDW1:
+>> +		sdw_dma_en_reg = sdw1_dma_enable_reg[stream_id];
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
 >> +	}
->>  	if (ret)
->>  		dev_err(dev, "ACP de-init failed\n");
->>  	return ret;
->> @@ -674,10 +679,15 @@ static int __maybe_unused snd_acp63_suspend(struct device *dev)
->>  static int __maybe_unused snd_acp63_resume(struct device *dev)
->>  {
->>  	struct acp63_dev_data *adata;
->> -	int ret;
->> +	int ret = 0;
->>  
->>  	adata = dev_get_drvdata(dev);
->> -	ret = acp63_init(adata->acp63_base, dev);
->> +	if (adata->pdev_mask & ACP63_SDW_DEV_MASK) {
->> +		if (adata->acp_reset)
->> +			ret = acp63_init(adata->acp63_base, dev);
->> +	} else {
->> +		ret = acp63_init(adata->acp63_base, dev);
+>> +	writel(0x01, acp_base + sdw_dma_en_reg);
+>> +	sdw_dma_en_stat_reg = sdw_dma_en_reg + 4;
+>> +	return readl_poll_timeout(acp_base + sdw_dma_en_stat_reg, sdw_dma_stat,
+>> +				  (sdw_dma_stat & BIT(0)), ACP_DELAY_US, ACP_COUNTER);
+>> +}
+>> +
+>> +static int acp63_sdw_dma_stop(struct snd_pcm_substream *substream, void __iomem *acp_base)
+>> +{
+>> +	struct acp_sdw_dma_stream *stream;
+>> +	u32 stream_id;
+>> +	u32 sdw_dma_en_reg;
+>> +	u32 sdw_dma_en_stat_reg;
+>> +	u32 sdw_dma_stat;
+>> +
+>> +	stream = substream->runtime->private_data;
+>> +	stream_id = stream->stream_id;
+>> +	switch (stream->instance) {
+>> +	case ACP_SDW0:
+>> +		sdw_dma_en_reg = sdw0_dma_enable_reg[stream_id];
+>> +		break;
+>> +	case ACP_SDW1:
+>> +		sdw_dma_en_reg = sdw1_dma_enable_reg[stream_id];
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
 >> +	}
->>  	if (ret)
->>  		dev_err(dev, "ACP init failed\n");
->>  	return ret;
+>> +
+>> +	writel(0, acp_base + sdw_dma_en_reg);
+>> +	sdw_dma_en_stat_reg = sdw_dma_en_reg + 4;
+>> +	return readl_poll_timeout(acp_base + sdw_dma_en_stat_reg, sdw_dma_stat, !sdw_dma_stat,
+>> +				  ACP_DELAY_US, ACP_COUNTER);
+>> +}
+> these start/stop routines look mostly the same, except for the value to
+> be written in the register. Maybe they can be factored with a common
+> helper, e.g. acp63_sdw_dma_enable(true/false).
+Yes, it can be refactored. Will fix it.
+>> +
+>> +static int acp63_sdw_dma_trigger(struct snd_soc_component *comp,
+>> +				 struct snd_pcm_substream *substream,
+>> +				 int cmd)
+>> +{
+>> +	struct sdw_dma_dev_data *sdw_data;
+>> +	int ret;
+>> +
+>> +	sdw_data = dev_get_drvdata(comp->dev);
+>> +	switch (cmd) {
+>> +	case SNDRV_PCM_TRIGGER_START:
+>> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+>> +	case SNDRV_PCM_TRIGGER_RESUME:
+>> +		ret = acp63_sdw_dma_start(substream, sdw_data->acp_base);
+>> +		break;
+>> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+>> +	case SNDRV_PCM_TRIGGER_SUSPEND:
+>> +	case SNDRV_PCM_TRIGGER_STOP:
+>> +		ret = acp63_sdw_dma_stop(substream, sdw_data->acp_base);
+>> +		break;
+>> +	default:
+>> +		ret = -EINVAL;
+>> +	}
+>> +	if (ret)
+>> +		dev_err(comp->dev, "trigger %d failed: %d", cmd, ret);
+>> +	return ret;
+>> +}
 

@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 222A2725D86
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 13:46:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CA2E725E15
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 14:10:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62F2083B;
-	Wed,  7 Jun 2023 13:46:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62F2083B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8CCC825;
+	Wed,  7 Jun 2023 14:09:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8CCC825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686138415;
-	bh=ydrWmbTO/ThtaAAuYfZDm4x6pvVAoBkIYdVbadi6JuU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qYtPDPM4WqQbF543NFxNMIHyWeV+nabmaD/8EweJmk9JaoeBhCGWxiqnayrrMgP5I
-	 5lRd61m1bb+wp64Fy5MPJPOJ3bO/wgDBKxNorGWAARP6XQRfkeXIjeqRdknNre7Xwk
-	 OqT/QJwFJQr21HLw0TfaymIuKOi7VMmDtCZHrC+4=
+	s=default; t=1686139810;
+	bh=ajWdmE+oEITOfGOM0DiF4YY95IS+tAiw8M8wSeFjfJc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gV486gU2Twz4pgfB6m2fT0DabNBBZwfnNivmZiyFL6cBcii4L5oW288enHmBN6b4r
+	 dzw/C1b3PsckgU+365h7vBKtSE3BWnhAuodvP8H6W+bQfdre2gwbgRkz+g1RgwXJ7T
+	 upKjrRw6eqYf4K6RhAsgXzzg+c1/q/LPRLoAdjeQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7037F80549; Wed,  7 Jun 2023 13:45:45 +0200 (CEST)
+	id 43150F80155; Wed,  7 Jun 2023 14:08:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21FC4F80551;
-	Wed,  7 Jun 2023 13:45:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFE1DF8016C;
+	Wed,  7 Jun 2023 14:08:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A1D9F80199; Wed,  7 Jun 2023 13:45:41 +0200 (CEST)
+	id B691CF80199; Wed,  7 Jun 2023 14:08:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,45 +34,53 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86F0BF80290
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 13:45:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86F0BF80290
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6EB9AF800C8
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 14:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EB9AF800C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Tq23gApB
+ header.s=k20201202 header.b=Bi+Wp+C6
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3590361377;
-	Wed,  7 Jun 2023 11:45:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD53C433D2;
-	Wed,  7 Jun 2023 11:45:33 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 43E0763410;
+	Wed,  7 Jun 2023 12:08:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEF3DC433EF;
+	Wed,  7 Jun 2023 12:08:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686138334;
-	bh=ydrWmbTO/ThtaAAuYfZDm4x6pvVAoBkIYdVbadi6JuU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Tq23gApB946BK2bEatrYfu6taSWvmXKtL9KhkrDjw0MFoRFD6mNXJMub+eZLgUGA1
-	 vWkU63e6q/mxdfC3iLeRDGHUGbqpsKdppF63US/b0r5l+aYct+P5bMdNO25EsJ5s6u
-	 KUkl1KX/zZCc5nddiQ7FOMGCvqFdqrcSu054EItEbqX6kPP6S801BT6bWhWxYVGUWs
-	 L+SBZGij2qH+bjfDJyRVRqkgaqmxW86Gw306J3COWHath6osTSSRrtDD5YdUTbKze3
-	 FEplS/0Y1C/97RbDtCAeqF6y8DeeznDJLt1KMRv92v2PfP7dZEykcAXD4fXNpf6BOC
-	 WJqNOh2hd9nbQ==
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-In-Reply-To: <87edmwj9m1.wl-kuninori.morimoto.gx@renesas.com>
-References: <87edmwj9m1.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: soc.h: remove snd_soc_compr_ops :: trigger
-Message-Id: <168613833383.21852.4252184046753254419.b4-ty@kernel.org>
-Date: Wed, 07 Jun 2023 12:45:33 +0100
+	s=k20201202; t=1686139718;
+	bh=ajWdmE+oEITOfGOM0DiF4YY95IS+tAiw8M8wSeFjfJc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Bi+Wp+C6tbHnzgHh1p+180dQ/zx9IUMtY1VfKbsF+Z6NcjawkF67gfhSgdhHTpAPy
+	 K/+O9EkvHkxjVf8Va3NjQUEkwAfD3NKQkywYkVXXdHO3agZsQJ5ep0O3v82jqjxoMd
+	 DgsOe7DtWJjJes8wCRxqJIZ5l+jLK4GIORNxAUWEv1Qgs/KuyMsy9Jp9PtghSfHphS
+	 31S29SmnQ1uIFM1z4Uco4AzI8ppCeQ4yDaRZOkLlDVrVZBcN18fTfItUrJC82TpIHB
+	 jRAqUAmruppRV96n5IsNE13ScmceWymV5DOSGPtUY/xUXiv/PEFdDANPLFLISbTtqN
+	 Pb8HNcN+6mFjg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Trevor Wu <trevor.wu@mediatek.com>,
+	Jiaxin Yu <jiaxin.yu@mediatek.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] ASoC: mediatek: mt8188-mt6359: add i2c dependency
+Date: Wed,  7 Jun 2023 14:08:15 +0200
+Message-Id: <20230607120831.3587379-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: MMDMAQDPQMJLER6SCQOYCURP2JGTQFF2
-X-Message-ID-Hash: MMDMAQDPQMJLER6SCQOYCURP2JGTQFF2
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 4SIC5TC6CZHOVHRB6MB5XVSO6BLOMELR
+X-Message-ID-Hash: 4SIC5TC6CZHOVHRB6MB5XVSO6BLOMELR
+X-MailFrom: arnd@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -85,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MMDMAQDPQMJLER6SCQOYCURP2JGTQFF2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4SIC5TC6CZHOVHRB6MB5XVSO6BLOMELR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -94,37 +101,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 01 Jun 2023 00:43:02 +0000, Kuninori Morimoto wrote:
-> ASoC framework is not using trigger call-back for snd_soc_compr_ops.
-> This patch remove it.
-> 
-> 
+From: Arnd Bergmann <arnd@arndb.de>
 
-Applied to
+The newly added driver is missing this dependency, causing a possible
+build failure:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+WARNING: unmet direct dependencies detected for SND_SOC_MAX98390
+WARNING: unmet direct dependencies detected for SND_SOC_NAU8825
+  Depends on [m]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && I2C [=m]
+  Selected by [y]:
+  - SND_SOC_MT8188_MT6359 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_MT8188 [=y] && MTK_PMIC_WRAP [=y]
+aarch64-linux-ld: sound/soc/codecs/max98390.o: in function `max98390_i2c_probe':
+max98390.c:(.text+0x514): undefined reference to `__devm_regmap_init_i2c'
 
-Thanks!
+Fixes: 9f08dcbddeb30 ("ASoC: mediatek: mt8188-mt6359: support new board with nau88255")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/mediatek/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-[1/1] ASoC: soc.h: remove snd_soc_compr_ops :: trigger
-      commit: b9aa53fbee1e55abfcdfcc081c242de3c0582be4
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
+index 4ea012342b522..90db67e0ce4fb 100644
+--- a/sound/soc/mediatek/Kconfig
++++ b/sound/soc/mediatek/Kconfig
+@@ -223,6 +223,7 @@ config SND_SOC_MT8188
+ config SND_SOC_MT8188_MT6359
+ 	tristate "ASoC Audio driver for MT8188 with MT6359 and I2S codecs"
+ 	depends on SND_SOC_MT8188 && MTK_PMIC_WRAP
++	depends on I2C
+ 	select SND_SOC_MT6359
+ 	select SND_SOC_HDMI_CODEC
+ 	select SND_SOC_DMIC
+-- 
+2.39.2
 

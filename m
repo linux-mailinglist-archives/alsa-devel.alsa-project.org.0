@@ -2,64 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5169B726AA6
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 22:18:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99EFF726AB1
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 22:19:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1ED7820;
-	Wed,  7 Jun 2023 22:17:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1ED7820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55A1382B;
+	Wed,  7 Jun 2023 22:18:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55A1382B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686169120;
-	bh=EnhsOR6kucpdK0EOSLdjc3AK/uSODOaGZXYxak38Ha8=;
+	s=default; t=1686169176;
+	bh=PV6O18lA+9napxGcKHav/7uVYF208L7SjMkH9oTun/M=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ljAU+VFomPyTULz8/rYnk1f9WSqYCr1z7+JrVrSec5P/QXZya21QZgyBFTkfwyBrF
-	 SxYnffps51jkcZB/57PFBVR/koKbgNT9b0B/0TG1/2LV8RpvWCmc2gFlXqniDK9BtO
-	 kqubCYk+n45ook6bQ6kUlu8SKBoL6761JltXY7P4=
+	b=Gn4b9kJjWCJbXg1u7UfOEGdX0MlXdoW9MUEd9CG40Jn8hMHwWmBc9hEFUnK2IS2Lv
+	 SDnk9nhPcUTWh+dFMbmLUfW5sMmxLh8jWFgDM9DEa69V+Qm1pwidnnUB4ofmVztnN1
+	 h/palCjIvrdzecS4AcgGCoscQRkGq28/aIwv5TrU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E72B6F80494; Wed,  7 Jun 2023 22:17:49 +0200 (CEST)
+	id 8539EF80568; Wed,  7 Jun 2023 22:17:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06A69F8016C;
-	Wed,  7 Jun 2023 22:17:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F652F8055C;
+	Wed,  7 Jun 2023 22:17:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C44F9F80290; Wed,  7 Jun 2023 22:17:43 +0200 (CEST)
+	id 862C9F80199; Wed,  7 Jun 2023 22:17:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9E7BAF80130
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 22:17:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E7BAF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0C8CF80155
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 22:17:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0C8CF80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=WMAbdwrp
+ header.s=k20201202 header.b=ZuMvUhuc
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C589F6438D;
-	Wed,  7 Jun 2023 20:17:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C655AC4339C;
-	Wed,  7 Jun 2023 20:17:27 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5163560F16;
+	Wed,  7 Jun 2023 20:17:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B71C433EF;
+	Wed,  7 Jun 2023 20:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686169051;
-	bh=EnhsOR6kucpdK0EOSLdjc3AK/uSODOaGZXYxak38Ha8=;
+	s=k20201202; t=1686169055;
+	bh=PV6O18lA+9napxGcKHav/7uVYF208L7SjMkH9oTun/M=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=WMAbdwrps7m7m85JIqoJJrvQxmam1frNR+HR81CoNY/zg6lhLodxJnA4TddOTqbjx
-	 PZv2skSn8qXfz5a5RFdSrk94Tmb7MGANXF2PYHAk/mvn3vHR+7eEa6zX4/onzQu6Bh
-	 HK5apALdrFPKp2Gpbx/aXqQ4OFQiHifP4+uygOhs4BYQmBBQF7AT95aj0ggKNjotkG
-	 pIcKWCyybe8qdhW/g8h7UQnAIIS5MjA4xTb6PP9iY505z+cbcwKgZix+s1Ab0qFqTi
-	 Wxt4DDCKwPud8Bnr/zow/AUoAj/7ylCYRtLBjdu2ZO4a2v8HrEGN/hu2aMmWHexE/l
-	 /acSByfho4/bw==
+	b=ZuMvUhucmMRy7qLFXR3Zl0ByaewODD2kXzPzagE3VzvmMZLp/ZAya9aD/OIhCIF8q
+	 aQyHG02i2bCAw0t6nZETO8wO2HbzLKX28WXB4Fu0nqCUtQMnOD7OZRP2orckBKQS07
+	 l0/cft+oYXolvX5HQAgTII0xvVtZ4ri0sF27PmgGIk154DE1n01471//L38tivy+wo
+	 zyFEt6LoxBO49VO9HyhA4pEp32WODRpOvjlOcaYUt3rY6Rt0JgAnYuVkP5oKiGCIJ2
+	 dl/cUSe/ft7F16tLFczfJLUdtp8uMuSg8gwuIvzRTAX0fBlve2/BE9+jq0NPf7sxDG
+	 2+UXtxsDGhAcQ==
 From: Mark Brown <broonie@kernel.org>
 To: James Schulman <james.schulman@cirrus.com>,
  David Rhodes <david.rhodes@cirrus.com>,
@@ -76,17 +75,17 @@ Cc: Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
  patches@opensource.cirrus.com, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20230531140912.819373-1-olivier.moysan@foss.st.com>
-References: <20230531140912.819373-1-olivier.moysan@foss.st.com>
-Subject: Re: (subset) [PATCH 0/3] ASoC: stm32: fix dtbs_check warnings
-Message-Id: <168616904749.205102.9240096518191845115.b4-ty@kernel.org>
-Date: Wed, 07 Jun 2023 21:17:27 +0100
+In-Reply-To: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
+References: <20230606115605.1633595-1-olivier.moysan@foss.st.com>
+Subject: Re: (subset) [PATCH v2 0/3] ASoC: stm32: fix dtbs_check warnings
+Message-Id: <168616905180.205102.10881401881685811089.b4-ty@kernel.org>
+Date: Wed, 07 Jun 2023 21:17:31 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: IGOFM4SV4KKBWZQM6H2NINC3RWDPX5RP
-X-Message-ID-Hash: IGOFM4SV4KKBWZQM6H2NINC3RWDPX5RP
+Message-ID-Hash: ELFWQWOXAMNTLICN4DMTELJT353XL56A
+X-Message-ID-Hash: ELFWQWOXAMNTLICN4DMTELJT353XL56A
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IGOFM4SV4KKBWZQM6H2NINC3RWDPX5RP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ELFWQWOXAMNTLICN4DMTELJT353XL56A/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,7 +107,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 31 May 2023 16:09:09 +0200, Olivier Moysan wrote:
+On Tue, 06 Jun 2023 13:56:01 +0200, Olivier Moysan wrote:
 > Fix dtbs_check warnings in STM32MP15 DK boards Devices Trees for
 > STM32 I2S and Cirrus CS42L51 codec.
 > 

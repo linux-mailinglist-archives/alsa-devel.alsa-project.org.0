@@ -2,160 +2,153 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFC4172637D
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 16:57:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D8BE729D4C
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 16:50:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DCB074C;
-	Wed,  7 Jun 2023 16:56:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DCB074C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 307B282B;
+	Fri,  9 Jun 2023 16:49:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 307B282B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686149831;
-	bh=Y4B2gt5Cz2eVciMlide3N5nDQk5IkCzkT76wS3UwG9c=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Q9KxkixEgsITRICuiiajJAcxOCcfFOoJfquTs6Hq4eriocmP39Y16QCurrQmXiMZS
-	 3umRmjaNPalM1+MHlq7hZj1S++eblW3Gj2G98oQtd2ivD8/0NsSt/sPJUYo+3Dn8XU
-	 15AjMZcBx67Dy/3fajYt5Kc8aqwJGjXzXGFi5UUw=
+	s=default; t=1686322221;
+	bh=8ka+kmamw9OEG79FDH88JoftVnnR/6Q0Bm6hO/Sy4TY=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Y+Da8BtOcw45ez4CtaXI6xZasCCGB7Qa4GgBo2jvVAPKUdutauOjGhQGqF8mvXWdq
+	 edDDA8syCRo04MjSp0hjoGXKbCh8BZtA2mK0tOk3WZw6ioTUQKGUUEpgY/9vB4rxnw
+	 0hduySLxQfj8t5aShZO0sz2F1KoVAN12eRHosv1I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DE2A3F80520; Wed,  7 Jun 2023 16:56:20 +0200 (CEST)
+	id D0497F805C2; Fri,  9 Jun 2023 16:47:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F2D1F8016C;
-	Wed,  7 Jun 2023 16:56:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B776F805C7;
+	Fri,  9 Jun 2023 16:47:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EA03FF80199; Wed,  7 Jun 2023 16:56:15 +0200 (CEST)
+	id 80A8BF80254; Wed,  7 Jun 2023 16:58:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::224])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 835A6F80130
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 16:56:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 835A6F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id B1B6BF80130
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 16:57:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1B6BF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=Nus40yw6
-X-GND-Sasl: herve.codina@bootlin.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1686149766;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j7gbXd0RpYvnzNDsTkINk8jfZlfPM/h26L3sVpQBEA0=;
-	b=Nus40yw6Ykq619bNhbiuMgDNNxhkNfmD14Z5vbLwgY6hhW6sGzQVXPz6yezJQAuibm3fVO
-	USQ6p9kQVGiMdTwif/CdYD2GjvVboIox6YRehy8tDI61HntMDikWkce1PcJVgdIMcHsoj1
-	SUfk2tN6yjS8jCngvcOnWfEygLeQk1nahPZvS7J0mI9gTi+53l/wpCZK7XxIQiIDL85pfH
-	+Txfnc17HzzcMLgvfWxK/1bTwiA3qJ/q7eAYbsmvXXk/PizhuPbi/BAbIqXSLBGPG9uv/k
-	afYTjjGKV7DIoUeGnHd7fHO+vkAjz7HKlDvvbQB6UYBOvwYmXKScsQntRRXYdA==
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id CC4CEE000C;
-	Wed,  7 Jun 2023 14:56:01 +0000 (UTC)
-Date: Wed, 7 Jun 2023 16:56:00 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 7/9] ASoC: codecs: Add support for the generic IIO
- auxiliary devices
-Message-ID: <20230607165600.535c8530@bootlin.com>
-In-Reply-To: 
- <CAHp75Vd00N8z7kgTb=WTZHJW3XhsKbLfhTTKPjnCvKUSfL+xDQ@mail.gmail.com>
-References: <20230523151223.109551-1-herve.codina@bootlin.com>
-	<20230523151223.109551-8-herve.codina@bootlin.com>
-	<ZHuFywIrTnEFpX6e@surfacebook>
-	<20230606155404.28ada064@bootlin.com>
-	<CAHp75Vd00N8z7kgTb=WTZHJW3XhsKbLfhTTKPjnCvKUSfL+xDQ@mail.gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=qGqDR9tS
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-3f6042d605dso60997505e9.2
+        for <alsa-devel@alsa-project.org>;
+ Wed, 07 Jun 2023 07:57:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1686149864; x=1688741864;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=15bcPlwJydkin0B+JJAsu+9McxnbVcGQs6T+4KYVyWQ=;
+        b=qGqDR9tSf/ntbvkpkgaO42huIAJWHmk04412CvhnpxAwQb+CiKuF2lAVZw29BLhpWG
+         wnEIyLfbZ6V/B3sHUTtyet7DHrb3nitMvWBbaZr/H5reMtDydgEwEGviYaeYGS9+xb3u
+         kIXqzZgE/fUMwYd4hwFMmIkC5dye70I+oXc/GMESJ9gC60AhQrvQO9T3suMtQj7N5hBk
+         Al/gAm95BjVudokd3ttDVMayJZuc+XjEdNIJkXQalNv29xxIE7fubija+2srf7PDj/lY
+         +IYE61jg29t+nsXqNc20nwKC7YQziScASypHutUCduar0YEr9hY5dyOeE7tW9C4rKpFm
+         0wgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686149864; x=1688741864;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=15bcPlwJydkin0B+JJAsu+9McxnbVcGQs6T+4KYVyWQ=;
+        b=l+MFoSXwWsHVtjSLWteUO4Slr88pVL9ysNfR5DRexM/reYJDXQPXJ5H5PEtv8ZWuIc
+         hyjFxCzaTV4kXEXR7DU7VVqhcBgo/8kNd+zaClatpIpa0ybCvxk9lIAKbQS9KxDjVEvW
+         TZmaZY5tOmITQ90hd1W6lB/ljfz8rJNJZZ/zedsJvLPOk3mjo/ZHDvCgYN223kcXMYTf
+         00Simu1r91TTJ9ZiK4B7qeAhR0U0Jp4h8K73kYgOpGKeVkMe5nSXq2b1x9BcXMIDSAZC
+         hMmdQdlLiyfiDIjcbm2WIM5T0BcuBuCoH+jIhvzOxom+XCEHHxoVOTOPFR1xJEqK6UGN
+         PJsw==
+X-Gm-Message-State: AC+VfDxAOzhdeBrQy7ebw7thxZ40HQ+2T7KCwtWvZ21cadorMSpxE8rF
+	R781lW8Kk8NG1Zp0tKz2PoYnJA==
+X-Google-Smtp-Source: 
+ ACHHUZ4Om8wIr2+W8c2m5xch/rF8WjO/ue+qyFCuYy0t+JsljkFHxXGRUHuKnJgvRrjikjox6oNy/w==
+X-Received: by 2002:a05:600c:ad6:b0:3f7:e629:9f3 with SMTP id
+ c22-20020a05600c0ad600b003f7e62909f3mr4734068wmr.16.1686149864352;
+        Wed, 07 Jun 2023 07:57:44 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id
+ y6-20020adfd086000000b0030631a599a0sm15633048wrh.24.2023.06.07.07.57.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Jun 2023 07:57:42 -0700 (PDT)
+Date: Wed, 7 Jun 2023 17:57:38 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Trevor Wu <trevor.wu@mediatek.com>
+Cc: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Alexandre Mergnat <amergnat@baylibre.com>,
+	alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH v2] SoC: mediatek: mt8188-mt6359: clean up a return in
+ codec_init
+Message-ID: <42f2a995-3545-40bf-82a0-fd9b8abc16ce@moroto.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UKIAFN2YFM7CZ6MUBWN3P252JVHNH43E
-X-Message-ID-Hash: UKIAFN2YFM7CZ6MUBWN3P252JVHNH43E
-X-MailFrom: herve.codina@bootlin.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-MailFrom: dan.carpenter@linaro.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: EI6IKERKDWYOG5DUJJUBEANLYFLOKU5I
+X-Message-ID-Hash: EI6IKERKDWYOG5DUJJUBEANLYFLOKU5I
+X-Mailman-Approved-At: Fri, 09 Jun 2023 14:46:45 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UKIAFN2YFM7CZ6MUBWN3P252JVHNH43E/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EI6IKERKDWYOG5DUJJUBEANLYFLOKU5I/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Andy,
+This code triggers a Smatch static checker warning and does sort of
+look like an error path.
 
-On Tue, 6 Jun 2023 17:34:22 +0300
-Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
+sound/soc/mediatek/mt8188/mt8188-mt6359.c:597 mt8188_max98390_codec_init() warn: missing error code? 'ret'
 
-...
+However, returning 0 is intentional.  Make that explicit.
 
-> > >
-> > > Btw, can you avoid using OF APIs? It's better to have device property/fwnode
-> > > API to be used from day 1.  
-> >
-> > Hum, this comment was raised in the previous iteration
-> >   https://lore.kernel.org/linux-kernel/20230501162456.3448c494@jic23-huawei/
-> >
-> > I didn't find any equivalent to of_property_read_u32_index() in the
-> > device_property_read_*() function family.
-> > I mean I did find anything available to get a value from an array using an index.  
-> 
-> This is done by reading the entire array at once and then parsing as
-> you wish in the code, device_property_read_u32_array() is for that.
-> 
-> > In the previous iteration it was concluded that keeping OF APIs in this series
-> > seemed "reasonable".  
-> 
-> Maybe, but consider the above.
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+v2: At first I thought this was an error path but it is a not.
 
-I see.
-Will switch to device_property_*() family in the next iteration.
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Hervé
-
+diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+index bc4b74970a46..5ad8d2a5bbc4 100644
+--- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
++++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+@@ -594,7 +594,7 @@ static int mt8188_max98390_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	}
+ 
+ 	if (rtd->dai_link->num_codecs <= 2)
+-		return ret;
++		return 0;
+ 
+ 	/* add widgets/controls/dapm for rear speakers */
+ 	ret = snd_soc_dapm_new_controls(&card->dapm, mt8188_rear_spk_widgets,
 -- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.39.2
+

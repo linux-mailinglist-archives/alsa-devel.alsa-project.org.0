@@ -2,83 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9F8E725D83
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 13:45:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B30E725D85
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 13:46:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E35F410E;
-	Wed,  7 Jun 2023 13:44:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E35F410E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA1EF827;
+	Wed,  7 Jun 2023 13:45:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA1EF827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686138338;
-	bh=ZIzmANL6SzlLASO7Q6YwNLFjhy6kknyeRB+38H5mVuU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686138394;
+	bh=AP8M9wi8/0wgXneuC9vS7oTfSWLOqVNSNtJq580KdG4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eNyGcqEsf2MpWAFxBje72bKSwlIbdrA44+hyvHc66bAqPRkQLBbDW/+NKn3AHh1Yh
-	 sBGdTCangDSusLzslPNa7uCg34kDLW3eHyPw6n67BP6Nr62dckSHapoYIs5kMGEbO/
-	 it4ONbVaDqR29V0OJnsXG8ECZY6+MdytO1C/WwhQ=
+	b=X5h4JAUz3/Jp5pe0bpnRIF/rLGDvvLTeO/zdDz6ggK4MyhUKzcR0SLW25qucGkp1P
+	 gt8SlnWwMpqpUB/e1SxR3IDsxuZJ2E+jJmTWhqjXzhLCc0vk9XcQCK2vmL85Fa7ioJ
+	 ZBD3GdwEGp1qYSdjO96S5QMiP2uot16M0R7bVCik=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F6F6F804DA; Wed,  7 Jun 2023 13:44:47 +0200 (CEST)
+	id 208ABF80548; Wed,  7 Jun 2023 13:45:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E131DF80155;
-	Wed,  7 Jun 2023 13:44:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E1B9F8016C;
+	Wed,  7 Jun 2023 13:45:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32E22F80199; Wed,  7 Jun 2023 13:44:42 +0200 (CEST)
+	id 4E252F80254; Wed,  7 Jun 2023 13:45:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74236F800C8
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 13:44:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74236F800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 70604F80199
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 13:45:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70604F80199
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=hWCItizn
+ header.s=k20201202 header.b=OjywscnI
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 474BA6363F;
-	Wed,  7 Jun 2023 11:44:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93ADC433D2;
-	Wed,  7 Jun 2023 11:44:28 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3FE4761579;
+	Wed,  7 Jun 2023 11:45:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E25C433EF;
+	Wed,  7 Jun 2023 11:45:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686138270;
-	bh=ZIzmANL6SzlLASO7Q6YwNLFjhy6kknyeRB+38H5mVuU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hWCItiznTaIjXPD6oJgZdZ+a/+EUA7wwfpWE7eAQS+ozAXjokQoQv5JTGniOJ/3VT
-	 QWqvvHqY2XnmQNRxi2FTyxwIqhgCp/HPrlsQx5Wao+umGdzrC34kHupiQrg8Kp8hAZ
-	 KSlGv73cPqhN5FbpKRKMP81G3u0DkkgaJZwJnVg4Fs3Gm9W4NqKMq/yK8GN5VM9LUn
-	 T1tid/FXlzl7436fSVkftHFdoQSgO1gRrIdyvIKcfbmsv5E5cyRSU1kmt8MeEYHVc/
-	 MIL0j4yZj/RcTnkJdYa4WKV6cwTRGyV5RbLab9Sj4NaZc0VMqEjgNPqyE6UmNX0hzK
-	 UBZMnDoCACm+Q==
-Date: Wed, 7 Jun 2023 12:44:25 +0100
+	s=k20201202; t=1686138333;
+	bh=AP8M9wi8/0wgXneuC9vS7oTfSWLOqVNSNtJq580KdG4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=OjywscnIT2AfAPVvXtoxiWDnWSMm2YNoPuu0e0b7YeiQSXoX23L/nrYjsx82affwR
+	 4hEHOOlCcs0aYgWZNhnTZcdZ7A3pZE0AcRFYe073u0OyELOUyRw30bri5OyDajVSd0
+	 DUGJTsVQKZut88B4y9yQWJmAUgCfO4rVfhUfwtMVsg+OHMrUw2u7Z0jLcXgv7VNzyQ
+	 7lsrnYnzWT2KTx7DafO6MyTrijywJ6kyCc68vp5hoCup9te28L1vEH6oE70vcxKOzw
+	 ZKLKfpKGqZEbdf3BjVa2sHPXrZ0x9fZEzVRdQIjqM3T03E/gUl/UO381+iYqT+5/jN
+	 /3HOATOZxZExA==
 From: Mark Brown <broonie@kernel.org>
-To: Walker Chen <walker.chen@starfivetech.com>
-Cc: Claudiu Beznea <Claudiu.Beznea@microchip.com>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ASoC: starfive: Cleanup and fix error check for
- JH7110 TDM
-Message-ID: <3eb7ffc5-a16a-4ac2-93a0-260f7cb1f81c@sirena.org.uk>
-References: <20230607081439.1517-1-walker.chen@starfivetech.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <87fs7cj9mf.wl-kuninori.morimoto.gx@renesas.com>
+References: <87fs7cj9mf.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: add snd_soc_get_stream_cpu()
+Message-Id: <168613833286.21852.17123169582801771391.b4-ty@kernel.org>
+Date: Wed, 07 Jun 2023 12:45:32 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LfKPoAKPg/endcMK"
-Content-Disposition: inline
-In-Reply-To: <20230607081439.1517-1-walker.chen@starfivetech.com>
-X-Cookie: Keep away from edge.
-Message-ID-Hash: SR2N4PZMDCOCPSRJH3P74H6X4RSJGGOW
-X-Message-ID-Hash: SR2N4PZMDCOCPSRJH3P74H6X4RSJGGOW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: SJKNUJVGB5PAYL7O2ONM6IN3JAPHI54T
+X-Message-ID-Hash: SJKNUJVGB5PAYL7O2ONM6IN3JAPHI54T
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SR2N4PZMDCOCPSRJH3P74H6X4RSJGGOW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SJKNUJVGB5PAYL7O2ONM6IN3JAPHI54T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,65 +94,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, 01 Jun 2023 00:42:49 +0000, Kuninori Morimoto wrote:
+> We are using get_stream_cpu() to get CPU stream which cares
+> Codec2Codec. But it is static function for now, and we want to use it
+> from other files. This patch makes it global function.
+> 
+> 
 
---LfKPoAKPg/endcMK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Wed, Jun 07, 2023 at 04:14:39PM +0800, Walker Chen wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> Some minor issues were found during addtional testing and static
-> analysis. The patch fixed these minor issues.
-> 1.Use BIT() macro to indicate configuration for TDM registers.
->=20
-> 2.Fix the check for devm_reset_control_array_get_exclusive return
-> value. The devm_reset_control_array_get_exclusive() function may return
-> NULL if it's an optional request. If optional is intended then NULL
-> should not be treated as an error case, but as a special kind of success
-> case. So here the IS_ERR() is used to check better.
+Thanks!
 
-As covered in submitting-patches.rst please submit one patch per change
-rather than combining multiple changes into a single patch, it makes
-things much easier to review and handle.
+[1/1] ASoC: add snd_soc_get_stream_cpu()
+      commit: 1c943f60e830d0b959c765df09d4c4b254de0481
 
-> -	datarx =3D (tdm->rx.ifl << IFL_BIT) |
-> -		  (tdm->rx.wl << WL_BIT) |
-> -		  (tdm->rx.sscale << SSCALE_BIT) |
-> -		  (tdm->rx.sl << SL_BIT) |
-> -		  (tdm->rx.lrj << LRJ_BIT);
-> +	datarx =3D (tdm->rxwl << 8) |
-> +		  (tdm->rxsscale << 4) |
-> +		  (tdm->rxsl << 2) |
-> +		  TDM_PCMRXCR_LEFT_J;
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-I'm not sure this change to use numbers here is a win - the _BIT
-definitions look fine (I might've called them _SHIFT but whatever).
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> -static const struct of_device_id jh7110_tdm_of_match[] =3D {
-> +static const struct of_device_id jh7110_tdm_match[] =3D {
->  	{ .compatible =3D "starfive,jh7110-tdm", },
->  	{}
->  };
-> =20
-> -MODULE_DEVICE_TABLE(of, jh7110_tdm_of_match);
-> +MODULE_DEVICE_TABLE(of, jh7110_tdm_match);
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-This rename wasn't mentioned in the changelog.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---LfKPoAKPg/endcMK
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
+Mark
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSAbZgACgkQJNaLcl1U
-h9A99wf+NSaIxGIf4YZKSPJ7aahCikFSJ8QzZ93+jeCBXfB3MhCCrzVLVzFnUrv3
-SQWddp2m5MWKBSt4icNmTEmweGEtv2Ec6FtXgo8dRimVUCd6W1EFxtT4UvzKJbiT
-oFA3XyST93OE3gZxQpNehPIf6pXrgvtVfBlZLoqk4FdL1YS1VpD7EeOh5Y+afwYD
-rWilBo5XnXxhx8a0rexNC9N/aDx6m3JGItGftPghXqQpGutTp0mRse92+pCiH79A
-tfaG4ZEI9ugOXFuk+4uDhr5N2/6so5mS/ND5AHaFFSPLZ0AW0Q0Gr33vggAzxGCe
-2QvWgXdAEkJikvqwETOVosS0KMHehA==
-=CVs9
------END PGP SIGNATURE-----
-
---LfKPoAKPg/endcMK--

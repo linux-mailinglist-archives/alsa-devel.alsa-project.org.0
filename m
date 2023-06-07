@@ -2,135 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD532725611
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 09:42:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A6B725A03
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 11:21:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0AB86C0;
-	Wed,  7 Jun 2023 09:41:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0AB86C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D395D825;
+	Wed,  7 Jun 2023 11:20:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D395D825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686123722;
-	bh=e1syM3wF9tCo53BmDyCbfw0xLXzv1kc9iBvJvh69tVY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HDVsIDZzA6Tr0iQeDgNauJ0phWtWRMtDGvTh/NOFPWJs/x+g4z4fxXY1DCxowq1QS
-	 KvjqdMff8Rkb5IA9yMzGylLndBWQDtmv5zdSjrIIrnOK4Wx7krI/v4YF7jP8iJxwJF
-	 MxpeFqHfNFDN528WgLiucSAZ7/swZoJmWXQyangQ=
+	s=default; t=1686129662;
+	bh=0tWcBeij4s8WagaAM5q0PnBo51Kt0KMKt0fEo0Rc0Q8=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=IdyuCAyOhSlIjN8RI1kNh2miIw+bRqiHWDP3s8k1I7fJZjzJS8wnuisGnSERzUF9D
+	 b3HfbNoWt73Da6QwKpNN/v3Pe+TPyx+beSApx6T5qKCS27GZm6Otik6TMOSbEQjifg
+	 NB18hwV7unD9u3o6vy7OllfPOCoWZRkoQewk83zM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74C6DF8016C; Wed,  7 Jun 2023 09:40:50 +0200 (CEST)
+	id B02F8F805AF; Wed,  7 Jun 2023 11:18:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0026AF8016C;
-	Wed,  7 Jun 2023 09:40:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB3DBF805A8;
+	Wed,  7 Jun 2023 11:18:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C8AF7F80199; Wed,  7 Jun 2023 09:40:45 +0200 (CEST)
+	id A8750F80199; Wed,  7 Jun 2023 10:15:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [IPv6:2a00:1450:4864:20::530])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
+ [61.152.239.71])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3E11F80130
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 09:40:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3E11F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=dpiv/lAa
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-51475e981f0so860429a12.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 07 Jun 2023 00:40:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1686123640; x=1688715640;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QzNzUxBgctT5U3+gB3td/wPDXx9tt+J9TkByw444vb4=;
-        b=dpiv/lAao6jUqNRWIwDa/t6LO1tyPxkPWni1OUv3MwCcaBvBG9TZJWlQAsTwrpJG8z
-         WiSLr3KTYWPNapPhFe4g/UQTjDvdv2Kh5m3vUHx2Uvn0qhMaWW7936pz4POvuJM/IQsq
-         Nj5IuPvfSkJvvk2/lgKSqanZnlPWCLIWckttk5fd61hIvF0Cv5Sw1t5kE8iZvriviEW+
-         In+gf5HZQY8yoXdiDm/zttqRTvXjVTxgNdcYNhuap4h3KffjSa1/I4wWvgR5nzhKYxNl
-         ilEXGjb2B7MxuIK+KjltPks5gdQ0IXXIg2nLLmfmXMao4M6uuWPsgMMFy1+JhqAIHqER
-         v4DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686123640; x=1688715640;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QzNzUxBgctT5U3+gB3td/wPDXx9tt+J9TkByw444vb4=;
-        b=YbmyCqsUHs4R5LJYDP2jYu9YJX/HPDd0D4cjO0dcIJG8N0aaz6phT9wzLbVMBicKQS
-         nYHLQhkz/khO55bdP4bh9hoohItqU3NdlT7TxvtuJQ9OdBYKfgF7FOBDS74uZujGoulx
-         Bjd6ZfmII/vutb9eo2lolSgMRJRRUdy9EEXljZYGtpzUZGcoZUD0tzjphL4bIs3pXaN9
-         JE7al/LjMVBshVf35HEZc+g5NurOU5t+9nx1Ipdf8vE90mf0nsvn2OLT02bFB7ArYYIn
-         wEm3ZxabGLfz7NHot0HZXuhBtlUU5Dx+CfYqmnY5u4XbUn7jodOsAIswlHP0hm/HsaIF
-         oG3A==
-X-Gm-Message-State: AC+VfDzXKgB/EAg6t4G7FmnRLGdXGJs6fi7PlxsSizKW4WACBJR+J5ZR
-	OqSGfWthoiSgZYY0Fi9WADObCw==
-X-Google-Smtp-Source: 
- ACHHUZ6nIjpeIRlx7fPahFZ5gzxmNl29452UMvG6AuY1y9w+PrjwLC4zGKqXZHhvW+xhYzrUW9v6Ug==
-X-Received: by 2002:a17:907:9403:b0:965:cc76:7716 with SMTP id
- dk3-20020a170907940300b00965cc767716mr4912526ejc.76.1686123640173;
-        Wed, 07 Jun 2023 00:40:40 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
-        by smtp.gmail.com with ESMTPSA id
- k16-20020a1709065fd000b00977db7d08cbsm3376124ejv.74.2023.06.07.00.40.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Jun 2023 00:40:39 -0700 (PDT)
-Message-ID: <f141a538-23b8-d10e-227c-5f0ad191c3a6@linaro.org>
-Date: Wed, 7 Jun 2023 09:40:37 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2F836F800C8
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 10:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F836F800C8
+Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
+	by fd01.gateway.ufhost.com (Postfix) with ESMTP id B83747F8A;
+	Wed,  7 Jun 2023 16:14:40 +0800 (CST)
+Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX166.cuchost.com
+ (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Wed, 7 Jun
+ 2023 16:14:40 +0800
+Received: from SD-Server.starfivetech.com (183.27.98.122) by
+ EXMBX168.cuchost.com (172.16.6.78) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.42; Wed, 7 Jun 2023 16:14:40 +0800
+From: Walker Chen <walker.chen@starfivetech.com>
+To: Mark Brown <broonie@kernel.org>, Claudiu Beznea
+	<Claudiu.Beznea@microchip.com>, Dan Carpenter <dan.carpenter@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>, "Jaroslav
+ Kysela" <perex@perex.cz>, Walker Chen <walker.chen@starfivetech.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v1] ASoC: starfive: Cleanup and fix error check for JH7110 TDM
+Date: Wed, 7 Jun 2023 16:14:39 +0800
+Message-ID: <20230607081439.1517-1-walker.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH 2/7] dt-bindings: pwm: restrict node name suffixes
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
- <kishon@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Mark Brown <broonie@kernel.org>, Dipen Patel <dipenp@nvidia.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Dilip Kota <eswara.kota@linux.intel.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-rtc@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-spi@vger.kernel.org, timestamp@lists.linux.dev,
- linux-watchdog@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Tony Lindgren <tony@atomide.com>, Oleksij Rempel <o.rempel@pengutronix.de>
-References: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
- <20230530144851.92059-3-krzysztof.kozlowski@linaro.org>
- <20230607073652.hoyrernfcuoryrqs@pengutronix.de>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230607073652.hoyrernfcuoryrqs@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ZUUMP3LNE55CM44D4GTS7WGJSEDXDDAO
-X-Message-ID-Hash: ZUUMP3LNE55CM44D4GTS7WGJSEDXDDAO
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: text/plain
+X-Originating-IP: [183.27.98.122]
+X-ClientProxiedBy: EXCAS064.cuchost.com (172.16.6.24) To EXMBX168.cuchost.com
+ (172.16.6.78)
+X-YovoleRuleAgent: yovoleflag
+X-MailFrom: walker.chen@starfivetech.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: C4FJGGKNJ7NKCZH2J5LZ7BKZKOFQIKYZ
+X-Message-ID-Hash: C4FJGGKNJ7NKCZH2J5LZ7BKZKOFQIKYZ
+X-Mailman-Approved-At: Wed, 07 Jun 2023 09:18:37 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZUUMP3LNE55CM44D4GTS7WGJSEDXDDAO/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,80 +86,378 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 07/06/2023 09:36, Uwe Kleine-König wrote:
-> On Tue, May 30, 2023 at 04:48:46PM +0200, Krzysztof Kozlowski wrote:
->> Make the pattern matching node names a bit stricter to improve DTS
->> consistency.  The pattern is restricted to:
->> 1. Only one unit address or one -N suffix,
->> 2. -N suffixes to decimal numbers.
->>
->> Suggested-by: Rob Herring <robh@kernel.org>
->> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> 
->>
->> ---
->>
->> Cc: Tony Lindgren <tony@atomide.com>
->> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
->> ---
->>  Documentation/devicetree/bindings/pwm/pwm.yaml | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/pwm/pwm.yaml b/Documentation/devicetree/bindings/pwm/pwm.yaml
->> index 3c01f85029e5..abd9fa873354 100644
->> --- a/Documentation/devicetree/bindings/pwm/pwm.yaml
->> +++ b/Documentation/devicetree/bindings/pwm/pwm.yaml
->> @@ -13,7 +13,7 @@ select: false
->>  
->>  properties:
->>    $nodename:
->> -    pattern: "^pwm(@.*|-[0-9a-f])*$"
->> +    pattern: "^pwm(@.*|-([0-9]|[1-9][0-9]+))?$"
-> 
-> With this patch we forbid now the following patterns:
-> 
-> 	pwm-[0-9a-f][@-].*
-> 	pwm-0[0-9a-f]+
-> 	pwm-[a-f]([@-].*)?
+Some minor issues were found during addtional testing and static
+analysis. The patch fixed these minor issues.
+1.Use BIT() macro to indicate configuration for TDM registers.
 
-Yes, this was discussed last time:
-https://lore.kernel.org/all/20221127182232.GA128974-robh@kernel.org/
+2.Fix the check for devm_reset_control_array_get_exclusive return
+value. The devm_reset_control_array_get_exclusive() function may return
+NULL if it's an optional request. If optional is intended then NULL
+should not be treated as an error case, but as a special kind of success
+case. So here the IS_ERR() is used to check better.
 
-> 
-> Checking for such names:
-> 
-> 	$ git grep -oP '\bpwm-([0-9a-f][@-].*|0[0-9a-f]+|[0-9]*[a-f][0-9a-f]*)(*pla:\s*\{)' arch/*/boot/dts
-> 	arch/arm/boot/dts/meson8.dtsi:pwm-f-ao
-> 	arch/arm/boot/dts/meson8.dtsi:pwm-e
-> 	arch/arm/boot/dts/meson8b.dtsi:pwm-d
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-a
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-b-x7
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-b-x19
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-c-c
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-c-x5
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-c-x8
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-d-x3
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-d-x6
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-e
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-f-z
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-f-a
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-f-x
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-f-h
-> 	arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi:pwm-a-e
+Fixes: fd4762b6b5cf ("ASoC: starfive: Add JH7110 TDM driver")
+Signed-off-by: Walker Chen <walker.chen@starfivetech.com>
+---
+Fix the following issue:
+https://lore.kernel.org/all/ZH7t6Nc+NTcGpq%2F3@moroto/
+---
+ sound/soc/starfive/jh7110_tdm.c | 200 +++++++++++---------------------
+ 1 file changed, 68 insertions(+), 132 deletions(-)
 
-Are you sure these are pwms, not pins?
-
-> 
-> These are all pinmux-settings and no pwm nodes, so the change is fine.
-> (But arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi isn't properly
-> sorted alphabetically.)
-
-Exactly...
-
-> 
-> Reviewed-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-
-
-Best regards,
-Krzysztof
+diff --git a/sound/soc/starfive/jh7110_tdm.c b/sound/soc/starfive/jh7110_tdm.c
+index 973b910d2d3e..139ff091672e 100644
+--- a/sound/soc/starfive/jh7110_tdm.c
++++ b/sound/soc/starfive/jh7110_tdm.c
+@@ -24,63 +24,33 @@
+ #include <sound/soc.h>
+ #include <sound/soc-dai.h>
+ 
++/* Register offsets for JH7110 TDM device */
+ #define TDM_PCMGBCR			0x00
+-	#define PCMGBCR_MASK		0x1e
+-	#define PCMGBCR_ENABLE		BIT(0)
+-	#define PCMGBCR_TRITXEN		BIT(4)
+-	#define CLKPOL_BIT		5
+-	#define TRITXEN_BIT		4
+-	#define ELM_BIT			3
+-	#define SYNCM_BIT		2
+-	#define MS_BIT			1
+ #define TDM_PCMTXCR			0x04
+-	#define PCMTXCR_TXEN		BIT(0)
+-	#define IFL_BIT			11
+-	#define WL_BIT			8
+-	#define SSCALE_BIT		4
+-	#define SL_BIT			2
+-	#define LRJ_BIT			1
+ #define TDM_PCMRXCR			0x08
+-	#define PCMRXCR_RXEN		BIT(0)
+-	#define PCMRXCR_RXSL_MASK	0xc
+-	#define PCMRXCR_RXSL_16BIT	0x4
+-	#define PCMRXCR_RXSL_32BIT	0x8
+-	#define PCMRXCR_SCALE_MASK	0xf0
+-	#define PCMRXCR_SCALE_1CH	0x10
+ #define TDM_PCMDIV			0x0c
+ 
+-#define JH7110_TDM_FIFO			0x170c0000
+-#define JH7110_TDM_FIFO_DEPTH		32
++/* Bit definition for TDM_PCMGBCR */
++#define TDM_PCMGBCR_SYNCM_LONG		BIT(2)
++#define TDM_PCMGBCR_MS_SLAVE		BIT(1)
++#define TDM_PCMGBCR_EN			BIT(0)
+ 
+-enum TDM_MASTER_SLAVE_MODE {
+-	TDM_AS_MASTER = 0,
+-	TDM_AS_SLAVE,
+-};
++/* Bit definition for TDM_PCMTXCR */
++#define TDM_PCMTXCR_LEFT_J		BIT(1)
++#define TDM_PCMTXCR_TXEN		BIT(0)
+ 
+-enum TDM_CLKPOL {
+-	/* tx raising and rx falling */
+-	TDM_TX_RASING_RX_FALLING = 0,
+-	/* tx falling and rx raising */
+-	TDM_TX_FALLING_RX_RASING,
+-};
++/* Bit definition for TDM_PCMRXCR */
++#define TDM_PCMRXCR_LEFT_J		BIT(1)
++#define TDM_PCMRXCR_RXEN		BIT(0)
+ 
+-enum TDM_ELM {
+-	/* only work while SYNCM=0 */
+-	TDM_ELM_LATE = 0,
+-	TDM_ELM_EARLY,
+-};
+-
+-enum TDM_SYNCM {
+-	/* short frame sync */
+-	TDM_SYNCM_SHORT = 0,
+-	/* long frame sync */
+-	TDM_SYNCM_LONG,
+-};
++#define JH7110_TDM_FIFO			0x170c0000
++#define JH7110_TDM_FIFO_DEPTH		32
+ 
+-enum TDM_IFL {
+-	/* FIFO to send or received : half-1/2, Quarter-1/4 */
+-	TDM_FIFO_HALF = 0,
+-	TDM_FIFO_QUARTER,
++enum TDM_SL {
++	/* send or received slot length */
++	TDM_8BIT_SLOT_LEN = 0,
++	TDM_16BIT_SLOT_LEN,
++	TDM_32BIT_SLOT_LEN,
+ };
+ 
+ enum TDM_WL {
+@@ -92,43 +62,24 @@ enum TDM_WL {
+ 	TDM_32BIT_WORD_LEN,
+ };
+ 
+-enum TDM_SL {
+-	/* send or received slot length */
+-	TDM_8BIT_SLOT_LEN = 0,
+-	TDM_16BIT_SLOT_LEN,
+-	TDM_32BIT_SLOT_LEN,
+-};
+-
+-enum TDM_LRJ {
+-	/* left-justify or right-justify */
+-	TDM_RIGHT_JUSTIFY = 0,
+-	TDM_LEFT_JUSTIFT,
+-};
+-
+-struct tdm_chan_cfg {
+-	enum TDM_IFL ifl;
+-	enum TDM_WL  wl;
+-	unsigned char sscale;
+-	enum TDM_SL  sl;
+-	enum TDM_LRJ lrj;
+-	unsigned char enable;
+-};
+-
+ struct jh7110_tdm_dev {
+ 	void __iomem *tdm_base;
+ 	struct device *dev;
+ 	struct clk_bulk_data clks[6];
+ 	struct reset_control *resets;
+ 
+-	enum TDM_CLKPOL clkpolity;
+-	enum TDM_ELM	elm;
+-	enum TDM_SYNCM	syncm;
+-	enum TDM_MASTER_SLAVE_MODE ms_mode;
++	/* related to PCMTXCR */
++	u16 txwl;
++	u16 txsscale;
++	u16 txsl;
+ 
+-	struct tdm_chan_cfg tx;
+-	struct tdm_chan_cfg rx;
++	/* related to PCMRXCR */
++	u16 rxwl;
++	u16 rxsscale;
++	u16 rxsl;
+ 
+ 	u16 syncdiv;
++	u16 syncm;
+ 	u32 samplerate;
+ 	u32 pcmclk;
+ 
+@@ -166,13 +117,13 @@ static void jh7110_tdm_start(struct jh7110_tdm_dev *tdm,
+ 	u32 data;
+ 
+ 	data = jh7110_tdm_readl(tdm, TDM_PCMGBCR);
+-	jh7110_tdm_writel(tdm, TDM_PCMGBCR, data | PCMGBCR_ENABLE);
++	jh7110_tdm_writel(tdm, TDM_PCMGBCR, data | TDM_PCMGBCR_EN);
+ 
+ 	/* restore context */
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		jh7110_tdm_writel(tdm, TDM_PCMTXCR, tdm->saved_pcmtxcr | PCMTXCR_TXEN);
++		jh7110_tdm_writel(tdm, TDM_PCMTXCR, tdm->saved_pcmtxcr | TDM_PCMTXCR_TXEN);
+ 	else
+-		jh7110_tdm_writel(tdm, TDM_PCMRXCR, tdm->saved_pcmrxcr | PCMRXCR_RXEN);
++		jh7110_tdm_writel(tdm, TDM_PCMRXCR, tdm->saved_pcmrxcr | TDM_PCMRXCR_RXEN);
+ }
+ 
+ static void jh7110_tdm_stop(struct jh7110_tdm_dev *tdm,
+@@ -182,11 +133,11 @@ static void jh7110_tdm_stop(struct jh7110_tdm_dev *tdm,
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		val = jh7110_tdm_readl(tdm, TDM_PCMTXCR);
+-		val &= ~PCMTXCR_TXEN;
++		val &= ~TDM_PCMTXCR_TXEN;
+ 		jh7110_tdm_writel(tdm, TDM_PCMTXCR, val);
+ 	} else {
+ 		val = jh7110_tdm_readl(tdm, TDM_PCMRXCR);
+-		val &= ~PCMRXCR_RXEN;
++		val &= ~TDM_PCMRXCR_RXEN;
+ 		jh7110_tdm_writel(tdm, TDM_PCMRXCR, val);
+ 	}
+ }
+@@ -195,15 +146,15 @@ static int jh7110_tdm_syncdiv(struct jh7110_tdm_dev *tdm)
+ {
+ 	u32 sl, sscale, syncdiv;
+ 
+-	if (tdm->rx.sl >= tdm->tx.sl)
+-		sl = tdm->rx.sl;
++	if (tdm->rxsl >= tdm->txsl)
++		sl = tdm->rxsl;
+ 	else
+-		sl = tdm->tx.sl;
++		sl = tdm->txsl;
+ 
+-	if (tdm->rx.sscale >= tdm->tx.sscale)
+-		sscale = tdm->rx.sscale;
++	if (tdm->rxsscale >= tdm->txsscale)
++		sscale = tdm->rxsscale;
+ 	else
+-		sscale = tdm->tx.sscale;
++		sscale = tdm->txsscale;
+ 
+ 	syncdiv = tdm->pcmclk / tdm->samplerate - 1;
+ 
+@@ -212,10 +163,10 @@ static int jh7110_tdm_syncdiv(struct jh7110_tdm_dev *tdm)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (tdm->syncm == TDM_SYNCM_LONG &&
+-	    (tdm->rx.sscale <= 1 || tdm->tx.sscale <= 1) &&
++	if (tdm->syncm == TDM_PCMGBCR_SYNCM_LONG &&
++	    (tdm->rxsscale <= 1 || tdm->txsscale <= 1) &&
+ 	    ((syncdiv + 1) <= sl)) {
+-		dev_err(tdm->dev, "Wrong syncdiv! It must be (syncdiv+1) > max[tx.sl, rx.sl]\n");
++		dev_err(tdm->dev, "Wrong syncdiv! It must be (syncdiv+1) > max[txsl, rxsl]\n");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -233,17 +184,15 @@ static int jh7110_tdm_config(struct jh7110_tdm_dev *tdm,
+ 	if (ret)
+ 		return ret;
+ 
+-	datarx = (tdm->rx.ifl << IFL_BIT) |
+-		  (tdm->rx.wl << WL_BIT) |
+-		  (tdm->rx.sscale << SSCALE_BIT) |
+-		  (tdm->rx.sl << SL_BIT) |
+-		  (tdm->rx.lrj << LRJ_BIT);
++	datarx = (tdm->rxwl << 8) |
++		  (tdm->rxsscale << 4) |
++		  (tdm->rxsl << 2) |
++		  TDM_PCMRXCR_LEFT_J;
+ 
+-	datatx = (tdm->tx.ifl << IFL_BIT) |
+-		  (tdm->tx.wl << WL_BIT) |
+-		  (tdm->tx.sscale << SSCALE_BIT) |
+-		  (tdm->tx.sl << SL_BIT) |
+-		  (tdm->tx.lrj << LRJ_BIT);
++	datatx = (tdm->txwl << 8) |
++		  (tdm->txsscale << 4) |
++		  (tdm->txsl << 2) |
++		  TDM_PCMTXCR_LEFT_J;
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 		jh7110_tdm_writel(tdm, TDM_PCMTXCR, datatx);
+@@ -346,7 +295,8 @@ static int jh7110_tdm_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_soc_dai *dai)
+ {
+ 	struct jh7110_tdm_dev *tdm = snd_soc_dai_get_drvdata(dai);
+-	int chan_wl, chan_sl, chan_nr;
++	int chan_nr;
++	unsigned short chan_wl, chan_sl;
+ 	unsigned int data_width;
+ 	unsigned int dma_bus_width;
+ 	struct snd_dmaengine_dai_dma_data *dma_data = NULL;
+@@ -389,15 +339,15 @@ static int jh7110_tdm_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		tdm->tx.wl = chan_wl;
+-		tdm->tx.sl = chan_sl;
+-		tdm->tx.sscale = chan_nr;
++		tdm->txwl = chan_wl;
++		tdm->txsl = chan_sl;
++		tdm->txsscale = chan_nr;
+ 		tdm->play_dma_data.addr_width = dma_bus_width;
+ 		dma_data = &tdm->play_dma_data;
+ 	} else {
+-		tdm->rx.wl = chan_wl;
+-		tdm->rx.sl = chan_sl;
+-		tdm->rx.sscale = chan_nr;
++		tdm->rxwl = chan_wl;
++		tdm->rxsl = chan_sl;
++		tdm->rxsscale = chan_nr;
+ 		tdm->capture_dma_data.addr_width = dma_bus_width;
+ 		dma_data = &tdm->capture_dma_data;
+ 	}
+@@ -444,15 +394,17 @@ static int jh7110_tdm_set_dai_fmt(struct snd_soc_dai *cpu_dai,
+ 	struct jh7110_tdm_dev *tdm = snd_soc_dai_get_drvdata(cpu_dai);
+ 	unsigned int gbcr;
+ 
++	gbcr = tdm->syncm;
++
+ 	/* set master/slave audio interface */
+ 	switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
+ 	case SND_SOC_DAIFMT_BP_FP:
+ 		/* cpu is master */
+-		tdm->ms_mode = TDM_AS_MASTER;
++		gbcr &= ~TDM_PCMGBCR_MS_SLAVE;
+ 		break;
+ 	case SND_SOC_DAIFMT_BC_FC:
+ 		/* codec is master */
+-		tdm->ms_mode = TDM_AS_SLAVE;
++		gbcr |= TDM_PCMGBCR_MS_SLAVE;
+ 		break;
+ 	case SND_SOC_DAIFMT_BC_FP:
+ 	case SND_SOC_DAIFMT_BP_FC:
+@@ -462,10 +414,6 @@ static int jh7110_tdm_set_dai_fmt(struct snd_soc_dai *cpu_dai,
+ 		return -EINVAL;
+ 	}
+ 
+-	gbcr = (tdm->clkpolity << CLKPOL_BIT) |
+-		(tdm->elm << ELM_BIT) |
+-		(tdm->syncm << SYNCM_BIT) |
+-		(tdm->ms_mode << MS_BIT);
+ 	jh7110_tdm_writel(tdm, TDM_PCMGBCR, gbcr);
+ 
+ 	return 0;
+@@ -537,18 +485,7 @@ static const struct snd_dmaengine_pcm_config jh7110_dmaengine_pcm_config = {
+ 
+ static void jh7110_tdm_init_params(struct jh7110_tdm_dev *tdm)
+ {
+-	tdm->clkpolity = TDM_TX_RASING_RX_FALLING;
+-	tdm->elm = TDM_ELM_LATE;
+-	tdm->syncm = TDM_SYNCM_SHORT;
+-
+-	tdm->rx.ifl = TDM_FIFO_HALF;
+-	tdm->tx.ifl = TDM_FIFO_HALF;
+-	tdm->rx.wl = TDM_16BIT_WORD_LEN;
+-	tdm->tx.wl = TDM_16BIT_WORD_LEN;
+-	tdm->rx.sscale = 2;
+-	tdm->tx.sscale = 2;
+-	tdm->rx.lrj = TDM_LEFT_JUSTIFT;
+-	tdm->tx.lrj = TDM_LEFT_JUSTIFT;
++	tdm->syncm = 0;
+ 
+ 	tdm->play_dma_data.addr = JH7110_TDM_FIFO;
+ 	tdm->play_dma_data.addr_width = DMA_SLAVE_BUSWIDTH_2_BYTES;
+@@ -580,10 +517,9 @@ static int jh7110_tdm_clk_reset_get(struct platform_device *pdev,
+ 	}
+ 
+ 	tdm->resets = devm_reset_control_array_get_exclusive(&pdev->dev);
+-	if (IS_ERR_OR_NULL(tdm->resets)) {
+-		ret = PTR_ERR(tdm->resets);
+-		dev_err(&pdev->dev, "Failed to get tdm resets");
+-		return ret;
++	if (IS_ERR(tdm->resets)) {
++		dev_err(&pdev->dev, "Failed to get tdm resets\n");
++		return PTR_ERR(tdm->resets);
+ 	}
+ 
+ 	return 0;
+@@ -649,12 +585,12 @@ static int jh7110_tdm_dev_remove(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static const struct of_device_id jh7110_tdm_of_match[] = {
++static const struct of_device_id jh7110_tdm_match[] = {
+ 	{ .compatible = "starfive,jh7110-tdm", },
+ 	{}
+ };
+ 
+-MODULE_DEVICE_TABLE(of, jh7110_tdm_of_match);
++MODULE_DEVICE_TABLE(of, jh7110_tdm_match);
+ 
+ static const struct dev_pm_ops jh7110_tdm_pm_ops = {
+ 	RUNTIME_PM_OPS(jh7110_tdm_runtime_suspend,
+@@ -666,7 +602,7 @@ static const struct dev_pm_ops jh7110_tdm_pm_ops = {
+ static struct platform_driver jh7110_tdm_driver = {
+ 	.driver = {
+ 		.name = "jh7110-tdm",
+-		.of_match_table = jh7110_tdm_of_match,
++		.of_match_table = jh7110_tdm_match,
+ 		.pm = pm_ptr(&jh7110_tdm_pm_ops),
+ 	},
+ 	.probe = jh7110_tdm_probe,
+-- 
+2.17.1
 

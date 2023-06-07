@@ -2,107 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C4617266E6
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 19:14:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90396726710
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 19:20:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64057826;
-	Wed,  7 Jun 2023 19:13:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64057826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F82E6C0;
+	Wed,  7 Jun 2023 19:19:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F82E6C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686158068;
-	bh=jGWKTAlTpuzFalBNEckfO1fpwR2ImWr9RpKLJFLXFEY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=CeTOHBO93WgNGjY2SGJ2Ee/fk9shcg0LUVch5K2+4crgGVSi6fXVQ1Lz4GQd9KKsp
-	 +K4SeuKFZhzQ6NoINy/YtwdXOKk/9anl6X2chdifI/AB3KxaswsaOVps4UHjLxUIOd
-	 3YHVdPrONB0k5nYYi9+J34wUG6KNQuoq9NGBoCg0=
+	s=default; t=1686158404;
+	bh=P0OkWHh8T15luqUNzd510FGVW7eTaLgSpSEUuvgpiI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=TB1gdCfPMMKeWwJnA7Z2lDru5yeiMzfTdg008lqu+ox5C+i3Q7zi6tmSupAbQYHY7
+	 5pk47mlEFGrn/4poVlEOV1l4AOa4HHScMa278XNy93v1kM9GRgeDFYiQ0Mx2FwHSL1
+	 wb6EQyHsGhV+V/iLTyKlcaKCN1c7ldVbUoNQPeVU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 310E4F80199; Wed,  7 Jun 2023 19:13:38 +0200 (CEST)
+	id 2D44AF800C8; Wed,  7 Jun 2023 19:18:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEEDFF80199;
-	Wed,  7 Jun 2023 19:13:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97214F8016C;
+	Wed,  7 Jun 2023 19:18:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A205F80254; Wed,  7 Jun 2023 19:13:34 +0200 (CEST)
+	id 64074F80199; Wed,  7 Jun 2023 19:18:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CEF82F80130
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 19:13:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEF82F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id D09FEF800C8
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 19:18:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D09FEF800C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=mesdMvC4
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-977cf86aae5so658121166b.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 07 Jun 2023 10:13:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1686158010; x=1688750010;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hDf6g1xuCxpSvIAHAS6C9lv2xYoCaofaCj9iSWocDbE=;
-        b=mesdMvC4th0od7bqihmQfQzjPowmtJzZB4XhjAl3kQV8k4C8mxHSZ6hfvHRX1uyLUo
-         IKHdCJS+j7AtHL2PUGrVtNyKJ23ZGhrNllKyGSboVFCMUaHemjqm3O+CkLRvbmRJBIrS
-         jX7iPRWMHZO4HYOpBF46kyL9nBWzA6oKcdZ+iCOss/270kQkrsZd9oCy1nNk385vydkg
-         owA3lHuLhe8wt4qOUxHJbTLQV8aSPXvjY/Cdf7J2UF9QAyYJt2gBdds6eE0iPvaZYoBj
-         16qEP9Yd2M6uriH9Pq8XBMtPk9xkAyVjwAmCjZfIA8mgE9caQbAyvkc2RZp2tsZD88h+
-         lkww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686158010; x=1688750010;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hDf6g1xuCxpSvIAHAS6C9lv2xYoCaofaCj9iSWocDbE=;
-        b=dOymFtHDU0o2rlworiOuGesbArfy4fJI07mBc/1nVbRHgdaBwsnvBKqBdA6mpNYRBw
-         +NL3RVXRHv47ZkLbSelDKiD1RY/KID65lpgGVATEitqKLvJ2Q8Dmtq74NMgDAci4jke0
-         Sn/CRLOcutYmz8//7fA4raXx26uU7+D/KNhiuozYkGir5NWMu6SbjMsGE5nIUp8sEZRC
-         +jcyPyHhjbcmZFpsQEOL41TBhPhR5LVpU+RBL1SsvlRcsyI5YIfTkat+AbSXB9n6kuib
-         bcihzlso1RrRopVCCw3uUjGFMFah2VSfwflxKEYY3sp6D8L9Lu2d73bmmIVa97dr+esK
-         1vbw==
-X-Gm-Message-State: AC+VfDy+9HmW2G/p5CpojOX6Xsn+79v2BqjEqZmkwXXpXBss1QTcJm6/
-	16QNRLkak5o0qHeDn3baUpgfGP7Za/2rGePL+n8=
-X-Google-Smtp-Source: 
- ACHHUZ4eRbnbnRgq6PTEJhKylTurSxl9ZJzOQ30XkHFDVitSR12i1HSqPBn+BHiuZbDtPx66/cdl2g==
-X-Received: by 2002:a17:907:7282:b0:973:ca9c:3e2b with SMTP id
- dt2-20020a170907728200b00973ca9c3e2bmr7177793ejc.25.1686158009810;
-        Wed, 07 Jun 2023 10:13:29 -0700 (PDT)
-Received: from krzk-bin.. ([178.197.219.26])
-        by smtp.gmail.com with ESMTPSA id
- k9-20020a170906578900b00978868cb24csm838861ejq.144.2023.06.07.10.13.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Jun 2023 10:13:29 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH] ASoC: codecs: wsa883x: use existing define instead of raw
- value
-Date: Wed,  7 Jun 2023 19:13:26 +0200
-Message-Id: <20230607171326.179527-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=IDexj8hS
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id B083B63B0E;
+	Wed,  7 Jun 2023 17:18:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12ACDC4339C;
+	Wed,  7 Jun 2023 17:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686158313;
+	bh=P0OkWHh8T15luqUNzd510FGVW7eTaLgSpSEUuvgpiI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IDexj8hSrNnBfvDK8OYasj+luacD8NknUk/OEPDtJx5KahKTyyPyHHm0+C8pZdKJF
+	 UfCIYTMiAyYp061qvRpeBrBM7RVKVA3oJ9egPEbGqn9hJFwFLboQign3e/vASLcg3I
+	 6U/UyFyOyU6RzRVMh0GjjUQ+azekuwaI4hbgTebKyoGMizfsxh4eyyKu1+8N6vffaE
+	 NjY58RC3H7qE/d8xgyn7uHrgl9GLsre7Akx2jnJmDetzeZSinOfyLXTQ/SliiFvvQC
+	 gVPJ+8QofhqwqBnZbMeHu5MeWaIhRucSXJJws4PARHsbRPicQpVKX/udesnEB3QSIh
+	 IgGG9/u/bEFxA==
+Date: Wed, 7 Jun 2023 18:18:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>, tiwai@suse.de,
+	alsa-devel@alsa-project.org, bard.liao@intel.com,
+	- <patches@opensource.cirrus.com>
+Subject: Re: [PATCH 0/2] ASoC: add N cpus to M codecs dai link support
+Message-ID: <042775c7-0d61-441b-8684-80960d041bdc@sirena.org.uk>
+References: <20230607031242.1032060-1-yung-chuan.liao@linux.intel.com>
+ <8411fd34-0326-ae92-1d1e-ff171318ebf2@opensource.cirrus.com>
+ <c183a76f-38d9-8e20-af80-32b40e1caffa@linux.intel.com>
+ <47053ebb-4157-49a2-bfeb-cf090d502a81@sirena.org.uk>
+ <20230607170520.GM68926@ediswmail.ad.cirrus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SVQRUGIVRCKWUTZ7CQHBZ3EN2ZDFUM6U
-X-Message-ID-Hash: SVQRUGIVRCKWUTZ7CQHBZ3EN2ZDFUM6U
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+ns40RvmSIKbIK9S"
+Content-Disposition: inline
+In-Reply-To: <20230607170520.GM68926@ediswmail.ad.cirrus.com>
+X-Cookie: Keep away from edge.
+Message-ID-Hash: OV7N3TVDLROTGSFU6DTXC25NFAEBNQUW
+X-Message-ID-Hash: OV7N3TVDLROTGSFU6DTXC25NFAEBNQUW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SVQRUGIVRCKWUTZ7CQHBZ3EN2ZDFUM6U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OV7N3TVDLROTGSFU6DTXC25NFAEBNQUW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,28 +104,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use existing define for WSA883X_GLOBAL_PA_ENABLE instead of hard-coded
-value, just like in other places in this driver.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- sound/soc/codecs/wsa883x.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+--+ns40RvmSIKbIK9S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/codecs/wsa883x.c b/sound/soc/codecs/wsa883x.c
-index c609cb63dae6..5c1cfceb2956 100644
---- a/sound/soc/codecs/wsa883x.c
-+++ b/sound/soc/codecs/wsa883x.c
-@@ -1334,7 +1334,8 @@ static int wsa883x_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
- 					      WSA883X_DRE_GAIN_EN_MASK,
- 					      WSA883X_DRE_GAIN_FROM_CSR);
- 		snd_soc_component_write_field(component, WSA883X_PA_FSM_CTL,
--					      WSA883X_GLOBAL_PA_EN_MASK, 1);
-+					      WSA883X_GLOBAL_PA_EN_MASK,
-+					      WSA883X_GLOBAL_PA_ENABLE);
- 
- 	}
- 
--- 
-2.34.1
+On Wed, Jun 07, 2023 at 05:05:20PM +0000, Charles Keepax wrote:
+> On Wed, Jun 07, 2023 at 05:22:45PM +0100, Mark Brown wrote:
 
+> > > This is questionable when the CPUs are connected to different links.
+> > > SoundWire is not a giant switch matrix, there's a clear parent-child
+> > > dependency and limited scope.
+
+> > > Example topology for a 2 link/4 amplifier solution.
+
+> > Or a system with two distinct I2S DAIs (TDM is another thing).
+
+> I guess the bit that slightly phases me here is, historically a
+> DAI link has been the thing that specifies what is connected to
+> what. What kinda happened when we added multi-cpu is we bent
+> that assumption, at least for the N -> N case, and now even
+> more so for the N -> M case, where only a subset of the DAI link
+> is actually connected.
+
+> If your system looks like:
+
+> CPU A -> CODEC A
+> CPU B -> CODEC B
+
+> What makes this a single DAI link, rather than 2 DAI links? And
+> does the information within the DAI link about what is connected
+> to what not just start looking like DAI links?
+
+Ah, indeed.  My expectation would be that for things on the same
+physical set of wires we'd at some point be able to get to a point where
+the the SoundWire routing would be exposed to userspace for control,
+probably at the point where we get digital routing working (whenever in
+the far far future that might be, it's only been a bit more than a
+decade thus far).  I have to say Pierre's example looked like two
+separate buses.
+
+--+ns40RvmSIKbIK9S
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSAu+IACgkQJNaLcl1U
+h9Cyfgf9HHW149VjVNhgRSiE6aKLOSKQW3JoBCXBk3TktE0xjUB+u0hdhsC4U9Z0
+lidjiE0ShHwVrAX8J/1Q9HV4clCes4fHK0x8Ds1fiTCSwTL9isFY10908cqsgRJN
+8gtIhKpQBpDf6V8DHzhh8y2krKfOgcVog0KoyMdnhEyoipbVpXgX2/pGFXpenvwQ
+e7DMLx7NMfdT7sAsOW2bPZnj7H4BdIjba0dHnFsdbDlkz87I79h9tfdo10jK/CNs
+vccmycSqj+J3Z4fR3oMEFdOUsf3au8AxxFTGrvO5rM1+T3A271CrDviEujINQVmH
+r7x8QcWeIOqYERciuVduzNNfVkF6fw==
+=Vdri
+-----END PGP SIGNATURE-----
+
+--+ns40RvmSIKbIK9S--

@@ -2,102 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAB48725238
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 04:51:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90C55725A01
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 11:20:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00179826;
-	Wed,  7 Jun 2023 04:50:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00179826
+	by alsa0.perex.cz (Postfix) with ESMTPS id B5FCB846;
+	Wed,  7 Jun 2023 11:19:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5FCB846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686106309;
-	bh=PB0vD4pkf2OkiR1KomsE1YWj392NzkwHJC8dKQ7tELE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1686129641;
+	bh=MrE8OeSj3aHbiczcptHv1IeO8bF6j57DoDHs2B4iMq0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iNV8asIBaQFkTnuDdEuRHy9jR0CYDICVi4CqSwhAg4K3HnGR6ZuGDQ9CBBZtT5dI9
-	 Llx+RJ5tnGwc04PHyci39hwo/Vboc1FoQRjFLaZ3J+hmLcfPJDV6cg0tOu6XQgUmPv
-	 hKG8zUEll/B4+U2k6PCRzZoJ5EBQq51+NxKgFqFQ=
+	b=CSxKGBQ/j2AA5BCCGai5uL35k98WmYWYs9B0C2A+nF7wn9xuH37JreXDgPPY3USxY
+	 hpyoa2M3y/tOA2iZCCFZB1hB20+oaPAxamgSAL00RCrzDUfhYEo4ifxe9M9u5K3hP5
+	 Sq9FJWSsnlMv1MgJJXZjVbgbKB5v2YCogT+sTiPc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E97FF804DA; Wed,  7 Jun 2023 04:50:25 +0200 (CEST)
+	id 25581F8057F; Wed,  7 Jun 2023 11:18:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31BBEF80130;
-	Wed,  7 Jun 2023 04:50:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4598DF8057F;
+	Wed,  7 Jun 2023 11:18:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 83FA1F80254; Wed,  7 Jun 2023 04:50:21 +0200 (CEST)
+	id 909F3F80199; Wed,  7 Jun 2023 06:50:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 03222F8016C
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 04:50:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03222F8016C
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=NFMnwa4o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686106212; x=1717642212;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=PB0vD4pkf2OkiR1KomsE1YWj392NzkwHJC8dKQ7tELE=;
-  b=NFMnwa4oms8R36y5GeczkoFwICZk6hIdY/+dWrIOuqqQj2lQwdnz3VU1
-   hawtSowoC3zc2wSwUYJyMt++TVgIPpH8LPmF/EcaGEKgwleny2+xBc6Gh
-   UC9FHXcVAFKn89JtL7ugwRaOfH2aCUOzNMBWoklFivMODWn0oP9eK0TsO
-   K/igFp0KP99AHdoRsvdzQVhqc1UJayvzaEKL/0xND5v90LcJxDYJjrBlp
-   Op/YslQLIPXTg/yMCP0Slvc758kG/aZ4fNBvVgbwoDaidaW+AL8vOpjNt
-   7lYnYQFUj1n01xz4/XayRCSVb7dOlq7BcSBGWZu3miRAegGD3PXPntk4c
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="360183332"
-X-IronPort-AV: E=Sophos;i="6.00,222,1681196400";
-   d="scan'208";a="360183332"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2023 19:50:01 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="833478893"
-X-IronPort-AV: E=Sophos;i="6.00,222,1681196400";
-   d="scan'208";a="833478893"
-Received: from bard-ubuntu.sh.intel.com ([10.239.185.57])
-  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2023 19:50:00 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Cc: alsa-devel@alsa-project.org,
-	pierre-louis.bossart@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH 2/2] ASoC: Intel: sof_sdw: add dai_link_codec_ch_map
-Date: Wed,  7 Jun 2023 11:12:42 +0800
-Message-Id: <20230607031242.1032060-3-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230607031242.1032060-1-yung-chuan.liao@linux.intel.com>
-References: <20230607031242.1032060-1-yung-chuan.liao@linux.intel.com>
+X-Spam-Status: No,
+ score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by alsa1.perex.cz (Postfix) with ESMTP id EA249F8016C
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 06:50:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA249F8016C
+Received: from loongson.cn (unknown [223.106.25.146])
+	by gateway (Coremail) with SMTP id _____8Dx_+s3DIBkiQYAAA--.137S3;
+	Wed, 07 Jun 2023 12:48:56 +0800 (CST)
+Received: from [192.168.100.8] (unknown [223.106.25.146])
+	by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8DxFOQ2DIBkP9MDAA--.13899S3;
+	Wed, 07 Jun 2023 12:48:55 +0800 (CST)
+Message-ID: <7d5c7765-936e-e7be-a80b-feec61b9f9ef@loongson.cn>
+Date: Wed, 7 Jun 2023 12:48:54 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Subject: Re: [PATCH v2 2/4] ALSA: hda: Using polling mode for loongson
+ controller by default
+Content-Language: en-US
+To: Takashi Iwai <tiwai@suse.de>
+Cc: tiwai@suse.com, perex@perex.cz, chenhuacai@loongson.cn,
+ alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+ loongson-kernel@lists.loongnix.cn, Yingkun Meng <mengyingkun@loongson.cn>
+References: <cover.1686057365.git.siyanteng@loongson.cn>
+ <521be42ac818d35a996e01cc3d591e1c87f230d9.1686057365.git.siyanteng@loongson.cn>
+ <87wn0gg16g.wl-tiwai@suse.de>
+From: Yanteng Si <siyanteng@loongson.cn>
+In-Reply-To: <87wn0gg16g.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UTMNIJM42DSB52XKGRK7ZKFQYIXZL3GL
-X-Message-ID-Hash: UTMNIJM42DSB52XKGRK7ZKFQYIXZL3GL
-X-MailFrom: yung-chuan.liao@linux.intel.com
+X-CM-TRANSID: AQAAf8DxFOQ2DIBkP9MDAA--.13899S3
+X-CM-SenderInfo: pvl1t0pwhqwqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCryfuFy5GF45CF4ruF47ZFc_yoW5Gw4UpF
+	ykCa4rKFZrJr4jkFsrK3WUKr1fXa97GF13GrWj9340yrnFv3WrWw1qkr4rZFWjvr4Igrya
+	qr1vqa48JayYqabCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	AVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jeQ6JUUUUU=
+X-MailFrom: siyanteng@loongson.cn
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: FGUI5ZUUQDQPGHP5XVM3IR2466IKF5OP
+X-Message-ID-Hash: FGUI5ZUUQDQPGHP5XVM3IR2466IKF5OP
+X-Mailman-Approved-At: Wed, 07 Jun 2023 09:18:37 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UTMNIJM42DSB52XKGRK7ZKFQYIXZL3GL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FGUI5ZUUQDQPGHP5XVM3IR2466IKF5OP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,160 +104,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The captured data will be combined from each cpu DAI if the dai link
-has more than one cpu DAIs. We can set channel number indirectly by
-adding sdw_codec_ch_maps.
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/intel/boards/sof_sdw.c        | 69 +++++++++++++++++++++++++
- sound/soc/intel/boards/sof_sdw_common.h |  2 +
- sound/soc/intel/boards/sof_sdw_maxim.c  |  1 +
- 3 files changed, 72 insertions(+)
+在 2023/6/6 21:39, Takashi Iwai 写道:
+> On Tue, 06 Jun 2023 15:25:28 +0200,
+> Yanteng Si wrote:
+>> On loongson controller, RIRBSTS.RINTFL cannot be cleared,
+>> azx_interrupt() is called all the time. We disable RIRB
+>> interrupt, and use polling mode by default.
+>>
+>> Signed-off-by: Yanteng Si <siyanteng@loongson.cn>
+>> Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
+>> ---
+>>   include/sound/hdaudio.h     | 1 +
+>>   sound/hda/hdac_controller.c | 5 ++++-
+>>   sound/pci/hda/hda_intel.c   | 4 ++++
+>>   3 files changed, 9 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+>> index 97f09acae302..a1dcc7f97d08 100644
+>> --- a/include/sound/hdaudio.h
+>> +++ b/include/sound/hdaudio.h
+>> @@ -346,6 +346,7 @@ struct hdac_bus {
+>>   	bool reverse_assign:1;		/* assign devices in reverse order */
+>>   	bool corbrp_self_clear:1;	/* CORBRP clears itself after reset */
+>>   	bool polling_mode:1;
+>> +	bool no_intr_polling_mode:1;
+> It isn't clear enough what this flag does.  It's basically prohibiting
+> the RIRB IRQ (hence requiring the polling mode), right?  Write it in
+> the comment.
+OK!
+>
+>> diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
+>> index 3c7af6558249..705e09cc50ac 100644
+>> --- a/sound/hda/hdac_controller.c
+>> +++ b/sound/hda/hdac_controller.c
+>> @@ -79,7 +79,10 @@ void snd_hdac_bus_init_cmd_io(struct hdac_bus *bus)
+>>   	/* set N=1, get RIRB response interrupt for new entry */
+>>   	snd_hdac_chip_writew(bus, RINTCNT, 1);
+>>   	/* enable rirb dma and response irq */
+>> -	snd_hdac_chip_writeb(bus, RIRBCTL, AZX_RBCTL_DMA_EN | AZX_RBCTL_IRQ_EN);
+>> +	if (bus->no_intr_polling_mode)
+>> +		snd_hdac_chip_writeb(bus, RIRBCTL, AZX_RBCTL_DMA_EN);
+>> +	else
+>> +		snd_hdac_chip_writeb(bus, RIRBCTL, AZX_RBCTL_DMA_EN | AZX_RBCTL_IRQ_EN);
+>>   	/* Accept unsolicited responses */
+>>   	snd_hdac_chip_updatel(bus, GCTL, AZX_GCTL_UNSOL, AZX_GCTL_UNSOL);
+>>   	spin_unlock_irq(&bus->reg_lock);
+>> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+>> index 9c353dc7740c..1e8993836fc6 100644
+>> --- a/sound/pci/hda/hda_intel.c
+>> +++ b/sound/pci/hda/hda_intel.c
+>> @@ -1875,6 +1875,10 @@ static int azx_first_init(struct azx *chip)
+>>   	if (chip->driver_type == AZX_DRIVER_GFHDMI)
+>>   		bus->polling_mode = 1;
+>>   
+>> +	if (chip->driver_type == AZX_DRIVER_LOONGSON) {
+>> +		bus->no_intr_polling_mode = 1;
+>> +	}
+> Don't you need to set the bus->polling_mode?
 
-diff --git a/sound/soc/intel/boards/sof_sdw.c b/sound/soc/intel/boards/sof_sdw.c
-index d942696b36cd..f2f56150e1da 100644
---- a/sound/soc/intel/boards/sof_sdw.c
-+++ b/sound/soc/intel/boards/sof_sdw.c
-@@ -560,6 +560,55 @@ int sdw_trigger(struct snd_pcm_substream *substream, int cmd)
- 	return ret;
- }
- 
-+int sdw_hw_params(struct snd_pcm_substream *substream,
-+		  struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	int ch = params_channels(params);
-+	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai;
-+	unsigned int ch_mask;
-+	int num_codecs;
-+	int step;
-+	int i;
-+	int j;
-+
-+	if (!rtd->dai_link->codec_ch_maps)
-+		return 0;
-+
-+	/* Identical data will be sent to all codecs in playback */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		ch_mask = GENMASK(ch - 1, 0);
-+		step = 0;
-+	} else {
-+		num_codecs = rtd->dai_link->num_codecs;
-+
-+		if (ch < num_codecs || ch % num_codecs != 0) {
-+			dev_err(rtd->dev, "Channels number %d is invalid when codec number = %d\n",
-+				ch, num_codecs);
-+			return -EINVAL;
-+		}
-+
-+		ch_mask = GENMASK(ch / num_codecs - 1, 0);
-+		step = hweight_long(ch_mask);
-+
-+	}
-+
-+	/*
-+	 * The captured data will be combined from each cpu DAI if the dai
-+	 * link has more than one codec DAIs. Set codec channel mask and
-+	 * ASoC will set the corresponding channel numbers for each cpu dai.
-+	 */
-+	for_each_rtd_cpu_dais(rtd, i, cpu_dai) {
-+		for_each_rtd_codec_dais(rtd, j, codec_dai) {
-+			if (rtd->dai_link->codec_ch_maps[j].connected_cpu_id != i)
-+				continue;
-+			rtd->dai_link->codec_ch_maps[j].ch_mask = ch_mask << (j * step);
-+		}
-+	}
-+	return 0;
-+}
-+
- int sdw_hw_free(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-@@ -588,6 +637,7 @@ static const struct snd_soc_ops sdw_ops = {
- 	.startup = sdw_startup,
- 	.prepare = sdw_prepare,
- 	.trigger = sdw_trigger,
-+	.hw_params = sdw_hw_params,
- 	.hw_free = sdw_hw_free,
- 	.shutdown = sdw_shutdown,
- };
-@@ -1281,6 +1331,17 @@ static int get_slave_info(const struct snd_soc_acpi_link_adr *adr_link,
- 	return 0;
- }
- 
-+static void set_dailink_map(struct snd_soc_dai_link_codec_ch_map *sdw_codec_ch_maps,
-+			    int codec_num, int cpu_num)
-+{
-+	int step;
-+	int i;
-+
-+	step = codec_num / cpu_num;
-+	for (i = 0; i < codec_num; i++)
-+		sdw_codec_ch_maps[i].connected_cpu_id = i / step;
-+}
-+
- static const char * const type_strings[] = {"SimpleJack", "SmartAmp", "SmartMic"};
- 
- static int create_sdw_dailink(struct snd_soc_card *card,
-@@ -1357,6 +1418,7 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 
- 	cpu_dai_index = *cpu_id;
- 	for_each_pcm_streams(stream) {
-+		struct snd_soc_dai_link_codec_ch_map *sdw_codec_ch_maps;
- 		char *name, *cpu_name;
- 		int playback, capture;
- 		static const char * const sdw_stream_name[] = {
-@@ -1375,6 +1437,11 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 			return -EINVAL;
- 		}
- 
-+		sdw_codec_ch_maps = devm_kcalloc(dev, codec_num,
-+						 sizeof(*sdw_codec_ch_maps), GFP_KERNEL);
-+		if (!sdw_codec_ch_maps)
-+			return -ENOMEM;
-+
- 		/* create stream name according to first link id */
- 		if (append_dai_type) {
- 			name = devm_kasprintf(dev, GFP_KERNEL,
-@@ -1435,6 +1502,8 @@ static int create_sdw_dailink(struct snd_soc_card *card,
- 		 */
- 		dai_links[*link_index].nonatomic = true;
- 
-+		set_dailink_map(sdw_codec_ch_maps, codec_num, cpu_dai_num);
-+		dai_links[*link_index].codec_ch_maps = sdw_codec_ch_maps;
- 		ret = set_codec_init_func(card, link, dai_links + (*link_index)++,
- 					  playback, group_id, adr_index, dai_index);
- 		if (ret < 0) {
-diff --git a/sound/soc/intel/boards/sof_sdw_common.h b/sound/soc/intel/boards/sof_sdw_common.h
-index 64cfa5d1aceb..37402170d5f9 100644
---- a/sound/soc/intel/boards/sof_sdw_common.h
-+++ b/sound/soc/intel/boards/sof_sdw_common.h
-@@ -103,6 +103,8 @@ extern unsigned long sof_sdw_quirk;
- int sdw_startup(struct snd_pcm_substream *substream);
- int sdw_prepare(struct snd_pcm_substream *substream);
- int sdw_trigger(struct snd_pcm_substream *substream, int cmd);
-+int sdw_hw_params(struct snd_pcm_substream *substream,
-+		  struct snd_pcm_hw_params *params);
- int sdw_hw_free(struct snd_pcm_substream *substream);
- void sdw_shutdown(struct snd_pcm_substream *substream);
- 
-diff --git a/sound/soc/intel/boards/sof_sdw_maxim.c b/sound/soc/intel/boards/sof_sdw_maxim.c
-index 8d40a83ad98e..414c4d8dac77 100644
---- a/sound/soc/intel/boards/sof_sdw_maxim.c
-+++ b/sound/soc/intel/boards/sof_sdw_maxim.c
-@@ -123,6 +123,7 @@ static const struct snd_soc_ops max_98373_sdw_ops = {
- 	.startup = sdw_startup,
- 	.prepare = mx8373_sdw_prepare,
- 	.trigger = sdw_trigger,
-+	.hw_params = sdw_hw_params,
- 	.hw_free = mx8373_sdw_hw_free,
- 	.shutdown = sdw_shutdown,
- };
--- 
-2.25.1
+Yes, I do.
+
+Although it works now, some messages will print.
+
+
+Thanks,
+
+Yanteng
+
+>
+>
+> thanks,
+>
+> Takashi
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B423A726549
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 17:58:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 052B372654C
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Jun 2023 17:58:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3E936C0;
-	Wed,  7 Jun 2023 17:57:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3E936C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F74C82A;
+	Wed,  7 Jun 2023 17:58:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F74C82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686153481;
-	bh=7nNTbx876l3a0dmbd1lJ09G1ovmqUK2cjUQUfZr1dsM=;
+	s=default; t=1686153532;
+	bh=cZe/eY9WGZFDdbzJxKfNGQkftH/W4BRuRruN4kLXhu0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lhNkzKoicWbSbazZC7CdBg3rqC9imGPK7KE4I8ixxgIPDXt/Wljg2ojtupzWN0XLm
-	 Xj9lKYoEjiE7a5HBMfzV9Fn+7XVoNiF00+yOgJtaPkRI955hi6L73AZ/o0rl/z7Eyo
-	 64Y9Ekfdg9vrvfTsHbJJV+etkWR81CaWWLsEm2C4=
+	b=LjEmyUFTobfsSwhR/AQKcw8FLnOlt854vlzlLr/SS2xMAGquhNlUbPDgJsuFuN/mp
+	 8tcOBPCEqZmWePJ5CRLSRnMV+YGbhHT4mzAr5hTjYWBw1T7tMP6AKSMa5EW9GfseRD
+	 YuVAosux2w7BPMrEj7OufiEP1vnxYOdLPlsslBmY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23549F80520; Wed,  7 Jun 2023 17:57:11 +0200 (CEST)
+	id 982D3F8055B; Wed,  7 Jun 2023 17:57:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F47CF80199;
-	Wed,  7 Jun 2023 17:57:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3ABF8F80549;
+	Wed,  7 Jun 2023 17:57:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BFCF2F80254; Wed,  7 Jun 2023 17:57:05 +0200 (CEST)
+	id 7EDF2F80254; Wed,  7 Jun 2023 17:57:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,61 +35,65 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1EA37F80155
-	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 17:56:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EA37F80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 26BFBF800C8
+	for <alsa-devel@alsa-project.org>; Wed,  7 Jun 2023 17:56:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26BFBF800C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=PywH69qV
+ header.s=Intel header.b=fuIDulRQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686153418; x=1717689418;
+  t=1686153420; x=1717689420;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=7nNTbx876l3a0dmbd1lJ09G1ovmqUK2cjUQUfZr1dsM=;
-  b=PywH69qV6fQmz41acsjnwlOB2Mi+kTwumGcL8cPnAxye04BlIE/s+9PG
-   Vl9dj+8EOgiyNJRJlBUzVwvQHHzdRlh1e4BEeIEosJRLjMksxPmzw8pcr
-   dZMY81Tp+iYfkP2jcvqb4sNRK4sQ0IBya4GYNcEvXHVq9b/FVZEuQFWFd
-   oqmYtCACB6zg5dx11dIF9NxC9L4GDXuC5CYiatON3ElimhvIBLgpmLXTV
-   /7k9bPvr2w5Vzt+pBLiA0IgKgbNl/NYwFkVJzsOLqwrHEnmSfMq+rcXnL
-   i8Qn+VYOc/6oOJu20Ik5nfvbBRH5tG/Tl+66lC/RGVoL6Nk7ud1+0LfSF
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10734"; a="360360056"
+  bh=cZe/eY9WGZFDdbzJxKfNGQkftH/W4BRuRruN4kLXhu0=;
+  b=fuIDulRQUJMc0lAxzgQAn7fbYehyvO1bT4IhWTGbK0ytxi+Cpl8MxmHK
+   rn9qct+LL125+0ugl3wdxbHRJof8MFcG9LsyswG4Es7psxo+KaMZt6Hfl
+   HBQfimViiBSo44mTzSxHhJRQ27JaXhLlOgRzHWCx/EgrmXIK8yV33fWjE
+   m9Voxzx5PI8AkXVz9FekVEV5XZLS9aP/60J+QskfycGk7EtkI39dU4E0e
+   eKtd5Ja3bb2Y2Gckavv0eoyH4WsPW40Smhi7xmhnucAfe0L9B2T0aZxZ6
+   9Erqdr98z63/UI0WPto/dddIxSgJ1WFLigPx5cwur/MpellGyamV/4ViU
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10734"; a="360360061"
 X-IronPort-AV: E=Sophos;i="6.00,224,1681196400";
-   d="scan'208";a="360360056"
+   d="scan'208";a="360360061"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
   by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Jun 2023 08:56:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10734"; a="739335739"
+X-IronPort-AV: E=McAfee;i="6600,9927,10734"; a="739335786"
 X-IronPort-AV: E=Sophos;i="6.00,224,1681196400";
-   d="scan'208";a="739335739"
+   d="scan'208";a="739335786"
 Received: from sorrin-mobl3.amr.corp.intel.com (HELO [10.209.124.63])
  ([10.209.124.63])
   by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2023 08:56:49 -0700
-Message-ID: <a00d401f-961a-bd1d-b344-5c234e87135b@linux.intel.com>
-Date: Wed, 7 Jun 2023 09:45:10 -0500
+ 07 Jun 2023 08:56:50 -0700
+Message-ID: <5f647902-436a-ea1c-412e-30afbc4e71a8@linux.intel.com>
+Date: Wed, 7 Jun 2023 09:51:44 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH v2 00/26] ASoC/soundwire: add support for ACE2.x
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org, tiwai@suse.de,
- linux-kernel@vger.kernel.org, bard.liao@intel.com
-References: <20230515071042.2038-1-yung-chuan.liao@linux.intel.com>
- <ZHHdSjXwyHvBezkG@matsya>
- <8f4a024d-a218-c4ed-925c-b74663b7e280@linux.intel.com>
- <ZICA/YIYQ/DGhhdk@matsya>
+Subject: Re: [PATCH] soundwire: qcom: fix storing port config out-of-bounds
 Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>
+Cc: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kernel test robot <lkp@intel.com>, Dan Carpenter <error27@gmail.com>
+References: <20230601102525.609627-1-krzysztof.kozlowski@linaro.org>
+ <ZICBvP33XyOswWFM@matsya> <c39dc157-bd3d-a627-4eb0-a34ff43ab664@linaro.org>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <ZICA/YIYQ/DGhhdk@matsya>
+In-Reply-To: <c39dc157-bd3d-a627-4eb0-a34ff43ab664@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: AIMKEO67XK4ILTI4VSZBKILDHIZKAN6H
-X-Message-ID-Hash: AIMKEO67XK4ILTI4VSZBKILDHIZKAN6H
+Message-ID-Hash: NN6NHX2JU7PDE74XNCWJKEJKDMTQSSO7
+X-Message-ID-Hash: NN6NHX2JU7PDE74XNCWJKEJKDMTQSSO7
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AIMKEO67XK4ILTI4VSZBKILDHIZKAN6H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NN6NHX2JU7PDE74XNCWJKEJKDMTQSSO7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,50 +117,54 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 6/7/23 08:07, Vinod Koul wrote:
-> 
-> Hi Pierre,
-> 
-> On 02-06-23, 15:46, Pierre-Louis Bossart wrote:
->> On 5/27/23 05:36, Vinod Koul wrote:
->>> On 15-05-23, 15:10, Bard Liao wrote:
->>>> This series uses the abstraction added in past kernel cycles to provide
->>>> support for the ACE2.x integration. The existing SHIM and Cadence
->>>> registers are now split in 3 (SHIM, IP, SHIM vendor-specific), with some
->>>> parts also moved to the HDaudio Extended Multi link structures. Nothing
->>>> fundamentally different except for the register map.
->>>>
->>>> This series only provides the basic mechanisms to expose SoundWire-based
->>>> DAIs. The PCI parts and DSP management will be contributed later, and the
->>>> DAI ops are now empty as well.
->>>>
->>>> The change is mainly on SoundWire. It would be better to go through
->>>> SoundWire tree.
+On 6/7/23 08:51, Krzysztof Kozlowski wrote:
+> On 07/06/2023 15:10, Vinod Koul wrote:
+>> On 01-06-23, 12:25, Krzysztof Kozlowski wrote:
+>>> The 'qcom_swrm_ctrl->pconfig' has size of QCOM_SDW_MAX_PORTS (14),
+>>> however we index it starting from 1, not 0, to match real port numbers.
+>>> This can lead to writing port config past 'pconfig' bounds and
+>>> overwriting next member of 'qcom_swrm_ctrl' struct.  Reported also by
+>>> smatch:
 >>>
->>> Applied, thanks
+>>>   drivers/soundwire/qcom.c:1269 qcom_swrm_get_port_config() error: buffer overflow 'ctrl->pconfig' 14 <= 14
+>>>
+>>> Fixes: 9916c02ccd74 ("soundwire: qcom: cleanup internal port config indexing")
+>>> Cc: <stable@vger.kernel.org>
+>>> Reported-by: kernel test robot <lkp@intel.com>
+>>> Reported-by: Dan Carpenter <error27@gmail.com>
+>>> Link: https://lore.kernel.org/r/202305201301.sCJ8UDKV-lkp@intel.com/
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>> ---
+>>>  drivers/soundwire/qcom.c | 3 ++-
+>>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+>>> index 7cb1b7eba814..88a772075907 100644
+>>> --- a/drivers/soundwire/qcom.c
+>>> +++ b/drivers/soundwire/qcom.c
+>>> @@ -202,7 +202,8 @@ struct qcom_swrm_ctrl {
+>>>  	u32 intr_mask;
+>>>  	u8 rcmd_id;
+>>>  	u8 wcmd_id;
+>>> -	struct qcom_swrm_port_config pconfig[QCOM_SDW_MAX_PORTS];
+>>> +	/* Port numbers are 1 - 14 */
+>>> +	struct qcom_swrm_port_config pconfig[QCOM_SDW_MAX_PORTS + 1];
 >>
->> Hi Vinod, is there a way you could provide an immutable tag for Mark
->> Brown, the patch1 in this set is required for my next set of ASoC
->> LunarLake patches?
+>> Better use SDW_MAX_PORTS ?
 > 
-> Unfortunately, I have picked the whole series into next. If I was aware
-> I would have pushed them to a topic.
-> 
-> Mark can pull sdw/next but that would bring other things as well which
-> may not be preferred. I guess next best would be wait few weeks (rc1)
+> That's interesting idea, but except of value, is the meaning actually
+> the same? Driver claims that port 0 is masked and max number of ports is
+> 14. Therefore it uses in all places constant QCOM_SDW_MAX_PORTS. We need
+> here +1, only because we index from 1, not 0, but we still index over
+> QCOM_SDW_MAX_PORTS, not SDW_MAX_PORTS. Wouldn't it be also confusing to
+> use here SDW_MAX_PORTS but then index over something else?
 
-Yeah, it's a miss on my side, I forgot about this one-line enum
-dependency for DMIC/SSP.
+SDW_MAX_PORTS only applies for the peripheral. DP0 is reserved for
+non-audio/Bulk request, DP15 is an alias for "all ports"
 
-SoundWire has more dependencies so we expected to send the relevant
-patches in the next cycle. DMIC/SSP is quite simple and could have been
-part of 6.5.
+There's nothing in the spec that restricts the ports on the manager
+side, be it to dedicate Port0 or Port15 to a specific purpose or even
+the number of ports.
 
-Oh well.
-
->> "ASoC: SOF: Intel: shim: add enum for ACE 2.0 IP used in LunarLake" adds
->> the SOF_INTEL_ACE_2_0 definition to select different ops for LunarLake.
->>
->> Thank you
->> -Pierre
-> 
+I would recommend using a vendor-specific definition rather than
+overloading a peripheral specification requirement.

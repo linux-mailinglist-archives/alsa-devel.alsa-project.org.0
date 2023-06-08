@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E90F1727742
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 08:29:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73E0E727746
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 08:33:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA4E51D9;
-	Thu,  8 Jun 2023 08:28:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA4E51D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD07E822;
+	Thu,  8 Jun 2023 08:32:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD07E822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686205765;
-	bh=DMcewaqRBXLrPsOlOFgt5IZJq0ftk6Bp6vxNYM6Sig8=;
+	s=default; t=1686206005;
+	bh=3EqB7pWsNSEmFZA/f+c60MmsnqyYvg6PMP9T77NAd+0=;
 	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HRv1wsljBkdHaG92B5Wya5doaAVW4ddaB6+cJmDYzfFDVAysrQW3rDvh+N9Z0/kAc
-	 x/gk6ZQtmLZlkWvNlGPxgzs3gkiWMdFr1Z4v+ZK7GXg3oxWEycX6/c8tkN7xeeds3A
-	 UIVZqRPC1A5uXWeBjhijFxhM7jt7R82gOE6BFQL4=
+	b=p6RuDrPygxxDOAJdnr/YJuAe9GffQ7aIGl37TFwHSpKJRI5aJsvhJNf+SnjfSKQAt
+	 Bj0pA85ZNwAMRLy9lYykob33KkqvAivx1EzMusrE3C6ea/9/ir+nohSmMVuAFHSvzF
+	 c0xh4HLs1ZZc6bQkideGPpLYBmGxFxrggibaF46E=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47624F804DA; Thu,  8 Jun 2023 08:28:34 +0200 (CEST)
+	id AEE06F804DA; Thu,  8 Jun 2023 08:32:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B0CDF8016C;
-	Thu,  8 Jun 2023 08:28:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55585F80130;
+	Thu,  8 Jun 2023 08:32:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DFDCFF80199; Thu,  8 Jun 2023 08:28:26 +0200 (CEST)
+	id D7206F8016C; Thu,  8 Jun 2023 08:32:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
@@ -36,27 +36,27 @@ Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 70704F80130
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 08:28:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70704F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id EA40EF80130
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 08:32:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA40EF80130
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 3586RpNH2030814,
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 3586VkR62004432,
  This message is accepted by code: ctloc85258
 Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 3586RpNH2030814
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 3586VkR62004432
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
-	Thu, 8 Jun 2023 14:27:51 +0800
-Received: from RTEXMBS06.realtek.com.tw (172.21.6.99) by
+	Thu, 8 Jun 2023 14:31:46 +0800
+Received: from RTEXMBS05.realtek.com.tw (172.21.6.98) by
  RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Thu, 8 Jun 2023 14:28:07 +0800
+ 15.1.2375.32; Thu, 8 Jun 2023 14:32:02 +0800
 Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ RTEXMBS05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Thu, 8 Jun 2023 14:28:07 +0800
+ 15.1.2375.34; Thu, 8 Jun 2023 14:32:02 +0800
 Received: from RTEXMBS01.realtek.com.tw ([fe80::4d7:e49a:674a:598]) by
  RTEXMBS01.realtek.com.tw ([fe80::4d7:e49a:674a:598%5]) with mapi id
- 15.01.2375.007; Thu, 8 Jun 2023 14:28:07 +0800
+ 15.01.2375.007; Thu, 8 Jun 2023 14:32:02 +0800
 From: Kailang <kailang@realtek.com>
 To: "Joseph C. Sible" <josephcsible@gmail.com>
 CC: Takashi Iwai <tiwai@suse.de>, Bagas Sanjaya <bagasdotme@gmail.com>,
@@ -69,9 +69,9 @@ Subject: RE: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
 Thread-Topic: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
  on warm boot
 Thread-Index: 
- AQHZhdSOD7kY6mXBDkGA3ryhp811r69Yu5SAgAASNACAAA22gIAA7n+AgAEJrYCABLe/YIAJNIWAgAIHAcD//4tyAIAB8UZw///vxgCADzWhgIABfgWAgACUPoCAAPnsAIAAmlKwgAA8s4CAAQ8boP//kIuAABWRMLA=
-Date: Thu, 8 Jun 2023 06:28:07 +0000
-Message-ID: <5a4cbd6c668940c2904f74e4c366dc3f@realtek.com>
+ AQHZhdSOD7kY6mXBDkGA3ryhp811r69Yu5SAgAASNACAAA22gIAA7n+AgAEJrYCABLe/YIAJNIWAgAIHAcD//4tyAIAB8UZw///vxgCADzWhgIABfgWAgACUPoCAAPnsAIAAmlKwgAA8s4CAAQ8boP//kIuAABWnYVA=
+Date: Thu, 8 Jun 2023 06:32:02 +0000
+Message-ID: <3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
 References: <bug-217440-225600@https.bugzilla.kernel.org/>
  <CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
  <ZGB0cVVI7OgaJU6t@debian.me>
@@ -97,7 +97,7 @@ Content-Language: zh-TW
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [172.22.102.106]
-x-kse-serverinfo: RTEXMBS06.realtek.com.tw, 9
+x-kse-serverinfo: RTEXMBS05.realtek.com.tw, 9
 x-kse-antispam-interceptor-info: fallback
 x-kse-antivirus-interceptor-info: fallback
 Content-Type: text/plain; charset="utf-8"
@@ -108,8 +108,8 @@ X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
 X-KSE-AntiSpam-Interceptor-Info: fallback
 X-KSE-Antivirus-Interceptor-Info: fallback
 X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: 4A64Y2IXRMIK3LCIQJ5KRCRF4AKREXXC
-X-Message-ID-Hash: 4A64Y2IXRMIK3LCIQJ5KRCRF4AKREXXC
+Message-ID-Hash: 4JAAFE4ML5UD4VMANCW3M7LKS7SV4SNL
+X-Message-ID-Hash: 4JAAFE4ML5UD4VMANCW3M7LKS7SV4SNL
 X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -122,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4A64Y2IXRMIK3LCIQJ5KRCRF4AKREXXC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4JAAFE4ML5UD4VMANCW3M7LKS7SV4SNL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,31 +131,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGkgVGFrYXNoaSwNCg0KRG8geW91IGtub3cgd2h5IHRoaXMgbWFjaGluZSBzaG93ICJpbnZhbGlk
-IEFGRyB0cmVlIiBhcyBiZWxvdz8NCg0KQ29kZWM6IFJlYWx0ZWsgQUxDMjM2DQpBZGRyZXNzOiAw
-DQpBRkcgRnVuY3Rpb24gSWQ6IDB4MSAodW5zb2wgMSkNClZlbmRvciBJZDogMHgxMGVjMDIzNg0K
-U3Vic3lzdGVtIElkOiAweDEwM2M4YjJmDQpSZXZpc2lvbiBJZDogMHgxMDAwMDINCk5vIE1vZGVt
-IEZ1bmN0aW9uIEdyb3VwIGZvdW5kDQpEZWZhdWx0IFBDTToNCiAgICByYXRlcyBbMHhlMDVdOiA4
-MDAwIDE2MDAwIDE3NjQwMCAxOTIwMDAgMzg0MDAwDQogICAgYml0cyBbMHgwXToNCiAgICBmb3Jt
-YXRzIFsweDVdOiBQQ00gQUMzDQpEZWZhdWx0IEFtcC1JbiBjYXBzOiBvZnM9MHgwNSwgbnN0ZXBz
-PTB4N2UsIHN0ZXBzaXplPTB4MDAsIG11dGU9MA0KRGVmYXVsdCBBbXAtT3V0IGNhcHM6IG9mcz0w
-eDA1LCBuc3RlcHM9MHg3ZSwgc3RlcHNpemU9MHgwMCwgbXV0ZT0wDQpTdGF0ZSBvZiBBRkcgbm9k
-ZSAweDAxOg0KICBQb3dlciBzdGF0ZXM6ICBEMCBEMiAobnVsbCkgKG51bGwpIChudWxsKSAobnVs
-bCkgKG51bGwpIChudWxsKSAobnVsbCkNCiAgUG93ZXI6IHNldHRpbmc9VU5LTk9XTiwgYWN0dWFs
-PUQwLCBDbG9jay1zdG9wLU9LLCBTZXR0aW5nLXJlc2V0DQpJbnZhbGlkIEFGRyBzdWJ0cmVlDQot
-LWVuZGNvbGxhcHNlLS0NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBK
-b3NlcGggQy4gU2libGUgPGpvc2VwaGNzaWJsZUBnbWFpbC5jb20+DQo+IFNlbnQ6IFRodXJzZGF5
-LCBKdW5lIDgsIDIwMjMgMTI6MDggUE0NCj4gVG86IEthaWxhbmcgPGthaWxhbmdAcmVhbHRlay5j
-b20+DQo+IENjOiBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+OyBCYWdhcyBTYW5qYXlhIDxi
-YWdhc2RvdG1lQGdtYWlsLmNvbT47DQo+IHJlZ3Jlc3Npb25zQGxpc3RzLmxpbnV4LmRldjsgcGVy
-ZXhAcGVyZXguY3o7IHRpd2FpQHN1c2UuY29tOw0KPiBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5v
-cmcNCj4gU3ViamVjdDogUmU6IEZ3ZDogW0J1ZyAyMTc0NDBdIE5ldzogQUxDMjM2IGF1ZGlvIGRp
-c2FwcGVhcnMgZnJvbSBIUA0KPiAxNXotZmMwMDAgb24gd2FybSBib290DQo+IA0KPiANCj4gRXh0
-ZXJuYWwgbWFpbC4NCj4gDQo+IA0KPiANCj4gT24gV2VkLCBKdW4gNywgMjAyMyBhdCAxMDo0OOKA
-r1BNIEthaWxhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+IHdyb3RlOg0KPiA+DQo+ID4gQ291bGQg
-eW91IGFsc28gdXNlIGFsc2EtaW5mby5zaCB0byBkdW1wIGNvZGVjIGluZm8/DQo+IA0KPiBEbyB5
-b3UgbWVhbiBydW5uaW5nIGl0IHRoZSBzYW1lIHdheSBhcyBiZWZvcmUsIGJ1dCB1bmRlciB0aGUg
-a2VybmVsIHdpdGgNCj4geW91ciB0d28gcGF0Y2hlcz8gQXNzdW1pbmcgc28sIHRoZSByZXN1bHQg
-aXMgYXR0YWNoZWQuDQo+IA0KPiBUaGFua3MsDQo+IA0KPiBKb3NlcGggQy4gU2libGUNCj4gDQo+
-IC0tLS0tLVBsZWFzZSBjb25zaWRlciB0aGUgZW52aXJvbm1lbnQgYmVmb3JlIHByaW50aW5nIHRo
-aXMgZS1tYWlsLg0K
+SGkgSm9zZXBoLA0KDQpDb3VsZCB5b3UgdXNlIHlvdXIgcGF0Y2ggdG8gZHVtcCBjb2RlYyBpbmZv
+IGFnYWluPw0KSSB3YW50IHRvIGNoZWNrIGl0IHdpbGwgYWxzbyBzaG93ICJpbnZhbGlkIEFGRyBz
+dWJ0cmVlIi4NCg0KVGhhbmtzLg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
+b206IEpvc2VwaCBDLiBTaWJsZSA8am9zZXBoY3NpYmxlQGdtYWlsLmNvbT4NCj4gU2VudDogVGh1
+cnNkYXksIEp1bmUgOCwgMjAyMyAxMjowOCBQTQ0KPiBUbzogS2FpbGFuZyA8a2FpbGFuZ0ByZWFs
+dGVrLmNvbT4NCj4gQ2M6IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT47IEJhZ2FzIFNhbmph
+eWEgPGJhZ2FzZG90bWVAZ21haWwuY29tPjsNCj4gcmVncmVzc2lvbnNAbGlzdHMubGludXguZGV2
+OyBwZXJleEBwZXJleC5jejsgdGl3YWlAc3VzZS5jb207DQo+IGFsc2EtZGV2ZWxAYWxzYS1wcm9q
+ZWN0Lm9yZw0KPiBTdWJqZWN0OiBSZTogRndkOiBbQnVnIDIxNzQ0MF0gTmV3OiBBTEMyMzYgYXVk
+aW8gZGlzYXBwZWFycyBmcm9tIEhQDQo+IDE1ei1mYzAwMCBvbiB3YXJtIGJvb3QNCj4gDQo+IA0K
+PiBFeHRlcm5hbCBtYWlsLg0KPiANCj4gDQo+IA0KPiBPbiBXZWQsIEp1biA3LCAyMDIzIGF0IDEw
+OjQ44oCvUE0gS2FpbGFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4gd3JvdGU6DQo+ID4NCj4gPiBD
+b3VsZCB5b3UgYWxzbyB1c2UgYWxzYS1pbmZvLnNoIHRvIGR1bXAgY29kZWMgaW5mbz8NCj4gDQo+
+IERvIHlvdSBtZWFuIHJ1bm5pbmcgaXQgdGhlIHNhbWUgd2F5IGFzIGJlZm9yZSwgYnV0IHVuZGVy
+IHRoZSBrZXJuZWwgd2l0aA0KPiB5b3VyIHR3byBwYXRjaGVzPyBBc3N1bWluZyBzbywgdGhlIHJl
+c3VsdCBpcyBhdHRhY2hlZC4NCj4gDQo+IFRoYW5rcywNCj4gDQo+IEpvc2VwaCBDLiBTaWJsZQ0K
+PiANCj4gLS0tLS0tUGxlYXNlIGNvbnNpZGVyIHRoZSBlbnZpcm9ubWVudCBiZWZvcmUgcHJpbnRp
+bmcgdGhpcyBlLW1haWwuDQo=

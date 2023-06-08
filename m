@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04EF87285C3
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 18:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E09F37285C7
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 18:50:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FA076C1;
-	Thu,  8 Jun 2023 18:48:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FA076C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CFF11D7;
+	Thu,  8 Jun 2023 18:49:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CFF11D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686242989;
-	bh=gNQceAUJmTa6TFvIL+Km87KR8NZEQMd0d9aJCTeM7YU=;
+	s=default; t=1686243018;
+	bh=FxNW1tDHgmkiELl9PfEw1sWGYD0Wy5hET4x+qZvi4Po=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=voQXssO1sN+ZqGbF+M2BgB37TAgx969lgH50mAaW9UoN0JkIdEywpXmZX5YLNsX5G
-	 VQ55IZGph02AUqH31KqjyUyNV/2UlKfzUNb1WfMIonWR7ESDsQH9gxdkcpBwlLZaE4
-	 /HS9ahzM5NX1wzVIJ0kbSl8922UcghjQqHtclfHc=
+	b=QgNQFlg/HF6NR5/c4JranxvYsQyMQEJvxw02SBBInSomzP+dhINJIwNZEYMeaDcjX
+	 NaiB2VO5HPKTmW66R3fO7LWr315uyp0/pxRpcBV9HRRfiw/u89HGcFUJDqt7lGGjmO
+	 dX/HcHlzTfaNTQycBE9Kp9gx2tiZUNpU+DfuFlLQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1334F80155; Thu,  8 Jun 2023 18:48:36 +0200 (CEST)
+	id E8D62F80558; Thu,  8 Jun 2023 18:48:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A129F8016C;
-	Thu,  8 Jun 2023 18:48:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 502F8F804DA;
+	Thu,  8 Jun 2023 18:48:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D12F1F80199; Thu,  8 Jun 2023 18:48:30 +0200 (CEST)
+	id 5A376F80549; Thu,  8 Jun 2023 18:48:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D94BAF800ED
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 18:48:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D94BAF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id E1C6BF804DA
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 18:48:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1C6BF804DA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=ISUlowyJ
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-30adc51b65cso851522f8f.0
+ header.s=20221208 header.b=ZqrukFB0
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-3f7ff69824dso3879575e9.1
         for <alsa-devel@alsa-project.org>;
- Thu, 08 Jun 2023 09:48:20 -0700 (PDT)
+ Thu, 08 Jun 2023 09:48:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686242898; x=1688834898;
+        d=gmail.com; s=20221208; t=1686242922; x=1688834922;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zQLEV575N+KrNUGlsZrmx4zC48HUkepNutbY0RXCnbk=;
-        b=ISUlowyJjuLK125JQcOXVHEa2QeAgCdOj4C8MAGqYt7vr0t5LECt5PYKZ8XvtYHa/f
-         /jcGG0yITgrSx3ZzeH/RA+yJlQYKG+JF3qEckajkfu/8g5A8UodMP37O2GuDhJfYiC32
-         s+WRvq+3t8uPqJo5C25EYlZGDeY43Xp3xUwb5RdWahvk5iuoBMVEmeSbIHvo5rk4yEa7
-         f/XxcdTbh/6e6Kr6J3r6NBMuuNxx6H1UKOR1oP3FCyTWcGcrEH4c6FWWwrrRNFF5HyFA
-         99PMUVtltuQLEHUzouvdxGezr9nk8JiKbYrQpNE69pfOW7dKa6x17mUFEfuIBTloWhss
-         vy0Q==
+        bh=ZAGoNRFxCpaYHU/hquZQMckGJK1MycTqKrmK0fBxG7E=;
+        b=ZqrukFB0x02Ksu9A21nKCNgSxXKaIv9A4zm/KLh/PMSC6np4/9in+rhXslNpvhpnDa
+         mXx4kn1KXbG6FSaClpEds24iF1+bcl1u/x0bcbcDFpqe4uAzAeXbOERgwu23isjyfm4g
+         2MNqP8USNkwMwr9ONSjKJo8/09+P4Cu9VSF3W6+vmzxbiXlJazMZzQr82kSCL9lKTay9
+         SI9lj60WTnw5RKJVVaBfCV+mKL3HAts1LDNlZocCq/K7fN0jrHKt1XOnMexp55JvMXCE
+         5gl0OaZcQw8VBuFoWbT1Q5EDl6cbLP51m+RlWMP1yNMTYATsz/kYq7F/IqsCMsYvUCGI
+         BMVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686242898; x=1688834898;
+        d=1e100.net; s=20221208; t=1686242922; x=1688834922;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zQLEV575N+KrNUGlsZrmx4zC48HUkepNutbY0RXCnbk=;
-        b=BvgthhLyoRJWu+J/TXe5UwCh6maHMLCUdguzJHzPArs22iG4Wlhw4lYHrKHa6lhikF
-         0ER4xFO4B54riGvjF0PfnTV7O78YaK/aqXFF9IjCTmUyEnkRX67czksa4K+7MCa3aVh/
-         eQD4wRM1y3uNsLdqzRHTmiZEKu/O8naB3vHWEqw4BY5LHILNFuaThaIXEHvzHcRMpPuR
-         lWJKMVHXkYiamPp6cnoPiqLN7l8kN3Nx10VQd1lSW/H/+voCFVCNwTb0l3sBEDhZE4e1
-         sDj38TlxBCix9wRAzP90YrQa8SUZZRPuakMtwBckfQsGl6D5XE2AKK04SyCJj6ezyzAq
-         hN2g==
-X-Gm-Message-State: AC+VfDzKf5+2/yGi3pw1C2EpX5qmQM/msYXT56s0VNj/ODH+JlBOgxLh
-	1gbVfT016XLGgyDkkAEkjIw=
+        bh=ZAGoNRFxCpaYHU/hquZQMckGJK1MycTqKrmK0fBxG7E=;
+        b=XM1gv/6XtQcE4JmI/SI1RdEL463X3D4FocwXO0WIiJ/ecP+/GN6lTekxR5Mp1vU7Cm
+         Yne7fh00HdGaYue0c7CAtcMPDd9jXKvM5eknYhJglHa6QX9CXSt45PHhpACAG3jQRqW1
+         OQlWpDK0Lvu5PAGxtNsvi/R3nKShP8yoQ2X/j+VJ5qgVqsvXXM3zzDhGtXl8xiZVjHmD
+         Q5enZA92AUnnXu0kuLHHGwBM7ShN1KvUU9Vniu+6/imUmnCxbwR6pDHY4IiJJswMkD/7
+         2fNvF7Y/uJ2MH927ONv3vGKe+xV9QrVQ8RdZlQSu4Wbry9RVqtjzDLFzBeI4qqVnDin5
+         eiDQ==
+X-Gm-Message-State: AC+VfDx3OR1mToNF+jn0nBZRDna5nNemmYfTn538GoSZxY9A8r8VXk3T
+	i/xidZIP0MhCzOc92ZGJyug=
 X-Google-Smtp-Source: 
- ACHHUZ4dJo9Yhk6pVGkaDe0tPdKFCQhHLtZW7L57ZwBBoQ377VxaNTldMtwjWar/LJ3Y+f0Y+1PTPw==
-X-Received: by 2002:adf:ea8c:0:b0:2f9:a798:602f with SMTP id
- s12-20020adfea8c000000b002f9a798602fmr10422192wrm.48.1686242898149;
-        Thu, 08 Jun 2023 09:48:18 -0700 (PDT)
+ ACHHUZ4Coiru7soNPzfL2Fy+8KRA7k2eYiCZIxlKiMz3t/+/D2WokBnXoIyuNOcVlVJvpJI5pbwL3g==
+X-Received: by 2002:a05:600c:2216:b0:3f7:e7a2:25f6 with SMTP id
+ z22-20020a05600c221600b003f7e7a225f6mr1679174wml.17.1686242922204;
+        Thu, 08 Jun 2023 09:48:42 -0700 (PDT)
 Received: from [192.168.2.177] ([207.188.167.132])
         by smtp.gmail.com with ESMTPSA id
- q11-20020a056000136b00b002f9e04459desm2023010wrz.109.2023.06.08.09.48.16
+ q12-20020a05600000cc00b002ff2c39d072sm2043313wrx.104.2023.06.08.09.48.39
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Jun 2023 09:48:16 -0700 (PDT)
-Message-ID: <b7a19bb7-94e9-4837-c1dd-0ca891995efb@gmail.com>
-Date: Thu, 8 Jun 2023 18:48:15 +0200
+        Thu, 08 Jun 2023 09:48:41 -0700 (PDT)
+Message-ID: <e548940b-cda3-05e6-2c31-80c286d5025c@gmail.com>
+Date: Thu, 8 Jun 2023 18:48:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.2
-Subject: Re: [PATCH 1/5] ASoC: mediatek: mt8188-mt6359: Compress of_device_id
- entries
+Subject: Re: [PATCH 2/5] ASoC: mediatek: mt8188-mt6359: clean up a return in
+ codec_init
 Content-Language: en-US, ca-ES, es-ES
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  broonie@kernel.org
@@ -101,13 +101,13 @@ Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
  kernel@collabora.com
 References: <20230608084727.74403-1-angelogioacchino.delregno@collabora.com>
- <20230608084727.74403-2-angelogioacchino.delregno@collabora.com>
+ <20230608084727.74403-3-angelogioacchino.delregno@collabora.com>
 From: Matthias Brugger <matthias.bgg@gmail.com>
-In-Reply-To: <20230608084727.74403-2-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20230608084727.74403-3-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: F2M5XNJHMDWD5OEMCC6SZPKIW2NJTZV4
-X-Message-ID-Hash: F2M5XNJHMDWD5OEMCC6SZPKIW2NJTZV4
+Message-ID-Hash: GSQFZLKG4EQTMHBXG4GYYTX3KMELYOT4
+X-Message-ID-Hash: GSQFZLKG4EQTMHBXG4GYYTX3KMELYOT4
 X-MailFrom: matthias.bgg@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -120,9 +120,8 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F2M5XNJHMDWD5OEMCC6SZPKIW2NJTZV4/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GSQFZLKG4EQTMHBXG4GYYTX3KMELYOT4/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -132,37 +131,34 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 08/06/2023 10:47, AngeloGioacchino Del Regno wrote:
-> Those entries fit in one line: compress them to reduce line count.
-> While at it, also add the sentinel comment to the last entry.
+> From: Dan Carpenter <dan.carpenter@linaro.org>
 > 
+> This code triggers a Smatch static checker warning and does sort of
+> look like an error path.
+> 
+> sound/soc/mediatek/mt8188/mt8188-mt6359.c:597 mt8188_max98390_codec_init() warn: missing error code? 'ret'
+> 
+> However, returning 0 is intentional.  Make that explicit.
+> 
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
 Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
 
 > ---
->   sound/soc/mediatek/mt8188/mt8188-mt6359.c | 12 +++---------
->   1 file changed, 3 insertions(+), 9 deletions(-)
+>   sound/soc/mediatek/mt8188/mt8188-mt6359.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-> index bc4b74970a46..643a7a12a96b 100644
+> index 643a7a12a96b..b2735496d140 100644
 > --- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
 > +++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-> @@ -1117,15 +1117,9 @@ static struct mt8188_card_data mt8188_nau8825_card = {
->   };
+> @@ -594,7 +594,7 @@ static int mt8188_max98390_codec_init(struct snd_soc_pcm_runtime *rtd)
+>   	}
 >   
->   static const struct of_device_id mt8188_mt6359_dt_match[] = {
-> -	{
-> -		.compatible = "mediatek,mt8188-mt6359-evb",
-> -		.data = &mt8188_evb_card,
-> -	},
-> -	{
-> -		.compatible = "mediatek,mt8188-nau8825",
-> -		.data = &mt8188_nau8825_card,
-> -	},
-> -	{},
-> +	{ .compatible = "mediatek,mt8188-mt6359-evb", .data = &mt8188_evb_card, },
-> +	{ .compatible = "mediatek,mt8188-nau8825", .data = &mt8188_nau8825_card, },
-> +	{ /* sentinel */ },
->   };
->   MODULE_DEVICE_TABLE(of, mt8188_mt6359_dt_match);
+>   	if (rtd->dai_link->num_codecs <= 2)
+> -		return ret;
+> +		return 0;
 >   
+>   	/* add widgets/controls/dapm for rear speakers */
+>   	ret = snd_soc_dapm_new_controls(&card->dapm, mt8188_rear_spk_widgets,

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5EF67283A0
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 17:20:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 714BC72839C
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 17:20:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F3F982A;
-	Thu,  8 Jun 2023 17:20:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F3F982A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 076023E8;
+	Thu,  8 Jun 2023 17:19:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 076023E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686237657;
-	bh=pk/K8VrdCKchUB5paUdeNuT/SCeVorFznzyFJBwz8p8=;
+	s=default; t=1686237606;
+	bh=888/DxeFCwjXrc+J1zDYpuICndnlmtRdgBJJ0xu/IAg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UH7AqOsnyV//AQjZkodsWxDBqM6B4O+cIKi+digIMnPM0tydTFMaAygRS2qxABug8
-	 Md7RtGXsLpZQ77uBWnM8vqW8c6aD0HD/dS6yOB6UBklxn29hcbtGpvhBvendpI7g9h
-	 3AKQdrO7AY1Wk95MmxBkEzaRWEAVpl+52dhrlKEM=
+	b=XQmnYoXhtNpkW8x89MXoJ4Ny/0KM6wVO794aaezeHKswyGjK7OEiJpYli1maXuLx/
+	 4ASVEiQHXwfZPhgWNAJxH4SJio/F/i5qli8yTudqbU26Zt+D5PlBzsY2nJtFhVscUy
+	 isDcUCPK8rsMUTmRwvrOzfd37iiI4tuiAZWT437U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 49565F80558; Thu,  8 Jun 2023 17:19:17 +0200 (CEST)
+	id 2CA2FF8016C; Thu,  8 Jun 2023 17:19:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 869CDF80544;
-	Thu,  8 Jun 2023 17:19:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83CFDF8016C;
+	Thu,  8 Jun 2023 17:19:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48235F80199; Thu,  8 Jun 2023 17:19:11 +0200 (CEST)
+	id 6783AF80130; Thu,  8 Jun 2023 17:19:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,48 +35,45 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 212DFF80155
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 17:18:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 212DFF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4A5C4F80130
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 17:18:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A5C4F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VQOBPggz
+ header.s=k20201202 header.b=I+DycyAh
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 21A5A64E4F;
-	Thu,  8 Jun 2023 15:18:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8907C433EF;
-	Thu,  8 Jun 2023 15:18:50 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0920B60FAB;
+	Thu,  8 Jun 2023 15:18:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08915C4339B;
+	Thu,  8 Jun 2023 15:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686237533;
-	bh=pk/K8VrdCKchUB5paUdeNuT/SCeVorFznzyFJBwz8p8=;
+	s=k20201202; t=1686237535;
+	bh=888/DxeFCwjXrc+J1zDYpuICndnlmtRdgBJJ0xu/IAg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=VQOBPggzksGxcDdx4KDssn6TUrr6M1MgOItXztQrrJNHN8QFTPKBRpiF7Mk01wXHs
-	 Mde3p+xH0I1bA0D5r0kIWelmHj76C0JTiU6hTF9IUGz+jgmQW5PqhHnbrfOZluyfBo
-	 C1DcvX6dovAyAg8nTSpQQQ1XQoPgkgtJeiv2+0NsB13dMK9rqfBa1nKuOKQaRverGP
-	 vRqcK2eGjn2beNDhQBzmTeKwKCDNR65q1wtukFajPUyUUpAm75RG1405aAi1NgHhfn
-	 WjheAsgrnxysOFlpFbuJZLTKotXOB5YToksxzoSSBUTCJEA+nvcHazlpIumaJoiUC+
-	 gIeTSF8tx6ICg==
+	b=I+DycyAhSkOd+4Wez5SB1rOYpE7PV3N4tkT7idceTf0k9T4OM4hW1SkcXmjdpvON2
+	 nU6tMvndC4VV/pon/gjLXqteWE9kSP+K0QhgTui9XnpTtb7KD9GJ7W9nywMqhIVqtb
+	 +dGXLiPuWm4+Rijjwcsuv8oddu0tAAOhCKGju7K8Gf2mRRRxkwZhscJqv9ANBfpK93
+	 FaB01lE6Ieqr53h0Lfe5Hg8XUdWSftcGJrBdYuJdY0ovCvlQBAhe3Ek2p80Wm8p/Fc
+	 z0s5/yysdeThANACa72wFpv7/etM1fNKbCIs10zlHDA991iReAmHRnQaAnc3H16W/D
+	 aj3g2Dc8jUnDA==
 From: Mark Brown <broonie@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- matthias.bgg@gmail.com, trevor.wu@mediatek.com, amergnat@baylibre.com,
- dan.carpenter@linaro.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, kernel@collabora.com
-In-Reply-To: <20230608084727.74403-1-angelogioacchino.delregno@collabora.com>
-References: <20230608084727.74403-1-angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH 0/5] ASoC: mt8188-mt6359: Cleanups
-Message-Id: <168623753047.1002486.1442664487202243971.b4-ty@kernel.org>
-Date: Thu, 08 Jun 2023 16:18:50 +0100
+To: lgirdwood@gmail.com, Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>
+In-Reply-To: <20230608075540.61575-1-jiapeng.chong@linux.alibaba.com>
+References: <20230608075540.61575-1-jiapeng.chong@linux.alibaba.com>
+Subject: Re: [PATCH] ASoC: max98088: clean up some inconsistent indenting
+Message-Id: <168623753375.1002486.15353648412458244656.b4-ty@kernel.org>
+Date: Thu, 08 Jun 2023 16:18:53 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: WRDXIYLLJXICQKZUARJKN73TLA7BPOBO
-X-Message-ID-Hash: WRDXIYLLJXICQKZUARJKN73TLA7BPOBO
+Message-ID-Hash: 7TQ3IJZ76JJ2RSVVQQRRMYH5MMIOZTEQ
+X-Message-ID-Hash: 7TQ3IJZ76JJ2RSVVQQRRMYH5MMIOZTEQ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +86,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WRDXIYLLJXICQKZUARJKN73TLA7BPOBO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TQ3IJZ76JJ2RSVVQQRRMYH5MMIOZTEQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,19 +95,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 08 Jun 2023 10:47:22 +0200, AngeloGioacchino Del Regno wrote:
-> This series performs some cleanups to the mt8188-mt6359 driver,
-> including usage of bitfield macros, adding definitions of register
-> fields and some others for readability and consistency.
+On Thu, 08 Jun 2023 15:55:40 +0800, Jiapeng Chong wrote:
+> No functional modification involved.
 > 
-> AngeloGioacchino Del Regno (4):
->   ASoC: mediatek: mt8188-mt6359: Compress of_device_id entries
->   ASoC: mediatek: mt8188-mt6359: Cleanup return 0 disguised as return
->     ret
->   ASoC: mediatek: mt8188-mt6359: Clean up log levels
->   ASoC: mediatek: mt8188-mt6359: Use bitfield macros for registers
+> sound/soc/codecs/max98088.c:316 m98088_eq_band() warn: inconsistent indenting.
 > 
-> [...]
+> 
 
 Applied to
 
@@ -118,16 +108,8 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: mediatek: mt8188-mt6359: Compress of_device_id entries
-      commit: 22628e92d76a403181916f7bac7848dd2326d750
-[2/5] ASoC: mediatek: mt8188-mt6359: clean up a return in codec_init
-      commit: 1148b42257e2bf30093708398db2c4570ae9fe97
-[3/5] ASoC: mediatek: mt8188-mt6359: Cleanup return 0 disguised as return ret
-      commit: 4882ef44f51bbb759b8a738b747fdbcbad38e51b
-[4/5] ASoC: mediatek: mt8188-mt6359: Clean up log levels
-      commit: acb43baf8b7e75acdb14920de29881e3f70c6819
-[5/5] ASoC: mediatek: mt8188-mt6359: Use bitfield macros for registers
-      commit: b0e2e4fb8a5467f4f64bcf64d1454d18cb665cc8
+[1/1] ASoC: max98088: clean up some inconsistent indenting
+      commit: 3b3a8d6d34a3ace4d49beb6f69ebb0d3cfaf0479
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

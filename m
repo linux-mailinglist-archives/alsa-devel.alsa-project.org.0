@@ -2,99 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3045727C58
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 12:08:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C359F727C6B
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 12:12:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0216420C;
-	Thu,  8 Jun 2023 12:07:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0216420C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 869D66C1;
+	Thu,  8 Jun 2023 12:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 869D66C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686218928;
-	bh=kTirSk7klKbmof6mTprY1BidGMbSjx0FDTUI2y5uxbI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1686219143;
+	bh=Kdoa+A4zfK5hWYSR0TKThErEb7nbv61wEl1348h4gaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Wpgn5DrlFpvoP0+7cUOoKRot62YF2se3VYhxptYwgiR7dPnTYur8UJP2NAQmckh7x
-	 HgsHGXwC7tDbRePY6Jg14roziqt/RZKa1waelU18v/vztwNdi5Ts/XG/rf6rFKWCyj
-	 zc/tnUNDqGxJyioyt0ecGd1ejd1/b9r+MrVvwD5Y=
+	b=ZuaD27UO+OdXyucZ8tPAL+hugC97xr+lDhpfKEKMCG45orfhbcr8psrXSg3Si2dzT
+	 vNdWnQG+0EzximQ/9xdPzjpcdGCTKr2hU0lL3+RWG4+xpcdJj2buhjzfQhM877AHlK
+	 oZIIka++varNyINYqILxwH4DhTxJ3Fsfw9IFhJlc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11011F80290; Thu,  8 Jun 2023 12:07:56 +0200 (CEST)
+	id E4432F80290; Thu,  8 Jun 2023 12:11:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6CC4F80155;
-	Thu,  8 Jun 2023 12:07:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7328DF80155;
+	Thu,  8 Jun 2023 12:11:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08D2CF80199; Thu,  8 Jun 2023 12:07:53 +0200 (CEST)
+	id B8D40F80199; Thu,  8 Jun 2023 12:11:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C17BEF800ED
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 12:07:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C17BEF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74906F80130
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 12:11:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74906F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=aKlx9zY3
-Received: from [IPV6:2001:b07:2ed:14ed:a962:cd4d:a84:1eab] (unknown
- [IPv6:2001:b07:2ed:14ed:a962:cd4d:a84:1eab])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=AyyDL7/n
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id C56256606F15;
-	Thu,  8 Jun 2023 11:07:48 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1686218869;
-	bh=kTirSk7klKbmof6mTprY1BidGMbSjx0FDTUI2y5uxbI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aKlx9zY32oJUfPcHhRgNz3XOnyGvkSc3DKlfrNhMWTBeQ05YZYiMLC9QiEQ4uB0gB
-	 UvtiqowiYgQwEYpD7aUIOo7mUWD4BPQuphxMN+RbrVbPCkLbilixPjthLBI9+tftpA
-	 /1n9QbLHQ8fGsYPKY+5Lg7OJOz5rgXkXAYQmQnOl9srVNbjEUw0jwGfReDAbWQQjqT
-	 NIKNAB7VeMH/x2wb2PWT2Y7z0O2Y9Nu4lLt2eWUK4Tl/gOdtvbeCOmZg6KEVeIiZq9
-	 tiR/hDeG3uhOHfO7vZKaVP4mEORGBj4FFnq4MDq0ish1VZ0u4Xsq5FpAXlZk+lAEly
-	 DrfAMI1s1RLLg==
-Message-ID: <169f78a9-179d-deee-df98-d22e82604432@collabora.com>
-Date: Thu, 8 Jun 2023 12:07:46 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id EC0EA64BBE;
+	Thu,  8 Jun 2023 10:11:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5024FC4339B;
+	Thu,  8 Jun 2023 10:11:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686219080;
+	bh=Kdoa+A4zfK5hWYSR0TKThErEb7nbv61wEl1348h4gaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AyyDL7/nsoNEq58sEyUvaSBc9emUHBAr26ahYp7M94RtClgMcJo9Wn8muPvy1ikI8
+	 TAH+BTbHa9qgy+BWtRz0XMiOcCrLVWqRXXthYGZ1PmbZcd2zRxQa/NFzBkGr/4Ryy3
+	 LqXYhjBU5OKpHSmZuz2OK7bue6KPruIITS9UdTB8Aa+VKQEV04AtGFX+qTghOdwW5R
+	 080virOFb94yNCyq0rCsdxdcAGa6kTzoDdPxLOdhIQ96+5M41xVsK8VyxG4fIGG0vl
+	 GKunDlCrB0AeggphUiWB5KYjqW5NHDbfu+/chQMk3ltW5VDUiElCTFu8zZdIkd5kkJ
+	 b18w6LOI3dI3A==
+Received: from johan by xi.lan with local (Exim 4.94.2)
+	(envelope-from <johan@kernel.org>)
+	id 1q7CcK-0005ub-Sj; Thu, 08 Jun 2023 12:11:45 +0200
+Date: Thu, 8 Jun 2023 12:11:44 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: vkoul@kernel.org, andersson@kernel.org, yung-chuan.liao@linux.intel.com,
+	pierre-louis.bossart@linux.intel.com, sanyog.r.kale@intel.com,
+	linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] soundwire: qcom: stablity fixes
+Message-ID: <ZIGpYPrNYDlkRQIf@hovoldconsulting.com>
+References: <20230525133812.30841-1-srinivas.kandagatla@linaro.org>
+ <ZH2l-UbMyLi5Uwph@hovoldconsulting.com>
+ <5d6bcc6a-151e-ac21-2dd2-f72a91f562d5@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH 5/5] ASoC: mediatek: mt8188-mt6359: Use bitfield macros
- for registers
-Content-Language: en-US
-To: =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
- "broonie@kernel.org" <broonie@kernel.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "kernel@collabora.com" <kernel@collabora.com>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "amergnat@baylibre.com" <amergnat@baylibre.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "perex@perex.cz" <perex@perex.cz>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "dan.carpenter@linaro.org" <dan.carpenter@linaro.org>
-References: <20230608084727.74403-1-angelogioacchino.delregno@collabora.com>
- <20230608084727.74403-6-angelogioacchino.delregno@collabora.com>
- <c05be93415b3a04db2bc0f86010e14a286ecded2.camel@mediatek.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <c05be93415b3a04db2bc0f86010e14a286ecded2.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: DJTNFV7KYHMNK67CXV7EV6H6MYLWIT62
-X-Message-ID-Hash: DJTNFV7KYHMNK67CXV7EV6H6MYLWIT62
-X-MailFrom: angelogioacchino.delregno@collabora.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5d6bcc6a-151e-ac21-2dd2-f72a91f562d5@linaro.org>
+Message-ID-Hash: VAXFQ4T3NJLYSBB4EK3ANRQV2J6MVTC2
+X-Message-ID-Hash: VAXFQ4T3NJLYSBB4EK3ANRQV2J6MVTC2
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DJTNFV7KYHMNK67CXV7EV6H6MYLWIT62/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VAXFQ4T3NJLYSBB4EK3ANRQV2J6MVTC2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,171 +101,104 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 08/06/23 12:03, Trevor Wu (吳文良) ha scritto:
-> On Thu, 2023-06-08 at 10:47 +0200, AngeloGioacchino Del Regno wrote:
-> 
->>   Replace open coded instances of FIELD_GET() with it, move register
->> definitions at the top of the file and also replace magic numbers
->> with register definitions.
->>
->> While at it, also change a regmap_update_bits() call to
->> regmap_write()
->> because the top 29 bits of AUD_TOP_CFG (31:3) are reserved (unused).
->>
->> Signed-off-by: AngeloGioacchino Del Regno <
->> angelogioacchino.delregno@collabora.com>
->> ---
->>   sound/soc/mediatek/mt8188/mt8188-mt6359.c | 32 ++++++++++++++-------
->> --
->>   1 file changed, 19 insertions(+), 13 deletions(-)
->>
->> diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
->> b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
->> index 5b2660139421..ac69c23e0da1 100644
->> --- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
->> +++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
->> @@ -6,6 +6,7 @@
->>    * Author: Trevor Wu <trevor.wu@mediatek.com>
->>    */
->>   
->> +#include <linux/bitfield.h>
->>   #include <linux/input.h>
->>   #include <linux/module.h>
->>   #include <linux/of_device.h>
->> @@ -19,6 +20,15 @@
->>   #include "../common/mtk-afe-platform-driver.h"
->>   #include "../common/mtk-soundcard-driver.h"
->>   
->> +#define CKSYS_AUD_TOP_CFG	0x032c
->> + #define RG_TEST_ON		BIT(0)
->> + #define RG_TEST_TYPE		BIT(2)
->> +#define CKSYS_AUD_TOP_MON	0x0330
->> + #define TEST_MISO_COUNT_1	GENMASK(3, 0)
->> + #define TEST_MISO_COUNT_2	GENMASK(7, 4)
->> + #define TEST_MISO_DONE_1	BIT(28)
->> + #define TEST_MISO_DONE_2	BIT(29)
->> +
->>   #define NAU8825_HS_PRESENT	BIT(0)
->>   
->>   /*
->> @@ -251,9 +261,6 @@ static const struct snd_kcontrol_new
->> mt8188_nau8825_controls[] = {
->>   	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
->>   };
->>   
->> -#define CKSYS_AUD_TOP_CFG 0x032c
->> -#define CKSYS_AUD_TOP_MON 0x0330
->> -
->>   static int mt8188_mt6359_mtkaif_calibration(struct
->> snd_soc_pcm_runtime *rtd)
->>   {
->>   	struct snd_soc_component *cmpnt_afe =
->> @@ -265,13 +272,13 @@ static int
->> mt8188_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
->>   	struct mtkaif_param *param;
->>   	int chosen_phase_1, chosen_phase_2;
->>   	int prev_cycle_1, prev_cycle_2;
->> -	int test_done_1, test_done_2;
->> +	u8 test_done_1, test_done_2;
->>   	int cycle_1, cycle_2;
->>   	int mtkaif_chosen_phase[MT8188_MTKAIF_MISO_NUM];
->>   	int mtkaif_phase_cycle[MT8188_MTKAIF_MISO_NUM];
->>   	int mtkaif_calibration_num_phase;
->>   	bool mtkaif_calibration_ok;
->> -	unsigned int monitor = 0;
->> +	u32 monitor = 0;
->>   	int counter;
->>   	int phase;
->>   	int i;
->> @@ -303,8 +310,7 @@ static int
->> mt8188_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
->>   	mt6359_mtkaif_calibration_enable(cmpnt_codec);
->>   
->>   	/* set test type to synchronizer pulse */
->> -	regmap_update_bits(afe_priv->topckgen,
->> -			   CKSYS_AUD_TOP_CFG, 0xffff, 0x4);
->> +	regmap_write(afe_priv->topckgen, CKSYS_AUD_TOP_CFG,
->> RG_TEST_TYPE);
-> 
-> Hi Angelo,
-> 
-> Because CKSYS_AUD_TOP_CFG is a 32bit register, it should be better to
-> use regmap_set_bits instead.
-> 
-> regmap_set_bits(afe_priv->topckgen, CKSYS_AUD_TOP_CFG, RG_TEST_TYPE);
-> 
+On Wed, Jun 07, 2023 at 10:36:40AM +0100, Srinivas Kandagatla wrote:
+> On 05/06/2023 10:08, Johan Hovold wrote:
+> > On Thu, May 25, 2023 at 02:38:08PM +0100, Srinivas Kandagatla wrote:
+> >> During x13s audio testing we hit few corner cases due to issues
+> >> in codec drivers and some obvious code bugs.
+> >>
+> >> Here are the fixes for those issues, mostly the issues are around
+> >> devices loosing the sync in between runtime pm suspend resume path.
+> >>
+> >> With codec fixes along with these fixes, audio on x13s is pretty stable.
 
-The previous call to regmap_update_bits() was unsetting RG_TEST_ON and RE_SW_RESET
-while setting RG_TEST_TYPE: using regmap_write() ensures that we do exactly the
-same, without the overhead of performing the additional register read and bit
-swapping operations.
+> >> Changes since v1:
+> >> 	- dropped runtime pm changes patch as unable to reproduced it anymore
+> >> 	- fixed clk stop flag as suggested by Pierre
+> >> 	- rebased on top of linux-next
+> > 
+> > I tried to update to this series on my 6.4-rc5 branch for the X13s and
+> > the above changes appear to lead to breakages again.
+> > 
+> These patches are based on linux next, we can not cleanly apply them on 
+> rc5 i guess without the depended patches.
 
-Using the proposed regmap_set_bits() would change the behavior of this flow, which
-may result in unexpected hardware behavior, as we wouldn't be unsetting the
-previously mentioned two bits.
+Yeah, I did the corresponding changes you did in v2 to v1 applied to
+6.4-rc5 instead of backporting the dependencies.
 
-Regards,
-Angelo
-
-> Thanks,
-> Trevor
+> I have tried these patches with your rc4 branch along with other 
+> depended patches my branch is at: 
+> https://git.linaro.org/people/srinivas.kandagatla/linux.git/log/?h=wip/sc8280xp-v6.4-rc4
 > 
+> this works fine for me, not seeing any issues so far.
+> tested both speakers and headset.
 > 
->>    	mtkaif_calibration_num_phase = 42;	/* mt6359: 0 ~ 42 */
->>   	mtkaif_calibration_ok = true;
->>   
->> @@ -314,7 +320,7 @@ static int
->> mt8188_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
->>   		mt6359_set_mtkaif_calibration_phase(cmpnt_codec,
->>   						    phase, phase,
->> phase);
->>   
->> -		regmap_set_bits(afe_priv->topckgen, CKSYS_AUD_TOP_CFG,
->> 0x1);
->> +		regmap_set_bits(afe_priv->topckgen, CKSYS_AUD_TOP_CFG,
->> RG_TEST_ON);
->>   
->>   		test_done_1 = 0;
->>   		test_done_2 = 0;
->> @@ -326,14 +332,14 @@ static int
->> mt8188_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
->>   		while (!(test_done_1 & test_done_2)) {
->>   			regmap_read(afe_priv->topckgen,
->>   				    CKSYS_AUD_TOP_MON, &monitor);
->> -			test_done_1 = (monitor >> 28) & 0x1;
->> -			test_done_2 = (monitor >> 29) & 0x1;
->> +			test_done_1 = FIELD_GET(TEST_MISO_DONE_1,
->> monitor);
->> +			test_done_2 = FIELD_GET(TEST_MISO_DONE_2,
->> monitor);
->>   
->>   			if (test_done_1 == 1)
->> -				cycle_1 = monitor & 0xf;
->> +				cycle_1 = FIELD_GET(TEST_MISO_COUNT_1,
->> monitor);
->>   
->>   			if (test_done_2 == 1)
->> -				cycle_2 = (monitor >> 4) & 0xf;
->> +				cycle_2 = FIELD_GET(TEST_MISO_COUNT_2,
->> monitor);
->>   
->>   			/* handle if never test done */
->>   			if (++counter > 10000) {
->> @@ -361,7 +367,7 @@ static int
->> mt8188_mt6359_mtkaif_calibration(struct snd_soc_pcm_runtime *rtd)
->>   			mtkaif_phase_cycle[MT8188_MTKAIF_MISO_1] =
->> prev_cycle_2;
->>   		}
->>   
->> -		regmap_clear_bits(afe_priv->topckgen,
->> CKSYS_AUD_TOP_CFG, 0x1);
->> +		regmap_clear_bits(afe_priv->topckgen,
->> CKSYS_AUD_TOP_CFG, RG_TEST_ON);
->>   
->>   		if (mtkaif_chosen_phase[MT8188_MTKAIF_MISO_0] >= 0 &&
->>   		    mtkaif_chosen_phase[MT8188_MTKAIF_MISO_1] >= 0)
->> -- 
->> 2.40.1
+> > Specifically, with the updated clk stop flag (simple_clk_stop_capable) I
+> > see:
+> > 
+> > [   14.789533] wcd9380-codec sdw:0:0217:010d:00:3: Slave 1 state check1: UNATTACHED, status was 1
+> > [   14.789717] qcom-soundwire 3330000.soundwire-controller: qcom_swrm_irq_handler: SWR bus clsh detected
+> > [   14.796164] wcd9380-codec sdw:0:0217:010d:00:3: Slave 1 state check1: UNATTACHED, status was 1
 
+So as we discussed of list, this particular issue was due to a mistake I
+made when "backporting" your v2 where I forgot to invert the test when
+replacing simple_clk_stop_capable with clk_stop_mode1.
 
+> > and without the runtime pm patch that you dropped in v2 I get
+> > intermittent (e.g. twice in five boots):
+> > 
+> > [   11.527301] snd-sc8280xp sound: ASoC: adding FE link failed
+> > [   11.527409] snd-sc8280xp sound: ASoC: topology: could not load header: -517
+> Never seen this, looks like some corrupted tplg to me.. I might be wrong.
+> 
+> > [   11.527557] qcom-apm gprsvc:service:2:1: tplg component load failed-517
+> > [   11.527640] qcom-apm gprsvc:service:2:1: ASoC: error at snd_soc_component_probe on gprsvc:service:2:1: -22
+> > [   11.528079] snd-sc8280xp sound: ASoC: failed to instantiate card -22
+> > [   11.533388] snd-sc8280xp: probe of sound failed with error -22
+> > 
+> > Again, this was with 6.4-rc5, but these problems are likely still there
+> > also with linux-next.
+> 
+> Have you tried linux-next?
 
+No, not yet, but I just triggered the above once more after not having
+seen with my latest -rc5 branch for a while (e.g. 20 reboots?):
+
+[   11.430131] qcom-soundwire 3210000.soundwire-controller: Qualcomm Soundwire controller v1.6.0 Registered
+[   11.431741] wcd938x_codec audio-codec: bound sdw:0:0217:010d:00:4 (ops wcd938x_sdw_component_ops [snd_soc_wcd938x_sdw])
+[   11.431933] wcd938x_codec audio-codec: bound sdw:0:0217:010d:00:3 (ops wcd938x_sdw_component_ops [snd_soc_wcd938x_sdw])
+[   11.435406] qcom-soundwire 3330000.soundwire-controller: Qualcomm Soundwire controller v1.6.0 Registered
+[   11.449286] qcom-soundwire 3250000.soundwire-controller: Qualcomm Soundwire controller v1.6.0 Registered
+[   11.450632] wsa883x-codec sdw:0:0217:0202:00:1: WSA883X Version 1_1, Variant: WSA8835_V2
+[   11.453155] wsa883x-codec sdw:0:0217:0202:00:1: WSA883X Version 1_1, Variant: WSA8835_V2
+[   11.456511] wsa883x-codec sdw:0:0217:0202:00:2: WSA883X Version 1_1, Variant: WSA8835_V2
+[   11.562623] q6apm-dai 3000000.remoteproc:glink-edge:gpr:service@1:dais: Adding to iommu group 23
+[   11.585766] snd-sc8280xp sound: ASoC: adding FE link failed
+[   11.585872] snd-sc8280xp sound: ASoC: topology: could not load header: -517
+[   11.586021] qcom-apm gprsvc:service:2:1: tplg component load failed-517
+[   11.586100] qcom-apm gprsvc:service:2:1: ASoC: error at snd_soc_component_probe on gprsvc:service:2:1: -22
+[   11.586530] snd-sc8280xp sound: ASoC: failed to instantiate card -22
+[   11.591831] snd-sc8280xp: probe of sound failed with error -22
+
+I don't think I've ever seen it before dropping the runtime PM patch as
+you did in v2, and I hit it twice fairly quickly after dropping it. And
+now again.
+
+I'm not saying that the runtime PM patch is necessarily correct, and
+perhaps it is just changes in timing that lead to the above, but we
+definitely have a bug here.
+
+My X13s is sitting here in the above state right now if there's some
+state you want me to inspect.
+
+This is the branch I'm using:
+
+	https://github.com/jhovold/linux/tree/wip/sc8280xp-v6.4-rc5
+
+with commit
+
+	c0ab29445663 ("soundwire: qcom: enable runtime pm before controller is registered")
+
+reverted.
+
+Johan

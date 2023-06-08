@@ -2,113 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B34967285C8
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 18:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7535D728AF8
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 00:12:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6BEE822;
-	Thu,  8 Jun 2023 18:49:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6BEE822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0532E1D7;
+	Fri,  9 Jun 2023 00:11:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0532E1D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686243018;
-	bh=SVz2f+sEsfH02QxNg3O9FU2qxfkkWZibtld7G/1WxWs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qfZClEk2fkfNMoO7xzssmglPNurI1A1J3huHYSWK29I4/UbkoLkOosCvWLymPx9O2
-	 oVoYB05Q0eCFhnwQeJMn00PjEfEOSduRzMv7jQEJIrQw4MWBL4MZt/waSUEfespeak
-	 aQ3IZQPI87JXKyCxsBN1HlIoFCR4QIlgmjqHcrZ0=
+	s=default; t=1686262340;
+	bh=MDBZeXdHxayRyS4HwOUAnoANgtBHjjiq1WAz2EToM+0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mUxdHqAY4TOvki9zPFSDrYsHQtMlXKLTmhASU2F6Xr/RFAY9+H0F7aApNCGq61nm7
+	 XHhazuMEccvdctA+Ga5MtZ406inmSsbrlZOCGE+Kp9ii9P4XEjvpbvPp/yDXx9kZBi
+	 JPoONr9Tp7MG78+OFqgHBcP6p7Xb4GVqkYgZfllg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2ED4CF80563; Thu,  8 Jun 2023 18:49:28 +0200 (CEST)
+	id 3DB8DF80199; Fri,  9 Jun 2023 00:11:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E246AF80290;
-	Thu,  8 Jun 2023 18:49:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE0F5F8016C;
+	Fri,  9 Jun 2023 00:11:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1A2AF804DA; Thu,  8 Jun 2023 18:49:23 +0200 (CEST)
+	id 8FE3CF80199; Fri,  9 Jun 2023 00:11:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 351D8F800ED
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 18:49:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 351D8F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8FDA9F800ED
+	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 00:11:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FDA9F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=S+ZYjzMR
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-30e3caa6aa7so901524f8f.1
-        for <alsa-devel@alsa-project.org>;
- Thu, 08 Jun 2023 09:49:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686242956; x=1688834956;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JNPS/7M38Nz5+BxtavsFAB/Ran6aZSE4F1torzsLy44=;
-        b=S+ZYjzMReZv+Fa4/OK0AfYtiJ58HD4NXFwHpZKe+y9QUC3S6B3mNIkv6dJz7KYQthI
-         pJ8MDyFe9Ci6KH5SoljgPyqRcLL5gl2h7L/VGyrnJBsWzNqI+OtEqd5ujibPkeJCJb7F
-         BNsooxHfoaPkVRiFh6ZKUlDDHUxpVkg73LacJAVjRScco9rwRjBD3M/xyvaFgiOhdJ2/
-         xa0Xsny5n6i/5cxka/V1b4UvixcRKz6pu/wDJ3yZ6nvWeZqUPRYbviyG55IoMmfpYAFc
-         lUVu62dXNmQgVSGY0YmQYPrDZ/kuz8nBfJqc5CUH6bgQNZKTD49e6woImHADs6bs2Xf2
-         eOog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686242956; x=1688834956;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JNPS/7M38Nz5+BxtavsFAB/Ran6aZSE4F1torzsLy44=;
-        b=XhP195sKSbIB7rwx83CXNVb7xnN6AyibDmIkKf6ZARqg7KkitxGQIodHo8vyK1jrbh
-         XFvgYB5fCJzDdO8UA38udVTC+2oSZ/Q36SO15D6eB8sV7yCDOFIhQOrnwpNsEHtE+KwH
-         M+55Te5/prDdkjzBJLaxsFMQarjejaKP5AOmmGk3ANg+x4e2HyOyuXccEBg+7CcIcriR
-         BUk23T7CV4IrAg0WU0jMbwvO/4sldACqDlYsKkm8kTbAH38rqty75yJ5iCy8MtQhK8rC
-         rfEtGPDxJzWKKDDz5Gwljkba7SBESNg0aNSpRxNW+yxBL5aZlejXZak82z4oygJuTv95
-         9EyQ==
-X-Gm-Message-State: AC+VfDwfkiIn2kcDbMO9g3L/BihIS6GYDlqU3ASlMbDrJp+sH8ULkQTl
-	3ILfjfP5RI9IDBTSQOzXNLA=
-X-Google-Smtp-Source: 
- ACHHUZ77CeU9LlusWbTYX/0bQN+RqGpPsH5qayXpKqdIVOBhbDFoXVf1dKOoEkCu5uTSC/6Yr7C0oA==
-X-Received: by 2002:adf:fd46:0:b0:30e:5c55:3e42 with SMTP id
- h6-20020adffd46000000b0030e5c553e42mr4107354wrs.56.1686242956394;
-        Thu, 08 Jun 2023 09:49:16 -0700 (PDT)
-Received: from [192.168.2.177] ([207.188.167.132])
-        by smtp.gmail.com with ESMTPSA id
- a9-20020a5d5089000000b0030ae973c2e7sm2059546wrt.83.2023.06.08.09.49.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Jun 2023 09:49:15 -0700 (PDT)
-Message-ID: <2ea8d3cf-40d3-3409-5f53-e2eb117ffd9c@gmail.com>
-Date: Thu, 8 Jun 2023 18:49:14 +0200
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=WqhUYjWm
+Received: from notapiano.myfiosgateway.com (zone.collabora.co.uk
+ [167.235.23.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nfraprado)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id BCF7B6606F23;
+	Thu,  8 Jun 2023 23:11:09 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1686262272;
+	bh=MDBZeXdHxayRyS4HwOUAnoANgtBHjjiq1WAz2EToM+0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WqhUYjWmCpd1dCEdct42PjQYQdjK/MTgTVFEqw9GlBGiPRn69tuZjalqGNMKov9gv
+	 xkEpE6yHOhOsmawys7tpxQNCy+uv18DLMQEy3EEsv99xR1zSvHPrnBvNu65h2v0b6W
+	 QSOQldd85Cep/F0wHfsRBlVnOIPkpJ7rObmGd3AblG5zOicd2Y8PFGQ7Nj/1W989Fj
+	 FjwfmDKR9ENXLfkuf9eTbjoNC6uHIjCfgvyCgoUh7t4JveaNegr4Q6/VZgfUG8yvpH
+	 r254Pw2exOXCdDGAyBsPAHo1zia+8AC8i/DlkBldMRds9F4VdDNE9i9VJElrX86lY7
+	 tvf0pouue6NdQ==
+From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: kernel@collabora.com,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
+ <nfraprado@collabora.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] Revert "ASoC: mediatek: mt8192-mt6359: Remove " Jack" from
+ Headphone pin name"
+Date: Thu,  8 Jun 2023 18:10:48 -0400
+Message-ID: <20230608221050.217968-1-nfraprado@collabora.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH 3/5] ASoC: mediatek: mt8188-mt6359: Cleanup return 0
- disguised as return ret
-Content-Language: en-US, ca-ES, es-ES
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- broonie@kernel.org
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- trevor.wu@mediatek.com, amergnat@baylibre.com, dan.carpenter@linaro.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- kernel@collabora.com
-References: <20230608084727.74403-1-angelogioacchino.delregno@collabora.com>
- <20230608084727.74403-4-angelogioacchino.delregno@collabora.com>
-From: Matthias Brugger <matthias.bgg@gmail.com>
-In-Reply-To: <20230608084727.74403-4-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: WMED7S6MMMY6TTYYAITGD5762NFBJOHW
-X-Message-ID-Hash: WMED7S6MMMY6TTYYAITGD5762NFBJOHW
-X-MailFrom: matthias.bgg@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: EQCS7LJV3BXN2IQQOMGLWPXZSNHZWAPW
+X-Message-ID-Hash: EQCS7LJV3BXN2IQQOMGLWPXZSNHZWAPW
+X-MailFrom: nfraprado@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WMED7S6MMMY6TTYYAITGD5762NFBJOHW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EQCS7LJV3BXN2IQQOMGLWPXZSNHZWAPW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,91 +110,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+This reverts commit cbbc0ec6dea09c815f1d1ef0abaf3f2ec89ff11f. That
+commit removed the " Jack" suffix with the reasoning that it is
+automatically added to the name of the kcontrol created, which is true,
+but this name is also used to look for the DAPM widget that will be
+toggled when the jack status is updated. Since the widget is still
+called "Headphone Jack" the jack can't link to the widget and the
+following error is shown:
 
+mt8192_mt6359 sound: ASoC: DAPM unknown pin Headphone
 
-On 08/06/2023 10:47, AngeloGioacchino Del Regno wrote:
-> Change all instances of `return ret` to `return 0` at the end of
-> functions where ret is always zero and also change functions
-> mt8188_{hdmi,dptx}_codec_init to be consistent with how other
-> functions are returning errors
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+It is not possible to also rename the headphone DAPM widget because its
+name is used by a switch kcontrol, "Headphone Jack Switch", both to link
+to the headphone widget and to assemble its name. This switch's name is
+referenced in the upstream UCM file, so renaming it would break
+userspace. Since the original commit didn't bring any benefit, besides
+sparing a few CPU cycles, simply revert it.
 
-Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
+Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
 
-> ---
->   sound/soc/mediatek/mt8188/mt8188-mt6359.c | 20 ++++++++++++--------
->   1 file changed, 12 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-> index b2735496d140..260cace408b9 100644
-> --- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-> +++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-> @@ -491,11 +491,13 @@ static int mt8188_hdmi_codec_init(struct snd_soc_pcm_runtime *rtd)
->   	}
->   
->   	ret = snd_soc_component_set_jack(component, &priv->hdmi_jack, NULL);
-> -	if (ret)
-> +	if (ret) {
->   		dev_info(rtd->dev, "%s, set jack failed on %s (ret=%d)\n",
->   			 __func__, component->name, ret);
-> +		return ret;
-> +	}
->   
-> -	return ret;
-> +	return 0;
->   }
->   
->   static int mt8188_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
-> @@ -513,11 +515,13 @@ static int mt8188_dptx_codec_init(struct snd_soc_pcm_runtime *rtd)
->   	}
->   
->   	ret = snd_soc_component_set_jack(component, &priv->dp_jack, NULL);
-> -	if (ret)
-> +	if (ret) {
->   		dev_info(rtd->dev, "%s, set jack failed on %s (ret=%d)\n",
->   			 __func__, component->name, ret);
-> +		return ret;
-> +	}
->   
-> -	return ret;
-> +	return 0;
->   }
->   
->   static int mt8188_dumb_amp_init(struct snd_soc_pcm_runtime *rtd)
-> @@ -539,7 +543,7 @@ static int mt8188_dumb_amp_init(struct snd_soc_pcm_runtime *rtd)
->   		return ret;
->   	}
->   
-> -	return ret;
-> +	return 0;
->   }
->   
->   static int mt8188_max98390_hw_params(struct snd_pcm_substream *substream,
-> @@ -612,7 +616,7 @@ static int mt8188_max98390_codec_init(struct snd_soc_pcm_runtime *rtd)
->   		return ret;
->   	}
->   
-> -	return ret;
-> +	return 0;
->   }
->   
->   static int mt8188_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
-> @@ -660,7 +664,7 @@ static int mt8188_nau8825_codec_init(struct snd_soc_pcm_runtime *rtd)
->   		return ret;
->   	}
->   
-> -	return ret;
-> +	return 0;
->   };
->   
->   static void mt8188_nau8825_codec_exit(struct snd_soc_pcm_runtime *rtd)
-> @@ -697,7 +701,7 @@ static int mt8188_nau8825_hw_params(struct snd_pcm_substream *substream,
->   		return ret;
->   	}
->   
-> -	return ret;
-> +	return 0;
->   }
->   
->   static const struct snd_soc_ops mt8188_nau8825_ops = {
+---
+
+ sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+index 4e0d5bf12b47..5e163e23a207 100644
+--- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
++++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+@@ -46,7 +46,7 @@ struct mt8192_mt6359_priv {
+ /* Headset jack detection DAPM pins */
+ static struct snd_soc_jack_pin mt8192_jack_pins[] = {
+ 	{
+-		.pin = "Headphone",
++		.pin = "Headphone Jack",
+ 		.mask = SND_JACK_HEADPHONE,
+ 	},
+ 	{
+-- 
+2.41.0
+

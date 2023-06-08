@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 043A172834F
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 17:11:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02074728346
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 17:10:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3ECED827;
-	Thu,  8 Jun 2023 17:10:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3ECED827
+	by alsa0.perex.cz (Postfix) with ESMTPS id E78253E8;
+	Thu,  8 Jun 2023 17:09:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E78253E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686237084;
-	bh=gLEq3vi4ShR5o0t/JrKR4zfOv7ndOd96flRBabiHYaw=;
+	s=default; t=1686237034;
+	bh=hKQWNsfMCaxOhcLznocENZflEOSMlleDFC62geegNPg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GlQgc90A9Bw6qz9w546Upc6Z4mCvbQg6kmuoad/L93u96ttZHuAQHTlbdttvglkAP
-	 fPOxlk39i/2WKtfhtx6NGTJpi9iU40bZiJm0MS7QWTnRCjJuhOmRlXyrxHLIKJutLF
-	 8XxAEmstIAAPcdPLivzyuWAN93AcVaR0MdWXVP2k=
+	b=AeqZLxmLm4zthzTiiD5nF9HWAQmWzi1fbutk+rPJMyP3vYlIWMeTqGmpFqkmZ5Mmm
+	 v0zCb8wCbem8Dw1KH39TVU9IYanDzh+mHhxgk22kxj95ZGrIsxpijZ0/l4UwcK1q7c
+	 Mqd4Wzco6Zm+hcemCUWOytsVGjzBmkbg8Dlg1N48=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08602F80551; Thu,  8 Jun 2023 17:09:44 +0200 (CEST)
+	id 30FB2F80520; Thu,  8 Jun 2023 17:09:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63416F80549;
-	Thu,  8 Jun 2023 17:09:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B99DF80199;
+	Thu,  8 Jun 2023 17:09:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5DA6F80254; Thu,  8 Jun 2023 17:09:40 +0200 (CEST)
+	id 7B70CF80290; Thu,  8 Jun 2023 17:09:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,60 +35,60 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81B89F8016C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 59778F80130
 	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 17:09:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81B89F8016C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59778F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RY18g0b3
+ header.s=Intel header.b=loTHc0Ht
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1686236976; x=1717772976;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=gLEq3vi4ShR5o0t/JrKR4zfOv7ndOd96flRBabiHYaw=;
-  b=RY18g0b3vPYFzjbqGvYtgJNcN/LmJoB7zGs3NcANBK/lQjYam69Wu6f3
-   4r4xsc8h5X40QPpv+/RS6zLw0I9nj/i+dABqpm3sY6xLHe1onS5rMWKMl
-   VKD0GRblh1xSHlcnkHT+pl7tx3I4j68MIURh4m6QIZYHxqDE6QWq7bveR
-   8F3H0Z+w6bMNLbdVk6Yiy1xWJYu+LeEUS0/NC1riH7cYAkNkJr2GXMDVt
-   N21qYcNPt/Jf4AVLjRjAxjCVcqbfZkgBhjGxAYR1qvzWRd9ptnrzn6XFN
-   VluSX+4ydqhff+xKmTIMXICgL9HQMxfw2KICv60RFsPfWqd/P3JnmCEdX
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="443700530"
+  bh=hKQWNsfMCaxOhcLznocENZflEOSMlleDFC62geegNPg=;
+  b=loTHc0Ht+U+rObCWDeRO+LvIocRhk7va/B933MfJogzn3q3f/znZ9aGU
+   e4sc431DNaLfGZrWoEnb1E4fpXhl22sj4XeLFQif69v6pZX+IwyG1aOMu
+   JW/E/OQGHKX/CHIc/tXHw9HPockb4oGPyynKzIjcbGPBvwwsxOjXrvQ20
+   viv/nxhg9KyFFK2uH6Ehc+IA9tnLHUc13LQkkF4djqNQE0UDSCBMPA8uT
+   E/i1h0I9yNJ5iy+LVvcZyWZbQgYdueIdBgwrXgwrTT6EZQ5i+jx54q0f0
+   Ecikvruu0MAewoKZ3my6cHkjW+9Lv3CkY7kumbwx9VUyO6iGOkUrE+SWv
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="443700540"
 X-IronPort-AV: E=Sophos;i="6.00,227,1681196400";
-   d="scan'208";a="443700530"
+   d="scan'208";a="443700540"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
   by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 08:09:30 -0700
+ 08 Jun 2023 08:09:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="799842560"
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="799842564"
 X-IronPort-AV: E=Sophos;i="6.00,227,1681196400";
-   d="scan'208";a="799842560"
+   d="scan'208";a="799842564"
 Received: from svuppala-mobl.amr.corp.intel.com (HELO [10.212.207.249])
  ([10.212.207.249])
   by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 08:09:29 -0700
-Message-ID: <e07d507e-57bf-a2b7-2ab1-f5f45ff5399b@linux.intel.com>
-Date: Thu, 8 Jun 2023 08:24:00 -0500
+ 08 Jun 2023 08:09:31 -0700
+Message-ID: <9d2a7b72-b145-ba97-987a-4611fc3db3ad@linux.intel.com>
+Date: Thu, 8 Jun 2023 08:25:23 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 3/4] soundwire: extend parameters of
- new_peripheral_assigned() callback
+Subject: Re: [PATCH 1/4] soundwire: add enum to control device number
+ allocation
 Content-Language: en-US
 To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  bard.liao@intel.com
 References: <20230531033736.792464-1-yung-chuan.liao@linux.intel.com>
- <20230531033736.792464-4-yung-chuan.liao@linux.intel.com>
- <ZIF+G1mbis/lb8Po@matsya>
+ <20230531033736.792464-2-yung-chuan.liao@linux.intel.com>
+ <ZIF9Hd5Hv/CKQeUW@matsya>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <ZIF+G1mbis/lb8Po@matsya>
+In-Reply-To: <ZIF9Hd5Hv/CKQeUW@matsya>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: NPORFW5Y6TSEO6AAQWWQ5QNTOHCNGO7I
-X-Message-ID-Hash: NPORFW5Y6TSEO6AAQWWQ5QNTOHCNGO7I
+Message-ID-Hash: 5ZOXJWO2VVI6OLYFD7HZH4KZ3UIQEDRV
+X-Message-ID-Hash: 5ZOXJWO2VVI6OLYFD7HZH4KZ3UIQEDRV
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NPORFW5Y6TSEO6AAQWWQ5QNTOHCNGO7I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZOXJWO2VVI6OLYFD7HZH4KZ3UIQEDRV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,26 +111,18 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
->> -static void generic_new_peripheral_assigned(struct sdw_bus *bus, int dev_num)
->> +static void generic_new_peripheral_assigned(struct sdw_bus *bus,
->> +					    struct sdw_slave *slave,
->> +					    int dev_num)
->>  {
->>  	struct sdw_cdns *cdns = bus_to_cdns(bus);
->>  	struct sdw_intel *sdw = cdns_to_intel(cdns);
->> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
->> index 8a7541ac735e..41a856bedf1e 100644
->> --- a/include/linux/soundwire/sdw.h
->> +++ b/include/linux/soundwire/sdw.h
->> @@ -861,7 +861,9 @@ struct sdw_master_ops {
->>  	int (*pre_bank_switch)(struct sdw_bus *bus);
->>  	int (*post_bank_switch)(struct sdw_bus *bus);
->>  	u32 (*read_ping_status)(struct sdw_bus *bus);
->> -	void (*new_peripheral_assigned)(struct sdw_bus *bus, int dev_num);
->> +	void (*new_peripheral_assigned)(struct sdw_bus *bus,
->> +					struct sdw_slave *slave,
+>> +/**
+>> + * enum sdw_dev_num_alloc - Device Number allocation strategies
+>> + * @SDW_DEV_NUM_ALLOC_DEFAULT: unconstrained first-come-first-serve allocation,
+>> + * using range [1, 11]
+>> + * @SDW_DEV_NUM_ALLOC_IDA: IDA-based allocation, using range [ida_min, 11]
+>> + */
+>> +enum sdw_dev_num_alloc {
+>> +	SDW_DEV_NUM_ALLOC_DEFAULT = 0,
+>> +	SDW_DEV_NUM_ALLOC_IDA,
 > 
-> maybe better, drop the bus and pass slave (which contains bus)
+> Let default be IDA as 0, am sure we are not setting this field in qcom
+> or amd controller, lets retain the defaults please
 
-I kept it for consistency, all callbacks for sdw_master_ops start with
-the bus parameter.
+Not following, QCOM or AMD are NOT using the IDA-based version, so the
+default is zero.

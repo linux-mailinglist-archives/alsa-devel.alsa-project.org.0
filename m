@@ -2,144 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB04372734B
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 01:46:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A3F727497
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 03:47:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D479184B;
-	Thu,  8 Jun 2023 01:45:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D479184B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B4226C0;
+	Thu,  8 Jun 2023 03:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B4226C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686181584;
-	bh=IOidb0KOJw2PZdJPCPxY3EIQgxosKqGOKSt+bmuTIcA=;
+	s=default; t=1686188875;
+	bh=VAVedJlfUUAMDchcYYMC2319bmOZAOhSfur7ZBXcHPU=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=toUQmOuHMjo3axe70MtMVpb+RYUdG4GG9bSMpKVR/58Zc8iYayMF+K79wUjbffjMh
-	 bQcp7GsfNIJ+y2T4Cy3ZML7JopqkDiby6uKqF96cj3UGe3UsX09fV2TU+dHrLUwMtY
-	 i4OJ89/FVCm7mvOxzuUOJlaop8eSaetY3RLD289w=
+	b=THpiz55aT6X/Cbm2L9hrSvyJN1Qzh22TYTMfLW7nAT3/etx4C235BtAqw3CfkUCUo
+	 BtLzcZ/vOyZG9n/wCBkjf4ITIIj2vLQvFial8GEgJpsdhaai+n3RoBFJZzrVwhTmzy
+	 XCTtdeCtQmQhONgZUma2XooMthcSBsQUG8XjlOhA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F0F4BF80130; Thu,  8 Jun 2023 01:44:26 +0200 (CEST)
+	id E469BF80290; Thu,  8 Jun 2023 03:47:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CBDAF805A1;
-	Thu,  8 Jun 2023 01:44:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75A2EF8016C;
+	Thu,  8 Jun 2023 03:47:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE57AF805A8; Thu,  8 Jun 2023 01:44:23 +0200 (CEST)
+	id 92C71F80199; Thu,  8 Jun 2023 03:46:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20726.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::726])
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20723.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::723])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B22ACF80587
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 01:44:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B22ACF80587
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1CD90F80155
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 03:46:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CD90F80155
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=DLoiZ3Lj
+ header.s=selector1 header.b=DhwSdyf8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DeU2hHI0puQnB7aMaHsmjGDqtZmQdp/Wo0b6IOgKaQmCEYZB9QFuYg0UPGhZPZHqfssbR6MR3p0wlqZL4L41gI2jD4H34f4BcGKq4KvtzPmdJfykN8s8T8wLu7nO2VKKuW+9gVkmCHcTHayAcG/H/rl3hSrgQBEgkyCwuPoGVkOxHiAxgbIb3J2tc0GrG15Wd13ALEq7vWtZB52IzpBvWOZ/lqEVV8xcQG3ipKLEmM8rVcTNe6sSPBJjTdgkdwJZa155b/O9hePxif/6G6ii0zs/OCNeURSvIyFTgq3ApgWYaK1gPNLow+PeddUQL9FJgQugoJkY1vQ7kE4REabjIg==
+ b=IB21kNjH3K7QdNIbuLTNFF1OTLNk9Iz0wjIUaOz+1E+LgUmLmXWtRPT6ghD9Mw1A6CqVnp5RW3DL0qok4N04fdp15qfbQ29w9KQ2cnpRctRJthieKUIYtsXQgx/S9hWW89OSISod+8L90grcNAfrjdSd0m/kKfFATOKrGkRFEYNV8vqLvLhk48/VD+V2D0ZgID1Ig5gDtkMQpBNTf/qCvT/Gile8auEsOtwEe1IfUNIkLi/8oyG9lY0JUJNnD5NkvURPx/e+BZqKhFepBm4othCMqfwdE1GfPukx4XXcrv/I8DRgqvvoS0h6QEgW2iGRk0+znuW/VmU8yq7MA261gA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+tPEznnJM588OZuXM6JHjE2cAcDpZbIwvSmG4ObtO6I=;
- b=L588GmPW+klUXwWPRNVsaxDukjs2mcdZwKakeYyIPzKTh3ta4zUzzjYqe2h0J91Caw42eXGCM1rPA07rcfNzbD8/CScoPSEgS2St7LZGBQzeTWMQoxm2u2FZjzFz+D/4O+X0BORInl8XTARW7lR+fs2fjjJ4u3b3dNvI3Ju5wuH+FSWSOWjZdA0jjiDsAtnIyILzM2oDWM1nKjgVMpYriPYWYd7rryMM00FiT/6fPU6Mr5CpWCerTIE3h3QjtTOvte8V/gTiKTbwt7YP4jbvY64SeslryL7npD91p0YSzI42sACYjYh5rFb+VXst1AA7IIxnslAG1gZKKVYWdDEqjw==
+ bh=qW7W1WsjSdIOPuWvsUw1fwwcDg+yjakQm4gKMIHLy2w=;
+ b=YDuZdEYzfNUHPSR7xZwoy61gnakPlYBAHnIZEZWcy+FfJxXuu9HT+FGu+vFOYMRkB9CXoGaVIwAuzIgk0/QabYzoIiHVK0sg+mRLKvkUNnS486GbqxB0O/JetyF0g8WOsbAkg3flR+piFDmaPon8WgWpt43c7fSgAFcXEBrpaZy4rWtFZHVT0rhu/qnykmE8GNFjBf9dhpojb1sDg2ay2lBbRsGHO33ILoRTJCNuHlWxbVfh7oesTf8DF8cPJlpWPcXvmdgTUh13MW3HlGA6GM+ulkGBCdST14D+uJBGhivfhNuBm2f/La2R20KvwxOXvBhUcluxJ2z1ABz7fVMwOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+tPEznnJM588OZuXM6JHjE2cAcDpZbIwvSmG4ObtO6I=;
- b=DLoiZ3LjUpgVnfv+z3zWHwE7/t860Bs98y4pwltrmZ6pASMIYXRykOBQrjuQCl/6inWsbputmsXnD3+vV0HpoVKff0QlYclM6UBPcgxzi7HRywgPn73hhoUigWWldOPABLKshbEdPXop3/TnIiO4p1YaMtYzVAD1oexB4TkEhZw=
+ bh=qW7W1WsjSdIOPuWvsUw1fwwcDg+yjakQm4gKMIHLy2w=;
+ b=DhwSdyf8ag7G/Hy7ThRYHAb8CBpZ5cI6SYHHMojs7KQaL6LXbnrLlACkaG0qjI8XGcaWUDBu3TBRdcty5DhgdYGkfoIPLblMxe+lpSkdHIrTqrwXffuAw7iYpBUZ7xMHO4mEhEQKKRHzftM12RLPc3K9qcXJ5yNn3zsg3p0cSZs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TY3PR01MB9745.jpnprd01.prod.outlook.com (2603:1096:400:22e::6) with
+ by TYWPR01MB11019.jpnprd01.prod.outlook.com (2603:1096:400:390::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.19; Wed, 7 Jun
- 2023 23:44:15 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Thu, 8 Jun
+ 2023 01:46:42 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::91e7:a94f:9f75:d840]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::91e7:a94f:9f75:d840%6]) with mapi id 15.20.6455.030; Wed, 7 Jun 2023
- 23:44:15 +0000
-Message-ID: <87y1kug7n7.wl-kuninori.morimoto.gx@renesas.com>
+ ([fe80::91e7:a94f:9f75:d840%6]) with mapi id 15.20.6455.030; Thu, 8 Jun 2023
+ 01:46:42 +0000
+Message-ID: <87v8fyg1z3.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 Cc: alsa-devel@alsa-project.org
-Subject: [PATCH 4/4] ASoC: remove old trigger ordering method
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Subject: Re: [PATCH 0/4] ASoC: add new trigger ordering method
 In-Reply-To: <874jnihm8y.wl-kuninori.morimoto.gx@renesas.com>
 References: <874jnihm8y.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 7 Jun 2023 23:44:15 +0000
-X-ClientProxiedBy: TYWPR01CA0039.jpnprd01.prod.outlook.com
- (2603:1096:400:17f::14) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Thu, 8 Jun 2023 01:46:41 +0000
+X-ClientProxiedBy: TYCP301CA0026.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:381::10) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TY3PR01MB9745:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8dc20695-1022-4b64-b9e8-08db67b11aba
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB11019:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca4d115c-4699-4af1-f7fa-08db67c23559
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	A+enixtbs2xNFFKFhqrd0MxdpQZdGFx0e2wi79q2Z+4qRBn7mksFxmy7grY94UiR3oLqQxtielOUHFsaRG4tR4VWt1IaOU86/UcQogs/UEgYy5uWKdjV03yixopLuMIHgi46Cj6v6EQPOqSNWIEfdABcVnJp2Gl3aQ6080+kLrcjz+dLQpbtlX+DiK4dlAUcyOZ/MD2Ksc/VDTODX4OpHZX3hiWJ+pCnlXBZ4A+afBNGhtzEOi1KcC9yFdgreK77Yv6PNNzEE8lvO9FxtSSt9Snucs4W99ctnrySZThXsQ/CXO2dOkawuOs8ol082uHQwi7PhwZUsjoLnJVZaf9RtV0R7PsSBYkm5OAxJz1vWJlcswKjzmmCfH4Rz1cwKy284H1vT0EGG0TNHLzILXBllv1VmvZoK6VOk3X+GgVJ12n8UhopGU1oUz7n7NfhbgmGUFmf3TZqhf/Wbh0n7PPBH8YO0h/nMVHg/xIejaAkEZSMylRYUPpkbajvstS5ff+tidaBuOV3h7cHBiVG7RymcnHppU1f/igAzEcvNPiIZSUNxolpjf2M2Xj9buIV07jF9LDMEWImmTdv3Qd/rzT74UqsXTNxqXxrat+v7sItnwbe4X4qOzBLETaRJCNLj7Em
+	fkjAa/Xa2tJDQ++/598mOXFTUOa8FWAnpLOcz1vYDEh/V5ndCHyE9p6a+1s+O7aeIzYp3v2xEdrEiePQrfZnVTIbOZcdelMPay53y/deLaPhibXtPncyR85yBfrQrfT9o6dcUnHIZtHl0gCo/kMdAa4a8LGoBYQkWXo3uVcYAhHwNvxwGGwsC8na8Vpb99hjHrzPgoK5tuzGf8D3RrOi0txpm5wsuCurP/GF0q2CoycWZrEokYIATxT5E8Os6KVYAMAV8teA9VN0a3sK523W7qBSWrUvZMvW/VnEmgzzFHmURwHo4juyjEr+rdxNclftpeGd5Dxbylu+KmY1EM+LHBiL9YkcpOEQRltANN5YpZZW7rhDnvEBL+lTwVX2kaL7Yfsc8D0WZglQ8EtTHmJrEJCistkvGfXUdhWux3X0qRyQTEgp+J9UcfXFDg75ZJBaGh4VS/67KBt8mJWtJFYFjgumdCGJDOj72DKhm9Ra0OvquBaNXMDaoRHWxIcbE0FWMADx8Xf0tzeZQvlZc6p9FalpWsZFa5GZmw11MyjALnzVWIljUl3vLl7Bp3qo7D4f5FhCqkbYMorHiOdkxxbKjZFwqi44zqZ3793kgABE6luwDL3aiCFSAYQsmUvuT0al
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(39860400002)(396003)(136003)(366004)(451199021)(186003)(5660300002)(26005)(6506007)(110136005)(6512007)(2906002)(52116002)(86362001)(6486002)(478600001)(36756003)(38350700002)(38100700002)(66556008)(4326008)(316002)(2616005)(66946007)(8676002)(66476007)(8936002)(41300700001)(83380400001);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(39860400002)(366004)(136003)(346002)(451199021)(6512007)(6506007)(41300700001)(38100700002)(2616005)(38350700002)(6486002)(52116002)(26005)(186003)(83380400001)(478600001)(110136005)(86362001)(66556008)(4326008)(66476007)(316002)(66946007)(5660300002)(8676002)(8936002)(2906002)(4744005)(36756003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?1jQXZcynY6h2Q7EclqJOd1cA1DoQ1yNyRcNM+MLm0ZJNVg/nO+h+kbpk1xEB?=
- =?us-ascii?Q?ZhsJkBPWpymLvK/Gt1JHkYLA7STa9YmfqF4bLbt8Ve7XaO8Ca4ZUxGPvVl4C?=
- =?us-ascii?Q?kEjgL7x5IQx4XPL8jZ1D+STu3jk5oBJ4iJnFylDiayt28KozheDBpEfa0VP5?=
- =?us-ascii?Q?t8bAo1OLfmFrCens25jkORqdwJAPOuCq9xN3Wd+pzxsi0k0Zo7AvseWGj2Sz?=
- =?us-ascii?Q?qFdpwPUCg1ya/oa9gEjo4zHqoSz1nfX7y3tpwbVHJSN5dWWODidopUKhq65q?=
- =?us-ascii?Q?950Li+aAm52iwXc5G/iVa0ASWNXFzSI9h4Tqtic38d9ePq0L9YMmsBoT3LkG?=
- =?us-ascii?Q?AG7FoK9g9FlW0bOI3hcW3/k8JC4+RnRFxuyhqs7r1SGATBebdkNpMH39Iekg?=
- =?us-ascii?Q?4KhCVAJ0BMYcl31O7csS2PFnhXKGimmBn3nfvUg9MWnsZKoexJFDjFe6RtLy?=
- =?us-ascii?Q?rL+KcjdsipaayrlCsvSVwktVjbVPtW8OjTk48Ye/sXAx/feEUu1l2etpkmSa?=
- =?us-ascii?Q?0DO6BM2RZA+SLDmFF8nkbUVWQZ3EcQWl/CC0o5g8TlJi+WUdTTQRp4lqjwpB?=
- =?us-ascii?Q?WGiexzHreItj1ncpYNMeMH8irtcXqxFC71kN3j+/cdfEXJXYb36EEtWL4NqW?=
- =?us-ascii?Q?EOhat6oCe2kRHqR3OHXjmtjoWtP3VVW8h5cchlgcN5RTEVjsllAvu6sqsqU7?=
- =?us-ascii?Q?hAqOyS3WrglIgnsoWPZqxtsmkJHG1CAF9wt81+WdkbAZpHtKFBnLpMSnDsiU?=
- =?us-ascii?Q?fyeRFiNDSET7A8SrgliREg4V8wY7Pji7bpqWuYyq8OFCtSG/rMFBJkWBCzc+?=
- =?us-ascii?Q?wNovcshk4VZQ2HjOyrWng4DtkFGnrd0jmAP8Zej1R9POxKy4IX+YUuTd7YrC?=
- =?us-ascii?Q?hUnwnKewINuoBCyMKRN2WujxkKqlbovl+RWIp0H80bFf6sUkUYP0JVzkt9jm?=
- =?us-ascii?Q?vLRdVZ3e3PKhmfNQBh4pg7xiIS3JjvmSb/xt2O/bf2Krizmnf4fpJkbS5NFn?=
- =?us-ascii?Q?Dz4rizsLIthXqGfSktJQ8AmHS/cU9vxzVZ9I8k83wh4aRMudOdfK3c5K79PD?=
- =?us-ascii?Q?t39c0rHuTH1UIK4ct/Z11MFv4IwYIHMtS8LsNZMD1ujbilbWqQkv++HnTFoQ?=
- =?us-ascii?Q?AzuszLpLWi7XfDCmohnb4MDA9P91XrnScrA+xiZNv+BJnfn1FLGHhQBfX0Lx?=
- =?us-ascii?Q?VJetAwPuZ2OdMo0Oact3Hp8WxH0c9NO69/7WjfETpW8fpMCXxrDX2swoaBKw?=
- =?us-ascii?Q?oogD4wwFWaGN1+ld0mw+GgBHBdXxXDqkLJAlDvIaI+xHKJw0nR4JFbejgZ7y?=
- =?us-ascii?Q?XP8MrUO51U7f7hFppSo+Xj5KeVrgoXp08TGehbHfgIYfvk749DWc0xYTKUPN?=
- =?us-ascii?Q?MRlRF2f1+6nSAkr/sqVCDIKDejiv1UvKLAysMuITYn5lAUZzxlbtFEIArObL?=
- =?us-ascii?Q?Qj2JHbQmCqX2wFtQ4GN5KRpjlFHDDfEwZa1E50rn5wWmx9w+HOPFIAMp24uo?=
- =?us-ascii?Q?CDn+F3rRUrg7Reow1fBHKhVOqJgX6YciMKUDoQxw19YLPNePDeL2vCpl9wpS?=
- =?us-ascii?Q?yrj1spVOorVLBsroQVGbKEaSZ3s2JUHUTNLVlh/GhYXgXOLwRwqzZlfpGcXp?=
- =?us-ascii?Q?hc2k4/B7LnrWtypvpty65g8=3D?=
+	=?us-ascii?Q?mhDJRXcIOdCyy4sEskmeKSldYgI24XP3ApUfFyD5w1ooWXKHk7GMZajMXz8Z?=
+ =?us-ascii?Q?8s4BD3EpO5ogCsI0mS13vTqtUn4y1PMYyCfDyewLC2cGfiJGIOiKwZQiHg7p?=
+ =?us-ascii?Q?rvrHD/EbdNRROYtD+RaU7SaGV5MLwN3kWcMUZU/cKwQI1/iTcU1XdLg7mjch?=
+ =?us-ascii?Q?USxK6JmBqDrMr2gURr4vP6Kl4CPsDDUiObwdxk622shsMAzL0egAYwXb0wqD?=
+ =?us-ascii?Q?8mjWY/VSosoawsA0en7P4S+kTC4WyyxvD4NgCqrcHqq+eRVwQvs8OhOwqVGO?=
+ =?us-ascii?Q?0GUFaFSDmrRVvPpnqcXIBaKDKFcBHriuX3jwaTfRFH4gXchNWfQSi2/xe9+R?=
+ =?us-ascii?Q?cOdpj5TDnV9DP63HPoKvuviLMPDLdh7kjhieDAC6WOIPlRrvOtQTc1vrEFDS?=
+ =?us-ascii?Q?IG5/30Stq3v7jskSpEg5TeuNuuGDTOoWCiJBdGM+Dqug330omwx4DZaiYJRB?=
+ =?us-ascii?Q?P/4Y1vZQF1bvovCLoJPgyXWzg9kn5cz1yPjGKMFnwui2nm2lB/uP0uC0ozMR?=
+ =?us-ascii?Q?vRGo6YeEyDotDmg/prwoAazUNBzY9TpRJ8XIF2OuB/MO7IwlZ/RxWVPX+vbF?=
+ =?us-ascii?Q?6eLMfTmny4Ztu2HTaNy+WgWF2baY1/ySI8+T5RyRWZaUPEcacSORCOvNosod?=
+ =?us-ascii?Q?HChVni1FWeB1MfqYwbucknszAL0ggbwVNNVmosWLw1X/w8iakr2GizZ0Y+O/?=
+ =?us-ascii?Q?BDXzUcxRrUBks4/8crgYXguldjX+CigLna3x2ye0fgt0UqlBkzui5OsR0qQN?=
+ =?us-ascii?Q?YmU9Qj7EZKp1Rg8Fp7foa7HsFX7vhYiaxOH3UvfvZepEUcGwyPRhB9PoFSBD?=
+ =?us-ascii?Q?z3bhPbx0ymjeP5Fn9eDXMIicXnwMY+tRKbjU/v3MYWkp2uQsj3K7wOmy9L3p?=
+ =?us-ascii?Q?27ecHoBlkdbhlA611sfhU9xBngxMhjNSszj2Ax9n4c1j7kv2AstqZOGK4KGP?=
+ =?us-ascii?Q?zCwFMUd53eZRm0WiqG6va6cNfMYxEu3UJCVYPfaN6Hs9a+1tdFW7dQzSrupm?=
+ =?us-ascii?Q?V7unmSUGZzLI3J2zK5BwJTf5IS6IpCX2l0U4/PAK83tAVT807sEsn/bXoFLR?=
+ =?us-ascii?Q?oDIsBrgkFHys4LzUPr58vaEuOS8QbW713+VPv4NlchXPnwWoZFCY6Nvoin9x?=
+ =?us-ascii?Q?cDwof+ImsTecmEK1y2gj3nso2EgXeH9JyvRlawNKm+j70bVws16OxnxEoVov?=
+ =?us-ascii?Q?EWBOOzC8Bvw+tW4eHIcKzlz83oulGmdIjtwR7YYG1n4nFPJOPmSJMQpgaWmI?=
+ =?us-ascii?Q?KnTR1c0losm9z3EBsurt4u/Ihak4E4Kd0og4SdMW4/ouOMcVa8HKg7X2sEOE?=
+ =?us-ascii?Q?1AJ9cJe6DMg75h1Bqo1D9REwsYyYn+D0JcXm/zVwFeOekdvHORmzJVNIv7sj?=
+ =?us-ascii?Q?zz76r8sWvG0FZNBKhcB1XljCoprceRIYbfUsabkQDaMR+dpeNp9sGqM0xpD0?=
+ =?us-ascii?Q?kZu3WhkI0D19LvZ7IzzvifUZFhc7lBhlgHzfxiA7+r4dwrWmH2Q2jlJ4ND5z?=
+ =?us-ascii?Q?sESSg7FID2gqeQk8G/45gRYZl5JH2EPLUpFduNxs2fbKctpA29aqUogDJ0Vc?=
+ =?us-ascii?Q?oWhaKaDMIt00kuiYKyHNbPUZ7O3Z7YeBGfNG7wGa9Gr5uGghJg9KWYdp3Vo9?=
+ =?us-ascii?Q?urtV9DCfTqPL5iEUVc/RvZo=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 8dc20695-1022-4b64-b9e8-08db67b11aba
+ ca4d115c-4699-4af1-f7fa-08db67c23559
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 23:44:15.9209
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2023 01:46:42.1215
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- hmxLt5mtVaw9D8QH9nyUVmi0bBzEE8jRDHcxIkgvJGGGJ0mAlFyqgR5k9q6F+rDPLA8k6d4FQzkzv3f604S6Nj5JSaGvXadRwPRG4G4gnf7YbEvQcLXHEDMVp5LRhjym
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB9745
-Message-ID-Hash: 47URZCTIO4XC5AL3RG26PXFTGZCHK7AE
-X-Message-ID-Hash: 47URZCTIO4XC5AL3RG26PXFTGZCHK7AE
+ QjwFbjHpQMk6Se1djKfINILfbOjltgVWVUaUbHjkyUAD9iJB88Y7dMECH1kxqti9l2hQk2Plr5JCDWlr7cB3K6MTUyJErghY/uUj3WHGi8cCcd8kzHK31AfP+C60HRg2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11019
+Message-ID-Hash: GPGM65SEVV7CCP5R6RRUKOYS3OXZDWPV
+X-Message-ID-Hash: GPGM65SEVV7CCP5R6RRUKOYS3OXZDWPV
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -152,7 +158,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/47URZCTIO4XC5AL3RG26PXFTGZCHK7AE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GPGM65SEVV7CCP5R6RRUKOYS3OXZDWPV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -161,67 +167,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-All drivers switch to use generic trigger ordering method.
-Let's remove old method.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Hi Mark
+
+> This patch-set adds new "trigger" starting/stopping method.
+> 
+> Kuninori Morimoto (4):
+>   ASoC: add new trigger ordering method
+>   ASoC: amd: use use new trigger ordering method
+>   ASoC: atmel: use use new trigger ordering method
+>   ASoC: remove old trigger ordering method
+
+kernel test robot found 1 warning,
+and I noticed 1 build error on starfive.
+I will post v2 patch
+
+Thank you for your help !!
+
+Best regards
 ---
- include/sound/soc-component.h |  2 --
- include/sound/soc.h           |  6 ------
- sound/soc/soc-pcm.c           | 10 ----------
- 3 files changed, 18 deletions(-)
-
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index c7733382757b..87f248a06271 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -199,8 +199,6 @@ struct snd_soc_component_driver {
- 	bool use_dai_pcm_id;	/* use DAI link PCM ID as PCM device number */
- 	int be_pcm_base;	/* base device ID for all BE PCMs */
- 
--	unsigned int start_dma_last;
--
- #ifdef CONFIG_DEBUG_FS
- 	const char *debugfs_prefix;
- #endif
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 49442583d46d..52bb64d427f5 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -762,12 +762,6 @@ struct snd_soc_dai_link {
- 	/* Do not create a PCM for this DAI link (Backend link) */
- 	unsigned int ignore:1;
- 
--	/* This flag will reorder stop sequence. By enabling this flag
--	 * DMA controller stop sequence will be invoked first followed by
--	 * CPU DAI driver stop sequence
--	 */
--	unsigned int stop_dma_first:1;
--
- #ifdef CONFIG_SND_SOC_TOPOLOGY
- 	struct snd_soc_dobj dobj; /* For topology */
- #endif
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 08b3cbd1754e..574aa094c990 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1112,16 +1112,6 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	    stop  < 0 || stop  >= SND_SOC_TRIGGER_ORDER_MAX)
- 		return -EINVAL;
- 
--	/* REMOVE ME */
--	for_each_rtd_components(rtd, i, component) {
--		if (component->driver->start_dma_last) {
--			start = SND_SOC_TRIGGER_ORDER_LDC;
--			break;
--		}
--	}
--	if (rtd->dai_link->stop_dma_first)
--		stop = SND_SOC_TRIGGER_ORDER_LDC;
--
- 	/*
- 	 * START
- 	 */
--- 
-2.25.1
-
+Kuninori Morimoto

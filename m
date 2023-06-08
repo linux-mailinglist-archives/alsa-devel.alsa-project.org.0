@@ -2,94 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D83729D59
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 16:52:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCAB727D3A
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 12:51:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85F33DF1;
-	Fri,  9 Jun 2023 16:51:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85F33DF1
+	by alsa0.perex.cz (Postfix) with ESMTPS id D85B720C;
+	Thu,  8 Jun 2023 12:50:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D85B720C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686322360;
-	bh=6YGwRwEEjx3lGQFneK0OW37Lfsk0sAclHnKga5gKbeE=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1686221484;
+	bh=d9rhyteykx390amid4fogZjlw+8v7h6yhbM1lcS1kOg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EeKBnh64JKy199H1UC0Z3kAQc7MYmnXRqCDe1xAawFSI9yVH1R1wnm7aBXKEigq+8
-	 Isk4Y97NA6xGVs3o00LtJHIYQY5MiGTjSoDQoGsp1ZzBbgD29P+RWJsm9PSkOHsJvm
-	 DRTNqhpClHT/YiG+q2FbvIvPjS3Apz7ayV61+T6Q=
+	b=ZfyC7C59JT9O2O0Rqitm7metKDsjSXoDS6LbtxSUk09WnitCjs70fIV9pPVLIOqOR
+	 dMb44ym57JrXj4716cm1E/yu2cShTOvSuH3llM3rtHq2QFmMyC4PfgDg+wqo6HiMQ6
+	 wXpwKT6f66A/0RN/W71KYPO+nOCKwiEtOZVlFCRo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 09FAFF80630; Fri,  9 Jun 2023 16:47:47 +0200 (CEST)
+	id 6A77CF80155; Thu,  8 Jun 2023 12:50:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B974F8062F;
-	Fri,  9 Jun 2023 16:47:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32F3EF80155;
+	Thu,  8 Jun 2023 12:50:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC2A1F80199; Thu,  8 Jun 2023 12:43:23 +0200 (CEST)
+	id B705FF80199; Thu,  8 Jun 2023 12:50:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
- [61.152.239.71])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CA49AF800ED
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 12:43:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA49AF800ED
-Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
-	by fd01.gateway.ufhost.com (Postfix) with ESMTP id 2A4EB8284;
-	Thu,  8 Jun 2023 18:43:11 +0800 (CST)
-Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX165.cuchost.com
- (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 8 Jun
- 2023 18:43:11 +0800
-Received: from [192.168.125.124] (183.27.98.122) by EXMBX168.cuchost.com
- (172.16.6.78) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 8 Jun
- 2023 18:43:10 +0800
-Message-ID: <7db1d08e-8310-8876-4ed8-36d6e53ab8bf@starfivetech.com>
-Date: Thu, 8 Jun 2023 18:43:09 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH v1] ASoC: starfive: Cleanup and fix error check for JH7110
- TDM
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-CC: Claudiu Beznea <Claudiu.Beznea@microchip.com>, Dan Carpenter
-	<dan.carpenter@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai
-	<tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
-	<alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id E8AC8F80130
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 12:50:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8AC8F80130
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hzjukPe2
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 60E886137F;
+	Thu,  8 Jun 2023 10:50:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4F0C433D2;
+	Thu,  8 Jun 2023 10:50:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686221424;
+	bh=d9rhyteykx390amid4fogZjlw+8v7h6yhbM1lcS1kOg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hzjukPe2bQ9bBS2ApgLOZLaWiDnw5W0/A/oofCoOIHTArx0SGvK8s5aUrWyKUyq4+
+	 kcEMV0HT9m1Jl9tVoamHF2vujgIybo8dmRqIWNWZ2B9HBu4dGSrP3CD7HO4CQjk3C5
+	 4fO95JjFdCkQH1x2kF9J16lblzD1Djo6FrgcGNs9GtghHv5fNoqsQ7NHeg9yONDbKf
+	 iTuaA0ybu8wJw43cmLrXxLdnPH7kCDeSAPyEqoqg9QIXEbg3fO0SrSTrAp0kXAncdN
+	 BbvtdDXz47RZLxkHyuyG6IfIKQAUHJaLracCNIHOZ9KvZAjXLwRd4kV/T1cjM76uJd
+	 +++4WRCgwXgsA==
+Date: Thu, 8 Jun 2023 11:50:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Walker Chen <walker.chen@starfivetech.com>
+Cc: Claudiu Beznea <Claudiu.Beznea@microchip.com>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] ASoC: starfive: Cleanup and fix error check for
+ JH7110 TDM
+Message-ID: <c974d0c7-b091-4d5c-b73c-1b6584eb823a@sirena.org.uk>
 References: <20230607081439.1517-1-walker.chen@starfivetech.com>
  <3eb7ffc5-a16a-4ac2-93a0-260f7cb1f81c@sirena.org.uk>
  <d941ac20-e8b3-cb13-4258-3a9a86e978d3@starfivetech.com>
  <fbbc0963-fba5-4178-b886-fbb35c0c8df2@sirena.org.uk>
-From: Walker Chen <walker.chen@starfivetech.com>
-In-Reply-To: <fbbc0963-fba5-4178-b886-fbb35c0c8df2@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [183.27.98.122]
-X-ClientProxiedBy: EXCAS064.cuchost.com (172.16.6.24) To EXMBX168.cuchost.com
- (172.16.6.78)
-X-YovoleRuleAgent: yovoleflag
-X-MailFrom: walker.chen@starfivetech.com
-X-Mailman-Rule-Hits: nonmember-moderation
+ <7db1d08e-8310-8876-4ed8-36d6e53ab8bf@starfivetech.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f2uNTG7wn7psmZdj"
+Content-Disposition: inline
+In-Reply-To: <7db1d08e-8310-8876-4ed8-36d6e53ab8bf@starfivetech.com>
+X-Cookie: Disk crisis, please clean up!
+Message-ID-Hash: 3YRR7YSZEA55MENUQDZ2CJKHBLJ562M4
+X-Message-ID-Hash: 3YRR7YSZEA55MENUQDZ2CJKHBLJ562M4
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: K5RKCYDNGFND6NOAOUX2DPE4Q4XXBAMY
-X-Message-ID-Hash: K5RKCYDNGFND6NOAOUX2DPE4Q4XXBAMY
-X-Mailman-Approved-At: Fri, 09 Jun 2023 14:47:11 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K5RKCYDNGFND6NOAOUX2DPE4Q4XXBAMY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3YRR7YSZEA55MENUQDZ2CJKHBLJ562M4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,41 +106,42 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--f2uNTG7wn7psmZdj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 2023/6/8 18:15, Mark Brown wrote:
-> On Thu, Jun 08, 2023 at 10:15:03AM +0800, Walker Chen wrote:
->> On 2023/6/7 19:44, Mark Brown wrote:
-> 
->> >> -		  (tdm->rx.wl << WL_BIT) |
->> >> -		  (tdm->rx.sscale << SSCALE_BIT) |
->> >> -		  (tdm->rx.sl << SL_BIT) |
->> >> -		  (tdm->rx.lrj << LRJ_BIT);
->> >> +	datarx = (tdm->rxwl << 8) |
->> >> +		  (tdm->rxsscale << 4) |
->> >> +		  (tdm->rxsl << 2) |
->> >> +		  TDM_PCMRXCR_LEFT_J;
-> 
->> > I'm not sure this change to use numbers here is a win - the _BIT
->> > definitions look fine (I might've called them _SHIFT but whatever).
-> 
->> This is Claudiu's advice. Using the macro BIT() to replace these definition of *_BIT, 
->> it will result in big changes in the code.
-> 
-> I'm questioning doing a change at all.
-> 
->> Please refer to previous comments:
->>  https://lore.kernel.org/all/143e2fa2-e85d-8036-4f74-ca250c026c1b@microchip.com/
-> 
-> I can't find the comments you're referring to in there.
+On Thu, Jun 08, 2023 at 06:43:09PM +0800, Walker Chen wrote:
+> On 2023/6/8 18:15, Mark Brown wrote:
 
-You should see the following comments in the link above:
+> > I can't find the comments you're referring to in there.
 
-> +       #define CLKPOL_BIT              5
-> +       #define TRITXEN_BIT             4
-> +       #define ELM_BIT                 3
-> +       #define SYNCM_BIT               2
-> +       #define MS_BIT                  1
+> You should see the following comments in the link above:
 
-Instead of these *_BIT defines as plain numbers you can defined them using
-BIT() macro and use macros in place instead of
+> > +       #define CLKPOL_BIT              5
+> > +       #define TRITXEN_BIT             4
+> > +       #define ELM_BIT                 3
+> > +       #define SYNCM_BIT               2
+> > +       #define MS_BIT                  1
 
+> Instead of these *_BIT defines as plain numbers you can defined them using
+> BIT() macro and use macros in place instead of
+
+The usual pattern is to have defines for both the shift and the mask,
+not just one.
+
+--f2uNTG7wn7psmZdj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSBsmoACgkQJNaLcl1U
+h9AaAgf/YFRMuzUXFmKWVFmW0C4MWUJR3lzyYhAx+RwVv/ootjDxlKsogcqv6mNq
+8LjQpDuh+em/aq6ue26Faqn4yf8ZdyQN/kbRAAaufI8wvIoqY6ZJrkhY6J4rBt6C
+BO43k/HSyKZEQpBC8KgOD68upzo5Q6k/HO2j6CtslH6E/E4xYmuWoeKeGfbeqIzj
+1eyfuepNe/+l0U9YhLT63Cu/w4BhVrOvlfYVXsNP2OehKTCjjMcdRPRokv+nkx8Q
+F+0YiQiSNP+kLw/B/H0tqVuPlxCaLqyiSsqFXlhf+KCkOLdSH0JTxEC/yV8dUaUp
+pZYAn1LJKxiIEztZTta+TWpzvu6Cyw==
+=V59r
+-----END PGP SIGNATURE-----
+
+--f2uNTG7wn7psmZdj--

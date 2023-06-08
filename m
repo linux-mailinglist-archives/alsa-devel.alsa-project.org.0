@@ -2,106 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02074728346
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Jun 2023 17:10:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00BEC729D5E
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 16:53:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E78253E8;
-	Thu,  8 Jun 2023 17:09:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E78253E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D879204;
+	Fri,  9 Jun 2023 16:52:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D879204
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686237034;
-	bh=hKQWNsfMCaxOhcLznocENZflEOSMlleDFC62geegNPg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AeqZLxmLm4zthzTiiD5nF9HWAQmWzi1fbutk+rPJMyP3vYlIWMeTqGmpFqkmZ5Mmm
-	 v0zCb8wCbem8Dw1KH39TVU9IYanDzh+mHhxgk22kxj95ZGrIsxpijZ0/l4UwcK1q7c
-	 Mqd4Wzco6Zm+hcemCUWOytsVGjzBmkbg8Dlg1N48=
+	s=default; t=1686322400;
+	bh=8EK/bezEW0Lfz6eJbMYMvE+P2WAOQLIaqRC6wJcRjmM=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=FtTBOklRsiyimnL81K96U9w8I8mC2ILcr/GEJSFPG+/WEzZumrIhNaWQT+b6wQYJb
+	 CLrqeIqd8YPlDWbuvpmALgoTuU6A3RNcf9JrQsPEBou1Y2f7ZiY0yjvAOkcL6FZ7Qa
+	 UopijPPGgL4Zyg2BFiF2J4RK5yB9P7hV9rQdw6E8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30FB2F80520; Thu,  8 Jun 2023 17:09:43 +0200 (CEST)
+	id 51F82F80656; Fri,  9 Jun 2023 16:47:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B99DF80199;
-	Thu,  8 Jun 2023 17:09:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 439BBF80649;
+	Fri,  9 Jun 2023 16:47:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B70CF80290; Thu,  8 Jun 2023 17:09:39 +0200 (CEST)
+	id C12C6F80290; Thu,  8 Jun 2023 15:58:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 59778F80130
-	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 17:09:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59778F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=loTHc0Ht
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686236976; x=1717772976;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=hKQWNsfMCaxOhcLznocENZflEOSMlleDFC62geegNPg=;
-  b=loTHc0Ht+U+rObCWDeRO+LvIocRhk7va/B933MfJogzn3q3f/znZ9aGU
-   e4sc431DNaLfGZrWoEnb1E4fpXhl22sj4XeLFQif69v6pZX+IwyG1aOMu
-   JW/E/OQGHKX/CHIc/tXHw9HPockb4oGPyynKzIjcbGPBvwwsxOjXrvQ20
-   viv/nxhg9KyFFK2uH6Ehc+IA9tnLHUc13LQkkF4djqNQE0UDSCBMPA8uT
-   E/i1h0I9yNJ5iy+LVvcZyWZbQgYdueIdBgwrXgwrTT6EZQ5i+jx54q0f0
-   Ecikvruu0MAewoKZ3my6cHkjW+9Lv3CkY7kumbwx9VUyO6iGOkUrE+SWv
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="443700540"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400";
-   d="scan'208";a="443700540"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 08:09:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="799842564"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400";
-   d="scan'208";a="799842564"
-Received: from svuppala-mobl.amr.corp.intel.com (HELO [10.212.207.249])
- ([10.212.207.249])
-  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 08:09:31 -0700
-Message-ID: <9d2a7b72-b145-ba97-987a-4611fc3db3ad@linux.intel.com>
-Date: Thu, 8 Jun 2023 08:25:23 -0500
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0918DF80155
+	for <alsa-devel@alsa-project.org>; Thu,  8 Jun 2023 15:58:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0918DF80155
+Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
+	by ex01.ufhost.com (Postfix) with ESMTP id 378BD24E20F;
+	Thu,  8 Jun 2023 21:57:52 +0800 (CST)
+Received: from EXMBX168.cuchost.com (172.16.6.78) by EXMBX166.cuchost.com
+ (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Thu, 8 Jun
+ 2023 21:57:52 +0800
+Received: from SD-Server.starfivetech.com (183.27.98.122) by
+ EXMBX168.cuchost.com (172.16.6.78) with Microsoft SMTP Server (TLS) id
+ 15.0.1497.42; Thu, 8 Jun 2023 21:57:51 +0800
+From: Walker Chen <walker.chen@starfivetech.com>
+To: Mark Brown <broonie@kernel.org>, Claudiu Beznea
+	<Claudiu.Beznea@microchip.com>, Dan Carpenter <dan.carpenter@linaro.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>, "Jaroslav
+ Kysela" <perex@perex.cz>, Walker Chen <walker.chen@starfivetech.com>
+CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 0/2] Fix error check and cleanup for JH7110 TDM
+Date: Thu, 8 Jun 2023 21:57:48 +0800
+Message-ID: <20230608135750.11041-1-walker.chen@starfivetech.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 1/4] soundwire: add enum to control device number
- allocation
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- bard.liao@intel.com
-References: <20230531033736.792464-1-yung-chuan.liao@linux.intel.com>
- <20230531033736.792464-2-yung-chuan.liao@linux.intel.com>
- <ZIF9Hd5Hv/CKQeUW@matsya>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <ZIF9Hd5Hv/CKQeUW@matsya>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 5ZOXJWO2VVI6OLYFD7HZH4KZ3UIQEDRV
-X-Message-ID-Hash: 5ZOXJWO2VVI6OLYFD7HZH4KZ3UIQEDRV
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: text/plain
+X-Originating-IP: [183.27.98.122]
+X-ClientProxiedBy: EXCAS064.cuchost.com (172.16.6.24) To EXMBX168.cuchost.com
+ (172.16.6.78)
+X-YovoleRuleAgent: yovoleflag
+X-MailFrom: walker.chen@starfivetech.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: KUPHADL3MMWGBMVE3AHRIWSU5Y36LSNG
+X-Message-ID-Hash: KUPHADL3MMWGBMVE3AHRIWSU5Y36LSNG
+X-Mailman-Approved-At: Fri, 09 Jun 2023 14:47:26 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZOXJWO2VVI6OLYFD7HZH4KZ3UIQEDRV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KUPHADL3MMWGBMVE3AHRIWSU5Y36LSNG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,19 +86,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Some minor issues were found during addtional testing and static
+analysis. The first patch fix the error check for the return value of
+devm_reset_control_array_get_exclusive(). The second patch drop some
+unused macros.
 
->> +/**
->> + * enum sdw_dev_num_alloc - Device Number allocation strategies
->> + * @SDW_DEV_NUM_ALLOC_DEFAULT: unconstrained first-come-first-serve allocation,
->> + * using range [1, 11]
->> + * @SDW_DEV_NUM_ALLOC_IDA: IDA-based allocation, using range [ida_min, 11]
->> + */
->> +enum sdw_dev_num_alloc {
->> +	SDW_DEV_NUM_ALLOC_DEFAULT = 0,
->> +	SDW_DEV_NUM_ALLOC_IDA,
-> 
-> Let default be IDA as 0, am sure we are not setting this field in qcom
-> or amd controller, lets retain the defaults please
+Fixes: fd4762b6b5cf ("ASoC: starfive: Add JH7110 TDM driver")
 
-Not following, QCOM or AMD are NOT using the IDA-based version, so the
-default is zero.
+Changes since v1:
+- Fix an error check in jh7110_tdm_clk_reset_get().
+- Return to use *_BIT to indicate the shift and remove some unused macros.
+
+---
+v1: https://lore.kernel.org/all/20230607081439.1517-1-walker.chen@starfivetech.com/
+
+Walker Chen (2):
+  ASoC: starfive: Fix an error check in jh7110_tdm_clk_reset_get()
+  ASoC: starfive: Remove some unused macros
+
+ sound/soc/starfive/jh7110_tdm.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
+
+-- 
+2.17.1
+

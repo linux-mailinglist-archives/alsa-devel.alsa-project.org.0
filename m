@@ -2,108 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAEAE729DC3
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 17:05:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8B76729DE7
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 17:11:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE43185D;
-	Fri,  9 Jun 2023 17:04:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE43185D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 124976C1;
+	Fri,  9 Jun 2023 17:10:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 124976C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686323124;
-	bh=OyghqCqu7iAY1dQNZkVS0doUzQHuwH/M533DHpFW00E=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ash/nwRRKyw+g2xSLNqZ8txm2bTJtfX7cTfVMACC3s5OqshONdyly2dvED2qM8HAl
-	 aNSKQ7g0C42ZIv4yjbhtIIlPwPKkNnmmI0WfBT8mEu8sNqjQr2sAfrKKmznJSoO/0l
-	 EMgtNdwR8p4ZphLggf4Sxyww+dr/IRoBTcTxJeEc=
+	s=default; t=1686323491;
+	bh=eEqStlTmIEIfDsM3fA4nOy1wwU06Sj6iel1itAdRpW4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=aXftLyUcSMC96KB51O4z0cj9+vPNtSGC70yQ1p5sHymwDSxqDysjMJXxQYPmi0Rwo
+	 4zdH2SWfV4LpEx1hgVGhkW6EUjKK/A98HM9Vd44npe2Bp5LisRMWx75UhUyfY8lRcN
+	 Co/hWQPs2rp2X+pmMJeYID1pWjmF2jtOGjUb3UjU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3B4C8F80290; Fri,  9 Jun 2023 17:04:33 +0200 (CEST)
+	id 64320F80290; Fri,  9 Jun 2023 17:10:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 769B0F8016C;
-	Fri,  9 Jun 2023 17:04:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A3D0F800C8;
+	Fri,  9 Jun 2023 17:10:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85288F80199; Fri,  9 Jun 2023 17:04:29 +0200 (CEST)
+	id 97362F80199; Fri,  9 Jun 2023 17:10:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [IPv6:2a00:1450:4864:20::335])
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
+ [209.85.166.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4A47FF800ED
-	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 17:04:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A47FF800ED
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=mgm79aK5
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-3f7f4819256so14501205e9.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id A1BA2F800ED
+	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 17:10:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1BA2F800ED
+Received: by mail-il1-f182.google.com with SMTP id
+ e9e14a558f8ab-33e53672aa6so7997565ab.1
         for <alsa-devel@alsa-project.org>;
- Fri, 09 Jun 2023 08:04:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1686323065; x=1688915065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2WGZ/ed2vrJ5KRXftei7L+b/a8JlbJSLWIRO6uJ+BPA=;
-        b=mgm79aK5ZEyzsjL4fshBGIDqime5sfPSyhoXjr89GPPJML5PZXLCSy2RCsJHtbQVoc
-         joZsRl99ZwtTpryeLpdTql1KIdb+cwSF7FLYE8E1ut+OeiHO0XFgsLoco3dSKa/guzRq
-         +wSB5yi8UNqipIlEeUxnBtX2vpoUqwzYukPP9U2CA/OJFz8PoJ83g6D6hAk48fdjjn7W
-         uPw8t8MMAsNb0OInvMc3lssBS93yN+0IwT06zsZALOCy3cbFC9l4zDMIQnKSb65UvTtN
-         wq1TCSzd09ftW4qrg7rGlqfc37FNB0gWeTIsCq3Oz+t1ke8Uat1SrJevfsMmUA1fnAPh
-         6NXA==
+ Fri, 09 Jun 2023 08:10:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686323065; x=1688915065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2WGZ/ed2vrJ5KRXftei7L+b/a8JlbJSLWIRO6uJ+BPA=;
-        b=N6kdlwmyWu6Xxnpgxn+EOPzvdRamShwMS+0muIDgomY1JA3OgvRZttFOEAYrWwzpcY
-         Y8WIVDDu/pdgkB4j8L9W7ampEIK8vYZWRuRhudngTS/rAJgiasZh2mqWARdVwcdD47OR
-         3maAi2/ibF9RGYIzD3lzhgMks/IR7P3uvzj59FOUDmzqzE0CqEZK45b3Ld+k+alu/q3C
-         A72VrSJHSGgKxmFZLrXFXJKhP1etdrkeM9+f2CQMRZH3me+iZ9UrJuAaPrIYhCMdzjfJ
-         ud3Sd+XqA7g1uGnKW8kXLZx8qKWSIxY7i588rD58hUGAnvXc4ejEP03oBCzYg/dAxX1z
-         EBYg==
-X-Gm-Message-State: AC+VfDyq4Zd6ELNa1oyg/RVbCXiNb4igF530dC3qI8c8mlXBnYFq+64P
-	qHG7Zk2OI6w3AGTDtM6UIUb8Zw==
+        d=1e100.net; s=20221208; t=1686323428; x=1688915428;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bgEA1Mw1A/5s3GKiOUjS2OVmsqKcYspaLT+4TG/YkK4=;
+        b=J1+5kja0/jYCbdT/3/dlagJUam/rSc17s1dIaKAltXKwDJ3enItMD2SEy2exofdZEM
+         vnjSD+E8uvUMM0Sa+wP+eEk3P0DzqgGdqV6Kuuc8mvzJK64cHi443cb65/MZWxPoiUqR
+         3IhdOP8G+JA49hJK2QA3Sj7G1DfdK9/W0A6BLHd8zmXVa2YNApOK4LFxg6gnzwumg1y7
+         ZCAYmxihLsfrf+TD//+uSa3RQG/YmlA/dOpbiC9P1bGK02u4m0xpczZAgAIzOfNlYJ5X
+         ryR9UDbl9n8vDLacTURWFh/Fm/zj/Wc6Ghlvr6wzVSoD0CxzmArdoPFk4ifs3VhfzUkv
+         cpjA==
+X-Gm-Message-State: AC+VfDzIKjIY4+fW/S+aH5XesHsai+dHYkzxJ9aAT1cFIw4XZ5BPiL57
+	Lp1AFUlQaHXi6oXIVQ7PKw==
 X-Google-Smtp-Source: 
- ACHHUZ7eaW16qzdTf8udY5wHHza5lq/L2Y9Nr39LRq/YBL3Qd2LXZ9BnBUzkteeXGvdPFEbRzMo11A==
-X-Received: by 2002:a05:600c:2212:b0:3f4:23b9:eed2 with SMTP id
- z18-20020a05600c221200b003f423b9eed2mr1198999wml.38.1686323064766;
-        Fri, 09 Jun 2023 08:04:24 -0700 (PDT)
-Received: from localhost.localdomain ([5.133.47.210])
+ ACHHUZ6GLJF9xmiCznvrkvDAHStb1dFZWwEwBO0JSyNuKSB2A4EFN0t4aWuWCLrZCT/E+UeHUSc/ew==
+X-Received: by 2002:a92:ce11:0:b0:33a:56d6:d9a4 with SMTP id
+ b17-20020a92ce11000000b0033a56d6d9a4mr2155501ilo.10.1686323428407;
+        Fri, 09 Jun 2023 08:10:28 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
         by smtp.gmail.com with ESMTPSA id
- m14-20020a7bce0e000000b003f602e2b653sm2905098wmc.28.2023.06.09.08.04.22
+ l5-20020a92d8c5000000b00338a1272ce1sm1147336ilo.52.2023.06.09.08.10.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Jun 2023 08:04:23 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org,
-	broonie@kernel.org,
-	tiwai@suse.com
-Cc: corbet@lwn.net,
-	alsa-devel@alsa-project.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	quic_plai@quicinc.com,
-	quic_mohs@quicinc.com,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH v2] ALSA: compress: allow setting codec params after next
- track
-Date: Fri,  9 Jun 2023 16:04:16 +0100
-Message-Id: <20230609150416.24525-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+        Fri, 09 Jun 2023 08:10:27 -0700 (PDT)
+Received: (nullmailer pid 986311 invoked by uid 1000);
+	Fri, 09 Jun 2023 15:10:25 -0000
+Date: Fri, 9 Jun 2023 09:10:25 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Mark Brown <broonie@kernel.org>, linux-watchdog@vger.kernel.org,
+ Alessandro Zummo <a.zummo@towertech.it>, linux-spi@vger.kernel.org,
+ Tony Lindgren <tony@atomide.com>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Rob Herring <robh+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-pwm@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Dipen Patel <dipenp@nvidia.com>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Dilip Kota <eswara.kota@linux.intel.com>, Conor Dooley <conor+dt@kernel.org>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-rtc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ Thierry Reding <thierry.reding@gmail.com>, timestamp@lists.linux.dev
+Subject: Re: [PATCH 1/7] dt-bindings: phy: intel,combo-phy: restrict node
+ name suffixes
+Message-ID: <168632342399.985906.12431431892707276555.robh@kernel.org>
+References: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
+ <20230530144851.92059-2-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4I25MHOBJ2C4O6FJBQGVVZCFYUNGCBCV
-X-Message-ID-Hash: 4I25MHOBJ2C4O6FJBQGVVZCFYUNGCBCV
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230530144851.92059-2-krzysztof.kozlowski@linaro.org>
+Message-ID-Hash: BFDTX5UX6W22ZLF6EHO7DQI4BLQDF6W2
+X-Message-ID-Hash: BFDTX5UX6W22ZLF6EHO7DQI4BLQDF6W2
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4I25MHOBJ2C4O6FJBQGVVZCFYUNGCBCV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BFDTX5UX6W22ZLF6EHO7DQI4BLQDF6W2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,138 +123,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For gapless playback it is possible that each track can have different
-codec profile with same decoder, for example we have WMA album,
-we may have different tracks as WMA v9, WMA v10 and so on
 
-Or if DSP's like QDSP have abililty to switch decoders on single stream
-for each track, then this call could be used to set new codec parameters.
+On Tue, 30 May 2023 16:48:45 +0200, Krzysztof Kozlowski wrote:
+> Make the pattern matching node names a bit stricter to improve DTS
+> consistency.  The pattern is restricted to:
+> 1. Only one unit address or one -N suffix,
+> 2. -N suffixes to decimal numbers.
+> 
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> 
+> ---
+> 
+> Cc: Tony Lindgren <tony@atomide.com>
+> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+> ---
+>  Documentation/devicetree/bindings/phy/intel,combo-phy.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-Existing code does not allow to change this profile while doing gapless
-playback.
-
-Reuse existing SNDRV_COMPRESS_SET_PARAMS to set this new track params along
-some additional checks to enforce proper state machine.
-
-With this new changes now the user can call SNDRV_COMPRESS_SET_PARAMS
-anytime after setting next track and additional check in write should
-also ensure that params are set before writing new data.
-
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
-Changes since v1/RFC:
-	- removed introduction of new IOCTL, as suggested.
-	- update the state-machine doc.
-
- .../sound/designs/compress-offload.rst        | 52 +++++++++----------
- sound/core/compress_offload.c                 | 10 ++--
- 2 files changed, 33 insertions(+), 29 deletions(-)
-
-diff --git a/Documentation/sound/designs/compress-offload.rst b/Documentation/sound/designs/compress-offload.rst
-index 935f325dbc77..205cadcabe70 100644
---- a/Documentation/sound/designs/compress-offload.rst
-+++ b/Documentation/sound/designs/compress-offload.rst
-@@ -256,32 +256,32 @@ Gapless Playback SM
- For Gapless, we move from running state to partial drain and back, along
- with setting of meta_data and signalling for next track ::
- 
--
--                                        +----------+
--                compr_drain_notify()    |          |
--              +------------------------>|  RUNNING |
--              |                         |          |
--              |                         +----------+
--              |                              |
--              |                              |
--              |                              | compr_next_track()
--              |                              |
--              |                              V
--              |                         +----------+
--              |                         |          |
--              |                         |NEXT_TRACK|
--              |                         |          |
--              |                         +----------+
--              |                              |
--              |                              |
--              |                              | compr_partial_drain()
--              |                              |
--              |                              V
--              |                         +----------+
--              |                         |          |
--              +------------------------ | PARTIAL_ |
--                                        |  DRAIN   |
--                                        +----------+
-+                            +----------+
-+     compr_drain_notify()   |          | compr_set_params() iff next-track set.
-+  +------------------------>|  RUNNING |----------------------+
-+  |                         |          |                      |
-+  |                         +----------+                      |
-+  |                              |                            |
-+  |                              |                            |
-+  |                              | compr_next_track()         |
-+  |                              |                            V
-+  |                              V                            |
-+  |                         +----------+                      |
-+  |                         |          |                      |
-+  |                         |NEXT_TRACK|                      |
-+  |                         |          |                      |
-+  |                         +----------+                      |
-+  |                              |                            |
-+  |                              +----------------------------+
-+  |                              |
-+  |                              | compr_partial_drain()
-+  |                              |
-+  |                              V
-+  |                         +----------+
-+  |                         |          |
-+  +------------------------ | PARTIAL_ |
-+                            |  DRAIN   |
-+                            +----------+
- 
- Not supported
- =============
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 243acad89fd3..fe67228e74b3 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -294,6 +294,9 @@ static ssize_t snd_compr_write(struct file *f, const char __user *buf,
- 	case SNDRV_PCM_STATE_SETUP:
- 	case SNDRV_PCM_STATE_PREPARED:
- 	case SNDRV_PCM_STATE_RUNNING:
-+		/* Make sure next track params are set before writing new data */
-+		if (stream->next_track)
-+			return -EPERM;
- 		break;
- 	default:
- 		mutex_unlock(&stream->device->lock);
-@@ -589,7 +592,8 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
- 	struct snd_compr_params *params;
- 	int retval;
- 
--	if (stream->runtime->state == SNDRV_PCM_STATE_OPEN) {
-+	if (stream->runtime->state == SNDRV_PCM_STATE_OPEN ||
-+	    (stream->runtime->state == SNDRV_PCM_STATE_RUNNING && stream->next_track)) {
- 		/*
- 		 * we should allow parameter change only when stream has been
- 		 * opened not in other cases
-@@ -615,7 +619,8 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
- 		stream->metadata_set = false;
- 		stream->next_track = false;
- 
--		stream->runtime->state = SNDRV_PCM_STATE_SETUP;
-+		if (stream->runtime->state == SNDRV_PCM_STATE_OPEN)
-+			stream->runtime->state = SNDRV_PCM_STATE_SETUP;
- 	} else {
- 		return -EPERM;
- 	}
-@@ -956,7 +961,6 @@ static int snd_compr_partial_drain(struct snd_compr_stream *stream)
- 		return retval;
- 	}
- 
--	stream->next_track = false;
- 	return snd_compress_wait_for_drain(stream);
- }
- 
--- 
-2.21.0
+Acked-by: Rob Herring <robh@kernel.org>
 

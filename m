@@ -2,136 +2,193 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75B3872934A
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 10:36:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 430DB729416
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 11:04:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DD3710E;
-	Fri,  9 Jun 2023 10:35:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DD3710E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C55C208;
+	Fri,  9 Jun 2023 11:04:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C55C208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686299777;
-	bh=P0YlJbnoyxsI6S2K8Q12ph+ZpoY/MA+bC8E5XPFDCNo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1686301494;
+	bh=vSjIRgEqIMhZYBsF2v2tYTwCU7mrif4ivrzjtZKqGzo=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qeEI6Y+OVrpTEjDL66i7MErn6enFBm/of+HCUb2gKPoB/tF0xHNplSoY7//T7CqHX
-	 fCuw/SFXk0JqBzS9sA0gxJ1JBVtr2Dge+6H4iAyZfCl9xl4zvbI1bieXaRbmkuXWS5
-	 Tn/ho6vn72UM8/meXIH0R9Ym6rIi7taJ10/Z8oHE=
+	b=LihnwYb2oXQzup4nM0Zbgb8/Jbf0gIePmQvk7rVWVPy8LndrNY5xcFA35hkqFLDkc
+	 EAwg+W3d/4S5EosmOh9vl+6r1TbfaU7XKPnQp2nYExUHom49y36aKM33VoqU5yfOVY
+	 sTdLnoowKkyT7qKEDmg92AUlAWsKODYpZSzDEjV8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B3CB2F804DA; Fri,  9 Jun 2023 10:35:26 +0200 (CEST)
+	id 7E39FF80254; Fri,  9 Jun 2023 11:04:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38AC3F8016C;
-	Fri,  9 Jun 2023 10:35:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5DBDF8016C;
+	Fri,  9 Jun 2023 11:04:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 70B07F80199; Fri,  9 Jun 2023 10:35:21 +0200 (CEST)
+	id A8C55F80199; Fri,  9 Jun 2023 11:03:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 46B3FF800C8
-	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 10:35:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46B3FF800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B75DF800ED
+	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 11:03:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B75DF800ED
 Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=microchip.com header.i=@microchip.com
+ header.a=rsa-sha256 header.s=mchp header.b=JLWWsXJP;
 	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=v38NkbrX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=V3GrdoP2
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 5350421A02;
-	Fri,  9 Jun 2023 08:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1686299700;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RQhStachu2WTpI3rtYsXFGtCjbHfw3L4SL0PGfkOa8s=;
-	b=v38NkbrXWm81h7m06VKHT/7fvYYPQN5dxrT6zNg4sG9rz+2DSGzM2o+rm2AcDuUrXJTnKn
-	XQQSpYTmqUdHw4PaSdrqJxWngB1H4dXhuYtZQNBdaz/5/ehWyB5I/jka939D9Sz1GO4UsE
-	4BV40Yyigt/U7ElGkVIfH8dbPeJPxjQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686299700;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RQhStachu2WTpI3rtYsXFGtCjbHfw3L4SL0PGfkOa8s=;
-	b=V3GrdoP2652mY9m8yZki+8TbaxNOXeJFFGjfFLJhjUMvCyg0kyr4abzdpteWw/coW0hK1o
-	C0ehpdhp8rj3kgCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 257A513A47;
-	Fri,  9 Jun 2023 08:35:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id h38aCDTkgmRxYwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Fri, 09 Jun 2023 08:35:00 +0000
-Date: Fri, 09 Jun 2023 10:34:59 +0200
-Message-ID: <874jnhc9u4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Joseph C. Sible" <josephcsible@gmail.com>
-Cc: Kailang <kailang@realtek.com>,
-	Bagas Sanjaya <bagasdotme@gmail.com>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"perex@perex.cz" <perex@perex.cz>,
-	"tiwai@suse.com" <tiwai@suse.com>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-In-Reply-To: <878rctcavz.wl-tiwai@suse.de>
-References: <bug-217440-225600@https.bugzilla.kernel.org/>
-	<CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
-	<ZGB0cVVI7OgaJU6t@debian.me>
-	<CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
-	<87cz338ix4.wl-tiwai@suse.de>
-	<CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
-	<874jodlnmi.wl-tiwai@suse.de>
-	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
-	<87fs7mdofi.wl-tiwai@suse.de>
-	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
-	<87353kd8b9.wl-tiwai@suse.de>
-	<1170325957764b4cbd7cd3639575f285@realtek.com>
-	<CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
-	<873536js7q.wl-tiwai@suse.de>
-	<CABpewhE0NAC-Q=iqG2Ba=XhT7SXsWy18wQGYUaopzmKDfFxyPw@mail.gmail.com>
-	<2c1fcbc00bb44d66a29ac1c1e4bec5ad@realtek.com>
-	<CABpewhFthKG97dPiQC4JhGx9sapX9Yu5rWABQjpY95TSA+eawA@mail.gmail.com>
-	<485f99149508488080d563144454040e@realtek.com>
-	<CABpewhGkvWtM+9J=mx3vw0QY=OBB5OYCxzX3nzVffvFS4QazPA@mail.gmail.com>
-	<2831c55638a5431ca9e37d9caf365ed2@realtek.com>
-	<CABpewhGiMJUpyBA6=D9_-YA6=5rjR2R0RHUZeg+cWcjtzuCoZQ@mail.gmail.com>
-	<3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
-	<CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
-	<009474f04d0b45c69a0e42e8622b7a86@realtek.com>
-	<87h6rhcef2.wl-tiwai@suse.de>
-	<0990300d759846d890de9c92fcad9a9d@realtek.com>
-	<CABpewhERnOH1qkkJ5_JJUZkz1_8oxD9aR5VBs1vsURAG7Eu_Ew@mail.gmail.com>
-	<878rctcavz.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: PHVENZUYIQFGAY6IOERM6AJD2CZJSDEL
-X-Message-ID-Hash: PHVENZUYIQFGAY6IOERM6AJD2CZJSDEL
-X-MailFrom: tiwai@suse.de
+ unprotected) header.d=microchiptechnology.onmicrosoft.com
+ header.i=@microchiptechnology.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-microchiptechnology-onmicrosoft-com header.b=ITzMXymP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1686301432; x=1717837432;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=vSjIRgEqIMhZYBsF2v2tYTwCU7mrif4ivrzjtZKqGzo=;
+  b=JLWWsXJPVp+RlBB0G3Nfc5QmB5muIZXrQaT75IP82wLfXp328LAxMZh1
+   7I7RIRtfRmOPYRQ3bGrOY230txPdMTvyytnJWI8UP7cSPKQ9zt01CgHPS
+   lm1mYHulXrCxGN2wpFepk37f0vKOJX/mad+ddYZ3agrxR51WmMmnHnerS
+   jO3dL7iwX8RR2VgBh/2DVP7UdrBusBHwsPf3I78NVRMc3KXslmuqUd1/+
+   qgALtZ44zG3Do4TKF4SrkfibeuMYiiZ3NMSxhIwiU6BJPr7uz6HuQV58G
+   JZVMSPDzQ3U9NgInUpoJa/0xVt+3f0MV/WEmDbjp+rSGl3Tpi1Fx5CD8D
+   g==;
+X-IronPort-AV: E=Sophos;i="6.00,228,1681196400";
+   d="scan'208";a="217032124"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 09 Jun 2023 02:03:47 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Fri, 9 Jun 2023 02:03:41 -0700
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com (10.10.215.89) by
+ email.microchip.com (10.10.87.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21 via Frontend Transport; Fri, 9 Jun 2023 02:03:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dFr1BBd8th3g9+sftELEhzdmjwnY2ajBETCEaaz1pQyj+sTbIGVtSUOPKOorZTmBkP+DKD6xx5Iyw0wNLf1SdU9UH0PCPKIYVgITn+s1DRVWFlwuCWWTIPpcSqb1YfyZ7MXE2UOBQS+pYjn/uFWVFWwr707prkhCQCs7mWPOmGbjCFCarXI942PRNDuxeV+PGkXu70rcRpiLaA0UBH/dBgD7ZKyaPtNWaS+inwQULyCFOSxMEL65ifqYK2SiqjShRCNvt1/iGtMxGhkVi/RTJ3KHL/bzRZnMfYIFE01o+Y8nv0yEBts0q+bvmK3JtJeEHc1ZJJFSKMnPDqHnZ2gy+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vSjIRgEqIMhZYBsF2v2tYTwCU7mrif4ivrzjtZKqGzo=;
+ b=K/uNvQKKPhwoSdGktXVHnnNgJg3JEzm2B7JaNLL7XSZ5kOotU11jnoTHvKuZYNutonAyBf/dI5FDp1EUtsLXrkbot3MI/ktG+SO7xKPSddHsK1UhMPiKkQoRgqpk5C7W97I0/oZPHCfCO5ynEhFJPdz2ZrbDpPWEcTeakt7YWqsxafgvpDq+LMVHYaYSmmWK0eAWvmd3/02/508en60qYTrLzr0zJuXENNOtOsxNmEt65zTePZUORLBS1ywRoJJSABzRQMkW5IT1BkZyvTihXLMHldbmUHF0XxldIImoyzKZQCjClAgY2MwoP+HqVgyHtJB/H/Bv3oOiLllCPG9SKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microchiptechnology.onmicrosoft.com;
+ s=selector2-microchiptechnology-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vSjIRgEqIMhZYBsF2v2tYTwCU7mrif4ivrzjtZKqGzo=;
+ b=ITzMXymP9WROIAoohQX7fSFA7HU2O3UtBUW4a1WM1CryzDgaIO6mEH0mg4jfchoXpdA2o95LqMXnD9dh/dWwAPlbRcpQWXW01LT6s9xmT7PkRmJGJy8hF/aGH9sxr97ERlqWPYl5fcyD9THsadvz7nZvww9kcA7wY0yvTBoI6Jo=
+Received: from SJ2PR11MB7648.namprd11.prod.outlook.com (2603:10b6:a03:4c3::17)
+ by SA2PR11MB5017.namprd11.prod.outlook.com (2603:10b6:806:11e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.44; Fri, 9 Jun
+ 2023 09:03:40 +0000
+Received: from SJ2PR11MB7648.namprd11.prod.outlook.com
+ ([fe80::27bf:a69f:806f:67be]) by SJ2PR11MB7648.namprd11.prod.outlook.com
+ ([fe80::27bf:a69f:806f:67be%5]) with mapi id 15.20.6433.024; Fri, 9 Jun 2023
+ 09:03:39 +0000
+From: <Claudiu.Beznea@microchip.com>
+To: <kuninori.morimoto.gx@renesas.com>, <alexandre.belloni@bootlin.com>,
+	<perex@perex.cz>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
+	<Nicolas.Ferre@microchip.com>, <tiwai@suse.com>
+CC: <alsa-devel@alsa-project.org>
+Subject: Re: [PATCH v2 3/5] ASoC: atmel: use use new trigger ordering method
+Thread-Topic: [PATCH v2 3/5] ASoC: atmel: use use new trigger ordering method
+Thread-Index: AQHZmrFHZfIyqRCM20eCzk3VjLq4yA==
+Date: Fri, 9 Jun 2023 09:03:39 +0000
+Message-ID: <cd10f9ee-e623-72ff-da9d-471a1cf285e1@microchip.com>
+References: <87sfb2fo0d.wl-kuninori.morimoto.gx@renesas.com>
+ <87o7lqfnzb.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o7lqfnzb.wl-kuninori.morimoto.gx@renesas.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ2PR11MB7648:EE_|SA2PR11MB5017:EE_
+x-ms-office365-filtering-correlation-id: f1121952-f4ac-4098-a672-08db68c86a5b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ t4A8ym41nKFyMCalremhoWVy/YmZGvxL6VuOxvYTMX8kXO1AiHEg6K4jv7E/wuHjZKBw40AhVQNQ/LunQgSZ2cltd6hnxb7DN7FiNpSfTSU3HiivRVAnt0ExCj3xpQjJyml8rKNSZCPM/JfBdWOdJP8L8jrUlHe0sILOr+h/PpkZZ2YmHNpw8YEGEsn4IlGZgIyRf8RF3yQh8wOZK1CBCy1vZHf3Z4ZJP1AXYjm4SI52YVaIyTsZtVRnpPsvBWVZRRrgG2A/LhIJIJ3bbq66Rpw+uL5GK+7VwivUvoSwzISLeAhAl8ay1d706v8W+qiVDfJhHRiA4+PkOxdLsA32fPOMYQNk1G8m0Hw80o+k82WG8JaWYUuCMvQ46cRYVbJxy+ZxQR+dJEuhGkQusLzU85f3c1yFgY6HyQBsP/uZGRdjcyBwChC4ik14+y5daWwpoYDUFpvQG++E5C81bD7P8v6x0cDNUh1PhHMk6V8DVMdCdpJluwf/GK/+WxtQ2vJokElTbnyaCbKHJ4MbF4Duc4+dVL3hPbZhczo5WWnlLcrFwjybggCGdG3/GMBaxxJmPPrIxGO93PR9aAgu0fdqSPLbYzP6IBRVWMVgIwGmMoLdjEUsbuDOBLVUVwo0MtHmPoVoLLfhEiG6/LNM2u6cBvnWLYHHncfzNZckVCgCi84OddVkoHzfkm9FWN4ac13d
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB7648.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(39860400002)(376002)(366004)(136003)(396003)(451199021)(186003)(478600001)(110136005)(36756003)(6486002)(26005)(6512007)(6506007)(53546011)(71200400001)(41300700001)(83380400001)(316002)(38100700002)(38070700005)(2906002)(4744005)(5660300002)(8676002)(8936002)(31686004)(86362001)(66946007)(76116006)(91956017)(122000001)(64756008)(66446008)(66476007)(66556008)(31696002)(2616005)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?eENJU3hOSE04TjR0NkxucHJyY3lna0JmajNBdk5Ea0FudVp1MTJ3WnZ5SzJM?=
+ =?utf-8?B?YkUwemd6QzJiRlNEWFk0cHJINlJMZ2F1Tmg4ZzZsMmRHcTFwY05tc1BDRm1K?=
+ =?utf-8?B?cDNaQ1VzbDN2Um1POWdqUzFYeXA0UGx0OSs0eFlYemtjQ2xKcTF0SDBUcE1E?=
+ =?utf-8?B?OXg5Z0QvRzA3ZkJtWjlQMVZkUUFrekhqQ3pBaU1sTkZpUStXNitLMGxhL0xC?=
+ =?utf-8?B?dXRKbDZ1a1FYTjh6YkJGK3RkNmJlWmJkbnQ0UWNPT1Zma1ZoQ2VCUC9FbllU?=
+ =?utf-8?B?VXY5b2dlc0dQQkNpaVRKRENka2JPRkN6YnJTZmVQMVI2dHZJQzg3NzdmL3FP?=
+ =?utf-8?B?ZThWZnJjdkMwK3JOdFBoWlhjc3F6Y3RtSm9xN1VwcU5PcHozSTF1NTdBMUww?=
+ =?utf-8?B?TVhUNmpyazZlekYzakVGZ040K3pIVWRBRmRVTVlxR05WUUZMcCtSbmtQbXY4?=
+ =?utf-8?B?TWR3clBteUYxTVpmaTk1SVc4cUd6Z2lXb3dYOWVqVmpsZnZocCtBb1lWTXlT?=
+ =?utf-8?B?QVZvcFhXa3hnWVlZREdFQldoaHNKdzMvNTBrZm8yUkk2a1lwN0QxWDY1VnVK?=
+ =?utf-8?B?UW9seWN4RnVnelNQTmp3QlQ4aWRoV2x3aVBVTWo4NVZURGhWalBGZlNwd3Mx?=
+ =?utf-8?B?UVNWQXV3Ukw3WngzcVJ4dDRQdWVJdHQ0aG55WTBpaGlZcmxhRHdqYTMyVWJi?=
+ =?utf-8?B?ekJqWW1GVFNFVkdDYXkvTUc1ZXIzUGRoK2ZHd3M0YkMzbnV3T2h0bE5lTWhG?=
+ =?utf-8?B?c3hpYVVVSENHSXFWYTFsOXB3S2lzOEtZVkpUdmNKRmQ3NFhYNUQzczJhdkpR?=
+ =?utf-8?B?QWhKZTlJUVBkQkNGK1IvOWtrUlVVTUhsTWtTZW9LUExrcndhbzQrb3UxWGNn?=
+ =?utf-8?B?Mit4V1ZiN2kydExFS0pHUjV5a1dBWXB4TmtpZkluNXJEbnFlVFlKRWlKckJM?=
+ =?utf-8?B?SGk1Y0RWRit5VjUvck9nY1RFZEVKVW82VUpPRDJsZ1JWRUF5Y0c5eEZTNW54?=
+ =?utf-8?B?TVAyTEdWc2MzTzZTS3FiVDMyVVhxeTNnM2NKalJXUlBvKzg5OXZtN3JxUis1?=
+ =?utf-8?B?bEVReEZycFBOMGRlMWZ1WC82Y2svTnBla1I5WjBreVEvMEM3NElDbGg0UFMv?=
+ =?utf-8?B?MDNUUUp3ZUpKc3ZFRExGb3lxM2NWM2sxMlNUR3RRVGhEc2VRN21GMG5VZ3Fs?=
+ =?utf-8?B?Q1hTZ29SK2hpMnc0L096dDVTQnJ6MmU5R1dVZ21kWERsbk5TZkRVVW82U0JM?=
+ =?utf-8?B?dFF4OVFTQWphUFpVQzlReDEwOE16aHl3TVl3WWl5QXZNRHo3NnZwbnNGV2Fy?=
+ =?utf-8?B?Ty85Znp0cUduNjlzMEJWQzNDcm1jVlBzOUczWWtqR1IxajFVK2lyM1liTmtQ?=
+ =?utf-8?B?NkprUWF1YW0wSU1oMjFQNjFqQTVUV2RqVzcvZmc0V2ljbm9JY2pSeVdKaGZL?=
+ =?utf-8?B?bWluYUFPa1hxTkxxZDZ1dk1VRUw1OVJ5MWNpYXhmbkRuc25kYXd2ZVRrSmtU?=
+ =?utf-8?B?bitKdUdCWXZDNjh1cTdEZjg3WTRJTG1tVVBpN0JLWEhySXBEVkppMnp3b1lK?=
+ =?utf-8?B?Z2dCUDljRy95ZnlMM3FFVVVDWWU1TnNnOGNuZFNBa0FONm1NYkJyWVp6Q0dP?=
+ =?utf-8?B?YlNYTVQ4elpTZDZWazVnbEl5SXZxL2ZvczIwV00waVdzV0tteTEwT1Q2bExG?=
+ =?utf-8?B?NHZiY29kRUJIMXVzQVZGWUs5d2xOSGJ3QjcxZkRxUlVVSW1od3ljKzBmVi9N?=
+ =?utf-8?B?d2s5WlJscEo3ekhvVm1rSnpxQWhFbEF5eG0zbWpULy9reTJmUWNCN3o4U0cz?=
+ =?utf-8?B?Zk5qcWRwekRpMlZKNDJrdERDRnVhc3EvVW9ZMCtKNm1WQ1AxUGR6WTRMOTJB?=
+ =?utf-8?B?RlZubWlhVWQvTVMyZEVlZ0RLbmFTcUo4S1NMbHVTQzNtekNURU10eWN5SVkw?=
+ =?utf-8?B?Tjl4Z3dYemlCOGgvTHdYWWVYWDB6anp2SnlLVGZ0S09xeGdsRWRab24vYVE1?=
+ =?utf-8?B?T2xxZFNEbW94d3FKSWlPUSt0bDRpTkRqUnBKa2l3VTZXZURiVDBlelIvQ2hQ?=
+ =?utf-8?B?Y1VRY0VtTEtGamUycmQ0M3NONGlqSGhDREJSb1VPODQ1UGYrRFYvU3o0cmxK?=
+ =?utf-8?B?RzZkL1FXeC9ZTmc4RG5uMzFZK0s0SGRVckpOOGcvVmlvdVcxQndVWW1haExV?=
+ =?utf-8?B?MFE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <D52631BAE71D9E40AD958CE218EBB824@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7648.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f1121952-f4ac-4098-a672-08db68c86a5b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2023 09:03:39.0113
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ MZYtMWD6i+B820ua+33bvtGOVnTTSjovcdpwmxJwMHb5g1pSTovaNdLIx8sI/uHW6b470QeQsxi0yra4bNDfC9XufxFpf/zJzFL9zXKW/x8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5017
+Message-ID-Hash: DQWANOW5DCSO3WWTLQJTBWTAMVZ7GYXC
+X-Message-ID-Hash: DQWANOW5DCSO3WWTLQJTBWTAMVZ7GYXC
+X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -143,7 +200,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PHVENZUYIQFGAY6IOERM6AJD2CZJSDEL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DQWANOW5DCSO3WWTLQJTBWTAMVZ7GYXC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -152,60 +209,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 09 Jun 2023 10:12:16 +0200,
-Takashi Iwai wrote:
-> 
-> On Fri, 09 Jun 2023 09:34:37 +0200,
-> Joseph C. Sible wrote:
-> > 
-> > On Fri, Jun 9, 2023 at 3:04 AM Kailang <kailang@realtek.com> wrote:
-> > >
-> > > echo 0 > /sys/module/snd_hda_intel/parameters/power_save
-> > >
-> > > Could you give it a try? Then got dump also.
-> > >
-> > > If it passed, please test my two patches also. Then get dump again.
-> > 
-> > I ran that command under the kernel with my patch and then got an
-> > alsa-info dump again, and it still said "Invalid AFG subtree". The
-> > full result is attached as alsa-info-1.txt.
-> > 
-> > I then added snd_hda_intel.power_save=0 to the kernel command line and
-> > tried under the kernel with your patches again. No change here either:
-> > still "Invalid AFG subtree", and upon a warm boot, it still breaks.
-> > Attached from this test are alsa-info-2.txt (cold boot) and
-> > alsa-info-3.txt (warm boot).
-> 
-> Thanks.  It's puzzling.
-> 
-> The power setting of AFG looks already unusual:
-> 
-> State of AFG node 0x01:
->   Power states:  D0 D2 (null) (null) (null) (null) (null) (null) (null)
->   Power: setting=UNKNOWN, actual=D0, Clock-stop-OK, Setting-reset
-> 
-> So apparently the codec isn't ready yet for accessing.
-> 
-> But, the fact that the codec got parsed (hence you see the parsed
-> results in dmesg) means that this subtree call could succeed at the
-> beginning.
-> 
-> When you load snd-hda-intel module with "model=,generic" option (the
-> command is intentional), does the codec content show up?
-
-Also, assuming it being some timing issue, adding the delay forcibly
-like below has any influence on the AFG error?
-
-
-Takashi
-
---- a/sound/pci/hda/hda_proc.c
-+++ b/sound/pci/hda/hda_proc.c
-@@ -792,6 +792,7 @@ static void print_codec_info(struct snd_info_entry *entry,
- 	snd_iprintf(buffer, "State of AFG node 0x%02x:\n", fg);
- 	print_power_state(buffer, codec, fg);
- 
-+	msleep(100); // XXX
- 	nodes = snd_hda_get_sub_nodes(codec, fg, &nid);
- 	if (! nid || nodes < 0) {
- 		snd_iprintf(buffer, "Invalid AFG subtree\n");
+T24gMDguMDYuMjAyMyAwOTo0OCwgS3VuaW5vcmkgTW9yaW1vdG8gd3JvdGU6DQo+IEVYVEVSTkFM
+IEVNQUlMOiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91
+IGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZQ0KPiANCj4gQVNvQyBpcyBub3cgc3VwcG9ydGluZyBn
+ZW5lcmljIHRyaWdnZXIgb3JkZXJpbmcgbWV0aG9kLg0KPiBUaGlzIHBhdGNoIHN3aXRjaCB0byB1
+c2UgaXQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBLdW5pbm9yaSBNb3JpbW90byA8a3VuaW5vcmku
+bW9yaW1vdG8uZ3hAcmVuZXNhcy5jb20+DQoNClJldmlld2VkLWJ5OiBDbGF1ZGl1IEJlem5lYSA8
+Y2xhdWRpdS5iZXpuZWFAbWljcm9jaGlwLmNvbT4NClRlc3RlZC1ieTogQ2xhdWRpdSBCZXpuZWEg
+PGNsYXVkaXUuYmV6bmVhQG1pY3JvY2hpcC5jb20+DQoNCj4gLS0tDQo+ICBzb3VuZC9zb2MvYXRt
+ZWwvbWNocC1wZG1jLmMgfCAyICstDQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyks
+IDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvYXRtZWwvbWNocC1w
+ZG1jLmMgYi9zb3VuZC9zb2MvYXRtZWwvbWNocC1wZG1jLmMNCj4gaW5kZXggZGEyMzg1NWEwZTQw
+Li5jNzljNzNlNjc5MWUgMTAwNjQ0DQo+IC0tLSBhL3NvdW5kL3NvYy9hdG1lbC9tY2hwLXBkbWMu
+Yw0KPiArKysgYi9zb3VuZC9zb2MvYXRtZWwvbWNocC1wZG1jLmMNCj4gQEAgLTQyMyw3ICs0MjMs
+NyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50X2RyaXZlciBtY2hwX3Bk
+bWNfZGFpX2NvbXBvbmVudCA9IHsNCj4gICAgICAgICAub3BlbiA9ICZtY2hwX3BkbWNfb3BlbiwN
+Cj4gICAgICAgICAuY2xvc2UgPSAmbWNocF9wZG1jX2Nsb3NlLA0KPiAgICAgICAgIC5sZWdhY3lf
+ZGFpX25hbWluZyA9IDEsDQo+IC0gICAgICAgLnN0YXJ0X2RtYV9sYXN0ID0gMSwNCj4gKyAgICAg
+ICAudHJpZ2dlcl9zdGFydCA9IFNORF9TT0NfVFJJR0dFUl9PUkRFUl9MREMsDQo+ICB9Ow0KPiAN
+Cj4gIHN0YXRpYyBjb25zdCB1bnNpZ25lZCBpbnQgbWNocF9wZG1jXzFtaWNbXSA9IHsxfTsNCj4g
+LS0NCj4gMi4yNS4xDQo+IA0KDQo=

@@ -2,146 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27931729D66
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 16:54:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34E94728E4A
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 05:05:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FD9E84B;
-	Fri,  9 Jun 2023 16:53:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FD9E84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A69EA208;
+	Fri,  9 Jun 2023 05:05:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A69EA208
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686322454;
-	bh=5yCCx637qN6JiLW7I6+8zEHQGblEuFICtzq96prQWME=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:List-Id:
+	s=default; t=1686279955;
+	bh=o04FvuXzd4SpzWiu6D5/oVJOEdn/IXQ73xn0PpezAZE=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mpkqm0UhczgRzgxvyTmufXanmM7uE+HDyVEtoPauPQ35GilIaWRWUmGm9Fs8dY52F
-	 Uwv0NEBgYEzdAY1GmKMJh1fxo0HQRdal7nPaUYEaN4dcGCCJG11D6QF5BuX5sg6KTO
-	 eGeuQFhaus6ZhkLis5XujO67gGPTk18G3UT6fKHU=
+	b=n8lSqAl0kA6mU8ZQZwZ2hu6Th3Rv4gIimNujBeJFYbIFmiLTRDF4+5AzyzCu5ZwXo
+	 JJmIxVjTu+0NLi1+8t0HQawiD7Xkqlkp9xkansJiVsOSYPUKm65AjMvrrOOFso8Vh8
+	 N794SSN0U+LRgx1kA1popUY3JYyFQ4PZc4Y/uGEQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD94FF80674; Fri,  9 Jun 2023 16:48:59 +0200 (CEST)
+	id A74A6F80494; Fri,  9 Jun 2023 05:05:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5E37F8057C;
-	Fri,  9 Jun 2023 16:48:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF1AFF8016C;
+	Fri,  9 Jun 2023 05:05:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C585F80199; Fri,  9 Jun 2023 03:49:45 +0200 (CEST)
+	id C1E84F80199; Fri,  9 Jun 2023 05:04:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EF8A7F80130
-	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 03:49:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF8A7F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=fail reason="signature verification failed" (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=K6IhUHPI
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id F197E652B2;
-	Fri,  9 Jun 2023 01:49:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41180C433EF;
-	Fri,  9 Jun 2023 01:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686275370;
-	bh=5yCCx637qN6JiLW7I6+8zEHQGblEuFICtzq96prQWME=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=K6IhUHPIMyX6G51Gvg9LBUJ3F+NMA6t6yEqi3fTeDTd+AJzCCvvookTr/6vQqGmIn
-	 YHm6xCzH29XDY1RxhGUWWRXRiWAz+w4FinVcWL9BZIaqu935rDcsd9srsnN7LexnGZ
-	 GCkr6cL3K8SIP7mxO9yA8OMPuNRkbBGzshyF7AScJsc0Echnlzdy6HrJq2B3P6eqEB
-	 C/vA6phGnqUiPVssfsHiLNKrmW37L5wDKBSmCLTQDZ9XlTE9d38MUMidr99RQRsQ6o
-	 iveJTt876EEgX7IN09+I3JVakkYPpa1Fbdci55u3kgBWbiPwoqFEOp6SBpvW+XcWiw
-	 hoc+eH+MLB+dw==
-Message-ID: <431d1ae3993d1fc78decbcd065442f29.sboyd@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 02BE5F800ED
+	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 05:04:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02BE5F800ED
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 35934DhhC027865,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 35934DhhC027865
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
+	Fri, 9 Jun 2023 11:04:13 +0800
+Received: from RTEXDAG02.realtek.com.tw (172.21.6.101) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Fri, 9 Jun 2023 11:04:29 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXDAG02.realtek.com.tw (172.21.6.101) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Fri, 9 Jun 2023 11:04:29 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::4d7:e49a:674a:598]) by
+ RTEXMBS01.realtek.com.tw ([fe80::4d7:e49a:674a:598%5]) with mapi id
+ 15.01.2375.007; Fri, 9 Jun 2023 11:04:29 +0800
+From: Kailang <kailang@realtek.com>
+To: "Joseph C. Sible" <josephcsible@gmail.com>
+CC: Takashi Iwai <tiwai@suse.de>, Bagas Sanjaya <bagasdotme@gmail.com>,
+        "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+        "perex@perex.cz"
+	<perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: RE: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+ on warm boot
+Thread-Topic: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+ on warm boot
+Thread-Index: 
+ AQHZhdSOD7kY6mXBDkGA3ryhp811r69Yu5SAgAASNACAAA22gIAA7n+AgAEJrYCABLe/YIAJNIWAgAIHAcD//4tyAIAB8UZw///vxgCADzWhgIABfgWAgACUPoCAAPnsAIAAmlKwgAA8s4CAAQ8boP//kIuAABWnYVAAAIR9gAAqhW/A
+Date: Fri, 9 Jun 2023 03:04:29 +0000
+Message-ID: <009474f04d0b45c69a0e42e8622b7a86@realtek.com>
+References: <bug-217440-225600@https.bugzilla.kernel.org/>
+ <CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
+ <ZGB0cVVI7OgaJU6t@debian.me>
+ <CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
+ <87cz338ix4.wl-tiwai@suse.de>
+ <CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
+ <874jodlnmi.wl-tiwai@suse.de> <415d4bc84aa74c74af913048f28b42a9@realtek.com>
+ <87fs7mdofi.wl-tiwai@suse.de> <7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
+ <87353kd8b9.wl-tiwai@suse.de> <1170325957764b4cbd7cd3639575f285@realtek.com>
+ <CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
+ <873536js7q.wl-tiwai@suse.de>
+ <CABpewhE0NAC-Q=iqG2Ba=XhT7SXsWy18wQGYUaopzmKDfFxyPw@mail.gmail.com>
+ <2c1fcbc00bb44d66a29ac1c1e4bec5ad@realtek.com>
+ <CABpewhFthKG97dPiQC4JhGx9sapX9Yu5rWABQjpY95TSA+eawA@mail.gmail.com>
+ <485f99149508488080d563144454040e@realtek.com>
+ <CABpewhGkvWtM+9J=mx3vw0QY=OBB5OYCxzX3nzVffvFS4QazPA@mail.gmail.com>
+ <2831c55638a5431ca9e37d9caf365ed2@realtek.com>
+ <CABpewhGiMJUpyBA6=D9_-YA6=5rjR2R0RHUZeg+cWcjtzuCoZQ@mail.gmail.com>
+ <3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
+ <CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
+In-Reply-To: 
+ <CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.106]
+x-kse-serverinfo: RTEXDAG02.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20221018-clk-range-checks-fixes-v4-0-971d5077e7d2@cerno.tech>
-References: <20221018-clk-range-checks-fixes-v4-0-971d5077e7d2@cerno.tech>
-Subject: Re: [PATCH v4 00/68] clk: Make determine_rate mandatory for muxes
-From: Stephen Boyd <sboyd@kernel.org>
-Cc: linux-clk@vger.kernel.org, Maxime Ripard <maxime@cerno.tech>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Alessandro Zummo <a.zummo@towertech.it>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andreas =?utf-8?q?F=C3=A4rber?= <afaerber@suse.de>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Chen-Yu Tsai <wens@csie.org>, Chen-Yu Tsai <wenst@chromium.org>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>,
-	David Lechner <david@lechnology.com>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Liam Girdw ood <lgirdwood@gmail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Markus Schneider-Pargmann <msp@baylibre.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Miles Chen <miles.chen@mediatek.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Paul Cercueil <paul@crapouillou.net>, Peng Fan <peng.fan@nxp.com>,
-	Peter De Schrijver <pdeschrijver@nvidia.com>,
-	Prashant Gaikwad <pgaikwad@nvidia.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, Sekhar Nori <nsekhar@ti.com>,
-	Shawn Guo <shawnguo@kernel.org>, Takashi Iwai <tiwai@suse.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>, Vinod Koul <vkoul@kernel.org>,
-	dri-devel@lists.freedesktop.org, linux-actio@alsa-project.org,
-	ns@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
-	linux-mips@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org, linux-rtc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
-	NXP Linux Team <linux-imx@nxp.com>, patches@opensource.cirrus.com,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Liam Beguin <liambeguin@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-mediatek@lists.infradead.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Pawel Moll <pawel.moll@arm.com>, alsa-devel@alsa-project.org
-To: Maxime Ripard <maxime@cerno.tech>,
- Michael Turquette <mturquette@baylibre.com>
-Date: Thu, 08 Jun 2023 18:49:28 -0700
-User-Agent: alot/0.10
-X-MailFrom: sboyd@kernel.org
-X-Mailman-Rule-Hits: max-recipients
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: OOSC5JGFI65AJ3XUSRNPD4KXFNYZHYT3
+X-Message-ID-Hash: OOSC5JGFI65AJ3XUSRNPD4KXFNYZHYT3
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: L2BH6KCNMC6VW6VT7WM2SJ4IUDOWM743
-X-Message-ID-Hash: L2BH6KCNMC6VW6VT7WM2SJ4IUDOWM743
-X-Mailman-Approved-At: Fri, 09 Jun 2023 14:48:52 +0000
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L2BH6KCNMC6VW6VT7WM2SJ4IUDOWM743/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OOSC5JGFI65AJ3XUSRNPD4KXFNYZHYT3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,27 +133,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Quoting Maxime Ripard (2023-05-05 04:25:02)
-> Hi,
->=20
-> This is a follow-up to a previous series that was printing a warning
-> when a mux has a set_parent implementation but is missing
-> determine_rate().
->=20
-> The rationale is that set_parent() is very likely to be useful when
-> changing the rate, but it's determine_rate() that takes the parenting
-> decision. If we're missing it, then the current parent is always going
-> to be used, and thus set_parent() will not be used. The only exception
-> being a direct call to clk_set_parent(), but those are fairly rare
-> compared to clk_set_rate().
->=20
-> Stephen then asked to promote the warning to an error, and to fix up all
-> the muxes that are in that situation first. So here it is :)
->=20
-
-I've applied this to clk-next after squashing in an export. Thanks for
-taking this on.
-
-I'll have to monitor for wreckage with any in-flight drivers. I suspect
-I'll have to take out the last commit, but maybe we can just let those
-in-flight drivers get fixed up later.
+SGkgVGFrYXNoaSwNCg0KQUxDMjM2IHdvcmtzIG5vcm1hbGx5Lg0KQnV0IGNvZGVjIHJlZ2lzdGVy
+IGNhbid0IHNob3cgaXQuIChpdCBzaG93cyAiSW52YWxpZCBBRkcgc3VidHJlZSIpDQpDb3VsZCB5
+b3Uga25vdyB3aHk/DQoNCkJSLA0KS2FpbGFuZw0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
+LQ0KPiBGcm9tOiBKb3NlcGggQy4gU2libGUgPGpvc2VwaGNzaWJsZUBnbWFpbC5jb20+DQo+IFNl
+bnQ6IFRodXJzZGF5LCBKdW5lIDgsIDIwMjMgMTA6NDMgUE0NCj4gVG86IEthaWxhbmcgPGthaWxh
+bmdAcmVhbHRlay5jb20+DQo+IENjOiBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+OyBCYWdh
+cyBTYW5qYXlhIDxiYWdhc2RvdG1lQGdtYWlsLmNvbT47DQo+IHJlZ3Jlc3Npb25zQGxpc3RzLmxp
+bnV4LmRldjsgcGVyZXhAcGVyZXguY3o7IHRpd2FpQHN1c2UuY29tOw0KPiBhbHNhLWRldmVsQGFs
+c2EtcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6IEZ3ZDogW0J1ZyAyMTc0NDBdIE5ldzogQUxD
+MjM2IGF1ZGlvIGRpc2FwcGVhcnMgZnJvbSBIUA0KPiAxNXotZmMwMDAgb24gd2FybSBib290DQo+
+IA0KPiANCj4gRXh0ZXJuYWwgbWFpbC4NCj4gDQo+IA0KPiANCj4gT24gVGh1LCBKdW4gOCwgMjAy
+MyBhdCAyOjMy4oCvQU0gS2FpbGFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4gd3JvdGU6DQo+ID4N
+Cj4gPiBDb3VsZCB5b3UgdXNlIHlvdXIgcGF0Y2ggdG8gZHVtcCBjb2RlYyBpbmZvIGFnYWluPw0K
+PiA+IEkgd2FudCB0byBjaGVjayBpdCB3aWxsIGFsc28gc2hvdyAiaW52YWxpZCBBRkcgc3VidHJl
+ZSIuDQo+IA0KPiBPa2F5LCBoZXJlJ3MgdGhlIHNhbWUgY29tbWFuZCdzIG91dHB1dCBhZ2Fpbiwg
+dGhpcyB0aW1lIGZyb20gdW5kZXIgdGhlDQo+IGtlcm5lbCB3aXRoIG15IHBhdGNoIHRoYXQgZG9l
+cyBmaXggdGhlIHByb2JsZW0uIEl0IGRvZXMgYWxzbyBzaG93ICJpbnZhbGlkIEFGRw0KPiBzdWJ0
+cmVlIi4NCj4gDQo+IFRoYW5rcywNCj4gDQo+IEpvc2VwaCBDLiBTaWJsZQ0KPiANCj4gLS0tLS0t
+UGxlYXNlIGNvbnNpZGVyIHRoZSBlbnZpcm9ubWVudCBiZWZvcmUgcHJpbnRpbmcgdGhpcyBlLW1h
+aWwuDQo=

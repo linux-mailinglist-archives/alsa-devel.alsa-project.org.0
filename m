@@ -2,122 +2,236 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B975772A6D9
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jun 2023 01:47:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ED1C72A6E0
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jun 2023 01:53:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA18C208;
-	Sat, 10 Jun 2023 01:46:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA18C208
+	by alsa0.perex.cz (Postfix) with ESMTPS id B44A010E;
+	Sat, 10 Jun 2023 01:52:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B44A010E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686354429;
-	bh=MlwM9XE2x2QdEXSYANzv1oXgcCxolOjeqjGLtXPNANE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1686354802;
+	bh=gdhQuVJhDZrc1LZbHwJUZgCFlq3wxCuKuuwWVuQKDV4=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=q1jEkLZYMDtIjTM9kurSNoe4xB3n0ZJnzYTwzke2qaiEWclL6nKtRTXZzSYLCAnk7
-	 WkuuNAlpARcnkAYL27iJIBfwJpFurol5LxBddC+K12Ow2rfVlQT1qfmLwDAt/7tRk7
-	 x8daldLTnOT2AGkRYC+9mohOpEQTI7BDyKVP79/Y=
+	b=tGIOCkm0EofMURNJEOHEQV1RLtAQmD2CxRMmQIA8D+iFJN4rer3nLoobWOWsIoEp4
+	 PqU3I5Mi/5POL+R0oVFWop7LEAQdMJ+ynmx0mXgK2enDQ3LWn2njwxwccz2cDvihzp
+	 72/qgO1kct4s42125IGMOfvu2lsnXvEjxIXZHs0c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D172FF800C8; Sat, 10 Jun 2023 01:45:57 +0200 (CEST)
+	id 65012F80290; Sat, 10 Jun 2023 01:52:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 464A0F8016C;
-	Sat, 10 Jun 2023 01:45:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33CBEF8016C;
+	Sat, 10 Jun 2023 01:52:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B703F80290; Sat, 10 Jun 2023 01:45:53 +0200 (CEST)
+	id 8D215F80199; Sat, 10 Jun 2023 01:52:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [IPv6:2607:f8b0:4864:20::631])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com
+ [148.163.139.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 79F5EF800ED
-	for <alsa-devel@alsa-project.org>; Sat, 10 Jun 2023 01:45:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79F5EF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 06FE1F800C8
+	for <alsa-devel@alsa-project.org>; Sat, 10 Jun 2023 01:52:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06FE1F800C8
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=sNLDFR6I
-Received: by mail-pl1-x631.google.com with SMTP id
- d9443c01a7336-1b39d0f3bb6so1113525ad.3
-        for <alsa-devel@alsa-project.org>;
- Fri, 09 Jun 2023 16:45:13 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=analog.onmicrosoft.com header.i=@analog.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-analog-onmicrosoft-com
+ header.b=oKVpovSS
+Received: from pps.filterd (m0167090.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 359KZt5o021915;
+	Fri, 9 Jun 2023 19:52:23 -0400
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2108.outbound.protection.outlook.com [104.47.55.108])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 3r2ax6x29t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Jun 2023 19:52:23 -0400
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=golTE8Wmc5eLUNaqix1YNjZzGebePncatNH+fFnosxTdgzjyPZd6P4ncxfYtqfsBOGLgR9djh65+cgknrZxBAZS8NRP0IBTtHRadrrt5jDJ1ge05tzwTZAvDEV+NwlHFwqRxcx6Aa7gRY7aq8Jpg+dQvmsIHxo8TXuCiyBOGI+vZ3wy1/AxKvnp4Disad2UK1Nl55Y/w4VAnoy+EcmARazN2rWg6MzGZ9bzbsGXZ/HB64U06IxV+hg7AdibiBXXYhpTdh0aPq4ImYqUghsvV2L4etFMG2qHRE56pDe4nXtTxLQygxp9bLgnwgl+F+EFChmRtAKH5wlj6pMJjkTBQ7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gdhQuVJhDZrc1LZbHwJUZgCFlq3wxCuKuuwWVuQKDV4=;
+ b=lSnrGA8UIsA1gDiBgJUianD3AYPeRKBYRorS3e6kAHwgenwrCSlwxuGgxwyit9yuLP5DcTUrRw+woYxBmCgV3vD3KIu0jVnVOZMdMTNJVCNfmWrQWMF4pq0zVV+LZ9R0FvJnWHKmmQ/4cbg3qNabwnktc8HQxhqhh0udpEE9i2vLcS60MH7u/yF6YOGte5jhSJHwh2PDjVG5h8IHefJfBKg3ZN3I7caY3g5rEqTuOpUblkX8aOmKchwI2nmOwXf66/KWCvSdC4lY6i4CaD093xbs0O2qPq+IGD7J+ltmqK1dL9HisjC0vNuFvO7pXTLfUypwBZYbu+0AY1QKWnsbEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686354311; x=1688946311;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kL37KePShSFflyAD6oviU6rG6mzSHGzs7gAxe9+bmbo=;
-        b=sNLDFR6IA1wNzDp8J668Gf2yoWS6wCvasdoiMwYpS8P+S8bgFV8RvPJi4dxyBApEcL
-         3G2V5OvlMjoNCK1eUr3NBZlw3F0DktMZ/Pplx+vJJnO4ui03CMLsV2Ocyg4kEgUZquBm
-         aiuI7DdDEZwbV/IkIRMLWGijqhKLUEF4ouCTBeFk9eiS8lIIRhyJoNZ1i+X+R+xyZ/L/
-         LLTI00FPjTYTrw7wncKgNMcdC43AcZLADb+cLcMlL4IJOfR9GF6pvBCTojPQerceui6e
-         5dwqQSJB/1O4zv6/QI8j+CY9zn8QUOFuAycd4F68eAQ9/pPVTIbHiQVcgh3rc+FGpcj9
-         YbTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686354311; x=1688946311;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kL37KePShSFflyAD6oviU6rG6mzSHGzs7gAxe9+bmbo=;
-        b=b8ibTl4OZic2R9xEdVKdxST8tbo+S2zH93Gs/uFExsS7Do/7FhvMF7JtahxwmYWp9A
-         TCB/6tM45oOUSTR1h5kdwilWX1+ljEu8+42N4FQsOsyrAc2Z2PU+WnSdAyDSkJa6BgpG
-         HP/dPi3BDlztJVzvv6PBUR5JnkPWwxr6MFaN8ZxIA+MtkD3tvDDP5FoIFkzdsyJN/Xzh
-         KWWYJZ8jaI8gDEb01wfhj8X9p9wV9qS9KXtnoatwvzfEayzjmKsW0XdTqWWwUjA1yjSz
-         7d5O/IYSXYZvCSqkdXv0K4TT21Odrk8pWpAj0VkAEQevPtk7NAALGEXJtRlZJLN4ejFA
-         yeVw==
-X-Gm-Message-State: AC+VfDzyr4y9mHzZxgzj+a1f60VwKEsDUnX0JtvVi8VnXIAlgaPzIQNc
-	cg0bK2eKtJfBNdhenp6ES3c=
-X-Google-Smtp-Source: 
- ACHHUZ5Aw+XyOpA5TPfkzoed5/nTAo93heVZ+lCo/IFVUtOnMHfkpCPFJvgvfFdzDfIbODDmFLmtJw==
-X-Received: by 2002:a17:903:110d:b0:1ac:8475:87c5 with SMTP id
- n13-20020a170903110d00b001ac847587c5mr232659plh.56.1686354311089;
-        Fri, 09 Jun 2023 16:45:11 -0700 (PDT)
-Received: from ryan-ThinkPad-T470.. (c-24-6-63-212.hsd1.ca.comcast.net.
- [24.6.63.212])
-        by smtp.gmail.com with ESMTPSA id
- k9-20020a170902ba8900b001a5260a6e6csm3755473pls.206.2023.06.09.16.45.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Jun 2023 16:45:10 -0700 (PDT)
-From: =?UTF-8?q?=E2=80=9CRyan?= <ryan.lee.analog@gmail.com>
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	rf@opensource.cirrus.com,
-	ryans.lee@analog.com,
-	wangweidong.a@awinic.com,
-	shumingf@realtek.com,
-	herve.codina@bootlin.com,
-	ckeepax@opensource.cirrus.com,
-	doug@schmorgal.com,
-	ajye_huang@compal.corp-partner.google.com,
-	kiseok.jo@irondevice.com,
-	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: venkataprasad.potturu@amd.com,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH V2 2/2] ASoC: max98388: add amplifier driver
-Date: Fri,  9 Jun 2023 16:44:17 -0700
-Message-Id: <20230609234417.1139839-2-ryan.lee.analog@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230609234417.1139839-1-ryan.lee.analog@gmail.com>
-References: <20230609234417.1139839-1-ryan.lee.analog@gmail.com>
+ d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gdhQuVJhDZrc1LZbHwJUZgCFlq3wxCuKuuwWVuQKDV4=;
+ b=oKVpovSS8A7D5iDrJ0vQwiO9z8KCosAn10Rph/GxOqMTbJmT4GuYC5CGC/cm6NeSoIlUYP/ItHwGxam6C0WddOrrR+mhor6qdf7Inr7Jxm5BydyzNwa1MagBWV6VR/W+nQVKpqzLC1rXyV5amri4oZPwsE/v8Sz+Z5ImDWs3mE4=
+Received: from SJ0PR03MB6681.namprd03.prod.outlook.com (2603:10b6:a03:400::6)
+ by SN4PR03MB6720.namprd03.prod.outlook.com (2603:10b6:806:1ef::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.36; Fri, 9 Jun
+ 2023 23:52:20 +0000
+Received: from SJ0PR03MB6681.namprd03.prod.outlook.com
+ ([fe80::4367:b823:eb11:589]) by SJ0PR03MB6681.namprd03.prod.outlook.com
+ ([fe80::4367:b823:eb11:589%4]) with mapi id 15.20.6455.030; Fri, 9 Jun 2023
+ 23:52:20 +0000
+From: "Lee, RyanS" <RyanS.Lee@analog.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+        =?utf-8?B?4oCcUnlhbg==?= <ryan.lee.analog@gmail.com>,
+        "lgirdwood@gmail.com"
+	<lgirdwood@gmail.com>,
+        "broonie@kernel.org" <broonie@kernel.org>,
+        "robh+dt@kernel.org" <robh+dt@kernel.org>,
+        "krzysztof.kozlowski+dt@linaro.org"
+ <krzysztof.kozlowski+dt@linaro.org>,
+        "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+        "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
+        "wangweidong.a@awinic.com" <wangweidong.a@awinic.com>,
+        "shumingf@realtek.com"
+	<shumingf@realtek.com>,
+        "herve.codina@bootlin.com"
+	<herve.codina@bootlin.com>,
+        "ckeepax@opensource.cirrus.com"
+	<ckeepax@opensource.cirrus.com>,
+        "doug@schmorgal.com" <doug@schmorgal.com>,
+        "ajye_huang@compal.corp-partner.google.com"
+	<ajye_huang@compal.corp-partner.google.com>,
+        "kiseok.jo@irondevice.com"
+	<kiseok.jo@irondevice.com>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: "venkataprasad.potturu@amd.com" <venkataprasad.potturu@amd.com>
+Subject: RE: [PATCH 1/2] ASoC: dt-bindings: max98388: add amplifier driver
+Thread-Topic: [PATCH 1/2] ASoC: dt-bindings: max98388: add amplifier driver
+Thread-Index: AQHZmcw3pk3+XO2zQEm0tCaGTGX4qq+Afz8AgAKmRRA=
+Date: Fri, 9 Jun 2023 23:52:20 +0000
+Message-ID: 
+ <SJ0PR03MB668141D0D4E9604E3670C34B8A51A@SJ0PR03MB6681.namprd03.prod.outlook.com>
+References: <20230608054230.344014-1-ryan.lee.analog@gmail.com>
+ <87b9c96a-09bf-ec5d-85a0-65f59e5c593d@linaro.org>
+In-Reply-To: <87b9c96a-09bf-ec5d-85a0-65f59e5c593d@linaro.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-dg-rorf: true
+x-dg-ref: 
+ =?utf-8?B?UEcxbGRHRStQR0YwSUc1dFBTSmliMlI1TG5SNGRDSWdjRDBpWXpwY2RYTmxj?=
+ =?utf-8?B?bk5jY214bFpURXpYR0Z3Y0dSaGRHRmNjbTloYldsdVoxd3dPV1E0TkRsaU5p?=
+ =?utf-8?B?MHpNbVF6TFRSaE5EQXRPRFZsWlMwMllqZzBZbUV5T1dVek5XSmNiWE5uYzF4?=
+ =?utf-8?B?dGMyY3RZV0ZrTjJFeE1HSXRNRGN5TUMweE1XVmxMV0poWTJJdE56QXhZV0k0?=
+ =?utf-8?B?TURkbFpHSTVYR0Z0WlMxMFpYTjBYR0ZoWkRkaE1UQmpMVEEzTWpBdE1URmxa?=
+ =?utf-8?B?UzFpWVdOaUxUY3dNV0ZpT0RBM1pXUmlPV0p2WkhrdWRIaDBJaUJ6ZWowaU5U?=
+ =?utf-8?B?WXlOQ0lnZEQwaU1UTXpNekE0TWpnek16a3pPRGd4TnpZMUlpQm9QU0pUV0RO?=
+ =?utf-8?B?T1FVTjBSV1JyTVRaTlJTOTBTMHcwTjA1TmVuZEZjVVU5SWlCcFpEMGlJaUJp?=
+ =?utf-8?B?YkQwaU1DSWdZbTg5SWpFaUlHTnBQU0pqUVVGQlFVVlNTRlV4VWxOU1ZVWk9R?=
+ =?utf-8?B?MmRWUVVGRmIwTkJRVU5zVG1zNWRFeGFkbHBCV0hSUEswWmFTbmhuVkVGbE1E?=
+ =?utf-8?B?YzBWbXR1UjBKTlFVUkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
+ =?utf-8?B?QlNFRkJRVUZFWVVGUlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
+ =?utf-8?B?UlVGQlVVRkNRVUZCUVZJMmJGUk1RVUZCUVVGQlFVRkJRVUZCUVVGQlFVbzBR?=
+ =?utf-8?B?VUZCUW1oQlIxRkJZVkZDWmtGSVRVRmFVVUpxUVVoVlFXTm5RbXhCUmpoQlkw?=
+ =?utf-8?B?RkNlVUZIT0VGaFowSnNRVWROUVdSQlFucEJSamhCV21kQ2FFRkhkMEZqZDBK?=
+ =?utf-8?B?c1FVWTRRVnBuUW5aQlNFMUJZVkZDTUVGSGEwRmtaMEpzUVVGQlFVRkJRVUZC?=
+ =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
+ =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
+ =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZGUVVGQlFVRkJRVUZCUVdk?=
+ =?utf-8?B?QlFVRkJRVUZ1WjBGQlFVZEZRVnBCUW5CQlJqaEJZM2RDYkVGSFRVRmtVVUo1?=
+ =?utf-8?B?UVVkVlFWaDNRbmRCU0VsQlluZENjVUZIVlVGWmQwSXdRVWhOUVZoM1FqQkJS?=
+ =?utf-8?B?MnRCV2xGQ2VVRkVSVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
+ =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
+ =?utf-8?B?QlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
+ =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlVVRkJR?=
+ =?utf-8?B?VUZCUVVGQlFVTkJRVUZCUVVGRFpVRkJRVUZaVVVKclFVZHJRVmgzUW5wQlIx?=
+ =?utf-8?B?VkJXWGRDTVVGSVNVRmFVVUptUVVoQlFXTm5RblpCUjI5QldsRkNha0ZJVVVG?=
+ =?utf-8?B?amQwSm1RVWhSUVdGUlFteEJTRWxCVFdkQlFVRkJRVUZCUVVGQlFVRkJRVUZC?=
+ =?utf-8?B?UVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJR?=
+ =?utf-8?B?VUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFV?=
+ =?utf-8?B?RkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVG?=
+ =?utf-8?B?QlFVRkJRa0ZCUVVGQlFVRkJRVUZKUVVGQlFVRkJRVDA5SWk4K1BDOXRaWFJo?=
+ =?utf-8?B?UGc9PQ==?=
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR03MB6681:EE_|SN4PR03MB6720:EE_
+x-ms-office365-filtering-correlation-id: 4160364d-1eae-4356-f047-08db69449098
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ UFxw6twFt31bi2GCrkfJKnCvaZUWFbhaj1jmqBugJQPRsya+zUuvAMYZi11hA0KxTrLjnP63xcHW8/IV8EY5dL921P/pODLqHbFM3AjLPqmACyWB+n8GfZxdHHQHd05mnZOzA5iBQ16lmrCj8pyKTQbzAfXMOJge6pRnFiqXMSQTaLgCh0nqwnmrYydsdt/pJk7RtzD6vBauO4VZ9cXhFI8ggmDVbIOp9ANIIzlPf4r4ZaTnYQaVxnoYNyXX1pn80Mx4SPi3JpTjB3X79G8vz8QXmffTGxFk4gLvRYEUETC5xFBZ+10gDBZtgdwhPrb03joPqVx8/qKToYYo7KYd+p5IhtpOTmtoBkhxGsdcAPxopef8GQhA+OwwdHL6SJbGTuTJiBLX0nTM1lUokdQmetT8xN6BKC+//NEtilankcS+gGhGbZ6hIWwT9wWhVQtM6I1eQwvJ4CyAQpRiXbyMGmEMLSkkwn8qjV6RpJx8Skm1MAi5wV1KOW5TEvTR58UqlDpWNmKT9zr16KLHs/tHPZvTISIJxaNHDoPWGqXstKVz3C+NGnPjOLTCaESKaFqGqFhZhLH/aOloXCydyFFu14UXsT7bLj/2jssOiVAAfd7YtuYdybYsdO55myJf2dpFrHeR2Lek/+CwwWTFaLjy+w==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6681.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(366004)(396003)(136003)(39860400002)(376002)(451199021)(26005)(55016003)(186003)(52536014)(5660300002)(41300700001)(6506007)(9686003)(53546011)(33656002)(7416002)(4326008)(76116006)(66946007)(71200400001)(66446008)(64756008)(7696005)(66556008)(83380400001)(66476007)(478600001)(110136005)(8676002)(8936002)(2906002)(316002)(86362001)(921005)(122000001)(38070700005)(38100700002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?VDNJOW1kUWhUSGVoTUZVVSthUWNJN0Y5Qk5kb1E5MXh4dlZFMERkUWdGNEpJ?=
+ =?utf-8?B?OFZOSzJjY1JCRFpoQmpkU3RCK1hsODY0TTlIK0xIZTF1M0dFSVY2K3FMeEJy?=
+ =?utf-8?B?NDZLWVAxSHF4R09QTkh1anBoOGJ3WUJxS250emtIRFFZV2FSL1RvQmpLMkgr?=
+ =?utf-8?B?cjlwbDRTN1Q2VmxWSHN5Nk5EZmpjMSszRDBRSks3Rk5LaUhKTmFZaDBicklL?=
+ =?utf-8?B?aUpQSTRmTEI1cjRPYW15ck9KS21RcytDWStSblpkWmtSdUoyQTU4cHQ5c2t1?=
+ =?utf-8?B?MEt1UG9JSXJBMTBkc3JBK1h5dFhlaUVnTkhiQWVwYjZhZzNDc1NLN284M21D?=
+ =?utf-8?B?VVZybnR5bStBSHBDR2xKQllrT2FlTC9sRVowRmdVdDVvd2N0UWNzeGVxNk02?=
+ =?utf-8?B?ak9uQWJvMGNMWnB1T1dybkt1cml3cXVRZU5hbUhBKzUxWUlzNy9CVUFkZ25v?=
+ =?utf-8?B?QXNXNVNOenJva3MraTZTdVg4QzJGZW54UUZQUHAzWnZ3bFFZZGJCNGVOUmpG?=
+ =?utf-8?B?ZndraGdvZWNlOEtvSkhvU0R2a0FNSDFpL01KOUdYcmIyMmhoeHdRbUpzZUJq?=
+ =?utf-8?B?bzJ2enVqVkpJWkVhQzQwVE1kZnQveHpOQSt2WVhzVUFxcTY0Z091ZXR5Q3gx?=
+ =?utf-8?B?NEtQbno1bVZONUlOZ1lEWDRVaXdBb0JmNzQ2VFQ4WGRCOGRGd015UXloSDYx?=
+ =?utf-8?B?bHdWbkxzWGZ2eWkvRW91MS9rZGlNNkRJN0RoSXFrMTZXQThJOUpaRXhzT0Vv?=
+ =?utf-8?B?MTByS0hUMm53ZlIva0VodVFwdU5NMnNyZnM2czdGTFE3ZStpaHpyb0ovVHN3?=
+ =?utf-8?B?N2M3RDJ3UnlIWmw3elFxRDNVUU9UMm5EbU5IZHYwSTZOM21RNFFFU1R6aDZ3?=
+ =?utf-8?B?YjJCR1V5RnVJVDAxdG1ybmVzaEIyWHM3aXBLZGVJaUt2TXpCYTlWYlo5ZWNr?=
+ =?utf-8?B?TU1MSzR6eXRmaGZONWFwR0xhcENwaGVmUDRZUnowTlA1QjdZd3QwYlNxR0t3?=
+ =?utf-8?B?MFJwbGF4TzNURC8xcTNHaEFCcnVsZ3NHVVFQRmNKa1I5NW41R2hRcnU1ZUMz?=
+ =?utf-8?B?eUd1bU5FZjZhTnFKaVJpd3dPKzdyMmxCcE1XMlJOWTJwbVBVUGdtR0VNU1Vy?=
+ =?utf-8?B?WVpiTDdMbXA3Ky8wRnMzVThBUklGR0Y3UEZDRzBOdktydkFOT1RHUTA3dXdZ?=
+ =?utf-8?B?THIrWHAwekpEYUpseFpOQ21TTERWWGU2NUFVeDlMalMvK04ySGFrcXdGcWFp?=
+ =?utf-8?B?cklHTFV6ckNEa0JBallyamhKdU4zaFZWR3J1Y1V5OUV1VU1QNlUrN1BjUmlq?=
+ =?utf-8?B?OGVIN3k3ekJGU1dScGtTaVNCQThBbjBzam1MOXI4bE1jczlQWWVLSXVaSFZ6?=
+ =?utf-8?B?ZVh2T2FGRGY0SlkvUWkza1lJNkU2ZTV1MGEzbjU4UGtjbDRFRGhPSnZNdXBK?=
+ =?utf-8?B?elg4R0Y5UGNVVkIzdU5kYWVLNEFwWWZ2V1dkT2VUNmhGMTJTNGFVaVZoVUJY?=
+ =?utf-8?B?Q0ExVXZWOW52a0IxeWI3R0I5WWF4UWVpUnFOYzdnVVgvNnFPTWRXanFSSnRp?=
+ =?utf-8?B?eGZncTRLZERETjAwRDRlU28yS0FLWE5MZ3JkRTQ3Zk8vRUVaZ29uOU9kemVG?=
+ =?utf-8?B?NkNNTFEvazRpbHNOQ2NXQzNKRzdvTjFDK1Nnbm80MlNJMGQ1TGdTQ0lnNnpq?=
+ =?utf-8?B?amx0UlJqT0Q2ZU9sYmU3eW5aWVNlYkdUamxJQ0RaeDJWaVZXUEY2RkVlbXNK?=
+ =?utf-8?B?a0N0Z3pINE41ZnRQZGk0QldYamFvRVBUcXlETnc2SzU4SzdlY200TVNTeW1S?=
+ =?utf-8?B?T3MzdjB5VE1nYlViUXdOUURYb2RQcVkxMTFsQnlyeS9Ma2FsR09PQ1dRRVNu?=
+ =?utf-8?B?SnNaMk91Ly90S2pIQkxsZTVoSnlEUEVjUS84dHFxU05hTjFGVW5tbWcyOEtF?=
+ =?utf-8?B?aXk2MGNFZURVaWRPVkNjVm8xTTUzRHNSaEFUc1hmZ1FtZ1VkWDB2cWZqSSt5?=
+ =?utf-8?B?SkFubzNUOXArQjlHV25SMTBSMFVuYzdYY0tPWlBVcDh5VC8wc2pIWFk2bjhQ?=
+ =?utf-8?B?WmZ3RnlTTVV4a3E4N2NwTXZYeEVTZ3d1RDViUHl5M1ZrVlEzSUNON1plSnRP?=
+ =?utf-8?Q?GAfduUXiwvSSviwAXA5omhdmF?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5RSIJBMH3MAUXDKG33MYAXNGTATRVC6V
-X-Message-ID-Hash: 5RSIJBMH3MAUXDKG33MYAXNGTATRVC6V
-X-MailFrom: ryan.lee.analog@gmail.com
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6681.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 4160364d-1eae-4356-f047-08db69449098
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2023 23:52:20.7428
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ 5IHFbmGoVXbUCnQuh9UtcFcFiZGUobmC5flwF2x7al/ygfbjhbrHPrueIa+rd5bt4FhL9Bf4ZhKGkPvOxS+9Dg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR03MB6720
+X-Proofpoint-GUID: N3gt3varaebk4LNJQvvm7ouf6s5mpW8S
+X-Proofpoint-ORIG-GUID: N3gt3varaebk4LNJQvvm7ouf6s5mpW8S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-06-09_17,2023-06-09_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 mlxlogscore=999
+ impostorscore=0 lowpriorityscore=0 mlxscore=0 spamscore=0 adultscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2306090201
+Message-ID-Hash: SJLXMEZTNKYGEIYNITS5CJ5AN3G3UQK3
+X-Message-ID-Hash: SJLXMEZTNKYGEIYNITS5CJ5AN3G3UQK3
+X-MailFrom: RyanS.Lee@analog.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +243,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5RSIJBMH3MAUXDKG33MYAXNGTATRVC6V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QLNN7ABDJKCIZ2TB3XSDGCXLTBBWFE4P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,1366 +252,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ryan Lee <ryans.lee@analog.com>
-
-Added Analog Devices MAX98388 amplifier driver.
-MAX98388 provides a PCM interface for audio data and a standard I2C
-interface for control data communication.
-
-Signed-off-by: Ryan Lee <ryans.lee@analog.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: 
-https://urldefense.com/v3/__https://lore.kernel.org/oe-kbuild-all/2023
-06082054.jIU9oENf-lkp@intel.com/__;!!A3Ni8CS0y2Y!46sHiAsmIiXxZ_QXIobho
-mY8F1f7F2yMYd_65NNFwRlcgut33--RdFjVAbg6jKf7Vs8GaYZ7oA$
----
-Changes from v1:
-  Fixed build warnings.
-
- sound/soc/codecs/Kconfig    |   10 +
- sound/soc/codecs/Makefile   |    2 +
- sound/soc/codecs/max98388.c | 1042 +++++++++++++++++++++++++++++++++++
- sound/soc/codecs/max98388.h |  234 ++++++++
- 4 files changed, 1288 insertions(+)
- create mode 100644 sound/soc/codecs/max98388.c
- create mode 100644 sound/soc/codecs/max98388.h
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 1f68d18515a6..e579ef11beb4 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -137,6 +137,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_MAX98363
- 	imply SND_SOC_MAX98373_I2C
- 	imply SND_SOC_MAX98373_SDW
-+	imply SND_SOC_MAX98388
- 	imply SND_SOC_MAX98390
- 	imply SND_SOC_MAX98396
- 	imply SND_SOC_MAX9850
-@@ -1175,6 +1176,15 @@ config SND_SOC_MAX98373_SDW
- 	  interface for control data. Select this if MAX98373 is
- 	  connected via soundwire.
- 
-+config SND_SOC_MAX98388
-+	tristate "Analog Devices MAX98388 Speaker Amplifier"
-+	depends on I2C
-+	help
-+	  Enable support for Analog Devices MAX98388 audio
-+	  amplifier. The device provides a PCM interface for
-+	  audio data and a standard I2C interface for control
-+	  data communication.
-+
- config SND_SOC_MAX98390
- 	tristate "Maxim Integrated MAX98390 Speaker Amplifier"
- 	depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 67f336a12d74..0fd003d432e5 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -153,6 +153,7 @@ snd-soc-max98363-objs := max98363.o
- snd-soc-max98373-objs := max98373.o
- snd-soc-max98373-i2c-objs := max98373-i2c.o
- snd-soc-max98373-sdw-objs := max98373-sdw.o
-+snd-soc-max98388-objs := max98388.o
- snd-soc-max98390-objs := max98390.o
- snd-soc-max98396-objs := max98396.o
- snd-soc-max9850-objs := max9850.o
-@@ -525,6 +526,7 @@ obj-$(CONFIG_SND_SOC_MAX98363)	+= snd-soc-max98363.o
- obj-$(CONFIG_SND_SOC_MAX98373)	+= snd-soc-max98373.o
- obj-$(CONFIG_SND_SOC_MAX98373_I2C)   += snd-soc-max98373-i2c.o
- obj-$(CONFIG_SND_SOC_MAX98373_SDW)   += snd-soc-max98373-sdw.o
-+obj-$(CONFIG_SND_SOC_MAX98388)	+= snd-soc-max98388.o
- obj-$(CONFIG_SND_SOC_MAX98390)	+= snd-soc-max98390.o
- obj-$(CONFIG_SND_SOC_MAX98396)	+= snd-soc-max98396.o
- obj-$(CONFIG_SND_SOC_MAX9850)	+= snd-soc-max9850.o
-diff --git a/sound/soc/codecs/max98388.c b/sound/soc/codecs/max98388.c
-new file mode 100644
-index 000000000000..77fdb221ff93
---- /dev/null
-+++ b/sound/soc/codecs/max98388.c
-@@ -0,0 +1,1042 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2022, Analog Devices Inc.
-+
-+#include <linux/acpi.h>
-+#include <linux/delay.h>
-+#include <linux/gpio.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/of.h>
-+#include <linux/of_gpio.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/cdev.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/tlv.h>
-+#include "max98388.h"
-+
-+static struct reg_default max98388_reg[] = {
-+	{MAX98388_R2000_SW_RESET, 0x00},
-+	{MAX98388_R2001_INT_RAW1, 0x00},
-+	{MAX98388_R2002_INT_RAW2, 0x00},
-+	{MAX98388_R2004_INT_STATE1, 0x00},
-+	{MAX98388_R2005_INT_STATE2, 0x00},
-+	{MAX98388_R2020_THERM_WARN_THRESH, 0x0A},
-+	{MAX98388_R2031_SPK_MON_THRESH, 0x58},
-+	{MAX98388_R2032_SPK_MON_LD_SEL, 0x08},
-+	{MAX98388_R2033_SPK_MON_DURATION, 0x02},
-+	{MAX98388_R2037_ERR_MON_CTRL, 0x01},
-+	{MAX98388_R2040_PCM_MODE_CFG, 0xC0},
-+	{MAX98388_R2041_PCM_CLK_SETUP, 0x04},
-+	{MAX98388_R2042_PCM_SR_SETUP, 0x88},
-+	{MAX98388_R2044_PCM_TX_CTRL1, 0x00},
-+	{MAX98388_R2045_PCM_TX_CTRL2, 0x00},
-+	{MAX98388_R2050_PCM_TX_HIZ_CTRL1, 0xFF},
-+	{MAX98388_R2051_PCM_TX_HIZ_CTRL2, 0xFF},
-+	{MAX98388_R2052_PCM_TX_HIZ_CTRL3, 0xFF},
-+	{MAX98388_R2053_PCM_TX_HIZ_CTRL4, 0xFF},
-+	{MAX98388_R2054_PCM_TX_HIZ_CTRL5, 0xFF},
-+	{MAX98388_R2055_PCM_TX_HIZ_CTRL6, 0xFF},
-+	{MAX98388_R2056_PCM_TX_HIZ_CTRL7, 0xFF},
-+	{MAX98388_R2057_PCM_TX_HIZ_CTRL8, 0xFF},
-+	{MAX98388_R2058_PCM_RX_SRC1, 0x00},
-+	{MAX98388_R2059_PCM_RX_SRC2, 0x01},
-+	{MAX98388_R205C_PCM_TX_DRIVE_STRENGTH, 0x00},
-+	{MAX98388_R205D_PCM_TX_SRC_EN, 0x00},
-+	{MAX98388_R205E_PCM_RX_EN, 0x00},
-+	{MAX98388_R205F_PCM_TX_EN, 0x00},
-+	{MAX98388_R2090_SPK_CH_VOL_CTRL, 0x00},
-+	{MAX98388_R2091_SPK_CH_CFG, 0x02},
-+	{MAX98388_R2092_SPK_AMP_OUT_CFG, 0x03},
-+	{MAX98388_R2093_SPK_AMP_SSM_CFG, 0x01},
-+	{MAX98388_R2094_SPK_AMP_ER_CTRL, 0x00},
-+	{MAX98388_R209E_SPK_CH_PINK_NOISE_EN, 0x00},
-+	{MAX98388_R209F_SPK_CH_AMP_EN, 0x00},
-+	{MAX98388_R20A0_IV_DATA_DSP_CTRL, 0x10},
-+	{MAX98388_R20A7_IV_DATA_EN, 0x00},
-+	{MAX98388_R20E0_BP_ALC_THRESH, 0x04},
-+	{MAX98388_R20E1_BP_ALC_RATES, 0x20},
-+	{MAX98388_R20E2_BP_ALC_ATTEN, 0x06},
-+	{MAX98388_R20E3_BP_ALC_REL, 0x02},
-+	{MAX98388_R20E4_BP_ALC_MUTE, 0x33},
-+	{MAX98388_R20EE_BP_INF_HOLD_REL, 0x00},
-+	{MAX98388_R20EF_BP_ALC_EN, 0x00},
-+	{MAX98388_R210E_AUTO_RESTART, 0x00},
-+	{MAX98388_R210F_GLOBAL_EN, 0x00},
-+	{MAX98388_R22FF_REV_ID, 0x00},
-+};
-+
-+static int max98388_dac_event(struct snd_soc_dapm_widget *w,
-+			      struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-+	struct max98388_priv *max98388 = snd_soc_component_get_drvdata(component);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		regmap_write(max98388->regmap,
-+			     MAX98388_R210F_GLOBAL_EN, 1);
-+		usleep_range(30000, 31000);
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		regmap_write(max98388->regmap,
-+			     MAX98388_R210F_GLOBAL_EN, 0);
-+		usleep_range(30000, 31000);
-+		max98388->tdm_mode = false;
-+		break;
-+	default:
-+		return 0;
-+	}
-+	return 0;
-+}
-+
-+static const char * const max98388_monomix_switch_text[] = {
-+	"Left", "Right", "LeftRight"};
-+
-+static const struct soc_enum dai_sel_enum =
-+	SOC_ENUM_SINGLE(MAX98388_R2058_PCM_RX_SRC1,
-+			MAX98388_PCM_TO_SPK_MONOMIX_CFG_SHIFT,
-+			3, max98388_monomix_switch_text);
-+
-+static const struct snd_kcontrol_new max98388_dai_controls =
-+	SOC_DAPM_ENUM("DAI Sel", dai_sel_enum);
-+
-+static const struct snd_kcontrol_new max98388_vi_control =
-+	SOC_DAPM_SINGLE("Switch", MAX98388_R205F_PCM_TX_EN, 0, 1, 0);
-+
-+static const struct snd_soc_dapm_widget max98388_dapm_widgets[] = {
-+	SND_SOC_DAPM_DAC_E("Amp Enable", "HiFi Playback",
-+			   MAX98388_R205E_PCM_RX_EN, 0, 0, max98388_dac_event,
-+			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+	SND_SOC_DAPM_MUX("DAI Sel Mux", SND_SOC_NOPM, 0, 0,
-+			 &max98388_dai_controls),
-+	SND_SOC_DAPM_OUTPUT("BE_OUT"),
-+	SND_SOC_DAPM_AIF_OUT("Voltage Sense", "HiFi Capture", 0,
-+			     MAX98388_R20A7_IV_DATA_EN, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("Current Sense", "HiFi Capture", 0,
-+			     MAX98388_R20A7_IV_DATA_EN, 1, 0),
-+	SND_SOC_DAPM_ADC("ADC Voltage", NULL,
-+			 MAX98388_R205D_PCM_TX_SRC_EN, 0, 0),
-+	SND_SOC_DAPM_ADC("ADC Current", NULL,
-+			 MAX98388_R205D_PCM_TX_SRC_EN, 1, 0),
-+	SND_SOC_DAPM_SWITCH("VI Sense", SND_SOC_NOPM, 0, 0,
-+			    &max98388_vi_control),
-+	SND_SOC_DAPM_SIGGEN("VMON"),
-+	SND_SOC_DAPM_SIGGEN("IMON"),
-+};
-+
-+static DECLARE_TLV_DB_SCALE(max98388_digital_tlv, -6350, 50, 1);
-+static DECLARE_TLV_DB_SCALE(max98388_amp_gain_tlv, -300, 300, 0);
-+
-+static const char * const max98388_alc_max_atten_text[] = {
-+	"0dBFS", "-1dBFS", "-2dBFS", "-3dBFS", "-4dBFS", "-5dBFS",
-+	"-6dBFS", "-7dBFS", "-8dBFS", "-9dBFS", "-10dBFS", "-11dBFS",
-+	"-12dBFS", "-13dBFS", "-14dBFS", "-15dBFS"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_alc_max_atten_enum,
-+			    MAX98388_R20E2_BP_ALC_ATTEN,
-+			    MAX98388_ALC_MAX_ATTEN_SHIFT,
-+			    max98388_alc_max_atten_text);
-+
-+static const char * const max98388_thermal_warn_text[] = {
-+	"95C", "105C", "115C", "125C"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_thermal_warning_thresh_enum,
-+			    MAX98388_R2020_THERM_WARN_THRESH,
-+			    MAX98388_THERM_WARN_THRESH_SHIFT,
-+			    max98388_thermal_warn_text);
-+
-+static const char * const max98388_thermal_shutdown_text[] = {
-+	"135C", "145C", "155C", "165C"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_thermal_shutdown_thresh_enum,
-+			    MAX98388_R2020_THERM_WARN_THRESH,
-+			    MAX98388_THERM_SHDN_THRESH_SHIFT,
-+			    max98388_thermal_shutdown_text);
-+
-+static const char * const max98388_alc_thresh_single_text[] = {
-+	"3.625V", "3.550V", "3.475V", "3.400V", "3.325V", "3.250V",
-+	"3.175V", "3.100V", "3.025V", "2.950V", "2.875V", "2.800V",
-+	"2.725V", "2.650V", "2.575V", "2.500V"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_alc_thresh_single_enum,
-+			    MAX98388_R20E0_BP_ALC_THRESH,
-+			    MAX98388_ALC_THRESH_SHIFT,
-+			    max98388_alc_thresh_single_text);
-+
-+static const char * const max98388_alc_attack_rate_text[] = {
-+	"0", "10us", "20us", "40us", "80us", "160us",
-+	"320us", "640us", "1.28ms", "2.56ms", "5.12ms", "10.24ms",
-+	"20.48ms", "40.96ms", "81.92ms", "163.84ms"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_alc_attack_rate_enum,
-+			    MAX98388_R20E1_BP_ALC_RATES,
-+			    MAX98388_ALC_ATTACK_RATE_SHIFT,
-+			    max98388_alc_attack_rate_text);
-+
-+static const char * const max98388_alc_release_rate_text[] = {
-+	"20us", "40us", "80us", "160us", "320us", "640us",
-+	"1.28ms", "2.56ms", "5.12ms", "10.24ms", "20.48ms", "40.96ms",
-+	"81.92ms", "163.84ms", "327.68ms", "655.36ms"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_alc_release_rate_enum,
-+			    MAX98388_R20E1_BP_ALC_RATES,
-+			    MAX98388_ALC_RELEASE_RATE_SHIFT,
-+			    max98388_alc_release_rate_text);
-+
-+static const char * const max98388_alc_debounce_text[] = {
-+	"0.01ms", "0.1ms", "1ms", "10ms", "100ms", "250ms", "500ms", "hold"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_alc_debouce_enum,
-+			    MAX98388_R20E3_BP_ALC_REL,
-+			    MAX98388_ALC_DEBOUNCE_TIME_SHIFT,
-+			    max98388_alc_debounce_text);
-+
-+static const char * const max98388_alc_mute_delay_text[] = {
-+	"0.01ms", "0.05ms", "0.1ms", "0.5ms", "1ms", "5ms", "25ms", "250ms"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_alc_mute_delay_enum,
-+			    MAX98388_R20E4_BP_ALC_MUTE,
-+			    MAX98388_ALC_MUTE_DELAY_SHIFT,
-+			    max98388_alc_mute_delay_text);
-+
-+static const char * const max98388_spkmon_duration_text[] = {
-+	"10ms", "25ms", "50ms", "75ms", "100ms", "200ms", "300ms", "400ms",
-+	"500ms", "600ms", "700ms", "800ms", "900ms", "1000ms", "1100ms", "1200ms"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_spkmon_duration_enum,
-+			    MAX98388_R2033_SPK_MON_DURATION,
-+			    MAX98388_SPKMON_DURATION_SHIFT,
-+			    max98388_spkmon_duration_text);
-+
-+static const char * const max98388_spkmon_thresh_text[] = {
-+	"0.03V", "0.06V", "0.09V", "0.12V", "0.15V", "0.18V", "0.20V", "0.23V",
-+	"0.26V", "0.29V", "0.32V", "0.35V", "0.38V", "0.41V", "0.44V", "0.47V",
-+	"0.50V", "0.53V", "0.56V", "0.58V", "0.61V", "0.64V", "0.67V", "0.70V",
-+	"0.73V", "0.76V", "0.79V", "0.82V", "0.85V", "0.88V", "0.91V", "0.94V",
-+	"0.96V", "0.99V", "1.02V", "1.05V", "1.08V", "1.11V", "1.14V", "1.17V",
-+	"1.20V", "1.23V", "1.26V", "1.29V", "1.32V", "1.35V", "1.37V", "1.40V",
-+	"1.43V", "1.46V", "1.49V", "1.52V", "1.55V", "1.58V", "1.61V", "1.64V",
-+	"1.67V", "1.70V", "1.73V", "1.75V", "1.78V", "1.81V", "1.84V", "1.87V",
-+	"1.90V", "1.93V", "1.96V", "1.99V", "2.02V", "2.05V", "2.08V", "2.11V",
-+	"2.13V", "2.16V", "2.19V", "2.22V", "2.25V", "2.28V", "2.31V", "2.34V",
-+	"2.37V", "2.40V", "2.43V", "2.46V", "2.49V", "2.51V", "2.54V", "2.57V",
-+	"2.60V", "2.63V", "2.66V", "2.69V", "2.72V", "2.75V", "2.78V", "2.81V",
-+	"2.84V", "2.87V", "2.89V", "2.92V", "2.95V", "2.98V", "3.01V", "3.04V",
-+	"3.07V", "3.10V", "3.13V", "3.16V", "3.19V", "3.22V", "3.25V", "3.27V",
-+	"3.30V", "3.33V", "3.36V", "3.39V", "3.42V", "3.45V", "3.48V", "3.51V",
-+	"3.54V", "3.57V", "3.60V", "3.63V", "3.66V", "3.68V", "3.71V", "3.74V"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_spkmon_thresh_enum,
-+			    MAX98388_R2031_SPK_MON_THRESH,
-+			    MAX98388_SPKMON_THRESH_SHIFT,
-+			    max98388_spkmon_thresh_text);
-+
-+static const char * const max98388_spkmon_load_text[] = {
-+	"2.00ohm", "2.25ohm", "2.50ohm", "2.75ohm", "3.00ohm", "3.25ohm",
-+	"3.50ohm", "3.75ohm", "4.00ohm", "4.25ohm", "4.50ohm", "4.75ohm",
-+	"5.00ohm", "5.25ohm", "5.50ohm", "5.75ohm", "6.00ohm", "6.25ohm",
-+	"6.50ohm", "6.75ohm", "7.00ohm", "7.25ohm", "7.50ohm", "7.75ohm",
-+	"8.00ohm", "8.25ohm", "8.50ohm", "8.75ohm", "9.00ohm", "9.25ohm",
-+	"9.50ohm", "9.75ohm", "10.00ohm", "10.25ohm", "10.50ohm", "10.75ohm",
-+	"11.00ohm", "11.25ohm", "11.50ohm", "11.75ohm",	"12.00ohm", "12.25ohm",
-+	"12.50ohm", "12.75ohm", "13.00ohm", "13.25ohm", "13.50ohm", "13.75ohm",
-+	"14.00ohm", "14.25ohm", "14.50ohm", "14.75ohm", "15.00ohm", "15.25ohm",
-+	"15.50ohm", "15.75ohm", "16.00ohm", "16.25ohm", "16.50ohm", "16.75ohm",
-+	"17.00ohm", "17.25ohm", "17.50ohm", "17.75ohm", "18.00ohm", "18.25ohm",
-+	"18.50ohm", "18.75ohm", "19.00ohm", "19.25ohm", "19.50ohm", "19.75ohm",
-+	"20.00ohm", "20.25ohm", "20.50ohm", "20.75ohm", "21.00ohm", "21.25ohm",
-+	"21.50ohm", "21.75ohm",	"22.00ohm", "22.25ohm", "22.50ohm", "22.75ohm",
-+	"23.00ohm", "23.25ohm", "23.50ohm", "23.75ohm",	"24.00ohm", "24.25ohm",
-+	"24.50ohm", "24.75ohm", "25.00ohm", "25.25ohm", "25.50ohm", "25.75ohm",
-+	"26.00ohm", "26.25ohm", "26.50ohm", "26.75ohm", "27.00ohm", "27.25ohm",
-+	"27.50ohm", "27.75ohm",	"28.00ohm", "28.25ohm", "28.50ohm", "28.75ohm",
-+	"29.00ohm", "29.25ohm", "29.50ohm", "29.75ohm",	"30.00ohm", "30.25ohm",
-+	"30.50ohm", "30.75ohm", "31.00ohm", "31.25ohm", "31.50ohm", "31.75ohm",
-+	"32.00ohm", "32.25ohm", "32.50ohm", "32.75ohm", "33.00ohm", "33.25ohm",
-+	"33.50ohm", "33.75ohm"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_spkmon_load_enum,
-+			    MAX98388_R2032_SPK_MON_LD_SEL,
-+			    MAX98388_SPKMON_LOAD_SHIFT,
-+			    max98388_spkmon_load_text);
-+
-+static const char * const max98388_edge_rate_text[] = {
-+	"Normal", "Reduced", "Maximum", "Increased",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_edge_rate_falling_enum,
-+			    MAX98388_R2094_SPK_AMP_ER_CTRL,
-+			    MAX98388_EDGE_RATE_FALL_SHIFT,
-+			    max98388_edge_rate_text);
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_edge_rate_rising_enum,
-+			    MAX98388_R2094_SPK_AMP_ER_CTRL,
-+			    MAX98388_EDGE_RATE_RISE_SHIFT,
-+			    max98388_edge_rate_text);
-+
-+static const char * const max98388_ssm_mod_text[] = {
-+	"1.5%", "3.0%", "4.5%", "6.0%",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(max98388_ssm_mod_enum,
-+			    MAX98388_R2093_SPK_AMP_SSM_CFG,
-+			    MAX98388_SPK_AMP_SSM_MOD_SHIFT,
-+			    max98388_ssm_mod_text);
-+
-+static const struct snd_kcontrol_new max98388_snd_controls[] = {
-+	SOC_SINGLE("Ramp Up Switch", MAX98388_R2091_SPK_CH_CFG,
-+		   MAX98388_SPK_CFG_VOL_RMPUP_SHIFT, 1, 0),
-+	SOC_SINGLE("Ramp Down Switch", MAX98388_R2091_SPK_CH_CFG,
-+		   MAX98388_SPK_CFG_VOL_RMPDN_SHIFT, 1, 0),
-+	/* Two Cell Mode Enable */
-+	SOC_SINGLE("OP Mode Switch", MAX98388_R2092_SPK_AMP_OUT_CFG,
-+		   MAX98388_SPK_AMP_OUT_MODE_SHIFT, 1, 0),
-+	/* Speaker Amplifier Overcurrent Automatic Restart Enable */
-+	SOC_SINGLE("OVC Autorestart Switch", MAX98388_R210E_AUTO_RESTART,
-+		   MAX98388_OVC_AUTORESTART_SHIFT, 1, 0),
-+	/* Thermal Shutdown Automatic Restart Enable */
-+	SOC_SINGLE("THERM Autorestart Switch", MAX98388_R210E_AUTO_RESTART,
-+		   MAX98388_THERM_AUTORESTART_SHIFT, 1, 0),
-+	/* PVDD UVLO Auto Restart */
-+	SOC_SINGLE("UVLO Autorestart Switch", MAX98388_R210E_AUTO_RESTART,
-+		   MAX98388_PVDD_UVLO_AUTORESTART_SHIFT, 1, 0),
-+	/* Clock Monitor Automatic Restart Enable */
-+	SOC_SINGLE("CMON Autorestart Switch", MAX98388_R210E_AUTO_RESTART,
-+		   MAX98388_CMON_AUTORESTART_SHIFT, 1, 0),
-+	SOC_SINGLE("CLK Monitor Switch", MAX98388_R2037_ERR_MON_CTRL,
-+		   MAX98388_CLOCK_MON_SHIFT, 1, 0),
-+	/* Pinknoise Generator Enable */
-+	SOC_SINGLE("Pinknoise Gen Switch", MAX98388_R209E_SPK_CH_PINK_NOISE_EN,
-+		   MAX98388_PINK_NOISE_GEN_SHIFT, 1, 0),
-+	/* Dither Enable */
-+	SOC_SINGLE("Dither Switch", MAX98388_R2091_SPK_CH_CFG,
-+		   MAX98388_SPK_CFG_DITH_EN_SHIFT, 1, 0),
-+	SOC_SINGLE("VI Dither Switch", MAX98388_R20A0_IV_DATA_DSP_CTRL,
-+		   MAX98388_AMP_DSP_CTRL_DITH_SHIFT, 1, 0),
-+	/* DC Blocker Enable */
-+	SOC_SINGLE("DC Blocker Switch", MAX98388_R2091_SPK_CH_CFG,
-+		   MAX98388_SPK_CFG_DCBLK_SHIFT, 1, 0),
-+	SOC_SINGLE("Voltage DC Blocker Switch", MAX98388_R20A0_IV_DATA_DSP_CTRL,
-+		   MAX98388_AMP_DSP_CTRL_VOL_DCBLK_SHIFT, 1, 0),
-+	SOC_SINGLE("Current DC Blocker Switch", MAX98388_R20A0_IV_DATA_DSP_CTRL,
-+		   MAX98388_AMP_DSP_CTRL_CUR_DCBLK_SHIFT, 1, 0),
-+	/* Digital Volume */
-+	SOC_SINGLE_TLV("Digital Volume", MAX98388_R2090_SPK_CH_VOL_CTRL,
-+		       0, 0x7F, 1, max98388_digital_tlv),
-+	/* Speaker Volume */
-+	SOC_SINGLE_TLV("Speaker Volume", MAX98388_R2092_SPK_AMP_OUT_CFG,
-+		       0, 5, 0, max98388_amp_gain_tlv),
-+	SOC_ENUM("Thermal Warn Thresh", max98388_thermal_warning_thresh_enum),
-+	SOC_ENUM("Thermal SHDN Thresh", max98388_thermal_shutdown_thresh_enum),
-+	/* Brownout Protection Automatic Level Control */
-+	SOC_SINGLE("ALC Switch", MAX98388_R20EF_BP_ALC_EN, 0, 1, 0),
-+	SOC_ENUM("ALC Thresh", max98388_alc_thresh_single_enum),
-+	SOC_ENUM("ALC Attack Rate", max98388_alc_attack_rate_enum),
-+	SOC_ENUM("ALC Release Rate", max98388_alc_release_rate_enum),
-+	SOC_ENUM("ALC Max Atten", max98388_alc_max_atten_enum),
-+	SOC_ENUM("ALC Debounce Time", max98388_alc_debouce_enum),
-+	SOC_SINGLE("ALC Unmute Ramp Switch", MAX98388_R20E4_BP_ALC_MUTE,
-+		   MAX98388_ALC_UNMUTE_RAMP_EN_SHIFT, 1, 0),
-+	SOC_SINGLE("ALC Mute Ramp Switch", MAX98388_R20E4_BP_ALC_MUTE,
-+		   MAX98388_ALC_MUTE_RAMP_EN_SHIFT, 1, 0),
-+	SOC_SINGLE("ALC Mute Switch", MAX98388_R20E4_BP_ALC_MUTE,
-+		   MAX98388_ALC_MUTE_EN_SHIFT, 1, 0),
-+	SOC_ENUM("ALC Mute Delay", max98388_alc_mute_delay_enum),
-+	/* Speaker Monitor */
-+	SOC_SINGLE("SPKMON Switch", MAX98388_R2037_ERR_MON_CTRL,
-+		   MAX98388_SPK_MON_SHIFT, 1, 0),
-+	SOC_ENUM("SPKMON Thresh", max98388_spkmon_thresh_enum),
-+	SOC_ENUM("SPKMON Load", max98388_spkmon_load_enum),
-+	SOC_ENUM("SPKMON Duration", max98388_spkmon_duration_enum),
-+	/* General Parameters */
-+	SOC_ENUM("Fall Slew Rate", max98388_edge_rate_falling_enum),
-+	SOC_ENUM("Rise Slew Rate", max98388_edge_rate_rising_enum),
-+	SOC_SINGLE("AMP SSM Switch", MAX98388_R2093_SPK_AMP_SSM_CFG,
-+		   MAX98388_SPK_AMP_SSM_EN_SHIFT, 1, 0),
-+	SOC_ENUM("AMP SSM Mod", max98388_ssm_mod_enum),
-+};
-+
-+static const struct snd_soc_dapm_route max98388_audio_map[] = {
-+	/* Plabyack */
-+	{"DAI Sel Mux", "Left", "Amp Enable"},
-+	{"DAI Sel Mux", "Right", "Amp Enable"},
-+	{"DAI Sel Mux", "LeftRight", "Amp Enable"},
-+	{"BE_OUT", NULL, "DAI Sel Mux"},
-+	/* Capture */
-+	{ "ADC Voltage", NULL, "VMON"},
-+	{ "ADC Current", NULL, "IMON"},
-+	{ "VI Sense", "Switch", "ADC Voltage"},
-+	{ "VI Sense", "Switch", "ADC Current"},
-+	{ "Voltage Sense", NULL, "VI Sense"},
-+	{ "Current Sense", NULL, "VI Sense"},
-+};
-+
-+static void max98388_reset(struct max98388_priv *max98388, struct device *dev)
-+{
-+	int ret, reg, count;
-+
-+	/* Software Reset */
-+	ret = regmap_update_bits(max98388->regmap,
-+				 MAX98388_R2000_SW_RESET,
-+				 MAX98388_SOFT_RESET,
-+				 MAX98388_SOFT_RESET);
-+	if (ret)
-+		dev_err(dev, "Reset command failed. (ret:%d)\n", ret);
-+
-+	count = 0;
-+	while (count < 3) {
-+		usleep_range(10000, 11000);
-+		/* Software Reset Verification */
-+		ret = regmap_read(max98388->regmap,
-+				  MAX98388_R22FF_REV_ID, &reg);
-+		if (!ret) {
-+			dev_info(dev, "Reset completed (retry:%d)\n", count);
-+			return;
-+		}
-+		count++;
-+	}
-+	dev_err(dev, "Reset failed. (ret:%d)\n", ret);
-+}
-+
-+static int max98388_probe(struct snd_soc_component *component)
-+{
-+	struct max98388_priv *max98388 = snd_soc_component_get_drvdata(component);
-+
-+	/* Software Reset */
-+	max98388_reset(max98388, component->dev);
-+
-+	/* General channel source configuration */
-+	regmap_write(max98388->regmap,
-+		     MAX98388_R2059_PCM_RX_SRC2,
-+		     0x10);
-+
-+	/* Enable DC blocker */
-+	regmap_write(max98388->regmap,
-+		     MAX98388_R2091_SPK_CH_CFG,
-+		     0x1);
-+	/* Enable IMON VMON DC blocker */
-+	regmap_write(max98388->regmap,
-+		     MAX98388_R20A0_IV_DATA_DSP_CTRL,
-+		     0x3);
-+	/* TX slot configuration */
-+	regmap_write(max98388->regmap,
-+		     MAX98388_R2044_PCM_TX_CTRL1,
-+		     max98388->v_slot);
-+
-+	regmap_write(max98388->regmap,
-+		     MAX98388_R2045_PCM_TX_CTRL2,
-+		     max98388->i_slot);
-+	/* Enable Auto-restart behavior by default */
-+	regmap_write(max98388->regmap,
-+		     MAX98388_R210E_AUTO_RESTART, 0xF);
-+	/* Set interleave mode */
-+	if (max98388->interleave_mode)
-+		regmap_update_bits(max98388->regmap,
-+				   MAX98388_R2040_PCM_MODE_CFG,
-+				   MAX98388_PCM_TX_CH_INTERLEAVE_MASK,
-+				   MAX98388_PCM_TX_CH_INTERLEAVE_MASK);
-+
-+	/* Speaker Amplifier Channel Enable */
-+	regmap_update_bits(max98388->regmap,
-+			   MAX98388_R209F_SPK_CH_AMP_EN,
-+			   MAX98388_SPK_EN_MASK, 1);
-+
-+	return 0;
-+}
-+
-+static int max98388_dai_set_fmt(struct snd_soc_dai *codec_dai,
-+				unsigned int fmt)
-+{
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct max98388_priv *max98388 = snd_soc_component_get_drvdata(component);
-+	unsigned int format = 0;
-+	unsigned int invert = 0;
-+
-+	dev_dbg(component->dev, "%s: fmt 0x%08X\n", __func__, fmt);
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_NF:
-+		break;
-+	case SND_SOC_DAIFMT_IB_NF:
-+		invert = MAX98388_PCM_MODE_CFG_PCM_BCLKEDGE;
-+		break;
-+	default:
-+		dev_err(component->dev, "DAI invert mode unsupported\n");
-+		return -EINVAL;
-+	}
-+
-+	regmap_update_bits(max98388->regmap,
-+			   MAX98388_R2041_PCM_CLK_SETUP,
-+			   MAX98388_PCM_MODE_CFG_PCM_BCLKEDGE,
-+			   invert);
-+
-+	/* interface format */
-+	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-+	case SND_SOC_DAIFMT_I2S:
-+		format = MAX98388_PCM_FORMAT_I2S;
-+		break;
-+	case SND_SOC_DAIFMT_LEFT_J:
-+		format = MAX98388_PCM_FORMAT_LJ;
-+		break;
-+	case SND_SOC_DAIFMT_DSP_A:
-+		format = MAX98388_PCM_FORMAT_TDM_MODE1;
-+		break;
-+	case SND_SOC_DAIFMT_DSP_B:
-+		format = MAX98388_PCM_FORMAT_TDM_MODE0;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	regmap_update_bits(max98388->regmap,
-+			   MAX98388_R2040_PCM_MODE_CFG,
-+			   MAX98388_PCM_MODE_CFG_FORMAT_MASK,
-+			   format << MAX98388_PCM_MODE_CFG_FORMAT_SHIFT);
-+
-+	return 0;
-+}
-+
-+/* BCLKs per LRCLK */
-+static const int bclk_sel_table[] = {
-+	32, 48, 64, 96, 128, 192, 256, 384, 512, 320,
-+};
-+
-+static int max98388_get_bclk_sel(int bclk)
-+{
-+	int i;
-+	/* match BCLKs per LRCLK */
-+	for (i = 0; i < ARRAY_SIZE(bclk_sel_table); i++) {
-+		if (bclk_sel_table[i] == bclk)
-+			return i + 2;
-+	}
-+	return 0;
-+}
-+
-+static int max98388_set_clock(struct snd_soc_component *component,
-+			      struct snd_pcm_hw_params *params)
-+{
-+	struct max98388_priv *max98388 = snd_soc_component_get_drvdata(component);
-+	/* BCLK/LRCLK ratio calculation */
-+	int blr_clk_ratio = params_channels(params) * max98388->ch_size;
-+	int value;
-+
-+	if (!max98388->tdm_mode) {
-+		/* BCLK configuration */
-+		value = max98388_get_bclk_sel(blr_clk_ratio);
-+		if (!value) {
-+			dev_err(component->dev, "format unsupported %d\n",
-+				params_format(params));
-+			return -EINVAL;
-+		}
-+
-+		regmap_update_bits(max98388->regmap,
-+				   MAX98388_R2041_PCM_CLK_SETUP,
-+				   MAX98388_PCM_CLK_SETUP_BSEL_MASK,
-+				   value);
-+	}
-+	return 0;
-+}
-+
-+static int max98388_dai_hw_params(struct snd_pcm_substream *substream,
-+				  struct snd_pcm_hw_params *params,
-+				  struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct max98388_priv *max98388 = snd_soc_component_get_drvdata(component);
-+	unsigned int sampling_rate = 0;
-+	unsigned int chan_sz = 0;
-+	int ret, reg;
-+	int status = 0;
-+
-+	/* pcm mode configuration */
-+	switch (snd_pcm_format_width(params_format(params))) {
-+	case 16:
-+		chan_sz = MAX98388_PCM_MODE_CFG_CHANSZ_16;
-+		break;
-+	case 24:
-+		chan_sz = MAX98388_PCM_MODE_CFG_CHANSZ_24;
-+		break;
-+	case 32:
-+		chan_sz = MAX98388_PCM_MODE_CFG_CHANSZ_32;
-+		break;
-+	default:
-+		dev_err(component->dev, "format unsupported %d\n",
-+			params_format(params));
-+		goto err;
-+	}
-+
-+	max98388->ch_size = snd_pcm_format_width(params_format(params));
-+
-+	ret = regmap_read(max98388->regmap,
-+			  MAX98388_R2040_PCM_MODE_CFG, &reg);
-+	if (ret < 0)
-+		goto err;
-+
-+	/* GLOBAL_EN OFF prior to the channel size re-configure */
-+	if (chan_sz != (reg & MAX98388_PCM_MODE_CFG_CHANSZ_MASK))	{
-+		ret = regmap_read(max98388->regmap,
-+				  MAX98388_R210F_GLOBAL_EN, &status);
-+		if (ret < 0)
-+			goto err;
-+
-+		if (status) {
-+			regmap_write(max98388->regmap,
-+				     MAX98388_R210F_GLOBAL_EN, 0);
-+			usleep_range(30000, 31000);
-+		}
-+		regmap_update_bits(max98388->regmap,
-+				   MAX98388_R2040_PCM_MODE_CFG,
-+				   MAX98388_PCM_MODE_CFG_CHANSZ_MASK, chan_sz);
-+	}
-+	dev_dbg(component->dev, "format supported %d",
-+		params_format(params));
-+
-+	/* sampling rate configuration */
-+	switch (params_rate(params)) {
-+	case 8000:
-+		sampling_rate = MAX98388_PCM_SR_8000;
-+		break;
-+	case 11025:
-+		sampling_rate = MAX98388_PCM_SR_11025;
-+		break;
-+	case 12000:
-+		sampling_rate = MAX98388_PCM_SR_12000;
-+		break;
-+	case 16000:
-+		sampling_rate = MAX98388_PCM_SR_16000;
-+		break;
-+	case 22050:
-+		sampling_rate = MAX98388_PCM_SR_22050;
-+		break;
-+	case 24000:
-+		sampling_rate = MAX98388_PCM_SR_24000;
-+		break;
-+	case 32000:
-+		sampling_rate = MAX98388_PCM_SR_32000;
-+		break;
-+	case 44100:
-+		sampling_rate = MAX98388_PCM_SR_44100;
-+		break;
-+	case 48000:
-+		sampling_rate = MAX98388_PCM_SR_48000;
-+		break;
-+	case 88200:
-+		sampling_rate = MAX98388_PCM_SR_88200;
-+		break;
-+	case 96000:
-+		sampling_rate = MAX98388_PCM_SR_96000;
-+		break;
-+	default:
-+		dev_err(component->dev, "rate %d not supported\n",
-+			params_rate(params));
-+		goto err;
-+	}
-+
-+	/* set DAI_SR to correct LRCLK frequency */
-+	regmap_update_bits(max98388->regmap,
-+			   MAX98388_R2042_PCM_SR_SETUP,
-+			   MAX98388_PCM_SR_MASK,
-+			   sampling_rate);
-+
-+	/* set sampling rate of IV */
-+	if (max98388->interleave_mode &&
-+	    sampling_rate > MAX98388_PCM_SR_16000)
-+		regmap_update_bits(max98388->regmap,
-+				   MAX98388_R2042_PCM_SR_SETUP,
-+				   MAX98388_PCM_SR_IV_MASK,
-+				   (sampling_rate - 3) << MAX98388_PCM_SR_IV_SHIFT);
-+	else
-+		regmap_update_bits(max98388->regmap,
-+				   MAX98388_R2042_PCM_SR_SETUP,
-+				   MAX98388_PCM_SR_IV_MASK,
-+				   sampling_rate << MAX98388_PCM_SR_IV_SHIFT);
-+
-+	ret = max98388_set_clock(component, params);
-+
-+	if (status) {
-+		regmap_write(max98388->regmap,
-+			     MAX98388_R210F_GLOBAL_EN, 1);
-+		usleep_range(30000, 31000);
-+	}
-+
-+	return ret;
-+
-+err:
-+	return -EINVAL;
-+}
-+
-+#define MAX_NUM_SLOTS 16
-+#define MAX_NUM_CH 2
-+
-+static int max98388_dai_tdm_slot(struct snd_soc_dai *dai,
-+				 unsigned int tx_mask, unsigned int rx_mask,
-+				 int slots, int slot_width)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct max98388_priv *max98388 = snd_soc_component_get_drvdata(component);
-+	int bsel = 0;
-+	unsigned int chan_sz = 0;
-+	unsigned int mask;
-+	int cnt, slot_found;
-+	int addr, bits;
-+
-+	if (!tx_mask && !rx_mask && !slots && !slot_width)
-+		max98388->tdm_mode = false;
-+	else
-+		max98388->tdm_mode = true;
-+
-+	/* BCLK configuration */
-+	bsel = max98388_get_bclk_sel(slots * slot_width);
-+	if (bsel == 0) {
-+		dev_err(component->dev, "BCLK %d not supported\n",
-+			slots * slot_width);
-+		return -EINVAL;
-+	}
-+
-+	regmap_update_bits(max98388->regmap,
-+			   MAX98388_R2041_PCM_CLK_SETUP,
-+			   MAX98388_PCM_CLK_SETUP_BSEL_MASK,
-+			   bsel);
-+
-+	/* Channel size configuration */
-+	switch (slot_width) {
-+	case 16:
-+		chan_sz = MAX98388_PCM_MODE_CFG_CHANSZ_16;
-+		break;
-+	case 24:
-+		chan_sz = MAX98388_PCM_MODE_CFG_CHANSZ_24;
-+		break;
-+	case 32:
-+		chan_sz = MAX98388_PCM_MODE_CFG_CHANSZ_32;
-+		break;
-+	default:
-+		dev_err(component->dev, "format unsupported %d\n",
-+			slot_width);
-+		return -EINVAL;
-+	}
-+
-+	regmap_update_bits(max98388->regmap,
-+			   MAX98388_R2040_PCM_MODE_CFG,
-+			   MAX98388_PCM_MODE_CFG_CHANSZ_MASK, chan_sz);
-+
-+	/* Rx slot configuration */
-+	slot_found = 0;
-+	mask = rx_mask;
-+	for (cnt = 0 ; cnt < MAX_NUM_SLOTS ; cnt++, mask >>= 1) {
-+		if (mask & 0x1) {
-+			if (slot_found == 0)
-+				regmap_update_bits(max98388->regmap,
-+						   MAX98388_R2059_PCM_RX_SRC2,
-+						   MAX98388_RX_SRC_CH0_SHIFT,
-+						   cnt);
-+			else
-+				regmap_update_bits(max98388->regmap,
-+						   MAX98388_R2059_PCM_RX_SRC2,
-+						   MAX98388_RX_SRC_CH1_SHIFT,
-+						   cnt);
-+			slot_found++;
-+			if (slot_found >= MAX_NUM_CH)
-+				break;
-+		}
-+	}
-+
-+	/* speaker feedback slot configuration */
-+	slot_found = 0;
-+	mask = tx_mask;
-+	for (cnt = 0 ; cnt < MAX_NUM_SLOTS ; cnt++, mask >>= 1) {
-+		if (mask & 0x1) {
-+			addr = MAX98388_R2044_PCM_TX_CTRL1 + (cnt / 8);
-+			bits = cnt % 8;
-+			regmap_update_bits(max98388->regmap, addr, bits, bits);
-+			if (slot_found >= MAX_NUM_CH)
-+				break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+#define MAX98388_RATES SNDRV_PCM_RATE_8000_96000
-+
-+#define MAX98388_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \
-+	SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
-+
-+static const struct snd_soc_dai_ops max98388_dai_ops = {
-+	.set_fmt = max98388_dai_set_fmt,
-+	.hw_params = max98388_dai_hw_params,
-+	.set_tdm_slot = max98388_dai_tdm_slot,
-+};
-+
-+static bool max98388_readable_register(struct device *dev,
-+				       unsigned int reg)
-+{
-+	switch (reg) {
-+	case MAX98388_R2001_INT_RAW1 ... MAX98388_R2002_INT_RAW2:
-+	case MAX98388_R2004_INT_STATE1... MAX98388_R2005_INT_STATE2:
-+	case MAX98388_R2020_THERM_WARN_THRESH:
-+	case MAX98388_R2031_SPK_MON_THRESH
-+		... MAX98388_R2033_SPK_MON_DURATION:
-+	case MAX98388_R2037_ERR_MON_CTRL:
-+	case MAX98388_R2040_PCM_MODE_CFG
-+		... MAX98388_R2042_PCM_SR_SETUP:
-+	case MAX98388_R2044_PCM_TX_CTRL1
-+		... MAX98388_R2045_PCM_TX_CTRL2:
-+	case MAX98388_R2050_PCM_TX_HIZ_CTRL1
-+		... MAX98388_R2059_PCM_RX_SRC2:
-+	case MAX98388_R205C_PCM_TX_DRIVE_STRENGTH
-+		... MAX98388_R205F_PCM_TX_EN:
-+	case MAX98388_R2090_SPK_CH_VOL_CTRL
-+		... MAX98388_R2094_SPK_AMP_ER_CTRL:
-+	case MAX98388_R209E_SPK_CH_PINK_NOISE_EN
-+		... MAX98388_R209F_SPK_CH_AMP_EN:
-+	case MAX98388_R20A0_IV_DATA_DSP_CTRL:
-+	case MAX98388_R20A7_IV_DATA_EN:
-+	case MAX98388_R20E0_BP_ALC_THRESH ... MAX98388_R20E4_BP_ALC_MUTE:
-+	case MAX98388_R20EE_BP_INF_HOLD_REL ... MAX98388_R20EF_BP_ALC_EN:
-+	case MAX98388_R210E_AUTO_RESTART:
-+	case MAX98388_R210F_GLOBAL_EN:
-+	case MAX98388_R22FF_REV_ID:
-+		return true;
-+	default:
-+		return false;
-+	}
-+};
-+
-+static bool max98388_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case MAX98388_R2001_INT_RAW1 ... MAX98388_R2005_INT_STATE2:
-+	case MAX98388_R210F_GLOBAL_EN:
-+	case MAX98388_R22FF_REV_ID:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static struct snd_soc_dai_driver max98388_dai[] = {
-+	{
-+		.name = "max98388-aif1",
-+		.playback = {
-+			.stream_name = "HiFi Playback",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = MAX98388_RATES,
-+			.formats = MAX98388_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name = "HiFi Capture",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = MAX98388_RATES,
-+			.formats = MAX98388_FORMATS,
-+		},
-+		.ops = &max98388_dai_ops,
-+	}
-+};
-+
-+#ifdef CONFIG_PM_SLEEP
-+static int max98388_suspend(struct device *dev)
-+{
-+	struct max98388_priv *max98388 = dev_get_drvdata(dev);
-+
-+	regcache_cache_only(max98388->regmap, true);
-+	regcache_mark_dirty(max98388->regmap);
-+
-+	return 0;
-+}
-+
-+static int max98388_resume(struct device *dev)
-+{
-+	struct max98388_priv *max98388 = dev_get_drvdata(dev);
-+
-+	regcache_cache_only(max98388->regmap, false);
-+	max98388_reset(max98388, dev);
-+	regcache_sync(max98388->regmap);
-+
-+	return 0;
-+}
-+#endif
-+
-+static const struct dev_pm_ops max98388_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(max98388_suspend, max98388_resume)
-+};
-+
-+static const struct regmap_config max98388_regmap = {
-+	.reg_bits = 16,
-+	.val_bits = 8,
-+	.max_register = MAX98388_R22FF_REV_ID,
-+	.reg_defaults  = max98388_reg,
-+	.num_reg_defaults = ARRAY_SIZE(max98388_reg),
-+	.readable_reg = max98388_readable_register,
-+	.volatile_reg = max98388_volatile_reg,
-+	.cache_type = REGCACHE_RBTREE,
-+};
-+
-+const struct snd_soc_component_driver soc_codec_dev_max98388 = {
-+	.probe			= max98388_probe,
-+	.controls		= max98388_snd_controls,
-+	.num_controls		= ARRAY_SIZE(max98388_snd_controls),
-+	.dapm_widgets		= max98388_dapm_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(max98388_dapm_widgets),
-+	.dapm_routes		= max98388_audio_map,
-+	.num_dapm_routes	= ARRAY_SIZE(max98388_audio_map),
-+	.use_pmdown_time	= 1,
-+	.endianness		= 1,
-+};
-+
-+static void max98388_read_deveice_property(struct device *dev,
-+					   struct max98388_priv *max98388)
-+{
-+	int value;
-+
-+	if (!device_property_read_u32(dev, "adi,vmon-slot-no", &value))
-+		max98388->v_slot = value & 0xF;
-+	else
-+		max98388->v_slot = 0;
-+
-+	if (!device_property_read_u32(dev, "adi,imon-slot-no", &value))
-+		max98388->i_slot = value & 0xF;
-+	else
-+		max98388->i_slot = 1;
-+
-+	if (device_property_read_bool(dev, "adi,interleave-mode"))
-+		max98388->interleave_mode = true;
-+	else
-+		max98388->interleave_mode = false;
-+
-+	if (dev->of_node) {
-+		max98388->reset_gpio = of_get_named_gpio(dev->of_node,
-+							 "reset-gpio", 0);
-+		if (!gpio_is_valid(max98388->reset_gpio)) {
-+			dev_err(dev, "Looking up %s property in node %s failed %d\n",
-+				"reset-gpio", dev->of_node->full_name,
-+				max98388->reset_gpio);
-+		} else {
-+			dev_dbg(dev, "reset-gpio=%d",
-+				max98388->reset_gpio);
-+		}
-+	} else {
-+		/* this makes reset_gpio as invalid */
-+		max98388->reset_gpio = -1;
-+	}
-+}
-+
-+static int max98388_i2c_probe(struct i2c_client *i2c)
-+{
-+	int ret = 0;
-+	int reg = 0;
-+
-+	struct max98388_priv *max98388 = NULL;
-+
-+	max98388 = devm_kzalloc(&i2c->dev, sizeof(*max98388), GFP_KERNEL);
-+
-+	if (!max98388) {
-+		ret = -ENOMEM;
-+		return ret;
-+	}
-+	i2c_set_clientdata(i2c, max98388);
-+
-+	/* regmap initialization */
-+	max98388->regmap = devm_regmap_init_i2c(i2c, &max98388_regmap);
-+	if (IS_ERR(max98388->regmap)) {
-+		ret = PTR_ERR(max98388->regmap);
-+		dev_err(&i2c->dev,
-+			"Failed to allocate regmap: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* voltage/current slot & gpio configuration */
-+	max98388_read_deveice_property(&i2c->dev, max98388);
-+
-+	/* Power on device */
-+	if (gpio_is_valid(max98388->reset_gpio)) {
-+		ret = devm_gpio_request(&i2c->dev, max98388->reset_gpio,
-+					"MAX98388_RESET");
-+		if (ret) {
-+			dev_err(&i2c->dev, "%s: Failed to request gpio %d\n",
-+				__func__, max98388->reset_gpio);
-+			return -EINVAL;
-+		}
-+		gpio_direction_output(max98388->reset_gpio, 0);
-+		msleep(50);
-+		gpio_direction_output(max98388->reset_gpio, 1);
-+		msleep(20);
-+	}
-+
-+	/* Read Revision ID */
-+	ret = regmap_read(max98388->regmap,
-+			  MAX98388_R22FF_REV_ID, &reg);
-+	if (ret < 0) {
-+		dev_err(&i2c->dev,
-+			"Failed to read: 0x%02X\n", MAX98388_R22FF_REV_ID);
-+		return ret;
-+	}
-+	dev_info(&i2c->dev, "MAX98388 revisionID: 0x%02X\n", reg);
-+
-+	/* codec registration */
-+	ret = devm_snd_soc_register_component(&i2c->dev,
-+					      &soc_codec_dev_max98388,
-+					      max98388_dai,
-+					      ARRAY_SIZE(max98388_dai));
-+	if (ret < 0)
-+		dev_err(&i2c->dev, "Failed to register codec: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static const struct i2c_device_id max98388_i2c_id[] = {
-+	{ "max98388", 0},
-+	{ },
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, max98388_i2c_id);
-+
-+#if defined(CONFIG_OF)
-+static const struct of_device_id max98388_of_match[] = {
-+	{ .compatible = "adi,max98388", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, max98388_of_match);
-+#endif
-+
-+#ifdef CONFIG_ACPI
-+static const struct acpi_device_id max98388_acpi_match[] = {
-+	{ "ADS8388", 0 },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(acpi, max98388_acpi_match);
-+#endif
-+
-+static struct i2c_driver max98388_i2c_driver = {
-+	.driver = {
-+		.name = "max98388",
-+		.of_match_table = of_match_ptr(max98388_of_match),
-+		.acpi_match_table = ACPI_PTR(max98388_acpi_match),
-+		.pm = &max98388_pm,
-+	},
-+	.probe = max98388_i2c_probe,
-+	.id_table = max98388_i2c_id,
-+};
-+
-+module_i2c_driver(max98388_i2c_driver)
-+
-+MODULE_DESCRIPTION("ALSA SoC MAX98388 driver");
-+MODULE_AUTHOR("Ryan Lee <ryans.lee@analog.com>");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/max98388.h b/sound/soc/codecs/max98388.h
-new file mode 100644
-index 000000000000..74f8c86381ac
---- /dev/null
-+++ b/sound/soc/codecs/max98388.h
-@@ -0,0 +1,234 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * max98388.h -- MAX98388 ALSA SoC audio driver header
-+ *
-+ * Copyright(c) 2022, Analog Devices Inc.
-+ */
-+
-+#ifndef _MAX98388_H
-+#define _MAX98388_H
-+
-+/* Device Status Registers */
-+#define MAX98388_R2000_SW_RESET			0x2000
-+#define MAX98388_R2001_INT_RAW1			0x2001
-+#define MAX98388_R2002_INT_RAW2			0x2002
-+#define MAX98388_R2004_INT_STATE1		0x2004
-+#define MAX98388_R2005_INT_STATE2		0x2005
-+/* Thermal Protection Registers */
-+#define MAX98388_R2020_THERM_WARN_THRESH	0x2020
-+/* Error Monitor */
-+#define MAX98388_R2031_SPK_MON_THRESH		0x2031
-+#define MAX98388_R2032_SPK_MON_LD_SEL		0x2032
-+#define MAX98388_R2033_SPK_MON_DURATION		0x2033
-+#define MAX98388_R2037_ERR_MON_CTRL		0x2037
-+/* PCM Registers */
-+#define MAX98388_R2040_PCM_MODE_CFG		0x2040
-+#define MAX98388_R2041_PCM_CLK_SETUP		0x2041
-+#define MAX98388_R2042_PCM_SR_SETUP		0x2042
-+#define MAX98388_R2044_PCM_TX_CTRL1		0x2044
-+#define MAX98388_R2045_PCM_TX_CTRL2		0x2045
-+#define MAX98388_R2050_PCM_TX_HIZ_CTRL1		0x2050
-+#define MAX98388_R2051_PCM_TX_HIZ_CTRL2		0x2051
-+#define MAX98388_R2052_PCM_TX_HIZ_CTRL3		0x2052
-+#define MAX98388_R2053_PCM_TX_HIZ_CTRL4		0x2053
-+#define MAX98388_R2054_PCM_TX_HIZ_CTRL5		0x2054
-+#define MAX98388_R2055_PCM_TX_HIZ_CTRL6		0x2055
-+#define MAX98388_R2056_PCM_TX_HIZ_CTRL7		0x2056
-+#define MAX98388_R2057_PCM_TX_HIZ_CTRL8		0x2057
-+#define MAX98388_R2058_PCM_RX_SRC1		0x2058
-+#define MAX98388_R2059_PCM_RX_SRC2		0x2059
-+#define MAX98388_R205C_PCM_TX_DRIVE_STRENGTH	0x205C
-+#define MAX98388_R205D_PCM_TX_SRC_EN		0x205D
-+#define MAX98388_R205E_PCM_RX_EN		0x205E
-+#define MAX98388_R205F_PCM_TX_EN		0x205F
-+/* Speaker Channel Control */
-+#define MAX98388_R2090_SPK_CH_VOL_CTRL		0x2090
-+#define MAX98388_R2091_SPK_CH_CFG		0x2091
-+#define MAX98388_R2092_SPK_AMP_OUT_CFG		0x2092
-+#define MAX98388_R2093_SPK_AMP_SSM_CFG		0x2093
-+#define MAX98388_R2094_SPK_AMP_ER_CTRL		0x2094
-+#define MAX98388_R209E_SPK_CH_PINK_NOISE_EN	0x209E
-+#define MAX98388_R209F_SPK_CH_AMP_EN		0x209F
-+#define MAX98388_R20A0_IV_DATA_DSP_CTRL		0x20A0
-+#define MAX98388_R20A7_IV_DATA_EN		0x20A7
-+#define MAX98388_R20E0_BP_ALC_THRESH		0x20E0
-+#define MAX98388_R20E1_BP_ALC_RATES		0x20E1
-+#define MAX98388_R20E2_BP_ALC_ATTEN		0x20E2
-+#define MAX98388_R20E3_BP_ALC_REL		0x20E3
-+#define MAX98388_R20E4_BP_ALC_MUTE		0x20E4
-+#define MAX98388_R20EE_BP_INF_HOLD_REL		0x20EE
-+#define MAX98388_R20EF_BP_ALC_EN		0x20EF
-+#define MAX98388_R210E_AUTO_RESTART		0x210E
-+#define MAX98388_R210F_GLOBAL_EN		0x210F
-+#define MAX98388_R22FF_REV_ID			0x22FF
-+
-+/* MAX98388_R2000_SW_RESET */
-+#define MAX98388_SOFT_RESET			(0x1 << 0)
-+
-+/* MAX98388_R2020_THERM_WARN_THRESH */
-+#define MAX98388_THERM_SHDN_THRESH_SHIFT	(0)
-+#define MAX98388_THERM_WARN_THRESH_SHIFT	(2)
-+
-+/* MAX98388_R2022_PCM_TX_SRC_1 */
-+#define MAX98388_PCM_TX_CH_SRC_A_V_SHIFT	(0)
-+#define MAX98388_PCM_TX_CH_SRC_A_I_SHIFT	(4)
-+
-+/* MAX98388_R2024_PCM_DATA_FMT_CFG */
-+#define MAX98388_PCM_MODE_CFG_FORMAT_MASK	(0x7 << 3)
-+#define MAX98388_PCM_MODE_CFG_FORMAT_SHIFT	(3)
-+#define MAX98388_PCM_TX_CH_INTERLEAVE_MASK	(0x1 << 2)
-+#define MAX98388_PCM_FORMAT_I2S			(0x0 << 0)
-+#define MAX98388_PCM_FORMAT_LJ			(0x1 << 0)
-+#define MAX98388_PCM_FORMAT_TDM_MODE0		(0x3 << 0)
-+#define MAX98388_PCM_FORMAT_TDM_MODE1		(0x4 << 0)
-+#define MAX98388_PCM_FORMAT_TDM_MODE2		(0x5 << 0)
-+#define MAX98388_PCM_MODE_CFG_CHANSZ_MASK	(0x3 << 6)
-+#define MAX98388_PCM_MODE_CFG_CHANSZ_16		(0x1 << 6)
-+#define MAX98388_PCM_MODE_CFG_CHANSZ_24		(0x2 << 6)
-+#define MAX98388_PCM_MODE_CFG_CHANSZ_32		(0x3 << 6)
-+
-+/* MAX98388_R2031_SPK_MON_THRESH */
-+#define MAX98388_SPKMON_THRESH_SHIFT		(0)
-+
-+/* MAX98388_R2032_SPK_MON_LD_SEL */
-+#define MAX98388_SPKMON_LOAD_SHIFT		(0)
-+
-+/* MAX98388_R2033_SPK_MON_DURATION */
-+#define MAX98388_SPKMON_DURATION_SHIFT		(0)
-+
-+/* MAX98388_R2037_ERR_MON_CTRL */
-+#define MAX98388_CLOCK_MON_SHIFT		(0)
-+#define MAX98388_SPK_MON_SHIFT			(1)
-+
-+/* MAX98388_R203E_AMP_PATH_GAIN */
-+#define MAX98388_SPK_DIGI_GAIN_MASK		(0xF << 4)
-+#define MAX98388_SPK_DIGI_GAIN_SHIFT		(4)
-+#define MAX98388_FS_GAIN_MAX_MASK		(0xF << 0)
-+#define MAX98388_FS_GAIN_MAX_SHIFT		(0)
-+
-+/* MAX98388_R2041_PCM_CLK_SETUP */
-+#define MAX98388_PCM_MODE_CFG_PCM_BCLKEDGE	(0x1 << 4)
-+#define MAX98388_PCM_CLK_SETUP_BSEL_MASK	(0xF << 0)
-+
-+/* MAX98388_R2042_PCM_SR_SETUP */
-+#define MAX98388_PCM_SR_MASK			(0xF << 0)
-+#define MAX98388_PCM_SR_IV_MASK			(0xF << 4)
-+#define MAX98388_PCM_SR_IV_SHIFT			(4)
-+#define MAX98388_PCM_SR_8000			(0x0 << 0)
-+#define MAX98388_PCM_SR_11025			(0x1 << 0)
-+#define MAX98388_PCM_SR_12000			(0x2 << 0)
-+#define MAX98388_PCM_SR_16000			(0x3 << 0)
-+#define MAX98388_PCM_SR_22050			(0x4 << 0)
-+#define MAX98388_PCM_SR_24000			(0x5 << 0)
-+#define MAX98388_PCM_SR_32000			(0x6 << 0)
-+#define MAX98388_PCM_SR_44100			(0x7 << 0)
-+#define MAX98388_PCM_SR_48000			(0x8 << 0)
-+#define MAX98388_PCM_SR_88200			(0x9 << 0)
-+#define MAX98388_PCM_SR_96000			(0xA << 0)
-+
-+/* MAX98388_R2043_AMP_EN */
-+#define MAX98388_SPK_EN_MASK			(0x1 << 0)
-+#define MAX98388_SPKFB_EN_MASK			(0x1 << 1)
-+#define MAX98388_SPKFB_EN_SHIFT			(1)
-+
-+/* MAX98388_R2052_MEAS_ADC_PVDD_FLT_CFG */
-+#define MAX98388_FLT_EN_SHIFT			(4)
-+
-+/* MAX98388_R2058_PCM_RX_SRC1 */
-+#define MAX98388_PCM_TO_SPK_MONOMIX_CFG_SHIFT	(0)
-+
-+/* MAX98388_R2059_PCM_RX_SRC2 */
-+#define MAX98388_RX_SRC_CH0_SHIFT		(0)
-+#define MAX98388_RX_SRC_CH1_SHIFT		(4)
-+
-+/* MAX98388_R2091_SPK_CH_CFG */
-+#define MAX98388_SPK_CFG_DCBLK_SHIFT		(0)
-+#define MAX98388_SPK_CFG_DITH_EN_SHIFT		(1)
-+#define MAX98388_SPK_CFG_INV_SHIFT		(2)
-+#define MAX98388_SPK_CFG_VOL_RMPUP_SHIFT	(3)
-+#define MAX98388_SPK_CFG_VOL_RMPDN_SHIFT	(4)
-+
-+/* MAX98388_R2092_SPK_AMP_OUT_CFG */
-+#define MAX98388_SPK_AMP_OUT_GAIN_SHIFT		(0)
-+#define MAX98388_SPK_AMP_OUT_MODE_SHIFT		(3)
-+
-+/* MAX98388_R2093_SPK_AMP_SSM_CFG */
-+#define MAX98388_SPK_AMP_SSM_EN_SHIFT		(0)
-+#define MAX98388_SPK_AMP_SSM_MOD_SHIFT		(1)
-+
-+/* MAX98388_R2094_SPK_AMP_ER_CTRL */
-+#define MAX98388_EDGE_RATE_RISE_SHIFT		(0)
-+#define MAX98388_EDGE_RATE_FALL_SHIFT		(2)
-+
-+/* MAX98388_R209E_SPK_CH_PINK_NOISE_EN */
-+#define MAX98388_PINK_NOISE_GEN_SHIFT		(0)
-+
-+/* MAX98388_R20A0_IV_DATA_DSP_CTRL */
-+#define MAX98388_AMP_DSP_CTRL_VOL_DCBLK_SHIFT	(0)
-+#define MAX98388_AMP_DSP_CTRL_CUR_DCBLK_SHIFT	(1)
-+#define MAX98388_AMP_DSP_CTRL_VOL_INV_SHIFT	(2)
-+#define MAX98388_AMP_DSP_CTRL_CUR_INV_SHIFT	(3)
-+#define MAX98388_AMP_DSP_CTRL_DITH_SHIFT	(4)
-+
-+/* MAX98388_R20B2_BDE_L4_CFG_2 */
-+#define MAX98388_LVL4_HOLD_EN_SHIFT		(6)
-+#define MAX98388_LVL4_MUTE_EN_SHIFT		(7)
-+
-+/* MAX98388_R20B5_BDE_EN */
-+#define MAX98388_BDE_EN_SHIFT			(0)
-+
-+/* MAX98388_R20D1_DHT_CFG */
-+#define MAX98388_DHT_ROT_PNT_SHIFT		(0)
-+#define MAX98388_DHT_SPK_GAIN_MIN_SHIFT		(4)
-+
-+/* MAX98388_R20D2_DHT_ATTACK_CFG */
-+#define MAX98388_DHT_ATTACK_RATE_SHIFT		(0)
-+#define MAX98388_DHT_ATTACK_STEP_SHIFT		(3)
-+
-+/* MAX98388_R20D3_DHT_RELEASE_CFG */
-+#define MAX98388_DHT_RELEASE_RATE_SHIFT		(0)
-+#define MAX98388_DHT_RELEASE_STEP_SHIFT		(3)
-+
-+/* MAX98388_R20D4_DHT_EN */
-+#define MAX98388_DHT_EN_SHIFT			(0)
-+
-+/* MAX98388_R20E0_BP_ALC_THRESH */
-+#define MAX98388_ALC_THRESH_SHIFT		(0)
-+
-+/* MAX98388_R20E1_BP_ALC_RATES */
-+#define MAX98388_ALC_RELEASE_RATE_SHIFT		(0)
-+#define MAX98388_ALC_ATTACK_RATE_SHIFT		(4)
-+
-+/* MAX98388_R20E2_BP_ALC_ATTEN */
-+#define MAX98388_ALC_MAX_ATTEN_SHIFT		(0)
-+
-+/* MAX98388_R20E3_BP_ALC_REL */
-+#define MAX98388_ALC_DEBOUNCE_TIME_SHIFT	(0)
-+
-+/* MAX98388_R20E4_BP_ALC_MUTE */
-+#define MAX98388_ALC_MUTE_EN_SHIFT		(0)
-+#define MAX98388_ALC_MUTE_DELAY_SHIFT		(1)
-+#define MAX98388_ALC_MUTE_RAMP_EN_SHIFT		(4)
-+#define MAX98388_ALC_UNMUTE_RAMP_EN_SHIFT	(5)
-+
-+/* MAX98388_R210E_AUTO_RESTART */
-+#define MAX98388_PVDD_UVLO_AUTORESTART_SHIFT	(0)
-+#define MAX98388_THERM_AUTORESTART_SHIFT	(1)
-+#define MAX98388_OVC_AUTORESTART_SHIFT		(2)
-+#define MAX98388_CMON_AUTORESTART_SHIFT		(3)
-+
-+/* MAX98388_R210F_GLOBAL_EN */
-+#define MAX98388_GLOBAL_EN_MASK			(0x1 << 0)
-+
-+struct max98388_priv {
-+	struct regmap *regmap;
-+	int reset_gpio;
-+	unsigned int v_slot;
-+	unsigned int i_slot;
-+	unsigned int spkfb_slot;
-+	bool interleave_mode;
-+	unsigned int ch_size;
-+	bool tdm_mode;
-+};
-+
-+#endif
--- 
-2.34.1
-
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLcnp5c3p0b2YgS296bG93c2tp
+IDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+DQo+IFNlbnQ6IFRodXJzZGF5LCBKdW5l
+IDgsIDIwMjMgMTI6MTggQU0NCj4gVG86IOKAnFJ5YW4gPHJ5YW4ubGVlLmFuYWxvZ0BnbWFpbC5j
+b20+OyBsZ2lyZHdvb2RAZ21haWwuY29tOw0KPiBicm9vbmllQGtlcm5lbC5vcmc7IHJvYmgrZHRA
+a2VybmVsLm9yZzsNCj4ga3J6eXN6dG9mLmtvemxvd3NraStkdEBsaW5hcm8ub3JnOyBwZXJleEBw
+ZXJleC5jejsgdGl3YWlAc3VzZS5jb207DQo+IHJmQG9wZW5zb3VyY2UuY2lycnVzLmNvbTsgTGVl
+LCBSeWFuUyA8UnlhblMuTGVlQGFuYWxvZy5jb20+Ow0KPiB3YW5nd2VpZG9uZy5hQGF3aW5pYy5j
+b207IHNodW1pbmdmQHJlYWx0ZWsuY29tOw0KPiBoZXJ2ZS5jb2RpbmFAYm9vdGxpbi5jb207IGNr
+ZWVwYXhAb3BlbnNvdXJjZS5jaXJydXMuY29tOw0KPiBkb3VnQHNjaG1vcmdhbC5jb207IGFqeWVf
+aHVhbmdAY29tcGFsLmNvcnAtcGFydG5lci5nb29nbGUuY29tOw0KPiBraXNlb2suam9AaXJvbmRl
+dmljZS5jb207IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZzsNCj4gZGV2aWNldHJlZUB2Z2Vy
+Lmtlcm5lbC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcNCj4gQ2M6IHZlbmthdGFw
+cmFzYWQucG90dHVydUBhbWQuY29tDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8yXSBBU29DOiBk
+dC1iaW5kaW5nczogbWF4OTgzODg6IGFkZCBhbXBsaWZpZXIgZHJpdmVyDQo+IA0KPiBbRXh0ZXJu
+YWxdDQo+IA0KPiBPbiAwOC8wNi8yMDIzIDA3OjQyLCDigJxSeWFuIHdyb3RlOg0KPiA+IEZyb206
+IFJ5YW4gTGVlIDxyeWFucy5sZWVAYW5hbG9nLmNvbT4NCj4gPg0KPiA+IEFkZCBkdC1iaW5kaW5n
+cyBpbmZvcm1hdGlvbiBmb3IgQW5hbG9nIERldmljZXMgTUFYOTgzODggSTJTIEFtcGxpZmllcg0K
+PiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogUnlhbiBMZWUgPHJ5YW5zLmxlZUBhbmFsb2cuY29tPg0K
+PiANCj4gVGhhbmsgeW91IGZvciB5b3VyIHBhdGNoLiBUaGVyZSBpcyBzb21ldGhpbmcgdG8gZGlz
+Y3Vzcy9pbXByb3ZlLg0KVGhhbmtzIGZvciB0aGUgY29tbWVudHMuIEkgc2hhbGwgZml4IHRoZSBp
+c3N1ZXMgYW5kIHN1Ym1pdCB0aGUgcGF0Y2ggYWdhaW4uDQoNCj4gDQo+ID4gKw0KPiA+ICthbGxP
+ZjoNCj4gPiArICAtICRyZWY6IGRhaS1jb21tb24ueWFtbCMNCj4gPiArDQo+ID4gK3Byb3BlcnRp
+ZXM6DQo+ID4gKyAgY29tcGF0aWJsZToNCj4gPiArICAgIGVudW06DQo+ID4gKyAgICAgIC0gYWRp
+LG1heDk4Mzg4DQo+IA0KPiBCbGFuayBsaW5lDQo+IA0KPiA+ICsgIHJlZzoNCj4gPiArICAgIG1h
+eEl0ZW1zOiAxDQo+ID4gKyAgICBkZXNjcmlwdGlvbjogSTJDIGFkZHJlc3Mgb2YgdGhlIGRldmlj
+ZS4NCj4gDQo+IERyb3AgZGVzY3JpcHRpb24sIGl0J3Mgb2J2aW91cy4NCj4gDQo+ID4gKw0KPiA+
+ICsgICcjc291bmQtZGFpLWNlbGxzJzoNCj4gPiArICAgIGNvbnN0OiAwDQo+ID4gKw0KPiA+ICsg
+IGFkaSx2bW9uLXNsb3Qtbm86DQo+ID4gKyAgICBkZXNjcmlwdGlvbjogc2xvdCBudW1iZXIgb2Yg
+dGhlIHZvbHRhZ2UgZmVlZGJhY2sgbW9uaXRvcg0KPiA+ICsgICAgJHJlZjogIi9zY2hlbWFzL3R5
+cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMiINCj4gDQo+IERyb3AgcXVvdGVzLg0KPiANCj4g
+PiArICAgIG1pbmltdW06IDANCj4gPiArICAgIG1heGltdW06IDE1DQo+ID4gKyAgICBkZWZhdWx0
+OiAwDQo+ID4gKw0KPiA+ICsgIGFkaSxpbW9uLXNsb3Qtbm86DQo+ID4gKyAgICBkZXNjcmlwdGlv
+bjogc2xvdCBudW1iZXIgb2YgdGhlIGN1cnJlbnQgZmVlZGJhY2sgbW9uaXRvcg0KPiA+ICsgICAg
+JHJlZjogIi9zY2hlbWFzL3R5cGVzLnlhbWwjL2RlZmluaXRpb25zL3VpbnQzMiINCj4gDQo+IERy
+b3AgcXVvdGVzLg0KPiANCj4gPiArICAgIG1pbmltdW06IDANCj4gPiArICAgIG1heGltdW06IDE1
+DQo+ID4gKyAgICBkZWZhdWx0OiAxDQo+ID4gKw0KPiA+ICsgIGFkaSxpbnRlcmxlYXZlLW1vZGU6
+DQo+ID4gKyAgICBkZXNjcmlwdGlvbjoNCj4gPiArICAgICAgRm9yIGNhc2VzIHdoZXJlIGEgc2lu
+Z2xlIGNvbWJpbmVkIGNoYW5uZWwgZm9yIHRoZSBJL1YgZmVlZGJhY2sgZGF0YQ0KPiA+ICsgICAg
+ICBpcyBub3Qgc3VmZmljaWVudCwgdGhlIGRldmljZSBjYW4gYWxzbyBiZSBjb25maWd1cmVkIHRv
+IHNoYXJlDQo+ID4gKyAgICAgIGEgc2luZ2xlIGRhdGEgb3V0cHV0IGNoYW5uZWwgb24gYWx0ZXJu
+YXRpbmcgZnJhbWVzLg0KPiA+ICsgICAgICBJbiB0aGlzIGNvbmZpZ3VyYXRpb24sIHRoZSBjdXJy
+ZW50IGFuZCB2b2x0YWdlIGRhdGEgd2lsbCBiZSBmcmFtZQ0KPiA+ICsgICAgICBpbnRlcmxlYXZl
+ZCBvbiBhIHNpbmdsZSBvdXRwdXQgY2hhbm5lbC4NCj4gPiArICAgIHR5cGU6IGJvb2xlYW4NCj4g
+PiArDQo+ID4gKyAgcmVzZXQtZ3Bpb3M6DQo+ID4gKyAgICBtYXhJdGVtczogMQ0KPiA+ICsNCj4g
+PiArcmVxdWlyZWQ6DQo+ID4gKyAgLSBjb21wYXRpYmxlDQo+ID4gKyAgLSByZWcNCj4gPiArICAt
+ICIjc291bmQtZGFpLWNlbGxzIg0KPiANCj4gS2VlcCBjb25zaXN0ZW50IHF1b3RlcyAtIGVpdGhl
+ciAnIG9yICINCj4gDQo+ID4gKw0KPiA+ICt1bmV2YWx1YXRlZFByb3BlcnRpZXM6IGZhbHNlDQo+
+IA0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCg0K

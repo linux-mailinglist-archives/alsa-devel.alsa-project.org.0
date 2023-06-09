@@ -2,90 +2,198 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E66729153
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 09:39:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 010D47291BE
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 09:51:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CBF074C;
-	Fri,  9 Jun 2023 09:38:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CBF074C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0345220C;
+	Fri,  9 Jun 2023 09:50:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0345220C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686296341;
-	bh=nv3+VZ+nnLOqcVjviYsmHpsvTnWxCSfjsc5IBhYXT1Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1686297101;
+	bh=Fqy5zoim9VAgnoc4IMuriBChYyA/to271uQCNonVXEM=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rcohgS+rMjZqUWTgAA5rsVXeI9dQSJQgOvjQvL9C8goyB742ATiAGjZ6SEthsuGsM
-	 fdFljW/l8uB0N4QZY+zU2e4RBCBgeQrnxaYSF9mgcN9hA6DES9RENqvkuVLLCDQMsB
-	 AYrtg/s9wrJ3FEFJOiF5Ps7iUExG6fuXd5/iDGn0=
+	b=qOYEym8v9iDaO11JcFY+DkjH70q9hWtfumlhfCy3qvBAxigzLv/TDc4yOXLJvPBX0
+	 nHXVcgmuIJO1lE+froIluAqJpjYGlDeAyt21SE7Ux60pRO8z3TveiWLDRPHsiay6UF
+	 VEYsFPHkVZKyZTlOWOBJHfMGa5msoIYFnMk0398k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A072F800C8; Fri,  9 Jun 2023 09:37:45 +0200 (CEST)
+	id 80C83F800C8; Fri,  9 Jun 2023 09:50:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D70A6F8016C;
-	Fri,  9 Jun 2023 09:37:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B3B5F8016C;
+	Fri,  9 Jun 2023 09:50:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91E87F80199; Fri,  9 Jun 2023 09:37:41 +0200 (CEST)
+	id 27EC9F80199; Fri,  9 Jun 2023 09:50:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
+ [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 97F44F800C8
-	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 09:37:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97F44F800C8
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5B1EBF800C8
+	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 09:50:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B1EBF800C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=PCWvFIrz
-Received: from [IPV6:2001:b07:2ed:14ed:a962:cd4d:a84:1eab] (unknown
- [IPv6:2001:b07:2ed:14ed:a962:cd4d:a84:1eab])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id A03186606F22;
-	Fri,  9 Jun 2023 08:37:36 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1686296257;
-	bh=nv3+VZ+nnLOqcVjviYsmHpsvTnWxCSfjsc5IBhYXT1Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PCWvFIrzIN+XpN/Vq0x86j0/3TfonqRrg6pxLZyyXg8fwOtMCP2OVRtvGi+r6h6Vy
-	 6DMmDVMGSvr8MDzaDlC6yxw4BamffBmaxzQ7KpwzYl841EK1LrPndyyj46LFlrbQrB
-	 WySANsG7/gIZJhvKPBFvNHY4+2p795s2EGQCa2S+tC8fg8duHTPrzA6bsnUCoXqZxB
-	 +uebjZDx8pOGPRJgdQBT7M4QD7tnxoEktitlUZNln85ZmTA0Ar0eJTeZ9oto9RYXpc
-	 vlkfzhIg1GX3NRJmv5yCBIKps1JE2l5asXqihKFvIYIf4VurtKGtVU7xIAJLf6vVRZ
-	 CrmFb0jxDODiw==
-Message-ID: <1bb65d99-d1dc-7a73-12c0-e7f4cba3525a@collabora.com>
-Date: Fri, 9 Jun 2023 09:37:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [PATCH] Revert "ASoC: mediatek: mt8192-mt6359: Remove " Jack"
- from Headphone pin name"
+ unprotected) header.d=microchip.com header.i=@microchip.com
+ header.a=rsa-sha256 header.s=mchp header.b=qK5+dZak;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=microchiptechnology.onmicrosoft.com
+ header.i=@microchiptechnology.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-microchiptechnology-onmicrosoft-com header.b=JlDu2OSU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1686297044; x=1717833044;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=Fqy5zoim9VAgnoc4IMuriBChYyA/to271uQCNonVXEM=;
+  b=qK5+dZak9/fTdR5NkBKbMIQcSE/EyklyHZKIhbr1KGAEsZxOJ+eG2wyh
+   E1j0fKIeH+NdlQMe+25jwWjx5oCiUMQbTf2JXYAuCprasr/vhqYcmyjAG
+   d7+j1ZQ0wdN7xdqV3rl5a45Jzg+J7evrX1NlwAwTObCq9Ywya4SkXT7QU
+   Ty8C/k6QvA5pLYEwguHWcFygZK1jzHIX2UqfPDK76x38+tcQuKXyNtFHN
+   vYAXl49X1moMMX+b+aC9upf2n1eZHcIGbEu2IATXhUXH+VSzODS6xy9Zi
+   G9Fx0ZURQOSRRutVodHBuWRFyXdA7NiI8pqvUnjhHpMAH/UQ+i4MN94UV
+   g==;
+X-IronPort-AV: E=Sophos;i="6.00,228,1681196400";
+   d="scan'208";a="156231842"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 09 Jun 2023 00:50:38 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Fri, 9 Jun 2023 00:50:22 -0700
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (10.10.215.89) by
+ email.microchip.com (10.10.87.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21 via Frontend
+ Transport; Fri, 9 Jun 2023 00:50:22 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZjVgWIV+AHcpR7VMCJxmr3Ok2jJv3i1Q8Oe8haLLCtFqHk86V50JLdR1u3W9yGPCtau3VNKOiYIIZxfFrSX6ufhZIwZ0xB29bqf4FA8w30tYWLEiLRgxmHSiRJWTOXWoz214SecO4KFnUteoJBRuBT6NuT1DcMlz3AhYyNsc6CJzIgaKAh4aNpMWcnRzoc93wsgEYQU/bYdCsglR8Z3LSQ2Mk9+l+2oemtZFrdDe168924/tz2aNJEEGFZtscfmYEc4uGZ5Y8XtTDRW2CtN9cHbxccQtEoV0akNI6bo0lrdLcwn85ecIHiaM2ViAw7kL0YhA6RDf98bIz0U1Q8xU6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fqy5zoim9VAgnoc4IMuriBChYyA/to271uQCNonVXEM=;
+ b=L2L9b1P5qHdbGeXo26KzDFO6Sj2g87Kx2NFTrBUDW6UzzD0OCanpZhcxpUePRsG9QqM/RdmFgVfA28NZ1PzxbJsvCdnJDNQOaipNYjSt+UdgDtQQIGuUaBuJE0gCu+Dr4NCHhsRomPUKgFRqLsJNiCkhaG9QITu8yBRdiSaGaumw1QWJnTNpf2KIEPCZwjTcQYb4AfyIZQ7GN5SzJa4kUfFRWb69GAFDL36bgXi6QaM+0sDKk3IsQDUjlcvIflyj9i5Ec7q3CtkEI8U9MBZDAVpKtfh1BDxouuhDTfbgYXJ2ixclHyFI3oUIuP6SHSGpf1ZOE//h8dLBNnzX5PnuSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microchiptechnology.onmicrosoft.com;
+ s=selector2-microchiptechnology-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fqy5zoim9VAgnoc4IMuriBChYyA/to271uQCNonVXEM=;
+ b=JlDu2OSU56dzceylP97Gjz4vUHiYMzK1JDoIhhLxjfV5aB+U0I2H2SVb6C2mNebVNwvvBqM1JBl1xFx2pS3xGSiAIkY2ViBPYNcgEr83BvjiQbebnqgjMjiPC8GLnASyejlN9k8jWEbFLz5W+OWDlD1YW4oKCkolwJfyQ0tccSo=
+Received: from SJ2PR11MB7648.namprd11.prod.outlook.com (2603:10b6:a03:4c3::17)
+ by CYYPR11MB8431.namprd11.prod.outlook.com (2603:10b6:930:c7::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Fri, 9 Jun
+ 2023 07:50:23 +0000
+Received: from SJ2PR11MB7648.namprd11.prod.outlook.com
+ ([fe80::27bf:a69f:806f:67be]) by SJ2PR11MB7648.namprd11.prod.outlook.com
+ ([fe80::27bf:a69f:806f:67be%5]) with mapi id 15.20.6433.024; Fri, 9 Jun 2023
+ 07:50:22 +0000
+From: <Claudiu.Beznea@microchip.com>
+To: <walker.chen@starfivetech.com>, <broonie@kernel.org>
+CC: <dan.carpenter@linaro.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
+	<perex@perex.cz>, <alsa-devel@alsa-project.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] ASoC: starfive: Cleanup and fix error check for JH7110
+ TDM
+Thread-Topic: [PATCH v1] ASoC: starfive: Cleanup and fix error check for
+ JH7110 TDM
+Thread-Index: AQHZmqcLHVElYeHJskuiJ2S4SJLmYA==
+Date: Fri, 9 Jun 2023 07:50:22 +0000
+Message-ID: <a3e522e3-9836-426f-6f46-336eb157e1ef@microchip.com>
+References: <20230607081439.1517-1-walker.chen@starfivetech.com>
+ <3eb7ffc5-a16a-4ac2-93a0-260f7cb1f81c@sirena.org.uk>
+ <d941ac20-e8b3-cb13-4258-3a9a86e978d3@starfivetech.com>
+ <fbbc0963-fba5-4178-b886-fbb35c0c8df2@sirena.org.uk>
+ <7db1d08e-8310-8876-4ed8-36d6e53ab8bf@starfivetech.com>
+In-Reply-To: <7db1d08e-8310-8876-4ed8-36d6e53ab8bf@starfivetech.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- Mark Brown <broonie@kernel.org>
-Cc: kernel@collabora.com, Chen-Yu Tsai <wenst@chromium.org>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
-References: <20230608221050.217968-1-nfraprado@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230608221050.217968-1-nfraprado@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: VWD7CAFMYYPF7KZ5WT2IUDCU5AL6FFJQ
-X-Message-ID-Hash: VWD7CAFMYYPF7KZ5WT2IUDCU5AL6FFJQ
-X-MailFrom: angelogioacchino.delregno@collabora.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ2PR11MB7648:EE_|CYYPR11MB8431:EE_
+x-ms-office365-filtering-correlation-id: 38cfa019-7822-44f0-0292-08db68be2dd4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ MZhTxJjb4ZNq/1bd8P7ye8PfBrqHdJzVyDSANZvHyvxqcI5Wm/1NfQ0YhvE2KpXcJIzam9dubDGvW5DIy992+1zpkl8HRQ9Rhja7VZjOSQiMOBlnR6rjN2q0GqRRPgsmaGyI1aXhD6peI+sPEhg3gMS811s+ktJaabSJRGzMvs8Vz3L13OSjr6KleesbXYbf46n+xG/FpQRFSS6MXHpky9TVcf0l4uDTRcaTePLqv3BnHGWlNJ2Jp3wuPKuInZazpzN/5Kf2SnFeabrG5qj+kEPjBMRTh/HnSvhD+abWEhIxG5ce5M/HhCqi9US0WuGQNJm8MKGb8IrOy/CBaCELICVE4yr6D5deNpj7xbp1fUWeGJTU1vTzsmGBx5qQYs+nyeuTT6CvXvPYPWsZdml6B16PDUg6xM8XErQuoCVPVELudxhumQy4NAFbijj6AwYVxcjHpxlBVGXcL1BsLbIRwYBKzO/1Po9PwzjK7oLs3T7B8xM9ganqeQv1Cmn+3xLRbvv9Rf7LCE35VgPcPXNSFs+qWY/JK6iYyfjWm55L9E6OFldlwg79xrCup91vYnlySSJjPlOjIdyAGYxD/BhWLuFPOWGbJthfzHuk4R/uVnRj7sYX3pmJbWEaClia5YoUK1eeS+R1LVxmMMQ8e/q7Ryn8Z07GGFOAb6ftfPrgjxWifyQST2aUEBiwCD7Dx+mLNcaG1AxyJ+yD0KyEzTP+KA==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB7648.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(376002)(39860400002)(366004)(136003)(346002)(451199021)(2616005)(6512007)(53546011)(38100700002)(6506007)(41300700001)(31686004)(6486002)(26005)(186003)(966005)(71200400001)(478600001)(110136005)(54906003)(64756008)(122000001)(91956017)(66446008)(4326008)(316002)(66946007)(76116006)(8676002)(66556008)(66476007)(8936002)(2906002)(5660300002)(31696002)(38070700005)(86362001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?U3Q1ZTI4SURZbTFjV3V3U3ZZcXF6YlNTY3hySHFkZU54V3QrSzBmMVo5VndL?=
+ =?utf-8?B?STExcU80STUvay95QzNnM0o4UmxMT1dGeWJONWJoTFdPVldrZDVmbUFBR1Zu?=
+ =?utf-8?B?ZHhURVVsMjQyNVl5blBPRzBlNjZOYzh2UjAvNWZSbVRKU0hld3RrWmUzZHd6?=
+ =?utf-8?B?anR6d21HNDZNWW5kdFRjdTNpU1hLdjBleG5CdFh0T3BmWnVaYUUwVTNwSVlY?=
+ =?utf-8?B?dFpLT0ZFQmoxMzJveTA3OEREYTdOUnovQm5HZ1RPV0tEWUlXMDVLUUVmZzZH?=
+ =?utf-8?B?WEc4Umw0cEYxSHpKV244NWhKL2NZSTdNK0NIZXlkaDk2OWplZnZVS2o1K0dC?=
+ =?utf-8?B?dTBmWFdHR2V0WXhieGU5UldmOTdNRXpzK0Z6VDk0UzU3cm4zR0xFcS93MUpN?=
+ =?utf-8?B?Wk5pdzExSE81emtTR0g3bWRXMFZCVVkyMHBpb2hZQkhSN21UN3RWS1cxbGk0?=
+ =?utf-8?B?T1NRTlJWMldTYWF3Z0dYZ1dJNGxkTFQ1ekNJRlF4Zlg5eXlaQWRMcVBYZkpr?=
+ =?utf-8?B?WktIR0dXMzFTUDdMcGQ0OFR5OEVnTkUwWDI4b0puSk5LQUlBSE1HeVFERjdm?=
+ =?utf-8?B?bEIrcWpVQmIzOHFiZkVMV1FONzBacEJESi9OMVVXMUhBY3VLVmpTY0owbXgx?=
+ =?utf-8?B?ZGJOQ1ZoOUtNdlhaTnVyOE45U09Xbk5nVW9uQmwxS1pWSkFhNlFkdkthUkpl?=
+ =?utf-8?B?UzM4bERjb0VZSnVlZmxlM0hucXJUeHV4TUJReXNDZE5mQVg0SW5EOEprejBy?=
+ =?utf-8?B?YXk3OTVsT1dvSGg4N3k1M2ZhcU9sYTBnbzdGVE95aTQ4Zmg2KzRqWVhrL045?=
+ =?utf-8?B?anZHRXluR1prY2wvYkY5Vi9IWnRUdmQwVnVhblk3R1ArNlM4UDB0VWFCYXhl?=
+ =?utf-8?B?aVJtbElHLzA3aS9kcnhHUmhtSldMSkNZajRXUGRHRmdHVWlmd2JPZURYQmZw?=
+ =?utf-8?B?ZXEzQ3E3ejh3d3ZoUnh3MDNPWVJiUWozWmpDSCswcUR2OXdNNENhNVQ5OEJ6?=
+ =?utf-8?B?OGQ3S244TUhtTGRHUWFMSll4RlVSU2hEckFzTXZ6VlRMTFJNeE5SM0E3SHVj?=
+ =?utf-8?B?WE1JZEJCMTBmRlFwaVFIUFJtdjljRDdDZU54TlJBV0ErYXZxdjRndGh0T2dl?=
+ =?utf-8?B?RlE3Vy9DZkpVVllwQzFhVzBCak1rejBSdWNLTFFUK2ZqZ2NXTVNZRFR0eFVh?=
+ =?utf-8?B?dFF1bkNHcHFmdjc5VFFrYTlKVzdyZlRTREV3S2FMSENrR09wL1dodEh3aVJK?=
+ =?utf-8?B?dG16VnlrR2VpKzZHeUVnamVXY3ozVVdDMGIweHpxQXlwL282dDNGRzhmRnhM?=
+ =?utf-8?B?RndRQTVBZnBCQnovajZncjh0bU13OFk3YjZBUGNwQXlKM1JIcGpXTDB2Ry9B?=
+ =?utf-8?B?TEJVaWRtTGQ5T3RiWVE1MWdXSkRqc2tzZEcraWFRSEZjb0JuUi9QcXdPQXhJ?=
+ =?utf-8?B?ODBSVmlyWGVLK0FKbFdqWk1JK0xGcWp1czlVZzE5Vjg1b1EwYlI4aW1QTCtx?=
+ =?utf-8?B?RzRpcit6WnE5akxxcWFlR0hGV3pTOWNqaXE0OXVsZk1wQWFrTzVQb3dYM1Av?=
+ =?utf-8?B?RlpvQ0VkUVQxMmltNVBaZzRKNndpNGFPVHl0UjFqUFU5b2tGOWJ4RUpXOUpM?=
+ =?utf-8?B?NjNMS0pvSWZUclhIOHJLenpoMkNqUHUwSStxZXVBWDduVTRxeE9LOHByd0pm?=
+ =?utf-8?B?L0x3NDBJUi9DWVdpcUZCSngwWjV4VWVObmF1SnRLRDdsVVF0S2ZMWGJLdFBE?=
+ =?utf-8?B?RWovMEs1aHYzenRReXFTL3BNa25ZOC9NbXlyd0lSN0srTFg5N0JISTExRUxV?=
+ =?utf-8?B?Q010SE10NFplVzFlZ1ZaekN5V2dSdXJObDdGR3VIdUE5UzNaTWZBVGVsZ3lG?=
+ =?utf-8?B?dkZsYXFnNHBFenQyV3R0cUtmVkpmVEJIcXBxdXZxckIvWG1KWHltbW1DODZv?=
+ =?utf-8?B?RXFmaDFmYzZkRXVtRWk4R1ZDdHBpa0dHMU1QMmtBZzBFdjFYbHVnWjJHUUlY?=
+ =?utf-8?B?MkdLZGVPRVdobFZQOFc2ZnlFMEFFRExqQWRQRkxVOENOSzlIRWhUUnMzN2RV?=
+ =?utf-8?B?cEd3c2JKdlV2SkYycmgvby9OdnBmTi9TblBmVWthcEVLWFVnZDBFV2FnSzJu?=
+ =?utf-8?B?QjAwRlFGVlFjakpVM0lRaEJaR1pWaFVxK2FFS0dYS2t6TFkxbS9wWmoxQm10?=
+ =?utf-8?B?alE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <237969BC23B8634EB40C900704A151AE@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7648.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 38cfa019-7822-44f0-0292-08db68be2dd4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2023 07:50:22.4759
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ voRmWnPZQ6Pqx990nF3kgDpAk83uIbpoLiPWEZZEaqgJSYqjXZAg6bz8uA7arpJ4LGbYjvU9L5S5xo49RWqCV+XmCLC2Z7Lvz/zdlpzsM6c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR11MB8431
+Message-ID-Hash: QKRZQRGLTR3B3BI467XE4RFY2WV6PCNB
+X-Message-ID-Hash: QKRZQRGLTR3B3BI467XE4RFY2WV6PCNB
+X-MailFrom: Claudiu.Beznea@microchip.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +205,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VWD7CAFMYYPF7KZ5WT2IUDCU5AL6FFJQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QKRZQRGLTR3B3BI467XE4RFY2WV6PCNB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,54 +214,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 09/06/23 00:10, Nícolas F. R. A. Prado ha scritto:
-> This reverts commit cbbc0ec6dea09c815f1d1ef0abaf3f2ec89ff11f. That
-> commit removed the " Jack" suffix with the reasoning that it is
-> automatically added to the name of the kcontrol created, which is true,
-> but this name is also used to look for the DAPM widget that will be
-> toggled when the jack status is updated. Since the widget is still
-> called "Headphone Jack" the jack can't link to the widget and the
-> following error is shown:
-> 
-> mt8192_mt6359 sound: ASoC: DAPM unknown pin Headphone
-> 
-> It is not possible to also rename the headphone DAPM widget because its
-> name is used by a switch kcontrol, "Headphone Jack Switch", both to link
-> to the headphone widget and to assemble its name. This switch's name is
-> referenced in the upstream UCM file, so renaming it would break
-> userspace. Since the original commit didn't bring any benefit, besides
-> sparing a few CPU cycles, simply revert it.
-> 
-> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> 
-
-That commit is made to bring consistency in naming across MediaTek (with
-other) sound card drivers.. I'm not sure whether the right solution would
-be to revert this one, or to make a small change in the UCM, counting that
-we'd be able to add more shared names around, finally reducing the config
-length by sharing actual configurations across various SoCs.
-
-Any opinion?
-
-Thanks,
-Angelo
-
-> ---
-> 
->   sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-> index 4e0d5bf12b47..5e163e23a207 100644
-> --- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-> +++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
-> @@ -46,7 +46,7 @@ struct mt8192_mt6359_priv {
->   /* Headset jack detection DAPM pins */
->   static struct snd_soc_jack_pin mt8192_jack_pins[] = {
->   	{
-> -		.pin = "Headphone",
-> +		.pin = "Headphone Jack",
->   		.mask = SND_JACK_HEADPHONE,
->   	},
->   	{
-
+T24gMDguMDYuMjAyMyAxMzo0MywgV2Fsa2VyIENoZW4gd3JvdGU6DQo+IEVYVEVSTkFMIEVNQUlM
+OiBEbyBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91IGtub3cg
+dGhlIGNvbnRlbnQgaXMgc2FmZQ0KPiANCj4gT24gMjAyMy82LzggMTg6MTUsIE1hcmsgQnJvd24g
+d3JvdGU6DQo+PiBPbiBUaHUsIEp1biAwOCwgMjAyMyBhdCAxMDoxNTowM0FNICswODAwLCBXYWxr
+ZXIgQ2hlbiB3cm90ZToNCj4+PiBPbiAyMDIzLzYvNyAxOTo0NCwgTWFyayBCcm93biB3cm90ZToN
+Cj4+DQo+Pj4+PiAtICAgICAgICAgICAodGRtLT5yeC53bCA8PCBXTF9CSVQpIHwNCj4+Pj4+IC0g
+ICAgICAgICAgICh0ZG0tPnJ4LnNzY2FsZSA8PCBTU0NBTEVfQklUKSB8DQo+Pj4+PiAtICAgICAg
+ICAgICAodGRtLT5yeC5zbCA8PCBTTF9CSVQpIHwNCj4+Pj4+IC0gICAgICAgICAgICh0ZG0tPnJ4
+LmxyaiA8PCBMUkpfQklUKTsNCj4+Pj4+ICsgZGF0YXJ4ID0gKHRkbS0+cnh3bCA8PCA4KSB8DQo+
+Pj4+PiArICAgICAgICAgICAodGRtLT5yeHNzY2FsZSA8PCA0KSB8DQo+Pj4+PiArICAgICAgICAg
+ICAodGRtLT5yeHNsIDw8IDIpIHwNCj4+Pj4+ICsgICAgICAgICAgIFRETV9QQ01SWENSX0xFRlRf
+SjsNCj4+DQo+Pj4+IEknbSBub3Qgc3VyZSB0aGlzIGNoYW5nZSB0byB1c2UgbnVtYmVycyBoZXJl
+IGlzIGEgd2luIC0gdGhlIF9CSVQNCj4+Pj4gZGVmaW5pdGlvbnMgbG9vayBmaW5lIChJIG1pZ2h0
+J3ZlIGNhbGxlZCB0aGVtIF9TSElGVCBidXQgd2hhdGV2ZXIpLg0KPj4NCj4+PiBUaGlzIGlzIENs
+YXVkaXUncyBhZHZpY2UuIFVzaW5nIHRoZSBtYWNybyBCSVQoKSB0byByZXBsYWNlIHRoZXNlIGRl
+ZmluaXRpb24gb2YgKl9CSVQsDQo+Pj4gaXQgd2lsbCByZXN1bHQgaW4gYmlnIGNoYW5nZXMgaW4g
+dGhlIGNvZGUuDQo+Pg0KPj4gSSdtIHF1ZXN0aW9uaW5nIGRvaW5nIGEgY2hhbmdlIGF0IGFsbC4N
+Cj4+DQo+Pj4gUGxlYXNlIHJlZmVyIHRvIHByZXZpb3VzIGNvbW1lbnRzOg0KPj4+ICBodHRwczov
+L2xvcmUua2VybmVsLm9yZy9hbGwvMTQzZTJmYTItZTg1ZC04MDM2LTRmNzQtY2EyNTBjMDI2YzFi
+QG1pY3JvY2hpcC5jb20vDQo+Pg0KPj4gSSBjYW4ndCBmaW5kIHRoZSBjb21tZW50cyB5b3UncmUg
+cmVmZXJyaW5nIHRvIGluIHRoZXJlLg0KPiANCj4gWW91IHNob3VsZCBzZWUgdGhlIGZvbGxvd2lu
+ZyBjb21tZW50cyBpbiB0aGUgbGluayBhYm92ZToNCj4gDQo+PiArICAgICAgICNkZWZpbmUgQ0xL
+UE9MX0JJVCAgICAgICAgICAgICAgNQ0KPj4gKyAgICAgICAjZGVmaW5lIFRSSVRYRU5fQklUICAg
+ICAgICAgICAgIDQNCj4+ICsgICAgICAgI2RlZmluZSBFTE1fQklUICAgICAgICAgICAgICAgICAz
+DQo+PiArICAgICAgICNkZWZpbmUgU1lOQ01fQklUICAgICAgICAgICAgICAgMg0KPj4gKyAgICAg
+ICAjZGVmaW5lIE1TX0JJVCAgICAgICAgICAgICAgICAgIDENCj4gDQo+IEluc3RlYWQgb2YgdGhl
+c2UgKl9CSVQgZGVmaW5lcyBhcyBwbGFpbiBudW1iZXJzIHlvdSBjYW4gZGVmaW5lZCB0aGVtIHVz
+aW5nDQo+IEJJVCgpIG1hY3JvIGFuZCB1c2UgbWFjcm9zIGluIHBsYWNlIGluc3RlYWQgb2YNCj4g
+DQoNCkFzIG1lbnRpb25lZCBpbiBbMV0gSSBzZW50IHRoYXQgYnkgYWNjaWRlbnQuIFBsZWFzZSBp
+Z25vcmUgaXQgYW5kIHNvcnJ5IGZvcg0KY29uZnVzaW9uLg0KDQpbMV0NCmh0dHBzOi8vbG9yZS5r
+ZXJuZWwub3JnL2FsbC83YTFhM2FjMy0xMGVjLTk5MzUtYmNhMS0wMjNjZWM2YzAwMjRAbWljcm9j
+aGlwLmNvbS8NCg==

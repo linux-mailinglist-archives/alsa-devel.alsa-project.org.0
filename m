@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206A57298F3
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 14:04:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DD38729901
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Jun 2023 14:05:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 373BF3E;
-	Fri,  9 Jun 2023 14:03:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 373BF3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9578B83E;
+	Fri,  9 Jun 2023 14:04:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9578B83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686312265;
-	bh=NGGxlKuQ91mS1ctq8IAbKwyJduKLClii+OA9Iz1bpi4=;
+	s=default; t=1686312337;
+	bh=YsWnf1FopHn7KWjdE5iAPcxo4TT2Yn9z9cA89MtOOvg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=BZsoP7GSH9gdPMp4d1ixo5QzHungSFNNEbuJq9hLICVO4E0XhngU9XMJiVyJBKSqx
-	 k9tx83kVjvjOvfPqYODm8WCqcG9srX2bc6+RVSua9cMJLVIKTpIlL1n2oLYZkCOL6R
-	 ED35l+F0fM72UrougGGwhn+Si0CK9581dY5Mm7j0=
+	b=hSXHdQvNgBJ3TOs/t/6MRkCE9nm3Eq8qggKbxBlQz1PIFlI0fegmoN9UJkEliaKbs
+	 PtDGjiUgPp1ZfZaR8AZyChXAh+NFfHeXQkbtIu00By8WWwbA/K2SfNji5o9u/Jb2Be
+	 lw6P1Gtw5+GfPEI+XeAVzFS8i1WoXd8DCGha2msw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51BA5F800ED; Fri,  9 Jun 2023 14:03:34 +0200 (CEST)
+	id 9E72CF8057A; Fri,  9 Jun 2023 14:03:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCB25F80199;
-	Fri,  9 Jun 2023 14:03:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02B34F80579;
+	Fri,  9 Jun 2023 14:03:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E564CF80254; Fri,  9 Jun 2023 14:03:28 +0200 (CEST)
+	id 8969EF80254; Fri,  9 Jun 2023 14:03:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,51 +36,45 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4EF3DF80130
-	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 14:03:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EF3DF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id AA78BF8016C
+	for <alsa-devel@alsa-project.org>; Fri,  9 Jun 2023 14:03:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA78BF8016C
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dq6pDqp1
+ header.s=k20201202 header.b=m8JpU8Y2
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 82B4165749;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7CAF160C0F;
+	Fri,  9 Jun 2023 12:03:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631D8C4339B;
 	Fri,  9 Jun 2023 12:03:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC60C433EF;
-	Fri,  9 Jun 2023 12:03:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686312196;
-	bh=NGGxlKuQ91mS1ctq8IAbKwyJduKLClii+OA9Iz1bpi4=;
+	s=k20201202; t=1686312197;
+	bh=YsWnf1FopHn7KWjdE5iAPcxo4TT2Yn9z9cA89MtOOvg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=dq6pDqp1SBU72UrxEXz0l2ZSSiDsVEXGKNjtZcn+1RRrQ6hru/N9GUSmKGNZi9BmB
-	 zCsuJEKj6HaP3FC3pQvrNqBXqPF2h4DxujyMBnOG4B3qUrnf9FxZ0gkcSszaqr7+a2
-	 v2DCo4sFhJ30GTmL6BUcvf0XawYH87jm0L/Nc6bi4EOLU08h79zHUuKPfE+GZ9PfRK
-	 QyrI/CmXBrgldD0XS76dkOdUOqEKH+vMcVh8c7MqOPhfxsBFWU6/3bou4Ittd8hZxU
-	 uBn7cawMUdwUwgxT8EhLRpqeAXQ3t94wzoTgHjkbGxs8cSI5rq6m/d3of6xJj4lUBw
-	 qZSV+gkx1S5zQ==
+	b=m8JpU8Y243ld0lalorof5UWS+DnwbHjUZpGsc2dSn/omWS7umFZKlik0QIhNxG/sh
+	 nc/7dB8aqydCLuVDZ2Nw4nAjaOWZUOnmFhAcs2kJwWW3/G8Ueh39ZyfE8gHkmzNoxf
+	 /2/ZvyDqR4e/OlO1x41QCobrFUhk99kjJgqLoLs1pZQEyOocm+07qcboCNjDnqtsEO
+	 wIC3Ps3P1XfxaDh3fsZIBeiAf3/XH/ZlDK/l2gRz9GuFcenxr5yn74zQKK5X/zTSh1
+	 65TKAUk+vxUa1dfTpJB7XZMf+3x4e44ZxcypZd/C9WSB4b2IQSXbL4DOTZBSqAlYgd
+	 RzWYarJ1pE8Lw==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, cujomalainey@chromium.org
-Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?utf-8?q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-In-Reply-To: <20230608221822.2825786-1-cujomalainey@chromium.org>
-References: <20230608221822.2825786-1-cujomalainey@chromium.org>
-Subject: Re: [PATCH 1/2] ASoC: SOF: Refactor rx function for fuzzing
-Message-Id: <168631219449.40482.11890865852608851986.b4-ty@kernel.org>
-Date: Fri, 09 Jun 2023 13:03:14 +0100
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <87ilbx1kh3.wl-kuninori.morimoto.gx@renesas.com>
+References: <87ilbx1kh3.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: audio-graph-card2-custom-sample: add missing
+ CPU:Codec = 1:N sample
+Message-Id: <168631219712.40482.16853969366597236029.b4-ty@kernel.org>
+Date: Fri, 09 Jun 2023 13:03:17 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: XMMIUUV27JLEQ25KAH3A7Q75HBLSYSFV
-X-Message-ID-Hash: XMMIUUV27JLEQ25KAH3A7Q75HBLSYSFV
+Message-ID-Hash: 35C6NG5BI7Z244VIQXXB5AF43VVJE7WT
+X-Message-ID-Hash: 35C6NG5BI7Z244VIQXXB5AF43VVJE7WT
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -93,7 +87,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XMMIUUV27JLEQ25KAH3A7Q75HBLSYSFV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/35C6NG5BI7Z244VIQXXB5AF43VVJE7WT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,12 +96,12 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 08 Jun 2023 15:18:15 -0700, cujomalainey@chromium.org wrote:
-> Refactor the function so reading the data is done outside the work
-> function so fuzzing can pass data directly into the work callbacks.
+On Fri, 09 Jun 2023 01:40:41 +0000, Kuninori Morimoto wrote:
+> It has CPU:Codec = 1:1 and N:N samples, but missing 1:N settings.
+> This patch adds it.
 > 
-> Also expose the inner function outside the module so we can call it from
-> the injector.
+> One note here is that because of registering timing, probing and
+> CPU/Codec numbering are mismatching.
 > 
 > 
 > [...]
@@ -118,10 +112,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: SOF: Refactor rx function for fuzzing
-      commit: 12c41c779fad54714ce4901757374f6006a88644
-[2/2] ASoC: SOF: Add IPC3 Kernel Injector
-      commit: 70dad53ddff0778c4920a1ee9eb1cfea539d4e91
+[1/1] ASoC: audio-graph-card2-custom-sample: add missing CPU:Codec = 1:N sample
+      commit: ca27441efe696a8990858156c6c332e786c30b4a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

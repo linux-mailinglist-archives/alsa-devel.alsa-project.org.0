@@ -2,89 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F4972AC45
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jun 2023 16:27:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C9972AC48
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jun 2023 16:28:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 241A6829;
-	Sat, 10 Jun 2023 16:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 241A6829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93B36839;
+	Sat, 10 Jun 2023 16:27:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93B36839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686407261;
-	bh=jaJzpJyj+5E2A//gUROcGxEPk881SMtYkFToNDsbtAM=;
-	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1686407311;
+	bh=0B1EcMd8ly1eEIrYEk3c0aKwpaZD9aVleEESZDdgREk=;
+	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=XyikM0BQF02KhWpTKWjLA8HCSGQxoNKnTM1xMIiA+AEtz+TaANT+6NMcOzuVow1Yu
-	 ddWM+3EM+h5JiOtJWIT4pY7YJvXelHW6n8xnmiwCoXGat0yEny/dfM+inNc6CU6kss
-	 5ap4BBwRB6xL6B1cYSvqtVrI/ZhQC344DkHpooGI=
+	b=d4nfqVsPCajxAp4/E5JnPR7FtbRFYGDWXb/5od9wXuoGYJU5bBh9mZS3dhkZncVaI
+	 ACKBAINnY9mdDGYWlAgz03CPF6ybtHrCge4DsWodcHle9x3JemAlu4whnFmbUK54BJ
+	 s60hHO94HJJZNRDuTu/QKUGUacEnQzo79V8Pm2oo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5D950F80290; Sat, 10 Jun 2023 16:26:50 +0200 (CEST)
+	id 35303F80549; Sat, 10 Jun 2023 16:27:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0FDFF8016C;
-	Sat, 10 Jun 2023 16:26:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8183AF8016C;
+	Sat, 10 Jun 2023 16:27:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 95A78F800ED; Sat, 10 Jun 2023 16:26:46 +0200 (CEST)
+	id 6A93DF80254; Sat, 10 Jun 2023 16:27:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EBEA8F800ED
-	for <alsa-devel@alsa-project.org>; Sat, 10 Jun 2023 16:26:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBEA8F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6276AF80254
+	for <alsa-devel@alsa-project.org>; Sat, 10 Jun 2023 16:27:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6276AF80254
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Vp+4iCH8
+ header.s=k20201202 header.b=HOMKoZEg
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B1BCD60A3B;
-	Sat, 10 Jun 2023 14:26:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12705C433EF;
-	Sat, 10 Jun 2023 14:26:40 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D84E160B7A;
+	Sat, 10 Jun 2023 14:27:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C608C433D2;
+	Sat, 10 Jun 2023 14:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686407202;
-	bh=jaJzpJyj+5E2A//gUROcGxEPk881SMtYkFToNDsbtAM=;
-	h=From:Date:Subject:To:Cc:From;
-	b=Vp+4iCH89fmnVLPXUIJ9NkzYPo2Rcx88sQBzH03pUwpZujed/cNh2DDSunN9zcWcP
-	 yUB0Z8ikq7Xkmycqm+oDECWgi1HsOZAa4sim7ffz7w8WbLG5hOZgPLCDVfpxE8MUXX
-	 A/53+qgowMM7IAtmvq+/boRyslujb5lS7sOMx3sYXf/4JgnjlIC8JO5L5heSh8Z7bS
-	 5VGLZdJHsbVVP0OrHcUAPk4Ym3xGICFqfvNwyOi2JLhkW0d7HqvG2ciNdvUekqL9VG
-	 U41KoFSCEoixXJdCmJGSD1YeYGojByuTlbQsPa4J677vgzETtAxGppzljvpqnD1gLg
-	 EELLfJ4fUaYCg==
+	s=k20201202; t=1686407249;
+	bh=0B1EcMd8ly1eEIrYEk3c0aKwpaZD9aVleEESZDdgREk=;
+	h=From:Subject:Date:To:Cc:From;
+	b=HOMKoZEgd6rggAo2In3rRiGG/wdfKSXwLTGTXOJECv7bbWhLCf1mG3k0jL1PmCiIK
+	 U4yg3XTtXR0272+iqM2y1qeJWPRKqhg5T6o8B8/MaKslt5ZJqL+LkwMc7YpYmG9Ow/
+	 OHU3xPaGyYEPGNW41t4wUPMxvdCI5dlV9HkqO49X3sP90at7EqCeBhQJQ0E8OuYmtf
+	 8ELqwEZwBAP3Hde2XI3L0kzjrJqyf7XDRBBl5midqHMmQEu4bbYK16GLdFdXZoFHtD
+	 FADhz2RPk8hkVCNLnu7JsPbPo6xFk/cCwdjK+KhynJh9lFLBV9uTm2FJ5CqBqcre3p
+	 z8A7icCabdJXQ==
 From: Mark Brown <broonie@kernel.org>
-Date: Sat, 10 Jun 2023 15:26:37 +0100
-Subject: [PATCH] ALSA: hda: Use maple tree register cache
+Subject: [PATCH 0/8] ASoC: Use the maple tree register cache for RealTek
+ SoundWire CODECs
+Date: Sat, 10 Jun 2023 15:27:11 +0100
+Message-Id: <20230609-asoc-rt-sdw-maple-v1-0-85ee50c93905@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230609-alsa-hda-maple-v1-1-a2b725c8b8f5@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAByIhGQC/x2NQQqDQAwAvyI5NxC3VKlfkR6yGruhukoCbUH8e
- 9ceZ2CYHVxMxaGrdjB5q+uaC9SXCobE+SmoY2EIFK7U0B15dsY0Mi68zYIUpvYmMVLTCpQosgt
- G4zykM/us9jr1ZjLp9//pH8fxA5q+90p3AAAA
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAD+IhGQC/x2NywqDQAwAf0VyNrCrYh+/Ih7iGmtouyuJ1IL47
+ 117nIFhdjBWYYN7sYPyR0xSzODLAsJM8cEoY2aoXFW71t2QLAXUFW3c8E3Li3Gi9uIbCk3tr5C
+ 7gYxxUIphPsst6fPUi/Ik3/+q64/jB9Kvkpl6AAAA
+To: Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.13-dev-bfdf5
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1082; i=broonie@kernel.org;
- h=from:subject:message-id; bh=jaJzpJyj+5E2A//gUROcGxEPk881SMtYkFToNDsbtAM=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkhIgfdHrblT9jwwcTTb8u7IUpTl5wXqj820MyIg71
- lYQUT5+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZISIHwAKCRAk1otyXVSH0NznB/
- 91sSHt6gyZfeq5HaKZVlOfypm8FPsMiE5ScY12lFPB5hGhX5M7JRYsyWc/ywdN4+PxWiRRNtMtmgpr
- rRVnKCrYWBQuhuo4zj6WUlTr6k0zT4193uio9FqHPGCds/6jlnvZNl4ceW9ViIUNI4Is9jS4YdfM+e
- CfqyxVeqbq55m/AcVFHPpLBqnoPeVdgVWDYCKLG7ZF+BNeLBDUItxH+iFW1sslX5aK5n4/Ewl4WHLN
- RXe93oRz2aDYq78MptC8AuwEMiTwtN1wIybG6+Q42afsHQJXdjXsuLG44fCADBhdiiijgjDsOFZ54S
- /O0nQJSoHOXeQXE+fagxjUNYoDv+a6
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1344; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=0B1EcMd8ly1eEIrYEk3c0aKwpaZD9aVleEESZDdgREk=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkhIhJziT6gD6dyQo7nR4ow8ZjJez3WX9KMh6XkBBW
+ JGhVdaSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZISISQAKCRAk1otyXVSH0EAOCA
+ CDylgMfn/Y6WpMqn0mZoTpz+0IBBt4SmFNyNdCp7Az2C1pZ7baQ8xSmWSryCpIgPavEuUxoZi4Ce6l
+ qkSiB8NDjx68OEfYW3Y0PTXRNtYYpfSwof3m3DqvGD7mQ5KeHXy8ruyrRjY7B9bTllMzckiQO+qcNq
+ HG/IriYzGLPa0jc+RvMcMdth71mesXPubnYAVahFiHeh/AKo9GNDJ3YF43oBEqqaJe3Ebc8/tNncwT
+ OYCaVaeGlksLsHuQQ96+IeK3QJW18Rk9WJS/AT59m0YVQCQASjNneHRQgIpDYhS6yN6NMMtI0CnX9n
+ pI/v2QmLCPCtCtO07mjqGYgc0XDQtk
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Message-ID-Hash: 4EYPXKL6ZJCSEVW6OSQXT4UEKSJIHXQ5
-X-Message-ID-Hash: 4EYPXKL6ZJCSEVW6OSQXT4UEKSJIHXQ5
+Message-ID-Hash: KXIUW3KWVWWBTRMKROUPFJMGDLWLXTOM
+X-Message-ID-Hash: KXIUW3KWVWWBTRMKROUPFJMGDLWLXTOM
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -97,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4EYPXKL6ZJCSEVW6OSQXT4UEKSJIHXQ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KXIUW3KWVWWBTRMKROUPFJMGDLWLXTOM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,33 +108,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-HDA can only support single register read and write operations so does not
-benefit from block writes. This means it gets no benefit from using the
-rbtree register cache over the maple tree register cache so convert it to
-use maple trees instead, it is more modern.
+The RealTek SoundWire CODECs don't support bulk register operations so
+they gain no advantage from using the rbtree cache, convert them to use
+the maple tree cache instead - it is more modern.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/hda/hdac_regmap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Mark Brown (8):
+      ASoC: rt700: Use maple tree register cache
+      ASoC: rt711: Use maple tree register cache
+      ASoC: rt712: Use maple tree register cache
+      ASoC: rt715: Use maple tree register cache
+      ASoC: rt722: Use maple tree register cache
+      ASoC: rt1308: Use maple tree register cache
+      ASoC: rt1316: Use maple tree register cache
+      ASoC: rt1318: Use maple tree register cache
 
-diff --git a/sound/hda/hdac_regmap.c b/sound/hda/hdac_regmap.c
-index fe3587547cfe..2caa1f9b858e 100644
---- a/sound/hda/hdac_regmap.c
-+++ b/sound/hda/hdac_regmap.c
-@@ -358,7 +358,7 @@ static const struct regmap_config hda_regmap_cfg = {
- 	.writeable_reg = hda_writeable_reg,
- 	.readable_reg = hda_readable_reg,
- 	.volatile_reg = hda_volatile_reg,
--	.cache_type = REGCACHE_RBTREE,
-+	.cache_type = REGCACHE_MAPLE,
- 	.reg_read = hda_reg_read,
- 	.reg_write = hda_reg_write,
- 	.use_single_read = true,
-
+ sound/soc/codecs/rt1308-sdw.c      | 2 +-
+ sound/soc/codecs/rt1316-sdw.c      | 2 +-
+ sound/soc/codecs/rt1318-sdw.c      | 2 +-
+ sound/soc/codecs/rt700-sdw.c       | 2 +-
+ sound/soc/codecs/rt711-sdca-sdw.c  | 4 ++--
+ sound/soc/codecs/rt711-sdw.c       | 2 +-
+ sound/soc/codecs/rt712-sdca-dmic.c | 4 ++--
+ sound/soc/codecs/rt712-sdca-sdw.c  | 4 ++--
+ sound/soc/codecs/rt715-sdca-sdw.c  | 4 ++--
+ sound/soc/codecs/rt722-sdca-sdw.c  | 4 ++--
+ 10 files changed, 15 insertions(+), 15 deletions(-)
 ---
-base-commit: 9561de3a55bed6bdd44a12820ba81ec416e705a7
-change-id: 20230609-alsa-hda-maple-02f75ebb067e
+base-commit: 08e6c4bb17087584261c4aff555d32fc1c620b81
+change-id: 20230609-asoc-rt-sdw-maple-fa6714ac4318
 
 Best regards,
 -- 

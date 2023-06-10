@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7315E72ABEA
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jun 2023 15:57:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A485172ABFB
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Jun 2023 16:00:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE247204;
-	Sat, 10 Jun 2023 15:56:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE247204
+	by alsa0.perex.cz (Postfix) with ESMTPS id 290463E8;
+	Sat, 10 Jun 2023 15:59:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 290463E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686405461;
-	bh=UG2rKCfC964beAu9TOf+OSf0dqOcmIpUi4KlU4n7tzY=;
-	h=From:Subject:Date:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=jpp8EFd2yY2JSfPRtn+pBKN58NEvHsPTUjbZQJMSDuW7FkXDjXuz2FBXSuatg80Yy
-	 2xlreQQMDJ7bJbf3ser8JnaN1S2OaiZMpnO90b2yDBRGkClAGb0qjSn+Jz2Y7mwmOb
-	 1COd2lHAH0OcCqVbkdIqTWHPdCtTlj1yqG1euxxY=
+	s=default; t=1686405609;
+	bh=EIaZroKoN2dVZbUmzxGbc6AQm+jh8EaWWjfXcibnqfM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=XWiXYExHKsx+adL04Lro/6c+f3vbu6SPaHk59vXURoqhsmd+sHvLKIWj+kGGJhiVR
+	 HQQzoh2wu0LsMeNhJeYjapYqSdZ3Y5MDSp4NAisMWk5M1qsPLjIThIGV8V4IMVJyLv
+	 k7dtazBi2/ETiaR6tje3doG7ucMYL52Tgr/B/vh4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0F98F80544; Sat, 10 Jun 2023 15:56:50 +0200 (CEST)
+	id 51919F80520; Sat, 10 Jun 2023 15:58:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44A24F80290;
-	Sat, 10 Jun 2023 15:56:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 764F4F8016C;
+	Sat, 10 Jun 2023 15:58:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02E22F80494; Sat, 10 Jun 2023 15:56:45 +0200 (CEST)
+	id CED91F80494; Sat, 10 Jun 2023 15:56:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +35,39 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AD28CF80155
-	for <alsa-devel@alsa-project.org>; Sat, 10 Jun 2023 15:56:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD28CF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id AE6D3F800C8
+	for <alsa-devel@alsa-project.org>; Sat, 10 Jun 2023 15:56:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE6D3F800C8
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dBc0gG0T
+ header.s=k20201202 header.b=H9KzRiuo
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id CC9F560C66;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0E37C61284;
+	Sat, 10 Jun 2023 13:56:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E033C4339B;
 	Sat, 10 Jun 2023 13:56:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530DDC433D2;
-	Sat, 10 Jun 2023 13:56:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686405394;
-	bh=UG2rKCfC964beAu9TOf+OSf0dqOcmIpUi4KlU4n7tzY=;
-	h=From:Subject:Date:To:Cc:From;
-	b=dBc0gG0T+QkRi+Wgiji4l2/NCAcXLc3pphFLE8TrCDL6Oe4SZldnmjxggqL2mLS0f
-	 L2VnFCrle+ZpyHqqzh3tZiHPyFqgpiLqC52A6y8yYPVWm9fG2XS+KtOX4YHd8fQIat
-	 tZf2v19b5iD4I5mtK3pEMiZmO/zMaWgQUHIJbxY5srLVk1xcizK0gROIzYc2wwzF36
-	 2Ca1PsQr13vTZInVU7Hzrjb0RxPppdhKWznAh2QyCjzvkdexf9EV2vFBxoTNpD+TaH
-	 ZS+lWAU7h7n920h8BpbHXxXPtpeEpT7ja70N8hpMwmnS4fcPvfmOTUdLM/scj2WGf/
-	 gRjHtaS0wpcJQ==
+	s=k20201202; t=1686405396;
+	bh=EIaZroKoN2dVZbUmzxGbc6AQm+jh8EaWWjfXcibnqfM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=H9KzRiuouNojP6mOk2GFagb+J7+0glp7STXLFM3LdHucPpgqdhk3DYRb+RmdadaEu
+	 WC7GR4dGIQZI6vBggXgMBvgBbhiM9oUzIpv6VevpjbKi5+SDJTeRncjZeXVSKa99Lp
+	 6pHue8K7zlQaz8pPwTUpI7fFUMA4q9CJoDZwHmzk5hkaGvlA6/dhteSpoilasnjDw5
+	 JHyWpU/Ly9vfGUDWeBTXBSHFJrFQWHd9XgEB/Tt0pJXMIE/C+7vLfPD9m/MsQB6p3H
+	 90zHEyvRNBDto1DQfQfbQ5hEikpBop5sfk7X+PwHfFYOmrp5f024nADvwufAzmJusQ
+	 gFgZQz9p4kN9w==
 From: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 00/10] ASoC: Use maple tree for Cirrus Logic devices
-Date: Sat, 10 Jun 2023 14:56:20 +0100
-Message-Id: <20230609-asoc-cirrus-maple-v1-0-b806c4cbd1d4@kernel.org>
+Date: Sat, 10 Jun 2023 14:56:21 +0100
+Subject: [PATCH 01/10] ASoC: cs35l32: Use maple tree register cache
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAASBhGQC/x2NQQrCQAwAv1JyNrBbUapfEQ/ZNLVB3S0JVaH07
- 916nIFhFnAxFYdrs4DJR11LrhAPDfBI+SGofWVoQ3sM53BB8sLIajY7vml6CQZKFIcTxy51ULt
- ELpiMMo97+S323PVkMujvv7rd13UD1AvgPHoAAAA=
+Message-Id: <20230609-asoc-cirrus-maple-v1-1-b806c4cbd1d4@kernel.org>
+References: <20230609-asoc-cirrus-maple-v1-0-b806c4cbd1d4@kernel.org>
+In-Reply-To: <20230609-asoc-cirrus-maple-v1-0-b806c4cbd1d4@kernel.org>
 To: James Schulman <james.schulman@cirrus.com>,
  David Rhodes <david.rhodes@cirrus.com>,
  Richard Fitzgerald <rf@opensource.cirrus.com>,
@@ -76,19 +76,19 @@ To: James Schulman <james.schulman@cirrus.com>,
 Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
  asahi@lists.linux.dev, Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.13-dev-bfdf5
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1425; i=broonie@kernel.org;
- h=from:subject:message-id; bh=UG2rKCfC964beAu9TOf+OSf0dqOcmIpUi4KlU4n7tzY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkhIEHj+4TLG2yyEP0M+n95zP3xIPy51GYkdlR7IMN
- hy+3EvuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZISBBwAKCRAk1otyXVSH0CQRB/
- 44S+F1oNn8EmEUbQidbURM8bsPqkGj/vOykt4uQlq0+Ey1P8IMqwF8YTQQD9Hq/nzqOWmVFskHkeZl
- 6rqWXZ+NWNh4/xCfasCf/2PKl9zoIsoGV1tnULxLJ4m5HeIIlLyTZTIuLv4ya2YNuIbJw4hAEdIFNn
- XHgljEBIzAOwoe6lzPaXbtM5Em7AlCfwCL/nxsX1doj1iLrVfG492H3lvotrebyFCEpwozBThs9UcK
- viH3mVbfcJ1p7YfrKbvu3ipiNIZZo/c/NYzWpEsPviTmSQuGgeYYph3clLt6d4PBXZkLY0GPBy2Cpv
- R4fIBsvBsEP8qUopOvGM1h63/FS5z8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=951; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=EIaZroKoN2dVZbUmzxGbc6AQm+jh8EaWWjfXcibnqfM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkhIEIm2oWsHEwkTAw5DKp2RoQkLnqtguurmL1qnHQ
+ 322dqZKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZISBCAAKCRAk1otyXVSH0F97B/
+ 9uxLBIeCaSX48suRPOWUTOaYGzaED2J8/CApAC++MaqGBbVDrYmF5oCYVvVQ5iGL+cUIQFF/ZQsrx3
+ zu6bFanrm4feSTg888lQvb/E+hZiRH6Ugk0Aw3wGhSvKmzwhmGMJyfuJbm21oo18FLG+aqygOx/IMd
+ 5ct4pVSPGuuY+LWcuvOJ35iORGS0/av51GXcAgGECLAruGJjUJ1cKCXmaPMTmaswpF3DaDt30wn3RZ
+ LQCNph7DEUcqyU1KFziaynOZH0dZmWrraJeUJo142w4WYGg5AjlxQVinXgAHM+tPPw0x19J0ZJInCp
+ JGytrcixBRn29TZWWIVeegjwiwCiOs
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Message-ID-Hash: FV56Z6EXWMA5WXKILQCRDJNLDNJUBW7K
-X-Message-ID-Hash: FV56Z6EXWMA5WXKILQCRDJNLDNJUBW7K
+Message-ID-Hash: 3ITVVWNKSKEJPXLEGYNWKU4ZOKDH3HBL
+X-Message-ID-Hash: 3ITVVWNKSKEJPXLEGYNWKU4ZOKDH3HBL
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,49 +101,38 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FV56Z6EXWMA5WXKILQCRDJNLDNJUBW7K/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3ITVVWNKSKEJPXLEGYNWKU4ZOKDH3HBL/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-A lot of the Cirrus Logic devices only support single register
-read/write operations so they get no benefit from using the rbtree cache
-over the more modern maple tree cache, convert them to use maple tree.
+The cs35l32 can only support single register read and write operations
+so does not benefit from block writes. This means it gets no benefit from
+using the rbtree register cache over the maple tree register cache so
+convert it to use maple trees instead, it is more modern.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
-Mark Brown (10):
-      ASoC: cs35l32: Use maple tree register cache
-      ASoC: cs35l33: Use maple tree register cache
-      ASoC: cs35l34: Use maple tree register cache
-      ASoC: cs35l35: Use maple tree register cache
-      ASoC: cs4234: Use maple tree register cache
-      ASoC: cs42l42: Use maple tree register cache
-      ASoC: cs42l73: Use maple tree register cache
-      ASoC: cs42l83: Use maple tree register cache
-      ASoC: cs43130: Use maple tree register cache
-      ASoC: cs35l30: Use maple tree register cache
+ sound/soc/codecs/cs35l32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- sound/soc/codecs/cs35l32.c     | 2 +-
- sound/soc/codecs/cs35l33.c     | 2 +-
- sound/soc/codecs/cs35l34.c     | 2 +-
- sound/soc/codecs/cs35l35.c     | 2 +-
- sound/soc/codecs/cs4234.c      | 2 +-
- sound/soc/codecs/cs42l42.c     | 2 +-
- sound/soc/codecs/cs42l73.c     | 2 +-
- sound/soc/codecs/cs42l83-i2c.c | 2 +-
- sound/soc/codecs/cs43130.c     | 2 +-
- sound/soc/codecs/cs53l30.c     | 2 +-
- 10 files changed, 10 insertions(+), 10 deletions(-)
----
-base-commit: 9561de3a55bed6bdd44a12820ba81ec416e705a7
-change-id: 20230609-asoc-cirrus-maple-0aba1f5c18b8
+diff --git a/sound/soc/codecs/cs35l32.c b/sound/soc/codecs/cs35l32.c
+index dc7a58d68076..8421599f1de7 100644
+--- a/sound/soc/codecs/cs35l32.c
++++ b/sound/soc/codecs/cs35l32.c
+@@ -260,7 +260,7 @@ static const struct regmap_config cs35l32_regmap = {
+ 	.volatile_reg = cs35l32_volatile_register,
+ 	.readable_reg = cs35l32_readable_register,
+ 	.precious_reg = cs35l32_precious_register,
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 
+ 	.use_single_read = true,
+ 	.use_single_write = true,
 
-Best regards,
 -- 
-Mark Brown <broonie@kernel.org>
+2.30.2
 

@@ -2,45 +2,45 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A3F72CA39
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 17:34:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE5FF72CA42
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 17:34:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F31C843;
-	Mon, 12 Jun 2023 17:33:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F31C843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3493A3E8;
+	Mon, 12 Jun 2023 17:33:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3493A3E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686584046;
+	s=default; t=1686584087;
 	bh=EEUgytmqzFOSFZpkLUOYlrhcm0G0fZhdHWbBSJD+Up0=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Zhxs0/OsD9/R6z1rIuT00CkV1yX27s/dYiG1ttRIR/olUjO2G8PkEB1J7laB8whWw
-	 9YFN57ZzZUGo0uvJXkZI9uSmMKnbb0Vo7VOkwFCMiSuklW9BDiTXXCR3OTU//si6q6
-	 Q+0pG3S5u1vez0sHcfErWO6ngcsBzCbu2QJrnY4E=
+	b=L9MCnvQEgsWr14+ltKTU6yA05U9ZeQxjXj2SU/t3kzlnunEKcsSnfQgTRRyPLKYZU
+	 sU0wSVeATWfuQdr1H7e1OlBB/JVWlFVZBk2DAge3Cnzkirjp72HcKMvfg6PFEtC/n0
+	 HH8x2FVGLyrTOxVpBLzdEv6KYN8S2lH8wf9zbVJw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A89FF80544; Mon, 12 Jun 2023 17:32:01 +0200 (CEST)
+	id 180D1F805E1; Mon, 12 Jun 2023 17:32:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A5DFF80132;
-	Mon, 12 Jun 2023 17:32:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D54CAF805DA;
+	Mon, 12 Jun 2023 17:32:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 22E4BF80132; Mon, 12 Jun 2023 10:57:50 +0200 (CEST)
+	id 7711CF80132; Mon, 12 Jun 2023 11:01:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by alsa1.perex.cz (Postfix) with ESMTP id 042DBF800BA
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 10:57:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 042DBF800BA
+	by alsa1.perex.cz (Postfix) with ESMTP id A4D99F800ED
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 11:00:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4D99F800ED
 Received: from loongson.cn (unknown [10.180.13.124])
-	by gateway (Coremail) with SMTP id _____8BxZ+kE3oZkc5kDAA--.5910S3;
-	Mon, 12 Jun 2023 16:57:40 +0800 (CST)
+	by gateway (Coremail) with SMTP id _____8DxyOnG3oZkspkDAA--.7829S3;
+	Mon, 12 Jun 2023 17:00:54 +0800 (CST)
 Received: from localhost.localdomain (unknown [10.180.13.124])
 	by localhost.localdomain (Coremail) with SMTP id
- AQAAf8BxC8oC3oZk_WoVAA--.52737S4;
-	Mon, 12 Jun 2023 16:57:39 +0800 (CST)
+ AQAAf8AxZuTF3oZkoGwVAA--.61735S4;
+	Mon, 12 Jun 2023 17:00:54 +0800 (CST)
 From: YingKun Meng <mengyingkun@loongson.cn>
 To: broonie@kernel.org,
 	lgirdwood@gmail.com
@@ -50,44 +50,45 @@ Cc: linux-kernel@vger.kernel.org,
 	loongson-kernel@lists.loongnix.cn,
 	Yingkun Meng <mengyingkun@loongson.cn>
 Subject: [ PATCH v2 2/3] ASoC: loongson: Add Loongson ASoC Sound Card Support
-Date: Mon, 12 Jun 2023 16:57:29 +0800
-Message-Id: <20230612085729.3039512-1-mengyingkun@loongson.cn>
+Date: Mon, 12 Jun 2023 17:00:46 +0800
+Message-Id: <20230612090046.3039532-1-mengyingkun@loongson.cn>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8BxC8oC3oZk_WoVAA--.52737S4
-X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQAADGSFuYEEQQAOsf
+X-CM-TRANSID: AQAAf8AxZuTF3oZkoGwVAA--.61735S4
+X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQAADGSFuYEEQQAUsF
 X-Coremail-Antispam: 1Uk129KBj93XoW3Ww1DCr4DJw47Zw4fXryfXwc_yoWfCr1xpa
 	nxZay5KrWrJr4fCr1FqrWrAF1a934xuFnrXay7Gw1xKr9rA3s8WwnrGF1UZF4fAr98KFWU
-	XFW5GFW8KFyDGacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	XFW5GFW8KFyDGacCm3ZEXasCq-sJn29KB7ZKAUJUUUUD529EdanIXcx71UUUUU7KY7ZEXa
 	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
 	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
 	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
 	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
-	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
-	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j8CztUUUUU=
+	xVWxJr0_GcWln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
+	6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
+	vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcYiiDUUUU
 X-MailFrom: mengyingkun@loongson.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: RZS7UEYL3OACWHWSQHKOBDRMYRAGPOVF
-X-Message-ID-Hash: RZS7UEYL3OACWHWSQHKOBDRMYRAGPOVF
+Message-ID-Hash: YMUGHKVX4VV73G6RCNPUEQ5YBJVWIODB
+X-Message-ID-Hash: YMUGHKVX4VV73G6RCNPUEQ5YBJVWIODB
 X-Mailman-Approved-At: Mon, 12 Jun 2023 15:31:58 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RZS7UEYL3OACWHWSQHKOBDRMYRAGPOVF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YMUGHKVX4VV73G6RCNPUEQ5YBJVWIODB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>

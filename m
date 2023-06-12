@@ -2,93 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E534172C715
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 16:12:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DFE72C724
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 16:13:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 154F274C;
-	Mon, 12 Jun 2023 16:11:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 154F274C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39DF93E8;
+	Mon, 12 Jun 2023 16:13:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39DF93E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686579137;
-	bh=MLqCDvDONNRpDjStuXzVvpI3wbROPdJptzhW8N7PV/Q=;
+	s=default; t=1686579238;
+	bh=Q3WBE5BA1C2DVQs+plNJCZd8eE/mmEpjRx+YNhmdfNc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=N/blUGO4/Fp32GjAkR3R3CIx7WXYiAqhk76Q81VRBV+grm78qq28EovCE6hHTeExY
-	 L/G4kymfjeYfxbDuFKIUwHVIFAqBQDjAzD06OHnq/7XIWE0W79hEBq2biLWrOZtJpn
-	 QRfd/0b+/hrneCyk6u6YEKNJCr1H520UcFdJDhb8=
+	b=UvfTY622yNBr5AtKi+L+LbqvC1M+0W99umbn3SBfFIjm+F95z9YdWg5KiyU/ECqIw
+	 PCWrWITVHUppuINDTGt5eGYdthiCq7bq09o14sULLSnt7jkvmEClbvb7506vsgk/6q
+	 wYJvpu0tGg+t5/vhUrv+NY5sl2tky3zd5sRefFJQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 45B57F80533; Mon, 12 Jun 2023 16:11:26 +0200 (CEST)
+	id 03D24F800ED; Mon, 12 Jun 2023 16:13:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79278F80132;
-	Mon, 12 Jun 2023 16:11:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D0C9F80132;
+	Mon, 12 Jun 2023 16:13:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F401F80149; Mon, 12 Jun 2023 16:11:21 +0200 (CEST)
+	id BC397F80149; Mon, 12 Jun 2023 16:13:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [IPv6:2607:f8b0:4864:20::729])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 718F5F800ED
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 16:11:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 718F5F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 592C2F80132
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 16:12:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 592C2F80132
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=ZUc6sxNR
-Received: by mail-qk1-x732.google.com with SMTP id
- af79cd13be357-75d4094f9baso351015385a.1
+ header.s=20221208 header.b=JpCmZrgG
+Received: by mail-qk1-x729.google.com with SMTP id
+ af79cd13be357-75d4f12d4a3so434797285a.0
         for <alsa-devel@alsa-project.org>;
- Mon, 12 Jun 2023 07:11:17 -0700 (PDT)
+ Mon, 12 Jun 2023 07:12:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686579076; x=1689171076;
+        d=gmail.com; s=20221208; t=1686579174; x=1689171174;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EJQ+L6XrHRjNmHJu0KSlBODFfH7Ghg6JGFmz6a5x+ks=;
-        b=ZUc6sxNRBAQ8xbX6AppejPyNMJJ9vsAbCmSZXAXJ+9uk+Ut11Ci70gGfKeCF6IdCYT
-         0Npc6f438t0uTZnI96FsJGIPUr95LlFSa7BTMGsXKqAPr/uS1Gd0FExFSCuCQESBowVo
-         UHu6ECTAF+m1SBtTZXBI/1yAUv9v6izlKf+yjVPKh/IzhBhQzv27yLbTGfoSSUcGyXPy
-         BwfM8c3AbVWzckrG/d9VGxLDN5Tqj8OgcS8NktKVgeIJq9GaLzTzZNSeUPep/JBkJmo9
-         cxUfmKHtDmA4HfbwfbZdAkmDSCfoZPeuXwkRNY9YARnk/VloxLigmPyPw0y9qBjNCk7G
-         Xhdw==
+        bh=TwQG10OvI6bp5Np0f72lU7cLcijGe7ymruPqF2GZDRs=;
+        b=JpCmZrgGbnD0/gw+qdwVRXyOpwtR59MoNMneUFCy3FczoF66ffM5Psp2Bc7Rb63I0a
+         UbCL1I+I5HoEGCFcLC/EJxn0FJDEGvkKDbMEs0yGqBP97pRzIfCfJBrRGEEKPfGGY7zR
+         O0KtRFFDqWQnOEiAEZcrPlJwPzH43j1KW6h62gSt0cp3ryIphp7xo8RD/c5/Rzw2IXuS
+         aQB00DGEzDaz451ciZpPqK/Ygj0CTxdrKd8vGG43oWeIKPlgRQlnInEGUuh+FEdwvnqd
+         jI76t5oXepYl/ZvJgQGWCZ/Pbyo4o3ai9XRqSxEDHCiYarYWQjg7vW3nPicZu6NGW88P
+         eSXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686579076; x=1689171076;
+        d=1e100.net; s=20221208; t=1686579174; x=1689171174;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=EJQ+L6XrHRjNmHJu0KSlBODFfH7Ghg6JGFmz6a5x+ks=;
-        b=BMepTMNaYfmh7s6VD9v6q7VrIL2hGxaAXT+nd/0c5UzSZBnNtC/g8o/vKoyInS68CC
-         G0LUsAIpBEuziqu08+cs+CAWAfaaoe1XDqTiA2S/dj3NdvuJD74Q5jYCmOLPGx6U1x80
-         6uoxB6swuc9QdQneVbQGESgrw918swlBjF5IuYdTtDkHfYb7vJoZel6oIDs62KeygbEP
-         yF0USwoC1agCa4jv0yCnu+MdcjdBv5tWgyWwe9LDt6jey4vzI9GdCCWHg6dAdPIEFfTS
-         BefXJJbwrYEhrPAD7V2cSMj2v1QiWAiSEGwy45MRvNMNOGeTJ7ewZeVLAPep6fLuAk9a
-         7yWQ==
-X-Gm-Message-State: AC+VfDwGbKCdEFvHGz92QHMvpWQg3NaQMUuNrW38XcHY1PWh5v0ryAGa
-	5sTfy1nJF1tckxgeiDehUj8634Tzcp+W2pw2ZSI=
+        bh=TwQG10OvI6bp5Np0f72lU7cLcijGe7ymruPqF2GZDRs=;
+        b=lyKabW/p0bBDF+5UcXYqIVQJ3VsUDim1XGk/DtBO+9JZVvd/ancrvS0GLhSXdBECDB
+         22Z1ViJzHzC70cRNASjg96UTg2lljDiuVHgq1U+5wJki/d+8WAIJKp0NPP4UJtfEgSS0
+         +NaA/76z+itnuLFXXC6AeJ2FPKLZhLpJKb5qhtirCj5P2nAqszpi/dM93cAE+OVsIe+P
+         1Jy8rlgda/KOUixhMAq6pCm6sMDmmR/2GryIzjtg5pO0nEecRD5AjqCFfpKf4Ztvch0L
+         ZumQ1o9uTWV4UqEfg6NURQfEhXZRRKNnO2sC83/r1Uug+Yu9M5uZsqnjshvsFsC1RTBd
+         uwUg==
+X-Gm-Message-State: AC+VfDyeXJFK+64/pKi1+caVLcwQ7km4m0ucnKHfpw80xdJ0CVOLlrVW
+	P2JiLYvr96onvTq51yZQAjM/SlSoQPXFC0Aeo/k=
 X-Google-Smtp-Source: 
- ACHHUZ6XGswSinQMLW4VOPw+M6UjTIW5TYmForv0/8aMKQbhebyUxQ8+nfu1DnD/XddolUzFXKXLi6r/lySzLnim53A=
-X-Received: by 2002:a05:6214:2268:b0:623:9218:58e5 with SMTP id
- gs8-20020a056214226800b00623921858e5mr11664934qvb.39.1686579076245; Mon, 12
- Jun 2023 07:11:16 -0700 (PDT)
+ ACHHUZ7IfxVmmdzaBuW9CEDKaY7PegOwFcPmL2PZJELzk6uKmhCxAC6L6jKrxcH4wML32Rr1mb49PunadVLIKjgJfGc=
+X-Received: by 2002:ad4:5b8a:0:b0:62d:edf6:6dc3 with SMTP id
+ 10-20020ad45b8a000000b0062dedf66dc3mr2330187qvp.37.1686579174003; Mon, 12 Jun
+ 2023 07:12:54 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230612122926.107333-1-herve.codina@bootlin.com>
- <20230612122926.107333-7-herve.codina@bootlin.com>
-In-Reply-To: <20230612122926.107333-7-herve.codina@bootlin.com>
+ <20230612122926.107333-8-herve.codina@bootlin.com>
+In-Reply-To: <20230612122926.107333-8-herve.codina@bootlin.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 12 Jun 2023 17:10:40 +0300
+Date: Mon, 12 Jun 2023 17:12:18 +0300
 Message-ID: 
- <CAHp75Vf2dmAS9VD-pgyZwVopVCFy8yFjhPWEj8sym=pfE7uxSA@mail.gmail.com>
-Subject: Re: [PATCH v3 06/12] minmax: Introduce {min,max}_array()
+ <CAHp75Ve8BVO50TqhUV9YWkRBvYARNOAapZ21X=FehaBBfcC2jw@mail.gmail.com>
+Subject: Re: [PATCH v3 07/12] iio: inkern: Use max_array() to get the maximum
+ value from an array
 To: Herve Codina <herve.codina@bootlin.com>
 Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	Rob Herring <robh+dt@kernel.org>,
@@ -104,8 +105,8 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: KSAE3LP5CIMGBF62NLFCUVWAQLOQMM6K
-X-Message-ID-Hash: KSAE3LP5CIMGBF62NLFCUVWAQLOQMM6K
+Message-ID-Hash: 55R7PVHFRGR4TKIAUW56G6XQYKTJLYOZ
+X-Message-ID-Hash: 55R7PVHFRGR4TKIAUW56G6XQYKTJLYOZ
 X-MailFrom: andy.shevchenko@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KSAE3LP5CIMGBF62NLFCUVWAQLOQMM6K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/55R7PVHFRGR4TKIAUW56G6XQYKTJLYOZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,68 +131,47 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 On Mon, Jun 12, 2023 at 3:30=E2=80=AFPM Herve Codina <herve.codina@bootlin.=
 com> wrote:
 >
-> Introduce min_array() (resp max_array()) in order to get the
-> minimal (resp maximum) of values present in an array.
+> Use max_array() to get the maximum value from an array instead of a
+> custom local loop.
 
-Some comments below, after addressing them,
+Looks really good, thank you!
 Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 
 > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 > ---
->  include/linux/minmax.h | 26 ++++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
+>  drivers/iio/inkern.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
 >
-> diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-> index 396df1121bff..37a211f22404 100644
-> --- a/include/linux/minmax.h
-> +++ b/include/linux/minmax.h
-> @@ -133,6 +133,32 @@
->   */
->  #define max_t(type, x, y)      __careful_cmp((type)(x), (type)(y), >)
+> diff --git a/drivers/iio/inkern.c b/drivers/iio/inkern.c
+> index ce537b4ca6ca..ae1a41d3a559 100644
+> --- a/drivers/iio/inkern.c
+> +++ b/drivers/iio/inkern.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/property.h>
+>  #include <linux/slab.h>
+>  #include <linux/mutex.h>
+> +#include <linux/minmax.h>
 >
-> +#define __minmax_array(op, array, len) ({                      \
+>  #include <linux/iio/iio.h>
+>  #include <linux/iio/iio-opaque.h>
+> @@ -875,11 +876,7 @@ static int iio_channel_read_max(struct iio_channel *=
+chan,
+>                         return -EINVAL;
+>                 switch (*type) {
+>                 case IIO_VAL_INT:
+> -                       *val =3D vals[--length];
+> -                       while (length) {
+> -                               if (vals[--length] > *val)
+> -                                       *val =3D vals[length];
+> -                       }
+> +                       *val =3D max_array(vals, length);
+>                         break;
+>                 default:
+>                         /* FIXME: learn about max for other iio values */
+> --
+> 2.40.1
+>
 
-Maybe it's my MUA, maybe the code contains spaces, can you switch to
-TABs if it's the case?
-
-> +       typeof(array) __array =3D (array);                        \
-
-We have __must_be_array()
-
-You will need to fix the inclusions in minmax.h at the same time, it needs
-linux/build_bug.h (which includes compiler.h needed for __UNIQUE_ID()
-and for the above mentioned one).
-
-> +       typeof(len) __len =3D (len);                              \
-> +       typeof(*__array + 0) __element =3D __array[--__len];      \
-
-After above, this can be written as __array[0].
-
-> +       while (__len--)                                         \
-> +               __element =3D op(__element, __array[__len]);      \
-> +       __element; })
-> +
-> +/**
-> + * min_array - return minimum of values present in an array
-> + * @array: array
-> + * @len: array length
-> + *
-> + * Note that @len must not be zero (empty array).
-> + */
-> +#define min_array(array, len) __minmax_array(min, array, len)
-> +
-> +/**
-> + * max_array - return maximum of values present in an array
-> + * @array: array
-> + * @len: array length
-> + *
-> + * Note that @len must not be zero (empty array).
-> + */
-> +#define max_array(array, len) __minmax_array(max, array, len)
-> +
->  /**
->   * clamp_t - return a value clamped to a given range using a given type
->   * @type: the type of variable to use
 
 --=20
 With Best Regards,

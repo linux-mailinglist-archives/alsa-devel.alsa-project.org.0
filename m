@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D45172C48B
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 14:40:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BC5B72C52A
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 14:56:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C031D825;
-	Mon, 12 Jun 2023 14:39:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C031D825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 890B96C0;
+	Mon, 12 Jun 2023 14:55:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 890B96C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686573628;
-	bh=eoZ+0qjZiLEJ3HnTSwjcfZB+lUo3LW6OPEM++42sLCA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jyXZYWVCIHH4uk6kQOWKxPPJwG6wP+DWJvlrBNP0YobLB4oT1sZmQFfjTYU8EsrIF
-	 Ou0YPlNdJLNC/D+/Aja7oU2Q4VOV3VcQjidtHXfvWrpCVhk0U3+Qh/L2htP/X8HeJD
-	 NiZYz6TJfB6OAWZ1cT9LJh6xgRVAw4aqbObv3G8c=
+	s=default; t=1686574593;
+	bh=+aST9CGCBegepe+sfiDk6AmMDf3eSzWjyDp1DzWDerU=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=e5mVV6fl0b//kQMKHqn/UY9PJazMubNjxgyCymOGkFHsotS6h77oF7U6G/G/XSYfn
+	 VJ2BP9P5ap9qVthRmQG5jnTis/U0h+4KmJxwgD4CETi4/btKthpKSfGn7lUf81q/CL
+	 KxeG9mfKIc+4gse6xXq7n97XfguHxBWCovrOUinE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 21C55F80132; Mon, 12 Jun 2023 14:39:38 +0200 (CEST)
+	id E8E14F80301; Mon, 12 Jun 2023 14:55:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91262F80132;
-	Mon, 12 Jun 2023 14:39:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 749B1F80130;
+	Mon, 12 Jun 2023 14:55:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4ACB6F80149; Mon, 12 Jun 2023 14:39:34 +0200 (CEST)
+	id B1D1DF80132; Mon, 12 Jun 2023 14:55:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,65 +37,60 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D7754F80130
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 14:39:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7754F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 39F78F800BA
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 14:55:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39F78F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=C7zwdbgD;
+ header.s=susede2_rsa header.b=DTGBeUxh;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Z7clgTSN
+ header.s=susede2_ed25519 header.b=gI7m4fmp
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CEDA62030A;
-	Mon, 12 Jun 2023 12:39:30 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 85FC6203E7;
+	Mon, 12 Jun 2023 12:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1686573570;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XuFdALxXIStAxZd+Ym6NFbs/WXvUyVbbTHxMUbkje3Y=;
-	b=C7zwdbgD9JzI3gfS42Trpsq0qiF6Zb15uXfeorLx0cLLY2phPNxdUD03MBKBeKbPYEKYAJ
-	GoKOgck8xJAl2zvxZg6Tta3ic7XBGAkAl6wa0/SXaDRpsQRTiGzQ2C9UkafOWE1F89Ano9
-	0z7AOQVCxwxfBsqFhl5rUP6clpijtJM=
+	t=1686574536; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=BDIAMUgqbqRzw2Y25I4DS/BEQGvQu0qqJQJM2gANUGo=;
+	b=DTGBeUxh4B+ZgxymqLB6obOCDXu7a1oAVZqjtCWstm57Ti6eMVQXr+mmplCU0p9ruCelDZ
+	gGGPW/HedVPV16P6IzSZrvmTYegSZbPLTdsEQ11xSV+5PPNG9U0DTIfqW23ZlDQtrM7ZD8
+	QaGzfMY019aiXhSYlOJd7+ilkayyXyA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686573570;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XuFdALxXIStAxZd+Ym6NFbs/WXvUyVbbTHxMUbkje3Y=;
-	b=Z7clgTSN7lo/e9/bmTiBsyWWGu7tYcRWAHF8/55OLgiOcZL1SEgl0VbmVlVbTuMHa/2jnQ
-	RESFfHrms3QbzFCQ==
+	s=susede2_ed25519; t=1686574536;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=BDIAMUgqbqRzw2Y25I4DS/BEQGvQu0qqJQJM2gANUGo=;
+	b=gI7m4fmplLcrlGxpZv3KdCc2i23IarBBdxsQXW5JWd8vQKwzmd0+5N9Nfwmyr3y0YuIUkW
+	PrIK/K40YAE+G3Aw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AEFE6138EC;
-	Mon, 12 Jun 2023 12:39:30 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 69F62138EC;
+	Mon, 12 Jun 2023 12:55:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id JARpKQISh2Q2awAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 12 Jun 2023 12:39:30 +0000
-Date: Mon, 12 Jun 2023 14:39:30 +0200
-Message-ID: <87edmgam7x.wl-tiwai@suse.de>
+	id KWTXGMgVh2QvcwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 12 Jun 2023 12:55:36 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: clemens@ladisch.de,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH 0/2] ALSA: firewire: use 'GPL' string for module license
-In-Reply-To: <20230611144445.221529-1-o-takashi@sakamocchi.jp>
-References: <20230611144445.221529-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: YOTPWONJPYRN77X752WOXT5CSDKEKZQT
-X-Message-ID-Hash: YOTPWONJPYRN77X752WOXT5CSDKEKZQT
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: seq: oss: Fix racy open/close of MIDI devices
+Date: Mon, 12 Jun 2023 14:55:33 +0200
+Message-Id: <20230612125533.27461-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: F622T7VAMINDOELJ7IATBJ4QFB2ETDQV
+X-Message-ID-Hash: F622T7VAMINDOELJ7IATBJ4QFB2ETDQV
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOTPWONJPYRN77X752WOXT5CSDKEKZQT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F622T7VAMINDOELJ7IATBJ4QFB2ETDQV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,37 +112,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 11 Jun 2023 16:44:43 +0200,
-Takashi Sakamoto wrote:
-> 
-> Hi,
-> 
-> Nowadays, the use of "GPL" string in MODULE_LICENSE macro seems to
-> obsolete "GPL v2" string. This series includes two patches to use it for
-> modules in ALSA firewire stack contributed by two developers.
-> 
-> This change does not pose any issue for modules contributed by Takashi
-> Sakamoto, the author of this series, while it is advisable to have careful
-> consideration for modules contributed by Clemens Ladisch, since the code
-> related to license will be modified by a developer who is not the
-> copyright holder.
-> 
-> A commit bf7fbeeae6db ("module: Cure the MODULE_LICENSE "GPL" vs.
-> "GPL v2" bogosity") adds detail documentation about the macro itself and
-> clarifies the difference between "GPL" and "GPL v2". The macro is designed
-> to provide sufficient information to kernel module loader and user space
-> tools. Both strings have the same meanings, but the latter is legacy.
-> 
-> In conclusion, any change made to the usage of the macro neither result in
-> significant alterations to license nor copyright.
-> 
-> Takashi Sakamoto (2):
->   ALSA: firewire: use 'GPL' string for module license contributed by
->     Takashi Sakamoto
->   ALSA: firewire: use 'GPL' string for module license contributed by
->     Clemens Ladisch
+Although snd_seq_oss_midi_open() and snd_seq_oss_midi_close() can be
+called concurrently from different code paths, we have no proper data
+protection against races.  Introduce open_mutex to each seq_oss_midi
+object for avoiding the races.
 
-Applied now.  Thanks.
+Reported-by: "Gong, Sishuai" <sishuai@purdue.edu>
+Closes: https://lore.kernel.org/r/7DC9AF71-F481-4ABA-955F-76C535661E33@purdue.edu
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/seq/oss/seq_oss_midi.c | 35 +++++++++++++++++++------------
+ 1 file changed, 22 insertions(+), 13 deletions(-)
 
+diff --git a/sound/core/seq/oss/seq_oss_midi.c b/sound/core/seq/oss/seq_oss_midi.c
+index 07efb38f58ac..f2940b29595f 100644
+--- a/sound/core/seq/oss/seq_oss_midi.c
++++ b/sound/core/seq/oss/seq_oss_midi.c
+@@ -37,6 +37,7 @@ struct seq_oss_midi {
+ 	struct snd_midi_event *coder;	/* MIDI event coder */
+ 	struct seq_oss_devinfo *devinfo;	/* assigned OSSseq device */
+ 	snd_use_lock_t use_lock;
++	struct mutex open_mutex;
+ };
+ 
+ 
+@@ -172,6 +173,7 @@ snd_seq_oss_midi_check_new_port(struct snd_seq_port_info *pinfo)
+ 	mdev->flags = pinfo->capability;
+ 	mdev->opened = 0;
+ 	snd_use_lock_init(&mdev->use_lock);
++	mutex_init(&mdev->open_mutex);
+ 
+ 	/* copy and truncate the name of synth device */
+ 	strscpy(mdev->name, pinfo->name, sizeof(mdev->name));
+@@ -322,15 +324,17 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 	int perm;
+ 	struct seq_oss_midi *mdev;
+ 	struct snd_seq_port_subscribe subs;
++	int err;
+ 
+ 	mdev = get_mididev(dp, dev);
+ 	if (!mdev)
+ 		return -ENODEV;
+ 
++	mutex_lock(&mdev->open_mutex);
+ 	/* already used? */
+ 	if (mdev->opened && mdev->devinfo != dp) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return -EBUSY;
++		err = -EBUSY;
++		goto unlock;
+ 	}
+ 
+ 	perm = 0;
+@@ -340,14 +344,14 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 		perm |= PERM_READ;
+ 	perm &= mdev->flags;
+ 	if (perm == 0) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return -ENXIO;
++		err = -ENXIO;
++		goto unlock;
+ 	}
+ 
+ 	/* already opened? */
+ 	if ((mdev->opened & perm) == perm) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return 0;
++		err = 0;
++		goto unlock;
+ 	}
+ 
+ 	perm &= ~mdev->opened;
+@@ -372,13 +376,17 @@ snd_seq_oss_midi_open(struct seq_oss_devinfo *dp, int dev, int fmode)
+ 	}
+ 
+ 	if (! mdev->opened) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return -ENXIO;
++		err = -ENXIO;
++		goto unlock;
+ 	}
+ 
+ 	mdev->devinfo = dp;
++	err = 0;
++
++ unlock:
++	mutex_unlock(&mdev->open_mutex);
+ 	snd_use_lock_free(&mdev->use_lock);
+-	return 0;
++	return err;
+ }
+ 
+ /*
+@@ -393,10 +401,9 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
+ 	mdev = get_mididev(dp, dev);
+ 	if (!mdev)
+ 		return -ENODEV;
+-	if (! mdev->opened || mdev->devinfo != dp) {
+-		snd_use_lock_free(&mdev->use_lock);
+-		return 0;
+-	}
++	mutex_lock(&mdev->open_mutex);
++	if (!mdev->opened || mdev->devinfo != dp)
++		goto unlock;
+ 
+ 	memset(&subs, 0, sizeof(subs));
+ 	if (mdev->opened & PERM_WRITE) {
+@@ -415,6 +422,8 @@ snd_seq_oss_midi_close(struct seq_oss_devinfo *dp, int dev)
+ 	mdev->opened = 0;
+ 	mdev->devinfo = NULL;
+ 
++ unlock:
++	mutex_unlock(&mdev->open_mutex);
+ 	snd_use_lock_free(&mdev->use_lock);
+ 	return 0;
+ }
+-- 
+2.35.3
 
-Takashi

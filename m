@@ -2,78 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95FF972CA4C
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 17:35:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92ADF72CA4B
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 17:35:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E786846;
-	Mon, 12 Jun 2023 17:34:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E786846
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC3D59F6;
+	Mon, 12 Jun 2023 17:34:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC3D59F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686584146;
-	bh=kKOLeLgXRoroAXkDoeooSA5uaZLXwfctELNHcDOZh9s=;
+	s=default; t=1686584125;
+	bh=9PNOgDgKfHNhFWS/56djpdmbt/hVOlBptC54bwapaJw=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AOU1Iq2/Dy+L/P8mQFe63iRF63HTnPqXIQ8cSnWcz8o33DWuWPBiX+1JqdCPvP8M0
-	 YOj90jQUayJ9uyPaElhP0rMKK4OTi6CDrt2jTKu44F5smYYgQci/Lhm+7X45KkrUxX
-	 EoyDhRaD9wHR0aK6hZm3LJrmqK5IE0OHzFCSxQzQ=
+	b=tMEiIHh2Jx+qcbKwcwublCrdnWYdBCKRf+tquGnDsr+PdmberKwnOrNGwLlbg5l0T
+	 /rXW3zwgHxW1WRAcCk3iDD5ms1TvdtOm1Ug6RoO3xV28j9GpJh2/daomKpxuZ+oMlW
+	 tOkdEW4cngbi1qR/cl54MoemsHZTRBUAJGQp5/wk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A833F8060A; Mon, 12 Jun 2023 17:32:22 +0200 (CEST)
+	id 1EC3DF8060B; Mon, 12 Jun 2023 17:32:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7B98F8057A;
-	Mon, 12 Jun 2023 17:32:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52DB3F80603;
+	Mon, 12 Jun 2023 17:32:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A977F80246; Mon, 12 Jun 2023 12:53:54 +0200 (CEST)
+	id 6C822F80246; Mon, 12 Jun 2023 12:53:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_PASS,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 49695F800ED
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 12:53:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49695F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 92E05F80149
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 12:53:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92E05F80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=c1kWt8bn
-X-UUID: 5d92964e090f11eeb20a276fd37b9834-20230612
+ header.s=dk header.b=QcgmvK/1
+X-UUID: 5f9d85d4090f11ee9cb5633481061a41-20230612
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=mediatek.com; s=dk;
 	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=BgarHxns2Qzd3950VexAn5nS3mSkft96ZC3ZvkYecA0=;
-	b=c1kWt8bnBBAoj+VG7r7Joa38/7ssCo/2qnQazPbZU1E1AgodDcW/srpxxgbHLsFqGB7bwHCWuUxyicV4+wbeJB9my4VEIZa1um26yGz53ylnbxs8q79t1VRBdbLalTGgV+jL1+4SojTlL96eezbygRBJd3wJd4dakpwQScdq5c4=;
-X-CID-CACHE: Type:Local,Time:202306121844+08,HitQuantity:1
+ bh=aZY/OvmVIfR/+U1CwVj1hHp8VX+qCtSh3oDVJZZeK0E=;
+	b=QcgmvK/1G5I/CvY6FL16EkbRkMlz9XwiAjjsKcxhpk8IWofoq2xYvFMxTSofz0nL5ToxXzmKuDdQEAfYFSBk0LGO6f2jhc6k1WCX8BDdibBfxlW3NHngutmBdipLN6fz57LuVQeDkdAYMiJn4NZqfb38SIX2k1z9whx+90jFisQ=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.26,REQID:82090e57-c2c8-4947-ab05-c7a1f57270dc,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:cb9a4e1,CLOUDID:f37b293e-de1e-4348-bc35-c96f92f1dcbb,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO
+X-CID-O-INFO: VERSION:1.1.26,REQID:4d8b9c73-4ef7-4fd5-a9e8-16fd97839352,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:100
+X-CID-INFO: VERSION:1.1.26,REQID:4d8b9c73-4ef7-4fd5-a9e8-16fd97839352,IP:0,URL
+	:0,TC:0,Content:0,EDM:0,RT:0,SF:100,FILE:0,BULK:0,RULE:Spam_GS981B3D,ACTIO
+	N:quarantine,TS:100
+X-CID-META: VersionHash:cb9a4e1,CLOUDID:126ace6e-2f20-4998-991c-3b78627e4938,B
+	ulkID:2306121853338KRXL2OK,BulkQuantity:0,Recheck:0,SF:38|29|28|17|19|48,T
+	C:nil,Content:0,EDM:-3,IP:nil,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO
 X-CID-BVR: 0,NGT
 X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 5d92964e090f11eeb20a276fd37b9834-20230612
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
- mailgw02.mediatek.com
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_SDM,TF_CID_SPAM_ASC,TF_CID_SPAM_FAS,
+	TF_CID_SPAM_FSD
+X-UUID: 5f9d85d4090f11ee9cb5633481061a41-20230612
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by
+ mailgw01.mediatek.com
 	(envelope-from <maso.huang@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 342511137; Mon, 12 Jun 2023 18:53:29 +0800
+	with ESMTP id 1520647404; Mon, 12 Jun 2023 18:53:32 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Mon, 12 Jun 2023 18:53:28 +0800
+ 15.2.1118.26; Mon, 12 Jun 2023 18:53:32 +0800
 Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Mon, 12 Jun 2023 18:53:28 +0800
+ 15.2.1118.26 via Frontend Transport; Mon, 12 Jun 2023 18:53:32 +0800
 From: Maso Hunag <maso.huang@mediatek.com>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Trevor Wu
@@ -83,9 +87,9 @@ To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Maso Huang <maso.huang@mediatek.com>
-Subject: [PATCH 1/7] ASoC: mediatek: mt79xx: add common header
-Date: Mon, 12 Jun 2023 18:52:44 +0800
-Message-ID: <20230612105250.15441-2-maso.huang@mediatek.com>
+Subject: [PATCH 2/7] ASoC: mediatek: mt79xx: support audio clock control
+Date: Mon, 12 Jun 2023 18:52:45 +0800
+Message-ID: <20230612105250.15441-3-maso.huang@mediatek.com>
 X-Mailer: git-send-email 2.18.0
 In-Reply-To: <20230612105250.15441-1-maso.huang@mediatek.com>
 References: <20230612105250.15441-1-maso.huang@mediatek.com>
@@ -97,15 +101,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: G2SHX2KOEZAO7KZAWFFNIL7T3AXRVSRA
-X-Message-ID-Hash: G2SHX2KOEZAO7KZAWFFNIL7T3AXRVSRA
-X-Mailman-Approved-At: Mon, 12 Jun 2023 15:31:59 +0000
+Message-ID-Hash: AEE5IQY3R7MF2Z7RSUJPUUBOAO722HIK
+X-Message-ID-Hash: AEE5IQY3R7MF2Z7RSUJPUUBOAO722HIK
+X-Mailman-Approved-At: Mon, 12 Jun 2023 15:31:58 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G2SHX2KOEZAO7KZAWFFNIL7T3AXRVSRA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AEE5IQY3R7MF2Z7RSUJPUUBOAO722HIK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,282 +120,168 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Maso Huang <maso.huang@mediatek.com>
 
-Add header files for register definition and structure.
+Add audio clock wrapper and audio tuner control.
 
 Signed-off-by: Maso Huang <maso.huang@mediatek.com>
 ---
- sound/soc/mediatek/mt79xx/mt79xx-afe-common.h |  49 +++++
- sound/soc/mediatek/mt79xx/mt79xx-reg.h        | 206 ++++++++++++++++++
- 2 files changed, 255 insertions(+)
- create mode 100644 sound/soc/mediatek/mt79xx/mt79xx-afe-common.h
- create mode 100644 sound/soc/mediatek/mt79xx/mt79xx-reg.h
+ sound/soc/mediatek/mt79xx/mt79xx-afe-clk.c | 123 +++++++++++++++++++++
+ sound/soc/mediatek/mt79xx/mt79xx-afe-clk.h |  18 +++
+ 2 files changed, 141 insertions(+)
+ create mode 100644 sound/soc/mediatek/mt79xx/mt79xx-afe-clk.c
+ create mode 100644 sound/soc/mediatek/mt79xx/mt79xx-afe-clk.h
 
-diff --git a/sound/soc/mediatek/mt79xx/mt79xx-afe-common.h b/sound/soc/mediatek/mt79xx/mt79xx-afe-common.h
+diff --git a/sound/soc/mediatek/mt79xx/mt79xx-afe-clk.c b/sound/soc/mediatek/mt79xx/mt79xx-afe-clk.c
 new file mode 100644
-index 000000000000..13c9e51d7b38
+index 000000000000..f00f0d7de861
 --- /dev/null
-+++ b/sound/soc/mediatek/mt79xx/mt79xx-afe-common.h
-@@ -0,0 +1,49 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
++++ b/sound/soc/mediatek/mt79xx/mt79xx-afe-clk.c
+@@ -0,0 +1,123 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * mt79xx-afe-common.h  --  MediaTek 79xx audio driver definitions
++ * mt79xx-afe-clk.c  --  MediaTek 79xx afe clock ctrl
 + *
 + * Copyright (c) 2021 MediaTek Inc.
 + * Author: Vic Wu <vic.wu@mediatek.com>
 + *         Maso Huang <maso.huang@mediatek.com>
 + */
 +
-+#ifndef _MT_79XX_AFE_COMMON_H_
-+#define _MT_79XX_AFE_COMMON_H_
++#include <linux/clk.h>
 +
-+#include <sound/soc.h>
-+#include <linux/list.h>
-+#include <linux/regmap.h>
-+#include "../common/mtk-base-afe.h"
++#include "mt79xx-afe-common.h"
++#include "mt79xx-afe-clk.h"
++#include "mt79xx-reg.h"
 +
 +enum {
-+	MT79XX_MEMIF_DL1,
-+	MT79XX_MEMIF_VUL12,
-+	MT79XX_MEMIF_NUM,
-+	MT79XX_DAI_ETDM = MT79XX_MEMIF_NUM,
-+	MT79XX_DAI_NUM,
++	CK_INFRA_AUD_BUS_CK = 0,
++	CK_INFRA_AUD_26M_CK,
++	CK_INFRA_AUD_L_CK,
++	CK_INFRA_AUD_AUD_CK,
++	CK_INFRA_AUD_EG2_CK,
++	CLK_NUM
 +};
 +
-+enum {
-+	MT79XX_IRQ_0,
-+	MT79XX_IRQ_1,
-+	MT79XX_IRQ_2,
-+	MT79XX_IRQ_NUM,
++static const char *aud_clks[CLK_NUM] = {
++	[CK_INFRA_AUD_BUS_CK] = "aud_bus_ck",
++	[CK_INFRA_AUD_26M_CK] = "aud_26m_ck",
++	[CK_INFRA_AUD_L_CK] = "aud_l_ck",
++	[CK_INFRA_AUD_AUD_CK] = "aud_aud_ck",
++	[CK_INFRA_AUD_EG2_CK] = "aud_eg2_ck",
 +};
 +
-+struct clk;
++int mt79xx_init_clock(struct mtk_base_afe *afe)
++{
++	struct mt79xx_afe_private *afe_priv = afe->platform_priv;
++	int i;
 +
-+struct mt79xx_afe_private {
-+	struct clk **clk;
++	afe_priv->clk = devm_kcalloc(afe->dev, CLK_NUM, sizeof(*afe_priv->clk),
++				     GFP_KERNEL);
++	if (!afe_priv->clk)
++		return -ENOMEM;
 +
-+	int pm_runtime_bypass_reg_ctl;
++	for (i = 0; i < CLK_NUM; i++) {
++		afe_priv->clk[i] = devm_clk_get(afe->dev, aud_clks[i]);
++		if (IS_ERR(afe_priv->clk[i])) {
++			dev_err(afe->dev, "%s(), devm_clk_get %s fail,
++				ret %ld\n", __func__, aud_clks[i],
++				PTR_ERR(afe_priv->clk[i]));
++			return PTR_ERR(afe_priv->clk[i]);
++		}
++	}
 +
-+	/* dai */
-+	void *dai_priv[MT79XX_DAI_NUM];
-+};
++	return 0;
++}
 +
-+unsigned int mt79xx_afe_rate_transform(struct device *dev,
-+				       unsigned int rate);
++int mt79xx_afe_enable_clock(struct mtk_base_afe *afe)
++{
++	struct mt79xx_afe_private *afe_priv = afe->platform_priv;
++	int ret;
 +
-+/* dai register */
-+int mt79xx_dai_etdm_register(struct mtk_base_afe *afe);
-+#endif
-diff --git a/sound/soc/mediatek/mt79xx/mt79xx-reg.h b/sound/soc/mediatek/mt79xx/mt79xx-reg.h
++	ret = clk_prepare_enable(afe_priv->clk[CK_INFRA_AUD_BUS_CK]);
++	if (ret) {
++		dev_err(afe->dev, "%s(), clk_prepare_enable %s fail %d\n",
++			__func__, aud_clks[CK_INFRA_AUD_BUS_CK], ret);
++		goto CK_INFRA_AUD_BUS_CK_ERR;
++	}
++
++	ret = clk_prepare_enable(afe_priv->clk[CK_INFRA_AUD_26M_CK]);
++	if (ret) {
++		dev_err(afe->dev, "%s(), clk_prepare_enable %s fail %d\n",
++			__func__, aud_clks[CK_INFRA_AUD_26M_CK], ret);
++		goto CK_INFRA_AUD_26M_ERR;
++	}
++
++	ret = clk_prepare_enable(afe_priv->clk[CK_INFRA_AUD_L_CK]);
++	if (ret) {
++		dev_err(afe->dev, "%s(), clk_prepare_enable %s fail %d\n",
++			__func__, aud_clks[CK_INFRA_AUD_L_CK], ret);
++		goto CK_INFRA_AUD_L_CK_ERR;
++	}
++
++	ret = clk_prepare_enable(afe_priv->clk[CK_INFRA_AUD_AUD_CK]);
++	if (ret) {
++		dev_err(afe->dev, "%s clk_prepare_enable %s fail %d\n",
++			__func__, aud_clks[CK_INFRA_AUD_AUD_CK], ret);
++		goto CK_INFRA_AUD_AUD_CK_ERR;
++	}
++
++	ret = clk_prepare_enable(afe_priv->clk[CK_INFRA_AUD_EG2_CK]);
++	if (ret) {
++		dev_err(afe->dev, "%s clk_prepare_enable %s fail %d\n",
++			__func__, aud_clks[CK_INFRA_AUD_EG2_CK], ret);
++		goto CK_INFRA_AUD_EG2_CK_ERR;
++	}
++
++	return 0;
++
++CK_INFRA_AUD_EG2_CK_ERR:
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_AUD_CK]);
++CK_INFRA_AUD_AUD_CK_ERR:
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_L_CK]);
++CK_INFRA_AUD_L_CK_ERR:
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_26M_CK]);
++CK_INFRA_AUD_26M_ERR:
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_BUS_CK]);
++CK_INFRA_AUD_BUS_CK_ERR:
++	return ret;
++}
++EXPORT_SYMBOL_GPL(mt79xx_afe_enable_clock);
++
++int mt79xx_afe_disable_clock(struct mtk_base_afe *afe)
++{
++	struct mt79xx_afe_private *afe_priv = afe->platform_priv;
++
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_EG2_CK]);
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_AUD_CK]);
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_L_CK]);
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_26M_CK]);
++	clk_disable_unprepare(afe_priv->clk[CK_INFRA_AUD_BUS_CK]);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(mt79xx_afe_disable_clock);
+diff --git a/sound/soc/mediatek/mt79xx/mt79xx-afe-clk.h b/sound/soc/mediatek/mt79xx/mt79xx-afe-clk.h
 new file mode 100644
-index 000000000000..28c0aeba9bdf
+index 000000000000..bf9c3edb6922
 --- /dev/null
-+++ b/sound/soc/mediatek/mt79xx/mt79xx-reg.h
-@@ -0,0 +1,206 @@
++++ b/sound/soc/mediatek/mt79xx/mt79xx-afe-clk.h
+@@ -0,0 +1,18 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * mt79xx-reg.h  --  MediaTek 79xx audio driver reg definition
++ * mt79xx-afe-clk.h  --  MediaTek 79xx afe clock ctrl definition
 + *
 + * Copyright (c) 2021 MediaTek Inc.
 + * Author: Vic Wu <vic.wu@mediatek.com>
 + *         Maso Huang <maso.huang@mediatek.com>
 + */
 +
-+#ifndef _MT79XX_REG_H_
-+#define _MT79XX_REG_H_
++#ifndef _MT79XX_AFE_CLK_H_
++#define _MT79XX_AFE_CLK_H_
 +
-+#define AUDIO_TOP_CON2                  0x0008
-+#define AUDIO_TOP_CON4                  0x0010
-+#define AUDIO_ENGEN_CON0                0x0014
-+#define AFE_IRQ_MCU_EN                  0x0100
-+#define AFE_IRQ_MCU_STATUS              0x0120
-+#define AFE_IRQ_MCU_CLR                 0x0128
-+#define AFE_IRQ0_MCU_CFG0               0x0140
-+#define AFE_IRQ0_MCU_CFG1               0x0144
-+#define AFE_IRQ1_MCU_CFG0               0x0148
-+#define AFE_IRQ1_MCU_CFG1               0x014c
-+#define AFE_IRQ2_MCU_CFG0               0x0150
-+#define AFE_IRQ2_MCU_CFG1               0x0154
-+#define ETDM_IN5_CON0                   0x13f0
-+#define ETDM_IN5_CON1                   0x13f4
-+#define ETDM_IN5_CON2                   0x13f8
-+#define ETDM_IN5_CON3                   0x13fc
-+#define ETDM_IN5_CON4                   0x1400
-+#define ETDM_OUT5_CON0                  0x1570
-+#define ETDM_OUT5_CON4                  0x1580
-+#define ETDM_OUT5_CON5                  0x1584
-+#define ETDM_4_7_COWORK_CON0            0x15e0
-+#define ETDM_4_7_COWORK_CON1            0x15e4
-+#define AFE_CONN018_1                   0x1b44
-+#define AFE_CONN018_4                   0x1b50
-+#define AFE_CONN019_1                   0x1b64
-+#define AFE_CONN019_4                   0x1b70
-+#define AFE_CONN124_1                   0x2884
-+#define AFE_CONN124_4                   0x2890
-+#define AFE_CONN125_1                   0x28a4
-+#define AFE_CONN125_4                   0x28b0
-+#define AFE_CONN_RS_0                   0x3920
-+#define AFE_CONN_RS_3                   0x392c
-+#define AFE_CONN_16BIT_0                0x3960
-+#define AFE_CONN_16BIT_3                0x396c
-+#define AFE_CONN_24BIT_0                0x3980
-+#define AFE_CONN_24BIT_3                0x398c
-+#define AFE_MEMIF_CON0                  0x3d98
-+#define AFE_MEMIF_RD_MON                0x3da0
-+#define AFE_MEMIF_WR_MON                0x3da4
-+#define AFE_DL0_BASE_MSB                0x3e40
-+#define AFE_DL0_BASE                    0x3e44
-+#define AFE_DL0_CUR_MSB                 0x3e48
-+#define AFE_DL0_CUR                     0x3e4c
-+#define AFE_DL0_END_MSB                 0x3e50
-+#define AFE_DL0_END                     0x3e54
-+#define AFE_DL0_RCH_MON                 0x3e58
-+#define AFE_DL0_LCH_MON                 0x3e5c
-+#define AFE_DL0_CON0                    0x3e60
-+#define AFE_VUL0_BASE_MSB               0x4220
-+#define AFE_VUL0_BASE                   0x4224
-+#define AFE_VUL0_CUR_MSB                0x4228
-+#define AFE_VUL0_CUR                    0x422c
-+#define AFE_VUL0_END_MSB                0x4230
-+#define AFE_VUL0_END                    0x4234
-+#define AFE_VUL0_CON0                   0x4238
++struct mtk_base_afe;
 +
-+#define AFE_MAX_REGISTER AFE_VUL0_CON0
-+#define AFE_IRQ_STATUS_BITS             0x7
-+#define AFE_IRQ_CNT_SHIFT               0
-+#define AFE_IRQ_CNT_MASK	        0xffffff
-+
-+/* AUDIO_TOP_CON2 */
-+#define CLK_OUT5_PDN                    BIT(14)
-+#define CLK_OUT5_PDN_MASK               BIT(14)
-+#define CLK_IN5_PDN                     BIT(7)
-+#define CLK_IN5_PDN_MASK                BIT(7)
-+
-+/* AUDIO_TOP_CON4 */
-+#define PDN_APLL_TUNER2                 BIT(12)
-+#define PDN_APLL_TUNER2_MASK            BIT(12)
-+
-+/* AUDIO_ENGEN_CON0 */
-+#define AUD_APLL2_EN                    BIT(3)
-+#define AUD_APLL2_EN_MASK               BIT(3)
-+#define AUD_26M_EN                      BIT(0)
-+#define AUD_26M_EN_MASK                 BIT(0)
-+
-+/* AFE_DL0_CON0 */
-+#define DL0_ON_SFT                      28
-+#define DL0_ON_MASK                     0x1
-+#define DL0_ON_MASK_SFT                 BIT(28)
-+#define DL0_MINLEN_SFT                  20
-+#define DL0_MINLEN_MASK                 0xf
-+#define DL0_MINLEN_MASK_SFT             (0xf << 20)
-+#define DL0_MODE_SFT                    8
-+#define DL0_MODE_MASK                   0x1f
-+#define DL0_MODE_MASK_SFT               (0x1f << 8)
-+#define DL0_PBUF_SIZE_SFT               5
-+#define DL0_PBUF_SIZE_MASK              0x3
-+#define DL0_PBUF_SIZE_MASK_SFT          (0x3 << 5)
-+#define DL0_MONO_SFT                    4
-+#define DL0_MONO_MASK                   0x1
-+#define DL0_MONO_MASK_SFT               BIT(4)
-+#define DL0_HALIGN_SFT                  2
-+#define DL0_HALIGN_MASK                 0x1
-+#define DL0_HALIGN_MASK_SFT             BIT(2)
-+#define DL0_HD_MODE_SFT                 0
-+#define DL0_HD_MODE_MASK                0x3
-+#define DL0_HD_MODE_MASK_SFT            (0x3 << 0)
-+
-+/* AFE_VUL0_CON0 */
-+#define VUL0_ON_SFT                     28
-+#define VUL0_ON_MASK                    0x1
-+#define VUL0_ON_MASK_SFT                BIT(28)
-+#define VUL0_MODE_SFT                   8
-+#define VUL0_MODE_MASK                  0x1f
-+#define VUL0_MODE_MASK_SFT              (0x1f << 8)
-+#define VUL0_MONO_SFT                   4
-+#define VUL0_MONO_MASK                  0x1
-+#define VUL0_MONO_MASK_SFT              BIT(4)
-+#define VUL0_HALIGN_SFT                 2
-+#define VUL0_HALIGN_MASK                0x1
-+#define VUL0_HALIGN_MASK_SFT            BIT(2)
-+#define VUL0_HD_MODE_SFT                0
-+#define VUL0_HD_MODE_MASK               0x3
-+#define VUL0_HD_MODE_MASK_SFT           (0x3 << 0)
-+
-+/* AFE_IRQ_MCU_CON */
-+#define IRQ_MCU_MODE_SFT                4
-+#define IRQ_MCU_MODE_MASK               0x1f
-+#define IRQ_MCU_MODE_MASK_SFT           (0x1f << 4)
-+#define IRQ_MCU_ON_SFT                  0
-+#define IRQ_MCU_ON_MASK                 0x1
-+#define IRQ_MCU_ON_MASK_SFT             BIT(0)
-+#define IRQ0_MCU_CLR_SFT                0
-+#define IRQ0_MCU_CLR_MASK               0x1
-+#define IRQ0_MCU_CLR_MASK_SFT           BIT(0)
-+#define IRQ1_MCU_CLR_SFT                1
-+#define IRQ1_MCU_CLR_MASK               0x1
-+#define IRQ1_MCU_CLR_MASK_SFT           BIT(1)
-+#define IRQ2_MCU_CLR_SFT                2
-+#define IRQ2_MCU_CLR_MASK               0x1
-+#define IRQ2_MCU_CLR_MASK_SFT           BIT(2)
-+
-+/* ETDM_IN5_CON2 */
-+#define IN_CLK_SRC(x)                   ((x) << 10)
-+#define IN_CLK_SRC_SFT                  10
-+#define IN_CLK_SRC_MASK                 GENMASK(12, 10)
-+
-+/* ETDM_IN5_CON3 */
-+#define IN_SEL_FS(x)                    ((x) << 26)
-+#define IN_SEL_FS_SFT                   26
-+#define IN_SEL_FS_MASK                  GENMASK(30, 26)
-+
-+/* ETDM_IN5_CON4 */
-+#define IN_RELATCH(x)                   ((x) << 20)
-+#define IN_RELATCH_SFT                  20
-+#define IN_RELATCH_MASK                 GENMASK(24, 20)
-+#define IN_CLK_INV                      BIT(18)
-+#define IN_CLK_INV_MASK                 BIT(18)
-+
-+/* ETDM_IN5_CON0 & ETDM_OUT5_CON0 */
-+#define RELATCH_SRC(x)                  ((x) << 28)
-+#define RELATCH_SRC_SFT                 28
-+#define RELATCH_SRC_MASK                GENMASK(30, 28)
-+#define ETDM_CH_NUM(x)                  (((x) - 1) << 23)
-+#define ETDM_CH_NUM_SFT                 23
-+#define ETDM_CH_NUM_MASK                GENMASK(27, 23)
-+#define ETDM_WRD_LEN(x)                 (((x) - 1) << 16)
-+#define ETDM_WRD_LEN_SFT                16
-+#define ETDM_WRD_LEN_MASK               GENMASK(20, 16)
-+#define ETDM_BIT_LEN(x)                 (((x) - 1) << 11)
-+#define ETDM_BIT_LEN_SFT                11
-+#define ETDM_BIT_LEN_MASK               GENMASK(15, 11)
-+#define ETDM_FMT(x)                     ((x) << 6)
-+#define ETDM_FMT_SFT                    6
-+#define ETDM_FMT_MASK                   GENMASK(8, 6)
-+#define ETDM_SYNC                       BIT(1)
-+#define ETDM_SYNC_MASK                  BIT(1)
-+#define ETDM_EN                         BIT(0)
-+#define ETDM_EN_MASK                    BIT(0)
-+
-+/* ETDM_OUT5_CON4 */
-+#define OUT_RELATCH(x)                  ((x) << 24)
-+#define OUT_RELATCH_SFT                 24
-+#define OUT_RELATCH_MASK                GENMASK(28, 24)
-+#define OUT_CLK_SRC(x)                  ((x) << 6)
-+#define OUT_CLK_SRC_SFT                 6
-+#define OUT_CLK_SRC_MASK                GENMASK(8, 6)
-+#define OUT_SEL_FS(x)                   ((x) << 0)
-+#define OUT_SEL_FS_SFT                  0
-+#define OUT_SEL_FS_MASK                 GENMASK(4, 0)
-+
-+/* ETDM_OUT5_CON5 */
-+#define ETDM_CLK_DIV                    BIT(12)
-+#define ETDM_CLK_DIV_MASK               BIT(12)
-+#define OUT_CLK_INV                     BIT(9)
-+#define OUT_CLK_INV_MASK                BIT(9)
-+
-+/* ETDM_4_7_COWORK_CON0 */
-+#define OUT_SEL(x)                      ((x) << 12)
-+#define OUT_SEL_SFT                     12
-+#define OUT_SEL_MASK                    GENMASK(15, 12)
++int mt79xx_init_clock(struct mtk_base_afe *afe);
++int mt79xx_afe_enable_clock(struct mtk_base_afe *afe);
++int mt79xx_afe_disable_clock(struct mtk_base_afe *afe);
 +#endif
 -- 
 2.18.0

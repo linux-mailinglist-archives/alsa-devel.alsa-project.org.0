@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497AA72CC6C
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 19:25:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B9672CC8B
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 19:28:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 026B9822;
-	Mon, 12 Jun 2023 19:25:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 026B9822
+	by alsa0.perex.cz (Postfix) with ESMTPS id F17F8827;
+	Mon, 12 Jun 2023 19:27:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F17F8827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686590757;
-	bh=ZviscbX9M2rOxWTwPjv7UOibrGDjoVPRxgUStOnIxnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686590929;
+	bh=uOab3yRuil+00P2CAkfmCzTH6J2kw0s08EsYP6TTYAk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Xh69LpHkKDtThHbEvh6DpufK58ymca2L7KdEeyvdFNkQveykcXbE7XaQi14cSNBuW
-	 xlv7/T4zXcfT6/z7/bubn7fEC45UoNmAs/pJ8YCKp9/Mb7Y7qxfwRsQY7s6Oh55HHl
-	 FplKzKt5ux/l6Yo2Q6I/yHFrP7nZXkO20xj1TUsI=
+	b=NGZiiFa2iDsVdCgfjGoVNzhM0Hfpn/VDK4VTpXHqJS5YljBaGk6M5rqbQ/+3kMoUZ
+	 TVwK291rJcP6WoOUzrWyD5i9+/tCv4zR60BWKkZaGGmEpN8nuwDODmK86tQzMU+ysQ
+	 FPwlQhXend0h8ZcAZ/tCwaU5LxxhQfITcmPH66y0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E95AF80130; Mon, 12 Jun 2023 19:25:06 +0200 (CEST)
+	id 41F4DF8055A; Mon, 12 Jun 2023 19:27:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC688F80132;
-	Mon, 12 Jun 2023 19:25:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAEC8F80548;
+	Mon, 12 Jun 2023 19:27:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71C1DF80149; Mon, 12 Jun 2023 19:25:02 +0200 (CEST)
+	id 5F916F80155; Mon, 12 Jun 2023 19:27:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 897D2F80130
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 19:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 897D2F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 57A6CF800ED
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 19:26:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57A6CF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=uEC7H107
+ header.s=k20201202 header.b=uc6TOR1Z
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 81C7F62C18;
-	Mon, 12 Jun 2023 17:24:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CBDCC4339B;
-	Mon, 12 Jun 2023 17:24:50 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9B32561D74;
+	Mon, 12 Jun 2023 17:26:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B54EC433EF;
+	Mon, 12 Jun 2023 17:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686590692;
-	bh=ZviscbX9M2rOxWTwPjv7UOibrGDjoVPRxgUStOnIxnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uEC7H107ndGmqemB+0KODTu0C4q45ijuTj7sKRu4oaSo1xO0l33rwXm2x1fe3iUK3
-	 vaHfGRgRJyXWHIv2ZsCx99VhKk/6qPuoaq0GZJdnKxcyeU+YGAMNYAeuVcF7ye0PrB
-	 X+VDip1uveaMXMPHC4XX3kbQMjDHVpGpoCPFGmJ+5tbz0v/0Sl3red4JJs8vZYFkXF
-	 vNWje+yvpj3sCg9CPVUHqn4H8VGXYJ/B19rWgFGEyiwuD019FbQBuSzCBpw4T/Osfy
-	 vsspcQdaRfJNpT/I9FmBUfVkQ62VcmYVERp0+0grmuMc4Og8MaP1IeYT52xsqyvX+S
-	 0gOeZorOkFx7w==
-Date: Mon, 12 Jun 2023 18:24:48 +0100
-From: Conor Dooley <conor@kernel.org>
-To: YingKun Meng <mengyingkun@loongson.cn>
-Cc: krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org,
-	conor+dt@kernel.org, broonie@kernel.org, lgirdwood@gmail.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
-	loongson-kernel@lists.loongnix.cn
-Subject: Re: [ PATCH v2 3/3] ASoC: dt-bindings: Add support for Loongson
- audio card
-Message-ID: <20230612-booted-french-186dd95e78a9@spud>
-References: <20230612085614.3039498-1-mengyingkun@loongson.cn>
+	s=k20201202; t=1686590815;
+	bh=uOab3yRuil+00P2CAkfmCzTH6J2kw0s08EsYP6TTYAk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=uc6TOR1ZOtF/eV7k3z5Dz7S3LRRP6M71bjAOf/jvu9QnHwTu3ChJiD1zK5rr42j0I
+	 qrP2x6chV4GO8+vtF513icXxVAQX6KNtCXrPFW6SoNHlF2TqSIyi9q+dbdIipqOwp7
+	 Qgsg7rQ5S4Qkgm6EwvoaTG9tJRaw0oxOgzpDxnGEcmm8efIkSzp1Fcz3nuIbC+86sw
+	 BFnBAJI1jxzyny2Ojju7yxIf/TweyBqTQKuGyZN3cYZJG4l+Y+wxkBlj4RBF+3tcOr
+	 5yeFZrWRkavgnMxhDgiNfscvB8FsHp9RGX0uvMTLkMt+2IDZxG8EnP9cgtENUTGk2b
+	 hl+TP+KjpP95w==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Ricardo Ribalda Delgado <ribalda@chromium.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Dan Carpenter <dan.carpenter@linaro.org>, stable@kernel.org
+In-Reply-To: <20230612-mt8173-fixup-v2-0-432aa99ce24d@chromium.org>
+References: <20230612-mt8173-fixup-v2-0-432aa99ce24d@chromium.org>
+Subject: Re: [PATCH v2 0/2] ASoC: mediatek: mt8173: Fix error paths
+Message-Id: <168659081228.87413.14975958802523841979.b4-ty@kernel.org>
+Date: Mon, 12 Jun 2023 18:26:52 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="6d68HPAgsdFO37XF"
-Content-Disposition: inline
-In-Reply-To: <20230612085614.3039498-1-mengyingkun@loongson.cn>
-Message-ID-Hash: NREIPDYS7NEOCWLFXWC2RF3BVGOEJQE3
-X-Message-ID-Hash: NREIPDYS7NEOCWLFXWC2RF3BVGOEJQE3
-X-MailFrom: conor@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: 2KTVW7KYH77N2PLIWN4E4NIIALLLC2LV
+X-Message-ID-Hash: 2KTVW7KYH77N2PLIWN4E4NIIALLLC2LV
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NREIPDYS7NEOCWLFXWC2RF3BVGOEJQE3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2KTVW7KYH77N2PLIWN4E4NIIALLLC2LV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,83 +100,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, 12 Jun 2023 11:05:30 +0200, Ricardo Ribalda Delgado wrote:
+> ASoC: mediatek: mt8173, presented a couple of error paths errors, lets
+> fix them.
+> 
+> 
 
---6d68HPAgsdFO37XF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-Hey!
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-On Mon, Jun 12, 2023 at 04:56:14PM +0800, YingKun Meng wrote:
-> From: Yingkun Meng <mengyingkun@loongson.cn>
->=20
-> The audio card uses loongson I2S controller present in
-> 7axxx/2kxxx chips to transfer audio data.
->=20
-> On loongson platform, the chip has only one I2S controller.
->=20
-> Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
+Thanks!
 
-I got 2 copies of this patch, but none of the rest of the series appears
-to be threaded with it.
+[1/2] ASoC: mediatek: mt8173: Fix snd_soc_component_initialize error path
+      commit: a46d37012a5be1737393b8f82fd35665e4556eee
+[2/2] ASoC: mediatek: mt8173: Fix irq error path
+      commit: f9c058d14f4fe23ef523a7ff73734d51c151683c
 
->  .../sound/loongson,ls-audio-card.yaml         | 70 +++++++++++++++++++
->  1 file changed, 70 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls-a=
-udio-card.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-ca=
-rd.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.ya=
-ml
-> new file mode 100644
-> index 000000000000..61e8babed402
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
-> @@ -0,0 +1,70 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/loongson,ls-audio-card.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Loongson 7axxx/2kxxx ASoC audio sound card driver
-> +
-> +maintainers:
-> +  - Yingkun Meng <mengyingkun@loongson.cn>
-> +
-> +description:
-> +  The binding describes the sound card present in loongson
-> +  7axxx/2kxxx platform. The sound card is an ASoC component
-> +  which uses Loongson I2S controller to transfer the audio data.
-> +
-> +properties:
-> +  compatible:
-> +    const: loongson,ls-audio-card
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Reviewing sound stuff is beyond my pay grade, so forgive me if I am off
-the rails here, but this (and the "x"s in the description) look a bit
-odd. Recently, we've noticed quite a few loongson dt-bindings attempting
-to use a single compatible for many different chips.
-Usually you have individual compatibles for the various SoCs with this
-core, which can fall back to a generic one, rather than just adding a
-generic compatible for all devices.
-As far as I know, there's several SoCs fitting 2kxxx, and the format
-being used elsewhere is "loongson,ls2k1000" etc.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Cheers,
-Conor.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---6d68HPAgsdFO37XF
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
+Mark
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZIdU4AAKCRB4tDGHoIJi
-0pvPAQDLOvIKZkTAaQl0HQVvqkzTD2ZIBpWC2JkPUbpettjwcwD/ScIh+4m599jA
-XPMYLPRh5o1a5CxmAICrIt+p4avOIAU=
-=D7u/
------END PGP SIGNATURE-----
-
---6d68HPAgsdFO37XF--

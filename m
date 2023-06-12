@@ -2,102 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C7E872CBF0
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 18:59:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 497AA72CC6C
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 19:25:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1BEA76C1;
-	Mon, 12 Jun 2023 18:58:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BEA76C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 026B9822;
+	Mon, 12 Jun 2023 19:25:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 026B9822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686589154;
-	bh=YIGvFiBNE3NCF0ZwQgckoo2K32v08RKeLs7L8rmrvD8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1686590757;
+	bh=ZviscbX9M2rOxWTwPjv7UOibrGDjoVPRxgUStOnIxnI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MgmYKKPEZE71/7XNut06I48hjDumYuGwfuw0vreTQZYNbpjen21Jqsj+OkvL1J3i2
-	 TVsuRZ0fNX9teWIbQSfoGnARyQhKazXtOGX9HgNxzUX+fkA3zAGpCeFIO6Tgz8XiKs
-	 ilbt4Mk9sIVVMbMH4eKwRKOnn893WVMlfVJ3Yz/4=
+	b=Xh69LpHkKDtThHbEvh6DpufK58ymca2L7KdEeyvdFNkQveykcXbE7XaQi14cSNBuW
+	 xlv7/T4zXcfT6/z7/bubn7fEC45UoNmAs/pJ8YCKp9/Mb7Y7qxfwRsQY7s6Oh55HHl
+	 FplKzKt5ux/l6Yo2Q6I/yHFrP7nZXkO20xj1TUsI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53BF1F80533; Mon, 12 Jun 2023 18:58:23 +0200 (CEST)
+	id 5E95AF80130; Mon, 12 Jun 2023 19:25:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA151F80132;
-	Mon, 12 Jun 2023 18:58:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC688F80132;
+	Mon, 12 Jun 2023 19:25:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8EFAF80149; Mon, 12 Jun 2023 18:58:17 +0200 (CEST)
+	id 71C1DF80149; Mon, 12 Jun 2023 19:25:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E130CF800ED;
-	Mon, 12 Jun 2023 18:58:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E130CF800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 897D2F80130
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 19:24:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 897D2F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IWCr9RNf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686589092; x=1718125092;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=YIGvFiBNE3NCF0ZwQgckoo2K32v08RKeLs7L8rmrvD8=;
-  b=IWCr9RNfss+06HuQqy+WxuqESwhzcOaeUXbn+32jZpU4rRlA6nkvLFo/
-   4SN3QBcgCXXEuXj2qXksCK3XfY/QJ3SJ5lL9+3U7p0cxhQbl0nibsTxu9
-   S+xQO75fZEa0+UxHgYtMnxrScNeT2KRdd6QX2lZiY7TTn4QGdCedN92PN
-   AI77NFtftsJi9VVMBy+FVUJ+IbhNV1QU+6fR+LvI5jExBhtDORXJby0yG
-   HLDLwhE4LBsyVwPQTVNeh1sV0valnllGgnvCEuFh8wcqF/+CwnW7kXBfH
-   rmQiNiIRSk2/LciBElzTFq8W5oxtnx+o1i76C5PKFu4pMYuemGWyRElLI
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10739"; a="338464651"
-X-IronPort-AV: E=Sophos;i="6.00,236,1681196400";
-   d="scan'208";a="338464651"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 09:58:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10739"; a="705467168"
-X-IronPort-AV: E=Sophos;i="6.00,236,1681196400";
-   d="scan'208";a="705467168"
-Received: from atulpuri-mobl1.amr.corp.intel.com (HELO [10.212.234.150])
- ([10.212.234.150])
-  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 09:58:02 -0700
-Message-ID: <f0783f2a-03fd-f893-9470-ed9d7805e2f9@linux.intel.com>
-Date: Mon, 12 Jun 2023 11:58:02 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=uEC7H107
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 81C7F62C18;
+	Mon, 12 Jun 2023 17:24:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CBDCC4339B;
+	Mon, 12 Jun 2023 17:24:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686590692;
+	bh=ZviscbX9M2rOxWTwPjv7UOibrGDjoVPRxgUStOnIxnI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uEC7H107ndGmqemB+0KODTu0C4q45ijuTj7sKRu4oaSo1xO0l33rwXm2x1fe3iUK3
+	 vaHfGRgRJyXWHIv2ZsCx99VhKk/6qPuoaq0GZJdnKxcyeU+YGAMNYAeuVcF7ye0PrB
+	 X+VDip1uveaMXMPHC4XX3kbQMjDHVpGpoCPFGmJ+5tbz0v/0Sl3red4JJs8vZYFkXF
+	 vNWje+yvpj3sCg9CPVUHqn4H8VGXYJ/B19rWgFGEyiwuD019FbQBuSzCBpw4T/Osfy
+	 vsspcQdaRfJNpT/I9FmBUfVkQ62VcmYVERp0+0grmuMc4Og8MaP1IeYT52xsqyvX+S
+	 0gOeZorOkFx7w==
+Date: Mon, 12 Jun 2023 18:24:48 +0100
+From: Conor Dooley <conor@kernel.org>
+To: YingKun Meng <mengyingkun@loongson.cn>
+Cc: krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org,
+	conor+dt@kernel.org, broonie@kernel.org, lgirdwood@gmail.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn
+Subject: Re: [ PATCH v2 3/3] ASoC: dt-bindings: Add support for Loongson
+ audio card
+Message-ID: <20230612-booted-french-186dd95e78a9@spud>
+References: <20230612085614.3039498-1-mengyingkun@loongson.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH] ASoC: SOF: ipc4-topology: Improve unlocking of a mutex in
- sof_ipc4_widget_free()
-Content-Language: en-US
-To: Markus Elfring <Markus.Elfring@web.de>, kernel-janitors@vger.kernel.org,
- alsa-devel@alsa-project.org, sound-open-firmware@alsa-project.org,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Jaroslav Kysela <perex@perex.cz>,
- Jyri Sarha <jyri.sarha@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Rander Wang <rander.wang@intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr,
- Dan Carpenter <error27@gmail.com>
-References: <20230322181830.574635-1-jyri.sarha@linux.intel.com>
- <3a7476b6-2ae9-494e-1840-0915ddf47c2f@web.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <3a7476b6-2ae9-494e-1840-0915ddf47c2f@web.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6GQUJGNWM3XYJ3DJSIYHS56NF72HWBQL
-X-Message-ID-Hash: 6GQUJGNWM3XYJ3DJSIYHS56NF72HWBQL
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="6d68HPAgsdFO37XF"
+Content-Disposition: inline
+In-Reply-To: <20230612085614.3039498-1-mengyingkun@loongson.cn>
+Message-ID-Hash: NREIPDYS7NEOCWLFXWC2RF3BVGOEJQE3
+X-Message-ID-Hash: NREIPDYS7NEOCWLFXWC2RF3BVGOEJQE3
+X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6GQUJGNWM3XYJ3DJSIYHS56NF72HWBQL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NREIPDYS7NEOCWLFXWC2RF3BVGOEJQE3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,44 +101,82 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--6d68HPAgsdFO37XF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 6/10/23 06:36, Markus Elfring wrote:
-> From: Markus Elfring <elfring@users.sourceforge.net>
-> Date: Sat, 10 Jun 2023 12:40:09 +0200
-> 
-> Add a jump target so that a call of the function “mutex_unlock”
-> is stored only once in this function implementation.
-> 
-> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-> ---
->  sound/soc/sof/ipc4-topology.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-> index a4e1a70b607d..f0fd1dfa384e 100644
-> --- a/sound/soc/sof/ipc4-topology.c
-> +++ b/sound/soc/sof/ipc4-topology.c
-> @@ -2300,8 +2300,7 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
->  		if (pipeline->use_chain_dma) {
->  			dev_warn(sdev->dev, "use_chain_dma set for scheduler %s",
->  				 swidget->widget->name);
-> -			mutex_unlock(&ipc4_data->pipeline_state_mutex);
-> -			return 0;
-> +			goto unlock;
->  		}
-> 
->  		header = SOF_IPC4_GLB_PIPE_INSTANCE_ID(swidget->instance_id);
-> @@ -2326,7 +2325,7 @@ static int sof_ipc4_widget_free(struct snd_sof_dev *sdev, struct snd_sof_widget
->  		if (!pipeline->use_chain_dma)
->  			ida_free(&fw_module->m_ida, swidget->instance_id);
->  	}
-> -
-> +unlock:
->  	mutex_unlock(&ipc4_data->pipeline_state_mutex);
-> 
->  	return ret;
+Hey!
 
-The change looks good but I am wondering if we need to print a dev_warn
-log which is already done on the sof_ipc4_widget_setup() path.
+On Mon, Jun 12, 2023 at 04:56:14PM +0800, YingKun Meng wrote:
+> From: Yingkun Meng <mengyingkun@loongson.cn>
+>=20
+> The audio card uses loongson I2S controller present in
+> 7axxx/2kxxx chips to transfer audio data.
+>=20
+> On loongson platform, the chip has only one I2S controller.
+>=20
+> Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
 
-This seems redundant. Ranjani, can we simplify?
+I got 2 copies of this patch, but none of the rest of the series appears
+to be threaded with it.
+
+>  .../sound/loongson,ls-audio-card.yaml         | 70 +++++++++++++++++++
+>  1 file changed, 70 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls-a=
+udio-card.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-ca=
+rd.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.ya=
+ml
+> new file mode 100644
+> index 000000000000..61e8babed402
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+> @@ -0,0 +1,70 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/loongson,ls-audio-card.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Loongson 7axxx/2kxxx ASoC audio sound card driver
+> +
+> +maintainers:
+> +  - Yingkun Meng <mengyingkun@loongson.cn>
+> +
+> +description:
+> +  The binding describes the sound card present in loongson
+> +  7axxx/2kxxx platform. The sound card is an ASoC component
+> +  which uses Loongson I2S controller to transfer the audio data.
+> +
+> +properties:
+> +  compatible:
+> +    const: loongson,ls-audio-card
+
+Reviewing sound stuff is beyond my pay grade, so forgive me if I am off
+the rails here, but this (and the "x"s in the description) look a bit
+odd. Recently, we've noticed quite a few loongson dt-bindings attempting
+to use a single compatible for many different chips.
+Usually you have individual compatibles for the various SoCs with this
+core, which can fall back to a generic one, rather than just adding a
+generic compatible for all devices.
+As far as I know, there's several SoCs fitting 2kxxx, and the format
+being used elsewhere is "loongson,ls2k1000" etc.
+
+Cheers,
+Conor.
+
+
+--6d68HPAgsdFO37XF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZIdU4AAKCRB4tDGHoIJi
+0pvPAQDLOvIKZkTAaQl0HQVvqkzTD2ZIBpWC2JkPUbpettjwcwD/ScIh+4m599jA
+XPMYLPRh5o1a5CxmAICrIt+p4avOIAU=
+=D7u/
+-----END PGP SIGNATURE-----
+
+--6d68HPAgsdFO37XF--

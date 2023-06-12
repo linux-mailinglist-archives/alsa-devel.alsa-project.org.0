@@ -2,97 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E40F372CF00
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 21:07:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2794F72CEBE
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 20:53:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 787F3839;
-	Mon, 12 Jun 2023 21:06:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 787F3839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2760D829;
+	Mon, 12 Jun 2023 20:52:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2760D829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686596853;
-	bh=N/dzqJlblDp6TTKWc155X+LGbZjpw//MJhRXHQQsR5k=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
+	s=default; t=1686596008;
+	bh=pnRmShH3zQPplLb9mvpVVNrWQAOBdcEg/Pe89/g7yo8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=okCAWxYP2yAt9SnjzhSpzARy2ccwoyTCSnQkIHv4I2a7e6Y3UaEtE+JpIsTBduVln
-	 51moQsMcDW7sZt2ljgzAIEn5LZ3cOOgWFZH0JNmNAPcWt44Fe+GQB+djKuUyLl7Jo6
-	 guCYWrh5t8nFL5MBuvhgIxtH1290QCouY7qK3g1Q=
+	b=Gqlyb6WDJPHW+KOYCOueWWe9P0Qj1Jqfu3EoKAFiHUydrOmA0U/95hH+cWlUaMVY3
+	 Ak2aEADrNtd/NGYYYC6h5V6M4vlmzDP7hiekr+IfTsq9X4Ez3/21M/CPhHpttPVgKh
+	 KMbHhKNMoA0QPtnq5mgSVDSyMubQVaVxsfwdqJBk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03A47F80549; Mon, 12 Jun 2023 21:06:11 +0200 (CEST)
+	id 8EB75F80132; Mon, 12 Jun 2023 20:52:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D15EF80544;
-	Mon, 12 Jun 2023 21:06:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 009EEF80132;
+	Mon, 12 Jun 2023 20:52:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 541FCF80149; Mon, 12 Jun 2023 21:06:08 +0200 (CEST)
+	id 95D56F80149; Mon, 12 Jun 2023 20:52:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 37665F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 21:06:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37665F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id E132FF800ED
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 20:52:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E132FF800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=fhytskk/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686596763; x=1718132763;
-  h=message-id:date:mime-version:from:subject:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=N/dzqJlblDp6TTKWc155X+LGbZjpw//MJhRXHQQsR5k=;
-  b=fhytskk/Gj2XQnF/GkfYzBR7ta0Hupclx4snuZdEnw06BwzahkFj+Fxc
-   YwhOM1qoTHFVlrEs9bjK1cxNS8bGtETaEy13ytktLRyE74hotX5eynOBw
-   asrjcnczDdmwSSF4M6HoKB9KyXJBO8ooJYD9FdqQCD2/dXK2ElDw08Nib
-   0V0owvLYCzUfTZzQM1L9HGXYhSa23lTF+cZDMHtZ+Z23pp3pe7T1rnTxk
-   nSxIuwiripqymd3D6L8yvInhB51ASVdj8zxrhbNefkkRA4Hk37mGUgIcw
-   T1E1ON8AaSKCZ14x0Jlltm5ZyRlu2anrzlizqX/RD+itPViw4Yewuag6D
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10739"; a="338499173"
-X-IronPort-AV: E=Sophos;i="6.00,236,1681196400";
-   d="scan'208";a="338499173"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 12:05:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10739"; a="776503224"
-X-IronPort-AV: E=Sophos;i="6.00,236,1681196400";
-   d="scan'208";a="776503224"
-Received: from atulpuri-mobl1.amr.corp.intel.com (HELO [10.212.234.150])
- ([10.212.234.150])
-  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 12:05:58 -0700
-Message-ID: <5899c2b8-e984-fda9-5e12-190b0c9fd3b2@linux.intel.com>
-Date: Mon, 12 Jun 2023 13:09:26 -0500
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ndlyxcr8
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C74C161FC1;
+	Mon, 12 Jun 2023 18:52:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BCAC433D2;
+	Mon, 12 Jun 2023 18:52:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686595938;
+	bh=pnRmShH3zQPplLb9mvpVVNrWQAOBdcEg/Pe89/g7yo8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ndlyxcr8M5ZZZHhtDAKNpxVr7Y7goaKcu4uzsdw30OYeV6XVNvjqwpaJFKB8PymCy
+	 MQJmgL1rsrHjMdj9FKVLF9zf1TbsYeZm2/RHQNL1CfwhaC7wrdmSpA7DJMAPa952y1
+	 +AYPUMpXpztFp5l+ECrupKh+RAglfitV4CNENev2W3sPTwS45E5PoHqFcgJ965drjN
+	 /lTrJSYGFZYwzo930hShNSFJlOo++jz1Kndd1CSgKHixoT+p0UEay360mggpHhCWRm
+	 b1o6xfs/Zb9KJ3AvH5ryhE7cZNvZy6N834NzMluMoGD8RwfMlOog63P+Zb/pFugTK3
+	 dwv5gAhbDbHow==
+Date: Mon, 12 Jun 2023 19:52:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: YingKun Meng <mengyingkun@loongson.cn>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn,
+	kernel test robot <lkp@intel.com>
+Subject: Re: [ PATCH v2 1/3] ASoC: Add support for Loongson I2S controller
+Message-ID: <8b069919-664d-4329-9168-ec8f26fef647@sirena.org.uk>
+References: <20230612085318.3039485-1-mengyingkun@loongson.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [PATCH V4 1/9] ASoC: amd: ps: create platform devices based on
- acp config
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230612095903.2113464-1-Vijendar.Mukunda@amd.com>
- <20230612095903.2113464-2-Vijendar.Mukunda@amd.com>
-Content-Language: en-US
-In-Reply-To: <20230612095903.2113464-2-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: X657V5XNUOZVA3HDBZR5GOG5C2TQBOLH
-X-Message-ID-Hash: X657V5XNUOZVA3HDBZR5GOG5C2TQBOLH
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7mJvWglGipw14bY8"
+Content-Disposition: inline
+In-Reply-To: <20230612085318.3039485-1-mengyingkun@loongson.cn>
+X-Cookie: If it heals good, say it.
+Message-ID-Hash: Q3RGHUKPJDXHSHJIETMCY253VOKJE5T4
+X-Message-ID-Hash: Q3RGHUKPJDXHSHJIETMCY253VOKJE5T4
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X657V5XNUOZVA3HDBZR5GOG5C2TQBOLH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q3RGHUKPJDXHSHJIETMCY253VOKJE5T4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,72 +99,161 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-=
-> +static int sdw_amd_scan_controller(struct device *dev)
+
+--7mJvWglGipw14bY8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jun 12, 2023 at 04:53:18PM +0800, YingKun Meng wrote:
+
+> Loongson I2S controller is found on 7axxx/2kxxx chips from loongson,
+> it is a PCI device with two private DMA controllers, one for playback,
+> the other for capture.
+>=20
+> The driver supports the use of DTS or ACPI to describe device resources.
+
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202306060223.9hdivLrx-lkp@i=
+ntel.com/
+> Closes: https://lore.kernel.org/oe-kbuild-all/202306060320.Sphw0ihy-lkp@i=
+ntel.com/
+
+These don't really make sense for a new driver.
+
+> @@ -0,0 +1,213 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Loongson-2K I2S master mode driver
+> + *
+> + * Copyright (C) 2022 Loongson Technology Corporation Limited
+> + */
+
+Please make the entire comment a C++ one so things look more
+intentional.  You might also want to update the copyright year if there
+was any substantial work on the driver recently.
+
+> +		/* Enable master mode */
+> +		regmap_update_bits(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_MASTER,
+> +				   I2S_CTRL_MASTER);
+> +		if (i2s->rev_id =3D=3D 1) {
+> +			ret =3D regmap_read_poll_timeout_atomic(i2s->regmap,
+> +						LS_I2S_CTRL, val,
+> +						val & I2S_CTRL_CLK_READY,
+> +						10, 2000);
+> +			if (ret < 0)
+> +				dev_warn(dai->dev, "wait BCLK ready timeout\n");
+> +		}
+
+Ideally you'd have a set_dai_fmt() operation and support both clock
+provider and consumer mode. =20
+
+> +	if (i2s->rev_id =3D=3D 0) {
+
+> +	} else if (i2s->rev_id =3D=3D 1) {
+
+> +	} else
+> +		dev_err(i2s->dev, "I2S revision invalid\n");
+> +
+
+This looks like a switch statement.
+
+> +static int loongson_i2s_set_dai_sysclk(struct snd_soc_dai *dai, int clk_=
+id,
+> +				       unsigned int freq, int dir)
 > +{
-> +	struct acp63_dev_data *acp_data;
-> +	struct fwnode_handle *link;
-> +	char name[32];
-> +	u32 sdw_manager_bitmap;
-> +	u8 count = 0;
-> +	u32 acp_sdw_power_mode = 0;
-> +	int index;
-> +	int ret;
+> +	struct loongson_i2s *i2s =3D snd_soc_dai_get_drvdata(dai);
 > +
-> +	acp_data = dev_get_drvdata(dev);
-> +	/*
-> +	 * Current implementation is based on MIPI DisCo 2.0 spec.
-> +	 * Found controller, find links supported.
-> +	 */
-> +	ret = fwnode_property_read_u32_array((acp_data->sdw_fw_node), "mipi-sdw-manager-list",
-> +					     &sdw_manager_bitmap, 1);
+> +	i2s->sysclk =3D freq;
 > +
-> +	if (ret) {
-> +		dev_err(dev, "Failed to read mipi-sdw-manager-list: %d\n", ret);
-> +		return -EINVAL;
-> +	}
-> +	count = hweight32(sdw_manager_bitmap);
-> +	/* Check count is within bounds */
-> +	if (count > AMD_SDW_MAX_MANAGERS) {
-> +		dev_err(dev, "Manager count %d exceeds max %d\n", count, AMD_SDW_MAX_MANAGERS);
-> +		return -EINVAL;
-> +	}
-
-nit-pick: the count is not enough, you should also check that only bits
-0 and 1 are set in mipi-sdw-manager-list...
-
-> +
-> +	if (!count) {
-> +		dev_dbg(dev, "No SoundWire Managers detected\n");
-> +		return -EINVAL;
-> +	}
-> +	dev_dbg(dev, "ACPI reports %d SoundWire Manager devices\n", count);
-> +	acp_data->sdw_manager_count = count;
-> +	for (index = 0; index < count; index++) {
-> +		snprintf(name, sizeof(name), "mipi-sdw-link-%d-subproperties", index);
-
-... otherwise this will be wrong.
-
-> +		link = fwnode_get_named_child_node(acp_data->sdw_fw_node, name);
-> +		if (!link) {
-> +			dev_err(dev, "Manager node %s not found\n", name);
-> +			return -EIO;
-> +		}
-> +
-> +		ret = fwnode_property_read_u32(link, "amd-sdw-power-mode", &acp_sdw_power_mode);
-> +		if (ret)
-> +			return ret;
-> +		/*
-> +		 * when SoundWire configuration is selected from acp pin config,
-> +		 * based on manager instances count, acp init/de-init sequence should be
-> +		 * executed as part of PM ops only when Bus reset is applied for the active
-> +		 * SoundWire manager instances.
-> +		 */
-> +		if (acp_sdw_power_mode != AMD_SDW_POWER_OFF_MODE) {
-> +			acp_data->acp_reset = false;
-> +			return 0;
-> +		}
-> +	}
 > +	return 0;
 > +}
 
+Should this be integrated with the clock API rather than just using the
+ASoC specific stuff - where does this sysclk come from?  I do note that
+the PCI driver appears to have a fixed clock...
+
+> +void loongson_i2s_init(struct loongson_i2s *i2s)
+> +{
+> +	if (i2s->rev_id =3D=3D 1) {
+> +		regmap_write(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_RESET);
+> +		udelay(200);
+> +	}
+> +}
+
+What's this for?  I'd expect initialising the hardware to be handled
+internally within the driver but this is semi-exported?
+
+> diff --git a/sound/soc/loongson/loongson_i2s_pci.c b/sound/soc/loongson/l=
+oongson_i2s_pci.c
+> new file mode 100644
+> index 000000000000..f09713b560e9
+> --- /dev/null
+> +++ b/sound/soc/loongson/loongson_i2s_pci.c
+> @@ -0,0 +1,500 @@
+
+Please split the PCI driver into a separate patch to keep the individual
+reviews smaller.
+
+> +static int loongson_pcm_trigger(struct snd_soc_component *component,
+> +				struct snd_pcm_substream *substream, int cmd)
+> +{
+
+> +	switch (cmd) {
+
+> +	default:
+> +		ret =3D -EINVAL;
+> +	}
+
+Missing break; here.
+
+> +	/* initialize dma descriptor array */
+> +	mem_addr =3D runtime->dma_addr;
+> +	order_addr =3D prtd->dma_desc_arr_phy;
+> +	for (i =3D 0; i < num_periods; i++) {
+> +		desc =3D &prtd->dma_desc_arr[i];
+
+We didn't validate that the number of periods fits in the array.
+
+> +	if (num_periods > 0) {
+> +		desc =3D &prtd->dma_desc_arr[num_periods - 1];
+> +		desc->order =3D lower_32_bits(prtd->dma_desc_arr_phy | BIT(0));
+> +		desc->order_hi =3D upper_32_bits(prtd->dma_desc_arr_phy);
+> +	}
+
+This is always true, right?
+
+> +       ret =3D request_irq(dma_data->irq, loongson_pcm_dma_irq,
+> +                         IRQF_TRIGGER_HIGH, LS_I2S_DRVNAME, substream);
+
+Does it really make sense to request and free the interrupt when the
+stream is running?  It's generally better to just request the interrupt
+once during probe(), that way we know we've got all the resources we
+need.  If we do need to allocate/free all the time a comment explaining
+why would be good so people don't go trying to fix this.
+
+> +	ret =3D pci_request_region(pdev, BAR_NUM, LS_I2S_DRVNAME);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "request regions failed %d\n", ret);
+> +		return ret;
+> +	}
+
+pcim_iomap_regions()?  At the minute you'll free the region before devm
+frees the regmap which is probably harmless but not ideal.
+
+--7mJvWglGipw14bY8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSHaVwACgkQJNaLcl1U
+h9DJGAf9Ep6CwNQYredDySttL400B4S/REQ1oaOQqJw+0WmP0KmOF6PXeIQuDzAV
+zinJzrHhykdbNGHx6aW41IrCo8wxsctwRLlWQqfwzRcnGO0R8TnknoF1M39bLKWn
+A27hmnq0PZfvdWtRC3PhosiYhz+vav/1iU4fNxGyMHKYfTzFpZisJrOTO+xg40DI
+x+CKOEzpioj1QQHuOQQLGoGV3P9QXVsdkqRRG8mO2p7WgHsiIJSNpfvc/X0JmpqY
+O3YTCbzqbfst2o+QCJF7x06SLIQPg9j19MOFqX239VS+HGfnRITTvRQPTDMjrvL7
+FxbV/wCFf1KXQYFxyhrYLK3E3BIufw==
+=vj4u
+-----END PGP SIGNATURE-----
+
+--7mJvWglGipw14bY8--

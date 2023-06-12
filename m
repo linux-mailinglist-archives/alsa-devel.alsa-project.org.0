@@ -2,63 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4FD972CF38
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 21:17:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A70572CF2D
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 21:16:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D93B85D;
-	Mon, 12 Jun 2023 21:16:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D93B85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1179183B;
+	Mon, 12 Jun 2023 21:15:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1179183B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686597436;
-	bh=6ROM/0SV7r/vj00YR7rcPh+62aZFz/VdARGvk/Y/Jd0=;
+	s=default; t=1686597383;
+	bh=1k1AEHXWb6CzEBHxUdHLl+md6PaPhruwdMMNaQh7WC4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=j8kFWf66FOWqGLoZHQvlAHneWThJTnoaEVW5XHIwS3PO4CsM6UWkJwUYSTAT977tn
-	 tZ1eydAScqifeRNcXVAvm0hpxtE5YK8zJsSAGTb5sClluP0L20z5/Ak5y/XvHfMPza
-	 GU0phpg1DFk4gIGSReaUiIyDH9Z6VZRykCck3WN8=
+	b=emHRHXTo/AAuzocnF4tev1WNyJKf8TOMVv8IwvmFJDRydMAWD1J/uIB42NXK4GMZq
+	 AL9mcarGTxQIpUTOgVpcb8K+DJlS38qesMjrLGlCbyDnL4WoO1+7S2KoQ96xLQIq6U
+	 9zl7sLL6Dhpwgbg2PhRrmrJ7PIfjxf47Kjb663JM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D870CF805D4; Mon, 12 Jun 2023 21:14:52 +0200 (CEST)
+	id 98C8EF805C7; Mon, 12 Jun 2023 21:14:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38B3DF8057B;
-	Mon, 12 Jun 2023 21:14:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 046B8F805C1;
+	Mon, 12 Jun 2023 21:14:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5DF0AF80132; Mon, 12 Jun 2023 21:14:47 +0200 (CEST)
+	id 5BF0DF8055C; Mon, 12 Jun 2023 21:13:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CF211F80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id ADBE0F8052E
 	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 21:13:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF211F80155
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADBE0F8052E
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id E728724260;
+	by bluemchen.kde.org (Postfix) with ESMTP id E9F4F2426F;
 	Mon, 12 Jun 2023 15:13:25 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1q8myj-WKR-00; Mon, 12 Jun 2023 21:13:25 +0200
+	id 1q8myj-WKX-00; Mon, 12 Jun 2023 21:13:25 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
 Cc: Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 7/9] ALSA: emu10k1: fix timer for E-MU cards at 44.1 kHz word
- clock
-Date: Mon, 12 Jun 2023 21:13:23 +0200
-Message-Id: <20230612191325.1315854-8-oswald.buddenhagen@gmx.de>
+Subject: [PATCH 8/9] ALSA: emu10k1: add support for 12 kHz capture on Audigy
+Date: Mon, 12 Jun 2023 21:13:24 +0200
+Message-Id: <20230612191325.1315854-9-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
 In-Reply-To: <20230612191325.1315854-1-oswald.buddenhagen@gmx.de>
 References: <20230612191325.1315854-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: W5HQUUWP7ML3A7UA4C5ZWF6RQ3JCUVR2
-X-Message-ID-Hash: W5HQUUWP7ML3A7UA4C5ZWF6RQ3JCUVR2
+Message-ID-Hash: QKYAPDBJ3AVAEURHDGVGHLUFJLJTDNH3
+X-Message-ID-Hash: QKYAPDBJ3AVAEURHDGVGHLUFJLJTDNH3
 X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -71,7 +69,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W5HQUUWP7ML3A7UA4C5ZWF6RQ3JCUVR2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QKYAPDBJ3AVAEURHDGVGHLUFJLJTDNH3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -80,57 +78,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The timer was presuming a fixed 48 kHz word clock, like the rest of the
-code.
+Fixes a tentative FIXME. Because we can.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 ---
- sound/pci/emu10k1/timer.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ sound/pci/emu10k1/emupcm.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/emu10k1/timer.c b/sound/pci/emu10k1/timer.c
-index 993663fef885..f3c78adf3248 100644
---- a/sound/pci/emu10k1/timer.c
-+++ b/sound/pci/emu10k1/timer.c
-@@ -38,20 +38,36 @@ static int snd_emu10k1_timer_stop(struct snd_timer *timer)
- 	return 0;
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index 3ef9130a9577..387288d623d7 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -177,12 +177,22 @@ static unsigned int snd_emu10k1_capture_rate_reg(unsigned int rate)
+ 	}
  }
  
-+static unsigned long snd_emu10k1_timer_c_resolution(struct snd_timer *timer)
-+{
-+	struct snd_emu10k1 *emu = snd_timer_chip(timer);
++static const unsigned int audigy_capture_rates[9] = {
++	8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100, 48000
++};
 +
-+	if (emu->card_capabilities->emu_model &&
-+	    emu->emu1010.word_clock == 44100)
-+		return 22676;  // 1 sample @ 44.1 kHz = 22.675736...us
-+	else
-+		return 20833;  // 1 sample @ 48 kHz = 20.833...us
-+}
++static const struct snd_pcm_hw_constraint_list hw_constraints_audigy_capture_rates = {
++	.count = 9,
++	.list = audigy_capture_rates,
++	.mask = 0
++};
 +
- static int snd_emu10k1_timer_precise_resolution(struct snd_timer *timer,
- 					       unsigned long *num, unsigned long *den)
+ static unsigned int snd_emu10k1_audigy_capture_rate_reg(unsigned int rate)
  {
-+	struct snd_emu10k1 *emu = snd_timer_chip(timer);
-+
- 	*num = 1;
--	*den = 48000;
-+	if (emu->card_capabilities->emu_model)
-+		*den = emu->emu1010.word_clock;
-+	else
-+		*den = 48000;
- 	return 0;
+ 	switch (rate) {
+ 	case 8000:	return A_ADCCR_SAMPLERATE_8;
+ 	case 11025:	return A_ADCCR_SAMPLERATE_11;
+-	case 12000:	return A_ADCCR_SAMPLERATE_12; /* really supported? */
++	case 12000:	return A_ADCCR_SAMPLERATE_12;
+ 	case 16000:	return ADCCR_SAMPLERATE_16;
+ 	case 22050:	return ADCCR_SAMPLERATE_22;
+ 	case 24000:	return ADCCR_SAMPLERATE_24;
+@@ -209,7 +219,8 @@ static void snd_emu10k1_constrain_capture_rates(struct snd_emu10k1 *emu,
+ 		return;
+ 	}
+ 	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
+-				   &hw_constraints_capture_rates);
++				   emu->audigy ? &hw_constraints_audigy_capture_rates :
++						 &hw_constraints_capture_rates);
  }
  
- static const struct snd_timer_hardware snd_emu10k1_timer_hw = {
- 	.flags = SNDRV_TIMER_HW_AUTO,
--	.resolution = 20833, /* 1 sample @ 48KHZ = 20.833...us */
- 	.ticks = 1024,
- 	.start = snd_emu10k1_timer_start,
- 	.stop = snd_emu10k1_timer_stop,
-+	.c_resolution = snd_emu10k1_timer_c_resolution,
- 	.precise_resolution = snd_emu10k1_timer_precise_resolution,
- };
- 
+ static void snd_emu1010_constrain_efx_rate(struct snd_emu10k1 *emu,
 -- 
 2.40.0.152.g15d061e6df
 

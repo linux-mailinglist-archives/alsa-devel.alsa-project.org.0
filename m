@@ -2,140 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F1C172BDE3
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 11:58:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E443972BE1F
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 12:01:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C4A084A;
-	Mon, 12 Jun 2023 11:57:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C4A084A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A700826;
+	Mon, 12 Jun 2023 12:00:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A700826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686563913;
-	bh=WAc5EVVbAi/DtTO4wj9/EIA2E9Ozl0Tq3+IpXBrunnk=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1686564089;
+	bh=r44Dg4EqyihdbL+KAokT86pfSJw+jh/v00yaiQZ3zZg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nN9ace2ZiN4L9Nk0ZkY49b94bNbKtq/wzLW1fIoBi3buQP5vfOo6DGiPKb8avYlTK
-	 dQYZWoLq/ibMdMyCOW8grQaM3ki/2ZRbO+7N7U6lEW6vpZQfC9EGjy5C5ER8yOjRJb
-	 MaNt6KplLovkpY14hTMtCjkM6tru0uBfRatfD0uQ=
+	b=Tn8YLIFQaGrwmPRNBgytRX7+joslN0p5Ppqn0ce4KNlEfF1VkteAzqiVVQW/Jf2TD
+	 uU8BhilY9898zEiVZXykJ3dbBsO6BN9D8ryOvhormrxl7BHVQSBzjeIht9XVlrThJV
+	 JOPEaE6EboPuS+y18pR/8vFcRhoTarvv7nN912qw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D02D7F8055A; Mon, 12 Jun 2023 11:56:38 +0200 (CEST)
+	id 1FF08F80149; Mon, 12 Jun 2023 12:00:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AA3DF80548;
-	Mon, 12 Jun 2023 11:56:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC998F80132;
+	Mon, 12 Jun 2023 12:00:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 70BB2F80558; Mon, 12 Jun 2023 11:56:34 +0200 (CEST)
+	id A62B1F80149; Mon, 12 Jun 2023 12:00:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20615.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::615])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [46.235.227.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 523E2F80551
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 11:56:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 523E2F80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id AE101F80130
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 12:00:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE101F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=kNLrYMeq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FqWnKjhEmLS02nigvZnancpDuvjhzU7VYgJMOytYTmVdBgW6FujLHP3FYxoiSuAdPSXIF39YkET/qh17qC85ttmETUVuZB2VjpMQ5VFn7cEOGZGkXRzGeg2DLKMkmlmyKxVc9rJPX9GMMVRfwO5AUHEzozt5eZRSv7sZi+4XO4Vhz/BwCRyWUhCkHIxbohD3nFhoSycV7z65a/ZmpcJ8l40YaYv0F1rXWD6Gm2jDlcBgZgsdJBQhyIYb2FoQJCCSBoda4UqHCy+hXnEMz5OpL4+Ys1iqZlTU27tnf2Mdw7Rts5u5LYIffVkkV+lsIHM9uBvxAhMbqPMC6ujkRoDA2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=inpX2LjsuHMkWbSLnz82y1+NSnshQjmZxdZ+pLLDCEc=;
- b=TnPB6fQYeOJ/seOcrNK6xyHPqeISBey3H5ts4g2Qpdbn1Ke2jbfrTBWjGdxI131XpSU2Sq0reCE0kfzYtgGNfgfpS06uQ0BsFhaxcvUfs0kaQj56DWa57bBdpOWtZgmQ3ttVL20ZNDhjLtiGhseeSRpwEDbjhvVfxNDMRDYfYCtFNukB/mImR0XctnsnTszVM+5qLHyKaDznnkXCMMzNLsGzk6qAQADpdcjMVHxLZqnDJIuMp/MtQspMDohfX37ceO2oxTEeKtlkVZyGoD2XrxO0jo36WVCWvvq3b7xZs27i2Dze3zPWigr9NAHv+VFLqUEKnIXlud4TqFdpheGasA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=inpX2LjsuHMkWbSLnz82y1+NSnshQjmZxdZ+pLLDCEc=;
- b=kNLrYMeqgwgter723WfqeBCNr06nJMbjMcR/aYlXR3Om9zFQGMfHsGAMdQ0BytvBVpPyRMEF6HItD0g2XF+tnBWXG6hHjSdt2s/hpU626Zj01tzUNybU7NzxFfMdm+O6PrexLr8bUK9Q2Qku/bhyfmQXSwL0L1S+3ttzdYuIsNY=
-Received: from CY8PR10CA0008.namprd10.prod.outlook.com (2603:10b6:930:4f::17)
- by SJ2PR12MB8649.namprd12.prod.outlook.com (2603:10b6:a03:53c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.39; Mon, 12 Jun
- 2023 09:56:16 +0000
-Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
- (2603:10b6:930:4f:cafe::16) by CY8PR10CA0008.outlook.office365.com
- (2603:10b6:930:4f::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.34 via Frontend
- Transport; Mon, 12 Jun 2023 09:56:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.83) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6500.22 via Frontend Transport; Mon, 12 Jun 2023 09:56:16 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 12 Jun
- 2023 04:56:01 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Mon, 12 Jun
- 2023 02:55:47 -0700
-Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23
- via Frontend Transport; Mon, 12 Jun 2023 04:55:43 -0500
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-To: <broonie@kernel.org>
-CC: <alsa-devel@alsa-project.org>, <pierre-louis.bossart@linux.intel.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<Mastan.Katragadda@amd.com>, <Arungopal.kondaveeti@amd.com>,
-	<mario.limonciello@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH V4 9/9] ASoC: amd: ps: add acp_reset flag check in acp pci
- driver pm ops.
-Date: Mon, 12 Jun 2023 15:29:03 +0530
-Message-ID: <20230612095903.2113464-10-Vijendar.Mukunda@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230612095903.2113464-1-Vijendar.Mukunda@amd.com>
-References: <20230612095903.2113464-1-Vijendar.Mukunda@amd.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=HJhMEH3H
+Received: from [IPV6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2] (unknown
+ [IPv6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 45BF16605907;
+	Mon, 12 Jun 2023 11:00:25 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1686564026;
+	bh=r44Dg4EqyihdbL+KAokT86pfSJw+jh/v00yaiQZ3zZg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HJhMEH3H2HAFodc6o70V0xn35JJx7uqF3h2a+lWyuS7CagZrK9rwyB7WdIkbRzmq1
+	 j3U737I8bsAcSX2vV5QUnHW2XwgN4ksx2zq7vuYY/PA0dVJ4LmUEVh3i1EfowdS+xT
+	 VbcBI8v5BimBsr9OeBJYKOpHAjUDjOIpz3b76CTGgwECZDoBKG7iPVBWaK4YHOyA/7
+	 R0vj6fzNepw0u2IGSQ+MzcwE1oq+ELBG7GhoV2W0tWkCLlAtvnUlGRhnW7C6/tII9W
+	 GJPG4t9Kn/2e2TODGpTj8YntlVXMKb+IbwaZp5PCx7e5P9qwuDSL7f1nUwx1YJANvL
+	 IFgFXczlxrlKA==
+Message-ID: <de0e99d6-dcd0-79f5-f3a4-14e25265c0a7@collabora.com>
+Date: Mon, 12 Jun 2023 12:00:22 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|SJ2PR12MB8649:EE_
-X-MS-Office365-Filtering-Correlation-Id: c10dad78-bf12-4a54-78a6-08db6b2b4372
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	728Q2gib57Dk0YkIcDHu8WMNSKOjxbv4gItGDeOQfz0Tck3HnqXLncSba1RRPlGVQL54OnLlobZvv699HYWHxM7NaLfdGfmbUqPrKjMukVCJyawxBcbzlm3mPyCR3hXIBkWjQL/pYnhpgoY0nUMRR8d2oDaLzinRDRx16uDcbET66Nn61mhNI7uHLLgc8VSHPUZGUXmow25PN19nkTzhnSCr8fQCbaMecb2L6NPzvtEtCxQ0O0Cu5PUazUKqVnEzJ+/1GDN4KLSklsjBRmD1Fu/escdcPm5hpvUx92xml5PmnE5CYPzBAScJJB6h/PNnoyn92OiLLdS7Wod3MpSaSz9WluRUDVE0KaOqjXjjWUSm2j+WqsA+T/M3XiTu+CRCCpSv7Vi2eHHHbyRBXOZEFGIzxWnlVgL38YUyT6JroK1Cln6UxpW5YgrIMrtdn/TW+jK7XjbBPpbGxTgEI+aHG5Re+6pay8nNH7wjH0lOzFZ6RrfWSuEFX4PyiGlE6exMiM7+UVxQOUfTPrm+KksjTMLYCSQ8iBZgyj1FvUpaC5CmQcTzc95fpRYqt6K3cAqhr2NhnkR+UH+QzWxfE5ik1eOUe8jxIpxh24II9davwh4afpezbmb+HNB0whySqwVEx0uwG5vs+myGPJr7HDE3jlGWsULwHnhL72u3zUqF2HCoIb9gOgqxazhFg/l9kda44MA6AhwhQiCLhKBTTD6iP3ic2VIjnKEtR6AzXHuP0GOqKxn8oRMq9QqKkpGYzXEwC7y6m/EXxjJWcN5O1f+dxA==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(376002)(346002)(396003)(451199021)(40470700004)(36840700001)(46966006)(478600001)(70586007)(356005)(81166007)(82740400003)(36756003)(70206006)(4326008)(6916009)(54906003)(8936002)(8676002)(40480700001)(86362001)(5660300002)(2906002)(316002)(41300700001)(83380400001)(40460700003)(2616005)(336012)(426003)(47076005)(1076003)(26005)(186003)(6666004)(36860700001)(7696005)(82310400005)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 09:56:16.0523
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- c10dad78-bf12-4a54-78a6-08db6b2b4372
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CY4PEPF0000E9D8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8649
-Message-ID-Hash: T3257CL46YSHHBSFV5VWQOXE3WJIKCBQ
-X-Message-ID-Hash: T3257CL46YSHHBSFV5VWQOXE3WJIKCBQ
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Subject: Re: [PATCH v2 1/2] ASoC: mediatek: mt8173: Fix
+ snd_soc_component_initialize error path
+Content-Language: en-US
+To: Ricardo Ribalda Delgado <ribalda@chromium.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ Dan Carpenter <dan.carpenter@linaro.org>, stable@kernel.org
+References: <20230612-mt8173-fixup-v2-0-432aa99ce24d@chromium.org>
+ <20230612-mt8173-fixup-v2-1-432aa99ce24d@chromium.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20230612-mt8173-fixup-v2-1-432aa99ce24d@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: MBAKZ64V5DWLIUKEBBE6UM4ASCEHRDHY
+X-Message-ID-Hash: MBAKZ64V5DWLIUKEBBE6UM4ASCEHRDHY
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -147,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T3257CL46YSHHBSFV5VWQOXE3WJIKCBQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MBAKZ64V5DWLIUKEBBE6UM4ASCEHRDHY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -156,59 +108,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-AMD SoundWire manager supports different power modes.
-acp_reset flag will be set to false only when SoundWire manager power
-mode is selected as ClockStop Mode. For rest of the combinations
-(ACP PDM + SDW), acp_reset flag will be set to true.
-When acp_reset flag is set, acp de-init and acp init sequence should
-be invoked during suspend/resume callbacks.
+Il 12/06/23 11:05, Ricardo Ribalda Delgado ha scritto:
+> If the second component fails to initialize, cleanup the first on.
+> 
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Cc: stable@kernel.org
+> Fixes: f1b5bf07365d ("ASoC: mt2701/mt8173: replace platform to component")
+> Signed-off-by: Ricardo Ribalda Delgado <ribalda@chromium.org>
 
-Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
----
- sound/soc/amd/ps/pci-ps.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index ff734a90951b..5b46dc8573f8 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -669,24 +669,28 @@ static int snd_acp63_probe(struct pci_dev *pci,
- static int __maybe_unused snd_acp63_suspend(struct device *dev)
- {
- 	struct acp63_dev_data *adata;
--	int ret;
-+	int ret = 0;
- 
- 	adata = dev_get_drvdata(dev);
--	ret = acp63_deinit(adata->acp63_base, dev);
--	if (ret)
--		dev_err(dev, "ACP de-init failed\n");
-+	if (adata->acp_reset) {
-+		ret = acp63_deinit(adata->acp63_base, dev);
-+		if (ret)
-+			dev_err(dev, "ACP de-init failed\n");
-+	}
- 	return ret;
- }
- 
- static int __maybe_unused snd_acp63_resume(struct device *dev)
- {
- 	struct acp63_dev_data *adata;
--	int ret;
-+	int ret = 0;
- 
- 	adata = dev_get_drvdata(dev);
--	ret = acp63_init(adata->acp63_base, dev);
--	if (ret)
--		dev_err(dev, "ACP init failed\n");
-+	if (adata->acp_reset) {
-+		ret = acp63_init(adata->acp63_base, dev);
-+		if (ret)
-+			dev_err(dev, "ACP init failed\n");
-+	}
- 	return ret;
- }
- 
--- 
-2.34.1
 

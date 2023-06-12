@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17FA872BA3B
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 10:21:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2559A72BA43
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 10:22:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50E2382A;
-	Mon, 12 Jun 2023 10:20:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50E2382A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61D0285D;
+	Mon, 12 Jun 2023 10:21:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61D0285D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686558108;
-	bh=8KjHrGq7ISmfB6+FUFRPjvbUWq1eASizVWFfPvpSfFk=;
+	s=default; t=1686558135;
+	bh=62HujU82XDvn+hPxvk1sigRnNBvmL2O6FFIz8kViT8M=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=GEJ85BwL4/sJnhfli6+RuUFk/nrfHP+pHFUxQ5qO3UKcgH1aAJjsXhvo7YLbVz0cP
-	 vI8VHWs9aOfoeKa9gOkb9kJya7c9xO2XjADn6R4Cp8q//0i1cwj7A5Bnx4Tg7MJ5JO
-	 2S0sbo8Ii9FQ69SH8CKwh1DueCLlgQSaEefsD5F0=
+	b=ruVkxwRlDVnR2PV5Y5idhvYqhzEZhoQniDMWDe18wi8r+QBaBtPOMLCQC9GtZGEsO
+	 evG0Fr7v3xuQ2lzcX/BTC3HIxdeJQucNG5e0eLE6L90uHXAzoVN2EDYtvpMIYlUC6f
+	 3d6lpY9+fetG/hphAXfABFEx3Rvb5ij1JZT+Ac4I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9EA3CF80558; Mon, 12 Jun 2023 10:20:08 +0200 (CEST)
+	id 5F410F80579; Mon, 12 Jun 2023 10:20:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B2CCF80548;
-	Mon, 12 Jun 2023 10:20:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0CB7F80580;
+	Mon, 12 Jun 2023 10:20:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3E91F80132; Mon, 12 Jun 2023 10:20:03 +0200 (CEST)
+	id 40948F80579; Mon, 12 Jun 2023 10:20:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C383BF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5C917F8055B
 	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 10:20:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C383BF80130
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C917F8055B
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=gppoz6Nq;
+ header.s=susede2_rsa header.b=ZVXdSZiv;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=jVw1gmTR
+ header.s=susede2_ed25519 header.b=Eb3pDuJz
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6A7EC20488;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8902120489;
 	Mon, 12 Jun 2023 08:20:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -60,42 +59,42 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pHssYjzKlY10PMN7nOcHqRS6MbUfj2AMN4M8kIXFAEY=;
-	b=gppoz6NqsE8zHROJILXHPL8N4KfqKs10EiUw1zE3ikDJGv6tZ+IBwicHby9rme6dPjDCxS
-	W1AHehj6hQch4awDCOrC/cuAApPm0Na1mUg+fhpG9zHof5T4wtDwqWPWHTVgaeUVSCnAAW
-	zOU6qddEth5CaG1nypKNWr5a8N4MIbk=
+	bh=VqIiY4EF7PU5vD6EyyauFm/FSYQ/AI/a0/lmpJOjJnU=;
+	b=ZVXdSZivvYsS6QDgq7B+iz5c3yJ7oZpXZXMdNGNhV9liLLk1mrIkGJVi/MiChj/YJ99S8K
+	hc/QAnK1a01b62ZsCPf8dIQhsuDgT3qymEB5a5nwXtX31hBhdQvyBWnSv4uYjHVebf0uUM
+	R8B5adAq9l2jgZAT/IHgKxwmfZ0AfWE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1686558000;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pHssYjzKlY10PMN7nOcHqRS6MbUfj2AMN4M8kIXFAEY=;
-	b=jVw1gmTR2xseFnUlwx1C+aXI4wIe6PhDlPXzhexWya7zGa2L5WazmuN2T5+VPE9r9O2g8F
-	2V/aaI2a1pFKYXBg==
+	bh=VqIiY4EF7PU5vD6EyyauFm/FSYQ/AI/a0/lmpJOjJnU=;
+	b=Eb3pDuJzilFwBtrC42v3KGbK6SWwc0voNIO0F+gtR5Pnf1ab+5WLeuvgT4zee4BiVHcx/k
+	IeF5LlYfmVWnSJDg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4D863138EC;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6D39E13A67;
 	Mon, 12 Jun 2023 08:20:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id GGj/ETDVhmT5cwAAMHmgww
+	id gJ+8GTDVhmT5cwAAMHmgww
 	(envelope-from <tiwai@suse.de>); Mon, 12 Jun 2023 08:20:00 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib 2/3] ump: Add UMP 1.1 features
-Date: Mon, 12 Jun 2023 10:19:47 +0200
-Message-Id: <20230612081948.18346-3-tiwai@suse.de>
+Subject: [PATCH alsa-lib 3/3] seq: Add UMP 1.1 features
+Date: Mon, 12 Jun 2023 10:19:48 +0200
+Message-Id: <20230612081948.18346-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230612081948.18346-1-tiwai@suse.de>
 References: <20230612081948.18346-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2ZVXC6X4X42UB2X3R3BNCCHKNBKHVHCW
-X-Message-ID-Hash: 2ZVXC6X4X42UB2X3R3BNCCHKNBKHVHCW
+Message-ID-Hash: BCTKIZDUF6B24JEN6EC2UNKX4SCZJTZ3
+X-Message-ID-Hash: BCTKIZDUF6B24JEN6EC2UNKX4SCZJTZ3
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,264 +107,128 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2ZVXC6X4X42UB2X3R3BNCCHKNBKHVHCW/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BCTKIZDUF6B24JEN6EC2UNKX4SCZJTZ3/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add a few new features for UMP 1.1:
-- New attributes in UMP Endpoint and Block info
-- Static block bit flag for EP info
+Add APIs for groupless message filtering.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/ump.h     | 22 +++++++++++++++
- include/ump_msg.h | 67 +++++++++++++++++++++++++++++++++++++++++++++
- src/rawmidi/ump.c | 70 +++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 159 insertions(+)
+ include/seq.h                   |  3 +++
+ include/sound/uapi/asequencer.h |  5 ++++-
+ src/Versions.in                 |  2 ++
+ src/seq/seq.c                   | 32 ++++++++++++++++++++++++++++++++
+ 4 files changed, 41 insertions(+), 1 deletion(-)
 
-diff --git a/include/ump.h b/include/ump.h
-index c79b2335aeff..1e5e053454b3 100644
---- a/include/ump.h
-+++ b/include/ump.h
-@@ -53,6 +53,9 @@ enum _snd_ump_direction {
- 	SND_UMP_DIR_BIDIRECTION	=	0x03,
+diff --git a/include/seq.h b/include/seq.h
+index 7faf4367df3d..68934037cb88 100644
+--- a/include/seq.h
++++ b/include/seq.h
+@@ -159,6 +159,7 @@ int snd_seq_client_info_get_event_lost(const snd_seq_client_info_t *info);
+ int snd_seq_client_info_get_midi_version(const snd_seq_client_info_t *info);
+ int snd_seq_client_info_get_ump_group_enabled(const snd_seq_client_info_t *info,
+ 					      int group);
++int snd_seq_client_info_get_ump_groupless_enabled(const snd_seq_client_info_t *info);
+ int snd_seq_client_info_get_ump_conversion(const snd_seq_client_info_t *info);
+ void snd_seq_client_info_set_client(snd_seq_client_info_t *info, int client);
+ void snd_seq_client_info_set_name(snd_seq_client_info_t *info, const char *name);
+@@ -168,6 +169,8 @@ void snd_seq_client_info_set_event_filter(snd_seq_client_info_t *info, unsigned
+ void snd_seq_client_info_set_midi_version(snd_seq_client_info_t *info, int midi_version);
+ void snd_seq_client_info_set_ump_group_enabled(snd_seq_client_info_t *info,
+ 					       int group, int enable);
++void snd_seq_client_info_set_ump_groupless_enabled(snd_seq_client_info_t *info,
++						   int enable);
+ void snd_seq_client_info_set_ump_conversion(snd_seq_client_info_t *info, int enable);
+ 
+ void snd_seq_client_info_event_filter_clear(snd_seq_client_info_t *info);
+diff --git a/include/sound/uapi/asequencer.h b/include/sound/uapi/asequencer.h
+index 3653a3f33778..b913f31daa2d 100644
+--- a/include/sound/uapi/asequencer.h
++++ b/include/sound/uapi/asequencer.h
+@@ -378,7 +378,10 @@ struct snd_seq_client_info {
+ 	int card;			/* RO: card number[kernel] */
+ 	int pid;			/* RO: pid[user] */
+ 	unsigned int midi_version;	/* MIDI version */
+-	unsigned int group_filter;	/* UMP group filter bitmap */
++	unsigned int group_filter;	/* UMP group filter bitmap
++					 * (bit 0 = groupless messages,
++					 *  bit 1-16 = messages for groups 1-16)
++					 */
+ 	char reserved[48];		/* for future use */
  };
  
-+/** UMP EP holds only static blocks */
-+#define SND_UMP_EP_INFO_STATIC_BLOCKS		0x01
-+
- /** Bitmask for UMP EP MIDI protocols */
- #define SND_UMP_EP_INFO_PROTO_MIDI_MASK		0x0300
- /** Bit flag for MIDI 1.0 protocol */
-@@ -82,6 +85,10 @@ unsigned int snd_ump_endpoint_info_get_protocol_caps(const snd_ump_endpoint_info
- unsigned int snd_ump_endpoint_info_get_protocol(const snd_ump_endpoint_info_t *info);
- unsigned int snd_ump_endpoint_info_get_num_blocks(const snd_ump_endpoint_info_t *info);
- unsigned int snd_ump_endpoint_info_get_version(const snd_ump_endpoint_info_t *info);
-+unsigned int snd_ump_endpoint_info_get_manufacturer_id(const snd_ump_endpoint_info_t *info);
-+unsigned int snd_ump_endpoint_info_get_family_id(const snd_ump_endpoint_info_t *info);
-+unsigned int snd_ump_endpoint_info_get_model_id(const snd_ump_endpoint_info_t *info);
-+const unsigned char *snd_ump_endpoint_info_get_sw_revision(const snd_ump_endpoint_info_t *info);
- const char *snd_ump_endpoint_info_get_name(const snd_ump_endpoint_info_t *info);
- const char *snd_ump_endpoint_info_get_product_id(const snd_ump_endpoint_info_t *info);
- int snd_ump_endpoint_info(snd_ump_t *ump, snd_ump_endpoint_info_t *info);
-@@ -91,6 +98,18 @@ int snd_ump_endpoint_info(snd_ump_t *ump, snd_ump_endpoint_info_t *info);
- /** Bit flag for 31.25Kbps B/W MIDI1 port in UMP Block info flags */
- #define SND_UMP_BLOCK_IS_LOWSPEED	(1U << 1)
+diff --git a/src/Versions.in b/src/Versions.in
+index 0c2837305039..c8ac1c8277a3 100644
+--- a/src/Versions.in
++++ b/src/Versions.in
+@@ -159,9 +159,11 @@ ALSA_1.2.10 {
+     @SYMBOL_PREFIX@snd_seq_ump_*;
+     @SYMBOL_PREFIX@snd_seq_client_info_get_midi_version;
+     @SYMBOL_PREFIX@snd_seq_seq_client_info_get_ump_group_enabled;
++    @SYMBOL_PREFIX@snd_seq_client_info_get_ump_groupless_enabled;
+     @SYMBOL_PREFIX@snd_seq_seq_client_get_ump_conversion;
+     @SYMBOL_PREFIX@snd_seq_client_info_set_midi_version;
+     @SYMBOL_PREFIX@snd_seq_seq_client_info_set_ump_group_enabled;
++    @SYMBOL_PREFIX@snd_seq_client_info_set_ump_groupless_enabled;
+     @SYMBOL_PREFIX@snd_seq_seq_client_set_ump_conversion;
+     @SYMBOL_PREFIX@snd_seq_get_ump_endpoint_info;
+     @SYMBOL_PREFIX@snd_seq_get_ump_block_info;
+diff --git a/src/seq/seq.c b/src/seq/seq.c
+index 65ccaaed5896..9d3a18d3ea99 100644
+--- a/src/seq/seq.c
++++ b/src/seq/seq.c
+@@ -1763,6 +1763,21 @@ int snd_seq_client_info_get_ump_group_enabled(const snd_seq_client_info_t *info,
+ 	return !(info->group_filter & (1U << group));
+ }
  
-+/** UMP block user-interface hint */
-+enum _snd_ump_block_ui_hint {
-+	/** Unknown or undeclared */
-+	SND_UMP_BLOCK_UI_HINT_UNKNOWN	=	0x00,
-+	/** Primarily a receiver or a destination for MIDI messages */
-+	SND_UMP_BLOCK_UI_HINT_RECEIVER =	0x01,
-+	/** Primarily a sender or a source of MIDI messages */
-+	SND_UMP_BLOCK_UI_HINT_SENDER =		0x02,
-+	/** Both a sender and receiver of MIDI messages */
-+	SND_UMP_BLOCK_UI_HINT_BOTH =		0x03,
-+};
++#define UMP_GROUPLESS_FILTER	(1U << 0)
 +
- size_t snd_ump_block_info_sizeof(void);
- /** \hideinitializer
-  * \brief allocate an invalid #snd_ump_block_info_t using standard alloca
-@@ -109,6 +128,9 @@ unsigned int snd_ump_block_info_get_flags(const snd_ump_block_info_t *info);
- unsigned int snd_ump_block_info_get_direction(const snd_ump_block_info_t *info);
- unsigned int snd_ump_block_info_get_first_group(const snd_ump_block_info_t *info);
- unsigned int snd_ump_block_info_get_num_groups(const snd_ump_block_info_t *info);
-+unsigned int snd_ump_block_info_get_midi_ci_version(const snd_ump_block_info_t *info);
-+unsigned int snd_ump_block_info_get_sysex8_streams(const snd_ump_block_info_t *info);
-+unsigned int snd_ump_block_info_get_ui_hint(const snd_ump_block_info_t *info);
- const char *snd_ump_block_info_get_name(const snd_ump_block_info_t *info);
- int snd_ump_block_info(snd_ump_t *ump, snd_ump_block_info_t *info);
- 
-diff --git a/include/ump_msg.h b/include/ump_msg.h
-index 4ccce546f8d5..e0264f6ecd00 100644
---- a/include/ump_msg.h
-+++ b/include/ump_msg.h
-@@ -453,11 +453,14 @@ typedef union _snd_ump_msg_midi2 {
-  * UMP message type
-  */
- enum {
-+	SND_UMP_MSG_TYPE_UTILITY		= 0x00,	/* Utility messages */
- 	SND_UMP_MSG_TYPE_SYSTEM			= 0x01,	/* System messages */
- 	SND_UMP_MSG_TYPE_MIDI1_CHANNEL_VOICE	= 0x02,	/* MIDI 1.0 messages */
- 	SND_UMP_MSG_TYPE_DATA			= 0x03,	/* 7bit SysEx messages */
- 	SND_UMP_MSG_TYPE_MIDI2_CHANNEL_VOICE	= 0x04,	/* MIDI 2.0 messages */
- 	SND_UMP_MSG_TYPE_EXTENDED_DATA		= 0x05,	/* 8bit data message */
-+	SND_UMP_MSG_TYPE_FLEX_DATA		= 0x0d,	/* Flexible data messages */
-+	SND_UMP_MSG_TYPE_STREAM			= 0x0f,	/* Stream messages */
- };
- 
- /**
-@@ -508,6 +511,62 @@ enum {
- 	SND_UMP_SYSEX_STATUS_END	= 3,
- };
- 
-+/** UMP Utility Type Status (type 0x0) **/
-+enum {
-+	SND_UMP_UTILITY_MSG_STATUS_NOOP		= 0x00,
-+	SND_UMP_UTILITY_MSG_STATUS_JR_CLOCK	= 0x01,
-+	SND_UMP_UTILITY_MSG_STATUS_JR_TSTAMP	= 0x02,
-+	SND_UMP_UTILITY_MSG_STATUS_DCTPQ	= 0x03,
-+	SND_UMP_UTILITY_MSG_STATUS_DC		= 0x04,
-+};
-+
-+/** UMP Stream Message Status (type 0xf) */
-+enum {
-+	SND_UMP_STREAM_MSG_STATUS_EP_DISCOVERY	= 0x00,
-+	SND_UMP_STREAM_MSG_STATUS_EP_INFO	= 0x01,
-+	SND_UMP_STREAM_MSG_STATUS_DEVICE_INFO	= 0x02,
-+	SND_UMP_STREAM_MSG_STATUS_EP_NAME	= 0x03,
-+	SND_UMP_STREAM_MSG_STATUS_PRODUCT_ID	= 0x04,
-+	SND_UMP_STREAM_MSG_STATUS_STREAM_CFG_REQUEST = 0x05,
-+	SND_UMP_STREAM_MSG_STATUS_STREAM_CFG	= 0x06,
-+	SND_UMP_STREAM_MSG_STATUS_FB_DISCOVERY	= 0x10,
-+	SND_UMP_STREAM_MSG_STATUS_FB_INFO	= 0x11,
-+	SND_UMP_STREAM_MSG_STATUS_FB_NAME	= 0x12,
-+	SND_UMP_STREAM_MSG_STATUS_START_CLIP	= 0x20,
-+	SND_UMP_STREAM_MSG_STATUS_END_CLIP	= 0x21,
-+};
-+
-+/** UMP Endpoint Discovery filter bitmap */
-+enum {
-+	SND_UMP_STREAM_MSG_REQUEST_EP_INFO	= (1U << 0),
-+	SND_UMP_STREAM_MSG_REQUEST_DEVICE_INFO	= (1U << 1),
-+	SND_UMP_STREAM_MSG_REQUEST_EP_NAME	= (1U << 2),
-+	SND_UMP_STREAM_MSG_REQUEST_PRODUCT_ID	= (1U << 3),
-+	SND_UMP_STREAM_MSG_REQUEST_STREAM_CFG	= (1U << 4),
-+};
-+
-+/** UMP Function Block Discovery filter bitmap */
-+enum {
-+	SND_UMP_STREAM_MSG_REQUEST_FB_INFO	= (1U << 0),
-+	SND_UMP_STREAM_MSG_REQUEST_FB_NAME	= (1U << 1),
-+};
-+
-+/** UMP Endpoint Info capability bits (used for protocol request/notify, too) */
-+enum {
-+	SND_UMP_STREAM_MSG_EP_INFO_CAP_TXJR	= (1U << 0), /* Sending JRTS */
-+	SND_UMP_STREAM_MSG_EP_INFO_CAP_RXJR	= (1U << 1), /* Receiving JRTS */
-+	SND_UMP_STREAM_MSG_EP_INFO_CAP_MIDI1	= (1U << 8), /* MIDI 1.0 */
-+	SND_UMP_STREAM_MSG_EP_INFO_CAP_MIDI2	= (1U << 9), /* MIDI 2.0 */
-+};
-+
-+/** UMP Endpoint / Function Block name string format bits */
-+enum {
-+	SND_UMP_STREAM_MSG_FORMAT_SINGLE	= 0,
-+	SND_UMP_STREAM_MSG_FORMAT_START		= 1,
-+	SND_UMP_STREAM_MSG_FORMAT_CONTINUE	= 2,
-+	SND_UMP_STREAM_MSG_FORMAT_END		= 3,
-+};
++/**
++ * \brief Get the UMP groupless message handling status
++ * \param info client_info container
++ * \return 1 if UMP groupless messages is processed, 0 if filtered/disabled
++ *
++ * \sa snd_seq_get_client_info()
++ */
++int snd_seq_client_info_get_ump_groupless_enabled(const snd_seq_client_info_t *info)
++{
++	assert(info);
++	return !(info->group_filter & UMP_GROUPLESS_FILTER);
++}
 +
  /**
-  * \brief get UMP status (4bit) from 32bit UMP message header
-  */
-@@ -532,6 +591,14 @@ static inline uint8_t snd_ump_msg_hdr_type(uint32_t ump)
- 	return (ump >> 28);
+  * \brief Get the automatic conversion mode for UMP
+  * \param info client_info container
+@@ -1850,6 +1865,23 @@ void snd_seq_client_info_set_ump_group_enabled(snd_seq_client_info_t *info,
+ 		info->group_filter |= (1U << group);
  }
  
 +/**
-+ * \brief check if the given UMP type is a groupless message
++ * \brief Enable/disable the UMP groupless message handling
++ * \param info client_info container
++ * \param enable enable the UMP groupless messages
++ *
++ * \sa snd_seq_set_client_info(), snd_seq_client_info_get_ump_groupless_enabled()
 + */
-+static inline int snd_ump_msg_type_is_groupless(uint8_t type)
++void snd_seq_client_info_set_ump_groupless_enabled(snd_seq_client_info_t *info,
++						   int enable)
 +{
-+	return type == SND_UMP_MSG_TYPE_UTILITY || type == SND_UMP_MSG_TYPE_STREAM;
++	assert(info);
++	if (enable)
++		info->group_filter &= ~UMP_GROUPLESS_FILTER;
++	else
++		info->group_filter |= UMP_GROUPLESS_FILTER;
 +}
 +
  /**
-  * \brief get UMP group (4bit) from 32bit UMP message header
-  */
-diff --git a/src/rawmidi/ump.c b/src/rawmidi/ump.c
-index 2482884f2661..80fa514003a7 100644
---- a/src/rawmidi/ump.c
-+++ b/src/rawmidi/ump.c
-@@ -422,6 +422,46 @@ unsigned int snd_ump_endpoint_info_get_version(const snd_ump_endpoint_info_t *in
- 	return info->version;
- }
- 
-+/**
-+ * \brief get UMP manufacturer ID
-+ * \param info pointer to a snd_ump_endpoint_info_t structure
-+ * \return UMP manufacturer ID
-+ */
-+unsigned int snd_ump_endpoint_info_get_manufacturer_id(const snd_ump_endpoint_info_t *info)
-+{
-+	return info->manufacturer_id;
-+}
-+
-+/**
-+ * \brief get UMP family ID
-+ * \param info pointer to a snd_ump_endpoint_info_t structure
-+ * \return UMP family ID
-+ */
-+unsigned int snd_ump_endpoint_info_get_family_id(const snd_ump_endpoint_info_t *info)
-+{
-+	return info->family_id;
-+}
-+
-+/**
-+ * \brief get UMP model ID
-+ * \param info pointer to a snd_ump_endpoint_info_t structure
-+ * \return UMP model ID
-+ */
-+unsigned int snd_ump_endpoint_info_get_model_id(const snd_ump_endpoint_info_t *info)
-+{
-+	return info->model_id;
-+}
-+
-+/**
-+ * \brief get UMP software revision
-+ * \param info pointer to a snd_ump_endpoint_info_t structure
-+ * \return UMP software revision
-+ */
-+const unsigned char *snd_ump_endpoint_info_get_sw_revision(const snd_ump_endpoint_info_t *info)
-+{
-+	return info->sw_revision;
-+}
-+
- /**
-  * \brief get UMP endpoint name string
-  * \param info pointer to a snd_ump_endpoint_info_t structure
-@@ -592,6 +632,36 @@ unsigned int snd_ump_block_info_get_num_groups(const snd_ump_block_info_t *info)
- 	return info->num_groups;
- }
- 
-+/**
-+ * \brief get MIDI-CI version number
-+ * \param info pointer to a snd_ump_block_info_t structure
-+ * \return MIDI-CI version number
-+ */
-+unsigned int snd_ump_block_info_get_midi_ci_version(const snd_ump_block_info_t *info)
-+{
-+	return info->midi_ci_version;
-+}
-+
-+/**
-+ * \brief get number of supported SysEx8 streams
-+ * \param info pointer to a snd_ump_block_info_t structure
-+ * \return number of supported SysEx8 streams
-+ */
-+unsigned int snd_ump_block_info_get_sysex8_streams(const snd_ump_block_info_t *info)
-+{
-+	return info->sysex8_streams;
-+}
-+
-+/**
-+ * \brief get UI hint of the given UMP block
-+ * \param info pointer to a snd_ump_block_info_t structure
-+ * \return the hint bits
-+ */
-+unsigned int snd_ump_block_info_get_ui_hint(const snd_ump_block_info_t *info)
-+{
-+	return info->ui_hint;
-+}
-+
- /**
-  * \brief get the name string of UMP block
-  * \param info pointer to a snd_ump_block_info_t structure
+  * \brief Set the automatic conversion mode for UMP
+  * \param info client_info container
 -- 
 2.35.3
 

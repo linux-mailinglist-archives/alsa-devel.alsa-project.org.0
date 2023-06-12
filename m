@@ -2,96 +2,118 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1888D72B870
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 09:10:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 680FD72B89A
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 09:26:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62D626C1;
-	Mon, 12 Jun 2023 09:09:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62D626C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 305D4FA;
+	Mon, 12 Jun 2023 09:26:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 305D4FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686553819;
-	bh=uG+Rz5OykdyyUm2fBqQxDeg/Pr8LncchsyBz2TQ6teA=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=lkx/6MoLFurVI0GTTc/iSqEZKX16tRJaVd1oZeJc+vY7hVWZGockuaYUklFmkKuLN
-	 O7msLLf+VZLWSXTtB0kMWT1vJiCOnS0HbW5OrlluuIyocS95TOPdx+fIsciruNQlnv
-	 Gb31J584tk96KK04CiRAeaMQ0rXUR95ErcZisFK8=
+	s=default; t=1686554811;
+	bh=DehgOXrmxPhLCT6MPGhQXEW0uCAmzMWXSNyhYcCdOeM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=vIWp2C/Uf0AWhH/9HB4W+ydTAijQc1waBklaV/NLVZ6hPFxlNISfsjWtM5uJlKdqY
+	 m+EVVDmxh7WkM+xvMj3qO9KnckZ17fAyvhAFkfTtOFgtCydwaiINXI5skVf0KP+QUF
+	 +KfnLn8QqHCysIcYE0PG10h74tOEdK7HKlJh3IKs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C7D4CF80301; Mon, 12 Jun 2023 09:09:28 +0200 (CEST)
+	id 93E09F80155; Mon, 12 Jun 2023 09:26:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EC8BF80132;
-	Mon, 12 Jun 2023 09:09:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46FB6F80132;
+	Mon, 12 Jun 2023 09:26:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 291C8F80149; Mon, 12 Jun 2023 09:06:47 +0200 (CEST)
+	id 4BF50F80149; Mon, 12 Jun 2023 09:25:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 11619F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 09:06:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11619F800BA
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1q8bd3-0008Cc-Sx; Mon, 12 Jun 2023 09:06:17 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1q8bd0-006pe7-Rm; Mon, 12 Jun 2023 09:06:14 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1q8bd0-00DQ8O-1m; Mon, 12 Jun 2023 09:06:14 +0200
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: James Schulman <james.schulman@cirrus.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Lucas Tanure <tanureal@opensource.cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	=?UTF-8?q?Martin=20Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com,
-	kernel@pengutronix.de
-Subject: [PATCH] ASoC: Switch two more i2c drivers back to use .probe()
-Date: Mon, 12 Jun 2023 09:06:08 +0200
-Message-Id: <20230612070608.836186-1-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B3C5F800BA
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 09:25:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B3C5F800BA
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=HORF2dBL
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5147dce372eso5966475a12.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 12 Jun 2023 00:25:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1686554747; x=1689146747;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=q1/iA2KTeym2owa+RBl7xQJdLjQ/0GLTI4ghL8o+6f4=;
+        b=HORF2dBLtSKw23+7IKfmwT72FpRjhdP/sRDS2qdMHv9HwboMtNhQHHif1e/y7JiHMF
+         1o1R9eWjIY7ADnceuRfmUwHsETW0rJh+xzSwbdEpmVeYfuF7RKJbCnho3bKTpbrfjKVQ
+         N2WCjvs/YjKgOHplZJL88A4AzgJh/GD+oIxkacw95SBW4bSZlceB1e5u4rFJ2oZsYWOq
+         K3Y/7O8iKHqlUFA4ykCM+myjY99DwrfrKs/LalGJevq9dHTssU1QlcXU2KrzmeQIbVQ8
+         DUUxIikg90yjd7/3LgmRVmZX1zzbRggJvVo+giXl5Sz0BwPUvOWqh9gW1eHF2Dy4vzcA
+         A3PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686554747; x=1689146747;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=q1/iA2KTeym2owa+RBl7xQJdLjQ/0GLTI4ghL8o+6f4=;
+        b=GTQo090RlJt/qO15JB21yRl6XZjNouoM6Q+nZtRaVoJhGFqW8NuwW2mbJp7DN6BSme
+         jEhvGB5WJwSEAOlwGVdMwwAAAxStR49rhDD0QsxqTBy1E3rtDjLQma7kNzOKfHEFOU4H
+         1LHIlABKCtHm1qy3i20LTpP5ft/BeZ/fOBOfQXgK7w4H1jCLDnG2Fr14+y2+BnxqOsof
+         K4GsD0QmOMVw2i6Wh2iJksQOWvVlTx5FLQJMZ75jcVmnjJNjyFdTZ3D729RlV2e9lnzS
+         T9TBygPCvr2tYHEIl785h9dCrKOazoTnshvRlmpuRyC0ecQSlXja7V8lfM+foNl5fUgm
+         9WQA==
+X-Gm-Message-State: AC+VfDyX36Ymt5aSzOhcJOYD0bGAH11Ey9/5XOCUxibwUh8Usi67LURQ
+	YIKiQ5s6693BAQqWMcycHm4whw==
+X-Google-Smtp-Source: 
+ ACHHUZ7DpcJxKlnnA6faPmN7jkMDpIN8+d1Ug1h4AEiqeOaJqh5Aerat92skVsX2xye2L3p+Xe35/Q==
+X-Received: by 2002:aa7:d785:0:b0:514:9c77:50b7 with SMTP id
+ s5-20020aa7d785000000b005149c7750b7mr4791408edq.25.1686554747114;
+        Mon, 12 Jun 2023 00:25:47 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
+        by smtp.gmail.com with ESMTPSA id
+ v26-20020aa7dbda000000b0050cc4461fc5sm4649433edt.92.2023.06.12.00.25.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Jun 2023 00:25:46 -0700 (PDT)
+Message-ID: <421ddd6d-3938-027c-2099-57248a111831@linaro.org>
+Date: Mon, 12 Jun 2023 09:25:44 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: wsa884x: Add WSA884x family of
+ speakers
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Patrick Lai <quic_plai@quicinc.com>
+References: <20230611102657.74714-1-krzysztof.kozlowski@linaro.org>
+ <20230611102657.74714-2-krzysztof.kozlowski@linaro.org>
+ <191859d3-42e3-4ef2-87ff-dd56864103f9@sirena.org.uk>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <191859d3-42e3-4ef2-87ff-dd56864103f9@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1701;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=uG+Rz5OykdyyUm2fBqQxDeg/Pr8LncchsyBz2TQ6teA=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkhsPfL2jWX5FRHLgh7JhU0BLkefn/hDF+gUm7a
- 8lw9ltmJeOJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZIbD3wAKCRCPgPtYfRL+
- Tvr8B/9Kum/LjyUZDHX21e4Mx3AlVnDAcUOtawcwqx0pWdV6YHVCvn+T0dBSg6SIKeHyU5eDgpb
- 2M7slC6XvNDc+Xn0v5NXntSCLTnlARsymEPkBUFyCjhB/2uU9hCQXOxjaxrX4FI5TMJdxb+7Bfv
- kztnCNXb8YGiKD8EwW05VZgCYfbcas6IkUEM0c8Ka4hG6hs+QrqcjgH2r7eyt/5d++nH8Mzzo50
- +3IgUifQu9M8V56X5ci0Mkae/i7tW/5LmgKQo5+KWe5CcMv44jA1gID2KBZHbYf34+z2K6JPm/t
- /QpRj9OCtwAscarqAG/nFd07Wp6ubtdRHqo44vJlGAnqZlzk
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: MPQIMXOVIO6E6CBK6AIPWVMZEJHWFON5
-X-Message-ID-Hash: MPQIMXOVIO6E6CBK6AIPWVMZEJHWFON5
-X-MailFrom: ukl@pengutronix.de
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: VEFHFNX77RDDYSZXCJPKTDNHBRNC3EGM
+X-Message-ID-Hash: VEFHFNX77RDDYSZXCJPKTDNHBRNC3EGM
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MPQIMXOVIO6E6CBK6AIPWVMZEJHWFON5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VEFHFNX77RDDYSZXCJPKTDNHBRNC3EGM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,55 +134,130 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The previous conversion back to .probe() applied in commit 9abcd24002bf
-("ASoC: Switch i2c drivers back to use .probe()") was created based on
-v6.3. Since then two more drivers were added which need to be convert
-back in the same way before eventually .probe_new() can be dropped from
-struct i2c_driver.
+On 11/06/2023 13:57, Mark Brown wrote:
+> On Sun, Jun 11, 2023 at 12:26:57PM +0200, Krzysztof Kozlowski wrote:
+> 
+>> +static struct reg_default wsa884x_defaults[] = {
+> 
+>> +	{ WSA884X_CHIP_ID0,			0x00 },
+>> +	{ WSA884X_CHIP_ID1,			0x00 },
+>> +	{ WSA884X_CHIP_ID2,			0x04 },
+>> +	{ WSA884X_CHIP_ID3,			0x02 },
+>> +	{ WSA884X_BUS_ID,			0x00 },
+> 
+> It is generally bad practice to provide defaults for ID registers since
+> it rather defeats the point of having them.
+> 
+>> +	{ WSA884X_INTR_STATUS0,			0x00 },
+>> +	{ WSA884X_INTR_STATUS1,			0x00 },
+> 
+> Interrupt status registers will be volatile and therefore should not
+> have defaults.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
-Hello,
+Sure, makes sense, I'll drop all of the above.
 
-cs35l56 was already in v6.4-rc1, ssm3515 is only in next. This patch is
-based on 4ac690bbae02 ("ASoC: ssm3515: Add new amp driver") which is the
-oldest commit in next that has both drivers.
+> 
+>> +	{ WSA884X_OTP_REG_0,			0x05 },
+>> +	{ WSA884X_OTP_REG_1,			0x49 },
+>> +	{ WSA884X_OTP_REG_2,			0x80 },
+>> +	{ WSA884X_OTP_REG_3,			0xc9 },
+>> +	{ WSA884X_OTP_REG_4,			0x40 },
+>> +	{ WSA884X_OTP_REG_5,			0xff },
+>> +	{ WSA884X_OTP_REG_6,			0xff },
+>> +	{ WSA884X_OTP_REG_7,			0xff },
+>> +	{ WSA884X_OTP_REG_8,			0xff },
+>> +	{ WSA884X_OTP_REG_9,			0xff },
+>> +	{ WSA884X_OTP_REG_10,			0xff },
+>> +	{ WSA884X_OTP_REG_11,			0xff },
+>> +	{ WSA884X_OTP_REG_12,			0xff },
+>> +	{ WSA884X_OTP_REG_13,			0xff },
+>> +	{ WSA884X_OTP_REG_14,			0xff },
+>> +	{ WSA884X_OTP_REG_15,			0xff },
+>> +	{ WSA884X_OTP_REG_16,			0xff },
+>> +	{ WSA884X_OTP_REG_17,			0xff },
+>> +	{ WSA884X_OTP_REG_18,			0xff },
+>> +	{ WSA884X_OTP_REG_19,			0xff },
+>> +	{ WSA884X_OTP_REG_20,			0xff },
+>> +	{ WSA884X_OTP_REG_21,			0xff },
+>> +	{ WSA884X_OTP_REG_22,			0xff },
+>> +	{ WSA884X_OTP_REG_23,			0xff },
+>> +	{ WSA884X_OTP_REG_24,			0x00 },
+>> +	{ WSA884X_OTP_REG_25,			0x22 },
+>> +	{ WSA884X_OTP_REG_26,			0x03 },
+>> +	{ WSA884X_OTP_REG_27,			0x00 },
+>> +	{ WSA884X_OTP_REG_28,			0x00 },
+>> +	{ WSA884X_OTP_REG_29,			0x00 },
+>> +	{ WSA884X_OTP_REG_30,			0x00 },
+>> +	{ WSA884X_OTP_REG_31,			0x8f },
+>> +	{ WSA884X_OTP_REG_32,			0x00 },
+>> +	{ WSA884X_OTP_REG_33,			0xff },
+>> +	{ WSA884X_OTP_REG_34,			0x0f },
+>> +	{ WSA884X_OTP_REG_35,			0x12 },
+>> +	{ WSA884X_OTP_REG_36,			0x08 },
+>> +	{ WSA884X_OTP_REG_37,			0x1f },
+>> +	{ WSA884X_OTP_REG_38,			0x0b },
+>> +	{ WSA884X_OTP_REG_39,			0x00 },
+>> +	{ WSA884X_OTP_REG_40,			0x00 },
+>> +	{ WSA884X_OTP_REG_41,			0x00 },
+>> +	{ WSA884X_OTP_REG_63,			0x40 },
+> 
+> These appear to be OTP data which suggests that they shouldn't have
+> defaults either since they can be programmed.
 
-Best regards
-Uwe
+Just to be clear - I don't have access to datasheet so I don't know what
+are these. The downstream driver actually initializes (writes to) two
+OTP registers - 38 and 40.
 
- sound/soc/codecs/cs35l56-i2c.c | 2 +-
- sound/soc/codecs/ssm3515.c     | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+>> +static bool wsa884x_readonly_register(struct device *dev, unsigned int reg)
+>> +{
+>> +	switch (reg) {
+> 
+> In general the read only registers probably shouldn't have defaults...
 
-diff --git a/sound/soc/codecs/cs35l56-i2c.c b/sound/soc/codecs/cs35l56-i2c.c
-index 295caad26224..ed2a41943d97 100644
---- a/sound/soc/codecs/cs35l56-i2c.c
-+++ b/sound/soc/codecs/cs35l56-i2c.c
-@@ -68,7 +68,7 @@ static struct i2c_driver cs35l56_i2c_driver = {
- 		.pm = &cs35l56_pm_ops_i2c_spi,
- 	},
- 	.id_table	= cs35l56_id_i2c,
--	.probe_new	= cs35l56_i2c_probe,
-+	.probe		= cs35l56_i2c_probe,
- 	.remove		= cs35l56_i2c_remove,
- };
- 
-diff --git a/sound/soc/codecs/ssm3515.c b/sound/soc/codecs/ssm3515.c
-index 784e890031a4..008cb3eb5758 100644
---- a/sound/soc/codecs/ssm3515.c
-+++ b/sound/soc/codecs/ssm3515.c
-@@ -439,7 +439,7 @@ static struct i2c_driver ssm3515_i2c_driver = {
- 		.name = "ssm3515",
- 		.of_match_table = of_match_ptr(ssm3515_of_match),
- 	},
--	.probe_new = ssm3515_i2c_probe,
-+	.probe = ssm3515_i2c_probe,
- };
- module_i2c_driver(ssm3515_i2c_driver);
- 
+For the case when regmap is being read before device enumerates (thus
+synced)?
 
-base-commit: 4ac690bbae02e26e36e133becd86babb657126ef
--- 
-2.39.2
+> 
+>> +static bool wsa884x_volatile_register(struct device *dev, unsigned int reg)
+>> +{
+>> +	switch (reg) {
+>> +	case WSA884X_ANA_WO_CTL_0:
+>> +	case WSA884X_ANA_WO_CTL_1:
+>> +		return true;
+>> +	}
+>> +	return wsa884x_readonly_register(dev, reg);
+>> +}
+> 
+> ...and the volatile regiseters definitely not, the default values will
+> never be used and just waste space.
+
+Right.
+
+> 
+>> +static struct regmap_config wsa884x_regmap_config = {
+>> +	.reg_bits = 32,
+>> +	.val_bits = 8,
+>> +	.cache_type = REGCACHE_RBTREE,
+> 
+> Please use REGCACHE_MAPLE for new devices.
+
+Ack
+
+> 
+>> +	/* Speaker mode by default */
+>> +	{ WSA884X_DRE_CTL_0, 0x7 << WSA884X_DRE_CTL_0_PROG_DELAY_SHIFT },
+>> +	{ WSA884X_CLSH_CTL_0, (0x37 & ~WSA884X_CLSH_CTL_0_DLY_CODE_MASK) |
+>> +			      (0x6 << WSA884X_CLSH_CTL_0_DLY_CODE_SHIFT) },
+>> +	{ WSA884X_CLSH_SOFT_MAX, 0xff },
+> 
+> Why not just leave as the chip default?
+
+Sincerely, I don't know. Without any documentation, I am relying
+entirely on downstream driver which has some code like this. I don't
+know whether some parts here make sense only for downstream case or
+shall be applicable also for upstream.
+
+Best regards,
+Krzysztof
 

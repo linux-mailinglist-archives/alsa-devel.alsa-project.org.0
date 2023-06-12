@@ -2,112 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2559A72BA43
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 10:22:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C71D72CA35
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 17:33:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61D0285D;
-	Mon, 12 Jun 2023 10:21:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61D0285D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FA6B83B;
+	Mon, 12 Jun 2023 17:32:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FA6B83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686558135;
-	bh=62HujU82XDvn+hPxvk1sigRnNBvmL2O6FFIz8kViT8M=;
-	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=ruVkxwRlDVnR2PV5Y5idhvYqhzEZhoQniDMWDe18wi8r+QBaBtPOMLCQC9GtZGEsO
-	 evG0Fr7v3xuQ2lzcX/BTC3HIxdeJQucNG5e0eLE6L90uHXAzoVN2EDYtvpMIYlUC6f
-	 3d6lpY9+fetG/hphAXfABFEx3Rvb5ij1JZT+Ac4I=
+	s=default; t=1686584007;
+	bh=JvIFM7O4H0lF+ksxpzCLpBiLELyf+8ihLvIrguVvSKk=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Bj4znKdD4I/vB78quFFpHo56I3evr9218Z26UrOF5gKNk5+VHTTzVdMPzALecshAl
+	 ka+ParmiZ2xDpE6JD3L6B0toXvOt0TCfeqLaRBWlXYfwbiXxCZhqjR/qgbD9M79T/U
+	 4snVNYmKpLldSvjNPhtFOXl0GMnWsLUv66mSBz/8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F410F80579; Mon, 12 Jun 2023 10:20:20 +0200 (CEST)
+	id 868DDF805A8; Mon, 12 Jun 2023 17:31:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0CB7F80580;
-	Mon, 12 Jun 2023 10:20:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAE5EF80301;
+	Mon, 12 Jun 2023 17:31:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40948F80579; Mon, 12 Jun 2023 10:20:16 +0200 (CEST)
+	id 86D0BF80132; Mon, 12 Jun 2023 10:52:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C917F8055B
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 10:20:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C917F8055B
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ZVXdSZiv;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Eb3pDuJz
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8902120489;
-	Mon, 12 Jun 2023 08:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1686558000; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VqIiY4EF7PU5vD6EyyauFm/FSYQ/AI/a0/lmpJOjJnU=;
-	b=ZVXdSZivvYsS6QDgq7B+iz5c3yJ7oZpXZXMdNGNhV9liLLk1mrIkGJVi/MiChj/YJ99S8K
-	hc/QAnK1a01b62ZsCPf8dIQhsuDgT3qymEB5a5nwXtX31hBhdQvyBWnSv4uYjHVebf0uUM
-	R8B5adAq9l2jgZAT/IHgKxwmfZ0AfWE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686558000;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VqIiY4EF7PU5vD6EyyauFm/FSYQ/AI/a0/lmpJOjJnU=;
-	b=Eb3pDuJzilFwBtrC42v3KGbK6SWwc0voNIO0F+gtR5Pnf1ab+5WLeuvgT4zee4BiVHcx/k
-	IeF5LlYfmVWnSJDg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6D39E13A67;
-	Mon, 12 Jun 2023 08:20:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id gJ+8GTDVhmT5cwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 12 Jun 2023 08:20:00 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH alsa-lib 3/3] seq: Add UMP 1.1 features
-Date: Mon, 12 Jun 2023 10:19:48 +0200
-Message-Id: <20230612081948.18346-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230612081948.18346-1-tiwai@suse.de>
-References: <20230612081948.18346-1-tiwai@suse.de>
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by alsa1.perex.cz (Postfix) with ESMTP id C2459F800BA
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 10:51:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2459F800BA
+Received: from loongson.cn (unknown [10.180.13.124])
+	by gateway (Coremail) with SMTP id _____8AxHuuk3IZkVZgDAA--.7859S3;
+	Mon, 12 Jun 2023 16:51:48 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.180.13.124])
+	by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8CxXMqj3IZkl2cVAA--.53102S4;
+	Mon, 12 Jun 2023 16:51:47 +0800 (CST)
+From: YingKun Meng <mengyingkun@loongson.cn>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com
+Cc: krzysztof.kozlowski+dt@linaro.org,
+	linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn,
+	YingKun Meng <mengyingkun@loongson.cn>
+Subject: [ PATCH v2 0/3] Add Loongson I2S controller support
+Date: Mon, 12 Jun 2023 16:50:48 +0800
+Message-Id: <20230612085048.3039471-1-mengyingkun@loongson.cn>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: BCTKIZDUF6B24JEN6EC2UNKX4SCZJTZ3
-X-Message-ID-Hash: BCTKIZDUF6B24JEN6EC2UNKX4SCZJTZ3
-X-MailFrom: tiwai@suse.de
+X-CM-TRANSID: AQAAf8CxXMqj3IZkl2cVAA--.53102S4
+X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQAADGSFuYEEQQAGsX
+X-Coremail-Antispam: 1Uk129KBj93XoWxJr4fXF1UKr1ftw1fCr17Arc_yoW8Zw4xpa
+	nxC393WFW5tF4ayFn3tFy8JrWrAryrCFsxJanrX34UGr9Fv3WUu343tF15ZFW3CryUKFyq
+	9ry8G3y8G3ZxG3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
+	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j1YL9UUUUU=
+X-MailFrom: mengyingkun@loongson.cn
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: X6AWYAHIQDPNQ7XEDKIS4APDEKFQEBUF
+X-Message-ID-Hash: X6AWYAHIQDPNQ7XEDKIS4APDEKFQEBUF
+X-Mailman-Approved-At: Mon, 12 Jun 2023 15:31:33 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BCTKIZDUF6B24JEN6EC2UNKX4SCZJTZ3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/X6AWYAHIQDPNQ7XEDKIS4APDEKFQEBUF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,119 +97,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add APIs for groupless message filtering.
+Hi all,
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+This patchset adds support for Loongson I2S controller, and
+introduce a ASoC machine driver for loongson platform.
+
+The Loongson I2S controller is available on Loongson
+7a2000/2k2000 chips, works as a PCI device. It has two
+private DMA controllers used to playback and capture.
+Each DMA controller has one channel.
+
+The ASoC machine driver adds support for audio device which
+using loongson I2S controller to tranfser the audio data.
+The audio device uses "PRP0001" as its ACPI device ID, which
+provides a means to use the existing DT-compatible device
+identification in ACPI.
+
+
+Thanks.
+
 ---
- include/seq.h                   |  3 +++
- include/sound/uapi/asequencer.h |  5 ++++-
- src/Versions.in                 |  2 ++
- src/seq/seq.c                   | 32 ++++++++++++++++++++++++++++++++
- 4 files changed, 41 insertions(+), 1 deletion(-)
+v2:
+* Use ACPI bindings to reference I2S and codec nodes.
+* Add 'required' restriction for sound-dai property in
+  dt-bindings.
+* Fix build errors from lkp@intel.com.
+* Replace pci_xxx() APIs with pcim_xxx() APIs.
+* mirror changes in log printing.
 
-diff --git a/include/seq.h b/include/seq.h
-index 7faf4367df3d..68934037cb88 100644
---- a/include/seq.h
-+++ b/include/seq.h
-@@ -159,6 +159,7 @@ int snd_seq_client_info_get_event_lost(const snd_seq_client_info_t *info);
- int snd_seq_client_info_get_midi_version(const snd_seq_client_info_t *info);
- int snd_seq_client_info_get_ump_group_enabled(const snd_seq_client_info_t *info,
- 					      int group);
-+int snd_seq_client_info_get_ump_groupless_enabled(const snd_seq_client_info_t *info);
- int snd_seq_client_info_get_ump_conversion(const snd_seq_client_info_t *info);
- void snd_seq_client_info_set_client(snd_seq_client_info_t *info, int client);
- void snd_seq_client_info_set_name(snd_seq_client_info_t *info, const char *name);
-@@ -168,6 +169,8 @@ void snd_seq_client_info_set_event_filter(snd_seq_client_info_t *info, unsigned
- void snd_seq_client_info_set_midi_version(snd_seq_client_info_t *info, int midi_version);
- void snd_seq_client_info_set_ump_group_enabled(snd_seq_client_info_t *info,
- 					       int group, int enable);
-+void snd_seq_client_info_set_ump_groupless_enabled(snd_seq_client_info_t *info,
-+						   int enable);
- void snd_seq_client_info_set_ump_conversion(snd_seq_client_info_t *info, int enable);
- 
- void snd_seq_client_info_event_filter_clear(snd_seq_client_info_t *info);
-diff --git a/include/sound/uapi/asequencer.h b/include/sound/uapi/asequencer.h
-index 3653a3f33778..b913f31daa2d 100644
---- a/include/sound/uapi/asequencer.h
-+++ b/include/sound/uapi/asequencer.h
-@@ -378,7 +378,10 @@ struct snd_seq_client_info {
- 	int card;			/* RO: card number[kernel] */
- 	int pid;			/* RO: pid[user] */
- 	unsigned int midi_version;	/* MIDI version */
--	unsigned int group_filter;	/* UMP group filter bitmap */
-+	unsigned int group_filter;	/* UMP group filter bitmap
-+					 * (bit 0 = groupless messages,
-+					 *  bit 1-16 = messages for groups 1-16)
-+					 */
- 	char reserved[48];		/* for future use */
- };
- 
-diff --git a/src/Versions.in b/src/Versions.in
-index 0c2837305039..c8ac1c8277a3 100644
---- a/src/Versions.in
-+++ b/src/Versions.in
-@@ -159,9 +159,11 @@ ALSA_1.2.10 {
-     @SYMBOL_PREFIX@snd_seq_ump_*;
-     @SYMBOL_PREFIX@snd_seq_client_info_get_midi_version;
-     @SYMBOL_PREFIX@snd_seq_seq_client_info_get_ump_group_enabled;
-+    @SYMBOL_PREFIX@snd_seq_client_info_get_ump_groupless_enabled;
-     @SYMBOL_PREFIX@snd_seq_seq_client_get_ump_conversion;
-     @SYMBOL_PREFIX@snd_seq_client_info_set_midi_version;
-     @SYMBOL_PREFIX@snd_seq_seq_client_info_set_ump_group_enabled;
-+    @SYMBOL_PREFIX@snd_seq_client_info_set_ump_groupless_enabled;
-     @SYMBOL_PREFIX@snd_seq_seq_client_set_ump_conversion;
-     @SYMBOL_PREFIX@snd_seq_get_ump_endpoint_info;
-     @SYMBOL_PREFIX@snd_seq_get_ump_block_info;
-diff --git a/src/seq/seq.c b/src/seq/seq.c
-index 65ccaaed5896..9d3a18d3ea99 100644
---- a/src/seq/seq.c
-+++ b/src/seq/seq.c
-@@ -1763,6 +1763,21 @@ int snd_seq_client_info_get_ump_group_enabled(const snd_seq_client_info_t *info,
- 	return !(info->group_filter & (1U << group));
- }
- 
-+#define UMP_GROUPLESS_FILTER	(1U << 0)
-+
-+/**
-+ * \brief Get the UMP groupless message handling status
-+ * \param info client_info container
-+ * \return 1 if UMP groupless messages is processed, 0 if filtered/disabled
-+ *
-+ * \sa snd_seq_get_client_info()
-+ */
-+int snd_seq_client_info_get_ump_groupless_enabled(const snd_seq_client_info_t *info)
-+{
-+	assert(info);
-+	return !(info->group_filter & UMP_GROUPLESS_FILTER);
-+}
-+
- /**
-  * \brief Get the automatic conversion mode for UMP
-  * \param info client_info container
-@@ -1850,6 +1865,23 @@ void snd_seq_client_info_set_ump_group_enabled(snd_seq_client_info_t *info,
- 		info->group_filter |= (1U << group);
- }
- 
-+/**
-+ * \brief Enable/disable the UMP groupless message handling
-+ * \param info client_info container
-+ * \param enable enable the UMP groupless messages
-+ *
-+ * \sa snd_seq_set_client_info(), snd_seq_client_info_get_ump_groupless_enabled()
-+ */
-+void snd_seq_client_info_set_ump_groupless_enabled(snd_seq_client_info_t *info,
-+						   int enable)
-+{
-+	assert(info);
-+	if (enable)
-+		info->group_filter &= ~UMP_GROUPLESS_FILTER;
-+	else
-+		info->group_filter |= UMP_GROUPLESS_FILTER;
-+}
-+
- /**
-  * \brief Set the automatic conversion mode for UMP
-  * \param info client_info container
+v1:
+* Add support for Loongson I2S controller.
+
+Yingkun Meng (3):
+  ASoC: Add support for Loongson I2S controller
+  ASoC: loongson: Add Loongson ASoC Sound Card Support
+  ASoC: dt-bindings: Add support for Loongson audio card
+
+ .../sound/loongson,ls-audio-card.yaml         |  70 +++
+ sound/soc/Kconfig                             |   1 +
+ sound/soc/Makefile                            |   1 +
+ sound/soc/loongson/Kconfig                    |  26 +
+ sound/soc/loongson/Makefile                   |   8 +
+ sound/soc/loongson/loongson_card.c            | 237 +++++++++
+ sound/soc/loongson/loongson_i2s.c             | 213 ++++++++
+ sound/soc/loongson/loongson_i2s.h             |  70 +++
+ sound/soc/loongson/loongson_i2s_pci.c         | 500 ++++++++++++++++++
+ 9 files changed, 1126 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+ create mode 100644 sound/soc/loongson/Kconfig
+ create mode 100644 sound/soc/loongson/Makefile
+ create mode 100644 sound/soc/loongson/loongson_card.c
+ create mode 100644 sound/soc/loongson/loongson_i2s.c
+ create mode 100644 sound/soc/loongson/loongson_i2s.h
+ create mode 100644 sound/soc/loongson/loongson_i2s_pci.c
+
+
+base-commit: 62a97bea5cce5317d6d7630f7bcf0cdf5333e269
 -- 
-2.35.3
+2.33.0
 

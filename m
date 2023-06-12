@@ -2,79 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E62B72CC8D
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 19:29:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A577E72CCFD
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 19:36:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58BF3886;
-	Mon, 12 Jun 2023 19:28:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58BF3886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D673825;
+	Mon, 12 Jun 2023 19:36:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D673825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686590956;
-	bh=ArqOznHQGnwgvHXrhdvoNX9u/BC0HSBRS0lxH42jJEw=;
+	s=default; t=1686591414;
+	bh=yC5mi0XHtFLtIv5jLmar9jZwOk85IwJ3eKL6+ztXRvM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FaHYBFw89cexOcRMY/NaPCHQ+U9KtquVG4r2cYQ7rwgi3moI/F4M2xUAM4dqmUAuN
-	 W5mLL+NarHCbdRMdLIW2yt17DWvUVCy6aSUDA4OZ22I6Q4EeiBn5gKO/+RuQ7o11E/
-	 FsoYezlamJYMx822XwAZNNxlY7LTxbvwQSkAgTmw=
+	b=mBYDXE9lf+Mvj2M0R/g2S7ThaRSReSJeyI4JN5Cygli8INC/RgQuucwZLaMo9U9CA
+	 ZGREWsL0qeo/sTFjNAC7bAqd6n/Px0aPGaiXDp5IZ309UoFJOFJsB9mx+15GgqZ7CO
+	 BpZpE3baQcEytKm/FeYbciBYIe2LEu3ZBRNXIzcI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 42BD4F8059F; Mon, 12 Jun 2023 19:27:15 +0200 (CEST)
+	id 2342EF80246; Mon, 12 Jun 2023 19:36:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90620F8057F;
-	Mon, 12 Jun 2023 19:27:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D65F8F80132;
+	Mon, 12 Jun 2023 19:36:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 19F1BF80149; Mon, 12 Jun 2023 19:27:07 +0200 (CEST)
+	id 9BD39F80149; Mon, 12 Jun 2023 19:36:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DC05FF80130
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 19:27:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC05FF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A09BF80130
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 19:35:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A09BF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=MIT2zgAv
+ header.s=k20201202 header.b=fcFgNk+B
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5A74462C35;
-	Mon, 12 Jun 2023 17:27:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EBAC4339B;
-	Mon, 12 Jun 2023 17:27:01 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id A518A62C4D;
+	Mon, 12 Jun 2023 17:35:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C36C4339B;
+	Mon, 12 Jun 2023 17:35:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686590821;
-	bh=ArqOznHQGnwgvHXrhdvoNX9u/BC0HSBRS0lxH42jJEw=;
+	s=k20201202; t=1686591355;
+	bh=yC5mi0XHtFLtIv5jLmar9jZwOk85IwJ3eKL6+ztXRvM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=MIT2zgAvKYRQl9A+CMYWJ0IJn7JPBwdKtk/IA195/KNnPWgY9MgPS6sqzbyg/MAJ+
-	 D4mpAaRTThvQqD18B4YhvESbHJxh0nmGxbz6GQtEgr3yiI72v2EmstQZdjiJpM3C27
-	 L9wNAimxnN+yq7xRhyUAU3N68W1fQ0ItyjvC+cCfKD8r0iX8tkgj7AMsHaYIeK4TzZ
-	 i2BehLxeaHZ9mAnMeZCf3lmtO4dIwEaia/x1CeznaVS4brDLpzYzCT65WqMYoLJs08
-	 +GDb9swDQuGizaTFu9ezuVlLiChESrZ2CDHS+7HPVz+aDE99Zs7M2rcP60ItHruJGf
-	 1IwQD+d53WBWg==
+	b=fcFgNk+B1+RWU1Yja2l/rB3cVIJfFbRkcTNtESIVYy+A2BQIvAAVLpAXSl4hcE4g0
+	 y24jT/5PPmP5n+EoQSSX2SSw54TIfOiLB8a4KGEs7V3V0cU3BDujndngxdlP02Bxtj
+	 vaofVez8+4vzTFqH2Y4uBOtHqKXPksh2qOQdyDLh8FTwH2WZDcqRNLpqR4S3V0XFYG
+	 aiZNm1HQJriOYSitf6EePTEdpLwuZQxrJ1ZsOc70fGmtvicN5mCqz6zdrbOXOlIqLF
+	 lqPZWHg0sUIxpcYLLczq5FefKYAyBUkMh4nCypfuRH4gvZWkfZvJexj1V+F6TuggTI
+	 pCXko+RIau8oQ==
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-In-Reply-To: <87a5x5qw3d.wl-kuninori.morimoto.gx@renesas.com>
-References: <87a5x5qw3d.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH] ASoC: audio-graph-card2-custom-sample.dtsi: remove DT
- warning
-Message-Id: <168659082101.87413.16259549649793536437.b4-ty@kernel.org>
-Date: Mon, 12 Jun 2023 18:27:01 +0100
+To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>,
+ linux-kernel@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <20230612110958.592674-1-brent.lu@intel.com>
+References: <20230612110958.592674-1-brent.lu@intel.com>
+Subject: Re: [PATCH 00/12] ASoC: Intel: avs: remove redundant dapm routes
+Message-Id: <168659135251.88952.16253642341528642250.b4-ty@kernel.org>
+Date: Mon, 12 Jun 2023 18:35:52 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: OAQT3KRAH2RONSN6BRMEV3M7SQ7IN2NM
-X-Message-ID-Hash: OAQT3KRAH2RONSN6BRMEV3M7SQ7IN2NM
+Message-ID-Hash: PF52WQXNT3GXNALT24C2MEET6TFA7GOJ
+X-Message-ID-Hash: PF52WQXNT3GXNALT24C2MEET6TFA7GOJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -87,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OAQT3KRAH2RONSN6BRMEV3M7SQ7IN2NM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PF52WQXNT3GXNALT24C2MEET6TFA7GOJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -96,12 +105,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 12 Jun 2023 01:59:34 +0000, Kuninori Morimoto wrote:
-> Current audio-graph-card2-custom-sample.dtsi is missing
-> address-cells / size-cells / reg. Thus it get too many DT warnings.
-> This patch solved it.
+On Mon, 12 Jun 2023 19:09:46 +0800, Brent Lu wrote:
+> This patch series remove redundant dapm routes declared in multiple machine
+> drivers. These routes will be created by snd_soc_dapm_connect_dai_link_widgets()
+> during soundcard initialization. Following is the kernel log from a KBL
+> chromebook nocturne.
 > 
+> dmic:
+> [   13.773455] avs_dmic avs_dmic: connected DAI link dmic-codec:Capture -> dmic-platform:DMIC Rx
+> [   13.773460] avs_dmic avs_dmic: connected DAI link dmic-codec:Capture -> dmic-platform:DMIC WoV Rx
 > 
+> [...]
 
 Applied to
 
@@ -109,8 +123,30 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: audio-graph-card2-custom-sample.dtsi: remove DT warning
-      commit: fd6f223639b834d169218ff3f53e2f6e9f8c1790
+[01/12] ASoC: Intel: avs-da7219: remove redundant dapm routes
+        commit: 530ca0a7ed04230408775b495034941346ea5db1
+[02/12] ASoC: Intel: avs-dmic: remove redundant dapm routes
+        commit: c2076f4fa4f15559ed7e568186c4089479a62154
+[03/12] ASoC: Intel: avs-hdaudio: remove redundant dapm routes
+        commit: 12ea56d73c548929ef1a498848905b04bfe85f90
+[04/12] ASoC: Intel: avs-max98357a: remove redundant dapm routes
+        commit: d48e3cd5aaecd7769b073f65bb95004a54bc76e6
+[05/12] ASoC: Intel: avs-max98373: remove redundant dapm routes
+        commit: b4df7ce9905b1e8cb84ee247ca7db6ae004bc508
+[06/12] ASoC: Intel: avs-max98927: remove redundant dapm routes
+        commit: 9868ca64fd7a87cf997040452519b07e47a8d008
+[07/12] ASoC: Intel: avs-nau8825: remove redundant dapm routes
+        commit: ae7d66822de5aeaf991eda96c823ee9dffebfe46
+[08/12] ASoC: Intel: avs-rt274: remove redundant dapm routes
+        commit: 6227269fb375af2ff239a68499856abfd6a2bceb
+[09/12] ASoC: Intel: avs-rt286: remove redundant dapm routes
+        commit: cca1ac1f097afa7ad6e587d6f1e86fd738ede508
+[10/12] ASoC: Intel: avs-rt298: remove redundant dapm routes
+        commit: eae0655316a5d741ab27c7b3a67a55b0af970e19
+[11/12] ASoC: Intel: avs-rt5682: remove redundant dapm routes
+        commit: 96b5452fe43c23451050b3efa5197bd10dce9bc6
+[12/12] ASoC: Intel: avs-ssm4567: remove redundant dapm routes
+        commit: 51bdf6ebe5b7da8d1b86cf66fe7e21de353e5218
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

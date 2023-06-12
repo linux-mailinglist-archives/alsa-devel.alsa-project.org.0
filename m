@@ -2,71 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFBFD72B5E7
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 05:16:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EFCD72B600
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 05:19:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B99246C0;
-	Mon, 12 Jun 2023 05:15:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B99246C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD4A6AEA;
+	Mon, 12 Jun 2023 05:18:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD4A6AEA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686539790;
-	bh=8gPCuDqBxy3w2rRnM7UsFSCqZxJx21nsM66FiPsiHcs=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=sf7TvK9T5gi1Aavl4IE69BtcIHl1TphwLddILz0k1oLF8dA+yekuEZdjJv9y8EHO/
-	 RkCUfrYgRUIVDq0pV7mD3j7XyAOaIctNXbW8K0p0T3OUA/9lamrAjRUL7aIh1wS4Bi
-	 sqGx2Psm0zgjYJYq2qiUybckoHWGpcv8r6xO3Bf0=
+	s=default; t=1686539964;
+	bh=RcAGWFoO9nSBfI/X1vef7WgnMxUZjubEZI94Z23Z+44=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=fY8Ku77Xb9VZnPWZIz7KFFmERRE7qiMghXghlU0U54q3GaAv0Wzx4K/sOgZ3YjaBe
+	 UVxz0X9fWPGv7r3K6/UYZZQgkHhZu2phZnvhh5JUmWGEevsB2E+ahujayfUNTwWyRS
+	 QPc/otEYpytGsrbQQf90WoHEiXkIcbgm6wmvCFow=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4EBEEF80552; Mon, 12 Jun 2023 05:15:39 +0200 (CEST)
+	id 01CD8F805E9; Mon, 12 Jun 2023 05:15:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E010F80132;
-	Mon, 12 Jun 2023 05:15:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61AD4F805DA;
+	Mon, 12 Jun 2023 05:15:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C8CFF80548; Mon, 12 Jun 2023 05:15:09 +0200 (CEST)
+	id 4A1FFF80130; Mon, 12 Jun 2023 05:15:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DATE_IN_FUTURE_06_12,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DATE_IN_FUTURE_06_12,
 	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+	RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93151F800BA
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 05:14:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93151F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 19CF6F80130
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 05:14:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19CF6F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=RQA8BMTT
+ header.s=Intel header.b=dnwVz5uH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686539690; x=1718075690;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=8gPCuDqBxy3w2rRnM7UsFSCqZxJx21nsM66FiPsiHcs=;
-  b=RQA8BMTTahqyRarQ/2fz9UqEj768LAAtvYRrOFKlPLwwFBdZDPQOzqmD
-   CtnbN1ZJztFHEIdxlIP2WSM8fJhKMVbbf7gJLgwNiUotlp5GkHMblFyNz
-   +A9w/LqzqGZE9xZUBYjK59R2iFxecLq8mUvf5AWgdpt+oyT2CC4U39sm/
-   fw1X5V7I07i4Vn8dxSGoY6fOADOV3t6m5AcblcYmTRXIycdoYjiAUlFGs
-   A/PUv4YDJBcEkfpm1wbE+ORsWxAtY4EaHOZPMMEoi9X5jMj4sNZzhIg82
-   leHYKS4VpjTg8F1KDJHHT2yzLhUOxb63ikY/D+kkxBpzD01XgBfFW6u7W
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="347578870"
+  t=1686539693; x=1718075693;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=RcAGWFoO9nSBfI/X1vef7WgnMxUZjubEZI94Z23Z+44=;
+  b=dnwVz5uH8pvr5EBMgEQ1l2xZGdqjdpvvBCJlJ41PMHNr/j3/gTKFz+W/
+   iZD9ESQ3T3SdRxQdnEmur8yJstuVxkxIsCNtUiuyrctSdoN+CNwDRsN5K
+   3pk17EmdYosFZS4/VHF8+4AOafrkn39rbVgRFlqeHskk1d17Rj85Zi67P
+   zpwPSx7EpKMM710s1Zhw1eB0isZ1Nu/kNaoVLOiNkQsc1JqB++FPK8wss
+   sAunDpuwfDM7AFoeVxAHFJuPQ06vYtSUxjGoL8UcNOOznWIWFY6nX3l/w
+   BuLEuOLDfeJ+HFbLAg4PQudZMX2hjrkpnSlePfgnDxG00+TKipo5SL7+o
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="347578891"
 X-IronPort-AV: E=Sophos;i="6.00,235,1681196400";
-   d="scan'208";a="347578870"
+   d="scan'208";a="347578891"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2023 20:14:44 -0700
+ 11 Jun 2023 20:14:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="776191865"
+X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="776191875"
 X-IronPort-AV: E=Sophos;i="6.00,235,1681196400";
-   d="scan'208";a="776191865"
+   d="scan'208";a="776191875"
 Received: from brentlu-desktop.itwn.intel.com ([10.5.252.92])
-  by fmsmga008.fm.intel.com with ESMTP; 11 Jun 2023 20:14:41 -0700
+  by fmsmga008.fm.intel.com with ESMTP; 11 Jun 2023 20:14:44 -0700
 From: Brent Lu <brent.lu@intel.com>
 To: alsa-devel@alsa-project.org
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
@@ -84,14 +85,16 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
 	Brent Lu <brent.lu@intel.com>,
 	linux-kernel@vger.kernel.org,
 	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 00/12] ASoC: Intel: avs: remove redundant dapm routes
-Date: Mon, 12 Jun 2023 19:09:46 +0800
-Message-Id: <20230612110958.592674-1-brent.lu@intel.com>
+Subject: [PATCH 01/12] ASoC: Intel: avs-da7219: remove redundant dapm routes
+Date: Mon, 12 Jun 2023 19:09:47 +0800
+Message-Id: <20230612110958.592674-2-brent.lu@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230612110958.592674-1-brent.lu@intel.com>
+References: <20230612110958.592674-1-brent.lu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MR7CNM3H3WQTPFKVDPQM4OTVRRUMC7BR
-X-Message-ID-Hash: MR7CNM3H3WQTPFKVDPQM4OTVRRUMC7BR
+Message-ID-Hash: FR7ELIUOLWLAUD7EPYEXRBR5TOEL7XF2
+X-Message-ID-Hash: FR7ELIUOLWLAUD7EPYEXRBR5TOEL7XF2
 X-MailFrom: brent.lu@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -104,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MR7CNM3H3WQTPFKVDPQM4OTVRRUMC7BR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FR7ELIUOLWLAUD7EPYEXRBR5TOEL7XF2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,55 +116,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch series remove redundant dapm routes declared in multiple machine
-drivers. These routes will be created by snd_soc_dapm_connect_dai_link_widgets()
-during soundcard initialization. Following is the kernel log from a KBL
-chromebook nocturne.
+Two routes "Playback<-sspX Tx" and "sspX Rx<-Capture" are created by
+snd_soc_dapm_connect_dai_link_widgets() automatically. Remove the
+duplicate routes.
 
-dmic:
-[   13.773455] avs_dmic avs_dmic: connected DAI link dmic-codec:Capture -> dmic-platform:DMIC Rx
-[   13.773460] avs_dmic avs_dmic: connected DAI link dmic-codec:Capture -> dmic-platform:DMIC WoV Rx
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ sound/soc/intel/avs/boards/da7219.c | 45 ++---------------------------
+ 1 file changed, 3 insertions(+), 42 deletions(-)
 
-max98373:
-[   14.079536] avs_max98373 avs_max98373.1: connected DAI link avs_max98373.1-platform:ssp0 Tx -> i2c-MX98373:00:Right HiFi Playback
-[   14.079545] avs_max98373 avs_max98373.1: connected DAI link i2c-MX98373:00:Right HiFi Capture -> avs_max98373.1-platform:ssp0 Rx
-[   14.079550] avs_max98373 avs_max98373.1: connected DAI link avs_max98373.1-platform:ssp0 Tx -> i2c-MX98373:01:Left HiFi Playback
-[   14.079554] avs_max98373 avs_max98373.1: connected DAI link i2c-MX98373:01:Left HiFi Capture -> avs_max98373.1-platform:ssp0 Rx
-
-hdaudio:
-[   14.094818] avs_hdaudio avs_hdaudio.2: connected DAI link hdaudioB0D2-platform:hdaudioB0D2-cpu0 Tx -> hdaudioB0D2:HDMI 0 Playback
-[   14.094824] avs_hdaudio avs_hdaudio.2: connected DAI link hdaudioB0D2-platform:hdaudioB0D2-cpu1 Tx -> hdaudioB0D2:HDMI 1 Playback
-[   14.094828] avs_hdaudio avs_hdaudio.2: connected DAI link hdaudioB0D2-platform:hdaudioB0D2-cpu2 Tx -> hdaudioB0D2:HDMI 2 Playback
-
-
-Brent Lu (12):
-  ASoC: Intel: avs-da7219: remove redundant dapm routes
-  ASoC: Intel: avs-dmic: remove redundant dapm routes
-  ASoC: Intel: avs-hdaudio: remove redundant dapm routes
-  ASoC: Intel: avs-max98357a: remove redundant dapm routes
-  ASoC: Intel: avs-max98373: remove redundant dapm routes
-  ASoC: Intel: avs-max98927: remove redundant dapm routes
-  ASoC: Intel: avs-nau8825: remove redundant dapm routes
-  ASoC: Intel: avs-rt274: remove redundant dapm routes
-  ASoC: Intel: avs-rt286: remove redundant dapm routes
-  ASoC: Intel: avs-rt298: remove redundant dapm routes
-  ASoC: Intel: avs-rt5682: remove redundant dapm routes
-  ASoC: Intel: avs-ssm4567: remove redundant dapm routes
-
- sound/soc/intel/avs/boards/da7219.c    | 45 ++----------------
- sound/soc/intel/avs/boards/dmic.c      |  2 -
- sound/soc/intel/avs/boards/hdaudio.c   | 65 +-------------------------
- sound/soc/intel/avs/boards/max98357a.c | 39 ++--------------
- sound/soc/intel/avs/boards/max98373.c  | 45 ++----------------
- sound/soc/intel/avs/boards/max98927.c  | 45 ++----------------
- sound/soc/intel/avs/boards/nau8825.c   | 45 ++----------------
- sound/soc/intel/avs/boards/rt274.c     | 45 ++----------------
- sound/soc/intel/avs/boards/rt286.c     | 45 ++----------------
- sound/soc/intel/avs/boards/rt298.c     | 45 ++----------------
- sound/soc/intel/avs/boards/rt5682.c    | 45 ++----------------
- sound/soc/intel/avs/boards/ssm4567.c   | 57 ++--------------------
- 12 files changed, 31 insertions(+), 492 deletions(-)
-
+diff --git a/sound/soc/intel/avs/boards/da7219.c b/sound/soc/intel/avs/boards/da7219.c
+index 1a1d572cc1d0..964a763732ab 100644
+--- a/sound/soc/intel/avs/boards/da7219.c
++++ b/sound/soc/intel/avs/boards/da7219.c
+@@ -181,38 +181,6 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+ 	return 0;
+ }
+ 
+-static int avs_create_dapm_routes(struct device *dev, int ssp_port,
+-				  struct snd_soc_dapm_route **routes, int *num_routes)
+-{
+-	struct snd_soc_dapm_route *dr;
+-	const int num_base = ARRAY_SIZE(card_base_routes);
+-	const int num_dr = num_base + 2;
+-	int idx;
+-
+-	dr = devm_kcalloc(dev, num_dr, sizeof(*dr), GFP_KERNEL);
+-	if (!dr)
+-		return -ENOMEM;
+-
+-	memcpy(dr, card_base_routes, num_base * sizeof(*dr));
+-
+-	idx = num_base;
+-	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "Playback");
+-	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Tx", ssp_port);
+-	if (!dr[idx].sink || !dr[idx].source)
+-		return -ENOMEM;
+-
+-	idx++;
+-	dr[idx].sink = devm_kasprintf(dev, GFP_KERNEL, "ssp%d Rx", ssp_port);
+-	dr[idx].source = devm_kasprintf(dev, GFP_KERNEL, "Capture");
+-	if (!dr[idx].sink || !dr[idx].source)
+-		return -ENOMEM;
+-
+-	*routes = dr;
+-	*num_routes = num_dr;
+-
+-	return 0;
+-}
+-
+ static int avs_card_suspend_pre(struct snd_soc_card *card)
+ {
+ 	struct snd_soc_dai *codec_dai = snd_soc_card_get_codec_dai(card, DA7219_DAI_NAME);
+@@ -230,14 +198,13 @@ static int avs_card_resume_post(struct snd_soc_card *card)
+ 
+ static int avs_da7219_probe(struct platform_device *pdev)
+ {
+-	struct snd_soc_dapm_route *routes;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct snd_soc_acpi_mach *mach;
+ 	struct snd_soc_card *card;
+ 	struct snd_soc_jack *jack;
+ 	struct device *dev = &pdev->dev;
+ 	const char *pname;
+-	int num_routes, ssp_port, ret;
++	int ssp_port, ret;
+ 
+ 	mach = dev_get_platdata(dev);
+ 	pname = mach->mach_params.platform;
+@@ -249,12 +216,6 @@ static int avs_da7219_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	ret = avs_create_dapm_routes(dev, ssp_port, &routes, &num_routes);
+-	if (ret) {
+-		dev_err(dev, "Failed to create dapm routes: %d", ret);
+-		return ret;
+-	}
+-
+ 	jack = devm_kzalloc(dev, sizeof(*jack), GFP_KERNEL);
+ 	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
+ 	if (!jack || !card)
+@@ -271,8 +232,8 @@ static int avs_da7219_probe(struct platform_device *pdev)
+ 	card->num_controls = ARRAY_SIZE(card_controls);
+ 	card->dapm_widgets = card_widgets;
+ 	card->num_dapm_widgets = ARRAY_SIZE(card_widgets);
+-	card->dapm_routes = routes;
+-	card->num_dapm_routes = num_routes;
++	card->dapm_routes = card_base_routes;
++	card->num_dapm_routes = ARRAY_SIZE(card_base_routes);
+ 	card->fully_routed = true;
+ 	snd_soc_card_set_drvdata(card, jack);
+ 
 -- 
 2.34.1
 

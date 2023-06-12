@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC96572B601
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 05:19:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3C172B5F2
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Jun 2023 05:17:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93DB6DE5;
-	Mon, 12 Jun 2023 05:18:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93DB6DE5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70EC782C;
+	Mon, 12 Jun 2023 05:16:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70EC782C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686539967;
-	bh=oLPs9XeZPB29Gk2q8nALmTV059usJ3RGv1ZaTgGsjRQ=;
+	s=default; t=1686539848;
+	bh=POMQMoF5yCzfeN4V70o3A5GGX/JVr+bQ1FqtXyqQk74=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=b0jqjY341L4EerAehqVf5vfCZb0TpWKFzj8Cbyof3FswvgTC+P4bB7CXgBFUqHRRM
-	 3SnT2U0ga9qOxCaiZZ/HMpEXOBhc54klHViTgY15n0MfhgCEO5Tgm2vpCGeTlEb1BK
-	 nth/goU0IrPVldouFE1WZYTJG6pmdHGiuiYU7iMs=
+	b=s/vEzUZMKBmzO4sdnQfd9b8EUAXcUDmYEo1OAqTRoiJTg2p4BxXRKBcmmYjklmfFl
+	 KA9KQ11LJEjoJiSBbJEEW5lTTnI6ANxDbjKrEJ04WcIIA3cKpQR/Z6vuNyEb0R82X/
+	 +oFW+TACSgRg8bVc4gPUDqlW49uXRSvh28oPr3QI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0B6D1F805EF; Mon, 12 Jun 2023 05:15:59 +0200 (CEST)
+	id 6A6E6F80588; Mon, 12 Jun 2023 05:15:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8B1FF805E3;
-	Mon, 12 Jun 2023 05:15:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82D06F80549;
+	Mon, 12 Jun 2023 05:15:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38AC6F805CA; Mon, 12 Jun 2023 05:15:53 +0200 (CEST)
+	id 3D7C6F80301; Mon, 12 Jun 2023 05:15:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DATE_IN_FUTURE_06_12,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DATE_IN_FUTURE_06_12,
 	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BAA10F80246
-	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 05:14:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAA10F80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id C98CAF8025E
+	for <alsa-devel@alsa-project.org>; Mon, 12 Jun 2023 05:15:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C98CAF8025E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=nPKCFTWi
+ header.s=Intel header.b=KeZ9tu7h
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686539701; x=1718075701;
+  t=1686539703; x=1718075703;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=oLPs9XeZPB29Gk2q8nALmTV059usJ3RGv1ZaTgGsjRQ=;
-  b=nPKCFTWihJ0e1mOfPC7N8agoYedehtprCoWRcQbpoCR7mPvbTmXfxcFc
-   lpEf/mt4FPe6Jv6PA+3ExdBDfKQNMHFKm2O3eMGoHDXvPon7EIeHK6Ay5
-   hobTlYIAKbJNpaFfv2Toq625J9/XJDeoFANMjw9PoNAQK0DagClClTd2h
-   j9+8uv1u7t71r0wON/n69IJKxEr3zUN6LDWDQbVuc5gLzg3a+kqEdlpKZ
-   1nx+AAlQNG48s+BXlWjx57ldMoMiQVZzmR+eBcd4Fegyqs6UCH50WyjTu
-   jcMU0/FP8abYM+F/LSm7wGSkK4wFOsJDokVMWxJkXUWFxV2Bhy2F49vQr
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="347578953"
+  bh=POMQMoF5yCzfeN4V70o3A5GGX/JVr+bQ1FqtXyqQk74=;
+  b=KeZ9tu7hIFbOtfVH1jzjmxQ6UjGdv49USGjKRvLMvPAC9f0jNsKiMcMU
+   we3+qbmV1ZVIT/vlaqlb8HonQLGHIy9tSqjR7W1B8+yoRJBGuapToOR9f
+   QhY/RmrFI1k9iZY+YVYBkoLb8Pty62hqK/ewbElQ9tXPxZdr/+t+Wj6ut
+   qjboo3CI0WDZS8jNJXTSTHJIPtxrSs6uygupLsXC2R70w0/3wMkXkQFRY
+   itLq8W+RkzdslW/PcCWwjnzxVYyin33fXlp+UoFue6E5zmQnc4e94qcT0
+   G0pGW6FtbgUzie5ZPGhGrH7FH3W/XA18ZgXkletS+sG7mUbvuTPDh67bo
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="347578969"
 X-IronPort-AV: E=Sophos;i="6.00,235,1681196400";
-   d="scan'208";a="347578953"
+   d="scan'208";a="347578969"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
   by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2023 20:14:57 -0700
+ 11 Jun 2023 20:14:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="776191923"
+X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="776191928"
 X-IronPort-AV: E=Sophos;i="6.00,235,1681196400";
-   d="scan'208";a="776191923"
+   d="scan'208";a="776191928"
 Received: from brentlu-desktop.itwn.intel.com ([10.5.252.92])
-  by fmsmga008.fm.intel.com with ESMTP; 11 Jun 2023 20:14:54 -0700
+  by fmsmga008.fm.intel.com with ESMTP; 11 Jun 2023 20:14:57 -0700
 From: Brent Lu <brent.lu@intel.com>
 To: alsa-devel@alsa-project.org
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
@@ -85,16 +85,16 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
 	Brent Lu <brent.lu@intel.com>,
 	linux-kernel@vger.kernel.org,
 	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 05/12] ASoC: Intel: avs-max98373: remove redundant dapm routes
-Date: Mon, 12 Jun 2023 19:09:51 +0800
-Message-Id: <20230612110958.592674-6-brent.lu@intel.com>
+Subject: [PATCH 06/12] ASoC: Intel: avs-max98927: remove redundant dapm routes
+Date: Mon, 12 Jun 2023 19:09:52 +0800
+Message-Id: <20230612110958.592674-7-brent.lu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230612110958.592674-1-brent.lu@intel.com>
 References: <20230612110958.592674-1-brent.lu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SCLA24DDZC6TKUJMVLWZDM5KYZYX2JAU
-X-Message-ID-Hash: SCLA24DDZC6TKUJMVLWZDM5KYZYX2JAU
+Message-ID-Hash: AXW7PEKIKFZB5R4OIQU3QZYPGNLSULO6
+X-Message-ID-Hash: AXW7PEKIKFZB5R4OIQU3QZYPGNLSULO6
 X-MailFrom: brent.lu@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -107,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SCLA24DDZC6TKUJMVLWZDM5KYZYX2JAU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AXW7PEKIKFZB5R4OIQU3QZYPGNLSULO6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,14 +123,14 @@ duplicate routes.
 
 Signed-off-by: Brent Lu <brent.lu@intel.com>
 ---
- sound/soc/intel/avs/boards/max98373.c | 45 ++-------------------------
+ sound/soc/intel/avs/boards/max98927.c | 45 ++-------------------------
  1 file changed, 3 insertions(+), 42 deletions(-)
 
-diff --git a/sound/soc/intel/avs/boards/max98373.c b/sound/soc/intel/avs/boards/max98373.c
-index 8e221ecd34b0..3833251ade26 100644
---- a/sound/soc/intel/avs/boards/max98373.c
-+++ b/sound/soc/intel/avs/boards/max98373.c
-@@ -141,47 +141,14 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
+diff --git a/sound/soc/intel/avs/boards/max98927.c b/sound/soc/intel/avs/boards/max98927.c
+index 7cccce99f92e..09b231bf4e6d 100644
+--- a/sound/soc/intel/avs/boards/max98927.c
++++ b/sound/soc/intel/avs/boards/max98927.c
+@@ -138,47 +138,14 @@ static int avs_create_dai_link(struct device *dev, const char *platform_name, in
  	return 0;
  }
  
@@ -166,7 +166,7 @@ index 8e221ecd34b0..3833251ade26 100644
 -	return 0;
 -}
 -
- static int avs_max98373_probe(struct platform_device *pdev)
+ static int avs_max98927_probe(struct platform_device *pdev)
  {
 -	struct snd_soc_dapm_route *routes;
  	struct snd_soc_dai_link *dai_link;
@@ -179,7 +179,7 @@ index 8e221ecd34b0..3833251ade26 100644
  
  	mach = dev_get_platdata(dev);
  	pname = mach->mach_params.platform;
-@@ -193,12 +160,6 @@ static int avs_max98373_probe(struct platform_device *pdev)
+@@ -190,12 +157,6 @@ static int avs_max98927_probe(struct platform_device *pdev)
  		return ret;
  	}
  
@@ -192,7 +192,7 @@ index 8e221ecd34b0..3833251ade26 100644
  	card = devm_kzalloc(dev, sizeof(*card), GFP_KERNEL);
  	if (!card)
  		return -ENOMEM;
-@@ -214,8 +175,8 @@ static int avs_max98373_probe(struct platform_device *pdev)
+@@ -211,8 +172,8 @@ static int avs_max98927_probe(struct platform_device *pdev)
  	card->num_controls = ARRAY_SIZE(card_controls);
  	card->dapm_widgets = card_widgets;
  	card->num_dapm_widgets = ARRAY_SIZE(card_widgets);

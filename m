@@ -2,67 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA9C172E4C7
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 16:01:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A584872E54F
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 16:11:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44EB4E72;
-	Tue, 13 Jun 2023 16:00:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44EB4E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91D93E72;
+	Tue, 13 Jun 2023 16:10:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91D93E72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686664894;
-	bh=YIdLKZnfzAhjAe4b0LpxcSl3iM43h5xSxLuurmdK4+M=;
+	s=default; t=1686665460;
+	bh=o8EXcZWP6D1fQmLjGg+FvASyQnglX4HVwqy+2to6C5M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Qd/Ed3LbQ6GH4cWNFrpaAjq86VV8iF0rroUoyT8ScD7sMrnVaPSbGfiKudhW8Kadt
-	 0rEpxnkv8O6kjDpYbGldKAgfGcmFKeyK64fXaN/blDBuQm0yYGqtUa8Io60NPCmDO0
-	 jOc5/Ibh2RGREh3pFYDDM6sxa3L4jACIboT7zRkY=
+	b=uomq8uRgadfYcjMPKUdxkb4knGwC6XgtNaewwdCy8w4oaQASIk9g/OFL+13Hsvnyk
+	 SjO4bsPQmPZ7XOCQMwP0/ZMVaoEXAAc9zO1ljoCoymrVnBijCdIRX3zfD0G/uBswUS
+	 gyQLdpgVUQjpJyYsB5oBk1WyT58UdiFB91MDoZVM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F261FF80533; Tue, 13 Jun 2023 16:00:43 +0200 (CEST)
+	id 0EB7BF80132; Tue, 13 Jun 2023 16:10:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B592F80132;
-	Tue, 13 Jun 2023 16:00:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99107F80132;
+	Tue, 13 Jun 2023 16:10:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AEC36F80149; Tue, 13 Jun 2023 16:00:39 +0200 (CEST)
+	id 1B6DCF80149; Tue, 13 Jun 2023 16:10:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EFB11F80130
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 16:00:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFB11F80130
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 15BF824129;
-	Tue, 13 Jun 2023 10:00:35 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1q94ZW-imm-00; Tue, 13 Jun 2023 16:00:34 +0200
-Date: Tue, 13 Jun 2023 16:00:34 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 6/8] ALSA: emu10k1: add support for 2x/4x word clocks in
- E-MU D.A.S. mode
-Message-ID: <ZIh2gp/I4ot326KP@ugly>
-References: <20230613073822.1343234-1-oswald.buddenhagen@gmx.de>
- <20230613073822.1343234-7-oswald.buddenhagen@gmx.de>
- <87v8fren1k.wl-tiwai@suse.de>
- <ZIhKe99WGpLFN1ld@ugly>
- <87edmfei0o.wl-tiwai@suse.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C441F800ED
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 16:10:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C441F800ED
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=YkhlScch
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6084A62E78;
+	Tue, 13 Jun 2023 14:10:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF51C433F0;
+	Tue, 13 Jun 2023 14:09:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686665400;
+	bh=o8EXcZWP6D1fQmLjGg+FvASyQnglX4HVwqy+2to6C5M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YkhlScchy90wqe2imcplxeuot/NZH4/9ZSLT8qBW7xXfORudVmTSO1AwJ88xQ+fSu
+	 xJ257XjyRIx5GnZbgDvzeoOiyB7nKD4ofBrQggq25FTL2wPW7kKqabLRr+Q126fygH
+	 4MNbg9bAsuUHGLd8SCzW0xvRIy0BmQMvZ2pqaG0Obj1lqBX2M310jtHvrn8yGF9g46
+	 sxpssiEl9bX2JGCxD28Ep3mYvpwqPGonhtdwP31h48gZVZeZ9jrHN+roXmt43uTP1c
+	 JMt7atwh39UbKdC9RaiGc+ZSsdT1IVYxmaHbUjZCP1QHzzgK0kXSDmKJ/aO8NCa+Sy
+	 dyMoY5i4gVuBA==
+Date: Tue, 13 Jun 2023 15:09:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arun Gopal Kondaveeti <arungopal.kondaveeti@amd.com>
+Cc: alsa-devel@alsa-project.org, vsujithkumar.reddy@amd.com,
+	Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+	Sunil-kumar.Dommati@amd.com, syed.sabakareem@amd.com,
+	mastan.katragadda@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ASoC: amd: correct pm_runtime enable sequence
+Message-ID: <317a0f1b-94a7-4bd4-9f64-8877e0552b6a@sirena.org.uk>
+References: <20230614003206.933147-1-arungopal.kondaveeti@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t1NPVEr5bJW1JzkT"
 Content-Disposition: inline
-In-Reply-To: <87edmfei0o.wl-tiwai@suse.de>
-Message-ID-Hash: ETDACMYWYN3NCALKPOWGPBCYIMFYQ34C
-X-Message-ID-Hash: ETDACMYWYN3NCALKPOWGPBCYIMFYQ34C
-X-MailFrom: ossi@kde.org
+In-Reply-To: <20230614003206.933147-1-arungopal.kondaveeti@amd.com>
+X-Cookie: Not a flying toy.
+Message-ID-Hash: Q5OKHCTKIPL3MJ2VX655NT7AEUWYTF3L
+X-Message-ID-Hash: Q5OKHCTKIPL3MJ2VX655NT7AEUWYTF3L
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -74,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ETDACMYWYN3NCALKPOWGPBCYIMFYQ34C/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5OKHCTKIPL3MJ2VX655NT7AEUWYTF3L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -83,68 +105,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jun 13, 2023 at 01:08:55PM +0200, Takashi Iwai wrote:
->On Tue, 13 Jun 2023 12:52:43 +0200,
->Oswald Buddenhagen wrote:
->> 
->> On Tue, Jun 13, 2023 at 11:20:23AM +0200, Takashi Iwai wrote:
->> > Creating and removing the controls from kctl put callback is no 
->> > good
->> > idea.  In general, dynamic control creation/deletion already confuses
->> > user-space.
->> > 
->> i kind of expected that, but what i've tried so far worked remarkably
->> well (ok, it was mostly alsamixer).
->> 
->> > On top of that, if it's done by a control element, it can
->> > be even triggered endlessly by user.
->> > 
->> it shouldn't, because there is no circularity between the
->> controls. even if the app sets all controls as a response to new ones
->> appearing, the second round will be a no-op for the multiplier
->> control, and therefore causes no new creation/deletion notifications,
->> and thus terminates the recursion.
->
->Hmm I don't get it; if an application just toggles the kctl value
->between two values in an infinite loop, it'll delete and recreate
->kctls endlessly as well with your patch, no?
->
-yeah, but why should it toggle just so? it's not reasonable to do that.  
-and if we assume it's being unreasonable, then there is no reason to 
-think that controls appearing and disappearing would be special.
 
->> also, i don't think that disabling would be fundamentally different
->> from deleting: the particular code paths taken are somewhat different,
->> but the high-level view is essentially the same. so we can't really
->> make predictions which one would work better.
->
->Creating and deleting needs a lot of different works and much heavier
->tasks.
->
-it's entirely plausible that an application would tear down structures 
-in response to controls being disabled, too.
+--t1NPVEr5bJW1JzkT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->And, above all, many user-space programs will be borked if an
->element goes away, simply crashing.  Some (rather rare) nice ones will
->still survive, though.  I've learned this from the past.
->
-yeah, but why should we care? it's not a regression when something new 
-doesn't work with some crappy pre-existing code.
+On Wed, Jun 14, 2023 at 06:01:59AM +0530, Arun Gopal Kondaveeti wrote:
 
->> > And, if we really have to create / delete a kctl element from some
->> > kctl action, don't do it in the callback but process in another work.
->> > 
->> would that really improve anything?
->
->As a primary reason, I don't want to expose such a stuff.  If you need
->such an unlocked version, you're already doing something very exotic,
->and in 99% cases, it's something that needs more care.
->
-i don't see being "exotic" as something to avoid per se. and before 
-putting in "more care" i want to see some evidence that there is 
-actually a problem that needs to be addressed, in this place. esp. when 
-the proposed much more complex alternative hasn't been shown to be 
-actually better in relevant ways, even theoretically.
+> Replace pm_runtime_allow() with pm_runtime_mark_last_busy()
+> & pm_runtime_set_active() in pm_runtime enable sequence for
+> dma drivers.
 
-regards,
-ossi
+This says what the change does but it doesn't say why the old sequence
+was a problem and the new one is better.
+
+--t1NPVEr5bJW1JzkT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSIeLEACgkQJNaLcl1U
+h9AlkQf+IKLQ0NDoQi6rzDHjoOd3/5jO3kp/pibHdhq77SZ6JH2dDmTM/+VA8G1P
+fr3LNHwXk6Xkahyn5xA7+eL//sAZTozBpbFcd2BZuYYawdETKIQFYhX7z8U00PpW
+EyAi4H9Ek9C5nYd6JrQmY7gVCuir2aoE5Dw5kMQwxIRMvOvnJM2dtuMMUUQQ31nE
+iG1PBYX05Cua2DLQyJD5cmoaQjOL4EieVYFXl+ptMUBW4NS48OVpIfH+Nr7Ic7o2
+1gVJm8vcUOqkR9w0x/2fdLE+WsK3CBRx728IijLhFg86QfPiZhkfiSfoLjJzsGPd
+LHgy5hqjp2RWkt/DxGDo5yh3jwb4QA==
+=B8SW
+-----END PGP SIGNATURE-----
+
+--t1NPVEr5bJW1JzkT--

@@ -2,99 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A65BB72E34D
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 14:48:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A17372E361
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 14:54:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB5AF950;
-	Tue, 13 Jun 2023 14:47:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB5AF950
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF2BE950;
+	Tue, 13 Jun 2023 14:53:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF2BE950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686660489;
-	bh=9KV3amG53H3ns2W2UWEPrWJRjgAoTih55p2OZIWk4nM=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686660856;
+	bh=6s4D68dn5Rkh35hEvQgkAU45p/aGXdJjyZezPElB/Vo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=CqqungA/FuDREKFsICQSca8svFEFaG3+AlwtOnvc4ZLnR/1UEdPucxk6SfKZAxqVP
-	 rp+D8GkrtSPSlL8ji9xzg71n/x0hS6n09J4gfrnOs9DWM2DxUfk9njjO2/HGsxn9+R
-	 xNqO4dyjb96qfRWhURNLxs73D4eOlx/SVHv4HNwU=
+	b=opBbbMfbVofOy1H992tD7+OyKF2oUBfqCJQreIzltJYo/QQMTVgXBZEzxkJM2XFMZ
+	 tiveSQ5e31KdL0QEqDlK2fK9xa23JZINLWFgQJ2+rbVjBNW1vjfk1md89P2oRw+KuI
+	 28Zk6atWvQ77Qs0AfkeIJFhC97wBRh1t7pdiOmxI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 209B6F80132; Tue, 13 Jun 2023 14:47:19 +0200 (CEST)
+	id 12C9FF80155; Tue, 13 Jun 2023 14:53:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5E7AF80132;
-	Tue, 13 Jun 2023 14:47:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97142F80132;
+	Tue, 13 Jun 2023 14:53:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD8ABF80149; Tue, 13 Jun 2023 14:47:15 +0200 (CEST)
+	id C1952F80149; Tue, 13 Jun 2023 14:53:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8E070F800ED
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 14:47:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E070F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id CC35DF800ED
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 14:53:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC35DF800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=oDFzZ8cA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1686660433; x=1718196433;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9KV3amG53H3ns2W2UWEPrWJRjgAoTih55p2OZIWk4nM=;
-  b=oDFzZ8cA0OnsayLdvpiqjeA/OHiTxHL6FCDbyt8rK6jRcKIOzh5POeGn
-   5/MSvGnLgHCwbIL/qbJUjYCwYZWnaDkn+9YSwedJePyJ1yVI8DAiTNiyo
-   FxeoIRW/rC0BwqnpNQ3vb/OIvwixOo4TptaSC0Y+tWZptKnUhnQ14ZPvJ
-   wiQLKbaiwvODXpLsP9QlolelYXdEhM44BDzfg+mbTPGw1Q8WscN53jCI3
-   Z0bAuNaYhyUSGJEtc75Pth5MRA3AY76x32t8guT/VUpSR9Fw811mvwVZO
-   ZkgoSum3pQuTGDruB2xD8E9D9sGEYOnhgcwcN6YsSbgLHCxuyO07U8Ci6
-   w==;
-X-IronPort-AV: E=Sophos;i="6.00,239,1681196400";
-   d="asc'?scan'208";a="229858885"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 13 Jun 2023 05:47:08 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Tue, 13 Jun 2023 05:47:08 -0700
-Received: from wendy (10.10.115.15) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21 via Frontend
- Transport; Tue, 13 Jun 2023 05:47:06 -0700
-Date: Tue, 13 Jun 2023 13:46:41 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Yingkun Meng <mengyingkun@loongson.cn>
-CC: Conor Dooley <conor@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-	<robh+dt@kernel.org>, <conor+dt@kernel.org>, <broonie@kernel.org>,
-	<lgirdwood@gmail.com>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-	<loongarch@lists.linux.dev>, <loongson-kernel@lists.loongnix.cn>
-Subject: Re: [ PATCH v2 3/3] ASoC: dt-bindings: Add support for Loongson
- audio card
-Message-ID: <20230613-depletion-garnet-ccc2009111c3@wendy>
-References: <20230612085614.3039498-1-mengyingkun@loongson.cn>
- <20230612-booted-french-186dd95e78a9@spud>
- <bda7c25f-65cf-d45f-3ac0-f2471e3aacf8@loongson.cn>
- <20230613-zoologist-panorama-a87858bba075@wendy>
- <887f9cc4-6457-9d14-8aef-011ff4c9aeda@loongson.cn>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="aKk1AB1djxJIjJ7/"
-Content-Disposition: inline
-In-Reply-To: <887f9cc4-6457-9d14-8aef-011ff4c9aeda@loongson.cn>
-Message-ID-Hash: 6UAJSRBBDXHLB2SOORLJZRWJKRLEGHND
-X-Message-ID-Hash: 6UAJSRBBDXHLB2SOORLJZRWJKRLEGHND
-X-MailFrom: Conor.Dooley@microchip.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=oa92r/3i;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=fIzGSIMp
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3056C1FD9C;
+	Tue, 13 Jun 2023 12:53:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1686660798;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U41sQoAS4isUpIbfFlFmd+7y1701JtIEBGroQzz+tJI=;
+	b=oa92r/3iKSM06B+Kxxzjc9YV4DYvdl4Q/LQ2fozVI2oJT68sPkTMPwQ9kjztX2E+s3umWS
+	JBWLLg0SvQCmVNckfDjJ0UqMLhsIY2o1n7W67xQJXrzWZi6V6JHChZRiclqVkEjy5h8H2a
+	BeKoTiPegBajfZDpusgIKtgSZyQ3LWo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1686660798;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U41sQoAS4isUpIbfFlFmd+7y1701JtIEBGroQzz+tJI=;
+	b=fIzGSIMpFBKvZIWI0rB0U3acF+3Y4eeKqK7bq2kUqdffQSUY3hKTmAJFy/gwdY5XsdttWh
+	7SjTW1LvJrg4DWAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0E9D413483;
+	Tue, 13 Jun 2023 12:53:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id pRV9Ar5miGTXQQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 13 Jun 2023 12:53:18 +0000
+Date: Tue, 13 Jun 2023 14:53:17 +0200
+Message-ID: <87o7ljplqa.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: happy.debugging@gmail.com
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
+In-Reply-To: 
+ <168666006765.22.17667904471972537472@mailman-web.alsa-project.org>
+References: <20230523075358.9672-1-tiwai@suse.de>
+	<168666006765.22.17667904471972537472@mailman-web.alsa-project.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: TU7H7Q2VDEUJNNIXVNBMRMZUGQ3HE62X
+X-Message-ID-Hash: TU7H7Q2VDEUJNNIXVNBMRMZUGQ3HE62X
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6UAJSRBBDXHLB2SOORLJZRWJKRLEGHND/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TU7H7Q2VDEUJNNIXVNBMRMZUGQ3HE62X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,72 +119,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---aKk1AB1djxJIjJ7/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, 13 Jun 2023 14:41:07 +0200,
+happy.debugging@gmail.com wrote:
+> 
+> Hello I have a few questions:
+> 
+> 1. As default, USB-audio driver will take the alternate setting for MIDI 2.0 interface:  Does this mean that the ALSA driver will default to Alt Function 1 if it exists ? 
 
-On Tue, Jun 13, 2023 at 08:38:59PM +0800, Yingkun Meng wrote:
-> On 2023/6/13 20:28, Conor Dooley wrote:
-> > On Tue, Jun 13, 2023 at 08:23:58PM +0800, Yingkun Meng wrote:
-> > > On 2023/6/13 01:24, Conor Dooley wrote:
-> > > > On Mon, Jun 12, 2023 at 04:56:14PM +0800, YingKun Meng wrote:
-> > > > > From: Yingkun Meng <mengyingkun@loongson.cn>
-> > > > >=20
-> > > > > The audio card uses loongson I2S controller present in
-> > > > > 7axxx/2kxxx chips to transfer audio data.
-> > > > >=20
-> > > > > On loongson platform, the chip has only one I2S controller.
+Yes.
 
-> > > > > +description:
-> > > > > +  The binding describes the sound card present in loongson
-> > > > > +  7axxx/2kxxx platform. The sound card is an ASoC component
-> > > > > +  which uses Loongson I2S controller to transfer the audio data.
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    const: loongson,ls-audio-card
+> 2. What happens when using a kernel that does not support Alt Function 1 (MIDI 2.0) and  device with a  (much longer) MIDI 2.0 descriptor is attached ?
 
-> > > > Reviewing sound stuff is beyond my pay grade, so forgive me if I am=
- off
-> > > > the rails here, but this (and the "x"s in the description) look a b=
-it
-> > > > odd. Recently, we've noticed quite a few loongson dt-bindings attem=
-pting
-> > > > to use a single compatible for many different chips.
-> > > > Usually you have individual compatibles for the various SoCs with t=
-his
-> > > > core, which can fall back to a generic one, rather than just adding=
- a
-> > > > generic compatible for all devices.
-> > > > As far as I know, there's several SoCs fitting 2kxxx, and the format
-> > > > being used elsewhere is "loongson,ls2k1000" etc.
-> > >=20
-> > > Currently, Loongson has 2K0500/2K1000LA/2K1500/2K2000 chips.
-> > >=20
-> > > Here, its' possible to use a single compatible for different chips,
-> > >=20
-> > > as the audio device is a logical device, not dependent on chip model.
-> > What, may I ask, is a "logical device"?
->=20
->=20
-> I means it's not a physical one, like "platform bus".
+It falls back to MIDI 1.0 interface.
 
-So it is entirely a software construct? Why does it need a dt-binding
-then? Your commit message says the controller is present on the device!
+> 3. " However, user may let the driver falling back to the old MIDI 1.0 interface by a module option, too."
+>      Can or how it this done via the ALSA API  ?
 
-Confused,
-Conor.
+You can't.  Only via a module option or kconfig.
 
---aKk1AB1djxJIjJ7/
-Content-Type: application/pgp-signature; name="signature.asc"
+> If the switch is made, does an ALSA client require to re-enumerate all the ports ?
+> 4. Is there a way to force a specific device (port) to Legacy MIDI 1.0 ?
 
------BEGIN PGP SIGNATURE-----
+If demanded, we can implement a device-specific quirk for that.
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZIhlMQAKCRB4tDGHoIJi
-0k/DAQCasCv+M+mHIyy3THECy16Hhwe7ITu/f3lb4MVy64A/CwD7BlnAWtgAfv7H
-IktHIHxxC6ITwBVp8qA9b1IE2/XejAA=
-=INbA
------END PGP SIGNATURE-----
+> 5. Is there a way , via ALSA, to select UMP MIDI 1.0 protocol instead of MIDI 2.0 UMP protocol.
 
---aKk1AB1djxJIjJ7/--
+Use the UMP 1.1 Streaming command to switch the protocol.
+
+> 6. To which protocol does the driver default ? UMP MIDI 1.0 or UMP MIDI 2.0 ? 
+
+Whatever the device sets as default.
+
+> 7. Does the driver do anything related to  Jitter Reduction ? How/is this supported via the ALSA API ?a
+
+JRTS is sent as normal UMP packet (also as sequencer events).
+No particular API is provided for JRTS, so far.
+
+> 8. Does the driver do anything related to  Bandwidth restriction ?  How/is this supported via the ALSA API ?
+
+Currently no restriction is.
+The bandwidth is provided via the API, but it's only for information.
+
+> 9. Are/will UMP streaming messages be supported ? (new feature in MIDI 2.0 specification), if yes, how ?
+
+It was already implemented in kernel UMP core.  See the recent posts.
+
+> 10. Is function block information supported via ALSA, i.e added in the ALSA Port information ?
+
+Ditto.
+
+
+Takashi

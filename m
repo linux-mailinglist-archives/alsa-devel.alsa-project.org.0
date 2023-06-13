@@ -2,84 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1389472E7A0
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 17:51:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A714D72E7D9
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 18:07:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F49BE92;
-	Tue, 13 Jun 2023 17:50:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F49BE92
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9B2CE89;
+	Tue, 13 Jun 2023 18:06:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9B2CE89
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686671470;
-	bh=6y3uIMQHh3Xh+Bv9AjWdmW0QTyRI/YTcLq3CZoYBOqA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686672436;
+	bh=Dl0OghRMzPviG4eXWfhJlqKwsFaEmHV8aUPmsmdalV8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EpVZE298quYwqBHWnYm7p87gCRTZox84yfcPn63BpHnEIGiYp0YwjEcvWdQjtrB2N
-	 UN+uDlZ36qnd++n1cAMkob7OWKz/H39XVyCJ6oTvpOTe56KcOB3k1JLE/ZzQ8C05Vh
-	 uQZlwoqRfpXLb7wElDfZqgB3PZxp3DgDeMV3aqtM=
+	b=B0CiQxppPRkgd3oLavr2sw79oVqPhIu5KtxtHCNi6cdiBzsZFD3u8PVa8nXnkSkRn
+	 halWuyMLCfh9ZeFRS43OPuS+Yj/upJhOH+Sm5IXsjNJyM067BbQQH8reMjFQ2DPnfu
+	 W7A62k2Xf/fNBNL1VEsDL7NfbOEWvGZPaDpNUr64=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5D15F80301; Tue, 13 Jun 2023 17:49:56 +0200 (CEST)
+	id BBB44F80132; Tue, 13 Jun 2023 18:06:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47CFFF80132;
-	Tue, 13 Jun 2023 17:49:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21736F80132;
+	Tue, 13 Jun 2023 18:06:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 40CCDF80149; Tue, 13 Jun 2023 17:49:52 +0200 (CEST)
+	id EB469F80149; Tue, 13 Jun 2023 18:06:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 24C99F800ED
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 17:49:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24C99F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 112D6F800ED
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 18:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 112D6F800ED
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=q68y5fp5
+ header.s=k20201202 header.b=B0EpYklY
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0FCCC62E97;
-	Tue, 13 Jun 2023 15:49:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352E3C433D9;
-	Tue, 13 Jun 2023 15:49:45 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 44BEA629A6;
+	Tue, 13 Jun 2023 16:06:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A49C433D9;
+	Tue, 13 Jun 2023 16:06:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686671386;
-	bh=6y3uIMQHh3Xh+Bv9AjWdmW0QTyRI/YTcLq3CZoYBOqA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=q68y5fp56nvCLUE37GtkHpPEZ5BVQG0cIZYIrpnqql2r6klc+YmEyR0o6hF87p65/
-	 8AuUjx2ZqVe2i5OLjmkKV01YvAPsuCpweiQPxdsM3K/LlucnOt33qpUIYCQT2nOPBM
-	 FLXQI+jDdnzxo5y/OBc8/hDh7m7g+ufNWk7hHAh6y5qHUnnAbQAsYmg9uZBz9pixcO
-	 tNxdLRl9YGRBslp1yAhIKHJFpoYstI/wrgT2Hpbbq5yk5tFeSm9bkaB4au25sIfnk9
-	 K40luedlbhHg+NKp+I1emUfQ9XszuLT9gkc+ythM/UnkXi6eecOD1gnIuTfgkIhBPI
-	 NzAgORb5gNQzw==
-Date: Tue, 13 Jun 2023 16:49:41 +0100
+	s=k20201202; t=1686672373;
+	bh=Dl0OghRMzPviG4eXWfhJlqKwsFaEmHV8aUPmsmdalV8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=B0EpYklYr58JrxjWPakYbw+Oh9g0ZAraoGWskKrC/bm67cjTAYQQcyL6mBIXvq+co
+	 XhL3jzv0qVejQ+dYci9EOYsVb1K4uPCNgth3tE0dNNA5apMEgCGkU/aC8+bAO8K7IF
+	 pToSIHtkdXeJDY5n4tybCLniZcplv3iG7/mq52OoWMeyIGfJy4F7z2T/coFp+EAex+
+	 xTleLghp+T4njsDJGCs5PijzVlXgnjH3D9mo7+jUGvx2Cic/JC3cBy02F1UiQ17370
+	 vIFBzdjUm4l28EK+JYAyUUStfXJB8mxv/M+BKHLlDnB19eKCfQ+yTedOuGgILTFcWn
+	 Nw6SrIoa6C8oQ==
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: Use maple tree register cache
-Message-ID: <60f70667-16b0-4071-aa0f-a83e43bbf2a0@sirena.org.uk>
-References: <20230609-alsa-hda-maple-v1-1-a2b725c8b8f5@kernel.org>
- <87v8fua1qm.wl-tiwai@suse.de>
- <877cs7g6f1.wl-tiwai@suse.de>
- <e48bbd3b-544d-43d5-82a1-8fbbcb8cd1a4@sirena.org.uk>
- <87v8frcueb.wl-tiwai@suse.de>
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+In-Reply-To: <20230613112240.3361-1-tiwai@suse.de>
+References: <20230613112240.3361-1-tiwai@suse.de>
+Subject: Re: [PATCH v2] regmap: regcache: Don't sync read-only registers
+Message-Id: <168667237262.96226.5408735800913182259.b4-ty@kernel.org>
+Date: Tue, 13 Jun 2023 17:06:12 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MFURhVHYtC0zxDNS"
-Content-Disposition: inline
-In-Reply-To: <87v8frcueb.wl-tiwai@suse.de>
-X-Cookie: Not a flying toy.
-Message-ID-Hash: 2UU6DSZXISBQNQ4AYOM2SAC25WTXE7B5
-X-Message-ID-Hash: 2UU6DSZXISBQNQ4AYOM2SAC25WTXE7B5
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-bfdf5
+Message-ID-Hash: FHKY574MUXCOGRZIPIBSOXQ764AWIIDE
+X-Message-ID-Hash: FHKY574MUXCOGRZIPIBSOXQ764AWIIDE
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2UU6DSZXISBQNQ4AYOM2SAC25WTXE7B5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FHKY574MUXCOGRZIPIBSOXQ764AWIIDE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,46 +94,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, 13 Jun 2023 13:22:40 +0200, Takashi Iwai wrote:
+> regcache_maple_sync() tries to sync all cached values no matter
+> whether it's writable or not.  OTOH, regache_sync_val() does care the
+> wrtability and returns -EIO for a read-only register.  This results in
+> an error message like:
+>   snd_hda_codec_realtek hdaudioC0D0: Unable to sync register 0x2f0009. -5
+> and the sync loop is aborted incompletely.
+> 
+> [...]
 
---MFURhVHYtC0zxDNS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Tue, Jun 13, 2023 at 04:24:28PM +0200, Takashi Iwai wrote:
-> Mark Brown wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-next
 
-> > BTW I was just looking at reg_raw_update_once() and I can't figure out
-> > why it's trying to do what it's doing - it does a read to check if it's
-> > seen the register before and then does an _update_bits() if the register
-> > hasn't been cached yet, apparently trying suppress duplicate writes but
-> > possibly deliberately discarding changes to multiple bitfields in the
-> > same register.  That's not what the non-regmap path does, it'll only
-> > discard noop changes to the same bitfield.
+Thanks!
 
-> Yes, it's a quite hackish way of optimization of the initialization.
+[1/1] regmap: regcache: Don't sync read-only registers
+      commit: 44e46572f0bae431a6092e3cfd2f47bff8b8d18c
 
-> Since HD-audio codec has no known default values unlike normal codecs,
-> it needs to initialize itself only at the first access, and this
-> helper does it.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Ah, if it's just suppressing the write the code should just be removed.
-regmap_update_bits() already suppresses noop writes so unless we might
-write a different value to the register later the effect will be the
-same.  I can send a patch.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---MFURhVHYtC0zxDNS
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSIkBUACgkQJNaLcl1U
-h9AT6gf8Dy9pHA3YE2wF963NjaOfpfoWJmQ8BzJnV72kAvR+CEl+SR0lmgOk8wqF
-gS/B69Kd+VGjm0yQJF+ewRNM0j30penApfD1viKUEB+uIpcj4eTP8e9WVRNU+t+1
-Uh1Nc/1G/szZFAtv4N/I+k3I/MJSLaKPiJuB6yXBtJStmKZjnxCEj8yJSA4Ei+sA
-/o2oADTCY2HAggZknctLJt7Jpd6wMUtMYxwd1niKRlJ3gasQ8orSGivZS+919xW7
-t3e9u4sX7t1lyKQToY+Eintx2Uo/ZdZpuCxQxkt7fd/Chy4SAoAR6o3zOC3OjD8p
-TG/68NjIRFUmTYCNpFlFjblovjUZ7g==
-=cAOZ
------END PGP SIGNATURE-----
+Thanks,
+Mark
 
---MFURhVHYtC0zxDNS--

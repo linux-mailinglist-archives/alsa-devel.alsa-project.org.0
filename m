@@ -2,70 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DCA72E920
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 19:15:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3482C72E980
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 19:26:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79695EA0;
-	Tue, 13 Jun 2023 19:14:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79695EA0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42052EA6;
+	Tue, 13 Jun 2023 19:25:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42052EA6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686676518;
-	bh=7qL5UIu4iwV7Zvu239VP4GFRlzE6zD4pZH/62qsJMIQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686677191;
+	bh=PUjA/4FiT9aApSVwkrXW0qG9spmJfS3N1XUzI/2eMuY=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=E+FF++kGvO9lfqhquONm0QkdHxTPUD8Mhwn1LAVHUwv2nw2Dtwuh/kyhyoFn2CWAt
-	 8cHYF1LrnCnlg6cwU5Kf8hyrnfhABK6dY3fHwfoY6TxX3s2LP9CE1s3aM2nQM3zFBo
-	 jWpJDnEgoTthNArxSStKkSNJJzNQTDsSS4X9KlLo=
+	b=sePAmGv5/LUlxG394YJwknOBRceAaH/Q9YLwCAtM0b8jCthNB6Er4Lh8S8Md1scg5
+	 YMeFj3hkEv0npPzXHJ1qhZpVoeUP34zeaScIjuf33DlYFcu8Njz7zCHbFdSx8sUrbO
+	 iGl/PgOCyll8UfD0xHQxHKI5d9/XHGtqPHvxXHME=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CC627F80093; Tue, 13 Jun 2023 19:14:27 +0200 (CEST)
+	id 5CE44F80155; Tue, 13 Jun 2023 19:25:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CEE4F80132;
-	Tue, 13 Jun 2023 19:14:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1442F80093;
+	Tue, 13 Jun 2023 19:25:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B92B2F80149; Tue, 13 Jun 2023 19:14:23 +0200 (CEST)
+	id 75756F80149; Tue, 13 Jun 2023 19:25:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id EEBEFF80130
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 19:14:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEBEFF80130
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id D3AE123EA1;
-	Tue, 13 Jun 2023 13:14:18 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1q97b0-mEH-00; Tue, 13 Jun 2023 19:14:18 +0200
-Date: Tue, 13 Jun 2023 19:14:18 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 6/8] ALSA: emu10k1: add support for 2x/4x word clocks in
- E-MU D.A.S. mode
-Message-ID: <ZIij6mdc1utyBD93@ugly>
-References: <20230613073822.1343234-1-oswald.buddenhagen@gmx.de>
- <20230613073822.1343234-7-oswald.buddenhagen@gmx.de>
- <87v8fren1k.wl-tiwai@suse.de>
- <ZIhKe99WGpLFN1ld@ugly>
- <87edmfei0o.wl-tiwai@suse.de>
- <ZIh2gp/I4ot326KP@ugly>
- <871qife9ga.wl-tiwai@suse.de>
- <ZIiJ9zzwgvQHyrW9@ugly>
- <87fs6vcqpt.wl-tiwai@suse.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37E83F80093
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 19:25:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37E83F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=MnkJhsKc
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35D5CURx013598;
+	Tue, 13 Jun 2023 12:25:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=8jM/pTQ9RkIrizSqmNoAleLtqQ3RuHlN0Ay5WKR4zSs=;
+ b=MnkJhsKctG/LXYYTYPvYW8Y1YD8F/G7/5YG3wS4S6B0O/EJZ3lZbBgWOR7gpR5nydmwM
+ jhQVDAQf2zMOtdXSU3Wdu/Dd2X0h19XYtIdQn54JGXj/uUV26EwL+wINeL+Y1rZ62RDC
+ wr3CNpNgW/aIwe2HNSt5mMant94ZoIV3agxhSu3RQUawKGCXQ3EpIlSN7u7D/qLsExWn
+ Iv8Sqn3ve+U0p+xbwHg2oFkXZ0l4YkJmTc7YqVPYsOUbmgjumvC7GzNndvtvduGGfqFU
+ GdLGF+dstPSBEJ8RwvctZ5vCtMuMXAPmSTnK1NuNghRLpQhB30QIQTkVeuH7HFJGXQbu 2w==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3r4nkmbdcq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 13 Jun 2023 12:25:08 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Tue, 13 Jun
+ 2023 18:25:07 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Tue, 13 Jun 2023 18:25:07 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
+ [198.61.86.93])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 12B4511C6;
+	Tue, 13 Jun 2023 17:25:07 +0000 (UTC)
+Date: Tue, 13 Jun 2023 17:25:07 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+CC: James Schulman <james.schulman@cirrus.com>,
+        David Rhodes
+	<david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Liam Girdwood <lgirdwood@gmail.com>,
+        Martin =?utf-8?Q?Povi=C5=A1er?=
+	<povik+lin@cutebit.org>,
+        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
+        <asahi@lists.linux.dev>
+Subject: Re: [PATCH 04/10] ASoC: cs35l35: Use maple tree register cache
+Message-ID: <20230613172507.GQ68926@ediswmail.ad.cirrus.com>
+References: <20230609-asoc-cirrus-maple-v1-0-b806c4cbd1d4@kernel.org>
+ <20230609-asoc-cirrus-maple-v1-4-b806c4cbd1d4@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <87fs6vcqpt.wl-tiwai@suse.de>
-Message-ID-Hash: NWOALXW65GM2KZSJK4QFMHPNVBYTN2BL
-X-Message-ID-Hash: NWOALXW65GM2KZSJK4QFMHPNVBYTN2BL
-X-MailFrom: ossi@kde.org
+In-Reply-To: <20230609-asoc-cirrus-maple-v1-4-b806c4cbd1d4@kernel.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-GUID: QIVkGV0BTOgKap_5ekNX9kg9n69j3Xgn
+X-Proofpoint-ORIG-GUID: QIVkGV0BTOgKap_5ekNX9kg9n69j3Xgn
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: ND6SSF7DXNSMPHQ325DGLML37LHO2AZG
+X-Message-ID-Hash: ND6SSF7DXNSMPHQ325DGLML37LHO2AZG
+X-MailFrom: prvs=1528be82c5=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -77,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NWOALXW65GM2KZSJK4QFMHPNVBYTN2BL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ND6SSF7DXNSMPHQ325DGLML37LHO2AZG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -86,46 +119,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jun 13, 2023 at 05:43:58PM +0200, Takashi Iwai wrote:
->> the notion of "malicious" is meaningless in this context. a valid
->> attack vector would allow the application to do something that i
->> cannot do otherwise. hogging a cpu thread while flooding the system
->> with meaningless ioctls is something an app can do regardless, so
->> whatever.
->
->Adding/deleting kctl increases the numid.  It grows and grows.
->
-as the code handles numid wraparound just fine, that would be a rather 
-pointless attack.
+On Sat, Jun 10, 2023 at 02:56:24PM +0100, Mark Brown wrote:
+> The cs35l35 can only support single register read and write operations
+> so does not benefit from block writes. This means it gets no benefit from
+> using the rbtree register cache over the maple tree register cache so
+> convert it to use maple trees instead, it is more modern.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
 
->Crashing an existing application is the worst-case scenario.
->
-a new driver (which this effectively is) crashing a broken application 
-is perfectly legitimate, as it doesn't affect any existing users.
+A little late to the party, but for what it is worth on this
+cs35l35 one:
 
->> that would indeed be a problem, but fortunately the put() callback is
->> nowadays invoked with a write lock (see also commit 06405d8ee).
->
->Oh well, that's really not a change to be advertised for creating /
->deleting kctls from the put callback at all.
->
-and? it's done, and it's basically impossible to revert. so we may reap 
-its full benefits just as well, as i did in that previous commit.
+Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
->Sorry, but my answer is same: NO.  I see no reason why kctl deletion
->and creation _must_ be implemented _inevitably_ in that way.
->
-being the most straight-forward way to implement it certainly qualifies 
-as a good reason for doing it that way.
-and i still see no convincing reason why it shouldn't.
-
->Actually, snd_ctl_remove() should be changed back to a version that
->takes the lock by itself instead.  There is no reason to have a helper
->without the lock called from leaf drivers.
->
-well, except that this driver shows that there _is_ a reason. one may 
-choose to throw stones in one's own way, but that's rarely a wise 
-decision ...
-
-regards,
-ossi
+Thanks,
+Charles

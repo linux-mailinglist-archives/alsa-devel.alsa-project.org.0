@@ -2,78 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F70472E838
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 18:20:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E44A72E840
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 18:20:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79E47E97;
-	Tue, 13 Jun 2023 18:19:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79E47E97
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A205EA1;
+	Tue, 13 Jun 2023 18:19:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A205EA1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686673215;
-	bh=4GhrvWbWuYPJtW5+CanHJB0yv/xqs36FuvVinX1XPMU=;
+	s=default; t=1686673217;
+	bh=6FwMGf4LB3ApfYVehtth1U7HnqszwAx3/yQs35NOUhk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FCxJqu39IChzkyY7Ts/Iwa7YY1PfB2CbGysljuo/j4D9oZHzluSJjsTdUUHmocite
-	 JTwQQHDmdr/nPW6D6+Oi3leM/OsDDprUiIaVmpwcNm65l27On1kC6OeihtKE6zlHOk
-	 vp+uBuwK0NXYU06JcM1yTVjb8u5WPWeaoM3JhuX0=
+	b=WUI83OeDSYapzQixqACZN2LNhgJVylHWn77X71H7WlR/exIy5MoxGjDJ/17vLYnJf
+	 vYXSEEJB58VsSW/HABlK2+A5S3hUdK+7yY1la6yK3PxghhUrtVlLVg0BpOs5LITCZ4
+	 Gs2yIXrojqf5OAr6BGvKtpZcSluYWt9mbuBnioL4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59D20F80558; Tue, 13 Jun 2023 18:18:37 +0200 (CEST)
+	id 6D526F80571; Tue, 13 Jun 2023 18:18:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0F42F80549;
-	Tue, 13 Jun 2023 18:18:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 291AEF80551;
+	Tue, 13 Jun 2023 18:18:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 94642F80149; Tue, 13 Jun 2023 18:18:31 +0200 (CEST)
+	id 47C53F80563; Tue, 13 Jun 2023 18:18:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4BE2FF80130
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 18:18:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BE2FF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 71563F8025E
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 18:18:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71563F8025E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=VdKrTbJI
+ header.s=k20201202 header.b=OvmsdoT/
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 770FD62E84;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0FB7263140;
+	Tue, 13 Jun 2023 16:18:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67FD5C433D9;
 	Tue, 13 Jun 2023 16:18:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA90C433F1;
-	Tue, 13 Jun 2023 16:18:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686673088;
-	bh=4GhrvWbWuYPJtW5+CanHJB0yv/xqs36FuvVinX1XPMU=;
+	s=k20201202; t=1686673091;
+	bh=6FwMGf4LB3ApfYVehtth1U7HnqszwAx3/yQs35NOUhk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=VdKrTbJI02Y7hAXp4r1VqU+GYKqVFthf8VqNVyh8oe7qits/QZQYO9WAHp+9qppsY
-	 8jjdIf4ANvUiCXwAZgLpimzbPO3kVdOflDjxhy5bKn2WaSctWATz9mcoOvk5RI74VS
-	 WMyAkBTlnbDQkIbcEaGBWl6ULasFxDOCiU46KbxtJXXWrkOPhnc2Ih+2mWNysUIhmH
-	 wfgHNdf5TKL1pCLmG93zgG7KdRkhuqoKJExxDB1qQ42RgWD6h74qqJYrfX4wyOoVSy
-	 TZGRxVYM7xh2Qg5INXq0uMp6N2mHuQ9LwboC+ClRBv1Ftq47W66LU7/G9rGs7YHusr
-	 rHt3mDa8Elrfg==
+	b=OvmsdoT/f5zzOhWMOWyEg/F+Fr3DARNksRh08zQWqjW5MGmk5sRZUCTKyBZ2V5Lg8
+	 3fpBcDiQlK1guDNq6IlXi2JZazkPv2y4MASkFpryFY3c3cWrVLBAKBk/cwMcYTNYZi
+	 SpR+zVOq8mlnXHjTpY3KfXA7TIjSMjWfWsv1ab3OCgtK5KXKryQF/D11z2x9eSzl4p
+	 JB3Hr3RfsHtwunD+HlmvMqsLYppz9pxep2D+zHgTnYIGlAN/3CU6YAhiSBh5ajfMgh
+	 yWhcDU4/rwwipPC9IqL6yNN9Tc4IDrh8wapNETD0avtrZ3DvQWDTeycCLSdqe3G8FF
+	 DAtoJAY+Egnsg==
 From: Mark Brown <broonie@kernel.org>
-To: tiwai@suse.de, Bard Liao <yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com
-In-Reply-To: <20230607031242.1032060-1-yung-chuan.liao@linux.intel.com>
-References: <20230607031242.1032060-1-yung-chuan.liao@linux.intel.com>
-Subject: Re: [PATCH 0/2] ASoC: add N cpus to M codecs dai link support
-Message-Id: <168667308755.106697.16107089561663778961.b4-ty@kernel.org>
-Date: Tue, 13 Jun 2023 17:18:07 +0100
+To: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org,
+ Juerg Haefliger <juerg.haefliger@canonical.com>
+Cc: inux-kernel@vger.kernel.org, u.kleine-koenig@pengutronix.de,
+ nicolas.ferre@microchip.com
+In-Reply-To: <20230613095454.38696-1-juerg.haefliger@canonical.com>
+References: <20230613095454.38696-1-juerg.haefliger@canonical.com>
+Subject: Re: [PATCH] ASoC: siu: Add MODULE_FIRMWARE macro
+Message-Id: <168667308914.106697.3402127120082765699.b4-ty@kernel.org>
+Date: Tue, 13 Jun 2023 17:18:09 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: TSVOVQG6LO4QIFVJ6FVDT3PBELZHKGVL
-X-Message-ID-Hash: TSVOVQG6LO4QIFVJ6FVDT3PBELZHKGVL
+Message-ID-Hash: GBH75FPNAQQCVCN44B7TTYSXI4PFWKW7
+X-Message-ID-Hash: GBH75FPNAQQCVCN44B7TTYSXI4PFWKW7
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -86,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TSVOVQG6LO4QIFVJ6FVDT3PBELZHKGVL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GBH75FPNAQQCVCN44B7TTYSXI4PFWKW7/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -95,18 +98,11 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 07 Jun 2023 11:12:40 +0800, Bard Liao wrote:
-> Currently, ASoC supports dailinks with the following mappings:
-> 1 cpu DAI to N codec DAIs
-> N cpu DAIs to N codec DAIs
-> But the mapping between N cpu DAIs and M codec DAIs is not supported.
-> The reason is that we didn't have a mechanism to map cpu and codec DAIs
+On Tue, 13 Jun 2023 11:54:54 +0200, Juerg Haefliger wrote:
+> The module loads firmware so add a MODULE_FIRMWARE macro to provide that
+> information via modinfo.
 > 
-> This series suggests a new snd_soc_dai_link_codec_ch_map struct in
-> struct snd_soc_dai_link{} which provides codec DAI to cpu DAI mapping
-> information used to implement N cpu DAIs to M codec DAIs support.
 > 
-> [...]
 
 Applied to
 
@@ -114,10 +110,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: add N cpus to M codecs dai link support
-      commit: e8181a895b05b264883288c4043ff83f893b56b0
-[2/2] ASoC: Intel: sof_sdw: add dai_link_codec_ch_map
-      commit: 0281b02e1913a9443ce891dcc13613829e4dc3c5
+[1/1] ASoC: siu: Add MODULE_FIRMWARE macro
+      commit: 82a28d5aa582a98f40ab527af08c66556dd3d310
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

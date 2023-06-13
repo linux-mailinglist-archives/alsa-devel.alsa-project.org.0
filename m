@@ -2,89 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A584872E54F
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 16:11:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49C2372E552
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 16:14:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91D93E72;
-	Tue, 13 Jun 2023 16:10:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91D93E72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5938EE11;
+	Tue, 13 Jun 2023 16:14:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5938EE11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686665460;
-	bh=o8EXcZWP6D1fQmLjGg+FvASyQnglX4HVwqy+2to6C5M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686665694;
+	bh=lnPBdTpl55pmP94wE8TIyIwrUBu+J3MumFcwo7TtZf0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uomq8uRgadfYcjMPKUdxkb4knGwC6XgtNaewwdCy8w4oaQASIk9g/OFL+13Hsvnyk
-	 SjO4bsPQmPZ7XOCQMwP0/ZMVaoEXAAc9zO1ljoCoymrVnBijCdIRX3zfD0G/uBswUS
-	 gyQLdpgVUQjpJyYsB5oBk1WyT58UdiFB91MDoZVM=
+	b=R0J1aw+4stB7pkGTpXDPZOghkUKch9awfKV72HgAM6PLVXSAN1C22e13Mxpa00a/L
+	 tBRWGF+6BhLINyTCMbbvwwguk0uk8sdbPpisn6Xcq5dKb3NTVnLyyye/xHNW1kCEEl
+	 Z24UsQLujybtARx15BM4JxWsldaep2FZl0CUAdbg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0EB7BF80132; Tue, 13 Jun 2023 16:10:09 +0200 (CEST)
+	id DA9E4F800ED; Tue, 13 Jun 2023 16:14:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99107F80132;
-	Tue, 13 Jun 2023 16:10:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94DD6F80132;
+	Tue, 13 Jun 2023 16:14:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B6DCF80149; Tue, 13 Jun 2023 16:10:06 +0200 (CEST)
+	id 6516CF80149; Tue, 13 Jun 2023 16:14:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3C441F800ED
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 16:10:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C441F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3A972F800ED
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 16:13:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A972F800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YkhlScch
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=dYzF1oKG;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=FqxePpGN
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6084A62E78;
-	Tue, 13 Jun 2023 14:10:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF51C433F0;
-	Tue, 13 Jun 2023 14:09:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686665400;
-	bh=o8EXcZWP6D1fQmLjGg+FvASyQnglX4HVwqy+2to6C5M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YkhlScchy90wqe2imcplxeuot/NZH4/9ZSLT8qBW7xXfORudVmTSO1AwJ88xQ+fSu
-	 xJ257XjyRIx5GnZbgDvzeoOiyB7nKD4ofBrQggq25FTL2wPW7kKqabLRr+Q126fygH
-	 4MNbg9bAsuUHGLd8SCzW0xvRIy0BmQMvZ2pqaG0Obj1lqBX2M310jtHvrn8yGF9g46
-	 sxpssiEl9bX2JGCxD28Ep3mYvpwqPGonhtdwP31h48gZVZeZ9jrHN+roXmt43uTP1c
-	 JMt7atwh39UbKdC9RaiGc+ZSsdT1IVYxmaHbUjZCP1QHzzgK0kXSDmKJ/aO8NCa+Sy
-	 dyMoY5i4gVuBA==
-Date: Tue, 13 Jun 2023 15:09:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arun Gopal Kondaveeti <arungopal.kondaveeti@amd.com>
-Cc: alsa-devel@alsa-project.org, vsujithkumar.reddy@amd.com,
-	Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
-	Sunil-kumar.Dommati@amd.com, syed.sabakareem@amd.com,
-	mastan.katragadda@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ASoC: amd: correct pm_runtime enable sequence
-Message-ID: <317a0f1b-94a7-4bd4-9f64-8877e0552b6a@sirena.org.uk>
-References: <20230614003206.933147-1-arungopal.kondaveeti@amd.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t1NPVEr5bJW1JzkT"
-Content-Disposition: inline
-In-Reply-To: <20230614003206.933147-1-arungopal.kondaveeti@amd.com>
-X-Cookie: Not a flying toy.
-Message-ID-Hash: Q5OKHCTKIPL3MJ2VX655NT7AEUWYTF3L
-X-Message-ID-Hash: Q5OKHCTKIPL3MJ2VX655NT7AEUWYTF3L
-X-MailFrom: broonie@kernel.org
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C09541FDB6;
+	Tue, 13 Jun 2023 14:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1686665637;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cZORVhA2dDG0pGsXglZLkvMHcXrmJRZ4mXvqR8t4KXc=;
+	b=dYzF1oKGMpHmrJpSnwCv5s9H0mV/4xExhqAK2M0WrPqezg0/Ymjw7xPBCnzUd4P6tSGFeJ
+	s2pCi/QmSenrqoSZlc0BZec3qyk/3EqxEVt4GaI8dQx0AK9oeQHAwScI2QUpCSKcjOkfh6
+	AU4Nr16KcyLav1rzi3mH9emoJI9Lol4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1686665637;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cZORVhA2dDG0pGsXglZLkvMHcXrmJRZ4mXvqR8t4KXc=;
+	b=FqxePpGNJ6T8rRAlznJvql3mpDXKkGkzDKzW7HGhQQqn0Z6JFrKDkJZLesC735H5PyuIvE
+	v1Z2pO+HzpLziMDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A52A813345;
+	Tue, 13 Jun 2023 14:13:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id bNBxJ6V5iGTEdQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 13 Jun 2023 14:13:57 +0000
+Date: Tue, 13 Jun 2023 16:13:57 +0200
+Message-ID: <871qife9ga.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Cc: alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>
+Subject: Re: [PATCH 6/8] ALSA: emu10k1: add support for 2x/4x word clocks in
+ E-MU D.A.S. mode
+In-Reply-To: <ZIh2gp/I4ot326KP@ugly>
+References: <20230613073822.1343234-1-oswald.buddenhagen@gmx.de>
+	<20230613073822.1343234-7-oswald.buddenhagen@gmx.de>
+	<87v8fren1k.wl-tiwai@suse.de>
+	<ZIhKe99WGpLFN1ld@ugly>
+	<87edmfei0o.wl-tiwai@suse.de>
+	<ZIh2gp/I4ot326KP@ugly>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: HRJA7ESVJGNZZGBUKKUAS5SFCMIT3T3G
+X-Message-ID-Hash: HRJA7ESVJGNZZGBUKKUAS5SFCMIT3T3G
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q5OKHCTKIPL3MJ2VX655NT7AEUWYTF3L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HRJA7ESVJGNZZGBUKKUAS5SFCMIT3T3G/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,33 +123,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, 13 Jun 2023 16:00:34 +0200,
+Oswald Buddenhagen wrote:
+> 
+> On Tue, Jun 13, 2023 at 01:08:55PM +0200, Takashi Iwai wrote:
+> > On Tue, 13 Jun 2023 12:52:43 +0200,
+> > Oswald Buddenhagen wrote:
+> >> 
+> >> On Tue, Jun 13, 2023 at 11:20:23AM +0200, Takashi Iwai wrote:
+> >> > Creating and removing the controls from kctl put callback is no >
+> >> good
+> >> > idea.  In general, dynamic control creation/deletion already confuses
+> >> > user-space.
+> >> > i kind of expected that, but what i've tried so far worked
+> >> remarkably
+> >> well (ok, it was mostly alsamixer).
+> >> 
+> >> > On top of that, if it's done by a control element, it can
+> >> > be even triggered endlessly by user.
+> >> > it shouldn't, because there is no circularity between the
+> >> controls. even if the app sets all controls as a response to new ones
+> >> appearing, the second round will be a no-op for the multiplier
+> >> control, and therefore causes no new creation/deletion notifications,
+> >> and thus terminates the recursion.
+> > 
+> > Hmm I don't get it; if an application just toggles the kctl value
+> > between two values in an infinite loop, it'll delete and recreate
+> > kctls endlessly as well with your patch, no?
+> > 
+> yeah, but why should it toggle just so? it's not reasonable to do
+> that. 
 
---t1NPVEr5bJW1JzkT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I'm arguing about a malicious or buggy applications.  Don't ask logics
+or conscience behind it.
 
-On Wed, Jun 14, 2023 at 06:01:59AM +0530, Arun Gopal Kondaveeti wrote:
+> >> also, i don't think that disabling would be fundamentally different
+> >> from deleting: the particular code paths taken are somewhat different,
+> >> but the high-level view is essentially the same. so we can't really
+> >> make predictions which one would work better.
+> > 
+> > Creating and deleting needs a lot of different works and much heavier
+> > tasks.
+> > 
+> it's entirely plausible that an application would tear down structures
+> in response to controls being disabled, too.
 
-> Replace pm_runtime_allow() with pm_runtime_mark_last_busy()
-> & pm_runtime_set_active() in pm_runtime enable sequence for
-> dma drivers.
+But it's less dangerous.
 
-This says what the change does but it doesn't say why the old sequence
-was a problem and the new one is better.
+> > And, above all, many user-space programs will be borked if an
+> > element goes away, simply crashing.  Some (rather rare) nice ones will
+> > still survive, though.  I've learned this from the past.
+> > 
+> yeah, but why should we care? it's not a regression when something new
+> doesn't work with some crappy pre-existing code.
 
---t1NPVEr5bJW1JzkT
-Content-Type: application/pgp-signature; name="signature.asc"
+We can't break user-space.  That's a rule set in stone.
 
------BEGIN PGP SIGNATURE-----
+> >> > And, if we really have to create / delete a kctl element from some
+> >> > kctl action, don't do it in the callback but process in another work.
+> >> > would that really improve anything?
+> > 
+> > As a primary reason, I don't want to expose such a stuff.  If you need
+> > such an unlocked version, you're already doing something very exotic,
+> > and in 99% cases, it's something that needs more care.
+> > 
+> i don't see being "exotic" as something to avoid per se. and before
+> putting in "more care" i want to see some evidence that there is
+> actually a problem that needs to be addressed, in this
+> place. esp. when the proposed much more complex alternative hasn't
+> been shown to be actually better in relevant ways, even theoretically.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSIeLEACgkQJNaLcl1U
-h9AlkQf+IKLQ0NDoQi6rzDHjoOd3/5jO3kp/pibHdhq77SZ6JH2dDmTM/+VA8G1P
-fr3LNHwXk6Xkahyn5xA7+eL//sAZTozBpbFcd2BZuYYawdETKIQFYhX7z8U00PpW
-EyAi4H9Ek9C5nYd6JrQmY7gVCuir2aoE5Dw5kMQwxIRMvOvnJM2dtuMMUUQQ31nE
-iG1PBYX05Cua2DLQyJD5cmoaQjOL4EieVYFXl+ptMUBW4NS48OVpIfH+Nr7Ic7o2
-1gVJm8vcUOqkR9w0x/2fdLE+WsK3CBRx728IijLhFg86QfPiZhkfiSfoLjJzsGPd
-LHgy5hqjp2RWkt/DxGDo5yh3jwb4QA==
-=B8SW
------END PGP SIGNATURE-----
+Well, then another, maybe foremost reason: you can't create / delete
+kctls from the callback, simply because the callbacks are called in
+the read lock.  Adding / deleting an element may crash the another
+concurrent task that traverses the list.
 
---t1NPVEr5bJW1JzkT--
+
+Takashi

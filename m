@@ -2,103 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69A872E427
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 15:32:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A52F72E4AC
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 15:56:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DC1EDF4;
-	Tue, 13 Jun 2023 15:31:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DC1EDF4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98842E10;
+	Tue, 13 Jun 2023 15:55:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98842E10
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686663161;
-	bh=c29BpJRr0Pz79LszDofdJZ8M0R7lh8MuVk/NC3jNZVs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1686664566;
+	bh=iSmSOi8YU02GjFRauD4K5+rplja7hUixCkETFWDQmlQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=r5njqmtNkTWq6w81Jeu6VjC8ApODLsWXYjhpsdUhD4nLzHSN/0i5Qi7VWyGwECBTP
-	 bA7J8hSJt7+4wW6faQcGcu57oPg2940RCjHxn2jX9ketybqgVxS0W3TxvDqEgnWUQi
-	 qaKWLYZzoKX+OYxlV2mttCSBaBwjZY1aWt2oHgrs=
+	b=Kix7DgThSpXifbe2ZRQ88AJrl+DskRqMeJP5KclbDN03h54twDPVtl7x6ngeZeXkD
+	 OqmiRejhsBzkpiUo8CTApWJrrJB/Lyot8q/o2fKB0buJkExCZ2IjU5jfZ7WRBuSZxk
+	 Z6HIcXwPABJE9xNvnwBAvf5r+/vpRMTbLu9DvVA0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D4708F80301; Tue, 13 Jun 2023 15:31:50 +0200 (CEST)
+	id 07570F8052E; Tue, 13 Jun 2023 15:54:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93FB7F80149;
-	Tue, 13 Jun 2023 15:31:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93E52F80132;
+	Tue, 13 Jun 2023 15:54:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 13979F80149; Tue, 13 Jun 2023 15:31:47 +0200 (CEST)
+	id 888EEF80149; Tue, 13 Jun 2023 15:54:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 03B06F8025E
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 15:31:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03B06F8025E
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4F4EBF800ED
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 15:54:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F4EBF800ED
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=QaQ4QeJT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=b4uLvpZz
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=XJ5yJAEx
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6BED41FD92;
-	Tue, 13 Jun 2023 13:31:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1686663096;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EhCYPzy2Hpmxt5h7JtheFUoS0eHCRdkkWOX+DsGR4bg=;
-	b=QaQ4QeJTkYJHMnoO6/ZjrzcTG5IPsBySp5jB0IL+ePU7Ojwsbj6c45BkxdLzI77SWOioBE
-	in3AHpDIV2j2Bvv9wCF9Q6/pdO5G2196VNb+Q3IjDqQiihQRAZ8T6MvxHfNMwMZKbC/Bcb
-	wE0DHMlixZzyiVzgWxX/EVIMSRTyRdc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686663096;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EhCYPzy2Hpmxt5h7JtheFUoS0eHCRdkkWOX+DsGR4bg=;
-	b=b4uLvpZzy8YHDrNUMWlE+9dwHixu3zJtnemlHk6KNE/HUbigbUbXxd38CXpPqNYlilCsr7
-	vhU0pywTIuyyfpAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4EAFC13483;
-	Tue, 13 Jun 2023 13:31:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 6d9OErhviGQYVwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 13 Jun 2023 13:31:36 +0000
-Date: Tue, 13 Jun 2023 15:31:35 +0200
-Message-ID: <87edmfpjyg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Happy Debugging" <happy.debugging@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
-In-Reply-To: 
- <168666265167.22.10672052293918857652@mailman-web.alsa-project.org>
-References: <87o7ljplqa.wl-tiwai@suse.de>
-	<168666265167.22.10672052293918857652@mailman-web.alsa-project.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: M75DV5DRLRJ3H3PV2NI25XVBJ3WDOCYW
-X-Message-ID-Hash: M75DV5DRLRJ3H3PV2NI25XVBJ3WDOCYW
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8D67963161;
+	Tue, 13 Jun 2023 13:54:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71160C433D9;
+	Tue, 13 Jun 2023 13:54:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686664483;
+	bh=iSmSOi8YU02GjFRauD4K5+rplja7hUixCkETFWDQmlQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XJ5yJAExaLmvMqk4coILGi79B+899BpXgOZNH4uuP/eQuKwpaNkARmEFmkVgn7biz
+	 EEk2e+3JekdMhMo0W7NRgYdtxxHKZ+2ekT+UnnDi7deCGPYnxY/WR/BnOeOTufBdXt
+	 2CO2oDQnuIytFqJHXpZLWgWY2sVqHohlXOxyNOQLT/iDxGK5j29fqVnVKlwduZ5cjF
+	 8S8JY68gz0Yn9r1clxM30GVBZT+z4k55qSAGM24UixT+z9/+OROWkalpCMi7/olPR+
+	 Xoi0srk5u0usumLttenNwwwFYQwj4iXHoENmAPci1Y0sBd6eXoJJZqKdrlqxTtC7cH
+	 X1AQRtNmIl8mw==
+Date: Tue, 13 Jun 2023 14:54:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Conor Dooley <conor.dooley@microchip.com>
+Cc: Yingkun Meng <mengyingkun@loongson.cn>, Conor Dooley <conor@kernel.org>,
+	krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org,
+	conor+dt@kernel.org, lgirdwood@gmail.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn
+Subject: Re: [ PATCH v2 3/3] ASoC: dt-bindings: Add support for Loongson
+ audio card
+Message-ID: <449d07d9-5538-4f36-83a0-3a81a9ab9ea2@sirena.org.uk>
+References: <20230612085614.3039498-1-mengyingkun@loongson.cn>
+ <20230612-booted-french-186dd95e78a9@spud>
+ <bda7c25f-65cf-d45f-3ac0-f2471e3aacf8@loongson.cn>
+ <20230613-zoologist-panorama-a87858bba075@wendy>
+ <887f9cc4-6457-9d14-8aef-011ff4c9aeda@loongson.cn>
+ <20230613-depletion-garnet-ccc2009111c3@wendy>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bcFqVBu2j9qZWhmQ"
+Content-Disposition: inline
+In-Reply-To: <20230613-depletion-garnet-ccc2009111c3@wendy>
+X-Cookie: Not a flying toy.
+Message-ID-Hash: GU7PFIOBO4EEQI4OPSB6DPTJDKEDWDLN
+X-Message-ID-Hash: GU7PFIOBO4EEQI4OPSB6DPTJDKEDWDLN
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M75DV5DRLRJ3H3PV2NI25XVBJ3WDOCYW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GU7PFIOBO4EEQI4OPSB6DPTJDKEDWDLN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,25 +106,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 13 Jun 2023 15:24:11 +0200,
-Happy Debugging wrote:
-> 
-> Many thanks, it seems that you already receive the new specs :-) 
 
-Yes, I was involved with the spec definition, too.
+--bcFqVBu2j9qZWhmQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-And, Linux/ALSA patches have been internally reviewed and discussed
-with MAA MIDI 2.0 WG for months before publishing.
+On Tue, Jun 13, 2023 at 01:46:41PM +0100, Conor Dooley wrote:
 
-> BTW I just joined this list, any my email address is shown in posts instead of the username as for other member
-> is there a contact for this list (webmaster) to discuss this ? I could not find any contact for the admin.
+> So it is entirely a software construct? Why does it need a dt-binding
+> then? Your commit message says the controller is present on the device!
 
-I guess it's rather your mailer setup?
+A typical embedded (or power efficient laptop) audio design will consist
+of multiple devices connected together (frequently via non-control
+buses) together with system level passive components and plastics which
+are also important to the audio configuration.  A card binding describes
+the interconections between the devices in the system and provides
+identification information for the audio subsystem.  This system level
+audio integration is a physical thing that can be pointed at that
+requires real software control.
 
-> Item 5. assume this is 7.1.6.2 Stream Configuration Request /  7.1.6.4 Stream Configuration Notification.  
-> Can it be done via the ALSA API ?
+Like I said before please look at the existing audio card bindings.
 
-You can send a UMP packet.
+--bcFqVBu2j9qZWhmQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-Takashi
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSIdRwACgkQJNaLcl1U
+h9AOEAf/djOuF0KqRDXHKbgIdlBrak/uDTEiHEoqXTlaTW9hPHgCP27FoU5F15vG
+/mS+Obydc9IWyOl0uscQPGFP9nLoayDYduM5nEIlAJiBH0rvBjqZ6UVnAofy1Ec7
+9ebQPTGDGmWs8iwKgfQjZmw7UJI2J4QQ5pFjZjNTkgmMb9Pu8ixylIbjiXyeiEZH
+8Ad65tmEvYRhcGdTFZZ/88Drx+ne7TczcBg4wwcFN0V51NWhXr2XwaEaGKfKTizA
+Vx3gq40qxkwzZQPp5UcSL/O7FqhwFh3zHwzduDMVv80tsDbHnD64xRQpZNWELycv
+lO4MOL8CZc5th3RnMJat7bXSNHcKuQ==
+=JHLU
+-----END PGP SIGNATURE-----
+
+--bcFqVBu2j9qZWhmQ--

@@ -2,84 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD9572E8AE
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 18:42:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA7972E8B3
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 18:42:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C61F4E9F;
-	Tue, 13 Jun 2023 18:41:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C61F4E9F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9533BEAA;
+	Tue, 13 Jun 2023 18:41:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9533BEAA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686674525;
-	bh=l8DMg/NUxsnlwLyIoJT1yDhZwFdS7ic9FNDHvvLyCQg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1686674540;
+	bh=v8zZHGVC82PBfUYoSB6keV2P14ZvTtaoalbMHZyNcMw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gdHZCUaCsUHUB6T5lf3gdU1DhQ0onZ4Tg/UtxLGKiS5UzEV2hD2l+pkBAlC9Kh7p1
-	 ASaPI5+tYP5mOVz1ZecGLP0NLw2O7qNK6Mt6kpN+c8pLpnjk3/d8+X+wnmwn1iqrgL
-	 6pqHxinHmPCwzbhRKwZ1m8MRK660Slw1etAtAXCs=
+	b=DOLZlYCI+v8XTvlHVKpg+ffo+wEpEBF8kBGHXPU+zttQ3XbxFWadFQMbTbzcPEtYQ
+	 RzKVtVPE6BMyU1/GxCHQO40iK1HRqYq2JD8l1gQV4KGPCAYc+VjWGVQa/+LbDNcXjS
+	 R26+z38A+Bi23aJmYpQi2TdnwSciQwg0Usdiqth8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 270A8F80544; Tue, 13 Jun 2023 18:40:49 +0200 (CEST)
+	id DD870F80549; Tue, 13 Jun 2023 18:41:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ED50F80132;
-	Tue, 13 Jun 2023 18:40:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CB2EF80149;
+	Tue, 13 Jun 2023 18:41:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5092CF80149; Tue, 13 Jun 2023 18:40:46 +0200 (CEST)
+	id 7B88AF80155; Tue, 13 Jun 2023 18:41:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8C5AF80093
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 18:40:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8C5AF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 32CDBF80132
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 18:41:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32CDBF80132
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=f4ZrMqiI
+ header.s=k20201202 header.b=Hjoex1jA
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 14CEC62323;
-	Tue, 13 Jun 2023 16:40:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6FEC433D9;
-	Tue, 13 Jun 2023 16:40:38 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8966C62323;
+	Tue, 13 Jun 2023 16:41:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6ABFC433D9;
+	Tue, 13 Jun 2023 16:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686674440;
-	bh=l8DMg/NUxsnlwLyIoJT1yDhZwFdS7ic9FNDHvvLyCQg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=f4ZrMqiIunIXF0Kna2VmILRm0ST2XiueAJlIDI+T98JkIh1rJNndlhMg7WPFXyNIr
-	 CzP0tVlRppx2X2MaiZMHCjoJFKypy6VOOqKykrxuht3drUKtWnewpthw5nX/Dd6KC+
-	 8JlxBXHSkmpnq0U1eKZOp4dJtZWU1yXooqI81QRw2Fn0Dtpp6HWHmGSfpi1gwsY7K2
-	 FYM8Hd2nsIi/UX5nAnRTXVchzwr4wRYXecaSaj/hqXJPLT1jVqy7PxRpxmXTPb7ORG
-	 4998p2DpeHvUO11AeH9ivTG5FlRnGq+5y4dJEe9kWs5NVi9J2Xp8uHn9gBoSJ/aMgc
-	 QeY0mkXBxShtg==
+	s=k20201202; t=1686674480;
+	bh=v8zZHGVC82PBfUYoSB6keV2P14ZvTtaoalbMHZyNcMw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Hjoex1jAVU2+UpyM65EDyOPodF8LaEw21LLINKzgj70i7ayz4V7rcce0M1XfzV8/K
+	 XRefFqnlb0LA4dswZyXhS/agMa+9sbnev5BD4untQ3k4+BxubCniGGSmf6HUfN1Nvr
+	 rAvDUAm5O3rnNNe+41OC7gzrvQtCLUcG6XZ/vNG9XVxXoGyKndTAgmGnSQFcaOKXtV
+	 /UX1eMSNL2GHIZEq2TfnhH6mhxmoQjmr/NddWNu8jNXj5Dtvu3veGgYthhW3NzWe9i
+	 +Skvwbk9SLqJuQiAmPSOSoGG5HiqQDDPDSBIM/Ldpgzlva5ECZ3uHfc82UuDCUb70n
+	 okTZHPasd2RgQ==
+Date: Tue, 13 Jun 2023 17:41:15 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Takashi Iwai <tiwai@suse.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Walker Chen <walker.chen@starfivetech.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: alsa-devel@alsa-project.org
-In-Reply-To: <87sfb2fo0d.wl-kuninori.morimoto.gx@renesas.com>
-References: <87sfb2fo0d.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2 0/5] ASoC: add new trigger ordering method
-Message-Id: <168667443823.125535.10354930944213259111.b4-ty@kernel.org>
-Date: Tue, 13 Jun 2023 17:40:38 +0100
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda: Use maple tree register cache
+Message-ID: <18bcfcba-a6ce-4595-bd2b-4d4ba761fd58@sirena.org.uk>
+References: <20230609-alsa-hda-maple-v1-1-a2b725c8b8f5@kernel.org>
+ <87v8fua1qm.wl-tiwai@suse.de>
+ <877cs7g6f1.wl-tiwai@suse.de>
+ <e48bbd3b-544d-43d5-82a1-8fbbcb8cd1a4@sirena.org.uk>
+ <87v8frcueb.wl-tiwai@suse.de>
+ <60f70667-16b0-4071-aa0f-a83e43bbf2a0@sirena.org.uk>
+ <87a5x3cp9r.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-bfdf5
-Message-ID-Hash: HXH23RQ6L2LPMJKGLK6IOBWIWYCWQX55
-X-Message-ID-Hash: HXH23RQ6L2LPMJKGLK6IOBWIWYCWQX55
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DL3D8ElAXVMbfhcB"
+Content-Disposition: inline
+In-Reply-To: <87a5x3cp9r.wl-tiwai@suse.de>
+X-Cookie: Not a flying toy.
+Message-ID-Hash: WI763IEOTJPP3LJTOLN7XNGW5MACBJVD
+X-Message-ID-Hash: WI763IEOTJPP3LJTOLN7XNGW5MACBJVD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HXH23RQ6L2LPMJKGLK6IOBWIWYCWQX55/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WI763IEOTJPP3LJTOLN7XNGW5MACBJVD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,50 +102,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 08 Jun 2023 06:48:19 +0000, Kuninori Morimoto wrote:
-> This patch-set adds new "trigger" starting/stopping method.
-> 
-> Link: https://lore.kernel.org/r/874jnihm8y.wl-kuninori.morimoto.gx@renesas.com
-> 
-> v1 -> v2
-> 	- tidyup const vs static
-> 	- care missing starfive
-> 
-> [...]
 
-Applied to
+--DL3D8ElAXVMbfhcB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Tue, Jun 13, 2023 at 06:15:12PM +0200, Takashi Iwai wrote:
+> Mark Brown wrote:
+> > On Tue, Jun 13, 2023 at 04:24:28PM +0200, Takashi Iwai wrote:
 
-Thanks!
+> > > Since HD-audio codec has no known default values unlike normal codecs,
+> > > it needs to initialize itself only at the first access, and this
+> > > helper does it.
 
-[1/5] ASoC: add new trigger ordering method
-      commit: a11e6515b019da62266b731ff20bc6863f00df4d
-[2/5] ASoC: amd: use use new trigger ordering method
-      commit: 4a6aeaebbe3b5ef2ae637c00840de171a6c93478
-[3/5] ASoC: atmel: use use new trigger ordering method
-      commit: 38cb2a362d070dcabfbfb2466ca409751c426c30
-[4/5] ASoC: starfive: use use new trigger ordering method
-      commit: 0a67a14f74ace85cbd5bd4f49595850db2ebe53c
-[5/5] ASoC: remove old trigger ordering method
-      commit: 099770e2dae04579670947aaf8b5c70ef6a4cb6a
+> > Ah, if it's just suppressing the write the code should just be removed.
+> > regmap_update_bits() already suppresses noop writes so unless we might
+> > write a different value to the register later the effect will be the
+> > same.  I can send a patch.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+> Oh, I'm afraid that we're seeing different things.  The code there is
+> rather to *set* some initial value for each amp register (but only
+> once), and it's not about optimization for writing a same value
+> again.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> That is, the function helps to set an initial (mute) value on each amp
+> when the driver parses the topology and finds an amp.  But if the
+> driver already has parsed this amp beforehand by other paths, it skips
+> the initialization, as the other path may have already unmuted the
+> amp.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> Or I might have misunderstood what you mean about _update_bits()...
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+So it is possible that we might set two distinct values during setup
+then and we're doing this intentionally?  It's not obvious that this
+might happen.  A comment wouldn't hurt, and a big part of this is
+confusing is that in the non-regmap case all we're doing is suppressing
+duplicate writes, in that path it's just checking for changes in the
+register value.
 
-Thanks,
-Mark
+None of this is what the non-regmap path does, it just suppresses noop
+writes to the hardware.
 
+--DL3D8ElAXVMbfhcB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSInCoACgkQJNaLcl1U
+h9Cupgf/fCfGNrjBuCwi0HFbU+sF01lqVpZ/K8KgOXR1+Vm4SY74+qskM1B8pGMt
+vjQIXMHy0tJaNBTGguZKFwXyk437A8lyZz0PncVJ77AX979DzQedxVowx+42NWBc
+iJ5/qEEaWkwPloOow10gbRYN0GQqTvEEnf3Sr3JCqOmpMX/wIT8WVgkHMF7QZyNT
+T7rl9SQATqxTiHvbRdZnLsP5q+XokcC58usEhgWy51KIzJbcbfWXdLWKB76L8/vw
+GxAg+TKnyYO3/DWY6bBtxw7jLLGmJsdnNM8osURlW9SbEwVp4nKsz9f1iOyiNVmX
+2H8vNN4PpZaoz4DjBpPjzuc2YG3Z2w==
+=8X4L
+-----END PGP SIGNATURE-----
+
+--DL3D8ElAXVMbfhcB--

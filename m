@@ -2,105 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58E8972E07C
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 13:10:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0142D72E118
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Jun 2023 13:16:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BD36886;
-	Tue, 13 Jun 2023 13:09:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BD36886
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8CF220C;
+	Tue, 13 Jun 2023 13:15:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8CF220C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686654633;
-	bh=Nrog8R3HkvBc1WJjncxEVwDEGIhI/2DjfsdHDnS/wZI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1686654982;
+	bh=sAj/ERKQE0tCZl9uMfMEEyfqrsGw28DDx99q885t3rw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=uIQ1fDSLRUlH/t29dLKLFgFjouQ6zmKREabZteGyIP1A4z8kTQo6dfOV6/aO+tTCi
-	 6CKztWYJLJosR3SRe8iBmXs6ZBaPlW6B09s8+OI4mSSZDUK6SvLDL9lWXQO7f3okuF
-	 Qb5vCnDzYVf1cn+2ScFOFGVgpfss8qBn12Dpsds0=
+	b=EP0jRHp4k8rYmuxr/QJERdz2J+VKXAVOdf+o82PENIxvaAQ7N9ga2i/GvBnaKFtIP
+	 oo5gepZVE6OFf0bBXU2Dq/h7bVZjrSX5kFxNtjnhGC3ltoIlEz5BpydHUdCEV1zKqS
+	 puRfnPN0Qwj4CAaUnKAWyDuKr6+4+l6enNKCiVwo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C23F8F80564; Tue, 13 Jun 2023 13:09:31 +0200 (CEST)
+	id 9E43FF80301; Tue, 13 Jun 2023 13:15:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D0C1F80544;
-	Tue, 13 Jun 2023 13:09:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15579F80132;
+	Tue, 13 Jun 2023 13:15:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8DB10F80558; Tue, 13 Jun 2023 13:09:28 +0200 (CEST)
+	id 403B8F80149; Tue, 13 Jun 2023 13:15:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 95CAEF80548
-	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 13:09:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95CAEF80548
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6F04AF80093
+	for <alsa-devel@alsa-project.org>; Tue, 13 Jun 2023 13:15:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F04AF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=adfgtSfA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=pXegNaIU
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=VN9JVYZH
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9238421F68;
-	Tue, 13 Jun 2023 11:09:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1686654564;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F534bER5ZYUKxtwTTojGuPlpYjHOsiKfFmO5iqx2CGc=;
-	b=adfgtSfAfs2U65q67t2fCbt3EsyDXESujfIIPuiqYcPP31oQkLlVJoUtHjOCnkrXyOjjDR
-	hvc9Wp5wzCtcD6+lW45c+LkKLphy7vL/09Z3+qekZGF6c5UIWbthDsFZRXbsQpdzD596Dq
-	lEVb5dKtmCDLHJmDm28oU2gY2GcHNWo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686654564;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F534bER5ZYUKxtwTTojGuPlpYjHOsiKfFmO5iqx2CGc=;
-	b=pXegNaIU+i2NUmFTLFD+SWQ1S8YmHPln5lve0fiUFLdvkTqz/tgga7MEUepaKOhc/t5hgy
-	25ugyfRYZ80sYBDA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 708F713483;
-	Tue, 13 Jun 2023 11:09:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id BLpwGmROiGQ5CQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 13 Jun 2023 11:09:24 +0000
-Date: Tue, 13 Jun 2023 13:09:24 +0200
-Message-ID: <87cz1zehzv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] regmap: maple: Don't sync read-only registers
-In-Reply-To: <e04053b2-897c-46fa-bd1f-e455e01c6152@sirena.org.uk>
-References: <20230613074511.4476-1-tiwai@suse.de>
-	<b86f7b95-f116-4d06-9aca-7195b01dffab@sirena.org.uk>
-	<87ilbrejlm.wl-tiwai@suse.de>
-	<e04053b2-897c-46fa-bd1f-e455e01c6152@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: UFDZXQCPMZKP6FCR3BER3ZQLP3UPJNZZ
-X-Message-ID-Hash: UFDZXQCPMZKP6FCR3BER3ZQLP3UPJNZZ
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0A59F62D3A;
+	Tue, 13 Jun 2023 11:15:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FA4C433D2;
+	Tue, 13 Jun 2023 11:14:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686654900;
+	bh=sAj/ERKQE0tCZl9uMfMEEyfqrsGw28DDx99q885t3rw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VN9JVYZHbRV0mZUkEQ+jbRligdZU79mAnMzw7HTqGVNGdpCB/K1ue3jvwGm0X59XG
+	 qe+OtwmIZjZ82v0ULnQHCrRDctm7tIZ6Jeo9xuVjaGGimEZd7mxoGyIk3Y40g5vPEE
+	 VkvHpX6vTvZzaNFzidscwO39TdSQEbMpWo26g4G2byNCjALITIOhweDvcjUarZu8PM
+	 CxmdGkQlwuwNEiR6KifpQv7cWUvUH/R1tsSR9WSPWimbJkcGyWQZen/XHmaSuGnWLm
+	 6NHMWXiZEP+VFsw1c9G8r+fPzmxA/XKuyJEVb3c6JfRXTeki4n7pTKeLNrST5zM+D6
+	 pfNM8k8uXw2Uw==
+Date: Tue, 13 Jun 2023 12:14:55 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT
+ schema format
+Message-ID: <6439325c-438d-4856-a0db-e71858cdb816@sirena.org.uk>
+References: <20230608081547.442763-1-alexander.stein@ew.tq-group.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="y6t8z90gfqIpBNEf"
+Content-Disposition: inline
+In-Reply-To: <20230608081547.442763-1-alexander.stein@ew.tq-group.com>
+X-Cookie: There was a phone call for you.
+Message-ID-Hash: 6APA3SVACIZQEGFSMSATBGPIUXFLX3I2
+X-Message-ID-Hash: 6APA3SVACIZQEGFSMSATBGPIUXFLX3I2
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UFDZXQCPMZKP6FCR3BER3ZQLP3UPJNZZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6APA3SVACIZQEGFSMSATBGPIUXFLX3I2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,27 +100,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 13 Jun 2023 12:59:27 +0200,
-Mark Brown wrote:
-> 
-> On Tue, Jun 13, 2023 at 12:34:45PM +0200, Takashi Iwai wrote:
-> > Mark Brown wrote:
-> > > On Tue, Jun 13, 2023 at 09:45:11AM +0200, Takashi Iwai wrote:
-> 
-> > > This should be in _needs_sync().
-> 
-> > I thought it's a different logic?  regacahe_reg_needs_sync() checks
-> > only whether it's a default value, and other call paths already check
-> > regmap_writeable().
-> 
-> Yeah, but it feels like that's the reason we ran into this issue given
-> that you'd expect _needs_sync() to check this too.
-> 
-> > But I can put the check there instead if you still prefer, too.
-> 
-> It should avoid any similar issues in future.
 
-OK, then let me cook the v2.
+--y6t8z90gfqIpBNEf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Thu, Jun 08, 2023 at 10:15:47AM +0200, Alexander Stein wrote:
+> Convert the binding to DT schema format.
+> Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
+> clocks & clock-names = "mclk" is mandatory, it has been added to required
+> properties as well. '#sound-dai-cells' is added for reference from
+> simple-audio-card.
 
-Takashi
+This doesn't apply against current code, please check and resend.
+
+--y6t8z90gfqIpBNEf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSIT64ACgkQJNaLcl1U
+h9BgCAf/Z/U6go8jFr2eUxPa/n/ehWr7i9WgW2ftDD35tuHVhDe9tUiHeTWnYnae
+XQ3We6mh2bR4JAJhANfL/4VDBEtxArWKpFD0ptMzhHuZ/VTMPUSBrxGPhYzVcL8i
+gxovWhKa0d7XGHVwNMkCPjZaDHotztyv8C1PyEOKLEMR+u5zZI/msTkjcG/S7MK+
+JsdkA/8X0RBNu+LKLzPI9/qLTtUbsHph1izrDm0dnmSn1btZJnkMqdCNR5RXpCRj
+L0AGx4yotUoSZGTr/wOvwJZwi8FWr8s6B5ig4imJ3V3KJRrcRSr2M+xEhu4OTNPg
+arozOc1zFiuzl4vmXMZ8wZOvIQMWgA==
+=fNEA
+-----END PGP SIGNATURE-----
+
+--y6t8z90gfqIpBNEf--

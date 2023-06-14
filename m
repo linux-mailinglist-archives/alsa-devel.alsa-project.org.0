@@ -2,140 +2,183 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07851730F8F
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 08:42:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 749767311D9
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 10:13:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FF766C0;
-	Thu, 15 Jun 2023 08:42:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FF766C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A23631EF;
+	Thu, 15 Jun 2023 10:12:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A23631EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686811377;
-	bh=xcbySdb/HHlzi5qoxQbAinRwZ3b3xw5SsDsTJEs/uMI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=elZPk2IvEY/PSxw3jO7PQZkO+76lJCw6flD060LD+2mBJQqRx9n7uk6o6EDBcCQo5
-	 LLCiyfKXUUdNRxw52L3PGm9wcJYvm7XlhznwWlTKIHprc1B2UDcYna048MO/CsctYV
-	 3+PnudfKm7PZDX1uAuRcJw9Dpat26139Qd93SCVA=
+	s=default; t=1686816787;
+	bh=cc79EEoCZjbPOtj6KApZDj8CibRMonEEDd5xuwGeXZ0=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Bhy41OxMDjHJNcr5n7+lceX01gEdNJ+PNqfPOnmRADSOOEiBk4VdzpKv0qb6Y4xgH
+	 0lojW+p/JHs1P00fwIDa151MSQnapyQ9Ikm2thPgpCWZ2wIF5tT8ngJGLeCMvIBHbc
+	 wMnr7S42Qdl19uDlHINFOc9aih3B2x2kIMNQrTO0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB50AF80246; Thu, 15 Jun 2023 08:42:06 +0200 (CEST)
+	id CC455F80301; Thu, 15 Jun 2023 10:12:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FBDDF80130;
-	Thu, 15 Jun 2023 08:42:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CD29F80130;
+	Thu, 15 Jun 2023 10:12:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39D4CF800BA; Thu, 15 Jun 2023 08:41:59 +0200 (CEST)
+	id DA343F80149; Wed, 14 Jun 2023 14:19:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F6BDF800BA
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 08:41:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F6BDF800BA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=17hpmG/M;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=sZitHZ+Z
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 59FCC1F381;
-	Thu, 15 Jun 2023 06:41:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1686811313;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ft/zj4ilzEumTWLpEQ07nLe+sIIdIKTeXHm4HA2N188=;
-	b=17hpmG/Maa7k+KgeOcBx2Qx6wOPTd9n9rIMnpJNKnxLDW00TA6tw8GbwgCDwMxvj79LO/T
-	tHobk0dCZEbtSR1g7jLCIFiJFSWvmW30QMYq38dqqB/qmz0Yo7adaLr/V/pAWNivyKVp9M
-	75q7VDLJ2KLfDZ1WZu4LJR7Lm7ntpbo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686811313;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ft/zj4ilzEumTWLpEQ07nLe+sIIdIKTeXHm4HA2N188=;
-	b=sZitHZ+ZzbnztOhMC8NH8z4v1JHREWOq2w+ssNFnk6QfFeJFf8rdYCt0+VgX31Y9Jph5IF
-	PvUh+e1jO3DriiCw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1B68B13467;
-	Thu, 15 Jun 2023 06:41:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id /rG8BbGyimS9eAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 15 Jun 2023 06:41:53 +0000
-Date: Thu, 15 Jun 2023 08:41:52 +0200
-Message-ID: <87r0qd8bwv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Su Hui <suhui@nfschina.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	maciej.szmigiero@oracle.com,
-	yangyingliang@huawei.com,
-	alsa-devel@alsa-project.org,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by alsa1.perex.cz (Postfix) with ESMTP id 374B2F80130
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 14:19:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 374B2F80130
+Received: from loongson.cn (unknown [10.180.13.124])
+	by gateway (Coremail) with SMTP id _____8DxAOlbsIlk1R8FAA--.9121S3;
+	Wed, 14 Jun 2023 20:19:39 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.180.13.124])
+	by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxPMpasIlkRJgaAA--.1367S4;
+	Wed, 14 Jun 2023 20:19:38 +0800 (CST)
+From: YingKun Meng <mengyingkun@loongson.cn>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	krzysztof.kozlowski@linaro.org
+Cc: krzysztof.kozlowski+dt@linaro.org,
 	linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] ALSA: ac97: Fix possible NULL dereference in
- snd_ac97_mixer
-In-Reply-To: <20230615021732.1972194-1-suhui@nfschina.com>
-References: <20230615021732.1972194-1-suhui@nfschina.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 3XB2FRMZLVBHGS7WW5OL6OAAEC5RJ6S5
-X-Message-ID-Hash: 3XB2FRMZLVBHGS7WW5OL6OAAEC5RJ6S5
-X-MailFrom: tiwai@suse.de
+	alsa-devel@alsa-project.org,
+	loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn,
+	mengyingkun@loongson.cn
+Subject: [PATCH v3 0/3] Add Loongson I2S controller support
+Date: Wed, 14 Jun 2023 20:18:37 +0800
+Message-Id: <20230614121837.3402734-1-mengyingkun@loongson.cn>
+X-Mailer: git-send-email 2.33.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: AQAAf8AxPMpasIlkRJgaAA--.1367S4
+X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQACDGSIXIIYSwAIsm
+X-Coremail-Antispam: 1Uk129KBj93XoWxuF48Jw4fWr43urWUGrWDZFc_yoW5Xw17pa
+	nxC393Wr45tr1ayFn3AFy8GFWrAryrCrsxGa17Xw1UGr9Fy3W8u343tF1UZFW3Ary8Jryq
+	9ryrGrW8G3ZxG3XCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27wAqx4
+	xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v2
+	6r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j8yCJUUUUU=
+X-MailFrom: mengyingkun@loongson.cn
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 4TXZWVJBZ2GBET2UZJ4Z5AISKNM3TSBS
+X-Message-ID-Hash: 4TXZWVJBZ2GBET2UZJ4Z5AISKNM3TSBS
+X-Mailman-Approved-At: Thu, 15 Jun 2023 08:12:11 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3XB2FRMZLVBHGS7WW5OL6OAAEC5RJ6S5/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4TXZWVJBZ2GBET2UZJ4Z5AISKNM3TSBS/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 15 Jun 2023 04:17:32 +0200,
-Su Hui wrote:
-> 
-> smatch error:
-> sound/pci/ac97/ac97_codec.c:2354 snd_ac97_mixer() error:
-> we previously assumed 'rac97' could be null (see line 2072)
-> 
-> remove redundant assignment, return error if rac97 is NULL.
-> 
-> Fixes: da3cec35dd3c ("ALSA: Kill snd_assert() in sound/pci/*")
-> Signed-off-by: Su Hui <suhui@nfschina.com>
+Hi all,
 
-Thanks, applied.
+This patchset adds support for Loongson I2S controller, and
+introduce a ASoC machine driver for loongson platform.
+
+The Loongson I2S controller is available on Loongson
+7a2000/2k2000 chips, works as a PCI device. It has two
+private DMA controllers used to playback and capture.
+Each DMA controller has one channel.
+
+The ASoC machine driver adds support for audio device which
+using loongson I2S controller to tranfser the audio data.
+The audio device uses "PRP0001" as its ACPI device ID, which
+provides a means to use the existing DT-compatible device
+identification in ACPI.
 
 
-Takashi
+Thanks.
+
+---
+Changes v2 -> v3
+  - Patch 1
+    Split the driver into PCI driver and component driver.
+    Move interrupt requesting from pcm_open to pcm_create.
+    Use pcim_xxx() API to get iomap of I2S register.
+    Add condition checking for the number of periods.
+    Add set_fmt() callback for DAI ops.
+    Add volatile registers for regmap of I2S.
+    Remove redundant condition checking.
+    Update comment style.
+
+  - Patch 2
+    Remove redundant SoC DAI link.
+    Update comment style.
+
+  - Patch 3
+    No change.
+
+
+Changes v1 -> v2
+  - Patch 1
+    Replace pci_xxx() APIs with pcim_xxx() APIs.
+    Fix build errors from lkp@intel.com.
+    Minor changes in log printing.
+
+  - Patch 2
+    Use ACPI bindings to reference I2S and codec nodes.
+    
+  - Patch 3
+    Add chip model restriction for title and description.
+    Add 'required' option for sound-dai property.
+
+Yingkun Meng (3):
+  ASoC: Add support for Loongson I2S controller
+  ASoC: loongson: Add Loongson ASoC Sound Card Support
+  ASoC: dt-bindings: Add support for Loongson audio card
+
+ .../sound/loongson,ls-audio-card.yaml         |  70 ++++
+ sound/soc/Kconfig                             |   1 +
+ sound/soc/Makefile                            |   1 +
+ sound/soc/loongson/Kconfig                    |  26 ++
+ sound/soc/loongson/Makefile                   |   8 +
+ sound/soc/loongson/loongson_card.c            | 230 ++++++++++++
+ sound/soc/loongson/loongson_dma.c             | 350 ++++++++++++++++++
+ sound/soc/loongson/loongson_dma.h             |  16 +
+ sound/soc/loongson/loongson_i2s.c             | 269 ++++++++++++++
+ sound/soc/loongson/loongson_i2s.h             |  71 ++++
+ sound/soc/loongson/loongson_i2s_pci.c         | 171 +++++++++
+ 11 files changed, 1213 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+ create mode 100644 sound/soc/loongson/Kconfig
+ create mode 100644 sound/soc/loongson/Makefile
+ create mode 100644 sound/soc/loongson/loongson_card.c
+ create mode 100644 sound/soc/loongson/loongson_dma.c
+ create mode 100644 sound/soc/loongson/loongson_dma.h
+ create mode 100644 sound/soc/loongson/loongson_i2s.c
+ create mode 100644 sound/soc/loongson/loongson_i2s.h
+ create mode 100644 sound/soc/loongson/loongson_i2s_pci.c
+
+
+base-commit: a11e6515b019da62266b731ff20bc6863f00df4d
+-- 
+2.33.0
+

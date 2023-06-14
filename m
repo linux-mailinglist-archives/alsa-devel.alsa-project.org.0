@@ -2,92 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DEE472F17D
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 03:17:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AE1572F45C
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 08:01:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4224823;
-	Wed, 14 Jun 2023 03:16:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4224823
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9982D822;
+	Wed, 14 Jun 2023 08:00:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9982D822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686705452;
-	bh=Q7IVuU8ZRNKIsAkyDdRpF7tiAMQN0jg9pxqaxOuK4D0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1686722499;
+	bh=73LmXuqFciWWc1iCze5o36cRzap2z09zoCv1utU2YzY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dRlK70vrfqaWJfNiB2uFsHzEELjb3RVmQkvyrKbqFSW7okzc9za+yJujFU67/DJr5
-	 QEqdD+sPn7DFfQExMIsQagKhgXCaEhxuXQN2p4C7yNFfmPP0ZYDK9QVKikSfoX0WZm
-	 VX0vjkO6amyFDb90DtIPL1iuLjIBfGre7Q9pPBxg=
+	b=TMAjj+/O9PqR/lMBeG0d4W0y6ww9cr7Aj8T0wP+z8Nui2poGGySUwb+l5Rrq8OkyE
+	 yRC+opLBiVsFfjCOZBkiwpA5yCcVnFYI2jaliaJN2clvuHnOl2zfFsv35w2Y+uRoKR
+	 ZRKtf6BYkDvt5HYfQhv9Y4Nc538KUmZt2DxXK1T4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 24008F8052E; Wed, 14 Jun 2023 03:16:16 +0200 (CEST)
+	id 2C69AF80246; Wed, 14 Jun 2023 08:00:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B6E4F80132;
-	Wed, 14 Jun 2023 03:16:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41E5AF80132;
+	Wed, 14 Jun 2023 08:00:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9DE67F80149; Wed, 14 Jun 2023 03:16:11 +0200 (CEST)
+	id 5380CF80149; Wed, 14 Jun 2023 07:56:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47361F800BA
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 03:16:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47361F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3B58BF800BA
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 07:56:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B58BF800BA
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=f7xha7T5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686705363; x=1718241363;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Q7IVuU8ZRNKIsAkyDdRpF7tiAMQN0jg9pxqaxOuK4D0=;
-  b=f7xha7T5Pl5CrF3fBJtgVY4b5jmctbiDEyJIuwop1nHtIkns7gFeodzh
-   pO83T17reEUeZCyy02XJd7IzYEmXPq+i/T06f1ZiWTWJs6YSsjQsAT8Cz
-   pV2/5jWqN/ZKNEefUqfRqBqViU0KI9QBoR8BEorM7fcwdT6LzhQGJlkDX
-   DhT9jaEbqY/7ybwoZ/kzft1KDTDaXGCBxxOSWWVbVZWA8Q1+b4/YXjLjs
-   vIdw5VXRQa1faXVh6bTCn9CBlf56B0+rtzwAReAf0KAOEIpY0ncE/sgsi
-   KqV4O5mfU3HCZromATIpsoJd52v6XEfznX56rlh3ezq+LKRa4lUj+4gDl
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="444864894"
-X-IronPort-AV: E=Sophos;i="6.00,241,1681196400";
-   d="scan'208";a="444864894"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2023 18:15:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="781904817"
-X-IronPort-AV: E=Sophos;i="6.00,241,1681196400";
-   d="scan'208";a="781904817"
-Received: from yungchua-mobl2.ccr.corp.intel.com (HELO [10.92.2.114])
- ([10.92.2.114])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2023 18:15:49 -0700
-Message-ID: <7af52548-a87a-dd18-5f28-6dc0f029e7ce@linux.intel.com>
-Date: Wed, 14 Jun 2023 09:15:36 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH 0/8] ASoC: Use the maple tree register cache for RealTek
- SoundWire CODECs
-To: Mark Brown <broonie@kernel.org>, Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Cc: alsa-devel@alsa-project.org
-References: <20230609-asoc-rt-sdw-maple-v1-0-85ee50c93905@kernel.org>
-Content-Language: en-US
-From: "Liao, Bard" <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20230609-asoc-rt-sdw-maple-v1-0-85ee50c93905@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: EJ73O332UIYZYRO7T5TM7MWAIVUBAGY3
-X-Message-ID-Hash: EJ73O332UIYZYRO7T5TM7MWAIVUBAGY3
-X-MailFrom: yung-chuan.liao@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=bzBloQLA;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=Ha8E1ZTm
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 427172250C;
+	Wed, 14 Jun 2023 05:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1686722180;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=geObxz8Ir0kENPOmj8FusLWNQEZG6IM3PHxh2vZfFwk=;
+	b=bzBloQLAA5gr4c9KZLeJMWlrHR1ueIHUvCkOe2+nYJVfOG5XgWkaagskPklRz6RARLmyjg
+	eAGnvSmNSpZm6FxcphK3zDRWb5ZSJmWhi8pzFGLmOalr3IvnhTnFnNWiznBaF/Wv0sPmhw
+	3qTzUPiWqMfj6miCxxrue37jPCwtA9M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1686722180;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=geObxz8Ir0kENPOmj8FusLWNQEZG6IM3PHxh2vZfFwk=;
+	b=Ha8E1ZTmNnM2le8dwe9okwlYwHEngT2eWKPRKt6n2yi5uEVbyTm0vY63sd25GmsIdgzF57
+	LwRn3O+PnBwOY1Dg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 164D01391E;
+	Wed, 14 Jun 2023 05:56:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id ltN1BIRWiWTwcAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 14 Jun 2023 05:56:20 +0000
+Date: Wed, 14 Jun 2023 07:56:19 +0200
+Message-ID: <87zg52bn98.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda: Use maple tree register cache
+In-Reply-To: <34b7d114-af69-459e-8a22-2a93a1e43e94@sirena.org.uk>
+References: <20230609-alsa-hda-maple-v1-1-a2b725c8b8f5@kernel.org>
+	<87v8fua1qm.wl-tiwai@suse.de>
+	<877cs7g6f1.wl-tiwai@suse.de>
+	<e48bbd3b-544d-43d5-82a1-8fbbcb8cd1a4@sirena.org.uk>
+	<87v8frcueb.wl-tiwai@suse.de>
+	<60f70667-16b0-4071-aa0f-a83e43bbf2a0@sirena.org.uk>
+	<87a5x3cp9r.wl-tiwai@suse.de>
+	<18bcfcba-a6ce-4595-bd2b-4d4ba761fd58@sirena.org.uk>
+	<874jnbcmy6.wl-tiwai@suse.de>
+	<34b7d114-af69-459e-8a22-2a93a1e43e94@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: COF3WB7RINCAK7H2QI6JFI35SP7XVLLO
+X-Message-ID-Hash: COF3WB7RINCAK7H2QI6JFI35SP7XVLLO
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EJ73O332UIYZYRO7T5TM7MWAIVUBAGY3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/COF3WB7RINCAK7H2QI6JFI35SP7XVLLO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,41 +128,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 6/10/2023 10:27 PM, Mark Brown wrote:
-> The RealTek SoundWire CODECs don't support bulk register operations so
-> they gain no advantage from using the rbtree cache, convert them to use
-> the maple tree cache instead - it is more modern.
->
-> Signed-off-by: Mark Brown <broonie@kernel.org>
+On Tue, 13 Jun 2023 19:29:19 +0200,
+Mark Brown wrote:
+> 
+> On Tue, Jun 13, 2023 at 07:05:21PM +0200, Takashi Iwai wrote:
+> > Mark Brown wrote:
+> 
+> > > > Oh, I'm afraid that we're seeing different things.  The code there is
+> > > > rather to *set* some initial value for each amp register (but only
+> > > > once), and it's not about optimization for writing a same value
+> > > > again.
+> 
+> > > > That is, the function helps to set an initial (mute) value on each amp
+> > > > when the driver parses the topology and finds an amp.  But if the
+> > > > driver already has parsed this amp beforehand by other paths, it skips
+> > > > the initialization, as the other path may have already unmuted the
+> > > > amp.
+> 
+> > > So it is possible that we might set two distinct values during setup
+> > > then and we're doing this intentionally?  It's not obvious that this
+> > > might happen.  A comment wouldn't hurt, and a big part of this is
+> > > confusing is that in the non-regmap case all we're doing is suppressing
+> > > duplicate writes, in that path it's just checking for changes in the
+> > > register value.
+> 
+> > > None of this is what the non-regmap path does, it just suppresses noop
+> > > writes to the hardware.
+> 
+> > Actually, many of HD-audio codec driver code heavily relies on the
+> > regmap, more or less mandatory.  The snd_hda_codec_amp_init() is one
+> > of such.  You may write a codec driver without the regmap, but some
+> > helpers won't work as expected.
+> 
+> Sounds like it might be so thinly used it's becoming mandatory to have a
+> regmap in order to avoid gotchas like there might be with things getting
+> muted?
 
-Tested on a Dell laptop with rt1316, rt711-sdca, and rt715-sdca.
+It's rather historical reasons.  The caching mechanism was already
+present and mandatory from the beginning, but it was implemented in a
+different way.  Later on, it was translated to the regmap.  Meanwhile,
+we generalized the HD-audio codec driver to be on a generic HD-audio
+bus, and this allowed the use without regmap.  So some basic helpers
+are designed to work without regmap but some are still tightly tied
+with regmap.
 
-Tested-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-> ---
-> Mark Brown (8):
->        ASoC: rt700: Use maple tree register cache
->        ASoC: rt711: Use maple tree register cache
->        ASoC: rt712: Use maple tree register cache
->        ASoC: rt715: Use maple tree register cache
->        ASoC: rt722: Use maple tree register cache
->        ASoC: rt1308: Use maple tree register cache
->        ASoC: rt1316: Use maple tree register cache
->        ASoC: rt1318: Use maple tree register cache
->
->   sound/soc/codecs/rt1308-sdw.c      | 2 +-
->   sound/soc/codecs/rt1316-sdw.c      | 2 +-
->   sound/soc/codecs/rt1318-sdw.c      | 2 +-
->   sound/soc/codecs/rt700-sdw.c       | 2 +-
->   sound/soc/codecs/rt711-sdca-sdw.c  | 4 ++--
->   sound/soc/codecs/rt711-sdw.c       | 2 +-
->   sound/soc/codecs/rt712-sdca-dmic.c | 4 ++--
->   sound/soc/codecs/rt712-sdca-sdw.c  | 4 ++--
->   sound/soc/codecs/rt715-sdca-sdw.c  | 4 ++--
->   sound/soc/codecs/rt722-sdca-sdw.c  | 4 ++--
->   10 files changed, 15 insertions(+), 15 deletions(-)
-> ---
-> base-commit: 08e6c4bb17087584261c4aff555d32fc1c620b81
-> change-id: 20230609-asoc-rt-sdw-maple-fa6714ac4318
->
-> Best regards,
+Takashi

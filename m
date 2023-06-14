@@ -2,84 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95CBC72FBBF
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 12:54:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66B3D72FE33
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 14:17:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C15B5823;
-	Wed, 14 Jun 2023 12:54:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C15B5823
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEAA7828;
+	Wed, 14 Jun 2023 14:16:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEAA7828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686740098;
-	bh=owI1k5P4I25PEH9VFv2B0tehHOqsOi/3BdvGUoI9qbY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686745041;
+	bh=Yga2Wnv2y0T3/trc9Ip9YxllD9C941L+vat9Us+DZE8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Pj1oKurWPrKcZxT1YSDi4yOWGr/TGMKeG5WnaJVkn71oAzIhmpgO1Ba3YPBgKBxBx
-	 BMoWF9o8URCyQ+gtZAPcH6u9B2Wm2mGZCkNpk0JF30ijZv1X1HP8jY6FDVCyOWI/4i
-	 dHa0zSVCx84uAW48tM/+c8Uebwumh/reOXBy+r9M=
+	b=RHBbveQGPQ7728JqvjNeVLA/6MeuY7J3O70hLJN6c+IFnw5VOhuz8XfeIvi8v7fm9
+	 51aqI63KgrUCoLFvHik2mhz1WJ2wYRY9PXeiD7YjN8waQdas9CDIRh8/D+7wWdj6zs
+	 cwU8D+r5nYYgR3+HsCwXKZs8kDZB83ZraExSBFI0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E61AF80246; Wed, 14 Jun 2023 12:53:46 +0200 (CEST)
+	id 47EF8F80132; Wed, 14 Jun 2023 14:16:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA8BBF80132;
-	Wed, 14 Jun 2023 12:53:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF455F80149;
+	Wed, 14 Jun 2023 14:16:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1CA09F80149; Wed, 14 Jun 2023 12:53:43 +0200 (CEST)
+	id 2D2ADF80149; Wed, 14 Jun 2023 11:06:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 338B1F800BA
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 12:53:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 338B1F800BA
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id C4BFA202DF;
-	Wed, 14 Jun 2023 06:53:34 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1q9O86-xvT-00; Wed, 14 Jun 2023 12:53:34 +0200
-Date: Wed, 14 Jun 2023 12:53:34 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 6/8] ALSA: emu10k1: add support for 2x/4x word clocks in
- E-MU D.A.S. mode
-Message-ID: <ZImcLtzArlB1VAny@ugly>
-References: <ZIhKe99WGpLFN1ld@ugly>
- <87edmfei0o.wl-tiwai@suse.de>
- <ZIh2gp/I4ot326KP@ugly>
- <871qife9ga.wl-tiwai@suse.de>
- <ZIiJ9zzwgvQHyrW9@ugly>
- <87fs6vcqpt.wl-tiwai@suse.de>
- <ZIij6mdc1utyBD93@ugly>
- <87sfaublds.wl-tiwai@suse.de>
- <ZIl/5rSSydaVngpQ@ugly>
- <87352ubdzw.wl-tiwai@suse.de>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by alsa1.perex.cz (Postfix) with ESMTP id 38011F80093
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 11:06:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38011F80093
+Received: from loongson.cn (unknown [10.180.13.22])
+	by gateway (Coremail) with SMTP id _____8BxL_ANg4lk1gwFAA--.10856S3;
+	Wed, 14 Jun 2023 17:06:21 +0800 (CST)
+Received: from [10.180.13.22] (unknown [10.180.13.22])
+	by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8CxReQLg4lk3GoaAA--.10231S3;
+	Wed, 14 Jun 2023 17:06:19 +0800 (CST)
+Message-ID: <818629a3-c934-d0d7-b872-9cf82ab49b98@loongson.cn>
+Date: Wed, 14 Jun 2023 17:05:54 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <87352ubdzw.wl-tiwai@suse.de>
-Message-ID-Hash: B4M26IIL25OP72UQZHBABHQNHY66GJSL
-X-Message-ID-Hash: B4M26IIL25OP72UQZHBABHQNHY66GJSL
-X-MailFrom: ossi@kde.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [ PATCH v2 1/3] ASoC: Add support for Loongson I2S controller
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+ loongson-kernel@lists.loongnix.cn, kernel test robot <lkp@intel.com>
+References: <20230612085318.3039485-1-mengyingkun@loongson.cn>
+ <8b069919-664d-4329-9168-ec8f26fef647@sirena.org.uk>
+From: Yingkun Meng <mengyingkun@loongson.cn>
+In-Reply-To: <8b069919-664d-4329-9168-ec8f26fef647@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: AQAAf8CxReQLg4lk3GoaAA--.10231S3
+X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQACDGSIXIITNwABsY
+X-Coremail-Antispam: 1Uk129KBj93XoW3AF1kGrWrKr45KryUXF17XFc_yoW7Zr4rpa
+	yUua1DKrn5JF4xAw1qqw4kZF15Zw4fAFZ8Cw45J347Ar9xZr1F9343KF4rGFy3Cr9xKw4j
+	vr1Fqw4xCFyDGagCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAF
+	wI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4
+	CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
+	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j8yCJU
+	UUUU=
+X-MailFrom: mengyingkun@loongson.cn
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: DYGPOLJ5WDOIT2GEJRV3ICCRVTTJ6SDO
+X-Message-ID-Hash: DYGPOLJ5WDOIT2GEJRV3ICCRVTTJ6SDO
+X-Mailman-Approved-At: Wed, 14 Jun 2023 12:16:23 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4M26IIL25OP72UQZHBABHQNHY66GJSL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DYGPOLJ5WDOIT2GEJRV3ICCRVTTJ6SDO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -88,79 +101,170 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Jun 14, 2023 at 11:16:19AM +0200, Takashi Iwai wrote:
->On Wed, 14 Jun 2023 10:52:54 +0200,
->Oswald Buddenhagen wrote:
->> 
->> you're allowing _hypothetical_ crappy 3rd party code to dictate what
->> you can and cannot do. that's a completely unreasonable and
->> counterproductive attitude, akin to letting hostage-takers set the
->> rules.
->
->Oswald, it's no hypothetical, I have seen lots of applications that
->did crash with such mixer element changes in the past.
->
-these apps have been meanwhile fixed or become obsolete, which makes it 
-a hypothetical again.
 
->It's no dictation by 3rd party.
+On 2023/6/13 02:52, Mark Brown wrote:
+> On Mon, Jun 12, 2023 at 04:53:18PM +0800, YingKun Meng wrote:
 >
-it IS. that's exactly what letting downstream limit your possibilities 
-is. especially if it's BROKEN downstream.
+>> Loongson I2S controller is found on 7axxx/2kxxx chips from loongson,
+>> it is a PCI device with two private DMA controllers, one for playback,
+>> the other for capture.
+>>
+>> The driver supports the use of DTS or ACPI to describe device resources.
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202306060223.9hdivLrx-lkp@intel.com/
+>> Closes: https://lore.kernel.org/oe-kbuild-all/202306060320.Sphw0ihy-lkp@intel.com/
+> These don't really make sense for a new driver.
+>
 
->We simply must not crash things by an
->update (unless it's a must, something like a security fix).
->
-and i'm telling you that this is an unreasonable reading of the rule.  
-_every_ new feature in something already existing has the potential to 
-blow up some crappy downstream code.
+OK, removed in new version.
 
->> >> > Oh well, that's really not a change to be advertised for creating /
->> >> > deleting kctls from the put callback at all.
->> >> > and? it's done, and it's basically impossible to revert. so we
->> >> may
->> >> reap its full benefits just as well, as i did in that previous commit.
->> > 
->> > Well, I can revert your commit, too...
->> > 
->> sure, but my point was that there are likely many more such commits,
->> some of them not explicitly marked as such. it would be a very costly
->> and risky exercise to actually do that revert at this point.
->
->Sure, I didn't mean to do it immediately, it's no easy task.
->
-great! then you can adjust this driver at that later point as well, when 
-you actually want to go forward with that project. ;-)
+>> @@ -0,0 +1,213 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * Loongson-2K I2S master mode driver
+>> + *
+>> + * Copyright (C) 2022 Loongson Technology Corporation Limited
+>> + */
+> Please make the entire comment a C++ one so things look more
+> intentional.  You might also want to update the copyright year if there
+> was any substantial work on the driver recently.
 
->> > The way you're trying to implement is an anti-pattern,
->> > 
->> that's something you keep repeating in various ways, but i see no
->> evidence that there is an _actual_ problem.
->
->There were actual problems, and we had to address them.
->
-what exactly where those problems?
-do the circumstances under which they occurred still apply?
+OK.
 
->The API is there and it should be usable in the ideal world, but we
->know that it breaks far more than expected.  We don't prohibit that
->API, but the actual use should be limited for very special use cases.
->
-that's exactly the wrong way to go about it. the way to make sure that 
-fewer apps crash is to hammer them as much as possible. if you wanted to 
-make sure that they all *really* work, you'd randomly create and destroy 
-fake controls from time to time.
+>> +		/* Enable master mode */
+>> +		regmap_update_bits(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_MASTER,
+>> +				   I2S_CTRL_MASTER);
+>> +		if (i2s->rev_id == 1) {
+>> +			ret = regmap_read_poll_timeout_atomic(i2s->regmap,
+>> +						LS_I2S_CTRL, val,
+>> +						val & I2S_CTRL_CLK_READY,
+>> +						10, 2000);
+>> +			if (ret < 0)
+>> +				dev_warn(dai->dev, "wait BCLK ready timeout\n");
+>> +		}
+> Ideally you'd have a set_dai_fmt() operation and support both clock
+> provider and consumer mode.
 
->If it were triggered in only certain (rare and race-free) situations,
->it'd be acceptable.  But your patch allows every user to trigger it by
->the normal kctl value adjustment, which is simply no-go.
->
-you are describing a completely contrieved attack scenario. it would 
-have to be a multi-user system with an e-mu card where one user 
-intentionally messes with the mixer to crash a broken application 
-another user is using at the same time. think through the probabilities, 
-motivations, alternative attack vectors, and how the whole affair would 
-play out IRL for the attacker.
+Got it, add .set_fmt callback for DAI ops in new version.
 
-regards,
-ossi
+>> +	if (i2s->rev_id == 0) {
+>> +	} else if (i2s->rev_id == 1) {
+>> +	} else
+>> +		dev_err(i2s->dev, "I2S revision invalid\n");
+>> +
+> This looks like a switch statement.
+
+
+OK, replaced with a switch statement in new version.
+
+>
+>> +static int loongson_i2s_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
+>> +				       unsigned int freq, int dir)
+>> +{
+>> +	struct loongson_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+>> +
+>> +	i2s->sysclk = freq;
+>> +
+>> +	return 0;
+>> +}
+> Should this be integrated with the clock API rather than just using the
+> ASoC specific stuff - where does this sysclk come from?  I do note that
+> the PCI driver appears to have a fixed clock...
+>
+You are right, PCI bus has a fixed clock.
+
+On loongson 7A2000/2K2000 chips, the I2S controller has PCI configuration
+address space, IO address space, and memory address space, it works as
+a PCI device, but it's not a standard PCI device.
+
+Its clock signal comes from the APB bus or AIX bus, not from PCI bus.
+Currently, there is no good support from clock subsystem, the frequency of
+the I2S controller's driver clock is a fixed value.
+
+>> +void loongson_i2s_init(struct loongson_i2s *i2s)
+>> +{
+>> +	if (i2s->rev_id == 1) {
+>> +		regmap_write(i2s->regmap, LS_I2S_CTRL, I2S_CTRL_RESET);
+>> +		udelay(200);
+>> +	}
+>> +}
+> What's this for?  I'd expect initialising the hardware to be handled
+> internally within the driver but this is semi-exported?
+
+
+On 2K1000LA chip, the i2s controller is a platform device, it's supported
+by another driver. My original purpose was to export an API to initializing
+hardware.
+It's OK to move this to specific I2S driver.
+
+>> diff --git a/sound/soc/loongson/loongson_i2s_pci.c b/sound/soc/loongson/loongson_i2s_pci.c
+>> new file mode 100644
+>> index 000000000000..f09713b560e9
+>> --- /dev/null
+>> +++ b/sound/soc/loongson/loongson_i2s_pci.c
+>> @@ -0,0 +1,500 @@
+> Please split the PCI driver into a separate patch to keep the individual
+> reviews smaller.
+
+
+OK, the driver split into PCI driver and DMA driver in new version.
+
+>> +static int loongson_pcm_trigger(struct snd_soc_component *component,
+>> +				struct snd_pcm_substream *substream, int cmd)
+>> +{
+>> +	switch (cmd) {
+>> +	default:
+>> +		ret = -EINVAL;
+>> +	}
+> Missing break; here.
+
+
+Fixed. Return directly.
+
+>
+>> +	/* initialize dma descriptor array */
+>> +	mem_addr = runtime->dma_addr;
+>> +	order_addr = prtd->dma_desc_arr_phy;
+>> +	for (i = 0; i < num_periods; i++) {
+>> +		desc = &prtd->dma_desc_arr[i];
+> We didn't validate that the number of periods fits in the array.
+>
+
+Fixed. Check the number of periods before initializing the descriptor array.
+
+>> +	if (num_periods > 0) {
+>> +		desc = &prtd->dma_desc_arr[num_periods - 1];
+>> +		desc->order = lower_32_bits(prtd->dma_desc_arr_phy | BIT(0));
+>> +		desc->order_hi = upper_32_bits(prtd->dma_desc_arr_phy);
+>> +	}
+> This is always true, right?
+
+
+Yes, remove the condition check.
+
+>> +       ret = request_irq(dma_data->irq, loongson_pcm_dma_irq,
+>> +                         IRQF_TRIGGER_HIGH, LS_I2S_DRVNAME, substream);
+> Does it really make sense to request and free the interrupt when the
+> stream is running?  It's generally better to just request the interrupt
+> once during probe(), that way we know we've got all the resources we
+> need.  If we do need to allocate/free all the time a comment explaining
+> why would be good so people don't go trying to fix this.
+
+No, we can request the interrupt just once.
+
+As one DMA controller controls the transmission of audio data in one direction
+(playback or capture), it is associated with a substream.
+The operation requesting interrupt is placed in .pcm_construct callback of
+snd_soc_component_driver in new version.
+
+>> +	ret = pci_request_region(pdev, BAR_NUM, LS_I2S_DRVNAME);
+>> +	if (ret) {
+>> +		dev_err(&pdev->dev, "request regions failed %d\n", ret);
+>> +		return ret;
+>> +	}
+> pcim_iomap_regions()?  At the minute you'll free the region before devm
+> frees the regmap which is probably harmless but not ideal.
+
+
+OK, replaced in new version.
+

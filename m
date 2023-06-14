@@ -2,110 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88B272F500
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 08:38:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378B672F539
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 08:54:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45D2C825;
-	Wed, 14 Jun 2023 08:37:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45D2C825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53B7FFA;
+	Wed, 14 Jun 2023 08:53:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53B7FFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686724681;
-	bh=Q4hmFOhAXV43svV+vLN8Sz77mc3edL6y41lkLREnB04=;
+	s=default; t=1686725673;
+	bh=GbV953ccwYLmrEhNETabBS+aPRPBlhBkBANzKh/cXXY=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kgOcweXf4vG8YLyK88BC+DEQkASZz4r89Zif6/oXclLMpIq2/RL7iIO5hBxLePddT
-	 nDTjpsjbl7ov1yX+g42b7/1essDfcDD8FtdaEZw6ZfBWPmoip5CwW40NUkG/Wa4vd3
-	 NJ0vCgJXHkaKxZR1Bb5ehyksVyR2SxAE52h2v3Lg=
+	b=nIfIN3B9R1qOrScDmJd1n9LArb0OnrGBqXAevxVTIKUROWX/hw3YtZYB7/G0ihYqg
+	 y6fwASpyeBgICjROZHYlcAo0Ec59/Se5gH8EH1fbA6/OsYJQDRN4CnwzhsS3PARB6G
+	 zWlxgBf61TLDV2qE3nVs5pJBhNQdOeo5sVHwO62I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9E646F800BA; Wed, 14 Jun 2023 08:37:05 +0200 (CEST)
+	id CC4BFF80093; Wed, 14 Jun 2023 08:53:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14800F80132;
-	Wed, 14 Jun 2023 08:37:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94F45F80130;
+	Wed, 14 Jun 2023 08:53:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D13E9F80149; Wed, 14 Jun 2023 08:37:01 +0200 (CEST)
+	id 5126AF80132; Wed, 14 Jun 2023 08:53:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 744E6F800BA
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 08:36:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 744E6F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4FA4AF800BA
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 08:53:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FA4AF800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=m472kBD6;
+ header.s=susede2_rsa header.b=DIg2gOnk;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=LSxahLaY
+ header.s=susede2_ed25519 header.b=989Tw4SQ
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B6B6E1FDD4;
-	Wed, 14 Jun 2023 06:36:47 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 716721FDD4;
+	Wed, 14 Jun 2023 06:53:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1686724607;
+	t=1686725615;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RZ/cz5E+sw8n1GEbXp0lXgSgnDMvreyDQhOM6AC6G/Q=;
-	b=m472kBD6DDTGW84daC0JhwQTN2HiTEBGmnx4AtC6FKrn2aD4wvOMgjVeP4Xgg4C6gRRSOt
-	Ko+h54hxsj37s8mqYwlTML1P4SWpfSzpQMlLKluS+CppeMZ1Bx1HZ0Qj34rhIRk8w6oqqb
-	9VTYMdZkRx51Y1BDxitvoQsnVJWJRmE=
+	bh=67JzRgeOruCPy9ATSbVNh6iSQK3godufOCOPi52vfkE=;
+	b=DIg2gOnk99m7PDSIQhMwz2eGCcU/finZIHpWdh3IfmdP4LEZZllyb28GA7ulQOHaBpoNk3
+	7uZDcVzkwmnZiF3jtYmuS34ZrKdDVagFYTb3gF2zuwG95PHMEzX7PacQ1gpv2d+PfGDUYr
+	Sy+17PV6S6F2Xv9jCmO/3GxxOcmyJJM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686724607;
+	s=susede2_ed25519; t=1686725615;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RZ/cz5E+sw8n1GEbXp0lXgSgnDMvreyDQhOM6AC6G/Q=;
-	b=LSxahLaY5Gys/0gHtQgrq+Ka8o6XLm5smkx519IF1PKTrnhEce6SeGx4SBHWMWPSrJ2cKN
-	2YJKzuHVrBe8c3Ag==
+	bh=67JzRgeOruCPy9ATSbVNh6iSQK3godufOCOPi52vfkE=;
+	b=989Tw4SQVMTwQ5sIFCdsSRKJu8jQOjvKYGhNH+Lv+pNwUitGGzHFSKQpp+lNpFW0hBNbih
+	kQtO3S9ekOd9bqDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 944FB1357F;
-	Wed, 14 Jun 2023 06:36:47 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 56D471357F;
+	Wed, 14 Jun 2023 06:53:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id sGE/I/9fiWQIAwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 14 Jun 2023 06:36:47 +0000
-Date: Wed, 14 Jun 2023 08:36:47 +0200
-Message-ID: <87sfaublds.wl-tiwai@suse.de>
+	id ARgxFO9jiWTlCgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 14 Jun 2023 06:53:35 +0000
+Date: Wed, 14 Jun 2023 08:53:34 +0200
+Message-ID: <87h6rabklt.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 6/8] ALSA: emu10k1: add support for 2x/4x word clocks in
- E-MU D.A.S. mode
-In-Reply-To: <ZIij6mdc1utyBD93@ugly>
-References: <20230613073822.1343234-1-oswald.buddenhagen@gmx.de>
-	<20230613073822.1343234-7-oswald.buddenhagen@gmx.de>
-	<87v8fren1k.wl-tiwai@suse.de>
-	<ZIhKe99WGpLFN1ld@ugly>
-	<87edmfei0o.wl-tiwai@suse.de>
-	<ZIh2gp/I4ot326KP@ugly>
-	<871qife9ga.wl-tiwai@suse.de>
-	<ZIiJ9zzwgvQHyrW9@ugly>
-	<87fs6vcqpt.wl-tiwai@suse.de>
-	<ZIij6mdc1utyBD93@ugly>
+To: "Symbolic Debugger" <happy.debugging@gmail.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
+In-Reply-To: <87v8fqbmn2.wl-tiwai@suse.de>
+References: <168666978762.22.2520238479965266775@mailman-web.alsa-project.org>
+	<168672249902.20.14647833450036984617@mailman-web.alsa-project.org>
+	<87v8fqbmn2.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: JIKY3NYJNR4TD22RUD5PDQSKWAKT32BG
-X-Message-ID-Hash: JIKY3NYJNR4TD22RUD5PDQSKWAKT32BG
+Message-ID-Hash: 42KL43OI2DGMIVYR2YF2O7CQVZICNLNP
+X-Message-ID-Hash: 42KL43OI2DGMIVYR2YF2O7CQVZICNLNP
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JIKY3NYJNR4TD22RUD5PDQSKWAKT32BG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/42KL43OI2DGMIVYR2YF2O7CQVZICNLNP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,64 +118,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 13 Jun 2023 19:14:18 +0200,
-Oswald Buddenhagen wrote:
+On Wed, 14 Jun 2023 08:09:37 +0200,
+Takashi Iwai wrote:
 > 
-> On Tue, Jun 13, 2023 at 05:43:58PM +0200, Takashi Iwai wrote:
-> >> the notion of "malicious" is meaningless in this context. a valid
-> >> attack vector would allow the application to do something that i
-> >> cannot do otherwise. hogging a cpu thread while flooding the system
-> >> with meaningless ioctls is something an app can do regardless, so
-> >> whatever.
+> On Wed, 14 Jun 2023 08:01:39 +0200,
+> Symbolic Debugger wrote:
 > > 
-> > Adding/deleting kctl increases the numid.  It grows and grows.
-> > 
-> as the code handles numid wraparound just fine, that would be a rather
-> pointless attack.
+> > I could not find the changes and UMP source files on https://github.com/torvalds/linux/tree/master/sound,  is that correct ?
+> > I am trying to build a kernel with UMP support for testing UMP on a custom made development board.
 > 
-> > Crashing an existing application is the worst-case scenario.
-> > 
-> a new driver (which this effectively is) crashing a broken application
-> is perfectly legitimate, as it doesn't affect any existing users.
+> All MIDI 2.0 stuff will be merged to 6.5 kernel.
+> Currently it's found in linux-next or sound.git subsystem tree.
+> 
+> In sound.git tree, you can find some branches for the use on older
+> kernels, too (topic/midi20, topic/midi20-6.1.y, topic/midi20-5.15.y,
+> topic/midi20-5.10.y, topic/midi20-5.4.y).
 
-No, you can't ignore it.
-
-> >> that would indeed be a problem, but fortunately the put() callback is
-> >> nowadays invoked with a write lock (see also commit 06405d8ee).
-> > 
-> > Oh well, that's really not a change to be advertised for creating /
-> > deleting kctls from the put callback at all.
-> > 
-> and? it's done, and it's basically impossible to revert. so we may
-> reap its full benefits just as well, as i did in that previous commit.
-
-Well, I can revert your commit, too...
-Basically the content protection shouldn't be covered by this rwsem.
-It's rather a misuse.
-
-> > Sorry, but my answer is same: NO.  I see no reason why kctl deletion
-> > and creation _must_ be implemented _inevitably_ in that way.
-> > 
-> being the most straight-forward way to implement it certainly
-> qualifies as a good reason for doing it that way.
-> and i still see no convincing reason why it shouldn't.
-
-I still see no convincing reason why it must be done so, either.
-The way you're trying to implement is an anti-pattern, not seen in
-other drivers that have been developed over decades.
-
-> > Actually, snd_ctl_remove() should be changed back to a version that
-> > takes the lock by itself instead.  There is no reason to have a helper
-> > without the lock called from leaf drivers.
-> > 
-> well, except that this driver shows that there _is_ a reason. one may
-> choose to throw stones in one's own way, but that's rarely a wise
-> decision ...
-
-The fact that it has to take a rwsem from the caller side itself is a
-very bad design, and it should be corrected at best.  The rwsem there
-is rather an internal stuff and shouldn't be taken explicitly.  Most
-of its use outside control.c is an abuse.
+FWIW, sound.git tree is found at:
+  https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/
 
 
 Takashi

@@ -2,104 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 781E672FE34
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 14:17:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4914072FE46
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 14:18:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A6E7846;
-	Wed, 14 Jun 2023 14:16:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A6E7846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87A7B827;
+	Wed, 14 Jun 2023 14:17:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87A7B827
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686745044;
-	bh=Fmge8By/Nx8Yql8ThihnxxcBBzPP2Qfn8rf5N+JXjcI=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686745088;
+	bh=v27Rw9DPGIfi1ukWJXTso9FKGJiLdugUyTroISQrf0k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YUjDYKY1jGYGI6/7DiFxYnR6JVFgf0FdkDps1Uzu8vMIYDOEURk5QNoCLpHv8hw4L
-	 sRN5zIVtlCFGkxn4pFUogbhgabF9gfgNkZt278c4Ay7Ul7gAXGpWKjeLPs1O40ANBi
-	 NrmkJHX2MDAappfVrvueZD+FeLf8Jr+ZCAYw0X5M=
+	b=oBIK7oAQPofU01EwE5qWLt5KZirqW/TAhVFtYF3WNHBzoXl8fGLspT54rOFEN1gVf
+	 wxi826RRNXbg5lEL+F6XSl/9Ob0xL6da8QU+mVbotfVXqVvd69yx9CPSZnRRVD9uqd
+	 tTPHihvab7YN3FE1dUxull7Y75ptfKJdkz13GGYk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D8CFF80564; Wed, 14 Jun 2023 14:16:29 +0200 (CEST)
+	id 75504F8059F; Wed, 14 Jun 2023 14:16:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CDCAF80558;
-	Wed, 14 Jun 2023 14:16:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B53CCF80533;
+	Wed, 14 Jun 2023 14:16:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5D23F80155; Wed, 14 Jun 2023 11:16:27 +0200 (CEST)
+	id 352C2F80149; Wed, 14 Jun 2023 11:26:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=NICE_REPLY_A,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7B1E3F800BA
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 11:16:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B1E3F800BA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256
- header.s=ti-com-17Q1 header.b=XPHxjyw0
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
-	by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 35E9GDf0116018;
-	Wed, 14 Jun 2023 04:16:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1686734173;
-	bh=jZILcimbO8H9jFnvBhpps4l+5iwNtwlePffU+vZJXl0=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To;
-	b=XPHxjyw0Q7oAQVl0HaGg0DsbErpLF/2yHp2cFQrxaDra2hCcgbwXRtd6I8bVRZWc2
-	 LTIAOuzc2I4Di4+3FYEf2jzUywDZ3MnEfww+FFx89L3FH0O3gUoyronjc+Sq7hrdYd
-	 6ft9mxHheH7h29GzgP17/DOaCRCin+ka57WhE/kE=
-Received: from DLEE106.ent.ti.com (dlee106.ent.ti.com [157.170.170.36])
-	by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 35E9GDaN031427
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 14 Jun 2023 04:16:13 -0500
-Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 14
- Jun 2023 04:16:13 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Wed, 14 Jun 2023 04:16:13 -0500
-Received: from localhost (ileaxei01-snat2.itg.ti.com [10.180.69.6])
-	by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 35E9GCeN044274;
-	Wed, 14 Jun 2023 04:16:12 -0500
-Date: Wed, 14 Jun 2023 14:46:14 +0530
-From: Jai Luthra <j-luthra@ti.com>
-To: Rob Herring <robh@kernel.org>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>, <alsa-devel@alsa-project.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: ti,tlv320aic3x: Add missing type for
- "gpio-reset"
-Message-ID: <zzblrbz4mqddye6pphgtjdeh5nrxtefgiom7j2xksrasozlma4@ohvdju6vpas6>
-References: <20230613201006.2822985-1-robh@kernel.org>
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by alsa1.perex.cz (Postfix) with ESMTP id F03DFF800BA
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 11:26:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F03DFF800BA
+Received: from loongson.cn (unknown [10.180.13.22])
+	by gateway (Coremail) with SMTP id _____8AxX+u0h4lkvxEFAA--.10772S3;
+	Wed, 14 Jun 2023 17:26:12 +0800 (CST)
+Received: from [10.180.13.22] (unknown [10.180.13.22])
+	by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8AxJeSzh4lkDnEaAA--.10205S3;
+	Wed, 14 Jun 2023 17:26:11 +0800 (CST)
+Message-ID: <75be5e57-28a7-bf3f-8b2e-a0183e54e25c@loongson.cn>
+Date: Wed, 14 Jun 2023 17:25:47 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="w3legnfqvlxrn5cn"
-Content-Disposition: inline
-In-Reply-To: <20230613201006.2822985-1-robh@kernel.org>
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-MailFrom: j-luthra@ti.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [ PATCH v2 3/3] ASoC: dt-bindings: Add support for Loongson audio
+ card
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org, conor+dt@kernel.org
+Cc: broonie@kernel.org, lgirdwood@gmail.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ loongarch@lists.linux.dev, loongson-kernel@lists.loongnix.cn
+References: <20230612090058.3039546-1-mengyingkun@loongson.cn>
+ <4f1c934c-5a68-a2cd-10d1-568d61865755@linaro.org>
+From: Yingkun Meng <mengyingkun@loongson.cn>
+In-Reply-To: <4f1c934c-5a68-a2cd-10d1-568d61865755@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: AQAAf8AxJeSzh4lkDnEaAA--.10205S3
+X-CM-SenderInfo: 5phqw55lqjy33q6o00pqjv00gofq/1tbiAQACDGSIXIIX-wABsU
+X-Coremail-Antispam: 1Uk129KBj93XoW7Kr4xAryDCrW3WrW3AF48Zrc_yoW8CrWrpF
+	s7CasrKFWxt3W7u39I9FyfJr45Z39ayanxJF42qw1UGF98K3Wru3yayF1UZanIyr1rGFW7
+	ZFyF9w48GFn0yacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc
+	02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAF
+	wI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4
+	CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JV
+	WxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcDDG
+	UUUUU
+X-MailFrom: mengyingkun@loongson.cn
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XMIDFA63QGJKVWX7HECPJV7ZT3AOSH66
-X-Message-ID-Hash: XMIDFA63QGJKVWX7HECPJV7ZT3AOSH66
-X-Mailman-Approved-At: Wed, 14 Jun 2023 12:16:24 +0000
+Message-ID-Hash: FI623WN35IK63Z2NOSIRPHCQOO2QEGJV
+X-Message-ID-Hash: FI623WN35IK63Z2NOSIRPHCQOO2QEGJV
+X-Mailman-Approved-At: Wed, 14 Jun 2023 12:16:25 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XMIDFA63QGJKVWX7HECPJV7ZT3AOSH66/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FI623WN35IK63Z2NOSIRPHCQOO2QEGJV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,68 +103,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
---w3legnfqvlxrn5cn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi Rob,
+On 2023/6/13 16:36, Krzysztof Kozlowski wrote:
+> On 12/06/2023 11:00, YingKun Meng wrote:
+>> From: Yingkun Meng <mengyingkun@loongson.cn>
+>>
+>> The audio card uses loongson I2S controller present in
+>> 7axxx/2kxxx chips to transfer audio data.
+>>
+>> On loongson platform, the chip has only one I2S controller.
+>>
+>> Signed-off-by: Yingkun Meng <mengyingkun@loongson.cn>
+>> ---
+>>   .../sound/loongson,ls-audio-card.yaml         | 70 +++++++++++++++++++
+>>   1 file changed, 70 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+>> new file mode 100644
+>> index 000000000000..61e8babed402
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+>> @@ -0,0 +1,70 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/loongson,ls-audio-card.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Loongson 7axxx/2kxxx ASoC audio sound card driver
+>> +
+>> +maintainers:
+>> +  - Yingkun Meng <mengyingkun@loongson.cn>
+>> +
+>> +description:
+>> +  The binding describes the sound card present in loongson
+>> +  7axxx/2kxxx platform. The sound card is an ASoC component
+>> +  which uses Loongson I2S controller to transfer the audio data.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: loongson,ls-audio-card
+> Generic compatible does not allow you to add any quirks or differences
+> if one board is a bit different.
+>
 
-On Jun 13, 2023 at 14:10:05 -0600, Rob Herring wrote:
-> "gpio-reset" may be deprecated, but it still needs a type.
+Yeah, i know. It's okay to use a generic compatible.
 
-Oops, I missed that in the original patch. Thanks for the fix.
+>
+> Best regards,
+> Krzysztof
 
->=20
-> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Acked-by: Jai Luthra <j-luthra@ti.com>
-
-> ---
->  Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml =
-b/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
-> index e8ca9f3369f8..206f6d61e362 100644
-> --- a/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
-> +++ b/Documentation/devicetree/bindings/sound/ti,tlv320aic3x.yaml
-> @@ -61,6 +61,7 @@ properties:
->        GPIO specification for the active low RESET input.
-> =20
->    gpio-reset:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
->      maxItems: 1
->      description:
->        Deprecated, please use reset-gpios instead.
-> --=20
-> 2.39.2
->=20
-
---=20
 Thanks,
-Jai
 
-GPG Fingerprint: 4DE0 D818 E5D5 75E8 D45A AFC5 43DE 91F9 249A 7145
+Yingkun
 
---w3legnfqvlxrn5cn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEETeDYGOXVdejUWq/FQ96R+SSacUUFAmSJhV0ACgkQQ96R+SSa
-cUUQ8xAApoeSPSomSMZ+WWp0ASO4pt7Svz982hz5vN+LvVw11igutkPuQFvZvwW3
-2PpYD1HxN9hLLRw45vT7Vci7Z1NC3DflLGiF+AG8VgiYOpp1d+8Kxad7Mp9qMIbx
-ffjoxoC0BHHR492ZjKsO9BOwbTVwiqZj4KQNbCZFkNweEwK0qPBG0p0PvCrET69H
-iJbL4/8d1F9zVyBQs00af22aiVXVRb1KZHiefPyibbrAyrxII7tFZHMUjfNI5Nud
-yusX1T1AhCPYzIvWmSbDWRUBQ2hh+qUWVz2CvXoCi8YLAxXGHmN/WH4zNh24TcFO
-zzJP77JFFAXD0HhyUwEHDsnP92kBEoWD2jZeBIUKpHvL4KPZ0tYImC99Ud6yh+gZ
-CeMZDCmMNessck7+MhCXn/JpA9Lh5y4Y7jASCRNtz/NhxWPOIPG9tPsVoCDAsevT
-5mUCmFppsu3U71srU/as1XQjAJmFvnO6abC4a713bMMqFYKTQK3CAsU15iByu/7X
-UztO40yTu37pX1/1liPXc0ghOSlbdSY5QQhrJdHIRHQxz56IXQw+kOfXHsGScBU9
-3O95//qF4cBXrTIk9cl3aEInxe2pl7SLtCe34VuE8Ibf6mYkGZ/j3Tdrj4OtDIwP
-2S2ETGoa+QPqi3D//0Ws6a2GdPISb4M7w+mAnHVV+/ylxs1MKxw=
-=rfjt
------END PGP SIGNATURE-----
-
---w3legnfqvlxrn5cn--

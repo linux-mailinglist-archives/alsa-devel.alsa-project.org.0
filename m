@@ -2,106 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CC3872F988
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 11:43:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42C1672FACF
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 12:27:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5052874C;
-	Wed, 14 Jun 2023 11:42:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5052874C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E8596C1;
+	Wed, 14 Jun 2023 12:26:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E8596C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686735801;
-	bh=4wYxJDnczpqWweCwm7N5UwSTIEqKoNFxrJGzUXmMgZ8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=VoSfP5hzxB8EQXOn5WXWnV3LYE4c4+wImGXmegI3alM01Lj7kwHjIhZe6l9LUmmsj
-	 zhyt1pQBiNqQ39Q4zfZjlRHEQlbi1lxTAKHLEWVmOEpWWgo/1poX7J5Tv/qg9pH++p
-	 LENxeaeDW5ol/ojL+n8c+j1x7q3wPsG4TJqXIIMU=
+	s=default; t=1686738458;
+	bh=rHhi//0DexlG3Dm2fQiKBaAn5pi9D6uWskgBFUDstuw=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=BUlwgmQYyQf4hnlLhElK4FQKelQmeGobalSVbBHrJOroJlt0GihBddybTEXh3EuAm
+	 iUmT+dcbmLwB5HF3ROmYENNGUckssD48tyGynvTiONtkVQWpmBYOhgaFvbloFkZ9t7
+	 rjzIMc0OY1kJuntISHr4pIDLpIygwNogkVaaaets=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 91BA0F8025E; Wed, 14 Jun 2023 11:42:30 +0200 (CEST)
+	id 225B8F80093; Wed, 14 Jun 2023 12:26:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA6C8F80132;
-	Wed, 14 Jun 2023 11:42:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C559EF80132;
+	Wed, 14 Jun 2023 12:26:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AB086F80149; Wed, 14 Jun 2023 11:42:25 +0200 (CEST)
+	id 219FDF80149; Wed, 14 Jun 2023 12:26:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5B62CF80093
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 11:42:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B62CF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id C4C4FF80130
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 12:26:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4C4FF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=d+AXI1g8
-X-GND-Sasl: herve.codina@bootlin.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1686735738;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+REmpcLHUL4BTOxA1dlLHsmBL+e+FBYJaTaqB02G6NY=;
-	b=d+AXI1g8Y06cHn5FQ9HHfYpUkbPNIKBON81J0yuXI5c9++a6TK2xsCzbdQ8XJXKjFG0Ks2
-	IlS6uGDcORffGChF4976ahuklePO8PU76h62Q9MZtlVuydhY/lUSXXJIrMvanEK0VvcCIS
-	K7bdwjIGwjy/ZcYCKTMQSyJLmycpDiEgwWvrzcoPoEtqVH0QyxVrTlSD0rpZ2JL8KtuiqD
-	wqEZQiJlji6q9zYJBnNnorhUyaGiJcnkwZA375KbgVR26OSg2D0hrHNBQUHCzhd55ZePmM
-	OTYg0eqK2ss1oCOt/DkCC2gsZZALpLj+rNIViYo2eFFQrNDSZtshDR9MMEM/EA==
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 6813C60004;
-	Wed, 14 Jun 2023 09:42:15 +0000 (UTC)
-Date: Wed, 14 Jun 2023 11:42:14 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v4 07/13] minmax: Introduce {min,max}_array()
-Message-ID: <20230614114214.1371485e@bootlin.com>
-In-Reply-To: 
- <CAHp75Vcur=H_2mBm5Ztuvd7Jnvmr6+tvCbEkFtmaVLsEjXr8NQ@mail.gmail.com>
-References: <20230614074904.29085-1-herve.codina@bootlin.com>
-	<20230614074904.29085-8-herve.codina@bootlin.com>
-	<CAHp75Vcur=H_2mBm5Ztuvd7Jnvmr6+tvCbEkFtmaVLsEjXr8NQ@mail.gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=rM+vkk+T
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 88DBF63DBA;
+	Wed, 14 Jun 2023 10:26:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41C02C433C8;
+	Wed, 14 Jun 2023 10:26:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686738374;
+	bh=rHhi//0DexlG3Dm2fQiKBaAn5pi9D6uWskgBFUDstuw=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=rM+vkk+TMffotpfcTthxxQ1AOJC1i8LWvIP1X6jT5ed3HHqh+84p3rWQcOjGARKgd
+	 CzsZqxFf4NZ05GPzfvlemRE3p9/XGLWpm80pD7aMpMnIOgIQAqgAbFDFf0IgKtSrv8
+	 F9mEGMEVC6aAeUGxklqueGyVsBXHvf8G/jUleHAxHvNUHLCieJ3CL3DelfzfweqGlY
+	 a0nfZsuVJZ8qWHnOjcf8iPQSU1z5dScOobfbj28Se8XTaF62ydb38C1ulKeIEmPLnF
+	 Tv1i1Z34CutsWL4SLQhPYezKEx9CW0MYg3b8VQtRphMVE8/TvZoyyRVO4+nsFcgmyy
+	 FkUQ4Z+/7aasA==
+Message-ID: <645989de-7a61-29e7-9cf8-f473b9b384fe@kernel.org>
+Date: Wed, 14 Jun 2023 12:26:05 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 7/7] ASoC: dt-bindings: mediatek,mt79xx-afe: add audio afe
+ document
+Content-Language: en-US
+To: =?UTF-8?B?TWFzbyBIdWFuZyAo6buD5Yqg56u5KQ==?= <Maso.Huang@mediatek.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ =?UTF-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsyk=?=
+ <Allen-KH.Cheng@mediatek.com>, "renzhijie2@huawei.com"
+ <renzhijie2@huawei.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "arnd@arndb.de" <arnd@arndb.de>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "angelogioacchino.delregno@collabora.com"
+ <angelogioacchino.delregno@collabora.com>, "perex@perex.cz"
+ <perex@perex.cz>, =?UTF-8?B?SmlheGluIFl1ICjkv57lrrbpkasp?=
+ <Jiaxin.Yu@mediatek.com>
+References: <20230612105250.15441-1-maso.huang@mediatek.com>
+ <20230612105250.15441-8-maso.huang@mediatek.com>
+ <d9cd1ff3-b537-1481-9453-5b3683d30fed@kernel.org>
+ <14913cbb87981eed6f8b72f9e659ed3e25958320.camel@mediatek.com>
+ <d6289232-6276-a2d3-c059-1edcef6a1b6f@kernel.org>
+ <a338bf978dfa0af84a6728ab66dc51e45a20c7c4.camel@mediatek.com>
+ <4305b7f0-bbc8-f913-d9b1-d7b492df7ef4@kernel.org>
+ <0977c72a4f63132104736b9de8aa8246abb34894.camel@mediatek.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <0977c72a4f63132104736b9de8aa8246abb34894.camel@mediatek.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: A7SXWDR6EJV3NYJ5O55ANHQWVCRJT3DF
-X-Message-ID-Hash: A7SXWDR6EJV3NYJ5O55ANHQWVCRJT3DF
-X-MailFrom: herve.codina@bootlin.com
+Message-ID-Hash: CK6QPGB72434PC42U55UQOIPSPPO4KZK
+X-Message-ID-Hash: CK6QPGB72434PC42U55UQOIPSPPO4KZK
+X-MailFrom: krzk@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A7SXWDR6EJV3NYJ5O55ANHQWVCRJT3DF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CK6QPGB72434PC42U55UQOIPSPPO4KZK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,92 +120,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Andy,
-
-On Wed, 14 Jun 2023 12:02:57 +0300
-Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
-
-> On Wed, Jun 14, 2023 at 10:49 AM Herve Codina <herve.codina@bootlin.com> wrote:
-> >
-> > Introduce min_array() (resp max_array()) in order to get the
-> > minimal (resp maximum) of values present in an array.  
+On 14/06/2023 11:19, Maso Huang (黃加竹) wrote:
+> On Wed, 2023-06-14 at 10:21 +0200, Krzysztof Kozlowski wrote:
+>>  	 
+>> External email : Please do not click links or open attachments until
+>> you have verified the sender or the content.
+>>  On 14/06/2023 09:37, Maso Huang (黃加竹) wrote:
+>>>>>> I already saw AFE, why it cannot be part of existing bindings?
+>>>>
+>>>> Can you answer this?
+>>>>
+>>>
+>>> Did you mean mtk-afe-pcm.txt?
+>>> If yes, I'll modify mtk-afe-pcm.txt to yaml format, and add mt7986
+>> to
+>>> its compatible list.
+>>>
+>>
+>> No, I meant mediatek,mt8188-afe.yaml.
+>>
+>> Aren't you working on some old tree? If so, please don't...
+>>
+>> Best regards,
+>> Krzysztof
+>>
 > 
-> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
-> See a remark below.
+> Hi Krzysztof,
+> AFE is common name for our audio hardware, and the design might be
+> different for soc, like clock.
 > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  include/linux/minmax.h | 36 ++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 36 insertions(+)
-> >
-> > diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-> > index 396df1121bff..2cd0d34ce921 100644
-> > --- a/include/linux/minmax.h
-> > +++ b/include/linux/minmax.h
-> > @@ -133,6 +133,42 @@
-> >   */
-> >  #define max_t(type, x, y)      __careful_cmp((type)(x), (type)(y), >)
-> >
-> > +/*
-> > + * Do not check the array parameter using __must_be_array().
-> > + * In the following legit use-case where the "array" passed is a simple pointer,
-> > + * __must_be_array() will return a failure.
-> > + * --- 8< ---
-> > + * int *buff
-> > + * ...
-> > + * min = min_array(buff, nb_items);
-> > + * --- 8< ---
-> > + */
-> > +#define __minmax_array(op, array, len) ({                      \
-> > +       typeof(array) __array = (array);                        \
-> > +       typeof(len) __len = (len);                              \
-> > +       typeof(__array[0] + 0) __element = __array[--__len];    \  
-> 
-> Do we need the ' + 0' part?
+> And the design is the same for mt7981/mt7986/mt7988.
+> Is it better to create a new dtbinding file mediatk,mt7986-afe.yaml?
 
-Yes.
+Is it different? That was my question whether it can be part of existing
+bindings.
 
-__array can be an array of const items and it is legitimate to get the
-minimum value from const items.
+Best regards,
+Krzysztof
 
-typeof(__array[0]) keeps the const qualifier but we need to assign __element
-in the loop.
-One way to drop the const qualifier is to get the type from a rvalue computed
-from __array[0]. This rvalue has to have the exact same type with only the const
-dropped.
-'__array[0] + 0' was a perfect canditate.
-
-Regards,
-Hervé
-
-> 
-> > +       while (__len--)                                         \
-> > +               __element = op(__element, __array[__len]);      \
-> > +       __element; })
-> > +
-> > +/**
-> > + * min_array - return minimum of values present in an array
-> > + * @array: array
-> > + * @len: array length
-> > + *
-> > + * Note that @len must not be zero (empty array).
-> > + */
-> > +#define min_array(array, len) __minmax_array(min, array, len)
-> > +
-> > +/**
-> > + * max_array - return maximum of values present in an array
-> > + * @array: array
-> > + * @len: array length
-> > + *
-> > + * Note that @len must not be zero (empty array).
-> > + */
-> > +#define max_array(array, len) __minmax_array(max, array, len)
-> > +
-> >  /**
-> >   * clamp_t - return a value clamped to a given range using a given type
-> >   * @type: the type of variable to use
-> > --
-> > 2.40.1
-> >  
-> 
-> 

@@ -2,104 +2,145 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42C1672FACF
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 12:27:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EDB672FB3A
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 12:38:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E8596C1;
-	Wed, 14 Jun 2023 12:26:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E8596C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CEB5826;
+	Wed, 14 Jun 2023 12:37:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CEB5826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686738458;
-	bh=rHhi//0DexlG3Dm2fQiKBaAn5pi9D6uWskgBFUDstuw=;
-	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=BUlwgmQYyQf4hnlLhElK4FQKelQmeGobalSVbBHrJOroJlt0GihBddybTEXh3EuAm
-	 iUmT+dcbmLwB5HF3ROmYENNGUckssD48tyGynvTiONtkVQWpmBYOhgaFvbloFkZ9t7
-	 rjzIMc0OY1kJuntISHr4pIDLpIygwNogkVaaaets=
+	s=default; t=1686739116;
+	bh=fwhOOpFTA8pAjeS1RwDLPqv/srrSLsrzW6stJ7/LX9s=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nyUFWoMOERyRImj9U3JsiD2gGR0VfOEk5acjVHL0+fho0wyW9ev5XWFFH0F+nkAH6
+	 PDA0bZagaiky40rRVnG9ftBGLopgddt2zvyFyTdaaNeSBJqYUsdSCc4EQ4wKn6rfXt
+	 7QC6B0BkmBJa1+ycTjvA6EkfqtwDCY4MYwqhEF4Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 225B8F80093; Wed, 14 Jun 2023 12:26:24 +0200 (CEST)
+	id B1062F8025E; Wed, 14 Jun 2023 12:37:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C559EF80132;
-	Wed, 14 Jun 2023 12:26:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AD95F80132;
+	Wed, 14 Jun 2023 12:37:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 219FDF80149; Wed, 14 Jun 2023 12:26:20 +0200 (CEST)
+	id E7889F80149; Wed, 14 Jun 2023 12:37:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20612.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::612])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4C4FF80130
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 12:26:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4C4FF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 18668F80093;
+	Wed, 14 Jun 2023 12:37:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18668F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rM+vkk+T
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 88DBF63DBA;
-	Wed, 14 Jun 2023 10:26:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41C02C433C8;
-	Wed, 14 Jun 2023 10:26:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686738374;
-	bh=rHhi//0DexlG3Dm2fQiKBaAn5pi9D6uWskgBFUDstuw=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=rM+vkk+TMffotpfcTthxxQ1AOJC1i8LWvIP1X6jT5ed3HHqh+84p3rWQcOjGARKgd
-	 CzsZqxFf4NZ05GPzfvlemRE3p9/XGLWpm80pD7aMpMnIOgIQAqgAbFDFf0IgKtSrv8
-	 F9mEGMEVC6aAeUGxklqueGyVsBXHvf8G/jUleHAxHvNUHLCieJ3CL3DelfzfweqGlY
-	 a0nfZsuVJZ8qWHnOjcf8iPQSU1z5dScOobfbj28Se8XTaF62ydb38C1ulKeIEmPLnF
-	 Tv1i1Z34CutsWL4SLQhPYezKEx9CW0MYg3b8VQtRphMVE8/TvZoyyRVO4+nsFcgmyy
-	 FkUQ4Z+/7aasA==
-Message-ID: <645989de-7a61-29e7-9cf8-f473b9b384fe@kernel.org>
-Date: Wed, 14 Jun 2023 12:26:05 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=jSVxDIGt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jLpFdeyX0wVQGWobteFLw8uRReUKgf7dmudj7THNYGy6o3/KKeff3WmeDaV388zANY4jQLcbovP9R29HQhGfVhaJ3fBxxfg/JKrAvmxRX8pPJCG0CTYyW/xFdcb6rszsK1YrbXy3P+gQxnBE8SmFPyx2SeTOi2Lg3HsCWnxtJ77d3bbCrd8tLz7EDpilhcNJPz7erd3u5Lj4O7JwLYueMgLkiT/lSFQgqsd5+u2+nBziUpReX38U++Jx/ldxaEpo5kougLW4bp4iaY9G/SxBlUvyx5PwXt5OTw3/Qw80EL3ya0iOQmnNyXutLiqZY/NiZG1QMukJAnxeTpd0dSPsNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZiMHjPGW2Wje+Cj3oFfNZUgOCuSGvkV/UBqBNcUk8JM=;
+ b=DpIPU1C063n3YxvKHCikamx4XROi08TxrpqiYEfE1Q3Wsi1Bhd0eElMwMscUnqwjz2tBlXJFlndjNPRUMING8faRO6HCC6zfcE1wfT4BejqfdPOxZHmjqsnrmp9NxQ/U7EvWau9+QvSo5ybZbi67mSykTCAWLVAfcCW7QI/HdG2lJ2k3Ze0EcP/LprgqO9LuAk70+OKD2BRPF+EaRiC8gv3wwA3vRxK55MSWEAvJNNwObhV8aROymoL3KxDEVAq8mIVhVwlFlGgMt1bMe2ao3Jho5xJnJbk85DcwfLBGFoKwl3Q74/g/QRt7jKRd6pvxhSFQeA7NgM9SQr+3IWP2pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZiMHjPGW2Wje+Cj3oFfNZUgOCuSGvkV/UBqBNcUk8JM=;
+ b=jSVxDIGtMwLAoo8gDSGjLWiFWCnmoxzOUIK6IbjL5TFK406gK909nGKyujsL29T8W/0+y3+NIH9NbnmVB25wTFI4wvH/lF7nLDUUcD0kmLZKHk9M6quDQ3dkuyZFXEzrIqlb+DlNAgsqg8DMKfTcrUBmhUCDx662Op/D8EGb4KA=
+Received: from BYAPR07CA0102.namprd07.prod.outlook.com (2603:10b6:a03:12b::43)
+ by PH8PR12MB6721.namprd12.prod.outlook.com (2603:10b6:510:1cc::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.42; Wed, 14 Jun
+ 2023 10:37:20 +0000
+Received: from DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:12b:cafe::f0) by BYAPR07CA0102.outlook.office365.com
+ (2603:10b6:a03:12b::43) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.37 via Frontend
+ Transport; Wed, 14 Jun 2023 10:37:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT099.mail.protection.outlook.com (10.13.172.241) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.25 via Frontend Transport; Wed, 14 Jun 2023 10:37:20 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 14 Jun
+ 2023 05:37:19 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 14 Jun
+ 2023 05:37:19 -0500
+Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23
+ via Frontend Transport; Wed, 14 Jun 2023 05:37:08 -0500
+From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
+CC: <vsujithkumar.reddy@amd.com>, <Vijendar.Mukunda@amd.com>,
+	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
+	<syed.sabakareem@amd.com>, <mastan.katragadda@amd.com>,
+	<arungopal.kondaveeti@amd.com>, Venkata Prasad Potturu
+	<venkataprasad.potturu@amd.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, V sujith kumar Reddy
+	<Vsujithkumar.Reddy@amd.com>, Iuliana Prodan <iuliana.prodan@nxp.com>, "Ajit
+ Kumar Pandey" <AjitKumar.Pandey@amd.com>, "moderated list:SOUND - SOUND OPEN
+ FIRMWARE (SOF) DRIVERS" <sound-open-firmware@alsa-project.org>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] ASoC: SOF: amd: Add support for IPC with a reply_size set to
+ zero
+Date: Wed, 14 Jun 2023 16:07:05 +0530
+Message-ID: <20230614103707.2246296-1-venkataprasad.potturu@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 7/7] ASoC: dt-bindings: mediatek,mt79xx-afe: add audio afe
- document
-Content-Language: en-US
-To: =?UTF-8?B?TWFzbyBIdWFuZyAo6buD5Yqg56u5KQ==?= <Maso.Huang@mediatek.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?= <Trevor.Wu@mediatek.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- =?UTF-8?B?QWxsZW4tS0ggQ2hlbmcgKOeoi+WGoOWLsyk=?=
- <Allen-KH.Cheng@mediatek.com>, "renzhijie2@huawei.com"
- <renzhijie2@huawei.com>, "tiwai@suse.com" <tiwai@suse.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "arnd@arndb.de" <arnd@arndb.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "angelogioacchino.delregno@collabora.com"
- <angelogioacchino.delregno@collabora.com>, "perex@perex.cz"
- <perex@perex.cz>, =?UTF-8?B?SmlheGluIFl1ICjkv57lrrbpkasp?=
- <Jiaxin.Yu@mediatek.com>
-References: <20230612105250.15441-1-maso.huang@mediatek.com>
- <20230612105250.15441-8-maso.huang@mediatek.com>
- <d9cd1ff3-b537-1481-9453-5b3683d30fed@kernel.org>
- <14913cbb87981eed6f8b72f9e659ed3e25958320.camel@mediatek.com>
- <d6289232-6276-a2d3-c059-1edcef6a1b6f@kernel.org>
- <a338bf978dfa0af84a6728ab66dc51e45a20c7c4.camel@mediatek.com>
- <4305b7f0-bbc8-f913-d9b1-d7b492df7ef4@kernel.org>
- <0977c72a4f63132104736b9de8aa8246abb34894.camel@mediatek.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <0977c72a4f63132104736b9de8aa8246abb34894.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: CK6QPGB72434PC42U55UQOIPSPPO4KZK
-X-Message-ID-Hash: CK6QPGB72434PC42U55UQOIPSPPO4KZK
-X-MailFrom: krzk@kernel.org
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT099:EE_|PH8PR12MB6721:EE_
+X-MS-Office365-Filtering-Correlation-Id: f435a0dc-52de-4bbd-3049-08db6cc35507
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	hkIbKINLp9VvJ3oJS6BJHPvzQ84CCUo185OT2Bi7Sdc1ccdjyYYpgyQGGj7uKaDK5yxE0yUWP+/IwjbStA5QKO0vFKdxiANCzXbeuprESK2x1eILuSogUGUMQLGtiwWd4iM8h1qLAGQyNJSMaRjSLaOGg3cnB6FLtJ/8JkQrCgMcdBsL6r3O6z9gqe69ciY5D6Pv0hFUFYCMipXXBHhjAp9CvZP5T3Dlqw/vBtH57yPIeWYflpxT09zsUixQpsHRNniyuL50hc1j2r793b41VJ6cUKEvz13ft0BZHfHQ5APd9G0K+uH6BziA5ozluLevleVgtlYy5G0KtA/CI+brama4steWe9F+SJnY5dKTmi7nxHPoennE2qa+PUEhYlMxdKcXCemouGePDeFOwxgl4X17fZZqtKycZeSV8Crbkv1FKGne5g5iwvmbMmpp4mqIAbA4+Ml5WfwdF9ViB0sqWS7rZwwZRhQYk4nt+aHb+AuUK+upA2j+IYt+mvrKOBOpUA6qb13vHIDVcu75B+0M6Tb6TFwTLzaeFOvQSVJytKTYYdL24S3GYoRwSepIWc/yEKt/y99u44H3Ya0lT0AAdpr2KaEH5WITBDZY14vvuowOiuEKrpAaFnSwYcAekIIdvSCMT2btQ4zJLLHBrJwru0fYEZZC+Zwl/X9PLG0Zb5e1SSb40J6v0cfeWpu4sVXAa6NpiYpCHOjVz1QAP4JVjxdIzqOQLdE8IcaJ1Lrhnkr+LhJh0G7fHrWwpnjxssHRNe9Ntnzypj2LafxPMZTw/A==
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(110136005)(36756003)(41300700001)(6666004)(316002)(7696005)(5660300002)(8936002)(70586007)(478600001)(54906003)(8676002)(70206006)(4326008)(82310400005)(7416002)(86362001)(47076005)(186003)(40460700003)(26005)(1076003)(82740400003)(356005)(4744005)(2906002)(2616005)(36860700001)(81166007)(336012)(426003)(83380400001)(40480700001)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 10:37:20.3076
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f435a0dc-52de-4bbd-3049-08db6cc35507
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6721
+Message-ID-Hash: AG6CEGQJVWGZOAJV3EHPPC4GJ7ORCJNM
+X-Message-ID-Hash: AG6CEGQJVWGZOAJV3EHPPC4GJ7ORCJNM
+X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +152,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CK6QPGB72434PC42U55UQOIPSPPO4KZK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AG6CEGQJVWGZOAJV3EHPPC4GJ7ORCJNM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,41 +161,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 14/06/2023 11:19, Maso Huang (黃加竹) wrote:
-> On Wed, 2023-06-14 at 10:21 +0200, Krzysztof Kozlowski wrote:
->>  	 
->> External email : Please do not click links or open attachments until
->> you have verified the sender or the content.
->>  On 14/06/2023 09:37, Maso Huang (黃加竹) wrote:
->>>>>> I already saw AFE, why it cannot be part of existing bindings?
->>>>
->>>> Can you answer this?
->>>>
->>>
->>> Did you mean mtk-afe-pcm.txt?
->>> If yes, I'll modify mtk-afe-pcm.txt to yaml format, and add mt7986
->> to
->>> its compatible list.
->>>
->>
->> No, I meant mediatek,mt8188-afe.yaml.
->>
->> Aren't you working on some old tree? If so, please don't...
->>
->> Best regards,
->> Krzysztof
->>
-> 
-> Hi Krzysztof,
-> AFE is common name for our audio hardware, and the design might be
-> different for soc, like clock.
-> 
-> And the design is the same for mt7981/mt7986/mt7988.
-> Is it better to create a new dtbinding file mediatk,mt7986-afe.yaml?
+Add support for IPC tx_message with a reply_size set to zero,
+return zero when message reply_size is zero at acp_dsp_ipc_get_reply().
 
-Is it different? That was my question whether it can be part of existing
-bindings.
+Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+---
+ sound/soc/sof/amd/acp-ipc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/sound/soc/sof/amd/acp-ipc.c b/sound/soc/sof/amd/acp-ipc.c
+index 749e856dc601..8a0fc635a997 100644
+--- a/sound/soc/sof/amd/acp-ipc.c
++++ b/sound/soc/sof/amd/acp-ipc.c
+@@ -130,6 +130,13 @@ static void acp_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
+ 		memcpy(msg->reply_data, &reply, sizeof(reply));
+ 		ret = reply.error;
+ 	} else {
++		/*
++		 * To support an IPC tx_message with a
++		 * reply_size set to zero.
++		 */
++		if (!msg->reply_size)
++			goto out;
++
+ 		/* reply correct size ? */
+ 		if (reply.hdr.size != msg->reply_size &&
+ 		    !(reply.hdr.cmd & SOF_IPC_GLB_PROBE)) {
+-- 
+2.25.1
 

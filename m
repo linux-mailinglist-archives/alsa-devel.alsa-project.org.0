@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCC8472F6F1
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 09:52:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2B6972F6F4
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 09:53:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 262F29F6;
-	Wed, 14 Jun 2023 09:51:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 262F29F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89B141EB;
+	Wed, 14 Jun 2023 09:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89B141EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686729161;
-	bh=RhwIhWIL1+mPUYGt0MnYyOfnHjlmY7BgDXwVMxncoUE=;
+	s=default; t=1686729182;
+	bh=qbmVPAzFI1XOwkwskj5o2eNXuVt/Ikrzs/nBEeqOaDs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Byeeudf5G3kq4ZBeVfdD7cxOGS1w/bomR2+4Jz5Hp7O+uEFVnb2yjVm0oAGl+trFx
-	 lIS+LdLxnbdxhXW7DyNcnMxNOTvmnskQ/wpYEg1v5vYjORSBQPLv5k1mfOo23ZEbO7
-	 rMIzyP7tfrbRa7pR+SHc2WrozE9Yh4ToQR1CeCbE=
+	b=HpTnfBIzMThJVREAJdIvoqkqC+fsXoXBVkJ6TcI0Vv2iOikDtm0MJ82VK2Smt74CI
+	 Sir8TQtCmL4Pb8Zfhi9v5vXl5awydUtnoJiCcGyhHpitpEOMpIyX8pPBaogWKgTlVW
+	 mEcp1DruiNO1hEgZFP6Gouy5k1IUENRMEwHX6Gi8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BBE22F805D7; Wed, 14 Jun 2023 09:49:58 +0200 (CEST)
+	id B921BF805E8; Wed, 14 Jun 2023 09:50:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D192AF805C3;
-	Wed, 14 Jun 2023 09:49:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DEAAF805CA;
+	Wed, 14 Jun 2023 09:50:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 458FCF8056F; Wed, 14 Jun 2023 09:49:43 +0200 (CEST)
+	id D7D9EF8056F; Wed, 14 Jun 2023 09:49:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -37,26 +37,26 @@ Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
  [217.70.183.197])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 641D7F80552
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 09:49:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 641D7F80552
+	by alsa1.perex.cz (Postfix) with ESMTPS id 00B2EF8052E
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 09:49:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00B2EF8052E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=fxRUSgV6
+ header.s=gm1 header.b=UvT5GVn8
 X-GND-Sasl: herve.codina@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1686728980;
+	t=1686728981;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bEU/M9TWTD2ATcBXVcwi+5zOlMT/Ey14qtpqXFcMwg0=;
-	b=fxRUSgV6MvV8yHiwR23oux91UeSscsys6K2HxWMc8Fcu/XQjNj05GEKuAHOSg/E/Cl/vfP
-	5OaVbKbe+3eEVj2N6wWSo0nBbpHV2qvXjjcq9BcOd74DybOn6zOOCL/fLmdtfUvFycBeeV
-	GQjbpq6+KCv77fMtLnfJwPGbKBtjE+es2lQ/aaZBoMZ/Uf4swrNJE0u+ILYvm8hkvmuPfK
-	k+24/VrEpuJSvwD0Q4Zltb0PYYOq+YMzVbgjpWk3yQ5GDFS9rZEyzT9SG2LZP0Qpy0DO2X
-	9h/0IfWru0dmVqByEVSbGiHRfkwB1MmHV2PRGLXAxUOpRJ92BtSXz32tAYs8gg==
+	bh=YnpK8aRuMvnC0Ke7Gmvf/IJzrUVS+kKViuz7i3kW6rw=;
+	b=UvT5GVn8CRS3Cprdn6Tj2AX5c7jHRpv0b9CD7gcrB0INlIYy2bJ0z1JL+pO1e9Uzvio1Ap
+	E3Uau4ahQ+4Z9NG50v3Q0H+n2TTs0ztktonPqFmobHxZF8uDmre0DvS9csZ+leJx7Nu83U
+	uP9Lb9TLGjbDKIGqIZ74maAmTu35d1LiHLC15Zn0Ks4x633swWLnydhd9BIBM/1WSxFRbg
+	3vBU2a1/Us2MgDUyAXOuo/R2eHQ451gbrFjjjZRJIdhqxwPthCef5T+rJ0R/f34eQJumwc
+	NiDSenu01M0V8nRKTPSO9/txbaMC9irsjWJwaPvbqq8Bsa3L0CAMb3yyy02l6g==
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
@@ -74,8 +74,9 @@ X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPA id C18C11C0008;
-	Wed, 14 Jun 2023 07:49:38 +0000 (UTC)
+X-GND-Sasl: herve.codina@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPA id 44A311C0017;
+	Wed, 14 Jun 2023 07:49:40 +0000 (UTC)
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -94,18 +95,18 @@ Cc: alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-iio@vger.kernel.org,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v4 08/13] iio: inkern: Use max_array() to get the maximum
- value from an array
-Date: Wed, 14 Jun 2023 09:48:59 +0200
-Message-Id: <20230614074904.29085-9-herve.codina@bootlin.com>
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Subject: [PATCH v4 09/13] iio: inkern: Replace a FIXME comment by a TODO one
+Date: Wed, 14 Jun 2023 09:49:00 +0200
+Message-Id: <20230614074904.29085-10-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230614074904.29085-1-herve.codina@bootlin.com>
 References: <20230614074904.29085-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OGH77EQAL2ODBMMXDUHK6ILEKECDPLDV
-X-Message-ID-Hash: OGH77EQAL2ODBMMXDUHK6ILEKECDPLDV
+Message-ID-Hash: HOUJSQEQTODDGI4I2X7OOYPOUJMRB5OM
+X-Message-ID-Hash: HOUJSQEQTODDGI4I2X7OOYPOUJMRB5OM
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OGH77EQAL2ODBMMXDUHK6ILEKECDPLDV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HOUJSQEQTODDGI4I2X7OOYPOUJMRB5OM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,39 +128,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use max_array() to get the maximum value from an array instead of a
-custom local loop.
+This FIXME comment is more a TODO one.
+It is a note when someone will need for this currently unsupported case.
+
+Change from FIXME to TODO.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+Suggested-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 ---
- drivers/iio/inkern.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ drivers/iio/inkern.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/iio/inkern.c b/drivers/iio/inkern.c
-index 71d0424383b6..8bfd91f74101 100644
+index 8bfd91f74101..19ddd77adb11 100644
 --- a/drivers/iio/inkern.c
 +++ b/drivers/iio/inkern.c
-@@ -5,6 +5,7 @@
-  */
- #include <linux/err.h>
- #include <linux/export.h>
-+#include <linux/minmax.h>
- #include <linux/mutex.h>
- #include <linux/property.h>
- #include <linux/slab.h>
-@@ -875,11 +876,7 @@ static int iio_channel_read_max(struct iio_channel *chan,
- 			return -EINVAL;
- 		switch (*type) {
- 		case IIO_VAL_INT:
--			*val = vals[--length];
--			while (length) {
--				if (vals[--length] > *val)
--					*val = vals[length];
--			}
-+			*val = max_array(vals, length);
+@@ -879,7 +879,7 @@ static int iio_channel_read_max(struct iio_channel *chan,
+ 			*val = max_array(vals, length);
  			break;
  		default:
- 			/* FIXME: learn about max for other iio values */
+-			/* FIXME: learn about max for other iio values */
++			/* TODO: learn about max for other iio values */
+ 			return -EINVAL;
+ 		}
+ 		return 0;
 -- 
 2.40.1
 

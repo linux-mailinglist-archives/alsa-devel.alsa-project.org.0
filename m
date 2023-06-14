@@ -2,105 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 299BA73047E
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 18:03:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0FA73083E
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Jun 2023 21:30:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 29D2E74C;
-	Wed, 14 Jun 2023 18:02:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29D2E74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BDF4820;
+	Wed, 14 Jun 2023 21:29:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BDF4820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686758591;
-	bh=przYJCIYz3maHw7JN1O2Kyh/cjB6n6rpZ7EMXbKpLOo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1686771044;
+	bh=7m3hfSGiNnfmTIPp+MPP09OpEHqRrip0hvIJ3f3iA8Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DYyGOSeBYZROHlGNx6cSjUtGE5XRkr9P3nUgrjazoiJ4Ttt8t4FrfsS8nlffoKluW
-	 sC1NwOfs8lNVL6D6/uOuE2K9th8sfTc4WvZvZrSVHZ3bj/Hw/2o3YCfRM6LMApjOQx
-	 wVsid5DM8AVUM0S9Xyb3rRvVgC4rskjbNA71M604=
+	b=HOvHuLympPU+cCJ08P0qcpK6DdlehwqiXQv8EAvxLV5rqAjvleIbXi/rFFSUapaCD
+	 X6MEdY7P9CylW1OURO7YeRBOZSx47jJ/0/i+HIIerHq9mB133TJFW6Pej42aP2qVhQ
+	 1SZHPr5GaBqgklv+A1DOL856RyytOrLwCShnNKcg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CAC3BF80533; Wed, 14 Jun 2023 18:01:58 +0200 (CEST)
+	id F083DF80149; Wed, 14 Jun 2023 21:29:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 191F4F80132;
-	Wed, 14 Jun 2023 18:01:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FE2AF80132;
+	Wed, 14 Jun 2023 21:29:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BF643F80149; Wed, 14 Jun 2023 18:01:53 +0200 (CEST)
+	id 0E906F80149; Wed, 14 Jun 2023 21:29:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C9AA5F80130
-	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 18:01:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9AA5F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6CE76F80093
+	for <alsa-devel@alsa-project.org>; Wed, 14 Jun 2023 21:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CE76F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=ernGh5af;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=nfUHpH1U
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=grovb+BA
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0FA891FD9D;
-	Wed, 14 Jun 2023 16:01:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1686758507;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LJEvDVCzmbQg0/nrB0tuJWDIgJPv2cwgoGQrdaZfiTk=;
-	b=ernGh5afTsYbkXsgjs9Nnp/YfrOgrodbaUOUOnaj93ne2C/bwDRUrBiMsiH/l3bsEcbT5c
-	lrp41ARss8AmMd1qv8y8TWyXghMpFTipO5DXXE2vBJ5ioVKqvSW2XOgZvVMiY5jMElTnKC
-	Pe+MP8iUdUdt8P1XH0cjtJAgbxvLsIA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1686758507;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LJEvDVCzmbQg0/nrB0tuJWDIgJPv2cwgoGQrdaZfiTk=;
-	b=nfUHpH1UkuzciFUI6/XbBw0uJtrsZzKdDQG/d5H2vw2widuXfAQfW3zxf8of/vSqeAgHsN
-	+q6S9y3yShNk09Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D3F711357F;
-	Wed, 14 Jun 2023 16:01:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id MuLnMmrkiWQTLAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 14 Jun 2023 16:01:46 +0000
-Date: Wed, 14 Jun 2023 18:01:46 +0200
-Message-ID: <87v8fq8239.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Lukasz Tyl <ltyl@hem-e.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	pgorgon@hem-e.com
-Subject: Re: [PATCH v2] sound: usb: quirks: add flag for HEM devices to enable
- native DSD playback
-In-Reply-To: <20230614122524.30271-1-ltyl@hem-e.com>
-References: <20230614122524.30271-1-ltyl@hem-e.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: HQXA4NFS7D6ZVYIPLS4CWPAJPA5P7CQ5
-X-Message-ID-Hash: HQXA4NFS7D6ZVYIPLS4CWPAJPA5P7CQ5
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D7D2C614C7;
+	Wed, 14 Jun 2023 19:29:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2FDC433C0;
+	Wed, 14 Jun 2023 19:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686770977;
+	bh=7m3hfSGiNnfmTIPp+MPP09OpEHqRrip0hvIJ3f3iA8Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=grovb+BAQFPV/R/2vglASB9Kv0WMtGfvLgtAA7Iqlv3WW+rzkMtxy7xk7ylwv+tJH
+	 rfapsy1lsfEjWrr8tjgIrXy0kktU/w7KD90ntRaAZNl1cCJKkZStNlWEp0swbDjVuu
+	 5EHS37L+wpfrTofBn0NgS//CzcE0Gauul54VvMogxfcwb4Jq5sf3bXKSGkTkmZQSkd
+	 hypRhN6fiyubRIkHIcLOAX3ea2P7kaFUWJMu+grgvw36+SaKNgftWkQ3+Q5Ii87M/r
+	 k/RP5x5COisKM8AEnvdQHSoMMBItwjqP7zs6rPz0rWYq+l9woGmWYfOFbE3hRaXAEy
+	 20XTwaHF+cSwA==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <87o7lihpvy.wl-kuninori.morimoto.gx@renesas.com>
+References: <87o7lihpvy.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: simple-card-utils.c: share
+ asoc_graph_parse_dai()
+Message-Id: <168677097648.246397.18213553654555334390.b4-ty@kernel.org>
+Date: Wed, 14 Jun 2023 20:29:36 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-c6835
+Message-ID-Hash: AVDVOXWF5MQ5GAMLA4WVBHLG74QPG2SP
+X-Message-ID-Hash: AVDVOXWF5MQ5GAMLA4WVBHLG74QPG2SP
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HQXA4NFS7D6ZVYIPLS4CWPAJPA5P7CQ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AVDVOXWF5MQ5GAMLA4WVBHLG74QPG2SP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,25 +99,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 14 Jun 2023 14:25:24 +0200,
-Lukasz Tyl wrote:
+On Wed, 14 Jun 2023 00:02:57 +0000, Kuninori Morimoto wrote:
+> Current Audio Graph Card/Card2 implements asoc_simple_parse_dai()
+> on each driver, but these are same function.
+> This patch share it as asoc_graph_parse_dai().
 > 
-> This commit adds new DEVICE_FLG with QUIRK_FLAG_DSD_RAW and Vendor Id for
-> HEM devices which supports native DSD. Prior to this change Linux kernel
-> was not enabling native DSD playback for HEM devices, and as a result,
-> DSD audio was being converted to PCM "on the fly". HEM devices,
-> when connected to the system, would only play audio in PCM format,
-> even if the source material was in DSD format. With the addition of new
-> VENDOR_FLG in the quircks.c file, the devices are now correctly
-> recognized, and raw DSD data is transmitted to the device,
-> allowing for native DSD playback.
 > 
-> Signed-off-by: Lukasz Tyl <ltyl@hem-e.com>
-> ---
-> Changes in v2:
->  - correct entry position (entry sorted by vendor id).
 
-Thanks, applied now.
+Applied to
 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Takashi
+Thanks!
+
+[1/1] ASoC: simple-card-utils.c: share asoc_graph_parse_dai()
+      commit: fed4be313a55e9a19fdabe99d1ec373e25889e2c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

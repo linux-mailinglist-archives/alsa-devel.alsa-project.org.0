@@ -2,109 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E5A8731CB7
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 17:31:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A40B731CF3
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 17:46:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9120EDF5;
-	Thu, 15 Jun 2023 17:30:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9120EDF5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A736825;
+	Thu, 15 Jun 2023 17:45:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A736825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686843070;
-	bh=wlCgR2jDnUhDvPDT+CuOWwhImKCkxcyK5DY0WjfQpcE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1686844002;
+	bh=uB9U13DXhoFvl5An4MuiaLyBROOyVbShjV18iJ4yE6o=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=c9YtUXDXAiIP1S6sV+Jcf7LcSawsjuy5H4LBmueOvurbWv7ZB7IJOTJ9YIcfjpvF0
-	 uy7O6LVvE2m9zSDQrAadcfx8UG7+Ye0OVl4z8FyD5nNLbsN9bKklGypvQuOuuDrL7I
-	 bwmQFGM6kD1/oxjwNwuLL5HrzDGEupVnhX3rcKxg=
+	b=YWjJwI33sgoImkb8yEFq2qwaOTPnsYiJJygFPqTuGNCMxw1V1eLItpaB5Lorkas8I
+	 6yIhkhdiqhSXyGymAxqKJDGqSam9B1XIvVpd1HGhRGzuMNyGtDKAgtup6qCObrB0H+
+	 e948/Zv8EBT85judcwhw88xzFqnqokZhkq5O7+lE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28BAEF80603; Thu, 15 Jun 2023 17:27:23 +0200 (CEST)
+	id AD86AF80149; Thu, 15 Jun 2023 17:45:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A06C9F80607;
-	Thu, 15 Jun 2023 17:27:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F731F80130;
+	Thu, 15 Jun 2023 17:45:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 32F2BF805C9; Thu, 15 Jun 2023 17:27:06 +0200 (CEST)
+	id B3988F80149; Thu, 15 Jun 2023 17:45:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::229])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::60f])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DB6F5F8059F
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 17:26:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB6F5F8059F
+	by alsa1.perex.cz (Postfix) with ESMTPS id EC170F80093
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 17:45:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC170F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=mi96fjGz
-X-GND-Sasl: herve.codina@bootlin.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1686842816;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WiCubefUJT8lqguruRQEQMdku90oEPaE9zL5TkFrvME=;
-	b=mi96fjGzH8Mu4wIWBL14eimJQeuzdBWTbb317jMDprLXgEnY7GaDRq5W67+eGeXjgEHnVf
-	f2NJ9vfOxmVmvYP5vjSLnFVPQKKR4fUvMjTkr1pWj9JTCzOqfWsvR0t9Kk2PCuIW4RXD6+
-	OGoW2Ora7ohu+I9nDvV4JAH4zNl3tSoBHuM5TbhKGW8LEt3z9VJIQcQIY7styBo9hMSQ2N
-	Xpmpob9tdU2Hs8hSmkj7DDztKepqOrhJG0r1WH/1ldvvp/YZL5/nnOzOvIjgbZVvtwED2A
-	Zi4KGPktO/gO/PRo+IgwzrIm3H2TeGs8xThW35U8ccqEaRjG+ZwEI6d1w6c36Q==
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPA id 58DD0FF805;
-	Thu, 15 Jun 2023 15:26:55 +0000 (UTC)
-From: Herve Codina <herve.codina@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v5 13/13] ASoC: simple-card: Handle additional devices
-Date: Thu, 15 Jun 2023 17:26:31 +0200
-Message-Id: <20230615152631.224529-14-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230615152631.224529-1-herve.codina@bootlin.com>
-References: <20230615152631.224529-1-herve.codina@bootlin.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=DZ/RTJK0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HuZ65qcqO7yalwvAcTT2N5+bE/2i9KX9SP3BhDSLV1I7HRVvXedcAKUT2qkYeWim6egJrXyAC2gPhNTNyA/njGW4KBS/yaVigjBN+kAp3m1PdjaK94dORNjH1JFlqcY8LGS290PRvZ4TPjBnV9jWlzJeRrpdyjGt/Trc860vuh+JZXk3T929eBLMyO4ISSbiDoxPB4kkpCqgoEEwyd5RfOMlLVSj6wPeuLvaVlYXd+LgeQExXF4MeIqumSWUWUxgm6Qg38L+v1K5tjZPvYcvXwTeSSXE81ADNVCYjS4SIxN9nSsm6GIiVhlr/04vOhmaUHvOiRUx5xbqH3m3X23f7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AKxwcxB4lY1N7m/2ok2OQj4EBv46REyDJYjqe7BUVGA=;
+ b=bYliNEYXBNpLMes6WCnPY4yMZPxzqrVlptgG+RZ5lyYzbQoimsXHBAreyzVsGXCC8N6WyQZPBRW6Mw8wsih4kwfY+fhlOj8eobAyTSqJE3Tzj1Y/3SHhnz7XnxZRB6INBMwrTcikww2/jGQuFWiJQPWQbWuYJ1UFALgXT7RFSIZ4GZl7eLMp0McERZWd6uEmQcqWi0hUq0M1T5DTkqh7mX8C8oySE1q7EBcY2pXLRzBmf7o4LQxYQ/rV91A/Qrx+UAD2G4VBfcqeRKSo76koEP/0nUDGAZZRZFRAuFDVf3v7Dauw7prcBK9ANn4Rkcnz4fMi50sU/SEa9BfBCUKj6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AKxwcxB4lY1N7m/2ok2OQj4EBv46REyDJYjqe7BUVGA=;
+ b=DZ/RTJK0b1MiiNx2chAEWPBSHkss6cHDuDMoSMbph7/b7zrO/S3w7zqGwZtl8MI9kX5F0EO9RXfeH85gL59rtvyU2oBWax39rmOcHFJdxCRdttaB3G5Iz7E7mktMI3zXGxLpk/G6qsIP7Gdsx3dyIz++xiJpgAccb0ZEYhiI0H0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
+ by CH0PR12MB5314.namprd12.prod.outlook.com (2603:10b6:610:d5::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.37; Thu, 15 Jun
+ 2023 15:45:35 +0000
+Received: from DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::8760:2e89:1243:2b5d]) by DM6PR12MB4123.namprd12.prod.outlook.com
+ ([fe80::8760:2e89:1243:2b5d%7]) with mapi id 15.20.6500.025; Thu, 15 Jun 2023
+ 15:45:35 +0000
+Message-ID: <2c4fb68a-70f7-6d75-951b-ee7fd209fa8b@amd.com>
+Date: Thu, 15 Jun 2023 21:20:08 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH V4 4/9] ASoC: amd: ps: add SoundWire dma driver dma ops
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org
+Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
+ Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20230612095903.2113464-1-Vijendar.Mukunda@amd.com>
+ <20230612095903.2113464-5-Vijendar.Mukunda@amd.com>
+ <0dbd1c24-0006-7956-9b82-780c7f005927@linux.intel.com>
+ <36242cca-b20f-03dc-2d3b-62a797291af7@amd.com>
+In-Reply-To: <36242cca-b20f-03dc-2d3b-62a797291af7@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0022.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:97::23) To DM6PR12MB4123.namprd12.prod.outlook.com
+ (2603:10b6:5:21f::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: UW6CE24SOHWIHIUNTMWOQE6GCFP2WBEY
-X-Message-ID-Hash: UW6CE24SOHWIHIUNTMWOQE6GCFP2WBEY
-X-MailFrom: herve.codina@bootlin.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|CH0PR12MB5314:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7677b483-b65a-417b-109b-08db6db78f24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	6zCkYCF8WVe6HcBNGj4Fnofbs2LykRMoIvM8kxWkCEZgvRpXSWCetFXKRI2yrs8WBA0g92LPBFwW1lr679cZGQaFXCJM9sVsN2lOQQtIUfoLS31ySxr+hW4HTjzG+b43i940p1cBxsi+MybBg9nvlhC1K18ahmNDaFqQ5y+GfhF3M8m/vAEs2dXxL6dv1+37P8tvMggodxhfewvdnXnyu27d5/DqfAUAvEBdOuH0C4scvsXWBaojuEBnUdGiw8i5KG+X6cDrLes4b8OEOLBFEgijh4/AaUPkjvdrWLOCmVtmahXMDJNJef3MCnLkas2/KJSg5e8vgUQU4NwzN+weagCFSCQZxaaDNOqJYOgf3qZciOTMKn3I/7+yJByHCho3yIwnQfCrx5BmZN3E+OQhxYcMkr1SXvvE7+2giF9QXI4KKRj9OGSwLekjdInOL69ZtmRK7KrsNF0f8d+kLPUgeeM3tNIpVf2IiSU/V06mvRF6alYvQFAS3n6Lpnjae44ubebsBjKgwgfLNDzt9MA5o8DzuDkSIPZFCTHbFqsyf4/Sd9hVGSK/o0Y4tAsJ3eKs7CGG8o0fd/ss3NsunauSPziyDpIV4WsH+7gcnM/dkafQYEcvKnrml3uI+FiR4EuP3xciEhUEZcYrqxPJ1dWsIxLIyxKtEBE73NBx1itbRtI=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(376002)(396003)(366004)(346002)(451199021)(4326008)(6666004)(66946007)(66556008)(316002)(66476007)(6486002)(36756003)(8676002)(5660300002)(31686004)(8936002)(41300700001)(478600001)(966005)(54906003)(31696002)(53546011)(86362001)(186003)(2906002)(38100700002)(83380400001)(6512007)(26005)(6506007)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?bFRCTGI2Z2taaHFCL0tGZEFCRmlDYWJkL0RKRHU5YUM3V09IWnRsZkFidmU2?=
+ =?utf-8?B?eXFkaDU2azRIeEluTjBXYy81d0w5cjBHUFd6RlZaR0xpUUtsZUpSYVNlSzlp?=
+ =?utf-8?B?WTFPOWdpaS9wb0NSaG5OQXp1dHp4cnZHSVJlaWRUT2dWaDh0MzJRTUNTbXdY?=
+ =?utf-8?B?dVI0c0RtUzRjU25pNWNRWFI2VkpueVRvVUo4QXVNN1RRdnhJaDRZZldIbzFT?=
+ =?utf-8?B?d1lhQk5PYmNCZFJDY2JETEpuVEJISVVSc0RCYUdkN0x6SEN3RlNISmVlSnUv?=
+ =?utf-8?B?dXNieFV1aW9BdjRCM0RSWS9Da0srU2huR21pT2NFQUhVKytQVjM4NXNZWGRG?=
+ =?utf-8?B?SWRmSVNUc09zUXY3OFhkZi9GSXErQ0U3V3hhZ1F2cG8yMDJkMmxXSE15Y0VG?=
+ =?utf-8?B?a0pYbkhlSDN4TDVsbENvWEp3b1N6SlBMa2NyOTUyOCtBbXJjTmw2NjlxQzBK?=
+ =?utf-8?B?UjdtZmhCY3ZSMTgyMis5bkhUZjMrN1psenZkcFpNcUFFZWJ6NDRNTUhvaEE3?=
+ =?utf-8?B?V0U5azI0eXYraHo2ZzF0VWxrL0tUUmhzSWIwK1F0eVFiSW04blRCcUp2TkVt?=
+ =?utf-8?B?ZkJ4VHlBOGNVS2toajNVYVp1MmxvUERJYWlrdXpHVkE5Sng5alhKaGFtRjRk?=
+ =?utf-8?B?UWIxWjJtUXlDaFltRi8zOXhEOVM3blZIWnVIMjhpVE5USXpUKzdhSlFDQy9K?=
+ =?utf-8?B?SVhKVnNFbmR6ckl2YThubmlodG5uL0pDYmFoTUdqdVJ3dVNNRTUxbkZXMWZa?=
+ =?utf-8?B?b0MwR3B2akovN2JSdjVaT0p2emhzVjZBQTEzQ3U5SXM2SFZwKzkwaXhhV3lF?=
+ =?utf-8?B?ZkVkVURYOXQyNFlYN29Fcyttd2NZZ0QwalZGZUc5VkY1b3AvWitzWk9WN2N4?=
+ =?utf-8?B?M0pXcC9xSHdzSTZiekdjQ0ZFMjU5ekJiODd5bEZDVXJYK0hGcjFhcFVuWXpN?=
+ =?utf-8?B?NWNtTmEwU2NFUUFJTGtyUllJbFJrS1l1OElXQlVVb1NSK0UwUmp2dDRPQVM0?=
+ =?utf-8?B?NmNaK1graUZaZW9yUXBJY2prajJVem9WZnFnMmtnR1F6cDEvU2hUdlcvUUcr?=
+ =?utf-8?B?dTBJUWdSK2tHaWxQMDJ0NzJNUStXUklyVkxvUmR2N2NSQlNOWmtMYmNVSHJ4?=
+ =?utf-8?B?czNrYlZwZytuNWc0djVTMkZxVnFiRVFuMkI4ZXg1K0thMHd5SGNjRmdCSll2?=
+ =?utf-8?B?OE9oK0sycUowY2hxWkg1d2h3dS9STllVb1dnelVEY2w1SXNGaERiaXl5Qmd5?=
+ =?utf-8?B?allKTjVtZEVyMWc2Mzg1cGhsNWxlRVlmOEhsSGxybUxnQ2VuY01RMUkvV1ZJ?=
+ =?utf-8?B?cm9zWGZuZ3JqUEthRXl1VVJHNE91Qm9jZHlydUZGT3cycVlpYTZCeEg2NDEy?=
+ =?utf-8?B?cGJoNGRuQWwxM2cxOVRtV1RQR3lGT0czWDAzVVFud0RXV25ianVkeGI5SUN6?=
+ =?utf-8?B?WllOSjljanpTbHMyODhNdUk1WG82V0xOVnZMZGE4Ri9HVE16MmdmSGdmMCtD?=
+ =?utf-8?B?ZTdGWW14WUt6RzR2aGVYU3pVOC9ZcmF4UnZsOUR6enUrUGVzWk1kRDJGMUJB?=
+ =?utf-8?B?bW51TVF5K3FzRkNsZms1ZmVsUW1ZY1oxVDZrblZlL0tzUGpuTFZ3NEROUmRp?=
+ =?utf-8?B?bTFZc2xWZFZ6S1dzNGhva245VXpCMnI0elpkcW9hVDY2YmFpZEpWdjNVV2w4?=
+ =?utf-8?B?T3Y2cEp1a2FkcmxBbWFFbzRyUHlFZU5ZL05jY0dYNC9RdStWZkpGN3g0YzRw?=
+ =?utf-8?B?YkpWSHdBT2JOUHpCTngveTZDSUl5YmJqa3NJWm1VL1JXNTZjeWxSVmpjcGtN?=
+ =?utf-8?B?N01zcmdvb0NhZkxLK1IyWTRIL0FSc0dKZ0VuTlpTanNOTVBDTHhKWkVXSkdG?=
+ =?utf-8?B?ZndFclROOE5qeE5KbHJrRXF6VFYzRndaR1hVaFB3N0VEL1VnUlBZYkdDSW00?=
+ =?utf-8?B?bGtERmdJMlpmQ3hON0NWdDBQbk1sN0dudGwxeDNCaUxCKzc0N0JsNmg1VlVI?=
+ =?utf-8?B?K3BqNDFyL0NITjE4Z05MMU9XT3RPZGJRVXhmWDAzeDdKb1hKUFcvSHJHY01o?=
+ =?utf-8?B?cVhJQXdFYmljSjZJbU5TQVJRR2lORURVbjJHNnpCdm9LMUhHVXpkMXdZWkMy?=
+ =?utf-8?Q?4VHLC8c4dL2NkDgr8Ic4pdnGB?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 7677b483-b65a-417b-109b-08db6db78f24
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2023 15:45:35.7686
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ kjnarlGr2vM4OodJTRlSaCC6074nE6pMmjglmuHJ67Es6maC1mP0ADiehFkbE4YV+qP3XBmSXANuBqPDsiuV1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5314
+Message-ID-Hash: ZE2ZBAAW3GRWXTV63P7MKA6AOIAWS4AA
+X-Message-ID-Hash: ZE2ZBAAW3GRWXTV63P7MKA6AOIAWS4AA
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UW6CE24SOHWIHIUNTMWOQE6GCFP2WBEY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZE2ZBAAW3GRWXTV63P7MKA6AOIAWS4AA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,120 +179,153 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-An additional-devs subnode can be present in the simple-card top node.
-This subnode is used to declared some "virtual" additional devices.
-
-Create related devices from this subnode and avoid this subnode presence
-to interfere with the already supported subnodes analysis.
-
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- sound/soc/generic/simple-card.c | 46 +++++++++++++++++++++++++++++++--
- 1 file changed, 44 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 6f044cc8357e..ae4a47018278 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -348,6 +348,7 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 	struct device *dev = simple_priv_to_dev(priv);
- 	struct device_node *top = dev->of_node;
- 	struct device_node *node;
-+	struct device_node *add_devs;
- 	uintptr_t dpcm_selectable = (uintptr_t)of_device_get_match_data(dev);
- 	bool is_top = 0;
- 	int ret = 0;
-@@ -359,6 +360,8 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 		is_top = 1;
- 	}
- 
-+	add_devs = of_get_child_by_name(top, PREFIX "additional-devs");
-+
- 	/* loop for all dai-link */
- 	do {
- 		struct asoc_simple_data adata;
-@@ -367,6 +370,12 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 		struct device_node *np;
- 		int num = of_get_child_count(node);
- 
-+		/* Skip additional-devs node */
-+		if (node == add_devs) {
-+			node = of_get_next_child(top, node);
-+			continue;
-+		}
-+
- 		/* get codec */
- 		codec = of_get_child_by_name(node, is_top ?
- 					     PREFIX "codec" : "codec");
-@@ -380,12 +389,15 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 
- 		/* get convert-xxx property */
- 		memset(&adata, 0, sizeof(adata));
--		for_each_child_of_node(node, np)
-+		for_each_child_of_node(node, np) {
-+			if (np == add_devs)
-+				continue;
- 			simple_parse_convert(dev, np, &adata);
-+		}
- 
- 		/* loop for all CPU/Codec node */
- 		for_each_child_of_node(node, np) {
--			if (plat == np)
-+			if (plat == np || add_devs == np)
- 				continue;
- 			/*
- 			 * It is DPCM
-@@ -427,6 +439,7 @@ static int __simple_for_each_link(struct asoc_simple_priv *priv,
- 	} while (!is_top && node);
- 
-  error:
-+	of_node_put(add_devs);
- 	of_node_put(node);
- 	return ret;
- }
-@@ -464,6 +477,31 @@ static int simple_for_each_link(struct asoc_simple_priv *priv,
- 	return ret;
- }
- 
-+static void simple_depopulate_aux(void *data)
-+{
-+	struct asoc_simple_priv *priv = data;
-+
-+	of_platform_depopulate(simple_priv_to_dev(priv));
-+}
-+
-+static int simple_populate_aux(struct asoc_simple_priv *priv)
-+{
-+	struct device *dev = simple_priv_to_dev(priv);
-+	struct device_node *node;
-+	int ret;
-+
-+	node = of_get_child_by_name(dev->of_node, PREFIX "additional-devs");
-+	if (!node)
-+		return 0;
-+
-+	ret = of_platform_populate(node, NULL, NULL, dev);
-+	of_node_put(node);
-+	if (ret)
-+		return ret;
-+
-+	return devm_add_action_or_reset(dev, simple_depopulate_aux, priv);
-+}
-+
- static int simple_parse_of(struct asoc_simple_priv *priv, struct link_info *li)
- {
- 	struct snd_soc_card *card = simple_priv_to_card(priv);
-@@ -493,6 +531,10 @@ static int simple_parse_of(struct asoc_simple_priv *priv, struct link_info *li)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = simple_populate_aux(priv);
-+	if (ret < 0)
-+		return ret;
-+
- 	ret = snd_soc_of_parse_aux_devs(card, PREFIX "aux-devs");
- 
- 	return ret;
--- 
-2.40.1
+On 13/06/23 12:30, Mukunda,Vijendar wrote:
+> On 12/06/23 23:36, Pierre-Louis Bossart wrote:
+>>> +#define SDW_PLAYBACK_MIN_NUM_PERIODS    2
+>>> +#define SDW_PLAYBACK_MAX_NUM_PERIODS    8
+>>> +#define SDW_PLAYBACK_MAX_PERIOD_SIZE    8192
+>> that's a fairly small max period. That's 21ms for 2ch S32_LE 48kHz.
+>>
+>> Does this come from specific limitations or is this an arbitrary number?
+>>
+>> A comment on this wouldn't hurt.
+> This is the initial version. We haven't exercised different sample
+> rates/bit depth combinations much. Currently, targeted for 2Ch, 48Khz,
+> 16bit audio streams only with 64k as buffer size.
+>
+> We will extend support for different sample rates/bit depths combinations
+> in the future.
+>>> +static u32 sdw0_dma_enable_reg[ACP63_SDW0_DMA_MAX_STREAMS] = {
+>>> +	ACP_SW0_AUDIO0_TX_EN,
+>>> +	ACP_SW0_AUDIO1_TX_EN,
+>>> +	ACP_SW0_AUDIO2_TX_EN,
+>>> +	ACP_SW0_AUDIO0_RX_EN,
+>>> +	ACP_SW0_AUDIO1_RX_EN,
+>>> +	ACP_SW0_AUDIO2_RX_EN,
+>>> +};
+>>> +
+>>> +static u32 sdw1_dma_enable_reg[ACP63_SDW1_DMA_MAX_STREAMS] = {
+>>> +	ACP_SW1_AUDIO1_TX_EN,
+>>> +	ACP_SW1_AUDIO1_RX_EN,
+>>> +};
+>> Still no explanation as to why SDW0 indices start at zero and SDW1
+>> indices start at one?
+> We have already provided reply in previous thread, i.e. for v3 patch set.
+>
+> https://lore.kernel.org/alsa-devel/de3c86cc-6cba-0cbd-0e04-43711b4c9bc2@amd.com/
+>
+>
+>
+>
+>>> +
+>>> +static const struct snd_pcm_hardware acp63_sdw_hardware_playback = {
+>>> +	.info = SNDRV_PCM_INFO_INTERLEAVED |
+>>> +		SNDRV_PCM_INFO_BLOCK_TRANSFER |
+>>> +		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
+>>> +		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
+>>> +	.formats = SNDRV_PCM_FMTBIT_S16_LE |  SNDRV_PCM_FMTBIT_S8 |
+>>> +		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE,
+>>> +	.channels_min = 2,
+>>> +	.channels_max = 2,
+>>> +	.rates = SNDRV_PCM_RATE_48000,
+>>> +	.rate_min = 48000,
+>>> +	.rate_max = 48000,
+>>> +	.buffer_bytes_max = SDW_PLAYBACK_MAX_NUM_PERIODS * SDW_PLAYBACK_MAX_PERIOD_SIZE,
+>>> +	.period_bytes_min = SDW_PLAYBACK_MIN_PERIOD_SIZE,
+>>> +	.period_bytes_max = SDW_PLAYBACK_MAX_PERIOD_SIZE,
+>>> +	.periods_min = SDW_PLAYBACK_MIN_NUM_PERIODS,
+>>> +	.periods_max = SDW_PLAYBACK_MAX_NUM_PERIODS,
+>>> +};
+>>> +
+>>> +static const struct snd_pcm_hardware acp63_sdw_hardware_capture = {
+>>> +	.info = SNDRV_PCM_INFO_INTERLEAVED |
+>>> +		SNDRV_PCM_INFO_BLOCK_TRANSFER |
+>>> +		SNDRV_PCM_INFO_MMAP |
+>>> +		SNDRV_PCM_INFO_MMAP_VALID |
+>>> +		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
+>>> +	.formats = SNDRV_PCM_FMTBIT_S16_LE |  SNDRV_PCM_FMTBIT_S8 |
+>>> +		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE,
+>>> +	.channels_min = 2,
+>>> +	.channels_max = 2,
+>>> +	.rates = SNDRV_PCM_RATE_48000,
+>>> +	.rate_min = 48000,
+>>> +	.rate_max = 48000,
+>>> +	.buffer_bytes_max = SDW_CAPTURE_MAX_NUM_PERIODS * SDW_CAPTURE_MAX_PERIOD_SIZE,
+>>> +	.period_bytes_min = SDW_CAPTURE_MIN_PERIOD_SIZE,
+>>> +	.period_bytes_max = SDW_CAPTURE_MAX_PERIOD_SIZE,
+>>> +	.periods_min = SDW_CAPTURE_MIN_NUM_PERIODS,
+>>> +	.periods_max = SDW_CAPTURE_MAX_NUM_PERIODS,
+>>> +};
+>>> +static int acp63_sdw_dma_open(struct snd_soc_component *component,
+>>> +			      struct snd_pcm_substream *substream)
+>>> +{
+>>> +	struct snd_pcm_runtime *runtime;
+>>> +	struct acp_sdw_dma_stream *stream;
+>>> +	struct snd_soc_dai *cpu_dai;
+>>> +	struct amd_sdw_manager *amd_manager;
+>>> +	struct snd_soc_pcm_runtime *prtd = substream->private_data;
+>>> +	int ret;
+>>> +
+>>> +	runtime = substream->runtime;
+>>> +	cpu_dai = asoc_rtd_to_cpu(prtd, 0);
+>>> +	amd_manager = snd_soc_dai_get_drvdata(cpu_dai);
+>>> +	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
+>>> +	if (!stream)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+>>> +		runtime->hw = acp63_sdw_hardware_playback;
+>>> +	else
+>>> +		runtime->hw = acp63_sdw_hardware_capture;
+>>> +	ret = snd_pcm_hw_constraint_integer(runtime,
+>>> +					    SNDRV_PCM_HW_PARAM_PERIODS);
+>>> +	if (ret < 0) {
+>>> +		dev_err(component->dev, "set integer constraint failed\n");
+>>> +		kfree(stream);
+>>> +		return ret;
+>>> +	}
+>> it's not clear to me why you have to add this specific constraint, isn't
+>> this checked already with the sdw_hardware_playback information.
+> In above code, first we are assigning runtime->hw structures.
+> As per our understanding, we are not assigning any hw_constraints.
+>
+> This snd_pcm_hw_constraint_integer(runtime,
+> SNDRV_PCM_HW_PARAM_PERIODS) constraint assures that the number
+> of periods is integer, hence the buffer size is aligned with the period size.
+>
+>>> +static u64 acp63_sdw_get_byte_count(struct acp_sdw_dma_stream *stream, void __iomem *acp_base)
+>>> +{
+>>> +	union acp_sdw_dma_count byte_count;
+>>> +	u32 pos_low_reg, pos_high_reg;
+>>> +
+>>> +	byte_count.bytescount = 0;
+>>> +	switch (stream->instance) {
+>>> +	case ACP_SDW0:
+>>> +		pos_low_reg = sdw0_dma_ring_buf_reg[stream->stream_id].pos_low_reg;
+>>> +		pos_high_reg = sdw0_dma_ring_buf_reg[stream->stream_id].pos_high_reg;
+>>> +		break;
+>>> +	case ACP_SDW1:
+>>> +		pos_low_reg = sdw1_dma_ring_buf_reg[stream->stream_id].pos_low_reg;
+>>> +		pos_high_reg = sdw1_dma_ring_buf_reg[stream->stream_id].pos_high_reg;
+>>> +		break;
+>>> +	default:
+>>> +		return -EINVAL;
+>> returning -EINVAL as a u64 doesn't seem quite right to me?
+> Agreed. Default case needs to be corrected. In case of invalid
+> SDW instance, it should return default byte count which is zero
+> instead of returning -EINVAL.
+>
+> We have identified similar fix has to be implemented in our other
+> dma driver as well.
+> https://elixir.bootlin.com/linux/v6.4-rc6/source/sound/soc/amd/acp/amd.h#L174
+>
+> Will push a supplement patch to fix it at one go.
+>> @Bossart: Let us know, if have any futher comments for our replies.
+>>> +	}
+>>> +	if (pos_low_reg) {
+>>> +		byte_count.bcount.high = readl(acp_base + pos_high_reg);
+>>> +		byte_count.bcount.low = readl(acp_base + pos_low_reg);
+>>> +	}
+>>> +	return byte_count.bytescount;
+>>> +}
 

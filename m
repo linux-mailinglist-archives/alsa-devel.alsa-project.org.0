@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D8A8731AB4
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 16:00:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38858731AB6
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 16:01:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6735B84B;
-	Thu, 15 Jun 2023 15:59:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6735B84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88DE0823;
+	Thu, 15 Jun 2023 16:00:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88DE0823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686837638;
-	bh=e3VpKCzPbeixM3x4B0QVKu3+2GIDQ2j5ljGAZGiHfbk=;
+	s=default; t=1686837663;
+	bh=IacgEK9Jdc3F5jDBfHVX7mYpC3mWqaiQ7huWmQ6BiyI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rPhjYi/mHGSqGu4Z7eRGQOHBzf7jYNzCN0oIiwxLY/O6kiTRzFUTbhh+6nsNN96+X
-	 adoDXZczZawhj2ErODLCFajvrZun/rrBFPjweOU2k/j1+PKpzHCUzjsDW2N/GO0q+t
-	 focHwdn+YBLODgPT0tw4S2b7I3cGbna2bwC22ecA=
+	b=QwXON8OFd6IGPOZb4GXeTIAacuFr0zNfsPWG2v+WMf4qsVDeBlLCijXSQZ/JPF7X3
+	 nND9llGY3eTVpt+evSwIZ98pxilfrYEC7m2v3hsC6hrlVkuQXcVXUnp9B+8gQla8S9
+	 H2/ahlmx//RPhmZq5lfROaM9obVvIUf3vR4uPTQc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C275AF80579; Thu, 15 Jun 2023 15:58:43 +0200 (CEST)
+	id BEFFEF8058C; Thu, 15 Jun 2023 15:58:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A421F80579;
-	Thu, 15 Jun 2023 15:58:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC3A4F80588;
+	Thu, 15 Jun 2023 15:58:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52D99F8057A; Thu, 15 Jun 2023 15:58:39 +0200 (CEST)
+	id 93190F8057A; Thu, 15 Jun 2023 15:58:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,58 +34,49 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8F56AF8055B
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 15:58:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F56AF8055B
+	by alsa1.perex.cz (Postfix) with ESMTPS id BE5C3F80571
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 15:58:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE5C3F80571
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=BVPxbAVx
+ header.s=k20201202 header.b=PHSzg9W1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 04455638EE;
-	Thu, 15 Jun 2023 13:58:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C54C433C8;
-	Thu, 15 Jun 2023 13:58:27 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id AC1EA63B97;
+	Thu, 15 Jun 2023 13:58:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB39C433C0;
+	Thu, 15 Jun 2023 13:58:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686837514;
-	bh=e3VpKCzPbeixM3x4B0QVKu3+2GIDQ2j5ljGAZGiHfbk=;
+	s=k20201202; t=1686837517;
+	bh=IacgEK9Jdc3F5jDBfHVX7mYpC3mWqaiQ7huWmQ6BiyI=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=BVPxbAVxrZptCpmaDFfQqJWSOS4K9YsBmnXB5FJCY/QuHm6yYMLSxeloirAIvT5tE
-	 LgJTW5I+jVz7JishsNAnVudHcKpVwd1mrmyNtiRdd5bufP/y0p5UYEz43qYulEKvWR
-	 CwVC7eCkQQLkpavOfMxJgBDrWLGdOwgPKGNVMhwO3sE/sxStwhbpfRQJ/QU0Tgw8eY
-	 gN4XYivS0ZUcXb4CY3dv0aQleoluY0CtfEaHnxBM6kSya77Stu1wNOPzD06ltdxRAf
-	 /+M09WcccRkonSLutPnEkLIUsbGDoIGthxr1O9n2KnAdGB6EesHMjH417GZBBfL8Zx
-	 AzDw1Dnr1nHlg==
+	b=PHSzg9W1hXzkyYhLqpdJNCcS0XNkUYr/V0JZPz8i8SOveprKjZknkncgTK/OCpjjN
+	 7zL6VpIrk4XYrcB394RkW230JestkLVQIP+uvr0ML7yWae8xX7lNYh7r91ay3uxmST
+	 AqwyBkmMYF9P9U8xEPUahnCEpXx+P/2GSbLu8ar/OKYCHudPV/VXDkinWkG2kqr5LW
+	 iLHdFn7C0BYXthDjLUxRix2NkM5Ar8LXaaFa9UcW7JV+eqAH8aCJVTiKuBTTxZzOIY
+	 talg1490HLK+M1zxvro1nDkdohl0lIbkEBvHD7HBT5ZuGNSK7OLxNbUKzG2rU5z64S
+	 UJF+mEJ6ePadQ==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, perex@perex.cz,
- tiwai@suse.com, rf@opensource.cirrus.com, shumingf@realtek.com,
- povik+lin@cutebit.org, herve.codina@bootlin.com, ryans.lee@analog.com,
- wangweidong.a@awinic.com, ckeepax@opensource.cirrus.com,
- ajye_huang@compal.corp-partner.google.com, sebastian.reichel@collabora.com,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?utf-8?q?=E2=80=9CRyan?= <ryan.lee.analog@gmail.com>
-Cc: venkataprasad.potturu@amd.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230613060945.183128-1-ryan.lee.analog@gmail.com>
-References: <20230613060945.183128-1-ryan.lee.analog@gmail.com>
-Subject: Re: [PATCH V3 1/2] ASoC: dt-bindings: max98388: add amplifier
- driver
-Message-Id: <168683750761.557448.3503529701068446770.b4-ty@kernel.org>
-Date: Thu, 15 Jun 2023 14:58:27 +0100
+To: lgirdwood@gmail.com, YingKun Meng <mengyingkun@loongson.cn>
+Cc: krzysztof.kozlowski@linaro.org, linux-kernel@vger.kernel.org,
+ alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+ loongson-kernel@lists.loongnix.cn
+In-Reply-To: <20230615122718.3412942-1-mengyingkun@loongson.cn>
+References: <20230615122718.3412942-1-mengyingkun@loongson.cn>
+Subject: Re: [PATCH v4 1/3] ASoC: Add support for Loongson I2S controller
+Message-Id: <168683751466.557448.16150477443606791325.b4-ty@kernel.org>
+Date: Thu, 15 Jun 2023 14:58:34 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-c6835
-Message-ID-Hash: BIM7T75TYCGXUS7RR6PWTNXXFAHN7W5H
-X-Message-ID-Hash: BIM7T75TYCGXUS7RR6PWTNXXFAHN7W5H
+Message-ID-Hash: SFEEU53TGE675JCOJTP7H657MJ5A3LMC
+X-Message-ID-Hash: SFEEU53TGE675JCOJTP7H657MJ5A3LMC
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BIM7T75TYCGXUS7RR6PWTNXXFAHN7W5H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SFEEU53TGE675JCOJTP7H657MJ5A3LMC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,10 +98,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 12 Jun 2023 23:09:44 -0700, “Ryan wrote:
-> Add dt-bindings information for Analog Devices MAX98388 I2S Amplifier
+On Thu, 15 Jun 2023 20:27:18 +0800, YingKun Meng wrote:
+> Loongson I2S controller is found on 7axxx/2kxxx chips from loongson,
+> it is a PCI device with two private DMA controllers, one for playback,
+> the other for capture.
+> 
+> The driver supports the use of DTS or ACPI to describe device resources.
 > 
 > 
+> [...]
 
 Applied to
 
@@ -118,10 +114,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: max98388: add amplifier driver
-      commit: 4cab2d5faf7eff9896a15be3b301150b6fbfcaba
-[2/2] ASoC: max98388: add amplifier driver
-      commit: 6a8e1d46f0621c15d2993c5e847f4f264102f93d
+[1/3] ASoC: Add support for Loongson I2S controller
+      commit: d84881e06836dc1655777a592b4279be76ad7324
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

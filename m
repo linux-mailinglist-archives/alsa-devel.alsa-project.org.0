@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27016731CA9
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 17:30:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BA05731CAC
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 17:30:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BADCAEA;
-	Thu, 15 Jun 2023 17:29:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BADCAEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE502DED;
+	Thu, 15 Jun 2023 17:29:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE502DED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686843012;
-	bh=qbmVPAzFI1XOwkwskj5o2eNXuVt/Ikrzs/nBEeqOaDs=;
+	s=default; t=1686843022;
+	bh=V5nH896DYA3tixQdfgpl8x0DwqkRvGhabbuZYP93qjI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=VJN3PvZW3zgcdJ0qnw3EE3q/vbn+x+WWu9wMyQX+/nBp8n6bj8mY92qogLcDXV/fI
-	 rHyv3Spsg9ncM7E1q7r9Oj9uRHXrAfzk+lD+5sc/iduS8Hp+Wowuw7JbdpsDnXbN6/
-	 qURwQscO/le32qVO21+Oh7whU4oUR5tEDeQlA/Ms=
+	b=sPDtM4hFk/Rgs9gn07t6bluS7D1knfEk+Armhtc9OfsFxFNUICXnkB/4FIrTCORDz
+	 xWKc+Kzosb2cct2UKak5WrLuoHqs7rZWsGBzIWWKY5zQwDbSsWmsVicOZmD7RAC+Jp
+	 tdi1ErcsiYU1fqIviECRRoXRGfd3KxPy/Xh03RmQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 10383F805D4; Thu, 15 Jun 2023 17:27:12 +0200 (CEST)
+	id 29D73F805EA; Thu, 15 Jun 2023 17:27:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1810EF805D6;
-	Thu, 15 Jun 2023 17:27:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40C58F805E4;
+	Thu, 15 Jun 2023 17:27:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C79AF8057A; Thu, 15 Jun 2023 17:26:53 +0200 (CEST)
+	id 82454F8058C; Thu, 15 Jun 2023 17:26:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -36,26 +36,26 @@ Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
  [IPv6:2001:4b98:dc4:8::229])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9008FF80578
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 17:26:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9008FF80578
+	by alsa1.perex.cz (Postfix) with ESMTPS id 062DBF80571
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 17:26:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 062DBF80571
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=GrzUTB4M
+ header.s=gm1 header.b=Mg6xXkJi
 X-GND-Sasl: herve.codina@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1686842810;
+	t=1686842812;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YnpK8aRuMvnC0Ke7Gmvf/IJzrUVS+kKViuz7i3kW6rw=;
-	b=GrzUTB4Ms1R/yqUOktJimCglbYJw7y2SlJeIBpYQ8rcmPZcYb9s9Osp58fj+mLBrqLEAwF
-	yueMq/4hRn+Sc64jr/R4EkcV3kReKZP4Q7onPs4c7r/iQidiTFARIHB6C2rNP//0nU7rFt
-	zClN9mKjjBMMvgZnNgI2tOvJhfqBMAzhNeBinkHWfrFcLtFKaYETgsssRgK3Ez3VYJFT2J
-	51LZTW2FRvCl+g+HxljyjJMgAQWeH0ulapIoWyyax/E36Oft0VfBju721b+vMnr8/YXvnn
-	r4johgdvKhq/Br7gyokdTssJLnkl3V5oE6MXp8W9DEYWSIml+rxlUb+kI0/pqA==
+	bh=OfbhcnemGEJph7h7ZRnFSR85EJfyp+xZYW7NxXSGgNI=;
+	b=Mg6xXkJi8G6WmMT9d+qeGtB9SHO7STKuHosMBnUkSGClKxXOPdyTz5uJsUss8l9fkVhfDB
+	Riyud3yba/JPBWoDj8sGBQl6l0w3ToxVRz24cl3d7mNHOALPB1CTNEEV2Qqs7O7JFKgk3k
+	iWrOE75URdVvsMQqhbcSR2k/wkSSQvEkSSR4eTO+AC/oA6LuWUHdMAW6xRf4gyA9QBIe+s
+	vHEDPcmpVVXFn8r5SSTtVcFMZW3rHysWDEqZofWOHetJeK9LJfBqe+WPJtxmSwqEDuXhU3
+	lZdqL6lwX/8xXryF4P+DLZIjqR2qYET1/2+EKQAo6tyHaiqT5Qm2Cm1K8Zvf7w==
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
@@ -73,9 +73,8 @@ X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
-X-GND-Sasl: herve.codina@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPA id 4B0C6FF80D;
-	Thu, 15 Jun 2023 15:26:49 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPA id C52BAFF806;
+	Thu, 15 Jun 2023 15:26:50 +0000 (UTC)
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -94,18 +93,18 @@ Cc: alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	linux-iio@vger.kernel.org,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Subject: [PATCH v5 09/13] iio: inkern: Replace a FIXME comment by a TODO one
-Date: Thu, 15 Jun 2023 17:26:27 +0200
-Message-Id: <20230615152631.224529-10-herve.codina@bootlin.com>
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v5 10/13] iio: inkern: Add a helper to query an available
+ minimum raw value
+Date: Thu, 15 Jun 2023 17:26:28 +0200
+Message-Id: <20230615152631.224529-11-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230615152631.224529-1-herve.codina@bootlin.com>
 References: <20230615152631.224529-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7QGTMI3MXW3QXFG2ARD2HUPVMJWGNUR6
-X-Message-ID-Hash: 7QGTMI3MXW3QXFG2ARD2HUPVMJWGNUR6
+Message-ID-Hash: QDGZBLNMNZ3CRTEYGLXEE3GY2RRGY4MP
+X-Message-ID-Hash: QDGZBLNMNZ3CRTEYGLXEE3GY2RRGY4MP
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7QGTMI3MXW3QXFG2ARD2HUPVMJWGNUR6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QDGZBLNMNZ3CRTEYGLXEE3GY2RRGY4MP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,31 +126,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This FIXME comment is more a TODO one.
-It is a note when someone will need for this currently unsupported case.
+A helper, iio_read_max_channel_raw() exists to read the available
+maximum raw value of a channel but nothing similar exists to read the
+available minimum raw value.
 
-Change from FIXME to TODO.
+This new helper, iio_read_min_channel_raw(), fills the hole and can be
+used for reading the available minimum raw value of a channel.
+It is fully based on the existing iio_read_max_channel_raw().
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Suggested-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 ---
- drivers/iio/inkern.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/inkern.c         | 63 ++++++++++++++++++++++++++++++++++++
+ include/linux/iio/consumer.h | 12 +++++++
+ 2 files changed, 75 insertions(+)
 
 diff --git a/drivers/iio/inkern.c b/drivers/iio/inkern.c
-index 8bfd91f74101..19ddd77adb11 100644
+index 19ddd77adb11..7a1f6713318a 100644
 --- a/drivers/iio/inkern.c
 +++ b/drivers/iio/inkern.c
-@@ -879,7 +879,7 @@ static int iio_channel_read_max(struct iio_channel *chan,
- 			*val = max_array(vals, length);
- 			break;
- 		default:
--			/* FIXME: learn about max for other iio values */
-+			/* TODO: learn about max for other iio values */
- 			return -EINVAL;
- 		}
- 		return 0;
+@@ -909,6 +909,69 @@ int iio_read_max_channel_raw(struct iio_channel *chan, int *val)
+ }
+ EXPORT_SYMBOL_GPL(iio_read_max_channel_raw);
+ 
++static int iio_channel_read_min(struct iio_channel *chan,
++				int *val, int *val2, int *type,
++				enum iio_chan_info_enum info)
++{
++	const int *vals;
++	int length;
++	int ret;
++
++	ret = iio_channel_read_avail(chan, &vals, type, &length, info);
++	if (ret < 0)
++		return ret;
++
++	switch (ret) {
++	case IIO_AVAIL_RANGE:
++		switch (*type) {
++		case IIO_VAL_INT:
++			*val = vals[0];
++			break;
++		default:
++			*val = vals[0];
++			if (val2)
++				*val2 = vals[1];
++		}
++		return 0;
++
++	case IIO_AVAIL_LIST:
++		if (length <= 0)
++			return -EINVAL;
++		switch (*type) {
++		case IIO_VAL_INT:
++			*val = min_array(vals, length);
++			break;
++		default:
++			/* TODO: learn about min for other iio values */
++			return -EINVAL;
++		}
++		return 0;
++
++	default:
++		return -EINVAL;
++	}
++}
++
++int iio_read_min_channel_raw(struct iio_channel *chan, int *val)
++{
++	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(chan->indio_dev);
++	int ret;
++	int type;
++
++	mutex_lock(&iio_dev_opaque->info_exist_lock);
++	if (!chan->indio_dev->info) {
++		ret = -ENODEV;
++		goto err_unlock;
++	}
++
++	ret = iio_channel_read_min(chan, val, NULL, &type, IIO_CHAN_INFO_RAW);
++err_unlock:
++	mutex_unlock(&iio_dev_opaque->info_exist_lock);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(iio_read_min_channel_raw);
++
+ int iio_get_channel_type(struct iio_channel *chan, enum iio_chan_type *type)
+ {
+ 	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(chan->indio_dev);
+diff --git a/include/linux/iio/consumer.h b/include/linux/iio/consumer.h
+index f536820b9cf2..e9910b41d48e 100644
+--- a/include/linux/iio/consumer.h
++++ b/include/linux/iio/consumer.h
+@@ -301,6 +301,18 @@ int iio_write_channel_raw(struct iio_channel *chan, int val);
+  */
+ int iio_read_max_channel_raw(struct iio_channel *chan, int *val);
+ 
++/**
++ * iio_read_min_channel_raw() - read minimum available raw value from a given
++ *				channel, i.e. the minimum possible value.
++ * @chan:		The channel being queried.
++ * @val:		Value read back.
++ *
++ * Note, if standard units are required, raw reads from iio channels
++ * need the offset (default 0) and scale (default 1) to be applied
++ * as (raw + offset) * scale.
++ */
++int iio_read_min_channel_raw(struct iio_channel *chan, int *val);
++
+ /**
+  * iio_read_avail_channel_raw() - read available raw values from a given channel
+  * @chan:		The channel being queried.
 -- 
 2.40.1
 

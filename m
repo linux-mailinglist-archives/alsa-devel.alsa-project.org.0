@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB827731CA2
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 17:28:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1968731CA4
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 17:29:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32B97827;
-	Thu, 15 Jun 2023 17:28:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B97827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 107D3820;
+	Thu, 15 Jun 2023 17:28:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 107D3820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686842930;
-	bh=7e+7ZksAfL4pOgUmmUpF/ZpeR7gAdjp6+TumaVqnWzM=;
+	s=default; t=1686842954;
+	bh=SHsRGGRQfIPzKnJ/GmHg5EWGSRe7iLhNHPVjQhTfDzw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dal5ZjY5Zo/dq7tw4FhEO2xYpRcAotPuVfP81ng6yOcxAgPa5P6uKPjeMaZCpL9ae
-	 VYXYqepL+zZ/EtWKfDBYMa6bHMxDnCMSTG2I3/MZpIpCbCDuZ5HL/qlJ13thL9/WIY
-	 FlUx4eb1AYZox/B7vnKsIlhGji+czw1J/qgSiFA4=
+	b=jR2LK6TletqUo2uB1NT+9bqjFEqAQo/a8gvTM1mRkPDSkaz3KoobnIpPsennbfbtm
+	 kNwV8M1kbZn5Hj4pTtr9D7jG31LzrKt7xCkn1v2hZlj04fuOLZDfGmzbU5GIhsHMgr
+	 3//8Xm9WT1jggN6MKd5xGNaa0nLUHnPzi2zoVmgA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 746E0F80587; Thu, 15 Jun 2023 17:26:55 +0200 (CEST)
+	id D5160F805B2; Thu, 15 Jun 2023 17:26:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9BDFF8057A;
-	Thu, 15 Jun 2023 17:26:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07CCBF8057D;
+	Thu, 15 Jun 2023 17:26:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3F7C5F8025E; Thu, 15 Jun 2023 17:26:47 +0200 (CEST)
+	id 4A760F80533; Thu, 15 Jun 2023 17:26:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::229])
+ [217.70.183.199])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ED06CF80155
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 17:26:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED06CF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C37FF80149
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 17:26:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C37FF80149
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=DNkwSUbQ
+ header.s=gm1 header.b=Ftb9H4ZQ
 X-GND-Sasl: herve.codina@bootlin.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1686842801;
+	t=1686842803;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rfYOy7L85MdtcQ88k+lfhIIjhcOaxuYtKNcPHMwEQsI=;
-	b=DNkwSUbQpzHsmovXfUt9+3hYNv8lCpGKZkIGNMH72ReCCWpw+SwUaY107imywc9IFOPHqX
-	FjrkCczX3FJv6E/kjcNSw6DXTCGE5i9+mRdg89jn1h53WOChKq8umRZqDRu3lkiqOOXuTi
-	5btEtvVFHzdCNLyJPU6lQz3sWq1w7ZBWitlJ2Oi31jlHg5uhWGLntHxZuIv4LFwXyLGnOY
-	tegR8uS9gANHOoUoYoLX8DG1fSD7Wnc52O3IzmB3f05ZsdKr7HjLEXHQtlNO4KU3K+xK1p
-	WC53rkJUnFlGvs03zITB1ejOfp3lF58wei7nXm227iHlVPT4l8LE872S3r7RPQ==
+	bh=rgrvFu84ZrZIMRnZAFcmpkUkbG8qISQlNfLp/T/UU5I=;
+	b=Ftb9H4ZQY+TTWoE4iKKEFZ2v7rbDhwruarzVWBMCQ38AFreipx30EizdYzdc3PRbJyg0fH
+	IJRtSf6Z1deolL+ctyVyuDu13OcxTaFMls4TCotL/GqtxEzLn5KJCfZUBCB5VeLvMzoKmn
+	pNne5foHuSI/xPHQOa+QMwvEaxEI+JrwxtFQE1Pj3rmT7pqZ7ejwhCHbjNh3Zy4v1YRP3A
+	D7U4LrZZqWDaTMDvOF1LvYumoRWJCEWtQVcgCmrJ020KhamZsWKiuHJH3z1bhV79SAsE7e
+	LGHVCd7un2hhiTANs/gav2iKpA2uhFUgCEHbxU7Mf097aImK49GvNV40tGfVEg==
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
@@ -74,8 +74,8 @@ X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
 X-GND-Sasl: herve.codina@bootlin.com
-Received: by mail.gandi.net (Postfix) with ESMTPA id 54A2CFF80B;
-	Thu, 15 Jun 2023 15:26:39 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPA id 3270CFF809;
+	Thu, 15 Jun 2023 15:26:41 +0000 (UTC)
 From: Herve Codina <herve.codina@bootlin.com>
 To: Herve Codina <herve.codina@bootlin.com>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -96,17 +96,16 @@ Cc: alsa-devel@alsa-project.org,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Subject: [PATCH v5 03/13] iio: inkern: Check error explicitly in
- iio_channel_read_max()
-Date: Thu, 15 Jun 2023 17:26:21 +0200
-Message-Id: <20230615152631.224529-4-herve.codina@bootlin.com>
+Subject: [PATCH v5 04/13] iio: consumer.h: Fix raw values documentation notes
+Date: Thu, 15 Jun 2023 17:26:22 +0200
+Message-Id: <20230615152631.224529-5-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230615152631.224529-1-herve.codina@bootlin.com>
 References: <20230615152631.224529-1-herve.codina@bootlin.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FVN7BGCNWCRBJMI7TN5PIN4JANOWVXR3
-X-Message-ID-Hash: FVN7BGCNWCRBJMI7TN5PIN4JANOWVXR3
+Message-ID-Hash: IABX3PWSIZ6G7MVRLZAUUUKYTPHWEU3T
+X-Message-ID-Hash: IABX3PWSIZ6G7MVRLZAUUUKYTPHWEU3T
 X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -118,51 +117,92 @@ X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: <>
-List-Archive: <>
+Archived-At: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IABX3PWSIZ6G7MVRLZAUUUKYTPHWEU3T/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The current implementation returns the error code as part of the
-default switch case.
-This can lead to returning an incorrect positive value in case of
-iio_avail_type enum entries evolution.
+The raw values notes mention 'ADC counts' and are not fully accurate.
 
-In order to avoid this case, be more strict in error checking.
+Reword the notes in order to remove the 'ADC counts' and describe the
+conversion needed between a raw value and a value in the standard units.
 
 Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
 ---
- drivers/iio/inkern.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ include/linux/iio/consumer.h | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/iio/inkern.c b/drivers/iio/inkern.c
-index 872fd5c24147..f738db9a0c04 100644
---- a/drivers/iio/inkern.c
-+++ b/drivers/iio/inkern.c
-@@ -858,6 +858,9 @@ static int iio_channel_read_max(struct iio_channel *chan,
- 		val2 = &unused;
+diff --git a/include/linux/iio/consumer.h b/include/linux/iio/consumer.h
+index 6802596b017c..f536820b9cf2 100644
+--- a/include/linux/iio/consumer.h
++++ b/include/linux/iio/consumer.h
+@@ -201,8 +201,9 @@ struct iio_dev
+  * @chan:		The channel being queried.
+  * @val:		Value read back.
+  *
+- * Note raw reads from iio channels are in adc counts and hence
+- * scale will need to be applied if standard units required.
++ * Note, if standard units are required, raw reads from iio channels
++ * need the offset (default 0) and scale (default 1) to be applied
++ * as (raw + offset) * scale.
+  */
+ int iio_read_channel_raw(struct iio_channel *chan,
+ 			 int *val);
+@@ -212,8 +213,9 @@ int iio_read_channel_raw(struct iio_channel *chan,
+  * @chan:		The channel being queried.
+  * @val:		Value read back.
+  *
+- * Note raw reads from iio channels are in adc counts and hence
+- * scale will need to be applied if standard units required.
++ * Note, if standard units are required, raw reads from iio channels
++ * need the offset (default 0) and scale (default 1) to be applied
++ * as (raw + offset) * scale.
+  *
+  * In opposit to the normal iio_read_channel_raw this function
+  * returns the average of multiple reads.
+@@ -281,8 +283,9 @@ int iio_read_channel_attribute(struct iio_channel *chan, int *val,
+  * @chan:		The channel being queried.
+  * @val:		Value being written.
+  *
+- * Note raw writes to iio channels are in dac counts and hence
+- * scale will need to be applied if standard units required.
++ * Note that for raw writes to iio channels, if the value provided is
++ * in standard units, the affect of the scale and offset must be removed
++ * as (value / scale) - offset.
+  */
+ int iio_write_channel_raw(struct iio_channel *chan, int val);
  
- 	ret = iio_channel_read_avail(chan, &vals, type, &length, info);
-+	if (ret < 0)
-+		return ret;
-+
- 	switch (ret) {
- 	case IIO_AVAIL_RANGE:
- 		switch (*type) {
-@@ -888,7 +891,7 @@ static int iio_channel_read_max(struct iio_channel *chan,
- 		return 0;
+@@ -292,8 +295,9 @@ int iio_write_channel_raw(struct iio_channel *chan, int val);
+  * @chan:		The channel being queried.
+  * @val:		Value read back.
+  *
+- * Note raw reads from iio channels are in adc counts and hence
+- * scale will need to be applied if standard units are required.
++ * Note, if standard units are required, raw reads from iio channels
++ * need the offset (default 0) and scale (default 1) to be applied
++ * as (raw + offset) * scale.
+  */
+ int iio_read_max_channel_raw(struct iio_channel *chan, int *val);
  
- 	default:
--		return ret;
-+		return -EINVAL;
- 	}
- }
- 
+@@ -308,8 +312,9 @@ int iio_read_max_channel_raw(struct iio_channel *chan, int *val);
+  * For ranges, three vals are always returned; min, step and max.
+  * For lists, all the possible values are enumerated.
+  *
+- * Note raw available values from iio channels are in adc counts and
+- * hence scale will need to be applied if standard units are required.
++ * Note, if standard units are required, raw available values from iio
++ * channels need the offset (default 0) and scale (default 1) to be applied
++ * as (raw + offset) * scale.
+  */
+ int iio_read_avail_channel_raw(struct iio_channel *chan,
+ 			       const int **vals, int *length);
 -- 
 2.40.1
 

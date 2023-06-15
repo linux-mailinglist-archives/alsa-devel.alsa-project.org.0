@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5423F731946
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 14:55:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67BA2731945
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 14:55:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEE2983A;
-	Thu, 15 Jun 2023 14:54:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEE2983A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79D9D82B;
+	Thu, 15 Jun 2023 14:54:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D9D82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686833713;
-	bh=PdugifJ988kHOdPqRVdugDyIXLOqN0JGsCj3o2txrKQ=;
+	s=default; t=1686833709;
+	bh=wnmThzC+j9lDdLEcAD0pIRR1CHiL1hMaMBlNZUalJNQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OscPwdp77GkyfFRYlX2cO+ab2pUd7rHDViys3QdyQJn/Llw3RgJssl80wkNkxxcER
-	 clMy6sRbaN4/vIb492Kh5siBGieLfCUBUY17h8befFl5sdqKGC9QTnpcxLMKHrS6BK
-	 bou0/kgz2lrc7ja2k2V3h8cHjHUs2Q2UwFBrOWxI=
+	b=PZ/Sx4PUHece6wtpTX7NtxLHQDGGfy8HKPOTq5PybgUK68GRor06KsqqPIpKjv4nA
+	 5S9hrNmmxGfdm56BsT9pxDc6QYNDRatC01qMyTqxezg5zX9kCq/6+iTan5tOIsvqlO
+	 y5RyVw382GGFEFlcLm9XFU18walqg8dcuqM1I4fk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D27DF80568; Thu, 15 Jun 2023 14:53:32 +0200 (CEST)
+	id AA6D0F8055A; Thu, 15 Jun 2023 14:53:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A94D0F8055C;
-	Thu, 15 Jun 2023 14:53:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE81DF80548;
+	Thu, 15 Jun 2023 14:53:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCEE9F80149; Thu, 15 Jun 2023 14:53:23 +0200 (CEST)
+	id B3860F80155; Thu, 15 Jun 2023 14:53:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,47 +36,46 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 665EFF80093
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 14:53:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 665EFF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 65702F80130
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 14:53:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65702F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=utGJJOov
+ header.s=k20201202 header.b=WGIECeun
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 5C6F662883;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 332CF6210F;
+	Thu, 15 Jun 2023 12:53:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF24C433C0;
 	Thu, 15 Jun 2023 12:53:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14796C433C8;
-	Thu, 15 Jun 2023 12:53:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686833594;
-	bh=PdugifJ988kHOdPqRVdugDyIXLOqN0JGsCj3o2txrKQ=;
+	s=k20201202; t=1686833596;
+	bh=wnmThzC+j9lDdLEcAD0pIRR1CHiL1hMaMBlNZUalJNQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=utGJJOovI3TUSVdVwfcvJdBw/Ei2bpgjAHM8k8Wuai6d7HUG+hKgBqaWvKe/needd
-	 slDAf60dMHamjsw2s85TpYsjpQcywHJZXF3onpHmuAZQIPKZGYuQr8EtfWrz8zQzNo
-	 FlYo5VjC5u3eMobT6H7qrp2yS0mamiA0OdQ85mdsPBHOu1c3nW1At9FQW3qH81xca0
-	 MVJRLQqcWbTwB1zEy5WBDYPhk5b7YAPE4aBZy85Lba3I/Uk11Hucjk5ESyrv47NH0Y
-	 t4Q2FdP2lvIpaxCdEOENc4i6nol3urvo83wUkZDP/NI48JQi2+Wq581HF9Hur0+5R7
-	 EGcV7uhrqoKRA==
+	b=WGIECeunQM85OLmI7FiAai4P3eIZRjxFZ4CK3Ps0buQMgcQd5ry8O/NHW9iSRv/Sh
+	 QacPXyvJ/DErKB+Ao8vbDfUSSHhoFU92Kv2PGHFfF1CTH8Qu9fNWo52fDzIYkz8xi3
+	 t4LH+p9dJcrRxHbcm6cgaL3pBtUWffnY9M0AUfjSt0h3kHSp+Gs+4P5zw5a8/e/5XK
+	 GTZRxBDTJygYGDvMYCTIqilUKpiojrb7Ptg12dAfVN51g/mcCgPSrAU/3f8lIeUe6u
+	 c1BJYm832NeOQNL7KLBpYvHJH70yFsJPaSB6mGFsE+WQANoHBmmlxXLNdH9vJ34zSq
+	 //6XB/RsZgqtA==
 From: Mark Brown <broonie@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org
-In-Reply-To: <20230609-asoc-rt-sdw-maple-v1-0-85ee50c93905@kernel.org>
-References: <20230609-asoc-rt-sdw-maple-v1-0-85ee50c93905@kernel.org>
-Subject: Re: [PATCH 0/8] ASoC: Use the maple tree register cache for
- RealTek SoundWire CODECs
-Message-Id: <168683359259.543460.10829470795045808370.b4-ty@kernel.org>
-Date: Thu, 15 Jun 2023 13:53:12 +0100
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <87bkhhxpc6.wl-kuninori.morimoto.gx@renesas.com>
+References: <87bkhhxpc6.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [PATCH] ASoC: simple_card_utils: remove unused
+ cpus/codecs/platforms from props
+Message-Id: <168683359508.543460.8904351812277422730.b4-ty@kernel.org>
+Date: Thu, 15 Jun 2023 13:53:15 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-c6835
-Message-ID-Hash: TRZBY45PODAOWMFMECREHY6TA3GO4VCA
-X-Message-ID-Hash: TRZBY45PODAOWMFMECREHY6TA3GO4VCA
+Message-ID-Hash: RKFK2QLK4RUTS34KPEGM2SPEZ63BIFBS
+X-Message-ID-Hash: RKFK2QLK4RUTS34KPEGM2SPEZ63BIFBS
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TRZBY45PODAOWMFMECREHY6TA3GO4VCA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RKFK2QLK4RUTS34KPEGM2SPEZ63BIFBS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,12 +97,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 10 Jun 2023 15:27:11 +0100, Mark Brown wrote:
-> The RealTek SoundWire CODECs don't support bulk register operations so
-> they gain no advantage from using the rbtree cache, convert them to use
-> the maple tree cache instead - it is more modern.
+On Thu, 15 Jun 2023 05:32:42 +0000, Kuninori Morimoto wrote:
+> simple_dai_props has cpus/codecs/platforms. These pointer were used
+> for dai_link before, but are allocated today since
+> commit 050c7950fd70 ("ASoC: simple-card-utils: alloc dai_link
+> information for CPU/Codec/Platform").
+> We don't need to keep it anymore. This patch removes these.
 > 
 > 
+> [...]
 
 Applied to
 
@@ -111,22 +113,8 @@ Applied to
 
 Thanks!
 
-[1/8] ASoC: rt700: Use maple tree register cache
-      commit: 049a78048e15ab276052d846c9692ea272699644
-[2/8] ASoC: rt711: Use maple tree register cache
-      commit: 0a5757293339fbbbb627baa7d2da65fd083c7cce
-[3/8] ASoC: rt712: Use maple tree register cache
-      commit: f438c799aa934fcd9b956083043b6f691bcc8492
-[4/8] ASoC: rt715: Use maple tree register cache
-      commit: dd08b6ddcb319375b4ee69cd02ce3298ca7608aa
-[5/8] ASoC: rt722: Use maple tree register cache
-      commit: 799457a3200b0451ca9859c77dd4e863f70ba608
-[6/8] ASoC: rt1308: Use maple tree register cache
-      commit: 4f69e29ace9dce5f8226bfc99b77b8497d3d3d79
-[7/8] ASoC: rt1316: Use maple tree register cache
-      commit: 6179a2e84f0b0b353079fe965d321ed25251c996
-[8/8] ASoC: rt1318: Use maple tree register cache
-      commit: 22691a051377763e6a4e149b7362944253fb434a
+[1/1] ASoC: simple_card_utils: remove unused cpus/codecs/platforms from props
+      commit: 45b4ad53d4840d92681060c11fcd4f55b1c2f246
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

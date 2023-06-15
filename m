@@ -2,97 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD79C731DDF
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 18:32:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB0F0731E21
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 18:47:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E129D827;
-	Thu, 15 Jun 2023 18:31:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E129D827
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C12C829;
+	Thu, 15 Jun 2023 18:46:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C12C829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686846749;
-	bh=wxqMg8pf+Z+Iffs07wBWUeS7VLTVDNo0vpmK0c0PBOE=;
+	s=default; t=1686847648;
+	bh=PiVRmi1vjOZiGqiH/BFR7jdTY/8M9iyE6yzFyqVXpIo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LSt1ClZodn7RMtFwms/jAkwKUPb/rH063JJtrbtTkcRC0WqzM3h+cdOwM5RCIhufi
-	 dypQ/KJP64BlKvcrZb3O3FucvPe/83P/kaH3Vj7Lu8t5BmInrEVyWZXry0XhXShNFU
-	 0hlZW25TE7BP/1/ukjsRhI4FUzaSo5D3sQ9SyUIQ=
+	b=qTIqUes6+kWI1iRxlwiR3pdefJOEH6rSdgBX1FtZ5T834zQYkpSV8PF5KV7MvAFg3
+	 sA2Mt+AsK4ngOcmazi3DWDpKor9rrnj6H1SRMXPZsfZfLErd24fWjTCcHCZOr02SNi
+	 NC/ljahXF9TyR2hT78FDaUHADsM8UeHX3Ndvqj50=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D079F80557; Thu, 15 Jun 2023 18:30:49 +0200 (CEST)
+	id B5C89F80130; Thu, 15 Jun 2023 18:46:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13CF8F80544;
-	Thu, 15 Jun 2023 18:30:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9F03F80130;
+	Thu, 15 Jun 2023 18:46:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44494F80130; Thu, 15 Jun 2023 18:30:44 +0200 (CEST)
+	id AC069F80155; Thu, 15 Jun 2023 18:46:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id ADC78F800ED
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 18:30:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADC78F800ED
+	by alsa1.perex.cz (Postfix) with ESMTPS id B9401F800BA
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 18:46:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9401F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Kxox5m0e
+ header.s=Intel header.b=gpODunB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686846635; x=1718382635;
+  t=1686847587; x=1718383587;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=wxqMg8pf+Z+Iffs07wBWUeS7VLTVDNo0vpmK0c0PBOE=;
-  b=Kxox5m0e3buozHWGQaLn1MciPClnoOgopLmuTJp43I7HLm+fXFKQF3XL
-   LQ6Os78G338GKeHbvOmZQCGNm3XWSTmDVP8vY0OWyp2+FLniNsHaOKV7+
-   RMlbYzjGYclXMb7/sYdpZPgNO5SkY91gaVPSss4v2bE5c5m3NnG/VLFSo
-   3Yv3f1PIEZVM+o868AIO8flm2m16dVf1sttUAottrHdGldNZ5R7LW/gja
-   NQkBQrvPGjuCuqL2kFPPDn7oPtC8YxI77qyaMwdrJZul4ZzHFOhUmSB8B
-   1DdQJNkJvGkdGczTYTYgAhfkcVqhodIva/xoY43ZxsFGuhodKkV/IvGAS
+  bh=PiVRmi1vjOZiGqiH/BFR7jdTY/8M9iyE6yzFyqVXpIo=;
+  b=gpODunB1fC4KsmvKF3QxN8Vj3crzpWeFNfTmf/nWoJKxD0hwyhaz3snW
+   /rFCOsXgdmJ9FKsrXXF30UdvcHz5z6VEww2WUv6WCAABdvK1byutFhOO/
+   A21qUuMBIctpwLYEEjQ+AA2fUfLGcyw7EfBFK9gYZDVpwf8sj1a9SFXoY
+   B6SmRDBKRfcShXTOUSuIc7hoyeS1rQ0Wv8pxE1qRIOkciE6afo0/QgYQU
+   D86q+bomn08W9rmdT/Oe9FHRpJxKP5K1t7w+n4GHdVK4VtSUD+cowma5y
+   xMVq4PnZlomj/y0H99IZWO4lWRaOFCA2G/yub8/DofSIzVLo148jkOBvp
    A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="422603169"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387506745"
 X-IronPort-AV: E=Sophos;i="6.00,245,1681196400";
-   d="scan'208";a="422603169"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2023 09:24:27 -0700
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="745640902"
+   d="scan'208";a="387506745"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2023 09:46:23 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="857040434"
 X-IronPort-AV: E=Sophos;i="6.00,245,1681196400";
-   d="scan'208";a="745640902"
+   d="scan'208";a="857040434"
 Received: from mrejmak-mobl.ger.corp.intel.com (HELO [10.252.36.104])
  ([10.252.36.104])
-  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2023 09:24:22 -0700
-Message-ID: <59da8a18-752a-bc8c-c8c5-19d75d8c87fb@linux.intel.com>
-Date: Thu, 15 Jun 2023 18:23:46 +0200
+  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2023 09:46:21 -0700
+Message-ID: <2f010db3-73be-2cdd-0aef-62ec212769c1@linux.intel.com>
+Date: Thu, 15 Jun 2023 18:31:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH V4 1/9] ASoC: amd: ps: create platform devices based on
- acp config
+Subject: Re: [PATCH 1/2] soundwire: bus: Prevent lockdep asserts when stream
+ has multiple buses
 Content-Language: en-US
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, Mastan.Katragadda@amd.com,
- Arungopal.kondaveeti@amd.com, mario.limonciello@amd.com,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20230612095903.2113464-1-Vijendar.Mukunda@amd.com>
- <20230612095903.2113464-2-Vijendar.Mukunda@amd.com>
- <5899c2b8-e984-fda9-5e12-190b0c9fd3b2@linux.intel.com>
- <cd465394-5a19-239e-7aad-caa6f19b0918@amd.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>, vkoul@kernel.org,
+ yung-chuan.liao@linux.intel.com
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ patches@opensource.cirrus.com
+References: <20230615141208.679011-1-rf@opensource.cirrus.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <cd465394-5a19-239e-7aad-caa6f19b0918@amd.com>
+In-Reply-To: <20230615141208.679011-1-rf@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: 2MG7NXWPO4NNMLRWVGXNTE6AMP25RMDM
-X-Message-ID-Hash: 2MG7NXWPO4NNMLRWVGXNTE6AMP25RMDM
+Message-ID-Hash: ACYNUL2SDCHQWN2LDFNKK7ZSK3UFTHZV
+X-Message-ID-Hash: ACYNUL2SDCHQWN2LDFNKK7ZSK3UFTHZV
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2MG7NXWPO4NNMLRWVGXNTE6AMP25RMDM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ACYNUL2SDCHQWN2LDFNKK7ZSK3UFTHZV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,53 +112,106 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 6/13/23 07:42, Mukunda,Vijendar wrote:
-> On 12/06/23 23:39, Pierre-Louis Bossart wrote:
->> =
->>> +static int sdw_amd_scan_controller(struct device *dev)
->>> +{
->>> +	struct acp63_dev_data *acp_data;
->>> +	struct fwnode_handle *link;
->>> +	char name[32];
->>> +	u32 sdw_manager_bitmap;
->>> +	u8 count = 0;
->>> +	u32 acp_sdw_power_mode = 0;
->>> +	int index;
->>> +	int ret;
->>> +
->>> +	acp_data = dev_get_drvdata(dev);
->>> +	/*
->>> +	 * Current implementation is based on MIPI DisCo 2.0 spec.
->>> +	 * Found controller, find links supported.
->>> +	 */
->>> +	ret = fwnode_property_read_u32_array((acp_data->sdw_fw_node), "mipi-sdw-manager-list",
->>> +					     &sdw_manager_bitmap, 1);
->>> +
->>> +	if (ret) {
->>> +		dev_err(dev, "Failed to read mipi-sdw-manager-list: %d\n", ret);
->>> +		return -EINVAL;
->>> +	}
->>> +	count = hweight32(sdw_manager_bitmap);
->>> +	/* Check count is within bounds */
->>> +	if (count > AMD_SDW_MAX_MANAGERS) {
->>> +		dev_err(dev, "Manager count %d exceeds max %d\n", count, AMD_SDW_MAX_MANAGERS);
->>> +		return -EINVAL;
->>> +	}
->> nit-pick: the count is not enough, you should also check that only bits
->> 0 and 1 are set in mipi-sdw-manager-list...
-> As per our design for PS platform,
-> we will go with two bit map values as 0x03 and 0x01.
-> 1. As per ACP PIN CONFIG, we support Single SDW Manager instance
-> which refers to SW0 manager instance. For this, we need to use bitmap
-> value as 0x01.
-> 2. Other bit map value - 0x03 will be used to populate two SoundWire
-> manager instances.
-> We have extra sub property "amd-sdw-enable" to invoke the init sequence
-> for SoundWire manager.
+On 6/15/23 16:12, Richard Fitzgerald wrote:
+> Give the bus_lock and msg_lock of each bus a different unique key
+> so that it is possible to acquire the locks of multiple buses
+> without lockdep asserting a possible deadlock.
 > 
-> As we are supporting two bit map value combinations here, it's not required
-> to check bit set value. count value is enough to know manager instance count.
-> It doesn't break anything.
+> Using mutex_init() to initialize a mutex gives all those mutexes
+> the same lock class. Lockdep checking treats it as an error to
+> attempt to take a mutex while already holding a mutex of the same
+> class. This causes a lockdep assert when sdw_acquire_bus_lock()
+> attempts to lock multiple buses, and when do_bank_switch() takes
+> multiple msg_lock.
+> 
+> [  138.697350] WARNING: possible recursive locking detected
+> [  138.697366] 6.3.0-test #1 Tainted: G            E
+> [  138.697380] --------------------------------------------
+> [  138.697394] play/903 is trying to acquire lock:
+> [  138.697409] ffff99b8c41aa8c8 (&bus->bus_lock){+.+.}-{3:3}, at:
+> sdw_prepare_stream+0x52/0x2e0
+> [  138.697443]
+>                but task is already holding lock:
+> [  138.697468] ffff99b8c41af8c8 (&bus->bus_lock){+.+.}-{3:3}, at:
+> sdw_prepare_stream+0x52/0x2e0
+> [  138.697493]
+>                other info that might help us debug this:
+> [  138.697521]  Possible unsafe locking scenario:
+> 
+> [  138.697540]        CPU0
+> [  138.697550]        ----
+> [  138.697559]   lock(&bus->bus_lock);
+> [  138.697570]   lock(&bus->bus_lock);
+> [  138.697581]
+>                 *** DEADLOCK ***
+> 
+> Giving each mutex a unique key allows multiple to be held
+> without triggering a lockdep assert. But note that it does not
+> allow them to be taken in one order then a different order.
+> If two mutexes are taken in the order A, B then they must
+> always be taken in that order otherwise they could deadlock.
+> 
+> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-Not a blocker but you underestimate the creativity of UEFI BIOS writers...
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
+> ---
+>  drivers/soundwire/bus.c       | 15 +++++++++++++--
+>  include/linux/soundwire/sdw.h |  3 +++
+>  2 files changed, 16 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+> index b44f8d0affa6..dba920ec88f6 100644
+> --- a/drivers/soundwire/bus.c
+> +++ b/drivers/soundwire/bus.c
+> @@ -69,8 +69,17 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
+>  		return -EINVAL;
+>  	}
+>  
+> -	mutex_init(&bus->msg_lock);
+> -	mutex_init(&bus->bus_lock);
+> +	/*
+> +	 * Give each bus_lock and msg_lock a unique key so that lockdep won't
+> +	 * trigger a deadlock warning when the locks of several buses are
+> +	 * grabbed during configuration of a multi-bus stream.
+> +	 */
+> +	lockdep_register_key(&bus->msg_lock_key);
+> +	__mutex_init(&bus->msg_lock, "msg_lock", &bus->msg_lock_key);
+> +
+> +	lockdep_register_key(&bus->bus_lock_key);
+> +	__mutex_init(&bus->bus_lock, "bus_lock", &bus->bus_lock_key);
+> +
+>  	INIT_LIST_HEAD(&bus->slaves);
+>  	INIT_LIST_HEAD(&bus->m_rt_list);
+>  
+> @@ -181,6 +190,8 @@ void sdw_bus_master_delete(struct sdw_bus *bus)
+>  	sdw_master_device_del(bus);
+>  
+>  	sdw_bus_debugfs_exit(bus);
+> +	lockdep_unregister_key(&bus->bus_lock_key);
+> +	lockdep_unregister_key(&bus->msg_lock_key);
+>  	ida_free(&sdw_bus_ida, bus->id);
+>  }
+>  EXPORT_SYMBOL(sdw_bus_master_delete);
+> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+> index c076a3f879b3..f523ceabd059 100644
+> --- a/include/linux/soundwire/sdw.h
+> +++ b/include/linux/soundwire/sdw.h
+> @@ -5,6 +5,7 @@
+>  #define __SOUNDWIRE_H
+>  
+>  #include <linux/bug.h>
+> +#include <linux/lockdep_types.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/bitfield.h>
+>  
+> @@ -907,7 +908,9 @@ struct sdw_bus {
+>  	struct list_head slaves;
+>  	DECLARE_BITMAP(assigned, SDW_MAX_DEVICES);
+>  	struct mutex bus_lock;
+> +	struct lock_class_key bus_lock_key;
+>  	struct mutex msg_lock;
+> +	struct lock_class_key msg_lock_key;
+>  	int (*compute_params)(struct sdw_bus *bus);
+>  	const struct sdw_master_ops *ops;
+>  	const struct sdw_master_port_ops *port_ops;

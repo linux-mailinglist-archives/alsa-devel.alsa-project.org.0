@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB0F0731E21
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 18:47:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 922F4731E26
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 18:48:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C12C829;
-	Thu, 15 Jun 2023 18:46:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C12C829
+	by alsa0.perex.cz (Postfix) with ESMTPS id C94B583B;
+	Thu, 15 Jun 2023 18:47:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C94B583B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686847648;
-	bh=PiVRmi1vjOZiGqiH/BFR7jdTY/8M9iyE6yzFyqVXpIo=;
+	s=default; t=1686847695;
+	bh=peYeLn9BGLKhNAB74de+wNh8KFc+idh7Mo+rg1C/Ax4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qTIqUes6+kWI1iRxlwiR3pdefJOEH6rSdgBX1FtZ5T834zQYkpSV8PF5KV7MvAFg3
-	 sA2Mt+AsK4ngOcmazi3DWDpKor9rrnj6H1SRMXPZsfZfLErd24fWjTCcHCZOr02SNi
-	 NC/ljahXF9TyR2hT78FDaUHADsM8UeHX3Ndvqj50=
+	b=ROvU+TMSklRHpryBycYjsxbjQ8paRP4jXJVaMndmjdY12ywnaVxjIJlLR8/C68YPV
+	 JZ+6iByt19lUFQv6M4iotvMrCb9u8FH/ZgXYCNqrfNiehlYOKl9uNT4EvrLGuOQHsO
+	 piOv+YRuVxJo9h3jNk+znjQzQThAaabcT925jOO0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5C89F80130; Thu, 15 Jun 2023 18:46:36 +0200 (CEST)
+	id 1496AF80093; Thu, 15 Jun 2023 18:46:39 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9F03F80130;
-	Thu, 15 Jun 2023 18:46:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F21FF80548;
+	Thu, 15 Jun 2023 18:46:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AC069F80155; Thu, 15 Jun 2023 18:46:32 +0200 (CEST)
+	id 7DB61F80149; Thu, 15 Jun 2023 18:46:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,59 +36,60 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B9401F800BA
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 18:46:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9401F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id B8E88F80093
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 18:46:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8E88F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gpODunB1
+ header.s=Intel header.b=J42lBcu0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686847587; x=1718383587;
+  t=1686847589; x=1718383589;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=PiVRmi1vjOZiGqiH/BFR7jdTY/8M9iyE6yzFyqVXpIo=;
-  b=gpODunB1fC4KsmvKF3QxN8Vj3crzpWeFNfTmf/nWoJKxD0hwyhaz3snW
-   /rFCOsXgdmJ9FKsrXXF30UdvcHz5z6VEww2WUv6WCAABdvK1byutFhOO/
-   A21qUuMBIctpwLYEEjQ+AA2fUfLGcyw7EfBFK9gYZDVpwf8sj1a9SFXoY
-   B6SmRDBKRfcShXTOUSuIc7hoyeS1rQ0Wv8pxE1qRIOkciE6afo0/QgYQU
-   D86q+bomn08W9rmdT/Oe9FHRpJxKP5K1t7w+n4GHdVK4VtSUD+cowma5y
-   xMVq4PnZlomj/y0H99IZWO4lWRaOFCA2G/yub8/DofSIzVLo148jkOBvp
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387506745"
+  bh=peYeLn9BGLKhNAB74de+wNh8KFc+idh7Mo+rg1C/Ax4=;
+  b=J42lBcu0Cai70e93G1ceQ/81PNLvH3wNrtPpCExf80fHGS0AT4Q/pNCk
+   mCQ2pDFyAWfFFOkU14oTJqvuZuQ8wfYt4WPFxZAiqvVqunCnFrotltQBv
+   pL0nKWMNuaTP14W+lEVq26OYjAm87PUMvqqn/JROl2qOq4hvUsk+32ULj
+   yNOXGDuYHqKaMqL+HN2TjtuTns7oVn/gEikpYpodn4OxUdL8s2GEKlrg1
+   RytemgZYVW6BtPOsFesqx/dr1V+6vZNYvpMozvSfxOOhXlQVkErRPdfni
+   zLhlYgeKi8myNbRhsClW26ezIxI88gqce8J54BOAS8tP1mnsGRAyFWJqm
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387506771"
 X-IronPort-AV: E=Sophos;i="6.00,245,1681196400";
-   d="scan'208";a="387506745"
+   d="scan'208";a="387506771"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
   by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2023 09:46:23 -0700
+ 15 Jun 2023 09:46:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="857040434"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="857040464"
 X-IronPort-AV: E=Sophos;i="6.00,245,1681196400";
-   d="scan'208";a="857040434"
+   d="scan'208";a="857040464"
 Received: from mrejmak-mobl.ger.corp.intel.com (HELO [10.252.36.104])
  ([10.252.36.104])
   by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2023 09:46:21 -0700
-Message-ID: <2f010db3-73be-2cdd-0aef-62ec212769c1@linux.intel.com>
-Date: Thu, 15 Jun 2023 18:31:27 +0200
+ 15 Jun 2023 09:46:26 -0700
+Message-ID: <9eca7ccc-7955-43d3-178a-998d0f430a4c@linux.intel.com>
+Date: Thu, 15 Jun 2023 18:46:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 1/2] soundwire: bus: Prevent lockdep asserts when stream
- has multiple buses
+Subject: Re: [PATCH 2/2] soundwire: stream: Make master_list ordered to
+ prevent deadlocks
 Content-Language: en-US
 To: Richard Fitzgerald <rf@opensource.cirrus.com>, vkoul@kernel.org,
  yung-chuan.liao@linux.intel.com
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  patches@opensource.cirrus.com
 References: <20230615141208.679011-1-rf@opensource.cirrus.com>
+ <20230615141208.679011-2-rf@opensource.cirrus.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230615141208.679011-1-rf@opensource.cirrus.com>
+In-Reply-To: <20230615141208.679011-2-rf@opensource.cirrus.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ACYNUL2SDCHQWN2LDFNKK7ZSK3UFTHZV
-X-Message-ID-Hash: ACYNUL2SDCHQWN2LDFNKK7ZSK3UFTHZV
+Message-ID-Hash: R2QLXRO6KWOZ4ISOJM77LOBFFVEMZZ7T
+X-Message-ID-Hash: R2QLXRO6KWOZ4ISOJM77LOBFFVEMZZ7T
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ACYNUL2SDCHQWN2LDFNKK7ZSK3UFTHZV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/R2QLXRO6KWOZ4ISOJM77LOBFFVEMZZ7T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,105 +114,43 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 On 6/15/23 16:12, Richard Fitzgerald wrote:
-> Give the bus_lock and msg_lock of each bus a different unique key
-> so that it is possible to acquire the locks of multiple buses
-> without lockdep asserting a possible deadlock.
+> Always add buses to the stream->master_list in a fixed order.
+> The unique bus->id is used to order the adding of buses to the
+> list.
 > 
-> Using mutex_init() to initialize a mutex gives all those mutexes
-> the same lock class. Lockdep checking treats it as an error to
-> attempt to take a mutex while already holding a mutex of the same
-> class. This causes a lockdep assert when sdw_acquire_bus_lock()
-> attempts to lock multiple buses, and when do_bank_switch() takes
-> multiple msg_lock.
+> This prevents lockdep asserts and possible deadlocks on streams
+> that have multiple buses.
 > 
-> [  138.697350] WARNING: possible recursive locking detected
-> [  138.697366] 6.3.0-test #1 Tainted: G            E
-> [  138.697380] --------------------------------------------
-> [  138.697394] play/903 is trying to acquire lock:
-> [  138.697409] ffff99b8c41aa8c8 (&bus->bus_lock){+.+.}-{3:3}, at:
-> sdw_prepare_stream+0x52/0x2e0
-> [  138.697443]
->                but task is already holding lock:
-> [  138.697468] ffff99b8c41af8c8 (&bus->bus_lock){+.+.}-{3:3}, at:
-> sdw_prepare_stream+0x52/0x2e0
-> [  138.697493]
->                other info that might help us debug this:
-> [  138.697521]  Possible unsafe locking scenario:
+> sdw_acquire_bus_lock() takes bus_lock in the order that buses
+> are listed in stream->master_list. do_bank_switch() takes all
+> the msg_lock in the same order.
 > 
-> [  138.697540]        CPU0
-> [  138.697550]        ----
-> [  138.697559]   lock(&bus->bus_lock);
-> [  138.697570]   lock(&bus->bus_lock);
-> [  138.697581]
->                 *** DEADLOCK ***
+> To prevent a lockdep assert, and a possible real deadlock, the
+> relative order of taking these mutexes must always be the same.
 > 
-> Giving each mutex a unique key allows multiple to be held
-> without triggering a lockdep assert. But note that it does not
-> allow them to be taken in one order then a different order.
-> If two mutexes are taken in the order A, B then they must
-> always be taken in that order otherwise they could deadlock.
+> For example, if a stream takes the mutexes in the order
+> (bus0, bus1) lockdep will assert if another stream takes them
+> in the order (bus1, bus0).
 > 
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+> More complex relative ordering will also assert, for example
+> if two streams take (bus0, bus1) and (bus1, bus2), then a third
+> stream takes (bus2, bus0).
+> 
+> Previously sdw_stream_add_master() simply added the given bus
+> to the end of the list, requiring the caller to guarantee that
+> buses are added in a fixed order. This isn't reasonable or
+> necessary - it's an internal implementation detail that should
+> not be exposed by the API. It doesn't really make sense when
+> there could be multiple independent calling drivers, to say
+> "you must add your buses in the same order as a different driver,
+> that you don't know about, added them".
+
+Makes sense to me. The other way to look at this is that the notion of
+'stream' and dailink are virtually synonyms, and 'sdw_stream_add_master'
+is called from each DAI of a dailink, hence in a fixed order. But
+nothing really defines how dailinks include the dais, and in a
+hypothetical case with multiple controllers, each with multiple links,
+there would be an ambiguity anyways so using the ida-allocated bus->id
+is a good solution indeed.
 
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> ---
->  drivers/soundwire/bus.c       | 15 +++++++++++++--
->  include/linux/soundwire/sdw.h |  3 +++
->  2 files changed, 16 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index b44f8d0affa6..dba920ec88f6 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -69,8 +69,17 @@ int sdw_bus_master_add(struct sdw_bus *bus, struct device *parent,
->  		return -EINVAL;
->  	}
->  
-> -	mutex_init(&bus->msg_lock);
-> -	mutex_init(&bus->bus_lock);
-> +	/*
-> +	 * Give each bus_lock and msg_lock a unique key so that lockdep won't
-> +	 * trigger a deadlock warning when the locks of several buses are
-> +	 * grabbed during configuration of a multi-bus stream.
-> +	 */
-> +	lockdep_register_key(&bus->msg_lock_key);
-> +	__mutex_init(&bus->msg_lock, "msg_lock", &bus->msg_lock_key);
-> +
-> +	lockdep_register_key(&bus->bus_lock_key);
-> +	__mutex_init(&bus->bus_lock, "bus_lock", &bus->bus_lock_key);
-> +
->  	INIT_LIST_HEAD(&bus->slaves);
->  	INIT_LIST_HEAD(&bus->m_rt_list);
->  
-> @@ -181,6 +190,8 @@ void sdw_bus_master_delete(struct sdw_bus *bus)
->  	sdw_master_device_del(bus);
->  
->  	sdw_bus_debugfs_exit(bus);
-> +	lockdep_unregister_key(&bus->bus_lock_key);
-> +	lockdep_unregister_key(&bus->msg_lock_key);
->  	ida_free(&sdw_bus_ida, bus->id);
->  }
->  EXPORT_SYMBOL(sdw_bus_master_delete);
-> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-> index c076a3f879b3..f523ceabd059 100644
-> --- a/include/linux/soundwire/sdw.h
-> +++ b/include/linux/soundwire/sdw.h
-> @@ -5,6 +5,7 @@
->  #define __SOUNDWIRE_H
->  
->  #include <linux/bug.h>
-> +#include <linux/lockdep_types.h>
->  #include <linux/mod_devicetable.h>
->  #include <linux/bitfield.h>
->  
-> @@ -907,7 +908,9 @@ struct sdw_bus {
->  	struct list_head slaves;
->  	DECLARE_BITMAP(assigned, SDW_MAX_DEVICES);
->  	struct mutex bus_lock;
-> +	struct lock_class_key bus_lock_key;
->  	struct mutex msg_lock;
-> +	struct lock_class_key msg_lock_key;
->  	int (*compute_params)(struct sdw_bus *bus);
->  	const struct sdw_master_ops *ops;
->  	const struct sdw_master_port_ops *port_ops;

@@ -2,99 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9A60731AF5
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 16:13:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D02731C98
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 17:28:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EFD582C;
-	Thu, 15 Jun 2023 16:13:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EFD582C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF7F2828;
+	Thu, 15 Jun 2023 17:27:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF7F2828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686838435;
-	bh=RomEc1vYL+dbPV7ATv5rWjLVGU/x7pIdyEWagFCzDaI=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=kWX6ANvznHO4NUeUmIjObP+9kGthbTEd2OqGYWf4PP+fbPRVO9YgoZIr6aynNqmCk
-	 py9TAwTJIKSpqcphAkf/Go5+hmzKAnmIgPvZ/IBrt5ZLqaL0iVHie09COvRm3l30YE
-	 kNoo+wttWi7/YQlI+DwyiUOJLoF2l3poghlhEcmo=
+	s=default; t=1686842880;
+	bh=eIENmWPLFnkPpTqK4cVJA+HKstRFhVoUMD/Vmoy4Qqs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mkJFVBtnHzXq8DbmoQYE1hxWJt3ZQie29ZNaCXDJ94rI0FaY1nwOVZfUsMeX4TWZ7
+	 oW/hy0ICsdo9SPZBocerZ8dNCrG7yO92vVI9yGuqTl8zakbgeZ6dPV0ELXgcMPEV5+
+	 W4TwVct11ls517SMT7KZYTofbT9XMWRaSiMUdTNw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B85BF80563; Thu, 15 Jun 2023 16:12:30 +0200 (CEST)
+	id 6B7D3F8025E; Thu, 15 Jun 2023 17:26:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06CE9F80553;
-	Thu, 15 Jun 2023 16:12:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7173F80246;
+	Thu, 15 Jun 2023 17:26:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 41A75F80155; Thu, 15 Jun 2023 16:12:26 +0200 (CEST)
+	id 23C10F8025E; Thu, 15 Jun 2023 17:26:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::229])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8FF6F80130
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 16:12:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8FF6F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3E827F80093
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 17:26:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E827F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=cToN3yGL
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35FE4O1N019435;
-	Thu, 15 Jun 2023 09:12:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=PODMain02222019;
- bh=AjGNsoyoK5D+RJq6nyibBF7s8NAROrXXFDradtiR7EE=;
- b=cToN3yGLlHYejStDOuS6sTL8/BmqCwQuEn+N30FJvc6ckt8QbzGmjLMQsmFk7smlBEQN
- 07TOSvGxCBrZwfrC7pCLx5OrnHF7Ow6LDkPOlL8lqzXfAxoCZHFlAOj01kPWqzbYpu7z
- UdpNQ0YiybPlYaDcE3xKKouYzRPZRc9OEeiTR9cNGM6PGvAVq3PWa8N3WUQkqTVglY0j
- D8PK+/yDt6eYhepp20pkcAQzvdWFtQy+TPly0IoDDTqaOUmSFdVvezj96XoYwmkTDFS7
- mg7JYQXvg3ZyJtZTHlZSwmUMI+RT5IuXKbztpvbC9k0jnXQ/72BEgMPScmGScdxaMqlk fA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3r4pk0d8fp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 15 Jun 2023 09:12:10 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Thu, 15 Jun
- 2023 15:12:08 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Thu, 15 Jun 2023 15:12:08 +0100
-Received: from edi-sw-dsktp-006.ad.cirrus.com (edi-sw-dsktp-006.ad.cirrus.com
- [198.90.251.127])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 28DAB11DC;
-	Thu, 15 Jun 2023 14:12:08 +0000 (UTC)
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-To: <vkoul@kernel.org>, <yung-chuan.liao@linux.intel.com>,
-        <pierre-louis.bossart@linux.intel.com>
-CC: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
-        <patches@opensource.cirrus.com>,
-        Richard Fitzgerald
-	<rf@opensource.cirrus.com>
-Subject: [PATCH 2/2] soundwire: stream: Make master_list ordered to prevent
- deadlocks
-Date: Thu, 15 Jun 2023 15:12:08 +0100
-Message-ID: <20230615141208.679011-2-rf@opensource.cirrus.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230615141208.679011-1-rf@opensource.cirrus.com>
-References: <20230615141208.679011-1-rf@opensource.cirrus.com>
+ unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
+ header.s=gm1 header.b=X0FBgTIY
+X-GND-Sasl: herve.codina@bootlin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1686842796;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Qj/wtCssnzRsXRkB9p4GkLgzf97028hBJBtbNDRezNs=;
+	b=X0FBgTIYugL0Vc1TehcH2BhyrN8O8GvBBwdypkOPD5UxR5EPe/j8fbbvxxn3P8EkUklLVS
+	li50qhLXaQKfB1z6taeLxTR3d5BluZ4Fa4Hc8tRq9XoGdEsTRyVVGiRhPPBCNbg4WQ1HOY
+	wtGi7cfK9eOXP7BKokKGs2OYUvGJr0yrPwO2z+aW0zMBXLhyvikLUTXHFMrMJ6DukKG6IM
+	ReYwB3YJjZjaoenT66j3/SO88AbBSjinrIoEvBKkaHp+1HnKvgIrILBCvgbb7IsJNCY8b7
+	bE74esZdPOJ1ErIsLo+kaAm+iTix4O8szIbN7qUaUfSU6VU2MEXV+4Y1lssxGA==
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+X-GND-Sasl: herve.codina@bootlin.com
+Received: by mail.gandi.net (Postfix) with ESMTPA id 9E598FF806;
+	Thu, 15 Jun 2023 15:26:33 +0000 (UTC)
+From: Herve Codina <herve.codina@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v5 00/13] Add support for IIO devices in ASoC
+Date: Thu, 15 Jun 2023 17:26:18 +0200
+Message-Id: <20230615152631.224529-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-ORIG-GUID: mnNUJZBw1Evo7A57D6VUzeGSGj1bzS74
-X-Proofpoint-GUID: mnNUJZBw1Evo7A57D6VUzeGSGj1bzS74
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: IZZGUVEGW3XH7GX2NEAP5SU6YD5F6GLW
-X-Message-ID-Hash: IZZGUVEGW3XH7GX2NEAP5SU6YD5F6GLW
-X-MailFrom: prvs=1530da28e9=rf@opensource.cirrus.com
+Message-ID-Hash: QFPR6OKRHJCNMCBP6FMJ4WRRXIAJDGG3
+X-Message-ID-Hash: QFPR6OKRHJCNMCBP6FMJ4WRRXIAJDGG3
+X-MailFrom: herve.codina@bootlin.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IZZGUVEGW3XH7GX2NEAP5SU6YD5F6GLW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QFPR6OKRHJCNMCBP6FMJ4WRRXIAJDGG3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,78 +122,208 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Always add buses to the stream->master_list in a fixed order.
-The unique bus->id is used to order the adding of buses to the
-list.
+Several weeks ago, I sent a series [1] for adding a potentiometer as an
+auxiliary device in ASoC. The feedback was that the potentiometer should
+be directly handled in IIO (as other potentiometers) and something more
+generic should be present in ASoC in order to have a binding to import
+some IIO devices into sound cards.
 
-This prevents lockdep asserts and possible deadlocks on streams
-that have multiple buses.
+The series related to the IIO potentiometer device is already applied.
 
-sdw_acquire_bus_lock() takes bus_lock in the order that buses
-are listed in stream->master_list. do_bank_switch() takes all
-the msg_lock in the same order.
+This series introduces audio-iio-aux. Its goal is to offer the binding
+between IIO and ASoC.
+It exposes attached IIO devices as ASoC auxiliary devices and allows to
+control them through mixer controls.
 
-To prevent a lockdep assert, and a possible real deadlock, the
-relative order of taking these mutexes must always be the same.
+On my system, the IIO device is a potentiometer and it is present in an
+amplifier design present in the audio path.
 
-For example, if a stream takes the mutexes in the order
-(bus0, bus1) lockdep will assert if another stream takes them
-in the order (bus1, bus0).
+Compare to the previous iteration
+  https://lore.kernel.org/linux-kernel/20230614074904.29085-1-herve.codina@bootlin.com/
+This v5 series mainly:
+ - Fixes {min,max}_array macros
 
-More complex relative ordering will also assert, for example
-if two streams take (bus0, bus1) and (bus1, bus2), then a third
-stream takes (bus2, bus0).
+Best regards,
+Hervé
 
-Previously sdw_stream_add_master() simply added the given bus
-to the end of the list, requiring the caller to guarantee that
-buses are added in a fixed order. This isn't reasonable or
-necessary - it's an internal implementation detail that should
-not be exposed by the API. It doesn't really make sense when
-there could be multiple independent calling drivers, to say
-"you must add your buses in the same order as a different driver,
-that you don't know about, added them".
+[1] https://lore.kernel.org/linux-kernel/20230203111422.142479-1-herve.codina@bootlin.com/
+[2] https://lore.kernel.org/linux-kernel/20230421085245.302169-1-herve.codina@bootlin.com/
 
-Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
----
- drivers/soundwire/stream.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+Changes v4 -> v5
+  - Patches 1, 2, 3, 4, 5, 9, 10, 11, 12, 13
+    No changes.
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index 93baca08a0de..d77a8a0d42c8 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -1150,7 +1150,8 @@ static struct sdw_master_runtime
- *sdw_master_rt_alloc(struct sdw_bus *bus,
- 		     struct sdw_stream_runtime *stream)
- {
--	struct sdw_master_runtime *m_rt;
-+	struct sdw_master_runtime *m_rt, *walk_m_rt;
-+	struct list_head *insert_after;
- 
- 	m_rt = kzalloc(sizeof(*m_rt), GFP_KERNEL);
- 	if (!m_rt)
-@@ -1159,7 +1160,20 @@ static struct sdw_master_runtime
- 	/* Initialization of Master runtime handle */
- 	INIT_LIST_HEAD(&m_rt->port_list);
- 	INIT_LIST_HEAD(&m_rt->slave_rt_list);
--	list_add_tail(&m_rt->stream_node, &stream->master_list);
-+
-+	/*
-+	 * Add in order of bus id so that when taking the bus_lock
-+	 * of multiple buses they will always be taken in the same
-+	 * order to prevent a mutex deadlock.
-+	 */
-+	insert_after = &stream->master_list;
-+	list_for_each_entry_reverse(walk_m_rt, &stream->master_list, stream_node) {
-+		if (walk_m_rt->bus->id < bus->id) {
-+			insert_after = &walk_m_rt->stream_node;
-+			break;
-+		}
-+	}
-+	list_add(&m_rt->stream_node, insert_after);
- 
- 	list_add_tail(&m_rt->bus_node, &bus->m_rt_list);
- 
+  - Patch 6
+    Fix commit log.
+    Add 'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'
+
+  - Patch 7
+    Fix the macros to be able to use them with:
+     - an array defined as int *buff;
+     - an array defined as int buff[N];
+     - Rework the way to "unconstify" the temporary variable to avoid
+       issues due to integer promotion.
+    Add 'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'
+
+  - Patch 8
+    Add 'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'
+
+Changes v3 -> v4
+  - Patches 1, 2
+    No changes.
+
+  - Patches 3, 4, 5
+    Add 'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'.
+
+  - Patch 6 (new in v4)
+    Fix headers inclusion order.
+
+  - Patch 7 (patch 6 in v3)
+    Add a comment related to __must_be_array()
+    Use __array[0] of *__array
+
+  - Patch 8 (patch 7 in v3)
+    Fix minmax.h inclusion order.
+    Add 'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'.
+
+  - Patch 9 (patch 8 in v3)
+    Add 'Suggested-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>'.
+    Add 'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'.
+
+  - Patch 10 (patch 9 in v3)
+    Add 'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'.
+
+  - Patch 11 (patch 10 in v3)
+    Fix a typo.
+    Add	'Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>'.
+    Add	'Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>'.
+
+  - Patch 12 (patch 11 in v3)
+    Fix typos in the commit log.
+    Fix headers inclusion order.
+    Removed unneeded variable initialization.
+    Replace {0} by {}.
+    Use struct device *dev in probe().
+    Check an error on the snd-control-invert-range property read.
+
+  - Patch 13 (patch12 in v3)
+    No changes.
+
+Changes v2 -> v3
+  - Patches 1, 2
+    No changes.
+
+  - Patch 3, 4
+    Add 'Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>'.
+
+  - Patch 5 (new in v3)
+    Removed the 'unused' variable and check the null pointer when used.
+
+  - Patch 6 (new in v3)
+    Introduce {min,max}_array().
+
+  - Patch 7 (new in v3)
+    Use max_array() in iio_channel_read_max().
+
+  - Patch 8 (new in v3)
+    Replace a FIXME comment by a TODO one.
+
+  - Patch 9 (patch 5 in v2)
+    Removed the 'unused' variable and check the null pointer when used.
+    Use min_array().
+    Remplace a FIXME comment by a TODO one.
+
+  - Patch 10 (patch 6 in v2)
+    Convert existing macros to return a compound litteral instead of
+    adding a new helper.
+
+  - Patch 11 (patch 7 in v2)
+    Remove the file name from the C file header.
+    Use directly converted DAPM macros.
+    Replace <linux/module.h> by <linux/mod_devicetable.h>.
+    Add <linux/platform_device.h>.
+    Be sure that min <= max. Swap values if it is not the case.
+    Move the bool structure member after the int ones.
+    Remove unneeded assignements.
+    Use dev_err_probe() when relevant.
+    Use str_on_off().
+    Use static_assert() instead of BUILD_BUG_ON().
+    Remove unneeded comma and blank line.
+    Use device_property_*() instead of the OF API.
+
+  - patch 8 available in v2 removed as already applied
+
+  - Patch 12 (patch 9 in v2)
+    Use devm_add_action_or_reset().
+    Call simple_populate_aux() from simple_parse_of().
+
+Changes v1 -> v2
+  - Patch 1
+    Rename simple-iio-aux to audio-iio-aux
+    Rename invert to snd-control-invert-range
+    Remove the /schemas/iio/iio-consumer.yaml reference
+    Remove the unneeded '|' after description
+
+  - Patch 2 (new in v2)
+    Introduce the simple-audio-card additional-devs subnode
+
+  - Patch 3 (new in v2)
+    Check err before switch() in iio_channel_read_max()
+
+  - Patch 4 (new in v2)
+    Fix raw reads and raw writes documentation
+
+  - Patch 5 (patch 2 in v1)
+    Check err before switch() in iio_channel_read_min()
+    Fix documentation
+
+  - Patch 6 (path 3 in v1)
+    No changes
+
+  - Patch 7 (patch 4 in v1)
+    Rename simple-iio-aux to audio-iio-aux
+    Rename invert to snd-control-invert-range
+    Remove the mask usage from audio_iio_aux_{get,put}_volsw helpers
+    Use directly PTR_ERR() in dev_err_probe() parameter
+    Remove the '!!' construction
+    Remove of_match_ptr()
+
+  - Patch 8 (new in v2)
+    Add a missing of_node_put() in the simple-card driver
+
+  - Patch 9 (new in v2)
+    Handle additional-devs in the simple-card driver
+
+Herve Codina (13):
+  ASoC: dt-bindings: Add audio-iio-aux
+  ASoC: dt-bindings: simple-card: Add additional-devs subnode
+  iio: inkern: Check error explicitly in iio_channel_read_max()
+  iio: consumer.h: Fix raw values documentation notes
+  iio: inkern: Remove the 'unused' variable usage in
+    iio_channel_read_max()
+  iio: inkern: Fix headers inclusion order
+  minmax: Introduce {min,max}_array()
+  iio: inkern: Use max_array() to get the maximum value from an array
+  iio: inkern: Replace a FIXME comment by a TODO one
+  iio: inkern: Add a helper to query an available minimum raw value
+  ASoC: soc-dapm.h: Convert macros to return a compound literal
+  ASoC: codecs: Add support for the generic IIO auxiliary devices
+  ASoC: simple-card: Handle additional devices
+
+ .../bindings/sound/audio-iio-aux.yaml         |  64 ++++
+ .../bindings/sound/simple-card.yaml           |  53 +++
+ drivers/iio/inkern.c                          |  86 ++++-
+ include/linux/iio/consumer.h                  |  37 +-
+ include/linux/minmax.h                        |  64 ++++
+ include/sound/soc-dapm.h                      | 138 ++++---
+ sound/soc/codecs/Kconfig                      |  12 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/audio-iio-aux.c              | 338 ++++++++++++++++++
+ sound/soc/generic/simple-card.c               |  46 ++-
+ 10 files changed, 769 insertions(+), 71 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/audio-iio-aux.yaml
+ create mode 100644 sound/soc/codecs/audio-iio-aux.c
+
 -- 
-2.30.2
+2.40.1
 

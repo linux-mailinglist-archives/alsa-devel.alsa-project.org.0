@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EED4F731AAB
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 16:00:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A712C731AAE
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Jun 2023 16:00:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A378825;
-	Thu, 15 Jun 2023 15:59:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A378825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1867D839;
+	Thu, 15 Jun 2023 15:59:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1867D839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686837613;
-	bh=VjrxKNUyqqwfgs3hDcEiMErb77PH5mLOvHSL73d2Y5E=;
+	s=default; t=1686837619;
+	bh=HDfK6TZ6p1z9konXBYN4xiV7FVSWRCnUgThCTPlpODE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f0bcvgQpXrAB9gLIVw3/LUMlRDQzCnXTO7zo81AtnLd4SexvfFozRa6xHaxiyRX2A
-	 kha39ZFQShPgmmgfH7FmCylZrDQY4EDXMgPcKAjka1FOzcTb9GBtWgWDvXwdLyZefk
-	 yyRELURufegrkhxOIfsyOX1iGXm31tLmLfw5/8k8=
+	b=GDLruza44w5midr0L03uuUdz8f2kqUq8LJcOSWiXd28tDn80sORo4Ub4288bAZ5tA
+	 OivydwBILtj4N3mmOqOmqtFXP8DjTc8BsuwdtLQpbJPMZuXDATsK3YcXeftN/GgqdS
+	 PHX/NhypMcVqLRgiMOyfZ7LihMMnDAP0dezt3bEo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 748A3F800BA; Thu, 15 Jun 2023 15:58:34 +0200 (CEST)
+	id 4864FF8056F; Thu, 15 Jun 2023 15:58:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B942FF80548;
-	Thu, 15 Jun 2023 15:58:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 983EFF8055B;
+	Thu, 15 Jun 2023 15:58:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 506E1F80149; Thu, 15 Jun 2023 15:58:29 +0200 (CEST)
+	id 1C311F800BA; Thu, 15 Jun 2023 15:58:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -37,48 +37,50 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 93C76F80130
-	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 15:58:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93C76F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id F35ECF800BA
+	for <alsa-devel@alsa-project.org>; Thu, 15 Jun 2023 15:58:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F35ECF800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=V1NmSeYQ
+ header.s=k20201202 header.b=MijxV188
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id B5C1063194;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D37C763194;
+	Thu, 15 Jun 2023 13:58:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBA3C433CA;
 	Thu, 15 Jun 2023 13:58:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA14C433C9;
-	Thu, 15 Jun 2023 13:58:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686837504;
-	bh=VjrxKNUyqqwfgs3hDcEiMErb77PH5mLOvHSL73d2Y5E=;
+	s=k20201202; t=1686837507;
+	bh=HDfK6TZ6p1z9konXBYN4xiV7FVSWRCnUgThCTPlpODE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=V1NmSeYQXyDn8JX9Jp6wW564xLTgGZTxqBQAilml//XfEd2bfLiadeT81HcJdIDLP
-	 vJk4hiheeqlaIN5zIl8QjM6dgjr4RpFbZzaVUf8vMLYTMKdSmTyf3o2rCVWIjYlm6V
-	 gHQEXpmXX3ucAZ4cBveVspOXrjXEZOql/MtBjV73JMC+dSMUT3NHsavWzcJ2yT67s4
-	 ACJdt8BlkZVMTNBAzuHtq7ccQMJx9aNYsme2C5/fewP4e6zf9Osmj5Q72Qol3p4POj
-	 WQXrHyuANYmYP6o4fnUmDt5HjlvlXl/kNW2fFfFGf+tsP3FiYauhekRMyHNTfcfd7f
-	 TRzPIeS4RBqcg==
+	b=MijxV188M3NQstbEsPBKj+rQV+7WTV0//Wbr3a4d9hw8Uh4EqXOfg6QCDXnAbBL3w
+	 +pAhyiO0Nd5YMsZFl9bhjk0PQDxIxAWDXbE+BhfykWcGOwQ8DNQQ/Md7bB9BirALm8
+	 UGFWqGhWUmu/KeTaAjC0+hOdgJ8A0F0Ygzh7ZPkV81o3IxSnB+foK4J0l78ccT1KjQ
+	 yJtEqC3LtEmWDIbFo1IHk8it1Rh+JUSK+oIbMePCKvnQtwP1Irr2hBe17qwVe8U1kP
+	 N/9GukHMt5b9RS/sLbuKqTNkrLStQp8A2nVjbO7weAdBsWLYqVjVDSx9DjqSUDgm9g
+	 pivHGmCjswPKw==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, YingKun Meng <mengyingkun@loongson.cn>
-Cc: krzysztof.kozlowski@linaro.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
- loongson-kernel@lists.loongnix.cn
-In-Reply-To: <20230614122240.3402762-1-mengyingkun@loongson.cn>
-References: <20230614122240.3402762-1-mengyingkun@loongson.cn>
-Subject: Re: [PATCH v3 2/3] ASoC: loongson: Add Loongson ASoC Sound Card
- Support
-Message-Id: <168683750214.557448.6898111686510406347.b4-ty@kernel.org>
-Date: Thu, 15 Jun 2023 14:58:22 +0100
+To: krzysztof.kozlowski+dt@linaro.org, robh+dt@kernel.org,
+ conor+dt@kernel.org, krzysztof.kozlowski@linaro.org,
+ YingKun Meng <mengyingkun@loongson.cn>
+Cc: devicetree@vger.kernel.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ loongarch@lists.linux.dev, loongson-kernel@lists.loongnix.cn
+In-Reply-To: <20230614122659.3402788-1-mengyingkun@loongson.cn>
+References: <20230614122659.3402788-1-mengyingkun@loongson.cn>
+Subject: Re: [PATCH v3 3/3] ASoC: dt-bindings: Add support for Loongson
+ audio card
+Message-Id: <168683750444.557448.16842931306884549608.b4-ty@kernel.org>
+Date: Thu, 15 Jun 2023 14:58:24 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-c6835
-Message-ID-Hash: U6XNPPTEI6CJUIY3BMW6HMLBYMJ5YH5U
-X-Message-ID-Hash: U6XNPPTEI6CJUIY3BMW6HMLBYMJ5YH5U
+Message-ID-Hash: 7MVHOHTO4PHBSTAYEYKOJM4PNGG2E2QF
+X-Message-ID-Hash: 7MVHOHTO4PHBSTAYEYKOJM4PNGG2E2QF
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U6XNPPTEI6CJUIY3BMW6HMLBYMJ5YH5U/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7MVHOHTO4PHBSTAYEYKOJM4PNGG2E2QF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,15 +102,13 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 14 Jun 2023 20:22:40 +0800, YingKun Meng wrote:
-> The Loongson ASoC Sound Card is a general ASoC DAI Link driver that
-> can be used for Loongson CPU DAI drivers and external CODECs.
+On Wed, 14 Jun 2023 20:26:59 +0800, YingKun Meng wrote:
+> The audio card uses loongson I2S controller present in
+> 7axxx/2kxxx chips to transfer audio data.
 > 
-> The driver supports the use of ACPI table to describe device resources.
-> On loongson 7axxx platforms, the audio device is an ACPI device.
+> On loongson platform, the chip has only one I2S controller.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -116,8 +116,8 @@ Applied to
 
 Thanks!
 
-[2/3] ASoC: loongson: Add Loongson ASoC Sound Card Support
-      commit: d24028606e7642261d33ad2a50aed940d35cfb66
+[3/3] ASoC: dt-bindings: Add support for Loongson audio card
+      commit: fadccca8f33959857948e279045a3757b5f21d55
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

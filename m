@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2C9E732CA9
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 12:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 267FE732CAA
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 12:02:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42F28829;
-	Fri, 16 Jun 2023 12:02:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42F28829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F3D684C;
+	Fri, 16 Jun 2023 12:02:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F3D684C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686909772;
-	bh=Bk2q3iAAiKycn2Ls9NCUI96RekuI5lfq81JLCALIQyw=;
+	s=default; t=1686909774;
+	bh=srAy1YN4H6qredt/xC47GYnMbSJvwGaU4Fld0p7l8IU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hwwB0q5ajrtbWtUeHCMawTbD9TNfJp/bjLJdxmhsnLeL9XAt/4RNddGLoYnwPSfiZ
-	 aCEkDGTmVOz0SooBrQkRwzwrM2X1ZeNSTSFIQ2TliwvJefwlotxhLDvG1XrTciQVKN
-	 38NxSb+kNIWc3uHpK/excTB9SHIjfMk0AiTKQrEU=
+	b=onrInm54EnLzgvlcRJ1oluyQR3nvM1VeyhZu4K4eobpQoM+1XTR/RDuFpkL9vead+
+	 awlrbjGrV+EDNH821qb4HrWUKHs7+hueZF+e36llahnLcw12VkySC8hebbz637pCJl
+	 w5uBdU7+ZYGkbgBYv/AyKQgFoqFfsq9tkq6vzsNs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6B2ABF80552; Fri, 16 Jun 2023 12:01:12 +0200 (CEST)
+	id 76E47F8057A; Fri, 16 Jun 2023 12:01:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ED9FF80549;
-	Fri, 16 Jun 2023 12:01:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 155E1F80568;
+	Fri, 16 Jun 2023 12:01:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 641A1F80246; Fri, 16 Jun 2023 12:01:08 +0200 (CEST)
+	id 13FB2F80301; Fri, 16 Jun 2023 12:01:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,40 +35,40 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1973FF80132
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 12:00:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1973FF80132
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0BAD4F800BA
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 12:01:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BAD4F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=nn1BiNhC
+ header.s=Intel header.b=RkSNTxcY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686909661; x=1718445661;
+  t=1686909663; x=1718445663;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Bk2q3iAAiKycn2Ls9NCUI96RekuI5lfq81JLCALIQyw=;
-  b=nn1BiNhCNBxDp/TovIPzGiRzgf4wrIBWssoHbzR7rJB/XzdZkcxz1SVC
-   mctwGVnjpJpJ8QbqorFgmojXDzjlQ3FNfBn7ygvXcrKLOOK+nAaWp8YQ4
-   oG5xn1q/d0mtEJ74LpxvrVwqfXbOkEM/jYhNjafLw17Z88lBoJZLH5Txw
-   FaoiBx/a4JhyVWBPG897PjuluCpmpDfvfa7S4K8S7LX7UkXJy0LUMyHRy
-   1Xm6XCEaWhQFCbKZ3M1Mna4hRMv6bNSBaS5xkdM6idnH6T012Qz0YKqeJ
-   tJhYmoPbedK2SFncFvtl0O8nKfuyRWGTPBbISB2q5TFG5aF95XybvT6pD
+  bh=srAy1YN4H6qredt/xC47GYnMbSJvwGaU4Fld0p7l8IU=;
+  b=RkSNTxcYAZfecdj4dt6bPAIE3YQqAg7M43wGfxkX6LungNmva+TxXk5w
+   rzuySrXLKfK8rzGvDtokWCCLx6aFkdEEBJPOZCErK+FUga6Z9gsJDKnSp
+   uNoRIie37czSIRerwEuBXWsT8wPu32hNBSPxjWAK2SX/6eddtTa0y9Buf
+   NowPmHg+WrnOZ78m/QDiSaikHjn9Gt8Td6Nrz3Q6tKb8wa5MlQRqDjWT5
+   NlhXA/lWqShgOBlOZlGBJvrsN05IS6FUgz3y9QxdApsjO/hQgcF1geruA
+   rTSp5dcMPHoaTdg0lCXHrCwCrkFuZVXG6IXPNufIiA4ukEpdFlb7bon2K
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="362591580"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="362591591"
 X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
-   d="scan'208";a="362591580"
+   d="scan'208";a="362591591"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 03:00:57 -0700
+ 16 Jun 2023 03:00:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="825689338"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="825689347"
 X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
-   d="scan'208";a="825689338"
+   d="scan'208";a="825689347"
 Received: from kjaffe-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.254.114.132])
   by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 03:00:54 -0700
+ 16 Jun 2023 03:00:57 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
@@ -76,16 +76,17 @@ Cc: tiwai@suse.de,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 1/8] ASoC: SOF: sof-audio: add is_virtual_widget helper
-Date: Fri, 16 Jun 2023 12:00:32 +0200
-Message-Id: <20230616100039.378150-2-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 2/8] ASoC: SOF: sof-audio: test virtual widget in
+ sof_walk_widgets_in_order
+Date: Fri, 16 Jun 2023 12:00:33 +0200
+Message-Id: <20230616100039.378150-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
 References: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HC33MM6WZFNGCTEBZVRN2JXT4TXFRXZN
-X-Message-ID-Hash: HC33MM6WZFNGCTEBZVRN2JXT4TXFRXZN
+Message-ID-Hash: NBZ4CTDZJM46TU4GKCEPZS2I5NG4PFCS
+X-Message-ID-Hash: NBZ4CTDZJM46TU4GKCEPZS2I5NG4PFCS
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,8 +99,9 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HC33MM6WZFNGCTEBZVRN2JXT4TXFRXZN/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NBZ4CTDZJM46TU4GKCEPZS2I5NG4PFCS/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -108,67 +110,71 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Testing virtual widget is required in many functions. No function
-changed in this commit.
+Virtual widgets are added for the purpose of showing connections between
+aggregated DAIs in SDW topologies. However, we shouldn't touch them in
+SOF.
 
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/sof-audio.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ sound/soc/sof/sof-audio.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 1cbda595c518..c77d07d62517 100644
+index c77d07d62517..e7ef77012c35 100644
 --- a/sound/soc/sof/sof-audio.c
 +++ b/sound/soc/sof/sof-audio.c
-@@ -14,6 +14,20 @@
- #include "sof-of-dev.h"
- #include "ops.h"
+@@ -396,6 +396,9 @@ sof_unprepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widg
+ 	const struct sof_ipc_tplg_widget_ops *widget_ops;
+ 	struct snd_soc_dapm_path *p;
  
-+static bool is_virtual_widget(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *widget,
-+			      const char *func)
-+{
-+	switch (widget->id) {
-+	case snd_soc_dapm_out_drv:
-+	case snd_soc_dapm_output:
-+	case snd_soc_dapm_input:
-+		dev_dbg(sdev->dev, "%s: %s is a virtual widget\n", func, widget->name);
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
++	if (is_virtual_widget(sdev, widget, __func__))
++		return;
 +
- static void sof_reset_route_setup_status(struct snd_sof_dev *sdev, struct snd_sof_widget *widget)
- {
- 	const struct sof_ipc_tplg_ops *tplg_ops = sof_ipc_get_ops(sdev, tplg);
-@@ -231,23 +245,9 @@ int sof_route_setup(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget *wsourc
- 	bool route_found = false;
+ 	/* skip if the widget is in use or if it is already unprepared */
+ 	if (!swidget || !swidget->prepared || swidget->use_count > 0)
+ 		goto sink_unprepare;
+@@ -433,6 +436,9 @@ sof_prepare_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dapm_widget
+ 	struct snd_soc_dapm_path *p;
+ 	int ret;
  
- 	/* ignore routes involving virtual widgets in topology */
--	switch (src_widget->id) {
--	case snd_soc_dapm_out_drv:
--	case snd_soc_dapm_output:
--	case snd_soc_dapm_input:
-+	if (is_virtual_widget(sdev, src_widget->widget, __func__) ||
-+	    is_virtual_widget(sdev, sink_widget->widget, __func__))
++	if (is_virtual_widget(sdev, widget, __func__))
++		return 0;
++
+ 	widget_ops = tplg_ops ? tplg_ops->widget : NULL;
+ 	if (!widget_ops)
  		return 0;
--	default:
--		break;
--	}
--
--	switch (sink_widget->id) {
--	case snd_soc_dapm_out_drv:
--	case snd_soc_dapm_output:
--	case snd_soc_dapm_input:
--		return 0;
--	default:
--		break;
--	}
+@@ -488,6 +494,9 @@ static int sof_free_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_dap
+ 	int err;
+ 	int ret = 0;
  
- 	/* find route matching source and sink widgets */
- 	list_for_each_entry(sroute, &sdev->route_list, list)
++	if (is_virtual_widget(sdev, widget, __func__))
++		return 0;
++
+ 	if (widget->dobj.private) {
+ 		err = sof_widget_free(sdev, widget->dobj.private);
+ 		if (err < 0)
+@@ -527,6 +536,9 @@ static int sof_set_up_widgets_in_path(struct snd_sof_dev *sdev, struct snd_soc_d
+ 	struct snd_soc_dapm_path *p;
+ 	int ret;
+ 
++	if (is_virtual_widget(sdev, widget, __func__))
++		return 0;
++
+ 	if (swidget) {
+ 		int i;
+ 
+@@ -592,6 +604,9 @@ sof_walk_widgets_in_order(struct snd_sof_dev *sdev, struct snd_sof_pcm *spcm,
+ 		return 0;
+ 
+ 	for_each_dapm_widgets(list, i, widget) {
++		if (is_virtual_widget(sdev, widget, __func__))
++			continue;
++
+ 		/* starting widget for playback is AIF type */
+ 		if (dir == SNDRV_PCM_STREAM_PLAYBACK && widget->id != snd_soc_dapm_aif_in)
+ 			continue;
 -- 
 2.37.2
 

@@ -2,84 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24FC87335C5
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 18:18:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC8347335D0
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 18:19:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45F03825;
-	Fri, 16 Jun 2023 18:17:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45F03825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62D2A851;
+	Fri, 16 Jun 2023 18:18:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62D2A851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686932282;
-	bh=PDwkv60EQCWy5qGksW1AAr9W5S2ssqF6zh+bk2dPy5s=;
+	s=default; t=1686932354;
+	bh=M7ONoV4bj3k5GfAhyt9ZW1Z5B2gKgEc2DcstwuWT7K8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mHGq8um/6yyu2dDQpEH9zEIAi00BtDhQ0NiADOgrU9cYk8T8Ttg2mQ8nf2JZRruPs
-	 6hQiyPisyZySaJOk9aZ9KZh9s5QrUHAF5QabQx0xH3gyNnUTBw7kbTzJCjS8YtZOOc
-	 onYx1Ad9xPkuyirPFGqrD6I8VphRqKBxtP5mPG50=
+	b=NRESDt+IH75IZvvIR+HYtOWrhpGMiZpGWIO8bEcatEW5Efu/yGEPE2TOWAh1Q7ULN
+	 APJxDqCt9dZt/volvjfQBfHyfW9BeeaDdE57I2P1/9agOGbDfm+IC4xeXGqOhC/JuA
+	 tWLVA9cb/YSLJiMzE/pynb5sSMZ4RFCh6kY3KI0w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4835EF80155; Fri, 16 Jun 2023 18:17:11 +0200 (CEST)
+	id CAE83F80552; Fri, 16 Jun 2023 18:18:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D95AAF80155;
-	Fri, 16 Jun 2023 18:17:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41004F800BA;
+	Fri, 16 Jun 2023 18:18:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DF05EF80246; Fri, 16 Jun 2023 18:17:06 +0200 (CEST)
+	id 2B3FAF80246; Fri, 16 Jun 2023 18:18:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C65EF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8DD05F80132
 	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 18:17:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C65EF80130
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DD05F80132
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=cyt+VaHl
+ header.s=k20201202 header.b=N1p0d5YG
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id BF04360B71;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id E5A0161737;
+	Fri, 16 Jun 2023 16:17:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5366C433CB;
 	Fri, 16 Jun 2023 16:16:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B891CC433C0;
-	Fri, 16 Jun 2023 16:16:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686932219;
-	bh=PDwkv60EQCWy5qGksW1AAr9W5S2ssqF6zh+bk2dPy5s=;
+	s=k20201202; t=1686932220;
+	bh=M7ONoV4bj3k5GfAhyt9ZW1Z5B2gKgEc2DcstwuWT7K8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=cyt+VaHlKG7ttwFhw9RIRYQORm7mUAFA9cJKHKJpY5xRdI2BYTVn3mCxWvmZ258nX
-	 mABFXOvINxgHwTdoEpD9NeD1SlajheNfiGOb2KSYfZqfvtFFvDBrwRBWAcjT1NcnWP
-	 /rylzYKTPMbAVPFvWctqYJSOXlXq0atbbltXVFrZ2W2Cx4ZRyVBA8mZNqhGggJOJvu
-	 Fwuevf1F7/W8asS7AZTm/snz2oThdWEj7aFIL0d1s1RqXn1GDUptboNdbm9auknkTt
-	 0hzTzNd9iYhXuN4foH+wRiGdN32bdNFX9V//hGassTYiXhYrGkQCQPipo4mgz0PHXl
-	 8KOPjz8Xz3DoQ==
+	b=N1p0d5YGkOVyF++Mp6nvNQ8jTfPAMEUnb8YPZyr+Rb/TqAOrWIpk5jdpBBZ3Q/w8Y
+	 ExG29opnwS0zyGVscYHoC2qbVXY1aV0foi1sQdje1slCArgoFJG8xPsFsJETu9tEEb
+	 mhe7F7T5Uge4SM2l6JcBZrzXDDmTQDOZb0gX9JaNlgjKW6KqRA8MxtS4LRTazLv+4f
+	 bGkmUBsj4U/m/yO6KTQ4gaaRkCL1l5Ne0CcMEix1LqH9iWfEqOsXSwkK/H0D8m6Q8W
+	 AZV06HTdfM4D8azU1zXoAkn/c4kNgRDhqgFXSm2T2KNB4wdCtuE0ttAevPqTWgQEn9
+	 iTrYozFrM63/Q==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org
-In-Reply-To: <20230608081547.442763-1-alexander.stein@ew.tq-group.com>
-References: <20230608081547.442763-1-alexander.stein@ew.tq-group.com>
-Subject: Re: [PATCH 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT
- schema format
-Message-Id: <168693221747.298269.8557688849359189253.b4-ty@kernel.org>
-Date: Fri, 16 Jun 2023 17:16:57 +0100
+To: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: tiwai@suse.de
+In-Reply-To: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
+References: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 0/8] ASoC: SOF: misc updates for 6.5
+Message-Id: <168693221939.298269.3014423310202851634.b4-ty@kernel.org>
+Date: Fri, 16 Jun 2023 17:16:59 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-c6835
-Message-ID-Hash: TC6GU74VMEU2YNOSE2WPHMUZCPZ2UGZX
-X-Message-ID-Hash: TC6GU74VMEU2YNOSE2WPHMUZCPZ2UGZX
+Message-ID-Hash: E53CWVFNWV2D2ZC5MEIKA2F6RQ2Z567P
+X-Message-ID-Hash: E53CWVFNWV2D2ZC5MEIKA2F6RQ2Z567P
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TC6GU74VMEU2YNOSE2WPHMUZCPZ2UGZX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E53CWVFNWV2D2ZC5MEIKA2F6RQ2Z567P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,13 +99,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 08 Jun 2023 10:15:47 +0200, Alexander Stein wrote:
-> Convert the binding to DT schema format.
-> Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
-> clocks & clock-names = "mclk" is mandatory, it has been added to required
-> properties as well. '#sound-dai-cells' is added for reference from
-> simple-audio-card.
+On Fri, 16 Jun 2023 12:00:31 +0200, Pierre-Louis Bossart wrote:
+> Couple of improvements on virtual_widget support, firmware trace free,
+> IPC payload dump, duplicated code in suspend and MeteorLake primary
+> code support.
 > 
+> Bard Liao (2):
+>   ASoC: SOF: sof-audio: add is_virtual_widget helper
+>   ASoC: SOF: sof-audio: test virtual widget in sof_walk_widgets_in_order
 > 
 > [...]
 
@@ -117,8 +116,22 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT schema format
-      commit: 289650d61c600ac4f631028c761f38042ba599c8
+[1/8] ASoC: SOF: sof-audio: add is_virtual_widget helper
+      commit: 90ce7538659aad1c048653c23eadaba9d1648559
+[2/8] ASoC: SOF: sof-audio: test virtual widget in sof_walk_widgets_in_order
+      commit: 0557864e9dbe8f6c0f86110ad5712f81649f7288
+[3/8] ASoC: SOF: core: Free the firmware trace before calling snd_sof_shutdown()
+      commit: d389dcb3a48cec4f03c16434c0bf98a4c635372a
+[4/8] ASoC: SOF: Add new sof_debug flag to request message payload dump
+      commit: d498a3bdfe954afb4155ab2bdc3ae534c949b907
+[5/8] ASoC: SOF: ipc3: Dump IPC message payload
+      commit: d01c7636ffa051297672c55ab6088ae539d221ee
+[6/8] ASoC: SOF: ipc4: Switch to use the sof_debug:bit11 to dump message payload
+      commit: c3d275e3a84833368c47c803043105bda095a624
+[7/8] ASoC: SOF: pm: Remove duplicated code in sof_suspend
+      commit: 399961423314680c6cb14ac822600b9ede2b991f
+[8/8] ASoC: SOF: Intel: mtl: setup primary core info on MeteorLake platform
+      commit: fd4e9e9bfa0b1c63946fde2ff61440ff1e5eb75b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

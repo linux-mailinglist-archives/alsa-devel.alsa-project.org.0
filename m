@@ -2,103 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CA01737F32
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 11:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4505C73827E
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 13:59:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 973CC209;
-	Wed, 21 Jun 2023 11:53:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 973CC209
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3422E820;
+	Wed, 21 Jun 2023 13:58:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3422E820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687341231;
-	bh=HjDAudkKipQLczGA3Z+Xcf4LUnUH5z5iQaIO41AWYto=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fww2ODDGeCqwSbQ/C3Dmb6V0j7U+e9E1gnqv8Jwd13rzYNpczo9RuHAWfdY4Eg3e9
-	 E0YNzdJjWcp/G4gIknoaVLJ8QrdxDPXvibr5VkTedW4p5E3nG0bWEvhLjRpRkSOINO
-	 MjwZ0ISF+fF1pIx/wBVGgNQDi+DnuKJULcAEHfp8=
+	s=default; t=1687348782;
+	bh=tDqlr5n3qYZbXs2CvbVXaXWRIm3kKRNv/4pr3a5R0wI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=vpuvzTiTvL+2cu5CyrhwMP7GNx3JfxcFLjmITpjB5UUbB2XKwQSbjWpPuLQBiOChN
+	 c+0Enzc6+24BFfPjDECFBSZFHWdaWvQ/iFHkXyn4JobuBo1hRLgvnHtHehFlP5M7Ye
+	 GkH5C3Md0fzGlF8fjJ5naIQnAEYkoNcwIFo5sz9g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 113D3F80544; Wed, 21 Jun 2023 11:53:00 +0200 (CEST)
+	id DD527F80535; Wed, 21 Jun 2023 13:58:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0527F80132;
-	Wed, 21 Jun 2023 11:53:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0FF1F80132;
+	Wed, 21 Jun 2023 13:58:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 52BF3F80141; Wed, 21 Jun 2023 11:52:57 +0200 (CEST)
+	id D8CD8F80155; Fri, 16 Jun 2023 13:54:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 08D8FF80124
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 11:52:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08D8FF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A8B7F80093
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 13:54:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A8B7F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=e4nqUfiW
-Received: from [IPV6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2] (unknown
- [IPv6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ unprotected) header.d=canonical.com header.i=@canonical.com
+ header.a=rsa-sha256 header.s=20210705 header.b=BVDNin/S
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 1FB486606F73;
-	Wed, 21 Jun 2023 10:52:50 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1687341170;
-	bh=HjDAudkKipQLczGA3Z+Xcf4LUnUH5z5iQaIO41AWYto=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=e4nqUfiWPdOPILSnlwY/fnUauQ1CgUSbBk904O3wxRq8jufIdx8Se0MUH8zg2LTa6
-	 F07saruQacith8Q7T55AI+b2nspXoX4g5eiOtdk4qrDdC74qOcbephNt7p/2ryX5ci
-	 Cfu5P9NI2QgrEEyVHqPZzrz85w5mjlqirx3nGX3iv1QWwizOKwo6LV08oTaWT6+JfS
-	 3jwuzOq7ILskZxpSV6FUQ7JgX7lPuOdjkAQck2+rRDKqhjHH3e2xAdWRVb2IcdY+NN
-	 PhbzBizMVGXgFDHl+evY1+z4mECWBOFGqWcr+qyAW74O7oHu+3yxRxc7G2kvZTEM6R
-	 gQZSyraCMBQfQ==
-Message-ID: <d26ea42b-5749-bf08-997b-4a3b6062aed4@collabora.com>
-Date: Wed, 21 Jun 2023 11:52:48 +0200
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 1C3823F16F
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 11:54:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20210705; t=1686916476;
+	bh=sLVGap7x4sxeAYbFdajItjxU/GxjLbYhz9H3rvqQDXU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+	b=BVDNin/SboI4iG4E2Al6EKaetM9dktrbf3KtO+uHKQJzff8ACRMr6wEIaMN0xlY95
+	 m7OGCEI/tXC8PpDgY3+Qh/jZZ2Xf2+gN8RPtd6BZ9v5H85H+n02j6dOdFX0QhSpo58
+	 3RO66xawvUqmwka/HTkvRTBrZWCUnRVCXWnugUoPgRykYyJ5Pd2zohx/I1VYCCGuYv
+	 qtpMnpoyShBG+5IDnOM1LGq57JmrljcArZW2l9bibfaAIJ/EZ5zaahAfOr6K58MKmf
+	 Du7ZLln9E32yYHNPGsw1YDikieBhrvKePcdzaFK7stC04KJrnTKK+YyebSGGxCKc2b
+	 pMgsvokK4J6xw==
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-3f739a73ba4so2368955e9.3
+        for <alsa-devel@alsa-project.org>;
+ Fri, 16 Jun 2023 04:54:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686916475; x=1689508475;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sLVGap7x4sxeAYbFdajItjxU/GxjLbYhz9H3rvqQDXU=;
+        b=XIl4oybImy781towF6hyH37k/hUStjMcT8rMU4leE5LghgC79AHzQJzb5pQp4EpT+I
+         L0gW9EwioZAltIQOobY6MyQNrJZf49PDAuaBuig9hAs0IUrtHz/NHnjljWpfsCkJEMss
+         hRFAeGjRql2FzbR5N5h0T83G0Aj3wrGyFL/sStG9a6O/USIcdBz+lnzAgQj7A6+JbFjy
+         V48hPjF5P7UAywScHXkrrLnSNYS+LBTnPCi6+VBfe05kzCzVuIOF4a1cohktF8Dct/0s
+         PUTN6UgGvXj7doutIgccMyhP/0MgDUBh4M9EfcXED7cxlwGLBhNO2ykpkeeav/9oZmNC
+         2YMw==
+X-Gm-Message-State: AC+VfDzEzzs6QyMj83EHUNcDbBON8x/nnhXowVJOyzJ4t6HvCuIim9aN
+	LXu9aXnWGYyrEyPfacpGakE7NxKX2Mz/mEsgx133aKGLYMSyOiewQxFqj5/Mk4fZfFaam3oUgMt
+	yCQWew6DcoZKNbdLyM3k2lL708M4Y1W1hp/3Uwc8r
+X-Received: by 2002:a05:600c:2295:b0:3f7:5e3:c1f2 with SMTP id
+ 21-20020a05600c229500b003f705e3c1f2mr1576278wmf.8.1686916475806;
+        Fri, 16 Jun 2023 04:54:35 -0700 (PDT)
+X-Google-Smtp-Source: 
+ ACHHUZ5ZJx3D+sk0J+4p9n8paf68JVv1pnslll6eY87FpntkLaIvEy9qj3//FdXtnHrmhRSCzmTJEw==
+X-Received: by 2002:a05:600c:2295:b0:3f7:5e3:c1f2 with SMTP id
+ 21-20020a05600c229500b003f705e3c1f2mr1576268wmf.8.1686916475530;
+        Fri, 16 Jun 2023 04:54:35 -0700 (PDT)
+Received: from localhost ([194.191.244.86])
+        by smtp.gmail.com with ESMTPSA id
+ l20-20020a7bc354000000b003f4248dcfcbsm2005155wmj.30.2023.06.16.04.54.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Jun 2023 04:54:35 -0700 (PDT)
+From: Juerg Haefliger <juerg.haefliger@canonical.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	patches@opensource.cirrus.com,
+	alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org,
+	ckeepax@opensource.cirrus.com,
+	juerg.haefliger@canonical.com
+Subject: [PATCH] ASoC: codecs: wm0010: Add MODULE_FIRMWARE macros
+Date: Fri, 16 Jun 2023 13:54:32 +0200
+Message-Id: <20230616115432.1011707-1-juerg.haefliger@canonical.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 1/2] kselftest/alsa: pcm-test: Move stream duration and
- margin to variables
-Content-Language: en-US
-To: =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
- Mark Brown <broonie@kernel.org>
-Cc: kernel@collabora.com, Jaroslav Kysela <perex@perex.cz>,
- Shuah Khan <shuah@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20230620220839.2215057-1-nfraprado@collabora.com>
- <20230620220839.2215057-2-nfraprado@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230620220839.2215057-2-nfraprado@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MFJITQVAX6QOZHV6QIIR27ZWVUZ6LWPE
-X-Message-ID-Hash: MFJITQVAX6QOZHV6QIIR27ZWVUZ6LWPE
-X-MailFrom: angelogioacchino.delregno@collabora.com
+X-MailFrom: juerg.haefliger@canonical.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 2JQWA4PN67D2EIWOI2O5QNLYKJSUSEPA
+X-Message-ID-Hash: 2JQWA4PN67D2EIWOI2O5QNLYKJSUSEPA
+X-Mailman-Approved-At: Wed, 21 Jun 2023 11:58:48 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MFJITQVAX6QOZHV6QIIR27ZWVUZ6LWPE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2JQWA4PN67D2EIWOI2O5QNLYKJSUSEPA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,13 +133,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 21/06/23 00:08, Nícolas F. R. A. Prado ha scritto:
-> The duration to stream for and time margin to consider the stream failed
-> are currently hardcoded values. Move them to variables so they can be
-> reused and more easily changed.
-> 
-> Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
-> 
+The module loads firmware so add MODULE_FIRMWARE macros to provide that
+information via modinfo.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
+---
+ sound/soc/codecs/wm0010.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sound/soc/codecs/wm0010.c b/sound/soc/codecs/wm0010.c
+index 034a4e858c7e..1d4259433f47 100644
+--- a/sound/soc/codecs/wm0010.c
++++ b/sound/soc/codecs/wm0010.c
+@@ -994,3 +994,6 @@ module_spi_driver(wm0010_spi_driver);
+ MODULE_DESCRIPTION("ASoC WM0010 driver");
+ MODULE_AUTHOR("Mark Brown <broonie@opensource.wolfsonmicro.com>");
+ MODULE_LICENSE("GPL");
++
++MODULE_FIRMWARE("wm0010.dfw");
++MODULE_FIRMWARE("wm0010_stage2.bin");
+-- 
+2.37.2
 

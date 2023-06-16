@@ -2,97 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69FF7732B1E
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 11:09:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32395732B1F
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 11:10:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1043828;
-	Fri, 16 Jun 2023 11:08:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1043828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9319283B;
+	Fri, 16 Jun 2023 11:09:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9319283B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686906566;
-	bh=7G8FxWMrTazw57mN/Shdn2mkosIVj4Nkbzvobqpk8Bc=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=AJN1lt0Lo6bFr8A4oUMA4WvOOA2KweIA28lJoPI2Qsa3T6njYenH/u4837V0y3mNX
-	 RSAmOu0Wlb3l6wij1ynmFA+NAfebQlSG6htKGTwOz7avypfA8fLydWMvNuaRQcd1yp
-	 U0HWXX+ZiY+3L/TJg5h4AmlYcTz9w6RIvix/cRXM=
+	s=default; t=1686906637;
+	bh=2YXvEte0tHvF2Un7MoBdoKftmOVsekrDTNUHt5cOEDI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Th+bWo7lTcpdn2287AVT0VdNnIKzSv6DhJn+VWLDsBXMlM1K1CO7r3GL4dCdZxXeh
+	 OVAsFjCv6CromNyNNmgiAtvtiPxmdmXl5mfVDBRQM1wP6T4w6ak14vVdTZqMnjqyD/
+	 wBLCngLALFn3cRSopS+iXcmWyaWOFjZT9YVRHBjY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A947F80155; Fri, 16 Jun 2023 11:08:36 +0200 (CEST)
+	id 63420F80132; Fri, 16 Jun 2023 11:09:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4FDAF80132;
-	Fri, 16 Jun 2023 11:08:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC2C0F80132;
+	Fri, 16 Jun 2023 11:09:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE08BF80149; Fri, 16 Jun 2023 11:08:32 +0200 (CEST)
+	id 35068F80155; Fri, 16 Jun 2023 11:09:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3078F80093
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 11:08:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3078F80093
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-25-AX0ny6iUOu2l40pxf4kpiA-1; Fri, 16 Jun 2023 10:08:25 +0100
-X-MC-Unique: AX0ny6iUOu2l40pxf4kpiA-1
-Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
- (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Fri, 16 Jun
- 2023 10:08:22 +0100
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.048; Fri, 16 Jun 2023 10:08:22 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Herve Codina' <herve.codina@bootlin.com>, Andy Shevchenko
-	<andy.shevchenko@gmail.com>
-CC: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, "Rob
- Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Kuninori
- Morimoto" <kuninori.morimoto.gx@renesas.com>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>, Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: RE: [PATCH v4 07/13] minmax: Introduce {min,max}_array()
-Thread-Topic: [PATCH v4 07/13] minmax: Introduce {min,max}_array()
-Thread-Index: AQHZn2z+IMzVucn/mECJ0o8xQC0QeK+NI4Pg
-Date: Fri, 16 Jun 2023 09:08:22 +0000
-Message-ID: <6c7fe34f7b65421ab618d33ba907ae09@AcuMS.aculab.com>
-References: <20230614074904.29085-1-herve.codina@bootlin.com>
-        <20230614074904.29085-8-herve.codina@bootlin.com>
-        <CAHp75Vcur=H_2mBm5Ztuvd7Jnvmr6+tvCbEkFtmaVLsEjXr8NQ@mail.gmail.com>
-        <20230614114214.1371485e@bootlin.com>
-        <CAHp75VcmW2StPqb_LtKFyNyJ2+jz3c19zNRDiSuGs06Bseq04w@mail.gmail.com>
-        <20230614223418.0d7e355d@bootlin.com>
-        <CAHp75VfFyDzr4qHNssXZ8RLy0gxMWdjBgac4JLd7grRLEG-vyw@mail.gmail.com>
- <20230615113512.07967677@bootlin.com>
-In-Reply-To: <20230615113512.07967677@bootlin.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+	by alsa1.perex.cz (Postfix) with ESMTPS id AAA12F80130
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 11:09:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA12F80130
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=YYX3cJ4i
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1A181611F6;
+	Fri, 16 Jun 2023 09:09:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2457C433C9;
+	Fri, 16 Jun 2023 09:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686906578;
+	bh=2YXvEte0tHvF2Un7MoBdoKftmOVsekrDTNUHt5cOEDI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=YYX3cJ4ianisLazJgdikgP155Wib9XYqSbKA2QwXMR7ujm8QXtx7Favmp76BalGzh
+	 up411kYjoZn7deAEgja1U0Q80VurO5KBOm433islAMN8gbElUJbxwlTDMo4Ah3Hovz
+	 KHsVggBR5LThQvatMUAVD0FUCQOSaUsqwJt1qfmsvbkVCjFG/WKlx9MiKo4kDOJnI5
+	 4wouy+SJgmpM3u54ID5lTz+I6w+DjHOGQLszNQFdPCQOGy0IAKN7MuAujk9kxJzOcm
+	 TgyqxIwvIpwpk1zSh0hEKRl5M60EuRlZdSaEhP7IJ4xrVtCKjtzxLAEMHFFPdZ3f7H
+	 XNYGbDcwfG8kQ==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Rander Wang <rander.wang@intel.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] soundwire: intel_ace2x: fix SND_SOC_SOF_HDA_MLINK dependency
+Date: Fri, 16 Jun 2023 11:09:24 +0200
+Message-Id: <20230616090932.2714714-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-Message-ID-Hash: T22KW73LBN5JTZ27R6DDNGQUIZWNGHXX
-X-Message-ID-Hash: T22KW73LBN5JTZ27R6DDNGQUIZWNGHXX
-X-MailFrom: david.laight@aculab.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: TWGWRHW3OJTCNX3VTM4NV4TYN5EBAP27
+X-Message-ID-Hash: TWGWRHW3OJTCNX3VTM4NV4TYN5EBAP27
+X-MailFrom: arnd@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T22KW73LBN5JTZ27R6DDNGQUIZWNGHXX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TWGWRHW3OJTCNX3VTM4NV4TYN5EBAP27/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,73 +101,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-RnJvbTogSGVydmUgQ29kaW5hDQo+IFNlbnQ6IDE1IEp1bmUgMjAyMyAxMDozNQ0KPiA+IC4uLg0K
-PiA+DQo+ID4gPiA+ID4gPiA+ICsgICAgICAgdHlwZW9mKF9fYXJyYXlbMF0gKyAwKSBfX2VsZW1l
-bnQgPSBfX2FycmF5Wy0tX19sZW5dOyAgICBcDQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gRG8g
-d2UgbmVlZCB0aGUgJyArIDAnIHBhcnQ/DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBZZXMuDQo+ID4g
-PiA+ID4NCj4gPiA+ID4gPiBfX2FycmF5IGNhbiBiZSBhbiBhcnJheSBvZiBjb25zdCBpdGVtcyBh
-bmQgaXQgaXMgbGVnaXRpbWF0ZSB0byBnZXQgdGhlDQo+ID4gPiA+ID4gbWluaW11bSB2YWx1ZSBm
-cm9tIGNvbnN0IGl0ZW1zLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gdHlwZW9mKF9fYXJyYXlbMF0p
-IGtlZXBzIHRoZSBjb25zdCBxdWFsaWZpZXIgYnV0IHdlIG5lZWQgdG8gYXNzaWduIF9fZWxlbWVu
-dA0KPiA+ID4gPiA+IGluIHRoZSBsb29wLg0KPiA+ID4gPiA+IE9uZSB3YXkgdG8gZHJvcCB0aGUg
-Y29uc3QgcXVhbGlmaWVyIGlzIHRvIGdldCB0aGUgdHlwZSBmcm9tIGEgcnZhbHVlIGNvbXB1dGVk
-DQo+ID4gPiA+ID4gZnJvbSBfX2FycmF5WzBdLiBUaGlzIHJ2YWx1ZSBoYXMgdG8gaGF2ZSB0aGUg
-ZXhhY3Qgc2FtZSB0eXBlIHdpdGggb25seSB0aGUgY29uc3QNCj4gPiA+ID4gPiBkcm9wcGVkLg0K
-PiA+ID4gPiA+ICdfX2FycmF5WzBdICsgMCcgd2FzIGEgcGVyZmVjdCBjYW5kaXRhdGUuDQo+ID4g
-PiA+DQo+ID4gPiA+IFNlZW1zIGxpa2UgdGhpcyBhbHNvIGRlc2VydmVzIGEgY29tbWVudC4gQnV0
-IGlmIHRoZSBzZXJpZXMgaXMgYWNjZXB0ZWQNCj4gPiA+ID4gYXMgaXMsIGl0IG1heSBiZSBkb25l
-IGFzIGEgZm9sbG93IHVwLg0KPiA+ID4gPg0KPiA+ID4NCj4gPiA+IEZpbmFsbHkgbm90IHNvIHNp
-bXBsZSAuLi4NCj4gPiA+IEkgZGlkIHNvbWUgZGVlcGVyIHRlc3RzIGFuZCB0aGUgbWFjcm9zIG5l
-ZWQgdG8gYmUgZml4ZWQuDQo+ID4gPg0KPiA+ID4gSSBob3BlIHRoaXMgb25lICh3aXRoIGNvbW1l
-bnRzIGFkZGVkKSBpcyBjb3JyZWN0Og0KPiA+ID4gLS0tIDggLS0tDQo+ID4gPiAvKg0KPiA+ID4g
-ICogRG8gbm90IGNoZWNrIHRoZSBhcnJheSBwYXJhbWV0ZXIgdXNpbmcgX19tdXN0X2JlX2FycmF5
-KCkuDQo+ID4gPiAgKiBJbiB0aGUgZm9sbG93aW5nIGxlZ2l0IHVzZS1jYXNlIHdoZXJlIHRoZSAi
-YXJyYXkiIHBhc3NlZCBpcyBhIHNpbXBsZSBwb2ludGVyLA0KPiA+ID4gICogX19tdXN0X2JlX2Fy
-cmF5KCkgd2lsbCByZXR1cm4gYSBmYWlsdXJlLg0KPiA+ID4gICogLS0tIDg8IC0tLQ0KPiA+ID4g
-ICogaW50ICpidWZmDQo+ID4gPiAgKiAuLi4NCj4gPiA+ICAqIG1pbiA9IG1pbl9hcnJheShidWZm
-LCBuYl9pdGVtcyk7DQo+ID4gPiAgKiAtLS0gODwgLS0tDQo+ID4gPiAgKg0KPiA+ID4gICogVGhl
-IGZpcnN0IHR5cGVvZigmKGFycmF5KVswXSkgaXMgbmVlZGVkIGluIG9yZGVyIHRvIHN1cHBvcnQg
-YXJyYXlzIG9mIGJvdGgNCj4gPiA+ICAqICdpbnQgKmJ1ZmYnIGFuZCAnaW50IGJ1ZltOXScgdHlw
-ZXMuDQo+ID4gPiAgKg0KPiA+ID4gICogdHlwZW9mKF9fYXJyYXlbMF0gKyAwKSB1c2VkIGZvciBf
-X2VsZW1lbnQgaXMgbmVlZGVkIGFzIHRoZSBhcnJheSBjYW4gYmUgYW4NCj4gPiA+ICAqIGFycmF5
-IG9mIGNvbnN0IGl0ZW1zLg0KPiA+ID4gICogSW4gb3JkZXIgdG8gZGlzY2FyZCB0aGUgY29uc3Qg
-cXVhbGlmaWVyIHVzZSBhbiBhcml0aG1ldGljIG9wZXJhdGlvbiAocnZhbHVlKS4NCj4gPg0KPiA+
-DQo+ID4gPiAgKiBUaGlzIGFyaXRobWV0aWMgb3BlcmF0aW9uIGRpc2NhcmQgdGhlIGNvbnN0IGJ1
-dCBhbHNvIGNhbiBsZWFkIHRvIGFuIGludGVnZXINCj4gPg0KPiA+IGRpc2NhcmRzDQo+ID4NCj4g
-PiA+ICAqIHByb21vdGlvbi4gRm9yIGluc3RhbmNlLCBhIGNvbnN0IHM4IF9fYXJyYXlbMF0gbGVh
-ZCB0byBhbiBpbnQgX19lbGVtZW50IGR1ZQ0KPiA+DQo+ID4gbGVhZHMNCj4gPg0KPiA+ID4gICog
-dG8gdGhlIHByb21vdGlvbi4NCj4gPiA+ICAqIEluIHRoaXMgY2FzZSwgc2ltcGxlIG1pbigpIG9y
-IG1heCgpIG9wZXJhdGlvbiBmYWlscyAodHlwZSBtaXNtYXRjaCkuDQo+ID4gPiAgKiBVc2UgbWlu
-X3QoKSBvciBtYXhfdCgpIChvcF90IHBhcmFtZXRlcikgZW5mb3JjaW5nIHRoZSB0eXBlIGluIG9y
-ZGVyIHRvIGF2b2lkDQo+ID4gPiAgKiB0aGUgbWluKCkgb3IgbWF4KCkgZmFpbHVyZS4NCj4gPg0K
-PiA+IFRoaXMgcGFydCBwZXJoYXBzIGNhbiBiZSBhdm9pZGVkLiBTZWUgYmVsb3cuDQo+ID4NCj4g
-PiA+ICAqLw0KPiA+ID4gI2RlZmluZSBfX21pbm1heF9hcnJheShvcF90LCBhcnJheSwgbGVuKSAo
-eyAgICAgICAgICAgICAgICAgICAgIFwNCj4gPiA+ICAgICAgICAgdHlwZW9mKCYoYXJyYXkpWzBd
-KSBfX2FycmF5ID0gKGFycmF5KTsgICAgICAgICAgICAgICAgICBcDQo+ID4gPiAgICAgICAgIHR5
-cGVvZihsZW4pIF9fbGVuID0gKGxlbik7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0K
-PiA+ID4gICAgICAgICB0eXBlb2YoX19hcnJheVswXSArIDApIF9fZWxlbWVudCA9IF9fYXJyYXlb
-LS1fX2xlbl07ICAgIFwNCj4gPiA+ICAgICAgICAgd2hpbGUgKF9fbGVuLS0pICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQo+ID4gPiAgICAgICAgICAgICAgICAgX19l
-bGVtZW50ID0gb3BfdCh0eXBlb2YoX19hcnJheVswXSksIF9fZWxlbWVudCwgX19hcnJheVtfX2xl
-bl0pOyBcDQo+ID4NCj4gPiBCdXQgY2FuJ3Qgd2UgaW5zdGVhZCBoYXZlIHR5cGVvZigrKGFycmF5
-WzBdKSkgaW4gdGhlIGRlZmluaXRpb24gb2YgX19lbGVtZW50Pw0KPiA+IFRoZXJlIGFyZSBhbHNv
-IG90aGVyIHBvc3NpYmxlIHNvbHV0aW9uczogYSkgX0dlbmVyaWMoKSB3aXRoIGxpc3RlZA0KPiA+
-IGNvbnN0IHR5cGVzIHRvIG1vdmUgdGhlbSB0byBub24tY29uc3QsIGFuZCBiKSBfX2F1dG9fdHlw
-ZSAod2hpY2ggaXMNCj4gPiBzdXBwb3J0ZWQgYnkgR0NDIDQuOSBhbmQgY2xhbmcsIGJ1dCBub3Qg
-aW4gdGhlIEMxMSBzdGFuZGFyZCkuDQo+IA0KPiB0eXBlb2YoKyhhcnJheVswXSkpIGtlZXBzIHRo
-ZSBwcm9tb3Rpb24uDQo+IA0KPiBfX2F1dG9fdHlwZSB3b3JrcyB3aXRoIG15IGdjYy0xMiBidXQg
-bm90IHdpdGggYSBnY2MtNS41LiBEZXBlbmRpbmcgb24gdGhlDQo+IGNvbXBpbGVyIHZlcnNpb24s
-IGl0IGRpc2NhcmRzIG9yIGtlZXBzIHRoZSBjb25zdCBxdWFsaWZpZXIuIEZvciB0aGlzIHJlYXNv
-bg0KPiBJIHdvdWxkIHByZWZlciB0byBub3QgdXNlIGl0Lg0KDQpKdXN0IGRlZmluZSB0d28gdmFy
-aWFibGVzIHR5cGVvZihfX2FycmF5WzBdICsgMCkgb25lIGZvciBhbiBlbGVtZW50DQphbmQgb25l
-IGZvciB0aGUgbGltaXQuDQpUaGUganVzdCB0ZXN0IChlZyk6DQoJaWYgKGxpbWl0ID4gaXRlbSkg
-bGltaXQgPSBpdGVtOw0KZmluYWxseSBjYXN0IHRoZSBsaW1pdCBiYWNrIHRvIHRoZSBvcmlnaW5h
-bCB0eXBlLg0KVGhlIHByb21vdGlvbnMgb2YgY2hhci9zaG9ydCB0byBzaWduZWQgaW50IHdvbid0
-IG1hdHRlci4NClRoZXJlIGlzIG5vIG5lZWQgZm9yIGFsbCB0aGUgdHlwZS1jaGVja2luZyBpbiBt
-aW4vbWF4Lg0KDQpJbmRlZWQsIGlmIG1pbl90KHR5cGUsIGEsIGIpIGlzIGluIGFueXdheSBzYW5l
-IGl0IHNob3VsZA0KZXhwYW5kIHRvOg0KCXR5cGUgX2EgPSBhLCBfYiA9IGI7DQoJX2EgPCBfYiA/
-IF9hIDogX2INCndpdGhvdXQgYW55IG9mIHRoZSBjaGVja3MgdGhhdCBtaW4oKSBkb2VzLg0KDQoJ
-RGF2aWQNCg0KLQ0KUmVnaXN0ZXJlZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5IFJvYWQsIE1v
-dW50IEZhcm0sIE1pbHRvbiBLZXluZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRpb24gTm86IDEz
-OTczODYgKFdhbGVzKQ0K
+From: Arnd Bergmann <arnd@arndb.de>
+
+The ace2x driver can be build with or without mlink support, but
+when SND_SOC_SOF_HDA_MLINK is set to =m and soundwire is built-in,
+it fails with a link error:
+
+ld.lld: error: undefined symbol: hdac_bus_eml_sdw_wait_syncpu_unlocked
+>>> referenced by intel_ace2x.c
+>>>               drivers/soundwire/intel_ace2x.o:(intel_link_power_up) in archive vmlinux.a
+
+ld.lld: error: undefined symbol: hdac_bus_eml_sdw_sync_arm_unlocked
+>>> referenced by intel_ace2x.c
+>>>               drivers/soundwire/intel_ace2x.o:(intel_sync_arm) in archive vmlinux.a
+
+Add a Kconfig dependency that prevents that broken configuration but
+still allows soundwire to be a loadable module instead.
+
+Fixes: 4d1e2464a1104 ("soundwire: intel_ace2x: add sync_arm/sync_go helpers")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/soundwire/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
+index fa71c9a36df7a..4d8f3b7024ae5 100644
+--- a/drivers/soundwire/Kconfig
++++ b/drivers/soundwire/Kconfig
+@@ -37,6 +37,7 @@ config SOUNDWIRE_INTEL
+ 	select SOUNDWIRE_GENERIC_ALLOCATION
+ 	select AUXILIARY_BUS
+ 	depends on ACPI && SND_SOC
++	depends on SND_SOC_SOF_HDA_MLINK || !SND_SOC_SOF_HDA_MLINK
+ 	help
+ 	  SoundWire Intel Master driver.
+ 	  If you have an Intel platform which has a SoundWire Master then
+-- 
+2.39.2
 

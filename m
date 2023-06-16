@@ -2,104 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8677173355F
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 18:03:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24FC87335C5
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 18:18:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8985C82C;
-	Fri, 16 Jun 2023 18:02:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8985C82C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 45F03825;
+	Fri, 16 Jun 2023 18:17:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45F03825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686931393;
-	bh=9ZuYQx5DjH9/5+pUBop8NU0EvDx6ZyqZ2A7pzKf5+nc=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686932282;
+	bh=PDwkv60EQCWy5qGksW1AAr9W5S2ssqF6zh+bk2dPy5s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=inQfKBljIBqysBSvSs/aaEav/wFWDVP0no5RbAOppfpFTbKxCfZ+5ISopebR4BfX9
-	 PZMq/f3BZP3VVk4srCqiUKhEvltwb5Xbmm5PleRlzzj/MjqdHwbKuax/QHoikD69WA
-	 T7ccw17FS+84MMTUTNkpLNRCuw9iO2lCObpD0cT8=
+	b=mHGq8um/6yyu2dDQpEH9zEIAi00BtDhQ0NiADOgrU9cYk8T8Ttg2mQ8nf2JZRruPs
+	 6hQiyPisyZySaJOk9aZ9KZh9s5QrUHAF5QabQx0xH3gyNnUTBw7kbTzJCjS8YtZOOc
+	 onYx1Ad9xPkuyirPFGqrD6I8VphRqKBxtP5mPG50=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA86CF80533; Fri, 16 Jun 2023 18:02:17 +0200 (CEST)
+	id 4835EF80155; Fri, 16 Jun 2023 18:17:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C9F4F80132;
-	Fri, 16 Jun 2023 18:02:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D95AAF80155;
+	Fri, 16 Jun 2023 18:17:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CD5AAF80149; Fri, 16 Jun 2023 18:02:11 +0200 (CEST)
+	id DF05EF80246; Fri, 16 Jun 2023 18:17:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3EFA9F80093
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 18:02:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EFA9F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5C65EF80130
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 18:17:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C65EF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Gh3KuXRD
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35GBVHcm018156;
-	Fri, 16 Jun 2023 11:01:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=aM4qTlg66psxyt7MvUaMTfjlMOxNt1M83BDXPCVlrdE=;
- b=Gh3KuXRDek8q+xUxmtZtD1eBuOoymuBv7/v6TC3Q3rw9DjPFyFWQfxvt14FXP35N7ocU
- IJzdxdCW/niSf4ilGW4rwaXVqv8impUnXd41HsmIyLPn5/O+qevvEWZma6Qc8YUbULUg
- +2zO0FYvO7g3USZ4F4bnEjct8yrT/3exot0scjSqDSHq6bBzS+1MugdrLA/3ZjZZq0XI
- /vKqk/l8UENa4vl3YPGB80AG19ukpvTAoAjkCO6jKUI2Sd6+N1p7Qo/jr6HRCPDduKMt
- ETh9dJ+cdkEROG/CtJ44Mn1KG+2wSP9c8CHiZnK8XeY39bJKr0VG82wZPKhjNYH8rmCS uw==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3r4pk0ejjh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Jun 2023 11:01:58 -0500
-Received: from ediex01.ad.cirrus.com (198.61.84.80) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 16 Jun
- 2023 17:01:56 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by ediex01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.2.1118.26 via Frontend
- Transport; Fri, 16 Jun 2023 17:01:56 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id AEE3615A4;
-	Fri, 16 Jun 2023 16:01:56 +0000 (UTC)
-Date: Fri, 16 Jun 2023 16:01:56 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <andy.shevchenko@gmail.com>
-CC: <broonie@kernel.org>, <lee@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <linus.walleij@linaro.org>,
-        <vkoul@kernel.org>, <robh+dt@kernel.org>, <conor+dt@kernel.org>,
-        <lgirdwood@gmail.com>, <yung-chuan.liao@linux.intel.com>,
-        <sanyog.r.kale@intel.com>, <pierre-louis.bossart@linux.intel.com>,
-        <alsa-devel@alsa-project.org>, <patches@opensource.cirrus.com>,
-        <devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-        <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 1/6] soundwire: bus: Allow SoundWire peripherals to
- register IRQ handlers
-Message-ID: <20230616160156.GT68926@ediswmail.ad.cirrus.com>
-References: <20230605125504.2570158-1-ckeepax@opensource.cirrus.com>
- <20230605125504.2570158-2-ckeepax@opensource.cirrus.com>
- <ZIuNXQIB3j6YjYa7@surfacebook>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=cyt+VaHl
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id BF04360B71;
+	Fri, 16 Jun 2023 16:16:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B891CC433C0;
+	Fri, 16 Jun 2023 16:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686932219;
+	bh=PDwkv60EQCWy5qGksW1AAr9W5S2ssqF6zh+bk2dPy5s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=cyt+VaHlKG7ttwFhw9RIRYQORm7mUAFA9cJKHKJpY5xRdI2BYTVn3mCxWvmZ258nX
+	 mABFXOvINxgHwTdoEpD9NeD1SlajheNfiGOb2KSYfZqfvtFFvDBrwRBWAcjT1NcnWP
+	 /rylzYKTPMbAVPFvWctqYJSOXlXq0atbbltXVFrZ2W2Cx4ZRyVBA8mZNqhGggJOJvu
+	 Fwuevf1F7/W8asS7AZTm/snz2oThdWEj7aFIL0d1s1RqXn1GDUptboNdbm9auknkTt
+	 0hzTzNd9iYhXuN4foH+wRiGdN32bdNFX9V//hGassTYiXhYrGkQCQPipo4mgz0PHXl
+	 8KOPjz8Xz3DoQ==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org
+In-Reply-To: <20230608081547.442763-1-alexander.stein@ew.tq-group.com>
+References: <20230608081547.442763-1-alexander.stein@ew.tq-group.com>
+Subject: Re: [PATCH 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT
+ schema format
+Message-Id: <168693221747.298269.8557688849359189253.b4-ty@kernel.org>
+Date: Fri, 16 Jun 2023 17:16:57 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <ZIuNXQIB3j6YjYa7@surfacebook>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: g_ZbuS0378fNogebm1OeP16CyalPar6e
-X-Proofpoint-GUID: g_ZbuS0378fNogebm1OeP16CyalPar6e
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: WMMD6NXYVISGJEE3ASFR5UFBB4XKOCTY
-X-Message-ID-Hash: WMMD6NXYVISGJEE3ASFR5UFBB4XKOCTY
-X-MailFrom: prvs=1531175dad=ckeepax@opensource.cirrus.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-c6835
+Message-ID-Hash: TC6GU74VMEU2YNOSE2WPHMUZCPZ2UGZX
+X-Message-ID-Hash: TC6GU74VMEU2YNOSE2WPHMUZCPZ2UGZX
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WMMD6NXYVISGJEE3ASFR5UFBB4XKOCTY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TC6GU74VMEU2YNOSE2WPHMUZCPZ2UGZX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,17 +101,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jun 16, 2023 at 01:14:53AM +0300, andy.shevchenko@gmail.com wrote:
-> Mon, Jun 05, 2023 at 01:54:59PM +0100, Charles Keepax kirjoitti:
-> > From: Lucas Tanure <tanureal@opensource.cirrus.com>
-> > +	bus->irq_chip.name = dev_name(bus->dev);
-> > +	bus->domain = irq_domain_add_linear(NULL, SDW_MAX_DEVICES, &sdw_domain_ops, bus);
+On Thu, 08 Jun 2023 10:15:47 +0200, Alexander Stein wrote:
+> Convert the binding to DT schema format.
+> Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
+> clocks & clock-names = "mclk" is mandatory, it has been added to required
+> properties as well. '#sound-dai-cells' is added for reference from
+> simple-audio-card.
 > 
-> I'm wondering why you are not using existing fwnode, if any
-> (e.g. from parent device).
+> 
+> [...]
 
-I think that is just an oversight, I will fixup for the next
-version.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT schema format
+      commit: 289650d61c600ac4f631028c761f38042ba599c8
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Charles
+Mark
+

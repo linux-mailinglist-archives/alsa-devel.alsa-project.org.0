@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9F7732CAB
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 12:03:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04D75732CB1
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 12:03:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41B64843;
-	Fri, 16 Jun 2023 12:02:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41B64843
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1ECD857;
+	Fri, 16 Jun 2023 12:02:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1ECD857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686909795;
-	bh=lIJV9WJVsC1i11gMTvTAxOJ8VEod0bdEOZLVzE3/D6g=;
+	s=default; t=1686909804;
+	bh=ydRsfYTPJOjT9KIaSZNQlDhEuEelN1lLPEXhvr0ySeU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=eqEa9uT65VZdFlHHMIAV2ALcUmlaTmXdhBCgaVgbdGRkKVKtX9mBtxntvjA8r1Qdh
-	 YHsj5wiVb6+op5N78H/m+JAt+UnvO2LaQqGwtAAaCnY38xbek19nmB9pex7i/6JZJp
-	 wdqyeWOcNKDAadC2vh46mZ4ByPjjzeQNxQKIN73A=
+	b=S4luFgv90jlT+nAf3YbCWrHUM0u5VtLQ1sRAkipopyOirVCf3MKO4VmWgfGDGMZ9e
+	 9e6ONCsY97i02/XMfm8XobYj0GkHs2x3WIiUBv+2EQjonJ3NN7fl5c/Ja/nBEAAram
+	 +IGq6Tgiw+mfAZHx19d5HaVISDVpVqwFcn7YSjT0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6705F8057E; Fri, 16 Jun 2023 12:01:20 +0200 (CEST)
+	id 0968AF805AB; Fri, 16 Jun 2023 12:01:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0533F80578;
-	Fri, 16 Jun 2023 12:01:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A207F8058C;
+	Fri, 16 Jun 2023 12:01:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3FA93F80578; Fri, 16 Jun 2023 12:01:15 +0200 (CEST)
+	id EBDD3F8057B; Fri, 16 Jun 2023 12:01:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,60 +35,57 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2FE15F80130
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 12:01:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE15F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 53054F80246
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 12:01:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53054F80246
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=WzqXp/4O
+ header.s=Intel header.b=IlX8PHx2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686909670; x=1718445670;
+  t=1686909672; x=1718445672;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=lIJV9WJVsC1i11gMTvTAxOJ8VEod0bdEOZLVzE3/D6g=;
-  b=WzqXp/4ONAMzBgV8JKNfNa0teHPZfhh/3W17Y6l0olrwx7flIonoPe2q
-   4LH1FdZbUCc7RcYPprwTkVdIat4FWKf2gXAL1pvipoZGYk3yw9oK7S/go
-   uYKjNBlIo8I+d+/3P8fr5udM22GukjI4P9KXqN50ntO8zpCgLcVXF4C+Y
-   wH1r6xzU0SYVRmEz7vLWPWmTpWI7vZAZM6DmoV/rlUQR6LKhjBusTzJqZ
-   cC6izmlNGVS3N66pDj+XdOkIaF3E6V2ldlstoiJOj+jr1IDG10mCU1MgT
-   xF5eZhS6sZieZH3ymM6iNLvejsPaBHbct2Jj0At+ywGI7b/Mq4ivW8NqL
+  bh=ydRsfYTPJOjT9KIaSZNQlDhEuEelN1lLPEXhvr0ySeU=;
+  b=IlX8PHx2T/B1kAEu9KtWq5snobZQLpq1ad0yHSEkI37YjN4WoepcOI8Z
+   UAbOgn6uyPkJDMkQeYl8ce4enfEOB8F3fD3L6NoaiD8TvtSgzZBrU2TjH
+   uChNdnsatzplTXuO1UK/WoosJe+S7m/l3rLLy4vcIuweTDUWpxE+UG+Wl
+   XNfbYodq8sYnlUHF0ooE9EGxFewLycxcS6nipX3C5k6EZhpYaWO7CfXhz
+   KXwbW/c7tB+S5xLnAK7uaS1qPG3nMfAmQdU4M1sH5PIQwcx/qI/oh3MBM
+   y77H3/0stetyU21nVDCSZL2dIhIRwLO05aACPZjDDLmvHuJKIdrO3SupF
    g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="362591630"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="362591650"
 X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
-   d="scan'208";a="362591630"
+   d="scan'208";a="362591650"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 03:01:05 -0700
+ 16 Jun 2023 03:01:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="825689396"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="825689413"
 X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
-   d="scan'208";a="825689396"
+   d="scan'208";a="825689413"
 Received: from kjaffe-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.254.114.132])
   by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 03:01:03 -0700
+ 16 Jun 2023 03:01:05 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
 	broonie@kernel.org,
 	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 4/8] ASoC: SOF: Add new sof_debug flag to request message
- payload dump
-Date: Fri, 16 Jun 2023 12:00:35 +0200
-Message-Id: <20230616100039.378150-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 5/8] ASoC: SOF: ipc3: Dump IPC message payload
+Date: Fri, 16 Jun 2023 12:00:36 +0200
+Message-Id: <20230616100039.378150-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
 References: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: B7HDT4ICLGRPOTNHY4HIRJVXHWPEMLNV
-X-Message-ID-Hash: B7HDT4ICLGRPOTNHY4HIRJVXHWPEMLNV
+Message-ID-Hash: WPOJAL2M7AAIPT3HORY4HS2VQHVBYO65
+X-Message-ID-Hash: WPOJAL2M7AAIPT3HORY4HS2VQHVBYO65
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -101,7 +98,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B7HDT4ICLGRPOTNHY4HIRJVXHWPEMLNV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WPOJAL2M7AAIPT3HORY4HS2VQHVBYO65/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,41 +109,87 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-We only print out the header information of an IPC message in debug level,
-either in verbose or non verbose way (Kconfig option).
+Dump the IPC message payload if BIT(11) of sof_debug is set and the message
+contains more data than just a header.
 
-On top of the header information the message itself can help reproducing
-and identifying issues.
+The header size differs between TX and RX and in case of set_get_data, the
+header is always the reply header for the message regardless if it is TX
+or RX.
 
-BIT(11) can be used to request a message payload dump if it is supported
-by the IPC implementation.
+The use of printk(KERN_DEBUG "..."); is on purpose to keep the dmesg output
+tidy.
 
-Since IPC message payload printing is only implemented for IPC4, the flag
-will not have any effect to IPC3 for now.
-
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/sof-priv.h | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/sof/ipc3.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index cd4f6ac126ec..d4f6702e93dc 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -48,6 +48,9 @@ struct snd_sof_pcm_stream;
- #define SOF_DBG_FORCE_NOCODEC			BIT(10) /* ignore all codec-related
- 							 * configurations
- 							 */
-+#define SOF_DBG_DUMP_IPC_MESSAGE_PAYLOAD	BIT(11) /* On top of the IPC message header
-+							 * dump the message payload also
-+							 */
- #define SOF_DBG_DSPLESS_MODE			BIT(15) /* Do not initialize and use the DSP */
+diff --git a/sound/soc/sof/ipc3.c b/sound/soc/sof/ipc3.c
+index ec1ac0fb2d9f..2c5aac31e8b0 100644
+--- a/sound/soc/sof/ipc3.c
++++ b/sound/soc/sof/ipc3.c
+@@ -223,6 +223,14 @@ static inline void ipc3_log_header(struct device *dev, u8 *text, u32 cmd)
+ }
+ #endif
  
- /* Flag definitions used for controlling the DSP dump behavior */
++static void sof_ipc3_dump_payload(struct snd_sof_dev *sdev,
++				  void *ipc_data, size_t size)
++{
++	printk(KERN_DEBUG "Size of payload following the header: %zu\n", size);
++	print_hex_dump_debug("Message payload: ", DUMP_PREFIX_OFFSET,
++			     16, 4, ipc_data, size, false);
++}
++
+ static int sof_ipc3_get_reply(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_sof_ipc_msg *msg = sdev->msg;
+@@ -374,6 +382,29 @@ static int sof_ipc3_tx_msg(struct snd_sof_dev *sdev, void *msg_data, size_t msg_
+ 
+ 	ret = ipc3_tx_msg_unlocked(ipc, msg_data, msg_bytes, reply_data, reply_bytes);
+ 
++	if (sof_debug_check_flag(SOF_DBG_DUMP_IPC_MESSAGE_PAYLOAD)) {
++		size_t payload_bytes, header_bytes;
++		char *payload = NULL;
++
++		/* payload is indicated by non zero msg/reply_bytes */
++		if (msg_bytes > sizeof(struct sof_ipc_cmd_hdr)) {
++			payload = msg_data;
++
++			header_bytes = sizeof(struct sof_ipc_cmd_hdr);
++			payload_bytes = msg_bytes - header_bytes;
++		} else if (reply_bytes > sizeof(struct sof_ipc_reply)) {
++			payload = reply_data;
++
++			header_bytes = sizeof(struct sof_ipc_reply);
++			payload_bytes = reply_bytes - header_bytes;
++		}
++
++		if (payload) {
++			payload += header_bytes;
++			sof_ipc3_dump_payload(sdev, payload, payload_bytes);
++		}
++	}
++
+ 	mutex_unlock(&ipc->tx_mutex);
+ 
+ 	return ret;
+@@ -472,6 +503,14 @@ static int sof_ipc3_set_get_data(struct snd_sof_dev *sdev, void *data, size_t da
+ 		offset += payload_size;
+ 	}
+ 
++	if (sof_debug_check_flag(SOF_DBG_DUMP_IPC_MESSAGE_PAYLOAD)) {
++		size_t header_bytes = sizeof(struct sof_ipc_reply);
++		char *payload = (char *)cdata;
++
++		payload += header_bytes;
++		sof_ipc3_dump_payload(sdev, payload, data_bytes - header_bytes);
++	}
++
+ 	mutex_unlock(&sdev->ipc->tx_mutex);
+ 
+ 	kfree(cdata_chunk);
 -- 
 2.37.2
 

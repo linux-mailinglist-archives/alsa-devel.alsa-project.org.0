@@ -2,90 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E1E2733101
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 14:18:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D20733112
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 14:22:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0937F82A;
-	Fri, 16 Jun 2023 14:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0937F82A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20DB4836;
+	Fri, 16 Jun 2023 14:21:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20DB4836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686917916;
-	bh=Qm0aTkulOFw3589Uh4I8MzyVn/uDeAVPO5EBfC8Lwyo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1686918157;
+	bh=lcb93UyauGjanSidvqpH8YqMun+SYig4FM52t4gM0L0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AVw6tF6LnvTz9ABVVqHC4Fsc3jW4a7phQlRLSGBJp+9YJrcp3gokgXbkFwThba9KJ
-	 vLAqyGbxzWEpNH6te19JfpBMfGJ9OD+1aZd0nI+7JSctSuyriTnJrthSuh+xWnqJuo
-	 iiQT75kJ4z3jUtVBFeeJZxUOUm2txgFGeimHz56M=
+	b=LgaN6xflIXl1nzRV7EsV5kL0esAVtuEtfhpSxNZUSrJqNH8dSp9ikZxogFDzXwyP0
+	 ZC/PIuJu9CrP1IZYJxzcvWR+CKHRq8bfl8jj5UnegD77wDKCg7rbVS942Pf6j3GK+5
+	 PZBGi5815S5I5bOvjRqH+raRah6cRNqouDGAfeos=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 84EDAF800BA; Fri, 16 Jun 2023 14:17:45 +0200 (CEST)
+	id A6D63F80301; Fri, 16 Jun 2023 14:21:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B81EF80132;
-	Fri, 16 Jun 2023 14:17:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1599DF80132;
+	Fri, 16 Jun 2023 14:21:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1EC3F80149; Fri, 16 Jun 2023 14:17:42 +0200 (CEST)
+	id BB38DF80149; Fri, 16 Jun 2023 14:21:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 594D2F80093
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 14:17:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594D2F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7A824F800BA
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 14:21:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A824F800BA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=tq-group.com header.i=@tq-group.com header.a=rsa-sha256
- header.s=key1 header.b=japFXX3X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
-  t=1686917860; x=1718453860;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=j/FDQPtAx2vpdEuoefb7LUT3uVAbfYql6lVE1xQQFsw=;
-  b=japFXX3XxNRmfh1RVI6pK30+Xs2RtvWVcFVCv2UKz1qm/KxgIGRdMYEo
-   9cSEI+ua0ZqsUUOH6X/oTnyER0JeHyYhA9u2JNW+d/nKMfP9ANLBTX2rf
-   7lof4NeR8aBlitXuYYjLdKS1FrMluOxK1z6sBszBl4L2cLhPUd/jJKnIH
-   36VQeuCoIOh1B6qCVhEe6FrQjggYWV5EV8mU51uIJhqQ+TrIqydBQXuQv
-   0tVlcbrdE8QjOVvoibHyOfcway0LiAf/IFe+xzEctNnAsMfdODYhyd+oA
-   z4wvBM4rP35CWperfmZWHDXjkrxHLPoPhv/tuKiX4E9R6qz03ueIiOqFu
-   A==;
-X-IronPort-AV: E=Sophos;i="6.00,247,1681164000";
-   d="scan'208";a="31465543"
-Received: from vtuxmail01.tq-net.de ([10.115.0.20])
-  by mx1.tq-group.com with ESMTP; 16 Jun 2023 14:17:38 +0200
-Received: from steina-w.localnet (unknown [10.123.53.21])
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=gCP5rmGi
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 9C14F280082;
-	Fri, 16 Jun 2023 14:17:38 +0200 (CEST)
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Mark Brown <broonie@kernel.org>
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3BE6D62C48;
+	Fri, 16 Jun 2023 12:21:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71ACC433C8;
+	Fri, 16 Jun 2023 12:21:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686918094;
+	bh=lcb93UyauGjanSidvqpH8YqMun+SYig4FM52t4gM0L0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gCP5rmGihmwrXYl1izXvZHeOWpY7EBrp8d+rz4wyph8U/HopwLx3yNzcOrI2VkwtZ
+	 mq7hMlYlFD7RIQBqAgGzXaQfK3qaCUtblW26cLC5jCVGzg95RWn6g8R6sbRKk0vKbR
+	 gMb4UbsvG0m5R24PE81Xzv2Flz0KL1grvRvrcCmKfKfWo76SM9gZ1fW/45UOhLxvHc
+	 W4SUbCRVIzB1gapVFpYE1ogHq7GoYXrX6JR6vmXUNCk1kP2Upwqd+vi/FOFE+S3/9R
+	 QwqWkQdtJGHptQkYELC06DR/0u42xk3La0pSxstm1qqw697L++r+IUa+G3B5KOk0Pi
+	 rAb9BMjzGP/aA==
+Date: Fri, 16 Jun 2023 13:21:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alexander Stein <alexander.stein@ew.tq-group.com>
 Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org
 Subject: Re: [PATCH v2 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT
  schema format
-Date: Fri, 16 Jun 2023 14:17:40 +0200
-Message-ID: <4930994.QJadu78ljV@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <5a562bbc-9bba-4829-8998-af12041a434c@sirena.org.uk>
+Message-ID: <3ddb3d09-2a9b-4a25-8108-a79ea83a9dd5@sirena.org.uk>
 References: <20230616083549.2331830-1-alexander.stein@ew.tq-group.com>
  <5a562bbc-9bba-4829-8998-af12041a434c@sirena.org.uk>
+ <4930994.QJadu78ljV@steina-w>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-Message-ID-Hash: EVQ3NDQVICSONAU6HWJE7QBGYIDET53I
-X-Message-ID-Hash: EVQ3NDQVICSONAU6HWJE7QBGYIDET53I
-X-MailFrom: alexander.stein@ew.tq-group.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fKDuqabGFWUpzE8H"
+Content-Disposition: inline
+In-Reply-To: <4930994.QJadu78ljV@steina-w>
+X-Cookie: P-K4
+Message-ID-Hash: UOKO2WMQPLSPF4VPOVJKWOSLTYHUPJ72
+X-Message-ID-Hash: UOKO2WMQPLSPF4VPOVJKWOSLTYHUPJ72
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EVQ3NDQVICSONAU6HWJE7QBGYIDET53I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UOKO2WMQPLSPF4VPOVJKWOSLTYHUPJ72/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,31 +104,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mark,
 
-Am Freitag, 16. Juni 2023, 13:54:49 CEST schrieb Mark Brown:
-> On Fri, Jun 16, 2023 at 10:35:49AM +0200, Alexander Stein wrote:
-> > Convert the binding to DT schema format.
-> > Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
-> > clocks & clock-names =3D "mclk" is mandatory, it has been added to requ=
-ired
-> > properties as well. '#sound-dai-cells' is added for reference from
-> > simple-audio-card.
->=20
-> This doesn't apply against current code, please check and resend.  This
-> should be an incremental patch perhaps?
+--fKDuqabGFWUpzE8H
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Is there any change to original .txt file I am not aware of? The to be crea=
-ted=20
-=2Eyaml file is new, so there is no increment.
-To which base/branch/tag should I rebase this?
+On Fri, Jun 16, 2023 at 02:17:40PM +0200, Alexander Stein wrote:
+> Am Freitag, 16. Juni 2023, 13:54:49 CEST schrieb Mark Brown:
 
-Thanks and best regards,
-Alexander
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+> > This doesn't apply against current code, please check and resend.  This
+> > should be an incremental patch perhaps?
 
+> Is there any change to original .txt file I am not aware of? The to be cr=
+eated=20
+> .yaml file is new, so there is no increment.
 
+That'll be the issue, yes.
+
+> To which base/branch/tag should I rebase this?
+
+As ever
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-ne=
+xt
+
+--fKDuqabGFWUpzE8H
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSMU8kACgkQJNaLcl1U
+h9BUcAf9G7CPLU2eWfY5FglRTT5eSN2hsyUQzpxU5q3tcoyx38HkKsR49fRnvMtd
+k2Qotg1rHf2bcyuCbzQhd5lS0khMjyEFTznkWpUyAhLhvnMrO1jhBO0Chhxyndpi
+v09npGyzYgZUySR+g2boyw6eGbjHaWf707Q1PCRqeiwDoUVVmQbm05mdQetavckq
+HgCM00ZGPq9fkdYtf+g9s7iAW/8giZndtL0P+Iu56aAQISP28qi5G5kJswe0l4Os
+ATlmp+Svkd5fWZPSXkjAgolQ4OgZNNbY/648vsqBuHNW874DeJr3VowD8JvxT275
+EsqelHTY81AIYqbVZOF9/oJrKtfwfw==
+=ScV4
+-----END PGP SIGNATURE-----
+
+--fKDuqabGFWUpzE8H--

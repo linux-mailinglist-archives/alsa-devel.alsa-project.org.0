@@ -2,111 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30457732BEC
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 11:35:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB04732CA7
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 12:02:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42961825;
-	Fri, 16 Jun 2023 11:34:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42961825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73282836;
+	Fri, 16 Jun 2023 12:01:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73282836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686908147;
-	bh=/g7vkU2kV4mN4NcGOrYRIn6msLXsORkH2JuU3XiQORA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=H2WEJa51kcGpl3g9gRxeJOt89RHYZO8u41wH3SGUQpCo102kcnEFWBXsIcT3P2oQq
-	 GCv5nQC7Xw2V40qCiJScvK2UmhVMZ9/OM/NPXSO9UitwVqnfFmBLr3Bkm/ra7p18S/
-	 dWp+1oL+bciIxsSw8pm7bHrf1zUhgGQrrwdPZVhE=
+	s=default; t=1686909744;
+	bh=BCWSHL/hRCdHC4pRsvoKym/JbeFSHw6jglwMIqNFKJQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=K69TGaHlo1sF49eAFuGf/k4TupQ7+V28bN/hh0yeDduIV7y+xqmoB2w0LDpibQ451
+	 66HhYPLJ/TiGbTnUW+p8kFG3u4Z9pYr8yRJCP9XH3WcaddQyoFlBXCoiqXUtBohUjU
+	 FQDdZEGDAVHgQ6F9boqjvfmAD29RoShxwIs26F3M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90C7FF80155; Fri, 16 Jun 2023 11:34:56 +0200 (CEST)
+	id 884C6F80149; Fri, 16 Jun 2023 12:01:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4201EF80132;
-	Fri, 16 Jun 2023 11:34:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8885F80246;
+	Fri, 16 Jun 2023 12:01:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B9F92F80149; Fri, 16 Jun 2023 11:34:51 +0200 (CEST)
+	id 8000CF8025E; Fri, 16 Jun 2023 12:01:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9F7E2F80093
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 11:34:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F7E2F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 646E6F80130
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 12:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 646E6F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=RFbR3G/t
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-51a2160a271so613836a12.1
-        for <alsa-devel@alsa-project.org>;
- Fri, 16 Jun 2023 02:34:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1686908081; x=1689500081;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kZHHWviwTUp2ejqoeSZblZoLVhlAgV7AT/D/NA4zn2g=;
-        b=RFbR3G/tJWjdDIhl9htsX/oE2/jyhXJPe7msrR7SD7etbtY7R5vps+2jRyEMM1cn1H
-         OQGuk0DikMBzJxAtu0S8MmGnEDivWTbsbancTB2zJFM0GfeiwscwBRH7p9uCLPCu40FQ
-         EjO0FALoXEE9lYAOeqxVwXnqBb5RDLpTf4ISklq6OMCokH9nrXg3zj47Nem+Nwl9VPvB
-         5fYgobK51SnYWuInP1lANM2AAjqT4JK7l4UdFrmnLVsL/5CnomT1RygmZoq3EAQ/ljKL
-         T4DSvmrK5hYssJ6aQoIJAHZwTbpUNLivkmzajCAZ0qrryrSJfqWWRj7XIFXCC+a36nVe
-         uRwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686908081; x=1689500081;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kZHHWviwTUp2ejqoeSZblZoLVhlAgV7AT/D/NA4zn2g=;
-        b=Cm9BRJKcY1N89fhyta7biHGYA4VxyAhBUO8PVIIqGWIM+C6KnsK3iVIXMreddljxNt
-         owtvtIggW48SLCA9GguzrzDU3xGBn76+Hf8UqlnwrTHD1Atj3+iadPghJMSWgfF8XP78
-         ABvzU4j3Ms/ZlBr3NcyxeKJkNRHi8AWpaiWZ1B55eV/e0gxQsBUAFLnBSsaFyoiVH0Jj
-         YKmewK8MGkl7uTdOSIMx+X/KhTCjBh4x/6KzECuXHCeFzB04gFUWefpVCxzFvleqRyad
-         gIMZuU3esBh+wJH/6xuOkzFb5HIXHPhfhfYc3p2fTqw3OD61tipp7mXhvQ5RH2R9B6jT
-         zfUg==
-X-Gm-Message-State: AC+VfDy6/JH0aGYx6pJA3nfjPp8iZKdNYNRL0BZIZ7395VdtJx5SI1M2
-	rzJJQwmhRG6H3VJrzuN5ypyh/g==
-X-Google-Smtp-Source: 
- ACHHUZ4JmeiI5S5sC7B7JLCWQlF0z5JzQWoNDMiTjrVoe1w/cjglt+eqV1gOtm/XPjX2e8NGxPvknw==
-X-Received: by 2002:a17:907:3ea2:b0:978:9b09:ccaf with SMTP id
- hs34-20020a1709073ea200b009789b09ccafmr1586083ejc.14.1686908080964;
-        Fri, 16 Jun 2023 02:34:40 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
-        by smtp.gmail.com with ESMTPSA id
- re6-20020a170906d8c600b00982aca1560asm1777417ejb.219.2023.06.16.02.34.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Jun 2023 02:34:40 -0700 (PDT)
-Message-ID: <ffd57fcc-51f1-cb1f-e589-c1a42d3ceeb2@linaro.org>
-Date: Fri, 16 Jun 2023 11:34:38 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=eb8I6/fT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1686909660; x=1718445660;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=BCWSHL/hRCdHC4pRsvoKym/JbeFSHw6jglwMIqNFKJQ=;
+  b=eb8I6/fTF8dqbNFJ7RyOYYs/XBsT+vce29yKjzuTINE96o3kNTU8/LG2
+   PIG2RxMUscq4htOa1rvZydvgusqWAOWh+GkfC4+NWCDmTLguFju9FnaJG
+   MKxGVmLVX1ZTerNVm2ycteTGpPrCsYRpMmV3DEJIGecFEt7oAMAU8Lu/q
+   wubVAAG0/VrOrn3jp0vv7TZC1b/yIiAUbe+Tp4C9OtoYh+ZxZ/QpLNh3T
+   3Utx2YhCcRajSzOxx4kShddb1H1fmBGmVe1hluZFwV4VYD6QK7fCoyabz
+   +ioxI4Kyc94DWJ9O/DdCsBZUoU/doceHVNGwYJCk1ozSl4Ig/VX8k4rT/
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="362591569"
+X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
+   d="scan'208";a="362591569"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2023 03:00:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="825689334"
+X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
+   d="scan'208";a="825689334"
+Received: from kjaffe-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
+ ([10.254.114.132])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2023 03:00:53 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Cc: tiwai@suse.de,
+	broonie@kernel.org,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 0/8] ASoC: SOF: misc updates for 6.5
+Date: Fri, 16 Jun 2023 12:00:31 +0200
+Message-Id: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH v2 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT
- schema format
-Content-Language: en-US
-To: Alexander Stein <alexander.stein@ew.tq-group.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org
-References: <20230616083549.2331830-1-alexander.stein@ew.tq-group.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230616083549.2331830-1-alexander.stein@ew.tq-group.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DDW3EXVIYDVRNRPGTP3IEQOZTWKATLE6
-X-Message-ID-Hash: DDW3EXVIYDVRNRPGTP3IEQOZTWKATLE6
-X-MailFrom: krzysztof.kozlowski@linaro.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: VLLQCO3GFEXOATHX6AOQ5UBNHUHQLYPP
+X-Message-ID-Hash: VLLQCO3GFEXOATHX6AOQ5UBNHUHQLYPP
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DDW3EXVIYDVRNRPGTP3IEQOZTWKATLE6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VLLQCO3GFEXOATHX6AOQ5UBNHUHQLYPP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,19 +103,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 16/06/2023 10:35, Alexander Stein wrote:
-> Convert the binding to DT schema format.
-> Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
-> clocks & clock-names = "mclk" is mandatory, it has been added to required
-> properties as well. '#sound-dai-cells' is added for reference from
-> simple-audio-card.
-> 
-> Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> ---
+Couple of improvements on virtual_widget support, firmware trace free,
+IPC payload dump, duplicated code in suspend and MeteorLake primary
+code support.
 
+Bard Liao (2):
+  ASoC: SOF: sof-audio: add is_virtual_widget helper
+  ASoC: SOF: sof-audio: test virtual widget in sof_walk_widgets_in_order
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Peter Ujfalusi (5):
+  ASoC: SOF: core: Free the firmware trace before calling
+    snd_sof_shutdown()
+  ASoC: SOF: Add new sof_debug flag to request message payload dump
+  ASoC: SOF: ipc3: Dump IPC message payload
+  ASoC: SOF: ipc4: Switch to use the sof_debug:bit11 to dump message
+    payload
+  ASoC: SOF: pm: Remove duplicated code in sof_suspend
 
-Best regards,
-Krzysztof
+Rander Wang (1):
+  ASoC: SOF: Intel: mtl: setup primary core info on MeteorLake platform
+
+ sound/soc/sof/core.c      |  4 +++-
+ sound/soc/sof/intel/mtl.c | 19 ++++++++++++----
+ sound/soc/sof/ipc3.c      | 39 ++++++++++++++++++++++++++++++++
+ sound/soc/sof/ipc4.c      | 46 ++++++++++++++++++--------------------
+ sound/soc/sof/pm.c        | 12 ++++------
+ sound/soc/sof/sof-audio.c | 47 ++++++++++++++++++++++++++-------------
+ sound/soc/sof/sof-priv.h  |  3 +++
+ 7 files changed, 117 insertions(+), 53 deletions(-)
+
+-- 
+2.37.2
 

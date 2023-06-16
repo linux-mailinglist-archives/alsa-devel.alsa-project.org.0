@@ -2,69 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A147339EF
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 21:33:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCCD3733A16
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 21:41:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DB81836;
-	Fri, 16 Jun 2023 21:33:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DB81836
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DC9582B;
+	Fri, 16 Jun 2023 21:40:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DC9582B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686944037;
-	bh=JTpvT/+Xg8T65izIUbx5+aUwFNdu1OGCpNVkfCtk6IY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=LdoSJUTdd6m9mo+pwEGxcn/fuJlw228n0aMJCPaJ/nVUU7jBdPM2XLC5YDqWOvTxH
-	 3KcOAmHWux3YmqHrepSD0T0qTB1FE3MvTX5Z6S7rFhIJRzsfBPefHAtiAJjjOtKeKa
-	 Ztq8jVmM/FKmNoEc6qe4hBE09cvk7FO9UxZv1BHk=
+	s=default; t=1686944462;
+	bh=mV2If3g3g1sD8x2ovsOZFkuQJbEiGz0YBbK1cdKj1cc=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hYNdR6KWZqPuY6WnUYcTANN/tX1oC6fWj+TmnSXZFTNEm8NBAumWQDvhjIrbDgsAd
+	 IG0p7fsdhhCwB3ZbyMN25AMe9K950NfDbNgn469wDDUXi2Dk5/2CTYfitrKH45jiWx
+	 8uAOK1NB6aw6J1QiXCGVtSaAUP2tcKHWBiVQL5qY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20474F80548; Fri, 16 Jun 2023 21:32:45 +0200 (CEST)
+	id B2AA3F80093; Fri, 16 Jun 2023 21:40:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C33FFF80149;
-	Fri, 16 Jun 2023 21:32:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF7B0F80132;
+	Fri, 16 Jun 2023 21:40:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 626A3F80155; Fri, 16 Jun 2023 21:32:41 +0200 (CEST)
+	id 79491F80149; Fri, 16 Jun 2023 21:39:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=SPF_HELO_NONE,SPF_NEUTRAL,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74C5DF80132
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 21:32:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74C5DF80132
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
-	id DBCBD1C0E73; Fri, 16 Jun 2023 21:32:22 +0200 (CEST)
-Date: Fri, 16 Jun 2023 21:32:22 +0200
-From: Pavel Machek <pavel@denx.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com,
-	perex@perex.cz, tiwai@suse.com,
-	pierre-louis.bossart@linux.intel.com,
-	peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com,
-	ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com,
-	ahplka19@gmail.com, alsa-devel@alsa-project.org
-Subject: Re: [PATCH AUTOSEL 6.1 20/33] ASoC: Intel: avs: Account for UID of
- ACPI device
-Message-ID: <ZIy4xhk+kbe01gio@duo.ucw.cz>
-References: <20230531134159.3383703-1-sashal@kernel.org>
- <20230531134159.3383703-20-sashal@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id E2933F80093
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 21:39:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2933F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=denx.de header.i=@denx.de header.a=rsa-sha256
+ header.s=phobos-20191101 header.b=OPO/Vrh0
+Received: from mail.denx.de (unknown
+ [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+	(No client certificate requested)
+	(Authenticated sender: festevam@denx.de)
+	by phobos.denx.de (Postfix) with ESMTPSA id B130084768;
+	Fri, 16 Jun 2023 21:39:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+	s=phobos-20191101; t=1686944394;
+	bh=0RQez8bsWaI2cbhoDwT9GmoKUDE5BbUBQBiG8huLJoM=;
+	h=Date:From:To:Cc:Subject:From;
+	b=OPO/Vrh0U9VsEOC5BeRlowQUZJ7aUr/39riC/nBA1UY9IsICoL9dAB2phZhhiM7zm
+	 0EjFVAchGEsKDrmII6RVpD5cXbGpeph4lAiZSXy7Xks8Cxy0ONdQqguYj81fqJkAd9
+	 ClXfMyLITlKuCxJnDGXQHGZCCMBRK78eapJB275BH5ZJcm8tUZp7nMseeJlonfNAXg
+	 uPApLfCXLhhPOHLasYMiN7MceApmrPEXQp31PWq8aMFdTa4QLjg6rkUcINqeV/XOix
+	 BMQLKqlz3f12kQd/qjTQkfMUknKUvs0JEVpOaT+tMoW3VqLCVOPK/O1GU1FmTtkYJC
+	 29c0OuXFlO0+Q==
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="SOvNzeeURu6eDnYe"
-Content-Disposition: inline
-In-Reply-To: <20230531134159.3383703-20-sashal@kernel.org>
-Message-ID-Hash: NQARFFQSQ6LUHOS2VYIOFNEDY66H4SFS
-X-Message-ID-Hash: NQARFFQSQ6LUHOS2VYIOFNEDY66H4SFS
-X-MailFrom: pavel@denx.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 16 Jun 2023 16:39:54 -0300
+From: Fabio Estevam <festevam@denx.de>
+To: shengjiu.wang@gmail.com, broonie@kernel.org, daniel.baluta@gmail.com
+Cc: alsa-devel@alsa-project.org
+Subject: imx8mn: Trying to get EASRC to work
+Message-ID: <87d11267e2d93256e071ee7d86775cc7@denx.de>
+X-Sender: festevam@denx.de
+User-Agent: Roundcube Webmail/1.3.6
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Message-ID-Hash: TCARN4WHXJU6CY7AH3O3DCWSWU55KXXQ
+X-Message-ID-Hash: TCARN4WHXJU6CY7AH3O3DCWSWU55KXXQ
+X-MailFrom: festevam@denx.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -76,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NQARFFQSQ6LUHOS2VYIOFNEDY66H4SFS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TCARN4WHXJU6CY7AH3O3DCWSWU55KXXQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -85,63 +97,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi,
 
---SOvNzeeURu6eDnYe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I am working on an imx8mn-based board with an ES9080 codec and I am 
+trying to get
+EASCR to work. (The ES9080 driver is not upstreamed yet).
 
-Hi!
+Audio playback works fine via simple-audio-card and here are my changes 
+to
+get EASRC to work:
 
-> Configurations with multiple codecs attached to the platform are
-> supported but only if each from the set is different. Add new field
-> representing the 'Unique ID' so that codecs that share Vendor and Part
-> IDs can be differentiated and thus enabling support for such
-> configurations.
 
-Apparently this is preparation for something, but we should not need
-it in AUTOSEL as noone will write the uid here.
+-	sound-ess {
+-		compatible = "simple-audio-card";
+-		simple-audio-card,name = "ess-audio";
+-		simple-audio-card,format = "left_j";
+-		simple-audio-card,frame-master = <&s2cpu>;
+-		simple-audio-card,bitclock-master = <&s2cpu>;
+-
+-		s2cpu: simple-audio-card,cpu {
+-			sound-dai = <&sai2>;
+-			dai-tdm-slot-num = <8>;
+-			dai-tdm-slot-width = <32>;
+-		};
+-
+-		simple-audio-card,codec {
+-			sound-dai = <&es9080>;
+-		};
++	sound-es9080 {
++		compatible = "fsl,imx-audio-es9080";
++		model = "es9080-with-easrc";
++		audio-cpu = <&sai2>;
++		audio-codec = <&es9080>;
++		audio-asrc = <&easrc>;
+  	};
+  };
 
-Best regards,
-								Pavel
+diff --git a/sound/soc/fsl/fsl-asoc-card.c 
+b/sound/soc/fsl/fsl-asoc-card.c
+index 8d14b5593658..27b8f2c0cd65 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -624,6 +624,14 @@ static int fsl_asoc_card_probe(struct 
+platform_device *pdev)
+  		codec_dai_name = "sgtl5000";
+  		priv->codec_priv.mclk_id = SGTL5000_SYSCLK;
+  		priv->dai_fmt |= SND_SOC_DAIFMT_CBP_CFP;
++	} else if (of_device_is_compatible(np, "fsl,imx-audio-es9080")) {
++		codec_dai_name = "es9080";
++		priv->dai_fmt |= SND_SOC_DAIFMT_CBC_CFC;
++		priv->dai_link[1].dpcm_capture = 0;
++		priv->dai_link[2].dpcm_capture = 0;
++		priv->cpu_priv.slot_width = 32;
++		priv->card.dapm_routes = audio_map_tx;
++		priv->card.num_dapm_routes = ARRAY_SIZE(audio_map_tx);
+  	} else if (of_device_is_compatible(np, "fsl,imx-audio-tlv320aic32x4")) 
+{
+  		codec_dai_name = "tlv320aic32x4-hifi";
+  		priv->dai_fmt |= SND_SOC_DAIFMT_CBP_CFP;
+@@ -902,6 +910,7 @@ static const struct of_device_id 
+fsl_asoc_card_dt_ids[] = {
+  	{ .compatible = "fsl,imx-audio-tlv320aic32x4", },
+  	{ .compatible = "fsl,imx-audio-tlv320aic31xx", },
+  	{ .compatible = "fsl,imx-audio-sgtl5000", },
++	{ .compatible = "fsl,imx-audio-es9080", },
+  	{ .compatible = "fsl,imx-audio-wm8962", },
+  	{ .compatible = "fsl,imx-audio-wm8960", },
+  	{ .compatible = "fsl,imx-audio-mqs", },
 
-> +++ b/include/sound/soc-acpi.h
-> @@ -170,6 +170,7 @@ struct snd_soc_acpi_link_adr {
->  /* Descriptor for SST ASoC machine driver */
->  struct snd_soc_acpi_mach {
->  	u8 id[ACPI_ID_LEN];
-> +	const char *uid;
->  	const struct snd_soc_acpi_codecs *comp_ids;
->  	const u32 link_mask;
->  	const struct snd_soc_acpi_link_adr *links;
-> diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/=
-board_selection.c
-> index 87f9c18be238d..87353b4b0cd73 100644
-> --- a/sound/soc/intel/avs/board_selection.c
-> +++ b/sound/soc/intel/avs/board_selection.c
-> @@ -394,7 +394,7 @@ static int avs_register_i2s_boards(struct avs_dev *ad=
-ev)
->  	}
-> =20
->  	for (mach =3D boards->machs; mach->id[0]; mach++) {
-> -		if (!acpi_dev_present(mach->id, NULL, -1))
-> +		if (!acpi_dev_present(mach->id, mach->uid, -1))
->  			continue;
-> =20
->  		if (mach->machine_quirk)
+The es9080-with-easrc card is registered, but after running 
+'speaker-test' no
+audio output is present.
 
---=20
-DENX Software Engineering GmbH,        Managing Director: Erika Unter
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
+Is there a way to use the EASRC driver with the simple-audio-card 
+without
+touching fsl-asoc-card.c? That would be preferable.
 
---SOvNzeeURu6eDnYe
-Content-Type: application/pgp-signature; name="signature.asc"
+Would you have any suggestions as to what may be missing to get EASRC to 
+work?
 
------BEGIN PGP SIGNATURE-----
+Thanks,
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCZIy4xgAKCRAw5/Bqldv6
-8ol8AJ4uOFHJoMuMDzFPzmANHZBI9FyppgCfZF4s1exUHQZ/vAe9UVyPThqJntQ=
-=Csam
------END PGP SIGNATURE-----
-
---SOvNzeeURu6eDnYe--
+Fabio Estevam

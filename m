@@ -2,88 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD4497329FB
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 10:37:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76BAE732AEB
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 11:03:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB5C23E8;
-	Fri, 16 Jun 2023 10:36:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB5C23E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CB943E8;
+	Fri, 16 Jun 2023 11:02:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CB943E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686904639;
-	bh=O39w72APYg5ttGfHKV5YLjnjkzlGnnlvZKrqg4Zlrz4=;
+	s=default; t=1686906185;
+	bh=cVzo/h1du6EG71YMJA69ZOvL8XUo5XXroakRB2KzZho=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ECmbrtKD8ok5AOXbOeGP9MMS3+X8BmbmegORLZe7luIXBYH61B7riDfZLsVOewVUB
-	 2KwRPj9Wxe7SkSrm7sele2cCfkX4NBDWoYCBbO0qNJY5OpmiGcJEoSH0d8PYwF0ASt
-	 NrrGuPEO/0WfOujmW5Za7Jn3mFK/p7W8S0tTQgJI=
+	b=pDnn3011r93Ef9W4vhEFg8JB2ua6buEGQX6uspjrwfU+t7exQLg2eVRvQ3c0ywkVQ
+	 fCJ9mPVvKNfCLfwXXur2UIYOaiwoiFjXc3dlVUPfuRy3jfVvPzRyZ9qZYWC17ogj/w
+	 I/ApITMqj+7I3xDImu46xwRWF7skGW0cbVOLG9Bo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B923AF80544; Fri, 16 Jun 2023 10:36:07 +0200 (CEST)
+	id 13E64F80533; Fri, 16 Jun 2023 11:02:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ECDCF80149;
-	Fri, 16 Jun 2023 10:36:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8B3CF80132;
+	Fri, 16 Jun 2023 11:02:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D0C51F80155; Fri, 16 Jun 2023 10:36:02 +0200 (CEST)
+	id 247B3F80149; Fri, 16 Jun 2023 11:02:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2D52F800BA
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 10:35:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2D52F800BA
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=tq-group.com header.i=@tq-group.com header.a=rsa-sha256
- header.s=key1 header.b=YJFbv1hB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
-  t=1686904552; x=1718440552;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=tpoazCjFq7exKrGL72cd/5zbo5h8D99AwbUvKsLXxjU=;
-  b=YJFbv1hBa4VP4dWyv5DNYeA+8VlNwqVKUoC346LEpJvX5h9Xv8H4mPdl
-   kw0Ub+B2cXtwrPnzImc4ul/yr+bW1XlWph3IQ0YwCAnEPe9r/wLEL1Rwy
-   +/dV8R4rwVF45AnoUfN2mRDsKe76d058oNB9lp+S0qmOJnoUJ1MU5chp9
-   CZTsK5V+3WIg1QyxOUCrC9JtdUQM/vUQqkDt9mB0iQhFxRw4ouSopAXwD
-   wtxoG9cXqPJ87nOJAnUW3CaD7MumguWa6ELD2ff31yBMmGcW5m9AUuL/h
-   xzBZQSToCMF4xVQrEzltSf/ic+LdGon8I068buBdQzXt7nwP2oHDbAh/f
-   Q==;
-X-IronPort-AV: E=Sophos;i="6.00,247,1681164000";
-   d="scan'208";a="31461603"
-Received: from vtuxmail01.tq-net.de ([10.115.0.20])
-  by mx1.tq-group.com with ESMTP; 16 Jun 2023 10:35:51 +0200
-Received: from steina-w.tq-net.de (unknown [10.123.53.21])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id DCBAF280082;
-	Fri, 16 Jun 2023 10:35:50 +0200 (CEST)
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3C09F80130
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 11:02:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3C09F80130
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=FtywWfZt
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 71C876222F;
+	Fri, 16 Jun 2023 09:02:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EF3C433C0;
+	Fri, 16 Jun 2023 09:02:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1686906122;
+	bh=cVzo/h1du6EG71YMJA69ZOvL8XUo5XXroakRB2KzZho=;
+	h=From:To:Cc:Subject:Date:From;
+	b=FtywWfZtgsSj9FFvkPXXwo6WbvZLGQh+2L5ouZeJCIRq8qf+btEr6ccuQbacsOeo5
+	 zwEcUnUrGyBg3M7mYLmj3cE9cC1xiuvjCZp7K09Tb3tPZ/LsFmp3t5T3SNEoGRhI4u
+	 A7Tv6H/7geI+qr66OvZ9gksTWXwg4/qycNf1TuY8IHG2a+GHYcrQBn6Yu7KYRicyuf
+	 svss8ubY8wrRBMqSn5QcK2POSanpEJmhtb3oE9N9i3FZAOi7EqUY+EcGNmBkB3ZfDs
+	 X6nfcGOd+NhgLFFkNEChAnaX2f7MdfxAX3OM/yXJOB+5EezGd6CHIao4CSb4XxqlZ+
+	 PNkWceMMoDYXw==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Ryan Lee <ryans.lee@analog.com>,
 	alsa-devel@alsa-project.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT schema
- format
-Date: Fri, 16 Jun 2023 10:35:49 +0200
-Message-Id: <20230616083549.2331830-1-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.34.1
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/4] ASoC: max98388: fix unused function warnings
+Date: Fri, 16 Jun 2023 11:00:37 +0200
+Message-Id: <20230616090156.2347850-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7DRK2MWK7EIIVG27PNM43CAL2I57MZEB
-X-Message-ID-Hash: 7DRK2MWK7EIIVG27PNM43CAL2I57MZEB
-X-MailFrom: alexander.stein@ew.tq-group.com
+Message-ID-Hash: 3UCNTXLNAIKH6CZITIDOQAJ224ASWRSW
+X-Message-ID-Hash: 3UCNTXLNAIKH6CZITIDOQAJ224ASWRSW
+X-MailFrom: arnd@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7DRK2MWK7EIIVG27PNM43CAL2I57MZEB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3UCNTXLNAIKH6CZITIDOQAJ224ASWRSW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,189 +100,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Convert the binding to DT schema format.
-Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
-clocks & clock-names = "mclk" is mandatory, it has been added to required
-properties as well. '#sound-dai-cells' is added for reference from
-simple-audio-card.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+The PM functions are never referenced when CONFIG_PM_SLEEP is
+disabled:
+
+sound/soc/codecs/max98388.c:854:12: error: unused function 'max98388_suspend' [-Werror,-Wunused-function]
+static int max98388_suspend(struct device *dev)
+           ^
+sound/soc/codecs/max98388.c:864:12: error: unused function 'max98388_resume' [-Werror,-Wunused-function]
+static int max98388_resume(struct device *dev)
+
+Fix this by using the modern SYSTEM_SLEEP_PM_OPS() macro in place of
+the deprecated SET_SYSTEM_SLEEP_PM_OPS() version, and use pm_sleep_ptr()
+to hide the entire structure as well.
+
+On a related note, the of_match_ptr() and ACPI_PTR() macros have the same
+problem and would cause the device id table to be unused when the driver
+is built-in and the respective subsystems are disabled. This does not
+cause warnings unless -Wunused-const-variable is passed to the compiler,
+but it's better to just not use the macros at all here.
+
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
-Changes in v2:
-* Rebased onto for-next of [1]
-* Add vendor prefix 'ti' to file name
-* Simplify 'reg' property
-* Removed description from 'reset-gpios'
-* Added reference to dai-common.yaml
-* Fixed node name in example
+ sound/soc/codecs/max98388.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-There is no in-tree user for aic32x4-gpio-func, so I just converted the
-bindings to YAML and skipped introducing a dt-binding header for
-defining the constants.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/log/
-
- .../bindings/sound/ti,tlv320aic32x4.yaml      | 101 ++++++++++++++++++
- .../bindings/sound/tlv320aic32x4.txt          |  42 --------
- 2 files changed, 101 insertions(+), 42 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/ti,tlv320aic32x4.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/tlv320aic32x4.txt
-
-diff --git a/Documentation/devicetree/bindings/sound/ti,tlv320aic32x4.yaml b/Documentation/devicetree/bindings/sound/ti,tlv320aic32x4.yaml
-new file mode 100644
-index 0000000000000..a7cc9aa344684
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/ti,tlv320aic32x4.yaml
-@@ -0,0 +1,101 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (C) 2019 Texas Instruments Incorporated
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/ti,tlv320aic32x4.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TLV320AIC32x4 Stereo Audio codec
-+
-+maintainers:
-+  - Alexander Stein <alexander.stein@ew.tq-group.com>
-+
-+description: |
-+  The TLV320AIC32x4 audio codec can be accessed using I2C or SPI
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,tas2505
-+      - ti,tlv320aic32x4
-+      - ti,tlv320aic32x6
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Master clock
-+
-+  clock-names:
-+    items:
-+      - const: mclk
-+
-+  av-supply:
-+    description: Analog core power supply
-+
-+  dv-supply:
-+    description: Digital core power supply
-+
-+  iov-supply:
-+    description: Digital IO power supply
-+
-+  ldoin-supply:
-+    description: LDO power supply
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+  aic32x4-gpio-func:
-+    description: |
-+       GPIO function configuration for pins MFP1-MFP5.
-+       Types are defined in include/sound/tlv320aic32x4.h
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 5
-+    maxItems: 5
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - iov-supply
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+  - if:
-+      not:
-+        required:
-+          - ldoin-supply
-+    then:
-+      required:
-+        - av-supply
-+        - dv-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      audio-codec@18 {
-+        compatible = "ti,tlv320aic32x4";
-+        reg = <0x18>;
-+        iov-supply = <&reg_3v3>;
-+        ldoin-supply = <&reg_3v3>;
-+        clocks = <&clks 201>;
-+        clock-names = "mclk";
-+        aic32x4-gpio-func= <
-+          0xff /* AIC32X4_MFPX_DEFAULT_VALUE */
-+          0xff /* AIC32X4_MFPX_DEFAULT_VALUE */
-+          0x04 /* MFP3 AIC32X4_MFP3_GPIO_ENABLED */
-+          0xff /* AIC32X4_MFPX_DEFAULT_VALUE */
-+          0x08 /* MFP5 AIC32X4_MFP5_GPIO_INPUT */
-+        >;
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/tlv320aic32x4.txt b/Documentation/devicetree/bindings/sound/tlv320aic32x4.txt
-deleted file mode 100644
-index 0b4e21bde5bc1..0000000000000
---- a/Documentation/devicetree/bindings/sound/tlv320aic32x4.txt
-+++ /dev/null
-@@ -1,42 +0,0 @@
--Texas Instruments - tlv320aic32x4 Codec module
--
--The tlv320aic32x4 serial control bus communicates through I2C protocols
--
--Required properties:
-- - compatible - "string" - One of:
--	"ti,tlv320aic32x4" TLV320AIC3204
--	"ti,tlv320aic32x6" TLV320AIC3206, TLV320AIC3256
--	"ti,tas2505" TAS2505, TAS2521
-- - reg: I2C slave address
-- - *-supply: Required supply regulators are:
--    "iov" - digital IO power supply
--    "ldoin" - LDO power supply
--    "dv" - Digital core power supply
--    "av" - Analog core power supply
--    If you supply ldoin, dv and av are optional. Otherwise they are required
--   See regulator/regulator.txt for more information about the detailed binding
--   format.
--
--Optional properties:
-- - reset-gpios: Reset-GPIO phandle with args as described in gpio/gpio.txt
-- - clocks/clock-names: Clock named 'mclk' for the master clock of the codec.
--   See clock/clock-bindings.txt for information about the detailed format.
-- - aic32x4-gpio-func - <array of 5 int>
--	- Types are defined in include/sound/tlv320aic32x4.h
--
--
--Example:
--
--codec: tlv320aic32x4@18 {
--	compatible = "ti,tlv320aic32x4";
--	reg = <0x18>;
--	clocks = <&clks 201>;
--	clock-names = "mclk";
--	aic32x4-gpio-func= <
--			0xff /* AIC32X4_MFPX_DEFAULT_VALUE */
--			0xff /* AIC32X4_MFPX_DEFAULT_VALUE */
--			0x04 /* MFP3 AIC32X4_MFP3_GPIO_ENABLED */
--			0xff /* AIC32X4_MFPX_DEFAULT_VALUE */
--			0x08 /* MFP5 AIC32X4_MFP5_GPIO_INPUT */
--		>;
--};
+diff --git a/sound/soc/codecs/max98388.c b/sound/soc/codecs/max98388.c
+index 8062a71150074..3d03c4bac6c55 100644
+--- a/sound/soc/codecs/max98388.c
++++ b/sound/soc/codecs/max98388.c
+@@ -873,7 +873,7 @@ static int max98388_resume(struct device *dev)
+ }
+ 
+ static const struct dev_pm_ops max98388_pm = {
+-	SET_SYSTEM_SLEEP_PM_OPS(max98388_suspend, max98388_resume)
++	SYSTEM_SLEEP_PM_OPS(max98388_suspend, max98388_resume)
+ };
+ 
+ static const struct regmap_config max98388_regmap = {
+@@ -998,9 +998,9 @@ MODULE_DEVICE_TABLE(acpi, max98388_acpi_match);
+ static struct i2c_driver max98388_i2c_driver = {
+ 	.driver = {
+ 		.name = "max98388",
+-		.of_match_table = of_match_ptr(max98388_of_match),
+-		.acpi_match_table = ACPI_PTR(max98388_acpi_match),
+-		.pm = &max98388_pm,
++		.of_match_table = max98388_of_match,
++		.acpi_match_table = max98388_acpi_match,
++		.pm = pm_sleep_ptr(&max98388_pm),
+ 	},
+ 	.probe = max98388_i2c_probe,
+ 	.id_table = max98388_i2c_id,
 -- 
-2.34.1
+2.39.2
 

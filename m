@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DBAF732CD9
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 12:04:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9F7732CAB
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 12:03:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 577B384A;
-	Fri, 16 Jun 2023 12:03:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 577B384A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41B64843;
+	Fri, 16 Jun 2023 12:02:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41B64843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686909873;
-	bh=euc1LNyU/gOBdaoUs/unm7pIRjpPLm0R/Sx438RYDVY=;
+	s=default; t=1686909795;
+	bh=lIJV9WJVsC1i11gMTvTAxOJ8VEod0bdEOZLVzE3/D6g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TNIw2AdtB+YkeoSnhvsJQB7LqKfaqxQY+OD1IruHI6Gy9vxXi88yv5DZD/0dvr31h
-	 innZ8QHJqYCxUybqotD1D80Yxk4nq0xyCGhO8I/iFDGK87Sr1PYiRq4jtIJjwedtUp
-	 t8MtzS3raVqU9QCo64EiWJcjiOYR0uETdqxIDNFU=
+	b=eqEa9uT65VZdFlHHMIAV2ALcUmlaTmXdhBCgaVgbdGRkKVKtX9mBtxntvjA8r1Qdh
+	 YHsj5wiVb6+op5N78H/m+JAt+UnvO2LaQqGwtAAaCnY38xbek19nmB9pex7i/6JZJp
+	 wdqyeWOcNKDAadC2vh46mZ4ByPjjzeQNxQKIN73A=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED4B6F805D5; Fri, 16 Jun 2023 12:01:53 +0200 (CEST)
+	id A6705F8057E; Fri, 16 Jun 2023 12:01:20 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D1178F8025E;
-	Fri, 16 Jun 2023 12:01:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0533F80578;
+	Fri, 16 Jun 2023 12:01:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 55DFFF805BE; Fri, 16 Jun 2023 12:01:48 +0200 (CEST)
+	id 3FA93F80578; Fri, 16 Jun 2023 12:01:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,62 +35,60 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A7A6BF80155
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 12:01:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7A6BF80155
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2FE15F80130
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 12:01:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FE15F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=OtrmcSSb
+ header.s=Intel header.b=WzqXp/4O
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1686909664; x=1718445664;
+  t=1686909670; x=1718445670;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=euc1LNyU/gOBdaoUs/unm7pIRjpPLm0R/Sx438RYDVY=;
-  b=OtrmcSSbPpftShvaqPCL5XsfoIs6m5i5xJ+hISK9Lz1ukWn4jONHaE+9
-   HlwRIHB9nl7rw8aZlLxqrUDCa4em4lO+UsXf2fi46+K8G8v9dcSKP0dXa
-   Q7AhQD9n1V+Avn9+u/iBG/EdCSArG7UDaz6lf6b1gBbDQkCV/YG8UScqa
-   PZaTCfdZnUnbFoz9eKhA/6D8/IXSV5bizCC3hn2D2IEp1mrysgoRWqzU5
-   G0qZEyxFsdBCliFfmneqD9rapR84dAIFiGx9imNWHujW43sRwh7IelPRf
-   0pLnsoDkvKbJcs/VP+CNHqlrsVw0+yw3I/LK+bFDIrDjOvjzw2PVFg3rm
+  bh=lIJV9WJVsC1i11gMTvTAxOJ8VEod0bdEOZLVzE3/D6g=;
+  b=WzqXp/4ONAMzBgV8JKNfNa0teHPZfhh/3W17Y6l0olrwx7flIonoPe2q
+   4LH1FdZbUCc7RcYPprwTkVdIat4FWKf2gXAL1pvipoZGYk3yw9oK7S/go
+   uYKjNBlIo8I+d+/3P8fr5udM22GukjI4P9KXqN50ntO8zpCgLcVXF4C+Y
+   wH1r6xzU0SYVRmEz7vLWPWmTpWI7vZAZM6DmoV/rlUQR6LKhjBusTzJqZ
+   cC6izmlNGVS3N66pDj+XdOkIaF3E6V2ldlstoiJOj+jr1IDG10mCU1MgT
+   xF5eZhS6sZieZH3ymM6iNLvejsPaBHbct2Jj0At+ywGI7b/Mq4ivW8NqL
    g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="362591608"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="362591630"
 X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
-   d="scan'208";a="362591608"
+   d="scan'208";a="362591630"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 03:01:03 -0700
+ 16 Jun 2023 03:01:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="825689393"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="825689396"
 X-IronPort-AV: E=Sophos;i="6.00,247,1681196400";
-   d="scan'208";a="825689393"
+   d="scan'208";a="825689396"
 Received: from kjaffe-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.254.114.132])
   by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 03:00:59 -0700
+ 16 Jun 2023 03:01:03 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
 Cc: tiwai@suse.de,
 	broonie@kernel.org,
 	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
 	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
 	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Rander Wang <rander.wang@intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [PATCH 3/8] ASoC: SOF: core: Free the firmware trace before calling
- snd_sof_shutdown()
-Date: Fri, 16 Jun 2023 12:00:34 +0200
-Message-Id: <20230616100039.378150-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/8] ASoC: SOF: Add new sof_debug flag to request message
+ payload dump
+Date: Fri, 16 Jun 2023 12:00:35 +0200
+Message-Id: <20230616100039.378150-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
 References: <20230616100039.378150-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FOP4ZTRPE7WI7H7FLXO6SSCI4LMUXPTC
-X-Message-ID-Hash: FOP4ZTRPE7WI7H7FLXO6SSCI4LMUXPTC
+Message-ID-Hash: B7HDT4ICLGRPOTNHY4HIRJVXHWPEMLNV
+X-Message-ID-Hash: B7HDT4ICLGRPOTNHY4HIRJVXHWPEMLNV
 X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FOP4ZTRPE7WI7H7FLXO6SSCI4LMUXPTC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B7HDT4ICLGRPOTNHY4HIRJVXHWPEMLNV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,45 +112,41 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-The shutdown is called on reboot/shutdown of the machine.
-At this point the firmware tracing cannot be used anymore but in case of
-IPC3 it is using and keeping a DMA channel active (dtrace).
+We only print out the header information of an IPC message in debug level,
+either in verbose or non verbose way (Kconfig option).
 
-For Tiger Lake platforms we have a quirk in place to fix rare reboot issues
-when a DMA was active before rebooting the system.
-If the tracing is enabled this quirk will be always used and a print
-appears on the kernel log which might be misleading or not even correct.
+On top of the header information the message itself can help reproducing
+and identifying issues.
 
-Release the fw tracing before executing the shutdown to make sure that this
-known DMA user is cleared away.
+BIT(11) can be used to request a message payload dump if it is supported
+by the IPC implementation.
+
+Since IPC message payload printing is only implemented for IPC4, the flag
+will not have any effect to IPC3 for now.
 
 Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Rander Wang <rander.wang@intel.com>
 Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/sof/sof-priv.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index 9a9d82220fd0..30db685cc5f4 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -504,8 +504,10 @@ int snd_sof_device_shutdown(struct device *dev)
- 	if (IS_ENABLED(CONFIG_SND_SOC_SOF_PROBE_WORK_QUEUE))
- 		cancel_work_sync(&sdev->probe_work);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index cd4f6ac126ec..d4f6702e93dc 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -48,6 +48,9 @@ struct snd_sof_pcm_stream;
+ #define SOF_DBG_FORCE_NOCODEC			BIT(10) /* ignore all codec-related
+ 							 * configurations
+ 							 */
++#define SOF_DBG_DUMP_IPC_MESSAGE_PAYLOAD	BIT(11) /* On top of the IPC message header
++							 * dump the message payload also
++							 */
+ #define SOF_DBG_DSPLESS_MODE			BIT(15) /* Do not initialize and use the DSP */
  
--	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE)
-+	if (sdev->fw_state == SOF_FW_BOOT_COMPLETE) {
-+		sof_fw_trace_free(sdev);
- 		return snd_sof_shutdown(sdev);
-+	}
- 
- 	return 0;
- }
+ /* Flag definitions used for controlling the DSP dump behavior */
 -- 
 2.37.2
 

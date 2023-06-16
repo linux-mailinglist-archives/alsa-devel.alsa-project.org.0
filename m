@@ -2,96 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F30D7330E0
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 14:11:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1E2733101
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 14:18:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3494B829;
-	Fri, 16 Jun 2023 14:10:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3494B829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0937F82A;
+	Fri, 16 Jun 2023 14:17:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0937F82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686917471;
-	bh=8wbAhwngyoiLitORNxHPTudMgnSuXFJG0L2yAdQOC8Q=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1686917916;
+	bh=Qm0aTkulOFw3589Uh4I8MzyVn/uDeAVPO5EBfC8Lwyo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lXYouxPjQnIvjnAHzFEYNUDWKJHHLNWdp2isI3WVO3jhmJbTaRbgDv8UdQ29TX5vS
-	 ONpdm91MKuQUlUWx1b8s3IntixwfoLjpwRYa6PyqG5Se068DPm+o326sIxT7VUIx9e
-	 91PFm6Fz2L1hR9x2t9T909K6H6oN/jggL6RqH0PI=
+	b=AVw6tF6LnvTz9ABVVqHC4Fsc3jW4a7phQlRLSGBJp+9YJrcp3gokgXbkFwThba9KJ
+	 vLAqyGbxzWEpNH6te19JfpBMfGJ9OD+1aZd0nI+7JSctSuyriTnJrthSuh+xWnqJuo
+	 iiQT75kJ4z3jUtVBFeeJZxUOUm2txgFGeimHz56M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9C6C5F800BA; Fri, 16 Jun 2023 14:10:20 +0200 (CEST)
+	id 84EDAF800BA; Fri, 16 Jun 2023 14:17:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F2E5F80132;
-	Fri, 16 Jun 2023 14:10:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B81EF80132;
+	Fri, 16 Jun 2023 14:17:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7352AF80149; Fri, 16 Jun 2023 14:10:15 +0200 (CEST)
+	id E1EC3F80149; Fri, 16 Jun 2023 14:17:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65877F800BA
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 14:10:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65877F800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 594D2F80093
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 14:17:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594D2F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=Z70EHsKj
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35GAD3Bx010525;
-	Fri, 16 Jun 2023 07:10:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=b3gmEMjLlWvH0sCeKusykaMgG9usASL6cMtQGbS1aUQ=;
- b=Z70EHsKjIdpxgZyHy/rLz/4CC5FNDPRgYvL7lNf7VLTJk5bCdz+4oBqsZ0M7mYkHs/QT
- pl9E66tTWg9JK/Y/xbjQVEezEOT5mvAIVcR4tKvcHflJyFa6rs2qs/eNSUIkqWi14M4O
- fEFXENk64G1N6mtiMlTxbJhS03PsvAUPSfVt++IzhKGdRfv/QkcujFHcViEDCgy0UyEB
- XuPBmndKMZq90r7jFEaO1UIeyuHOuWkVZVmKdlFS6h6C3937NRxjO8HoNiNMQIKs5KrG
- 1ioPyWnQ2ENpZv0xnC2pvn7dvTLJQz2MYt8sb19raw+I3bFVaTTA9Lf8SxVQNoqJ35TO KA==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3r4pk0ebpc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Jun 2023 07:10:09 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Fri, 16 Jun
- 2023 13:10:06 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Fri, 16 Jun 2023 13:10:06 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 96F8C468;
-	Fri, 16 Jun 2023 12:10:06 +0000 (UTC)
-Date: Fri, 16 Jun 2023 12:10:06 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Juerg Haefliger <juerg.haefliger@canonical.com>
-CC: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
-        <tiwai@suse.com>, <patches@opensource.cirrus.com>,
-        <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ASoC: codecs: wm0010: Add MODULE_FIRMWARE macros
-Message-ID: <20230616121006.GS68926@ediswmail.ad.cirrus.com>
-References: <20230616115432.1011707-1-juerg.haefliger@canonical.com>
+ unprotected) header.d=tq-group.com header.i=@tq-group.com header.a=rsa-sha256
+ header.s=key1 header.b=japFXX3X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+  t=1686917860; x=1718453860;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=j/FDQPtAx2vpdEuoefb7LUT3uVAbfYql6lVE1xQQFsw=;
+  b=japFXX3XxNRmfh1RVI6pK30+Xs2RtvWVcFVCv2UKz1qm/KxgIGRdMYEo
+   9cSEI+ua0ZqsUUOH6X/oTnyER0JeHyYhA9u2JNW+d/nKMfP9ANLBTX2rf
+   7lof4NeR8aBlitXuYYjLdKS1FrMluOxK1z6sBszBl4L2cLhPUd/jJKnIH
+   36VQeuCoIOh1B6qCVhEe6FrQjggYWV5EV8mU51uIJhqQ+TrIqydBQXuQv
+   0tVlcbrdE8QjOVvoibHyOfcway0LiAf/IFe+xzEctNnAsMfdODYhyd+oA
+   z4wvBM4rP35CWperfmZWHDXjkrxHLPoPhv/tuKiX4E9R6qz03ueIiOqFu
+   A==;
+X-IronPort-AV: E=Sophos;i="6.00,247,1681164000";
+   d="scan'208";a="31465543"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+  by mx1.tq-group.com with ESMTP; 16 Jun 2023 14:17:38 +0200
+Received: from steina-w.localnet (unknown [10.123.53.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 9C14F280082;
+	Fri, 16 Jun 2023 14:17:38 +0200 (CEST)
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT
+ schema format
+Date: Fri, 16 Jun 2023 14:17:40 +0200
+Message-ID: <4930994.QJadu78ljV@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <5a562bbc-9bba-4829-8998-af12041a434c@sirena.org.uk>
+References: <20230616083549.2331830-1-alexander.stein@ew.tq-group.com>
+ <5a562bbc-9bba-4829-8998-af12041a434c@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230616115432.1011707-1-juerg.haefliger@canonical.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-ORIG-GUID: T2kVAv2Q62Vvm-KiIETAoSXQusZk9hGa
-X-Proofpoint-GUID: T2kVAv2Q62Vvm-KiIETAoSXQusZk9hGa
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 6ICJP575M7NUPS7QNSINNETXPYB5V7UI
-X-Message-ID-Hash: 6ICJP575M7NUPS7QNSINNETXPYB5V7UI
-X-MailFrom: prvs=1531175dad=ckeepax@opensource.cirrus.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+Message-ID-Hash: EVQ3NDQVICSONAU6HWJE7QBGYIDET53I
+X-Message-ID-Hash: EVQ3NDQVICSONAU6HWJE7QBGYIDET53I
+X-MailFrom: alexander.stein@ew.tq-group.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6ICJP575M7NUPS7QNSINNETXPYB5V7UI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EVQ3NDQVICSONAU6HWJE7QBGYIDET53I/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,14 +106,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, Jun 16, 2023 at 01:54:32PM +0200, Juerg Haefliger wrote:
-> The module loads firmware so add MODULE_FIRMWARE macros to provide that
-> information via modinfo.
-> 
-> Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
-> ---
+Hi Mark,
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Am Freitag, 16. Juni 2023, 13:54:49 CEST schrieb Mark Brown:
+> On Fri, Jun 16, 2023 at 10:35:49AM +0200, Alexander Stein wrote:
+> > Convert the binding to DT schema format.
+> > Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
+> > clocks & clock-names =3D "mclk" is mandatory, it has been added to requ=
+ired
+> > properties as well. '#sound-dai-cells' is added for reference from
+> > simple-audio-card.
+>=20
+> This doesn't apply against current code, please check and resend.  This
+> should be an incremental patch perhaps?
 
-Thanks,
-Charles
+Is there any change to original .txt file I am not aware of? The to be crea=
+ted=20
+=2Eyaml file is new, so there is no increment.
+To which base/branch/tag should I rebase this?
+
+Thanks and best regards,
+Alexander
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
+

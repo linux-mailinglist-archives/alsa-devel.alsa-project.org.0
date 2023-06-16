@@ -2,99 +2,164 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24C2173317B
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 14:43:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74E7C7331C9
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 15:00:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ACA31CF;
-	Fri, 16 Jun 2023 14:42:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ACA31CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5DB882B;
+	Fri, 16 Jun 2023 14:59:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5DB882B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686919425;
-	bh=jwuiM48HT3XuhYlvVrcWu5d70ItRWKuRafj9J/nP5Og=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1686920436;
+	bh=JgJFji6HrZzs4J/tPx2z0mpRtHUT3wHPAw4k1umF/TU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QRqUFI5MBeEK5xModBDQcEWd3RAcR5t71oDiz4qogL3UDkH4cSqNzLKImYV0bBt7h
-	 QLUHV5VrKJIrp3NIGL7hBCBox9ijAf/lYcgMxtNj43vIPJkXpSTEBTIb8Doas9bWeT
-	 wCAOPnTTcmC8vt6Dh8pvmhD6fWdXNcgAR2wsQfeg=
+	b=HF3GD2fgRQOkDTSHG/Z0esbFLfnGw8LhC25sdGMGVglnCXAzHn1b1JJ4H9a3BRn7R
+	 50zhUYbc7NoSkgqwe+i9IxAQmN88NN3RqDaM5SAiSnkE9dgG58lLwhYqP6jWVzty1T
+	 q7+u988UI2oe0rvfmo+FR1UwzIsVPFmYuD3cqNLM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C69E2F800BA; Fri, 16 Jun 2023 14:42:48 +0200 (CEST)
+	id 30B63F80544; Fri, 16 Jun 2023 14:59:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D773F80132;
-	Fri, 16 Jun 2023 14:42:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3009F80132;
+	Fri, 16 Jun 2023 14:59:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68F31F80149; Fri, 16 Jun 2023 14:42:44 +0200 (CEST)
+	id C38A0F80149; Fri, 16 Jun 2023 14:59:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8d::601])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 613A1F800BA
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 14:42:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 613A1F800BA
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-269-JJvQb2sfOriquygsMnYC7w-1; Fri, 16 Jun 2023 13:42:37 +0100
-X-MC-Unique: JJvQb2sfOriquygsMnYC7w-1
-Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
- (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Fri, 16 Jun
- 2023 13:42:33 +0100
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.048; Fri, 16 Jun 2023 13:42:33 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Herve Codina' <herve.codina@bootlin.com>
-CC: Andy Shevchenko <andy.shevchenko@gmail.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
-	<robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Kuninori
- Morimoto" <kuninori.morimoto.gx@renesas.com>, "alsa-devel@alsa-project.org"
-	<alsa-devel@alsa-project.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>, Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: RE: [PATCH v4 07/13] minmax: Introduce {min,max}_array()
-Thread-Topic: [PATCH v4 07/13] minmax: Introduce {min,max}_array()
-Thread-Index: AQHZn2z+IMzVucn/mECJ0o8xQC0QeK+NI4PggAAd4ACAABw3kA==
-Date: Fri, 16 Jun 2023 12:42:33 +0000
-Message-ID: <73144a81d75c477b9639872ed9f4cbf3@AcuMS.aculab.com>
-References: <20230614074904.29085-1-herve.codina@bootlin.com>
-	<20230614074904.29085-8-herve.codina@bootlin.com>
-	<CAHp75Vcur=H_2mBm5Ztuvd7Jnvmr6+tvCbEkFtmaVLsEjXr8NQ@mail.gmail.com>
-	<20230614114214.1371485e@bootlin.com>
-	<CAHp75VcmW2StPqb_LtKFyNyJ2+jz3c19zNRDiSuGs06Bseq04w@mail.gmail.com>
-	<20230614223418.0d7e355d@bootlin.com>
-	<CAHp75VfFyDzr4qHNssXZ8RLy0gxMWdjBgac4JLd7grRLEG-vyw@mail.gmail.com>
-	<20230615113512.07967677@bootlin.com>
-	<6c7fe34f7b65421ab618d33ba907ae09@AcuMS.aculab.com>
- <20230616134844.09e7fda3@bootlin.com>
-In-Reply-To: <20230616134844.09e7fda3@bootlin.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id 142F7F80093
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 14:59:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 142F7F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=PEIbI2M8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bNFmCTbg+vzNnaZjwmWbBWsmCCdpICJiAN+CCICQgRvme2eTjspaHua4cZJTBF6i7Isf0O/9iEXyM5bEbSo+urlL3oxqUVIRYU5WmY7qla1HCk+Aynq4/qIxYfq6LRxaPagKGbc7dLazNlsGy2O13O0Y8TwEvu3b26CzMRLEXAdB4x1QczxoaLRajTJo3j7hOwXSGBRevv+PujFK6GlA77RTTa/2GDN77lPcbXam5Gu19XyRME1DbctSpOO188ALGVdNrxbW1IV7UbGEsXMqWgS/jHus2SPQQQxO49BMmVmocHKC39ex6o/6TRVvI3mVOg+Jv36Q0qNcOPskEuI8gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JgJFji6HrZzs4J/tPx2z0mpRtHUT3wHPAw4k1umF/TU=;
+ b=H3ZeHgmVPXZWQcBjIwDtiTFNIPilQ0kuTM63AKrsmTonhH5nfNfUJ2QITuU4epO4GXrX3/F+v0DSoIexrMx/JJwyG9Gl7r7OR4e5LM7nT12gVfHwjayoJj98vGpwMbNEo5kb0wx7EScXRAo1wmaOJGL6Zt+gL1mDJ/HmxLu9CA/N2wvacEpeAZJsXHhKRg2BByeXmn7aguHQEzAaGcddgE8Nr9kMo2c6J0v6g3IA+Zh7p62gMSHORBsXXiFJusJHpEj4szN2tEZE4vME1sIDLsSTQFEsaQQhE/VquGFHlRN9ANRDWTtqK7VextBH1g+ndrB1+SDBcT6PLKKjHOpRKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JgJFji6HrZzs4J/tPx2z0mpRtHUT3wHPAw4k1umF/TU=;
+ b=PEIbI2M8YRuRHaY7R58FO9r0wQAsXcMIR+vQ5/yCo115WzefdDRfzE8K4YRX4PEoT7svsXT/X05g335KWKaBt5Kyt1PNISmXtk9B/VbmrH75U9Kr8VibItQ4dcIFO8s9rzBdJdxfCKlvd7zhKwctbcN2HATCofjJ9KXTuOi3JzY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN8PR12MB4770.namprd12.prod.outlook.com (2603:10b6:408:a1::30)
+ by DS0PR12MB6415.namprd12.prod.outlook.com (2603:10b6:8:cc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.25; Fri, 16 Jun
+ 2023 12:59:10 +0000
+Received: from BN8PR12MB4770.namprd12.prod.outlook.com
+ ([fe80::2dd2:bbdb:58c0:9bec]) by BN8PR12MB4770.namprd12.prod.outlook.com
+ ([fe80::2dd2:bbdb:58c0:9bec%5]) with mapi id 15.20.6500.029; Fri, 16 Jun 2023
+ 12:59:10 +0000
+Message-ID: <f140ae96-a1fd-e636-2b8b-d453fba5c6e2@amd.com>
+Date: Fri, 16 Jun 2023 18:28:29 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH] ASoC: amd: correct pm_runtime enable sequence
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, vsujithkumar.reddy@amd.com,
+ Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, syed.sabakareem@amd.com,
+ mastan.katragadda@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20230614003206.933147-1-arungopal.kondaveeti@amd.com>
+ <317a0f1b-94a7-4bd4-9f64-8877e0552b6a@sirena.org.uk>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-Message-ID-Hash: C5VRXGCKVDW6JLVT6H7IAH7XA5FEZZHK
-X-Message-ID-Hash: C5VRXGCKVDW6JLVT6H7IAH7XA5FEZZHK
-X-MailFrom: david.laight@aculab.com
+From: "kondaveeti, Arungopal" <arungopal.kondaveeti@amd.com>
+In-Reply-To: <317a0f1b-94a7-4bd4-9f64-8877e0552b6a@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0047.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:98::18) To BN8PR12MB4770.namprd12.prod.outlook.com
+ (2603:10b6:408:a1::30)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8PR12MB4770:EE_|DS0PR12MB6415:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf2c72f8-5161-415e-33b1-08db6e6979a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	deSeaTwcrpgjgARgsRJJx6p+Qqz+EFmsmuuJW2Yb9LxmO27LviuD29x7Mor+HKuk7qqhN7wXGjjfWDc3IWzFV1MGPy1m9uafbkFWIk2Gfdn4xA/TP6/TwmXzZNz9xXxZ7sEXiBI/N30QP4WKomonOyaIUgthq9x7GEoAAOgwkBKNCRF1picxMtlpQCVM3/m/obXcbpBIswnz92c+qZ9IEpLPLztjIyczR9nWUml0brxiS3XtLp00b4F4HABegbMTWWd02EoCLE3J/liTVZNLprGSIwX4p8l7sAmNcAlXO9WGNI5mSCChM75nAnPsQ4pLeZri9WUSKcr3vwvZ6f8xpLGrXnBiWdVqJ7CvW/3k8q1x3ekfby/pHZT5aZHa5A3KmnExqPa7vppaQdeyU/Vvggfn3Wy6/3xYoyBBPGHfw860AtH1v012ZtZgk33ybOhRV4rhZ/34ZrO4qVO+6vqUUHFrFqNuoWEtUzs+deb6igUmMXU8jlwwbomeJvymUS1cYfWvjkXlPTHeTqLD2zMgsAerwxwr4vhQWR7ZLx6fsNyYA3Txs5+p2mee2WS5+ODKCEUEB7VC0V8NQkVQnrpoE5VnqDx3dR+QRdioAnSJxW9RG/nXtssa5MGBdvuwU1+GOZVUutSjNq7B/iTuh2VsKA==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN8PR12MB4770.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(366004)(39860400002)(346002)(136003)(376002)(451199021)(31686004)(54906003)(31696002)(41300700001)(8676002)(86362001)(66946007)(66476007)(66556008)(6486002)(6916009)(8936002)(316002)(6666004)(4326008)(36756003)(478600001)(6512007)(26005)(5660300002)(83380400001)(6506007)(53546011)(2906002)(4744005)(186003)(38100700002)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?TW9va2lvT0N4Z28rb0xXQ2FpMEt5d2x4ZFk3M1dVV2JmN3pCMU5PcHdqalda?=
+ =?utf-8?B?ajQrR0tUTXdVMlhtNlEyOUJnNHJ3d3g2WndkRTFUcFhiY3V0QW8xWDhkRW1h?=
+ =?utf-8?B?WlNnQTNOa1o2eUJRL0RsODFxWkgyN3NPZWw4YURHd2M1RzVKWmsrMHI0My9l?=
+ =?utf-8?B?WkZjQnRjclpCdURsRGphOEg0MUFQdDZuQUdOOXpnV2lpdmZZcm1HMGZ2THdN?=
+ =?utf-8?B?cStQbkd1MURHQTBHL004QjY3Q2huTUhwbWN3WTBUUlZDQ1lYWmRTZDlMV013?=
+ =?utf-8?B?aStCSGhJRXMrai8wd0JEQkl5b0drVXM5bHIybng0V0JkSERWQlJzTnA0YTZj?=
+ =?utf-8?B?NFVsU1F5VzNZaHZZejRHQ0UyTDBxYTVQNm1jQjFsbTZFRzM5elEyTEpKbFFQ?=
+ =?utf-8?B?bCtJQ0dETEt1SXRlQmdNNHFrVGltVHVybnJqZkFXNllQeTNDbzhzbVBKc3hs?=
+ =?utf-8?B?czNvSER2a09ZNVVNUGNZc2taOXpsZndKSDd4MXVrUm9BdmlHMG81Qklwem1v?=
+ =?utf-8?B?Q0Z1eGhjZUtab09WUnBjdmFidTNEVmxtcTFxaysvdEhBQnlZeVhwU2kxaWpC?=
+ =?utf-8?B?OWQ1TEZhSXhNSGNSZW5GTi9aSnJKQWIva09aQnY2NEhKZUdRbjZIbTBKN0ps?=
+ =?utf-8?B?QXB0VFJ2cDNpQVBrNGhNc01rVTdFNmpoTHJpZVl6Z2Mwc2dxMTI5ZlpCSGda?=
+ =?utf-8?B?QTBPN0ZnUytVWXhLdmJGMGNaYkZuYXJqam9rSE9USXloNGZteUc4aXJYeFVt?=
+ =?utf-8?B?VHRtNHVGaE1oejJUVy9HY29iYTY1RjhERXF3d2R4dXEwVFA5T1lCMGlKbkh2?=
+ =?utf-8?B?U3V4UHI4TzJYb05KOG5NbWFOVEVEMVdQYmZucGJRUjdYRG03b0dLbVpzQnE3?=
+ =?utf-8?B?c1RreXExc1hHY2ttSHVwT3pkMlY2MFBSd1NtT0tONExqZFVsL3BnUGdRVXlX?=
+ =?utf-8?B?OUlsSWNhZUh3VW9EQWZpL25OUXRLZThGN2syVUJzaHB6ZE9yMzBjM2tQZ2xr?=
+ =?utf-8?B?Rk90SGZydFZNRjBnOUtaYVNWVklLcGhaUW93WHNTWDB5NlljZGMwSU9POHF4?=
+ =?utf-8?B?clZxSFE0RDVTdVNKRU54NXJlRDk4d2NiaUZaUWJuaU9KV3VweDdheUVqQXI0?=
+ =?utf-8?B?Tjg5cUJUd1VJd2VYWkI4YkwzajBsNVRZWFN2Y3pMRUFpeDNaZGNZUE9Fa0I0?=
+ =?utf-8?B?clVVbWt1cTBFaGdHR1Jlb2E1RzE4K09nRmt2clJVSlBOOTdIUitVZTBRYzhH?=
+ =?utf-8?B?YzlsY1hYWFJWMXFmdm9ubWlDbjJ3NzJCRThwVkxqU3Zhb2ZuV1EySmIvaVNo?=
+ =?utf-8?B?Nk1IMGV5S3lEeDNWOCsyRlBPdlBpZS9FM1ZFL2V2c0M1akJMK2lJb0VCYmkz?=
+ =?utf-8?B?aXZGK2M4czRqbEwxa3ZWcys0WWR6OXd3VXc2b2JsNGxxRkNoblR6U2g5Qldn?=
+ =?utf-8?B?cCtlR3pJK3c3WWpFWDRCRHA1MVR2cklibkh2ZTJPOU91ZHlPc0hucHozaGFI?=
+ =?utf-8?B?dS96bklNaGRFU2docnRoQ0xCS05BelhadG5Iek1WcVY0eEpuck95SjE5bGN3?=
+ =?utf-8?B?QVZaYjhYYVF6SktmcjFpaStjWHlVNlhRaGU5N3NvRUo2S01xZDRMeW90WTZa?=
+ =?utf-8?B?bXhkYlYrTks3Yms2R0RGRlc5SklZTytpYjFFSnV4MkRBUFRsWDVKNTYrcHlZ?=
+ =?utf-8?B?SDFyMXFjMVMvMytoWFNNM2dmZ1lxcmlKeENKQ1A4dzNBUm51NitYeGZKbCtU?=
+ =?utf-8?B?d0YxcU5LaUF1ZHRhdW1vZ2hidnBBZzFzQ2ZiWDdncE1kdGFiY2dubHJ1U2pk?=
+ =?utf-8?B?MzhVQlp3QUs2ZGJ3eHNsR1hkUnRjVEFYVm9meExMWFJZVXMzSEVQZWxaeXhu?=
+ =?utf-8?B?UGg3ZGpOaFNhWkg1SklFbjd2cTRIVE5JZjREZk8zVmhOTGl1Ym80ejNIdjNY?=
+ =?utf-8?B?Nld3RTZlYjdDTFJ6OVVzS0dGQXZvNGlwMmVQR3VESXIzN3hFM3RWekF2RmRR?=
+ =?utf-8?B?NEpyNmJNei91aHJaWGFpOW5IT09tWFRLZ2lBS0RmdzhXWWJpMXJtWmJRR0w5?=
+ =?utf-8?B?Nit0SnJrb2t1cW5XVzV4eGNkN1NVM2M3UzlZMzV5QWM4RkltN0llcTY3ekwv?=
+ =?utf-8?Q?VLqQf5wzLuCKbhEkA7svuxLrx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ cf2c72f8-5161-415e-33b1-08db6e6979a5
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB4770.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2023 12:59:09.8666
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ qMw45zFBShDlhae7+bWgrE2dXZC59MdnK2ovsaDaNEnjLKTLdmb9t7p+j5FnCIdqOlmuy6TX2gSU0An2UO3TDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6415
+Message-ID-Hash: FCCJLA4UZSSUAZVRFTUYP5BY76OHHQD2
+X-Message-ID-Hash: FCCJLA4UZSSUAZVRFTUYP5BY76OHHQD2
+X-MailFrom: Arungopal.kondaveeti@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +171,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C5VRXGCKVDW6JLVT6H7IAH7XA5FEZZHK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FCCJLA4UZSSUAZVRFTUYP5BY76OHHQD2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,37 +180,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-RnJvbTogSGVydmUgQ29kaW5hIDxoZXJ2ZS5jb2RpbmFAYm9vdGxpbi5jb20+DQo+IFNlbnQ6IDE2
-IEp1bmUgMjAyMyAxMjo0OQ0KPiANCj4gSGkgRGF2aWQsDQo+IA0KPiBPbiBGcmksIDE2IEp1biAy
-MDIzIDA5OjA4OjIyICswMDAwDQo+IERhdmlkIExhaWdodCA8RGF2aWQuTGFpZ2h0QEFDVUxBQi5D
-T00+IHdyb3RlOg0KPiANCj4gLi4uDQo+IA0KPiA+DQo+ID4gSnVzdCBkZWZpbmUgdHdvIHZhcmlh
-YmxlcyB0eXBlb2YoX19hcnJheVswXSArIDApIG9uZSBmb3IgYW4gZWxlbWVudA0KPiA+IGFuZCBv
-bmUgZm9yIHRoZSBsaW1pdC4NCj4gPiBUaGUganVzdCB0ZXN0IChlZyk6DQo+ID4gCWlmIChsaW1p
-dCA+IGl0ZW0pIGxpbWl0ID0gaXRlbTsNCj4gPiBmaW5hbGx5IGNhc3QgdGhlIGxpbWl0IGJhY2sg
-dG8gdGhlIG9yaWdpbmFsIHR5cGUuDQo+ID4gVGhlIHByb21vdGlvbnMgb2YgY2hhci9zaG9ydCB0
-byBzaWduZWQgaW50IHdvbid0IG1hdHRlci4NCj4gPiBUaGVyZSBpcyBubyBuZWVkIGZvciBhbGwg
-dGhlIHR5cGUtY2hlY2tpbmcgaW4gbWluL21heC4NCj4gPg0KPiA+IEluZGVlZCwgaWYgbWluX3Qo
-dHlwZSwgYSwgYikgaXMgaW4gYW55d2F5IHNhbmUgaXQgc2hvdWxkDQo+ID4gZXhwYW5kIHRvOg0K
-PiA+IAl0eXBlIF9hID0gYSwgX2IgPSBiOw0KPiA+IAlfYSA8IF9iID8gX2EgOiBfYg0KPiA+IHdp
-dGhvdXQgYW55IG9mIHRoZSBjaGVja3MgdGhhdCBtaW4oKSBkb2VzLg0KPiANCj4gSSBmaW5hbGx5
-IG1vdmUgdG8gdXNlIF9HZW5lcmljKCkgaW4gb3JkZXIgdG8gInVuY29uc3RpZnkiIGFuZCBhdm9p
-ZCB0aGUNCj4gaW50ZWdlciBwcm9tb3Rpb24uIFdpdGggdGhpcyBkb25lLCBubyBleHRyYSBjYXN0
-IGlzIG5lZWRlZCBhbmQgbWluKCkvbWF4KCkNCj4gYXJlIHVzYWJsZS4NCj4gDQo+IFRoZSBwYXRj
-aCBpcyBhdmFpbGFibGUgaW4gdGhlIHY1IHNlcmllcy4NCj4gICBodHRwczovL2xvcmUua2VybmVs
-Lm9yZy9saW51eC1rZXJuZWwvMjAyMzA2MTUxNTI2MzEuMjI0NTI5LTgtaGVydmUuY29kaW5hQGJv
-b3RsaW4uY29tLw0KPiANCj4gRG8geW91IHRoaW5rIHRoZSBjb2RlIHByZXNlbnQgaW4gdGhlIHY1
-IHNlcmllcyBzaG91bGQgYmUgY2hhbmdlZCA/DQo+IElmIHNvLCBjYW4geW91IGdpdmUgbWUgeW91
-ciBmZWVkYmFjayBvbiB0aGUgdjUgc2VyaWVzID8NCg0KSXQgc2VlbXMgaG9ycmlibHkgb3Zlci1j
-b21wbGljYXRlZCBqdXN0IHRvIGdldCBhcm91bmQgdGhlIHBlcnZlcnNlDQpvdmVyLXN0cm9uZyB0
-eXBlIGNoZWNraW5nIHRoYXQgbWluL21heCBkbyBqdXN0IHRvIGF2b2lkIHNpZ24NCmV4dGVuc2lv
-biBpc3N1ZXMuDQoNCk1heWJlIEkgb3VnaHQgdG8gdHJ5IGdldHRpbmcgYSBwYXRjaCBhY2NlcHRl
-ZCB0aGF0IGp1c3QgY2hlY2tzDQogIGlzX3NpZ25lZF90eXBlKHR5cGVvZih4KSkgPT0gaXNfc2ln
-bmVkX3R5cGUodHlwZW9mKHkpKQ0KaW5zdGVhZCBvZg0KICB0eXBlb2YoeCkgPT0gdHlwZW9mKHkp
-DQpUaGVuIHdvcnJ5IGFib3V0IHRoZSB2YWxpZCBzaWduZWQgdiB1bnNpZ25lZCBjYXNlcy4NCg0K
-SW5kZWVkLCBzaW5jZSB0aGUgYXJyYXkgaW5kZXggY2FuIGJlIGFzc3VtZWQgbm90IHRvIGhhdmUg
-c2lkZQ0KZWZmZWN0cyB5b3UgY291bGQgdXNlIF9fY21wKHgsIHksIG9wKSBkaXJlY3RseS4NCg0K
-Tm8gb25lIGhhcyBwb2ludGVkIG91dCB0aGF0IF9fZWxlbWVudCBzaG91bGQgYmUgX19ib3VuZC4N
-Cg0KCURhdmlkDQoNCgkNCg0KLQ0KUmVnaXN0ZXJlZCBBZGRyZXNzIExha2VzaWRlLCBCcmFtbGV5
-IFJvYWQsIE1vdW50IEZhcm0sIE1pbHRvbiBLZXluZXMsIE1LMSAxUFQsIFVLDQpSZWdpc3RyYXRp
-b24gTm86IDEzOTczODYgKFdhbGVzKQ0K
+
+
+On 6/13/2023 7:39 PM, Mark Brown wrote:
+> On Wed, Jun 14, 2023 at 06:01:59AM +0530, Arun Gopal Kondaveeti wrote:
+>
+>> Replace pm_runtime_allow() with pm_runtime_mark_last_busy()
+>> & pm_runtime_set_active() in pm_runtime enable sequence for
+>> dma drivers.
+> This says what the change does but it doesn't say why the old sequence
+> was a problem and the new one is better.
+
+pm_runtime_allow is not needed for child platform drivers .
+
+Previous sequence as listed below which is incorrect.
+
+enable sequence:
+
+     pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
+     pm_runtime_use_autosuspend(&pdev->dev);
+     pm_runtime_enable(&pdev->dev);
+     pm_runtime_allow(&pdev->dev);
+
+disable sequence:
+
+pm_runtime_disable(&pdev->dev)
+
+Replaced pm runtime enable sequence.
+
+
+
 

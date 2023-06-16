@@ -2,85 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32395732B1F
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 11:10:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30457732BEC
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 11:35:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9319283B;
-	Fri, 16 Jun 2023 11:09:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9319283B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42961825;
+	Fri, 16 Jun 2023 11:34:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42961825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686906637;
-	bh=2YXvEte0tHvF2Un7MoBdoKftmOVsekrDTNUHt5cOEDI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Th+bWo7lTcpdn2287AVT0VdNnIKzSv6DhJn+VWLDsBXMlM1K1CO7r3GL4dCdZxXeh
-	 OVAsFjCv6CromNyNNmgiAtvtiPxmdmXl5mfVDBRQM1wP6T4w6ak14vVdTZqMnjqyD/
-	 wBLCngLALFn3cRSopS+iXcmWyaWOFjZT9YVRHBjY=
+	s=default; t=1686908147;
+	bh=/g7vkU2kV4mN4NcGOrYRIn6msLXsORkH2JuU3XiQORA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=H2WEJa51kcGpl3g9gRxeJOt89RHYZO8u41wH3SGUQpCo102kcnEFWBXsIcT3P2oQq
+	 GCv5nQC7Xw2V40qCiJScvK2UmhVMZ9/OM/NPXSO9UitwVqnfFmBLr3Bkm/ra7p18S/
+	 dWp+1oL+bciIxsSw8pm7bHrf1zUhgGQrrwdPZVhE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 63420F80132; Fri, 16 Jun 2023 11:09:47 +0200 (CEST)
+	id 90C7FF80155; Fri, 16 Jun 2023 11:34:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC2C0F80132;
-	Fri, 16 Jun 2023 11:09:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4201EF80132;
+	Fri, 16 Jun 2023 11:34:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 35068F80155; Fri, 16 Jun 2023 11:09:43 +0200 (CEST)
+	id B9F92F80149; Fri, 16 Jun 2023 11:34:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id AAA12F80130
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 11:09:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA12F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F7E2F80093
+	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 11:34:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F7E2F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YYX3cJ4i
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1A181611F6;
-	Fri, 16 Jun 2023 09:09:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2457C433C9;
-	Fri, 16 Jun 2023 09:09:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686906578;
-	bh=2YXvEte0tHvF2Un7MoBdoKftmOVsekrDTNUHt5cOEDI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=YYX3cJ4ianisLazJgdikgP155Wib9XYqSbKA2QwXMR7ujm8QXtx7Favmp76BalGzh
-	 up411kYjoZn7deAEgja1U0Q80VurO5KBOm433islAMN8gbElUJbxwlTDMo4Ah3Hovz
-	 KHsVggBR5LThQvatMUAVD0FUCQOSaUsqwJt1qfmsvbkVCjFG/WKlx9MiKo4kDOJnI5
-	 4wouy+SJgmpM3u54ID5lTz+I6w+DjHOGQLszNQFdPCQOGy0IAKN7MuAujk9kxJzOcm
-	 TgyqxIwvIpwpk1zSh0hEKRl5M60EuRlZdSaEhP7IJ4xrVtCKjtzxLAEMHFFPdZ3f7H
-	 XNYGbDcwfG8kQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	=?UTF-8?q?P=C3=A9ter=20Ujfalusi?= <peter.ujfalusi@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Rander Wang <rander.wang@intel.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] soundwire: intel_ace2x: fix SND_SOC_SOF_HDA_MLINK dependency
-Date: Fri, 16 Jun 2023 11:09:24 +0200
-Message-Id: <20230616090932.2714714-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=RFbR3G/t
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-51a2160a271so613836a12.1
+        for <alsa-devel@alsa-project.org>;
+ Fri, 16 Jun 2023 02:34:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1686908081; x=1689500081;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kZHHWviwTUp2ejqoeSZblZoLVhlAgV7AT/D/NA4zn2g=;
+        b=RFbR3G/tJWjdDIhl9htsX/oE2/jyhXJPe7msrR7SD7etbtY7R5vps+2jRyEMM1cn1H
+         OQGuk0DikMBzJxAtu0S8MmGnEDivWTbsbancTB2zJFM0GfeiwscwBRH7p9uCLPCu40FQ
+         EjO0FALoXEE9lYAOeqxVwXnqBb5RDLpTf4ISklq6OMCokH9nrXg3zj47Nem+Nwl9VPvB
+         5fYgobK51SnYWuInP1lANM2AAjqT4JK7l4UdFrmnLVsL/5CnomT1RygmZoq3EAQ/ljKL
+         T4DSvmrK5hYssJ6aQoIJAHZwTbpUNLivkmzajCAZ0qrryrSJfqWWRj7XIFXCC+a36nVe
+         uRwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686908081; x=1689500081;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kZHHWviwTUp2ejqoeSZblZoLVhlAgV7AT/D/NA4zn2g=;
+        b=Cm9BRJKcY1N89fhyta7biHGYA4VxyAhBUO8PVIIqGWIM+C6KnsK3iVIXMreddljxNt
+         owtvtIggW48SLCA9GguzrzDU3xGBn76+Hf8UqlnwrTHD1Atj3+iadPghJMSWgfF8XP78
+         ABvzU4j3Ms/ZlBr3NcyxeKJkNRHi8AWpaiWZ1B55eV/e0gxQsBUAFLnBSsaFyoiVH0Jj
+         YKmewK8MGkl7uTdOSIMx+X/KhTCjBh4x/6KzECuXHCeFzB04gFUWefpVCxzFvleqRyad
+         gIMZuU3esBh+wJH/6xuOkzFb5HIXHPhfhfYc3p2fTqw3OD61tipp7mXhvQ5RH2R9B6jT
+         zfUg==
+X-Gm-Message-State: AC+VfDy6/JH0aGYx6pJA3nfjPp8iZKdNYNRL0BZIZ7395VdtJx5SI1M2
+	rzJJQwmhRG6H3VJrzuN5ypyh/g==
+X-Google-Smtp-Source: 
+ ACHHUZ4JmeiI5S5sC7B7JLCWQlF0z5JzQWoNDMiTjrVoe1w/cjglt+eqV1gOtm/XPjX2e8NGxPvknw==
+X-Received: by 2002:a17:907:3ea2:b0:978:9b09:ccaf with SMTP id
+ hs34-20020a1709073ea200b009789b09ccafmr1586083ejc.14.1686908080964;
+        Fri, 16 Jun 2023 02:34:40 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
+        by smtp.gmail.com with ESMTPSA id
+ re6-20020a170906d8c600b00982aca1560asm1777417ejb.219.2023.06.16.02.34.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Jun 2023 02:34:40 -0700 (PDT)
+Message-ID: <ffd57fcc-51f1-cb1f-e589-c1a42d3ceeb2@linaro.org>
+Date: Fri, 16 Jun 2023 11:34:38 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: TWGWRHW3OJTCNX3VTM4NV4TYN5EBAP27
-X-Message-ID-Hash: TWGWRHW3OJTCNX3VTM4NV4TYN5EBAP27
-X-MailFrom: arnd@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 1/1] ASoC: dt-bindings: tlv320aic32x4: convert to DT
+ schema format
+Content-Language: en-US
+To: Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org
+References: <20230616083549.2331830-1-alexander.stein@ew.tq-group.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230616083549.2331830-1-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: DDW3EXVIYDVRNRPGTP3IEQOZTWKATLE6
+X-Message-ID-Hash: DDW3EXVIYDVRNRPGTP3IEQOZTWKATLE6
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +118,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TWGWRHW3OJTCNX3VTM4NV4TYN5EBAP27/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DDW3EXVIYDVRNRPGTP3IEQOZTWKATLE6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,41 +127,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On 16/06/2023 10:35, Alexander Stein wrote:
+> Convert the binding to DT schema format.
+> Since commit 514b044cba667 ("ASoC: tlv320aic32x4: Model PLL in CCF")
+> clocks & clock-names = "mclk" is mandatory, it has been added to required
+> properties as well. '#sound-dai-cells' is added for reference from
+> simple-audio-card.
+> 
+> Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> ---
 
-The ace2x driver can be build with or without mlink support, but
-when SND_SOC_SOF_HDA_MLINK is set to =m and soundwire is built-in,
-it fails with a link error:
 
-ld.lld: error: undefined symbol: hdac_bus_eml_sdw_wait_syncpu_unlocked
->>> referenced by intel_ace2x.c
->>>               drivers/soundwire/intel_ace2x.o:(intel_link_power_up) in archive vmlinux.a
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-ld.lld: error: undefined symbol: hdac_bus_eml_sdw_sync_arm_unlocked
->>> referenced by intel_ace2x.c
->>>               drivers/soundwire/intel_ace2x.o:(intel_sync_arm) in archive vmlinux.a
-
-Add a Kconfig dependency that prevents that broken configuration but
-still allows soundwire to be a loadable module instead.
-
-Fixes: 4d1e2464a1104 ("soundwire: intel_ace2x: add sync_arm/sync_go helpers")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/soundwire/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
-index fa71c9a36df7a..4d8f3b7024ae5 100644
---- a/drivers/soundwire/Kconfig
-+++ b/drivers/soundwire/Kconfig
-@@ -37,6 +37,7 @@ config SOUNDWIRE_INTEL
- 	select SOUNDWIRE_GENERIC_ALLOCATION
- 	select AUXILIARY_BUS
- 	depends on ACPI && SND_SOC
-+	depends on SND_SOC_SOF_HDA_MLINK || !SND_SOC_SOF_HDA_MLINK
- 	help
- 	  SoundWire Intel Master driver.
- 	  If you have an Intel platform which has a SoundWire Master then
--- 
-2.39.2
+Best regards,
+Krzysztof
 

@@ -2,85 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C24B733B21
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Jun 2023 22:43:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6205733DF1
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Jun 2023 06:13:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE9DE827;
-	Fri, 16 Jun 2023 22:43:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE9DE827
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA79A836;
+	Sat, 17 Jun 2023 06:12:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA79A836
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1686948234;
-	bh=T3+Q1m60/nFd2R+tMFiJtuLhqjcPjNdeMf2banobDew=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1686975229;
+	bh=kw9J7I1x1oBZ4SfKW6lr+u4uz2rsO5MRrshMBZGJUG4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G9mOjmUer9Ss0ia1H6rPZn+uOZK+LBgFrXXgGNK09iQtjE5vL3kOgmfwyH/JaPg1x
-	 06Qx8A/XsiP7qBmkDpeof9Zi+S8KoEEYhzbY3nOtIiDd/XUxeW99wbNLKxk/B3wiDY
-	 OwzzlC9noQm3HOtex4/DWlXb8CezCcuG3D9jT3Ys=
+	b=HVoMUkukv79FDDeBiuCt58jdcslYG6FXvmfeGOBbt/Iy+ueyTahPaKxWehSWXSPDd
+	 saRJkTGv3pT9OgjtwIDhQqOhRdtBamcqdl9lH1F91HoN2vzk0uryjn8a4yJ2iIGGSt
+	 pcMTPzjOB8VZpSJ+bl1bSlroDXJgfxALIei042+U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6F4A7F800BA; Fri, 16 Jun 2023 22:42:56 +0200 (CEST)
+	id 865BBF80132; Sat, 17 Jun 2023 06:12:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0952F80132;
-	Fri, 16 Jun 2023 22:42:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91D4AF80132;
+	Sat, 17 Jun 2023 06:12:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C92A5F80149; Fri, 16 Jun 2023 22:42:52 +0200 (CEST)
+	id 85D29F80149; Sat, 17 Jun 2023 06:07:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from phobos.denx.de (phobos.denx.de
- [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:3::133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84C9AF800BA
-	for <alsa-devel@alsa-project.org>; Fri, 16 Jun 2023 22:42:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84C9AF800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id C1821F80130
+	for <alsa-devel@alsa-project.org>; Sat, 17 Jun 2023 06:06:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1821F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=denx.de header.i=@denx.de header.a=rsa-sha256
- header.s=phobos-20191101 header.b=HhzDn1f9
-Received: from mail.denx.de (unknown
- [IPv6:2a01:238:438b:c500:173d:9f52:ddab:ee01])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
-	(No client certificate requested)
-	(Authenticated sender: festevam@denx.de)
-	by phobos.denx.de (Postfix) with ESMTPSA id B45BD80375;
-	Fri, 16 Jun 2023 22:42:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
-	s=phobos-20191101; t=1686948168;
-	bh=a30SPrRPmvQkaTpaJvJdtMPmRuSKSp3jYsMkerwDdCs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=HhzDn1f91jSrU0N/vjWvDrqlvqMkSkKKyocj1/IhuNPiDXkOdmu6SXpDJet4ZfNT9
-	 rAflFWBKt8r04lNL5VFI6PvqyTYkZYlI01K2H2pusUZWgAKK1pqEPBJVZcRNZCLjh3
-	 ryw83Ww7T7abW61vsC+MX9J4n13bOaHQVfe3nX/JUZUQvU2M6QkT0DiYu4ULhlMfRX
-	 4/jv4TWrel9C0XriFxF/O6SJUA8ejdUYnN6KBqQTXX/y7ZnOCJHZWYPGlA2xnPkU8C
-	 BptnVYLRWbKd1j3v/KmoQhbhsaThTxc5ffvOb7mto3NLtX6L1dzaYSGTrWgtxCQIW8
-	 cuEmypputJvgQ==
+ unprotected) header.d=infradead.org header.i=@infradead.org
+ header.a=rsa-sha256 header.s=bombadil.20210309 header.b=TCi1P+N+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=Xc8SGiacXIIcceBTgiX4PD/KvWxsk0L8WaZj35J7Ce8=; b=TCi1P+N+9nRjJGIQD2ds9w3y81
+	Z3cdSlXp2Ba0z2eiyYeGfjbJiWXGqADpEnWyVM/cGctV9eL2OzEjL5V953Bxi6r87Y8DpCe0eQYTu
+	NeFcMgI9zzBzuaHKLwLjnN5r42Bdcq7lk/5/KB8uOKhMnuSU+MSXo9jkkJ+RbLa9I0+4ksXJvKa0b
+	UED7pFM6q1ztzEgwcQPqDR6dxMfj6dJP9nXuwwpBgKo2Hu8FMcKqpJPwlXOnJqqtnUjj6+MNA7jgO
+	l8DT/Jlyzirh8ilW2llTjKU2OGCwLPMxrjyZBPNdoMYg/8NT2Og39hlufspo0gtH4sJvM1qMUeWvM
+	rgvyIPMA==;
+Received: from [2601:1c2:980:9ec0::2764]
+	by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+	id 1qANCw-002f8f-15;
+	Sat, 17 Jun 2023 04:06:38 +0000
+Message-ID: <48ddb551-496f-f4e7-96dc-30f250f97438@infradead.org>
+Date: Fri, 16 Jun 2023 21:06:36 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Subject: Re: [PATCH 4/4] ASoC: loongson: fix compile testing on 32-bit
+Content-Language: en-US
+To: Arnd Bergmann <arnd@kernel.org>, Mark Brown <broonie@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Yingkun Meng <mengyingkun@loongson.cn>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20230616090156.2347850-1-arnd@kernel.org>
+ <20230616090156.2347850-4-arnd@kernel.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230616090156.2347850-4-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Date: Fri, 16 Jun 2023 17:42:48 -0300
-From: Fabio Estevam <festevam@denx.de>
-To: shengjiu.wang@gmail.com, broonie@kernel.org, daniel.baluta@gmail.com
-Cc: alsa-devel@alsa-project.org
-Subject: Re: imx8mn: Trying to get EASRC to work
-In-Reply-To: <87d11267e2d93256e071ee7d86775cc7@denx.de>
-References: <87d11267e2d93256e071ee7d86775cc7@denx.de>
-Message-ID: <2f487267680da4e45daf1ae4587cc206@denx.de>
-X-Sender: festevam@denx.de
-User-Agent: Roundcube Webmail/1.3.6
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Message-ID-Hash: JPUDNNDP7SIQAHI672Q3IES7ALCRK34S
-X-Message-ID-Hash: JPUDNNDP7SIQAHI672Q3IES7ALCRK34S
-X-MailFrom: festevam@denx.de
+Message-ID-Hash: AAXLSD6PO4ZY65WYIHLX3LZ42DM6SBUP
+X-Message-ID-Hash: AAXLSD6PO4ZY65WYIHLX3LZ42DM6SBUP
+X-MailFrom: rdunlap@infradead.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JPUDNNDP7SIQAHI672Q3IES7ALCRK34S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AAXLSD6PO4ZY65WYIHLX3LZ42DM6SBUP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,33 +100,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 16/06/2023 16:39, Fabio Estevam wrote:
-> Hi,
-> 
-> I am working on an imx8mn-based board with an ES9080 codec and I am
-> trying to get
-> EASCR to work. (The ES9080 driver is not upstreamed yet).
-> 
-> Audio playback works fine via simple-audio-card and here are my changes 
-> to
-> get EASRC to work:
-> 
-> 
-> -	sound-ess {
-> -		compatible = "simple-audio-card";
-> -		simple-audio-card,name = "ess-audio";
-> -		simple-audio-card,format = "left_j";
-> -		simple-audio-card,frame-master = <&s2cpu>;
-> -		simple-audio-card,bitclock-master = <&s2cpu>;
-> -
-> -		s2cpu: simple-audio-card,cpu {
-> -			sound-dai = <&sai2>;
-> -			dai-tdm-slot-num = <8>;
 
-fsl-asoc-card does not take the number of slots into account.
 
-I have sent a patch adding support for it.
+On 6/16/23 02:00, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> DIV_ROUND_CLOSEST() does not work on 64-bit variables when building for
+> a 32-bit target:
+> 
+> ld.lld: error: undefined symbol: __udivdi3
+>>>> referenced by loongson_i2s.c
+>>>>               sound/soc/loongson/loongson_i2s.o:(loongson_i2s_hw_params) in archive vmlinux.a
+> 
+> Use DIV_ROUND_CLOSEST_ULL() instead.
+> 
+> Fixes: d24028606e764 ("ASoC: loongson: Add Loongson ASoC Sound Card Support")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-Now I can get audio output and will be running more tests.
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
 
-Thanks
+Thanks.
+
+> ---
+>  sound/soc/loongson/loongson_i2s.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/loongson/loongson_i2s.c b/sound/soc/loongson/loongson_i2s.c
+> index f73b6d6f16c23..b919f0fe83615 100644
+> --- a/sound/soc/loongson/loongson_i2s.c
+> +++ b/sound/soc/loongson/loongson_i2s.c
+> @@ -89,7 +89,7 @@ static int loongson_i2s_hw_params(struct snd_pcm_substream *substream,
+>  		bclk_ratio = DIV_ROUND_CLOSEST(sysclk,
+>  					       (bits * chans * fs * 2)) - 1;
+>  		mclk_ratio = clk_rate / sysclk;
+> -		mclk_ratio_frac = DIV_ROUND_CLOSEST(((u64)clk_rate << 16),
+> +		mclk_ratio_frac = DIV_ROUND_CLOSEST_ULL(((u64)clk_rate << 16),
+>  						    sysclk) - (mclk_ratio << 16);
+>  
+>  		regmap_read(i2s->regmap, LS_I2S_CFG, &val);
+
+-- 
+~Randy

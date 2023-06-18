@@ -2,102 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B8327345A3
-	for <lists+alsa-devel@lfdr.de>; Sun, 18 Jun 2023 10:57:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98DD3734652
+	for <lists+alsa-devel@lfdr.de>; Sun, 18 Jun 2023 15:23:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2683832;
-	Sun, 18 Jun 2023 10:56:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2683832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48F29832;
+	Sun, 18 Jun 2023 15:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48F29832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687078625;
-	bh=x4v43+g6tDvWkK7EsCbNkr4UX8AdD5gLwP1xFNPzb/4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qi6nwrhQjBuH3T4ihPVr/4EIhhqL/ZHFD4k+TmQcRNTal0OiR/BMS8eFtk/e976kx
-	 YEcG5fQyYFsPO/rtZQKb7xvim5Amg+uxfCXmAHS4YAzdXQtptnnQkEvOWIjec1zDJp
-	 1AkLrv0smfkqSc6P2OEFvY802/EMAOyxLufOJmYs=
+	s=default; t=1687094619;
+	bh=jCQC0xGR7LBgLWqKcvWFA2v+IB84Z1SRwsUzdoFwgQw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=a3vAm3YHwp3I9ylb7pb6Hqi4dUMmQvzEgaH/WqtXtE9NVOzZ34zJi5W7ErLuM5yav
+	 5zuXk+YS6sjjUMQ4ClK7cgBl8LWF+1Nw0Ut+5GE/B/9W1MuoQVqSXsZaSx328q22qK
+	 21NzjbLSDvhhciPDRKx3rJrP65QQruC/WwE43Nuo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EC1BF80529; Sun, 18 Jun 2023 10:56:15 +0200 (CEST)
+	id 9FE95F80130; Sun, 18 Jun 2023 15:22:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99D9EF80130;
-	Sun, 18 Jun 2023 10:56:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9B8CF80130;
+	Sun, 18 Jun 2023 15:22:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4B9EF80132; Sun, 18 Jun 2023 10:55:08 +0200 (CEST)
+	id 58F7EF80132; Sun, 18 Jun 2023 15:22:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.4 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8EB6F80093
-	for <alsa-devel@alsa-project.org>; Sun, 18 Jun 2023 10:55:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8EB6F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=xE8I5v3J;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=yr16ZY/T
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B37441F38A;
-	Sun, 18 Jun 2023 08:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1687078499;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FT3mn2qzcNMTkI/P4/aIdcOfQfuLckeSNTYFpfPGk8E=;
-	b=xE8I5v3JWCNJ0vYEbboNO1pvIxUBTHvd0QBOquQ14qSBezVOpzZK6tZZ3V8K1fa0us69t0
-	PDpNqLe8HyuU6Wh8v3H1WrU70kVi/KCYqju+ZjLksQniNSGwxek7CxyK4vrjoO7ZdBk3Le
-	ENhx+pyYniWk0MPEba+cIbatI2N9wOs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1687078499;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FT3mn2qzcNMTkI/P4/aIdcOfQfuLckeSNTYFpfPGk8E=;
-	b=yr16ZY/T+wbBseiEXMD10KD4mCMr0JMr5ude9kuZhrhr0lMilEQx5OYRK4ssernp4RzRJA
-	23qMufJk0HkSieDw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 97F7913489;
-	Sun, 18 Jun 2023 08:54:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 1pQSJGPGjmRgawAAMHmgww
-	(envelope-from <tiwai@suse.de>); Sun, 18 Jun 2023 08:54:59 +0000
-Date: Sun, 18 Jun 2023 10:54:59 +0200
-Message-ID: <87ilbl5evw.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Symbolic Debugger" <happy.debugging@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
-In-Reply-To: 
- <168701447604.22.7960672689503331502@mailman-web.alsa-project.org>
-References: <168692503857.22.5904642104496232941@mailman-web.alsa-project.org>
-	<168701447604.22.7960672689503331502@mailman-web.alsa-project.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: RRDEZMZ6GJVZ2Q2JU2IM5XHDIHVHAUB6
-X-Message-ID-Hash: RRDEZMZ6GJVZ2Q2JU2IM5XHDIHVHAUB6
-X-MailFrom: tiwai@suse.de
+	by alsa1.perex.cz (Postfix) with ESMTPS id B481EF800E5
+	for <alsa-devel@alsa-project.org>; Sun, 18 Jun 2023 15:22:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B481EF800E5
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from LAPTOP-KI3DDLPC.localdomain (unknown[183.194.159.148])
+	by rmsmtp-lg-appmail-20-12023 (RichMail) with SMTP id 2ef7648f04ec62f-1a71f;
+	Sun, 18 Jun 2023 21:21:50 +0800 (CST)
+X-RM-TRANSID: 2ef7648f04ec62f-1a71f
+From: Shenghao Ding <13916275206@139.com>
+To: broonie@kernel.org,
+	devicetree@vger.kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	robh+dt@kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com
+Cc: kevin-lu@ti.com,
+	shenghao-ding@ti.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	x1077012@ti.com,
+	peeyush@ti.com,
+	navada@ti.com,
+	gentuser@gmail.com,
+	Ryan_Chu@wistron.com,
+	Sam_Wu@wistron.com,
+	tiwai@suse.de,
+	Shenghao Ding <13916275206@139.com>
+Subject: [PATCH v6 1/4] ASoC: tas2781: Add Header file for tas2781 driver
+Date: Sun, 18 Jun 2023 20:28:16 +0800
+Message-Id: <20230618122819.23143-1-13916275206@139.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: LL32E3ZXS64THU6Y5YQFFQGZ2W3L5RBF
+X-Message-ID-Hash: LL32E3ZXS64THU6Y5YQFFQGZ2W3L5RBF
+X-MailFrom: 13916275206@139.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +85,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RRDEZMZ6GJVZ2Q2JU2IM5XHDIHVHAUB6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LL32E3ZXS64THU6Y5YQFFQGZ2W3L5RBF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,44 +94,415 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sat, 17 Jun 2023 17:07:56 +0200,
-Symbolic Debugger wrote:
-> 
-> An Attempt to replay the changes to 6.2 :
-> starting with linux-next (On branch next-20230614) as master
-> According to tag 6.4-rc2 the  commit for it is  f81fe2a4874338a1bfc599cae903a6101217b0a5
-> # reset the  master to 6.4-rc2:
-> $git reset --hard  581fe2a4874338a1bfc599cae903a6101217b0a5
-> $git checkout v6.2
-> Previous HEAD position was f1fcbaa18b28 Linux 6.4-rc2
-> HEAD is now at c9c3395d5e3d Linux 6.2
-> $git rebase master
-> Successfully rebased and updated detached HEAD.
-> $git checkout master
-> Switched to branch 'master'
-> Your branch is up to date with 'origin/master'.
-> $git merge master
-> Already up to date.
-> Running menuconfig, there are no option for MIDI 2.0 / UMP,  though the Makefile shows 6.4-rc6 and the ump files are in the source tree.
+Create Header file for  tas2781 driver.
 
-Try the following:
+Signed-off-by: Shenghao Ding <13916275206@139.com>
 
-% cd /somewhere/linux-next
-% git reset --hard febdfa0e9c8a5d3a3d895245d1c294c26787daef
-% git rebase --onto v6.2 v6.4-rc2
+---
+Changes in v6:
+ - remove /* __TAS2781_LIB_H__ */ at the end of the file
+ - remove #include <linux/kernel.h> in the tas2781.h
+ - remove enum channel in tas2781-dsp.h
+ - Add TASDEVICE_MAX_CHANNELS in tas2781-dsp.h
+ - remove global addr related definition in tas2781.h
+ - reorder the member in tasdevice_priv
+ - fix the firmware version compatibility issue
+---
+ include/sound/tas2781-dsp.h | 183 ++++++++++++++++++++++++++++++++++++
+ include/sound/tas2781-tlv.h |  21 +++++
+ include/sound/tas2781.h     | 164 ++++++++++++++++++++++++++++++++
+ 3 files changed, 368 insertions(+)
+ create mode 100644 include/sound/tas2781-dsp.h
+ create mode 100644 include/sound/tas2781-tlv.h
+ create mode 100644 include/sound/tas2781.h
 
-The commit febdfa is the topmost commit of MIDI 2.0 stuff.
-This will plant the MIDI 2.0 stuff onto 6.2.
+diff --git a/include/sound/tas2781-dsp.h b/include/sound/tas2781-dsp.h
+new file mode 100644
+index 000000000000..bd1b72bf47a5
+--- /dev/null
++++ b/include/sound/tas2781-dsp.h
+@@ -0,0 +1,183 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable
++// algo coefficient setting for one, two, or even multiple
++// TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#ifndef __TASDEVICE_DSP_H__
++#define __TASDEVICE_DSP_H__
++
++#define MAIN_ALL_DEVICES			0x0d
++#define MAIN_DEVICE_A				0x01
++#define MAIN_DEVICE_B				0x08
++#define MAIN_DEVICE_C				0x10
++#define MAIN_DEVICE_D				0x14
++#define COEFF_DEVICE_A				0x03
++#define COEFF_DEVICE_B				0x0a
++#define COEFF_DEVICE_C				0x11
++#define COEFF_DEVICE_D				0x15
++#define PRE_DEVICE_A				0x04
++#define PRE_DEVICE_B				0x0b
++#define PRE_DEVICE_C				0x12
++#define PRE_DEVICE_D				0x16
++
++#define PPC3_VERSION				0x4100
++#define PPC3_VERSION_TAS2781			0x14600
++#define TASDEVICE_DEVICE_SUM			8
++#define TASDEVICE_CONFIG_SUM			64
++
++#define TASDEVICE_MAX_CHANNELS			8
++
++enum tasdevice_dsp_dev_idx {
++	TASDEVICE_DSP_TAS_2555 = 0,
++	TASDEVICE_DSP_TAS_2555_STEREO,
++	TASDEVICE_DSP_TAS_2557_MONO,
++	TASDEVICE_DSP_TAS_2557_DUAL_MONO,
++	TASDEVICE_DSP_TAS_2559,
++	TASDEVICE_DSP_TAS_2563,
++	TASDEVICE_DSP_TAS_2563_DUAL_MONO = 7,
++	TASDEVICE_DSP_TAS_2563_QUAD,
++	TASDEVICE_DSP_TAS_2563_21,
++	TASDEVICE_DSP_TAS_2781,
++	TASDEVICE_DSP_TAS_2781_DUAL_MONO,
++	TASDEVICE_DSP_TAS_2781_21,
++	TASDEVICE_DSP_TAS_2781_QUAD,
++	TASDEVICE_DSP_TAS_MAX_DEVICE
++};
++
++struct tasdevice_fw_fixed_hdr {
++	unsigned int fwsize;
++	unsigned int ppcver;
++	unsigned int drv_ver;
++};
++
++struct tasdevice_dspfw_hdr {
++	struct tasdevice_fw_fixed_hdr fixed_hdr;
++	unsigned short device_family;
++	unsigned short device;
++	unsigned char ndev;
++};
++
++struct tasdev_blk {
++	int nr_retry;
++	unsigned int type;
++	unsigned char is_pchksum_present;
++	unsigned char pchksum;
++	unsigned char is_ychksum_present;
++	unsigned char ychksum;
++	unsigned int nr_cmds;
++	unsigned int blk_size;
++	unsigned int nr_subblocks;
++	unsigned char *data;
++};
++
++struct tasdevice_data {
++	char name[64];
++	unsigned int nr_blk;
++	struct tasdev_blk *dev_blks;
++};
++
++struct tasdevice_prog {
++	unsigned int prog_size;
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_config {
++	unsigned int cfg_size;
++	char name[64];
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_calibration {
++	struct tasdevice_data dev_data;
++};
++
++struct tasdevice_fw {
++	struct tasdevice_dspfw_hdr fw_hdr;
++	unsigned short nr_programs;
++	struct tasdevice_prog *programs;
++	unsigned short nr_configurations;
++	struct tasdevice_config *configs;
++	unsigned short nr_calibrations;
++	struct tasdevice_calibration *calibrations;
++	struct device *dev;
++};
++
++enum tasdevice_dsp_fw_state {
++	TASDEVICE_DSP_FW_NONE = 0,
++	TASDEVICE_DSP_FW_PENDING,
++	TASDEVICE_DSP_FW_FAIL,
++	TASDEVICE_DSP_FW_ALL_OK,
++};
++
++enum tasdevice_bin_blk_type {
++	TASDEVICE_BIN_BLK_COEFF = 1,
++	TASDEVICE_BIN_BLK_POST_POWER_UP,
++	TASDEVICE_BIN_BLK_PRE_SHUTDOWN,
++	TASDEVICE_BIN_BLK_PRE_POWER_UP,
++	TASDEVICE_BIN_BLK_POST_SHUTDOWN
++};
++
++struct tasdevice_rca_hdr {
++	unsigned int img_sz;
++	unsigned int checksum;
++	unsigned int binary_version_num;
++	unsigned int drv_fw_version;
++	unsigned char plat_type;
++	unsigned char dev_family;
++	unsigned char reserve;
++	unsigned char ndev;
++	unsigned char devs[TASDEVICE_DEVICE_SUM];
++	unsigned int nconfig;
++	unsigned int config_size[TASDEVICE_CONFIG_SUM];
++};
++
++struct tasdev_blk_data {
++	unsigned char dev_idx;
++	unsigned char block_type;
++	unsigned short yram_checksum;
++	unsigned int block_size;
++	unsigned int n_subblks;
++	unsigned char *regdata;
++};
++
++struct tasdevice_config_info {
++	unsigned int nblocks;
++	unsigned int real_nblocks;
++	unsigned char active_dev;
++	struct tasdev_blk_data **blk_data;
++};
++
++struct tasdevice_rca {
++	struct tasdevice_rca_hdr fw_hdr;
++	int ncfgs;
++	struct tasdevice_config_info **cfg_info;
++	int profile_cfg_id;
++};
++
++void tasdevice_select_cfg_blk(void *context, int conf_no,
++	unsigned char block_type);
++void tasdevice_config_info_remove(void *context);
++void tasdevice_dsp_remove(void *context);
++int tasdevice_dsp_parser(void *context);
++int tasdevice_rca_parser(void *context, const struct firmware *fmw);
++void tasdevice_dsp_remove(void *context);
++void tasdevice_calbin_remove(void *context);
++int tasdevice_select_tuningprm_cfg(void *context, int prm,
++	int cfg_no, int rca_conf_no);
++int tasdevice_prmg_load(void *context, int prm_no);
++int tasdevice_prmg_calibdata_load(void *context, int prm_no);
++void tasdevice_tuning_switch(void *context, int state);
++int tas2781_load_calibration(void *context, char *file_name,
++	unsigned short i);
++
++#endif
+diff --git a/include/sound/tas2781-tlv.h b/include/sound/tas2781-tlv.h
+new file mode 100644
+index 000000000000..4038dd421150
+--- /dev/null
++++ b/include/sound/tas2781-tlv.h
+@@ -0,0 +1,21 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable
++// algo coefficient setting for one, two, or even multiple
++// TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++//
++
++#ifndef __TAS2781_TLV_H__
++#define __TAS2781_TLV_H__
++
++static const DECLARE_TLV_DB_SCALE(dvc_tlv, -10000, 100, 0);
++static const DECLARE_TLV_DB_SCALE(amp_vol_tlv, 1100, 50, 0);
++
++#endif
+diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
+new file mode 100644
+index 000000000000..9de5c57c148c
+--- /dev/null
++++ b/include/sound/tas2781.h
+@@ -0,0 +1,164 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++//
++// ALSA SoC Texas Instruments TAS2781 Audio Smart Amplifier
++//
++// Copyright (C) 2022 - 2023 Texas Instruments Incorporated
++// https://www.ti.com
++//
++// The TAS2781 driver implements a flexible and configurable
++// algo coefficient setting for one, two, or even multiple
++// TAS2781 chips.
++//
++// Author: Shenghao Ding <shenghao-ding@ti.com>
++// Author: Kevin Lu <kevin-lu@ti.com>
++//
++
++#ifndef __TAS2781_H__
++#define __TAS2781_H__
++
++#include "tas2781-dsp.h"
++
++/* version number */
++#define TAS2781_DRV_VER			1
++#define SMARTAMP_MODULE_NAME		"tas2781"
++#define TAS2781_GLOBAL_ADDR	0x40
++#define TASDEVICE_RATES			(SNDRV_PCM_RATE_44100 |\
++	SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_96000 |\
++	SNDRV_PCM_RATE_88200)
++
++#define TASDEVICE_FORMATS		(SNDRV_PCM_FMTBIT_S16_LE | \
++	SNDRV_PCM_FMTBIT_S24_LE | \
++	SNDRV_PCM_FMTBIT_S32_LE)
++
++/*PAGE Control Register (available in page0 of each book) */
++#define TASDEVICE_PAGE_SELECT		0x00
++#define TASDEVICE_BOOKCTL_PAGE		0x00
++#define TASDEVICE_BOOKCTL_REG		127
++#define TASDEVICE_BOOK_ID(reg)		(reg / (256 * 128))
++#define TASDEVICE_PAGE_ID(reg)		((reg % (256 * 128)) / 128)
++#define TASDEVICE_PAGE_REG(reg)		((reg % (256 * 128)) % 128)
++#define TASDEVICE_PGRG(reg)		(reg % (256 * 128))
++#define TASDEVICE_REG(book, page, reg)	(((book * 256 * 128) + \
++					(page * 128)) + reg)
++
++/*Software Reset */
++#define TAS2781_REG_SWRESET		TASDEVICE_REG(0x0, 0X0, 0x01)
++#define TAS2781_REG_SWRESET_RESET	BIT(0)
++
++/*I2C Checksum */
++#define TASDEVICE_I2CChecksum		TASDEVICE_REG(0x0, 0x0, 0x7E)
++
++/* Volume control */
++#define TAS2781_DVC_LVL			TASDEVICE_REG(0x0, 0x0, 0x1A)
++#define TAS2781_AMP_LEVEL		TASDEVICE_REG(0x0, 0x0, 0x03)
++#define TAS2781_AMP_LEVEL_MASK		GENMASK(5, 1)
++
++#define TASDEVICE_CMD_SING_W		0x1
++#define TASDEVICE_CMD_BURST		0x2
++#define TASDEVICE_CMD_DELAY		0x3
++#define TASDEVICE_CMD_FIELD_W		0x4
++
++enum audio_device {
++	TAS2781	= 0,
++};
++
++enum device_catlog_id {
++	LENOVO = 0,
++	OTHERS
++};
++
++struct tasdevice {
++	struct tasdevice_fw *cali_data_fmw;
++	unsigned int dev_addr;
++	unsigned int err_code;
++	unsigned char cur_book;
++	short cur_prog;
++	short cur_conf;
++	bool is_loading;
++	bool is_loaderr;
++};
++
++struct tasdevice_irqinfo {
++	int irq_gpio;
++	int irq;
++};
++
++struct calidata {
++	unsigned char *data;
++	unsigned long total_sz;
++};
++
++struct tasdevice_priv {
++	struct tasdevice tasdevice[TASDEVICE_MAX_CHANNELS];
++	struct tasdevice_irqinfo irq_info;
++	struct tasdevice_rca rcabin;
++	struct calidata cali_data;
++	struct tasdevice_fw *fmw;
++	struct gpio_desc *reset;
++	struct mutex codec_lock;
++	struct regmap *regmap;
++	struct device *dev;
++	struct tm tm;
++
++	enum device_catlog_id catlog_id;
++	const char *acpi_subsystem_id;
++	unsigned char cal_binaryname[TASDEVICE_MAX_CHANNELS][64];
++	unsigned char crc8_lkp_tbl[CRC8_TABLE_SIZE];
++	unsigned char coef_binaryname[64];
++	unsigned char rca_binaryname[64];
++	unsigned char dev_name[32];
++	unsigned char ndev;
++	unsigned int magic_num;
++	unsigned int chip_id;
++	unsigned int sysclk;
++
++	int cur_prog;
++	int cur_conf;
++	int fw_state;
++	int index;
++	void *client;
++	void *codec;
++	bool force_fwload_status;
++	bool playback_started;
++	bool isacpi;
++	int (*fw_parse_variable_header)(struct tasdevice_priv *tas_priv,
++		const struct firmware *fmw, int offset);
++	int (*fw_parse_program_data)(struct tasdevice_priv *tas_priv,
++		struct tasdevice_fw *tas_fmw,
++		const struct firmware *fmw, int offset);
++	int (*fw_parse_configuration_data)(struct tasdevice_priv *tas_priv,
++		struct tasdevice_fw *tas_fmw,
++		const struct firmware *fmw, int offset);
++	int (*tasdevice_load_block)(struct tasdevice_priv *tas_priv,
++		struct tasdev_blk *block);
++};
++
++void tas2781_reset(struct tasdevice_priv *tas_dev);
++int tascodec_init(struct tasdevice_priv *tas_priv, void *codec,
++	void (*cont)(const struct firmware *fw, void *context));
++struct tasdevice_priv *tasdevice_kzalloc(struct i2c_client *i2c);
++int tasdevice_init(struct tasdevice_priv *tas_priv);
++void tasdevice_remove(struct tasdevice_priv *tas_priv);
++int tasdevice_dev_read(struct tasdevice_priv *tas_priv,
++	unsigned short chn, unsigned int reg, unsigned int *value);
++int tasdevice_dev_write(struct tasdevice_priv *tas_priv,
++	unsigned short chn, unsigned int reg, unsigned int value);
++int tasdevice_dev_bulk_write(
++	struct tasdevice_priv *tas_priv, unsigned short chn,
++	unsigned int reg, unsigned char *p_data, unsigned int n_length);
++int tasdevice_dev_bulk_read(struct tasdevice_priv *tas_priv,
++	unsigned short chn, unsigned int reg, unsigned char *p_data,
++	unsigned int n_length);
++int tasdevice_dev_update_bits(
++	struct tasdevice_priv *tasdevice, unsigned short chn,
++	unsigned int reg, unsigned int mask, unsigned int value);
++int tasdevice_amp_putvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++int tasdevice_amp_getvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++int tasdevice_digital_putvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++int tasdevice_digital_getvol(struct tasdevice_priv *tas_priv,
++	struct snd_ctl_elem_value *ucontrol, struct soc_mixer_control *mc);
++
++#endif /* __TAS2781_H__ */
+-- 
+2.34.1
 
-Alternatively:
 
-% cd /somewhere/linux-stable
-% git fetch /somewhere/linux-next febdfa0e9c8a5d3a3d895245d1c294c26787daef
-% git reset --hard FETCH_HEAD
-% git rebase --onto origin/linux-6.2.y v6.4-rc2
-
-This will be onto the latest 6.2.y stable, instead.
-If v6.4-rc2 tag isn't found, replace it with f1fcbaa18b28.
-
-
-Takashi

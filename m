@@ -2,88 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69FD47355A4
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 13:21:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1511873570B
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 14:42:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EA96868;
-	Mon, 19 Jun 2023 13:20:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EA96868
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48E6983B;
+	Mon, 19 Jun 2023 14:41:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48E6983B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687173709;
-	bh=TCyP3MTK9D8/2GgV8QtO5pJImHNQEoTXD9BrcpmOPeM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qd84d5Pg7RlbrxUUeRlAo4rC/z/NhhxIJQ547/zPzkXP3qOCl2QMbdnwHaE+QncsF
-	 VOxl9YXRT+4yxmKu1oqHcIt/rKOWlJI1mXbgis15ZEq+lVpd0WyGGBQ+psclxmcZvT
-	 NDOwLuC7snBbLVnjO/XqEXUgBkbvPLyRwc+5Gpe8=
+	s=default; t=1687178543;
+	bh=4XKIywEw2z0D0M6azL6wAZG0VOblflb/uBtI0U1GLCA=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=veSMLYaV+jDvO8w8j6PvArNQpNHqTnnC8thTfHsf33ryy25YmmStDBr1JvAtbOAgP
+	 YEgOB86tXRARoAoHr8BAnS4SQMQPXCN2JUvawqn6Gu1kpjqS+46bNR9OWhBB9UdGbZ
+	 vbANWNcD6j1bA22ocxDUC3ZjV+ZdTphEZhFcnajE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3F51F80448; Mon, 19 Jun 2023 13:20:58 +0200 (CEST)
+	id 1FD74F80301; Mon, 19 Jun 2023 14:41:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BC41F80132;
-	Mon, 19 Jun 2023 13:20:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1A7FF80132;
+	Mon, 19 Jun 2023 14:41:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 51196F80217; Mon, 19 Jun 2023 13:20:54 +0200 (CEST)
+	id 3E573F80217; Mon, 19 Jun 2023 14:41:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81686F80130
-	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 13:20:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81686F80130
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=EeN13VgC
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1135560B04;
-	Mon, 19 Jun 2023 11:20:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A417C433C9;
-	Mon, 19 Jun 2023 11:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687173645;
-	bh=TCyP3MTK9D8/2GgV8QtO5pJImHNQEoTXD9BrcpmOPeM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EeN13VgCF7HvQLeN8f3NVM2QepW/cThlIGx6tTXmWV3CvQITV7FMDjf4WnW8kBJL8
-	 hfPmb0f7IFPXPytBrqVR2jcjxvA4GfC16k3MnX5qy+QwZK0Fd3hos+4Skl4lYjNMC8
-	 90tXi+BRaqVDnwbsuxvd17HBj6UbRP/8DywVVqy02PHyRbfmZ5I8uSaluKxvI6x0Qh
-	 IhS9aMBTMmFa7PiVBAvhdPVNOdumKKpEWJW4cuPRfLhtcwvJm5Rmrkb2BCylvA0ren
-	 4JZSE9sedpOpucIyL0HGiE+J+a81RVwdxsmC9U1xZYXBuUEo0hNM9IrKqdfNduPq5N
-	 fCejfIFAbg1Qg==
-Date: Mon, 19 Jun 2023 12:20:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: YingKun Meng <mengyingkun@loongson.cn>, lgirdwood@gmail.com,
-	krzysztof.kozlowski@linaro.org, linux-kernel@vger.kernel.org,
-	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
-	loongson-kernel@lists.loongnix.cn,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Dan Carpenter <error27@gmail.com>, kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] ASoC: Add support for Loongson I2S controller
-Message-ID: <ad4722ec-0fa2-4bb2-879b-47bcbd96bb0d@sirena.org.uk>
-References: <20230615122718.3412942-1-mengyingkun@loongson.cn>
- <cf2f3bc9-3141-8d7b-b57d-73eac70a21d2@oracle.com>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D244F80130
+	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 14:40:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D244F80130
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="srSkMy3jZsgNxOgV"
-Content-Disposition: inline
-In-Reply-To: <cf2f3bc9-3141-8d7b-b57d-73eac70a21d2@oracle.com>
-X-Cookie: Prevent forest fires.
-Message-ID-Hash: JMH4FONLWPALJSO27VZQMRJWKSIY3XXL
-X-Message-ID-Hash: JMH4FONLWPALJSO27VZQMRJWKSIY3XXL
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1687178454984940767-webhooks-bot@alsa-project.org>
+References: <1687178454984940767-webhooks-bot@alsa-project.org>
+Subject: v1.2.7: Regression detecting builtin microphone on Lenovo T14G1
+ (Intel Comet Lake)
+Message-Id: <20230619124102.3E573F80217@alsa1.perex.cz>
+Date: Mon, 19 Jun 2023 14:41:02 +0200 (CEST)
+Message-ID-Hash: N2IGBIUAAMYUZ3OU6XYFJMBQVTCHAW5H
+X-Message-ID-Hash: N2IGBIUAAMYUZ3OU6XYFJMBQVTCHAW5H
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JMH4FONLWPALJSO27VZQMRJWKSIY3XXL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N2IGBIUAAMYUZ3OU6XYFJMBQVTCHAW5H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,42 +70,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+alsa-project/alsa-ucm-conf issue #325 was opened from myrkr:
 
---srSkMy3jZsgNxOgV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm currently testing an update of alsa-ucm-conf from version v1.2.5.1 to version v1.2.9 and noticed a regression.
 
-On Mon, Jun 19, 2023 at 01:41:48AM +0530, Harshit Mogalapalli wrote:
-> Hi YingKun,
->=20
-> On 15/06/23 5:57 pm, YingKun Meng wrote:
-> > From: Yingkun Meng <mengyingkun@loongson.cn>
-> >=20
-> > Loongson I2S controller is found on 7axxx/2kxxx chips from loongson,
-> > it is a PCI device with two private DMA controllers, one for playback,
-> > the other for capture.
-> >=20
-> > The driver supports the use of DTS or ACPI to describe device resources.
+Kernel: v6.1.34
+alsa-lib: v1.2.6.1
+pulseaudio: 14.2
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+I use a Lenovo T14G1 with an HDMI monitor connected via USB-C (but the monitor is not in use by Xorg). I want to use the built-in speaker and microphone of the device. 
 
---srSkMy3jZsgNxOgV
-Content-Type: application/pgp-signature; name="signature.asc"
+Before the update I got the following output from "pactl list":
+[pactl-before.log](https://github.com/alsa-project/alsa-ucm-conf/files/11788116/pactl-before.log)
 
------BEGIN PGP SIGNATURE-----
+```
+Card #0
+	Name: alsa_card.pci-0000_00_1f.3-platform-skl_hda_dsp_generic
+	Driver: module-alsa-card.c
+	Owner Module: 1
+	Properties:
+		alsa.card = "0"
+		alsa.card_name = "sof-hda-dsp"
+		alsa.long_card_name = "LENOVO-20S1S19N00-ThinkPadT14Gen1"
+		device.bus_path = "pci-0000:00:1f.3-platform-skl_hda_dsp_generic"
+		sysfs.path = "/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0"
+		device.bus = "pci"
+		device.vendor.id = "8086"
+		device.vendor.name = "Intel Corporation"
+		device.product.id = "02c8"
+		device.product.name = "Comet Lake PCH-LP cAVS"
+		device.string = "0"
+		device.description = "Comet Lake PCH-LP cAVS"
+		module-udev-detect.discovered = "1"
+		device.icon_name = "audio-card-pci"
+	Profiles:
+		HiFi: Play HiFi quality Music (sinks: 4, sources: 2, priority: 8000, available: yes)
+		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
+	Active Profile: HiFi
+	Ports:
+		[Out] HDMI3: HDMI / DisplayPort 3 Output (type: HDMI, priority: 700, latency offset: 0 usec, not available)
+			Part of profile(s): HiFi
+		[Out] HDMI2: HDMI / DisplayPort 2 Output (type: HDMI, priority: 600, latency offset: 0 usec, not available)
+			Part of profile(s): HiFi
+		[Out] HDMI1: HDMI / DisplayPort 1 Output (type: HDMI, priority: 500, latency offset: 0 usec, not available)
+			Part of profile(s): HiFi
+		[Out] Speaker: Speaker (type: Speaker, priority: 100, latency offset: 0 usec, availability unknown)
+			Part of profile(s): HiFi
+		[Out] Headphones: Headphones (type: Headphones, priority: 200, latency offset: 0 usec, not available)
+			Part of profile(s): HiFi
+		[In] Mic2: Headphones Stereo Microphone (type: Mic, priority: 200, latency offset: 0 usec, not available)
+			Part of profile(s): HiFi
+		[In] Mic1: Digital Microphone (type: Mic, priority: 100, latency offset: 0 usec, availability unknown)
+			Part of profile(s): HiFi
+```
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSQOgcACgkQJNaLcl1U
-h9CWMQf+Ici0ppIkITqxxvXumQa86CMD72Cxfz+kO2FGvaIcayPescQ3j/43UKIb
-AjvqoIA3Y6nX4w0WbkTr0pBPhV0jAxNHrv7Pc+wAEDdu8FEpFR/UXPllUwVusGqf
-cm51zP1Z/xPr3LluBa0J5y5gWcf1X5iXe3tEWVlSp+09cs0yPkaS8BNU6nk9rn2J
-yzbB1623/h0RJPrAG/6x71iHnOTyK+ebyLyRTNRfNOdii503bKf2BIClwLp6Zsqu
-BOIMPbFpZQUWgRamCUxpBi+evdWmu0xIxTDzOsY5gQKfRib+4Ey538+NSEp0Qaoy
-MoNr1GOae9rRO2D9WqCiQygvSudLeQ==
-=C+Ao
------END PGP SIGNATURE-----
+On this cards the ports `Speaker` and `Mic1` are currently selected and usable.
 
---srSkMy3jZsgNxOgV--
+After the update to version v1.2.9 the output shows:
+
+[pactl-after.log](https://github.com/alsa-project/alsa-ucm-conf/files/11788117/pactl-after.log)
+
+```
+Card #0
+	Name: alsa_card.pci-0000_00_1f.3-platform-skl_hda_dsp_generic
+	Driver: module-alsa-card.c
+	Owner Module: 1
+	Properties:
+		alsa.card = "0"
+		alsa.card_name = "sof-hda-dsp"
+		alsa.long_card_name = "LENOVO-20S1S19N00-ThinkPadT14Gen1"
+		device.bus_path = "pci-0000:00:1f.3-platform-skl_hda_dsp_generic"
+		sysfs.path = "/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0"
+		device.bus = "pci"
+		device.vendor.id = "8086"
+		device.vendor.name = "Intel Corporation"
+		device.product.id = "02c8"
+		device.product.name = "Comet Lake PCH-LP cAVS"
+		device.string = "0"
+		device.description = "Comet Lake PCH-LP cAVS"
+		module-udev-detect.discovered = "1"
+		device.icon_name = "audio-card-pci"
+	Profiles:
+		input:stereo-fallback: Stereo Input (sinks: 0, sources: 1, priority: 51, available: no)
+		input:multichannel-input: Multichannel Input (sinks: 0, sources: 1, priority: 1, available: yes)
+		output:stereo-fallback: Stereo Output (sinks: 1, sources: 0, priority: 5100, available: yes)
+		output:stereo-fallback+input:stereo-fallback: Stereo Output + Stereo Input (sinks: 1, sources: 1, priority: 5151, available: no)
+		output:stereo-fallback+input:multichannel-input: Stereo Output + Multichannel Input (sinks: 1, sources: 1, priority: 5101, available: yes)
+		output:multichannel-output: Multichannel Output (sinks: 1, sources: 0, priority: 100, available: yes)
+		output:multichannel-output+input:stereo-fallback: Multichannel Output + Stereo Input (sinks: 1, sources: 1, priority: 151, available: no)
+		output:multichannel-output+input:multichannel-input: Multichannel Duplex (sinks: 1, sources: 1, priority: 101, available: yes)
+		off: Off (sinks: 0, sources: 0, priority: 0, available: yes)
+	Active Profile: output:stereo-fallback+input:multichannel-input
+	Ports:
+		analog-input-mic: Microphone (type: Mic, priority: 8700, latency offset: 0 usec, not available)
+			Part of profile(s): input:stereo-fallback, output:stereo-fallback+input:stereo-fallback, output:multichannel-output+input:stereo-fallback
+		analog-output-speaker: Speakers (type: Speaker, priority: 10000, latency offset: 0 usec, availability unknown)
+			Properties:
+				device.icon_name = "audio-speakers"
+			Part of profile(s): output:stereo-fallback, output:stereo-fallback+input:stereo-fallback, output:stereo-fallback+input:multichannel-input
+		analog-output-headphones: Headphones (type: Headphones, priority: 9900, latency offset: 0 usec, not available)
+			Properties:
+				device.icon_name = "audio-headphones"
+			Part of profile(s): output:stereo-fallback, output:stereo-fallback+input:stereo-fallback, output:stereo-fallback+input:multichannel-input
+```
+
+The `Speakers` are selected for output but there is no port I can select for input.
+
+I did a `git bisect` and found out that reverting the following commit from v1.2.7 solves the problem:
+
+```
+commit e2cfda5b53f4718f1128fb4df75ec8fb7274d36b
+Author: Jaroslav Kysela <perex@perex.cz>
+Date:   Mon May 23 13:33:24 2022 +0200
+
+    HDMI - use new Macro syntax
+    
+    Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+```
+
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/325
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

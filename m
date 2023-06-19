@@ -2,106 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A901734F3F
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 11:12:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7AD73501A
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 11:29:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B6B783A;
-	Mon, 19 Jun 2023 11:11:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B6B783A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F5F283E;
+	Mon, 19 Jun 2023 11:28:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F5F283E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687165938;
-	bh=VcRWrPDfbH2b18l9Ztu99D67jFCBm/wwhGux0yb6a2Y=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=TVdO8PIySQ+nxVI0ixtUfTLbETZxieIaxXZJ3dmJS6bbjORbEHllJknk2XW+Ivf25
-	 MpDfwFQcegKlBZkX8RU6/hmEmwA4ceuOCkstkQ/lXIX0+9vmQYX1XOzmZcUsUDioca
-	 T4wxqZCFkXS07G1+ndJJ7Gepb3jvyWl29Tnso3jw=
+	s=default; t=1687166968;
+	bh=3yby7asSa1bmg8/TCPBWA9yB0Auogb07bRActmah47c=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=pRTs9DbTtqRO9gX/kFStchTCBeipTO5MOGXDvGx2epTlx1guQozn4BMg9EMqZIgA5
+	 nuQkONEVY8kkHtJ5CsGsPLSILxVfikFKRXkGlQCqySCDZ732UDGtxKQ2QzxElbRQIL
+	 a1NPRmxmG1JT4wP7JXxbmGysmLRMIXQL3JHHfNko=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8B8DFF80301; Mon, 19 Jun 2023 11:11:27 +0200 (CEST)
+	id A025CF8052E; Mon, 19 Jun 2023 11:28:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7EB5F80132;
-	Mon, 19 Jun 2023 11:11:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B71BEF80132;
+	Mon, 19 Jun 2023 11:28:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ACDC0F80217; Mon, 19 Jun 2023 11:11:21 +0200 (CEST)
+	id 80663F80217; Mon, 19 Jun 2023 11:28:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 951B3F80130
-	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 11:11:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 951B3F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8CE99F800E5
+	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 11:28:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CE99F800E5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
- header.s=PODMain02222019 header.b=ogSP1REF
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35J5mUm5002763;
-	Mon, 19 Jun 2023 04:11:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=5JH2u79XU9FJBiZZx7sz7hvI5PJVGOsuiD1Cda2B7+Q=;
- b=ogSP1REFwha/p5MoyXtk6djzYSizjnb5XoG/UTXcqMzLIJ1RO4fM6vz2X8rvr35wplCv
- 19lg6w7mXd8juNLp/dvaplzDvq351QoqOkCQmO8rGZnSyGvJaQbDLoEXNO5LZ/8keR1Q
- wu+j7FV086RP5bxowLDtX4wlTuuajMGo7BZf4+IwtDL29IpPW+lacXfntP102f8By5vE
- IU0IIWkXoTZXrIocDqgBMq/jQPTKb1OffOp8hYoSjmDaUPOl1TcRVDkzPSZBNcSG5hrc
- gcudmalxuL4DzlP83GeQF5B5BsyY2JQT6VApdaQM4cMFRKorfyBOZwXfhz7m3PtsuFCz eg==
-Received: from ediex02.ad.cirrus.com ([84.19.233.68])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3r998mhsfb-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 19 Jun 2023 04:11:02 -0500
-Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Mon, 19 Jun
- 2023 10:11:00 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
- anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Mon, 19 Jun 2023 10:11:00 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com
- [198.61.86.93])
-	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 84E4011AA;
-	Mon, 19 Jun 2023 09:11:00 +0000 (UTC)
-Date: Mon, 19 Jun 2023 09:11:00 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lee Jones <lee@kernel.org>
-CC: <broonie@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <linus.walleij@linaro.org>, <vkoul@kernel.org>, <robh+dt@kernel.org>,
-        <conor+dt@kernel.org>, <lgirdwood@gmail.com>,
-        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
-        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
-        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 3/6] mfd: cs42l43: Add support for cs42l43 core driver
-Message-ID: <20230619091100.GV68926@ediswmail.ad.cirrus.com>
-References: <20230605125504.2570158-1-ckeepax@opensource.cirrus.com>
- <20230605125504.2570158-4-ckeepax@opensource.cirrus.com>
- <20230615171124.GL3635807@google.com>
- <20230616083404.GR68926@ediswmail.ad.cirrus.com>
- <20230619083005.GN3635807@google.com>
- <20230619085244.GU68926@ediswmail.ad.cirrus.com>
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=w1lMpVnz
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-3f900cd3f69so17043455e9.0
+        for <alsa-devel@alsa-project.org>;
+ Mon, 19 Jun 2023 02:28:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1687166892; x=1689758892;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=MA34cT4O/DXGv9/GJqnDQidBqlMmaRaNZTidmNryGbQ=;
+        b=w1lMpVnzGPEeaVoIe3PsoD5fTjDDyaHreFR7Forr8A4oYjlT1wyEkhpK++erSgJmsD
+         YwutxvLhitQEhSImbwzmKqIsux+0pLklHXfw3XNftBpEd+rbwb9MR26+tyEi9fFprn6v
+         Bwl0YL/nZIsYHPK5TzjhhoE98dYebqQ/s2pGujy5EjS1yFntMKKjonm/L8TOcdsdvNub
+         C77gCrjY4W9Gz/J/hVOK7JafXsgCaXImpSlW5SHGh8EmWsKEgnPR6gZd1ZKjGjU585e8
+         9udrPVPdIpwzslq8TPpDRh9c97VMMghUBVlezwYricz7zfG2u0sKoC9q5bQT3I5FCC2A
+         ggLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687166892; x=1689758892;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MA34cT4O/DXGv9/GJqnDQidBqlMmaRaNZTidmNryGbQ=;
+        b=g+LMAvIHZTZugy2YNoIbIRndRvyX5tmZy3jenR6T8cIYQzINvAuwngUf4REjMarfT9
+         80JIXeHtApymGDs4k7/rWzTd7UcJhppDKA7IgxnNyQ26KcHVsd55/36j9MgLq+9YZ0AE
+         /TIY1jGGZhl8Qt4CSMIUn26sqloaXDlQVmL2QS2VoxuzJ8GmyqxZR+YanPsQAv0Bh6RU
+         nj2NeWcTQ/clqWYmUxZq3lByKMd35CG4VmmQYO6MRqbF1YS4n22QGSlZbDZRF8VvNOqV
+         uCBe2JHuDuMFBaqBJ403KUOitpTJFGnzIXE0ev5uhaFvqYhNv208rhRfYjLzhVrZpnqS
+         bcoQ==
+X-Gm-Message-State: AC+VfDxVHTXni3X0H2kAwBzQSuSnPKQmJYtjkJdoH620WSdVpc6+JYkR
+	lg/zpNW0rBLEIZkfNb1JVcWhUg==
+X-Google-Smtp-Source: 
+ ACHHUZ5PIbm8h7cKrZMFoFsbGK9F8BONiHNOCufZZkdH5bY/DzzunLcti36p+dvVlrUIB6I+pn8RAw==
+X-Received: by 2002:a7b:c449:0:b0:3f4:a09f:1877 with SMTP id
+ l9-20020a7bc449000000b003f4a09f1877mr5725214wmi.23.1687166892067;
+        Mon, 19 Jun 2023 02:28:12 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id
+ n22-20020a7bcbd6000000b003f908ee3091sm5453846wmi.3.2023.06.19.02.28.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Jun 2023 02:28:11 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: vkoul@kernel.org,
+	broonie@kernel.org,
+	tiwai@suse.com
+Cc: corbet@lwn.net,
+	alsa-devel@alsa-project.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	quic_plai@quicinc.com,
+	quic_mohs@quicinc.com,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH v3] ALSA: compress: allow setting codec params after next
+ track
+Date: Mon, 19 Jun 2023 10:28:05 +0100
+Message-Id: <20230619092805.21649-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230619085244.GU68926@ediswmail.ad.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-GUID: JbY1FYWJr3mYykaI4Vkm_JGdmIMtrazk
-X-Proofpoint-ORIG-GUID: JbY1FYWJr3mYykaI4Vkm_JGdmIMtrazk
-X-Proofpoint-Spam-Reason: safe
-Message-ID-Hash: 2IG2BR6WRULI4HPJHACU7GQFPS5NLQB5
-X-Message-ID-Hash: 2IG2BR6WRULI4HPJHACU7GQFPS5NLQB5
-X-MailFrom: prvs=153447c1f4=ckeepax@opensource.cirrus.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: IDSEYDGAT47T7QPWE2FWDUKL6TZPCIEM
+X-Message-ID-Hash: IDSEYDGAT47T7QPWE2FWDUKL6TZPCIEM
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2IG2BR6WRULI4HPJHACU7GQFPS5NLQB5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IDSEYDGAT47T7QPWE2FWDUKL6TZPCIEM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,29 +124,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jun 19, 2023 at 08:52:44AM +0000, Charles Keepax wrote:
-> On Mon, Jun 19, 2023 at 09:30:05AM +0100, Lee Jones wrote:
-> > On Fri, 16 Jun 2023, Charles Keepax wrote:
-> > > On Thu, Jun 15, 2023 at 06:11:24PM +0100, Lee Jones wrote:
-> > > > On Mon, 05 Jun 2023, Charles Keepax wrote:
-> > Can you have a little think for another way to solve this please?
-> > 
-> 
-> I will have another go at it, if memory serves the vague options
-> were:
-> 
-> 1) this approach
-> 2) some sort of horrible #include to put the defaults array in
-> both modules, although I would really prefer to avoid this one.
-> 3) dynamically allocate the regmap_configs so those two fields
-> can be filled in with non-static data.
-> 
-> If I fail to come up with an option 4 would you prefer 1 or 3?
-> Well or 2 but I really would prefer not to do 2.
-> 
+For gapless playback it is possible that each track can have different
+codec profile with same decoder, for example we have WMA album,
+we may have different tracks as WMA v9, WMA v10 and so on
 
-Well or just leave both in actually I guess perhaps that is
-simplest.
+Or if DSP's like QDSP have abililty to switch decoders on single stream
+for each track, then this call could be used to set new codec parameters.
 
-Thanks,
-Charles
+Existing code does not allow to change this profile while doing gapless
+playback.
+
+Reuse existing SNDRV_COMPRESS_SET_PARAMS to set this new track params along
+some additional checks to enforce proper state machine.
+
+With this new changes now the user can call SNDRV_COMPRESS_SET_PARAMS
+anytime after setting next track and additional check in write should
+also ensure that params are set before writing new data.
+
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+Changes since v2:
+ simplified the logic to allow set_params and udated the documentation accordingly
+
+ Documentation/sound/designs/compress-offload.rst | 11 ++++++-----
+ sound/core/compress_offload.c                    |  5 ++++-
+ 2 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/Documentation/sound/designs/compress-offload.rst b/Documentation/sound/designs/compress-offload.rst
+index 935f325dbc77..655624f77092 100644
+--- a/Documentation/sound/designs/compress-offload.rst
++++ b/Documentation/sound/designs/compress-offload.rst
+@@ -268,11 +268,12 @@ with setting of meta_data and signalling for next track ::
+               |                              |
+               |                              V
+               |                         +----------+
+-              |                         |          |
+-              |                         |NEXT_TRACK|
+-              |                         |          |
+-              |                         +----------+
+-              |                              |
++              |    compr_set_params()   |          |
++              |             +-----------|NEXT_TRACK|
++              |             |           |          |
++              |             |           +--+-------+
++              |             |              | |
++              |             +--------------+ |
+               |                              |
+               |                              | compr_partial_drain()
+               |                              |
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index 243acad89fd3..30f73097447b 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -589,7 +589,7 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
+ 	struct snd_compr_params *params;
+ 	int retval;
+ 
+-	if (stream->runtime->state == SNDRV_PCM_STATE_OPEN) {
++	if (stream->runtime->state == SNDRV_PCM_STATE_OPEN || stream->next_track) {
+ 		/*
+ 		 * we should allow parameter change only when stream has been
+ 		 * opened not in other cases
+@@ -612,6 +612,9 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
+ 		if (retval)
+ 			goto out;
+ 
++		if (stream->next_track)
++			goto out;
++
+ 		stream->metadata_set = false;
+ 		stream->next_track = false;
+ 
+-- 
+2.21.0
+

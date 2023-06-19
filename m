@@ -2,92 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5100B734DBB
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 10:31:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A38734E41
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 10:44:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49CEE844;
-	Mon, 19 Jun 2023 10:30:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49CEE844
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9A7E839;
+	Mon, 19 Jun 2023 10:43:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9A7E839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687163506;
-	bh=eIZI6ptS5tkUzsgX/wDjow3J+YGKEh3sq048gze+kVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=OD+tdZNihzTHkuLt1blYBm5ugwSCRzYEsu6O5Jih8E2FRBIgANvnOj5WBm2nrml5K
-	 yCo55iELcodgV/XL9CTnMq4U4euWQUv9bxWuL9CN8L5sF/S4JlcafCPI50KH3Xct8g
-	 L+08ehmy2guvUH95VAdiHdb1SSzIDQyIfBslKmXc=
+	s=default; t=1687164271;
+	bh=Xf++p1YHVQYcB/cg/HAtODWVo5X/y8j2P1AaEBgjQ8A=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=hV1PvIplOo6cr/sjX8T/cf7yHmdO0Bno5GGqD9AISTNfR6Jw3UoLkYGkBbbBTmZJM
+	 MxnRWUKyVbr54v8GRbrGq7i/8qpMLERqE/QeLP0lcTuYb4wH/fhL281159w6nDECfZ
+	 dwzk2/VFIhOZ8Uevvry6eZCC9iLLSwhJkcckk5js=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5723F8052E; Mon, 19 Jun 2023 10:30:31 +0200 (CEST)
+	id E3603F80132; Mon, 19 Jun 2023 10:43:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA777F80132;
-	Mon, 19 Jun 2023 10:30:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60F1CF8052D;
+	Mon, 19 Jun 2023 10:43:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3C85F80217; Mon, 19 Jun 2023 10:30:25 +0200 (CEST)
+	id E6115F8052E; Mon, 19 Jun 2023 10:43:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 01B6DF800BA
-	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 10:30:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01B6DF800BA
+	by alsa1.perex.cz (Postfix) with ESMTPS id 379F8F800E5
+	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 10:43:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 379F8F800E5
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=r/LMg6qF
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0377B615C9;
-	Mon, 19 Jun 2023 08:30:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C732C433C8;
-	Mon, 19 Jun 2023 08:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687163411;
-	bh=eIZI6ptS5tkUzsgX/wDjow3J+YGKEh3sq048gze+kVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=r/LMg6qFV2+qi6N8vQgKjVUkMoSyhOvEYY6fV7fNsloqn1HTMl7ngQKS7z5TT3cQI
-	 GRbeINLl747qcecYs9/eoxQxqj6/cxZYrqoKS6MriKRQi5iyovzgR7ZdJ/obHFjGpT
-	 IamdPUFka+FU9DL4oYh1SI7rmBKH8TL53TxFRFeMZMW9LHF4A6AC6fN2S9963DM1/p
-	 NfLGwA7Ox8n/9bqC8odPLCnrP/ZVCBF4zxmEIHO1QpMb8miNRaEYSpyUYo3IFww5/K
-	 R1LK3+iYZXUagisS2DSFC3Hbp0+jkUvdpYvHz3nx5iFtpHutwNRcRWDHBhSpULII/G
-	 dsIym3OTTV1uQ==
-Date: Mon, 19 Jun 2023 09:30:05 +0100
-From: Lee Jones <lee@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: broonie@kernel.org, krzysztof.kozlowski+dt@linaro.org,
-	linus.walleij@linaro.org, vkoul@kernel.org, robh+dt@kernel.org,
-	conor+dt@kernel.org, lgirdwood@gmail.com,
-	yung-chuan.liao@linux.intel.com, sanyog.r.kale@intel.com,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
-	patches@opensource.cirrus.com, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/6] mfd: cs42l43: Add support for cs42l43 core driver
-Message-ID: <20230619083005.GN3635807@google.com>
-References: <20230605125504.2570158-1-ckeepax@opensource.cirrus.com>
- <20230605125504.2570158-4-ckeepax@opensource.cirrus.com>
- <20230615171124.GL3635807@google.com>
- <20230616083404.GR68926@ediswmail.ad.cirrus.com>
+ unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256
+ header.s=PODMain02222019 header.b=iwcqhKGt
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35J80iW9017479;
+	Mon, 19 Jun 2023 03:43:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=PODMain02222019;
+ bh=YMRw7TpzL0COzz9yr9CYVV7IRxhEoZZRsZPOw+0tAws=;
+ b=iwcqhKGt90qIQyGpvNr0edrqXoodtC6ViVYX/O9BlHR1snsCnId6uRx9pWKSQ55eVdsG
+ T1G8Q5dTOwCZVb+juXI/+bJU48yiGRznwr/sKj91pF9c4CxWZ84gBEgdNsieAgPdXpHb
+ oUVTspX//JY3Li5axM5CAl94q0IG2Yn/cKXofl2xQdKkWUeV/5xbG6FFUm10MmzGhGGV
+ Y4CrFtFC/4Zhn9LsA5O/eGOGT8Bbv/Nojx7bXXtWOAybtpU/S/tKfMWAEfEVKJWRytRX
+ n1a+jDyXknHww0Y8K5LuI1F8TZA7GV0fpSwGbf+wylKH2ZLGT1qyAospHjeYrvz2md7k uA==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 3r998mhrr2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 19 Jun 2023 03:43:26 -0500
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.26; Mon, 19 Jun
+ 2023 09:43:25 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Mon, 19 Jun 2023 09:43:25 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+	by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3331946B;
+	Mon, 19 Jun 2023 08:43:25 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>, <lee@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <linus.walleij@linaro.org>,
+        <vkoul@kernel.org>
+CC: <robh+dt@kernel.org>, <conor+dt@kernel.org>, <lgirdwood@gmail.com>,
+        <yung-chuan.liao@linux.intel.com>, <sanyog.r.kale@intel.com>,
+        <pierre-louis.bossart@linux.intel.com>, <alsa-devel@alsa-project.org>,
+        <patches@opensource.cirrus.com>, <devicetree@vger.kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 0/6] Add cs42l43 PC focused SoundWire CODEC
+Date: Mon, 19 Jun 2023 09:43:19 +0100
+Message-ID: <20230619084325.1721501-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230616083404.GR68926@ediswmail.ad.cirrus.com>
-Message-ID-Hash: EAEN7YFFHIEXLTY2EPPOKB75C53ZF73A
-X-Message-ID-Hash: EAEN7YFFHIEXLTY2EPPOKB75C53ZF73A
-X-MailFrom: lee@kernel.org
+Content-Type: text/plain
+X-Proofpoint-GUID: ToI6sQVpL4LKWrtTaQ_4XY0MkL6PMpwV
+X-Proofpoint-ORIG-GUID: ToI6sQVpL4LKWrtTaQ_4XY0MkL6PMpwV
+X-Proofpoint-Spam-Reason: safe
+Message-ID-Hash: SDU64PSJYPNRLPPOVG6T7ZSFXRFLD5QO
+X-Message-ID-Hash: SDU64PSJYPNRLPPOVG6T7ZSFXRFLD5QO
+X-MailFrom: prvs=153447c1f4=ckeepax@opensource.cirrus.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -99,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EAEN7YFFHIEXLTY2EPPOKB75C53ZF73A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SDU64PSJYPNRLPPOVG6T7ZSFXRFLD5QO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,138 +113,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 16 Jun 2023, Charles Keepax wrote:
+This patch chain adds support for the Cirrus Logic cs42l43 PC focused
+SoundWire CODEC. The chain is currently based of Lee's for-mfd-next
+branch.
 
-> On Thu, Jun 15, 2023 at 06:11:24PM +0100, Lee Jones wrote:
-> > On Mon, 05 Jun 2023, Charles Keepax wrote:
-> > > +// SPDX-License-Identifier: GPL-2.0
-> > > +//
-> > > +// CS42L43 I2C driver
-> > > +//
-> > > +// Copyright (C) 2022-2023 Cirrus Logic, Inc. and
-> > > +//                         Cirrus Logic International Semiconductor Ltd.
-> > > +
-> > 
-> > I realise there is some precedent for this already in MFD.
-> > 
-> > However, I'd rather headers used C style multi-line comments.
-> > 
-> 
-> Apologies but just to be super clear you want this to look like:
-> 
-> // SPDX-License-Identifier: GPL-2.0
-> /*
->  * CS42L43 I2C driver
->  *
->  * Copyright (C) 2022-2023 Cirrus Logic, Inc. and
->  *                         Cirrus Logic International Semiconductor Ltd.
->  */
-> 
-> Just clarifying since you want to get rid of all the // comments,
-> but the SPDX stuff specifically requires one according to
-> Documentation/process/license-rules.rst.
+Thanks,
+Charles
 
-Yes please.
+Charles Keepax (4):
+  dt-bindings: mfd: cirrus,cs42l43: Add initial DT binding
+  mfd: cs42l43: Add support for cs42l43 core driver
+  pinctrl: cs42l43: Add support for the cs42l43
+  ASoC: cs42l43: Add support for the cs42l43
 
-> > > +	// I2C is always attached by definition
-> > 
-> > C please.  And everywhere else.
-> > 
-> 
-> Can do.
+Lucas Tanure (2):
+  soundwire: bus: Allow SoundWire peripherals to register IRQ handlers
+  spi: cs42l43: Add SPI controller support
 
-
-> > > +static struct i2c_device_id cs42l43_i2c_id[] = {
-> > > +	{ "cs42l43", 0 },
-> > > +	{}
-> > > +};
-> > > +MODULE_DEVICE_TABLE(i2c, cs42l43_i2c_id);
-> > 
-> > Is this required anymore?
-> > 
-> 
-> I was not aware of it not being required, I think it will still
-> be used for the purposes of module naming. Perhaps someone more
-> knowledgable than me can comment?
-
-Since this table isn't providing any information which cannot be derived
-from the other (OF, ACPI) tables, the I2C subsystem should be able to
-obtain it from those sources instead.
-
-> > > +#if IS_ENABLED(CONFIG_MFD_CS42L43_I2C)
-> > > +const struct regmap_config cs42l43_i2c_regmap = {
-> > > +	.reg_bits		= 32,
-> > > +	.reg_stride		= 4,
-> > > +	.val_bits		= 32,
-> > > +	.reg_format_endian	= REGMAP_ENDIAN_BIG,
-> > > +	.val_format_endian	= REGMAP_ENDIAN_BIG,
-> > > +
-> > > +	.max_register		= CS42L43_MCU_RAM_MAX,
-> > > +	.readable_reg		= cs42l43_readable_register,
-> > > +	.volatile_reg		= cs42l43_volatile_register,
-> > > +	.precious_reg		= cs42l43_precious_register,
-> > > +
-> > > +	.cache_type		= REGCACHE_RBTREE,
-> > > +	.reg_defaults		= cs42l43_reg_default,
-> > > +	.num_reg_defaults	= ARRAY_SIZE(cs42l43_reg_default),
-> > > +};
-> > > +EXPORT_SYMBOL_NS_GPL(cs42l43_i2c_regmap, MFD_CS42L43);
-> > > +#endif
-> > 
-> > We don't tend to like #ifery in C files.
-> > 
-> > Why is it required?
-> > 
-> > And why not just put them were they're consumed?
-> 
-> The trouble is the cs42l43_reg_default array and the array size.
-> There is no good way to statically initialise those two fields
-> from a single array in both the I2C and SDW modules.
-
-Can you have a little think for another way to solve this please?
-
-> > > +static int cs42l43_soft_reset(struct cs42l43 *cs42l43)
-> > > +{
-> > > +	static const struct reg_sequence reset[] = {
-> > > +		{ CS42L43_SFT_RESET, 0x5A000000 },
-> > > +	};
-> > > +	unsigned long time;
-> > > +
-> > > +	dev_dbg(cs42l43->dev, "Soft resetting\n");
-> > 
-> > How often are you realistically going to enable these?  Can you do
-> > without them and just add some printks when debugging?  Seems a shame to
-> > dirty the code-base with seldom used / questionably helpful LoC.
-> 
-> I mean I use them all the time they are very helpful. But yeah I
-> can just add them each time I need them its just a pain, but I
-
-Sure, during development.  Now the driver is authored however, how often
-are you likely to turn it back on.  Besides, this isn't real debug
-information with dynamically obtained values and useful information,
-it's a function call trace which can be obtained from other sources,
-such as ftrace and the like.
-
-[...]
-
-> > > +	if (ret) {
-> > > +		dev_err(cs42l43->dev, "Failed to move to stage 3: %d, 0x%x\n", ret, val);
-> > 
-> > Stage 3 what?
-> > 
-> 
-> Of the MCU boot.
-
-Please make that clear.  I don't see any documentation or pointers here.
-
-> > Perhaps some simple function headers would help?
-> > 
-> 
-> You mean add some kernel doc for these functions, right? Assuming
-> that is what you mean, will do.
-
-I'd suggest not using kernel-doc formatting, but that type of thing,
-yes.
+ .../bindings/sound/cirrus,cs42l43.yaml        |  313 +++
+ MAINTAINERS                                   |    4 +
+ drivers/mfd/Kconfig                           |   23 +
+ drivers/mfd/Makefile                          |    3 +
+ drivers/mfd/cs42l43-i2c.c                     |   87 +
+ drivers/mfd/cs42l43-sdw.c                     |  222 ++
+ drivers/mfd/cs42l43.c                         | 1262 +++++++++
+ drivers/mfd/cs42l43.h                         |   23 +
+ drivers/pinctrl/cirrus/Kconfig                |   11 +
+ drivers/pinctrl/cirrus/Makefile               |    2 +
+ drivers/pinctrl/cirrus/pinctrl-cs42l43.c      |  609 +++++
+ drivers/soundwire/bus.c                       |   32 +
+ drivers/soundwire/bus_type.c                  |   12 +
+ drivers/spi/Kconfig                           |    7 +
+ drivers/spi/Makefile                          |    1 +
+ drivers/spi/spi-cs42l43.c                     |  281 ++
+ include/linux/mfd/cs42l43-regs.h              | 1184 +++++++++
+ include/linux/mfd/cs42l43.h                   |  102 +
+ include/linux/soundwire/sdw.h                 |    9 +
+ include/sound/cs42l43.h                       |   17 +
+ sound/soc/codecs/Kconfig                      |   16 +
+ sound/soc/codecs/Makefile                     |    4 +
+ sound/soc/codecs/cs42l43-jack.c               |  969 +++++++
+ sound/soc/codecs/cs42l43-sdw.c                |   74 +
+ sound/soc/codecs/cs42l43.c                    | 2278 +++++++++++++++++
+ sound/soc/codecs/cs42l43.h                    |  131 +
+ 26 files changed, 7676 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/cirrus,cs42l43.yaml
+ create mode 100644 drivers/mfd/cs42l43-i2c.c
+ create mode 100644 drivers/mfd/cs42l43-sdw.c
+ create mode 100644 drivers/mfd/cs42l43.c
+ create mode 100644 drivers/mfd/cs42l43.h
+ create mode 100644 drivers/pinctrl/cirrus/pinctrl-cs42l43.c
+ create mode 100644 drivers/spi/spi-cs42l43.c
+ create mode 100644 include/linux/mfd/cs42l43-regs.h
+ create mode 100644 include/linux/mfd/cs42l43.h
+ create mode 100644 include/sound/cs42l43.h
+ create mode 100644 sound/soc/codecs/cs42l43-jack.c
+ create mode 100644 sound/soc/codecs/cs42l43-sdw.c
+ create mode 100644 sound/soc/codecs/cs42l43.c
+ create mode 100644 sound/soc/codecs/cs42l43.h
 
 -- 
-Lee Jones [李琼斯]
+2.30.2
+

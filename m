@@ -2,113 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0482F7351E9
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 12:21:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69FD47355A4
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Jun 2023 13:21:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D80F8E0F;
-	Mon, 19 Jun 2023 12:20:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D80F8E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4EA96868;
+	Mon, 19 Jun 2023 13:20:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EA96868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687170086;
-	bh=j49IbEENujKcSQlB/5c14Ju+CtffyBfHhLHQLlWe9B4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1687173709;
+	bh=TCyP3MTK9D8/2GgV8QtO5pJImHNQEoTXD9BrcpmOPeM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IZxgmdfQV+I17GyyPlbTNU+V+zU3XrE9BMjwlPcA3yjfs71qrKj0HOEDZacoMtCzm
-	 hG5un7l8Pf27C1seG8jVfsf2a0AzejlRdPDCdGyG8mfY+B4zpK/sw6ef1fqAx95DfQ
-	 6KwX8Zv66pkRnRsgQrkrh9ucIRyX/WFkIUo2aMxM=
+	b=qd84d5Pg7RlbrxUUeRlAo4rC/z/NhhxIJQ547/zPzkXP3qOCl2QMbdnwHaE+QncsF
+	 VOxl9YXRT+4yxmKu1oqHcIt/rKOWlJI1mXbgis15ZEq+lVpd0WyGGBQ+psclxmcZvT
+	 NDOwLuC7snBbLVnjO/XqEXUgBkbvPLyRwc+5Gpe8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 47E32F805FD; Mon, 19 Jun 2023 12:17:39 +0200 (CEST)
+	id C3F51F80448; Mon, 19 Jun 2023 13:20:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7E75F805F9;
-	Mon, 19 Jun 2023 12:17:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BC41F80132;
+	Mon, 19 Jun 2023 13:20:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 20418F80588; Mon, 19 Jun 2023 12:17:18 +0200 (CEST)
+	id 51196F80217; Mon, 19 Jun 2023 13:20:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 78CB0F80563
-	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 12:17:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78CB0F80563
+	by alsa1.perex.cz (Postfix) with ESMTPS id 81686F80130
+	for <alsa-devel@alsa-project.org>; Mon, 19 Jun 2023 13:20:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81686F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=nRWtKAtY
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-311275efaf8so1929120f8f.3
-        for <alsa-devel@alsa-project.org>;
- Mon, 19 Jun 2023 03:17:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1687169829; x=1689761829;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7txYCxaVdCIzUmWm+LpJfmUPkElgoh9gHNmxHigBQcU=;
-        b=nRWtKAtYtZwQ37U5rmUB4JNSYm73slYhfU2qV3poD/fHYVfbfqiULogkJ5BqgcNKyl
-         yXBVtAri2IGb8PQkNptDRAnrAXe/9VD9FoT0zsWCTvzfOA8wc3qujmcHOfgn2SLYmvUE
-         KgkJUqkq2+EnNSKjM5ofw35CVs6/n2NL42/2VWHowCJ6dEMGQY8ONpa0D7RNLj6xXFTu
-         jP0a5dxRzZJUd2kFRUUkBVQyIr3gfjJif1S3pCgT1UIaFR/DlgSnKEpqnESDergK59S9
-         sSZSH2JX2+HBxGpuw6THiYPOn6YYPD/MeLWR2x5Pbkxbiw7Ax8BrYeAoVH5OUK3DKvk9
-         JPZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687169829; x=1689761829;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=7txYCxaVdCIzUmWm+LpJfmUPkElgoh9gHNmxHigBQcU=;
-        b=DLEtk9WJFgOviidyMT9U2haZQTrgmYngZey5t8T9fZ8RdvMFXmkLjT9Mrf7MVwm52P
-         QqaDE61HMcV+hJcDvUujXJS1PcSLe10xNIlnZ99BviOsybSY5Ty/pwyrgBZuG0Qw4yP2
-         oHPamZ48xMH6FTS0TX4KpW0qPJ9GtE9MrRKS7QaoZ3ip1mxO/HM5S/+uo8QHgpvt1dtb
-         33AObCyddDgY6KOJNCIUt/Kbn0hJkXkfnfDMTeG6FAteamjzOyoPqhTerJD509/0XvrQ
-         SiRkpMbznty511U18ckU6JwicqTIiQaEOq+4hF2kG2bf31gHlcq898zA4tMObjJapYOe
-         eqxw==
-X-Gm-Message-State: AC+VfDxI+9xuWFNyCUtzwtv7d8LyLMVLiwBfAoFNoBCcW1+3p/yB+G35
-	bvm6jj2BDwM2ZHxpPqqh1hdabA==
-X-Google-Smtp-Source: 
- ACHHUZ62UqNE78KOzcO6WZERXpwNqPBVI+AS7V7RFiGFsoO6+/Yt0jcotfsbe2XHpKTG089aTTCDeg==
-X-Received: by 2002:a5d:6e42:0:b0:306:31fb:1c3e with SMTP id
- j2-20020a5d6e42000000b0030631fb1c3emr5220830wrz.26.1687169828987;
-        Mon, 19 Jun 2023 03:17:08 -0700 (PDT)
-Received: from localhost.localdomain ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id
- c2-20020a5d5282000000b002fae7408544sm31146922wrv.108.2023.06.19.03.17.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Jun 2023 03:17:08 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com,
-	kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Subject: [PATCH v3 11/11] ASoC: q6dsp: q6apm-dai: Add mmap and copy compress
- DAI callbacks
-Date: Mon, 19 Jun 2023 11:16:53 +0100
-Message-Id: <20230619101653.9750-12-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20230619101653.9750-1-srinivas.kandagatla@linaro.org>
-References: <20230619101653.9750-1-srinivas.kandagatla@linaro.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EeN13VgC
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1135560B04;
+	Mon, 19 Jun 2023 11:20:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A417C433C9;
+	Mon, 19 Jun 2023 11:20:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687173645;
+	bh=TCyP3MTK9D8/2GgV8QtO5pJImHNQEoTXD9BrcpmOPeM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EeN13VgCF7HvQLeN8f3NVM2QepW/cThlIGx6tTXmWV3CvQITV7FMDjf4WnW8kBJL8
+	 hfPmb0f7IFPXPytBrqVR2jcjxvA4GfC16k3MnX5qy+QwZK0Fd3hos+4Skl4lYjNMC8
+	 90tXi+BRaqVDnwbsuxvd17HBj6UbRP/8DywVVqy02PHyRbfmZ5I8uSaluKxvI6x0Qh
+	 IhS9aMBTMmFa7PiVBAvhdPVNOdumKKpEWJW4cuPRfLhtcwvJm5Rmrkb2BCylvA0ren
+	 4JZSE9sedpOpucIyL0HGiE+J+a81RVwdxsmC9U1xZYXBuUEo0hNM9IrKqdfNduPq5N
+	 fCejfIFAbg1Qg==
+Date: Mon, 19 Jun 2023 12:20:39 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Cc: YingKun Meng <mengyingkun@loongson.cn>, lgirdwood@gmail.com,
+	krzysztof.kozlowski@linaro.org, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org, loongarch@lists.linux.dev,
+	loongson-kernel@lists.loongnix.cn,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	Dan Carpenter <error27@gmail.com>, kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] ASoC: Add support for Loongson I2S controller
+Message-ID: <ad4722ec-0fa2-4bb2-879b-47bcbd96bb0d@sirena.org.uk>
+References: <20230615122718.3412942-1-mengyingkun@loongson.cn>
+ <cf2f3bc9-3141-8d7b-b57d-73eac70a21d2@oracle.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FL2MOFBAWCW4HXY5XTJITFRR6EN36MRA
-X-Message-ID-Hash: FL2MOFBAWCW4HXY5XTJITFRR6EN36MRA
-X-MailFrom: srinivas.kandagatla@linaro.org
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="srSkMy3jZsgNxOgV"
+Content-Disposition: inline
+In-Reply-To: <cf2f3bc9-3141-8d7b-b57d-73eac70a21d2@oracle.com>
+X-Cookie: Prevent forest fires.
+Message-ID-Hash: JMH4FONLWPALJSO27VZQMRJWKSIY3XXL
+X-Message-ID-Hash: JMH4FONLWPALJSO27VZQMRJWKSIY3XXL
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +95,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FL2MOFBAWCW4HXY5XTJITFRR6EN36MRA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JMH4FONLWPALJSO27VZQMRJWKSIY3XXL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,115 +104,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add q6apm mmap and copy compress DAI callbacks to support compress
-offload playback.
 
-Co-developed-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Signed-off-by: Mohammad Rafi Shaik <quic_mohs@quicinc.com>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/qdsp6/q6apm-dai.c | 81 ++++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+--srSkMy3jZsgNxOgV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index c67147e5388b..5eb0b864c740 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -737,6 +737,85 @@ static int q6apm_dai_compr_set_metadata(struct snd_soc_component *component,
- 	return ret;
- }
- 
-+static int q6apm_dai_compr_mmap(struct snd_soc_component *component,
-+				struct snd_compr_stream *stream,
-+				struct vm_area_struct *vma)
-+{
-+	struct snd_compr_runtime *runtime = stream->runtime;
-+	struct q6apm_dai_rtd *prtd = runtime->private_data;
-+	struct device *dev = component->dev;
-+
-+	return dma_mmap_coherent(dev, vma, prtd->dma_buffer.area, prtd->dma_buffer.addr,
-+				 prtd->dma_buffer.bytes);
-+}
-+
-+static int q6apm_compr_copy(struct snd_soc_component *component,
-+			    struct snd_compr_stream *stream, char __user *buf,
-+			    size_t count)
-+{
-+	struct snd_compr_runtime *runtime = stream->runtime;
-+	struct q6apm_dai_rtd *prtd = runtime->private_data;
-+	void *dstn;
-+	unsigned long flags;
-+	size_t copy;
-+	u32 wflags = 0;
-+	u32 app_pointer;
-+	u32 bytes_received;
-+	uint32_t bytes_to_write;
-+	int avail, bytes_in_flight = 0;
-+
-+	bytes_received = prtd->bytes_received;
-+
-+	/**
-+	 * Make sure that next track data pointer is aligned at 32 bit boundary
-+	 * This is a Mandatory requirement from DSP data buffers alignment
-+	 */
-+	if (prtd->next_track)
-+		bytes_received = ALIGN(prtd->bytes_received, prtd->pcm_count);
-+
-+	app_pointer = bytes_received/prtd->pcm_size;
-+	app_pointer = bytes_received -  (app_pointer * prtd->pcm_size);
-+	dstn = prtd->dma_buffer.area + app_pointer;
-+
-+	if (count < prtd->pcm_size - app_pointer) {
-+		if (copy_from_user(dstn, buf, count))
-+			return -EFAULT;
-+	} else {
-+		copy = prtd->pcm_size - app_pointer;
-+		if (copy_from_user(dstn, buf, copy))
-+			return -EFAULT;
-+		if (copy_from_user(prtd->dma_buffer.area, buf + copy, count - copy))
-+			return -EFAULT;
-+	}
-+
-+	spin_lock_irqsave(&prtd->lock, flags);
-+	bytes_in_flight = prtd->bytes_received - prtd->copied_total;
-+
-+	if (prtd->next_track) {
-+		prtd->next_track = false;
-+		prtd->copied_total = ALIGN(prtd->copied_total, prtd->pcm_count);
-+		prtd->bytes_sent = ALIGN(prtd->bytes_sent, prtd->pcm_count);
-+	}
-+
-+	prtd->bytes_received = bytes_received + count;
-+
-+	/* Kick off the data to dsp if its starving!! */
-+	if (prtd->state == Q6APM_STREAM_RUNNING && (bytes_in_flight == 0)) {
-+		bytes_to_write = prtd->pcm_count;
-+		avail = prtd->bytes_received - prtd->bytes_sent;
-+
-+		if (avail < prtd->pcm_count)
-+			bytes_to_write = avail;
-+
-+		q6apm_write_async(prtd->graph, bytes_to_write, 0, 0, wflags);
-+		prtd->bytes_sent += bytes_to_write;
-+	}
-+
-+	spin_unlock_irqrestore(&prtd->lock, flags);
-+
-+	return count;
-+}
-+
- static const struct snd_compress_ops q6apm_dai_compress_ops = {
- 	.open		= q6apm_dai_compr_open,
- 	.free		= q6apm_dai_compr_free,
-@@ -747,6 +826,8 @@ static const struct snd_compress_ops q6apm_dai_compress_ops = {
- 	.ack		= q6apm_dai_compr_ack,
- 	.set_params	= q6apm_dai_compr_set_params,
- 	.set_metadata	= q6apm_dai_compr_set_metadata,
-+	.mmap		= q6apm_dai_compr_mmap,
-+	.copy		= q6apm_compr_copy,
- };
- 
- static const struct snd_soc_component_driver q6apm_fe_dai_component = {
--- 
-2.21.0
+On Mon, Jun 19, 2023 at 01:41:48AM +0530, Harshit Mogalapalli wrote:
+> Hi YingKun,
+>=20
+> On 15/06/23 5:57 pm, YingKun Meng wrote:
+> > From: Yingkun Meng <mengyingkun@loongson.cn>
+> >=20
+> > Loongson I2S controller is found on 7axxx/2kxxx chips from loongson,
+> > it is a PCI device with two private DMA controllers, one for playback,
+> > the other for capture.
+> >=20
+> > The driver supports the use of DTS or ACPI to describe device resources.
 
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
+
+--srSkMy3jZsgNxOgV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSQOgcACgkQJNaLcl1U
+h9CWMQf+Ici0ppIkITqxxvXumQa86CMD72Cxfz+kO2FGvaIcayPescQ3j/43UKIb
+AjvqoIA3Y6nX4w0WbkTr0pBPhV0jAxNHrv7Pc+wAEDdu8FEpFR/UXPllUwVusGqf
+cm51zP1Z/xPr3LluBa0J5y5gWcf1X5iXe3tEWVlSp+09cs0yPkaS8BNU6nk9rn2J
+yzbB1623/h0RJPrAG/6x71iHnOTyK+ebyLyRTNRfNOdii503bKf2BIClwLp6Zsqu
+BOIMPbFpZQUWgRamCUxpBi+evdWmu0xIxTDzOsY5gQKfRib+4Ey538+NSEp0Qaoy
+MoNr1GOae9rRO2D9WqCiQygvSudLeQ==
+=C+Ao
+-----END PGP SIGNATURE-----
+
+--srSkMy3jZsgNxOgV--

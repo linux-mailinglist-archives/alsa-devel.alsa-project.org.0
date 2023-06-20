@@ -2,73 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5430D736E1C
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jun 2023 15:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05658736E99
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jun 2023 16:26:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B36ED832;
-	Tue, 20 Jun 2023 15:57:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B36ED832
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32CE6839;
+	Tue, 20 Jun 2023 16:25:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32CE6839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687269527;
-	bh=Me7AcgpNpOk3qCP70I/MlnkF09J+mQECLB9lwb/bClc=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:Reply-To:List-Id:
+	s=default; t=1687271161;
+	bh=GyS9RRZCVtZIzBvzseTTQyCUHPb9F8QnBzeCuWXPLOA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ftMV46lTRhOaxfT9BHQQQv4toZAGfvOukeZGZ+99xW7R/TPbYAbgX0S5x7i6krcVZ
-	 Rg4h6o+z9Ref4cbSLHGMcT7s3x6aR2s70/1e9stTxL+c+yoHf5qFxvYBhgToZoiGvq
-	 XQLstLZ4HwmkzUmjmS7zSdyTRXPEeLrKYP82fKg8=
+	b=Xr62iWJ92RGQawuxk+c9pV4VXztpkwpCiUGE91yPKy2U//fpJAQ82ElYkYiGZz0no
+	 39cS62sltX10kte0Z85Pkvgc6YO3yhXylV5D6FnrkwmUi3xnLEILtCkhzZdo9UsPdj
+	 qjpawW+JDEgB7GJ5/gt/vvGadJMdzI/ANEwF7o0Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25D96F8051E; Tue, 20 Jun 2023 15:57:57 +0200 (CEST)
+	id 74580F80169; Tue, 20 Jun 2023 16:25:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D83A4F80132;
-	Tue, 20 Jun 2023 15:57:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AA45F80169;
+	Tue, 20 Jun 2023 16:25:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1310EF80141; Tue, 20 Jun 2023 15:57:53 +0200 (CEST)
+	id D637EF80169; Tue, 20 Jun 2023 16:25:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [80.237.130.52])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A452DF80093
-	for <alsa-devel@alsa-project.org>; Tue, 20 Jun 2023 15:57:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A452DF80093
-Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
-	by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
-	id 1qBbre-0003CE-4D; Tue, 20 Jun 2023 15:57:46 +0200
-Message-ID: <6872f437-03e9-32dd-b473-9a984df8915b@leemhuis.info>
-Date: Tue, 20 Jun 2023 15:57:45 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3F96AF80093
+	for <alsa-devel@alsa-project.org>; Tue, 20 Jun 2023 16:25:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F96AF80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=G9510GUh
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 58C726129A;
+	Tue, 20 Jun 2023 14:24:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162ECC433C8;
+	Tue, 20 Jun 2023 14:24:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687271098;
+	bh=GyS9RRZCVtZIzBvzseTTQyCUHPb9F8QnBzeCuWXPLOA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=G9510GUho4pzffB58KeobG9qR3kcDO7Q7HoHfOB98deZqdM4Gi52b10vBX6/1FH6d
+	 MMBSXve4QD9mIATluO6Hr7C5UqIdEm/bLHM6imLI/pO9pTFhrDK6maYtLWoxemLacw
+	 vSXzreleQu1SD4a50TiIbJY9TOyxYR2nJ9Qcyv8C8Y7Wxk+Ou9glNhrHSQCUQnUOyy
+	 qNUYjJ3CshKWXOjwEKHXHe61idZ6uYLv2ZRqt76xn+CL7zwZrQRg5yS2NalTH8hNZh
+	 FZIfiE/l2e33+j+tfFhh43+9gFYjUOsZYLQqo89HYHrkQLJLfOVHF8jhC4nR5FA6HF
+	 Ij9LBCY2XKvVA==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org
+In-Reply-To: <20230609-asoc-es-maple-v1-0-45ada77f5643@kernel.org>
+References: <20230609-asoc-es-maple-v1-0-45ada77f5643@kernel.org>
+Subject: Re: [PATCH 0/2] ASoC: Use maple tree register cache for Everest
+ Semi CODECs
+Message-Id: <168727109779.80037.12724449564245383711.b4-ty@kernel.org>
+Date: Tue, 20 Jun 2023 15:24:57 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: =?UTF-8?Q?Re=3a_=5bregression=5d_Bug=c2=a0216818_-_The_microphone_m?=
- =?UTF-8?Q?ute_led_not_working_after_linux_6?=
-Content-Language: en-US, de-DE
-From: "Linux regression tracking #update (Thorsten Leemhuis)"
- <regressions@leemhuis.info>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: sonic82003@gmail.com, plum <plumerlis@gmail.com>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
-References: <bf52f4c5-5cca-26d7-7fb2-ac8ecb5b24c5@leemhuis.info>
-In-Reply-To: <bf52f4c5-5cca-26d7-7fb2-ac8ecb5b24c5@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-bounce-key: 
- webpack.hosteurope.de;regressions@leemhuis.info;1687269468;2cc23710;
-X-HE-SMSGID: 1qBbre-0003CE-4D
-Message-ID-Hash: WMCQ75XHEANHW66FFBGLEY22CFU7HBUP
-X-Message-ID-Hash: WMCQ75XHEANHW66FFBGLEY22CFU7HBUP
-X-MailFrom: regressions@leemhuis.info
+X-Mailer: b4 0.13-dev-c6835
+Message-ID-Hash: CE5GK6MW3R5EACTTJW7G3QXV7OQBQLRV
+X-Message-ID-Hash: CE5GK6MW3R5EACTTJW7G3QXV7OQBQLRV
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -77,11 +87,10 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
-Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WMCQ75XHEANHW66FFBGLEY22CFU7HBUP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CE5GK6MW3R5EACTTJW7G3QXV7OQBQLRV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,31 +99,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-[TLDR: This mail in primarily relevant for Linux kernel regression
-tracking. See link in footer if these mails annoy you.]
-
-On 19.12.22 10:17, Thorsten Leemhuis wrote:
-> Hi, this is your Linux kernel regression tracker speaking.
+On Sat, 10 Jun 2023 12:16:36 +0100, Mark Brown wrote:
+> Several of the Everest Semi CODECs only support single register read and
+> write operations and therefore do not benefit from using the rbtree
+> cache over the maple tree cache, convert them to the more modern maple
+> tree cache.
 > 
-> I noticed a regression report in bugzilla.kernel.org. As many (most?)
-> kernel developer don't keep an eye on it, I decided to forward it by
-> mail. Quoting from https://bugzilla.kernel.org/show_bug.cgi?id=216818 :
+> 
 
-Not really sure if this issue was handled appropriately, but whatever,
-at this point it's likely not worth making fuzz about:
+Applied to
 
-#regzbot inconclusive: likely unresolved (see thread and bugzilla for
-details; Jaroslav argued it's not a regression)
-#regzbot ignore-activity
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
 
-Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
---
-Everything you wanna know about Linux kernel regression tracking:
-https://linux-regtracking.leemhuis.info/about/#tldr
-That page also explains what to do if mails like this annoy you.
+[1/2] ASoC: es8316: Use maple tree register cache
+      commit: 7ae8039f87918e2f108d352f228e2ccee03994bc
+[2/2] ASoC: es8328: Use maple tree register cache
+      commit: 9321015a5f40891e7cb094c6f68f6d4f67b5f3dc
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

@@ -2,108 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9333B736882
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jun 2023 11:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB61736B62
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Jun 2023 13:47:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 953CE83E;
-	Tue, 20 Jun 2023 11:57:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 953CE83E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4CE414E;
+	Tue, 20 Jun 2023 13:46:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4CE414E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687255102;
-	bh=BPrZiYjHta3fPPACw5J533rK/flXCMO5EeQ7J4KwwyE=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=I35+WfcP5wmKW010n4jtL+e0vwbQZ2K8vZ/33L3RyBFUVbyDHhYGFW+JLID2Kcx/V
-	 sWrbmPqs21h34JEZrjsk/gaud9JoZ+pBXY7Z2bbFVHXhQdVykfgNEBVmnCOfrbTFGZ
-	 6b7gq4wtM+cS1nsa5aAQxBK3yGhH1sEmfkkvBOgA=
+	s=default; t=1687261668;
+	bh=C+FiMJ1INtmm+m9AePVrGfbLxaYft8hCj0GpBNdZ+AY=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=gq5s9fMaKK72dMPJQcwi4qdt9TX8wqWbdOmXI6Ao8V6Df7oz/jBwxCM8Lgvs5SJr9
+	 YIffk8hbIvG9qpgg9/z8QtkgOrtOs0iWtCeqw7BbKdG2UPE9bk8n3RB/P2aNtKF9Qc
+	 FPkW3XDx4Pb9OXL7ugjfxnA97Ekx30pGhRuFuVQs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 989AAF80141; Tue, 20 Jun 2023 11:57:24 +0200 (CEST)
+	id 2440BF80163; Tue, 20 Jun 2023 13:46:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8257F80132;
-	Tue, 20 Jun 2023 11:57:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DB62F80132;
+	Tue, 20 Jun 2023 13:46:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2D16CF80141; Tue, 20 Jun 2023 11:56:30 +0200 (CEST)
+	id C6FD1F80141; Tue, 20 Jun 2023 13:45:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [IPv6:2a00:1450:4864:20::32e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H5,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [185.58.86.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5283CF80093
-	for <alsa-devel@alsa-project.org>; Tue, 20 Jun 2023 11:56:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5283CF80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=nQZMj+0R
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-3f900cd3f69so29259335e9.0
-        for <alsa-devel@alsa-project.org>;
- Tue, 20 Jun 2023 02:56:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687254982; x=1689846982;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2nzfSnFwwgUKGBxhz4K3sxN6CVZIzUqaHD5LMCxLNTs=;
-        b=nQZMj+0R5+KtxAXE0ZEN5ZZdFles83qKs8iX+fsg0noiCxN6QmGAD6ma8fz06kMDaR
-         XQNjrEiFt3dtK1/l3kNeazgIIK42SDIEKr96LHiUIxWZJjIQv5V4iY0IFAPENO16ZAQo
-         FVOmaLdV5jFqjVz2hHie1anPFYgc9EzCMcN5WBFl7npcHDdF8GgLkMWKtKS+z9mCnwz0
-         30VCojhkx80O0xpnXMG/JSkVIK4hnts0+yZU8+9hBov0VwbMe0E5jJgKRiAPVvRP/MIO
-         2XDGBf5iVoPFE2jvS7WVxE8nPGRuMj/xvjWkIAB9QfPodQnO0ivRf/ouX7DLff1t4/EX
-         /ZMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687254982; x=1689846982;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2nzfSnFwwgUKGBxhz4K3sxN6CVZIzUqaHD5LMCxLNTs=;
-        b=CMh7l9kESZCi0UZH9Y0Kp5s3gV6T7SSmEbhMNP6x1nSDTHLE53kIo9tHd5r+8KxwBX
-         xZ2KPdCrQJvpqjReR3DHa/duvkxuOURuzcsMTHH8ZHNPl/Llcb7/8kerWQaLwDyJEPlb
-         rxHK4TkbHz9jIaIza3NmnZOIukp6/EyEKygeUtC4Jhz7fHONr34PC+Pw92uVpmKZruxv
-         b+WdSkmxmGT9PlpNf9xidpQmFfYkg4Fnccq+z55Ob4QlC6audZL/KsJk6SYHwvd6qsB3
-         MA9EcJLBhgCUAAzlEf0oyV3VDCLG1E5KB91VFC5Al3r3yaS15YynXQ2dtFaG+AxzSWkA
-         MxHA==
-X-Gm-Message-State: AC+VfDzmmQYvM0dxQplFMTb7sj04++XFSqtwScW9BoFJrNv92AF3u/mB
-	rIMnJUOdoEMT/BO+X21H780=
-X-Google-Smtp-Source: 
- ACHHUZ57QTB7wxq1J7LAwX05NJAArS4vx/ZblH3A3rVBL1H9ewMMGIwbkkwag/Q5ylBcYjKIpX35/g==
-X-Received: by 2002:adf:e7c2:0:b0:30f:c764:189a with SMTP id
- e2-20020adfe7c2000000b0030fc764189amr7427650wrn.39.1687254982152;
-        Tue, 20 Jun 2023 02:56:22 -0700 (PDT)
-Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
- [80.193.200.194])
-        by smtp.gmail.com with ESMTPSA id
- i11-20020adffdcb000000b002fda1b12a0bsm1659046wrs.2.2023.06.20.02.56.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Jun 2023 02:56:21 -0700 (PDT)
-From: Colin Ian King <colin.i.king@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shenghao Ding <13916275206@139.com>,
-	alsa-devel@alsa-project.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] ASoC: tas2781: Fix spelling mistake "calibraiton" ->
- "calibration"
-Date: Tue, 20 Jun 2023 10:56:20 +0100
-Message-Id: <20230620095620.2522058-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.39.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id F21E9F80124
+	for <alsa-devel@alsa-project.org>; Tue, 20 Jun 2023 13:45:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F21E9F80124
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-183-CwR9mL0JPti0FE6q9jlz4w-1; Tue, 20 Jun 2023 12:45:04 +0100
+X-MC-Unique: CwR9mL0JPti0FE6q9jlz4w-1
+Received: from AcuMS.Aculab.com (10.202.163.4) by AcuMS.aculab.com
+ (10.202.163.4) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Tue, 20 Jun
+ 2023 12:45:02 +0100
+Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
+ id 15.00.1497.048; Tue, 20 Jun 2023 12:45:02 +0100
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Herve Codina' <herve.codina@bootlin.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Kuninori
+ Morimoto" <kuninori.morimoto.gx@renesas.com>, Andy Shevchenko
+	<andy.shevchenko@gmail.com>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, Christophe Leroy
+	<christophe.leroy@csgroup.eu>, Thomas Petazzoni
+	<thomas.petazzoni@bootlin.com>
+Subject: RE: [PATCH v5 07/13] minmax: Introduce {min,max}_array()
+Thread-Topic: [PATCH v5 07/13] minmax: Introduce {min,max}_array()
+Thread-Index: AQHZn535xpz9i2gsDE6nNaGlDsvHDa+TlXFw
+Date: Tue, 20 Jun 2023 11:45:01 +0000
+Message-ID: <70697b976107473b8779eea7d6c8a189@AcuMS.aculab.com>
+References: <20230615152631.224529-1-herve.codina@bootlin.com>
+ <20230615152631.224529-8-herve.codina@bootlin.com>
+In-Reply-To: <20230615152631.224529-8-herve.codina@bootlin.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 6SAMFP2P7TQRWRF7WMSKVZAXTX4Q7XNG
-X-Message-ID-Hash: 6SAMFP2P7TQRWRF7WMSKVZAXTX4Q7XNG
-X-MailFrom: colin.i.king@gmail.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: 5AKB3WRTWAG4BHIHL27ZZ27JNV4JTGMX
+X-Message-ID-Hash: 5AKB3WRTWAG4BHIHL27ZZ27JNV4JTGMX
+X-MailFrom: david.laight@aculab.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6SAMFP2P7TQRWRF7WMSKVZAXTX4Q7XNG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5AKB3WRTWAG4BHIHL27ZZ27JNV4JTGMX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,27 +108,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-There is a spelling mistake in a dev_err message. Fix it. Also fix
-grammar and add space between last word and (%d)".
+From: Herve Codina
+> Sent: 15 June 2023 16:26
+>=20
+> Introduce min_array() (resp max_array()) in order to get the
+> minimal (resp maximum) of values present in an array.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> ---
+>  include/linux/minmax.h | 64 ++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 64 insertions(+)
+>=20
+> diff --git a/include/linux/minmax.h b/include/linux/minmax.h
+> index 396df1121bff..1672985b02a3 100644
+> --- a/include/linux/minmax.h
+> +++ b/include/linux/minmax.h
+> @@ -133,6 +133,70 @@
+>   */
+>  #define max_t(type, x, y)=09__careful_cmp((type)(x), (type)(y), >)
+>=20
+> +/*
+> + * Remove a const qualifier from integer types
+> + * _Generic(foo, type-name: association, ..., default: association) perf=
+orms a
+> + * comparison against the foo type (not the qualified type).
+> + * Do not use the const keyword in the type-name as it will not match th=
+e
+> + * unqualified type of foo.
+> + */
+> +#define __unconst_integer_type_cases(type)=09\
+> +=09unsigned type:  (unsigned type)0,=09\
+> +=09signed type:    (signed type)0
+> +
+> +#define __unconst_integer_typeof(x) typeof(=09=09=09\
+> +=09_Generic((x),=09=09=09=09=09=09\
+> +=09=09char: (char)0,=09=09=09=09=09\
+> +=09=09__unconst_integer_type_cases(char),=09=09\
+> +=09=09__unconst_integer_type_cases(short),=09=09\
+> +=09=09__unconst_integer_type_cases(int),=09=09\
+> +=09=09__unconst_integer_type_cases(long),=09=09\
+> +=09=09__unconst_integer_type_cases(long long),=09\
+> +=09=09default: (x)))
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
----
- sound/soc/codecs/tas2781-fmwlib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Those are probably more generally useful and belong elsewhere.
 
-diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
-index 432b19ccec8c..cbf0aef2c001 100644
---- a/sound/soc/codecs/tas2781-fmwlib.c
-+++ b/sound/soc/codecs/tas2781-fmwlib.c
-@@ -1863,7 +1863,7 @@ static int fw_parse_calibration_data(struct tasdevice_priv *tas_priv,
- 
- 	if (tas_fmw->nr_calibrations != 1) {
- 		dev_err(tas_priv->dev,
--			"%s: only support one calibraiton(%d)!\n",
-+			"%s: only supports one calibration (%d)!\n",
- 			__func__, tas_fmw->nr_calibrations);
- 		goto out;
- 	}
--- 
-2.39.2
+> +
+> +/*
+> + * Do not check the array parameter using __must_be_array().
+> + * In the following legit use-case where the "array" passed is a simple =
+pointer,
+> + * __must_be_array() will return a failure.
+> + * --- 8< ---
+> + * int *buff
+> + * ...
+> + * min =3D min_array(buff, nb_items);
+> + * --- 8< ---
+
+Is that needed in the .h file?
+
+> + *
+> + * The first typeof(&(array)[0]) is needed in order to support arrays of=
+ both
+> + * 'int *buff' and 'int buf[N]' types.
+> + *
+> + * The array can be an array of const items.
+> + * typeof() keeps the const qualifier. Use __unconst_typeof() in order t=
+o
+> + * discard the const qualifier for the __element variable.
+> + */
+> +#define __minmax_array(op, array, len) ({=09=09=09=09\
+> +=09typeof(&(array)[0]) __array =3D (array);=09=09=09=09\
+> +=09typeof(len) __len =3D (len);=09=09=09=09=09\
+> +=09__unconst_integer_typeof(__array[0]) __element =3D __array[--__len]; =
+\
+
+s/__element/__bound/
+
+> +=09while (__len--)=09=09=09=09=09=09=09\
+> +=09=09__element =3D op(__element, __array[__len]);=09=09\
+> +=09__element; })
+
+I'm not all sure that all the shenanigans required to use min()
+is really needed here.
+
+It would also be generally better to process the array forwards.
+So something like:
+=09typeof (&array[0]) __ptr =3D array, __limit =3D array + len;
+=09typeof (array[0] + 0) __element, __bound =3D *__ptr++;
+=09while (ptr < __limit) {
+=09=09__element =3D *__ptr++;
+=09=09if (__element > __bound)
+=09=09=09__bound =3D __element;
+=09}
+=09(typeof (array[0]))__bound; })
+seems fine to me.
+The final cast is there to convert 'int' back to un/signed char|short.
+Not really needed and might generate worse code.
+
+But if you insist on using min/max ignore this bit.
+
+=09David
+
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
+PT, UK
+Registration No: 1397386 (Wales)
 

@@ -2,65 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 545E7737778
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 00:28:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CB40737779
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 00:29:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 354CF1FA;
-	Wed, 21 Jun 2023 00:27:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 354CF1FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4D19832;
+	Wed, 21 Jun 2023 00:28:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4D19832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687300129;
-	bh=pMukWB0Dc/yW8XeN7gZs3fKsPLiPAntaM6BWAC5s3ZI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HnmV2z/8oytnnWCEo6JIutS/1OYIuX6pLDrln/yrPXnRjS73Be/wMKUDTLN0NXO72
-	 OQ4J4wFHL5qgVqZ+TgfK0M0g/oRsdYwScnl197F3t+fzWcIs9RhCOWrKMY1wTH4LAc
-	 9kgJoQUIWrX9L0XmGalCh458S7OZ/iK1Zof5NKCg=
+	s=default; t=1687300178;
+	bh=ySaaRuf0YxKRdkILyJHmqoCwfptq1Xrue2J0JYrw0F4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=COlAGIpgRNRmZ/3H8+KbtsN1UWgPd+0LOpC1J9d57ra6J+Z/PrpXWbIwdpqyk7oa7
+	 Gezimx4awQ+XK1hJuEwv10aB8wIS5JSvJjbp1CeCnzz5kpwOHGJJ0t6GwfM+xQ/AN6
+	 Ad6w4zDi/n226pBSg6PJgkhEzubPcoBQOEdxKXK0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 59F18F801F5; Wed, 21 Jun 2023 00:27:58 +0200 (CEST)
+	id 67E9DF80557; Wed, 21 Jun 2023 00:28:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00950F80141;
-	Wed, 21 Jun 2023 00:27:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 967F0F80544;
+	Wed, 21 Jun 2023 00:28:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D3E1BF80163; Wed, 21 Jun 2023 00:27:53 +0200 (CEST)
+	id 21221F80163; Wed, 21 Jun 2023 00:27:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ [46.235.227.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8D5ABF80124
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 00:27:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D5ABF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8050DF80022
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 00:27:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8050DF80022
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=VaulE6xZ
+ header.a=rsa-sha256 header.s=mail header.b=CN+qrRhj
 Received: from localhost (unknown [188.27.34.213])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id D31576606F5C;
-	Tue, 20 Jun 2023 23:27:48 +0100 (BST)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 7DA8C6606F70;
+	Tue, 20 Jun 2023 23:27:51 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1687300069;
-	bh=pMukWB0Dc/yW8XeN7gZs3fKsPLiPAntaM6BWAC5s3ZI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=VaulE6xZq8PG0Q2I2jrEKrBsPSG46Sr1cnARHj08qnwGyG1VVilmE+1ruQ0E3U7h6
-	 I2x0VPpvtag6a73EWOiZE0x04qC/mayOpWtQoC+5tj7uwERkcLHogohfZF/VF2ZzdP
-	 3MiM9DO5q+fRIW54u5dCMTfEUrsUYD1EQRK+JkqoZ+mAZgOSvHABqLJ4BIMOowPzvO
-	 +8DHy3nImcICOCiY1jr5tw97vsMgAzfei2WbdUXeyB3yyI4SDJCKA6BOKi+nN+xtBI
-	 +WXRRVrdq2s/TEw/LkpSrdj9Cb+FRpe0208oZKeDWf+/2CHDLz/YDqlo54WQ6lik16
-	 MyhH0mYD4tBvQ==
+	s=mail; t=1687300071;
+	bh=ySaaRuf0YxKRdkILyJHmqoCwfptq1Xrue2J0JYrw0F4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=CN+qrRhjql9jWIRKd6ej9ZbQuADjjef6nYEvuz6Z22k88O1AilgvwNIFabL+3juvI
+	 ui6V6/1DuMfeUZGhmRzN1Jek3XYMRfoiTiEqI3+pEPi9OhMnQmmTDGGapHKIKOQzWQ
+	 SK1s//MjeQaKKdw8x0gx7LlWPRhxXo0nugM2tYztiMXm7K5QRBxVTpuJekgVefSx6l
+	 zXlSwbtuRQAwbw/XtYBdVrwTAoLVVb+L7qjGJ+c8MnL0s/ehBIHgVu7AOZjddARfF3
+	 2oDrfGvk7d+DsOhc7HSMuai/Q01splYuhB1I7MliVeTe4nWSVYVozhQBNxWTH9riVy
+	 LI3bEklh+0orQ==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -76,14 +77,16 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com
-Subject: [PATCH 0/2] AMD Vangogh support for NAU8821/MAX98388
-Date: Wed, 21 Jun 2023 01:27:41 +0300
-Message-ID: <20230620222743.274432-1-cristian.ciocaltea@collabora.com>
+Subject: [PATCH 1/2] ASoC: amd: vangogh: Add ACPI probe support
+Date: Wed, 21 Jun 2023 01:27:42 +0300
+Message-ID: <20230620222743.274432-2-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230620222743.274432-1-cristian.ciocaltea@collabora.com>
+References: <20230620222743.274432-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WHUAIVXFWRGQVLSATEHL2R7NN4ZAKR37
-X-Message-ID-Hash: WHUAIVXFWRGQVLSATEHL2R7NN4ZAKR37
+Message-ID-Hash: GJJ6WOZJGW6PNZO7BNYWOBKOMPMWBOBY
+X-Message-ID-Hash: GJJ6WOZJGW6PNZO7BNYWOBKOMPMWBOBY
 X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WHUAIVXFWRGQVLSATEHL2R7NN4ZAKR37/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GJJ6WOZJGW6PNZO7BNYWOBKOMPMWBOBY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,19 +108,131 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch series extends the Vangogh machine driver to support a variant based
-on the Nuvoton NAU88L21 Codec and the Analog Devices MAX98388 Speaker Amplifier.
+Remove the acp5x machine driver from pci-acp5x child devices and enable
+probing via ACPI match table.
 
-Cristian Ciocaltea (2):
-  ASoC: amd: vangogh: Add ACPI probe support
-  ASoC: amd: vangogh: Add support for NAU8821/MAX98388 variant
+Co-developed-by: Lucas Tanure <lucas.tanure@collabora.com>
+Signed-off-by: Lucas Tanure <lucas.tanure@collabora.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ sound/soc/amd/vangogh/acp5x-mach.c | 39 +++++++++---------------------
+ sound/soc/amd/vangogh/acp5x.h      |  2 +-
+ sound/soc/amd/vangogh/pci-acp5x.c  |  3 ---
+ 3 files changed, 12 insertions(+), 32 deletions(-)
 
- sound/soc/amd/Kconfig              |   5 +-
- sound/soc/amd/vangogh/acp5x-mach.c | 155 ++++++++++++++++++++++++-----
- sound/soc/amd/vangogh/acp5x.h      |   2 +-
- sound/soc/amd/vangogh/pci-acp5x.c  |   3 -
- 4 files changed, 134 insertions(+), 31 deletions(-)
-
+diff --git a/sound/soc/amd/vangogh/acp5x-mach.c b/sound/soc/amd/vangogh/acp5x-mach.c
+index e5bcd1e6eb73..1b54eadc4979 100644
+--- a/sound/soc/amd/vangogh/acp5x-mach.c
++++ b/sound/soc/amd/vangogh/acp5x-mach.c
+@@ -22,7 +22,6 @@
+ 
+ #define DRV_NAME			"acp5x_mach"
+ #define DUAL_CHANNEL			2
+-#define VG_JUPITER			1
+ #define ACP5X_NAU8821_BCLK		3072000
+ #define ACP5X_NAU8821_FREQ_OUT		12288000
+ #define ACP5X_NAU8821_COMP_NAME 	"i2c-NVTN2020:00"
+@@ -31,7 +30,6 @@
+ #define ACP5X_CS35L41_COMP_RNAME	"spi-VLV1776:01"
+ #define ACP5X_CS35L41_DAI_NAME		"cs35l41-pcm"
+ 
+-static unsigned long acp5x_machine_id;
+ static struct snd_soc_jack vg_headset;
+ 
+ SND_SOC_DAILINK_DEF(platform,  DAILINK_COMP_ARRAY(COMP_PLATFORM("acp5x_i2s_dma.0")));
+@@ -331,24 +329,6 @@ static struct snd_soc_card acp5x_8821_35l41_card = {
+ 	.num_controls = ARRAY_SIZE(acp5x_8821_controls),
+ };
+ 
+-static int acp5x_vg_quirk_cb(const struct dmi_system_id *id)
+-{
+-	acp5x_machine_id = VG_JUPITER;
+-
+-	return 1;
+-}
+-
+-static const struct dmi_system_id acp5x_vg_quirk_table[] = {
+-	{
+-		.callback = acp5x_vg_quirk_cb,
+-		.matches = {
+-			DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Valve"),
+-			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Jupiter"),
+-		}
+-	},
+-	{}
+-};
+-
+ static int acp5x_probe(struct platform_device *pdev)
+ {
+ 	struct acp5x_platform_info *machine;
+@@ -356,18 +336,14 @@ static int acp5x_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card;
+ 	int ret;
+ 
++	card = (struct snd_soc_card *)device_get_match_data(dev);
++	if (!card)
++		return -EINVAL;
++
+ 	machine = devm_kzalloc(dev, sizeof(*machine), GFP_KERNEL);
+ 	if (!machine)
+ 		return -ENOMEM;
+ 
+-	dmi_check_system(acp5x_vg_quirk_table);
+-	switch (acp5x_machine_id) {
+-	case VG_JUPITER:
+-		card = &acp5x_8821_35l41_card;
+-		break;
+-	default:
+-		return -ENODEV;
+-	}
+ 	card->dev = dev;
+ 	platform_set_drvdata(pdev, card);
+ 	snd_soc_card_set_drvdata(card, machine);
+@@ -379,10 +355,17 @@ static int acp5x_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
++static const struct acpi_device_id acp5x_acpi_match[] = {
++	{ "AMDI3541", (kernel_ulong_t)&acp5x_8821_35l41_card },
++	{},
++};
++MODULE_DEVICE_TABLE(acpi, acp5x_acpi_match);
++
+ static struct platform_driver acp5x_mach_driver = {
+ 	.driver = {
+ 		.name = "acp5x_mach",
+ 		.pm = &snd_soc_pm_ops,
++		.acpi_match_table = acp5x_acpi_match,
+ 	},
+ 	.probe = acp5x_probe,
+ };
+diff --git a/sound/soc/amd/vangogh/acp5x.h b/sound/soc/amd/vangogh/acp5x.h
+index ac1936a8c43f..2d9b182af109 100644
+--- a/sound/soc/amd/vangogh/acp5x.h
++++ b/sound/soc/amd/vangogh/acp5x.h
+@@ -23,7 +23,7 @@
+ #define ACP_ERR_INTR_MASK	0x20000000
+ #define ACP_EXT_INTR_STAT_CLEAR_MASK 0xFFFFFFFF
+ 
+-#define ACP5x_DEVS 4
++#define ACP5x_DEVS 3
+ #define	ACP5x_REG_START	0x1240000
+ #define	ACP5x_REG_END	0x1250200
+ #define ACP5x_I2STDM_REG_START	0x1242400
+diff --git a/sound/soc/amd/vangogh/pci-acp5x.c b/sound/soc/amd/vangogh/pci-acp5x.c
+index c4634a8a17cd..ab2fcb34518f 100644
+--- a/sound/soc/amd/vangogh/pci-acp5x.c
++++ b/sound/soc/amd/vangogh/pci-acp5x.c
+@@ -222,9 +222,6 @@ static int snd_acp5x_probe(struct pci_dev *pci,
+ 		pdevinfo[2].num_res = 1;
+ 		pdevinfo[2].res = &adata->res[2];
+ 
+-		pdevinfo[3].name = "acp5x_mach";
+-		pdevinfo[3].id = 0;
+-		pdevinfo[3].parent = &pci->dev;
+ 		for (i = 0; i < ACP5x_DEVS; i++) {
+ 			adata->pdev[i] =
+ 				platform_device_register_full(&pdevinfo[i]);
 -- 
 2.41.0
 

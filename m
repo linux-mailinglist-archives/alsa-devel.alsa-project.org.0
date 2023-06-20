@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6D9737748
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 00:10:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 545E7737778
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 00:28:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91DC783E;
-	Wed, 21 Jun 2023 00:09:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91DC783E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 354CF1FA;
+	Wed, 21 Jun 2023 00:27:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 354CF1FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687299047;
-	bh=g1Ge7OS0fr37jsbP/Xrz0cMOpZ9QFiuqkEuRXr45wpk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=fnUNNfmoZGdRcMmDza7hd9I6UwW0WmFhGPysHc/AobLUYEwPGa4We1kGWeF4eqSTd
-	 KK8LQ8E3C5QzZsGG4zUJH33Rw/5TPdwoxH6u+K5pnuSmUdSyGi+1Y+z/XKKsvNsrUR
-	 E+CCxc5318FrdhAh06Rxzxxq5Tna7MyFnhGdtfTI=
+	s=default; t=1687300129;
+	bh=pMukWB0Dc/yW8XeN7gZs3fKsPLiPAntaM6BWAC5s3ZI=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HnmV2z/8oytnnWCEo6JIutS/1OYIuX6pLDrln/yrPXnRjS73Be/wMKUDTLN0NXO72
+	 OQ4J4wFHL5qgVqZ+TgfK0M0g/oRsdYwScnl197F3t+fzWcIs9RhCOWrKMY1wTH4LAc
+	 9kgJoQUIWrX9L0XmGalCh458S7OZ/iK1Zof5NKCg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 804E6F80553; Wed, 21 Jun 2023 00:09:03 +0200 (CEST)
+	id 59F18F801F5; Wed, 21 Jun 2023 00:27:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B54E5F80548;
-	Wed, 21 Jun 2023 00:09:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00950F80141;
+	Wed, 21 Jun 2023 00:27:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BA8FCF80163; Wed, 21 Jun 2023 00:08:57 +0200 (CEST)
+	id D3E1BF80163; Wed, 21 Jun 2023 00:27:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,61 +34,57 @@ X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CFBAEF80132
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 00:08:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFBAEF80132
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D5ABF80124
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 00:27:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D5ABF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=keBZDB/q
-Received: from notapiano.myfiosgateway.com (zone.collabora.co.uk
- [167.235.23.81])
+ header.a=rsa-sha256 header.s=mail header.b=VaulE6xZ
+Received: from localhost (unknown [188.27.34.213])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: nfraprado)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 274586606F8A;
-	Tue, 20 Jun 2023 23:08:50 +0100 (BST)
+	(Authenticated sender: cristicc)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id D31576606F5C;
+	Tue, 20 Jun 2023 23:27:48 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1687298932;
-	bh=g1Ge7OS0fr37jsbP/Xrz0cMOpZ9QFiuqkEuRXr45wpk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=keBZDB/qPPd4GgrMzo8SeAUd+1s5SQOLo/TyAovssps9kWDPo9TVSne5g5X/uY1QK
-	 wWAPE4tW9UVGnYJCPu/Fb9LATyCXwIqhAZ+gFUza0WZ5TnmP1RoNiFesbl8iZ3+4Q7
-	 sLRk7KPxDV4hhxPMcyXxHzUFM6z6HHc/vNx05dEMvUh1PjWuK3tqillU2CLebZ4xIK
-	 2gDQMMERY8VDHZEnVg8RlHEbytH5hbGoLltCuIzD4sIjfFDw8XC+6mDFB5/YC3sIon
-	 UNplbzV0veEY/S+bytao02xVIS7gQyV8JATXT90lfovZn9mMWx2ev1JSB2zYxopbQ9
-	 Ooi4YfeZYPl8A==
-From: =?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: kernel@collabora.com,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	=?UTF-8?q?N=C3=ADcolas=20F=2E=20R=2E=20A=2E=20Prado?=
- <nfraprado@collabora.com>,
+	s=mail; t=1687300069;
+	bh=pMukWB0Dc/yW8XeN7gZs3fKsPLiPAntaM6BWAC5s3ZI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=VaulE6xZq8PG0Q2I2jrEKrBsPSG46Sr1cnARHj08qnwGyG1VVilmE+1ruQ0E3U7h6
+	 I2x0VPpvtag6a73EWOiZE0x04qC/mayOpWtQoC+5tj7uwERkcLHogohfZF/VF2ZzdP
+	 3MiM9DO5q+fRIW54u5dCMTfEUrsUYD1EQRK+JkqoZ+mAZgOSvHABqLJ4BIMOowPzvO
+	 +8DHy3nImcICOCiY1jr5tw97vsMgAzfei2WbdUXeyB3yyI4SDJCKA6BOKi+nN+xtBI
+	 +WXRRVrdq2s/TEw/LkpSrdj9Cb+FRpe0208oZKeDWf+/2CHDLz/YDqlo54WQ6lik16
+	 MyhH0mYD4tBvQ==
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
-	Shuah Khan <shuah@kernel.org>,
 	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Cc: alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 2/2] kselftest/alsa: pcm-test: Decrease stream duration from 4
- to 2 seconds
-Date: Tue, 20 Jun 2023 18:08:26 -0400
-Message-ID: <20230620220839.2215057-3-nfraprado@collabora.com>
+	kernel@collabora.com
+Subject: [PATCH 0/2] AMD Vangogh support for NAU8821/MAX98388
+Date: Wed, 21 Jun 2023 01:27:41 +0300
+Message-ID: <20230620222743.274432-1-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230620220839.2215057-1-nfraprado@collabora.com>
-References: <20230620220839.2215057-1-nfraprado@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MMVVZ5YO3VPLEL3GOCKBY6LPIGNTWGC7
-X-Message-ID-Hash: MMVVZ5YO3VPLEL3GOCKBY6LPIGNTWGC7
-X-MailFrom: nfraprado@collabora.com
+Message-ID-Hash: WHUAIVXFWRGQVLSATEHL2R7NN4ZAKR37
+X-Message-ID-Hash: WHUAIVXFWRGQVLSATEHL2R7NN4ZAKR37
+X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MMVVZ5YO3VPLEL3GOCKBY6LPIGNTWGC7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WHUAIVXFWRGQVLSATEHL2R7NN4ZAKR37/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,31 +105,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Currently test_pcm_time() streams audio on each PCM with each
-configuration for 4 seconds. This time can add up, and with the current
-45 second kselftest timeout, some machines like mt8192-asurada-spherion
-can't even run to completion. Lower the duration to 2 seconds to cut the
-test duration in half, without reducing the test coverage.
+This patch series extends the Vangogh machine driver to support a variant based
+on the Nuvoton NAU88L21 Codec and the Analog Devices MAX98388 Speaker Amplifier.
 
-Signed-off-by: Nícolas F. R. A. Prado <nfraprado@collabora.com>
----
+Cristian Ciocaltea (2):
+  ASoC: amd: vangogh: Add ACPI probe support
+  ASoC: amd: vangogh: Add support for NAU8821/MAX98388 variant
 
- tools/testing/selftests/alsa/pcm-test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/amd/Kconfig              |   5 +-
+ sound/soc/amd/vangogh/acp5x-mach.c | 155 ++++++++++++++++++++++++-----
+ sound/soc/amd/vangogh/acp5x.h      |   2 +-
+ sound/soc/amd/vangogh/pci-acp5x.c  |   3 -
+ 4 files changed, 134 insertions(+), 31 deletions(-)
 
-diff --git a/tools/testing/selftests/alsa/pcm-test.c b/tools/testing/selftests/alsa/pcm-test.c
-index a2b6db33b513..de42fc7e9b53 100644
---- a/tools/testing/selftests/alsa/pcm-test.c
-+++ b/tools/testing/selftests/alsa/pcm-test.c
-@@ -258,7 +258,7 @@ static void test_pcm_time(struct pcm_data *data, enum test_class class,
- 			  const char *test_name, snd_config_t *pcm_cfg)
- {
- 	char name[64], key[128], msg[256];
--	const int duration_s = 4, margin_ms = 100;
-+	const int duration_s = 2, margin_ms = 100;
- 	const int duration_ms = duration_s * 1000;
- 	const char *cs;
- 	int i, err;
 -- 
 2.41.0
 

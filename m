@@ -2,90 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FE2B738748
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 16:40:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9F89738921
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 17:30:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E3E6820;
-	Wed, 21 Jun 2023 16:39:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E3E6820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 125DA74C;
+	Wed, 21 Jun 2023 17:29:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 125DA74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687358438;
-	bh=VXBvW08YHCjFJUo8Y3I1beTInLzEQKnsdmhPOK4bYIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1687361421;
+	bh=8sWjYA4N+fAraCJGgq/hNuwy2uwuyh5U7Ae9A1i5Soo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UtLfOVPeDNLZXiuthDEQfRd6tcg1bfz3L8Xi64odopyJNPYgj/aPGzS6NzLAgdaMs
-	 WtNThX/XEtkGClYQ8zCoNsI9M3uLAypq3jxfdeNjZcE6Bx27Jqx/EHV/V6WKuAP+oO
-	 cjSi5I8QcXXuBfS/jslduY6+/fMroGS8VODDGqhE=
+	b=h8gN6XIAFXt2Ur+TImlpr4T6DCYvFEcqOlKfDAYVHmNictMOUvfnz5mp9CBX9EWmT
+	 l41jT+Le2pec2mshlanO3hRPl2aigZ5Zc43Z7ih1xHLSxuZaX1dG5AHiyuuelTBW+V
+	 KtdsaPCo0EZSv63gfBYSx5cWDJNfbvECGL+Vt0zM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 77255F80022; Wed, 21 Jun 2023 16:39:25 +0200 (CEST)
+	id 85E3FF80132; Wed, 21 Jun 2023 17:29:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0712BF80132;
-	Wed, 21 Jun 2023 16:39:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F100F80132;
+	Wed, 21 Jun 2023 17:29:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 28492F80141; Wed, 21 Jun 2023 16:39:22 +0200 (CEST)
+	id AFE38F80141; Wed, 21 Jun 2023 17:29:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B5F1F80022
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 16:39:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B5F1F80022
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9DE76F80124
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 17:29:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DE76F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=tZl1k1F0
+ header.s=k20201202 header.b=WR6Npiob
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id DACDC61576;
-	Wed, 21 Jun 2023 14:39:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41C34C433C8;
-	Wed, 21 Jun 2023 14:39:16 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 6DB9661597;
+	Wed, 21 Jun 2023 15:29:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69059C433C8;
+	Wed, 21 Jun 2023 15:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687358358;
-	bh=VXBvW08YHCjFJUo8Y3I1beTInLzEQKnsdmhPOK4bYIM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tZl1k1F0ZcAed6cyywzNyeNFbJ7D6LC6xDLfFbVBm2LiVc0WmmIBNSjNUlr6y4Q6c
-	 rJpTjq0rjslE8kERMZNeE2zcPY3jxdT9ITE+Pz7qR78CSkCef7gSlpSVKVJiPXtMtq
-	 hmdokXAc3JVSVmgu5FhkQ1pzAjoIF1f7E6t42PDhxgPHYycyqhX2rcVAsZQNz24xKh
-	 es6lnaa0+8Xq6joKOvOZr0nHG6PvKgVnojHtrULUOYyRhvTgmKPN8D56nB9aEa+bMi
-	 5KqpBXJ4p19QxRnGye8BhGeFJRMBjIcxvq1/75EWokHyNOoRUhTPwcGb8cTK/e1z9i
-	 PxmFblnHkgLcQ==
-Date: Wed, 21 Jun 2023 15:39:12 +0100
+	s=k20201202; t=1687361350;
+	bh=8sWjYA4N+fAraCJGgq/hNuwy2uwuyh5U7Ae9A1i5Soo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=WR6NpiobZ/y7MqNA6DkkgIbDms6UHEZ/RkHeaaDm1xDhA4B12AM631tMtqXeax47V
+	 KOf3pFJojygW1W3H+0PbJJ+K3N8a3FbVtnLd3UWZyP7SJwaFX2X64dZ09xFaPNS/m9
+	 iMzwZCBIv0gjChdTWzGgqOJd1IN0NGGLAql/3PXYQUeMy7m8JOmyriYiwb+WbdReMC
+	 Md0eutFCUySEBItiAujtPE1QvQDgbvrwlr4Ptkd6Fe+SK21ygXkNNh0G6LtrKat0XO
+	 ffCpSSHaQJ7c0WaWLBl9i11+K+7oKwpEJ6hkJ5M7UzHW0g7BFpYK/wW62M4kmkREYX
+	 HvRVb4chSgdJg==
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: =?iso-8859-1?Q?N=EDcolas_F=2E_R=2E_A=2E?= Prado <nfraprado@collabora.com>,
-	kernel@collabora.com,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shuah Khan <shuah@kernel.org>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 2/2] kselftest/alsa: pcm-test: Decrease stream duration
- from 4 to 2 seconds
-Message-ID: <9069ad0c-d166-4620-a3de-a36ab233cab0@sirena.org.uk>
-References: <20230620220839.2215057-1-nfraprado@collabora.com>
- <20230620220839.2215057-3-nfraprado@collabora.com>
- <33bea0d3-b8dd-4936-812e-392166df4437@sirena.org.uk>
- <443f697b-fecf-6e8e-0b76-65257aff7da8@perex.cz>
+To: vkoul@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ yixuanjiang <yixuanjiang@google.com>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20230619033127.2522477-1-yixuanjiang@google.com>
+References: <20230619033127.2522477-1-yixuanjiang@google.com>
+Subject: Re: [PATCH] ASoC: soc-compress: Fix deadlock in soc_compr_open_fe
+Message-Id: <168736134915.407715.9511058115081614816.b4-ty@kernel.org>
+Date: Wed, 21 Jun 2023 16:29:09 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lN6DZShoSnw04Qtm"
-Content-Disposition: inline
-In-Reply-To: <443f697b-fecf-6e8e-0b76-65257aff7da8@perex.cz>
-X-Cookie: When among apes, one must play the ape.
-Message-ID-Hash: JBKDGEXFJTWGT7HRKAHVFHKYDINQDPFI
-X-Message-ID-Hash: JBKDGEXFJTWGT7HRKAHVFHKYDINQDPFI
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-c6835
+Message-ID-Hash: JPO5ZXXWX2EDI7ANALJKIHFYYF5BFVTD
+X-Message-ID-Hash: JPO5ZXXWX2EDI7ANALJKIHFYYF5BFVTD
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -98,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JBKDGEXFJTWGT7HRKAHVFHKYDINQDPFI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JPO5ZXXWX2EDI7ANALJKIHFYYF5BFVTD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,38 +98,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Mon, 19 Jun 2023 11:31:27 +0800, yixuanjiang wrote:
+> Modify the error handling flow by release lock.
+> The require mutex will keep holding if open fail.
+> 
+> 
 
---lN6DZShoSnw04Qtm
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Applied to
 
-On Wed, Jun 21, 2023 at 04:08:47PM +0200, Jaroslav Kysela wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> I think that the problem is somewhere else here. The overall test timeout
-> should be calculated dynamically. All tests may be queried for the maximal
-> expected interval based on the hardware/software capabilities. It's a bit
-> pitfall to have a fixed time limit where the realtime tests depend on the
-> number of devices.
+Thanks!
 
-I tend to agree here, unfortunately Shuah hasn't responded to queries
-=66rom N=EDcolas about this which I imagine is what inspired this patch.  We
-also have problems with mixer-test on one of the Dialog CODECs with a
-couple of 64k value controls and no cache only mode.
+[1/1] ASoC: soc-compress: Fix deadlock in soc_compr_open_fe
+      commit: 2222214749a9969e09454b9ba7febfdfb09c1c8d
 
---lN6DZShoSnw04Qtm
-Content-Type: application/pgp-signature; name="signature.asc"
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
------BEGIN PGP SIGNATURE-----
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSTC48ACgkQJNaLcl1U
-h9BGbwf/Tdjkixv5SETg00LJp+l4cOfv6sRpMFmm0MjvB7B8F7D8D4fFtu8vwLCk
-1pVCzZ2Z6WSbnPBMlVDSWV9ns+VBPoXD/W9R1OBx+IgQLyqr/FXUvQFed3MvQSrt
-uOHg5udSeoLyfhpGMgbHRUEy2yFjt+jJNvlPn5GPk0W9gDQ540afmJStnKzyOXrW
-8eL8q14TSSzn41yRaOZSN5K6Qx5vu/qDOxk2qKr9pUAkVABHVd1BBqzoysINKWEk
-++RHedjGxb4PrspUa5io2mzmDkd3VzoQu+ReCxSbLerIa45KG2oev+o9kSFK2Lbu
-juIvTAHQ21sYmy6eHgoLaxAshfYtyg==
-=GpWQ
------END PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---lN6DZShoSnw04Qtm--
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

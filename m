@@ -2,143 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6330737905
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 04:20:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23177737906
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 04:20:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC9C682B;
-	Wed, 21 Jun 2023 04:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC9C682B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C33C852;
+	Wed, 21 Jun 2023 04:19:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C33C852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687314026;
-	bh=59JwKT+uxxPMWEDoXn+yhk0Tr7grUPlrfP/Gz55k8Og=;
+	s=default; t=1687314034;
+	bh=8PTbWBm/OK0CVS10aKIjid/zX1Arg2imtjVDR9bvePI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PMi4wIeh9mJDeh51WmUgTAlyX6GfSOHjXx6717Mk0DFErFnpfsaqdk6bq0vl83jT9
-	 y6/cH/pq0m7ua2b8yOdk90y9h2OKRbocp5bCT7UwojjOXaEvqYK7iyWuXDYfZ8Mq4D
-	 Q1nL5jvZ9/fZ8x4IuhRASX4YKCi2d3zv5Smsk/lI=
+	b=Y2gvFWaHNdCpx+xUoNeIBYguXVHa4+AC1shA/kV9O325O4CeFwhSDMCEti+n6/8L9
+	 TRGlbqLqKudmezQECbuBaC6OByYZaM514uFZ4coBYoOEZKqRpeEV2gGuszNmvg0Rps
+	 ScnEFXFqY/0nMjZFBo2Zrzzzq3F4CWLCvQKjmwXI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 949D6F8057C; Wed, 21 Jun 2023 04:18:40 +0200 (CEST)
+	id C6126F805A0; Wed, 21 Jun 2023 04:18:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 187EBF80579;
-	Wed, 21 Jun 2023 04:18:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 822EAF8051E;
+	Wed, 21 Jun 2023 04:18:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D522F8057A; Wed, 21 Jun 2023 04:18:36 +0200 (CEST)
+	id C369EF80587; Wed, 21 Jun 2023 04:18:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01on20700.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:7010::700])
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20712.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::712])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9DE03F8055C
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 04:18:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DE03F8055C
+	by alsa1.perex.cz (Postfix) with ESMTPS id F372CF8051E
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 04:18:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F372CF8051E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=mhCA6mBr
+ header.s=selector1 header.b=XHdG/GYJ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jk/uju1NlFEfq9kWy+PK90N89rfR06LcdPPRSyxh0TlqVP58a/jZrf9H9Bd5fPiegq9K3/Y9rs6M76+P1K411PltQdOcnEauKHqOvetv/E4GhYRbL3YFac8xtz74NJKKf6Tsbp36cRTNHoxf8KsgDK0DhKOAeXjau08StFlX76GHz8/GPKEhjPEYcorkqm1MHip7+BWkru/QpAL9M4a0o1ss5bA/BtProUewt/+hcBVUOSHCaqiTCqj6JXIIalqyP7TZgzuiYqd84bmZfGdfdG90Gry8bG/LogJAFqMdhCL0zMNdOEzOKJl1uL67LLaohrkV4INNFjJj7wguA3YplQ==
+ b=SGrBPjmBMRslR0GWcASB//eQamY4Vxxsotc+LXlkf0mz/q6h+t//5kl3qdXuaflmj2oFWeyxP43YNB+1YnA4e6C3uxNfWZb5DyQZEtQ/MSO+7QpfirT7WS6AbNwYZNFoC+wu4GLuPpjsrwogD5qmhkBjtZSRPq/guKhbYGSRnuuKbqoyu/ePfk9TAc0GqPaKyppwOHdwT8VYsvcw/TFCz/X8As7B2UhIVOvklUac5kQXyGco+wZw5ekoarzBZboPsFf0grvx/oRK3MHrARYV+tzXUDJXtxO6WWfqgdUoLcP028Yj1E0hB1i1XQobh8sfWc+bDktyWjivcbzFKLCNLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p3bu54FfF1UkFL2NKVAoo12gBgoLh+yZcS4BaoU/9FE=;
- b=eYXwuWz3+iPd0aI1uIkicK/yQRniNAM5YoSF9msNXg45XVYGE+orkg4rWbFiVj7PF5zomJiFgvO9lwlj3fQDMRabm5ES2HSjjV2BmKTmOFhcgBGZZlN5+sbaa1Ox+X8dTG2/btWwT/oRqSGahtS+K0Pm9xX0s7ddDnbtzQ10xL7Ci/MBEaYil3uvQcj/BBbRZfaV8oIcFxgCqh6q2t9Qq9mTeG1WcBr82OPjTmjuNevx6oufLNIurJd1C4OW0+z9+Dxs4HOirwWvc8WlhJm3cjiUDRFu0Enw07fTAuA692fbzXm0EQLX7KU2I2oVTktE1ApjFzFCQdGO+FBIeMq8gg==
+ bh=aj979P6MSjyxNKkbL4QcTcS4VRF8C9rmkUEg/YupMr0=;
+ b=Q4DFziyVNnsY7/Smg/yDj5W92fDZe3sBk+dkAWfutA+uEpV/lB1Ypzo2pXGm96vEXTTZXTCyi2B9VByIU1OW4WZZTTGiv3W5sN7yaVjYr+VTrhOCxmqKIIfKQF1oEwDTWxVi7bgpthblLTj5vTN2DP+mP5vcxBazjmyorMB1dUyLdrKPe7YMkrAE3zKJdZyrli20sAtIfAIBl8pKbRhIpRhnk+Z/DUjZA9qYD7hiElaxIxjxTXqLYB7QMsufE7bcybO4Hl5r8MkD9Vlad+P+KAjLmV2Ve26TaFqYzU2G3Cl3wxjVneZqQX1rYqbUtiMXo6WLTLvMwO+Dtig/mPwiAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p3bu54FfF1UkFL2NKVAoo12gBgoLh+yZcS4BaoU/9FE=;
- b=mhCA6mBrQXcZ7FBzcjHP+GTZJrnhJkAhyhVCjvXDBUxu0MI4Nc78PgnU1QrWnJopa1aVaGzhN/J3s7FfdqZfWG5K8GuEB3LRUtKN8eN22KGKY8R7Rof1MnSHW91EdsNg2jjJbJPzZhrmgKrkI1DtHR5NJ8F2J2DmthWiIMNsvfo=
+ bh=aj979P6MSjyxNKkbL4QcTcS4VRF8C9rmkUEg/YupMr0=;
+ b=XHdG/GYJ879eqzkqzFBk2yioTzta0exMb+Jrk9DBXw7XWd/tnEGGJjXSmLzdDc76q0m4pF25XxwE/sf6/nUGqCDK6ttfv2POUziqRyQt59eT4haKKyVeF+ykiMfd6iWdKDyyVJcZM0yWkDuH9yakQgSJwmOa809ncZn3SIJCQnk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TYCPR01MB10367.jpnprd01.prod.outlook.com (2603:1096:400:243::10) with
+ by TYWPR01MB8528.jpnprd01.prod.outlook.com (2603:1096:400:13f::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Wed, 21 Jun
- 2023 02:18:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Wed, 21 Jun
+ 2023 02:18:36 +0000
 Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::3ac7:b366:51f:3e26]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
  ([fe80::3ac7:b366:51f:3e26%6]) with mapi id 15.20.6521.023; Wed, 21 Jun 2023
- 02:18:25 +0000
-Message-ID: <87mt0tblsf.wl-kuninori.morimoto.gx@renesas.com>
+ 02:18:36 +0000
+Message-ID: <87legdbls4.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 03/14] ASoC: soc-dai.c: add DAI get/match functions
+Subject: [PATCH 04/14] ASoC: soc-core.c: enable multi Component
 User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
 In-Reply-To: <87r0q5blta.wl-kuninori.morimoto.gx@renesas.com>
 References: <87r0q5blta.wl-kuninori.morimoto.gx@renesas.com>
 Content-Type: text/plain; charset=US-ASCII
-Date: Wed, 21 Jun 2023 02:18:25 +0000
-X-ClientProxiedBy: TYAPR01CA0202.jpnprd01.prod.outlook.com
- (2603:1096:404:29::22) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+Date: Wed, 21 Jun 2023 02:18:36 +0000
+X-ClientProxiedBy: TYCP286CA0112.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::7) To OS3PR01MB8426.jpnprd01.prod.outlook.com
  (2603:1096:604:194::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYCPR01MB10367:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74bbb0ff-2e52-4d93-52ff-08db71fdcb2b
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TYWPR01MB8528:EE_
+X-MS-Office365-Filtering-Correlation-Id: e53fd248-e79e-46d9-6b28-08db71fdd1a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	6IMjOcoAccvD54SvbTYupFsYcp+GbKlSQNfLK6SduMy2toIASLCAOWh/7a5KCFxanLjsahck7z3679Y7LiIS/QEUPN2+pJ1XhKqky6RLRn8K6hWqobG/pIEo1j69FdyV471hHAulFFve7+ww+PJn3AbrPhJC/iss/rVr353FEKmdCjdM/xwfZrtOVS/iYWFZXglcUFBvisqE4Cmg0+GtFiEcKfzFA5UOxr/7kKUiyoY0Xbjs4PVFYuknAEGFYhqHJ4kBOHrgCHNta3L3xgm0A2YuA2vRcrP9gxMNnY9N/JFcRgoL9XW6Zty3s1a/G2UsqmYiOLn1T+YU2wRlzQhJhtauPGHZb8t60BVXRRJ+Dh5L58fUAiD8qq6j0Nw4ZfMjdtokfwvtlt5S9/i3aCgbIcbWmEzp/kWUkjbZOJ5h4JUSjfXnOvI/qta2IMckZWLTHP2h64Yalp1fqXxgZjOiuyzkvM09svsmFoh69GG72da5a5pjGzrQ+/gp0CiiqCSUEZ6VJf0pFNOIsaIaTWgelaQnwj51g8b1qMgu7qC8qMPfc9zKXumRzYn0y2weToR1j+MnznobxU7N6v2osryhSbc4PuegLQzLk6t2/d2LEku8Brx1r6w+xjlikn01r2Gz
+	23wx/79WfLBJ+f8P++Jr0dCkHgWfMekbxo40lM2VkBsXYvGvFFGQB3pvsLM8ItcLQ/zsIZIJJWN1bEXo5nO0TrWiVSqJaCO6heZ3UOM87e/eL2kB09U05Zfxqq9zSYxQR67gikR0pUlGb8DpkMzMCXBUbUhiLWSlNEUFlTR/e3EYAfKwNSfvRqQ9bWVK/ciIZA45mqF/Do3/49kh7rElntFA8fdlZ6N7xE0A/LGoEbc6tObd/14p0aGl741RMBhMy7jaPW7BvO5D6byPmH8xG92/0IPzsqfUTBlSGwxtpZiQsKfTH7hBtUbUsVQSZlfkXc7HyJ9mpxEgStNLEqgj8AOhSn7neTdbVUO1qGnkeG6lr+074j/UpeeqE7Rm2zZKIH0evds3G2Tl7xAUx/IbO6G5XWb0q+Io02r+UPFofK0waeZzgdfdECjz890itXT5lpU9mKGcDhhSG1WpcsPRdOgWbiqgJ0bCmKhVo053p9AtNtv6sxpNOphZu+zTrEvpSqZ4E5eYGcOYeTV4qMwkBGpUggpifUUD9tdY/VAa+SOKKTLaBqCQjFPOjaw2CWA7phtmaQPigroTPZfO41CrP3yinJuqN1nT0IS1M1V80PaTBvo9z8duYQAao4uTsW2igfU+5QWGD7p0SBnHgFxNR4ZDVEEdkUt3gtd7ySpdf50=
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(396003)(346002)(136003)(366004)(451199021)(66946007)(66476007)(66556008)(4326008)(6916009)(186003)(2616005)(38100700002)(38350700002)(86362001)(6506007)(26005)(6512007)(83380400001)(36756003)(478600001)(6486002)(52116002)(8936002)(8676002)(5660300002)(2906002)(316002)(41300700001);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(39860400002)(366004)(346002)(376002)(451199021)(86362001)(66556008)(66476007)(6916009)(6486002)(66946007)(4326008)(966005)(186003)(5660300002)(2906002)(6512007)(36756003)(83380400001)(26005)(30864003)(2616005)(66899021)(316002)(38350700002)(38100700002)(41300700001)(6506007)(52116002)(8676002)(478600001)(8936002)(175924003)(21314003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?Xm0f9QmlfrL/FQLJR1u3UD6mwb4dw1k4pxxWZWiy/YHy7+C1N6voltSvRdtE?=
- =?us-ascii?Q?8PXU3G6XhBtAKTjVoPrcg2d+P9kHVL1SUx4OLdu2CnvTVK4/bZmJ+9QXu6AA?=
- =?us-ascii?Q?duEMMbbyCQIfwIsJ7b0Gqoqt2xaHIvaOpK3On84wQ/BGLj0SD8pZsLPQ6kHp?=
- =?us-ascii?Q?n4tf3IoiZxnWKZ+D/GNJT7SsjD9Zbi0dM4KVv7E8PUMNovko4WDd1N6Y8wse?=
- =?us-ascii?Q?krupircQhgAu+/WJtu/FqbMD64KLs/bpyjGH02LmEaubVsv6tCtk0AT6Naaw?=
- =?us-ascii?Q?2FileSOcjb6/TBejnPllec7xEnTqSAyecKJ2jWCEyB7c2LPtP0+CrDjRrm3V?=
- =?us-ascii?Q?4ZcrMdydyFCPAvSHZYAU7/NgCDdHxxa8QYcRw7+3eayDsPbnpdndUO4uhl1Y?=
- =?us-ascii?Q?eLpSYJWO9uW9vUisIQcUMjejlpshHoJYvcuIk1rMkF7TTmKbO6gTy9mVsNWk?=
- =?us-ascii?Q?LorjKaBMQpIOWk0y5nsWGnt55KEsk8aYa01bOO5Ywj9FKYNFHRuffhBAGgRr?=
- =?us-ascii?Q?06gRBl2wvuMhjT6DA6iaYAGSsVdN1D3GFtc4czdETDGhL9EDCgv+dKBPdOxH?=
- =?us-ascii?Q?mCdbojIUQrnGFu2z2nf/63uAUz+mMqP4HlSdpd669GWfUIC9OXr1/55GjdVH?=
- =?us-ascii?Q?Sp1pfcVs0Ple0aHB2N1oGM8TPpsv3aiqvX9lJ0zn9mEn5meRGOMVCZBFofBl?=
- =?us-ascii?Q?Yo6rvKko0FP7Nw/7KDQya8DdWBjZ+VCzdnjFs2Wcg0HZjwsfk2hHoqv/Dcxy?=
- =?us-ascii?Q?tpP5Le+c5y0S4AmbMySn9oOgXi1iySeIwkczluIXoDkgwQO9S8LwGkf8zpJE?=
- =?us-ascii?Q?s0Kma01d3S2PGWBiqpWc59TVbwAPdO/oXaE0YHXh5ys2pKtCq2rH5mLCNuXn?=
- =?us-ascii?Q?hkGm1Jj+WfCD7GwjHiYp+AwY+YWRf2dYwfCFmKkM0eGaylscQJIEBBuQhiOz?=
- =?us-ascii?Q?+J4fuvBrnteRgwGnp61nXZNmIydyoxKieb4YJ/fo8uUAF1E5yypuhqntQqay?=
- =?us-ascii?Q?eJKPgunI7YtISqRs0GrfVZe5EG44JcJ2vn77eqIVuxPFVUphGBFsJkQSjbA/?=
- =?us-ascii?Q?T/tN0p5Z8lPCqi4IYofMq24DNfdwlbbATE17NlG7bZ2SsebPN+/oBnRMckq6?=
- =?us-ascii?Q?xKPfySiERHcSTgcazZhIWuodcHKS+z8HmvmqGSROir5iTQWR1Vc70Ia/OwPf?=
- =?us-ascii?Q?nckHSFHXfbytR1dbRlStwp+Z4pQECanElPkrsme5RnO48vsZCo/mXE9n7bx+?=
- =?us-ascii?Q?+N3F0kYRqC+B5eoES/6i7HVaVYTXXOAdbaqf8jVsvqPcgzxTglHkgHoLlC+S?=
- =?us-ascii?Q?B7i6121kKBwQW2PTzOR3DnA8NVE2AO7qitCZioystKqUvjyHfZ7RaPvcgzBg?=
- =?us-ascii?Q?Agg4LyMDRVwInRvn/5QI44gEP9Bh5KnW6UiXmgp7gFnGD2B4yDO1vyO/WchN?=
- =?us-ascii?Q?S4VfzGI8+KZmc9HwwQXmQTO1omvK3VHf1eQOEE0Uwqu81mpXcQCo6SjFP/gA?=
- =?us-ascii?Q?YX7++YRAlD125Nbcc47WzrGTGogJzkJpSL7OseLfoc//GpHoeMk+w770740+?=
- =?us-ascii?Q?fFRMGcedP6vsO40sDpr87YWHjvWBlQBzUvrKCzr4neHTWqQeqIglkSY5zgKx?=
- =?us-ascii?Q?UjP7SwFUTKeZD9XvHQryLTk=3D?=
+	=?us-ascii?Q?00s2Al9VHvOmbepgjYELVQymRW/oYwDvkOO+kOGeOtYZQNfMzZsv+Z5R8Z+z?=
+ =?us-ascii?Q?cgrgYvmWdEiZhqjAJcxkB+6RUtBF1Z5g9qChgF3XhGjtZA805m6yRLRwm7ed?=
+ =?us-ascii?Q?PQZz+ERiCdPBLKvFnOCkDdrXM8wk1BXPT3ZW11qlCQhQVjPcS3bmfIcJ8o/b?=
+ =?us-ascii?Q?PRNIneNLNhDbHvTThzTrvQdI6puRYVJUTMCQ1U96LcJPEIuIWxpUN+g6ryzY?=
+ =?us-ascii?Q?TdNGnpw35fWXRrmfuKOKJLKTT8DN0GspJO+zycbyu96PR2I60U4R0S/uIpHw?=
+ =?us-ascii?Q?Gut0gSZUhP2WTXV7KvKp+jinsVDtnhomHgNOhtTkK5QTx95G58pKNxTyvNJf?=
+ =?us-ascii?Q?5xgncdXtNbGPaEbNNJ/k+2zFsftRv78WTTSsY5G1KaHiy8IUrDuWn3EWYa0E?=
+ =?us-ascii?Q?T64bJ32hj2BjVhUwHRYw3yBVssdD6Lpw49XYALHyOeG26sTBMxg+U5kUWlNo?=
+ =?us-ascii?Q?CA6JSUIzin1vu/8mHvuw4PIDc92yOMw0QRIc2XM0CC/qcNXTGJcCa5x14F5p?=
+ =?us-ascii?Q?em0xhoCcB+INoqaGR3YkSzS0tOssLF6kFriMKgM9G3trAg0No85X+DEjGfxY?=
+ =?us-ascii?Q?mCc1abRQlzix43L1S0XgZPEE6fKU5FV4R7p0n8Q/xg+bF6/y3/TCHbqj05BF?=
+ =?us-ascii?Q?jPdMIYSEB/XLSy+/LEXWsnTIJmGsxNU/WPIfvzG7ju4b5xk+9TSKnv6upijb?=
+ =?us-ascii?Q?zNeylvlrZFKm1DqvX3hf3D/RvhJ4BERSdHqTBAL7qdZe64RLLR6wdF+0N5bn?=
+ =?us-ascii?Q?X2HlPs9SRAT243n2cMld8bi3OaZnm5CJE+HuiCEJ/DCMwPFkpw6ZP5kjKcLs?=
+ =?us-ascii?Q?2QPW+i9gFAN/fU1yc4ODzVaSxIGWV0INgqmqNHRCKxG+kHADqdogwTc3lVYi?=
+ =?us-ascii?Q?1n7F2GNzqhujvh0TqppJnqLRtSwKrFCTnLdZdT2H/hN4H2+bKww9S17qwReU?=
+ =?us-ascii?Q?ddToAd8h2ssNsevOljgVmkCv9TP6IUtb7EXWmxmXcG3Nqo29pJKgT8dVoInH?=
+ =?us-ascii?Q?wvm0PQSrg33wpHm2Z3SanxbD914aN40YmlLTcImwqjCvf8J8umqTH3qC/we/?=
+ =?us-ascii?Q?SeSnK1g+MD/tY+0tS6jUyz4uReu0hrvd3tNoeVZ7rfBGaLzB78UVLp1d6JMB?=
+ =?us-ascii?Q?ekARdY5YpmgcMxGQLJ3UwARAwcCMm9cq0ukWCufXkqXqxshQBg2YFyOXc0vq?=
+ =?us-ascii?Q?aLufx5pVdI2XEbNTS05/gSeKx/e3Cwfk3e2f7GLPrHFjUVRg2qunNOEycOPO?=
+ =?us-ascii?Q?Sf9H+SAzXHI/zCqlRmcDcUpzoiRCV4GzAy9Wgps3P3kcigkSObU9qT8R4Yqp?=
+ =?us-ascii?Q?zM0UOLXkw+JXtRqdmxJZ244cygpY8PL2IgPvsz3Xm9kQ03HcAT4QyIUpzMT4?=
+ =?us-ascii?Q?MbpNNXNEB84qRFjuc5XIU5FtpubDgbDUzGzDkwNXOebwP9AjKriGVATXakIP?=
+ =?us-ascii?Q?M+H21ON4uHBVrbjuyngnZr6+kpVmn2L/zWYdnRZm78dSgeSs/9t4YsiaDPWc?=
+ =?us-ascii?Q?a4IkNuBLoRZ71+Na/M71wVkjb5Dg1OV2rB6H7itP1dp0xTMLWaBuTkmj4zfi?=
+ =?us-ascii?Q?4roXploRr/s3AP3lX1gsF+c6zZDSEXoyEuCmrV96ihIwLU6slvHmuh1ir4R4?=
+ =?us-ascii?Q?L/aCy2AWzhTuWRPeNSFreTo=3D?=
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 74bbb0ff-2e52-4d93-52ff-08db71fdcb2b
+ e53fd248-e79e-46d9-6b28-08db71fdd1a6
 X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 02:18:25.3998
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jun 2023 02:18:36.2232
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
 X-MS-Exchange-CrossTenant-UserPrincipalName: 
- s683M8HnSKDWjOCR3s3p0UdrUTDPwSaSLit1ICQaQV8wO6BJghRbUh7vnZaLBaT/VL9Gow+5kFV5cche59rrr+NAPzcqWgdsi8bRX47mSccpH1WZct0/J5bPKYqUUM74
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10367
-Message-ID-Hash: UEBBWT6U7MVH77CEZYBRENEH352ATO2J
-X-Message-ID-Hash: UEBBWT6U7MVH77CEZYBRENEH352ATO2J
+ YNFmpO0E0jMO9Ym0MTUu1dIf6fo8smy1pdxyu4hMP+YjIrOuvDSl5oPCW5sNOvSqjYzcheIymkLtBdU6X8ibASm3llmlnZLMXC1eKEC7X+0XzfEdGEBndvhKWYsDdYLL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB8528
+Message-ID-Hash: JMGI2WRPVMT74CARYLV6HH2NZC3GPQSA
+X-Message-ID-Hash: JMGI2WRPVMT74CARYLV6HH2NZC3GPQSA
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -151,7 +151,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UEBBWT6U7MVH77CEZYBRENEH352ATO2J/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JMGI2WRPVMT74CARYLV6HH2NZC3GPQSA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -160,117 +160,371 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Current ASoC is specifying and checking DAI name.
-But where it came from and how to check was ambiguous.
-This patch adds snd_soc_dai_name_get() / snd_soc_dlc_dai_is_match()
-and makes it clear.
+Current ASoC Card is using dlc (snd_soc_dai_link_component) to find
+target DAI / Component to be used.
+Current dlc has below 3 items to identify DAI / Component
 
+	(a) name	for Component
+	(b) of_node	for Component
+	(c) dai_name	for DAI
+
+(a) or (b) is used to identify target Component, and (c) is used
+to identify DAI.
+
+One of the biggest issue on it today is dlc needs "name matching"
+for "dai_name" (c).
+
+It was not a big deal when we were using platform_device, because we
+could specify nessesary "dai_name" via its platform_data.
+
+But we need to find DAI name pointer from whole registered datas and/or
+each related driver somehow in case of DT, because we can't specify it.
+Therefore, Card driver parses DT and assumes the DAI, and find its name
+pointer. How to assume is based on each Component and/or Card.
+
+Next biggest issue is Component node (a)/(b).
+
+Basically, Component is registered when CPU/Codec driver was
+probed() (X). Here, 1 Component is possible to have some DAIs.
+
+	int xxx_probe(struct platform_device *pdev)
+	{
+		...
+(X)		ret = devm_snd_soc_register_component(pdev->dev,
+					&component_driver,
+					&dai_driver, dai_driver_num);
+		...
+	}
+
+The image of each data will be like below.
+One note here is "driver" is included for later explanation.
+
+	+-driver------+
+	|+-component-+|
+	||       dai0||
+	||       dai1||
+	||        ...||
+	|+-----------+|
+	+-------------+
+
+The point here is 1 driver has 1 Component, because basically driver
+calles snd_soc_register_component() (= X) once.
+
+Here is the very basic CPU/Codec connection image.
+
+	HW image			SW image
+	+-- Board ------------+		+-card--------------------------+
+	|+-----+      +------+|		|+-driver------+ +-driver------+|
+	|| CPU | <--> |CodecA||		||+-component-+| |+-component-+||
+	|+-----+      +------+|		|||        dai|<=>|dai        |||
+	+---------------------+		||+-----------+| |+-----------+||
+					|+-------------+ +-------------+|
+					+-------------------------------+
+
+It will be very complex if it has multi DAIs.
+Here is intuitive easy to understandable HW / SW example.
+
+	HW image			SW image
+	+-- Board ---------------+	+-card--------------------------+
+	|+--------+      +------+|	|+-driver------+ +-driver------+|
+	|| CPU ch0| <--> |CodecA||	||+-component-+| |+-component-+||
+	||        |      +------+|	|||    ch0 dai|<=>|dai        |||
+	||        |      +------+|	|||           || |+-----------+||
+	||     ch1| <--> |CodecB||	|||           || +-------------+|
+	|+--------+      +------+|	|||           || +-driver------+|
+	+------------------------+	|||           || |+-component-+||
+					|||    ch1 dai|<=>|dai        |||
+					||+-----------+| |+-----------+||
+					|+-------------+ +-------------+|
+					+-------------------------------+
+
+It will be handled as multi interface as "one Card".
+
+	card0,0: CPU-ch0 - CodecA
+	card0,1: CPU-ch1 - CodecB
+	    ^
+
+But, here is the HW image example which will be more complex
+
+	+-- Basic Board ---------+
+	|+--------+      +------+|
+	|| CPU ch0| <--> |CodecA||
+	||     ch1| <-+  +------+|
+	|+--------+   |          |
+	+-------------|----------+
+	+-- expansion board -----+
+	|             |  +------+|
+	|             +->|CodecB||
+	|                +------+|
+	+------------------------+
+
+We intuitively think we want to handle these as "2 Sound Cards".
+
+	card0,0: CPU-ch0 - CodecA
+	card1,0: CPU-ch1 - CodecB
+	    ^
+
+But below image which we can register today doesn't allow it,
+because the same Component will be connected to both Card0/1,
+but it will be rejected by (Z).
+
+	 +-driver------+
+	 |+-component-+|
+	+-card0-------------------------+
+	|||           || +-driver------+|
+	|||           || |+-component-+||
+	|||    ch0 dai|<=>|dai        |||
+	|||           || |+-----------+||
+	|||           || +-------------+|
+	+-------------------------------+
+	 ||           ||
+	+-card1-------------------------+
+	|||           || +-driver------+|
+	|||           || |+-component-+||
+	|||    ch1 dai|<=>|dai        |||
+	|||           || |+-----------+||
+	|||           || +-------------+|
+	+-------------------------------+
+	 |+-----------+|
+	 +-------------+
+
+	static int soc_probe_component()
+	{
+		...
+		if (component->card) {
+(Z)			if (component->card != card) {
+				dev_err(component->dev, ...);
+				return -ENODEV;
+			}
+			return 0;
+		}
+		...
+	}
+
+So, how about to call snd_soc_register_component() (= X) multiple times
+on probe() to avoid buplicated component->card limitation, to be like
+below ?
+
+	 +-driver------+
+	+-card0-------------------------+
+	||             | +-driver------+|
+	||+-component-+| |+-component-+||
+	|||    ch0 dai|<=>|dai        |||
+	||+-----------+| |+-----------+||
+	||             | +-------------+|
+	+-------------------------------+
+	 |             |
+	+-card1-------------------------+
+	||             | +-driver------+|
+	||+-component-+| |+-component-+||
+	|||    ch1 dai|<=>|dai        |||
+	||+-----------+| |+-----------+||
+	||             | +-------------+|
+	+-------------------------------+
+         +-------------+
+
+Yes, looks good. But unfortunately it doesn't help us for now.
+Let's see soc_component_to_node() and snd_soc_is_matching_component()
+
+	static struct device_node
+	*soc_component_to_node(struct snd_soc_component *component)
+	{
+		...
+(A)		of_node = component->dev->of_node;
+		...
+	}
+
+	static int snd_soc_is_matching_component(...)
+	{
+		...
+(B)		if (dlc->of_node && component_of_node != dlc->of_node)
+		...
+	}
+
+dlc checkes "of_node" to identify target component (B),
+but this "of_node" came from component->dev (A) which is added
+by snd_soc_register_component() (X) on probe().
+
+This means we can have different "component->card", but have same
+"component->dev" in this case.
+
+Even though we calls snd_soc_register_component() (= X) multiple times,
+all Components have same driver's dev, thus it is impossible to
+identified the Component.
+And if it was impossible to identify Component, it is impossible to
+identify DAI on current implementation.
+
+So, how to handle above complex HW image today is 2 patterns.
+One is handles it as "1 big sound card".
+The SW image is like below.
+
+SW image
+	+-card--------------------------+
+	|+-driver------+ +-driver------+|
+	||+-component-+| |+-component-+||
+	|||    ch0 dai|<=>|dai        |||
+	|||           || |+-----------+||
+	|||           || +-------------+|
+	|||           || +-driver------+|
+	|||           || |+-component-+||
+	|||    ch1 dai|<->|dai        |||
+	||+-----------+| |+-----------+||
+	|+-------------+ +-------------+|
+	+-------------------------------+
+
+But the problem is not intuitive.
+We want to handle it as "2 Cards".
+
+2nd pattern is like below.
+
+SW image
+	+-card0-------------------------+
+	|+-driver------+ +-driver------+|
+	||+-component-+| |+-component-+||
+	|||    ch0 dai|<=>|dai        |||
+	||+-----------+| |+-----------+||
+	|+-------------+ +-------------+|
+	+-------------------------------+
+
+	+-card1-------------------------+
+	|+-driver------+ +-driver------+|
+	||+-component-+| |+-component-+||
+	|||    ch1 dai|<=>|dai        |||
+	||+-----------+| |+-----------+||
+	|+-------------+ +-------------+|
+	+-------------------------------+
+
+It handles as "2 Cards", but CPU part needs to be probed as 2 drivers.
+It is also not intuitive.
+
+To solve this issue, we need to have multi Component support.
+
+In current implementation, we need to identify Component first
+to identify DAI, and it is using name matching to identify DAI.
+
+But how about to be enable to directly identify DAI by unique way
+instead of name matching ? In such case, we can directly identify DAI,
+then it can identify Component from DAI.
+
+For example Simple-Card / Audio-Graph-Card case, it is specifying DAI
+via its node.
+
+Simple-Card
+
+	sound-dai = <&cpu-sound>;
+
+Audio-Graph-Card
+
+	dais = <&cpu-sound>;
+
+If each CPU/Codec driver keeps this property when probing,
+we can identify DAI directly from Card.
+Being able to identify DAI directly means being able to identify its
+Component as well even though Component has same dev (= B).
+
+This patch adds new "dai_node" for it.
+
+To keeping compatibility, it checks "dai_node" first if it has,
+otherwise, use existing method (name matching).
+
+Link: https://lore.kernel.org/r/87fskz5yrr.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-dai.h |  2 ++
- sound/soc/soc-core.c    | 62 +++++++++++++++++++++++++++++++----------
- 2 files changed, 49 insertions(+), 15 deletions(-)
+ include/sound/soc-dai.h |  1 +
+ include/sound/soc.h     |  1 +
+ sound/soc/soc-core.c    | 32 ++++++++++++++++++++++++++++++--
+ 3 files changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index e3906ecda740..a4538040e88d 100644
+index a4538040e88d..a33d803fe548 100644
 --- a/include/sound/soc-dai.h
 +++ b/include/sound/soc-dai.h
-@@ -271,6 +271,8 @@ int snd_soc_dai_compr_get_metadata(struct snd_soc_dai *dai,
- 				   struct snd_compr_stream *cstream,
- 				   struct snd_compr_metadata *metadata);
+@@ -399,6 +399,7 @@ struct snd_soc_dai_driver {
+ 	unsigned int id;
+ 	unsigned int base;
+ 	struct snd_soc_dobj dobj;
++	struct of_phandle_args *dai_args;
  
-+const char *snd_soc_dai_name_get(struct snd_soc_dai *dai);
-+
- struct snd_soc_dai_ops {
- 	/*
- 	 * DAI clocking configuration, all optional.
+ 	/* DAI driver callbacks */
+ 	int (*probe)(struct snd_soc_dai *dai);
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index b27f84580c5b..dda731795bd4 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -651,6 +651,7 @@ struct snd_soc_dai_link_component {
+ 	const char *name;
+ 	struct device_node *of_node;
+ 	const char *dai_name;
++	struct of_phandle_args *dai_args;
+ };
+ 
+ struct snd_soc_dai_link_codec_ch_map {
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 4b66c6d87fa2..bd811d10b792 100644
+index bd811d10b792..fc6922ecc3fd 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -253,6 +253,47 @@ static inline int snd_soc_dlc_dai_is_empty(struct snd_soc_dai_link_component *dl
- 	return !dlc->dai_name;
- }
+@@ -238,9 +238,25 @@ static inline void snd_soc_debugfs_exit(void) { }
  
-+static int snd_soc_is_matching_dai(const struct snd_soc_dai_link_component *dlc,
-+				   struct snd_soc_dai *dai)
+ #endif
+ 
++static int snd_soc_is_match_dai_args(struct of_phandle_args *args1,
++				     struct of_phandle_args *args2)
 +{
-+	if (!dlc)
++	if (!args1 || !args2)
 +		return 0;
 +
-+	if (!dlc->dai_name)
-+		return 1;
++	if (args1->np != args2->np)
++		return 0;
 +
-+	/* see snd_soc_dai_name_get() */
++	for (int i = 0; i < args1->args_count; i++)
++		if (args1->args[i] != args2->args[i])
++			return 0;
 +
-+	if (strcmp(dlc->dai_name, dai->name) == 0)
-+		return 1;
-+
-+	if (dai->driver->name &&
-+	    strcmp(dai->driver->name, dlc->dai_name) == 0)
-+		return 1;
-+
-+	if (dai->component->name &&
-+	    strcmp(dlc->dai_name, dai->component->name) == 0)
-+		return 1;
-+
-+	return 0;
++	return 1;
 +}
 +
-+const char *snd_soc_dai_name_get(struct snd_soc_dai *dai)
-+{
-+	/* see snd_soc_is_matching_dai() */
-+	if (dai->name)
-+		return dai->name;
-+
-+	if (dai->driver->name)
-+		return dai->driver->name;
-+
-+	if (dai->component->name)
-+		return dai->component->name;
-+
-+	return NULL;
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_dai_name_get);
-+
- static int snd_soc_rtd_add_component(struct snd_soc_pcm_runtime *rtd,
- 				     struct snd_soc_component *component)
+ static inline int snd_soc_dlc_component_is_empty(struct snd_soc_dai_link_component *dlc)
  {
-@@ -810,18 +851,11 @@ struct snd_soc_dai *snd_soc_find_dai(
- 	lockdep_assert_held(&client_mutex);
- 
- 	/* Find CPU DAI from registered DAIs */
--	for_each_component(component) {
--		if (!snd_soc_is_matching_component(dlc, component))
--			continue;
--		for_each_component_dais(component, dai) {
--			if (dlc->dai_name && strcmp(dai->name, dlc->dai_name)
--			    && (!dai->driver->name
--				|| strcmp(dai->driver->name, dlc->dai_name)))
--				continue;
--
--			return dai;
--		}
--	}
-+	for_each_component(component)
-+		if (snd_soc_is_matching_component(dlc, component))
-+			for_each_component_dais(component, dai)
-+				if (snd_soc_is_matching_dai(dlc, dai))
-+					return dai;
- 
- 	return NULL;
+-	return !(dlc->name || dlc->of_node);
++	return !(dlc->dai_args || dlc->name || dlc->of_node);
  }
-@@ -3315,9 +3349,7 @@ int snd_soc_get_dlc(const struct of_phandle_args *args, struct snd_soc_dai_link_
- 			}
  
- 			dlc->of_node	= args->np;
--			dlc->dai_name	= dai->driver->name;
--			if (!dlc->dai_name)
--				dlc->dai_name = pos->name;
-+			dlc->dai_name	= snd_soc_dai_name_get(dai);
- 		} else if (ret) {
- 			/*
- 			 * if another error than ENOTSUPP is returned go on and
+ static inline int snd_soc_dlc_component_is_invalid(struct snd_soc_dai_link_component *dlc)
+@@ -250,7 +266,7 @@ static inline int snd_soc_dlc_component_is_invalid(struct snd_soc_dai_link_compo
+ 
+ static inline int snd_soc_dlc_dai_is_empty(struct snd_soc_dai_link_component *dlc)
+ {
+-	return !dlc->dai_name;
++	return !(dlc->dai_args || dlc->dai_name);
+ }
+ 
+ static int snd_soc_is_matching_dai(const struct snd_soc_dai_link_component *dlc,
+@@ -259,6 +275,9 @@ static int snd_soc_is_matching_dai(const struct snd_soc_dai_link_component *dlc,
+ 	if (!dlc)
+ 		return 0;
+ 
++	if (dlc->dai_args)
++		return snd_soc_is_match_dai_args(dai->driver->dai_args, dlc->dai_args);
++
+ 	if (!dlc->dai_name)
+ 		return 1;
+ 
+@@ -799,6 +818,15 @@ static int snd_soc_is_matching_component(
+ 	if (!dlc)
+ 		return 0;
+ 
++	if (dlc->dai_args) {
++		struct snd_soc_dai *dai;
++
++		for_each_component_dais(component, dai)
++			if (snd_soc_is_matching_dai(dlc, dai))
++				return 1;
++		return 0;
++	}
++
+ 	component_of_node = soc_component_to_node(component);
+ 
+ 	if (dlc->of_node && component_of_node != dlc->of_node)
 -- 
 2.25.1
 

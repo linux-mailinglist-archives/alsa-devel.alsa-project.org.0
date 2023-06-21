@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD90073872D
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 16:36:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C69CD738735
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 16:38:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4B9B1EF;
-	Wed, 21 Jun 2023 16:36:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4B9B1EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CAA4832;
+	Wed, 21 Jun 2023 16:37:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CAA4832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687358216;
-	bh=W2XF7Oua9MyLK7f+VdvwpICbplyFhJN3xZ2lUbZlqAI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1687358281;
+	bh=JX4o4QyKFOP1BI60855iMmresR8pIjC2z94Yo8Cp9Js=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pn/opjyl5T7XXVjQVxw+SIVzVmOS1sij3qbTKBpwWCqJN5ZMd1TSaY2IDEFzHUoWz
-	 /d+B9lflp5E4p+3EYOkpAotH7FyYvlcBlmnBw/oxhusSqg4t2hp5ggBbkklZSROY6q
-	 b8l6vBpoNXDkKkqtN5Fjr3ThpL7CcOxXKXbPTxs0=
+	b=RThl/bkTEHmGvh4PSRPyuaZ+f8pB41fdIeXVYRpisqJswDceLdGgcjSGJInuEchgK
+	 3BP3NM6T9ixedpS3saofaDXF/hlclgI/jJXERKofB5qKRbI2CK+QL+d70iqxZ7KX7s
+	 lzpWkl/Cqkx2NcXCoRL6VZbCaKBm8xUtjiOKqr6c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C3DE9F80141; Wed, 21 Jun 2023 16:36:05 +0200 (CEST)
+	id 92EA3F80124; Wed, 21 Jun 2023 16:37:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 422F5F80132;
-	Wed, 21 Jun 2023 16:36:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E650AF80163;
+	Wed, 21 Jun 2023 16:37:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31077F80141; Wed, 21 Jun 2023 16:36:02 +0200 (CEST)
+	id B81B4F80132; Wed, 21 Jun 2023 16:37:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,63 +34,49 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	autolearn_force=no version=3.4.6
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7401CF80124
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 16:35:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7401CF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0866F80132
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 16:37:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0866F80132
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Mwbyt3bv
+ header.s=k20201202 header.b=r6QRQ2+8
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id EA58061570;
-	Wed, 21 Jun 2023 14:35:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F9CC433C0;
-	Wed, 21 Jun 2023 14:35:52 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9FC1B61536;
+	Wed, 21 Jun 2023 14:37:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E9EDC433C0;
+	Wed, 21 Jun 2023 14:37:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687358155;
-	bh=W2XF7Oua9MyLK7f+VdvwpICbplyFhJN3xZ2lUbZlqAI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mwbyt3bvhlfW6wb6ioKf7FJCJWZRoFxdcB2Ji6NuyPM2bDnwGq3tAA9thyNMVbLhh
-	 IIezVbNSq+ffB2Z0OqoIYQ2nar3HKK1GoRDSbwuqdwnheDmZ5nhDBDHhIIhMIMadRm
-	 KciOMEcloer9Nio3dK1oTx0dmJF8mBebye6tjT65BZE8rhY4YHmgk6n0fAkmzzfYMb
-	 jLu7cWNk8Xu/+Tuo3o0s7BrJS1EGjI5STnc1FYO7cyMJj6rcq34n4nNWXJ7Jw5ZCxC
-	 M1Skx4oSqflz7MLg3y8MXzr/a6H85SAifVg1KU5YQAVKYEXJLGDe8pP3/ua1m5LI4W
-	 Z2llrRYsFG/MA==
-Date: Wed, 21 Jun 2023 15:35:49 +0100
+	s=k20201202; t=1687358222;
+	bh=JX4o4QyKFOP1BI60855iMmresR8pIjC2z94Yo8Cp9Js=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=r6QRQ2+8+NfYQL2vD3OCsCM2h7aZWFMIy2ra7JNSZgp+MK55Q8Vl3xBXOHWgF/Lzh
+	 Cseo29bdOiFRtzhawgQ/thAQB3/0loIVv7ZqpMiRCivjx9246sHu2KdJO+BJtmWIXJ
+	 +yVB2Ac6+qE8cZfAHsuFrmpjYhW0kOcEsc/3ygFkfABpA4qVXG0tXpTAQuhWAJ6wF9
+	 SEskdAEAh1m2os8qEz/YBFSwdAyk6gBDfpTEQlzLWFeZFLsYxCXOVYfqy8aIknBOtB
+	 WfKRj1GCfiFs7sJnSzeV37KqTytzK5cOoFALmB7zn2mSUJtE0hMevt8XL9j7qE+78W
+	 LSQqI3EJpoHqA==
 From: Mark Brown <broonie@kernel.org>
-To: Maxim Kochetkov <fido_max@inbox.ru>
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] ASoC: codecs: max98090: Allow dsp_a mode
-Message-ID: <c054b036-d5fd-482b-adc4-913edbcd007c@sirena.org.uk>
-References: <20230621115328.156457-1-fido_max@inbox.ru>
- <3805dc65-113f-453a-90a9-2ae6204004ba@sirena.org.uk>
- <e6be75f6-054f-6c3b-00b4-a5e112bcefc3@inbox.ru>
- <b763d08e-f751-480c-96b6-339a53856768@sirena.org.uk>
- <ed9606a4-4be6-7403-6e32-1c045ac0bdf6@inbox.ru>
- <adbe1b82-9478-4462-ace9-968723a6ce3f@sirena.org.uk>
- <0ada8334-4006-438f-8461-5c4c8e13f65d@inbox.ru>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: shengjiu.wang@gmail.com, alsa-devel@alsa-project.org,
+ Fabio Estevam <festevam@denx.de>
+In-Reply-To: <20230616203913.551183-1-festevam@gmail.com>
+References: <20230616203913.551183-1-festevam@gmail.com>
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Allow passing the number of slots
+ in use
+Message-Id: <168735822089.116117.14058861212525541872.b4-ty@kernel.org>
+Date: Wed, 21 Jun 2023 15:37:00 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2neDLP738ecGvEVW"
-Content-Disposition: inline
-In-Reply-To: <0ada8334-4006-438f-8461-5c4c8e13f65d@inbox.ru>
-X-Cookie: When among apes, one must play the ape.
-Message-ID-Hash: SIY2G2I5ZARRI3O3LCDBSSNOCCCU2563
-X-Message-ID-Hash: SIY2G2I5ZARRI3O3LCDBSSNOCCCU2563
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-c6835
+Message-ID-Hash: K35DUTU5Z33O3YUVZBF3HR73ASS52XKU
+X-Message-ID-Hash: K35DUTU5Z33O3YUVZBF3HR73ASS52XKU
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -103,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIY2G2I5ZARRI3O3LCDBSSNOCCCU2563/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K35DUTU5Z33O3YUVZBF3HR73ASS52XKU/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,44 +98,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Fri, 16 Jun 2023 17:39:13 -0300, Fabio Estevam wrote:
+> Currently, fsl-asoc-card supports passing the width of the TDM slot, but
+> not the number of slots in use, as it harcodes it as two slots.
+> 
+> Add support for passing the number of slots in use.
+> 
+> 
 
---2neDLP738ecGvEVW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Wed, Jun 21, 2023 at 05:28:41PM +0300, Maxim Kochetkov wrote:
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-> Yep. But we have to specify TDM parameters (slot masks, slot width, etc) any
-> way. Because there is no default TDM configuration like I2S and so. And pure
-> DSP_A/B mode just have no sense.
+Thanks!
 
-No, they make perfect sense and are widely supported - the sample size
-is chosen based on the hwparams instead of being forced by configuring
-TDM mode.
+[1/1] ASoC: fsl-asoc-card: Allow passing the number of slots in use
+      commit: 6ab11462c68499933bd9b5d52a710f4e18a9e43e
 
-> Anyway. What do you suggest? Should I perform some refactoring for the
-> driver? Should I move M98090_REG_TDM_FORMAT/M98090_REG_TDM_CONTROL registers
-> setup to the max98090_dai_set_fmt()?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-To repeat:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> > > I'm saying there should be some interlock between these two settings, if
-> > > nothing else setting DSP A mode should force TDM mode with automatically
-> > > configured slot sizes.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
---2neDLP738ecGvEVW
-Content-Type: application/pgp-signature; name="signature.asc"
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
+Mark
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSTCsQACgkQJNaLcl1U
-h9D+2Qf+OXZ936gjrm5garp8HyHsxJi4cDxPg+iRNTE2bFGPiZZGalEyqDobvnT+
-+V3eOdmPrirjskcEkG1J+YGJkfMFtvoRg2+O613K3yRKx27jEZK7zkwCMmjaXKA1
-1SPuLLuG0xuTiFR5XCWQ3TlextQXT9Bd8yzEjKQ5v8IF3jkxBUi6tUmk3S7s05Ow
-ZytXngPOb15z/tIJa3/1GwQ+ICN/BVXRfexX22SIFyRrfZMuRRQH4hdpJpjWXHe7
-bUMsxFYPB45ULLHHVAET28DckyE0K3V0gKSDBdrH5g1lbXCDtz4M2YZGQh70s+Ub
-1hM84darU01Y53RTLeS5w/tr70Ua+w==
-=FNmd
------END PGP SIGNATURE-----
-
---2neDLP738ecGvEVW--

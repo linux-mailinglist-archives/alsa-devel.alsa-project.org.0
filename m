@@ -2,72 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC755739077
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 21:58:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC3C7739100
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 22:47:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 463BB823;
-	Wed, 21 Jun 2023 21:58:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 463BB823
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9792209;
+	Wed, 21 Jun 2023 22:46:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9792209
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687377533;
-	bh=4YWa7ziHypviN7s7hrAEwshPc09zmRWcBQ73vQXnyDo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1687380437;
+	bh=ripGwAImlGjHyuVMQp4ULj5BV9Mh3c5XiZNw2xG5rgI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rLw4BQHhMwiSDvN+CSyA2iAueslGGDU32gv7LxSb/cZdnqqowW4YwRKjLccayxhU/
-	 vimm1/Wh8/iJO2d2LMNxgEbPe/84aK9RX1LZDFj0CK71y/KHk7n3x5MHzSB46RUu9h
-	 1+F+1EA1CwTt6SeRNykCnOoanZcO5K9sQGwGQ5Y4=
+	b=DAb96/8HrUkiqijYvW9NZJ1537E27z9ngyOudTEg04hEt6UsPAs24C/vPh71Hjsjt
+	 MLzpC58bfmiZlZzpr7w2U1LqGiH8fS5SZepDK8DGCWfytmjhZdg7F5Iys0UmhUSNkB
+	 ErAn7T3i7tUEG/dnl8BQhy5dYKeVGSoQMn0bajWA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 447D0F80124; Wed, 21 Jun 2023 21:57:35 +0200 (CEST)
+	id 20E7AF80141; Wed, 21 Jun 2023 22:46:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74DEDF80132;
-	Wed, 21 Jun 2023 21:57:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC6E0F80132;
+	Wed, 21 Jun 2023 22:46:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8C6DF80141; Wed, 21 Jun 2023 21:57:30 +0200 (CEST)
+	id 26423F80141; Wed, 21 Jun 2023 22:46:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from smtpng1.i.mail.ru (smtpng1.i.mail.ru [94.100.181.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D4B88F80124
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 21:57:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4B88F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id A11E8F80124
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 22:46:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A11E8F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256
- header.s=mail4 header.b=l7VpDDjN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
- s=mail4;
-	h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
- bh=bcL/HisA15ROV00UPLpaNhcgop48RVvGoapFSQJwhJk=;
-	t=1687377442;x=1687467442;
-	b=l7VpDDjN5ckfqC6ZhkNCnpYWmbCatacj/ER0Hfll4QwdCkw7yvxLSDle9pK1hWxj4zUGS/sNlxRC2WkKUZ4aDsrvi9AuldLmW1G/2GrPKaPup2kiYSejOS547DXjUj04pjeiQU5TrjEXQwRI6WilyHSLJNbIW2fuWC6Htyc01eSOq5ueMjHIXzit2ZUbjCdnOIOqQuoLl+QQgrjh9xgWd9pBdJ2OEjh562yzk6vOzbW9Fa8TGOlub3rlRiz/uHFDs398IfKKsvM/T976esBdZtnqKeDW2s7YyB8Qq8veEDwGq7gAnEB9hXeSoj+LQa5qUTGDCUlp7Pow+Wi0ny9Fpg==;
-Received: by smtpng1.m.smailru.net with esmtpa (envelope-from
- <fido_max@inbox.ru>)
-	id 1qC3x9-0006mt-4f; Wed, 21 Jun 2023 22:57:20 +0300
-Message-ID: <08fb24b9-ab7d-da27-5ab7-e1d3270c8b43@inbox.ru>
-Date: Wed, 21 Jun 2023 22:57:18 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 1/1] ASoC: codecs: max98090: Allow dsp_a mode
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=aVBcOHwh
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 9164A6152D;
+	Wed, 21 Jun 2023 20:46:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774D8C433C0;
+	Wed, 21 Jun 2023 20:46:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687380371;
+	bh=ripGwAImlGjHyuVMQp4ULj5BV9Mh3c5XiZNw2xG5rgI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aVBcOHwhn0CyYV41IepkWHkwOLDC90bWDSETmIEgsSmKVFfLrujsPj+2TCVUCZL3I
+	 fCCY6O630u2/2UT+FmlYwb1mRzUIBIarCqsh+WyAfJgc93kgMM3dWHiwl3eUxRs/Ex
+	 jeqyuK8j7PbhySN0qjL+ymyq2h6lXjrf8NCgh+upNWbLZNEfoyQkwKZd4HLPkoD+cF
+	 jnM17i98t4ZD3caWn/A4HimWCt5MUyjXkljMZnbgcJeogpqa4ZCji4yDU9mc5l6sEX
+	 3yVgsVW7L9CkuBnMjEU5063vEhc3WV9UcMW9do9/QTQ+N9zX858C0X79YKQeB1l/j8
+	 r9D2BU96+X0bw==
+Date: Wed, 21 Jun 2023 21:46:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Maxim Kochetkov <fido_max@inbox.ru>
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] ASoC: codecs: max98090: Allow dsp_a mode
+Message-ID: <b83bf5c9-5998-4683-8f28-1eff432742ed@sirena.org.uk>
 References: <20230621115328.156457-1-fido_max@inbox.ru>
  <3805dc65-113f-453a-90a9-2ae6204004ba@sirena.org.uk>
  <e6be75f6-054f-6c3b-00b4-a5e112bcefc3@inbox.ru>
@@ -76,31 +85,16 @@ References: <20230621115328.156457-1-fido_max@inbox.ru>
  <adbe1b82-9478-4462-ace9-968723a6ce3f@sirena.org.uk>
  <0ada8334-4006-438f-8461-5c4c8e13f65d@inbox.ru>
  <c054b036-d5fd-482b-adc4-913edbcd007c@sirena.org.uk>
-From: Maxim Kochetkov <fido_max@inbox.ru>
-In-Reply-To: <c054b036-d5fd-482b-adc4-913edbcd007c@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Authentication-Results: smtpng1.m.smailru.net;
- auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
-X-Mailru-Src: smtp
-X-4EC0790: 10
-X-7564579A: B8F34718100C35BD
-X-77F55803: 
- 4F1203BC0FB41BD95D99986233CC4DDC426F77D841B18B42694044EA105F6AAD182A05F538085040E50E8AF63D50D6E9ACA42FC6FD2F12630800E321C0D64DA4D4567A9AAA701CE1
-X-7FA49CB5: 
- FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7C3AD35F3BF810D7EEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006370FDF1CE57EA9D07C8638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D86050EB323F829BD29BBBE32D365F930C6F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE7CCEADDFEB1F9DC069FA2833FD35BB23D9E625A9149C048EE33AC447995A7AD18CB629EEF1311BF91D2E47CDBA5A96583BD4B6F7A4D31EC0BC014FD901B82EE079FA2833FD35BB23D27C277FBC8AE2E8BC7A3838EBC35966AA471835C12D1D977C4224003CC8364762BB6847A3DEAEFB0F43C7A68FF6260569E8FC8737B5C2249EC8D19AE6D49635B68655334FD4449CB9ECD01F8117BC8BEAAAE862A0553A39223F8577A6DFFEA7CB24F08513AFFAC7943847C11F186F3C59DAA53EE0834AAEE
-X-C1DE0DAB: 
- 0D63561A33F958A5270329DC7FEE85A9A9C986496F94F15D04B28CBA6BDF5D96F87CCE6106E1FC07E67D4AC08A07B9B0CE135D2742255B35CB5012B2E24CD356
-X-C8649E89: 
- 1C3962B70DF3F0ADE00A9FD3E00BEEDF3FED46C3ACD6F73ED3581295AF09D3DF87807E0823442EA2ED31085941D9CD0AF7F820E7B07EA4CFDB6D52BA270A76D4B021ADE8E339388C2D35A89486E6E99BB9BF384ADFC36C64A8F268452FA2DF71B05B57073EAFDF9736BE06A957287FCA31AD209F9CF35CD921BEC6C0C71ED4F84C41F94D744909CEE921556F0E976A29E6EC0772259F8F8F8815B87D7EC76CB9
-X-D57D3AED: 
- 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojw7uTMtz3/lxfEX3zCzvrMQ==
-X-Mailru-Sender: 
- 689FA8AB762F73930F533AC2B33E986BB594CEEDE2C4989BFD1F3EA53A75570098CC072019C18A892CA7F8C7C9492E1F2F5E575105D0B01ADBE2EF17B331888EEAB4BC95F72C04283CDA0F3B3F5B9367
-X-Mras: Ok
-Message-ID-Hash: IQBABHEUX2WBFVVZ6BHBTYAAVPVMWSMZ
-X-Message-ID-Hash: IQBABHEUX2WBFVVZ6BHBTYAAVPVMWSMZ
-X-MailFrom: fido_max@inbox.ru
+ <08fb24b9-ab7d-da27-5ab7-e1d3270c8b43@inbox.ru>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xFMqdEWfE/HZ3Aek"
+Content-Disposition: inline
+In-Reply-To: <08fb24b9-ab7d-da27-5ab7-e1d3270c8b43@inbox.ru>
+X-Cookie: When among apes, one must play the ape.
+Message-ID-Hash: VBN7VJJHDC6CDTE2DLW7I2EBZV5IKYMY
+X-Message-ID-Hash: VBN7VJJHDC6CDTE2DLW7I2EBZV5IKYMY
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,8 +106,9 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IQBABHEUX2WBFVVZ6BHBTYAAVPVMWSMZ/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VBN7VJJHDC6CDTE2DLW7I2EBZV5IKYMY/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
@@ -121,140 +116,45 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
+--xFMqdEWfE/HZ3Aek
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 21.06.2023 17:35, Mark Brown wrote:
-> To repeat:
-> 
->>>> I'm saying there should be some interlock between these two settings, if
->>>> nothing else setting DSP A mode should force TDM mode with automatically
->>>> configured slot sizes.
+On Wed, Jun 21, 2023 at 10:57:18PM +0300, Maxim Kochetkov wrote:
+> On 21.06.2023 17:35, Mark Brown wrote:
 
-Ok. How about that:
----
-  sound/soc/codecs/max98090.c | 52 ++++++++++++++++++++-----------------
-  sound/soc/codecs/max98090.h |  2 ++
-  2 files changed, 30 insertions(+), 24 deletions(-)
+> > > > > I'm saying there should be some interlock between these two settings, if
+> > > > > nothing else setting DSP A mode should force TDM mode with automatically
+> > > > > configured slot sizes.
 
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index 142083b13ac3..c30305269514 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -1582,7 +1582,7 @@ static int max98090_dai_set_fmt(struct snd_soc_dai *codec_dai,
-  	struct snd_soc_component *component = codec_dai->component;
-  	struct max98090_priv *max98090 = snd_soc_component_get_drvdata(component);
-  	struct max98090_cdata *cdata;
--	u8 regval;
-+	u8 regval, tdm_regval;
+> Ok. How about that:
+> ---
+>  sound/soc/codecs/max98090.c | 52 ++++++++++++++++++++-----------------
+>  sound/soc/codecs/max98090.h |  2 ++
+>  2 files changed, 30 insertions(+), 24 deletions(-)
 
-  	max98090->dai_fmt = fmt;
-  	cdata = &max98090->dai[0];
-@@ -1591,6 +1591,7 @@ static int max98090_dai_set_fmt(struct snd_soc_dai *codec_dai,
-  		cdata->fmt = fmt;
+That looks plausible, yes.
 
-  		regval = 0;
-+		tdm_regval = 0;
-  		switch (fmt & SND_SOC_DAIFMT_CLOCK_PROVIDER_MASK) {
-  		case SND_SOC_DAIFMT_CBC_CFC:
-  			/* Set to consumer mode PLL - MAS mode off */
-@@ -1636,7 +1637,8 @@ static int max98090_dai_set_fmt(struct snd_soc_dai *codec_dai,
-  			regval |= M98090_RJ_MASK;
-  			break;
-  		case SND_SOC_DAIFMT_DSP_A:
--			/* Not supported mode */
-+			tdm_regval |= M98090_TDM_MASK;
-+			break;
-  		default:
-  			dev_err(component->dev, "DAI format unsupported");
-  			return -EINVAL;
-@@ -1665,11 +1667,20 @@ static int max98090_dai_set_fmt(struct snd_soc_dai *codec_dai,
-  		 * seen for the case of TDM mode. The remaining cases have
-  		 * normal logic.
-  		 */
--		if (max98090->tdm_slots > 1)
-+		if (tdm_regval)
-  			regval ^= M98090_BCI_MASK;
+I do note that the driver ignores tdm_width (and the entire TDM
+configuration) when configuring BCLK, I guess it only works in clock
+consumer mode for TDM?  If that's the case there should really be some
+validation, and there should probably be a check for slot width being 16
+since that looks like the only thing supported.  Those were already
+broken though.
 
-  		snd_soc_component_write(component,
-  			M98090_REG_INTERFACE_FORMAT, regval);
-+
-+		regval = 0;
-+		if (tdm_regval)
-+			regval = max98090->tdm_lslot << M98090_TDM_SLOTL_SHIFT |
-+				 max98090->tdm_rslot << M98090_TDM_SLOTR_SHIFT |
-+				 0 << M98090_TDM_SLOTDLY_SHIFT;
-+
-+		snd_soc_component_write(component, M98090_REG_TDM_FORMAT, regval);
-+		snd_soc_component_write(component, M98090_REG_TDM_CONTROL, tdm_regval);
-  	}
+--xFMqdEWfE/HZ3Aek
+Content-Type: application/pgp-signature; name="signature.asc"
 
-  	return 0;
-@@ -1680,33 +1691,23 @@ static int max98090_set_tdm_slot(struct snd_soc_dai *codec_dai,
-  {
-  	struct snd_soc_component *component = codec_dai->component;
-  	struct max98090_priv *max98090 = snd_soc_component_get_drvdata(component);
--	struct max98090_cdata *cdata;
--	cdata = &max98090->dai[0];
+-----BEGIN PGP SIGNATURE-----
 
-  	if (slots < 0 || slots > 4)
-  		return -EINVAL;
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSTYYwACgkQJNaLcl1U
+h9Cdegf+M3QEGRYrVk+Y7+QiD1MfHGt5GVDIMEyPuTUJDRGem8nC1umYM/jbF1VN
+Y35F5/Wc6UeD+VmMuvNKqwzX2xrB6NAvRdVtFXcC1L9TSldc55IT1pYT/+XFZe3Q
+YT0OWIObLCAOQHUnKmzAXQDbBnInswna9MFIi530D8VxL0D+ovILaNJhKWINjRGe
+gsMwcH/0zfKFGPsPkG+oeZWUADq2Pnio6YuEuhXgRrTz44mGGO2F2NQJuF1bsw0t
+kHqE3yFFj1sAz6CT0C2VBLCmEdZa7GJJJIih62gaKgPLi9IOyYLYRSq8WeekAjHB
+RU64YCU1LaHwwtpU4ZDKmwuEuejrEg==
+=sbbb
+-----END PGP SIGNATURE-----
 
--	max98090->tdm_slots = slots;
--	max98090->tdm_width = slot_width;
-+	if (slot_width != 16)
-+		return -EINVAL;
-
--	if (max98090->tdm_slots > 1) {
--		/* SLOTL SLOTR SLOTDLY */
--		snd_soc_component_write(component, M98090_REG_TDM_FORMAT,
--			0 << M98090_TDM_SLOTL_SHIFT |
--			1 << M98090_TDM_SLOTR_SHIFT |
--			0 << M98090_TDM_SLOTDLY_SHIFT);
--
--		/* FSW TDM */
--		snd_soc_component_update_bits(component, M98090_REG_TDM_CONTROL,
--			M98090_TDM_MASK,
--			M98090_TDM_MASK);
--	}
-+	if (rx_mask != tx_mask)
-+		return -EINVAL;
-
--	/*
--	 * Normally advisable to set TDM first, but this permits either order
--	 */
--	cdata->fmt = 0;
--	max98090_dai_set_fmt(codec_dai, max98090->dai_fmt);
-+	if (!rx_mask)
-+		return -EINVAL;
-+
-+	max98090->tdm_slots = slots;
-+	max98090->tdm_width = slot_width;
-+	max98090->tdm_lslot = ffs(rx_mask) - 1;
-+	max98090->tdm_rslot = fls(rx_mask) - 1;
-
-  	return 0;
-  }
-@@ -2411,6 +2412,9 @@ static int max98090_probe(struct snd_soc_component *component)
-  	max98090->pa1en = 0;
-  	max98090->pa2en = 0;
-
-+	max98090->tdm_lslot = 0;
-+	max98090->tdm_rslot = 1;
-+
-  	ret = snd_soc_component_read(component, M98090_REG_REVISION_ID);
-  	if (ret < 0) {
-  		dev_err(component->dev, "Failed to read device revision: %d\n",
-diff --git a/sound/soc/codecs/max98090.h b/sound/soc/codecs/max98090.h
-index a197114b0dad..2d2971acd150 100644
---- a/sound/soc/codecs/max98090.h
-+++ b/sound/soc/codecs/max98090.h
-@@ -1534,6 +1534,8 @@ struct max98090_priv {
-  	unsigned int dai_fmt;
-  	int tdm_slots;
-  	int tdm_width;
-+	int tdm_lslot;
-+	int tdm_rslot;
-  	u8 lin_state;
-  	unsigned int pa1en;
-  	unsigned int pa2en;
--- 
-2.40.1
+--xFMqdEWfE/HZ3Aek--

@@ -2,96 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5870738279
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 13:57:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B51D8738250
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 13:31:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5EA3836;
-	Wed, 21 Jun 2023 13:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5EA3836
+	by alsa0.perex.cz (Postfix) with ESMTPS id B90F86C1;
+	Wed, 21 Jun 2023 13:30:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B90F86C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687348657;
-	bh=7QBHZaWGpgML3bccn9yBAWgsyF73qca2uv8Bv8Cwr00=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1687347066;
+	bh=23TD0+CbVvcoZOlAaMY1cfwdodLuTd6fRSuZyiIaz5M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=LpFM3KaDKVykY60mxcjpfcylIHUSFQYZ3mQvbAuHysthD5xyimWKt101RJq0CrCW8
-	 sILdxcV2xYmaa2j9hFijq2UYQjCxNk6cYjFmXEjx8dep9kRxybQ/J6lVC/vM5K2AM5
-	 BGoewzk+l/2sTJANQDBOKbgPaZtxA/s//CA3kty8=
+	b=hqzHf64AKgqqIG+ODwBrGdNB5Ph4IEGOEZV/Tx6FROfSp4x1TogzvM2mo+ZpNUGVE
+	 +YZRJ4VP24qqU/Fm5Rjf4esI2h03/lcFqU1nQlykQujhc2GbWxAHh/fP0ZCsd7mydc
+	 0aL1s/ztyzdCxdXnkElUqRhMLkjHSis87qIRmhpU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A806AF80535; Wed, 21 Jun 2023 13:56:22 +0200 (CEST)
+	id 22599F801D5; Wed, 21 Jun 2023 13:30:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D6A8F80132;
-	Wed, 21 Jun 2023 13:56:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FA1FF80132;
+	Wed, 21 Jun 2023 13:30:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1B197F80141; Wed, 21 Jun 2023 13:56:20 +0200 (CEST)
+	id 3EDA1F80141; Wed, 21 Jun 2023 13:30:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C2A4CF80124
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 13:56:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2A4CF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4501CF80124
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 13:30:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4501CF80124
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=bu10ImQ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1687348577; x=1718884577;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7QBHZaWGpgML3bccn9yBAWgsyF73qca2uv8Bv8Cwr00=;
-  b=bu10ImQ9I+Q0hbPfXi4FsI9Cv7xywOnPHoaHiA0MhDmToW6zXUS1QvVs
-   luCluBUhGCUnVRKNDgA+5TG977hdr7J07f+am0ACCMy0MtcUSn50rAsox
-   +V5YbFV16vib1FjiQAoNMBbK6lUlhM4uGtadCgmkfrrRQFVprqJOfk3Pp
-   2ofXGPbz3nYQVa4gvUwkfRssffEeb9GIZdw/EU6Xg2vyDl/U4k7mIhh1k
-   UfMHx0AFU+CSaxTBrktkeH0mi/MqhBT89Rp3FfnLX+anG2TMCg2o7IYCE
-   8nfWsywbL/OIDuxL7qpdLnpRxC95T/HqeKCZvsOXioJiAChI3euJ7ezqv
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="349880692"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400";
-   d="scan'208";a="349880692"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 04:56:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="714451259"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400";
-   d="scan'208";a="714451259"
-Received: from taoki-mobl1.gar.corp.intel.com (HELO [10.254.114.157])
- ([10.254.114.157])
-  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 04:56:04 -0700
-Message-ID: <e098e8a9-533b-319e-ea0c-24af28714471@linux.intel.com>
-Date: Wed, 21 Jun 2023 13:28:42 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 2/4] soundwire: introduce SDW_DEV_NUM_ALLOC_IDA_WAKE_ONLY
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, bard.liao@intel.com
-References: <20230531033736.792464-1-yung-chuan.liao@linux.intel.com>
- <20230531033736.792464-3-yung-chuan.liao@linux.intel.com>
- <ZIF94vZHzeGXfyin@matsya>
- <6c75e986-29a4-d97c-3862-d20397f8b8b4@linux.intel.com>
- <ZJLYQCwvvIwEj47H@matsya>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <ZJLYQCwvvIwEj47H@matsya>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: GATSIR5BFU4Y7YNPSVMRRPK5IW6NTUCM
-X-Message-ID-Hash: GATSIR5BFU4Y7YNPSVMRRPK5IW6NTUCM
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=RwGjh6XH;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=yR1nUhot
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 41E251FDD9;
+	Wed, 21 Jun 2023 11:29:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1687346999;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2rd1XA/DMAp6AcG8TgHnPbCfk/t/rHdBEBaFpsw7cAg=;
+	b=RwGjh6XH6cvqwzB8V+wCpOx7Y2uqJexUazUi60BZj3gJ8kvBAs6PxtzSxxYPwTASd2/gSJ
+	OowG3XAl1NnyQ/w8iQwCy6S1y2bfCxAVMiMSOj66Bot4IFiQP6gi3TI7YoYWBorENWcHaw
+	pRv4Cn+U+S9QlyQPG/i9GO1EO2+7hgE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1687346999;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2rd1XA/DMAp6AcG8TgHnPbCfk/t/rHdBEBaFpsw7cAg=;
+	b=yR1nUhothHLWxos/73fp1sN7GqUiY0KNjJizWaxUo7otXcFtZEuvQEpiI870YK5h854HpR
+	8BBWKTVx5uFAYbAQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1C5FE134B1;
+	Wed, 21 Jun 2023 11:29:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id IXVqBjffkmQuLAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 21 Jun 2023 11:29:59 +0000
+Date: Wed, 21 Jun 2023 13:29:58 +0200
+Message-ID: <87legd59zd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Luke D. Jones" <luke@ljones.dev>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	sbinding@opensource.cirrus.com,
+	tangmeng@uniontech.com,
+	andy.chi@canonical.com,
+	p.jungkamp@gmx.net,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for ASUS ROG GV601V
+In-Reply-To: <20230621085715.5382-1-luke@ljones.dev>
+References: <20230621085715.5382-1-luke@ljones.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: COZ2DBY32MPEVOK7XW2VHJMJGPGIBQPC
+X-Message-ID-Hash: COZ2DBY32MPEVOK7XW2VHJMJGPGIBQPC
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GATSIR5BFU4Y7YNPSVMRRPK5IW6NTUCM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/COZ2DBY32MPEVOK7XW2VHJMJGPGIBQPC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,47 +123,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
->>> This seems to be a consequence of Intel hardware decisions, so I guess
->>> best suited place for this is Intel controller, do we really want to
->>> have this in core logic?
->>
->> It's a valid objection.
->>
->> The reason why I added the alternate strategies in the core logic is
->> that the IDA and hybrid approach are just software-based with no
->> specific hardware dependencies. If QCOM or AMD wanted to use the
->> strategies contributed and tested by Intel, it'd be a two-line change on
->> their side.
->>
->> That said, it's likely that at some point *someone* will want to
->> constrain the device number allocation further, be it with ACPI/DT
->> properties or reading hardware registers. The device number is a
->> de-facto priority given the way we scan the PING frames, so some systems
->> may want to give a higher priority to a specific peripherals.
->>
->> This would push us to add a master ops callback to control the device
->> number allocation. It's a bit invasive but that would give the ultimate
->> flexibility. Reuse between vendors could be possible if 'generic'
->> callbacks were part of a library to pick from.
->>
->> I don't really have any objections if this vendor-specific callback was
->> preferred, it may be a bit early to add this but long-term it's probably
->> what makes more sense.
->>
->> I'll go with the flow on suggested recommendations.
+On Wed, 21 Jun 2023 10:57:15 +0200,
+Luke D. Jones wrote:
 > 
-> Thanks, if it all one of the other two controller start using this, it
-> would make sense to move it to core then, for now would be better to
-> have this in specific driver
+> Adds the required quirk to enable the Cirrus amp and correct pins
+> on the ASUS ROG GV601V series.
+> 
+> While this works if the related _DSD properties are made available, these
+> aren't included in the ACPI of these laptops (yet).
+> 
+> Signed-off-by: Luke D. Jones <luke@ljones.dev>
 
-The code is much cleaner indeed that way.
+Applied now.  Thanks.
 
-I still have to work on a race condition if the codec driver probe
-happens *after* the enumeration. In that case, the properties needed to
-decide which allocation to use are not initialized yet.
 
-We may need to either force the codec to re-enumerate with a ForceReset,
-or to switch the device number. In theory the latter is straightforward
-but there can be additional races if there are interrupts thrown just
-before the device number change happens.
+Takashi

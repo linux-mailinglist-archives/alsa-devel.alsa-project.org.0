@@ -2,86 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92FC8738653
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 16:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40AD3738700
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 16:30:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B828E820;
-	Wed, 21 Jun 2023 16:09:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B828E820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B0A0832;
+	Wed, 21 Jun 2023 16:29:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B0A0832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687356596;
-	bh=o+bXHm+qij4RZmFXZzvzBcIxhC0IO3kDLf1U7jrl850=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:List-Id:
+	s=default; t=1687357819;
+	bh=wte/wxF5nei/FBEnTYx6jHXElnqpLNSsLi4kF7jypGk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QBVjXxaQDUNiOr1C9y91vZSZ4kguf0NaIqbmol+DTbJXa2Q4mYksJleFEpKetdC9h
-	 Q4/0y6KgDL9K89HEHFV8T2xXfzOwvTfClNjyzOMVPGGeJd2WT+ibhArj1sEedHo4O6
-	 9qxfWk5j3nwF9LR6iWwhp6ADxsvZZXztNOx240xc=
+	b=X8jiLbR+BzcjArHHrfB9NLCjWeB3d/uQU9jyaRo0+SmJnbMJFUmozly5swEpqgL8f
+	 gqjt89h/HRH3IT59YIXkSRrPhW783j+XL0p8eqma1s3d7Ou6evXmPckmCWnI0U3lJc
+	 4kTJJLly68D4Wd9eMaE9pj3ZwZsthyWbRC2EKzxI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E50B5F801D5; Wed, 21 Jun 2023 16:09:05 +0200 (CEST)
+	id D8FFBF80141; Wed, 21 Jun 2023 16:28:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 487A5F80124;
-	Wed, 21 Jun 2023 16:09:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8A64F80124;
+	Wed, 21 Jun 2023 16:28:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 681DCF80141; Wed, 21 Jun 2023 16:09:01 +0200 (CEST)
+	id 28DA0F80141; Wed, 21 Jun 2023 16:28:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtpng1.i.mail.ru (smtpng1.i.mail.ru [94.100.181.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 84AB3F80093
-	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 16:08:58 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
-	by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 762631E36;
-	Wed, 21 Jun 2023 16:08:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 762631E36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
-	t=1687356537; bh=hWXdhsVQpB/+odxLGC42YI96+2wDIp0AX9bS19+Gdls=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=hRxm4WlyJw2csmDx+4MIHfUDNvERGecyaCSIxZONPgugcwVP2EkzFT0MtkQimGTzQ
-	 p2SQK9SuEZdc6vsQGGJLj712XnD/+bHpNaqzyPhyRDm3oa8c5e+3dIFxRb5+T1l8z0
-	 BeqR/fZQCBqx+siJoyuTH6gKZhg9OUiLUMfi+a4s=
-Received: from [192.168.100.98] (unknown [192.168.100.98])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	(Authenticated sender: perex)
-	by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
-	Wed, 21 Jun 2023 16:08:48 +0200 (CEST)
-Message-ID: <443f697b-fecf-6e8e-0b76-65257aff7da8@perex.cz>
-Date: Wed, 21 Jun 2023 16:08:47 +0200
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4797AF80022
+	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 16:28:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4797AF80022
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256
+ header.s=mail4 header.b=HJYJnd3d
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
+ s=mail4;
+	h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc;
+ bh=nJT5fzG4nA8tzrxdBQpWZ2fiA00ghY68jXq6u2LA1uY=;
+	t=1687357727;x=1687447727;
+	b=HJYJnd3dm3HvT2WAGtc/tdgWBniIqUQsHBFZP5HUn1mCNC1Jl8LAPknFrNhqAt/wbpkZwaBfeXXiC81+lKMMb5nN/rKcy2D2kwvggRkXTt/rEAdAMZ56GuUvePZc1Uv+GqS8Y1l08SJ+fUSylXs9Udp4/KBTOEaA/O/pM8SXP4IL+dA7JjeXBHp8aRXe+tWo80tbDX8T2+elEO/y2ofyZdJVNpOOGAxU7OkM6ySjsCe5wV9HE97Jp8trgxo9krTkgyzFkZe7uf0akarlCc7PTGq0wOGyqLJVXnoFeiGtjvuExjGGOW1ItYTyaWfg+PRyHz23BNMv44wSoBYIoBRBBQ==;
+Received: by smtpng1.m.smailru.net with esmtpa (envelope-from
+ <fido_max@inbox.ru>)
+	id 1qByp8-0007GW-JY; Wed, 21 Jun 2023 17:28:43 +0300
+Message-ID: <0ada8334-4006-438f-8461-5c4c8e13f65d@inbox.ru>
+Date: Wed, 21 Jun 2023 17:28:41 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
+ Thunderbird/102.12.0
+Subject: Re: [PATCH 1/1] ASoC: codecs: max98090: Allow dsp_a mode
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>,
- =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>
-Cc: kernel@collabora.com,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shuah Khan <shuah@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20230620220839.2215057-1-nfraprado@collabora.com>
- <20230620220839.2215057-3-nfraprado@collabora.com>
- <33bea0d3-b8dd-4936-812e-392166df4437@sirena.org.uk>
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 2/2] kselftest/alsa: pcm-test: Decrease stream duration
- from 4 to 2 seconds
-In-Reply-To: <33bea0d3-b8dd-4936-812e-392166df4437@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, linux-kernel@vger.kernel.org
+References: <20230621115328.156457-1-fido_max@inbox.ru>
+ <3805dc65-113f-453a-90a9-2ae6204004ba@sirena.org.uk>
+ <e6be75f6-054f-6c3b-00b4-a5e112bcefc3@inbox.ru>
+ <b763d08e-f751-480c-96b6-339a53856768@sirena.org.uk>
+ <ed9606a4-4be6-7403-6e32-1c045ac0bdf6@inbox.ru>
+ <adbe1b82-9478-4462-ace9-968723a6ce3f@sirena.org.uk>
+From: Maxim Kochetkov <fido_max@inbox.ru>
+In-Reply-To: <adbe1b82-9478-4462-ace9-968723a6ce3f@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LXGZMMRKE3CW6DXXBEDKUERI6LPZPSB6
-X-Message-ID-Hash: LXGZMMRKE3CW6DXXBEDKUERI6LPZPSB6
-X-MailFrom: perex@perex.cz
+Content-Transfer-Encoding: 7bit
+Authentication-Results: smtpng1.m.smailru.net;
+ auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
+X-Mailru-Src: smtp
+X-4EC0790: 10
+X-7564579A: EEAE043A70213CC8
+X-77F55803: 
+ 4F1203BC0FB41BD9A4B2B2E818EC31CFD224C07E85EA9859E11F1DAAA4FD1EAA182A05F5380850404C228DA9ACA6FE2708451A61ECE1571BEDF2AA667862DC52E9EB151CE0806E4B8F2E3C5D047B6D81
+X-7FA49CB5: 
+ FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE70FFC2100EB7B6895EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637F88016AB904663428638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D87F474E91384C5365BA2C152A92F88B606F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE78C592797616C97AB9FA2833FD35BB23D9E625A9149C048EE9ECD01F8117BC8BEA471835C12D1D9774AD6D5ED66289B52BA9C0B312567BB23117882F4460429728776938767073520C65AC60A1F0286FEBDFBBEFFF4125B51D2E47CDBA5A96583BA9C0B312567BB231DD303D21008E29813377AFFFEAFD269A417C69337E82CC2E827F84554CEF50127C277FBC8AE2E8BA83251EDC214901ED5E8D9A59859A8B6A1DCCEB63E2F10FB089D37D7C0E48F6C5571747095F342E88FB05168BE4CE3AF
+X-C1DE0DAB: 
+ 0D63561A33F958A54D8796D2E02DF57BC10FEB1C60DA543E61549223A00EC5C2F87CCE6106E1FC07E67D4AC08A07B9B06A1CB4668A9CA5FACB5012B2E24CD356
+X-C8649E89: 
+ 1C3962B70DF3F0ADBF74143AD284FC7177DD89D51EBB7742424CF958EAFF5D571004E42C50DC4CA955A7F0CF078B5EC49A30900B95165D3498EF79680EE3725C32F8C855525AC30190FB61CE7D78FFBFC2D122F4F6CBFAB140530F5F09079E051D7E09C32AA3244C92213DC52697EA0AFC58ACFEE110F6079CA7333006C390A040799AC538031D0DB6C6411D86935C892AB2189BCAD71E73D640157F23F2FFE137E69C174A41D00C
+X-D57D3AED: 
+ 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojw7uTMtz3/lyoCY6f4H0wYA==
+X-Mailru-Sender: 
+ 689FA8AB762F73930F533AC2B33E986B7BE4F4AB9B547BE90041AC4B0D015DA898CC072019C18A892CA7F8C7C9492E1F2F5E575105D0B01ADBE2EF17B331888EEAB4BC95F72C04283CDA0F3B3F5B9367
+X-Mras: Ok
+Message-ID-Hash: LFECA36J4FPWVNREEQ6UL5PZGXTJQN7B
+X-Message-ID-Hash: LFECA36J4FPWVNREEQ6UL5PZGXTJQN7B
+X-MailFrom: fido_max@inbox.ru
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LXGZMMRKE3CW6DXXBEDKUERI6LPZPSB6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LFECA36J4FPWVNREEQ6UL5PZGXTJQN7B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,35 +119,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 21. 06. 23 15:08, Mark Brown wrote:
-> On Tue, Jun 20, 2023 at 06:08:26PM -0400, Nícolas F. R. A. Prado wrote:
+
+
+On 21.06.2023 17:01, Mark Brown wrote:
+> On Wed, Jun 21, 2023 at 04:55:18PM +0300, Maxim Kochetkov wrote:
+>> On 21.06.2023 16:18, Mark Brown wrote:
 > 
->> -	const int duration_s = 4, margin_ms = 100;
->> +	const int duration_s = 2, margin_ms = 100;
+>>> I'm saying there should be some interlock between these two settings, if
+>>> nothing else setting DSP A mode should force TDM mode with automatically
+>>> configured slot sizes.
 > 
-> This doesn't scale the margin with the duration which will affect the
-> sensitivity of the test to misclocking.  It should make it less
-> sensitive which is *probably* safer but at least worth noting.
+>> At this time there is no any interlock for TDM mode in MAX98090 driver. We
 > 
-> We might also have issues with some of the lower sample rates, IIRC some
-> devices are constrained in ways that mean they want a minimum buffer
-> size which is harder to satisfy with very short playbacks and low sample
-> rates.
+> Yes, that's the problem I am identifying.  The driver allows TDM mode to
+> be configured independently of the DAI format but the two are related.
+
+But DSP_A mode is just bit/frame format. It is just compatible with TDM.
+
 > 
-> I don't know why Jaroslav picked the 4s number here.
+>> can specify dai-tdm-slot-* properties in DT and .set_tdm_slot() will be
+>> called to setup TDM mode. And SND_SOC_DAIFMT cannot affect it. I checked
+>> other codecs drivers: most of them performs TDM setup this way. So why do we
+>> need such interlock right now?
+> 
+> A lot of devices support TDM modes with other DAI formats, or allow the
+> mode that is required for TDM to be configured even without doing TDM
+> setup.  Some always configure TDM like I'm suggesting, with the explicit
+> TDM configuration just being an override.  Some are just buggy and
+> nobody noticed.  The issue is that the driver will claim to have
+> configured DSP A mode but actually done something else unless the user
+> also configures TDM.
 
-You basically replied yourself. The values (time + margin) were picked to do 
-the DMA test for a reasonable time - based on my experience.
+Yep. But we have to specify TDM parameters (slot masks, slot width, etc) 
+any way. Because there is no default TDM configuration like I2S and so. 
+And pure DSP_A/B mode just have no sense.
 
-I think that the problem is somewhere else here. The overall test timeout 
-should be calculated dynamically. All tests may be queried for the maximal 
-expected interval based on the hardware/software capabilities. It's a bit 
-pitfall to have a fixed time limit where the realtime tests depend on the 
-number of devices.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-
+Anyway. What do you suggest? Should I perform some refactoring for the 
+driver? Should I move M98090_REG_TDM_FORMAT/M98090_REG_TDM_CONTROL 
+registers setup to the max98090_dai_set_fmt()?

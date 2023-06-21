@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1969F737FC2
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 13:04:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A472737FC8
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Jun 2023 13:05:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30843844;
-	Wed, 21 Jun 2023 13:03:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30843844
+	by alsa0.perex.cz (Postfix) with ESMTPS id C34D883B;
+	Wed, 21 Jun 2023 13:04:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C34D883B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687345471;
-	bh=OsPUwHyTr2V7nZzKAZZdnJuXGpvMfSY/3sFcvFStALE=;
+	s=default; t=1687345522;
+	bh=ed9fN0NNyIr3+JO+rkQNqfm3g9dsIp7/IpWQrq6ELTk=;
 	h=From:To:Subject:Date:In-Reply-To:References:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=dfKr2vzFHOP8mwzhArESKnXw7HIjd7xwblmhegfUdhF1szdeiiRMW1b0aMDd+7spx
-	 6PmS6i3i2JQttqxYa7dG0Ds8rwKilEJMqq7nz+dgjDDp77Fy5MVMCKCqC0A5V9jFsr
-	 4ffdku+r0nIbGm9KZyIYHhOR45t3IhkBtrOdZUZM=
+	b=rVsI6CfwyPtzboevNwArJSFs1KdcOhA7VFOK5zbqsaf32WhkEgLkg4ZE0DAilMTyF
+	 R81YLnQhBffoS8+SmrCTikDJRuhmVFhUzDRScgEqnZiIBsGu95VR+Q+hAYLkZMH9fX
+	 R1itXqos900AXXugEhDgUh2swz8NqAQK06nY49Zg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4AAA7F8055C; Wed, 21 Jun 2023 13:02:52 +0200 (CEST)
+	id 88991F80163; Wed, 21 Jun 2023 13:04:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4824F80549;
-	Wed, 21 Jun 2023 13:02:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5CA1F80093;
+	Wed, 21 Jun 2023 13:04:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A4EC6F80169; Wed, 21 Jun 2023 13:02:47 +0200 (CEST)
+	id B93E4F80022; Wed, 21 Jun 2023 13:04:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3ED37F80163
+	by alsa1.perex.cz (Postfix) with ESMTPS id F0A92F80141
 	for <alsa-devel@alsa-project.org>; Wed, 21 Jun 2023 13:02:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ED37F80163
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0A92F80141
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Zgkiv+dd;
+ header.s=susede2_rsa header.b=w5pN3oHa;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=/tn+sNMJ
+ header.s=susede2_ed25519 header.b=kwXM8oRt
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 876161FDBD;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 90C9521BA6;
 	Wed, 21 Jun 2023 11:02:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
@@ -60,42 +59,42 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mFewCFXK/g0dryWshYJeB6V90JnmQN8PBgMjhFgpAVE=;
-	b=Zgkiv+dddz2UQEG3boIZkmZzOndVBcaJOO4inquUFC1GRCOFVbHClctZtN4+IRuho6eRFy
-	oy3znbl8Nn46GSzlqToKiKazzud8frcGw3Fu19eDQUyykuKpQguU+4syKDeEX7Qb4ID7zS
-	NGYN5YxwUBA8MLaCyS9YvxEFME6YmJ4=
+	bh=6BHUZ9fQTKfdFvWz70nExMQCtNPIrhf25ykUHDW/N9Y=;
+	b=w5pN3oHaPBRIDWnMs9wT+Zt1MQz2jA1EYyLLAejahciUALWJZTUjhPicwjqbC2iYxu473b
+	azC+1Z8sPHTH5zGNxWEipaPfnN6tDPTxEwTdHMQEZKf3OJ+RS0T45S+RWDA0rfTUShSuAE
+	/T/iAb40RZKeAqtV5V+XPKTEGrjDWRs=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1687345363;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mFewCFXK/g0dryWshYJeB6V90JnmQN8PBgMjhFgpAVE=;
-	b=/tn+sNMJ6u/D7lJWGd69L6YtM8bbkx7txHJotLewXWBcGO4dbn2MC1VlciLVcmIjpRyoEF
-	ECo5TBHmANSH+sCQ==
+	bh=6BHUZ9fQTKfdFvWz70nExMQCtNPIrhf25ykUHDW/N9Y=;
+	b=kwXM8oRtLOXdCh2NvfJ93aPzmyPF5ESpONowMbGEfDg4Z5CgBYoiIpwXwgyxZ0wIpaZCtE
+	BY/IQiydbYHmwlDA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7C7A5134B1;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 86A4113A66;
 	Wed, 21 Jun 2023 11:02:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id mOkUHtPYkmTdHgAAMHmgww
+	id aMs4INPYkmTdHgAAMHmgww
 	(envelope-from <tiwai@suse.de>); Wed, 21 Jun 2023 11:02:43 +0000
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 2/3] ALSA: ump: Add no_process_stream flag
-Date: Wed, 21 Jun 2023 13:02:40 +0200
-Message-Id: <20230621110241.4751-3-tiwai@suse.de>
+Subject: [PATCH 3/3] ALSA: ump: Export snd_ump_receive_ump_val()
+Date: Wed, 21 Jun 2023 13:02:41 +0200
+Message-Id: <20230621110241.4751-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230621110241.4751-1-tiwai@suse.de>
 References: <20230621110241.4751-1-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QBQDIBADJMDSPOKB6ITGGDVRYTNFKMGJ
-X-Message-ID-Hash: QBQDIBADJMDSPOKB6ITGGDVRYTNFKMGJ
+Message-ID-Hash: HUD4C4B3JVHNXTZVMXTOUPGS5AWEAMLB
+X-Message-ID-Hash: HUD4C4B3JVHNXTZVMXTOUPGS5AWEAMLB
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -108,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QBQDIBADJMDSPOKB6ITGGDVRYTNFKMGJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HUD4C4B3JVHNXTZVMXTOUPGS5AWEAMLB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,42 +117,59 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 This is another preliminary patch for USB MIDI 2.0 gadget driver.
-Add a new flag, no_process_stream, to snd_ump for suppressing the UMP
-Stream message handling in UMP core.
+Export the currently local snd_ump_receive_ump_val().  It can be used
+by the gadget driver for processing the UMP data.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/ump.h | 1 +
- sound/core/ump.c    | 4 ++++
- 2 files changed, 5 insertions(+)
+ include/sound/ump.h |  1 +
+ sound/core/ump.c    | 11 ++++++++---
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/include/sound/ump.h b/include/sound/ump.h
-index 3c7e67475676..2f6a9944c6ef 100644
+index 2f6a9944c6ef..44d2c2fd021d 100644
 --- a/include/sound/ump.h
 +++ b/include/sound/ump.h
-@@ -28,6 +28,7 @@ struct snd_ump_endpoint {
- 	u32 stream_wait_for;	/* expected stream message status */
- 	bool stream_finished;	/* set when message has been processed */
- 	bool parsed;		/* UMP / FB parse finished? */
-+	bool no_process_stream;	/* suppress UMP stream messages handling */
- 	wait_queue_head_t stream_wait;
- 	struct snd_rawmidi_file stream_rfile;
+@@ -109,6 +109,7 @@ static inline int snd_ump_attach_legacy_rawmidi(struct snd_ump_endpoint *ump,
+ }
+ #endif
  
++int snd_ump_receive_ump_val(struct snd_ump_endpoint *ump, u32 val);
+ int snd_ump_switch_protocol(struct snd_ump_endpoint *ump, unsigned int protocol);
+ 
+ /*
 diff --git a/sound/core/ump.c b/sound/core/ump.c
-index 4150b9c0b35b..5e73c9cf5919 100644
+index 5e73c9cf5919..5e17351ca984 100644
 --- a/sound/core/ump.c
 +++ b/sound/core/ump.c
-@@ -854,6 +854,10 @@ static void ump_handle_stream_msg(struct snd_ump_endpoint *ump,
- 	unsigned int status;
- 	int ret;
+@@ -263,12 +263,16 @@ static unsigned char ump_packet_words[0x10] = {
+ 	1, 1, 1, 2, 2, 4, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4
+ };
  
-+	/* UMP stream message suppressed (for gadget UMP)? */
-+	if (ump->no_process_stream)
-+		return;
-+
- 	BUILD_BUG_ON(sizeof(*msg) != 16);
- 	ump_dbg(ump, "Stream msg: %08x %08x %08x %08x\n",
- 		buf[0], buf[1], buf[2], buf[3]);
+-/* parse the UMP packet data;
+- * the data is copied onto ump->input_buf[].
++/**
++ * snd_ump_receive_ump_val - parse the UMP packet data
++ * @ump: UMP endpoint
++ * @val: UMP packet data
++ *
++ * The data is copied onto ump->input_buf[].
+  * When a full packet is completed, returns the number of words (from 1 to 4).
+  * OTOH, if the packet is incomplete, returns 0.
+  */
+-static int snd_ump_receive_ump_val(struct snd_ump_endpoint *ump, u32 val)
++int snd_ump_receive_ump_val(struct snd_ump_endpoint *ump, u32 val)
+ {
+ 	int words;
+ 
+@@ -284,6 +288,7 @@ static int snd_ump_receive_ump_val(struct snd_ump_endpoint *ump, u32 val)
+ 	}
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(snd_ump_receive_ump_val);
+ 
+ /**
+  * snd_ump_receive - transfer UMP packets from the device
 -- 
 2.35.3
 

@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497FD73AC93
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 00:34:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E21C973AC95
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 00:35:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91CB1839;
-	Fri, 23 Jun 2023 00:33:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91CB1839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29547852;
+	Fri, 23 Jun 2023 00:34:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29547852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687473279;
-	bh=wP5iYCJHzA+hCBB51KqK3bEREmtRlXHKh26/82qwFDE=;
+	s=default; t=1687473335;
+	bh=Fx3v4G/Q/qRPvxtg3Mgx/rYdfAvEoHue1uehMtXOhZQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qjPA4Yp68whpp8uQPQxtyhrOrEPeSDKeNvmPS4eD+nFBahwPfvNxZqmhWhjDPNUBv
-	 GFUP6aSaKFBnFEp+odsrFv3FI+jdTb/FGFmQJKxZB7gNuREHimgC6W9ssPPixJHS9u
-	 yqsB/umrSVJoyM4p+jjlJTbN1uSjsS/PyQl37gHs=
+	b=Dp632sULTo0GqYbpB+F957YtoVos2f4usoi+A0Uy1EC1PerK1tJJSH9qrJv5SH2FT
+	 mJSvyR3Y51PlKdcxLixdxTQD3aHFW9DUIAxhCbdhMHWSC1+Xna6Re1SM1+ErHiRIE5
+	 pW3XevEEni68wyxV36uCRcej0AmRBHT0BB5vAMJU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5941CF8051E; Fri, 23 Jun 2023 00:33:49 +0200 (CEST)
+	id D2EA4F80558; Fri, 23 Jun 2023 00:33:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9C7BF80163;
-	Fri, 23 Jun 2023 00:33:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59F5EF80551;
+	Fri, 23 Jun 2023 00:33:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78DA7F80141; Fri, 23 Jun 2023 00:33:45 +0200 (CEST)
+	id 3D4CAF801F5; Fri, 23 Jun 2023 00:33:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 34421F8003A
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 00:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34421F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 62085F8003A
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 00:33:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62085F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=ssH+p4Ba
+ header.s=k20201202 header.b=Jk5peD++
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0013561903;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id A1E5061924;
+	Thu, 22 Jun 2023 22:33:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F27CC433CA;
 	Thu, 22 Jun 2023 22:33:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3D2C433C8;
-	Thu, 22 Jun 2023 22:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687473220;
-	bh=wP5iYCJHzA+hCBB51KqK3bEREmtRlXHKh26/82qwFDE=;
+	s=k20201202; t=1687473224;
+	bh=Fx3v4G/Q/qRPvxtg3Mgx/rYdfAvEoHue1uehMtXOhZQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=ssH+p4BaxnsIM0BKtv2UJNG2p5L0vhErzN1IOK6XILmij1WwGEh1ViosLCPKaFOzr
-	 dtW7Ca/Sdfb1PzLV0XPv4fb0bExLCFS64R2Wdi2VKHCGa6qyawvN+n88JW4oLRF7+i
-	 vP69ZO24fYXHexeWj2TNR8lGPL3703hktTrlMTJ9qdKPEGpEAkCN6vNCr3i6sQSBFu
-	 m+IZ5SHfp6qGeDpv89J0Sl54TS4Vuowue8HEKC7HrvuI5hSS5ezjXnvaLd/LX1xK5/
-	 x0lYBLgIhwU+l1VA/NAr4GwvvImVaq0ArrV/GBxnPexv+t5RbCH+/kaBPpv6BkHu1v
-	 0LkI2DbzYQKOA==
+	b=Jk5peD++dJDfFdJZnWbVzS3MvLCy9R+jOHoXLYovKYM9fB5hizu5axPGxPBWRYp2e
+	 dX0fTz91H0BC3BlqDJOwEfeyO426zb9qctjpO/37mf+5DxLAPSBRHWhPxGpcsvdQsa
+	 GdqM3W4TfHjLqT39SAm6sGe8RoPD97ISunnC3sB0x3cKqyvDLzy/VVhf23wG5fzb1h
+	 KWi8bVxAUlXv1rtUV5dEWxsS4Vf0Yl0gSBVla+pdgqD/lrCqRxhPofk/huDYpbw7Mw
+	 xbK3hE8R009lLxgJ0IexZNUluF/7g+av++i9JRk+WFzCkBIFdDdfvk2BhgOYmeTPTG
+	 sfc6hflfW85Ww==
 From: Mark Brown <broonie@kernel.org>
-To: Yingkun Meng <mengyingkun@loongson.cn>, Arnd Bergmann <arnd@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20230622101235.3230941-1-arnd@kernel.org>
-References: <20230622101235.3230941-1-arnd@kernel.org>
-Subject: Re: [PATCH] ASoC: loongson: fix address space confusion
-Message-Id: <168747321729.318849.3547476102614344468.b4-ty@kernel.org>
-Date: Thu, 22 Jun 2023 23:33:37 +0100
+To: Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Rob Herring <robh@kernel.org>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20230621231044.3816914-1-robh@kernel.org>
+References: <20230621231044.3816914-1-robh@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: microchip,sama7g5-pdmc: Simplify
+ "microchip,mic-pos" constraints
+Message-Id: <168747322064.318849.2286093832255639633.b4-ty@kernel.org>
+Date: Thu, 22 Jun 2023 23:33:40 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-c6835
-Message-ID-Hash: KJCX6BDZSYMO4CT2REC44CSFZCCMXT3E
-X-Message-ID-Hash: KJCX6BDZSYMO4CT2REC44CSFZCCMXT3E
+Message-ID-Hash: B6Y7T57PAIIBZ3DRXYXYMJMGCBYY3WOJ
+X-Message-ID-Hash: B6Y7T57PAIIBZ3DRXYXYMJMGCBYY3WOJ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,30 +96,21 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KJCX6BDZSYMO4CT2REC44CSFZCCMXT3E/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B6Y7T57PAIIBZ3DRXYXYMJMGCBYY3WOJ/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 22 Jun 2023 12:12:22 +0200, Arnd Bergmann wrote:
-> The i2s driver uses the mapped __iomem address of the FIFO as the DMA
-> address for the device. This apparently works on loongarch because of
-> the way it handles __iomem pointers as aliases of physical addresses,
-> but this is not portable to other architectures and causes a compiler
-> warning when dma addresses are not the same size as pointers:
+On Wed, 21 Jun 2023 17:10:44 -0600, Rob Herring wrote:
+> "enum" values should be integers or strings, not arrays (though json-schema
+> does allow arrays, we do not). In this case, all possible combinations are
+> allowed anyways, so there's little point in expressing as an array.
 > 
-> sound/soc/loongson/loongson_i2s_pci.c: In function 'loongson_i2s_pci_probe':
-> sound/soc/loongson/loongson_i2s_pci.c:110:29: error: cast from pointer to integer of different size [-Werror=pointer-to-int-cast]
->   110 |         tx_data->dev_addr = (dma_addr_t)i2s->reg_base + LS_I2S_TX_DATA;
->       |                             ^
-> sound/soc/loongson/loongson_i2s_pci.c:113:29: error: cast from pointer to integer of different size [-Werror=pointer-to-int-cast]
->   113 |         rx_data->dev_addr = (dma_addr_t)i2s->reg_base + LS_I2S_RX_DATA;
->       |                             ^
 > 
-> [...]
 
 Applied to
 
@@ -120,8 +118,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: loongson: fix address space confusion
-      commit: 012fa2622e30675f61413485785e708ba02be78b
+[1/1] ASoC: dt-bindings: microchip,sama7g5-pdmc: Simplify "microchip,mic-pos" constraints
+      commit: b2c28785b125acb28a681462510297410cbbabd7
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

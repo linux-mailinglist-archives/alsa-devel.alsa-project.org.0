@@ -2,137 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55DD973A50C
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jun 2023 17:31:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62CA773A929
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Jun 2023 21:53:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D330E10;
-	Thu, 22 Jun 2023 17:30:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D330E10
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13A84839;
+	Thu, 22 Jun 2023 21:52:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13A84839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687447901;
-	bh=Cnau7PzQ5xCtgnsD0tIaH/4POOUAUYD2rQis0peXwrQ=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1687463607;
+	bh=u4wC2MP/wnpLGHUQkJFrwP8XuOUu58tNqjkBvYub6ME=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=U7LSj4kNkGcUiwoCzZZwU4T2xmW3sIgefBJ35AoHFj28/hFGj1V8Gjn+7sjLpA3S5
-	 1cMD9lAPvPiTu4hkPu5kAqhLtPMCG3cAMRN0rDF7/g92nsRsHHzRfKQ8TvthJGkJpZ
-	 ldkr0Et3+TVlINb1dbW5D+FtkVAu29HJrO9u+DFI=
+	b=PrSkdM2cY5WtuXCCROWBtMmfUzaGDNDOKVuAm6FeawS35lzUJpg8Dk7kcOssbqs+S
+	 HCTdl3OIZzR9wp4cwxzo0Zmwy3zIPRDptQwAS1NwzjDAAytPLsycuqChCBHQ/feTT8
+	 B8hJbCf1p4ff7LYPklJLC5PzPalZU/zd5dwXgbng=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E4E4F8057E; Thu, 22 Jun 2023 17:27:57 +0200 (CEST)
+	id 8C329F801D5; Thu, 22 Jun 2023 21:52:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B1C1F8057C;
-	Thu, 22 Jun 2023 17:27:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C5CEF80132;
+	Thu, 22 Jun 2023 21:52:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B0A29F8057D; Thu, 22 Jun 2023 17:27:53 +0200 (CEST)
+	id C126BF80141; Thu, 22 Jun 2023 21:52:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061b.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::61b])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2FFA1F805AB
-	for <alsa-devel@alsa-project.org>; Thu, 22 Jun 2023 17:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FFA1F805AB
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2A1BF80130
+	for <alsa-devel@alsa-project.org>; Thu, 22 Jun 2023 21:52:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2A1BF80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=EmXbDNR1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m37EMcW3EFkQOsFpen9UnT0J8IbjH6jCsBkiRXk8q+MDDuk8NAwtkfOktJHCx3kOfIL4bvJWdSvyfmC9gSgeksy7VkbCY0o4uGr99HVQzkgJ4tBlb7dAhRwzhZQZCSAO2LN3l5PVZdtCXJS09XL6LcBgUBddi9z/GBrzco20avIEB2RShQG4CUNDj1WG1FczS++u7N72VRuxeUO4zzfCyBUZczKuRK8qbxRbcnsWHAmQUEn5ERGXZZ7K+7KkAX+xSUWU9//1dLgBtl1vx5l3PgqNcmJYnQa2lhGursILVLwfqO0viEJc5T7HY/SpKOcvSYHGH+GeM12zkCibgOY5qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rwq6fDAuv0vFz/YvtKA/oSK/5+p+hkoQrRMmsbd4jtU=;
- b=nDyEcEYKfiFIz2IE4FMg74HDXd4fTNkUIiTRWDVdXGMsjkE8ptC1OO+nK0PlZtRfCqLse902TD4LKTdi7DJGla2M168l8Y8tFDSWw8grt3n8e7P9peXY8p5kdReSmqOSIAV9kA0sadkhymWrTQDpYtgWO8nuKzILaV67UTaGGWDvcL19ckKIkmjHG3M09uwWsMnan3RGpwNe9YRSofVBCwXuxHEsYTz4aqs6bwsyQdDbIkLz10XWjBya5uuZ3LjWqNC/nYKvToj9OtiaZzFNzvb145QIcsrT6hpJJF41DnUPjuy5wsorrh8yiOfddwNhh219t5NE0nUwwxIz96vRNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rwq6fDAuv0vFz/YvtKA/oSK/5+p+hkoQrRMmsbd4jtU=;
- b=EmXbDNR1jdS+o9QcqKQAmvm4c2hcZsUWhHrC67W9/HaFTt5u9ikC0bNO/fCgF74rPl0iOL+5Klb6aCEBS2CXrmtqq8pZYxPBHR//SDQMSrSXukDd9vQpRwbZv3DCLpObc3fLrkBOX0Gk8rFW8M9dSkmpLEOBlMRgwtbOmVwaZHs=
-Received: from SN7PR04CA0226.namprd04.prod.outlook.com (2603:10b6:806:127::21)
- by MW4PR12MB6852.namprd12.prod.outlook.com (2603:10b6:303:20b::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
- 2023 15:27:33 +0000
-Received: from SA2PEPF00001505.namprd04.prod.outlook.com
- (2603:10b6:806:127:cafe::a8) by SN7PR04CA0226.outlook.office365.com
- (2603:10b6:806:127::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24 via Frontend
- Transport; Thu, 22 Jun 2023 15:27:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SA2PEPF00001505.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.17 via Frontend Transport; Thu, 22 Jun 2023 15:27:33 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 22 Jun
- 2023 10:27:32 -0500
-Received: from amd-B450M-DS3H.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Thu, 22 Jun 2023 10:27:28 -0500
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, V Sujith Kumar Reddy
-	<vsujithkumar.reddy@amd.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	"Venkata Prasad Potturu" <venkataprasad.potturu@amd.com>, Ajit Kumar Pandey
-	<AjitKumar.Pandey@amd.com>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH 12/12] ASoC: amd: acp: add pm ops support for rembrandt
- platform
-Date: Thu, 22 Jun 2023 20:54:00 +0530
-Message-ID: <20230622152406.3709231-23-Syed.SabaKareem@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230622152406.3709231-1-Syed.SabaKareem@amd.com>
-References: <20230622152406.3709231-1-Syed.SabaKareem@amd.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=aiqq28ph
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 11853618DC;
+	Thu, 22 Jun 2023 19:52:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55980C433C0;
+	Thu, 22 Jun 2023 19:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687463543;
+	bh=u4wC2MP/wnpLGHUQkJFrwP8XuOUu58tNqjkBvYub6ME=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aiqq28phaJExGJ/x9UQFe9tl/8igdeT1V/D2ju/k/Niv4oq1JBbFEBuCfBnkh5fNT
+	 xB9k+jNCD6P84dhabLaQVZQ9jKhI/6HzO6urSxVD1y/PjIs+/prJxloYWgcoq51HN0
+	 2Sg8tlALTby+8ccX1QJOgqt46s72Fd7O64TH/a7NtFKE3h3+siXuGy7YjmutlntE1T
+	 s/uTihycVrZVnqxl8XFrY3cQiDE/sOSuMXgzjdCYpZviNlFlsuWfCzhK365B3Wnd0b
+	 957tkIWAv3WhaFjvr9/h2tabrWYLGoBOuvQX053Z9I4ycv0dM6SenCSaZBaLw6wU3u
+	 F32PR6H31NL1Q==
+Date: Thu, 22 Jun 2023 20:52:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: microchip,sama7g5-pdmc: Simplify
+ "microchip,mic-pos" constraints
+Message-ID: <20230622-canary-hull-0bbce1bb5fe2@spud>
+References: <20230621231044.3816914-1-robh@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001505:EE_|MW4PR12MB6852:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fb49249-e365-410f-92e7-08db73353327
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	gI/g7sQI5hi5PPjlUXiK2Ke6xHh1eZ8Xa8NLlaYOfkZLp0eLiS1fWhKEFQIkCgYYpLIStXgLx0C8g/xJrnzTMKjC3cOoSLC0RkIwQLpDvyOLHNlipyRvhQvYGOYIbbIewN0CJNA68+D4Pfr9/dcc2V+cvhXeLwuFc/se6oqAUOz1Fo35lTe1XSY424UrTap3nkaigsIAM+nlOaXkrh0PnsYKBnuvkmymxMQgADHIOovIUpPvbOCXrEAX4ZjVHEyA8Nq2X0QwHfEVrWR022Dv+YAffIEdU3zUgA181Qhic0gqDXnv6svBtWRUIu4C0SNKrx8eCaOIweaZEkFo5p5L55uPhGUxjDH8yRlOie5SdMeJ7ZdzukBmpIAaK5yeU24eM0i9rNPN1vXUIZmdMJmdihf0zaEw5sYjhYbZK6SUpkOmSJH45Gg+Qi4DLJzroy5IEa/ITbl2z0MhdgH7D9sY47H5Qz1wNPyidl5p1EJRRSpTR8nYc5W4iUBLp3BxlpJN0D8NEXSjUOSvyojvHXt7Cwguidr+Vp9hI6gL69Gf2Cyzg5jmfWZUMy+/cklKhLPyJ+bcvQFUsH0BPc6RG8A26MC29xrssmSTNuHdHaM5ScpU7+/KWHZG+mlG1z1BZz3Akkxf+aXkfCZMUavCYxqE5EgYUTiGAwqCO3xiMpQmLeZCpNeUjG2zIacqFXIkIr3MXu1T25G0XVljC3z4Y31/60gBrVr2NbarW0x+tcr/wn/MZNPX5dGlG7GNXKgF5q8Thk3HbIjXtd1S6ELHlmJPtQ==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(396003)(346002)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(41300700001)(8676002)(316002)(8936002)(7696005)(36860700001)(47076005)(70586007)(4326008)(70206006)(86362001)(36756003)(6666004)(54906003)(110136005)(478600001)(40460700003)(1076003)(26005)(186003)(336012)(426003)(83380400001)(2616005)(40480700001)(5660300002)(30864003)(2906002)(82740400003)(81166007)(356005)(82310400005)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 15:27:33.1124
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 0fb49249-e365-410f-92e7-08db73353327
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	SA2PEPF00001505.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6852
-Message-ID-Hash: GQQOSLCJL43RFXD3WCPQ6MP4QHMDKZBL
-X-Message-ID-Hash: GQQOSLCJL43RFXD3WCPQ6MP4QHMDKZBL
-X-MailFrom: Syed.SabaKareem@amd.com
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="n5Hq6IEtyp/Vfwcf"
+Content-Disposition: inline
+In-Reply-To: <20230621231044.3816914-1-robh@kernel.org>
+Message-ID-Hash: EAAY3WYPOPKXEX6DB6GG44AEA7XJAOGE
+X-Message-ID-Hash: EAAY3WYPOPKXEX6DB6GG44AEA7XJAOGE
+X-MailFrom: conor@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -144,7 +96,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GQQOSLCJL43RFXD3WCPQ6MP4QHMDKZBL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EAAY3WYPOPKXEX6DB6GG44AEA7XJAOGE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -153,335 +105,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add pm ops for rembrandt platform.
 
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/acp/acp-legacy-common.c | 208 ++++++++++++++++++++++++++
- sound/soc/amd/acp/acp-rembrandt.c     |  42 +++++-
- sound/soc/amd/acp/amd.h               |   9 ++
- 3 files changed, 258 insertions(+), 1 deletion(-)
+--n5Hq6IEtyp/Vfwcf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/amd/acp/acp-legacy-common.c b/sound/soc/amd/acp/acp-legacy-common.c
-index 45a45d002915..ba58165cc6e6 100644
---- a/sound/soc/amd/acp/acp-legacy-common.c
-+++ b/sound/soc/amd/acp/acp-legacy-common.c
-@@ -37,6 +37,214 @@ void acp_disable_interrupts(struct acp_dev_data *adata)
- }
- EXPORT_SYMBOL_NS_GPL(acp_disable_interrupts, SND_SOC_ACP_COMMON);
- 
-+static void set_acp_pdm_ring_buffer(struct snd_pcm_substream *substream,
-+				    struct snd_soc_dai *dai)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct acp_stream *stream = runtime->private_data;
-+	struct device *dev = dai->component->dev;
-+	struct acp_dev_data *adata = dev_get_drvdata(dev);
-+
-+	u32 physical_addr, pdm_size, period_bytes;
-+
-+	period_bytes = frames_to_bytes(runtime, runtime->period_size);
-+	pdm_size = frames_to_bytes(runtime, runtime->buffer_size);
-+	physical_addr = stream->reg_offset + MEM_WINDOW_START;
-+
-+	/* Init ACP PDM Ring buffer */
-+	writel(physical_addr, adata->acp_base + ACP_WOV_RX_RINGBUFADDR);
-+	writel(pdm_size, adata->acp_base + ACP_WOV_RX_RINGBUFSIZE);
-+	writel(period_bytes, adata->acp_base + ACP_WOV_RX_INTR_WATERMARK_SIZE);
-+	writel(0x01, adata->acp_base + ACPAXI2AXI_ATU_CTRL);
-+}
-+
-+static void set_acp_pdm_clk(struct snd_pcm_substream *substream,
-+			    struct snd_soc_dai *dai)
-+{
-+	struct device *dev = dai->component->dev;
-+	struct acp_dev_data *adata = dev_get_drvdata(dev);
-+	unsigned int pdm_ctrl;
-+
-+	/* Enable default ACP PDM clk */
-+	writel(PDM_CLK_FREQ_MASK, adata->acp_base + ACP_WOV_CLK_CTRL);
-+	pdm_ctrl = readl(adata->acp_base + ACP_WOV_MISC_CTRL);
-+	pdm_ctrl |= PDM_MISC_CTRL_MASK;
-+	writel(pdm_ctrl, adata->acp_base + ACP_WOV_MISC_CTRL);
-+	set_acp_pdm_ring_buffer(substream, dai);
-+}
-+
-+void restore_acp_pdm_params(struct snd_pcm_substream *substream,
-+			    struct acp_dev_data *adata)
-+{
-+	struct snd_soc_dai *dai;
-+	struct snd_soc_pcm_runtime *soc_runtime;
-+	u32 ext_int_ctrl;
-+
-+	soc_runtime = asoc_substream_to_rtd(substream);
-+	dai = asoc_rtd_to_cpu(soc_runtime, 0);
-+	/* Programming channel mask and sampling rate */
-+	writel(adata->ch_mask, adata->acp_base + ACP_WOV_PDM_NO_OF_CHANNELS);
-+	writel(PDM_DEC_64, adata->acp_base + ACP_WOV_PDM_DECIMATION_FACTOR);
-+
-+	/* Enabling ACP Pdm interuppts */
-+	ext_int_ctrl = readl(ACP_EXTERNAL_INTR_CNTL(adata, 0));
-+	ext_int_ctrl |= PDM_DMA_INTR_MASK;
-+	writel(ext_int_ctrl, ACP_EXTERNAL_INTR_CNTL(adata, 0));
-+	set_acp_pdm_clk(substream, dai);
-+}
-+EXPORT_SYMBOL_NS_GPL(restore_acp_pdm_params, SND_SOC_ACP_COMMON);
-+
-+static int set_acp_i2s_dma_fifo(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct device *dev = dai->component->dev;
-+	struct acp_dev_data *adata = dev_get_drvdata(dev);
-+	struct acp_resource *rsrc = adata->rsrc;
-+	struct acp_stream *stream = substream->runtime->private_data;
-+	u32 reg_dma_size, reg_fifo_size, reg_fifo_addr;
-+	u32 phy_addr, acp_fifo_addr, ext_int_ctrl;
-+	unsigned int dir = substream->stream;
-+
-+	switch (dai->driver->id) {
-+	case I2S_SP_INSTANCE:
-+		if (dir == SNDRV_PCM_STREAM_PLAYBACK) {
-+			reg_dma_size = ACP_I2S_TX_DMA_SIZE;
-+			acp_fifo_addr = rsrc->sram_pte_offset +
-+					SP_PB_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_I2S_TX_FIFOADDR;
-+			reg_fifo_size = ACP_I2S_TX_FIFOSIZE;
-+			phy_addr = I2S_SP_TX_MEM_WINDOW_START + stream->reg_offset;
-+			writel(phy_addr, adata->acp_base + ACP_I2S_TX_RINGBUFADDR);
-+		} else {
-+			reg_dma_size = ACP_I2S_RX_DMA_SIZE;
-+			acp_fifo_addr = rsrc->sram_pte_offset +
-+					SP_CAPT_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_I2S_RX_FIFOADDR;
-+			reg_fifo_size = ACP_I2S_RX_FIFOSIZE;
-+			phy_addr = I2S_SP_RX_MEM_WINDOW_START + stream->reg_offset;
-+			writel(phy_addr, adata->acp_base + ACP_I2S_RX_RINGBUFADDR);
-+		}
-+		break;
-+	case I2S_BT_INSTANCE:
-+		if (dir == SNDRV_PCM_STREAM_PLAYBACK) {
-+			reg_dma_size = ACP_BT_TX_DMA_SIZE;
-+			acp_fifo_addr = rsrc->sram_pte_offset +
-+					BT_PB_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_BT_TX_FIFOADDR;
-+			reg_fifo_size = ACP_BT_TX_FIFOSIZE;
-+			phy_addr = I2S_BT_TX_MEM_WINDOW_START + stream->reg_offset;
-+			writel(phy_addr, adata->acp_base + ACP_BT_TX_RINGBUFADDR);
-+		} else {
-+			reg_dma_size = ACP_BT_RX_DMA_SIZE;
-+			acp_fifo_addr = rsrc->sram_pte_offset +
-+					BT_CAPT_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_BT_RX_FIFOADDR;
-+			reg_fifo_size = ACP_BT_RX_FIFOSIZE;
-+			phy_addr = I2S_BT_TX_MEM_WINDOW_START + stream->reg_offset;
-+			writel(phy_addr, adata->acp_base + ACP_BT_RX_RINGBUFADDR);
-+		}
-+		break;
-+	case I2S_HS_INSTANCE:
-+		if (dir == SNDRV_PCM_STREAM_PLAYBACK) {
-+			reg_dma_size = ACP_HS_TX_DMA_SIZE;
-+			acp_fifo_addr = rsrc->sram_pte_offset +
-+					HS_PB_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_HS_TX_FIFOADDR;
-+			reg_fifo_size = ACP_HS_TX_FIFOSIZE;
-+			phy_addr = I2S_HS_TX_MEM_WINDOW_START + stream->reg_offset;
-+			writel(phy_addr, adata->acp_base + ACP_HS_TX_RINGBUFADDR);
-+		} else {
-+			reg_dma_size = ACP_HS_RX_DMA_SIZE;
-+			acp_fifo_addr = rsrc->sram_pte_offset +
-+					HS_CAPT_FIFO_ADDR_OFFSET;
-+			reg_fifo_addr = ACP_HS_RX_FIFOADDR;
-+			reg_fifo_size = ACP_HS_RX_FIFOSIZE;
-+			phy_addr = I2S_HS_RX_MEM_WINDOW_START + stream->reg_offset;
-+			writel(phy_addr, adata->acp_base + ACP_HS_RX_RINGBUFADDR);
-+		}
-+		break;
-+	default:
-+		dev_err(dev, "Invalid dai id %x\n", dai->driver->id);
-+		return -EINVAL;
-+	}
-+
-+	writel(DMA_SIZE, adata->acp_base + reg_dma_size);
-+	writel(acp_fifo_addr, adata->acp_base + reg_fifo_addr);
-+	writel(FIFO_SIZE, adata->acp_base + reg_fifo_size);
-+
-+	ext_int_ctrl = readl(ACP_EXTERNAL_INTR_CNTL(adata, rsrc->irqp_used));
-+	ext_int_ctrl |= BIT(I2S_RX_THRESHOLD(rsrc->offset)) |
-+			BIT(BT_RX_THRESHOLD(rsrc->offset)) |
-+			BIT(I2S_TX_THRESHOLD(rsrc->offset)) |
-+			BIT(BT_TX_THRESHOLD(rsrc->offset)) |
-+			BIT(HS_RX_THRESHOLD(rsrc->offset)) |
-+			BIT(HS_TX_THRESHOLD(rsrc->offset));
-+
-+	writel(ext_int_ctrl, ACP_EXTERNAL_INTR_CNTL(adata, rsrc->irqp_used));
-+	return 0;
-+}
-+
-+int restore_acp_i2s_params(struct snd_pcm_substream *substream,
-+			   struct acp_dev_data *adata,
-+			   struct acp_stream *stream)
-+{
-+	struct snd_soc_dai *dai;
-+	struct snd_soc_pcm_runtime *soc_runtime;
-+	u32 tdm_fmt, reg_val, fmt_reg, val;
-+
-+	soc_runtime = asoc_substream_to_rtd(substream);
-+	dai = asoc_rtd_to_cpu(soc_runtime, 0);
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		tdm_fmt = adata->tdm_tx_fmt[stream->dai_id - 1];
-+		switch (stream->dai_id) {
-+		case I2S_BT_INSTANCE:
-+			reg_val = ACP_BTTDM_ITER;
-+			fmt_reg = ACP_BTTDM_TXFRMT;
-+			break;
-+		case I2S_SP_INSTANCE:
-+			reg_val = ACP_I2STDM_ITER;
-+			fmt_reg = ACP_I2STDM_TXFRMT;
-+			break;
-+		case I2S_HS_INSTANCE:
-+			reg_val = ACP_HSTDM_ITER;
-+			fmt_reg = ACP_HSTDM_TXFRMT;
-+			break;
-+		default:
-+			pr_err("Invalid dai id %x\n", stream->dai_id);
-+			return -EINVAL;
-+		}
-+		val = adata->xfer_tx_resolution[stream->dai_id - 1] << 3;
-+	} else {
-+		tdm_fmt = adata->tdm_rx_fmt[stream->dai_id - 1];
-+		switch (stream->dai_id) {
-+		case I2S_BT_INSTANCE:
-+			reg_val = ACP_BTTDM_IRER;
-+			fmt_reg = ACP_BTTDM_RXFRMT;
-+			break;
-+		case I2S_SP_INSTANCE:
-+			reg_val = ACP_I2STDM_IRER;
-+			fmt_reg = ACP_I2STDM_RXFRMT;
-+			break;
-+		case I2S_HS_INSTANCE:
-+			reg_val = ACP_HSTDM_IRER;
-+			fmt_reg = ACP_HSTDM_RXFRMT;
-+			break;
-+		default:
-+			pr_err("Invalid dai id %x\n", stream->dai_id);
-+			return -EINVAL;
-+		}
-+		val = adata->xfer_rx_resolution[stream->dai_id - 1] << 3;
-+	}
-+	writel(val, adata->acp_base + reg_val);
-+	if (adata->tdm_mode == TDM_ENABLE) {
-+		writel(tdm_fmt, adata->acp_base + fmt_reg);
-+		val = readl(adata->acp_base + reg_val);
-+		writel(val | 0x2, adata->acp_base + reg_val);
-+	}
-+	return set_acp_i2s_dma_fifo(substream, dai);
-+}
-+EXPORT_SYMBOL_NS_GPL(restore_acp_i2s_params, SND_SOC_ACP_COMMON);
-+
- static int acp_power_on(struct acp_chip_info *chip)
- {
- 	u32 val, acp_pgfsm_stat_reg, acp_pgfsm_ctrl_reg;
-diff --git a/sound/soc/amd/acp/acp-rembrandt.c b/sound/soc/amd/acp/acp-rembrandt.c
-index bc8e1de45170..b2b78a69dc24 100644
---- a/sound/soc/amd/acp/acp-rembrandt.c
-+++ b/sound/soc/amd/acp/acp-rembrandt.c
-@@ -20,6 +20,7 @@
- #include <sound/soc-dai.h>
- #include <linux/dma-mapping.h>
- #include <linux/pci.h>
-+#include <linux/pm_runtime.h>
- 
- #include "amd.h"
- 
-@@ -236,7 +237,11 @@ static int rembrandt_audio_probe(struct platform_device *pdev)
- 	acp6x_master_clock_generate(dev);
- 	acp_enable_interrupts(adata);
- 	acp_platform_register(dev);
--
-+	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
-+	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
- 	return 0;
- }
- 
-@@ -247,13 +252,48 @@ static void rembrandt_audio_remove(struct platform_device *pdev)
- 
- 	acp_disable_interrupts(adata);
- 	acp_platform_unregister(dev);
-+	pm_runtime_disable(&pdev->dev);
-+}
-+
-+static int __maybe_unused rmb_pcm_resume(struct device *dev)
-+{
-+	struct acp_dev_data *adata = dev_get_drvdata(dev);
-+	struct acp_stream *stream;
-+	struct snd_pcm_substream *substream;
-+	snd_pcm_uframes_t buf_in_frames;
-+	u64 buf_size;
-+
-+	acp6x_master_clock_generate(dev);
-+	spin_lock(&adata->acp_lock);
-+	list_for_each_entry(stream, &adata->stream_list, list) {
-+		if (stream) {
-+			substream = stream->substream;
-+			if (substream && substream->runtime) {
-+				buf_in_frames = (substream->runtime->buffer_size);
-+				buf_size = frames_to_bytes(substream->runtime, buf_in_frames);
-+				config_pte_for_stream(adata, stream);
-+				config_acp_dma(adata, stream, buf_size);
-+				if (stream->dai_id)
-+					restore_acp_i2s_params(substream, adata, stream);
-+				else
-+					restore_acp_pdm_params(substream, adata);
-+			}
-+		}
-+	}
-+		spin_unlock(&adata->acp_lock);
-+		return 0;
- }
- 
-+static const struct dev_pm_ops rmb_dma_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(NULL, rmb_pcm_resume)
-+};
-+
- static struct platform_driver rembrandt_driver = {
- 	.probe = rembrandt_audio_probe,
- 	.remove_new = rembrandt_audio_remove,
- 	.driver = {
- 		.name = "acp_asoc_rembrandt",
-+		.pm = &rmb_dma_pm_ops,
- 	},
- };
- 
-diff --git a/sound/soc/amd/acp/amd.h b/sound/soc/amd/acp/amd.h
-index 8dc663c8d98a..1d8457383e3f 100644
---- a/sound/soc/amd/acp/amd.h
-+++ b/sound/soc/amd/acp/amd.h
-@@ -110,6 +110,7 @@
- 
- #define ACP_TIMEOUT		500
- #define DELAY_US		5
-+#define ACP_SUSPEND_DELAY_MS   2000
- 
- #define PDM_DMA_STAT            0x10
- #define PDM_DMA_INTR_MASK       0x10000
-@@ -213,6 +214,14 @@ void acp_disable_interrupts(struct acp_dev_data *adata);
- /* Machine configuration */
- int snd_amd_acp_find_config(struct pci_dev *pci);
- 
-+void config_pte_for_stream(struct acp_dev_data *adata, struct acp_stream *stream);
-+void config_acp_dma(struct acp_dev_data *adata, struct acp_stream *stream, int size);
-+void restore_acp_pdm_params(struct snd_pcm_substream *substream,
-+			    struct acp_dev_data *adata);
-+
-+int restore_acp_i2s_params(struct snd_pcm_substream *substream,
-+			   struct acp_dev_data *adata, struct acp_stream *stream);
-+
- static inline u64 acp_get_byte_count(struct acp_dev_data *adata, int dai_id, int direction)
- {
- 	u64 byte_count, low = 0, high = 0;
--- 
-2.25.1
+On Wed, Jun 21, 2023 at 05:10:44PM -0600, Rob Herring wrote:
+> "enum" values should be integers or strings, not arrays (though json-sche=
+ma
+> does allow arrays, we do not). In this case, all possible combinations are
+> allowed anyways, so there's little point in expressing as an array.
+>=20
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+
+Cheers,
+Conor.
+
+> ---
+>  .../devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/sound/microchip,sama7g5-pd=
+mc.yaml b/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.ya=
+ml
+> index 9b40268537cb..9aa65c975c4e 100644
+> --- a/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
+> +++ b/Documentation/devicetree/bindings/sound/microchip,sama7g5-pdmc.yaml
+> @@ -56,13 +56,9 @@ properties:
+>      items:
+>        items:
+>          - description: value for DS line
+> +          enum: [0, 1]
+>          - description: value for sampling edge
+> -      anyOf:
+> -        - enum:
+> -            - [0, 0]
+> -            - [0, 1]
+> -            - [1, 0]
+> -            - [1, 1]
+> +          enum: [0, 1]
+>      minItems: 1
+>      maxItems: 4
+>      uniqueItems: true
+> --=20
+> 2.40.1
+>=20
+
+--n5Hq6IEtyp/Vfwcf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZJSmcgAKCRB4tDGHoIJi
+0h+1AQDWLZ2+pN5p+5p3PIsPYI5oFDt7Ss2qa5ERr4sm355wlAEAjghMkJ5HE9Ne
+vIGqP1DEh9LawMW96u8DCm1mEtVA6g8=
+=JDj9
+-----END PGP SIGNATURE-----
+
+--n5Hq6IEtyp/Vfwcf--

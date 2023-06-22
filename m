@@ -2,175 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62F7F73DBA3
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 11:43:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AE5873DD1B
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:17:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22B183E8;
-	Mon, 26 Jun 2023 11:42:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22B183E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E6CB83E;
+	Mon, 26 Jun 2023 13:16:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E6CB83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687772596;
-	bh=1t5g4JLIIUyOAHMkOa81+D/aq32y83LDBLZky5kOZUo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=UUckn28G1azztqkq/ZrE6Pj4KOLr+JdMeQzlUbLCvyS62yG0MAKhYm4mLfQzE/n45
-	 /AxCMi7LVAMWlZ5i8bOTF6OB55urnzRoZctnle/yd0EUP6iBrJrjiI0XxBxVI+G36m
-	 5vFn9zoXQfl+zWXSOaoQv53yGLsUlNGnyq38fAXw=
+	s=default; t=1687778242;
+	bh=2rT8kLRbFAZ53z/xuHc/r7vMzcnuNTjzcmIsA4Dp3h4=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=A9lC0m2VxFLZU1nB7ozAQpeXLpnmf4F52dSLSqUDoacIhQc5zepuB8rXO3daorcg0
+	 GbHe/TpBZ5gt9TLN87BquWzGSaxycrC9hTrLq67jyjLPFpGthJx/VHPJ9hbKxj4uYF
+	 F7R0V8hRPEGZ3A0nYtEyDXJXOnIwUQRKUD85lS14=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4AC9FF8053B; Mon, 26 Jun 2023 11:42:22 +0200 (CEST)
+	id A6CAAF800E3; Mon, 26 Jun 2023 13:16:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77D07F80212;
-	Mon, 26 Jun 2023 11:42:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81012F800E3;
+	Mon, 26 Jun 2023 13:16:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 457F5F80246; Mon, 26 Jun 2023 11:42:16 +0200 (CEST)
+	id 74026F80141; Thu, 22 Jun 2023 17:07:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20622.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5b::622])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 69742F80169
-	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 11:42:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69742F80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2F4ABF80124
+	for <alsa-devel@alsa-project.org>; Thu, 22 Jun 2023 17:07:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F4ABF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=RRTLMhAz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TZve5C71kPS/9MZOrJXJMVhTikb/QJRYUKp7GeMGUJFBSpl0WXO32IsmYzDd2rTgteUO+zB3r6tojXY2TVfirL2FkSHpQPI2FmmlZxlFMH5Ma4Kjkf2A5iWyHlAWawIus/HX6Nus436csX780PUR8P23DyfCAHgC5PxzO5GwbHOXYyILbx4Jp5jyrL0yY4QZ9R6+hupXrGbBRfQdH/803rv9KyM2SRbVwP40vXR7f46zCJ9rNg7wG+66eZka83ia6RGgIJLoZuxxSXJYFc1O07zJFlKd6Q7Pl3X1gQEoi8esB7ahgChizkHDEEi5yME2wwQyG5M4Yn+GIZa6QNKt7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RgBThYf/OW48m/AxcQhudrj3BtlSZyfLLI4HT5w3YeI=;
- b=YuUNlGlU8tuTHW6LrF2xlv2tNqZZCwqTbrFKNnsg8aD6tHR6SJdp2BAFcuRdCL3fmVco1GnKZ1h44Q0tI3OT17VFcK4kMo4nZqrmRE1saZAqt+2QUc0q47W7YOZDdkrErq8G673Br6Fkq2Q64mz0xWcF4CtJrYyi9BzJyxYddmoVgYNsI894D5Wm0lwJZOkFG2uKJGxnvfcfcchfocURkRBFXNQ7UdXHwmbthIZgMWb4zAwS/zHoUUQGch8pMPVyJW5+++Hxpn83RuYOer/wGjCXO6omU0ns/s+qfGZTnkTzZE444wszHraIk1Xd6oTY3BDAHOGjEppOwK2c9hm3xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RgBThYf/OW48m/AxcQhudrj3BtlSZyfLLI4HT5w3YeI=;
- b=RRTLMhAz2E8Zdov9CBkhZlrHTCSbQtuYg9bP3l+Gq7rmssP0X8o8edQGaxs/7a2BVjAm8gE+Eju9QOcS1Z3ZXCWR1050Lzzi3H4Tu+FR6HVypXAECi/HVcipmx2jmqF9LAtRmD1OYRo2hXovwpUaFzOwLn5zMcP0pIFGdCsFFB9i6e+ZyqHBIpNRtMImaI3iENB/nsWqeQGdseqJ8l/heZlFaSBz75gdjzpOdReq4eSOUrz5VAmut0dRdv5dI/qqi47n6Bg9hAqzPKgZCdjNTegLfYfIRvCJ0HxeC0LELWYQymRQdWOEsB/IEtUuUBkD4VdtDk08mfB0N4GS3cJZ9g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3205.namprd12.prod.outlook.com (2603:10b6:a03:134::32)
- by SJ0PR12MB6992.namprd12.prod.outlook.com (2603:10b6:a03:483::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Mon, 26 Jun
- 2023 09:41:56 +0000
-Received: from BYAPR12MB3205.namprd12.prod.outlook.com
- ([fe80::bda0:2d44:96c3:c3fd]) by BYAPR12MB3205.namprd12.prod.outlook.com
- ([fe80::bda0:2d44:96c3:c3fd%4]) with mapi id 15.20.6521.024; Mon, 26 Jun 2023
- 09:41:55 +0000
-Message-ID: <020c7602-34c5-f31e-22aa-da0032854489@nvidia.com>
-Date: Mon, 26 Jun 2023 15:11:45 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH 2/8] ASoC: tegra: Fix AMX byte map
-To: Mark Brown <broonie@kernel.org>
-Cc: robh+dt@kernel.org, krzk+dt@kernel.org, thierry.reding@gmail.com,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, jonathanh@nvidia.com,
- mkumard@nvidia.com, sheetal@nvidia.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <1687433656-7892-1-git-send-email-spujar@nvidia.com>
- <1687433656-7892-3-git-send-email-spujar@nvidia.com>
- <ad4b4dc9-7466-45a9-a008-c2301a7485dd@sirena.org.uk>
- <7893c366-e6aa-d606-c3d6-e85f73a345e0@nvidia.com>
- <ZJVwpE5KeL8rgvB9@finisterre.sirena.org.uk>
-Content-Language: en-US
-From: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <ZJVwpE5KeL8rgvB9@finisterre.sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0045.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:81::20) To BYAPR12MB3205.namprd12.prod.outlook.com
- (2603:10b6:a03:134::32)
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=BiWlZL2W
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-3fa71db4208so8841105e9.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 22 Jun 2023 08:07:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1687446451; x=1690038451;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LmPKoAkPkH2OG308+PMwW0FpK5flWUMphUg8wo9BFIc=;
+        b=BiWlZL2WfEVqtefAm74gDhLj0Qt7lo3leLjFR9tEqljSr2NmqwKiM8kCl0bgghk1fo
+         QtAvRp4K/81aqnkm9LxXYcf3xaXsm7xA49sQObtE8SC+gt9a6rzyb00xvBsuvl4PdNWS
+         l8/kvktN+R8xXg44912qYJzycoPcCB5OY5WCviNlN0kegGpdqpWRy8U6tWthVbzk6rYk
+         LBq+Sgc3hccHM0NjngQcLCzbkZbI1d4dRZNO7uObSrhGwc1ddSh0XHQ9xHPBP0OJAtz6
+         x0MPE9uceVmGdh8TXRh03h32l01OKnakmMJQ+VRtjK9YAUJGSi6uw85lnnhGRvKGmCJ3
+         m93A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687446451; x=1690038451;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=LmPKoAkPkH2OG308+PMwW0FpK5flWUMphUg8wo9BFIc=;
+        b=Q/rpdMdhzLg/2e6VERAOOqtuCY1NduU1+BCErlBSJOJ0zkLybdbK9WQB3xZ1R1PkMt
+         HBhHxp2tphnHhSM8Wjha0fjV98PUPDycJvh4vZSvGNCM4tpSfu8+h79XSIbegSkhT+X5
+         JrHeQ5z5LhajevOtaHro1GrMLA2ZIqhp5Z5qW3WJMgzLekFFcJNRo6cVWQas6HNfhEFk
+         7Nl1w9CJpjcRW/C9GMTeOnOdo/RL9krP6XVqis7Rr7TyJDEXnytUAZ2nzwULa9ty5M68
+         VLRk99p7oBpTuKimCL9Co1F8nvHIlJ0vN0gKatGdPd6yFB21Od9pHL/duhCCtopVJsSU
+         9BjA==
+X-Gm-Message-State: AC+VfDyXNjP5z0foXG0GBSGlPdpb1FiXtFkb64Ng7zQd8FNmIKtuXHV3
+	SqC+3vIHVcsu4IfDvXXDsZKZtIFUVyuVxIowYIM=
+X-Google-Smtp-Source: 
+ ACHHUZ44diC0v2c/90W56UO2anGXMm2EScSZjf8rYClomzBLATcaqoSoswtdUz05FLaYwIjfhf0NPw==
+X-Received: by 2002:a05:600c:2046:b0:3f9:b3c9:feed with SMTP id
+ p6-20020a05600c204600b003f9b3c9feedmr2139349wmg.13.1687446451514;
+        Thu, 22 Jun 2023 08:07:31 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id
+ q20-20020a1cf314000000b003f8f8fc3c32sm8100276wmq.31.2023.06.22.08.07.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Jun 2023 08:07:29 -0700 (PDT)
+Date: Thu, 22 Jun 2023 18:07:25 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: 13916275206@139.com
+Cc: alsa-devel@alsa-project.org
+Subject: [bug report] ASoC: tas2781: Add tas2781 driver
+Message-ID: <5e37bcfa-50d9-45e8-8a68-52438a5a8dc6@moroto.mountain>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3205:EE_|SJ0PR12MB6992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34c67743-bbc0-4216-54cd-08db762993fc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	z3ovdgN7JF6pqcFV3HMAh3fbv05wzbWFG1SO0ewm0GFwtTwuhZcb0jlDsh48FR6KhfpKRtJC9I8MrbRD5ioOdhelWYmP7CKtOF+r2D+HQRMfZiMgMbHi/vaXUEMUCFbgX2Fvb0mU3s6v6Sq6x5WiK81S2o3BLZeZXl4FxVzjPT7fidHT0L/xDnPOCtsh2ZtLUM3KZASIeusQHObgXyCQ2bL+c5NcqDGuFoQZXH7FZlhfXSPPfWNGhNpDA1gzXTMuw0FkrXDSQ/dzvihzVqqvySYK/ALuH3hFUMPLyhCi40uQBozxp3cEHRZXDNE8LId13jTOgnPgL3t99j/PZ5CWZ0VMQNBAT7n6rA4YJdVb/kBaPL+ivD7dl/jlqM4KfjJjxpQ8ZUiHwopLV8FKy+I9gdvY55gS1wbKUKnIpgbhk8KnJ/4qWHnvSjD04sPxcLwPd62YnCr5CKvQ3svg8HS5iJZe7zqSvJz5Z9RLs+xT2NahYHFxgnwp8uJ8JPdr6R3duKw+nSS5rQccB1UkGS0QjpgT7AdEah7EvBXcJto8P8Xq1a6s+N8YGu3TrrQyL6ye9HLcgxrB0qNNxNo9Qt4UHQ39vbqQenS0y69arRGqz+j5FsQUniAM9BcbtCPsG/zlBSnCRbBTToLGS/nZrGp+RA==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR12MB3205.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(136003)(396003)(39860400002)(366004)(451199021)(8936002)(8676002)(66476007)(66556008)(4326008)(66946007)(41300700001)(6916009)(316002)(6506007)(53546011)(186003)(6512007)(26005)(2616005)(478600001)(6666004)(6486002)(2906002)(5660300002)(7416002)(38100700002)(36756003)(31696002)(31686004)(86362001)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?WjFrODkyNkp0bG5SRnlXc01Vb3prTjYvL0lOTXNpMHVBREpUV29CZStHY2VH?=
- =?utf-8?B?cjJsVTh1aVlDbjZLaDBSS0xXVzc1cHhpb0FHTm9OdThDbmZNTmhEOEt5UHdR?=
- =?utf-8?B?bThSK0JIa3hGQktiMFdoQmwyeUNTL3VseVBXZGtKN2tjQTRSNWpPdDgwVFh6?=
- =?utf-8?B?bEc4akhkcVFPejlobmVPaWtaOERHWHczOUNRellVd0p5SEE2aWRLNkpFM3ZM?=
- =?utf-8?B?WjRVZ2NpVVZTRFloTlZnR3I3ZnpIWFV5aDFadFhHaDFldTZ4a2RLeWpVS2RL?=
- =?utf-8?B?U1lsak1wYWlnZVJZQ2N4OGUvSWlHL3JpMys0Z2d2ZWd4aHBzRUFNZVVYRk96?=
- =?utf-8?B?QWdYQ0dGSVhwclU3ZkNrcThIZUxGbnRvd3VqZmhpbmpKcjNUUHdwZnoxeWZR?=
- =?utf-8?B?eDJ1WkxGbHQ2RitGWmZPK0d0Zm1LSDdaMzZkQ3p1eFZEbnA3NlRDRzArMUwy?=
- =?utf-8?B?amgyL2kzNXJKbjdKaURVbDN6Y2p0MGZCSnVsWVA4enIxU3JmTVFpN2Zyb2N0?=
- =?utf-8?B?eDhlVkVnUGovVG9CeEJLVTlZaDBzMlNxa2VyN0JVcWF1TUJudnhSSGI3QzZt?=
- =?utf-8?B?MTFocVhJUzQwQUVjb1pYNDc2alowb0dDWkcyQUtWR2NuS3EzcGVZcTFRcUw4?=
- =?utf-8?B?SWg3MFB5TUdoNVIxQllXSERjVWVYbmM2RTc4ZkNiQTJPSVpWZktaQWw2WmhP?=
- =?utf-8?B?RTBFVVdoczdMdmdYT1Nwd3R5RkpiL0w0dTJkZURUYmFyd3J3amp1ZmpHZDRl?=
- =?utf-8?B?RUFrNmNjdjNOUEVOaWZ2NzRXeWk4QXZ0MUw0NkRKV1dFMDdYM0tYL2FETzRi?=
- =?utf-8?B?a2JDMHMrYWpkRVk4TEtUZjVHNzA3dVpNZzJWZWNqZGpkcjR6WU1EQ1liRlVW?=
- =?utf-8?B?c2FLU1lPaDF2L3pFWjVGenJqWDZkcm9hQ3dYT1g2UGJqTCtsNkZaeHdDVE42?=
- =?utf-8?B?OFdXOU95K3pRYmtTUG5qSVIxSlpIK3QrT1R0eHBNeDYvVnBCcW03RFlRMjRv?=
- =?utf-8?B?bzA1dVBQb21SYmZNa2pnNnZjQmhOUVJSYlRpRzlpdFBwZ0ttR1NoNFZ1aDJW?=
- =?utf-8?B?N0k0R0dOT1lWWEpSNGo3eXp2VXl6SW5mWG1zdzFJK3VCazhiNEhhR0tRVFEv?=
- =?utf-8?B?b21oTnFaVzl5U0FWUkNZYWE1VXBxa0xTNHcwak9OR1gvYTlCRm0zQTh1VDYv?=
- =?utf-8?B?cW5TQUNCbTBTakV5S2d6UHhxbTZjTlNjNzJTcVRtdzRLMVhFSnpIelAzUUtr?=
- =?utf-8?B?aVUrL1Q1aTcyRkkwYk5qL2VuajlYcmgvck8wbktKTEZ6SE0zUEw5QnVyM2kr?=
- =?utf-8?B?V3RmRVdhWlgvb1ZoZXBWVGc4VzVHUGdXUlliT0hyN2NRQ21jSHl4ZUdRQW9H?=
- =?utf-8?B?M3IvRXMxTnh5T0t4c0YrOE1LTTB5dDdiMXdCdUhpT0UyaTNZZmVQWjQwd3Ez?=
- =?utf-8?B?enBMKzBtOWxmbGhSczhJN3Q3bjYwN29yR3pqTnZERC9qc1JnMlA2K1MyMXNo?=
- =?utf-8?B?THA1Q29zVWJQV25SWnF2N21GNlh1TTZ6THBHSU94V2tSSVYyV3Rxb1FOWjhV?=
- =?utf-8?B?bEFHYlpwZldmdTdsVms2QnpTanE3dHVRTmZEQjQxZ3BRWjRKWlFvRENkb1dQ?=
- =?utf-8?B?Q0JyTjFLa255OFNvbUx2WW00Qk40eFM0WkNBZFlRUStuNEI5Z3ZWN3AvS0xm?=
- =?utf-8?B?UW1QbU8reDhpUW0vVWlRaVkvRkM4aytHSHFKSDlyUVdrWXJoNk1lUm8wRHpM?=
- =?utf-8?B?MDZEYkRuOFJwMkxtWHJZWmhDaGVXYUhiditRMjZ4dzk0aGF5RWpSVWdRa1pn?=
- =?utf-8?B?U2krYVRkeXduVVBBbGYycDJKWGVwdVNjdkFOMGNzcHE2dzhUckNZbGpzVEgx?=
- =?utf-8?B?R3lXWFJPYlgrcTFTQndHVHN4VEwzZFRLM2NJNWVjQ2F6RnFUNWxoYVI2S3U5?=
- =?utf-8?B?VEN3NzNUS0t4cTBJa2tuYmVpeEQzWWl2SGJ5eXRDd0VJRWpzRTJBNFBOeUxk?=
- =?utf-8?B?WnI2SE9XUU50NTVDazNKTW5lYTRScXlhSk5NV0k2QUg2aTdJTEl3RmIzS3Aw?=
- =?utf-8?B?bytDeUhsVkI3S2lrVnBFaGV0dXRiZVhHNzdycW5pdGkyOG5aTXZ2QTR2THdp?=
- =?utf-8?Q?rIPE0KbWqqWuqZKiRywwmI7AD?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 34c67743-bbc0-4216-54cd-08db762993fc
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3205.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 09:41:55.5838
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- WC88Bpg4plrPwkaZC8SQgstshcLqobzjtMHGvfoLu7876dsAAu4uAHxFlhyreFkWYlP+cKUEtvzInPr5WxSnyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6992
-Message-ID-Hash: CLBOMPA4UFDEDBDAMC7KVHXGXPAU5NKO
-X-Message-ID-Hash: CLBOMPA4UFDEDBDAMC7KVHXGXPAU5NKO
-X-MailFrom: spujar@nvidia.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-MailFrom: dan.carpenter@linaro.org
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: A4ADJPL5WAPZGZFNIX3GUZVFHQXYOMRV
+X-Message-ID-Hash: A4ADJPL5WAPZGZFNIX3GUZVFHQXYOMRV
+X-Mailman-Approved-At: Mon, 26 Jun 2023 11:16:02 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLBOMPA4UFDEDBDAMC7KVHXGXPAU5NKO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/A4ADJPL5WAPZGZFNIX3GUZVFHQXYOMRV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -179,43 +114,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hello Shenghao Ding,
 
+The patch ef3bcde75d06: "ASoC: tas2781: Add tas2781 driver" from Jun
+18, 2023, leads to the following Smatch static checker warning:
 
-On 23-06-2023 15:45, Mark Brown wrote:
-> On Fri, Jun 23, 2023 at 11:09:32AM +0530, Sameer Pujar wrote:
->> On 22-06-2023 17:37, Mark Brown wrote:
->>> On Thu, Jun 22, 2023 at 05:04:10PM +0530, Sameer Pujar wrote:
->>>> Byte mask for channel-1 of stream-1 is not getting enabled and this
->>>> causes failures during AMX use cases. The enable bit is not set during
->>>> put() callback of byte map mixer control.
->>>> This happens because the byte map value 0 matches the initial state
->>>> of byte map array and put() callback returns without doing anything.
->>>> Fix the put() callback by actually looking at the byte mask array
->>>> to identify if any change is needed and update the fields accordingly.
->>> I'm not quite sure I follow the logic here - I'd have expected this to
->>> mean that there's a bootstrapping issue and that we should be doing some
->>> more initialisation during startup such that the existing code which
->>> checks if there is a change will be doing the right thing?
->> The issue can happen in subsequent cycles as well if once the user disables
->> the byte map by putting 256. It happens because of following reason where
->> 256 value is reset to 0 since the byte map array is tightly packed and it
->> can't store 256 value.
-> ...
->
->>>> Also update get() callback to return 256 if the byte map is disabled.
->>> This will be a user visible change.  It's not clear to me why it's
->>> needed - it seems like it's a hack to push users to do an update in the
->>> case where they want to use channel 1 stream 1?
->> Though it looks like 256 value is forced, but actually the user sees
->> whatever value is set before. The 256 value storage is linked to byte mask
->> value.
->> I must admit that this is not easily readable. If you suggest to simplify
->> this, I can check if storage space increase for byte map value can make it
->> more readable. Thanks for your feedback.
-> This could definitely use more clarification I think.  It's not obvious
-> that storing 256 won't actually hold (and that should trigger a
-> complaint from mixer-test if that's what happens).
+	sound/soc/codecs/tas2781-i2c.c:651 tasdevice_parse_dt()
+	warn: assigning signed to unsigned: 'tas_priv->ndev = ndev' 's32min-s32max'
 
-OK. I will provide more clarifications in the commit message and the 
-driver for the existing failure. Will put a TODO item in the driver to 
-improve the logic and make it more readable.
+sound/soc/codecs/tas2781-i2c.c
+    602 static void tasdevice_parse_dt(struct tasdevice_priv *tas_priv)
+    603 {
+    604         struct i2c_client *client = (struct i2c_client *)tas_priv->client;
+    605         unsigned int dev_addrs[TASDEVICE_MAX_CHANNELS];
+    606         int rc, i, ndev = 0;
+    607 
+    608         if (tas_priv->isacpi) {
+    609                 ndev = device_property_read_u32_array(&client->dev,
+    610                         "ti,audio-slots", NULL, 0);
+
+When we pass NULL to device_property_read_u32_array() then it returns
+then number of items.
+
+    611                 if (ndev <= 0) {
+    612                         ndev = 1;
+    613                         dev_addrs[0] = client->addr;
+    614                 } else {
+    615                         ndev = (ndev < ARRAY_SIZE(dev_addrs))
+    616                                 ? ndev : ARRAY_SIZE(dev_addrs);
+    617                         ndev = device_property_read_u32_array(&client->dev,
+                                ^^^^^^^
+Smatch is concerned that this value can be negative.  But actually this
+sets it to zero, doesn't it?  Is that intentional?  It feels like we
+should leave ndev as the number of items.  Or if we want ndev to be zero
+do "ndev = 0;" on the next line.
+
+    618                                 "ti,audio-slots", dev_addrs, ndev);
+    619                 }
+    620 
+    621                 tas_priv->irq_info.irq_gpio =
+    622                         acpi_dev_gpio_irq_get(ACPI_COMPANION(&client->dev), 0);
+    623         } else {
+    624                 struct device_node *np = tas_priv->dev->of_node;
+    625 #ifdef CONFIG_OF
+    626                 const __be32 *reg, *reg_end;
+    627                 int len, sw, aw;
+    628 
+    629                 aw = of_n_addr_cells(np);
+    630                 sw = of_n_size_cells(np);
+    631                 if (sw == 0) {
+    632                         reg = (const __be32 *)of_get_property(np,
+    633                                 "reg", &len);
+    634                         reg_end = reg + len/sizeof(*reg);
+    635                         ndev = 0;
+    636                         do {
+    637                                 dev_addrs[ndev] = of_read_number(reg, aw);
+    638                                 reg += aw;
+    639                                 ndev++;
+    640                         } while (reg < reg_end);
+    641                 } else {
+    642                         ndev = 1;
+    643                         dev_addrs[0] = client->addr;
+    644                 }
+    645 #else
+    646                 ndev = 1;
+    647                 dev_addrs[0] = client->addr;
+    648 #endif
+    649                 tas_priv->irq_info.irq_gpio = of_irq_get(np, 0);
+    650         }
+--> 651         tas_priv->ndev = ndev;
+                ^^^^^^^^^^^^^^^^^^^^^
+Warning
+
+    652         for (i = 0; i < ndev; i++)
+    653                 tas_priv->tasdevice[i].dev_addr = dev_addrs[i];
+    654 
+    655         tas_priv->reset = devm_gpiod_get_optional(&client->dev,
+    656                         "reset-gpios", GPIOD_OUT_HIGH);
+
+regards,
+dan carpenter

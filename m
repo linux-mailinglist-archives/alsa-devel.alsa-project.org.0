@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D931573DD39
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:20:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06F9E73DD40
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:21:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C914A4D;
-	Mon, 26 Jun 2023 13:20:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C914A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32291822;
+	Mon, 26 Jun 2023 13:20:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32291822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687778451;
-	bh=8W6xQ5iOuEQjq/7qSBNFBQNslDYc9PSMT0e2N9sMZgY=;
+	s=default; t=1687778460;
+	bh=gvZJEgeonvdGatc+QE6CbxGi4k0PV8fyHnXl76x2PQI=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FGIqylcYl4yusVOo159S+v4H9eiIMNsAzF9Tkp+Eh+aWY/s/hLHJl99X9RHas4ywT
-	 W74t8LRqgCpieU8NWYCiI1DJpW43p3IFaWdd/DS1sGj9GJIU6pbK6bi1N5R2lK9D5e
-	 +Gd2QLFsmGE2bREXLJ60vut7ITspoHlGZfZmrWbc=
+	b=Jp3EkC6BfezXB24I8PSiUerUwBZawzxVBVeEp3cBTXxyWzLng5fH0xAc6SYTl7HSW
+	 VWEel9I2h6FPIpkG4hJK9TBEEuQ2UFKUNgIXQfZxw5SR0CECrqKde1wZX8N92tz5Sf
+	 BfWLJ25/8xYMOTcXOlaJE6VwqWN1HHGxU8I03vco=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C47D6F805AD; Mon, 26 Jun 2023 13:18:34 +0200 (CEST)
+	id 27822F805C2; Mon, 26 Jun 2023 13:18:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EB18F805AA;
-	Mon, 26 Jun 2023 13:18:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0638F805B6;
+	Mon, 26 Jun 2023 13:18:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD38BF80141; Fri, 23 Jun 2023 22:33:13 +0200 (CEST)
+	id A5DD4F80141; Fri, 23 Jun 2023 22:33:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,39 +36,39 @@ Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 073B8F8003A
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:33:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 073B8F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2C4FFF80130
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:33:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C4FFF80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=TFMbJtym
+ header.a=rsa-sha256 header.s=mchp header.b=0k1syGhg
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1687552392; x=1719088392;
+  t=1687552416; x=1719088416;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8W6xQ5iOuEQjq/7qSBNFBQNslDYc9PSMT0e2N9sMZgY=;
-  b=TFMbJtymSHz9QnBbohUujRE7d5D+yrtbN21FWVJyxVJIRPXWG+46ZvNg
-   rFVYjkOha04ZZHL8tFmERPc0c/vh+6pGs9mkNXuFt7Nqk7t8q0j0DOAhR
-   q3fHWPZgPvqFoTsqmU4gyblu3zIRIS8Bvo9Sp/yijgs/hFNjqn4VfHusx
-   jBfqB3UUbjlmhFIkYSAdTmBlN/UpH7fv00aCCrYM5XtvdMWtewAi5Sqnq
-   5aCHuylyCUk5yMKRPMZVeVUc4/IyZmO0K8YEmEk47Qciuc02MZUcXGukx
-   BgkOcEjCtpse+2ulvU/uA6/9pLN3nb/gNeY08MXhhEPWahY8fFmqiCbON
-   w==;
+  bh=gvZJEgeonvdGatc+QE6CbxGi4k0PV8fyHnXl76x2PQI=;
+  b=0k1syGhgjqKdp6ilpo52ups7/3EBes0A+HJpMjBGuye+bFgtBk3vJ5WL
+   HAS35xiDEfvM820gNy2bV59ENcAyJ2931kWcPjcIlVQ/l5KgaWS/bWgOJ
+   kQ+d27DuZ8dzBBmvIdpuIM/oFzUumzO8TZjKnG+xqhyFzlonXyuXsNGux
+   2eWUwMiZvxyEaPLURWfFNBOfvkCaQVdqCNTg4e8HrSx7O0OLSrKODYGxD
+   su5N/hvRAStwovHgQoh0Yg1GylIw6fSSNHTqU6NYeVXr2ZQTuWDq/3V/D
+   97hbRQbGhFgmX9s7Q002m/jXmdc8Ipk0IdvXVQqKjEGjAT46cGD0MTww2
+   Q==;
 X-IronPort-AV: E=Sophos;i="6.01,153,1684825200";
-   d="scan'208";a="158361838"
+   d="scan'208";a="221701882"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 23 Jun 2023 13:33:05 -0700
+  by esa2.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 23 Jun 2023 13:33:32 -0700
 Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Fri, 23 Jun 2023 13:32:59 -0700
+ 15.1.2507.21; Fri, 23 Jun 2023 13:33:28 -0700
 Received: from che-lt-i67070.amer.actel.com (10.10.115.15) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:32:29 -0700
+ 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:32:59 -0700
 From: Varshini Rajendran <varshini.rajendran@microchip.com>
 To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
 	<conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
@@ -101,10 +101,10 @@ CC: <Hari.PrasathGE@microchip.com>, <cristian.birsan@microchip.com>,
 	<balamanikandan.gunasundar@microchip.com>, <manikandan.m@microchip.com>,
 	<dharma.b@microchip.com>, <nayabbasha.sayed@microchip.com>,
 	<balakrishnan.s@microchip.com>
-Subject: [PATCH v2 03/45] dt-bindings: usb: generic-ehci: Document clock-names
- property
-Date: Sat, 24 Jun 2023 02:00:14 +0530
-Message-ID: <20230623203056.689705-4-varshini.rajendran@microchip.com>
+Subject: [PATCH v2 04/45] dt-bindings: net: cdns,macb: add documentation for
+ sam9x7 ethernet interface
+Date: Sat, 24 Jun 2023 02:00:15 +0530
+Message-ID: <20230623203056.689705-5-varshini.rajendran@microchip.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230623203056.689705-1-varshini.rajendran@microchip.com>
 References: <20230623203056.689705-1-varshini.rajendran@microchip.com>
@@ -117,15 +117,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 6GGSCIOIZNHNPKQA5H2XRA5W3R62AD73
-X-Message-ID-Hash: 6GGSCIOIZNHNPKQA5H2XRA5W3R62AD73
-X-Mailman-Approved-At: Mon, 26 Jun 2023 11:18:21 +0000
+Message-ID-Hash: VRIRGU5E7DCJVU3WBKW6LKPQG6GZAS65
+X-Message-ID-Hash: VRIRGU5E7DCJVU3WBKW6LKPQG6GZAS65
+X-Mailman-Approved-At: Mon, 26 Jun 2023 11:18:22 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6GGSCIOIZNHNPKQA5H2XRA5W3R62AD73/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VRIRGU5E7DCJVU3WBKW6LKPQG6GZAS65/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,31 +134,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Document the property clock-names in the schema.
-
-It fixes the dtbs_check warning,
-'clock-names' does not match any of the regexes: 'pinctrl-[0-9]+'
+Add documentation for sam9x7 ethernet interface.
 
 Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
 ---
- Documentation/devicetree/bindings/usb/generic-ehci.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ Documentation/devicetree/bindings/net/cdns,macb.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-index 7e486cc6cfb8..542ac26960fc 100644
---- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-+++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-@@ -102,6 +102,10 @@ properties:
-         - if a USB DRD channel: first clock should be host and second
-           one should be peripheral
- 
-+  clock-names:
-+    minItems: 1
-+    maxItems: 4
-+
-   power-domains:
-     maxItems: 1
- 
+diff --git a/Documentation/devicetree/bindings/net/cdns,macb.yaml b/Documentation/devicetree/bindings/net/cdns,macb.yaml
+index bef5e0f895be..e4f9e9b353e5 100644
+--- a/Documentation/devicetree/bindings/net/cdns,macb.yaml
++++ b/Documentation/devicetree/bindings/net/cdns,macb.yaml
+@@ -54,6 +54,7 @@ properties:
+           - cdns,np4-macb             # NP4 SoC devices
+           - microchip,sama7g5-emac    # Microchip SAMA7G5 ethernet interface
+           - microchip,sama7g5-gem     # Microchip SAMA7G5 gigabit ethernet interface
++          - microchip,sam9x7-gem      # Microchip SAM9X7 gigabit ethernet interface
+           - sifive,fu540-c000-gem     # SiFive FU540-C000 SoC
+           - cdns,emac                 # Generic
+           - cdns,gem                  # Generic
 -- 
 2.25.1
 

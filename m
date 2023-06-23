@@ -2,90 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 799CB73B4FF
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 12:16:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D119373B8E4
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 15:41:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7141A857;
-	Fri, 23 Jun 2023 12:15:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7141A857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8529386E;
+	Fri, 23 Jun 2023 15:40:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8529386E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687515398;
-	bh=/aSXCSqv/VKsWuNl5ddGk7ozs2KUpTx2lvAt2RmeF3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1687527689;
+	bh=5H0qw50GWmFx5yXg2ks6JuzGPeiW15crtWZhu5iGgwA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hGtxzYe0TK+mZvYZ0bRzxxND5ltfcuACq0Yy5m3lyM5r9dG7L8K+GMqJn+AIcm86L
-	 nDfT/c9SVNBNuLAzmBgCBz03CdLAlRDivPErsJkHOCrQ7w1NZW055TEQ0K2g2ZjmJj
-	 TmjWmgDc6PvSue/cy7N/ulv+FLvYrXFbahaaX2jk=
+	b=vPwxd7QjWHUCcz5H5ovKqKWhrSIgkAKwITn4WGcRx0Xe65aTs/d57b13V0IplEhX/
+	 qVJSfurigGexJZRK3bH7NaHOGh34Q7JLzENjyVUxpFnv+wOQoMWNHR7kDl3jh/JVtv
+	 4pSAKYur7EKywXoj5jC7fx7pj1YBBv7s0CPlgwk0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 707E0F80544; Fri, 23 Jun 2023 12:15:24 +0200 (CEST)
+	id 00F31F80163; Fri, 23 Jun 2023 15:40:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4607BF80130;
-	Fri, 23 Jun 2023 12:15:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9322AF80132;
+	Fri, 23 Jun 2023 15:40:38 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6DA05F80141; Fri, 23 Jun 2023 12:15:19 +0200 (CEST)
+	id 87A6CF80141; Fri, 23 Jun 2023 15:40:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20615.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8c::615])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D37CAF80093
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 12:15:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D37CAF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 57D40F80130
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 15:40:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57D40F80130
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=JxkTY8En
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id CCCC0619F1;
-	Fri, 23 Jun 2023 10:15:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B31C433C0;
-	Fri, 23 Jun 2023 10:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1687515305;
-	bh=/aSXCSqv/VKsWuNl5ddGk7ozs2KUpTx2lvAt2RmeF3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JxkTY8Enhzt7H27iMQEXUf2PbJWEQa9lEfZ17TkIvKUN9+8mC5+mr9/dMY5EOktns
-	 Tfb9ZnNv22yKQxYJaWgiamaEs1vSkxDUl+6OvJLo/lrtl6ElygDBccyFm7ENPT8EGT
-	 FSa8cooDxj5QGu37PCaBw/gjYbp/buOMZ1r9hvXaMG7CQL84zO8amPpc6tGI7ZFGEw
-	 onNGQfXEZ5IoxPAOT3Kq3FrlFZaA6KGgqWtHxoqhkCYwfU8Hys/l7pPQcrYU+rVzIj
-	 2xec7N955iYgAeLM8plG5wNLEI9B0KBZapjgi1dpAbnbCXPhoFNFRoD+BG6hlVGFW7
-	 EKRG1WR2lHbIA==
-Date: Fri, 23 Jun 2023 11:15:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Cc: robh+dt@kernel.org, krzk+dt@kernel.org, thierry.reding@gmail.com,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	jonathanh@nvidia.com, mkumard@nvidia.com, sheetal@nvidia.com,
-	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/8] ASoC: tegra: Fix AMX byte map
-Message-ID: <ZJVwpE5KeL8rgvB9@finisterre.sirena.org.uk>
-References: <1687433656-7892-1-git-send-email-spujar@nvidia.com>
- <1687433656-7892-3-git-send-email-spujar@nvidia.com>
- <ad4b4dc9-7466-45a9-a008-c2301a7485dd@sirena.org.uk>
- <7893c366-e6aa-d606-c3d6-e85f73a345e0@nvidia.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=zng2S16g
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=alPMIL+0qgEF6wJDAaQnMALE8S1DqSaR9uOibLgxmHuBfIhQ0popENnbNM9fDWMfDoTVcHhsa2Mv8Dbyp0jhmIuti5x/Q280DCfcJjvPwIrNDmHhkbg7iG6LD03HkVZ0zLWN0T1m3jACDVOC6yrS7HdINmelvdaVEFdBR24mNtL2TkkdptRh4TV4h7rh31KAemoyGm1RgnAJ2WfRlMHrinqvWHDi7fLATB4zh2ltvgVdbTNlVXHV2zKKkUEIkiuZ3D3uMF+7R2so+ftvmSsttnUGvmv95ehSulNtFLPDEeQrFnhK2MufcLGOuNpe/LVOSst+a2oQD78mmY8Y6B2MSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ha4Vy+UE7hX1nQASwPPCcTaTrYqVB0VioY8uA69QzX8=;
+ b=JFjBo/2aQJa5bOoJO4tc9hK2HqAJYfB6GD7Pa43uqcOYzCkQwEYg8nJaPAEU9D43NkFTec/eF/wAfDRcPl1ZOX9OHS8CqlvGWxdkI/PvrkzYBV5PBJ9ERRTigqKQ1aPeam387pVa22nM8MeJ+y2qJ7JahKULB5K3GrzMmiBkaa2yuEKxVBZbvbKvtCAmdAkzORVHTdJlPumfSZgxTcjkpKEs/TqJUdjaxPTfnKV3vMs2CxTrwgmfnXFVq67i5fAR+qgyf4XI7HNQW9MqOe6Ke/ZpZ3O2jkLig5eBzaU4t3zjAED3JfZTjmHvW34lk/2Tp/1nVJ7yIsFEjpUqwRbv4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ha4Vy+UE7hX1nQASwPPCcTaTrYqVB0VioY8uA69QzX8=;
+ b=zng2S16gjHYdFVqhIW8AibaFHfeVr8JOW/EFIlLchZXc9zBdG0SM0rAttaod3UHVrD29NeaXxwRCENMA6swKWG+aGHnqFXr2J/arEY6V+xoS5q30OX1A88ZMSmW7cVBJhN+dJ+sKfnrZyvX3AxHBByoc7IzJvmXLjDwaX90f61A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by MN2PR12MB4389.namprd12.prod.outlook.com (2603:10b6:208:262::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Fri, 23 Jun
+ 2023 13:40:17 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dfcf:f53c:c778:6f70]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::dfcf:f53c:c778:6f70%5]) with mapi id 15.20.6521.026; Fri, 23 Jun 2023
+ 13:40:17 +0000
+Message-ID: <80e86035-f6e5-3059-6cf9-7f6cd93fa2ee@amd.com>
+Date: Fri, 23 Jun 2023 08:40:15 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Subject: Re: [PATCH v2] ASoC: amd: update pm_runtime enable sequence
+To: Arun Gopal Kondaveeti <arungopal.kondaveeti@amd.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ sunil-kumar.dommati@amd.com, venkataprasad.potturu@amd.com,
+ syed.sabakareem@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20230623214150.4058721-1-arungopal.kondaveeti@amd.com>
+Content-Language: en-US
+From: "Limonciello, Mario" <mario.limonciello@amd.com>
+In-Reply-To: <20230623214150.4058721-1-arungopal.kondaveeti@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA0PR11CA0209.namprd11.prod.outlook.com
+ (2603:10b6:806:1bc::34) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vnl+KoOKISxFJemC"
-Content-Disposition: inline
-In-Reply-To: <7893c366-e6aa-d606-c3d6-e85f73a345e0@nvidia.com>
-X-Cookie: Slow day.  Practice crawling.
-Message-ID-Hash: C2FOBH2EETZ7XP4RK3XQN6EP3HFB54WT
-X-Message-ID-Hash: C2FOBH2EETZ7XP4RK3XQN6EP3HFB54WT
-X-MailFrom: broonie@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MN2PR12MB4389:EE_
+X-MS-Office365-Filtering-Correlation-Id: b883f3e5-b4ad-4010-02f1-08db73ef616f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	jPAUK9iSsY3vV6AEVcoXR3/RXtaxtBn7iXaD9cKVHssx/XdHbdDEOTzhgwIY9gtmnjtfw5KMBr6EmpgV/crO1S1ZefSSohzveaaKShfnpmpljlMaXIyupVb1setAJkT9XugFlPpYYsfFzne/NyfQjaymlUliKUPEC9uNr0twfYbnlMQNF6x2sOjyGnlr3rlIM7GAH3AEtSBiiq1iS0VFYfDkaywflQBmZzkxEqoycXg3ufZXkdzdH9T57Cg4rwBGiP+uXqTSNasHvBWDTWQWzvtilLq5rxrUhq4gWl+8wCFKdrwxgqSAMYspZ9qEtGBRIPAY5tbWL5W+ekWooRNsZ/AQVRYYp+M1HTYLZD4E1VMvIr7svb1wGVv+X+bxGf6ZDAAbk8Mik2/NahQDOHkgecW3+JJRoaXNbpoaWZ7sQbYSTIfjA9+UJKE7mk4nXKDax3c8iPtUJ8CI+9aJvOBbTWB7+Ah5og6tg2n3PAYMspwmGchTuUOWvzWbPMLQBBfil8NXEt/aGvAQcFWu4JqlRS+czWZUAq5Gmgg35wirTrJI5Me3C41P5SWizqDkqMxylqEQ/c8cA0Z/LXYVgjM/t9gbvIcLzGEglMvE5ZHSBI60O5oDltNjdEmqa1B2r0/9G1HZZ5ozGe8uo1AT1ud2Sg==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(366004)(346002)(376002)(136003)(396003)(451199021)(54906003)(6486002)(478600001)(66946007)(186003)(6512007)(8936002)(4326008)(5660300002)(66556008)(8676002)(66476007)(316002)(41300700001)(6506007)(38100700002)(53546011)(36756003)(86362001)(31696002)(83380400001)(2616005)(15650500001)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?Vkh6TkY3YnMxNHd5bno2ZlRyeGJRWnp6WjU4VER4SEpndkIwMGEvQmNyeDBa?=
+ =?utf-8?B?aEMrUHQrcDdicnFDSnd3VTlVeFdPQlkzUGJBRWFHNVIwVUFMZnhyZ1k0b1Z6?=
+ =?utf-8?B?YTlGS1d0MUpIdXA4MklMMnVVa2lOUzNYRkt1SlhDeUlqbVo4SHp2RTlIcjR2?=
+ =?utf-8?B?dCtDQmlqUml1N0ErWGxHLzgwbng1d01nK25La3lnNVBleXkxa3ROT3k2bHp2?=
+ =?utf-8?B?eVd5TUZaa0EvWFZQQTBmY3hUL3pnSDFnTEFld0RxVVk2TFpVZTNDb250YkZG?=
+ =?utf-8?B?dHdnbUZNU1hJY3IvR1FDVUtyYW1mSTNlNytzTlUyZkR6cVBHNzFYZ3FRcjdq?=
+ =?utf-8?B?dlNValhaMnBldy9PVnV1NEQ0SWlTdHdjZ3FPajNaTGVKTDhRMUF2TlYwbStV?=
+ =?utf-8?B?SVF4c2FHRmE4TW9DMk5PUVlMbnpDSHl3TVpmeTU2U2puUTllcE9OSXVEY1JE?=
+ =?utf-8?B?Z2FSTm5hRjVIMytaMnFBMC83RjVLejQ4ZnJqcUU1K3pSVk14dWtEd1Fud2lG?=
+ =?utf-8?B?L1dmSk5iMnNFMkR6T3hKTW1BbkErK3I0LzdaMWJGMy8xQlJ0Y1JvZzJGdEZh?=
+ =?utf-8?B?UzU5bEVwY2lkcEJxbVRzWWliRUtUaVIrRHNMMEdOdGlyVmtFMmxPdmw3NkNw?=
+ =?utf-8?B?RnhJTmQxcGM2U3JHWVFST05VSEtHcmg2ZEMyb0VkRmZQTk1IWVVvYnlITGNt?=
+ =?utf-8?B?Q0tUaW9LOU83RGlOM3JkTzdaZEp0NGg5RC9nYUkzcWR3OHVIT3BuRFQ2bEtT?=
+ =?utf-8?B?OHFJOUZvZTBISUZWbDlDZGNPajdTYXlXQWpBdy9pMHFYa3BUMTVqNllmZjVp?=
+ =?utf-8?B?UnFoNnlsbmFsY3hyZ1JnOER3SE1NeVpqQ1NXRlM4T256c2poSFhTaERLU2FQ?=
+ =?utf-8?B?a3pLTkQ0TkFyMStLZGdpUzJUYS9STHVoVjVPaS9wUE1ydlFDZS9VWnZvM0Ri?=
+ =?utf-8?B?RG9CMW8rdTJNRS9acXVjWmRHMnl5SDJGNTREUU03aVhMY09WZDd6eVRZUk1t?=
+ =?utf-8?B?S3FseXVZQnN2djN0RUE0MzhJT3g4Smp2U3VoS1NqVTdDWVRnT0F5ZFA3U01K?=
+ =?utf-8?B?Qk1FaVF0OWJTUXNJTGtJekFGaTgvQ2c0bFFOQTYrbnJtU0hLY25waHdmTXVr?=
+ =?utf-8?B?eTVNRXk3a0tKaDlXS09rakM1VWYyU3JoQjhlQVhIbWM5YlhBRzE3Y3RJemJ6?=
+ =?utf-8?B?cml1ZWpmZ1BTMXJ6WEUwYmcxNGtURktmT1NseXRSUFF0TW9QRGdPOHRKaEta?=
+ =?utf-8?B?YkpNVTR3cHplWUhOekZCSzgvQ1VtdkltWTlIbUVjSmNjZE9Pc0NtMW9PczF0?=
+ =?utf-8?B?M0labDEzZmR6SWtRNzczSVE1SnpWUExvRFBkS2svUHJEb3MrNFk4Tlo5S3ZV?=
+ =?utf-8?B?MTI4YVZzWjNSUi9Pc2lHQVNGRVRtTE9qUjhjWSs4ekFQQy90MHdqT1czN0lB?=
+ =?utf-8?B?UFRqazBJRzJtS0FlMnk5c3JPc3pmWG9iWjlyTVhuQ1lRREZhT0psb1hMc0tX?=
+ =?utf-8?B?NTJaRExNSXE2aGwyYVVKUm93STZJVkMxaE03bzJDS0ViQUhNMTdiZENTOGdi?=
+ =?utf-8?B?ZHZRVzgrSGJaQjdjTENqRkVZWFh6cXdCRWdYdkRocUdBT1U5M21qOVE3K2Fz?=
+ =?utf-8?B?amJNYXp4UDFXTTJkUFhpajBpbGovQ3Q5VHpIRFFqaGMybzFDWmVnRFdkVytZ?=
+ =?utf-8?B?bWxTaWU0NkVheXhSb3poaGtDR2ZTYUdDbWZZNzAyNlNackJZTFY3Q0dTODlB?=
+ =?utf-8?B?a3dxeXdKTE9JUmlVbkYwTi80MDdlOCsvSnlRQ25yWHBDb2szeXVVUzZ3amZn?=
+ =?utf-8?B?Y0hZQUxwZFhrZUVqYTFpR0QrSG9MOEgrN01wcndTQlJNSS9WRWZWYkY4Z0U2?=
+ =?utf-8?B?RVd1M2tXejZYazlBaFNyTC9ia1ErazBBTTlweDZNQU8wZWo1Vkw5cDlXaDlC?=
+ =?utf-8?B?ZEYrVmkvbm4wbDg3NmhUeTNGUkpib2NTYjJnZEtQNDZJMWdZdlZCTlBQQlFY?=
+ =?utf-8?B?a3FLVittMVpyRU1MeUFhYU02cmJodEoyc2V0MTVYTlp1THVQRVY3eFBvK1J2?=
+ =?utf-8?B?VFBhbVdQNGVsNExGalphZXVmRFpvOTVFeGRNaFVkanVzR0FqbHExSmVvOXcx?=
+ =?utf-8?B?TlBxcDk5SUE3RUVyLzBwdkV5MEQ2VU9IcDdYb1FDVVFWS3U2YnJxS1p1NmUz?=
+ =?utf-8?Q?VaQivbXYMx6g3VdGqCaCDzXteHQdojaa+wIZ1YymYZaz?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ b883f3e5-b4ad-4010-02f1-08db73ef616f
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2023 13:40:17.3777
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ kp9pf9R2u75hPssmDP7leCkpr5QD0AJtxg2RSV7eYy/aKKNppYCqvAIg/8Q0zXX8LjdxvhBBiSRPtNjE2x/Dow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4389
+Message-ID-Hash: YAK2INTJSU4NMVZP4JRSOTYO2OE3SG72
+X-Message-ID-Hash: YAK2INTJSU4NMVZP4JRSOTYO2OE3SG72
+X-MailFrom: Mario.Limonciello@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +170,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C2FOBH2EETZ7XP4RK3XQN6EP3HFB54WT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YAK2INTJSU4NMVZP4JRSOTYO2OE3SG72/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -107,66 +180,108 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---vnl+KoOKISxFJemC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 6/23/2023 4:41 PM, Arun Gopal Kondaveeti wrote:
+> pm_runtime_allow() is not needed for ACP child platform devices.
+> Replace pm_runtime_allow() with pm_runtime_mark_last_busy()
+> & pm_runtime_set_active() in pm_runtime enable sequence for
+> ACP child platform drivers.
 
-On Fri, Jun 23, 2023 at 11:09:32AM +0530, Sameer Pujar wrote:
-> On 22-06-2023 17:37, Mark Brown wrote:
-> > On Thu, Jun 22, 2023 at 05:04:10PM +0530, Sameer Pujar wrote:
+Can you explain what prompted this?
 
-> > > Byte mask for channel-1 of stream-1 is not getting enabled and this
-> > > causes failures during AMX use cases. The enable bit is not set during
-> > > put() callback of byte map mixer control.
+Does this fix a particular bug, or is it just to correct
+things?  If it fixes a particular bug; I think it should be
+split up across 5 patches (one for each APU) and then
+appropriate Fixes tags applied for each on the code they're
+fixing.
 
-> > > This happens because the byte map value 0 matches the initial state
-> > > of byte map array and put() callback returns without doing anything.
-
-> > > Fix the put() callback by actually looking at the byte mask array
-> > > to identify if any change is needed and update the fields accordingly.
-
-> > I'm not quite sure I follow the logic here - I'd have expected this to
-> > mean that there's a bootstrapping issue and that we should be doing some
-> > more initialisation during startup such that the existing code which
-> > checks if there is a change will be doing the right thing?
-
-> The issue can happen in subsequent cycles as well if once the user disables
-> the byte map by putting 256. It happens because of following reason where
-> 256 value is reset to 0 since the byte map array is tightly packed and it
-> can't store 256 value.
-
-...
-
-> > > Also update get() callback to return 256 if the byte map is disabled.
-> > This will be a user visible change.  It's not clear to me why it's
-> > needed - it seems like it's a hack to push users to do an update in the
-> > case where they want to use channel 1 stream 1?
-
-> Though it looks like 256 value is forced, but actually the user sees
-> whatever value is set before. The 256 value storage is linked to byte mask
-> value.
-
-> I must admit that this is not easily readable. If you suggest to simplify
-> this, I can check if storage space increase for byte map value can make it
-> more readable. Thanks for your feedback.
-
-This could definitely use more clarification I think.  It's not obvious
-that storing 256 won't actually hold (and that should trigger a
-complaint from mixer-test if that's what happens).
-
---vnl+KoOKISxFJemC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSVcKQACgkQJNaLcl1U
-h9ChNAf8Dc9guHHicnKRVmRXvQ/BAUbK3nW/Sj1OA5p9qg7p+/GYuii6LDx6P9Ot
-Is7FImWjHZSLY9pG2ym1CvV022stiZ54g4B/Wqmh7MTerAOrdu0RddPMo9zn/dP6
-mTQLPLwYKcd/p+3DFvDQIjJPsik21pCP/p/6nwNIyJvabevapr9bPEpbU6e+4gYb
-BE7RDSx/sen2JbDP9a5RjDt/SgGVinAaEUVtDxcOyPXYN0IZ1JawmJd7NG7mLJg7
-yZauxzEyW0sEPPFcG0tjnLGcmOfQOhm28dsG0T+05fUBS+SPArut78CmDeyxXsHz
-BV2BrsupkV3HVoa2IaGFb8jyms2lng==
-=BPLR
------END PGP SIGNATURE-----
-
---vnl+KoOKISxFJemC--
+>
+> Signed-off-by: Arun Gopal <arungopal.kondaveeti@amd.com>
+> ---
+>
+> Changes since v1:
+>      -- Updated commit message
+>
+> ---
+>   sound/soc/amd/ps/ps-pdm-dma.c         | 3 ++-
+>   sound/soc/amd/raven/acp3x-pcm-dma.c   | 3 ++-
+>   sound/soc/amd/renoir/acp3x-pdm-dma.c  | 3 ++-
+>   sound/soc/amd/vangogh/acp5x-pcm-dma.c | 4 ++--
+>   sound/soc/amd/yc/acp6x-pdm-dma.c      | 3 ++-
+>   5 files changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/sound/soc/amd/ps/ps-pdm-dma.c b/sound/soc/amd/ps/ps-pdm-dma.c
+> index bdbbb797c74d..d48f7c5af289 100644
+> --- a/sound/soc/amd/ps/ps-pdm-dma.c
+> +++ b/sound/soc/amd/ps/ps-pdm-dma.c
+> @@ -391,8 +391,9 @@ static int acp63_pdm_audio_probe(struct platform_device *pdev)
+>   	}
+>   	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
+>   	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_mark_last_busy(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+>   	pm_runtime_enable(&pdev->dev);
+> -	pm_runtime_allow(&pdev->dev);
+>   	return 0;
+>   }
+>   
+> diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
+> index 7362dd15ad30..9538f3ffc5d9 100644
+> --- a/sound/soc/amd/raven/acp3x-pcm-dma.c
+> +++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
+> @@ -416,8 +416,9 @@ static int acp3x_audio_probe(struct platform_device *pdev)
+>   
+>   	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+>   	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_mark_last_busy(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+>   	pm_runtime_enable(&pdev->dev);
+> -	pm_runtime_allow(&pdev->dev);
+>   	return 0;
+>   }
+>   
+> diff --git a/sound/soc/amd/renoir/acp3x-pdm-dma.c b/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> index 4e299f96521f..c3b47e9bd239 100644
+> --- a/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> +++ b/sound/soc/amd/renoir/acp3x-pdm-dma.c
+> @@ -430,8 +430,9 @@ static int acp_pdm_audio_probe(struct platform_device *pdev)
+>   	}
+>   	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
+>   	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_mark_last_busy(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+>   	pm_runtime_enable(&pdev->dev);
+> -	pm_runtime_allow(&pdev->dev);
+>   	return 0;
+>   }
+>   
+> diff --git a/sound/soc/amd/vangogh/acp5x-pcm-dma.c b/sound/soc/amd/vangogh/acp5x-pcm-dma.c
+> index 29901ee4bfe3..587dec5bb33d 100644
+> --- a/sound/soc/amd/vangogh/acp5x-pcm-dma.c
+> +++ b/sound/soc/amd/vangogh/acp5x-pcm-dma.c
+> @@ -409,9 +409,9 @@ static int acp5x_audio_probe(struct platform_device *pdev)
+>   	}
+>   	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+>   	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_mark_last_busy(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+>   	pm_runtime_enable(&pdev->dev);
+> -	pm_runtime_allow(&pdev->dev);
+> -
+>   	return 0;
+>   }
+>   
+> diff --git a/sound/soc/amd/yc/acp6x-pdm-dma.c b/sound/soc/amd/yc/acp6x-pdm-dma.c
+> index d818eba48546..72c4591e451b 100644
+> --- a/sound/soc/amd/yc/acp6x-pdm-dma.c
+> +++ b/sound/soc/amd/yc/acp6x-pdm-dma.c
+> @@ -383,8 +383,9 @@ static int acp6x_pdm_audio_probe(struct platform_device *pdev)
+>   	}
+>   	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
+>   	pm_runtime_use_autosuspend(&pdev->dev);
+> +	pm_runtime_mark_last_busy(&pdev->dev);
+> +	pm_runtime_set_active(&pdev->dev);
+>   	pm_runtime_enable(&pdev->dev);
+> -	pm_runtime_allow(&pdev->dev);
+>   	return 0;
+>   }
+>   

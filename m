@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 229CD73DD82
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:30:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A11273DD84
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:31:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6176EE7B;
-	Mon, 26 Jun 2023 13:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6176EE7B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79BBBE7A;
+	Mon, 26 Jun 2023 13:30:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79BBBE7A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687779054;
-	bh=a1xnWCYuB9DCSfx0+SvLtwQB8Hh5Ow+g0UBFkP7Cuoo=;
+	s=default; t=1687779072;
+	bh=o7crmmjGyjBkSmcJC3SA7Zc95Mth14OJpn76dYKAtWg=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KUlkKSN4ouN5Zag2Ii+1engzLM2LBdqLKVufWGHWHyt7KR85lWKJZxmge0TtjEyLU
-	 sx089L0efzqCo+HLr5RZSS9V+vpCusd6/wZTWJ+62ZyasKFcdsotA0e29Zdzks51uA
-	 oJ4bGYmml4jfeAGXsEIYXwvhDXcEm4MDA4Z3XjD4=
+	b=uB3wLdNhQ7I1WeGWOyXsFtpQezkDIDViUesfl0N9y0AC3+MyzMqCxGcLzaamLtpgY
+	 6MyJAcbNy6GQtfCHTP2GUMkGuhigLqOu3GdcJ+c84/024aUzs572gexqUQcpl99pwE
+	 3yzTy2i1ZQsflrBoWvHsxgziFQo5b9hzod3jZopw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A54B8F805F7; Mon, 26 Jun 2023 13:27:27 +0200 (CEST)
+	id 8C71EF805FC; Mon, 26 Jun 2023 13:27:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2331F805EF;
-	Mon, 26 Jun 2023 13:27:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A90A6F805F8;
+	Mon, 26 Jun 2023 13:27:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE25AF80141; Fri, 23 Jun 2023 22:46:10 +0200 (CEST)
+	id 8AC18F80141; Fri, 23 Jun 2023 22:46:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,42 +33,42 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.153.233])
+ [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B6A77F80130
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:46:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A77F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 67BAFF8003A
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:46:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67BAFF8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=jz1Z15d7
+ header.a=rsa-sha256 header.s=mchp header.b=pOzTj5w4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1687553169; x=1719089169;
+  t=1687553199; x=1719089199;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=a1xnWCYuB9DCSfx0+SvLtwQB8Hh5Ow+g0UBFkP7Cuoo=;
-  b=jz1Z15d7uppXTeKonhEPsdSJhXB8vs0qyhc+vn2hqEvZztD7f8JbUDNV
-   ZIe3h95rpbZ5SoQ8i0Or3a40n2bEJPTmRTC+1/rMN5/8ILM1syx3jsPVy
-   IZOH2HhEjXDZKMlFCKV27/aPEWtbivF1kupkycpnYXZ3ezbpACCRIuPOm
-   qiKu7J6H2V9fv1OJHVI5KjiCAbUX+XRtp7czQl+WWymg7GheJ3fsRnp92
-   6dhtFlB5CKfjpqrJcpeUvI/yTv+KxnVCW94I6AWXZkcPUwLJ7QfrrZU5e
-   hLBP2IhlHC8k2q1RrfNz4Q+8UszJE23YIZJQtoXMaqTVFz81qei4yNJHY
-   g==;
+  bh=o7crmmjGyjBkSmcJC3SA7Zc95Mth14OJpn76dYKAtWg=;
+  b=pOzTj5w4V102S8I2UjUPpbdy0h8YGDm67EJGoskdivpSSFqXMtfWMpV/
+   zVxxzMXd+dZuauJDLsyzG6qQKxOx8cQrR3Bs2eWyVqrHVOxTVtyfeebc4
+   zGTT9AaJPKGXAuGq4tzqizIwPkCtWpyAmcagTRptZ6f2JrrQRvnTMwBLx
+   cL+N8kDQFkjixOhJnTa2Anp1yj+vaCGo6WJ9ymqtHALhkhSw0b6s5q5yL
+   c2htoP2J9+v86KhfP+inBDExmNXYZhp3UtbtUfenVzmcVHNhwbAjm6Cp9
+   h9taeJdaeI8b92gDMKe7ZvmzEWpXpLAZiooyW+7Q4jhxCuwSkpeJeS0q3
+   w==;
 X-IronPort-AV: E=Sophos;i="6.01,153,1684825200";
-   d="scan'208";a="219551820"
+   d="scan'208";a="158363343"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 23 Jun 2023 13:46:05 -0700
+  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 23 Jun 2023 13:46:35 -0700
 Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Fri, 23 Jun 2023 13:46:05 -0700
+ 15.1.2507.21; Fri, 23 Jun 2023 13:46:34 -0700
 Received: from che-lt-i67070.amer.actel.com (10.10.115.15) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:45:35 -0700
+ 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:46:05 -0700
 From: Varshini Rajendran <varshini.rajendran@microchip.com>
 To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
 	<conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
@@ -101,10 +101,9 @@ CC: <Hari.PrasathGE@microchip.com>, <cristian.birsan@microchip.com>,
 	<balamanikandan.gunasundar@microchip.com>, <manikandan.m@microchip.com>,
 	<dharma.b@microchip.com>, <nayabbasha.sayed@microchip.com>,
 	<balakrishnan.s@microchip.com>
-Subject: [PATCH v2 30/45] dt-bindings: serial: atmel,at91-usart: add
- compatible for sam9x7
-Date: Sat, 24 Jun 2023 02:00:41 +0530
-Message-ID: <20230623203056.689705-31-varshini.rajendran@microchip.com>
+Subject: [PATCH v2 31/45] dt-bindings: atmel-classd: add sam9x7 compatible
+Date: Sat, 24 Jun 2023 02:00:42 +0530
+Message-ID: <20230623203056.689705-32-varshini.rajendran@microchip.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230623203056.689705-1-varshini.rajendran@microchip.com>
 References: <20230623203056.689705-1-varshini.rajendran@microchip.com>
@@ -117,15 +116,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: UZBSPXEVJUTCR7UQMDXXG567HTOGN65F
-X-Message-ID-Hash: UZBSPXEVJUTCR7UQMDXXG567HTOGN65F
+Message-ID-Hash: HA6H3IY4O5E73RFN4HVZPJ447XNSIQCA
+X-Message-ID-Hash: HA6H3IY4O5E73RFN4HVZPJ447XNSIQCA
 X-Mailman-Approved-At: Mon, 26 Jun 2023 11:27:24 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UZBSPXEVJUTCR7UQMDXXG567HTOGN65F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HA6H3IY4O5E73RFN4HVZPJ447XNSIQCA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,30 +137,25 @@ Add sam9x7 compatible to DT bindings documentation.
 
 Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
 ---
- Documentation/devicetree/bindings/serial/atmel,at91-usart.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ .../devicetree/bindings/sound/atmel,sama5d2-classd.yaml      | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/atmel,at91-usart.yaml b/Documentation/devicetree/bindings/serial/atmel,at91-usart.yaml
-index 30b2131b5860..d836224f99c6 100644
---- a/Documentation/devicetree/bindings/serial/atmel,at91-usart.yaml
-+++ b/Documentation/devicetree/bindings/serial/atmel,at91-usart.yaml
-@@ -17,6 +17,7 @@ properties:
-           - atmel,at91rm9200-usart
-           - atmel,at91sam9260-usart
-           - microchip,sam9x60-usart
-+          - microchip,sam9x7-usart
-       - items:
-           - const: atmel,at91rm9200-dbgu
-           - const: atmel,at91rm9200-usart
-@@ -26,6 +27,8 @@ properties:
-       - items:
-           - const: microchip,sam9x60-dbgu
-           - const: microchip,sam9x60-usart
-+          - const: microchip,sam9x7-dbgu
-+          - const: microchip,sam9x7-usart
-           - const: atmel,at91sam9260-dbgu
-           - const: atmel,at91sam9260-usart
+diff --git a/Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml b/Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml
+index 43d04702ac2d..d53addbcd41b 100644
+--- a/Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml
++++ b/Documentation/devicetree/bindings/sound/atmel,sama5d2-classd.yaml
+@@ -18,7 +18,10 @@ description:
  
+ properties:
+   compatible:
+-    const: atmel,sama5d2-classd
++    oneOf:
++      - items:
++          - const: atmel,sama5d2-classd
++          - const: microchip,sam9x7-classd
+ 
+   reg:
+     maxItems: 1
 -- 
 2.25.1
 

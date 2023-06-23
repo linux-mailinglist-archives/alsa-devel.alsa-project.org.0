@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 670D673DD4C
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:21:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 414F173DD4F
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:21:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA9D3846;
-	Mon, 26 Jun 2023 13:20:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA9D3846
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39D72A4E;
+	Mon, 26 Jun 2023 13:21:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D72A4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687778498;
-	bh=Ig30gwYZkr/IoUPy5H3F0pxktm0wBBqBXGc48gOkR1U=;
+	s=default; t=1687778513;
+	bh=1QGyJHdsdEC9quDqT4s3WD8JMv5A9Y0t0yBquA/F1eg=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=flUoc465lHgBNJNmHwToZ49yN8zWsE4VFCBgIvnjdXzAv8mEFdjQc5Q3YWf58ldX2
-	 XtsYSqFVjlSrDFAHk647wHBJWifTrCzmjWgA970cmryHcMpP3SWPwkjkwElyMxYNrn
-	 c5EUScWN5e2i7fz5ku9sZrPO4dtImvz1QFpvQ0zg=
+	b=kGGfWl2OeWSvxYfNyZaB1xjZLf9OAvlkooZA+pm2Oe+Y1QSYhB/hazqA+rnLL6RhR
+	 bPIw5yyibPiY66PGQTMFQxNZAGTPIu4W3CCO3YK4aaXjO1u/FpjpK7EhQrXB9jLt8w
+	 +osjk6TUeC8AQTL5XAY2S51o67ZBxmGvl3QIDqpY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CF15F805D3; Mon, 26 Jun 2023 13:18:42 +0200 (CEST)
+	id A28F9F8053B; Mon, 26 Jun 2023 13:19:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4702CF805C7;
-	Mon, 26 Jun 2023 13:18:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09ECCF80246;
+	Mon, 26 Jun 2023 13:19:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E84E9F80141; Fri, 23 Jun 2023 22:34:34 +0200 (CEST)
+	id 447C1F80141; Fri, 23 Jun 2023 22:35:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,39 +36,39 @@ Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
  [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F414EF80130
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:34:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F414EF80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id B7702F80130
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:35:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7702F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=N2Qn4hWc
+ header.a=rsa-sha256 header.s=mchp header.b=iGjAMuo2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1687552472; x=1719088472;
+  t=1687552509; x=1719088509;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Ig30gwYZkr/IoUPy5H3F0pxktm0wBBqBXGc48gOkR1U=;
-  b=N2Qn4hWcThcagXWxFSIMMhcLLpdSP0RusDOHVsUsrP10IpAyMK+BXGTG
-   /GwmdCj5mLn+8WWt7rjoS/E/nhKMxhe+t8ZojtHYabaaFLTLS4354sOWM
-   WxYXvrJosZu34GZDK15psnCCaVzghJJWUxvX9pJLN8JI3EWgDgHqp/tTW
-   H90G0ure5XBMIHaiudNNd0uNVOcV3Hz4BjElxbJRdSiZ+YPJQvraO84ca
-   XHL42h/uCaqojVIZE1IzpzuCKEj9XfwyhJZnn3U2Oa8DSGRSJOUg7yUPB
-   BSXpsn8mK4U3s1NgIapQdi/vyxPp9QrMkPOve88DmdRIMsxYHzZTTfwC4
-   g==;
+  bh=1QGyJHdsdEC9quDqT4s3WD8JMv5A9Y0t0yBquA/F1eg=;
+  b=iGjAMuo2om1t+bgQrljtmEcCPIx3ukLN7J27rpEGWH4ZqK6kZihJ7Det
+   q8gcEf1wRAqyuToPWBlT6h2QUhOcsNQknINSEu0sGQhey8vXN1I+SP98B
+   uFDkbGcMqTHZe2VMX+6bK7uhmeJlrluP6al6AK0RXmg8IWNYV2P7Be7zF
+   /sU1dURmUMMQZEk+TKpu3Zq1fIXR5kyG7F/L3SAirAb3LaIUyM9Hb5l8g
+   xJbtPhKwvpRYWbjFOoPRsCycKKAiNpeZp2Iwz4SujJt9begnGRmEf1ono
+   o3JO5pd3ieVO8U5rfXvCVgOa4slDLptwk7qt/Ofl4Z1cSulehFdoYojPy
+   w==;
 X-IronPort-AV: E=Sophos;i="6.01,153,1684825200";
-   d="scan'208";a="217418402"
+   d="scan'208";a="217418437"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
   by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 23 Jun 2023 13:34:28 -0700
+ 23 Jun 2023 13:35:04 -0700
 Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Fri, 23 Jun 2023 13:34:27 -0700
+ 15.1.2507.21; Fri, 23 Jun 2023 13:34:56 -0700
 Received: from che-lt-i67070.amer.actel.com (10.10.115.15) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:33:58 -0700
+ 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:34:28 -0700
 From: Varshini Rajendran <varshini.rajendran@microchip.com>
 To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
 	<conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
@@ -101,9 +101,9 @@ CC: <Hari.PrasathGE@microchip.com>, <cristian.birsan@microchip.com>,
 	<balamanikandan.gunasundar@microchip.com>, <manikandan.m@microchip.com>,
 	<dharma.b@microchip.com>, <nayabbasha.sayed@microchip.com>,
 	<balakrishnan.s@microchip.com>
-Subject: [PATCH v2 06/45] ARM: at91: pm: add sam9x7 SoC init config
-Date: Sat, 24 Jun 2023 02:00:17 +0530
-Message-ID: <20230623203056.689705-7-varshini.rajendran@microchip.com>
+Subject: [PATCH v2 07/45] ARM: at91: add support in SoC driver for new sam9x7
+Date: Sat, 24 Jun 2023 02:00:18 +0530
+Message-ID: <20230623203056.689705-8-varshini.rajendran@microchip.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230623203056.689705-1-varshini.rajendran@microchip.com>
 References: <20230623203056.689705-1-varshini.rajendran@microchip.com>
@@ -116,15 +116,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 5IRA4SGIIXMFZTO5MZYQ7ROZF77J62NH
-X-Message-ID-Hash: 5IRA4SGIIXMFZTO5MZYQ7ROZF77J62NH
-X-Mailman-Approved-At: Mon, 26 Jun 2023 11:18:24 +0000
+Message-ID-Hash: ZZKCBJEW233ZKUHC2H5YNDGGZPU6MX66
+X-Message-ID-Hash: ZZKCBJEW233ZKUHC2H5YNDGGZPU6MX66
+X-Mailman-Approved-At: Mon, 26 Jun 2023 11:19:07 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5IRA4SGIIXMFZTO5MZYQ7ROZF77J62NH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZKCBJEW233ZKUHC2H5YNDGGZPU6MX66/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,67 +133,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add SoC init config for sam9x7 family.
+Add support for SAM9X7 SoC in the SoC driver.
 
 Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
 ---
- arch/arm/mach-at91/Makefile |  1 +
- arch/arm/mach-at91/sam9x7.c | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
- create mode 100644 arch/arm/mach-at91/sam9x7.c
+ drivers/soc/atmel/soc.c | 23 +++++++++++++++++++++++
+ drivers/soc/atmel/soc.h |  9 +++++++++
+ 2 files changed, 32 insertions(+)
 
-diff --git a/arch/arm/mach-at91/Makefile b/arch/arm/mach-at91/Makefile
-index 794bd12ab0a8..7d8a7bc44e65 100644
---- a/arch/arm/mach-at91/Makefile
-+++ b/arch/arm/mach-at91/Makefile
-@@ -7,6 +7,7 @@
- obj-$(CONFIG_SOC_AT91RM9200)	+= at91rm9200.o
- obj-$(CONFIG_SOC_AT91SAM9)	+= at91sam9.o
- obj-$(CONFIG_SOC_SAM9X60)	+= sam9x60.o
-+obj-$(CONFIG_SOC_SAM9X7)	+= sam9x7.o
- obj-$(CONFIG_SOC_SAMA5)		+= sama5.o sam_secure.o
- obj-$(CONFIG_SOC_SAMA7)		+= sama7.o
- obj-$(CONFIG_SOC_SAMV7)		+= samv7.o
-diff --git a/arch/arm/mach-at91/sam9x7.c b/arch/arm/mach-at91/sam9x7.c
-new file mode 100644
-index 000000000000..d998fb327860
---- /dev/null
-+++ b/arch/arm/mach-at91/sam9x7.c
-@@ -0,0 +1,34 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Setup code for SAM9X7.
-+ *
-+ * Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries
-+ *
-+ * Author: Varshini Rajendran <varshini.rajendran@microchip.com>
-+ */
+diff --git a/drivers/soc/atmel/soc.c b/drivers/soc/atmel/soc.c
+index cc9a3e107479..cae3452cbc60 100644
+--- a/drivers/soc/atmel/soc.c
++++ b/drivers/soc/atmel/soc.c
+@@ -101,6 +101,29 @@ static const struct at91_soc socs[] __initconst = {
+ 		 AT91_CIDR_VERSION_MASK, SAM9X60_D6K_EXID_MATCH,
+ 		 "sam9x60 8MiB SDRAM SiP", "sam9x60"),
+ #endif
++#ifdef CONFIG_SOC_SAM9X7
++	AT91_SOC(SAM9X7_CIDR_MATCH, AT91_CIDR_MATCH_MASK,
++		 AT91_CIDR_VERSION_MASK, SAM9X75_EXID_MATCH,
++		 "sam9x75", "sam9x7"),
++	AT91_SOC(SAM9X7_CIDR_MATCH, AT91_CIDR_MATCH_MASK,
++		 AT91_CIDR_VERSION_MASK, SAM9X72_EXID_MATCH,
++		 "sam9x72", "sam9x7"),
++	AT91_SOC(SAM9X7_CIDR_MATCH, AT91_CIDR_MATCH_MASK,
++		 AT91_CIDR_VERSION_MASK, SAM9X70_EXID_MATCH,
++		 "sam9x70", "sam9x7"),
++	AT91_SOC(SAM9X7_CIDR_MATCH, SAM9X75_D1G_EXID_MATCH,
++		 AT91_CIDR_VERSION_MASK, SAM9X75_EXID_MATCH,
++		 "sam9x75 1Gb DDR3L SiP ", "sam9x7"),
++	AT91_SOC(SAM9X7_CIDR_MATCH, SAM9X75_D5M_EXID_MATCH,
++		 AT91_CIDR_VERSION_MASK, SAM9X75_EXID_MATCH,
++		 "sam9x75 512Mb DDR2 SiP", "sam9x7"),
++	AT91_SOC(SAM9X7_CIDR_MATCH, SAM9X75_D1M_EXID_MATCH,
++		 AT91_CIDR_VERSION_MASK, SAM9X75_EXID_MATCH,
++		 "sam9x75 128Mb DDR2 SiP", "sam9x7"),
++	AT91_SOC(SAM9X7_CIDR_MATCH, SAM9X75_D2G_EXID_MATCH,
++		 AT91_CIDR_VERSION_MASK, SAM9X75_EXID_MATCH,
++		 "sam9x75 2Gb DDR3L SiP", "sam9x7"),
++#endif
+ #ifdef CONFIG_SOC_SAMA5
+ 	AT91_SOC(SAMA5D2_CIDR_MATCH, AT91_CIDR_MATCH_MASK,
+ 		 AT91_CIDR_VERSION_MASK, SAMA5D21CU_EXID_MATCH,
+diff --git a/drivers/soc/atmel/soc.h b/drivers/soc/atmel/soc.h
+index 7a9f47ce85fb..26dd26b4f179 100644
+--- a/drivers/soc/atmel/soc.h
++++ b/drivers/soc/atmel/soc.h
+@@ -45,6 +45,7 @@ at91_soc_init(const struct at91_soc *socs);
+ #define AT91SAM9N12_CIDR_MATCH		0x019a07a0
+ #define SAM9X60_CIDR_MATCH		0x019b35a0
+ #define SAMA7G5_CIDR_MATCH		0x00162100
++#define SAM9X7_CIDR_MATCH		0x09750020
+ 
+ #define AT91SAM9M11_EXID_MATCH		0x00000001
+ #define AT91SAM9M10_EXID_MATCH		0x00000002
+@@ -74,6 +75,14 @@ at91_soc_init(const struct at91_soc *socs);
+ #define SAMA7G54_D2G_EXID_MATCH		0x00000020
+ #define SAMA7G54_D4G_EXID_MATCH		0x00000028
+ 
++#define SAM9X75_EXID_MATCH		0x00000000
++#define SAM9X72_EXID_MATCH		0x00000004
++#define SAM9X70_EXID_MATCH		0x00000005
++#define SAM9X75_D1G_EXID_MATCH		0x00000001
++#define SAM9X75_D5M_EXID_MATCH		0x00000002
++#define SAM9X75_D1M_EXID_MATCH		0x00000003
++#define SAM9X75_D2G_EXID_MATCH		0x00000006
 +
-+#include <linux/of.h>
-+#include <linux/of_platform.h>
-+
-+#include <asm/mach/arch.h>
-+#include <asm/system_misc.h>
-+
-+#include "generic.h"
-+
-+static void __init sam9x7_init(void)
-+{
-+	of_platform_default_populate(NULL, NULL, NULL);
-+
-+	sam9x7_pm_init();
-+}
-+
-+static const char *const sam9x7_dt_board_compat[] __initconst = {
-+	"microchip,sam9x7",
-+	NULL
-+};
-+
-+DT_MACHINE_START(sam9x7_dt, "Microchip SAM9X7")
-+	/* Maintainer: Microchip */
-+	.init_machine	= sam9x7_init,
-+	.dt_compat	= sam9x7_dt_board_compat,
-+MACHINE_END
+ #define AT91SAM9XE128_CIDR_MATCH	0x329973a0
+ #define AT91SAM9XE256_CIDR_MATCH	0x329a93a0
+ #define AT91SAM9XE512_CIDR_MATCH	0x329aa3a0
 -- 
 2.25.1
 

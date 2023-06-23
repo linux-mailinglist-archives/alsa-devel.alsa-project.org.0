@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25ECF73DD2E
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:20:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EEB73DD32
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:20:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C8C3857;
-	Mon, 26 Jun 2023 13:19:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C8C3857
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9A2A83B;
+	Mon, 26 Jun 2023 13:19:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9A2A83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687778401;
-	bh=k09nEHCiSzbJsqqSNMTaSxW8jtMKfqLZrahLVUHWd9A=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZjoJneUJoGamKI/E3SFQ7YSAuDUkmqH+N666VkbzF+1WlWkYS97NaP9XB7ru7v9k8
-	 IPKEUHhuWba2guHXC79CFXPYevQoVfzxb4Opcbwbbse1V6DhSEf4kwGd/w0oZ3y0hc
-	 8sZ5c1gLeyTnGsG4xyRoN3lvUykOSioSZeZvkOqU=
+	s=default; t=1687778416;
+	bh=GsHjTGOIwG51l33j1RwStl2l2LqbNlmB/V7XSwlE9ew=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=bnZE+M7FciqmNo9VFNlXFP6gwJW7GoXigMvbM5ZvVmKpGhiLSqLvET7kU5onhDZtc
+	 si35FeUXOkCbN159EjOF9K+GHDRkKDlo1WDXlDAR2nK+hAm/AboTIvOKzXF2OAFdFq
+	 oRKaohs4tIgMd15e6nC+LPn7iMnYUKfYc7cDoSBA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E7D8BF80568; Mon, 26 Jun 2023 13:18:26 +0200 (CEST)
+	id EF797F80579; Mon, 26 Jun 2023 13:18:28 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35D60F8055A;
-	Mon, 26 Jun 2023 13:18:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28E08F80579;
+	Mon, 26 Jun 2023 13:18:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79EDEF80141; Fri, 23 Jun 2023 22:31:56 +0200 (CEST)
+	id 03727F80141; Fri, 23 Jun 2023 22:32:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -32,42 +33,42 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com
- [68.232.154.123])
+ [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 61662F80130
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:31:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61662F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42B18F8003A
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 22:32:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42B18F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=microchip.com header.i=@microchip.com
- header.a=rsa-sha256 header.s=mchp header.b=Bh1B2KzH
+ header.a=rsa-sha256 header.s=mchp header.b=xZ8Y914y
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1687552304; x=1719088304;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=k09nEHCiSzbJsqqSNMTaSxW8jtMKfqLZrahLVUHWd9A=;
-  b=Bh1B2KzHSAxp9inRbcK6JwpDta+GZbFCPBwe1Il5jOnd1NDN2YlMn8KP
-   9Ub+kxlQhE7M3gZTyWXKh7mNrm5HY4gED1k+sfRJvvuAOgM4FwIsUdIy+
-   rjY0eguS7r2hv5iM2321ZmrDJF13l0/oSo+MUXXjyoSLONTSYZlS4eZ9/
-   QMyyGFXcX/qQk9TM/yW9TNobR3tylFICmNSb1PDLjNKJ4ZWRh+sNcDhtZ
-   YbCby5SYQqyZwUnwfnRbS7oj87HfBQiN8G9oE6gVormwYdeJmYSJ0Iga9
-   0ETuu86/xTRqIFnmYWjO8kOn3Tkh4ZeQJ19NBdl+oM4ettBoTFqDlu06b
+  t=1687552325; x=1719088325;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=GsHjTGOIwG51l33j1RwStl2l2LqbNlmB/V7XSwlE9ew=;
+  b=xZ8Y914yZ1XAeul+p9cYmxOi4M70jNR4plC2if01EpJw4fPbglVzVhNb
+   B6HrQPMarV/+ZM18Gc+yXd6R2m0ZJTkb5l3ypASsiCrVC/CaUDbOaHbyX
+   tqlgqgDe5ODnOU6KhuVPIa1GzsVfi3FWWVyA/Mh12ceatHJrMIxPGXdYd
+   CvZQ87RZeMnvYRCQ9w2c9VP3n/zCcE6FXK194PFIb/lKo+RW+bLLrS4MK
+   v6Tq66orQUrOUm9Mgj8K4fXrMW8U6GgQ1DfhiGXXeDeod+ql/zMe5k4iN
+   NkBsiY4rhdFKWqD9EG5ICE1MvU4c3dkh/HX8LaM8JQ00qkC1uC3Al8M/u
    w==;
 X-IronPort-AV: E=Sophos;i="6.01,153,1684825200";
-   d="scan'208";a="158361729"
+   d="scan'208";a="220215600"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 23 Jun 2023 13:31:34 -0700
+  by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 23 Jun 2023 13:31:59 -0700
 Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Fri, 23 Jun 2023 13:31:29 -0700
+ 15.1.2507.21; Fri, 23 Jun 2023 13:31:57 -0700
 Received: from che-lt-i67070.amer.actel.com (10.10.115.15) by
  chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:30:59 -0700
+ 15.1.2507.21 via Frontend Transport; Fri, 23 Jun 2023 13:31:29 -0700
 From: Varshini Rajendran <varshini.rajendran@microchip.com>
 To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
 	<conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
@@ -100,10 +101,13 @@ CC: <Hari.PrasathGE@microchip.com>, <cristian.birsan@microchip.com>,
 	<balamanikandan.gunasundar@microchip.com>, <manikandan.m@microchip.com>,
 	<dharma.b@microchip.com>, <nayabbasha.sayed@microchip.com>,
 	<balakrishnan.s@microchip.com>
-Subject: [PATCH v2 00/45] Add support for sam9x7 SoC family
-Date: Sat, 24 Jun 2023 02:00:11 +0530
-Message-ID: <20230623203056.689705-1-varshini.rajendran@microchip.com>
+Subject: [PATCH v2 01/45] dt-bindings: microchip: atmel,at91rm9200-tcb: add
+ sam9x60, sam9x7 compatible
+Date: Sat, 24 Jun 2023 02:00:12 +0530
+Message-ID: <20230623203056.689705-2-varshini.rajendran@microchip.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230623203056.689705-1-varshini.rajendran@microchip.com>
+References: <20230623203056.689705-1-varshini.rajendran@microchip.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -113,15 +117,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: PJRRLJACKDAH6KSKEPSSQBYZCRSHS2PE
-X-Message-ID-Hash: PJRRLJACKDAH6KSKEPSSQBYZCRSHS2PE
-X-Mailman-Approved-At: Mon, 26 Jun 2023 11:18:17 +0000
+Message-ID-Hash: YIFXPKCNRAXTEH4R35MY54P5CYZS4655
+X-Message-ID-Hash: YIFXPKCNRAXTEH4R35MY54P5CYZS4655
+X-Mailman-Approved-At: Mon, 26 Jun 2023 11:18:18 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PJRRLJACKDAH6KSKEPSSQBYZCRSHS2PE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YIFXPKCNRAXTEH4R35MY54P5CYZS4655/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,140 +134,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch series adds support for the new SoC family - sam9x7.
- - The device tree, configs and drivers are added
- - Clock driver for sam9x7 is added
- - Support for basic peripherals is added
- - Target board SAM9X75 Curiosity is added
+Add sam9x60, sam9x7 compatible string support in the schema file.
 
- Changes in v2:
- --------------
+Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
+---
+ .../devicetree/bindings/soc/microchip/atmel,at91rm9200-tcb.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
- - Added sam9x7 specific compatibles in DT with fallbacks
- - Documented all the newly added DT compatible strings
- - Added device tree for the target board sam9x75 curiosity and
-   documented the same in the DT bindings documentation
- - Removed the dt nodes that are not supported at the moment
- - Removed the configs added by previous version that are not supported
-   at the moment
- - Fixed all the corrections in the commit message
- - Changed all the instances of copyright year to 2023
- - Added sam9x7 flag in PIT64B configuration
- - Moved macro definitions to header file
- - Added another divider in mck characteristics in the pmc driver
- - Fixed the memory leak in the pmc driver
- - Dropped patches that are no longer needed
- - Picked up Acked-by and Reviewed-by tags
-
-
-Hari Prasath (1):
-  irqchip/atmel-aic5: Add support for sam9x7 aic
-
-Varshini Rajendran (44):
-  dt-bindings: microchip: atmel,at91rm9200-tcb: add sam9x60, sam9x7
-    compatible
-  dt-bindings: usb: ehci: Add atmel at91sam9g45-ehci compatible
-  dt-bindings: usb: generic-ehci: Document clock-names property
-  dt-bindings: net: cdns,macb: add documentation for sam9x7 ethernet
-    interface
-  ARM: at91: pm: add support for sam9x7 SoC family
-  ARM: at91: pm: add sam9x7 SoC init config
-  ARM: at91: add support in SoC driver for new sam9x7
-  clk: at91: clk-sam9x60-pll: re-factor to support individual core freq
-    outputs
-  clk: at91: sam9x7: add support for HW PLL freq dividers
-  clk: at91: sama7g5: move mux table macros to header file
-  dt-bindings: clk: at91: add bindings for SAM9X7's clock controller
-  dt-bindings: reset: atmel,at91sam9260-reset: add sam9x7 binding
-  dt-bindings: atmel-sysreg: add bindings for sam9x7
-  dt-bindings: crypto: add bindings for sam9x7 in Atmel AES
-  dt-bindings: crypto: add bindings for sam9x7 in Atmel SHA
-  dt-bindings: crypto: add bindings for sam9x7 in Atmel TDES
-  dt-bindings: dmaengine: at_xdmac: add compatible with microchip,sam9x7
-  dt-bindings: i2c: at91: Add SAM9X7 compatible string
-  dt-bindings: mfd: at91: Add SAM9X7 compatible string
-  dt-bindings: atmel-gpbr: add microchip,sam9x7-gpbr
-  dt-bindings: atmel-matrix: add microchip,sam9x7-matrix
-  dt-bindings: atmel-smc: add microchip,sam9x7-smc
-  dt-bindings: atmel-ssc: add microchip,sam9x7-ssc
-  dt-bindings: sdhci-of-at91: add microchip,sam9x7-sdhci
-  dt-bindings: atmel-nand: add microchip,sam9x7-pmecc
-  dt-bindings: pinctrl: at91: add bindings for SAM9X7
-  dt-bindings: rng: atmel,at91-trng: document sam9x7 TRNG
-  dt-bindings: rtc: at91rm9200: add sam9x7 compatible
-  dt-bindings: rtt: at91rm9260: add sam9x7 compatible
-  dt-bindings: serial: atmel,at91-usart: add compatible for sam9x7
-  dt-bindings: atmel-classd: add sam9x7 compatible
-  spi: dt-bindings: atmel,at91rm9200-spi: add sam9x7 compatible
-  dt-bindings: usb: atmel: Update DT bindings documentation for sam9x7
-  dt-bindings: watchdog: sama5d4-wdt: add compatible for sam9x7-wdt
-  dt-bindings: irqchip/atmel-aic5: Add support for sam9x7 aic
-  clk: at91: sam9x7: add sam9x7 pmc driver
-  power: reset: at91-poweroff: lookup for proper pmc dt node for sam9x7
-  power: reset: at91-reset: add reset support for sam9x7 SoC
-  power: reset: at91-reset: add sdhwc support for sam9x7 SoC
-  ARM: at91: Kconfig: add config flag for SAM9X7 SoC
-  ARM: configs: at91: enable config flags for sam9x7 SoC family
-  ARM: dts: at91: sam9x7: add device tree for SoC
-  dt-bindings: arm: add sam9x75 curiosity board
-  ARM: dts: at91: sam9x75_curiosity: add device tree for sam9x75
-    curiosity board
-
- .../devicetree/bindings/arm/atmel-at91.yaml   |    6 +
- .../devicetree/bindings/arm/atmel-sysregs.txt |    7 +-
- .../devicetree/bindings/clock/at91-clock.txt  |    7 +-
- .../crypto/atmel,at91sam9g46-aes.yaml         |    5 +-
- .../crypto/atmel,at91sam9g46-sha.yaml         |    5 +-
- .../crypto/atmel,at91sam9g46-tdes.yaml        |    5 +-
- .../devicetree/bindings/dma/atmel-xdma.txt    |    4 +-
- .../bindings/i2c/atmel,at91sam-i2c.yaml       |    3 +
- .../interrupt-controller/atmel,aic.txt        |    2 +-
- .../devicetree/bindings/mfd/atmel-flexcom.txt |    2 +-
- .../devicetree/bindings/mfd/atmel-gpbr.txt    |    1 +
- .../devicetree/bindings/mfd/atmel-matrix.txt  |    1 +
- .../devicetree/bindings/mfd/atmel-smc.txt     |    1 +
- .../devicetree/bindings/misc/atmel-ssc.txt    |    1 +
- .../devicetree/bindings/mmc/sdhci-atmel.txt   |    4 +-
- .../devicetree/bindings/mtd/atmel-nand.txt    |    1 +
- .../devicetree/bindings/net/cdns,macb.yaml    |    1 +
- .../bindings/pinctrl/atmel,at91-pinctrl.txt   |    3 +-
- .../reset/atmel,at91sam9260-reset.yaml        |    1 +
- .../bindings/rng/atmel,at91-trng.yaml         |    1 +
- .../bindings/rtc/atmel,at91rm9200-rtc.yaml    |    1 +
- .../bindings/rtc/atmel,at91sam9260-rtt.yaml   |    1 +
- .../bindings/serial/atmel,at91-usart.yaml     |    3 +
- .../soc/microchip/atmel,at91rm9200-tcb.yaml   |    2 +
- .../bindings/sound/atmel,sama5d2-classd.yaml  |    5 +-
- .../bindings/spi/atmel,at91rm9200-spi.yaml    |    1 +
- .../devicetree/bindings/usb/atmel-usb.txt     |    9 +-
- .../devicetree/bindings/usb/generic-ehci.yaml |    5 +
- .../bindings/watchdog/atmel,sama5d4-wdt.yaml  |    1 +
- arch/arm/boot/dts/Makefile                    |    2 +
- arch/arm/boot/dts/at91-sam9x75_curiosity.dts  |  336 +++++
- arch/arm/boot/dts/sam9x7.dtsi                 | 1237 +++++++++++++++++
- arch/arm/configs/at91_dt_defconfig            |    1 +
- arch/arm/mach-at91/Kconfig                    |   23 +-
- arch/arm/mach-at91/Makefile                   |    1 +
- arch/arm/mach-at91/generic.h                  |    2 +
- arch/arm/mach-at91/pm.c                       |   35 +
- arch/arm/mach-at91/sam9x7.c                   |   34 +
- drivers/clk/at91/Makefile                     |    1 +
- drivers/clk/at91/clk-sam9x60-pll.c            |   50 +-
- drivers/clk/at91/pmc.h                        |   18 +
- drivers/clk/at91/sam9x60.c                    |    7 +
- drivers/clk/at91/sam9x7.c                     |  942 +++++++++++++
- drivers/clk/at91/sama7g5.c                    |   42 +-
- drivers/irqchip/irq-atmel-aic5.c              |   10 +
- drivers/power/reset/Kconfig                   |    4 +-
- drivers/power/reset/at91-sama5d2_shdwc.c      |    1 +
- drivers/soc/atmel/soc.c                       |   23 +
- drivers/soc/atmel/soc.h                       |    9 +
- 49 files changed, 2806 insertions(+), 61 deletions(-)
- create mode 100644 arch/arm/boot/dts/at91-sam9x75_curiosity.dts
- create mode 100644 arch/arm/boot/dts/sam9x7.dtsi
- create mode 100644 arch/arm/mach-at91/sam9x7.c
- create mode 100644 drivers/clk/at91/sam9x7.c
-
+diff --git a/Documentation/devicetree/bindings/soc/microchip/atmel,at91rm9200-tcb.yaml b/Documentation/devicetree/bindings/soc/microchip/atmel,at91rm9200-tcb.yaml
+index a46411149571..4a008d86085e 100644
+--- a/Documentation/devicetree/bindings/soc/microchip/atmel,at91rm9200-tcb.yaml
++++ b/Documentation/devicetree/bindings/soc/microchip/atmel,at91rm9200-tcb.yaml
+@@ -20,6 +20,8 @@ properties:
+           - atmel,at91rm9200-tcb
+           - atmel,at91sam9x5-tcb
+           - atmel,sama5d2-tcb
++          - microchip,sam9x60-tcb
++          - microchip,sam9x7-tcb
+       - const: simple-mfd
+       - const: syscon
+ 
 -- 
 2.25.1
 

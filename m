@@ -2,130 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1543273BAC5
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 16:53:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB0C73BB1B
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 17:08:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A14E383B;
-	Fri, 23 Jun 2023 16:52:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A14E383B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D43B74C;
+	Fri, 23 Jun 2023 17:08:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D43B74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687531978;
-	bh=WH6YqPkayf8gz4I71wfBBMWe1TjP0y4RHpEhAWFu5ys=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1687532935;
+	bh=zEV2RKDHizUuqsg/GKSamDV5J/oB9i1p+vG1rVTtzt8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=V3dnRQS03Wx+gZR0RMqpU44bUEpdyfGpU8Ihmqylk5PwMZN7sqB8TvwrrZ1b0Z7OV
-	 5MefyiWkwNjPMt9EE/oaVJM14poJJuOZPfRQL7oVf/TUbVhWdWyxHT9XU+Qc1G9sZU
-	 8GGLlYztllFzSnVzShivjte3DZgWoF77egzIHsfo=
+	b=gmyN52hRA8XnK7P1ed/Oyyg4s0RoCwkWaKDj3GLX0ioljksho7uJM3Vl/wE7sWPvd
+	 Hz1z6Ci6TIE+J1nx9172bLtmSP4EI5WbnTd3fTCpt1lHPzssn5anYJ7xiH5chk6YnR
+	 ONZPhdC7b7iosxSCgybkEU8ky0POYdoa9qMb1XFA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1622CF8051E; Fri, 23 Jun 2023 16:52:07 +0200 (CEST)
+	id E015DF80535; Fri, 23 Jun 2023 17:08:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 390FAF80132;
-	Fri, 23 Jun 2023 16:52:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A28FDF80132;
+	Fri, 23 Jun 2023 17:08:04 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 88794F80141; Fri, 23 Jun 2023 16:52:02 +0200 (CEST)
+	id 0FC87F80141; Fri, 23 Jun 2023 17:08:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [IPv6:2a00:1450:4864:20::430])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3050DF80093
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 16:51:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3050DF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 90481F80130
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 17:07:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90481F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=nZcAJ+sO
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-31272fcedf6so723238f8f.2
-        for <alsa-devel@alsa-project.org>;
- Fri, 23 Jun 2023 07:51:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687531913; x=1690123913;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rJWtnTqZGQqiTeKl4r3aFL4RAd0yKamdEh9nm3JU/uE=;
-        b=nZcAJ+sOqOwPNZAQ60lFA97QCbjofCc+XbSeSieNhhuKrWMtiE/O020aJCaGZig5Lf
-         M+2Ra8MPpBVqUhcStWmEYd2ObUzA+kQ3K8H2ePAsYG1JWTf3WWXWaROYVC6t7QX+mx6J
-         ESspbYNZ8OxGO/MfZaT0ORXOyftuTisX0q5bz1doEqX176Xd3AyztjKHNHN63UimszRn
-         Dqv+xetGcZd2+R0LFeA2aONQHwXzUPMXk9dRWS8mqvQ8vpJvPrOKCvsRr9lGz/T5jW+G
-         bbfDKveX+aL7d/d/Okx6QglyYu1YT1lUbE8K9aKT4exUm3nUwLqWGufz9RjrDc1FYimv
-         EUrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687531913; x=1690123913;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=rJWtnTqZGQqiTeKl4r3aFL4RAd0yKamdEh9nm3JU/uE=;
-        b=St/ry4V9XrQMtqGvJFl4FXxDBBGKT68cpFkip9GWEkyPjv1mDJ4gTJV2/UtW8YKVfo
-         ZDCfI87cr0oM4bFkvq540gE9r5qwLEQNSZj5PX5RDXMbU7XNzNWcjCflwnuyepjkijfM
-         aRz1LFogU6uTSCPwR3Ekfo5dMWudzgaCrkPHzb3cOK54DCtxVy/WuDyWzsdwRYlGmEAh
-         Olw1NZmk+JzuBq3I7CBnhTtXt1ZB2Wn8eWW5aUD7+DdqTnpG8U3lcYNs9eB5nljRePem
-         Xycu1D7u/M8sdOM2KwD4aMHVw9jjqsRQQ/yQNMmhGts3D5Rp/264g41qNJ8vl2dvN4vn
-         L4xw==
-X-Gm-Message-State: AC+VfDwMhZUvkH++Ya0/2kC7gk9HounuskNMosNa8TZP7KyOXjCv16VA
-	xCclgJT3QJjJ7oTxZZkozHs=
-X-Google-Smtp-Source: 
- ACHHUZ4EBaf4UIgKOYCqelucvQ5eoSxiLNvK3UwYGIN9g04VxMMagZ6W8cf/YKjEZ8A8mLc9ODWWzg==
-X-Received: by 2002:a5d:5642:0:b0:311:13e6:6504 with SMTP id
- j2-20020a5d5642000000b0031113e66504mr14242204wrw.47.1687531913116;
-        Fri, 23 Jun 2023 07:51:53 -0700 (PDT)
-Received: from localhost
- (p200300e41f305300f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f30:5300:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id
- n11-20020a5d4c4b000000b003113ccbf388sm9844475wrt.13.2023.06.23.07.51.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Jun 2023 07:51:52 -0700 (PDT)
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Alessandro Zummo <a.zummo@towertech.it>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Mark Brown <broonie@kernel.org>,
-	Dipen Patel <dipenp@nvidia.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Dilip Kota <eswara.kota@linux.intel.com>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-spi@vger.kernel.org,
-	timestamp@lists.linux.dev,
-	linux-watchdog@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Tony Lindgren <tony@atomide.com>,
-	Oleksij Rempel <linux@rempel-privat.de>
-Subject: Re: (subset) [PATCH 0/7] dt-bindings: restrict node name suffixes
-Date: Fri, 23 Jun 2023 16:51:36 +0200
-Message-ID: <168753171977.1191890.3520383079920452323.b4-ty@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
-References: <20230530144851.92059-1-krzysztof.kozlowski@linaro.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=IchY5XGx
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 5F60461A8E;
+	Fri, 23 Jun 2023 15:07:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2349C433CA;
+	Fri, 23 Jun 2023 15:07:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687532872;
+	bh=zEV2RKDHizUuqsg/GKSamDV5J/oB9i1p+vG1rVTtzt8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=IchY5XGxI/2DQEDIkFjGD5WpWJK1obsXG6/iTyEfyBLwuuKkEQeeGfdfb8wnj5bmL
+	 SAn0fRhmzBpXa7qMK8oUX44vM05Xai2FKeI5e9eW36qR4aXG6Nh0iWyYsTc9kIMolf
+	 4ffVLS4VMFwlgQJK46uEhpTLTt1KimvOhbUMTLWPdmgEqr3NakWZlAs3XDF4mLfp4L
+	 zh7n0zozS2UdBDp8YwYL7pZRhwExrDjJkbBIEOJbmdyadK07kPSGjpBXdx1DjYqSTE
+	 eCohysBtUFbOi4yrqWd0LpySMMUL/wjkbRzIR7mRyCi/mcqP7R3BcninozTcvN0fYo
+	 JFCGdVTkVO+/g==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org,
+ Arun Gopal Kondaveeti <arungopal.kondaveeti@amd.com>
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ sunil-kumar.dommati@amd.com, venkataprasad.potturu@amd.com,
+ syed.sabakareem@amd.com, mario.limonciello@amd.com,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <20230623214150.4058721-1-arungopal.kondaveeti@amd.com>
+References: <20230623214150.4058721-1-arungopal.kondaveeti@amd.com>
+Subject: Re: [PATCH v2] ASoC: amd: update pm_runtime enable sequence
+Message-Id: <168753286853.678414.15580009562650782179.b4-ty@kernel.org>
+Date: Fri, 23 Jun 2023 16:07:48 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 7FJOEUT6NVOZAIRB2OF3WTFKGAUZW5NH
-X-Message-ID-Hash: 7FJOEUT6NVOZAIRB2OF3WTFKGAUZW5NH
-X-MailFrom: thierry.reding@gmail.com
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-c6835
+Message-ID-Hash: 6ZCIMOSFQTSTUYIT5FCZJW3DKDHIDAZN
+X-Message-ID-Hash: 6ZCIMOSFQTSTUYIT5FCZJW3DKDHIDAZN
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -137,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7FJOEUT6NVOZAIRB2OF3WTFKGAUZW5NH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6ZCIMOSFQTSTUYIT5FCZJW3DKDHIDAZN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -146,24 +106,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-On Tue, 30 May 2023 16:48:44 +0200, Krzysztof Kozlowski wrote:
-> Tree-wide cleanup of DTS node name suffixes "-N", e.g. "pwm-5", so we allow
-> only decimal numbers.  In few cases narrow the pattern to also disallow
-> multiple suffixes, e.g. "pwm-5-5".
+On Sat, 24 Jun 2023 03:11:40 +0530, Arun Gopal Kondaveeti wrote:
+> pm_runtime_allow() is not needed for ACP child platform devices.
+> Replace pm_runtime_allow() with pm_runtime_mark_last_busy()
+> & pm_runtime_set_active() in pm_runtime enable sequence for
+> ACP child platform drivers.
 > 
-> No dependencies, can be applied by individual subsystems.
 > 
-> Cc: Tony Lindgren <tony@atomide.com>
-> Cc: Oleksij Rempel <o.rempel@pengutronix.de>
-> 
-> [...]
 
-Applied, thanks!
+Applied to
 
-[2/7] dt-bindings: pwm: restrict node name suffixes
-      commit: 05b743db9d8cc4e51b3eb77889d24ab9aa2bf169
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Best regards,
--- 
-Thierry Reding <thierry.reding@gmail.com>
+Thanks!
+
+[1/1] ASoC: amd: update pm_runtime enable sequence
+      commit: 154756319cc6f8b8b86241da02da6a8fcc6abd1f
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

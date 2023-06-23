@@ -2,138 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7875673B3C7
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 11:38:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 799CB73B4FF
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 12:16:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC92084B;
-	Fri, 23 Jun 2023 11:37:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC92084B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7141A857;
+	Fri, 23 Jun 2023 12:15:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7141A857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687513118;
-	bh=cvaGOrYPwCrQwjKg4T7XBqhhoH9GxGnQ1/Oj2kUz7wc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=DexeHGkUDcdhWTolxLYSQRrsQEIhDcOyn6Ed5L5tAmUjHrodHLitSJP5S6XzckMOc
-	 ZPddvgSMXmiC7NIzmgHe+f4Y5eTLhRzgkmU8r2didTpJ3fmqvb0akNij2VWNuwqf07
-	 8filWgbx+JgIeqSDeotNnFO9VdaidW/Q0NRxuVyk=
+	s=default; t=1687515398;
+	bh=/aSXCSqv/VKsWuNl5ddGk7ozs2KUpTx2lvAt2RmeF3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=hGtxzYe0TK+mZvYZ0bRzxxND5ltfcuACq0Yy5m3lyM5r9dG7L8K+GMqJn+AIcm86L
+	 nDfT/c9SVNBNuLAzmBgCBz03CdLAlRDivPErsJkHOCrQ7w1NZW055TEQ0K2g2ZjmJj
+	 TmjWmgDc6PvSue/cy7N/ulv+FLvYrXFbahaaX2jk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3BC6EF80163; Fri, 23 Jun 2023 11:37:48 +0200 (CEST)
+	id 707E0F80544; Fri, 23 Jun 2023 12:15:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE815F80132;
-	Fri, 23 Jun 2023 11:37:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4607BF80130;
+	Fri, 23 Jun 2023 12:15:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37F5AF80141; Fri, 23 Jun 2023 11:37:41 +0200 (CEST)
+	id 6DA05F80141; Fri, 23 Jun 2023 12:15:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.3 required=5.0 tests=DATE_IN_FUTURE_12_24,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=no autolearn_force=no version=3.4.6
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::61d])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00246F80130
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 11:37:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00246F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id D37CAF80093
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 12:15:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D37CAF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=fp31OFPA
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EYtXnFQ5HwcMOoC6PjI4KufRujfuM3pPoQ0iCImqd8N6d4NzDuT+KcQmRnkUfPWWKyY5rD1+jT313c+g8xegh3cm0bItF3MkC8iT8pVooZcLL1/Z8t4sWYRcJuC42AkWY9PPz9JduW8dFbAQSsam8OeQm9093Tos9GrMzwVdxMRwl3bHVsZLJSPEuqJ+0CyEH5xrRmRxveL9MELeZ+XpTr67u7ICOzjGg7S1tRnB/CUv6U9k61j3EOk22w82ek7vrfxbINe23UHBgRXICRhysKPGTtRGQbizJa1xYdcOM/WP9Di7hcpWCnl8iPN8SpgYRfUtWxftsA+3FpQ/t/xfuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uff4I+f/JIXJsb1bkQsRX8wckjpzJfKnrgqnvisMh6E=;
- b=E2PZhaEcOolElJLqriAlA8MIMnbvl3+1izLrZpbkhVa9npQLrx8+tRzl3fCMFQdUXCVIC6UCR/VY9moOKx42kcLuyHlSI+rbZc3IKS4RnBojkrDMnwVggs9xdMoqRHsP297RxSJcgySHAlR2c7vIxRfI2L7L5HWMGOcJN+Im7XclWlOD0XByX8+wLwJNBusESKeMzI8xhLLLOQQpy02jlnZu5RItqU7UZC2+cM3pTXNxLlpdAv2Gb05oKqzusoYuvpPmZqm/vIu4WgDfQ6qdnA2+vlgnQC8Sn0Mk7U2CdT/vXqKZVGxePeD+d376C3KMDx7VkbeS2e98OcHwsngJmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uff4I+f/JIXJsb1bkQsRX8wckjpzJfKnrgqnvisMh6E=;
- b=fp31OFPAa/orE+s8prYGywByQwhSGNHVfus7EdQz3imhFlv0VQudErtz6fO8TEDumvsWkw0atbbHhTIqnAZabQ4/T8M9z/ERaIKppT7RZ0ICna4E3cPdCvblxA8UdCkfiIKC+v0nOb14sKRnxJdgOwHg6wQVGz2D7EKZwevnZnI=
-Received: from MW4PR03CA0043.namprd03.prod.outlook.com (2603:10b6:303:8e::18)
- by PH7PR12MB6468.namprd12.prod.outlook.com (2603:10b6:510:1f4::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Fri, 23 Jun
- 2023 09:37:28 +0000
-Received: from CO1PEPF000044F9.namprd21.prod.outlook.com
- (2603:10b6:303:8e:cafe::e3) by MW4PR03CA0043.outlook.office365.com
- (2603:10b6:303:8e::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.26 via Frontend
- Transport; Fri, 23 Jun 2023 09:37:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F9.mail.protection.outlook.com (10.167.241.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6544.9 via Frontend Transport; Fri, 23 Jun 2023 09:37:27 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 23 Jun
- 2023 04:37:26 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 23 Jun
- 2023 04:37:26 -0500
-Received: from amd-Z390-D.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
- Transport; Fri, 23 Jun 2023 04:37:16 -0500
-From: Arun Gopal Kondaveeti <arungopal.kondaveeti@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<sunil-kumar.dommati@amd.com>, <venkataprasad.potturu@amd.com>,
-	<syed.sabakareem@amd.com>, <mario.limonciello@amd.com>, Arun Gopal Kondaveeti
-	<arungopal.kondaveeti@amd.com>, Liam Girdwood <lgirdwood@gmail.com>, Jaroslav
- Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Syed Saba Kareem"
-	<Syed.SabaKareem@amd.com>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, Charles
- Keepax <ckeepax@opensource.cirrus.com>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2] ASoC: amd: update pm_runtime enable sequence
-Date: Sat, 24 Jun 2023 03:11:40 +0530
-Message-ID: <20230623214150.4058721-1-arungopal.kondaveeti@amd.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=JxkTY8En
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CCCC0619F1;
+	Fri, 23 Jun 2023 10:15:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B31C433C0;
+	Fri, 23 Jun 2023 10:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687515305;
+	bh=/aSXCSqv/VKsWuNl5ddGk7ozs2KUpTx2lvAt2RmeF3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JxkTY8Enhzt7H27iMQEXUf2PbJWEQa9lEfZ17TkIvKUN9+8mC5+mr9/dMY5EOktns
+	 Tfb9ZnNv22yKQxYJaWgiamaEs1vSkxDUl+6OvJLo/lrtl6ElygDBccyFm7ENPT8EGT
+	 FSa8cooDxj5QGu37PCaBw/gjYbp/buOMZ1r9hvXaMG7CQL84zO8amPpc6tGI7ZFGEw
+	 onNGQfXEZ5IoxPAOT3Kq3FrlFZaA6KGgqWtHxoqhkCYwfU8Hys/l7pPQcrYU+rVzIj
+	 2xec7N955iYgAeLM8plG5wNLEI9B0KBZapjgi1dpAbnbCXPhoFNFRoD+BG6hlVGFW7
+	 EKRG1WR2lHbIA==
+Date: Fri, 23 Jun 2023 11:15:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Cc: robh+dt@kernel.org, krzk+dt@kernel.org, thierry.reding@gmail.com,
+	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	jonathanh@nvidia.com, mkumard@nvidia.com, sheetal@nvidia.com,
+	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/8] ASoC: tegra: Fix AMX byte map
+Message-ID: <ZJVwpE5KeL8rgvB9@finisterre.sirena.org.uk>
+References: <1687433656-7892-1-git-send-email-spujar@nvidia.com>
+ <1687433656-7892-3-git-send-email-spujar@nvidia.com>
+ <ad4b4dc9-7466-45a9-a008-c2301a7485dd@sirena.org.uk>
+ <7893c366-e6aa-d606-c3d6-e85f73a345e0@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F9:EE_|PH7PR12MB6468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 921700c0-91c6-48e7-11e4-08db73cd7593
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	8QvE0eruGI6uyTDLgmwjCC/9fTh6pRjfCj0yk8cv4YdTFWB4Jasy9db9pmq4rcRjqOeRD9JxQRmJQJao2VkJYbQQCHryiNWY/e2GH426vtmtfYYzsfTEABiFtNindIQGhrDSgJP+6lS8pmMTJ1NbItUYgcLkFnKKBmN7z8V1e/YRE4nBBz18DrTwwBX6qgnPnFz+0ETyAarM35e4eXw1selsa1prDpeX4ZX+drVFfQmpbtXtrP3fttF54qmpLsQ/HRXPrQV90p4oU76VPMOJ2em4xtifDz9EJzJWit3OpvfKad9Z1k0pbnx5n79lMRefVTtc9970Rsy1d+ByS2sJlbLKpEn0N4fcDrrbMX98U97vQdILSAi0oTkUOcosOKUhNMYgaRLsTX/1J0MMg1ZJkSVYlDIyPjcJIBxkQ0voTRm7CQHAdMgvzZTaAmHUgvbjGH1rhmdEru8EOaq/p27cGqj1V3XS9jUxfR4qQ5JApYjB9c5oJCHDIYPLxOkqaLlv9nYRo+NAKEdtEDb9QNtnKkiXJlKKGrSV74yRScccPpV4JWkxgWdNhaJN/sp6aPD2bw5ElzpwxxLBrHK+RAKJiwIsqnoZ3K17mI4lAPi4fwiRkr8e5jAfevupjsMkSPRas8CDCdoTI9HN8b7V7TasKHhYCj/7dBoJeMO+A4xFMCz7KQApxz7mGbcD42wNJEYxIqIdpCvi0rWVZhTd2YXCgjCGhgGRhJQBDcCdlsRcHd8Rt574wRtmepXAz+VRPZOaOkIZcETgc21CcgTHcaO9vQ==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(356005)(82310400005)(81166007)(86362001)(40480700001)(40460700003)(316002)(2616005)(41300700001)(8936002)(8676002)(70586007)(4326008)(70206006)(336012)(5660300002)(15650500001)(7696005)(426003)(1076003)(478600001)(6666004)(54906003)(110136005)(83380400001)(186003)(26005)(36756003)(36860700001)(2906002)(47076005)(82740400003)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2023 09:37:27.9400
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 921700c0-91c6-48e7-11e4-08db73cd7593
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CO1PEPF000044F9.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6468
-Message-ID-Hash: F4I63YYL4DO7WPTZA5YVAO5Y4IGZOSNS
-X-Message-ID-Hash: F4I63YYL4DO7WPTZA5YVAO5Y4IGZOSNS
-X-MailFrom: Arungopal.kondaveeti@amd.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vnl+KoOKISxFJemC"
+Content-Disposition: inline
+In-Reply-To: <7893c366-e6aa-d606-c3d6-e85f73a345e0@nvidia.com>
+X-Cookie: Slow day.  Practice crawling.
+Message-ID-Hash: C2FOBH2EETZ7XP4RK3XQN6EP3HFB54WT
+X-Message-ID-Hash: C2FOBH2EETZ7XP4RK3XQN6EP3HFB54WT
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -145,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F4I63YYL4DO7WPTZA5YVAO5Y4IGZOSNS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C2FOBH2EETZ7XP4RK3XQN6EP3HFB54WT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -154,101 +106,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-pm_runtime_allow() is not needed for ACP child platform devices.
-Replace pm_runtime_allow() with pm_runtime_mark_last_busy()
-& pm_runtime_set_active() in pm_runtime enable sequence for
-ACP child platform drivers.
 
-Signed-off-by: Arun Gopal <arungopal.kondaveeti@amd.com>
----
+--vnl+KoOKISxFJemC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Changes since v1:
-    -- Updated commit message
+On Fri, Jun 23, 2023 at 11:09:32AM +0530, Sameer Pujar wrote:
+> On 22-06-2023 17:37, Mark Brown wrote:
+> > On Thu, Jun 22, 2023 at 05:04:10PM +0530, Sameer Pujar wrote:
 
----
- sound/soc/amd/ps/ps-pdm-dma.c         | 3 ++-
- sound/soc/amd/raven/acp3x-pcm-dma.c   | 3 ++-
- sound/soc/amd/renoir/acp3x-pdm-dma.c  | 3 ++-
- sound/soc/amd/vangogh/acp5x-pcm-dma.c | 4 ++--
- sound/soc/amd/yc/acp6x-pdm-dma.c      | 3 ++-
- 5 files changed, 10 insertions(+), 6 deletions(-)
+> > > Byte mask for channel-1 of stream-1 is not getting enabled and this
+> > > causes failures during AMX use cases. The enable bit is not set during
+> > > put() callback of byte map mixer control.
 
-diff --git a/sound/soc/amd/ps/ps-pdm-dma.c b/sound/soc/amd/ps/ps-pdm-dma.c
-index bdbbb797c74d..d48f7c5af289 100644
---- a/sound/soc/amd/ps/ps-pdm-dma.c
-+++ b/sound/soc/amd/ps/ps-pdm-dma.c
-@@ -391,8 +391,9 @@ static int acp63_pdm_audio_probe(struct platform_device *pdev)
- 	}
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
- 	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
- 	pm_runtime_enable(&pdev->dev);
--	pm_runtime_allow(&pdev->dev);
- 	return 0;
- }
- 
-diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
-index 7362dd15ad30..9538f3ffc5d9 100644
---- a/sound/soc/amd/raven/acp3x-pcm-dma.c
-+++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
-@@ -416,8 +416,9 @@ static int acp3x_audio_probe(struct platform_device *pdev)
- 
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
- 	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
- 	pm_runtime_enable(&pdev->dev);
--	pm_runtime_allow(&pdev->dev);
- 	return 0;
- }
- 
-diff --git a/sound/soc/amd/renoir/acp3x-pdm-dma.c b/sound/soc/amd/renoir/acp3x-pdm-dma.c
-index 4e299f96521f..c3b47e9bd239 100644
---- a/sound/soc/amd/renoir/acp3x-pdm-dma.c
-+++ b/sound/soc/amd/renoir/acp3x-pdm-dma.c
-@@ -430,8 +430,9 @@ static int acp_pdm_audio_probe(struct platform_device *pdev)
- 	}
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
- 	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
- 	pm_runtime_enable(&pdev->dev);
--	pm_runtime_allow(&pdev->dev);
- 	return 0;
- }
- 
-diff --git a/sound/soc/amd/vangogh/acp5x-pcm-dma.c b/sound/soc/amd/vangogh/acp5x-pcm-dma.c
-index 29901ee4bfe3..587dec5bb33d 100644
---- a/sound/soc/amd/vangogh/acp5x-pcm-dma.c
-+++ b/sound/soc/amd/vangogh/acp5x-pcm-dma.c
-@@ -409,9 +409,9 @@ static int acp5x_audio_probe(struct platform_device *pdev)
- 	}
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
- 	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
- 	pm_runtime_enable(&pdev->dev);
--	pm_runtime_allow(&pdev->dev);
--
- 	return 0;
- }
- 
-diff --git a/sound/soc/amd/yc/acp6x-pdm-dma.c b/sound/soc/amd/yc/acp6x-pdm-dma.c
-index d818eba48546..72c4591e451b 100644
---- a/sound/soc/amd/yc/acp6x-pdm-dma.c
-+++ b/sound/soc/amd/yc/acp6x-pdm-dma.c
-@@ -383,8 +383,9 @@ static int acp6x_pdm_audio_probe(struct platform_device *pdev)
- 	}
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, ACP_SUSPEND_DELAY_MS);
- 	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_mark_last_busy(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
- 	pm_runtime_enable(&pdev->dev);
--	pm_runtime_allow(&pdev->dev);
- 	return 0;
- }
- 
--- 
-2.25.1
+> > > This happens because the byte map value 0 matches the initial state
+> > > of byte map array and put() callback returns without doing anything.
 
+> > > Fix the put() callback by actually looking at the byte mask array
+> > > to identify if any change is needed and update the fields accordingly.
+
+> > I'm not quite sure I follow the logic here - I'd have expected this to
+> > mean that there's a bootstrapping issue and that we should be doing some
+> > more initialisation during startup such that the existing code which
+> > checks if there is a change will be doing the right thing?
+
+> The issue can happen in subsequent cycles as well if once the user disables
+> the byte map by putting 256. It happens because of following reason where
+> 256 value is reset to 0 since the byte map array is tightly packed and it
+> can't store 256 value.
+
+...
+
+> > > Also update get() callback to return 256 if the byte map is disabled.
+> > This will be a user visible change.  It's not clear to me why it's
+> > needed - it seems like it's a hack to push users to do an update in the
+> > case where they want to use channel 1 stream 1?
+
+> Though it looks like 256 value is forced, but actually the user sees
+> whatever value is set before. The 256 value storage is linked to byte mask
+> value.
+
+> I must admit that this is not easily readable. If you suggest to simplify
+> this, I can check if storage space increase for byte map value can make it
+> more readable. Thanks for your feedback.
+
+This could definitely use more clarification I think.  It's not obvious
+that storing 256 won't actually hold (and that should trigger a
+complaint from mixer-test if that's what happens).
+
+--vnl+KoOKISxFJemC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSVcKQACgkQJNaLcl1U
+h9ChNAf8Dc9guHHicnKRVmRXvQ/BAUbK3nW/Sj1OA5p9qg7p+/GYuii6LDx6P9Ot
+Is7FImWjHZSLY9pG2ym1CvV022stiZ54g4B/Wqmh7MTerAOrdu0RddPMo9zn/dP6
+mTQLPLwYKcd/p+3DFvDQIjJPsik21pCP/p/6nwNIyJvabevapr9bPEpbU6e+4gYb
+BE7RDSx/sen2JbDP9a5RjDt/SgGVinAaEUVtDxcOyPXYN0IZ1JawmJd7NG7mLJg7
+yZauxzEyW0sEPPFcG0tjnLGcmOfQOhm28dsG0T+05fUBS+SPArut78CmDeyxXsHz
+BV2BrsupkV3HVoa2IaGFb8jyms2lng==
+=BPLR
+-----END PGP SIGNATURE-----
+
+--vnl+KoOKISxFJemC--

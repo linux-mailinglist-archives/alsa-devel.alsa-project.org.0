@@ -2,162 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F142973AF9F
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 06:56:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A02A73B012
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Jun 2023 07:31:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83B04843;
-	Fri, 23 Jun 2023 06:55:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83B04843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87EFA83B;
+	Fri, 23 Jun 2023 07:30:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87EFA83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687496174;
-	bh=8TtQG4xRTcs0JsDjtE2IuFrHqerbkzvb3w9DHwTZRco=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1687498305;
+	bh=u7jQGrNvAwgXqE4utvcz4rFJXc/AUn1UFnDq2eS3I0w=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=muXu7UKUw26M5Klc0MpFv9LhLl4ckAnJtgSInHFZsIWa7KMow3cUM67/rXCnANALn
-	 ypCHzb7dFeXUwNDNyOmPXEoV3b8qKoA0vqgmZ6ZYOcO2QNU34S4SCiOHozi2mFoOSY
-	 Qgnq9oJVjmHXmuW1Rr564UKKFSV67c9iGAHq/1CY=
+	b=A3VPbF8njnLIA+lSHnez6SYv36vF4wmG38hvGa5wlPVuY9zTi9szZuFsArnWBhdUp
+	 K4J9nTq63ltA+2qMWjts01/L9BWzUhdYpyGWK6PWmOm31lNEhtcKCvcMKdq9yII6eR
+	 wxk4Ggh0iBxAJmsRsUo4mUHztHrfjWh7QUHgbYTY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 193A2F801D5; Fri, 23 Jun 2023 06:55:02 +0200 (CEST)
+	id C4AB5F80141; Fri, 23 Jun 2023 07:30:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AC47F80132;
-	Fri, 23 Jun 2023 06:55:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C096F80093;
+	Fri, 23 Jun 2023 07:30:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E7C2F80141; Fri, 23 Jun 2023 06:54:58 +0200 (CEST)
+	id F1247F80141; Fri, 23 Jun 2023 07:30:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e88::61a])
+X-Spam-Status: No, score=0.6 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from n169-114.mail.139.com (n169-114.mail.139.com [120.232.169.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 39E72F80093
-	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 06:54:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39E72F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=tRT5EZyb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c7iA5+dZVc+zTq77rViQ13gxJvSzTEA7dvV7pLfcRIfzjfpbDTqJrgPYs0KeS0hz2u9i/BeLWhDVg4VdAyoJoVuhg/mQejfcFtXEavy/fJmZKMDmajUxYjh+kPyg2kUj2QcF7/IjEvWQ3w0DdvuigX7hJsuU9uVfENCCFVB+aMHa37RT0jca7nNJ+QrXB0lJubxVh+FShvc7AqukIFqAqpKk7WHhwHcqOjEkETmmXZuXXYzMVskG8879KzFpCESPmvN2Z3/lUNweP9Eb3BHZwktSjbpRefVoUj4Ldo7/88GB7dsNM1NvHs2ltZoWwIlrmWBUL/CL5n9/sBnkvb1Dug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pKSDUN6LiK3r3pUWpIAB6WvwdXCdpv1omPA19L7U/QQ=;
- b=gnFm6q3c6hJOUccXs9r2qyKLE9tqmwmwGN6SPP8PvFVCK0VOXgZZ6EHlPx43ZsO02QhI1SNgaFNWonZ1FDh9eGz8xncokSEqTxbQnKFCieH5xLrRlmEplLVkdlEgjAy2zMPCdkpR3nA87BdQf44BfXhFiGb2yZf8DhL7IY6Um0BbxEXNwcDF4ahpihGjsuRLmbQF2Ma3g5ZG7eyEDdNytiJwZrkp7u+t7/KrUxLwzcsNHSDA2mDGY+S6nM06zTRHIGdIltzyKg1QtYm7ACgtUFSjY7Q8kKKS2wbZZklRwuVqCQsnf1AVS6B907eDYfahC/MQCi3yKocKqZIEhEa1CQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pKSDUN6LiK3r3pUWpIAB6WvwdXCdpv1omPA19L7U/QQ=;
- b=tRT5EZybGhU3L1iVwOciXcz7N6w7uKXUltkS8fIG7upErKDWppQzaX/B7J9u4COvfO+rn/9zxIJhr/IWS3bqddCJiUruH1/yWtsuLdpgtfSgH86yxYOKrXkJRg1Fs072nlrAle15ztqElpO/KKO3NtWJwHZNl3KNFQbKiKrFXedcPo7NaVdCVPbIRGe2ua5xd4D4x46dKsRu+kCzaVCarCoc6hayo+Zkisjl1jFGi0Y9uLpITx2C1Wnaq6y/Di6Wu2eNRB+C+m62IEPQe5qP0JjxWuEMpKD3OQUVA9BajcIRr868F02hX8yxTHHwgkZlSXbrzPb0vQlSDEX44OnoEA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3205.namprd12.prod.outlook.com (2603:10b6:a03:134::32)
- by MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Fri, 23 Jun
- 2023 04:54:49 +0000
-Received: from BYAPR12MB3205.namprd12.prod.outlook.com
- ([fe80::bda0:2d44:96c3:c3fd]) by BYAPR12MB3205.namprd12.prod.outlook.com
- ([fe80::bda0:2d44:96c3:c3fd%4]) with mapi id 15.20.6521.024; Fri, 23 Jun 2023
- 04:54:49 +0000
-Message-ID: <f22b4fc0-56a8-a919-3949-34a7fcff802c@nvidia.com>
-Date: Fri, 23 Jun 2023 10:24:36 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH 4/8] ASoC: rt5640: Fix sleep in atomic context
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-Cc: robh+dt@kernel.org, krzk+dt@kernel.org, thierry.reding@gmail.com,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, jonathanh@nvidia.com,
- mkumard@nvidia.com, sheetal@nvidia.com, alsa-devel@alsa-project.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Oder Chiou <oder_chiou@realtek.com>
-References: <1687433656-7892-1-git-send-email-spujar@nvidia.com>
- <1687433656-7892-5-git-send-email-spujar@nvidia.com>
- <f7414eb4-71f8-486b-81d3-6f467521c013@sirena.org.uk>
-From: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <f7414eb4-71f8-486b-81d3-6f467521c013@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0047.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:81::18) To BYAPR12MB3205.namprd12.prod.outlook.com
- (2603:10b6:a03:134::32)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91446F80130
+	for <alsa-devel@alsa-project.org>; Fri, 23 Jun 2023 07:30:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91446F80130
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from LAPTOPKI3DDLPC
+ (unknown[2409:8a1e:90b3:ce80:ac77:361:71ec:add6])
+	by rmsmtp-lg-appmail-37-12051 (RichMail) with SMTP id 2f1364952df3498-364bd;
+	Fri, 23 Jun 2023 13:30:30 +0800 (CST)
+X-RM-TRANSID: 2f1364952df3498-364bd
+From: <13916275206@139.com>
+To: "'Dan Carpenter'" <dan.carpenter@linaro.org>
+Cc: <alsa-devel@alsa-project.org>
+References: <5e37bcfa-50d9-45e8-8a68-52438a5a8dc6@moroto.mountain>
+In-Reply-To: <5e37bcfa-50d9-45e8-8a68-52438a5a8dc6@moroto.mountain>
+Subject: 
+ =?gb2312?B?u9i4tDogW2J1ZyByZXBvcnRdIEFTb0M6IHRhczI3ODE6IEFkZCB0YXMyNzg=?=
+	=?gb2312?B?MSBkcml2ZXI=?=
+Date: Fri, 23 Jun 2023 13:30:29 +0800
+Message-ID: <00f701d9a593$d348cf00$79da6d00$@139.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3205:EE_|MW5PR12MB5684:EE_
-X-MS-Office365-Filtering-Correlation-Id: a3046231-727a-4bb7-edbd-08db73a5f943
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	ffoebxQChcLjdGaKKE/kNiIetUmkwvH9SKOuaizThnekAng1GD0nMQzzLHauQhqa0NisjOdqvsdYTqU1FyDnzZLQSOMmm9GKOpQYO/KFE+m5nfV9UNSrVI5+IVCS3mWMtvofvQ5LXa9MJSfI9ITWk+aBt/VK+6hOMjtUtsy51F0d53XHie7Fj4feODwlhbVScOVtMa9jcjQYDG0JSG1059+99HaiiplMILLafIcwLhKQcbCCgKLlIluuFDsNWrZ1Sj+EYqoy5WeJ2EqB8ZrjZvDvuWCDGNcpoL0C4wsKTzXDgRvF7eX28gfqMlk7OKfI83GkvvCidAOrwCA3AfxyysPES66V37+6DSKtrlWEEVrgpqhc1pPPaa88NmiyoZULXXRsnqchEnTBn647pFgnRkpYWVsfcvLT1PohFyEW6Q0PAdi+vv0eaKsxWvkkZ41svyebAylIWDUG13N98q+WqBkuQHUQowTIKlhzc3Lv/prKx9wNV6TG/1e/OIb06AOGq7QzoqYEVQR90t+QBl9W6xYAcMxw8j1fslUwP6z/4siHjPFqA+2GtwyM2o4Iiakaj7e9ePUp+34Rj+xv2+r7vUIQltzoM2Pyxg5leozP0tgZnsAbPuRdMe6vePDsHTPudnfgek75Wi1Y5g+tTbAoPA==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR12MB3205.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(451199021)(38100700002)(83380400001)(53546011)(6506007)(6512007)(26005)(186003)(2616005)(7416002)(4744005)(2906002)(5660300002)(8676002)(41300700001)(8936002)(36756003)(6666004)(6486002)(4326008)(478600001)(6916009)(66476007)(66556008)(66946007)(316002)(86362001)(31696002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?OFJwUWszL2Z0QnlxckcrMjk5ZkhMcEJmN0U0ZzhDekRUeGNNN3h1bXRpRnVU?=
- =?utf-8?B?SHRpekFPVG9IRzE0UnlKdUFmUHIvM3lzRTZ1b1psNEdBd1UwUzFHM3RMNGt5?=
- =?utf-8?B?TnZsL0pJcGpBdVhrQUtEei8yOUlmRmwrRllxS0ZMdzNtQVo4U1Qvc3VkanJL?=
- =?utf-8?B?eXhEMDdzdnlxekVDMjVvTWdYYUU2SndNd2JQOE9Ibi9MSlYyQzR0QXh4ZlRH?=
- =?utf-8?B?ZjREU0pyankwUENPK3VFdXliTHVWd1d5MEJKZmd2NHptOS9OeS9tYVVvVDFQ?=
- =?utf-8?B?N3ViR1U5S1lTd3IwNGpHZ2pCaERHcjhSNzRKblBiU0EybXZPZEJJaTU3MmhH?=
- =?utf-8?B?QmwvU2x6bXB0aUJ0eEx2SDJQOGJsNjNMdmQ1T3FhdTU0WmEzeDZTM2d1UnU5?=
- =?utf-8?B?dmJzdUlTbklON3FIRitZVHBDRStGRHlsMlBMQ0lGYURYSlBKS2FlbWR5Mm9l?=
- =?utf-8?B?bnBDTXYreHRoOHhsVmtZRkkwVGdTOERlbGFvTWs3OXJTdkZaUnh5Mlc3VGhY?=
- =?utf-8?B?eHdaRW1kcE9UTkIwdkt5NW5oa2RxSjFoL2RKdWp4Mk1ZTG1GcVdOSWtseHk3?=
- =?utf-8?B?SEpqTWYwaEt6NVlETzlkcnN3NmRKdERiOU56M3c0dUV5MmxaalBOU3VEZGto?=
- =?utf-8?B?eS96bWlKVkt1NUM5VitrWmpQWlVEclo5T3NjbGNxbzlkbitIdWJ4c2hPSFpy?=
- =?utf-8?B?S05UMjB0NHhhTjZhT3pYakpWWFAxV2VqcjBWMVBFcDhIaEx5Q1YxMXJZWlVZ?=
- =?utf-8?B?Mk44S1pTTXdjWFZhNlc5QmFCQTRadzY4aGYvU0RITXdyT1duRW5ZVGlIS2Nu?=
- =?utf-8?B?MExxNE1QVVl0UnFQRnFZWkF4SjhOd3ZnU1p1YmI0ZzJXT0Z4eW1PNEhjOXlM?=
- =?utf-8?B?RkRjM29tdUhDZmVRbEl2ZHE2aHdFaUx6RUEwQVV0NFpPU1hUTlhjWmZjYTNw?=
- =?utf-8?B?eWxWYkJxYlFGb0ZJQnI2UnBPWVN5aGNST0VmVExLSHdlNnJibzREWG4yTzJz?=
- =?utf-8?B?WXI4ellVelNxMWRMK05zbGZkODRkOW02eG9sMXZIRFFhM1FSMCt3Zml1eWtJ?=
- =?utf-8?B?SWxvMzlWeTdRVmdxZnk0bmdXNWw4L0VxZEw4Ry9NeXA4bi9xQlNvZFY3YU5i?=
- =?utf-8?B?VS9ubUhqcmNDQmEwTGlHOEJaeHg4TXZ6LzFWbndlNHBZZ2Y4MWVIWXl5MUlp?=
- =?utf-8?B?L3lSKzRRbGxWenk1QWJ5TlNkNThGSEhrV292czdKNCtBZ1NRM2pUaFdNeFhl?=
- =?utf-8?B?bjJYUEZUVzFOZXZNd3hIU1htVGdZM1RyQkZmMzQ4MUhyb0U1RlBuN0pRYVp5?=
- =?utf-8?B?Y1JVOG5qdWlZellOV1gwelBoWEdXSHlkYTc3ZDBNcWRCVnJ2Vm9QWmNYbmZF?=
- =?utf-8?B?ZDVFNXFTYzc5aEFnNnFmbktWc2tXQ0pWSlhkakZKb3ZObGhFWTJnbG0xOUx5?=
- =?utf-8?B?dkxCSVIwbkl5cndKVSttbXo0VFMzWS9WNnJXM1VlQlpVSU1uR2ZBdzRITFM0?=
- =?utf-8?B?YUhHSFdVTmtHdlliek9lejBPbGNzcEh1SUFJY1gya2h3R1c5ZVVsVWpCVzQw?=
- =?utf-8?B?V1BKSGsvQUtjYnlES1VVbWthK3N1ZWNGeW9JQUlibTgzOXZUUy90WGZGWjlV?=
- =?utf-8?B?dU02VytaUi8yV0NCb0UrcFYvcTVwd250UFR2T3FiU2dLNEdFK2dpSXNRWlNE?=
- =?utf-8?B?TXM0MUE1OHovWVlkOUp5Q2RDUTlpTFU1MWtZL1VoT01OblF2ckJicGxlTzgz?=
- =?utf-8?B?eG5Za2RwL1I2MWhGUjY3QXZyT3BMZWVHdXlLN3hlYWlIczFBTmU2bUxjWjc0?=
- =?utf-8?B?cFlNYVR6dmJ1ZjN2RjRRcWxhTTlRVWdITmpDOGxjZVZUZUQ4bC9yL2QzV1d2?=
- =?utf-8?B?cEZqUHJqZEVaZXNGc0hEcGdMbzJ0bXYvWXB4bk9iNldFZElLM2ZzNEhXclRB?=
- =?utf-8?B?Y2U1b1ZoYWY0OGJrK3dJNTNvTlhXTUFCQVhDRDhTY3gxanZwMmtFY0w4aGkz?=
- =?utf-8?B?N1JGKzJUMmltbUxKNFgrRWZRcTJCemVRR2RGb2xyRWE3NTd6c0VMWHAweTZ3?=
- =?utf-8?B?Z09yQmNlcytKWHNPcGtWOHBZd2VRRytrZWo4NURIOE50bEZmV0oxay9vMzF3?=
- =?utf-8?Q?ZVkQqQFtNCom61cNwmYj7+6af?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- a3046231-727a-4bb7-edbd-08db73a5f943
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3205.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2023 04:54:49.5190
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- 8E5k6cn2sLdRNtPGwiEuEZx56oFck5yziVUB5ZbdEMEOMfrobqYoERx11bSb/4XLB6+jrjffguhJBXJXKcw6OQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5684
-Message-ID-Hash: YE7LME5CEVLUDZ4ZJT2HNYUCYOBZLE4V
-X-Message-ID-Hash: YE7LME5CEVLUDZ4ZJT2HNYUCYOBZLE4V
-X-MailFrom: spujar@nvidia.com
+Content-Type: text/plain;
+	charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGx+kf9xzGqxzDJA6Hha46OjACZWK/nMLTg
+Content-Language: zh-cn
+Message-ID-Hash: WCDUFN364TWJLLW3ELSPZBYY6JLGYYQR
+X-Message-ID-Hash: WCDUFN364TWJLLW3ELSPZBYY6JLGYYQR
+X-MailFrom: 13916275206@139.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -169,7 +77,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YE7LME5CEVLUDZ4ZJT2HNYUCYOBZLE4V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WCDUFN364TWJLLW3ELSPZBYY6JLGYYQR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,23 +88,124 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 22-06-2023 17:42, Mark Brown wrote:
-> On Thu, Jun 22, 2023 at 05:04:12PM +0530, Sameer Pujar wrote:
->
->> The IRQ handler rt5640_irq() runs in interrupt context and can sleep
->> during cancel_delayed_work_sync().
->> Fix this by running IRQ handler, rt5640_irq(), in thread context.
->> Hence replace request_irq() calls with devm_request_threaded_irq().
->> -		ret = request_irq(rt5640->jd_gpio_irq, rt5640_jd_gpio_irq,
->> -				  IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
->> -				  "rt5640-jd-gpio", rt5640);
->> +		ret = devm_request_threaded_irq(component->dev,
->> +				rt5640->jd_gpio_irq,
->> +				NULL, rt5640_jd_gpio_irq,
->> +				IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
->> +				"rt5640-jd-gpio", rt5640);
-> This is rt5640_jd_gpio_irq() which just does a queue_delayed_work() not
-> a cancel.  Why is it being changed?
+> -----=D3=CA=BC=FE=D4=AD=BC=FE-----
+> =B7=A2=BC=FE=C8=CB: Dan Carpenter <dan.carpenter@linaro.org>
+> =B7=A2=CB=CD=CA=B1=BC=E4: 2023=C4=EA6=D4=C222=C8=D5 23:07
+> =CA=D5=BC=FE=C8=CB: 13916275206@139.com
+> =B3=AD=CB=CD: alsa-devel@alsa-project.org
+> =D6=F7=CC=E2: [bug report] ASoC: tas2781: Add tas2781 driver
+>=20
+> Hello Shenghao Ding,
+>=20
+> The patch ef3bcde75d06: "ASoC: tas2781: Add tas2781 driver" from Jun =
+18,
+> 2023, leads to the following Smatch static checker warning:
+>=20
+> 	sound/soc/codecs/tas2781-i2c.c:651 tasdevice_parse_dt()
+> 	warn: assigning signed to unsigned: 'tas_priv->ndev =3D ndev'
+> 's32min-s32max'
+>=20
+> sound/soc/codecs/tas2781-i2c.c
+>     602 static void tasdevice_parse_dt(struct tasdevice_priv =
+*tas_priv)
+>     603 {
+>     604         struct i2c_client *client =3D (struct i2c_client
+> *)tas_priv->client;
+>     605         unsigned int dev_addrs[TASDEVICE_MAX_CHANNELS];
+>     606         int rc, i, ndev =3D 0;
+>     607
+>     608         if (tas_priv->isacpi) {
+>     609                 ndev =3D
+> device_property_read_u32_array(&client->dev,
+>     610                         "ti,audio-slots", NULL, 0);
+>=20
+> When we pass NULL to device_property_read_u32_array() then it returns =
+then
+> number of items.
+>=20
+>     611                 if (ndev <=3D 0) {
+>     612                         ndev =3D 1;
+>     613                         dev_addrs[0] =3D client->addr;
+>     614                 } else {
+>     615                         ndev =3D (ndev <
+> ARRAY_SIZE(dev_addrs))
+>     616                                 ? ndev :
+> ARRAY_SIZE(dev_addrs);
+>     617                         ndev =3D
+> device_property_read_u32_array(&client->dev,
+>                                 ^^^^^^^
+> Smatch is concerned that this value can be negative.  But actually =
+this
+sets it
+> to zero, doesn't it?  Is that intentional?  It feels like we should =
+leave
+ndev as
+> the number of items.  Or if we want ndev to be zero do "ndev =3D 0;" =
+on the
+> next line.
+>=20
+>     618                                 "ti,audio-slots", dev_addrs,
+> ndev);
+Thanks for your report, correct and add as following:
+			if (ndev <=3D 0) {
+				ndev =3D 1;
+				dev_addrs[0] =3D client->addr;
+			}
+One more thing, how to smatch the code in kernel. Where can I find the
+guideline?
+>     619                 }
+>     620
+>     621                 tas_priv->irq_info.irq_gpio =3D
+>     622
+> acpi_dev_gpio_irq_get(ACPI_COMPANION(&client->dev), 0);
+>     623         } else {
+>     624                 struct device_node *np =3D
+> tas_priv->dev->of_node;
+>     625 #ifdef CONFIG_OF
+>     626                 const __be32 *reg, *reg_end;
+>     627                 int len, sw, aw;
+>     628
+>     629                 aw =3D of_n_addr_cells(np);
+>     630                 sw =3D of_n_size_cells(np);
+>     631                 if (sw =3D=3D 0) {
+>     632                         reg =3D (const __be32
+> *)of_get_property(np,
+>     633                                 "reg", &len);
+>     634                         reg_end =3D reg + len/sizeof(*reg);
+>     635                         ndev =3D 0;
+>     636                         do {
+>     637                                 dev_addrs[ndev] =3D
+> of_read_number(reg, aw);
+>     638                                 reg +=3D aw;
+>     639                                 ndev++;
+>     640                         } while (reg < reg_end);
+>     641                 } else {
+>     642                         ndev =3D 1;
+>     643                         dev_addrs[0] =3D client->addr;
+>     644                 }
+>     645 #else
+>     646                 ndev =3D 1;
+>     647                 dev_addrs[0] =3D client->addr;
+>     648 #endif
+>     649                 tas_priv->irq_info.irq_gpio =3D of_irq_get(np, =
+0);
+>     650         }
+> --> 651         tas_priv->ndev =3D ndev;
+>                 ^^^^^^^^^^^^^^^^^^^^^
+> Warning
+>=20
+Do I need the casting? ndev is sure to less than or equal to 8 and more =
+than
+1, is won't be overflow in unsigned char.
+>     652         for (i =3D 0; i < ndev; i++)
+>     653                 tas_priv->tasdevice[i].dev_addr =3D =
+dev_addrs[i];
+>     654
+>     655         tas_priv->reset =3D =
+devm_gpiod_get_optional(&client->dev,
+>     656                         "reset-gpios", GPIOD_OUT_HIGH);
+>=20
+> regards,
+> dan carpenter
 
-Will drop this part in v2. Thanks.
 

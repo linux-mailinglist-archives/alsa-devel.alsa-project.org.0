@@ -2,96 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 021E373DE03
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:47:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9E9A73DE06
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:47:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E69BF12;
-	Mon, 26 Jun 2023 13:46:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E69BF12
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3666114FD;
+	Mon, 26 Jun 2023 13:46:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3666114FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687780025;
-	bh=+mpqJ3qOsbXlqUthCVMPhb0PLRLROFgr8oLAI75h0j4=;
+	s=default; t=1687780050;
+	bh=/77C/Gcp1X3tbtDglFPGY1NxWBpzQduYgDP+tYJ0DI8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UPlDMBRvub4kNnz4FY5/Y6OSi/B5WF3OLfNBeciUUaS27hDhtEe1iVd2IVw5UCMZj
-	 tQd9ZcuUg+gyv199/kzSYcep5NikZRc1FZ5UGxZaC4RyRuOOdhAolgC0j8M/wnYX9a
-	 RIddw45VVQJLOtaA4ljMTbI4TnTJ6dKrO15ClmgQ=
+	b=TzdEjO9Q4PbpvY+s7nnzdT4QSNUzaon7J9NmnQvomNOHAvlbHYkqGd6O1IB0mdfdM
+	 gLNyRAHGiimcPrVtgqH1XrRcrqPTAoG6k6R1gRQ0AifeQQZVgyjh/La9d4DDKHvdMH
+	 HdAGi2NoXtoEF8j9AuhSvTfLhbnKINL4EB7WtZnc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E4E1F805ED; Mon, 26 Jun 2023 13:43:28 +0200 (CEST)
+	id 67054F80600; Mon, 26 Jun 2023 13:43:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8233FF805E2;
-	Mon, 26 Jun 2023 13:43:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 733ABF805F1;
+	Mon, 26 Jun 2023 13:43:29 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E8F1FF80141; Sat, 24 Jun 2023 10:27:19 +0200 (CEST)
+	id 31896F80141; Sat, 24 Jun 2023 10:28:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C5D41F8003A
-	for <alsa-devel@alsa-project.org>; Sat, 24 Jun 2023 10:27:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5D41F8003A
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6C0C6F8003A
+	for <alsa-devel@alsa-project.org>; Sat, 24 Jun 2023 10:28:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C0C6F8003A
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=Kkt2tu0f
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-987a977f62aso150638366b.1
+ header.s=google header.b=DkiglpMj
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-98df3dea907so28576566b.3
         for <alsa-devel@alsa-project.org>;
- Sat, 24 Jun 2023 01:27:12 -0700 (PDT)
+ Sat, 24 Jun 2023 01:28:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1687595231; x=1690187231;
+        d=linaro.org; s=google; t=1687595293; x=1690187293;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gJlPeAcJkflrsYHeqhAxG1xpnKkKctKx9VK4XOcUSNU=;
-        b=Kkt2tu0fZVyjdnIT+9aWz+2dC0xTVD3lu4yLwV0kQqZHuhz8Ro07GQdKqy6N1bU9f6
-         pQSHbTPMPW6t676hrqq5z5c4/jC1zAayJMvQIsQvygTbtQ1Ast7+Cs+Sp/qYXZDLJHWw
-         XBE4dYbEQtIeIRkumTncrrM+RY7bqG5QLJTYAogks8em7F36iQZDlMeHdRvWBibNfJyB
-         5GEQ4ZMC7udapD1WxMM6AWpT4cPZ2HWl0da/r/wrXgxUiY6gz4DHtTZ2kx7RHe9LGGjI
-         QKd+aWA5QHSnmV6Qgt2UIMZ5Ylb44sRp4CxcC3kLBCXNXnUnEVR8y9x1idlk9Lr31Gd9
-         XPIQ==
+        bh=/GIkG+tRxlPhRtm7YOpXeJRcJeLkXqLt09OeZ1Nh1Q4=;
+        b=DkiglpMjfjZCyxhWBqFcrR4RkmF6xYeIJhZq2bOE8/tpFTboyhHRBzqMweLVJwZdse
+         Po5v9VUAlVpzETIWlBeTSQ/MOOvNBADP10/6rUf8cTK/xsSxgq1hO5ZM9vc4292Kwd83
+         VTdWBdvUwwEOS+VqFVyBMZUM6hlNddUzTKFQc1w5NukZTFWumAXPj6zYaXxUMWoU/DSy
+         XQel7bucUiZ+Ngsaptd6xqTY94Y066kVJS9WhWDC0jZ5rzUsfBkGryZ36kc7qmVLWyeh
+         wthERO5PoF7uGlAF2OMarb6r+LyNXoKbb+5cj2mZ36KhHU2OJG0uneADkVzgtHgvzaZM
+         aiVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687595231; x=1690187231;
+        d=1e100.net; s=20221208; t=1687595293; x=1690187293;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gJlPeAcJkflrsYHeqhAxG1xpnKkKctKx9VK4XOcUSNU=;
-        b=W3CiZoAQMhUUbSwlXv2JkxmV+yMM21XyztocHHC+v08aC6qA79ERiW0edwiFgxj+Pb
-         2rTEuWIVS/0YlYygj92Oje8oVUt9xoX3aN9oGY+WKCQXu9hXeGoEBxjvNOZ+ZdzPyPs0
-         EGkqFXxGMu5pF1NukreaaAl11Pfr6ST1JEtAgA2Ik2qoDcy4XhcMtL8kJS1a4DKSPIFv
-         qCu9lknhYOCf++1Hkt7z4vJEoPUo3FOrOqKfg02KvJ6NB+wDKBMZLatDQETdeaQK1h4g
-         R71UVh9g1X1anjmiOEk2C3LDUY5xwrTHyZdmy/+tOfiPArH+3VBbT3iaY6araMyBvA2K
-         oxbg==
-X-Gm-Message-State: AC+VfDyH+RFieM9RT0wx5oS7s0CZt7OmiWJ3l0EaV4iMYYEa7Z9hsEog
-	/N9SAuUD1nlzO3LCgr1OxqI7Jw==
+        bh=/GIkG+tRxlPhRtm7YOpXeJRcJeLkXqLt09OeZ1Nh1Q4=;
+        b=ZdnP3OQHK6T/9j/4VqabugZoTz80OzdTR31JZrhXsk5ka01kZHLQB3RSKVDKZ5xPsN
+         e8ALYqDS/eAXyMsw9bIjdvn5ca3jX9XVGWP+OGJFJnMhHwcxEKZizYTcbAPmKI/RHxUn
+         DLuFJXE6XfAEvaoworB2qQt/Iw1o+WEFGiQ9aIhjlWDAE+WgbJ5+zZBRMTOtPgxWzcE5
+         lmqAIuLVx4oYacTOFj9It3i5dr6xFFMNvtknT1lZ7dWUIKuNq1g02JRP8GJE26JzRKy+
+         CCj/AiJAib6DpW4PDI95XKUpsf2pmt1m1WSgnI4nFrUrSlJHszUSS1WUBHNwNagtpBM0
+         nenQ==
+X-Gm-Message-State: AC+VfDynlYwtPaddCZpK+lgY8NnSnmILNQwxb6f7G37Kipj91NlxM4a4
+	6taDmwf4SQ6VG9XlVeUtzqMZ3A==
 X-Google-Smtp-Source: 
- ACHHUZ5t7epZFC28S4hxtPyy+RCHfLvODV3nPC4aL8/psJFMdpVy5ABk2SDosvlu0zr3308+wJnq2w==
-X-Received: by 2002:a17:907:8a03:b0:988:acb4:f63 with SMTP id
- sc3-20020a1709078a0300b00988acb40f63mr12986422ejc.74.1687595230874;
-        Sat, 24 Jun 2023 01:27:10 -0700 (PDT)
+ ACHHUZ4ujAlY65iLeyuRh50Ps6Pp7ng1jowk6gt0zzaeZKnGL1gJBg6GDgqsvIKWUupAOCVYBEqBCQ==
+X-Received: by 2002:a17:907:3e8e:b0:987:88eb:2416 with SMTP id
+ hs14-20020a1709073e8e00b0098788eb2416mr19943130ejc.61.1687595293178;
+        Sat, 24 Jun 2023 01:28:13 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.26])
         by smtp.gmail.com with ESMTPSA id
- t6-20020a1709060c4600b0098654d3c270sm635400ejf.52.2023.06.24.01.27.05
+ kq2-20020a170906abc200b009887bb956e0sm620186ejb.103.2023.06.24.01.28.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Jun 2023 01:27:10 -0700 (PDT)
-Message-ID: <caff28bc-8824-f173-99ea-267dd26e5cbc@linaro.org>
-Date: Sat, 24 Jun 2023 10:27:04 +0200
+        Sat, 24 Jun 2023 01:28:12 -0700 (PDT)
+Message-ID: <36a6ba38-d01e-96ad-c89f-7e2c860e0a88@linaro.org>
+Date: Sat, 24 Jun 2023 10:28:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH v2 17/45] dt-bindings: dmaengine: at_xdmac: add compatible
- with microchip,sam9x7
+Subject: Re: [PATCH v2 00/45] Add support for sam9x7 SoC family
 Content-Language: en-US
 To: Varshini Rajendran <varshini.rajendran@microchip.com>,
  robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
@@ -124,9 +123,8 @@ Cc: Hari.PrasathGE@microchip.com, cristian.birsan@microchip.com,
  dharma.b@microchip.com, nayabbasha.sayed@microchip.com,
  balakrishnan.s@microchip.com
 References: <20230623203056.689705-1-varshini.rajendran@microchip.com>
- <20230623203056.689705-18-varshini.rajendran@microchip.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230623203056.689705-18-varshini.rajendran@microchip.com>
+In-Reply-To: <20230623203056.689705-1-varshini.rajendran@microchip.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-MailFrom: krzysztof.kozlowski@linaro.org
@@ -137,15 +135,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: E6OPMZGACXVAPJCRNM7KODK4KNCBBDKP
-X-Message-ID-Hash: E6OPMZGACXVAPJCRNM7KODK4KNCBBDKP
-X-Mailman-Approved-At: Mon, 26 Jun 2023 11:41:14 +0000
+Message-ID-Hash: KRRA26P37HBX2ANCLDHTTB6JILTGKJ7F
+X-Message-ID-Hash: KRRA26P37HBX2ANCLDHTTB6JILTGKJ7F
+X-Mailman-Approved-At: Mon, 26 Jun 2023 11:41:15 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E6OPMZGACXVAPJCRNM7KODK4KNCBBDKP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KRRA26P37HBX2ANCLDHTTB6JILTGKJ7F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,27 +153,32 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 23/06/2023 22:30, Varshini Rajendran wrote:
-> Add compatible for sam9x7.
+> This patch series adds support for the new SoC family - sam9x7.
+>  - The device tree, configs and drivers are added
+>  - Clock driver for sam9x7 is added
+>  - Support for basic peripherals is added
+>  - Target board SAM9X75 Curiosity is added
 > 
-> Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
-> ---
->  Documentation/devicetree/bindings/dma/atmel-xdma.txt | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  Changes in v2:
+>  --------------
 > 
-> diff --git a/Documentation/devicetree/bindings/dma/atmel-xdma.txt b/Documentation/devicetree/bindings/dma/atmel-xdma.txt
-> index 510b7f25ba24..f672556ea715 100644
-> --- a/Documentation/devicetree/bindings/dma/atmel-xdma.txt
-> +++ b/Documentation/devicetree/bindings/dma/atmel-xdma.txt
-> @@ -2,8 +2,8 @@
->  
->  * XDMA Controller
->  Required properties:
-> -- compatible: Should be "atmel,sama5d4-dma", "microchip,sam9x60-dma" or
-> -  "microchip,sama7g5-dma".
-> +- compatible: Should be "atmel,sama5d4-dma", "microchip,sam9x60-dma",
-> +  "microchip,sam9x7-dma" or "microchip,sama7g5-dma".
+>  - Added sam9x7 specific compatibles in DT with fallbacks
+>  - Documented all the newly added DT compatible strings
+>  - Added device tree for the target board sam9x75 curiosity and
+>    documented the same in the DT bindings documentation
+>  - Removed the dt nodes that are not supported at the moment
+>  - Removed the configs added by previous version that are not supported
+>    at the moment
+>  - Fixed all the corrections in the commit message
+>  - Changed all the instances of copyright year to 2023
+>  - Added sam9x7 flag in PIT64B configuration
+>  - Moved macro definitions to header file
+>  - Added another divider in mck characteristics in the pmc driver
+>  - Fixed the memory leak in the pmc driver
+>  - Dropped patches that are no longer needed
+>  - Picked up Acked-by and Reviewed-by tags
 
-That's not what your DTS is saying. NAK.
+Where did you pick them up? Can you point me to the patches?
 
 Best regards,
 Krzysztof

@@ -2,95 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 526F273DDE6
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:40:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33BA373DDE7
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:40:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7F157F4;
-	Mon, 26 Jun 2023 13:39:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7F157F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D670EC0;
+	Mon, 26 Jun 2023 13:39:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D670EC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687779618;
-	bh=7XAEUY6q/F84BrecGtRuDRu8GYTt+kFsjgKKlzF/iII=;
+	s=default; t=1687779634;
+	bh=sNg3DtCi3hYXw8K4WBBqWRjhit6ijE3zPSZBpOLFmbA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=cxpTQLMcfjLiK/iC0XVsX1AqCFUTmcBsiqU6tBBlcyVbKChGQ6wQhEoGDAwj0H/lN
-	 zsusFyfwgnIB3XRagGTkec5zZILEV3+P+X6ijS4gg5DfPuT4gZIbiu6bRRe0if+9kc
-	 ivQVPOOFb1rYOh8aNKVhnorLh7wd2BQV/Y/gfnSk=
+	b=sx4cVc8Xo1hzL2TTbotnWVZP0HJOc4mVeLOAutJv6Rzhk6bB31x5SEAc/U36ee2VQ
+	 bAa47F/e2kGiqNFyiamSJd1s1G0TG0bEjYcq37TpwXq0hTe3iq6RIRx9ZoJMz6/ij+
+	 PJ5WcoBDNs6XcNKJS+msvZ69+065ybCTJIKkBhbc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B9E4F805EE; Mon, 26 Jun 2023 13:29:49 +0200 (CEST)
+	id 1DBEFF8080A; Mon, 26 Jun 2023 13:29:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF9DEF805EE;
-	Mon, 26 Jun 2023 13:29:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A577F807DC;
+	Mon, 26 Jun 2023 13:29:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E670F80141; Sat, 24 Jun 2023 10:02:04 +0200 (CEST)
+	id 50449F80141; Sat, 24 Jun 2023 10:02:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [IPv6:2a00:1450:4864:20::52b])
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [IPv6:2a00:1450:4864:20::22b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D45F5F80124
-	for <alsa-devel@alsa-project.org>; Sat, 24 Jun 2023 10:02:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D45F5F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1795BF80124
+	for <alsa-devel@alsa-project.org>; Sat, 24 Jun 2023 10:02:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1795BF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=D9tJ/Sfp
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-51bdca52424so1557675a12.3
+ header.s=google header.b=LX7W+yoL
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2b4769a2ee5so22879731fa.3
         for <alsa-devel@alsa-project.org>;
- Sat, 24 Jun 2023 01:02:01 -0700 (PDT)
+ Sat, 24 Jun 2023 01:02:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1687593720; x=1690185720;
+        d=linaro.org; s=google; t=1687593731; x=1690185731;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=evwXLshiChnPPoFaOHbuHqZ762vCCjuGEyQDNCOD67s=;
-        b=D9tJ/SfpPzuEgx6VkFAna6q37GPvy140Mp1+3AL4FalYGKRecNq4J5+7jqN3/okS8O
-         6VCYYFjRmknfk1Pc6cmV5km+eu6S8+dNsd/6ZxlJHnuwXBsHrGYlDYPQc+5f6+k6+IuB
-         GQ2i6ZzaDPj3eVQfF+ha5N+EegiRLR6qQUSP7YQmJByxynUIP9FFNPV1KvaIldisXyYf
-         CEC0Kmvo9lFLJYFbPpu7qy9Q8Xiyb4NJqbwsjDnHHtgoqGqOd9Th0k19ifx675SrSoj/
-         Q0oNeP6rMCMHk685HjSqRhDPeDMfnhCGrCr0QzKvt4/28ajDuSinwy8LILhi/tqkhGoC
-         s1TA==
+        bh=48cLWxnO4hI8zObsw227oEYYKk0Y5PALRubNPuDO6vc=;
+        b=LX7W+yoLVPlIwV1XGxBXwL2aJbtTMbGUVQFZjuzrXh0wV6QHjP/6CddCD/E2flMRhT
+         vztsT0AxCVeYXrgCMazYCdwatn1oodAQYgEbYryOhgT9SawgGTiTsh+csgQdP6kNUyxe
+         7+u8BPExqHZ7ZFyAJTcps4WTaIR9QoQUvOV8w9bGMoxE+6/N2/+adQYLXS0sGTiNN0KJ
+         gcAcX+MzinSjOAga9K0bDpv84dH0l28yQim8n3ipOwgzwqkd/hgTSXelx4MOAJGDwm1c
+         nahyrk+ER/vkBjbl1S6GBta/vg4KMt2zZaWLKqwbibfr91+e82MBHrvqwzlM62GfwzTs
+         ebBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687593720; x=1690185720;
+        d=1e100.net; s=20221208; t=1687593731; x=1690185731;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=evwXLshiChnPPoFaOHbuHqZ762vCCjuGEyQDNCOD67s=;
-        b=DumQ8bquW86/XwTwgvGYTjhJYasUXG8j+mVJ0VJv8H/VEZ+xbUjzqPr61QBYnuqtQe
-         UJ07nsuaVl9hNvSVp4jOBuFMbKUpES35bWUH3BIniv4OVbMtRQ5nrubSha69TIVdRaK1
-         WDOtncXdCaCPnInA4UsxQFR1ZyHcpNUkN27MO/SqR1bcbVPgzjbFlwID4MVd1xca3ZU8
-         6x8d3sIegw85L3GQWVVCU9fvSZrJRvBCPmdS5M0gTYZ0X6KZLTHyYkbvmY/1VseoyFr8
-         2C9XRrsHvZt4KHNuOh0JZMW2Pfp5cksCtDMGh3ELFIAWPSkC7jStYfAlejqbmWr6O1H6
-         NCpg==
-X-Gm-Message-State: AC+VfDxw4Kpf78A6YucDW997GBw32oDKqRwjVi6EEh8BDSlDHihTDWRV
-	wlhfEGid+gxex08StYKs5tmkzg==
+        bh=48cLWxnO4hI8zObsw227oEYYKk0Y5PALRubNPuDO6vc=;
+        b=R2zanYJQTDHU9uA8ixmHZliwt6A9ndj+VCUWP2vQwBMVILn0C2zXCAyoDdodhiAVDq
+         G37V4fPHTLuMcXbkRamHwAM14501uMVurh7reHlpejTIuI1BUm5upDr7aIVDAkWGFgsG
+         0sLeaESGpNTBZ4q44+Fk1BpeDrF7nUBoJ9RQKfP025B3SB9wtBoQHtSpBRVwGkTu0cUI
+         Y4MG8QUP+9IaOBAE8YCAA5f6jE9A3iYyywmlCWg3+xhyDNpJxXC9cQYv6tCmVyqWvnAx
+         5k/gD9Pt+rslKf+8whWtDiIvOqWXr2/ltPw3PkmKTv20tHYcVORK8UcgZ4P2UOlRGoMg
+         VrVg==
+X-Gm-Message-State: AC+VfDzwQ98yR2gd1XKvuM0DbeHe728tgnxHu76Z7HR/fKnA0iqy5kG2
+	4PRYWBQxTM/e9KbLigrBkmiytw==
 X-Google-Smtp-Source: 
- ACHHUZ6WVqK97+L/rLsxsj0TIcEtyCmujOvKdKn3w1rntsMk+nGINy7dJc6MjB9ynUGuEpDSVTkQsA==
-X-Received: by 2002:a17:907:3da6:b0:98c:b942:dc7d with SMTP id
- he38-20020a1709073da600b0098cb942dc7dmr8195232ejc.64.1687593719652;
-        Sat, 24 Jun 2023 01:01:59 -0700 (PDT)
+ ACHHUZ62t6tmUqM8Yzti6qrq+RSBqmnbfIcQEwHs80C3q6C7j1x32A4aVswUaxA77ONO0Q35Bn2RsQ==
+X-Received: by 2002:a2e:a0d8:0:b0:2b5:7f93:b3ad with SMTP id
+ f24-20020a2ea0d8000000b002b57f93b3admr8673190ljm.16.1687593730934;
+        Sat, 24 Jun 2023 01:02:10 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.26])
         by smtp.gmail.com with ESMTPSA id
- lo6-20020a170906fa0600b00982bf866f9esm607015ejb.66.2023.06.24.01.01.53
+ dv9-20020a170906b80900b00982a077599fsm590940ejb.110.2023.06.24.01.02.05
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Jun 2023 01:01:58 -0700 (PDT)
-Message-ID: <fb91791c-760f-45f5-12db-04f2ff1be8c1@linaro.org>
-Date: Sat, 24 Jun 2023 10:01:53 +0200
+        Sat, 24 Jun 2023 01:02:10 -0700 (PDT)
+Message-ID: <91773b0f-b337-c5d2-68e9-4d240920f659@linaro.org>
+Date: Sat, 24 Jun 2023 10:02:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH v2 28/45] dt-bindings: rtc: at91rm9200: add sam9x7
+Subject: Re: [PATCH v2 29/45] dt-bindings: rtt: at91rm9260: add sam9x7
  compatible
 Content-Language: en-US
 To: Varshini Rajendran <varshini.rajendran@microchip.com>,
@@ -124,9 +124,9 @@ Cc: Hari.PrasathGE@microchip.com, cristian.birsan@microchip.com,
  dharma.b@microchip.com, nayabbasha.sayed@microchip.com,
  balakrishnan.s@microchip.com
 References: <20230623203056.689705-1-varshini.rajendran@microchip.com>
- <20230623203056.689705-29-varshini.rajendran@microchip.com>
+ <20230623203056.689705-30-varshini.rajendran@microchip.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230623203056.689705-29-varshini.rajendran@microchip.com>
+In-Reply-To: <20230623203056.689705-30-varshini.rajendran@microchip.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-MailFrom: krzysztof.kozlowski@linaro.org
@@ -137,15 +137,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: C4DC3G4FLACLLXJVG4YLLWWV4IXAI2QR
-X-Message-ID-Hash: C4DC3G4FLACLLXJVG4YLLWWV4IXAI2QR
+Message-ID-Hash: G2WGW2JGBLFJY4Z2I3ZKGV3O2M3MLHUL
+X-Message-ID-Hash: G2WGW2JGBLFJY4Z2I3ZKGV3O2M3MLHUL
 X-Mailman-Approved-At: Mon, 26 Jun 2023 11:29:45 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C4DC3G4FLACLLXJVG4YLLWWV4IXAI2QR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/G2WGW2JGBLFJY4Z2I3ZKGV3O2M3MLHUL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,26 +155,26 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 23/06/2023 22:30, Varshini Rajendran wrote:
-> Add compatible for SAM9X7 RTC.
+> Add compatible for SAM9X7 RTT.
 > 
 > Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
 > ---
->  Documentation/devicetree/bindings/rtc/atmel,at91rm9200-rtc.yaml | 1 +
+>  Documentation/devicetree/bindings/rtc/atmel,at91sam9260-rtt.yaml | 1 +
 >  1 file changed, 1 insertion(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/rtc/atmel,at91rm9200-rtc.yaml b/Documentation/devicetree/bindings/rtc/atmel,at91rm9200-rtc.yaml
-> index 4d2bef15fb7a..e15872bbdd7e 100644
-> --- a/Documentation/devicetree/bindings/rtc/atmel,at91rm9200-rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/atmel,at91rm9200-rtc.yaml
+> diff --git a/Documentation/devicetree/bindings/rtc/atmel,at91sam9260-rtt.yaml b/Documentation/devicetree/bindings/rtc/atmel,at91sam9260-rtt.yaml
+> index b80b85c394ac..2d5cce1c1331 100644
+> --- a/Documentation/devicetree/bindings/rtc/atmel,at91sam9260-rtt.yaml
+> +++ b/Documentation/devicetree/bindings/rtc/atmel,at91sam9260-rtt.yaml
 > @@ -20,6 +20,7 @@ properties:
->        - atmel,sama5d4-rtc
->        - atmel,sama5d2-rtc
->        - microchip,sam9x60-rtc
-> +      - microchip,sam9x7-rtc
->        - microchip,sama7g5-rtc
+>            - const: atmel,at91sam9260-rtt
+>        - items:
+>            - const: microchip,sam9x60-rtt
+> +          - const: microchip,sam9x7-rtt
+>            - const: atmel,at91sam9260-rtt
 
-Same as in other cases, so just to avoid applying by submaintainer:
-looks not tested and not working.
+Same as in other cases, so just to avoid applying by submaintainer: not
+tested, broken.
 
 Best regards,
 Krzysztof

@@ -2,96 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AE9F73DDDF
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:39:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3344773DDE3
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:39:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E9D4EB6;
-	Mon, 26 Jun 2023 13:38:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E9D4EB6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89756ECE;
+	Mon, 26 Jun 2023 13:38:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89756ECE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687779553;
-	bh=95C7pQwwFkRI5maoNjxsgmyUieW7BTrUXtCOlAC/em0=;
+	s=default; t=1687779572;
+	bh=plRq9uRX7lb7dTEBq+/7uDl8MLqphJlYEezgY+W1p9o=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fLOlxiibk/bqWDlLurdssD460/CpBSWHUnY/bk2iime+oxxkBrus08aiwWlfezYlu
-	 CeFcDEV3So+4AKPx4Z6xiYIPA514NG8z486pA2AMjTfXb74tbEut6kxavXLXPkAdvG
-	 Hw6hBtWlMaU4I5ORDLLCe5IwdaMLlmNpnASyoN0o=
+	b=KMjBH/Rathed39hny3Z6Bn3na4rbx+p2H89SRCOPeqpxh5M/ePXrS9rcBCHS7cAIH
+	 8YscZYfokt5ml0+jXoiBf86RKME5yGvt/6DMSGbyMOWNHpxTs2/HKUwp7ABnQRl5Se
+	 KQfhR4gB9XM5mOYk8ySgoh4OYUfgheC6TMn1xQ0k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CFD64F805D6; Mon, 26 Jun 2023 13:29:34 +0200 (CEST)
+	id E497DF80771; Mon, 26 Jun 2023 13:29:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9E5DF805B6;
-	Mon, 26 Jun 2023 13:29:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9411CF805E6;
+	Mon, 26 Jun 2023 13:29:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1A43DF80141; Sat, 24 Jun 2023 09:59:47 +0200 (CEST)
+	id F1476F80141; Sat, 24 Jun 2023 10:00:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [IPv6:2a00:1450:4864:20::533])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 12403F80130
-	for <alsa-devel@alsa-project.org>; Sat, 24 Jun 2023 09:59:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12403F80130
+	by alsa1.perex.cz (Postfix) with ESMTPS id ABFB2F80130
+	for <alsa-devel@alsa-project.org>; Sat, 24 Jun 2023 10:00:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABFB2F80130
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=HEwevcjV
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-98df6bc0048so24297066b.1
+ header.s=google header.b=a43pJHJ0
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-51cff235226so990018a12.0
         for <alsa-devel@alsa-project.org>;
- Sat, 24 Jun 2023 00:59:44 -0700 (PDT)
+ Sat, 24 Jun 2023 01:00:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1687593583; x=1690185583;
+        d=linaro.org; s=google; t=1687593616; x=1690185616;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FTjB3MUThuy0fH56tPu8r2SapKpsQyQgWZ4G2iu3Iz8=;
-        b=HEwevcjVQu+8yO3NUrkkTGxP0CcIpGsLiEQXCTRo3UkbkAEAAtNC0UlY9ftejwavbS
-         WPfQTRQVl1GcrgXT/jwnimlNGGTxk1BasUFrZ0+zaXN90t4zsCJHF8eP/rzPh9y7q75O
-         DrmxzN2V5bro/a7Yjn2JaR+shcHxeMnMBPEOsxKHS90sJWabsHm/pELi2kj5UnO7u9RD
-         LnX93Xk9EYFZE7c3mDCbNFjt6xfev1h30nRmSxtXhBhzhBmUqIahBD/KcUlZwriKT34w
-         oFkzPzPGaxAQxWKiI+DomOOYGd+hKHvLudnuiUccthDx082FzhV3uj+CPG6toFmF8/Bz
-         rhrQ==
+        bh=plRq9uRX7lb7dTEBq+/7uDl8MLqphJlYEezgY+W1p9o=;
+        b=a43pJHJ0/i79GK0sVllmNDFxmLRvG6mdn29k3MDLUJpDO/vAzPg3YyQ818IBbmxC/u
+         1gtZ48SyfAQ5B6l0nPXN+iauyWfgfXlbH0dfibAQKneNTKdjh2/VHLoEKzIxurh9DBP5
+         ygKyuWkrfxIEeg0x0Ulo13gCWxCoWUMToLkqHYl6h6s3s4qa1bsqQQrA6iOgzlG7pLl+
+         dIYVYidPvnGoTN3V2N4aRfUTueCnlqRpbuIYXLGn2MIJJvK807soiNVOfavxJ/gbhjQH
+         difhgo70gZBHNBdb4AvayK2zERp3uN7fHKNQxbBPF+9B6cl2sxkR8NHUfutycTaQtmog
+         Ussw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687593583; x=1690185583;
+        d=1e100.net; s=20221208; t=1687593616; x=1690185616;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FTjB3MUThuy0fH56tPu8r2SapKpsQyQgWZ4G2iu3Iz8=;
-        b=WXfJbGAC1wEJVBuCKbDBDMH0p5aIQLQX2E3fXU/RuF/uTQ5PnZphlugjhtS0l9G1r+
-         yna38ZaTLWZ/9bw3X4HV3gI6u2OeXpp+GqNtE6hxIeMfFn2cnBsnkaNPYePgVhFrOQvF
-         /pUe/rtGTU3w3Hu3NIETV0jX+VizoTwoMRu7Tj9btt3zfujrxDKpJ6FAIJsMyyrEa7ny
-         5QaAC640SJMZqFruum5zFQnZgfEm+QY+v4JE739tEO73B0MURBUBX2g4JzF1spK7qEzg
-         a0d0WAKElT2cHj52t9M4PaFPw0c/qnpV8GyLGztQLSNAXW0sD2D1d8jJFGkl+YIa9tgk
-         42IQ==
-X-Gm-Message-State: AC+VfDx0lmpP8sscMrznqiAp4yOT5XO0M8ZjnSNorA3f5m57FgYQoHEU
-	JLYY29xlGgzx4Yh8/qikxpbgcg==
+        bh=plRq9uRX7lb7dTEBq+/7uDl8MLqphJlYEezgY+W1p9o=;
+        b=VpfmunB9IIWHxb0HSqMjPoRwecwpt+gUHa+6oswkn2rF6z/ks+Ze+1Cg08ILfC7uvu
+         IOYhK7QjhEaluK6OUbqhMgndwiPvJjIAhz4EdU7SXz3hIxsUZe5+neperoQUYaGlBFa0
+         Ay+ouzSCaSpqcQi18y2gu+Llx8hWuCLGSTx2+Q2+l09c1g2Z+p/1Pp4oP6q9rtmkLKRh
+         bkc5Lp8Ndojp3iDKTewFPEdhfpgr8Py/m2hi7PVnrkFDuBiTSt5pFm2arg3h9XLTzQqj
+         I9ekur8T9ClTGItqig3VUZeYfLCHPUGynlkkx7PEZNoFeEbeSCIMDBZuYSQ+grJHSbUZ
+         kWpQ==
+X-Gm-Message-State: AC+VfDyA7oKbAEonitJyz+iCCLxCdP43ndOqSsd+QgGJK3OSbyeM4nyn
+	f1CcQIVretgLB4RI429FvihpZg==
 X-Google-Smtp-Source: 
- ACHHUZ5pRd8UNSYc52Q0vkUp3nRCIrlMv+cEYLJxjAGxSYuFwmJusDkYkiVv0idqnJteffrCHMZ8Sg==
-X-Received: by 2002:a17:907:783:b0:988:dced:f339 with SMTP id
- xd3-20020a170907078300b00988dcedf339mr12750156ejb.31.1687593583035;
-        Sat, 24 Jun 2023 00:59:43 -0700 (PDT)
+ ACHHUZ6M3mY16cNIWWFFSaJhLerF0OTUcHm2JKoX1SNGPbnrXFGF7T+AVx68dGzEKp0F0dxMjJC17w==
+X-Received: by 2002:aa7:da90:0:b0:51b:de6f:2182 with SMTP id
+ q16-20020aa7da90000000b0051bde6f2182mr9641369eds.8.1687593615898;
+        Sat, 24 Jun 2023 01:00:15 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.26])
         by smtp.gmail.com with ESMTPSA id
- t23-20020a170906179700b00987f64b84afsm597458eje.39.2023.06.24.00.59.37
+ p18-20020aa7d312000000b0051a2d2f82fdsm422074edq.6.2023.06.24.01.00.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 24 Jun 2023 00:59:42 -0700 (PDT)
-Message-ID: <7c0025cc-ed36-f4e1-d48d-d09326756d89@linaro.org>
-Date: Sat, 24 Jun 2023 09:59:36 +0200
+        Sat, 24 Jun 2023 01:00:15 -0700 (PDT)
+Message-ID: <b837784a-50f0-7cab-a535-e699688640e5@linaro.org>
+Date: Sat, 24 Jun 2023 10:00:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH v2 16/45] dt-bindings: crypto: add bindings for sam9x7 in
- Atmel TDES
+Subject: Re: [PATCH v2 13/45] dt-bindings: atmel-sysreg: add bindings for
+ sam9x7
 Content-Language: en-US
 To: Varshini Rajendran <varshini.rajendran@microchip.com>,
  robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
@@ -124,9 +124,9 @@ Cc: Hari.PrasathGE@microchip.com, cristian.birsan@microchip.com,
  dharma.b@microchip.com, nayabbasha.sayed@microchip.com,
  balakrishnan.s@microchip.com
 References: <20230623203056.689705-1-varshini.rajendran@microchip.com>
- <20230623203056.689705-17-varshini.rajendran@microchip.com>
+ <20230623203056.689705-14-varshini.rajendran@microchip.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230623203056.689705-17-varshini.rajendran@microchip.com>
+In-Reply-To: <20230623203056.689705-14-varshini.rajendran@microchip.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-MailFrom: krzysztof.kozlowski@linaro.org
@@ -137,15 +137,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: CLG26AINDNYAY4Y7DLLYV5HDN4UIN3SB
-X-Message-ID-Hash: CLG26AINDNYAY4Y7DLLYV5HDN4UIN3SB
+Message-ID-Hash: M43GW5BO6ACSN3FPHGGKOA3TPZJ6GVGZ
+X-Message-ID-Hash: M43GW5BO6ACSN3FPHGGKOA3TPZJ6GVGZ
 X-Mailman-Approved-At: Mon, 26 Jun 2023 11:29:26 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CLG26AINDNYAY4Y7DLLYV5HDN4UIN3SB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M43GW5BO6ACSN3FPHGGKOA3TPZJ6GVGZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,29 +155,12 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 23/06/2023 22:30, Varshini Rajendran wrote:
-> Add DT bindings for atmel TDES.
-> 
-> Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
-> ---
->  .../devicetree/bindings/crypto/atmel,at91sam9g46-tdes.yaml   | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/crypto/atmel,at91sam9g46-tdes.yaml b/Documentation/devicetree/bindings/crypto/atmel,at91sam9g46-tdes.yaml
-> index 3d6ed24b1b00..0e71bfd32a1c 100644
-> --- a/Documentation/devicetree/bindings/crypto/atmel,at91sam9g46-tdes.yaml
-> +++ b/Documentation/devicetree/bindings/crypto/atmel,at91sam9g46-tdes.yaml
-> @@ -12,7 +12,10 @@ maintainers:
->  
->  properties:
->    compatible:
-> -    const: atmel,at91sam9g46-tdes
-> +    oneOf:
-> +      - items:
-> +          - const: atmel,at91sam9g46-tdes
-> +          - const: microchip,sam9x7-tdes
+> Add RAM controller, shutdown controller & SFR DT bindings.
 
-Same as in other cases, so just to avoid applying by submaintainer: not
-tested, broken.
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+
+Applies to every patch, since there will be a v3.
 
 
 Best regards,

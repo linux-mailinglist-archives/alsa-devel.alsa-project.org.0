@@ -2,89 +2,155 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10A2273D155
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Jun 2023 16:14:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46CBF73D1C1
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Jun 2023 17:36:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2926D7F1;
-	Sun, 25 Jun 2023 16:13:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2926D7F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23D067F4;
+	Sun, 25 Jun 2023 17:36:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23D067F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687702456;
-	bh=uyMnZUEOJHBblftWVKLe+I+7YWfa+kBCcbyAJi8+BwY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=qEhy0ND6T8kULdv2gARZOUygllAtvAqdbvk2Qhi8WBgQw70cY5b+KybYO5IH3Ifdt
-	 x84HGqbdHi34wDcmgYvg7b9xWTPp6DHudxr1bbSYXKSfQFqF2IlUUwfiCd1TxBSREX
-	 5+b2MYiY9+2ZbsUj38jHXGGnDzoPQHnAvgFR1pLo=
+	s=default; t=1687707418;
+	bh=qKTR/ZKDVGmH9mfeh6XyTyOSwVssM/91blIQPOx1O8w=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=gzbyDN8qZccNQDAf8SudoAeWDjZEE89LTq6jGpkZ+H+pAzYklK/2us7WHqaFLRqC/
+	 oREmj/sAkDZmOBWqH41gIRDQnYg/i81k6WeV/soLuznQnbsnmjtPviyqIR9l3lA2AR
+	 baDhNtg0WnSbq2O9ElPqTY0CC6DP4ORt4VN5CpN8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4ADBF80246; Sun, 25 Jun 2023 16:13:23 +0200 (CEST)
+	id 7D508F80431; Sun, 25 Jun 2023 17:36:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DA8AF80212;
-	Sun, 25 Jun 2023 16:13:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30D36F80212;
+	Sun, 25 Jun 2023 17:36:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB4FAF80246; Sun, 25 Jun 2023 16:13:16 +0200 (CEST)
+	id 5485FF80246; Sun, 25 Jun 2023 17:36:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail.horus.com (mail.horus.com [78.46.148.228])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on20724.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:7010::724])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6B988F80093
-	for <alsa-devel@alsa-project.org>; Sun, 25 Jun 2023 16:13:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B988F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id BF566F80124
+	for <alsa-devel@alsa-project.org>; Sun, 25 Jun 2023 17:35:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF566F80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=horus.com header.i=@horus.com header.a=rsa-sha256
- header.s=20180324 header.b=jX1M9Kbq
-Received: from [192.168.1.22] (193-81-115-8.adsl.highway.telekom.at
- [193.81.115.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.horus.com (Postfix) with ESMTPSA id E77DE640B4;
-	Sun, 25 Jun 2023 16:13:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=horus.com;
-	s=20180324; t=1687702389;
-	bh=7qJlAOheByQuos5Kt2MzKqpl7IodNTD/r1Gg6wvW1f4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jX1M9Kbq91C7ABFAHT2oWf+t0lV7BHptwiDILsSo5U/HLtYiT186oci1gZ/8BTA+Y
-	 ov/uJ7/Ob06iCt6yw40TB22lzIH9O9jtGqTZN1Drs15HJMbqGSiqo3nAIPqLmZSdCX
-	 eTwRjPyW/+Kv5ln7eG6LwWGCCPON6gNDec1/ypb4=
-Received: by camel3.lan (Postfix, from userid 1000)
-	id 20C345401CD; Sun, 25 Jun 2023 16:13:08 +0200 (CEST)
-Date: Sun, 25 Jun 2023 16:13:08 +0200
-From: Matthias Reichl <hias@horus.com>
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
-	Dom Cobley <popcornmix@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ALSA: pcm: fix ELD constraints for (E)AC3, DTS(-HD) and
- MLP formats
-Message-ID: <ZJhLdE7oXAvIi1Yi@camel3.lan>
-Mail-Followup-To: Matthias Reichl <hias@horus.com>,
-	Markus Elfring <Markus.Elfring@web.de>, alsa-devel@alsa-project.org,
-	kernel-janitors@vger.kernel.org, Dom Cobley <popcornmix@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	LKML <linux-kernel@vger.kernel.org>
-References: <20230624165216.5719-1-hias@horus.com>
- <08b8fa18-9520-2959-a6c9-6ea6132d9b46@web.de>
+ unprotected) header.d=connect.ust.hk header.i=@connect.ust.hk
+ header.a=rsa-sha256 header.s=selector2 header.b=i9mkEXbE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cLywr+2Q0qS7HfzPyNs9qVUn7AxedHLtFUY89iiuf4/Kptak/2eme3Elwkwfkxcnyjtgyy4RN8SH4zorgcxmnXqDJySGryYrO2bhFpvtv6uZfewcQi7+WVuPdggIZ35gg8Gr6fFQPS/F03JseSilZYWh+Op5hoz0bUzt7AFfu0m8vVQPpnjywjkdDyUE7eAaefo+3aOrgmoEbC+aPgmgix8XVlbSHkgUewJloQVZrGMAu1BiC3VfsLnSX7IjALx5KTlgVmwhzXIG+niAYEshhSczv8mQyQq1qY0DXfkE9TnHZXYe/IlZmOf/UmJTZqelC4WbQb72D8aY+KD22zLQRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qKTR/ZKDVGmH9mfeh6XyTyOSwVssM/91blIQPOx1O8w=;
+ b=EOBmIxOFIvi14xHRibHH5HJL9phkVd7WX3qceY9fBoTeBtj5iZYZM/EEfNBALxCZjmsXzVi8KZxIRt1yUT1yH6Pqqh6Fj+/B838SYcq+IxjNga2Kx4d8BrhvNpF26d9ZeHUYxkzFC21sVIg6KV8aX6nKXyyiFW6sy/IeP0V8Uxww3ixQ0Oh+raeQ1/8timCDrK+wHEDUuzONKQxFF1ogixocx8Kb5tI8OZUtAq8rKg9pLHG/6lcAhQSYXTStayPGNZ0LMLqAXspTc2v/0OENMbx6v0zcqc77OiQ5ZAYf9WG2SzSZPyfmqwUXI9QWPbZ7a5dy2eEHXyUNGfmQDMQqzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=connect.ust.hk; dmarc=pass action=none
+ header.from=connect.ust.hk; dkim=pass header.d=connect.ust.hk; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=connect.ust.hk;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qKTR/ZKDVGmH9mfeh6XyTyOSwVssM/91blIQPOx1O8w=;
+ b=i9mkEXbEhIw0AJxkCQIxWd36bQKNTY5AiZ7EWNyvMN+GadqktB8OyLh82/C9dWylslHVRv9S3Ycz+d0P4Z9AhwnSXrBybPrpHPSZekxY6An5DA2Xn2Y49nu5h7weomTDXtnHtuXOJ29iig5TQ/Aozn0GfIzw8FUhCrNArHSp/00=
+Received: from TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:b7::8) by
+ TYWP286MB3192.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2d4::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6521.24; Sun, 25 Jun 2023 15:35:48 +0000
+Received: from TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::b429:5aa3:12f1:6b8]) by TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::b429:5aa3:12f1:6b8%4]) with mapi id 15.20.6521.026; Sun, 25 Jun 2023
+ 15:35:48 +0000
+From: YE Chengfeng <cyeaa@connect.ust.hk>
+To: "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+	"yunjunlee@chromium.org" <yunjunlee@chromium.org>
+CC: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] ALSA: dummy: Fix &dpcm->lock deadlock issues
+Thread-Topic: [PATCH] ALSA: dummy: Fix &dpcm->lock deadlock issues
+Thread-Index: AQHZp3fywsqsa+nIJUORNCRxL38reA==
+Date: Sun, 25 Jun 2023 15:35:48 +0000
+Message-ID: 
+ <TYCP286MB1188FEE149369A32D90DCE288A21A@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=connect.ust.hk;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCP286MB1188:EE_|TYWP286MB3192:EE_
+x-ms-office365-filtering-correlation-id: a99eeb09-9268-46f2-673a-08db7591d9c4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ L8t5qlKIErCyZCKvSHn8KJYo67P4AQmU4/C4/NTKgbDS0JgTlNjRdbsRVIVS5C9C9L0xj1vO3aoxJ5LoOGwyi0IusOdlnLsz3Z1Bi9Cf/6mrwNzT9FEQebIDj0A+XmK+MwXQXKiL2nKniSATrku9Yc+Oz35h0ICKJLh0PgTY2G1aObWsq41pekOJUjn0l8NZOFI0gMw+Y45pCWu9cRKYBHWShgUt3kUFgMJQ25HCRY50lW8M2D17ue3GzWmjbK4qkMfuve2hQpqgU7+U/yIce4K1mzVMDL3k5GFDHd3CVrJVWTbxZ1CGUBf0LM6aFo1klR4ng+ABPekgTTkpU8XYKURfbQoKasSN007cgzTkS583TAQiElwUqRbGhDB1XWFjiLNzjmFT/fVsR7x0/DkNjCzhxI/ckqjeVVlccDCN3SuSPi1h8vj0IR7mthaZ5RHxt0ZaCB8nX3MVIUL7sD7HR4xX6P7GK2QCyxkqg89CmzpPt2VKbYjuey2er3PZL3uMf8fiZIPRIVrHTvaMd5QSVkszPaY5kK8r6mIDy7JF/sdtUHfDRcwb1cOCXEIsH4a11YQb6dbuwuUuunuhw3zZx18GXmcS92YFYeoF8MZaVVR3mdtPqlR8QnICl3xTO++w
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(376002)(366004)(136003)(39860400002)(451199021)(122000001)(38100700002)(38070700005)(83380400001)(33656002)(86362001)(478600001)(54906003)(110136005)(7696005)(71200400001)(41300700001)(66946007)(66556008)(55016003)(66476007)(786003)(64756008)(66446008)(316002)(8676002)(76116006)(8936002)(26005)(4326008)(6506007)(186003)(9686003)(2906002)(91956017)(5660300002)(52536014);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?gb2312?B?YXpCZVBTSTNOM0pYQ2FwOWVReEtDTytJL25pWkd3UVVURGw3ei9UWEdaNGdu?=
+ =?gb2312?B?aVZ0WGJidmRKaDdXb2NXdzB3REtsUGhSeWJ5VnVEbGJ5bDJ2bHBKbE9Xb2Mr?=
+ =?gb2312?B?TkVpbUFxWW5JZ3R3Q3MrSDJIVUwxakl6YXhsY0NwSHdXNGlXVHJFU3BWTEFY?=
+ =?gb2312?B?YjdQNGVpbFliL3ZEZXRDTVhZZ1o4TTIrUWJtYU5MTGp0N09GTlF0eURLampn?=
+ =?gb2312?B?SFBHQkRqYllmV3VieFRmSUdzS1kxaTRhdUwvVWswZmYyT1pnQ2k4d0NacFYw?=
+ =?gb2312?B?MHhaRVJUTUdEcmZIVzI3V29QNnk1bG5CQ1ZJUEgvY1YxOCtZcmpZTmdKUVpl?=
+ =?gb2312?B?Qnk1dFVaQXYycjFxSDBlRnBJQzNTRW9ZMjBYcEpBblg1SEVTdVozWmxZMGRl?=
+ =?gb2312?B?SHVoVjhMaU5oNEdXTTlhdVpOOWsrY1llaUNYT3hZeEl1bkpnVDc5NndkdUVR?=
+ =?gb2312?B?d0NUTk1TdDErZEZHZnQxakZ4cE5qcXY2WWZaWXZPdldVbWJBL0xCMkZTYWEz?=
+ =?gb2312?B?TTc3SjhJWlIrcDNNNnpJaFVELzdxMHprdHpSTFVzNjNPTks1cVNNYkxGenJu?=
+ =?gb2312?B?dWdoWnE5Sk1CbytxYWQ3UlcvMHloVmlYelpqdzNuQ1I4MUo3dTZyT1d2cTNa?=
+ =?gb2312?B?WXdpVktOVkowRndUZVBwdTJJVlZ4VHJoQzduNVlzcUg5alB3S2dMV0ZBdVdK?=
+ =?gb2312?B?MlltUUR4QWhUVzJaeWpQbVF1dkswakcyZFhuZ25sbzF5dWVTQUFmSDB5NmNI?=
+ =?gb2312?B?MGNFRnVONitYdHpIS3FEV0lIODd4WHM2MHJhMWlMV1RqUHF0cS9HNkl6Wm1N?=
+ =?gb2312?B?K0dyakJhRktHY1plYTRvbHNzQTBIaTVmQU9rckN5TTBQVW40cVlsb0JXU0sw?=
+ =?gb2312?B?bVplR0hXT1Bxcy9Obk03MHpiWXNnbGtWRm1ZVnhnYUE2aUpGMHU4ZUhnaTg1?=
+ =?gb2312?B?LzRaVzFGeUxiWjZ4RW12ajJEbWt3MzZwV0lBOWZSNXFQV0lZRFZQb1k0SkpD?=
+ =?gb2312?B?LzRPZndrN09sa0FIVXVUdmt0c2d5TWtIZUlTN2hKM2R1bVdxcUkxQzBrVG1w?=
+ =?gb2312?B?dFVLOWV5SUJjMGEwVjNpbC9obXpxcTV0a0JjRWtzcHRYTWY5Vy9HaU5jTmFr?=
+ =?gb2312?B?bGdqYm54U05xUmlkL295N2gwbXp2cmZFQk1WbG9oMDlhaUY0WXFXUkVROUh3?=
+ =?gb2312?B?ZEoxSUw0a3ZqSGI5OHdWYTNiYjRib2ZGVjhYdUlaY2VqcHgxbHV6eUZncmhl?=
+ =?gb2312?B?T3I0bVozS04ra2ZrWk93U3Rrakp4bFJwV0FaM2Z5cnZzRE04Y2p2Zml6Y1lP?=
+ =?gb2312?B?Q2ZFM2V4UFlVNjVFMkRtVFpxL0dSWm9SS21oTDlWSGw4aGRoR0NFQWVnb1F5?=
+ =?gb2312?B?K1ZscHdKeS9ScUVMT1BPbWwyb3dvbk9vcldCbEF5ZGpxN09xRkVSOUUyVzFP?=
+ =?gb2312?B?a0VETXJ5am0wcTZUMS9DMFNSd3FIRTl6QnBBRWlFeTVyR3pGeVlnbCtVb3hm?=
+ =?gb2312?B?elpWOFM0ZktPM3NZY3RGdVZiSGJmWTdqR1EzSkI5MVNuVytzV0hrSlM3cStk?=
+ =?gb2312?B?SUFDT0RPLzg2RGU0Uk1qU29GM05DQkdnMnhBb0RqRGt0S1ZmUnVlenRtRmdH?=
+ =?gb2312?B?dEN2RWJ4QlkwUkpKNHlVdU51Q29JT2luT2lNM2NibmVNVHd1cEl6dXZFZHF6?=
+ =?gb2312?B?NS84MWRGNGV3VCtRem5TbnBlSER3VkkrUWNXWmdZU3lmWFZzRzBVVkZuSXFV?=
+ =?gb2312?B?TnlRSkxDdlpjTUlRSytVdWI4TTF2eUROamMxZ1M0VncySWVMa2xnSmJsbThH?=
+ =?gb2312?B?bWNxeldBS0tlZUZ2aFMwdHlQL2FHVVlCTnlJMjF0bmh4b0ZzVWxnaEkwazFa?=
+ =?gb2312?B?VFF0VGxEdTlyY25BOGNrMHgxWGFHdUE2N0ZaeHdweGhVaWgyUFk1dHR4dmRs?=
+ =?gb2312?B?T1l2ODVHbFFlejFKRmtmQnYxOCtaYVR6TmM2RDZSUkxtNmRueWZWZVF4YUZI?=
+ =?gb2312?B?MFJvRUhSMGtRbUlKL2U4amtZK1lnUGNuZU1sL2dNR01oVndlQ0dKa3dTbi85?=
+ =?gb2312?B?K3p3RFNvVWtlWGpla3Nmbzl2QTZ5VFdHdGtQQVBObXEzNVpjeVNORTcxTm8x?=
+ =?gb2312?Q?Xvsp9vFJiIRg1jy9JjpGKRWK4?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <08b8fa18-9520-2959-a6c9-6ea6132d9b46@web.de>
-Message-ID-Hash: LIPXGVEWJRJWXZB3AC5FY4OTNALTWVM4
-X-Message-ID-Hash: LIPXGVEWJRJWXZB3AC5FY4OTNALTWVM4
-X-MailFrom: hias@horus.com
+X-OriginatorOrg: connect.ust.hk
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ a99eeb09-9268-46f2-673a-08db7591d9c4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2023 15:35:48.7207
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 6c1d4152-39d0-44ca-88d9-b8d6ddca0708
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 
+ YGlIBYG3Tkubc/8wkAjvE1bQ0FZuTnmwMnovWr2XQkhEHnJuiV5UhwveL79hFD7qJncvKHod2laKfDhKOBWT8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWP286MB3192
+Message-ID-Hash: PTYYQULC2AGV662KY4A5H2LG6W6VMUG3
+X-Message-ID-Hash: PTYYQULC2AGV662KY4A5H2LG6W6VMUG3
+X-MailFrom: cyeaa@connect.ust.hk
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +162,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LIPXGVEWJRJWXZB3AC5FY4OTNALTWVM4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AY6BBELBHHEFROEY4ELDFWOPT7MUD6HY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,86 +171,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, Jun 25, 2023 at 02:10:21PM +0200, Markus Elfring wrote:
-> …
-> > This patch fixes the constraints for the common AC3 and DTS formats,
-> …
-> 
-> Please add an imperative change suggestion.
-
-I assumed the motivation was pretty clear from the paragraph above which you
-snipped off:
-
-> The SADs of compressed formats contain the channel and sample rate
-> info of the audio data inside the compressed stream, but when
-> building constraints we must use the rates and channels used to
-> transport the compressed streams.
->
-> eg 48kHz 6ch EAC3 needs to be transmitted as a 2ch 192kHz stream.
-
-The previous implementation added constraints that could be both too broad
-and incomplete at the same time, leading to the audio device accepting
-channel/rate combinations that are not supported by the sink while rejecting
-combinations that are required to transmit the compressed bitstream.
-
-Typical impact on users is eg "Dolby TrueHD passthrough does not work".
-
-Consider this EDID audio block of a 2020 Sony TV which rejected Dolby TrueHD
-passthrough:
-
-    Linear PCM:
-      Max channels: 6
-      Supported sample rates (kHz): 192 176.4 96 88.2 48 44.1 32
-      Supported sample sizes (bits): 24 20 16
-    AC-3:
-      Max channels: 6
-      Supported sample rates (kHz): 48 44.1 32
-      Maximum bit rate: 640 kb/s
-    DTS:
-      Max channels: 6
-      Supported sample rates (kHz): 48 44.1 32
-      Maximum bit rate: 1504 kb/s
-    Enhanced AC-3 (DD+):
-      Max channels: 8
-      Supported sample rates (kHz): 48 44.1
-      Supports Joint Object Coding
-    MAT (MLP):
-      Max channels: 8
-      Supported sample rates (kHz): 48
-      Supports Dolby TrueHD, object audio PCM and channel-based PCM
-      Hash calculation not required for object audio PCM or channel-based PCM
-
-The old implementation didn't add the 192kHz / 8ch combination that's required
-to transport the MLP TrueHD bitstream, so opening the device in 8ch 192kHz mode
-failed.
-
-> How do you think about to add the tag “Fixes”?
-
-I've thought about that but decided against it as adding exact constraints
-has the chance of breaking existing applications that accidentally relied on
-the (incorrect) previous behaviour of adding rather broad constraints.
-
-Consider the following EDID of a 2009 Sony TV:
-
-    Linear PCM:
-      Max channels: 2
-      Supported sample rates (kHz): 48 44.1 32
-      Supported sample sizes (bits): 24 20 16
-    AC-3:
-      Max channels: 6
-      Supported sample rates (kHz): 48 44.1 32
-      Maximum bit rate: 640 kb/s
-    Enhanced AC-3 (DD+):
-      Max channels: 6
-      Supported sample rates (kHz): 48 44.1 32
-
-The old implementation would have constraints that allowed up to 6ch output at
-32/44.1/48kHz while the correct setup would be to only allow max 2ch output
-(both AC3 and EAC3 bitstreams are transmitted in 2ch mode).
-
-So you could successfully output eg 6ch audio (which the sink likely wouldn't accept
-and/or only output the first 2 channels) before but now this will get rejected.
-
-so long,
-
-Hias
+VGhlIHRpbWVyIGR1bW15X3N5c3RpbWVyX2NhbGxiYWNrIGlzIGV4ZWN1dGVkIHVuZGVyIHNvZnRp
+cnEKY29udGV4dCwgdGh1cyBvdGhlciBwcm9jZXNzIGNvbnRleHQgY29kZSByZXF1aXJpbmcgdGhl
+IHNhbWUgbG9jawpzaG91bGQgZGlzYWJsZSBpbnRlcnJ1cHQuIE90aGVyd2lzZSB0aGVyZSB3b3Vs
+ZCBiZSBwb3RlbnRpYWwKZGVhZGxvY2sgaXNzdWVzIHdoZW4gdGhlIGNvZGUgZXhlY3V0aW5nIHVu
+ZGVyIHByb2Nlc3MgY29udGV4dAooaS5lLiwgZHVtbXlfc3lzdGltZXJfcG9pbnRlciwgZHVtbXlf
+c3lzdGltZXJfc3RhcnQsCmR1bW15X3N5c3RpbWVyX3N0b3ApIGlzIHByZWVtcHRlZCBieSB0aGUg
+dGltZXIgd2hpbGUgaG9sZGluZwp0aGUgbG9jay4KCkRlYWRsb2NrIHNjZW5hcmlvOgpkdW1teV9z
+eXN0aW1lcl9wb2ludGVyCiAgICAtPiBzcGluX2xvY2soJmRwY20tPmxvY2spOwogICAgICAgIDx0
+aW1lciBpbnRlcnJ1cHQ+CiAgICAgICAgLT4gZHVtbXlfc3lzdGltZXJfY2FsbGJhY2sKICAgICAg
+ICAtPiBzcGluX2xvY2tfaXJxc2F2ZSgmZHBjbS0+bG9jaywgZmxhZ3MpOwoKRml4IHRoZSBwb3Rl
+bnRpYWwgZGVhZGxvY2sgYnkgdXNpbmcgc3Bpbl9sb2NrX2lycXNhdmUuCgpTaWduZWQtb2ZmLWJ5
+OiBDaGVuZ2ZlbmcgWWUgPGN5ZWFhQGNvbm5lY3QudXN0LmhrPgotLS0KIHNvdW5kL2RyaXZlcnMv
+ZHVtbXkuYyB8IDE3ICsrKysrKysrKysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0
+aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9zb3VuZC9kcml2ZXJzL2R1bW15
+LmMgYi9zb3VuZC9kcml2ZXJzL2R1bW15LmMKaW5kZXggOWMxN2I0OWEyYWUxLi4wNGZiNGYxN2Uw
+NWMgMTAwNjQ0Ci0tLSBhL3NvdW5kL2RyaXZlcnMvZHVtbXkuYworKysgYi9zb3VuZC9kcml2ZXJz
+L2R1bW15LmMKQEAgLTI2OCwxOSArMjY4LDIzIEBAIHN0YXRpYyB2b2lkIGR1bW15X3N5c3RpbWVy
+X3VwZGF0ZShzdHJ1Y3QgZHVtbXlfc3lzdGltZXJfcGNtICpkcGNtKQogc3RhdGljIGludCBkdW1t
+eV9zeXN0aW1lcl9zdGFydChzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSkKIHsK
+IAlzdHJ1Y3QgZHVtbXlfc3lzdGltZXJfcGNtICpkcGNtID0gc3Vic3RyZWFtLT5ydW50aW1lLT5w
+cml2YXRlX2RhdGE7Ci0Jc3Bpbl9sb2NrKCZkcGNtLT5sb2NrKTsKKwl1bnNpZ25lZCBsb25nIGZs
+YWdzOworCisJc3Bpbl9sb2NrX2lycXNhdmUoJmRwY20tPmxvY2ssIGZsYWdzKTsKIAlkcGNtLT5i
+YXNlX3RpbWUgPSBqaWZmaWVzOwogCWR1bW15X3N5c3RpbWVyX3JlYXJtKGRwY20pOwotCXNwaW5f
+dW5sb2NrKCZkcGNtLT5sb2NrKTsKKwlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZkcGNtLT5sb2Nr
+LCBmbGFncyk7CiAJcmV0dXJuIDA7CiB9CiAKIHN0YXRpYyBpbnQgZHVtbXlfc3lzdGltZXJfc3Rv
+cChzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSkKIHsKIAlzdHJ1Y3QgZHVtbXlf
+c3lzdGltZXJfcGNtICpkcGNtID0gc3Vic3RyZWFtLT5ydW50aW1lLT5wcml2YXRlX2RhdGE7Ci0J
+c3Bpbl9sb2NrKCZkcGNtLT5sb2NrKTsKKwl1bnNpZ25lZCBsb25nIGZsYWdzOworCisJc3Bpbl9s
+b2NrX2lycXNhdmUoJmRwY20tPmxvY2ssIGZsYWdzKTsKIAlkZWxfdGltZXIoJmRwY20tPnRpbWVy
+KTsKLQlzcGluX3VubG9jaygmZHBjbS0+bG9jayk7CisJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgm
+ZHBjbS0+bG9jaywgZmxhZ3MpOwogCXJldHVybiAwOwogfQogCkBAIC0zMjAsMTEgKzMyNCwxMiBA
+QCBkdW1teV9zeXN0aW1lcl9wb2ludGVyKHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVhbSAqc3Vic3Ry
+ZWFtKQogewogCXN0cnVjdCBkdW1teV9zeXN0aW1lcl9wY20gKmRwY20gPSBzdWJzdHJlYW0tPnJ1
+bnRpbWUtPnByaXZhdGVfZGF0YTsKIAlzbmRfcGNtX3VmcmFtZXNfdCBwb3M7CisJdW5zaWduZWQg
+bG9uZyBmbGFnczsKIAotCXNwaW5fbG9jaygmZHBjbS0+bG9jayk7CisJc3Bpbl9sb2NrX2lycXNh
+dmUoJmRwY20tPmxvY2ssIGZsYWdzKTsKIAlkdW1teV9zeXN0aW1lcl91cGRhdGUoZHBjbSk7CiAJ
+cG9zID0gZHBjbS0+ZnJhY19wb3MgLyBIWjsKLQlzcGluX3VubG9jaygmZHBjbS0+bG9jayk7CisJ
+c3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmZHBjbS0+bG9jaywgZmxhZ3MpOwogCXJldHVybiBwb3M7
+CiB9CiAKLS0gCjIuMTcuMQ==

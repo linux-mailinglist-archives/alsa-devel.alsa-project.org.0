@@ -2,113 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CE2673D0C7
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Jun 2023 14:11:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C36FE73D12F
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Jun 2023 15:46:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D95B822;
-	Sun, 25 Jun 2023 14:10:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D95B822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42DBE74C;
+	Sun, 25 Jun 2023 15:46:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42DBE74C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687695095;
-	bh=+E/WpeEtiwyMCGbEoIpPk1ipO8KzxtaT2ie0cXC6Aog=;
-	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
+	s=default; t=1687700818;
+	bh=/dgXGPEnIuU6+bBqIaYhtVFVOCweUsU/2i0MHh7SHAA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=F6lRXHxU0NZ6QrNW9H3sFfDLp1yhwfx5OvnMM1jkxuihPqCH9/jcH4lSkVL29wj9K
-	 ppKIimFeQ8NNQDe8KM0k236maptznBEmOPHS8OcWi3d5XplUzKGpxgvoe61zHPz3S7
-	 qoSShAPpdnEb8nSm9IFbZfhRmNuwsSFynJx8nxDs=
+	b=AaUuFzqE5d+i7cRB0TEAc/1o1DZSBHbm2jxQGE9taRQrJ7l0p53Qsc4J4Q2gyqfnj
+	 DhCkTadmnyq8oiFqqkEVV9cXKFsvjJaoVtERAqfBE0NFzpk2SNLj+ZQ65pE+POwugp
+	 k6lvsvi9YEfalNO5xQi4Mcevxsj2mZowzm6VNWaY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3D9C0F8053B; Sun, 25 Jun 2023 14:10:44 +0200 (CEST)
+	id 42996F8051E; Sun, 25 Jun 2023 15:46:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3F22F80212;
-	Sun, 25 Jun 2023 14:10:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B366DF80212;
+	Sun, 25 Jun 2023 15:46:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18A08F80246; Sun, 25 Jun 2023 14:10:38 +0200 (CEST)
+	id 247C4F80246; Sun, 25 Jun 2023 15:46:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mout.web.de (mout.web.de [212.227.15.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [IPv6:2607:f8b0:4864:20::102e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B602F80169
-	for <alsa-devel@alsa-project.org>; Sun, 25 Jun 2023 14:10:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B602F80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2525BF80124
+	for <alsa-devel@alsa-project.org>; Sun, 25 Jun 2023 15:45:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2525BF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=web.de header.i=markus.elfring@web.de
- header.a=rsa-sha256 header.s=s29768273 header.b=I32WeJIS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=s29768273; t=1687695022; x=1688299822; i=markus.elfring@web.de;
- bh=+E/WpeEtiwyMCGbEoIpPk1ipO8KzxtaT2ie0cXC6Aog=;
- h=X-UI-Sender-Class:Date:To:Cc:References:Subject:From:In-Reply-To;
- b=I32WeJISVqRzSDD3SGc1UjBv76sxx5GrhA5B87b/v46s/i94GR3pr2lcSsoijDPlkIJxJA7
- t7M4Sa/n0X6ewMVBExO5r+fNhEQMuDaalvw2nUUPj02dOVd8c3WzRjzjt6Aa2UWMAJ81EJlLB
- ZJ5LrRpQ1+tt7wP8tzWWFuBuncuOwvEqrAFTQ+TuKz+kPNepsgB5uQWKT4rHm2hU8GwiomraH
- nnhFw/McrBPH5qjTndNZLRDh8QcD8T0FBY29PiMIL6lqrhglR+rq6AoBZNBCH8eTSLhY6LgCR
- cn8KO0P0ZI9lD6QVNtKWJDZiZUMAdhgoJOCicPlOgX+mvk8XNzWQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.82.83]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MFs1z-1qHUMj28sR-00HOXw; Sun, 25
- Jun 2023 14:10:22 +0200
-Message-ID: <08b8fa18-9520-2959-a6c9-6ea6132d9b46@web.de>
-Date: Sun, 25 Jun 2023 14:10:21 +0200
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=DIu9Ny/7
+Received: by mail-pj1-x102e.google.com with SMTP id
+ 98e67ed59e1d1-262e839647eso334473a91.2
+        for <alsa-devel@alsa-project.org>;
+ Sun, 25 Jun 2023 06:45:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1687700745; x=1690292745;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=9um6ptaOKAi61nB5XO7Dl3qnm1zJlbhB7/bYZ4qz2kM=;
+        b=DIu9Ny/7jaoTNLkGF8/WA5PPNK+jRdr7UQ0oUK8gpDleZDBYKkEZTRWvV3q0WCVDkr
+         GT9WGDqQAd6NM3Hv1OBgtl8/K9UJmgSuJRLqsWXBXFXz9xRKraV4dO1gJ8knuWzH89FD
+         5ZBp0RxbEzte21jPDl7kMB+sxKGvhF7PqHUrgXYtdti8GcQuUInbzrjXCOqFFOZDBhMO
+         IMo7/KqAaRWozkJvnoh0Iekll7VhVmEMiZQsJ3TqFXKC1y0eUPCjoaPqTzuR0cjVbcs2
+         xJTlHHmr8A6MBvUO6sq0WtDEOTraSRGzMEPDoZJ5FSgONJaq67twdWxH0KwyA7EKLbZm
+         hw/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687700745; x=1690292745;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9um6ptaOKAi61nB5XO7Dl3qnm1zJlbhB7/bYZ4qz2kM=;
+        b=Cnvetclx8FVyRBpPyBzbRYFYkUoiFlWukWPkW+Xa9zjGxiJWsdfoHm1EWmu1LdzDm/
+         gWGcXoO4pcp5uQ7s9vSyn0i+0+1KOzfJtPD4I4OCEXJxKWOlst5/HGjgkk9KWVQGZF2U
+         4OFviqihOa/uN74Ositt0ikEo4H4t8JCtewaLbwjhzb5IyN88BeN5jOkr7Q+vU71733C
+         zW9wkpqO6oIVta0L696Pxvsn0fcQGSwNQvf52ZjwskErpj2qdgUdOhRPQroa4VWA5Bu9
+         Zc/8WI2Pe4yODfzRiIlhZtGBGFh3kMjvYdbLP+EHi97Z1SUrXCqKsdaB+ArkpwiIvy8K
+         wG3w==
+X-Gm-Message-State: AC+VfDxeisFrYhcOf713/uiTF1R4h73JIxne8IdzfhIeWii44ZmqfLG8
+	SW1g5iWKNw8NUMTw12kW1WkCcWKishDpSIwCzQ4=
+X-Google-Smtp-Source: 
+ ACHHUZ7vkizBq3N3yfXSjDuGR6Zka/LKQnjrdgn0dMXOeeTF+VYjwYV4P6nmFxHwa1+WFqaETkla1uT7JKiYDkyc20I=
+X-Received: by 2002:a17:90b:3714:b0:261:685:95b6 with SMTP id
+ mg20-20020a17090b371400b00261068595b6mr11812001pjb.13.1687700745344; Sun, 25
+ Jun 2023 06:45:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-To: Matthias Reichl <hias@horus.com>, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org, Dom Cobley <popcornmix@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: LKML <linux-kernel@vger.kernel.org>
-References: <20230624165216.5719-1-hias@horus.com>
-Subject: Re: [PATCH] ALSA: pcm: fix ELD constraints for (E)AC3, DTS(-HD) and
- MLP formats
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20230624165216.5719-1-hias@horus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:n13YvkZw4aOBSv0xgKI8GxUEzU+T64zkzP2fZzEbgtADvkBZVB8
- fBtqP133CpnY+qDqIIIaJFZISm1Y2hk0yO1Lseh80XB6Oi5rcoECxCFq9vHfffmBgd73Ks9
- 2H0J3zirR3jq7w20/+90evlSzqpPM8IFqI9hrbKEyWkx+9nJoYvrRfwc9+WRb9VD6GyMM4N
- ZvNV4a10iMLWuFFUXiBUA==
-UI-OutboundReport: notjunk:1;M01:P0:dtX7aGFcfRY=;Uhd7GAHWhFsxK8dXPmVD6K2krnf
- GoS0VXYQzzqOo5vId7KipWc2SPqZTBkOv/I3np3ZWeQpRxJj8v4ORz6eixi8VQq6MkO0rpY10
- Z5JsnuZ6Kwgn/DML4JiTaWLvawf06OIhA0hYHl+0JB1CT+wKQr9FgYp4kNTEho/GKEr4IIUpC
- tCcoVF0JqaaWJcmpPbCMhjkUOPe2aqNbQVK/iS5EZUA2la4E1tZq1gUAwH/eMu+BB6vSxwMAm
- nOqizzufWj9BN0oF27tikA02EnlosZ0tb9Zt3zp03tr8ilfpJQuuqpUblO5ReOgDcr4gtYegv
- tUtgXODE219AX5H7H4qz35aLw49XKv001CZBSgVGrZeyq6tYwYgF+DhbbDDUSASVo5ICRXF35
- B+Wh5IWTxv30pD6wbONuy98E6fCfTbmzrjnLoF9aWmED8dyNsCzYuvllP2+xADGBukCSneV6n
- IpdzRGbxZ1rUqFNeL8KqyG6oFr31iXqhENoMIm2vp1fSzu0a0PUQN+Poz+Q9tpeiE14/1B9dQ
- x027nL+lvevjVq0gYWwZ2ktmTb96euZ4t8pGM0E/LtUgkp6Ma7CxteBtTDp0FbkeUD0NakZRZ
- DKV4UVAE5JSxj5Rl3R+HsJMOasFBRXnROZdiucr7MF4j4fqUk4k+xw5RKMmquOZFOJEGwkz5E
- evjBjYrUqLS/M5RikK8nUwOq66ob3LQ9dgyqwZGdsfrAtVoASEIP8qY8dJB8hq5S/9OWXY+x6
- ZptSyeuQicHySWav1wRv7bqCdNUx/Cv+voyPgb4rc8pFqIIFYwmlL1VxQopASCEgjyqo/6Tmz
- 3+gsTKtQ8Tgi8Gqh4DaaPubKS8LmsQfb0Zy/Cw1WZFpb54wI8fp7tvJN3/3/brQ1tW0PXum1e
- 3lsCqjNlkSdHxCVyUApuypcldXAsZ2p+QTdzz/yJ2AfRRww87Ybu3h3GOw+mvH4b2DUoi2skV
- dtdyKQ==
-Message-ID-Hash: O3HXOWFCKDZKJKYYI3GSXZJBXPCO63ZJ
-X-Message-ID-Hash: O3HXOWFCKDZKJKYYI3GSXZJBXPCO63ZJ
-X-MailFrom: Markus.Elfring@web.de
+References: <20230521225702.1608-1-rdunlap@infradead.org>
+In-Reply-To: <20230521225702.1608-1-rdunlap@infradead.org>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Sun, 25 Jun 2023 21:45:34 +0800
+Message-ID: 
+ <CAA+D8AMArTYodVhJuLfptvUDKUw4o7miPXYdaAsi_O=UdMKbpQ@mail.gmail.com>
+Subject: Re: [PATCH v2 RESEND] ASoC: fsl MPC52xx drivers require PPC_BESTCOMM
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, Grant Likely <grant.likely@secretlab.ca>,
+	Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Message-ID-Hash: WLXHFMUEMOHPCZI33ZBX57QORZKVYGSX
+X-Message-ID-Hash: WLXHFMUEMOHPCZI33ZBX57QORZKVYGSX
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O3HXOWFCKDZKJKYYI3GSXZJBXPCO63ZJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WLXHFMUEMOHPCZI33ZBX57QORZKVYGSX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,18 +119,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-=E2=80=A6
-> This patch fixes the constraints for the common AC3 and DTS formats,
-=E2=80=A6
-
-Please add an imperative change suggestion.
-
-See also:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/submitting-patches.rst?h=3Dv6.4-rc7#n94
-
-
-How do you think about to add the tag =E2=80=9CFixes=E2=80=9D?
-
-Regards,
-Markus
+T24gTW9uLCBNYXkgMjIsIDIwMjMgYXQgNjo1N+KAr0FNIFJhbmR5IER1bmxhcCA8cmR1bmxhcEBp
+bmZyYWRlYWQub3JnPiB3cm90ZToNCg0KPiBCb3RoIFNORF9NUEM1Mnh4X1NPQ19QQ00wMzAgYW5k
+IFNORF9NUEM1Mnh4X1NPQ19FRklLQSBzZWxlY3QNCj4gU05EX1NPQ19NUEM1MjAwX0FDOTcuIFRo
+ZSBsYXR0ZXIgc3ltYm9sIGRlcGVuZHMgb24gUFBDX0JFU1RDT01NLA0KPiBzbyB0aGUgMiBmb3Jt
+ZXIgc3ltYm9scyBzaG91bGQgYWxzbyBkZXBlbmQgb24gUFBDX0JFU1RDT01NIHNpbmNlDQo+ICJz
+ZWxlY3QiIGRvZXMgbm90IGZvbGxvdyBhbnkgZGVwZW5kZW5jeSBjaGFpbnMuDQo+DQo+IFRoaXMg
+cHJldmVudHMgYSBrY29uZmlnIHdhcm5pbmcgYW5kIGJ1aWxkIGVycm9yczoNCj4NCj4gV0FSTklO
+RzogdW5tZXQgZGlyZWN0IGRlcGVuZGVuY2llcyBkZXRlY3RlZCBmb3IgU05EX1NPQ19NUEM1MjAw
+X0FDOTcNCj4gICBEZXBlbmRzIG9uIFtuXTogU09VTkQgWz15XSAmJiAhVU1MICYmIFNORCBbPW1d
+ICYmIFNORF9TT0MgWz1tXSAmJg0KPiBTTkRfUE9XRVJQQ19TT0MgWz1tXSAmJiBQUENfTVBDNTJ4
+eCBbPXldICYmIFBQQ19CRVNUQ09NTSBbPW5dDQo+ICAgU2VsZWN0ZWQgYnkgW21dOg0KPiAgIC0g
+U05EX01QQzUyeHhfU09DX1BDTTAzMCBbPW1dICYmIFNPVU5EIFs9eV0gJiYgIVVNTCAmJiBTTkQg
+Wz1tXSAmJg0KPiBTTkRfU09DIFs9bV0gJiYgU05EX1BPV0VSUENfU09DIFs9bV0gJiYgUFBDX01Q
+QzUyMDBfU0lNUExFIFs9eV0NCj4gICAtIFNORF9NUEM1Mnh4X1NPQ19FRklLQSBbPW1dICYmIFNP
+VU5EIFs9eV0gJiYgIVVNTCAmJiBTTkQgWz1tXSAmJg0KPiBTTkRfU09DIFs9bV0gJiYgU05EX1BP
+V0VSUENfU09DIFs9bV0gJiYgUFBDX0VGSUtBIFs9eV0NCj4NCj4gRVJST1I6IG1vZHBvc3Q6ICJt
+cGM1MjAwX2F1ZGlvX2RtYV9kZXN0cm95Ig0KPiBbc291bmQvc29jL2ZzbC9tcGM1MjAwX3BzY19h
+Yzk3LmtvXSB1bmRlZmluZWQhDQo+IEVSUk9SOiBtb2Rwb3N0OiAibXBjNTIwMF9hdWRpb19kbWFf
+Y3JlYXRlIg0KPiBbc291bmQvc29jL2ZzbC9tcGM1MjAwX3BzY19hYzk3LmtvXSB1bmRlZmluZWQh
+DQo+DQo+IEZpeGVzOiA0MGQ5ZWMxNGU3ZTEgKCJBU29DOiByZW1vdmUgQlJPS0VOIGZyb20gRWZp
+a2EgYW5kIHBjbTAzMCBmYWJyaWMNCj4gZHJpdmVycyIpDQo+IFNpZ25lZC1vZmYtYnk6IFJhbmR5
+IER1bmxhcCA8cmR1bmxhcEBpbmZyYWRlYWQub3JnPg0KPiBDYzogR3JhbnQgTGlrZWx5IDxncmFu
+dC5saWtlbHlAc2VjcmV0bGFiLmNhPg0KPiBDYzogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwu
+b3JnPg0KPiBDYzogTGlhbSBHaXJkd29vZCA8bGdpcmR3b29kQGdtYWlsLmNvbT4NCj4gQ2M6IFNo
+ZW5naml1IFdhbmcgPHNoZW5naml1LndhbmdAZ21haWwuY29tPg0KPiBDYzogWGl1Ym8gTGkgPFhp
+dWJvLkxlZUBnbWFpbC5jb20+DQo+IENjOiBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcNCj4g
+Q2M6IGxpbnV4cHBjLWRldkBsaXN0cy5vemxhYnMub3JnDQo+IENjOiBKYXJvc2xhdiBLeXNlbGEg
+PHBlcmV4QHBlcmV4LmN6Pg0KPiBDYzogVGFrYXNoaSBJd2FpIDx0aXdhaUBzdXNlLmNvbT4NCj4N
+Cg0KQWNrZWQtYnk6IFNoZW5naml1IFdhbmcgPHNoZW5naml1LndhbmdAZ21haWwuY29tPg0KDQpC
+ZXN0IHJlZ2FyZHMNCldhbmcgc2hlbmdqaXUNCg0KPiAtLS0NCj4gdjI6IHVzZSBjb3JyZWN0IGVt
+YWlsIGFkZHJlc3MgZm9yIE1hcmsgQnJvd24uDQo+DQo+ICBzb3VuZC9zb2MvZnNsL0tjb25maWcg
+fCAgICA0ICsrLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRp
+b25zKC0pDQo+DQo+IGRpZmYgLS0gYS9zb3VuZC9zb2MvZnNsL0tjb25maWcgYi9zb3VuZC9zb2Mv
+ZnNsL0tjb25maWcNCj4gLS0tIGEvc291bmQvc29jL2ZzbC9LY29uZmlnDQo+ICsrKyBiL3NvdW5k
+L3NvYy9mc2wvS2NvbmZpZw0KPiBAQCAtMjQzLDcgKzI0Myw3IEBAIGNvbmZpZyBTTkRfU09DX01Q
+QzUyMDBfQUM5Nw0KPg0KPiAgY29uZmlnIFNORF9NUEM1Mnh4X1NPQ19QQ00wMzANCj4gICAgICAg
+ICB0cmlzdGF0ZSAiU29DIEFDOTcgQXVkaW8gc3VwcG9ydCBmb3IgUGh5dGVjIHBjbTAzMCBhbmQg
+V005NzEyIg0KPiAtICAgICAgIGRlcGVuZHMgb24gUFBDX01QQzUyMDBfU0lNUExFDQo+ICsgICAg
+ICAgZGVwZW5kcyBvbiBQUENfTVBDNTIwMF9TSU1QTEUgJiYgUFBDX0JFU1RDT01NDQo+ICAgICAg
+ICAgc2VsZWN0IFNORF9TT0NfTVBDNTIwMF9BQzk3DQo+ICAgICAgICAgc2VsZWN0IFNORF9TT0Nf
+V005NzEyDQo+ICAgICAgICAgaGVscA0KPiBAQCAtMjUyLDcgKzI1Miw3IEBAIGNvbmZpZyBTTkRf
+TVBDNTJ4eF9TT0NfUENNMDMwDQo+DQo+ICBjb25maWcgU05EX01QQzUyeHhfU09DX0VGSUtBDQo+
+ICAgICAgICAgdHJpc3RhdGUgIlNvQyBBQzk3IEF1ZGlvIHN1cHBvcnQgZm9yIGJicGxhbiBFZmlr
+YSBhbmQgU1RBQzk3NjYiDQo+IC0gICAgICAgZGVwZW5kcyBvbiBQUENfRUZJS0ENCj4gKyAgICAg
+ICBkZXBlbmRzIG9uIFBQQ19FRklLQSAmJiBQUENfQkVTVENPTU0NCj4gICAgICAgICBzZWxlY3Qg
+U05EX1NPQ19NUEM1MjAwX0FDOTcNCj4gICAgICAgICBzZWxlY3QgU05EX1NPQ19TVEFDOTc2Ng0K
+PiAgICAgICAgIGhlbHANCj4NCg==

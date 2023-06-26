@@ -2,112 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77C9673DD0A
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1F9673DE3D
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:53:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D194826;
-	Mon, 26 Jun 2023 13:13:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D194826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B7A4155A;
+	Mon, 26 Jun 2023 13:52:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B7A4155A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687778060;
-	bh=62c3Y86+OLkF4s7dXix5zSxvKy2EOIzqBdqAnDGHfCM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1687780385;
+	bh=WMnyc76wPixdfN6eTs+gBg4osYliPCF6Ft6xT2Ch/o8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dJwnCchG4XVIb0tG0YAdVjKIe6+qHA1xXAZH8kVblrMhfWN0DGPV85uOh76oGe0dd
-	 sGNl8fulJuFWKtpR4B4HMNlnBokDkF7KshaG4o5xWHsJpfNf0VKJ3OvLh3yC1KiBJn
-	 6rk/gGHEwhndF55Cs+j3xIdAWDms+LQG3ipaz2aM=
+	b=nWjjopD4OY5kEZUTlVxEkP0Q0a24W3VwL9Rc2Q4BDL12Ukh28s/JzskoaUdJyLjo1
+	 nu0SGHAoZWXpXV9FsqvwYhYQFp/CG7sHEOsp1U3NoZ7+4IlQ4vH5CB9vbxc73pIV4K
+	 Xgku2LHvjG8wFpqTIyu50OpgwyDsJm1rUOkFeDRU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0CA48F80169; Mon, 26 Jun 2023 13:13:29 +0200 (CEST)
+	id C4761F8051E; Mon, 26 Jun 2023 13:49:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A732F80169;
-	Mon, 26 Jun 2023 13:13:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65CF2F80093;
+	Mon, 26 Jun 2023 13:49:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 690D8F80246; Mon, 26 Jun 2023 13:13:26 +0200 (CEST)
+	id 12157F80246; Mon, 26 Jun 2023 13:49:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 36057F800E3
-	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 13:13:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36057F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1117EF800E3
+	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 13:49:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1117EF800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=xDSvj+cA;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=MTQZUZ7D
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=jem1nIw5
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id ACC391F8AB;
-	Mon, 26 Jun 2023 11:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1687778003;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vKaUDMX7q/k4wnF5zn+Vr6K9ID3Iq87i7XrGFy/yZkk=;
-	b=xDSvj+cA2CrQW1d62/Hj9ME9axiJ+O/23UMa+mgChTWNbHzBw4uM/vWi5T1dR2joITeEOE
-	H3MVyOpfp1IeqA5cjVs3PZ79QjwUlCIzZ5M5oLdtunX6FHbqJHZUXQPVLgQQmNO0rZYtna
-	VyTxkWulNw7C7ahnlnVhHJzmMyPOHiQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1687778003;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vKaUDMX7q/k4wnF5zn+Vr6K9ID3Iq87i7XrGFy/yZkk=;
-	b=MTQZUZ7DNlmCoXdgQk6JahE7IEQ55oYgyNPsqB40wbT1iqRA8yXqESqu/5jzwapNseMsTk
-	UC6JtrgSrpqJw0Cw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7F3FF13483;
-	Mon, 26 Jun 2023 11:13:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id RToNHtNymWT4JAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 26 Jun 2023 11:13:23 +0000
-Date: Mon, 26 Jun 2023 13:13:21 +0200
-Message-ID: <87ttuuv5m6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Tuo Li <islituo@gmail.com>,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	Linux Kernel <linux-kernel@vger.kernel.org>,
-	baijiaju1990@outlook.com
-Subject: Re: [BUG] ALSA: core: pcm_memory: a possible data race in
- do_alloc_pages()
-In-Reply-To: <45445f57-0a73-59e6-6f3d-3983ce93a324@perex.cz>
-References: 
- <CADm8Tek6t0WedK+3Y6rbE5YEt19tML8BUL45N2ji4ZAz1KcN_A@mail.gmail.com>
-	<877crqwvi1.wl-tiwai@suse.de>
-	<CADm8Tenfy8joto5WLCqQWjfT8WimsbJgOss0hJe-ciyDRMrSXw@mail.gmail.com>
-	<871qhywucj.wl-tiwai@suse.de>
-	<4d0931bf-b356-6969-5aaf-b663d7f2b21a@perex.cz>
-	<87wmzqv64o.wl-tiwai@suse.de>
-	<45445f57-0a73-59e6-6f3d-3983ce93a324@perex.cz>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: XNKSX5J7N4TNOV6MO4SLVVISK75AER47
-X-Message-ID-Hash: XNKSX5J7N4TNOV6MO4SLVVISK75AER47
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 23B2160DDF;
+	Mon, 26 Jun 2023 11:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788C8C433C8;
+	Mon, 26 Jun 2023 11:49:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687780156;
+	bh=WMnyc76wPixdfN6eTs+gBg4osYliPCF6Ft6xT2Ch/o8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jem1nIw5r5mSLKK4uESM0pz0NZbdpCCfk35MvqualwJ5PeQmgF5z4KrvcdkbC6R0h
+	 aNhlRlCXVXiYnKTp1vfRwC9gRbl1uOFliiex6vP5xDuFO5Kuik2mtU+jIqpU98no14
+	 x2iK2iAKaUNF8S/CxXZMyVKVtywmNNO4v0aS5GJ+ypaEW15gSlZJopyOgoUbmaBqGH
+	 ANpcNOqqKshGEHP+zRyb5DFYcqNdrFQePbvsnIby1oMUbuMMWuPm7IvuUueZUGP1dn
+	 UAq3kuXm8U67PKzp+5ig/ESPdJB8i6+53j4gmvyxL42ydPj9TeR3UMj4tYXJ509izs
+	 wHhYE5EJiZTKQ==
+Date: Mon, 26 Jun 2023 12:49:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: core: Always store of_node when getting DAI link
+ component
+Message-ID: <9fbe4924-5c02-43f7-b47f-bc290fd07e67@sirena.org.uk>
+References: <20230623-asoc-fix-meson-probe-v1-1-82b2c2ec5ca4@kernel.org>
+ <87jzvrksi2.wl-kuninori.morimoto.gx@renesas.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3CDck05rY9k9by3C"
+Content-Disposition: inline
+In-Reply-To: <87jzvrksi2.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: Nihilism should commence with oneself.
+Message-ID-Hash: NJO265G4SOMY5DVJCUOAGWRVEZJN52RC
+X-Message-ID-Hash: NJO265G4SOMY5DVJCUOAGWRVEZJN52RC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XNKSX5J7N4TNOV6MO4SLVVISK75AER47/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NJO265G4SOMY5DVJCUOAGWRVEZJN52RC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,42 +102,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 26 Jun 2023 13:09:00 +0200,
-Jaroslav Kysela wrote:
-> 
-> On 26. 06. 23 13:02, Takashi Iwai wrote:
-> > On Mon, 26 Jun 2023 09:56:47 +0200,
-> > Jaroslav Kysela wrote:
-> >> 
-> >> On 26. 06. 23 9:33, Takashi Iwai wrote:
-> >>> On Mon, 26 Jun 2023 09:31:18 +0200,
-> >>> Tuo Li wrote:
-> >>>> 
-> >>>> 
-> >>>> Hello,
-> >>>> 
-> >>>> Thank you for your reply!
-> >>> 
-> >>> FWIW, the simplest fix would be something like below, just extending
-> >>> the mutex coverage.  But it'll serialize the all calls, so it might
-> >>> influence on the performance, while it's the safest way.
-> >> 
-> >> It may be better to update total_pcm_alloc_bytes before
-> >> snd_dma_alloc_dir_pages() call and decrease this value when allocation
-> >> fails to allow parallel allocations. Then the mutex can be held only
-> >> for the total_pcm_alloc_bytes variable update.
-> > 
-> > Yes, it'd work.  But a tricky part is that the actual allocation size
-> > can be bigger, and we need to correct the total_pcm_alloc_bytes after
-> > the allocation result.  So the end result would be a patch like below,
-> > which is a bit more complex than the previous simpler approach.  But
-> > it might be OK.
-> 
-> The patch looks good, but it may be better to move the "post" variable
-> updates to an inline function (mutex lock - update - mutex unlock) for
-> a better readability.
 
-Sounds like a good idea.  Let me cook later.
+--3CDck05rY9k9by3C
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Sun, Jun 25, 2023 at 11:54:29PM +0000, Kuninori Morimoto wrote:
 
-Takashi
+> > The generic snd_soc_dai_get_dlc() contains a default translation function
+> > for DAI names which has factored out common code in a number of card
+> > drivers, resolving the dai_name and of_node either using a driver provided
+
+> Yes, indeed.
+> But I think we want to set it under lock and if ret was no error case ?
+
+It doesn't really matter - there's only one possible result, and nothing
+should be looking at the dlc unless we return success, but yes that'd
+probably be a little cleaner providing we don't ever return early.
+
+--3CDck05rY9k9by3C
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSZezcACgkQJNaLcl1U
+h9BtEQf+INsq9seLiC6VRG4jRO5+qnpMCXRjGjCNE3PIyshFO46vmTbThLBD2WJ4
+82psfBGU3USI8oSeR3uDUMsi7lh7hQq9n8IxaFVbr0TZTaD2EYctvzdRcT5zMbTY
+hJ9NHlvfD/Yc6ryT3g3NMYMaHn2ghSUBBN72ihz3PR0VFJ5h4KZc1V6Xw84k7Ekq
+qcLCNcIowshKkOZMF2DtiHh4LaPQxkOlKLpkWCdnwYlNPtLjAISRr5kS/8McMiVM
+c82esARYyN56ajMf3pcxhZ0tr6kgCKIaydBh/6DQXLuybXheb6SQqb4BXvuervF2
+9Mc8GrUj2SFs9x5B/a4KtbK2QRAJUg==
+=8Ks5
+-----END PGP SIGNATURE-----
+
+--3CDck05rY9k9by3C--

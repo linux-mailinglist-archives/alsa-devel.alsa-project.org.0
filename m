@@ -2,125 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E30BF73E2CA
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 17:06:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBAFE73E363
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 17:33:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F276822;
-	Mon, 26 Jun 2023 17:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F276822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C0BC1EC;
+	Mon, 26 Jun 2023 17:32:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C0BC1EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687792001;
-	bh=6DPxXLTXH6qaWhPP4C+MblcKPpc6NkqkRppbLoi8Oak=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1687793593;
+	bh=oc8eXwxLtaHUGNNUMkPSADFM2VDoCTTTwkzNft5ySf0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mk8mhVVykDjfkmup760Vly1WM2BzZwdvOy9FsqV7FHmY9R6nDYbVYkGNisDadamU9
-	 G3iuGgjXkaA6WGT2X0XNdBu1y0B8WwUtAanCY9SzqsWP4P/jr++Q1Fi15Iz2n9L4Av
-	 j8+Wdkw7VHmUHEhAXs4Zd2slzPfw2XYiRreW4tS8=
+	b=mBHqUyIVTsmrcX1P0zNJI7f4BIVaDu8Ymxcf4QrYTsmmHpjulZFj7Mh3qQk2TbVtX
+	 ro5EeuYCIptM1Nu2Mp8vlE/SyHLKBF1Gc/gXoSPKcdoNZojiJPazrKdITJQ5RZjtEr
+	 aOSnJh+Mi/onvKyg7Npp3Y/IMi1IrbTluuzU+BQw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4A7AF80534; Mon, 26 Jun 2023 17:05:50 +0200 (CEST)
+	id D382CF80544; Mon, 26 Jun 2023 17:32:22 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19F48F80093;
-	Mon, 26 Jun 2023 17:05:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73229F80212;
+	Mon, 26 Jun 2023 17:32:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6F39F80246; Mon, 26 Jun 2023 17:05:45 +0200 (CEST)
+	id 8D336F80246; Mon, 26 Jun 2023 17:32:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CFF4FF80093
-	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 17:05:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFF4FF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1E92DF80169
+	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 17:32:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E92DF80169
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=Qd0fF8i3
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35QAYQr2000870;
-	Mon, 26 Jun 2023 15:05:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=IdtCwDjHqmXMfxmzwDZMSg9ypgdODVVb+Pq+cftBNow=;
- b=Qd0fF8i39cELqb2ccIS94MzQ/tREKTQUmXOX+qr2f8Sasm6YHQWKKD7c1FLoVNYL3eg8
- /dSdL+3Ii99oqB4oCqdIk0MIaSoCezuuxaw38wvlG6GQJTyWIyT54Nc6nit7z3ok/pnT
- zk+1xip+ZXh509JNIz9sO596OC17YAF2x/a5VQhSTxv6UfDewln0Tx0Fwp48o/znn7LX
- mgskrCx8itqkNRq8tvo39rZIDKLPfQpYT/v+Da+j5fxJZkCFQGbTIn3jbB3J43niYrZ6
- HcLUnQAKJSTI9hmWa9VwoFcR83cwvoPjkX43B71vi9IVtstrI4tH9R75MGLvvhkYPfFG iw==
-Received: from nasanppmta02.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rev821xbw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 26 Jun 2023 15:05:28 +0000
-Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
- [10.46.141.250])
-	by NASANPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 35QF5RTW028970
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 26 Jun 2023 15:05:27 GMT
-Received: from [10.110.49.97] (10.80.80.8) by nasanex01b.na.qualcomm.com
- (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Mon, 26 Jun
- 2023 08:05:26 -0700
-Message-ID: <f0606765-d643-06b8-9c44-960b6f52bd00@quicinc.com>
-Date: Mon, 26 Jun 2023 08:05:26 -0700
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=OiVPY0SK
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-3f9c2913133so44675235e9.1
+        for <alsa-devel@alsa-project.org>;
+ Mon, 26 Jun 2023 08:32:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1687793527; x=1690385527;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UotEKVGu4UicdFRFt8vn+mqKSPhJyyY8erAKccSLFS8=;
+        b=OiVPY0SKcCbKeSILoHCmY/qT1E319c5b9eIcoYOSF8c1k8vSUoewSPFxtd2GMDUSEv
+         7qGqpG+l3PBAgiP4ckxQoCzKIvwXF4hlGeP8/yyCjrqZFc00KH1/HH4JMwxrZdC4V2qg
+         j333CfYYVQwgPNSX/ctAvOS118+Lrxb2KYg1Z5oPJFl3WSzUqKVvQDjimxbpRrdUg4TK
+         60Ly4FS50ydNH0ooiZm4eoSmwxmn9YxoCYyCHx/52wHZSCKaZ6aMFIxzO3HghTfGGuLi
+         iiQ3RB+WJZyxlAwMqw5RdxqQDku5fLPBVeLuZW2PwkFphHG0/rmutptD0oEBQbUY+/dh
+         l1hQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687793527; x=1690385527;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UotEKVGu4UicdFRFt8vn+mqKSPhJyyY8erAKccSLFS8=;
+        b=TRzmfg7jsNsGXDyxvunDbrD8oHrc7YG645OoTd8SJQyg5FIlmu9rRYBIyrU1RQfqR4
+         EvJLpP8rG/6Hp/sf+OJC4IMrpPPWo3YLtbQf2zRMD/anILrZqOhumevzErCmwa3LIrXN
+         sNSVAnwLJyrJXlY3o66XetQnI4VIVvxha3nC3aiXLmegySLaZvJ3ICPKN2/l/otGMZ3c
+         /4FzCeOIkrJQm4RQmTUmZug0ydBYyR32YM5BmRuqL2/fQyd1uB129qXoGL4x4WrSbrfs
+         jtMl/REvszGq+dxZpRQAE9VkvWdCJ/8e5p2EwEYxKxyLkcphohRIT1V8GMs2hbe2CwCP
+         1ChA==
+X-Gm-Message-State: AC+VfDy8VTO+YmE2Iy5klPgHoEnMxsOtvBTZdNYU14koY68s3fiptohg
+	Xer9wS/zOz4jOdkgaR2YaeTU9Q==
+X-Google-Smtp-Source: 
+ ACHHUZ5Go2QzsyA7PJ5u3USfatgPyu7gSb79h4oB9qw8x8KLefKL4zc8Uq/5/48twyYJ9y10B561jQ==
+X-Received: by 2002:a7b:ce98:0:b0:3fa:7478:64be with SMTP id
+ q24-20020a7bce98000000b003fa747864bemr10432370wmj.1.1687793526846;
+        Mon, 26 Jun 2023 08:32:06 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
+        by smtp.gmail.com with ESMTPSA id
+ f23-20020a1c6a17000000b003eddc6aa5fasm10864959wmc.39.2023.06.26.08.32.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Jun 2023 08:32:06 -0700 (PDT)
+Message-ID: <92171465-d2ba-c3ba-aa55-0f705e924a0f@linaro.org>
+Date: Mon, 26 Jun 2023 17:32:04 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH v3 01/28] xhci: Add support to allocate several
- interrupters
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v1 1/5] ASoC: dt-bindings: Add StarFive JH7110 dummy
+ PWM-DAC transmitter
 Content-Language: en-US
-To: Mathias Nyman <mathias.nyman@linux.intel.com>,
-        <srinivas.kandagatla@linaro.org>, <mathias.nyman@intel.com>,
-        <perex@perex.cz>, <broonie@kernel.org>, <lgirdwood@gmail.com>,
-        <krzysztof.kozlowski+dt@linaro.org>, <agross@kernel.org>,
-        <Thinh.Nguyen@synopsys.com>, <bgoswami@quicinc.com>,
-        <andersson@kernel.org>, <robh+dt@kernel.org>,
-        <gregkh@linuxfoundation.org>, <tiwai@suse.com>
-CC: <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>, <quic_jackp@quicinc.com>,
-        <quic_plai@quicinc.com>
-References: <20230308235751.495-1-quic_wcheng@quicinc.com>
- <20230308235751.495-2-quic_wcheng@quicinc.com>
- <a45ff335-0563-85c7-3b31-d6ca23a54a3f@linux.intel.com>
- <ed0397eb-da17-fbee-647e-f3a2a57577fe@quicinc.com>
- <9f30e9f9-280e-b381-fecc-2a032c1117af@quicinc.com>
- <da468fe6-709c-b6e6-159d-10f76d296307@linux.intel.com>
-From: Wesley Cheng <quic_wcheng@quicinc.com>
-In-Reply-To: <da468fe6-709c-b6e6-159d-10f76d296307@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01b.na.qualcomm.com (10.46.141.250)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: 5D7z_PDWYDVj5u53kIqTXqnKn4F8kFD3
-X-Proofpoint-GUID: 5D7z_PDWYDVj5u53kIqTXqnKn4F8kFD3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-26_12,2023-06-26_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- adultscore=0 bulkscore=0 clxscore=1015 impostorscore=0 mlxscore=0
- spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=999
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2306260136
-Message-ID-Hash: 44LKX3MDPWYJ7UDECCKQOYKCIPAHIVHE
-X-Message-ID-Hash: 44LKX3MDPWYJ7UDECCKQOYKCIPAHIVHE
-X-MailFrom: quic_wcheng@quicinc.com
+To: Hal Feng <hal.feng@starfivetech.com>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor@kernel.org>, Walker Chen <walker.chen@starfivetech.com>,
+ Xingyu Wu <xingyu.wu@starfivetech.com>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>
+Cc: alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20230626110909.38718-1-hal.feng@starfivetech.com>
+ <20230626110909.38718-2-hal.feng@starfivetech.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230626110909.38718-2-hal.feng@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: ACBIB7CPXSJT3DTYDEBGUJ36EVKQZFGR
+X-Message-ID-Hash: ACBIB7CPXSJT3DTYDEBGUJ36EVKQZFGR
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -132,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/44LKX3MDPWYJ7UDECCKQOYKCIPAHIVHE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ACBIB7CPXSJT3DTYDEBGUJ36EVKQZFGR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,99 +131,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mathias,
+On 26/06/2023 13:09, Hal Feng wrote:
+> Add bindings for StarFive JH7110 dummy PWM-DAC transmitter.
+> 
+> Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
+> ---
+>  .../sound/starfive,jh7110-pwmdac-dit.yaml     | 38 +++++++++++++++++++
+>  1 file changed, 38 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml b/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml
+> new file mode 100644
+> index 000000000000..bc43e3b1e9d2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml
+> @@ -0,0 +1,38 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/starfive,jh7110-pwmdac-dit.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: StarFive JH7110 Dummy PWM-DAC Transmitter
+> +
+> +maintainers:
+> +  - Hal Feng <hal.feng@starfivetech.com>
+> +
+> +allOf:
+> +  - $ref: dai-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jh7110-pwmdac-dit
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  sound-name-prefix: true
 
-On 6/26/2023 6:55 AM, Mathias Nyman wrote:
-> On 24.6.2023 1.37, Wesley Cheng wrote:
->> Hi Mathias,
->>
->> On 3/13/2023 1:32 PM, Wesley Cheng wrote:
->>> Hi Mathias,
->>>
->>> On 3/10/2023 7:07 AM, Mathias Nyman wrote:
->>>> On 9.3.2023 1.57, Wesley Cheng wrote:
->>>>> From: Mathias Nyman <mathias.nyman@linux.intel.com>
->>>>>
->>>>> Introduce xHCI APIs to allow for clients to allocate and free
->>>>> interrupters.  This allocates an array of interrupters, which is 
->>>>> based on
->>>>> the max_interrupters parameter.  The primary interrupter is set as the
->>>>> first entry in the array, and secondary interrupters following after.
->>>>>
->>>>
->>>> I'm thinking about changing this offloading xHCI API
->>>> xhci should be aware and keep track of which devices and endpoints that
->>>> are offloaded to avoid device getting offloaded twice, avoid xhci 
->>>> driver
->>>> from queuing anything itself for these, and act properly if the 
->>>> offloaded
->>>> device or entire host is removed.
->>>>
->>>> So first thing audio side would need to do do is register/create an
->>>> offload entry for the device using the API:
->>>>
->>>> struct xhci_sideband *xhci_sideband_register(struct usb_device *udev)
->>>>
->>>> (xHCI specs calls offload sideband)
->>>> Then endpoints and interrupters can be added and removed from this
->>>> offload entry
->>>>
->>>> I have some early thoughts written as non-compiling code in:
->>>>
->>>> git://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git 
->>>> feature_interrupters
->>>> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
->>>>
->>>>
->>>> Let me know what you think about this.
->>>>
->>>>> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
->>>>> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
->>>>
->>>> My Signed-off-by tag is being misused here.
->>>>
->>>> I wrote a chunk of the code in this patch as PoC that I shared in a 
->>>> separate topic branch.
->>>> It was incomplete and not intended for upstream yet. (lacked 
->>>> locking, several fixme parts, etc..)
->>>> The rest of the code in this patch is completely new to me.
->>>>
->>>
->>> Sorry about this.  I cherry picked the change directly from your 
->>> branch, so it carried your signed off tag with it.  Will make to 
->>> include them properly next time.
->>>
->>
->> I'm about ready to submit the next revision for this set of changes, 
->> and I was wondering how we should handle the changes you made on:
->> https://git.kernel.org/pub/scm/linux/kernel/git/mnyman/xhci.git/log/?h=feature_interrupters 
->>
->>
->> I did make some modifications to some of the interrupter fixme tags 
->> you had, and also updated the xhci-sideband APIs with the proper 
->> logic.  I don't believe it is correct for me to submit a set of 
->> patches authored by you without your signed off tag. (checkpatch 
->> throws an error saying the author did not sign off on the change)
->>
-> 
-> Note that the first patch "xhci: split allocate interrupter into 
-> separate alloacte and add parts"
-> is already in usb-next on its way to 6.5
-> 
-> Maybe Co-developed-by would work in this case, with a small explanation 
-> at the end of the commit message.
-> Something like:
-> 
-> Locking, DMA something and feataure x added by Wesley Cheng to
-> complete original concept code by Mathias
-> 
-> Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-> Co-developed-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> Signed-off-by: Wesley Cheng <quic_wcheng@quicinc.com>
-> 
+Drop
 
-Sounds good!  Thanks for helping with a non-technical question :).  Just 
-wanted to make sure I wasn't overstepping anywhere.
+> +
+> +required:
+> +  - compatible
+> +  - "#sound-dai-cells"
+> +
+> +additionalProperties: false
 
-Thanks
-Wesley Cheng
+Instead: unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    pwmdac-dit {
+
+pwmdac?
+
+Best regards,
+Krzysztof
+

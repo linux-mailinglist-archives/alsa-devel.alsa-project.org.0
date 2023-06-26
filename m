@@ -2,108 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35D4B73E098
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 15:26:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09E9C73E0A9
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 15:30:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E2EDA4B;
-	Mon, 26 Jun 2023 15:25:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E2EDA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ED8D86E;
+	Mon, 26 Jun 2023 15:30:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ED8D86E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687785964;
-	bh=31xwFjz3F7UHSOZgNZgB0flo0egEfUc0nBoBoA/nli8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1687786252;
+	bh=ehLHb1RaOcUfG+7IZea2m2p8XSolF2Z1Rc+ScCZMMSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OEJnF6zczGdcwd3U5HN+8NGbmr8R1y57+IJccSfQ/5BcgXP9QCKkaQvc49rWtunpb
-	 wQWRLH1SxudrPakifPVSLOwa6xD4QVYJHvrT0kXMX7xBIDrrvtctRbNM7XAd5sDhgz
-	 1t0XqGn6bIPu2fxCMoM91F76yAuMZc8PKWOnJqCU=
+	b=h/wcN+NknQnS1LyQkcA4rDMLwdl/pvQVJKdssYWZGJNx/wMROf70/I2IUQpypgG1N
+	 W0YantSbDmMf/M1HWAWlRVFrb7OT2jClh+ox0OIxEAmh+NU1azdMKROTzYSo6gF6bR
+	 4q6XYzc8EbEvL9bb7iRynxapOJJkDZbPKNOfLEWI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDC1CF80534; Mon, 26 Jun 2023 15:25:13 +0200 (CEST)
+	id A22EBF80169; Mon, 26 Jun 2023 15:30:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B230F80212;
-	Mon, 26 Jun 2023 15:25:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3941F80093;
+	Mon, 26 Jun 2023 15:30:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2A436F80246; Mon, 26 Jun 2023 15:25:09 +0200 (CEST)
+	id 4574BF80246; Mon, 26 Jun 2023 15:29:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E2752F80093
-	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 15:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2752F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27CACF80093
+	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 15:29:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27CACF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=BFvbT9mO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Xnd26gT4
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=GbQvr5gh
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 19A4021866;
-	Mon, 26 Jun 2023 13:25:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1687785903;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z/K6yI70TYEQZFVfrI34oWwbqF1/a3qUwHdAc+XSrR4=;
-	b=BFvbT9mOn3DtJ3T0i0IzIMcdrgQZxFs5W4+sSeS6ilFWKdV97bzRyah+SVtIFReyl+sVPQ
-	9QI4rVp/yh8fPUDek7L72NCoZ/bjvLFjeJ0pkat4ru6g2wkncrwXFub8I8Sgbk/TnNY3ZN
-	8rtgSuw4Ki/P+qemj4Up4rpRVhQI3bs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1687785903;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z/K6yI70TYEQZFVfrI34oWwbqF1/a3qUwHdAc+XSrR4=;
-	b=Xnd26gT4aWHu1dPV6jyhZV9odROCkxhQgoNghMVWLoY1itHGryfkUHJzXVwqTM4hMbc9b9
-	XhO/NC4VSAT+WNAw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CA4B413483;
-	Mon, 26 Jun 2023 13:25:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id NFFvMK6RmWTFZQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 26 Jun 2023 13:25:02 +0000
-Date: Mon, 26 Jun 2023 15:25:02 +0200
-Message-ID: <87h6quuzip.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andy Chi <andy.chi@canonical.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Stefan
- Binding <sbinding@opensource.cirrus.com>,	"Luke D. Jones"
- <luke@ljones.dev>,	Meng Tang <tangmeng@uniontech.com>,	Philipp Jungkamp
- <p.jungkamp@gmx.net>,	Kacper =?ISO-8859-2?Q?Michaj=B3ow?=
- <kasper93@gmail.com>,	Yuchi Yang <yangyuchi66@gmail.com>,	Yang Yingliang
- <yangyingliang@huawei.com>,	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable mute/micmute LEDs and limit mic
- boost on EliteBook
-In-Reply-To: <20230626130301.301712-1-andy.chi@canonical.com>
-References: <20230626130301.301712-1-andy.chi@canonical.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 7TXKLS453EVOYPYFZPYT4GER3F3YNC72
-X-Message-ID-Hash: 7TXKLS453EVOYPYFZPYT4GER3F3YNC72
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 1263260EA9;
+	Mon, 26 Jun 2023 13:29:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A88C433C0;
+	Mon, 26 Jun 2023 13:29:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1687786184;
+	bh=ehLHb1RaOcUfG+7IZea2m2p8XSolF2Z1Rc+ScCZMMSA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GbQvr5ghOUDaGI288BIeJ6JwK7aOMs1W33UezDpEXEIR75+EC40Z+/A6qAODDiMPL
+	 6UIgOecebxc9sTXCyVEOoBabNM1J50ZSsbqZspLYkKa1W9U2kvEzNVR/gPFCpxLG83
+	 y1176v09ngDEC/LHktFAFtvkc7WqFjRszbwZDAt5b80IDnsJBb7FFq38LJ+w+hYEye
+	 cWB53DG2bOp2kGazx72O4qP9/cVJ83lc/7vNWv0rEAyh41AZ/oLqERTIwh5Q3vC2o/
+	 zIIrL4k2UNjjIJBXbziWOGwgAA6LxuCpL2iSzxnDIongdSR14g+9LRz4j0uw3axAaI
+	 QMWe3Td43BocQ==
+Date: Mon, 26 Jun 2023 14:29:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+	oder_chiou@realtek.com,
+	Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	vinod.koul@linaro.org, "vkoul@kernel.org" <vkoul@kernel.org>,
+	"Katragadda, Mastan" <mastan.katragadda@amd.com>,
+	"kondaveeti, Arungopal" <arungopal.kondaveeti@amd.com>,
+	"Hiregoudar, Basavaraj" <Basavaraj.Hiregoudar@amd.com>,
+	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [BUG] ASoC: Use the maple tree register cache for RealTek
+ SoundWire CODECs
+Message-ID: <d305c960-afe8-49b0-8583-a3f168311cf5@sirena.org.uk>
+References: <20230609-asoc-rt-sdw-maple-v1-0-85ee50c93905@kernel.org>
+ <b8af4050-85e7-6974-9c44-c26cb6962972@amd.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7GcTA/om1rjWkCw3"
+Content-Disposition: inline
+In-Reply-To: <b8af4050-85e7-6974-9c44-c26cb6962972@amd.com>
+X-Cookie: Nihilism should commence with oneself.
+Message-ID-Hash: K6QRPGQZNTSPKPAZKP6FM6ZCU2HSJZJZ
+X-Message-ID-Hash: K6QRPGQZNTSPKPAZKP6FM6ZCU2HSJZJZ
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -115,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TXKLS453EVOYPYFZPYT4GER3F3YNC72/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K6QRPGQZNTSPKPAZKP6FM6ZCU2HSJZJZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,21 +110,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 26 Jun 2023 15:03:00 +0200,
-Andy Chi wrote:
-> 
-> On HP EliteBook 835/845/845W G10, the audio LEDs can be enabled by
-> ALC285_FIXUP_HP_MUTE_LED. So use it accordingly.
-> 
-> Signed-off-by: Andy Chi <andy.chi@canonical.com>
 
-Applied now.
+--7GcTA/om1rjWkCw3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-But at the next time, please try to put Fixes tag if it's a commit to
-correct the existing contents.  I added it manually in my side at this
-time.
+On Mon, Jun 26, 2023 at 07:00:31PM +0530, Mukunda,Vijendar wrote:
 
+> With cache type changing to maple tree for SoundWire Codec patch series, we are observing
+> rcu warnings with AMD SoundWire stack.
 
-thanks,
+Do you you have 0cc6578048e0980 ("regmap: maple: Drop the RCU read lock
+while syncing registers") in your tree when testing?
 
-Takashi
+> Below are the pastebin links for rcu warnings dmesg logs.
+
+> https://pastebin.com/6sadwNCw <https://pastebin.com/6sadwNCw>
+
+Please include at least some of the actual warning in your emails so
+they are directly readable.
+
+--7GcTA/om1rjWkCw3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSZksEACgkQJNaLcl1U
+h9CFvQf9EiUzY0LKzTIS6a9H0r1rIGY6rY1qIU2UbyalhKtUMfBrETx/nNUYqW4v
+qSZWLqgHJNE4/xiiw/ImNHeNsnHaa0X8TeXLND2NBqMGqZRVW+54oXPnF3LEvvj2
+L2tAH5jZd/Sk0FD0DnFiAjyaoffRPjix5NBzxyx3yMaIlgD/AJZFYFGbMMTCesgd
+9pry2MrSUn1Kf8QasNohLN2/Cpc43zIpS7Bo6dUDyLf2fagOYkkz47kgiRc0AQXR
+TjbHbtpKxZsxS5/u8LRgIdBpoFL1+qh8G2nqz6xpwyr1vMPmCBYGfHqqufba8ShC
+gVsuilMxWNLrc1TabY2Hvy/tqNDGQQ==
+=KzPm
+-----END PGP SIGNATURE-----
+
+--7GcTA/om1rjWkCw3--

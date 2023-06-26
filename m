@@ -2,114 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F5DE73DE1B
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:50:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE69973DE26
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:50:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 464CFEE4;
-	Mon, 26 Jun 2023 13:49:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 464CFEE4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 471301526;
+	Mon, 26 Jun 2023 13:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 471301526
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687780207;
-	bh=aMZpeUdo3WuFn6fyQxHqP6M/I29SUGMYfbqZL7a3Ngg=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=iyIEzKMjpbZ7urwK5Y+SiZq21pmQBPOsr4okULFZ0r1BQOpsNSvlHWef6qb3su781
-	 iLhiHPiY0W23vIhT2XQW+Aw25xKJIltV2/A3vcz65Nfc1yJ6BXWB/s4EVPOwZ/39Zn
-	 14hRDB7HSX/QcQnZsEPUGKNPYZJJEnHC0UrL22zs=
+	s=default; t=1687780238;
+	bh=qRpUiP98LghlNDo6VxgADTtYswIC6RqOE/R76j9tcN8=;
+	h=From:Date:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=cSU3Uo3VNl4Qylt9EDWT34/x6UVk/2Lw8XMDKzsRrtyIcxXVelNVYw2QxrLAP5VR/
+	 DO7uqzk5qbXZip5zWweik7HOfOLvcVzDFnzujrA6doniSlKuAXQkPjX4pcNyMOyyZU
+	 fTYTAQUOHs6D2YBrx2tiWFjbgoZlUvq5z3VeW9hY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 30D54F80691; Mon, 26 Jun 2023 13:43:35 +0200 (CEST)
+	id 794A4F806A6; Mon, 26 Jun 2023 13:43:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F81BF80689;
-	Mon, 26 Jun 2023 13:43:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AABC8F8069A;
+	Mon, 26 Jun 2023 13:43:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E4530F80169; Mon, 26 Jun 2023 04:36:14 +0200 (CEST)
+	id 04063F80246; Mon, 26 Jun 2023 05:42:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RDNS_NONE,SPF_HELO_PASS,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,T_SPF_TEMPERROR
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06228F80246
-	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 04:35:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06228F80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id 95AC9F800E3
+	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 05:42:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95AC9F800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=ihMKutjG
-X-UUID: 264fafee13ca11ee9cb5633481061a41-20230626
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From;
- bh=To/hkL+XsHV+7bzfuPa862srWIZ++zvnkd6g5DhdBek=;
-	b=ihMKutjG9CfJJvKPG3KWJTX55sPZlCyPFfbXheR85Ugk/B+VrFrxncOXpyP4QFOzsrZlEREdzMEARjbiNQ+XTJ7SL0MwADD76AU76d3XbLM4QP9PWdiThjyHspoqac5tYs9OLx+fquyfSCD6wfKKE9ohQyYnlD8kgiXRT48YqUA=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.27,REQID:5716ea10-fdf7-4bf1-bcee-552509a8c80a,IP:0,U
-	RL:25,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:01c9525,CLOUDID:4d00703f-de1e-4348-bc35-c96f92f1dcbb,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:11|1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:
-	NO
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-UUID: 264fafee13ca11ee9cb5633481061a41-20230626
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw01.mediatek.com
-	(envelope-from <maso.huang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1405323478; Mon, 26 Jun 2023 10:35:44 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Mon, 26 Jun 2023 10:35:42 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Mon, 26 Jun 2023 10:35:42 +0800
-From: Maso Huang <maso.huang@mediatek.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
- Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Trevor Wu <trevor.wu@mediatek.com>, Jiaxin Yu
-	<jiaxin.yu@mediatek.com>, Ren Zhijie <renzhijie2@huawei.com>, Allen-KH Cheng
-	<allen-kh.cheng@mediatek.com>, <alsa-devel@alsa-project.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Maso Huang <maso.huang@mediatek.com>
-Subject: [PATCH v2 7/7] ASoC: dt-bindings: mediatek,mt7986-afe: add audio afe
- document
-Date: Mon, 26 Jun 2023 10:35:01 +0800
-Message-ID: <20230626023501.11120-8-maso.huang@mediatek.com>
-X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20230626023501.11120-1-maso.huang@mediatek.com>
-References: <20230626023501.11120-1-maso.huang@mediatek.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=HNrPTg2X
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-3fa23c3e618so41910235e9.0
+        for <alsa-devel@alsa-project.org>;
+ Sun, 25 Jun 2023 20:42:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1687750955; x=1690342955;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=xG0wCYtxDtRk3tXcv0fV5Q+LGQsR2DWLy9yGUnnz9E4=;
+        b=HNrPTg2Xy7K9f39kjYY7jarLNzM0P/DSF7PL1kW+OlQBu6qLzR3WAbG8k7jX3/f6//
+         fpSpNjNPSKrjiKLHuumeAAbPtpr7MB1NNPpd32HC8g9y3xTwjjg1A5rXlIgNdodmp4vK
+         +o/U1GgOW88VNAmVeEAfgT8nkgjgZ0P2GBOIYy0zxQMpv9D2giFmlz2Y04J4fzswVwLW
+         A1BnbkjkuQnjtTnOQBNjbScoDfjppsjmtrad04qGeUTTUTUWIYbpJ+B5TmyK+r3NeCTr
+         9RNyBnkhtOwy9+jJMVF2tRBQEG025rC4SeF3mjJXhm+2QlQvfvN3moCo2vpSigBlftXH
+         6sww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687750955; x=1690342955;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xG0wCYtxDtRk3tXcv0fV5Q+LGQsR2DWLy9yGUnnz9E4=;
+        b=Ca6xDjIsp0Kv3fc/WnzZ5wnf3p99tkophSX6fAy3A1OOAAazl+lwt463KPrYntI75c
+         L5MeWmcpW7xBkTTzFCcQkEkMYgqEqZIA25jb0PfHD2wHP93yGo6+U4+iSAmIq7C/u2Nn
+         tf04nGm/s9yAJdDb3HvOCHAXOMCsYyxXtigLSPGWalNcwukklEbhnWbPYKcsNwcjvSL3
+         f+um4Z8F5uqI6J5eTos/4gARc5fGAqF3AgiXZZetIL6M20Rc1Uzx0zHf4S/6BTk/k7w3
+         P7WzMOz4ZJXNeBXL8uYAqNIKXcPv8r8ZLTj9LPEOGfY9xuKiWod4Q5ZtVEMGp6wLoUQf
+         fgOA==
+X-Gm-Message-State: AC+VfDxSMQ3s4hxP267FO6c/i1l3NqrZ3GjN5LTZTxt0vjdhaQFo8bQy
+	BuLhwLar/8cDCxSuvm/t7jgpSHKgffD9p4Ly/ZE=
+X-Google-Smtp-Source: 
+ ACHHUZ69vZ4ri4mWSXycQ7US0OVDEoMigYG9XolFWAcgAaEgXP4zMSoLRWrCl61QuvxPAL9cYHgU62nvYI0gAyxnDIg=
+X-Received: by 2002:a7b:cd16:0:b0:3fa:98f8:225f with SMTP id
+ f22-20020a7bcd16000000b003fa98f8225fmr504983wmj.26.1687750954644; Sun, 25 Jun
+ 2023 20:42:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MailFrom: maso.huang@mediatek.com
+From: Tuo Li <islituo@gmail.com>
+Date: Mon, 26 Jun 2023 11:42:29 +0800
+Message-ID: 
+ <CADm8Tek6t0WedK+3Y6rbE5YEt19tML8BUL45N2ji4ZAz1KcN_A@mail.gmail.com>
+Subject: [BUG] ALSA: core: pcm_memory: a possible data race in
+ do_alloc_pages()
+To: perex@perex.cz, tiwai@suse.com
+Cc: alsa-devel@alsa-project.org, Linux Kernel <linux-kernel@vger.kernel.org>,
+	baijiaju1990@outlook.com
+X-MailFrom: islituo@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: O2RG7TZA7ESJGZPNOZITLVPYGWNAAQB3
-X-Message-ID-Hash: O2RG7TZA7ESJGZPNOZITLVPYGWNAAQB3
-X-Mailman-Approved-At: Mon, 26 Jun 2023 11:41:56 +0000
+Message-ID-Hash: URKIVT7WKENDDAELB5I723HBZ4IAM7DB
+X-Message-ID-Hash: URKIVT7WKENDDAELB5I723HBZ4IAM7DB
+X-Mailman-Approved-At: Mon, 26 Jun 2023 11:42:25 +0000
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O2RG7TZA7ESJGZPNOZITLVPYGWNAAQB3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/URKIVT7WKENDDAELB5I723HBZ4IAM7DB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,109 +113,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add mt7986 audio afe document.
-
-Signed-off-by: Maso Huang <maso.huang@mediatek.com>
----
- .../bindings/sound/mediatek,mt7986-afe.yaml   | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
-new file mode 100644
-index 000000000000..257327a33ea1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/mediatek,mt7986-afe.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek AFE PCM controller for MT7986
-+
-+maintainers:
-+  - Maso Huang <maso.huang@mediatek.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: mediatek,mt7986-afe
-+      - items:
-+          - enum:
-+              - mediatek,mt7981-afe
-+              - mediatek,mt7988-afe
-+          - const: mediatek,mt7986-afe
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    minItems: 5
-+    items:
-+      - description: audio bus clock
-+      - description: audio 26M clock
-+      - description: audio intbus clock
-+      - description: audio hopping clock
-+      - description: audio pll clock
-+      - description: mux for pcm_mck
-+      - description: audio i2s/pcm mck
-+
-+  clock-names:
-+    minItems: 5
-+    items:
-+      - const: aud_bus_ck
-+      - const: aud_26m_ck
-+      - const: aud_l_ck
-+      - const: aud_aud_ck
-+      - const: aud_eg2_ck
-+      - const: aud_sel
-+      - const: aud_i2s_m
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - assigned-clocks
-+  - assigned-clock-parents
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/clock/mt7986-clk.h>
-+
-+    afe@11210000 {
-+        compatible = "mediatek,mt7986-afe";
-+        reg = <0x11210000 0x9000>;
-+        interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&infracfg_ao CLK_INFRA_AUD_BUS_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_26M_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_L_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_AUD_CK>,
-+                 <&infracfg_ao CLK_INFRA_AUD_EG2_CK>;
-+        clock-names = "aud_bus_ck",
-+                      "aud_26m_ck",
-+                      "aud_l_ck",
-+                      "aud_aud_ck",
-+                      "aud_eg2_ck";
-+        assigned-clocks = <&topckgen CLK_TOP_A1SYS_SEL>,
-+                          <&topckgen CLK_TOP_AUD_L_SEL>,
-+                          <&topckgen CLK_TOP_A_TUNER_SEL>;
-+        assigned-clock-parents = <&topckgen CLK_TOP_APLL2_D4>,
-+                                 <&apmixedsys CLK_APMIXED_APLL2>,
-+                                 <&topckgen CLK_TOP_APLL2_D4>;
-+    };
-+
-+...
--- 
-2.18.0
-
+SGVsbG8sDQoNCk91ciBzdGF0aWMgYW5hbHlzaXMgdG9vbCBmaW5kcyBhIHBvc3NpYmxlIGRhdGEg
+cmFjZSBpbiBBTFNBIGluIExpbnV4IDYuNC4wLg0KDQpJbiBzb21lIGZ1bmN0aW9ucywgdGhlIGZp
+ZWxkIHNuZF9jYXJkLnRvdGFsX3BjbV9hbGxvY19ieXRlcyBpcyBhY2Nlc3NlZA0Kd2l0aCBob2xk
+aW5nIHRoZSBsb2NrIHNuZF9jYXJkLm1lbW9yeV9tdXRleC4gSGVyZSBpcyBhbiBleGFtcGxlOg0K
+DQogIGRvX2ZyZWVfcGFnZXMoKSAtLT4gTGluZSA1Nw0KICAgIG11dGV4X2xvY2soJmNhcmQtPm1l
+bW9yeV9tdXRleCk7IC0tPiBMaW5lIDYxIChMb2NrIGNhcmQtPm1lbW9yeV9tdXRleCkNCiAgICBj
+YXJkLT50b3RhbF9wY21fYWxsb2NfYnl0ZXMgLT0gZG1hYi0+Ynl0ZXM7ICAtLT4gTGluZSA2Mw0K
+KEFjY2VzcyAgY2FyZC0+dG90YWxfcGNtX2FsbG9jX2J5dGVzKQ0KDQpIb3dldmVyLCBpbiB0aGUg
+ZnVuY3Rpb24gZG9fYWxsb2NfcGFnZXMoKToNCg0KICBpZiAobWF4X2FsbG9jX3Blcl9jYXJkICYm
+DQogICAgY2FyZC0+dG90YWxfcGNtX2FsbG9jX2J5dGVzICsgc2l6ZSA+IG1heF9hbGxvY19wZXJf
+Y2FyZCkgLS0+IExpbmUgNDENCg0KdGhlIHZhcmlhYmxlIGNhcmQtPnRvdGFsX3BjbV9hbGxvY19i
+eXRlcyBpcyBhY2Nlc3NlZCB3aXRob3V0IGhvbGRpbmcNCnRoZSBsb2NrIGNhcmQtPm1lbW9yeV9t
+dXRleCwgYW5kIHRodXMgYSBkYXRhIHJhY2UgY2FuIG9jY3VyLg0KDQpJbiBteSBvcGluaW9uLCB0
+aGlzIGRhdGEgcmFjZSBtYXkgYmUgaGFybWZ1bCwgYmVjYXVzZSB0aGUgdmFsdWUgb2YNCmNhcmQt
+PnRvdGFsX3BjbV9hbGxvY19ieXRlcyBtYXkgYmUgY2hhbmdlZCBieSBhbm90aGVyIHRocmVhZCBh
+ZnRlcg0KdGhlIGlmIGNoZWNrLiBUaGVyZWZvcmUsIGl0cyB2YWx1ZSBtYXkgYmUgdG9vIGxhcmdl
+IGFmdGVyIExpbmUgNTEgYW5kIGNhbg0KY2F1c2UgbWVtb3J5IGJ1Z3Mgc3VjaCBhcyBidWZmZXIg
+b3ZlcmZsb3c6DQoNCiAgY2FyZC0+dG90YWxfcGNtX2FsbG9jX2J5dGVzICs9IGRtYWItPmJ5dGVz
+OyAgLS0+IExpbmUgNTENCg0KSSBhbSBub3QgcXVpdGUgc3VyZSB3aGV0aGVyIHRoaXMgcG9zc2li
+bGUgZGF0YSByYWNlIGlzIHJlYWwgYW5kIGhvdyB0bw0KZml4IGl0IGlmIGl0IGlzIHJlYWwuDQoN
+CkFueSBmZWVkYmFjayB3b3VsZCBiZSBhcHByZWNpYXRlZCwgdGhhbmtzIQ0KDQpSZXBvcnRlZC1i
+eTogQmFzc0NoZWNrIDxiYXNzQGJ1YWEuZWR1LmNuPg0KDQpCZXN0IHdpc2hlcywNClR1byBMaQ0K

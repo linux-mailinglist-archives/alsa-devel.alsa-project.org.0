@@ -2,176 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4978573DC8B
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 12:54:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2970A73DC79
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 12:50:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00D14826;
-	Mon, 26 Jun 2023 12:53:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00D14826
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3BAB826;
+	Mon, 26 Jun 2023 12:49:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3BAB826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687776889;
-	bh=pZWoQf3B9JuFM2VJsrOeUC2fq5P87ZgsCe/B6CPzf84=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=K1j4f1TZdhiTRmqjGGDoaBzm3wU9zRUr0Wjgz739Z/EPkQpdU4GAuWp15QyTPheVH
-	 zRCNkSJRJHWQQbJtunrp/LPGVk8mgMjWzffoxi4Fp4sdWaNnhXcPDpCz6wAakkyoIg
-	 Ddq8/KDwtAvM0iXe6AG8GXbWv+8sjSQvvSbbhkW0=
+	s=default; t=1687776636;
+	bh=K/DIrngDXRqFkoySoWrM87AZXYW6qNCWHv9oMMivNBY=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=tprO8s5j6CgeftK2jMAYmeleAyVlU5jLWY4A1KceMjLf3sQb8oxPwAGya0hOzWahl
+	 dSR+IHJK/Q6avr3dtx7EbKXqWVZCVh3xuUXCom8J/moNdVqRtPBDRzPR6Y/OOX2PeH
+	 p8NpshOkUqCyLBgZXfqSD+Qx4X+4tkLrdVffi3cQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BDB31F8053B; Mon, 26 Jun 2023 12:53:58 +0200 (CEST)
+	id 7465BF8027B; Mon, 26 Jun 2023 12:49:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57F0EF800E3;
-	Mon, 26 Jun 2023 12:53:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B662FF80212;
+	Mon, 26 Jun 2023 12:49:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3ED4AF80169; Mon, 26 Jun 2023 12:53:53 +0200 (CEST)
+	id 586B9F80246; Mon, 26 Jun 2023 12:49:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20729.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::729])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20613.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::613])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 65E68F80246
-	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 12:51:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65E68F80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id 23A31F80169
+	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 12:49:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23A31F80169
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
- unprotected) header.d=connect.ust.hk header.i=@connect.ust.hk
- header.a=rsa-sha256 header.s=selector2 header.b=3m0srvDj
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=vI8Bgnz2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lGBZHnrK2yOuvLRQU8vYqZ1kNs/k5F6C7mEXZdwRwEV2Grk1uov3dwFye6BmmTqifJfJTB4+xGlVbU2P74r07FIRrKmcSrwnD5ljMaHsP45acATP0CfRZdLTrsfrgEIDX12nqlKLNCnh1O98nitsqrpLH4PRnmUcYGxUwUklwGe+KJqCjUc6GOExbvKp3tptmsYIVxATT2UIhYSzu4qMXCHwn5fVzPcW5xoghvuiuDHOV3+7tvMdg6kpaRIkHjDByfvoFipgjKgkIxY54WXdS+a1zw8z0M2qdeXjFOAayA6QfGPzTuakhKnpIOwm9LDw9IJixvdfLOX12/XPiUkKgA==
+ b=jrS8CMKTuhJsk6UXNjoRsI5vyUJgmieSei+qEbZh8zXowu1G5VTqM3AQ8X464PvSnwzdewQW+cx/5tspLkwid6c9WnooI97T4FJGoGLmsUQXlxhB/PBwW7ftGWEN1kiVYCPzRi8qWOvLGq7RouusTjas00qmM8wUTMkuTjAqKgJM0cupQf4UiR7tHcHA9gSj5zZbjPMPk49F4QhHMvFnM+bn79gyLLbOqLl6WVl/zw9Z2Qp+aH5JG2rbEdYXUw2475u9GPH6OnHshc/vGw18YqfbEEfhzO3Wu4bDOqVyaG7d2PpeRdtDqvCUQ24I/kkQVvbUo6MR44QWOOiUEslNiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NooFUl4uFRyCluYKTQvN6ReKaZWpHupKhK34bQ5CgPA=;
- b=IcQ7w6aUl2Rc13HWSKlLDBVMKwC1PGcIYx8pST5/14dRokftRoOrMTDqWlnVgnfOzUmaoA7O+drlMvj9CNCANMw74h/h4n04e66XQ9TJ4DKGhi7HG6lrjMF6rj2LxSOt1vN/ZfDjmWBU/4/1Y2wPffRLLI9tHUWdPAfDI3RMBJ33GPBQ1OKEO2xXpfFM4tzFO6hYgxIjChizCH2QSopC6iQxbhuNFA0N1F9Tm4YAo+cuiXilpG0JEHPpgoVT0uV8WlEKXQ9YJcwof1hv0BawBmqhZS+WDZjT4gevUtB61v7e650Xc3uNRpY18yR2kSCsQk5JarW1CasM/fHA8WgKAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=connect.ust.hk; dmarc=pass action=none
- header.from=connect.ust.hk; dkim=pass header.d=connect.ust.hk; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=connect.ust.hk;
- s=selector2;
+ bh=W25PCIQtrqSR/2RyQHi3bguFladghcAJ45xobGw6ji0=;
+ b=SQ9foh429Eg8IHvwrB7eVUeBy50JZp2aEgFW5zsWELjdYJ4gQwMB5bM+ozt2ElzG03kfCU+FVlRn57Qi8BEby4h3aUwUogx76VATgzxu2m4bs1/44kGB5afITMaQ6ejyN/kbZGNs2N9jLS5KG7APAStImmAVgnPFFfy7yoA4kqQaQVxT3rnxgIOrRmzaE+fyeXXtVyCmeCcdv2Dgboc+HOTW6nItx3/oaJPxTGE+Wa8RQ+o09NNWQ4iyyykYxHbXQHeSkRI7/eWBufldwBhJux0rwrIc+8MGAHySQMAuZRc2/bCQT5Uqy9fNLPBPelBfuTDnxEdiw8wGaBS0dbbsJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NooFUl4uFRyCluYKTQvN6ReKaZWpHupKhK34bQ5CgPA=;
- b=3m0srvDjPr7h+xsxeZrhhMkb0s8j2JzZ1LXrZKm/6lxcMtSkIdRS3c/ep1frtqLik4rwNk4c5TYSRt3YbB7YGdkJFB0beDTFdQziU3OxbhLgikPwY6aMNSOnNUP1kqDwO9vM+Mc3m6dEruEj9TgkWtBORU3T89Ych2ZkeGdO/Es=
-Received: from TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:b7::8) by
- TYCP286MB2639.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:243::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6521.26; Mon, 26 Jun 2023 10:51:51 +0000
-Received: from TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM
- ([fe80::b429:5aa3:12f1:6b8]) by TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM
- ([fe80::b429:5aa3:12f1:6b8%4]) with mapi id 15.20.6521.026; Mon, 26 Jun 2023
- 10:51:51 +0000
-From: YE Chengfeng <cyeaa@connect.ust.hk>
-To: Takashi Iwai <tiwai@suse.de>
-CC: "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
-	"yunjunlee@chromium.org" <yunjunlee@chromium.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: 
- =?gb2312?B?u9i4tDogW1BBVENIXSBBTFNBOiBkdW1teTogRml4ICZkcGNtLT5sb2NrIGRl?=
- =?gb2312?Q?adlock_issues?=
-Thread-Topic: [PATCH] ALSA: dummy: Fix &dpcm->lock deadlock issues
-Thread-Index: AQHZp3fywsqsa+nIJUORNCRxL38reK+b0p+AgAEUS5I=
-Date: Mon, 26 Jun 2023 10:51:51 +0000
-Message-ID: 
- <TYCP286MB1188D860B56B9FF1FCAA79148A26A@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
-References: 
- <TYCP286MB1188FEE149369A32D90DCE288A21A@TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM>
- <87edlzwgti.wl-tiwai@suse.de>
-In-Reply-To: <87edlzwgti.wl-tiwai@suse.de>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=connect.ust.hk;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYCP286MB1188:EE_|TYCP286MB2639:EE_
-x-ms-office365-filtering-correlation-id: b8ce6bb6-b0aa-48db-5176-08db7633594e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- lINKYs197gyUypgMN7OoVl2U+UgxR0Yn5pusupS6TctP8F7vGqSDvmG+oEVFyOVSn8S/Fdwff3b3yiEltfW3VlBdDd7dpjU7Us4ZX4obNRMM5fj+oXXhohEjNCuxzlYMBjE2zyINAqSv4p84kMxcoUL7uTgHd+Ma/KVk21Nb3TXJUiSXimpxOWeDBKqS6RtPeTAKG3HYJ/i6HdbkHeXy8NsdDQEQbhKZ1z9dHLO17/w+GhWbTuho20Jrq1w9GkaM1i3o+KUFo2uKIpR8Wd9TnIoNZiYa96Na2qjwwZMw1NIHX16pkEUCISFQgImBvBBxb47tXCCY8vOOifhKfT4LWish90nR5XuOuTD/99ircmf9zdklqCyyzjUx8gISdpZJ6t65r0gU2Vn7Mi4QUulPtVCCtt9rzBHX7TyUeUpkD6qjCYZI22NWlPnGiuzRlf1PiZlF5vvaortKy2ro2SnNHbhh3rFb2e2F7XFptVaMkmXKdGfQ54fRA+On6N4fdU9MpNgNL3uCf76mss0H+0nMAmgEEkayFXC1WTbOvAHVoJWVXOfwSMB3ill2zrp6iFv45SnMA5AN8Fs9md/i8WpzPcTmQB0JFEUsDLJAHAzGqzk+4NtqOQUXfNsxNiz28bB849JyTiVDeIyZef41d2rQQy4ptWTHVpdQR1ENSCla4kE=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(366004)(396003)(39860400002)(376002)(451199021)(8936002)(64756008)(66446008)(55016003)(66476007)(66556008)(4326008)(91956017)(76116006)(66946007)(41300700001)(6916009)(316002)(786003)(6506007)(186003)(9686003)(26005)(478600001)(54906003)(71200400001)(7696005)(2906002)(52536014)(5660300002)(38070700005)(122000001)(38100700002)(19627405001)(33656002)(86362001)(224303003)(83380400001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?gb2312?B?Y1d0KzhHNTVuajhnMEZGcVlReitiSTJxMUE1QlYwd1VueDZyTVhibTd6N0Zm?=
- =?gb2312?B?aXNoNXZHRnRWK2c0NnYvSllBS0RhTmV5ZEt0THU0NDhRSlNmMlFucUJ2RnlG?=
- =?gb2312?B?eDh4MEg2YmsxenhBSkRkNitSNDJDMkNZdnQvNWUvdklYVmRRckNBZVY2NmNJ?=
- =?gb2312?B?UEozVlNUY0wvbE5jR3VuVG10MHZBNUgyWkx0N3VHdW83WngySkVIZnJ2bjRy?=
- =?gb2312?B?cWNOS1ZsMHd3WThZUUtzVkwwNFJUbHYzSzRUVUZlY2M2TTlUaVUvaUxXVlYw?=
- =?gb2312?B?Z3dCY05Vc1R0MGRUdThORmdDMDBwNGl3REVTZ29sWlkzUXkvZU4xdE9aSmd1?=
- =?gb2312?B?UTBkS0NFQ3liK3FRemdIYVBvRGxnU1U1MFc3bCtMb0diOHJrSUtsSGVPbE9m?=
- =?gb2312?B?TytLRGpKWUlab3NoUUZheHQ3NXFZMVBNc0cyWkJNcVlkZDJucnVuRWlNQ090?=
- =?gb2312?B?QldValRHaU0xclAzYkxoTzFvV1ozdnBXcGV0cW83VzdoL0tkZ3kwSlc1dFdG?=
- =?gb2312?B?WmxYYWlDemlNSnFKRGRtL0Q4MXIzRTBRVGJiRm4zbTRkQjBPR2JVQUk1Smk3?=
- =?gb2312?B?eEJyWW1HOXZiU1U4Yk1aQUV3cXNWN2pUQnBRTWRJdFlZeGJlazNXV2ZEVXM0?=
- =?gb2312?B?OTNEaTdjWWszbW5NYTVaTFFZS1luazNIZEZoSE1JSWZVVWNtRVBNNExhLzVX?=
- =?gb2312?B?bU5EcFpBeHRPMWd3eHdTeWE0QjdyOXMwUEVCVmVMVXBSVkpBMjhzenptaVNu?=
- =?gb2312?B?ejlBUjhaU3ZPblFGVXQ1ckZMMTNObVYydHBDWG94YzRPWVFZZFF1SElGWEF1?=
- =?gb2312?B?WmdiaFR3SHROUUQwM05FRjNQRFJuKzNkdEk0L2xQamNjdTYzYzlRZUVZUkE0?=
- =?gb2312?B?UyswMkl4ZUpGWXQ2Z0ZzTTFFWDhyWE5BaGRseUtWT2srRnMrcDJ3NmVZakVO?=
- =?gb2312?B?OUFSeUtVSS9hTndqZndTeVZQZHRRaUpKdVh5QTE3OFYzelltS24rMHZsSk9V?=
- =?gb2312?B?TEViYzc4eEt5UFBxQXVMeHZRR0gvamJFN0VMeUtKd2JBZXFhVkxFWXU2YlRG?=
- =?gb2312?B?c2xXR01Tbm1xRWVuc1IzbXdXUHdYTlA1L285Q29LeTdoT2Nvb0FZMkx2UzNJ?=
- =?gb2312?B?VG1DS0puQ3ZET2tMTVRmL0MyNWxtQ0ZlNjFreHlJWi9jeEpsMUxRbDJTL2NW?=
- =?gb2312?B?dTAzaGM1dWFJR2lKa251TE0wWUx3Vk1EKy9KRU1tYXhwQVlneEhXc3dmUkxn?=
- =?gb2312?B?UFJtYnk0Qm1mQkFJaGZEbUJXcWhibktWWU41ZjdqUFNndWJVUmNCWm9DaE1G?=
- =?gb2312?B?cUhqcE5veFFqN05CWk5BSVJDMHNMRFcwZmJBdVA5VGNIVXZZYWlHdFdmcm1O?=
- =?gb2312?B?Wkh2M1B2c1VZWE5vTUNnNy8yOGpkdHBab3FYSEEzTGZuY0VGRHhwTzJTMnFl?=
- =?gb2312?B?enNzMDVDeFYrcUhoUlJrTWpsc0JlWEdGKzVvQkxtUVdOM0tWbkorbTdnTklh?=
- =?gb2312?B?bVdpQXRuS1lLYWZmRldkUGVacFIyQ0NYRVQvQmU1MFMxWUJteWVxeDBTZnpH?=
- =?gb2312?B?dXZML2sxSWFHOXcrZElVSG9rOWpiUVRVZG51U1VIdXpHNU9EemVQT1RRYWla?=
- =?gb2312?B?MW4ydUZTb0FrNDAyRHRrSm1QNWpLZHV4OXJEOVJ4NXcrdnFLOHBmSHpab3lr?=
- =?gb2312?B?MjUzYjR2RWRob1NxTEd4emZqZ3o4RGNQanVVcjNBK2J6dkxTem50R1dhMmdm?=
- =?gb2312?B?TVRzLytqeG9icWExV0JSYnJBbWg1NExnR2gzVEdIM05BcENQVUFJNkw5NnRo?=
- =?gb2312?B?K1RySkwrRGRRTG1VcE51TWl4NnhvS0lRRDFkNzV1RnowY2g2N2JKNjIxc2Jq?=
- =?gb2312?B?N1lnSWFOL3krZGxNZzgvc2cxaEVRWExuUVQ2YUZtdncwc1F6V0k5bUJQZGhR?=
- =?gb2312?B?S2JILy9yM2czbUZTOTZIQVpzR3VGd1dxUkdGeWF0WCszb0QzNUZhZHRnTzRo?=
- =?gb2312?B?UHJYSUNtQ3JzS2laNFZlN0gxbDRWNko0eVY4NUo4TE0zWnJHN0w0MHpuK0I5?=
- =?gb2312?B?eUN5RzZhdEk1akIwUjVBdURpUURiNW5qOVY3OVlaMWpPRmFwYUF0ZWtUMGl1?=
- =?gb2312?Q?J4gYHaNzAWKgJPEzAfKozn4Qj?=
+ bh=W25PCIQtrqSR/2RyQHi3bguFladghcAJ45xobGw6ji0=;
+ b=vI8Bgnz2ynneWhmWx+ub9cR9WfaDw/NwWZGFvTpN0jA7028ZvXJFxP2QyhUQVfq8AbTA1cwdAZKqJfDeTqh8i/IdwUGc1Lr4Egv6uynj6fWgnlGRmXzWnCxWwcxoQbUOuGNjL+cQHKI/qWIwZOXgIKonmScPWex89jxPd7dQV9o=
+Received: from MW4PR03CA0204.namprd03.prod.outlook.com (2603:10b6:303:b8::29)
+ by SJ0PR12MB8116.namprd12.prod.outlook.com (2603:10b6:a03:4ec::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Mon, 26 Jun
+ 2023 10:49:29 +0000
+Received: from CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b8:cafe::d2) by MW4PR03CA0204.outlook.office365.com
+ (2603:10b6:303:b8::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.33 via Frontend
+ Transport; Mon, 26 Jun 2023 10:49:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT015.mail.protection.outlook.com (10.13.175.130) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.47 via Frontend Transport; Mon, 26 Jun 2023 10:49:28 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 26 Jun
+ 2023 05:49:27 -0500
+Received: from vijendar-X570-GAMING-X.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23
+ via Frontend Transport; Mon, 26 Jun 2023 05:49:24 -0500
+From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <Mastan.Katragadda@amd.com>,
+	<Arungopal.kondaveeti@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>, open list
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/6] ASoC: amd: ps: add comments for DMA irq bits mapping
+Date: Mon, 26 Jun 2023 16:23:49 +0530
+Message-ID: <20230626105356.2580125-1-Vijendar.Mukunda@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-OriginatorOrg: connect.ust.hk
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB1188.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- b8ce6bb6-b0aa-48db-5176-08db7633594e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2023 10:51:51.6468
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT015:EE_|SJ0PR12MB8116:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4440eeff-f82d-4fa7-fcbe-08db76330434
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	TIzvj2pQl/phlP1ZXEPpjGEL+QdqWK0IewbSPVOxx2Zlh0+5/UF0rcNokD4ahfwtgyOmfxkeSz46JK6WktSRnH7fyvxuyCS3jPJKB/oxck7jJQqtYVUaHX/bwva1pYiWCqX9ERetYhJC3NNbyDEOqMuChmYtwudL5RsZrDw11oOxMye9VvrfPJfvnnnCTVd7QM1yCULYn+zvHzPStwj5cIXZYfi2GgqGjIzDyJ7R4SeOAgJXxdINsK9KyOxFNXAxVw/ehgc7ADp0uI9d6cEAIobIwFXLbRGyc/hKy7TT4KNrtePGcuDBvYOf6JgbZRG/tFRUSQW2aa+cQy0T61uicXsNur2CM53lAWB11RSneR3kdtg/RmenqKj4NlGJ5GMhycrP/Mj4IWnUp4UNNnwgn/WL7F5/7hScGktxXFr0XzofdVhB0MVxW6VliJaQZSUlKOQ+hWWR7LY5/JSIFlu+wx2QFK26lKaWjL4dgJqLd3g/P7sEsWLkAPpvAzCigUXbdRIRShm0e1z6OqBUQxrO5FY2kEI/CZNHq/uc+5/kHkDBvEAgHCPcWDLimEuu/c4whdtVr4afOPvRv80RZKJMM4GLtCjyOr8k329o/p4mAhxbaq+lkU5ju8E/VEUpjrqjBqICXS0rV8uSxJoTUBB+xqvXsXlNw4u+YFfKfLd0Fho4BeWcSIsb1HTzQdyd5tE3HxMemXDs/JM2O2xyzEwOyC2zYVmU+2yyoiy3Yfa7Y7UybdxXL8sVf9LC1ys11OEABwIAh0KYrF6dBHzFOYri5A==
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(396003)(39860400002)(346002)(451199021)(46966006)(40470700004)(36840700001)(36860700001)(82310400005)(47076005)(478600001)(7696005)(2616005)(54906003)(426003)(336012)(6666004)(1076003)(26005)(2906002)(186003)(5660300002)(70206006)(40460700003)(36756003)(356005)(4326008)(81166007)(70586007)(82740400003)(40480700001)(8936002)(8676002)(41300700001)(316002)(86362001)(6916009)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2023 10:49:28.7485
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 6c1d4152-39d0-44ca-88d9-b8d6ddca0708
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 
- yJGtG/hSJ0StrytHFgbk+44+3I4HZu6GiHIMXoSyvNDcKb8wQVKy5codN8M4Obgv/HHDvLrspWCQPK9jjzZUfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCP286MB2639
-Message-ID-Hash: FEQ5M43U6BRTQPSVEZ2VUGMDKMH2RMFG
-X-Message-ID-Hash: FEQ5M43U6BRTQPSVEZ2VUGMDKMH2RMFG
-X-MailFrom: cyeaa@connect.ust.hk
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 4440eeff-f82d-4fa7-fcbe-08db76330434
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CO1NAM11FT015.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8116
+Message-ID-Hash: ALRPK7CIFEZ3ZQYSG6DM2AWGVEANKWTQ
+X-Message-ID-Hash: ALRPK7CIFEZ3ZQYSG6DM2AWGVEANKWTQ
+X-MailFrom: Vijendar.Mukunda@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="gb2312"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XTPZFHW3O3Z4MJUHCWBCN3OCOVNPRTK4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ALRPK7CIFEZ3ZQYSG6DM2AWGVEANKWTQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -180,36 +148,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-VGhlc2UgYnVncyBhcmUgZGV0ZWN0ZWQgYnkgYW4gZXhwZXJpbWVudGFsIHN0YXRpYyBhbmFseXpl
-cg0KdGhhdCBJIGFtIGltcGxlbWVudGluZywgYW5kIEkgZGlkbid0IHJlYWxpemUgdGhhdCBjYWxs
-YmFja3MgYXJlDQphbHJlYWR5IGlycS1kaXNhYmxlZCB3aGlsZSBkb2luZyBtYW51YWxseSBjb25m
-aXJtYXRpb24uDQoNClNvIHNvcnJ5IGZvciBib3RoZXJpbmcgeW91IGZvciB0aGVzZSBmYWxzZSBw
-b3NpdGl2ZSByZXBvcnRzLiBQZXJoYXBzDQpuZXh0IHRpbWUgSSBzaG91bGQgbWVudGlvbiB0aGUg
-YnVncyBhcmUgZGV0ZWN0ZWQgc3RhdGljYWxseSBhbmQNCmJlIGNhcmVmdWwgb2YgdGhlc2UgY2Fz
-ZXMuDQoNClRoYW5rcyBzbyBtdWNoLA0KQ2hlbmdmZW5nDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0Kt6K8/sjLOiBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+DQq3osvNyrG8
-5DogMjAyM8TqNtTCMjbI1SAyOjEzDQrK1bz+yMs6IFlFIENoZW5nZmVuZyA8Y3llYWFAY29ubmVj
-dC51c3QuaGs+DQqzrcvNOiBwZXJleEBwZXJleC5jeiA8cGVyZXhAcGVyZXguY3o+OyB0aXdhaUBz
-dXNlLmNvbSA8dGl3YWlAc3VzZS5jb20+OyB5dW5qdW5sZWVAY2hyb21pdW0ub3JnIDx5dW5qdW5s
-ZWVAY2hyb21pdW0ub3JnPjsgYWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnIDxhbHNhLWRldmVs
-QGFsc2EtcHJvamVjdC5vcmc+OyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnIDxsaW51eC1r
-ZXJuZWxAdmdlci5rZXJuZWwub3JnPg0K1vfM4jogUmU6IFtQQVRDSF0gQUxTQTogZHVtbXk6IEZp
-eCAmZHBjbS0+bG9jayBkZWFkbG9jayBpc3N1ZXMNCg0KT24gU3VuLCAyNSBKdW4gMjAyMyAxNzoz
-NTo0OCArMDIwMCwNCllFIENoZW5nZmVuZyB3cm90ZToNCj4NCj4gVGhlIHRpbWVyIGR1bW15X3N5
-c3RpbWVyX2NhbGxiYWNrIGlzIGV4ZWN1dGVkIHVuZGVyIHNvZnRpcnENCj4gY29udGV4dCwgdGh1
-cyBvdGhlciBwcm9jZXNzIGNvbnRleHQgY29kZSByZXF1aXJpbmcgdGhlIHNhbWUgbG9jaw0KPiBz
-aG91bGQgZGlzYWJsZSBpbnRlcnJ1cHQuIE90aGVyd2lzZSB0aGVyZSB3b3VsZCBiZSBwb3RlbnRp
-YWwNCj4gZGVhZGxvY2sgaXNzdWVzIHdoZW4gdGhlIGNvZGUgZXhlY3V0aW5nIHVuZGVyIHByb2Nl
-c3MgY29udGV4dA0KPiAoaS5lLiwgZHVtbXlfc3lzdGltZXJfcG9pbnRlciwgZHVtbXlfc3lzdGlt
-ZXJfc3RhcnQsDQo+IGR1bW15X3N5c3RpbWVyX3N0b3ApIGlzIHByZWVtcHRlZCBieSB0aGUgdGlt
-ZXIgd2hpbGUgaG9sZGluZw0KPiB0aGUgbG9jay4NCj4NCj4gRGVhZGxvY2sgc2NlbmFyaW86DQo+
-IGR1bW15X3N5c3RpbWVyX3BvaW50ZXINCj4gICAgIC0+IHNwaW5fbG9jaygmZHBjbS0+bG9jayk7
-DQo+ICAgICAgICAgPHRpbWVyIGludGVycnVwdD4NCj4gICAgICAgICAtPiBkdW1teV9zeXN0aW1l
-cl9jYWxsYmFjaw0KPiAgICAgICAgIC0+IHNwaW5fbG9ja19pcnFzYXZlKCZkcGNtLT5sb2NrLCBm
-bGFncyk7DQo+DQo+IEZpeCB0aGUgcG90ZW50aWFsIGRlYWRsb2NrIGJ5IHVzaW5nIHNwaW5fbG9j
-a19pcnFzYXZlLg0KDQpEaWQgeW91IHJlYWxseSB0cmlnZ2VyIHRoaXMgZGVhZGxvY2ssIG9yIGlz
-IGp1c3QgeW91ciBoeXBvdGhlc2lzPw0KSSdtIGFza2luZyBpdCBiZWNhdXNlIGJhc2ljYWxseSB0
-aGUgZGVhZGxvY2sgYWJvdmUgc2hvdWxkbid0IGhhcHBlbjsNCnRob3NlIGFyZSBjYWxsZWQgb25s
-eSB2aWEgUENNIHRyaWdnZXIgYW5kIHBvaW50ZXIgY2FsbGJhY2tzLCBhbmQgdGhleQ0KYXJlIGFs
-d2F5cyBjYWxsZWQgaW5zaWRlIHRoZSBQQ00gc3RyZWFtIGxvY2ssIGFuZCBhbHJlYWR5DQppcnEt
-ZGlzYWJsZWQuDQoNCg0KdGhhbmtzLA0KDQpUYWthc2hpDQo=
+Add comments for DMA stream id and IRQ bit mapping in
+ACP_EXTERNAL_CNTL & ACP_EXTERNAL_CNTL1 registers for
+SDW0 and SDW1 manager instances.
+
+Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+---
+ sound/soc/amd/ps/acp63.h | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
+index e96e6dc9d90f..733a16e23d32 100644
+--- a/sound/soc/amd/ps/acp63.h
++++ b/sound/soc/amd/ps/acp63.h
+@@ -116,8 +116,28 @@
+ #define ACP63_SDW0_DMA_MAX_STREAMS	6
+ #define ACP63_SDW1_DMA_MAX_STREAMS	2
+ #define ACP_P1_AUDIO_TX_THRESHOLD	6
++
++/*
++ * Below entries describes SDW0 instance DMA stream id and DMA irq bit mapping
++ * in ACP_EXTENAL_INTR_CNTL register.
++ * Stream id		IRQ Bit
++ * 0 (SDW0_AUDIO0_TX)	28
++ * 1 (SDW0_AUDIO1_TX)	26
++ * 2 (SDW0_AUDIO2_TX)	24
++ * 3 (SDW0_AUDIO0_RX)	27
++ * 4 (SDW0_AUDIO1_RX)	25
++ * 5 (SDW0_AUDIO2_RX)	23
++ */
+ #define SDW0_DMA_TX_IRQ_MASK(i)	(ACP_AUDIO0_TX_THRESHOLD - (2 * (i)))
+ #define SDW0_DMA_RX_IRQ_MASK(i)	(ACP_AUDIO0_RX_THRESHOLD - (2 * (i)))
++
++/*
++ * Below entries describes SDW1 instance DMA stream id and DMA irq bit mapping
++ * in ACP_EXTENAL_INTR_CNTL1 register.
++ * Stream id		IRQ Bit
++ * 0 (SDW1_AUDIO1_TX)	6
++ * 1 (SDW1_AUDIO1_RX)	5
++ */
+ #define SDW1_DMA_IRQ_MASK(i)	(ACP_P1_AUDIO_TX_THRESHOLD - (i))
+ 
+ #define ACP_DELAY_US		5
+-- 
+2.34.1
+

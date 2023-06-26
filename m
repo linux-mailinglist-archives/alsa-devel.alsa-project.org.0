@@ -2,107 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CE2773DE0D
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:48:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40B7E73DE0E
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Jun 2023 13:48:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCCE5150D;
-	Mon, 26 Jun 2023 13:47:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCCE5150D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD8BF151A;
+	Mon, 26 Jun 2023 13:47:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8BF151A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687780083;
-	bh=5Ji4+mwFwUJU8B0gHdLfKJrzotC9gUTZlAqncz4u1gQ=;
-	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1687780105;
+	bh=L/w/yKwH7VkN3xKyWRZSXKgCTmvFtWY6kWBrBMgXy2Q=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Em0JjBUXIeXYzHV8cwzF5HdGHwToFK8bPA92Xn8Be43THkVrJnsBUFFWgrgSLy3OL
-	 Ni//FX8Xbl+Ij77uh7xRcgM0RaAWdZdKkVul/36MsdURyQiyqVuUliDXWp6VuuXVol
-	 SIth+u6u/Bn6PPuQ4wkIMEjc+S3jVoNHOAM1ai/c=
+	b=HRvIGQXZiw4+0maXWopyHhLoAGZ5NE1RToqYblQMQ5Sm0OvuKUYkf2DNjpwYjLBcc
+	 0GMp+u94i2Idj9OKQ67dCgcn990FjXN+2Y9M2sLrLGuUMqPfMPoP1lfXtexy21U+ZC
+	 wixmtOZBo1qnAKmktkq+3YxxFhz9OO3wMlrLsPDg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A1C4F8061B; Mon, 26 Jun 2023 13:43:30 +0200 (CEST)
+	id ED6FEF80619; Mon, 26 Jun 2023 13:43:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E8B1F8060A;
-	Mon, 26 Jun 2023 13:43:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 354BEF80619;
+	Mon, 26 Jun 2023 13:43:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D125FF80246; Sun, 25 Jun 2023 21:52:19 +0200 (CEST)
+	id B8341F8051E; Mon, 26 Jun 2023 04:35:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-4.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
+	RCVD_IN_MSPIKE_WL,RDNS_NONE,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 00EA0F80169
-	for <alsa-devel@alsa-project.org>; Sun, 25 Jun 2023 21:52:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00EA0F80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1A50DF80093
+	for <alsa-devel@alsa-project.org>; Mon, 26 Jun 2023 04:35:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A50DF80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=nliMAH2c
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-3f9b4bf99c2so33866925e9.3
-        for <alsa-devel@alsa-project.org>;
- Sun, 25 Jun 2023 12:52:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687722731; x=1690314731;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=TkaYswH3dbzz55Xs2lEJwR6oMRbmrxDlmzLsSuOiFqo=;
-        b=nliMAH2cpvpJsjLQVTrGnKhAimAVCwWNih0Bb5Stx+Mub4geSNx1dAaH9GRU5VhiLU
-         FQoOWqlJ8763Rsy7X/GaF6rKhCu3PQrMkmViwQX0ZAm56eFlJ6UUuNDLtdm9FAjIYKYf
-         ibgkzk+lJMUAORWpCrVtmnIbyUYTGpYGnXJK3VTm11IO3a7aBURwwHJVzK1TeDKujObZ
-         obwCQKWcFGqCNVIEAa8oNGQAvYl8Z+vF5C32AmOhFlraNOHY5+vj2UhNL7hJzCAWI9Dq
-         dVPlqtzHRXoMPlV8CejssyoFTQqD67Lrx57VRGxWTiLbrhFuG09NDNDOT0nkQ7Qy+bH1
-         v7NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687722731; x=1690314731;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TkaYswH3dbzz55Xs2lEJwR6oMRbmrxDlmzLsSuOiFqo=;
-        b=HTLelZ0T2wO5WfxlDKClDxYO46SDtKw4VB8NCIdi7XD411r3RIWrdh8PgaXFSy3SXJ
-         xJfR4gwpjL8V0y9AsXVAK6GSOAXTx0Uv2giybxc6L4VtZs4RdbF6CimQttZjFbABM30W
-         JcUaTeeEe8j2q09ZncACMJWf3yxTbvMB16N+Be/DSEXQU/bffX5cepVOa7v9crMxdg8L
-         XFAkLPw17XojbOZaQ0rjz4E3ocwIHDmBqB0NWC0KXtbVVW7ukRG4elax4t3otY6oOjSK
-         iqLeZ265+JGEnceTcvTMms7c+rwhy7gjC+aJSrYwoJhp3DZydcrDuLI7pK0jFzmhrNlE
-         hRig==
-X-Gm-Message-State: AC+VfDyLwftRCivEMK20eihVuel+jlusL/RaKF7Tl2gxaWOLTPBvnhBs
-	Et6gMdjw5WpHDuJY8uHPsorP2eKKyynkxkeoKOrKANHBehM=
-X-Google-Smtp-Source: 
- ACHHUZ624IU/DIsy4Ztl4Gblwb2uJuXHb4meCmKY1eXM3N3ghjpDlolI/0ZYEwTQPBQE5ObJGfjBTuYfsmnI+K4ngbo=
-X-Received: by 2002:adf:dc88:0:b0:313:ee3e:50c5 with SMTP id
- r8-20020adfdc88000000b00313ee3e50c5mr1901345wrj.20.1687722731432; Sun, 25 Jun
- 2023 12:52:11 -0700 (PDT)
+	dkim=pass (1024-bit key,
+ unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
+ header.s=dk header.b=SnoQq1dU
+X-UUID: 19b1dee213ca11eeb20a276fd37b9834-20230626
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=mediatek.com; s=dk;
+	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=Iwm0zG4h3gdP7jHydJXH0fWBg1eTZidbjOVJW6/TgdU=;
+	b=SnoQq1dU0WmTTMLJIWRB6QFoCIsbegxc2VK7dDC3xJVMV8megKtP4Qh2CSxign9Bwv2yHi2RaesfwyONrlsIA3pAZXOnPlKR58C/0m6ZzuaRKQ/71klhZWowFY5SlBF+QY9R0Gz5auPnAxpuzOJyAImvhxrJ+jZZVM2xi8LUrko=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.27,REQID:41937417-b15c-444f-ac88-b8ba1722d666,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:01c9525,CLOUDID:9bd3a03f-7aa7-41f3-a6bd-0433bee822f3,B
+	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
+	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: 19b1dee213ca11eeb20a276fd37b9834-20230626
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by
+ mailgw02.mediatek.com
+	(envelope-from <maso.huang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 881512161; Mon, 26 Jun 2023 10:35:23 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Mon, 26 Jun 2023 10:35:21 +0800
+Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.1118.26 via Frontend Transport; Mon, 26 Jun 2023 10:35:21 +0800
+From: Maso Huang <maso.huang@mediatek.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob
+ Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Trevor Wu <trevor.wu@mediatek.com>, Jiaxin Yu
+	<jiaxin.yu@mediatek.com>, Ren Zhijie <renzhijie2@huawei.com>, Allen-KH Cheng
+	<allen-kh.cheng@mediatek.com>, <alsa-devel@alsa-project.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Maso Huang <maso.huang@mediatek.com>
+Subject: [PATCH v2 0/7] ASoC: mediatek: Add support for MT7986 SoC
+Date: Mon, 26 Jun 2023 10:34:54 +0800
+Message-ID: <20230626023501.11120-1-maso.huang@mediatek.com>
+X-Mailer: git-send-email 2.18.0
 MIME-Version: 1.0
-From: Arjav Parikh <parikharjav24@gmail.com>
-Date: Mon, 26 Jun 2023 01:22:00 +0530
-Message-ID: 
- <CADoF8+ALvz+hCu-cx6QyyCE8uvV5DWcyu2N7viZpJEJ=XeyFZg@mail.gmail.com>
-Subject: MIC capture stops due to playback
-To: alsa-devel@alsa-project.org
-X-MailFrom: parikharjav24@gmail.com
+Content-Type: text/plain
+X-MailFrom: maso.huang@mediatek.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: LT4PT6F6UA4C5HLVMLKCDYNDTUYM5QS7
-X-Message-ID-Hash: LT4PT6F6UA4C5HLVMLKCDYNDTUYM5QS7
+Message-ID-Hash: 3D776BY6AWI2QAQD7HLARJOEJXGPILNM
+X-Message-ID-Hash: 3D776BY6AWI2QAQD7HLARJOEJXGPILNM
 X-Mailman-Approved-At: Mon, 26 Jun 2023 11:41:55 +0000
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="UTF-8"
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LT4PT6F6UA4C5HLVMLKCDYNDTUYM5QS7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3D776BY6AWI2QAQD7HLARJOEJXGPILNM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -111,15 +114,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGkNCg0KSSBhbSB1c2luZyBhbHNhIGFwaSdzIGluIG15IEMgUHJvZ3JhbSB0byBpbXBsZW1lbnQg
-dHdvLXdheSB0YWxrIGkuZQ0KY2FwdHVyaW5nIGRhdGEgZnJvbSBtaWMgYW5kIHBsYXlpbmcgc291
-bmQgb24gc3BlYWtlciByZWNlaXZlZCBmcm9tIENsb3VkLg0KDQpJIGFtIHVzaW5nIGEgTWljcm9z
-ZW1pIFpMMzgwNTAgQXVkaW8gRFNQIGNvbm5lY3RlZCB0byBhbiBBbWJhcmVsbGEgQ1YyNSBTT0MN
-CnZpYSBJMlMvU1BJLg0KDQpSYW5kb21seSBJIGhhdmUgb2JzZXJ2ZWQgdGhhdCBJZiBJIHN0b3Ag
-YW5kIHJlc3VtZSByZWNlaXZpbmcgZGF0YSBmcm9tDQpDbG91ZCB0byBwbGF5IGl0IG9uIHNwZWFr
-ZXIgdXNpbmcgc25kX3BjbV93cml0ZWkoKSB0aGVuIG15IGNhcHR1cmUgcGF0aA0Kc3RvcHMuIEkg
-ZG8gbm90IGhlYXIgYW55IHNvdW5kIGNhcHR1cmVkIGZyb20gTUlDLg0KDQpDYW4gc29tZW9uZSBo
-ZWxwIG1lIHRvIGRlYnVnIHRoaXMgaXNzdWUgYmVjYXVzZSB3aGVuIHRoaXMgaXNzdWUgb2NjdXJz
-DQp0aGVyZSBhcmUgbm8gZXJyb3JzIHJlcG9ydGVkIGZyb20gQWxzYSBub3IgZG8gSSBzZWUgYW55
-dGhpbmcgaW4gZG1lc2cgYXMNCndlbGwuDQoNClRoYW5rcyAmIFJlZ2FyZHMsDQpBcmphdiBQYXJp
-a2gNCg==
+Changes in v2:
+ - v1 title: [PATCH 0/7] ASoC: mediatek: Add support for MT79xx SoC
+ - add missing maintainers
+ - rename mt79xx to mt7986 in all files
+ - use clk bulk api in mt7986-afe-clk.c [2/7]
+ - refine mt7986-afe-pcm.c based on reviewer's suggestions [4/7]
+ - refine dt-binding files based on reviewer's suggestions [6/7] [7/7]
+ - transpose [3/7] and [4/7] in v1 to fix test build errors
+ 
+This series of patches adds support for MediaTek AFE of MT7986 SoC.
+Patches are based on broonie tree "for-next" branch.
+
+Maso Huang (7):
+  ASoC: mediatek: mt7986: add common header
+  ASoC: mediatek: mt7986: support audio clock control
+  ASoC: mediatek: mt7986: support etdm in platform driver
+  ASoC: mediatek: mt7986: add platform driver
+  ASoC: mediatek: mt7986: add machine driver with wm8960
+  ASoC: dt-bindings: mediatek,mt7986-wm8960: add mt7986-wm8960 document
+  ASoC: dt-bindings: mediatek,mt7986-afe: add audio afe document
+
+ .../bindings/sound/mediatek,mt7986-afe.yaml   |  89 +++
+ .../sound/mediatek,mt7986-wm8960.yaml         |  53 ++
+ sound/soc/mediatek/Kconfig                    |  20 +
+ sound/soc/mediatek/Makefile                   |   1 +
+ sound/soc/mediatek/mt7986/Makefile            |  10 +
+ sound/soc/mediatek/mt7986/mt7986-afe-clk.c    |  75 +++
+ sound/soc/mediatek/mt7986/mt7986-afe-clk.h    |  18 +
+ sound/soc/mediatek/mt7986/mt7986-afe-common.h |  51 ++
+ sound/soc/mediatek/mt7986/mt7986-afe-pcm.c    | 598 ++++++++++++++++++
+ sound/soc/mediatek/mt7986/mt7986-dai-etdm.c   | 421 ++++++++++++
+ sound/soc/mediatek/mt7986/mt7986-reg.h        | 206 ++++++
+ sound/soc/mediatek/mt7986/mt7986-wm8960.c     | 184 ++++++
+ 12 files changed, 1726 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
+ create mode 100644 sound/soc/mediatek/mt7986/Makefile
+ create mode 100644 sound/soc/mediatek/mt7986/mt7986-afe-clk.c
+ create mode 100644 sound/soc/mediatek/mt7986/mt7986-afe-clk.h
+ create mode 100644 sound/soc/mediatek/mt7986/mt7986-afe-common.h
+ create mode 100644 sound/soc/mediatek/mt7986/mt7986-afe-pcm.c
+ create mode 100644 sound/soc/mediatek/mt7986/mt7986-dai-etdm.c
+ create mode 100644 sound/soc/mediatek/mt7986/mt7986-reg.h
+ create mode 100644 sound/soc/mediatek/mt7986/mt7986-wm8960.c
+
+-- 
+2.18.0
+

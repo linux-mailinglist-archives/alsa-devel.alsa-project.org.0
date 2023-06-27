@@ -2,113 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C52741014
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 13:31:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C4EB741017
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 13:31:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C98AE7F1;
-	Wed, 28 Jun 2023 13:30:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C98AE7F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63D56857;
+	Wed, 28 Jun 2023 13:30:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63D56857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687951868;
-	bh=70eiRgMId8GszUBox+K8lSzub08GDt5E0bcgSN/md3c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1687951876;
+	bh=/6/6an5TkDFBlAGbmjXHGncp/QkR4CrgQGRMiV1+v8w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rYxeV7a7/q1dyNiKfLagasqPoICfK33VhB7bSGs++9fAD1FF8R/lj49kv0JehHUa+
-	 AbcNV0twlGf3ChafCiQWT4lEL//nU8Zfriac7nQ5FblUw+0LBtMLwt77KcaSMLcuFJ
-	 kad+T+i7ku0D/YIM4Vn5LXKYEoLH2vH5oVbjke6o=
+	b=evZBFUNSM36n1ECmykKGi0HSXDG+8XZKuId80ooGz+PNxRKTW6m3Jk83MZNETqrwP
+	 m//0T1/4xKeDTynAHDyrM85z07eRwfpzbVhdrUbNVWtG2vyZxP1yFBAU45JvMJ0Wpv
+	 rBfwWpov82s8Ondy+8EnXW29542/APhY2Up3/ky8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FB4CF8057F; Wed, 28 Jun 2023 13:29:11 +0200 (CEST)
+	id C2B15F805A0; Wed, 28 Jun 2023 13:29:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 495A3F80579;
-	Wed, 28 Jun 2023 13:29:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2D74F8057E;
+	Wed, 28 Jun 2023 13:29:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4C80FF80246; Tue, 27 Jun 2023 12:55:41 +0200 (CEST)
+	id 5E570F80246; Tue, 27 Jun 2023 19:55:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [IPv6:2a00:1450:4864:20::42e])
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [IPv6:2001:4860:4864:20::2c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 10A3DF80124
-	for <alsa-devel@alsa-project.org>; Tue, 27 Jun 2023 12:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10A3DF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id DCF71F800E3
+	for <alsa-devel@alsa-project.org>; Tue, 27 Jun 2023 19:55:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCF71F800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=dj7GHGZn
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-313e714342cso3459861f8f.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=squareup.com header.i=@squareup.com header.a=rsa-sha256
+ header.s=google header.b=cVjtp8co
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-1b06a46e1a9so511144fac.2
         for <alsa-devel@alsa-project.org>;
- Tue, 27 Jun 2023 03:55:32 -0700 (PDT)
+ Tue, 27 Jun 2023 10:55:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687863331; x=1690455331;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uBb5URQN0kKPJGX9e65RQhKm85RHTpZ2JS4kUJzomcs=;
-        b=dj7GHGZnTDG/FnGE3uZfDBmMlrZCetCOq1VfSfOQhX76nTh0ySpdlJxWwsUNQhu+ka
-         8AhaCFYYmZUWMZvbon9Z+Fsg2vZ6St7+UdYz0ayPc5qPd16SH/Yub4ay+7pvvn1MLcTm
-         6TYvzRibjGxeyB5rRRQbnxwCLPcPwHf7SSP2QDqagGMICgF0SFwiAeJ7zh61v3kvCXMZ
-         agazkGMt72Cp9dKH8NN7GsbIoVbqAjAX0LL+8dkHo2PIZensoQE5HAFi7DrzsnhPb6ak
-         eJegCZiUP314M2p7nzkN2vtvr0VePon+at4/0aqSCg93g9+sf5DFz4w1wJH/Me+s5zeG
-         VABQ==
+        d=squareup.com; s=google; t=1687888500; x=1690480500;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KMDH1mlxwV2sLVWQuxFIR054U5xIxrFoM4b9Bswiao0=;
+        b=cVjtp8co8rmddukZBlStGYs9L/uhr9S8Npcfei1pB6Q9BloGEVrzn8aVuzAZCEm1R1
+         6uvMgdfwvYUkRonM+IlGd6UVKKQCCU9KA/dptRxbSYov5AurJm1CdRb/MqmglCvXoqLk
+         tGMkIJGfqFEy1BYD2ALxd640YMX5mLOdnrg2E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687863331; x=1690455331;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uBb5URQN0kKPJGX9e65RQhKm85RHTpZ2JS4kUJzomcs=;
-        b=lb1M8LfCVWSh4q5Eo3gbKNMxo3TupweuH3R/+ics+g7QdiplZRH6fW/WTHAqWomLpa
-         Da5DXTU1BQycTLJqCpf4IvbfX9U4ocS8QAzlBnHCcYLY+9v25oeF5+cCUHDCDT7vFyWA
-         2KlzFksTh10riCwpezwZ5Hzmw/Rx3xYDedq0Eow4ViB9hE+58AlAlpabRSIr+FYPfKDw
-         YTLErWqfsHPkGilWJBPnLxesToEV98W4l48g/czcS0y/LZ02tPRMddonfQvBDPH+8go4
-         fJ49CZx8s4cWRFeVBeH1iPMY7txaa2HTUZznNeO8OLQUHI8bhTadWH07W1V1NrgUx6BZ
-         ZWKg==
-X-Gm-Message-State: AC+VfDzWT76K9MVVWCQwGQ3bDxoMf3LXOmB6TLd4PNQYtvn1VuffYm1a
-	Z5oXeG7KDtok8InBeSND+j0UP1Mv55V4tdPaTdE=
+        d=1e100.net; s=20221208; t=1687888500; x=1690480500;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=KMDH1mlxwV2sLVWQuxFIR054U5xIxrFoM4b9Bswiao0=;
+        b=WVO/3JKnXKrTOVGaAX7ZKZuhBchCSX85viTGxhvyh4Tl84mQB4r9kwCPPGEjlrKsmt
+         ybq87FlEUwR91WTF35Dk82b/uez+2j9a2a2AKAMWcW5j2ZoUlvP48NSzny8H7kwj4qks
+         fyHow/AyTtTOi5TO4nczwmBhQyOzFjLsQQ22D2X0OquOVYkN2JmLfBrWNoZfYbzz3vOD
+         QGCSBuFxZadjY+zJhqgWDcZN1AAkEK39YcEQH3KYtLyI7Vv2HbpiPT/QzEN1lg+EJmns
+         97NWPctc0tpve3e/KRakiN+4174G1kq5jS7PvQvcmV1JTmgkj2FJtqup5gLLV9/m98KK
+         dwbQ==
+X-Gm-Message-State: AC+VfDw5f5ieaeUK4SZ5FUJimdS+gjeU37K2HvpA0f3tmwsjY0VTdk24
+	Yg0EER4bg1dHq5JTL923jT67JQ==
 X-Google-Smtp-Source: 
- ACHHUZ6Nub3lyZD6Zpipd6CDx1GlU9GPN7JjXdnPtj1sdd9MPHyejyogmbI/vCxN6ebr2rYNX13L+wsIId9OWChC5uA=
-X-Received: by 2002:a5d:4489:0:b0:313:ef08:c83b with SMTP id
- j9-20020a5d4489000000b00313ef08c83bmr5946932wrq.56.1687863330593; Tue, 27 Jun
- 2023 03:55:30 -0700 (PDT)
+ ACHHUZ5128JJUpofvc84U9QEvguT6ylxK0NPBUtGocO3qCpVL4swAAl6Xq4iRqzHQOelQG16lCO4FA==
+X-Received: by 2002:a05:6870:c812:b0:1ad:1ce0:c348 with SMTP id
+ ee18-20020a056870c81200b001ad1ce0c348mr15263035oab.11.1687888499657;
+        Tue, 27 Jun 2023 10:54:59 -0700 (PDT)
+Received: from [10.96.32.61] (137-025-033-021.res.spectrum.com.
+ [137.25.33.21])
+        by smtp.gmail.com with ESMTPSA id
+ d88-20020a17090a6f6100b00253508d9145sm6879840pjk.46.2023.06.27.10.54.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Jun 2023 10:54:59 -0700 (PDT)
+Message-ID: <30944ea8-d4aa-d0fd-7eaa-64b59e32eb6b@squareup.com>
+Date: Tue, 27 Jun 2023 10:54:55 -0700
 MIME-Version: 1.0
-References: <20230627095616.5333-1-dg573847474@gmail.com>
- <87jzvpfcli.wl-tiwai@suse.de>
-In-Reply-To: <87jzvpfcli.wl-tiwai@suse.de>
-From: =?UTF-8?B?5Y+25r6E6ZSL?= <dg573847474@gmail.com>
-Date: Tue, 27 Jun 2023 18:55:19 +0800
-Message-ID: 
- <CAAo+4rV6qbUftFFDX0q1+tkbmZNrY7nN2b12B4GhsjJ64k6PVg@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: sb: fix potential deadlock on &chip->mixer_lock
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-MailFrom: dg573847474@gmail.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.8.0
+Subject: Re: [PATCH 02/11] arm64: dts: qcom: msm8939: Drop
+ "qcom,idle-state-spc" compatible
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>,
+ cros-qcom-dts-watchers@chromium.org, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ James Willcox <jwillcox@squareup.com>, Joseph Gates <jgates@squareup.com>,
+ Stephan Gerhold <stephan@gerhold.net>, Zac Crosby <zac@squareup.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Lee Jones <lee@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xu Yang
+ <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>, Jun Nie <jun.nie@linaro.org>,
+ Max Chen <mchen@squareup.com>, Shawn Guo <shawn.guo@linaro.org>,
+ Vivek Gautam <vivek.gautam@codeaurora.org>
+Cc: Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Vincent Knecht <vincent.knecht@mailoo.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, alsa-devel@alsa-project.org,
+ iommu@lists.linux.dev, linux-usb@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Leo Yan <leo.yan@linaro.org>, Rob Herring <robh@kernel.org>,
+ Andy Gross <andy.gross@linaro.org>
+References: <20230627-topic-more_bindings-v1-0-6b4b6cd081e5@linaro.org>
+ <20230627-topic-more_bindings-v1-2-6b4b6cd081e5@linaro.org>
+From: Benjamin Li <benl@squareup.com>
+In-Reply-To: <20230627-topic-more_bindings-v1-2-6b4b6cd081e5@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-MailFrom: benl@squareup.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DPOUVRTZA5GGLGSA5BCX7CI7SF2XCCVT
-X-Message-ID-Hash: DPOUVRTZA5GGLGSA5BCX7CI7SF2XCCVT
-X-Mailman-Approved-At: Wed, 28 Jun 2023 11:29:01 +0000
+Message-ID-Hash: 7WWFIOEWMCIXLM5WGX4ZSOSGQP4RLSSV
+X-Message-ID-Hash: 7WWFIOEWMCIXLM5WGX4ZSOSGQP4RLSSV
+X-Mailman-Approved-At: Wed, 28 Jun 2023 11:29:02 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DPOUVRTZA5GGLGSA5BCX7CI7SF2XCCVT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7WWFIOEWMCIXLM5WGX4ZSOSGQP4RLSSV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,47 +148,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Oh yes, sorry for not considering that one.
+On 6/27/23 9:24 AM, Konrad Dybcio wrote:
+> As of today, the only cool and legal way to get ARM64 SMP going is
+> via PSCI (or spin tables). Sadly, not all chip and device vendors were
+> considerate of this in the early days of arm64. Qualcomm, for example
+> reused their tried-and-true spin-up method from MSM8974 and their Krait/
+> arm32 Cortex designs.
+> 
+> MSM8916 supports SMP with its arm32 dt overlay, as probably could 8939.
+> But the arm64 DT should not define non-PSCI SMP or CPUidle stuff.
+> 
+> Drop the qcom,idle-state-spc compatible (associated with Qualcomm-specific
+> CPUIdle) to make the dt checker happy:
+> 
+> apq8039-t2.dtb: idle-states: cpu-sleep-0:compatible:
+> ['qcom,idle-state-spc', 'arm,idle-state'] is too long
+> 
+> Fixes: 61550c6c156c ("arm64: dts: qcom: Add msm8939 SoC")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 
-Best regards
-Chengfeng
-
-Takashi Iwai <tiwai@suse.de> =E4=BA=8E2023=E5=B9=B46=E6=9C=8827=E6=97=A5=E5=
-=91=A8=E4=BA=8C 18:01=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, 27 Jun 2023 11:56:16 +0200,
-> Chengfeng Ye wrote:
-> >
-> > As &chip->mixer_lock is also acquired by the irq snd_sb8dsp_interrupt()
-> > which executes under hard-irq context, code executing under process
-> > context should disable irq before acquiring the lock, otherwise
-> > deadlock could happen if the process context hold the lock then
-> > preempt by the interruption.
-> >
-> > As the ALSA Driver document described, PCM prepare callbacks are not
-> > executed with irq disabled by default, thus the acquiring of
-> > &chip->mixer_lock should be irq disabled.
-> >
-> > Possible deadlock scenario:
-> > snd_sb8_playback_prepare
-> >     -> spin_lock(&chip->mixer_lock);
-> >         <irq interrupt>
-> >         -> snd_sb8dsp_interrupt()
-> >         -> snd_sb8_capture_trigger()
-> >         -> spin_lock(&chip->mixer_lock); (deadlock here)
-> >
-> > This flaw was found using an experimental static analysis tool we are
-> > developing for irq-related deadlock.
-> >
-> > The tentative patch fix the potential deadlock by spin_lock_irqsave().
-> >
-> > Signed-off-by: Chengfeng Ye <dg573847474@gmail.com>
->
-> I believe it's a false-positive.  There is already a call
->         spin_lock_irqsave(&chip->reg_lock, flags);
-> beforehand.
->
->
-> thanks,
->
-> Takashi
+Reviewed-by: Benjamin Li <benl@squareup.com>

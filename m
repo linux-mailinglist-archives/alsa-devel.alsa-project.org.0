@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 700407400F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jun 2023 18:26:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FBC17400FA
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Jun 2023 18:26:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19721851;
-	Tue, 27 Jun 2023 18:25:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19721851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E3D4868;
+	Tue, 27 Jun 2023 18:25:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E3D4868
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687883197;
-	bh=y9aAPQNrTt4WUn0fdGxJxPfCCX9Hk5OUZHkmKm33hlo=;
+	s=default; t=1687883203;
+	bh=apph7LSM6ElNjbIp4Sa6AEpFAvPu59qNl9eL4vnUenE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IUDM1oJxQXdAnVA70FTc640NlMgkoBCDrPpgNa+aeG+yiCgxYrFsAz8r9vX0lgSrb
-	 68pccTii/6B1CmrFzzmbQHA0aR8fyXdrvjOmYptQtObx9JDGHShYqzuHIh9POl+/nV
-	 Zbp3jnuzLOXCrvRUtrlIEyJ9vs+QiVGjKF1f31o4=
+	b=uPFRXIORvHSuXK1g9ukQOwB7VSSZ2FJL/93gpJa27K1wo7qU/hRHN3A1oLedC4kwJ
+	 jHEWcHzTY8npzgRCHHR6CxA57iDXm0oX0d2Rfc6fTbBeBEdHPfWX/khhmweUB/so9f
+	 qkfo8ni0qvZESf4FjxQlwYc9T5CeehBgqJGoW2zI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B773F8056F; Tue, 27 Jun 2023 18:24:58 +0200 (CEST)
+	id 92A60F80587; Tue, 27 Jun 2023 18:25:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45317F80563;
-	Tue, 27 Jun 2023 18:24:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22981F8057D;
+	Tue, 27 Jun 2023 18:25:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C830DF80431; Tue, 27 Jun 2023 18:24:52 +0200 (CEST)
+	id D409FF80552; Tue, 27 Jun 2023 18:24:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [IPv6:2a00:1450:4864:20::129])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 197A8F80124
-	for <alsa-devel@alsa-project.org>; Tue, 27 Jun 2023 18:24:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 197A8F80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8D620F80246
+	for <alsa-devel@alsa-project.org>; Tue, 27 Jun 2023 18:24:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D620F80246
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=LWoWb4vs
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2b699a2fe86so48693161fa.3
+ header.s=google header.b=XyWyHIoH
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-4f95bf5c493so6339639e87.3
         for <alsa-devel@alsa-project.org>;
- Tue, 27 Jun 2023 09:24:46 -0700 (PDT)
+ Tue, 27 Jun 2023 09:24:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1687883085; x=1690475085;
+        d=linaro.org; s=google; t=1687883087; x=1690475087;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=FYaFF944CBPpPI3xTGK+ozEDUtWhjiR1kLsCUSq/tTw=;
-        b=LWoWb4vsMHyG2qkazpfTdhW+UQTZZaP+KpW9Fxat/1VZee4W/NKGQEWMqYGZ9NuW/D
-         m4BE+3+7lpPfy7kORXnMMu1bSeSKlt7jNRaY8TrFsqHaqL0z4walAIeqcpnYaKEdplVD
-         zVKYjMwT9B0tBR/Yd8IcB2nEJlj+n1AoGd3HfdLlKut5f+FuYu/F/MQmAtY2E/ouKsOE
-         PUJXqfkz1gHFvCGlVLAU71YT9nrR83dOoYgMvVHd7rBfptkSLO6f5JfCr1/rAq3A0XyZ
-         QdODVO8drrPTl7R2Ewo+g5Mm4pgMbt4oi10DHPO9L4FxaqOWf3jd0jHw3mWBZFRgiT4A
-         WlWw==
+        bh=kCywy6cYyFYFI8kb//sHM+EK5WqBRRu8/iqRaDkQ84M=;
+        b=XyWyHIoH2Ze407Yj6nB28IeDN1CDtgfv8AZnJhnbW2U++0ntJoYl3/QVHOKlr0ugmN
+         o6vqww24W07lweLE9ksjl1AFLoMK4ShQBmEr1zNIq0EoyAnN9vej5YV2E951JkQg/mj6
+         f2be8GMogkEAs23/fSmFJvgtXz/EWJRnx72oJgzg7t4GlH7aGGXtbYQyLDT7IEdCqSqo
+         DVYVJAMNjin1r7Ia2V7ZXhY5pJcfcejnwajh9n3V0xWXb6BLAr6EsO0FSIo+81Lam1J+
+         dX9zLDenkoPZH6PhWyeFQ7e6lwaX3pCRTuLZDTvb0GJrasYd9Ow7d4TVrxni4hfHa5GJ
+         x6/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687883085; x=1690475085;
+        d=1e100.net; s=20221208; t=1687883087; x=1690475087;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=FYaFF944CBPpPI3xTGK+ozEDUtWhjiR1kLsCUSq/tTw=;
-        b=BlHhDS82W9kazuhcwr+n3Bd2jpCBqsqXx0xLZq5XQUzJXGeBKnAvz5vXUe0sVEEcsx
-         Or0Qfb/M0oNUNZb0gjby5cX8bhTrKwOCqTDsZ6hLI00aHxkXIO0mrRKPD138snGbOweH
-         CUAJd6kflsBrSJY7kgBFpzKCkNYRudD0WbCn+5Nz0Hoq0ONGoEgEkieALIR5gN3+v04G
-         3Hz6hDmsyDBNYTv3K3pXclPPOo4nQbzyTtvLbQ8PVCEj/ActmPHWasLMfh7xzM9OdJ9D
-         3biMWwiQhpk90+ZH1HcNF0x15+G9sbC4Gcy2+hY1+POeuIlLsiPrJw4yCTWlR+E9IUvZ
-         eWyg==
-X-Gm-Message-State: AC+VfDzLanIN/TJ7FGYgL8Y1M9zMvwDuje34BwxhyCrNp2F/EfKZ1MSW
-	swEkZCRFaeGdOSwT7578LP94VA==
+        bh=kCywy6cYyFYFI8kb//sHM+EK5WqBRRu8/iqRaDkQ84M=;
+        b=V0Hsoc3ZwUvcnV44N7gFwiH+0mWHPiaWngoNQH4iZpM8fmk5y/k5oLOtzVrZ8u4GrM
+         wVBSRifixD3bSDxqci1u0ZHmU5HwAeaLX5rNu2chxI2qU/vOSkzsjTCsnwhuMd+kqmi4
+         3DviZA9uCgdDD4hjKq+rDoEhOm64XCIn6eXTBlTKHTyXRKWvJ2zIM9Dom8YfizFpTtVm
+         OelIkxl/J53hpge3NIUlN4CpE46qP15rlW48NbOyBa5owL39oFRCUP+Waoco5xqfrC2o
+         +pNqojivdUgzgsxxNEv6K3qlBa/yXhKO4debVALA3v+1un/WL64RgH3gjs92ezQpEOge
+         lEkg==
+X-Gm-Message-State: AC+VfDwhQu1SmW07nBdKqWfBiF49RjCKUqnTXdOS1YuqiwashTZu527Z
+	Hyt+Y4Tk9IeXhzgSXcorWVW6dA==
 X-Google-Smtp-Source: 
- ACHHUZ4ythlTwuN1ng1WKH85xShFqna5kY+HIIDyB4fmlolvggLWrCYvWnSmKrP/dkJwFLHJqDS+fA==
-X-Received: by 2002:a19:3807:0:b0:4f6:6b:a43b with SMTP id
- f7-20020a193807000000b004f6006ba43bmr18574040lfa.52.1687883085080;
-        Tue, 27 Jun 2023 09:24:45 -0700 (PDT)
+ ACHHUZ6LwrqrxKXfB30IuTt/FkjnhAznIHKgmo2XPru91QszdrHpLXOaCrfYFLxXQmjHKGnPvCbFNA==
+X-Received: by 2002:a19:4f52:0:b0:4f8:66e1:14e3 with SMTP id
+ a18-20020a194f52000000b004f866e114e3mr15836081lfk.17.1687883087477;
+        Tue, 27 Jun 2023 09:24:47 -0700 (PDT)
 Received: from [192.168.1.101] (abxj103.neoplus.adsl.tpnet.pl. [83.9.3.103])
         by smtp.gmail.com with ESMTPSA id
- g7-20020a19ac07000000b004fb259a5589sm1190508lfc.104.2023.06.27.09.24.42
+ g7-20020a19ac07000000b004fb259a5589sm1190508lfc.104.2023.06.27.09.24.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Jun 2023 09:24:44 -0700 (PDT)
+        Tue, 27 Jun 2023 09:24:47 -0700 (PDT)
 From: Konrad Dybcio <konrad.dybcio@linaro.org>
-Date: Tue, 27 Jun 2023 18:24:19 +0200
-Subject: [PATCH 03/11] arm64: dts: qcom: msm8939: Add missing
- 'cache-unified' to L2
+Date: Tue, 27 Jun 2023 18:24:20 +0200
+Subject: [PATCH 04/11] arm64: dts: qcom: apq8039-t2: Drop inexistent
+ property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230627-topic-more_bindings-v1-3-6b4b6cd081e5@linaro.org>
+Message-Id: <20230627-topic-more_bindings-v1-4-6b4b6cd081e5@linaro.org>
 References: <20230627-topic-more_bindings-v1-0-6b4b6cd081e5@linaro.org>
 In-Reply-To: <20230627-topic-more_bindings-v1-0-6b4b6cd081e5@linaro.org>
 To: cros-qcom-dts-watchers@chromium.org, Andy Gross <agross@kernel.org>,
@@ -125,15 +125,15 @@ Cc: Marijn Suijten <marijn.suijten@somainline.org>,
  Andy Gross <andy.gross@linaro.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>
 X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1687883074; l=872;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1687883074; l=689;
  i=konrad.dybcio@linaro.org; s=20230215; h=from:subject:message-id;
- bh=y9aAPQNrTt4WUn0fdGxJxPfCCX9Hk5OUZHkmKm33hlo=;
- b=w488Qve8orkSmgHUwwh9oyM25h1xdVtgnB4Ys0LYV1nlQjCqgKtAhax7MUl7l8I5KTts0L1Ss
- gOcd0DAg1r7Algsiwe2DbhrC3vv080aTNk+DR8kKIxjAULvaSd4hkI+
+ bh=apph7LSM6ElNjbIp4Sa6AEpFAvPu59qNl9eL4vnUenE=;
+ b=LRBHRbniws8u4a1P+s6dSMgJ58xXojZSxnIPFilY8FRHxj7kwk+9c9/vrMndrQrYkMe6HLBA1
+ qsSb3Hqz11BDWo/hVkufLbnuhTmhrQ/zLN4kTfHuIj/Obe2lz0rA+wR
 X-Developer-Key: i=konrad.dybcio@linaro.org; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
-Message-ID-Hash: O27OFZQP6R2CUG3HV2C6J3IR5KAY73UR
-X-Message-ID-Hash: O27OFZQP6R2CUG3HV2C6J3IR5KAY73UR
+Message-ID-Hash: MUPSCZIKECTC2FLV3TFVUMXQN4IOV77D
+X-Message-ID-Hash: MUPSCZIKECTC2FLV3TFVUMXQN4IOV77D
 X-MailFrom: konrad.dybcio@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -146,7 +146,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O27OFZQP6R2CUG3HV2C6J3IR5KAY73UR/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MUPSCZIKECTC2FLV3TFVUMXQN4IOV77D/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,35 +155,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add the missing property to fix the dt checker warning:
+'pin-switch-delay-us' is not used anywhere in the mainline kernel.
+Drop it.
 
-qcom/apq8039-t2.dtb: l2-cache: 'cache-unified' is a required property
-
-Fixes: 61550c6c156c ("arm64: dts: qcom: Add msm8939 SoC")
 Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/msm8939.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/qcom/apq8039-t2.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8939.dtsi b/arch/arm64/boot/dts/qcom/msm8939.dtsi
-index 38fc22e66bda..664ae303afae 100644
---- a/arch/arm64/boot/dts/qcom/msm8939.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8939.dtsi
-@@ -55,6 +55,7 @@ CPU0: cpu@100 {
- 			L2_1: l2-cache {
- 				compatible = "cache";
- 				cache-level = <2>;
-+				cache-unified;
- 			};
- 		};
- 
-@@ -111,6 +112,7 @@ CPU4: cpu@0 {
- 			L2_0: l2-cache {
- 				compatible = "cache";
- 				cache-level = <2>;
-+				cache-unified;
- 			};
- 		};
+diff --git a/arch/arm64/boot/dts/qcom/apq8039-t2.dts b/arch/arm64/boot/dts/qcom/apq8039-t2.dts
+index 43686bbd87f4..027d1da7e81d 100644
+--- a/arch/arm64/boot/dts/qcom/apq8039-t2.dts
++++ b/arch/arm64/boot/dts/qcom/apq8039-t2.dts
+@@ -374,7 +374,6 @@ &usb {
+ 	pinctrl-0 = <&pinctrl_otg_default>;
+ 	pinctrl-1 = <&pinctrl_otg_host>;
+ 	pinctrl-2 = <&pinctrl_otg_device>;
+-	pin-switch-delay-us = <100000>;
+ 	usb-role-switch;
+ 	status = "okay";
  
 
 -- 

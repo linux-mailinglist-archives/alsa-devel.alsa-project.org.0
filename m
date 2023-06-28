@@ -2,106 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D4D0740D63
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 11:45:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1B2740D60
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 11:44:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B46F8843;
-	Wed, 28 Jun 2023 11:45:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B46F8843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8399F3E8;
+	Wed, 28 Jun 2023 11:43:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8399F3E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687945550;
-	bh=c8qYYruq4/Z5laM2g1+g34GIBJ3D1Ny6om6d+4uW7os=;
+	s=default; t=1687945455;
+	bh=06B8+n9uT2jHv/xaG82Jth6xdsIEc0EWos05hmDyM4g=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=kjD9VmQgAo+KqpWoXJtPE1TTNZeE6kLQmyvpNYAb2QjAogX7TRQmz7pk/EH9i/FuA
-	 fiTFUaTSwe1wNHDiPxINjf0gE1FUzIiq8HtRC1ybd2WFy7vIrf9RG6F/bfmaHXm4cm
-	 NEHFErhyiR7TyX+QflcAOM3PeYSgggBm7dBpyPlM=
+	b=uw0vNzfmct8lm3sPynN0HT4Xit3+EbBGuGePD6SCMdLs9m2fwfhL/swzyifi5MKfr
+	 7rkStuzZSWfzSVAS5j3JyVYWksxyn1fvkN5ZORkzs/qDjaLwSpAVde6Hcf088n2PY1
+	 2Co0ANTMMoN30DVXWm/k9Ua6v++9bX42haK+0nyk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A85CF80246; Wed, 28 Jun 2023 11:45:00 +0200 (CEST)
+	id E0AE8F80169; Wed, 28 Jun 2023 11:43:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B232DF80212;
-	Wed, 28 Jun 2023 11:44:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E936F80169;
+	Wed, 28 Jun 2023 11:43:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 698EEF80212; Wed, 28 Jun 2023 11:44:56 +0200 (CEST)
+	id 68B6BF8027B; Wed, 28 Jun 2023 11:43:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C39DEF80246
-	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 11:42:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C39DEF80246
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5EBDEF80212
+	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 11:43:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EBDEF80212
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=fUp+2j+x;
+ header.s=susede2_rsa header.b=s7H7YNr3;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=9mWONnFB
+ header.s=susede2_ed25519 header.b=rWOT6rtk
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A91F51F8B6;
-	Wed, 28 Jun 2023 09:42:41 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B409221866;
+	Wed, 28 Jun 2023 09:43:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1687945361;
+	t=1687945385;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=R5BpJubHpBlkq7A2dm81fT6qaZ1MVpLy5vDM8K0Jzsw=;
-	b=fUp+2j+xN5ROSNKs0geGd8tqsVuFiLlPVQNZ7yLEjJ8I9Ni6ZbRkNR+ctOSTJG5QRI6P1G
-	zCuqQyAOxDqSBUqI4IEzZQ6cnlXP3+6rBdQ18hFcAocTyH2h8JnHeEQu8wReWa6pXlV7tm
-	uscwIp+X7OPa2H7GOAVY840OUhzL3LU=
+	bh=E0O+gJ+MuLvZfbXkWNTje+JXW2eT1kCnTYOtqKmThKg=;
+	b=s7H7YNr39GB1dh2VeT1CMUqc4as7VfA2j/Qjz6g9N6/jJt6o66VbFGhpcHRJIvtU+ZhakK
+	4NGkDUiUC3HI4sBgQNutUUu0dlmKoU/GPlbZ2BgwrCsLI2owkeusELf43hsWbKq76gjKk9
+	kStb5XPpZ0NnbDikYHOxiG/VG9Gq+cw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1687945361;
+	s=susede2_ed25519; t=1687945385;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=R5BpJubHpBlkq7A2dm81fT6qaZ1MVpLy5vDM8K0Jzsw=;
-	b=9mWONnFBdDOKorEpZ4qfeBrDz/e1nNohVbxMh+gSgV2MADEDIxARIr1lmkGk9OsBxNyk8a
-	Zoeb0OnUKUmqkNDQ==
+	bh=E0O+gJ+MuLvZfbXkWNTje+JXW2eT1kCnTYOtqKmThKg=;
+	b=rWOT6rtknF8k0nKRnPjrvvMchpUPd/cXeT/3HG5dN/mSSCD7EYLHZEpT7onIuzaRKmxE1P
+	YOFURbhqO5RldDDw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 79921138EF;
-	Wed, 28 Jun 2023 09:42:41 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 917F8138EF;
+	Wed, 28 Jun 2023 09:43:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id dgK3HJEAnGQVAgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 28 Jun 2023 09:42:41 +0000
-Date: Wed, 28 Jun 2023 11:42:41 +0200
-Message-ID: <87zg4jexda.wl-tiwai@suse.de>
+	id +vqjIqkAnGRHAgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 28 Jun 2023 09:43:05 +0000
+Date: Wed, 28 Jun 2023 11:43:05 +0200
+Message-ID: <87y1k3excm.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Clemens Ladisch <clemens@ladisch.de>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH][next] ALSA: oxfw: make read-only const array models
- static
-In-Reply-To: <20230627113253.700065-1-colin.i.king@gmail.com>
-References: <20230627113253.700065-1-colin.i.king@gmail.com>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ALSA: fireface: make read-only const array for model
+ names static
+In-Reply-To: <20230627235406.289970-1-o-takashi@sakamocchi.jp>
+References: <20230627235406.289970-1-o-takashi@sakamocchi.jp>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: VI56MC656MES47TG76LOJC2I6EYNM7ZT
-X-Message-ID-Hash: VI56MC656MES47TG76LOJC2I6EYNM7ZT
+Message-ID-Hash: 3CXGSGSU4DXCWGNQXZ3R7EN2PASOIOID
+X-Message-ID-Hash: 3CXGSGSU4DXCWGNQXZ3R7EN2PASOIOID
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -114,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VI56MC656MES47TG76LOJC2I6EYNM7ZT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3CXGSGSU4DXCWGNQXZ3R7EN2PASOIOID/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,14 +118,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 27 Jun 2023 13:32:53 +0200,
-Colin Ian King wrote:
+On Wed, 28 Jun 2023 01:54:06 +0200,
+Takashi Sakamoto wrote:
 > 
-> Don't populate the const array on the stack, instead make it static.
+> It is preferable not to populate the constant array for constant strings
+> on the stack.
 > 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Thanks, applied.
+Thanks, applied now.
 
 
 Takashi

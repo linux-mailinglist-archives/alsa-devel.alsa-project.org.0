@@ -2,101 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1B2740D60
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 11:44:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B14740D62
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 11:45:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8399F3E8;
-	Wed, 28 Jun 2023 11:43:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8399F3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06B9B83E;
+	Wed, 28 Jun 2023 11:44:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06B9B83E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687945455;
-	bh=06B8+n9uT2jHv/xaG82Jth6xdsIEc0EWos05hmDyM4g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=uw0vNzfmct8lm3sPynN0HT4Xit3+EbBGuGePD6SCMdLs9m2fwfhL/swzyifi5MKfr
-	 7rkStuzZSWfzSVAS5j3JyVYWksxyn1fvkN5ZORkzs/qDjaLwSpAVde6Hcf088n2PY1
-	 2Co0ANTMMoN30DVXWm/k9Ua6v++9bX42haK+0nyk=
+	s=default; t=1687945506;
+	bh=g+ifChkKIq9jd2hJQAclk/y7Y/UN6oIsxAu456FPZE4=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=OxmEVlSM28b5LBgw35UDoWWVKS7fWSiMlhF8Dl/NyJIx1uCfZSh/2D0LX2Ng9umM6
+	 Z+4v5ziKAoB8sMIpZaUTW/gH7IQi5M1Ue6GXQrb4FrcUUFWx+R9gOWBBfv/hEvSBs7
+	 obvsrU0AKuIZHziXJ3eCaW4qQHBFHDBvm9/pw1ZQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0AE8F80169; Wed, 28 Jun 2023 11:43:24 +0200 (CEST)
+	id 030BAF80553; Wed, 28 Jun 2023 11:44:03 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E936F80169;
-	Wed, 28 Jun 2023 11:43:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29F33F80535;
+	Wed, 28 Jun 2023 11:44:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 68B6BF8027B; Wed, 28 Jun 2023 11:43:19 +0200 (CEST)
+	id 48C66F8053B; Wed, 28 Jun 2023 11:43:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5EBDEF80212
-	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 11:43:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EBDEF80212
+	by alsa1.perex.cz (Postfix) with ESMTPS id 39740F80093
+	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 11:43:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39740F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=s7H7YNr3;
+ header.s=susede2_rsa header.b=kDsw4FJp;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=rWOT6rtk
+ header.s=susede2_ed25519 header.b=pdpRgd/S
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B409221866;
-	Wed, 28 Jun 2023 09:43:05 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B73CD2187A;
+	Wed, 28 Jun 2023 09:43:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1687945385;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E0O+gJ+MuLvZfbXkWNTje+JXW2eT1kCnTYOtqKmThKg=;
-	b=s7H7YNr39GB1dh2VeT1CMUqc4as7VfA2j/Qjz6g9N6/jJt6o66VbFGhpcHRJIvtU+ZhakK
-	4NGkDUiUC3HI4sBgQNutUUu0dlmKoU/GPlbZ2BgwrCsLI2owkeusELf43hsWbKq76gjKk9
-	kStb5XPpZ0NnbDikYHOxiG/VG9Gq+cw=
+	t=1687945434; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=TCsLSIdzurNkVOt98iJvAYNDDLk6PoUym46E6J7YgrU=;
+	b=kDsw4FJp+ARP8GW+dTKQgbY+ZFAJnHfds8cbycjfSypC/smLKRjeHkP93dLxUD5Y+KoGfz
+	gggCg3QwUju9KlFROk6wqFK31AKFSTlcX9SEJaeJeirZ28d+75RGHqznDiO0c3/QnIVhN2
+	B921eNyCUZGgabrlVhLLz74uuj5HQF4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1687945385;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E0O+gJ+MuLvZfbXkWNTje+JXW2eT1kCnTYOtqKmThKg=;
-	b=rWOT6rtknF8k0nKRnPjrvvMchpUPd/cXeT/3HG5dN/mSSCD7EYLHZEpT7onIuzaRKmxE1P
-	YOFURbhqO5RldDDw==
+	s=susede2_ed25519; t=1687945434;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:
+  content-transfer-encoding:content-transfer-encoding;
+	bh=TCsLSIdzurNkVOt98iJvAYNDDLk6PoUym46E6J7YgrU=;
+	b=pdpRgd/SiQ+0RdUXyjP0pPlvwrYZzGFD49GHbEyF4VWDe8/UFcRZWMxUFbymtATUYPxMhu
+	5qRtetIWHcTfr0DQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 917F8138EF;
-	Wed, 28 Jun 2023 09:43:05 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9BD98138EF;
+	Wed, 28 Jun 2023 09:43:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id +vqjIqkAnGRHAgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 28 Jun 2023 09:43:05 +0000
-Date: Wed, 28 Jun 2023 11:43:05 +0200
-Message-ID: <87y1k3excm.wl-tiwai@suse.de>
+	id QUEVJdoAnGTHAgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 28 Jun 2023 09:43:54 +0000
 From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ALSA: fireface: make read-only const array for model
- names static
-In-Reply-To: <20230627235406.289970-1-o-takashi@sakamocchi.jp>
-References: <20230627235406.289970-1-o-takashi@sakamocchi.jp>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 3CXGSGSU4DXCWGNQXZ3R7EN2PASOIOID
-X-Message-ID-Hash: 3CXGSGSU4DXCWGNQXZ3R7EN2PASOIOID
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ALSA: ump: Correct wrong byte size at converting a UMP System
+ message
+Date: Wed, 28 Jun 2023 11:43:52 +0200
+Message-Id: <20230628094352.15754-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.35.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: GQ4F6WZ56YCEDBIUBY54OCOAALNFP2ZF
+X-Message-ID-Hash: GQ4F6WZ56YCEDBIUBY54OCOAALNFP2ZF
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +103,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3CXGSGSU4DXCWGNQXZ3R7EN2PASOIOID/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GQ4F6WZ56YCEDBIUBY54OCOAALNFP2ZF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,15 +112,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 28 Jun 2023 01:54:06 +0200,
-Takashi Sakamoto wrote:
-> 
-> It is preferable not to populate the constant array for constant strings
-> on the stack.
-> 
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+A wrong size for UMP_SYSTEM_STATUS_MIDI_TIME_CODE and case
+UMP_SYSTEM_STATUS_SONG_SELECT was reported at converting to the legacy
+MIDI 1.0 stream.  This patch corrects the value.
 
-Thanks, applied now.
+Fixes: 0b5288f5fe63 ("ALSA: ump: Add legacy raw MIDI support")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/ump_convert.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/sound/core/ump_convert.c b/sound/core/ump_convert.c
+index fb61df424a87..de04799fdb69 100644
+--- a/sound/core/ump_convert.c
++++ b/sound/core/ump_convert.c
+@@ -73,7 +73,7 @@ static int cvt_ump_system_to_legacy(u32 data, unsigned char *buf)
+ 	case UMP_SYSTEM_STATUS_MIDI_TIME_CODE:
+ 	case UMP_SYSTEM_STATUS_SONG_SELECT:
+ 		buf[1] = (data >> 8) & 0x7f;
+-		return 1;
++		return 2;
+ 	case UMP_SYSTEM_STATUS_SONG_POSITION:
+ 		buf[1] = (data >> 8) & 0x7f;
+ 		buf[2] = data & 0x7f;
+-- 
+2.35.3
 
-Takashi

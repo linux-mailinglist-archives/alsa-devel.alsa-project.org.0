@@ -2,97 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2186A7415D8
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 17:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E07467415E7
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 17:59:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A193E822;
-	Wed, 28 Jun 2023 17:55:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A193E822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4429B7F8;
+	Wed, 28 Jun 2023 17:58:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4429B7F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687967806;
-	bh=yIne9paDF1YsToVptO4bolrobAKlvvb52AAPOdsBfJU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1687967966;
+	bh=K5zT2FY0Az4cbHZonZ/hBNeNzPWJNFzal6qbbQFy0DU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=j3wi479qpzClFA3BLW/CDnFaixjsVLXkDbHISluPMW8Qfh4kRMC2w/87g9FjKooTc
-	 7KI7JojYudT5gxJ1aTVjnDSHJ7o/Sf27MmsCA03FUqqqdjBtUwt/cgxOniSc+7GdlP
-	 10UHz9+gfZj94DjzXgk69bdDxKGOFc7c5zlviR/w=
+	b=oDtfZTXAGOvXd5nu/Nx89PLWGPjeyLAOzd0rcND65TPg41nCU3sHOXuD87j5vl3ee
+	 ED+yth8idKKL7LtYJqvCFj4kUGZinKSh3yzbh0s8cqkDMzgA0Id9PP4Y0bj1ofGDYR
+	 l4VftKpzpEBo/BKARi9FSSsej558S1SYVA5g09vs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2BF52F80558; Wed, 28 Jun 2023 17:55:10 +0200 (CEST)
+	id 2F944F80124; Wed, 28 Jun 2023 17:58:14 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C46F2F80535;
-	Wed, 28 Jun 2023 17:55:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A928DF80212;
+	Wed, 28 Jun 2023 17:58:14 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D598EF80549; Wed, 28 Jun 2023 17:55:06 +0200 (CEST)
+	id 2F03CF80246; Wed, 28 Jun 2023 17:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
- [209.85.166.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4334F80093
-	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 17:54:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4334F80093
-Received: by mail-io1-f47.google.com with SMTP id
- ca18e2360f4ac-77b00bb3fd6so29798239f.1
-        for <alsa-devel@alsa-project.org>;
- Wed, 28 Jun 2023 08:54:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687967696; x=1690559696;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dvM2j4MFWu2+tkWUIYPaSox/q0gO7Yl+tyqnCdAuB4I=;
-        b=euoPuSHuqbG/+BJJD8Pxw1M8J9xtht/O9Ux+6JjiwALyjmwsV2OSPL2mNV5GtHxfzG
-         z0PaDEGl9CrIh6G2qymbyhMyDCxCWsANXqklzApxpH28/aRG6EwJ8hnQIv0J1T8UiEAp
-         la84srE1zk/OtrPlJMKMfkDXkMLI80iWhuJy97ACuENRx7969F/WqnTYRBgV8r3ZHdxB
-         ldh4sRlHFYZN2Nzok/PpE2RzBPmIJYqtxKQt+h4dZNSur0/XLj7wlSqn483svqzbsrTh
-         uO1gcbN7/gh3Vg0x2OBehoI2JECGvOtATeKlQ13bAAhbSFgEmKL635v+A4D0AC/kUz49
-         4IBA==
-X-Gm-Message-State: AC+VfDyhb9N5reBMmDPjYnJbUsR5Qq9J4wDpC9PI1H5DGr94l/PfBvUe
-	BsJkcVqu7nM89CDBh3/TOQ==
-X-Google-Smtp-Source: 
- ACHHUZ7vOyiGVJcVU0xLxr6GOynYLXsRfMlwVF8aoB5Ye4p2RGPwCEIj1VqWd7eoGZKz85FYYMaI6A==
-X-Received: by 2002:a05:6602:418a:b0:783:4135:5b96 with SMTP id
- bx10-20020a056602418a00b0078341355b96mr1207753iob.5.1687967695956;
-        Wed, 28 Jun 2023 08:54:55 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.250])
-        by smtp.gmail.com with ESMTPSA id
- s5-20020a02cc85000000b0042acb1ec82bsm1991384jap.112.2023.06.28.08.54.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Jun 2023 08:54:55 -0700 (PDT)
-Received: (nullmailer pid 541922 invoked by uid 1000);
-	Wed, 28 Jun 2023 15:54:53 -0000
-Date: Wed, 28 Jun 2023 09:54:53 -0600
-From: Rob Herring <robh@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: krzysztof.kozlowski+dt@linaro.org, andersson@kernel.org,
- broonie@kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dmitry.baryshkov@linaro.org,
- johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
- ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
- linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: q6apm: add firmware-name bindings
-Message-ID: <20230628155453.GA537917-robh@kernel.org>
-References: <20230628102621.15016-1-srinivas.kandagatla@linaro.org>
- <20230628102621.15016-2-srinivas.kandagatla@linaro.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2ED3FF80093
+	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 17:58:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ED3FF80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=W7PUPRPf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1687967887; x=1719503887;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=K5zT2FY0Az4cbHZonZ/hBNeNzPWJNFzal6qbbQFy0DU=;
+  b=W7PUPRPfNTQfBaw43z7wxJ5Ge9KYpb2pZh5PJZy4xnCcuHDJnajEEHCQ
+   QVADkpUsJrsoEQQluSyeIALFYEM368mfgwkZ1WH2CRfH243lO44EiV/w0
+   ucbPzxarreo7cCPAAAduD5jUI0OSj1B2BMYCsq4uQN2lk/520GOTBukbR
+   WmpW3ip2Zmi6W8G9X8ExOSHxp1Nb33q5JDyfJsG2yPPCq5Xo5eVdqhtVA
+   iL+81koH5mRHmGJOU14CqgvV9fZZtx0TrwiNoKj5F7P7a2Bo4CYB79rQJ
+   o2R6LeZvAb/MWj5TDuBWT5GBbw4RR+IsjMCEDvzRqStYYHcm5IiDdTpE1
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="448269763"
+X-IronPort-AV: E=Sophos;i="6.01,165,1684825200";
+   d="scan'208";a="448269763"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2023 08:58:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="841122398"
+X-IronPort-AV: E=Sophos;i="6.01,165,1684825200";
+   d="scan'208";a="841122398"
+Received: from sdiskin-mobl.ger.corp.intel.com (HELO [10.251.217.207])
+ ([10.251.217.207])
+  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2023 08:57:59 -0700
+Message-ID: <bbe9f772-e049-4ad3-18aa-cca0b793439f@linux.intel.com>
+Date: Wed, 28 Jun 2023 17:57:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230628102621.15016-2-srinivas.kandagatla@linaro.org>
-Message-ID-Hash: 6SPRYNIFZUQHT75PEU5JXOK4N2O5XKH4
-X-Message-ID-Hash: 6SPRYNIFZUQHT75PEU5JXOK4N2O5XKH4
-X-MailFrom: robherring2@gmail.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [RFC PATCH 0/8] PCI: Define Intel PCI IDs and use them in drivers
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+References: <20230628205135.517241-1-amadeuszx.slawinski@linux.intel.com>
+ <ZJxIZGV4+5Al0CpW@smile.fi.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ZJxIZGV4+5Al0CpW@smile.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: YOPAZ5JKVF33OIMWNGVJ7HKPYPM6EKPZ
+X-Message-ID-Hash: YOPAZ5JKVF33OIMWNGVJ7HKPYPM6EKPZ
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6SPRYNIFZUQHT75PEU5JXOK4N2O5XKH4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YOPAZ5JKVF33OIMWNGVJ7HKPYPM6EKPZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,50 +113,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Jun 28, 2023 at 11:26:19AM +0100, Srinivas Kandagatla wrote:
-> Add bindings to get firmare-name from DT, this will provide more flexibility
-> to specify platform specific firmware file name and location. Also this brings
-> tplg firmware name inline with other board specific firmware locations.
 
-tplg?
 
+On 6/28/23 16:49, Andy Shevchenko wrote:
+> On Wed, Jun 28, 2023 at 10:51:27PM +0200, Amadeusz Sławiński wrote:
+>> PCI IDs for Intel HDA are duplicated across quite a few drivers, due to
+>> various configurations and historical reasons. Currently almost all uses
+>> of HDA PCI IDs have corresponding comment telling which platform it is.
+>> Additionally there are some inconsistencies between drivers about which
+>> ID corresponds to which device.
+>>
+>> Simplify things, by adding PCI IDs to global header and make use of them
+>> in drivers. This allows for removal of comments by having IDs themselves
+>> being self explanatory. Additionally it allows for removal of existing
+>> inconsistencies by having one source of truth.
 > 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  Documentation/devicetree/bindings/sound/qcom,q6apm.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
-> index ef1965aca254..c783451145ef 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
-> @@ -31,6 +31,10 @@ properties:
->      unevaluatedProperties: false
->      description: Qualcomm DSP audio ports
->  
-> +  firmware-name:
-> +    $ref: /schemas/types.yaml#/definitions/string
+> I'm in favour of this series. It allows to use PCI_DEVICE_DATA() in many places.
+> With that said, I think you can also add some more definitions to PCI IDs header
+> for the sake of being able to use that macro.
 
-Already has a type, so you can drop.
+I don't have any objections on the change.
 
-No default? Or pattern it should match? 
+The big open is how we add new definitions without a 3-way deadlock
+between PCI, sound and ASoC trees, and how those definitions can be
+added to the -stable trees.
 
-> +    description: Audio Topology Firmware name
-> +
->    '#sound-dai-cells':
->      const: 0
->  
-> @@ -38,6 +42,7 @@ required:
->    - compatible
->    - bedais
->    - dais
-> +  - firmware-name
+This isn't an hypothetical case, we have 2 pending submissions for
+LunarLake [1] and ArrowLake [2] which will be provided as soon as the
+merge window closes.
 
-Causes warnings. Test you bindings.
+It's not clear to me if Bjorn is ok to let those audio-specific PCI IDs
+go the audio trees, and how things would work between Mark and Takashi.
 
->  
->  unevaluatedProperties: false
->  
-> -- 
-> 2.21.0
-> 
+[1] https://github.com/thesofproject/linux/pull/4425
+[2] https://github.com/thesofproject/linux/pull/4437

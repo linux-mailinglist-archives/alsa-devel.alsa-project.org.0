@@ -2,97 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B445D7411B2
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 14:53:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 530C87413BE
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 16:21:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DEFBA4B;
-	Wed, 28 Jun 2023 14:52:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DEFBA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C5AD7F4;
+	Wed, 28 Jun 2023 16:20:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C5AD7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687956790;
-	bh=rYiMwmId7Jd075bHrw5cpqNPgj9+n0LnffuzfnjZ7sk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1687962072;
+	bh=JI+IbpQ5/apGlo5oDhaHO4LrQ5upOVsiW5Fd9XBHvPA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DY3OmIbP4nZo21PKIIrU2Of9KwPVpEtTyDE7gESnI76I4RAJ+HBECBwSUf8Qtv2Mz
-	 uzpSI4CTI0XEvCDaa6KN4LVhIfmpSuG/zPM8+LMduELkoAuE7sI6F9aRrhjWr+fh/3
-	 NNUbVc8Agg6OB5dn1AVuhBZ1Vz4cjcuAgWA2T/Uk=
+	b=e7qz0dhshIvGw7rwi5gxO/Y/VsAV80YTO4M9q/z3vNFCO4iHCOg5SBC6rEe0ORIe9
+	 hQe54zPixeodQr+vSIwmP9PpcaZanHqX3ehdnFFdroKpA65RK3HNf1Wsv9aS4lOuZ1
+	 7srIHCaMZcgmmcJnIwNFLtiPdWwNm+nbebnk+vv0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39AFAF8057C; Wed, 28 Jun 2023 14:51:15 +0200 (CEST)
+	id 17D6EF80534; Wed, 28 Jun 2023 16:20:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 838CCF8057C;
-	Wed, 28 Jun 2023 14:51:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A4E4F80212;
+	Wed, 28 Jun 2023 16:20:21 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCE76F8057C; Wed, 28 Jun 2023 14:51:08 +0200 (CEST)
+	id 6E40BF80246; Wed, 28 Jun 2023 16:20:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 3D218F80535
-	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 14:50:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D218F80535
+	by alsa1.perex.cz (Postfix) with ESMTPS id 614A1F80093
+	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 16:20:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 614A1F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=YX1gW82m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1687956656; x=1719492656;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=rYiMwmId7Jd075bHrw5cpqNPgj9+n0LnffuzfnjZ7sk=;
-  b=YX1gW82mKdv0vJH1rG3wyLqcg4skIY2V6+6sG6GvO9J7W+t9wu3yhg+8
-   RKOR9wGrR77rSkXiBN94At6cM46CIOqDp1tdiDSN/Omld2F82GQVKve/K
-   n2I3l4Sf+j8KCq7rjt4iMiMk8k5dt7C2kSiQOp4/KoELmRH08aEy5Awda
-   W3tWnb59niEHCTpb1vKMahqJzk1BDTkzmUrgjMAfS8xaF8xDrifrttRHK
-   dqdF5hLkrYYdZVfjTwXEd8D0IpjqkFmQi+KUf13w1N7oBL8vHvNfHpeTt
-   KETNM79qVDfxlVYWht+ZmdkzX+3YOWE60/8tQW7mAmibGzza8WsQ7VUBe
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10754"; a="361875616"
-X-IronPort-AV: E=Sophos;i="6.01,165,1684825200";
-   d="scan'208";a="361875616"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2023 05:50:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10754"; a="891035148"
-X-IronPort-AV: E=Sophos;i="6.01,165,1684825200";
-   d="scan'208";a="891035148"
-Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga005.jf.intel.com with ESMTP; 28 Jun 2023 05:50:40 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Subject: [RFC PATCH 8/8] ASoC: SOF: Intel: Update PCI ID list
-Date: Wed, 28 Jun 2023 22:51:35 +0200
-Message-Id: <20230628205135.517241-9-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230628205135.517241-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230628205135.517241-1-amadeuszx.slawinski@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: ORMOUSZAOCJ2GNCSJXTFKRJQTGHNLH3K
-X-Message-ID-Hash: ORMOUSZAOCJ2GNCSJXTFKRJQTGHNLH3K
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=n8ObRBPV;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=djP8+c8M
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 08746216DA;
+	Wed, 28 Jun 2023 14:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1687962008;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NwQK9I4qIEjyYcrYvwDUh56IDuBSHpVGFUokjQNhgfU=;
+	b=n8ObRBPV1FGflIxMgiUbz1zbHOcwTXxeJbPQs0qmwXE4NYj0J8oRkidVPCEndvDTT0jODh
+	MZRHI9Yh1F4neUff/KUYRxA6ne459Mi8xWWY4uFqWB/H52vL4ZeAQQWQEyubgaE7FhF3Oo
+	9Qc87gI1V5h4DHJtZ2mlKQk8jnP0uMk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1687962008;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NwQK9I4qIEjyYcrYvwDUh56IDuBSHpVGFUokjQNhgfU=;
+	b=djP8+c8MYg0HsrQzYnraYdxrTk0+Fin5/v6XU91Osjm/vMIrrY0Pmw8rHKt7A9E+4cFYAm
+	CUVqbUN9WE2ohuDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D7BF2138EF;
+	Wed, 28 Jun 2023 14:20:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id FAHHM5dBnGShHAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Wed, 28 Jun 2023 14:20:07 +0000
+Date: Wed, 28 Jun 2023 16:20:07 +0200
+Message-ID: <87leg3ekiw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Symbolic Debugger" <happy.debugging@gmail.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
+In-Reply-To: <168795193282.22.889084679335823356@mailman-web.alsa-project.org>
+References: <87r0pvet82.wl-tiwai@suse.de>
+	<168795193282.22.889084679335823356@mailman-web.alsa-project.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: VEGMRN2ZVCR52BEHNPXFJDNALREA2CCD
+X-Message-ID-Hash: VEGMRN2ZVCR52BEHNPXFJDNALREA2CCD
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +108,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ORMOUSZAOCJ2GNCSJXTFKRJQTGHNLH3K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VEGMRN2ZVCR52BEHNPXFJDNALREA2CCD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,190 +117,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use PCI device IDs from pci_ids.h header and while at it change to using
-PCI_DEVICE_DATA macro, to simplify declarations.
+On Wed, 28 Jun 2023 13:32:12 +0200,
+Symbolic Debugger wrote:
+> 
+> Thanks for the notes. I read the (USB) spec again page 27/28.  (well multiple times) and as I understood 1 endpoint has 1 or more multiple  Group Terminal Blocks for which GTB each has  1 to 16 groups (group = in/out or bi =  similar to one or two midi cables/ports)  per terminal block  The spec I have is from May 5th, 2020. i wonder how the driver get the Function Block information function blocks are not mentioned in the USB spec. Is there a a newer USB spec? if yes, it may make no sense to develop a device now if the descriptors and USB functions calls changed. Page 28 still refers to MIDI -CI protocol negotiation which already has been removed.  It's a bit confusing. Would have been better to first release the updated USB spec before releasing the updated MIDI specs.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/sof/intel/pci-apl.c |  9 +++----
- sound/soc/sof/intel/pci-cnl.c | 15 ++++--------
- sound/soc/sof/intel/pci-icl.c | 12 ++++------
- sound/soc/sof/intel/pci-mtl.c |  3 +--
- sound/soc/sof/intel/pci-skl.c |  6 ++---
- sound/soc/sof/intel/pci-tgl.c | 45 ++++++++++++-----------------------
- sound/soc/sof/intel/pci-tng.c |  3 +--
- 7 files changed, 31 insertions(+), 62 deletions(-)
+Basically a UMP EP can have up to 16 groups, and GTB indicates which
+groups out of those can be managed together.  And for the old USB MIDI
+2.0 spec, groups in multiple GTBs have to be unique; i.e. if GTB#1
+contains the group#1, the group#1 can't be found in another GTBs.
 
-diff --git a/sound/soc/sof/intel/pci-apl.c b/sound/soc/sof/intel/pci-apl.c
-index 69cad5a6bc72..aadacc283220 100644
---- a/sound/soc/sof/intel/pci-apl.c
-+++ b/sound/soc/sof/intel/pci-apl.c
-@@ -85,12 +85,9 @@ static const struct sof_dev_desc glk_desc = {
- 
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
--	{ PCI_DEVICE(0x8086, 0x5a98), /* BXT-P (ApolloLake) */
--		.driver_data = (unsigned long)&bxt_desc},
--	{ PCI_DEVICE(0x8086, 0x1a98),/* BXT-T */
--		.driver_data = (unsigned long)&bxt_desc},
--	{ PCI_DEVICE(0x8086, 0x3198), /* GeminiLake */
--		.driver_data = (unsigned long)&glk_desc},
-+	{ PCI_DEVICE_DATA(INTEL, HDA_APL,	&bxt_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_APL_T,	&bxt_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_GML,	&glk_desc) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
-diff --git a/sound/soc/sof/intel/pci-cnl.c b/sound/soc/sof/intel/pci-cnl.c
-index 8895508a0be6..7fbfaff7ea16 100644
---- a/sound/soc/sof/intel/pci-cnl.c
-+++ b/sound/soc/sof/intel/pci-cnl.c
-@@ -120,16 +120,11 @@ static const struct sof_dev_desc cml_desc = {
- 
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
--	{ PCI_DEVICE(0x8086, 0x9dc8), /* CNL-LP */
--		.driver_data = (unsigned long)&cnl_desc},
--	{ PCI_DEVICE(0x8086, 0xa348), /* CNL-H */
--		.driver_data = (unsigned long)&cfl_desc},
--	{ PCI_DEVICE(0x8086, 0x02c8), /* CML-LP */
--		.driver_data = (unsigned long)&cml_desc},
--	{ PCI_DEVICE(0x8086, 0x06c8), /* CML-H */
--		.driver_data = (unsigned long)&cml_desc},
--	{ PCI_DEVICE(0x8086, 0xa3f0), /* CML-S */
--		.driver_data = (unsigned long)&cml_desc},
-+	{ PCI_DEVICE_DATA(INTEL, HDA_CNL_LP,	&cnl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_CNL_H,	&cfl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_CML_LP,	&cml_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_CML_H,	&cml_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_CML_S,	&cml_desc) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
-diff --git a/sound/soc/sof/intel/pci-icl.c b/sound/soc/sof/intel/pci-icl.c
-index 5fb5a820693e..db3e2965eb4b 100644
---- a/sound/soc/sof/intel/pci-icl.c
-+++ b/sound/soc/sof/intel/pci-icl.c
-@@ -86,14 +86,10 @@ static const struct sof_dev_desc jsl_desc = {
- 
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
--	{ PCI_DEVICE(0x8086, 0x34C8), /* ICL-LP */
--		.driver_data = (unsigned long)&icl_desc},
--	{ PCI_DEVICE(0x8086, 0x3dc8), /* ICL-H */
--		.driver_data = (unsigned long)&icl_desc},
--	{ PCI_DEVICE(0x8086, 0x38c8), /* ICL-N */
--		.driver_data = (unsigned long)&jsl_desc},
--	{ PCI_DEVICE(0x8086, 0x4dc8), /* JSL-N */
--		.driver_data = (unsigned long)&jsl_desc},
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ICL_LP,	&icl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ICL_H,	&icl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ICL_N,	&jsl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_JSL_N,	&jsl_desc) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
-diff --git a/sound/soc/sof/intel/pci-mtl.c b/sound/soc/sof/intel/pci-mtl.c
-index e276e1e37fed..7868b0827e84 100644
---- a/sound/soc/sof/intel/pci-mtl.c
-+++ b/sound/soc/sof/intel/pci-mtl.c
-@@ -52,8 +52,7 @@ static const struct sof_dev_desc mtl_desc = {
- 
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
--	{ PCI_DEVICE(0x8086, 0x7E28), /* MTL */
--		.driver_data = (unsigned long)&mtl_desc},
-+	{ PCI_DEVICE_DATA(INTEL, HDA_MTL, &mtl_desc) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
-diff --git a/sound/soc/sof/intel/pci-skl.c b/sound/soc/sof/intel/pci-skl.c
-index 5e69af6eed34..a6588b138a8c 100644
---- a/sound/soc/sof/intel/pci-skl.c
-+++ b/sound/soc/sof/intel/pci-skl.c
-@@ -69,10 +69,8 @@ static struct sof_dev_desc kbl_desc = {
- 
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
--	/* Sunrise Point-LP */
--	{ PCI_DEVICE(0x8086, 0x9d70), .driver_data = (unsigned long)&skl_desc},
--	/* KBL */
--	{ PCI_DEVICE(0x8086, 0x9d71), .driver_data = (unsigned long)&kbl_desc},
-+	{ PCI_DEVICE_DATA(INTEL, HDA_SKL_LP, &skl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_KBL_LP, &kbl_desc) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
-diff --git a/sound/soc/sof/intel/pci-tgl.c b/sound/soc/sof/intel/pci-tgl.c
-index ca37ff1bbd2a..c7108ea3c02b 100644
---- a/sound/soc/sof/intel/pci-tgl.c
-+++ b/sound/soc/sof/intel/pci-tgl.c
-@@ -284,36 +284,21 @@ static const struct sof_dev_desc rpl_desc = {
- 
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
--	{ PCI_DEVICE(0x8086, 0xa0c8), /* TGL-LP */
--		.driver_data = (unsigned long)&tgl_desc},
--	{ PCI_DEVICE(0x8086, 0x43c8), /* TGL-H */
--		.driver_data = (unsigned long)&tglh_desc},
--	{ PCI_DEVICE(0x8086, 0x4b55), /* EHL */
--		.driver_data = (unsigned long)&ehl_desc},
--	{ PCI_DEVICE(0x8086, 0x4b58), /* EHL */
--		.driver_data = (unsigned long)&ehl_desc},
--	{ PCI_DEVICE(0x8086, 0x7ad0), /* ADL-S */
--		.driver_data = (unsigned long)&adls_desc},
--	{ PCI_DEVICE(0x8086, 0x7a50), /* RPL-S */
--		.driver_data = (unsigned long)&rpls_desc},
--	{ PCI_DEVICE(0x8086, 0x51c8), /* ADL-P */
--		.driver_data = (unsigned long)&adl_desc},
--	{ PCI_DEVICE(0x8086, 0x51c9), /* ADL-PS */
--		.driver_data = (unsigned long)&adl_desc},
--	{ PCI_DEVICE(0x8086, 0x51ca), /* RPL-P */
--		.driver_data = (unsigned long)&rpl_desc},
--	{ PCI_DEVICE(0x8086, 0x51cb), /* RPL-P */
--		.driver_data = (unsigned long)&rpl_desc},
--	{ PCI_DEVICE(0x8086, 0x51cc), /* ADL-M */
--		.driver_data = (unsigned long)&adl_desc},
--	{ PCI_DEVICE(0x8086, 0x51cd), /* ADL-P */
--		.driver_data = (unsigned long)&adl_desc},
--	{ PCI_DEVICE(0x8086, 0x51ce), /* RPL-M */
--		.driver_data = (unsigned long)&rpl_desc},
--	{ PCI_DEVICE(0x8086, 0x51cf), /* RPL-PX */
--		.driver_data = (unsigned long)&rpl_desc},
--	{ PCI_DEVICE(0x8086, 0x54c8), /* ADL-N */
--		.driver_data = (unsigned long)&adl_n_desc},
-+	{ PCI_DEVICE_DATA(INTEL, HDA_TGL_LP,	&tgl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_TGL_H,	&tglh_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_EHL_0,	&ehl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_EHL_3,	&ehl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_S,	&adls_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_S,	&rpls_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_P,	&adl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_PS,	&adl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_P_0,	&rpl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_P_1,	&rpl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_M,	&adl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_PX,	&adl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_M,	&rpl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_PX,	&rpl_desc) },
-+	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_N,	&adl_n_desc) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
-diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
-index 8c22a00266c0..8a98c6229807 100644
---- a/sound/soc/sof/intel/pci-tng.c
-+++ b/sound/soc/sof/intel/pci-tng.c
-@@ -225,8 +225,7 @@ static const struct sof_dev_desc tng_desc = {
- 
- /* PCI IDs */
- static const struct pci_device_id sof_pci_ids[] = {
--	{ PCI_DEVICE(0x8086, 0x119a),
--		.driver_data = (unsigned long)&tng_desc},
-+	{ PCI_DEVICE_DATA(INTEL, HDA_MRFLD,	&tng_desc) },
- 	{ 0, }
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
--- 
-2.34.1
+OTOH, the new UMP 1.1 spec allows the shared groups by multiple
+Function Blocks.  For explicitly disallowing this new (rather
+confusing) behavior, "static block" flag was added in the FB info.
+When this bit is set, the FB is fixed and doesn't overlap, so that
+it's more or less compatible with GTB.
 
+Note that Function Block is a new thing that was defined in UMP 1.1
+spec.  Naturally it didn't exist in the old USB MIDI 2.0 spec of
+year 2020.  But, the concept of Function Block (and implementation) is
+rather about UMP, and it's independent from the transport layer; that
+is, USB MIDI 2.0 spec still applies as is, and won't be updated soon,
+AFAIK.  It's a matter of the driver which information is used as the
+primary source: FB or GTB.  The device should provide both info, in
+somehow compatible ways.
+
+
+Takashi

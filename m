@@ -2,87 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A489D740EAF
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 12:28:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1339740EB9
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 12:28:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0714822;
-	Wed, 28 Jun 2023 12:27:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0714822
+	by alsa0.perex.cz (Postfix) with ESMTPS id 291D285D;
+	Wed, 28 Jun 2023 12:27:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 291D285D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687948087;
-	bh=TA24QYjHstd/WwrC7y7tZQcLx+bi2yPx/HLj2hZumu0=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=XGLbbUExgZpHn2X9MuzTGWvc/SKo601dJyU9UdX0OZEaWeJWiabbqgqRaFc/TI/S4
-	 buYo9yONEX4eDsQmMs6vbNtYr0bEh8zijH986xPwKr/byS1lRxlcvWiFKx0WqG4E8d
-	 zSp86aVbYeuxmgsM4JVwQf5UZhrff0M4SAdxC8KQ=
+	s=default; t=1687948118;
+	bh=WHsg/ee2Xw7InKPIR5DNO3PLCVZ52njnV1CU13j5Xic=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=V1l77NO2JLPBgnSlQrRj6B32vEEsvbLziVBatbWNEmUORLBbt3ntYMv76Qi4x4U71
+	 I3eWkMeexPZzcWtCo2zJd2vreMqluXpP34HEdEP6VP2ZWcvUNluDflcS/SfsZyHg0o
+	 4/fM2rIrZTLGf3zbkLO2GKfVkR8hA+FxqAuxfyWw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4E6E6F80212; Wed, 28 Jun 2023 12:26:49 +0200 (CEST)
+	id 17644F8057B; Wed, 28 Jun 2023 12:26:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68E3AF80212;
-	Wed, 28 Jun 2023 12:26:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2810FF80549;
+	Wed, 28 Jun 2023 12:26:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C6D92F80169; Wed, 28 Jun 2023 12:26:43 +0200 (CEST)
+	id 2E495F8027B; Wed, 28 Jun 2023 12:26:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [IPv6:2a00:1450:4864:20::133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 460BCF80169
-	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 12:26:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 460BCF80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B20AF80124
+	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 12:26:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B20AF80124
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ewY1PWWZ
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-3fba66f3b14so18828395e9.3
+ header.s=google header.b=kIrvu1fp
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-4fb7acaa7a5so4341716e87.1
         for <alsa-devel@alsa-project.org>;
- Wed, 28 Jun 2023 03:26:38 -0700 (PDT)
+ Wed, 28 Jun 2023 03:26:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1687947997; x=1690539997;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dKNfjF3wW/Nm/nNPQwIEGWNf3zo0Uzcpr6AjJzCAwQs=;
-        b=ewY1PWWZFTqt3d2EoUX7BYeBLURb1ND+wfkfANY8NH8ewiDiDYKhlwdmgQGxnQHkI8
-         ujbIh67rsT39B+IL/3a8hsS/BEj2wi3cUm+tFOp4wJS0FnaJkXGH2PifG6QUVyjxANxh
-         vIkdZ0LrYWYjLSMtpTnjDRNMO/yuWxKK6T7KEZrYZIxsDgX55CJ+BtTx2tlvUvxd5AJx
-         ebygNj3edwU9/m9vW6Aof0Z7kz8PgpIbtNi5dvx0nvfx6BvZ0Tlsf9yTOmmqtUjAR1IT
-         uw9np5GnyIYAIKzB8AcSIotnpy4LoKUgR4oER6EgFCgrN9/mxdvL7FAeiJhmWdp9C/aM
-         06ew==
+        d=linaro.org; s=google; t=1687947998; x=1690539998;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LuHCd5iHQZEu3yLxK3H5002Fp9mhCHE1bYCUjxfT00w=;
+        b=kIrvu1fp5N6kZkZzTu819ivlwe2RwOsvvRpr95K+WkF7h6uLaoxXcEFvbKFSfmnFWC
+         3G2msJZnhQgaP8TEEotmbMaajTUUw85K5DP0npluG7rDEEcyFElDo8YLKLbWJYujvX8L
+         0QA9udsFcOepH5hZ7Zp84DQR2rEU0XCk/6dOjNoYmGaCVDh179a2NG/AVmxx62eXjArA
+         dSQHjhBHyxsStTn0TEzO80cAnCaowhhLQcjYyCiQLncSezOjxTBPUpy1F+TblUX+cEJ1
+         KbJB61BXm5w7yFtxabaKTIX2YtLeSTuXz00Aeu25PnDs2iTZw9KfOdCHqPd2wa5C4oKW
+         X3RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687947997; x=1690539997;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dKNfjF3wW/Nm/nNPQwIEGWNf3zo0Uzcpr6AjJzCAwQs=;
-        b=dWrhdLh9mQ/meI7ASiUBPr+tZXnPmabExEsHfkz5LCo7AUswpZTtwJnPmi19XusjL6
-         czIhSWh1OgeU7gHJ99T+gvXUbdz1bGKA0eKsiEaHh8BmbuIHbP1NWTvqF63fssIBEK/7
-         +efWLNwDDQuu1bcm+c3znkmNaCHT3prTD0PL/AiwPm9r/GVaqeMpUklyJy4vfT0rrTiJ
-         wV2I66UJ54F3NYIMBsFg1I4Gys4VuTaTkqtPXnc0BR11zxhGATBCgjIaVBFTiLkz14NQ
-         QbBW7Ckl+7S5dutMS17vZIccuBxnmTh1HuujNj9rHBZBfkuXJiM0kF4kXK5FHILx0a+a
-         gqkQ==
-X-Gm-Message-State: AC+VfDx4Fd2Ui2Q7Oq1v8OMEraYg1WKJvopKOI8aOalPBg+rYmbE+wyE
-	HQCSKVg1YQLHOK7YN9VTxpJILg==
+        d=1e100.net; s=20221208; t=1687947998; x=1690539998;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LuHCd5iHQZEu3yLxK3H5002Fp9mhCHE1bYCUjxfT00w=;
+        b=akigfMP1GLsstN13ZwwboVk1MpA1aABDrD74tIaRpvkxJy15LYSHYGwFoQ8wZrjqJ4
+         +DWm1ik4AW1NyXbGlR4sGGE+KukG4Bg9R8weZ4lqzW9IoM8EGuW5jqduCFKb13IeTAiF
+         F3Clcg9o8W3pqK3U8Z1BdhXmx/9yPJA2vesGPK0C0jKXXEBZHJ2NgsAI2EaasvWkPH7r
+         DObf3p42yP8iWi2mNY/X33Mz+6tnHucJMgEtu3dikqXOKF6wYcxmluv9MN8aTupKzyPm
+         ZdBCBo8zg0mvvCEYzU7RP7b9JwjBvezxWz05vnYvwlG5izozhYkL6P1SwE1Bl11Y+LNe
+         4rmw==
+X-Gm-Message-State: AC+VfDwonSFAb8MynJxqeY8gsc9g58hUg1udYgeXSDgrfw3vN6aq9xo3
+	500NeWNZWGz3tWAEjwYzw8VmnQ==
 X-Google-Smtp-Source: 
- ACHHUZ6k6c/Qr75tGaXs6nIJMRkFErVcop4miNK7mJz2p1ioVu4szwQeFKE/lyY1CYAz4y9CySApsA==
-X-Received: by 2002:a7b:cd98:0:b0:3f9:b4d8:8e84 with SMTP id
- y24-20020a7bcd98000000b003f9b4d88e84mr22176859wmj.21.1687947997137;
-        Wed, 28 Jun 2023 03:26:37 -0700 (PDT)
+ ACHHUZ4D7KP/WuAE/uTqzc8uPPDUFt3JfNe6/Y6fhu0gjx1LzcDjG70eVVOvxHFT+42JXA+dBchO4g==
+X-Received: by 2002:a05:6512:2348:b0:4fb:76a5:2325 with SMTP id
+ p8-20020a056512234800b004fb76a52325mr6782533lfu.24.1687947998165;
+        Wed, 28 Jun 2023 03:26:38 -0700 (PDT)
 Received: from localhost.localdomain ([5.133.47.210])
         by smtp.gmail.com with ESMTPSA id
- a10-20020a5d53ca000000b003140555c0ddsm2467780wrw.56.2023.06.28.03.26.36
+ a10-20020a5d53ca000000b003140555c0ddsm2467780wrw.56.2023.06.28.03.26.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Jun 2023 03:26:36 -0700 (PDT)
+        Wed, 28 Jun 2023 03:26:37 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: krzysztof.kozlowski+dt@linaro.org,
 	andersson@kernel.org,
@@ -101,14 +103,16 @@ Cc: robh+dt@kernel.org,
 	pierre-louis.bossart@linux.intel.com,
 	alsa-devel@alsa-project.org,
 	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [PATCH 0/3] ASoC: qcom: get tplg firmware-name from device tree
-Date: Wed, 28 Jun 2023 11:26:18 +0100
-Message-Id: <20230628102621.15016-1-srinivas.kandagatla@linaro.org>
+Subject: [PATCH 1/3] ASoC: dt-bindings: q6apm: add firmware-name bindings
+Date: Wed, 28 Jun 2023 11:26:19 +0100
+Message-Id: <20230628102621.15016-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20230628102621.15016-1-srinivas.kandagatla@linaro.org>
+References: <20230628102621.15016-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 5B6GR3QXGHZ4JXRFJKV47OUCJQZEDZWJ
-X-Message-ID-Hash: 5B6GR3QXGHZ4JXRFJKV47OUCJQZEDZWJ
+Message-ID-Hash: Q2NGD5UBL42W537G3E25OFSH5TN5CT4K
+X-Message-ID-Hash: Q2NGD5UBL42W537G3E25OFSH5TN5CT4K
 X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -121,7 +125,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5B6GR3QXGHZ4JXRFJKV47OUCJQZEDZWJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q2NGD5UBL42W537G3E25OFSH5TN5CT4K/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,25 +134,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-With the existing setup the firmware file is looked up in a fixed location
-based on soundcard name, however this is not really scalable and not inline
-with where linux-firmware stores board specific firmwares.
+Add bindings to get firmare-name from DT, this will provide more flexibility
+to specify platform specific firmware file name and location. Also this brings
+tplg firmware name inline with other board specific firmware locations.
 
-This patchset adds a new binding to q6apm to allow board specific Device Tree
-to pass firmware-name, this also makes it inline with how other firmwares are
-specified in qcom boards.
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ Documentation/devicetree/bindings/sound/qcom,q6apm.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-
-Srinivas Kandagatla (3):
-  ASoC: dt-bindings: q6apm: add firmware-name bindings
-  ASoC: qcom: q6apm: add support for reading firmware name from DT
-  arm64: dts: qcom: sc8280xp-x13s: Add audio topology firmware path
-
- .../devicetree/bindings/sound/qcom,q6apm.yaml      |  5 +++++
- .../dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     |  5 +++++
- sound/soc/qcom/qdsp6/topology.c                    | 14 ++++++--------
- 3 files changed, 16 insertions(+), 8 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
+index ef1965aca254..c783451145ef 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,q6apm.yaml
+@@ -31,6 +31,10 @@ properties:
+     unevaluatedProperties: false
+     description: Qualcomm DSP audio ports
+ 
++  firmware-name:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: Audio Topology Firmware name
++
+   '#sound-dai-cells':
+     const: 0
+ 
+@@ -38,6 +42,7 @@ required:
+   - compatible
+   - bedais
+   - dais
++  - firmware-name
+ 
+ unevaluatedProperties: false
+ 
 -- 
 2.21.0
 

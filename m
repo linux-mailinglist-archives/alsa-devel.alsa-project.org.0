@@ -2,99 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357C074145F
-	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 16:56:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EAF9741589
+	for <lists+alsa-devel@lfdr.de>; Wed, 28 Jun 2023 17:45:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A2AB1E0;
-	Wed, 28 Jun 2023 16:55:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A2AB1E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 657F47F1;
+	Wed, 28 Jun 2023 17:44:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 657F47F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1687964163;
-	bh=950ad4Q8R9S74I5gc8AWjL24I3KI0SJhn8K91bX+Hs4=;
+	s=default; t=1687967141;
+	bh=LvXbiJtpaSRANeAQkBQjkIL9DvaryjtWGcB9/6o5jv8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Yqnn+a90zwL+ItazIxA35cOgdxBiAS3txdyZtjlWHb7LOtyDC9Ov6SPWT/m2U51YU
-	 bo+2ftNiRF8ZdxsjvBnMR1gCphLkQODlkCAYci8osR8jN6qbm0ry1LbxGCGZFd5NJW
-	 ZBvyC266S8JOLkq8DzzNmHz+pUSVMMuVPatmzbVM=
+	b=fCUyX+djEpUNvkPWyJUHcSS0ceh1k6wUPL36WPRQt70dM3yrdhH4i8Vzt6DIYZ4hf
+	 lNL2VzOayzzUaJMO0JJVhn00Q+GKno86/hVS2fuiRaxBktU3gQxTgsuZjxb6N5VDdT
+	 c5v+cSvqSA4D+/sMjKnxCa2ONuBh4jq2ba6/PT0Y=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44269F80535; Wed, 28 Jun 2023 16:55:12 +0200 (CEST)
+	id B11FCF80246; Wed, 28 Jun 2023 17:44:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9DDE6F80212;
-	Wed, 28 Jun 2023 16:55:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39370F80212;
+	Wed, 28 Jun 2023 17:44:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69F80F80246; Wed, 28 Jun 2023 16:55:09 +0200 (CEST)
+	id 3854DF80246; Wed, 28 Jun 2023 17:44:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
+ [209.85.166.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 45ACEF80124
-	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 16:55:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45ACEF80124
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=D61oyiHR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1687964108; x=1719500108;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=950ad4Q8R9S74I5gc8AWjL24I3KI0SJhn8K91bX+Hs4=;
-  b=D61oyiHRIWNGZxAhBWFDEgK66hC1P7yzmzBaO4o22zrJepbU1emLZ13v
-   B6JDqCJoAWAmirYZuK7Nx3r739fnVdd1YKr3iCtK+ACBiMae1qT9KBFZj
-   29eVJQegshZAFRCKsvgyPXRubproNrsicCNbZ6twtSmnV9O1zPQgekFNX
-   z9+FmSJVtS6VQbGFAF6FFBVa/e9cZS2g4wpBb75Y6gUCePdvN61q4Wgm1
-   6uyR+Op4yMnNg/ac9Pa8dK1VKi3x9mL/J2YOusvH5XEgv8yXaIaHCvmLp
-   i2tuHxi0k4bo4ZAtBhTAAGDT3llF7rLAbFiQWNAALNJec/qMbpBWggnRG
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="392587907"
-X-IronPort-AV: E=Sophos;i="6.01,165,1684825200";
-   d="scan'208";a="392587907"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jun 2023 07:55:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="667154564"
-X-IronPort-AV: E=Sophos;i="6.01,165,1684825200";
-   d="scan'208";a="667154564"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orsmga003.jf.intel.com with ESMTP; 28 Jun 2023 07:55:01 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@intel.com>)
-	id 1qEWZP-000cyz-0d;
-	Wed, 28 Jun 2023 17:54:59 +0300
-Date: Wed, 28 Jun 2023 17:54:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [RFC PATCH 8/8] ASoC: SOF: Intel: Update PCI ID list
-Message-ID: <ZJxJwliMOj/RYLsH@smile.fi.intel.com>
-References: <20230628205135.517241-1-amadeuszx.slawinski@linux.intel.com>
- <20230628205135.517241-9-amadeuszx.slawinski@linux.intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9067FF80093
+	for <alsa-devel@alsa-project.org>; Wed, 28 Jun 2023 17:44:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9067FF80093
+Received: by mail-il1-f170.google.com with SMTP id
+ e9e14a558f8ab-3426e9a9c3eso3179025ab.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 28 Jun 2023 08:44:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1687967080; x=1690559080;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e8qi2/hGD1+QQV7LjWPANEr9l2yFXdhrRF59lxS51Ek=;
+        b=k8X9QYuf+wo0JJ37zAbzSL2S4Of/hXju3VfblH18vhPJRGD7oAy+HOxCafq4Z+awJ4
+         YXpvdR9VcyDV905/Hk2xgVXa0SM2De8U8w/H9BwidXGUF5/yNYiVjVsSRR6Ruu2p8pLZ
+         yLe+Pmaocm/2l7C41X1cw/C89PFv61T5iunE9iv6CONHEqoga7mD5HB+VuH92vcH3CSz
+         Qicl+tzluD6+18Bc13eAL6aTZ2aWEPuRZm1EVPx7z//omwgreRQFGMrylFtcQdlHkSn2
+         mzA7dcoY+bd79tDzYWb5jwjBZKPk/AFuG8IhLKBY+sVJgCp8Gwyh74cpcHlpzOn+NOxs
+         eUGQ==
+X-Gm-Message-State: AC+VfDxdO4l7l3DP6+t80CpmwPphsnlRARLDoNEkOePWst45s1W1TCAV
+	ntXN1b0qE6E8T0OzzV0FlA==
+X-Google-Smtp-Source: 
+ ACHHUZ79mRzg8+qZLbggc6AbavxNQm7x9oE4nROWahp4rP1eUGmg9coMWivmV3bV2fvmgRrNosi1Qw==
+X-Received: by 2002:a92:d94d:0:b0:341:24f1:3f74 with SMTP id
+ l13-20020a92d94d000000b0034124f13f74mr1285671ilq.14.1687967080305;
+        Wed, 28 Jun 2023 08:44:40 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+        by smtp.gmail.com with ESMTPSA id
+ b3-20020a92ce03000000b00345c0eca0e7sm950361ilo.85.2023.06.28.08.44.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Jun 2023 08:44:39 -0700 (PDT)
+Received: (nullmailer pid 530531 invoked by uid 1000);
+	Wed, 28 Jun 2023 15:44:37 -0000
+Date: Wed, 28 Jun 2023 09:44:37 -0600
+From: Rob Herring <robh@kernel.org>
+To: Seven Lee <wtli@nuvoton.com>
+Cc: linux-kernel@vger.kernel.org, supercraig0719@gmail.com,
+ dardar923@gmail.com, broonie@kernel.org, WTLI@nuvoton.com,
+ robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, SJLIN0@nuvoton.com,
+ lgirdwood@gmail.com, KCHSU0@nuvoton.com, YHCHuang@nuvoton.com,
+ CTLIN0@nuvoton.com, scott6986@gmail.com, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH] ASoC: dt-bindings: nau8821: Convert to dtschema
+Message-ID: <168796707718.530473.9600429077455152027.robh@kernel.org>
+References: <20230628085009.1130318-1-wtli@nuvoton.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230628205135.517241-9-amadeuszx.slawinski@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: KIM7MULBYAU3TH7R2DPDQYBFV2E4DXXP
-X-Message-ID-Hash: KIM7MULBYAU3TH7R2DPDQYBFV2E4DXXP
-X-MailFrom: andriy.shevchenko@intel.com
+In-Reply-To: <20230628085009.1130318-1-wtli@nuvoton.com>
+Message-ID-Hash: STCAONRRHG6SXT5W5CSV2H56UU2CQESX
+X-Message-ID-Hash: STCAONRRHG6SXT5W5CSV2H56UU2CQESX
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KIM7MULBYAU3TH7R2DPDQYBFV2E4DXXP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/STCAONRRHG6SXT5W5CSV2H56UU2CQESX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,34 +111,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Jun 28, 2023 at 10:51:35PM +0200, Amadeusz Sławiński wrote:
-> Use PCI device IDs from pci_ids.h header and while at it change to using
-> PCI_DEVICE_DATA macro, to simplify declarations.
 
-PCI_DEVICE_DATA()
+On Wed, 28 Jun 2023 16:50:09 +0800, Seven Lee wrote:
+> Convert the NAU8821 audio CODEC bindings to DT schema.
+> 
+> Signed-off-by: Seven Lee <wtli@nuvoton.com>
+> ---
+>  .../devicetree/bindings/sound/nau8821.txt     |  55 --------
+>  .../bindings/sound/nuvoton,nau8821.yaml       | 125 ++++++++++++++++++
+>  2 files changed, 125 insertions(+), 55 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/nau8821.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8821.yaml
+> 
 
-...
-
-> +	{ PCI_DEVICE_DATA(INTEL, HDA_APL,	&bxt_desc) },
-
-TAB(s) vs single space?
-
-...
-
->  static const struct pci_device_id sof_pci_ids[] = {
-> -	{ PCI_DEVICE(0x8086, 0x119a),
-> -		.driver_data = (unsigned long)&tng_desc},
-> +	{ PCI_DEVICE_DATA(INTEL, HDA_MRFLD,	&tng_desc) },
-
-Is it HDA? IIRC it was called Intel SST or so.
-
->  	{ 0, }
->  };
-
-Also with the file name, I think the ID itself should use TNG suffix.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Reviewed-by: Rob Herring <robh@kernel.org>
 

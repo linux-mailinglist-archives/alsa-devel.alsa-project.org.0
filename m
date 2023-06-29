@@ -2,151 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0DC741FD7
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 07:23:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F880741FDE
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 07:25:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8BC69F6;
-	Thu, 29 Jun 2023 07:22:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8BC69F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F9EA7F4;
+	Thu, 29 Jun 2023 07:24:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F9EA7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688016227;
-	bh=OQEubNUpdPdmyMl0zTUVWynZz7T1818ePBq7KXB86pY=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HSbAAKsw0Dv0eyXgyzBCYtVAbA+e/WbuA+ezTkzYKWxseHSJrHER/RUJcunAoEGwk
-	 neJqUPo5G/gkTJZxrERr6FIjJd5OV6/0pTdfOkwX+AzyUFKSO+fesfHGA5k93ezbzS
-	 uE10P9Ea1QcY9CIOMlIndzUCixK6kZzFpx71pZBI=
+	s=default; t=1688016342;
+	bh=5Ji4+mwFwUJU8B0gHdLfKJrzotC9gUTZlAqncz4u1gQ=;
+	h=From:Date:Subject:To:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Qc5pX6IdMMwY6cKuSSih3sJMvu6whS0a63475AJdjvTSM6kIA5Jof2HRNAi6ytGWM
+	 3lmnpUq+uMVuJeYPGzPf0CYAAVzGA0y8e9zC43PYpAG+WGJeVA1ft70NsxNXv6GOqQ
+	 v0rAdOzeAsltnbs/y0IiyXPtGlQgAUjn9Z46cPFM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48542F805B4; Thu, 29 Jun 2023 07:21:20 +0200 (CEST)
+	id C6147F8053B; Thu, 29 Jun 2023 07:24:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D83C3F805AE;
-	Thu, 29 Jun 2023 07:21:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CF23F80212;
+	Thu, 29 Jun 2023 07:24:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 69B16F80212; Thu, 29 Jun 2023 07:18:19 +0200 (CEST)
+	id 8F5ABF8027B; Thu, 29 Jun 2023 07:24:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,
-	RCVD_IN_DNSWL_HI,SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20605.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eab::605])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	HTML_MESSAGE,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
+	autolearn_force=no version=3.4.6
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 81972F800E3
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 07:13:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81972F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 240B0F80246
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 07:24:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 240B0F80246
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256
- header.s=selector2 header.b=C5WMKVvN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IYeLgwkG4AVB8twE1ROuyZ8oMdsjso/46GalHGj3YYf3RjbWk2KoOMWmaeyl4J7+j85rCaZw2UDn30oLIRhTvv0uNxSeykhUKnHMQ/8kVkMoyV+/bC8Ogr3zFRqUhqYn6MsoDdDiIo4VXpiHuaZiL/AZHpmmAaP6H9boiyDf58hkOwThU8p+WmzC9euWx604pJoNIwcx+A+vwXYwKie+m6nWwu8lFX+Tl10wy9CqFkpufNJK3wIghZ+PkJUw7xkRQR6QjR0XpckKAQrybgHYgJUAckb5xnSU1YB3CRDOXsDtOH9muegbkBXT5x1ncqgjmXBOq+JxZPHo5dPfrhzFEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jGrVWp+S+O/NaInoHUg2uGXRtbSVDGzMISV7CfhHRhM=;
- b=jwJsnd4Y/vFXIJsZG8s4Duj/nx9PGdzOamRvyelamXKHs4C+YqKqiaWv2/OtRP1nRx9Dm4LKTjSeS97T2d3AEYDew+wSmdAL4iQvnK1uN+hYbDvuZlt1GDIWn9sGMCds2wZgPBjaGLPvq7pZzLZVl2VaSj0VcN8KJkMyupQXTmrUmj3m44q762yay2KvyzUTfhO9ZkLtwDmKnJIJicPs2+PYULIvcclEGaDy1lZe1h59r3aqSso5jSq3cHYvilClQ3tTeJwVaNvEEEu4zJcJvjKJxyeWN45SMXHGuqkEQqk+8Pc7yqYYtZIg2hy1QmW/ipuXM7DmM1BYvaGNZvhbIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jGrVWp+S+O/NaInoHUg2uGXRtbSVDGzMISV7CfhHRhM=;
- b=C5WMKVvN5MWrYp3wQPxKwyLagEl9QzfJ2gYkNAfMebP46cVkmMc0TIqVQxYLbRqo/MaiMrnFd4QnQG1J1JHXyVKN1cvjzlPHVjRdQ9nCfzcYMrqzJhRF6AgEAB6ZliWCOgHBgmcyuWGVLXo3xdlLXTN0qsXPiGBuZxI0Ma26xxZGWgO6BHgG/Me3WzSUgpExnis1EFRMDqkSJDqa85/52aqSLPFs71NvWAFIBVbrm6VRBI1KNOvD4LegQuJ3Xt3YDXPBMaTELUtbT5BKNnPsdd55LWOb2ZfqY8CtzqbccodF5WsFJoPZLk5yS2+2U4uRvMLWvGLrTx2NFVx96/1kVQ==
-Received: from DM6PR13CA0042.namprd13.prod.outlook.com (2603:10b6:5:134::19)
- by SA1PR12MB7102.namprd12.prod.outlook.com (2603:10b6:806:29f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.23; Thu, 29 Jun
- 2023 05:13:09 +0000
-Received: from DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:134:cafe::9b) by DM6PR13CA0042.outlook.office365.com
- (2603:10b6:5:134::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.8 via Frontend
- Transport; Thu, 29 Jun 2023 05:13:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- DM6NAM11FT021.mail.protection.outlook.com (10.13.173.76) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6500.49 via Frontend Transport; Thu, 29 Jun 2023 05:13:08 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.5; Wed, 28 Jun 2023
- 22:12:57 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.37; Wed, 28 Jun 2023 22:12:57 -0700
-Received: from audio.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.986.37 via Frontend
- Transport; Wed, 28 Jun 2023 22:12:53 -0700
-From: Sameer Pujar <spujar@nvidia.com>
-To: <broonie@kernel.org>, <robh+dt@kernel.org>, <krzk+dt@kernel.org>,
-	<thierry.reding@gmail.com>, <lgirdwood@gmail.com>, <perex@perex.cz>,
-	<tiwai@suse.com>
-CC: <jonathanh@nvidia.com>, <mkumard@nvidia.com>, <sheetal@nvidia.com>,
-	<spujar@nvidia.com>, <alsa-devel@alsa-project.org>,
-	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH v2 5/5] arm64: tegra: Update AHUB clock parent and rate
-Date: Thu, 29 Jun 2023 10:42:17 +0530
-Message-ID: <1688015537-31682-6-git-send-email-spujar@nvidia.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1688015537-31682-1-git-send-email-spujar@nvidia.com>
-References: <1688015537-31682-1-git-send-email-spujar@nvidia.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=ZR8KieE4
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-313fb7f0f80so277913f8f.2
+        for <alsa-devel@alsa-project.org>;
+ Wed, 28 Jun 2023 22:24:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1688016265; x=1690608265;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Q7Zb3ptpnVJQ3FoWuCmON/yID+peaWlZ5+qpFbFTPoM=;
+        b=ZR8KieE4MsSSqZ23h4wl+ImlJMDJ/+a3dG6k7cGz5a00Ir3fYD6xa72eMvERNpXHMw
+         XQ0p9v2j9uvvV2ki0o3QZ3QOu2WO8lxEai+333jvpMeTWGkFhUJ/CCuaG+8s/lGIP7o5
+         yPAJUfTqqyr75USWPAY/z4yCfqyK0qzxZTYKMxAxyThrBlw8rcc1codTjb6lWhnY+WWt
+         5LQjBBfu5pDJEklFKRmaF3Fv6lyzZ7tQBG2wSzWokz10Se23aeXHACCmqVUZYFSwx748
+         dYo9FTZJXjBkSbmAhartRasguvSxzGaaqYogkNjEWu+3muDobdkkzaCavySauy+Dcs5o
+         Xvww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688016265; x=1690608265;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Q7Zb3ptpnVJQ3FoWuCmON/yID+peaWlZ5+qpFbFTPoM=;
+        b=iPvF0ZbQS5B+2S86l+638rMWXyLsSEDqhU/Yi0Vj9o38NPj75p9dhkPGebE5T3zN3V
+         BgoyPB2vhkYalv/NAwHDbWR5KXOHaXBNeZi4WLeMjwPH1wFkEIP7eBC3fiOYVX3UIcKJ
+         xWIA8cgoaV12WyLbvpNrudff5XkkKeg2vXMRXERc6Q1Enyx4XQ/r9fCeroba3Zoc7J5k
+         4GJwuOIljYpSQNxrWFzWJ95+qd+n5QLeRIcwc6itaiHKEwa1dGi23ocx4JIbYhMGfe2e
+         AxcoL3hHAR6RsUEFQu1GYLUf8j43JpvQxuDFhVZCkeUAQ8q53A7ixFnMeM/t9q9odlmi
+         jQ1w==
+X-Gm-Message-State: AC+VfDx1m2gCu3MPLGirlpiEllqoV3B4gy5yhojQgsEOlZzh08QJrfoi
+	uJqhm2LX4ajCXBC7zMqKG9FOSsQKkM6ZrhitGwhgMm7FUa8=
+X-Google-Smtp-Source: 
+ ACHHUZ4vWrplLne/XIZ63BzRy/1gxcbZwZmaLiWCNckHW4kaXPOY6SLR0h8eVfcx0iYP3KOnq9LpmWWqH+6F8p4e+VQ=
+X-Received: by 2002:adf:f10f:0:b0:313:edf4:e6e1 with SMTP id
+ r15-20020adff10f000000b00313edf4e6e1mr9402345wro.67.1688016264601; Wed, 28
+ Jun 2023 22:24:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT021:EE_|SA1PR12MB7102:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2285d522-abbc-4074-a500-08db785f8755
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	9X2/hemBpqeNgMUeMbKlWZPHhT5FZ7xtQZGqTudFDg0dsn5Iru9c/qeb+24ZlckMf4YLfXd4cBiMIoxmpQvaw+saRrUlku/trjx9o4U70t5L6jl5mSDMb/RtjAPUfU7KbNxgQ5UTMfs/FUf0ZU5K+n5qKH2WqIlkEy+T7UYBdOlOs5Ms50QcwtcRxTdwBri/YsuvKM6IJkbJBx5qMkvBnTXNXR14b3meOiaxsC2XYW4i50qr2FY51te5vEoVzgT7NEUPxEeeQr6/ns3vclDc+C+TwY3024TBXn5Z7hKoi/CxijudSAA2RZOMDB6a6XU3F0dFl7pRHdmx9Z8OU14WgijITBD9ZIYdGKW19oi7Zz+6ngoMef+w0/hUWL6IbIEtWc/zGRT/6g97PxW4Y+v2nZOhnhq9W/5YIkIjimabuqsYz0LEUHmri3RnKMB/FaTnqsbFXo4N33HB34lixNZrxPfQ+IWZpAEPoPrgiL4mkQps4ohCYueMmQhQE4bIUlb3IHG0y9OVNZ6u81tkBy4Dsx+twidHznJLVOcrDS0d42VVUXkMhRaQ+GXN0EljFG61yXQg4u/0+/Rlwgn7vGhCzmtKuwfqMcXQ5D7LP5ZAv/EbdF8WF2+6srWfV7WF25ZElZMTdXSjMiEi9TZVuLnODKdFovFZpaKRacf9stXKXREbPWxlOcDVWWHDT5MknjIcLCdvdW/Ioe7QQ/QwYqUyBD5U95pdlp4SXEr1wKOfxXk=
-X-Forefront-Antispam-Report: 
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199021)(46966006)(36840700001)(40470700004)(82310400005)(36860700001)(36756003)(356005)(5660300002)(86362001)(41300700001)(7416002)(70206006)(8936002)(8676002)(40480700001)(40460700003)(82740400003)(316002)(7636003)(4326008)(70586007)(110136005)(478600001)(47076005)(15650500001)(2906002)(426003)(26005)(54906003)(186003)(336012)(7696005)(83380400001)(2616005)(6666004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 05:13:08.8476
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 2285d522-abbc-4074-a500-08db785f8755
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	DM6NAM11FT021.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7102
-Message-ID-Hash: IE6ZRNQ25E65LG5R7PGHI6BTUU5L2TTY
-X-Message-ID-Hash: IE6ZRNQ25E65LG5R7PGHI6BTUU5L2TTY
-X-MailFrom: spujar@nvidia.com
+From: Arjav Parikh <parikharjav24@gmail.com>
+Date: Thu, 29 Jun 2023 10:53:48 +0530
+Message-ID: 
+ <CADoF8+D51=FFNxqJQAje3LozqCPOO5SJZqo9eaLMMU6LAd5N2A@mail.gmail.com>
+Subject: MIC Capture Stops due to Playback
+To: alsa-devel@alsa-project.org
+Message-ID-Hash: W3BZOI3WK66CDSL2C3IGDY4JYSASNMKC
+X-Message-ID-Hash: W3BZOI3WK66CDSL2C3IGDY4JYSASNMKC
+X-MailFrom: parikharjav24@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IE6ZRNQ25E65LG5R7PGHI6BTUU5L2TTY/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W3BZOI3WK66CDSL2C3IGDY4JYSASNMKC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,63 +111,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-I2S data sanity test failures are seen at lower AHUB clock rates
-on Tegra234. The Tegra194 uses the same clock relationship for AHUB
-and it is likely that similar issues would be seen. Thus update the
-AHUB clock parent and rates here as well for Tegra194, Tegra186
-and Tegra210.
-
-Fixes: 177208f7b06d ("arm64: tegra: Add DT binding for AHUB components")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra186.dtsi | 3 ++-
- arch/arm64/boot/dts/nvidia/tegra194.dtsi | 3 ++-
- arch/arm64/boot/dts/nvidia/tegra210.dtsi | 3 ++-
- 3 files changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/nvidia/tegra186.dtsi b/arch/arm64/boot/dts/nvidia/tegra186.dtsi
-index 7e4c496f..2b3bb5d 100644
---- a/arch/arm64/boot/dts/nvidia/tegra186.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra186.dtsi
-@@ -135,7 +135,8 @@
- 			clocks = <&bpmp TEGRA186_CLK_AHUB>;
- 			clock-names = "ahub";
- 			assigned-clocks = <&bpmp TEGRA186_CLK_AHUB>;
--			assigned-clock-parents = <&bpmp TEGRA186_CLK_PLL_A_OUT0>;
-+			assigned-clock-parents = <&bpmp TEGRA186_CLK_PLLP_OUT0>;
-+			assigned-clock-rates = <81600000>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
- 			ranges = <0x02900800 0x02900800 0x11800>;
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-index 154fc8c..33f92b7 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-@@ -231,7 +231,8 @@
- 				clocks = <&bpmp TEGRA194_CLK_AHUB>;
- 				clock-names = "ahub";
- 				assigned-clocks = <&bpmp TEGRA194_CLK_AHUB>;
--				assigned-clock-parents = <&bpmp TEGRA194_CLK_PLLA_OUT0>;
-+				assigned-clock-parents = <&bpmp TEGRA194_CLK_PLLP_OUT0>;
-+				assigned-clock-rates = <81600000>;
- 				status = "disabled";
- 
- 				#address-cells = <2>;
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210.dtsi b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-index 617583f..e7b4e30 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
-@@ -1386,7 +1386,8 @@
- 			clocks = <&tegra_car TEGRA210_CLK_D_AUDIO>;
- 			clock-names = "ahub";
- 			assigned-clocks = <&tegra_car TEGRA210_CLK_D_AUDIO>;
--			assigned-clock-parents = <&tegra_car TEGRA210_CLK_PLL_A_OUT0>;
-+			assigned-clock-parents = <&tegra_car TEGRA210_CLK_PLL_P>;
-+			assigned-clock-rates = <81600000>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
- 			ranges = <0x702d0000 0x702d0000 0x0000e400>;
--- 
-2.7.4
-
+SGkNCg0KSSBhbSB1c2luZyBhbHNhIGFwaSdzIGluIG15IEMgUHJvZ3JhbSB0byBpbXBsZW1lbnQg
+dHdvLXdheSB0YWxrIGkuZQ0KY2FwdHVyaW5nIGRhdGEgZnJvbSBtaWMgYW5kIHBsYXlpbmcgc291
+bmQgb24gc3BlYWtlciByZWNlaXZlZCBmcm9tIENsb3VkLg0KDQpJIGFtIHVzaW5nIGEgTWljcm9z
+ZW1pIFpMMzgwNTAgQXVkaW8gRFNQIGNvbm5lY3RlZCB0byBhbiBBbWJhcmVsbGEgQ1YyNSBTT0MN
+CnZpYSBJMlMvU1BJLg0KDQpSYW5kb21seSBJIGhhdmUgb2JzZXJ2ZWQgdGhhdCBJZiBJIHN0b3Ag
+YW5kIHJlc3VtZSByZWNlaXZpbmcgZGF0YSBmcm9tDQpDbG91ZCB0byBwbGF5IGl0IG9uIHNwZWFr
+ZXIgdXNpbmcgc25kX3BjbV93cml0ZWkoKSB0aGVuIG15IGNhcHR1cmUgcGF0aA0Kc3RvcHMuIEkg
+ZG8gbm90IGhlYXIgYW55IHNvdW5kIGNhcHR1cmVkIGZyb20gTUlDLg0KDQpDYW4gc29tZW9uZSBo
+ZWxwIG1lIHRvIGRlYnVnIHRoaXMgaXNzdWUgYmVjYXVzZSB3aGVuIHRoaXMgaXNzdWUgb2NjdXJz
+DQp0aGVyZSBhcmUgbm8gZXJyb3JzIHJlcG9ydGVkIGZyb20gQWxzYSBub3IgZG8gSSBzZWUgYW55
+dGhpbmcgaW4gZG1lc2cgYXMNCndlbGwuDQoNClRoYW5rcyAmIFJlZ2FyZHMsDQpBcmphdiBQYXJp
+a2gNCg==

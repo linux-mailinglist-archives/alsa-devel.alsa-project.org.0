@@ -2,101 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDD25742093
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 08:41:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 686F57420A7
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 08:49:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 989757F1;
-	Thu, 29 Jun 2023 08:41:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 989757F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CEE87F4;
+	Thu, 29 Jun 2023 08:49:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CEE87F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688020910;
-	bh=1aI20zYZNRu3Z4qqbjJbfDnvCM/NwyjmtuQfx5MeAh8=;
+	s=default; t=1688021390;
+	bh=dMMbnbLhbiNVCMm1Xq3WPINNCii5WhyG4gUB2rC/cfk=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Iid5YmYYEc5zPQnaNAvkuo9Qz98nEGCeZNO76KtmqzfHuUF+uA9f41rEOsRjwO/+M
-	 Og0mkCdev6G5OT3BVYTZMl7xg9nTzQfmOkM6unKabtLtYQxmbOw0WFpUaERCgkhURs
-	 RbfXWuS1IqHg9aMgrVYpNSwWZnysJRsdCrdFMKtk=
+	b=i+JfP/9mgVOp+NKjf4pyBYrTuevMiZ4wr0yUqFqCGolihkNB3PaS7qwSeF9sZp9fM
+	 mCpl56MobmxO/qE98yUlQqNiUsTBTe521rc7+CJMGdkFhN5WFCNxl37Lexk9esuWoy
+	 Tc0zEaOTmG2XJwQQ+UCSiAMgJn9ZN2dKVetQq61c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EE6C6F8051E; Thu, 29 Jun 2023 08:40:59 +0200 (CEST)
+	id C5CF0F80534; Thu, 29 Jun 2023 08:48:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82108F80212;
-	Thu, 29 Jun 2023 08:40:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8263FF80093;
+	Thu, 29 Jun 2023 08:48:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF09EF80246; Thu, 29 Jun 2023 08:40:54 +0200 (CEST)
+	id 3D37EF80246; Thu, 29 Jun 2023 08:48:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 302F4F80093
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 08:40:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 302F4F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 676D1F80093
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 08:48:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 676D1F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=IVfgHPfa;
+ header.s=susede2_rsa header.b=js8ZTxnP;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ST/c9oGN
+ header.s=susede2_ed25519 header.b=xBmJxBG8
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C5E9211E2;
-	Thu, 29 Jun 2023 06:40:48 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7FF522184D;
+	Thu, 29 Jun 2023 06:48:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1688020848;
+	t=1688021332;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=45w3cf8l8QnnAcSZvltiB67avCDLun3Eb318yaMBsF0=;
-	b=IVfgHPfaDBIVKeUXtbm1zJ6dMMhc7mA9gG0ZkuXpDhBUxw1p8OvesC/0nSKV9B88P/g5AW
-	smreXddCTe2ION3YDR8R64xTB8tLTx6DAnyOsscB9KA75ZfHalPTA3wKSDZSas47C2UF1n
-	X0oDnIoARGUvhNHLJ1W4r2gDBspeOno=
+	bh=DD59Yv+0FwSWXhhYd4KNUGfeC/elEi4xKcKYN+3rlJE=;
+	b=js8ZTxnPDTUSKb6T9nzrXSKUjoeL5f+9qNXeiJZabKl605i30+3NoPNZgzCan2m7O/uo/j
+	zjchteC3mLAxqLekSaAKKy3j7ucYux247y8gE0ErPaDZEmb7UJoGHBcVYRJagnCkKtJDdw
+	Z1IB0tEkc1zppRUPuiWirHeTfb6Smv0=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1688020848;
+	s=susede2_ed25519; t=1688021332;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=45w3cf8l8QnnAcSZvltiB67avCDLun3Eb318yaMBsF0=;
-	b=ST/c9oGN8Etes0N7JdkEAiA231sIRHNmNkBJcqnBZpX5F32f7IQRJku44pnIDHNQrx3wrk
-	hNKVOp/cVS4gjrDA==
+	bh=DD59Yv+0FwSWXhhYd4KNUGfeC/elEi4xKcKYN+3rlJE=;
+	b=xBmJxBG8/11lkwIXE6aBUd49Nv9dVOvVSaq+RpW3+77bswGF9Fa236/jIX+UkbNf0etdWg
+	S33V/Q5w6N3fqqAg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5FA8A139FF;
-	Thu, 29 Jun 2023 06:40:48 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4C629139FF;
+	Thu, 29 Jun 2023 06:48:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id qJhLFnAnnWR/KgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 29 Jun 2023 06:40:48 +0000
-Date: Thu, 29 Jun 2023 08:40:47 +0200
-Message-ID: <87cz1eepow.wl-tiwai@suse.de>
+	id CMngEVQpnWQVLgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 29 Jun 2023 06:48:52 +0000
+Date: Thu, 29 Jun 2023 08:48:51 +0200
+Message-ID: <87bkgyepbg.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: "Symbolic Debugger" <happy.debugging@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
-In-Reply-To: 
- <168800422777.22.14097919444187982640@mailman-web.alsa-project.org>
-References: <87leg3ekiw.wl-tiwai@suse.de>
-	<168800422777.22.14097919444187982640@mailman-web.alsa-project.org>
+To: Werner Sembach <wse@tuxedocomputers.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Clevo NPx0SNx
+In-Reply-To: <20230628155434.584159-1-wse@tuxedocomputers.com>
+References: <20230628155434.584159-1-wse@tuxedocomputers.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: FVHB2MOSVHTWNV4EP3VR6AZTBOG55WT3
-X-Message-ID-Hash: FVHB2MOSVHTWNV4EP3VR6AZTBOG55WT3
+Message-ID-Hash: 2733RYQWPEHIWE5R2K5HDNFMBW2HQWRT
+X-Message-ID-Hash: 2733RYQWPEHIWE5R2K5HDNFMBW2HQWRT
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +111,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FVHB2MOSVHTWNV4EP3VR6AZTBOG55WT3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2733RYQWPEHIWE5R2K5HDNFMBW2HQWRT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,39 +120,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 29 Jun 2023 04:03:47 +0200,
-Symbolic Debugger wrote:
+On Wed, 28 Jun 2023 17:54:34 +0200,
+Werner Sembach wrote:
 > 
-> Thanks again for your time to reply . I think my coin has dropped :-)
+> This applies a SND_PCI_QUIRK(...) to the Clevo NPx0SNx barebones fixing the
+> microphone not being detected on the headset combo port.
 > 
-> 1 .So basically, we have GTB in the device descriptor and the FB information is an UMP call to the device by the ALSA driver.  "The device should provide both info, in somehow compatible ways."  . The process would be [a]. driver gets USB device descriptors,  [b]. driver issues USB call to retrieve  USB GTB descriptors and then [c] driver issues UMP stream call to retrieve the function block information. (if N/A, driver falls back on the GTB information). This information should be consistent with the groups defined in the GTB.
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Cc: <stable@vger.kernel.org>
 
-Correct.
-
-> 2. When creating the device descriptors and GTB descriptors based on the 2020 USB 2.0 spec, it should work ?  Would those port show up in ALSA or can only be access via /dev/umpC*D*
-
-Yes, there has been no change about the GTB itself; USB MIDI spec is
-unchanged.  The recent MIDI 2.0 spec extended only UMP and MIDI-CI.
-
-> 3. w/o duplicates with 2 GTB's and for 32 groups, for example, it would be 1st GTB has group 1~16 and 2nd GTB 17~23  ?. A FB could use the groups from both GTB's for example Group1  and 17.
-
-First of all: you can't have more than 16 groups (per direction) on a
-single EP.  It's a hard limitation.  So there can be no "Group 17".
-(A UMP Group can be bidirectional.)
-
-Imagine other way round: you have max 16 in and 16 out UMP Groups
-where each Group has 16 channels, and GTB and FB just define how those
-Groups are assigned to which actual I/O.  Some multiple Groups may
-belong to the I/O for the same purpose, and in that case, those Groups
-can be put into a single FB / GTB. 
-
-> 4. If two functions uses all 16 groups, that would use up all 32 FB's , correct ?
-
-If each FB contains one (single direction) Group and you have 16 in
-and 16 out Groups, then yes, it'll be up to 32 FBs and GTBs, which is
-the max number defined in the spec.  But a FB / GTB can contain
-multiple Groups for the same purpose, so I guess taking all 32 FBs
-would be rather a rare case.
+Thanks, applied.
 
 
 Takashi

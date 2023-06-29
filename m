@@ -2,124 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F15742B25
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 19:24:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BE24742B52
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 19:34:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 971983E7;
-	Thu, 29 Jun 2023 19:23:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 971983E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BBB87F1;
+	Thu, 29 Jun 2023 19:33:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BBB87F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688059443;
-	bh=Hqmll4Dm7TDejuG3L7n3pb2KIS70m4hPt4HDR0LSDKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1688060057;
+	bh=MBd6SSE95qwooGG5YBju5UeAszhs75qZzsSaT6Mjuys=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=JZW9DB0AlZUJakO9Np8GJGAmRktZtCQhrRSq0nerGjQMMhcqJDHMgoBhCCnxQKp2b
-	 fZvkcFW1cHMBZHUvKuebfhLAkCaJOGbfHlZrBOxrzc55M29uT6vmy7KJs4JWTf03ui
-	 yNbLBkyX6hFfCH6Yg8k1eYH7GjC7dobPSddTTJjE=
+	b=CXpN5tIVcTfi9/Yx/jH1Jm63Lf2x0ZS0Pbaxr+aZ3GhAKYS5UxAqZDlL+J5UZYB6g
+	 yCn1QMy07HUvvDXL5iLsu8asEWo1j44xeiWd/d60JOZG7byY0/gPRYZJbwWFqPeUEf
+	 Y1Cx68GB37oPp6ZgMO8K7T9x6LAPhgA36xh2kf2o=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C7DCF80246; Thu, 29 Jun 2023 19:23:12 +0200 (CEST)
+	id EEF43F80431; Thu, 29 Jun 2023 19:33:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8A1EF80169;
-	Thu, 29 Jun 2023 19:23:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2ED31F80212;
+	Thu, 29 Jun 2023 19:33:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A139AF80246; Thu, 29 Jun 2023 19:23:08 +0200 (CEST)
+	id 28CEDF80246; Thu, 29 Jun 2023 19:33:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [IPv6:2a00:1450:4864:20::429])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 80719F800E3
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 19:23:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80719F800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 44225F80169
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 19:33:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44225F80169
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256
- header.s=fm2 header.b=KmPDis3A;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=P60oOGRw
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-	by mailout.west.internal (Postfix) with ESMTP id 42FED320099B;
-	Thu, 29 Jun 2023 13:22:56 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute4.internal (MEProxy); Thu, 29 Jun 2023 13:22:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm2; t=1688059375; x=1688145775; bh=Cw
-	E2wcHANU3ek6A8gHn/xl6f0ODbgDTZqECgroPgqbw=; b=KmPDis3AAUdV73TLXo
-	3OgDknDtNClg5x81qOb965Qm5cYr8IvBdXhGCvghC6eXv81fiE9fG56quzNDzZst
-	/45f3i/zaf2LLN5iCHJQZ/RK3D1QpoqRKUl+8v1fSucJTUF6UJfVar0BDZCQ20Hn
-	l+liTEg46Hsd1sng3DdI97pvvFC3kwBWeDW3nwt/uejkcN0J/mk/Y1a8yJDS8bqa
-	JMIAxG1Gnlpsr2aM/GkAJzYUPxYnlfZSJ7ZZs6WeYDdcEX6dmVN2SHx0DfUmQX73
-	G3/KbHUY0HSz5fHQkbbibFsIsYYtYvP9Y4nJ7mqAHyX83IHBR3X55NcLf7C5gli7
-	p6xg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1688059375; x=1688145775; bh=CwE2wcHANU3ek
-	6A8gHn/xl6f0ODbgDTZqECgroPgqbw=; b=P60oOGRwftxmCUZrRzMi4jW32xc8n
-	x/eFQb0AcAT1TPGPGifej8BeSyum6UHdShIH8Vel+XbjhTR6dFf6fx7hhL9eYBHC
-	8AxQHRCA40a+Q3uWnXXz5wYSAgyTbjqkEjfI8xiy8QVcpXMJy9WWReqY2RA84cCp
-	iGz5Lv/Sb8T2zUE0+ISKl2EI4124iK2EICFrWM3mG4XV0hFRnJHrWmi8Ljtg2xhc
-	VNaBBAhLyGJZq/4zvRjcmREb60gX9pXeNRgxuGni8h4vTsd/Bfbbkp8fH8aNDhg6
-	ubhKsArA6i2l9ey7ciIKEqbX0PU9A/Roz60ygeg9HF4tQ2CLdynNmpM7A==
-X-ME-Sender: <xms:7r2dZPDLxq62M1kBStgKsfRuxemXsMrZzXVBnqFElAp05hW8nJmkZA>
-    <xme:7r2dZFiRFG8Vyjfyo5GhZZyIwFPE8E0ULnZ1F0bEAKRiKa5s8MlxBpnlzf35RQiKx
-    qOf15zr3vC0aA>
-X-ME-Received: 
- <xmr:7r2dZKlK1wqTzcXBRUtDDIvakYJooS_zGMyatWd4F6tGlD1OsJtLccEUQulqVE9rJAhJ5BUgmn8kdxg-RZShi0K_UonVJHaFC8H3ww>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedviedrtdeggdduuddvucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepifhrvghg
-    ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepheegvd
-    evvdeljeeugfdtudduhfekledtiefhveejkeejuefhtdeufefhgfehkeetnecuvehluhhs
-    thgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorg
-    hhrdgtohhm
-X-ME-Proxy: <xmx:7r2dZBwMbrF4faEtgoZSd7eeg0wEP9Tyhwjf0jLldB286bmYrr_RrA>
-    <xmx:7r2dZEQU0Bhnx465BF7A7M9TFiqIYiSbFYJ6-6EjLteV3BCe3mu5oA>
-    <xmx:7r2dZEZVZKrU2X_BeAWA3KAVFrEfgS6uSQJJTwTqYP8MvMsHwG9Wvw>
-    <xmx:772dZDCeQFPJcEKuRI0bDql2RgH-aTbX7IKfOHr2q36_TPqSiQbNRA>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Jun 2023 13:22:53 -0400 (EDT)
-Date: Thu, 29 Jun 2023 19:22:51 +0200
-From: Greg KH <greg@kroah.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com,
-	lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
-	kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
-	Stable@vger.kernel.org
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=oXBlUOCs
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3141316b253so1025284f8f.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 29 Jun 2023 10:33:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1688059991; x=1690651991;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=EZxvYIZuxAB+lwUWpz3iVved5/FIuiHwGeX7NNNfKPs=;
+        b=oXBlUOCsey6+rQUYnSJFVtS5AWj+TbJrKzuUNlXTOUDDPjK+vhhuNDtuh7MyHlBUsP
+         Ukjnxt4TxiOim3clDHs754DtEm602HxHBTOIFJ0b+NopLsIPE7rA6+oD7LY51iHYJR+m
+         20c1zNfsyGl1cEqDtSLlm2/WFFdvFlgAXUdIIuHRpGLhBRs7n6Vo6gIFhGFosIPlOi4S
+         yXGkdGT17L0B9ls3SA7mR8Ki+y/tYlW9/UAiFJkGqX9DfynoLqqQm+0tLR8EkHpzejP+
+         ACbLaqzMjnVZAM3SRHoK93fl0XcLt5aKHocBM8O01XqnbrNSQzYssz1m6CnwHxWqyscx
+         rFkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688059991; x=1690651991;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EZxvYIZuxAB+lwUWpz3iVved5/FIuiHwGeX7NNNfKPs=;
+        b=losxP+EW4CEN4Y+pEZ91fvW1cpQK/UEaoA/ke0GmxN6tnfV6B37z8cQMrmTIng/CGE
+         4xKpuQwsE6r6Jyv7htUULaLTaXiY8p6fp1c/YZvL0DiWt7B8+Z+CHBxsYfdXE7qjrj2M
+         4u8Wxo3n3OxBG4+V6vqVz17/sJwufQLPSLF2CtofUEi5KmdcqbMTlQ2+GyoIMZTdF8YK
+         IOK95LtrRx2+pbCs6+CtV7InNfWZHjFgoKSAIiGT5mZrduxxiYgT8D8vfvuADf8IudDc
+         B8a6CI477TFHZQouuW0pS1hTzWy5idZBg4RyQp4M50lxgejpMNrf42WFA6kESrqFlbWy
+         vxQw==
+X-Gm-Message-State: ABy/qLYpVZYERunREYbNZpiBvDdZ6LnJ1JDa6uA4PgxMUoMGYJhtMP6/
+	awWmnR9d3Cxq3SYz/SXZz2LyrQ==
+X-Google-Smtp-Source: 
+ APBJJlE8XZRIPMaI6hNQHvv0XXg37ddZC1ZtloaleapPkcO90Mg1HZkMU3CBxM8wYYCsAhqtCIVBew==
+X-Received: by 2002:adf:fd43:0:b0:314:77a:c2b2 with SMTP id
+ h3-20020adffd43000000b00314077ac2b2mr223834wrs.32.1688059991220;
+        Thu, 29 Jun 2023 10:33:11 -0700 (PDT)
+Received: from [192.168.1.195] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id
+ c1-20020a05600c0ac100b003fba6a0c881sm7762482wmr.43.2023.06.29.10.33.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Jun 2023 10:33:10 -0700 (PDT)
+Message-ID: <77b348f7-0475-5e16-95e1-0e5831408d2b@linaro.org>
+Date: Thu, 29 Jun 2023 18:33:09 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
  number
-Message-ID: <2023062958-thumping-ambulance-7a2f@gregkh>
+To: Mark Brown <broonie@kernel.org>
+Cc: johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com,
+ lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ Stable@vger.kernel.org
 References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
  <c22fcc94-aa41-4ffd-bfe8-f0b9f15a76c0@sirena.org.uk>
- <2023062940-snore-brick-419b@gregkh>
- <9699a960-74b0-4064-b264-6cde06cd16fc@sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9699a960-74b0-4064-b264-6cde06cd16fc@sirena.org.uk>
-Message-ID-Hash: OY5S6FGEUJ4EWXUNUI2GF7WAKQNWS52V
-X-Message-ID-Hash: OY5S6FGEUJ4EWXUNUI2GF7WAKQNWS52V
-X-MailFrom: greg@kroah.com
+Content-Language: en-US
+In-Reply-To: <c22fcc94-aa41-4ffd-bfe8-f0b9f15a76c0@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: OE3TYACYPADPYM7EKIYC7SZQPU4ANSNH
+X-Message-ID-Hash: OE3TYACYPADPYM7EKIYC7SZQPU4ANSNH
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -131,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OY5S6FGEUJ4EWXUNUI2GF7WAKQNWS52V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OE3TYACYPADPYM7EKIYC7SZQPU4ANSNH/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -140,28 +128,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, Jun 29, 2023 at 05:16:44PM +0100, Mark Brown wrote:
-> On Thu, Jun 29, 2023 at 06:06:05PM +0200, Greg KH wrote:
-> > On Thu, Jun 29, 2023 at 04:43:57PM +0100, Mark Brown wrote:
-> 
-> > > Won't this be an ABI change?  That seems like it'd disrupt things in
-> > > stable.
-> 
-> > ABI changes should disrupt things just the same in Linus's tree, why is
-> > stable any different?
-> 
-> This is a numbering resulting from enumeration thing so it gets to be
-> like the issues we've had with the order in which block and ethernet
-> devices appear, it's on the edge the extent to which people might be
-> relying on it.  If it's causing some problem as is and there's a reason
-> to do something (see the first half of my reply...) but the case gets
-> even harder to make with stable.
 
-It shouldn't matter for stable or not, if the change is acceptable in
-Linus's tree, with the userspace visable change, then it should be
-acceptable in any active stable branch as well.  There is no difference
-here for userspace api/abi rules.
 
-thanks,
+On 29/06/2023 16:43, Mark Brown wrote:
+> On Wed, Jun 28, 2023 at 10:24:04AM +0100, Srinivas Kandagatla wrote:
+>> For some reason we ended up with a setup without this flag.
+>> This resulted in inconsistent sound card devices numbers which
+>>   are also not starting as expected at dai_link->id.
+>>   (Ex: MultiMedia1 pcm ended up with device number 4 instead of 0)
+> 
+> Why is this a problem?
 
-greg k-h
+In existing Qualcomm setup the backend pcm are added first, which 
+results in frontend pcms getting pcm numbers after this.
+
+For example: with 3 backend dailinks in DT we have frontend pcm start at 
+3. Now if we add new backend dai-link in DT we now have frontend pcm 
+start at 4.
+
+This is a bug in qualcomm driver.
+
+> 
+>> With this patch patch now the MultiMedia1 PCM ends up with device number 0
+>> as expected.
+>>
+>> Fixes: 9b4fe0f1cd79 ("ASoC: qdsp6: audioreach: add q6apm-dai support")
+>> Cc: <Stable@vger.kernel.org>
+> 
+> Won't this be an ABI change?  That seems like it'd disrupt things in
+> stable.
+Yes, but this is a real bug. without fixing this also results in abi(pcm 
+number) change when we add new backend dai-link. I have also sent fix 
+for UCM to handle this.
+
+
+--srini

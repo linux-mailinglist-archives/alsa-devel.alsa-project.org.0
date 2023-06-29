@@ -2,88 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A830742B6D
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 19:44:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F59B742B9C
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 19:57:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A49367F4;
-	Thu, 29 Jun 2023 19:43:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A49367F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F03D7F1;
+	Thu, 29 Jun 2023 19:56:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F03D7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688060642;
-	bh=V0qOlSWOHFdUJBrnvcm/PQeKhRzaF57NyRNow0c11k8=;
+	s=default; t=1688061427;
+	bh=tAe8b3Y2N2c/CF0N5VJ0ZeJJ8Xk+NpiLktx+rX7DAW0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YsmSgnvVdZXPL/fZhWRHokE8wdziEyG5ST6f6l26si8pr05LAtVmHCzF+a36lHQub
-	 ZuUb4STs0dDoCYP5o0dKyu/t9qdZBT2UkO1sBRpSnlnTqHEBSu8CPxyGdMPdA7vHLk
-	 j1ElaYT/V9U1T8qQTj1q7E+IQwFa8KF5oRjC+MMI=
+	b=eZGNf+7NhOeoAeGikZcXP8hNAD7z32rky9sBFh+wgWY+/Uz+38yKZvxfEjNfsHJvh
+	 kowu8voQ6RsFoHqThTsjcOMkhcIyV9ctxspN6wdyIwtjCLf0t6KCRV3syA3KvvnUQ0
+	 2Yx42KcJsc4VMRDd8JtfNoH1rgLToD2n7lEX8iB0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AF462F80212; Thu, 29 Jun 2023 19:43:11 +0200 (CEST)
+	id 6B7EBF80535; Thu, 29 Jun 2023 19:56:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F483F80212;
-	Thu, 29 Jun 2023 19:43:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D882F80212;
+	Thu, 29 Jun 2023 19:56:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8280CF80246; Thu, 29 Jun 2023 19:43:07 +0200 (CEST)
+	id 38B6CF80246; Thu, 29 Jun 2023 19:56:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6939DF800E3
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 19:43:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6939DF800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8C4B9F80169
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 19:56:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C4B9F80169
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=YuNoCsqM
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1B6F6615C1;
-	Thu, 29 Jun 2023 17:43:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260B1C433C8;
-	Thu, 29 Jun 2023 17:43:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688060583;
-	bh=V0qOlSWOHFdUJBrnvcm/PQeKhRzaF57NyRNow0c11k8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YuNoCsqM9ReRiaGyA5ytN3QwAUueul5O8O1wCoDJaNq7G9gSCsPX0mznPtslOkyp+
-	 n8mGu0EjvWTL/7nRV3lFwez4OukXd3QdNLSUJYc30EiwhKa7qg8326oIKkztYra7EZ
-	 kHtKbLvJS4UVKlrnqovbCdSmX8HtWEzrha3UWjIQraS94YBEguubq1dM0AJFnzB8Vg
-	 5gxMgMJ8qC/sVjVMeixuAuDjbVpojZXdQuJS/Yqeu2T1u8Kc2woeZhRQRH9PqkscRd
-	 Bn6XO+DQ4feXXo+Kx1TvvipEafsdo1b1R+6R7H02PRhXX8Gpuakhys3DADnXLDfR7x
-	 sGs91kfTKENxg==
-Date: Thu, 29 Jun 2023 18:42:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com,
-	lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
-	kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
-	Stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
- number
-Message-ID: <8c3be94e-56c0-4820-853d-669e90969c24@sirena.org.uk>
-References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
- <c22fcc94-aa41-4ffd-bfe8-f0b9f15a76c0@sirena.org.uk>
- <77b348f7-0475-5e16-95e1-0e5831408d2b@linaro.org>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=KL2eyi0s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688061368; x=1719597368;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tAe8b3Y2N2c/CF0N5VJ0ZeJJ8Xk+NpiLktx+rX7DAW0=;
+  b=KL2eyi0srgnvkqNcfHKYEmHC5M+vgd6Jt6/0rZA2veB9FXKHvqQlnM8D
+   4gUy76T9CMs6fivFwCSibBVSRQ5vjjLcmlXiZzUfvuZgpORiedN6lCgr6
+   a9tjyO7Sgsl85LnXMtGqulAOt4TQIGb8hv1mctm2CLO3456sHSKLgA/Of
+   tJ/DLyose3PJ60aVlMYUd5DNwv9jkeB4MIOix0fze/xv/5PeNY3VCsehE
+   FQlJjnLlC4XkntmdfyVJ+QPj5SPdU9xB9j/3tBM6wipcHlQ1fL+AHteaE
+   +7naaGE/oRMRpNbS6VXG/ckiXBdSCRAKgDz6rL7JdqxHqO3NT11yySX1G
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="392906217"
+X-IronPort-AV: E=Sophos;i="6.01,169,1684825200";
+   d="scan'208";a="392906217"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2023 10:55:37 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="862013530"
+X-IronPort-AV: E=Sophos;i="6.01,169,1684825200";
+   d="scan'208";a="862013530"
+Received: from lkp-server01.sh.intel.com (HELO 783282924a45) ([10.239.97.150])
+  by fmsmga001.fm.intel.com with ESMTP; 29 Jun 2023 10:55:35 -0700
+Received: from kbuild by 783282924a45 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qEvri-000EJ9-1y;
+	Thu, 29 Jun 2023 17:55:34 +0000
+Date: Fri, 30 Jun 2023 01:55:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v1 1/3] ASoC: rt5677: Use agnostic
+ irq_domain_create_linear()
+Message-ID: <202306300102.yMAJ3kZt-lkp@intel.com>
+References: <20230629104603.88612-2-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bypcLNqvoaiunsId"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <77b348f7-0475-5e16-95e1-0e5831408d2b@linaro.org>
-X-Cookie: Surprise due today.  Also the rent.
-Message-ID-Hash: L73PKGX4CKPYIDYOIFUECXGDXLNEBKFU
-X-Message-ID-Hash: L73PKGX4CKPYIDYOIFUECXGDXLNEBKFU
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20230629104603.88612-2-andriy.shevchenko@linux.intel.com>
+Message-ID-Hash: BVR5GKFJW6Q5AVP77X7TMDRDP3POKA7J
+X-Message-ID-Hash: BVR5GKFJW6Q5AVP77X7TMDRDP3POKA7J
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L73PKGX4CKPYIDYOIFUECXGDXLNEBKFU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BVR5GKFJW6Q5AVP77X7TMDRDP3POKA7J/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,66 +111,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Hi Andy,
 
---bypcLNqvoaiunsId
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+kernel test robot noticed the following build errors:
 
-On Thu, Jun 29, 2023 at 06:33:09PM +0100, Srinivas Kandagatla wrote:
-> On 29/06/2023 16:43, Mark Brown wrote:
-> > On Wed, Jun 28, 2023 at 10:24:04AM +0100, Srinivas Kandagatla wrote:
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on linus/master v6.4 next-20230629]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> > > For some reason we ended up with a setup without this flag.
-> > > This resulted in inconsistent sound card devices numbers which
-> > >   are also not starting as expected at dai_link->id.
-> > >   (Ex: MultiMedia1 pcm ended up with device number 4 instead of 0)
+url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/ASoC-rt5677-Use-agnostic-irq_domain_create_linear/20230629-184911
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20230629104603.88612-2-andriy.shevchenko%40linux.intel.com
+patch subject: [PATCH v1 1/3] ASoC: rt5677: Use agnostic irq_domain_create_linear()
+config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20230630/202306300102.yMAJ3kZt-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20230630/202306300102.yMAJ3kZt-lkp@intel.com/reproduce)
 
-> > Why is this a problem?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202306300102.yMAJ3kZt-lkp@intel.com/
 
-> In existing Qualcomm setup the backend pcm are added first, which results=
- in
-> frontend pcms getting pcm numbers after this.
+All errors (new ones prefixed by >>):
 
-> For example: with 3 backend dailinks in DT we have frontend pcm start at =
-3.
-> Now if we add new backend dai-link in DT we now have frontend pcm start at
-> 4.
+   In file included from include/linux/acpi.h:16,
+                    from sound/soc/codecs/rt5677.c:9:
+   sound/soc/codecs/rt5677.c: In function 'rt5677_init_irq':
+>> include/linux/property.h:38:18: error: '_Generic' selector of type 'struct device' is not compatible with any association
+      38 |         _Generic((dev),                                                 \
+         |                  ^
+   sound/soc/codecs/rt5677.c:5542:51: note: in expansion of macro 'dev_fwnode'
+    5542 |         rt5677->domain = irq_domain_create_linear(dev_fwnode(i2c->dev),
+         |                                                   ^~~~~~~~~~
 
-> This is a bug in qualcomm driver.
 
-Why is this an actual problem rather than just being a bit ugly?  What
-is the negative consequence of having a PCM with this number?
+vim +38 include/linux/property.h
 
-> > > With this patch patch now the MultiMedia1 PCM ends up with device num=
-ber 0
-> > > as expected.
-> > >=20
-> > > Fixes: 9b4fe0f1cd79 ("ASoC: qdsp6: audioreach: add q6apm-dai support")
-> > > Cc: <Stable@vger.kernel.org>
-> >=20
-> > Won't this be an ABI change?  That seems like it'd disrupt things in
-> > stable.
+1b9863c6aa56d9 Suthikulpanit, Suravee 2015-10-28  34  
+b295d484b97081 Andy Shevchenko        2022-10-04  35  const struct fwnode_handle *__dev_fwnode_const(const struct device *dev);
+b295d484b97081 Andy Shevchenko        2022-10-04  36  struct fwnode_handle *__dev_fwnode(struct device *dev);
+b295d484b97081 Andy Shevchenko        2022-10-04  37  #define dev_fwnode(dev)							\
+b295d484b97081 Andy Shevchenko        2022-10-04 @38  	_Generic((dev),							\
+b295d484b97081 Andy Shevchenko        2022-10-04  39  		 const struct device *: __dev_fwnode_const,	\
+b295d484b97081 Andy Shevchenko        2022-10-04  40  		 struct device *: __dev_fwnode)(dev)
+e44bb0cbdc8868 Sakari Ailus           2017-03-28  41  
 
-> Yes, but this is a real bug. without fixing this also results in abi(pcm
-> number) change when we add new backend dai-link. I have also sent fix for
-> UCM to handle this.
-
-I'm still not clear why you believe this to be a bug.
-
---bypcLNqvoaiunsId
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSdwqAACgkQJNaLcl1U
-h9BKfQf+JaDl48bnioUDhQMuI6KqIfybuy9qh+7M+gWOmuwGSdFJwByoifsnUGPL
-9KOh0gRw6dNjOwFtQ2CKSdedM+9+gUDhm3dLe9JNt7SC3x2Cf9e6RVPZVZdwVKLi
-N9bG7Ci9yGDg1OlNpE0tdu5ocoui2v3HAQyaKlTCBUskQPP1urHgNgz73L5pfXsp
-+mJR5GtZMwxnYejkE/IKc0gJP/IgPwqcxwb929ppfxx2mH4wFS2lMx0YwtrG1i1N
-LEg/sMGXl0mnileFhSpDedb5hViiGOckQr+Gs7IPSiMVjwAKsp/NluD4p9uSTTsl
-CdSgGlutumZ4wOhHt21s5hq4iqrrqw==
-=Ygv3
------END PGP SIGNATURE-----
-
---bypcLNqvoaiunsId--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

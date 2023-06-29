@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C21F7428FE
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 16:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A7D742919
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 17:06:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A9567F4;
-	Thu, 29 Jun 2023 16:58:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A9567F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1FDFD822;
+	Thu, 29 Jun 2023 17:05:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FDFD822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688050778;
-	bh=4yU2gIPO76GfrKWAF+8jGT6VeJZTdY48+GmV10sFdvM=;
+	s=default; t=1688051197;
+	bh=9fsRsIEQ18uNk3JF4lkac3WVQA7v7zMGQNnMpaj3QDs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Ihnuu/MYcGwjh/SfErjK/HgqWew58NWwea+5IuTf+kdCl2fkpyy+kaN/DusfQ7MPi
-	 7VZbQp5HawuFnqpFHOm/viqLWiy/Ddcm+9We/gxLHcIFyfhV7Ozsv+ynwRgLqUMWEi
-	 yeMHAkix/DnmRY07pO7/jjP+8rMvqo6YSAoMDE2Q=
+	b=aiWuSxWIfBfAUFY1LaY2eZmaqLtgujL0MaMVQUYsJ96apVVUrSQhFqtsGhXesWNWi
+	 LY/KHs0fYfvK3a9eF86IaHb0peuIu0TnBLfXyyYW5CNXOYLOwuKLQJvTNiNLZ4mZkI
+	 6oennhIB783XH1NzllE4CI0Z/+T2kfXTaAYPUmAE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03B16F80535; Thu, 29 Jun 2023 16:58:47 +0200 (CEST)
+	id B1F47F80534; Thu, 29 Jun 2023 17:05:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B51D1F80212;
-	Thu, 29 Jun 2023 16:58:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11E40F80212;
+	Thu, 29 Jun 2023 17:05:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B7F41F80246; Thu, 29 Jun 2023 16:58:44 +0200 (CEST)
+	id 505A4F80246; Thu, 29 Jun 2023 17:05:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
@@ -33,46 +33,46 @@ X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
 	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5C62CF80093
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 16:58:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C62CF80093
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-78363cc070aso31992439f.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C97CF80169
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 17:05:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C97CF80169
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-7836272f36eso32625439f.1
         for <alsa-devel@alsa-project.org>;
- Thu, 29 Jun 2023 07:58:40 -0700 (PDT)
+ Thu, 29 Jun 2023 08:05:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688050718; x=1690642718;
+        d=1e100.net; s=20221208; t=1688051135; x=1690643135;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ljRf0hyGo8Gpwci5RsjZ1gzHX+tCb5+i5VvfOpLuGAs=;
-        b=U5jEY5fPv1GldvYaqnJzWwTaFFETHBOR7OgOO1PdB/4j8v/Z268tv+yHDlwh9yT3Bh
-         xTcqx2IUOHrmUGXtByfgDZ9OOOzBObpYU1+3N/HKF2odU0nclbXJhCrzoVp8XMSuaYzt
-         +0fbMcXKKUT3jR1hF4bN/p44c6LsZba61JwxaPSC5AkgVoODRznodnfJ9v0IZz3MWn2h
-         UbMSXML1gCD+f1yhGirTZ7yxQMt0yE/Xk01D1IQHCsYYvXX4/wEhX9Mg/WapNbbV/YVz
-         YGXC/3yOrN2rIgOZ9wGKvVds1iADm+/Pv4epa6VxsnNsIWyORl5tMuB39jqtdUCfCou+
-         HyWw==
-X-Gm-Message-State: AC+VfDw3A0cSiGxmMk/kf91nXJ+ALlVnTbtuFX40tL1Lh2rJN/aKs/gL
-	ECWLd6PIdvp8kSI9k77DLQ==
+        bh=NhcKZLjWrDNttxGmNBxY3JBPC1dw1l/gq6LRekbNzq8=;
+        b=jfk1Txvhrs4/DOaZnxqzS5Xl5RNZwlxrXfq61DNbrIFMGqx7BWmBw7boaNXJ+qapGA
+         NVMulTRYMJ5kyql+tPLOGbAPPsj9JaLb+KJUYQ0OW9JVYD3CmEYLNYA4UJcaDMxRIQR8
+         XM0clhSfxoHmS115EFXBDd1JEWdw5SYGkzNl+Woi+Lwe0gtO2G2ect1jj9ORCB5ACM6H
+         OXxyO6OkAgc6mGMdWE0jPYlPMlQbbBf8Y2JcFe14GDbX5ikVOTh0NWar9q+5gAwHUNtL
+         rh+x1lc0DgwTE8KForDIw4EwJcNsGXEQgecwY2qYYafSWR9B6EgYMOOgiczDJtcM1Rex
+         DDlQ==
+X-Gm-Message-State: AC+VfDxYaFw9JwQRLOohSwpF8fp25Q9D8n0sccmqZCWvABpL1Dzse1by
+	H0vqeigu+Z5wEdjTT1/Uew==
 X-Google-Smtp-Source: 
- ACHHUZ4fvxRFhvMqpuckwCnsXWFPC/rwz9erlSudSvlNJ+tRVLwMuByK8y5rQaap4kBc7/3o7vVugA==
-X-Received: by 2002:a5d:8c86:0:b0:783:4bd2:3fd2 with SMTP id
- g6-20020a5d8c86000000b007834bd23fd2mr15394851ion.17.1688050718366;
-        Thu, 29 Jun 2023 07:58:38 -0700 (PDT)
+ ACHHUZ5/ubSHnOOsJs8hFdVdPR5AB9dDU59w9AQGzatEGCNhG/K02sYj6XVgHiA3uc2Ij1YRTnGiCw==
+X-Received: by 2002:a92:d08a:0:b0:345:8373:4ca8 with SMTP id
+ h10-20020a92d08a000000b0034583734ca8mr15786460ilh.27.1688051135318;
+        Thu, 29 Jun 2023 08:05:35 -0700 (PDT)
 Received: from robh_at_kernel.org ([64.188.179.250])
         by smtp.gmail.com with ESMTPSA id
- m5-20020a02cdc5000000b0042036f06b24sm2857172jap.163.2023.06.29.07.58.36
+ g6-20020a056638060600b0042b144abf71sm53204jar.179.2023.06.29.08.05.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jun 2023 07:58:37 -0700 (PDT)
-Received: (nullmailer pid 2961403 invoked by uid 1000);
-	Thu, 29 Jun 2023 14:58:35 -0000
-Date: Thu, 29 Jun 2023 08:58:35 -0600
+        Thu, 29 Jun 2023 08:05:31 -0700 (PDT)
+Received: (nullmailer pid 2973007 invoked by uid 1000);
+	Thu, 29 Jun 2023 15:05:28 -0000
+Date: Thu, 29 Jun 2023 09:05:28 -0600
 From: Rob Herring <robh@kernel.org>
 To: Maso Huang <maso.huang@mediatek.com>
 Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -86,17 +86,17 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Allen-KH Cheng <allen-kh.cheng@mediatek.com>, alsa-devel@alsa-project.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 6/7] ASoC: dt-bindings: mediatek,mt7986-wm8960: add
- mt7986-wm8960 document
-Message-ID: <20230629145835.GA2954895-robh@kernel.org>
+Subject: Re: [PATCH v2 7/7] ASoC: dt-bindings: mediatek,mt7986-afe: add audio
+ afe document
+Message-ID: <20230629150528.GA2961718-robh@kernel.org>
 References: <20230626023501.11120-1-maso.huang@mediatek.com>
- <20230626023501.11120-7-maso.huang@mediatek.com>
+ <20230626023501.11120-8-maso.huang@mediatek.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230626023501.11120-7-maso.huang@mediatek.com>
-Message-ID-Hash: M2ZZ555GVKUDBSOHBKTES6NCOIDGMDD7
-X-Message-ID-Hash: M2ZZ555GVKUDBSOHBKTES6NCOIDGMDD7
+In-Reply-To: <20230626023501.11120-8-maso.huang@mediatek.com>
+Message-ID-Hash: PWSPXRN7MZLVUADVKNX7WNXKJH5MDTUD
+X-Message-ID-Hash: PWSPXRN7MZLVUADVKNX7WNXKJH5MDTUD
 X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -109,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M2ZZ555GVKUDBSOHBKTES6NCOIDGMDD7/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PWSPXRN7MZLVUADVKNX7WNXKJH5MDTUD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,54 +118,113 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jun 26, 2023 at 10:35:00AM +0800, Maso Huang wrote:
-> Add document for mt7986 board with wm8960.
+On Mon, Jun 26, 2023 at 10:35:01AM +0800, Maso Huang wrote:
+> Add mt7986 audio afe document.
 > 
 > Signed-off-by: Maso Huang <maso.huang@mediatek.com>
 > ---
->  .../sound/mediatek,mt7986-wm8960.yaml         | 53 +++++++++++++++++++
->  1 file changed, 53 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
+>  .../bindings/sound/mediatek,mt7986-afe.yaml   | 89 +++++++++++++++++++
+>  1 file changed, 89 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
+> diff --git a/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml b/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
 > new file mode 100644
-> index 000000000000..76394f7e5502
+> index 000000000000..257327a33ea1
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/mediatek,mt7986-wm8960.yaml
-> @@ -0,0 +1,53 @@
+> +++ b/Documentation/devicetree/bindings/sound/mediatek,mt7986-afe.yaml
+> @@ -0,0 +1,89 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/sound/mediatek,mt7986-wm8960.yaml#
+> +$id: http://devicetree.org/schemas/sound/mediatek,mt7986-afe.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: MediaTek MT7986 sound card with WM8960 codec
+> +title: MediaTek AFE PCM controller for MT7986
 > +
 > +maintainers:
 > +  - Maso Huang <maso.huang@mediatek.com>
 > +
 > +properties:
 > +  compatible:
-> +    const: mediatek,mt7986-wm8960-machine
+> +    oneOf:
+> +      - const: mediatek,mt7986-afe
+> +      - items:
+> +          - enum:
+> +              - mediatek,mt7981-afe
+> +              - mediatek,mt7988-afe
+> +          - const: mediatek,mt7986-afe
 > +
-> +  mediatek,platform:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: The phandle of MT7986 platform.
+> +  reg:
+> +    maxItems: 1
 > +
-> +  audio-routing:
-> +    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-> +    description:
-> +      A list of the connections between audio components. Each entry is a
-> +      sink/source pair of strings. Valid names could be the input or output
-> +      widgets of audio components, power supplies, MicBias of codec and the
-> +      software switch.
+> +  interrupts:
+> +    maxItems: 1
 > +
-> +  mediatek,audio-codec:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: The phandle of wm8960 codec.
+> +  clocks:
+> +    minItems: 5
+> +    items:
+> +      - description: audio bus clock
+> +      - description: audio 26M clock
+> +      - description: audio intbus clock
+> +      - description: audio hopping clock
+> +      - description: audio pll clock
+> +      - description: mux for pcm_mck
+> +      - description: audio i2s/pcm mck
+> +
+> +  clock-names:
+> +    minItems: 5
+> +    items:
+> +      - const: aud_bus_ck
+> +      - const: aud_26m_ck
+> +      - const: aud_l_ck
+> +      - const: aud_aud_ck
+> +      - const: aud_eg2_ck
+> +      - const: aud_sel
+> +      - const: aud_i2s_m
 
-Please define these properties in a common schema and reference them 
-where already used and here. A given property shouldn't have multiple 
-type definitions.
+'aud_' is redundant.
 
-Rob
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - assigned-clocks
+> +  - assigned-clock-parents
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/clock/mt7986-clk.h>
+> +
+> +    afe@11210000 {
+> +        compatible = "mediatek,mt7986-afe";
+> +        reg = <0x11210000 0x9000>;
+> +        interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&infracfg_ao CLK_INFRA_AUD_BUS_CK>,
+> +                 <&infracfg_ao CLK_INFRA_AUD_26M_CK>,
+> +                 <&infracfg_ao CLK_INFRA_AUD_L_CK>,
+> +                 <&infracfg_ao CLK_INFRA_AUD_AUD_CK>,
+> +                 <&infracfg_ao CLK_INFRA_AUD_EG2_CK>;
+> +        clock-names = "aud_bus_ck",
+> +                      "aud_26m_ck",
+> +                      "aud_l_ck",
+> +                      "aud_aud_ck",
+> +                      "aud_eg2_ck";
+> +        assigned-clocks = <&topckgen CLK_TOP_A1SYS_SEL>,
+> +                          <&topckgen CLK_TOP_AUD_L_SEL>,
+> +                          <&topckgen CLK_TOP_A_TUNER_SEL>;
+> +        assigned-clock-parents = <&topckgen CLK_TOP_APLL2_D4>,
+> +                                 <&apmixedsys CLK_APMIXED_APLL2>,
+> +                                 <&topckgen CLK_TOP_APLL2_D4>;
+> +    };
+> +
+> +...
+> -- 
+> 2.18.0
+> 

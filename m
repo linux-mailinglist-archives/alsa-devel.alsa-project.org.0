@@ -2,53 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF40774202B
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 08:06:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD25742093
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 08:41:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FE5C826;
-	Thu, 29 Jun 2023 08:05:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FE5C826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 989757F1;
+	Thu, 29 Jun 2023 08:41:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 989757F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688018775;
-	bh=94Nb+XBL4b4Azl1edp+do4BjHjqCcQ9iMB0Ae1Nwtpo=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=S3EJ24oHjTOIuLWLZAWUq/QpUWLLiVPlb86uOH9u5xU3y4VK0KuL8YvouK9YGWBm9
-	 z627bomVVYqd1jBOCjKZ/2mg8Hun5prAdEM/JscQM0yDzjlheQ3udbT7u1oEpFBdOP
-	 aH/XFg/db+T3Deu1j3oxZDXTTS3HqI9Vwao1NLj8=
+	s=default; t=1688020910;
+	bh=1aI20zYZNRu3Z4qqbjJbfDnvCM/NwyjmtuQfx5MeAh8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Iid5YmYYEc5zPQnaNAvkuo9Qz98nEGCeZNO76KtmqzfHuUF+uA9f41rEOsRjwO/+M
+	 Og0mkCdev6G5OT3BVYTZMl7xg9nTzQfmOkM6unKabtLtYQxmbOw0WFpUaERCgkhURs
+	 RbfXWuS1IqHg9aMgrVYpNSwWZnysJRsdCrdFMKtk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D78A5F80093; Thu, 29 Jun 2023 08:05:03 +0200 (CEST)
+	id EE6C6F8051E; Thu, 29 Jun 2023 08:40:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62E6CF80212;
-	Thu, 29 Jun 2023 08:05:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82108F80212;
+	Thu, 29 Jun 2023 08:40:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B4EF8F80246; Thu, 29 Jun 2023 08:04:58 +0200 (CEST)
+	id AF09EF80246; Thu, 29 Jun 2023 08:40:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75BFEF80169
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 08:04:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75BFEF80169
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub pull_request - opened <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1688018695748901129-webhooks-bot@alsa-project.org>
-References: <1688018695748901129-webhooks-bot@alsa-project.org>
-Subject: Fix symver build error on non-ELF platforms
-Message-Id: <20230629060458.B4EF8F80246@alsa1.perex.cz>
-Date: Thu, 29 Jun 2023 08:04:58 +0200 (CEST)
-Message-ID-Hash: DKCCYBWQLOCWO72XADK2NZKSLV7G2KVQ
-X-Message-ID-Hash: DKCCYBWQLOCWO72XADK2NZKSLV7G2KVQ
-X-MailFrom: github@alsa-project.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 302F4F80093
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 08:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 302F4F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=IVfgHPfa;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=ST/c9oGN
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C5E9211E2;
+	Thu, 29 Jun 2023 06:40:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1688020848;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=45w3cf8l8QnnAcSZvltiB67avCDLun3Eb318yaMBsF0=;
+	b=IVfgHPfaDBIVKeUXtbm1zJ6dMMhc7mA9gG0ZkuXpDhBUxw1p8OvesC/0nSKV9B88P/g5AW
+	smreXddCTe2ION3YDR8R64xTB8tLTx6DAnyOsscB9KA75ZfHalPTA3wKSDZSas47C2UF1n
+	X0oDnIoARGUvhNHLJ1W4r2gDBspeOno=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1688020848;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=45w3cf8l8QnnAcSZvltiB67avCDLun3Eb318yaMBsF0=;
+	b=ST/c9oGN8Etes0N7JdkEAiA231sIRHNmNkBJcqnBZpX5F32f7IQRJku44pnIDHNQrx3wrk
+	hNKVOp/cVS4gjrDA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5FA8A139FF;
+	Thu, 29 Jun 2023 06:40:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id qJhLFnAnnWR/KgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 29 Jun 2023 06:40:48 +0000
+Date: Thu, 29 Jun 2023 08:40:47 +0200
+Message-ID: <87cz1eepow.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Symbolic Debugger" <happy.debugging@gmail.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
+In-Reply-To: 
+ <168800422777.22.14097919444187982640@mailman-web.alsa-project.org>
+References: <87leg3ekiw.wl-tiwai@suse.de>
+	<168800422777.22.14097919444187982640@mailman-web.alsa-project.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: FVHB2MOSVHTWNV4EP3VR6AZTBOG55WT3
+X-Message-ID-Hash: FVHB2MOSVHTWNV4EP3VR6AZTBOG55WT3
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -60,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DKCCYBWQLOCWO72XADK2NZKSLV7G2KVQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FVHB2MOSVHTWNV4EP3VR6AZTBOG55WT3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -69,19 +118,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-lib pull request #334 was opened from bkuhls:
+On Thu, 29 Jun 2023 04:03:47 +0200,
+Symbolic Debugger wrote:
+> 
+> Thanks again for your time to reply . I think my coin has dropped :-)
+> 
+> 1 .So basically, we have GTB in the device descriptor and the FB information is an UMP call to the device by the ALSA driver.  "The device should provide both info, in somehow compatible ways."  . The process would be [a]. driver gets USB device descriptors,  [b]. driver issues USB call to retrieve  USB GTB descriptors and then [c] driver issues UMP stream call to retrieve the function block information. (if N/A, driver falls back on the GTB information). This information should be consistent with the groups defined in the GTB.
 
-The following error is observed on Microblaze [1] build:
+Correct.
 
-    error: symver is only supported on ELF platforms
+> 2. When creating the device descriptors and GTB descriptors based on the 2020 USB 2.0 spec, it should work ?  Would those port show up in ALSA or can only be access via /dev/umpC*D*
 
-due to using __attribute__((symver)) on non-ELF platform.
+Yes, there has been no change about the GTB itself; USB MIDI spec is
+unchanged.  The recent MIDI 2.0 spec extended only UMP and MIDI-CI.
 
-[1] http://autobuild.buildroot.net/results/1e9/1e965d83d75615f35308440c5db044314a349357/build-end.log
+> 3. w/o duplicates with 2 GTB's and for 32 groups, for example, it would be 1st GTB has group 1~16 and 2nd GTB 17~23  ?. A FB could use the groups from both GTB's for example Group1  and 17.
 
-ac_check_attribute_symver.m4 was downloaded from
-https://github.com/smuellerDD/libkcapi/blob/master/m4/ac_check_attribute_symver.m4
+First of all: you can't have more than 16 groups (per direction) on a
+single EP.  It's a hard limitation.  So there can be no "Group 17".
+(A UMP Group can be bidirectional.)
 
-Request URL   : https://github.com/alsa-project/alsa-lib/pull/334
-Patch URL     : https://github.com/alsa-project/alsa-lib/pull/334.patch
-Repository URL: https://github.com/alsa-project/alsa-lib
+Imagine other way round: you have max 16 in and 16 out UMP Groups
+where each Group has 16 channels, and GTB and FB just define how those
+Groups are assigned to which actual I/O.  Some multiple Groups may
+belong to the I/O for the same purpose, and in that case, those Groups
+can be put into a single FB / GTB. 
+
+> 4. If two functions uses all 16 groups, that would use up all 32 FB's , correct ?
+
+If each FB contains one (single direction) Group and you have 16 in
+and 16 out Groups, then yes, it'll be up to 32 FBs and GTBs, which is
+the max number defined in the spec.  But a FB / GTB can contain
+multiple Groups for the same purpose, so I guess taking all 32 FBs
+would be rather a rare case.
+
+
+Takashi

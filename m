@@ -2,105 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A47474249E
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 13:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CB767424CE
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 13:10:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8068D7F8;
-	Thu, 29 Jun 2023 13:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8068D7F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7576584D;
+	Thu, 29 Jun 2023 13:09:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7576584D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688036491;
-	bh=SNuvCv0VFWJ1T/BA1jgFsWK/sbewukgBLN8NThITlGY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1688037039;
+	bh=Dt51Frbc0VtpgKsRkoOje6ipINA90raC3oWM4OnSZKU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=o5a5d+0NHP8Mw616cghbWVwqHLb59jxHaOGmgc3QJ9Ep3/ayUlzVLK6IuyEboKrE0
-	 Bm0Ln5B4c5+Di72goQXmB2RkV33zVqqIPz98UXf8TsxhBror+d/Bw0ehKopC28/pyT
-	 AFyhYN5PDGkQxo7TBiNrabtsqsy/lriR9xRqpwy4=
+	b=bZd6tRMi1ejY0U8taEEXMvjk8A/9DS4eaaetOZQwpwOGLZKsiEYYk2lOHQPZDc9+N
+	 jdt7iH8d5Ov4oHwv1yksBYVUO3TaE6UXj24KuZuRCJnKAtvIMogJjOGHxDxShp3SdK
+	 Lr3j2KWCbyFCMvM6p6abX4xjXb4pGTi7Q9FNe4Rk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25425F80212; Thu, 29 Jun 2023 13:00:11 +0200 (CEST)
+	id D9CEDF8027B; Thu, 29 Jun 2023 13:09:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68E72F80212;
-	Thu, 29 Jun 2023 13:00:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6509FF80093;
+	Thu, 29 Jun 2023 13:09:18 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BEA18F80246; Thu, 29 Jun 2023 13:00:07 +0200 (CEST)
+	id 1E984F80246; Thu, 29 Jun 2023 13:09:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E3AE8F80169
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 13:00:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3AE8F80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1584CF80093
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 13:09:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1584CF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=IJJG70VR
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-66d6a9851f3so144183b3a.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 29 Jun 2023 04:00:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688036403; x=1690628403;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SNuvCv0VFWJ1T/BA1jgFsWK/sbewukgBLN8NThITlGY=;
-        b=IJJG70VRTfv6SzZDiw5KgcGaeym0vz6jCVdSX8aL1AtgKYxIKxEz+FbieZyrRKMKt6
-         XCNCfb6e0kP4qrLVYCOdleUjQ0iPjzq7WtSDVVd1E/SnYE0lqHji5iXyEH54McdjI3Q6
-         aGP09g3gRxxOG3bTuanQqLSGUYvKcsHm5AbgJBGY2+BeZSDjm6FHWKrH5NokTFFFcK4n
-         5M0DelgYVruwm87q4YsvLXl0PCpvA7mJRxPfLrw0EJJgh1S2hE6eMETfer+m2znDNGz+
-         rx7t9Pn79B0zCEhWoBBcJnDez2ncEfQAzyDnYf6kYmZsBkPiLUqjN+/nFgPhNsy3lsLQ
-         N82w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688036403; x=1690628403;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SNuvCv0VFWJ1T/BA1jgFsWK/sbewukgBLN8NThITlGY=;
-        b=OXexyYPzyehLMgpfWyMZOiew2DgXRPoWAvHse1D47rpXFi69yHqjD+QSSfOzcrYAlz
-         OsaLHzxFc93JiZX3yQRE91QLVtHbwHeIUHx164qCo3XffSttxTH3XJYn6hm2QbSH8zds
-         j2oYUoQW+fKg7/vaKor4/dfKk/Iqn0y66LgNHB9Nyi24i6TxESsfpL7BfCeYr5xagBAU
-         GwQdZ7vE1dWJrw+Cl7u41Ao+6nQQf4Fd+9QIu+O+1on6uQLF6h9/ulgKQ0RvjBOWMM6c
-         92gjErIevIlOxwxxhXWmhzbCtxX9McZR9ifYx+ZRE6mOSSPcW47vUG93pqfyAdfWVwO+
-         RP4Q==
-X-Gm-Message-State: AC+VfDy5uxfSnct8MYHF8CovyoB6uss5tcKnuxeLYY3lpjBSCxdcgOKi
-	ZiUvHa68/g3Hf0vd+YzV9EEqUoQizXlZR9Pv6qE=
-X-Google-Smtp-Source: 
- ACHHUZ4241Q0Xok00mtSesZ0ScAf8EpY8gqClpDPFmqvjMGqm+Sl0vzMI5IyImuqQIvVL0JNHSy7d4g+Mx22zwDE2r4=
-X-Received: by 2002:a05:6a20:7295:b0:111:fba0:bd3b with SMTP id
- o21-20020a056a20729500b00111fba0bd3bmr45440823pzk.1.1688036403198; Thu, 29
- Jun 2023 04:00:03 -0700 (PDT)
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=UUEBY7in
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688036954; x=1719572954;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Dt51Frbc0VtpgKsRkoOje6ipINA90raC3oWM4OnSZKU=;
+  b=UUEBY7inWbssPxMJizhTlTQgrKztrnuslYBeGXwY023Iepq+/5LYNdho
+   7infI/TCGSD0GjJmh/he3QM+nQNi5pTdTCcAmZT6plUSJnLVJRIVdVJWx
+   IY2+SXe2qdcRrLVSThcNhar+WzoQymodJlL8NvHTB7p79uSyGPFtYCEFB
+   fjZJ3b+Fsv5FifUq9/uA9TZQhgTMv/X4ad5gSFeewJEGobGrNWPfAsXBq
+   kYYNzogaQ1gjuaC7/x1pIKvxCnWboYqXo4+qLTbZC+Hx7kBiurhziNwK7
+   1QvcPUFTqwY/ZBOXBH59dZP9JndPa6BSPJiU2d8IB6lzVREsT1wGxh7bO
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="362118843"
+X-IronPort-AV: E=Sophos;i="6.01,168,1684825200";
+   d="scan'208";a="362118843"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2023 04:09:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="861890475"
+X-IronPort-AV: E=Sophos;i="6.01,168,1684825200";
+   d="scan'208";a="861890475"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by fmsmga001.fm.intel.com with ESMTP; 29 Jun 2023 04:09:08 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1qEpWM-000ps9-1A;
+	Thu, 29 Jun 2023 14:09:06 +0300
+Date: Thu, 29 Jun 2023 14:09:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [PATCH v1 2/3] ASoC: rt5677: Use device_get_match_data()
+Message-ID: <ZJ1mUmI7wOhp710M@smile.fi.intel.com>
+References: <20230629104603.88612-1-andriy.shevchenko@linux.intel.com>
+ <20230629104603.88612-3-andriy.shevchenko@linux.intel.com>
+ <33d3ba54-e391-454f-942c-67f498711078@sirena.org.uk>
 MIME-Version: 1.0
-References: <1688002673-28493-1-git-send-email-shengjiu.wang@nxp.com>
- <1688002673-28493-4-git-send-email-shengjiu.wang@nxp.com>
-In-Reply-To: <1688002673-28493-4-git-send-email-shengjiu.wang@nxp.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 29 Jun 2023 07:59:53 -0300
-Message-ID: 
- <CAOMZO5DPHmm7YuHBfYHpx2-g4R6t1BQ93GBAZvyyb_rBz7+hFg@mail.gmail.com>
-Subject: Re: [PATCH 3/6] ASoC: fsl_easrc: define functions for memory to
- memory usage
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Cc: tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: WWZ4ZYWUUFCAHQ3542EECMB7QEFNZIJJ
-X-Message-ID-Hash: WWZ4ZYWUUFCAHQ3542EECMB7QEFNZIJJ
-X-MailFrom: festevam@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <33d3ba54-e391-454f-942c-67f498711078@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: RAX2CZBMZ25SLPNKGBJBRJPYNZAYDO2U
+X-Message-ID-Hash: RAX2CZBMZ25SLPNKGBJBRJPYNZAYDO2U
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WWZ4ZYWUUFCAHQ3542EECMB7QEFNZIJJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RAX2CZBMZ25SLPNKGBJBRJPYNZAYDO2U/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,22 +111,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Shengjiu,
+On Thu, Jun 29, 2023 at 11:56:10AM +0100, Mark Brown wrote:
+> On Thu, Jun 29, 2023 at 01:46:02PM +0300, Andy Shevchenko wrote:
 
-On Wed, Jun 28, 2023 at 11:10=E2=80=AFPM Shengjiu Wang <shengjiu.wang@nxp.c=
-om> wrote:
->
-> ASRC can be used on memory to memory case, define several
-> functions for m2m usage and export them as function pointer.
->
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+...
 
-Could you please explain what is the benefit of using M2M in the EASRC driv=
-er?
+> > +	rt5677->type = (enum rt5677_type)(uintptr_t)device_get_match_data(dev);
 
-A few weeks ago, an imx8mn user reported that the EASRC with the
-mainline kernel introduces huge delays.
+> Double casts, always a sign of a successful simplification! :P
 
-Does M2M help with this aspect?
+Unfortunate of the C language and use of plain numbers when
+pointers are required. :-( I feel your pain.
 
-Thanks
+> > +	if (rt5677->type == 0)
+> >  		return -EINVAL;
+> > -	}
+
+I would prefer to see in the ID table something like
+
+	.compatible = "foo", .data = &codec[RT5677],
+
+but in this driver it seems it will require quite a refactoring.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+

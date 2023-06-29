@@ -2,94 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7304774218D
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 10:00:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A75C7421EF
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 10:20:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B7C77F8;
-	Thu, 29 Jun 2023 09:59:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B7C77F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05A2C11C;
+	Thu, 29 Jun 2023 10:19:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05A2C11C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688025645;
-	bh=jygzC7/KhiL1ONGd/+dQZmfiBQBnLTPaCLR4p+mBUX0=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=dF7W/BDRZ+CqnvV8RN6wQmdRI8oUlkrFpKzovvbcoR/ZyXvwJlNRHxcR42hvybtUX
-	 Lcwy9atjy57fnyYwRQZtFOjY8tiWvntbVQFDVbYSS59mBINEw1kjZm7Ox2ta7C8fY5
-	 uWz7SYUp1rXSTIeD92oY81m5Tdiq8HZAMuutj1NQ=
+	s=default; t=1688026803;
+	bh=nZeawW1oMN2HuGCf+TgAnAiNf1H7F95ZCg0NNjoviRI=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=qoAkMdZmfFe1+FAKjwAkZ9bvZUFsfFT/b5Xk4Inu4sQPkXcS3K4fTJkn/3dgUN5L3
+	 TriDT9VOpp6FDsBvlBIzPMfPXNCWFqoxfp443poYF0802tkht/0x4QCkUubgFz89Gy
+	 rJq1w8oab9eLfTqixYMFFZaxANNTxXgCSwVV3EHA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 87A4DF8027B; Thu, 29 Jun 2023 09:59:33 +0200 (CEST)
+	id A4D16F8027B; Thu, 29 Jun 2023 10:19:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25938F80169;
-	Thu, 29 Jun 2023 09:59:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12F7DF80169;
+	Thu, 29 Jun 2023 10:19:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E0AA8F80212; Thu, 29 Jun 2023 09:59:29 +0200 (CEST)
+	id 3BFD3F80246; Thu, 29 Jun 2023 10:19:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
-	RCVD_IN_MSPIKE_WL,RDNS_NONE,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,UNPARSEABLE_RELAY,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0B77CF800E3
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 09:59:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B77CF800E3
+	by alsa1.perex.cz (Postfix) with ESMTPS id 37191F80093
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 10:19:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37191F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256
- header.s=dk header.b=YY7zdvpd
-X-UUID: d7cc6962165211eeb20a276fd37b9834-20230629
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=mediatek.com; s=dk;
-	h=Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
- bh=DiiWsMcy5MZboP5al/aFt6kLyJc9jecmPV9qc6pE8+w=;
-	b=YY7zdvpdoecyLAxPnBHUZLd5Rihhga+1Mv6mY6h2h8SJXx3ObJgwUMZJ9aqM0jczOhe3U93UkLwqC7m/OBo6RLAEI14iJ+iv0x3YUqcgjM8Uc/MRp2HoF2jTr/lNsRwwexdchIbEjBWkmUKX7uo7P8lC+/XJdHbgzbzpV+yu6W0=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.27,REQID:5c1cbac4-5a1f-4724-bae3-51f1bfb37881,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:01c9525,CLOUDID:0ec75e0d-26a8-467f-b838-f99719a9c083,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
-	RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: d7cc6962165211eeb20a276fd37b9834-20230629
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
- mailgw02.mediatek.com
-	(envelope-from <trevor.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 532892412; Thu, 29 Jun 2023 15:59:15 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.186) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Thu, 29 Jun 2023 15:59:15 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Thu, 29 Jun 2023 15:59:15 +0800
-From: Trevor Wu <trevor.wu@mediatek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <tiwai@suse.com>,
-	<perex@perex.cz>, <matthias.bgg@gmail.com>,
-	<angelogioacchino.delregno@collabora.com>
-CC: <trevor.wu@mediatek.com>, <alsa-devel@alsa-project.org>,
-	<linux-mediatek@lists.infradead.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: mediatek: mt8188: add constraints for PCM
-Date: Thu, 29 Jun 2023 15:59:10 +0800
-Message-ID: <20230629075910.21982-1-trevor.wu@mediatek.com>
-X-Mailer: git-send-email 2.18.0
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=ONDmelxV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688026743; x=1719562743;
+  h=message-id:date:mime-version:from:subject:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=nZeawW1oMN2HuGCf+TgAnAiNf1H7F95ZCg0NNjoviRI=;
+  b=ONDmelxVzvTjwK5lsJCoxwRmZyfbix2UtMXvaebEsHdjj662sWkC8y/9
+   04trU9vkj/+4eEcix6rTYsxS6Af13muZXkVCkzP5tgXxk/jrDt1hxsyyp
+   xuZ7jJPwayfduSwq1zYrksZ/CqfFMnigwS39TaSxlUecRughXnZq91ig7
+   5tl8HAReL8zwcg7PyIkqnCeP9z7H1x3Gv0Cjj0KWHPuNvkiFfERviEUmN
+   3lISy1f5rn437yolSR2Kk1QxFFIzSIbISB9OAqtSmO+1P6T5iGI5U20HU
+   jz1iTCbqq7QGT0QWGH/Au7hncso8i2KutSMx56UxvdQnH4BizAQQDIlLh
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="351854302"
+X-IronPort-AV: E=Sophos;i="6.01,168,1684825200";
+   d="scan'208";a="351854302"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2023 01:18:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="891331178"
+X-IronPort-AV: E=Sophos;i="6.01,168,1684825200";
+   d="scan'208";a="891331178"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2023 01:18:53 -0700
+Message-ID: <a7bf3aaa-581d-0625-5f18-6b9b062ea48d@linux.intel.com>
+Date: Thu, 29 Jun 2023 10:18:50 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MTK: N
-Message-ID-Hash: LIN2V4O5466FXEU5HTT67XPSPIZ7CFGZ
-X-Message-ID-Hash: LIN2V4O5466FXEU5HTT67XPSPIZ7CFGZ
-X-MailFrom: trevor.wu@mediatek.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: Re: [RFC PATCH 1/8] PCI: Add Intel Audio DSP devices to pci_ids.h
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+References: <20230628205135.517241-1-amadeuszx.slawinski@linux.intel.com>
+ <20230628205135.517241-2-amadeuszx.slawinski@linux.intel.com>
+ <ZJxHTHCq0T/y+dG0@smile.fi.intel.com>
+Content-Language: en-US
+In-Reply-To: <ZJxHTHCq0T/y+dG0@smile.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: B36JYHYSX6RAD4B5MGEDXQZ5HCTJYDIR
+X-Message-ID-Hash: B36JYHYSX6RAD4B5MGEDXQZ5HCTJYDIR
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LIN2V4O5466FXEU5HTT67XPSPIZ7CFGZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B36JYHYSX6RAD4B5MGEDXQZ5HCTJYDIR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,220 +115,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-For certain projects, only a limited number of parameters are necessary.
-Therefore, it may be beneficial to add constraints that restrict the
-capacity of the PCM.
+On 6/28/2023 4:44 PM, Andy Shevchenko wrote:
+> On Wed, Jun 28, 2023 at 10:51:28PM +0200, Amadeusz Sławiński wrote:
+>> Those IDs are mostly sprinkled between HDA, Skylake, SOF and avs drivers.
+>> Almost every use contains additional comments to identify to which
+>> platform those IDs refer to. Add those IDs to pci_ids.h header, so that
+>> there is one place which defines those names.
+> 
+> ...
+> 
+>>   #define PCI_DEVICE_ID_INTEL_5400_FBD0	0x4035
+>>   #define PCI_DEVICE_ID_INTEL_5400_FBD1	0x4036
+>> +#define PCI_DEVICE_ID_INTEL_HDA_JSL_N	0x4dc8
+>> +#define PCI_DEVICE_ID_INTEL_HDA_TGL_H	0x43c8
+>> +#define PCI_DEVICE_ID_INTEL_HDA_EHL_0	0x4b55
+>> +#define PCI_DEVICE_ID_INTEL_HDA_EHL_3	0x4b58
+> 
+> Can it be kept sorted by a value?
+> 
+> Didn't check the full list, though.
+> 
 
-Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
----
- sound/soc/mediatek/mt8188/mt8188-mt6359.c | 145 +++++++++++++++++++++-
- 1 file changed, 144 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-index ac69c23e0da1..0e4e1b8c99e2 100644
---- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-+++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
-@@ -30,6 +30,7 @@
-  #define TEST_MISO_DONE_2	BIT(29)
- 
- #define NAU8825_HS_PRESENT	BIT(0)
-+#define DPCM_FE_CONSTRAINT	BIT(16)
- 
- /*
-  * Maxim MAX98390
-@@ -452,6 +453,143 @@ enum {
- 	DAI_LINK_UL_SRC_BE,
- };
- 
-+static int mt8188_playback_startup(struct snd_pcm_substream *substream)
-+{
-+	static const unsigned int rates[] = {
-+		48000
-+	};
-+	static const unsigned int channels[] = {
-+		2
-+	};
-+	static const struct snd_pcm_hw_constraint_list constraints_rates = {
-+		.count = ARRAY_SIZE(rates),
-+		.list  = rates,
-+		.mask = 0,
-+	};
-+	static const struct snd_pcm_hw_constraint_list constraints_channels = {
-+		.count = ARRAY_SIZE(channels),
-+		.list  = channels,
-+		.mask = 0,
-+	};
-+
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8188_card_data *data = (struct mt8188_card_data *)priv->private_data;
-+	int ret;
-+
-+	if (!(data->quirk & DPCM_FE_CONSTRAINT))
-+		return 0;
-+
-+	ret = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_RATE,
-+					 &constraints_rates);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "hw_constraint_list rate failed\n");
-+		return ret;
-+	}
-+
-+	ret = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_CHANNELS,
-+					 &constraints_channels);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "hw_constraint_list channel failed\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops mt8188_playback_ops = {
-+	.startup = mt8188_playback_startup,
-+};
-+
-+static int mt8188_capture_startup(struct snd_pcm_substream *substream)
-+{
-+	static const unsigned int rates[] = {
-+		48000
-+	};
-+	static const struct snd_pcm_hw_constraint_list constraints_rates = {
-+		.count = ARRAY_SIZE(rates),
-+		.list  = rates,
-+		.mask = 0,
-+	};
-+
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8188_card_data *data = (struct mt8188_card_data *)priv->private_data;
-+	int ret;
-+
-+	if (!(data->quirk & DPCM_FE_CONSTRAINT))
-+		return 0;
-+
-+	ret = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_RATE,
-+					 &constraints_rates);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "hw_constraint_list rate failed\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops mt8188_capture_ops = {
-+	.startup = mt8188_capture_startup,
-+};
-+
-+static int mt8188_hdmi_dptx_startup(struct snd_pcm_substream *substream)
-+{
-+	static const unsigned int rates[] = {
-+		48000
-+	};
-+	static const unsigned int channels[] = {
-+		2, 4, 6, 8
-+	};
-+	static const struct snd_pcm_hw_constraint_list constraints_rates = {
-+		.count = ARRAY_SIZE(rates),
-+		.list  = rates,
-+		.mask = 0,
-+	};
-+	static const struct snd_pcm_hw_constraint_list constraints_channels = {
-+		.count = ARRAY_SIZE(channels),
-+		.list  = channels,
-+		.mask = 0,
-+	};
-+
-+	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct mt8188_mt6359_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-+	struct mt8188_card_data *data = (struct mt8188_card_data *)priv->private_data;
-+	int ret;
-+
-+	if (!(data->quirk & DPCM_FE_CONSTRAINT))
-+		return 0;
-+
-+	ret = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_RATE,
-+					 &constraints_rates);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "hw_constraint_list rate failed\n");
-+		return ret;
-+	}
-+
-+	ret = snd_pcm_hw_constraint_list(runtime, 0,
-+					 SNDRV_PCM_HW_PARAM_CHANNELS,
-+					 &constraints_channels);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "hw_constraint_list channel failed\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_ops mt8188_hdmi_dptx_playback_ops = {
-+	.startup = mt8188_hdmi_dptx_startup,
-+};
-+
- static int mt8188_dptx_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params)
- {
-@@ -723,6 +861,7 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 		},
- 		.dynamic = 1,
- 		.dpcm_playback = 1,
-+		.ops = &mt8188_playback_ops,
- 		SND_SOC_DAILINK_REG(playback2),
- 	},
- 	[DAI_LINK_DL3_FE] = {
-@@ -734,6 +873,7 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 		},
- 		.dynamic = 1,
- 		.dpcm_playback = 1,
-+		.ops = &mt8188_playback_ops,
- 		SND_SOC_DAILINK_REG(playback3),
- 	},
- 	[DAI_LINK_DL6_FE] = {
-@@ -778,6 +918,7 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 		},
- 		.dynamic = 1,
- 		.dpcm_playback = 1,
-+		.ops = &mt8188_hdmi_dptx_playback_ops,
- 		SND_SOC_DAILINK_REG(playback10),
- 	},
- 	[DAI_LINK_DL11_FE] = {
-@@ -833,6 +974,7 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 		},
- 		.dynamic = 1,
- 		.dpcm_capture = 1,
-+		.ops = &mt8188_capture_ops,
- 		SND_SOC_DAILINK_REG(capture4),
- 	},
- 	[DAI_LINK_UL5_FE] = {
-@@ -844,6 +986,7 @@ static struct snd_soc_dai_link mt8188_mt6359_dai_links[] = {
- 		},
- 		.dynamic = 1,
- 		.dpcm_capture = 1,
-+		.ops = &mt8188_capture_ops,
- 		SND_SOC_DAILINK_REG(capture5),
- 	},
- 	[DAI_LINK_UL6_FE] = {
-@@ -1122,7 +1265,7 @@ static struct mt8188_card_data mt8188_evb_card = {
- 
- static struct mt8188_card_data mt8188_nau8825_card = {
- 	.name = "mt8188_nau8825",
--	.quirk = NAU8825_HS_PRESENT,
-+	.quirk = NAU8825_HS_PRESENT | DPCM_FE_CONSTRAINT,
- };
- 
- static const struct of_device_id mt8188_mt6359_dt_match[] = {
--- 
-2.18.0
-
+My mistake, I've tried to add them in order, but must have missed this 
+one, will review whole list again.

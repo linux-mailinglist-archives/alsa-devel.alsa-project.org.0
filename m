@@ -2,55 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5606674266D
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 14:28:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9EE87426B1
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 14:47:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3286825;
-	Thu, 29 Jun 2023 14:28:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3286825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67CE47F4;
+	Thu, 29 Jun 2023 14:46:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67CE47F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688041738;
-	bh=C98YHbsuilCo7pYwy1uecRbwj1lTX1WSoKv/4i/3NYA=;
-	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
-	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
-	 From;
-	b=g+iBeRneNCyLxOZ+xxM9oNTE4DPGf1MAgI41RfBMinWxLr4onTSzd4U6hmpr4yl7x
-	 4MlywL9WLcxNLnWJCAVwgYm4P6bXyMSoLM3Upxye+WAcQcbdazChotQ0JdlwoidsM3
-	 rHWfAHK3h3I5Xjw6sc+mmKZlkHlLgOn8Un5wBlfs=
+	s=default; t=1688042853;
+	bh=C2Y24ivHm/B/fKxjKnmKGxzY8SU7utz2eHE5M2snbCk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=oCzBIZZkvnp2JYzpGCADd4Rz2jEqOLk3YA5kaTP5jP4qYsm3J1qIpOiNLFJN+xzBE
+	 94ONl49UtR2rIXsV/JGiaozMaAmZ755sOr/xzFU6ODA8bt4HOSm8TtfSG9sx81+qxI
+	 nnkSxF+oJex2W5hibxhCII5EaPPu2kHyDQ23nwTg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9BE4F8027B; Thu, 29 Jun 2023 14:27:47 +0200 (CEST)
+	id CA7BEF8053B; Thu, 29 Jun 2023 14:46:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35EDEF80246;
-	Thu, 29 Jun 2023 14:27:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83016F80212;
+	Thu, 29 Jun 2023 14:46:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 07A79F80246; Thu, 29 Jun 2023 14:27:43 +0200 (CEST)
+	id 4ADA7F80246; Thu, 29 Jun 2023 14:46:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
- [207.180.221.201])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCC91F80169
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 14:27:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCC91F80169
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1688041661636447430-webhooks-bot@alsa-project.org>
-References: <1688041661636447430-webhooks-bot@alsa-project.org>
-Subject: Arturia Minifuse 2 (and probably any other using SplitPCM macro) -
- lost sample rate range on each in/out (and forced to 48000)
-Message-Id: <20230629122744.07A79F80246@alsa1.perex.cz>
-Date: Thu, 29 Jun 2023 14:27:43 +0200 (CEST)
-Message-ID-Hash: IJRRMKB4YQO6I2NA2I7IDG2IBAZBCG7L
-X-Message-ID-Hash: IJRRMKB4YQO6I2NA2I7IDG2IBAZBCG7L
-X-MailFrom: github@alsa-project.org
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id D5F5DF80093
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 14:46:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5F5DF80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=bDjJbTjY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=ABOeuopA
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id BDF101F8BE;
+	Thu, 29 Jun 2023 12:46:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1688042793;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vAH504Fcy+aW1ZxkZK4KYeGzA66qMsvuD3CDKEk1s5U=;
+	b=bDjJbTjY4kz98CZ0t2VRvkGqMAwn3TBFyIzYy8hMncfaKL7kt1bOU+lFtQ05HYwIjMOE0k
+	Msfbu6zkRorNZK+Z0Z3Pq2o0izlN8tRPT24lTlVAi8XMuabkZg40Ue0YJWeAo22xbB2qwi
+	57pbASxulLL50qEt1b9uRL+AVq5ADYQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1688042793;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vAH504Fcy+aW1ZxkZK4KYeGzA66qMsvuD3CDKEk1s5U=;
+	b=ABOeuopA1kVgF2TtlPJ+8UvGp9jXGkD2up7/XPFqn6Yb/sJzEMdYSB9Dvgt33xd7o0a0Md
+	ENykrl7Juw0zusDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A5D51139FF;
+	Thu, 29 Jun 2023 12:46:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id sZDOJyl9nWRlYgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 29 Jun 2023 12:46:33 +0000
+Date: Thu, 29 Jun 2023 14:46:29 +0200
+Message-ID: <87ttuqfnbu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Huang Rui <vowstar@gmail.com>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	vitalyr@opensource.cirrus.com
+Subject: Re: [PATCHv2] ALSA: hda/realtek: fix mute/micmute LEDs for HP
+ EliteBook G10
+In-Reply-To: <20230629123557.3627401-1-vowstar@gmail.com>
+References: <20230629123557.3627401-1-vowstar@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: Z6Q5XCT2IGGN3OV7U6O6G4OF5N5FOLY3
+X-Message-ID-Hash: Z6Q5XCT2IGGN3OV7U6O6G4OF5N5FOLY3
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -62,7 +113,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IJRRMKB4YQO6I2NA2I7IDG2IBAZBCG7L/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z6Q5XCT2IGGN3OV7U6O6G4OF5N5FOLY3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -71,257 +122,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-alsa-project/alsa-ucm-conf issue #333 was edited from kmarty:
+On Thu, 29 Jun 2023 14:35:57 +0200,
+Huang Rui wrote:
+> 
+> In the commit 3e10f6ca76c4 ("ALSA: hda/realtek: Add quirk for
+> HP EliteBook G10 laptops"), speakers are fixed but mute/micmute
+> LEDs does not lit. Need the ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED
+> to get all mute/micmute LEDs working.
+> 
+> Signed-off-by: Huang Rui <vowstar@gmail.com>
+> Fixes: 3e10f6ca76c4 ("ALSA: hda/realtek: Add quirk for HP EliteBook G10 laptops")
+> ---
+> V1 -> V2: Add fixes to link a previously committed issue
 
-Hi,
-I have Arturia MiniFuse 2 card allowing playback/capture sample rate in range 44100 - 192000. But using channel name (e.g. `Mic/Line/Inst 1 (L)`, `Main Output L/R`) created by UCM, it offers 48000 only (and in case of playback, it offers S15_LE only).
-
-Looks like something is lost when `SplitPCM` macro is used or so (I have absolutely no idea what's going on here).
-
-Is there any possibility to make it work as it should?
+This was already fixed by Andi's patch.
 
 
-=================================
-`/proc/asound/card4/stream0` output:
-```
-ARTURIA MiniFuse 2 at usb-0000:16:00.0-6.2, high speed : USB Audio
+thanks,
 
-Playback:
-  Status: Stop
-  Interface 1
-    Altset 1
-    Format: S32_LE
-    Channels: 4
-    Endpoint: 0x01 (1 OUT) (ASYNC)
-    Rates: 44100, 48000, 88200, 96000, 176400, 192000
-    Data packet interval: 125 us
-    Bits: 24
-    Channel map: FL FR FC LFE
-    Sync Endpoint: 0x81 (1 IN)
-    Sync EP Interface: 1
-    Sync EP Altset: 1
-    Implicit Feedback Mode: No
-  Interface 1
-    Altset 2
-    Format: S16_LE
-    Channels: 4
-    Endpoint: 0x01 (1 OUT) (ASYNC)
-    Rates: 44100, 48000, 88200, 96000, 176400, 192000
-    Data packet interval: 125 us
-    Bits: 16
-    Channel map: FL FR FC LFE
-    Sync Endpoint: 0x81 (1 IN)
-    Sync EP Interface: 1
-    Sync EP Altset: 2
-    Implicit Feedback Mode: No
-
-Capture:
-  Status: Stop
-  Interface 2
-    Altset 1
-    Format: S32_LE
-    Channels: 4
-    Endpoint: 0x82 (2 IN) (ASYNC)
-    Rates: 44100, 48000, 88200, 96000, 176400, 192000
-    Data packet interval: 125 us
-    Bits: 24
-    Channel map: FL FR FC LFE
-```
-
-`alsaucm -c hw:4 dump text` output:
-```
-Verb.HiFi {
-	Comment "Default Alsa Profile"
-	Device.Line1 {
-		Comment "Main Output L/R"
-		Values {
-			CaptureCTL "_ucm0001.hw:M2"
-			PlaybackCTL "_ucm0001.hw:M2"
-			PlaybackChannels 2
-			PlaybackPCM "_ucm0001.minifuse12_stereo_out:M2,0,0,1"
-			PlaybackPriority 300
-		}
-	}
-	Device.Line2 {
-		Comment "Loopback L/R"
-		Values {
-			CaptureCTL "_ucm0001.hw:M2"
-			CaptureChannels 2
-			CapturePCM "_ucm0001.minifuse12_stereo_in:M2,0,2,3"
-			CapturePriority 200
-			PlaybackCTL "_ucm0001.hw:M2"
-			PlaybackChannels 2
-			PlaybackPCM "_ucm0001.minifuse12_stereo_out:M2,0,2,3"
-			PlaybackPriority 200
-		}
-	}
-	Device.Line3 {
-		Comment "Stereo Input 1+2 L/R"
-		ConflictingDevices [
-			Mic2,
-			Mic1
-		]
-		Values {
-			CaptureCTL "_ucm0001.hw:M2"
-			CaptureChannels 2
-			CapturePCM "_ucm0001.minifuse12_stereo_in:M2,0,0,1"
-			CapturePriority 100
-			PlaybackCTL "_ucm0001.hw:M2"
-		}
-	}
-	Device.Mic1 {
-		Comment "Mic/Line/Inst 1 (L)"
-		ConflictingDevices [
-			Line3
-		]
-		Values {
-			CaptureCTL "_ucm0001.hw:M2"
-			CaptureChannels 1
-			CapturePCM "_ucm0001.minifuse12_mono_in:M2,0,0"
-			CapturePriority 400
-			PlaybackCTL "_ucm0001.hw:M2"
-		}
-	}
-	Device.Mic2 {
-		Comment "Mic/Line/Inst 2 (R)"
-		ConflictingDevices [
-			Line3
-		]
-		Values {
-			CaptureCTL "_ucm0001.hw:M2"
-			CaptureChannels 1
-			CapturePCM "_ucm0001.minifuse12_mono_in:M2,0,1"
-			CapturePriority 300
-			PlaybackCTL "_ucm0001.hw:M2"
-		}
-	}
-}
-Verb.Direct {
-	Comment "Direct MiniFuse 2"
-	Device.Direct {
-		Comment "Direct MiniFuse 2"
-		Values {
-			CaptureCTL "_ucm0001.hw:M2"
-			CaptureChannels 4
-			CapturePCM "_ucm0001.hw:M2"
-			CapturePriority 1000
-			PlaybackCTL "_ucm0001.hw:M2"
-			PlaybackChannels 4
-			PlaybackPCM "_ucm0001.hw:M2"
-			PlaybackPriority 1000
-		}
-	}
-}
-```
-
-Pipewire debug log "spa.alsa:D" excerpts (I have no idea how to get this elsewhere, but it matches to offered reality):
-```
-[I][12125.973616] spa.alsa     | [      alsa-pcm.c:  618 spa_alsa_open()] 0x562ee6e95448: ALSA device open '_ucm0001.minifuse12_mono_in:M2,0,0' capture
-[I][12125.993003] spa.alsa     | [      alsa-pcm.c:  568 probe_pitch_ctl()] minifuse12_mono_in:M2,0,0 could not find ctl device: No such file or directory
-[D][12125.993047] spa.alsa     | [      alsa-pcm.c: 1048 debug_hw_params()] enum_pcm_formats:
-[D][12125.993065] spa.alsa     | [      alsa-pcm.c:  469 log_write()] ACCESS:  MMAP_INTERLEAVED MMAP_NONINTERLEAVED RW_INTERLEAVED RW_NONINTERLEAVED
-[D][12125.993075] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FORMAT:  S32_LE
-[D][12125.993082] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SUBFORMAT:  STD
-[D][12125.993089] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SAMPLE_BITS: 32
-[D][12125.993095] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FRAME_BITS: 32
-[D][12125.993101] spa.alsa     | [      alsa-pcm.c:  469 log_write()] CHANNELS: 1
-[D][12125.993107] spa.alsa     | [      alsa-pcm.c:  469 log_write()] RATE: 48000
-[D][12125.993113] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_TIME: 10000
-[D][12125.993119] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_SIZE: 480
-[D][12125.993124] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_BYTES: 1920
-[D][12125.993130] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIODS: [2 50]
-[D][12125.993136] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_TIME: [20000 500000]
-[D][12125.993142] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_SIZE: [960 24000]
-[D][12125.993148] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_BYTES: [3840 96000]
-[D][12125.993153] spa.alsa     | [      alsa-pcm.c:  469 log_write()] TICK_TIME: ALL
-[D][12125.993165] spa.alsa     | [      alsa-pcm.c:  885 add_rate()] min:48000 max:48000 min-allowed:0 scale:1 interleave:1 all:0
-[D][12125.993172] spa.alsa     | [      alsa-pcm.c:  909 add_rate()] rate:48000 multi:1 card:0 def:0
-[D][12125.993180] spa.alsa     | [      alsa-pcm.c:  963 add_channels()] channels (1 1) default:1 all:0
-[D][12125.993187] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x562ee6e95448: position 0 2
-```
-```
-[I][12125.637937] spa.alsa     | [      alsa-pcm.c:  618 spa_alsa_open()] 0x562ee6e24218: ALSA device open '_ucm0001.minifuse12_stereo_out:M2,0,0,1' playback
-[I][12125.657353] spa.alsa     | [      alsa-pcm.c:  568 probe_pitch_ctl()] minifuse12_stereo_out:M2,0,0,1 could not find ctl device: No such file or directory
-[D][12125.657379] spa.alsa     | [      alsa-pcm.c: 1048 debug_hw_params()] enum_pcm_formats:
-[D][12125.657398] spa.alsa     | [      alsa-pcm.c:  469 log_write()] ACCESS:  MMAP_INTERLEAVED MMAP_NONINTERLEAVED RW_INTERLEAVED RW_NONINTERLEAVED
-[D][12125.657407] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FORMAT:  S16_LE
-[D][12125.657414] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SUBFORMAT:  STD
-[D][12125.657420] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SAMPLE_BITS: 16
-[D][12125.657427] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FRAME_BITS: 32
-[D][12125.657433] spa.alsa     | [      alsa-pcm.c:  469 log_write()] CHANNELS: 2
-[D][12125.657439] spa.alsa     | [      alsa-pcm.c:  469 log_write()] RATE: 48000
-[D][12125.657445] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_TIME: 10000
-[D][12125.657452] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_SIZE: 480
-[D][12125.657458] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_BYTES: 1920
-[D][12125.657463] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIODS: [2 50]
-[D][12125.657468] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_TIME: [20000 500000]
-[D][12125.657474] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_SIZE: [960 24000]
-[D][12125.657481] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_BYTES: [3840 96000]
-[D][12125.657488] spa.alsa     | [      alsa-pcm.c:  469 log_write()] TICK_TIME: ALL
-[D][12125.657499] spa.alsa     | [      alsa-pcm.c:  885 add_rate()] min:48000 max:48000 min-allowed:0 scale:1 interleave:1 all:0
-[D][12125.657507] spa.alsa     | [      alsa-pcm.c:  909 add_rate()] rate:48000 multi:1 card:0 def:0
-[D][12125.657514] spa.alsa     | [      alsa-pcm.c:  963 add_channels()] channels (2 2) default:2 all:0
-[D][12125.657521] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x562ee6e24218: position 0 3
-[D][12125.657528] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x562ee6e24218: position 1 4
-```
-
-Without matching UCM profile the in/outs offers the full range (but everything is mapped as "surround" 4-channel):
-```
-[D][13133.383190] spa.alsa     | [      alsa-pcm.c: 1346 spa_alsa_enum_format()] opened:0 format:0 started:0
-[I][13133.383199] spa.alsa     | [      alsa-pcm.c:  618 spa_alsa_open()] 0x5629c57893f8: ALSA device open 'surround40:4' capture
-[I][13133.384911] spa.alsa     | [      alsa-pcm.c:  568 probe_pitch_ctl()] surround40:4 could not find ctl device: No such file or directory
-[D][13133.384928] spa.alsa     | [      alsa-pcm.c: 1048 debug_hw_params()] enum_pcm_formats:
-[D][13133.384941] spa.alsa     | [      alsa-pcm.c:  469 log_write()] ACCESS:  MMAP_INTERLEAVED RW_INTERLEAVED
-[D][13133.384947] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FORMAT:  S32_LE
-[D][13133.384951] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SUBFORMAT:  STD
-[D][13133.384955] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SAMPLE_BITS: 32
-[D][13133.384959] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FRAME_BITS: 128
-[D][13133.384963] spa.alsa     | [      alsa-pcm.c:  469 log_write()] CHANNELS: 4
-[D][13133.384967] spa.alsa     | [      alsa-pcm.c:  469 log_write()] RATE: [44100 192000]
-[D][13133.384970] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_TIME: [125 1000000]
-[D][13133.384974] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_SIZE: [6 192000]
-[D][13133.384978] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_BYTES: [96 3072000]
-[D][13133.384982] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIODS: [2 1024]
-[D][13133.384986] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_TIME: (62 2000000]
-[D][13133.384990] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_SIZE: [12 384000]
-[D][13133.384993] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_BYTES: [192 6144000]
-[D][13133.384997] spa.alsa     | [      alsa-pcm.c:  469 log_write()] TICK_TIME: ALL
-[D][13133.385004] spa.alsa     | [      alsa-pcm.c:  885 add_rate()] min:44100 max:192000 min-allowed:0 scale:1 interleave:1 all:0
-[D][13133.385009] spa.alsa     | [      alsa-pcm.c:  909 add_rate()] rate:48000 multi:1 card:0 def:0
-[D][13133.385014] spa.alsa     | [      alsa-pcm.c:  963 add_channels()] channels (4 4) default:4 all:0
-[D][13133.385018] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57893f8: position 0 3
-[D][13133.385022] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57893f8: position 1 4
-[D][13133.385026] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57893f8: position 2 12
-[D][13133.385030] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57893f8: position 3 13
-```
-```
-[D][13133.381023] spa.alsa     | [      alsa-pcm.c: 1346 spa_alsa_enum_format()] opened:0 format:0 started:0
-[I][13133.381032] spa.alsa     | [      alsa-pcm.c:  618 spa_alsa_open()] 0x5629c57650b8: ALSA device open 'surround40:4' playback
-[I][13133.382756] spa.alsa     | [      alsa-pcm.c:  568 probe_pitch_ctl()] surround40:4 could not find ctl device: No such file or directory
-[D][13133.382772] spa.alsa     | [      alsa-pcm.c: 1048 debug_hw_params()] enum_pcm_formats:
-[D][13133.382786] spa.alsa     | [      alsa-pcm.c:  469 log_write()] ACCESS:  MMAP_INTERLEAVED RW_INTERLEAVED
-[D][13133.382792] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FORMAT:  S16_LE S32_LE
-[D][13133.382796] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SUBFORMAT:  STD
-[D][13133.382800] spa.alsa     | [      alsa-pcm.c:  469 log_write()] SAMPLE_BITS: [16 32]
-[D][13133.382804] spa.alsa     | [      alsa-pcm.c:  469 log_write()] FRAME_BITS: [64 128]
-[D][13133.382808] spa.alsa     | [      alsa-pcm.c:  469 log_write()] CHANNELS: 4
-[D][13133.382812] spa.alsa     | [      alsa-pcm.c:  469 log_write()] RATE: [44100 192000]
-[D][13133.382816] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_TIME: [125 1000000]
-[D][13133.382820] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_SIZE: [6 192000]
-[D][13133.382824] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIOD_BYTES: [64 3072000]
-[D][13133.382827] spa.alsa     | [      alsa-pcm.c:  469 log_write()] PERIODS: [2 1024]
-[D][13133.382831] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_TIME: (62 2000000]
-[D][13133.382835] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_SIZE: [12 384000]
-[D][13133.382839] spa.alsa     | [      alsa-pcm.c:  469 log_write()] BUFFER_BYTES: [96 6144000]
-[D][13133.382843] spa.alsa     | [      alsa-pcm.c:  469 log_write()] TICK_TIME: ALL
-[D][13133.382850] spa.alsa     | [      alsa-pcm.c:  885 add_rate()] min:44100 max:192000 min-allowed:0 scale:1 interleave:1 all:0
-[D][13133.382855] spa.alsa     | [      alsa-pcm.c:  909 add_rate()] rate:48000 multi:1 card:0 def:0
-[D][13133.382859] spa.alsa     | [      alsa-pcm.c:  963 add_channels()] channels (4 4) default:4 all:0
-[D][13133.382864] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57650b8: position 0 3
-[D][13133.382868] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57650b8: position 1 4
-[D][13133.382872] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57650b8: position 2 12
-[D][13133.382876] spa.alsa     | [      alsa-pcm.c: 1036 add_channels()] 0x5629c57650b8: position 3 13
-```
-
-Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/333
-Repository URL: https://github.com/alsa-project/alsa-ucm-conf
+Takashi

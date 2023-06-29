@@ -2,89 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 956DD742A73
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 18:17:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73E5B742AC7
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 18:45:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 878577F4;
-	Thu, 29 Jun 2023 18:17:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 878577F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 512D91F1;
+	Thu, 29 Jun 2023 18:44:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 512D91F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688055470;
-	bh=RyrvUeSls0qvEKZJFoV24QIDqfyNFR3a9bEQhu56rhU=;
+	s=default; t=1688057138;
+	bh=bljRpVQCgCKr7KOAtnHSxTXKHoZSmz8rm1JIj89UlXU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=f63Vjt0bdzKk0Wps+9GuWpy3f8BYpIp/nCsYwURXDBy0zWL89YRpUeILIhL5kRwQw
-	 9pOlah0Dwo7D2LDZjUY0bXVYnSx2I71s/uxetAe6fFYp/qNxiuuhrD2BaYPV0KMESL
-	 8glpdvnEAlwCIKWHl5C+tTMX210XijIipFOu3AnE=
+	b=ScE8/BkS2UYRBOalmLSpfaM1xTi8whG82A8fgOwaPR5eArCwPKz6Gg+3EXMcTLUHP
+	 qrpxx3RJgj/cBVvaN+Req8vIyYbyDnXZsB/5ZiC6X+WsoKk5vrqUQ15zYDHQaYqKiD
+	 OLmQZSJVh+VYHqLW5RLomdop6T6vDHRqEafpBXRg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BCC3AF800E3; Thu, 29 Jun 2023 18:16:59 +0200 (CEST)
+	id A6545F8027B; Thu, 29 Jun 2023 18:44:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C5FDF80212;
-	Thu, 29 Jun 2023 18:16:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4989BF80212;
+	Thu, 29 Jun 2023 18:44:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 08A9AF80246; Thu, 29 Jun 2023 18:16:55 +0200 (CEST)
+	id 76A07F80246; Thu, 29 Jun 2023 18:44:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+ [209.85.166.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9EB52F800E3
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 18:16:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EB52F800E3
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=i1/e5Mlx
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8C6C161512;
-	Thu, 29 Jun 2023 16:16:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D71C433C8;
-	Thu, 29 Jun 2023 16:16:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688055412;
-	bh=RyrvUeSls0qvEKZJFoV24QIDqfyNFR3a9bEQhu56rhU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=i1/e5Mlxfsmwuko+4qXrz9N4uq2VK/X1Fk2A4GyX1SoMGZXg6YAYLjnC4s/tdwImf
-	 gQeOzq8r66+glvUi7Cafu3rcunkJzaBRr2GDZDzAfuCAeEIdDRMIjtKbH06QB0NlL7
-	 u6WcqL7EDUviSWEdGlNosZ50rn/ocLoT1+iv3tPfSKZ9BNLFpjOrarKi0SUDvmMTER
-	 +pRP917Z08QQzGYBeInW4oej+M+aOzUThA1N/HwVrTnA/YQtEZZX6RvrzucosebSDc
-	 LhP7fHdU5qs/B1uRbg1kLb3p519Q+EQ4Q43EvtuhxMwGTviphgBJGbJ11WGgjhlObY
-	 RnjBO+5vlalXg==
-Date: Thu, 29 Jun 2023 17:16:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Greg KH <greg@kroah.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com,
-	lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
-	kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
-	Stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
- number
-Message-ID: <9699a960-74b0-4064-b264-6cde06cd16fc@sirena.org.uk>
-References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
- <c22fcc94-aa41-4ffd-bfe8-f0b9f15a76c0@sirena.org.uk>
- <2023062940-snore-brick-419b@gregkh>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6B66CF800E3
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 18:44:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B66CF800E3
+Received: by mail-io1-f45.google.com with SMTP id
+ ca18e2360f4ac-78362f57500so38108339f.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 29 Jun 2023 09:44:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688057075; x=1690649075;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xvv8o8lyQDs4Uqc/cTXEEqb+afkYfTSqGgHooIqCpbA=;
+        b=kCe/diqFDInjvXQvSdWHNvDFsU7UPBFNFadjdt+j2n+Upi2Jni1OI9DRRe6z4Ekta5
+         jeokhmz2NvfBaJoMWsSo+nLhSc1KPViBCyBC6sCQmEUZbiRYjr32xtdD/mcxaWjdCvAO
+         GITsCW3xjS/tAsk6FFeHOS0FvJEW1xFr/zEWuatT2LRXjj2J7lB8bYcaq92EiD/BSmo6
+         00Ym80+dDHTalXOg4vqTrETSCsxEfrAOldDH5UP+1dF6ldPyXxtF9+O65xOC35ME+eGw
+         79YU6DIYoiFCNNtC/olxoQ+xU1DSpw0J3lRzAFI57OV/3U0sotVI1fnvg+UlxW5Lk6h4
+         iAQw==
+X-Gm-Message-State: AC+VfDxNiRb4hMgUda+zOFKgQM7NY8abXyozh4+9fe55SJpselwM1WOn
+	daKSjKC2uXt0SXwuyd8w9Q==
+X-Google-Smtp-Source: 
+ ACHHUZ7Zq2rHGHa35R4f5/6RnXVSjZz6xktb2tp91v9Fy3aAm2hQ7f4Z40Tssnpm9/HIk8qiWdMP/A==
+X-Received: by 2002:a5e:a717:0:b0:784:e618:e6cd with SMTP id
+ b23-20020a5ea717000000b00784e618e6cdmr9008iod.20.1688057075474;
+        Thu, 29 Jun 2023 09:44:35 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+        by smtp.gmail.com with ESMTPSA id
+ b8-20020a5ea708000000b0076c7a2f0f41sm1627336iod.46.2023.06.29.09.44.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Jun 2023 09:44:34 -0700 (PDT)
+Received: (nullmailer pid 3171062 invoked by uid 1000);
+	Thu, 29 Jun 2023 16:44:33 -0000
+Date: Thu, 29 Jun 2023 10:44:33 -0600
+From: Rob Herring <robh@kernel.org>
+To: Trevor Wu <trevor.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, lgirdwood@gmail.com, robh+dt@kernel.org,
+ conor+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ angelogioacchino.delregno@collabora.com,
+ linux-arm-kernel@lists.infradead.org, perex@perex.cz,
+ linux-mediatek@lists.infradead.org, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, matthias.bgg@gmail.com,
+ alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: Re: [PATCH 2/2] ASoC: dt-bindings: mediatek,mt8188-afe: add
+ memory-region
+Message-ID: <168805707144.3170983.17451535547887085687.robh@kernel.org>
+References: <20230629074348.21670-1-trevor.wu@mediatek.com>
+ <20230629074348.21670-3-trevor.wu@mediatek.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="waVp8T61GontOc/b"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2023062940-snore-brick-419b@gregkh>
-X-Cookie: Surprise due today.  Also the rent.
-Message-ID-Hash: VGIF4X46LDGMIOZ2XOPBBPHEP2JTGCTP
-X-Message-ID-Hash: VGIF4X46LDGMIOZ2XOPBBPHEP2JTGCTP
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <20230629074348.21670-3-trevor.wu@mediatek.com>
+Message-ID-Hash: M4642EUH6AKLEJJP5HRRBZOJQU5QYM22
+X-Message-ID-Hash: M4642EUH6AKLEJJP5HRRBZOJQU5QYM22
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -96,7 +105,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VGIF4X46LDGMIOZ2XOPBBPHEP2JTGCTP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M4642EUH6AKLEJJP5HRRBZOJQU5QYM22/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,39 +115,14 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---waVp8T61GontOc/b
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Thu, 29 Jun 2023 15:43:48 +0800, Trevor Wu wrote:
+> Add memory-region property to utilize the reserved memory region.
+> 
+> Signed-off-by: Trevor Wu <trevor.wu@mediatek.com>
+> ---
+>  .../devicetree/bindings/sound/mediatek,mt8188-afe.yaml     | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
 
-On Thu, Jun 29, 2023 at 06:06:05PM +0200, Greg KH wrote:
-> On Thu, Jun 29, 2023 at 04:43:57PM +0100, Mark Brown wrote:
+Acked-by: Rob Herring <robh@kernel.org>
 
-> > Won't this be an ABI change?  That seems like it'd disrupt things in
-> > stable.
-
-> ABI changes should disrupt things just the same in Linus's tree, why is
-> stable any different?
-
-This is a numbering resulting from enumeration thing so it gets to be
-like the issues we've had with the order in which block and ethernet
-devices appear, it's on the edge the extent to which people might be
-relying on it.  If it's causing some problem as is and there's a reason
-to do something (see the first half of my reply...) but the case gets
-even harder to make with stable.
-
---waVp8T61GontOc/b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSdrmwACgkQJNaLcl1U
-h9D4vwf/fXMdNGrJPn2JH9J6748ugvE0hNd8LXepjctqeXsD5EzrA7KlHE+5Hcqj
-FTGN1gBEhcjOp9fSqdi/mELLWVe2MXlYtyXv5iO5RU2Z9OJu1XjrSM6Jnx0ljKnu
-D5oXlY6ai/ohFCHiOO1Zbk1pDyLeUvfG+D/bAOWroHjlQVPYXZwKxINuwK1MfeAj
-wEWnl9DMSGWK6/PN7dNtapwreM1RN+a5k7REd9jFH4jVPBmX17YhEYBBEb41TBVR
-u7fZZBEYo0Ja0TfAdEc601yfdqpe0N4AAL+aav/EaMA93JVnhhvugFqbFxIc6ArF
-1x/LABsliWTKZpEoKyjLdGRba/zVUw==
-=W9gZ
------END PGP SIGNATURE-----
-
---waVp8T61GontOc/b--

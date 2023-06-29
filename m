@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFDA67427FE
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 16:12:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E40574283B
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Jun 2023 16:24:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B26083A;
-	Thu, 29 Jun 2023 16:11:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B26083A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB3D7822;
+	Thu, 29 Jun 2023 16:23:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB3D7822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688047945;
-	bh=b8dXG8qqAmEn+KZIa3/idP8bhKO1odtgGPWglSAm2nk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1688048661;
+	bh=Cl64NSXCEzp6krj0LeHcOjj1IvL5UV/UkBxiVL5pfRQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TS4UpaP/+G0ouoTPhWbrn7lqetaki7PyYSDmh6wRvwxQch3ZjQZyrqHu6/nDGP7Tx
-	 kf/sqGyMCRg18HWemHCoY0wtv6hFswGsYn2CURXj8Fy7ixGWSTVOpEG2GmE/oY4Pjs
-	 oDf8P+kfiruxK78k3wUtZHxrKnqbE0tcWlLKcSPU=
+	b=NwCLjcQL9YV6DnBA0cY7uVN0UlKNLn3wbo8P9rqD21BGva5GNqeQ7mAK7LY9KBLCJ
+	 nsAq5Mr6HLAGe13zaUY3WS/ft0pb8sz8zP37jo8DQiMwOzl6jZwPwttFTkfmV9m1Kp
+	 6PXLNXt1sxnPlvGuQC6KoNSXhLBVyLfIGtHvswfk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48F2DF80557; Thu, 29 Jun 2023 16:10:46 +0200 (CEST)
+	id 808D9F80246; Thu, 29 Jun 2023 16:23:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF195F80548;
-	Thu, 29 Jun 2023 16:10:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E923AF80212;
+	Thu, 29 Jun 2023 16:23:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 98802F8027B; Thu, 29 Jun 2023 16:10:40 +0200 (CEST)
+	id 5D9F0F80246; Thu, 29 Jun 2023 16:23:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2B922F80246
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 16:10:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B922F80246
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <sha@pengutronix.de>)
-	id 1qEsM0-0004bc-EC; Thu, 29 Jun 2023 16:10:36 +0200
-Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
-	(envelope-from <sha@pengutronix.de>)
-	id 1qEsLz-00AvCr-Nq; Thu, 29 Jun 2023 16:10:35 +0200
-Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <sha@pengutronix.de>)
-	id 1qEsLy-00BC2x-Vm; Thu, 29 Jun 2023 16:10:34 +0200
-From: Sascha Hauer <s.hauer@pengutronix.de>
-To: alsa-devel@alsa-project.org
-Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Subject: [PATCH v2 2/2] ASoC: fsl_sai: Fill Tx FIFO to avoid initial underruns
-Date: Thu, 29 Jun 2023 16:10:34 +0200
-Message-Id: <20230629141034.2659669-3-s.hauer@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230629141034.2659669-1-s.hauer@pengutronix.de>
-References: <20230629141034.2659669-1-s.hauer@pengutronix.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9AFF4F800E3
+	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 16:23:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AFF4F800E3
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=SNWmiWH9
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id D5A9661558;
+	Thu, 29 Jun 2023 14:23:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BB3C433C8;
+	Thu, 29 Jun 2023 14:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688048595;
+	bh=Cl64NSXCEzp6krj0LeHcOjj1IvL5UV/UkBxiVL5pfRQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SNWmiWH9irc2j4RkMBv/9Lr+OOEPhO8+7gllg5GMU2kYJ1sRCLUi+8aGhR/4jajS4
+	 sfmmPGG5XO0Za3VeCJGqrlIxPkpPdGsbyqbtIg0nAeTdMVtPLt5J2kkW0k+nzzxYkW
+	 uVlWAkWA5mRDJfTSJJwlV9G43kkWxaMNc/atMWGF6q4KgwKhrEoxGOt61gDKUYZdlu
+	 KirAn0GnsNghKIJZ8XhswExP3th0Nnv4Ypu8yHGno8XN8jlnMx/EnEf438Ac7xvMnd
+	 7I5rVxp5DiWpY2iVmzM21nOg2TXjJfrcBUIrK6oaZ+paeeyHN9xjX4N8cVuI7MqbYj
+	 eWsRKsECbVJIQ==
+Date: Thu, 29 Jun 2023 15:23:11 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: core: Always store of_node when getting DAI link
+ component
+Message-ID: <1d74d2ed-0c4d-4fce-849d-5f2288394569@sirena.org.uk>
+References: <20230623-asoc-fix-meson-probe-v1-1-82b2c2ec5ca4@kernel.org>
+ <87jzvrksi2.wl-kuninori.morimoto.gx@renesas.com>
+ <9fbe4924-5c02-43f7-b47f-bc290fd07e67@sirena.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: sha@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Message-ID-Hash: 7OGEN474P7BVJSJK4MPQMZCTEV5Z2RNE
-X-Message-ID-Hash: 7OGEN474P7BVJSJK4MPQMZCTEV5Z2RNE
-X-MailFrom: sha@pengutronix.de
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p3xSwJ/njDdW/FTy"
+Content-Disposition: inline
+In-Reply-To: <9fbe4924-5c02-43f7-b47f-bc290fd07e67@sirena.org.uk>
+X-Cookie: Surprise due today.  Also the rent.
+Message-ID-Hash: QCN6TASCWJBG2PBDPT2I5GBMS7ZEVQS3
+X-Message-ID-Hash: QCN6TASCWJBG2PBDPT2I5GBMS7ZEVQS3
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -90,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7OGEN474P7BVJSJK4MPQMZCTEV5Z2RNE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QCN6TASCWJBG2PBDPT2I5GBMS7ZEVQS3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,85 +102,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
 
-JACK handles XRuns by stopping and start the ALSA device. On occasion,
-this leads to early underruns on start leading to reorderd output
-channels.
+--p3xSwJ/njDdW/FTy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-By filling the FIFO initially, we can avoid these early underruns.
-This is also suggested by the i.MX8MM reference manual:
+On Mon, Jun 26, 2023 at 12:49:16PM +0100, Mark Brown wrote:
+> On Sun, Jun 25, 2023 at 11:54:29PM +0000, Kuninori Morimoto wrote:
+>=20
+> > > The generic snd_soc_dai_get_dlc() contains a default translation func=
+tion
+> > > for DAI names which has factored out common code in a number of card
+> > > drivers, resolving the dai_name and of_node either using a driver pro=
+vided
+>=20
+> > Yes, indeed.
+> > But I think we want to set it under lock and if ret was no error case ?
+>=20
+> It doesn't really matter - there's only one possible result, and nothing
+> should be looking at the dlc unless we return success, but yes that'd
+> probably be a little cleaner providing we don't ever return early.
 
-  "If the Transmit FIFO is empty, then to avoid a FIFO underrun, the
-  Transmit Data Register must be written at least 3 bit clocks before
-  the start of the next unmasked word. Before enabling the transmitter,
-  the Transmit FIFO should be initialized with data (since after the
-  transmitter is enabled, the transmitter will start a new frame, and
-  if no data is in the FIFO, then the transmitter will immediately give
-  an error)"
+BTW that's not to say don't submit this as a patch, just that it doesn't
+need to get applied as a fix.
 
-[1]: Rev. 0, 02/2019, 13.9.3.5.2 FIFO pointers
-Fixes: 435508214942 ("ASoC: Add SAI SoC Digital Audio Interface driver.")
-Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
+--p3xSwJ/njDdW/FTy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Notes:
-    Changes since v1:
-    - Add missing Signed-off-by
+-----BEGIN PGP SIGNATURE-----
 
- sound/soc/fsl/fsl_sai.c | 18 ++++++++++++++++++
- sound/soc/fsl/fsl_sai.h |  1 +
- 2 files changed, 19 insertions(+)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSdk84ACgkQJNaLcl1U
+h9A7NQf8DiMYBVpbql+uhhR4/aQO3adkGIelIoUtUaDRAb9Qvsuliz0afLzBRmLY
+iXJEQ02Hak6oJrt0OiPFct2vtsZ8E6LPJf3P/WirIlmiUpLIShr9/feri3Nt7gIo
+WCja2NjjWjfmHj1fkZxjXnQ3CRB4+byV9cyeRjfSok65A6P/jLMif6GlnNp0ieFK
+zwaEmmLGzayLL6UTekwL2gU/I8CI+yp4zVgAkIe6utxTSQJ06mz/HEBL1np/+qFs
+hQf4zjGdVUGpDQ+O9yS2P7CpOQPQaay4bvM8LRGkIvFZWGsMSkS0VBbsK7FiLpI6
+PXqIUOfTj4BmMRnqc5vmLVMPfKgKrg==
+=W096
+-----END PGP SIGNATURE-----
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 36f6115469843..6a4f990110d91 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -755,6 +755,21 @@ static void fsl_sai_config_disable(struct fsl_sai *sai, int dir)
- 	}
- }
- 
-+static void fsl_sai_tx_fill_fifo(struct fsl_sai *sai,
-+				 struct snd_pcm_runtime *runtime)
-+{
-+	u32 slots, slot_width, pins;
-+	int i;
-+
-+	slot_width = sai->slot_width ?: snd_pcm_format_physical_width(runtime->format);
-+
-+	slots = fsl_sai_get_tdm_slots(sai, runtime->channels, slot_width);
-+	pins = DIV_ROUND_UP(runtime->channels, slots);
-+
-+	for (i = 0; i < runtime->channels; i++)
-+		regmap_write(sai->regmap, FSL_SAI_TDR(i % pins), 0x0);
-+}
-+
- static int fsl_sai_trigger(struct snd_pcm_substream *substream, int cmd,
- 		struct snd_soc_dai *cpu_dai)
- {
-@@ -784,6 +799,9 @@ static int fsl_sai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		/* Fill FIFO to avoid initial underruns */
-+		if (tx)
-+			fsl_sai_tx_fill_fifo(sai, substream->runtime);
- 		regmap_update_bits(sai->regmap, FSL_SAI_xCSR(tx, ofs),
- 				   FSL_SAI_CSR_FRDE, FSL_SAI_CSR_FRDE);
- 
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index a53c4f0e25faf..66a136d97a441 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -34,6 +34,7 @@
- #define FSL_SAI_TDR5	0x34 /* SAI Transmit Data 5 */
- #define FSL_SAI_TDR6	0x38 /* SAI Transmit Data 6 */
- #define FSL_SAI_TDR7	0x3C /* SAI Transmit Data 7 */
-+#define FSL_SAI_TDR(ofs)	(FSL_SAI_TDR0 + (ofs) * 4)
- #define FSL_SAI_TFR0	0x40 /* SAI Transmit FIFO 0 */
- #define FSL_SAI_TFR1	0x44 /* SAI Transmit FIFO 1 */
- #define FSL_SAI_TFR2	0x48 /* SAI Transmit FIFO 2 */
--- 
-2.39.2
-
+--p3xSwJ/njDdW/FTy--

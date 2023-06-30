@@ -2,114 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B69743485
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 07:44:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B17A74357A
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 09:03:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C83817F1;
-	Fri, 30 Jun 2023 07:44:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C83817F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 224817F4;
+	Fri, 30 Jun 2023 09:03:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 224817F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688103890;
-	bh=iV4hRZZ8Uyl7Y3hScDikLY9nlGQ4sDf8q48JBokv9lU=;
+	s=default; t=1688108630;
+	bh=q2pTNjzhHW8jlt3w9eHrC1G1fKxCJqmX45Axu4S3b+k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iupxpSbwOejlsfU68s2xBIJDUVCrE/ZPvFXA2OJGU1SuqSpTN09dbEuOTog/C3FHR
-	 6/fvbfSWT02qBPWo5mGY9lZfaY0W9xIwGfxEnt4EAa2NqKdntVtgLoQCFFnmffxojn
-	 xzgoJQon74+Uhtqgdh1UJYzvZ+wHMeiGsWrUlYHU=
+	b=EezMm1Uj78Q2froecDrHC40MBh+mX6zalYx7KE1qmtC/Js034/3oWW10BLJRRoejS
+	 WVhX/88ntBJmJ+KYJYejcbTCu6lTW8huw+VZH8VuqxtsQ+4pGMVm656dzDMEL0RLdy
+	 hK/19yW75gg0whkiUAUZbSydITJKiI3zjdKDE5bs=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0E095F800E3; Fri, 30 Jun 2023 07:43:59 +0200 (CEST)
+	id 5CFBDF80535; Fri, 30 Jun 2023 09:02:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8436F800E3;
-	Fri, 30 Jun 2023 07:43:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11D6AF80212;
+	Fri, 30 Jun 2023 09:02:59 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 932CCF80246; Fri, 30 Jun 2023 07:43:02 +0200 (CEST)
+	id A0959F80246; Fri, 30 Jun 2023 09:02:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8A89CF80124
-	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 07:42:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A89CF80124
+	by alsa1.perex.cz (Postfix) with ESMTPS id 711BEF80169
+	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 09:02:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 711BEF80169
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=ShY6QgMY
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-3fbab0d0b88so12421115e9.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 29 Jun 2023 22:42:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1688103764; x=1690695764;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6H3Wh/u4h8U2hzhBkBZKlb9dLwPhiKplGCFao13VLdY=;
-        b=ShY6QgMY+8oJf4I7rAttvpNGVQ1KvQO/4cKxqAcCdPX3+c5ECpQdewFuLRgXapjvu8
-         khi9gPU2b6GQ9lg2FxW7pZxFaXzO62pXVGV541qdVr5jZ6kraRVWjEWNWXHAnxoXzQuE
-         L10OL4rxncrXQV+MzzZz/NTA4XFLPq+YbEUzF7ZppyhlwnM2vyTxjzbVFIrEyPkcJh4i
-         ja+KoAhJZ0vxv/ExTeb845+K9nmBAjJJ3+F7q37dNFdAEApf9IQELKQXJf7XupzAALUG
-         UHirCJ8jbV4CAFd6eTJi0pHjTitwx88z0yC+/JhDVkE6r+pFZjijQ8sUgawvXl4zcJdg
-         ZRQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688103764; x=1690695764;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6H3Wh/u4h8U2hzhBkBZKlb9dLwPhiKplGCFao13VLdY=;
-        b=jrBoChYK6tiLNrNGVwWVhPE/1VFen/beP2jCD841Dol+Lk3Kg8IpA3G+vADVfwlWZz
-         XVBua8F0VJgyObz2agBNgbOrrK+miITf6zgypykV0NxqYQwE4etna3Yb+GQzjZvpmZKa
-         tuxFGgGQAT1fVgqatu63BKh06e/oe4TmTKPULy2/tj0z1G7p7mIpUXESt22LkrnFu88i
-         4aqftjMMgt6etlTi5u38Kiz9vU5+cwzHGlAqR5Gz9PxQQvv2z4q/oRvzU4xxN2akteFM
-         S1lUQUY61jHeoJ1PzthL05huuUZJUMsW1bmtA7sLiZWAYVfqh2qFkvuReGWvGSZG0jJm
-         jEKg==
-X-Gm-Message-State: AC+VfDwlAq+mGGgq5rEP6/WIhxGCmFYVSbLrZQlI/nTwnphhQ+2b0kRe
-	CjbtutqpLls9uZOTvlwtukHKBw==
-X-Google-Smtp-Source: 
- ACHHUZ75GbpqF6qcI9T1fiIIeKEFp0E/418uzdIfmYjFysVRcoVBsW9k2qMDWpjsSwcEN4eu8hG26g==
-X-Received: by 2002:a7b:c7cf:0:b0:3fa:9741:5b73 with SMTP id
- z15-20020a7bc7cf000000b003fa97415b73mr1581327wmk.10.1688103764148;
-        Thu, 29 Jun 2023 22:42:44 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- z2-20020a5d6542000000b00313eee8c080sm13821824wrv.98.2023.06.29.22.42.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jun 2023 22:42:43 -0700 (PDT)
-Message-ID: <5fe3cbfe-645a-185b-9c88-5da56cfd7114@linaro.org>
-Date: Fri, 30 Jun 2023 06:42:42 +0100
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=U+u2IIyV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688108570; x=1719644570;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=q2pTNjzhHW8jlt3w9eHrC1G1fKxCJqmX45Axu4S3b+k=;
+  b=U+u2IIyVtsZkvAqqNr8DVahQsRCqoe8zJxZzX393rgTxgnVHXDZr5JjJ
+   j1Id0eJbhosYDdonqeV6bHd8fOZfLyapIYaoTlq4Zam5IwwRMMx1B/ozL
+   LP/+s+N6W4Tc/cZ6vnRP2CMH4kENlwMne08YHruiL0Tykh2OtY7n0iPi5
+   O6UlRXL6lDIOwKfx+Sqr2JttyKI6CWLL2qWBg/k0uxl5dKoANJwh5Bc/b
+   uoRfeTA3X8kHECwJCwWYiNcfxxQ62CfruOoCRS3I6E+WB6Dj66dhp3Bg/
+   xZfoCCqF7+A1xn9N5na6D0g5QM0q+AE1s6s2qnxBNYlLGl2GxHM+0yxbu
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="352154569"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200";
+   d="scan'208";a="352154569"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2023 23:59:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="782983109"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200";
+   d="scan'208";a="782983109"
+Received: from ggoutam-mobl.amr.corp.intel.com (HELO [10.251.217.215])
+ ([10.251.217.215])
+  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jun 2023 23:59:39 -0700
+Message-ID: <ed61ddea-9a54-f42e-59f5-60472f09fc90@linux.intel.com>
+Date: Fri, 30 Jun 2023 08:59:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
- number
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH 0/3] ASoC: SOF: pcm/Intel: Handle IPC dependent sequencing
+ correctly
+To: Sam Edwards <cfsworks@gmail.com>, peter.ujfalusi@linux.intel.com
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ ranjani.sridharan@linux.intel.com, yung-chuan.liao@linux.intel.com
+References: <20230322094346.6019-1-peter.ujfalusi@linux.intel.com>
+ <875080d0-8771-c47f-a86b-821fe33301b0@gmail.com>
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-Cc: johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com,
- lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
- kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- Stable@vger.kernel.org
-References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
- <c22fcc94-aa41-4ffd-bfe8-f0b9f15a76c0@sirena.org.uk>
- <77b348f7-0475-5e16-95e1-0e5831408d2b@linaro.org>
- <8c3be94e-56c0-4820-853d-669e90969c24@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <8c3be94e-56c0-4820-853d-669e90969c24@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <875080d0-8771-c47f-a86b-821fe33301b0@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: LK5WJQZURWTVAO6EZANWAM43MFVPLRMH
-X-Message-ID-Hash: LK5WJQZURWTVAO6EZANWAM43MFVPLRMH
-X-MailFrom: srinivas.kandagatla@linaro.org
+Message-ID-Hash: XZZFY3J62U4EOYKXQPZXN5OE7E6MKSRD
+X-Message-ID-Hash: XZZFY3J62U4EOYKXQPZXN5OE7E6MKSRD
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -121,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LK5WJQZURWTVAO6EZANWAM43MFVPLRMH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XZZFY3J62U4EOYKXQPZXN5OE7E6MKSRD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,32 +113,55 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 29/06/2023 18:42, Mark Brown wrote:
-> On Thu, Jun 29, 2023 at 06:33:09PM +0100, Srinivas Kandagatla wrote:
->> On 29/06/2023 16:43, Mark Brown wrote:
->>> On Wed, Jun 28, 2023 at 10:24:04AM +0100, Srinivas Kandagatla wrote:
+On 6/30/23 08:33, Sam Edwards wrote:
+> Hi folks,
 > 
->>>> For some reason we ended up with a setup without this flag.
->>>> This resulted in inconsistent sound card devices numbers which
->>>>    are also not starting as expected at dai_link->id.
->>>>    (Ex: MultiMedia1 pcm ended up with device number 4 instead of 0)
+> When I upgraded my system to 6.4.0, I encountered a regression in audio
+> output. In regression testing, I found that patch 1/3 here was the
+> culprit, and the regression goes away entirely (on 6.4.0 final) when
+> applying a patch that reverts this whole patchset. The problem is
+> currently still unresolved even in broonie/sound.git.
 > 
->>> Why is this a problem?
+> The regression is an intermittent (few minutes on, few minutes off)
+> distortion in audio output on my Tigerlake->ALC298 path. When playing a
+> 440 Hz test tone, the output spectrum is distorted into 440 Hz, 560 Hz,
+> 1440 Hz, 1560 Hz, 2440 Hz, 2560 Hz, and so on. Since this is the exact
+> spectrum one would get if the output were modulated with a 1000 Hz Dirac
+> comb, I interpret this to mean that the audio subsystem is dropping
+> (zeroing) 1 sample every 1ms.
 > 
->> In existing Qualcomm setup the backend pcm are added first, which results in
->> frontend pcms getting pcm numbers after this.
+> There seem to be conditions for this problem to come and go
+> spontaneously -- in particular, it won't happen if my nvidia driver is
+> unloaded. However, I can make it occur (even with no out-of-tree modules
+> loaded) by sending several SIGSTOP->10ms->SIGCONT sequences to my
+> pipewire daemon while it's playing audio. The distortion then continues
+> until I send several more signals of that same sequence.
 > 
->> For example: with 3 backend dailinks in DT we have frontend pcm start at 3.
->> Now if we add new backend dai-link in DT we now have frontend pcm start at
->> 4.
+> Now, aside from having some DSP background, I'm a total outsider to the
+> ALSA and SOF world, so what follows is mere speculation on my part: I
+> believe the problem has some probability of being "toggled" by a buffer
+> underrun, which happens either deliberately by briefly interrupting
+> pipewire, or accidentally due to bus contention from having my GPU
+> active. Something (userspace? ALSA?) tries to restart the stream in
+> response to that underrun, but this patchset makes stream stop+start
+> more of a "warm reset," in that it doesn't clean up DMA. As a result, an
+> off-by-one error somehow creeps into the DMA size, thus omitting the
+> final sample of every 1ms transfer.
 > 
->> This is a bug in qualcomm driver.
-> 
-> Why is this an actual problem rather than just being a bit ugly?  What
-> is the negative consequence of having a PCM with this number?
+> I am not sure if this is a regression introduced with this patchset, or
+> merely a different bug that became apparent now that DMA isn't being
+> reset when underruns happen. If it's the latter case, I'm happy to open
+> an issue on Bugzilla instead. In either case, let me know if I can
+> provide any additional troubleshooting information.
 
-Yes, it is ugly but also breaks the existing UCM as the pcm device 
-numbers keep changing.
-Which is why I refereed it as bug in the driver.
+please file an issue here: https://github.com/thesofproject/linux/issues
 
---srini
+It would help if you clarified a bit more what the issue is, it's not
+clear to me if the problem happens during a long continuous playback or
+when starting/stopping the stream.
+
+Also try to disable SOF with the instructions in
+https://thesofproject.github.io/latest/getting_started/intel_debug/suggestions.html
+to make sure it's not an HDaudio codec issue.
+
+Thanks!

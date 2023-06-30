@@ -2,123 +2,158 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9D0974376D
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 10:36:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20D1F743774
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 10:37:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E03F93A;
-	Fri, 30 Jun 2023 10:35:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E03F93A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A26DA84C;
+	Fri, 30 Jun 2023 10:36:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A26DA84C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688114197;
-	bh=MrF8jN5bYTANHiVjk88XLQGQd876v+6zZ1QWdJGX/Vo=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=FywuZ1+xuonnFuIIejr8ex/wvnB8TD5DUfW25fnUVlrQK+EJYw1HUiC9qcQ8ghKjJ
-	 KHX3DYeoXh+L7cR7OE2GZGPm4GnCA67481JQ5qHvSQHfFBJQy55Yt/nX07IELDxxmW
-	 fyN+R3D4b3Z1g+qICnaKKbZLV7dEBbi+dgBt0zkU=
+	s=default; t=1688114221;
+	bh=GA4bJIyqNhDtFsV4v4GpK/cgBuOiGUYkczYGnaOGOgY=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=g1e1h0Vuzdw0SL9A3XmDOER4rwRdYPWC5MzC484JypF9GZ8tNoaWojVcqkZ+f77pc
+	 KLqnNErjAiDwnVVzyTUFpDUKVx2LWxbT1mSKmXET3b6oHg6DX3m0AXRZh5BwbeqaEx
+	 +4SR8DGn1PMaDHkVU57sAik73qw8BodqIbDdKeb8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1EB9F805B4; Fri, 30 Jun 2023 10:34:44 +0200 (CEST)
+	id D7000F805C9; Fri, 30 Jun 2023 10:34:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 428C7F805B3;
-	Fri, 30 Jun 2023 10:34:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 533A2F805B5;
+	Fri, 30 Jun 2023 10:34:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2411F80246; Fri, 30 Jun 2023 08:33:55 +0200 (CEST)
+	id 5C4E9F80246; Fri, 30 Jun 2023 09:06:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
- [IPv6:2607:f8b0:4864:20::d2f])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20608.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8b::608])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E48A4F80169
-	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 08:33:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48A4F80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F851F800E3;
+	Fri, 30 Jun 2023 09:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F851F800E3
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=SXvR6b0K
-Received: by mail-io1-xd2f.google.com with SMTP id
- ca18e2360f4ac-7836e80b303so65697939f.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 29 Jun 2023 23:33:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688106821; x=1690698821;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=J5b0i9/cx4VxRuAoKXFWc4VsBJEpIztDNaYvchAm7FQ=;
-        b=SXvR6b0K6CvjOC5euZj5vFTBBoaTnEDjNmnSLkPxZ7+r5lhSbuZdfN99K2/Y9TS+Uy
-         7WTuhS/uH6G5gydbRMohW7q6OuQ/gwcRewFSqln7lBIMX9QRpkKDUmBvIiTHK/AKvHFK
-         IqmrsxmZs7bUxNo7l/mFGJNSlefv+ol9LQUuhMqu8lq2gCANcTSuQl2Si3Jr5XerS/XO
-         znb7dLr3ddKgKfTp38fYhzcNOQS377epWtnDpHkeMfAlIPZdFRZOboP6JQK5SNabmF1+
-         D9friwTaHB3DzBUKA0hK7s7CzMe6NSorpX2hXBipj94ryxHMuBbquh803wCRK8fQZM/+
-         IfEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688106821; x=1690698821;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=J5b0i9/cx4VxRuAoKXFWc4VsBJEpIztDNaYvchAm7FQ=;
-        b=dlrFY+aU6sdPO+x60pFmun5uDIMNgSpHkqMnGSnjB0rm0ArpS2aNe9u96dacHjG79M
-         tA9+jt27wLh5WiyXWd7WS2ixwyNkEocIauTDNcMy7Zwdt5RDMzMIu0ge9FWbbKmJEIXf
-         DSW1noVpjSdM1yCnYjZEn50sSd0Btg5N5PmEQWLHXrtMNHav+3xSs2GbdxPmkZHJAZgD
-         r+gR0c1hAR1xPEI/yRz2PjrrBejcLfOR7Ce8c5i//67qvwwgaCxhhIOIPHCFALYvWQuJ
-         idUZlYJrCHpHkoZD5hmcoTedFBRkr8RRdW+qdJ/yBDc3BN3F8UJdxFSY1PSJtGMKHHQk
-         oICw==
-X-Gm-Message-State: AC+VfDwHrCw4EQClDqhyKbi+ZTKhwUmuCyY5VeIouax7kl5RUHiecC/i
-	zPQPlxIYhH1yw+jYNOpcPdM=
-X-Google-Smtp-Source: 
- ACHHUZ4Md+L4emj1TGsRiElmzzl2iz6HJ3XsMkiMyrSCDMWaZsj/7srUBXb1UsliVDwH0BQ8L9qU+w==
-X-Received: by 2002:a5d:96d7:0:b0:783:7193:b019 with SMTP id
- r23-20020a5d96d7000000b007837193b019mr2028043iol.4.1688106820664;
-        Thu, 29 Jun 2023 23:33:40 -0700 (PDT)
-Received: from ?IPV6:2001:470:42c4:101:7b10:d8bb:7655:ba58?
- ([2001:470:42c4:101:7b10:d8bb:7655:ba58])
-        by smtp.gmail.com with ESMTPSA id
- p22-20020a5d9c96000000b00785d3921f56sm1875060iop.7.2023.06.29.23.33.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jun 2023 23:33:40 -0700 (PDT)
-Message-ID: <875080d0-8771-c47f-a86b-821fe33301b0@gmail.com>
-Date: Fri, 30 Jun 2023 00:33:38 -0600
+	dkim=pass (1024-bit key,
+ unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
+ header.s=selector1 header.b=MjYOBpjW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cWxPHAWUgCQJrzeATPosgkAsea2HnM3t+T/T7WGQuOFGWU5BN6O59MU908/ygMKJpPMaYkhkk6lrTGQmFNyblxQ8EouJwJqKBmXzg/a0OzltqXiWwRDwEFcqMm5e3bPoTvVlfc3BIttoKivjERYXSzmczzpdsCGcOJAkikykp2+K39Bn2hdBUFSbIsSq8SRYXaw8TcoH80k8MiagmPxlOOcPOmn+sqtiIwLeP/7PmzyJc6XnB+m9TEQVrAcLhwFwXQkJ0+eya36ikEkvRsM9DixGsF+Mi7+K1IhVyfjUFcJeVblAnqqpqjD5+Gt+rooNw5XkCYxOFnsS6NXHCy/cWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wuFMKD7yIcNFzIGWp009gnyt/GUGBjoGMbbqB9G1aOI=;
+ b=kHD7kGA5awsvpE2ZKJqaLkVC4Ya2Yx8uZDXqIOWeYpQxT0Z05OGk3yr2tP2+j5ud3mn5DXJa6pCekLVBekZ+kkdM9TZoAXify7Q71IOroaeo7vK2f6f611jDwpQTlkhzocBgRBzm27QUHlkQx19629LsHwC4KeTaWg1FqhYiduruUKiSqmtJQ+edeeK9N6c/a2KafOEtD/y24hn0GzEPcD+FuWHn9hGBrXtg7P/KABzYh2R4fm8G7KipR6KZ3TL31KQuOXoln/Ngl4M/gac99ebs1DQJ3CQgPtHL9v+irLtp287tCx+FBHEPHjqYwtAGl1z/f2D01bDnzxVSgfkgnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wuFMKD7yIcNFzIGWp009gnyt/GUGBjoGMbbqB9G1aOI=;
+ b=MjYOBpjW+A/sdudUI0uc9iWboCPen1kznuRkJZ2C5J5FAvHaNHN+Wi0h6G6JetFdjdF/5gUcPJdl53rjUjW2bG7jT0axnhPPXUMVyOujQBvZ6mJXQnGtYcwX1ri29vlwRySqAb473Rrm2oXM0iDOyL+dy8j5oN/nKmiLHqid1Qs=
+Received: from MW4PR04CA0250.namprd04.prod.outlook.com (2603:10b6:303:88::15)
+ by MW4PR12MB7238.namprd12.prod.outlook.com (2603:10b6:303:229::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Fri, 30 Jun
+ 2023 07:06:11 +0000
+Received: from CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:88:cafe::f3) by MW4PR04CA0250.outlook.office365.com
+ (2603:10b6:303:88::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.22 via Frontend
+ Transport; Fri, 30 Jun 2023 07:06:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT064.mail.protection.outlook.com (10.13.175.77) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6500.49 via Frontend Transport; Fri, 30 Jun 2023 07:06:10 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 30 Jun
+ 2023 02:06:10 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 30 Jun
+ 2023 02:06:09 -0500
+Received: from mastan.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23 via Frontend
+ Transport; Fri, 30 Jun 2023 02:05:52 -0500
+From: Mastan Katragadda <Mastan.Katragadda@amd.com>
+To: <broonie@kernel.org>
+CC: <alsa-devel@alsa-project.org>, <Basavaraj.Hiregoudar@amd.com>,
+	<Sunil-kumar.Dommati@amd.com>, <vijendar.mukunda@amd.com>,
+	<Arungopal.kondaveeti@amd.com>, <vsujithkumar.reddy@amd.com>,
+	<venkataprasad.potturu@amd.com>, Mastan Katragadda
+	<Mastan.Katragadda@amd.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, V sujith kumar Reddy
+	<Vsujithkumar.Reddy@amd.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>, Ajye Huang
+	<ajye_huang@compal.corp-partner.google.com>, "moderated list:SOUND - SOUND
+ OPEN FIRMWARE (SOF) DRIVERS" <sound-open-firmware@alsa-project.org>, "open
+ list" <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/2] ASoC: SOF: amd: add revision check for sending sha dma
+ completion command
+Date: Fri, 30 Jun 2023 12:35:42 +0530
+Message-ID: <20230630070544.2167421-1-Mastan.Katragadda@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-From: Sam Edwards <cfsworks@gmail.com>
-Subject: Re: [PATCH 0/3] ASoC: SOF: pcm/Intel: Handle IPC dependent sequencing
- correctly
-To: peter.ujfalusi@linux.intel.com
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
- kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
- yung-chuan.liao@linux.intel.com
-References: <20230322094346.6019-1-peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20230322094346.6019-1-peter.ujfalusi@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MailFrom: cfsworks@gmail.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT064:EE_|MW4PR12MB7238:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2beed3f-26dd-4677-65cf-08db79387c08
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	poyV4lC/z4tJ/Rz87ImdvaWDJeW8MtFRQVGLz/5mHjI172rILDRCJCUuK2cUq24LW9LIb/cSbbrBZMdmV2csmuEs9TVFJXjg1r+vVWQCsKZMHALWMJZNozlMsQ2HSAaFtY4KgbVYzX/kS4DTdxLAm2XlFKFN8RALlRsoxwTv6fCBJ6mosyYGo8n3c+3Uv7KjCihyYOp3lMmXPl8G0U5xeBQKXbDljIEGMDvsmlgOOoVQdXF9idK+8GCeIOw/0acnA67Evdmji9iVXosHtKtobetNSWm26jMCqAcnnfwj29kNaSmosIWfGAyabfugi6wFp1le2AxzXfzFMP1j9TE4jKRBmyNf7F2kxwD8yiz5XKfvsb7DrqleWjN3OuKYCGsu4geyxMPWnAB6rkZ0GvF6lbHjKr6xWSlyQf3+Uf2LmfPUyMzkoz21cEGgbC7ce4mcQ/NkuYSIKcL6TUpPYVTMCPx5tII/vvkX7XtIobPokCitD+kw0DFci35pyk1HTj//Qon0K9lhbJa7IliTZjIvQK6hgw9mGIJx0SzytGIbP2+0F4bOsVB8TIRRYEuYdxTmCzV6DroRPa83BRGfRq0SWmvsqWeRFdqjE9Dtv+CWCyfH9T4NBCwwqQHjXk8QiKIlzZGQQzSbbxDxmnRcITdAG2QoA2EwvaR6DD3CEj9lLK1XFhllqZG+K1q2Bbq7zoEa4+V4o5Fq+E6+4zyJdNiTDUAQ+FHRd9+wz20XFgfHxNBjs4dgQUvczvcxMRLVws78rs1F6+eg2CvtlIepBrvVIA==
+X-Forefront-Antispam-Report: 
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(136003)(39860400002)(346002)(451199021)(46966006)(36840700001)(40470700004)(83380400001)(7696005)(6666004)(54906003)(478600001)(70586007)(1076003)(2906002)(81166007)(186003)(26005)(82310400005)(316002)(41300700001)(70206006)(7416002)(5660300002)(8676002)(356005)(6916009)(8936002)(36756003)(4326008)(86362001)(82740400003)(336012)(2616005)(40480700001)(47076005)(36860700001)(40460700003)(426003)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 07:06:10.7549
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ f2beed3f-26dd-4677-65cf-08db79387c08
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	CO1NAM11FT064.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7238
+X-MailFrom: Mastan.Katragadda@amd.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 2AE6ONGV32RBFPR74XOB7VR7B6RSWXJ5
-X-Message-ID-Hash: 2AE6ONGV32RBFPR74XOB7VR7B6RSWXJ5
-X-Mailman-Approved-At: Fri, 30 Jun 2023 08:34:38 +0000
+Message-ID-Hash: 753VAZ2DS3RIONCAFNTOPJYBYQ3N5NWM
+X-Message-ID-Hash: 753VAZ2DS3RIONCAFNTOPJYBYQ3N5NWM
+X-Mailman-Approved-At: Fri, 30 Jun 2023 08:34:48 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2AE6ONGV32RBFPR74XOB7VR7B6RSWXJ5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/753VAZ2DS3RIONCAFNTOPJYBYQ3N5NWM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,47 +162,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi folks,
+ACP driver should send SHA DMA completion command to PSP module for RN
+platform only.
+Add a revision check for RN platform.
 
-When I upgraded my system to 6.4.0, I encountered a regression in audio 
-output. In regression testing, I found that patch 1/3 here was the 
-culprit, and the regression goes away entirely (on 6.4.0 final) when 
-applying a patch that reverts this whole patchset. The problem is 
-currently still unresolved even in broonie/sound.git.
+Signed-off-by: Mastan Katragadda <Mastan.Katragadda@amd.com>
+---
+ sound/soc/sof/amd/acp.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-The regression is an intermittent (few minutes on, few minutes off) 
-distortion in audio output on my Tigerlake->ALC298 path. When playing a 
-440 Hz test tone, the output spectrum is distorted into 440 Hz, 560 Hz, 
-1440 Hz, 1560 Hz, 2440 Hz, 2560 Hz, and so on. Since this is the exact 
-spectrum one would get if the output were modulated with a 1000 Hz Dirac 
-comb, I interpret this to mean that the audio subsystem is dropping 
-(zeroing) 1 sample every 1ms.
-
-There seem to be conditions for this problem to come and go 
-spontaneously -- in particular, it won't happen if my nvidia driver is 
-unloaded. However, I can make it occur (even with no out-of-tree modules 
-loaded) by sending several SIGSTOP->10ms->SIGCONT sequences to my 
-pipewire daemon while it's playing audio. The distortion then continues 
-until I send several more signals of that same sequence.
-
-Now, aside from having some DSP background, I'm a total outsider to the 
-ALSA and SOF world, so what follows is mere speculation on my part: I 
-believe the problem has some probability of being "toggled" by a buffer 
-underrun, which happens either deliberately by briefly interrupting 
-pipewire, or accidentally due to bus contention from having my GPU 
-active. Something (userspace? ALSA?) tries to restart the stream in 
-response to that underrun, but this patchset makes stream stop+start 
-more of a "warm reset," in that it doesn't clean up DMA. As a result, an 
-off-by-one error somehow creeps into the DMA size, thus omitting the 
-final sample of every 1ms transfer.
-
-I am not sure if this is a regression introduced with this patchset, or 
-merely a different bug that became apparent now that DMA isn't being 
-reset when underruns happen. If it's the latter case, I'm happy to open 
-an issue on Bugzilla instead. In either case, let me know if I can 
-provide any additional troubleshooting information.
-
-Cheers,
-
-Sam
+diff --git a/sound/soc/sof/amd/acp.c b/sound/soc/sof/amd/acp.c
+index 2ae76bcd3590..afb505461ea1 100644
+--- a/sound/soc/sof/amd/acp.c
++++ b/sound/soc/sof/amd/acp.c
+@@ -217,6 +217,7 @@ int configure_and_run_sha_dma(struct acp_dev_data *adata, void *image_addr,
+ 			      unsigned int image_length)
+ {
+ 	struct snd_sof_dev *sdev = adata->dev;
++	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
+ 	unsigned int tx_count, fw_qualifier, val;
+ 	int ret;
+ 
+@@ -251,9 +252,12 @@ int configure_and_run_sha_dma(struct acp_dev_data *adata, void *image_addr,
+ 		return ret;
+ 	}
+ 
+-	ret = psp_send_cmd(adata, MBOX_ACP_SHA_DMA_COMMAND);
+-	if (ret)
+-		return ret;
++	/* psp_send_cmd only required for renoir platform (rev - 3) */
++	if (desc->rev == 3) {
++		ret = psp_send_cmd(adata, MBOX_ACP_SHA_DMA_COMMAND);
++		if (ret)
++			return ret;
++	}
+ 
+ 	ret = snd_sof_dsp_read_poll_timeout(sdev, ACP_DSP_BAR, ACP_SHA_DSP_FW_QUALIFIER,
+ 					    fw_qualifier, fw_qualifier & DSP_FW_RUN_ENABLE,
+-- 
+2.25.1
 

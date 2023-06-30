@@ -2,95 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7C8374376B
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 10:36:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9D0974376D
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 10:36:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31C4784A;
-	Fri, 30 Jun 2023 10:35:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31C4784A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0E03F93A;
+	Fri, 30 Jun 2023 10:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E03F93A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688114186;
-	bh=tvbli7TtK1Su62y8jiBaK0khetTwzBa7AfE9np0xHyo=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1688114197;
+	bh=MrF8jN5bYTANHiVjk88XLQGQd876v+6zZ1QWdJGX/Vo=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ilgvqn+XCenHscCVySLBF/LOOTAc0nnjSHQ7jzW2Z/L10hASm1Kns1eOOJ0orrt9q
-	 8xQ/1IvbypijqQBOSCKACuwyG/2lczMsATZUrkNIBeiSbDVKnpVW1cT6D3ojyn0Uwm
-	 eHcmBQRxfENqa9AAjLBJmx8CAxfXcHPQ/pF5RCIE=
+	b=FywuZ1+xuonnFuIIejr8ex/wvnB8TD5DUfW25fnUVlrQK+EJYw1HUiC9qcQ8ghKjJ
+	 KHX3DYeoXh+L7cR7OE2GZGPm4GnCA67481JQ5qHvSQHfFBJQy55Yt/nX07IELDxxmW
+	 fyN+R3D4b3Z1g+qICnaKKbZLV7dEBbi+dgBt0zkU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 27144F8056F; Fri, 30 Jun 2023 10:34:43 +0200 (CEST)
+	id D1EB9F805B4; Fri, 30 Jun 2023 10:34:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BD6EF8056F;
-	Fri, 30 Jun 2023 10:34:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 428C7F805B3;
+	Fri, 30 Jun 2023 10:34:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 76757F80246; Fri, 30 Jun 2023 04:12:21 +0200 (CEST)
+	id F2411F80246; Fri, 30 Jun 2023 08:33:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No,
- score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from ex01.ufhost.com (ex01.ufhost.com [61.152.239.75])
-	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [IPv6:2607:f8b0:4864:20::d2f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9B341F800E3
-	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 04:12:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B341F800E3
-Received: from EXMBX165.cuchost.com (unknown [175.102.18.54])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(Client CN "EXMBX165", Issuer "EXMBX165" (not verified))
-	by ex01.ufhost.com (Postfix) with ESMTP id 19FE824E245;
-	Fri, 30 Jun 2023 10:12:07 +0800 (CST)
-Received: from EXMBX172.cuchost.com (172.16.6.92) by EXMBX165.cuchost.com
- (172.16.6.75) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Fri, 30 Jun
- 2023 10:12:07 +0800
-Received: from [192.168.125.93] (183.27.97.206) by EXMBX172.cuchost.com
- (172.16.6.92) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Fri, 30 Jun
- 2023 10:12:06 +0800
-Message-ID: <16813f18-2188-ad9d-9c06-6bbc845b9d99@starfivetech.com>
-Date: Fri, 30 Jun 2023 10:12:05 +0800
+	by alsa1.perex.cz (Postfix) with ESMTPS id E48A4F80169
+	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 08:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E48A4F80169
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=SXvR6b0K
+Received: by mail-io1-xd2f.google.com with SMTP id
+ ca18e2360f4ac-7836e80b303so65697939f.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 29 Jun 2023 23:33:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1688106821; x=1690698821;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=J5b0i9/cx4VxRuAoKXFWc4VsBJEpIztDNaYvchAm7FQ=;
+        b=SXvR6b0K6CvjOC5euZj5vFTBBoaTnEDjNmnSLkPxZ7+r5lhSbuZdfN99K2/Y9TS+Uy
+         7WTuhS/uH6G5gydbRMohW7q6OuQ/gwcRewFSqln7lBIMX9QRpkKDUmBvIiTHK/AKvHFK
+         IqmrsxmZs7bUxNo7l/mFGJNSlefv+ol9LQUuhMqu8lq2gCANcTSuQl2Si3Jr5XerS/XO
+         znb7dLr3ddKgKfTp38fYhzcNOQS377epWtnDpHkeMfAlIPZdFRZOboP6JQK5SNabmF1+
+         D9friwTaHB3DzBUKA0hK7s7CzMe6NSorpX2hXBipj94ryxHMuBbquh803wCRK8fQZM/+
+         IfEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688106821; x=1690698821;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=J5b0i9/cx4VxRuAoKXFWc4VsBJEpIztDNaYvchAm7FQ=;
+        b=dlrFY+aU6sdPO+x60pFmun5uDIMNgSpHkqMnGSnjB0rm0ArpS2aNe9u96dacHjG79M
+         tA9+jt27wLh5WiyXWd7WS2ixwyNkEocIauTDNcMy7Zwdt5RDMzMIu0ge9FWbbKmJEIXf
+         DSW1noVpjSdM1yCnYjZEn50sSd0Btg5N5PmEQWLHXrtMNHav+3xSs2GbdxPmkZHJAZgD
+         r+gR0c1hAR1xPEI/yRz2PjrrBejcLfOR7Ce8c5i//67qvwwgaCxhhIOIPHCFALYvWQuJ
+         idUZlYJrCHpHkoZD5hmcoTedFBRkr8RRdW+qdJ/yBDc3BN3F8UJdxFSY1PSJtGMKHHQk
+         oICw==
+X-Gm-Message-State: AC+VfDwHrCw4EQClDqhyKbi+ZTKhwUmuCyY5VeIouax7kl5RUHiecC/i
+	zPQPlxIYhH1yw+jYNOpcPdM=
+X-Google-Smtp-Source: 
+ ACHHUZ4Md+L4emj1TGsRiElmzzl2iz6HJ3XsMkiMyrSCDMWaZsj/7srUBXb1UsliVDwH0BQ8L9qU+w==
+X-Received: by 2002:a5d:96d7:0:b0:783:7193:b019 with SMTP id
+ r23-20020a5d96d7000000b007837193b019mr2028043iol.4.1688106820664;
+        Thu, 29 Jun 2023 23:33:40 -0700 (PDT)
+Received: from ?IPV6:2001:470:42c4:101:7b10:d8bb:7655:ba58?
+ ([2001:470:42c4:101:7b10:d8bb:7655:ba58])
+        by smtp.gmail.com with ESMTPSA id
+ p22-20020a5d9c96000000b00785d3921f56sm1875060iop.7.2023.06.29.23.33.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Jun 2023 23:33:40 -0700 (PDT)
+Message-ID: <875080d0-8771-c47f-a86b-821fe33301b0@gmail.com>
+Date: Fri, 30 Jun 2023 00:33:38 -0600
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: [PATCH v1 5/5] riscv: dts: starfive: Add JH7110 PWM-DAC support
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+From: Sam Edwards <cfsworks@gmail.com>
+Subject: Re: [PATCH 0/3] ASoC: SOF: pcm/Intel: Handle IPC dependent sequencing
+ correctly
+To: peter.ujfalusi@linux.intel.com
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ kai.vehmanen@linux.intel.com, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ yung-chuan.liao@linux.intel.com
+References: <20230322094346.6019-1-peter.ujfalusi@linux.intel.com>
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Mark Brown
-	<broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
-	<robh+dt@kernel.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor@kernel.org>, "Walker
- Chen" <walker.chen@starfivetech.com>, Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>
-CC: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20230626110909.38718-1-hal.feng@starfivetech.com>
- <20230626110909.38718-6-hal.feng@starfivetech.com>
- <2a0154ec-7949-f1b1-760f-3ba64d2cff3f@linaro.org>
-From: Hal Feng <hal.feng@starfivetech.com>
-In-Reply-To: <2a0154ec-7949-f1b1-760f-3ba64d2cff3f@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20230322094346.6019-1-peter.ujfalusi@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [183.27.97.206]
-X-ClientProxiedBy: EXCAS062.cuchost.com (172.16.6.22) To EXMBX172.cuchost.com
- (172.16.6.92)
-X-YovoleRuleAgent: yovoleflag
-X-MailFrom: hal.feng@starfivetech.com
+X-MailFrom: cfsworks@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: BXBISFK2AFOXBY4YBJ4EBSCTQT5OQIVU
-X-Message-ID-Hash: BXBISFK2AFOXBY4YBJ4EBSCTQT5OQIVU
+Message-ID-Hash: 2AE6ONGV32RBFPR74XOB7VR7B6RSWXJ5
+X-Message-ID-Hash: 2AE6ONGV32RBFPR74XOB7VR7B6RSWXJ5
 X-Mailman-Approved-At: Fri, 30 Jun 2023 08:34:38 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BXBISFK2AFOXBY4YBJ4EBSCTQT5OQIVU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2AE6ONGV32RBFPR74XOB7VR7B6RSWXJ5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,59 +127,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 26 Jun 2023 17:37:35 +0200, Krzysztof Kozlowski wrote:
-> On 26/06/2023 13:09, Hal Feng wrote:
->> Add PWM-DAC support for StarFive JH7110 SoC.
->> 
->> Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
->> ---
->>  .../jh7110-starfive-visionfive-2.dtsi         | 50 +++++++++++++++++++
->>  arch/riscv/boot/dts/starfive/jh7110.dtsi      | 13 +++++
->>  2 files changed, 63 insertions(+)
->> 
->> diff --git a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
->> index 19b5954ee72d..5ca66a65e722 100644
->> --- a/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
->> +++ b/arch/riscv/boot/dts/starfive/jh7110-starfive-visionfive-2.dtsi
->> @@ -36,6 +36,34 @@ gpio-restart {
->>  		gpios = <&sysgpio 35 GPIO_ACTIVE_HIGH>;
->>  		priority = <224>;
->>  	};
->> +
->> +	pwmdac_dit: pwmdac-dit {
->> +		compatible = "starfive,jh7110-pwmdac-dit";
->> +		#sound-dai-cells = <0>;
->> +	};
->> +
->> +	sound {
->> +		compatible = "simple-audio-card";
->> +		simple-audio-card,name = "StarFive-PWMDAC-Sound-Card";
->> +		#address-cells = <1>;
->> +		#size-cells = <0>;
->> +
->> +		simple-audio-card,dai-link@0 {
->> +			reg = <0>;
->> +			format = "left_j";
->> +			bitclock-master = <&sndcpu0>;
->> +			frame-master = <&sndcpu0>;
->> +			status = "okay";
-> 
-> Drop
+Hi folks,
 
-OK.
+When I upgraded my system to 6.4.0, I encountered a regression in audio 
+output. In regression testing, I found that patch 1/3 here was the 
+culprit, and the regression goes away entirely (on 6.4.0 final) when 
+applying a patch that reverts this whole patchset. The problem is 
+currently still unresolved even in broonie/sound.git.
 
-> 
->> +
->> +			sndcpu0: cpu {
->> +				sound-dai = <&pwmdac>;
->> +			};
->> +
->> +			codec {
->> +				sound-dai = <&pwmdac_dit>;
-> 
-> You said it is a transmitter, not a codec...
+The regression is an intermittent (few minutes on, few minutes off) 
+distortion in audio output on my Tigerlake->ALC298 path. When playing a 
+440 Hz test tone, the output spectrum is distorted into 440 Hz, 560 Hz, 
+1440 Hz, 1560 Hz, 2440 Hz, 2560 Hz, and so on. Since this is the exact 
+spectrum one would get if the output were modulated with a 1000 Hz Dirac 
+comb, I interpret this to mean that the audio subsystem is dropping 
+(zeroing) 1 sample every 1ms.
 
-It is a dummy codec, also known as a dummy transmitter.
+There seem to be conditions for this problem to come and go 
+spontaneously -- in particular, it won't happen if my nvidia driver is 
+unloaded. However, I can make it occur (even with no out-of-tree modules 
+loaded) by sending several SIGSTOP->10ms->SIGCONT sequences to my 
+pipewire daemon while it's playing audio. The distortion then continues 
+until I send several more signals of that same sequence.
 
-Best regards,
-Hal
+Now, aside from having some DSP background, I'm a total outsider to the 
+ALSA and SOF world, so what follows is mere speculation on my part: I 
+believe the problem has some probability of being "toggled" by a buffer 
+underrun, which happens either deliberately by briefly interrupting 
+pipewire, or accidentally due to bus contention from having my GPU 
+active. Something (userspace? ALSA?) tries to restart the stream in 
+response to that underrun, but this patchset makes stream stop+start 
+more of a "warm reset," in that it doesn't clean up DMA. As a result, an 
+off-by-one error somehow creeps into the DMA size, thus omitting the 
+final sample of every 1ms transfer.
+
+I am not sure if this is a regression introduced with this patchset, or 
+merely a different bug that became apparent now that DMA isn't being 
+reset when underruns happen. If it's the latter case, I'm happy to open 
+an issue on Bugzilla instead. In either case, let me know if I can 
+provide any additional troubleshooting information.
+
+Cheers,
+
+Sam
+

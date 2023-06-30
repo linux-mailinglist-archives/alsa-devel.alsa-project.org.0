@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A03A743DDF
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 16:49:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61ECD743DD2
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 16:47:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E760845;
-	Fri, 30 Jun 2023 16:48:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E760845
+	by alsa0.perex.cz (Postfix) with ESMTPS id A11B7822;
+	Fri, 30 Jun 2023 16:46:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A11B7822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688136555;
-	bh=uF0TfAuind/llrrS0J7b0cg0G0nqkL/iiITBqpMwsJQ=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=YVKvKxrSpaszsQPWZh4FmhojLQS0BXPA/cWa62LD6cMSYhsZMi3AY+s5+kIZQgPmd
-	 hb9OU68PRZkOQ1YKPjbKU26muwf6rhsAkR8aO9ne66eusrM1MUHUarPSTQo3EYHLab
-	 HbpLkcjS/Vb/eiIAx95UWyMXXING6j2UnUmQ9NtQ=
+	s=default; t=1688136419;
+	bh=qCcf0RAJj7qz/avO+8+Vb2wXaHLStMF8K619uBnImtM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KGBQfQFGI5NDVvNo00CSIRdKm4XCjfwuTcqJknl8dpMgmYzFivEF8jvdxULsgfmQB
+	 Uxg8Bw8cf6tiZj9Rx499/4HL7tBZh3QIZ+wS/ACbvRuMUd/2HcGacPxnZhl69NzdjQ
+	 srK/4iOtRdJIQnW1ERlXvwj+kMu/ByJ1irgSPIWQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CEF51F8055C; Fri, 30 Jun 2023 16:47:31 +0200 (CEST)
+	id 9541BF80534; Fri, 30 Jun 2023 16:46:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9297F80549;
-	Fri, 30 Jun 2023 16:47:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDC55F80534;
+	Fri, 30 Jun 2023 16:46:07 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DC14F80212; Fri, 30 Jun 2023 16:47:26 +0200 (CEST)
+	id F1F83F80548; Fri, 30 Jun 2023 16:46:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
@@ -35,27 +36,28 @@ Received: from bluemchen.kde.org (bluemchen.kde.org
  [IPv6:2001:470:142:8::100])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D0782F8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id A9515F80124
 	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 16:45:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0782F8027B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9515F80124
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 83EE3242EA;
+	by bluemchen.kde.org (Postfix) with ESMTP id 2306F242F0;
 	Fri, 30 Jun 2023 10:45:43 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.4, from userid 1000)
-	id 1qFFNW-mn3-00; Fri, 30 Jun 2023 16:45:42 +0200
+	id 1qFFNW-mn9-00; Fri, 30 Jun 2023 16:45:42 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
 Cc: Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH v2 0/8] ALSA: emu10k1: add support for high-bitrate modes of
- E-MU cards
-Date: Fri, 30 Jun 2023 16:45:34 +0200
-Message-Id: <20230630144542.664190-1-oswald.buddenhagen@gmx.de>
+Subject: [PATCH v2 1/8] ALSA: emu10k1: introduce alternative E-MU D.A.S. mode
+Date: Fri, 30 Jun 2023 16:45:35 +0200
+Message-Id: <20230630144542.664190-2-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
+In-Reply-To: <20230630144542.664190-1-oswald.buddenhagen@gmx.de>
+References: <20230630144542.664190-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: JNET4ZTLBTVDPTHGP6ABRCYY5CC5PFJ2
-X-Message-ID-Hash: JNET4ZTLBTVDPTHGP6ABRCYY5CC5PFJ2
+Message-ID-Hash: JHR36U7D7UWDKTUC3FCIQZFUJGEIQKJA
+X-Message-ID-Hash: JHR36U7D7UWDKTUC3FCIQZFUJGEIQKJA
 X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -68,159 +70,639 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JNET4ZTLBTVDPTHGP6ABRCYY5CC5PFJ2/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JHR36U7D7UWDKTUC3FCIQZFUJGEIQKJA/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This series is what all the work was about: support the "dual-/quad-pumped"
-modes of the E-MU cards.
+As noted in a previous commit, the E-MU Digital Audio System cards
+don't try very hard to be Sound Blasters. This commit takes it further
+and introduces a module option to switch to a completely separate mode.
 
-Oswald Buddenhagen (8):
-  ALSA: emu10k1: introduce alternative E-MU D.A.S. mode
-  ALSA: emu10k1: improve mixer control naming in E-MU D.A.S. mode
-  ALSA: emu10k1: set the "no filtering" bits on PCM voices
-  ALSA: emu10k1: make playback in E-MU D.A.S. mode 32-bit
-  ALSA: add snd_ctl_add_locked()
-  ALSA: emu10k1: add support for 2x/4x word clocks in E-MU D.A.S. mode
-  ALSA: emu10k1: add high-rate capture in E-MU D.A.S. mode
-  ALSA: emu10k1: add high-rate playback in E-MU D.A.S. mode
+In that mode:
+- The regular PCM playback/capture devices are removed
+- The EFX playback/capture devices get index 0
+- Consequently, the regular mixer controls are also completely removed.
+  This is no real loss, given the expected use with a sound server.
+- The voice send routing+amount & attenuation controls are also removed,
+  as they are just another mixer. The routing is redundant with the FPGA
+  channel routing, and amounts/att'n can be done in software. The latter
+  are also incompatible with 32-bit playback, which we'll add support
+  for later.
+- A_EXTOUT is now also free for multi-channel capture, so we use that
+  instead of A_FXBUS2 - this will later simplify using both at once.
+- For the same reason, the FX outputs are not listed in /proc anymore
+- The device name is changed, so mixer settings don't get mixed up
 
- include/sound/control.h          |   1 +
- include/sound/emu10k1.h          |  11 +
- sound/core/control.c             |  31 ++
- sound/pci/emu10k1/emu10k1.c      |  29 +-
- sound/pci/emu10k1/emu10k1_main.c |  19 +-
- sound/pci/emu10k1/emufx.c        | 109 +++-
- sound/pci/emu10k1/emumixer.c     | 901 +++++++++++++++++++++++++++----
- sound/pci/emu10k1/emupcm.c       | 422 +++++++++++++--
- sound/pci/emu10k1/emuproc.c      |   5 +
- sound/pci/emu10k1/io.c           |  30 +-
- sound/pci/emu10k1/voice.c        |   6 +
- 11 files changed, 1383 insertions(+), 181 deletions(-)
+This continues the pre-existing design with a single multi-channel
+device where the channels are routed by manual mixer controls from/to
+the physical ports. De-/multiplexing must be done by the sound server
+if independent streams are to be used.
 
-Range-diff against v1:
-1:  c8c1fbba5e52 = 1:  7cb49147164f ALSA: emu10k1: introduce alternative E-MU D.A.S. mode
-2:  879066428bee = 2:  aa9ead00e045 ALSA: emu10k1: improve mixer control naming in E-MU D.A.S. mode
-3:  b663229a0f46 = 3:  ac830e67322f ALSA: emu10k1: set the "no filtering" bits on PCM voices
-4:  a9de9a73571e = 4:  26e0b7c02c1d ALSA: emu10k1: make playback in E-MU D.A.S. mode 32-bit
-5:  0f1950b03193 ! 5:  94b64e6c123d ALSA: add snd_ctl_add_locked()
-    @@ Commit message
-         This is in fact more symmetrical to snd_ctl_remove() than snd_ctl_add()
-         is - the former could be named snd_ctl_remove_locked() just as well.
-     
-    +    One may argue that this is going in the wrong direction, as drivers have
-    +    no business managing the lock. This may be true in principle, but in
-    +    practice the vast majority of controls is created even before the device
-    +    was registered, and therefore before any locking is necessary at all.
-    +    That means that an even more radical approach of changing snd_ctl_add()
-    +    do do no locking, and converting the call sites that actually need
-    +    locking to a new function, would better match reality, and would be
-    +    somewhat more efficient at that. However, that seems a bit risky and way
-    +    too much work.
-    +
-         This will be used to dynamically change the available controls from
-         another control's put() callback, which is already locked.
-     
-         One might want to add snd_ctl_replace_locked() for completeness, but I
-         have no use for it now.
-     
-         Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-    +    ---
-    +    v2:
-    +    - extended commit message
-     
-      ## include/sound/control.h ##
-     @@ include/sound/control.h: void snd_ctl_notify_one(struct snd_card * card, unsigned int mask, struct snd_kc
-6:  511efe4ac7ad ! 6:  7bc314bae7f2 ALSA: emu10k1: add support for 2x/4x word clocks in E-MU D.A.S. mode
-    @@ Commit message
-         on playback, and throw away the excess ones on capture. Input-to-output
-         monitoring does actually use the full sample rate, though.
-     
-    -    Notably, add_ctls() now uses snd_ctl_add_locked(), so it doesn't
-    -    deadlock when called from snd_emu1010_clock_shift_put(). This also
-    -    affects the initial creation of the controls, which is OK, as that is
-    -    done before the card is registered, so no concurrent access can occur.
-    +    Due to hardware constraints, changing the clock multiplier (CM) changes
-    +    the available audio ports and the number of available channels. This has
-    +    an impact on the channel routing mixer controls. One way to deal with
-    +    this would be presenting a union of all possibilities, and simply
-    +    ignoring currently inapplicable settings. However, this would be a
-    +    terrible user experience, and go against the spirit of prior patches
-    +    aimed at decluttering the mixer. Therefore, we do dynamic
-    +    reconfiguration (DR) of the mixer in response to changing the CM.
-    +
-    +    DR is somewhat controversial, as it has the potential to crash poorly
-    +    programmed applications. But that in itself isn't a very convincing
-    +    argument against it, as by that logic we'd have to ban all hot-plugging.
-    +    Such crashes would also not really qualify as regressions, as the D.A.S.
-    +    mode is a new opt-in feature, and therefore no previously stable setups
-    +    would be impacted. Also, pendantically, the driver already had DR via
-    +    SNDRV_EMU10K1_IOCTL_CODE_POKE. A somewhat valid concern is that changing
-    +    mixer settings is a non-privileged operation and therefore potential
-    +    crashes could be exploited for a somewhat more impactful nuisance attack
-    +    on another user than messing with the mixer per se. However, systemd &
-    +    co. limit device access to the user currently logged in on the seat
-    +    owning the device.
-    +
-    +    There is a specific concern about doing DR in response to changing a
-    +    mixer control's value, as an application may legitimately react to DR by
-    +    updating all mixer settings in turn. However, that update should write
-    +    the same value to the clock multiplier, thus terminating the recursion.
-    +
-    +    One may limit DR to merely disabling inapplicable controls, in the hope
-    +    that this would be better handled than completely tearing down and
-    +    re-creating controls as we do. However, there is no guarantee for that.
-    +    And because it is impossible to disable particular enum values within a
-    +    control, it would be necessary to have three complete sets of
-    +    per-channel controls. This would yield an extremely cluttered and
-    +    confusing UI if the application (reasonably) chose to merely visually
-    +    disable inactive controls rather than hiding them.
-    +
-    +    We do the DR synchronously from within snd_emu1010_clock_shift_put().
-    +    This was enabled by commit 5bbb1ab5bd ("control: use counting semaphore
-    +    as write lock for ELEM_WRITE operation"); we merely need to make
-    +    add_ctls() use snd_ctl_add_locked() instead of snd_ctl_add(), so it
-    +    doesn't deadlock. That also affects the initial creation of the
-    +    controls, which is OK, as that is done before the card is registered, so
-    +    no concurrent access can occur.
-    +
-    +    It would be possible to do the DR in a tasklet after the ioctl finishes.
-    +    However, it is not obvious what actual problem that would solve, and the
-    +    added asynchronicity would significantly complicate matters, esp. wrt.
-    +    the batch updates expected during mixer state restoration.
-     
-         Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-    +    ---
-    +    v2:
-    +    - expanded commit message
-     
-      ## include/sound/emu10k1.h ##
-     @@ include/sound/emu10k1.h: struct snd_emu1010 {
-7:  d5cb50ca707f = 7:  72a156fb32cd ALSA: emu10k1: add high-rate capture in E-MU D.A.S. mode
-8:  319425a4ccb6 ! 8:  6d35891832b3 ALSA: emu10k1: add high-rate playback in E-MU D.A.S. mode
-    @@ Commit message
-         d948035a92 ("Remove PCM xfer_align sw params").
-     
-         Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-    +    ---
-    +    v2:
-    +    - fixed `sparse` warning re missing __user annotation
-     
-      ## sound/pci/emu10k1/emufx.c ##
-     @@ sound/pci/emu10k1/emufx.c: static int _snd_emu10k1_das_init_efx(struct snd_emu10k1 *emu)
-    @@ sound/pci/emu10k1/emupcm.c: static int snd_emu10k1_efx_playback_trigger(struct s
-     +		for (i = 0; i < channels; i++) {
-     +			for (j = 0; j < subchans; j++) {
-     +				u32 *dst = get_dma_ptr_x(runtime, shift, i, j, hwoff);
-    -+				u32 *src = (u32 *)buf + j * channels + i;
-    ++				u32 __user *src = (u32 __user *)buf + j * channels + i;
-     +				for (k = 0; k < frames; k++, dst++, src += voices)
-     +					unsafe_get_user(*dst, src, faulted);
-     +			}
+An alternative design would be exposing each physical port as a separate
+device and automatically setting up the routes. This would be a somewhat
+radical departure from the status quo, and I don't know whether it would
+be a net benefit. It certainly would be harder to implement, as it would
+require sync start of streams and a channel allocator (the latter would
+have the added benefit of properly reporting EMU32 & EDI bus over-
+allocation, which the mixer does not). There is only one big multi-
+channel capture engine, so streams would have to be de-multiplexed by
+the driver in software - which seems a bit counter-productive if the
+sound server would re-multiplex them again.
+
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+---
+ include/sound/emu10k1.h          |   4 ++
+ sound/pci/emu10k1/emu10k1.c      |  29 ++++++---
+ sound/pci/emu10k1/emu10k1_main.c |  14 +++-
+ sound/pci/emu10k1/emufx.c        |  94 ++++++++++++++++++++++++++-
+ sound/pci/emu10k1/emumixer.c     |  93 ++++++++++++++-------------
+ sound/pci/emu10k1/emupcm.c       | 107 +++++++++++++++++++++++++++----
+ sound/pci/emu10k1/emuproc.c      |   5 ++
+ 7 files changed, 280 insertions(+), 66 deletions(-)
+
+diff --git a/include/sound/emu10k1.h b/include/sound/emu10k1.h
+index 386a5f3be3e0..cad5faa01c4c 100644
+--- a/include/sound/emu10k1.h
++++ b/include/sound/emu10k1.h
+@@ -1700,6 +1700,7 @@ struct snd_emu10k1 {
+ 	unsigned int address_mode;		/* address mode */
+ 	unsigned long dma_mask;			/* PCI DMA mask */
+ 	bool iommu_workaround;			/* IOMMU workaround needed */
++	bool das_mode;				/* Alternative E-MU Digital Audio System mode */
+ 	int max_cache_pages;			/* max memory size / PAGE_SIZE */
+ 	struct snd_dma_buffer silent_page;	/* silent page */
+ 	struct snd_dma_buffer ptb_pages;	/* page table pages */
+@@ -1729,6 +1730,7 @@ struct snd_emu10k1 {
+ 	struct snd_pcm *pcm_mic;
+ 	struct snd_pcm *pcm_efx;
+ 	struct snd_pcm *pcm_multi;
++	struct snd_pcm *pcm_das;
+ 	struct snd_pcm *pcm_p16v;
+ 
+ 	spinlock_t synth_lock;
+@@ -1793,17 +1795,19 @@ struct snd_emu10k1 {
+ 
+ int snd_emu10k1_create(struct snd_card *card,
+ 		       struct pci_dev *pci,
++		       bool emu_das,
+ 		       unsigned short extin_mask,
+ 		       unsigned short extout_mask,
+ 		       long max_cache_bytes,
+ 		       int enable_ir,
+ 		       uint subsystem);
+ 
+ int snd_emu10k1_pcm(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_pcm_mic(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_pcm_efx(struct snd_emu10k1 *emu, int device);
+ int snd_p16v_pcm(struct snd_emu10k1 *emu, int device);
+ int snd_p16v_mixer(struct snd_emu10k1 * emu);
++int snd_emu10k1_pcm_das(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_pcm_multi(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_fx8010_pcm(struct snd_emu10k1 *emu, int device);
+ int snd_emu10k1_mixer(struct snd_emu10k1 * emu, int pcm_device, int multi_device);
+diff --git a/sound/pci/emu10k1/emu10k1.c b/sound/pci/emu10k1/emu10k1.c
+index 23adace1b969..36beb0254cca 100644
+--- a/sound/pci/emu10k1/emu10k1.c
++++ b/sound/pci/emu10k1/emu10k1.c
+@@ -27,6 +27,7 @@ MODULE_LICENSE("GPL");
+ static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;	/* Index 0-MAX */
+ static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;	/* ID for this card */
+ static bool enable[SNDRV_CARDS] = SNDRV_DEFAULT_ENABLE_PNP;	/* Enable this card */
++static bool emu_das[SNDRV_CARDS];
+ static int extin[SNDRV_CARDS];
+ static int extout[SNDRV_CARDS];
+ static int seq_ports[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS - 1)] = 4};
+@@ -41,6 +42,8 @@ module_param_array(id, charp, NULL, 0444);
+ MODULE_PARM_DESC(id, "ID string for the EMU10K1 soundcard.");
+ module_param_array(enable, bool, NULL, 0444);
+ MODULE_PARM_DESC(enable, "Enable the EMU10K1 soundcard.");
++module_param_array(emu_das, bool, NULL, 0444);
++MODULE_PARM_DESC(emu_das, "Use alternative E-MU Digital Audio System mode.");
+ module_param_array(extin, int, NULL, 0444);
+ MODULE_PARM_DESC(extin, "Available external inputs for FX8010. Zero=default.");
+ module_param_array(extout, int, NULL, 0444);
+@@ -95,22 +98,27 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 		max_buffer_size[dev] = 32;
+ 	else if (max_buffer_size[dev] > 1024)
+ 		max_buffer_size[dev] = 1024;
+-	err = snd_emu10k1_create(card, pci, extin[dev], extout[dev],
++	err = snd_emu10k1_create(card, pci, emu_das[dev], extin[dev], extout[dev],
+ 				 (long)max_buffer_size[dev] * 1024 * 1024,
+ 				 enable_ir[dev], subsystem[dev]);
+ 	if (err < 0)
+ 		return err;
+-	err = snd_emu10k1_pcm(emu, 0);
++	if (emu->das_mode)
++		err = snd_emu10k1_pcm_das(emu, 0);
++	else
++		err = snd_emu10k1_pcm(emu, 0);
+ 	if (err < 0)
+ 		return err;
+ 	if (emu->card_capabilities->ac97_chip) {
+ 		err = snd_emu10k1_pcm_mic(emu, 1);
+ 		if (err < 0)
+ 			return err;
+ 	}
+-	err = snd_emu10k1_pcm_efx(emu, 2);
+-	if (err < 0)
+-		return err;
++	if (!emu->das_mode) {
++		err = snd_emu10k1_pcm_efx(emu, 2);
++		if (err < 0)
++			return err;
++	}
+ 	/* This stores the periods table. */
+ 	if (emu->card_capabilities->ca0151_chip) { /* P16V */	
+ 		emu->p16v_buffer =
+@@ -127,9 +135,11 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 	if (err < 0)
+ 		return err;
+ 
+-	err = snd_emu10k1_pcm_multi(emu, 3);
+-	if (err < 0)
+-		return err;
++	if (!emu->das_mode) {
++		err = snd_emu10k1_pcm_multi(emu, 3);
++		if (err < 0)
++			return err;
++	}
+ 	if (emu->card_capabilities->ca0151_chip) { /* P16V */
+ 		err = snd_p16v_pcm(emu, 4);
+ 		if (err < 0)
+@@ -148,7 +158,8 @@ static int snd_card_emu10k1_probe(struct pci_dev *pci,
+ 	if (err < 0)
+ 		return err;
+ #ifdef ENABLE_SYNTH
+-	if (snd_seq_device_new(card, 1, SNDRV_SEQ_DEV_ID_EMU10K1_SYNTH,
++	if (emu->das_mode) {
++	} else if (snd_seq_device_new(card, 1, SNDRV_SEQ_DEV_ID_EMU10K1_SYNTH,
+ 			       sizeof(struct snd_emu10k1_synth_arg), &wave) < 0 ||
+ 	    wave == NULL) {
+ 		dev_warn(emu->card->dev,
+diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
+index 58ed72de6403..aa28a7524a67 100644
+--- a/sound/pci/emu10k1/emu10k1_main.c
++++ b/sound/pci/emu10k1/emu10k1_main.c
+@@ -1482,6 +1482,7 @@ static void snd_emu10k1_detect_iommu(struct snd_emu10k1 *emu)
+ 
+ int snd_emu10k1_create(struct snd_card *card,
+ 		       struct pci_dev *pci,
++		       bool emu_das,
+ 		       unsigned short extin_mask,
+ 		       unsigned short extout_mask,
+ 		       long max_cache_bytes,
+@@ -1560,8 +1561,19 @@ int snd_emu10k1_create(struct snd_card *card,
+ 			c->name, pci->vendor, pci->device,
+ 			emu->serial);
+ 
+-	if (!*card->id && c->id)
++	if (c->emu_model) {
++		if (emu_das)
++			emu->das_mode = 1;
++		else
++			dev_notice(card->dev,
++				"You may want to use emu_das=1 with your %s\n", c->name);
++	}
++
++	if (!*card->id && c->id) {
+ 		strscpy(card->id, c->id, sizeof(card->id));
++		if (emu->das_mode)
++			strlcat(card->id, "das", sizeof(card->id));
++	}
+ 
+ 	is_audigy = emu->audigy = c->emu10k2_chip;
+ 
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index 9904bcfee106..428ae365eb99 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -1282,6 +1282,96 @@ static void snd_emu10k1_audigy_dsp_convert_32_to_2x16(
+ 
+ #define ENUM_GPR(name, size) name, name ## _dummy = name + (size) - 1
+ 
++/*
++ * initial DSP configuration for E-MU Digital Audio System
++ */
++
++static int _snd_emu10k1_das_init_efx(struct snd_emu10k1 *emu)
++{
++	enum {
++		ENUM_GPR(bit_shifter16, 1),
++		ENUM_GPR(tmp, 1),
++		num_static_gprs
++	};
++	int gpr = num_static_gprs;
++	u32 *gpr_map;
++	u32 ptr = 0;
++
++	int err = -ENOMEM;
++	struct snd_emu10k1_fx8010_code *icode = kzalloc(sizeof(*icode), GFP_KERNEL);
++	if (!icode)
++		return err;
++
++	icode->gpr_map = kcalloc(512 + 256 + 256 + 2 * 1024,
++				 sizeof(u_int32_t), GFP_KERNEL);
++	if (!icode->gpr_map)
++		goto __err_gpr;
++
++	icode->tram_data_map = icode->gpr_map + 512;
++	icode->tram_addr_map = icode->tram_data_map + 256;
++	icode->code = icode->tram_addr_map + 256;
++
++	/* clear free GPRs */
++	memset(icode->gpr_valid, 0xff, sizeof(icode->gpr_valid));
++
++	/* clear TRAM data & address lines */
++	memset(icode->tram_valid, 0xff, sizeof(icode->tram_valid));
++
++	strcpy(icode->name, "E-MU DSP code for ALSA");
++
++	gpr_map = icode->gpr_map;
++	gpr_map[bit_shifter16] = 0x00008000;
++
++	if (emu->card_capabilities->ca0108_chip) {
++		for (int z = 0; z < 16; z++)
++			A_OP(icode, &ptr, iMACINT0, A3_EMU32OUT(z), A_C_00000000, A_FXBUS(z), A_C_00000002);
++
++		snd_emu10k1_audigy_dsp_convert_32_to_2x16(
++			icode, &ptr, tmp, bit_shifter16, A3_EMU32IN(0), A_EXTOUT(0));
++		// A3_EMU32IN(0) is delayed by one sample, so all other A3_EMU32IN channels
++		// need to be delayed as well; we use an auxiliary register for that.
++		for (int z = 1; z < 16; z++) {
++			snd_emu10k1_audigy_dsp_convert_32_to_2x16(
++				icode, &ptr, tmp, bit_shifter16, A_GPR(gpr), A_EXTOUT(z * 2));
++			A_OP(icode, &ptr, iACC3, A_GPR(gpr), A3_EMU32IN(z), A_C_00000000, A_C_00000000);
++			gpr_map[gpr++] = 0x00000000;
++		}
++	} else {
++		for (int z = 0; z < 16; z++)
++			A_OP(icode, &ptr, iMACINT0, A_EMU32OUTL(z), A_C_00000000, A_FXBUS(z), A_C_00000002);
++
++		/* Note that the Alice2 DSPs have 6 I2S inputs which we don't use. */
++		snd_emu10k1_audigy_dsp_convert_32_to_2x16(
++			icode, &ptr, tmp, bit_shifter16, A_P16VIN(0), A_EXTOUT(0));
++		// A_P16VIN(0) is delayed by one sample, so all other A_P16VIN channels
++		// need to be delayed as well; we use an auxiliary register for that.
++		for (int z = 1; z < 16; z++) {
++			snd_emu10k1_audigy_dsp_convert_32_to_2x16(
++				icode, &ptr, tmp, bit_shifter16, A_GPR(gpr), A_EXTOUT(z * 2));
++			A_OP(icode, &ptr, iACC3, A_GPR(gpr), A_P16VIN(z), A_C_00000000, A_C_00000000);
++			gpr_map[gpr++] = 0x00000000;
++		}
++	}
++
++	if (gpr > 512) {
++		snd_BUG();
++		err = -EIO;
++		goto __err;
++	}
++
++	/* clear remaining instruction memory */
++	while (ptr < 0x400)
++		A_OP(icode, &ptr, 0x0f, 0xc0, 0xc0, 0xcf, 0xc0);
++
++	err = snd_emu10k1_icode_poke(emu, icode, true);
++
++__err:
++	kfree(icode->gpr_map);
++__err_gpr:
++	kfree(icode);
++	return err;
++}
++
+ /*
+  * initial DSP configuration for Audigy
+  */
+@@ -2376,7 +2466,9 @@ int snd_emu10k1_init_efx(struct snd_emu10k1 *emu)
+ {
+ 	spin_lock_init(&emu->fx8010.irq_lock);
+ 	INIT_LIST_HEAD(&emu->fx8010.gpr_ctl);
+-	if (emu->audigy)
++	if (emu->das_mode)
++		return _snd_emu10k1_das_init_efx(emu);
++	else if (emu->audigy)
+ 		return _snd_emu10k1_audigy_init_efx(emu);
+ 	else
+ 		return _snd_emu10k1_init_efx(emu);
+diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
+index f9500cd50a4b..a9358d9c08b9 100644
+--- a/sound/pci/emu10k1/emumixer.c
++++ b/sound/pci/emu10k1/emumixer.c
+@@ -2230,51 +2230,56 @@ int snd_emu10k1_mixer(struct snd_emu10k1 *emu,
+ 		rename_ctl(card, "Aux2 Capture Volume", "Line3 Capture Volume");
+ 		rename_ctl(card, "Mic Capture Volume", "Unknown1 Capture Volume");
+ 	}
+-	kctl = emu->ctl_send_routing = snd_ctl_new1(&snd_emu10k1_send_routing_control, emu);
+-	if (!kctl)
+-		return -ENOMEM;
+-	kctl->id.device = pcm_device;
+-	err = snd_ctl_add(card, kctl);
+-	if (err)
+-		return err;
+-	kctl = emu->ctl_send_volume = snd_ctl_new1(&snd_emu10k1_send_volume_control, emu);
+-	if (!kctl)
+-		return -ENOMEM;
+-	kctl->id.device = pcm_device;
+-	err = snd_ctl_add(card, kctl);
+-	if (err)
+-		return err;
+-	kctl = emu->ctl_attn = snd_ctl_new1(&snd_emu10k1_attn_control, emu);
+-	if (!kctl)
+-		return -ENOMEM;
+-	kctl->id.device = pcm_device;
+-	err = snd_ctl_add(card, kctl);
+-	if (err)
+-		return err;
+ 
+-	kctl = emu->ctl_efx_send_routing = snd_ctl_new1(&snd_emu10k1_efx_send_routing_control, emu);
+-	if (!kctl)
+-		return -ENOMEM;
+-	kctl->id.device = multi_device;
+-	err = snd_ctl_add(card, kctl);
+-	if (err)
+-		return err;
+-	
+-	kctl = emu->ctl_efx_send_volume = snd_ctl_new1(&snd_emu10k1_efx_send_volume_control, emu);
+-	if (!kctl)
+-		return -ENOMEM;
+-	kctl->id.device = multi_device;
+-	err = snd_ctl_add(card, kctl);
+-	if (err)
+-		return err;
+-	
+-	kctl = emu->ctl_efx_attn = snd_ctl_new1(&snd_emu10k1_efx_attn_control, emu);
+-	if (!kctl)
+-		return -ENOMEM;
+-	kctl->id.device = multi_device;
+-	err = snd_ctl_add(card, kctl);
+-	if (err)
+-		return err;
++	if (!emu->das_mode) {
++		kctl = emu->ctl_send_routing = snd_ctl_new1(&snd_emu10k1_send_routing_control, emu);
++		if (!kctl)
++			return -ENOMEM;
++		kctl->id.device = pcm_device;
++		err = snd_ctl_add(card, kctl);
++		if (err)
++			return err;
++
++		kctl = emu->ctl_send_volume = snd_ctl_new1(&snd_emu10k1_send_volume_control, emu);
++		if (!kctl)
++			return -ENOMEM;
++		kctl->id.device = pcm_device;
++		err = snd_ctl_add(card, kctl);
++		if (err)
++			return err;
++
++		kctl = emu->ctl_attn = snd_ctl_new1(&snd_emu10k1_attn_control, emu);
++		if (!kctl)
++			return -ENOMEM;
++		kctl->id.device = pcm_device;
++		err = snd_ctl_add(card, kctl);
++		if (err)
++			return err;
++
++		kctl = emu->ctl_efx_send_routing = snd_ctl_new1(&snd_emu10k1_efx_send_routing_control, emu);
++		if (!kctl)
++			return -ENOMEM;
++		kctl->id.device = multi_device;
++		err = snd_ctl_add(card, kctl);
++		if (err)
++			return err;
++
++		kctl = emu->ctl_efx_send_volume = snd_ctl_new1(&snd_emu10k1_efx_send_volume_control, emu);
++		if (!kctl)
++			return -ENOMEM;
++		kctl->id.device = multi_device;
++		err = snd_ctl_add(card, kctl);
++		if (err)
++			return err;
++
++		kctl = emu->ctl_efx_attn = snd_ctl_new1(&snd_emu10k1_efx_attn_control, emu);
++		if (!kctl)
++			return -ENOMEM;
++		kctl->id.device = multi_device;
++		err = snd_ctl_add(card, kctl);
++		if (err)
++			return err;
++	}
+ 
+ 	if (!emu->card_capabilities->ecard && !emu->card_capabilities->emu_model) {
+ 		/* sb live! and audigy */
+diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
+index 387288d623d7..a6fb0647d80a 100644
+--- a/sound/pci/emu10k1/emupcm.c
++++ b/sound/pci/emu10k1/emupcm.c
+@@ -358,6 +358,22 @@ static void snd_emu10k1_pcm_init_voices(struct snd_emu10k1 *emu,
+ 	spin_unlock_irqrestore(&emu->reg_lock, flags);
+ }
+ 
++static void snd_emu10k1_pcm_init_das_voices(struct snd_emu10k1 *emu,
++					    struct snd_emu10k1_voice *evoice,
++					    unsigned int start_addr,
++					    unsigned int end_addr,
++					    unsigned char channel)
++{
++	static const unsigned char send_amount[8] = { 255, 0, 0, 0, 0, 0, 0, 0 };
++	unsigned char send_routing[8];
++
++	for (int i = 0; i < ARRAY_SIZE(send_routing); i++)
++		send_routing[i] = (channel + i) % NUM_G;
++	snd_emu10k1_pcm_init_voice(emu, evoice, true, false,
++				   start_addr, end_addr,
++				   send_routing, send_amount);
++}
++
+ static void snd_emu10k1_pcm_init_extra_voice(struct snd_emu10k1 *emu,
+ 					     struct snd_emu10k1_voice *evoice,
+ 					     bool w_16,
+@@ -477,6 +493,7 @@ static int snd_emu10k1_efx_playback_prepare(struct snd_pcm_substream *substream)
+ 	struct snd_emu10k1 *emu = snd_pcm_substream_chip(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_emu10k1_pcm *epcm = runtime->private_data;
++	bool das_mode = emu->das_mode;
+ 	unsigned int start_addr;
+ 	unsigned int extra_size, channel_size;
+ 	unsigned int i;
+@@ -492,11 +509,20 @@ static int snd_emu10k1_efx_playback_prepare(struct snd_pcm_substream *substream)
+ 					 start_addr, start_addr + extra_size);
+ 
+ 	epcm->ccca_start_addr = start_addr;
+-	for (i = 0; i < runtime->channels; i++) {
+-		snd_emu10k1_pcm_init_voices(emu, epcm->voices[i], true, false,
+-					    start_addr, start_addr + channel_size,
+-					    &emu->efx_pcm_mixer[i]);
+-		start_addr += channel_size;
++	if (das_mode) {
++		for (i = 0; i < runtime->channels; i++) {
++			snd_emu10k1_pcm_init_das_voices(emu, epcm->voices[i],
++							start_addr, start_addr + channel_size,
++							i);
++			start_addr += channel_size;
++		}
++	} else {
++		for (i = 0; i < runtime->channels; i++) {
++			snd_emu10k1_pcm_init_voices(emu, epcm->voices[i], true, false,
++						    start_addr, start_addr + channel_size,
++						    &emu->efx_pcm_mixer[i]);
++			start_addr += channel_size;
++		}
+ 	}
+ 
+ 	return 0;
+@@ -536,10 +562,16 @@ static int snd_emu10k1_capture_prepare(struct snd_pcm_substream *substream)
+ 		break;
+ 	case CAPTURE_EFX:
+ 		if (emu->card_capabilities->emu_model) {
+-			// The upper 32 16-bit capture voices, two for each of the 16 32-bit channels.
+-			// The lower voices are occupied by A_EXTOUT_*_CAP*.
+-			epcm->capture_cr_val = 0;
+-			epcm->capture_cr_val2 = 0xffffffff >> (32 - runtime->channels * 2);
++			unsigned mask = 0xffffffff >> (32 - runtime->channels * 2);
++			if (emu->das_mode) {
++				epcm->capture_cr_val = mask;
++				epcm->capture_cr_val2 = 0;
++			} else {
++				// The upper 32 16-bit capture voices, two for each of the 16 32-bit channels.
++				// The lower voices are occupied by A_EXTOUT_*_CAP*.
++				epcm->capture_cr_val = 0;
++				epcm->capture_cr_val2 = mask;
++			}
+ 		}
+ 		if (emu->audigy) {
+ 			snd_emu10k1_ptr_write_multiple(emu, 0,
+@@ -685,6 +717,12 @@ static void snd_emu10k1_playback_unmute_voices(struct snd_emu10k1 *emu,
+ 		snd_emu10k1_playback_unmute_voice(emu, evoice + 1, true, false, mix);
+ }
+ 
++static void snd_emu10k1_playback_unmute_das_voices(struct snd_emu10k1 *emu,
++						   struct snd_emu10k1_voice *evoice)
++{
++	snd_emu10k1_playback_commit_volume(emu, evoice, 0x8000 << 16);
++}
++
+ static void snd_emu10k1_playback_mute_voice(struct snd_emu10k1 *emu,
+ 					    struct snd_emu10k1_voice *evoice)
+ {
+@@ -928,6 +966,14 @@ static void snd_emu10k1_efx_playback_unmute_voices(struct snd_emu10k1 *emu,
+ 						  &emu->efx_pcm_mixer[i]);
+ }
+ 
++static void snd_emu10k1_efx_playback_unmute_das_voices(struct snd_emu10k1 *emu,
++						       struct snd_emu10k1_pcm *epcm,
++						       int channels)
++{
++	for (int i = 0; i < channels; i++)
++		snd_emu10k1_playback_unmute_das_voices(emu, epcm->voices[i]);
++}
++
+ static void snd_emu10k1_efx_playback_stop_voices(struct snd_emu10k1 *emu,
+ 						 struct snd_emu10k1_pcm *epcm,
+ 						 int channels)
+@@ -946,6 +992,7 @@ static int snd_emu10k1_efx_playback_trigger(struct snd_pcm_substream *substream,
+ 	struct snd_emu10k1 *emu = snd_pcm_substream_chip(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct snd_emu10k1_pcm *epcm = runtime->private_data;
++	bool das_mode = emu->das_mode;
+ 	u64 mask;
+ 	int result = 0;
+ 
+@@ -969,7 +1016,12 @@ static int snd_emu10k1_efx_playback_trigger(struct snd_pcm_substream *substream,
+ 			// they have been started, to potentially avoid torturing the speakers
+ 			// if something goes wrong. However, we cannot unmute atomically,
+ 			// which means that we'd get some mild artifacts in the regular case.
+-			snd_emu10k1_efx_playback_unmute_voices(emu, epcm, runtime->channels);
++			if (das_mode)
++				snd_emu10k1_efx_playback_unmute_das_voices(
++						emu, epcm, runtime->channels);
++			else
++				snd_emu10k1_efx_playback_unmute_voices(
++						emu, epcm, runtime->channels);
+ 
+ 			snd_emu10k1_playback_set_running(emu, epcm);
+ 			result = snd_emu10k1_voice_clear_loop_stop_multiple_atomic(emu, mask);
+@@ -1135,6 +1187,8 @@ static int snd_emu10k1_efx_playback_close(struct snd_pcm_substream *substream)
+ 	struct snd_emu10k1_pcm_mixer *mix;
+ 	int i;
+ 
++	if (emu->das_mode)
++		return 0;
+ 	for (i = 0; i < NUM_EFX_PLAYBACK; i++) {
+ 		mix = &emu->efx_pcm_mixer[i];
+ 		mix->epcm = NULL;
+@@ -1185,6 +1239,8 @@ static int snd_emu10k1_efx_playback_open(struct snd_pcm_substream *substream)
+ 		return err;
+ 	}
+ 
++	if (emu->das_mode)
++		return 0;
+ 	for (i = 0; i < NUM_EFX_PLAYBACK; i++) {
+ 		mix = &emu->efx_pcm_mixer[i];
+ 		for (j = 0; j < 8; j++)
+@@ -1869,12 +1925,41 @@ int snd_emu10k1_pcm_efx(struct snd_emu10k1 *emu, int device)
+ 			return err;
+ 	} else {
+ 		// On E-MU cards, the DSP code copies the P16VINs/EMU32INs to
+-		// FXBUS2. These are already selected & routed by the FPGA,
++		// EXTOUT/FXBUS2. These are already selected & routed by the FPGA,
+ 		// so there is no need to apply additional masking.
+ 	}
+ 
+ 	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV, &emu->pci->dev,
+ 				       64*1024, 64*1024);
+ 
+ 	return 0;
+ }
++
++int snd_emu10k1_pcm_das(struct snd_emu10k1 *emu, int device)
++{
++	struct snd_pcm *pcm;
++	struct snd_pcm_substream *substream;
++
++	int err = snd_pcm_new(emu->card, "emu10k1 efx", device, 1, 1, &pcm);
++	if (err < 0)
++		return err;
++
++	pcm->private_data = emu;
++
++	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &snd_emu10k1_efx_playback_ops);
++	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &snd_emu10k1_capture_efx_ops);
++
++	strcpy(pcm->name, "Multichannel Playback/Capture");
++	emu->pcm_das = pcm;
++
++	// Playback substream can't use managed buffers due to IOMMU workaround
++	substream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
++	snd_pcm_lib_preallocate_pages(substream, SNDRV_DMA_TYPE_DEV_SG,
++				      &emu->pci->dev, 64*1024, 64*1024);
++
++	substream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
++	snd_pcm_set_managed_buffer(substream, SNDRV_DMA_TYPE_DEV,
++				   &emu->pci->dev, 64*1024, 64*1024);
++
++	return 0;
++}
+diff --git a/sound/pci/emu10k1/emuproc.c b/sound/pci/emu10k1/emuproc.c
+index 7e2cc532471f..9415753b3559 100644
+--- a/sound/pci/emu10k1/emuproc.c
++++ b/sound/pci/emu10k1/emuproc.c
+@@ -85,6 +85,11 @@ static void snd_emu10k1_proc_read(struct snd_info_entry *entry,
+ 	snd_iprintf(buffer, "Internal TRAM (words) : 0x%x\n", emu->fx8010.itram_size);
+ 	snd_iprintf(buffer, "External TRAM (words) : 0x%x\n", (int)emu->fx8010.etram_pages.bytes / 2);
+ 
++	// The following are internal details in D.A.S. mode,
++	// so there is no use in displaying them to the user.
++	if (emu->das_mode)
++		return;
++
+ 	snd_iprintf(buffer, "\nEffect Send Routing & Amounts:\n");
+ 	for (idx = 0; idx < NUM_G; idx++) {
+ 		ptrx = snd_emu10k1_ptr_read(emu, PTRX, idx);
 -- 
 2.40.0.152.g15d061e6df
 

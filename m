@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38CF37440E4
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 19:09:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1837440E5
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 19:09:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C1911E0;
-	Fri, 30 Jun 2023 19:08:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C1911E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C594684C;
+	Fri, 30 Jun 2023 19:08:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C594684C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688144981;
-	bh=mCCqTczvbpDnqWTAvLPO/6kWxxjHeQDe26aZLtloYdE=;
+	s=default; t=1688144982;
+	bh=+TALhmyFtgKroMvNw2bI8fW8G+hi4j0JetMcBBInhwE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AKYzL+LfgexHRpG2XhLZyQFPLF4NBxrrY9VNJzq8Og7H+GuL1a7atiLjNDEZp2WqF
-	 53dPk/BQK5Jvj7FXLtVs23dS2zEsaGbrhYn+rIOssNahA9Co1KLtc57zlY9eaWcwqH
-	 2k9aB658l9DrnL+CPZ+76E1eckoWGbKbfOk3kuhU=
+	b=jaZObIiQaYPsZ1/0SUgrCAPnSc5Ued4y5mjbj8TbVkhBfKc0nxl9OiIGl1x3kqk35
+	 +MfaPX6+jGA2qdwTEHoAXDK/E0IhX58M4QmVlgwfAf11P+IABvfnl5Q+fuNpjRN/Li
+	 /mQWIP4+PtM45VndHKArGf+F2qgtrFB/jUx7+MbU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD12CF8027B; Fri, 30 Jun 2023 19:08:02 +0200 (CEST)
+	id 01758F80570; Fri, 30 Jun 2023 19:08:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 283C5F8027B;
-	Fri, 30 Jun 2023 19:08:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57712F8055C;
+	Fri, 30 Jun 2023 19:08:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9FCE2F80246; Fri, 30 Jun 2023 19:07:55 +0200 (CEST)
+	id BDE6AF80212; Fri, 30 Jun 2023 19:07:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,49 +36,50 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BF8F8F80169
-	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 19:07:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF8F8F80169
+	by alsa1.perex.cz (Postfix) with ESMTPS id 73E01F800E3
+	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 19:07:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73E01F800E3
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=UM4iaIMN
+ header.s=k20201202 header.b=nGu4/INP
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 715FA617C4;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 64E84617BA;
+	Fri, 30 Jun 2023 17:07:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8BFC433C0;
 	Fri, 30 Jun 2023 17:07:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19F0AC433C9;
-	Fri, 30 Jun 2023 17:07:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688144865;
-	bh=mCCqTczvbpDnqWTAvLPO/6kWxxjHeQDe26aZLtloYdE=;
+	s=k20201202; t=1688144868;
+	bh=+TALhmyFtgKroMvNw2bI8fW8G+hi4j0JetMcBBInhwE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=UM4iaIMNjeGFHSr6jpk65rhBWYTWOBGR9ga+vIaTLbDwgbBLIS7zZHW+6IUdDu2YE
-	 Hli3gQlcyH6RGMyGTETWeh7ViiIPrETDFBDcz93hKpwcXwtulf3S6/1FwCjpTl/L7o
-	 m8HWagxcqZzoL2XNxBkE7FggT0+MfFitq5vBAfTPEVg7/Y9MU43iU025uu/X4rTJZM
-	 n3ecGBMeSR/VLeWdlxbCF6xAtRuGgc/rCbWUUGav694pIwR9ZOj9I6jUZ3j/6Vs8tL
-	 NS+xyMr9/4McfRMoGF6q2OjWhlddMXgs83dyl01jAGiEZ8fQINJwsbG5PuhXFXmopM
-	 Iluq0yWQoX3cg==
+	b=nGu4/INPGHBWuGY8Gmtx8U3spkkOXTk0kN00eE53RwlJBFjxaH/RdyKbQ2TpvIxT5
+	 PonZiGSskwnkyqrtz39o6F51SjNXOE6FrugxU22LCit7JGEhrs9G3cTfLgAR1TWuK6
+	 m7HAHFFT5trWHlcrWNpUDGid2op781CvxfSlJ00FJFYUgDfgEg5CmO/xIvvAmFBzC/
+	 t5OojyugAvPcmPhCCqpeF1ZDPw+6IxDiY3geAFTuHYuYw4bTDu4QnVlP5ytGstJ4po
+	 RYSQLmH7Q1WerE8xqjgzxo3M/l0JJOvFyhzhTkKpgW+S+HD1czgcdrR2OyLpHJBm3c
+	 RmyRrZA0Tz8jw==
 From: Mark Brown <broonie@kernel.org>
-To: Johan Hovold <johan+linaro@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Steev Klimaszewski <steev@kali.org>
-In-Reply-To: <20230630120318.6571-1-johan+linaro@kernel.org>
-References: <20230630120318.6571-1-johan+linaro@kernel.org>
-Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix codec initialisation race
-Message-Id: <168814486382.50974.15112012461000088627.b4-ty@kernel.org>
-Date: Fri, 30 Jun 2023 18:07:43 +0100
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com,
+ lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ Stable@vger.kernel.org
+In-Reply-To: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
+References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
+Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
+ number
+Message-Id: <168814486610.50974.12621138895837915220.b4-ty@kernel.org>
+Date: Fri, 30 Jun 2023 18:07:46 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-c6835
-Message-ID-Hash: HTL5W3IAW6BDWRRYIQN2CLD2VF7EIWDQ
-X-Message-ID-Hash: HTL5W3IAW6BDWRRYIQN2CLD2VF7EIWDQ
+Message-ID-Hash: HOG7I4F5FJZ5VW7ND6PT7ZYVQJPKOWSZ
+X-Message-ID-Hash: HOG7I4F5FJZ5VW7ND6PT7ZYVQJPKOWSZ
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HTL5W3IAW6BDWRRYIQN2CLD2VF7EIWDQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HOG7I4F5FJZ5VW7ND6PT7ZYVQJPKOWSZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,14 +101,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 30 Jun 2023 14:03:18 +0200, Johan Hovold wrote:
-> Make sure to resume the codec and soundwire device before trying to read
-> the codec variant and configure the device during component probe.
+On Wed, 28 Jun 2023 10:24:04 +0100, Srinivas Kandagatla wrote:
+> For some reason we ended up with a setup without this flag.
+> This resulted in inconsistent sound card devices numbers which
+>  are also not starting as expected at dai_link->id.
+>  (Ex: MultiMedia1 pcm ended up with device number 4 instead of 0)
 > 
-> This specifically avoids interpreting (a masked and shifted) -EBUSY
-> errno as the variant:
-> 
-> 	wcd938x_codec audio-codec: ASoC: error at soc_component_read_no_lock on audio-codec for register: [0x000034b0] -16
+> With this patch patch now the MultiMedia1 PCM ends up with device number 0
+> as expected.
 > 
 > [...]
 
@@ -117,8 +118,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: codecs: wcd938x: fix codec initialisation race
-      commit: 85a61b1ce461a3f62f1019e5e6423c393c542bff
+[1/1] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device number
+      commit: ac192c1a54f9562efe6bac910e6e7aae7b5fbea3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

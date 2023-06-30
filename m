@@ -2,243 +2,360 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF8C97435BD
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 09:27:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A14577435BB
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 09:26:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C15637F4;
-	Fri, 30 Jun 2023 09:26:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C15637F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2EA90825;
+	Fri, 30 Jun 2023 09:25:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EA90825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688110037;
-	bh=n5D1kHeSGev5Sir5YQ6T1quCVNbSXV/X22oB8LNn21k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=n/Us9yOzLXbosxznny2B3KCDK4SPADJuZtfyPC58k9Uw0Hd7t0OAf01M3AYJR+cZa
-	 19Ys7hi+f/vAKXDKmiWK25ib0mJbTFRsC21IrHDmAoj8pKQ5PmD99xxDxR3qSan8iH
-	 2NJrV86DSd5iRbi+1iepDf5Rtujt0DShd3UKgFvc=
+	s=default; t=1688109993;
+	bh=Te13SjWbL3+GaSztn1LJa09skw/aMRAz8xMjAmG2epM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=vk+S5ekugWx0TFnuqEBvGBkiYXN/Bf4UiPhrGychz1mc41Bh+NaP2HN5h8/R7L3//
+	 HFkOB21rboF8GwsxJDWwfLw6PkmDmGI4989rHShlY4GOr/P5stLzNsnIvHA6dKaXmo
+	 ADp7cVUtF3ViFmcVud9Tuv21ZAIeMOLIrX69g0SA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0F40AF80551; Fri, 30 Jun 2023 09:26:02 +0200 (CEST)
+	id 90959F80534; Fri, 30 Jun 2023 09:25:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF654F8027B;
-	Fri, 30 Jun 2023 09:26:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46277F80212;
+	Fri, 30 Jun 2023 09:25:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C987F80431; Fri, 30 Jun 2023 09:25:59 +0200 (CEST)
+	id 848BBF80246; Fri, 30 Jun 2023 09:25:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,HTML_MESSAGE,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8d::606])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [IPv6:2607:f8b0:4864:20::634])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C4050F8027B
-	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 09:25:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4050F8027B
+	by alsa1.perex.cz (Postfix) with ESMTPS id 32198F80169
+	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 09:25:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32198F80169
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=KAaWJWJe
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DRYCo/Q3No1p3WdgapRHhr/sZCYPba2rbeCD2Hl4z4nETs0p2m/cpet7JwZhTYuUA93xeHik/yq/YlYGgrlLIX6pCaJuY/XRaG9uzW66A2PaJVCO7H7s4hZY4Ldt5/bWDZkVOMmhKc16vq/peBK6vdgTzXqBhjKuZ435BiDIgRmgomEJuJFBzJI/WzeT3QM6BkVwwqNxazox09Qm1MxZ2cOz2IKL4AeVFo8xfM3A7rR20XpffKTJkP8PkVA9O1U5lAaagcrJlSkRYquPUPcRL99PjCB9Dsrseq0pqAdBdivYv8v55a30Xyvq8+IoNFsRpEW+GeNWM4OBsg95ye2rhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pomNd/xYrATVSgA0bJ38bCWF58wK2/otI4SeESFEsj0=;
- b=OIQweUtBTgefjYzeSn1kpCz+Na729iT3gJvZPNP6CnDLEltNvnYo0yi+3XbhlEMcH5FQk9p378BWpuVKYocWWupiopi+XaC29wuMnBUOyPjx10P2sZx7xANNQiU+GwvS4gPPLuM5Hu7MqINRrpg1VK45qBTvcOv7+2jANMzSrc3/ly633fttIHgTF11lAa1ybx05kFv+gJ4Ev1ddGjLlHpDMhzaQmv/vnAfQuQTOuoN0bS/ICCMB0HwfA7S/7EeSJ9r5pF1peCVXNYWQFy4hNUsvQ0gla8IMqCnvJsqA71g3KrbcAg9jICljZrsH5CYuSmkbylq+8pqmKGsNfUkl7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pomNd/xYrATVSgA0bJ38bCWF58wK2/otI4SeESFEsj0=;
- b=KAaWJWJeDPPNfSPnCtHN8X1J9IaI+0lzXC4WEhGNqNkHfarHAnsM/6ZgzozeF36gJmX7aY+cHDTF1tL1q9CPCdwkVHWsxSNGYV7l438kMmmZWMW0TSqwDCrq3qHsTMtdeFQlrkf/rRQa2zRHKVGw0LF3+2MzBGdl/VChY7USjiI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com (2603:10b6:208:169::31)
- by BL3PR12MB6427.namprd12.prod.outlook.com (2603:10b6:208:3b6::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.19; Fri, 30 Jun
- 2023 07:25:47 +0000
-Received: from MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::20fa:956e:f43e:7817]) by MN2PR12MB3661.namprd12.prod.outlook.com
- ([fe80::20fa:956e:f43e:7817%3]) with mapi id 15.20.6521.026; Fri, 30 Jun 2023
- 07:25:47 +0000
-Message-ID: <81e58f55-4c3d-140a-b34b-af4dfa06a363@amd.com>
-Date: Fri, 30 Jun 2023 12:55:12 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2 05/10] ASoC: amd: acp: add pm ops support for acp pci
- driver
-To: Claudiu.Beznea@microchip.com, Syed.SabaKareem@amd.com,
- broonie@kernel.org, alsa-devel@alsa-project.org
-Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
- Sunil-kumar.Dommati@amd.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, yangyingliang@huawei.com, venkataprasad.potturu@amd.com,
- ye.xingchen@zte.com.cn, Vsujithkumar.Reddy@amd.com,
- linux-kernel@vger.kernel.org
-References: <20230626135515.1252063-1-Syed.SabaKareem@amd.com>
- <20230626135515.1252063-6-Syed.SabaKareem@amd.com>
- <d7f6c2e7-8c22-c33f-b354-30da6519c4d1@microchip.com>
-Content-Language: en-US
-From: syed saba kareem <ssabakar@amd.com>
-In-Reply-To: <d7f6c2e7-8c22-c33f-b354-30da6519c4d1@microchip.com>
-X-ClientProxiedBy: PN3PR01CA0080.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9a::22) To MN2PR12MB3661.namprd12.prod.outlook.com
- (2603:10b6:208:169::31)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=jZ42+LTC
+Received: by mail-pl1-x634.google.com with SMTP id
+ d9443c01a7336-1b8033987baso9566035ad.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 30 Jun 2023 00:25:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1688109922; x=1690701922;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GHvhgasTlpFZLx3eXiZkT+nb9bCiDBbPZ9hiZTdVXoA=;
+        b=jZ42+LTCSFjeNQkf715f9Mxi85wlSZCVMficbFiFqviUMx3Cw+PR52rl/yBD94MxYC
+         j6SnC21Dr9cyDveme+lD3mFKLMwlg1SnR2heiPJhxChvyP5PEcn8nQYid0gz/wau516i
+         +ng2DItis9iuC9pHcaMu4wiKwmkBAqzkLKRMXsoq7vUtmQbXEYvemS4/61rEhgasSD9C
+         ifTRuQ13tfCiMe9KYt/gqfhHqL7IEiMn/55rAsu4kGM2vYdookOPDm+JG2H2hNmmMwxU
+         4HuqOdZrjAOKiPev2z8XHyrNIZkFRMuPcseIBb/cTOwXxrLJxYiKHGFj6QZVGKSDR446
+         ENQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688109922; x=1690701922;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GHvhgasTlpFZLx3eXiZkT+nb9bCiDBbPZ9hiZTdVXoA=;
+        b=KKs4qNSkFCtJUctVdy/TQFC21h2X62jzfIFXCEba3zUtiLxvQ6OGVFut4cF/LwXm3t
+         q6SAbQN+0VFhAcxvBIyYiyhXjSSUkzivfpa+iqq5nxwSsK478YfYNf15wmekjMmEr6Nd
+         D7hze9s23M+TrP+0dnx3lrpXyGeuyJVq17OflOuLWeFxJ44ZpgMnjJqNPGuypetmQCN2
+         pcYh2vk6XAz706heRN6faFBaD9Ilcjtf8Fr8oYWdl46ZTs2SWbs2Lj0Uv7fS94Nl5N5I
+         5C+7pXK5QBZYYhv1LEF/AC755oyKVBB57WgRZ71MST4CZL30BulNXF00EUHdd4/7RY25
+         Y8CA==
+X-Gm-Message-State: ABy/qLYkYCxBQPRNnWe95FKd3P7ybK4OZzMunIXSL3bfj/F0E6/Dn7Tb
+	6+OjirNPWTYWhMSI43P0h8q40NjeW76BDw==
+X-Google-Smtp-Source: 
+ APBJJlEUsmE4AtSnFNn3Luwa1sfd1FzO9we1r+k0vK1VlMJi4kMp3N0F8/o87yBijBK7xwC1yXilpw==
+X-Received: by 2002:a17:902:c406:b0:1b6:783d:9ba7 with SMTP id
+ k6-20020a170902c40600b001b6783d9ba7mr2984906plk.27.1688109922221;
+        Fri, 30 Jun 2023 00:25:22 -0700 (PDT)
+Received: from a-VirtualBox.. ([116.233.75.15])
+        by smtp.gmail.com with ESMTPSA id
+ s7-20020a170902988700b001b850c9d7b3sm2267490plp.249.2023.06.30.00.25.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Jun 2023 00:25:21 -0700 (PDT)
+From: Zhu Ning <zhuning0077@gmail.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Cc: pierre-louis.bossart@linux.intel.com,
+	tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com,
+	Zhu Ning <zhuning0077@gmail.com>,
+	Zhu Ning <zhuning@everest-semi.com>
+Subject: [PATCH] ASoC: codecs: es8326: Fix power-up sequence
+Date: Fri, 30 Jun 2023 15:25:15 +0800
+Message-Id: <20230630072515.49382-1-zhuning0077@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3661:EE_|BL3PR12MB6427:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe5c602d-ac00-4393-172d-08db793b2c10
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	zDdyM9v3XefbptU6Bb3jrTV+3Jk/hcJgSYUNYSPREAqmJFPVPxpe1iScoLmQldeNSkcL75rqR/hS0tYv7TSUtxv+PJRSym82fdUx9xFz8+n831eUyrp8lWaYZO4adm64K9eNjz1kIblnNbx6wo+Jhf7l5NgH8/rieWG4h6atU+o336XegutcOdlYY7w0tD6JljYP+06WSQZDYy+GfPjjkDfGpxvp6hkcZceymkW2fMZ8FU4m3R91DPIhIhOzlHS+Hl4nJ5zicXiSG1Tmm50pEoHoB3zN+Kkh10wfa+eFwmFyUhc/cnXjfncnTMcW49pi+ZFCg9VuzKrXDlAWYP0NrwzIwAuIhfIuE2y1nlBGlIKaGpQBhnEfqEBXfR8jAh9UgyY4Nh7sVVmuAwULyDBxQxtGZh31pPhPDOCn1CWo29WXMxZYKEBkqB4Rojvz+p5ATgxT52yVfrXRRo36sYauJkOQgBU9lFWsXyMRfSYXAMDmYnstzy0S7wosIEh11Opbj6nLJPHi1vMwNvzVScVr4h97Nk1b0IjuQNnUyAj2QWub4hmLxnpFeYGqK/4bxA5Yj+rEs9D17lWWioY35A/eh6D7XIITxdgxcLxd9XFK+zfSj2DmtJkhSXh3NH6idZwHFO5Qh5zH96qBUe13fbELZg==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB3661.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(366004)(136003)(39860400002)(346002)(451199021)(31686004)(8936002)(8676002)(5660300002)(31696002)(26005)(6506007)(53546011)(6486002)(33964004)(478600001)(66946007)(66556008)(66476007)(4326008)(6512007)(41300700001)(316002)(6666004)(186003)(2616005)(2906002)(83380400001)(36756003)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?NEFkbDYxZ1pGVzQ1YjNuR211aWpSeGdncC9IZ3F5eEV4bXNyMGRkT3BYd3Nk?=
- =?utf-8?B?THBQazIyL3RIaEo2TzZYaXVDMytKYmlWbW55VGsxYjhCVVNZMnRTTVBQOUxB?=
- =?utf-8?B?SXVsaU1zeUxUQm5KbHoxbUc1RytHYjNTSENQYTJTbTJmdE9vRHp5RzJ1b1JV?=
- =?utf-8?B?QVRwaGFpWkg5T2N0SGJrSGlkNzVwMVVZZGdvKzljb29WY0JJZ3Z2NVBZWlh6?=
- =?utf-8?B?aHM2aVQ3VWFjbnlZNGxqZm5Yb2NkRzVIUUFWQ1VGZU9sT0dqUVNud0NXVXdj?=
- =?utf-8?B?QmZjRVJUeWZLZjBSMm9EbFgyZ2JjM3A5anRWNlp3dEh2ZGJmci9uVlNqODdt?=
- =?utf-8?B?UnRHdU5Od3pwVTRFK29uUHppcVdySUJGR0VCNGxDVzc5bkNsS0dCN1l6bVp3?=
- =?utf-8?B?RUdDSWYxUVpvVURtVXRjQ1RrS1YrVVR6ckM1UDRwaGpMWjBVWTZmRHR6MlpP?=
- =?utf-8?B?TUtyTnp0ZVZIZkJqNWFlVkxqektXT2R1Z1NGV1M2amwyM1VtaVBxY1cyL2I4?=
- =?utf-8?B?OUxiOC9LVWQ5dzFuSXBDY3dhc0dLUFlzR2wwYVh6RUE3Rm5uK3FIMThQRjFC?=
- =?utf-8?B?TUNjdXBZQ015Z0JxejJMc1lpT2lGVGdoeDMzSlE3b0FtMlRFYkZ4Skx4bnhl?=
- =?utf-8?B?ZHhBSWovN01JdmNKdWV2MStILzBOb1U1a2lDRUNqcENaZlZHUjMrNHB6SkdM?=
- =?utf-8?B?MDBTckhCTWRWQy9uMSt4VU5rRmQ0b2MzcXE5dmdrejBuaEVLdUVPV1V2Z2tJ?=
- =?utf-8?B?blZ1Q3VGWWpnSUQzMS9zS201aXV3ak1UVnp3YzZqVUVxOC9Lb3BLWncwSWJR?=
- =?utf-8?B?VWp6dVBnRjNPZkp4djZkenNkSjNDOWlkdzlOMTdoQ0Y4KzBucmlzK1FyalFL?=
- =?utf-8?B?cXpaQXI0dUxVV0J4d3hwQ0tSR0hvd1pPeHhSQ1ExUG5QM21vM29OM3d6RVhI?=
- =?utf-8?B?U0Nsd2VMNDBIa1FYUlVsTG5ZYllieEhXdDM2eXBWS1VIaTRZR0h6ZnZmZ0pL?=
- =?utf-8?B?eW1adm52TGdXUjRBNnVuam5QdytCUDdzaFArNGs3V1pXZFF2T2l4Q3FRVkND?=
- =?utf-8?B?c1lVbUFHODUvNCtQRW5CTitUL1JVcjlxcENJb0wrT2pVMFlldDYzNDRyeVp4?=
- =?utf-8?B?VXNVVEZ2a0lvS0lIUUMyWHFaa3ZqNjVLTlp4TmVyN2dPSVNxTUJwQ1hFSXJW?=
- =?utf-8?B?OGxhR1dwMzlxcENQbFRDK01rOEdMcS9FVVdldXVKUjRRaVVDVFBlTFJFeVl1?=
- =?utf-8?B?QnB2czBzRWt6SFp5NFJIa2pJd2VkSnh6YXEzL0VLeTBDL1RoNDdDM3g4cEhh?=
- =?utf-8?B?dE1RaTFwa0p6ZnNoTVBjSDVrcDJWNURKWUkwN3o3T1VPZmFFTmt6WitNOXdl?=
- =?utf-8?B?czF3Y2dLaXYxZXhabWRjYkw4ekJVa0FlYkN5S3NuVWdEZ0lvNWV5UUJRTnZE?=
- =?utf-8?B?Zm9vbm5HQ1V0T1BUQVZJS0VzK2M5bFcramNubno1RHpwT09UalhObk1zbXl6?=
- =?utf-8?B?VXJzcUFLb3dwSlRFaVBUYU93TGpkaVpLVEJQcUtReWJvV1FES3RnVUxXS2t0?=
- =?utf-8?B?QnNXNithajlNRlY4aGZiVmRFM3k3SXFldzJSS21OdE9iMzZNN01OWW91eVZP?=
- =?utf-8?B?eWZBR0M4QXk1b3M0My9KejFGNzVRQkxHcEV1eENEb1FhNWtHeUtHV1JZVlpw?=
- =?utf-8?B?VW5KVVRrdDJGRlAweDBsMnVGamRMZ0NrMFgvR3N4ZjJralF4Njl0Y2lNVWpv?=
- =?utf-8?B?MFhobUpsbEJrS2JuNGNBSUUwU0hCRXlTZU0ySVcvVTNnblI2SjlpL0VQRS92?=
- =?utf-8?B?VXByeGM4V1gwSkxkazVGUUV4SlROdkxDN20ycStJbk9tWitzUnIyaHNSc3ho?=
- =?utf-8?B?c2pSS0ZZbWxpVTJuQkFwMXUyeWFGaTBiKzlTdjF5MHJjMXpaQ01FaHNvOVdK?=
- =?utf-8?B?amV3QWdnVitoa2cvdGJLR1R2ZVRQejd1L21oTngyMWpROTdIUUJVeEtwUUhv?=
- =?utf-8?B?NFJhWkttaXNuZG1kSG5tMWRORHpMR1dDQjd2WGtqd2FCQlNnQytnMkRtVEIv?=
- =?utf-8?B?Tldjamo5YTUwbDlERHlnakJuNHV0eDdiL0NlOGJaWVJIUWxGdzhSVUdaci91?=
- =?utf-8?Q?w37bjj/hy/hehKbunYabxgpKC?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- fe5c602d-ac00-4393-172d-08db793b2c10
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3661.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2023 07:25:25.5777
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- d2HmnSRgjlcnVNleTBaofGwDAjlcUXP5yTwcJilVD5mmAWg2hniG4aHHr4pcEYo9IYk3QIEHVixKZ3Yi8efeJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6427
-Message-ID-Hash: Y4MBL54MECBP53ZUZUQ2ACRMYG3ZB4XE
-X-Message-ID-Hash: Y4MBL54MECBP53ZUZUQ2ACRMYG3ZB4XE
-X-MailFrom: Syed.SabaKareem@amd.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: T6JLBM3A6IGDBRLXS6VJYVGMIDM5HPNH
+X-Message-ID-Hash: T6JLBM3A6IGDBRLXS6VJYVGMIDM5HPNH
+X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y4MBL54MECBP53ZUZUQ2ACRMYG3ZB4XE/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/T6JLBM3A6IGDBRLXS6VJYVGMIDM5HPNH/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQpPbiA2LzI3LzIzIDEwOjIyLCBDbGF1ZGl1LkJlem5lYUBtaWNyb2NoaXAuY29tIHdyb3RlOg0K
-PiBPbiAyNi4wNi4yMDIzIDE2OjU1LCBTeWVkIFNhYmEgS2FyZWVtIHdyb3RlOg0KPj4gRVhURVJO
-QUwgRU1BSUw6IERvIG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5
-b3Uga25vdyB0aGUgY29udGVudCBpcyBzYWZlDQo+Pg0KPj4gQWRkIHBtIG9wcyBzdXBwb3J0IGZv
-ciBjb21tb24gYWNwIHBjaSBkcml2ZXIuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogU3llZCBTYWJh
-IEthcmVlbTxTeWVkLlNhYmFLYXJlZW1AYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICBzb3VuZC9zb2Mv
-YW1kL2FjcC9hY3AtcGNpLmMgfCA0NiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA0NiBpbnNlcnRpb25zKCspDQo+Pg0KPj4gZGlmZiAt
-LWdpdCBhL3NvdW5kL3NvYy9hbWQvYWNwL2FjcC1wY2kuYyBiL3NvdW5kL3NvYy9hbWQvYWNwL2Fj
-cC1wY2kuYw0KPj4gaW5kZXggNGZlZGFkMWI3NDBlLi5hMzJjMTRhMTA5YjcgMTAwNjQ0DQo+PiAt
-LS0gYS9zb3VuZC9zb2MvYW1kL2FjcC9hY3AtcGNpLmMNCj4+ICsrKyBiL3NvdW5kL3NvYy9hbWQv
-YWNwL2FjcC1wY2kuYw0KPj4gQEAgLTE2LDYgKzE2LDcgQEANCj4+ICAgI2luY2x1ZGUgPGxpbnV4
-L3BjaS5oPg0KPj4gICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+DQo+PiAgICNp
-bmNsdWRlIDxsaW51eC9tb2R1bGUuaD4NCj4+ICsjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5o
-Pg0KPj4NCj4+ICAgI2luY2x1ZGUgImFtZC5oIg0KPj4gICAjaW5jbHVkZSAiLi4vbWFjaC1jb25m
-aWcuaCINCj4+IEBAIC0xNDEsNiArMTQyLDExIEBAIHN0YXRpYyBpbnQgYWNwX3BjaV9wcm9iZShz
-dHJ1Y3QgcGNpX2RldiAqcGNpLCBjb25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZCAqcGNpX2lkDQo+
-PiAgICAgICAgICAgICAgICAgIGdvdG8gdW5yZWdpc3Rlcl9kbWljX2RldjsNCj4+ICAgICAgICAg
-IH0NCj4+ICAgICAgICAgIGNoaXAtPmNoaXBfcGRldiA9IHBkZXY7DQo+PiArICAgICAgIGRldl9z
-ZXRfZHJ2ZGF0YSgmcGNpLT5kZXYsIGNoaXApOw0KPj4gKyAgICAgICBwbV9ydW50aW1lX3NldF9h
-dXRvc3VzcGVuZF9kZWxheSgmcGNpLT5kZXYsIDIwMDApOw0KPj4gKyAgICAgICBwbV9ydW50aW1l
-X3VzZV9hdXRvc3VzcGVuZCgmcGNpLT5kZXYpOw0KPj4gKyAgICAgICBwbV9ydW50aW1lX3B1dF9u
-b2lkbGUoJnBjaS0+ZGV2KTsNCj4+ICsgICAgICAgcG1fcnVudGltZV9hbGxvdygmcGNpLT5kZXYp
-Ow0KPj4gICAgICAgICAgcmV0dXJuIHJldDsNCj4+DQo+PiAgIHVucmVnaXN0ZXJfZG1pY19kZXY6
-DQo+PiBAQCAtMTUzLDEyICsxNTksNDkgQEAgc3RhdGljIGludCBhY3BfcGNpX3Byb2JlKHN0cnVj
-dCBwY2lfZGV2ICpwY2ksIGNvbnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkICpwY2lfaWQNCj4+ICAg
-ICAgICAgIHJldHVybiByZXQ7DQo+PiAgIH07DQo+Pg0KPj4gK3N0YXRpYyBpbnQgX19tYXliZV91
-bnVzZWQgc25kX2FjcF9zdXNwZW5kKHN0cnVjdCBkZXZpY2UgKmRldikNCj4gWW91IGNhbiBnZXQg
-cmlkIG9mIF9fbWF5YmVfdW51c2VkIGhlcmUgaWYgKHNlZSBiZWxvdykNCj4NCj4+ICt7DQo+PiAr
-ICAgICAgIHN0cnVjdCBhY3BfY2hpcF9pbmZvICpjaGlwOw0KPj4gKyAgICAgICBpbnQgcmV0Ow0K
-Pj4gKw0KPj4gKyAgICAgICBjaGlwID0gZGV2X2dldF9kcnZkYXRhKGRldik7DQo+PiArICAgICAg
-IHJldCA9IGFjcF9kZWluaXQoY2hpcC0+YmFzZSk7DQo+PiArICAgICAgIGlmIChyZXQpDQo+PiAr
-ICAgICAgICAgICAgICAgZGV2X2VycihkZXYsICJBQ1AgZGUtaW5pdCBmYWlsZWRcbiIpOw0KPj4g
-KyAgICAgICByZXR1cm4gcmV0Ow0KPj4gK30NCj4+ICsNCj4+ICtzdGF0aWMgaW50IF9fbWF5YmVf
-dW51c2VkIHNuZF9hY3BfcmVzdW1lKHN0cnVjdCBkZXZpY2UgKmRldikNCj4gKHNhbWUgaGVyZSkN
-Cj4NCj4+ICt7DQo+PiArICAgICAgIHN0cnVjdCBhY3BfY2hpcF9pbmZvICpjaGlwOw0KPj4gKyAg
-ICAgICBzdHJ1Y3QgYWNwX2Rldl9kYXRhICphZGF0YTsNCj4+ICsgICAgICAgc3RydWN0IGRldmlj
-ZSBjaGlsZDsNCj4+ICsgICAgICAgaW50IHJldDsNCj4+ICsNCj4+ICsgICAgICAgY2hpcCA9IGRl
-dl9nZXRfZHJ2ZGF0YShkZXYpOw0KPj4gKyAgICAgICByZXQgPSBhY3BfaW5pdChjaGlwKTsNCj4+
-ICsgICAgICAgaWYgKHJldCkNCj4+ICsgICAgICAgICAgICAgICBkZXZfZXJyKGRldiwgIkFDUCBp
-bml0IGZhaWxlZFxuIik7DQo+PiArICAgICAgIGNoaWxkID0gY2hpcC0+Y2hpcF9wZGV2LT5kZXY7
-DQo+PiArICAgICAgIGFkYXRhID0gZGV2X2dldF9kcnZkYXRhKCZjaGlsZCk7DQo+PiArICAgICAg
-IGlmIChhZGF0YSkNCj4+ICsgICAgICAgICAgICAgICBhY3BfZW5hYmxlX2ludGVycnVwdHMoYWRh
-dGEpOw0KPj4gKyAgICAgICByZXR1cm4gcmV0Ow0KPj4gK30NCj4+ICsNCj4+ICtzdGF0aWMgY29u
-c3Qgc3RydWN0IGRldl9wbV9vcHMgYWNwX3BtX29wcyA9IHsNCj4+ICsgICAgICAgU0VUX1JVTlRJ
-TUVfUE1fT1BTKHNuZF9hY3Bfc3VzcGVuZCwgc25kX2FjcF9yZXN1bWUsIE5VTEwpDQo+IHlvdSB1
-c2UgUlVOVElNRV9QTV9PUFMoKQ0KPg0KPj4gKyAgICAgICBTRVRfU1lTVEVNX1NMRUVQX1BNX09Q
-UyhzbmRfYWNwX3N1c3BlbmQsIHNuZF9hY3BfcmVzdW1lKQ0KPiBhbmQgU1lTVEVNX1NMRUVQX1BN
-X09QUygpDQo+DQo+PiArfTsNCj4+ICsNCj4+ICAgc3RhdGljIHZvaWQgYWNwX3BjaV9yZW1vdmUo
-c3RydWN0IHBjaV9kZXYgKnBjaSkNCj4+ICAgew0KPj4gICAgICAgICAgc3RydWN0IGFjcF9jaGlw
-X2luZm8gKmNoaXA7DQo+PiAgICAgICAgICBpbnQgcmV0Ow0KPj4NCj4+ICAgICAgICAgIGNoaXAg
-PSBwY2lfZ2V0X2RydmRhdGEocGNpKTsNCj4+ICsgICAgICAgcG1fcnVudGltZV9mb3JiaWQoJnBj
-aS0+ZGV2KTsNCj4+ICsgICAgICAgcG1fcnVudGltZV9nZXRfbm9yZXN1bWUoJnBjaS0+ZGV2KTsN
-Cj4+ICAgICAgICAgIGlmIChkbWljX2RldikNCj4+ICAgICAgICAgICAgICAgICAgcGxhdGZvcm1f
-ZGV2aWNlX3VucmVnaXN0ZXIoZG1pY19kZXYpOw0KPj4gICAgICAgICAgaWYgKHBkZXYpDQo+PiBA
-QCAtMTgxLDYgKzIyNCw5IEBAIHN0YXRpYyBzdHJ1Y3QgcGNpX2RyaXZlciBzbmRfYW1kX2FjcF9w
-Y2lfZHJpdmVyID0gew0KPj4gICAgICAgICAgLmlkX3RhYmxlID0gYWNwX3BjaV9pZHMsDQo+PiAg
-ICAgICAgICAucHJvYmUgPSBhY3BfcGNpX3Byb2JlLA0KPj4gICAgICAgICAgLnJlbW92ZSA9IGFj
-cF9wY2lfcmVtb3ZlLA0KPj4gKyAgICAgICAuZHJpdmVyID0gew0KPj4gKyAgICAgICAgICAgICAg
-IC5wbSA9ICZhY3BfcG1fb3BzLA0KPiBZb3UgY2FuIHVzZSBwbV9wdHIoKS9wbV9zbGVlcF9wdHIo
-KQ0KPg0KPj4gKyAgICAgICB9LA0KPj4gICB9Ow0KPj4gICBtb2R1bGVfcGNpX2RyaXZlcihzbmRf
-YW1kX2FjcF9wY2lfZHJpdmVyKTsNCj4+DQo+PiAtLQ0KPj4gMi4yNS4xDQo+Pg0KPiBDb3VsZCB5
-b3UgcGxlYXNlIGhlbHAgbWUgdG8gcG9pbnQgb3V0IGlzIHRoZXJlIGFueSBpc3N1ZSB3aXRoIHRo
-ZSANCj4gY3VycmVudCBpbXBsZW1lbnRhdGlvbi4=
+Old power-up sequence causes large pop noise during start-up.
+Using a new sequence instead.
+
+Signed-off-by: Zhu Ning <zhuning@everest-semi.com>
+---
+ sound/soc/codecs/es8326.c | 112 +++++++++++++++++++++++++-------------
+ sound/soc/codecs/es8326.h |  14 +++--
+ 2 files changed, 83 insertions(+), 43 deletions(-)
+
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+index 9190a8779334..0b702bdf033a 100644
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -159,7 +159,7 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+ };
+ 
+ static const struct regmap_range es8326_volatile_ranges[] = {
+-	regmap_reg_range(ES8326_HP_DETECT, ES8326_HP_DETECT),
++	regmap_reg_range(ES8326_CTIA_OMTP_STA, ES8326_CSM_MUTE_STA),
+ };
+ 
+ static const struct regmap_access_table es8326_volatile_table = {
+@@ -415,15 +415,17 @@ static int es8326_set_bias_level(struct snd_soc_component *codec,
+ 		ret = clk_prepare_enable(es8326->mclk);
+ 		if (ret)
+ 			return ret;
+-		regmap_write(es8326->regmap, ES8326_RESET, ES8326_PWRUP_SEQ_EN);
+-		regmap_write(es8326->regmap, ES8326_INTOUT_IO, 0x45);
++
++		regmap_write(es8326->regmap, ES8326_RESET, 0x9f);
++		msleep(20);
++		regmap_update_bits(es8326->regmap, ES8326_DAC_DSM, 0x01, 0x00);
++		regmap_write(es8326->regmap, ES8326_INTOUT_IO, es8326->interrupt_clk);
+ 		regmap_write(es8326->regmap, ES8326_SDINOUT1_IO,
+ 			    (ES8326_IO_DMIC_CLK << ES8326_SDINOUT1_SHIFT));
+-		regmap_write(es8326->regmap, ES8326_SDINOUT23_IO, ES8326_IO_INPUT);
+-		regmap_write(es8326->regmap, ES8326_CLK_RESAMPLE, 0x05);
+-		regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x02);
++		regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x0E);
+ 		regmap_write(es8326->regmap, ES8326_PGA_PDN, 0x40);
+-		regmap_write(es8326->regmap, ES8326_DAC2HPMIX, 0xAA);
++		regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x00);
++		regmap_update_bits(es8326->regmap,  ES8326_CLK_CTL, 0x20, 0x20);
+ 		regmap_write(es8326->regmap, ES8326_RESET, ES8326_CSM_ON);
+ 		break;
+ 	case SND_SOC_BIAS_PREPARE:
+@@ -432,18 +434,15 @@ static int es8326_set_bias_level(struct snd_soc_component *codec,
+ 		break;
+ 	case SND_SOC_BIAS_OFF:
+ 		clk_disable_unprepare(es8326->mclk);
+-		regmap_write(es8326->regmap, ES8326_DAC2HPMIX, 0x11);
+ 		regmap_write(es8326->regmap, ES8326_RESET, ES8326_CSM_OFF);
+-		regmap_write(es8326->regmap, ES8326_PGA_PDN, 0xF8);
++		regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x3b);
+ 		regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x00);
+-		regmap_write(es8326->regmap, ES8326_INT_SOURCE, 0x08);
++		regmap_update_bits(es8326->regmap, ES8326_CLK_CTL, 0x20, 0x00);
+ 		regmap_write(es8326->regmap, ES8326_SDINOUT1_IO, ES8326_IO_INPUT);
+-		regmap_write(es8326->regmap, ES8326_SDINOUT23_IO, ES8326_IO_INPUT);
+ 		regmap_write(es8326->regmap, ES8326_RESET,
+ 			     ES8326_CODEC_RESET | ES8326_PWRUP_SEQ_EN);
+ 		break;
+ 	}
+-
+ 	return 0;
+ }
+ 
+@@ -519,7 +518,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
+ 		return;
+ 
+ 	mutex_lock(&es8326->lock);
+-	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
++	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	switch (iface) {
+ 	case 0x93:
+ 		/* pause button detected */
+@@ -578,7 +577,7 @@ static void es8326_jack_detect_handler(struct work_struct *work)
+ 	unsigned int iface;
+ 
+ 	mutex_lock(&es8326->lock);
+-	iface = snd_soc_component_read(comp, ES8326_HP_DETECT);
++	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
+ 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
+ 	if ((iface & ES8326_HPINSERT_FLAG) == 0) {
+ 		/* Jack unplugged or spurious IRQ */
+@@ -638,36 +637,73 @@ static int es8326_resume(struct snd_soc_component *component)
+ 	regcache_cache_only(es8326->regmap, false);
+ 	regcache_sync(es8326->regmap);
+ 
++	/* reset register value to default */
++	regmap_write(es8326->regmap, ES8326_CSM_I2C_STA, 0x01);
++	usleep_range(1000, 3000);
++	regmap_write(es8326->regmap, ES8326_CSM_I2C_STA, 0x00);
++	/* reset internal state */
++	regmap_write(es8326->regmap, ES8326_RESET, 0x1f);
++	regmap_write(es8326->regmap, ES8326_VMIDSEL, 0x0E);
++	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0x88);
++	/* set headphone default type and detect pin */
++	regmap_write(es8326->regmap, ES8326_HPDET_TYPE, 0x81 |
++		     ES8326_HP_DET_SRC_PIN9);
++	regmap_write(es8326->regmap, ES8326_CLK_RESAMPLE, 0x05);
++
++	/* set internal oscillator as clock source of headpone cp */
++	regmap_write(es8326->regmap, ES8326_CLK_DIV_CPC, 0x84);
+ 	regmap_write(es8326->regmap, ES8326_CLK_CTL, ES8326_CLK_ON);
+-	/* Two channel ADC */
++	/* clock manager reset release */
++	regmap_write(es8326->regmap, ES8326_RESET, 0x17);
++	/* set headphone detection as half scan mode */
++	regmap_write(es8326->regmap, ES8326_HP_MISC, 0x08);
+ 	regmap_write(es8326->regmap, ES8326_PULLUP_CTL, 0x02);
++
++	/* enable headphone driver */
++	regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa7);
++	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xa3);
++	regmap_write(es8326->regmap, ES8326_HP_DRIVER_REF, 0xb3);
++	regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa1);
++
+ 	regmap_write(es8326->regmap, ES8326_CLK_INV, 0x00);
+-	regmap_write(es8326->regmap, ES8326_CLK_DIV_CPC, 0x1F);
+-	regmap_write(es8326->regmap, ES8326_CLK_VMIDS1, 0xC8);
+-	regmap_write(es8326->regmap, ES8326_CLK_VMIDS2, 0x88);
+-	regmap_write(es8326->regmap, ES8326_CLK_CAL_TIME, 0x20);
++	regmap_write(es8326->regmap, ES8326_CLK_VMIDS1, 0xc4);
++	regmap_write(es8326->regmap, ES8326_CLK_VMIDS2, 0x81);
++	regmap_write(es8326->regmap, ES8326_CLK_CAL_TIME, 0x00);
++
++	/* turn off headphone out */
++	regmap_write(es8326->regmap, ES8326_HP_CAL, 0x00);
++	/* set ADC and DAC in low power mode */
++	regmap_write(es8326->regmap, ES8326_ANA_LP, 0xf0);
++
++	/* force micbias on */
++	regmap_write(es8326->regmap, ES8326_ANA_MICBIAS, 0x4f);
+ 	regmap_write(es8326->regmap, ES8326_SYS_BIAS, 0x08);
+-	regmap_write(es8326->regmap, ES8326_DAC2HPMIX, 0x22);
+-	regmap_write(es8326->regmap, ES8326_ADC1_SRC, es8326->mic1_src);
+-	regmap_write(es8326->regmap, ES8326_ADC2_SRC, es8326->mic2_src);
+-	regmap_write(es8326->regmap, ES8326_HPJACK_TIMER, 0x88);
+-	regmap_write(es8326->regmap, ES8326_HP_DET,
+-		     ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol);
+-	regmap_write(es8326->regmap, ES8326_INT_SOURCE, es8326->interrupt_src);
+-	regmap_write(es8326->regmap, ES8326_INTOUT_IO, es8326->interrupt_clk);
++	regmap_write(es8326->regmap, ES8326_ANA_VSEL, 0x7F);
++	/* select vdda as micbias source */
++	regmap_write(es8326->regmap, ES8326_VMIDLOW, 0x23);
++	/* set dac dsmclip = 1 */
++	regmap_write(es8326->regmap, ES8326_DAC_DSM, 0x08);
++	regmap_write(es8326->regmap, ES8326_DAC_VPPSCALE, 0x15);
++
++	regmap_write(es8326->regmap, ES8326_INT_SOURCE, 0x0c);
++	regmap_write(es8326->regmap, ES8326_INTOUT_IO,
++		     es8326->interrupt_clk);
++	regmap_write(es8326->regmap, ES8326_SDINOUT1_IO,
++		    (ES8326_IO_DMIC_CLK << ES8326_SDINOUT1_SHIFT));
++	regmap_write(es8326->regmap, ES8326_SDINOUT23_IO, ES8326_IO_INPUT);
++
++	regmap_write(es8326->regmap, ES8326_ANA_PDN, 0x3b);
+ 	regmap_write(es8326->regmap, ES8326_RESET, ES8326_CSM_ON);
+-	snd_soc_component_update_bits(component, ES8326_PGAGAIN,
+-				      ES8326_MIC_SEL_MASK, ES8326_MIC1_SEL);
++	regmap_update_bits(es8326->regmap, ES8326_PGAGAIN, ES8326_MIC_SEL_MASK,
++			   ES8326_MIC1_SEL);
+ 
+-	regmap_read(es8326->regmap, ES8326_CHIP_VERSION, &reg);
+-	if ((reg & ES8326_VERSION_B) == 1) {
+-		regmap_write(es8326->regmap, ES8326_ANA_MICBIAS, 0xDD);
+-		regmap_write(es8326->regmap, ES8326_ANA_VSEL, 0x7F);
+-		regmap_write(es8326->regmap, ES8326_VMIDLOW, 0x0F);
+-		/* enable button detect */
+-		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xA0);
+-	}
++	regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE, ES8326_MUTE_MASK,
++			   ES8326_MUTE);
+ 
++	regmap_write(es8326->regmap, ES8326_HPDET_TYPE, 0x80 |
++		     ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol);
++	regmap_read(es8326->regmap, ES8326_CHIP_VERSION, &reg);
++	es8326->version = reg;
+ 	es8326_irq(es8326->irq, es8326);
+ 	return 0;
+ }
+@@ -743,7 +779,7 @@ static void es8326_enable_jack_detect(struct snd_soc_component *component,
+ 
+ 	mutex_lock(&es8326->lock);
+ 	if (es8326->jd_inverted)
+-		snd_soc_component_update_bits(component, ES8326_HP_DET,
++		snd_soc_component_update_bits(component, ES8326_HPDET_TYPE,
+ 					      ES8326_HP_DET_JACK_POL, ~es8326->jack_pol);
+ 	es8326->jack = jack;
+ 
+diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
+index 1eb9d0095378..9093222ae04d 100644
+--- a/sound/soc/codecs/es8326.h
++++ b/sound/soc/codecs/es8326.h
+@@ -9,8 +9,6 @@
+ #ifndef _ES8326_H
+ #define _ES8326_H
+ 
+-#define CONFIG_HHTECH_MINIPMP	1
+-
+ /* ES8326 register space */
+ #define ES8326_RESET		0x00
+ #define ES8326_CLK_CTL		0x01
+@@ -75,15 +73,19 @@
+ #define ES8326_DRC_RECOVERY	0x53
+ #define ES8326_DRC_WINSIZE	0x54
+ #define ES8326_HPJACK_TIMER	0x56
+-#define ES8326_HP_DET		0x57
++#define ES8326_HPDET_TYPE	0x57
+ #define ES8326_INT_SOURCE	0x58
+ #define ES8326_INTOUT_IO	0x59
+ #define ES8326_SDINOUT1_IO	0x5A
+ #define ES8326_SDINOUT23_IO	0x5B
+ #define ES8326_JACK_PULSE	0x5C
+ 
++#define ES8326_HP_MISC		0xF7
++#define ES8326_CTIA_OMTP_STA	0xF8
+ #define ES8326_PULLUP_CTL	0xF9
+-#define ES8326_HP_DETECT	0xFB
++#define ES8326_CSM_I2C_STA	0xFA
++#define ES8326_HPDET_STA	0xFB
++#define ES8326_CSM_MUTE_STA	0xFC
+ #define ES8326_CHIP_ID1		0xFD
+ #define ES8326_CHIP_ID2		0xFE
+ #define ES8326_CHIP_VERSION	0xFF
+@@ -179,6 +181,8 @@
+ #define ES8326_HPBUTTON_FLAG (1 << 0)
+ 
+ /* ES8326_CHIP_VERSION 0xFF */
+-#define ES8326_VERSION_B (1 << 0)
++#define ES8326_VERSION (1 << 0)
++#define ES8326_VERSION_B (3 << 0)
+ 
+ #endif
++
+-- 
+2.34.1
+

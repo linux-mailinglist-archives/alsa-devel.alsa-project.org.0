@@ -2,116 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE495743756
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 10:35:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EBB4743757
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Jun 2023 10:35:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A29683B;
-	Fri, 30 Jun 2023 10:34:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A29683B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B32D84A;
+	Fri, 30 Jun 2023 10:34:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B32D84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688114119;
-	bh=aaFYiPC92sCXHu9RrbrQeazvpJulxA+dXFELPl5yJgI=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=mgeB3W0ec/nD8qwnNZ6MMya42I7YOcSvVjPQD2LBAcB4l0mLcViX0/KMl0oAwAaoR
-	 o68naqu0SBTatLifSAiBr1Kl4/wDtdmewKvLcqER9GNG6KWD8uImABmydcP+70geyM
-	 f2JUKyIS31wZFK+0FmQfZjKEnft1fZ/2nbNE0hKk=
+	s=default; t=1688114121;
+	bh=XGNfAYSZOCtahPicxoKEB+uWG71sQCJtqIk+i/6n7fA=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=RwsxGLb5htoRWi+Yc5rMQ3g4Q6UFFq1TjTAKgQPUXHUzRjHoLyHdF4S8rmS8n48ta
+	 uv3iT+yKTIRzTS4whn1SX/uwDOCdLwG4UyqGTDzY8a2juj+4Rrns/QX6iL0kwrkeLW
+	 sQHpb5bkh7SBvdt+VmllasIvrANysgQAm7eyITAE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3503FF80549; Fri, 30 Jun 2023 10:33:39 +0200 (CEST)
+	id 8E4D6F80571; Fri, 30 Jun 2023 10:33:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29BFEF80431;
-	Fri, 30 Jun 2023 10:33:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2690DF8055C;
+	Fri, 30 Jun 2023 10:33:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37585F80246; Thu, 29 Jun 2023 14:36:13 +0200 (CEST)
+	id 0C337F80246; Fri, 30 Jun 2023 03:42:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No,
+ score=-5.1 required=5.0 tests=NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from fd01.gateway.ufhost.com (fd01.gateway.ufhost.com
+ [61.152.239.71])
+	(using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CC8ADF80169
-	for <alsa-devel@alsa-project.org>; Thu, 29 Jun 2023 14:36:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC8ADF80169
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=a/n7a52b
-Received: by mail-pj1-x102d.google.com with SMTP id
- 98e67ed59e1d1-262e04a6f66so319545a91.0
-        for <alsa-devel@alsa-project.org>;
- Thu, 29 Jun 2023 05:36:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688042166; x=1690634166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ewkyga5jWrBIrRzjRNQ0kt+SnJFF9Xml4dXQcN2EQhs=;
-        b=a/n7a52bRuhn9upZsTqFpiSSaog/awsdPngQx0nRwLqb939pQwSEsDJRilUUJKCAVT
-         2xHWQaB2i6CuNCU3S5BR3p8oyW9Fqshw+2mINi+ONwP/goFY48iWt6Dlq6o66k5GmU/b
-         OPt9z8Z7mGKLqKJHm+ZwUitOohXovc1AiXY+KJBcIP9HQKT8VD3oeuN2MmMecFbKFwzT
-         Dn6stxqJ3x3tMe8CtiCcwgTZaJg8SI71zTOFKfzy/Ptp7qnRAv5lRf1t8RNIh3IpB4cK
-         vSbh+dWr08SrIkKZ7rcT6Kl6A/EKMMUzvhhDZU0kkmd+W7dl4fNSN4mNx0i7RMA7xZYp
-         6u0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688042166; x=1690634166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ewkyga5jWrBIrRzjRNQ0kt+SnJFF9Xml4dXQcN2EQhs=;
-        b=JUjbFO1X5uHxt9v6u8Ayivg4HRDetSIFdD/gJj/r6BBfrdPRzVu9SacnOjVN0h6wQl
-         prVs8+uZJ0YauC5uOyA+z1TpbWOIIudCzczNHilAfOYKDLxh/Pui2uQhCKUztyyCw27O
-         sVCzjiujWVHb4EiTsyAkTkD6nKOVHvvpGim0jQde001ZRGBdPp+ILvYwjhjzcC90GeiY
-         xV5z3qrAKZQQZLk/pg1Oad+Vt2P13/7GyMTudsVXgyyNyAy/bRmpIeGM08TldPWhsw0M
-         9+aBCwH5DOe7DDVe8O51TgFD6Iw8HoZ4S51qFzcxCNHMPWWuoTgbbYHi/Xd1ByMRq5Sm
-         PHYA==
-X-Gm-Message-State: ABy/qLa3WxoAc7cusHKc7+gJXI/VIj2fpY+vSu4OPJqwuidWQVl0Sab5
-	vlR0SBnzpUf+g+C2wMC+nvg=
-X-Google-Smtp-Source: 
- APBJJlGBLnd7gjJdm87WA4wCa8zgoc8Ra7eNct8HOvxnpQ+i5cMra8J6Yw56T+FsknWe7Oak1nSamw==
-X-Received: by 2002:a17:902:c94f:b0:1b8:5541:9d32 with SMTP id
- i15-20020a170902c94f00b001b855419d32mr1374018pla.68.1688042165758;
-        Thu, 29 Jun 2023 05:36:05 -0700 (PDT)
-Received: from localhost.localdomain ([107.148.241.191])
-        by smtp.gmail.com with ESMTPSA id
- k12-20020a170902760c00b001b246dcffb7sm9026181pll.300.2023.06.29.05.36.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jun 2023 05:36:05 -0700 (PDT)
-From: Huang Rui <vowstar@gmail.com>
-To: tiwai@suse.com,
-	perex@perex.cz
-Cc: alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	vitalyr@opensource.cirrus.com,
-	Huang Rui <vowstar@gmail.com>
-Subject: [PATCHv2] ALSA: hda/realtek: fix mute/micmute LEDs for HP EliteBook
- G10
-Date: Thu, 29 Jun 2023 20:35:57 +0800
-Message-ID: <20230629123557.3627401-1-vowstar@gmail.com>
-X-Mailer: git-send-email 2.41.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3444F80169
+	for <alsa-devel@alsa-project.org>; Fri, 30 Jun 2023 03:42:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3444F80169
+Received: from EXMBX166.cuchost.com (unknown [175.102.18.54])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(Client CN "EXMBX166", Issuer "EXMBX166" (not verified))
+	by fd01.gateway.ufhost.com (Postfix) with ESMTP id 419057FD3;
+	Fri, 30 Jun 2023 09:42:32 +0800 (CST)
+Received: from EXMBX172.cuchost.com (172.16.6.92) by EXMBX166.cuchost.com
+ (172.16.6.76) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Fri, 30 Jun
+ 2023 09:42:32 +0800
+Received: from [192.168.125.93] (183.27.97.206) by EXMBX172.cuchost.com
+ (172.16.6.92) with Microsoft SMTP Server (TLS) id 15.0.1497.42; Fri, 30 Jun
+ 2023 09:42:31 +0800
+Message-ID: <ebb6c688-1a96-5167-2e50-ee18ebd0a5d7@starfivetech.com>
+Date: Fri, 30 Jun 2023 09:42:30 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MailFrom: vowstar@gmail.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Subject: Re: [PATCH v1 1/5] ASoC: dt-bindings: Add StarFive JH7110 dummy
+ PWM-DAC transmitter
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Mark Brown
+	<broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor@kernel.org>, "Walker
+ Chen" <walker.chen@starfivetech.com>, Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>
+CC: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20230626110909.38718-1-hal.feng@starfivetech.com>
+ <20230626110909.38718-2-hal.feng@starfivetech.com>
+ <92171465-d2ba-c3ba-aa55-0f705e924a0f@linaro.org>
+Content-Language: en-US
+From: Hal Feng <hal.feng@starfivetech.com>
+In-Reply-To: <92171465-d2ba-c3ba-aa55-0f705e924a0f@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [183.27.97.206]
+X-ClientProxiedBy: EXCAS064.cuchost.com (172.16.6.24) To EXMBX172.cuchost.com
+ (172.16.6.92)
+X-YovoleRuleAgent: yovoleflag
+X-MailFrom: hal.feng@starfivetech.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: XNAMBQYC2KMSMP2SDMSF4AQO2YBJYEUB
-X-Message-ID-Hash: XNAMBQYC2KMSMP2SDMSF4AQO2YBJYEUB
-X-Mailman-Approved-At: Fri, 30 Jun 2023 08:33:32 +0000
+Message-ID-Hash: FJQGYJLIFV3ANSTT4PCDXDA2WR2VTNDE
+X-Message-ID-Hash: FJQGYJLIFV3ANSTT4PCDXDA2WR2VTNDE
+X-Mailman-Approved-At: Fri, 30 Jun 2023 08:33:34 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
-Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XNAMBQYC2KMSMP2SDMSF4AQO2YBJYEUB/>
+Archived-At: <>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,32 +101,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-In the commit 3e10f6ca76c4 ("ALSA: hda/realtek: Add quirk for
-HP EliteBook G10 laptops"), speakers are fixed but mute/micmute
-LEDs does not lit. Need the ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED
-to get all mute/micmute LEDs working.
+On Mon, 26 Jun 2023 17:32:04 +0200, Krzysztof Kozlowski wrote:
+> On 26/06/2023 13:09, Hal Feng wrote:
+>> Add bindings for StarFive JH7110 dummy PWM-DAC transmitter.
+>> 
+>> Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
+>> ---
+>>  .../sound/starfive,jh7110-pwmdac-dit.yaml     | 38 +++++++++++++++++++
+>>  1 file changed, 38 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml
+>> 
+>> diff --git a/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml b/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml
+>> new file mode 100644
+>> index 000000000000..bc43e3b1e9d2
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/starfive,jh7110-pwmdac-dit.yaml
+>> @@ -0,0 +1,38 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/starfive,jh7110-pwmdac-dit.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: StarFive JH7110 Dummy PWM-DAC Transmitter
+>> +
+>> +maintainers:
+>> +  - Hal Feng <hal.feng@starfivetech.com>
+>> +
+>> +allOf:
+>> +  - $ref: dai-common.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: starfive,jh7110-pwmdac-dit
+>> +
+>> +  "#sound-dai-cells":
+>> +    const: 0
+>> +
+>> +  sound-name-prefix: true
+> 
+> Drop
 
-Signed-off-by: Huang Rui <vowstar@gmail.com>
-Fixes: 3e10f6ca76c4 ("ALSA: hda/realtek: Add quirk for HP EliteBook G10 laptops")
----
-V1 -> V2: Add fixes to link a previously committed issue
----
- sound/pci/hda/patch_realtek.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Will fix it.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index dabfdecece26..425c87733e79 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -9491,7 +9491,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8b65, "HP ProBook 455 15.6 inch G10 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
- 	SND_PCI_QUIRK(0x103c, 0x8b66, "HP", ALC236_FIXUP_HP_MUTE_LED_MICMUTE_VREF),
- 	SND_PCI_QUIRK(0x103c, 0x8b70, "HP EliteBook 835 G10", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x103c, 0x8b72, "HP EliteBook 845 G10", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x103c, 0x8b72, "HP EliteBook 845 G10", ALC287_FIXUP_CS35L41_I2C_2_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x8b74, "HP EliteBook 845W G10", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8b77, "HP ElieBook 865 G10", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8b7a, "HP", ALC236_FIXUP_HP_GPIO_LED),
--- 
-2.41.0
+> 
+>> +
+>> +required:
+>> +  - compatible
+>> +  - "#sound-dai-cells"
+>> +
+>> +additionalProperties: false
+> 
+> Instead: unevaluatedProperties: false
 
+Will fix. Thanks.
+
+>> +
+>> +examples:
+>> +  - |
+>> +    pwmdac-dit {
+> 
+> pwmdac?
+
+No. For a similar implementation, you can refer to "spdif-dit" in
+
+arch/arm64/boot/dts/rockchip/rk3328-rock64.dts
+
+Best regards,
+Hal

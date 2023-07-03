@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E51A745BDA
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 14:08:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8DA8745BE3
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 14:10:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 573B120C;
-	Mon,  3 Jul 2023 14:07:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 573B120C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37CEC1DA;
+	Mon,  3 Jul 2023 14:09:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37CEC1DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688386095;
-	bh=5s084Wm3myEdvBasrFfOD1EPvksZbpy3BnPoV3MzglE=;
+	s=default; t=1688386243;
+	bh=rNRDNpT87kppRo3Q5hLKe/BStTCdV+W7rYKurEZkMks=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=GXEtxgBUl8FwpB0S2hTYdh+7O/ypf6+6wEj9pTJdQwBAiPKRh/KBRzGYR4YJiPqxz
-	 zeSdwE97DcVtjv2LWxyY/s7wZkU7Py7+XnmzlSJLNfOm/QQyi3xeH/4gsz3KKS6IvZ
-	 NM7pyKzPiSVh4TuncHduxSdVIWH9v6QAXOQ6fC3w=
+	b=lhbC1CZKd8LnyedZq44vGlHaCS5bS3EDhktFI//qyXygWHeY9iI42481ymp3J3mZu
+	 rIiYXpsO8xM4ATih26xRxodkg+zG/iJJnVVRbsyinbv+BgK4eXXultgUPMDvC9e1Vo
+	 uAl0OkMBk4tWGPdHquuiompNocQnV7cOp8wtbRG8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE744F80535; Mon,  3 Jul 2023 14:07:24 +0200 (CEST)
+	id 09B8BF80104; Mon,  3 Jul 2023 14:09:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55F51F80124;
-	Mon,  3 Jul 2023 14:07:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D44F5F80124;
+	Mon,  3 Jul 2023 14:09:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EF5C5F80125; Mon,  3 Jul 2023 14:07:20 +0200 (CEST)
+	id 546B3F80125; Mon,  3 Jul 2023 14:09:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,88 +38,66 @@ Received: from smtp-out2.suse.de (smtp-out2.suse.de
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2DA27F80093
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 14:07:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DA27F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0ABACF80093
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 14:09:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ABACF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=MSnaBW3t;
+ header.s=susede2_rsa header.b=E0mv6LLj;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=TZv7uZB7
+ header.s=susede2_ed25519 header.b=ndQO+tQ1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 95C3C1FDE6;
-	Mon,  3 Jul 2023 12:07:11 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6E3001FDEC;
+	Mon,  3 Jul 2023 12:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1688386031;
+	t=1688386183;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Xjo1FzDRtH38qpOa18b49WUf8o6xwwrYzgUyVPfI1Ug=;
-	b=MSnaBW3tWbGFZz0kcWdaRRAiONNZgHvwQojeS7yZpiQGkqQMfUnzxPT5byVWm+RlHlGYNG
-	27LJ6jwAnZdCubsGtE+nv2QAgfOFyOjTouOKkc3jLboxCMi7lJ8aiv54w0vwuQZnwbDdk5
-	IGosnrq/0XU+lucTojpkNCDMmEhlUDg=
+	bh=PAWoZjxccPeUmWU/qek1/dRPUyGDfQ3JrNgo7KpIeHM=;
+	b=E0mv6LLjaZPLyN03wQhHgm7PomKtdJRjd9VrBYpSgNpCaJRekqHfP/LKIeTwlFLN+LXNtp
+	BuBH+Q2Trn+gTPuP1UckDaJVlIOO2UwvTybUA0jhigdyeN5cZF0VKhNG/Jhz3U62E+/NE8
+	lbVtKp3ABETgY/9nFbf+4Q/9wv5+fMc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1688386031;
+	s=susede2_ed25519; t=1688386183;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Xjo1FzDRtH38qpOa18b49WUf8o6xwwrYzgUyVPfI1Ug=;
-	b=TZv7uZB7blqPoGJ1mqJ4gqnOKCajEF/BrJ41pDEkVx0xgIHod0Q3IaQZlHnu2OVPxP+N/2
-	uglZjjj8g9VBXOAg==
+	bh=PAWoZjxccPeUmWU/qek1/dRPUyGDfQ3JrNgo7KpIeHM=;
+	b=ndQO+tQ1ytBRJZyRngwTUAJUUgF6KT3Xy3suYBkUSfLt9qDdkn1CDYwbk6W11AjL6X/R8C
+	TD3F+xF616/FXrCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0AAB513276;
-	Mon,  3 Jul 2023 12:07:11 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40B4813276;
+	Mon,  3 Jul 2023 12:09:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 0ml3Ae+5omT4agAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 03 Jul 2023 12:07:11 +0000
-Date: Mon, 03 Jul 2023 14:07:10 +0200
-Message-ID: <87h6ql5hch.wl-tiwai@suse.de>
+	id 65UUDoe6omS2bAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 03 Jul 2023 12:09:43 +0000
+Date: Mon, 03 Jul 2023 14:09:42 +0200
+Message-ID: <87fs655h89.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@iki.fi>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	tfiga@chromium.org,
-	m.szyprowski@samsung.com,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiubo.Lee@gmail.com,
-	festevam@gmail.com,
-	nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	alsa-devel@alsa-project.org,
-	linuxppc-dev@lists.ozlabs.org,
-	hverkuil@xs4all.nl,
-	Jacopo Mondi <jacopo@jmondi.org>
-Subject: Re: [PATCH 1/6] media: v4l2: Add audio capture and output support
+To: "Symbolic Debugger" <happy.debugging@gmail.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
 In-Reply-To: 
- <CAA+D8AND1yZ7eZLjBGxVF=i3hLMecUm-j7AVHN9npJi-4=3VrA@mail.gmail.com>
-References: <1688002673-28493-1-git-send-email-shengjiu.wang@nxp.com>
-	<1688002673-28493-2-git-send-email-shengjiu.wang@nxp.com>
-	<ZJ6o5fT4V4HXivFa@valkosipuli.retiisi.eu>
-	<CAA+D8AND1yZ7eZLjBGxVF=i3hLMecUm-j7AVHN9npJi-4=3VrA@mail.gmail.com>
+ <168838351418.22.11061517331604041582@mailman-web.alsa-project.org>
+References: <87ttul5mbh.wl-tiwai@suse.de>
+	<168838351418.22.11061517331604041582@mailman-web.alsa-project.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: MDVDNKDI2ACJGHHK6NVM646EWD3ARTQ4
-X-Message-ID-Hash: MDVDNKDI2ACJGHHK6NVM646EWD3ARTQ4
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: ZBJ4VVGV5EMWX5Y72TJI5LZUVHVBNQUA
+X-Message-ID-Hash: ZBJ4VVGV5EMWX5Y72TJI5LZUVHVBNQUA
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -132,7 +110,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MDVDNKDI2ACJGHHK6NVM646EWD3ARTQ4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZBJ4VVGV5EMWX5Y72TJI5LZUVHVBNQUA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,44 +119,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 03 Jul 2023 11:54:22 +0200,
-Shengjiu Wang wrote:
+On Mon, 03 Jul 2023 13:25:14 +0200,
+Symbolic Debugger wrote:
 > 
-> 
-> Hi Sakari
-> 
-> On Fri, Jun 30, 2023 at 6:05 PM Sakari Ailus <sakari.ailus@iki.fi> wrote:
-> 
->     Hi Shengjiu,
->    
->     On Thu, Jun 29, 2023 at 09:37:48AM +0800, Shengjiu Wang wrote:
->     > Audio signal processing has the requirement for memory to
->     > memory similar as Video.
->     >
->     > This patch is to add this support in v4l2 framework, defined
->     > new buffer type V4L2_BUF_TYPE_AUDIO_CAPTURE and
->     > V4L2_BUF_TYPE_AUDIO_OUTPUT, defined new format v4l2_audio_format
->     > for audio case usage.
->    
->     Why are you proposing to add this to V4L2 framework instead of doing this
->     within ALSA?
->    
->     Also cc Hans and Jacopo.
-> 
-> There is no such memory to memory interface defined in ALSA.  Seems
-> ALSA is not designed for M2M cases.
+> That's what I thought and checked, but did not see newfile, but now I do, Perhaps I checked a wrong repo. I pulled the latest repo, compiled (gitcompile) but it did not generate .so but it reports lot of .lo files. I wish not to overwrite the current libasound.so., so should it be :  make install with  --libdir=<my directory> to generate the .so files ?
 
-There is no restriction to implement memory-to-memory capture in ALSA
-framework.  It'd be a matter of the setup of PCM capture source, and
-you can create a corresponding kcontrol element to switch the mode or
-assign a dedicated PCM substream, for example.  It's just that there
-was little demand for that.
+You can try to install it to a temporary directory specified via
+DESTDIR variable as a test.  Also, the libasound.so.2.0.0 can be found
+under src/.libs directory after the build.  You can simply copy that,
+too.
 
-I'm not much against adding the audio capture feature to V4L2,
-though, if it really makes sense.  But creating a crafted /dev/audio*
-doesn't look like a great idea to me, at least.
+But, for general build issues, better to ask your distro.  Someone
+might have already a package built from the git repo, too.
 
-
-thanks,
 
 Takashi

@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2C57457F8
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 11:05:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97B45745802
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 11:05:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0720950;
-	Mon,  3 Jul 2023 11:04:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0720950
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF0A984B;
+	Mon,  3 Jul 2023 11:04:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF0A984B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688375112;
-	bh=6EWeA34hqfDY6NC4/yY9MbkSORowBHxx4VBsn+dkj+c=;
+	s=default; t=1688375135;
+	bh=8fcauMGDBQrFeGvvDm9/FaPbq24GvAplpSRaZHah2Ng=;
 	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=AbKBjWA1ONL96bTvXSfp6VH8kxGqBXmMIKATqauZeO6sCCTY76oZfU+5S5CcTb3Qs
-	 bSoUK5huf3WZsyt992YI2ZCA1H+fL3Tu60nBmj2RYSzGl/B4GN0tRVhQNkb2glQK9Y
-	 fE0gRj4y8HUa2DPforFRvEer9Ak0sesD3XwpE64k=
+	b=At9Leu60Gyp0M3r1Qny+B0ygNBjveL5NG71inX74+zOKkw+lQ+CEzzsJwpCGjYqHy
+	 SZali/5XXwcgYFpbrI0Ud9h/zw8/96/qeGmTaoYx6iuvHWGbsHOobkywJyLLWkUKP8
+	 daGbmVQT0fMCdChyNbaSK+N/R4y2KFQRmUdsikdY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BF3DF8057E; Mon,  3 Jul 2023 11:03:48 +0200 (CEST)
+	id B1DAAF80272; Mon,  3 Jul 2023 11:03:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9C0CF80571;
-	Mon,  3 Jul 2023 11:03:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77759F80544;
+	Mon,  3 Jul 2023 11:03:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9F94DF80579; Mon,  3 Jul 2023 11:03:43 +0200 (CEST)
+	id 611F6F805A0; Mon,  3 Jul 2023 11:03:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABAF6F80093
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 11:03:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABAF6F80093
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DD69F80580
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 11:03:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DD69F80580
 Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 36393XfyC011986,
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 36393h7Z2012037,
  This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
-	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 36393XfyC011986
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 36393h7Z2012037
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
-	Mon, 3 Jul 2023 17:03:33 +0800
+	Mon, 3 Jul 2023 17:03:43 +0800
 Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.17; Mon, 3 Jul 2023 17:03:36 +0800
+ 15.1.2375.32; Mon, 3 Jul 2023 17:03:46 +0800
 Received: from localhost.localdomain (172.22.102.1) by
  RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Mon, 3 Jul 2023 17:03:35 +0800
+ 15.1.2375.7; Mon, 3 Jul 2023 17:03:45 +0800
 From: <shumingf@realtek.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>
 CC: <alsa-devel@alsa-project.org>, <lars@metafoo.de>, <flove@realtek.com>,
         <oder_chiou@realtek.com>, <jack.yu@realtek.com>,
         <derek.fang@realtek.com>, <Vijendar.Mukunda@amd.com>,
         Shuming Fan <shumingf@realtek.com>
-Subject: [PATCH 3/5] ASoC: rt711-sdca: fix for JD event handling in ClockStop
+Subject: [PATCH 4/5] ASoC: rt712-sdca: fix for JD event handling in ClockStop
  Mode0
-Date: Mon, 3 Jul 2023 17:03:31 +0800
-Message-ID: <20230703090331.25310-1-shumingf@realtek.com>
+Date: Mon, 3 Jul 2023 17:03:41 +0800
+Message-ID: <20230703090341.25327-1-shumingf@realtek.com>
 X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -70,8 +70,12 @@ X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
 X-KSE-AntiSpam-Interceptor-Info: fallback
 X-KSE-Antivirus-Interceptor-Info: fallback
 X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: 4CVSBCHODORPVSOQ5KBL4UFISMR6BV6H
-X-Message-ID-Hash: 4CVSBCHODORPVSOQ5KBL4UFISMR6BV6H
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: YCO4UBHICPCDTU2ELZ6R6WLHPNF6IMEX
+X-Message-ID-Hash: YCO4UBHICPCDTU2ELZ6R6WLHPNF6IMEX
 X-MailFrom: shumingf@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -84,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4CVSBCHODORPVSOQ5KBL4UFISMR6BV6H/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YCO4UBHICPCDTU2ELZ6R6WLHPNF6IMEX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,31 +106,31 @@ Enable SDCA interrupts in resume sequence when ClockStop Mode0 is applied.
 
 Signed-off-by: Shuming Fan <shumingf@realtek.com>
 ---
- sound/soc/codecs/rt711-sdca-sdw.c | 10 +++++++++-
+ sound/soc/codecs/rt712-sdca-sdw.c | 10 +++++++++-
  1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt711-sdca-sdw.c b/sound/soc/codecs/rt711-sdca-sdw.c
-index 119e1f9605d7..23f23f714b39 100644
---- a/sound/soc/codecs/rt711-sdca-sdw.c
-+++ b/sound/soc/codecs/rt711-sdca-sdw.c
-@@ -438,8 +438,16 @@ static int __maybe_unused rt711_sdca_dev_resume(struct device *dev)
- 	if (!rt711->first_hw_init)
+diff --git a/sound/soc/codecs/rt712-sdca-sdw.c b/sound/soc/codecs/rt712-sdca-sdw.c
+index ad06267b0ea0..6bc50396a0f6 100644
+--- a/sound/soc/codecs/rt712-sdca-sdw.c
++++ b/sound/soc/codecs/rt712-sdca-sdw.c
+@@ -438,8 +438,16 @@ static int __maybe_unused rt712_sdca_dev_resume(struct device *dev)
+ 	if (!rt712->first_hw_init)
  		return 0;
  
 -	if (!slave->unattach_request)
 +	if (!slave->unattach_request) {
-+		if (rt711->disable_irq == true) {
-+			mutex_lock(&rt711->disable_irq_lock);
++		if (rt712->disable_irq == true) {
++			mutex_lock(&rt712->disable_irq_lock);
 +			sdw_write_no_pm(slave, SDW_SCP_SDCA_INTMASK1, SDW_SCP_SDCA_INTMASK_SDCA_0);
 +			sdw_write_no_pm(slave, SDW_SCP_SDCA_INTMASK2, SDW_SCP_SDCA_INTMASK_SDCA_8);
-+			rt711->disable_irq = false;
-+			mutex_unlock(&rt711->disable_irq_lock);
++			rt712->disable_irq = false;
++			mutex_unlock(&rt712->disable_irq_lock);
 +		}
  		goto regmap_sync;
 +	}
  
  	time = wait_for_completion_timeout(&slave->initialization_complete,
- 				msecs_to_jiffies(RT711_PROBE_TIMEOUT));
+ 				msecs_to_jiffies(RT712_PROBE_TIMEOUT));
 -- 
 2.40.1
 

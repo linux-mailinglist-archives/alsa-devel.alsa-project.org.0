@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4833745562
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 08:20:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1777745662
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 09:49:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A97F844;
-	Mon,  3 Jul 2023 08:19:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A97F844
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF5B81DD;
+	Mon,  3 Jul 2023 09:48:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF5B81DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688365200;
-	bh=b02O7hMAe/0cdSzPP3WCdlJ3T6kG6Hi5gr453ff6ODI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1688370571;
+	bh=RNMHeuYF/T054Bixv9qGLbviyZ5intw9e4cOmr/ZaUM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=KtXbLuauxHZ3vt7S+hi9uZGn7eo0cROvXeUW5z556rlA1l21aOpey0ul7Pi7/130R
-	 GDqRJKg3CkkHCSScbcdNwyt2oZjRrMyCG0VIWVApizNjsh7RFD5twaeTk/gQA+Cwp+
-	 QW594mmYYFrksOvNdakOIeBEYlVVzbV8wLGI0NGs=
+	b=CvV+P0vr4mbfENGlqjceVFeHfHqx2or7OffUUavTvZOl7/OB669HEu+LCak6x/G6V
+	 t0OoAPshuEeeJgijwF8cLnRX3CwQoonjvfQXmMDrpME5ydvuHpIYrH/0MfTYM0WEiM
+	 ib0pZ0GENAyinEJBkcqaok/5lzSpKo3ixc9dXGEM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 39C70F80558; Mon,  3 Jul 2023 08:19:05 +0200 (CEST)
+	id 378F1F80100; Mon,  3 Jul 2023 09:48:41 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1EB9F80548;
-	Mon,  3 Jul 2023 08:19:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7EBBF80093;
+	Mon,  3 Jul 2023 09:48:40 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5F8D1F80153; Mon,  3 Jul 2023 08:18:42 +0200 (CEST)
+	id 7E243F80125; Mon,  3 Jul 2023 09:48:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=unavailable
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7EF97F80104
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 08:18:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EF97F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3CD60F80093
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 09:48:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CD60F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=AaWAZ0Mz
+ header.s=k20201202 header.b=sT0zp/0c
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6EECC60DB7;
-	Mon,  3 Jul 2023 06:18:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36CFFC433C8;
-	Mon,  3 Jul 2023 06:18:19 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C64E460DDE;
+	Mon,  3 Jul 2023 07:48:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2891AC433C9;
+	Mon,  3 Jul 2023 07:48:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688365104;
-	bh=b02O7hMAe/0cdSzPP3WCdlJ3T6kG6Hi5gr453ff6ODI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=AaWAZ0MzR5WlM8LsDfCGcJYsVnapu6kw3CisOBlzAeBV65fsgiHj4cTCvUVhiPIXg
-	 OWZalDz2U4a5HKVY1ries+snvEPAN5HyGHqmrzszj1Tsai1ox2Wns/gdYr+nnOXCkN
-	 hSoOzk1I0NMqkaFaP9CvULBEZ+pw4Cnt1hmw6Yctc6sxyRegJ0XgDy3Q/2nvH7qLUe
-	 lXK15gu9WWAliwPVRDZWqp8FG1w7v7J73PeQpU1dmRKdTp1gtpuqigtK6c2oa6xSyg
-	 GHkI4K0Bsl8GHo4vYtDDdrF+8+xgRj04wNrn+uNUySINBhEzFIfI2OtIm3OrbcFGHZ
-	 cJBJvLinemqQQ==
-Date: Mon, 3 Jul 2023 08:18:16 +0200
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>, Uwe =?UTF-8?B?S2xlaW5lLUs=?=
- =?UTF-8?B?w7ZuaWc=?=         <u.kleine-koenig@pengutronix.de>, Mark Brown
- <broonie@kernel.org>, David Lin <CTLIN0@nuvoton.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Antti Palosaari <crope@iki.fi>, Sergey Kozlov
- <serjk@netup.ru>, Abylay Ospan <aospan@netup.ru>, Yasunari Takiguchi
- <Yasunari.Takiguchi@sony.com>, Michael Krufky <mkrufky@linuxtv.org>,
- Matthias Schwarzott <zzam@gentoo.org>, Akihiro Tsukada <tskd08@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v1 0/4] ASoC: remove copy of intlog10()
-Message-ID: <20230703081816.37028ab7@sal.lan>
-In-Reply-To: <20230619172019.21457-1-andriy.shevchenko@linux.intel.com>
-References: <20230619172019.21457-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-redhat-linux-gnu)
+	s=k20201202; t=1688370500;
+	bh=RNMHeuYF/T054Bixv9qGLbviyZ5intw9e4cOmr/ZaUM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sT0zp/0cY+MBAHRS4qTxPT/Rk6jXkyvtsclI8ywOR29Ym6ZfEAbf9YtSn3hfavLwK
+	 jCDgpaAMM715SEEGFCHVagvrP2fmSYUiEz0FEmvS5dAfDMPs1gaBHxIw9gG2B9UVEc
+	 3bZzXfy348jOwhMY7lihk3v6v7qi+ptq/j+aruDT0fmVmEwKoIvqI1A2r58HkGZq7k
+	 vuOvIPrVl+EDIpn/Kc+/DN5ycigmNiQDRl60mrCHypIwfPJ4ngRO9dap89YH1zsFDY
+	 cuh27CGcUikP+NHbH+Z7Qb7FoMexlN53g+1JbGGDZj/SvYLjdxvHp9Lps/GWaz9TT8
+	 Vguv1FJajJL9Q==
+Received: from johan by xi.lan with local (Exim 4.96)
+	(envelope-from <johan@kernel.org>)
+	id 1qGEIU-0007iB-0x;
+	Mon, 03 Jul 2023 09:48:34 +0200
+Date: Mon, 3 Jul 2023 09:48:34 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Mark Brown <broonie@kernel.org>
+Cc: johan+linaro@kernel.org, perex@perex.cz, tiwai@suse.com,
+	lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
+	kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+	Stable@vger.kernel.org
+Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
+ number
+Message-ID: <ZKJ9UrB8FRkLzLc-@hovoldconsulting.com>
+References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: UET3L5YCM7QQZ7ZCFBXL7RL2R4VE4X6A
-X-Message-ID-Hash: UET3L5YCM7QQZ7ZCFBXL7RL2R4VE4X6A
-X-MailFrom: mchehab@kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
+Message-ID-Hash: TSJUUPWSBHPTYOMD2YMD76D6WFZJWKUR
+X-Message-ID-Hash: TSJUUPWSBHPTYOMD2YMD76D6WFZJWKUR
+X-MailFrom: johan@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -97,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UET3L5YCM7QQZ7ZCFBXL7RL2R4VE4X6A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TSJUUPWSBHPTYOMD2YMD76D6WFZJWKUR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,69 +106,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Em Mon, 19 Jun 2023 20:20:15 +0300
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> escreveu:
-
-> The first three patches moves intlog10() to be available in entire
-> kernel. The last one removes copy of it in one driver. Besides already
-> good Lines of Code (LoC) statistics the upcoming users, if any, can
-> utilize the exported functions.
+On Wed, Jun 28, 2023 at 10:24:04AM +0100, Srinivas Kandagatla wrote:
+> For some reason we ended up with a setup without this flag.
+> This resulted in inconsistent sound card devices numbers which
+>  are also not starting as expected at dai_link->id.
+>  (Ex: MultiMedia1 pcm ended up with device number 4 instead of 0)
 > 
-> The series can be routed either via ASoC tree or media tree.
-> 
-> Note, int_log.h is separated from math.h due to licensing.
-> I dunno if we can mix two in a single header file. In any
-> case we may do it later on.
-> 
-> Andy Shevchenko (4):
->   lib/math: Move dvb_math.c into lib/math/int_log.c
->   lib/math/int_log: Use ARRAY_SIZE(logtable) where makes sense
->   lib/math/int_log: Replace LGPL-2.1-or-later boilerplate with SPDX
->     identifier
->   ASoC: nau8825: Replace copied'n'pasted intlog10()
+> With this patch patch now the MultiMedia1 PCM ends up with device number 0
+> as expected.
 
-It probably makes sense to apply it at ASoC tree, as the relevant
-change is there.
+This appears to fix the intermittent probe breakage that I see every
+five boots or so:
 
-I have just one small nit on patch 1/4, which should be trivial to
-solve. Once done, feel free to merge it with  my ack:
+[   11.843320] q6apm-dai 3000000.remoteproc:glink-edge:gpr:service@1:dais: Adding to iommu group 23
+[   11.867467] snd-sc8280xp sound: ASoC: adding FE link failed
+[   11.867574] snd-sc8280xp sound: ASoC: topology: could not load header: -517
+[   11.867725] qcom-apm gprsvc:service:2:1: tplg component load failed-517
+[   11.867933] qcom-apm gprsvc:service:2:1: ASoC: error at snd_soc_component_probe on gprsvc:service:2:1: -22
+[   11.868379] snd-sc8280xp sound: ASoC: failed to instantiate card -22
+[   11.873645] snd-sc8280xp: probe of sound failed with error -22
 
-Acked-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+and which I've reported here:
 
+	https://lore.kernel.org/lkml/ZIHMMFtuDtvdpFAZ@hovoldconsulting.com/
+
+as unrelated changes in timings resulting from that series made the
+problem much harder (but not impossible) to hit.
+
+With this fix, I've rebooted 20+ times without hitting the issue once.
+
+I'm guessing that you found this issue while investigated that probe
+race, Srini? It does look related, and it does seem to make the problem
+go away, but I'm not comfortable claiming that the intermittent probe
+breakage has been resolved without some analysis to back that up.
+
+> Fixes: 9b4fe0f1cd79 ("ASoC: qdsp6: audioreach: add q6apm-dai support")
+> Cc: <Stable@vger.kernel.org>
+
+I noticed that Mark dropped this to avoid regressions in stable, but if
+this indeed fixes the probe race then we may want to consider
+backporting it after all.
+
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  sound/soc/qcom/qdsp6/q6apm-dai.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
->  Documentation/driver-api/media/dtv-common.rst |  2 +-
->  drivers/media/dvb-core/Makefile               |  2 +-
->  drivers/media/dvb-frontends/af9013_priv.h     |  2 +-
->  drivers/media/dvb-frontends/af9033_priv.h     |  2 +-
->  drivers/media/dvb-frontends/cxd2820r_priv.h   |  2 +-
->  drivers/media/dvb-frontends/cxd2841er.c       |  2 +-
->  .../cxd2880/cxd2880_tnrdmd_dvbt2_mon.c        |  2 +-
->  .../cxd2880/cxd2880_tnrdmd_dvbt_mon.c         |  2 +-
->  .../media/dvb-frontends/cxd2880/cxd2880_top.c |  2 +-
->  drivers/media/dvb-frontends/dib7000p.c        |  2 +-
->  drivers/media/dvb-frontends/dib8000.c         |  2 +-
->  drivers/media/dvb-frontends/dib9000.c         |  2 +-
->  drivers/media/dvb-frontends/drxk_hard.c       |  2 +-
->  drivers/media/dvb-frontends/lgdt3305.c        |  2 +-
->  drivers/media/dvb-frontends/lgdt3306a.c       |  2 +-
->  drivers/media/dvb-frontends/lgdt330x.c        |  2 +-
->  drivers/media/dvb-frontends/m88ds3103_priv.h  |  2 +-
->  drivers/media/dvb-frontends/mn88443x.c        |  2 +-
->  drivers/media/dvb-frontends/mn88472_priv.h    |  2 +-
->  drivers/media/dvb-frontends/mn88473_priv.h    |  2 +-
->  drivers/media/dvb-frontends/or51132.c         |  2 +-
->  drivers/media/dvb-frontends/or51211.c         |  2 +-
->  drivers/media/dvb-frontends/rtl2830_priv.h    |  2 +-
->  drivers/media/dvb-frontends/rtl2832_priv.h    |  2 +-
->  drivers/media/dvb-frontends/si2165.c          |  2 +-
->  drivers/media/dvb-frontends/stv0367.c         |  2 +-
->  drivers/media/dvb-frontends/tc90522.c         |  2 +-
->  drivers/media/dvb-frontends/tda10048.c        |  2 +-
->  include/{media/dvb_math.h => linux/int_log.h} | 18 +---
->  lib/math/Makefile                             |  2 +-
->  .../dvb-core/dvb_math.c => lib/math/int_log.c | 26 ++----
->  sound/soc/codecs/nau8825.c                    | 93 +------------------
->  32 files changed, 45 insertions(+), 150 deletions(-)
->  rename include/{media/dvb_math.h => linux/int_log.h} (63%)
->  rename drivers/media/dvb-core/dvb_math.c => lib/math/int_log.c (84%)
-> 
+> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+> index 5eb0b864c740..c90db6daabbd 100644
+> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+> @@ -840,6 +840,7 @@ static const struct snd_soc_component_driver q6apm_fe_dai_component = {
+>  	.pointer	= q6apm_dai_pointer,
+>  	.trigger	= q6apm_dai_trigger,
+>  	.compress_ops	= &q6apm_dai_compress_ops,
+> +	.use_dai_pcm_id = true,
+>  };
+>  
+>  static int q6apm_dai_probe(struct platform_device *pdev)
+
+Johan

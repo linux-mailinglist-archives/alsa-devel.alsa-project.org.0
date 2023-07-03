@@ -2,113 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E550B746001
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 17:42:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB36E74607E
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 18:12:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 375A4203;
-	Mon,  3 Jul 2023 17:41:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 375A4203
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA7F01DA;
+	Mon,  3 Jul 2023 18:11:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA7F01DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688398946;
-	bh=SmqdcqKQ9gRWTWifbQjrN9cSaT/9ZATmdudnmKFXgFA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1688400722;
+	bh=NTKxovdssrlXXhzLx/k5aJgT3fdHDCTb40XqEzX76FI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=hTdXx8ZpjiUHK1rBL782xmXtHrvXVvKqbq4O9kpVQgSgBkB9R7mkZG0ra7dYPlvbM
-	 Eq/y+TjTFO1W6Uh1lBdkasD6oz06SueglJc89zB3URGPXrbp4TY/ww1by+NLVOvj6j
-	 KY80K521z91vKETm1kkXEnUP/PfyENTG/DmFn2Y4=
+	b=rGsuyyIEv/riZQihogBjIBiP7NCWvDbUhwS+UBuNrAPNaR4owGegD9I61GUzXxYUB
+	 6zQ5UzBZE/Uum74SJMygbCPjGsBD0ZpwCY4t90QzYg+9b91vFhplKC9wIOds0ILFF8
+	 mYxd4gxz6WZ/GPe47R0PFAo2z7Z0PldtYguaDJeI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 74F8DF80124; Mon,  3 Jul 2023 17:41:35 +0200 (CEST)
+	id 45592F8053B; Mon,  3 Jul 2023 18:11:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9ADFF80124;
-	Mon,  3 Jul 2023 17:41:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C3C17F80124;
+	Mon,  3 Jul 2023 18:11:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F7BEF80125; Mon,  3 Jul 2023 17:41:31 +0200 (CEST)
+	id F2BD7F80125; Mon,  3 Jul 2023 18:11:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0BD2AF80100
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 17:41:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BD2AF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 33871F80100;
+	Mon,  3 Jul 2023 18:11:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33871F80100
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=2L0utiEv;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=ftNax7K8
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=ElII1a0x
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 679BF1FF07;
-	Mon,  3 Jul 2023 15:41:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1688398880;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+cBsPbpKw4pd341qQme44tmicoNHSb1UHZAfIJrQtwY=;
-	b=2L0utiEvpTkFH/HV9cKOZztjBMltsFGwONNo9IBS6Wq36Sxt3cPIePD/qnUDFmlc96wS3x
-	1d4o6BIr917Gze+alGOUB7FVJZzXwCFGs0LJMHXLMugYwdwTrHrsNqMRaAVSD1TNIsrELA
-	Ydg2Hn3Ruow4ro9YP92w+G44j+cT9wc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1688398880;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+cBsPbpKw4pd341qQme44tmicoNHSb1UHZAfIJrQtwY=;
-	b=ftNax7K8zy+OyaEef+G92wAeXb9ASk7QJRlClay6YI+cSpBYLRwKFVXWjcOYKNBus7BlXs
-	Xgz1dN6Va1WTN8Ag==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E4C71358E;
-	Mon,  3 Jul 2023 15:41:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id rymQBiDsomRmZQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 03 Jul 2023 15:41:20 +0000
-Date: Mon, 03 Jul 2023 17:41:18 +0200
-Message-ID: <87mt0d3sv5.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Shenghao Ding <13916275206@139.com>
-Cc: broonie@kernel.org,
-	devicetree@vger.kernel.org,
-	robh+dt@kernel.org,
-	lgirdwood@gmail.com,
-	perex@perex.cz,
-	pierre-louis.bossart@linux.intel.com,
-	kevin-lu@ti.com,
-	shenghao-ding@ti.com,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	x1077012@ti.com,
-	peeyush@ti.com,
-	navada@ti.com
-Subject: Re: [PATCH v1 2/3] ALSA: hda/tas2781: Add tas2781 HDA driver
-In-Reply-To: <20230702081857.799693-2-13916275206@139.com>
-References: <20230702081857.799693-1-13916275206@139.com>
-	<20230702081857.799693-2-13916275206@139.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: CVVVE7COZXXDNVR4SAGU7HVV4OILXOT4
-X-Message-ID-Hash: CVVVE7COZXXDNVR4SAGU7HVV4OILXOT4
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id F038660F9C;
+	Mon,  3 Jul 2023 16:10:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14391C433C8;
+	Mon,  3 Jul 2023 16:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688400658;
+	bh=NTKxovdssrlXXhzLx/k5aJgT3fdHDCTb40XqEzX76FI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ElII1a0xgUuzSKc3rFZIRqZ9qtKIM1hbKWzeh/lqV5rirpcSnKhxbsj1lWZ1R2BVp
+	 18wJ9DD+HdgDGu5wWt/JDZ5CAb6uAOoOtNJ9OREWkzy3YYEBPxekdTWlJWs73n/CMy
+	 cXNM9CHD2e/1fQ0d3uDsWZAL4a2OV/otENYqwGDUykLqaiNpxBVrKJjrtHXWok47Ld
+	 m8GP/ScElTQo3wGwF0VbpgLJs8trmVv1GoiyjaAoloRFDKpOPHEcKe2zYNBRB/5qQP
+	 u++IvqXPHA2TapuB89hyo+MkNJvrUWtOmxXdehd/y6FBAYwZ4zZJZb75Ks5KySlKMU
+	 3FGbXQlBq26Kw==
+Date: Mon, 3 Jul 2023 17:10:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+Cc: Mastan Katragadda <Mastan.Katragadda@amd.com>,
+	alsa-devel@alsa-project.org, Basavaraj.Hiregoudar@amd.com,
+	Sunil-kumar.Dommati@amd.com, Arungopal.kondaveeti@amd.com,
+	vsujithkumar.reddy@amd.com, venkataprasad.potturu@amd.com,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ajit Kumar Pandey <AjitKumar.Pandey@amd.com>,
+	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+	"moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: (subset) [PATCH 1/2] ASoC: SOF: amd: add revision check for
+ sending sha dma completion command
+Message-ID: <2adeaea7-e3ef-4a58-bdd2-18d3ca3e2519@sirena.org.uk>
+References: <20230630070544.2167421-1-Mastan.Katragadda@amd.com>
+ <168814485881.50974.4096249135530047142.b4-ty@kernel.org>
+ <cafff012-54ac-2d15-1e76-c5313c01f834@amd.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mmrrfenezSd+Xx/b"
+Content-Disposition: inline
+In-Reply-To: <cafff012-54ac-2d15-1e76-c5313c01f834@amd.com>
+X-Cookie: Please go away.
+Message-ID-Hash: QWOZI35WX373UPDK66QBODNEO4M7PYBD
+X-Message-ID-Hash: QWOZI35WX373UPDK66QBODNEO4M7PYBD
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CVVVE7COZXXDNVR4SAGU7HVV4OILXOT4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QWOZI35WX373UPDK66QBODNEO4M7PYBD/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,284 +116,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Sun, 02 Jul 2023 10:18:56 +0200,
-Shenghao Ding wrote:
-> 
-> Create tas2781 side codec HDA driver for Lenovo Laptops. All of the
-> tas2781s in the laptop will be aggregated as one audio speaker. The
-> code supports realtek as the primary codec.
 
-First of all, again, it's too short description.  You added the code
-to bind, but also add lots of own control elements.  There is *NO*
-description / explanation about those at all.  User have no idea
-what is it and how can be used.
+--mmrrfenezSd+Xx/b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-So, please make the patch descriptive.
+On Mon, Jul 03, 2023 at 08:58:17PM +0530, Mukunda,Vijendar wrote:
+> On 30/06/23 22:37, Mark Brown wrote:
 
+> > Thanks!
+> >
+> > [1/2] ASoC: SOF: amd: add revision check for sending sha dma completion command
+> >       commit: b1db244c716fe300e36428aeb0874913d2e0a91d
 
-> @@ -0,0 +1,874 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// TAS2781 HDA I2C driver
-> +//
-> +// Copyright 2023 Texas Instruments, Inc.
-> +//
-> +// Author: Shenghao Ding <shenghao-ding@ti.com>
-> +
-> +#include <linux/acpi.h>
-> +#include <linux/crc8.h>
-> +#include <linux/crc32.h>
-> +#include <linux/efi.h>
-> +#include <linux/firmware.h>
-> +#include <linux/i2c.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <sound/hda_codec.h>
-> +#include <sound/soc.h>
-> +#include <sound/tas2781.h>
-> +#include <sound/tlv.h>
-> +#include <sound/tas2781-tlv.h>
-> +
-> +#include "hda_local.h"
-> +#include "hda_auto_parser.h"
-> +#include "hda_component.h"
-> +#include "hda_jack.h"
-> +#include "hda_generic.h"
-> +
-> +#define TASDEVICE_SPEAKER_CALIBRATION_SIZE	20
-> +
-> +#define ACARD_SINGLE_RANGE_EXT_TLV(xname, xreg, xshift, xmin, xmax, xinvert, \
-> +	xhandler_get, xhandler_put, tlv_array) \
-> +{	.iface = SNDRV_CTL_ELEM_IFACE_CARD, .name = (xname),\
-> +	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
-> +		 SNDRV_CTL_ELEM_ACCESS_READWRITE,\
-> +	.tlv.p = (tlv_array), \
-> +	.info = snd_soc_info_volsw_range, \
-> +	.get = xhandler_get, .put = xhandler_put, \
-> +	.private_value = (unsigned long)&(struct soc_mixer_control) \
-> +		{.reg = xreg, .rreg = xreg, .shift = xshift, \
-> +		 .rshift = xshift, .min = xmin, .max = xmax, \
-> +		 .invert = xinvert} }
+> It looks like second patch didn't get merged in this series.
+> Do we need to resend the second patch?
 
-Is the only difference from the standard macro is the iface type?
-Comment it so.
+I don't know off hand what that second patch was.  If it wasn't a bug
+fix it'll just be waiting till after the merge window.
 
-> +static int tas2781_acpi_get_i2c_res(struct acpi_resource *ares,
-> +	void *data)
-> +{
-> +	struct tasdevice_priv *tas_priv = data;
-> +	struct acpi_resource_i2c_serialbus *sb;
-> +
-> +	if (i2c_acpi_get_i2c_resource(ares, &sb)) {
-> +		if (sb->slave_address != TAS2781_GLOBAL_ADDR) {
-> +			tas_priv->tasdevice[tas_priv->ndev].dev_addr =
-> +				(unsigned int)sb->slave_address;
-> +			tas_priv->ndev++;
-> +			goto out;
-> +		}
-> +	}
-> +out:
-> +	return 1;
-> +}
+--mmrrfenezSd+Xx/b
+Content-Type: application/pgp-signature; name="signature.asc"
 
-With the code above, tas_priv->ndev might overflow
-tas_priv->tasdevice[] if a buggy ACPI data is given.
-Add the range check.
+-----BEGIN PGP SIGNATURE-----
 
-> +static int tas2781_hda_read_acpi(struct tasdevice_priv *tas_priv,
-> +	const char *hid)
-> +{
-> +	struct acpi_device *adev;
-> +	struct device *physdev;
-> +	LIST_HEAD(resources);
-> +	const char *sub;
-> +	int ret;
-> +
-> +	adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
-> +	if (!adev) {
-> +		dev_err(tas_priv->dev,
-> +			"Failed to find an ACPI device for %s\n", hid);
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret = acpi_dev_get_resources(adev, &resources,
-> +		tas2781_acpi_get_i2c_res, tas_priv);
-> +	if (ret < 0)
-> +		goto err;
-> +
-> +	acpi_dev_free_resource_list(&resources);
-> +	strscpy(tas_priv->dev_name, hid, sizeof(tas_priv->dev_name));
-> +	physdev = get_device(acpi_get_first_physical_node(adev));
-> +	acpi_dev_put(adev);
-> +
-> +	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
-> +	if (IS_ERR(sub))
-> +		sub = NULL;
-> +
-> +	tas_priv->acpi_subsystem_id = sub;
-> +
-> +	put_device(physdev);
-> +
-> +	return 0;
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSi8wkACgkQJNaLcl1U
+h9CBBQf9EfB/7fZZ3ZRVQSgJMCgbwXECOezFRKoklXCfLQW1hpu6rYnVaUP1phq7
+OHjYIM+5qDvE2HJ7MPmEnCIZt/OQJFWtomlEJ92rtWeW3Bdk89R1d/d2Qf7Q/NNj
+7qqooZZzf0M4IXsZrZqPBy69qRqPWOjyUdSavTGo0K5X1Bs6BPuJZpKxIb6wVG1x
+LPr6dgJRd4EBBnewDqm43D+Ti3HbgEnppdcRrE2GPgP13ZNUwbcCATF2durfziWe
+yRU/1ca6Ky54EGACuyU1CxNbCX74TLkCov+/d+uleHLU8ZAFWaiV1QaHrUOREZ7L
+aCc8JKvvVJj4lR+YkM2V7nXJ1GfWNA==
+=3JT8
+-----END PGP SIGNATURE-----
 
-Isn't NULL sub treated as an error?
-
-> +static int tasdevice_create_control(struct tasdevice_priv *tas_priv)
-> +{
-> +	char prof_ctrl_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-> +	struct hda_codec *codec = tas_priv->codec;
-> +	struct snd_kcontrol_new prof_ctrl = {
-> +		.name = prof_ctrl_name,
-> +		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-> +		.info = tasdevice_info_profile,
-> +		.get = tasdevice_get_profile_id,
-> +		.put = tasdevice_set_profile_id,
-> +	};
-> +	int ret;
-> +
-> +	/* Create a mixer item for selecting the active profile */
-> +	scnprintf(prof_ctrl_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
-> +		"Speaker Profile Id");
-
-It's a constant name, so we can drop the prof_ctrl_name temp buffer
-and pass the name string directly, no?
-Then prof_ctrl can be a const static, too.
-
-> +static int tasdevice_dsp_create_ctrls(struct tasdevice_priv
-> +	*tas_priv)
-> +{
-> +	char prog_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-> +	char conf_name[SNDRV_CTL_ELEM_ID_NAME_MAXLEN];
-> +	struct hda_codec *codec = tas_priv->codec;
-> +	struct snd_kcontrol_new prog_ctl = {
-> +		.name = prog_name,
-> +		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-> +		.info = tasdevice_info_programs,
-> +		.get = tasdevice_program_get,
-> +		.put = tasdevice_program_put,
-> +	};
-> +	struct snd_kcontrol_new conf_ctl = {
-> +		.name = conf_name,
-> +		.iface = SNDRV_CTL_ELEM_IFACE_CARD,
-> +		.info = tasdevice_info_configurations,
-> +		.get = tasdevice_config_get,
-> +		.put = tasdevice_config_put,
-> +	};
-> +	int ret;
-> +
-> +	scnprintf(prog_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
-> +		"Speaker Program Id");
-> +	scnprintf(conf_name, SNDRV_CTL_ELEM_ID_NAME_MAXLEN,
-> +		"Speaker Config Id");
-
-Ditto.
-
-> +static int tas2781_save_calibration(struct tasdevice_priv *tas_priv)
-> +{
-> +	efi_guid_t efi_guid = EFI_GUID(0x02f9af02, 0x7734, 0x4233, 0xb4, 0x3d,
-> +		0x93, 0xfe, 0x5a, 0xa3, 0x5d, 0xb3);
-> +	static efi_char16_t efi_name[] = L"CALI_DATA";
-> +	struct tm *tm = &tas_priv->tm;
-> +	unsigned int attr, crc;
-> +	unsigned int *tmp_val;
-> +	efi_status_t status;
-> +
-> +	/* Lenovo devices */
-> +	if (tas_priv->catlog_id == LENOVO)
-> +		efi_guid = EFI_GUID(0x1f52d2a1, 0xbb3a, 0x457d, 0xbc, 0x09,
-> +			0x43, 0xa3, 0xf4, 0x31, 0x0a, 0x92);
-> +
-> +	tas_priv->cali_data.total_sz = 0;
-> +	/* Get real size of UEFI variable */
-> +	status = efi.get_variable(efi_name, &efi_guid, &attr,
-> +		&tas_priv->cali_data.total_sz, tas_priv->cali_data.data);
-> +	if (status == EFI_BUFFER_TOO_SMALL) {
-> +		/* Allocate data buffer of data_size bytes */
-> +		tas_priv->cali_data.data = devm_kzalloc(tas_priv->dev,
-> +			tas_priv->cali_data.total_sz, GFP_KERNEL);
-> +		if (!tas_priv->cali_data.data)
-> +			return -ENOMEM;
-> +		/* Get variable contents into buffer */
-> +		status = efi.get_variable(efi_name, &efi_guid, &attr,
-> +			&tas_priv->cali_data.total_sz,
-> +			tas_priv->cali_data.data);
-> +		if (status != EFI_SUCCESS)
-> +			return -EINVAL;
-> +	}
-> +
-> +	tmp_val = (unsigned int *)tas_priv->cali_data.data;
-> +
-> +	crc = crc32(~0, tas_priv->cali_data.data, 84) ^ ~0;
-> +	dev_dbg(tas_priv->dev, "cali crc 0x%08x PK tmp_val 0x%08x\n",
-> +		crc, tmp_val[21]);
-> +
-> +	if (crc == tmp_val[21]) {
-> +		time64_to_tm(tmp_val[20], 0, tm);
-> +		dev_dbg(tas_priv->dev, "%4ld-%2d-%2d, %2d:%2d:%2d\n",
-> +			tm->tm_year, tm->tm_mon, tm->tm_mday,
-> +			tm->tm_hour, tm->tm_min, tm->tm_sec);
-> +		tas2781_apply_calib(tas_priv);
-> +	} else
-> +		tas_priv->cali_data.total_sz = 0;
-> +
-> +	return 0;
-> +}
-
-What does the function do actually?  I can guess, but it's all too
-much black magic there.  Please describe more.
-
-
-> +static int tas2781_hda_bind(struct device *dev, struct device *master,
-> +	void *master_data)
-> +{
-> +	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
-> +	struct hda_component *comps = master_data;
-> +	struct hda_codec *codec;
-> +	unsigned int subid;
-> +	int ret;
-> +
-> +	if (!comps || tas_priv->index < 0 ||
-> +		tas_priv->index >= HDA_MAX_COMPONENTS)
-> +		return -EINVAL;
-> +
-> +	comps = &comps[tas_priv->index];
-> +	if (comps->dev)
-> +		return -EBUSY;
-> +
-> +	codec = comps->codec;
-> +	subid = codec->core.subsystem_id & 0xFFFF;
-> +
-> +	//Lenovo devices
-> +	switch (subid) {
-> +	case 0x387d:
-> +	case 0x387e:
-> +	case 0x3881:
-> +	case 0x3884:
-> +	case 0x3886:
-> +	case 0x38a7:
-> +	case 0x38a8:
-> +	case 0x38ba:
-> +	case 0x38bb:
-> +	case 0x38be:
-> +	case 0x38bf:
-> +	case 0x38c3:
-> +	case 0x38cb:
-> +	case 0x38cd:
-> +		tas_priv->catlog_id = LENOVO;
-> +		break;
-> +	default:
-> +		tas_priv->catlog_id = OTHERS;
-> +		break;
-> +	}
-
-Listing up the explicit SSID here *again* looks bad.  It means that we
-have those SSIDs in two distinct places, and that's very error-prone.
-Can we put the info in the quirk side (patch_realtek.c) somehow?  Or
-can it be simply a check of vendor id with Lenovo?
-
-
-thanks,
-
-Takashi
+--mmrrfenezSd+Xx/b--

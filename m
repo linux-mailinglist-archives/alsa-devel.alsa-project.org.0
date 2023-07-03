@@ -2,94 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAEBE745C27
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 14:22:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DF88745C2D
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 14:26:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEAA520C;
-	Mon,  3 Jul 2023 14:21:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEAA520C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82412210;
+	Mon,  3 Jul 2023 14:25:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82412210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688386925;
-	bh=iVpVYys+6HpIG93JCxQUvBWe/5NbR/bCynk6NtjIifE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1688387174;
+	bh=knEiekDoDMRBXHzPAQUGIkkhywQJrFd99liMFkBUie4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ra8dKdHr0pohfWVMn6wEbTVq7a+0VORuTKUy4T3OcMGFFXeQREMHORGoBcwI8uVE0
-	 nSQj/orf5WmDrlMuN9VAWVf4D6gGp2HWuznxVU7pGvTZpwR0XjhFUTdbACqHVjAtxI
-	 eq984d2il9SuCg7+YTlcetqeZ293eVbW2vflcsWA=
+	b=dI0IuD92XzRRWYnhoa0UFSZqj4lHMvjBJu4lMmE/R7w1wwvzY2JfEFqNHHiU9hWnX
+	 iM4QunDCTF5FMMSVgdVqpkj59JUgJ1uXTRB9wLynIpfwzw0kCwIezEetZ1ZjLcwVHw
+	 bgCEgFagEdxl5IdCy+CyZEKyyCjsBkKkVlOdm2TU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48C50F80125; Mon,  3 Jul 2023 14:21:15 +0200 (CEST)
+	id D2398F80124; Mon,  3 Jul 2023 14:25:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E674FF80124;
-	Mon,  3 Jul 2023 14:21:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80D2FF80124;
+	Mon,  3 Jul 2023 14:25:23 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3A786F80125; Mon,  3 Jul 2023 14:21:12 +0200 (CEST)
+	id 9ECD2F80125; Mon,  3 Jul 2023 14:25:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1EA71F80104
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 14:21:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EA71F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 622C8F80093
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 14:25:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 622C8F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=s2vK617R
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 067CB60F24;
-	Mon,  3 Jul 2023 12:21:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C723BC433C7;
-	Mon,  3 Jul 2023 12:21:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688386866;
-	bh=iVpVYys+6HpIG93JCxQUvBWe/5NbR/bCynk6NtjIifE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s2vK617R6XxCCO41svbYSKf3ouMwj1fyD898WRlATYojK40HeGQHlMW2yPeRt5q37
-	 ltn+iRBycdtcpufxn9hTiQse+Wmtz0bTwj5KqkRAElOidoHI+DnkpACnY+7VviNixS
-	 uOpY/aF61DdUS2PaZUQ1erZnUfhCOKXUOUEBMJUrbmOuGUxk+Jjm9/9R0Qlp6FsToL
-	 qwpAJAZp+1pHfoV9kWbj/IC8RdHN54aPt+vq0MPBd7PsClfph58N47VSR8BqXmWUwI
-	 K+54vCmWx/ZBPg+Q89kOfeO43OZ/+LgbL3GweVUC1J4qixnRqk9klGP/TBjdH+2hnk
-	 a1OoBo3j9dmNw==
-Received: from johan by xi.lan with local (Exim 4.96)
-	(envelope-from <johan@kernel.org>)
-	id 1qGIYS-0001My-31;
-	Mon, 03 Jul 2023 14:21:21 +0200
-Date: Mon, 3 Jul 2023 14:21:20 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Mark Brown <broonie@kernel.org>, johan+linaro@kernel.org,
-	perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org, Stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
- number
-Message-ID: <ZKK9QASAPdYjaa21@hovoldconsulting.com>
-References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
- <ZKJ9UrB8FRkLzLc-@hovoldconsulting.com>
- <ZKKA6K44mp_vjwtp@hovoldconsulting.com>
- <877crh76ge.wl-tiwai@suse.de>
- <ZKKLcnosI5jD-IXv@hovoldconsulting.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=kFQkX9jl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688387118; x=1719923118;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=knEiekDoDMRBXHzPAQUGIkkhywQJrFd99liMFkBUie4=;
+  b=kFQkX9jlQqoP8UW1dzK2fS1lHL5wzxvxVKbjqt795ONgiwMLwJz16h1v
+   MSboBrn5eLmAAnNST6wnRx5HHnE0sqGZjrAWeNXJOM3X/1anBctbLEo3O
+   bwpoAiz/OeTMiavP1jk+fWGfZc5ESTC2KTMkpkFhQoxcc3AigFHhN8jAm
+   dvlc6oqR/XRx0/+Et/m4Ck0noXVIcyX+tBQ1wOqHAAZdPORCHWbAeUgK9
+   SqkEcGuRGRNcaqNMOeKG0Ms/CRGubN2HwjQN3hOLh0XEM6YEQ287KKFte
+   P6gswhDtm3WglKjaiGtH7lGghwBoU/sxf0ZaX7iK9Id1qLc47FljJ9mc0
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10759"; a="360346917"
+X-IronPort-AV: E=Sophos;i="6.01,178,1684825200";
+   d="scan'208";a="360346917"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2023 05:25:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10759"; a="892537605"
+X-IronPort-AV: E=Sophos;i="6.01,178,1684825200";
+   d="scan'208";a="892537605"
+Received: from agherasi-mobl.ger.corp.intel.com (HELO [10.251.218.180])
+ ([10.251.218.180])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2023 05:25:10 -0700
+Message-ID: <a10894a2-a6af-8c5f-b675-79cc7cfeb899@linux.intel.com>
+Date: Mon, 3 Jul 2023 14:25:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZKKLcnosI5jD-IXv@hovoldconsulting.com>
-Message-ID-Hash: O7XWFZ2ELRDDYKWWAIZWZBVWWJE7QLSE
-X-Message-ID-Hash: O7XWFZ2ELRDDYKWWAIZWZBVWWJE7QLSE
-X-MailFrom: johan@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH 1/5] ASoC: rt5682-sdw: fix for JD event handling in
+ ClockStop Mode0
+Content-Language: en-US
+To: =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "Vijendar.Mukunda@amd.com" <Vijendar.Mukunda@amd.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
+References: <20230703090247.25261-1-shumingf@realtek.com>
+ <f9e83b61-6e69-2467-d5a5-3c3a6a40e018@linux.intel.com>
+ <81bf0fcc0b824c928e2e4e5a77ca37d8@realtek.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <81bf0fcc0b824c928e2e4e5a77ca37d8@realtek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: WJWOLMI2LCI5FYVY6V3SICDRWUUKW6K4
+X-Message-ID-Hash: WJWOLMI2LCI5FYVY6V3SICDRWUUKW6K4
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O7XWFZ2ELRDDYKWWAIZWZBVWWJE7QLSE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJWOLMI2LCI5FYVY6V3SICDRWUUKW6K4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,37 +116,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 03, 2023 at 10:48:51AM +0200, Johan Hovold wrote:
-> On Mon, Jul 03, 2023 at 10:19:29AM +0200, Takashi Iwai wrote:
-> > On Mon, 03 Jul 2023 10:03:52 +0200,
-> > Johan Hovold wrote:
-> 
-> > > Ok, scratch that. I just hit the race again also with this patch
-> > > applied:
-> > > 
-> > > [   11.815028] q6apm-dai 3000000.remoteproc:glink-edge:gpr:service@1:dais: Adding to iommu group 23
-> > > [   11.838667] snd-sc8280xp sound: ASoC: adding FE link failed
-> > > [   11.838774] snd-sc8280xp sound: ASoC: topology: could not load header: -517
-> > > [   11.838916] qcom-apm gprsvc:service:2:1: tplg component load failed-517
-> > > [   11.838996] qcom-apm gprsvc:service:2:1: ASoC: error at snd_soc_component_probe on gprsvc:service:2:1: -22
-> > > [   11.839430] snd-sc8280xp sound: ASoC: failed to instantiate card -22
-> > > [   11.844801] snd-sc8280xp: probe of sound failed with error -22
-> > 
-> > Isn't it rather an issue about the error code passing in qcom driver?
-> > How about the change like below?
-> 
-> Indeed, and I tested a change like that here:
-> 
-> 	https://lore.kernel.org/lkml/ZIHSGf18Aw7htb9o8@hovoldconsulting.com/
 
-That link was missing was apparently broken, should have been:
 
-	https://lore.kernel.org/all/ZIHSGf18w7htb9o8@hovoldconsulting.com/
+On 7/3/23 13:11, Shuming [范書銘] wrote:
+>>> During ClockStop Mode0, peripheral interrupts are disabled.
+>>
+>> I can see that the interrupts are disabled in rt5682_dev_system_suspend(),
+>> which is NOT a mode where the clock stop is used... I don't think this commit
+>> message is correct.
+>>
+>> The IMPL_DEF interrupt which is used for jack detection is not disabled at all
+>> during any clock stop mode, and it shouldn't otherwise that would break the
+>> jack detection.
 > 
-> but that only seems to make the problem worse currently.
-> 
-> This should probably still be fixed, but I was just hoping that the DAI
-> numbering could have been the cause for the probe deferral (which then
-> triggers the other bugs).
- 
-Johan
+> You are right. The commit message is wrong and not clear.
+> The situation is that the manager driver uses the clock stop mode0 to do system suspension.
+
+No it does not. The clock stop is ONLY used for pm_runtime, never for
+system suspend. We cannot go to system suspend with the link in
+clock-stop mode, that will create lots of issues, that's why we perform
+a full pm_runtime resume in the .prepare stage.
+
+> The SdW device will not be re-attached when the system resume.
+
+it will re-attach, and in addition it will lose context because the
+manager performs a complete reset of the bus.
+
+So what's needed is to enable the interrupt, no matter what happened in
+the suspend transition.
+

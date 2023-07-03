@@ -2,102 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0C81745CC2
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 15:02:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63465745CEE
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 15:14:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9522C1DD;
-	Mon,  3 Jul 2023 15:01:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9522C1DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83562210;
+	Mon,  3 Jul 2023 15:13:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83562210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688389363;
-	bh=Ch7TE2UGUIn7R51J3IfFEnYGFugJftCjZPJDtjsbfDM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1688390062;
+	bh=jTsgXs7KbqoUfzENhhrkAAzuUzQYmz/N8W48e7yom8Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oWdT1t6hpS3laDqUu69Gim46yS00DhnOfxOqXWMA/SiJI6aKT0AieahoTVo08E61G
-	 XDmMUH9MpIc7m3Wd+f3bhck7cy6FDKPvA5OtN45+x809DDfFoX1fQufVprw712MmcC
-	 UYZ2FoiiFb6/MBYH/kAsThY4y3kp1sfZjsFfugBc=
+	b=u6zfQR2g7M4mL5J+UK4ys0USa4IA3CK5+uIbn4hhZ5Pj0PaUj1GLViYX7FmbcPq/R
+	 +ORgdx9tOIZ5KTINGCq9/oeqNZxXIuWH0vdduNsQEf2gB+eGZTMrH0+57+LmkKDxBt
+	 JVHsrB+hH11edq1QtKZZU8ZdoEoV2NZxKQ+sP8ZU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1AA57F80553; Mon,  3 Jul 2023 15:01:48 +0200 (CEST)
+	id 91F92F80125; Mon,  3 Jul 2023 15:13:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2511F8025F;
-	Mon,  3 Jul 2023 15:01:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07E93F80124;
+	Mon,  3 Jul 2023 15:13:09 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E241BF80548; Mon,  3 Jul 2023 15:01:44 +0200 (CEST)
+	id 6C5C2F80100; Mon,  3 Jul 2023 15:13:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+X-Spam-Status: No,
+ score=-4.8 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 58EF2F80093
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 15:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58EF2F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=kKENbSOy;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=lZsn3jEA
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4E2F1F80100
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 15:13:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E2F1F80100
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A39811FE37;
-	Mon,  3 Jul 2023 13:01:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1688389301;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pbxbsNXji6NFPIfwCH68kJ80tJ4f16YmbLr+stgD2ko=;
-	b=kKENbSOyYhbYdEUxghk6pf26bP/B/LTJzvt5k33y/ucKvsG7oLUYVumNDv0pzgUUQyL9SM
-	A0Sc6fXsMA2yQ3pfitIwFanWNCU3wyMx1GhwOXZCwUS5sXFLczH414lJq+nT23Mj/vIHCI
-	dASHefw41VEjGbx2h69SRL4W7WJVV44=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1688389301;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pbxbsNXji6NFPIfwCH68kJ80tJ4f16YmbLr+stgD2ko=;
-	b=lZsn3jEAAZCVe8/eEqTbBX50+HNIIGdf1k0e72dUrYjjk/isCaP+OhO3Fp/6lYsRi5WE2/
-	v2GFynaEOkTG0KBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 82725138FC;
-	Mon,  3 Jul 2023 13:01:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id 0aDZHrXGomReCwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 03 Jul 2023 13:01:41 +0000
-Date: Mon, 03 Jul 2023 15:01:41 +0200
-Message-ID: <87a5wd5etm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Symbolic Debugger" <happy.debugging@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
-In-Reply-To: 
- <168838885621.22.17021318227159318990@mailman-web.alsa-project.org>
-References: <87fs655h89.wl-tiwai@suse.de>
-	<168838885621.22.17021318227159318990@mailman-web.alsa-project.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: VCEACVSDZ5OSVT4N4NVRLGX273ANAITZ
-X-Message-ID-Hash: VCEACVSDZ5OSVT4N4NVRLGX273ANAITZ
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0DF8F60F19;
+	Mon,  3 Jul 2023 13:13:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9EAC433C9;
+	Mon,  3 Jul 2023 13:12:56 +0000 (UTC)
+Message-ID: <d78e6ec3-a531-8fd4-a785-29b6712f83ae@xs4all.nl>
+Date: Mon, 3 Jul 2023 15:12:55 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 1/6] media: v4l2: Add audio capture and output support
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Sakari Ailus <sakari.ailus@iki.fi>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ Jacopo Mondi <jacopo@jmondi.org>
+References: <1688002673-28493-1-git-send-email-shengjiu.wang@nxp.com>
+ <1688002673-28493-2-git-send-email-shengjiu.wang@nxp.com>
+ <ZJ6o5fT4V4HXivFa@valkosipuli.retiisi.eu>
+ <CAA+D8AND1yZ7eZLjBGxVF=i3hLMecUm-j7AVHN9npJi-4=3VrA@mail.gmail.com>
+ <87h6ql5hch.wl-tiwai@suse.de>
+ <43f0ecdf-7454-49ae-96b3-2eae5487e9a5@sirena.org.uk>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+In-Reply-To: <43f0ecdf-7454-49ae-96b3-2eae5487e9a5@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: DMZ4UIWIDABX7KR2JE3P5BLPSIIWFZCV
+X-Message-ID-Hash: DMZ4UIWIDABX7KR2JE3P5BLPSIIWFZCV
+X-MailFrom: SRS0=zCDc=CV=xs4all.nl=hverkuil@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +88,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VCEACVSDZ5OSVT4N4NVRLGX273ANAITZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DMZ4UIWIDABX7KR2JE3P5BLPSIIWFZCV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,14 +97,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 03 Jul 2023 14:54:16 +0200,
-Symbolic Debugger wrote:
+On 03/07/2023 14:53, Mark Brown wrote:
+> On Mon, Jul 03, 2023 at 02:07:10PM +0200, Takashi Iwai wrote:
+>> Shengjiu Wang wrote:
 > 
-> Great !  Found the files. Thanks so much. BTW found the discrepancy. I downloaded the 1.2.9 alsa-lib (tar) files from the alsa website which did not have ump files as they do in the git 1.2.9 repo. I found this https://packages.ubuntu.com/search?keywords=asound  Seems libasound2-dev  is based on 1.2.9  but is for the next distro release (23.10) . Strangely, in the file list there are no ump files.
+>>> There is no such memory to memory interface defined in ALSA.  Seems
+>>> ALSA is not designed for M2M cases.
+> 
+>> There is no restriction to implement memory-to-memory capture in ALSA
+>> framework.  It'd be a matter of the setup of PCM capture source, and
+>> you can create a corresponding kcontrol element to switch the mode or
+>> assign a dedicated PCM substream, for example.  It's just that there
+>> was little demand for that.
+> 
+> Yeah, it's not a terrible idea.  We might use it more if we ever get
+> better support for DSP audio, routing between the DSP and external
+> devices if driven from the CPU would be a memory to memory thing.
+> 
+>> I'm not much against adding the audio capture feature to V4L2,
+>> though, if it really makes sense.  But creating a crafted /dev/audio*
+>> doesn't look like a great idea to me, at least.
+> 
+> I've still not looked at the code at all.
 
-1.2.9 is the already released one.  The UMP support *will* be included
-in 1.2.10, once when released.  The git version is a bleeding edge
-code, that is, would-be-1.2.10.
+My main concern is that these cross-subsystem drivers are a pain to
+maintain. So there have to be good reasons to do this.
 
+Also it is kind of weird to have to use the V4L2 API in userspace to
+deal with a specific audio conversion. Quite unexpected.
 
-Takashi
+But in the end, that's a decision I can't make.
+
+So I wait for that feedback. Note that if the decision is made that this
+can use V4L2, then there is quite a lot more that needs to be done:
+documentation, new compliance tests, etc. It's adding a new API, and that
+comes with additional work...
+
+Regards,
+
+	Hans

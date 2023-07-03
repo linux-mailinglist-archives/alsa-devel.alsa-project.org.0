@@ -2,94 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0649A7457AA
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 10:50:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35FCD7457EB
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 11:03:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D9B383B;
-	Mon,  3 Jul 2023 10:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D9B383B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E7B73E7;
+	Mon,  3 Jul 2023 11:03:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E7B73E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688374201;
-	bh=pox5/8OU+E0k0USvT7GzuoL1tE4nYDvau0NjWziCQbg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=pSBlP6oIAj6RrGhq9b4Y3toTO69dJ49aaq/WQ3edYvdno1PIsDpdSJz8V2Bt87iRT
-	 5hyY3AKUn0QaRc+VwN33BrcPUCweDbYiVoqnik0/MWzcwX2PUnuum/TNjO+aJiMbQs
-	 PaWYcZJ16aS2v97bfrZoRUX+1j7PKoDAZJwj5XVA=
+	s=default; t=1688375037;
+	bh=GONHUpSJIfvyddAxHphRziAcBLD50ZjFd3LSQaNZXhw=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Jrs2BoqWKzGF4QQIfCsyNQGcbu0fcZ6H+AsIltZ6IMZeypWYb2+d6XnhYTdJ8AvWQ
+	 SdRrgCmh5Uqqq/BsQ2wvWZ4v1LOkREpZsrRVvT+jm1HdxG2zqSoHR1CNPdy9dadhpd
+	 gmBP+E+9VaPK8/pOYZBjYQVlpWz3+VBV+eIBtFCc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E30E7F80272; Mon,  3 Jul 2023 10:48:48 +0200 (CEST)
+	id B07D4F80535; Mon,  3 Jul 2023 11:03:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64CA7F80104;
-	Mon,  3 Jul 2023 10:48:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E70AF80104;
+	Mon,  3 Jul 2023 11:03:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 947BAF80125; Mon,  3 Jul 2023 10:48:44 +0200 (CEST)
+	id 3B182F80125; Mon,  3 Jul 2023 11:03:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A3462F80093
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 10:48:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3462F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QO5q0gD+
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id D6A1660E9B;
-	Mon,  3 Jul 2023 08:48:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0611C433C8;
-	Mon,  3 Jul 2023 08:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688374116;
-	bh=pox5/8OU+E0k0USvT7GzuoL1tE4nYDvau0NjWziCQbg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QO5q0gD+xg0S2yRaTSvnhQN1rQSHd3GjZR/BSvSF5xkz6zcOhpSknzlG215Zkx8V1
-	 8v1d/RtC05HMr5F/BsBtEzRd6iS5S9L+yhc3Glx/DuUHH6YdlaokKLWtPnxvbbVqiT
-	 R5r/TOG61tIwNf/cZ87WVI4Q1lc8Kisxk6Vzle1GYtj9yAxPib85Q3ISjzapugs4H3
-	 2slsG81RGvle2x2nfzci471SvTPp0apDznCWCf+t7pn5nLQWbFTDEqoN8lQ/YsbJg7
-	 IbCkh1dwJtggfdSWh8rpKfY1jFVlQsadGyzWELnwwgAVUPZ0EG+oWb8lQU5q+XrtP6
-	 jg7EQP/EkplYg==
-Received: from johan by xi.lan with local (Exim 4.96)
-	(envelope-from <johan@kernel.org>)
-	id 1qGFEo-0006nE-37;
-	Mon, 03 Jul 2023 10:48:51 +0200
-Date: Mon, 3 Jul 2023 10:48:50 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Mark Brown <broonie@kernel.org>, johan+linaro@kernel.org,
-	perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org, Stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: qdsp6: q6apm: use dai link pcm id as pcm device
- number
-Message-ID: <ZKKLcnosI5jD-IXv@hovoldconsulting.com>
-References: <20230628092404.13927-1-srinivas.kandagatla@linaro.org>
- <ZKJ9UrB8FRkLzLc-@hovoldconsulting.com>
- <ZKKA6K44mp_vjwtp@hovoldconsulting.com>
- <877crh76ge.wl-tiwai@suse.de>
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	by alsa1.perex.cz (Postfix) with ESMTP id A7F9EF80093
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 11:02:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7F9EF80093
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 36392dpF6011615,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36506.realtek.com.tw[172.21.6.27])
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 36392dpF6011615
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
+	Mon, 3 Jul 2023 17:02:39 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXH36506.realtek.com.tw (172.21.6.27) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.17; Mon, 3 Jul 2023 17:02:42 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Mon, 3 Jul 2023 17:02:41 +0800
+From: <shumingf@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+CC: <alsa-devel@alsa-project.org>, <lars@metafoo.de>, <flove@realtek.com>,
+        <oder_chiou@realtek.com>, <jack.yu@realtek.com>,
+        <derek.fang@realtek.com>, <Vijendar.Mukunda@amd.com>,
+        Shuming Fan <shumingf@realtek.com>
+Subject: [PATCH 0/5] fix for JD event handling in ClockStop Mode0
+Date: Mon, 3 Jul 2023 17:02:30 +0800
+Message-ID: <20230703090230.25244-1-shumingf@realtek.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <877crh76ge.wl-tiwai@suse.de>
-Message-ID-Hash: BGB6NC5NZWITUV7LRMGIKVJHWNYL5XTI
-X-Message-ID-Hash: BGB6NC5NZWITUV7LRMGIKVJHWNYL5XTI
-X-MailFrom: johan@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXH36505.realtek.com.tw (172.21.6.25) To
+ RTEXMBS01.realtek.com.tw (172.21.6.94)
+X-KSE-ServerInfo: RTEXMBS01.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: FTDTZJLNX3ZBXFR34WPOEHHDEWF7AWRS
+X-Message-ID-Hash: FTDTZJLNX3ZBXFR34WPOEHHDEWF7AWRS
+X-MailFrom: shumingf@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -101,7 +83,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BGB6NC5NZWITUV7LRMGIKVJHWNYL5XTI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FTDTZJLNX3ZBXFR34WPOEHHDEWF7AWRS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -110,32 +92,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 03, 2023 at 10:19:29AM +0200, Takashi Iwai wrote:
-> On Mon, 03 Jul 2023 10:03:52 +0200,
-> Johan Hovold wrote:
+From: Shuming Fan <shumingf@realtek.com>
 
-> > Ok, scratch that. I just hit the race again also with this patch
-> > applied:
-> > 
-> > [   11.815028] q6apm-dai 3000000.remoteproc:glink-edge:gpr:service@1:dais: Adding to iommu group 23
-> > [   11.838667] snd-sc8280xp sound: ASoC: adding FE link failed
-> > [   11.838774] snd-sc8280xp sound: ASoC: topology: could not load header: -517
-> > [   11.838916] qcom-apm gprsvc:service:2:1: tplg component load failed-517
-> > [   11.838996] qcom-apm gprsvc:service:2:1: ASoC: error at snd_soc_component_probe on gprsvc:service:2:1: -22
-> > [   11.839430] snd-sc8280xp sound: ASoC: failed to instantiate card -22
-> > [   11.844801] snd-sc8280xp: probe of sound failed with error -22
-> 
-> Isn't it rather an issue about the error code passing in qcom driver?
-> How about the change like below?
+Currently, the codec driver could re-enable SDCA interrupt mask when the devices are re-attached.
+If the manager uses ClockStop Mode0 to peripherals, the SDCA interrupt mask will not be enabled 
+when the system resumes.
+These patches will fix this issue.
 
-Indeed, and I tested a change like that here:
+Shuming Fan (5):
+  ASoC: rt5682-sdw: fix for JD event handling in ClockStop Mode0
+  ASoC: rt711: fix for JD event handling in ClockStop Mode0
+  ASoC: rt711-sdca: fix for JD event handling in ClockStop Mode0
+  ASoC: rt712-sdca: fix for JD event handling in ClockStop Mode0
+  ASoC: rt722-sdca: fix for JD event handling in ClockStop Mode0
 
-	https://lore.kernel.org/lkml/ZIHSGf18Aw7htb9o8@hovoldconsulting.com/
+ sound/soc/codecs/rt5682-sdw.c     |  9 ++++++++-
+ sound/soc/codecs/rt711-sdca-sdw.c | 10 +++++++++-
+ sound/soc/codecs/rt711-sdw.c      |  9 ++++++++-
+ sound/soc/codecs/rt712-sdca-sdw.c | 10 +++++++++-
+ sound/soc/codecs/rt722-sdca-sdw.c | 10 +++++++++-
+ 5 files changed, 43 insertions(+), 5 deletions(-)
 
-but that only seems to make the problem worse currently.
+-- 
+2.40.1
 
-This should probably still be fixed, but I was just hoping that the DAI
-numbering could have been the cause for the probe deferral (which then
-triggers the other bugs).
-
-Johan

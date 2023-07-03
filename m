@@ -2,97 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9AA745C38
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 14:28:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F1BD745CA4
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 14:55:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3A3D20C;
-	Mon,  3 Jul 2023 14:27:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3A3D20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08DC11DD;
+	Mon,  3 Jul 2023 14:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08DC11DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688387320;
-	bh=IYmaR1gBv2Z6QkDpfBcedcjRv/kOAondXl4MM4fFhuA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1688388899;
+	bh=hewjnNwAOpFhWN8t9+3hp7dpuy2ksO2+BijfX7/pwtc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=QMcsqb/6sCvtC+RDWteJPTORav3mL36dxsYBwNAcDKHXdl1FrQF5zLrQ64BHdtw0s
-	 ziST0AcyqdCdA37HtLRVdqZLwddl9VrELULXYioAIY7ESs7w5YTBdRZgKbx7HS6F/M
-	 r/P0/EEmjn7AgxVAsvrM6HA0W1lyTlnUk3PooYDw=
+	b=i3cCe1wW2SYrikKqOs0WB3RNBmwwxv+Xmh4mcvT+uq9BmRa5k9l/JUG37TODWVllL
+	 60onGqJNOh7mk6f3YNl2ljKtsLM83zwei6CidCmlg9J4NOQrC40PkWQa2I7gbmJjYT
+	 uytQkkPct5HeYWByx4abku6BO37neUVKZfUmuzmE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F51EF80093; Mon,  3 Jul 2023 14:27:50 +0200 (CEST)
+	id 76A57F80132; Mon,  3 Jul 2023 14:54:08 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BE75F80124;
-	Mon,  3 Jul 2023 14:27:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BEEEF80124;
+	Mon,  3 Jul 2023 14:54:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 385DEF80125; Mon,  3 Jul 2023 14:27:47 +0200 (CEST)
+	id 26C3DF80125; Mon,  3 Jul 2023 14:54:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E6862F80093
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 14:27:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6862F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 15FABF80100
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 14:54:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15FABF80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=euJkwVk9
-Received: from [IPV6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2] (unknown
- [IPv6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=UWP6F7tv
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 9AF026606F62;
-	Mon,  3 Jul 2023 13:27:42 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1688387263;
-	bh=IYmaR1gBv2Z6QkDpfBcedcjRv/kOAondXl4MM4fFhuA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=euJkwVk9pVBuvYPXT553LlXbUOV0xnScSibtSeZtd4z3vvdxQqfYaj0nn6j6d6Jd+
-	 6C4TudC+AKmUpJ0VpLKdNXep6r5kzS70XnpkUO0RhzmOtVwLyIt5WU9LFfrLoKROik
-	 CMDMlJgC4OYJfZQroYoDW6G/exl2oSTs4ajBCJgHp5jUS6Xt1PKkdsCezh97+4ZViW
-	 xkAA+v03YAVHKL/so+eOfakM/uvyy/UBioeG1fT5i3YjmaD8oOjsYXLf2QgZppkOHT
-	 aW/pTKRkG3DgL+NX31ZMt8lx6vqCdfeACC/MbxXOJIE3zrQFPQUlVxfcC6ceW7kUxS
-	 wDIxUsbdllGaA==
-Message-ID: <8b576880-1c78-84d7-ee46-641c65cdf35d@collabora.com>
-Date: Mon, 3 Jul 2023 14:27:40 +0200
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 3539560EFB;
+	Mon,  3 Jul 2023 12:53:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F7EC433C7;
+	Mon,  3 Jul 2023 12:53:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688388838;
+	bh=hewjnNwAOpFhWN8t9+3hp7dpuy2ksO2+BijfX7/pwtc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UWP6F7tvelb32aSFkmXp3E37CiVtJLdyV1Q/Ol+oRCeZ8nbkDPcaKwnvipmDJY7tH
+	 54BJt+Oc4y83gshDU9zSBY8HSz7K/MU8Y0voUnWGhtfIy1CdScydVw8NVkMU1EoU2n
+	 zQ7PTlmNXODiJcTWCcRKDWy6zczUYmSHoqRbRHJ21RUV2qlBOEw0yuexv38JuMAhSx
+	 sFkOlE4rxVTL3Qbj35KkPeFAQTB7J9Jz41zlNo3gfESItN/Y9hSRVQ6Bq1nPFiw674
+	 nOiuhwpXKQywk/gVZzjACg//zXsHevdnUMkGHdOaJWCePBUDyigaQH1iPwiFg4JO6l
+	 DQeRuvSaX7XWg==
+Date: Mon, 3 Jul 2023 13:53:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Sakari Ailus <sakari.ailus@iki.fi>,
+	Shengjiu Wang <shengjiu.wang@nxp.com>, tfiga@chromium.org,
+	m.szyprowski@samsung.com, mchehab@kernel.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+	hverkuil@xs4all.nl, Jacopo Mondi <jacopo@jmondi.org>
+Subject: Re: [PATCH 1/6] media: v4l2: Add audio capture and output support
+Message-ID: <43f0ecdf-7454-49ae-96b3-2eae5487e9a5@sirena.org.uk>
+References: <1688002673-28493-1-git-send-email-shengjiu.wang@nxp.com>
+ <1688002673-28493-2-git-send-email-shengjiu.wang@nxp.com>
+ <ZJ6o5fT4V4HXivFa@valkosipuli.retiisi.eu>
+ <CAA+D8AND1yZ7eZLjBGxVF=i3hLMecUm-j7AVHN9npJi-4=3VrA@mail.gmail.com>
+ <87h6ql5hch.wl-tiwai@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Subject: Re: [PATCH] ASoC: mediatek: mt8188: add constraints for PCM
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, =?UTF-8?B?VHJldm9yIFd1ICjlkLPmlofoia8p?=
- <Trevor.Wu@mediatek.com>
-Cc: "linux-mediatek@lists.infradead.org"
- <linux-mediatek@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "perex@perex.cz" <perex@perex.cz>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <20230629075910.21982-1-trevor.wu@mediatek.com>
- <5995e77b-ea8e-4e88-8ca2-f716df9c9579@sirena.org.uk>
- <0e8b5ca298a01b16da0419928a30af6371e923ca.camel@mediatek.com>
- <6cda3265-7444-46a1-8b2e-75706a839670@sirena.org.uk>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <6cda3265-7444-46a1-8b2e-75706a839670@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: QAMQ2NZIXFWT7CZTLFQBS5YLLVFMBOGM
-X-Message-ID-Hash: QAMQ2NZIXFWT7CZTLFQBS5YLLVFMBOGM
-X-MailFrom: angelogioacchino.delregno@collabora.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XyTCZVqlIuin1XJf"
+Content-Disposition: inline
+In-Reply-To: <87h6ql5hch.wl-tiwai@suse.de>
+X-Cookie: Please go away.
+Message-ID-Hash: 6CJK66DUIO6T65U2YDPTXJKI56FVVUJB
+X-Message-ID-Hash: 6CJK66DUIO6T65U2YDPTXJKI56FVVUJB
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -104,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QAMQ2NZIXFWT7CZTLFQBS5YLLVFMBOGM/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6CJK66DUIO6T65U2YDPTXJKI56FVVUJB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,51 +111,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Il 30/06/23 13:00, Mark Brown ha scritto:
-> On Fri, Jun 30, 2023 at 05:29:23AM +0000, Trevor Wu (吳文良) wrote:
->> On Thu, 2023-06-29 at 16:06 +0100, Mark Brown wrote:
-> 
->>> This commit message isn't entirely clear.  The effect of the commit
->>> is
->>> to restrict the configurations supported when using a nau8825 but
->>> it's
->>> not clear what a nau8825 has to do with this or why we're doing this
->>> in
->>> general.  What exactly do you mean when saying that "only a limited
->>> number of parameters are necessary" and what makes this the case?
-> 
->> For instance, some userspace frameworks only support specific sampling
->> rates such as 48kHz on Chromebook, making other parameters unnecessary.
->> By restricting the configuration, unexpected usage can be prevented and
->> the alsa_conformance_test process which checks all parameters provided
->> by an ALSA driver can be sped up.
-> 
-> That's a userspace policy decision, we shouldn't be enforcing this in
-> the kernel - even for Chromebooks people can install other OSs on them
-> which may make different decisions, and it's always possible that the
-> ChromeOS people might change their mind later.  If they're only
-> interested in testing 48kHz and it's slowing things down unreasonably
-> to test more then they should just only test 48kHz rather than changing
-> the driver to work around it.
-> 
->> Would it be more beneficial to establish the criteria as a general rule
->> for this machine driver, while limiting the use of the machine driver
->> solely to the Chromebook project? Or do you just suggest that I add
->> more details in the commit messages?
-> 
-> I think we just shouldn't do this, it's policy for ChromeOS rather than
-> something that's actually needed.  If we were doing this it would need a
-> much clearer commit message and we should be restricting things to
-> Chromebooks only.
 
-I agree with Mark. Except for me it's not a *should not* but a *shall not*.
+--XyTCZVqlIuin1XJf
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Such other configurations are supported by the hardware and it is the driver's
-duty to support all of them - otherwise I deem the driver to be *incomplete*.
-It's then the userspace's duty to properly use the sound APIs and request the
-right sampling rate for specific usecases.
+On Mon, Jul 03, 2023 at 02:07:10PM +0200, Takashi Iwai wrote:
+> Shengjiu Wang wrote:
 
-Chromebooks aren't special at all in this regard.
+> > There is no such memory to memory interface defined in ALSA.=A0 Seems
+> > ALSA is not designed for M2M cases.
 
-Regards,
-Angelo
+> There is no restriction to implement memory-to-memory capture in ALSA
+> framework.  It'd be a matter of the setup of PCM capture source, and
+> you can create a corresponding kcontrol element to switch the mode or
+> assign a dedicated PCM substream, for example.  It's just that there
+> was little demand for that.
+
+Yeah, it's not a terrible idea.  We might use it more if we ever get
+better support for DSP audio, routing between the DSP and external
+devices if driven from the CPU would be a memory to memory thing.
+
+> I'm not much against adding the audio capture feature to V4L2,
+> though, if it really makes sense.  But creating a crafted /dev/audio*
+> doesn't look like a great idea to me, at least.
+
+I've still not looked at the code at all.
+
+--XyTCZVqlIuin1XJf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSixNsACgkQJNaLcl1U
+h9AHBgf+PmrkjDoGNN2pkJ1mNw5jmGsBAJkUX+OHPdAbWl0Su866gJ9fD6vXajFO
+Y/9d2UZ5ubbmVeBZn47fj95dmPvq2povgtl2nzNz85MpDwcac03pQBVmS+ZPfYlk
+Ui4s5mk+QFpXMRCxt4b9vYr8Wkp/lVH4RaD2q3fOXGeQqUvCp0Sn99z6tDZaTWBO
+9hShFfh4il+VkKeBk6+m2MxWTcAEy5pAM7moCIE0VMDmZ4MEWmaXxvyJCZEOapD9
+f+WpZURGpbdIi5yBHwfi/zVEHzfo2DGccC2UauYc50Z+hekml26dBQuTvfZM37Qc
+BN0Unl4+vKxBW8rdx7rkbRIUueFLGA==
+=SMUJ
+-----END PGP SIGNATURE-----
+
+--XyTCZVqlIuin1XJf--

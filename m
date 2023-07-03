@@ -2,96 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 473987461B7
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 20:00:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B61B74636D
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jul 2023 21:39:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D46B2203;
-	Mon,  3 Jul 2023 19:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D46B2203
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57A6B1E0;
+	Mon,  3 Jul 2023 21:38:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57A6B1E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688407207;
-	bh=XiKFb7V3OWMEwZYvzGXbVzuxPSM8FbOxPhs9OT74TMw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1688413181;
+	bh=QKXpbyUUH/cjeu+2HCURMlRGCrW4lylUi7rD1j/KZ/o=;
+	h=Date:To:Cc:References:Subject:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=jfTOBVh+6EjFWYMUUbmOEl5hpk2Y1V8gvxnHwcskY50n6fn8lLnQdJukhOiSdti9G
-	 ERSMZfLpMRVaRyDwiEgdYHpJeVo9zO7/xsx07CnDCzjfkt5aKRSm6ZIeqfhyXMLXbU
-	 cW3Mfh3qQUA105saMT4OEaolA1fhgUfRVuC/G+O0=
+	b=i1LVnib+B3Hwhsd0p0z5/KUiOntDt4UmUIi7IMSkTLIFMnO8SCJGpCaDUG4BtK7gE
+	 u78Byk5Ar8XfofnE3QnA9xnnOHvRLELJJtVc+iqs4mBMhnruHr0uyzcWzFnRdyljgU
+	 GuAbi06WU1uAduwXFfz4ojNt2bKBDp6U7FGt4rlk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 499ADF80100; Mon,  3 Jul 2023 19:59:17 +0200 (CEST)
+	id C7866F80544; Mon,  3 Jul 2023 21:38:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id D744FF80124;
-	Mon,  3 Jul 2023 19:59:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 841FEF80104;
+	Mon,  3 Jul 2023 21:38:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4D216F80125; Mon,  3 Jul 2023 19:59:12 +0200 (CEST)
+	id C69DDF80125; Mon,  3 Jul 2023 21:38:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,NICE_REPLY_A,
+	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from mout.web.de (mout.web.de [212.227.15.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 748EEF80100
-	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 19:59:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 748EEF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0409CF80100
+	for <alsa-devel@alsa-project.org>; Mon,  3 Jul 2023 21:38:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0409CF80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=FhW9voFl
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E70C960FE2;
-	Mon,  3 Jul 2023 17:59:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A2F4C433C8;
-	Mon,  3 Jul 2023 17:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688407142;
-	bh=XiKFb7V3OWMEwZYvzGXbVzuxPSM8FbOxPhs9OT74TMw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FhW9voFlWsg2QeJzEydQBhtOwjlMm8fZzCdy3Jg6bgRw3Esqh+f8rsZBYIA3SCaPx
-	 AQz+Oc9EBN6nn93BEoFFPSg+57WrZmANomGNefAIrNciFIsppxAehBRnMqXAt/ywjm
-	 z7iqgzyrENrfpeSnG308kL3EU9gR+y4v6L3MlpiOyNoivVjA3mh4bTEnyioySkQzgM
-	 GxeHgvOxN6ShRkFj3TRimrwaeLvgUIl10cAmpoOAJRCAw3PSjPMnrlQB4GB7fHJBUf
-	 S3+AIOJVoJNcN8mVzU6/cDqq2x4yEOq0egDriSpyLBXZ5+3puLj3beKYTz+4YpegCI
-	 Yid4vMQ3ucBZQ==
-Date: Mon, 3 Jul 2023 18:58:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Cc: Takashi Iwai <tiwai@suse.de>, Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>, tfiga@chromium.org,
-	m.szyprowski@samsung.com, mchehab@kernel.org,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Xiubo.Lee@gmail.com, festevam@gmail.com, nicoleotsuka@gmail.com,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	Jacopo Mondi <jacopo@jmondi.org>
-Subject: Re: [PATCH 1/6] media: v4l2: Add audio capture and output support
-Message-ID: <090cc065-b078-4f2c-9b2d-3b0b7418461d@sirena.org.uk>
-References: <1688002673-28493-1-git-send-email-shengjiu.wang@nxp.com>
- <1688002673-28493-2-git-send-email-shengjiu.wang@nxp.com>
- <ZJ6o5fT4V4HXivFa@valkosipuli.retiisi.eu>
- <CAA+D8AND1yZ7eZLjBGxVF=i3hLMecUm-j7AVHN9npJi-4=3VrA@mail.gmail.com>
- <87h6ql5hch.wl-tiwai@suse.de>
- <43f0ecdf-7454-49ae-96b3-2eae5487e9a5@sirena.org.uk>
- <d78e6ec3-a531-8fd4-a785-29b6712f83ae@xs4all.nl>
+ unprotected) header.d=web.de header.i=markus.elfring@web.de
+ header.a=rsa-sha256 header.s=s29768273 header.b=UE32JHZy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+ s=s29768273; t=1688413115; x=1689017915; i=markus.elfring@web.de;
+ bh=QKXpbyUUH/cjeu+2HCURMlRGCrW4lylUi7rD1j/KZ/o=;
+ h=X-UI-Sender-Class:Date:To:Cc:References:Subject:From:In-Reply-To;
+ b=UE32JHZyiR/tIfilOkEIQ9nBzhAtPUStpwWmiUIdqHzTqM22XxI0PdBfevmLUbioRmdmKjl
+ 692mDJ4gR15MUCRerAlM9qge6DmsTxWFOk74MoBsR+fFAxXtBgnOJsQufhDYtLMWcGsw2e+2h
+ 8g8cq7886Sw2CxXMFiP7pl3q1mcED1lHUbSiomKMIGUZxhquluejgPZqh6PYlkt+8SInT5tW2
+ KNOcbLcdX4rw8tcmln624FhjxJdjN2tihQ3WEhanJ34Tpk4l+tl+aFHdJ1mEwq5ol3pMUveUC
+ lav8sDiFN1t6UoyTHSuBild48/y3fLzLd8uBoMQISSr+Pb2ybxcw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.90.83]) by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1M76XT-1qNJGH3rtH-008hQC; Mon, 03
+ Jul 2023 21:38:34 +0200
+Message-ID: <2d38ce57-5385-50e2-3ad4-7030d2b09719@web.de>
+Date: Mon, 3 Jul 2023 21:38:34 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lxJuGwNgfQ7aT3CA"
-Content-Disposition: inline
-In-Reply-To: <d78e6ec3-a531-8fd4-a785-29b6712f83ae@xs4all.nl>
-X-Cookie: Please go away.
-Message-ID-Hash: VVP5K3WI4GUUKW54634AGEWBHHQN3RYY
-X-Message-ID-Hash: VVP5K3WI4GUUKW54634AGEWBHHQN3RYY
-X-MailFrom: broonie@kernel.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+To: Johan Hovold <johan+linaro@kernel.org>, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20230703124701.11734-1-johan+linaro@kernel.org>
+Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix missing mbhc init error
+ handling
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20230703124701.11734-1-johan+linaro@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:pbhh/XP8/ROmGCqqirPmMCe/VSwTyRuO9yi7a4YrbsVOIRWZmEv
+ SKgiN73fETtZwUMD9Ke3m+o9uwbBIgs9eeF6QdEvxt12LRYMlQOIt0RJ8mB4Iy8UJ+eFFFi
+ UoBKD36KIBddfQOiZKGJBWREYRwnNjrxG6mh9SVgRj1Jr+XI/G5eDCof+TDQ+g3S9ti7pLe
+ 60r4/JABhfDNt0TpbNFsg==
+UI-OutboundReport: notjunk:1;M01:P0:WgWNs8oH8WM=;Ydp+Afm3vTpA465b2gOy9l0FBB8
+ fR7dAoUmR3ae++cl+YPDMPIavAV96GlH/1u1jqzYnXHD3KXZEe+q6uhRRnRP6S6GW/E2kbUom
+ 2EPzhKC0jJzTurHYOIQhFT1/TrJ8mHv0rVAGDdw7O4y/dsbyWpGNE2Vi7c51q3eS4ol+9oZXC
+ h1HqO4S8tF5WHXYsb/bM6wTyd5GRKq+c+UH6pIFEbYlDshTp+qhkoBWQw3JB0ooZnCxG7NDeU
+ 3plXpm566ubQiC61yAPyDcPH3xKY1sy0gt9PnbOIP99M/iDvJ6/l+fTOQCQWCekr3rmLHdfcx
+ X29bDfqk3eFr0FN5uoRlD0bSJbn2xxs1ig6XmOup6Lv1NLy7x92+KE7VJiIus83V+WFE+XqQH
+ NO8jEsiCAZXOjSfTwZzvmEZpL/RDsuh+KECk8F7E1HY3UVLzPqVtms/PV7MpqTsZxiWZtkDAa
+ ddzbPo+c08rR0edsLZQ5uz5gQHHLpaaG9fJQXDbL7yk/HFI6Jq0iqOdq9tMYfAizrdgZtQVix
+ Jxjv9IEpzva+KyBlhgrkxE3immM6t+prjerhF7Diw1gbWjeFxzdhbk7vDoBCD60RF9R2EucT1
+ mFbJo6DoFNdGLzwZcH6lhY6GNAidBCv2E9GwrV9/dnhNLHhGw+n7vPagIALMrAw5kQPyNsdSJ
+ K1tg/lKRAgyJlljCpugjY/SII/l0svVn+Gsq6Uk/VpJ29zt/EfNwhFDbmlKFkdNa0Eu86U3K4
+ 8IbsQV5mkUfUlFMla3AOkaEWJWs2iGJ+SyT9I0fMUfmUSYHx/hPK/1SjOQgnt0ZscCOVl9kQA
+ I0t21cVSUT2KBsDOzQULZSn+fTeRKc6O4a3QbgADEva/+R00iTru0+yvrXjPfcZI6VdRCXG/Z
+ aJpcQzg89IZ9XcxLrjjiQt4H31Vk0YOv0YeH6pTfmMdT4+eHZIOXx1KMhmLFJBuBMw2jiLmfN
+ 2JbJdg==
+Message-ID-Hash: 5PWETEBAXX3S5Z2J35C5JZXJYO5EQO4P
+X-Message-ID-Hash: 5PWETEBAXX3S5Z2J35C5JZXJYO5EQO4P
+X-MailFrom: Markus.Elfring@web.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,53 +110,40 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VVP5K3WI4GUUKW54634AGEWBHHQN3RYY/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5PWETEBAXX3S5Z2J35C5JZXJYO5EQO4P/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+> MBHC initialisation can fail so add the missing error handling to avoid
+> dereferencing an error pointer when later configuring the jack:
 
---lxJuGwNgfQ7aT3CA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I would prefer a different wording approach for a desirable change here.
+How do you think about a variant like the following?
 
-On Mon, Jul 03, 2023 at 03:12:55PM +0200, Hans Verkuil wrote:
 
-> My main concern is that these cross-subsystem drivers are a pain to
-> maintain. So there have to be good reasons to do this.
+MBHC initialisation can fail.
+Such a data processing situation can be indicated by background informatio=
+n
+as follows.
 
-> Also it is kind of weird to have to use the V4L2 API in userspace to
-> deal with a specific audio conversion. Quite unexpected.
+    Unable to handle kernel paging request at virtual address ffffffffffff=
+fff8
 
-> But in the end, that's a decision I can't make.
+    pc : wcd_mbhc_start+0x28/0x380 [snd_soc_wcd_mbhc]
+=E2=80=A6
+    Call trace:
+=E2=80=A6
 
-> So I wait for that feedback. Note that if the decision is made that this
-> can use V4L2, then there is quite a lot more that needs to be done:
-> documentation, new compliance tests, etc. It's adding a new API, and that
-> comes with additional work...
+Thus add the missing error handling to avoid dereferencing an error pointe=
+r
+when configuring the jack later.
+=E2=80=A6
 
-Absolutely, I agree with all of this - my impression was that the target
-here would be bypass of audio streams to/from a v4l2 device, without
-bouncing through an application layer.  If it's purely for audio usage
-with no other tie to v4l2 then involving v4l2 does just seem like
-complication.
 
---lxJuGwNgfQ7aT3CA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSjDF4ACgkQJNaLcl1U
-h9C2qQf/T1bo/x5kzUxZUiZwHmeGiBJp44klM7V/tJxivlJLnJasmtd1XuabJOck
-svgGpJOHeeAAIAQIleix37Lwq5hMLYgRdPPAHw3+uw4mYtDzqo5dx8t7Wb8d7+px
-152zx6Cv8YdJ1mK/UOKXC/+knHpkW0r9PtzwItAAnCTPpAIPjB0FAjSkhRuQr2bl
-tlzLcAepTA/uPQYuK1FbwUZEcm0i/qo/aFpE5T7hYpY3IlFYrtMz8uNyqhXMsuM2
-SMREMMIMF84hMJkJ3sRrf6609xv86w+Rkh6illa8jX/GCKDHQRNR0xa+0Gky5cah
-eOW+Q5lSP6NtzVnkBdM3DUDl/+IaRg==
-=ImD6
------END PGP SIGNATURE-----
-
---lxJuGwNgfQ7aT3CA--
+Regards,
+Markus

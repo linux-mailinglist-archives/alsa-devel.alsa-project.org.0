@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5DA1746C91
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 10:59:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2313746CA9
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 11:02:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 797F53E7;
-	Tue,  4 Jul 2023 10:58:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 797F53E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 366377F1;
+	Tue,  4 Jul 2023 11:01:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 366377F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688461178;
-	bh=SjGu7YG2MyYo3NcWANYQRJtPw6x21qgJpQDVq9sIg40=;
+	s=default; t=1688461355;
+	bh=Sc7fq+rTOlTB0mP3kaMF9Dy8NIoMJX8FCQ4muEAYp6A=;
 	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
 	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
 	 From;
-	b=N+WWUG3GYomdeOrlhgrIwfGMt4XH3ud3HkWZvxTdRW2nYPT0g4KBa6j7bCib+bBF9
-	 R1sr+MxGZx7r+HwXr6zC+xiD21hlBlV+V7zVF3dlWMwBOLuZC0gP1HU/bppkDht8Ma
-	 /ioEHJbxIfsl0m34KuigwimFpA9aRQ9txVhiUJtE=
+	b=odB51y8o15G7Wi/rMTrcTF98/siFBY8OHrU4suQ5n+lycIGxgT0pBv3lb5J62kZ2O
+	 NQwe46HkvvXbM5E/NppVJ7diDHwhN5WFgMNQmR+C8QoSl/oF/M/wo98S/yfJThwq+y
+	 aBwg6igz4G+Y1+RmuutjteKXSf1mjijooJA5i4MI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 916C4F80272; Tue,  4 Jul 2023 10:58:47 +0200 (CEST)
+	id 514E5F8053B; Tue,  4 Jul 2023 11:01:23 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0201CF80124;
-	Tue,  4 Jul 2023 10:58:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8525F80124;
+	Tue,  4 Jul 2023 11:01:22 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8DEAAF80125; Tue,  4 Jul 2023 10:58:43 +0200 (CEST)
+	id 50B9AF80125; Tue,  4 Jul 2023 11:01:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,41 @@ X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 51D96F800E4
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:58:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51D96F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3446EF80104
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 11:01:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3446EF80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=diAkKC0m
+ header.a=rsa-sha256 header.s=mail header.b=O2D7hTO3
 Received: from [IPV6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2] (unknown
  [IPv6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id 606946606ED1;
-	Tue,  4 Jul 2023 09:58:37 +0100 (BST)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id E5D856606ED1;
+	Tue,  4 Jul 2023 10:01:11 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1688461118;
-	bh=SjGu7YG2MyYo3NcWANYQRJtPw6x21qgJpQDVq9sIg40=;
+	s=mail; t=1688461272;
+	bh=Sc7fq+rTOlTB0mP3kaMF9Dy8NIoMJX8FCQ4muEAYp6A=;
 	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=diAkKC0mRWuRsit2iQeQ1D7RhtTmGuMxonq0MZHRcsLjqWkMY1hJsxU6qJ9VhNSok
-	 ptnc7NjHpaZqq+JTZkG5HjlsxOUzg1Ta4Xr7ESYfQmosDTrV8RKiyIHgQpQMsV7VXd
-	 Fge0rqRoi8cbmWe6AaPJn0qExzySMJAEaBrHtmN8+Jf2VFE0j3rz/TjLi5SCMy5NV6
-	 qE28q0WmNiFcm8zXJa0UleCiSqxtCTlFLsNSgLp2fvWWfvx+0Tq3n+kMcntt8roYr7
-	 BRR31fFWm81RnKdxJZPIzCd8iD8k3WXGPxceqdjEevrlyqwZfv43+1rsGPdahIfPQL
-	 pPxEOpecAHPSQ==
-Message-ID: <255bb946-2198-93e7-7f38-7b8e00f7677f@collabora.com>
-Date: Tue, 4 Jul 2023 10:58:34 +0200
+	b=O2D7hTO3dCooM7TV2L607b3CAeHCPy9CXrnmemtTqdcNVqW3OaHCRHR7Xei0SA5X1
+	 vR/6dkqKCAqnF1iRFd2yFrNM+f0POcDBln/YzdOD1ymssEJMSXIcUgLELMu/sLZEeY
+	 n4zoBbPJpqXb6euNRgMglQZzpvMxg21TtOct7VM2CnY94lp7H+Vbob7KG1rg1EGRpG
+	 9WfDXiRGDAc56LsxFAjplAI1ZXwOXwvFq38TS1FF5ClTKSIRaiwKJl2ftQ2qvmPGW6
+	 oYmxqDzfh34SUJECqwaNwfc5Bgat0skEr9UrvPg6b38fUwaS3HauJbn4ExwnCMPnkG
+	 l0WxMXD+1tSRg==
+Message-ID: <bb13702f-801d-57f4-64d1-077dd977d43b@collabora.com>
+Date: Tue, 4 Jul 2023 11:01:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-Subject: Re: [PATCH v2 3/7] ASoC: mediatek: mt7986: support etdm in platform
- driver
+Subject: Re: [PATCH v2 1/7] ASoC: mediatek: mt7986: add common header
 Content-Language: en-US
 To: Maso Huang <maso.huang@mediatek.com>, Liam Girdwood
  <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -83,13 +81,13 @@ To: Maso Huang <maso.huang@mediatek.com>, Liam Girdwood
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
 References: <20230626023501.11120-1-maso.huang@mediatek.com>
- <20230626023501.11120-4-maso.huang@mediatek.com>
+ <20230626023501.11120-2-maso.huang@mediatek.com>
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20230626023501.11120-4-maso.huang@mediatek.com>
+In-Reply-To: <20230626023501.11120-2-maso.huang@mediatek.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: XCRIKQAZESR6QROC37GAGQKMHRSMBNIV
-X-Message-ID-Hash: XCRIKQAZESR6QROC37GAGQKMHRSMBNIV
+Message-ID-Hash: 3LUCCCZZVXIUGZR4WCQJ5EUPWFQ2W7BO
+X-Message-ID-Hash: 3LUCCCZZVXIUGZR4WCQJ5EUPWFQ2W7BO
 X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -102,7 +100,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XCRIKQAZESR6QROC37GAGQKMHRSMBNIV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3LUCCCZZVXIUGZR4WCQJ5EUPWFQ2W7BO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -112,176 +110,110 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Il 26/06/23 04:34, Maso Huang ha scritto:
-> Add mt7986 etdm dai driver support.
+> Add header files for register definition and structure.
 > 
 > Signed-off-by: Maso Huang <maso.huang@mediatek.com>
 > ---
->   sound/soc/mediatek/mt7986/mt7986-dai-etdm.c | 421 ++++++++++++++++++++
->   1 file changed, 421 insertions(+)
->   create mode 100644 sound/soc/mediatek/mt7986/mt7986-dai-etdm.c
+>   sound/soc/mediatek/mt7986/mt7986-afe-common.h |  51 +++++
+>   sound/soc/mediatek/mt7986/mt7986-reg.h        | 206 ++++++++++++++++++
+>   2 files changed, 257 insertions(+)
+>   create mode 100644 sound/soc/mediatek/mt7986/mt7986-afe-common.h
+>   create mode 100644 sound/soc/mediatek/mt7986/mt7986-reg.h
 > 
-> diff --git a/sound/soc/mediatek/mt7986/mt7986-dai-etdm.c b/sound/soc/mediatek/mt7986/mt7986-dai-etdm.c
+> diff --git a/sound/soc/mediatek/mt7986/mt7986-afe-common.h b/sound/soc/mediatek/mt7986/mt7986-afe-common.h
 > new file mode 100644
-> index 000000000000..672deb59ea46
+> index 000000000000..646e1be4fdce
 > --- /dev/null
-> +++ b/sound/soc/mediatek/mt7986/mt7986-dai-etdm.c
-> @@ -0,0 +1,421 @@
-> +// SPDX-License-Identifier: GPL-2.0
+> +++ b/sound/soc/mediatek/mt7986/mt7986-afe-common.h
+> @@ -0,0 +1,51 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
 > +/*
-> + * MediaTek ALSA SoC Audio DAI eTDM Control
+> + * mt7986-afe-common.h  --  MediaTek 7986 audio driver definitions
 > + *
 > + * Copyright (c) 2021 MediaTek Inc.
 > + * Author: Vic Wu <vic.wu@mediatek.com>
 > + *         Maso Huang <maso.huang@mediatek.com>
 > + */
 > +
-> +#include <linux/bitops.h>
+> +#ifndef _MT_7986_AFE_COMMON_H_
+> +#define _MT_7986_AFE_COMMON_H_
+> +
+> +#include <sound/soc.h>
+> +#include <linux/clk.h>
+> +#include <linux/list.h>
 > +#include <linux/regmap.h>
-> +#include <sound/pcm_params.h>
-> +#include "mt7986-afe-clk.h"
-> +#include "mt7986-afe-common.h"
-> +#include "mt7986-reg.h"
+> +#include "../common/mtk-base-afe.h"
 > +
 > +enum {
-> +	HOPPING_CLK = 0,
-> +	APLL_CLK = 1,
-> +};
-> +
-> +enum {
-> +	MTK_DAI_ETDM_FORMAT_I2S = 0,
-> +	MTK_DAI_ETDM_FORMAT_DSPA = 4,
-> +	MTK_DAI_ETDM_FORMAT_DSPB = 5,
+> +	MT7986_MEMIF_DL1,
+> +	MT7986_MEMIF_VUL12,
+> +	MT7986_MEMIF_NUM,
+> +	MT7986_DAI_ETDM = MT7986_MEMIF_NUM,
+> +	MT7986_DAI_NUM,
 > +};
 > +
 > +enum {
-> +	ETDM_IN5 = 2,
-> +	ETDM_OUT5 = 10,
+> +	MT7986_IRQ_0,
+> +	MT7986_IRQ_1,
+> +	MT7986_IRQ_2,
+> +	MT7986_IRQ_NUM,
 > +};
 > +
-> +enum {
-> +	MTK_ETDM_RATE_8K = 0,
-> +	MTK_ETDM_RATE_12K = 1,
-> +	MTK_ETDM_RATE_16K = 2,
-> +	MTK_ETDM_RATE_24K = 3,
-> +	MTK_ETDM_RATE_32K = 4,
-> +	MTK_ETDM_RATE_48K = 5,
-> +	MTK_ETDM_RATE_96K = 7,
-> +	MTK_ETDM_RATE_192K = 9,
-> +	MTK_ETDM_RATE_11K = 16,
-> +	MTK_ETDM_RATE_22K = 17,
-> +	MTK_ETDM_RATE_44K = 18,
-> +	MTK_ETDM_RATE_88K = 19,
-> +	MTK_ETDM_RATE_176K = 20,
+> +struct clk;
+> +
+> +struct mt7986_afe_private {
+> +	struct clk_bulk_data *clks;
+> +	int num_clks;
+> +
+> +	int pm_runtime_bypass_reg_ctl;
+> +
+> +	/* dai */
+> +	void *dai_priv[MT7986_DAI_NUM];
 > +};
 > +
-> +struct mtk_dai_etdm_priv {
-> +	bool bck_inv;
-> +	bool lrck_inv;
-> +	bool slave_mode;
-> +	unsigned int format;
-> +};
+> +unsigned int mt7986_afe_rate_transform(struct device *dev,
+> +				       unsigned int rate);
 > +
-> +static unsigned int mt7986_etdm_rate_transform(struct device *dev,
-> +					unsigned int rate)
-
-Please either fix indentation or just do it in one line, 86 columns are ok.
-
-> +{
-> +	switch (rate) {
-> +	case 8000:
-> +		return MTK_ETDM_RATE_8K;
-> +	case 11025:
-> +		return MTK_ETDM_RATE_11K;
-> +	case 12000:
-> +		return MTK_ETDM_RATE_12K;
-> +	case 16000:
-> +		return MTK_ETDM_RATE_16K;
-> +	case 22050:
-> +		return MTK_ETDM_RATE_22K;
-> +	case 24000:
-> +		return MTK_ETDM_RATE_24K;
-> +	case 32000:
-> +		return MTK_ETDM_RATE_32K;
-> +	case 44100:
-> +		return MTK_ETDM_RATE_44K;
-> +	case 48000:
-> +		return MTK_ETDM_RATE_48K;
-> +	case 88200:
-> +		return MTK_ETDM_RATE_88K;
-> +	case 96000:
-> +		return MTK_ETDM_RATE_96K;
-> +	case 176400:
-> +		return MTK_ETDM_RATE_176K;
-> +	case 192000:
-> +		return MTK_ETDM_RATE_192K;
-> +	default:
-> +		dev_warn(dev, "%s(), rate %u invalid, use %d!!!\n",
-
-s/use/using/g
-
-> +			 __func__, rate, MTK_ETDM_RATE_48K);
-> +		return MTK_ETDM_RATE_48K;
-> +	}
-> +}
+> +/* dai register */
+> +int mt7986_dai_etdm_register(struct mtk_base_afe *afe);
+> +#endif
+> diff --git a/sound/soc/mediatek/mt7986/mt7986-reg.h b/sound/soc/mediatek/mt7986/mt7986-reg.h
+> new file mode 100644
+> index 000000000000..6433cdf3da92
+> --- /dev/null
+> +++ b/sound/soc/mediatek/mt7986/mt7986-reg.h
+> @@ -0,0 +1,206 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * mt7986-reg.h  --  MediaTek 7986 audio driver reg definition
+> + *
+> + * Copyright (c) 2021 MediaTek Inc.
+> + * Author: Vic Wu <vic.wu@mediatek.com>
+> + *         Maso Huang <maso.huang@mediatek.com>
+> + */
 > +
-> +static int get_etdm_wlen(unsigned int bitwidth)
-> +{
-> +	return bitwidth <= 16 ? 16 : 32;
-> +}
-> +
-> +/* dai component */
-> +/* interconnection */
-> +
-> +static const struct snd_kcontrol_new o124_mix[] = {
-> +	SOC_DAPM_SINGLE_AUTODISABLE("I032_Switch", AFE_CONN124_1, 0, 1, 0),
-> +};
-> +
-> +static const struct snd_kcontrol_new o125_mix[] = {
-> +	SOC_DAPM_SINGLE_AUTODISABLE("I033_Switch", AFE_CONN125_1, 1, 1, 0),
-> +};
-> +
-> +static const struct snd_soc_dapm_widget mtk_dai_etdm_widgets[] = {
-> +
-> +	/* DL */
-> +	SND_SOC_DAPM_MIXER("I150", SND_SOC_NOPM, 0, 0, NULL, 0),
-> +	SND_SOC_DAPM_MIXER("I151", SND_SOC_NOPM, 0, 0, NULL, 0),
-> +	/* UL */
-> +	SND_SOC_DAPM_MIXER("O124", SND_SOC_NOPM, 0, 0,
-> +			   o124_mix, ARRAY_SIZE(o124_mix)),
+> +#ifndef _MT7986_REG_H_
+> +#define _MT7986_REG_H_
 
-Fits in one line.
+..snip..
 
-> +	SND_SOC_DAPM_MIXER("O125", SND_SOC_NOPM, 0, 0,
-> +			   o125_mix, ARRAY_SIZE(o125_mix)),
+> +/* ETDM_OUT5_CON4 */
+> +#define OUT_RELATCH(x)                  ((x) << 24)
+> +#define OUT_RELATCH_SFT                 24
+> +#define OUT_RELATCH_MASK                GENMASK(28, 24)
+> +#define OUT_CLK_SRC(x)                  ((x) << 6)
+> +#define OUT_CLK_SRC_SFT                 6
+> +#define OUT_CLK_SRC_MASK                GENMASK(8, 6)
+> +#define OUT_SEL_FS(x)                   ((x) << 0)
 
-This one too.
+A number shifted by zero bits is equal to itself, so, this statement doesn't
+make sense. I understand why you want a OUT_SEL_FS(x) definition though, so
+you could do it like:
 
-> +};
-> +
-> +static const struct snd_soc_dapm_route mtk_dai_etdm_routes[] = {
-> +	{"I150", NULL, "ETDM Capture"},
-> +	{"I151", NULL, "ETDM Capture"},
-> +	{"ETDM Playback", NULL, "O124"},
-> +	{"ETDM Playback", NULL, "O125"},
-> +	{"O124", "I032_Switch", "I032"},
-> +	{"O125", "I033_Switch", "I033"},
-> +};
-> +
-> +/* dai ops */
-> +static int mtk_dai_etdm_startup(struct snd_pcm_substream *substream,
-> +				struct snd_soc_dai *dai)
-> +{
-> +	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
-> +
-> +	mt7986_afe_enable_clock(afe);
-> +
-> +	regmap_update_bits(afe->regmap, AUDIO_TOP_CON2, CLK_OUT5_PDN_MASK,
-> +			   0);
-> +	regmap_update_bits(afe->regmap, AUDIO_TOP_CON2, CLK_IN5_PDN_MASK,
-> +			   0);
+#define OUT_SEL_FS(x)			(x)
 
-Both do fit in one line (and others in this file).
-
-After fixing that,
-
+After which,
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+Regards,
+Angelo

@@ -2,106 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 229D2746D63
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 11:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4464747383
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 16:00:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17A783E8;
-	Tue,  4 Jul 2023 11:32:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17A783E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id B90287F1;
+	Tue,  4 Jul 2023 15:59:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B90287F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688463193;
-	bh=1G1cPGuNpbQC7Ze5dhbi2jHw5E1hx/+N84H4/bQzdq4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1688479246;
+	bh=Rz4B8MHS9txQmFz0LcpLJ1buoy3ozqfsNNEcFtPbKqo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=DOfEFKJa9Zp3YaqDrGw8AovgCyaxNfSdtUcXtHYxikuQ5Q4VHyh9m3OqL+W+CG8tn
-	 /kqBalSWTY5UQOFce629jA3HUiN/LRruheoMNNdyfg2MUVzTtkI/DdS/ew9U8R9dO9
-	 gso13vg+oWz1vu3Tnrx6qFVLV9wY8jwbevU7L4Go=
+	b=dPhB31EO44lDrCKilMmMgVKf8N9VVrgSCBjTOmlUw/XCr4RfAlpUZE5C3Xqig1Rs9
+	 04f6x0fCwdk9+r5wRjfiUSEDzvFV1Bb0v/qjiTlsGK3jNH3egjBv05QE4ZN/JUw4z/
+	 jYUImoMs1TRSBCQ56BC8+NZ/DDJTXgD9LhwrmyRU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CF54BF80535; Tue,  4 Jul 2023 11:31:58 +0200 (CEST)
+	id 03898F800E4; Tue,  4 Jul 2023 15:59:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9290CF80124;
-	Tue,  4 Jul 2023 11:31:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 355A3F80124;
+	Tue,  4 Jul 2023 15:59:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 66500F80125; Tue,  4 Jul 2023 11:31:52 +0200 (CEST)
+	id 071B3F80125; Tue,  4 Jul 2023 15:59:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C5180F800E4
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 11:31:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5180F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91AAAF80104
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 15:59:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91AAAF80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=EuwuNreG;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=WfvgNuET
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=dU9DnKCb
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 01C5120479;
-	Tue,  4 Jul 2023 09:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1688463104;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xxBYV5PGHxOojZ6/Vf69b83Mv4nKQ6Ix2pTjW52Xd2E=;
-	b=EuwuNreGaHdJ2Fk7s6PHEKDg3FCcmHiYWvxdvsRjKJ659EHvDlnsb29GcvMehTo7D90fmB
-	4Fy59JubTOvNYsfCg/v5r5DrM5/ZNd/sVvI/TsQ8MDZSe7s0di/J/Sum2ltkndej2oiEds
-	3vxCEky8CB0OdLeF+1zdo4ytSXTmIss=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1688463104;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xxBYV5PGHxOojZ6/Vf69b83Mv4nKQ6Ix2pTjW52Xd2E=;
-	b=WfvgNuETT3yz/dlBpoOeyoscnNgZy6sBLamLeW2qaPjeGep/pRBX8qyVvoCYZEGSXCp18k
-	pZlYXheAWgigQyCg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CB38D133F7;
-	Tue,  4 Jul 2023 09:31:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id ByrNMP/mo2TeTwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 04 Jul 2023 09:31:43 +0000
-Date: Tue, 04 Jul 2023 11:31:43 +0200
-Message-ID: <878rbw2fb4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Minjie Du <duminjie@vivo.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Stephen Rothwell <sfr@canb.auug.org.au>,
-	alsa-devel@alsa-project.org (moderated list:SOUND),
-	linux-kernel@vger.kernel.org (open list),
-	opensource.kernel@vivo.com
-Subject: Re: [PATCH v1] sound: riptide: Remove duplicate judgments code
-In-Reply-To: <20230704091131.6662-1-duminjie@vivo.com>
-References: <20230704091131.6662-1-duminjie@vivo.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 45WKFQHJW5KGFOEMXCFDK3ZVDDUYXVS4
-X-Message-ID-Hash: 45WKFQHJW5KGFOEMXCFDK3ZVDDUYXVS4
-X-MailFrom: tiwai@suse.de
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CFC4261261;
+	Tue,  4 Jul 2023 13:59:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A161AC433C7;
+	Tue,  4 Jul 2023 13:59:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688479178;
+	bh=Rz4B8MHS9txQmFz0LcpLJ1buoy3ozqfsNNEcFtPbKqo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=dU9DnKCbUtQlsSLXuzeuGgmel6qzYFu9wkqmw6ntxqF9XYeh3Vh4Eb9l67a9s6J2K
+	 qtPhBaLtyrSyRuIicwn7tX8YgmI7xeBJa1uui19xvDKbjhnmOcLMwC6Rh+WOeVykSW
+	 V1xY4UuIn8mm5A+B7f+NM1wx9v/WiWXAKviFkyDlHdd6tt87MVcR2hClDZUdY045jD
+	 Dz44o+wGfumCb1StQXr+mzwy1rbGl6dXtoVNKnaN/3ktCf/RZ4T8nd6v14euCkm+1x
+	 WQmEFRGCXT5FHTi1B4YjGwyMgMteDjgwqhGl1ro9LTUQwGQHME6NdjZX+bW69Yscms
+	 XBPuXhl860tSQ==
+From: Mark Brown <broonie@kernel.org>
+To: Johan Hovold <johan+linaro@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20230703124701.11734-1-johan+linaro@kernel.org>
+References: <20230703124701.11734-1-johan+linaro@kernel.org>
+Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix missing mbhc init error
+ handling
+Message-Id: <168847917636.48984.6400261777618066312.b4-ty@kernel.org>
+Date: Tue, 04 Jul 2023 14:59:36 +0100
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: RGQGRAUZOH6MSA7JPLKFT6SNFW6V7SJC
+X-Message-ID-Hash: RGQGRAUZOH6MSA7JPLKFT6SNFW6V7SJC
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +92,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/45WKFQHJW5KGFOEMXCFDK3ZVDDUYXVS4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RGQGRAUZOH6MSA7JPLKFT6SNFW6V7SJC/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,74 +101,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 04 Jul 2023 11:11:31 +0200,
-Minjie Du wrote:
+On Mon, 03 Jul 2023 14:47:01 +0200, Johan Hovold wrote:
+> MBHC initialisation can fail so add the missing error handling to avoid
+> dereferencing an error pointer when later configuring the jack:
 > 
-> Fix: delate duplicate judgments
-> Could you help check it out? Thank you!
-
-I'm afraid that it's no right fix.
-The duplicated calls actually send two commands sequentially, and if
-you drop one, it'll change the behavior completely.
-
-Honestly speaking, I have no idea whether sending twice is mandatory
-for this chip.  It's an ugly driver by reverse engineering, so who
-knows.  We can get rid of it in future.  But it's a different topic.
-
-
-thanks,
-
-Takashi
-
+>     Unable to handle kernel paging request at virtual address fffffffffffffff8
 > 
-> Signed-off-by: Minjie Du <duminjie@vivo.com>
-> ---
->  sound/pci/riptide/riptide.c | 11 ++++-------
->  1 file changed, 4 insertions(+), 7 deletions(-)
+>     pc : wcd_mbhc_start+0x28/0x380 [snd_soc_wcd_mbhc]
+>     lr : wcd938x_codec_set_jack+0x28/0x48 [snd_soc_wcd938x]
 > 
-> diff --git a/sound/pci/riptide/riptide.c b/sound/pci/riptide/riptide.c
-> index b37c877c2..9bf4b2e86 100644
-> --- a/sound/pci/riptide/riptide.c
-> +++ b/sound/pci/riptide/riptide.c
-> @@ -958,8 +958,7 @@ getsourcesink(struct cmdif *cif, unsigned char source, unsigned char sink,
->  {
->  	union cmdret rptr = CMDRET_ZERO;
->  
-> -	if (SEND_RSSV(cif, source, sink, &rptr) &&
-> -	    SEND_RSSV(cif, source, sink, &rptr))
-> +	if (SEND_RSSV(cif, source, sink, &rptr))
->  		return -EIO;
->  	*a = rptr.retbytes[0];
->  	*b = rptr.retbytes[1];
-> @@ -978,8 +977,7 @@ getsamplerate(struct cmdif *cif, unsigned char *intdec, unsigned int *rate)
->  	s = intdec;
->  	for (i = 0; i < 2; i++) {
->  		if (*s != 0xff) {
-> -			if (SEND_RSRC(cif, *s, &rptr) &&
-> -			    SEND_RSRC(cif, *s, &rptr))
-> +			if (SEND_RSRC(cif, *s, &rptr))
->  				return -EIO;
->  			p[i] += rptr.retwords[1];
->  			p[i] *= rptr.retwords[2];
-> @@ -1013,8 +1011,7 @@ setsampleformat(struct cmdif *cif,
->  	sig = snd_pcm_format_unsigned(format) != 0;
->  	order = snd_pcm_format_big_endian(format) != 0;
->  
-> -	if (SEND_SETF(cif, mixer, w, ch, order, sig, id) &&
-> -	    SEND_SETF(cif, mixer, w, ch, order, sig, id)) {
-> +	if (SEND_SETF(cif, mixer, w, ch, order, sig, id)) {
->  		snd_printdd("setsampleformat failed\n");
->  		return -EIO;
->  	}
-> @@ -1060,7 +1057,7 @@ getmixer(struct cmdif *cif, short num, unsigned short *rval,
->  {
->  	union cmdret rptr = CMDRET_ZERO;
->  
-> -	if (SEND_RDGV(cif, num, num, &rptr) && SEND_RDGV(cif, num, num, &rptr))
-> +	if (SEND_RDGV(cif, num, num, &rptr))
->  		return -EIO;
->  	*rval = rptr.retwords[0];
->  	*lval = rptr.retwords[1];
-> -- 
-> 2.39.0
-> 
+> [...]
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+
+Thanks!
+
+[1/1] ASoC: codecs: wcd938x: fix missing mbhc init error handling
+      commit: 7dfae2631bfbdebecd35fe7b472ab3cc95c9ed66
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

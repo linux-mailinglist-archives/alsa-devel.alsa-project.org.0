@@ -2,82 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA707746C25
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 10:40:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0CE2746C43
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 10:46:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 118F23E7;
-	Tue,  4 Jul 2023 10:39:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 118F23E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F84E210;
+	Tue,  4 Jul 2023 10:46:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F84E210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688460004;
-	bh=syPq1pT8zILzlIfEq5rqMGzXAt0AjA6cJFmcIWJM48U=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
+	s=default; t=1688460412;
+	bh=ZNHPfcOuFLYSkDzPKfAXJyMILRvSIzYR5RXcNKB6cWk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iUvWqaM13LJRx5eYwHXSNVpCnWt0ThLj85TwHfuxyL57FFzrVGVjRZ7nYzKyb6Y9r
-	 aJEbcxB/kWeeyj4yUHgqtUte/58Np81x31lk96TNfuxpgRLjP6/nK7LJDaMjnwmMEO
-	 zJsoLBU7aWWUjUHcdrqR2tD+Y4U7kL8/hosnO79k=
+	b=hBB8bIKLsrR5NSEjRD8jWxyy5JNSZ8CGlVZSwybkuWCWprP2fa493Y9DBPcBKasNM
+	 j6hIeS34ocM78vtqt3nSlgBbxik2sQWntoLj/JeyYo6PixRPXmH6rUChyHyhPbtqXX
+	 KP2y1VahMhe1ZUPC9xvBVwoZV404JLSQJKLqjlCY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A144CF80124; Tue,  4 Jul 2023 10:39:13 +0200 (CEST)
+	id 8A09BF80124; Tue,  4 Jul 2023 10:46:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA144F80124;
-	Tue,  4 Jul 2023 10:39:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18DB9F80124;
+	Tue,  4 Jul 2023 10:46:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97997F80125; Tue,  4 Jul 2023 10:39:09 +0200 (CEST)
+	id 2E7E9F80125; Tue,  4 Jul 2023 10:45:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF2D2F800E4
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:38:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF2D2F800E4
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 3648ce0vB023412,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 3648ce0vB023412
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
-	Tue, 4 Jul 2023 16:38:40 +0800
-Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Tue, 4 Jul 2023 16:38:43 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Tue, 4 Jul 2023 16:38:43 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
- RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
- 15.01.2375.007; Tue, 4 Jul 2023 16:38:43 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>, "Joseph C. Sible" <josephcsible@gmail.com>
-CC: Bagas Sanjaya <bagasdotme@gmail.com>,
-        "regressions@lists.linux.dev"
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 91DF0F80093
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:45:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91DF0F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=Rs2lBXkz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=TQ8RRbED
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E36F92205A;
+	Tue,  4 Jul 2023 08:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1688460351;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u+/1M9IITV295Htp9Oc2MVJuPU/3zRIiUJmFmSJnoFc=;
+	b=Rs2lBXkzfMcbbREZPNzL4jttuspe0ClzXfxKVwbsU4Biim4ZmW6ePj8aOPHu9RrWG6uKC8
+	Akf6350dM+FJ8VRTLjVVtbgGFHD3sHkMyr/RDJtFLqp5JN3/8ZlMJafbq/7HDtjymmFDa/
+	P2+LTa9v4noS6miWnlsqTyuWZXpYbeg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1688460351;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u+/1M9IITV295Htp9Oc2MVJuPU/3zRIiUJmFmSJnoFc=;
+	b=TQ8RRbEDbxfyqElLN2cR+3XnrBVMOUZwqBBCZmG0SZhUd+3YZyrJqgcrZinY9Bsifobd9Q
+	x8ZHePHCvb74irDg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD0E1133F7;
+	Tue,  4 Jul 2023 08:45:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id q3ycKD/co2RONwAAMHmgww
+	(envelope-from <tiwai@suse.de>); Tue, 04 Jul 2023 08:45:51 +0000
+Date: Tue, 04 Jul 2023 10:45:51 +0200
+Message-ID: <87cz182hfk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+Cc: "Joseph C. Sible" <josephcsible@gmail.com>,
+	Bagas Sanjaya <bagasdotme@gmail.com>,
+	"regressions@lists.linux.dev"
 	<regressions@lists.linux.dev>,
-        "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
-        "alsa-devel@alsa-project.org"
+	"perex@perex.cz" <perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"alsa-devel@alsa-project.org"
 	<alsa-devel@alsa-project.org>
-Subject: RE: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
  on warm boot
-Thread-Topic: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-Thread-Index: 
- AQHZhdSOD7kY6mXBDkGA3ryhp811r69Yu5SAgAASNACAAA22gIAA7n+AgAEJrYCABLe/YIAJNIWAgAIHAcD//4tyAIAB8UZw///vxgCADzWhgIABfgWAgACUPoCAAPnsAIAAmlKwgAA8s4CAAQ8boP//kIuAABWnYVAAAIR9gAAqhW/A//+7roD//3k98IAAkYyAgAAKhQCAAAZZgIAAiY6AgADw04CAALC0AIAA6TqAgBQJp4CAAhpFAP/xaKKg
-Date: Tue, 4 Jul 2023 08:38:43 +0000
-Message-ID: <f4969213b5a14cc5a11befb4df861481@realtek.com>
+In-Reply-To: <f4969213b5a14cc5a11befb4df861481@realtek.com>
 References: <bug-217440-225600@https.bugzilla.kernel.org/>
 	<CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
 	<ZGB0cVVI7OgaJU6t@debian.me>
 	<CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
 	<87cz338ix4.wl-tiwai@suse.de>
 	<CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
-	<874jodlnmi.wl-tiwai@suse.de>	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
-	<87fs7mdofi.wl-tiwai@suse.de>	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
-	<87353kd8b9.wl-tiwai@suse.de>	<1170325957764b4cbd7cd3639575f285@realtek.com>
+	<874jodlnmi.wl-tiwai@suse.de>
+	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
+	<87fs7mdofi.wl-tiwai@suse.de>
+	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
+	<87353kd8b9.wl-tiwai@suse.de>
+	<1170325957764b4cbd7cd3639575f285@realtek.com>
 	<CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
 	<873536js7q.wl-tiwai@suse.de>
 	<CABpewhE0NAC-Q=iqG2Ba=XhT7SXsWy18wQGYUaopzmKDfFxyPw@mail.gmail.com>
@@ -89,36 +122,26 @@ References: <bug-217440-225600@https.bugzilla.kernel.org/>
 	<CABpewhGiMJUpyBA6=D9_-YA6=5rjR2R0RHUZeg+cWcjtzuCoZQ@mail.gmail.com>
 	<3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
 	<CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
-	<009474f04d0b45c69a0e42e8622b7a86@realtek.com>	<87h6rhcef2.wl-tiwai@suse.de>
+	<009474f04d0b45c69a0e42e8622b7a86@realtek.com>
+	<87h6rhcef2.wl-tiwai@suse.de>
 	<0990300d759846d890de9c92fcad9a9d@realtek.com>
 	<CABpewhERnOH1qkkJ5_JJUZkz1_8oxD9aR5VBs1vsURAG7Eu_Ew@mail.gmail.com>
-	<878rctcavz.wl-tiwai@suse.de>	<874jnhc9u4.wl-tiwai@suse.de>
+	<878rctcavz.wl-tiwai@suse.de>
+	<874jnhc9u4.wl-tiwai@suse.de>
 	<CABpewhHG2+s8_6r6vChm2g5tD8ALW_SWJWubPRXWzTJB2aFR9g@mail.gmail.com>
 	<875y7vbxpg.wl-tiwai@suse.de>
 	<CABpewhHDnvn4v+uCpsaLHB+biw-f59tdTiCyFkicHnewXHYDNg@mail.gmail.com>
 	<87wn0aa1s4.wl-tiwai@suse.de>
 	<CABpewhFg=7+JR6v=zhi0_Hm9+S64DLOHKeG2pS-W7z-vNpu_5Q@mail.gmail.com>
- <87leg7x4h7.wl-tiwai@suse.de>
-In-Reply-To: <87leg7x4h7.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.106]
-x-kse-serverinfo: RTEXMBS04.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: 6LNAPK7ODK3GRPZ7KPNPCRPYNG32SWLJ
-X-Message-ID-Hash: 6LNAPK7ODK3GRPZ7KPNPCRPYNG32SWLJ
-X-MailFrom: kailang@realtek.com
+	<87leg7x4h7.wl-tiwai@suse.de>
+	<f4969213b5a14cc5a11befb4df861481@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: MT26TDFJ264WHS4LBIQJQVLA23HXKVXB
+X-Message-ID-Hash: MT26TDFJ264WHS4LBIQJQVLA23HXKVXB
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -130,7 +153,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6LNAPK7ODK3GRPZ7KPNPCRPYNG32SWLJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MT26TDFJ264WHS4LBIQJQVLA23HXKVXB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,33 +162,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-DQpCZWxvdyB3YXMgdGhlIHJlbGF0aW9uIHBhdGNoZXMuDQpodHRwczovL2dpdC5rZXJuZWwub3Jn
-L3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90aXdhaS9zb3VuZC5naXQvY29tbWl0Lz9pZD01YWVj
-OTg5MTMwOTVlZDNiNDQyNGVkNmM1ZmRlYjY5NjRlOTczNGRhDQpodHRwczovL2dpdC5rZXJuZWwu
-b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90aXdhaS9zb3VuZC5naXQvY29tbWl0Lz9pZD1m
-MzA3NDFjZGVkNjJmODdiYjRiMWNjNThiYzYyN2YwNzZhYmNhYmE4DQoNCkl0IHNob3dzIEFMQzIz
-NiBjb2RlYyBub3QgbmVlZCB0byBydW4gcHVsbCBsb3cgM2sgc2V0dGluZy4NCg0KSSB0cmFjZSB3
-aW5kb3dzIGNvZGUsIGZpbmQgaXQgYWRkIGRlbGF5IGZvciByZWFkIE1JQyBqYWNrIGRldGVjdGVk
-IGF0IGJvb3RpbmcgdGltZS4NCg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
-b206IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4NCj4gU2VudDogU3VuZGF5LCBKdW5lIDI1
-LCAyMDIzIDU6NDMgUE0NCj4gVG86IEpvc2VwaCBDLiBTaWJsZSA8am9zZXBoY3NpYmxlQGdtYWls
-LmNvbT4NCj4gQ2M6IEthaWxhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+OyBCYWdhcyBTYW5qYXlh
-IDxiYWdhc2RvdG1lQGdtYWlsLmNvbT47DQo+IHJlZ3Jlc3Npb25zQGxpc3RzLmxpbnV4LmRldjsg
-cGVyZXhAcGVyZXguY3o7IHRpd2FpQHN1c2UuY29tOw0KPiBhbHNhLWRldmVsQGFsc2EtcHJvamVj
-dC5vcmcNCj4gU3ViamVjdDogUmU6IEZ3ZDogW0J1ZyAyMTc0NDBdIE5ldzogQUxDMjM2IGF1ZGlv
-IGRpc2FwcGVhcnMgZnJvbSBIUA0KPiAxNXotZmMwMDAgb24gd2FybSBib290DQo+IA0KPiANCj4g
-RXh0ZXJuYWwgbWFpbC4NCj4gDQo+IA0KPiANCj4gT24gU2F0LCAyNCBKdW4gMjAyMyAwMzozNjox
-MSArMDIwMCwNCj4gSm9zZXBoIEMuIFNpYmxlIHdyb3RlOg0KPiA+DQo+ID4gT24gU3VuLCBKdW4g
-MTEsIDIwMjMgYXQgMzozNuKAr0FNIFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4gd3JvdGU6
-DQo+ID4gPg0KPiA+ID4gVGhhbmtzIGZvciBjaGVja2luZy4gIFNvIHRoZSBhZGRpdGlvbmFsIGRl
-bGF5IGRpZG4ndCBoZWxwIGF0IGFsbCwNCj4gPiA+IGkuZS4gaXQncyBubyB0aW1pbmcgaXNzdWUu
-ICBXZSBuZWVkIHRvIGZpZ3VyZSBvdXQgd2hpY2ggdmVyYg0KPiA+ID4gYWN0dWFsbHkgYnJlYWtz
-IHRoaW5ncy4gIE9oIHdlbGwuDQo+ID4NCj4gPiBXYXMgdGhlcmUgc29tZXRoaW5nIGVsc2Ugc3Bl
-Y2lmaWMgeW91IHdhbnRlZCBtZSB0byB0cnkgZm9yIHRoaXM/IElmDQo+ID4gbm90LCB3aGF0IGRv
-IHlvdSB0aGluayB0aGUgbmV4dCBzdGVwcyB0byBnZXQgdGhpcyBmaXhlZCBhcmU/IERvIHlvdQ0K
-PiA+IHRoaW5rIGl0IG1pZ2h0IGJlIGdvb2QgdG8ganVzdCBjb29rIHRoZSBwYXJ0aWFsIHJldmVy
-dCBJIHBvc3RlZCBhDQo+ID4gd2hpbGUgYmFjayBhZnRlciBhbGw/DQo+IA0KPiBJdCdzIHJhdGhl
-ciBhIGNhbGwgdG8gS2FpbGFuZywgYWZ0ZXIgYWxsLg0KPiBJJ20gZmluZSB3aXRoIGFueSB3YXkg
-YXMgbG9uZyBhcyBpdCBhdm9pZHMgZnVydGhlciByZWdyZXNzaW9ucy4NCj4gDQo+IA0KPiBUYWth
-c2hpDQo+IA0KPiAtLS0tLS1QbGVhc2UgY29uc2lkZXIgdGhlIGVudmlyb25tZW50IGJlZm9yZSBw
-cmludGluZyB0aGlzIGUtbWFpbC4NCg==
+On Tue, 04 Jul 2023 10:38:43 +0200,
+Kailang wrote:
+> 
+> 
+> Below was the relation patches.
+> https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/commit/?id=5aec98913095ed3b4424ed6c5fdeb6964e9734da
+> https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/commit/?id=f30741cded62f87bb4b1cc58bc627f076abcaba8
+> 
+> It shows ALC236 codec not need to run pull low 3k setting.
+> 
+> I trace windows code, find it add delay for read MIC jack detected at booting time.
+
+I expected something like that ;)
+If you have a test patch, let us know.
+
+
+thanks,
+
+Takashi
+
+> 
+> 
+> > -----Original Message-----
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Sent: Sunday, June 25, 2023 5:43 PM
+> > To: Joseph C. Sible <josephcsible@gmail.com>
+> > Cc: Kailang <kailang@realtek.com>; Bagas Sanjaya <bagasdotme@gmail.com>;
+> > regressions@lists.linux.dev; perex@perex.cz; tiwai@suse.com;
+> > alsa-devel@alsa-project.org
+> > Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP
+> > 15z-fc000 on warm boot
+> > 
+> > 
+> > External mail.
+> > 
+> > 
+> > 
+> > On Sat, 24 Jun 2023 03:36:11 +0200,
+> > Joseph C. Sible wrote:
+> > >
+> > > On Sun, Jun 11, 2023 at 3:36 AM Takashi Iwai <tiwai@suse.de> wrote:
+> > > >
+> > > > Thanks for checking.  So the additional delay didn't help at all,
+> > > > i.e. it's no timing issue.  We need to figure out which verb
+> > > > actually breaks things.  Oh well.
+> > >
+> > > Was there something else specific you wanted me to try for this? If
+> > > not, what do you think the next steps to get this fixed are? Do you
+> > > think it might be good to just cook the partial revert I posted a
+> > > while back after all?
+> > 
+> > It's rather a call to Kailang, after all.
+> > I'm fine with any way as long as it avoids further regressions.
+> > 
+> > 
+> > Takashi
+> > 
+> > ------Please consider the environment before printing this e-mail.

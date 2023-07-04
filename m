@@ -2,88 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B7CC7478B7
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 21:34:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C0B3747A4F
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 01:19:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F7187F4;
-	Tue,  4 Jul 2023 21:33:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F7187F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E841210;
+	Wed,  5 Jul 2023 01:18:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E841210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688499264;
-	bh=oNIEdHaEiR8OxME2pFIicwMil9EV3QsKKDNNQ7UDEoo=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=rkAH2I4GedDNWg9+tn+Ka0U5v/f/zDGFPoY6y2PkUj2TXGybVB4J76fIZLO75Fimi
-	 3/zk0H0nicDqLJnPbT25EFYTsSRlxFWro7fTNQieczjuaPqMToPxPBAHCxbHRChp0E
-	 3gapNm7e6uEjwGslP7Azug8ooOwCW2VtBzDfT760=
+	s=default; t=1688512764;
+	bh=hQsjQzYTf6onI5Se5FktyD4OeriP0PTfEu50epn5iqk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Dn2svPyXV+9UbU6Ik6BgTLgudSlFV0bgbDGx0zYu1DyY+Bi/RPHW8YGKt8VzCqpBU
+	 T2X5w8bu94dgMScly85K25HEJybMC30nZfTyzM8r8sTbFzCYjrrZMa82jUpoMnUtqW
+	 Jj6t2xhvKxy4nD2s4LAUWrl4KmIthCW5LIhwKqX4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2AF80F8025F; Tue,  4 Jul 2023 21:33:32 +0200 (CEST)
+	id 00ECDF80153; Wed,  5 Jul 2023 01:18:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CC9AF80124;
-	Tue,  4 Jul 2023 21:33:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DF33F80124;
+	Wed,  5 Jul 2023 01:18:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5BD26F80125; Tue,  4 Jul 2023 21:33:26 +0200 (CEST)
+	id C673EF80125; Wed,  5 Jul 2023 01:18:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E1A00F80104
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 21:33:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1A00F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9F11EF800E4
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 01:18:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F11EF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ZHU7xqnb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688499193; x=1720035193;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=oNIEdHaEiR8OxME2pFIicwMil9EV3QsKKDNNQ7UDEoo=;
-  b=ZHU7xqnbZC/TmPYeAaWB3RVpMnmx6LogswdOlgtrLpKIQ3Y0Rqya1zgH
-   CwCmnVe4WMZXtdovnaNFqL0eh4uV4xngm/BPjpsDaR/h6aRxIdaS01D35
-   wTDz9E9N7NmG2lB8EZGMJ7/eiaWw+av0VyvhHFThK4P0dl+H2XvFCrGdg
-   jjjwJua8eCsubwAKEZDS1XSJOrs6J0aBqStu3IcW8qa+b+IJ5jNW3AGVN
-   F+Wjnb8w7zhU+XvlylvN3jhLblTMiNy9wPUC1p+qz6F6aMmz+l2u1cVJa
-   92LmtkbzawuJxQyeG+rb1VqJwqExA8UbWH4sFVt6kP7CldOTmgkU7b7u2
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10761"; a="429221404"
-X-IronPort-AV: E=Sophos;i="6.01,181,1684825200";
-   d="scan'208";a="429221404"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2023 12:33:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10761"; a="788939366"
-X-IronPort-AV: E=Sophos;i="6.01,181,1684825200";
-   d="scan'208";a="788939366"
-Received: from lkp-server01.sh.intel.com (HELO 783282924a45) ([10.239.97.150])
-  by fmsmga004.fm.intel.com with ESMTP; 04 Jul 2023 12:33:05 -0700
-Received: from kbuild by 783282924a45 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qGllp-000IUJ-0B;
-	Tue, 04 Jul 2023 19:33:05 +0000
-Date: Wed, 5 Jul 2023 03:32:52 +0800
-From: kernel test robot <lkp@intel.com>
+ unprotected) header.d=ljones.dev header.i=@ljones.dev header.a=rsa-sha256
+ header.s=fm3 header.b=g2A2FTbS;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=eRk5Asmq
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.west.internal (Postfix) with ESMTP id 7FA383200974;
+	Tue,  4 Jul 2023 19:18:14 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute3.internal (MEProxy); Tue, 04 Jul 2023 19:18:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1688512694; x=1688599094; bh=hQsjQzYTf6onI5Se5FktyD4OeriP0PTfEu5
+	0epn5iqk=; b=g2A2FTbSt1sss1dV5/n6uvwD8oGUVN4ZucR/eMH4PI19fA9SP5R
+	oZWEHn6X/+0KJog11X3WYn1RkWkyVnQndGq1fvPSaL7EHJisIJNvltxzJAEZ8o8P
+	MveHIYKxAASyl+GrDH6QW0EKaeVUN+k6IxotFyfHOPdil+z5PS7HZab/lWE4xTFW
+	qDHtfw1rjgRb6NBrWNBNNm7XfYxQU4VLHCiPBtOdSnvHosm/QBlGsta3P5XnQwZF
+	om2o4FVD1ty2x4AL7RWXPJ3Z29XJQssa11bLz4iYFXQB7ChalDmztttiQAd10xmb
+	CPOqSv/jQubocoFlxeJn2HKlwzMXLvRnCLg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1688512694; x=1688599094; bh=hQsjQzYTf6onI5Se5FktyD4OeriP0PTfEu5
+	0epn5iqk=; b=eRk5Asmqe4Q9qJPtd579Z2PmJ6OCiza104EGMLSp/8f0xqfem9Q
+	UMMMd6GTXPwedQeZ/lX5ktLBF4Mmrz4GWz/VUf6C4JSeYj4onO+FJHAyh28YVZ6K
+	iCSYeOyXv+6SgSPSm/Zyf1YzKvpE7QZsv+HxH36PunldHr9UUs4PpfpojKBOQ26k
+	1XJz3Osj5/qvvbdjMVpn5hU4tkmU1nfmhAo1cFFyti5vpkTfd7ntvZwDya09+H6w
+	6T+A1lNPRpm5sQV+CWgVFqQLDRSHqTIfbF7Gj2qDhiPt2FB/0kyx00isxEOdXTO1
+	0gkl3u8jyu2cK6jDwbcmPbb0y9dEziWNOMA==
+X-ME-Sender: <xms:tKikZEEBJ0ybAfMS7kkAUZuw18e7odZMYrb3Jqw_ChCEXOnQKqNXNQ>
+    <xme:tKikZNUKnkXNA49bQk_mVJ6vPcS_DCVSs-xqI6_Mt1iMhI-aoCcuva36AM7xVc2zN
+    8oXfSPJYXv8kN_XU24>
+X-ME-Received: 
+ <xmr:tKikZOJSwkti3xrJKFSxBDXYNHQg0OPahYBqFGHb07tyAJb3RM3qWfCewAng_SHHXGexKA>
+X-ME-Proxy-Cause: 
+ gggruggvucftvghtrhhoucdtuddrgedviedrudehgddvtdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefkuffhvfevffgjfhgtgfgfggesthhqredttderjeenucfhrhhomhepnfhukhgv
+    ucflohhnvghsuceolhhukhgvsehljhhonhgvshdruggvvheqnecuggftrfgrthhtvghrnh
+    epkeefffeujeevueejueegleelhedtgedvledukedttdffhfeifeelvdduheefjeeinecu
+    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheplhhukhgvse
+    hljhhonhgvshdruggvvh
+X-ME-Proxy: <xmx:tKikZGHCb4EhcgViQaGtflbhDKpveg3Hg7n5j0LL7o0BykVzoLpQAA>
+    <xmx:tKikZKWt6BDsVFNxCPVkfRPai-_sN2Ij1cX_RopiUbTjRvI6nSGNNw>
+    <xmx:tKikZJPJFuo7c5fkkuW4xs9MgTwD-BJbnrpM-ZheN0Smsmp0tI1SJw>
+    <xmx:tqikZBNnjlLOS58R-mFj4BcK7R7CvMKODTLwTilu8cbu3ejT3YuxlA>
+Feedback-ID: i5ec1447f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 4 Jul 2023 19:18:07 -0400 (EDT)
+Message-ID: <ee2e1c4bfc888f4f3285ba0f94a48a5f8f1eca8b.camel@ljones.dev>
+Subject: Re: [PATCH v2 0/5] ALSA: hda/realtek: add extra ROOG laptop quirks
+From: Luke Jones <luke@ljones.dev>
 To: Takashi Iwai <tiwai@suse.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	alsa-devel@alsa-project.org
-Subject: [tiwai-sound:test/snd_ctl_remove-lock-fix 33/38]
- sound/soc/codecs/sigmadsp.c:676:45: error: no member named 'kctl' in 'struct
- sigmadsp_control'
-Message-ID: <202307050346.R8ow8O6J-lkp@intel.com>
+Cc: tiwai@suse.com, perex@perex.cz, sbinding@opensource.cirrus.com,
+ andy.chi@canonical.com, tcrawford@system76.com, tangmeng@uniontech.com,
+ p.jungkamp@gmx.net, kasper93@gmail.com, ruinairas1992@gmail.com,
+ yangyuchi66@gmail.com, yangyingliang@huawei.com,
+ linux-kernel@vger.kernel.org,  alsa-devel@alsa-project.org
+Date: Wed, 05 Jul 2023 11:18:02 +1200
+In-Reply-To: <878rbw41ln.wl-tiwai@suse.de>
+References: <20230704044619.19343-1-luke@ljones.dev>
+	 <878rbw41ln.wl-tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 (by Flathub.org) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: IBI242RVVWZWRAVDRQG652GNKRYA2Z37
-X-Message-ID-Hash: IBI242RVVWZWRAVDRQG652GNKRYA2Z37
-X-MailFrom: lkp@intel.com
+Message-ID-Hash: RVBROAAWYKIRNN5BBUBW2CASLL2I5UFO
+X-Message-ID-Hash: RVBROAAWYKIRNN5BBUBW2CASLL2I5UFO
+X-MailFrom: luke@ljones.dev
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IBI242RVVWZWRAVDRQG652GNKRYA2Z37/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RVBROAAWYKIRNN5BBUBW2CASLL2I5UFO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,116 +138,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git test/snd_ctl_remove-lock-fix
-head:   6dd4ae925ae5b90ccfbcb11dce06fd505cc18bc8
-commit: f6df559bc59a922fc6bd100cd018207323c3f9d1 [33/38] ASoC: sigmadsp: Simplify with snd_ctl_activate_id()
-config: hexagon-randconfig-r045-20230703 (https://download.01.org/0day-ci/archive/20230705/202307050346.R8ow8O6J-lkp@intel.com/config)
-compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
-reproduce: (https://download.01.org/0day-ci/archive/20230705/202307050346.R8ow8O6J-lkp@intel.com/reproduce)
+On Tue, 2023-07-04 at 08:44 +0200, Takashi Iwai wrote:
+> On Tue, 04 Jul 2023 06:46:14 +0200,
+> Luke D. Jones wrote:
+> >=20
+> > - Adds quirks for various ASUS ROG laptops.
+> > - Fixes up a previous quirk
+> > - Fixes up a whitespace error
+> >=20
+> > This introduces a quirk chain that is similar to the ROG Ally quirk
+> > chain, but
+> > due to the verb configs being currently tested these new quirks do
+> > not use it
+> > and instead add a new chain. It is likely the Ally quirk will be
+> > removed in
+> > favour of this new chain in future.
+> >=20
+> > Luke D. Jones (5):
+> > =C2=A0 ALSA: hda/realtek: Add quirk for ASUS ROG GX650P
+> > =C2=A0 ALSA: hda/realtek: Add quirk for ASUS ROG GA402X
+> > =C2=A0 ALSA: hda/realtek: Amend G634 quirk to enable rear speakers
+> > =C2=A0 ALSA: hda/realtek: Add quirk for ASUS ROG G614Jx
+> > =C2=A0 Fixes: 31278997add6 (ALSA: hda/realtek - Add headset quirk for
+> > Dell
+> > =C2=A0=C2=A0=C2=A0 DT)
+>=20
+> Now applied all patches.=C2=A0 The subject line of the last patch was
+> modified to match with the standard.=C2=A0 The Fixes tag was moved to the
+> right place, too.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307050346.R8ow8O6J-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from sound/soc/codecs/sigmadsp.c:11:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:334:
-   include/asm-generic/io.h:547:31: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     547 |         val = __raw_readb(PCI_IOBASE + addr);
-         |                           ~~~~~~~~~~ ^
-   include/asm-generic/io.h:560:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     560 |         val = __le16_to_cpu((__le16 __force)__raw_readw(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:37:51: note: expanded from macro '__le16_to_cpu'
-      37 | #define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
-         |                                                   ^
-   In file included from sound/soc/codecs/sigmadsp.c:11:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:334:
-   include/asm-generic/io.h:573:61: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     573 |         val = __le32_to_cpu((__le32 __force)__raw_readl(PCI_IOBASE + addr));
-         |                                                         ~~~~~~~~~~ ^
-   include/uapi/linux/byteorder/little_endian.h:35:51: note: expanded from macro '__le32_to_cpu'
-      35 | #define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
-         |                                                   ^
-   In file included from sound/soc/codecs/sigmadsp.c:11:
-   In file included from include/linux/i2c.h:19:
-   In file included from include/linux/regulator/consumer.h:35:
-   In file included from include/linux/suspend.h:5:
-   In file included from include/linux/swap.h:9:
-   In file included from include/linux/memcontrol.h:13:
-   In file included from include/linux/cgroup.h:26:
-   In file included from include/linux/kernel_stat.h:9:
-   In file included from include/linux/interrupt.h:11:
-   In file included from include/linux/hardirq.h:11:
-   In file included from ./arch/hexagon/include/generated/asm/hardirq.h:1:
-   In file included from include/asm-generic/hardirq.h:17:
-   In file included from include/linux/irq.h:20:
-   In file included from include/linux/io.h:13:
-   In file included from arch/hexagon/include/asm/io.h:334:
-   include/asm-generic/io.h:584:33: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     584 |         __raw_writeb(value, PCI_IOBASE + addr);
-         |                             ~~~~~~~~~~ ^
-   include/asm-generic/io.h:594:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     594 |         __raw_writew((u16 __force)cpu_to_le16(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
-   include/asm-generic/io.h:604:59: warning: performing pointer arithmetic on a null pointer has undefined behavior [-Wnull-pointer-arithmetic]
-     604 |         __raw_writel((u32 __force)cpu_to_le32(value), PCI_IOBASE + addr);
-         |                                                       ~~~~~~~~~~ ^
->> sound/soc/codecs/sigmadsp.c:676:45: error: no member named 'kctl' in 'struct sigmadsp_control'
-     676 |         changed = snd_ctl_activate_id(card, &ctrl->kctl->id, active);
-         |                                              ~~~~  ^
-   6 warnings and 1 error generated.
-
-
-vim +676 sound/soc/codecs/sigmadsp.c
-
-   667	
-   668	static void sigmadsp_activate_ctrl(struct sigmadsp *sigmadsp,
-   669		struct sigmadsp_control *ctrl, unsigned int samplerate_mask)
-   670	{
-   671		struct snd_card *card = sigmadsp->component->card->snd_card;
-   672		bool active;
-   673		int changed;
-   674	
-   675		active = sigmadsp_samplerate_valid(ctrl->samplerates, samplerate_mask);
- > 676		changed = snd_ctl_activate_id(card, &ctrl->kctl->id, active);
-   677		if (active && changed > 0) {
-   678			mutex_lock(&sigmadsp->lock);
-   679			if (ctrl->cached)
-   680				sigmadsp_ctrl_write(sigmadsp, ctrl, ctrl->cache);
-   681			mutex_unlock(&sigmadsp->lock);
-   682		}
-   683	}
-   684	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks mate. I looked at the patch guidelines for that but I must have
+misunderstood it :)

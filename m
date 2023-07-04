@@ -2,88 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C7AF74781A
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 20:00:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C66374782C
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 20:07:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1366120C;
-	Tue,  4 Jul 2023 19:59:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1366120C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 264907F1;
+	Tue,  4 Jul 2023 20:06:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264907F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688493610;
-	bh=Aa7FCgXRD9reRD2WqNCg9gIDPp09VfpjAxtBXt92zn4=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1688494027;
+	bh=CM++rz1PbRfywdn1gZCBikP/gK4AxB2huLNBauE/8CA=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qWWRsVEwsBO0NMpdPQyTlFRsIHLmbEvloMrkUsbavcAWEKbyd5/8csCPDu8ko/3XY
-	 2V677R2F1WOiIwyDUCnByngKMbsRqG0ov38pAP36w9oa/+BBhalJsfHz8+dM7NHNNk
-	 skiAUTw3J9E5uow3qrMgUe2hFTK0HCGGTBcTIHVc=
+	b=aDd9YUBS3pNk9Vs60XBvN7gE2R8qZYzgmlR2IFCWqyWsI5l9XzttNUR/NFCwNTy2D
+	 puj486ENPhqwkU34lB/Hahkig9gYu/FZ3fwg+UCvaoBMDzmeEH5YkZ6TuUyuguEJrC
+	 1PeOwPnxlVyEzLgxPA22OOzZkycYzjQSklerexps=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 71D04F80544; Tue,  4 Jul 2023 19:59:19 +0200 (CEST)
+	id 87BFEF80153; Tue,  4 Jul 2023 20:06:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 224FFF80124;
-	Tue,  4 Jul 2023 19:59:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E387F80093;
+	Tue,  4 Jul 2023 20:06:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 36634F80125; Tue,  4 Jul 2023 19:59:14 +0200 (CEST)
+	id 1E79EF80125; Tue,  4 Jul 2023 20:06:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-4.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H5,
+	RCVD_IN_MSPIKE_WL,SPF_FAIL,SPF_HELO_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4658AF80104
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 19:59:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4658AF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 397F4F80104
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 20:06:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 397F4F80104
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=XH3VRLOL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688493549; x=1720029549;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=Aa7FCgXRD9reRD2WqNCg9gIDPp09VfpjAxtBXt92zn4=;
-  b=XH3VRLOLxH69zqsME2UW6WiWWQ1u8HZpAf5hyo61IEbxvdYzv5ZhSwKz
-   AO7n7B4QVa0KSEMUiqXd+rQwtGjcKEtt46AF8tGVE0yUuQYbhMQ+RZMJM
-   8JNTRW67j55Dkd02UpyKWhodbGKO2C2nomsBs4cTFKUTJDMtw2lAf39Io
-   LtUQbWimlDkdjEIL25oPTgVul2752M9SXx/6h+Wpd/7Ff5ZuSW/FjvLLh
-   QUc9O010lGl3i+8XFX31BlNEWD2iqHMRYv7YfunkowjNmNcrlcMhmpVvI
-   xdW1U4dEbG/37WL9oW5/Ztx3/bZIyyWzLlXx5B+pjRkDdAMv5FMDGnldb
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10761"; a="393917041"
-X-IronPort-AV: E=Sophos;i="6.01,181,1684825200";
-   d="scan'208";a="393917041"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2023 10:59:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10761"; a="965564049"
-X-IronPort-AV: E=Sophos;i="6.01,181,1684825200";
-   d="scan'208";a="965564049"
-Received: from lkp-server01.sh.intel.com (HELO 783282924a45) ([10.239.97.150])
-  by fmsmga006.fm.intel.com with ESMTP; 04 Jul 2023 10:59:02 -0700
-Received: from kbuild by 783282924a45 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qGkIn-000IQ7-1d;
-	Tue, 04 Jul 2023 17:59:01 +0000
-Date: Wed, 5 Jul 2023 01:58:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org
-Subject: [tiwai-sound:test/snd_ctl_remove-lock-fix 33/38]
- sound/soc/codecs/sigmadsp.c:676:50: error: 'struct sigmadsp_control' has no
- member named 'kctl'
-Message-ID: <202307050119.aWILsASi-lkp@intel.com>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=ap2c.com header.i=@ap2c.com header.a=rsa-sha256
+ header.s=ap2cCom header.b=Y42Ge6nN
+Received: from 82-65-29-218.subs.proxad.net (unknown
+ [IPv6:2a01:e0a:5ef:1450:250:fcff:fe42:7bed])
+	by smtp5-g21.free.fr (Postfix) with ESMTP id 55B115FFAF
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 20:06:07 +0200 (CEST)
+Received: from berkelium.ap2c.org (localhost [127.0.0.1])
+	by 82-65-29-218.subs.proxad.net (Postfix) with ESMTP id 1C5225E1
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 20:06:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ap2c.com; s=ap2cCom;
+	t=1688493966; bh=CM++rz1PbRfywdn1gZCBikP/gK4AxB2huLNBauE/8CA=;
+	h=From:To:Subject:Date;
+	b=Y42Ge6nNT9VnDaQNs9eSWTCRWoTgl21gOaxUfuUJT4vmodaykXPr8fjXPH0S8Z0yI
+	 bSLOuipoe47+Dy93aNHYqEnfh2w9zz2VRW2quAzMtWyULl+kD1AYSC50wfHi6tnVhO
+	 ZHfD6dXpPzNYqrhyXGPLq5flU+ciNqlyBltlxeEs=
+X-Virus-Scanned: amavisd-new at ap2c.org
+Received: from 82-65-29-218.subs.proxad.net ([127.0.0.1])
+	by berkelium.ap2c.org (berkelium.ap2c.org [127.0.0.1]) (amavisd-new,
+ port 10024)
+	with ESMTP id GIx-iVo1WtYi for <alsa-devel@alsa-project.org>;
+	Tue,  4 Jul 2023 20:06:05 +0200 (CEST)
+Received: from antimony.ap2c.org (unknown
+ [IPv6:2a01:e0a:91b:86f0:eaee:9e47:2c1b:535])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by 82-65-29-218.subs.proxad.net (Postfix) with ESMTPSA
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 20:06:05 +0200 (CEST)
+From: =?ISO-8859-1?Q?Aur=E9lien?= <aurelien@ap2c.com>
+To: alsa-devel@alsa-project.org
+Subject: Garbage returned while reading unused S/PDIF, A CM106 like sound card
+Date: Tue, 04 Jul 2023 20:06:04 +0200
+Message-ID: <5962046.lOV4Wx5bFT@antimony.ap2c.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: D5VQSLTQOZ45IF3MGJAYKYGCP3DLHIZZ
-X-Message-ID-Hash: D5VQSLTQOZ45IF3MGJAYKYGCP3DLHIZZ
-X-MailFrom: lkp@intel.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+Message-ID-Hash: QOYEBYXS6QE5L3MCSETUCOPCFT4ROMDV
+X-Message-ID-Hash: QOYEBYXS6QE5L3MCSETUCOPCFT4ROMDV
+X-MailFrom: aurelien@ap2c.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -95,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D5VQSLTQOZ45IF3MGJAYKYGCP3DLHIZZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QOYEBYXS6QE5L3MCSETUCOPCFT4ROMDV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,47 +102,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git test/snd_ctl_remove-lock-fix
-head:   6dd4ae925ae5b90ccfbcb11dce06fd505cc18bc8
-commit: f6df559bc59a922fc6bd100cd018207323c3f9d1 [33/38] ASoC: sigmadsp: Simplify with snd_ctl_activate_id()
-config: nios2-randconfig-r026-20230703 (https://download.01.org/0day-ci/archive/20230705/202307050119.aWILsASi-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 12.3.0
-reproduce: (https://download.01.org/0day-ci/archive/20230705/202307050119.aWILsASi-lkp@intel.com/reproduce)
+Hello,=20
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307050119.aWILsASi-lkp@intel.com/
+I encounter troubles while using S/PDIF input on an CM106 like sound card=20
+(vendor 0x0d8c, device 0x0102) when the remote device which is connected by=
+ S/
+PDIF to the sound card is powered off.
+In that case garbage data are reading from the S/PDIF rather than.. nothing
 
-All errors (new ones prefixed by >>):
+It is really boring since this S/PDIF input is connected to the output=20
+speakers and once the remote deviced is powered off it emits a really=20
+disturbing sound.
+Since there is no input on the S/PDIF I guess that it could be a driver bug?
+If it's an hardware bug (I don't encounter the problem under windows..) is =
+it=20
+possible to make a hack in order to distinguish between real data and noise=
+ on=20
+the S/PDIF input?
 
-   sound/soc/codecs/sigmadsp.c: In function 'sigmadsp_activate_ctrl':
->> sound/soc/codecs/sigmadsp.c:676:50: error: 'struct sigmadsp_control' has no member named 'kctl'
-     676 |         changed = snd_ctl_activate_id(card, &ctrl->kctl->id, active);
-         |                                                  ^~
+Unfortunately this test is performed on an embedded device which runs linux=
+=20
+5.16.17-sun50iw6. I don't know if this problem still occurs with newer alsa=
+=20
+version.
+
+Thank you in advance for your help.
+Regards,=20
+
+Aur=E9lien
 
 
-vim +676 sound/soc/codecs/sigmadsp.c
-
-   667	
-   668	static void sigmadsp_activate_ctrl(struct sigmadsp *sigmadsp,
-   669		struct sigmadsp_control *ctrl, unsigned int samplerate_mask)
-   670	{
-   671		struct snd_card *card = sigmadsp->component->card->snd_card;
-   672		bool active;
-   673		int changed;
-   674	
-   675		active = sigmadsp_samplerate_valid(ctrl->samplerates, samplerate_mask);
- > 676		changed = snd_ctl_activate_id(card, &ctrl->kctl->id, active);
-   677		if (active && changed > 0) {
-   678			mutex_lock(&sigmadsp->lock);
-   679			if (ctrl->cached)
-   680				sigmadsp_ctrl_write(sigmadsp, ctrl, ctrl->cache);
-   681			mutex_unlock(&sigmadsp->lock);
-   682		}
-   683	}
-   684	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki

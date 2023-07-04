@@ -2,104 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB1B4746B8A
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 10:08:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13957746BD5
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 10:28:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E0BC1FE;
-	Tue,  4 Jul 2023 10:07:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E0BC1FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3944A20C;
+	Tue,  4 Jul 2023 10:27:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3944A20C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688458122;
-	bh=cM2U4BPtihLtw4IqnCQzfBf021+9WmplwiPMP6wy7Qs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1688459316;
+	bh=T3Yo61X2wTFrxKpsXgqhPC33ITeyORHdblqni4Ri13s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=gC2u5+WM07p5DCxGTqOMAZVKkRauR3UPBAFIpgRvQ3AjgpWbxeHdXgqv2A6LJKEut
-	 jS19AAOrJhvJ9FhsewLePwAl45gfO+SQbWNEXmkz6iukmh3QQr6lKeenYQ5aL6Ttzb
-	 Ze+1MFX+wkXHC8881xepER6cG1BA4rEtq85XFU4E=
+	b=tiq/fqR/qJ0kQkfZyEXFPw1AB8fP2PxZTdmDXbyacQ99dW6JWtnlpVZvw0XaIOxjz
+	 wCpi60xXZXOUJfnalPPbvOLfGs/BWwNd5guzQdQA65Zp+TSX2Mvl0snDmA6o5WUxTo
+	 sPNFo0v20yICTzwp557DieGoYNZkK4t9MpqwVy24=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5CDFDF80124; Tue,  4 Jul 2023 10:07:51 +0200 (CEST)
+	id 73C06F80124; Tue,  4 Jul 2023 10:27:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E0C3F80124;
-	Tue,  4 Jul 2023 10:07:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDB1CF80124;
+	Tue,  4 Jul 2023 10:27:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 29661F80125; Tue,  4 Jul 2023 10:07:48 +0200 (CEST)
+	id 8FEB4F80125; Tue,  4 Jul 2023 10:27:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6DD47F800E4
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:07:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DD47F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id A25B7F80093
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:27:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A25B7F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=XyvMTUgi;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=oi0IAqFv
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7D22D20405;
-	Tue,  4 Jul 2023 08:07:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1688458062;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9rSPLRbJcf1HszajQDTFX0zxTKHnChF0gv1wRBOA+9Q=;
-	b=XyvMTUgiJUbwEjSdWsU7FG0d96T4sKuPXYMEJnAeG2uL4Me5Kyqu3iD2C9YpN38rcWfLsw
-	39/7DFxH+y+E3eh2fwrXoOtpNTYzfd3UK84XNUdckmxorjiXWMj8cY6L4U0i+k/HJ8yTiV
-	2lDCFGjs5oQ7c/AW8gclR6AdLLRTw38=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1688458062;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9rSPLRbJcf1HszajQDTFX0zxTKHnChF0gv1wRBOA+9Q=;
-	b=oi0IAqFv3znvIoCI86/dIiq8Xmf5m92QpncJ3+JWUaUf0bxEINxiyTm2IR8n1mWzgZRcYE
-	AVz0HeHNRzV7a0Cg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 595571346D;
-	Tue,  4 Jul 2023 08:07:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id nZ6lFE7To2QwIgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 04 Jul 2023 08:07:42 +0000
-Date: Tue, 04 Jul 2023 10:07:41 +0200
-Message-ID: <87sfa42j76.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Dan Carpenter <dan.carpenter@linaro.org>
-Cc: amadeuszx.slawinski@linux.intel.com,
-	alsa-devel@alsa-project.org
-Subject: Re: [bug report] ALSA: jack: Access input_dev under mutex
-In-Reply-To: <cf95f7fe-a748-4990-8378-000491b40329@moroto.mountain>
-References: <cf95f7fe-a748-4990-8378-000491b40329@moroto.mountain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=ISO-8859-2
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=JxjfAVhb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688459254; x=1719995254;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=T3Yo61X2wTFrxKpsXgqhPC33ITeyORHdblqni4Ri13s=;
+  b=JxjfAVhbqvdVVCA5AreVClX3rwWWD8CPIPpXL19flPwK4GIdVJojOtN5
+   ohQE0nm/fqnaaXpM2eYr827NsbV3oAJQjFHBwBNMeXHBmD+xrFXbfGB95
+   WJTTsjyxecYwqPjyGsVMIWq4895APJrHcM3c9/+1H2htMlSCPQCxjtJ2l
+   i2WC6CsejmoPwcjjlXFfKywZubu5Ov1GvcV4zL6rbxh5biiK+9UYZCLck
+   65QPHKltRmRH198apQef0zYvQkP9ulJF8h8jqgmMkX7lSXFaSKGDInsPn
+   N2VCbI7QCqznxRFqQAvUQAqnEiSUjv8FdoEpwEF6+92mo1OvTTacfYZiF
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10760"; a="449440505"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
+   d="scan'208";a="449440505"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2023 01:27:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10760"; a="788785617"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
+   d="scan'208";a="788785617"
+Received: from mkalif-mobl.ger.corp.intel.com (HELO [10.251.219.26])
+ ([10.251.219.26])
+  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2023 01:27:23 -0700
+Message-ID: <55d3da8d-a4d6-3bde-0635-0ae7fb3f32ca@linux.intel.com>
+Date: Tue, 4 Jul 2023 10:27:20 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH 1/5] ASoC: rt5682-sdw: fix for JD event handling in
+ ClockStop Mode0
+Content-Language: en-US
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
+ =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ "Hiregoudar, Basavaraj" <Basavaraj.Hiregoudar@amd.com>
+References: <20230703090247.25261-1-shumingf@realtek.com>
+ <f9e83b61-6e69-2467-d5a5-3c3a6a40e018@linux.intel.com>
+ <81bf0fcc0b824c928e2e4e5a77ca37d8@realtek.com>
+ <a10894a2-a6af-8c5f-b675-79cc7cfeb899@linux.intel.com>
+ <1fb4d8ea138140d291a395dc82e710ae@realtek.com>
+ <489e8631-b773-1916-40a7-3fd73af54c19@amd.com>
+ <80c35e78-b82b-5d8a-bce7-fa8bb61e16cd@linux.intel.com>
+ <a8c7ac88-4546-2b57-6f26-5ae2a9e603e4@amd.com>
+ <95586650-6a22-f760-5eb7-0e1e3a5c0346@linux.intel.com>
+ <7c8b7cc9-125e-e97e-2a42-046a025d4e94@amd.com>
+ <7e6faede-af5c-c251-d6eb-cc3590b36337@linux.intel.com>
+ <abb4376e-15d3-6211-5024-03caf29c7a3f@amd.com>
+ <ff732d09-b620-cdfd-d055-da116b99223c@linux.intel.com>
+ <c932e7c8-74f8-71f1-e35f-98e1a852bd71@amd.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <c932e7c8-74f8-71f1-e35f-98e1a852bd71@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WWBAYXUXA435N27UYTVPG5HXEIWVKLYP
-X-Message-ID-Hash: WWBAYXUXA435N27UYTVPG5HXEIWVKLYP
-X-MailFrom: tiwai@suse.de
+Message-ID-Hash: GGYBR6C7ZTUHBLUZYJFV6LCPTXDLSJKO
+X-Message-ID-Hash: GGYBR6C7ZTUHBLUZYJFV6LCPTXDLSJKO
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WWBAYXUXA435N27UYTVPG5HXEIWVKLYP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGYBR6C7ZTUHBLUZYJFV6LCPTXDLSJKO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,105 +129,143 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 03 Jul 2023 16:18:27 +0200,
-Dan Carpenter wrote:
-> 
-> Hello Amadeusz S�awi�ski,
-> 
-> The patch 1b6a6fc5280e: "ALSA: jack: Access input_dev under mutex"
-> from Apr 12, 2022, leads to the following Smatch static checker
-> warning:
-> 
-> 	sound/core/jack.c:673 snd_jack_report()
-> 	warn: sleeping in atomic context
-> 
-> sound/core/jack.c
->     663         jack->hw_status_cache = status;
->     664 
->     665         list_for_each_entry(jack_kctl, &jack->kctl_list, list)
->     666                 if (jack_kctl->sw_inject_enable)
->     667                         mask_bits |= jack_kctl->mask_bits;
->     668                 else
->     669                         snd_kctl_jack_report(jack->card, jack_kctl->kctl,
->     670                                              status & jack_kctl->mask_bits);
->     671 
->     672 #ifdef CONFIG_SND_JACK_INPUT_DEV
-> --> 673         mutex_lock(&jack->input_dev_lock);
->                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> 
-> That patch adds this mutex but we can't take mutex because we're already
-> holding a spinlock.  The problematic call trees are:
-> 
-> virtsnd_event_notify_cb() <- disables preempt
-> virtsnd_disable_event_vq() <- disables preempt
-> -> virtsnd_event_dispatch()
->    -> virtsnd_jack_event()
->       -> snd_jack_report()
-> 
-> The virtsnd_event_notify_cb() and virtsnd_disable_event_vq() functions
-> take the spin_lock_irqsave(&queue->lock, flags);
-
-Indeed it was no good choice to use the mutex there inside the report
-function.  It's supposed to be callable from an irq-disabled context,
-too.
-
-How about simply using the device refcount like below?
-
-Although we may drop the mutex from snd_jack, it can can be left, as
-it's still useful for protecting a potential race between creation and
-deletion.
 
 
-thanks,
+On 7/4/23 09:37, Mukunda,Vijendar wrote:
+> On 04/07/23 12:41, Pierre-Louis Bossart wrote:
+>>
+>> On 7/4/23 08:36, Mukunda,Vijendar wrote:
+>>> On 03/07/23 22:48, Pierre-Louis Bossart wrote:
+>>>> On 7/3/23 17:18, Mukunda,Vijendar wrote:
+>>>>> On 03/07/23 20:15, Pierre-Louis Bossart wrote:
+>>>>>> On 7/3/23 16:46, Mukunda,Vijendar wrote:
+>>>>>>> On 03/07/23 19:50, Pierre-Louis Bossart wrote:
+>>>>>>>> On 7/3/23 15:31, Mukunda,Vijendar wrote:
+>>>>>>>>> On 03/07/23 18:30, Shuming [范書銘] wrote:
+>>>>>>>>>>>>>> During ClockStop Mode0, peripheral interrupts are disabled.
+>>>>>>>>>>>>> I can see that the interrupts are disabled in
+>>>>>>>>>>>>> rt5682_dev_system_suspend(), which is NOT a mode where the clock stop
+>>>>>>>>>>>>> is used... I don't think this commit message is correct.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> The IMPL_DEF interrupt which is used for jack detection is not
+>>>>>>>>>>>>> disabled at all during any clock stop mode, and it shouldn't
+>>>>>>>>>>>>> otherwise that would break the jack detection.
+>>>>>>>>>>>> You are right. The commit message is wrong and not clear.
+>>>>>>>>>>>> The situation is that the manager driver uses the clock stop mode0 to do
+>>>>>>>>>>> system suspension.
+>>>>>>>>>>>
+>>>>>>>>>>> No it does not. The clock stop is ONLY used for pm_runtime, never for system
+>>>>>>>>>>> suspend. We cannot go to system suspend with the link in clock-stop mode,
+>>>>>>>>>>> that will create lots of issues, that's why we perform a full pm_runtime resume
+>>>>>>>>>>> in the .prepare stage.
+>>>>>>>>>> OK, I got your point. Thanks. However, this issue reported by AMD. 
+>>>>>>>>>> The AMD platform validated system level pm and runtime pm ops with the different modes.
+>>>>>>>>>>
+>>>>>>>>>> Hi Vijendar,
+>>>>>>>>>> Do you have any comments?
+>>>>>>>>> On AMD platforms, we are supporting two power modes.
+>>>>>>>>> 1) Bus reset mode
+>>>>>>>>> 2) Clock Stop Mode
+>>>>>>>>>
+>>>>>>>>> In Bus reset mode, bus will re-enumerate the peripheral devices
+>>>>>>>>> whereas in ClockStop Mode, applying ClockStop Mode0
+>>>>>>>>> in both pm ops (runtime pm ops and system level pm ops).
+>>>>>>>>>
+>>>>>>>>> Currently, SDCA interrupts are disabled on peripheral side, when system level
+>>>>>>>>> suspend is invoked.
+>>>>>>>>> For ClockStop mode SDW manager is not receiving any jack alert when
+>>>>>>>>> SoundWire manager device is in D3 state.
+>>>>>>>> That was precisely the point of clock stop mode: a peripheral can
+>>>>>>>> restart the system even when it's in lower-power mode.
+>>>>>>>>
+>>>>>>>> If there's no means to let a peripheral restart, the only benefit is
+>>>>>>>> maybe to skip the enumeration time. That's not what the spec intended....
+>>>>>>> As per our understanding, you are pointing to ClockStopMode1.
+>>>>>>> ClockStopMode1 requires re-enumeration as peripherals move
+>>>>>>> to unattached state.
+>>>>>>> We have cross-checked ClockStopMode0 description in spec.
+>>>>>>> It doesn't specify about peripheral device state as Unattached.
+>>>>>>> We are referring here "ClockStopMode0" only.
+>>>>>> No I was describing the difference between the 'Bus reset mode' and the
+>>>>>> 'clock stop mode' on the manager side.
+>>>>>>
+>>>>>> There's also nothing in the spec preventing the manager from doing a
+>>>>>> reset at any time, including after exiting the clock mode0 stop.
+>>>>>>
+>>>>>>
+>>>>> Partly I agree.  As per our understanding, If any of the peripherals lost's sync,
+>>>>> and re-enumeration is required.
+>>>>> If continuous parity errors/bus clash conditions are reported over the link,
+>>>>> Sdw Manager bus reset sequence should be invoked. This is a different scenario.
+>>>>> Both the scenarios are asynchronous.
+>>>>>  
+>>>>> Going with Spec definition for ClockStopMode0, as it's Imp defined for
+>>>>> SoundWire Manager, want to stick to Clockstop when D3 call is invoked
+>>>>> and restore the clock when D0 call is invoked for our platforms.
+>>>> The problem is that 'D3' can be used for two separate scenarios
+>>>> - S0/D3: that's pm_runtime suspend
+>>>> - Sx/D4: that's system suspend
+>>>> It's very unclear what the benefit of clock stop mode would be for the
+>>>> latter case.
+>>>>
+>>> We are pointing system level suspend scenario only.
+>>>
+>>> We have already SoundWire Power off mode - ClockStop Mode will be
+>>> applied followed by bus reset and SoundWire manager will be disabled.
+>>> On parent side, ACP soft reset will be applied and ACP parent driver can
+>>> wake for PME events for Soundwire manager.
+>>>
+>>> Sx/D4 case, want to avoid re-enumeration when multiple peripherals are connected.
+>>> For Clock Stop + Bus reset (keeping Sdw manager enabled), we can define a new power mode
+>>> on SoundWire manager side.
+>>>
+>>> Having said that, below are power modes we want to support on our side.
+>>>
+>>> 1) Idle Mode - Don't stop the clock for SoundWire manager and Soundwire manager is not
+>>> disabled during suspend callbacks.
+>>> 2) ClockStop Mode - Only apply ClockStopMode0 on Soundwire manager side and restore
+>>> the clock when resume sequence is invoked (even in case of system level suspend also)
+>>> 3) ClockStop Mode + Bus reset - Apply ClockStopMode0 when Sound wire manager entering
+>>> runtime suspend state. In system level resume case, apply clock stop exit and bus reset which
+>>> will re-enumerate all peripheral devices over the links.
+>>> 4) Power off mode: apply Clock Stop + SoundWire manager IP power off sequence.
+>>> Parent device(ACP) will be powered off. ACP can wake up for in band wake-up events.
+>>>
+>>> We expect if someone wants to go with only ClockStop mode, peripheral side also required
+>>> support should be enabled.
+>> I am not following any of this. You wrote both
+>>
+>> "
+>> For ClockStop mode SDW manager is not receiving any jack alert when
+>> SoundWire manager device is in D3 state.
+>> "
+>>
+>> and
+>>
+>> "
+>> Parent device(ACP) will be powered off. ACP can wake up for in band
+>> wake-up events.
+>> "
+>>
+>> I can't figure out how you deal with wake-ups and when exactly you
+>> expect jack detection to be functional.
+> Both power modes (case 2 & case 4) are different.
+> The current patch series is targeted to address JD events during system level
+> suspend/resume scenario, when ClockStop Power mode is selected.i.e case 2
+> as mentioned above. We're not expecting bus reset during system level resume in
+> this power mode.
+> As SDCA interrrupts are not enabled on peripheral side during system level resume,
+> No JD events are reported.
+> 
+> Test scenario will be let system level supend gets invoked. During suspend, plug/un-plug jack.
+> During system level resume, JD status should be reported correctly.
 
-Takashi
+This is completely different to the definition of 'clock stop mode'.
+What you want is to make sure the status is reported correctly when the
+system resume, not to resume the system using the clock stop exit
+mechanism at the initiative of the peripheral.
 
--- 8< --
---- a/sound/core/jack.c
-+++ b/sound/core/jack.c
-@@ -654,6 +654,7 @@ void snd_jack_report(struct snd_jack *jack, int status)
- 	struct snd_jack_kctl *jack_kctl;
- 	unsigned int mask_bits = 0;
- #ifdef CONFIG_SND_JACK_INPUT_DEV
-+	struct input_dev *idev;
- 	int i;
- #endif
- 
-@@ -670,17 +671,15 @@ void snd_jack_report(struct snd_jack *jack, int status)
- 					     status & jack_kctl->mask_bits);
- 
- #ifdef CONFIG_SND_JACK_INPUT_DEV
--	mutex_lock(&jack->input_dev_lock);
--	if (!jack->input_dev) {
--		mutex_unlock(&jack->input_dev_lock);
-+	idev = input_get_device(jack->input_dev);
-+	if (!idev)
- 		return;
--	}
- 
- 	for (i = 0; i < ARRAY_SIZE(jack->key); i++) {
- 		int testbit = ((SND_JACK_BTN_0 >> i) & ~mask_bits);
- 
- 		if (jack->type & testbit)
--			input_report_key(jack->input_dev, jack->key[i],
-+			input_report_key(idev, jack->key[i],
- 					 status & testbit);
- 	}
- 
-@@ -688,13 +687,13 @@ void snd_jack_report(struct snd_jack *jack, int status)
- 		int testbit = ((1 << i) & ~mask_bits);
- 
- 		if (jack->type & testbit)
--			input_report_switch(jack->input_dev,
-+			input_report_switch(idev,
- 					    jack_switch_types[i],
- 					    status & testbit);
- 	}
- 
--	input_sync(jack->input_dev);
--	mutex_unlock(&jack->input_dev_lock);
-+	input_sync(idev);
-+	input_put_device(idev);
- #endif /* CONFIG_SND_JACK_INPUT_DEV */
- }
- EXPORT_SYMBOL(snd_jack_report);
+I think we are using 'clock stop' with different meanings. Stopping the
+clock in the traditional electrical engineering sense is different to
+the MIPI-defined clock stop, where manager and peripheral agrees on when
+the clock will stop and how to restart.

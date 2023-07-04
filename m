@@ -2,97 +2,156 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4464747383
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 16:00:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA9E57475A2
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 17:53:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B90287F1;
-	Tue,  4 Jul 2023 15:59:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B90287F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9004520C;
+	Tue,  4 Jul 2023 17:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9004520C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688479246;
-	bh=Rz4B8MHS9txQmFz0LcpLJ1buoy3ozqfsNNEcFtPbKqo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=dPhB31EO44lDrCKilMmMgVKf8N9VVrgSCBjTOmlUw/XCr4RfAlpUZE5C3Xqig1Rs9
-	 04f6x0fCwdk9+r5wRjfiUSEDzvFV1Bb0v/qjiTlsGK3jNH3egjBv05QE4ZN/JUw4z/
-	 jYUImoMs1TRSBCQ56BC8+NZ/DDJTXgD9LhwrmyRU=
+	s=default; t=1688485984;
+	bh=iq2KVGJP53BqCyqPlbJh19tc67lf3/n4/bAEQXA6pLg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=O0CvyQ9PRuwMv6Mlk2x9LduiZXyBlGDVIODrCM5pP9LxYGrBEkK8g+MEDF6Db6UtS
+	 SKLRkCdfrzb+3jXhYns6nTE32OMPk4NvyNK8ezj3Pg0+Kt7P+nmXzAz80zPuAb3IxX
+	 oYKWBnhj9m8qdIaKVMymJQ8yz0IP/1D4bvwmdyHM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03898F800E4; Tue,  4 Jul 2023 15:59:55 +0200 (CEST)
+	id 90B6DF8053B; Tue,  4 Jul 2023 17:52:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 355A3F80124;
-	Tue,  4 Jul 2023 15:59:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F71BF80093;
+	Tue,  4 Jul 2023 17:52:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 071B3F80125; Tue,  4 Jul 2023 15:59:50 +0200 (CEST)
+	id 1D152F80125; Tue,  4 Jul 2023 11:12:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from APC01-PSA-obe.outbound.protection.outlook.com
+ (mail-psaapc01on20720.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:feae::720])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 91AAAF80104
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 15:59:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91AAAF80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id 4727AF800E4
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 11:11:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4727AF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=dU9DnKCb
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id CFC4261261;
-	Tue,  4 Jul 2023 13:59:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A161AC433C7;
-	Tue,  4 Jul 2023 13:59:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688479178;
-	bh=Rz4B8MHS9txQmFz0LcpLJ1buoy3ozqfsNNEcFtPbKqo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=dU9DnKCbUtQlsSLXuzeuGgmel6qzYFu9wkqmw6ntxqF9XYeh3Vh4Eb9l67a9s6J2K
-	 qtPhBaLtyrSyRuIicwn7tX8YgmI7xeBJa1uui19xvDKbjhnmOcLMwC6Rh+WOeVykSW
-	 V1xY4UuIn8mm5A+B7f+NM1wx9v/WiWXAKviFkyDlHdd6tt87MVcR2hClDZUdY045jD
-	 Dz44o+wGfumCb1StQXr+mzwy1rbGl6dXtoVNKnaN/3ktCf/RZ4T8nd6v14euCkm+1x
-	 WQmEFRGCXT5FHTi1B4YjGwyMgMteDjgwqhGl1ro9LTUQwGQHME6NdjZX+bW69Yscms
-	 XBPuXhl860tSQ==
-From: Mark Brown <broonie@kernel.org>
-To: Johan Hovold <johan+linaro@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230703124701.11734-1-johan+linaro@kernel.org>
-References: <20230703124701.11734-1-johan+linaro@kernel.org>
-Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix missing mbhc init error
- handling
-Message-Id: <168847917636.48984.6400261777618066312.b4-ty@kernel.org>
-Date: Tue, 04 Jul 2023 14:59:36 +0100
+ unprotected) header.d=vivo.com header.i=@vivo.com header.a=rsa-sha256
+ header.s=selector2 header.b=Oxy+2nM5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WkNBElDraykqjLTRFbiugwxNWmUj9llEyhPSTSaEi/i2GxNBJn1nNAUwfA8LgZRejmsRux9F9rXmM4SZYglMgfi28uENNDhEQt8agiFjB2hjlcFeF4QTaLxVkJzQzn5vurrLsc3E2nNlibd9iwiupLFuo9jZZ4kHihMzfqbOgORv3Kirb1TAMbtY70LXV1VVN2NzIwbEECszLU/6KkNz1sZdJexemxdOS6GSzh52QLUuGEKmU2xPowgl7zDFOADl7KB7tOjWv8My9x88plBPSLRtVVSYw9CwNPDWrnNYcRvbExxa5Yr13KfyZlD5jHyAvZwoG0V5GVM7wdZUgMnUxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F1JblLbZYn+97rf+x0NM+vTxzOU6gRCHl0eZE0GEJ7o=;
+ b=jMjqfDanU4V5OP3eDlV06givLofHJkfgPnneOnQscSiOL20AdNWo0kiLlKrmI0BrJp3YWwIqz2FjImn2hpnW+tfIfPU9RdRhqxQWL+u/HJUaElnL2s+nVBQpdXRzyDm8IwhqR5aE1vKpSFPO7g+0QnWLG+9CvyG1DQEbD3UZ2Gddq1SKphSEoK5BLdiL8BtZzYQgMpsr+xlzZ2NqWANyZ4fr75DBhK2tC6lfNVIpA62AeCh93ItEpt0+PAR2Bd0Hnt5cjDrhYr6wqW39YMASLhgByQ6nj1fxcUYpN96PkoRU7CcWL+oKNl2OFfAcIKM7dmA3kkt8YUPc4RSNcqKeUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F1JblLbZYn+97rf+x0NM+vTxzOU6gRCHl0eZE0GEJ7o=;
+ b=Oxy+2nM59Ase/BrqPnrnVtXJffyu+7rkzAmSFdoXS2cR4GwINCr2Vxtw+eot7xi+EYbWFqi4di4sOjT/iFceNoNRNHjvn8A+89h16EB7GxqknZXPNry4pL537IlfEm2rSWtP1xf8yznkCJREHDx+uZCFkBgz1Wct7ErGCIkahY35rXLrhdwSMolGqtwHah5cjOaag1Usrui4IKBXiRCIkH3JKvntB5JiGcbz0nfX4UZQl3KqiugoAQQRrEAHIZZvBLEKhCaDgrPqt7UhYsuZk+m0Hyz4w4OzxQ2Kfft5d1+qg0xRK5YssFa9KT4ONQPzt9qo4+hfML7FA6/pDk03Eg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SG2PR06MB5288.apcprd06.prod.outlook.com (2603:1096:4:1dc::9) by
+ SEYPR06MB5789.apcprd06.prod.outlook.com (2603:1096:101:ba::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6544.24; Tue, 4 Jul 2023 09:11:48 +0000
+Received: from SG2PR06MB5288.apcprd06.prod.outlook.com
+ ([fe80::c2b:41ab:3b14:f920]) by SG2PR06MB5288.apcprd06.prod.outlook.com
+ ([fe80::c2b:41ab:3b14:f920%6]) with mapi id 15.20.6544.024; Tue, 4 Jul 2023
+ 09:11:48 +0000
+From: Minjie Du <duminjie@vivo.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Minjie Du <duminjie@vivo.com>,
+	Stephen Rothwell <sfr@canb.auug.org.au>,
+	alsa-devel@alsa-project.org (moderated list:SOUND),
+	linux-kernel@vger.kernel.org (open list)
+Cc: opensource.kernel@vivo.com
+Subject: [PATCH v1] sound: riptide: Remove duplicate judgments code
+Date: Tue,  4 Jul 2023 17:11:31 +0800
+Message-Id: <20230704091131.6662-1-duminjie@vivo.com>
+X-Mailer: git-send-email 2.39.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0033.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6::14) To SG2PR06MB5288.apcprd06.prod.outlook.com
+ (2603:1096:4:1dc::9)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: RGQGRAUZOH6MSA7JPLKFT6SNFW6V7SJC
-X-Message-ID-Hash: RGQGRAUZOH6MSA7JPLKFT6SNFW6V7SJC
-X-MailFrom: broonie@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PR06MB5288:EE_|SEYPR06MB5789:EE_
+X-MS-Office365-Filtering-Correlation-Id: b430ebae-3cac-4ffa-9ba4-08db7c6eb255
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	ExlJG48rxXOABxPr1GiKbQ4fMKKBh8UQqHTbJswIu1uYaYV3hRAfq2js9uS/fDrK117EHSMNRXScSzZltMHpokh/x9xxeunQEwjfmCmj3OUSbKlQH+oRvJ8bVScmHtTBSEmwqqPqSOkEYtP74n9ilNZg+VuY8MSt/aaFoRSbH4d7G8Rg0/OgR4cGUu+P/vOD5b//ArjHCCHSLU/kwbCyonoObIQlkv0yKq5k3a7CEVCea+yXB79xkcOuL2Q2BH88wXCgP8P7QHmSj/MsPZvQ1yY++UtCenKelwmoVUr/yO5pt/lEpe6zviF7l8GyUIS45XyCPzY7Xo16pbyu5Z7jJYVMwecpuOSaZDt55pj7chJD19jFW1+7JWSejkomKq3CjoZEfFOG16PLjKcpcwRkJTwR54EfbI8ZXGZqYkWqvggCyhRBntRAUSvy6ESkw0mLc+Rt2c2agZdaBTn2c4mx2jOdV3GkCpXpVdOzQtNN+uEo5z1vdRcYG6Cfh3OqqAE17mcZiHgnhuUxB9rJhm1vFwQVRH9s8D8A40Ns3CdOT78phyWKM/2xe/WkVEHNOgJVNnfxaVh/mNJe4egeDkOJEH0NiMr16ninF7xovUTpWkpN5k7thr+anIbtgaXALX8r
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SG2PR06MB5288.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(346002)(376002)(366004)(396003)(451199021)(8936002)(5660300002)(8676002)(41300700001)(38350700002)(38100700002)(66946007)(66556008)(316002)(4326008)(66476007)(110136005)(36756003)(86362001)(107886003)(6666004)(478600001)(6506007)(26005)(6512007)(186003)(1076003)(52116002)(6486002)(83380400001)(2616005)(2906002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?vkxeZRT8dKKJMia6lsAYxlTM0zcNeOpgq+TKmqEmiG7yMEMdVzofWYb9R/8I?=
+ =?us-ascii?Q?QfD6XKL5n08m4WykXLrrgSULnJurMsmJ4Q2Emytrf6Jsvwixjr03NRBnmZZy?=
+ =?us-ascii?Q?RQUIv+dm+n/cWsZMNkokAcyauMMcdGeUh2VXOpWWCcILOvaG4a5Yz1/rM+CA?=
+ =?us-ascii?Q?//OErp2ORRbdFxw6Kc4KDJ495mEADdNas7y7V16YDLK6xdE7UAvJIDOKW6i+?=
+ =?us-ascii?Q?4S+jH4kJdZH/Hc14HJ1ahcuLo6J4mc+P68r23LQBG6PmGBE+vGVnKQcEQG9q?=
+ =?us-ascii?Q?QinSRwHgrG1bo5+xhFWLM+MYmVKQldyn0mBYydXzYTHbJsr4QURNHMBb8tei?=
+ =?us-ascii?Q?XWreho2X33cMU4rWzZ5hd0EkSGdzXobUFwjxKnSvLe8BzKxpa8fQFSdt1vH1?=
+ =?us-ascii?Q?ARvRUfmEAqB50hUmCc8LvK1SFb2CqugnFpjqn1xeW+AlE6kApuudNU/nc7uF?=
+ =?us-ascii?Q?FcgD5fjWyj2tm1xcEo2TULnmll0tepNcAUjzsF7dhPb8PcZ9YttxzrpXg8PD?=
+ =?us-ascii?Q?m4UOoVZtBIfq4JLtU2QlwFiXt+LSAO15dwEr/mJnQb3aSoLC46csnsd2lFvr?=
+ =?us-ascii?Q?WZRFAIs0Jwn9L7pAnzH3JVOYA2jybet/4wn0sEXQaycmsR37OijBxfdFnLE0?=
+ =?us-ascii?Q?lIoPKQVfxlbyAZW31abXmgdOtSEwpDsNO4BMWTEZ73HeELKb02Awkj+pYJSG?=
+ =?us-ascii?Q?nJR2dTzmgGyHwUIcPRSGnqw5xvtu+wZglvdhy0YhTtl26h+pYvUsGl/dwP1H?=
+ =?us-ascii?Q?AL718CvzEFdw/2vDs+X165s7lsErjoJ6nEFe9NfdLBJrdDAZx/KfWsDLqxib?=
+ =?us-ascii?Q?xfMQvORC+p7ojiH0M1Z6RAXBraQfcJFcuRiJipZr/XIu7ROKSRl/W7xJgQxe?=
+ =?us-ascii?Q?mpge10mPoE90T8oRbf/5T0vJHXcpquQFKidD0oQ2p2BpP+M7BMhnc0Z3/KgU?=
+ =?us-ascii?Q?EVpREDdkUaTNDL6oO9xl3dtd1EfZ3qUJ64V53l0PA5HzO/zBXdUqwUEuH4y6?=
+ =?us-ascii?Q?0qnaQKQ68JX+FszQKKmijzJY5tdEZQxK4TsCWU/rmVmOGAx/wHNrneiwuioJ?=
+ =?us-ascii?Q?7DnCVh6ZvEZm2o1K/OPebA/RerKhzhOh0b+HVmxpdZAkTOk9+LfYi9AJazcY?=
+ =?us-ascii?Q?7Sxh94jjPaCOdPeYD84FIqBSKk83yhp4Y85UzH2iXgYbiDaAhdr0ncNLyIml?=
+ =?us-ascii?Q?IFhnrbaxKG74FIrI8hFVqYAcBfM6vJQurC4Ch5x6v/ZwQ9pZEunQGuqGRN9c?=
+ =?us-ascii?Q?NVXKEVQOh5HY7c/84poSnO/ok2o9SWKCAj4+yWngKlWizlqTL4o+d4s8Vnon?=
+ =?us-ascii?Q?2X9yG/CoDkn+wlFRlvdxWvZvsWOqFdliIXrHeqr86c8hIXzWOBU3x9vAF5P2?=
+ =?us-ascii?Q?59U5P3acUfNrivC12D6LmR8ITe+Dd7lyKEMHzYaA8YrzLhOFBhHxD+OY9Gyf?=
+ =?us-ascii?Q?7KeXyObVaZsZNUaqldAi1NpvHdjZ7u8hfbEkBDBmgN4EtK1RfBNZhQxhnUV3?=
+ =?us-ascii?Q?V0sy2rVpPHJCMx6kuA2h02Vu7ZWuW/jYxkwegUxc5DbztVYrjo+f4BV/h+Yw?=
+ =?us-ascii?Q?2S7EZQWuBzA9c/+bBTyQR+qBHjVbI4a/KnJlBocz?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ b430ebae-3cac-4ffa-9ba4-08db7c6eb255
+X-MS-Exchange-CrossTenant-AuthSource: SG2PR06MB5288.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 09:11:48.4825
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ Wy1lBFpvR7GV8c0Q5uP3YfiqV5vdmBY1Xv/y2X/oT4EIS7FgYiz64vne+lccnnE1/Lf9gtLTD5Iq8q304h/KiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5789
+X-MailFrom: duminjie@vivo.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 6KJ2GY4DDRPE3CW44FYBZ52DA6BR3TAX
+X-Message-ID-Hash: 6KJ2GY4DDRPE3CW44FYBZ52DA6BR3TAX
+X-Mailman-Approved-At: Tue, 04 Jul 2023 15:52:09 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RGQGRAUZOH6MSA7JPLKFT6SNFW6V7SJC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6KJ2GY4DDRPE3CW44FYBZ52DA6BR3TAX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,42 +160,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 03 Jul 2023 14:47:01 +0200, Johan Hovold wrote:
-> MBHC initialisation can fail so add the missing error handling to avoid
-> dereferencing an error pointer when later configuring the jack:
-> 
->     Unable to handle kernel paging request at virtual address fffffffffffffff8
-> 
->     pc : wcd_mbhc_start+0x28/0x380 [snd_soc_wcd_mbhc]
->     lr : wcd938x_codec_set_jack+0x28/0x48 [snd_soc_wcd938x]
-> 
-> [...]
+Fix: delate duplicate judgments
+Could you help check it out? Thank you!
 
-Applied to
+Signed-off-by: Minjie Du <duminjie@vivo.com>
+---
+ sound/pci/riptide/riptide.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-
-Thanks!
-
-[1/1] ASoC: codecs: wcd938x: fix missing mbhc init error handling
-      commit: 7dfae2631bfbdebecd35fe7b472ab3cc95c9ed66
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/sound/pci/riptide/riptide.c b/sound/pci/riptide/riptide.c
+index b37c877c2..9bf4b2e86 100644
+--- a/sound/pci/riptide/riptide.c
++++ b/sound/pci/riptide/riptide.c
+@@ -958,8 +958,7 @@ getsourcesink(struct cmdif *cif, unsigned char source, unsigned char sink,
+ {
+ 	union cmdret rptr = CMDRET_ZERO;
+ 
+-	if (SEND_RSSV(cif, source, sink, &rptr) &&
+-	    SEND_RSSV(cif, source, sink, &rptr))
++	if (SEND_RSSV(cif, source, sink, &rptr))
+ 		return -EIO;
+ 	*a = rptr.retbytes[0];
+ 	*b = rptr.retbytes[1];
+@@ -978,8 +977,7 @@ getsamplerate(struct cmdif *cif, unsigned char *intdec, unsigned int *rate)
+ 	s = intdec;
+ 	for (i = 0; i < 2; i++) {
+ 		if (*s != 0xff) {
+-			if (SEND_RSRC(cif, *s, &rptr) &&
+-			    SEND_RSRC(cif, *s, &rptr))
++			if (SEND_RSRC(cif, *s, &rptr))
+ 				return -EIO;
+ 			p[i] += rptr.retwords[1];
+ 			p[i] *= rptr.retwords[2];
+@@ -1013,8 +1011,7 @@ setsampleformat(struct cmdif *cif,
+ 	sig = snd_pcm_format_unsigned(format) != 0;
+ 	order = snd_pcm_format_big_endian(format) != 0;
+ 
+-	if (SEND_SETF(cif, mixer, w, ch, order, sig, id) &&
+-	    SEND_SETF(cif, mixer, w, ch, order, sig, id)) {
++	if (SEND_SETF(cif, mixer, w, ch, order, sig, id)) {
+ 		snd_printdd("setsampleformat failed\n");
+ 		return -EIO;
+ 	}
+@@ -1060,7 +1057,7 @@ getmixer(struct cmdif *cif, short num, unsigned short *rval,
+ {
+ 	union cmdret rptr = CMDRET_ZERO;
+ 
+-	if (SEND_RDGV(cif, num, num, &rptr) && SEND_RDGV(cif, num, num, &rptr))
++	if (SEND_RDGV(cif, num, num, &rptr))
+ 		return -EIO;
+ 	*rval = rptr.retwords[0];
+ 	*lval = rptr.retwords[1];
+-- 
+2.39.0
 

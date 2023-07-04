@@ -2,113 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13957746BD5
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 10:28:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA707746C25
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 10:40:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3944A20C;
-	Tue,  4 Jul 2023 10:27:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3944A20C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 118F23E7;
+	Tue,  4 Jul 2023 10:39:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 118F23E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688459316;
-	bh=T3Yo61X2wTFrxKpsXgqhPC33ITeyORHdblqni4Ri13s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1688460004;
+	bh=syPq1pT8zILzlIfEq5rqMGzXAt0AjA6cJFmcIWJM48U=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tiq/fqR/qJ0kQkfZyEXFPw1AB8fP2PxZTdmDXbyacQ99dW6JWtnlpVZvw0XaIOxjz
-	 wCpi60xXZXOUJfnalPPbvOLfGs/BWwNd5guzQdQA65Zp+TSX2Mvl0snDmA6o5WUxTo
-	 sPNFo0v20yICTzwp557DieGoYNZkK4t9MpqwVy24=
+	b=iUvWqaM13LJRx5eYwHXSNVpCnWt0ThLj85TwHfuxyL57FFzrVGVjRZ7nYzKyb6Y9r
+	 aJEbcxB/kWeeyj4yUHgqtUte/58Np81x31lk96TNfuxpgRLjP6/nK7LJDaMjnwmMEO
+	 zJsoLBU7aWWUjUHcdrqR2tD+Y4U7kL8/hosnO79k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 73C06F80124; Tue,  4 Jul 2023 10:27:45 +0200 (CEST)
+	id A144CF80124; Tue,  4 Jul 2023 10:39:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDB1CF80124;
-	Tue,  4 Jul 2023 10:27:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA144F80124;
+	Tue,  4 Jul 2023 10:39:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8FEB4F80125; Tue,  4 Jul 2023 10:27:40 +0200 (CEST)
+	id 97997F80125; Tue,  4 Jul 2023 10:39:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A25B7F80093
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:27:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A25B7F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=JxjfAVhb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688459254; x=1719995254;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=T3Yo61X2wTFrxKpsXgqhPC33ITeyORHdblqni4Ri13s=;
-  b=JxjfAVhbqvdVVCA5AreVClX3rwWWD8CPIPpXL19flPwK4GIdVJojOtN5
-   ohQE0nm/fqnaaXpM2eYr827NsbV3oAJQjFHBwBNMeXHBmD+xrFXbfGB95
-   WJTTsjyxecYwqPjyGsVMIWq4895APJrHcM3c9/+1H2htMlSCPQCxjtJ2l
-   i2WC6CsejmoPwcjjlXFfKywZubu5Ov1GvcV4zL6rbxh5biiK+9UYZCLck
-   65QPHKltRmRH198apQef0zYvQkP9ulJF8h8jqgmMkX7lSXFaSKGDInsPn
-   N2VCbI7QCqznxRFqQAvUQAqnEiSUjv8FdoEpwEF6+92mo1OvTTacfYZiF
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10760"; a="449440505"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
-   d="scan'208";a="449440505"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2023 01:27:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10760"; a="788785617"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200";
-   d="scan'208";a="788785617"
-Received: from mkalif-mobl.ger.corp.intel.com (HELO [10.251.219.26])
- ([10.251.219.26])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2023 01:27:23 -0700
-Message-ID: <55d3da8d-a4d6-3bde-0635-0ae7fb3f32ca@linux.intel.com>
-Date: Tue, 4 Jul 2023 10:27:20 +0200
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	by alsa1.perex.cz (Postfix) with ESMTP id AF2D2F800E4
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:38:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF2D2F800E4
+Authenticated-By: 
+X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 3648ce0vB023412,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
+	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 3648ce0vB023412
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
+	Tue, 4 Jul 2023 16:38:40 +0800
+Received: from RTEXMBS04.realtek.com.tw (172.21.6.97) by
+ RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.32; Tue, 4 Jul 2023 16:38:43 +0800
+Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
+ RTEXMBS04.realtek.com.tw (172.21.6.97) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Tue, 4 Jul 2023 16:38:43 +0800
+Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
+ RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
+ 15.01.2375.007; Tue, 4 Jul 2023 16:38:43 +0800
+From: Kailang <kailang@realtek.com>
+To: Takashi Iwai <tiwai@suse.de>, "Joseph C. Sible" <josephcsible@gmail.com>
+CC: Bagas Sanjaya <bagasdotme@gmail.com>,
+        "regressions@lists.linux.dev"
+	<regressions@lists.linux.dev>,
+        "perex@perex.cz" <perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
+        "alsa-devel@alsa-project.org"
+	<alsa-devel@alsa-project.org>
+Subject: RE: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+ on warm boot
+Thread-Topic: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+ on warm boot
+Thread-Index: 
+ AQHZhdSOD7kY6mXBDkGA3ryhp811r69Yu5SAgAASNACAAA22gIAA7n+AgAEJrYCABLe/YIAJNIWAgAIHAcD//4tyAIAB8UZw///vxgCADzWhgIABfgWAgACUPoCAAPnsAIAAmlKwgAA8s4CAAQ8boP//kIuAABWnYVAAAIR9gAAqhW/A//+7roD//3k98IAAkYyAgAAKhQCAAAZZgIAAiY6AgADw04CAALC0AIAA6TqAgBQJp4CAAhpFAP/xaKKg
+Date: Tue, 4 Jul 2023 08:38:43 +0000
+Message-ID: <f4969213b5a14cc5a11befb4df861481@realtek.com>
+References: <bug-217440-225600@https.bugzilla.kernel.org/>
+	<CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
+	<ZGB0cVVI7OgaJU6t@debian.me>
+	<CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
+	<87cz338ix4.wl-tiwai@suse.de>
+	<CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
+	<874jodlnmi.wl-tiwai@suse.de>	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
+	<87fs7mdofi.wl-tiwai@suse.de>	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
+	<87353kd8b9.wl-tiwai@suse.de>	<1170325957764b4cbd7cd3639575f285@realtek.com>
+	<CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
+	<873536js7q.wl-tiwai@suse.de>
+	<CABpewhE0NAC-Q=iqG2Ba=XhT7SXsWy18wQGYUaopzmKDfFxyPw@mail.gmail.com>
+	<2c1fcbc00bb44d66a29ac1c1e4bec5ad@realtek.com>
+	<CABpewhFthKG97dPiQC4JhGx9sapX9Yu5rWABQjpY95TSA+eawA@mail.gmail.com>
+	<485f99149508488080d563144454040e@realtek.com>
+	<CABpewhGkvWtM+9J=mx3vw0QY=OBB5OYCxzX3nzVffvFS4QazPA@mail.gmail.com>
+	<2831c55638a5431ca9e37d9caf365ed2@realtek.com>
+	<CABpewhGiMJUpyBA6=D9_-YA6=5rjR2R0RHUZeg+cWcjtzuCoZQ@mail.gmail.com>
+	<3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
+	<CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
+	<009474f04d0b45c69a0e42e8622b7a86@realtek.com>	<87h6rhcef2.wl-tiwai@suse.de>
+	<0990300d759846d890de9c92fcad9a9d@realtek.com>
+	<CABpewhERnOH1qkkJ5_JJUZkz1_8oxD9aR5VBs1vsURAG7Eu_Ew@mail.gmail.com>
+	<878rctcavz.wl-tiwai@suse.de>	<874jnhc9u4.wl-tiwai@suse.de>
+	<CABpewhHG2+s8_6r6vChm2g5tD8ALW_SWJWubPRXWzTJB2aFR9g@mail.gmail.com>
+	<875y7vbxpg.wl-tiwai@suse.de>
+	<CABpewhHDnvn4v+uCpsaLHB+biw-f59tdTiCyFkicHnewXHYDNg@mail.gmail.com>
+	<87wn0aa1s4.wl-tiwai@suse.de>
+	<CABpewhFg=7+JR6v=zhi0_Hm9+S64DLOHKeG2pS-W7z-vNpu_5Q@mail.gmail.com>
+ <87leg7x4h7.wl-tiwai@suse.de>
+In-Reply-To: <87leg7x4h7.wl-tiwai@suse.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.106]
+x-kse-serverinfo: RTEXMBS04.realtek.com.tw, 9
+x-kse-antispam-interceptor-info: fallback
+x-kse-antivirus-interceptor-info: fallback
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 1/5] ASoC: rt5682-sdw: fix for JD event handling in
- ClockStop Mode0
-Content-Language: en-US
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
- Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
- "Hiregoudar, Basavaraj" <Basavaraj.Hiregoudar@amd.com>
-References: <20230703090247.25261-1-shumingf@realtek.com>
- <f9e83b61-6e69-2467-d5a5-3c3a6a40e018@linux.intel.com>
- <81bf0fcc0b824c928e2e4e5a77ca37d8@realtek.com>
- <a10894a2-a6af-8c5f-b675-79cc7cfeb899@linux.intel.com>
- <1fb4d8ea138140d291a395dc82e710ae@realtek.com>
- <489e8631-b773-1916-40a7-3fd73af54c19@amd.com>
- <80c35e78-b82b-5d8a-bce7-fa8bb61e16cd@linux.intel.com>
- <a8c7ac88-4546-2b57-6f26-5ae2a9e603e4@amd.com>
- <95586650-6a22-f760-5eb7-0e1e3a5c0346@linux.intel.com>
- <7c8b7cc9-125e-e97e-2a42-046a025d4e94@amd.com>
- <7e6faede-af5c-c251-d6eb-cc3590b36337@linux.intel.com>
- <abb4376e-15d3-6211-5024-03caf29c7a3f@amd.com>
- <ff732d09-b620-cdfd-d055-da116b99223c@linux.intel.com>
- <c932e7c8-74f8-71f1-e35f-98e1a852bd71@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <c932e7c8-74f8-71f1-e35f-98e1a852bd71@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: GGYBR6C7ZTUHBLUZYJFV6LCPTXDLSJKO
-X-Message-ID-Hash: GGYBR6C7ZTUHBLUZYJFV6LCPTXDLSJKO
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
+X-KSE-AntiSpam-Interceptor-Info: fallback
+X-KSE-Antivirus-Interceptor-Info: fallback
+X-KSE-AntiSpam-Interceptor-Info: fallback
+Message-ID-Hash: 6LNAPK7ODK3GRPZ7KPNPCRPYNG32SWLJ
+X-Message-ID-Hash: 6LNAPK7ODK3GRPZ7KPNPCRPYNG32SWLJ
+X-MailFrom: kailang@realtek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GGYBR6C7ZTUHBLUZYJFV6LCPTXDLSJKO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6LNAPK7ODK3GRPZ7KPNPCRPYNG32SWLJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -129,143 +139,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 7/4/23 09:37, Mukunda,Vijendar wrote:
-> On 04/07/23 12:41, Pierre-Louis Bossart wrote:
->>
->> On 7/4/23 08:36, Mukunda,Vijendar wrote:
->>> On 03/07/23 22:48, Pierre-Louis Bossart wrote:
->>>> On 7/3/23 17:18, Mukunda,Vijendar wrote:
->>>>> On 03/07/23 20:15, Pierre-Louis Bossart wrote:
->>>>>> On 7/3/23 16:46, Mukunda,Vijendar wrote:
->>>>>>> On 03/07/23 19:50, Pierre-Louis Bossart wrote:
->>>>>>>> On 7/3/23 15:31, Mukunda,Vijendar wrote:
->>>>>>>>> On 03/07/23 18:30, Shuming [范書銘] wrote:
->>>>>>>>>>>>>> During ClockStop Mode0, peripheral interrupts are disabled.
->>>>>>>>>>>>> I can see that the interrupts are disabled in
->>>>>>>>>>>>> rt5682_dev_system_suspend(), which is NOT a mode where the clock stop
->>>>>>>>>>>>> is used... I don't think this commit message is correct.
->>>>>>>>>>>>>
->>>>>>>>>>>>> The IMPL_DEF interrupt which is used for jack detection is not
->>>>>>>>>>>>> disabled at all during any clock stop mode, and it shouldn't
->>>>>>>>>>>>> otherwise that would break the jack detection.
->>>>>>>>>>>> You are right. The commit message is wrong and not clear.
->>>>>>>>>>>> The situation is that the manager driver uses the clock stop mode0 to do
->>>>>>>>>>> system suspension.
->>>>>>>>>>>
->>>>>>>>>>> No it does not. The clock stop is ONLY used for pm_runtime, never for system
->>>>>>>>>>> suspend. We cannot go to system suspend with the link in clock-stop mode,
->>>>>>>>>>> that will create lots of issues, that's why we perform a full pm_runtime resume
->>>>>>>>>>> in the .prepare stage.
->>>>>>>>>> OK, I got your point. Thanks. However, this issue reported by AMD. 
->>>>>>>>>> The AMD platform validated system level pm and runtime pm ops with the different modes.
->>>>>>>>>>
->>>>>>>>>> Hi Vijendar,
->>>>>>>>>> Do you have any comments?
->>>>>>>>> On AMD platforms, we are supporting two power modes.
->>>>>>>>> 1) Bus reset mode
->>>>>>>>> 2) Clock Stop Mode
->>>>>>>>>
->>>>>>>>> In Bus reset mode, bus will re-enumerate the peripheral devices
->>>>>>>>> whereas in ClockStop Mode, applying ClockStop Mode0
->>>>>>>>> in both pm ops (runtime pm ops and system level pm ops).
->>>>>>>>>
->>>>>>>>> Currently, SDCA interrupts are disabled on peripheral side, when system level
->>>>>>>>> suspend is invoked.
->>>>>>>>> For ClockStop mode SDW manager is not receiving any jack alert when
->>>>>>>>> SoundWire manager device is in D3 state.
->>>>>>>> That was precisely the point of clock stop mode: a peripheral can
->>>>>>>> restart the system even when it's in lower-power mode.
->>>>>>>>
->>>>>>>> If there's no means to let a peripheral restart, the only benefit is
->>>>>>>> maybe to skip the enumeration time. That's not what the spec intended....
->>>>>>> As per our understanding, you are pointing to ClockStopMode1.
->>>>>>> ClockStopMode1 requires re-enumeration as peripherals move
->>>>>>> to unattached state.
->>>>>>> We have cross-checked ClockStopMode0 description in spec.
->>>>>>> It doesn't specify about peripheral device state as Unattached.
->>>>>>> We are referring here "ClockStopMode0" only.
->>>>>> No I was describing the difference between the 'Bus reset mode' and the
->>>>>> 'clock stop mode' on the manager side.
->>>>>>
->>>>>> There's also nothing in the spec preventing the manager from doing a
->>>>>> reset at any time, including after exiting the clock mode0 stop.
->>>>>>
->>>>>>
->>>>> Partly I agree.  As per our understanding, If any of the peripherals lost's sync,
->>>>> and re-enumeration is required.
->>>>> If continuous parity errors/bus clash conditions are reported over the link,
->>>>> Sdw Manager bus reset sequence should be invoked. This is a different scenario.
->>>>> Both the scenarios are asynchronous.
->>>>>  
->>>>> Going with Spec definition for ClockStopMode0, as it's Imp defined for
->>>>> SoundWire Manager, want to stick to Clockstop when D3 call is invoked
->>>>> and restore the clock when D0 call is invoked for our platforms.
->>>> The problem is that 'D3' can be used for two separate scenarios
->>>> - S0/D3: that's pm_runtime suspend
->>>> - Sx/D4: that's system suspend
->>>> It's very unclear what the benefit of clock stop mode would be for the
->>>> latter case.
->>>>
->>> We are pointing system level suspend scenario only.
->>>
->>> We have already SoundWire Power off mode - ClockStop Mode will be
->>> applied followed by bus reset and SoundWire manager will be disabled.
->>> On parent side, ACP soft reset will be applied and ACP parent driver can
->>> wake for PME events for Soundwire manager.
->>>
->>> Sx/D4 case, want to avoid re-enumeration when multiple peripherals are connected.
->>> For Clock Stop + Bus reset (keeping Sdw manager enabled), we can define a new power mode
->>> on SoundWire manager side.
->>>
->>> Having said that, below are power modes we want to support on our side.
->>>
->>> 1) Idle Mode - Don't stop the clock for SoundWire manager and Soundwire manager is not
->>> disabled during suspend callbacks.
->>> 2) ClockStop Mode - Only apply ClockStopMode0 on Soundwire manager side and restore
->>> the clock when resume sequence is invoked (even in case of system level suspend also)
->>> 3) ClockStop Mode + Bus reset - Apply ClockStopMode0 when Sound wire manager entering
->>> runtime suspend state. In system level resume case, apply clock stop exit and bus reset which
->>> will re-enumerate all peripheral devices over the links.
->>> 4) Power off mode: apply Clock Stop + SoundWire manager IP power off sequence.
->>> Parent device(ACP) will be powered off. ACP can wake up for in band wake-up events.
->>>
->>> We expect if someone wants to go with only ClockStop mode, peripheral side also required
->>> support should be enabled.
->> I am not following any of this. You wrote both
->>
->> "
->> For ClockStop mode SDW manager is not receiving any jack alert when
->> SoundWire manager device is in D3 state.
->> "
->>
->> and
->>
->> "
->> Parent device(ACP) will be powered off. ACP can wake up for in band
->> wake-up events.
->> "
->>
->> I can't figure out how you deal with wake-ups and when exactly you
->> expect jack detection to be functional.
-> Both power modes (case 2 & case 4) are different.
-> The current patch series is targeted to address JD events during system level
-> suspend/resume scenario, when ClockStop Power mode is selected.i.e case 2
-> as mentioned above. We're not expecting bus reset during system level resume in
-> this power mode.
-> As SDCA interrrupts are not enabled on peripheral side during system level resume,
-> No JD events are reported.
-> 
-> Test scenario will be let system level supend gets invoked. During suspend, plug/un-plug jack.
-> During system level resume, JD status should be reported correctly.
-
-This is completely different to the definition of 'clock stop mode'.
-What you want is to make sure the status is reported correctly when the
-system resume, not to resume the system using the clock stop exit
-mechanism at the initiative of the peripheral.
-
-I think we are using 'clock stop' with different meanings. Stopping the
-clock in the traditional electrical engineering sense is different to
-the MIPI-defined clock stop, where manager and peripheral agrees on when
-the clock will stop and how to restart.
+DQpCZWxvdyB3YXMgdGhlIHJlbGF0aW9uIHBhdGNoZXMuDQpodHRwczovL2dpdC5rZXJuZWwub3Jn
+L3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90aXdhaS9zb3VuZC5naXQvY29tbWl0Lz9pZD01YWVj
+OTg5MTMwOTVlZDNiNDQyNGVkNmM1ZmRlYjY5NjRlOTczNGRhDQpodHRwczovL2dpdC5rZXJuZWwu
+b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90aXdhaS9zb3VuZC5naXQvY29tbWl0Lz9pZD1m
+MzA3NDFjZGVkNjJmODdiYjRiMWNjNThiYzYyN2YwNzZhYmNhYmE4DQoNCkl0IHNob3dzIEFMQzIz
+NiBjb2RlYyBub3QgbmVlZCB0byBydW4gcHVsbCBsb3cgM2sgc2V0dGluZy4NCg0KSSB0cmFjZSB3
+aW5kb3dzIGNvZGUsIGZpbmQgaXQgYWRkIGRlbGF5IGZvciByZWFkIE1JQyBqYWNrIGRldGVjdGVk
+IGF0IGJvb3RpbmcgdGltZS4NCg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
+b206IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4NCj4gU2VudDogU3VuZGF5LCBKdW5lIDI1
+LCAyMDIzIDU6NDMgUE0NCj4gVG86IEpvc2VwaCBDLiBTaWJsZSA8am9zZXBoY3NpYmxlQGdtYWls
+LmNvbT4NCj4gQ2M6IEthaWxhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+OyBCYWdhcyBTYW5qYXlh
+IDxiYWdhc2RvdG1lQGdtYWlsLmNvbT47DQo+IHJlZ3Jlc3Npb25zQGxpc3RzLmxpbnV4LmRldjsg
+cGVyZXhAcGVyZXguY3o7IHRpd2FpQHN1c2UuY29tOw0KPiBhbHNhLWRldmVsQGFsc2EtcHJvamVj
+dC5vcmcNCj4gU3ViamVjdDogUmU6IEZ3ZDogW0J1ZyAyMTc0NDBdIE5ldzogQUxDMjM2IGF1ZGlv
+IGRpc2FwcGVhcnMgZnJvbSBIUA0KPiAxNXotZmMwMDAgb24gd2FybSBib290DQo+IA0KPiANCj4g
+RXh0ZXJuYWwgbWFpbC4NCj4gDQo+IA0KPiANCj4gT24gU2F0LCAyNCBKdW4gMjAyMyAwMzozNjox
+MSArMDIwMCwNCj4gSm9zZXBoIEMuIFNpYmxlIHdyb3RlOg0KPiA+DQo+ID4gT24gU3VuLCBKdW4g
+MTEsIDIwMjMgYXQgMzozNuKAr0FNIFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4gd3JvdGU6
+DQo+ID4gPg0KPiA+ID4gVGhhbmtzIGZvciBjaGVja2luZy4gIFNvIHRoZSBhZGRpdGlvbmFsIGRl
+bGF5IGRpZG4ndCBoZWxwIGF0IGFsbCwNCj4gPiA+IGkuZS4gaXQncyBubyB0aW1pbmcgaXNzdWUu
+ICBXZSBuZWVkIHRvIGZpZ3VyZSBvdXQgd2hpY2ggdmVyYg0KPiA+ID4gYWN0dWFsbHkgYnJlYWtz
+IHRoaW5ncy4gIE9oIHdlbGwuDQo+ID4NCj4gPiBXYXMgdGhlcmUgc29tZXRoaW5nIGVsc2Ugc3Bl
+Y2lmaWMgeW91IHdhbnRlZCBtZSB0byB0cnkgZm9yIHRoaXM/IElmDQo+ID4gbm90LCB3aGF0IGRv
+IHlvdSB0aGluayB0aGUgbmV4dCBzdGVwcyB0byBnZXQgdGhpcyBmaXhlZCBhcmU/IERvIHlvdQ0K
+PiA+IHRoaW5rIGl0IG1pZ2h0IGJlIGdvb2QgdG8ganVzdCBjb29rIHRoZSBwYXJ0aWFsIHJldmVy
+dCBJIHBvc3RlZCBhDQo+ID4gd2hpbGUgYmFjayBhZnRlciBhbGw/DQo+IA0KPiBJdCdzIHJhdGhl
+ciBhIGNhbGwgdG8gS2FpbGFuZywgYWZ0ZXIgYWxsLg0KPiBJJ20gZmluZSB3aXRoIGFueSB3YXkg
+YXMgbG9uZyBhcyBpdCBhdm9pZHMgZnVydGhlciByZWdyZXNzaW9ucy4NCj4gDQo+IA0KPiBUYWth
+c2hpDQo+IA0KPiAtLS0tLS1QbGVhc2UgY29uc2lkZXIgdGhlIGVudmlyb25tZW50IGJlZm9yZSBw
+cmludGluZyB0aGlzIGUtbWFpbC4NCg==

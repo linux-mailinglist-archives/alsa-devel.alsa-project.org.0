@@ -2,178 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F642746C99
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 11:00:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1EE8746CF8
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 11:14:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B218847;
-	Tue,  4 Jul 2023 10:59:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B218847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4D078210;
+	Tue,  4 Jul 2023 11:13:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D078210
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688461229;
-	bh=BOR6lLConShfcU1QysG0wq0I+M9kr2E8psJShvNphm8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=jesz3mnYvCbBe2kWDZDC1xMmBaOGG3uFeOJE+WAf36tC9B3j7PhE7wBqAfro8ji99
-	 q8M3/d5+cDCjMYyJcTMgBRyXNY0GyQXSwFQ1dFy9uoxe3n/woQMFqQ35jZIEuA2cOd
-	 LigTq8cexy/KNxLjPq65fnidB0UjnU/rmmmYjTI0=
+	s=default; t=1688462067;
+	bh=+UQ3wJ7CsnBFYk8FxVMfEoCs8C7XLAIRsUVYc1Mm22w=;
+	h=Date:Subject:To:References:From:In-Reply-To:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=NkkangwusnTJ0NDUec5cTpE6xaClNkXER/pH5041a/x/P8F04kOeWkG6kxAEf/9JI
+	 qnvBNEVwIQ+elMUvNt894/G9IgQqRdEPf+TQSu5r7w4BLwHzZj+IcwWkLpbVtSddKg
+	 0lWvbTF8SjveeYzFMg6OVl461NXQqaq+Nq4PxVBw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9AAB6F80125; Tue,  4 Jul 2023 10:59:26 +0200 (CEST)
+	id CB967F80124; Tue,  4 Jul 2023 11:13:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 564DFF80552;
-	Tue,  4 Jul 2023 10:59:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7218CF80124;
+	Tue,  4 Jul 2023 11:13:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 02232F80553; Tue,  4 Jul 2023 10:59:24 +0200 (CEST)
+	id 49A9BF80125; Tue,  4 Jul 2023 11:13:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e89::61e])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [46.235.227.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 20FDBF80535
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 10:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20FDBF80535
+	by alsa1.perex.cz (Postfix) with ESMTPS id 510C0F800E4
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 11:13:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 510C0F800E4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=WBbb+GVP
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bhewZ4/KuD4YIgVAnMvm/djIraxEb4DmkEnLuEF8yPgycxNoWpu7dZqt1t+nyiCwIS6Q721j2SraDm5ys6KH0fWrDy12DppdncOqa1flfVWR30RzJ2G8EnrfmiDr4v2YFXed6lyOOYDZjuDCCPi0Az84PDqIcj9SZIzPwpGCEgv78QK1hrCrHCT10VBrKpBDowkhtaPeEbS1F58o0/q4c1MQMkNIOXeQRq70dyOcaLMH4cgajCdcl2tT1cH6tWBYnfymQv4EmLSeDmhOx9QdRzBzDtTotY2e+ZYj3kPlWWumclbJYDkpkNdGGKNirwiv7H8+9Mj7ODic6G0DTclLGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t9cMjIbwhHfFun4lf+GPjoeCXO2MSgqzeoxUeT+Diak=;
- b=ZhrY2mrs+f67TPA93cfW1m5TOY9TVoTpplUd8ZYwkBbOBxQ+l8ZBlZs786VodIIQB42SrKeUvkg0ngb6dnSYTkMwSvEDkG+w8I0Vkp3Bm5Ti+VZzL9Ss17WyrvPmyQhet0hC47LUGNUX4w8TMsUysNYv/SNhOTGhOCszGtmO37n1uKz3ZxzvG7AzfedW8y1uxCMsFDDuxh0FoKuNqa4FZAP3SnxubIOit6WdzWAKTNzdk1pM/Rkzr1idsjWEyjANzLe/kCweRVS7YQ0+fpOj+rmOKIsM1PkAEyJIR30GJSQJWqKgsIxkcyoiiP6UBn7QrvldUwUxS+Jq2mrmLm/9jA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t9cMjIbwhHfFun4lf+GPjoeCXO2MSgqzeoxUeT+Diak=;
- b=WBbb+GVPP08E8q5lKYncJiormuzt9Q/OQADWqY19Iu2dtoBb4Q9eGJJTZgCW5Ow7X4l4pG7ywEZzn/OFKCPOXodmM4oFST8sdCHtVisjhaQJTjKsRTQoFw5IUfz3AxoPCld/8ihmxWX+FAksIyVroKNFtZVkaYC5BYfGOv3Z4j4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com (2603:10b6:5:21f::23)
- by PH7PR12MB7428.namprd12.prod.outlook.com (2603:10b6:510:203::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Tue, 4 Jul
- 2023 08:59:12 +0000
-Received: from DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::8760:2e89:1243:2b5d]) by DM6PR12MB4123.namprd12.prod.outlook.com
- ([fe80::8760:2e89:1243:2b5d%7]) with mapi id 15.20.6544.024; Tue, 4 Jul 2023
- 08:59:12 +0000
-Message-ID: <c5add7b8-0170-a223-5216-2e9cf2869f04@amd.com>
-Date: Tue, 4 Jul 2023 14:33:27 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH 1/5] ASoC: rt5682-sdw: fix for JD event handling in
- ClockStop Mode0
-Content-Language: en-US
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>, "Flove(HsinFu)" <flove@realtek.com>,
- Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
- "Hiregoudar, Basavaraj" <Basavaraj.Hiregoudar@amd.com>
-References: <20230703090247.25261-1-shumingf@realtek.com>
- <f9e83b61-6e69-2467-d5a5-3c3a6a40e018@linux.intel.com>
- <81bf0fcc0b824c928e2e4e5a77ca37d8@realtek.com>
- <a10894a2-a6af-8c5f-b675-79cc7cfeb899@linux.intel.com>
- <1fb4d8ea138140d291a395dc82e710ae@realtek.com>
- <489e8631-b773-1916-40a7-3fd73af54c19@amd.com>
- <80c35e78-b82b-5d8a-bce7-fa8bb61e16cd@linux.intel.com>
- <a8c7ac88-4546-2b57-6f26-5ae2a9e603e4@amd.com>
- <95586650-6a22-f760-5eb7-0e1e3a5c0346@linux.intel.com>
- <7c8b7cc9-125e-e97e-2a42-046a025d4e94@amd.com>
- <7e6faede-af5c-c251-d6eb-cc3590b36337@linux.intel.com>
- <abb4376e-15d3-6211-5024-03caf29c7a3f@amd.com>
- <ff732d09-b620-cdfd-d055-da116b99223c@linux.intel.com>
- <c932e7c8-74f8-71f1-e35f-98e1a852bd71@amd.com>
- <55d3da8d-a4d6-3bde-0635-0ae7fb3f32ca@linux.intel.com>
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <55d3da8d-a4d6-3bde-0635-0ae7fb3f32ca@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0139.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:bf::9) To DM6PR12MB4123.namprd12.prod.outlook.com
- (2603:10b6:5:21f::23)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=E/AxA8JE
+Received: from [IPV6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2] (unknown
+ [IPv6:2001:b07:2ed:14ed:c5f8:7372:f042:90a2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 64A046606F97;
+	Tue,  4 Jul 2023 10:13:23 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1688462004;
+	bh=+UQ3wJ7CsnBFYk8FxVMfEoCs8C7XLAIRsUVYc1Mm22w=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=E/AxA8JE41PCtF5GjxclcVxesQ4YexgIMo4X6onAErZ8smkNVVqEbLRUdzinos12M
+	 g/rkKhPWvRoHRA9n5WApg3bBQS7SToRtw2C4o6ZXrk6S6Z32/s9QrvOSwuR4tzvS6J
+	 mz1EPIrlIw3HbGzqL7cAZvYqE7/CiZY586WJE16pvjzfcZM0H+cG3rXYuXaYVX5tUj
+	 yO5xm6bs4QCDW/PmAkM088FI6XLKFX1izK5Vveguzq7X/iPqZpgwF+LLR1VLpSmsoc
+	 jPUYDHoy6SX9ttmfIr4gQqFV92tOZbj6sQvI+q4sNr3jrv7so6qXR9j0UYbINBEUU3
+	 J2lwDPpI9K4RA==
+Message-ID: <d5c0ea7a-e38b-b078-4664-dd451d4e3396@collabora.com>
+Date: Tue, 4 Jul 2023 11:13:20 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4123:EE_|PH7PR12MB7428:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8fbaebb-1ba7-4de0-1215-08db7c6cef63
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	40YLwsCc/MpdmKjtH+G37t4hmCMSn2xz0V45UvS4Em8vBmDbeemJdqujRgsaUJy/jSwHh2mszg4u+wjOAv6gvl2FTaAU6GO5VRlu77Bd9WdXfh3aKOrxqwWQBJbJ4pCxbwLEgPB011nzh2wxi45P/NJSKqFhX9IoGU8CbMMZaP5ISJhZAlK6huEyvnEJtMvR/sYBlhTZud9dspzltWj8IcOU+aykPnde47ycocBVxEV6ZHC/Bxdq0Jrx7SX1OkO8JZaI3YEOdRBUkcqs2H9C7/l/LkB/Vs7DFd5SFOGnghyaw3OoEFXdBCdY2ojctCfmOtXtN3SZ8kdZW2XSwmnWbx+W9ZtPBzTs1aI9Ccv2weMS0wQ2Bwqvy9/IBWpWnaO/NzRppPAMA9sHWRGTO55plPqFhua0/E66alOpf59/00pES0nA69GbAZnn8d+TiSIIFi2hgKKNWC7R4FwtyFsz3iTyFBR/gq9izcR9uADb/qkCyLaypWxATdOS+ypkOD9I1LP78I8W+iBuZawm1KVtJAfqA1wLTIXzfvBOlJ0mw/cVAmR1Z/v91G5o52q61SSD1u13Cb0w9+HZgtUO86AIucO78123wPs/Kh4e3S8FTBSWyI7os/K75NrKi4FoREpai5nz7MTM9JyrxnJ5M3y4dQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4123.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(366004)(346002)(376002)(39860400002)(451199021)(7416002)(31686004)(4326008)(66556008)(66946007)(36756003)(316002)(2906002)(478600001)(66476007)(8936002)(8676002)(5660300002)(66899021)(86362001)(41300700001)(31696002)(6512007)(110136005)(54906003)(6666004)(38100700002)(6486002)(6506007)(53546011)(186003)(26005)(2616005)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?a3FaZDBhS3VENC9FdHpUVEhYUGNFc0ZNZ1VEcWFrNFBtRlFmMWZtVC94aFNx?=
- =?utf-8?B?L2t1ZkJiQ2llUzllNDVtck15YjBPcUZib0FMU0Jtck5lNmN1b2g4aHVNSStD?=
- =?utf-8?B?OUR1NFRVeHRWa1RiNGV1aDg3dFRQNUNHK1V6MTR3TXJQV0lldml1cTNMN2hs?=
- =?utf-8?B?UDEyTUZJSVlQbm45cjlyRVZORkNNanNrZUdSOVB4cUgyK25IMGxVRzhBNmcv?=
- =?utf-8?B?NDY1N0lqVmEySXM1T1BVTzlBK0VXb2RIRE94RnN4SXpETmxUajFFTmRXaXha?=
- =?utf-8?B?ZW8ya1ltZk1sMHEwQWE0THo0Qm1BOHVTR1JTQlA4cERKdWkxZHgvVXp0M2Rl?=
- =?utf-8?B?cHhlUEcvWW1VQWVGQnpISC96NTh0VkF4bGhxSlhUalRPSWdEUWFES2t3MTlt?=
- =?utf-8?B?OGtramtZcUpWRnQ2TWRQUUJrUE5HMnV0N0loWTllS29EV0pUOTFCYy9PWTMz?=
- =?utf-8?B?WjF3SWtLblVOeDNSZ1VTbi82QUtORndPUzlwUXZRM013QlZ5WXZyenB4L0pH?=
- =?utf-8?B?bFNEelYyRnFuUk53bXduZnBTMXFZTnUzMm96YldTTkpvVld5dzRpa21NM0pk?=
- =?utf-8?B?TTEvSVl0WnNVMS9URUFDdk5mem1kVWxqQjMrUjhyUnExYVBTL1huUEVXS1Nl?=
- =?utf-8?B?WEloTW1vdWt6Y3pvK3J5dDNCY1huNXRTWXo2Mm9iZXJpSVRmUUpwV1ErUFBw?=
- =?utf-8?B?bE9vUU51dFpYQnd5R2Vsc2k3dGY5QUF2Nm1hc1ovRE9GeW5zekhhM0xROTZ4?=
- =?utf-8?B?eG5nNXNWNlNYT3hnc1lKTzNSbUxnSXhuZldRS21vZktFSURsaG9pRkVFWitW?=
- =?utf-8?B?SlFrblpIYnYzQmhVWDJuT0IzN05Bb0ZTaVJXVzY0NzY4ZEVjY0ZPTE1Uakxy?=
- =?utf-8?B?cFhJdzMxSXR2MGg3TVRNVXN1cHBjRjl5enNyNkM3Y0VQbEdoc2greGVUY2NK?=
- =?utf-8?B?VmhPOUwyc21BS2RxdnFEdk1RZ2xDZ0QxM2Z2SjBsTVhQaWlsdDVsU0VtQUdN?=
- =?utf-8?B?TW5qYmhBVktBSlhZdGVOMmZhbmg0MUZHeUIwVWh5N2VBMEROZHVvUWplL0c5?=
- =?utf-8?B?VW1OSWcxc3dmWU5jK09XR2dUTEVTU2psYXUwTyt1N3R3c3pYQWNIci9pMHcz?=
- =?utf-8?B?OFNRTVRpTUQwWjVlUWpFTm4vZXQxeWpWNDdRZy9wek4wMk0yUFVjcFNtTnJE?=
- =?utf-8?B?SW80dUVRWlY3Z2J6Q1FxMTFVOHBHNERVWjlUNElDRGJzL0JJTDdQUmVIajFI?=
- =?utf-8?B?aUVWNUU4RUhac05SZE15SGI2cU5JT0tXNjkybmQ5RzBnYk5OUWEzMTMrRUxO?=
- =?utf-8?B?TXlHeVhBSFpMcUhEL3hzMGtUZ3VTcDEwMk5POXE2UW10R0JxSGYya2E3SFJS?=
- =?utf-8?B?djFnODd5a0Jua21tWE11OGFBY050Qk1YVWJJQ0ZLeGNGbHNWekRFc0JleVdN?=
- =?utf-8?B?TE5qQ0NuREhzOVoxWW9EVFZMenU2ajBIcmFZbTIvR3lhZzJlWGxiV25kRzMz?=
- =?utf-8?B?ZjlnalltdThzaXFGR2JvM05Za2poSHgvYlJ0NDVuY3NKOTdrQVNsZkdYQXB4?=
- =?utf-8?B?Zy9HYm9YYmFxdVZpUk5GUTRJdjF5Mzd5emIwUzZtbExKZlhYQytmSXFoZUk2?=
- =?utf-8?B?Z04vbzBqNmRwU0tPeEtWNko3NTRZcHI1eXV0Qm1CcjBHUjZYblZkeDRaTjhw?=
- =?utf-8?B?a2t1Vng4MDRDUWc0L091NXlWck9XbDN5Z29BYW9hbVJKUGJKbGk1RWdhZXQy?=
- =?utf-8?B?TDk2UFF1bmxJZmxKMXV0Qk1wVUg4eElUZllURDRDTndnTTFkR1lhWnJ1UTE5?=
- =?utf-8?B?WVdDTWZJR0U3cVZ3bXcyakRCek1KekZ1bWR2dFE5bVYzOElFMTNSYlh0dzJF?=
- =?utf-8?B?RkZTTFZSazVvT1lRdnBLZzFOSENYMjRCdWpBa2RUd2VmQm9md2JYV29oTE14?=
- =?utf-8?B?UDhRby9pQm5aUDRmb2l3RzdnWTV6OCtDU2EwUDdTTUNrSDRGQlpGYlV1UW1m?=
- =?utf-8?B?L1hUL0EzU3pPb2I1ZFB6aVAwRG9pelhJUHREeVh5VTIxUVJiN1VxUDhheXhB?=
- =?utf-8?B?eCtPb290YTFhdnhMU2N2by93eTM2bWsxY3daaklIbkxQeFdqd0pBaFIyMGFw?=
- =?utf-8?Q?1Ri570XlkrER/SLMPsMK94CIq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- f8fbaebb-1ba7-4de0-1215-08db7c6cef63
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4123.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2023 08:59:12.1245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- Td9mwPt8hsYKvhBPglTV9au28WJF3rsWDWCehBq6Ljzly4mFQsppYIL3Es0eFlseq/QwNZDLcyyP6ApowrIarg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7428
-Message-ID-Hash: SIXNZKP2KBSQTUEOSHBZF3FBVE3CS62K
-X-Message-ID-Hash: SIXNZKP2KBSQTUEOSHBZF3FBVE3CS62K
-X-MailFrom: Vijendar.Mukunda@amd.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 4/7] ASoC: mediatek: mt7986: add platform driver
+Content-Language: en-US
+To: Maso Huang <maso.huang@mediatek.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Trevor Wu <trevor.wu@mediatek.com>,
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, Ren Zhijie <renzhijie2@huawei.com>,
+ Allen-KH Cheng <allen-kh.cheng@mediatek.com>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20230626023501.11120-1-maso.huang@mediatek.com>
+ <20230626023501.11120-5-maso.huang@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20230626023501.11120-5-maso.huang@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: O5MSXJEETPX6FSTY6L3RFJFFRALLUB2R
+X-Message-ID-Hash: O5MSXJEETPX6FSTY6L3RFJFFRALLUB2R
+X-MailFrom: angelogioacchino.delregno@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -185,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SIXNZKP2KBSQTUEOSHBZF3FBVE3CS62K/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O5MSXJEETPX6FSTY6L3RFJFFRALLUB2R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -194,154 +110,332 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 04/07/23 13:57, Pierre-Louis Bossart wrote:
->
-> On 7/4/23 09:37, Mukunda,Vijendar wrote:
->> On 04/07/23 12:41, Pierre-Louis Bossart wrote:
->>> On 7/4/23 08:36, Mukunda,Vijendar wrote:
->>>> On 03/07/23 22:48, Pierre-Louis Bossart wrote:
->>>>> On 7/3/23 17:18, Mukunda,Vijendar wrote:
->>>>>> On 03/07/23 20:15, Pierre-Louis Bossart wrote:
->>>>>>> On 7/3/23 16:46, Mukunda,Vijendar wrote:
->>>>>>>> On 03/07/23 19:50, Pierre-Louis Bossart wrote:
->>>>>>>>> On 7/3/23 15:31, Mukunda,Vijendar wrote:
->>>>>>>>>> On 03/07/23 18:30, Shuming [范書銘] wrote:
->>>>>>>>>>>>>>> During ClockStop Mode0, peripheral interrupts are disabled.
->>>>>>>>>>>>>> I can see that the interrupts are disabled in
->>>>>>>>>>>>>> rt5682_dev_system_suspend(), which is NOT a mode where the clock stop
->>>>>>>>>>>>>> is used... I don't think this commit message is correct.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> The IMPL_DEF interrupt which is used for jack detection is not
->>>>>>>>>>>>>> disabled at all during any clock stop mode, and it shouldn't
->>>>>>>>>>>>>> otherwise that would break the jack detection.
->>>>>>>>>>>>> You are right. The commit message is wrong and not clear.
->>>>>>>>>>>>> The situation is that the manager driver uses the clock stop mode0 to do
->>>>>>>>>>>> system suspension.
->>>>>>>>>>>>
->>>>>>>>>>>> No it does not. The clock stop is ONLY used for pm_runtime, never for system
->>>>>>>>>>>> suspend. We cannot go to system suspend with the link in clock-stop mode,
->>>>>>>>>>>> that will create lots of issues, that's why we perform a full pm_runtime resume
->>>>>>>>>>>> in the .prepare stage.
->>>>>>>>>>> OK, I got your point. Thanks. However, this issue reported by AMD. 
->>>>>>>>>>> The AMD platform validated system level pm and runtime pm ops with the different modes.
->>>>>>>>>>>
->>>>>>>>>>> Hi Vijendar,
->>>>>>>>>>> Do you have any comments?
->>>>>>>>>> On AMD platforms, we are supporting two power modes.
->>>>>>>>>> 1) Bus reset mode
->>>>>>>>>> 2) Clock Stop Mode
->>>>>>>>>>
->>>>>>>>>> In Bus reset mode, bus will re-enumerate the peripheral devices
->>>>>>>>>> whereas in ClockStop Mode, applying ClockStop Mode0
->>>>>>>>>> in both pm ops (runtime pm ops and system level pm ops).
->>>>>>>>>>
->>>>>>>>>> Currently, SDCA interrupts are disabled on peripheral side, when system level
->>>>>>>>>> suspend is invoked.
->>>>>>>>>> For ClockStop mode SDW manager is not receiving any jack alert when
->>>>>>>>>> SoundWire manager device is in D3 state.
->>>>>>>>> That was precisely the point of clock stop mode: a peripheral can
->>>>>>>>> restart the system even when it's in lower-power mode.
->>>>>>>>>
->>>>>>>>> If there's no means to let a peripheral restart, the only benefit is
->>>>>>>>> maybe to skip the enumeration time. That's not what the spec intended....
->>>>>>>> As per our understanding, you are pointing to ClockStopMode1.
->>>>>>>> ClockStopMode1 requires re-enumeration as peripherals move
->>>>>>>> to unattached state.
->>>>>>>> We have cross-checked ClockStopMode0 description in spec.
->>>>>>>> It doesn't specify about peripheral device state as Unattached.
->>>>>>>> We are referring here "ClockStopMode0" only.
->>>>>>> No I was describing the difference between the 'Bus reset mode' and the
->>>>>>> 'clock stop mode' on the manager side.
->>>>>>>
->>>>>>> There's also nothing in the spec preventing the manager from doing a
->>>>>>> reset at any time, including after exiting the clock mode0 stop.
->>>>>>>
->>>>>>>
->>>>>> Partly I agree.  As per our understanding, If any of the peripherals lost's sync,
->>>>>> and re-enumeration is required.
->>>>>> If continuous parity errors/bus clash conditions are reported over the link,
->>>>>> Sdw Manager bus reset sequence should be invoked. This is a different scenario.
->>>>>> Both the scenarios are asynchronous.
->>>>>>  
->>>>>> Going with Spec definition for ClockStopMode0, as it's Imp defined for
->>>>>> SoundWire Manager, want to stick to Clockstop when D3 call is invoked
->>>>>> and restore the clock when D0 call is invoked for our platforms.
->>>>> The problem is that 'D3' can be used for two separate scenarios
->>>>> - S0/D3: that's pm_runtime suspend
->>>>> - Sx/D4: that's system suspend
->>>>> It's very unclear what the benefit of clock stop mode would be for the
->>>>> latter case.
->>>>>
->>>> We are pointing system level suspend scenario only.
->>>>
->>>> We have already SoundWire Power off mode - ClockStop Mode will be
->>>> applied followed by bus reset and SoundWire manager will be disabled.
->>>> On parent side, ACP soft reset will be applied and ACP parent driver can
->>>> wake for PME events for Soundwire manager.
->>>>
->>>> Sx/D4 case, want to avoid re-enumeration when multiple peripherals are connected.
->>>> For Clock Stop + Bus reset (keeping Sdw manager enabled), we can define a new power mode
->>>> on SoundWire manager side.
->>>>
->>>> Having said that, below are power modes we want to support on our side.
->>>>
->>>> 1) Idle Mode - Don't stop the clock for SoundWire manager and Soundwire manager is not
->>>> disabled during suspend callbacks.
->>>> 2) ClockStop Mode - Only apply ClockStopMode0 on Soundwire manager side and restore
->>>> the clock when resume sequence is invoked (even in case of system level suspend also)
->>>> 3) ClockStop Mode + Bus reset - Apply ClockStopMode0 when Sound wire manager entering
->>>> runtime suspend state. In system level resume case, apply clock stop exit and bus reset which
->>>> will re-enumerate all peripheral devices over the links.
->>>> 4) Power off mode: apply Clock Stop + SoundWire manager IP power off sequence.
->>>> Parent device(ACP) will be powered off. ACP can wake up for in band wake-up events.
->>>>
->>>> We expect if someone wants to go with only ClockStop mode, peripheral side also required
->>>> support should be enabled.
->>> I am not following any of this. You wrote both
->>>
->>> "
->>> For ClockStop mode SDW manager is not receiving any jack alert when
->>> SoundWire manager device is in D3 state.
->>> "
->>>
->>> and
->>>
->>> "
->>> Parent device(ACP) will be powered off. ACP can wake up for in band
->>> wake-up events.
->>> "
->>>
->>> I can't figure out how you deal with wake-ups and when exactly you
->>> expect jack detection to be functional.
->> Both power modes (case 2 & case 4) are different.
->> The current patch series is targeted to address JD events during system level
->> suspend/resume scenario, when ClockStop Power mode is selected.i.e case 2
->> as mentioned above. We're not expecting bus reset during system level resume in
->> this power mode.
->> As SDCA interrrupts are not enabled on peripheral side during system level resume,
->> No JD events are reported.
->>
->> Test scenario will be let system level supend gets invoked. During suspend, plug/un-plug jack.
->> During system level resume, JD status should be reported correctly.
-> This is completely different to the definition of 'clock stop mode'.
-> What you want is to make sure the status is reported correctly when the
-> system resume, not to resume the system using the clock stop exit
-> mechanism at the initiative of the peripheral.
-No.  What we want to convey here is in system level resume for SoundWire manager,
-clock stop exit sequence will be invoked.
-After clock stop exit sequence completed, we expect JD alert should be reported if there is any
-JD event during Sx/D4 state.
-As SDCA interrupts are disabled previously when system level suspend
-is invoked on peripheral side, even after finishing clock stop exit sequence, we are
-no longer observing Jack alerts as SDCA interrupts are disabled.
+Il 26/06/23 04:34, Maso Huang ha scritto:
+> Add mt7986 platform driver.
+> 
+> Signed-off-by: Maso Huang <maso.huang@mediatek.com>
+> ---
+>   sound/soc/mediatek/Kconfig                 |  10 +
+>   sound/soc/mediatek/Makefile                |   1 +
+>   sound/soc/mediatek/mt7986/Makefile         |   9 +
+>   sound/soc/mediatek/mt7986/mt7986-afe-pcm.c | 598 +++++++++++++++++++++
+>   4 files changed, 618 insertions(+)
+>   create mode 100644 sound/soc/mediatek/mt7986/Makefile
+>   create mode 100644 sound/soc/mediatek/mt7986/mt7986-afe-pcm.c
+> 
 
-The current discussion revolves around avoiding bus reset and just enabling SDCA interrupts
-when system level resume sequence is invoked on peripheral side for ClockStop Mode0.
+..snip..
+
+> diff --git a/sound/soc/mediatek/mt7986/mt7986-afe-pcm.c b/sound/soc/mediatek/mt7986/mt7986-afe-pcm.c
+> new file mode 100644
+> index 000000000000..9eef21762e93
+> --- /dev/null
+> +++ b/sound/soc/mediatek/mt7986/mt7986-afe-pcm.c
+> @@ -0,0 +1,598 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * MediaTek ALSA SoC AFE platform driver for MT7986
+> + *
+> + * Copyright (c) 2021 MediaTek Inc.
+> + * Author: Vic Wu <vic.wu@mediatek.com>
+> + *         Maso Huang <maso.huang@mediatek.com>
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/pm_runtime.h>
+> +
+> +#include "mt7986-afe-common.h"
+> +#include "mt7986-afe-clk.h"
+> +#include "mt7986-reg.h"
+> +#include "../common/mtk-afe-platform-driver.h"
+> +#include "../common/mtk-afe-fe-dai.h"
+> +
+> +enum {
+> +	MTK_AFE_RATE_8K = 0,
+> +	MTK_AFE_RATE_11K = 1,
+> +	MTK_AFE_RATE_12K = 2,
+> +	MTK_AFE_RATE_16K = 4,
+> +	MTK_AFE_RATE_22K = 5,
+> +	MTK_AFE_RATE_24K = 6,
+> +	MTK_AFE_RATE_32K = 8,
+> +	MTK_AFE_RATE_44K = 9,
+> +	MTK_AFE_RATE_48K = 10,
+> +	MTK_AFE_RATE_88K = 13,
+> +	MTK_AFE_RATE_96K = 14,
+> +	MTK_AFE_RATE_176K = 17,
+> +	MTK_AFE_RATE_192K = 18,
+> +};
+> +
+> +unsigned int mt7986_afe_rate_transform(struct device *dev,
+> +				       unsigned int rate)
+
+Fits in one line.
+
+> +{
+> +	switch (rate) {
+> +	case 8000:
+> +		return MTK_AFE_RATE_8K;
+> +	case 11025:
+> +		return MTK_AFE_RATE_11K;
+> +	case 12000:
+> +		return MTK_AFE_RATE_12K;
+> +	case 16000:
+> +		return MTK_AFE_RATE_16K;
+> +	case 22050:
+> +		return MTK_AFE_RATE_22K;
+> +	case 24000:
+> +		return MTK_AFE_RATE_24K;
+> +	case 32000:
+> +		return MTK_AFE_RATE_32K;
+> +	case 44100:
+> +		return MTK_AFE_RATE_44K;
+> +	case 48000:
+> +		return MTK_AFE_RATE_48K;
+> +	case 88200:
+> +		return MTK_AFE_RATE_88K;
+> +	case 96000:
+> +		return MTK_AFE_RATE_96K;
+> +	case 176400:
+> +		return MTK_AFE_RATE_176K;
+> +	case 192000:
+> +		return MTK_AFE_RATE_192K;
+> +	default:
+> +		dev_warn(dev, "%s(), rate %u invalid, use %d!!!\n",
+
+s/use/using/g
+
+> +			 __func__, rate, MTK_AFE_RATE_48K);
+> +		return MTK_AFE_RATE_48K;
+> +	}
+> +}
+> +
+
+..snip..
+
+> +
+> +static bool mt7986_is_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	/* these auto-gen reg has read-only bit, so put it as volatile */
+> +	/* volatile reg cannot be cached, so cannot be set when power off */
+
+Fix the comment format please; for multi-line comments, you want:
+
+	/*
+	 * Those auto-gen regs are read-only, so put it a volatile because
+	 * volatile registers cannot be cached, which means that they cannot
+	 * be set when power is off
+	 */
 
 
-> I think we are using 'clock stop' with different meanings. Stopping the
-> clock in the traditional electrical engineering sense is different to
-> the MIPI-defined clock stop, where manager and peripheral agrees on when
-> the clock will stop and how to restart.
+> +	switch (reg) {
+> +	case AFE_DL0_CUR_MSB:
+> +	case AFE_DL0_CUR:
+> +	case AFE_DL0_RCH_MON:
+> +	case AFE_DL0_LCH_MON:
+> +	case AFE_VUL0_CUR_MSB:
+> +	case AFE_VUL0_CUR:
+> +	case AFE_IRQ_MCU_STATUS:
+> +	case AFE_MEMIF_RD_MON:
+> +	case AFE_MEMIF_WR_MON:
+> +		return true;
+> +	default:
+> +		return false;
+> +	};
+> +}
+> +
 
+..snip..
 
+> +
+> +static int mt7986_afe_pcm_dev_probe(struct platform_device *pdev)
+> +{
+> +	struct mtk_base_afe *afe;
+> +	struct mt7986_afe_private *afe_priv;
+> +	struct device *dev;
+> +	int i, irq_id, ret;
+> +
+> +	afe = devm_kzalloc(&pdev->dev, sizeof(*afe), GFP_KERNEL);
+> +	if (!afe)
+> +		return -ENOMEM;
+> +	platform_set_drvdata(pdev, afe);
+> +
+> +	afe->platform_priv = devm_kzalloc(&pdev->dev, sizeof(*afe_priv),
+> +					  GFP_KERNEL);
+> +	if (!afe->platform_priv)
+> +		return -ENOMEM;
+> +
+> +	afe_priv = afe->platform_priv;
+> +	afe->dev = &pdev->dev;
+> +	dev = afe->dev;
+> +
+> +	afe->base_addr = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(afe->base_addr))
+> +		return PTR_ERR(afe->base_addr);
+> +
+> +	/* initial audio related clock */
+> +	ret = mt7986_init_clock(afe);
+
+As said in the review for patch [2/7], function mt7986_init_clock() must be moved
+in this file instead.
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Cannot initialize clocks\n");
+> +
+> +	ret = devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* enable clock for regcache get default value from hw */
+> +	afe_priv->pm_runtime_bypass_reg_ctl = true;
+> +	pm_runtime_get_sync(&pdev->dev);
+> +
+> +	afe->regmap = devm_regmap_init_mmio(&pdev->dev, afe->base_addr,
+> +		      &mt7986_afe_regmap_config);
+
+	pm_runtime_put_sync(&pdev->dev);
+	if (IS_ERR(afe->regmap))
+		return PTR_ERR(afe->regmap);
+
+	afe_prov->pm_runtime_bypass_reg_ctl = false;
+
+that's better :-)
+
+> +	if (IS_ERR(afe->regmap)) {
+> +		ret = PTR_ERR(afe->regmap);
+> +		goto err_pm_disable;
+> +	}
+> +
+> +	pm_runtime_put_sync(&pdev->dev);
+> +	afe_priv->pm_runtime_bypass_reg_ctl = false;
+> +
+> +	/* init memif */
+> +	afe->memif_size = MT7986_MEMIF_NUM;
+> +	afe->memif = devm_kcalloc(dev, afe->memif_size, sizeof(*afe->memif),
+> +				  GFP_KERNEL);
+> +	if (!afe->memif)
+> +		goto err_pm_disable;
+> +
+> +	for (i = 0; i < afe->memif_size; i++) {
+> +		afe->memif[i].data = &memif_data[i];
+> +		afe->memif[i].irq_usage = -1;
+> +	}
+> +
+> +	mutex_init(&afe->irq_alloc_lock);
+> +
+> +	/* irq initialize */
+> +	afe->irqs_size = MT7986_IRQ_NUM;
+> +	afe->irqs = devm_kcalloc(dev, afe->irqs_size, sizeof(*afe->irqs),
+> +				 GFP_KERNEL);
+> +	if (!afe->irqs)
+> +		goto err_pm_disable;
+> +
+> +	for (i = 0; i < afe->irqs_size; i++)
+> +		afe->irqs[i].irq_data = &irq_data[i];
+> +
+> +	/* request irq */
+> +	irq_id = platform_get_irq(pdev, 0);
+> +	if (irq_id < 0) {
+> +		dev_err(dev, "%pOFn no irq found\n", dev->of_node);
+> +		ret = irq_id;
+> +		goto err_pm_disable;
+
+You can just return... and please use dev_err_probe().
+
+> +	}
+> +	ret = devm_request_irq(dev, irq_id, mt7986_afe_irq_handler,
+> +			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
+> +	if (ret) {
+> +		dev_err(dev, "could not request_irq for asys-isr\n");
+> +		goto err_pm_disable;
+> +	}
+> +
+> +	/* init sub_dais */
+> +	INIT_LIST_HEAD(&afe->sub_dais);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(dai_register_cbs); i++) {
+> +		ret = dai_register_cbs[i](afe);
+> +		if (ret) {
+> +			dev_err(afe->dev, "dai register i %d fail, ret %d\n",
+> +				 i, ret);
+> +			goto err_pm_disable;
+> +		}
+> +	}
+> +
+> +	/* init dai_driver and component_driver */
+> +	ret = mtk_afe_combine_sub_dai(afe);
+> +	if (ret) {
+> +		dev_err(afe->dev, "mtk_afe_combine_sub_dai fail, ret %d\n",
+> +			 ret);
+> +		goto err_pm_disable;
+> +	}
+> +
+> +	afe->mtk_afe_hardware = &mt7986_afe_hardware;
+> +	afe->memif_fs = mt7986_memif_fs;
+> +	afe->irq_fs = mt7986_irq_fs;
+> +
+> +	afe->runtime_resume = mt7986_afe_runtime_resume;
+> +	afe->runtime_suspend = mt7986_afe_runtime_suspend;
+> +
+> +	/* register component */
+> +	ret = devm_snd_soc_register_component(&pdev->dev,
+> +					      &mt7986_afe_component,
+> +					      NULL, 0);
+> +	if (ret) {
+> +		dev_warn(dev, "err_platform\n");
+
+That shall not be a dev_warn, but a dev_err() instead, but then, being this
+a probe function and not needing that jump, it's dev_err_probe().
+
+> +		goto err_pm_disable;
+> +	}
+> +
+> +	ret = devm_snd_soc_register_component(afe->dev,
+> +					      &mt7986_afe_pcm_dai_component,
+> +					      afe->dai_drivers,
+> +					      afe->num_dai_drivers);
+> +	if (ret) {
+> +		dev_warn(dev, "err_dai_component\n");
+
+Same here.
+
+> +		goto err_pm_disable;
+> +	}
+> +
+> +	return ret;
+> +
+> +err_pm_disable:
+
+You don't need this label because you're now using devm_pm_runtime_enable() and,
+following my advice from some lines up, pm_runtime_put_sync() is called at the
+right time already.
+
+This means that you can simplify this function a lot with directly returning the
+error in error paths (including instances of dev_err_probe() ).
+
+> +	pm_runtime_put_sync(&pdev->dev);
+> +	pm_runtime_disable(&pdev->dev);
+> +	return ret;
+> +}
+> +
+> +static void mt7986_afe_pcm_dev_remove(struct platform_device *pdev)
+> +{
+> +	pm_runtime_disable(&pdev->dev);
+> +	if (!pm_runtime_status_suspended(&pdev->dev))
+> +		mt7986_afe_runtime_suspend(&pdev->dev);
+> +}
+> +
+> +static const struct of_device_id mt7986_afe_pcm_dt_match[] = {
+> +	{ .compatible = "mediatek,mt7986-afe", },
+
+You don't need the comma here               ^^
+so this is just
+
+	{ .compatible = "mediatek,mt7986-afe" },
+
+Everything else looks fine.
+
+Regards,
+Angelo

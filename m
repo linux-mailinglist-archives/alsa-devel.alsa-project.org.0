@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B47C746879
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 06:50:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E61E74687D
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jul 2023 06:50:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DFA186F;
-	Tue,  4 Jul 2023 06:49:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DFA186F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D62E4852;
+	Tue,  4 Jul 2023 06:49:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D62E4852
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688446209;
-	bh=skTkvuQKAgSmn7QG46Dqtlze/kPeUFTFlTnnsiPs4F0=;
+	s=default; t=1688446230;
+	bh=tY5/r16lNfESw+ZriT6dJ0dD82ocpxp52F96jol386A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=ATV2M3f75pJy3ZQXsF7Bvt5H9qTizP3NUXmw1ThAEv+WYlrDZ4Q7XA9okzWDg8dhW
-	 a1ZoS311z8NEiVOwD0UQSqpoPTN2qfbSWzeVgpaQW9G+/m41TA9T/pruOTP6qRdU1F
-	 rJ5BQ9/Ret209du8/lk7nxrT0BPnPu37dmNqghw4=
+	b=vCekZtMqHYGYXGX342SlNpnygEpZcwOUSmILM1sLoDwYTlqDXAJPRikUk21qNtFbn
+	 gVHwLfXCuPYjqoWw7LzTR6ERcF2og3ulmXE9W+cApqVldkdW/Rui0DXfqGxz+znjAR
+	 56M3SygYRFy2SCdRAuEyP9Q2ewvIrU360sFnD8wQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A5D9FF80588; Tue,  4 Jul 2023 06:48:03 +0200 (CEST)
+	id 87CCEF805AE; Tue,  4 Jul 2023 06:48:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C034F8057E;
-	Tue,  4 Jul 2023 06:48:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7388FF805A8;
+	Tue,  4 Jul 2023 06:48:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5AF41F80125; Tue,  4 Jul 2023 06:46:53 +0200 (CEST)
+	id EFB84F80125; Tue,  4 Jul 2023 06:46:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -38,50 +38,50 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5F8A3F800E4
-	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 06:46:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F8A3F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id D017FF80104
+	for <alsa-devel@alsa-project.org>; Tue,  4 Jul 2023 06:46:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D017FF80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=ljones.dev header.i=@ljones.dev header.a=rsa-sha256
- header.s=fm3 header.b=Ql2fXgnd;
+ header.s=fm3 header.b=XlXegA7O;
 	dkim=pass (2048-bit key,
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=fDVYWvV7
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailout.nyi.internal (Postfix) with ESMTP id 3CDC55C028C;
-	Tue,  4 Jul 2023 00:46:49 -0400 (EDT)
+ header.a=rsa-sha256 header.s=fm2 header.b=aoOR3VF9
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id BB80C5C017E;
+	Tue,  4 Jul 2023 00:46:53 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
-  by compute1.internal (MEProxy); Tue, 04 Jul 2023 00:46:49 -0400
+  by compute2.internal (MEProxy); Tue, 04 Jul 2023 00:46:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
 	:cc:content-transfer-encoding:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1688446009; x=
-	1688532409; bh=qtNU07zM4dIX81fMsjLGpYDh19Y5tjgNSmmLajH29Pg=; b=Q
-	l2fXgndMPIBD89DD8OgEBTDupan7Pswoh3VnLimZ8x9AWo4PcY4TZrZVZoBMnLTq
-	FDC9R4Uy66HGBVJQD8OnNgC/EsxOTjQBz+8SXEmD5ylhM6oXMNfM5cKWdSpUa3TE
-	kfEuWtPta+fPjUQW7vfRWJYC+AA7kMLiKxckua/vrI5G1yebZwcQQjEmIDFXU3vN
-	72QICvZdRcG/vsa/FtS1i/pChgXvB2LuCwhHB2ZBHGFk8NkR7hPoFIEXW5j5xQQ0
-	pAQ15DYaSQNIo36/JACfLMBFAPj8nTcEygtKSmZdWUhLyuTvlqFnosPTrwccgszy
-	rDruiQNnPbuEFuWilnh+g==
+	:reply-to:sender:subject:subject:to:to; s=fm3; t=1688446013; x=
+	1688532413; bh=I7hwEV3srjyCYS9t+KWnEQ73pm3PsV/kMvHeobjOFJQ=; b=X
+	lXegA7OjSwia35Cvwj9U6IIADHrmmE/GEUE0vKaLiZ0JqiestiZXqCnXi9Y3bmtX
+	rfgoA6QhAz+rLufUskh2r1eaFNijxn3gj0J6I80KktDL9VpMukKz0G5EZhS85b6i
+	IGjGLmBUyCRARx7YZn8RayU+x2WWN60ehsZ3jWKz7wY7YE7DBOTGDq60BWSc0X6H
+	oyZU0o40l1B6RtH5DV3lsLRVlb1Uwf+Ch7zOadohJ5Dzy+T952kwXUrg298zGw1U
+	cxwqYy9652mPrULRN9dC0qWMyM6g8+5qEXtUr+HHkjiqwkz9GxG3V6+5bdtvYaw0
+	vNUw9F/4UZkTBHnFLDcOw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1688446009; x=
-	1688532409; bh=qtNU07zM4dIX81fMsjLGpYDh19Y5tjgNSmmLajH29Pg=; b=f
-	DVYWvV7j41dXVsOTcwihvIcVarkN0CDIXuzS2kQcLnlmI8RtSDh8MorF/CU9V4yg
-	BZdI7sGMrd/WWx+SQ8qNvSgG4lUdYTJK5kqVE3an6qXQjHzrTRekKEvS60sxBSIP
-	8fXV+QFVnrCmQNdQWAaWyYdH3d95nFwOz+EiQ5LFWB22YVDoEWwcXkzexAKBOEPi
-	HIWbKjbY+3QUu7hKD88lFMjvQlXKV2tmXNxQk6q1P0lL8lE6zfmutl2XLmEuyHYA
-	d8QDljlt1lqUJXaETjyIfIe9ozz/hdOYrnOcUEAR7oGJZxmQuwvDHh9QoYJjwraj
-	ZVXfAQaQlHC6WJDGTlqVQ==
-X-ME-Sender: <xms:OaSjZJgRQ7XhlwewqQnz2BJmqpO23Z_SuMSCXAfyIWF5WeWM9ysPrA>
-    <xme:OaSjZOApc7_XHxD88NfuEOLzfX8yJF2SEI-tCJAiNNvIpz57iSWGW6WH-OScLaHiR
-    s18WfVWZDNzl84sXLk>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1688446013; x=
+	1688532413; bh=I7hwEV3srjyCYS9t+KWnEQ73pm3PsV/kMvHeobjOFJQ=; b=a
+	oOR3VF9pK9LHYkU1GsLZh3MXRTx8UXEfnTFj11+Dg6w4X0pZmy1dKg/p26lZAP1n
+	4GkPdwSYSZkaCGnsE+eJVfqCDICLg0kVCStjwUROhC0pbAimyydLUibp890uUDwZ
+	y05ds78HyFA4dhp6gsTZKmJZKoHybOuRQIzlBI9WH9v1LbgvAuKLh9Xcb1N00Fie
+	Z0iIHBp8q4kWFNyOLq6MXrNyItNEIFIobvi84dRvUjRxGeWI2Yml/L7e+lwxirHb
+	hC/8RQApkYmHOL3Bs2QKVdjU0gGMIivFXEOPumv2GJPO/+PmAZ1AkYA2Do+Pe8m7
+	cQZatJUPZMH/njO1UQ7qA==
+X-ME-Sender: <xms:PaSjZPFbBr2dwFDpobYodLh5eLssqb2AuFV483H8s04V64B8XRDafQ>
+    <xme:PaSjZMXHcTrWgMD4QeFyqAkczB_MwDLBjLJNfsfvb9aqg5D04THGbjtzkNAUa8pKy
+    zON9JMTg8IW__kC6sM>
 X-ME-Received: 
- <xmr:OaSjZJFsiM3DjCN1-dRQgGg21d6H2GEy4doq2dPw5qtmrV0MuvMlKLTi2kRg>
+ <xmr:PaSjZBJl6RIgEhJt6dv-JQJDy8gGZZgbf9MdmPccSs1Aa3GANLGV9p3cJz4e>
 X-ME-Proxy-Cause: 
  gggruggvucftvghtrhhoucdtuddrgedviedrudefgdekjecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
@@ -90,13 +90,13 @@ X-ME-Proxy-Cause:
     ohhnvghsrdguvghvqeenucggtffrrghtthgvrhhnpefgteefudfgteduueehteejhfeugf
     fgleeltedvveethfeuueejfedvgeelveehgfenucevlhhushhtvghrufhiiigvpedtnecu
     rfgrrhgrmhepmhgrihhlfhhrohhmpehluhhkvgeslhhjohhnvghsrdguvghv
-X-ME-Proxy: <xmx:OaSjZOTrLy2KYmqMcYpEN9U1tS4TYfb7HGDZXxYe1_KrSphXUCLUIg>
-    <xmx:OaSjZGwMyrX0MH2ZyJEUz6iHT8-zk-kWU5FeKH8a3xumlIP53ZJhhg>
-    <xmx:OaSjZE7uporj4XISVnOvm-YSRwdwN7M2qxbmA6DPss0hwlwCqyZEXQ>
-    <xmx:OaSjZI4wLfz2fZAG8zx6E5EoPqWHpYSlgjyyF2XfNvgf-CVe7gwHLg>
+X-ME-Proxy: <xmx:PaSjZNGgqcv1JjlyxNsbjKq0I7Wvk54W-ePd6lMJ2Wz8ioKtg0QTWg>
+    <xmx:PaSjZFUDpdi4p2Nl5XDqV6dLQH8RuHIPJfU8tQDDzksOnGIN0atazA>
+    <xmx:PaSjZINlg8jUb5k-vHleHP7jzBGtGShNdRtIFHKG8r4dLc7RgsEXLA>
+    <xmx:PaSjZAPfGU76qa8pWIV7TtGmUn5Hd58WTkykzh1aEQ-6hZyTxQiX5g>
 Feedback-ID: i5ec1447f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Jul 2023 00:46:44 -0400 (EDT)
+ 4 Jul 2023 00:46:49 -0400 (EDT)
 From: "Luke D. Jones" <luke@ljones.dev>
 To: tiwai@suse.com
 Cc: perex@perex.cz,
@@ -112,16 +112,17 @@ Cc: perex@perex.cz,
 	linux-kernel@vger.kernel.org,
 	alsa-devel@alsa-project.org,
 	"Luke D. Jones" <luke@ljones.dev>
-Subject: [PATCH v2 4/5] ALSA: hda/realtek: Add quirk for ASUS ROG G614Jx
-Date: Tue,  4 Jul 2023 16:46:18 +1200
-Message-ID: <20230704044619.19343-5-luke@ljones.dev>
+Subject: [PATCH v2 5/5] Fixes: 31278997add6 (ALSA: hda/realtek - Add headset
+ quirk for Dell DT)
+Date: Tue,  4 Jul 2023 16:46:19 +1200
+Message-ID: <20230704044619.19343-6-luke@ljones.dev>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230704044619.19343-1-luke@ljones.dev>
 References: <20230704044619.19343-1-luke@ljones.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: WJOZU2B4TZBCUW264CB2GPJYVPBP2NZD
-X-Message-ID-Hash: WJOZU2B4TZBCUW264CB2GPJYVPBP2NZD
+Message-ID-Hash: AESPJUH376AHZOEE3H5HFZ5MNGM7HDYY
+X-Message-ID-Hash: AESPJUH376AHZOEE3H5HFZ5MNGM7HDYY
 X-MailFrom: luke@ljones.dev
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -134,7 +135,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WJOZU2B4TZBCUW264CB2GPJYVPBP2NZD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AESPJUH376AHZOEE3H5HFZ5MNGM7HDYY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -143,29 +144,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Adds the required quirk to enable the Cirrus amp and correct pins
-on the ASUS ROG G614J series which uses an SPI connected Cirrus amp.
-
-While this works if the related _DSD properties are made available, these
-aren't included in the ACPI of these laptops (yet).
+Remove an erroneous whitespace.
 
 Signed-off-by: Luke D. Jones <luke@ljones.dev>
 ---
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/pci/hda/patch_realtek.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 50becdc86daa..ba3c113f0be1 100644
+index ba3c113f0be1..1547c40dc7e9 100644
 --- a/sound/pci/hda/patch_realtek.c
 +++ b/sound/pci/hda/patch_realtek.c
-@@ -9632,6 +9632,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1c23, "Asus X55U", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x1043, 0x1c62, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x1c92, "ASUS ROG Strix G15", ALC285_FIXUP_ASUS_G533Z_PINS),
-+	SND_PCI_QUIRK(0x1043, 0x1c9f, "ASUS G614JI", ALC285_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1caf, "ASUS G634JYR/JZR", ALC285_FIXUP_ASUS_SPI_REAR_SPEAKERS),
- 	SND_PCI_QUIRK(0x1043, 0x1ccd, "ASUS X555UB", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1d42, "ASUS Zephyrus G14 2022", ALC289_FIXUP_ASUS_GA401),
+@@ -5883,7 +5883,7 @@ static void alc_fixup_headset_mode_alc255_no_hp_mic(struct hda_codec *codec,
+ 		struct alc_spec *spec = codec->spec;
+ 		spec->parse_flags |= HDA_PINCFG_HEADSET_MIC;
+ 		alc255_set_default_jack_type(codec);
+-	} 
++	}
+ 	else
+ 		alc_fixup_headset_mode(codec, fix, action);
+ }
 -- 
 2.41.0
 

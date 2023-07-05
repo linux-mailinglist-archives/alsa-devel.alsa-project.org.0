@@ -2,87 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B421748F16
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 22:42:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DBDE748FDB
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 23:33:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6BF83E8;
-	Wed,  5 Jul 2023 22:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6BF83E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBFCF3E7;
+	Wed,  5 Jul 2023 23:32:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBFCF3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688589736;
-	bh=2t+U+v5S5iDDlAA/C1t1HHtui8Mayz0uFr6zt8gdnuA=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=njvDQePqP+Bwnt0AxCiaRBYyWy7NWQ6A4lbHHatwPupytx3Gbc3324FtxFkUae4Mg
-	 mbhMBD/6u0b3rc778Lr5jYCPY40xdkbcy4Y2b7QHyidwmjyILKF2P804kHSrwrdwLd
-	 XivfRrToWM2Ft6Pvy8hFa+rhRifjbjIE//8nlt4k=
+	s=default; t=1688592779;
+	bh=jh5Rm3wTiTgdIPqZurNeEEgGjpGLTPcGzW6ZzoTpIhQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=pop7mKX8faVgbbjifPO2viRNke0xQgYK5GnHxrDGwRSOOgybfp0FkELd/4Va4waBX
+	 C5N8vfFQDsN+PNWZdv0EyK69U0SxkV2+1ULKftwqNYacIQySxbfpiHyLyyivU1xgtb
+	 Fynr6cT21nlTIulvPBt2i9j/nO1QwRzht+I3jjUA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 03277F80535; Wed,  5 Jul 2023 22:41:25 +0200 (CEST)
+	id 358BFF80125; Wed,  5 Jul 2023 23:32:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 887FCF80124;
-	Wed,  5 Jul 2023 22:41:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5B86F80124;
+	Wed,  5 Jul 2023 23:32:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C175FF80125; Wed,  5 Jul 2023 22:41:21 +0200 (CEST)
+	id 94106F80125; Wed,  5 Jul 2023 23:32:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id D8034F800E4
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 22:41:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8034F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 42CFAF80104
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 23:31:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42CFAF80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lk6T5pz5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688589674; x=1720125674;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=2t+U+v5S5iDDlAA/C1t1HHtui8Mayz0uFr6zt8gdnuA=;
-  b=lk6T5pz56podnYMeHye1vmxCAMoeYyUAZ8xFn5A5lOrReylJ1EjjIlsY
-   Ouaix/t5/7JRXjzDbz+9AXutegkGBAfkqXqCnC6qbadsn4j/IQWrxxiGy
-   I63kO+YxX/jXAMhu1oOjtd6/5vvEYAfXv2fnJ4XTgCtzoQGPVw2EhUvbS
-   2JBbDweBccVT9LCIhHw7ryqcipnRZ02G8ZMxoRo4yO0Ggu5KYEZeALRM1
-   TuLyiNqOshFCNeoH1Ko3sGlP6wLIYS/CsI+KpLLo48sigJkidWi+mQNQl
-   fIK2yvtR6dQEktb51i4YDhoyXH27ZyQT6c5yRu4YwgwCTQwCvoGpspm+z
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="427122230"
-X-IronPort-AV: E=Sophos;i="6.01,184,1684825200";
-   d="scan'208";a="427122230"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2023 13:41:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="832684313"
-X-IronPort-AV: E=Sophos;i="6.01,184,1684825200";
-   d="scan'208";a="832684313"
-Received: from lkp-server01.sh.intel.com (HELO c544d7fc5005) ([10.239.97.150])
-  by fmsmga002.fm.intel.com with ESMTP; 05 Jul 2023 13:41:06 -0700
-Received: from kbuild by c544d7fc5005 with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1qH9JB-0000p4-2J;
-	Wed, 05 Jul 2023 20:41:05 +0000
-Date: Thu, 6 Jul 2023 04:40:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org,
-	linux-doc@vger.kernel.org
-Subject: [tiwai-sound:topic/midi20-gadget 63/63] htmldocs:
- Documentation/usb/gadget-testing.rst:1019: WARNING: Malformed table.
-Message-ID: <202307060422.HHYZIPqX-lkp@intel.com>
+ unprotected) header.d=collabora.com header.i=@collabora.com
+ header.a=rsa-sha256 header.s=mail header.b=LD6EtXLh
+Received: from [192.168.1.90] (unknown [188.24.137.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 273C96600B9D;
+	Wed,  5 Jul 2023 22:31:55 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1688592715;
+	bh=jh5Rm3wTiTgdIPqZurNeEEgGjpGLTPcGzW6ZzoTpIhQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=LD6EtXLhaVUngxCpx5poLbPut4matVhG+XwQUqULp8UkQfF1eoIoDAjktEXXuqwnS
+	 mnDvclWSE74xYYpW/huTSi6XY6OFkcAaVpmoGqIvlR1LTpjXnArGws0l62kI7VZu7L
+	 GbdeAQExK92rPRq16jKv4OIfezUrXbBnKS/OHZp0NN2pzGKp+EDLKuOlY+2FupYoBI
+	 5bJ+Clv3A0rulATX+dimS2sGos5pUzpK0Glfrj+EyMaSDegmYFSGAD7s0sQm/4Kod7
+	 k2aUCB/swKfTaFybg/0FLsAFUWKnH1uiKpBkA9+9sRKoXkvmwVaJMjpR3mj0Yw/HVg
+	 Cbrp/4HVHDR3A==
+Message-ID: <8a404cb2-ef2d-4df5-1f91-e5562f8204af@collabora.com>
+Date: Thu, 6 Jul 2023 00:31:53 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Message-ID-Hash: 5O6DZ3HIMYARYDXAUVZVNOCIUKME65XJ
-X-Message-ID-Hash: 5O6DZ3HIMYARYDXAUVZVNOCIUKME65XJ
-X-MailFrom: lkp@intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Subject: Re: [PATCH v2 3/3] ASoC: amd: vangogh: Add support for
+ NAU8821/MAX98388 variant
+Content-Language: en-US
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+References: <20230705134341.175889-1-cristian.ciocaltea@collabora.com>
+ <20230705134341.175889-4-cristian.ciocaltea@collabora.com>
+ <a414b971-381b-4695-9ba4-d2c777bff330@sirena.org.uk>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <a414b971-381b-4695-9ba4-d2c777bff330@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: 4F76DXKO7AMGCPKEVOUCI3S3LIIHAT77
+X-Message-ID-Hash: 4F76DXKO7AMGCPKEVOUCI3S3LIIHAT77
+X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -94,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5O6DZ3HIMYARYDXAUVZVNOCIUKME65XJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4F76DXKO7AMGCPKEVOUCI3S3LIIHAT77/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -103,41 +110,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git topic/midi20-gadget
-head:   be0c9761ecd79271d4a3efacaec6963a4010a297
-commit: be0c9761ecd79271d4a3efacaec6963a4010a297 [63/63] usb: gadget: midi2: Add testing documentation
-reproduce: (https://download.01.org/0day-ci/archive/20230706/202307060422.HHYZIPqX-lkp@intel.com/reproduce)
+On 7/5/23 19:16, Mark Brown wrote:
+> On Wed, Jul 05, 2023 at 04:43:41PM +0300, Cristian Ciocaltea wrote:
+> 
+>> +static int acp5x_max98388_hw_params(struct snd_pcm_substream *substream,
+>> +				    struct snd_pcm_hw_params *params)
+>> +{
+>> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+>> +	struct snd_soc_dai *dai = snd_soc_card_get_codec_dai(rtd->card,
+>> +							     ACP5X_MAX98388_DAI_NAME);
+>> +	int ret;
+>> +
+>> +	ret = snd_soc_dai_set_fmt(dai,
+>> +				  SND_SOC_DAIFMT_CBS_CFS | SND_SOC_DAIFMT_I2S |
+>> +				  SND_SOC_DAIFMT_NB_NF);
+>> +	if (ret < 0)
+>> +		dev_err(dai->dev, "Failed to set format: %d\n", ret);
+>> +
+>> +	return ret;
+>> +}
+> 
+> This never varies, why not just set it up statically in the dai_link?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202307060422.HHYZIPqX-lkp@intel.com/
+Right, will handle this in v3.
 
-All warnings (new ones prefixed by >>):
-
->> Documentation/usb/gadget-testing.rst:1019: WARNING: Malformed table.
-
-vim +1019 Documentation/usb/gadget-testing.rst
-
-  1003	
-  1004		===============	===============================================
-  1005		name		Function Block name string
-  1006		direction	Direction of this FB
-  1007				1: input, 2: output, or 3: bidirectional
-  1008		first_group	The first UMP Group number (0-15)
-  1009		num_groups	The number of groups in this FB (1-16)
-  1010		ui_hint		UI-hint of this FB
-  1011				0: unknown, 1: receiver, 2: sender, 3: both
-  1012		midi_ci_verison	Supported MIDI-CI version number (8 bit)
-  1013		is_midi1	Legacy MIDI 1.0 device (0-2)
-  1014				0: MIDI 2.0 device,
-  1015				1: MIDI 1.0 without restriction, or
-  1016				2: MIDI 1.0 with low speed
-  1017		sysex8_streams	Max number of SysEx8 streams (8 bit)
-  1018		active		Bool flag for FB activity (0 or 1)
-> 1019		=============	===============================================
-  1020	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks,
+Cristian

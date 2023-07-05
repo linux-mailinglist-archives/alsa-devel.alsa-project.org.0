@@ -2,98 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88FBC748593
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 15:58:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F15D3748482
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 14:58:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 763963E8;
-	Wed,  5 Jul 2023 15:58:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 763963E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01F347F1;
+	Wed,  5 Jul 2023 14:57:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01F347F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688565536;
-	bh=PdRHsWcUvKlFxrNHtPGxrZat7W9p+9tZkkMZRNnSzjQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=dLRUIeiP6WwBwuCJs+te+DeVk4WNVCeqZvvViDW5V4zZUxchdtAdemAnD429140B7
-	 egSMXGLyl6aSkcpcTn2GpOBjIuCEBovcU5OIiRlwmKKNbu29HxqM5ezZ79DqJ8q7ct
-	 rkBaduM0N29KPuPawcCfxjKKWrCzEuhy1mLQV/D4=
+	s=default; t=1688561912;
+	bh=CBtQCsUGSp8mQ2kL3T5gFfwUd8AE4eU1+kB5VFYt8kc=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=X2lFPS91YTI7BqZ1EzLxd7z5IVzCcv7CZIso+uNiZGNXe5ruSj6QGN0f+j9LxQCyJ
+	 XpOj0XQ/LirCRVgy4ncrKZLleE/0K7ZjKvdd01fHTYVhUvK0YfdYrm6HuDQiErXpCg
+	 COzQVQ61mqr7CqQFqCRI6i0QKYdwUGkXcZLfvxls=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA6DFF80535; Wed,  5 Jul 2023 15:58:05 +0200 (CEST)
+	id 77BBAF80124; Wed,  5 Jul 2023 14:57:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 499EAF80124;
-	Wed,  5 Jul 2023 15:58:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21FA8F80124;
+	Wed,  5 Jul 2023 14:57:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD39FF80125; Wed,  5 Jul 2023 15:58:01 +0200 (CEST)
+	id 5D94EF80125; Wed,  5 Jul 2023 14:57:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1776AF80100
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 15:57:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1776AF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6CFA7F800E4
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 14:57:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CFA7F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=ex282C1m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688565477; x=1720101477;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=PdRHsWcUvKlFxrNHtPGxrZat7W9p+9tZkkMZRNnSzjQ=;
-  b=ex282C1mJ1Tf1X24rO8W7GinM+rY2Ne6iNMcIZ7MHpvJ6Jd5CrRpMvmM
-   i7g6/ZNdnLAOyU5CtHu0gvL3VUMbNKOEBAqQ5rZBC1et3kY9ZGPrhrmx2
-   bJblPOks/v/bco8U2MADSdgXKzwHc95RleV9/Rkk94S7C63tdRzgQEhm6
-   7u19C0GITU5kUw1xyj2rqxW8FErb/gWEeSglXIQo3PTvaF+KZb1FTtWr0
-   KrJeDAvyI+ONUkycQWO2f9uR2nOlwHRoOsKxanilBWi9xRBXpE6WOuCp+
-   dKpRdnl+BG0SBeO/XU2cgykHEtWVD/SAeD363LdYJ+8/Ui54+uUiQ2nNH
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="342934606"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200";
-   d="scan'208";a="342934606"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2023 06:57:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="965835533"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200";
-   d="scan'208";a="965835533"
-Received: from meggieha-mobl.ger.corp.intel.com (HELO [10.252.48.235])
- ([10.252.48.235])
-  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2023 06:57:49 -0700
-Message-ID: <907ad7a3-3384-c0c4-90a9-5beab4cc45e0@linux.intel.com>
-Date: Wed, 5 Jul 2023 14:53:17 +0200
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=Npwz7cfc
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-3fa93d61d48so79032525e9.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 05 Jul 2023 05:57:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1688561846; x=1691153846;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=xhg4Btd/0KybnmhVesqfMosrv9Aez9Q8GYSJ7Z38kYc=;
+        b=Npwz7cfcZgmC0s2V6ezJBOFdy4P05NRAP4wOB0hnf08Cx3+flkWy/1N5uEYlx3AXT1
+         3paPunOjWfJO30Lvj/A4owjC32Jk4fMUQ5FKxtW/43Y9yPSva/2jwLRFy/uKgDNvvCre
+         D6Oebsi5p9u9DATB8WMm+4OCKjoSvZLkASmtEgaVykWt6yPublzxBxL9g/72jY8nPq4/
+         uO+IqlKDtL8VO4AWCiGie2dpM/JHRH2HHcpEgrySVWCs6JylK/crCzIcJIxP7/WKbpXM
+         +v/BFUHKADoIbw5JNt+9pU2HR/yhDScol9ZBRHFfuk/KaF8/VjG7UBdtr2KJsw3lq4Ya
+         HlzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688561846; x=1691153846;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xhg4Btd/0KybnmhVesqfMosrv9Aez9Q8GYSJ7Z38kYc=;
+        b=W51vX2doE/uOS7OFK/patDEMhXlGlNecxi4p+cjFwiwUi0cSZgcK94+4SHxGOQCPFJ
+         2hMeK3ZUbQ0Hrj6OEulDnvgPaKmF7Khn6cGj+4v4CoRVdCOJxyCB/Zz9fUAvYmzfY+Rd
+         V+BlgAUNFmGJ1lgbTmBVM5s1A1H/G+dWlJkVCkOOQb5v0pdjt7quis87Z0pJhZ3gsuFh
+         lhLu6eNtgPsO0W7bjZ1Iu9Vis1yb/7go/kQguL81mX62Xxdx8rhTsaTb77tShWm26F4s
+         YuzmF0zPFZNY3Na1cmnx0723rDJD/VZ7vpLGjoc/B0kp3kOGHJMxG2so5wcCCW38PMc1
+         IQGw==
+X-Gm-Message-State: AC+VfDxLGQzKxmjwqlfUrbl0b1yEgwlfAET7Qa8nQLatzH9rs7cj3P36
+	OH56kND4Pz0Up46SiZTdm66Paw==
+X-Google-Smtp-Source: 
+ ACHHUZ5h1fIf4kmzcOsJi/+UT0HCUmr1gk3pOMIu5hkWvxLrSVetBvxtazlzvE/ayYYEUXK+sA76CA==
+X-Received: by 2002:a1c:7903:0:b0:3fa:c3e8:901a with SMTP id
+ l3-20020a1c7903000000b003fac3e8901amr13883895wme.25.1688561846413;
+        Wed, 05 Jul 2023 05:57:26 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id
+ y6-20020a7bcd86000000b003fbb346279dsm2100555wmj.38.2023.07.05.05.57.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Jul 2023 05:57:25 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	lgirdwood@gmail.com,
+	ckeepax@opensource.cirrus.com,
+	kuninori.morimoto.gx@renesas.com,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com,
+	alsa-devel@alsa-project.org,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH] ASoC: codecs: wcd938x: fix dB range for HPHL and HPHR
+Date: Wed,  5 Jul 2023 13:57:23 +0100
+Message-Id: <20230705125723.40464-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH 1/8] soundwire: fix enumeration completion
-Content-Language: en-US
-To: Johan Hovold <johan+linaro@kernel.org>, Mark Brown <broonie@kernel.org>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Rander Wang <rander.wang@linux.intel.com>
-References: <20230705123018.30903-1-johan+linaro@kernel.org>
- <20230705123018.30903-2-johan+linaro@kernel.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230705123018.30903-2-johan+linaro@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: DYU4DX6HZ4U7RV4LO6GACLFUFBNH3WCQ
-X-Message-ID-Hash: DYU4DX6HZ4U7RV4LO6GACLFUFBNH3WCQ
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: QDPQ4BUVJKO57F5LM34ZBEWEZJIRY7Z4
+X-Message-ID-Hash: QDPQ4BUVJKO57F5LM34ZBEWEZJIRY7Z4
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +114,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DYU4DX6HZ4U7RV4LO6GACLFUFBNH3WCQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QDPQ4BUVJKO57F5LM34ZBEWEZJIRY7Z4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,83 +123,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+dB range for HPHL and HPHR gains are from +6dB to -30dB in steps of
+1.5dB with register values range from 0 to 24.
 
+Current code maps these dB ranges incorrectly, fix them to allow proper
+volume setting.
 
-On 7/5/23 14:30, Johan Hovold wrote:
-> The soundwire subsystem uses two completion structures that allow
-> drivers to wait for soundwire device to become enumerated on the bus and
-> initialised by their drivers, respectively.
-> 
-> The code implementing the signalling is currently broken as it does not
-> signal all current and future waiters and also uses the wrong
-> reinitialisation function, which can potentially lead to memory
-> corruption if there are still waiters on the queue.
+Fixes: e8ba1e05bdc0("ASoC: codecs: wcd938x: add basic controls")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ sound/soc/codecs/wcd938x.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-That change sounds good, but I am not following the two paragraphs below.
+diff --git a/sound/soc/codecs/wcd938x.c b/sound/soc/codecs/wcd938x.c
+index faa15a5ed2c8..3a3360711f8f 100644
+--- a/sound/soc/codecs/wcd938x.c
++++ b/sound/soc/codecs/wcd938x.c
+@@ -210,7 +210,7 @@ struct wcd938x_priv {
+ };
+ 
+ static const SNDRV_CTL_TLVD_DECLARE_DB_MINMAX(ear_pa_gain, 600, -1800);
+-static const SNDRV_CTL_TLVD_DECLARE_DB_MINMAX(line_gain, 600, -3000);
++static const DECLARE_TLV_DB_SCALE(line_gain, -3000, 150, -3000);
+ static const SNDRV_CTL_TLVD_DECLARE_DB_MINMAX(analog_gain, 0, 3000);
+ 
+ struct wcd938x_mbhc_zdet_param {
+@@ -2655,8 +2655,8 @@ static const struct snd_kcontrol_new wcd938x_snd_controls[] = {
+ 		       wcd938x_get_swr_port, wcd938x_set_swr_port),
+ 	SOC_SINGLE_EXT("DSD_R Switch", WCD938X_DSD_R, 0, 1, 0,
+ 		       wcd938x_get_swr_port, wcd938x_set_swr_port),
+-	SOC_SINGLE_TLV("HPHL Volume", WCD938X_HPH_L_EN, 0, 0x18, 0, line_gain),
+-	SOC_SINGLE_TLV("HPHR Volume", WCD938X_HPH_R_EN, 0, 0x18, 0, line_gain),
++	SOC_SINGLE_TLV("HPHL Volume", WCD938X_HPH_L_EN, 0, 0x18, 1, line_gain),
++	SOC_SINGLE_TLV("HPHR Volume", WCD938X_HPH_R_EN, 0, 0x18, 1, line_gain),
+ 	WCD938X_EAR_PA_GAIN_TLV("EAR_PA Volume", WCD938X_ANA_EAR_COMPANDER_CTL,
+ 				2, 0x10, 0, ear_pa_gain),
+ 	SOC_SINGLE_EXT("ADC1 Switch", WCD938X_ADC1, 1, 1, 0,
+-- 
+2.25.1
 
-> Not signalling future waiters specifically breaks sound card probe
-> deferrals as codec drivers can not tell that the soundwire device is
-> already attached when being reprobed. 
-
-What makes you say that? There is a test in the probe and the codec
-driver will absolutely be notified, see bus_type.c
-
-	if (drv->ops && drv->ops->update_status) {
-		ret = drv->ops->update_status(slave, slave->status);
-		if (ret < 0)
-			dev_warn(dev, "%s: update_status failed with status %d\n", __func__,
-ret);
-	}
-
-> Some codec runtime PM
-> implementations suffer from similar problems as waiting for enumeration
-> during resume can also timeout despite the device already having been
-> enumerated.
-
-I am not following this either. Are you saying the wait_for_completion()
-times out because of the init_completion/reinit_completion confusion, or
-something else.
-
-> Fixes: fb9469e54fa7 ("soundwire: bus: fix race condition with enumeration_complete signaling")
-> Fixes: a90def068127 ("soundwire: bus: fix race condition with initialization_complete signaling")
-> Cc: stable@vger.kernel.org      # 5.7
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Cc: Rander Wang <rander.wang@linux.intel.com>
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-> ---
->  drivers/soundwire/bus.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index 1ea6a64f8c4a..66e5dba919fa 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -908,8 +908,8 @@ static void sdw_modify_slave_status(struct sdw_slave *slave,
->  			"initializing enumeration and init completion for Slave %d\n",
->  			slave->dev_num);
->  
-> -		init_completion(&slave->enumeration_complete);
-> -		init_completion(&slave->initialization_complete);
-> +		reinit_completion(&slave->enumeration_complete);
-> +		reinit_completion(&slave->initialization_complete);
->  
->  	} else if ((status == SDW_SLAVE_ATTACHED) &&
->  		   (slave->status == SDW_SLAVE_UNATTACHED)) {
-> @@ -917,7 +917,7 @@ static void sdw_modify_slave_status(struct sdw_slave *slave,
->  			"signaling enumeration completion for Slave %d\n",
->  			slave->dev_num);
->  
-> -		complete(&slave->enumeration_complete);
-> +		complete_all(&slave->enumeration_complete);
->  	}
->  	slave->status = status;
->  	mutex_unlock(&bus->bus_lock);
-> @@ -1941,7 +1941,7 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
->  				"signaling initialization completion for Slave %d\n",
->  				slave->dev_num);
->  
-> -			complete(&slave->initialization_complete);
-> +			complete_all(&slave->initialization_complete);
->  
->  			/*
->  			 * If the manager became pm_runtime active, the peripherals will be

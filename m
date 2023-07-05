@@ -2,115 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DA81748ABB
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 19:36:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A4EF748AF2
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 19:49:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEAFC852;
-	Wed,  5 Jul 2023 19:35:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEAFC852
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8E3B3E7;
+	Wed,  5 Jul 2023 19:48:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8E3B3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688578575;
-	bh=yRYKw49YppMc7EYM1vOR7smz4tQpkbGIUk31C/qlBM8=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=gcqgkiATjZqz6Wo1F6rVKtONWSF7DF5tqL095g0SZUgRm9v6IXPVpyQyC5jlRBFVR
-	 HeVUBo0F4Y6u0FvzFpd3T2TSanBFOeL3wVTYrb9ntI/pOBPwsdaP24S2B2UkWhBR+N
-	 JhmSjrMr5VhyPGaYl5XBC3T/wT7tl64o/AP9dtSE=
+	s=default; t=1688579349;
+	bh=UBCRISO5bvEzaroCbX4doD2mQ5QibjmGkyPvu/AjBxc=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=exqYTjql9sjgy6mdqqkp2k5kdkdnC1LKj9HV8Glpu3DUSNK3eEkg+nYEPW2kwX0VX
+	 UB+5iJBbhuawW6f9J44M5MqEtESywQCZvTHD5JQ6DRSqIcQVEW2N5WjaCSNh9HaJtK
+	 zrY18bdY46j0PcglvrhkzRmSk4HKLtWsR0m9gew4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0DA30F8025F; Wed,  5 Jul 2023 19:35:24 +0200 (CEST)
+	id 5321FF80153; Wed,  5 Jul 2023 19:48:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EE45F80124;
-	Wed,  5 Jul 2023 19:35:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C3E9F80124;
+	Wed,  5 Jul 2023 19:48:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3AEF5F80125; Wed,  5 Jul 2023 19:35:22 +0200 (CEST)
+	id 27754F80125; Wed,  5 Jul 2023 19:48:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B8527F800E4
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 19:35:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8527F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08611F80104
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 19:48:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08611F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=B9NUeEVn
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 365FaBp3003086;
-	Wed, 5 Jul 2023 19:35:16 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=shpntqm9Lb88tQ8tlCGuG2FwYoCeA99QpOjJ1mJ95MI=;
- b=B9NUeEVnBg8MdHStPnL4TOmJhyuqDrSpAiTXxO/nPPpzy04upCGkWFZloothm1IsdlaP
- X2dM2UcrLRYot6pDInpUaDfpMw4tRdOgSMjIIUt05sxIHPJTt05NtgJdfiSkjWYJGqQo
- 5Qf6gvHVZoCkeCGLEsdD07XE10xUn4T3IucwxfOuRptLSABHo82p+XsFpOmpXmiiGV0P
- XYKMcsbwul2uScBGSCEWMtTWo929/YaPT+Wh3TxrAMZmjHQzF56NlcYYWFxkdKCpyT5u
- NiyW4MLstguYxELgKwv13IwhUcKcDJWT1p8IlKqjWxQyak83KOQne1tFXm8DXME2V55K Uw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rn8c9t3jy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 05 Jul 2023 19:35:16 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2E6D9100057;
-	Wed,  5 Jul 2023 19:35:15 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2427D24C451;
-	Wed,  5 Jul 2023 19:35:15 +0200 (CEST)
-Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 5 Jul
- 2023 19:35:12 +0200
-Message-ID: <f8c6e86d-af6a-b61f-c642-c23cb3cfb015@foss.st.com>
-Date: Wed, 5 Jul 2023 19:35:07 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=NaitRTqD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688579291; x=1720115291;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=UBCRISO5bvEzaroCbX4doD2mQ5QibjmGkyPvu/AjBxc=;
+  b=NaitRTqDv8M5f+UF4K+i5R2iQCQ3TBFGKJ3awbe8lx0qyF+5Pboyx6zf
+   oZUlTqvskMLGQNTGWd4lXX4VraC53OioHPv3tB7UOdyRMJw0T0JmgYoxJ
+   r969qnmzkrS00ZPX387ukQgiI+kwhAXhijpFviTUR1sU7upqHHwgJ3yw5
+   PSnNgHtjnYPGrQRwqZLyVd7WNwhIDqsBztrzEBdOLMxnGuuf1IgnLkSn3
+   Tv25woCsEvsAzWJ+f9uARiW9kD+Ycd9qm4pXHEibNdEan6ZCSzyXQmrZU
+   +QhHwkk36IXcg+dQxtT1Xx7TnB7Me20j49Uz48M/VMPsx6Ebk05OodMYX
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="427088000"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200";
+   d="scan'208";a="427088000"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2023 10:48:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="669481729"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200";
+   d="scan'208";a="669481729"
+Received: from lkp-server01.sh.intel.com (HELO c544d7fc5005) ([10.239.97.150])
+  by orsmga003.jf.intel.com with ESMTP; 05 Jul 2023 10:48:03 -0700
+Received: from kbuild by c544d7fc5005 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1qH6bj-0000ko-0E;
+	Wed, 05 Jul 2023 17:48:03 +0000
+Date: Thu, 6 Jul 2023 01:47:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: oe-kbuild-all@lists.linux.dev, alsa-devel@alsa-project.org
+Subject: [tiwai-sound:test/snd_ctl_remove-lock-fix 40/54] htmldocs:
+ ./include/sound/control.h:162: warning: expecting prototype for
+ snd_ctl_find_id(). Prototype was for snd_ctl_find_id_mixer() instead
+Message-ID: <202307060119.mTXEyy6N-lkp@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v3 0/6] Introduce STM32 system bus
-Content-Language: en-US
-To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
-        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
-        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
- <jic23@kernel.org>,
-        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
-        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
-        <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
-        <pabeni@redhat.com>
-CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>,
-        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
-        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
-        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>
-References: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <20230127164040.1047583-1-gatien.chevallier@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.201.21.121]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-05_09,2023-07-05_01,2023-05-22_02
-Message-ID-Hash: 3TOM6EIMBWBOF55S57K76XX7BPJZU77O
-X-Message-ID-Hash: 3TOM6EIMBWBOF55S57K76XX7BPJZU77O
-X-MailFrom: prvs=5550e8e426=gatien.chevallier@foss.st.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Message-ID-Hash: 5GCQS6O2NTUUNS7I2MAD3P6D45ASWDLM
+X-Message-ID-Hash: 5GCQS6O2NTUUNS7I2MAD3P6D45ASWDLM
+X-MailFrom: lkp@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -122,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TOM6EIMBWBOF55S57K76XX7BPJZU77O/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5GCQS6O2NTUUNS7I2MAD3P6D45ASWDLM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,109 +103,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello all,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git test/snd_ctl_remove-lock-fix
+head:   9ad18619a06d551105bd84191dca5bb5295277c7
+commit: 59444a29dbfd44718fef15083aa339c2c8b579b5 [40/54] ALSA: control: Introduce snd_ctl_find_id_mixer()
+reproduce: (https://download.01.org/0day-ci/archive/20230706/202307060119.mTXEyy6N-lkp@intel.com/reproduce)
 
-I'm abandoning this series for:
-https://lore.kernel.org/lkml/20230705172759.1610753
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202307060119.mTXEyy6N-lkp@intel.com/
 
-Sorry for the noise.
+All warnings (new ones prefixed by >>):
 
-Best regards,
-Gatien
+>> ./include/sound/control.h:162: warning: expecting prototype for snd_ctl_find_id(). Prototype was for snd_ctl_find_id_mixer() instead
 
-On 1/27/23 17:40, Gatien Chevallier wrote:
-> Document STM32 System Bus. This bus is intended to control firewall
-> access for the peripherals connected to it.
-> 
-> For every peripheral, the bus checks the firewall registers to see
-> if the peripheral is configured as non-secure. If the peripheral
-> is configured as secure, the node is marked populated, so the
-> device won't be probed.
-> 
-> This is useful as a firewall configuration sanity check and avoid
-> platform crashes in case peripherals are incorrectly configured.
-> 
-> The STM32 System Bus implements the feature-domain-controller
-> bindings. It is used by peripherals to reference a domain
-> controller, in this case the firewall feature domain.
-> The bus uses the ID referenced by the feature-domains property to
-> know where to look in the firewall to get the security configuration
-> for the peripheral. This allows a device tree description rather
-> than a hardcoded peripheral table in the bus driver.
-> 
-> On STM32MP13/15 platforms, the firewall bus is represented by the
-> ETZPC node, which is responsible for the securing / MCU isolating
-> the capable peripherals.
-> 
-> STM32MP13/15 device trees are updated in this series to implement
-> the bus. All peripherals that are securable or MCU isolation capable
-> by the ETZPC are connected to the bus.
-> 
-> Changes in V2:
-> 	- Corrected YAMLS errors highlighted by Rob's robot
-> 	- Re-ordered Signed-off-by tags in two patches
-> 
-> Changes in V3:
-> 	- Document feature-domains property in YAML documentation for
-> 	concerned periperals under the System Bus
-> 	- Fix STM32 System Bus YAML documentation
-> 	- Remove STM32 System bus bindings that were currently used
-> 	as helpers for device tree
-> 	- Correct few errors in driver
-> 	- Add missing peripherals under the System Bus that were in
-> 	SoC variation device tree files
-> 	- Fix node names
-> 
-> Gatien Chevallier (5):
->    dt-bindings: treewide: add feature-domains description in binding
->      files
->    dt-bindings: bus: add STM32 System Bus
->    bus: stm32_sys_bus: add support for STM32MP15 and STM32MP13 system bus
->    ARM: dts: stm32: add ETZPC as a system bus for STM32MP15x boards
->    ARM: dts: stm32: add ETZPC as a system bus for STM32MP13x boards
-> 
-> Oleksii Moisieiev (1):
->    dt-bindings: Document common device controller bindings
-> 
->   .../devicetree/bindings/bus/st,sys-bus.yaml   |  127 +
->   .../bindings/crypto/st,stm32-hash.yaml        |    5 +
->   .../devicetree/bindings/dma/st,stm32-dma.yaml |    5 +
->   .../bindings/dma/st,stm32-dmamux.yaml         |    5 +
->   .../feature-domain-controller.yaml            |   84 +
->   .../devicetree/bindings/i2c/st,stm32-i2c.yaml |    5 +
->   .../bindings/iio/adc/st,stm32-adc.yaml        |    5 +
->   .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  |    5 +
->   .../bindings/iio/dac/st,stm32-dac.yaml        |    5 +
->   .../bindings/media/st,stm32-cec.yaml          |    5 +
->   .../bindings/media/st,stm32-dcmi.yaml         |    5 +
->   .../memory-controllers/st,stm32-fmc2-ebi.yaml |    5 +
->   .../bindings/mfd/st,stm32-lptimer.yaml        |    5 +
->   .../bindings/mfd/st,stm32-timers.yaml         |    6 +
->   .../devicetree/bindings/mmc/arm,pl18x.yaml    |    5 +
->   .../devicetree/bindings/net/stm32-dwmac.yaml  |    5 +
->   .../bindings/phy/phy-stm32-usbphyc.yaml       |    5 +
->   .../bindings/regulator/st,stm32-vrefbuf.yaml  |    5 +
->   .../devicetree/bindings/rng/st,stm32-rng.yaml |    5 +
->   .../bindings/serial/st,stm32-uart.yaml        |    5 +
->   .../bindings/sound/st,stm32-i2s.yaml          |    5 +
->   .../bindings/sound/st,stm32-sai.yaml          |    5 +
->   .../bindings/sound/st,stm32-spdifrx.yaml      |    5 +
->   .../bindings/spi/st,stm32-qspi.yaml           |    5 +
->   .../devicetree/bindings/spi/st,stm32-spi.yaml |    5 +
->   .../devicetree/bindings/usb/dwc2.yaml         |    5 +
->   MAINTAINERS                                   |    6 +
->   arch/arm/boot/dts/stm32mp131.dtsi             |  407 +--
->   arch/arm/boot/dts/stm32mp133.dtsi             |   51 +-
->   arch/arm/boot/dts/stm32mp13xc.dtsi            |   19 +-
->   arch/arm/boot/dts/stm32mp13xf.dtsi            |   18 +-
->   arch/arm/boot/dts/stm32mp151.dtsi             | 2722 +++++++++--------
->   arch/arm/boot/dts/stm32mp153.dtsi             |   52 +-
->   arch/arm/boot/dts/stm32mp15xc.dtsi            |   19 +-
->   drivers/bus/Kconfig                           |    9 +
->   drivers/bus/Makefile                          |    1 +
->   drivers/bus/stm32_sys_bus.c                   |  168 +
->   37 files changed, 2208 insertions(+), 1596 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/bus/st,sys-bus.yaml
->   create mode 100644 Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
->   create mode 100644 drivers/bus/stm32_sys_bus.c
-> 
+vim +162 ./include/sound/control.h
+
+   147	
+   148	/**
+   149	 * snd_ctl_find_id - find the control instance with the given name string
+   150	 * @card: the card instance
+   151	 * @name: the name string
+   152	 *
+   153	 * Finds the control instance with the given name and
+   154	 * @SNDRV_CTL_ELEM_IFACE_MIXER. Other fields are set to zero.
+   155	 *
+   156	 * This is merely a wrapper to snd_ctl_find_id().
+   157	 *
+   158	 * Return: The pointer of the instance if found, or %NULL if not.
+   159	 */
+   160	static inline struct snd_kcontrol *
+   161	snd_ctl_find_id_mixer(struct snd_card *card, const char *name)
+ > 162	{
+   163		struct snd_ctl_elem_id id = {};
+   164	
+   165		id.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+   166		strscpy(id.name, name, sizeof(id.name));
+   167		return snd_ctl_find_id(card, &id);
+   168	}
+   169	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki

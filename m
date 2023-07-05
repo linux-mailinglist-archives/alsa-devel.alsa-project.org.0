@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 368B074854A
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 15:44:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B54748550
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 15:45:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 723CC3E8;
-	Wed,  5 Jul 2023 15:43:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 723CC3E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99DFA3E7;
+	Wed,  5 Jul 2023 15:44:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99DFA3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688564689;
-	bh=5bjQOEUku2okttevc3PZVpNPoxW8myAeEIowZbKzBIU=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=OGViHezhqnLx3E5GQ2G2tQinkzrpUmxn4WlUeCrOAJIAx3vZs5A9nZn1AAGA17prB
-	 SIC7gVWzRAAh+A4ZyPj8BqPmDFgi6Sou65ciG3NYnlzJfmNZiahTPbRyD2slZDmGdQ
-	 KSbZRV8piHvbzcqJaN5L2QkQE8d4CCz9Qk6DS/fo=
+	s=default; t=1688564738;
+	bh=VTB4I9zZ57rcfuMONYpW7VWpXed1exZT873tCPi37oM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=oaDYSmDDNqz54KojsVQHZ3yMKyAWE8/0HDr2Ep/csZpICN45hsxH4+ExkTrCoV2Pr
+	 ERiVjSNCm22KKdCGv2IaIatFne6U27SSgnR/TX/1fqzmWqPrjfH+fHu7tgIQF8dWW1
+	 SSq98DKipEnKEcqKZOajNhURoB53+AySQMUddpX4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A7B08F8053B; Wed,  5 Jul 2023 15:43:57 +0200 (CEST)
+	id 6D7E6F80552; Wed,  5 Jul 2023 15:43:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 664B5F80125;
-	Wed,  5 Jul 2023 15:43:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AB2FF80549;
+	Wed,  5 Jul 2023 15:43:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A89EDF80132; Wed,  5 Jul 2023 15:43:52 +0200 (CEST)
+	id 06B0FF80132; Wed,  5 Jul 2023 15:43:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -32,36 +33,36 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [46.235.227.172])
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 13D25F80104
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 15:43:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13D25F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id B84E5F80100
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 15:43:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B84E5F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=collabora.com header.i=@collabora.com
- header.a=rsa-sha256 header.s=mail header.b=gwDn4hyI
+ header.a=rsa-sha256 header.s=mail header.b=ZywCBNp5
 Received: from localhost (unknown [188.24.137.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
  server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by madras.collabora.co.uk (Postfix) with ESMTPSA id E18C766020F5;
-	Wed,  5 Jul 2023 14:43:45 +0100 (BST)
+	by madras.collabora.co.uk (Postfix) with ESMTPSA id 711FB6606FB0;
+	Wed,  5 Jul 2023 14:43:48 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1688564626;
-	bh=5bjQOEUku2okttevc3PZVpNPoxW8myAeEIowZbKzBIU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gwDn4hyIXaJbyClgM1YhDa4/fU1uqKrOviP1psPa+4LrL1wjZHA4ROIzF9LACNKaH
-	 vX2Y8tw4GWgXzyj/nZQPTXz7HSMAoVTRiBtquILhZDFSFw9SmHYhfpNKaWxbdp5mtH
-	 HlM73JCEOguZzO4W6HVR7Vn/ado3CZPPfuQlN9gK0EC4XKs2EMrSQhAY5RKmv5pFD+
-	 lV8BnFfSAfJoXJ35FyzBcF8KPsckZhpr3ZlyXoLmni2BXJXJGj8YtgIj1mpSIhc66a
-	 SJjW0GO51MlXAxFrcG8XUUZN3tYcQdAEk05/Db6JkZqQKfaM22wb8lS6jHj1pkWxKH
-	 oWBsXkBj5hp6g==
+	s=mail; t=1688564628;
+	bh=VTB4I9zZ57rcfuMONYpW7VWpXed1exZT873tCPi37oM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ZywCBNp5GSeyrfKC+xwH0a4fNqw7bSAIOTfRidQahanxqberP+eTkhTIiLCn0yV8J
+	 LRJJgqFxN/m8Fqyx61ukOLsp5quivZwQOSckUQOrsMkcRkpyRnYtls1505wk6z3IWC
+	 /RhrASG5Ans9qt/Fp1JJ4dQ9rj2DoBjsLH6tecJaBsDng10jGb7UnB/NdImQraYSBt
+	 93X+EaOivgdjo/5+8uNEkox2/J3lX4DNNDyot9NnbIX3ipkXuMsvh+0IpN+ExV2zRW
+	 VET38zRn3uJlbyUCqXMvPMxdFDnPwrlHsJ71Ogj/46j/uysBq1dK0WMPzZvQnzs0yK
+	 xSxI1AIZUy2sw==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -76,14 +77,16 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com
-Subject: [PATCH v2 0/3] AMD Vangogh support for NAU8821/MAX98388
-Date: Wed,  5 Jul 2023 16:43:38 +0300
-Message-ID: <20230705134341.175889-1-cristian.ciocaltea@collabora.com>
+Subject: [PATCH v2 1/3] ASoC: amd: vangogh: Make use of DRV_NAME
+Date: Wed,  5 Jul 2023 16:43:39 +0300
+Message-ID: <20230705134341.175889-2-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230705134341.175889-1-cristian.ciocaltea@collabora.com>
+References: <20230705134341.175889-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: Y2EEXTVCSPML4J55NCDQ4M2N6YRVAHJQ
-X-Message-ID-Hash: Y2EEXTVCSPML4J55NCDQ4M2N6YRVAHJQ
+Message-ID-Hash: ZABY75KZHOLCFGWPVF6VWPCFMQBYY23H
+X-Message-ID-Hash: ZABY75KZHOLCFGWPVF6VWPCFMQBYY23H
 X-MailFrom: cristian.ciocaltea@collabora.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Y2EEXTVCSPML4J55NCDQ4M2N6YRVAHJQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZABY75KZHOLCFGWPVF6VWPCFMQBYY23H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -105,24 +108,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch series extends the Vangogh machine driver to support a variant
-based on the Nuvoton NAU88L21 Codec and the Analog Devices MAX98388 
-Speaker Amplifier.
+The "acp5x_mach" string is provided for both driver name and
+MODULE_ALIAS. Since they need to match, ensure DRV_NAME macro is used in
+both locations.
 
-Changes in v2:
- * Reworked series to ensure the existing devices based on the CS35L41 
-   codec continue to work fine
- * Rebased onto next-20230703
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ sound/soc/amd/vangogh/acp5x-mach.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Cristian Ciocaltea (3):
-  ASoC: amd: vangogh: Make use of DRV_NAME
-  ASoC: amd: vangogh: Use dmi_first_match() for DMI quirk handling
-  ASoC: amd: vangogh: Add support for NAU8821/MAX98388 variant
-
- sound/soc/amd/Kconfig              |   5 +-
- sound/soc/amd/vangogh/acp5x-mach.c | 167 +++++++++++++++++++++++++----
- 2 files changed, 149 insertions(+), 23 deletions(-)
-
+diff --git a/sound/soc/amd/vangogh/acp5x-mach.c b/sound/soc/amd/vangogh/acp5x-mach.c
+index e5bcd1e6eb73..5e36179cf611 100644
+--- a/sound/soc/amd/vangogh/acp5x-mach.c
++++ b/sound/soc/amd/vangogh/acp5x-mach.c
+@@ -381,7 +381,7 @@ static int acp5x_probe(struct platform_device *pdev)
+ 
+ static struct platform_driver acp5x_mach_driver = {
+ 	.driver = {
+-		.name = "acp5x_mach",
++		.name = DRV_NAME,
+ 		.pm = &snd_soc_pm_ops,
+ 	},
+ 	.probe = acp5x_probe,
 -- 
 2.41.0
 

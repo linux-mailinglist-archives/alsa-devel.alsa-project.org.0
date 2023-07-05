@@ -2,101 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A72748485
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 15:00:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF007484CF
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 15:19:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAEC9741;
-	Wed,  5 Jul 2023 14:59:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAEC9741
+	by alsa0.perex.cz (Postfix) with ESMTPS id 546863E8;
+	Wed,  5 Jul 2023 15:18:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 546863E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688562030;
-	bh=xbgcZ3m7PW1EPs1zd/RQT2E8lvFeY36cUEa4G9xvrA4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Cl/9iLRJsTa8pX0HGShslKs1pKWHOuhEXxE060zQxBPkVxlNBnpbkWUyLU/qXSEQE
-	 oEAOjgEyz1BUKKXpoQ1eP4YPEl5MfIhgISZKMj1S5AteYLq4epMVjK7ER3OR5Nwy3q
-	 3MiJMTAz6Yr4aZGWZiL25riWXWXMRMSe2Hv77uwI=
+	s=default; t=1688563187;
+	bh=tEO7wCI9WNvGIuDbdYMNGlyUNCel681KJY53a+77+Qg=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=mv5jx2R/epc66FWyrWyBBcFxTZtPi5l3LYfMDlwQnNg1W7gh4AAmwYMDY3CHzbmsD
+	 ISm0UxPOUZ/onmRhNo1OQT5VbLkTwzARPY306sIUnj1JGpLUYWCTBlsACDGRUuxl+/
+	 apAhgNBhjRSYas5VlUoXAqnOAx+foeQhZ7tSR6hw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2DF63F80544; Wed,  5 Jul 2023 14:59:33 +0200 (CEST)
+	id C48FDF80100; Wed,  5 Jul 2023 15:18:56 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 927B1F80124;
-	Wed,  5 Jul 2023 14:59:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A163F80124;
+	Wed,  5 Jul 2023 15:18:56 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0159DF80125; Wed,  5 Jul 2023 14:59:30 +0200 (CEST)
+	id 3F9A4F80125; Wed,  5 Jul 2023 15:18:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mail-ua1-x92d.google.com (mail-ua1-x92d.google.com
- [IPv6:2607:f8b0:4864:20::92d])
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 66919F80104
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 14:59:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66919F80104
+	by alsa1.perex.cz (Postfix) with ESMTPS id DA431F80100
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 15:18:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA431F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=S86aXfv4
-Received: by mail-ua1-x92d.google.com with SMTP id
- a1e0cc1a2514c-7948c329363so1856022241.0
+ header.s=google header.b=gUabt4/v
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3128fcd58f3so7546064f8f.1
         for <alsa-devel@alsa-project.org>;
- Wed, 05 Jul 2023 05:59:27 -0700 (PDT)
+ Wed, 05 Jul 2023 06:18:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1688561966; x=1691153966;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=nZHZeidSk3mCWY3MjBsM3AN+Ta4vT4cFL5EZs5XXzbA=;
-        b=S86aXfv4RuDoIWVp59Jmuk4JfLil/DCbyfDqj8/GmjshKavfTxAkuCmRZNKUQw68yD
-         kY0iMDgr0MVe5CeJkY64waSv9VKM+RK5zFn49VYhjlyRiXCvN0jzXSEt+WiFKqtsFOTb
-         rMoefcX0b/FEJsefg1+zrs0spKxAqz5EKTwrtP80pTmasaZDlsPBuiRwttd2R3u10zuO
-         irNO54E7JbHWg/ln18doalqOVbsSUdkQ9iNgq53jI1qRN7RNG5apyciNJbFbwSmIgeHg
-         zcEkoQTDdynOIrX1ru9Ef03d6Xqm4gAzHuHcVBAfOYutCMTxnppqQI759+0DBxV6eMP9
-         4xuA==
+        d=linaro.org; s=google; t=1688563126; x=1691155126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NqzFoVlqZuDwdBeJJ7onmWROcWP+Ot6gtGdl2eC6RO8=;
+        b=gUabt4/ve2Donhp0sXBcgmdz/tHeUFmWmL0Lom+e1nOg5zE4ae1XOMOe0QBwxBO5wI
+         1dIMgLF9R77E5ea6KSF5orZpSJOWqmxWemJTRd/bSY7hryxOMsE9QTYddZhrWPBo87D7
+         Qkdpcf+FxgdEWTGteSrjaRWK78i8ZViWAzFhdmhmgxc8K90Lhl4YjBHHxsPN8/wIOecn
+         gMTsB5Tr2nj9NI0vY/udOBI2380OJuGaWMPfTj+Rx6Y/OSFxx/KxzwRDS/qN/qq3btg7
+         8i40il+M5P8Vbwxk8eds3tIaj3H86465/ckbZlOdD1b2nFUbmxK4YCpfak8UfIYySvg2
+         oN+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688561966; x=1691153966;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20221208; t=1688563126; x=1691155126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=nZHZeidSk3mCWY3MjBsM3AN+Ta4vT4cFL5EZs5XXzbA=;
-        b=YBkgkX/jPsOOjeQglX2QltaE7iNOY/F25JftzCg9QMjUFVJ/VVLiKrVI+BXo2afEbH
-         ZSg+gdii0CdYg+a5qfahMpgt+v8KivG7lntMEmMuVWhl5uYfDi8af4/g/xL3cxu2mgKi
-         DiPSKuS5xXrxro+q2ho32Go9vpBsFx9gwjpNafpOQf07FNSE2lYs8ewRTJQwcGoOfZk5
-         wWAjWwB/tEDCwh6wQQ6doSYjSZrMuqJTl6lSPoxfUEF+4VOvQbgYc1zYXsnviIYsW/JM
-         Bg5TLy3+HKseXr+z6St6rzdj0OJa70iLT65TIMZ2u1YG1Cp7WG9qcYXFhazQ8o8zdQqZ
-         0SlA==
-X-Gm-Message-State: ABy/qLbkh9YgWYK2Y8ew+9KA2OFzmTY71qSRNvRHP6oXXYYCPZIYJGNV
-	Z6MqRpkzgtwONboPs40JwxYQA6r8otb1fnIEWnnq1g==
+        bh=NqzFoVlqZuDwdBeJJ7onmWROcWP+Ot6gtGdl2eC6RO8=;
+        b=NCoxLwlscIFII7Jift3O9dFVwBVr8uCnntIVMkJSmibf7VTXQ/mUJ99e1tDy+Yj8um
+         Kpw4h5urOnFbWYTxoiN2H0gfWwYrWdr7z5/sZjhtXsewfuZic1lEG66/fU1+MDwQq8iY
+         jY6l3w5umNiDqNbRjtXVeV0R5XWVcmemLQ5jY7oS0z0B3tX53vfbOh1+QyczaQq/bTbl
+         +5Uqmty0WhR66Fyc2WFzUnb0sSDu20roWP0wNnjW7IvMQbp4jq6qNcFmWyFm0o3krQve
+         hJBIuW57M1JJZJzmre59FsKxbaHzucRFTCwF3Ds4I3VSzT0+dRPQ2TaoyCBQI5JAJ4tI
+         TDpA==
+X-Gm-Message-State: ABy/qLZUguUpnHdR0K8J3s0UKKD1e0dB+H8ExUyv4rfRpO5689oIfgm4
+	TNqPzexWfdm59gm94d+XjjfsRQ==
 X-Google-Smtp-Source: 
- APBJJlF2cytqWVzR5MRGWFqYl0PN+/hU8lNQBqczzpcm9IC1mTIREpURJudjlLv3fff1c8uiVHFuMc4y6+sQnYI97Q0=
-X-Received: by 2002:a67:f041:0:b0:443:6c53:e26b with SMTP id
- q1-20020a67f041000000b004436c53e26bmr6325396vsm.10.1688561965702; Wed, 05 Jul
- 2023 05:59:25 -0700 (PDT)
+ APBJJlGCd/oXUcfMR2PQ3fB8oIV+msgPR5klhkS/pC3rfwvF4Q+QaZjxFbfcCOSNSN8LYy4lTE1NMg==
+X-Received: by 2002:adf:f282:0:b0:313:eb29:4436 with SMTP id
+ k2-20020adff282000000b00313eb294436mr13789647wro.67.1688563126524;
+        Wed, 05 Jul 2023 06:18:46 -0700 (PDT)
+Received: from localhost.localdomain ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id
+ cx16-20020a056000093000b00301a351a8d6sm31230039wrb.84.2023.07.05.06.18.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Jul 2023 06:18:45 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Cc: johan+linaro@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	lgirdwood@gmail.com,
+	ckeepax@opensource.cirrus.com,
+	kuninori.morimoto.gx@renesas.com,
+	linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com,
+	alsa-devel@alsa-project.org,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [PATCH] ASoC: qcom: q6apm: do not close GPR port before closing graph
+Date: Wed,  5 Jul 2023 14:18:42 +0100
+Message-Id: <20230705131842.41584-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20230705124850.40069-1-srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230705124850.40069-1-srinivas.kandagatla@linaro.org>
-From: Amit Pundir <amit.pundir@linaro.org>
-Date: Wed, 5 Jul 2023 18:28:49 +0530
-Message-ID: 
- <CAMi1Hd28mRKJqpCSNxvixA+H=5cyVWHyTQ8w2He5qBE_nbpu+g@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: qcom: q6afe-dai: fix Display Port Playback stream
- name
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: broonie@kernel.org, perex@perex.cz, tiwai@suse.com, lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org, pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Message-ID-Hash: Q2MMVKNUGFQTYQM2PNDMGXUZSV3QDYTN
-X-Message-ID-Hash: Q2MMVKNUGFQTYQM2PNDMGXUZSV3QDYTN
-X-MailFrom: amit.pundir@linaro.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: OPKR2EP52S7NBJTR7OV7HA6LRQIEYP43
+X-Message-ID-Hash: OPKR2EP52S7NBJTR7OV7HA6LRQIEYP43
+X-MailFrom: srinivas.kandagatla@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -108,7 +115,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Q2MMVKNUGFQTYQM2PNDMGXUZSV3QDYTN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OPKR2EP52S7NBJTR7OV7HA6LRQIEYP43/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,39 +124,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 5 Jul 2023 at 18:18, Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
-> With recent changes to add more display ports did not change the Stream
-> name in q6afe-dai. This results in below error
-> "ASoC: Failed to add route DISPLAY_PORT_RX -> Display Port Playback(*)"
-> and sound card fails to probe.
->
-> Fix this by adding correct stream name.
+Closing GPR port before graph close can result in un handled notifications
+from DSP, this results in spam of errors from GPR driver as there is no
+one to handle these notification at that point in time.
 
-Tested-by: Amit Pundir <amit.pundir@linaro.org> # tested on Dragonboard 845c
+Fix this by closing GPR port after graph close is finished.
 
->
-> Fixes: 90848a2557fe ("ASoC: qcom: q6dsp: add support to more display ports")
-> Reported-by: Amit Pundir <amit.pundir@linaro.org>
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  sound/soc/qcom/qdsp6/q6afe-dai.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
-> index 31e0bad71e95..dbff55a97162 100644
-> --- a/sound/soc/qcom/qdsp6/q6afe-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
-> @@ -476,7 +476,7 @@ static int q6afe_mi2s_set_sysclk(struct snd_soc_dai *dai,
->
->  static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
->         {"HDMI Playback", NULL, "HDMI_RX"},
-> -       {"Display Port Playback", NULL, "DISPLAY_PORT_RX"},
-> +       {"DISPLAY_PORT_RX_0 Playback", NULL, "DISPLAY_PORT_RX"},
->         {"Slimbus Playback", NULL, "SLIMBUS_0_RX"},
->         {"Slimbus1 Playback", NULL, "SLIMBUS_1_RX"},
->         {"Slimbus2 Playback", NULL, "SLIMBUS_2_RX"},
-> --
-> 2.25.1
->
+Fixes: 5477518b8a0e ("ASoC: qdsp6: audioreach: add q6apm support")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ sound/soc/qcom/qdsp6/q6apm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+index 7bfac9492ab5..5d44d07acd69 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.c
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -511,6 +511,8 @@ static int graph_callback(struct gpr_resp_pkt *data, void *priv, int op)
+ 
+ 	switch (hdr->opcode) {
+ 	case DATA_CMD_RSP_WR_SH_MEM_EP_DATA_BUFFER_DONE_V2:
++		if (!graph->ar_graph)
++			break;
+ 		client_event = APM_CLIENT_EVENT_DATA_WRITE_DONE;
+ 		mutex_lock(&graph->lock);
+ 		token = hdr->token & APM_WRITE_TOKEN_MASK;
+@@ -544,6 +546,8 @@ static int graph_callback(struct gpr_resp_pkt *data, void *priv, int op)
+ 		wake_up(&graph->cmd_wait);
+ 		break;
+ 	case DATA_CMD_RSP_RD_SH_MEM_EP_DATA_BUFFER_V2:
++		if (!graph->ar_graph)
++			break;
+ 		client_event = APM_CLIENT_EVENT_DATA_READ_DONE;
+ 		mutex_lock(&graph->lock);
+ 		rd_done = data->payload;
+@@ -649,8 +653,9 @@ int q6apm_graph_close(struct q6apm_graph *graph)
+ {
+ 	struct audioreach_graph *ar_graph = graph->ar_graph;
+ 
+-	gpr_free_port(graph->port);
++	graph->ar_graph = NULL;
+ 	kref_put(&ar_graph->refcount, q6apm_put_audioreach_graph);
++	gpr_free_port(graph->port);
+ 	kfree(graph);
+ 
+ 	return 0;
+-- 
+2.25.1
+

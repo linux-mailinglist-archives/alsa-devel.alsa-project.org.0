@@ -2,105 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB6E674892D
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 18:27:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6564F748A5D
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 19:30:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCE333E7;
-	Wed,  5 Jul 2023 18:27:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCE333E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD2C574C;
+	Wed,  5 Jul 2023 19:29:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD2C574C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688574475;
-	bh=zRngUswDDjUkAq0whRYB/BwUdgXkOveiuP3S4rNRLKg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=WLi7PjUBaycQhgc4Ur/z5vFYvxSat9v4V5Bm1AWVVm5QjHrh/e91gSaNT+SVxSXn7
-	 Hh6oDqzkULIv9ZsVsWYGqdLoIR+rw2/9/GfJIJ4V64uBXo1y6KHMXU/D8z2StZTSRl
-	 cYkPGf+4zoVk84f7n0bTknmiuWnky2mR1423hedQ=
+	s=default; t=1688578213;
+	bh=ipB9VoTfdjKsCWpocgJOtvUzi5mrsYmAWuMlGbfayoA=;
+	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=aQxS5huPUO7uNIOzKdA0KismyOfBGBYoEXjsVah4KEUdVd/M45n5BpGRCKTqXtb0v
+	 F/OJLE53GTSjpSHSa/zpNfxZYNaxUi3tWPspAZPMRI75DoCyPI86aazj8Wc+zl+Y5i
+	 u4zm+6E/gYl2pzDfxGhZhUdoE5fxgvDv4TAUTorQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CE95EF8053B; Wed,  5 Jul 2023 18:27:04 +0200 (CEST)
+	id DC8D3F8055A; Wed,  5 Jul 2023 19:28:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EA9AF80124;
-	Wed,  5 Jul 2023 18:27:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29917F80558;
+	Wed,  5 Jul 2023 19:28:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7A9EEF80125; Wed,  5 Jul 2023 18:26:59 +0200 (CEST)
+	id 5334EF80125; Wed,  5 Jul 2023 19:28:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
- [IPv6:2001:4860:4864:20::34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 15DB1F80100
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 18:26:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15DB1F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2EDE8F80125
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 19:28:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EDE8F80125
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=dACqdluA
-Received: by mail-oa1-x34.google.com with SMTP id
- 586e51a60fabf-1b012c3ce43so5969312fac.3
-        for <alsa-devel@alsa-project.org>;
- Wed, 05 Jul 2023 09:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688574412; x=1691166412;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=BNUN1LyDtrUudoc7yqfmzgIHsmmaYOYd/qCnPyCLiZY=;
-        b=dACqdluAjxlZcLwqfbzoJBEK8v86zLgGo7Dij0qbplnSwW5xvS2UILpnyedymJarmj
-         QtRYTpRGqt7qUCPp3xzYyTGrcCDz868vlxHB8eTpbwC5pxGV6BcLhrTKbGgajin98v3j
-         JGKgQn47CUbe38MuBHKL72AmUxuVSw3cftb/GNic04d1EPcM5VfrZbE1w+8dBc+BKZxL
-         1JYSTqnbQA51qEv0yYBawyzcR0SxP/BogEBPNGTNzCsze8QOyjBvQfBVusTAtBLJ35sk
-         +6Un2iHgOCiEpcTdELFv2q8OIm4+srBVQWEAr0XEvkwNZvfRC59fx+Lfv8PUY7ql3g4E
-         sFZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688574412; x=1691166412;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BNUN1LyDtrUudoc7yqfmzgIHsmmaYOYd/qCnPyCLiZY=;
-        b=igREYdfRAl+8Vo60wQmdHvU2elsSnSfanc7fYrMkBSGyDtuJsqNYiWkO9M30cRRoqg
-         vvC27cl0CcM5GRULLgyB6Radia6sdhbbM/d3g3YwRlzwm70f4OAlQEuX22ZeeULpqHzP
-         BfggHrXw3Cr2aFw7KlOgvXYbfJtPf3hhk5J3Q2vY+uqIlILUA34B7v4FF/WBy2Nb3bqc
-         yoPM+dgHRKX79nbUMnhoxMRCBSEhPhfc8Q4+jPnTme5s6AOiEynMUfsxkwnOpXXvLLOV
-         enbpl2rkHy+zopC6nH54QvNe4lQTQYlFTKLtagpZdjzrGlemlKFDN0y1YUg6AjvoWoez
-         L2Cg==
-X-Gm-Message-State: AC+VfDwu2ZDpni8SoU6EndgUsBvj3SzFkfmF5dZF/wX2eJ7TSXwQJnyt
-	iT96BQXoIxsgJCoEO0mX44Q=
-X-Google-Smtp-Source: 
- ACHHUZ7KFqOaSAQQ+CzBwEtxbQDKAYOgWNyAYLimrEIB2wxYJy5c8zyqufbeIH7pRYPYxoG6RY0zNg==
-X-Received: by 2002:a05:6870:3e04:b0:196:8dc3:4e16 with SMTP id
- lk4-20020a0568703e0400b001968dc34e16mr16781179oab.39.1688574411684;
-        Wed, 05 Jul 2023 09:26:51 -0700 (PDT)
-Received: from geday ([2804:7f2:8002:4e4c:85d7:6b16:f905:6cb0])
-        by smtp.gmail.com with ESMTPSA id
- ma15-20020a056870fd8f00b001b011efb1ebsm2535697oab.0.2023.07.05.09.26.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Jul 2023 09:26:51 -0700 (PDT)
-Date: Wed, 5 Jul 2023 13:27:02 -0300
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-To: =?utf-8?B?QXVyw6lsaWVu?= <aurelien@ap2c.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: Garbage returned while reading unused S/PDIF, A CM106 like sound
- card
-Message-ID: <ZKWZ1l+fIBlEHELJ@geday>
-References: <5962046.lOV4Wx5bFT@antimony.ap2c.org>
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=O/EQFxcp
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 365FWsxt003059;
+	Wed, 5 Jul 2023 19:28:32 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=MIhovnbgvnMdNtHNxjg0wEK4d4BXCh9D4rqEom4bNLc=;
+ b=O/EQFxcpOihBGN4SRp2i4E0s5PwExEVaYYg33yZifbN58K9wNb75zntBCBYIp8VzHAuL
+ zIdKiETDjlsJsnfX6JYP3z5zxsommrO+m34V9Ip2dVf4weVqMjOB5/EVtgSVZ9uNovMi
+ T2IZ1XXDOW6kPHcfw+R4EX/XtvrwuhZWClNKnmfY88jwMyj8HM7gOSdho01gDK3J6cUT
+ 8WfZEsDQS/raoTmbzo+KGxiu7Cm1tNT1+epmyaLA41Feszf5s0z2I6bCeBKN1st7h/4M
+ hkVzC2Sp7tM3vNaQ9fJKbVk4LqXMie3tTC8KirRfrbnonMIierq+tjMwPTssjQf/ntUs Gw==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rn8c9t2d3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 05 Jul 2023 19:28:32 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 86C91100057;
+	Wed,  5 Jul 2023 19:28:30 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1D30824C42F;
+	Wed,  5 Jul 2023 19:28:30 +0200 (CEST)
+Received: from localhost (10.201.21.121) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 5 Jul
+ 2023 19:28:29 +0200
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
+        <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
+        <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
+        <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
+        <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
+        <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>
+CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>,
+        Gatien Chevallier
+	<gatien.chevallier@foss.st.com>
+Subject: [PATCH 00/10] Introduce STM32 Firewall framework
+Date: Wed, 5 Jul 2023 19:27:49 +0200
+Message-ID: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5962046.lOV4Wx5bFT@antimony.ap2c.org>
-Message-ID-Hash: CAUW4WTFSL6BIYL63Z6AGRWCGZMHGWWS
-X-Message-ID-Hash: CAUW4WTFSL6BIYL63Z6AGRWCGZMHGWWS
-X-MailFrom: geraldogabriel@gmail.com
+Content-Type: text/plain
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-05_09,2023-07-05_01,2023-05-22_02
+Message-ID-Hash: NTYNX5KEW47R67KOW3YXTSCGRYFOUR5H
+X-Message-ID-Hash: NTYNX5KEW47R67KOW3YXTSCGRYFOUR5H
+X-MailFrom: prvs=5550e8e426=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -112,7 +121,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CAUW4WTFSL6BIYL63Z6AGRWCGZMHGWWS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NTYNX5KEW47R67KOW3YXTSCGRYFOUR5H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,40 +130,131 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 04, 2023 at 08:06:04PM +0200, Aurélien wrote:
-> Hello,
+Introduce STM32 Firewall framework for STM32MP1x and STM32MP2x
+platforms. STM32MP1x(ETZPC) and STM32MP2x(RIFSC) Firewall controllers
+register to the framework to offer firewall services such as access
+granting.
 
-Hi Aurélien!
+This series of patches is a new approach on the previous STM32 system
+bus, history is available here:
+https://lore.kernel.org/lkml/20230127164040.1047583/
 
-> 
-> I encounter troubles while using S/PDIF input on an CM106 like sound card 
-> (vendor 0x0d8c, device 0x0102) when the remote device which is connected by S/
-> PDIF to the sound card is powered off.
-> In that case garbage data are reading from the S/PDIF rather than.. nothing
-> 
-> It is really boring since this S/PDIF input is connected to the output 
-> speakers and once the remote deviced is powered off it emits a really 
-> disturbing sound.
-> Since there is no input on the S/PDIF I guess that it could be a driver bug?
-> If it's an hardware bug (I don't encounter the problem under windows..) is it 
-> possible to make a hack in order to distinguish between real data and noise on 
-> the S/PDIF input?
-> 
-> Unfortunately this test is performed on an embedded device which runs linux 
-> 5.16.17-sun50iw6. I don't know if this problem still occurs with newer alsa 
-> version.
+The need for such framework arises from the fact that there are now
+multiple hardware firewalls implemented across multiple products.
+Drivers are shared between different products, using the same code.
+When it comes to firewalls, the purpose mostly stays the same: Protect
+hardware resources. But the implementation differs, and there are
+multiple types of firewalls: peripheral, memory, ... 
 
-This looks like a vendor (downstream) kernel. ALSA Project does not
-accept bug reports for vendor kernels. You must try to reproduce your
-issue with the latest mainline kernel.
+Some hardware firewall controllers such as the RIFSC implemented on
+STM32MP2x platforms may require to take ownership of a resource before
+being able to use it, hence the requirement for firewall services to
+take/release the ownership of such resources.
 
-Thanks,
-Geraldo Nascimento
+On the other hand, hardware firewall configurations are becoming
+more and more complex. These mecanisms prevent platform crashes
+or other firewall-related incoveniences by denying access to some
+resources.
 
-> 
-> Thank you in advance for your help.
-> Regards, 
-> 
-> Aurélien
-> 
-> 
+The stm32 firewall framework offers an API that is defined in
+firewall controllers drivers to best fit the specificity of each
+firewall.
+
+For every peripherals protected by either the ETZPC or the RIFSC, the
+firewall framework checks the firewall controlelr registers to see if
+the peripheral's access is granted to the Linux kernel. If not, the
+peripheral is configured as secure, the node is marked populated,
+so that the driver is not probed for that device.
+
+The firewall framework relies on the feature-domain-controller device
+tree bindings: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b.
+It is used by peripherals to reference a domain controller, in this
+case a firewall feature domain. The bus uses the ID referenced by
+the feature-domains property to know where to look in the firewall
+to get the security configuration for the peripheral. This allows
+a device tree description rather than a hardcoded peripheral table
+in the bus driver.
+
+The STM32 ETZPC device is responsible for filtering accesses based on
+security level, or co-processor isolation for any resource connected
+to it.
+
+The RIFSC is responsible for filtering accesses based on Compartment
+ID / security level / privilege level for any resource connected to
+it.
+
+STM32MP13/15/25 SoC device tree files are updated in this series to
+implement this mecanism.
+
+Oleksii Moisieiev (1):
+  dt-bindings: Document common device controller bindings
+
+Gatien Chevallier (9):
+  dt-bindings: bus: add device tree bindings for RIFSC
+  dt-bindings: bus: add device tree bindings for ETZPC
+  dt-bindings: treewide: add feature-domains description in binding
+    files
+  firewall: introduce stm32_firewall framework
+  bus: rifsc: introduce RIFSC firewall controller driver
+  arm64: dts: st: add RIFSC as a domain controller for STM32MP25x boards
+  bus: etzpc: introduce ETZPC firewall controller driver
+  ARM: dts: stm32: add ETZPC as a system bus for STM32MP15x boards
+  ARM: dts: stm32: add ETZPC as a system bus for STM32MP13x boards
+
+ .../bindings/bus/st,stm32-etzpc.yaml          |   90 +
+ .../bindings/bus/st,stm32-rifsc.yaml          |  101 +
+ .../bindings/crypto/st,stm32-hash.yaml        |    4 +
+ .../devicetree/bindings/dma/st,stm32-dma.yaml |    4 +
+ .../bindings/dma/st,stm32-dmamux.yaml         |    4 +
+ .../feature-domain-controller.yaml            |   84 +
+ .../devicetree/bindings/i2c/st,stm32-i2c.yaml |    4 +
+ .../bindings/iio/adc/st,stm32-adc.yaml        |    4 +
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  |    4 +
+ .../bindings/iio/dac/st,stm32-dac.yaml        |    4 +
+ .../bindings/media/cec/st,stm32-cec.yaml      |    4 +
+ .../bindings/media/st,stm32-dcmi.yaml         |    4 +
+ .../memory-controllers/st,stm32-fmc2-ebi.yaml |    4 +
+ .../bindings/mfd/st,stm32-lptimer.yaml        |    4 +
+ .../bindings/mfd/st,stm32-timers.yaml         |    5 +
+ .../devicetree/bindings/mmc/arm,pl18x.yaml    |    4 +
+ .../devicetree/bindings/net/stm32-dwmac.yaml  |    4 +
+ .../bindings/phy/phy-stm32-usbphyc.yaml       |    4 +
+ .../bindings/regulator/st,stm32-vrefbuf.yaml  |    4 +
+ .../devicetree/bindings/rng/st,stm32-rng.yaml |    4 +
+ .../bindings/serial/st,stm32-uart.yaml        |    4 +
+ .../bindings/sound/st,stm32-i2s.yaml          |    4 +
+ .../bindings/sound/st,stm32-sai.yaml          |    4 +
+ .../bindings/sound/st,stm32-spdifrx.yaml      |    4 +
+ .../bindings/spi/st,stm32-qspi.yaml           |    4 +
+ .../devicetree/bindings/spi/st,stm32-spi.yaml |    4 +
+ .../devicetree/bindings/usb/dwc2.yaml         |    4 +
+ MAINTAINERS                                   |    7 +
+ arch/arm/boot/dts/st/stm32mp131.dtsi          | 1027 +++---
+ arch/arm/boot/dts/st/stm32mp133.dtsi          |   51 +-
+ arch/arm/boot/dts/st/stm32mp13xc.dtsi         |   19 +-
+ arch/arm/boot/dts/st/stm32mp13xf.dtsi         |   19 +-
+ arch/arm/boot/dts/st/stm32mp151.dtsi          | 2757 +++++++++--------
+ arch/arm/boot/dts/st/stm32mp153.dtsi          |   52 +-
+ arch/arm/boot/dts/st/stm32mp15xc.dtsi         |   19 +-
+ arch/arm64/Kconfig.platforms                  |    1 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |    5 +-
+ drivers/bus/Kconfig                           |   10 +
+ drivers/bus/Makefile                          |    1 +
+ drivers/bus/stm32_etzpc.c                     |  137 +
+ drivers/bus/stm32_firewall.c                  |  252 ++
+ drivers/bus/stm32_firewall.h                  |   83 +
+ drivers/bus/stm32_rifsc.c                     |  248 ++
+ include/linux/bus/stm32_firewall_device.h     |  134 +
+ 44 files changed, 3276 insertions(+), 1918 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
+ create mode 100644 Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
+ create mode 100644 drivers/bus/stm32_etzpc.c
+ create mode 100644 drivers/bus/stm32_firewall.c
+ create mode 100644 drivers/bus/stm32_firewall.h
+ create mode 100644 drivers/bus/stm32_rifsc.c
+ create mode 100644 include/linux/bus/stm32_firewall_device.h
+
+-- 
+2.25.1
+

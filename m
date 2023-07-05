@@ -2,83 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A2BD7488DD
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 18:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66F42748913
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 18:18:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 566DB83A;
-	Wed,  5 Jul 2023 18:05:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 566DB83A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6E8E203;
+	Wed,  5 Jul 2023 18:17:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6E8E203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688573207;
-	bh=CTAvb6JMEf73tIiPsKFyvyNZoYYTcypUwmV94CiGldw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
+	s=default; t=1688573881;
+	bh=GeYO4hEs6xDOK/p1n1fFk3HqkeUFQ9DVjoLNHuXTWGQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nvXpiyG30B71F0M1XNMcvkv4DRJx1R3AwsojyiUoGCl+G5dlLQ4nVrRo4pvtVfx+0
-	 WoWcqIogmqlYCqsCn+a9t4lTsh4BT1iF72iMiRd3RnpX9wQMP6F2Gw8eOpU8nTXgh/
-	 kKtqGB4uHJ+vsA6uxPl1loqXT0iaGw2hAhzcFQes=
+	b=dLP+iASj9buv1C9dq8Jq4kqVqhzuOJR2BNkQtqsOfsDge2CC+QID1yHyVZGa2Dm1O
+	 aim8ENrVjptNDV+mstjyL3AfhqferiGcPD/2CqQ01rhu2LZ4xfe6c7o2Y5OW9Wl4a3
+	 RkDrCvGvl4CNoT2bvHDlNFxI8G/jp12XKvNLH77M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CA7BBF80535; Wed,  5 Jul 2023 18:05:24 +0200 (CEST)
+	id A8F20F8025F; Wed,  5 Jul 2023 18:16:49 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 996FBF80544;
-	Wed,  5 Jul 2023 18:05:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDA71F80124;
+	Wed,  5 Jul 2023 18:16:48 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F18AF80125; Wed,  5 Jul 2023 18:05:20 +0200 (CEST)
+	id 9743BF80125; Wed,  5 Jul 2023 18:16:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E7C2FF80100
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 18:05:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7C2FF80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0226EF80104
+	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 18:16:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0226EF80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=g0bUY8Th
+ header.s=k20201202 header.b=AwgiDq76
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6DD5C61543;
-	Wed,  5 Jul 2023 16:05:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B50DC433CA;
-	Wed,  5 Jul 2023 16:05:08 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id EE6C661342;
+	Wed,  5 Jul 2023 16:16:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08AEC433C8;
+	Wed,  5 Jul 2023 16:16:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688573110;
-	bh=CTAvb6JMEf73tIiPsKFyvyNZoYYTcypUwmV94CiGldw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=g0bUY8Th4vWaYNWwyLz7jTJPy3ZDM6KoOBH8ukFXwhB3KGyk71f1koc/tz34wTTH1
-	 DThD7v22L3L/U5eoWMyqP+9X4kpeiE+7qgStYWmEJF4tiRLaLyLcqcsXeKbVT7HOAe
-	 tQbtpc6EFEI780FDnqbC8BvZcQyf/Jf+pKe9nVJ1rlRhqsP3AoNGPuC6L23+EKwc6Z
-	 P0NdV1rJdTLVXlQYTrkvD/BlN34aCA3rVj5Gub0QkZejwIqX8iaeHYsqNy/gVqh2hf
-	 HRwKln3IA6VP8UspUNp8HtWpTZiev5fwPjRDNjj1PQ2d6MeXs1WwiVR+7yLEJ1uLT9
-	 /nExiyC2UH4Pw==
+	s=k20201202; t=1688573799;
+	bh=GeYO4hEs6xDOK/p1n1fFk3HqkeUFQ9DVjoLNHuXTWGQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AwgiDq7611IvY8AjeW2W+C4dKuQWb1y8pGtbXxWXJgopfGLg4YXY6wy/wZZN9q/xu
+	 hCI+qDM+72j4PzE4r8kjFyybE96Yek5lzGw5EcXvhEtATVEIAAmrgdzGhYV+jyA9DW
+	 48qPHw/xXbaYsHEfZNhjnNaJ8jCJzPHFxhhNKjf6/UV1tUTx0QR4jddZoWbG8WvtCD
+	 EPx0TvXxq20B8Z4wBNzgyW4fpAawzi5fI9yHxmDpIkgSywRWs+hEJNVnrntmxLX+j5
+	 RmVrOmfnv38XBoQtxH+jcBO7Z/n20H33fCMlzy8d8PFeCjHVs/JLnJoJJ/o1yxNj8b
+	 sXEpg/g/6hiBA==
+Date: Wed, 5 Jul 2023 17:16:33 +0100
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, shumingf@realtek.com
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
- cychiang@google.com
-In-Reply-To: <20230705042915.24932-1-shumingf@realtek.com>
-References: <20230705042915.24932-1-shumingf@realtek.com>
-Subject: Re: [PATCH 2/3] ASoC: rt5645: check return value after reading
- device id
-Message-Id: <168857310884.55162.3076080568171850157.b4-ty@kernel.org>
-Date: Wed, 05 Jul 2023 17:05:08 +0100
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Arnd Bergmann <arnd@arndb.de>, Randy Dunlap <rdunlap@infradead.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: Re: [PATCH v2 3/3] ASoC: amd: vangogh: Add support for
+ NAU8821/MAX98388 variant
+Message-ID: <a414b971-381b-4695-9ba4-d2c777bff330@sirena.org.uk>
+References: <20230705134341.175889-1-cristian.ciocaltea@collabora.com>
+ <20230705134341.175889-4-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: KZBCADCYP4VKHUD37IXJIDCM3B2PMZC4
-X-Message-ID-Hash: KZBCADCYP4VKHUD37IXJIDCM3B2PMZC4
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ov8aIt3YF8eAYNFc"
+Content-Disposition: inline
+In-Reply-To: <20230705134341.175889-4-cristian.ciocaltea@collabora.com>
+X-Cookie: Don't feed the bats tonight.
+Message-ID-Hash: BRWIUWBGL77JTGFEJYGZH3O5JECFAV6V
+X-Message-ID-Hash: BRWIUWBGL77JTGFEJYGZH3O5JECFAV6V
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KZBCADCYP4VKHUD37IXJIDCM3B2PMZC4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BRWIUWBGL77JTGFEJYGZH3O5JECFAV6V/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,37 +108,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 05 Jul 2023 12:29:14 +0800, shumingf@realtek.com wrote:
-> If the I2C controller encounters some problems like timed-out, the codec
-> driver will report the error code for the first read.
-> 
-> 
 
-Applied to
+--ov8aIt3YF8eAYNFc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+On Wed, Jul 05, 2023 at 04:43:41PM +0300, Cristian Ciocaltea wrote:
 
-Thanks!
+> +static int acp5x_max98388_hw_params(struct snd_pcm_substream *substream,
+> +				    struct snd_pcm_hw_params *params)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
+> +	struct snd_soc_dai *dai = snd_soc_card_get_codec_dai(rtd->card,
+> +							     ACP5X_MAX98388_DAI_NAME);
+> +	int ret;
+> +
+> +	ret = snd_soc_dai_set_fmt(dai,
+> +				  SND_SOC_DAIFMT_CBS_CFS | SND_SOC_DAIFMT_I2S |
+> +				  SND_SOC_DAIFMT_NB_NF);
+> +	if (ret < 0)
+> +		dev_err(dai->dev, "Failed to set format: %d\n", ret);
+> +
+> +	return ret;
+> +}
 
-[2/3] ASoC: rt5645: check return value after reading device id
-      commit: bf62eec5cdecbe7eeab02407da98f36cd7b1dea7
+This never varies, why not just set it up statically in the dai_link?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+--ov8aIt3YF8eAYNFc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-----BEGIN PGP SIGNATURE-----
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSll2EACgkQJNaLcl1U
+h9BLLQf5AXp0pzyXPku8zlANe/5Bg+G+xI8VK0dpRTbhe2rDvtHwHsmTBIcTmLfZ
+XNv2UEuQwYYaegA6aXufWlK43fbE2GR6TyA3APAsPSRaUf6rzGCmxC8tp4fPsvxA
+9UIEY0VlAZAo/nTTfIdChqLiN1lUnZblGX6dLiZTsO52Ab734FEXf4ULlsR9b6bk
+uVErEGnYAh9vbgRb87ztzp0IOlMumX9mgfLojCx8srQkETvrzS2N5yzmBlEJDa7s
+wdtw7152EEwJiR3wIUiZULcfbLDIRiuc/k8BKRt05Ja8gZCxi2TwZ9OvVIJtmLHP
+SwqXo1B1+3QraZpAIYQfdDUwFsV/og==
+=WIYi
+-----END PGP SIGNATURE-----
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+--ov8aIt3YF8eAYNFc--

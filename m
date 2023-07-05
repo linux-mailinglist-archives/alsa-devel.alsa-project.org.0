@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA40B7486AC
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 16:44:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1C0174868E
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 16:40:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFC4E83B;
-	Wed,  5 Jul 2023 16:43:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFC4E83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18D5D84A;
+	Wed,  5 Jul 2023 16:40:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18D5D84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688568246;
-	bh=MrLDHbklUKpi6qXlkICOurQQLrWotMYZG6zKJgQAjAY=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Ad3W0VSioyIWs5q8qm/J+kmvpTJHU6oHo452y8ZGyLx+gGi9d3PD0CCSxvFJO6N39
-	 sZ/TpMKrNeTYYTanf0HV6Qv54HGOqpP5PHtpO12pZAtBHITTYZZzZ8L7inJVcPWvh2
-	 6vRWBBRNadA9XdBhdqsUAXDwkbmsw7dMKAS6YX9s=
+	s=default; t=1688568052;
+	bh=CMTp5PjcrdGB1YgiokfJfbw4f+gtghxZ4pFtHuNvMII=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=HfHPFVVBRSve3JM7fM+uf0skFtpySEQlCb2nwkDAWi/iZtarY/K5sKv5IgDDypBRZ
+	 zyVf3+9SHgDACsnOh7tquzVmk7/tB2GctG96hYBRsKZeg66MJ5t39IQrmptlAYCwNC
+	 K6h1rN3utVPD2qjJ+JU00F3R/0mE4yNJ+2lgol+w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7C3BDF80589; Wed,  5 Jul 2023 16:41:49 +0200 (CEST)
+	id D3156F80571; Wed,  5 Jul 2023 16:39:12 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E297BF80589;
-	Wed,  5 Jul 2023 16:41:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67402F8055C;
+	Wed,  5 Jul 2023 16:39:12 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1743AF80125; Wed,  5 Jul 2023 14:35:12 +0200 (CEST)
+	id 0E61AF80548; Wed,  5 Jul 2023 14:33:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DC10AF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8ACE9F800E4
 	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 14:33:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC10AF80153
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8ACE9F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=m+8kTaSA
+ header.s=k20201202 header.b=L0Dgj5tm
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 1CA0F61510;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 200B061553;
 	Wed,  5 Jul 2023 12:33:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F125C433C9;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83AA8C433CA;
 	Wed,  5 Jul 2023 12:33:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1688560389;
-	bh=MrLDHbklUKpi6qXlkICOurQQLrWotMYZG6zKJgQAjAY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=m+8kTaSAKikKHrGf9TO3qYgpRMU149MjjocmjN6KKUPV8qFkr5/0Cv7qcumfx3Zsq
-	 fhOoBHzADQCEjcoN7P2rQcBbA2RfYUFchFgYcEDjrQdoGaRpluo0tgpsbNX0EKF4W1
-	 oOhpnwmNsskUGHLolkrqjHovCh+WQobWCDMP7CxW0EduDR08SRkKsZ7z8PxIUJqvae
-	 ZjG2Q0h9sIY0v1Hdcng2TMzeexs4e2RWKWPgTnPuDa5Ykm1TrzeNIbsJTpe8SJEYur
-	 gWdybdcNAKI9ULO9sjYB0fOUHCgtQ2I1UdgzQxf/FBzzvg0x02OSK/w+edNm3HeSZh
-	 ahFg3YJg42uKQ==
+	bh=CMTp5PjcrdGB1YgiokfJfbw4f+gtghxZ4pFtHuNvMII=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=L0Dgj5tmXqHoyyYmXI4/RmaTjUN4wyzU/xOCwCBvvGoE39qgLwvw+J1h106R3nsDs
+	 Sef6fGSlgU22yQq+WQMbyo9fpKjJiBIMrTbYCxBXWou4lKdL5kFZ6b4IBLSP0/T2A3
+	 uqoVQUKZd6PlWEPqZE+n6mw0SJbDbCbssW5sgI3z9/5jwEDHeQIto4znL7GBKASZgW
+	 FAhE0hSZ0ngFp3V44O8SMuKy+rHr743Uz5Ci4GeaIhkMbTCXU3Nl/w0MvM7SRsFbST
+	 KxcuBFBhR9Lfvz0mvlhZGOBNNNv6ojq8fZzldhjMt9Y1u1t89wnokWr25IGUghR+7M
+	 21ZSaShu23tpg==
 Received: from johan by xi.lan with local (Exim 4.96)
 	(envelope-from <johan+linaro@kernel.org>)
-	id 1qH1hK-000846-03;
+	id 1qH1hK-000848-0Q;
 	Wed, 05 Jul 2023 14:33:30 +0200
 From: Johan Hovold <johan+linaro@kernel.org>
 To: Mark Brown <broonie@kernel.org>,
@@ -78,11 +79,15 @@ Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Takashi Iwai <tiwai@suse.com>,
 	alsa-devel@alsa-project.org,
 	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan+linaro@kernel.org>
-Subject: [PATCH 0/8] ASoC/soundwire/qdsp6/wcd: fix leaks and probe deferral
-Date: Wed,  5 Jul 2023 14:30:10 +0200
-Message-Id: <20230705123018.30903-1-johan+linaro@kernel.org>
+	Johan Hovold <johan+linaro@kernel.org>,
+	stable@vger.kernel.org,
+	Rander Wang <rander.wang@linux.intel.com>
+Subject: [PATCH 1/8] soundwire: fix enumeration completion
+Date: Wed,  5 Jul 2023 14:30:11 +0200
+Message-Id: <20230705123018.30903-2-johan+linaro@kernel.org>
 X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20230705123018.30903-1-johan+linaro@kernel.org>
+References: <20230705123018.30903-1-johan+linaro@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-MailFrom: johan+linaro@kernel.org
@@ -91,15 +96,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: MP5VFKVK6445GKN33NX6E6YQ7RPKDIL2
-X-Message-ID-Hash: MP5VFKVK6445GKN33NX6E6YQ7RPKDIL2
-X-Mailman-Approved-At: Wed, 05 Jul 2023 14:41:38 +0000
+Message-ID-Hash: DJXTWZVQ5WC24CORVYW7Q45A46JJ72CO
+X-Message-ID-Hash: DJXTWZVQ5WC24CORVYW7Q45A46JJ72CO
+X-Mailman-Approved-At: Wed, 05 Jul 2023 14:39:06 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MP5VFKVK6445GKN33NX6E6YQ7RPKDIL2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DJXTWZVQ5WC24CORVYW7Q45A46JJ72CO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -108,71 +113,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-I've been hitting a race during boot which breaks probe of the sound
-card on the Lenovo ThinkPad X13s as I've previously reported here:
+The soundwire subsystem uses two completion structures that allow
+drivers to wait for soundwire device to become enumerated on the bus and
+initialised by their drivers, respectively.
 
-	https://lore.kernel.org/all/ZIHMMFtuDtvdpFAZ@hovoldconsulting.com/
+The code implementing the signalling is currently broken as it does not
+signal all current and future waiters and also uses the wrong
+reinitialisation function, which can potentially lead to memory
+corruption if there are still waiters on the queue.
 
-The immediate issue appeared to be a probe deferral that was turned into
-a hard failure, but addressing that in itself only made things worse as
-it exposed further bugs.
+Not signalling future waiters specifically breaks sound card probe
+deferrals as codec drivers can not tell that the soundwire device is
+already attached when being reprobed. Some codec runtime PM
+implementations suffer from similar problems as waiting for enumeration
+during resume can also timeout despite the device already having been
+enumerated.
 
-I was hoping someone more familiar with the code in question would look
-into this, but as this affects users of the X13s and breaks audio on my
-machine every fifth boot or so, I decided to investigate it myself.
+Fixes: fb9469e54fa7 ("soundwire: bus: fix race condition with enumeration_complete signaling")
+Fixes: a90def068127 ("soundwire: bus: fix race condition with initialization_complete signaling")
+Cc: stable@vger.kernel.org      # 5.7
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Rander Wang <rander.wang@linux.intel.com>
+Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
+---
+ drivers/soundwire/bus.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-As expected, the Qualcomm codec drivers are broken and specifically leak
-resources on component remove, which in turn breaks sound card probe
-deferrals.
-
-The source of the deferral itself appears to be legitimate and was
-simply due to some audio component not yet having been registered due to
-random changes in timing during boot.
-
-These issues can most easily be reproduced by simply blacklisting the
-q6apm_dai module and loading it manually after boot.
-
-The sound card probe deferral also exposes a bug in the soundwire
-subsystem, which uses completion structures for signalling that a device
-has been enumerated on the bus and initialised. The way this is
-implemented prevents reprobed codec drivers from learning that the
-soundwire devices are still attached, which causes probe to fail.
-
-Included are also two patches that suppresses error messages on
-component probe deferral to avoid spamming the logs during boot.
-
-These patches should preferably all go through the ASoC tree even if
-merging the soundwire fix separately also works.
-
-Note the ASoC tree already has the following related fixes:
-
-	https://lore.kernel.org/lkml/20230630120318.6571-1-johan+linaro@kernel.org/
-	https://lore.kernel.org/lkml/20230630142717.5314-1-johan+linaro@kernel.org/
-	https://lore.kernel.org/lkml/20230701094723.29379-1-johan+linaro@kernel.org/
-	https://lore.kernel.org/lkml/20230703124701.11734-1-johan+linaro@kernel.org/
-
-Johan
-
-
-Johan Hovold (8):
-  soundwire: fix enumeration completion
-  ASoC: qdsp6: audioreach: fix topology probe deferral
-  ASoC: codecs: wcd938x: fix missing clsh ctrl error handling
-  ASoC: codecs: wcd938x: fix resource leaks on component remove
-  ASoC: codecs: wcd934x: fix resource leaks on component remove
-  ASoC: codecs: wcd-mbhc-v2: fix resource leaks on component remove
-  ASoC: topology: suppress probe deferral errors
-  ASoC: core: suppress probe deferral errors
-
- drivers/soundwire/bus.c         |  8 ++---
- sound/soc/codecs/wcd-mbhc-v2.c  | 57 ++++++++++++++++++++++---------
- sound/soc/codecs/wcd934x.c      | 12 +++++++
- sound/soc/codecs/wcd938x.c      | 59 +++++++++++++++++++++++++++++----
- sound/soc/qcom/qdsp6/topology.c |  4 +--
- sound/soc/soc-core.c            |  6 ++--
- sound/soc/soc-topology.c        | 10 ++++--
- 7 files changed, 122 insertions(+), 34 deletions(-)
-
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 1ea6a64f8c4a..66e5dba919fa 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -908,8 +908,8 @@ static void sdw_modify_slave_status(struct sdw_slave *slave,
+ 			"initializing enumeration and init completion for Slave %d\n",
+ 			slave->dev_num);
+ 
+-		init_completion(&slave->enumeration_complete);
+-		init_completion(&slave->initialization_complete);
++		reinit_completion(&slave->enumeration_complete);
++		reinit_completion(&slave->initialization_complete);
+ 
+ 	} else if ((status == SDW_SLAVE_ATTACHED) &&
+ 		   (slave->status == SDW_SLAVE_UNATTACHED)) {
+@@ -917,7 +917,7 @@ static void sdw_modify_slave_status(struct sdw_slave *slave,
+ 			"signaling enumeration completion for Slave %d\n",
+ 			slave->dev_num);
+ 
+-		complete(&slave->enumeration_complete);
++		complete_all(&slave->enumeration_complete);
+ 	}
+ 	slave->status = status;
+ 	mutex_unlock(&bus->bus_lock);
+@@ -1941,7 +1941,7 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
+ 				"signaling initialization completion for Slave %d\n",
+ 				slave->dev_num);
+ 
+-			complete(&slave->initialization_complete);
++			complete_all(&slave->initialization_complete);
+ 
+ 			/*
+ 			 * If the manager became pm_runtime active, the peripherals will be
 -- 
 2.39.3
 

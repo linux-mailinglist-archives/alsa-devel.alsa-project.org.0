@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E83748A75
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 19:31:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83DC1748A58
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jul 2023 19:29:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D96A0A4B;
-	Wed,  5 Jul 2023 19:31:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D96A0A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8E4E1F4;
+	Wed,  5 Jul 2023 19:28:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8E4E1F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688578313;
-	bh=Wgl8pR45B4mtAT+H+HRvKbGUNTrQSnwuIISbEBzaICI=;
+	s=default; t=1688578188;
+	bh=rYr6VAbqyrf+sxTztNuoApn/dQHo9M4//o4ZryUxxo0=;
 	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pGrhTSOQd+HZFrp/wbx+UxzFih8tuJ/NZAUnZc20gxNfPNz6M7iTkSFQ2CIzhHAfZ
-	 PFdBAcgMMSQ6GKIYzlO6/av28iIk/otvy2nNVWQIFs/7IXSYGdJY54QkzrdvL1451A
-	 r73S0qJnizVAsn2etv1jRryc4D0aIDHJUfcmKTNM=
+	b=uEx19OTLY5LpUhXmy66mJl1HWZww6Lkg35aDG+lYOygSc74Ij9LBwl+SBFRX00IeB
+	 5nmv7ESIY76N6W/c24+SojvqbWehKnGfS3eWkgrm+xow4A2WA3Uuq96MGZ6kkkq10g
+	 NHvZvuGJ9vCt1Hg1ZAPxHSRRlmAG6QLMDpC3e/9k=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 149F0F805B6; Wed,  5 Jul 2023 19:30:13 +0200 (CEST)
+	id F3DD3F80535; Wed,  5 Jul 2023 19:28:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DDECF80563;
-	Wed,  5 Jul 2023 19:30:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59035F8025F;
+	Wed,  5 Jul 2023 19:28:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2F308F80272; Wed,  5 Jul 2023 19:30:07 +0200 (CEST)
+	id E19DAF80272; Wed,  5 Jul 2023 19:28:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 30F67F80132
+	by alsa1.perex.cz (Postfix) with ESMTPS id 27198F80104
 	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 19:28:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30F67F80132
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27198F80104
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=oykazVai
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ header.s=selector1 header.b=tlYJ8bAB
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
 	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 365F7wr6011031;
+ 365ELI4l007752;
 	Wed, 5 Jul 2023 19:28:32 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=0cp0phFAXBpBnqUWpQvooHZl0xVcG7c1RiTscXT/M+o=;
- b=oykazVaiSgS7Ds6UFk9nS1pYtqiKZbjUXBkbNDpPe3Lrqf1OzDClGBQ/fhX2ODBc3dcI
- pcW7HhsM3J3slbVHYCNBzGOnmhTWXqUT6CgFV3NZSVHpTfVEq6PDhyuBSfoOZzyoij5Z
- fGIwAOFLVViLIkZeTIdykx1WjcC+xlce8eXsw8jRHeK+cbbK79oL7yuzRXHhViNpf8NC
- aog7j73knzF+bE0M06Nn6R2svhLS8DZNwo6fB4oNPWw6bfqXrmZr50/MIdQxYAJw/aH+
- hFO2BRk6Fvp/BkXo+ZeGpI0UZJY1qwX0YBKq0F8Qey263oZpmBwRYH2Lx+AZ/E3UBMio YA==
+ bh=R+Z7Pl439e9+R/OYQcTq/KrptBdKV0UCpQ0mjty63sk=;
+ b=tlYJ8bAB1TUj0LwFVbPDnHnNsQsPEKDYc7RIdUFugmNIoLHfC9MaAgyosgyAvqii/B6R
+ 5qrcoTg3Q6k/I56I0OzVx2vgYM9cPbcocO8TE8ndfp4La2vhrI+bGU3jccxQdu7LWrdq
+ D6LgARFUY19H5DB81M8iSFUJVQN7j5WgUupSW271GTZo0D9jYqYEMi8hyi5mccSJlFQ8
+ Ykw4TM4uYhbwykn3MxO7MsXVFGtEITcCpk7yMWdHWZo41ha4KeIlnHVoRO8P1gM52J3u
+ oZvaUz6AtUMiOHaAFIhelP5FcJvRrCChR+aan2ciYmXxdwF3AdnR0PYOib6sbU07oiCK 4w==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rn7wp29a4-1
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rna75h3xb-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 05 Jul 2023 19:28:32 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A822010005E;
-	Wed,  5 Jul 2023 19:28:30 +0200 (CEST)
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 084AA100060;
+	Wed,  5 Jul 2023 19:28:32 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9AE9524C432;
-	Wed,  5 Jul 2023 19:28:30 +0200 (CEST)
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F0C3224C433;
+	Wed,  5 Jul 2023 19:28:31 +0200 (CEST)
 Received: from localhost (10.201.21.121) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 5 Jul
- 2023 19:28:30 +0200
+ 2023 19:28:31 +0200
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
 To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
         <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
@@ -93,11 +93,11 @@ CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
         <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
         <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
         <linux-usb@vger.kernel.org>,
-        Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-Subject: [IGNORE][PATCH 01/10] dt-bindings: Document common device controller
- bindings
-Date: Wed, 5 Jul 2023 19:27:50 +0200
-Message-ID: <20230705172759.1610753-2-gatien.chevallier@foss.st.com>
+        Gatien Chevallier
+	<gatien.chevallier@foss.st.com>
+Subject: [PATCH 02/10] dt-bindings: bus: add device tree bindings for RIFSC
+Date: Wed, 5 Jul 2023 19:27:51 +0200
+Message-ID: <20230705172759.1610753-3-gatien.chevallier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
 References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
@@ -110,8 +110,8 @@ X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-07-05_09,2023-07-05_01,2023-05-22_02
-Message-ID-Hash: VWN7SAFPNTSIV3HCFY5BE4BX7XIELPVZ
-X-Message-ID-Hash: VWN7SAFPNTSIV3HCFY5BE4BX7XIELPVZ
+Message-ID-Hash: EPXUJI4KH44UW3QQGZHGPAHUBX3DMHCX
+X-Message-ID-Hash: EPXUJI4KH44UW3QQGZHGPAHUBX3DMHCX
 X-MailFrom: prvs=5550e8e426=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -124,7 +124,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VWN7SAFPNTSIV3HCFY5BE4BX7XIELPVZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EPXUJI4KH44UW3QQGZHGPAHUBX3DMHCX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,111 +133,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Document RIFSC (RIF security controller). RIFSC is a firewall controller
+composed of different kinds of hardware resources.
 
-Introducing of the common device controller bindings for the controller
-provider and consumer devices. Those bindings are intended to allow
-divided system on chip into muliple domains, that can be used to
-configure hardware permissions.
-
-Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
 ---
+ .../bindings/bus/st,stm32-rifsc.yaml          | 101 ++++++++++++++++++
+ 1 file changed, 101 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
 
-Depends-on: https://lore.kernel.org/lkml/c869d2751125181a55bc8a88c96e3a892b42f37a.1668070216.git.oleksii_moisieiev@epam.com/
-
- .../feature-domain-controller.yaml            | 84 +++++++++++++++++++
- 1 file changed, 84 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
-
-diff --git a/Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml b/Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
+diff --git a/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml b/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
 new file mode 100644
-index 000000000000..90a7c38c833c
+index 000000000000..68d585ed369c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/feature-controllers/feature-domain-controller.yaml
-@@ -0,0 +1,84 @@
++++ b/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
+@@ -0,0 +1,101 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/feature-controllers/feature-domain-controller.yaml#
++$id: http://devicetree.org/schemas/bus/st,stm32-rifsc.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Generic Domain Controller bindings
++title: STM32 Resource isolation framework security controller bindings
 +
 +maintainers:
-+  - Oleksii Moisieiev <oleksii_moisieiev@epam.com>
++  - Gatien Chevallier <gatien.chevallier@foss.st.com>
 +
-+description: |+
-+  Common Feature Domains Controller bindings properties
++description: |
++  Resource isolation framework (RIF) is a comprehensive set of hardware blocks
++  designed to enforce and manage isolation of STM32 hardware resources like
++  memory and peripherals.
 +
-+  Domain controllers allow to divided system on chip into multiple feature
-+  domains that can be used to select by who hardware blocks could be accessed.
-+  A feature domain could be a cluster of CPUs (or coprocessors), a range of
-+  addresses or a group of hardware blocks.
-+
-+  This device tree bindings can be used to bind feature domain consumer devices
-+  with their feature domains provided by feature-domains controllers.
-+  Feature omain controller provider can be represened by any node in the
-+  device tree and can provide one or more configuration parameters, needed to
-+  control parameters of the consumer device. A consumer node can refer to the
-+  provider by phandle and a set of phandle arguments, specified by
-+  '#feature-domain-cells' property in the device controller provider node.
-+
-+  Device controllers are typically used to set the permissions of the hardware
-+  block. The contents of the feature-domains configuration properties are
-+  defined by the binding for the individual feature-domains controller device.
-+
-+  Each node can be a consumer for the several providers. The first
-+  configuration of 'feature-domains' or the one named 'default' is applied
-+  before probing the device itself.
-+
-+# always select the core schema
-+select: true
++  The RIFSC (RIF security controller) is composed of three sets of registers,
++  each managing a specific set of hardware resources:
++    - RISC registers associated with RISUP logic (resource isolation device unit
++      for peripherals), assign all non-RIF aware peripherals to zero, one or
++      any security domains (secure, privilege, compartment).
++    - RIMC registers: associated with RIMU logic (resource isolation master
++      unit), assign all non RIF-aware bus master to one security domain by
++      setting secure, privileged and compartment information on the system bus.
++      Alternatively, the RISUP logic controlling the device port access to a
++      peripheral can assign target bus attributes to this peripheral master port
++      (supported attribute: CID).
++    - RISC registers associated with RISAL logic (resource isolation device unit
++      for address space - Lite version), assign address space subregions to one
++      security domains (secure, privilege, compartment).
 +
 +properties:
-+  '#feature-domain-cells':
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Number of cells in a feature-domains controller specifier;
-+      Can be any value as specified by device tree binding documentation
-+      of a particular provider.
++  compatible:
++    const: st,stm32mp25-rifsc
 +
-+  feature-domain-controller:
-+    description:
-+      Indicates that the node is feature-domain-controller provider.
++  reg:
++    maxItems: 1
 +
-+  feature-domain-names:
-+    $ref: '/schemas/types.yaml#/definitions/string-array'
-+    description:
-+      A list of feature-domains names, sorted in the same order as
-+      feature-domains entries. Consumer drivers will use feature-domain-names
-+      to match with existing feature-domains entries.
++  "#address-cells":
++    const: 1
 +
-+  feature-domains:
-+    $ref: "/schemas/types.yaml#/definitions/phandle-array"
-+    description:
-+      A list of feature-domains controller specifiers, as defined by the
-+      bindings of the feature-domain-controller provider.
++  "#size-cells":
++    const: 1
 +
-+additionalProperties: true
++  "#feature-domain-cells":
++    const: 1
++
++  ranges: true
++
++  feature-domain-controller: true
++
++patternProperties:
++  "^.*@[0-9a-f]+$":
++    description: Peripherals
++    type: object
++    properties:
++      feature-domains:
++        minItems: 1
++        maxItems: 2
++        description:
++          The first argument must always be a phandle that references to the
++          firewall controller of the peripheral. The second can contain the
++          platform specific firewall ID of the peripheral.
++
++required:
++  - compatible
++  - reg
++  - "#address-cells"
++  - "#size-cells"
++  - feature-domain-controller
++  - "#feature-domain-cells"
++  - ranges
++
++additionalProperties: false
 +
 +examples:
 +  - |
-+    ctrl0: ctrl@100 {
-+        feature-domain-controller;
-+        reg = <0x100 0x10>;
-+        #feature-domain-cells = <2>;
-+    };
++    // In this example, the usart2 device refers to rifsc as its domain
++    // controller.
++    // Access rights are verified before creating devices.
 +
-+    ctrl1: ctrl@110 {
-+        feature-domain-controller;
-+        reg = <0x110 0x10>;
-+        #feature-domain-cells = <3>;
-+    };
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
 +
-+    foo@0 {
-+        reg = <0x0 0x1>;
-+        feature-domains = <&ctrl0 1 2>, <&ctrl1 3 4 5>;
-+        feature-domain-names = "default", "unbind";
++    rifsc: rifsc-bus@42080000 {
++        compatible = "st,stm32mp25-rifsc";
++        reg = <0x42080000 0x1000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges;
++        feature-domain-controller;
++        #feature-domain-cells = <1>;
++
++        usart2: serial@400e0000 {
++            compatible = "st,stm32h7-uart";
++            reg = <0x400e0000 0x400>;
++            interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
++            clocks = <&ck_flexgen_08>;
++            feature-domains = <&rifsc 32>;
++            status = "disabled";
++        };
 +    };
 -- 
 2.25.1

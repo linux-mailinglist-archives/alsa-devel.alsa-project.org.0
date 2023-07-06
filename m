@@ -2,86 +2,132 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 888CC749709
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 10:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68E4D749856
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 11:26:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A45C43E7;
-	Thu,  6 Jul 2023 10:02:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A45C43E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id E24B63E8;
+	Thu,  6 Jul 2023 11:25:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E24B63E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688630607;
-	bh=ayLJp31nJ6Yl5NFkfUvKiaWb+y0gBRcbvcjmkiGFVeA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1688635589;
+	bh=njWE7Xf0EQccuYOxLiP+92Hsn6whHaITE8P6UD8B7jI=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HpSOzlOODPRnq/7b5YTCG7+52W+Wqro8qk/jc2zbuaPaXXy4rylRUkWgB5PxUAZVb
-	 59+I2x6ojNKHnUdDfivLZBCO6mDv/05wPy5IYab/9Uo8PF4jfHeEQy7Gq+ZT2gdSX+
-	 aJ0tt4wo7TJN/p23ApgVBiT6TmWowDiTvyG1dEsE=
+	b=gKfm1MDAP++eah05eF0+PwZswHGIJs5c/ffQpluZ7Ej+cc9ADDDpMYcJjHl72BjCQ
+	 XihhQA6IA2xyYbCewmVrnCSjBIwKJfq5GOKOAX1qSLLvWKrln9dqiSSzdd2FwnIUbr
+	 hoJm9xMYRvboHz4YC9zEnMDwY/XUSw/P+sHMzm3c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37C58F805A1; Thu,  6 Jul 2023 10:01:05 +0200 (CEST)
+	id 54BAFF80093; Thu,  6 Jul 2023 11:25:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 716C0F80588;
-	Thu,  6 Jul 2023 10:01:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5CA5F80093;
+	Thu,  6 Jul 2023 11:25:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D0BCF80125; Wed,  5 Jul 2023 21:56:25 +0200 (CEST)
+	id EEB6AF80125; Thu,  6 Jul 2023 11:25:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail.andi.de1.cc (mail.andi.de1.cc
- [IPv6:2a02:c205:3004:2154::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
- server-digest SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 05B7FF80100
-	for <alsa-devel@alsa-project.org>; Wed,  5 Jul 2023 21:56:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05B7FF80100
-Received: from p5dcc37f0.dip0.t-ipconnect.de ([93.204.55.240] helo=aktux)
-	by mail.andi.de1.cc with esmtpsa  (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <andreas@kemnade.info>)
-	id 1qH8bl-0017gV-0E; Wed, 05 Jul 2023 21:56:13 +0200
-Date: Wed, 5 Jul 2023 21:56:11 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Mark Brown <broonie@kernel.org>
-Cc: bcousson@baylibre.com, tony@atomide.com, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
- peter.ujfalusi@gmail.com, jarkko.nikula@bitmer.com,
- dmitry.torokhov@gmail.com, linux-omap@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org
-Subject: Re: [PATCH 2/3] ASoC: tlv320aic3x: use BCLK instead of MCLK if not
- in master mode
-Message-ID: <20230705215611.5f96584e@aktux>
-In-Reply-To: <15d3fc6e-d294-4968-bc7d-66307efc92db@sirena.org.uk>
-References: <20230705190324.355282-1-andreas@kemnade.info>
-	<20230705190324.355282-3-andreas@kemnade.info>
-	<15d3fc6e-d294-4968-bc7d-66307efc92db@sirena.org.uk>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.37; x86_64-pc-linux-gnu)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5E020F80093
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 11:25:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E020F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=oOHQUk7Y
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3668EjRL026984;
+	Thu, 6 Jul 2023 11:25:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=7t4eCU5gGbd6E2c3Byzad523u0UnY/0NWeRLFMO8wqQ=;
+ b=oOHQUk7YHvsQeSB7NLsvfkez0kTZlUCcLBgh3hS4SMD5Wr3XtDTxiKvSKowNqENq4C8s
+ /288tIqKzXTGt4S2InHB2hb0Amk1CNtGQGYBfWaqN77e7cTrA1nCFp/hXvhbko3GdqKF
+ L/MzEPCBqP4GZU1Fn/yzQ5JE4cj8OgCenJ0wWY5nRviDPqiXVJho5qJfaAY9qEtW3ldq
+ WNfUylY6/Hwr6gUEHKjKBvvikQWSeI38uHh3/etreV3Px9tW0l50odh6QdLz+VrpwnEn
+ 3Em2pZ9kmrlRUa/Y7HiINICLumd7trhKCCWuff7jg/l/hOAVnY6ZeQv4znQLx1ghbUAx 6w==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rnsxd0je3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 06 Jul 2023 11:25:24 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BB767100052;
+	Thu,  6 Jul 2023 11:25:21 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C615521685E;
+	Thu,  6 Jul 2023 11:25:21 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 6 Jul
+ 2023 11:25:19 +0200
+Message-ID: <61d93738-4ffd-411d-d32c-912c14eea56d@foss.st.com>
+Date: Thu, 6 Jul 2023 11:25:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 07/10] arm64: dts: st: add RIFSC as a domain controller
+ for STM32MP25x boards
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
+        <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <conor+dt@kernel.org>, <vkoul@kernel.org>, <jic23@kernel.org>,
+        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+        <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>
+CC: <linux-crypto@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+ <20230705172759.1610753-8-gatien.chevallier@foss.st.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230705172759.1610753-8-gatien.chevallier@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MailFrom: andreas@kemnade.info
-X-Mailman-Rule-Hits: nonmember-moderation
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-06_06,2023-07-06_01,2023-05-22_02
+Message-ID-Hash: 2LIWPIM4X3ZNWC56DFAHCNJZFG76HATL
+X-Message-ID-Hash: 2LIWPIM4X3ZNWC56DFAHCNJZFG76HATL
+X-MailFrom: prvs=5551e58fc1=alexandre.torgue@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: ROY3XPJGPKL5B27EYQPBDLYJO6S4ZTN2
-X-Message-ID-Hash: ROY3XPJGPKL5B27EYQPBDLYJO6S4ZTN2
-X-Mailman-Approved-At: Thu, 06 Jul 2023 08:00:55 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ROY3XPJGPKL5B27EYQPBDLYJO6S4ZTN2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2LIWPIM4X3ZNWC56DFAHCNJZFG76HATL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -90,37 +136,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 5 Jul 2023 20:21:58 +0100
-Mark Brown <broonie@kernel.org> wrote:
+Hi Gatien
 
-> On Wed, Jul 05, 2023 at 09:03:23PM +0200, Andreas Kemnade wrote:
+On 7/5/23 19:27, Gatien Chevallier wrote:
+> RIFSC is a firewall controller. Change its compatible so that is matches
+> the documentation and reference RIFSC as a feature-domain-controller.
 > 
-> > +	/* probably no mclk if not master, so rely on bitclk */
-> > +	if (!aic3x->master)
-> > +		clk_id = 2;
-> > +  
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> This is fairly clearly a massive hack, we're just silently ignoring the
-> clock we were asked to configure and choosing another one which is
-> likely at a different rate to that we were expecting and sadly the
-> driver didn't provide an automatic mode due to how old it is.  We also
-> appear to try to use the configured clock rate during PLL setup which
-> still happens in hw_params() even with this change which is a bit of a
-> concern here.  Are you sure hw_params ends up doing the right thing, and
-> that there are no other systems that get broken by this (perhaps ones
-> sending a lower BCLK for example)?
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> index 5268a4321841..62101084cab8 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -106,17 +106,20 @@ soc@0 {
+>   		ranges = <0x0 0x0 0x0 0x80000000>;
+>   
+>   		rifsc: rifsc-bus@42080000 {
+> -			compatible = "simple-bus";
+> +			compatible = "st,stm32mp25-rifsc";
 
-Yes, I am not that happy myself with that one. Possible victim is
-keystone-k2g-evm.dts. 
-I looked for if (master) things and found the pll enable/disable connected to it.
-But that is not the whole story...
-> 
-> It would be nicer to set the clock via the DT bindings, ideally with the
-> clock bindings...
+You could keep "simple-bus" compatible (in second position). In case of 
+the RIFSC is not probed, the platform will be able to boot. If you agree 
+you can use the same for ETZPC.
 
-I found no path from these simple-audio-card things to provide a clk_id 
-to set_dai_sysclk. I would of course prefer such a thing. Do I have overlooked
-something?
+Cheers
+Alex
 
-Regards,
-Andreas
+>   			reg = <0x42080000 0x1000>;
+>   			#address-cells = <1>;
+>   			#size-cells = <1>;
+>   			ranges;
+> +			feature-domain-controller;
+> +			#feature-domain-cells = <1>;
+>   
+>   			usart2: serial@400e0000 {
+>   				compatible = "st,stm32h7-uart";
+>   				reg = <0x400e0000 0x400>;
+>   				interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
+>   				clocks = <&ck_flexgen_08>;
+> +				feature-domains = <&rifsc 32>;
+>   				status = "disabled";
+>   			};
+>   		};
+

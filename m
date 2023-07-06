@@ -2,127 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACEC9749A4F
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 13:11:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FBB749A80
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 13:20:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF52E3E7;
-	Thu,  6 Jul 2023 13:11:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF52E3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id E85C33E7;
+	Thu,  6 Jul 2023 13:19:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E85C33E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688641911;
-	bh=K+weYi91HbGNvk3xMY3+kNA2BubtjK5st3Sr7TcGV6k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	s=default; t=1688642441;
+	bh=BeEu9DnRSBuLANcu2k7yqUMRiXL0LWdIQbjNisIOJKc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=fsebVnbAJ9vjG+YgH9NVTYuiF68THOIsPq1ZkaXvVtTgYBFriydh/a//rOtMewg3j
-	 ojV1/ZybRggCYt1q5in/N0k6XiDoW5MO/1v4iEIAAaKh+VoQMWA1+lHsaVC7ETsYwR
-	 pElgjuXsojnUvUuUnBPG6hCXhg7SZHoWT2H1GSOE=
+	b=ONUtf/3rIqXWO1920pjCqHqRBSJHt6oH1fqam/tC6fk+p4vrU8tTaE4ptodyR58qg
+	 nvSeVE6FZSPjRj7iSkOhn0MGqh1OhejEZDIC0R93b9UsW7hz8IstnuwG8jOJpppWNc
+	 K0ZeYIwo36CBMyNwusDteWfPPzbfnWFchg/hmGWk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D5C51F805A1; Thu,  6 Jul 2023 13:09:57 +0200 (CEST)
+	id 49B36F80544; Thu,  6 Jul 2023 13:19:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9196BF8058C;
-	Thu,  6 Jul 2023 13:09:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF507F80124;
+	Thu,  6 Jul 2023 13:19:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53516F805A1; Thu,  6 Jul 2023 13:09:54 +0200 (CEST)
+	id 11C62F80125; Thu,  6 Jul 2023 13:19:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
 	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
+ [IPv6:2607:f8b0:4864:20::42a])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2D3A8F8057B
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 13:09:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D3A8F8057B
+	by alsa1.perex.cz (Postfix) with ESMTPS id B4EE9F800E4
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 13:19:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4EE9F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=wCQyNj8k
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-4fbbfaacfc1so735880e87.1
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=aOtY4pQJ
+Received: by mail-pf1-x42a.google.com with SMTP id
+ d2e1a72fcca58-66f3fc56ef4so1238647b3a.0
         for <alsa-devel@alsa-project.org>;
- Thu, 06 Jul 2023 04:09:50 -0700 (PDT)
+ Thu, 06 Jul 2023 04:19:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1688641789; x=1691233789;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mRiuKcFF4D+Ma/+WP7HwqWtEf6Dd+kBdcV9nMz+Xal8=;
-        b=wCQyNj8kDh/OsyddAN39TNa2jnM2R2His5q/FBgPX+0PzMpAkseWY4CyUHa2Jj5QJ+
-         m2BQ3dZamSYppisNMU1d0hbm7bc1ddRHVRiH1XGod9MWd4AmceZfDWO7BxpVYPvV0SIP
-         iFDUok5hM3iHd/fSo5yflzUdEkyJNKi+BAk+K9/p6qrQPtSh5rAcjQYpZ8rhE/r7traN
-         Jse3mJXIdUVWx1j0IXkDwN0sEjOIyikCHwjYZDHxh9B7749PS66Nfq6f/W0pPSXENgqX
-         A1LOSY9WZyRv8wlCMGJ09lMkNry9HWhS5JMV0ceppDabZTWiJ2lh+hRYEqDxREgrwh5y
-         W7fg==
+        d=gmail.com; s=20221208; t=1688642379; x=1691234379;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=S7Au9X7NkxtrT0jnVQVc4JQ7c3LuGMAw4J5ki5nmDTQ=;
+        b=aOtY4pQJTY1hbfFiaZCw8v+xyMzdLnKFqJ/7prHynKDB/+sCmMlWd/iDm7i9tEgTJu
+         mcRsNbYMSyIfMCm7Alfs5HvGUFPPqsRQR+fUhbYX9W7V9RUW/9D04D3+ZCZIXm05EOv7
+         jPBKS4oFA5wsiNExV3ZlQSd3JSfKY5tO/wVrPHJVuqsQlMNccz9t8E5/LlrVmKKKPmOF
+         xhpuj4t9/8v4SDCCc9dxyoXEirdvkdhBhMv4bJMAo4+0p3jQ6uFjUsqNd/x2CyirHv70
+         qS+nHNdEdgM113R3YBsn/c1tAxhNKqDcux8NgvL1Ep8rPdrLRP8nYjwosLSAcmHsrztL
+         Uzog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688641789; x=1691233789;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=mRiuKcFF4D+Ma/+WP7HwqWtEf6Dd+kBdcV9nMz+Xal8=;
-        b=ev8p9BiKJXsJsMr50CFyWHmgXpLm+YV/NmF1Hv6iGwsJ6iDDYy+2uxQuMxPirQ72mp
-         7GLUGfu9iyovVxwC94aGFm/2rmfQlQ1kn3dWoQIGr8ddcf7ASAlkxFr+i3PVWvF3xt5P
-         LnGirmh2LGRE2KTiLl712tx3dxPyqYe5aCrEcS/23O3MNEkLWY90Fd9kyou4mJh6HPuh
-         4MQRwv5Ftj2VNONixJhczI56XKK+NJ9Te7dLa9bnJpQT3KPiFiPZwzzdXg4Hdkbp7Gu4
-         PavGQbdaR3bJemZCZGGrF37AjLjpUdK/xmhXX6wzL3kgSxO8a3KhINSwy510MQlwAUcE
-         ZAHg==
-X-Gm-Message-State: ABy/qLYzlbW5DeJeXSk05Gff6q74nkGnybIerTfU++0Fe+HGZdgIoeIU
-	t6Ezi0V+z2pR57/SANybvqV6vA==
+        d=1e100.net; s=20221208; t=1688642379; x=1691234379;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=S7Au9X7NkxtrT0jnVQVc4JQ7c3LuGMAw4J5ki5nmDTQ=;
+        b=Vf1JHjZjsdt5JLK0R13EmSg72DPNk4QbkTBq6IuCqCAFQwgSrU7OzoJoUfkxOre7Bh
+         3TxFzziVqolVJUVLlEVqZANPbTRwjGGbehUjabMRdTvz1yLnT3ekKabT4eFyGUirOX1+
+         X1pdzLgOHY9fnEjHEJssLNeSFiUJDzQ5nWqaUOMGOOW2G4KOegMaMjQkVPQ85UGQwuRk
+         l6zbftV2OzrQK6MERSF/zubcMmATeNI+drii2V4484BagdTy7KaZZ2Hp6O/OsHRUhu/9
+         YDTDSV1tmH5LqcULfnvPTDe19icFKLxQwfogqPgzrFUYSLzgZNa3FiTEmtAWKD0P57hE
+         IrbA==
+X-Gm-Message-State: ABy/qLao9Fen2cVcXPeC0h8hjw33ZDqxORWf7PQ3JDeetpqg5bxw8imF
+	UAcUDifAxZyx9SdeE13fkYaw18quxkxs8ZSEkGs=
 X-Google-Smtp-Source: 
- APBJJlFr0goL3O6OGKwREZsKNTnsILJbcu1yBKhHSIpf/ySaPhU/h5xY6c9b0kLkZyP65pD6yUsZTg==
-X-Received: by 2002:ac2:4438:0:b0:4f8:7568:e94b with SMTP id
- w24-20020ac24438000000b004f87568e94bmr1128208lfl.56.1688641788898;
-        Thu, 06 Jul 2023 04:09:48 -0700 (PDT)
-Received: from [192.168.1.195] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id
- o18-20020a05600c379200b003fbe561f6a3sm4763165wmr.37.2023.07.06.04.09.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Jul 2023 04:09:48 -0700 (PDT)
-Message-ID: <31bcbd57-1087-e8a4-6061-0fb89a82aec5@linaro.org>
-Date: Thu, 6 Jul 2023 12:09:47 +0100
+ APBJJlGuBOSrm41copfyuAHMoUBKp8B7KwOUqRPL2+y2WJlF8Q9LfBOzQAtN9zVSuZoBe7eqnCz3uoscwB5hMUU1528=
+X-Received: by 2002:a05:6a00:1886:b0:668:7494:384a with SMTP id
+ x6-20020a056a00188600b006687494384amr2892558pfh.12.1688642379213; Thu, 06 Jul
+ 2023 04:19:39 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 6/8] ASoC: codecs: wcd-mbhc-v2: fix resource leaks on
- component remove
-Content-Language: en-US
-To: Johan Hovold <johan+linaro@kernel.org>, Mark Brown <broonie@kernel.org>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, Banajit Goswami
- <bgoswami@quicinc.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20230705123018.30903-1-johan+linaro@kernel.org>
- <20230705123018.30903-7-johan+linaro@kernel.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-In-Reply-To: <20230705123018.30903-7-johan+linaro@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: KELGR5QE6HXQRBL26NAFGNXZ2IG6NCW5
-X-Message-ID-Hash: KELGR5QE6HXQRBL26NAFGNXZ2IG6NCW5
-X-MailFrom: srinivas.kandagatla@linaro.org
+References: <1652963808-14515-1-git-send-email-shengjiu.wang@nxp.com>
+ <CAOMZO5DtpoH0dLDX3=Sv4UUpX_=66VEZPsJUWQNnYviApfMLKQ@mail.gmail.com>
+ <20230706084706.bzwsbi3zisx5m5rl@fatal.se>
+ <CAOMZO5CCdaodWQrHUQgMizoES=jfEtw-sNJZG-DJMpRD8tZW9g@mail.gmail.com>
+In-Reply-To: 
+ <CAOMZO5CCdaodWQrHUQgMizoES=jfEtw-sNJZG-DJMpRD8tZW9g@mail.gmail.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Thu, 6 Jul 2023 19:19:28 +0800
+Message-ID: 
+ <CAA+D8ANAg7bs0A35c7Af3_-5sLaqvT1RoKfCbzYi=z=t_q9LUw@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Andreas Henriksson <andreas@fatal.se>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Linux-ALSA <alsa-devel@alsa-project.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	=?UTF-8?Q?Hans_S=C3=B6derlund?= <hans.soderlund@realbit.se>
+Message-ID-Hash: PKCPQPQXSOAXPPZBD5CLND4FMKO2HDBP
+X-Message-ID-Hash: PKCPQPQXSOAXPPZBD5CLND4FMKO2HDBP
+X-MailFrom: shengjiu.wang@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-recipients; max-size; news-moderation;
  no-subject; digests; suspicious-header
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 3.3.8
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KELGR5QE6HXQRBL26NAFGNXZ2IG6NCW5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PKCPQPQXSOAXPPZBD5CLND4FMKO2HDBP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -131,155 +127,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-
-
-On 05/07/2023 13:30, Johan Hovold wrote:
-> The MBHC resources must be released on component probe failure and
-> removal so can not be tied to the lifetime of the component device.
-> 
-> This is specifically needed to allow probe deferrals of the sound card
-> which otherwise fails when reprobing the codec component:
-> 
->      snd-sc8280xp sound: ASoC: failed to instantiate card -517
->      genirq: Flags mismatch irq 299. 00002001 (mbhc sw intr) vs. 00002001 (mbhc sw intr)
->      wcd938x_codec audio-codec: Failed to request mbhc interrupts -16
->      wcd938x_codec audio-codec: mbhc initialization failed
->      wcd938x_codec audio-codec: ASoC: error at snd_soc_component_probe on audio-codec: -16
->      snd-sc8280xp sound: ASoC: failed to instantiate card -16
-> 
-> Fixes: 0e5c9e7ff899 ("ASoC: codecs: wcd: add multi button Headset detection support")
-> Cc: stable@vger.kernel.org      # 5.14
-> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> Signed-off-by: Johan Hovold <johan+linaro@kernel.org>
-> ---
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
---srini
->   sound/soc/codecs/wcd-mbhc-v2.c | 57 ++++++++++++++++++++++++----------
->   1 file changed, 41 insertions(+), 16 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/wcd-mbhc-v2.c b/sound/soc/codecs/wcd-mbhc-v2.c
-> index 1911750f7445..5da1934527f3 100644
-> --- a/sound/soc/codecs/wcd-mbhc-v2.c
-> +++ b/sound/soc/codecs/wcd-mbhc-v2.c
-> @@ -1454,7 +1454,7 @@ struct wcd_mbhc *wcd_mbhc_init(struct snd_soc_component *component,
->   		return ERR_PTR(-EINVAL);
->   	}
->   
-> -	mbhc = devm_kzalloc(dev, sizeof(*mbhc), GFP_KERNEL);
-> +	mbhc = kzalloc(sizeof(*mbhc), GFP_KERNEL);
->   	if (!mbhc)
->   		return ERR_PTR(-ENOMEM);
->   
-> @@ -1474,61 +1474,76 @@ struct wcd_mbhc *wcd_mbhc_init(struct snd_soc_component *component,
->   
->   	INIT_WORK(&mbhc->correct_plug_swch, wcd_correct_swch_plug);
->   
-> -	ret = devm_request_threaded_irq(dev, mbhc->intr_ids->mbhc_sw_intr, NULL,
-> +	ret = request_threaded_irq(mbhc->intr_ids->mbhc_sw_intr, NULL,
->   					wcd_mbhc_mech_plug_detect_irq,
->   					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
->   					"mbhc sw intr", mbhc);
->   	if (ret)
-> -		goto err;
-> +		goto err_free_mbhc;
->   
-> -	ret = devm_request_threaded_irq(dev, mbhc->intr_ids->mbhc_btn_press_intr, NULL,
-> +	ret = request_threaded_irq(mbhc->intr_ids->mbhc_btn_press_intr, NULL,
->   					wcd_mbhc_btn_press_handler,
->   					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
->   					"Button Press detect", mbhc);
->   	if (ret)
-> -		goto err;
-> +		goto err_free_sw_intr;
->   
-> -	ret = devm_request_threaded_irq(dev, mbhc->intr_ids->mbhc_btn_release_intr, NULL,
-> +	ret = request_threaded_irq(mbhc->intr_ids->mbhc_btn_release_intr, NULL,
->   					wcd_mbhc_btn_release_handler,
->   					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
->   					"Button Release detect", mbhc);
->   	if (ret)
-> -		goto err;
-> +		goto err_free_btn_press_intr;
->   
-> -	ret = devm_request_threaded_irq(dev, mbhc->intr_ids->mbhc_hs_ins_intr, NULL,
-> +	ret = request_threaded_irq(mbhc->intr_ids->mbhc_hs_ins_intr, NULL,
->   					wcd_mbhc_adc_hs_ins_irq,
->   					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
->   					"Elect Insert", mbhc);
->   	if (ret)
-> -		goto err;
-> +		goto err_free_btn_release_intr;
->   
->   	disable_irq_nosync(mbhc->intr_ids->mbhc_hs_ins_intr);
->   
-> -	ret = devm_request_threaded_irq(dev, mbhc->intr_ids->mbhc_hs_rem_intr, NULL,
-> +	ret = request_threaded_irq(mbhc->intr_ids->mbhc_hs_rem_intr, NULL,
->   					wcd_mbhc_adc_hs_rem_irq,
->   					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
->   					"Elect Remove", mbhc);
->   	if (ret)
-> -		goto err;
-> +		goto err_free_hs_ins_intr;
->   
->   	disable_irq_nosync(mbhc->intr_ids->mbhc_hs_rem_intr);
->   
-> -	ret = devm_request_threaded_irq(dev, mbhc->intr_ids->hph_left_ocp, NULL,
-> +	ret = request_threaded_irq(mbhc->intr_ids->hph_left_ocp, NULL,
->   					wcd_mbhc_hphl_ocp_irq,
->   					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
->   					"HPH_L OCP detect", mbhc);
->   	if (ret)
-> -		goto err;
-> +		goto err_free_hs_rem_intr;
->   
-> -	ret = devm_request_threaded_irq(dev, mbhc->intr_ids->hph_right_ocp, NULL,
-> +	ret = request_threaded_irq(mbhc->intr_ids->hph_right_ocp, NULL,
->   					wcd_mbhc_hphr_ocp_irq,
->   					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
->   					"HPH_R OCP detect", mbhc);
->   	if (ret)
-> -		goto err;
-> +		goto err_free_hph_left_ocp;
->   
->   	return mbhc;
-> -err:
-> +
-> +err_free_hph_left_ocp:
-> +	free_irq(mbhc->intr_ids->hph_left_ocp, mbhc);
-> +err_free_hs_rem_intr:
-> +	free_irq(mbhc->intr_ids->mbhc_hs_rem_intr, mbhc);
-> +err_free_hs_ins_intr:
-> +	free_irq(mbhc->intr_ids->mbhc_hs_ins_intr, mbhc);
-> +err_free_btn_release_intr:
-> +	free_irq(mbhc->intr_ids->mbhc_btn_release_intr, mbhc);
-> +err_free_btn_press_intr:
-> +	free_irq(mbhc->intr_ids->mbhc_btn_press_intr, mbhc);
-> +err_free_sw_intr:
-> +	free_irq(mbhc->intr_ids->mbhc_sw_intr, mbhc);
-> +err_free_mbhc:
-> +	kfree(mbhc);
-> +
->   	dev_err(dev, "Failed to request mbhc interrupts %d\n", ret);
->   
->   	return ERR_PTR(ret);
-> @@ -1537,9 +1552,19 @@ EXPORT_SYMBOL(wcd_mbhc_init);
->   
->   void wcd_mbhc_deinit(struct wcd_mbhc *mbhc)
->   {
-> +	free_irq(mbhc->intr_ids->hph_right_ocp, mbhc);
-> +	free_irq(mbhc->intr_ids->hph_left_ocp, mbhc);
-> +	free_irq(mbhc->intr_ids->mbhc_hs_rem_intr, mbhc);
-> +	free_irq(mbhc->intr_ids->mbhc_hs_ins_intr, mbhc);
-> +	free_irq(mbhc->intr_ids->mbhc_btn_release_intr, mbhc);
-> +	free_irq(mbhc->intr_ids->mbhc_btn_press_intr, mbhc);
-> +	free_irq(mbhc->intr_ids->mbhc_sw_intr, mbhc);
-> +
->   	mutex_lock(&mbhc->lock);
->   	wcd_cancel_hs_detect_plug(mbhc,	&mbhc->correct_plug_swch);
->   	mutex_unlock(&mbhc->lock);
-> +
-> +	kfree(mbhc);
->   }
->   EXPORT_SYMBOL(wcd_mbhc_deinit);
->   
+T24gVGh1LCBKdWwgNiwgMjAyMyBhdCA3OjA44oCvUE0gRmFiaW8gRXN0ZXZhbSA8ZmVzdGV2YW1A
+Z21haWwuY29tPiB3cm90ZToNCg0KPiBIaSBBbmRyZWFzLA0KPg0KPiBPbiBUaHUsIEp1bCA2LCAy
+MDIzIGF0IDU6NDfigK9BTSBBbmRyZWFzIEhlbnJpa3Nzb24gPGFuZHJlYXNAZmF0YWwuc2U+DQo+
+IHdyb3RlOg0KPg0KPiA+IFdlJ3ZlIGJlZW4gd29ya2luZyBvbiBhbiBpLk1YOE1QIHdoZXJlIE1D
+TEsgbmVlZHMgdG8gYmUgaW5wdXQgYW5kIGZvdW5kDQo+ID4gdGhhdCB0aGlzIGVuYWJsZXMgdGhl
+IE1DTEsgYXMgb3V0cHV0IGRlc3BpdGUgbm90IGhhdmluZyBzZXQgdGhlDQo+ID4gYGZzbCxzYWkt
+bWNsay1kaXJlY3Rpb24tb3V0cHV0O2AgZGV2aWNldHJlZSBwcm9wZXJ0eSBpbiBvdXIgRFQuDQo+
+ID4gUmV2ZXJ0aW5nIHRoZSBwYXRjaCBmaXhlcyB0aGUgaXNzdWVzIGZvciB1cy4NCj4gPg0KPiA+
+IEkgaGF2ZSB0byBzYXkgdGhhdCB0aGUgY29kZSBjb21tZW50IG1hZGUgbWUgYSBiaXQgY29uZnVz
+ZWQsIGJ1dCBvbmNlDQo+ID4gSSBmb3VuZCB0aGUgY29tbWl0IG1lc3NhZ2UgSSB1bmRlcnN0b29k
+IHdoeSB0aGlzIGNvZGUgZXhpc3RlZC4NCj4gPiBJZiB0aGlzIGlzIHJlYWxseSBpLk1YOE1NIHNw
+ZWNpZmljIG1heWJlIG1lbnRpb24gdGhhdCBpbiB0aGUgY29kZQ0KPiA+IGNvbW1lbnQgYW5kIHBs
+ZWFzZSBtYWtlIHRoZSBjb2RlIGFjdHVhbGx5IG9ubHkgdHJpZ2dlciBvbiBpLk1YOE1NLg0KPiA+
+IEl0IHNlZW1zIHRvIG1lIGxpa2UgdGhlc2UgYWxsIGZ1bGZpbGwgdGhlIGN1cnJlbnQgY3JpdGVy
+aWE6DQo+ID4gaW14N3VscCwgaW14OG1xLCBpbXg4bW0sIGlteDhtcCwgaW14OHVscCwgaW14OTMN
+Cj4gPg0KPiA+IFNob3VsZCBJIHJlcG9ydCB0aGlzIGluIGJ1Z3ppbGxhLmtlcm5lbC5vcmcgPw0K
+Pg0KPiBTaG91bGQgd2UgZG8gYSBmaXggbGlrZSB0aGlzPw0KPg0KPiAtLS0gYS9zb3VuZC9zb2Mv
+ZnNsL2ZzbF9zYWkuYw0KPiArKysgYi9zb3VuZC9zb2MvZnNsL2ZzbF9zYWkuYw0KPiBAQCAtMTQ1
+Myw3ICsxNDUzLDcgQEAgc3RhdGljIGludCBmc2xfc2FpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9k
+ZXZpY2UNCj4gKnBkZXYpDQo+DQo+ICAgICAgICAgLyogU2VsZWN0IE1DTEsgZGlyZWN0aW9uICov
+DQo+ICAgICAgICAgaWYgKHNhaS0+bWNsa19kaXJlY3Rpb25fb3V0cHV0ICYmDQo+IC0gICAgICAg
+ICAgIHNhaS0+c29jX2RhdGEtPm1heF9yZWdpc3RlciA+PSBGU0xfU0FJX01DVEwpIHsNCj4gKyAg
+ICAgICAgICAgc2FpLT5zb2NfZGF0YS0+bWF4X3JlZ2lzdGVyID49IEZTTF9TQUlfTUNUTCAmJg0K
+PiBzYWktPm1jbGtfZGlyZWN0aW9uX291dHB1dCkgew0KPiAgICAgICAgICAgICAgICAgcmVnbWFw
+X3VwZGF0ZV9iaXRzKHNhaS0+cmVnbWFwLCBGU0xfU0FJX01DVEwsDQo+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgRlNMX1NBSV9NQ1RMX01DTEtfRU4sDQo+IEZTTF9TQUlfTUNU
+TF9NQ0xLX0VOKTsNCj4gICAgICAgICB9DQo+DQoNCk5vLCB0aGlzIGlzIHRoZSBjb2RlIGluIHBy
+b2JlKCkuDQpUaGUgY29kZSB3aXRoIHRoZSBpc3N1ZSBpcyBpbiBmc2xfc2FpX3NldF9iY2xrKCku
+DQoNClRoZSBjbGVhbiB3YXkgZm9yIGZpeGluZyBpcyB0byByZW1vdmUgdGhlIGNvZGUgaW4gZnNs
+X3NhaV9zZXRfYmNsaygpDQphbmQgYWRkICJmc2wsc2FpLW1jbGstZGlyZWN0aW9uLW91dHB1dDsi
+IHByb3BlcnR5IGluIGR0cyBmb3Igc29tZQ0Kbm9kZS4NCg0KYmVzdCByZWdhcmRzDQp3YW5nIHNo
+ZW5naml1DQo=

@@ -2,104 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14117749D4A
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 15:19:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26817749D5D
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 15:23:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 022A2112;
-	Thu,  6 Jul 2023 15:18:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 022A2112
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7589D7F1;
+	Thu,  6 Jul 2023 15:22:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7589D7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688649588;
-	bh=mQNylNTtc3u/sbhjgJ0z0KlXOY+EAUfQebELIkfJjxg=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ct8Nd3C1GqPatvexdtINzCa00CGH6pVtv+3xAgj4Q7ovEXGjnsGvj6oC3Ls4n0dhG
-	 SydUsbIXSFHKLaG5mieynVVtYZXFVQXm0fxCEhlizgvCJrGInAi3TZUkkAO7GyHOlQ
-	 N11OjQ3xJ85hdoQJeblC3SqXc1HgNu9/jrJ95LYE=
+	s=default; t=1688649827;
+	bh=U+D+QKK+V9y/nBwFyOGwDPW6/JU+V8a2ffx9sQ1ifyI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=Jzpppg/7L7pstJYssu7O07RlizaXqzz4qc/DVMAfJjIsQERVVr2qTBV0uV86OZABx
+	 k6q7VJGixjrrhuBcw5jQ/tdvCyYixsxGjqDaHMb4dvg3cXCOyJhka4ef6ziBfklZkU
+	 NPAabLjKDNBOiyDZAY4wIXFzpeUw8E00oFc8eZcY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 31D06F80272; Thu,  6 Jul 2023 15:18:57 +0200 (CEST)
+	id 5C8F5F80125; Thu,  6 Jul 2023 15:22:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1173F80124;
-	Thu,  6 Jul 2023 15:18:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1A4DF80125;
+	Thu,  6 Jul 2023 15:22:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 54DDFF80125; Thu,  6 Jul 2023 15:18:53 +0200 (CEST)
+	id F16E3F80132; Thu,  6 Jul 2023 15:22:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-oo1-xc2a.google.com (mail-oo1-xc2a.google.com
- [IPv6:2607:f8b0:4864:20::c2a])
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2114F800E4
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 15:18:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2114F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 686E9F80100
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 15:22:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 686E9F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=CtyIBLUA
-Received: by mail-oo1-xc2a.google.com with SMTP id
- 006d021491bc7-563393b63dbso66952eaf.1
+ header.s=20221208 header.b=E7s/Y1ty
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-682b1768a0bso147217b3a.0
         for <alsa-devel@alsa-project.org>;
- Thu, 06 Jul 2023 06:18:43 -0700 (PDT)
+ Thu, 06 Jul 2023 06:22:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688649521; x=1691241521;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=oztzAnq0XU8stwUp4Cmqa3cHImrakQG0eV1fQtLsXyY=;
-        b=CtyIBLUAn4I7j+ESn2s0Bchx90aSFGsGPOWKuwzhTTMfCMNxfC/r90SD7TUqCzaCO8
-         FsMs8q0mAL1oOhLwmFGEWIg13aabi8niF4/PwEojvwXHGo5uLHud07aGf7gG2QaK28ds
-         vtjSjJ1ZNOkZINULHn6OhxIv5V0+8N8BnOiknkn4gPMKo3EtAcdFSyubF450cg/tnpN7
-         ypBdSVhQIralwV2XP5Q1saA0Zzur5M0vi3YBPAZiWHBec+abKuy8wekBUFV//mZewStS
-         PhsQRWvpO7KaWIRFl7FrvAJnjYOFyTxbv+2GqsxkmWM73NJ5Rs8H7e4cCdbQyXhPzDMU
-         cO5A==
+        d=gmail.com; s=20221208; t=1688649744; x=1691241744;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U+D+QKK+V9y/nBwFyOGwDPW6/JU+V8a2ffx9sQ1ifyI=;
+        b=E7s/Y1ty/VDpvP5mnN9k487LRb7Hk9ZnjhLCuopgu77+FR0Sj7RjoF7VVwK9F+XhtU
+         luETDyvizGQdrKnIui4DnmxetSyME8aO+UybjP2VJFOB0mC2dlMr/x0MKPHBmG7R2Hwe
+         fFH9oBBOAoSdOHSLNgqzwwTVGY3xOl+8JaoIn0Cr+kWvmOa2hMDYqLsUJLw3hq0QNTAN
+         ZkkzgIzRrqSBmfEOaKIXoWwNEUBUI9nfmW8XyY7rsELySVd5pkoIDYQWxrjWRdMnhZoS
+         isob8hZQSGU91B30eC/raUtaaKbMlCBwT5LXLzhQto/gVkqrsWS2xiPGlsF33Psqtf4u
+         pRJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688649521; x=1691241521;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oztzAnq0XU8stwUp4Cmqa3cHImrakQG0eV1fQtLsXyY=;
-        b=cvKVFPBkIs6dUte2JVcFPuJNgrbgF+RH3r65c0X92pf0orIXvcrHVFKa6c6eV5cuO4
-         xuDkZwMGyflZ+LXPq77rYfhLhqxS7tShH/CpFZCNrTDFZ6o9NE7Gd4uazjivYb//QDwU
-         A7debM+oOgOMVOxBPNeTt1wzIJ+8ebs+jcD92TIAryEon2WE6MKHGsMLjCGL4Gh2+t/E
-         VbhyPIzoB9TXinMINTFdaNMfo8BQaYIwoUagYGZQOSuILZOsURXabNFsSCKLr16vYreZ
-         gWAVGG8rA7QEg6NYRgSQmBUafH3ldv78+gzFsIqdMEm8aD5Y/aFs3vOrpFDIKxqdxn8U
-         34vQ==
-X-Gm-Message-State: ABy/qLb1RHVROv7MbRakvfmdA8tdEIZwfCPUN1XO6lamTiq4ZF0zmW2A
-	bSInT9ARgN5QPP+fMKxebCc=
+        d=1e100.net; s=20221208; t=1688649744; x=1691241744;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=U+D+QKK+V9y/nBwFyOGwDPW6/JU+V8a2ffx9sQ1ifyI=;
+        b=eJsr9ccoKPSLHVn+HdKsqaffiKBxgZs+PLmOmvu2wCZUnC0ow/a6teKvBbOFwedPoC
+         YaVHjhp86uvSJBsxtoVW0+s7UTz79JAfn/vowKok4l7CLdQYU2iIr8nCO2zuO4w7f4WZ
+         JGwcqhQFpQHaPJzI9mhMVLRtypACUlEaIcLZDN2qSbrB7mi8EQm1v0xvwt2j4izQpXgr
+         ZhLnIP+DsGCt/za+U7RTH5vcm1BCnjRJA62x0Oxryb0ct6fB6sc8hm2tqxvXSBaVmEP8
+         5dYkWyvZu8pShbYuRS8QSB/QfQR6wGgkFV+g+cKJ61oJfBHH//Qapw9zPztj7Bj67KHz
+         O8IQ==
+X-Gm-Message-State: ABy/qLa0SPTgeUq156Lq1mSEq77QvNGQUZf8JQSkbImoQ2vDfOTtS3Vi
+	AXPTbxlRvPN+6TXWs/K97oeE55jmfgbXM6Ga3rI=
 X-Google-Smtp-Source: 
- APBJJlEpFxr2Tef7ycVd/xItQKf5394k/4uoVQVoLsyFtH83bDxrxmdVzpffs7vxUMeD+gGtucBDlw==
-X-Received: by 2002:a4a:d541:0:b0:562:e437:3b41 with SMTP id
- q1-20020a4ad541000000b00562e4373b41mr1265062oos.0.1688649521060;
-        Thu, 06 Jul 2023 06:18:41 -0700 (PDT)
-Received: from fabio-Precision-3551..
- ([2804:14c:485:4b61:da08:7cc0:c10e:810f])
-        by smtp.gmail.com with ESMTPSA id
- h6-20020a4ac446000000b005660ed0becesm577155ooq.39.2023.07.06.06.18.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Jul 2023 06:18:40 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: broonie@kernel.org
-Cc: shengjiu.wang@gmail.com,
-	alsa-devel@alsa-project.org,
-	andreas@fatal.se,
-	hans.soderlund@realbit.se,
-	Fabio Estevam <festevam@denx.de>
-Subject: [RFC] ASoC: fsl_sai: Do not set MCTL_MCLK_EN based on the number of
- registers
-Date: Thu,  6 Jul 2023 10:18:29 -0300
-Message-Id: <20230706131829.1862750-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ APBJJlFCKu7vaNfYYwvzzuc2kPB8Td6VMbpcT9KZ8a0UyW1X9PGMU8ri8DNniH1sa/11VCC1WLJc0mpnsXXsJuT0Id8=
+X-Received: by 2002:aa7:8815:0:b0:67f:7403:1fe8 with SMTP id
+ c21-20020aa78815000000b0067f74031fe8mr2110292pfo.3.1688649743851; Thu, 06 Jul
+ 2023 06:22:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 2DXS55OWDNMY6NTBN7DIISPJY4RGCDLE
-X-Message-ID-Hash: 2DXS55OWDNMY6NTBN7DIISPJY4RGCDLE
+References: <1652963808-14515-1-git-send-email-shengjiu.wang@nxp.com>
+ <CAOMZO5DtpoH0dLDX3=Sv4UUpX_=66VEZPsJUWQNnYviApfMLKQ@mail.gmail.com>
+ <20230706084706.bzwsbi3zisx5m5rl@fatal.se>
+ <CAOMZO5CCdaodWQrHUQgMizoES=jfEtw-sNJZG-DJMpRD8tZW9g@mail.gmail.com>
+ <CAA+D8ANAg7bs0A35c7Af3_-5sLaqvT1RoKfCbzYi=z=t_q9LUw@mail.gmail.com>
+ <CAOMZO5BtrKwrMwrjVDbYn3ivt2uV9rzbSDxd8qfiYjOBMvKBgg@mail.gmail.com>
+ <20230706123401.kctossjho26bry7e@fatal.se>
+In-Reply-To: <20230706123401.kctossjho26bry7e@fatal.se>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Thu, 6 Jul 2023 10:22:12 -0300
+Message-ID: 
+ <CAOMZO5AFjS+aGjHTYCvPO86ypXfcFnuKmU2qHZNTyDSQPxRHjQ@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode
+To: Andreas Henriksson <andreas@fatal.se>
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Linux-ALSA <alsa-devel@alsa-project.org>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	=?UTF-8?Q?Hans_S=C3=B6derlund?= <hans.soderlund@realbit.se>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: SMUYG6CVQSH6TEZ32JGSP3R3OLK3NNEV
+X-Message-ID-Hash: SMUYG6CVQSH6TEZ32JGSP3R3OLK3NNEV
 X-MailFrom: festevam@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -112,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2DXS55OWDNMY6NTBN7DIISPJY4RGCDLE/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SMUYG6CVQSH6TEZ32JGSP3R3OLK3NNEV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,154 +129,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: Fabio Estevam <festevam@denx.de>
+Hi Andreas,
 
-Since commit ff87d619ac18 ("ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for
-master mode") Andreas reports that on an i.MX8MP-based system where
-MCLK needs to be an input, the MCLK pin is actually an output, despite
-not having the 'fsl,sai-mclk-direction-output' property present in the
-devicetree.
+On Thu, Jul 6, 2023 at 9:34=E2=80=AFAM Andreas Henriksson <andreas@fatal.se=
+> wrote:
 
-This commit explains the following:
+> I think your initial review comment was spot on Fabio. There probably
+> needs to be a(n imx8mm) specific flag that says when this workaround
+> should be applied and gate the code in bclk function on that.
+> Atleast that's the only thing I can think of if my interpretation of the
+> problem for imx8mm is correct.
 
-"On i.MX8MM, the MCTL_MCLK_EN bit it is not only the gate
-for MCLK output to PAD, but also the gate bit between
-root clock and SAI module, So it is need to be enabled
-for master mode, otherwise there is no bclk generated."
+Yes, deciding whether MCLK_EN should act as a clock gate based on
+the number of SAI registers seems fragile to me.
 
-Currently, the decision of using MCTL_MCLK_EN as a clock gate is based
-on the number of SAI registers present on a platform.
+I have sent a proposal as RFC. Please give it a try if you have a chance.
 
-This is fragile as it causes issues on i.MX8MP, for example.
+I would like Shengjiu to confirm if imx8mn and imx93 should also
+behave like imx8mm in this aspect.
 
-Fix the problem by introducing a new boolean mclk_en_gates_clock member in
-the fsl_sai_soc_data structure that indicates that the MCTL_MCLK_EN bit
-also acts as a gate between the root clock and the SAI block.
-
-This allows i.MX8MM to turn on FSL_SAI_MCTL_MCLK_EN as intended and other
-SoCs such as i.MX8MP can still use MCLK as input.
-
-Fixes: ff87d619ac18 ("ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode")
-Reported-by: Andreas Henriksson <andreas@fatal.se>
-Signed-off-by: Fabio Estevam <festevam@denx.de>
-
-Signed-off-by: Fabio Estevam <festevam@denx.de>
----
-Hi Shengjiu,
-
-Is imx8mm the only SoC that needs mclk_en_gates_clock = true?
-
-What about imx8mn and imx93?
-
- sound/soc/fsl/fsl_sai.c | 12 +++++++++++-
- sound/soc/fsl/fsl_sai.h |  1 +
- 2 files changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 5e09f634c61b..e4dc6964f011 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -507,7 +507,7 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
- 				   savediv / 2 - 1);
- 	}
- 
--	if (sai->soc_data->max_register >= FSL_SAI_MCTL) {
-+	if (sai->soc_data->mclk_en_gates_clock) {
- 		/* SAI is in master mode at this point, so enable MCLK */
- 		regmap_update_bits(sai->regmap, FSL_SAI_MCTL,
- 				   FSL_SAI_MCTL_MCLK_EN, FSL_SAI_MCTL_MCLK_EN);
-@@ -1513,6 +1513,7 @@ static const struct fsl_sai_soc_data fsl_sai_vf610_data = {
- 	.reg_offset = 0,
- 	.mclk0_is_mclk1 = false,
- 	.flags = 0,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_RMR,
- };
- 
-@@ -1524,6 +1525,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx6sx_data = {
- 	.reg_offset = 0,
- 	.mclk0_is_mclk1 = true,
- 	.flags = 0,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_RMR,
- };
- 
-@@ -1535,6 +1537,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx7ulp_data = {
- 	.reg_offset = 8,
- 	.mclk0_is_mclk1 = false,
- 	.flags = PMQOS_CPU_LATENCY,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_RMR,
- };
- 
-@@ -1546,6 +1549,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8mq_data = {
- 	.reg_offset = 8,
- 	.mclk0_is_mclk1 = false,
- 	.flags = 0,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_RMR,
- };
- 
-@@ -1557,6 +1561,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8qm_data = {
- 	.reg_offset = 0,
- 	.mclk0_is_mclk1 = false,
- 	.flags = 0,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_RMR,
- };
- 
-@@ -1568,6 +1573,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8mm_data = {
- 	.mclk0_is_mclk1 = false,
- 	.pins = 8,
- 	.flags = 0,
-+	.mclk_en_gates_clock = true,
- 	.max_register = FSL_SAI_MCTL,
- };
- 
-@@ -1579,6 +1585,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8mn_data = {
- 	.mclk0_is_mclk1 = false,
- 	.pins = 8,
- 	.flags = 0,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_MDIV,
- };
- 
-@@ -1590,6 +1597,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8mp_data = {
- 	.mclk0_is_mclk1 = false,
- 	.pins = 8,
- 	.flags = 0,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_MDIV,
- 	.mclk_with_tere = true,
- };
-@@ -1602,6 +1610,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx8ulp_data = {
- 	.mclk0_is_mclk1 = false,
- 	.pins = 4,
- 	.flags = PMQOS_CPU_LATENCY,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_RTCAP,
- };
- 
-@@ -1613,6 +1622,7 @@ static const struct fsl_sai_soc_data fsl_sai_imx93_data = {
- 	.mclk0_is_mclk1 = false,
- 	.pins = 4,
- 	.flags = 0,
-+	.mclk_en_gates_clock = false,
- 	.max_register = FSL_SAI_MCTL,
- 	.max_burst = {8, 8},
- };
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 8254c3547b87..473260b0fbea 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -232,6 +232,7 @@ struct fsl_sai_soc_data {
- 	bool use_edma;
- 	bool mclk0_is_mclk1;
- 	bool mclk_with_tere;
-+	bool mclk_en_gates_clock;
- 	unsigned int fifo_depth;
- 	unsigned int pins;
- 	unsigned int reg_offset;
--- 
-2.34.1
-
+Cheers

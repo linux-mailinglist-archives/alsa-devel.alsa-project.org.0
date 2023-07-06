@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F097C749B9E
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 14:19:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB0A2749B9F
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 14:19:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F1951DC;
-	Thu,  6 Jul 2023 14:18:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F1951DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F96183E;
+	Thu,  6 Jul 2023 14:19:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F96183E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688645946;
-	bh=SQ/W9RMOyrQORdVtYany7w77017RM6VIUNpmJS+u0fo=;
+	s=default; t=1688645997;
+	bh=ozExOu5XO3lfJATKOxCayWXQFV4jBV+bqUwjfldZCR0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=dwp2Dr3ufUg4q98SXFudceXncCeedekRhvSD/6+T2LWMvWqsessrN1BHoJu5EQFby
-	 WHv+eWITJgKFdXYkl6s1q3hwLjcvjhH03FpwzHai0MN7RmqNq/VNMpioVTSWFoVQlT
-	 21nD2e3+vBzpnF3iHNSRA0z773DiSMxdwJkAWLbs=
+	b=oKZEy/Ma8CzTKXCIbQGS7LtwMc7k7ZNAlkMEW+kLzZYI3Q0b6oK30w42YOvQQfmvq
+	 rANgguis8CRPd7kJVZrGZ4VOZ7Ct+EV/RpKLjme5vKYed9Gmuc6ctRzbxXxwnheUTA
+	 hck6o/7/CtFxAE76qGCLm9ayoUCzsbgGT5YYMNb0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E5F19F80132; Thu,  6 Jul 2023 14:18:15 +0200 (CEST)
+	id 8956EF80125; Thu,  6 Jul 2023 14:19:02 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0CFDF80100;
-	Thu,  6 Jul 2023 14:18:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FEB5F8025F;
+	Thu,  6 Jul 2023 14:19:02 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B10ACF80125; Thu,  6 Jul 2023 14:18:12 +0200 (CEST)
+	id C0968F80535; Thu,  6 Jul 2023 14:18:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,32 +36,32 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A5311F80093
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 14:18:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5311F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id B779DF80100
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 14:18:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B779DF80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=mbhR2YaU
+ header.s=k20201202 header.b=ZJX6jVtM
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id DCD3861923;
-	Thu,  6 Jul 2023 12:18:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A0EC433C7;
-	Thu,  6 Jul 2023 12:18:03 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 7F95E618EB;
+	Thu,  6 Jul 2023 12:18:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9556FC433C8;
+	Thu,  6 Jul 2023 12:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688645886;
-	bh=SQ/W9RMOyrQORdVtYany7w77017RM6VIUNpmJS+u0fo=;
+	s=k20201202; t=1688645934;
+	bh=ozExOu5XO3lfJATKOxCayWXQFV4jBV+bqUwjfldZCR0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mbhR2YaUrMzCYKgoN5vHkB02ikh2Rlp63t8ooNSFj4mB2ORnFCphy3WLCwZ/FjvTq
-	 rYVKpcSG2/g2X0RHsS33xIuFoS24o4JIQkm2xEJnjWNSGFKOr8bbjGbuukfIBGlq81
-	 nFwVBNwd2wpwuGZ92Uv+ypW4GthgFzflidpBQa+QExc6Olo1gAeKcqROU7Lm2plbPM
-	 r1oIxRYqN1PYswNG7VWg12pB0l/KyUW9hIe2pjz9FLlueer2g08oPu6YbNCKtnSrhL
-	 A986V09qLAAMeCc3fe1aEmd2oMNNCzMQXGM+OGL2qJ4z/vWnC6syUbrO6liEJJWx+o
-	 wTwW7vAVpJEFA==
-Date: Thu, 6 Jul 2023 13:18:00 +0100
+	b=ZJX6jVtMI7epnjU7mVdYEesEmctou3qq7gFSxsYGdDaW5xvvWHg5vLRugFljQAAoj
+	 fwyfoUTZZZfS5+P8/4YrXyMcNkaVhrVFIKTtGxRKYInF3pgGJqzpy5CqizwkYMSiSY
+	 6HE5nOmLDCmIw1es79aLMSIFHKKxUSdezM62m0OlLTTGQ+vmmpL0CHitXZQD5m2BVS
+	 88WieJqJuvdFCYwGxoCOm3nbBg/x2645WGG/OrsS+//GaTLYGXX592AM+Scg7/CD4r
+	 yZTTP+ubVvBLYKklaIBzBgluEkbRm5jGV8Xkry33QeDpz7TNGu5qVtGSXmacEaytAi
+	 gLtGihTlJVz+A==
+Date: Thu, 6 Jul 2023 13:18:49 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Geert Uytterhoeven <geert@linux-m68k.org>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -71,19 +71,22 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Benjamin Gray <bgray@linux.ibm.com>,
 	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] regmap: REGMAP_SLIMBUS should select REGMAP
-Message-ID: <18425cc3-9a4c-4269-aec0-3f821697bfd6@sirena.org.uk>
+Subject: Re: [PATCH 3/3] ASoC: codecs: SND_SOC_WCD934X should select
+ REGMAP_IRQ
+Message-ID: <f4bde99b-ac53-4ec6-98ea-e56a4c125a89@sirena.org.uk>
 References: <cover.1688643442.git.geert@linux-m68k.org>
- <7519324a34015e1c046227269409fef688889f4f.1688643442.git.geert@linux-m68k.org>
+ <cafd878747e7951914a7d9fea33788a4a230d1f0.1688643442.git.geert@linux-m68k.org>
+ <bd265a83-ca5e-4196-936e-0f753ea47a25@sirena.org.uk>
+ <CAMuHMdUc-6ga7G5xuXXcKXU0ya3XBBM-tEJ3tZ-BY-oa+wozsQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dr+DpUY6Xq+EybR1"
+	protocol="application/pgp-signature"; boundary="ecJqEW6WQ4xj01qT"
 Content-Disposition: inline
 In-Reply-To: 
- <7519324a34015e1c046227269409fef688889f4f.1688643442.git.geert@linux-m68k.org>
-X-Cookie: Being ugly isn't illegal.  Yet.
-Message-ID-Hash: VSWFNINT5HFUIDO7DYEVVALNIIHO4BHN
-X-Message-ID-Hash: VSWFNINT5HFUIDO7DYEVVALNIIHO4BHN
+ <CAMuHMdUc-6ga7G5xuXXcKXU0ya3XBBM-tEJ3tZ-BY-oa+wozsQ@mail.gmail.com>
+X-Cookie: Don't read everything you believe.
+Message-ID-Hash: 4OMLR7M27FXI2HFGYQDOTYOLQ32PCC7B
+X-Message-ID-Hash: 4OMLR7M27FXI2HFGYQDOTYOLQ32PCC7B
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -96,7 +99,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VSWFNINT5HFUIDO7DYEVVALNIIHO4BHN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4OMLR7M27FXI2HFGYQDOTYOLQ32PCC7B/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -106,34 +109,33 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---dr+DpUY6Xq+EybR1
+--ecJqEW6WQ4xj01qT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Jul 06, 2023 at 01:42:03PM +0200, Geert Uytterhoeven wrote:
+On Thu, Jul 06, 2023 at 02:15:57PM +0200, Geert Uytterhoeven wrote:
 
-> Fix this by making REGMAP_SLIMBUS select REGMAP.
+> Well, unless you have CONFIG_REGMAP=y due to some other reason, you
+> won't reach the mentioned link error without applying [PATCH 2/3] first.
 
-Why is this being done as a separate patch?
+> It doesn't hurt to apply this patch independently, though.
+> Do you want me to resend it (to your sound-persona) as a separate patch?
 
-> Drop the selection of REGMAP by MFD_WCD934X, as this is not needed
-> (now both REGMAP_SLIMBUS and REGMAP_IRQ select REGMAP).
+I've already split it out.
 
-This has always been redudnant, why is it mixed into this patch?
-
---dr+DpUY6Xq+EybR1
+--ecJqEW6WQ4xj01qT
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSmsPcACgkQJNaLcl1U
-h9BPOwf/ZD9cLVc9wr/gWaOiihgTAFnsuEKYyg5HanL/iuwCWpF0wJsIhTVwEFQf
-GBSmNLlS3niisAbotm/TZsmx7+/xnQFTumeWg8EwQnjNX1Y4kSSckF8dRlqtCY+Q
-KRqs5jLAhjy47O3ELQaXC/+y416fAhAl4ZQpMW9byQLiK1oOYH5Vrni5GpeJGPmM
-G1YNi4K6aUNkODVhZwQO9T4rlp2asrc+rnhO2nR952qmPqbXBlF3fFHzG1Q/SOph
-Xu2+5LOU/AS8zyO91VrqrP1vfWYbenHI3DnevBUpQ4eNR/vejyVn/d5Do93/t9HL
-2JGJ4i8+Z8m8vvsz32Ky1iDozA54mg==
-=qA7K
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSmsSgACgkQJNaLcl1U
+h9DiZwf+LRghgiXe8yXcuq0vH3jgiskjra/u/Op609XR6YiFf7mt8xQZvNoZa8/W
+H5ypiOqFY+3UMoHkk2liYMaTTXZ3BQFJa/PmhmW+TGW8oG99S4l84OS0ZKwpMDN3
+HxBHROB1V1UCdnbKNR7cGxRmuTVKZH7P8beTr4YbH3qJD+sNRqb9fcCbiBOuGPvL
+9sMHKYOXPhccChhBOjLlJSESzz0WO8TLxsAHE75pPceweqZD37VDnErV0YQQkyPq
+mIcM/uUC5GMVTcqidYv+o6JdwYqK1rvcLrmjjS3LVc5swE1yvX6aOBizPjYId0zu
+E30bTGDZ8CBhjKgjPjuriDgAe0Kvqw==
+=ZBDx
 -----END PGP SIGNATURE-----
 
---dr+DpUY6Xq+EybR1--
+--ecJqEW6WQ4xj01qT--

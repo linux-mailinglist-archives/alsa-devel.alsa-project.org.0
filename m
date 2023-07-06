@@ -2,126 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5DA874D7E7
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 15:38:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F293F74D9E4
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:30:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10DF33E7;
-	Mon, 10 Jul 2023 15:37:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10DF33E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C316D3E7;
+	Mon, 10 Jul 2023 17:29:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C316D3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688996284;
-	bh=HA2So+NjBTWAY2fjVnTJJii4ARFTRIerq07ZS5EB7BI=;
+	s=default; t=1689003044;
+	bh=JgAS7+H/bXuGN7P4jhyATEkL5iXN8WwS5vNdjCpDTKM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=HhCZjeiwOFNG7Z473F9fUUzNAo5tjSgwlQOjcugqbHsmSVNUEAA+kWd6NsKGbVB+t
-	 yXOHt1HsYg1LnFkEc8/LpUqhGpXJZ9y8LfXCQqSPvnc/0NWiUxS4aDfXKgNwztWc9M
-	 gkwrrZ1a3Xng1DK0KDql23K6wqGG/xfKAbeIY+n4=
+	b=h4nQR3LOwzJ+n56J8T8RwDyxqPxWUc2l/1tQcIXn6Zw24sacdEXQEK2oRbp5AEErD
+	 qwX+Fd8ZD6Y0dU5PXzM8YrhceJjKYSJAZa31CNU972ShjJjJboe0PWd1nW4LwQ9rHO
+	 MsPTgIHDJvUrNXXI168VEaoojLBC/P7qj2TdlkmU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 48E91F80153; Mon, 10 Jul 2023 15:37:12 +0200 (CEST)
+	id E1793F80290; Mon, 10 Jul 2023 17:29:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C15E2F80153;
-	Mon, 10 Jul 2023 15:37:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00035F80153;
+	Mon, 10 Jul 2023 17:29:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2EB1EF80249; Mon, 10 Jul 2023 15:37:10 +0200 (CEST)
+	id 0386DF80125; Thu,  6 Jul 2023 10:47:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id DFD42F800E4
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 15:37:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFD42F800E4
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IjYLkVSv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688996228; x=1720532228;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HA2So+NjBTWAY2fjVnTJJii4ARFTRIerq07ZS5EB7BI=;
-  b=IjYLkVSvmCHsTPWzf2GNThVqCrYFi1Qz6kM9yhAIuU9//+YxkMurdVG4
-   HyD7dVtpOY0iQLvlxg8wIm8oKkds+omoAYoOVpghh8U6BR4O6Y1CUNsiZ
-   TvdqhD1YyfAy+gglytLMZgITBBZviFwkEqsLfjpo4w7hTphikd/F8esG+
-   Co5+V0DZU5mQXlabEujPh7nJUwaQlkDYOxx+dg2W683kADCtRfRECHRXr
-   XRVppt2PpI+vrQ9gpTFrMihhg4OSVL0iBi7svnxDERMjwt24D36+TxZec
-   LORuq/4AX42Dhb/ne0EISkR7gVLLJStrlq6F6pbYQdKEBKwZl7acZEzAG
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="450701153"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="450701153"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 06:37:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="894774244"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="894774244"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orsmga005.jf.intel.com with ESMTP; 10 Jul 2023 06:36:56 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qIr4P-001ZC8-1X;
-	Mon, 10 Jul 2023 16:36:53 +0300
-Date: Mon, 10 Jul 2023 16:36:53 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>,
-	Yang Yingliang <yangyingliang@huawei.com>,
-	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
-	Kris Bahnsen <kris@embeddedts.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org
-Cc: Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>
-Subject: Re: [PATCH v1 0/8] spi: Header and core clean up and refactoring
-Message-ID: <ZKwJdb0rJCmH5cBA@smile.fi.intel.com>
-References: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from pi.fatal.se (andreasfatal-1-pt.tunnel.tserv3.fmt2.ipv6.he.net
+ [IPv6:2001:470:1f04:f16::2])
+	by alsa1.perex.cz (Postfix) with ESMTP id 78F97F80093
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 10:47:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78F97F80093
+Received: by pi.fatal.se (Postfix, from userid 1000)
+	id 49B302A8D9; Thu,  6 Jul 2023 10:47:06 +0200 (CEST)
+Date: Thu, 6 Jul 2023 10:47:06 +0200
+From: Andreas Henriksson <andreas@fatal.se>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Linux-ALSA <alsa-devel@alsa-project.org>,
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Hans =?iso-8859-1?Q?S=F6derlund?= <hans.soderlund@realbit.se>
+Subject: Re: [PATCH] ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode
+Message-ID: <20230706084706.bzwsbi3zisx5m5rl@fatal.se>
+References: <1652963808-14515-1-git-send-email-shengjiu.wang@nxp.com>
+ <CAOMZO5DtpoH0dLDX3=Sv4UUpX_=66VEZPsJUWQNnYviApfMLKQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: VMXVQ7YNW2PGO4Q4ARYRMZCFZSNM5FER
-X-Message-ID-Hash: VMXVQ7YNW2PGO4Q4ARYRMZCFZSNM5FER
-X-MailFrom: andriy.shevchenko@linux.intel.com
+In-Reply-To: 
+ <CAOMZO5DtpoH0dLDX3=Sv4UUpX_=66VEZPsJUWQNnYviApfMLKQ@mail.gmail.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-MailFrom: ah@fatal.se
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: 43HMEGOLBLQ7PGGLELCIMF4DXJ5II4JS
+X-Message-ID-Hash: 43HMEGOLBLQ7PGGLELCIMF4DXJ5II4JS
+X-Mailman-Approved-At: Mon, 10 Jul 2023 15:29:49 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VMXVQ7YNW2PGO4Q4ARYRMZCFZSNM5FER/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/43HMEGOLBLQ7PGGLELCIMF4DXJ5II4JS/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -130,18 +85,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 10, 2023 at 01:27:43PM +0300, Andy Shevchenko wrote:
-> Various cleanups and refactorings of the SPI header and core parts
-> united in a single series.
+Hello Shengjiu, Fabio,
+
+On Thu, May 19, 2022 at 10:23:06AM -0300, Fabio Estevam wrote:
+> Hi Shengjiu,
 > 
-> Patches 1 & 2, 5 & 6 & 8 are dependent inside each group.
+> On Thu, May 19, 2022 at 9:49 AM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
 > 
-> No functional change intended.
+> > diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> > index fa950dde5310..dae16a14f177 100644
+> > --- a/sound/soc/fsl/fsl_sai.c
+> > +++ b/sound/soc/fsl/fsl_sai.c
+> > @@ -437,6 +437,12 @@ static int fsl_sai_set_bclk(struct snd_soc_dai *dai, bool tx, u32 freq)
+> >                                    FSL_SAI_CR2_DIV_MASK | FSL_SAI_CR2_BYP,
+> >                                    savediv / 2 - 1);
+> >
+> > +       if (sai->soc_data->max_register >= FSL_SAI_MCTL) {
+> 
+> Isn't it a bit fragile to take this decision based on the number of
+> SAI registers in the SoC?
+> 
+> What about adding a specific field in soc_data for such a purpose?
 
-I will resend the entire series.
+We've been working on an i.MX8MP where MCLK needs to be input and found
+that this enables the MCLK as output despite not having set the
+`fsl,sai-mclk-direction-output;` devicetree property in our DT.
+Reverting the patch fixes the issues for us.
 
--- 
-With Best Regards,
-Andy Shevchenko
+I have to say that the code comment made me a bit confused, but once
+I found the commit message I understood why this code existed.
+If this is really i.MX8MM specific maybe mention that in the code
+comment and please make the code actually only trigger on i.MX8MM.
+It seems to me like these all fulfill the current criteria:
+imx7ulp, imx8mq, imx8mm, imx8mp, imx8ulp, imx93
 
+Should I report this in bugzilla.kernel.org ?
 
+Regards,
+Andreas Henriksson

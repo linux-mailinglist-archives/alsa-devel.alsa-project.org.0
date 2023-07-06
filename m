@@ -2,107 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE1C0749BB2
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 14:29:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19863749BDF
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jul 2023 14:34:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D43D210;
-	Thu,  6 Jul 2023 14:28:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D43D210
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CBDA7F1;
+	Thu,  6 Jul 2023 14:33:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CBDA7F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688646578;
-	bh=kRZhbctXGs1rz4KZ8SKhER1b2KLFWVBqX/XUAQVGayE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1688646888;
+	bh=j3Bj1sSsS6/rr623KKWCqgGRCT39zzClBMwB4l36CAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=X6YgzB6CWdlE3xmrjcUCV0NbeO0ofTHPbZ7Z2JtmirDDEPQQ3eE7/ooOmogn0gbS1
-	 mAuxrpyHnV2M1Le56XePNDM6xpbWo86bQod6GaIX4zaMAGVagSVAQCZS5gxvAs/e5W
-	 pt8tZ0ZUQNOUJeXh5gtYcEVHSFQGUKdMCgrcbqRY=
+	b=Dy9GbpQfuEs/6Qb5uRASDzxu/9Lnp/NLx/M3j64RrqIH5jByWgyv4oojAsqe876VJ
+	 BI981eNi7rAj9pSkwa6ZpnuY4Y2nATxc38qNUkRwEW6ceyrUyPdFgm+ubW3cwsAmqk
+	 tOKUgAlWvja74vf4wa3Uyk10S74hcgkweUpdmDnM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD4F8F80544; Thu,  6 Jul 2023 14:28:47 +0200 (CEST)
+	id 7A422F80132; Thu,  6 Jul 2023 14:33:57 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38291F80100;
-	Thu,  6 Jul 2023 14:28:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1460DF80100;
+	Thu,  6 Jul 2023 14:33:57 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4DF94F80125; Thu,  6 Jul 2023 14:28:42 +0200 (CEST)
+	id 629A6F80125; Thu,  6 Jul 2023 14:33:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8A1BEF80093
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 14:28:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A1BEF80093
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-57a551ce7e9so395127b3.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 06 Jul 2023 05:28:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688646511; x=1691238511;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=aF033wdSvhE6en0dVjojudzrpib3grbe9zdW84Y321c=;
-        b=a0ly3NTL5hdWggazH5BgOav2ETgLR3jD+9jGB2Dwo1f24JQCJHRDqMKwkFx2q/3Grt
-         RcqT0vkXyR8h9bo0HjP356ahxqLv4uFBTV0Qvmrz90xZHyJWAZx+f+YjQZrywRB1qU6o
-         togfXD4SbkHGKVm0euGIR/2rFKQe8mZc3AQGwHu8p/Aawyz0Iazs5Fp1+q1Y7wI9rZVa
-         6UGK9/BhydwCDmGzpzaSy9FTsFc2a68zXjQCBHtFJiG3v5LgRAdgxrMu4LG3kUA4lvLU
-         Dtk10yEVJ4fSOLEsL4QH0v595ck4qyiy0M7X3SYOETc/ZBqZdkipwTcfL8xZdeMBo0lE
-         9dCA==
-X-Gm-Message-State: ABy/qLa4YZ0Gx4lb2Ps5sOvpMHcT99p5XY0/mwpg1coL/zCOabSgEWIC
-	pnIIZm8iz2QaklKysUBilM77Mx2kHYzqVg==
-X-Google-Smtp-Source: 
- APBJJlF5k7sI8MHeMzHiQ7NR/e6Yuw0Wgz0CQ/YPrvrBdRvJYtxgI0vq0+i/eU+aVHjjlr4qw0ZkzA==
-X-Received: by 2002:a0d:e6d3:0:b0:57a:1863:755c with SMTP id
- p202-20020a0de6d3000000b0057a1863755cmr1943431ywe.15.1688646511449;
-        Thu, 06 Jul 2023 05:28:31 -0700 (PDT)
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com.
- [209.85.219.175])
-        by smtp.gmail.com with ESMTPSA id
- a62-20020a0dd841000000b0054f9e7fed7asm306049ywe.137.2023.07.06.05.28.30
-        for <alsa-devel@alsa-project.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Jul 2023 05:28:30 -0700 (PDT)
-Received: by mail-yb1-f175.google.com with SMTP id
- 3f1490d57ef6-bacf685150cso643822276.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 06 Jul 2023 05:28:30 -0700 (PDT)
-X-Received: by 2002:a25:a564:0:b0:c5d:cce7:bc9b with SMTP id
- h91-20020a25a564000000b00c5dcce7bc9bmr1665282ybi.34.1688646510743; Thu, 06
- Jul 2023 05:28:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1688643442.git.geert@linux-m68k.org>
- <7519324a34015e1c046227269409fef688889f4f.1688643442.git.geert@linux-m68k.org>
- <18425cc3-9a4c-4269-aec0-3f821697bfd6@sirena.org.uk>
-In-Reply-To: <18425cc3-9a4c-4269-aec0-3f821697bfd6@sirena.org.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 6 Jul 2023 14:28:19 +0200
-X-Gmail-Original-Message-ID: 
- <CAMuHMdUo-3C7AQKAstEyYsnqULQVqRsjsZye_f1aB7aLLkjciA@mail.gmail.com>
-Message-ID: 
- <CAMuHMdUo-3C7AQKAstEyYsnqULQVqRsjsZye_f1aB7aLLkjciA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] regmap: REGMAP_SLIMBUS should select REGMAP
-To: Mark Brown <broonie@kernel.org>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3ED6BF80093
+	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 14:33:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ED6BF80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=AC6iTwZb
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id CCEDF61913;
+	Thu,  6 Jul 2023 12:33:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2A6C433C8;
+	Thu,  6 Jul 2023 12:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688646826;
+	bh=j3Bj1sSsS6/rr623KKWCqgGRCT39zzClBMwB4l36CAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AC6iTwZbjWGrAJMvOynJCL/srgn4a2AzvqKPHWv3m+iu3rtfiroBdfVpGciZKczav
+	 HZTqDgXTa5JjddDN0THlD3FcQ6bGSBYX40IEeVCMc9XTMiprF54YRj4yoUztq7jTuk
+	 wyzLaqA9fMZeyKnYG3IZ1FONVUiuDXldvsPjoaQ5kVCSUmzMSzMOZkYjH7uCnBEnqq
+	 ECxUOJZ5K+Y3ooRICbqk9Rg83IZ/DY5DvVNo0rD44FXax0O6tIkApcSAnJSKVJUFbh
+	 LuhKchKf7hoCg62keSeUxa/4wYrEQPJlS/bzQaAR5wQ9y1LhPwI8z2Uei0UVCvlLSw
+	 Mw7q1Sydr3YnA==
+Date: Thu, 6 Jul 2023 13:33:40 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
 	Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Benjamin Gray <bgray@linux.ibm.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Message-ID-Hash: DHOQHSLQBIUPBHO6DKNLWKK4E2X264TJ
-X-Message-ID-Hash: DHOQHSLQBIUPBHO6DKNLWKK4E2X264TJ
-X-MailFrom: geert.uytterhoeven@gmail.com
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Benjamin Gray <bgray@linux.ibm.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] regmap: Replace "default y if" by select
+Message-ID: <a170939b-ee15-4241-ac07-bfa341a56bbe@sirena.org.uk>
+References: <cover.1688643442.git.geert@linux-m68k.org>
+ <525c37a568b10623ffb2d108850afd7e37f9350e.1688643442.git.geert@linux-m68k.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8w2QbIDms0NhgMtB"
+Content-Disposition: inline
+In-Reply-To: 
+ <525c37a568b10623ffb2d108850afd7e37f9350e.1688643442.git.geert@linux-m68k.org>
+X-Cookie: Don't read everything you believe.
+Message-ID-Hash: 4RITEM6DKDK73C42D4S3VEHPJOJF6ZUB
+X-Message-ID-Hash: 4RITEM6DKDK73C42D4S3VEHPJOJF6ZUB
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -114,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DHOQHSLQBIUPBHO6DKNLWKK4E2X264TJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4RITEM6DKDK73C42D4S3VEHPJOJF6ZUB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -123,37 +106,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hi Mark,
 
-On Thu, Jul 6, 2023 at 2:18=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
-e:
-> On Thu, Jul 06, 2023 at 01:42:03PM +0200, Geert Uytterhoeven wrote:
->
-> > Fix this by making REGMAP_SLIMBUS select REGMAP.
->
-> Why is this being done as a separate patch?
+--8w2QbIDms0NhgMtB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Because this is a new select, which was not handled through the
-"default y" before.  [PATCH 1/3] converted only the existing ones.
+On Thu, Jul 06, 2023 at 01:42:02PM +0200, Geert Uytterhoeven wrote:
 
-> > Drop the selection of REGMAP by MFD_WCD934X, as this is not needed
-> > (now both REGMAP_SLIMBUS and REGMAP_IRQ select REGMAP).
->
-> This has always been redudnant, why is it mixed into this patch?
+> Merely setting the default to enabled is no guarantee that a Kconfig
+> option is actually enabled.  While this works for an invisible option,
+> the user can still disable it manually if the option is visible.
+> Hence since the REGMAP option was made visible if KUNIT_ALL_TESTS is
+> enabled, the user can now manually disable REGMAP, causing build
+> failures if any of the REGMAP_* configuration options are enabled.
+>=20
+> Fix this by replacing "default y if ..." by individual "select REGMAP"
+> statements for all users.
 
-Because it is related to REGMAP_SLIMBUS selecting REGMAP.
-I agree it was redundant before, as REGMAP_IRQ already selected REGMAP.
+I already have a separate patch which will go after the merge window
+that will move the KUnit visible option to a separate Kconfig since the
+current bodge to work around your desire to not have KUnit enable
+anything automatically had really substantial usability issues anyway.
 
-Gr{oetje,eeting}s,
+I'm getting fed up with all the problems that these KUNIT_ALL_TESTS
+issues TBH, the inital patch here seriously damaged the usability.
 
-                        Geert
+--8w2QbIDms0NhgMtB
+Content-Type: application/pgp-signature; name="signature.asc"
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+-----BEGIN PGP SIGNATURE-----
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSmtKAACgkQJNaLcl1U
+h9BgDwf/bxvria0yTNlFgcVB47sqjg89/9bKKZ4Z60b9HloA1Ex3l68CaUxnphFt
+1BUIy+pcsYDj1ph5LfEPQCHTemXXgdVbfbUrWOzuD65KY1Bbmg7MVxhdODDf27UI
+RFGIRtKTgQQqDjJxbmbJ9j7nEp+zd+q5M7caDVioLGPk+kkll6SL+79blhqrAqUb
+KSjlJOQnFIqe32/IIvviffVEIJU2RvVPNvup83qdeGUVRdvaSzsVOubOgGJUOY3p
+60fQaYz1ejTBpOwNicfFsvGGRGzgK47V/i2Yh8IB8dJ1LaqU+L+l4t0Spmw6qq3N
+Wlin1nMDR3ppHaJtZVCDELCSq2YPmQ==
+=iv0q
+-----END PGP SIGNATURE-----
+
+--8w2QbIDms0NhgMtB--

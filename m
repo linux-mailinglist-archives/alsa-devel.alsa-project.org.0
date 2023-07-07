@@ -2,112 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A951774AC2C
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 09:45:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 261D074AC4C
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 09:52:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 906243E7;
-	Fri,  7 Jul 2023 09:44:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 906243E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E6BC1DC;
+	Fri,  7 Jul 2023 09:51:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E6BC1DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688715946;
-	bh=YcFG5nXMjA3ak5LQ43wPVmzPx3/snrCQH1HYWvDEsic=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	s=default; t=1688716333;
+	bh=3WtipWPEPFR3HskxETHMU7xVbu5+R8gJsyiHacVuBYs=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=ZVk4kDzjEMiZ4Iw/kGEUpcnaUAc8GxB5arNNwnx7cYcdK23HC6AEAgDeh+UwQ1I0a
-	 SeTbMFPxGkMCCRwvl5zMy4MGErpXONs5Af7F1FD0XzKdAEMk5MypMo+bfUyHPE+jhM
-	 q5mkYiOljaLoQRlYReae0RbHjQ1NJcGWYpKo0dbI=
+	b=nZpCfmGdXDsqtkn/HVyk1DuRUjEvpn5pLUQI4F+SOmKUd9mpsSdEXtdq9nZJNS+GJ
+	 6OOJCTbpKIh47AMKA5XMjn6Dn8aKe+TmCxEVPNHopUgBN5mBWep+w4AmPsrDM249Nm
+	 Uq3DMXee+b5Q6Btymj9iZ+yMLpNAiW23Cs415hVY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BD346F8025F; Fri,  7 Jul 2023 09:44:30 +0200 (CEST)
+	id 530B2F80093; Fri,  7 Jul 2023 09:51:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6673F80124;
-	Fri,  7 Jul 2023 09:44:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75753F80100;
+	Fri,  7 Jul 2023 09:51:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 75593F80125; Fri,  7 Jul 2023 09:44:25 +0200 (CEST)
+	id CDB1FF80125; Fri,  7 Jul 2023 09:51:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2BE5CF80093
-	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 09:44:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BE5CF80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
- header.s=qcppdkim1 header.b=NSFE1nY5
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3676sTCa024231;
-	Fri, 7 Jul 2023 07:44:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=qcppdkim1;
- bh=UIGR9bgCyltN2SO4cBQB/3NUEVmyGhECK43ChRaoVuA=;
- b=NSFE1nY5Pq1g91WYwh5W8eoKYlQvMotZS8e0gK3iD+0ZZjVr5WCrETx59zBR0NNBLJCI
- /DnU1a8Q+p+0BieglkOrVSDjCCnVqAdaefTkoEl7bPqTplWjTZPhmrCIRV4pNO5ZxiZH
- SsUqGaVsm9WMh9Hq6RaFE+kCWcBerm/l6xQjQKAzzafH04usT51UNHjOtt9JcJ7y8kEc
- OmCr9Fov/pnqMtWelMou2G4D7/QQx7HPXovpdzO+vIfoSViGgUkaurAfD1y8CJcntFPc
- rykQlRcCinPQ7u5qAo4PzfynW464m38D6BLx58hsWatcMgYpg+4m42R0Fjt5MDOZu2ww Tw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rnvyvj4x9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 07 Jul 2023 07:44:16 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
-	by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
- 3677iFY2009193
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 7 Jul 2023 07:44:15 GMT
-Received: from rohkumar-linux.qualcomm.com (10.80.80.8) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.30; Fri, 7 Jul 2023 00:44:10 -0700
-From: Rohit kumar <quic_rohkumar@quicinc.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
-        <agross@kernel.org>, <andersson@kernel.org>,
-        <konrad.dybcio@linaro.org>, <quic_rohkumar@quicinc.com>,
-        <cychiang@chromium.org>, <alsa-devel@alsa-project.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-msm@vger.kernel.org>
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v2] ASoC: dt-bindings: Update maintainer email id
-Date: Fri, 7 Jul 2023 13:13:36 +0530
-Message-ID: <20230707074337.3120530-1-quic_rohkumar@quicinc.com>
-X-Mailer: git-send-email 2.25.1
+	by alsa1.perex.cz (Postfix) with ESMTPS id D3DFDF80100
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 09:51:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3DFDF80100
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1qHgF7-0005T1-8f; Fri, 07 Jul 2023 09:51:05 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1qHgF6-00CgJr-EF; Fri, 07 Jul 2023 09:51:04 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1qHgF5-002wtp-LH; Fri, 07 Jul 2023 09:51:03 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org,
+	kernel@pengutronix.de
+Subject: [PATCH 1/2] ALSA: pcmtest: Convert to platform remove callback
+ returning void
+Date: Fri,  7 Jul 2023 09:50:57 +0200
+Message-Id: <20230707075058.3402832-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1617;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=3WtipWPEPFR3HskxETHMU7xVbu5+R8gJsyiHacVuBYs=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkp8Pgk9jNOr9j82G2ygT8dYHnckt2Li5RlhGss
+ dRLaH8bDHmJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZKfD4AAKCRCPgPtYfRL+
+ Tn4qB/99gB6P9GzB4TFvvSeaU00RM5XZZTVVAc00qQjBS59TqUFoWULywbvVvP4161Nf0++HpTJ
+ cCDg16Xqa35OzabvEeQ04xWjPYp+j21jmz8Gc8U58TOyCxzNDYqmSegGBdKTOgYTYAJ//NGkQy7
+ xOzsCNq/TzR/ii/rNTBhT4r0j6XUZ769JX1k/Y0tJSLbG+zz/E0j9ohJau30leSOOqi+PTi2/0z
+ NiCeS+hsjvGc9tMTT2ELwG6ywm8jBmbooDwWPXCW8uFVaB9tt1h1MQvRyYS6AeG+DOkY5q5BZeH
+ 6S23HNJIvCfL0uLI6ggIkkbkIYWo+lIq2qGA6ODKZ8r66606
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: q9GijHBQwLKbeBQ9DnMc9Ymoms53_ekI
-X-Proofpoint-ORIG-GUID: q9GijHBQwLKbeBQ9DnMc9Ymoms53_ekI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-07_04,2023-07-06_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- suspectscore=0 mlxlogscore=999 clxscore=1015 mlxscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2305260000 definitions=main-2307070070
-Message-ID-Hash: PFOM36HBGTI4K7NC4X7EE5JKSLTO4KCX
-X-Message-ID-Hash: PFOM36HBGTI4K7NC4X7EE5JKSLTO4KCX
-X-MailFrom: quic_rohkumar@quicinc.com
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Message-ID-Hash: D4KPZRPRB3WVEI26AR4GQWHDQ3WGPT3R
+X-Message-ID-Hash: D4KPZRPRB3WVEI26AR4GQWHDQ3WGPT3R
+X-MailFrom: ukl@pengutronix.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -119,7 +97,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PFOM36HBGTI4K7NC4X7EE5JKSLTO4KCX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/D4KPZRPRB3WVEI26AR4GQWHDQ3WGPT3R/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,43 +106,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Updated my mail id to latest quicinc id.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new() which already returns void. Eventually after all drivers
+are converted, .remove_new() is renamed to .remove().
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Rohit kumar <quic_rohkumar@quicinc.com>
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 ---
-v2: Updated commit header
+ sound/drivers/pcmtest.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
- .../devicetree/bindings/sound/google,sc7180-trogdor.yaml        | 2 +-
- Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml     | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
+index 2ae912a64d16..1fff85feaf82 100644
+--- a/sound/drivers/pcmtest.c
++++ b/sound/drivers/pcmtest.c
+@@ -576,10 +576,9 @@ static int pcmtst_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static int pdev_remove(struct platform_device *dev)
++static void pdev_remove(struct platform_device *dev)
+ {
+ 	snd_pcmtst_free(pcmtst);
+-	return 0;
+ }
+ 
+ static struct platform_device pcmtst_pdev = {
+@@ -589,7 +588,7 @@ static struct platform_device pcmtst_pdev = {
+ 
+ static struct platform_driver pcmtst_pdrv = {
+ 	.probe =	pcmtst_probe,
+-	.remove =	pdev_remove,
++	.remove_new =	pdev_remove,
+ 	.driver =	{
+ 		.name = "pcmtest",
+ 	},
 
-diff --git a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
-index 666a95ac22c8..ba5b7728cf33 100644
---- a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
-+++ b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Google SC7180-Trogdor ASoC sound card driver
- 
- maintainers:
--  - Rohit kumar <rohitkr@codeaurora.org>
-+  - Rohit kumar <quic_rohkumar@quicinc.com>
-   - Cheng-Yi Chiang <cychiang@chromium.org>
- 
- description:
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-index 6cc8f86c7531..3a559bd07a79 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
-@@ -8,7 +8,7 @@ title: Qualcomm Technologies Inc. LPASS CPU dai driver
- 
- maintainers:
-   - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
--  - Rohit kumar <rohitkr@codeaurora.org>
-+  - Rohit kumar <quic_rohkumar@quicinc.com>
- 
- description: |
-   Qualcomm Technologies Inc. SOC Low-Power Audio SubSystem (LPASS) that consist
+base-commit: 5133c9e51de41bfa902153888e11add3342ede18
 -- 
-2.25.1
+2.39.2
 

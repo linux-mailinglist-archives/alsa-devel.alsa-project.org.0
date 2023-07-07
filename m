@@ -2,139 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F87F74B07A
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 14:10:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14CA674B0D1
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 14:30:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48B4784A;
-	Fri,  7 Jul 2023 14:09:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48B4784A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 595A5203;
+	Fri,  7 Jul 2023 14:29:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 595A5203
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688731803;
-	bh=QsAYhwLrPHrrOxjVVceomW3bqICMUVOZzBv6bLIHRW4=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1688733017;
+	bh=yPFNm/a3XABU3ZMS5bkjehvdgxpbhiLr7fm//IOBW44=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=EKnJUpDjTrZiwyDVzRgdtqakpZbwkkbF62Phe2UyZLLKYDupzRBZ+of7QyslzaDXI
-	 a79h/q0QnLgVsYTZ3zTR78f6Feaz47Sd/G2YZHjYj4T+bOOSXR5WDb/fjqwJB53GaP
-	 zBDHZFL+iGMNm3AmyUNMI70HCPgMrJ9NRGHJq524=
+	b=qxlyiSjeitf7dv08jccxdoV6FSBiY0OO1rJ4B0NDkyXeAQlJxKNSFvHcFo98iehG4
+	 uMkiZYKwGZUVt7eQzBki0mZI0yssH8ejG+VCE9sMA603qxK2TSxLkkhMAdkcuSudYk
+	 gJNyusYau9DpxS08hBVUOQOzZWDBGygZ8R5S+O4c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B8DA3F80124; Fri,  7 Jul 2023 14:08:29 +0200 (CEST)
+	id 1C8EDF80544; Fri,  7 Jul 2023 14:29:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FEC1F8058C;
-	Fri,  7 Jul 2023 14:08:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB428F80124;
+	Fri,  7 Jul 2023 14:29:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 17FD8F8059F; Fri,  7 Jul 2023 14:08:26 +0200 (CEST)
+	id AB35BF80125; Fri,  7 Jul 2023 14:29:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20604.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe5a::604])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5DA7BF8058C
-	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 14:08:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DA7BF8058C
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74AC8F80100
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 14:29:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74AC8F80100
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=wUG+hcFE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gZ5llYbATF2kBRHBSxfdgYQo2pTnWvLai2aI61T3yH9aFcCxcy1EWWBgQGzUUr7HPZPT9Men78YGXYMZggWVlB6lWUwamrqkQMs8DA8yxe9tpImajjTfrgNLkQda6/4VWb5POfNAuCxu2Is6vPJ79WVsJh7GTBztUb5IJULrrhcVIcvfyQwnOOeA9EPO/hZoe4PWVpYZhbnCVCdMJuEnlWJCzLb0SZumFHHRYAbCEMpTyfUI+yVW61I78mIfB67XIOq+bD+A9kARSmFJ2Qw81XU30dhl7CxS3e7+Ds4kGRZUSlZwaGchwtSTNbNCkP20VFbT3rU0xxYCkJzyGQmoCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SzDNMqHIO6N9sjf2jUWkjtjZrLFx1DR2BU84ssyzPoA=;
- b=R1Soc1f7O5A8jsldNt9mchxEQPx9WsuA94E4yH2auZmH+b9om2R3LqD+r8ZEhCKoPLMzojrHsLUS0AX8ssi5g9q1wkeVKZ5/5ODMDIxwQmM1xN2wlGeia+UVIeK7zrkw3KoVY3SvREsKyCAUoF/pyQJuE1L/cEJ3oPNjKZsoEuw/LYTiuWMzNIojGskk69L2hVlJgVXptl2M1IOrLyu1/2mxplZ/Up3TmXpqIZSxTVslIJ8qvXcgtv57sOb9am8gh5G0eQlXOu71/5PQRwQpPzj8tMkqb8lgQQJ2RhnAELKOt5hj36fdVyjizMwuwf/f/iGgW9UDd9TTc9cgimFW0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SzDNMqHIO6N9sjf2jUWkjtjZrLFx1DR2BU84ssyzPoA=;
- b=wUG+hcFEzKxNidqHYiZ3giJOB+h20H0EZELBWdlfosCRaVlKC3Ukh4C7NiKa8RMdbvRgCjGhXlmDBo+SYTR7KwIxFAo2WIioHMHZxkkItHUZOcTgRzYr+R59inpqUoCkPrr55cep/6sehzJ9xqCYPtb9S6yB1PCcZV98YHIzpsk=
-Received: from SJ0PR03CA0182.namprd03.prod.outlook.com (2603:10b6:a03:2ef::7)
- by MN0PR12MB5836.namprd12.prod.outlook.com (2603:10b6:208:37b::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.19; Fri, 7 Jul
- 2023 12:08:16 +0000
-Received: from CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:2ef:cafe::e7) by SJ0PR03CA0182.outlook.office365.com
- (2603:10b6:a03:2ef::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.24 via Frontend
- Transport; Fri, 7 Jul 2023 12:08:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT005.mail.protection.outlook.com (10.13.174.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.45 via Frontend Transport; Fri, 7 Jul 2023 12:08:14 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 7 Jul
- 2023 07:08:12 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 7 Jul
- 2023 07:08:12 -0500
-Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23
- via Frontend Transport; Fri, 7 Jul 2023 07:08:08 -0500
-From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <vsujithkumar.reddy@amd.com>, <Vijendar.Mukunda@amd.com>,
-	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
-	<syed.sabakareem@amd.com>, <mastan.katragadda@amd.com>,
-	<arungopal.kondaveeti@amd.com>, Venkata Prasad Potturu
-	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 4/4] ASoC: amd: Add new dmi entries to config entry
-Date: Fri, 7 Jul 2023 17:37:30 +0530
-Message-ID: <20230707120730.1948445-5-venkataprasad.potturu@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230707120730.1948445-1-venkataprasad.potturu@amd.com>
-References: <20230707120730.1948445-1-venkataprasad.potturu@amd.com>
+	dkim=pass (2048-bit key,
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=rbbDWdcK
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3678vO65029918;
+	Fri, 7 Jul 2023 14:29:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=qa/ZpaXlILgzVxoBJk7a+24v02/Sfx+AkZW9A3Vu/hY=;
+ b=rbbDWdcKpSJfL7g40hrtk6xrxyf9fm7MqRL0m1shu10ursGy1PNvchOYCcGi7eBcmhjm
+ 9b2stLFV5Oz1RNlDPUdNijZEaCmV+xVhuWf51KUv7dzMcV1Q8FTz8Tt89DWlbI3zdE7N
+ bbWPYU5XTOCjJaEhTsAncS+5swNkppzt/GfyIbVcL/USpQhANMRrTsATDqVMuvOqqVvI
+ 1w7CzK9vNNva+g9ef0U5FOq1R7ClSlh2nARm66N2eTV+1xTx4UpqAb+mmZebicRhNO97
+ I0FI6yrb78IW0IAapw+FegssrAqoorMfu4VOqSrLEdwpB2jazpwAYSYeIY08P1q5AsRe rA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rpfnchkmr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 07 Jul 2023 14:29:06 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C2685100050;
+	Fri,  7 Jul 2023 14:29:03 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 643ED21F14B;
+	Fri,  7 Jul 2023 14:29:03 +0200 (CEST)
+Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 7 Jul
+ 2023 14:29:00 +0200
+Message-ID: <0aaace47-1bb4-82c5-57a5-6f5d27eb4d45@foss.st.com>
+Date: Fri, 7 Jul 2023 14:28:28 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT005:EE_|MN0PR12MB5836:EE_
-X-MS-Office365-Filtering-Correlation-Id: 443abc46-ef26-479e-cfb8-08db7ee2d7b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	dsk3sb7QJBGHUbDLAfxL+Q2yRyeoXmtHbVCx24g8/Z3Szn9g0LgtB6q7OHaJGgDJmi5M7GGaOPZpzrhfpFd7u/owFvdTG3RPmoDNJs9ggiAXtMNsNurFfMkqw7USzXSa6hWvcuH5wcSxeAYo08B2rEKILY4i/fOMIofD1KmHSr4EnbP7FqHrO8/1x0I5v6mEUwuMxnGPDuZKBptW0nqrhT7kpzAsQXjfVnzW5RbxqHsY8m77J6G2XeB3Iwij0suWNCbRO12JtdlG8kv0BL2Qq4zQV/FkWx7pyoGv5UnlcjIaScmfogyWGbRbZFm8fzDOXYYWGPRC7mbCjhAHaqRbekZ+uZmAi/5K9V+9Ef8UcsyviqFTyesaTSlBXjNpuQi6pHse36lIqT93rStOpUEIrevNeOMr37NNxIHp5m9BkS8EFOLCYlRSgnrvQPz6NLiTknsuIGVV8QrVqS9K7lC4cLTo57ITfrO3ghcJCqBu7B5RBWfkWiEV0Tyxrm4iiKszwueK5Jov12JSrqN9v3UIIf0xuqVu/FDjnFk0oSJsRz/zplmEfEPbfCJG2azx7KqVnKyHRhDpeH4weZQ2GYfwdRz9al0DVn2tUGjUP/DgZFtuMdCkUFruhyRs5DUO+KvOj4QwJqQlsKt6jYzQ0rDoXrOW9xq/2yYQyzq6dbU36rPqw9zfteKy40c+//ZDSSrCfieOUtnL2RsIYJ6fkGHekDHeRYkwC589ceNTPqeiwWqwDjkPagOEnYcxvAJBCUktDPQMIaiYa9532J9APFjatg==
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199021)(46966006)(40470700004)(36840700001)(478600001)(82310400005)(70586007)(54906003)(110136005)(2906002)(4744005)(36756003)(41300700001)(8936002)(70206006)(4326008)(82740400003)(426003)(47076005)(81166007)(336012)(40460700003)(7696005)(6666004)(2616005)(356005)(316002)(26005)(186003)(86362001)(1076003)(36860700001)(8676002)(40480700001)(5660300002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 12:08:14.8260
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 443abc46-ef26-479e-cfb8-08db7ee2d7b8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5836
-Message-ID-Hash: U3XUWHMPQQQVLHB65Z3J6I7CPXDIFUOU
-X-Message-ID-Hash: U3XUWHMPQQQVLHB65Z3J6I7CPXDIFUOU
-X-MailFrom: venkataprasad.potturu@amd.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 04/10] dt-bindings: treewide: add feature-domains
+ description in binding files
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+CC: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
+ <jic23@kernel.org>,
+        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+        <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>, <linux-crypto@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+ <20230705172759.1610753-5-gatien.chevallier@foss.st.com>
+ <20230706145108.GA3858320-robh@kernel.org>
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <20230706145108.GA3858320-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-07_08,2023-07-06_02,2023-05-22_02
+Message-ID-Hash: W73QNVBN7KJV2OWV5QIDB3JGAQKUNWJI
+X-Message-ID-Hash: W73QNVBN7KJV2OWV5QIDB3JGAQKUNWJI
+X-MailFrom: prvs=55523583e3=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -146,7 +129,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/U3XUWHMPQQQVLHB65Z3J6I7CPXDIFUOU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W73QNVBN7KJV2OWV5QIDB3JGAQKUNWJI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -155,39 +138,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Add new dmi sys vendor, product name and product family to
-config entry table to enable audio for valve boards.
+Hello Rob,
 
-Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
----
- sound/soc/amd/acp-config.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+On 7/6/23 16:51, Rob Herring wrote:
+> On Wed, Jul 05, 2023 at 07:27:53PM +0200, Gatien Chevallier wrote:
+>> feature-domains is an optional property that allows a peripheral to
+>> refer to one or more feature domain controller(s).
+>>
+>> Description of this property is added to all peripheral binding files of
+>> the peripheral under the STM32 firewall controllers. It allows an accurate
+>> representation of the hardware, where various peripherals are connected
+>> to this firewall bus. The firewall can then check the peripheral accesses
+>> before allowing it to probe.
+>>
+>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>> ---
+>>
+>> Disclaimer: Some error with dtbs_check will be observed as I've
+>> considered the property to be generic, as Rob asked
+>>
+>>   Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml  | 4 ++++
+>>   Documentation/devicetree/bindings/dma/st,stm32-dma.yaml      | 4 ++++
+>>   Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml   | 4 ++++
+>>   Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml      | 4 ++++
+>>   Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 4 ++++
+>>   .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 4 ++++
+>>   Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml  | 4 ++++
+>>   .../devicetree/bindings/media/cec/st,stm32-cec.yaml          | 4 ++++
+>>   Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml   | 4 ++++
+>>   .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml       | 4 ++++
+>>   Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml  | 4 ++++
+>>   Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml   | 5 +++++
+>>   Documentation/devicetree/bindings/mmc/arm,pl18x.yaml         | 4 ++++
+>>   Documentation/devicetree/bindings/net/stm32-dwmac.yaml       | 4 ++++
+>>   Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml | 4 ++++
+>>   .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml      | 4 ++++
+>>   Documentation/devicetree/bindings/rng/st,stm32-rng.yaml      | 4 ++++
+>>   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml  | 4 ++++
+>>   Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml    | 4 ++++
+>>   Documentation/devicetree/bindings/sound/st,stm32-sai.yaml    | 4 ++++
+>>   .../devicetree/bindings/sound/st,stm32-spdifrx.yaml          | 4 ++++
+>>   Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml     | 4 ++++
+>>   Documentation/devicetree/bindings/spi/st,stm32-spi.yaml      | 4 ++++
+>>   Documentation/devicetree/bindings/usb/dwc2.yaml              | 4 ++++
+>>   24 files changed, 97 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+>> index b767ec72a999..daf8dcaef627 100644
+>> --- a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+>> +++ b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+>> @@ -50,6 +50,10 @@ properties:
+>>     power-domains:
+>>       maxItems: 1
+>>   
+>> +  feature-domains:
+>> +    minItems: 1
+>> +    maxItems: 3
+> 
+> What are the 3 entries?
+> 
+> Rob
 
-diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
-index f002397caeef..f27c27580009 100644
---- a/sound/soc/amd/acp-config.c
-+++ b/sound/soc/amd/acp-config.c
-@@ -47,6 +47,20 @@ static const struct config_entry config_table[] = {
- 			{}
- 		},
- 	},
-+	{
-+		.flags = FLAG_AMD_SOF,
-+		.device = ACP_PCI_DEV_ID,
-+		.dmi_table = (const struct dmi_system_id []) {
-+			{
-+				.matches = {
-+					DMI_MATCH(DMI_SYS_VENDOR, "Valve"),
-+					DMI_MATCH(DMI_PRODUCT_NAME, "Galileo"),
-+					DMI_MATCH(DMI_PRODUCT_FAMILY, "Sephiroth"),
-+				},
-+			},
-+			{}
-+		},
-+	},
- };
- 
- int snd_amd_acp_find_config(struct pci_dev *pci)
--- 
-2.25.1
+I thought I was benefiting from the description of the pattern-property 
+in the RIFSC YAML file. But yes anyway, it seems like it needs some 
+description here as the dependency does not appear in this file.
 
+I picked 3 as a maxItems for our ST needs, I'll give it some more 
+thought when coming back with something clearer.
+
+I will change that in V2, thank you for pointing that out.
+
+Best regards,
+Gatien

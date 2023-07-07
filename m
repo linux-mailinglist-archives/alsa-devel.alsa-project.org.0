@@ -2,176 +2,173 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D33974D9E7
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:31:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B48A774D9E9
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:32:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6920D857;
-	Mon, 10 Jul 2023 17:30:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6920D857
+	by alsa0.perex.cz (Postfix) with ESMTPS id E61FA820;
+	Mon, 10 Jul 2023 17:31:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E61FA820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689003107;
-	bh=gsDpUVQyWQItQktaQUVCVeyMm6ywi2DZhlFcVsLabjc=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=kzjoI8djoLmoFotrbtdvRgA6UPfY/RuQloXJnynb67WYwqMGaV+Gpnmw1OlvOyJt0
-	 KBgD0XJg4xsJyDZ9E6s4ZYPNm45s9xYOVCrg+9kTrqxpap+AtvBHGP4HFMGLLPY+lP
-	 HQ0fBv9Hngq7Pfd0DzVWwrF5EJXrJ00fLp1cN0eI=
+	s=default; t=1689003138;
+	bh=k6F5BWbpW6sOfXyur/LP4W5rxku50m1l8dvfnc4CnfM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=ePwLT0RuQgyWKF33r48/BkZJpjiUWd++2jd4xbr7125E02y049qCFBpsyWBqwbvb3
+	 WSUgvjpsvezkMeZIYzT8IOTnxagoMyj8YUMA4zCUH3RBU5D9LOMjhR2GcTNkpLxuw3
+	 47CGoTVCskMtpGeALDWA2RiajdQBbvT4U/cr1Oro=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85822F8057E; Mon, 10 Jul 2023 17:30:03 +0200 (CEST)
+	id 999DCF805A1; Mon, 10 Jul 2023 17:30:06 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 015D7F80579;
-	Mon, 10 Jul 2023 17:30:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAC14F80588;
+	Mon, 10 Jul 2023 17:30:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A22FFF80549; Fri,  7 Jul 2023 13:25:36 +0200 (CEST)
+	id 558ADF80124; Fri,  7 Jul 2023 15:49:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [IPv6:2a00:1450:4864:20::632])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 2DEE0F80153
-	for <sound-open-firmware@alsa-project.org>;
- Fri,  7 Jul 2023 13:25:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DEE0F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1AFB6F80093
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 15:49:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AFB6F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=lMYjUh1D
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3142a9ff6d8so1797273f8f.3
-        for <sound-open-firmware@alsa-project.org>;
- Fri, 07 Jul 2023 04:25:30 -0700 (PDT)
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=sAi3fJEV
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-98dfd15aae1so47307366b.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 07 Jul 2023 06:49:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1688729129; x=1691321129;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+        d=gmail.com; s=20221208; t=1688737767; x=1691329767;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=JQkPGD5/eqRL1CiGFWeiMUPmKQY/9u9/vWvSh1GggDE=;
-        b=lMYjUh1DQgels50J8Ik5tIQ4VpRzz/pi0P351yaNC0VUTyA2Dxp/1+AGTn/7gg5f71
-         S8CF1PnoxlbezYZ4muWjc+Joq/RvpyviY+5XIrW8j/z84la7VdqhOCzrnrhrbssxODCV
-         G7wMfWQw4db3IYhw/uayB/H0GfAdOrcRdCTQhPTqK76MdxPwO5ykob5DMg7CwHs6Y16/
-         4xBHMPjZW3bMFcaLAbG+bW8YpFzqYqvL46sGrsERtSphekqokTVZoOxDT/ONxh6f5sL6
-         uof2biixlSQqHMNoYrLfrtEQnCtJCPboxOwUPgInaVP0sdYQogpZsTwJNidEVfYWz6U9
-         qLwQ==
+        bh=2q9MqhZksTJkvIZn3w+zVX492kRKdBFgYD3XXC+4zdI=;
+        b=sAi3fJEVcg3YXpDgUykFaH/O+XzolW/c9rci7fimbgTy+HCahN6RFBkOfmUMyfw70v
+         aOSpU7ihuLrIi1S9nIcHcAgjclcY7Pqg9aV/DuNQrBBJ2P3u6nOm77/JTXcRsKWF33BB
+         V0EWneeXdsfP8ZH7ge2p2C2a7qU73MIsD6DjrKfgsBAPs/DKcQsSbpOm3aR3J+CN5vQZ
+         vZxq1E9y1pZgnlq8mPtOFqVvMihp4vI8YUk2OEzgZ7s+ctRWC3200svxvJnRlScJtdx/
+         cm0mqj9v9Nia6zCMIKOQB9wK0IIMbWhpfDTYSDetXCnM4+DLUAJo+nIkQGZa4D5pbPtM
+         YdDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688729129; x=1691321129;
-        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20221208; t=1688737767; x=1691329767;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JQkPGD5/eqRL1CiGFWeiMUPmKQY/9u9/vWvSh1GggDE=;
-        b=cXTQprhT1qT3icwbv3T0OmOERg23KlnEAwGy1eBqkxsYJ6m+Xh1oM0qvKf+YDTPUIl
-         o8LDWvEszf8LwNJVWyWVPHQXvz6oJv0WwewUllA+svolOcKWROHgbFzXSe8pOLfvGTH2
-         wSAF2N5u8m8UAKbse8Ugl4LYeSS/v1Th76XqoR9naH0IwZdJof3i/1qlYTuiPpqntvhZ
-         4tGgTdpiuy7SaTgav3nPCdMVGgkqhjbquDZONX0QntA5N7aQTsULlO3pZBryl7nSnA9s
-         8z4fb3Kc+ATFIF0xHJcliuc2vpyNG7ZE+oOqftmkTU89SqJ+Hy9jWO09RkHqeQ0jqj+u
-         SxYA==
-X-Gm-Message-State: ABy/qLa0kuQlIzQujnc8rhCeSiy1ZmAcPcY4hMhrni/iTxZXzs89YCUk
-	1l0kjERwHBBQzPB1UVrPl4jXLg==
+        bh=2q9MqhZksTJkvIZn3w+zVX492kRKdBFgYD3XXC+4zdI=;
+        b=NyqQltyHbIAdV4cgKlURJcHw8xT+sF27TOhH7HrqZ0ITfhFhKT+Ox/yChq8rR+Adi/
+         +dgnlfpJoszJHjYD9fHXgP6fkE0TXBgMU9WRoZ45lpHtY8j2roc82pqmYt8poRkUuQMP
+         9tKePuy3x2QfsRlphJqXChLdxlU+HO8rNcxwPZozO2cirEB3sW33d/V5rlLiTl2d8bok
+         ns30iYzaZhO4RIm/Y/dC0r5MAMJpT7CAqGUlzKxGPtYhezgc5p6X6llFmvjp7h++zaNX
+         JKxaFP/SCxI/DNK18BA02MKY5gc1zXNo9ZxmPSC/lnAu8zmYSRSuea6JZA1N/khpD0YW
+         ciIQ==
+X-Gm-Message-State: ABy/qLZ/YV5cSXQvJ4tp4lSCdt+mwSxsdsQcfZmBVIEzjQEb1MTXW4Qr
+	Yybx4A4hvE/TYFo3kyTNtww=
 X-Google-Smtp-Source: 
- APBJJlGvlB38IdvqZ4ywf8WZL30A5qwSdsoLNrkiHml15YN1JK3u6HivCYr4mfjrzUKgYMK0dBIN1A==
-X-Received: by 2002:a5d:6590:0:b0:314:db7:d132 with SMTP id
- q16-20020a5d6590000000b003140db7d132mr3918714wru.61.1688729129143;
-        Fri, 07 Jul 2023 04:25:29 -0700 (PDT)
-Received: from localhost ([102.36.222.112])
+ APBJJlHmQmKN4t57YpNaOOLJDrI8G531DNJTtjUhmgkdSVHoKkbga00ZyEufsDAny//XW7v2sCxcgw==
+X-Received: by 2002:a17:906:1da:b0:988:c8bb:e3ac with SMTP id
+ 26-20020a17090601da00b00988c8bbe3acmr3699855ejj.7.1688737766883;
+        Fri, 07 Jul 2023 06:49:26 -0700 (PDT)
+Received: from [10.10.19.213] ([178.160.196.94])
         by smtp.gmail.com with ESMTPSA id
- y5-20020a5d6205000000b003145521f4e5sm3080546wru.116.2023.07.07.04.25.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Jul 2023 04:25:27 -0700 (PDT)
-Date: Fri, 7 Jul 2023 14:25:23 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, sound-open-firmware@alsa-project.org,
-	alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org
-Subject: [PATCH] ASoC: SOF: ipc3-dtrace: uninitialized data in
- dfsentry_trace_filter_write()
-Message-ID: <74148292-ce4d-4e01-a1a7-921e6767da14@moroto.mountain>
+ kk8-20020a170907766800b009927d4d7a6dsm2199439ejc.192.2023.07.07.06.49.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Jul 2023 06:49:26 -0700 (PDT)
+Message-ID: <0584be19-69fb-f53d-965e-cf8ce7a7b188@gmail.com>
+Date: Fri, 7 Jul 2023 17:49:25 +0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-X-MailFrom: dan.carpenter@linaro.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 1/2] ALSA: pcmtest: Convert to platform remove callback
+ returning void
+Content-Language: en-US
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org, kernel@pengutronix.de
+References: <20230707075058.3402832-1-u.kleine-koenig@pengutronix.de>
+From: Ivan Orlov <ivan.orlov0322@gmail.com>
+In-Reply-To: <20230707075058.3402832-1-u.kleine-koenig@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MailFrom: ivan.orlov0322@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
- header-match-sound-open-firmware.alsa-project.org-0;
- header-match-sound-open-firmware.alsa-project.org-1
-Message-ID-Hash: 2PYEIHKXNPU3XILRHJ3KPSSV3NCZS2GW
-X-Message-ID-Hash: 2PYEIHKXNPU3XILRHJ3KPSSV3NCZS2GW
-X-Mailman-Approved-At: Mon, 10 Jul 2023 15:29:55 +0000
+ header-match-alsa-devel.alsa-project.org-0;
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: Z4FMRXK4C34I2FNJ3ATJWMWGCW73FAXN
+X-Message-ID-Hash: Z4FMRXK4C34I2FNJ3ATJWMWGCW73FAXN
+X-Mailman-Approved-At: Mon, 10 Jul 2023 15:29:58 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2PYEIHKXNPU3XILRHJ3KPSSV3NCZS2GW/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z4FMRXK4C34I2FNJ3ATJWMWGCW73FAXN/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This doesn't check how many bytes the simple_write_to_buffer() writes to
-the buffer.  The only thing that we know is that the first byte is
-initialized and the last byte of the buffer is set to NUL.  However
-the middle bytes could be uninitialized.
+On 7/7/23 11:50, Uwe Kleine-König wrote:
+> The .remove() callback for a platform driver returns an int which makes
+> many driver authors wrongly assume it's possible to do error handling by
+> returning an error code. However the value returned is ignored (apart
+> from emitting a warning) and this typically results in resource leaks.
+> To improve here there is a quest to make the remove callback return
+> void. In the first step of this quest all drivers are converted to
+> .remove_new() which already returns void. Eventually after all drivers
+> are converted, .remove_new() is renamed to .remove().
+> 
+> Trivially convert this driver from always returning zero in the remove
+> callback to the void returning variant.
+> 
+> Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+> ---
+>   sound/drivers/pcmtest.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
+> index 2ae912a64d16..1fff85feaf82 100644
+> --- a/sound/drivers/pcmtest.c
+> +++ b/sound/drivers/pcmtest.c
+> @@ -576,10 +576,9 @@ static int pcmtst_probe(struct platform_device *pdev)
+>   	return 0;
+>   }
+>   
+> -static int pdev_remove(struct platform_device *dev)
+> +static void pdev_remove(struct platform_device *dev)
+>   {
+>   	snd_pcmtst_free(pcmtst);
+> -	return 0;
+>   }
+>   
+>   static struct platform_device pcmtst_pdev = {
+> @@ -589,7 +588,7 @@ static struct platform_device pcmtst_pdev = {
+>   
+>   static struct platform_driver pcmtst_pdrv = {
+>   	.probe =	pcmtst_probe,
+> -	.remove =	pdev_remove,
+> +	.remove_new =	pdev_remove,
+>   	.driver =	{
+>   		.name = "pcmtest",
+>   	},
+> 
+> base-commit: 5133c9e51de41bfa902153888e11add3342ede18
 
-There is no need to use simple_write_to_buffer().  This code does not
-support partial writes but instead passes "pos = 0" as the starting
-offset regardless of what the user passed as "*ppos".  Just use the
-copy_from_user() function and initialize the whole buffer.
-
-Fixes: 671e0b90051e ("ASoC: SOF: Clone the trace code to ipc3-dtrace as fw_tracing implementation")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
-The nicer thing to do would have been to use strndup_user() but that
-comes with a small risk of breaking user space and I can't test this
-so I didn't do that.
-
- sound/soc/sof/ipc3-dtrace.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/sound/soc/sof/ipc3-dtrace.c b/sound/soc/sof/ipc3-dtrace.c
-index 1d3bca2d28dd..35da85a45a9a 100644
---- a/sound/soc/sof/ipc3-dtrace.c
-+++ b/sound/soc/sof/ipc3-dtrace.c
-@@ -186,7 +186,6 @@ static ssize_t dfsentry_trace_filter_write(struct file *file, const char __user
- 	struct snd_sof_dfsentry *dfse = file->private_data;
- 	struct sof_ipc_trace_filter_elem *elems = NULL;
- 	struct snd_sof_dev *sdev = dfse->sdev;
--	loff_t pos = 0;
- 	int num_elems;
- 	char *string;
- 	int ret;
-@@ -201,11 +200,11 @@ static ssize_t dfsentry_trace_filter_write(struct file *file, const char __user
- 	if (!string)
- 		return -ENOMEM;
- 
--	/* assert null termination */
--	string[count] = 0;
--	ret = simple_write_to_buffer(string, count, &pos, from, count);
--	if (ret < 0)
-+	if (copy_from_user(string, from, count)) {
-+		ret = -EFAULT;
- 		goto error;
-+	}
-+	string[count] = '\0';
- 
- 	ret = trace_filter_parse(sdev, string, &num_elems, &elems);
- 	if (ret < 0)
--- 
-2.39.2
-
+Looks good to me, thanks!

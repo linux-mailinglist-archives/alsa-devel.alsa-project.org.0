@@ -2,122 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14CA674B0D1
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 14:30:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2976874B109
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 14:38:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 595A5203;
-	Fri,  7 Jul 2023 14:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 595A5203
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33A253E7;
+	Fri,  7 Jul 2023 14:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33A253E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688733017;
-	bh=yPFNm/a3XABU3ZMS5bkjehvdgxpbhiLr7fm//IOBW44=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1688733513;
+	bh=mbKtKR0hDOfsYUOd60G4dTNAhNP0rnZEhKEo7PpA4V8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=qxlyiSjeitf7dv08jccxdoV6FSBiY0OO1rJ4B0NDkyXeAQlJxKNSFvHcFo98iehG4
-	 uMkiZYKwGZUVt7eQzBki0mZI0yssH8ejG+VCE9sMA603qxK2TSxLkkhMAdkcuSudYk
-	 gJNyusYau9DpxS08hBVUOQOzZWDBGygZ8R5S+O4c=
+	b=QOvyAFffDrAYEPB/BgDq4BeSkGPEDlIYZR2kQI2YTMdVzXf0DW3E/bgHXEtpyhtps
+	 zljBq6xGlCEvGUKKlZYlkUmiV5Z9nLg9laIIhkOqSIhwbmJgacZGCQmNej6zgwVGTD
+	 nJGAY06hHIYKWLdu9gWESR0q+1moYnLoQBjH1nVc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C8EDF80544; Fri,  7 Jul 2023 14:29:26 +0200 (CEST)
+	id B11E0F80124; Fri,  7 Jul 2023 14:37:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB428F80124;
-	Fri,  7 Jul 2023 14:29:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 002A7F80124;
+	Fri,  7 Jul 2023 14:37:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AB35BF80125; Fri,  7 Jul 2023 14:29:20 +0200 (CEST)
+	id 27FF6F80125; Fri,  7 Jul 2023 14:37:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 74AC8F80100
-	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 14:29:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74AC8F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7A3AFF80093
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 14:37:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A3AFF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=rbbDWdcK
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3678vO65029918;
-	Fri, 7 Jul 2023 14:29:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=qa/ZpaXlILgzVxoBJk7a+24v02/Sfx+AkZW9A3Vu/hY=;
- b=rbbDWdcKpSJfL7g40hrtk6xrxyf9fm7MqRL0m1shu10ursGy1PNvchOYCcGi7eBcmhjm
- 9b2stLFV5Oz1RNlDPUdNijZEaCmV+xVhuWf51KUv7dzMcV1Q8FTz8Tt89DWlbI3zdE7N
- bbWPYU5XTOCjJaEhTsAncS+5swNkppzt/GfyIbVcL/USpQhANMRrTsATDqVMuvOqqVvI
- 1w7CzK9vNNva+g9ef0U5FOq1R7ClSlh2nARm66N2eTV+1xTx4UpqAb+mmZebicRhNO97
- I0FI6yrb78IW0IAapw+FegssrAqoorMfu4VOqSrLEdwpB2jazpwAYSYeIY08P1q5AsRe rA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rpfnchkmr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 07 Jul 2023 14:29:06 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C2685100050;
-	Fri,  7 Jul 2023 14:29:03 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 643ED21F14B;
-	Fri,  7 Jul 2023 14:29:03 +0200 (CEST)
-Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 7 Jul
- 2023 14:29:00 +0200
-Message-ID: <0aaace47-1bb4-82c5-57a5-6f5d27eb4d45@foss.st.com>
-Date: Fri, 7 Jul 2023 14:28:28 +0200
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=aNit0vig
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 262C2618FB;
+	Fri,  7 Jul 2023 12:37:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A995C433C9;
+	Fri,  7 Jul 2023 12:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688733446;
+	bh=mbKtKR0hDOfsYUOd60G4dTNAhNP0rnZEhKEo7PpA4V8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aNit0vigHHp6kJop50zKvZLhCninNHuUv51E8A2M/HAcu4U6AxigDvOK3VHzYcc27
+	 iulTRe9aU+L3G0VRNAGyHmrZEVmZNuqRHSGS6TJL+5P7acNhqJeKRFHousBnwkqJbD
+	 kE5yQ3wUtizjtjgSs/usjN0zuOqkf7UeJZ1djz8GOEmmVTFUO4RNmb9PVe2KYA453S
+	 OmEnnmGub1KgD+cOFKaV8QpALMKkYCq1HYfLxkGeGqz80F9rKs776WgOcXBJcHhgtv
+	 t+kenDKJFKxbNk5FdJFcWv/NExLVkXDdAjzp1/iS/TzMJop8msfCvX2qVB1owFzLeO
+	 H738e/iPLQzig==
+Date: Fri, 7 Jul 2023 13:37:21 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, perex@perex.cz,
+	tiwai@suse.com, lgirdwood@gmail.com, ckeepax@opensource.cirrus.com,
+	kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org,
+	pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org
+Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix dB range for HPHL and HPHR
+Message-ID: <a006bb43-eb8f-42ff-a111-a120a3676b92@sirena.org.uk>
+References: <20230705125723.40464-1-srinivas.kandagatla@linaro.org>
+ <ZKfAUOOcGoBanHHu@hovoldconsulting.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 04/10] dt-bindings: treewide: add feature-domains
- description in binding files
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-CC: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
-        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
- <jic23@kernel.org>,
-        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
-        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
-        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
-        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
-        <catalin.marinas@arm.com>, <arnd@kernel.org>,
-        <richardcochran@gmail.com>, <linux-crypto@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>,
-        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
-        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
-        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>
-References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
- <20230705172759.1610753-5-gatien.chevallier@foss.st.com>
- <20230706145108.GA3858320-robh@kernel.org>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <20230706145108.GA3858320-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.201.21.121]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-07_08,2023-07-06_02,2023-05-22_02
-Message-ID-Hash: W73QNVBN7KJV2OWV5QIDB3JGAQKUNWJI
-X-Message-ID-Hash: W73QNVBN7KJV2OWV5QIDB3JGAQKUNWJI
-X-MailFrom: prvs=55523583e3=gatien.chevallier@foss.st.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Oq9TbAv/U+d9U0n3"
+Content-Disposition: inline
+In-Reply-To: <ZKfAUOOcGoBanHHu@hovoldconsulting.com>
+X-Cookie: Victory or defeat!
+Message-ID-Hash: 7QSXTCMREKSPYIDYUF5K3EJCTIOUDPGI
+X-Message-ID-Hash: 7QSXTCMREKSPYIDYUF5K3EJCTIOUDPGI
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -129,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W73QNVBN7KJV2OWV5QIDB3JGAQKUNWJI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7QSXTCMREKSPYIDYUF5K3EJCTIOUDPGI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -138,75 +103,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello Rob,
 
-On 7/6/23 16:51, Rob Herring wrote:
-> On Wed, Jul 05, 2023 at 07:27:53PM +0200, Gatien Chevallier wrote:
->> feature-domains is an optional property that allows a peripheral to
->> refer to one or more feature domain controller(s).
->>
->> Description of this property is added to all peripheral binding files of
->> the peripheral under the STM32 firewall controllers. It allows an accurate
->> representation of the hardware, where various peripherals are connected
->> to this firewall bus. The firewall can then check the peripheral accesses
->> before allowing it to probe.
->>
->> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->> ---
->>
->> Disclaimer: Some error with dtbs_check will be observed as I've
->> considered the property to be generic, as Rob asked
->>
->>   Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml  | 4 ++++
->>   Documentation/devicetree/bindings/dma/st,stm32-dma.yaml      | 4 ++++
->>   Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml   | 4 ++++
->>   Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml      | 4 ++++
->>   Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 4 ++++
->>   .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 4 ++++
->>   Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml  | 4 ++++
->>   .../devicetree/bindings/media/cec/st,stm32-cec.yaml          | 4 ++++
->>   Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml   | 4 ++++
->>   .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml       | 4 ++++
->>   Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml  | 4 ++++
->>   Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml   | 5 +++++
->>   Documentation/devicetree/bindings/mmc/arm,pl18x.yaml         | 4 ++++
->>   Documentation/devicetree/bindings/net/stm32-dwmac.yaml       | 4 ++++
->>   Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml | 4 ++++
->>   .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml      | 4 ++++
->>   Documentation/devicetree/bindings/rng/st,stm32-rng.yaml      | 4 ++++
->>   Documentation/devicetree/bindings/serial/st,stm32-uart.yaml  | 4 ++++
->>   Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml    | 4 ++++
->>   Documentation/devicetree/bindings/sound/st,stm32-sai.yaml    | 4 ++++
->>   .../devicetree/bindings/sound/st,stm32-spdifrx.yaml          | 4 ++++
->>   Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml     | 4 ++++
->>   Documentation/devicetree/bindings/spi/st,stm32-spi.yaml      | 4 ++++
->>   Documentation/devicetree/bindings/usb/dwc2.yaml              | 4 ++++
->>   24 files changed, 97 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
->> index b767ec72a999..daf8dcaef627 100644
->> --- a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
->> +++ b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
->> @@ -50,6 +50,10 @@ properties:
->>     power-domains:
->>       maxItems: 1
->>   
->> +  feature-domains:
->> +    minItems: 1
->> +    maxItems: 3
-> 
-> What are the 3 entries?
-> 
-> Rob
+--Oq9TbAv/U+d9U0n3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I thought I was benefiting from the description of the pattern-property 
-in the RIFSC YAML file. But yes anyway, it seems like it needs some 
-description here as the dependency does not appear in this file.
+On Fri, Jul 07, 2023 at 09:35:44AM +0200, Johan Hovold wrote:
+> On Wed, Jul 05, 2023 at 01:57:23PM +0100, Srinivas Kandagatla wrote:
 
-I picked 3 as a maxItems for our ST needs, I'll give it some more 
-thought when coming back with something clearer.
+> > +static const DECLARE_TLV_DB_SCALE(line_gain, -3000, 150, -3000);
 
-I will change that in V2, thank you for pointing that out.
+> This looks wrong, and indeed that forth argument appears to be a mute
+> flag. I guess that one should have been 0 (false) here?
 
-Best regards,
-Gatien
+Yes, it is - it's for flagging if the lowest value is mute (many devices
+integrate mute into a volume control).
+
+> Headphone output also appears to be way too loud by default with this
+> patch (alone) applied. Perhaps it's just the default mixer settings need
+> to be updated to match?
+
+Some of the discussion on IRC suggested that this might be the case.
+
+--Oq9TbAv/U+d9U0n3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSoBwAACgkQJNaLcl1U
+h9AnzQf+JyxvsKCayD52fTwBgQXf7YiLtnekXQaVpcyZ7dKwsUT7h0Pnp01wyq8N
+PQdur2WE72RmuSn0Qi0GUxH633LL66Yxm9eMAnwoIvrM7iX0sK7EfuGz8tVSKCEE
+1VRUYEDJE00q/CAvBIKZ79/D/cYNqjGYoOw0272ChF96RX/bdtUusc8p1KCuVmXT
+VT+Pkdxr1iiApyNCtEvWLspdPGTWIZvQqCYvyz9HDWvtE8dNaiWvSzAlQUawDZoM
+gT3lHCvA3Xhrr3rG39ZouHdnoSlHrXbuJJAJABeDVHYFRAqVpj1/Ld6rtbQzCQvB
+pC1fLqmsZlCcGwLTUHtWhNMetyUNOQ==
+=Qwsi
+-----END PGP SIGNATURE-----
+
+--Oq9TbAv/U+d9U0n3--

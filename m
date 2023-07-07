@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F53074D9EC
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:32:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D38574D9ED
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:33:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CD001FA;
-	Mon, 10 Jul 2023 17:31:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CD001FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id B70C9206;
+	Mon, 10 Jul 2023 17:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B70C9206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689003164;
-	bh=zHIl662lWWU+B6sQKR+/gG8x38lE0TCM8V1izdXqukw=;
+	s=default; t=1689003188;
+	bh=eA+qKPz1NBmWddK1WFn7bk/ex3i4czF1vMZoD9B1E4Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FoOVz89b0FWP3kuXGM25wRSsdCwY5Y/dS14YxTYhq9Uhf/7ffCzEUzQPz7yAJVtOL
-	 SHSQmRmjdOBviR4uOaaKj4D673Ws+z69QmKZusyD9c0BUgRPgK82Pm+FQUeJAcotQ+
-	 6EgX9rOH92JOr2qxDT/m0fJVgcw7q/vbReiXnKH4=
+	b=lJLOWbFqJUVZ/yWxCnW1bEsUGwOeCeWnnmbO4lGerVBFXu2lac2eYUwxA0z7Kfags
+	 6DHRYDCgqjaaAzHKk319U6Zg0LQcB3Y/7vREdYiGpEb+7tpMZtS3duEyIuHuwWR+iM
+	 wTmsXnqCWuMHjD6UOKFtc5Pu4SlWX2FBE94xjfbo=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 149D1F805B4; Mon, 10 Jul 2023 17:30:23 +0200 (CEST)
+	id 22BB1F805D8; Mon, 10 Jul 2023 17:30:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24A0DF805BA;
-	Mon, 10 Jul 2023 17:30:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 706AEF805CA;
+	Mon, 10 Jul 2023 17:30:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4087DF80124; Fri,  7 Jul 2023 15:51:54 +0200 (CEST)
+	id 7AE23F80124; Fri,  7 Jul 2023 15:52:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,74 +33,73 @@ X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [IPv6:2a00:1450:4864:20::62c])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 224E8F80100
-	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 15:51:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 224E8F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id 92758F80100
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 15:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92758F80100
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=rOHVCC5e
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4fb87828386so606872e87.1
+ header.s=20221208 header.b=V5HmRWIt
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-98502b12fd4so56369766b.1
         for <alsa-devel@alsa-project.org>;
- Fri, 07 Jul 2023 06:51:50 -0700 (PDT)
+ Fri, 07 Jul 2023 06:52:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1688737908; x=1691329908;
+        d=gmail.com; s=20221208; t=1688737930; x=1691329930;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RjyUuVCb40UG+YZHlv1fhhaX0Rj//9E+jfLMtqzkDG8=;
-        b=rOHVCC5etMYFYqIrMDp9sJSwFzUwHJik/6QYDQjYZbfc9mM3F/BNFYv/V7gZaAZjvq
-         nap0RVYrh0sPq22YY21mOIdDdu9x1SFgRUSb/UfrT+pgmt1lw9vUPgreNClwaccLF/rk
-         RZqC1+lb+DofchcdGXrE2OWKl0rSkSIpVop7spdNWvJ2COncbJYsXvrmXaJu1CDpGT2t
-         lb1uSDojXHRwsH+aZJJF+tvXO5Vxt4ox0jwijx4SCb8RaKTPW6mTFEYDihDDYnUsTUkp
-         WGhqjdLl3VBaFhflpSPFvOb/rQFZAyM8sIaaxG5qy16XD2HUqB+ZsOLTmwcYcLj0XbdH
-         vmZA==
+        bh=cAfcpJAyLiXpelZx0FzNKHNfmyegTCEyDaCNf4Jxlbk=;
+        b=V5HmRWItDThS0s4TeaiemXYOaT1UkrwYK8tPiFvRa0NJsHf79Ae+cnVsSYmG0t0jFe
+         KVCDcZT35FVUI7GzJPCNQna39/xjNQvp+y+XineJKRn8ZQR7AnSbtkC/AqxrNHS7Ca1N
+         2ABfiY/8/YLRRQYDtrb1W4JqAbqnpLpagH187tPZ37fakXYgoSkVs0iRMfGgkxh/KkgH
+         +zYZRrStnuezMzG9cy6/2WtG1BPFkTXRjWvAQzO93VX3Q7lW/uaSZuAqArbMcpdblKP7
+         hIa4dk8rOzzXzSq2a0Q4+WRE7aJPcckGpofBMcrE0kfFrQhgbfNn9TfnwGIIF7w13PA/
+         a+sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1688737908; x=1691329908;
+        d=1e100.net; s=20221208; t=1688737930; x=1691329930;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RjyUuVCb40UG+YZHlv1fhhaX0Rj//9E+jfLMtqzkDG8=;
-        b=OYP8TO4tUdSUQB+8EgbfN3bfdumGBsmm634TorY6/+8glB2h48rE/kfsvWFJ/s0SNc
-         3ZNHJ5OM+dPpvVZ6Wy1kWDVQ6782pBUpyBj/8UKsL6GnOPtA+lGqe8svt10jzi5BNWr1
-         chjXfbVvaLbIIQJBPwHT5eanPAR9EJNkyq9Fh/Hx+3G+Dvqg+U3WttTKwkTTvqdhu96b
-         tlw3jEhxcflSTW+n4IOUngjLLPB/eCjw4Ko1R3jwyp+9py0RXBESNKXDIx8y6fJToptd
-         jBRhZJbiaz5kZlDoZbe74gcqMJtVi1Nl7priwsus7CZCTNRxDvq/RqAIOYOBrpwYgbn5
-         z22g==
-X-Gm-Message-State: ABy/qLY2Zv1v04yBPh/z1bLBA7/3ShPw9/+LU0lbbYC0jfT6nkJKXdM6
-	JhQ8dQ6HksO7zviTyz8Pz5k=
+        bh=cAfcpJAyLiXpelZx0FzNKHNfmyegTCEyDaCNf4Jxlbk=;
+        b=L4N5WK83tzpJAjc+Ib8UiNwOxvc10il6PLnVAd431zIzXrqqbSv+TMRk/yKXS59X7i
+         l1yHnRH/kMhO1kjgJ4PlZSldpUA6AV4ZYR+P/tNXSkftizr4DfnWgXFaVs3Wtm+C3z/r
+         FNoeUxpl9sRrtgzWFSBaaKy4zYlfse0NRSewVNlhUHvzcCFXtpYy+WHIADAtK1SXtu6h
+         iW3SIxASod7HYfL42qO04XPeX+yUdys/h/yOUOyxrA7ZlkWEGOD7xoDYQl0xp2XRbdBJ
+         XiRdlMSzM34WpU6cR5lTu1mSSb7cP18MUnYeGDye0+xguBdVb5sHp1/W0AeBGTPETQe0
+         u5GA==
+X-Gm-Message-State: ABy/qLZr+Lkk7DWSXUc5EhVlmoTX+KijjXH4VqoyuRLbXGwB4eEU87nf
+	ZEtx6QPFoHRi831Fmy7gk3HvzDv2wX9PI5iJ
 X-Google-Smtp-Source: 
- APBJJlHyQv+owgKJLrAgfHF84Oar5AH9TslNcgKQJ7ReDCf/o82qWTy8UylfuZiTQAqbzAUoJ6I3EQ==
-X-Received: by 2002:a05:651c:1589:b0:2b6:9e4d:119e with SMTP id
- h9-20020a05651c158900b002b69e4d119emr4647458ljq.2.1688737908041;
-        Fri, 07 Jul 2023 06:51:48 -0700 (PDT)
+ APBJJlGjq4INu/TemzS5xpPiMiK8sF9C5RzTgbqs9TztAsVSi6Ybsq9Rube/UKoKzxCTbwA2kdgncw==
+X-Received: by 2002:a17:906:7a19:b0:988:f9ba:e18d with SMTP id
+ d25-20020a1709067a1900b00988f9bae18dmr4108907ejo.6.1688737930391;
+        Fri, 07 Jul 2023 06:52:10 -0700 (PDT)
 Received: from [10.10.19.213] ([178.160.196.94])
         by smtp.gmail.com with ESMTPSA id
- a6-20020a1709065f8600b009893b06e9e3sm2229335eju.225.2023.07.07.06.51.46
+ r11-20020a17090638cb00b00993a508b818sm2230981ejd.1.2023.07.07.06.52.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Jul 2023 06:51:47 -0700 (PDT)
-Message-ID: <f47f97a4-064f-8675-aae4-53ba481c3f8f@gmail.com>
-Date: Fri, 7 Jul 2023 17:51:44 +0400
+        Fri, 07 Jul 2023 06:52:10 -0700 (PDT)
+Message-ID: <f4b76578-f141-6603-0c04-eca3c11a5293@gmail.com>
+Date: Fri, 7 Jul 2023 17:52:05 +0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH 2/2] ALSA: pcmtest: Don't use static storage to track per
- device data
+Subject: Re: [PATCH 1/2] ALSA: pcmtest: Convert to platform remove callback
+ returning void
 Content-Language: en-US
 To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 Cc: alsa-devel@alsa-project.org, kernel@pengutronix.de
 References: <20230707075058.3402832-1-u.kleine-koenig@pengutronix.de>
- <20230707075058.3402832-2-u.kleine-koenig@pengutronix.de>
 From: Ivan Orlov <ivan.orlov0322@gmail.com>
-In-Reply-To: <20230707075058.3402832-2-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230707075058.3402832-1-u.kleine-koenig@pengutronix.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-MailFrom: ivan.orlov0322@gmail.com
@@ -109,15 +108,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: KVEQOLNHMSVPGSMATV46JNTQ3KW2UPHU
-X-Message-ID-Hash: KVEQOLNHMSVPGSMATV46JNTQ3KW2UPHU
+Message-ID-Hash: PRTVUED26YAJXWKK7LZHSH6BXELMVTU3
+X-Message-ID-Hash: PRTVUED26YAJXWKK7LZHSH6BXELMVTU3
 X-Mailman-Approved-At: Mon, 10 Jul 2023 15:30:17 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KVEQOLNHMSVPGSMATV46JNTQ3KW2UPHU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PRTVUED26YAJXWKK7LZHSH6BXELMVTU3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -127,57 +126,49 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 On 7/7/23 11:50, Uwe Kleine-König wrote:
-> While there is probably only ever a single instance of such a pcmtst
-> device, it's still bad style to use a static variable to store per
-> device data. Make use of platform_get_drvdata() and
-> platform_set_drvdata() which fixes a data corruption if there should be
-> two or more such devices (or this driver is used as a template for
-> another driver).
+> The .remove() callback for a platform driver returns an int which makes
+> many driver authors wrongly assume it's possible to do error handling by
+> returning an error code. However the value returned is ignored (apart
+> from emitting a warning) and this typically results in resource leaks.
+> To improve here there is a quest to make the remove callback return
+> void. In the first step of this quest all drivers are converted to
+> .remove_new() which already returns void. Eventually after all drivers
+> are converted, .remove_new() is renamed to .remove().
+> 
+> Trivially convert this driver from always returning zero in the remove
+> callback to the void returning variant.
 > 
 > Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 > ---
->   sound/drivers/pcmtest.c | 9 ++++++---
->   1 file changed, 6 insertions(+), 3 deletions(-)
+>   sound/drivers/pcmtest.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
 > 
 > diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
-> index 1fff85feaf82..291e7fe47893 100644
+> index 2ae912a64d16..1fff85feaf82 100644
 > --- a/sound/drivers/pcmtest.c
 > +++ b/sound/drivers/pcmtest.c
-> @@ -110,8 +110,6 @@ struct pcmtst_buf_iter {
->   	struct timer_list timer_instance;
->   };
->   
-> -static struct pcmtst *pcmtst;
-> -
->   static struct snd_pcm_hardware snd_pcmtst_hw = {
->   	.info = (SNDRV_PCM_INFO_INTERLEAVED |
->   		 SNDRV_PCM_INFO_BLOCK_TRANSFER |
-> @@ -552,6 +550,7 @@ static int snd_pcmtst_create(struct snd_card *card, struct platform_device *pdev
->   static int pcmtst_probe(struct platform_device *pdev)
->   {
->   	struct snd_card *card;
-> +	struct pcmtst *pcmtst;
->   	int err;
->   
->   	err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-> @@ -573,11 +572,15 @@ static int pcmtst_probe(struct platform_device *pdev)
->   	if (err < 0)
->   		return err;
->   
-> +	platform_set_drvdata(pdev, pcmtst);
-> +
+> @@ -576,10 +576,9 @@ static int pcmtst_probe(struct platform_device *pdev)
 >   	return 0;
 >   }
 >   
-> -static void pdev_remove(struct platform_device *dev)
-> +static void pdev_remove(struct platform_device *pdev)
+> -static int pdev_remove(struct platform_device *dev)
+> +static void pdev_remove(struct platform_device *dev)
 >   {
-> +	struct pcmtst *pcmtst = platform_get_drvdata(pdev);
-> +
 >   	snd_pcmtst_free(pcmtst);
+> -	return 0;
 >   }
 >   
-
-Also looks good.
+>   static struct platform_device pcmtst_pdev = {
+> @@ -589,7 +588,7 @@ static struct platform_device pcmtst_pdev = {
+>   
+>   static struct platform_driver pcmtst_pdrv = {
+>   	.probe =	pcmtst_probe,
+> -	.remove =	pdev_remove,
+> +	.remove_new =	pdev_remove,
+>   	.driver =	{
+>   		.name = "pcmtest",
+>   	},
+> 
+> base-commit: 5133c9e51de41bfa902153888e11add3342ede18
 
 Acked-by: Ivan Orlov <ivan.orlov0322@gmail.com>

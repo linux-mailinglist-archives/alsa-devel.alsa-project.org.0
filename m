@@ -2,85 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC4E74D9E5
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:31:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6E1D74D9E6
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:31:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B09B183E;
-	Mon, 10 Jul 2023 17:30:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B09B183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70893851;
+	Mon, 10 Jul 2023 17:30:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70893851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689003095;
-	bh=MG5u7orRY+S775CcR6Jjg0XM98vTZ+cG+jXAIDN98J8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=uXF9scZrK+inX8OlfpnEO5jZejx1ZTGiQpQfA6Wt8U8WyAT3fD06OXVYa90iliyvj
-	 idT3lWZnuQ5COqn3P0UTFDyZBxFVjgPN+1LwyD1mEVPaIaO32rrBBVUQqwUAqeKNRw
-	 jS0uSYQoEDezJCZzcZeWEueecQQIWaDm0hx0cxSA=
+	s=default; t=1689003097;
+	bh=S6LZ2JFrlhFS6RDIomGqzHVVAx4nA8FN6m+I7CU/mPY=;
+	h=From:To:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=nGdyz+OUAE93DvG9fBiJqV/hXCn+AvaJT8g26YMd0Ak4OgnqYX/08BhL/TUivuC/B
+	 aul/dzJsNF8r/8vOFA2eM/dfpEK1kIKpqMmCU+EuL5gapLQ3MuApZInpuc5u71eNXI
+	 OD1ij2c/+hHzW56bjJWcyRUftmQ54lV5+C73Qj6I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2B974F80553; Mon, 10 Jul 2023 17:29:57 +0200 (CEST)
+	id A2703F80570; Mon, 10 Jul 2023 17:30:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 893BFF80548;
-	Mon, 10 Jul 2023 17:29:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E97C6F8055B;
+	Mon, 10 Jul 2023 17:30:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1328F80549; Thu,  6 Jul 2023 14:34:08 +0200 (CEST)
+	id AA199F80125; Fri,  7 Jul 2023 08:53:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.6 required=5.0 tests=PDS_RDNS_DYNAMIC_FP,
-	RCVD_IN_DNSWL_HI,RDNS_DYNAMIC,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from pi.fatal.se (94-255-170-6.cust.bredband2.com [94.255.170.6])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04540F80093
-	for <alsa-devel@alsa-project.org>; Thu,  6 Jul 2023 14:34:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04540F80093
-Received: by pi.fatal.se (Postfix, from userid 1000)
-	id E76412A8E0; Thu,  6 Jul 2023 14:34:01 +0200 (CEST)
-Date: Thu, 6 Jul 2023 14:34:01 +0200
-From: Andreas Henriksson <andreas@fatal.se>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Linux-ALSA <alsa-devel@alsa-project.org>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Hans =?iso-8859-1?Q?S=F6derlund?= <hans.soderlund@realbit.se>
-Subject: Re: [PATCH] ASoC: fsl_sai: Enable MCTL_MCLK_EN bit for master mode
-Message-ID: <20230706123401.kctossjho26bry7e@fatal.se>
-References: <1652963808-14515-1-git-send-email-shengjiu.wang@nxp.com>
- <CAOMZO5DtpoH0dLDX3=Sv4UUpX_=66VEZPsJUWQNnYviApfMLKQ@mail.gmail.com>
- <20230706084706.bzwsbi3zisx5m5rl@fatal.se>
- <CAOMZO5CCdaodWQrHUQgMizoES=jfEtw-sNJZG-DJMpRD8tZW9g@mail.gmail.com>
- <CAA+D8ANAg7bs0A35c7Af3_-5sLaqvT1RoKfCbzYi=z=t_q9LUw@mail.gmail.com>
- <CAOMZO5BtrKwrMwrjVDbYn3ivt2uV9rzbSDxd8qfiYjOBMvKBgg@mail.gmail.com>
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 054BAF80093
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 08:53:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 054BAF80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcppdkim1 header.b=bV+SS682
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3676lEWK017832;
+	Fri, 7 Jul 2023 06:53:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : subject
+ : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=qcppdkim1;
+ bh=jSeIcUTc4fFDi+649dihFqOXbWSmjqqdFLpRKOEH0GY=;
+ b=bV+SS682GeSkxQOMs6r25u1sLNTEoLbHQ99Pxe4YlKtOmCCxT++3l3MN20MZIrQGOjMx
+ HqQbDFenx3L9p4eS9i6uu/o+bnZYuxP5ZRKlQPFRgvVOsELNqFas44nQG/R8c1pdiz6v
+ b1zH3rLpAKtxPsOR7M7qoFBDEa0P/zpVtREnPRV1Mn4z/qR2EmU3lj3ct9Rs/Vk/mtp1
+ nMXuNVK/qwbWPB4PinH8SLEZwJjGIEF3UbnLjl/SVK3BuqN2psCXrsaP2ncI5+hZEtQ7
+ vYBJRo8jZtEUVRPNiUCa86KekVt4n2lo8cxdEUcKMRDzJ2SlnTWfzK3lLLbTDf3fsJHT ZQ==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3rp8a60jd8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 07 Jul 2023 06:53:22 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+	by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id
+ 3676rL8V010661
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 7 Jul 2023 06:53:21 GMT
+Received: from rohkumar-linux.qualcomm.com (10.80.80.8) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.30; Thu, 6 Jul 2023 23:53:16 -0700
+From: Rohit kumar <quic_rohkumar@quicinc.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <srinivas.kandagatla@linaro.org>, <bgoswami@quicinc.com>,
+        <agross@kernel.org>, <andersson@kernel.org>,
+        <konrad.dybcio@linaro.org>, <quic_rohkumar@quicinc.com>,
+        <cychiang@chromium.org>, <alsa-devel@alsa-project.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-arm-msm@vger.kernel.org>
+Subject: [PATCH] dt-bindings: sound: Update maintainer email id
+Date: Fri, 7 Jul 2023 12:22:59 +0530
+Message-ID: <20230707065259.3099569-1-quic_rohkumar@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: 
- <CAOMZO5BtrKwrMwrjVDbYn3ivt2uV9rzbSDxd8qfiYjOBMvKBgg@mail.gmail.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-MailFrom: ah@fatal.se
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: e5bfGYX6PDiD6qAYIu_3lmEA-inm5sHE
+X-Proofpoint-GUID: e5bfGYX6PDiD6qAYIu_3lmEA-inm5sHE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-07_02,2023-07-06_02,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ suspectscore=0 clxscore=1011 phishscore=0 mlxlogscore=999 bulkscore=0
+ spamscore=0 impostorscore=0 mlxscore=0 adultscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2305260000 definitions=main-2307070061
+X-MailFrom: quic_rohkumar@quicinc.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: 3TEBS3OHQ7EVJ3K53BLFDPNCPUUL5SEN
-X-Message-ID-Hash: 3TEBS3OHQ7EVJ3K53BLFDPNCPUUL5SEN
-X-Mailman-Approved-At: Mon, 10 Jul 2023 15:29:54 +0000
+Message-ID-Hash: RQSPIZ7QDHE5WYI24RAZQ23MY42XHD6L
+X-Message-ID-Hash: RQSPIZ7QDHE5WYI24RAZQ23MY42XHD6L
+X-Mailman-Approved-At: Mon, 10 Jul 2023 15:29:55 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3TEBS3OHQ7EVJ3K53BLFDPNCPUUL5SEN/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RQSPIZ7QDHE5WYI24RAZQ23MY42XHD6L/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -89,62 +127,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello Fabio,
+Updated my mail id to latest quicinc id.
 
-Maybe I shouldn't comment as I'm already on deep water, but...
+Signed-off-by: Rohit kumar <quic_rohkumar@quicinc.com>
+---
+ .../devicetree/bindings/sound/google,sc7180-trogdor.yaml        | 2 +-
+ Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-On Thu, Jul 06, 2023 at 08:32:57AM -0300, Fabio Estevam wrote:
-> On Thu, Jul 6, 2023 at 8:19 AM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
-> 
-> > No, this is the code in probe().
-> > The code with the issue is in fsl_sai_set_bclk().
-> 
-> Yes, I put it in the wrong place.
-> 
-> > The clean way for fixing is to remove the code in fsl_sai_set_bclk()
-> > and add "fsl,sai-mclk-direction-output;" property in dts for some
-> > node.
-> 
-> Yes, what about this?
-> 
-> --- a/sound/soc/fsl/fsl_sai.c
-> +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -507,7 +507,7 @@ static int fsl_sai_set_bclk(struct snd_soc_dai
-> *dai, bool tx, u32 freq)
->                                    savediv / 2 - 1);
->         }
-> 
-> -       if (sai->soc_data->max_register >= FSL_SAI_MCTL) {
-> +       if (sai->soc_data->max_register >= FSL_SAI_MCTL  &&
-> sai->mclk_direction_output) {
->                 /* SAI is in master mode at this point, so enable MCLK */
->                 regmap_update_bits(sai->regmap, FSL_SAI_MCTL,
->                                    FSL_SAI_MCTL_MCLK_EN, FSL_SAI_MCTL_MCLK_EN);
-
-This is exactly the same as and thus redundant to the code already in
-the probe function?!
-
-If I understood it correctly, the problem Shengjiu was trying to adress
-was that apparently on i.MX8MM (and only imx8mm?!), even when using MCLK
-in *input*, you still need to enable it because otherwise BCLK will not
-be generated. (I personally don't know anything about this or the imx8mm
-variant though.)
-
-The problem could probably equally well be worked around by always setting the
-fsl,sai-mclk-direction-output; devicetree property on imx8mm, even when
-using MCLK in input..... But I'm just guessing here to be honest. This
-is just as I understood what purpose the initial patch that was merged
-had.
-
-The current state affects more devices than imx8mm though, making MCLK
-in input mode not possible.
-
-I think your initial review comment was spot on Fabio. There probably
-needs to be a(n imx8mm) specific flag that says when this workaround
-should be applied and gate the code in bclk function on that.
-Atleast that's the only thing I can think of if my interpretation of the
-problem for imx8mm is correct.
-
-Regards,
-Andreas Henriksson
+diff --git a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
+index 666a95ac22c8..ba5b7728cf33 100644
+--- a/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
++++ b/Documentation/devicetree/bindings/sound/google,sc7180-trogdor.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Google SC7180-Trogdor ASoC sound card driver
+ 
+ maintainers:
+-  - Rohit kumar <rohitkr@codeaurora.org>
++  - Rohit kumar <quic_rohkumar@quicinc.com>
+   - Cheng-Yi Chiang <cychiang@chromium.org>
+ 
+ description:
+diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+index 6cc8f86c7531..3a559bd07a79 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml
+@@ -8,7 +8,7 @@ title: Qualcomm Technologies Inc. LPASS CPU dai driver
+ 
+ maintainers:
+   - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+-  - Rohit kumar <rohitkr@codeaurora.org>
++  - Rohit kumar <quic_rohkumar@quicinc.com>
+ 
+ description: |
+   Qualcomm Technologies Inc. SOC Low-Power Audio SubSystem (LPASS) that consist
+-- 
+2.25.1
 

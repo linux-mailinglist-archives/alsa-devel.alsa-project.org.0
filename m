@@ -2,133 +2,142 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ACC274B073
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 14:08:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A011874B077
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jul 2023 14:09:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 431C1203;
-	Fri,  7 Jul 2023 14:07:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 431C1203
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB3E2741;
+	Fri,  7 Jul 2023 14:08:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB3E2741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688731724;
-	bh=MtHJS3ifUXaCBrMtUjKRGKXjJDMpV0AcDXD/ps5UVrc=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=i2JmbS4LLsc7wVXKXy+Q54BKcyW6rV7AfG5KgNoe1WEd8bWaS8jA6WWRnJoqjKMnu
-	 qNbFEV5mZ2dy23yI+pKezcmHwgYEAzPChh4hlL1YYsGxOoGdNPBywgyPh+/4pCIWAY
-	 6VE61nL9ZLRsQliyDoF9pn8Dzf39JKDJDDUN/1cU=
+	s=default; t=1688731775;
+	bh=utAW1agJ5LyRilSHRNdl1T1vTEfLw2o6xG+J4FxkUM4=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=KdY9ZSH0xAsMcwmzsyU7eL9cD75Ks1wnf+jrq6eOEZ8aqErnl+V9WKq5ZqggFRzqg
+	 jHizQkHfeszGk7NuoPHp8Ayy85YSnDRyyEtoHNLTEFdb4w+V3RlQAB7WWLOuNHWLSA
+	 cGF17mnJ7L78o3ChG9Ll8hUFkB9Bo+0Pnzc0gIAU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BE056F80100; Fri,  7 Jul 2023 14:07:53 +0200 (CEST)
+	id 50EFBF8053B; Fri,  7 Jul 2023 14:08:09 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 795C4F80124;
-	Fri,  7 Jul 2023 14:07:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7783F8053B;
+	Fri,  7 Jul 2023 14:08:08 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 97B09F80125; Fri,  7 Jul 2023 14:07:49 +0200 (CEST)
+	id 317B3F80549; Fri,  7 Jul 2023 14:08:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20631.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8b::631])
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eb2::626])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 40C32F80100
-	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 14:07:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40C32F80100
+	by alsa1.perex.cz (Postfix) with ESMTPS id C94C1F8025F
+	for <alsa-devel@alsa-project.org>; Fri,  7 Jul 2023 14:07:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C94C1F8025F
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256
- header.s=selector1 header.b=AjVYN2AP
+ header.s=selector1 header.b=BSX72Jto
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BAyCOz+JBP8v87atTvE6sUsd/gDnRuP6wPf645SQ5gllpOI5gCuCvFFOYj0wxG2bbXKvcASwDkyq0kZ9+3ONeYCj/BuP1iwnY/NKMcDCpc3stxNRMdXLxiNdGN39603NRqE/gL73z/Zd8Mv7tKzN+/E1N0GH9NfuZkPhzcPejU4ppenXnPRk6dyh1fr/SEWcK/0FyAwsL39Nz3n3LeFeqDdDXyslt1e8vpqAoqP/M3knfXZHLp65xGpY6TQTHqexu4N37QOn6/FISoBXuQ3Zy7XREXlvImPkA55iHwdDrKENY9Q6BOb3gv1p9b8DSmf9yqsW+Wt/e/vZqAE5GfPH0g==
+ b=Jr/hb+tfEa+FYvBKEkQnwQig3df2tvJ5VlAz1rrxXG/0lILi8UJk7NOtUevBEfYT2ZWXeBOCUv5+8nafzjcJR29UE4uXDg6u89581GFCg5Bf2zcwlicQC2BUadOwZ4h5cYFOQSmDFFyrUHj9Qu9AFbRpQodOCLh557IBVn7LVkm66lFyoRxaguXM9kWqN1xG8lApCQ5/w+xT0BVkz8sT1Fco5803GJVN3T/vy70yWSA+iEt2ZQdzCknjSZgVOsjs0NoHS7vGC4thasBYJFaan2U11VkgeGz9jAlKM/1xQ7+YwitZDXfC1znUB0rhJytMXMZ4zYXdrrpTXf/9hE7fLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3uLa8INFUDoHcnAItKqQ1NsOQGSH2AA95SlstDjAuTE=;
- b=BE9yJQjXJodGplkgEnOMfVP8LazlS/8S5hsDcFYSZdrNY4asjPvpqO52rrE4n7SMWDandIWgZWk5tMUnCoph1eS09fOncn0/tjSTeqrDakgA+Xe+Ww7fAkCaqAQ5lzcl9OJd5gSO6KBE5DSSAJNCLaTIMNq1iVypuD8iHQDUsm6kk0cTzaU1d/AQYEu7SO9DZZW6Dt6S0SJZaEqD3EWRDAKnDKkahhu+LOu73bQHSifqIs2P6r2LlU4P/ZmnzSMPfYnkdTvJWLzov5CLhj6jmQrlcILlAv+4EGkOPO28VA/+df79IMd0OTTWOfGQ/GZF9Khn6xmC3nFe6oqZEzOs0A==
+ bh=PNdmyhn7zUaGrD9Lw16oYD+BcahXH7C57xq5kGjUVho=;
+ b=BEH36JoZ5gCyjSgeS0N1rCkXXMK07nGeTJfQy5C8+v912FkKo/k6udtcXWvNqtFvo5psfPMiKczTrHwRJXeAK50Yzn925aiyTBP2Mo0t6zc17kTnASXPp6H7ncGrQwtC1YXFcfURAmDCO/N1Aboy5NNLwY3n32nC5tVvd26azB/+oQBj9J/FyBhk4wOrWaRj5OJC2Ly4drzeMj+2E0nSDPhroG/ccQKz707Uz7PMniYnTAH68FTFIAcZUDVNZVHTucVPAZHbuXq+mCf+6o1gIButEN8f2QXHVx5SHofso6/xr8LRXpshPiSOjkU56Z/NlfncFgGmUjX1iAmqYEUG0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3uLa8INFUDoHcnAItKqQ1NsOQGSH2AA95SlstDjAuTE=;
- b=AjVYN2APxsBykp1FmxcpMH+uR6CSn/ZUWRUGm97crDp2gkZRcHVZac/Ic0d3KC3fkHMH03kYXcrU/RNd3egurdbOnIu0DV94tFBwYYNjYBdRYE31eBYtDqBahxxEB//hIK/JE5dXoR24oaXHTbj1XeN42sYK+W2TXC+xuyjK3V8=
-Received: from DS7PR03CA0357.namprd03.prod.outlook.com (2603:10b6:8:55::10) by
- PH7PR12MB7305.namprd12.prod.outlook.com (2603:10b6:510:209::21) with
+ bh=PNdmyhn7zUaGrD9Lw16oYD+BcahXH7C57xq5kGjUVho=;
+ b=BSX72JtobmQxgeUMbYVK7Z//jzaKa5Py0fEY5fHO8Yi4gdnzL70wSXjSdMHHdyUUuzEfbRB6naxxicLGEjOcUr1Yf+h0YzwkE82qMh4CPlNg8+e963hDm1GrDjRUA/nHKbIt8K1Z8duNJ0ANo/aB1A4RQg896I8LrVEpetAZHjk=
+Received: from MW4PR03CA0331.namprd03.prod.outlook.com (2603:10b6:303:dc::6)
+ by CH0PR12MB5203.namprd12.prod.outlook.com (2603:10b6:610:ba::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25; Fri, 7 Jul
- 2023 12:07:35 +0000
-Received: from DM6NAM11FT095.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:55:cafe::c1) by DS7PR03CA0357.outlook.office365.com
- (2603:10b6:8:55::10) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 12:07:49 +0000
+Received: from CO1NAM11FT111.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dc:cafe::4b) by MW4PR03CA0331.outlook.office365.com
+ (2603:10b6:303:dc::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.25 via Frontend
- Transport; Fri, 7 Jul 2023 12:07:35 +0000
+ Transport; Fri, 7 Jul 2023 12:07:49 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT095.mail.protection.outlook.com (10.13.172.180) with Microsoft SMTP
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT111.mail.protection.outlook.com (10.13.174.61) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6521.45 via Frontend Transport; Fri, 7 Jul 2023 12:07:34 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6500.47 via Frontend Transport; Fri, 7 Jul 2023 12:07:49 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 7 Jul
- 2023 07:07:34 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 7 Jul
- 2023 07:07:34 -0500
+ 2023 07:07:48 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Fri, 7 Jul 2023
+ 05:07:48 -0700
 Received: from amd-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.23
- via Frontend Transport; Fri, 7 Jul 2023 07:07:31 -0500
+ via Frontend Transport; Fri, 7 Jul 2023 07:07:38 -0500
 From: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
 CC: <vsujithkumar.reddy@amd.com>, <Vijendar.Mukunda@amd.com>,
 	<Basavaraj.Hiregoudar@amd.com>, <Sunil-kumar.Dommati@amd.com>,
 	<syed.sabakareem@amd.com>, <mastan.katragadda@amd.com>,
 	<arungopal.kondaveeti@amd.com>, Venkata Prasad Potturu
-	<venkataprasad.potturu@amd.com>
-Subject: [PATCH 0/4] Add acpi mahine id's for vangogh platform and
-Date: Fri, 7 Jul 2023 17:37:26 +0530
-Message-ID: <20230707120730.1948445-1-venkataprasad.potturu@amd.com>
+	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "V sujith
+ kumar Reddy" <Vsujithkumar.Reddy@amd.com>, Kuninori Morimoto
+	<kuninori.morimoto.gx@renesas.com>, Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>, ye xingchen <ye.xingchen@zte.com.cn>, "open
+ list" <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/4] ASoC: amd: acp: Add machine driver support for nau8821
+ codec
+Date: Fri, 7 Jul 2023 17:37:27 +0530
+Message-ID: <20230707120730.1948445-2-venkataprasad.potturu@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230707120730.1948445-1-venkataprasad.potturu@amd.com>
+References: <20230707120730.1948445-1-venkataprasad.potturu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT095:EE_|PH7PR12MB7305:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33733f34-4551-46a5-4be1-08db7ee2bfd0
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT111:EE_|CH0PR12MB5203:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b62d635-1c57-4990-3677-08db7ee2c868
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	o8fNTz/AmeQHzoOL+Hl7gvKDUF2Ay9GhVogs0B1ZPc2Z/YVGFv2s6pegwfHNAvLEKrdrz3eYoCn0cIy3hiEV23+IuEeAsCZ+hkIwFfzdSLt/haq+BR8Jc0E8hPScaxoD7n2why9TNVO0dbKin46YicsjBmmU3r6yN7LdpA5kMTSDhI8F0lDLqXefZ9Be5kA9fcgUPV3YZeOXTXtDnYGGjMCCPIWu0/QO8a1/CTlWH2rFnQRV/BSTaYR/wQNjx5Qc36dBFKiDaOEC1Q/79ejiSmDpuu4o7DF34sd8R2OrXlj5t10TQvz3LaX1SwoZY96vS0iaQ1knePqK22rpC2E8lvG6bbbER3KvBrwSHrWf8dGdR6ITksq5ruJkKqFhDN8CbdB+jU2gUXF5VmFbpJFlhebI3P5DnbIzI5ybdVtgcf5WkavhG3Bt2VM8dfM4rOS+6BJorKk0H9sv25JihJWGZedfAZDYTLMfQLE3sq+lo3fHuMzNYa3eCTMA1xB9E0jzrMg6mwQ8XGHl92rfzDtUG5NRSIl5uGpzzivL951/xQ4cRTBoUn6BAcrSG/nsycZ7jxCqWwtQ9lKiewnDSLGRtRNMab67Jh4co7UQerXl3e+EpBhMxMTs6TERLaoM06L44oKlZpkfkQ5RD+FgMwdWm/4kP5aiOGJAPqSbadui1YT50ETkUjUFwu5nKhBtvMHBeEjur2PpGjnmPyCL7gHzHf7XdbbOilPwchRncqXTYtKg6s1zTByt/VCrQ8uQBchUKzKem1NFK0e+gtAXyxkU1A==
+	ex8tNdNyTRg2Zjj27pvcOB30rqaf7c3j60zY4tvKqogXF6r7gu0GLTone2XUmXQifFEyiUaMczRh4Vr3HCl1q3pTveNf05FrT9Y81SMnvrNRyexo6sM6A+XM2YT3nnfY31W6WQTYQnZrhzGI4DjBYZCkxABWIYvNlHc5qFXnYTIUqAz+eCn22hUt2mTqRWvnjFkvELGmhDSCcikOkJcELAVzIvs6UNi2sFvnQvoRpnZ1zCuPA+J/7ZDJhThsH/xV8xciAOzZE55uX1I0Y14Nwas4+iI6jC5tPYbjWxT0dEPQt8hyOxSLOhSh0oGPGgJelOxEmZGSZB/xGrSeP+krUrQgICrsEcnMnnjGtqdpaozHo/jj1C0hDuEgf6TDD91sACtiydNBmsN0Qu+m0BhFAD1DIsO4rDdNZrLjGnguxgxhd/+lIKrDTX3F19t4P3DKfw7n85YsZMv9jVhvA/y5/6TdwqsWYh63yEQmwtEbYw5anOFrNCgUlRuordsVqPAYEVA8rNQ/+N0DJb7tAcN3jgnKTqgT5pTUADCJxYmfAOPSrZ+S4F1nCqWNQ8Kom30qu0SmsxIkwCegp/3rzbTIFYFrsAPCACeon3tLQW049WeoVEoY3viKq+mKEVLn+TvpqrU4sa0H9PPNU1d6y/VmmHgVVYOv92k/AdmYjJB/eUJxJijqMXX0C1fHjb22KLoBF8FS4Ch+qLCXUE6w2Bj/eSbWg1vUJOTAStAXBVPBkay00qc82F32/wwzWynjEFyxFLkUIpdjcviTJVGOcN8uUA==
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199021)(40470700004)(36840700001)(46966006)(7696005)(6666004)(40460700003)(36860700001)(186003)(426003)(26005)(47076005)(36756003)(336012)(86362001)(82310400005)(1076003)(81166007)(356005)(2616005)(82740400003)(40480700001)(5660300002)(70206006)(70586007)(4744005)(41300700001)(8936002)(8676002)(4326008)(2906002)(316002)(478600001)(110136005)(54906003)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199021)(36840700001)(46966006)(40470700004)(40460700003)(70206006)(70586007)(82740400003)(4326008)(2616005)(81166007)(356005)(82310400005)(186003)(336012)(86362001)(26005)(1076003)(36860700001)(83380400001)(47076005)(426003)(36756003)(6666004)(478600001)(7696005)(40480700001)(110136005)(54906003)(41300700001)(5660300002)(8936002)(8676002)(2906002)(316002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 12:07:34.8083
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2023 12:07:49.1476
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 33733f34-4551-46a5-4be1-08db7ee2bfd0
+ 5b62d635-1c57-4990-3677-08db7ee2c868
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	DM6NAM11FT095.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT111.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7305
-Message-ID-Hash: HN3ZYSQ3ELSDXATYQ7H4X3VVGYOKXQIF
-X-Message-ID-Hash: HN3ZYSQ3ELSDXATYQ7H4X3VVGYOKXQIF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5203
+Message-ID-Hash: ZHF5PAY7IU4FUMHN6MVZYS2HC6E36WC6
+X-Message-ID-Hash: ZHF5PAY7IU4FUMHN6MVZYS2HC6E36WC6
 X-MailFrom: venkataprasad.potturu@amd.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -141,7 +150,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HN3ZYSQ3ELSDXATYQ7H4X3VVGYOKXQIF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZHF5PAY7IU4FUMHN6MVZYS2HC6E36WC6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,24 +159,238 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This patch series is to add acpi machine id's for vangogh platform
-and add new dmi entries and machine driver support for nau8821 and
-max98388 codecs.
+In newer variants nau8821 as primary codec. Add support for nau8821
+codec in generic machine driver.
 
-Venkata Prasad Potturu (4):
-  ASoC: amd: acp: Add machine driver support for nau8821 codec
-  ASoC: amd: acp: Add machine driver support for max98388 codec
-  ASoC: amd: Add acpi machine id's for vangogh platform
-  ASoC: amd: Add new dmi entries to config entry
+Signed-off-by: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+---
+ sound/soc/amd/acp/Kconfig           |   1 +
+ sound/soc/amd/acp/acp-mach-common.c | 167 ++++++++++++++++++++++++++++
+ sound/soc/amd/acp/acp-mach.h        |   1 +
+ 3 files changed, 169 insertions(+)
 
- sound/soc/amd/acp-config.c          |  33 ++++
- sound/soc/amd/acp/Kconfig           |   2 +
- sound/soc/amd/acp/acp-mach-common.c | 267 ++++++++++++++++++++++++++++
- sound/soc/amd/acp/acp-mach.h        |   2 +
- sound/soc/amd/acp/acp-sof-mach.c    |  16 ++
- sound/soc/amd/mach-config.h         |   1 +
- 6 files changed, 321 insertions(+)
-
+diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+index ce0037810743..a68bbe106b73 100644
+--- a/sound/soc/amd/acp/Kconfig
++++ b/sound/soc/amd/acp/Kconfig
+@@ -61,6 +61,7 @@ config SND_SOC_AMD_MACH_COMMON
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_RT5682S
+ 	select SND_SOC_NAU8825
++	select SND_SOC_NAU8821
+ 	help
+ 	  This option enables common Machine driver module for ACP.
+ 
+diff --git a/sound/soc/amd/acp/acp-mach-common.c b/sound/soc/amd/acp/acp-mach-common.c
+index 6da17140beea..48abb8e9665d 100644
+--- a/sound/soc/amd/acp/acp-mach-common.c
++++ b/sound/soc/amd/acp/acp-mach-common.c
+@@ -25,12 +25,17 @@
+ #include "../../codecs/rt1019.h"
+ #include "../../codecs/rt5682s.h"
+ #include "../../codecs/nau8825.h"
++#include "../../codecs/nau8821.h"
+ #include "acp-mach.h"
+ 
++static struct snd_soc_jack vg_headset;
+ #define PCO_PLAT_CLK 48000000
+ #define RT5682_PLL_FREQ (48000 * 512)
+ #define DUAL_CHANNEL	2
+ #define FOUR_CHANNEL	4
++#define NAU8821_CODEC_DAI	"nau8821-hifi"
++#define NAU8821_BCLK		1536000
++#define NAU8821_FREQ_OUT	12288000
+ 
+ #define TDM_MODE_ENABLE 1
+ 
+@@ -790,6 +795,162 @@ static const struct snd_soc_ops acp_card_nau8825_ops = {
+ 	.hw_params = acp_nau8825_hw_params,
+ };
+ 
++static int platform_clock_control(struct snd_soc_dapm_widget *w,
++				  struct snd_kcontrol *k, int  event)
++{
++	struct snd_soc_dapm_context *dapm = w->dapm;
++	struct snd_soc_card *card = dapm->card;
++	struct snd_soc_dai *codec_dai;
++	int ret = 0;
++
++	codec_dai = snd_soc_card_get_codec_dai(card, NAU8821_CODEC_DAI);
++	if (!codec_dai) {
++		dev_err(card->dev, "Codec dai not found\n");
++		return -EIO;
++	}
++
++	if (SND_SOC_DAPM_EVENT_OFF(event)) {
++		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8821_CLK_INTERNAL,
++					     0, SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(card->dev, "set sysclk err = %d\n", ret);
++			return -EIO;
++		}
++	} else {
++		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8821_CLK_FLL_BLK, 0,
++					     SND_SOC_CLOCK_IN);
++		if (ret < 0)
++			dev_err(codec_dai->dev, "can't set FS clock %d\n", ret);
++		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, NAU8821_BCLK,
++					  NAU8821_FREQ_OUT);
++		if (ret < 0)
++			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
++	}
++	return ret;
++}
++
++static const struct snd_soc_dapm_widget nau8821_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone jack", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MIC("Int Mic", NULL),
++	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
++			    platform_clock_control, SND_SOC_DAPM_PRE_PMU |
++			    SND_SOC_DAPM_POST_PMD),
++};
++
++static const struct snd_soc_dapm_route nau8821_audio_route[] = {
++	/* HP jack connectors - unknown if we have jack detection */
++	{ "Headphone jack", NULL, "HPOL" },
++	{ "Headphone jack", NULL, "HPOR" },
++	{ "MICL", NULL, "Headset Mic" },
++	{ "MICR", NULL, "Headset Mic" },
++	{ "DMIC", NULL, "Int Mic" },
++	{ "Headphone jack", NULL, "Platform Clock" },
++	{ "Headset Mic", NULL, "Platform Clock" },
++	{ "Int Mic", NULL, "Platform Clock" },
++};
++
++static const unsigned int nau8821_format[] = {16};
++
++static struct snd_pcm_hw_constraint_list constraints_sample_bits = {
++	.list = nau8821_format,
++	.count = ARRAY_SIZE(nau8821_format),
++};
++
++static int acp_8821_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_card *card = rtd->card;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	struct snd_soc_component *component = codec_dai->component;
++	int ret;
++
++	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
++
++	ret = snd_soc_dapm_new_controls(&card->dapm, nau8821_widgets,
++					ARRAY_SIZE(nau8821_widgets));
++	if (ret) {
++		dev_err(rtd->dev, "unable to add widget dapm controls, ret %d\n", ret);
++		// Don't need to add routes if widget addition failed
++		return ret;
++	}
++
++	ret = snd_soc_card_jack_new(card, "Headset Jack",
++				    SND_JACK_HEADSET | SND_JACK_LINEOUT |
++				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
++				    &vg_headset);
++	if (ret) {
++		dev_err(rtd->dev, "Headset Jack creation failed %d\n", ret);
++		return ret;
++	}
++	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
++	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
++	snd_jack_set_key(vg_headset.jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
++
++	nau8821_enable_jack_detect(component, &vg_headset);
++
++	return snd_soc_dapm_add_routes(&rtd->card->dapm, nau8821_audio_route,
++				       ARRAY_SIZE(nau8821_audio_route));
++}
++
++static int acp_8821_startup(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++
++	runtime->hw.channels_max = DUAL_CHANNEL;
++	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
++				   &constraints_channels);
++	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
++				   &constraints_rates);
++	snd_pcm_hw_constraint_list(substream->runtime, 0,
++				   SNDRV_PCM_HW_PARAM_SAMPLE_BITS,
++				   &constraints_sample_bits);
++	return 0;
++}
++
++static int acp_nau8821_hw_params(struct snd_pcm_substream *substream,
++				 struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = asoc_substream_to_rtd(substream);
++	struct snd_soc_card *card = rtd->card;
++	struct acp_card_drvdata *drvdata = card->drvdata;
++	struct snd_soc_dai *codec_dai = asoc_rtd_to_codec(rtd, 0);
++	int ret;
++	unsigned int fmt;
++
++	if (drvdata->soc_mclk)
++		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBC_CFC;
++	else
++		fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF | SND_SOC_DAIFMT_CBP_CFP;
++
++	ret =  snd_soc_dai_set_fmt(codec_dai, fmt);
++	if (ret < 0) {
++		dev_err(rtd->card->dev, "Failed to set dai fmt: %d\n", ret);
++		return ret;
++	}
++
++	ret = snd_soc_dai_set_sysclk(codec_dai, NAU8821_CLK_FLL_BLK, 0,
++				     SND_SOC_CLOCK_IN);
++	if (ret < 0)
++		dev_err(card->dev, "can't set FS clock %d\n", ret);
++	ret = snd_soc_dai_set_pll(codec_dai, 0, 0, snd_soc_params_to_bclk(params),
++				  params_rate(params) * 256);
++	if (ret < 0)
++		dev_err(card->dev, "can't set FLL: %d\n", ret);
++
++	return ret;
++}
++
++static const struct snd_soc_ops acp_8821_ops = {
++	.startup = acp_8821_startup,
++	.hw_params = acp_nau8821_hw_params,
++};
++
++SND_SOC_DAILINK_DEF(nau8821,
++		    DAILINK_COMP_ARRAY(COMP_CODEC("i2c-NVTN2020:00",
++						  "nau8821-hifi")));
++
+ /* Declare DMIC codec components */
+ SND_SOC_DAILINK_DEF(dmic_codec,
+ 		DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
+@@ -920,6 +1081,12 @@ int acp_sofdsp_dai_links_create(struct snd_soc_card *card)
+ 			links[i].init = acp_card_rt5682s_init;
+ 			links[i].ops = &acp_card_rt5682s_ops;
+ 		}
++		if (drv_data->hs_codec_id == NAU8821) {
++			links[i].codecs = nau8821;
++			links[i].num_codecs = ARRAY_SIZE(nau8821);
++			links[i].init = acp_8821_init;
++			links[i].ops = &acp_8821_ops;
++		}
+ 		i++;
+ 	}
+ 
+diff --git a/sound/soc/amd/acp/acp-mach.h b/sound/soc/amd/acp/acp-mach.h
+index 165f407697c0..f2b44a6189a6 100644
+--- a/sound/soc/amd/acp/acp-mach.h
++++ b/sound/soc/amd/acp/acp-mach.h
+@@ -41,6 +41,7 @@ enum codec_endpoints {
+ 	MAX98360A,
+ 	RT5682S,
+ 	NAU8825,
++	NAU8821,
+ };
+ 
+ enum platform_end_point {
 -- 
 2.25.1
 

@@ -2,106 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6C074E658
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 07:30:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00EFF74E770
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 08:38:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B328E820;
-	Tue, 11 Jul 2023 07:29:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B328E820
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3D063E7;
+	Tue, 11 Jul 2023 08:37:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3D063E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689053430;
-	bh=fMEO+x/VlBNG7ZriDkfDHyYIOPZpkuhNyIhDQnsBlx8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1689057487;
+	bh=4+1OPTUKS90sS9jGvC6Wn9idI+xTKRc38R1oLorStVs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=PrMl7WaL5fDdPO8nXUu8X/FCFCjqpZ5jfgEUJDetPw6bb+wp8juQxom0YZ67nrqh8
-	 eDn/u01LwkWdRbsvBl1rAQjtEIWkiK/Op8TcAR8WhKqbJSzVaKaP7obTDYKljWQdV5
-	 iDTAHgS5mIyPcUXNUfe41es2NGKLdppVhXruObNE=
+	b=ukL0MdsvmAk9Z/mIsWp9+kN4/7GbeghzZ3Aaq/q2ApABsmJ8aCkhgmz5BkWaEdMPP
+	 kk4OKLryBMEnR5PdwfYs/Y2y227JjOzYb4GZACbxcw8iHTZHAFqh2xPstW2xDQbd0A
+	 XmvtySnRVSSeaG+zI/anvc5HFak8AlfOj5lz4UIY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E238F8047D; Tue, 11 Jul 2023 07:29:17 +0200 (CEST)
+	id CBF3CF80290; Tue, 11 Jul 2023 08:37:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DFF6F80236;
-	Tue, 11 Jul 2023 07:29:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F842F80236;
+	Tue, 11 Jul 2023 08:37:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 44D49F80249; Tue, 11 Jul 2023 07:28:37 +0200 (CEST)
+	id 38E73F80249; Tue, 11 Jul 2023 08:37:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-4.4 required=5.0 tests=DATE_IN_PAST_12_24,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B73FAF80093
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 07:28:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B73FAF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 08134F80093
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 08:36:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08134F80093
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Z0nIVqCv;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=6HaZRRDt
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6969A2041B;
-	Tue, 11 Jul 2023 05:28:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1689053303;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=USVdogK7bRGkppg7qZvrMYaSy6X2JfS/2HvL5HO57sI=;
-	b=Z0nIVqCvqw1WOkcWHne4u8yyYrsr+rmPy8QD7eq/p/5RJbAAF1UXFQdQ/B8/MjYW2Uazjt
-	mgbUtlQXa7d8M410nS1zVHkz/wxrKK936lnb2WRozDnk9N+zgC70wn3AHLClbns0rUOqHc
-	66RFXieyYorFH8dwk1wthI6VOcVmzfs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689053303;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=USVdogK7bRGkppg7qZvrMYaSy6X2JfS/2HvL5HO57sI=;
-	b=6HaZRRDtlFKFkhkGiQs7Wujo0GlbX6iXBg57F/iYLOVkOabkDf4GNoQd56KGs3p3xcg3WH
-	9GYvdaOVmnVAoxBg==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 46CA91346F;
-	Tue, 11 Jul 2023 05:28:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id h3MmEHforGTceAAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 11 Jul 2023 05:28:23 +0000
-Date: Tue, 11 Jul 2023 07:28:22 +0200
-Message-ID: <87cz0zxbih.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 2/2] ALSA: emu10k1: track loss of external clock on E-MU
- cards
-In-Reply-To: <ZKxBJVxHdkmpHSVh@ugly>
-References: <20230710065956.1246364-1-oswald.buddenhagen@gmx.de>
-	<20230710065956.1246364-2-oswald.buddenhagen@gmx.de>
-	<87ttubyfh9.wl-tiwai@suse.de>
-	<ZKxBJVxHdkmpHSVh@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: TKUPJUF2ICKN37MXB7UY5LELLQ54HIYV
-X-Message-ID-Hash: TKUPJUF2ICKN37MXB7UY5LELLQ54HIYV
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=Ov0loFaC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689057418; x=1720593418;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=4+1OPTUKS90sS9jGvC6Wn9idI+xTKRc38R1oLorStVs=;
+  b=Ov0loFaCYdfkDo0BYEygWBVgxF6ZK8BSNoEoxM1iSqVTQUlG67Fvb6Xn
+   cvNBMXW4iZ500y9qDedHGFUt26bY0BUJynxRwMqCx4O3pEHBJC3pM/6T6
+   +89tjOIi0tdBnGRRzdJmAJTm2aFb5IzLWqbiffBRwwQE/PWGJJ54pKm/a
+   NoRahkwU/uku1nNtu+DpevAjBBM5cIyUErfRa7nDD8QyOxGJ6ZBS88xMi
+   4mYJkCfDNJR1+fVgUzuR85HAaWw087SMH/Y4xrptZhjcsmOx8fQ9uhrNF
+   ZoaWewQvTkBOcd9VMmW3qVgHoJde4SFD7hSMNRDviXfD5xHb93co4Sauu
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="362001211"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="362001211"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 23:36:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="698328881"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="698328881"
+Received: from baparham-mobl.ger.corp.intel.com (HELO [10.252.44.75])
+ ([10.252.44.75])
+  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 23:36:45 -0700
+Message-ID: <f12360ff-cd8a-64b6-6cdd-beec2651787c@linux.intel.com>
+Date: Mon, 10 Jul 2023 09:35:57 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH v2] ASoC: Intel: sof_rt5682: add jsl_rt5650 board config
+Content-Language: en-US
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Yong Zhi <yong.zhi@intel.com>,
+ Uday M Bhat <uday.m.bhat@intel.com>, Gongjun Song <gongjun.song@intel.com>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Arnd Bergmann <arnd@arndb.de>, Terry Cheong <htcheong@chromium.org>,
+ "Dharageswari . R" <dharageswari.r@intel.com>,
+ Mac Chiang <mac.chiang@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org
+References: <20230710141610.227988-1-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230710141610.227988-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Message-ID-Hash: ASRXLEW7ZL5AGBFEMH3IU3XAW3T366MY
+X-Message-ID-Hash: ASRXLEW7ZL5AGBFEMH3IU3XAW3T366MY
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -113,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TKUPJUF2ICKN37MXB7UY5LELLQ54HIYV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ASRXLEW7ZL5AGBFEMH3IU3XAW3T366MY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -122,70 +121,130 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, 10 Jul 2023 19:34:29 +0200,
-Oswald Buddenhagen wrote:
+
+
+On 7/10/23 16:16, Brent Lu wrote:
+> This configuration supports JSL boards which implement ALC5650 dual
+> I2S interface codec. Two DAI links are added: AIF1 (on codec side) for
+> headphone and AIF2 for speakers.
 > 
-> On Mon, Jul 10, 2023 at 05:05:06PM +0200, Takashi Iwai wrote:
-> > On Mon, 10 Jul 2023 08:59:56 +0200,
-> > Oswald Buddenhagen wrote:
-> >> +	// We consider this a mixer setting, so use the mixer's lock
-> >> +	down_write(&emu->card->controls_rwsem);
-> > 
-> > I really don't want to see the driver touching this lock.  It's
-> > basically an internal stuff of ALSA core code.  And, as already
-> > discussed, the controls_rwsem wasn't intended as a lock for the mixer
-> > content protection originally.  It took over the role partially, but
-> > the drivers shouldn't rely on it.
-> > 
-> i know that this is technically true, but i think that from a
-> pragmatic point of view it just makes no sense.
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> ---
+>  sound/soc/intel/boards/Kconfig                |  5 +-
+>  sound/soc/intel/boards/sof_rt5682.c           | 81 ++++++++++++++++++-
+>  .../intel/common/soc-acpi-intel-jsl-match.c   | 12 +++
+>  3 files changed, 93 insertions(+), 5 deletions(-)
 > 
-> if we are pedantic about it, we need to revert my 06405d8ee8c
-> (emu10k1: remove now superfluous mixer locking) and do the opposite
-> change, to add the technically missing locks. that's several tens of
-> irq-safe spinlock operations in this driver alone. which are hundreds
-> of bytes spent entirely pointlessly, because we _know_ that the
-> operation is already locked, because it must be.
+> diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+> index f472f603ab75..1fe830af2b84 100644
+> --- a/sound/soc/intel/boards/Kconfig
+> +++ b/sound/soc/intel/boards/Kconfig
+> @@ -475,7 +475,7 @@ endif ## SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
+>  
+>  if SND_SOC_SOF_HDA_LINK || SND_SOC_SOF_BAYTRAIL
+>  config SND_SOC_INTEL_SOF_RT5682_MACH
+> -	tristate "SOF with rt5682 codec in I2S Mode"
+> +	tristate "SOF with rt5650/rt5682 codec in I2S Mode"
+>  	depends on I2C && ACPI
+>  	depends on ((SND_HDA_CODEC_HDMI && SND_SOC_SOF_HDA_AUDIO_CODEC) &&\
+>  		    (MFD_INTEL_LPSS || COMPILE_TEST)) ||\
+> @@ -485,6 +485,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
+>  	select SND_SOC_RT1011
+>  	select SND_SOC_RT1015
+>  	select SND_SOC_RT1015P
+> +	select SND_SOC_RT5645
+>  	select SND_SOC_RT5682_I2C
+>  	select SND_SOC_RT5682S
+>  	select SND_SOC_DMIC
+> @@ -494,7 +495,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
+>  	select SND_SOC_INTEL_SOF_REALTEK_COMMON
+>  	help
+>  	   This adds support for ASoC machine driver for SOF platforms
+> -	   with rt5682 codec.
+> +	   with rt5650 or rt5682 codec.
+>  	   Say Y if you have such a device.
+>  	   If unsure select "N".
+>  
+> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+> index 7c034d671cf3..53451c1b67f8 100644
+> --- a/sound/soc/intel/boards/sof_rt5682.c
+> +++ b/sound/soc/intel/boards/sof_rt5682.c
+> @@ -22,6 +22,7 @@
+>  #include <sound/soc-acpi.h>
+>  #include "../../codecs/rt5682.h"
+>  #include "../../codecs/rt5682s.h"
+> +#include "../../codecs/rt5645.h"
+>  #include "../../codecs/hdac_hdmi.h"
+>  #include "../common/soc-intel-quirks.h"
+>  #include "hda_dsp_common.h"
+> @@ -60,6 +61,7 @@
+>  #define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(24)
+>  #define SOF_MAX98390_TWEETER_SPEAKER_PRESENT	BIT(25)
+>  #define SOF_RT1019_SPEAKER_AMP_PRESENT	BIT(26)
+> +#define SOF_RT5650_HEADPHONE_CODEC_PRESENT	BIT(27)
+>  
+>  
+>  /* Default: MCLK on, MCLK 19.2M, SSP0  */
+> @@ -305,7 +307,7 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
+>  	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+>  	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
+>  	struct snd_soc_jack *jack;
+> -	int ret;
+> +	int ret, extra;
 
-Yes, I'm for reintroducing the driver sepcific lock (it can be mutex,
-too).
-
-> so i think the most sensible approach is to just make it official,
-> which is what my 37bb927d5bb (core: update comment on
-> snd_card.controls_rwsem) actually works towards. at least i can't
-> think of a reason not to do that, except for some puristic ideals.
-> 
-> if somebody actually finds a _good_ reason to change this and wants to
-> embark on the mammoth task of proving that everything is still safe
-> afterwards, they can just do so. adjusting this commit for the new
-> reality wouldn't be hard or laborious.
-> 
-> > > +     snd_emu1010_update_clock(emu);
-> > > +     downgrade_write(&emu->card->controls_rwsem);
-> > > +     snd_ctl_build_ioff(&id, emu->ctl_clock_source, 0);
-> > > +     snd_ctl_notify(emu->card, SNDRV_CTL_EVENT_MASK_VALUE, &id);
-> > > +     up_read(&emu->card->controls_rwsem);
-> > 
-> > Err, too ugly and unnecessary change.  snd_ctl_notify() doesn't take
-> > the rwsem, and it can be called at any place without fiddling the
-> > rwsem.  It's snd_ctl_notify_one() that needs the downgrade to read
-> > (and maybe we should rename the function to be clearer).
-> > 
-> well, that lock is necessary exactly because we (ab-)use the rwsem as
-> the general mixer lock, so we basically need to emulate the ioctl
-> entry path, so a concurrent actual put ioctl doesn't blow up in our
-> face. i actually agree that it's kinda ugly, but the argument remains
-> the same - it just isn't worth doing it differently (we'd have to
-> sprinkle around quite some reg_lock operations instead).
-
-Again, snd_ctl_notify() itself doesn't need the rwsem lock at all.
-It's snd_ctl_notify_one() that needs a more careful call pattern.
-
-And, that ugly implementation is a thing to be improved in future in
-ALSA core side.  If we have this in each driver, it'll be a
-nightmare.  So, please don't follow it.
+two lines, and rename to e.g. extra_jack_data
 
 
-thanks,
+> +	if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
+> +		extra = SND_JACK_MICROPHONE | SND_JACK_BTN_0;
+> +		ret = snd_soc_component_set_jack(component, jack, &extra);
 
-Takashi
+I am a bit confused on why this wasn't set for rt5682?
+
+> +	} else
+> +		ret = snd_soc_component_set_jack(component, jack, NULL);
+
+> +static const struct snd_soc_dapm_route rt5650_spk_dapm_routes[] = {
+> +	/* speaker */
+> +	{ "Left Spk", NULL, "SPOL" },
+> +	{ "Right Spk", NULL, "SPOR" },
+> +};
+> +
+>  static const struct snd_soc_dapm_route dmic_map[] = {
+>  	/* digital mics */
+>  	{"DMic", NULL, "SoC DMIC"},
+>  };
+>  
+> +static int rt5650_spk_init(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	struct snd_soc_card *card = rtd->card;
+> +	int ret;
+> +
+> +	ret = snd_soc_dapm_add_routes(&card->dapm, rt5650_spk_dapm_routes,
+> +				      ARRAY_SIZE(rt5650_spk_dapm_routes));
+> +	if (ret)
+> +		dev_err(rtd->dev, "fail to add dapm routes, ret=%d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+>  static int dmic_init(struct snd_soc_pcm_runtime *rtd)
+>  {
+>  	struct snd_soc_card *card = rtd->card;
+> @@ -614,6 +656,17 @@ static struct snd_soc_dai_link_component rt5682s_component[] = {
+>  	}
+>  };
+>  
+> +static struct snd_soc_dai_link_component rt5650_components[] = {
+> +	{
+> +		.name = "i2c-10EC5650:00",
+> +		.dai_name = "rt5645-aif1",
+> +	},
+> +	{
+> +		.name = "i2c-10EC5650:00",
+> +		.dai_name = "rt5645-aif2",
+> +	}
+> +};
+
+can we move these definitions to realtek_common.c, chances are other
+boards will also use this codec. Thanks!

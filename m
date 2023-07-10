@@ -2,118 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0121174CFC6
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 10:21:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CDD274CFD4
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 10:23:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 174B43E7;
-	Mon, 10 Jul 2023 10:20:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 174B43E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEB9F207;
+	Mon, 10 Jul 2023 10:22:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEB9F207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688977282;
-	bh=3hCiieA+CmSOBqFOrT0SoUW2r/HHX8jAiPaQcevfvjw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
+	s=default; t=1688977408;
+	bh=0JeBa+IbhSIafeZjBntec99DaoI3KcXok6LfD5q5pC0=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=NciT5FsqZfOTXY58MGXY1/XpkBj/aIl+NBwIIsMhxPAbtXiwLuKCsCilo8RfY0/MN
-	 4xND9VpH7QquMldWQy9LnNjiBH3xAhQiwovJY8MoF/pF4FF9/2TSrXwG7Lstp+QqFk
-	 4FC60oBo/rlexUL/0V+vglMmM2ZI7xppd/3r0vIY=
+	b=nstGxyrmtE03kAYAfqomcIa0Kl84N5zsbQOSX+tBWENSR3lqvfElvNnrA5yNHIRkq
+	 Hq7p2bMhRdET1sUOqzE5I37W7XWVQ6yJJPDSeE6Yu5/dYbQOdwYrVC3Ek1fru/S2xD
+	 4H/LomCMbUd0EmqhOOq6wumf3KE+KX4IVzJ5S+Us=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4DC0EF8053B; Mon, 10 Jul 2023 10:20:00 +0200 (CEST)
+	id E68D7F80153; Mon, 10 Jul 2023 10:22:37 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD0A8F80153;
-	Mon, 10 Jul 2023 10:19:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 932D8F80153;
+	Mon, 10 Jul 2023 10:22:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A996AF80249; Mon, 10 Jul 2023 10:19:57 +0200 (CEST)
+	id 4E5D5F80249; Mon, 10 Jul 2023 10:22:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7A925F80093
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 10:19:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A925F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 307D6F800E4
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 10:22:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 307D6F800E4
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=G4vEUbok;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=mO+ukF0y
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8D6351F38D;
-	Mon, 10 Jul 2023 08:19:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1688977190;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9c1Hyfa0qbZcmFBIiXA4YT0W5pWsuJ23T868Rm8ntrE=;
-	b=G4vEUbokaMCTFfE3zvzK8FXiJOo6Bty0CkY3QoHJtalaNhvolPfJ/smYBe8loijQaYuk4l
-	dxbvCGQf//pQSVG0Wb4M7C7NVBcIK8Iu4Md7WBrlACDtQ2rUL49kGUbF7T5t2XkM8BHBcX
-	b45sI7ICema9q6Q38HvlV+bSbYCWhvY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1688977190;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9c1Hyfa0qbZcmFBIiXA4YT0W5pWsuJ23T868Rm8ntrE=;
-	b=mO+ukF0yxY4sZwLLdtFPXTD9hMZaME+nplule9TTUrRr8UQqt7ARS0rYr5T3Tc8FGA2DOt
-	F74+13edVJnoIZBw==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4CD4313A05;
-	Mon, 10 Jul 2023 08:19:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id NijtESa/q2SjCgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Mon, 10 Jul 2023 08:19:50 +0000
-Date: Mon, 10 Jul 2023 10:19:49 +0200
-Message-ID: <87jzv8i3fe.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Johan Hovold <johan@kernel.org>,
-	perex@perex.cz,
-	tiwai@suse.com,
-	lgirdwood@gmail.com,
-	ckeepax@opensource.cirrus.com,
-	kuninori.morimoto.gx@renesas.com,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.intel.com,
-	alsa-devel@alsa-project.org
-Subject: Re: [PATCH] ASoC: codecs: wcd938x: fix dB range for HPHL and HPHR
-In-Reply-To: <56aecc8d-2f6c-42c0-a13a-89c84cf53773@sirena.org.uk>
-References: <20230705125723.40464-1-srinivas.kandagatla@linaro.org>
-	<ZKfAUOOcGoBanHHu@hovoldconsulting.com>
-	<efaf5960-bcc5-6d52-5552-e1505a13b635@linaro.org>
-	<87y1jrkgdx.wl-tiwai@suse.de>
-	<3450ef1e-cb20-4242-b482-41d3d34c4564@sirena.org.uk>
-	<87wmzbkfw7.wl-tiwai@suse.de>
-	<f1041542-bd97-41d9-96b9-c6e5fef6b096@sirena.org.uk>
-	<87v8evkf3w.wl-tiwai@suse.de>
-	<56aecc8d-2f6c-42c0-a13a-89c84cf53773@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: TS5E7QL6MQ4D24NMHNF3SUMBPVLZS3L5
-X-Message-ID-Hash: TS5E7QL6MQ4D24NMHNF3SUMBPVLZS3L5
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=G+4K12Nn
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36A8BaDe027592;
+	Mon, 10 Jul 2023 10:22:23 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=GE6zkKpI6t9uY6L4iGZvQGH0DZZlhk/alBlWR2MxhUs=;
+ b=G+4K12NnVLRH60fLRSLye1p6QMQOse6GHGYvmcXkLdfiDUaeFSQxdVHB8IuIaLl3hTIj
+ cNhrU2X+aizJuhnIEVZGZ3AtqalmKwy1lusGnOvoDtQS3WL/XPW52RrEXjNw6EgYgYRX
+ 7ykkxWK3XJLDKaZW3ywfdgnSJd28+A7BuIgG2xvGBzKbVSK1AorcTFJiX/vb2qrSUU7K
+ KbGigglmesbBjV7AwerCwSCze7W6exOddeiEWGNQenh3iQE5kIdzdont68RbEOAeqajB
+ dsS/sLb1eB5zRqc8iDpTZ5mswkIA4Czb8vK9LHM+wRn2Vrpy2YeSvgiltQE7LfmEfE58 LQ==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rre8vr37g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 10 Jul 2023 10:22:23 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C00B010005A;
+	Mon, 10 Jul 2023 10:22:19 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 58FB521BF6A;
+	Mon, 10 Jul 2023 10:22:19 +0200 (CEST)
+Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Mon, 10 Jul
+ 2023 10:22:18 +0200
+Message-ID: <fb72b4e4-d5c6-d9be-269d-29aff996001c@foss.st.com>
+Date: Mon, 10 Jul 2023 10:22:10 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH 04/10] dt-bindings: treewide: add feature-domains
+ description in binding files
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+CC: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
+ <jic23@kernel.org>,
+        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+        <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>, <linux-crypto@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>
+References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+ <20230705172759.1610753-5-gatien.chevallier@foss.st.com>
+ <20230706145108.GA3858320-robh@kernel.org>
+ <0aaace47-1bb4-82c5-57a5-6f5d27eb4d45@foss.st.com>
+ <20230707152056.GA317056-robh@kernel.org>
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <20230707152056.GA317056-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-10_05,2023-07-06_02,2023-05-22_02
+Message-ID-Hash: O2RY2ZBFPDOESNXHYW52M6DIE2XHFB7H
+X-Message-ID-Hash: O2RY2ZBFPDOESNXHYW52M6DIE2XHFB7H
+X-MailFrom: prvs=5555ac5eb5=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -125,7 +131,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/TS5E7QL6MQ4D24NMHNF3SUMBPVLZS3L5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O2RY2ZBFPDOESNXHYW52M6DIE2XHFB7H/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -134,32 +140,101 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 07 Jul 2023 17:06:24 +0200,
-Mark Brown wrote:
-> 
-> On Fri, Jul 07, 2023 at 03:47:47PM +0200, Takashi Iwai wrote:
-> > Mark Brown wrote:
-> 
-> > > The ASoC generic control stuff supports inverting the value prior to
-> > > presentation to userspace so it's masked there (instead of writing the
-> > > number userspace sees to the register we subtract the number from the
-> > > maximum value and write that to the register), pulling that up further
-> > > to the ALSA core might be nice I guess?
-> 
-> > I believe yes.  Though, I'm still not sure how we can improve the
-> > mismatch of dB min/max.  The dB values of those inverted controls
-> > reflect the result of subtraction, no?
-> 
-> Yes, the dB scale presented to userspace is reversed relative to the
-> ordering in the registers.
-
-Right, the TLV min/max corresponds to the control values, and they
-don't mean the raw register values.
-
-BTW, this thread made me wonder whether it makes sense to give some
-sanity checks (maybe with CONFIG_SND_DEBUG) in ALSA core.
-e.g. read_tlv_buf() in sound/core/control.c can perform some tests
-before actually passing to user-space.
 
 
-Takashi
+On 7/7/23 17:20, Rob Herring wrote:
+> On Fri, Jul 07, 2023 at 02:28:28PM +0200, Gatien CHEVALLIER wrote:
+>> Hello Rob,
+>>
+>> On 7/6/23 16:51, Rob Herring wrote:
+>>> On Wed, Jul 05, 2023 at 07:27:53PM +0200, Gatien Chevallier wrote:
+>>>> feature-domains is an optional property that allows a peripheral to
+>>>> refer to one or more feature domain controller(s).
+>>>>
+>>>> Description of this property is added to all peripheral binding files of
+>>>> the peripheral under the STM32 firewall controllers. It allows an accurate
+>>>> representation of the hardware, where various peripherals are connected
+>>>> to this firewall bus. The firewall can then check the peripheral accesses
+>>>> before allowing it to probe.
+>>>>
+>>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>>> ---
+>>>>
+>>>> Disclaimer: Some error with dtbs_check will be observed as I've
+>>>> considered the property to be generic, as Rob asked
+>>>>
+>>>>    Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml  | 4 ++++
+>>>>    Documentation/devicetree/bindings/dma/st,stm32-dma.yaml      | 4 ++++
+>>>>    Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml   | 4 ++++
+>>>>    Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml      | 4 ++++
+>>>>    Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 4 ++++
+>>>>    .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 4 ++++
+>>>>    Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml  | 4 ++++
+>>>>    .../devicetree/bindings/media/cec/st,stm32-cec.yaml          | 4 ++++
+>>>>    Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml   | 4 ++++
+>>>>    .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml       | 4 ++++
+>>>>    Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml  | 4 ++++
+>>>>    Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml   | 5 +++++
+>>>>    Documentation/devicetree/bindings/mmc/arm,pl18x.yaml         | 4 ++++
+>>>>    Documentation/devicetree/bindings/net/stm32-dwmac.yaml       | 4 ++++
+>>>>    Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml | 4 ++++
+>>>>    .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml      | 4 ++++
+>>>>    Documentation/devicetree/bindings/rng/st,stm32-rng.yaml      | 4 ++++
+>>>>    Documentation/devicetree/bindings/serial/st,stm32-uart.yaml  | 4 ++++
+>>>>    Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml    | 4 ++++
+>>>>    Documentation/devicetree/bindings/sound/st,stm32-sai.yaml    | 4 ++++
+>>>>    .../devicetree/bindings/sound/st,stm32-spdifrx.yaml          | 4 ++++
+>>>>    Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml     | 4 ++++
+>>>>    Documentation/devicetree/bindings/spi/st,stm32-spi.yaml      | 4 ++++
+>>>>    Documentation/devicetree/bindings/usb/dwc2.yaml              | 4 ++++
+>>>>    24 files changed, 97 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+>>>> index b767ec72a999..daf8dcaef627 100644
+>>>> --- a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+>>>> +++ b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+>>>> @@ -50,6 +50,10 @@ properties:
+>>>>      power-domains:
+>>>>        maxItems: 1
+>>>> +  feature-domains:
+>>>> +    minItems: 1
+>>>> +    maxItems: 3
+>>>
+>>> What are the 3 entries?
+>>>
+>>> Rob
+>>
+>> I thought I was benefiting from the description of the pattern-property in
+>> the RIFSC YAML file. But yes anyway, it seems like it needs some description
+>> here as the dependency does not appear in this file.
+> 
+> Humm, that should limit the maximum entries to 2, so 3 would never work
+> (if RIFSC is the parent).
+> 
+>> I picked 3 as a maxItems for our ST needs, I'll give it some more thought
+>> when coming back with something clearer.
+> 
+> I'd expect you have 1 entry for register bus and 1 entry for DMA bus if
+> there is one. It's block specific for how many entries, so the RIFSC
+> schema should not be setting that. You could possibly say that
+> 'feature-domains' is required for all the child nodes though.
+
+Ok, I will change to not specifying the number of entries in the
+RIFSC YAML file for V2.
+
+> 
+> Rob
+Some hardware blocks may have a firewall ID for their device part and
+another ID for their master part as well. In the end, the number of
+entries could very well vary between different platforms. And the YAML
+files are common to these platforms.
+
+This property could be used for "extra" arguments as well, that are not
+firewall IDs.
+
+What do you suggest between picking a high maxItems value that would
+(hopefully) cover all cases and not specifying maxItems at all? Or maybe
+another property dedicated to such arguments?
+
+Best regards,
+Gatien

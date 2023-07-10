@@ -2,102 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C33B474CA14
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 04:51:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A77B074CB1B
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 06:14:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86FF0201;
-	Mon, 10 Jul 2023 04:50:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86FF0201
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11B611D9;
+	Mon, 10 Jul 2023 06:13:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11B611D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688957502;
-	bh=U8F2R0u409q851dR9oP+lL+lYQvMxC7xA1uosGPTDK0=;
+	s=default; t=1688962447;
+	bh=f82ek/kMOwxxkvVxezrfSd1ad/+lVdT6Lb1SnBy8LqI=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=lSavccSocnlF8PB+b+DUYvqKFE+jgWida3nRG5105pRdKs4kHPXcZDc+W8hEoyfRh
-	 P/SuSU7ap4XDj5V/QN3fUYIExz4EH6iN15q1xELiLcfpOkadsVOlKlHskNHWsPVprl
-	 8aXEeKJVjkVDmb7b1W4l+r2/hiE1kZEplBFa9W6c=
+	b=ZWsHmyNEN70fnG2yhfjD2qjoF27DAHu1dzoU3BCLgcqBbtWwDO7qcll5jzjQLCRKM
+	 E0Q2BFySTLiFdULSL8pmu2ZndwYik0hki1Ctksxy9I/vPrbggJR2ljI2duR5E5H7ih
+	 TEQ0m+W0APkmG6sWDte82WEH3N4Ph/4K7zm1tUCQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B5B90F800E4; Mon, 10 Jul 2023 04:50:51 +0200 (CEST)
+	id 46B83F8053B; Mon, 10 Jul 2023 06:13:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 638F5F80153;
-	Mon, 10 Jul 2023 04:50:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D14FBF80249;
+	Mon, 10 Jul 2023 06:13:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6BD74F80249; Mon, 10 Jul 2023 04:50:43 +0200 (CEST)
+	id B36A5F8027B; Mon, 10 Jul 2023 06:13:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=0.6 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FROM,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
 	version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5BEB7F800E4
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 04:50:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEB7F800E4
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=SBnyxp5j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688957429; x=1720493429;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=U8F2R0u409q851dR9oP+lL+lYQvMxC7xA1uosGPTDK0=;
-  b=SBnyxp5jO5LIkVixFBfY1zdszUolXipM0w2i/BzKoUvSlgKJk5f3r0VY
-   Q7gH1Spis2WsiDbS4Hmq8nBxDv01Rao8m4Jb8Vimy1wOZ3bnXyWIW5BEw
-   s5KEYaUJy+Q75576Oo2SjTWQHSYgIPnIzaCy4NQMf3/L2uZXinMMlKysH
-   gKxeXYLldTljHPL7NUs1KfiUdPGJKINkeS9Y6+ErH5YMnKBRZIxqTwGeJ
-   iCqYUpWEjkU+9JU0fQ1wcIGL0AwIkOrwRqZieNFG4fTTcUXO3GF7wtXz/
-   xn5AxxbQ2avskYIi2gK5PIzxJIBXZuf+M7IPWyMjPTvCjaHel6eP28srg
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="430316725"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200";
-   d="scan'208";a="430316725"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2023 19:50:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="714641049"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200";
-   d="scan'208";a="714641049"
-Received: from brentlu-desktop.itwn.intel.com ([10.5.252.92])
-  by orsmga007.jf.intel.com with ESMTP; 09 Jul 2023 19:50:18 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Yong Zhi <yong.zhi@intel.com>,
-	Brent Lu <brent.lu@intel.com>,
-	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
-	Terry Cheong <htcheong@chromium.org>,
-	Uday M Bhat <uday.m.bhat@intel.com>,
-	"Dharageswari . R" <dharageswari.r@intel.com>,
-	Mac Chiang <mac.chiang@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	ye xingchen <ye.xingchen@zte.com.cn>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ASoC: Intel: sof_rt5682: add jsl_rt5650 board config
-Date: Mon, 10 Jul 2023 18:45:00 +0800
-Message-Id: <20230710104500.166735-1-brent.lu@intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id CAB6BF80153
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 06:12:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAB6BF80153
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from localhost.localdomain (unknown[183.194.159.125])
+	by rmsmtp-lg-appmail-26-12031 (RichMail) with SMTP id 2eff64ab852fc25-b3e01;
+	Mon, 10 Jul 2023 12:12:35 +0800 (CST)
+X-RM-TRANSID: 2eff64ab852fc25-b3e01
+From: Shenghao Ding <13916275206@139.com>
+To: broonie@kernel.org,
+	devicetree@vger.kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	robh+dt@kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com
+Cc: kevin-lu@ti.com,
+	shenghao-ding@ti.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	liam.r.girdwood@intel.com,
+	mengdong.lin@intel.com,
+	x1077012@ti.com,
+	peeyush@ti.com,
+	navada@ti.com,
+	tiwai@suse.de,
+	Shenghao Ding <13916275206@139.com>
+Subject: [PATCH v2 1/3] ALSA: hda/tas2781: Add tas2781 HDA driver
+Date: Mon, 10 Jul 2023 12:12:15 +0800
+Message-Id: <20230710041217.151099-1-13916275206@139.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: HFWEYE6I2SHA3NRMNOSB3MFSWXTOQO7E
-X-Message-ID-Hash: HFWEYE6I2SHA3NRMNOSB3MFSWXTOQO7E
-X-MailFrom: brent.lu@intel.com
+Message-ID-Hash: N2F3KMOSUJUFELI3IWOJON27E5KZ4LLE
+X-Message-ID-Hash: N2F3KMOSUJUFELI3IWOJON27E5KZ4LLE
+X-MailFrom: 13916275206@139.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +83,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HFWEYE6I2SHA3NRMNOSB3MFSWXTOQO7E/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/N2F3KMOSUJUFELI3IWOJON27E5KZ4LLE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,234 +92,219 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This configuration supports JSL boards which implement ALC5650 dual
-I2S interface codec. Two DAI links are added: AIF1 (on codec side) for
-headphone and AIF2 for speakers.
+Integrate tas2781 configs for Lenovo Laptops. All of the tas2781s in the
+laptop will be aggregated as one audio device. The code support realtek
+as the primary codec. Rename "struct cs35l41_dev_name" to
+"struct scodec_dev_name" for all other side codecs instead of the certain
+one.
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
+Signed-off-by: Shenghao Ding <13916275206@139.com>
+
 ---
- sound/soc/intel/boards/sof_rt5682.c           | 81 ++++++++++++++++++-
- .../intel/common/soc-acpi-intel-jsl-match.c   | 12 +++
- 2 files changed, 90 insertions(+), 3 deletions(-)
+Changes in v2:
+ -  simplify the check of vendor id with Lenovo
+ - ThinkPad is one of Lenovo's brands, they suggested me to use
+   ALC269_FIXUP_THINKPAD_ACPI.
+ - Add comments on ACARD_SINGLE_RANGE_EXT_TLV
+ - Add the range check for tas_priv->tasdevice[] in tas2781_acpi_get_i2c_res.
+ - remove acpi_subsystem_id
+ - Issue in Laptop 0x17aa38be ACPI talbe caused codec->bus->pci->subsystem_device
+   is not equal to (codec->core.subsystem_id & 0xffff) in snd_hda_pick_fixup.
+   The former is 0x3802 and the latter is 0x38be leads to getting the wrong
+   fixup_id and enter into the wrong entry. Although, this issue has been raised
+   to the laptop manufacturer, but the ACPI table is locked, cannot be changed
+   any more. Correct the wrong entry in the code.
+ - Rename "struct cs35l41_dev_name" to "struct scodec_dev_name" for all
+   other side codecs instead of one certain codec.
+ - Ignore the checkpatch complaints in alc269_fixup_tbl
+ - Drop the hunk which is irrelevant with my code in
+   alc_fixup_headset_mode_alc255_no_hp_mic
+ - Add tiwai@suse.de into Cc list
+ - remove useless index
+ - combine ALC287_FIXUP_TAS2781_I2C_2 and ALC287_FIXUP_TAS2781_I2C_4 together as
+   ALC287_FIXUP_TAS2781_I2C, The code view all the tas2781s in the laptop as one instance.
+ - delete the white space at the end of the line in alc_fixup_headset_mode_alc255_no_hp_mic
+---
+ sound/pci/hda/patch_realtek.c | 104 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 101 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 7c034d671cf3..53451c1b67f8 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -22,6 +22,7 @@
- #include <sound/soc-acpi.h>
- #include "../../codecs/rt5682.h"
- #include "../../codecs/rt5682s.h"
-+#include "../../codecs/rt5645.h"
- #include "../../codecs/hdac_hdmi.h"
- #include "../common/soc-intel-quirks.h"
- #include "hda_dsp_common.h"
-@@ -60,6 +61,7 @@
- #define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(24)
- #define SOF_MAX98390_TWEETER_SPEAKER_PRESENT	BIT(25)
- #define SOF_RT1019_SPEAKER_AMP_PRESENT	BIT(26)
-+#define SOF_RT5650_HEADPHONE_CODEC_PRESENT	BIT(27)
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index e2f8b608de82..d730497af57d 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -6705,7 +6705,7 @@ static void comp_generic_playback_hook(struct hda_pcm_stream *hinfo, struct hda_
+ 	}
+ }
  
+-struct cs35l41_dev_name {
++struct scodec_dev_name {
+ 	const char *bus;
+ 	const char *hid;
+ 	int index;
+@@ -6714,7 +6714,7 @@ struct cs35l41_dev_name {
+ /* match the device name in a slightly relaxed manner */
+ static int comp_match_cs35l41_dev_name(struct device *dev, void *data)
+ {
+-	struct cs35l41_dev_name *p = data;
++	struct scodec_dev_name *p = data;
+ 	const char *d = dev_name(dev);
+ 	int n = strlen(p->bus);
+ 	char tmp[32];
+@@ -6730,12 +6730,32 @@ static int comp_match_cs35l41_dev_name(struct device *dev, void *data)
+ 	return !strcmp(d + n, tmp);
+ }
  
- /* Default: MCLK on, MCLK 19.2M, SSP0  */
-@@ -305,7 +307,7 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	struct snd_soc_jack *jack;
--	int ret;
-+	int ret, extra;
- 
- 	/* need to enable ASRC function for 24MHz mclk rate */
- 	if ((sof_rt5682_quirk & SOF_RT5682_MCLK_EN) &&
-@@ -315,7 +317,16 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 						 RT5682S_DA_STEREO1_FILTER |
- 						 RT5682S_AD_STEREO1_FILTER,
- 						 RT5682S_CLK_SEL_I2S1_ASRC);
--		else
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+			rt5645_sel_asrc_clk_src(component,
-+						RT5645_DA_STEREO_FILTER |
-+						RT5645_AD_STEREO_FILTER,
-+						RT5645_CLK_SEL_I2S1_ASRC);
-+			rt5645_sel_asrc_clk_src(component,
-+						RT5645_DA_MONO_L_FILTER |
-+						RT5645_DA_MONO_R_FILTER,
-+						RT5645_CLK_SEL_I2S2_ASRC);
-+		} else
- 			rt5682_sel_asrc_clk_src(component,
- 						RT5682_DA_STEREO1_FILTER |
- 						RT5682_AD_STEREO1_FILTER,
-@@ -365,7 +376,12 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
--	ret = snd_soc_component_set_jack(component, jack, NULL);
-+
-+	if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		extra = SND_JACK_MICROPHONE | SND_JACK_BTN_0;
-+		ret = snd_soc_component_set_jack(component, jack, &extra);
-+	} else
-+		ret = snd_soc_component_set_jack(component, jack, NULL);
- 
- 	if (ret) {
- 		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
-@@ -402,6 +418,8 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 
- 		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
- 			pll_source = RT5682S_PLL_S_MCLK;
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT)
-+			pll_source = RT5645_PLL1_S_MCLK;
- 		else
- 			pll_source = RT5682_PLL1_S_MCLK;
- 
-@@ -422,6 +440,8 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 	} else {
- 		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
- 			pll_source = RT5682S_PLL_S_BCLK1;
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT)
-+			pll_source = RT5645_PLL1_S_BCLK1;
- 		else
- 			pll_source = RT5682_PLL1_S_BCLK1;
- 
-@@ -431,6 +451,9 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 	if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT) {
- 		pll_id = RT5682S_PLL2;
- 		clk_id = RT5682S_SCLK_S_PLL2;
-+	} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		pll_id = 0; /* not used in codec driver */
-+		clk_id = RT5645_SCLK_S_PLL1;
- 	} else {
- 		pll_id = RT5682_PLL1;
- 		clk_id = RT5682_SCLK_S_PLL1;
-@@ -559,11 +582,30 @@ static const struct snd_soc_dapm_route sof_map[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
-+static const struct snd_soc_dapm_route rt5650_spk_dapm_routes[] = {
-+	/* speaker */
-+	{ "Left Spk", NULL, "SPOL" },
-+	{ "Right Spk", NULL, "SPOR" },
-+};
-+
- static const struct snd_soc_dapm_route dmic_map[] = {
- 	/* digital mics */
- 	{"DMic", NULL, "SoC DMIC"},
- };
- 
-+static int rt5650_spk_init(struct snd_soc_pcm_runtime *rtd)
++static int comp_match_tas2781_dev_name(struct device *dev,
++	void *data)
 +{
-+	struct snd_soc_card *card = rtd->card;
-+	int ret;
++	struct scodec_dev_name *p = data;
++	const char *d = dev_name(dev);
++	int n = strlen(p->bus);
++	char tmp[32];
 +
-+	ret = snd_soc_dapm_add_routes(&card->dapm, rt5650_spk_dapm_routes,
-+				      ARRAY_SIZE(rt5650_spk_dapm_routes));
-+	if (ret)
-+		dev_err(rtd->dev, "fail to add dapm routes, ret=%d\n", ret);
++	/* check the bus name */
++	if (strncmp(d, p->bus, n))
++		return 0;
++	/* skip the bus number */
++	if (isdigit(d[n]))
++		n++;
++	/* the rest must be exact matching */
++	snprintf(tmp, sizeof(tmp), "-%s:00", p->hid);
 +
-+	return ret;
++	return !strcmp(d + n, tmp);
 +}
 +
- static int dmic_init(struct snd_soc_pcm_runtime *rtd)
+ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char *bus,
+ 				  const char *hid, int count)
  {
- 	struct snd_soc_card *card = rtd->card;
-@@ -614,6 +656,17 @@ static struct snd_soc_dai_link_component rt5682s_component[] = {
+ 	struct device *dev = hda_codec_dev(cdc);
+ 	struct alc_spec *spec = cdc->spec;
+-	struct cs35l41_dev_name *rec;
++	struct scodec_dev_name *rec;
+ 	int ret, i;
+ 
+ 	switch (action) {
+@@ -6763,6 +6783,41 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
  	}
- };
+ }
  
-+static struct snd_soc_dai_link_component rt5650_components[] = {
-+	{
-+		.name = "i2c-10EC5650:00",
-+		.dai_name = "rt5645-aif1",
-+	},
-+	{
-+		.name = "i2c-10EC5650:00",
-+		.dai_name = "rt5645-aif2",
++static void tas2781_generic_fixup(struct hda_codec *cdc, int action,
++	const char *bus, const char *hid)
++{
++	struct device *dev = hda_codec_dev(cdc);
++	struct alc_spec *spec = cdc->spec;
++	struct scodec_dev_name *rec;
++	int ret;
++
++	switch (action) {
++	case HDA_FIXUP_ACT_PRE_PROBE:
++		rec = devm_kmalloc(dev, sizeof(*rec), GFP_KERNEL);
++		if (!rec)
++			return;
++		rec->bus = bus;
++		rec->hid = hid;
++		rec->index = 0;
++		spec->comps[0].codec = cdc;
++		component_match_add(dev, &spec->match,
++			comp_match_tas2781_dev_name, rec);
++		ret = component_master_add_with_match(dev, &comp_master_ops,
++			spec->match);
++		if (ret)
++			codec_err(cdc,
++				"Fail to register component aggregator %d\n",
++				ret);
++		else
++			spec->gen.pcm_playback_hook =
++				comp_generic_playback_hook;
++		break;
++	case HDA_FIXUP_ACT_FREE:
++		component_master_del(dev, &comp_master_ops);
++		break;
 +	}
-+};
++}
 +
- static struct snd_soc_dai_link_component dmic_component[] = {
- 	{
- 		.name = "dmic-codec",
-@@ -652,6 +705,9 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT) {
- 		links[id].codecs = rt5682s_component;
- 		links[id].num_codecs = ARRAY_SIZE(rt5682s_component);
-+	} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		links[id].codecs = &rt5650_components[0];
-+		links[id].num_codecs = 1;
- 	} else {
- 		links[id].codecs = rt5682_component;
- 		links[id].num_codecs = ARRAY_SIZE(rt5682_component);
-@@ -804,6 +860,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 			links[id].init = max_98390_spk_codec_init;
- 			links[id].ops = &max_98390_ops;
+ static void cs35l41_fixup_i2c_two(struct hda_codec *cdc, const struct hda_fixup *fix, int action)
+ {
+ 	cs35l41_generic_fixup(cdc, action, "i2c", "CSC3551", 2);
+@@ -6790,6 +6845,12 @@ static void alc287_fixup_legion_16ithg6_speakers(struct hda_codec *cdc, const st
+ 	cs35l41_generic_fixup(cdc, action, "i2c", "CLSA0101", 2);
+ }
  
-+		} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+			links[id].codecs = &rt5650_components[1];
-+			links[id].num_codecs = 1;
-+			links[id].init = rt5650_spk_init;
-+			links[id].ops = &sof_rt5682_ops;
- 		} else {
- 			max_98357a_dai_link(&links[id]);
- 		}
-@@ -890,6 +951,12 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	/* Detect the headset codec variant */
- 	if (acpi_dev_present("RTL5682", NULL, -1))
- 		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
-+	else if (acpi_dev_present("10EC5650", NULL, -1)) {
-+		sof_rt5682_quirk |= SOF_RT5650_HEADPHONE_CODEC_PRESENT;
++static void tas2781_fixup_i2c(struct hda_codec *cdc,
++	const struct hda_fixup *fix, int action)
++{
++	 tas2781_generic_fixup(cdc, action, "i2c", "TIAS2781");
++}
 +
-+		sof_audio_card_rt5682.name = devm_kstrdup(&pdev->dev, "rt5650",
-+							  GFP_KERNEL);
+ /* for alc295_fixup_hp_top_speakers */
+ #include "hp_x360_helper.c"
+ 
+@@ -7213,6 +7274,7 @@ enum {
+ 	ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN,
+ 	ALC295_FIXUP_DELL_INSPIRON_TOP_SPEAKERS,
+ 	ALC236_FIXUP_DELL_DUAL_CODECS,
++	ALC287_FIXUP_TAS2781_I2C,
+ };
+ 
+ /* A special fixup for Lenovo C940 and Yoga Duet 7;
+@@ -9283,6 +9345,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+ 	},
++	[ALC287_FIXUP_TAS2781_I2C] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = tas2781_fixup_i2c,
++		.chained = true,
++		.chain_id = ALC269_FIXUP_THINKPAD_ACPI,
++	},
+ };
+ 
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -9846,6 +9914,20 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
+ 	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
+ 	SND_PCI_QUIRK(0x17aa, 0x3869, "Lenovo Yoga7 14IAL7", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
++	SND_PCI_QUIRK(0x17aa, 0x387d, "Yoga S780-16 pro Quad AAC", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x387e, "Yoga S780-16 pro Quad YC", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x3881, "YB9 dual powe mode2 YC", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x3884, "Y780 YG DUAL", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x3886, "Y780 VECO DUAL", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38a7, "Y780P AMD YG dual", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38a8, "Y780P AMD VECO dual", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38ba, "Yoga S780-14.5 Air AMD quad YC", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38bb, "Yoga S780-14.5 Air AMD quad AAC", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38be, "Yoga S980-14.5 proX YC Dual", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38bf, "Yoga S980-14.5 proX LX Dual", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38c3, "Y980 DUAL", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38cb, "Y790 YG DUAL", ALC287_FIXUP_TAS2781_I2C),
++	SND_PCI_QUIRK(0x17aa, 0x38cd, "Y790 VECO DUAL", ALC287_FIXUP_TAS2781_I2C),
+ 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+ 	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+@@ -10761,6 +10843,22 @@ static int patch_alc269(struct hda_codec *codec)
+ 		codec->fixup_id = HDA_FIXUP_ID_NOT_SET;
+ 	}
+ 
++	/* FIXME: Issue in Laptop 0x17aa38be ACPI talbe caused
++	 * codec->bus->pci->subsystem_device is not equal to
++	 * (codec->core.subsystem_id & 0xffff) in snd_hda_pick_fixup.
++	 * The former is 0x3802 and the latter is 0x38be leads to getting the
++	 * wrong fixup_id and enter into the wrong entry. Although, this issue
++	 * has been raised to the laptop manufacturer, but the ACPI table is
++	 * locked, cannot be changed any more. Correct the wrong entry in the
++	 * code.
++	 */
++	if (codec->fixup_id == ALC287_FIXUP_YOGA7_14ITL_SPEAKERS &&
++		codec->core.vendor_id == 0x10ec0287 &&
++		codec->core.subsystem_id == 0x17aa38be) {
++		codec_dbg(codec, "Clear wrong fixup for 17aa38be\n");
++		codec->fixup_id = ALC287_FIXUP_TAS2781_I2C;
 +	}
- 
- 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
-@@ -1178,6 +1245,14 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT5682_SSP_AMP(0) |
- 					SOF_RT5682_NUM_HDMIDEV(3)),
- 	},
-+	{
-+		.name = "jsl_rt5650",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_MCLK_24MHZ |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(1)),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index f5c7e1bbded0..36ea2bacbe7d 100644
---- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -34,6 +34,11 @@ static const struct snd_soc_acpi_codecs mx98360a_spk = {
- 	.codecs = {"MX98360A"}
- };
- 
-+static struct snd_soc_acpi_codecs rt5650_spk = {
-+	.num_codecs = 1,
-+	.codecs = {"10EC5650"}
-+};
 +
- static const struct snd_soc_acpi_codecs rt5682_rt5682s_hp = {
- 	.num_codecs = 2,
- 	.codecs = {"10EC5682", "RTL5682"},
-@@ -98,6 +103,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 					SND_SOC_ACPI_TPLG_INTEL_SSP_MSB |
- 					SND_SOC_ACPI_TPLG_INTEL_DMIC_NUMBER,
- 	},
-+	{
-+		.id = "10EC5650",
-+		.drv_name = "jsl_rt5650",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &rt5650_spk,
-+		.sof_tplg_filename = "sof-jsl-rt5650-dual.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
+ 	snd_hda_pick_pin_fixup(codec, alc269_pin_fixup_tbl, alc269_fixups, true);
+ 	snd_hda_pick_pin_fixup(codec, alc269_fallback_pin_fixup_tbl, alc269_fixups, false);
+ 	snd_hda_pick_fixup(codec, NULL,	alc269_fixup_vendor_tbl,
 -- 
 2.34.1
+
 

@@ -2,120 +2,149 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B42CA74EC79
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 13:15:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73DA774F0B4
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 15:52:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28B896C1;
-	Tue, 11 Jul 2023 13:14:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28B896C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD12DF8;
+	Tue, 11 Jul 2023 15:52:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD12DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689074128;
-	bh=JuN+s1eZ5wk4safJRzybtAnuKoIeujKAEkFxCxYMMWM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=B/rjJrPXYz1++VoeFP2wCVqCKeKRsIvfIMh/ycGx+ULLxicIDlo/gFd6mQZMDLOYG
-	 jBlhIDFE/aE//67Vad+z8mxuwAfJ0HxGjaqk2336c28ZNam4cg2KFLSoupgcigNpSq
-	 c4/+GrX4ZWgk+NCswsri0SfZQkHbRsrl14a9PoLY=
+	s=default; t=1689083572;
+	bh=qyXZ9l/eDXJvwNtej9Cq3pKS54WfQZS0AfJJYPgySOQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=BaLWPy4yb6hF9eO7U0wd6Bq4ZYxdjKsGJOsVkUwSKnT+X5s1SxiW7oGN5GiPzb5ZO
+	 Se34DDSzPagXfM6+up83TckIHuCKyYhhkk8u7qyd9bS48BvfYbGFe4D0BwuAHDMbmR
+	 FzTvNs6moRPSWvqxIseMiWFYlhNBtuEs4uIlcaA4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9D77EF80290; Tue, 11 Jul 2023 13:14:37 +0200 (CEST)
+	id 4A166F80553; Tue, 11 Jul 2023 15:51:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D630F80236;
-	Tue, 11 Jul 2023 13:14:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A83FBF80548;
+	Tue, 11 Jul 2023 15:51:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0A355F80249; Tue, 11 Jul 2023 13:14:35 +0200 (CEST)
+	id 3D769F80549; Mon, 10 Jul 2023 17:49:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9B8AEF80153
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 13:14:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B8AEF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 14425F80249
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 17:49:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14425F80249
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=pIsSSFff;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=PWL9v25n
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 439791FD70;
-	Tue, 11 Jul 2023 11:14:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1689074070;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pZGTifs6iVzlBA0HqdWYxfec1qao7gX9+EA/kXSxkho=;
-	b=pIsSSFffeLjU7jRP9AVhXW8YZ1TirNnjUaXxPALI/0SK/mxo/C2aHizrCy2CIGR31l69mx
-	NiEtmsasErTPN9fIDokyTJzDE4TWsMjW2KZJ/X7sWQWUxyIYWEpHzaoz8Z/LXEwEiQrtM5
-	tshpQomrSkkz3CnWZ5jqzNasvQYoU9Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689074070;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pZGTifs6iVzlBA0HqdWYxfec1qao7gX9+EA/kXSxkho=;
-	b=PWL9v25nf27PZ/7Q74gL0zjI/rwLUKkZ2qHhvu3J4tEqTQ03+VXVMyw8fyj+35Wg7ctAP5
-	HPkVZvPJ3aT0zFAQ==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 262101390F;
-	Tue, 11 Jul 2023 11:14:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id Tnv7B5Y5rWQkFQAAMHmgww
-	(envelope-from <tiwai@suse.de>); Tue, 11 Jul 2023 11:14:30 +0000
-Date: Tue, 11 Jul 2023 13:14:29 +0200
-Message-ID: <87lefmwvhm.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-Cc: alsa-devel@alsa-project.org,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 2/2] ALSA: emu10k1: track loss of external clock on E-MU
- cards
-In-Reply-To: <ZK0q0prNuOz2Be6b@ugly>
-References: <20230710065956.1246364-1-oswald.buddenhagen@gmx.de>
-	<20230710065956.1246364-2-oswald.buddenhagen@gmx.de>
-	<87ttubyfh9.wl-tiwai@suse.de>
-	<ZKxBJVxHdkmpHSVh@ugly>
-	<87cz0zxbih.wl-tiwai@suse.de>
-	<ZK0q0prNuOz2Be6b@ugly>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: YG3IUA24FHX5ARZTILMZIS63X2JTJEB3
-X-Message-ID-Hash: YG3IUA24FHX5ARZTILMZIS63X2JTJEB3
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=G/BsFnDc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689004187; x=1720540187;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=qyXZ9l/eDXJvwNtej9Cq3pKS54WfQZS0AfJJYPgySOQ=;
+  b=G/BsFnDcZfMOZvp1T5ou6ie4s9lhLvyDUURD5gqCTjx4OcZspojbE8C1
+   Wk3EIY2aJJR5ocpIHxxczcr39CqPe2ozEjGoZbXAje8/w4JtzJ+crQcpG
+   Mc0aRm2N8PAECX8i5zOmHgXCFpH3DwUDrMSOR4P7vIjM/FSG8Ct0Gd4Kh
+   dhNf6HVsMwbOYL4ZNbmo015bPc6WoA0y+VR3jJNTQJiTAxEn8LfxRaOo7
+   JztD3nZrE/RtKDsWXwBvomJxCJKC2kixCFFnas0CozrKed5n14rtbFRDy
+   QqvANCe6bQnVy1sPj0PyiVfOuM3HlgzUndckQ9qWTNTLnw2MWL1y89XUM
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="361842449"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
+   d="scan'208";a="361842449"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 08:49:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720743951"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
+   d="scan'208";a="720743951"
+Received: from black.fi.intel.com ([10.237.72.28])
+  by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 08:49:29 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+	id 115861FC; Mon, 10 Jul 2023 18:49:33 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
+	Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-trace-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: Sanjay R Mehta <sanju.mehta@amd.com>,
+	Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	NXP Linux Team <linux-imx@nxp.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>
+Subject: [PATCH v2 00/15] spi: Header and core clean up and refactoring
+Date: Mon, 10 Jul 2023 18:49:17 +0300
+Message-Id: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MailFrom: andriy.shevchenko@linux.intel.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: ZNS74KBBS7LY4GUGZHSPWS32CMEI3HQL
+X-Message-ID-Hash: ZNS74KBBS7LY4GUGZHSPWS32CMEI3HQL
+X-Mailman-Approved-At: Tue, 11 Jul 2023 13:51:31 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/YG3IUA24FHX5ARZTILMZIS63X2JTJEB3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZNS74KBBS7LY4GUGZHSPWS32CMEI3HQL/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -124,36 +153,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 11 Jul 2023 12:11:30 +0200,
-Oswald Buddenhagen wrote:
-> 
-> On Tue, Jul 11, 2023 at 07:28:22AM +0200, Takashi Iwai wrote:
-> > Again, snd_ctl_notify() itself doesn't need the rwsem lock at all.
-> > 
-> ah, you mean i could fully release it before the notification.
-> 
-> > It's snd_ctl_notify_one() that needs a more careful call pattern.
-> > 
-> i suppose that's because the snd_ctl_layer callbacks might require it.
-> i would recommend actually documenting that.
+Various cleanups and refactorings of the SPI header and core parts
+united in a single series. It also touches drivers under SPI subsystem
+folder on the pure renaming purposes of some constants.
 
-Yes, but this helper itself needs more change at first, I'm afraid.
-The current implementation with the nested rwsem is fragile.  It's a
-new stuff (or new restriction), and it's to be revisited.
+No functional change intended.
 
-> > And, that ugly implementation is a thing to be improved in future in
-> > ALSA core side.
-> > 
-> it is? like, really?
+Changelog v2:
+- added new patches 3,4,5,10,13,14
+- massaged comment and kernel doc in patch 9
+- split used to be patch 4 to patches 11,12
+- covered a few things in SPI core in patch 15
+- amended commit message for above (Mark)
+- reshuffled patches in the series for better logical grouping
 
-Yes.  See my earlier RFC patch for reducing the nested rwlock, for
-example.  Jaroslav didn't like the implementation, so it needs more
-respin, though.
+Andy Shevchenko (15):
+  spi: Remove unneeded OF node NULL checks
+  spi: Drop duplicate IDR allocation code in spi_register_controller()
+  spi: Replace if-else-if by bitops and multiplications
+  spi: Replace open coded spi_controller_xfer_timeout()
+  spi: Remove code duplication in spi_add_device_locked()
+  spi: Use sysfs_emit() to instead of s*printf()
+  spi: Sort headers alphabetically
+  spi: Clean up headers
+  spi: Use struct_size() helper
+  spi: Use predefined constants from bits.h and units.h
+  spi: Get rid of old SPI_MASTER_NO_TX & SPI_MASTER_NO_RX
+  spi: Get rid of old SPI_MASTER_MUST_TX & SPI_MASTER_MUST_RX
+  spi: Rename SPI_MASTER_GPIO_SS to SPI_CONTROLLER_GPIO_SS
+  spi: Convert to SPI_CONTROLLER_HALF_DUPLEX
+  spi: Fix spelling typos and acronyms capitalization
 
-Another idea could to be make the controls_rwsem back to read-only for
-both get and put, but introduce another lock just wrapping around
-get/put call (but conditionally - there are drivers that don't need
-it).  This will avoid the rwsem deadlock problem.
+ drivers/spi/spi-amd.c             |   2 +-
+ drivers/spi/spi-at91-usart.c      |   2 +-
+ drivers/spi/spi-ath79.c           |   2 +-
+ drivers/spi/spi-atmel.c           |   4 +-
+ drivers/spi/spi-bitbang-txrx.h    |  16 +--
+ drivers/spi/spi-bitbang.c         |   8 +-
+ drivers/spi/spi-cavium-thunderx.c |   2 +-
+ drivers/spi/spi-davinci.c         |   2 +-
+ drivers/spi/spi-dw-core.c         |   2 +-
+ drivers/spi/spi-falcon.c          |   2 +-
+ drivers/spi/spi-fsl-lpspi.c       |   2 +-
+ drivers/spi/spi-gpio.c            |  10 +-
+ drivers/spi/spi-imx.c             |   2 +-
+ drivers/spi/spi-lp8841-rtc.c      |  10 +-
+ drivers/spi/spi-meson-spicc.c     |   2 +-
+ drivers/spi/spi-mt65xx.c          |   2 +-
+ drivers/spi/spi-mxs.c             |   2 +-
+ drivers/spi/spi-omap-uwire.c      |   2 +-
+ drivers/spi/spi-orion.c           |   2 +-
+ drivers/spi/spi-pci1xxxx.c        |   2 +-
+ drivers/spi/spi-pic32-sqi.c       |   2 +-
+ drivers/spi/spi-pic32.c           |   2 +-
+ drivers/spi/spi-qcom-qspi.c       |   2 +-
+ drivers/spi/spi-rb4xx.c           |   2 +-
+ drivers/spi/spi-rockchip-sfc.c    |   2 +-
+ drivers/spi/spi-rockchip.c        |   2 +-
+ drivers/spi/spi-sifive.c          |   2 +-
+ drivers/spi/spi-slave-mt27xx.c    |   2 +-
+ drivers/spi/spi-sprd-adi.c        |   2 +-
+ drivers/spi/spi-stm32.c           |   2 +-
+ drivers/spi/spi-ti-qspi.c         |   2 +-
+ drivers/spi/spi-xcomm.c           |   2 +-
+ drivers/spi/spi-xtensa-xtfpga.c   |   2 +-
+ drivers/spi/spi.c                 | 204 ++++++++++++------------------
+ include/linux/spi/spi.h           | 198 +++++++++++++++++------------
+ include/trace/events/spi.h        |   2 +-
+ 36 files changed, 247 insertions(+), 261 deletions(-)
 
+-- 
+2.40.0.1.gaa8946217a0b
 
-Takashi

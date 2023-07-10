@@ -2,60 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83EFC74C97C
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 03:20:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 717FD74C97D
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 03:20:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C120201;
-	Mon, 10 Jul 2023 03:19:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C120201
+	by alsa0.perex.cz (Postfix) with ESMTPS id E06DD843;
+	Mon, 10 Jul 2023 03:19:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E06DD843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688952017;
-	bh=9ohnkNTP+SWb7sg7HCPIbAoOSBGkACSC9sKBa+Atc5w=;
-	h=Date:From:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=HySCjQ9cndYgNbPCF9syp2G7Ht3QZO5VQ0MgdU3oIdClOrL6OBix1Xo2FlojXjIch
-	 lIozh/R0TI6KYZOqQ/Q0CjahfEf9xEfetkf5LFs1sSvvyxeatV9ESZlIKpWGe0+Mhc
-	 H0LQO1rrbqywxeCdODr564TDMO1rnW9sCDV0gbPI=
+	s=default; t=1688952044;
+	bh=/momY0dBUMy6QNsUAmpXUVtW8Ad9C4R4HfkwPq0Z44Q=;
+	h=Date:From:Subject:To:Cc:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=rYr0DrUkpdQiwa0GDS/Tt2r1Mv7Www7sM53Hw4P1QfZqioLC9YHmbGKLa62w08TBY
+	 InIdUPrYkAFT/H10jXlpKdozXtHiblZ3AoQdG/sL4zWh4bCAukwm6qYwfLr/KBsv8/
+	 svhVYaf6smYDqJEhfN3miz70q8hQr/vNlO9TDjsc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BB237F8027B; Mon, 10 Jul 2023 03:19:24 +0200 (CEST)
+	id C40F4F80551; Mon, 10 Jul 2023 03:19:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3487AF80153;
-	Mon, 10 Jul 2023 03:19:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92E03F80544;
+	Mon, 10 Jul 2023 03:19:43 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DBCBCF80249; Mon, 10 Jul 2023 03:19:19 +0200 (CEST)
+	id A2E89F80544; Mon, 10 Jul 2023 03:19:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=5.0 tests=AC_FROM_MANY_DOTS,
-	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BA32F800D2
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 03:19:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BA32F800D2
-Date: 10 Jul 2023 10:19:04 +0900
+X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+	by alsa1.perex.cz (Postfix) with ESMTP id 59976F80249
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 03:19:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59976F80249
+Date: 10 Jul 2023 10:19:32 +0900
 X-IronPort-AV: E=Sophos;i="6.01,193,1684767600";
-   d="scan'208";a="171480112"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
-  by relmlie6.idc.renesas.com with ESMTP; 10 Jul 2023 10:19:04 +0900
+   d="scan'208";a="167840555"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie5.idc.renesas.com with ESMTP; 10 Jul 2023 10:19:32 +0900
 Received: from venus.renesas.com (unknown [10.166.252.89])
-	by relmlir6.idc.renesas.com (Postfix) with ESMTP id 91BD640EE85B;
-	Mon, 10 Jul 2023 10:19:04 +0900 (JST)
-Message-ID: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id E91C8400B9F1;
+	Mon, 10 Jul 2023 10:19:32 +0900 (JST)
+Message-ID: <87lefoo95n.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 00/15] ASoC: add multi Component support
+Subject: [PATCH v2 01/15] ASoC: soc-core: protect dlc->of_node under mutex
 User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-To: Mark Brown <broonie@kernel.org>, Cezary Rojewski
- <cezary.rojewski@intel.com>, "Pierre-Louis Bossart"
- <pierre-louis.bossart@linux.intel.com>, =?ISO-8859-2?Q?=22Amadeusz_S=B3aw?=
+To: Mark Brown <broonie@kernel.org>,	Cezary Rojewski
+ <cezary.rojewski@intel.com>,	"Pierre-Louis Bossart"
+ <pierre-louis.bossart@linux.intel.com>,	=?ISO-8859-2?Q?=22Amadeusz_S=B3aw?=
  =?ISO-8859-2?Q?i=F1ski=22?= <amadeuszx.slawinski@linux.intel.com>
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
+References: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 5ZJ3FY4XY4VRVOJURY2A4WQC47RZKURO
-X-Message-ID-Hash: 5ZJ3FY4XY4VRVOJURY2A4WQC47RZKURO
+Message-ID-Hash: JZVW6NWDRDNUER72S4KDCXHKLE52CAPW
+X-Message-ID-Hash: JZVW6NWDRDNUER72S4KDCXHKLE52CAPW
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -68,7 +71,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZJ3FY4XY4VRVOJURY2A4WQC47RZKURO/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JZVW6NWDRDNUER72S4KDCXHKLE52CAPW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -77,72 +80,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+dlc->of_node will be set on snd_soc_get_dlc(), but we want
+1) protect it by mutex, 2) set only when successed.
+This patch do it.
 
-Hi Mark
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+ sound/soc/soc-core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-These are v2 of multi Component support.
-
-On below HW case, we would like to use it as "2 Cards",
-but unfortunately it is impossible in intuitive way,
-or possible but not intuitive way.
-In reality, it is handled as "1 big Card" today.
-
-	+-- basic board --------+
-	|+--------+             |
-	|| CPU ch0| <--> CodecA |
-	||     ch1| <-+         |
-	|+--------+   |         |
-	+-------------|---------+
-	+-- expansion board ----+
-	|             |         |
-	|             +-> CodecB|
-	+-----------------------+
-
-To handling it as intuitive "2 Cards", this patch-set
-adds multi Component support.
-
-To enable this patch-set, I included [01/15] patch into this patch-set
-which is posted but not yet accepted.
-
-v1 -> v2
-	- include [01/15] patch into this patch-set
-	- add related member to To
-	- add DT member to [14/15][15/15]
-
-Link: https://lore.kernel.org/all/87a6b6cofh.wl-kuninori.morimoto.gx@renesas.com/
-Link: https://lore.kernel.org/r/87r0q5blta.wl-kuninori.morimoto.gx@renesas.com
-Link: https://lore.kernel.org/r/20230623-asoc-fix-meson-probe-v1-1-82b2c2ec5ca4@kernel.org
-
-Kuninori Morimoto (15):
-  ASoC: soc-core: protect dlc->of_node under mutex
-  ASoC: soc-core.c: initialize dlc on snd_soc_get_dai_id()
-  ASoC: soc-core.c: cleanup soc_dai_link_sanity_check()
-  ASoC: soc-dai.c: add DAI get/match functions
-  ASoC: soc-core.c: enable multi Component
-  ASoC: soc-core.c: add snd_soc_get_dai_via_args()
-  ASoC: soc-core.c: add snd_soc_dlc_use_cpu_as_platform()
-  ASoC: soc-core.c: add snd_soc_copy_dai_args()
-  ASoC: simple-card-utils.c: enable multi Component support
-  ASoC: simple-card.c: enable multi Component support
-  ASoC: rsnd: use DAI driver ID instead of DAI ID
-  ASoC: rsnd: cleanup rsnd_dai_of_node()
-  ASoC: rsnd: enable multi Component support for Audio Graph Card/Card2
-  ASoC: dt-bindings: renesas,rsnd.yaml: add common port-def
-  ASoC: dt-bindings: renesas,rsnd.yaml: enable multi ports for multi Component support
-
- .../bindings/sound/renesas,rsnd.yaml          |  60 ++--
- include/sound/simple_card_utils.h             |   5 +-
- include/sound/soc-dai.h                       |   3 +
- include/sound/soc.h                           |   6 +
- sound/soc/generic/audio-graph-card.c          |   2 +-
- sound/soc/generic/audio-graph-card2.c         |   2 +-
- sound/soc/generic/simple-card-utils.c         |  23 +-
- sound/soc/generic/simple-card.c               |  20 +-
- sound/soc/sh/rcar/core.c                      | 146 +++++++---
- sound/soc/sh/rcar/rsnd.h                      |   4 +
- sound/soc/soc-core.c                          | 273 +++++++++++++-----
- 11 files changed, 378 insertions(+), 166 deletions(-)
-
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 1a0bde23f5e6..51791f8b2af3 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -3264,8 +3264,6 @@ int snd_soc_get_dlc(const struct of_phandle_args *args, struct snd_soc_dai_link_
+ 	struct snd_soc_component *pos;
+ 	int ret = -EPROBE_DEFER;
+ 
+-	dlc->of_node = args->np;
+-
+ 	mutex_lock(&client_mutex);
+ 	for_each_component(pos) {
+ 		struct device_node *component_of_node = soc_component_to_node(pos);
+@@ -3319,6 +3317,10 @@ int snd_soc_get_dlc(const struct of_phandle_args *args, struct snd_soc_dai_link_
+ 
+ 		break;
+ 	}
++
++	if (ret == 0)
++		dlc->of_node = args->np;
++
+ 	mutex_unlock(&client_mutex);
+ 	return ret;
+ }
 -- 
 2.25.1
 

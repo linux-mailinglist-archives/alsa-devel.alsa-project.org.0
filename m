@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BFD474D379
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 12:29:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45AB774D384
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 12:30:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 76028847;
-	Mon, 10 Jul 2023 12:29:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76028847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 71FA86C1;
+	Mon, 10 Jul 2023 12:30:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71FA86C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688984997;
-	bh=v/jR6yG2S/os1yevMEAtUPc5WvkJ6D/EUS+UHJf/Log=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=chfmGN2xEnEmiR6vss9twtLygXqhqX5aPk/YKlXSxGGlRp3iKJ13ZQds6LZlzINV+
-	 4DRKVyezQ64jihZ7N7vyq2Ow66d9Rjqo7SRzbSWzNj+gyu9sxEkv0RkZiurl/Pg52Q
-	 sbIG7byMy2RYxI3n+SzrWOnmV/ClKYGtsf832eOU=
+	s=default; t=1688985054;
+	bh=1YMEKoH26Jvs8dKIC6vdH9uSV/g2LDeyMP+ZqFMU56I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=EfY2fY6dL/pKNvWtQP2WTNRhqrDBz9X/LZOqHJ9xVKCSagnQIuX20r3EFZAOtZkNA
+	 +d7y32/AuUzXKdWrP0vy7Ufog6pjgOeo1/vuQiovo++m1Ahq8vt1l8/5VgScXWJg0C
+	 sS28Lxcf4X0D2KOXhmFuYvHd/Gwf4Gb7RtC+kq3Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3C2B2F80578; Mon, 10 Jul 2023 12:28:18 +0200 (CEST)
+	id 79D72F80290; Mon, 10 Jul 2023 12:30:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6986F80570;
-	Mon, 10 Jul 2023 12:28:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06C60F80290;
+	Mon, 10 Jul 2023 12:30:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 800E6F8053B; Mon, 10 Jul 2023 12:28:13 +0200 (CEST)
+	id 7F16EF80290; Mon, 10 Jul 2023 12:29:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 72EB5F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8FAA8F8024E
 	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 12:27:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72EB5F800D2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FAA8F8024E
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=l42A+l2U
+ header.s=Intel header.b=Opi/1FOk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688984881; x=1720520881;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=v/jR6yG2S/os1yevMEAtUPc5WvkJ6D/EUS+UHJf/Log=;
-  b=l42A+l2UhIeubcxDnkGI8/Rt7wNiVlNX5SCZWOoTJUu7WDTTCaKojmRJ
-   /xhkbTc4dUr7t9ymc9z9SkrpdYlfkS+PvMSDH954U5z8IQAJW7rQl24Ag
-   /d6a6qjfEf1kBGWxYbZnYxWjJlHrgZu4BMlb7SwZjQ265pISILi1XQxk9
-   /CgbvS3KRuGTv2bHkn9oGZuISgQQier15UzgYxb87IzschWVHCbyDWVIe
-   vRdHn7emCjI/qC09xRBpUA8ipQYq4MuntyfGEnFTpJa008gNaNTj5VL/k
-   XZmImJZ3ptmUMBV+y8AB8Y+1CRy8zDNZPDI9hMKWp3b4r8mSBnLGJOVpv
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="364345409"
+  t=1688984885; x=1720520885;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=1YMEKoH26Jvs8dKIC6vdH9uSV/g2LDeyMP+ZqFMU56I=;
+  b=Opi/1FOkoXlY8n0UE1RQZTYOTzQdWyXBge3Q1jnBP+siwc4l4YMLYVps
+   9hYZ7coHD+OvlpnwFlQi15eq0v4F2krbA2cQ4LbimNLmBJN2XeUQE+yu1
+   tH+SnbLmMh6mqzIltzL4JohC6o81Ifa0AzbsKEXTbul9DxaF915/F4Hb0
+   bP8hIQ5VsRMHAaoFTjS6RZyNFkiIB1xP7lYwS23fQjMOGPIIhSK4VhvUk
+   pTYq+5hWCwY20e5Ds/wJ1jXlFC75II3HLeQ4lqNgUJVJ+OjcirfQKVzAw
+   xEDGtb+7GpcUz7A+i/Rn2oPp+CtJTXqRxWYzWif4dF1q0R/TEOLqbqu4a
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="367803745"
 X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="364345409"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 03:27:54 -0700
+   d="scan'208";a="367803745"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 03:27:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="865297521"
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="755956011"
 X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="865297521"
+   d="scan'208";a="755956011"
 Received: from black.fi.intel.com ([10.237.72.28])
-  by fmsmga001.fm.intel.com with ESMTP; 10 Jul 2023 03:27:48 -0700
+  by orsmga001.jf.intel.com with ESMTP; 10 Jul 2023 03:27:48 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
-	id DD3A91FC; Mon, 10 Jul 2023 13:27:52 +0300 (EEST)
+	id EDFD31D9; Mon, 10 Jul 2023 13:27:52 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
 	Yang Yingliang <yangyingliang@huawei.com>,
@@ -99,14 +100,16 @@ Cc: Radu Pirea <radu_nicolae.pirea@upb.ro>,
 	Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Max Filippov <jcmvbkbc@gmail.com>,
 	Richard Cochran <richardcochran@gmail.com>
-Subject: [PATCH v1 0/8] spi: Header and core clean up and refactoring
-Date: Mon, 10 Jul 2023 13:27:43 +0300
-Message-Id: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 1/8] spi: Remove unneeded OF node NULL checks
+Date: Mon, 10 Jul 2023 13:27:44 +0300
+Message-Id: <20230710102751.83314-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
+In-Reply-To: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
+References: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: W7CJKIYUQD53TV3PN7Z2SDAA4O4POK6F
-X-Message-ID-Hash: W7CJKIYUQD53TV3PN7Z2SDAA4O4POK6F
+Message-ID-Hash: L36OAOIR4UFV5T646KBW4CPUBSTS3DY6
+X-Message-ID-Hash: L36OAOIR4UFV5T646KBW4CPUBSTS3DY6
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -119,7 +122,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7CJKIYUQD53TV3PN7Z2SDAA4O4POK6F/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/L36OAOIR4UFV5T646KBW4CPUBSTS3DY6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,43 +131,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Various cleanups and refactorings of the SPI header and core parts
-united in a single series.
+In the couple of places the NULL check of OF node is implied by the call
+that takes it as a parameter. Drop the respective duplicate checks.
 
-Patches 1 & 2, 5 & 6 & 8 are dependent inside each group.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/spi/spi.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-No functional change intended.
-
-Andy Shevchenko (8):
-  spi: Remove unneeded OF node NULL checks
-  spi: Drop duplicate IDR allocation code in spi_register_controller()
-  spi: Use sysfs_emit() to instead of s*printf()
-  spi: Get rid of old SPI_MASTER_NO_.X and SPI_MASTER_MUST_.X
-  spi: Sort headers alphabetically
-  spi: Clean up headers
-  spi: Fix spelling typos and acronyms capitalization
-  spi: Use struct_size() helper
-
- drivers/spi/spi-at91-usart.c    |   2 +-
- drivers/spi/spi-atmel.c         |   2 +-
- drivers/spi/spi-bitbang-txrx.h  |  16 +--
- drivers/spi/spi-bitbang.c       |   2 +-
- drivers/spi/spi-davinci.c       |   2 +-
- drivers/spi/spi-fsl-lpspi.c     |   2 +-
- drivers/spi/spi-gpio.c          |   8 +-
- drivers/spi/spi-lp8841-rtc.c    |   8 +-
- drivers/spi/spi-meson-spicc.c   |   2 +-
- drivers/spi/spi-mt65xx.c        |   2 +-
- drivers/spi/spi-pci1xxxx.c      |   2 +-
- drivers/spi/spi-pic32.c         |   2 +-
- drivers/spi/spi-rb4xx.c         |   2 +-
- drivers/spi/spi-slave-mt27xx.c  |   2 +-
- drivers/spi/spi-stm32.c         |   2 +-
- drivers/spi/spi-xtensa-xtfpga.c |   2 +-
- drivers/spi/spi.c               | 102 ++++++++---------
- include/linux/spi/spi.h         | 188 ++++++++++++++++++--------------
- 18 files changed, 183 insertions(+), 165 deletions(-)
-
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 9291b2a0e887..8f3282a71c63 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -2399,9 +2399,6 @@ static void of_register_spi_devices(struct spi_controller *ctlr)
+ 	struct spi_device *spi;
+ 	struct device_node *nc;
+ 
+-	if (!ctlr->dev.of_node)
+-		return;
+-
+ 	for_each_available_child_of_node(ctlr->dev.of_node, nc) {
+ 		if (of_node_test_and_set_flag(nc, OF_POPULATED))
+ 			continue;
+@@ -3134,7 +3131,7 @@ int spi_register_controller(struct spi_controller *ctlr)
+ 		if (WARN(id < 0, "couldn't get idr"))
+ 			return id == -ENOSPC ? -EBUSY : id;
+ 		ctlr->bus_num = id;
+-	} else if (ctlr->dev.of_node) {
++	} else {
+ 		/* Allocate dynamic bus number using Linux idr */
+ 		id = of_alias_get_id(ctlr->dev.of_node, "spi");
+ 		if (id >= 0) {
 -- 
 2.40.0.1.gaa8946217a0b
 

@@ -2,86 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CDAE74D34A
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 12:26:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFD474D379
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 12:29:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33719207;
-	Mon, 10 Jul 2023 12:25:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33719207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76028847;
+	Mon, 10 Jul 2023 12:29:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76028847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688984775;
-	bh=8wbTdNkehE98Ctimhl7nOewzsLGVvoA8c+GqiH1ZOE0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=HTSQK7GgWh+n41AWJ4wZb7PpEj/wu/zTdpBV6LUpRMC3TOjrliLqMngyy1wqJXugp
-	 F15Q6o+Y/Zzn+ZxydEgm5EJ6tSu0uXNb5NTBNoyr96N/CJvXHvxrG6JuSnYFvCcLsK
-	 SyJJskR0nMh/7M5kh/hjaSGQn1BNc5bJ2w2zurKI=
+	s=default; t=1688984997;
+	bh=v/jR6yG2S/os1yevMEAtUPc5WvkJ6D/EUS+UHJf/Log=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=chfmGN2xEnEmiR6vss9twtLygXqhqX5aPk/YKlXSxGGlRp3iKJ13ZQds6LZlzINV+
+	 4DRKVyezQ64jihZ7N7vyq2Ow66d9Rjqo7SRzbSWzNj+gyu9sxEkv0RkZiurl/Pg52Q
+	 sbIG7byMy2RYxI3n+SzrWOnmV/ClKYGtsf832eOU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DD9BAF80548; Mon, 10 Jul 2023 12:25:24 +0200 (CEST)
+	id 3C2B2F80578; Mon, 10 Jul 2023 12:28:18 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A0ACF80153;
-	Mon, 10 Jul 2023 12:25:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6986F80570;
+	Mon, 10 Jul 2023 12:28:17 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37CBEF80249; Mon, 10 Jul 2023 12:25:19 +0200 (CEST)
+	id 800E6F8053B; Mon, 10 Jul 2023 12:28:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 702C7F800D2
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 12:25:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 702C7F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 72EB5F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 12:27:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72EB5F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=iXl9Eo6S
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E555F60F99;
-	Mon, 10 Jul 2023 10:25:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235FBC433C8;
-	Mon, 10 Jul 2023 10:25:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688984712;
-	bh=8wbTdNkehE98Ctimhl7nOewzsLGVvoA8c+GqiH1ZOE0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=iXl9Eo6SSYgH/eoyMB8fQr2XK36z/x0kVrQoG0lLfPMq4Cq2yaOBoYJZDKOouKCh4
-	 Th5NHzsbFXHwpkAiqmUe3tqLsosQ/JXuG9J4JyHvEMD+7AqcA1BCXi4L4Dod/Of97y
-	 YVvqOyixLfaW9ipq+55G58aF0PKUA+J5zBRbOj9A2+poIPhv78PboITZx4EFXiJcoQ
-	 ytr9DI4SpwIN9SVA5fNNOOciZU5IuyZVQBs3ymqU41csMMGYtUFI+jt7Y/NVmAgOLK
-	 pkAIP4/QGeeq97MOPxblc8QlYCH/w+UethpuLGdyc+u/JPUMNTubblqlinnacnkOjW
-	 v814xFgVJEo7A==
-From: Vinod Koul <vkoul@kernel.org>
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
- Dan Carpenter <dan.carpenter@linaro.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>, alsa-devel@alsa-project.org,
- kernel-janitors@vger.kernel.org
-In-Reply-To: <9863b2bf-0de2-4bf8-8f09-fe24dc5c63ff@moroto.mountain>
-References: <9863b2bf-0de2-4bf8-8f09-fe24dc5c63ff@moroto.mountain>
-Subject: Re: [PATCH v2] soundwire: amd: Fix a check for errors in probe()
-Message-Id: <168898470975.164858.364870274805965240.b4-ty@kernel.org>
-Date: Mon, 10 Jul 2023 15:55:09 +0530
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=l42A+l2U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1688984881; x=1720520881;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=v/jR6yG2S/os1yevMEAtUPc5WvkJ6D/EUS+UHJf/Log=;
+  b=l42A+l2UhIeubcxDnkGI8/Rt7wNiVlNX5SCZWOoTJUu7WDTTCaKojmRJ
+   /xhkbTc4dUr7t9ymc9z9SkrpdYlfkS+PvMSDH954U5z8IQAJW7rQl24Ag
+   /d6a6qjfEf1kBGWxYbZnYxWjJlHrgZu4BMlb7SwZjQ265pISILi1XQxk9
+   /CgbvS3KRuGTv2bHkn9oGZuISgQQier15UzgYxb87IzschWVHCbyDWVIe
+   vRdHn7emCjI/qC09xRBpUA8ipQYq4MuntyfGEnFTpJa008gNaNTj5VL/k
+   XZmImJZ3ptmUMBV+y8AB8Y+1CRy8zDNZPDI9hMKWp3b4r8mSBnLGJOVpv
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="364345409"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
+   d="scan'208";a="364345409"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 03:27:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="865297521"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
+   d="scan'208";a="865297521"
+Received: from black.fi.intel.com ([10.237.72.28])
+  by fmsmga001.fm.intel.com with ESMTP; 10 Jul 2023 03:27:48 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+	id DD3A91FC; Mon, 10 Jul 2023 13:27:52 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+	Kris Bahnsen <kris@embeddedTS.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	linux-spi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	netdev@vger.kernel.org
+Cc: Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>
+Subject: [PATCH v1 0/8] spi: Header and core clean up and refactoring
+Date: Mon, 10 Jul 2023 13:27:43 +0300
+Message-Id: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.12.2
-Message-ID-Hash: K3OQ3LHEQIAUVRFNB3BQPWMVL5NHTHNK
-X-Message-ID-Hash: K3OQ3LHEQIAUVRFNB3BQPWMVL5NHTHNK
-X-MailFrom: vkoul@kernel.org
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: W7CJKIYUQD53TV3PN7Z2SDAA4O4POK6F
+X-Message-ID-Hash: W7CJKIYUQD53TV3PN7Z2SDAA4O4POK6F
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -93,7 +119,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K3OQ3LHEQIAUVRFNB3BQPWMVL5NHTHNK/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W7CJKIYUQD53TV3PN7Z2SDAA4O4POK6F/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,21 +128,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Various cleanups and refactorings of the SPI header and core parts
+united in a single series.
 
-On Tue, 27 Jun 2023 08:42:10 +0300, Dan Carpenter wrote:
-> This code has two problems:
-> 1) The devm_ioremap() function returns NULL, not error pointers.
-> 2) It's checking the wrong variable.  ->mmio instead of ->acp_mmio.
-> 
-> 
+Patches 1 & 2, 5 & 6 & 8 are dependent inside each group.
 
-Applied, thanks!
+No functional change intended.
 
-[1/1] soundwire: amd: Fix a check for errors in probe()
-      commit: a06d6088cfd49b63a2759910f2328ba28d6a342d
+Andy Shevchenko (8):
+  spi: Remove unneeded OF node NULL checks
+  spi: Drop duplicate IDR allocation code in spi_register_controller()
+  spi: Use sysfs_emit() to instead of s*printf()
+  spi: Get rid of old SPI_MASTER_NO_.X and SPI_MASTER_MUST_.X
+  spi: Sort headers alphabetically
+  spi: Clean up headers
+  spi: Fix spelling typos and acronyms capitalization
+  spi: Use struct_size() helper
 
-Best regards,
+ drivers/spi/spi-at91-usart.c    |   2 +-
+ drivers/spi/spi-atmel.c         |   2 +-
+ drivers/spi/spi-bitbang-txrx.h  |  16 +--
+ drivers/spi/spi-bitbang.c       |   2 +-
+ drivers/spi/spi-davinci.c       |   2 +-
+ drivers/spi/spi-fsl-lpspi.c     |   2 +-
+ drivers/spi/spi-gpio.c          |   8 +-
+ drivers/spi/spi-lp8841-rtc.c    |   8 +-
+ drivers/spi/spi-meson-spicc.c   |   2 +-
+ drivers/spi/spi-mt65xx.c        |   2 +-
+ drivers/spi/spi-pci1xxxx.c      |   2 +-
+ drivers/spi/spi-pic32.c         |   2 +-
+ drivers/spi/spi-rb4xx.c         |   2 +-
+ drivers/spi/spi-slave-mt27xx.c  |   2 +-
+ drivers/spi/spi-stm32.c         |   2 +-
+ drivers/spi/spi-xtensa-xtfpga.c |   2 +-
+ drivers/spi/spi.c               | 102 ++++++++---------
+ include/linux/spi/spi.h         | 188 ++++++++++++++++++--------------
+ 18 files changed, 183 insertions(+), 165 deletions(-)
+
 -- 
-~Vinod
-
+2.40.0.1.gaa8946217a0b
 

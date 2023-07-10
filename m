@@ -2,113 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BFED74D93D
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 16:44:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3FD574D94E
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 16:48:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAFCA820;
-	Mon, 10 Jul 2023 16:43:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAFCA820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C9586C1;
+	Mon, 10 Jul 2023 16:47:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C9586C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689000258;
-	bh=h8KLuUEfnf6HQyZh6CDmUplIYWsEY6ByDkBFbr++CAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689000528;
+	bh=uhdYL5lWd0uqmi0Jh3pZuPe3U6haloYTX5FrCwaGV1s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=mGsDyOr3RLnzVHvcK9fIY1wYcpWtR6uOTu/urFAVEuStG5geDiwV6Kn7y4ojypt3a
-	 CURIFAo2/d0V2LAt55CxI1Phfjq1NYDfCk2xuiTnhg7/TQSJTX/45oB6pKCOtHjboJ
-	 +QZyZQwNWj46gGYOmanORJSsUj8NZaGRL4GpEZgk=
+	b=Yypi5Cl9iaVZZ2/bgwiG23IkzWSSErwySavLxlr9wzX8Dwr5IMDe3PzZKGw2/MjFl
+	 NYfrevICAnBKaTLpdfgOCV35gQTMRCQ1dukESGexAyyhYF6yBqaBBRcaojqAkwqaN5
+	 BGoHd3wdpDqMnnHUgHknRXQeRhVphthzBLrWexK4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 223C0F80544; Mon, 10 Jul 2023 16:43:00 +0200 (CEST)
+	id D8A20F80093; Mon, 10 Jul 2023 16:47:31 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0FEEF80153;
-	Mon, 10 Jul 2023 16:43:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5738FF80153;
+	Mon, 10 Jul 2023 16:47:31 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7DE57F80249; Mon, 10 Jul 2023 16:42:56 +0200 (CEST)
+	id 91293F80249; Mon, 10 Jul 2023 16:47:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 826E0F80093
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 16:42:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 826E0F80093
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-3457a3ada84so24237485ab.1
-        for <alsa-devel@alsa-project.org>;
- Mon, 10 Jul 2023 07:42:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689000160; x=1691592160;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9youPIImCCAcdEckdoxFQrNpLYrygdk7W9ZtiP8w15k=;
-        b=Ohfq9Ph7wnst48uqAGSdL/d1Q+L+jaK+zygzpf/vjTM6SODokK5L2IsJUFoi4XPyD5
-         EjH+tFYPzZtBSu/Sscb4LLhFVIQifFMwnNkl9MRwQ2HpVRT2fha34rjnZkwFi0HYnSqn
-         se5B6nrPZj0qzTR7M9sGqfEpY5NdRXIntLWB9pRL9kCVsd0c8n6kKIygU1kB6jqQkQSg
-         +k9jobKwhl/jurnVytZkKaMpLF+ZmsIasvAaB002z5obOY1n3qDPB30hP4MYIARstO9S
-         yM/IzaWhg8Y1/tcmL6/cOo1gCNNEDAlYYOJbKDQCVA/gkcO8qXCV/1g455LLBMxpuvQE
-         aotQ==
-X-Gm-Message-State: ABy/qLaRHY4jpkUoTQWgm1WrQ0RgxAW4OIBUioyzfxuxOcGDzmdlBe6C
-	5Pfq7ImjPXlifFArkfdyNg==
-X-Google-Smtp-Source: 
- APBJJlG3K/ro2oZtTnsZ7Banw1CdZJLy4OFKR61udj8GbrxlXMYjo+jeaSBEKYBDTKO2X9W4TkNn0w==
-X-Received: by 2002:a92:502:0:b0:345:c8ce:ff4e with SMTP id
- q2-20020a920502000000b00345c8ceff4emr11579387ile.3.1689000160019;
-        Mon, 10 Jul 2023 07:42:40 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.250])
-        by smtp.gmail.com with ESMTPSA id
- x7-20020a92d307000000b00342f537e3c3sm3560577ila.2.2023.07.10.07.42.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Jul 2023 07:42:39 -0700 (PDT)
-Received: (nullmailer pid 1938541 invoked by uid 1000);
-	Mon, 10 Jul 2023 14:42:35 -0000
-Date: Mon, 10 Jul 2023 08:42:35 -0600
-From: Rob Herring <robh@kernel.org>
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-Cc: Oleksii_Moisieiev@epam.com, gregkh@linuxfoundation.org,
-	herbert@gondor.apana.org.au, davem@davemloft.net,
-	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
-	alexandre.torgue@foss.st.com, vkoul@kernel.org, jic23@kernel.org,
-	olivier.moysan@foss.st.com, arnaud.pouliquen@foss.st.com, mchehab@kernel.org,
-	fabrice.gasnier@foss.st.com, andi.shyti@kernel.org, ulf.hansson@linaro.org,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	hugues.fruchet@foss.st.com, lee@kernel.org, will@kernel.org,
-	catalin.marinas@arm.com, arnd@kernel.org, richardcochran@gmail.com,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
-	linux-media@vger.kernel.org, linux-mmc@vger.kernel.org,
-	netdev@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: Re: [PATCH 04/10] dt-bindings: treewide: add feature-domains
- description in binding files
-Message-ID: <20230710144235.GA1922048-robh@kernel.org>
-References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
- <20230705172759.1610753-5-gatien.chevallier@foss.st.com>
- <20230706145108.GA3858320-robh@kernel.org>
- <0aaace47-1bb4-82c5-57a5-6f5d27eb4d45@foss.st.com>
- <20230707152056.GA317056-robh@kernel.org>
- <fb72b4e4-d5c6-d9be-269d-29aff996001c@foss.st.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fb72b4e4-d5c6-d9be-269d-29aff996001c@foss.st.com>
-Message-ID-Hash: FLDQMRMWRSRXJZ2F5KGI2JDCZ362FUDU
-X-Message-ID-Hash: FLDQMRMWRSRXJZ2F5KGI2JDCZ362FUDU
-X-MailFrom: robherring2@gmail.com
+	by alsa1.perex.cz (Postfix) with ESMTPS id B5DE6F80093
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 16:47:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5DE6F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=wUnUmdDi;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=QydSZCJb
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id ECEAF21CA3;
+	Mon, 10 Jul 2023 14:47:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1689000441;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q+1Q5IqVM4jiy8w9gyxY+YF8o42gE208jNH/45cti5Y=;
+	b=wUnUmdDiJSqdoz3B0jXxqRF3kTWxJQz1nybKGSlco4yStjqHgWyYeyKwVNnuRgpyQ7KMIT
+	WlIWN7xv/Rb/jKYTr8tI/Y863fvZp58mBtDvyJv1G1zmVT3396zh0+asxRpgRQtwJxNwfz
+	Qk9wUYgVyXg10tqt5tcLpa+BvQxTZzQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1689000441;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q+1Q5IqVM4jiy8w9gyxY+YF8o42gE208jNH/45cti5Y=;
+	b=QydSZCJbBRa8iINwFoStHdiU0aw+t9lVdxnsQeIq1VojcEFCrtPKvOiqA/nGBiu+0DU29c
+	IOyefZK13erea/Aw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9DFA013A05;
+	Mon, 10 Jul 2023 14:47:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id QYy0JfkZrGR0TAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Mon, 10 Jul 2023 14:47:21 +0000
+Date: Mon, 10 Jul 2023 16:47:21 +0200
+Message-ID: <871qhfzuva.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Shenghao Ding <13916275206@139.com>
+Cc: broonie@kernel.org,
+	devicetree@vger.kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	robh+dt@kernel.org,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	pierre-louis.bossart@linux.intel.com,
+	kevin-lu@ti.com,
+	shenghao-ding@ti.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	liam.r.girdwood@intel.com,
+	mengdong.lin@intel.com,
+	x1077012@ti.com,
+	peeyush@ti.com,
+	navada@ti.com
+Subject: Re: [PATCH v2 2/3] ALSA: hda/tas2781: Add tas2781 HDA driver
+In-Reply-To: <20230710041217.151099-2-13916275206@139.com>
+References: <20230710041217.151099-1-13916275206@139.com>
+	<20230710041217.151099-2-13916275206@139.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 35WIRYY6A2AAMXHAFGNXF4JY6G7WAE6S
+X-Message-ID-Hash: 35WIRYY6A2AAMXHAFGNXF4JY6G7WAE6S
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -120,122 +124,112 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FLDQMRMWRSRXJZ2F5KGI2JDCZ362FUDU/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/35WIRYY6A2AAMXHAFGNXF4JY6G7WAE6S/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 10, 2023 at 10:22:10AM +0200, Gatien CHEVALLIER wrote:
+On Mon, 10 Jul 2023 06:12:16 +0200,
+Shenghao Ding wrote:
 > 
+> Create tas2781 side codec HDA driver for Lenovo Laptops. The quantity
+> of the speakers has been define in ACPI. All of the tas2781s in the
+> laptop will be aggregated as one audio speaker. The code supports
+> realtek codec as the primary codec. Code offers several controls for
+> digtial/analog gain setting during playback, and other for eq params
+> setting in case of different audio profiles, such as music, voice,
+> movie, etc.
 > 
-> On 7/7/23 17:20, Rob Herring wrote:
-> > On Fri, Jul 07, 2023 at 02:28:28PM +0200, Gatien CHEVALLIER wrote:
-> > > Hello Rob,
-> > > 
-> > > On 7/6/23 16:51, Rob Herring wrote:
-> > > > On Wed, Jul 05, 2023 at 07:27:53PM +0200, Gatien Chevallier wrote:
-> > > > > feature-domains is an optional property that allows a peripheral to
-> > > > > refer to one or more feature domain controller(s).
-> > > > > 
-> > > > > Description of this property is added to all peripheral binding files of
-> > > > > the peripheral under the STM32 firewall controllers. It allows an accurate
-> > > > > representation of the hardware, where various peripherals are connected
-> > > > > to this firewall bus. The firewall can then check the peripheral accesses
-> > > > > before allowing it to probe.
-> > > > > 
-> > > > > Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> > > > > ---
-> > > > > 
-> > > > > Disclaimer: Some error with dtbs_check will be observed as I've
-> > > > > considered the property to be generic, as Rob asked
-> > > > > 
-> > > > >    Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml  | 4 ++++
-> > > > >    Documentation/devicetree/bindings/dma/st,stm32-dma.yaml      | 4 ++++
-> > > > >    Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml   | 4 ++++
-> > > > >    Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml      | 4 ++++
-> > > > >    Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 4 ++++
-> > > > >    .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 4 ++++
-> > > > >    Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml  | 4 ++++
-> > > > >    .../devicetree/bindings/media/cec/st,stm32-cec.yaml          | 4 ++++
-> > > > >    Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml   | 4 ++++
-> > > > >    .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml       | 4 ++++
-> > > > >    Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml  | 4 ++++
-> > > > >    Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml   | 5 +++++
-> > > > >    Documentation/devicetree/bindings/mmc/arm,pl18x.yaml         | 4 ++++
-> > > > >    Documentation/devicetree/bindings/net/stm32-dwmac.yaml       | 4 ++++
-> > > > >    Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml | 4 ++++
-> > > > >    .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml      | 4 ++++
-> > > > >    Documentation/devicetree/bindings/rng/st,stm32-rng.yaml      | 4 ++++
-> > > > >    Documentation/devicetree/bindings/serial/st,stm32-uart.yaml  | 4 ++++
-> > > > >    Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml    | 4 ++++
-> > > > >    Documentation/devicetree/bindings/sound/st,stm32-sai.yaml    | 4 ++++
-> > > > >    .../devicetree/bindings/sound/st,stm32-spdifrx.yaml          | 4 ++++
-> > > > >    Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml     | 4 ++++
-> > > > >    Documentation/devicetree/bindings/spi/st,stm32-spi.yaml      | 4 ++++
-> > > > >    Documentation/devicetree/bindings/usb/dwc2.yaml              | 4 ++++
-> > > > >    24 files changed, 97 insertions(+)
-> > > > > 
-> > > > > diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
-> > > > > index b767ec72a999..daf8dcaef627 100644
-> > > > > --- a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
-> > > > > +++ b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
-> > > > > @@ -50,6 +50,10 @@ properties:
-> > > > >      power-domains:
-> > > > >        maxItems: 1
-> > > > > +  feature-domains:
-> > > > > +    minItems: 1
-> > > > > +    maxItems: 3
-> > > > 
-> > > > What are the 3 entries?
-> > > > 
-> > > > Rob
-> > > 
-> > > I thought I was benefiting from the description of the pattern-property in
-> > > the RIFSC YAML file. But yes anyway, it seems like it needs some description
-> > > here as the dependency does not appear in this file.
-> > 
-> > Humm, that should limit the maximum entries to 2, so 3 would never work
-> > (if RIFSC is the parent).
-> > 
-> > > I picked 3 as a maxItems for our ST needs, I'll give it some more thought
-> > > when coming back with something clearer.
-> > 
-> > I'd expect you have 1 entry for register bus and 1 entry for DMA bus if
-> > there is one. It's block specific for how many entries, so the RIFSC
-> > schema should not be setting that. You could possibly say that
-> > 'feature-domains' is required for all the child nodes though.
+> Signed-off-by: Shenghao Ding <13916275206@139.com>
 > 
-> Ok, I will change to not specifying the number of entries in the
-> RIFSC YAML file for V2.
-> 
-> > 
-> > Rob
-> Some hardware blocks may have a firewall ID for their device part and
-> another ID for their master part as well. In the end, the number of
-> entries could very well vary between different platforms. And the YAML
-> files are common to these platforms.
+> ---
+> Changes in v2:
+>  - All the controls set as const static
+>  - Add descriptions for tas2781_save_calibration
+>  - remove global addr handling in the code
+>  - checking subid in switch statement in function tas2781_hda_bind
+>  - add force firmware load Kcontrol
+>  - rename the kcontrol name to be more undertandable
+>  - remove Superfluous cast in tasdevice_fw_ready
+>  - correct weird line break in function tas2781_acpi_get_i2c_resource
+>  - correct Referencing adev after acpi_dev_put() in tas2781_hda_read_acpi
+>  - As to checking the given value in tasdevice_set_profile_id, it seems done
+>    by the tasdevice_info_profile
+>  - replace strcpy with strscpy in tas2781_hda_read_acpi
+>  - rewrite the subid judgement
+>  - Add tiwai@suse.de into Cc list
+>  - remove the cast in tas2781_acpi_get_i2c_resource
+>  - remove else in tas2781_acpi_get_i2c_resource
+>  - fix the return value in tasdevice_set_profile_id
+>  - remove unneeded NL in tasdevice_config_get
+>  - Unifiy the comment style
+>  - remove ret = 0 in tasdevice_fw_ready
+>  - remove ret in tas2781_save_calibration
+>  - remove unused ret in tas2781_hda_playback
+>  - add force firmware load Kcontrol
 
-A given device has a fixed number of buses. Usually 1 or 2. That does 
-*not* vary by platform (unless the device is modified). You could have 
-the same firewall controller and id for multiple buses, but that 
-should not change the number of entries for the device. Now maybe a bus 
-has no firewall on some platforms. In that case, you should make the 
-optional firewall entry the last one, have a null phandle (0 or -1), or 
-use -names to distinguish the entries.
+The new version looks much better.  Another few minor comments:
 
-> This property could be used for "extra" arguments as well, that are not
-> firewall IDs.
+> +static int tas2781_acpi_get_i2c_res(struct acpi_resource *ares,
+> +	void *data)
 
-The arg cells are dictated by the provider and opaque to the client.
+The indentation could be improved in this patch, too.
+Not only this line but in many places.
 
-> What do you suggest between picking a high maxItems value that would
-> (hopefully) cover all cases and not specifying maxItems at all? Or maybe
-> another property dedicated to such arguments?
+> +static int tas2781_hda_read_acpi(struct tasdevice_priv *tas_priv,
+> +	const char *hid)
+> +{
+...
+> +err:
+> +	dev_err(tas_priv->dev, "Failed acpi ret: %d\n", ret);
 
-You should not specify maxItems in the firewall controller binding.
+Too ambiguous error message.  It's hard to spot what the error is only
+from this text.
 
-Rob
+> +static int tasdevice_set_profile_id(struct snd_kcontrol *kcontrol,
+> +		struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct tasdevice_priv *tas_priv = snd_kcontrol_chip(kcontrol);
+> +	int ret = 0;
+> +
+> +	if (tas_priv->rcabin.profile_cfg_id !=
+> +		ucontrol->value.integer.value[0]) {
+> +		tas_priv->rcabin.profile_cfg_id =
+> +			ucontrol->value.integer.value[0];
+
+You should have a sanity check of the given values.  User-space may
+pass any arbitrary value, and ALSA core doesn't always filter invalid
+values.  Ditto for other *_put() callbacks.
+
+> +static void tas2781_apply_calib(struct tasdevice_priv *tas_priv)
+> +{
+> +	const unsigned char page_array[CALIB_MAX] = {
+> +		0x17, 0x18, 0x18, 0x0d, 0x18
+> +	};
+
+Missing static.
+
+> +	const unsigned char rgno_array[CALIB_MAX] = {
+> +		0x74, 0x0c, 0x14, 0x3c, 0x7c
+> +	};
+
+Ditto.
+
+> +static void tas2781_hda_remove(struct device *dev)
+> +{
+> +	struct tasdevice_priv *tas_priv = dev_get_drvdata(dev);
+> +
+> +	pm_runtime_get_sync(tas_priv->dev);
+> +	pm_runtime_disable(tas_priv->dev);
+> +
+> +
+
+Too many blank lines.
+
+
+thanks,
+
+Takashi

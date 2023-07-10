@@ -2,84 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D39674C871
-	for <lists+alsa-devel@lfdr.de>; Sun,  9 Jul 2023 23:47:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83EFC74C97C
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 03:20:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE85F207;
-	Sun,  9 Jul 2023 23:46:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE85F207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C120201;
+	Mon, 10 Jul 2023 03:19:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C120201
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688939264;
-	bh=vFN34oGZLAuyX5oAAW+A1X+ypXj6cv1/h6s7XtFQnXo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JUg5oSfbYn/9UlfEqnvPUlCp03D+B6R768uh51iXjTxxMQgifrTSisbnr6wCi17Lv
-	 YGBwH9fBL1C0FTMUPfUeVbFsa9F08mP4SSnK1ID4yt9Y7SF5uFQPtMMT5Zdc6YCp76
-	 xFirKWOVOTBqm+O0IU+f5vjZQ4JNu88wjX+E6PXA=
+	s=default; t=1688952017;
+	bh=9ohnkNTP+SWb7sg7HCPIbAoOSBGkACSC9sKBa+Atc5w=;
+	h=Date:From:Subject:To:Cc:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=HySCjQ9cndYgNbPCF9syp2G7Ht3QZO5VQ0MgdU3oIdClOrL6OBix1Xo2FlojXjIch
+	 lIozh/R0TI6KYZOqQ/Q0CjahfEf9xEfetkf5LFs1sSvvyxeatV9ESZlIKpWGe0+Mhc
+	 H0LQO1rrbqywxeCdODr564TDMO1rnW9sCDV0gbPI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 37D0EF8024E; Sun,  9 Jul 2023 23:46:54 +0200 (CEST)
+	id BB237F8027B; Mon, 10 Jul 2023 03:19:24 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93D75F80153;
-	Sun,  9 Jul 2023 23:46:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3487AF80153;
+	Mon, 10 Jul 2023 03:19:24 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A8278F80236; Sun,  9 Jul 2023 23:45:02 +0200 (CEST)
+	id DBCBCF80249; Mon, 10 Jul 2023 03:19:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 36E41F80093
-	for <alsa-devel@alsa-project.org>; Sun,  9 Jul 2023 23:44:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36E41F80093
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=QLhXRQWv
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 734DE60C75;
-	Sun,  9 Jul 2023 21:44:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30DE0C433C8;
-	Sun,  9 Jul 2023 21:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1688939093;
-	bh=vFN34oGZLAuyX5oAAW+A1X+ypXj6cv1/h6s7XtFQnXo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QLhXRQWvD8qBG21MEv4lE8n32EI+n8p3n5o4qSnldQfpbBEVZ5Vn9CTxBVak4I/3p
-	 K2DvGU4fgsoGgKU6fWfdpqK1YCDhLCizHjzyDW34uDjfrYril9IwIS6QmzKu2jt8Am
-	 z7E8a7l6uLrD3r3RkIrIP6kPODLz0qjFW4bybL22heaeL3nA0kjyGvM+vKXGLRAQOc
-	 1GasCcoN5iM6jS2Lu+Eljwkk2SHlAiodn6zbfvZ804PeTE7SmqNUR/INqCpSf6jlPr
-	 ujxvJtx3OTeWGrLhYv30zNuPwFX5IGMYf72RqpsQaLZJd275mDA99dqKb3JPP5Ns0V
-	 Bf4zApQbKx4Ow==
-Date: Sun, 9 Jul 2023 22:44:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+X-Spam-Status: No, score=-2.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BA32F800D2
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 03:19:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BA32F800D2
+Date: 10 Jul 2023 10:19:04 +0900
+X-IronPort-AV: E=Sophos;i="6.01,193,1684767600";
+   d="scan'208";a="171480112"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+  by relmlie6.idc.renesas.com with ESMTP; 10 Jul 2023 10:19:04 +0900
+Received: from venus.renesas.com (unknown [10.166.252.89])
+	by relmlir6.idc.renesas.com (Postfix) with ESMTP id 91BD640EE85B;
+	Mon, 10 Jul 2023 10:19:04 +0900 (JST)
+Message-ID: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v2 00/15] ASoC: add multi Component support
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+To: Mark Brown <broonie@kernel.org>, Cezary Rojewski
+ <cezary.rojewski@intel.com>, "Pierre-Louis Bossart"
+ <pierre-louis.bossart@linux.intel.com>, =?ISO-8859-2?Q?=22Amadeusz_S=B3aw?=
+ =?ISO-8859-2?Q?i=F1ski=22?= <amadeuszx.slawinski@linux.intel.com>
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [PATCH 03/14] ASoC: soc-dai.c: add DAI get/match functions
-Message-ID: <d3cba4da-f2f9-4d93-9bd8-d94db23828fa@sirena.org.uk>
-References: <87r0q5blta.wl-kuninori.morimoto.gx@renesas.com>
- <87mt0tblsf.wl-kuninori.morimoto.gx@renesas.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="K9zKhRW6LLXHlYmC"
-Content-Disposition: inline
-In-Reply-To: <87mt0tblsf.wl-kuninori.morimoto.gx@renesas.com>
-X-Cookie: You will outgrow your usefulness.
-Message-ID-Hash: 7TEOT4N4SZM33T45NIOAUYEELR6UCSPH
-X-Message-ID-Hash: 7TEOT4N4SZM33T45NIOAUYEELR6UCSPH
-X-MailFrom: broonie@kernel.org
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Message-ID-Hash: 5ZJ3FY4XY4VRVOJURY2A4WQC47RZKURO
+X-Message-ID-Hash: 5ZJ3FY4XY4VRVOJURY2A4WQC47RZKURO
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -91,7 +68,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7TEOT4N4SZM33T45NIOAUYEELR6UCSPH/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5ZJ3FY4XY4VRVOJURY2A4WQC47RZKURO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,31 +78,71 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---K9zKhRW6LLXHlYmC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi Mark
 
-On Wed, Jun 21, 2023 at 02:18:25AM +0000, Kuninori Morimoto wrote:
-> Current ASoC is specifying and checking DAI name.
-> But where it came from and how to check was ambiguous.
-> This patch adds snd_soc_dai_name_get() / snd_soc_dlc_dai_is_match()
-> and makes it clear.
+These are v2 of multi Component support.
 
-This doesn't apply against current code, please check and resend.
+On below HW case, we would like to use it as "2 Cards",
+but unfortunately it is impossible in intuitive way,
+or possible but not intuitive way.
+In reality, it is handled as "1 big Card" today.
 
---K9zKhRW6LLXHlYmC
-Content-Type: application/pgp-signature; name="signature.asc"
+	+-- basic board --------+
+	|+--------+             |
+	|| CPU ch0| <--> CodecA |
+	||     ch1| <-+         |
+	|+--------+   |         |
+	+-------------|---------+
+	+-- expansion board ----+
+	|             |         |
+	|             +-> CodecB|
+	+-----------------------+
 
------BEGIN PGP SIGNATURE-----
+To handling it as intuitive "2 Cards", this patch-set
+adds multi Component support.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSrKlEACgkQJNaLcl1U
-h9DgBQf8DC9xDwsFKy6qz+37xaYKooY8vvSjQIE6+5DXqEXtp8JvolTYKFFKMBa/
-6CkirLpP0bR6fxiZLC/n9/5Alx1CpYWrS/WKKRINypRbKPrlbTro6KUolMWvQ1sf
-TA8F2SFK6RUlo473ulXVlLgm/EYkxyHWm6eqGbCdeguKTKXqCPkwdu/roMSj7jOY
-/yLHkAEZ/OYzdaX359Pkv+A61QPDTKbZQBpDHps01IWiotpZwepwiEPjB6i1DMAY
-YW2qXzckPIAwXlZax6zPEywTYlY8uVfN1YhU5bi62JsQkt2yNzG9D8m5bkYQpGVn
-dstxq5/hcMsTAYewtLrJui1KnbEs0A==
-=/3kd
------END PGP SIGNATURE-----
+To enable this patch-set, I included [01/15] patch into this patch-set
+which is posted but not yet accepted.
 
---K9zKhRW6LLXHlYmC--
+v1 -> v2
+	- include [01/15] patch into this patch-set
+	- add related member to To
+	- add DT member to [14/15][15/15]
+
+Link: https://lore.kernel.org/all/87a6b6cofh.wl-kuninori.morimoto.gx@renesas.com/
+Link: https://lore.kernel.org/r/87r0q5blta.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/20230623-asoc-fix-meson-probe-v1-1-82b2c2ec5ca4@kernel.org
+
+Kuninori Morimoto (15):
+  ASoC: soc-core: protect dlc->of_node under mutex
+  ASoC: soc-core.c: initialize dlc on snd_soc_get_dai_id()
+  ASoC: soc-core.c: cleanup soc_dai_link_sanity_check()
+  ASoC: soc-dai.c: add DAI get/match functions
+  ASoC: soc-core.c: enable multi Component
+  ASoC: soc-core.c: add snd_soc_get_dai_via_args()
+  ASoC: soc-core.c: add snd_soc_dlc_use_cpu_as_platform()
+  ASoC: soc-core.c: add snd_soc_copy_dai_args()
+  ASoC: simple-card-utils.c: enable multi Component support
+  ASoC: simple-card.c: enable multi Component support
+  ASoC: rsnd: use DAI driver ID instead of DAI ID
+  ASoC: rsnd: cleanup rsnd_dai_of_node()
+  ASoC: rsnd: enable multi Component support for Audio Graph Card/Card2
+  ASoC: dt-bindings: renesas,rsnd.yaml: add common port-def
+  ASoC: dt-bindings: renesas,rsnd.yaml: enable multi ports for multi Component support
+
+ .../bindings/sound/renesas,rsnd.yaml          |  60 ++--
+ include/sound/simple_card_utils.h             |   5 +-
+ include/sound/soc-dai.h                       |   3 +
+ include/sound/soc.h                           |   6 +
+ sound/soc/generic/audio-graph-card.c          |   2 +-
+ sound/soc/generic/audio-graph-card2.c         |   2 +-
+ sound/soc/generic/simple-card-utils.c         |  23 +-
+ sound/soc/generic/simple-card.c               |  20 +-
+ sound/soc/sh/rcar/core.c                      | 146 +++++++---
+ sound/soc/sh/rcar/rsnd.h                      |   4 +
+ sound/soc/soc-core.c                          | 273 +++++++++++++-----
+ 11 files changed, 378 insertions(+), 166 deletions(-)
+
+-- 
+2.25.1
+

@@ -2,64 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34BF674C98E
+	by mail.lfdr.de (Postfix) with ESMTPS id CC00C74C98F
 	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 03:24:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CA4B83B;
-	Mon, 10 Jul 2023 03:23:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CA4B83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 548FBAE9;
+	Mon, 10 Jul 2023 03:23:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 548FBAE9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688952242;
-	bh=JjE34Jd2But6De2FMN0iOxyj89atp8EwfCke625edjo=;
-	h=Date:From:Subject:To:Cc:In-Reply-To:References:List-Id:
+	s=default; t=1688952248;
+	bh=fgIV9kTbkxCGTsMs/ElRg2JMf6gq7+7Pk0+9qbKqqW8=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=MzrVl8CR5qfgLcbWbEbIxnCOHag3rsWwB1YJESOjUtx3dAXnLcpqVzQ5O8Z/7MjcH
-	 cUwr6C9n+ecmayx/C0ZfD4LO2Def6vtDk5XB219RDaxkCUxfUz5yqk7hM+KQzDkJQw
-	 6C7O973LzoQXQPAM3Zccs4Vudj+B7nQFMbbuCouM=
+	b=q8Ypm9EpO5RVS5J1u4a4NBONpooy67SeueFAXuXP9EQhMcSssKTVEEtOaCwr7Hj+J
+	 CsoOzbCPlK90gFm33mLmFNQt31oYC9ryuSBYpc6dr9p/Kh/7m2I3/GolOKNJHWOXOO
+	 nf9wUCFnoJmE5xJDUjuUKyztXUmiSMa/dgXld+cQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90F42F80571; Mon, 10 Jul 2023 03:21:05 +0200 (CEST)
+	id F0FA2F80249; Mon, 10 Jul 2023 03:21:53 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56ED6F80578;
-	Mon, 10 Jul 2023 03:21:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE1C7F80249;
+	Mon, 10 Jul 2023 03:21:53 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 996FDF805E7; Mon, 10 Jul 2023 03:21:02 +0200 (CEST)
+	id C318BF8027B; Mon, 10 Jul 2023 03:21:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E41CF80578
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 03:20:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E41CF80578
-Date: 10 Jul 2023 10:20:53 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+	by alsa1.perex.cz (Postfix) with ESMTP id AC929F80153
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 03:21:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC929F80153
+Date: 10 Jul 2023 10:21:42 +0900
 X-IronPort-AV: E=Sophos;i="6.01,193,1684767600";
-   d="scan'208";a="167840846"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
-  by relmlie5.idc.renesas.com with ESMTP; 10 Jul 2023 10:20:53 +0900
+   d="scan'208";a="171480733"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie6.idc.renesas.com with ESMTP; 10 Jul 2023 10:21:42 +0900
 Received: from venus.renesas.com (unknown [10.166.252.89])
-	by relmlir6.idc.renesas.com (Postfix) with ESMTP id 33B0340EF4D9;
-	Mon, 10 Jul 2023 10:20:53 +0900 (JST)
-Message-ID: <874jmco93e.wl-kuninori.morimoto.gx@renesas.com>
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 7DD00400B9F1;
+	Mon, 10 Jul 2023 10:21:42 +0900 (JST)
+Message-ID: <87351wo921.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH v2 13/15] ASoC: rsnd: enable multi Component support for Audio
- Graph Card/Card2
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 To: Mark Brown <broonie@kernel.org>,	Cezary Rojewski
  <cezary.rojewski@intel.com>,	"Pierre-Louis Bossart"
  <pierre-louis.bossart@linux.intel.com>,	=?ISO-8859-2?Q?=22Amadeusz_S=B3aw?=
- =?ISO-8859-2?Q?i=F1ski=22?= <amadeuszx.slawinski@linux.intel.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+ =?ISO-8859-2?Q?i=F1ski=22?= <amadeuszx.slawinski@linux.intel.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Rob Herring
+ <robh+dt@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, devicetree@vger.kernel.org
 In-Reply-To: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
 References: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
+Subject: [PATCH v2 14/15] ASoC: dt-bindings: renesas,rsnd.yaml: add common
+ port-def
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: V6XHM4WE7SW4BIYPUC5Z54UNDBT6DXYT
-X-Message-ID-Hash: V6XHM4WE7SW4BIYPUC5Z54UNDBT6DXYT
+Message-ID-Hash: JP7A4JYLQLAX76HRP7DFCONNFOBPQ3ZA
+X-Message-ID-Hash: JP7A4JYLQLAX76HRP7DFCONNFOBPQ3ZA
 X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -72,7 +74,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/V6XHM4WE7SW4BIYPUC5Z54UNDBT6DXYT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JP7A4JYLQLAX76HRP7DFCONNFOBPQ3ZA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -81,316 +83,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-	+-- Basic Board ---------+
-	|+--------+      +------+|
-	|| CPU ch0| <--> |CodecA||
-	||     ch1| <-+  +------+|
-	|+--------+   |          |
-	+-------------|----------+
-	+-- expansion board -----+
-	|             |  +------+|
-	|             +->|CodecB||
-	|                +------+|
-	+------------------------+
-
-In above HW connection case, we intuitively think we want to handle these
-as "2 Sound Cards".
-
-	card0,0: CPU-ch0 - CodecA
-	card1,0: CPU-ch1 - CodecB
-
-But, we needed to handle it as "1 big Sound Card", because of
-Component vs Card limitation.
-
-	card0,0: CPU-ch0 - CodecA
-	card0,1: CPU-ch1 - CodecB
-
-This patch enables multi Component to handle multi Cards.
-To support it, it needs
-
-	- Fill dai_args for each DAI on snd_soc_dai_driver
-	- Parse DT for each Component (Simple Card/Audio Graph Card)
-
-Ex) Simple Card
-
-	rcar_sound {
-		...
-
-		/* Component0 */
-		rcar_sound,dai@0 {
-			...
-		};
-
-		/* Component1 */
-		rcar_sound,dai@1 {
-			...
-		};
-	};
-
-Ex) Audio Graph Card/Card2
-
-	rcar_sound {
-		/* Component0 */
-		ports@0 {
-			...
-		};
-
-		/* Component1 */
-		ports@1 {
-			...
-		};
-	};
+renesas,rsnd uses both "ports" has "port", and these are very similar.
+To avoid duplicated definitions, this patch adds common port-def.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sh/rcar/core.c | 134 ++++++++++++++++++++++++++-------------
- sound/soc/sh/rcar/rsnd.h |   4 ++
- 2 files changed, 95 insertions(+), 43 deletions(-)
+ .../bindings/sound/renesas,rsnd.yaml          | 38 ++++++++-----------
+ 1 file changed, 16 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index a87d7fa55f7b..9f3d97bc177a 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -1260,13 +1260,13 @@ int rsnd_node_count(struct rsnd_priv *priv, struct device_node *node, char *name
- 	return i;
- }
+diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+index 8a821dec9526..d9808b130e8d 100644
+--- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
++++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+@@ -9,6 +9,20 @@ title: Renesas R-Car Sound Driver
+ maintainers:
+   - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
  
--static struct device_node *rsnd_dai_of_node(struct rsnd_priv *priv,
--					    int *nr, int *is_graph)
-+static int rsnd_dai_of_node(struct rsnd_priv *priv, int *is_graph)
- {
- 	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct device_node *np = dev->of_node;
--	struct device_node *dai_node;
--	struct device_node *ret;
-+	struct device_node *ports, *node;
-+	int nr = 0;
-+	int i = 0;
- 
- 	*is_graph = 0;
- 
-@@ -1278,30 +1278,47 @@ static struct device_node *rsnd_dai_of_node(struct rsnd_priv *priv,
- 	/*
- 	 * Simple-Card
- 	 */
--	dai_node = of_get_child_by_name(np, RSND_NODE_DAI);
--	if (dai_node) {
--		*nr = of_get_child_count(dai_node);
--		ret = dai_node;
--		goto of_node_compatible;
-+	node = of_get_child_by_name(np, RSND_NODE_DAI);
-+	if (!node)
-+		goto audio_graph;
++definitions:
++  port-def:
++    $ref: audio-graph-port.yaml#/definitions/port-base
++    unevaluatedProperties: false
++    patternProperties:
++      "^endpoint(@[0-9a-f]+)?":
++        $ref: audio-graph-port.yaml#/definitions/endpoint-base
++        properties:
++          playback:
++            $ref: /schemas/types.yaml#/definitions/phandle-array
++          capture:
++            $ref: /schemas/types.yaml#/definitions/phandle-array
++        unevaluatedProperties: false
 +
-+	of_node_put(node);
-+
-+	for_each_child_of_node(np, node) {
-+		if (!of_node_name_eq(node, RSND_NODE_DAI))
-+			continue;
-+
-+		priv->component_dais[i] = of_get_child_count(node);
-+		nr += priv->component_dais[i];
-+		i++;
-+		if (i >= RSND_MAX_COMPONENT) {
-+			dev_info(dev, "reach to max component\n");
-+			break;
-+		}
- 	}
+ properties:
  
-+	return nr;
-+
-+audio_graph:
- 	/*
- 	 * Audio-Graph-Card
- 	 */
--	dai_node = of_graph_get_next_endpoint(np, NULL);
--	if (dai_node) {
--		*nr = of_graph_get_endpoint_count(np);
--		*is_graph = 1;
--		ret = np;
--		goto of_node_compatible;
-+	for_each_child_of_node(np, ports) {
-+		if (!of_node_name_eq(ports, "ports") &&
-+		    !of_node_name_eq(ports, "port"))
-+			continue;
-+		priv->component_dais[i] = of_graph_get_endpoint_count(ports);
-+		nr += priv->component_dais[i];
-+		i++;
-+		if (i >= RSND_MAX_COMPONENT) {
-+			dev_info(dev, "reach to max component\n");
-+			break;
-+		}
- 	}
+   compatible:
+@@ -108,30 +122,10 @@ properties:
+     unevaluatedProperties: false
+     patternProperties:
+       '^port(@[0-9a-f]+)?$':
+-        $ref: audio-graph-port.yaml#/definitions/port-base
+-        unevaluatedProperties: false
+-        patternProperties:
+-          "^endpoint(@[0-9a-f]+)?":
+-            $ref: audio-graph-port.yaml#/definitions/endpoint-base
+-            properties:
+-              playback:
+-                $ref: /schemas/types.yaml#/definitions/phandle-array
+-              capture:
+-                $ref: /schemas/types.yaml#/definitions/phandle-array
+-            unevaluatedProperties: false
++        $ref: "#/definitions/port-def"
  
--	return NULL;
--
--of_node_compatible:
--	of_node_put(dai_node);
-+	*is_graph = 1;
+   port:
+-    $ref: audio-graph-port.yaml#/definitions/port-base
+-    unevaluatedProperties: false
+-    patternProperties:
+-      "^endpoint(@[0-9a-f]+)?":
+-        $ref: audio-graph-port.yaml#/definitions/endpoint-base
+-        properties:
+-          playback:
+-            $ref: /schemas/types.yaml#/definitions/phandle-array
+-          capture:
+-            $ref: /schemas/types.yaml#/definitions/phandle-array
+-        unevaluatedProperties: false
++    $ref: "#/definitions/port-def"
  
--	return ret;
-+	return nr;
- }
- 
- 
-@@ -1365,6 +1382,8 @@ static int rsnd_pcm_new(struct snd_soc_pcm_runtime *rtd,
- 
- static void __rsnd_dai_probe(struct rsnd_priv *priv,
- 			     struct device_node *dai_np,
-+			     struct device_node *node_np,
-+			     uint32_t node_arg,
- 			     int dai_i)
- {
- 	struct rsnd_dai_stream *io_playback;
-@@ -1382,11 +1401,17 @@ static void __rsnd_dai_probe(struct rsnd_priv *priv,
- 
- 	snprintf(rdai->name, RSND_DAI_NAME_SIZE, "rsnd-dai.%d", dai_i);
- 
-+	/* for multi Component */
-+	rdai->dai_args.np		= node_np;
-+	rdai->dai_args.args_count	= 1;
-+	rdai->dai_args.args[0]		= node_arg;
-+
- 	rdai->priv	= priv;
- 	drv->name	= rdai->name;
- 	drv->ops	= &rsnd_soc_dai_ops;
- 	drv->pcm_new	= rsnd_pcm_new;
- 	drv->id		= dai_i;
-+	drv->dai_args	= &rdai->dai_args;
- 
- 	io_playback->rdai		= rdai;
- 	io_capture->rdai		= rdai;
-@@ -1450,16 +1475,15 @@ static void __rsnd_dai_probe(struct rsnd_priv *priv,
- 
- static int rsnd_dai_probe(struct rsnd_priv *priv)
- {
--	struct device_node *dai_node;
--	struct device_node *dai_np;
- 	struct snd_soc_dai_driver *rdrv;
- 	struct device *dev = rsnd_priv_to_dev(priv);
-+	struct device_node *np = dev->of_node;
- 	struct rsnd_dai *rdai;
- 	int nr = 0;
- 	int is_graph;
- 	int dai_i;
- 
--	dai_node = rsnd_dai_of_node(priv, &nr, &is_graph);
-+	nr = rsnd_dai_of_node(priv, &is_graph);
- 	if (!nr)
- 		return -EINVAL;
- 
-@@ -1477,26 +1501,42 @@ static int rsnd_dai_probe(struct rsnd_priv *priv)
- 	 */
- 	dai_i = 0;
- 	if (is_graph) {
--		for_each_endpoint_of_node(dai_node, dai_np) {
--			__rsnd_dai_probe(priv, dai_np, dai_i);
--			if (rsnd_is_gen3(priv) || rsnd_is_gen4(priv)) {
--				rdai = rsnd_rdai_get(priv, dai_i);
--
--				rsnd_parse_connect_graph(priv, &rdai->playback, dai_np);
--				rsnd_parse_connect_graph(priv, &rdai->capture,  dai_np);
-+		struct device_node *ports;
-+		struct device_node *dai_np;
-+
-+		for_each_child_of_node(np, ports) {
-+			if (!of_node_name_eq(ports, "ports") &&
-+			    !of_node_name_eq(ports, "port"))
-+				continue;
-+			for_each_endpoint_of_node(ports, dai_np) {
-+				__rsnd_dai_probe(priv, dai_np, dai_np, 0, dai_i);
-+				if (rsnd_is_gen3(priv) || rsnd_is_gen4(priv)) {
-+					rdai = rsnd_rdai_get(priv, dai_i);
-+
-+					rsnd_parse_connect_graph(priv, &rdai->playback, dai_np);
-+					rsnd_parse_connect_graph(priv, &rdai->capture,  dai_np);
-+				}
-+				dai_i++;
- 			}
--			dai_i++;
- 		}
- 	} else {
--		for_each_child_of_node(dai_node, dai_np) {
--			__rsnd_dai_probe(priv, dai_np, dai_i);
--			if (rsnd_is_gen3(priv) || rsnd_is_gen4(priv)) {
--				rdai = rsnd_rdai_get(priv, dai_i);
-+		struct device_node *node;
-+		struct device_node *dai_np;
-+
-+		for_each_child_of_node(np, node) {
-+			if (!of_node_name_eq(node, RSND_NODE_DAI))
-+				continue;
- 
--				rsnd_parse_connect_simple(priv, &rdai->playback, dai_np);
--				rsnd_parse_connect_simple(priv, &rdai->capture,  dai_np);
-+			for_each_child_of_node(node, dai_np) {
-+				__rsnd_dai_probe(priv, dai_np, np, dai_i, dai_i);
-+				if (rsnd_is_gen3(priv) || rsnd_is_gen4(priv)) {
-+					rdai = rsnd_rdai_get(priv, dai_i);
-+
-+					rsnd_parse_connect_simple(priv, &rdai->playback, dai_np);
-+					rsnd_parse_connect_simple(priv, &rdai->capture,  dai_np);
-+				}
-+				dai_i++;
- 			}
--			dai_i++;
- 		}
- 	}
- 
-@@ -1926,6 +1966,7 @@ static int rsnd_probe(struct platform_device *pdev)
- 		rsnd_dai_probe,
- 	};
- 	int ret, i;
-+	int ci;
- 
- 	/*
- 	 *	init priv data
-@@ -1962,11 +2003,18 @@ static int rsnd_probe(struct platform_device *pdev)
- 	/*
- 	 *	asoc register
- 	 */
--	ret = devm_snd_soc_register_component(dev, &rsnd_soc_component,
--					 priv->daidrv, rsnd_rdai_nr(priv));
--	if (ret < 0) {
--		dev_err(dev, "cannot snd dai register\n");
--		goto exit_snd_probe;
-+	ci = 0;
-+	for (i = 0; priv->component_dais[i] > 0; i++) {
-+		int nr = priv->component_dais[i];
-+
-+		ret = devm_snd_soc_register_component(dev, &rsnd_soc_component,
-+						      priv->daidrv + ci, nr);
-+		if (ret < 0) {
-+			dev_err(dev, "cannot snd component register\n");
-+			goto exit_snd_probe;
-+		}
-+
-+		ci += nr;
- 	}
- 
- 	pm_runtime_enable(dev);
-diff --git a/sound/soc/sh/rcar/rsnd.h b/sound/soc/sh/rcar/rsnd.h
-index 239705d52517..43c0d675cc34 100644
---- a/sound/soc/sh/rcar/rsnd.h
-+++ b/sound/soc/sh/rcar/rsnd.h
-@@ -545,6 +545,7 @@ struct rsnd_dai {
- 	struct rsnd_dai_stream capture;
- 	struct rsnd_priv *priv;
- 	struct snd_pcm_hw_constraint_list constraint;
-+	struct of_phandle_args dai_args;
- 
- 	int max_channels;	/* 2ch - 16ch */
- 	int ssi_lane;		/* 1lane - 4lane */
-@@ -702,6 +703,9 @@ struct rsnd_priv {
- 	struct snd_soc_dai_driver *daidrv;
- 	struct rsnd_dai *rdai;
- 	int rdai_nr;
-+
-+#define RSND_MAX_COMPONENT 3
-+	int component_dais[RSND_MAX_COMPONENT];
- };
- 
- #define rsnd_priv_to_pdev(priv)	((priv)->pdev)
+   rcar_sound,dvc:
+     description: DVC subnode.
 -- 
 2.25.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17A7974F0E1
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 15:58:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B03974F0E4
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 15:58:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68B54857;
-	Tue, 11 Jul 2023 15:57:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68B54857
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2E1CE9F;
+	Tue, 11 Jul 2023 15:57:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2E1CE9F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689083908;
-	bh=CgnlYd6F8QNT9n++b/k47msx5swkm6/AbNv02cH7FqM=;
+	s=default; t=1689083929;
+	bh=CpTuLljbdaBkyoyitx9Zt2kT2mpNPwthrmEzA4FZh0k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SowzdnTkis4DK5QvVZ5MDGFrU1TVpSvXvDa0+IjDxRqjEQb9FqAk6vInRuIz7l25W
-	 WYhWuXmEt/TwwB5gUtOV6r+FgudixBiqqwWeM+C6Vv5VvyJ8n8dyXXn57qCkO3MWFE
-	 0ldywIf5KH+/KQUd+7gQF3JwyANo+fi/3fLNb0qw=
+	b=TXREaOFDR76NSUQXf+bZpHRbX2rLqBS78ZWlKO9OYpdSgQsi2fKJO6f/xL8i9V0Gm
+	 BakAhj0eCOIBehigCajug/mNvrDxieinoyouoJ9rWLnAShIiuVCtmFyJEN0URMJ54j
+	 n49TQKO3058Z20U48OMSAMshJqi3Ebifs0xQsTFM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8F33EF80689; Tue, 11 Jul 2023 15:52:40 +0200 (CEST)
+	id 88077F80691; Tue, 11 Jul 2023 15:52:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1E88F8067D;
-	Tue, 11 Jul 2023 15:52:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79D69F8067D;
+	Tue, 11 Jul 2023 15:52:41 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B2202F80249; Mon, 10 Jul 2023 19:16:42 +0200 (CEST)
+	id A4E27F80249; Mon, 10 Jul 2023 19:22:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,35 +35,34 @@ X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F3F95F800E4
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 19:16:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3F95F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 1628CF800E4
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 19:21:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1628CF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=nCNLRwD0
+ header.s=k20201202 header.b=jH9O9AHy
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id C4A4F61136;
-	Mon, 10 Jul 2023 17:16:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607EFC433C8;
-	Mon, 10 Jul 2023 17:16:25 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id AE93460FE6;
+	Mon, 10 Jul 2023 17:21:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7CBC433C7;
+	Mon, 10 Jul 2023 17:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689009395;
-	bh=CgnlYd6F8QNT9n++b/k47msx5swkm6/AbNv02cH7FqM=;
+	s=k20201202; t=1689009717;
+	bh=CpTuLljbdaBkyoyitx9Zt2kT2mpNPwthrmEzA4FZh0k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nCNLRwD0ouHI8pJTPN00LKshCADBsrezjsyCWSHlUtPA86QMcTtmuANY2THapc+ya
-	 rkH5tcQmXa5WkKmxP1SPoeLDBnKChb3smPLszGKE/fOJpIoKZHw2XHyVjIgwHTZ/1z
-	 MufgsvMGmS7UeltSFfqOX5aakYX6Oi9D+fdx6r4xTwDjZDukvdOJHqT+HXAuPx0WPm
-	 TWMpwYu5OvJq0RnyxMb5KHCGmQeKSlmlgHlItZHKy5JjIjq74cV332HHX8EX4US9YN
-	 7LvxZOQBp61R6AEZ7cokvT4lucM8T0YliBj7nuBwioqSX1VDucIF209VQysfZBVMCk
-	 jUIpbFJ9ng45w==
-Date: Mon, 10 Jul 2023 18:16:22 +0100
+	b=jH9O9AHymoIzZncRhS0boDcQENihuPJ9tiOMacCBW9S1HyXoS4fmk05l3yiGNAo2K
+	 KI1hyt+ZX+7NEHBvWCqXjT4yNe/LtAsjRDwPWtbPDyinDXBlqwNxiz4igGDEvFujjT
+	 HvuvVf7zfJpIqBT2DHBv4rYYp+mzBEGWoHelZgtBRzC5a9ODbB3jbYPRYOu+MpK8DF
+	 3DKPCT3xy2bGoPblEhEFYavUFRlVpmVElN1x+riHF3GGBKfZ16h5m4CDQWCrPt/Kv/
+	 vK54neWN9FR7qTjWY6hgaJiuvxPLSkqkKUC983rTnSx7XHJONotnyRARakAtXoacgn
+	 BzkLNw5lEztpw==
+Date: Mon, 10 Jul 2023 18:21:44 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -113,16 +112,15 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Richard Cochran <richardcochran@gmail.com>
-Subject: Re: [PATCH v2 05/15] spi: Remove code duplication in
- spi_add_device_locked()
-Message-ID: <7557bada-3076-4d6e-a5c5-d368433706e2@sirena.org.uk>
+Subject: Re: [PATCH v2 08/15] spi: Clean up headers
+Message-ID: <54bb9fe7-fb62-4c2e-ae36-d2c10648ee27@sirena.org.uk>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-6-andriy.shevchenko@linux.intel.com>
+ <20230710154932.68377-9-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="smwEq19A8LfCcchg"
+	protocol="application/pgp-signature"; boundary="w5h1T0k99Bnkn5Gc"
 Content-Disposition: inline
-In-Reply-To: <20230710154932.68377-6-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20230710154932.68377-9-andriy.shevchenko@linux.intel.com>
 X-Cookie: Do you have lysdexia?
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Hits: max-recipients
@@ -132,15 +130,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: BHUJVX4RZS34GLOEDVLRF646VGM3TAT3
-X-Message-ID-Hash: BHUJVX4RZS34GLOEDVLRF646VGM3TAT3
+Message-ID-Hash: OP6B54AKWE4CBYQ5XVXHJ336D3LF5VAJ
+X-Message-ID-Hash: OP6B54AKWE4CBYQ5XVXHJ336D3LF5VAJ
 X-Mailman-Approved-At: Tue, 11 Jul 2023 13:52:27 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BHUJVX4RZS34GLOEDVLRF646VGM3TAT3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OP6B54AKWE4CBYQ5XVXHJ336D3LF5VAJ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,61 +148,39 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---smwEq19A8LfCcchg
+--w5h1T0k99Bnkn5Gc
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 10, 2023 at 06:49:22PM +0300, Andy Shevchenko wrote:
-> Seems by unknown reason, probably some kind of mis-rebase,
-> the commit 0c79378c0199 ("spi: add ancillary device support")
-> adds a dozen of duplicating lines of code. Drop them.
->=20
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  drivers/spi/spi.c | 11 -----------
->  1 file changed, 11 deletions(-)
->=20
-> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> index c99ee4164f11..46cbda383228 100644
-> --- a/drivers/spi/spi.c
-> +++ b/drivers/spi/spi.c
-> @@ -712,17 +712,6 @@ EXPORT_SYMBOL_GPL(spi_add_device);
->  static int spi_add_device_locked(struct spi_device *spi)
->  {
->  	struct spi_controller *ctlr =3D spi->controller;
-> -	struct device *dev =3D ctlr->dev.parent;
-> -
-> -	/* Chipselects are numbered 0..max; validate. */
-> -	if (spi_get_chipselect(spi, 0) >=3D ctlr->num_chipselect) {
-> -		dev_err(dev, "cs%d >=3D max %d\n", spi_get_chipselect(spi, 0),
-> -			ctlr->num_chipselect);
-> -		return -EINVAL;
-> -	}
-> -
-> -	/* Set the bus ID string */
-> -	spi_dev_set_name(spi);
+On Mon, Jul 10, 2023 at 06:49:25PM +0300, Andy Shevchenko wrote:
+> There is a few things done:
+> - include only the headers we are direct user of
+> - when pointer is in use, provide a forward declaration
+> - add missing headers
+> - group generic headers and subsystem headers
+> - sort each group alphabetically
 
-I see that this is duplicating spi_add_device() (and we really could do
-better with code sharing there I think) but I can't immediately see
-where the duplication that's intended to be elimiated is here - where
-else in the one call path that spi_add_device_locked() has would we do
-the above?  Based on the changelog I was expecting to see some
-duplicated code in the function itself.
+The previous commit was supposed to be sorting things and AFAICT did
+so...
 
---smwEq19A8LfCcchg
+> +struct spi_device_id;
+
+Why are we adding this given that there's also an inclusion of
+mod_devicetable that you didn't remove?
+
+--w5h1T0k99Bnkn5Gc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsPOUACgkQJNaLcl1U
-h9DBUwf9Euy3I6rYQCugpUDlBhWVoSMMz7t1ATFjPAfJAReJsl7tNz8zO3ZIBKvo
-DT0wuXofoowlS3XkS80I3NNL7wRjCktrPJnRHSBr/n15W3VCvz7cA+vkKlJdt60d
-vqLIOGnEqqPBftrOwUjsobHicO0YhL47AxOStev3fjlhFEbS0RrIpvCsVsRI1HDs
-5MalNotHe8wd+ujY4p9wUX9c2EZvSWQAE4XUBml+faspwunMGqKbjE+srfTbz+eB
-bkym8H1s/H5a/SQn5ya4y6dkDZ0jR9hz4H3HxMm4C/KgUJRnZXiIgNRtghmsQNys
-LGdv8LQz0S452H4iaGYZlWdB4IEu1w==
-=KWBr
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsPicACgkQJNaLcl1U
+h9CPUAf/RRQIrb0PfZnRSA7kc94fTv5rQbNfPboY9/94tcd2SIZjbZezvGfMuSZp
+6KHTd2Kkiwzya3J0dExwrNiIzmVrIGl+uWJWbvppEpglEeE0BNrEl1a9mRgzaQUk
+Ys7HqCSSbbtJqGSlgQAODJPS7eaPIw1ChR5Wv5B+4AlUGavA+iCrwDK+TD0dFZpQ
+ovdLIOvU+8RA2XrWSPmDSi4ywOFt9I70VxOWbR9rbfQcvXLRaJA1FOJa2ZArMhHy
+CULubdIfA4BO7mOmyLX63DXgjZqu703oW4W5RFmjc+sa9xmoSdlCYflpgXX/xSqG
+VmDSPECCeUQc9NZwlOM4i7+iPwCymQ==
+=E/m2
 -----END PGP SIGNATURE-----
 
---smwEq19A8LfCcchg--
+--w5h1T0k99Bnkn5Gc--

@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54EF874F0D5
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 15:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CE8374F0D7
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 15:56:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 60EB6E0F;
-	Tue, 11 Jul 2023 15:55:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60EB6E0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56B18EAD;
+	Tue, 11 Jul 2023 15:55:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56B18EAD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689083781;
-	bh=IeVSPWVD107VIF34v9BU3Oj6m3Q5DOG73amK5fjo1Vs=;
+	s=default; t=1689083799;
+	bh=8Fi7Z+SejqB8FmLnWihYsJBZfmhjua3hB69p3/WVjRY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=J1WFoIaZHxnGes/dcC/IR4C5u6Kv3F46NVvkVc55MIx/uyPTfN3Keyfu/0yA6lwRf
-	 9DW6KSWnHPcSaGGMhvsz9xGeh9c6XyTTmQwTBzyo90XHkU4f/vqQulFdqKT8bFTcy4
-	 syHC4pzY3/lgB3eheQljYLaygUltEnIr1PPJjNgY=
+	b=BhPNcYjnik8qhoRARVphvZzLslp+Gr56LY2WjqqSDITQgCpvAxJ3eiR4G1w3qn1l1
+	 qj6IhVv1UG3Y/XdBN4XwyRDB/MhsL+6tiGBR+ioOISB4GJB1Pk3O38wIChMOUoik0V
+	 CtR2XDXnuwIIWxRonOn9+1VDtvSXbcpNKPZ99YLQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5AE3EF8060C; Tue, 11 Jul 2023 15:52:23 +0200 (CEST)
+	id 049EEF80619; Tue, 11 Jul 2023 15:52:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 803B2F8060C;
-	Tue, 11 Jul 2023 15:52:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C17EF80236;
+	Tue, 11 Jul 2023 15:52:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 18F22F80153; Mon, 10 Jul 2023 17:50:12 +0200 (CEST)
+	id 32567F8053B; Mon, 10 Jul 2023 17:50:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=unavailable autolearn_force=no version=3.4.6
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0B57EF80551
+	by alsa1.perex.cz (Postfix) with ESMTPS id 723FCF8047D
 	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 17:49:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B57EF80551
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 723FCF8047D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=TdoYQlsG
+ header.s=Intel header.b=T/q2tMyf
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689004197; x=1720540197;
+  t=1689004196; x=1720540196;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=IeVSPWVD107VIF34v9BU3Oj6m3Q5DOG73amK5fjo1Vs=;
-  b=TdoYQlsGDXsYZA6T2j+2KQZvx9aGeu6WjJmJyQOgAb6A5oGdaSdfDK+C
-   +pClL+xvVdQ9uWeWTrXsN6vGJ7PiDQXtwzQMy+lXT0XpkzXqDTkcJWLJ+
-   rSqTwwx4xWvZtjoMgwgYWusTQjRfVGVnxSbIkQM7ZiOtrmbY1pVusMh50
-   qCitk7pjQkgPn6O46Z01g/UvxkJdpxxL351hc5ajAqsJ9M0OTWyAn6ow9
-   mTzO0OIafQE9A9iwlh7VwS4jooK5s9ovpdtd4eu8yeLwJRBXfK3YdqafJ
-   7emU7RQOmfTsWu2UcE8lfmr7KAcHMYF8NhVsiuMqLKE57GvW7IgFvwv8Z
+  bh=8Fi7Z+SejqB8FmLnWihYsJBZfmhjua3hB69p3/WVjRY=;
+  b=T/q2tMyf5dvVTbUAv5VojIjirpzEPe52CPtefPOWRj2ExqDJ65lDFqDd
+   zSsk8vKmPGzVFJV5oBq/x6Trz3Mybb+uXwxhB5qLgUQJe9oZfKYGPjo2i
+   cYCz1JP4iQkES5CBfNi3FjKqTJny3Qa5aJAfx7k49hHIf3sTPbj+hQI6z
+   8CnLdHtXaqfX0apksAltxhU4oESGBvBP5kXePjCT/V6Yg9IxaH5ROo8C9
+   bw0dnw09hRn8z07/tCWPO+HIkvQV0p2EE4GaDGX5FJ8iLGEEbrgvaiTBc
+   vgOg7Z42xVWu9qSVbR5a6DA1LUF+x/dikp9arPNQ07VuUr1pD34bPIjLP
    w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="361842606"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="349185524"
 X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="361842606"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 08:49:52 -0700
+   d="scan'208";a="349185524"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 08:49:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720743965"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="844921926"
 X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="720743965"
+   d="scan'208";a="844921926"
 Received: from black.fi.intel.com ([10.237.72.28])
-  by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 08:49:41 -0700
+  by orsmga004.jf.intel.com with ESMTP; 10 Jul 2023 08:49:41 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
-	id DE5C17AB; Mon, 10 Jul 2023 18:49:34 +0300 (EEST)
+	id E9B59854; Mon, 10 Jul 2023 18:49:34 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
 	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -123,10 +123,9 @@ Cc: Sanjay R Mehta <sanju.mehta@amd.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Richard Cochran <richardcochran@gmail.com>
-Subject: [PATCH v2 13/15] spi: Rename SPI_MASTER_GPIO_SS to
- SPI_CONTROLLER_GPIO_SS
-Date: Mon, 10 Jul 2023 18:49:30 +0300
-Message-Id: <20230710154932.68377-14-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 14/15] spi: Convert to SPI_CONTROLLER_HALF_DUPLEX
+Date: Mon, 10 Jul 2023 18:49:31 +0300
+Message-Id: <20230710154932.68377-15-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
@@ -140,15 +139,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: 3UMZZTHI3IT7ZUAUCMNN3FOBF7ZKFJBQ
-X-Message-ID-Hash: 3UMZZTHI3IT7ZUAUCMNN3FOBF7ZKFJBQ
-X-Mailman-Approved-At: Tue, 11 Jul 2023 13:52:07 +0000
+Message-ID-Hash: 6I677TUI4AAW4AORBAWWEFHYRQQFVEI5
+X-Message-ID-Hash: 6I677TUI4AAW4AORBAWWEFHYRQQFVEI5
+X-Mailman-Approved-At: Tue, 11 Jul 2023 13:52:08 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3UMZZTHI3IT7ZUAUCMNN3FOBF7ZKFJBQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6I677TUI4AAW4AORBAWWEFHYRQQFVEI5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -157,206 +156,180 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Rename SPI_MASTER_GPIO_SS to SPI_CONTROLLER_GPIO_SS and
-convert the users to SPI_CONTROLLER_GPIO_SS to follow
-the new naming shema.
+Convert the users under SPI subsystem to SPI_CONTROLLER_HALF_DUPLEX.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi-ath79.c    | 2 +-
- drivers/spi/spi-atmel.c    | 2 +-
- drivers/spi/spi-bitbang.c  | 6 +++---
- drivers/spi/spi-davinci.c  | 2 +-
- drivers/spi/spi-dw-core.c  | 2 +-
- drivers/spi/spi-gpio.c     | 2 +-
- drivers/spi/spi-imx.c      | 2 +-
- drivers/spi/spi-orion.c    | 2 +-
- drivers/spi/spi-rockchip.c | 2 +-
- drivers/spi/spi-sifive.c   | 2 +-
- drivers/spi/spi.c          | 4 ++--
- include/linux/spi/spi.h    | 3 +--
- 12 files changed, 15 insertions(+), 16 deletions(-)
+ drivers/spi/spi-amd.c             | 2 +-
+ drivers/spi/spi-cavium-thunderx.c | 2 +-
+ drivers/spi/spi-falcon.c          | 2 +-
+ drivers/spi/spi-lp8841-rtc.c      | 2 +-
+ drivers/spi/spi-mxs.c             | 2 +-
+ drivers/spi/spi-omap-uwire.c      | 2 +-
+ drivers/spi/spi-pic32-sqi.c       | 2 +-
+ drivers/spi/spi-qcom-qspi.c       | 2 +-
+ drivers/spi/spi-rockchip-sfc.c    | 2 +-
+ drivers/spi/spi-sprd-adi.c        | 2 +-
+ drivers/spi/spi-ti-qspi.c         | 2 +-
+ drivers/spi/spi-xcomm.c           | 2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/spi/spi-ath79.c b/drivers/spi/spi-ath79.c
-index d3dd21386f12..1b6d977d111c 100644
---- a/drivers/spi/spi-ath79.c
-+++ b/drivers/spi/spi-ath79.c
-@@ -185,7 +185,7 @@ static int ath79_spi_probe(struct platform_device *pdev)
+diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
+index fecead757a3c..b19766571f28 100644
+--- a/drivers/spi/spi-amd.c
++++ b/drivers/spi/spi-amd.c
+@@ -404,7 +404,7 @@ static int amd_spi_probe(struct platform_device *pdev)
+ 	master->bus_num = 0;
+ 	master->num_chipselect = 4;
+ 	master->mode_bits = 0;
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->max_speed_hz = AMD_SPI_MAX_HZ;
+ 	master->min_speed_hz = AMD_SPI_MIN_HZ;
+ 	master->setup = amd_spi_master_setup;
+diff --git a/drivers/spi/spi-cavium-thunderx.c b/drivers/spi/spi-cavium-thunderx.c
+index 60c0d6934654..535f7eb9fa69 100644
+--- a/drivers/spi/spi-cavium-thunderx.c
++++ b/drivers/spi/spi-cavium-thunderx.c
+@@ -64,7 +64,7 @@ static int thunderx_spi_probe(struct pci_dev *pdev,
+ 		p->sys_freq = SYS_FREQ_DEFAULT;
+ 	dev_info(dev, "Set system clock to %u\n", p->sys_freq);
  
- 	host->use_gpio_descriptors = true;
- 	host->bits_per_word_mask = SPI_BPW_RANGE_MASK(1, 32);
--	host->flags = SPI_MASTER_GPIO_SS;
-+	host->flags = SPI_CONTROLLER_GPIO_SS;
- 	host->num_chipselect = 3;
- 	host->mem_ops = &ath79_mem_ops;
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->num_chipselect = 4;
+ 	master->mode_bits = SPI_CPHA | SPI_CPOL | SPI_CS_HIGH |
+ 			    SPI_LSB_FIRST | SPI_3WIRE;
+diff --git a/drivers/spi/spi-falcon.c b/drivers/spi/spi-falcon.c
+index 4c103dff0d44..8a8414cbb400 100644
+--- a/drivers/spi/spi-falcon.c
++++ b/drivers/spi/spi-falcon.c
+@@ -401,7 +401,7 @@ static int falcon_sflash_probe(struct platform_device *pdev)
+ 	priv->master = master;
  
-diff --git a/drivers/spi/spi-atmel.c b/drivers/spi/spi-atmel.c
-index 0865993005b2..9674499ed0a6 100644
---- a/drivers/spi/spi-atmel.c
-+++ b/drivers/spi/spi-atmel.c
-@@ -1476,7 +1476,7 @@ static int atmel_spi_probe(struct platform_device *pdev)
- 	host->num_chipselect = 4;
- 	host->setup = atmel_spi_setup;
- 	host->flags = (SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX |
--			SPI_MASTER_GPIO_SS);
-+			SPI_CONTROLLER_GPIO_SS);
- 	host->transfer_one = atmel_spi_one_transfer;
- 	host->set_cs = atmel_spi_set_cs;
- 	host->cleanup = atmel_spi_cleanup;
-diff --git a/drivers/spi/spi-bitbang.c b/drivers/spi/spi-bitbang.c
-index 862f209cada1..ecd44016c197 100644
---- a/drivers/spi/spi-bitbang.c
-+++ b/drivers/spi/spi-bitbang.c
-@@ -349,11 +349,11 @@ int spi_bitbang_init(struct spi_bitbang *bitbang)
- 	/*
- 	 * We only need the chipselect callback if we are actually using it.
- 	 * If we just use GPIO descriptors, it is surplus. If the
--	 * SPI_MASTER_GPIO_SS flag is set, we always need to call the
-+	 * SPI_CONTROLLER_GPIO_SS flag is set, we always need to call the
- 	 * driver-specific chipselect routine.
- 	 */
- 	custom_cs = (!master->use_gpio_descriptors ||
--		     (master->flags & SPI_MASTER_GPIO_SS));
-+		     (master->flags & SPI_CONTROLLER_GPIO_SS));
- 
- 	if (custom_cs && !bitbang->chipselect)
- 		return -EINVAL;
-@@ -371,7 +371,7 @@ int spi_bitbang_init(struct spi_bitbang *bitbang)
- 	master->transfer_one = spi_bitbang_transfer_one;
- 	/*
- 	 * When using GPIO descriptors, the ->set_cs() callback doesn't even
--	 * get called unless SPI_MASTER_GPIO_SS is set.
-+	 * get called unless SPI_CONTROLLER_GPIO_SS is set.
- 	 */
- 	if (custom_cs)
- 		master->set_cs = spi_bitbang_set_cs;
-diff --git a/drivers/spi/spi-davinci.c b/drivers/spi/spi-davinci.c
-index 014392459d5e..7ea2ac053052 100644
---- a/drivers/spi/spi-davinci.c
-+++ b/drivers/spi/spi-davinci.c
-@@ -939,7 +939,7 @@ static int davinci_spi_probe(struct platform_device *pdev)
- 	master->bus_num = pdev->id;
- 	master->num_chipselect = pdata->num_chipselect;
- 	master->bits_per_word_mask = SPI_BPW_RANGE_MASK(2, 16);
--	master->flags = SPI_CONTROLLER_MUST_RX | SPI_MASTER_GPIO_SS;
-+	master->flags = SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_GPIO_SS;
- 	master->setup = davinci_spi_setup;
- 	master->cleanup = davinci_spi_cleanup;
- 	master->can_dma = davinci_spi_can_dma;
-diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-index a8ba41ad4541..45f5acc26b1d 100644
---- a/drivers/spi/spi-dw-core.c
-+++ b/drivers/spi/spi-dw-core.c
-@@ -932,7 +932,7 @@ int dw_spi_add_host(struct device *dev, struct dw_spi *dws)
- 	if (dws->mem_ops.exec_op)
- 		master->mem_ops = &dws->mem_ops;
- 	master->max_speed_hz = dws->max_freq;
--	master->flags = SPI_MASTER_GPIO_SS;
-+	master->flags = SPI_CONTROLLER_GPIO_SS;
- 	master->auto_runtime_pm = true;
- 
- 	/* Get default rx sample delay */
-diff --git a/drivers/spi/spi-gpio.c b/drivers/spi/spi-gpio.c
-index 85e149ec2910..612db477ad12 100644
---- a/drivers/spi/spi-gpio.c
-+++ b/drivers/spi/spi-gpio.c
-@@ -434,7 +434,7 @@ static int spi_gpio_probe(struct platform_device *pdev)
- 	 * line, that we need to do on selection. This makes the local
- 	 * callback for chipselect always get called.
- 	 */
--	master->flags |= SPI_MASTER_GPIO_SS;
-+	master->flags |= SPI_CONTROLLER_GPIO_SS;
- 	bb->chipselect = spi_gpio_chipselect;
- 	bb->set_line_direction = spi_gpio_set_direction;
- 
-diff --git a/drivers/spi/spi-imx.c b/drivers/spi/spi-imx.c
-index 528ae46c087f..8d97f2b32c2b 100644
---- a/drivers/spi/spi-imx.c
-+++ b/drivers/spi/spi-imx.c
-@@ -1779,7 +1779,7 @@ static int spi_imx_probe(struct platform_device *pdev)
- 
- 	if (is_imx51_ecspi(spi_imx) || is_imx53_ecspi(spi_imx)) {
- 		controller->max_native_cs = 4;
--		controller->flags |= SPI_MASTER_GPIO_SS;
-+		controller->flags |= SPI_CONTROLLER_GPIO_SS;
- 	}
- 
- 	spi_imx->spi_drctl = spi_drctl;
-diff --git a/drivers/spi/spi-orion.c b/drivers/spi/spi-orion.c
-index ad9e83e34297..4882aafd0505 100644
---- a/drivers/spi/spi-orion.c
-+++ b/drivers/spi/spi-orion.c
-@@ -677,7 +677,7 @@ static int orion_spi_probe(struct platform_device *pdev)
- 	master->bits_per_word_mask = SPI_BPW_MASK(8) | SPI_BPW_MASK(16);
- 	master->auto_runtime_pm = true;
- 	master->use_gpio_descriptors = true;
--	master->flags = SPI_MASTER_GPIO_SS;
-+	master->flags = SPI_CONTROLLER_GPIO_SS;
- 
+ 	master->mode_bits = SPI_MODE_3;
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->setup = falcon_sflash_setup;
+ 	master->transfer_one_message = falcon_sflash_xfer_one;
+ 	master->dev.of_node = pdev->dev.of_node;
+diff --git a/drivers/spi/spi-lp8841-rtc.c b/drivers/spi/spi-lp8841-rtc.c
+index ccaa7a946359..c6810720b3b5 100644
+--- a/drivers/spi/spi-lp8841-rtc.c
++++ b/drivers/spi/spi-lp8841-rtc.c
+@@ -191,7 +191,7 @@ spi_lp8841_rtc_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  	platform_set_drvdata(pdev, master);
  
-diff --git a/drivers/spi/spi-rockchip.c b/drivers/spi/spi-rockchip.c
-index 143ede958ac1..a37943847e81 100644
---- a/drivers/spi/spi-rockchip.c
-+++ b/drivers/spi/spi-rockchip.c
-@@ -858,7 +858,7 @@ static int rockchip_spi_probe(struct platform_device *pdev)
- 		ctlr->mode_bits |= SPI_NO_CS;
- 		ctlr->slave_abort = rockchip_spi_slave_abort;
- 	} else {
--		ctlr->flags = SPI_MASTER_GPIO_SS;
-+		ctlr->flags = SPI_CONTROLLER_GPIO_SS;
- 		ctlr->max_native_cs = ROCKCHIP_SPI_MAX_CS_NUM;
- 		/*
- 		 * rk spi0 has two native cs, spi1..5 one cs only
-diff --git a/drivers/spi/spi-sifive.c b/drivers/spi/spi-sifive.c
-index dae9e097c333..2f77dae85386 100644
---- a/drivers/spi/spi-sifive.c
-+++ b/drivers/spi/spi-sifive.c
-@@ -379,7 +379,7 @@ static int sifive_spi_probe(struct platform_device *pdev)
- 	 * we need to "left-align" the bits (unless SPI_LSB_FIRST)
- 	 */
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->mode_bits = SPI_CS_HIGH | SPI_3WIRE | SPI_LSB_FIRST;
+ 
+ 	master->bus_num = pdev->id;
+diff --git a/drivers/spi/spi-mxs.c b/drivers/spi/spi-mxs.c
+index 963a53dd680b..cd0e7ae07162 100644
+--- a/drivers/spi/spi-mxs.c
++++ b/drivers/spi/spi-mxs.c
+@@ -572,7 +572,7 @@ static int mxs_spi_probe(struct platform_device *pdev)
+ 	master->mode_bits = SPI_CPOL | SPI_CPHA;
+ 	master->num_chipselect = 3;
+ 	master->dev.of_node = np;
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->auto_runtime_pm = true;
+ 
+ 	spi = spi_master_get_devdata(master);
+diff --git a/drivers/spi/spi-omap-uwire.c b/drivers/spi/spi-omap-uwire.c
+index 902d2e0c1f2f..f89aa9e52c23 100644
+--- a/drivers/spi/spi-omap-uwire.c
++++ b/drivers/spi/spi-omap-uwire.c
+@@ -486,7 +486,7 @@ static int uwire_probe(struct platform_device *pdev)
+ 	/* the spi->mode bits understood by this driver: */
+ 	master->mode_bits = SPI_CPOL | SPI_CPHA | SPI_CS_HIGH;
+ 	master->bits_per_word_mask = SPI_BPW_RANGE_MASK(1, 16);
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 
+ 	master->bus_num = 2;	/* "official" */
+ 	master->num_chipselect = 4;
+diff --git a/drivers/spi/spi-pic32-sqi.c b/drivers/spi/spi-pic32-sqi.c
+index 51dfb49523f3..5cbebcf26a2a 100644
+--- a/drivers/spi/spi-pic32-sqi.c
++++ b/drivers/spi/spi-pic32-sqi.c
+@@ -648,7 +648,7 @@ static int pic32_sqi_probe(struct platform_device *pdev)
+ 	master->dev.of_node	= pdev->dev.of_node;
+ 	master->mode_bits	= SPI_MODE_3 | SPI_MODE_0 | SPI_TX_DUAL |
+ 				  SPI_RX_DUAL | SPI_TX_QUAD | SPI_RX_QUAD;
+-	master->flags		= SPI_MASTER_HALF_DUPLEX;
++	master->flags		= SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->can_dma		= pic32_sqi_can_dma;
+ 	master->bits_per_word_mask	= SPI_BPW_RANGE_MASK(8, 32);
+ 	master->transfer_one_message	= pic32_sqi_one_message;
+diff --git a/drivers/spi/spi-qcom-qspi.c b/drivers/spi/spi-qcom-qspi.c
+index a8a683d6145c..5a98c52bad32 100644
+--- a/drivers/spi/spi-qcom-qspi.c
++++ b/drivers/spi/spi-qcom-qspi.c
+@@ -724,7 +724,7 @@ static int qcom_qspi_probe(struct platform_device *pdev)
+ 	master->mode_bits = SPI_MODE_0 |
+ 			    SPI_TX_DUAL | SPI_RX_DUAL |
+ 			    SPI_TX_QUAD | SPI_RX_QUAD;
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->prepare_message = qcom_qspi_prepare_message;
+ 	master->transfer_one = qcom_qspi_transfer_one;
+ 	master->handle_err = qcom_qspi_handle_err;
+diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
+index 583f4187f030..bd550e76ab3d 100644
+--- a/drivers/spi/spi-rockchip-sfc.c
++++ b/drivers/spi/spi-rockchip-sfc.c
+@@ -565,7 +565,7 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
+ 	if (!master)
+ 		return -ENOMEM;
+ 
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->mem_ops = &rockchip_sfc_mem_ops;
+ 	master->dev.of_node = pdev->dev.of_node;
+ 	master->mode_bits = SPI_TX_QUAD | SPI_TX_DUAL | SPI_RX_QUAD | SPI_RX_DUAL;
+diff --git a/drivers/spi/spi-sprd-adi.c b/drivers/spi/spi-sprd-adi.c
+index 22e39c4c12c4..94d16aadfa44 100644
+--- a/drivers/spi/spi-sprd-adi.c
++++ b/drivers/spi/spi-sprd-adi.c
+@@ -580,7 +580,7 @@ static int sprd_adi_probe(struct platform_device *pdev)
+ 	ctlr->dev.of_node = pdev->dev.of_node;
+ 	ctlr->bus_num = pdev->id;
+ 	ctlr->num_chipselect = num_chipselect;
+-	ctlr->flags = SPI_MASTER_HALF_DUPLEX;
++	ctlr->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	ctlr->bits_per_word_mask = 0;
+ 	ctlr->transfer_one = sprd_adi_transfer_one;
+ 
+diff --git a/drivers/spi/spi-ti-qspi.c b/drivers/spi/spi-ti-qspi.c
+index 5914335ff63d..bf4b40289bee 100644
+--- a/drivers/spi/spi-ti-qspi.c
++++ b/drivers/spi/spi-ti-qspi.c
+@@ -770,7 +770,7 @@ static int ti_qspi_probe(struct platform_device *pdev)
+ 
+ 	master->mode_bits = SPI_CPOL | SPI_CPHA | SPI_RX_DUAL | SPI_RX_QUAD;
+ 
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->setup = ti_qspi_setup;
+ 	master->auto_runtime_pm = true;
+ 	master->transfer_one_message = ti_qspi_start_transfer_one;
+diff --git a/drivers/spi/spi-xcomm.c b/drivers/spi/spi-xcomm.c
+index ae6218bcd02a..a3d57554f5ba 100644
+--- a/drivers/spi/spi-xcomm.c
++++ b/drivers/spi/spi-xcomm.c
+@@ -218,7 +218,7 @@ static int spi_xcomm_probe(struct i2c_client *i2c)
+ 	master->num_chipselect = 16;
+ 	master->mode_bits = SPI_CPHA | SPI_CPOL | SPI_3WIRE;
  	master->bits_per_word_mask = SPI_BPW_MASK(8);
--	master->flags = SPI_CONTROLLER_MUST_TX | SPI_MASTER_GPIO_SS;
-+	master->flags = SPI_CONTROLLER_MUST_TX | SPI_CONTROLLER_GPIO_SS;
- 	master->prepare_message = sifive_spi_prepare_message;
- 	master->set_cs = sifive_spi_set_cs;
- 	master->transfer_one = sifive_spi_transfer_one;
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 06a92a3a5746..bcabae98cb7c 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -995,7 +995,7 @@ static void spi_set_cs(struct spi_device *spi, bool enable, bool force)
- 				gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), activate);
- 		}
- 		/* Some SPI masters need both GPIO CS & slave_select */
--		if ((spi->controller->flags & SPI_MASTER_GPIO_SS) &&
-+		if ((spi->controller->flags & SPI_CONTROLLER_GPIO_SS) &&
- 		    spi->controller->set_cs)
- 			spi->controller->set_cs(spi, !enable);
- 	} else if (spi->controller->set_cs) {
-@@ -3020,7 +3020,7 @@ static int spi_get_gpio_descs(struct spi_controller *ctlr)
- 
- 	ctlr->unused_native_cs = ffs(~native_cs_mask) - 1;
- 
--	if ((ctlr->flags & SPI_MASTER_GPIO_SS) && num_cs_gpios &&
-+	if ((ctlr->flags & SPI_CONTROLLER_GPIO_SS) && num_cs_gpios &&
- 	    ctlr->max_native_cs && ctlr->unused_native_cs >= ctlr->max_native_cs) {
- 		dev_err(dev, "No unused native chip select available\n");
- 		return -EINVAL;
-diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index cdc3addfe117..43f6c3f71a76 100644
---- a/include/linux/spi/spi.h
-+++ b/include/linux/spi/spi.h
-@@ -578,8 +578,7 @@ struct spi_controller {
- #define SPI_CONTROLLER_NO_TX		BIT(2)	/* Can't do buffer write */
- #define SPI_CONTROLLER_MUST_RX		BIT(3)	/* Requires rx */
- #define SPI_CONTROLLER_MUST_TX		BIT(4)	/* Requires tx */
--
--#define SPI_MASTER_GPIO_SS		BIT(5)	/* GPIO CS must select slave */
-+#define SPI_CONTROLLER_GPIO_SS		BIT(5)	/* GPIO CS must select slave */
- 
- 	/* Flag indicating if the allocation of this struct is devres-managed */
- 	bool			devm_allocated;
+-	master->flags = SPI_MASTER_HALF_DUPLEX;
++	master->flags = SPI_CONTROLLER_HALF_DUPLEX;
+ 	master->transfer_one_message = spi_xcomm_transfer_one;
+ 	master->dev.of_node = i2c->dev.of_node;
+ 	i2c_set_clientdata(i2c, master);
 -- 
 2.40.0.1.gaa8946217a0b
 

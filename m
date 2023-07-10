@@ -2,98 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5ABA74D9D9
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 17:25:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A59374DB3B
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 18:37:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC439201;
-	Mon, 10 Jul 2023 17:24:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC439201
+	by alsa0.perex.cz (Postfix) with ESMTPS id 019BA206;
+	Mon, 10 Jul 2023 18:36:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 019BA206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689002704;
-	bh=doEGXCzGELXBjhlHMMHj2D10kVYrjVBiIyTRpTAKujA=;
+	s=default; t=1689007061;
+	bh=AD97xExNl4d84kadkKD325pdkAS93Gnf4sgXQoaxnZc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nX9e5uhgScLk5hmcgt/nXKWs4Jk+JLmiOJkv/TJeA4sITnhTxivlWkjH9ZKu8FokQ
-	 /oVLGIFVDVFXoMIRorucEyPcNobAbNlM1JlCE9txRfuAICSqCxzvETSo23xM3Ff52o
-	 Oy9YLTg2Pje5juGyZ+S1Upzsa7YXydP6ug/qxFyk=
+	b=F7ksDgcx5tC4i4ZCHnFKJgNZFE8D4UOeg3ez3lac10ltaiF0BHgjIhgkS1Q4Mr1oq
+	 9auUSG44ckIOGBsXzrjq/ZnXCZmcgL/kt7OL/F9UQvrtoOkbTjO5Xxg6CbucYfRvOA
+	 LqdEtFKN4NV0acZZl0Vm9t/lB9BY+Fu3QRsh8dg4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99B32F80544; Mon, 10 Jul 2023 17:23:53 +0200 (CEST)
+	id 57DE7F80544; Mon, 10 Jul 2023 18:36:50 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29C98F80153;
-	Mon, 10 Jul 2023 17:23:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA186F80153;
+	Mon, 10 Jul 2023 18:36:49 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 79A31F80249; Mon, 10 Jul 2023 17:23:50 +0200 (CEST)
+	id 14881F80249; Mon, 10 Jul 2023 18:36:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4720BF80093
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 17:23:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4720BF80093
-Received: by mail-io1-f50.google.com with SMTP id
- ca18e2360f4ac-78666f06691so146966839f.0
-        for <alsa-devel@alsa-project.org>;
- Mon, 10 Jul 2023 08:23:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689002625; x=1691594625;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AgntDtiN/HaSOPUrDKiRPniiMg0bi29a5uBEmLG2Jvc=;
-        b=dKicTRwckYnWzzw9aafaTpEs4pHGgkY1s93K8fjltZfRZ8e8jnYdETx2yEAcmaGOOt
-         2aF1AQEygtDPT4fRYnd43E+Ovx6i3xYdhFEHMMGVdYpyEIu76fsN4/RQclTunr3qVt1+
-         /e9TpK++FRGXl1oRQibH6O4p/BQ+d6axkwyA1JWV4EMa8Uy6Ko+rFcXodnHhkDK934jA
-         736I7T512Nyxx9raRo95VfctlG49sVMthFVjj3oT6pHVPBzbxX1yWyf+iXFP5Rmqrq4g
-         NufUqohN375vKi61SSORTTl6yFKG5gggNn1CYzilv5ulxEmh5utvY/GzwTMKEXF04dyT
-         VDdw==
-X-Gm-Message-State: ABy/qLYtMBDnU+yOC1isje+8NQl5U5HXYS1t98w3yT2NJ+MtM8vPSZoy
-	p6SgUUjsZQWF3fkP2YsXZQ==
-X-Google-Smtp-Source: 
- APBJJlEIrl+JxrkL+m7AoCnXnNiZ/7i1ohm2Fy0z/ryA9efk1SBhej0LHDNHSpv/cn6JwOv2F1V8Pg==
-X-Received: by 2002:a6b:5903:0:b0:786:e612:72f8 with SMTP id
- n3-20020a6b5903000000b00786e61272f8mr8371903iob.21.1689002625063;
-        Mon, 10 Jul 2023 08:23:45 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.250])
-        by smtp.gmail.com with ESMTPSA id
- f7-20020a056638022700b0042b1cd4c096sm3204527jaq.74.2023.07.10.08.23.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Jul 2023 08:23:44 -0700 (PDT)
-Received: (nullmailer pid 2002022 invoked by uid 1000);
-	Mon, 10 Jul 2023 15:23:42 -0000
-Date: Mon, 10 Jul 2023 09:23:42 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?utf-8?B?IkFtYWRldXN6IFPFgmF3acWEc2tpIg==?=
- <amadeuszx.slawinski@linux.intel.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 15/15] ASoC: dt-bindings: renesas,rsnd.yaml: enable
- multi ports for multi Component support
-Message-ID: <20230710152342.GA1997421-robh@kernel.org>
-References: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
- <871qhgo91l.wl-kuninori.morimoto.gx@renesas.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id D0058F80093
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 18:36:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0058F80093
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EmTrTk5j
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 778CD61118;
+	Mon, 10 Jul 2023 16:36:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D151C433C7;
+	Mon, 10 Jul 2023 16:36:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689006993;
+	bh=AD97xExNl4d84kadkKD325pdkAS93Gnf4sgXQoaxnZc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EmTrTk5j+Te/PpiLnGRf7RXv23Ll6SmZ3onfIrQDWSlcXzdLzeJiNp34vp0Lvzcx3
+	 1VeiAo0BBxDKz9aBiiMJbwiz/uENORqMQ0DGn1RtFQ7oy4sU06ere2B5gvFfyQ4T/K
+	 qRSScN9VA3Yfsq+GoD1/PHIxjXCPyS71pSAFmJcpTnIep9ZGLFVU2MRwv1C3uyDzzQ
+	 PNQjjtkCwxFUAwzYHyIdskA1P1KGDwYGRJUvAKpqcSBEGJEF2xpWwuPWvLsQsxxAWM
+	 GQ5K6DHT5Smi+Qfrzfn/nGxgQ8R/aDV6/zONQUtJCczf5/z4McP1y76BrNhxZ6JdmO
+	 100S1CgHQ9MaA==
+Date: Mon, 10 Jul 2023 17:36:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: bcousson@baylibre.com, tony@atomide.com, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
+	peter.ujfalusi@gmail.com, jarkko.nikula@bitmer.com,
+	dmitry.torokhov@gmail.com, linux-omap@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alsa-devel@alsa-project.org
+Subject: Re: [PATCH 2/3] ASoC: tlv320aic3x: use BCLK instead of MCLK if not
+ in master mode
+Message-ID: <6144f294-939b-4fb7-a4c1-ca5a6dabd86b@sirena.org.uk>
+References: <20230705190324.355282-1-andreas@kemnade.info>
+ <20230705190324.355282-3-andreas@kemnade.info>
+ <15d3fc6e-d294-4968-bc7d-66307efc92db@sirena.org.uk>
+ <20230705215611.5f96584e@aktux>
+ <eeba3297-acdb-45ca-a80d-40d8b3a90231@sirena.org.uk>
+ <20230708150319.202789c1@aktux>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vHDl3oKRCXKY7VQ0"
 Content-Disposition: inline
-In-Reply-To: <871qhgo91l.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID-Hash: M4HQCQ2D6WVVOM3UGK3WIQOUKPDDCYN3
-X-Message-ID-Hash: M4HQCQ2D6WVVOM3UGK3WIQOUKPDDCYN3
-X-MailFrom: robherring2@gmail.com
+In-Reply-To: <20230708150319.202789c1@aktux>
+X-Cookie: Do you have lysdexia?
+Message-ID-Hash: QP4IXR7XHZIWOOVWVK5N6GKNSXFEZKI3
+X-Message-ID-Hash: QP4IXR7XHZIWOOVWVK5N6GKNSXFEZKI3
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M4HQCQ2D6WVVOM3UGK3WIQOUKPDDCYN3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QP4IXR7XHZIWOOVWVK5N6GKNSXFEZKI3/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,82 +111,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 10, 2023 at 10:21:58AM +0900, Kuninori Morimoto wrote:
-> To enable multi Component support, "multi ports" is needed for Audio Graph
-> Card/Card2, and "multi rcar_sound,dai" is needed for Simple Audio Card.
-> This patch enable these.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  .../bindings/sound/renesas,rsnd.yaml          | 24 ++++++++++++-------
->  1 file changed, 16 insertions(+), 8 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> index d9808b130e8d..13a5a0a10fe6 100644
-> --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> @@ -91,6 +91,12 @@ properties:
->        it must be 1 if your system has audio_clkout0/1/2/3
->      enum: [0, 1]
->  
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
->    clock-frequency:
->      description: for audio_clkout0/1/2/3
->  
-> @@ -117,13 +123,7 @@ properties:
->      description: List of necessary clock names.
->      # details are defined below
->  
-> -  ports:
-> -    $ref: audio-graph-port.yaml#/definitions/port-base
-> -    unevaluatedProperties: false
-> -    patternProperties:
-> -      '^port(@[0-9a-f]+)?$':
-> -        $ref: "#/definitions/port-def"
-> -
-> +  # ports is below
->    port:
->      $ref: "#/definitions/port-def"
->  
-> @@ -242,8 +242,9 @@ properties:
->            - interrupts
->      additionalProperties: false
->  
-> +patternProperties:
->    # For DAI base
-> -  rcar_sound,dai:
-> +  'rcar_sound,dai(@[0-9a-f]+)?$':
 
-With a unit-address you need a 'reg' property.
+--vHDl3oKRCXKY7VQ0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->      description: DAI subnode.
->      type: object
->      patternProperties:
-> @@ -263,6 +264,13 @@ properties:
->                - capture
->      additionalProperties: false
->  
-> +  'ports(@[0-9a-f]+)?$':
+On Sat, Jul 08, 2023 at 03:03:19PM +0200, Andreas Kemnade wrote:
+> Mark Brown <broonie@kernel.org> wrote:
 
-Multiple 'ports' nodes is not valid.
+> > Since we already have clock bindings we should use those to configure
+> > the clocks, there's several drivers that have added this support already
+> > - look for clock providers.
 
-Here too would need a 'reg' property. Did you test any of this because 
-that would be a dtc warning.
+> ok, looking around:
+> Just to make sure I am not running in a bad direction: Do you think
+> tlv320aic32x4{,-clk}.c is a good example? It is ignoring clk_id.=20
+> I was mentally bound to have to use clk_id there, so I did not found a go=
+od
+> solution.
 
-> +    $ref: audio-graph-port.yaml#/definitions/port-base
-> +    unevaluatedProperties: false
-> +    patternProperties:
-> +      '^port(@[0-9a-f]+)?$':
-> +        $ref: "#/definitions/port-def"
-> +
->  required:
->    - compatible
->    - reg
-> -- 
-> 2.25.1
-> 
+Yes, that looks like a good example - the whole thing here is to move
+away from using clk_id and to using the clock API to specify clocks.
+
+> So I guess I have to configure the chip as a master and using mclk and co=
+mpare
+> register dumps with the state we have now and the state after the changes,
+> additionally to check bclk functionality directly.
+
+You can probably get away with less but it's goot to be thorough.
+
+--vHDl3oKRCXKY7VQ0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsM4oACgkQJNaLcl1U
+h9DKTQf+KSiGFfJgn0+yCS95t/1zJ49EUaL2ZJUBjVK2dx2CDyvCcTr2/gdfUkK2
+klgsCubpCO1sj6X2Ogxw5b/el/L7wIIbWiR7pN/4GdCj3Dr6citfHmo4MPKlS0Z7
+CfdIVt781Xt2SfMNTxOkb6bE8+i80trmm4UTux5+llCVCw5s4fHI6lMngoIHypvA
+i5ngOyDYS0Op3tLf8/CEN+jYu7v1dltfwuEHfkghswSTT4OZF5Q3RfdVFrCBih7Z
+G6diu0etMQqdgoPp1gHkzxiYUw7/WJoWcrFVg0fAVgvPztaXR5J8FYBTZsnZhOmN
+V6V8i6RhYKQ/ESgvfjQUA8RojVXotA==
+=IDaC
+-----END PGP SIGNATURE-----
+
+--vHDl3oKRCXKY7VQ0--

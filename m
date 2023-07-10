@@ -2,78 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD9E274D5D9
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 14:39:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3305374D768
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jul 2023 15:22:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E467203;
-	Mon, 10 Jul 2023 14:38:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E467203
+	by alsa0.perex.cz (Postfix) with ESMTPS id 683CE206;
+	Mon, 10 Jul 2023 15:21:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 683CE206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1688992763;
-	bh=2I7Ns5P9Fqk5itIQUPMwgPj6Db+DdMBwViqY3DgUc6U=;
+	s=default; t=1688995358;
+	bh=ruJlO0wimIrsDY1JgPUqCqS7prBe1pSopi+dM4yYAWM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nPH8Ib9Wf8e2Iiv7cix6DkPYhsgHPaznJujILd1JX24JLm2yCn2aLJdlzOqHE76d0
-	 yeObtx7JrN3bICGjbrw3WBHxACkr856ercf3D2tlgF/YgP5K9U7lUnNJ2I2rAfXw7y
-	 SK6uPOQHvvFlV3FJpOE1gHvT9HaPN+PsMu61DO/g=
+	b=Q14xGUYh1xYFIss6kD4uk1u77ybHzukS/mrC6ZD/ya0qehJbEg25Ej4iwyzVkUPGo
+	 +VNNceLKoGB9O+Ne6Y6mxL7V62jH2vh0YHEulBhbFfXEQZHFy5GDQCu4+BJR/Xr+TG
+	 I/mXzVuY5zXLOpc2OhfgavcsLjySYx7AO6AKJ3aA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 776A9F8027B; Mon, 10 Jul 2023 14:38:32 +0200 (CEST)
+	id 217AEF8024E; Mon, 10 Jul 2023 15:21:25 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CD3BF80153;
-	Mon, 10 Jul 2023 14:38:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ADC5F80153;
+	Mon, 10 Jul 2023 15:21:25 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id F2FB5F80249; Mon, 10 Jul 2023 14:38:26 +0200 (CEST)
+	id DC5CFF80249; Mon, 10 Jul 2023 15:21:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E154BF800D2
-	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 14:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E154BF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 59B6AF800E4
+	for <alsa-devel@alsa-project.org>; Mon, 10 Jul 2023 15:21:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59B6AF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=B+4okRfM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1688992697; x=1720528697;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2I7Ns5P9Fqk5itIQUPMwgPj6Db+DdMBwViqY3DgUc6U=;
-  b=B+4okRfMay5cKaUdBt+YXEUfYbqaTA4Kasu+YT9xdGmni+KVM17qmUxL
-   PnfFtglMyqBYqNL6iIEuj2rH5anMQrdEzzi1SZhtT5OCSqn9jyc/mxMyB
-   UwtRgApnYc0mCFdK1HW4prul0fzeFMlMfMAiw7zJtPXYUjX9Tr/5CsoDj
-   TcUZ/gCOdOLOdHe7YtsXA+/16lFc5n5G4KFDI+d5qcpw8BiyHUIMAl2qU
-   wrLISuggLyOod80bm9px8ON9cpdW+hAZzfv0ct9P/BthW2d6XVDQH/sqf
-   OX/11tcqVnx8m9a65xIUJ9Q1wmSExLJ9BFy8RCbojm/Lh4NC+ULaJDtDJ
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="428025540"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="428025540"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 05:38:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="755983743"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200";
-   d="scan'208";a="755983743"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orsmga001.jf.intel.com with ESMTP; 10 Jul 2023 05:38:02 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qIq9Q-001YUr-0L;
-	Mon, 10 Jul 2023 15:38:00 +0300
-Date: Mon, 10 Jul 2023 15:37:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=tCUvqCtt
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C621F60DED;
+	Mon, 10 Jul 2023 13:21:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94191C433C7;
+	Mon, 10 Jul 2023 13:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1688995274;
+	bh=ruJlO0wimIrsDY1JgPUqCqS7prBe1pSopi+dM4yYAWM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tCUvqCttiPcwuUH6oQaeDTVlt/jVMTKddukpB3Rq2NTAjbzgaXhOs+IbQKiqA2zFS
+	 A9RwOziobHTKo8xtAoLCbw9/G5XP7z93lwwcMiVxafq8PiTNYdyOWz2ZmNVbJqaRu3
+	 p+o7GErUG6dN3D+2vdmSUok/vpvLEP/d4e2/6uVM8lFbtbK1g1KhHRcJ+YzSNSc8aV
+	 vzC9RTasZiyt6DNQvmgXjaDeqvMTkrDbkZFHHHz5OJ3MwZifaBQsXsj96SFX7XFS5/
+	 2yl7VTCIzPWHRNx1uEfr8lQDSlw+D72llgC2cC8KCiu81fGygjzL2Umg2d4uKSVdv1
+	 5QaNEib99pP6w==
+Date: Mon, 10 Jul 2023 14:21:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Yang Yingliang <yangyingliang@huawei.com>,
 	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
 	Kris Bahnsen <kris@embeddedts.com>,
@@ -101,21 +92,23 @@ Cc: Yang Yingliang <yangyingliang@huawei.com>,
 	Richard Cochran <richardcochran@gmail.com>
 Subject: Re: [PATCH v1 4/8] spi: Get rid of old SPI_MASTER_NO_.X and
  SPI_MASTER_MUST_.X
-Message-ID: <ZKv7p96D2B9vYd0J@smile.fi.intel.com>
+Message-ID: <7aff8759-cfca-47b5-b995-5260e5082c45@sirena.org.uk>
 References: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
  <20230710102751.83314-5-andriy.shevchenko@linux.intel.com>
  <1ffd5603-4140-4bf6-bfed-af70a6759bda@sirena.org.uk>
  <ZKvmkAP5ZuT6lGLN@smile.fi.intel.com>
  <ZKvnPXl9H+cQR8Ok@smile.fi.intel.com>
  <353027bf-6d2a-40de-9e18-8553864b343c@sirena.org.uk>
+ <ZKv7p96D2B9vYd0J@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Bc8mzeK4BJwaYeTa"
 Content-Disposition: inline
-In-Reply-To: <353027bf-6d2a-40de-9e18-8553864b343c@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: Z5K7LSNFISGXGWC7AQMVDR2N3TYWZQSF
-X-Message-ID-Hash: Z5K7LSNFISGXGWC7AQMVDR2N3TYWZQSF
-X-MailFrom: andriy.shevchenko@linux.intel.com
+In-Reply-To: <ZKv7p96D2B9vYd0J@smile.fi.intel.com>
+X-Cookie: Do you have lysdexia?
+Message-ID-Hash: LGDJ6ADQJ3MFAPT65VKBPC5MANW6FC7T
+X-Message-ID-Hash: LGDJ6ADQJ3MFAPT65VKBPC5MANW6FC7T
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -127,7 +120,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/Z5K7LSNFISGXGWC7AQMVDR2N3TYWZQSF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LGDJ6ADQJ3MFAPT65VKBPC5MANW6FC7T/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -136,35 +129,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 10, 2023 at 12:22:59PM +0100, Mark Brown wrote:
-> On Mon, Jul 10, 2023 at 02:10:53PM +0300, Andy Shevchenko wrote:
-> > On Mon, Jul 10, 2023 at 02:08:00PM +0300, Andy Shevchenko wrote:
-> > > On Mon, Jul 10, 2023 at 12:04:35PM +0100, Mark Brown wrote:
-> > > > On Mon, Jul 10, 2023 at 01:27:47PM +0300, Andy Shevchenko wrote:
-> 
-> > > > > Convert the users to SPI_CONTROLLER_NO_?X and SPI_CONTROLLER_MUST_.X
-> > > > > and kill the not used anymore definitions.
-> 
-> > > > The above is not what this change does:
-> 
-> > > How to improve it? I was sure that the form of "converting to something and
-> > > something" is clear...
-> 
-> > A wild guess, maybe you meant to split to two changes, one per each macro group?
-> 
-> No, doing TX and RX in one commit is fine.
 
-No, I meant one per _NO_ and _MUST_.
+--Bc8mzeK4BJwaYeTa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> > > > > -	controller->flags = SPI_MASTER_MUST_RX | SPI_MASTER_MUST_TX;
-> > > > > +	controller->flags = SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX;
-> 
-> What part of the above change is replacing _NO_ with _MUST_?
+On Mon, Jul 10, 2023 at 03:37:59PM +0300, Andy Shevchenko wrote:
+> On Mon, Jul 10, 2023 at 12:22:59PM +0100, Mark Brown wrote:
+> > On Mon, Jul 10, 2023 at 02:10:53PM +0300, Andy Shevchenko wrote:
 
-None, that's why assuming the split by name should be fine.
+> > > > > > Convert the users to SPI_CONTROLLER_NO_?X and SPI_CONTROLLER_MUST_.X
+> > > > > > and kill the not used anymore definitions.
 
--- 
-With Best Regards,
-Andy Shevchenko
+...
 
+> > > > > > -	controller->flags = SPI_MASTER_MUST_RX | SPI_MASTER_MUST_TX;
+> > > > > > +	controller->flags = SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX;
 
+> > What part of the above change is replacing _NO_ with _MUST_?
+
+> None, that's why assuming the split by name should be fine.
+
+That's what the above changelog sounds like it's trying to do (I'm not
+sure the change itself makes sense but the first thing I ran into when
+reviewing the patch), AFIACT you're missing a "from" in the changelog?
+
+--Bc8mzeK4BJwaYeTa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsBcAACgkQJNaLcl1U
+h9BDYgf/Sarsl9t6SagewIDl2ctlFPl7f++zP6SLId0C0LErq2lPLxZKf8tzzV5x
+7mUMpK3rPcygDeYAqOKLncxnrZp/i7yix/98fZtls9IesvOQa29aRYKVSvhKnB6y
+dHoZoMBdYj1Rbo/olUcS1xjzzZ0o1VUHkLsp9rjoMW4lcz6Hu3o8GSOq1pbc9lRd
+qlCYAjMqjR9K3te5I6FICKKGnIrXm2uxuzSPZl1G7LaN0THUZGZJvcBHjhR2PcJs
+K9i9m0gJ9xsQXDOQgLTcXrm8hdSF7yQoRI3TBZ7RXzdWeO3mjNjeHGbVDRr3DMZy
+Oici+Ga3mBLzIlFlF51Tg71+BGqcoQ==
+=NWL6
+-----END PGP SIGNATURE-----
+
+--Bc8mzeK4BJwaYeTa--

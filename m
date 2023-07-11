@@ -2,78 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A481674F22A
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:25:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228B474F22D
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:25:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEC63ED7;
-	Tue, 11 Jul 2023 16:24:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEC63ED7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F746F0D;
+	Tue, 11 Jul 2023 16:24:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F746F0D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689085524;
-	bh=g5docwgn1sedQFCIUNy5vO+RB2jnG5735hob/X5gUzk=;
+	s=default; t=1689085544;
+	bh=RVFLgj8cxsWZyvySjgaprTvsCfpSOgqQ4kC3+s/s1Fk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=OoJTYZRpfjfFZcEUCkDVHSIRTd83kVF2nzG06LJ8m92yWiDtS9DA+NCuxNEMp3vvN
-	 p04sgBpIvD69dzVJuHvBeOZ9BzlEeGB6HUTw5l61qUGXWMioC6p6tZ7Q4o1GtNIIIl
-	 QUJGGzHZO7d89m5k5j4pY/rMFBLqa90wGlxOemR0=
+	b=tXCtj4RyYXM72zfXs+kVs4f+uclSRME80GYqbqZDQLCp5zVRVj6v81/h7gaSxw5hq
+	 rm8dW+PnvNnwonxXoC/ZdWUpRSl9yTtqilIwm/9NWqNV62Tl7k0q/pMj5zVIy7mMFJ
+	 97GGEjjIEvUNCxQn5Pqc9HEaylo4pJAhmnEv1f6I=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 56AD1F805FA; Tue, 11 Jul 2023 16:21:54 +0200 (CEST)
+	id 10EDAF805FC; Tue, 11 Jul 2023 16:21:58 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD965F805F5;
-	Tue, 11 Jul 2023 16:21:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18418F805FC;
+	Tue, 11 Jul 2023 16:21:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D6822F80236; Tue, 11 Jul 2023 13:01:41 +0200 (CEST)
+	id E3D50F80236; Tue, 11 Jul 2023 13:06:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6446FF800E4
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 13:01:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6446FF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 7EDF3F800E4
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 13:06:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EDF3F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gn+op04x
+ header.s=Intel header.b=FsRgayC2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689073299; x=1720609299;
+  t=1689073601; x=1720609601;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=g5docwgn1sedQFCIUNy5vO+RB2jnG5735hob/X5gUzk=;
-  b=gn+op04xEtU/Y7R7NcC64GkAbjscdCuyYF2kgK9rjRPB3OVZsRs5oQsR
-   l/Fmb0Qu1AUQE8DfKEfiOswZ5yjccMWyehu+IjdTtC/VTtmkSNU6sTfLZ
-   t3AYX+NSZ7xOB+J6IGiMk8jKlErweRNuu4m98qwI/lt3xvzc/tAYprF9j
-   t/+EENxX9dtY5g7QUk7j6iGZP7oSygtMguXVFEIyaiHL1WdldRXB32STN
-   58GN3ROxXJ5XtNfq+Q5XFQSs15bE7MwAwjHGBeOQMWmCnh1qtNUZnu1cL
-   Sw+JxA/Xn7qvm66tPV1nb4ilHllSZdjO8dBcM17IVWvXlFr5mRrmyK5aD
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="368087972"
+  bh=RVFLgj8cxsWZyvySjgaprTvsCfpSOgqQ4kC3+s/s1Fk=;
+  b=FsRgayC2WX2Mg0PRtIac6LfuLCQaoBMxNSC6BWYQYyD78/g8IAGMWFz8
+   I4qSLnHZTs3UbrN22OwDj69WUCMZBrj029U76dYsfQmDh2681pq6CNz62
+   Lsk2/qC4Ey7sjIrsbXjRiNmlrNb3IxJoGVvE49nQhZu4fUD4ohBorrHZq
+   P12mJgwnfa5DEyxcZu243VGnass+idYbz/JJjJYOoOkoRJVK4tsE2VO0v
+   TyFG3DuPCWjTn+D3pz9/LbnOEYZgx5Af/VxtS7VY869ZWsFpF+8i0t3m3
+   vQUXhv0Xc0ev5jihV/3KwMPDP7smgo+id6o5kaSlznt6W8e99rBuRy8Sy
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="450950709"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="368087972"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 04:01:30 -0700
+   d="scan'208";a="450950709"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 04:06:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="715143826"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="721057401"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="715143826"
+   d="scan'208";a="721057401"
 Received: from smile.fi.intel.com ([10.237.72.54])
-  by orsmga007.jf.intel.com with ESMTP; 11 Jul 2023 04:01:17 -0700
+  by orsmga002.jf.intel.com with ESMTP; 11 Jul 2023 04:06:24 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
 	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qJB7J-001p8E-30;
-	Tue, 11 Jul 2023 14:01:13 +0300
-Date: Tue, 11 Jul 2023 14:01:13 +0300
+	id 1qJBCG-001pDs-2n;
+	Tue, 11 Jul 2023 14:06:20 +0300
+Date: Tue, 11 Jul 2023 14:06:20 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
+To: Mark Brown <broonie@kernel.org>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Yang Yingliang <yangyingliang@huawei.com>,
 	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
@@ -121,16 +122,16 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Richard Cochran <richardcochran@gmail.com>
-Subject: Re: [PATCH v2 04/15] spi: Replace open coded
- spi_controller_xfer_timeout()
-Message-ID: <ZK02efTYxV3czigr@smile.fi.intel.com>
+Subject: Re: [PATCH v2 05/15] spi: Remove code duplication in
+ spi_add_device_locked()
+Message-ID: <ZK03rBqoQ0IZz617@smile.fi.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
- <cfaffa00-4b61-4d81-8675-70295844513b@sirena.org.uk>
+ <20230710154932.68377-6-andriy.shevchenko@linux.intel.com>
+ <7557bada-3076-4d6e-a5c5-d368433706e2@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cfaffa00-4b61-4d81-8675-70295844513b@sirena.org.uk>
+In-Reply-To: <7557bada-3076-4d6e-a5c5-d368433706e2@sirena.org.uk>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Hits: max-recipients
@@ -140,15 +141,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: I3APFRGDMVH73FIJT7PPK4HJGAP66ZU2
-X-Message-ID-Hash: I3APFRGDMVH73FIJT7PPK4HJGAP66ZU2
-X-Mailman-Approved-At: Tue, 11 Jul 2023 14:21:47 +0000
+Message-ID-Hash: EFAGZ3FPS5VKH2RFVCJ3NBCCZUP24IYG
+X-Message-ID-Hash: EFAGZ3FPS5VKH2RFVCJ3NBCCZUP24IYG
+X-Mailman-Approved-At: Tue, 11 Jul 2023 14:21:48 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I3APFRGDMVH73FIJT7PPK4HJGAP66ZU2/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EFAGZ3FPS5VKH2RFVCJ3NBCCZUP24IYG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -157,29 +158,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Mon, Jul 10, 2023 at 06:30:32PM +0100, Mark Brown wrote:
-> On Mon, Jul 10, 2023 at 06:49:21PM +0300, Andy Shevchenko wrote:
+On Mon, Jul 10, 2023 at 06:16:22PM +0100, Mark Brown wrote:
+> On Mon, Jul 10, 2023 at 06:49:22PM +0300, Andy Shevchenko wrote:
+> > Seems by unknown reason, probably some kind of mis-rebase,
+> > the commit 0c79378c0199 ("spi: add ancillary device support")
+> > adds a dozen of duplicating lines of code. Drop them.
+> > 
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > ---
+> >  drivers/spi/spi.c | 11 -----------
+> >  1 file changed, 11 deletions(-)
+> > 
+> > diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+> > index c99ee4164f11..46cbda383228 100644
+> > --- a/drivers/spi/spi.c
+> > +++ b/drivers/spi/spi.c
+> > @@ -712,17 +712,6 @@ EXPORT_SYMBOL_GPL(spi_add_device);
+> >  static int spi_add_device_locked(struct spi_device *spi)
+> >  {
+> >  	struct spi_controller *ctlr = spi->controller;
+> > -	struct device *dev = ctlr->dev.parent;
+> > -
+> > -	/* Chipselects are numbered 0..max; validate. */
+> > -	if (spi_get_chipselect(spi, 0) >= ctlr->num_chipselect) {
+> > -		dev_err(dev, "cs%d >= max %d\n", spi_get_chipselect(spi, 0),
+> > -			ctlr->num_chipselect);
+> > -		return -EINVAL;
+> > -	}
+> > -
+> > -	/* Set the bus ID string */
+> > -	spi_dev_set_name(spi);
 > 
-> > Since the new spi_controller_xfer_timeout() helper appeared,
-> > we may replace open coded variant in spi_transfer_wait().
-> 
-> > + * Assume speed to be 100 kHz if it's not defined at the time of invocation.
-> > + *
-> 
-> You didn't mention this bit in the changelog, and I'm not 100% convinced
-> it was the best idea in the first place.  It's going to result in some
-> very big timeouts if it goes off, and we really should be doing
-> validation much earlier in the process.
+> I see that this is duplicating spi_add_device() (and we really could do
+> better with code sharing there I think) but I can't immediately see
+> where the duplication that's intended to be elimiated is here - where
+> else in the one call path that spi_add_device_locked() has would we do
+> the above?  Based on the changelog I was expecting to see some
+> duplicated code in the function itself.
 
-Okay, let's drop this change.
+Oh, by some reason Sebastian wasn't in this rather long Cc list.
+Added him.
 
-> > +	u32 speed_hz = xfer->speed_hz ?: 100000;
-> 
-> Not only the ternery operator, but the version without the second
-> argument for extra clarity!
+Reading again I don't see any useful explanation why that piece of code has to
+be duplicated among these two functions. It's 100% a copy.
 
-Elvis can be interpreted as "A _or_ B (if A is false/0)".
-Some pieces related to SPI use Elvis already IIRC.
+Sebastian, can you shed some light here?
 
 -- 
 With Best Regards,

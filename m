@@ -2,102 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5885E74F16A
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F08E74F16D
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:14:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6FA3284B;
-	Tue, 11 Jul 2023 16:13:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6FA3284B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57A3D83A;
+	Tue, 11 Jul 2023 16:13:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57A3D83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689084874;
-	bh=s9hiWJGhbB7fHM+elndbClDFNGnHDKG9q2O/XYVM/wE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689084885;
+	bh=RiocU3lLiq+39RFXSqs6p/cZudPc+izr4AUqqHXXmmI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=FM32iQw7l5A7Ouq8trkTLh76lgWYHP76DBs8SuBBiFSENXQLoOOsSJtPvou632WeA
-	 4DhOWtGOjsURq1vdZhrIy6lQ40AHJVNBmMJ1By9MSd5GoxIR3OTBRCSvXNAxElVqeP
-	 JJFv7RI5/7VPzaLqZ5B4E60E2+RvDqOAMu5amPrs=
+	b=nCn67+eXD+cCMIVh8QVsDHb5Nqhzb/V6ZvNoFzDeOKuFNT8gb5qaYmmzKTfknLpQD
+	 H4Vc7O+wbOg2gFrNKgw7Lzau/yxqJJGRBNIczmFX9d6k1DjWQ4Qnwg5XXe6cijN2gh
+	 wi6aHvk8k1hh1uWwgtFS3/t2W6irS6tHVlg89inY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8D3C6F80535; Tue, 11 Jul 2023 16:13:23 +0200 (CEST)
+	id 02681F80551; Tue, 11 Jul 2023 16:13:30 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2FA04F80236;
-	Tue, 11 Jul 2023 16:13:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD9FAF80548;
+	Tue, 11 Jul 2023 16:13:30 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6D51AF80249; Tue, 11 Jul 2023 16:13:20 +0200 (CEST)
+	id 6FD52F80549; Tue, 11 Jul 2023 16:13:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 123EFF80093
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 16:13:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 123EFF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3718AF80290
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 16:13:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3718AF80290
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=lRObfeju
+ header.s=Intel header.b=Dl3oLXmP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689084799; x=1720620799;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=s9hiWJGhbB7fHM+elndbClDFNGnHDKG9q2O/XYVM/wE=;
-  b=lRObfejuKqp2c60wZjoJMNofmoMY5EnKoLF22MMvPLQ4OU4ibE54ChlR
-   EmXtdk7TSCadwFiqzr7WWf1hYZQ6oCrkX+MrIohY30DVRh8nxEP3zw6nX
-   Jqf3+Ke4KjqjXaG8/PtDY+Qa/MGhmpevJHzn6lXSwFZf/8L+2qsiGNQa/
-   3Q3db4X+sGn9qDZn4znhunqPSxJM6t+b1j/s/bQ1xZUItqZLIS+jxuSYq
-   3ulB95bCFJ7hiGOPCQcSaLPPxYFYuJxUGzUPGRyyN2EcfJGEG7KySu4Oc
-   6A6HIh9B5FJLLKAJWYOhhUARb9HXdpPdW6ZCa9+J9DuPq18traYryW97V
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="344225913"
+  t=1689084806; x=1720620806;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=RiocU3lLiq+39RFXSqs6p/cZudPc+izr4AUqqHXXmmI=;
+  b=Dl3oLXmPCqr8dNID+eKesTqapuA5FNrO62rbWzhg3nWO70S3wrqJD68A
+   oDfS74F2qZcwhNGEYZoo9LytWlBYL3Fy6jTEvnUvV6pIakHE5HfpxJU1a
+   4ng2dih7Uvk/7YwnPVXag2maLjhHSLI2QaA4Mpa0GCzb4gs/+ZXNLzIZi
+   t0IkuquOBobBo6qLLBNdiz8b4ktIZzMfRkB4IctBIx4LIT9XePGaIZns1
+   cK4WNC1eOJxFzmnPlibJD460quOo2/5kEey+wj6v66qUL4FowtjM2CoQY
+   Emogj5WH/xivZkHdzWJ/EXac7yLqYV7IfU7Mddqm3e8Y8Xgm8YDWty0fO
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="395414835"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="344225913"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 07:12:54 -0700
+   d="scan'208";a="395414835"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 07:13:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="1051800428"
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="834716022"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="1051800428"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga005.fm.intel.com with ESMTP; 11 Jul 2023 07:12:51 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qJE6j-001s0S-37;
-	Tue, 11 Jul 2023 17:12:49 +0300
-Date: Tue, 11 Jul 2023 17:12:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH 07/13] ALSA: intel-dsp-config: Convert to PCI device IDs
- defines
-Message-ID: <ZK1jYdMxO4vUFmhw@smile.fi.intel.com>
-References: <20230711125726.3509391-1-amadeuszx.slawinski@linux.intel.com>
- <20230711125726.3509391-8-amadeuszx.slawinski@linux.intel.com>
- <ZK1gaER7n4JUjIeW@smile.fi.intel.com>
- <86dbdeeb-cc2b-59f7-eabb-6282799a3d32@linux.intel.com>
+   d="scan'208";a="834716022"
+Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
+ ([10.99.16.144])
+  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 07:13:19 -0700
+Message-ID: <1840b0c5-81aa-488c-1fbe-ac6681e3df35@linux.intel.com>
+Date: Tue, 11 Jul 2023 16:13:17 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 10/13] ASoC: Intel: avs: Convert to PCI device IDs defines
+Content-Language: en-US
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>
+References: <20230711125726.3509391-1-amadeuszx.slawinski@linux.intel.com>
+ <20230711125726.3509391-11-amadeuszx.slawinski@linux.intel.com>
+ <ZK1iiMgmjpCA02x+@smile.fi.intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <ZK1iiMgmjpCA02x+@smile.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <86dbdeeb-cc2b-59f7-eabb-6282799a3d32@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: E2WJCLNKS2WVVKX3PDOFEAYFOBE637ZQ
-X-Message-ID-Hash: E2WJCLNKS2WVVKX3PDOFEAYFOBE637ZQ
-X-MailFrom: andriy.shevchenko@linux.intel.com
+Message-ID-Hash: WZUZFIARHQQN72UZBRC2OQ7H3ZV6ENBX
+X-Message-ID-Hash: WZUZFIARHQQN72UZBRC2OQ7H3ZV6ENBX
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E2WJCLNKS2WVVKX3PDOFEAYFOBE637ZQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WZUZFIARHQQN72UZBRC2OQ7H3ZV6ENBX/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,34 +116,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 11, 2023 at 04:09:42PM +0200, Amadeusz Sławiński wrote:
-> On 7/11/2023 4:00 PM, Andy Shevchenko wrote:
-> > On Tue, Jul 11, 2023 at 02:57:20PM +0200, Amadeusz Sławiński wrote:
-
-...
-
-> > > -		.device = 0x119a,
-> > > +		.device = PCI_DEVICE_ID_INTEL_ADSP_TNG,
-> > 
-> > Yeah, somebody familiar with Intel history of SST/HDA/wtf should really
-> > tell why HDA code is using this ID. Does it mean that SST implies HDA
-> > always? Only for this (or this family of) platform?
-> > 
-> > It might affect the ID naming, but otherwise it's orthogonal to the series.
-> > 
+On 7/11/2023 4:09 PM, Andy Shevchenko wrote:
+> On Tue, Jul 11, 2023 at 02:57:23PM +0200, Amadeusz Sławiński wrote:
+>> Use PCI device IDs from pci_ids.h header. Adjust AVS_MACH_ENTRY() macro,
+>> so device ID can be provided in short form.
 > 
-> There were few early devices where DSP was separate unit:
-> Haswell, Broadwell - where we use ACPI to load (SND_SOC_INTEL_CATPT) audio
-> driver, Tangier/Merrifield - where ACPI or PCI is used to load
-> (SND_SST_ATOM_HIFI2_PLATFORM_PCI) audio driver.
-> All further generations are HDA devices with integrated DSP. This causes all
-> the weirdness ;)
+> FWIW,
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> 
+>> Acked-by: Mark Brown <broonie@kernel.org>
+>> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+>> ---
+>>   sound/soc/intel/avs/board_selection.c | 10 +++++-----
+>>   1 file changed, 5 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/sound/soc/intel/avs/board_selection.c b/sound/soc/intel/avs/board_selection.c
+>> index 60f8fb0bff95..b32e02940e30 100644
+>> --- a/sound/soc/intel/avs/board_selection.c
+>> +++ b/sound/soc/intel/avs/board_selection.c
+>> @@ -263,14 +263,14 @@ struct avs_acpi_boards {
+>>   };
+>>   
+>>   #define AVS_MACH_ENTRY(_id, _mach) \
+>> -	{ .id = (_id), .machs = (_mach), }
+>> +	{ .id = PCI_DEVICE_ID_INTEL_##_id, .machs = (_mach), }
+>>   
+>>   /* supported I2S boards per platform */
+>>   static const struct avs_acpi_boards i2s_boards[] = {
+>> -	AVS_MACH_ENTRY(0x9d70, avs_skl_i2s_machines), /* SKL */
+>> -	AVS_MACH_ENTRY(0x9d71, avs_kbl_i2s_machines), /* KBL */
+>> -	AVS_MACH_ENTRY(0x5a98, avs_apl_i2s_machines), /* APL */
+>> -	AVS_MACH_ENTRY(0x3198, avs_gml_i2s_machines), /* GML */
+>> +	AVS_MACH_ENTRY(HDA_SKL_LP, avs_skl_i2s_machines),
+>> +	AVS_MACH_ENTRY(HDA_KBL_LP, avs_kbl_i2s_machines),
+>> +	AVS_MACH_ENTRY(HDA_APL, avs_apl_i2s_machines),
+>> +	AVS_MACH_ENTRY(HDA_GML, avs_gml_i2s_machines),
+> 
+> Maybe sort them by name?
 
-Maybe we should stick with SST in the name? At least that's how Tangier TRM
-titles it.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+They are sorted by generation.
 

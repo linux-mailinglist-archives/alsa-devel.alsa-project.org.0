@@ -2,78 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4F53750943
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:10:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8E2750946
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:11:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED7463E7;
-	Wed, 12 Jul 2023 15:10:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED7463E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 154B4843;
+	Wed, 12 Jul 2023 15:10:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 154B4843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689167452;
-	bh=WtKHEzd9TLb1fy9g0AvI3P/4wH5wHUCXn6+ARbR9U1s=;
+	s=default; t=1689167497;
+	bh=Rfrk1uyNxWMBBOGH5Jxn2umsc9+1UwzSvXH/XCQVTMk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=TsP2/lga4NEWF0Yrd/MUcmbtFzXqaQNjvmErC6AVoSZRvXWVujpy+/hGcsVBh2oig
-	 t5XclOjW1YC1G6paVFyHu2AshXG9O/34+DzU5/wrEez5jN1TH1iAlVBqiRo9JXuE3d
-	 Jcm+l3W2GWNz+3R+/oSYuD87FkYL1IrOq/O67dEw=
+	b=NPVStE7o8RgKcOd5dkrW2oQBjHq6fSHZvwsy9MLAVCA/bRt3gex9nanTbtD/be/ka
+	 EyQOgvARQQtK/M35q8FwuiVJPscFhFy/qsXr3HkORod0gTZqMr5trsSwHqk7sMV/lD
+	 apZI3sqge0UoIE3jEPbJhBBrwcSwN6/zkL5Vdo5w=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E09C5F80544; Wed, 12 Jul 2023 15:10:00 +0200 (CEST)
+	id DB39AF80563; Wed, 12 Jul 2023 15:10:05 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56145F80236;
-	Wed, 12 Jul 2023 15:10:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CF67F80553;
+	Wed, 12 Jul 2023 15:10:05 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6C9A3F80249; Tue, 11 Jul 2023 17:30:42 +0200 (CEST)
+	id 05A2CF80249; Tue, 11 Jul 2023 17:50:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id A27BCF800E4
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 17:30:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A27BCF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9DDF4F80153
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 17:50:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DDF4F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=csPvXIEV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689089428; x=1720625428;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WtKHEzd9TLb1fy9g0AvI3P/4wH5wHUCXn6+ARbR9U1s=;
-  b=csPvXIEVpkHxaUjuX5PXJZBwmNUVdDBFTrNjxBtnGJbsI8Mr8MI8REcd
-   tffOI9lCu2t29eG+kGwfYwrVhwBWLCad8OiP9o5SvQvgYt4RdW4stbpCY
-   eiJWyo3X8Za9QnmqoR1JQQxFfVIyS5UizKa9hwclwqAALdOVUloj2GXbl
-   VIslFXpoWcNHsr7U9eA4Zz52XcrcVZiEjr9DsLrGR2BmkisDJfbGecsek
-   Ho/mY9tC0T2Jqh081OBcmcz6UE74RcFSEMeWHbDf6EgN9JS5wygtBO4Av
-   qeTCuhIsXzvfqQZSXnEYWytuyI8Nvh+Rac6oQDow1hgTvSe4AeVvqi+WJ
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="428346803"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="428346803"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 08:30:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="698462660"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="698462660"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orsmga006.jf.intel.com with ESMTP; 11 Jul 2023 08:30:10 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qJFJX-001swf-0G;
-	Tue, 11 Jul 2023 18:30:07 +0300
-Date: Tue, 11 Jul 2023 18:30:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=tQcn8OvC
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 046936155D;
+	Tue, 11 Jul 2023 15:50:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A565C433C8;
+	Tue, 11 Jul 2023 15:49:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689090607;
+	bh=Rfrk1uyNxWMBBOGH5Jxn2umsc9+1UwzSvXH/XCQVTMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tQcn8OvC6bRBN7WzpsoGdLVO3L4xuskzngmmfRCEj2SQ0jAC+8jd5iN20p9gHRbpg
+	 XUbhNgU9wAusI4gCQRZQWpSdosA5W/FQG4z1AWEgo24Qhpez1zvl8Qd08L+UQadjys
+	 qOLdKWVQ3JbXYchCASI4opWSvhez0uMrvZY11sAMGFC7hweCIW8F+sFtyDKkG13nS0
+	 BpkHBiCRn9aeI6z28Cfu2Vk50UunuJFeo1j1nrYJyD6L4Kr0GqQXWYq2XqyGdtwIe+
+	 r8LZOFGfyssDNKEB3zOQjK+1KK7aegmO8dmKUMp5no+2+L0MPlqIAyMOrhHo2iXkMt
+	 IC4BE92YJ2DdQ==
+Date: Tue, 11 Jul 2023 16:49:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Yang Yingliang <yangyingliang@huawei.com>,
 	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
@@ -123,18 +113,20 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Richard Cochran <richardcochran@gmail.com>
 Subject: Re: [PATCH v2 04/15] spi: Replace open coded
  spi_controller_xfer_timeout()
-Message-ID: <ZK11flZf/1grJ1Bd@smile.fi.intel.com>
+Message-ID: <dafdb3d9-572f-49d3-82d7-f0d7667df5dd@sirena.org.uk>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
  <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
  <cfaffa00-4b61-4d81-8675-70295844513b@sirena.org.uk>
  <ZK02efTYxV3czigr@smile.fi.intel.com>
  <5959b123-09e3-474b-9ab0-68d71cfdd9a2@sirena.org.uk>
+ <ZK11flZf/1grJ1Bd@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="z/wyG6sqMhUk9SL4"
 Content-Disposition: inline
-In-Reply-To: <5959b123-09e3-474b-9ab0-68d71cfdd9a2@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-MailFrom: andriy.shevchenko@linux.intel.com
+In-Reply-To: <ZK11flZf/1grJ1Bd@smile.fi.intel.com>
+X-Cookie: marriage, n.:
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -142,15 +134,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: LIQRNBZE7EPHJGUCPDLKMOG577RULZH5
-X-Message-ID-Hash: LIQRNBZE7EPHJGUCPDLKMOG577RULZH5
-X-Mailman-Approved-At: Wed, 12 Jul 2023 13:09:55 +0000
+Message-ID-Hash: PWTYBGGUFUNLXL67GBHKY6K3TNHIWP44
+X-Message-ID-Hash: PWTYBGGUFUNLXL67GBHKY6K3TNHIWP44
+X-Mailman-Approved-At: Wed, 12 Jul 2023 13:10:00 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LIQRNBZE7EPHJGUCPDLKMOG577RULZH5/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PWTYBGGUFUNLXL67GBHKY6K3TNHIWP44/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -159,33 +151,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 11, 2023 at 03:14:54PM +0100, Mark Brown wrote:
-> On Tue, Jul 11, 2023 at 02:01:13PM +0300, Andy Shevchenko wrote:
-> > On Mon, Jul 10, 2023 at 06:30:32PM +0100, Mark Brown wrote:
-> > > On Mon, Jul 10, 2023 at 06:49:21PM +0300, Andy Shevchenko wrote:
-> 
-> > > > + * Assume speed to be 100 kHz if it's not defined at the time of invocation.
-> 
-> > > You didn't mention this bit in the changelog, and I'm not 100% convinced
-> > > it was the best idea in the first place.  It's going to result in some
-> > > very big timeouts if it goes off, and we really should be doing
-> > > validation much earlier in the process.
-> 
-> > Okay, let's drop this change.
-> 
-> Like I say we *should* be fine with the refactoring without this, or at
-> least if it's an issue we should improve the validation.
 
-For the speeds < 1000 Hz, this change will lead to the div by 0 crash.
-It seems that the current code which this one removes is better than
-the spi_controller_xfer_timeout() provides.
+--z/wyG6sqMhUk9SL4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-If anything, the spi_controller_xfer_timeout() should be improved first.
-So, for now I drop this for sure. Maybe in the future we can come back
-to it.
+On Tue, Jul 11, 2023 at 06:30:06PM +0300, Andy Shevchenko wrote:
+> On Tue, Jul 11, 2023 at 03:14:54PM +0100, Mark Brown wrote:
 
--- 
-With Best Regards,
-Andy Shevchenko
+> > Like I say we *should* be fine with the refactoring without this, or at
+> > least if it's an issue we should improve the validation.
 
+> For the speeds < 1000 Hz, this change will lead to the div by 0 crash.
+> It seems that the current code which this one removes is better than
+> the spi_controller_xfer_timeout() provides.
 
+> If anything, the spi_controller_xfer_timeout() should be improved first.
+> So, for now I drop this for sure. Maybe in the future we can come back
+> to it.
+
+I don't think this is the only thing that might fall over without a
+speed, what we've generally been doing (and do try to do with speeds, we
+already need to default in the controller's speed and so on) is to
+sanitise input on the way into the subsystem rather than trying to
+ensure that all the users are handling everything.
+
+--z/wyG6sqMhUk9SL4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSteiEACgkQJNaLcl1U
+h9DAYgf9GamF50fucbXVx/aZUwGY2hD+eGYGVpMwfSRhuUlWbnbam1vDqMkEllpk
+X95Rur4vRJQA8erYbUKnhyABsYUSGd8CKx8/mDgvePWDPlYZ3TkdMV8z/j59HZbA
+WhFO3yBSJzNOgDxpftw96yBP7l7eZZHabEpeUAOx+SZ04jtNfdnRHeHBIBKL+YUT
+eFnArWnhTo4dUwNTaAojL5Lfgos/MGY9ABY3b2E4ZkjSaHCUTOa2rxKo9zjc43tE
+gdVuQ8cvshKLUDx2CFZ4oux+stLEOfjcsmR0prxZp3q9t2ywp1CsOHBY1ndd/8Ds
+SnUGepjz95NgZBU7ewJoIuRhKJUQtA==
+=GGl+
+-----END PGP SIGNATURE-----
+
+--z/wyG6sqMhUk9SL4--

@@ -2,70 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27BB974F23F
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:28:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DBEF74F242
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:28:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A02AEE8F;
-	Tue, 11 Jul 2023 16:27:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A02AEE8F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67FC4ED1;
+	Tue, 11 Jul 2023 16:28:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67FC4ED1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689085717;
-	bh=ItxG0MufVqKsV6l67e6rahqYiXE+oNZWIixR/ZiAk7k=;
+	s=default; t=1689085736;
+	bh=9H4lxY6vAKcrrWzIJhW2JQY4hyPVgKM+IPDOVEDyRyc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YW5YJdJwtc3Chdt85pzQMk3VYCEv9PKtlH/tsD+D5V7Hm0LyGf9BwFn/6cZA2oDG6
-	 cedmb9SfM2gmvfeFuE5Vgd/yIYXCai2A0Z5AiSkCU4CB212FVaZgql7e4EhIFu0fQ2
-	 X2l/G2tTCSd7qEiIsbCidKUXbIv8zidpIb2pw3g4=
+	b=oGFSZd5Dy6ij3Zt/aJiZ+h/2BkHUv1TRgs8lt2lm77nsr89kh2DUEDvh9AS2RJonw
+	 3tzhNfaYNP9bQAW/CtXiZ7hQcSAJE7YIPlrkd4Zwv2oQ5StfleTK7dFO+LRrs+7vnI
+	 MeAl5mYc4bfDpW8vjDquf52WlBx1DkTzyY1IBkOQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6CADF8068E; Tue, 11 Jul 2023 16:22:32 +0200 (CEST)
+	id C13AFF80694; Tue, 11 Jul 2023 16:22:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3173F8068A;
-	Tue, 11 Jul 2023 16:22:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFB5EF80692;
+	Tue, 11 Jul 2023 16:22:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A6CFBF8024E; Tue, 11 Jul 2023 15:39:05 +0200 (CEST)
+	id BBC9CF80249; Tue, 11 Jul 2023 15:45:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,RCVD_IN_MSPIKE_H3,
+	RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 99F04F800E4
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 15:39:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99F04F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 40049F800E4
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 15:45:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40049F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=m4h5A9eu
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9ED1C614F1;
-	Tue, 11 Jul 2023 13:38:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C419BC433C7;
-	Tue, 11 Jul 2023 13:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689082738;
-	bh=ItxG0MufVqKsV6l67e6rahqYiXE+oNZWIixR/ZiAk7k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m4h5A9eucXGEK5wiqhxNlBc101UZTB1GTSu+bNPFIqQi8lSIpgckIDopdxZ8GCXDU
-	 KaYIqfFehq9XBY9C78BmSRuGAnEkoiVqck1jWN3OSijvCTDKQiEiACW+JrNNDrogva
-	 3EVk5wIoKUlrmASobQlDeI0AXZVsTEb3Co/GLkxVP16Cs59Esgav2MUFclqw4fiLZW
-	 IphOe5HIOtsn51q81shBdkY7+ZB7u0D1/Dnzv8i5DLtWFLx045byoaUqXj3YMCZRgP
-	 Ssnb20dZBFAw4KBSQvZFSG4aJSBBBsmLSdXDHDge2m5HFHwVmkPwFjrJUGV9EZW521
-	 Yi9ajN7auQ10g==
-Date: Tue, 11 Jul 2023 14:38:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=X1Z/l9iZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689083146; x=1720619146;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9H4lxY6vAKcrrWzIJhW2JQY4hyPVgKM+IPDOVEDyRyc=;
+  b=X1Z/l9iZdh/deadlkpQMoE7VdMCpziAOO3l+qUKn0halS7/kM/AEY4tg
+   zW31Lv4nv5BevWX7eXEJBNmNk4YqIQBurqH4CNjcUUE6l9ekdS4W7k3xc
+   h59bQ/AKQGKTBRDDIUtBZYkPVwWppytkT6TJUb2PD7wg/qG1cDDh1/RlG
+   HbgJNgJRaCfBZPj724ZFjRKclH/Q4u9GtPYxfQqzZw94d1Fc2IvXfaDBG
+   ikRsggWhGwnZoZ4OdIc7LtiyYmDncmM1lCxh7L772/Ru4SfKxfYVko8Hs
+   suJN3ff2w8O7GzIhTV2qN7oURRvFY9juJ1hfLM+b80Y3bqsY3oqvfUn9n
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="354484242"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="354484242"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 06:45:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="750766718"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="750766718"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orsmga008.jf.intel.com with ESMTP; 11 Jul 2023 06:45:29 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1qJDgE-001rb5-12;
+	Tue, 11 Jul 2023 16:45:26 +0300
+Date: Tue, 11 Jul 2023 16:45:25 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
 Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Yang Yingliang <yangyingliang@huawei.com>,
 	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
@@ -114,17 +123,17 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Richard Cochran <richardcochran@gmail.com>
 Subject: Re: [PATCH v2 00/15] spi: Header and core clean up and refactoring
-Message-ID: <af598782-6998-4d60-b7fc-3d9aaeb0fe8f@sirena.org.uk>
+Message-ID: <ZK1c9RIHZ+gSkFVw@smile.fi.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
  <58c6f76a-8028-4ce8-a101-d5feb3b40897@sirena.org.uk>
  <ZK04/8UQEaNinLoK@smile.fi.intel.com>
+ <af598782-6998-4d60-b7fc-3d9aaeb0fe8f@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Fpte6ZPjzz/LFITf"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZK04/8UQEaNinLoK@smile.fi.intel.com>
-X-Cookie: marriage, n.:
-X-MailFrom: broonie@kernel.org
+In-Reply-To: <af598782-6998-4d60-b7fc-3d9aaeb0fe8f@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -132,47 +141,38 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: OM5B2KOW4KJ6V3TQSQKT5WT6ENVXQXXF
-X-Message-ID-Hash: OM5B2KOW4KJ6V3TQSQKT5WT6ENVXQXXF
-X-Mailman-Approved-At: Tue, 11 Jul 2023 14:22:23 +0000
+Message-ID-Hash: RFCNKWH36BIN7NHXNOEP6PWKIC7XKUAN
+X-Message-ID-Hash: RFCNKWH36BIN7NHXNOEP6PWKIC7XKUAN
+X-Mailman-Approved-At: Tue, 11 Jul 2023 14:22:24 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OM5B2KOW4KJ6V3TQSQKT5WT6ENVXQXXF/>
-List-Archive: <>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RFCNKWH36BIN7NHXNOEP6PWKIC7XKUAN/>
+List-Archive: 
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, Jul 11, 2023 at 02:38:37PM +0100, Mark Brown wrote:
+> On Tue, Jul 11, 2023 at 02:11:59PM +0300, Andy Shevchenko wrote:
+> 
+> > Do you think patch 9 deserves to be proceeded?
+> 
+> That one I need to think about, may as well resend it and I can think
+> about the resend.
 
---Fpte6ZPjzz/LFITf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Got it.
 
-On Tue, Jul 11, 2023 at 02:11:59PM +0300, Andy Shevchenko wrote:
+Probably I have to amend commit message in the patch 9 to point out why
+struct_size() is better.
 
-> Do you think patch 9 deserves to be proceeded?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-That one I need to think about, may as well resend it and I can think
-about the resend.
 
---Fpte6ZPjzz/LFITf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmStW1wACgkQJNaLcl1U
-h9DwCgf6A57WeIs5A+kjDx2nQTR4R6O8VfCeSUxA5+sJLtnTgMShxvODRTArEDJp
-mTB75kAcKQxMw/qNGyDzWRgUYTymPxp24jfu8cWXoEU6FoM1u7fdVIEs/3zF4VI8
-tcXZks8p77A/Xye4dlq/LB2IhJ3CctS47Q6Y+Yr6aACWkOGboS87FDNBeE+4cxcS
-nF4f4M2/d0j85zTf5tfGFaY52gS5Nf9G4MQ8/haFpUaUj2seOk+JpKeF+jqpWc+b
-fjJfrUWG8bC5u8ZfCBniq+wFRLCP6qCskkygh44lrP9yQTKxdUIRoNkcMT2kdz1H
-NguDaiHKGw9X8e6bahJyFd+NyGugwg==
-=B9iG
------END PGP SIGNATURE-----
-
---Fpte6ZPjzz/LFITf--

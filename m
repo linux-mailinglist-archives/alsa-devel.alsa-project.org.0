@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1017575095B
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:15:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F1F750950
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:12:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 394B59F6;
-	Wed, 12 Jul 2023 15:14:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 394B59F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A57B3845;
+	Wed, 12 Jul 2023 15:11:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A57B3845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689167749;
-	bh=u9L8bC8uc7avplPhBiWwS/Uu0Hqr1Wth57luzKoKJGU=;
+	s=default; t=1689167553;
+	bh=pAWPsjI4cTEbUbFXGBMVoie/XvBSHdTVWugoYwa5pwQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=tXOnD59KcfAalo0SK2nflhz1AP/HcEH7I0ktInntQ23sMl0W9T9U9VvknoW7BzzDN
-	 tx8C1k3PaWWFpEacK1c0QfXsBuZhr3e50PyegdeXHbI7pmS7NBloKoMcgMUpyk1OEn
-	 Xm6JcmYsPBZ4BH3ASBt5wZmqERQmKAMOPWUsXbhQ=
+	b=oV0f+z0/fBgxYloIzvYQJNCjaYByG9DHUKH6x5VTyZaWa341bfoOfESJD5x5WhW2f
+	 CJBVxcTXDJPh2/yZbatU9WgGtV/LLmqKvtnqIlsx+718GeVsXrf5sC7akJt5Ia8ewy
+	 rKc+89MCnxLE7spwQM62AKj1vRbkcBLkE9ZcDZwM=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15958F805A1; Wed, 12 Jul 2023 15:13:55 +0200 (CEST)
+	id A0C13F805B4; Wed, 12 Jul 2023 15:10:15 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E3E2F80578;
-	Wed, 12 Jul 2023 15:13:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03DBFF805B0;
+	Wed, 12 Jul 2023 15:10:15 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6353CF80549; Tue, 11 Jul 2023 19:19:32 +0200 (CEST)
+	id 01189F8024E; Tue, 11 Jul 2023 19:18:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_PASS,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 230ACF80290
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 19:19:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 230ACF80290
+	by alsa1.perex.cz (Postfix) with ESMTPS id DDBD7F80249
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 19:18:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDBD7F80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=EM3aWwAl
+ header.s=Intel header.b=MyTj9XQP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689095969; x=1720631969;
+  t=1689095923; x=1720631923;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=u9L8bC8uc7avplPhBiWwS/Uu0Hqr1Wth57luzKoKJGU=;
-  b=EM3aWwAle8x6y8Ply0wQWBHZ8hv4DZ9ELgRii4k9po53nCgT3Kw9Ue1K
-   pyUeE0IoQBK2QtIAQ2N7sNPp83YD/KMC8IqY1MkiDu/DME0/79IpwPEbu
-   TqoQ/clhBUkCaycyg61QwSSkFypXhU6FesxxJgiTsDOqsZAq1dYycddNO
-   Wu0LlVSpxiRycVq8Hahto+HKAVZQy3fpHnIOSP9pZRAYvgNln15RsSHfO
-   YJp/1WRD0fbd2eNh7O7csPVF7+WmNTFvZQRUc1rEn1jgZRgSeB2GRhjVq
-   jHAeR8i7ozoru7vrbCWN+HlvxeV02LQgN9pZAnXUe4oyR9zVNOh+MCmGJ
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="362148933"
+  bh=pAWPsjI4cTEbUbFXGBMVoie/XvBSHdTVWugoYwa5pwQ=;
+  b=MyTj9XQPhPSbnluvL01vN2TNi6ZR+lYic9o12fQWN3tP99ixi7ETNRpF
+   cl7v2yUKwWHuMhEzzwOv5z+Yq+BaRZLOHK95woFa911NKIVfPWgNSmBsC
+   bz8lHAuMBZ1TZalOXzBobiUFi6OAmSONpUisNecIPWjZSBICwtuEB30Oh
+   uhHa6WWNN2qEOWG6+AOQ2F8Bk8YB237e6MV/qG4gYrA4yTNpNjcmyrPu+
+   2VEWD6PhkYLDhq8JeYEpK6gmNSvGt8iJsAAdjqflIsZaFBhm9W9DujoSu
+   2v8tC2DoFdeLwoV1tbLe3TmnmVIRWkhzRARqwAI6U7e1NjGayaIt/M/Wx
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="344284036"
 X-IronPort-AV: E=Sophos;i="6.01,197,1684825200";
-   d="scan'208";a="362148933"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 10:19:23 -0700
+   d="scan'208";a="344284036"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 10:18:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="715240913"
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="845338540"
 X-IronPort-AV: E=Sophos;i="6.01,197,1684825200";
-   d="scan'208";a="715240913"
+   d="scan'208";a="845338540"
 Received: from black.fi.intel.com ([10.237.72.28])
-  by orsmga007.jf.intel.com with ESMTP; 11 Jul 2023 10:18:02 -0700
+  by orsmga004.jf.intel.com with ESMTP; 11 Jul 2023 10:18:02 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
-	id 896E669F; Tue, 11 Jul 2023 20:17:59 +0300 (EEST)
+	id 99EF06B9; Tue, 11 Jul 2023 20:17:59 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
 	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -124,9 +124,9 @@ Cc: Sanjay R Mehta <sanju.mehta@amd.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Richard Cochran <richardcochran@gmail.com>,
 	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH v3 08/14] spi: Sort headers alphabetically
-Date: Tue, 11 Jul 2023 20:17:50 +0300
-Message-Id: <20230711171756.86736-9-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v3 09/14] spi: Use struct_size() helper
+Date: Tue, 11 Jul 2023 20:17:51 +0300
+Message-Id: <20230711171756.86736-10-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20230711171756.86736-1-andriy.shevchenko@linux.intel.com>
 References: <20230711171756.86736-1-andriy.shevchenko@linux.intel.com>
@@ -140,15 +140,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: AYKHUU2L6V6AMRJCSOV3MQW7ISSHFRRU
-X-Message-ID-Hash: AYKHUU2L6V6AMRJCSOV3MQW7ISSHFRRU
-X-Mailman-Approved-At: Wed, 12 Jul 2023 13:13:45 +0000
+Message-ID-Hash: 3ATMGP4GTCBJS5PU2A6GK4LGW6BUQITR
+X-Message-ID-Hash: 3ATMGP4GTCBJS5PU2A6GK4LGW6BUQITR
+X-Mailman-Approved-At: Wed, 12 Jul 2023 13:10:04 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AYKHUU2L6V6AMRJCSOV3MQW7ISSHFRRU/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3ATMGP4GTCBJS5PU2A6GK4LGW6BUQITR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -157,108 +157,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Sorting headers alphabetically helps locating duplicates, and
-make it easier to figure out where to insert new headers.
+The Documentation/process/deprecated.rst suggests to use flexible array
+members to provide a way to declare having a dynamically sized set of
+trailing elements in a structure.This makes code robust agains bunch of
+the issues described in the documentation, main of which is about the
+correctness of the sizeof() calculation for this data structure.
+
+Due to above, prefer struct_size() over open-coded versions.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi.c       | 42 ++++++++++++++++++++---------------------
- include/linux/spi/spi.h | 14 +++++++-------
- 2 files changed, 28 insertions(+), 28 deletions(-)
+ include/linux/spi/spi.h | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 0259516a6943..9b096cbc9926 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -4,36 +4,36 @@
- // Copyright (C) 2005 David Brownell
- // Copyright (C) 2008 Secret Lab Technologies Ltd.
- 
--#include <linux/kernel.h>
--#include <linux/device.h>
--#include <linux/init.h>
-+#include <linux/acpi.h>
- #include <linux/cache.h>
--#include <linux/dma-mapping.h>
-+#include <linux/clk/clk-conf.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
- #include <linux/dmaengine.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/export.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/highmem.h>
-+#include <linux/idr.h>
-+#include <linux/init.h>
-+#include <linux/ioport.h>
-+#include <linux/kernel.h>
-+#include <linux/kthread.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/mutex.h>
- #include <linux/of_device.h>
- #include <linux/of_irq.h>
--#include <linux/clk/clk-conf.h>
--#include <linux/slab.h>
--#include <linux/mod_devicetable.h>
--#include <linux/spi/spi.h>
--#include <linux/spi/spi-mem.h>
--#include <linux/gpio/consumer.h>
--#include <linux/pm_runtime.h>
-+#include <linux/percpu.h>
-+#include <linux/platform_data/x86/apple.h>
- #include <linux/pm_domain.h>
-+#include <linux/pm_runtime.h>
- #include <linux/property.h>
--#include <linux/export.h>
-+#include <linux/ptp_clock_kernel.h>
- #include <linux/sched/rt.h>
-+#include <linux/slab.h>
-+#include <linux/spi/spi.h>
-+#include <linux/spi/spi-mem.h>
- #include <uapi/linux/sched/types.h>
--#include <linux/delay.h>
--#include <linux/kthread.h>
--#include <linux/ioport.h>
--#include <linux/acpi.h>
--#include <linux/highmem.h>
--#include <linux/idr.h>
--#include <linux/platform_data/x86/apple.h>
--#include <linux/ptp_clock_kernel.h>
--#include <linux/percpu.h>
- 
- #define CREATE_TRACE_POINTS
- #include <trace/events/spi.h>
 diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index 32c94eae8926..21b77bdfac29 100644
+index 21b77bdfac29..35fd61070d9b 100644
 --- a/include/linux/spi/spi.h
 +++ b/include/linux/spi/spi.h
-@@ -6,19 +6,19 @@
- #ifndef __LINUX_SPI_H
- #define __LINUX_SPI_H
- 
-+#include <linux/acpi.h>
- #include <linux/bits.h>
-+#include <linux/completion.h>
- #include <linux/device.h>
--#include <linux/mod_devicetable.h>
--#include <linux/slab.h>
-+#include <linux/gpio/consumer.h>
+@@ -13,6 +13,7 @@
+ #include <linux/gpio/consumer.h>
  #include <linux/kthread.h>
--#include <linux/completion.h>
-+#include <linux/mod_devicetable.h>
+ #include <linux/mod_devicetable.h>
++#include <linux/overflow.h>
  #include <linux/scatterlist.h>
--#include <linux/gpio/consumer.h>
--
--#include <uapi/linux/spi/spi.h>
--#include <linux/acpi.h>
-+#include <linux/slab.h>
+ #include <linux/slab.h>
  #include <linux/u64_stats_sync.h>
+@@ -1081,6 +1082,8 @@ struct spi_transfer {
+  * @state: for use by whichever driver currently owns the message
+  * @resources: for resource management when the spi message is processed
+  * @prepared: spi_prepare_message was called for the this message
++ * @t: for use with spi_message_alloc() when message and transfers have
++ *	been allocated together
+  *
+  * A @spi_message is used to execute an atomic sequence of data transfers,
+  * each represented by a struct spi_transfer.  The sequence is "atomic"
+@@ -1133,6 +1136,9 @@ struct spi_message {
  
-+#include <uapi/linux/spi/spi.h>
+ 	/* List of spi_res reources when the spi message is processed */
+ 	struct list_head        resources;
 +
- struct dma_chan;
- struct software_node;
- struct ptp_system_timestamp;
++	/* For embedding transfers into the memory of the message */
++	struct spi_transfer	t[];
+ };
+ 
+ static inline void spi_message_init_no_memset(struct spi_message *m)
+@@ -1193,16 +1199,13 @@ static inline struct spi_message *spi_message_alloc(unsigned ntrans, gfp_t flags
+ {
+ 	struct spi_message *m;
+ 
+-	m = kzalloc(sizeof(struct spi_message)
+-			+ ntrans * sizeof(struct spi_transfer),
+-			flags);
++	m = kzalloc(struct_size(m, t, ntrans), flags);
+ 	if (m) {
+ 		unsigned i;
+-		struct spi_transfer *t = (struct spi_transfer *)(m + 1);
+ 
+ 		spi_message_init_no_memset(m);
+-		for (i = 0; i < ntrans; i++, t++)
+-			spi_message_add_tail(t, m);
++		for (i = 0; i < ntrans; i++)
++			spi_message_add_tail(&m->t[i], m);
+ 	}
+ 	return m;
+ }
 -- 
 2.40.0.1.gaa8946217a0b
 

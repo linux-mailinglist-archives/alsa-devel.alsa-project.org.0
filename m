@@ -2,111 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 610B974F408
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 17:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48A2974F42A
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 17:59:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4035AEE8;
-	Tue, 11 Jul 2023 17:46:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4035AEE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AD53E9A;
+	Tue, 11 Jul 2023 17:58:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AD53E9A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689090459;
-	bh=dBNdbzs+Xl9JdcmvVRYHsFhpWk8wJ0f0v1KEUvV5imQ=;
+	s=default; t=1689091169;
+	bh=7ZyyZ+HNOyEHI8v32fmj/vgPfWXG3mAXzwQ3E7RgbdM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Hap3+BbEuUIaJeFMq/lnEGKjvj4JLc32w8vMsxwCIypQ5bKuJVSlPGcHGlwCbjoQ7
-	 JxuomZ/Q6kN2hcOPm7sW+93VamEfCSIHe4DxUyVt3/Yi4KoQIfKR6aFTWHjYZwBAS3
-	 l65BvsIevt3SENqS/VLIUdrlh1fjiNT1AVEL3/Ls=
+	b=lma7/sb2FRqjoAVNwc0RQtjOAfNdu+pNGsX8wuXXBxK0D4hMHeSINRoEZvMS56MbY
+	 pXiA1YxqkSmetu9hykieGmq+xH9vFnvMT04hxNPFM2fF6r9bd8YteMH7QS0Mm5j6qz
+	 xzhXCx5iw0zogldjUHf3iLp8zpPIOp1cL/5NnCqI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A349DF800E4; Tue, 11 Jul 2023 17:46:27 +0200 (CEST)
+	id 78637F8047D; Tue, 11 Jul 2023 17:58:38 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BBBD1F80236;
-	Tue, 11 Jul 2023 17:46:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F08C6F80236;
+	Tue, 11 Jul 2023 17:58:37 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E036F80249; Tue, 11 Jul 2023 17:46:22 +0200 (CEST)
+	id 90DADF80249; Tue, 11 Jul 2023 17:58:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [IPv6:2a00:1450:4864:20::336])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 10DB4F80153
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 17:46:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10DB4F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 45969F80153
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 17:58:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45969F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=UYS+7tIh
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-3fbf7fbe722so66794855e9.3
-        for <alsa-devel@alsa-project.org>;
- Tue, 11 Jul 2023 08:46:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689090375; x=1691682375;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TSHzWr4gaLs4jyK9BMNn2YEQIAnAbtQY/+dliKHHYxs=;
-        b=UYS+7tIh6u+ojy0oVfob+Sev7z0uPPCQbErkQpQk1O+aw22pl77XLL8DNQLpZ5C5VX
-         dCLihQlJnJ2hS7roLef3cvntWUiIFWKvkGFPW37HzuzQzBMUXcgPXlBvk7JQt0jeFzRk
-         GSF2ADgVJthd+Qi0UAOuuE2Gao+crsO42QZZBLl7v9vw5LYSUPEBMOa5vu5nXPXmLWqT
-         nBEeunutG3xUBZx4X438J7tJP5tIhQ6J8b0ofwTJtF1nRUrQC9oKcUX5KUGBp6ll3BQG
-         iP/pNUCvbqlB0OZVZCzt4a1wNWzPP7ox5rY6xj4Cu3w/cp7ojsfkbSK9AihF3dHbANXY
-         V5bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689090375; x=1691682375;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TSHzWr4gaLs4jyK9BMNn2YEQIAnAbtQY/+dliKHHYxs=;
-        b=jndgXAgN2vrTKVe7IW8Kl5ch2kzEC54/LKWChPnYHWDM+uia6Q9xCmxTfPyVt1UZhT
-         GTmKoU1YQgrvmYUO5calYy6TR+90QrWpblcHASHJJFWkEWSNx7gQsMjBRvMnpztSDVbD
-         PV5JtOr4y2bcyFy9uznBVsUusX8Moy+iHBLS7Y4aEdARhTCnPKRU2ygBTPLWwrafoZCS
-         drqflfICh18rFopKMWJhHHA7Z5/4X7WDw6JjkRD/LVSrqxByAl1jRInLkYfuKG5ybl4e
-         i2BYg991HF/6nGA3wFvF7V0o4O5KE793lLrDVKxJ+gDhP3dBJXM/B5cGHmz3O/VHSVjY
-         UW7w==
-X-Gm-Message-State: ABy/qLZ6vGB6kuMhtyJBVFaZ1eULanK0Hx9rh4akBlS5Y79nsj5AYiQz
-	2/RmpA1mTvOHtPYSYi1+cj8=
-X-Google-Smtp-Source: 
- APBJJlHYOoGUWXHQEGRrv1wSYYMjVMio85ATQTXMSE8aJyyC4C8fPFL3liKN90fsUX65qG2C6jlrNQ==
-X-Received: by 2002:adf:e290:0:b0:30f:c012:b529 with SMTP id
- v16-20020adfe290000000b0030fc012b529mr21025161wri.56.1689090374932;
-        Tue, 11 Jul 2023 08:46:14 -0700 (PDT)
-Received: from orome (p200300e41f4b7100f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f4b:7100:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id
- g12-20020a5d46cc000000b0031455482d1fsm2568456wrs.47.2023.07.11.08.46.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Jul 2023 08:46:14 -0700 (PDT)
-Date: Tue, 11 Jul 2023 17:46:12 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Yangtao Li <frank.li@vivo.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>, alsa-devel@alsa-project.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] ASoC: tegra: tegra20_ac97: Use
- devm_platform_get_and_ioremap_resource()
-Message-ID: <ZK15ROig1u7kaXfO@orome>
-References: <20230711034846.69437-1-frank.li@vivo.com>
- <20230711034846.69437-5-frank.li@vivo.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=RmVAgD6g
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id BE0EA614F8;
+	Tue, 11 Jul 2023 15:58:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB401C433C8;
+	Tue, 11 Jul 2023 15:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689091107;
+	bh=7ZyyZ+HNOyEHI8v32fmj/vgPfWXG3mAXzwQ3E7RgbdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RmVAgD6gKUakQGIrMNlss3vwYPnWy+eopA3xDIAATo2eZqd3m1EIcSKGYnArYY/FM
+	 yCFDIhsfoIJMmOl5HinJTOM0vLclfnaxRWXtos7P5SGI/wvRfxJkf3+sYymET4CFvr
+	 bz4V/Xepd0Mklqq5yMjy+NCnnoPDqiCceiH5LZ7DOnEp3qFY9C2jAL73xlYvXkfV/x
+	 aJXkG3H5dB5rdSPLu5LhyN7x3ksKtVLPgnVsug5qPZmxZGiTQtsY8Vnrohm3HfRKyX
+	 3Z8qt9j2ozptJr1sKYbs6g/9//rZWG+3wzmZLpmNWwnmixThnDj7VDxZMhYsh8spQT
+	 6wQXlCYc42Q6A==
+Date: Tue, 11 Jul 2023 16:58:21 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH 00/13] PCI: Define Intel PCI IDs and use them in drivers
+Message-ID: <a0625422-9b1f-468f-a282-71290a159bda@sirena.org.uk>
+References: <20230711125726.3509391-1-amadeuszx.slawinski@linux.intel.com>
+ <bc2484ba-3bb2-7d74-fcd1-55c9ec253b9c@linux.intel.com>
+ <46d612f4-24a4-4493-aa9f-0ace5225a38b@sirena.org.uk>
+ <87jzv6h2ui.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yrPPLIbhK53dQkQ8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hidcHY8UvSTgc8PO"
 Content-Disposition: inline
-In-Reply-To: <20230711034846.69437-5-frank.li@vivo.com>
-User-Agent: Mutt/2.2.10 (2023-03-25)
-Message-ID-Hash: 7PUUV7ONYKERQAATTUTBQNOYOHEGZWZZ
-X-Message-ID-Hash: 7PUUV7ONYKERQAATTUTBQNOYOHEGZWZZ
-X-MailFrom: thierry.reding@gmail.com
+In-Reply-To: <87jzv6h2ui.wl-tiwai@suse.de>
+X-Cookie: marriage, n.:
+Message-ID-Hash: C6FGJKMES6OKD5HXVROJORP5LBL5F6HW
+X-Message-ID-Hash: C6FGJKMES6OKD5HXVROJORP5LBL5F6HW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -118,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7PUUV7ONYKERQAATTUTBQNOYOHEGZWZZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/C6FGJKMES6OKD5HXVROJORP5LBL5F6HW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -128,41 +111,31 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---yrPPLIbhK53dQkQ8
+--hidcHY8UvSTgc8PO
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 11, 2023 at 11:48:45AM +0800, Yangtao Li wrote:
-> Convert platform_get_resource(), devm_ioremap_resource() to a single
-> call to devm_platform_get_and_ioremap_resource(), as this is exactly
-> what this function does.
->=20
-> Signed-off-by: Yangtao Li <frank.li@vivo.com>
-> ---
->  sound/soc/tegra/tegra20_ac97.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+On Tue, Jul 11, 2023 at 05:42:13PM +0200, Takashi Iwai wrote:
 
-Acked-by: Thierry Reding <treding@nvidia.com>
+> I can do it if both Bjorn and Mark agree (after all patches get
+> reviewed and no objection comes up).
 
---yrPPLIbhK53dQkQ8
+Fine by me, I acked on the basis that it probably makes more sense in
+someone else's tree.
+
+--hidcHY8UvSTgc8PO
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmSteUQACgkQ3SOs138+
-s6GNFRAAoGU/u5P+4DbrdieXiUfZLIqdhM4uAmLJHkY7i7xuluvvsk35OBeA4Fj1
-I4mpibVDYTja7Wx6j4C8BGr5B8kk1V0dOu4wk6gQaN4zjGb2tN8bkA7v8R/6saP+
-OD3H/0t7ZZrtm/XDBD9R2Pv5gdbptYfwA/j5NpWwGSSc7iQ2gyInzbk0UKIrW4ci
-6GEKBL3qYk2dhgyD3QgSnBQecfMbkzbGzcqyT+7P8axhjclJstTZs2dlozBIC2tf
-L/Yd8n+S/3GfIH7oI0qgGbaPuoWqEmXgAL6dvddR8021kcQQJvnAl//w0EudtLXh
-Ae/auR0eLEt9YklWLXWgEIoBmGvcdqvnE29vW885RS331+th29aK39oOfRptroBJ
-FZ8MuXyUwDO0GQNkFIm6WyNuXmqxf9yzRfauGDDuPAlpPHe8plW2Zr+iTBMbjPp0
-Y72o6OCRKLyBlECkT3xYxzOwDj5qcxGgChPxKTPgyYOZ3Etz6CWys3YO+Mn+0q3s
-ilFNpaHpER/TkiWHaf1f1Afoszbic/DV/wBZf6zOZD8Ggfs6Q6QhaTJfGvUqBNVI
-AqW5hC2Ya06qUrUpB5G+NR2/F+QX8VS0ub428mai6SUemlmYat8PvDlUMpWbj06p
-JN7dyctd89Gxw+iiQgF9euFNixjCIha5XTgdXGny+Zp+802AJGQ=
-=zwSX
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmStfB0ACgkQJNaLcl1U
+h9BDwgf9FjGinq0r7SNgU7oSMxseTqJ+zHDQWJiDbeBxmWjolKQjDP7TRc07bYqS
+qig9TsVEDjJR37T4+DPcJ/C2WXkM8y1Q0XciErCQu2Oh3nRiGj+xsIihqn5TBghj
+k+lbwY/WZHTHdkeTUfy1RW+LdLlYQ63kHTChZIMw75iWTn9LG4ih0efiQ/NaZEBL
+8a6DhGQgn+9ed8rl0yloh77a2j63JUjFTZ+inGGgGUHuVE51XrFEm6UBQbsbWPiU
+SeZ5NDoRmem+0ZgUbMMLlkEuUUXFv8tmfN39t9/b3h4w2WNZ4fd5uAoHmQldaChB
+YRPg6NVf4Rs/JlhP8P1I/QXfFMt1Tw==
+=ikb8
 -----END PGP SIGNATURE-----
 
---yrPPLIbhK53dQkQ8--
+--hidcHY8UvSTgc8PO--

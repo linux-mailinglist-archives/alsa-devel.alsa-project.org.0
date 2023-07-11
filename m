@@ -2,76 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB76074F22E
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:25:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67D9874F22F
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:26:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D4B9EEA;
-	Tue, 11 Jul 2023 16:25:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D4B9EEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9FE5EEF;
+	Tue, 11 Jul 2023 16:25:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9FE5EEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689085555;
-	bh=pnPOejrtBmciSuneX2GIuca/d8m7aJiJ68yCzAIAa8Y=;
+	s=default; t=1689085575;
+	bh=C71aeTJAOI/hMDyIcMR24A6iht2n+gbfSGfP4xzAt6Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=q3VG3mPF27pGKh0Upvxv05x44iamCpfnzvr9zQR8GXASVlsjeEGLBrfUO98XYPUJb
-	 wMyuqAmF1EpyX5Y85UU3m5CkRZaUWAdoH1VbREdExhTFAKUKqv+DLz4S/ZJ8MNkAp7
-	 /Ye1QQgVNk+dIqPXQ+nHq9nS6dF+fcjT9ZCzyzvc=
+	b=O5POGbAjKNYGU3G5ULVPFfbXqqka3z9bDdPdmwAKHWd8gf+DXgCO1tzJOCtcr0zYl
+	 khytJw6NvwHzEAny0NU07fHBT0dZ+WtTL8OCIwI9YHv9J/ZwS3OEXkOWB4Je0myKw8
+	 A2BhHefMmhWEx2dE0+6YwsmdTHJSV9z+JuCKJiuk=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 72E21F8060D; Tue, 11 Jul 2023 16:22:01 +0200 (CEST)
+	id 98B62F80615; Tue, 11 Jul 2023 16:22:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C41C3F8060B;
-	Tue, 11 Jul 2023 16:22:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4BFFF80612;
+	Tue, 11 Jul 2023 16:22:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 735A7F80236; Tue, 11 Jul 2023 13:10:25 +0200 (CEST)
+	id B3E88F80236; Tue, 11 Jul 2023 13:11:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5CB01F80093
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 13:10:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CB01F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 11A55F800E4
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 13:10:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11A55F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=A4EDmKzZ
+ header.s=Intel header.b=aIsWaM+J
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689073823; x=1720609823;
+  t=1689073859; x=1720609859;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=pnPOejrtBmciSuneX2GIuca/d8m7aJiJ68yCzAIAa8Y=;
-  b=A4EDmKzZe+xrgH16GDyEiKso/+66cyUM+qvWtfRtUWJdIeU4oxxZX7kO
-   rCKfQ9xlL6om0o0oxaAE9a4fYXixaw5W32oOIJGdugg7HiWteA02js4yp
-   FdPImtGPGwd8fnHcWX9t4ijI1UGFgZy0eTfuThDdWR/iEU7BMDMyNtGZz
-   kj55+2eSgz0zB/XVe4n2SlQozvnL33h+6PcYKFoFG8eDgkbmbxpqABdgg
-   k2YH4H3plI2kT+mxj9Lm3lErROZ6wqedDAB5iBZx+1aqEup6JyqBVsoor
-   MLQhK4D9hhmmwH049UD9l7PkV2K0q242QiOfYclVwulyxadcl49dgl9R/
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="344909470"
+  bh=C71aeTJAOI/hMDyIcMR24A6iht2n+gbfSGfP4xzAt6Q=;
+  b=aIsWaM+JjpIAev3ppRwB49R9/tFLEibjDKFz3xdVuIBpdjV5UZXWoEmo
+   pof1av+qtvUyH3HkPIvX6IclmYdga2BRKvbdAxC7CZafqQKLbxHpZ8QaP
+   DVFv5Ng+E+6HtTyflOLbaHuAK87iyicpIZJjaf3n59ZkR7ynGm09tz5E4
+   O8B3OVJ/Gw5IjuFMglyscSObwPO9XdRN6oaCIsnz5o7rybkerR6d3DLr5
+   1RLleBG/oUVTgfy/GrMmETsse7axSu/H06IcutmsyeeIzg5J1PqxGyyTD
+   ZVXXrS+D2PVqSq3efFYFSCvUVSfzxPAZzlK8X08Ysh+nbLHqcTgrx2lpC
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="363454809"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="344909470"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 04:10:19 -0700
+   d="scan'208";a="363454809"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 04:10:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="834644461"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="756326203"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="834644461"
+   d="scan'208";a="756326203"
 Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga002.fm.intel.com with ESMTP; 11 Jul 2023 04:10:08 -0700
+  by orsmga001.jf.intel.com with ESMTP; 11 Jul 2023 04:10:42 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
 	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1qJBFs-001pGf-16;
-	Tue, 11 Jul 2023 14:10:04 +0300
-Date: Tue, 11 Jul 2023 14:10:04 +0300
+	id 1qJBGQ-001pHZ-2T;
+	Tue, 11 Jul 2023 14:10:38 +0300
+Date: Tue, 11 Jul 2023 14:10:38 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
 Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -122,14 +122,14 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Richard Cochran <richardcochran@gmail.com>
 Subject: Re: [PATCH v2 08/15] spi: Clean up headers
-Message-ID: <ZK04jEIo9ovLzF0e@smile.fi.intel.com>
+Message-ID: <ZK04rjMk+LfDHcGT@smile.fi.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
  <20230710154932.68377-9-andriy.shevchenko@linux.intel.com>
- <da48f031-d93b-4a30-bad6-f80f58b35853@sirena.org.uk>
+ <54bb9fe7-fb62-4c2e-ae36-d2c10648ee27@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <da48f031-d93b-4a30-bad6-f80f58b35853@sirena.org.uk>
+In-Reply-To: <54bb9fe7-fb62-4c2e-ae36-d2c10648ee27@sirena.org.uk>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Hits: max-recipients
@@ -139,15 +139,15 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
  administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
  suspicious-header
-Message-ID-Hash: HLHY2MGN7JUSCIYWEDPHHDJMOTB7ZCDS
-X-Message-ID-Hash: HLHY2MGN7JUSCIYWEDPHHDJMOTB7ZCDS
-X-Mailman-Approved-At: Tue, 11 Jul 2023 14:21:48 +0000
+Message-ID-Hash: JJ3467CXKVYBJZHJEQIE4XL62DHCES3P
+X-Message-ID-Hash: JJ3467CXKVYBJZHJEQIE4XL62DHCES3P
+X-Mailman-Approved-At: Tue, 11 Jul 2023 14:21:49 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/HLHY2MGN7JUSCIYWEDPHHDJMOTB7ZCDS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JJ3467CXKVYBJZHJEQIE4XL62DHCES3P/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -156,7 +156,7 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 11, 2023 at 09:26:46AM +0100, Mark Brown wrote:
+On Mon, Jul 10, 2023 at 06:21:44PM +0100, Mark Brown wrote:
 > On Mon, Jul 10, 2023 at 06:49:25PM +0300, Andy Shevchenko wrote:
 > > There is a few things done:
 > > - include only the headers we are direct user of
@@ -165,14 +165,17 @@ On Tue, Jul 11, 2023 at 09:26:46AM +0100, Mark Brown wrote:
 > > - group generic headers and subsystem headers
 > > - sort each group alphabetically
 > 
-> This breaks an x86 allmodconfig build:
+> The previous commit was supposed to be sorting things and AFAICT did
+> so...
 
-Yeah, it was too brave to go. That's actually the answer why I left
-mod_devicetable.h included. (However the mod_devicetable.h probably should
-stay to be similar to i2c.h.
+This is about forward declaration groups.
 
-Let's postpone this one, but it's good to have the build report so we know
-which drivers are missing GPIO header to be included.
+> > +struct spi_device_id;
+> 
+> Why are we adding this given that there's also an inclusion of
+> mod_devicetable that you didn't remove?
+
+Answered in the other email.
 
 -- 
 With Best Regards,

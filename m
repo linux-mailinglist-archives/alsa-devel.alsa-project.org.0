@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7502D74EB89
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 12:12:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C0B74EB99
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 12:16:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78740206;
-	Tue, 11 Jul 2023 12:11:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78740206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 656617F4;
+	Tue, 11 Jul 2023 12:15:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 656617F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689070360;
-	bh=hnNDdRgtwLsNT36EU87StAs/HYG3vsm+5U1isBAVh7o=;
+	s=default; t=1689070599;
+	bh=FJG2k0NYPSJYB8LB2sBaii1frO5HeJtxsA8C7HVxtsQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=IXuJXmm1L/Jhi24x0VJhO/CUOKxUynvBBzyqb7srkc+byCrFr+sOVdnbyL04CIw9O
-	 7s19zLpbNty3komPqImR1IQNZnWtiyhrkcCopoU/jP+Fhbl5sGxVnegviTgsvG/p6I
-	 7yMdpw/OQ7b8JLVlO9LQ0qI1TVvGHgfX3TP7sNzY=
+	b=dXe2Gvkxy+fUyETu1Tt5CeebGY28xiEKaj0lEr6HCbsp+ciJ3H/nyI46KH8I7AIUs
+	 Rs0OgvryoVjC5RBELF34kXr/NGUTtLTAj6nGTuXyxZGi6fKnSvDugLmhM6p1j8LfyV
+	 OsAho6eVY/VXR8lZTDS4yX2Xi1uqTl3h15+z3Cmc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EB3D8F8027B; Tue, 11 Jul 2023 12:11:49 +0200 (CEST)
+	id 485DDF8024E; Tue, 11 Jul 2023 12:15:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91467F80153;
-	Tue, 11 Jul 2023 12:11:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A06C6F80153;
+	Tue, 11 Jul 2023 12:15:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C0D82F80249; Tue, 11 Jul 2023 12:11:43 +0200 (CEST)
+	id DA667F80093; Tue, 11 Jul 2023 12:15:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
@@ -36,32 +36,29 @@ Received: from bluemchen.kde.org (bluemchen.kde.org
  [IPv6:2001:470:142:8::100])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 1FA7DF80153
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 12:11:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FA7DF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 897A9F80093
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 12:15:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 897A9F80093
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 9DA3A24264;
-	Tue, 11 Jul 2023 06:11:30 -0400 (EDT)
+	by bluemchen.kde.org (Postfix) with ESMTP id 2164924264;
+	Tue, 11 Jul 2023 06:15:32 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1qJALC-WJY-00; Tue, 11 Jul 2023 12:11:30 +0200
-Date: Tue, 11 Jul 2023 12:11:30 +0200
+	id 1qJAP5-WLf-00; Tue, 11 Jul 2023 12:15:31 +0200
+Date: Tue, 11 Jul 2023 12:15:31 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: Takashi Iwai <tiwai@suse.de>
 Cc: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 2/2] ALSA: emu10k1: track loss of external clock on E-MU
- cards
-Message-ID: <ZK0q0prNuOz2Be6b@ugly>
-References: <20230710065956.1246364-1-oswald.buddenhagen@gmx.de>
- <20230710065956.1246364-2-oswald.buddenhagen@gmx.de>
- <87ttubyfh9.wl-tiwai@suse.de>
- <ZKxBJVxHdkmpHSVh@ugly>
- <87cz0zxbih.wl-tiwai@suse.de>
+Subject: Re: [PATCH v2 0/8] ALSA: emu10k1: add support for high-bitrate modes
+ of E-MU cards
+Message-ID: <ZK0rw5j5BbyppXZ/@ugly>
+References: <20230630144542.664190-1-oswald.buddenhagen@gmx.de>
+ <87sf9vyfer.wl-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <87cz0zxbih.wl-tiwai@suse.de>
-Message-ID-Hash: UGU7Q623IDJRQDY7TDHEIV7VEG7YYU2A
-X-Message-ID-Hash: UGU7Q623IDJRQDY7TDHEIV7VEG7YYU2A
+In-Reply-To: <87sf9vyfer.wl-tiwai@suse.de>
+Message-ID-Hash: J4NKRCLWJ4W6OMQF54B5U5D2HBVJESAG
+X-Message-ID-Hash: J4NKRCLWJ4W6OMQF54B5U5D2HBVJESAG
 X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -74,7 +71,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/UGU7Q623IDJRQDY7TDHEIV7VEG7YYU2A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J4NKRCLWJ4W6OMQF54B5U5D2HBVJESAG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -83,22 +80,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 11, 2023 at 07:28:22AM +0200, Takashi Iwai wrote:
->Again, snd_ctl_notify() itself doesn't need the rwsem lock at all.
+On Mon, Jul 10, 2023 at 05:06:36PM +0200, Takashi Iwai wrote:
+>On Fri, 30 Jun 2023 16:45:34 +0200,
+>Oswald Buddenhagen wrote:
+>> 
+>> This series is what all the work was about: support the "dual-/quad-pumped"
+>> modes of the E-MU cards.
+>> 
+>> Oswald Buddenhagen (8):
+>>   ALSA: emu10k1: introduce alternative E-MU D.A.S. mode
+>>   ALSA: emu10k1: improve mixer control naming in E-MU D.A.S. mode
+>>   ALSA: emu10k1: set the "no filtering" bits on PCM voices
+>>   ALSA: emu10k1: make playback in E-MU D.A.S. mode 32-bit
+>>   ALSA: add snd_ctl_add_locked()
+>>   ALSA: emu10k1: add support for 2x/4x word clocks in E-MU D.A.S. mode
+>>   ALSA: emu10k1: add high-rate capture in E-MU D.A.S. mode
+>>   ALSA: emu10k1: add high-rate playback in E-MU D.A.S. mode
 >
-ah, you mean i could fully release it before the notification.
-
->It's snd_ctl_notify_one() that needs a more careful call pattern.
+>I still can't agree with the basic design using the dynamic kctl
+>addition / deletion in kcontrol's put action.
 >
-i suppose that's because the snd_ctl_layer callbacks might require it.
-i would recommend actually documenting that.
-
->And, that ugly implementation is a thing to be improved in future in
->ALSA core side.
->
-it is? like, really? or is it just a far-off idea with no concrete plan 
-whatsoever? is there an actual problem to solve, or is it just a sense 
-of "yeah, this could be nicer ... somehow"? i mean, this is the mixer -  
-one would be hard-pressed to find an actual bottleneck in there.
+you are not being constructive. please provide specific, actionable 
+responses to _all_ challenges/questions.
 
 regards

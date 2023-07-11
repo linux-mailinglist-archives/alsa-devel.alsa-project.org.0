@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E7E74EFC0
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 15:01:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A0DD74EFC5
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 15:02:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F004AEA;
-	Tue, 11 Jul 2023 15:00:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F004AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2C51DF8;
+	Tue, 11 Jul 2023 15:01:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2C51DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689080499;
-	bh=olsksZzndWsPrzCK5znSpaeExI0MYdc1YrpF7vHeiR4=;
+	s=default; t=1689080526;
+	bh=zk2sNO05UAbs2nuTw7unuMIHhKz7EsY9TKiKaOgRRPU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SjQisPsK4ZR2lOo7L774s+VkD7/lUQ+C32ITRPyMH4O9nu18GZuMkH8S9hUarhUvS
-	 ruSd8G9onC5BchWCo69ue8F/t5HANS9wiGwyMhg0iivDi9qVes2zMkwtvm5txtJXWw
-	 /ggJArbAsm9Yl1nZktcyh5O25CJZADhOLKEv2QGY=
+	b=Zs5pI5YbVcPGDyfQTbogMl+eeo4ZCW0GSw0GIBV7KiJ/aiMDm9d4yWOhpGXEWaeOw
+	 PfWHkcs0LuyNnLq64RCWBYdNi787LJxDMdhdnOaZP5RXuvFlztWLWczj+gVXcTDhXX
+	 bxmhp5lROwdmGFzoxsUACOylWFUVP1oBBz8YhwAY=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7EEABF80552; Tue, 11 Jul 2023 14:59:07 +0200 (CEST)
+	id 7E7E4F805A0; Tue, 11 Jul 2023 14:59:11 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95CD9F8027B;
-	Tue, 11 Jul 2023 14:59:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AB79F8057A;
+	Tue, 11 Jul 2023 14:59:11 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8C8C2F8047D; Tue, 11 Jul 2023 14:59:03 +0200 (CEST)
+	id A5678F8027B; Tue, 11 Jul 2023 14:59:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,38 +36,38 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0466CF80093
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 14:57:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0466CF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 8041FF800E4
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 14:57:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8041FF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=CrVKcjC5
+ header.s=Intel header.b=JWy2RaB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689080243; x=1720616243;
+  t=1689080245; x=1720616245;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=olsksZzndWsPrzCK5znSpaeExI0MYdc1YrpF7vHeiR4=;
-  b=CrVKcjC5eUq2OitAN0TcA/LCOytB+V3ufxmbg5mP8NtW+3hiiziT+X88
-   4+Jnu3HBqKzgW22qzmXfwzTTICgjaMVtLKrnBqdESzzOZr4IFaJ1r/aKQ
-   fIT6eNrXkm9X26dd+2cv7VQvlRFALMshfmJIHMziH6slqP3GzozF/d2ta
-   zBB72CpPrc0Vt8YEMp/rGEhJ2An3H7e9cOGx4Ew6kS6XtJMeseXknGGgZ
-   0l/KtXyE8ODSBM3vFT4tkDksuiFB09os3GDwdaTQHkSi+WLbxglZioTu/
-   sq8loBpI0a+KX8WQGfbPPj5WaFAhZvdkIiMuSeTJ4bQdIKj9IjFZcQZOc
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="367187428"
+  bh=zk2sNO05UAbs2nuTw7unuMIHhKz7EsY9TKiKaOgRRPU=;
+  b=JWy2RaB9AjC9XLvcQAUDUSCpL1pWI6icK4rzPy8XREIKwCIOaOhWxYag
+   h+RTa2n2Ned6qYxzhmzW/X6F3WyzV+lTXhGsziNSkL/loDUb6NFkbfAkY
+   jWtXOmZlDuL7tXjhC+C+RMiJ3tYPvhiBoIsDPuMw31Zdz2RJt48MRVicX
+   /Ebri8J0haxxlojnOJgfkjFgpC14yVJlaFmX07O6DC9Das2gdTsQwyPKD
+   q07YH5gqs0hVF7xi6YJL8W7xMECP8sU30mW/DKV92lLfEFtx1NUk/WjY/
+   ZMuFEpRO/T0eYwW0SQaGV4RwoV1sYN3Bil3E1oXYon8Y/VM4ADdP7/vMA
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="367187446"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="367187428"
+   d="scan'208";a="367187446"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
   by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 05:57:21 -0700
+ 11 Jul 2023 05:57:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="834666603"
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="834666632"
 X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
-   d="scan'208";a="834666603"
+   d="scan'208";a="834666632"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by fmsmga002.fm.intel.com with ESMTP; 11 Jul 2023 05:57:18 -0700
+  by fmsmga002.fm.intel.com with ESMTP; 11 Jul 2023 05:57:21 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Bjorn Helgaas <bhelgaas@google.com>,
@@ -83,17 +83,17 @@ Cc: alsa-devel@alsa-project.org,
 	Hans de Goede <hdegoede@redhat.com>,
 	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-Subject: [PATCH 05/13] ALSA: hda/i915:  Use global PCI match macro
-Date: Tue, 11 Jul 2023 14:57:18 +0200
-Message-Id: <20230711125726.3509391-6-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH 06/13] ASoC: Intel: Skylake: Use global PCI match macro
+Date: Tue, 11 Jul 2023 14:57:19 +0200
+Message-Id: <20230711125726.3509391-7-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230711125726.3509391-1-amadeuszx.slawinski@linux.intel.com>
 References: <20230711125726.3509391-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: SAGFRV5VO23RUM2QJWPLNLG46RBW2Z3X
-X-Message-ID-Hash: SAGFRV5VO23RUM2QJWPLNLG46RBW2Z3X
+Message-ID-Hash: EV2IAYFMTED4PIWHOCACAZ62OAJ4ODUG
+X-Message-ID-Hash: EV2IAYFMTED4PIWHOCACAZ62OAJ4ODUG
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SAGFRV5VO23RUM2QJWPLNLG46RBW2Z3X/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/EV2IAYFMTED4PIWHOCACAZ62OAJ4ODUG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -117,36 +117,48 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 Instead of using local macro to match PCI device, use global one.
 
+Acked-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- sound/hda/hdac_i915.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ include/sound/hda_codec.h         | 3 ---
+ sound/soc/intel/skylake/skl-pcm.c | 3 ++-
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/hda/hdac_i915.c b/sound/hda/hdac_i915.c
-index 161a9711cd63..2a451ff4fe6a 100644
---- a/sound/hda/hdac_i915.c
-+++ b/sound/hda/hdac_i915.c
-@@ -11,11 +11,6 @@
- #include <sound/hda_i915.h>
- #include <sound/hda_register.h>
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index bbb7805e85d8..5497dc9c396a 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -18,9 +18,6 @@
+ #include <sound/hda_verbs.h>
+ #include <sound/hda_regmap.h>
  
--#define IS_HSW_CONTROLLER(pci) (((pci)->device == 0x0a0c) || \
--				((pci)->device == 0x0c0c) || \
--				((pci)->device == 0x0d0c) || \
--				((pci)->device == 0x160c))
+-#define IS_BXT(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0x5a98)
+-#define IS_CFL(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0xa348)
 -
- /**
-  * snd_hdac_i915_set_bclk - Reprogram BCLK for HSW/BDW
-  * @bus: HDA core bus
-@@ -39,7 +34,7 @@ void snd_hdac_i915_set_bclk(struct hdac_bus *bus)
- 
- 	if (!acomp || !acomp->ops || !acomp->ops->get_cdclk_freq)
- 		return; /* only for i915 binding */
--	if (!IS_HSW_CONTROLLER(pci))
-+	if (!HDA_CONTROLLER_IS_HSW(pci))
- 		return; /* only HSW/BDW */
- 
- 	cdclk_freq = acomp->ops->get_cdclk_freq(acomp->dev);
+ /*
+  * Structures
+  */
+diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
+index a4209d88b0c6..ac3dc8c63c26 100644
+--- a/sound/soc/intel/skylake/skl-pcm.c
++++ b/sound/soc/intel/skylake/skl-pcm.c
+@@ -13,6 +13,7 @@
+ #include <linux/pci.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/delay.h>
++#include <sound/hdaudio.h>
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
+ #include "skl.h"
+@@ -152,7 +153,7 @@ int skl_pcm_host_dma_prepare(struct device *dev, struct skl_pipe_params *params)
+ 	 * The recommended SDxFMT programming sequence for BXT
+ 	 * platforms is to couple the stream before writing the format
+ 	 */
+-	if (IS_BXT(skl->pci)) {
++	if (HDA_CONTROLLER_IS_APL(skl->pci)) {
+ 		snd_hdac_ext_stream_decouple(bus, stream, false);
+ 		err = snd_hdac_stream_setup(hdac_stream(stream));
+ 		snd_hdac_ext_stream_decouple(bus, stream, true);
 -- 
 2.34.1
 

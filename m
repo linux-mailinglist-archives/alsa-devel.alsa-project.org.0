@@ -2,146 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DCF974F243
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:29:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E234B74F19A
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jul 2023 16:17:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 811FDEB1;
-	Tue, 11 Jul 2023 16:28:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 811FDEB1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04BA4EAC;
+	Tue, 11 Jul 2023 16:16:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04BA4EAC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689085752;
-	bh=A+lgFSqWg8vRgir1XqFzY9nIE1Cw0dwqFBu8P2BdZBc=;
+	s=default; t=1689085063;
+	bh=GydZ/1lpJ/AnE3XIEbDEpzC1D7bZ7OxWRWr9gYhGDh8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=UqimKkP7n4jGN2P0hJ1jtZin1J7n2npXhkHB/gx4j1Qa0MEm7tRGTmjy83qpbgQoA
-	 LfSGCJRYdz+lgJlAXHEOb2vYhlskNyMpawylgjpWVOw25RK7FiH9SeYudlJFMjhA5e
-	 4PuN6q4OjraxEPfevB2bLZWb/8TmGyxddx46CeVY=
+	b=LLbCSYN5dZqpsXX9L7byoX3NHn8RRFs/33RXokQOCNdjHIFmaos79lsV1vwdYZaXS
+	 FlDRSmcRZjpEfdIqFluE+MBTBFwjb+axK6dtozqacknfqNyW8i+p8VNfLgb6QrGp0j
+	 wJn3hzEA0eW6wgydDmFX2EdG6jKztNc7XouJh5VA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5E5C6F8069C; Tue, 11 Jul 2023 16:22:39 +0200 (CEST)
+	id 64442F800E4; Tue, 11 Jul 2023 16:16:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7895F8069D;
-	Tue, 11 Jul 2023 16:22:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE8D9F80236;
+	Tue, 11 Jul 2023 16:16:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0701DF80249; Tue, 11 Jul 2023 16:15:16 +0200 (CEST)
+	id 39356F80249; Tue, 11 Jul 2023 16:16:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5DFE4F80093
-	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 16:15:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DFE4F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 2A617F80093
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 16:16:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A617F80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=KwXQpO0J
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 77C8D61360;
-	Tue, 11 Jul 2023 14:15:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209CBC433C9;
-	Tue, 11 Jul 2023 14:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689084907;
-	bh=A+lgFSqWg8vRgir1XqFzY9nIE1Cw0dwqFBu8P2BdZBc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KwXQpO0JwJwS2tync5AfGpO9HXb9u4mgZfpWRxyxjmWV7o23oHa66oSgLBUqWen2D
-	 ZlOHsSEyXpzrsEeWWEmLhLLitAzI15911I18ub63ARZldiwGDK6EeLi3B34Qy+IEG4
-	 waxyA6VmnpE80hBohYtayTpWfyRhiz5yBCu2xfPCie7wDB1OJGO5pfFeIe7TmhLaf6
-	 2F7TtEpspxDmIAOKWfQt4n5/QaTo60Dymh5zBKNq1hnkXPOMFNsHXFu721qfrAekf9
-	 KAql0ORVXuf2YxOmwhPq6tE1iNaCTZM61qgKsPoZvWs0hppRNFtMcBrTT4RcCr66z6
-	 VpMXSzxRgleHw==
-Date: Tue, 11 Jul 2023 15:14:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Yang Yingliang <yangyingliang@huawei.com>,
-	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
-	Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Sanjay R Mehta <sanju.mehta@amd.com>,
-	Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@microchip.com>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	NXP Linux Team <linux-imx@nxp.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@linaro.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>
-Subject: Re: [PATCH v2 04/15] spi: Replace open coded
- spi_controller_xfer_timeout()
-Message-ID: <5959b123-09e3-474b-9ab0-68d71cfdd9a2@sirena.org.uk>
-References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
- <cfaffa00-4b61-4d81-8675-70295844513b@sirena.org.uk>
- <ZK02efTYxV3czigr@smile.fi.intel.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=NEbrVMn4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689085004; x=1720621004;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=GydZ/1lpJ/AnE3XIEbDEpzC1D7bZ7OxWRWr9gYhGDh8=;
+  b=NEbrVMn4G49xkmUMZREhdKdjqzUueGrm1GjXoipeIgyUJuqaY8ENcxp1
+   fjblgpDjcMdA1HZaXtZHfoc0asd2p9iMn9iZSvFbXVm3sVY7dhhOpsRgQ
+   j018o/IwBjzOX+CJzAeVOWDOoa3b8+sg3DwGabSgKqF19z/F/icqm6IV4
+   QlNz6zz2LFR0U7mUziF5A/+LkPKOKTtuHf4Xi1ciZzOSeRCRyCWn7F9Ac
+   h26ABGQmKcKvN+IzFMRVz100VMRXjT4sfg5n3AQ6eKVLI0gaLfnk6T1Ll
+   OJp1CPQ+QKy6LlhfmuaIj4FYYL0Z9l7bCcexIoVrjItxANgy6gFR+jF0s
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="450989637"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="450989637"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 07:16:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="715173555"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="715173555"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orsmga007.jf.intel.com with ESMTP; 11 Jul 2023 07:16:31 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1qJEAI-001s37-0N;
+	Tue, 11 Jul 2023 17:16:30 +0300
+Date: Tue, 11 Jul 2023 17:16:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH 12/13] ASoC: SOF: Intel: Convert to PCI device IDs defines
+Message-ID: <ZK1kPXm+FieJ+vya@smile.fi.intel.com>
+References: <20230711125726.3509391-1-amadeuszx.slawinski@linux.intel.com>
+ <20230711125726.3509391-13-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MZrPSMfLUzZVYlnE"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ZK02efTYxV3czigr@smile.fi.intel.com>
-X-Cookie: marriage, n.:
-X-MailFrom: broonie@kernel.org
-X-Mailman-Rule-Hits: max-recipients
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230711125726.3509391-13-amadeuszx.slawinski@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: SKCJXZZTOHDUXKM26IB7GJR4QCC7OMEV
+X-Message-ID-Hash: SKCJXZZTOHDUXKM26IB7GJR4QCC7OMEV
+X-MailFrom: andriy.shevchenko@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
- suspicious-header
-Message-ID-Hash: W5RVIUA6FGPV6XRP3EMWRU43BVBWNI7I
-X-Message-ID-Hash: W5RVIUA6FGPV6XRP3EMWRU43BVBWNI7I
-X-Mailman-Approved-At: Tue, 11 Jul 2023 14:22:36 +0000
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/W5RVIUA6FGPV6XRP3EMWRU43BVBWNI7I/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SKCJXZZTOHDUXKM26IB7GJR4QCC7OMEV/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -150,54 +115,207 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Tue, Jul 11, 2023 at 02:57:25PM +0200, Amadeusz Sławiński wrote:
+> Use PCI device IDs from pci_ids.h header and while at it change to using
+> PCI_DEVICE_DATA() macro, to simplify declarations.
 
---MZrPSMfLUzZVYlnE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+FWIW,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Oh, additional remark below.
 
-On Tue, Jul 11, 2023 at 02:01:13PM +0300, Andy Shevchenko wrote:
-> On Mon, Jul 10, 2023 at 06:30:32PM +0100, Mark Brown wrote:
-> > On Mon, Jul 10, 2023 at 06:49:21PM +0300, Andy Shevchenko wrote:
+> Acked-by: Mark Brown <broonie@kernel.org>
+> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+> ---
+>  sound/soc/sof/intel/pci-apl.c |  9 +++----
+>  sound/soc/sof/intel/pci-cnl.c | 15 ++++--------
+>  sound/soc/sof/intel/pci-icl.c | 12 ++++------
+>  sound/soc/sof/intel/pci-mtl.c |  3 +--
+>  sound/soc/sof/intel/pci-skl.c |  6 ++---
+>  sound/soc/sof/intel/pci-tgl.c | 45 ++++++++++++-----------------------
+>  sound/soc/sof/intel/pci-tng.c |  3 +--
+>  7 files changed, 31 insertions(+), 62 deletions(-)
+> 
+> diff --git a/sound/soc/sof/intel/pci-apl.c b/sound/soc/sof/intel/pci-apl.c
+> index 69cad5a6bc72..083659ddfe6b 100644
+> --- a/sound/soc/sof/intel/pci-apl.c
+> +++ b/sound/soc/sof/intel/pci-apl.c
+> @@ -85,12 +85,9 @@ static const struct sof_dev_desc glk_desc = {
+>  
+>  /* PCI IDs */
+>  static const struct pci_device_id sof_pci_ids[] = {
+> -	{ PCI_DEVICE(0x8086, 0x5a98), /* BXT-P (ApolloLake) */
+> -		.driver_data = (unsigned long)&bxt_desc},
+> -	{ PCI_DEVICE(0x8086, 0x1a98),/* BXT-T */
+> -		.driver_data = (unsigned long)&bxt_desc},
+> -	{ PCI_DEVICE(0x8086, 0x3198), /* GeminiLake */
+> -		.driver_data = (unsigned long)&glk_desc},
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_APL, &bxt_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_APL_T, &bxt_desc) },
 
-> > > + * Assume speed to be 100 kHz if it's not defined at the time of invocation.
+Have we ever had APL-T? What is that? I remember that we have had two or
+three BXTs inside, and then products become for Broxton and Apollo Lake
+SoC codenames. I never have heard about -T...
 
-> > You didn't mention this bit in the changelog, and I'm not 100% convinced
-> > it was the best idea in the first place.  It's going to result in some
-> > very big timeouts if it goes off, and we really should be doing
-> > validation much earlier in the process.
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_GML, &glk_desc) },
+>  	{ 0, }
+>  };
+>  MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+> diff --git a/sound/soc/sof/intel/pci-cnl.c b/sound/soc/sof/intel/pci-cnl.c
+> index 8895508a0be6..e2c50e7b0aa7 100644
+> --- a/sound/soc/sof/intel/pci-cnl.c
+> +++ b/sound/soc/sof/intel/pci-cnl.c
+> @@ -120,16 +120,11 @@ static const struct sof_dev_desc cml_desc = {
+>  
+>  /* PCI IDs */
+>  static const struct pci_device_id sof_pci_ids[] = {
+> -	{ PCI_DEVICE(0x8086, 0x9dc8), /* CNL-LP */
+> -		.driver_data = (unsigned long)&cnl_desc},
+> -	{ PCI_DEVICE(0x8086, 0xa348), /* CNL-H */
+> -		.driver_data = (unsigned long)&cfl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x02c8), /* CML-LP */
+> -		.driver_data = (unsigned long)&cml_desc},
+> -	{ PCI_DEVICE(0x8086, 0x06c8), /* CML-H */
+> -		.driver_data = (unsigned long)&cml_desc},
+> -	{ PCI_DEVICE(0x8086, 0xa3f0), /* CML-S */
+> -		.driver_data = (unsigned long)&cml_desc},
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_CNL_LP, &cnl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_CNL_H, &cfl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_CML_LP, &cml_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_CML_H, &cml_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_CML_S, &cml_desc) },
+>  	{ 0, }
+>  };
+>  MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+> diff --git a/sound/soc/sof/intel/pci-icl.c b/sound/soc/sof/intel/pci-icl.c
+> index 5fb5a820693e..0a65df3ed9e2 100644
+> --- a/sound/soc/sof/intel/pci-icl.c
+> +++ b/sound/soc/sof/intel/pci-icl.c
+> @@ -86,14 +86,10 @@ static const struct sof_dev_desc jsl_desc = {
+>  
+>  /* PCI IDs */
+>  static const struct pci_device_id sof_pci_ids[] = {
+> -	{ PCI_DEVICE(0x8086, 0x34C8), /* ICL-LP */
+> -		.driver_data = (unsigned long)&icl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x3dc8), /* ICL-H */
+> -		.driver_data = (unsigned long)&icl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x38c8), /* ICL-N */
+> -		.driver_data = (unsigned long)&jsl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x4dc8), /* JSL-N */
+> -		.driver_data = (unsigned long)&jsl_desc},
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ICL_LP, &icl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ICL_H, &icl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ICL_N, &jsl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_JSL_N, &jsl_desc) },
+>  	{ 0, }
+>  };
+>  MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+> diff --git a/sound/soc/sof/intel/pci-mtl.c b/sound/soc/sof/intel/pci-mtl.c
+> index e276e1e37fed..7868b0827e84 100644
+> --- a/sound/soc/sof/intel/pci-mtl.c
+> +++ b/sound/soc/sof/intel/pci-mtl.c
+> @@ -52,8 +52,7 @@ static const struct sof_dev_desc mtl_desc = {
+>  
+>  /* PCI IDs */
+>  static const struct pci_device_id sof_pci_ids[] = {
+> -	{ PCI_DEVICE(0x8086, 0x7E28), /* MTL */
+> -		.driver_data = (unsigned long)&mtl_desc},
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_MTL, &mtl_desc) },
+>  	{ 0, }
+>  };
+>  MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+> diff --git a/sound/soc/sof/intel/pci-skl.c b/sound/soc/sof/intel/pci-skl.c
+> index 5e69af6eed34..a6588b138a8c 100644
+> --- a/sound/soc/sof/intel/pci-skl.c
+> +++ b/sound/soc/sof/intel/pci-skl.c
+> @@ -69,10 +69,8 @@ static struct sof_dev_desc kbl_desc = {
+>  
+>  /* PCI IDs */
+>  static const struct pci_device_id sof_pci_ids[] = {
+> -	/* Sunrise Point-LP */
+> -	{ PCI_DEVICE(0x8086, 0x9d70), .driver_data = (unsigned long)&skl_desc},
+> -	/* KBL */
+> -	{ PCI_DEVICE(0x8086, 0x9d71), .driver_data = (unsigned long)&kbl_desc},
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_SKL_LP, &skl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_KBL_LP, &kbl_desc) },
+>  	{ 0, }
+>  };
+>  MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+> diff --git a/sound/soc/sof/intel/pci-tgl.c b/sound/soc/sof/intel/pci-tgl.c
+> index ca37ff1bbd2a..d688f9373fb2 100644
+> --- a/sound/soc/sof/intel/pci-tgl.c
+> +++ b/sound/soc/sof/intel/pci-tgl.c
+> @@ -284,36 +284,21 @@ static const struct sof_dev_desc rpl_desc = {
+>  
+>  /* PCI IDs */
+>  static const struct pci_device_id sof_pci_ids[] = {
+> -	{ PCI_DEVICE(0x8086, 0xa0c8), /* TGL-LP */
+> -		.driver_data = (unsigned long)&tgl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x43c8), /* TGL-H */
+> -		.driver_data = (unsigned long)&tglh_desc},
+> -	{ PCI_DEVICE(0x8086, 0x4b55), /* EHL */
+> -		.driver_data = (unsigned long)&ehl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x4b58), /* EHL */
+> -		.driver_data = (unsigned long)&ehl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x7ad0), /* ADL-S */
+> -		.driver_data = (unsigned long)&adls_desc},
+> -	{ PCI_DEVICE(0x8086, 0x7a50), /* RPL-S */
+> -		.driver_data = (unsigned long)&rpls_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51c8), /* ADL-P */
+> -		.driver_data = (unsigned long)&adl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51c9), /* ADL-PS */
+> -		.driver_data = (unsigned long)&adl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51ca), /* RPL-P */
+> -		.driver_data = (unsigned long)&rpl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51cb), /* RPL-P */
+> -		.driver_data = (unsigned long)&rpl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51cc), /* ADL-M */
+> -		.driver_data = (unsigned long)&adl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51cd), /* ADL-P */
+> -		.driver_data = (unsigned long)&adl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51ce), /* RPL-M */
+> -		.driver_data = (unsigned long)&rpl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x51cf), /* RPL-PX */
+> -		.driver_data = (unsigned long)&rpl_desc},
+> -	{ PCI_DEVICE(0x8086, 0x54c8), /* ADL-N */
+> -		.driver_data = (unsigned long)&adl_n_desc},
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_TGL_LP, &tgl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_TGL_H, &tglh_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_EHL_0, &ehl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_EHL_3, &ehl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_S, &adls_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_S, &rpls_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_P, &adl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_PS, &adl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_P_0, &rpl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_P_1, &rpl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_M, &adl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_PX, &adl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_M, &rpl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_RPL_PX, &rpl_desc) },
+> +	{ PCI_DEVICE_DATA(INTEL, HDA_ADL_N, &adl_n_desc) },
+>  	{ 0, }
+>  };
+>  MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+> diff --git a/sound/soc/sof/intel/pci-tng.c b/sound/soc/sof/intel/pci-tng.c
+> index 8c22a00266c0..12e81456a80c 100644
+> --- a/sound/soc/sof/intel/pci-tng.c
+> +++ b/sound/soc/sof/intel/pci-tng.c
+> @@ -225,8 +225,7 @@ static const struct sof_dev_desc tng_desc = {
+>  
+>  /* PCI IDs */
+>  static const struct pci_device_id sof_pci_ids[] = {
+> -	{ PCI_DEVICE(0x8086, 0x119a),
+> -		.driver_data = (unsigned long)&tng_desc},
+> +	{ PCI_DEVICE_DATA(INTEL, ADSP_TNG, &tng_desc) },
+>  	{ 0, }
+>  };
+>  MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+> -- 
+> 2.34.1
+> 
 
-> Okay, let's drop this change.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Like I say we *should* be fine with the refactoring without this, or at
-least if it's an issue we should improve the validation.
 
-> > > +	u32 speed_hz = xfer->speed_hz ?: 100000;
-
-> > Not only the ternery operator, but the version without the second
-> > argument for extra clarity!
-
-> Elvis can be interpreted as "A _or_ B (if A is false/0)".
-> Some pieces related to SPI use Elvis already IIRC.
-
-I understand what it means, I just don't find it's adding clarity most
-of the times it's used (there's a few places where it is useful like
-pasting in strings in formats).  There are some examples that I'd
-complain about in the code, most of them predating me working on SPI too
-much, but I'm not a fan.
-
---MZrPSMfLUzZVYlnE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmStY90ACgkQJNaLcl1U
-h9DeQQf+MxpgOv6egcsQtreuAtaq7Ev7HPCaH6MbusHDNH2hElvH+GmEYjovkV6m
-h3LadU5OvktJBaXfjDQRjU71Cbf70/Nlo8I3WN5V4iRKzqWtfMV16ZStvy2+1Rx/
-jHek+Aib8L8SiwlzvD6WB163yHCsSn5KBv2Pqp95DjGWamTl918onxXzSS6g2j5A
-ib1Mz8aOXWBsiIdaFTQ3NoK7Uvnykzp1X2uGcfrRZuPWQNVvpJs/wt5iOuTpuEws
-6O2PEgJext+6CeKBCv8pCvpex2QsVtDKLnDVvmDX4Oa2impxsxSIjLyVbZfbJ480
-4XviYIQ2LNlTFidlbAAqqEafOQrvRg==
-=WM20
------END PGP SIGNATURE-----
-
---MZrPSMfLUzZVYlnE--

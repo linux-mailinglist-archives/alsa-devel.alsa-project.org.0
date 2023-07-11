@@ -2,115 +2,155 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B67777505E1
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4F53750943
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:10:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99506206;
-	Wed, 12 Jul 2023 13:19:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99506206
+	by alsa0.perex.cz (Postfix) with ESMTPS id ED7463E7;
+	Wed, 12 Jul 2023 15:10:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED7463E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689160849;
-	bh=oHBxKBufwuB1slfajuKFXgDsTqO7dShWYw3aEGIwfUs=;
-	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=txc6e4XClee4q4NEKukq60JvddPAwz6nM2a1588uCNhd848lTY0we4XdZ3TXekIcl
-	 f9xSwseuTy7c2lvMM0W7pRgSR9EujPaaGuV1zwOGhjSXV0YtzYE4EPMRnpz2Zmh3Fy
-	 YmIv3r2tUCviR9Gn1jPPogYwG+Ay8TaHWhuV7Tds=
+	s=default; t=1689167452;
+	bh=WtKHEzd9TLb1fy9g0AvI3P/4wH5wHUCXn6+ARbR9U1s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=TsP2/lga4NEWF0Yrd/MUcmbtFzXqaQNjvmErC6AVoSZRvXWVujpy+/hGcsVBh2oig
+	 t5XclOjW1YC1G6paVFyHu2AshXG9O/34+DzU5/wrEez5jN1TH1iAlVBqiRo9JXuE3d
+	 Jcm+l3W2GWNz+3R+/oSYuD87FkYL1IrOq/O67dEw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9659F8053B; Wed, 12 Jul 2023 13:19:58 +0200 (CEST)
+	id E09C5F80544; Wed, 12 Jul 2023 15:10:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A58DAF80236;
-	Wed, 12 Jul 2023 13:19:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56145F80236;
+	Wed, 12 Jul 2023 15:10:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 664FAF80249; Wed, 12 Jul 2023 13:19:55 +0200 (CEST)
+	id 6C9A3F80249; Tue, 11 Jul 2023 17:30:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_NONE,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 38576F80093
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:19:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38576F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id A27BCF800E4
+	for <alsa-devel@alsa-project.org>; Tue, 11 Jul 2023 17:30:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A27BCF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=bcYuzAw0
+ header.s=Intel header.b=csPvXIEV
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689160788; x=1720696788;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=oHBxKBufwuB1slfajuKFXgDsTqO7dShWYw3aEGIwfUs=;
-  b=bcYuzAw028aP55XGURmi9avUuuVZUnCpf2Bvn6fMzNQ3a5XR/PVNtIHt
-   3aqK6P5bXO0byW6KWokWFgCcKbi4Vf7KZZzkypgpPSUp0MmF+qYYLCqVi
-   towt/EvoH7kxrbUnTGFc9eh4A+M9SaVm6tkgzfHkf2dBEomlg/cpP8BGD
-   UMddP2x3ENIH0bs+oI/UdlKIdwwmZx68h4bI17hhI5BBA5vz0goV4NWum
-   cVhmY7iGgmZnDHEUonY1SexzZDI++83UspKUDKZ4B0XtuRBsQgKJjqn5o
-   bWl6K+YtuCYXZF2kslJpzjQe26uyHhFys3y9JKQ6BvPR+SpXoxgNUDKTy
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="349716945"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
-   d="scan'208";a="349716945"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 04:19:44 -0700
+  t=1689089428; x=1720625428;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WtKHEzd9TLb1fy9g0AvI3P/4wH5wHUCXn6+ARbR9U1s=;
+  b=csPvXIEVpkHxaUjuX5PXJZBwmNUVdDBFTrNjxBtnGJbsI8Mr8MI8REcd
+   tffOI9lCu2t29eG+kGwfYwrVhwBWLCad8OiP9o5SvQvgYt4RdW4stbpCY
+   eiJWyo3X8Za9QnmqoR1JQQxFfVIyS5UizKa9hwclwqAALdOVUloj2GXbl
+   VIslFXpoWcNHsr7U9eA4Zz52XcrcVZiEjr9DsLrGR2BmkisDJfbGecsek
+   Ho/mY9tC0T2Jqh081OBcmcz6UE74RcFSEMeWHbDf6EgN9JS5wygtBO4Av
+   qeTCuhIsXzvfqQZSXnEYWytuyI8Nvh+Rac6oQDow1hgTvSe4AeVvqi+WJ
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="428346803"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="428346803"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 08:30:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="845616454"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
-   d="scan'208";a="845616454"
-Received: from brentlu-desktop.itwn.intel.com ([10.5.252.92])
-  by orsmga004.jf.intel.com with ESMTP; 12 Jul 2023 04:19:38 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Yong Zhi <yong.zhi@intel.com>,
-	Uday M Bhat <uday.m.bhat@intel.com>,
-	Gongjun Song <gongjun.song@intel.com>,
-	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
-	Brent Lu <brent.lu@intel.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Terry Cheong <htcheong@chromium.org>,
-	"Dharageswari . R" <dharageswari.r@intel.com>,
-	Mac Chiang <mac.chiang@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	ye xingchen <ye.xingchen@zte.com.cn>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] ASoC: Intel: sof_rt5682: add jsl_rt5650 board config
-Date: Thu, 13 Jul 2023 03:14:23 +0800
-Message-Id: <20230712191423.443765-1-brent.lu@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="698462660"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200";
+   d="scan'208";a="698462660"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orsmga006.jf.intel.com with ESMTP; 11 Jul 2023 08:30:10 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1qJFJX-001swf-0G;
+	Tue, 11 Jul 2023 18:30:07 +0300
+Date: Tue, 11 Jul 2023 18:30:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Yang Yingliang <yangyingliang@huawei.com>,
+	Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
+	Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Sanjay R Mehta <sanju.mehta@amd.com>,
+	Radu Pirea <radu_nicolae.pirea@upb.ro>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	NXP Linux Team <linux-imx@nxp.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Alain Volmat <alain.volmat@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>
+Subject: Re: [PATCH v2 04/15] spi: Replace open coded
+ spi_controller_xfer_timeout()
+Message-ID: <ZK11flZf/1grJ1Bd@smile.fi.intel.com>
+References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
+ <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
+ <cfaffa00-4b61-4d81-8675-70295844513b@sirena.org.uk>
+ <ZK02efTYxV3czigr@smile.fi.intel.com>
+ <5959b123-09e3-474b-9ab0-68d71cfdd9a2@sirena.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: E67HVJ7P5I63MLMFNPSRJOSUDJHSTRRT
-X-Message-ID-Hash: E67HVJ7P5I63MLMFNPSRJOSUDJHSTRRT
-X-MailFrom: brent.lu@intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5959b123-09e3-474b-9ab0-68d71cfdd9a2@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+X-MailFrom: andriy.shevchenko@linux.intel.com
+X-Mailman-Rule-Hits: max-recipients
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ administrivia; implicit-dest; max-size; news-moderation; no-subject; digests;
+ suspicious-header
+Message-ID-Hash: LIQRNBZE7EPHJGUCPDLKMOG577RULZH5
+X-Message-ID-Hash: LIQRNBZE7EPHJGUCPDLKMOG577RULZH5
+X-Mailman-Approved-At: Wed, 12 Jul 2023 13:09:55 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E67HVJ7P5I63MLMFNPSRJOSUDJHSTRRT/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LIQRNBZE7EPHJGUCPDLKMOG577RULZH5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,264 +159,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This configuration supports JSL boards which implement ALC5650 dual
-I2S interface codec. Two DAI links are added: AIF1 (on codec side) for
-headphone and AIF2 for speakers.
+On Tue, Jul 11, 2023 at 03:14:54PM +0100, Mark Brown wrote:
+> On Tue, Jul 11, 2023 at 02:01:13PM +0300, Andy Shevchenko wrote:
+> > On Mon, Jul 10, 2023 at 06:30:32PM +0100, Mark Brown wrote:
+> > > On Mon, Jul 10, 2023 at 06:49:21PM +0300, Andy Shevchenko wrote:
+> 
+> > > > + * Assume speed to be 100 kHz if it's not defined at the time of invocation.
+> 
+> > > You didn't mention this bit in the changelog, and I'm not 100% convinced
+> > > it was the best idea in the first place.  It's going to result in some
+> > > very big timeouts if it goes off, and we really should be doing
+> > > validation much earlier in the process.
+> 
+> > Okay, let's drop this change.
+> 
+> Like I say we *should* be fine with the refactoring without this, or at
+> least if it's an issue we should improve the validation.
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
----
- sound/soc/intel/boards/Kconfig                |  5 +-
- sound/soc/intel/boards/sof_rt5682.c           | 80 ++++++++++++++++++-
- .../intel/common/soc-acpi-intel-jsl-match.c   | 12 +++
- 3 files changed, 93 insertions(+), 4 deletions(-)
+For the speeds < 1000 Hz, this change will lead to the div by 0 crash.
+It seems that the current code which this one removes is better than
+the spi_controller_xfer_timeout() provides.
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index f472f603ab75..1fe830af2b84 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -475,7 +475,7 @@ endif ## SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
- 
- if SND_SOC_SOF_HDA_LINK || SND_SOC_SOF_BAYTRAIL
- config SND_SOC_INTEL_SOF_RT5682_MACH
--	tristate "SOF with rt5682 codec in I2S Mode"
-+	tristate "SOF with rt5650/rt5682 codec in I2S Mode"
- 	depends on I2C && ACPI
- 	depends on ((SND_HDA_CODEC_HDMI && SND_SOC_SOF_HDA_AUDIO_CODEC) &&\
- 		    (MFD_INTEL_LPSS || COMPILE_TEST)) ||\
-@@ -485,6 +485,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
- 	select SND_SOC_RT1011
- 	select SND_SOC_RT1015
- 	select SND_SOC_RT1015P
-+	select SND_SOC_RT5645
- 	select SND_SOC_RT5682_I2C
- 	select SND_SOC_RT5682S
- 	select SND_SOC_DMIC
-@@ -494,7 +495,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
- 	select SND_SOC_INTEL_SOF_REALTEK_COMMON
- 	help
- 	   This adds support for ASoC machine driver for SOF platforms
--	   with rt5682 codec.
-+	   with rt5650 or rt5682 codec.
- 	   Say Y if you have such a device.
- 	   If unsure select "N".
- 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 7c034d671cf3..b4f07bdcf8b4 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -22,6 +22,7 @@
- #include <sound/soc-acpi.h>
- #include "../../codecs/rt5682.h"
- #include "../../codecs/rt5682s.h"
-+#include "../../codecs/rt5645.h"
- #include "../../codecs/hdac_hdmi.h"
- #include "../common/soc-intel-quirks.h"
- #include "hda_dsp_common.h"
-@@ -60,6 +61,7 @@
- #define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(24)
- #define SOF_MAX98390_TWEETER_SPEAKER_PRESENT	BIT(25)
- #define SOF_RT1019_SPEAKER_AMP_PRESENT	BIT(26)
-+#define SOF_RT5650_HEADPHONE_CODEC_PRESENT	BIT(27)
- 
- 
- /* Default: MCLK on, MCLK 19.2M, SSP0  */
-@@ -305,6 +307,7 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	struct snd_soc_jack *jack;
-+	int extra_jack_data;
- 	int ret;
- 
- 	/* need to enable ASRC function for 24MHz mclk rate */
-@@ -315,7 +318,16 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 						 RT5682S_DA_STEREO1_FILTER |
- 						 RT5682S_AD_STEREO1_FILTER,
- 						 RT5682S_CLK_SEL_I2S1_ASRC);
--		else
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+			rt5645_sel_asrc_clk_src(component,
-+						RT5645_DA_STEREO_FILTER |
-+						RT5645_AD_STEREO_FILTER,
-+						RT5645_CLK_SEL_I2S1_ASRC);
-+			rt5645_sel_asrc_clk_src(component,
-+						RT5645_DA_MONO_L_FILTER |
-+						RT5645_DA_MONO_R_FILTER,
-+						RT5645_CLK_SEL_I2S2_ASRC);
-+		} else
- 			rt5682_sel_asrc_clk_src(component,
- 						RT5682_DA_STEREO1_FILTER |
- 						RT5682_AD_STEREO1_FILTER,
-@@ -365,7 +377,12 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
--	ret = snd_soc_component_set_jack(component, jack, NULL);
-+
-+	if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		extra_jack_data = SND_JACK_MICROPHONE | SND_JACK_BTN_0;
-+		ret = snd_soc_component_set_jack(component, jack, &extra_jack_data);
-+	} else
-+		ret = snd_soc_component_set_jack(component, jack, NULL);
- 
- 	if (ret) {
- 		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
-@@ -402,6 +419,8 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 
- 		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
- 			pll_source = RT5682S_PLL_S_MCLK;
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT)
-+			pll_source = RT5645_PLL1_S_MCLK;
- 		else
- 			pll_source = RT5682_PLL1_S_MCLK;
- 
-@@ -422,6 +441,8 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 	} else {
- 		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
- 			pll_source = RT5682S_PLL_S_BCLK1;
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT)
-+			pll_source = RT5645_PLL1_S_BCLK1;
- 		else
- 			pll_source = RT5682_PLL1_S_BCLK1;
- 
-@@ -431,6 +452,9 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 	if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT) {
- 		pll_id = RT5682S_PLL2;
- 		clk_id = RT5682S_SCLK_S_PLL2;
-+	} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		pll_id = 0; /* not used in codec driver */
-+		clk_id = RT5645_SCLK_S_PLL1;
- 	} else {
- 		pll_id = RT5682_PLL1;
- 		clk_id = RT5682_SCLK_S_PLL1;
-@@ -559,11 +583,30 @@ static const struct snd_soc_dapm_route sof_map[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
-+static const struct snd_soc_dapm_route rt5650_spk_dapm_routes[] = {
-+	/* speaker */
-+	{ "Left Spk", NULL, "SPOL" },
-+	{ "Right Spk", NULL, "SPOR" },
-+};
-+
- static const struct snd_soc_dapm_route dmic_map[] = {
- 	/* digital mics */
- 	{"DMic", NULL, "SoC DMIC"},
- };
- 
-+static int rt5650_spk_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	int ret;
-+
-+	ret = snd_soc_dapm_add_routes(&card->dapm, rt5650_spk_dapm_routes,
-+				      ARRAY_SIZE(rt5650_spk_dapm_routes));
-+	if (ret)
-+		dev_err(rtd->dev, "fail to add dapm routes, ret=%d\n", ret);
-+
-+	return ret;
-+}
-+
- static int dmic_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
-@@ -614,6 +657,17 @@ static struct snd_soc_dai_link_component rt5682s_component[] = {
- 	}
- };
- 
-+static struct snd_soc_dai_link_component rt5650_components[] = {
-+	{
-+		.name = "i2c-10EC5650:00",
-+		.dai_name = "rt5645-aif1",
-+	},
-+	{
-+		.name = "i2c-10EC5650:00",
-+		.dai_name = "rt5645-aif2",
-+	}
-+};
-+
- static struct snd_soc_dai_link_component dmic_component[] = {
- 	{
- 		.name = "dmic-codec",
-@@ -652,6 +706,9 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT) {
- 		links[id].codecs = rt5682s_component;
- 		links[id].num_codecs = ARRAY_SIZE(rt5682s_component);
-+	} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		links[id].codecs = &rt5650_components[0];
-+		links[id].num_codecs = 1;
- 	} else {
- 		links[id].codecs = rt5682_component;
- 		links[id].num_codecs = ARRAY_SIZE(rt5682_component);
-@@ -804,6 +861,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 			links[id].init = max_98390_spk_codec_init;
- 			links[id].ops = &max_98390_ops;
- 
-+		} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+			links[id].codecs = &rt5650_components[1];
-+			links[id].num_codecs = 1;
-+			links[id].init = rt5650_spk_init;
-+			links[id].ops = &sof_rt5682_ops;
- 		} else {
- 			max_98357a_dai_link(&links[id]);
- 		}
-@@ -890,6 +952,12 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	/* Detect the headset codec variant */
- 	if (acpi_dev_present("RTL5682", NULL, -1))
- 		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
-+	else if (acpi_dev_present("10EC5650", NULL, -1)) {
-+		sof_rt5682_quirk |= SOF_RT5650_HEADPHONE_CODEC_PRESENT;
-+
-+		sof_audio_card_rt5682.name = devm_kstrdup(&pdev->dev, "rt5650",
-+							  GFP_KERNEL);
-+	}
- 
- 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
-@@ -1178,6 +1246,14 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT5682_SSP_AMP(0) |
- 					SOF_RT5682_NUM_HDMIDEV(3)),
- 	},
-+	{
-+		.name = "jsl_rt5650",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_MCLK_24MHZ |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(1)),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index f5c7e1bbded0..f56bd7d656e9 100644
---- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -34,6 +34,11 @@ static const struct snd_soc_acpi_codecs mx98360a_spk = {
- 	.codecs = {"MX98360A"}
- };
- 
-+static struct snd_soc_acpi_codecs rt5650_spk = {
-+	.num_codecs = 1,
-+	.codecs = {"10EC5650"}
-+};
-+
- static const struct snd_soc_acpi_codecs rt5682_rt5682s_hp = {
- 	.num_codecs = 2,
- 	.codecs = {"10EC5682", "RTL5682"},
-@@ -98,6 +103,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 					SND_SOC_ACPI_TPLG_INTEL_SSP_MSB |
- 					SND_SOC_ACPI_TPLG_INTEL_DMIC_NUMBER,
- 	},
-+	{
-+		.id = "10EC5650",
-+		.drv_name = "jsl_rt5650",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &rt5650_spk,
-+		.sof_tplg_filename = "sof-jsl-rt5650.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
+If anything, the spi_controller_xfer_timeout() should be improved first.
+So, for now I drop this for sure. Maybe in the future we can come back
+to it.
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 

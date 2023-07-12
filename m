@@ -2,127 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD12C750974
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:18:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D53E7508F3
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 14:59:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D4C2DEE;
-	Wed, 12 Jul 2023 15:17:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D4C2DEE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 222AE1F6;
+	Wed, 12 Jul 2023 14:59:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 222AE1F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689167916;
-	bh=rMk4VihN1gS4yZC8RgDQHYr1VWB4KQSCo0flpY2dHc4=;
+	s=default; t=1689166791;
+	bh=FvuonApgo3gnnJdPGRqPyo1DrsyIWj9AcxIUCeLyd6A=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nnrjTQWo0WuLdwX0PXn1ETYoCdVd5V+146dOszR8hulPRN/WyTfck0kFn3ony/Kwr
-	 crU3NYlgcbeaFaAHZDkf2snDal56F1rSOwwZIg2cV8uRNloo1VoSUzZxZKAziXDGHC
-	 fm8Jb75tOk5OyP/fkR6KTLvUU3MRN89Lanta5sGc=
+	b=Br+e2JPkUL8FYaBwL7/un9wrC9jVCZ7zfiN/unK7/KdZ5k+zeKloGciN7k+W1No5b
+	 v/rJyCdazVS0YdsLAqIHVAWbkZMuFZzzHo6uPJTjbx1h8XghiuNl8J4+TuHoQAH03U
+	 oC/NC5WNnDqOHQn3tSwoi49G0BTjnsDH+9zM5ZCA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1EC06F80611; Wed, 12 Jul 2023 15:14:40 +0200 (CEST)
+	id 5132FF80290; Wed, 12 Jul 2023 14:59:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9419EF80610;
-	Wed, 12 Jul 2023 15:14:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01F46F80236;
+	Wed, 12 Jul 2023 14:59:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 795FBF80249; Wed, 12 Jul 2023 14:50:45 +0200 (CEST)
+	id CBCEDF80249; Wed, 12 Jul 2023 14:58:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0D407F80153
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 14:50:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D407F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 29037F80153
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 14:58:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29037F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=baylibre-com.20221208.gappssmtp.com
- header.i=@baylibre-com.20221208.gappssmtp.com header.a=rsa-sha256
- header.s=20221208 header.b=hn8H70Zy
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-3fb4146e8ceso71536145e9.0
-        for <alsa-devel@alsa-project.org>;
- Wed, 12 Jul 2023 05:50:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20221208.gappssmtp.com; s=20221208; t=1689166241;
- x=1691758241;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XYsJ63thWaEnF2bdwDOY9GkDlg8P9/us46x/m6A1eFI=;
-        b=hn8H70Zyxu8TQrRfZIDwdYKutfQz+JQgByvxMUo15F+OMIywfFp+Qe1KHa4SIyr4wo
-         bqkkofWAawRDiaIa5iVwlqDsQ3Qq0VR8tdn/waIy4t/Nb5At258o9quiRvf8x/6b4qAJ
-         zWcyLaHmENBOVZpWUM/XrYn4XXcgKwXqi87Xr/6ntu7TiQ+DjPCKfHzB4X3/04rzZ3hQ
-         Rwr4z+XHlzVAPJ0AJC/Pr8NOpE0M8HahqrV9k6qGPN1q52NhccZEW4X5jWZBmrELwYlX
-         Ast0Hj2NW8cGb8NnubWNxSSxBuwJCNUFkTo6xtIkeVB1+Ejj/jh5XGpsSw4lmPfFgiK8
-         HpLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689166241; x=1691758241;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XYsJ63thWaEnF2bdwDOY9GkDlg8P9/us46x/m6A1eFI=;
-        b=GSjiYoGFM0RgfLpCC9zbvAH8KfeYblORTcwMb/XU7VG9KZkFog1GJw4aDsl6AmZ3/j
-         sDgD27L9nAH07nE89c9eVRpjcxlInHpDgsga6bNNr+NAHx4fE0sS8TROw+F5nj4J9VNF
-         ENy02Lag6owUqjJ2DZpa5IsiWmUMRVkkp2hj2FD03xNlu56jRNGx29GFqH0U1cxQke04
-         FAGQVaaNSTfhGIRK1hVI9FX0VNsKYPDLPAlI4Ajhj3raqc9Ge11lVaJOT0qk14cdW0i7
-         nhgvnkSadshbsll+uoCH2XHO1VWnkCL7rusGl+H9kU4L74K+poFElSAhJ+NeGVifV3uC
-         lIJg==
-X-Gm-Message-State: ABy/qLZB3jkTzPILSR4824ivhzV6baUBUKTD0p09Ht97y3dl3hMG3dLE
-	YAiwftzu5By198oj+uaQ2a2e+Q==
-X-Google-Smtp-Source: 
- APBJJlHyphLNHtPrSUBpgCjJ2oqeaRUQji6SkdMtP6DiMk3xvuG5d//Mi73F/YxpSOuHVBAbBidBYw==
-X-Received: by 2002:adf:ed4c:0:b0:314:212f:360b with SMTP id
- u12-20020adfed4c000000b00314212f360bmr16925439wro.17.1689166240964;
-        Wed, 12 Jul 2023 05:50:40 -0700 (PDT)
-Received: from [192.168.1.172] ([93.5.22.158])
-        by smtp.gmail.com with ESMTPSA id
- y17-20020adfee11000000b0031274a184d5sm5023825wrn.109.2023.07.12.05.50.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Jul 2023 05:50:40 -0700 (PDT)
-Message-ID: <5c24ae39-5114-1b79-a952-e7a364a1f2de@baylibre.com>
-Date: Wed, 12 Jul 2023 14:50:39 +0200
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=cHxCj9mh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689166732; x=1720702732;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=FvuonApgo3gnnJdPGRqPyo1DrsyIWj9AcxIUCeLyd6A=;
+  b=cHxCj9mh7eMCw/LLfrZJicLJ8OJvdj+08GN2u3SLVzNoS9JNgS2959zY
+   2kvT+6HdVhpTR7p9ND5rBm3WWftj2DctnyPv84qmkrqiM1hdA12SLAgfY
+   otkPHZyCVgXBPiJM+yigOrIkRR1G3TTLe6HsXPTKTb2IE6/JJNSK7D3xR
+   +Ttoy25Ky0nTlsBzX5wF+8dbHYaG4viyxo5Lnthm19aHPFGS+OY7vGUop
+   vK3j1H2GkVeO8g1eTZmvjWR9SywRfQihVFOemASP+C2zsi8N1SKLqk2u0
+   i+sw0dY//ldYy1u+jcPMa78O67AluglCMd5xOVj+7CX3uhiHvA6vQsQqq
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="428617416"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
+   d="scan'208";a="428617416"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2023 05:58:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="895623137"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
+   d="scan'208";a="895623137"
+Received: from hoermank-mobl.ger.corp.intel.com (HELO [10.252.42.188])
+ ([10.252.42.188])
+  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2023 05:58:42 -0700
+Message-ID: <6d1e5e05-1bc8-25cc-0d53-043c3bc1fc72@linux.intel.com>
+Date: Wed, 12 Jul 2023 14:58:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [RESEND 2/2] ASoC: dt-bindings: mediatek,mt8188-afe: add
- memory-region
+ Firefox/102.0 Thunderbird/102.11.0
+Subject: Re: [PATCH v4] ASoC: Intel: sof_rt5682: add jsl_rt5650 board config
 Content-Language: en-US
-To: Trevor Wu <trevor.wu@mediatek.com>, broonie@kernel.org,
- lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20230712070821.23971-1-trevor.wu@mediatek.com>
- <20230712070821.23971-3-trevor.wu@mediatek.com>
-From: Alexandre Mergnat <amergnat@baylibre.com>
-In-Reply-To: <20230712070821.23971-3-trevor.wu@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Yong Zhi <yong.zhi@intel.com>,
+ Uday M Bhat <uday.m.bhat@intel.com>, Gongjun Song <gongjun.song@intel.com>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Arnd Bergmann <arnd@arndb.de>, Terry Cheong <htcheong@chromium.org>,
+ "Dharageswari . R" <dharageswari.r@intel.com>,
+ Mac Chiang <mac.chiang@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ ye xingchen <ye.xingchen@zte.com.cn>, linux-kernel@vger.kernel.org
+References: <20230712191423.443765-1-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20230712191423.443765-1-brent.lu@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-MailFrom: amergnat@baylibre.com
-X-Mailman-Rule-Hits: nonmember-moderation
+Message-ID-Hash: ON6AHNMRGOUSXTZRBNB3I3ZQLFKA5O2N
+X-Message-ID-Hash: ON6AHNMRGOUSXTZRBNB3I3ZQLFKA5O2N
+X-MailFrom: pierre-louis.bossart@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: AO3JT6CGL57QYRLREOGEGZJ22B75ZKRV
-X-Message-ID-Hash: AO3JT6CGL57QYRLREOGEGZJ22B75ZKRV
-X-Mailman-Approved-At: Wed, 12 Jul 2023 13:14:26 +0000
+ header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
+ administrivia; implicit-dest; max-recipients; max-size; news-moderation;
+ no-subject; digests; suspicious-header
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AO3JT6CGL57QYRLREOGEGZJ22B75ZKRV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ON6AHNMRGOUSXTZRBNB3I3ZQLFKA5O2N/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -133,11 +122,13 @@ List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
 
-On 12/07/2023 09:08, Trevor Wu wrote:
-> Add memory-region property to utilize the reserved memory region.
+On 7/12/23 21:14, Brent Lu wrote:
+> This configuration supports JSL boards which implement ALC5650 dual
+> I2S interface codec. Two DAI links are added: AIF1 (on codec side) for
+> headphone and AIF2 for speakers.
+> 
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
 
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
--- 
-Regards,
-Alexandre
+Thanks!

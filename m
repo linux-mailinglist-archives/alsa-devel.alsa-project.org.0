@@ -2,103 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AF51750A3A
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:59:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84121750A69
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 16:02:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EBBA206;
-	Wed, 12 Jul 2023 15:58:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EBBA206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28F171F1;
+	Wed, 12 Jul 2023 16:01:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28F171F1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689170368;
-	bh=7tOqmZH6ntOQ9pEbQBqICFHKwM2n3IYS7V926rY9cPM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=cpQ1U8annGOISt6QYtGrPWf10aDFTUxX4U1IhsbNZ4lY4qFVDUoCCEi8uugw4WEM6
-	 QoiPeN7BXxbIm7NBgwV9SRA3BY5TzRp2ckYsoiffcQ5R4SCkA8OV4MhGtxSsXkOguy
-	 +ELdlglVFWXiJVfUXv8WtuywbzR/Z5LACY75ozIw=
+	s=default; t=1689170545;
+	bh=Q2wlhBChaRc3FR78KJEOUowCJmvGbUlyRVV/TV82xnU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=KSAbUvUbZnT9lqm+n6QnuaY2DqnWik1/D6YxnlW+SHJqytjGO1Q8D9JtmrJE21BUH
+	 msivQ7c9wx3lHDYetCnvRXwSAxbyN6ooMAPFc1JI2Qmhdkk2FPnANrLrVx6JbzwKhc
+	 2/WWO/cWJivclxN2km8i/bqN2ukYTO9hApejP774=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11713F80535; Wed, 12 Jul 2023 15:58:38 +0200 (CEST)
+	id AA907F80236; Wed, 12 Jul 2023 16:01:34 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE743F80236;
-	Wed, 12 Jul 2023 15:58:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62AA0F80236;
+	Wed, 12 Jul 2023 16:01:34 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AE9D7F80249; Wed, 12 Jul 2023 15:58:34 +0200 (CEST)
+	id D39D2F80249; Wed, 12 Jul 2023 16:01:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [IPv6:2001:67c:2178:6::1c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BC7E4F800D2
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 15:58:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC7E4F800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 06F17F80153
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 16:01:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06F17F80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Z04wkh3f;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=sU6j/Xpm
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 45E7222442;
-	Wed, 12 Jul 2023 13:58:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_rsa;
-	t=1689170309;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vmnWkhwcT+j/yNyryv4vHMBg8+Hgy12YEYyYHcUPGFc=;
-	b=Z04wkh3fjSv21r2LyaRc13YefJ+/1zm6wcqsSZSWO5PIa090rRzq6m+7nAvlmbg8EkeHe7
-	+M/zNb0GRT6nCX6t3xbElOb8VSGv2ZtzD1SQsb98Z8vZ+CFCst+oLegS9nhM0QWCF5eua+
-	jVaIMULmhR/0UT/w/5M9Kphwj9zMzFY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689170309;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vmnWkhwcT+j/yNyryv4vHMBg8+Hgy12YEYyYHcUPGFc=;
-	b=sU6j/Xpm7cZtQeaajrsPkPTv/Ay2zJ7gcFn2GBsin3ftZvA+XLRZBORhvUl7PCB6to+mWb
-	2p33fre/Z+L0jtCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
- [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
-	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3990D133DD;
-	Wed, 12 Jul 2023 13:58:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA
-	id iK2WDYWxrmSXfgAAMHmgww
-	(envelope-from <tiwai@suse.de>); Wed, 12 Jul 2023 13:58:29 +0000
-Date: Wed, 12 Jul 2023 15:58:28 +0200
-Message-ID: <87r0pdjkor.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Symbolic Debugger" <happy.debugging@gmail.com>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [PATCH v2 00/37] ALSA: Add MIDI 2.0 support
-In-Reply-To: 
- <168916837549.20.16800242816564295866@mailman-web.alsa-project.org>
-References: <168839241976.20.1297601488525827705@mailman-web.alsa-project.org>
-	<168916837549.20.16800242816564295866@mailman-web.alsa-project.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: O47XN6PA7JKC4WMOID3AWMBY67Q7CO5V
-X-Message-ID-Hash: O47XN6PA7JKC4WMOID3AWMBY67Q7CO5V
-X-MailFrom: tiwai@suse.de
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=UiX61zfF
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-3fbc59de0e2so71864385e9.3
+        for <alsa-devel@alsa-project.org>;
+ Wed, 12 Jul 2023 07:01:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689170484; x=1691762484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Fe/Z+3ZtV+7rEEbA5ujf7MvOol2TwmyPnYuPdYc8Nwg=;
+        b=UiX61zfF22NdJKf458JphAbi6m+mWH28KarzHGFtUyEVhXabazOSNAkurpgz5quMnl
+         izUUZNQJJXMbmbtgB1bl4o9YSib/GV5m5jD54AQmzsi5Xz4NAoCrHjqthsSde3sidZXT
+         Bk6xEDMjY+ny22PFJzjXXmkcS02rSo8B0wnA6YRoiFdR1UXtiNOIA/kC3XBjeEzryjFx
+         /bUmYpKgnQGso1HekqStoMn2S9aWHyFNPb4Q4/m8TeqdfdH7hLJKw3qLiSr4ttzspj/9
+         0H+9IQgjST/1GgGohMsheteYm26A2XZaSiuSjO29zVVmE8ETfPKF9NBS+6f6ROGS59Wx
+         AoqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689170484; x=1691762484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Fe/Z+3ZtV+7rEEbA5ujf7MvOol2TwmyPnYuPdYc8Nwg=;
+        b=FOhQWFtGw490ljONaBrNiKqqoJkp3+R2zsJG2KAnLBKDkrMn34f77XJd3LcZ93g8zt
+         9axgva0l66OzszNpCO+V0xL6vG5RxJIzg0JtjYEovNCJFQNlxxYUYmBVqCR8J7cOAm6X
+         wQMK5ZcJrM2mwoNb0lQp/o0xfFsmMRqCqvje+HcH4BwLOdr75Vx9kyyyFOUHQFQxU99p
+         QsmMdTN+35nNN9G5gDpMISrXKPFxg9J2gcnF4Xhms0n2hRBHNi/8djz/+LRspMl0CeWf
+         4cBL3aj42F4rf4rGfFp6RCjjaUMkyX2md+acT93KN+HfZkb3tz3PH85ijQlvb7RHGDW9
+         0ViQ==
+X-Gm-Message-State: ABy/qLYKYpDEyzsVMxNHBvYI7rhfPIm1tX3qRVx9CsmA2goM+NFY/ZAM
+	RUFmhMKRXil84p+ABV0ZxFY=
+X-Google-Smtp-Source: 
+ APBJJlEPYGZqRWNC5D4AwhzPhHaPUZb4AP4spv2VYPHTJyc6HbPStnjhWinQ0WTnopg5Pgu40RTwoQ==
+X-Received: by 2002:a7b:c451:0:b0:3fb:b4fc:be62 with SMTP id
+ l17-20020a7bc451000000b003fbb4fcbe62mr17218287wmi.17.1689170484340;
+        Wed, 12 Jul 2023 07:01:24 -0700 (PDT)
+Received: from localhost (cpc154979-craw9-2-0-cust193.16-3.cable.virginm.net.
+ [80.193.200.194])
+        by smtp.gmail.com with ESMTPSA id
+ h6-20020a05600c314600b003fa9a00d74csm2318867wmo.3.2023.07.12.07.01.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Jul 2023 07:01:23 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	alsa-devel@alsa-project.org,
+	linux-kselftest@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] selftests: ALSA: Fix fclose on an already fclosed file
+ pointer
+Date: Wed, 12 Jul 2023 15:01:22 +0100
+Message-Id: <20230712140122.457206-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: CTOCYWFTHW6GJTMQVMNOJNRPLCZCBLM6
+X-Message-ID-Hash: CTOCYWFTHW6GJTMQVMNOJNRPLCZCBLM6
+X-MailFrom: colin.i.king@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -110,7 +116,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O47XN6PA7JKC4WMOID3AWMBY67Q7CO5V/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CTOCYWFTHW6GJTMQVMNOJNRPLCZCBLM6/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,32 +125,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 12 Jul 2023 15:26:15 +0200,
-Symbolic Debugger wrote:
-> 
-> A question about the implementation of notification messages (name, endpoint and function blocks)
-> 
-> The spec defines that these notification only get sent upon receiving a Discovery message. 
-> 
-> Does this mean that the ALSA driver will poll at specific intervals to send a discover message or  can the device send a notification even without a discovery message from the ALSA driver ? I could imagine a function block info / name, or endpoint info/ name or endpoint info change (i.e when the device changes the number of function block)
+In the case where a sysfs file cannot be opened the error return path
+fcloses file pointer fpl, however, fpl has already been closed in the
+previous stanza. Fix the double fclose by removing it.
 
-It's handled in ALSA UMP core code.  It doesn't poll but just
-interprets each incoming UMP messages and responds to it (e.g. when a
-notification comes from the device, ALSA core will update the
-information accordingly to be visible to user-space).
+Fixes: 10b98a4db11a ("selftests: ALSA: Add test for the 'pcmtest' driver")
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ tools/testing/selftests/alsa/test-pcmtest-driver.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-The change of FB info is indeed allowed by the device, AFAIK.  And,
-this can notify via the corresponding UMP Stream messages.  For
-example, reassigning UMP Groups in a FB is a valid scenario, and this
-will be informed via UMP Stream messages.  For the FBs that will never
-change Groups, there is a "static blocks" flag (which was quite
-recently introduced).  I guess most of devices mark this, as it's
-compatible with the former MIDI 2.0 USB devices.
+diff --git a/tools/testing/selftests/alsa/test-pcmtest-driver.c b/tools/testing/selftests/alsa/test-pcmtest-driver.c
+index 71931b240a83..357adc722cba 100644
+--- a/tools/testing/selftests/alsa/test-pcmtest-driver.c
++++ b/tools/testing/selftests/alsa/test-pcmtest-driver.c
+@@ -47,10 +47,8 @@ static int read_patterns(void)
+ 
+ 		sprintf(pf, "/sys/kernel/debug/pcmtest/fill_pattern%d", i);
+ 		fp = fopen(pf, "r");
+-		if (!fp) {
+-			fclose(fpl);
++		if (!fp)
+ 			return -1;
+-		}
+ 		fread(patterns[i].buf, 1, patterns[i].len, fp);
+ 		fclose(fp);
+ 	}
+-- 
+2.39.2
 
-BTW, the USB MIDI 2.0 gadget function driver is under development.
-It's almost ready, and my plan is to submit likely for 6.6 kernel
-(that is, in the next week or so).  You can find the patches in
-topic/midi20-gadget branch of my sound.git tree.
-
-
-Takashi

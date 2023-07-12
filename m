@@ -2,62 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98234750B97
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 16:59:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04A5A750B98
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 16:59:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 031C483A;
-	Wed, 12 Jul 2023 16:58:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 031C483A
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFD6784C;
+	Wed, 12 Jul 2023 16:58:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFD6784C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689173985;
-	bh=gWXK9Bckc3k0l3cfTOh09gfsgI+/kjREFUF/ZhD+XPo=;
+	s=default; t=1689173986;
+	bh=NVqNQEhChHvNUwPrvyKoFM1lYOwgwh1aJ1ENlGNzQEg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=G/KLGSN8RDxEFRZPZv74uVy7OKJT75KaixT+zM3cJLmwifAMcnEvnbQPumhP+SAkP
-	 /qSQc+79DNG8N815HuTCqKZYaoOmIL6Jldz8PLKv+3HyCOlRKMtsekpv75oS9HMg2Q
-	 AmK5LRvgAdSQzgMn6D6rQ1/2NVb2iLWsu3xbfEqI=
+	b=dmEgGPDD94NH4+t4RQjyOUIIoWXKrvWiu7/en83EH0ZWRO8fv4IS9rs08fqDKAvX2
+	 8LY1h+/MZFJzrY74QkWv38Tu3AxYc+zdpOhAwGeABgkoxlma7P4ruxlkVddSCQcY4z
+	 LTa8wVnlCO+xJGBjj33u76rY27474eq9m9kXlzZ4=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1395F8055B; Wed, 12 Jul 2023 16:58:09 +0200 (CEST)
+	id 1FB49F8057D; Wed, 12 Jul 2023 16:58:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DB1DF80549;
-	Wed, 12 Jul 2023 16:58:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32385F80564;
+	Wed, 12 Jul 2023 16:58:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 4A765F80551; Wed, 12 Jul 2023 16:58:06 +0200 (CEST)
+	id DA9EFF80568; Wed, 12 Jul 2023 16:58:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
 	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org
- [IPv6:2001:470:142:8::100])
+Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 5D21EF800D2
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 16:57:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D21EF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id A2210F80093
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 16:57:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2210F80093
 Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 6233324151;
+	by bluemchen.kde.org (Postfix) with ESMTP id 6048D2413B;
 	Wed, 12 Jul 2023 10:57:50 -0400 (EDT)
 Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1qJbHq-WXn-00; Wed, 12 Jul 2023 16:57:50 +0200
+	id 1qJbHq-WXt-00; Wed, 12 Jul 2023 16:57:50 +0200
 From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 To: alsa-devel@alsa-project.org
 Cc: Takashi Iwai <tiwai@suse.de>,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 2/3] ALSA: emu10k1: remove superfluous IRQ enable state saving
-Date: Wed, 12 Jul 2023 16:57:49 +0200
-Message-Id: <20230712145750.125086-2-oswald.buddenhagen@gmx.de>
+Subject: [PATCH 3/3] ALSA: emu10k1: (re-)add mixer locking
+Date: Wed, 12 Jul 2023 16:57:50 +0200
+Message-Id: <20230712145750.125086-3-oswald.buddenhagen@gmx.de>
 X-Mailer: git-send-email 2.40.0.152.g15d061e6df
 In-Reply-To: <20230712145750.125086-1-oswald.buddenhagen@gmx.de>
 References: <20230712145750.125086-1-oswald.buddenhagen@gmx.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: IMUBREY5XAQI7XJAU6BCWFKZ5QHZWO5R
-X-Message-ID-Hash: IMUBREY5XAQI7XJAU6BCWFKZ5QHZWO5R
+Message-ID-Hash: XMNBFWTCDX34FN4VGIDXXXFW5G4J6WKQ
+X-Message-ID-Hash: XMNBFWTCDX34FN4VGIDXXXFW5G4J6WKQ
 X-MailFrom: ossi@kde.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -70,7 +69,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IMUBREY5XAQI7XJAU6BCWFKZ5QHZWO5R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/XMNBFWTCDX34FN4VGIDXXXFW5G4J6WKQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -79,589 +78,423 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The mixer, PCM prepare, MIDI, synth driver, and procfs callbacks are all
-always invoked with IRQs enabled, so there is no point in saving the
-state.
+Takashi now "prefers" that the drivers do not rely on the core's locking
+of card->controls_rwsem, so we undo 06405d8ee8 ("ALSA: emu10k1: remove
+now superfluous mixer locking") and add more locks that were already
+missing.
 
-snd_emu1010_load_firmware_entry() is called from emu1010_firmware_work()
-and snd_emu10k1_emu1010_init(); the latter from snd_emu10k1_create() and
-snd_emu10k1_resume(), all of which have IRQs enabled.
-
-The voice and memory functions are called from mixed contexts, so they
-keep the state saving.
-
-The low-level functions all keep the state saving, because it's not
-feasible to keep track of what is called where.
+This adds some rather significant critical sections with IRQs disabled,
+as emu->reg_lock is also accessed by the PCM trigger callbacks, which
+are called with the hardirq-safe (self-)group lock held.
 
 Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
----
- sound/pci/emu10k1/emu10k1_main.c  |  5 ++--
- sound/pci/emu10k1/emu10k1_synth.c | 10 +++----
- sound/pci/emu10k1/emumixer.c      | 45 +++++++++++++------------------
- sound/pci/emu10k1/emumpu401.c     | 40 ++++++++++++---------------
- sound/pci/emu10k1/emupcm.c        |  6 ++---
- sound/pci/emu10k1/emuproc.c       | 10 +++----
- 6 files changed, 47 insertions(+), 69 deletions(-)
 
-diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
-index 58ed72de6403..f9418c4a9a6f 100644
---- a/sound/pci/emu10k1/emu10k1_main.c
-+++ b/sound/pci/emu10k1/emu10k1_main.c
-@@ -664,19 +664,18 @@ static int snd_emu1010_load_firmware_entry(struct snd_emu10k1 *emu,
- 	u16 reg;
- 	u8 value;
- 	__always_unused u16 write_post;
--	unsigned long flags;
+---
+the long irq-disabled sections could be avoided by introducing a
+separate control mutex. i surveyed a few drivers, and the precedents
+are very mixed, so i'm not sure this would be considered worth it.
+
+---
+of the few drivers i checked, pcsp, ak4xxx-adda, pt2258, hal2,
+sgio2audio, au88x0_eq, and ca0106_mixer appear to be missing locking
+upon superficial inspection, a percentage well into the double digits.
+
+given that there are ~3700 hits for snd_kcontrol_new (and many more
+_put() methods to check, due to initializer arrays), the whole endeavor
+seems just as utterly hopeless to me as i expected.
+
+so i recommend that you reconsider, and consequently reject this patch.
+---
+ sound/pci/emu10k1/emufx.c    |  5 +++++
+ sound/pci/emu10k1/emumixer.c | 42 ++++++++++++++++++++++++++++++++++--
+ sound/pci/emu10k1/emupcm.c   |  2 ++
+ sound/pci/emu10k1/p16v.c     |  7 ++++++
+ 4 files changed, 54 insertions(+), 2 deletions(-)
+
+diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index 9904bcfee106..cda5311cee46 100644
+--- a/sound/pci/emu10k1/emufx.c
++++ b/sound/pci/emu10k1/emufx.c
+@@ -353,12 +353,15 @@ static int snd_emu10k1_gpr_ctl_info(struct snd_kcontrol *kcontrol, struct snd_ct
  
- 	if (!fw_entry)
- 		return -EIO;
- 
- 	/* The FPGA is a Xilinx Spartan IIE XC2S50E */
- 	/* On E-MU 0404b it is a Xilinx Spartan III XC3S50 */
- 	/* GPIO7 -> FPGA PGMN
- 	 * GPIO6 -> FPGA CCLK
- 	 * GPIO5 -> FPGA DIN
- 	 * FPGA CONFIG OFF -> FPGA PGMN
- 	 */
--	spin_lock_irqsave(&emu->emu_lock, flags);
-+	spin_lock_irq(&emu->emu_lock);
- 	outw(0x00, emu->port + A_GPIO); /* Set PGMN low for 100uS. */
- 	write_post = inw(emu->port + A_GPIO);
- 	udelay(100);
-@@ -699,7 +698,7 @@ static int snd_emu1010_load_firmware_entry(struct snd_emu10k1 *emu,
- 	/* After programming, set GPIO bit 4 high again. */
- 	outw(0x10, emu->port + A_GPIO);
- 	write_post = inw(emu->port + A_GPIO);
--	spin_unlock_irqrestore(&emu->emu_lock, flags);
-+	spin_unlock_irq(&emu->emu_lock);
- 
- 	return 0;
- }
-diff --git a/sound/pci/emu10k1/emu10k1_synth.c b/sound/pci/emu10k1/emu10k1_synth.c
-index 759e66e1105a..68dfcb24b889 100644
---- a/sound/pci/emu10k1/emu10k1_synth.c
-+++ b/sound/pci/emu10k1/emu10k1_synth.c
-@@ -22,7 +22,6 @@ static int snd_emu10k1_synth_probe(struct device *_dev)
- 	struct snd_emux *emux;
- 	struct snd_emu10k1 *hw;
- 	struct snd_emu10k1_synth_arg *arg;
--	unsigned long flags;
- 
- 	arg = SNDRV_SEQ_DEVICE_ARGPTR(dev);
- 	if (arg == NULL)
-@@ -56,33 +55,32 @@ static int snd_emu10k1_synth_probe(struct device *_dev)
- 		return -ENOMEM;
- 	}
- 
--	spin_lock_irqsave(&hw->voice_lock, flags);
-+	spin_lock_irq(&hw->voice_lock);
- 	hw->synth = emux;
- 	hw->get_synth_voice = snd_emu10k1_synth_get_voice;
--	spin_unlock_irqrestore(&hw->voice_lock, flags);
-+	spin_unlock_irq(&hw->voice_lock);
- 
- 	dev->driver_data = emux;
- 
- 	return 0;
- }
- 
- static int snd_emu10k1_synth_remove(struct device *_dev)
+ static int snd_emu10k1_gpr_ctl_get(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *ucontrol)
  {
- 	struct snd_seq_device *dev = to_seq_dev(_dev);
- 	struct snd_emux *emux;
- 	struct snd_emu10k1 *hw;
--	unsigned long flags;
- 
- 	if (dev->driver_data == NULL)
- 		return 0; /* not registered actually */
- 
- 	emux = dev->driver_data;
- 
- 	hw = emux->hw;
--	spin_lock_irqsave(&hw->voice_lock, flags);
-+	spin_lock_irq(&hw->voice_lock);
- 	hw->synth = NULL;
- 	hw->get_synth_voice = NULL;
--	spin_unlock_irqrestore(&hw->voice_lock, flags);
-+	spin_unlock_irq(&hw->voice_lock);
- 
- 	snd_emux_free(emux);
++	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
+ 	struct snd_emu10k1_fx8010_ctl *ctl =
+ 		(struct snd_emu10k1_fx8010_ctl *) kcontrol->private_value;
+ 	unsigned int i;
+ 	
++	spin_lock_irq(&emu->reg_lock);
+ 	for (i = 0; i < ctl->vcount; i++)
+ 		ucontrol->value.integer.value[i] = ctl->value[i];
++	spin_unlock_irq(&emu->reg_lock);
  	return 0;
+ }
+ 
+@@ -371,6 +374,7 @@ static int snd_emu10k1_gpr_ctl_put(struct snd_kcontrol *kcontrol, struct snd_ctl
+ 	unsigned int i, j;
+ 	int change = 0;
+ 	
++	spin_lock_irq(&emu->reg_lock);
+ 	for (i = 0; i < ctl->vcount; i++) {
+ 		nval = ucontrol->value.integer.value[i];
+ 		if (nval < ctl->min)
+@@ -416,6 +420,7 @@ static int snd_emu10k1_gpr_ctl_put(struct snd_kcontrol *kcontrol, struct snd_ctl
+ 		}
+ 	}
+       __error:
++	spin_unlock_irq(&emu->reg_lock);
+ 	return change;
+ }
+ 
 diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
-index 573e1c7c5e50..9a94f08f2463 100644
+index 9a94f08f2463..c52ab410b632 100644
 --- a/sound/pci/emu10k1/emumixer.c
 +++ b/sound/pci/emu10k1/emumixer.c
-@@ -1193,7 +1193,6 @@ static int snd_audigy_i2c_capture_source_put(struct snd_kcontrol *kcontrol,
- 	unsigned int ngain, ogain;
- 	u16 gpio;
- 	int change = 0;
--	unsigned long flags;
- 	u32 source;
- 	/* If the capture source has changed,
- 	 * update the capture volume from the cached value
-@@ -1207,13 +1206,13 @@ static int snd_audigy_i2c_capture_source_put(struct snd_kcontrol *kcontrol,
+@@ -63,10 +63,12 @@ static int snd_emu10k1_spdif_get(struct snd_kcontrol *kcontrol,
+ 	/* Limit: emu->spdif_bits */
+ 	if (idx >= 3)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	ucontrol->value.iec958.status[0] = (emu->spdif_bits[idx] >> 0) & 0xff;
+ 	ucontrol->value.iec958.status[1] = (emu->spdif_bits[idx] >> 8) & 0xff;
+ 	ucontrol->value.iec958.status[2] = (emu->spdif_bits[idx] >> 16) & 0xff;
+ 	ucontrol->value.iec958.status[3] = (emu->spdif_bits[idx] >> 24) & 0xff;
++	spin_unlock_irq(&emu->reg_lock);
+ 	return 0;
+ }
+ 
+@@ -664,11 +666,13 @@ static int snd_emu1010_output_source_put(struct snd_kcontrol *kcontrol,
+ 		return -EINVAL;
+ 	if (channel >= emu_ri->n_outs)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->emu1010.output_source[channel] != val);
+ 	if (change) {
+ 		emu->emu1010.output_source[channel] = val;
+ 		snd_emu1010_output_source_apply(emu, channel, val);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 	return change;
+ }
+ 
+@@ -708,11 +712,13 @@ static int snd_emu1010_input_source_put(struct snd_kcontrol *kcontrol,
+ 		return -EINVAL;
+ 	if (channel >= emu_ri->n_ins)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->emu1010.input_source[channel] != val);
+ 	if (change) {
+ 		emu->emu1010.input_source[channel] = val;
+ 		snd_emu1010_input_source_apply(emu, channel, val);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 	return change;
+ }
+ 
+@@ -773,16 +779,18 @@ static int snd_emu1010_adc_pads_put(struct snd_kcontrol *kcontrol, struct snd_ct
+ 	int change;
+ 
+ 	val = ucontrol->value.integer.value[0];
++	spin_lock_irq(&emu->reg_lock);
+ 	cache = emu->emu1010.adc_pads;
+ 	if (val == 1) 
+ 		cache = cache | mask;
+ 	else
+ 		cache = cache & ~mask;
+ 	change = (cache != emu->emu1010.adc_pads);
+ 	if (change) {
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_ADC_PADS, cache );
+ 	        emu->emu1010.adc_pads = cache;
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 
+ 	return change;
+ }
+@@ -831,16 +839,18 @@ static int snd_emu1010_dac_pads_put(struct snd_kcontrol *kcontrol, struct snd_ct
+ 	int change;
+ 
+ 	val = ucontrol->value.integer.value[0];
++	spin_lock_irq(&emu->reg_lock);
+ 	cache = emu->emu1010.dac_pads;
+ 	if (val == 1) 
+ 		cache = cache | mask;
+ 	else
+ 		cache = cache & ~mask;
+ 	change = (cache != emu->emu1010.dac_pads);
+ 	if (change) {
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_DAC_PADS, cache );
+ 	        emu->emu1010.dac_pads = cache;
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 
+ 	return change;
+ }
+@@ -986,18 +996,22 @@ static int snd_emu1010_clock_source_put(struct snd_kcontrol *kcontrol,
+ 	val = ucontrol->value.enumerated.item[0] ;
+ 	if (val >= emu_ci->num)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->emu1010.clock_source != val);
+ 	if (change) {
+ 		emu->emu1010.clock_source = val;
+ 		emu->emu1010.wclock = emu_ci->vals[val];
+ 
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_UNMUTE, EMU_MUTE);
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_WCLOCK, emu->emu1010.wclock);
++		spin_unlock_irq(&emu->reg_lock);
+ 		msleep(10);  // Allow DLL to settle
++		spin_lock_irq(&emu->reg_lock);
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_UNMUTE, EMU_UNMUTE);
+ 
+ 		snd_emu1010_update_clock(emu);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 	return change;
+ }
+ 
+@@ -1040,11 +1054,13 @@ static int snd_emu1010_clock_fallback_put(struct snd_kcontrol *kcontrol,
+ 
+ 	if (val >= 2)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->emu1010.clock_fallback != val);
+ 	if (change) {
+ 		emu->emu1010.clock_fallback = val;
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_DEFCLOCK, 1 - val);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 	return change;
+ }
+ 
+@@ -1090,13 +1106,15 @@ static int snd_emu1010_optical_out_put(struct snd_kcontrol *kcontrol,
+ 	/* Limit: uinfo->value.enumerated.items = 2; */
+ 	if (val >= 2)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->emu1010.optical_out != val);
+ 	if (change) {
+ 		emu->emu1010.optical_out = val;
+ 		tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : EMU_HANA_OPTICAL_IN_SPDIF) |
+ 			(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : EMU_HANA_OPTICAL_OUT_SPDIF);
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_OPTICAL_TYPE, tmp);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 	return change;
+ }
+ 
+@@ -1141,13 +1159,15 @@ static int snd_emu1010_optical_in_put(struct snd_kcontrol *kcontrol,
+ 	/* Limit: uinfo->value.enumerated.items = 2; */
+ 	if (val >= 2)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->emu1010.optical_in != val);
+ 	if (change) {
+ 		emu->emu1010.optical_in = val;
+ 		tmp = (emu->emu1010.optical_in ? EMU_HANA_OPTICAL_IN_ADAT : EMU_HANA_OPTICAL_IN_SPDIF) |
+ 			(emu->emu1010.optical_out ? EMU_HANA_OPTICAL_OUT_ADAT : EMU_HANA_OPTICAL_OUT_SPDIF);
+ 		snd_emu1010_fpga_write(emu, EMU_HANA_OPTICAL_TYPE, tmp);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 	return change;
+ }
+ 
+@@ -1203,16 +1223,17 @@ static int snd_audigy_i2c_capture_source_put(struct snd_kcontrol *kcontrol,
+ 	/*        emu->i2c_capture_volume */
+ 	if (source_id >= 2)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
  	change = (emu->i2c_capture_source != source_id);
  	if (change) {
  		snd_emu10k1_i2c_write(emu, ADC_MUX, 0); /* Mute input */
--		spin_lock_irqsave(&emu->emu_lock, flags);
-+		spin_lock_irq(&emu->emu_lock);
+-		spin_lock_irq(&emu->emu_lock);
++		spin_lock(&emu->emu_lock);
  		gpio = inw(emu->port + A_IOCFG);
  		if (source_id==0)
  			outw(gpio | 0x4, emu->port + A_IOCFG);
  		else
  			outw(gpio & ~0x4, emu->port + A_IOCFG);
--		spin_unlock_irqrestore(&emu->emu_lock, flags);
-+		spin_unlock_irq(&emu->emu_lock);
+-		spin_unlock_irq(&emu->emu_lock);
++		spin_unlock(&emu->emu_lock);
  
  		ngain = emu->i2c_capture_volume[source_id][0]; /* Left */
  		ogain = emu->i2c_capture_volume[emu->i2c_capture_source][0]; /* Left */
-@@ -1357,7 +1356,6 @@ static int snd_audigy_spdif_output_rate_put(struct snd_kcontrol *kcontrol,
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	int change;
- 	unsigned int reg, val, tmp;
--	unsigned long flags;
- 
- 	switch(ucontrol->value.enumerated.item[0]) {
- 	case 0:
-@@ -1375,14 +1373,14 @@ static int snd_audigy_spdif_output_rate_put(struct snd_kcontrol *kcontrol,
+@@ -1227,6 +1248,7 @@ static int snd_audigy_i2c_capture_source_put(struct snd_kcontrol *kcontrol,
+ 		snd_emu10k1_i2c_write(emu, ADC_MUX, source); /* Set source */
+ 		emu->i2c_capture_source = source_id;
  	}
- 
- 	
--	spin_lock_irqsave(&emu->reg_lock, flags);
-+	spin_lock_irq(&emu->reg_lock);
- 	reg = snd_emu10k1_ptr_read(emu, A_SPDIF_SAMPLERATE, 0);
- 	tmp = reg & ~A_SPDIF_RATE_MASK;
- 	tmp |= val;
- 	change = (tmp != reg);
- 	if (change)
- 		snd_emu10k1_ptr_write(emu, A_SPDIF_SAMPLERATE, 0, tmp);
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
 +	spin_unlock_irq(&emu->reg_lock);
- 	return change;
+         return change;
  }
  
-@@ -1499,15 +1497,14 @@ static int snd_emu10k1_send_routing_get(struct snd_kcontrol *kcontrol,
- static int snd_emu10k1_send_routing_put(struct snd_kcontrol *kcontrol,
-                                         struct snd_ctl_elem_value *ucontrol)
- {
--	unsigned long flags;
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	struct snd_emu10k1_pcm_mixer *mix =
- 		&emu->pcm_mixer[snd_ctl_get_ioffidx(kcontrol, &ucontrol->id)];
- 	int change = 0, voice, idx, val;
- 	int num_efx = emu->audigy ? 8 : 4;
- 	int mask = emu->audigy ? 0x3f : 0x0f;
+@@ -1261,8 +1283,10 @@ static int snd_audigy_i2c_volume_get(struct snd_kcontrol *kcontrol,
+ 	if (source_id >= 2)
+ 		return -EINVAL;
  
--	spin_lock_irqsave(&emu->reg_lock, flags);
 +	spin_lock_irq(&emu->reg_lock);
- 	for (voice = 0; voice < 3; voice++)
- 		for (idx = 0; idx < num_efx; idx++) {
- 			val = ucontrol->value.integer.value[(voice * num_efx) + idx] & mask;
-@@ -1527,7 +1524,7 @@ static int snd_emu10k1_send_routing_put(struct snd_kcontrol *kcontrol,
- 					    &mix->send_routing[0][0]);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
+ 	ucontrol->value.integer.value[0] = emu->i2c_capture_volume[source_id][0];
+ 	ucontrol->value.integer.value[1] = emu->i2c_capture_volume[source_id][1];
 +	spin_unlock_irq(&emu->reg_lock);
- 	return change;
+ 	return 0;
  }
  
-@@ -1569,14 +1566,13 @@ static int snd_emu10k1_send_volume_get(struct snd_kcontrol *kcontrol,
- static int snd_emu10k1_send_volume_put(struct snd_kcontrol *kcontrol,
-                                        struct snd_ctl_elem_value *ucontrol)
- {
--	unsigned long flags;
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	struct snd_emu10k1_pcm_mixer *mix =
- 		&emu->pcm_mixer[snd_ctl_get_ioffidx(kcontrol, &ucontrol->id)];
- 	int change = 0, idx, val;
- 	int num_efx = emu->audigy ? 8 : 4;
- 
--	spin_lock_irqsave(&emu->reg_lock, flags);
+@@ -1286,6 +1310,7 @@ static int snd_audigy_i2c_volume_put(struct snd_kcontrol *kcontrol,
+ 		return -EINVAL;
+ 	if (ngain1 > 0xff)
+ 		return -EINVAL;
 +	spin_lock_irq(&emu->reg_lock);
- 	for (idx = 0; idx < 3*num_efx; idx++) {
- 		val = ucontrol->value.integer.value[idx] & 255;
- 		if (mix->send_volume[idx/num_efx][idx%num_efx] != val) {
-@@ -1595,7 +1591,7 @@ static int snd_emu10k1_send_volume_put(struct snd_kcontrol *kcontrol,
- 						   &mix->send_volume[0][0]);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
-+	spin_unlock_irq(&emu->reg_lock);
- 	return change;
- }
- 
-@@ -1635,13 +1631,12 @@ static int snd_emu10k1_attn_get(struct snd_kcontrol *kcontrol,
- static int snd_emu10k1_attn_put(struct snd_kcontrol *kcontrol,
- 				struct snd_ctl_elem_value *ucontrol)
- {
--	unsigned long flags;
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	struct snd_emu10k1_pcm_mixer *mix =
- 		&emu->pcm_mixer[snd_ctl_get_ioffidx(kcontrol, &ucontrol->id)];
- 	int change = 0, idx, val;
- 
--	spin_lock_irqsave(&emu->reg_lock, flags);
-+	spin_lock_irq(&emu->reg_lock);
- 	for (idx = 0; idx < 3; idx++) {
- 		unsigned uval = ucontrol->value.integer.value[idx] & 0x1ffff;
- 		val = uval * 0x8000U / 0xffffU;
-@@ -1658,7 +1653,7 @@ static int snd_emu10k1_attn_put(struct snd_kcontrol *kcontrol,
- 			snd_emu10k1_ptr_write(emu, VTFT_VOLUMETARGET, mix->epcm->voices[0]->number, mix->attn[0]);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
-+	spin_unlock_irq(&emu->reg_lock);
- 	return change;
- }
- 
-@@ -1704,15 +1699,14 @@ static int snd_emu10k1_efx_send_routing_get(struct snd_kcontrol *kcontrol,
- static int snd_emu10k1_efx_send_routing_put(struct snd_kcontrol *kcontrol,
-                                         struct snd_ctl_elem_value *ucontrol)
- {
--	unsigned long flags;
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	int ch = snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
- 	struct snd_emu10k1_pcm_mixer *mix = &emu->efx_pcm_mixer[ch];
- 	int change = 0, idx, val;
- 	int num_efx = emu->audigy ? 8 : 4;
- 	int mask = emu->audigy ? 0x3f : 0x0f;
- 
--	spin_lock_irqsave(&emu->reg_lock, flags);
-+	spin_lock_irq(&emu->reg_lock);
- 	for (idx = 0; idx < num_efx; idx++) {
- 		val = ucontrol->value.integer.value[idx] & mask;
- 		if (mix->send_routing[0][idx] != val) {
-@@ -1727,7 +1721,7 @@ static int snd_emu10k1_efx_send_routing_put(struct snd_kcontrol *kcontrol,
- 					&mix->send_routing[0][0]);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
-+	spin_unlock_irq(&emu->reg_lock);
- 	return change;
- }
- 
-@@ -1769,14 +1763,13 @@ static int snd_emu10k1_efx_send_volume_get(struct snd_kcontrol *kcontrol,
- static int snd_emu10k1_efx_send_volume_put(struct snd_kcontrol *kcontrol,
-                                        struct snd_ctl_elem_value *ucontrol)
- {
--	unsigned long flags;
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	int ch = snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
- 	struct snd_emu10k1_pcm_mixer *mix = &emu->efx_pcm_mixer[ch];
- 	int change = 0, idx, val;
- 	int num_efx = emu->audigy ? 8 : 4;
- 
--	spin_lock_irqsave(&emu->reg_lock, flags);
-+	spin_lock_irq(&emu->reg_lock);
- 	for (idx = 0; idx < num_efx; idx++) {
- 		val = ucontrol->value.integer.value[idx] & 255;
- 		if (mix->send_volume[0][idx] != val) {
-@@ -1790,7 +1783,7 @@ static int snd_emu10k1_efx_send_volume_put(struct snd_kcontrol *kcontrol,
- 						   &mix->send_volume[0][0]);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
-+	spin_unlock_irq(&emu->reg_lock);
- 	return change;
- }
- 
-@@ -1829,26 +1822,25 @@ static int snd_emu10k1_efx_attn_get(struct snd_kcontrol *kcontrol,
- static int snd_emu10k1_efx_attn_put(struct snd_kcontrol *kcontrol,
- 				struct snd_ctl_elem_value *ucontrol)
- {
--	unsigned long flags;
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	int ch = snd_ctl_get_ioffidx(kcontrol, &ucontrol->id);
- 	struct snd_emu10k1_pcm_mixer *mix = &emu->efx_pcm_mixer[ch];
- 	int change = 0, val;
- 	unsigned uval;
- 
--	spin_lock_irqsave(&emu->reg_lock, flags);
-+	spin_lock_irq(&emu->reg_lock);
- 	uval = ucontrol->value.integer.value[0] & 0x1ffff;
- 	val = uval * 0x8000U / 0xffffU;
- 	if (mix->attn[0] != val) {
- 		mix->attn[0] = val;
+ 	ogain = emu->i2c_capture_volume[source_id][0]; /* Left */
+ 	if (ogain != ngain0) {
+ 		if (emu->i2c_capture_source == source_id)
+@@ -1300,6 +1325,7 @@ static int snd_audigy_i2c_volume_put(struct snd_kcontrol *kcontrol,
+ 		emu->i2c_capture_volume[source_id][1] = ngain1;
  		change = 1;
  	}
- 	if (change && mix->epcm) {
- 		if (mix->epcm->voices[ch]) {
- 			snd_emu10k1_ptr_write(emu, VTFT_VOLUMETARGET, mix->epcm->voices[ch]->number, mix->attn[0]);
- 		}
++	spin_unlock_irq(&emu->reg_lock);
+ 
+ 	return change;
+ }
+@@ -1411,11 +1437,13 @@ static int snd_emu10k1_spdif_put(struct snd_kcontrol *kcontrol,
+ 	      (ucontrol->value.iec958.status[1] << 8) |
+ 	      (ucontrol->value.iec958.status[2] << 16) |
+ 	      (ucontrol->value.iec958.status[3] << 24);
++	spin_lock_irq(&emu->reg_lock);
+ 	change = val != emu->spdif_bits[idx];
+ 	if (change) {
+ 		snd_emu10k1_ptr_write(emu, SPCS0 + idx, 0, val);
+ 		emu->spdif_bits[idx] = val;
  	}
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
 +	spin_unlock_irq(&emu->reg_lock);
  	return change;
  }
  
-@@ -1884,15 +1876,14 @@ static int snd_emu10k1_shared_spdif_get(struct snd_kcontrol *kcontrol,
- static int snd_emu10k1_shared_spdif_put(struct snd_kcontrol *kcontrol,
- 					struct snd_ctl_elem_value *ucontrol)
- {
--	unsigned long flags;
- 	struct snd_emu10k1 *emu = snd_kcontrol_chip(kcontrol);
- 	unsigned int reg, val, sw;
- 	int change = 0;
+@@ -1487,10 +1515,12 @@ static int snd_emu10k1_send_routing_get(struct snd_kcontrol *kcontrol,
+ 	int num_efx = emu->audigy ? 8 : 4;
+ 	int mask = emu->audigy ? 0x3f : 0x0f;
  
- 	sw = ucontrol->value.integer.value[0];
- 	if (emu->card_capabilities->invert_shared_spdif)
- 		sw = !sw;
--	spin_lock_irqsave(&emu->emu_lock, flags);
-+	spin_lock_irq(&emu->emu_lock);
- 	if ( emu->card_capabilities->i2c_adc) {
- 		/* Do nothing for Audigy 2 ZS Notebook */
- 	} else if (emu->audigy) {
-@@ -1913,7 +1904,7 @@ static int snd_emu10k1_shared_spdif_put(struct snd_kcontrol *kcontrol,
- 		reg |= val;
- 		outl(reg | val, emu->port + HCFG);
- 	}
--	spin_unlock_irqrestore(&emu->emu_lock, flags);
-+	spin_unlock_irq(&emu->emu_lock);
- 	return change;
- }
- 
-diff --git a/sound/pci/emu10k1/emumpu401.c b/sound/pci/emu10k1/emumpu401.c
-index 3ce9b2129ce6..747c34b3d566 100644
---- a/sound/pci/emu10k1/emumpu401.c
-+++ b/sound/pci/emu10k1/emumpu401.c
-@@ -104,10 +104,9 @@ static void snd_emu10k1_midi_interrupt2(struct snd_emu10k1 *emu, unsigned int st
- 
- static int snd_emu10k1_midi_cmd(struct snd_emu10k1 * emu, struct snd_emu10k1_midi *midi, unsigned char cmd, int ack)
- {
--	unsigned long flags;
- 	int timeout, ok;
- 
--	spin_lock_irqsave(&midi->input_lock, flags);
-+	spin_lock_irq(&midi->input_lock);
- 	mpu401_write_data(emu, midi, 0x00);
- 	/* mpu401_clear_rx(emu, midi); */
- 
-@@ -126,7 +125,7 @@ static int snd_emu10k1_midi_cmd(struct snd_emu10k1 * emu, struct snd_emu10k1_mid
- 	} else {
- 		ok = 1;
- 	}
--	spin_unlock_irqrestore(&midi->input_lock, flags);
-+	spin_unlock_irq(&midi->input_lock);
- 	if (!ok) {
- 		dev_err(emu->card->dev,
- 			"midi_cmd: 0x%x failed at 0x%lx (status = 0x%x, data = 0x%x)!!!\n",
-@@ -142,98 +141,94 @@ static int snd_emu10k1_midi_input_open(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_emu10k1 *emu;
- 	struct snd_emu10k1_midi *midi = (struct snd_emu10k1_midi *)substream->rmidi->private_data;
--	unsigned long flags;
- 
- 	emu = midi->emu;
- 	if (snd_BUG_ON(!emu))
- 		return -ENXIO;
--	spin_lock_irqsave(&midi->open_lock, flags);
-+	spin_lock_irq(&midi->open_lock);
- 	midi->midi_mode |= EMU10K1_MIDI_MODE_INPUT;
- 	midi->substream_input = substream;
- 	if (!(midi->midi_mode & EMU10K1_MIDI_MODE_OUTPUT)) {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 		if (snd_emu10k1_midi_cmd(emu, midi, MPU401_RESET, 1))
- 			goto error_out;
- 		if (snd_emu10k1_midi_cmd(emu, midi, MPU401_ENTER_UART, 1))
- 			goto error_out;
- 	} else {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 	}
++	spin_lock_irq(&emu->reg_lock);
+ 	for (voice = 0; voice < 3; voice++)
+ 		for (idx = 0; idx < num_efx; idx++)
+ 			ucontrol->value.integer.value[(voice * num_efx) + idx] = 
+ 				mix->send_routing[voice][idx] & mask;
++	spin_unlock_irq(&emu->reg_lock);
  	return 0;
- 
- error_out:
- 	return -EIO;
  }
  
- static int snd_emu10k1_midi_output_open(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_emu10k1 *emu;
- 	struct snd_emu10k1_midi *midi = (struct snd_emu10k1_midi *)substream->rmidi->private_data;
--	unsigned long flags;
+@@ -1558,8 +1588,10 @@ static int snd_emu10k1_send_volume_get(struct snd_kcontrol *kcontrol,
+ 	int idx;
+ 	int num_efx = emu->audigy ? 8 : 4;
  
- 	emu = midi->emu;
- 	if (snd_BUG_ON(!emu))
- 		return -ENXIO;
--	spin_lock_irqsave(&midi->open_lock, flags);
-+	spin_lock_irq(&midi->open_lock);
- 	midi->midi_mode |= EMU10K1_MIDI_MODE_OUTPUT;
- 	midi->substream_output = substream;
- 	if (!(midi->midi_mode & EMU10K1_MIDI_MODE_INPUT)) {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 		if (snd_emu10k1_midi_cmd(emu, midi, MPU401_RESET, 1))
- 			goto error_out;
- 		if (snd_emu10k1_midi_cmd(emu, midi, MPU401_ENTER_UART, 1))
- 			goto error_out;
- 	} else {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 	}
++	spin_lock_irq(&emu->reg_lock);
+ 	for (idx = 0; idx < 3*num_efx; idx++)
+ 		ucontrol->value.integer.value[idx] = mix->send_volume[idx/num_efx][idx%num_efx];
++	spin_unlock_irq(&emu->reg_lock);
  	return 0;
- 
- error_out:
- 	return -EIO;
  }
  
- static int snd_emu10k1_midi_input_close(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_emu10k1 *emu;
- 	struct snd_emu10k1_midi *midi = (struct snd_emu10k1_midi *)substream->rmidi->private_data;
--	unsigned long flags;
- 	int err = 0;
+@@ -1623,8 +1655,10 @@ static int snd_emu10k1_attn_get(struct snd_kcontrol *kcontrol,
+ 		&emu->pcm_mixer[snd_ctl_get_ioffidx(kcontrol, &ucontrol->id)];
+ 	int idx;
  
- 	emu = midi->emu;
- 	if (snd_BUG_ON(!emu))
- 		return -ENXIO;
--	spin_lock_irqsave(&midi->open_lock, flags);
-+	spin_lock_irq(&midi->open_lock);
- 	snd_emu10k1_intr_disable(emu, midi->rx_enable);
- 	midi->midi_mode &= ~EMU10K1_MIDI_MODE_INPUT;
- 	midi->substream_input = NULL;
- 	if (!(midi->midi_mode & EMU10K1_MIDI_MODE_OUTPUT)) {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 		err = snd_emu10k1_midi_cmd(emu, midi, MPU401_RESET, 0);
- 	} else {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 	}
- 	return err;
++	spin_lock_irq(&emu->reg_lock);
+ 	for (idx = 0; idx < 3; idx++)
+ 		ucontrol->value.integer.value[idx] = mix->attn[idx] * 0xffffU / 0x8000U;
++	spin_unlock_irq(&emu->reg_lock);
+ 	return 0;
  }
  
- static int snd_emu10k1_midi_output_close(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_emu10k1 *emu;
- 	struct snd_emu10k1_midi *midi = (struct snd_emu10k1_midi *)substream->rmidi->private_data;
--	unsigned long flags;
- 	int err = 0;
+@@ -1690,9 +1724,11 @@ static int snd_emu10k1_efx_send_routing_get(struct snd_kcontrol *kcontrol,
+ 	int num_efx = emu->audigy ? 8 : 4;
+ 	int mask = emu->audigy ? 0x3f : 0x0f;
  
- 	emu = midi->emu;
- 	if (snd_BUG_ON(!emu))
- 		return -ENXIO;
--	spin_lock_irqsave(&midi->open_lock, flags);
-+	spin_lock_irq(&midi->open_lock);
- 	snd_emu10k1_intr_disable(emu, midi->tx_enable);
- 	midi->midi_mode &= ~EMU10K1_MIDI_MODE_OUTPUT;
- 	midi->substream_output = NULL;
- 	if (!(midi->midi_mode & EMU10K1_MIDI_MODE_INPUT)) {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 		err = snd_emu10k1_midi_cmd(emu, midi, MPU401_RESET, 0);
- 	} else {
--		spin_unlock_irqrestore(&midi->open_lock, flags);
-+		spin_unlock_irq(&midi->open_lock);
- 	}
- 	return err;
++	spin_lock_irq(&emu->reg_lock);
+ 	for (idx = 0; idx < num_efx; idx++)
+ 		ucontrol->value.integer.value[idx] = 
+ 			mix->send_routing[0][idx] & mask;
++	spin_unlock_irq(&emu->reg_lock);
+ 	return 0;
  }
-@@ -256,33 +251,32 @@ static void snd_emu10k1_midi_output_trigger(struct snd_rawmidi_substream *substr
- {
- 	struct snd_emu10k1 *emu;
- 	struct snd_emu10k1_midi *midi = (struct snd_emu10k1_midi *)substream->rmidi->private_data;
--	unsigned long flags;
  
- 	emu = midi->emu;
- 	if (snd_BUG_ON(!emu))
- 		return;
+@@ -1755,8 +1791,10 @@ static int snd_emu10k1_efx_send_volume_get(struct snd_kcontrol *kcontrol,
+ 	int idx;
+ 	int num_efx = emu->audigy ? 8 : 4;
  
- 	if (up) {
- 		int max = 4;
- 		unsigned char byte;
- 	
- 		/* try to send some amount of bytes here before interrupts */
--		spin_lock_irqsave(&midi->output_lock, flags);
-+		spin_lock_irq(&midi->output_lock);
- 		while (max > 0) {
- 			if (mpu401_output_ready(emu, midi)) {
- 				if (!(midi->midi_mode & EMU10K1_MIDI_MODE_OUTPUT) ||
- 				    snd_rawmidi_transmit(substream, &byte, 1) != 1) {
- 					/* no more data */
--					spin_unlock_irqrestore(&midi->output_lock, flags);
-+					spin_unlock_irq(&midi->output_lock);
- 					return;
- 				}
- 				mpu401_write_data(emu, midi, byte);
- 				max--;
- 			} else {
- 				break;
- 			}
- 		}
--		spin_unlock_irqrestore(&midi->output_lock, flags);
-+		spin_unlock_irq(&midi->output_lock);
- 		snd_emu10k1_intr_enable(emu, midi->tx_enable);
- 	} else {
- 		snd_emu10k1_intr_disable(emu, midi->tx_enable);
++	spin_lock_irq(&emu->reg_lock);
+ 	for (idx = 0; idx < num_efx; idx++)
+ 		ucontrol->value.integer.value[idx] = mix->send_volume[0][idx];
++	spin_unlock_irq(&emu->reg_lock);
+ 	return 0;
+ }
+ 
 diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
-index 387288d623d7..8b3d1b35d6e7 100644
+index 8b3d1b35d6e7..994aa386d074 100644
 --- a/sound/pci/emu10k1/emupcm.c
 +++ b/sound/pci/emu10k1/emupcm.c
-@@ -343,19 +343,17 @@ static void snd_emu10k1_pcm_init_voices(struct snd_emu10k1 *emu,
- 					unsigned int end_addr,
- 					struct snd_emu10k1_pcm_mixer *mix)
- {
--	unsigned long flags;
--
--	spin_lock_irqsave(&emu->reg_lock, flags);
+@@ -1541,8 +1541,10 @@ static int snd_emu10k1_pcm_efx_voices_mask_get(struct snd_kcontrol *kcontrol, st
+ 	int nefx = emu->audigy ? 64 : 32;
+ 	int idx;
+ 	
 +	spin_lock_irq(&emu->reg_lock);
- 	snd_emu10k1_pcm_init_voice(emu, evoice, w_16, stereo,
- 				   start_addr, end_addr,
- 				   &mix->send_routing[stereo][0],
- 				   &mix->send_volume[stereo][0]);
- 	if (stereo)
- 		snd_emu10k1_pcm_init_voice(emu, evoice + 1, w_16, true,
- 					   start_addr, end_addr,
- 					   &mix->send_routing[2][0],
- 					   &mix->send_volume[2][0]);
--	spin_unlock_irqrestore(&emu->reg_lock, flags);
+ 	for (idx = 0; idx < nefx; idx++)
+ 		ucontrol->value.integer.value[idx] = (emu->efx_voices_mask[idx / 32] & (1 << (idx % 32))) ? 1 : 0;
 +	spin_unlock_irq(&emu->reg_lock);
+ 	return 0;
  }
  
- static void snd_emu10k1_pcm_init_extra_voice(struct snd_emu10k1 *emu,
-diff --git a/sound/pci/emu10k1/emuproc.c b/sound/pci/emu10k1/emuproc.c
-index 7e2cc532471f..5533277e4d47 100644
---- a/sound/pci/emu10k1/emuproc.c
-+++ b/sound/pci/emu10k1/emuproc.c
-@@ -536,33 +536,31 @@ static unsigned int snd_ptr_read(struct snd_emu10k1 * emu,
- 				 unsigned int reg,
- 				 unsigned int chn)
- {
--	unsigned long flags;
- 	unsigned int regptr, val;
+diff --git a/sound/pci/emu10k1/p16v.c b/sound/pci/emu10k1/p16v.c
+index e7f097cae574..1dec937b7d21 100644
+--- a/sound/pci/emu10k1/p16v.c
++++ b/sound/pci/emu10k1/p16v.c
+@@ -635,6 +635,7 @@ static int snd_p16v_volume_put(struct snd_kcontrol *kcontrol,
+ 	int reg = kcontrol->private_value & 0xff;
+         u32 value, oval;
  
- 	regptr = (reg << 16) | chn;
- 
--	spin_lock_irqsave(&emu->emu_lock, flags);
-+	spin_lock_irq(&emu->emu_lock);
- 	outl(regptr, emu->port + iobase + PTR);
- 	val = inl(emu->port + iobase + DATA);
--	spin_unlock_irqrestore(&emu->emu_lock, flags);
-+	spin_unlock_irq(&emu->emu_lock);
- 	return val;
++	spin_lock_irq(&emu->reg_lock);
+ 	oval = value = snd_emu10k1_ptr20_read(emu, reg, 0);
+ 	if (high_low == 1) {
+ 		value &= 0xffff;
+@@ -647,8 +648,10 @@ static int snd_p16v_volume_put(struct snd_kcontrol *kcontrol,
+ 	}
+ 	if (value != oval) {
+ 		snd_emu10k1_ptr20_write(emu, reg, 0, value);
++		spin_unlock_irq(&emu->reg_lock);
+ 		return 1;
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+ 	return 0;
  }
  
- static void snd_ptr_write(struct snd_emu10k1 *emu,
- 			  unsigned int iobase,
- 			  unsigned int reg,
- 			  unsigned int chn,
- 			  unsigned int data)
- {
- 	unsigned int regptr;
--	unsigned long flags;
- 
- 	regptr = (reg << 16) | chn;
- 
--	spin_lock_irqsave(&emu->emu_lock, flags);
-+	spin_lock_irq(&emu->emu_lock);
- 	outl(regptr, emu->port + iobase + PTR);
- 	outl(data, emu->port + iobase + DATA);
--	spin_unlock_irqrestore(&emu->emu_lock, flags);
-+	spin_unlock_irq(&emu->emu_lock);
+@@ -684,13 +687,15 @@ static int snd_p16v_capture_source_put(struct snd_kcontrol *kcontrol,
+ 	val = ucontrol->value.enumerated.item[0] ;
+ 	if (val > 7)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->p16v_capture_source != val);
+ 	if (change) {
+ 		emu->p16v_capture_source = val;
+ 		source = (val << 28) | (val << 24) | (val << 20) | (val << 16);
+ 		mask = snd_emu10k1_ptr20_read(emu, BASIC_INTERRUPT, 0) & 0xffff;
+ 		snd_emu10k1_ptr20_write(emu, BASIC_INTERRUPT, 0, source | mask);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+         return change;
  }
  
- 
+@@ -722,12 +727,14 @@ static int snd_p16v_capture_channel_put(struct snd_kcontrol *kcontrol,
+ 	val = ucontrol->value.enumerated.item[0] ;
+ 	if (val > 3)
+ 		return -EINVAL;
++	spin_lock_irq(&emu->reg_lock);
+ 	change = (emu->p16v_capture_channel != val);
+ 	if (change) {
+ 		emu->p16v_capture_channel = val;
+ 		tmp = snd_emu10k1_ptr20_read(emu, CAPTURE_P16V_SOURCE, 0) & 0xfffc;
+ 		snd_emu10k1_ptr20_write(emu, CAPTURE_P16V_SOURCE, 0, tmp | val);
+ 	}
++	spin_unlock_irq(&emu->reg_lock);
+         return change;
+ }
+ static const DECLARE_TLV_DB_SCALE(snd_p16v_db_scale1, -5175, 25, 1);
 -- 
 2.40.0.152.g15d061e6df
 

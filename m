@@ -2,98 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45E507508A7
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 14:47:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1EC4750976
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:18:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 382D0207;
-	Wed, 12 Jul 2023 14:46:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 382D0207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 443A37F8;
+	Wed, 12 Jul 2023 15:18:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 443A37F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689166066;
-	bh=tLoJFh4oywXrxNXtAmdPnSrR0ry2WPhGPC1p7CMbphM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=eYhKxjbqlKPPUlQs37NnZuxTTQsmo/ZqzT00OR7CRwMwFd7rJ0P/VjSNn5zqdBKTR
-	 w/iYjF0MkH4nissTb+7WbF7Igx1z1L0JrPhnzF+SBmGS8OrpQ/dgM3yiuVqZo7okRq
-	 8WVlNXONEFF8FUzIU+JZO3YpsBfRiHoqpyECKaKI=
+	s=default; t=1689167930;
+	bh=/NxuoQdfKa7E0cwzAqMUuCOBMLeJ3bIfXpOnOIO9VXU=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=t3KNUe7CiCitpowY0nAvqVDZWj4/kZuvUGWXZ+zdxyWhu7yAE7Sk6KpLqIa2xn1T7
+	 0oJMpXk3R2KmdJ9nMP66rpd3hzQPyNB1wyHB07hpOUWtp1pYnIVfc4QMrRCd5ZAXL5
+	 p4Hm4EAOw6C7nzt92iB8RxeS8KBKaqy1QyINCh9s=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id AD32FF80249; Wed, 12 Jul 2023 14:46:55 +0200 (CEST)
+	id BA911F8061B; Wed, 12 Jul 2023 15:14:42 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E330F80236;
-	Wed, 12 Jul 2023 14:46:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4363CF80617;
+	Wed, 12 Jul 2023 15:14:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 85C37F80249; Wed, 12 Jul 2023 14:46:52 +0200 (CEST)
+	id 25B88F80249; Wed, 12 Jul 2023 14:53:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A8A4F80093
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 14:46:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A8A4F80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id AAB0AF80153
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 14:53:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAB0AF80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=bagkg5dq
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id BCD12617BB;
-	Wed, 12 Jul 2023 12:46:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92875C433C7;
-	Wed, 12 Jul 2023 12:46:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689166004;
-	bh=tLoJFh4oywXrxNXtAmdPnSrR0ry2WPhGPC1p7CMbphM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bagkg5dqgmXwAAzDRa77IkA22lcd1wJ/uMh0mrb2TvgBkjNYxGPHIKefXSYqzmKeP
-	 9XLr0qTmQvyeoqAkhcopnmvqY+yqIK5kHItD/t4jQUqsZIvSi+hIghUWIlTHZsYRCg
-	 9j9ORMgJpgmafe06oCcQ1vy2n49DKnwAxv496ZRfDWzSDuxnMxb5YE1fiEvYI6U7oL
-	 PLQv7hfmGBvLGJU6qocK1H0aeWERU805iG01LxWiK9ZvYKI1ZQrSmYOtG2khxgS5Iu
-	 g+Ss6IdqkHmeuV5KEEUb/RYhJXpp6AYJh9PskQg/GOXd6SqoZv+gbOiswEg3aIF0oz
-	 Sypgup85mp7ug==
-Date: Wed, 12 Jul 2023 13:46:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Zhu Ning <zhuning0077@gmail.com>
-Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
-	tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com, zhuning@everest-semi.com
-Subject: Re: [PATCH 2/4] ASoC: codecs: es8326: Fix power-up sequence
-Message-ID: <481906d1-977b-4c19-8910-81268937d706@sirena.org.uk>
-References: <20230712080830.973766-1-zhuning0077@gmail.com>
- <20230712080830.973766-2-zhuning0077@gmail.com>
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=HZPxYS2q
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-9939fbb7191so161698366b.0
+        for <alsa-devel@alsa-project.org>;
+ Wed, 12 Jul 2023 05:53:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689166384; x=1691758384;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ef9ldj54LfSreJO+VbHq1Yil94yCCRtncr0AA0IgxoI=;
+        b=HZPxYS2q0wdP+oUdlVbS0bHA1gduL/QbI3aYqBTAD7g0jrxG3ckLP7O+qlZaCgpYtZ
+         uR4tL/+dPcz2X7WQA7Fx5G0jEmaDPw2Hhj0hWt2d2dgvDINwW3fJ9RFCZgPA9NDBkJb5
+         kZgq4OzAms76DQJFiMj/dA8201Fs9jVy+T1gw9BJIwYxEbnqt9CZPa1Yi9XAcVJYJGtm
+         dTuHFo/YgPTWVnjwjFDJgMYaMbkZMTOHkjl9hN/mRikq8ZEUDstWunwXChiIZQ93QvNf
+         N/sg+1KPo3DQA/CI8eCoAQaMO9n1/x2MW6pBZtB+m1YOE0718F6Wvr9mm4rOJU8SuPhc
+         u1zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689166384; x=1691758384;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ef9ldj54LfSreJO+VbHq1Yil94yCCRtncr0AA0IgxoI=;
+        b=RljbqkOeb+8AhadgCdD7jErmLRgLOUI0NzRg7jsAS4cvHRwXfDdNqH8DoIHR19996H
+         ZVsX9zBMiA8pPVs3BurVsE73wOa67bQH5tt605YhFwaLjcM0BYhw/1GH5BwRQNvC41Ig
+         FQT0LucYjxwBsgXRD0ttKb2mcQtNKY9OQReSsSVyVoOlfdaw47MczXuZ3larvi+zAfdr
+         OX/XCoO26VdorXdX/+htlfSa2l7b5uXNkBiYeO7sEVm+osqLkgmgw6Wyofx2uu18HZIo
+         XR8Szn8+lY4foid+Mn5T6qJG6gYLlSq+O+kVK56MfDcTTyMD92shYxYG0R2wMkfff2zA
+         pimw==
+X-Gm-Message-State: ABy/qLYhjzHpcpr7SdPPfUjVuDkMgU5684QHC15FOhB7z1AzIFnyBFJk
+	Kbj/zMPxWIxP6tabAN1oXa8=
+X-Google-Smtp-Source: 
+ APBJJlEQwzCXnLSG9Db+b/tZpzul5Q8lvD7Ip0hLgkyKGo/6GNq4Xfrpf2kkMy9+NX6RlyZ+hk/4uQ==
+X-Received: by 2002:a17:906:64c2:b0:993:d632:2c3 with SMTP id
+ p2-20020a17090664c200b00993d63202c3mr2421780ejn.21.1689166383605;
+        Wed, 12 Jul 2023 05:53:03 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a01:c844:242b:b300:215:5dff:fe81:5e96])
+        by smtp.gmail.com with ESMTPSA id
+ l6-20020a170906230600b00991faf3810esm2544506eja.146.2023.07.12.05.53.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Jul 2023 05:53:03 -0700 (PDT)
+From: Matus Gajdos <matuszpd@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Matus Gajdos <matuszpd@gmail.com>,
+	alsa-devel@alsa-project.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: fsl_sai: Disable bit clock with transmitter
+Date: Wed, 12 Jul 2023 14:49:33 +0200
+Message-Id: <20230712124934.32232-1-matuszpd@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="A5qTlZLlNmei/b37"
-Content-Disposition: inline
-In-Reply-To: <20230712080830.973766-2-zhuning0077@gmail.com>
-X-Cookie: Dammit Jim, I'm an actor, not a doctor.
-Message-ID-Hash: QX26KGLF3VEWSLBLVHRN35NSIUV4WVUP
-X-Message-ID-Hash: QX26KGLF3VEWSLBLVHRN35NSIUV4WVUP
-X-MailFrom: broonie@kernel.org
+Content-Transfer-Encoding: 8bit
+X-MailFrom: matuszpd@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: WG2TUP5PQS32DQQY5IUMB3HKXOBK37BA
+X-Message-ID-Hash: WG2TUP5PQS32DQQY5IUMB3HKXOBK37BA
+X-Mailman-Approved-At: Wed, 12 Jul 2023 13:14:26 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QX26KGLF3VEWSLBLVHRN35NSIUV4WVUP/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/WG2TUP5PQS32DQQY5IUMB3HKXOBK37BA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -102,61 +126,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Otherwise bit clock remains running writing invalid data to the DAC.
 
---A5qTlZLlNmei/b37
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Matus Gajdos <matuszpd@gmail.com>
+---
+ sound/soc/fsl/fsl_sai.c | 2 +-
+ sound/soc/fsl/fsl_sai.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-On Wed, Jul 12, 2023 at 04:08:28PM +0800, Zhu Ning wrote:
-> Old power-up sequence causes large pop noise during start-up.
-> Using a new sequence instead.
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 5e09f634c61b..dcc7fbe7acac 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -719,7 +719,7 @@ static void fsl_sai_config_disable(struct fsl_sai *sai, int dir)
+ 	u32 xcsr, count = 100;
+ 
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCSR(tx, ofs),
+-			   FSL_SAI_CSR_TERE, 0);
++			   FSL_SAI_CSR_TERE | FSL_SAI_CSR_BCE, 0);
+ 
+ 	/* TERE will remain set till the end of current frame */
+ 	do {
+diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
+index 8254c3547b87..550df87b6a06 100644
+--- a/sound/soc/fsl/fsl_sai.h
++++ b/sound/soc/fsl/fsl_sai.h
+@@ -91,6 +91,7 @@
+ /* SAI Transmit/Receive Control Register */
+ #define FSL_SAI_CSR_TERE	BIT(31)
+ #define FSL_SAI_CSR_SE		BIT(30)
++#define FSL_SAI_CSR_BCE		BIT(28)
+ #define FSL_SAI_CSR_FR		BIT(25)
+ #define FSL_SAI_CSR_SR		BIT(24)
+ #define FSL_SAI_CSR_xF_SHIFT	16
+-- 
+2.25.1
 
->  static const struct regmap_range es8326_volatile_ranges[] =3D {
-> -	regmap_reg_range(ES8326_HP_DETECT, ES8326_HP_DETECT),
-> +	regmap_reg_range(ES8326_HPDET_TYPE, ES8326_HPDET_TYPE),
->  };
-
-As well as not seeming to correspond to the patch description this seems
-obviously buggy - even if _HPDET_TYPE was missed from the list of
-volatile registers no software change should be able to make a volatile
-register non-volatile, that's a property of the hardware.  The changes
-to read from HPDET_TYPE also seem unrelated to the main change here in
-the resume function, this should probably be multiple commits.
-
-> @@ -633,40 +633,80 @@ static irqreturn_t es8326_irq(int irq, void *dev_id)
->  static int es8326_resume(struct snd_soc_component *component)
->  {
->  	struct es8326_priv *es8326 =3D snd_soc_component_get_drvdata(component);
-> -	unsigned int reg;
-> =20
->  	regcache_cache_only(es8326->regmap, false);
->  	regcache_sync(es8326->regmap);
-> =20
-> +	/* reset register value to default */
-> +	regmap_write(es8326->regmap, ES8326_CSM_I2C_STA, 0x01);
-> +	usleep_range(1000, 3000);
-> +	regmap_write(es8326->regmap, ES8326_CSM_I2C_STA, 0x00);
-
-This looks wrong, you're resyncing the cache and then start resetting
-registers?  It feels like the ordering is off here, and some of this
-reset sequence might want to be done with the cache bypassed.  Are you
-sure that there's no corruption of user visible state resulting from the
-power up sequence, especially around the HP driver?
-
---A5qTlZLlNmei/b37
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSuoK4ACgkQJNaLcl1U
-h9DQVgf/cYBeH4e1di5Xbcdo+6h4ApUf6FpdhxdASIOdeb3nltekqUWE3OvNVdHz
-PctTTtl+x4rsJcn1XE6hUZCLvhYPrYHew3Jp8SgXs6S8Z5BGodo5vAfWgfdR1MvD
-EbMSqWxPC+w+Z31nb7VvTxRbObPKFJI2KO5+ljxx++fmC1CSHgUFxBV7aLjeZ+f6
-YeS4/eiO+GjddVA+RikUTrBkSvKJs6fbhyTK8gKeZPcXjbOEJ3WuQmFzvAm2EVPB
-2Qj9q6lDOV78UCano6vP9OLzxc/4iU14qUMhK0uOh9OIzR94kDfm1ix7ZnA20lzf
-Z8Jn7A6szXv2uX4TLHQ0RDLjrSQWAw==
-=oMyt
------END PGP SIGNATURE-----
-
---A5qTlZLlNmei/b37--

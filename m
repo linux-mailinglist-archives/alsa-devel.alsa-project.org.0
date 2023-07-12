@@ -2,102 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682A3750D3C
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 17:55:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F797750EB9
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 18:39:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B29DDBC0;
-	Wed, 12 Jul 2023 17:54:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B29DDBC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E3F47F4;
+	Wed, 12 Jul 2023 18:38:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E3F47F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689177335;
-	bh=Ntin9ux60UydRjUjJN52xacdzkihb/yAwVR8rFD8U60=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689179983;
+	bh=DQexuOyJUEJfGQ3HBfoUhZkBbrW+cFpy5QnqcROH1P8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lYiJkLR9dAPzHsLcr1VrgwgXh7tLV2wuxoG3kWSJ2Rx/JV/jVTQVCGJEbOhqIsFiN
-	 s1lHkOx9N6LzohtOoW/ODw8RrBaZ/kv6VOHeDTGU2HMuGoAoTt/BujhcBnQSkAVT6U
-	 ddJNOcciO57l9e6JwUkb8uhR8CW3MYvYK064lkR4=
+	b=Xv8sYDtGs7ks9Ici8eKq47DhLF0SLdrIM44WQJ7Jqe1T10E8RJpjjh53O/4zfYUj2
+	 6QZK0d/zcBGSuc168I0fMkszQp47kWLAVwVLL4kAtkSowGSXVJxABvFML3eH75n9ZB
+	 8qZ3y3D2/iKKTiKJBPwShuLr3dOscSJinty5V5w0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3027AF80551; Wed, 12 Jul 2023 17:54:32 +0200 (CEST)
+	id 73A3DF80535; Wed, 12 Jul 2023 18:38:26 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA07AF80290;
-	Wed, 12 Jul 2023 17:54:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DD4AF80236;
+	Wed, 12 Jul 2023 18:38:26 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 46763F80551; Wed, 12 Jul 2023 17:54:28 +0200 (CEST)
+	id A7907F80249; Wed, 12 Jul 2023 18:38:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47E62F80290
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 17:54:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47E62F80290
+	by alsa1.perex.cz (Postfix) with ESMTPS id 12D2BF80153
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 18:38:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12D2BF80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=K2pKjRIb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689177265; x=1720713265;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Ntin9ux60UydRjUjJN52xacdzkihb/yAwVR8rFD8U60=;
-  b=K2pKjRIbu0EwNmmeCbTxlxSXIYXZDndMFZ06CvMY9H3+dOpMZ1Jv0GzL
-   8Y/OHFbaRtaIvA/TNxH5Kelv7CHvsyFXr0s0SbrI5NsXOn+bthw707wb4
-   s3a/+MOjUNLJ9u7qc4Y0zXflLSRydmPw6oxbXnxAzZdWsUbUVYDJBqtch
-   DswY1xPzVC4fU22h/HuXMq5T3N1ybK3qAGb+XiVb6Wv1GJp7w3hOtWsAy
-   /Se2n0INN3+gw9yYRY8ZClJNMEGLpp6nVs/D4LJJhQ6q4h5t/C2JLFrEq
-   s2/LvnOYUZlmYrg/18qYk0JklMrptI57Cp12IYdzY9vzYcNW/XmaY8Nk8
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="395725084"
-X-IronPort-AV: E=Sophos;i="6.01,200,1684825200";
-   d="scan'208";a="395725084"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 08:54:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="866174784"
-X-IronPort-AV: E=Sophos;i="6.01,200,1684825200";
-   d="scan'208";a="866174784"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga001.fm.intel.com with ESMTP; 12 Jul 2023 08:54:18 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-	(envelope-from <andriy.shevchenko@intel.com>)
-	id 1qJcAS-002AZo-2J;
-	Wed, 12 Jul 2023 18:54:16 +0300
-Date: Wed, 12 Jul 2023 18:54:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Hans de Goede <hdegoede@redhat.com>
-Subject: Re: [PATCH 13/13] ASoC: Intel: sst: Convert to PCI device IDs defines
-Message-ID: <ZK7MqGyGYJ9eMlH1@smile.fi.intel.com>
-References: <20230711125726.3509391-1-amadeuszx.slawinski@linux.intel.com>
- <20230711125726.3509391-14-amadeuszx.slawinski@linux.intel.com>
- <ZK1oKYW0rro4FnNO@smile.fi.intel.com>
- <958f3638-f68a-ebec-29cc-816f823b017f@linux.intel.com>
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=S4Qleozc
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id DF71161804;
+	Wed, 12 Jul 2023 16:38:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D290C433C7;
+	Wed, 12 Jul 2023 16:38:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689179890;
+	bh=DQexuOyJUEJfGQ3HBfoUhZkBbrW+cFpy5QnqcROH1P8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=S4QleozcAyIBCTdD1watgV7kBpQI7x6hlWAONqekBmjhg8yw7uiPqk5NHky5BjToB
+	 4WcXIJSIMl+t4rTAJbNZTIOZgen+ikbkRbdrZPjegUliecOOunjxe/FcWFPp5wmYGH
+	 OXNvs/gny7Bdb74wtiBYsVWUmCbeH5OY30IIjBLnJ3gvL0XcJza33lss/6dnWvp0jR
+	 fWra+EhLUKMMP4FFRmWd5bMNqUr1u/9AtB9VJqw3k/wv3AOSTvZJqMbXttA/DLN4WF
+	 p9KzcqYXRKxtffEWe11J/qUbqV0DUg1d/osdtet+CqAnjRuabYyE2ssg4s72i3lYzF
+	 5E4fW8bIQlD1Q==
+From: Mark Brown <broonie@kernel.org>
+To: alsa-devel@alsa-project.org, Brent Lu <brent.lu@intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Yong Zhi <yong.zhi@intel.com>, Uday M Bhat <uday.m.bhat@intel.com>,
+ Gongjun Song <gongjun.song@intel.com>,
+ Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
+ Arnd Bergmann <arnd@arndb.de>, Terry Cheong <htcheong@chromium.org>,
+ "Dharageswari . R" <dharageswari.r@intel.com>,
+ Mac Chiang <mac.chiang@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ ye xingchen <ye.xingchen@zte.com.cn>, linux-kernel@vger.kernel.org
+In-Reply-To: <20230712191423.443765-1-brent.lu@intel.com>
+References: <20230712191423.443765-1-brent.lu@intel.com>
+Subject: Re: [PATCH v4] ASoC: Intel: sof_rt5682: add jsl_rt5650 board
+ config
+Message-Id: <168917988590.102640.2782247586550802134.b4-ty@kernel.org>
+Date: Wed, 12 Jul 2023 17:38:05 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <958f3638-f68a-ebec-29cc-816f823b017f@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Message-ID-Hash: 7GB4DYVZERQHPSXTZBU5ZGVIXRFW5TXW
-X-Message-ID-Hash: 7GB4DYVZERQHPSXTZBU5ZGVIXRFW5TXW
-X-MailFrom: andriy.shevchenko@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: BYQJ2W6CGFNGSUH6BRINVU2QKAIBJCYG
+X-Message-ID-Hash: BYQJ2W6CGFNGSUH6BRINVU2QKAIBJCYG
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -109,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7GB4DYVZERQHPSXTZBU5ZGVIXRFW5TXW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/BYQJ2W6CGFNGSUH6BRINVU2QKAIBJCYG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -118,39 +113,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, Jul 12, 2023 at 02:19:47PM +0200, Amadeusz Sławiński wrote:
-> On 7/11/2023 4:33 PM, Andy Shevchenko wrote:
-> > On Tue, Jul 11, 2023 at 02:57:26PM +0200, Amadeusz Sławiński wrote:
-> > > Use PCI device IDs from pci_ids.h header.
-
-...
-
-> > >   	switch (sst->dev_id) {
-> > > -	case SST_MRFLD_PCI_ID:
-> > > +	case PCI_DEVICE_ID_INTEL_ADSP_TNG:
-> > >   	case SST_BYT_ACPI_ID:
-> > >   	case SST_CHV_ACPI_ID:
-> > 
-> > I think this needs a bit more, i.e. replacing the rest with respective PCI IDs.
-> > 
-> > All three will be defined with SST prefix, which makes sense to me.
-> > 
-> > ACPI here is a bit misleading, but correct. The ACPI specification assumes that
-> > respective part of the ID space covers 100% of PCI ID space.
-> > 
-> > I have briefly checked the code and it seems that ID is used externally only
-> > for PCI case, so we may simply use the lower 16 bits of the ACPI _HID for the
-> > context.
+On Thu, 13 Jul 2023 03:14:23 +0800, Brent Lu wrote:
+> This configuration supports JSL boards which implement ALC5650 dual
+> I2S interface codec. Two DAI links are added: AIF1 (on codec side) for
+> headphone and AIF2 for speakers.
 > 
-> Do I understand correctly that I should just do:
-> #define PCI_DEVICE_ID_INTEL_SST_BYT	0x0F28
-> #define PCI_DEVICE_ID_INTEL_SST_CHV	0x22A8
-> and use those IDs instead?
+> 
 
-Correct!
+Applied to
 
--- 
-With Best Regards,
-Andy Shevchenko
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
+Thanks!
+
+[1/1] ASoC: Intel: sof_rt5682: add jsl_rt5650 board config
+      commit: 6657fcc91db9b01fcbc4f8de0659e10cabd7ce2f
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 

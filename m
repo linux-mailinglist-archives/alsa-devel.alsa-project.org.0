@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24BC67506BF
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:48:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57CC67506D1
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:48:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D20C84D;
-	Wed, 12 Jul 2023 13:47:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D20C84D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D417C3E7;
+	Wed, 12 Jul 2023 13:47:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D417C3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689162507;
-	bh=hfYmgTs7Yz+1w3C0SktKIFOEMa76BxiST1EdEAk09Q4=;
+	s=default; t=1689162525;
+	bh=b7P/loiubRYNq6EW35thuebHR0B0S5Nl28Pm8CTPxu4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SmgFNRINDHlADlmKLA7TlX021YaIFRn5nW68ozggbAOpXTqD5tZuc1dNWqQlflMpL
-	 t6pH12f/hpMoG1bpsFC21FIlu++WN8eckUVhVjPODVlN+myEBQ4YfGClL0pxKHrupC
-	 r0JYUXWjkK8j+W0xhFZDHzvO44Gb/nublDelCOLg=
+	b=rTLkQOPfPUBI0Cpd719dtSxFMA3iG4BbhngGwoV8szZqufQPV1PWZJQAeSF1nAIbP
+	 Y4amNSMmjnmUD8FUt905vsC7pSbM0NYrOxQewfPe34j2ArRICcPq/nuKHOmbYGHI5N
+	 OJLUcqpgtzws7l1k6B9wLLwjsy88UfwXYz9n2E9g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8E8C0F80568; Wed, 12 Jul 2023 13:46:47 +0200 (CEST)
+	id 5F0B9F80578; Wed, 12 Jul 2023 13:46:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB1C9F80548;
-	Wed, 12 Jul 2023 13:46:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B253F80578;
+	Wed, 12 Jul 2023 13:46:50 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 53C7BF80153; Wed, 12 Jul 2023 13:46:43 +0200 (CEST)
+	id 11E5EF8055C; Wed, 12 Jul 2023 13:46:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -37,46 +37,46 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 0A7DFF80153
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:46:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A7DFF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9826EF8047D
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:46:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9826EF8047D
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=fOLUgnhU
+ header.s=k20201202 header.b=hwJQtEfm
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8966561783;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 266CB617A9;
+	Wed, 12 Jul 2023 11:46:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69463C433C8;
 	Wed, 12 Jul 2023 11:46:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558FAC433C9;
-	Wed, 12 Jul 2023 11:46:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689162398;
-	bh=hfYmgTs7Yz+1w3C0SktKIFOEMa76BxiST1EdEAk09Q4=;
+	s=k20201202; t=1689162400;
+	bh=b7P/loiubRYNq6EW35thuebHR0B0S5Nl28Pm8CTPxu4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=fOLUgnhU4q0iVGdPdmDW5i+/LrqwsYp2aZGxel7DeBPB+f5YnfskDWftfEnwL2drb
-	 qLoLUtwdhUlVghGa+j0V3eF3+U/P+WokO4qMBEJH0nEwLMr8fAHVw8IRC+8od90qv6
-	 /xj2tKWGYyZTIEwMq6LU4dKBAK2jFD/ll8Sg3XhDKKWvKn8WWL5/0FL88k63r1+nOJ
-	 4hA4x46ndO05isGcZr5Gb1Bbdhu+L+nlE36ZqUQ15viYzlr27T4ep4zn7AWzTcWl6T
-	 quKClbBE1isZWLNIpIg0w7xKhZLFe+OcaULKjA2FRrZo1MY/C3Nez1kvZzthpkVlcG
-	 bKyrMGM34Wf5w==
+	b=hwJQtEfmH2q+9sYql7Cn/GCZuDN7vrr+RnhtYuMsu7esFvcXJg4bIvbDaIrrgdtf9
+	 VhtHvAWTOK3kD/9LfcP+tUTQPv/N1IZ8NAN4+2/yDX7Id3978kwqc7DI9rMJEp+qQY
+	 FyWNYBvMvZhGFSOOIYVUZVovwsSrhai+l+ebvFJQTR/eVh1o1HtJ/2OGxmykrQxMKt
+	 If7gKKIZbE0Q6YTkrBySF62Id6Js16EPx5YNLPBffeCfnDGopqfEImG3AcPUgnjp/N
+	 9OPkOlfkCj9T5NK7hFAFNtMX0pt4WH4OIv7SLRgmXMruWXy3vaMnj0vPcMwt9jMPdF
+	 40hnZIGZdzZag==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
- oder_chiou@realtek.com, shumingf@realtek.com, derek.fang@realtek.com
-In-Reply-To: <20230621080750.13511-1-jack.yu@realtek.com>
-References: <20230621080750.13511-1-jack.yu@realtek.com>
-Subject: Re: [PATCH] ASoC: rt722-sdca: Remove redundant sdca mask
-Message-Id: <168916239706.46574.15623314155634673300.b4-ty@kernel.org>
-Date: Wed, 12 Jul 2023 12:46:37 +0100
+To: alsa-devel@alsa-project.org, Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Cc: Vijendar.Mukunda@amd.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com
+In-Reply-To: <20230626135515.1252063-1-Syed.SabaKareem@amd.com>
+References: <20230626135515.1252063-1-Syed.SabaKareem@amd.com>
+Subject: Re: [PATCH v2 00/10] Refactor acp legacy driver and add
+Message-Id: <168916239914.46574.13493377956654006286.b4-ty@kernel.org>
+Date: Wed, 12 Jul 2023 12:46:39 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: QW7OSZAYQYBP5QC6UQB7W2SX3BZWDNJ4
-X-Message-ID-Hash: QW7OSZAYQYBP5QC6UQB7W2SX3BZWDNJ4
+Message-ID-Hash: 5UINOIFZHVLYKXGRANH2IMJJXV3AZERP
+X-Message-ID-Hash: 5UINOIFZHVLYKXGRANH2IMJJXV3AZERP
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -89,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QW7OSZAYQYBP5QC6UQB7W2SX3BZWDNJ4/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/5UINOIFZHVLYKXGRANH2IMJJXV3AZERP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -98,10 +98,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 21 Jun 2023 16:07:50 +0800, Jack Yu wrote:
-> Remove redundant sdca mask for clear code.
+On Mon, 26 Jun 2023 19:25:04 +0530, Syed Saba Kareem wrote:
+> This patch series to refactor acp leagacy driver and add pm ops
+> support for rembrandt platforms.
 > 
+> Changes since V1
+>    - Fix below kernel test robot errors and warnings
 > 
+> 	- ld.lld: error: undefined symbol: acp_enable_interrupts
+> 	- referenced by acp-renoir.c:191 (sound/soc/amd/acp/acp-renoir.c:191)
+> 	- ld.lld: error: undefined symbol: acp_disable_interrupts
+> 	- sound/soc/amd/acp/acp-renoir.o:(renoir_audio_remove) in archive vmlinux.a
+> 
+> [...]
 
 Applied to
 
@@ -109,8 +118,26 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt722-sdca: Remove redundant sdca mask
-      commit: 209fb30ee1c7edc6807ac94f98c9ce78b4891aed
+[01/10] ASoC: amd: acp: refactor the acp init and de-init sequence
+        commit: e61b415515d3db57dce3af3e4a0441f08d8d8f15
+[02/10] ASoC: amd: acp: add acp i2s master clock generation for rembrandt platform
+        commit: 7ad6fb9dd1ca63f9f36e413036f36f075cdaec4a
+[03/10] ASoC: amd: acp: remove the redundant acp enable/disable interrupts functions
+        commit: fc11d3266dc7ed386efe91c20d09780bbded1f03
+[04/10] ASoC: amd: acp: store platform device reference created in pci probe call
+        commit: 7a83903022dc3bd5214f6bdde8132c66015ab538
+[05/10] ASoC: amd: acp: add pm ops support for acp pci driver
+        commit: 088a40980efbc2c449b72f0f2c7ebd82f71d08e2
+[06/10] ASoC: amd: acp: store xfer_resolution of the stream
+        commit: c8786ac7bb374276b1c2b545b4a6be3b230be7cb
+[07/10] ASoC: amd: acp: export config_acp_dma() and config_pte_for_stream() symbols
+        commit: a8d1316a264f36c2ffe798e42d6b415dc377851e
+[08/10] ASoC: amd: acp: store the pdm stream channel mask
+        commit: 7373e6bee60cdac36a134897164885b2257a02ac
+[09/10] ASoC: amd: acp: move pdm macros to common header file
+        commit: e3a96e441e05bbf599ce70c2a03e7acd55b275ee
+[10/10] ASoC: amd: acp: add pm ops support for rembrandt platform
+        commit: 5debf4ae138c81321832d41203483696cac1c580
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,83 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64B3C7506BA
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:48:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24BC67506BF
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:48:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3397820;
-	Wed, 12 Jul 2023 13:47:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3397820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D20C84D;
+	Wed, 12 Jul 2023 13:47:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D20C84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689162504;
-	bh=JfAJmko1aJRSaP7TINdHFWcUEpNZeyWnoLSyFMLbQ1s=;
+	s=default; t=1689162507;
+	bh=hfYmgTs7Yz+1w3C0SktKIFOEMa76BxiST1EdEAk09Q4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AGbameoZcb57Bn3wKoCYmbdZOUlpUqCtJvbfBCUlUaicr+P0CZVQdU1Hb9wVlsSj1
-	 ZSpfQZ00bBvJKANIv1YZqMzjobxc8zSkotCeqfpxweFe939adUdduSlr5X1APDA2vc
-	 WxqMVyqZywb8M5MGPrRYaqWll8aSzaItvjd850EI=
+	b=SmgFNRINDHlADlmKLA7TlX021YaIFRn5nW68ozggbAOpXTqD5tZuc1dNWqQlflMpL
+	 t6pH12f/hpMoG1bpsFC21FIlu++WN8eckUVhVjPODVlN+myEBQ4YfGClL0pxKHrupC
+	 r0JYUXWjkK8j+W0xhFZDHzvO44Gb/nublDelCOLg=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7D148F8055B; Wed, 12 Jul 2023 13:46:45 +0200 (CEST)
+	id 8E8C0F80568; Wed, 12 Jul 2023 13:46:47 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8B91F80535;
-	Wed, 12 Jul 2023 13:46:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB1C9F80548;
+	Wed, 12 Jul 2023 13:46:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E9DF0F80153; Wed, 12 Jul 2023 13:46:40 +0200 (CEST)
+	id 53C7BF80153; Wed, 12 Jul 2023 13:46:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BA61FF80153
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:46:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA61FF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0A7DFF80153
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:46:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A7DFF80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=fwbpSHkS
+ header.s=k20201202 header.b=fOLUgnhU
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6367461794;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8966561783;
+	Wed, 12 Jul 2023 11:46:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558FAC433C9;
 	Wed, 12 Jul 2023 11:46:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4125CC433C7;
-	Wed, 12 Jul 2023 11:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689162396;
-	bh=JfAJmko1aJRSaP7TINdHFWcUEpNZeyWnoLSyFMLbQ1s=;
+	s=k20201202; t=1689162398;
+	bh=hfYmgTs7Yz+1w3C0SktKIFOEMa76BxiST1EdEAk09Q4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=fwbpSHkSXzwXLCUhn047ZFcWSacGcEuAI3FDal2kLkvEmN39lD+7PDhxfYRCXZrHH
-	 w0HOqNOcH20Y0qrmGnVy2eLJut+lLO9XHdDcw/uiBcETj1UyzgmgLT5RBa6Fpnp4c+
-	 2yR8H4TXW2u4+NjQG97ywb7kWsOFqAHG4ZdmOue0c5hPmzgOpJrfD8Ria0HuuPxI61
-	 bO3Vq2w0tqvVG8XEHoPx3R8yTfYqWV4s1nRyX+l001yhhhjcyu/uGf0vaH3PG/G+oe
-	 DmDC4SMntNDHHCfk4a256P/5VOV8lXOEYxw5CdxODFv1Ef+XlOsZPzaMP3HPdthIsW
-	 FOo8jn/OD1JUA==
+	b=fOLUgnhU4q0iVGdPdmDW5i+/LrqwsYp2aZGxel7DeBPB+f5YnfskDWftfEnwL2drb
+	 qLoLUtwdhUlVghGa+j0V3eF3+U/P+WokO4qMBEJH0nEwLMr8fAHVw8IRC+8od90qv6
+	 /xj2tKWGYyZTIEwMq6LU4dKBAK2jFD/ll8Sg3XhDKKWvKn8WWL5/0FL88k63r1+nOJ
+	 4hA4x46ndO05isGcZr5Gb1Bbdhu+L+nlE36ZqUQ15viYzlr27T4ep4zn7AWzTcWl6T
+	 quKClbBE1isZWLNIpIg0w7xKhZLFe+OcaULKjA2FRrZo1MY/C3Nez1kvZzthpkVlcG
+	 bKyrMGM34Wf5w==
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org, Maxim Kochetkov <fido_max@inbox.ru>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20230622200031.120168-1-fido_max@inbox.ru>
-References: <20230622200031.120168-1-fido_max@inbox.ru>
-Subject: Re: [PATCH 1/1] ASoC: dwc: Add TDM mode support
-Message-Id: <168916239498.46574.17040114171305737838.b4-ty@kernel.org>
-Date: Wed, 12 Jul 2023 12:46:34 +0100
+To: lgirdwood@gmail.com, Jack Yu <jack.yu@realtek.com>
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, shumingf@realtek.com, derek.fang@realtek.com
+In-Reply-To: <20230621080750.13511-1-jack.yu@realtek.com>
+References: <20230621080750.13511-1-jack.yu@realtek.com>
+Subject: Re: [PATCH] ASoC: rt722-sdca: Remove redundant sdca mask
+Message-Id: <168916239706.46574.15623314155634673300.b4-ty@kernel.org>
+Date: Wed, 12 Jul 2023 12:46:37 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: E33GYBUQTO352SD4ACUZY3MTH7SGSHDW
-X-Message-ID-Hash: E33GYBUQTO352SD4ACUZY3MTH7SGSHDW
+Message-ID-Hash: QW7OSZAYQYBP5QC6UQB7W2SX3BZWDNJ4
+X-Message-ID-Hash: QW7OSZAYQYBP5QC6UQB7W2SX3BZWDNJ4
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -91,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/E33GYBUQTO352SD4ACUZY3MTH7SGSHDW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QW7OSZAYQYBP5QC6UQB7W2SX3BZWDNJ4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -100,15 +98,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 22 Jun 2023 23:00:29 +0300, Maxim Kochetkov wrote:
-> Depending on hardware implementaion of DWC I2S controller may support
-> TDM mode if enabled in SoC at design time.
-> Unfortunately there is no way to detect TDM capability for DWC by
-> reading registers. Anyway, if such capability enabled, TDM mode
-> can be enabled and configured by dai-tdm-slot-* DT options.
+On Wed, 21 Jun 2023 16:07:50 +0800, Jack Yu wrote:
+> Remove redundant sdca mask for clear code.
 > 
 > 
-> [...]
 
 Applied to
 
@@ -116,8 +109,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dwc: Add TDM mode support
-      commit: 221acc16aee16eb246bad32a6b9014021218b7cd
+[1/1] ASoC: rt722-sdca: Remove redundant sdca mask
+      commit: 209fb30ee1c7edc6807ac94f98c9ce78b4891aed
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

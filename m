@@ -2,104 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34FA974FCFB
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 04:15:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5895E74FE61
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 06:41:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EBD0FCC;
-	Wed, 12 Jul 2023 04:14:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EBD0FCC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E112B207;
+	Wed, 12 Jul 2023 06:41:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E112B207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689128141;
-	bh=jOZlgulkaAhJj75ZTbddxJP9X6qs4DH4+rWBFfuBjtE=;
+	s=default; t=1689136912;
+	bh=0nnusvWpyWLw0heTTTEnUFsDUeTNTFosVkb6gytmWT0=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=SO26HdFJ1ntI0dvzH1L8caPFhuxVaVuU1zlfcJGXoKAPXM+lokDOiUsb0M4io/e7h
-	 SYG3xjHphP7Kho/C3rnqgfMyK/eialvJILKwyK3F5hjelY9xtZ6rj8shUNpFaRIQOt
-	 L3b3EbVDp7MKpYMi5cv/DKbN9OVCNiZKXM984Dvo=
+	b=WnnUT9i8m/4/gAbEqiWMs23qbh3Uv/9yoEmdtxoJJ1gL2NI1dHvgmTkyELKhTETyE
+	 URkNVJeUR330KdHUFJX/D4it9teGHJ77ysIDRBaNF9su9C44Z9hXzyFqvGqatXxvwJ
+	 m63nkdvGVUYXRN4tlCcRWvp+am0tQtRY6ZOuYTvw=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0C86FF80236; Wed, 12 Jul 2023 04:14:48 +0200 (CEST)
+	id 10DE5F8047D; Wed, 12 Jul 2023 06:41:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78EE8F80236;
-	Wed, 12 Jul 2023 04:14:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7ED14F80236;
+	Wed, 12 Jul 2023 06:41:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id B1616F80249; Wed, 12 Jul 2023 04:14:42 +0200 (CEST)
+	id 9C210F80249; Wed, 12 Jul 2023 06:40:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=FREEMAIL_FROM,
 	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Received: from n169-114.mail.139.com (n169-114.mail.139.com [120.232.169.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 26FC8F80153
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 04:14:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26FC8F80153
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=AMkAb1Pa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689128060; x=1720664060;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=jOZlgulkaAhJj75ZTbddxJP9X6qs4DH4+rWBFfuBjtE=;
-  b=AMkAb1PaIqEqgfh9WfVaCpOIcMbvJioeKU4xZRy0KbiygAgqLKMtPAI9
-   6H3Sb6uc/GXx3N0ZQ9oKmFozrsTCSPheICQr+l/1OvURtY9B5hNlmYLnn
-   U62tz1gPl/57lLknYVzP/3EOvfw9HDajZrTAv1pyh0p37uoHcEO7wmeX9
-   aaKYZNEmL7YfhezSDKbC6RVvSqLGiRsm9kGz+nZvGmvQy+ZlRzLg0fnod
-   kkJtmJvzf6LcSgFjB0iH9AFjtzE451ePZuuFgDlutUoG1LIVIxh/mhKdv
-   KV6YfOfgnCzYE5t1M+VSChPERGmz7/LYsMYQGrTs1XulnnHYMjwYwaFPC
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="430908239"
-X-IronPort-AV: E=Sophos;i="6.01,198,1684825200";
-   d="scan'208";a="430908239"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
-  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 19:14:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="671657614"
-X-IronPort-AV: E=Sophos;i="6.01,198,1684825200";
-   d="scan'208";a="671657614"
-Received: from brentlu-desktop.itwn.intel.com ([10.5.252.92])
-  by orsmga003.jf.intel.com with ESMTP; 11 Jul 2023 19:14:12 -0700
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Yong Zhi <yong.zhi@intel.com>,
-	Uday M Bhat <uday.m.bhat@intel.com>,
-	Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Gongjun Song <gongjun.song@intel.com>,
-	Brent Lu <brent.lu@intel.com>,
-	Terry Cheong <htcheong@chromium.org>,
-	Mac Chiang <mac.chiang@intel.com>,
-	"Dharageswari . R" <dharageswari.r@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	ye xingchen <ye.xingchen@zte.com.cn>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] ASoC: Intel: sof_rt5682: add jsl_rt5650 board config
-Date: Wed, 12 Jul 2023 18:08:55 +0800
-Message-Id: <20230712100855.272467-1-brent.lu@intel.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id C802DF800D2
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 06:40:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C802DF800D2
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM: 
+X-RM-SPAM-FLAG: 00000000
+Received: from u22.. (unknown[14.26.80.93])
+	by rmsmtp-lg-appmail-43-12057 (RichMail) with SMTP id 2f1964ae2ea70d1-e0300;
+	Wed, 12 Jul 2023 12:40:11 +0800 (CST)
+X-RM-TRANSID: 2f1964ae2ea70d1-e0300
+From: Kevin Lu <luminlong@139.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	tiwai@suse.com
+Cc: kevin-lu@ti.com,
+	shenghao-ding@ti.com,
+	alsa-devel@alsa-project.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kevin Lu <luminlong@139.com>
+Subject: [PATCH v1] ASoC: dt-bindings: Add tas2505 audio amplifier
+Date: Wed, 12 Jul 2023 12:40:06 +0800
+Message-Id: <20230712044006.48456-1-luminlong@139.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: FG5EUSQDTPFJUZ72V4ZXHMYULOYBDFCS
-X-Message-ID-Hash: FG5EUSQDTPFJUZ72V4ZXHMYULOYBDFCS
-X-MailFrom: brent.lu@intel.com
+Message-ID-Hash: B4VPH3JJWM73NMRNQGXFNVCZXXB6PFF4
+X-Message-ID-Hash: B4VPH3JJWM73NMRNQGXFNVCZXXB6PFF4
+X-MailFrom: luminlong@139.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +77,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/FG5EUSQDTPFJUZ72V4ZXHMYULOYBDFCS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/B4VPH3JJWM73NMRNQGXFNVCZXXB6PFF4/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,264 +86,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-This configuration supports JSL boards which implement ALC5650 dual
-I2S interface codec. Two DAI links are added: AIF1 (on codec side) for
-headphone and AIF2 for speakers.
+Create tas2505.yaml for tas2505.
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
+Signed-off-by: Kevin Lu <luminlong@139.com>
 ---
- sound/soc/intel/boards/Kconfig                |  5 +-
- sound/soc/intel/boards/sof_rt5682.c           | 80 ++++++++++++++++++-
- .../intel/common/soc-acpi-intel-jsl-match.c   | 12 +++
- 3 files changed, 93 insertions(+), 4 deletions(-)
+ .../devicetree/bindings/sound/tas2505.yaml    | 72 +++++++++++++++++++
+ 1 file changed, 72 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/tas2505.yaml
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index f472f603ab75..1fe830af2b84 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -475,7 +475,7 @@ endif ## SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
- 
- if SND_SOC_SOF_HDA_LINK || SND_SOC_SOF_BAYTRAIL
- config SND_SOC_INTEL_SOF_RT5682_MACH
--	tristate "SOF with rt5682 codec in I2S Mode"
-+	tristate "SOF with rt5650/rt5682 codec in I2S Mode"
- 	depends on I2C && ACPI
- 	depends on ((SND_HDA_CODEC_HDMI && SND_SOC_SOF_HDA_AUDIO_CODEC) &&\
- 		    (MFD_INTEL_LPSS || COMPILE_TEST)) ||\
-@@ -485,6 +485,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
- 	select SND_SOC_RT1011
- 	select SND_SOC_RT1015
- 	select SND_SOC_RT1015P
-+	select SND_SOC_RT5645
- 	select SND_SOC_RT5682_I2C
- 	select SND_SOC_RT5682S
- 	select SND_SOC_DMIC
-@@ -494,7 +495,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
- 	select SND_SOC_INTEL_SOF_REALTEK_COMMON
- 	help
- 	   This adds support for ASoC machine driver for SOF platforms
--	   with rt5682 codec.
-+	   with rt5650 or rt5682 codec.
- 	   Say Y if you have such a device.
- 	   If unsure select "N".
- 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 7c034d671cf3..b4f07bdcf8b4 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -22,6 +22,7 @@
- #include <sound/soc-acpi.h>
- #include "../../codecs/rt5682.h"
- #include "../../codecs/rt5682s.h"
-+#include "../../codecs/rt5645.h"
- #include "../../codecs/hdac_hdmi.h"
- #include "../common/soc-intel-quirks.h"
- #include "hda_dsp_common.h"
-@@ -60,6 +61,7 @@
- #define SOF_MAX98390_SPEAKER_AMP_PRESENT	BIT(24)
- #define SOF_MAX98390_TWEETER_SPEAKER_PRESENT	BIT(25)
- #define SOF_RT1019_SPEAKER_AMP_PRESENT	BIT(26)
-+#define SOF_RT5650_HEADPHONE_CODEC_PRESENT	BIT(27)
- 
- 
- /* Default: MCLK on, MCLK 19.2M, SSP0  */
-@@ -305,6 +307,7 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_soc_component *component = asoc_rtd_to_codec(rtd, 0)->component;
- 	struct snd_soc_jack *jack;
-+	int extra_jack_data;
- 	int ret;
- 
- 	/* need to enable ASRC function for 24MHz mclk rate */
-@@ -315,7 +318,16 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 						 RT5682S_DA_STEREO1_FILTER |
- 						 RT5682S_AD_STEREO1_FILTER,
- 						 RT5682S_CLK_SEL_I2S1_ASRC);
--		else
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+			rt5645_sel_asrc_clk_src(component,
-+						RT5645_DA_STEREO_FILTER |
-+						RT5645_AD_STEREO_FILTER,
-+						RT5645_CLK_SEL_I2S1_ASRC);
-+			rt5645_sel_asrc_clk_src(component,
-+						RT5645_DA_MONO_L_FILTER |
-+						RT5645_DA_MONO_R_FILTER,
-+						RT5645_CLK_SEL_I2S2_ASRC);
-+		} else
- 			rt5682_sel_asrc_clk_src(component,
- 						RT5682_DA_STEREO1_FILTER |
- 						RT5682_AD_STEREO1_FILTER,
-@@ -365,7 +377,12 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
--	ret = snd_soc_component_set_jack(component, jack, NULL);
+diff --git a/Documentation/devicetree/bindings/sound/tas2505.yaml b/Documentation/devicetree/bindings/sound/tas2505.yaml
+new file mode 100644
+index 0000000..6cc3fe4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/tas2505.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2019 Texas Instruments Incorporated
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/sound/tas2505.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 +
-+	if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		extra_jack_data = SND_JACK_MICROPHONE | SND_JACK_BTN_0;
-+		ret = snd_soc_component_set_jack(component, jack, &extra_jack_data);
-+	} else
-+		ret = snd_soc_component_set_jack(component, jack, NULL);
- 
- 	if (ret) {
- 		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
-@@ -402,6 +419,8 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 
- 		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
- 			pll_source = RT5682S_PLL_S_MCLK;
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT)
-+			pll_source = RT5645_PLL1_S_MCLK;
- 		else
- 			pll_source = RT5682_PLL1_S_MCLK;
- 
-@@ -422,6 +441,8 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 	} else {
- 		if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT)
- 			pll_source = RT5682S_PLL_S_BCLK1;
-+		else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT)
-+			pll_source = RT5645_PLL1_S_BCLK1;
- 		else
- 			pll_source = RT5682_PLL1_S_BCLK1;
- 
-@@ -431,6 +452,9 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 	if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT) {
- 		pll_id = RT5682S_PLL2;
- 		clk_id = RT5682S_SCLK_S_PLL2;
-+	} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		pll_id = 0; /* not used in codec driver */
-+		clk_id = RT5645_SCLK_S_PLL1;
- 	} else {
- 		pll_id = RT5682_PLL1;
- 		clk_id = RT5682_SCLK_S_PLL1;
-@@ -559,11 +583,30 @@ static const struct snd_soc_dapm_route sof_map[] = {
- 	{ "IN1P", NULL, "Headset Mic" },
- };
- 
-+static const struct snd_soc_dapm_route rt5650_spk_dapm_routes[] = {
-+	/* speaker */
-+	{ "Left Spk", NULL, "SPOL" },
-+	{ "Right Spk", NULL, "SPOR" },
-+};
++title: Texas Instruments TAS2505 Mono Audio Amplifier
 +
- static const struct snd_soc_dapm_route dmic_map[] = {
- 	/* digital mics */
- 	{"DMic", NULL, "SoC DMIC"},
- };
- 
-+static int rt5650_spk_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_card *card = rtd->card;
-+	int ret;
++maintainers:
++  - Kevin Lu <kevin-lu@ti.com>
 +
-+	ret = snd_soc_dapm_add_routes(&card->dapm, rt5650_spk_dapm_routes,
-+				      ARRAY_SIZE(rt5650_spk_dapm_routes));
-+	if (ret)
-+		dev_err(rtd->dev, "fail to add dapm routes, ret=%d\n", ret);
++description: |
++  The TAS2505 is a mono Class-D speaker amp that supports both Digital
++  and Analog inputs. The device is ideal for automotive instrument cluster,
++  emergency call (eCall), and telematics applications. Direct I2S input
++  removes the need for an external DAC in the audio signal path.
++  An on-chip PLL provides the high speed clock needed by the DSP.
++  The volume level is register controlled.
 +
-+	return ret;
-+}
++  Specifications about the audio amplifier can be found at:
++    https://www.ti.com/lit/gpn/tas2505
 +
- static int dmic_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_soc_card *card = rtd->card;
-@@ -614,6 +657,17 @@ static struct snd_soc_dai_link_component rt5682s_component[] = {
- 	}
- };
- 
-+static struct snd_soc_dai_link_component rt5650_components[] = {
-+	{
-+		.name = "i2c-10EC5650:00",
-+		.dai_name = "rt5645-aif1",
-+	},
-+	{
-+		.name = "i2c-10EC5650:00",
-+		.dai_name = "rt5645-aif2",
-+	}
-+};
++allOf:
++  - $ref: dai-common.yaml#
 +
- static struct snd_soc_dai_link_component dmic_component[] = {
- 	{
- 		.name = "dmic-codec",
-@@ -652,6 +706,9 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	if (sof_rt5682_quirk & SOF_RT5682S_HEADPHONE_CODEC_PRESENT) {
- 		links[id].codecs = rt5682s_component;
- 		links[id].num_codecs = ARRAY_SIZE(rt5682s_component);
-+	} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+		links[id].codecs = &rt5650_components[0];
-+		links[id].num_codecs = 1;
- 	} else {
- 		links[id].codecs = rt5682_component;
- 		links[id].num_codecs = ARRAY_SIZE(rt5682_component);
-@@ -804,6 +861,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 			links[id].init = max_98390_spk_codec_init;
- 			links[id].ops = &max_98390_ops;
- 
-+		} else if (sof_rt5682_quirk & SOF_RT5650_HEADPHONE_CODEC_PRESENT) {
-+			links[id].codecs = &rt5650_components[1];
-+			links[id].num_codecs = 1;
-+			links[id].init = rt5650_spk_init;
-+			links[id].ops = &sof_rt5682_ops;
- 		} else {
- 			max_98357a_dai_link(&links[id]);
- 		}
-@@ -890,6 +952,12 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	/* Detect the headset codec variant */
- 	if (acpi_dev_present("RTL5682", NULL, -1))
- 		sof_rt5682_quirk |= SOF_RT5682S_HEADPHONE_CODEC_PRESENT;
-+	else if (acpi_dev_present("10EC5650", NULL, -1)) {
-+		sof_rt5682_quirk |= SOF_RT5650_HEADPHONE_CODEC_PRESENT;
++properties:
++  compatible:
++    enum:
++      - ti,tas2505
 +
-+		sof_audio_card_rt5682.name = devm_kstrdup(&pdev->dev, "rt5650",
-+							  GFP_KERNEL);
-+	}
- 
- 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
-@@ -1178,6 +1246,14 @@ static const struct platform_device_id board_ids[] = {
- 					SOF_RT5682_SSP_AMP(0) |
- 					SOF_RT5682_NUM_HDMIDEV(3)),
- 	},
-+	{
-+		.name = "jsl_rt5650",
-+		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
-+					SOF_RT5682_MCLK_24MHZ |
-+					SOF_RT5682_SSP_CODEC(0) |
-+					SOF_SPEAKER_AMP_PRESENT |
-+					SOF_RT5682_SSP_AMP(1)),
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, board_ids);
-diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index f5c7e1bbded0..36ea2bacbe7d 100644
---- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -34,6 +34,11 @@ static const struct snd_soc_acpi_codecs mx98360a_spk = {
- 	.codecs = {"MX98360A"}
- };
- 
-+static struct snd_soc_acpi_codecs rt5650_spk = {
-+	.num_codecs = 1,
-+	.codecs = {"10EC5650"}
-+};
++  reg:
++    maxItems: 1
++    description: |
++       I2C address of the device can be set to 0x18.
 +
- static const struct snd_soc_acpi_codecs rt5682_rt5682s_hp = {
- 	.num_codecs = 2,
- 	.codecs = {"10EC5682", "RTL5682"},
-@@ -98,6 +103,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 					SND_SOC_ACPI_TPLG_INTEL_SSP_MSB |
- 					SND_SOC_ACPI_TPLG_INTEL_DMIC_NUMBER,
- 	},
-+	{
-+		.id = "10EC5650",
-+		.drv_name = "jsl_rt5650",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &rt5650_spk,
-+		.sof_tplg_filename = "sof-jsl-rt5650-dual.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
++  reset-gpios:
++    maxItems: 1
++    description: GPIO used to reset the device.
++
++  clock-source:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Sets TDM clock sourse.
++    enum:
++      - 0 # Select MLCK
++      - 1 # Select BLCK
++
++  '#sound-dai-cells':
++    # The codec has a single DAI, the #sound-dai-cells=<1>; case is left in for backward
++    # compatibility but is deprecated.
++    enum: [0, 1]
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++   #include <dt-bindings/gpio/gpio.h>
++   i2c {
++     #address-cells = <1>;
++     #size-cells = <0>;
++     codec: codec@18 {
++       compatible = "ti,tas2505";
++       reg = <0x18>;
++       #sound-dai-cells = <0>;
++       reset-gpios = <&gpio4 21 GPIO_ACTIVE_LOW>;
++       clock-source = <0>;
++     };
++   };
 -- 
 2.34.1
+
 

@@ -2,104 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D53E7508F3
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 14:59:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92CFF75098E
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 15:26:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 222AE1F6;
-	Wed, 12 Jul 2023 14:59:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 222AE1F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70942206;
+	Wed, 12 Jul 2023 15:25:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70942206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689166791;
-	bh=FvuonApgo3gnnJdPGRqPyo1DrsyIWj9AcxIUCeLyd6A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Br+e2JPkUL8FYaBwL7/un9wrC9jVCZ7zfiN/unK7/KdZ5k+zeKloGciN7k+W1No5b
-	 v/rJyCdazVS0YdsLAqIHVAWbkZMuFZzzHo6uPJTjbx1h8XghiuNl8J4+TuHoQAH03U
-	 oC/NC5WNnDqOHQn3tSwoi49G0BTjnsDH+9zM5ZCA=
+	s=default; t=1689168405;
+	bh=xqQINfo99SfX8A2v+elbxn62fhSORm4PQ4GJ/8oF95g=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:List-Archive:
+	 List-Help:List-Owner:List-Post:List-Subscribe:List-Unsubscribe:
+	 From;
+	b=Re1IoZCZPOTF4sM5tp8gHFrpQPT238ANOIs7vOhne8pQrItlWB+CkOXzb6o1WJfuY
+	 lsPEQcBVWXDVNRT/htxy+W5qftnJ4kXufZYO8Xs30j/RRmKMmn5Noytp4VLP3TTd/N
+	 qq+xzg2zzHthAeMlD6UFgTW3wEW5LAOkfFAKJx9U=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5132FF80290; Wed, 12 Jul 2023 14:59:00 +0200 (CEST)
+	id E1C71F80535; Wed, 12 Jul 2023 15:25:54 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01F46F80236;
-	Wed, 12 Jul 2023 14:59:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8BB81F80093;
+	Wed, 12 Jul 2023 15:25:54 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CBCEDF80249; Wed, 12 Jul 2023 14:58:55 +0200 (CEST)
+	id C7FFDF80249; Wed, 12 Jul 2023 15:25:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 29037F80153
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 14:58:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29037F80153
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=cHxCj9mh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689166732; x=1720702732;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=FvuonApgo3gnnJdPGRqPyo1DrsyIWj9AcxIUCeLyd6A=;
-  b=cHxCj9mh7eMCw/LLfrZJicLJ8OJvdj+08GN2u3SLVzNoS9JNgS2959zY
-   2kvT+6HdVhpTR7p9ND5rBm3WWftj2DctnyPv84qmkrqiM1hdA12SLAgfY
-   otkPHZyCVgXBPiJM+yigOrIkRR1G3TTLe6HsXPTKTb2IE6/JJNSK7D3xR
-   +Ttoy25Ky0nTlsBzX5wF+8dbHYaG4viyxo5Lnthm19aHPFGS+OY7vGUop
-   vK3j1H2GkVeO8g1eTZmvjWR9SywRfQihVFOemASP+C2zsi8N1SKLqk2u0
-   i+sw0dY//ldYy1u+jcPMa78O67AluglCMd5xOVj+7CX3uhiHvA6vQsQqq
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="428617416"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
-   d="scan'208";a="428617416"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 05:58:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="895623137"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
-   d="scan'208";a="895623137"
-Received: from hoermank-mobl.ger.corp.intel.com (HELO [10.252.42.188])
- ([10.252.42.188])
-  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 05:58:42 -0700
-Message-ID: <6d1e5e05-1bc8-25cc-0d53-043c3bc1fc72@linux.intel.com>
-Date: Wed, 12 Jul 2023 14:58:40 +0200
+X-Spam-Status: No, score=-3.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+	URIBL_BLOCKED shortcircuit=no autolearn=ham autolearn_force=no
+	version=3.4.6
+Received: from webhooks-bot.alsa-project.org (vmi242170.contaboserver.net
+ [207.180.221.201])
+	by alsa1.perex.cz (Postfix) with ESMTP id 28C80F80093
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 15:25:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28C80F80093
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Subject: Re: [PATCH v4] ASoC: Intel: sof_rt5682: add jsl_rt5650 board config
-Content-Language: en-US
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Yong Zhi <yong.zhi@intel.com>,
- Uday M Bhat <uday.m.bhat@intel.com>, Gongjun Song <gongjun.song@intel.com>,
- Ajye Huang <ajye_huang@compal.corp-partner.google.com>,
- Arnd Bergmann <arnd@arndb.de>, Terry Cheong <htcheong@chromium.org>,
- "Dharageswari . R" <dharageswari.r@intel.com>,
- Mac Chiang <mac.chiang@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- ye xingchen <ye.xingchen@zte.com.cn>, linux-kernel@vger.kernel.org
-References: <20230712191423.443765-1-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20230712191423.443765-1-brent.lu@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID-Hash: ON6AHNMRGOUSXTZRBNB3I3ZQLFKA5O2N
-X-Message-ID-Hash: ON6AHNMRGOUSXTZRBNB3I3ZQLFKA5O2N
-X-MailFrom: pierre-louis.bossart@linux.intel.com
+From: GitHub issues - edited <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1689168343997067213-webhooks-bot@alsa-project.org>
+References: <1689168343997067213-webhooks-bot@alsa-project.org>
+Subject: ALC4082 - ASRock Z790 PG-ITX/TB4
+Message-Id: <20230712132550.C7FFDF80249@alsa1.perex.cz>
+Date: Wed, 12 Jul 2023 15:25:50 +0200 (CEST)
+Message-ID-Hash: 4VPDFIUDWJ6MFR4HUJQ66LQQFQB4G4XP
+X-Message-ID-Hash: 4VPDFIUDWJ6MFR4HUJQ66LQQFQB4G4XP
+X-MailFrom: github@alsa-project.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -111,7 +61,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ON6AHNMRGOUSXTZRBNB3I3ZQLFKA5O2N/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4VPDFIUDWJ6MFR4HUJQ66LQQFQB4G4XP/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,15 +70,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+alsa-project/alsa-ucm-conf issue #334 was edited from Shmob1:
+
+I have an [ASRock Z790 PG-ITX/TB4](https://pg.asrock.com/MB/Intel/Z790%20PG-ITXTB4/index.asp) which has the `ALC4082` Realtek chipset connected over USB, that has been mentioned in a number of issues, most recently #229.
+
+It seems the configuration changes in that issue (notably, https://github.com/hwchong/alsa-ucm-conf/commit/3ec7e6e2a61240764b77c30892f0bc56803799cc) work on my board as well, with a small modification. Unlike the Taichi boards, my Realtek audio driver is at `USB26ce:0a08`, not `USB26ce:0a06`. Making the necessary regex changes in `ALC4080-HiFi.conf` and `USB-Audio.conf` enables functionality on my board.
+
+I am happy to make a PR to merge these changes if pertinent.
+
+Thanks for the great work!
 
 
-On 7/12/23 21:14, Brent Lu wrote:
-> This configuration supports JSL boards which implement ALC5650 dual
-> I2S interface codec. Two DAI links are added: AIF1 (on codec side) for
-> headphone and AIF2 for speakers.
-> 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
+Update:
+I am unable to get more than 2 channels through spdif either using AC3 or DTS
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-Thanks!
+Issue URL     : https://github.com/alsa-project/alsa-ucm-conf/issues/334
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf

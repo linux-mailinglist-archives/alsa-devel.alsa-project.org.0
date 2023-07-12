@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B479750729
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:52:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CE5F75072D
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:53:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1986D1F1;
-	Wed, 12 Jul 2023 13:52:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1986D1F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64E1A3E7;
+	Wed, 12 Jul 2023 13:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64E1A3E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689162771;
-	bh=3PzrarJLzvgqBlteTxXCL0ZlbXn6P3Hxt+y6kC4WrKo=;
+	s=default; t=1689162784;
+	bh=6r/DgOfc+fPWaswpFujeoa60A1QNUJjakg+dkHqdXa4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=pekohIKZsMZMHSK1d1vUOosaDUzvKe7yEHqIKIVWSHXtPShbWQQzBb5ypnt0ruBcd
-	 GnoKlH7wRC9m49O2BbAJ5UyVOqUd6vVwZ7/jXC4uOSkjzLoofI+/oxViHnV4pJE+I0
-	 pRjxtmYadF+ojZD3M3MAFqaadsG4CxkGBkJW6aEc=
+	b=mMNphFwXLggkT7AO0GnV0WQSwHqPJ2JCUP7L5dnbL73KJSd9Uc7IkEMyUMr8OpBRh
+	 DXhznnXTEXlD+tcXptVXA3w7wDzWrBrBmcQTscezUbVi/ZMEJ0tgew2jOLtALlTbRG
+	 jh9wCVpG0h044NxhLSeLuvfO2r8bLb0TCdcPbx1Q=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D179AF80649; Wed, 12 Jul 2023 13:47:41 +0200 (CEST)
+	id 29BD5F80654; Wed, 12 Jul 2023 13:47:44 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id DECB1F80634;
-	Wed, 12 Jul 2023 13:47:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 588EBF80655;
+	Wed, 12 Jul 2023 13:47:44 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2ABEBF80620; Wed, 12 Jul 2023 13:47:32 +0200 (CEST)
+	id E7EEFF8061C; Wed, 12 Jul 2023 13:47:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,48 +36,49 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 21580F80606
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:47:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21580F80606
+	by alsa1.perex.cz (Postfix) with ESMTPS id 599B6F80606
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:47:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 599B6F80606
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Y5YFXLPW
+ header.s=k20201202 header.b=BEVIh46v
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0BBA66179A;
-	Wed, 12 Jul 2023 11:47:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA9AC433AD;
-	Wed, 12 Jul 2023 11:47:26 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 481C761783;
+	Wed, 12 Jul 2023 11:47:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB098C433CA;
+	Wed, 12 Jul 2023 11:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689162448;
-	bh=3PzrarJLzvgqBlteTxXCL0ZlbXn6P3Hxt+y6kC4WrKo=;
+	s=k20201202; t=1689162450;
+	bh=6r/DgOfc+fPWaswpFujeoa60A1QNUJjakg+dkHqdXa4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Y5YFXLPWO2h7N62O2SqObAyrtpjKjGMpFFpoINqGiGWo9P+YljBfO9vz0K0d9TX+J
-	 IPwkQpZCGwPV10KktI32n7JASQK4F9642KVNx0SyubgjHwzLc7GlWdWm1T+5cQuVDZ
-	 Z2KVPDoZNaGbwKf5nO5RORFrQ5P7d5rS3B3hfHfa5aJpkScdQL9elbPLk6qWO/or8C
-	 AYFCTcr5JQt3j6hidQM8kj83bQjuN9F12rDCRowHRxlmL6oVlnZtLHZL3lxd2YVNrX
-	 5Xurl9LkYBttwBkrBh0MDcz7E+3nkXFJIwjwGnZtfBlA+C4gvcpR0VVQ9GxaqraulA
-	 vA8Y4Bj6vsFkg==
+	b=BEVIh46v8Oget9RsMUPh0ntpPkvsno9ldOhV2XgMciCumQQWUqOMwtmBhrSiCIv1Z
+	 qmWPC//JJ2EjYb8S4h8kYtBXMPha/HuPWXpe95i11bKBAfBZXX1Mz4PE5W4zzfMeZc
+	 egdam3LhUAwGoSUZPITu8gIJ5dxaopvza7Pj/6gQ3WszC87DyBACXzaxWhU1zfUbJS
+	 5EK8T1J9hebOinR52VFv/PeQflKDKQEg+wVM+Z0t8Kde0xRE/UsgJ84p5WqygLNkUz
+	 G/YL2olurC4EJt+EVD9pwTpdwwyu0kpv17CxrYgojjzjxDfpcNWuvRR7YNTKXqBnME
+	 AYJwoxMnteeXQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, alsa-devel@alsa-project.org,
- kernel@pengutronix.de, Walker Chen <walker.chen@starfivetech.com>
-In-Reply-To: <20230707072830.3395789-1-u.kleine-koenig@pengutronix.de>
-References: <20230707072830.3395789-1-u.kleine-koenig@pengutronix.de>
-Subject: Re: [PATCH 0/2] ASoC: Another set of platform remove conversions
-Message-Id: <168916244662.46574.4204772528049988078.b4-ty@kernel.org>
-Date: Wed, 12 Jul 2023 12:47:26 +0100
+To: alsa-devel@alsa-project.org,
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>
+Cc: vsujithkumar.reddy@amd.com, Vijendar.Mukunda@amd.com,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ syed.sabakareem@amd.com, mastan.katragadda@amd.com,
+ arungopal.kondaveeti@amd.com
+In-Reply-To: <20230707120730.1948445-1-venkataprasad.potturu@amd.com>
+References: <20230707120730.1948445-1-venkataprasad.potturu@amd.com>
+Subject: Re: [PATCH 0/4] Add acpi mahine id's for vangogh platform and
+Message-Id: <168916244868.46574.10521865724419676060.b4-ty@kernel.org>
+Date: Wed, 12 Jul 2023 12:47:28 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: VZNASHZWQJ7ZCO4NO5LVPD2DLBQ4IVGC
-X-Message-ID-Hash: VZNASHZWQJ7ZCO4NO5LVPD2DLBQ4IVGC
+Message-ID-Hash: AZSNMQBI5XWC22FH36FINTO7QTZUNPKR
+X-Message-ID-Hash: AZSNMQBI5XWC22FH36FINTO7QTZUNPKR
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -90,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/VZNASHZWQJ7ZCO4NO5LVPD2DLBQ4IVGC/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AZSNMQBI5XWC22FH36FINTO7QTZUNPKR/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -99,13 +100,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Fri, 07 Jul 2023 09:28:28 +0200, Uwe Kleine-König wrote:
-> two more drivers were added during the current merge window that
-> are users of the original .remove callback that I plan to get rid of.
-> Convert them to .remove_new.
+On Fri, 07 Jul 2023 17:37:26 +0530, Venkata Prasad Potturu wrote:
+> This patch series is to add acpi machine id's for vangogh platform
+> and add new dmi entries and machine driver support for nau8821 and
+> max98388 codecs.
 > 
-> Best regards
-> Uwe
+> Venkata Prasad Potturu (4):
+>   ASoC: amd: acp: Add machine driver support for nau8821 codec
+>   ASoC: amd: acp: Add machine driver support for max98388 codec
+>   ASoC: amd: Add acpi machine id's for vangogh platform
+>   ASoC: amd: Add new dmi entries to config entry
 > 
 > [...]
 
@@ -115,10 +119,14 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: amd: ps-sdw-dma: Convert to platform remove callback returning void
-      commit: acb5c0b14b761df258e480cc721676073f6d953a
-[2/2] ASoC: starfive: jh7110_tdm: Convert to platform remove callback returning void
-      commit: 50a91c513fb7da5c48b1cffdaa30c1f98f403801
+[1/4] ASoC: amd: acp: Add machine driver support for nau8821 codec
+      commit: 4b526b3278becdf1f2bfd375078f5db469f8a6bb
+[2/4] ASoC: amd: acp: Add machine driver support for max98388 codec
+      commit: ac91c8c89782d7d0781120a74c9bd939e3ce2831
+[3/4] ASoC: amd: Add acpi machine id's for vangogh platform
+      commit: ef51cddf014b3e4909e9656025d1f7c2b4cc4117
+[4/4] ASoC: amd: Add new dmi entries to config entry
+      commit: 197b1f7f0df183db332b6b8851a29c8bc901571d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

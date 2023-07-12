@@ -2,93 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5339875008A
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 09:58:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A137500CD
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 10:09:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C3281E9;
-	Wed, 12 Jul 2023 09:57:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C3281E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5FE43E7;
+	Wed, 12 Jul 2023 10:08:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5FE43E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689148693;
-	bh=oh7cuJu7yjhN7+fJ0dB/nlyKq0es0IPqUBU/9+W4R0o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=L+6wLPcebsoBxiN8GZPyuObbuWLkxSfw93xF9FngATC1vXBGZhocTfQ4rkOT+uO/+
-	 QTjn3jXEi8l1bcrHBCIRlgWo0XZSkj8MB84IdVavx/laPgSQFyPYYNiTX4Zs8XhvYj
-	 Jj4tjB6y7TQQdv9ZKxdQA49W89K3k/HqXXHJLB3o=
+	s=default; t=1689149386;
+	bh=7+pC5WJrzlkRc+cbkzrNtskfa1GPiFPUfn3/7ncwcp4=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=lQIOS5DwWbdvvOHlafyFZHhwssFVS0akVLEDTa6lGII2I3T7gxJzLU5XfXNZys0QC
+	 7AbL3reXe+6W0XqawKkzywiKOerzS8BYY9NWae5w2UknjrC3Ln3kDdG2Z2fe2sXF7y
+	 7FfzurdlbdPSx8+ikYOXnBdAHRGZZSVcWbzMdPWQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 82D77F80535; Wed, 12 Jul 2023 09:57:22 +0200 (CEST)
+	id 0EDA6F8027B; Wed, 12 Jul 2023 10:08:55 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1274FF800D2;
-	Wed, 12 Jul 2023 09:57:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CE1DF80249;
+	Wed, 12 Jul 2023 10:08:55 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23A69F80249; Wed, 12 Jul 2023 09:57:17 +0200 (CEST)
+	id A8D92F80290; Wed, 12 Jul 2023 10:08:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9D43AF80153
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 09:57:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D43AF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6A855F80153
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 10:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A855F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=eHdCF1IB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689148621; x=1720684621;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=oh7cuJu7yjhN7+fJ0dB/nlyKq0es0IPqUBU/9+W4R0o=;
-  b=eHdCF1IB39N0Q1Px28suLSGMqAsn+Izwz0enDIkeUGc2K84OZpu7Uw+D
-   xyj66LD4a3EfcTc6vUsjZT30uCvHPtWWgZrG1vU7ucPR/hVA5V3Lq5Gp8
-   /yCt7/quXxuKavuhpDQu8EpTNt9DB8+u99LaqFq1GMgwKhOQemys8F8zi
-   m4nRNHU2aN4wcOvB67O0Ba5LrVSQgfz3QWiD6KxSNp28puFSKPrLk7qC7
-   QBi0rTqH3WHDw0aHjh1QOT67OpyEHx7NEe7kY/851jbREF1CqHwvezeBT
-   tu+dOIT+2vrd+Jxq37VjkdmcYg/BZ9JFYn/KCki9+yhu3vv+skzvufVfp
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="364864022"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
-   d="scan'208";a="364864022"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 00:56:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="1052075072"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200";
-   d="scan'208";a="1052075072"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.99.16.144])
- ([10.99.16.144])
-  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 00:56:50 -0700
-Message-ID: <5f27a9d6-b4a0-19d7-c23c-4bfe102b0e6b@linux.intel.com>
-Date: Wed, 12 Jul 2023 09:56:48 +0200
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=C+blddPP
+Received: by mail-pf1-x42b.google.com with SMTP id
+ d2e1a72fcca58-668730696a4so3713598b3a.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 12 Jul 2023 01:08:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689149319; x=1691741319;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=xOh8JM5Q3jrZoKDIXTQHeUOKxkZ29/mF6UN2/He0ib0=;
+        b=C+blddPPXTxgrh7db3ANIUV4OxZj963w4ks+XWMJI4OuRVGfoPOokuwZMJL2THjI68
+         4na64rQWz5vM3IwamfHvYKr3NsCd8+5PR8d/NVF6u4X5y1a/Kn2Znx+sgGT/mXwRuPXr
+         gzaEPf0Kl614/ZpGQKAcKT0nIRV09LcowX6ezgi9HCcK0aK47aRSQ3n3olPoO0lLKuN8
+         HmnPZipGb+8VCd1NgZPpwJt/lEmoNqE2Nx8MZ5ecemHsKiwCrDzUPp5YKemHTpz3Cor5
+         t3HTrhhjPR4W4dPA6PZwYjAPqtc3ARaogDJ3aN2jEKcD7WV0l/sHxdv0YlJJ1IrghZTE
+         Z9ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689149319; x=1691741319;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xOh8JM5Q3jrZoKDIXTQHeUOKxkZ29/mF6UN2/He0ib0=;
+        b=OGQLQ8K/UX0ev1j3iBtXayp4npiQtbhao5R1mM5wX2K8uVhGR95UspNlmXcscO33j2
+         5DbRvaaf5kR0w8zhM6vjvfJzTLLbw/O3RY7NulErcOjLkDcrbMYMMoce3J4v02GNDQf7
+         KTXK8SlKkEGtkegocPV7FJlAMQbT3XWb0NHdNRV+rkmBb8DRQ3iKYyQvXqLMjDCgpwAc
+         /RDDfxq/8g1BbrGcSmQM0ZR59ZSqU5vQzLPXei+W4I0Mk0wNCT3VN6aExaCwrjY4HAL3
+         N2dgW2KvqTr9ezGVI9C60RLkhKxhmAghdRdVcdcBWXvHZ7GuUZk25SRvACOazNZixuI9
+         04lg==
+X-Gm-Message-State: ABy/qLYD018CdotWXu12JynsANqSZbECUNpt9AFpg1i5EKWi8AkkQO7S
+	B/SHYAiFgZVIFGXADPOlM31pJ+AJdnwvcqPq
+X-Google-Smtp-Source: 
+ APBJJlF4B0cxemPl5fQNiYiwzy3irBa33gV8yFr7nEmfLZ/8VAKh+UrwpOccvR+lFgAMUwh3iyRLdA==
+X-Received: by 2002:a05:6a21:7899:b0:12f:85cd:ba10 with SMTP id
+ bf25-20020a056a21789900b0012f85cdba10mr18361708pzc.58.1689149319071;
+        Wed, 12 Jul 2023 01:08:39 -0700 (PDT)
+Received: from a-VirtualBox.. ([116.233.75.15])
+        by smtp.gmail.com with ESMTPSA id
+ z10-20020a170903018a00b001b3f9a5d4besm3285962plg.255.2023.07.12.01.08.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Jul 2023 01:08:38 -0700 (PDT)
+From: Zhu Ning <zhuning0077@gmail.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Cc: pierre-louis.bossart@linux.intel.com,
+	tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com,
+	yangxiaohua@everest-semi.com,
+	zhuning@everest-semi.com,
+	Zhu Ning <zhuning0077@gmail.com>
+Subject: [PATCH 1/4] ASoC: codecs: es8326: Add es8326_mute function
+Date: Wed, 12 Jul 2023 16:08:27 +0800
+Message-Id: <20230712080830.973766-1-zhuning0077@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v1] ASoC: tas2505: Add tas2505 driver
-Content-Language: en-US
-To: Kevin Lu <luminlong@139.com>, broonie@kernel.org, lgirdwood@gmail.com,
- perex@perex.cz, tiwai@suse.com
-Cc: kevin-lu@ti.com, shenghao-ding@ti.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20230712044321.48530-1-luminlong@139.com>
-From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <20230712044321.48530-1-luminlong@139.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Message-ID-Hash: K7AMQ5MDPEIL73KF6LP3VM35SXBJRFR3
-X-Message-ID-Hash: K7AMQ5MDPEIL73KF6LP3VM35SXBJRFR3
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: 3BZHCPFGLYOTSLK3BWX75BBQGSSRPF2Q
+X-Message-ID-Hash: 3BZHCPFGLYOTSLK3BWX75BBQGSSRPF2Q
+X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -100,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K7AMQ5MDPEIL73KF6LP3VM35SXBJRFR3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/3BZHCPFGLYOTSLK3BWX75BBQGSSRPF2Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -109,909 +121,179 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 7/12/2023 6:43 AM, Kevin Lu wrote:
-> Create tas2505 driver.
-> 
-> Signed-off-by: Kevin Lu <luminlong@139.com>
-> ---
->   sound/soc/codecs/Kconfig   |   5 +
->   sound/soc/codecs/Makefile  |   2 +
->   sound/soc/codecs/tas2505.c | 691 +++++++++++++++++++++++++++++++++++++
->   sound/soc/codecs/tas2505.h | 105 ++++++
->   4 files changed, 803 insertions(+)
->   create mode 100644 sound/soc/codecs/tas2505.c
->   create mode 100644 sound/soc/codecs/tas2505.h
-> 
-> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-> index 8020097..2527a9b 100644
-> --- a/sound/soc/codecs/Kconfig
-> +++ b/sound/soc/codecs/Kconfig
-> @@ -229,6 +229,7 @@ config SND_SOC_ALL_CODECS
->   	imply SND_SOC_STA529
->   	imply SND_SOC_STAC9766
->   	imply SND_SOC_STI_SAS
-> +	imply SND_SOC_TAS2505
->   	imply SND_SOC_TAS2552
->   	imply SND_SOC_TAS2562
->   	imply SND_SOC_TAS2764
-> @@ -1676,6 +1677,10 @@ config SND_SOC_STAC9766
->   config SND_SOC_STI_SAS
->   	tristate "codec Audio support for STI SAS codec"
->   
-> +config SND_SOC_TAS2505
-> +	tristate "Texas Instruments TAS2505 Mono Audio amplifier"
-> +	depends on I2C
-> +
->   config SND_SOC_TAS2552
->   	tristate "Texas Instruments TAS2552 Mono Audio amplifier"
->   	depends on I2C
-> diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-> index 5cdbae8..95717d6 100644
-> --- a/sound/soc/codecs/Makefile
-> +++ b/sound/soc/codecs/Makefile
-> @@ -365,6 +365,7 @@ snd-soc-max9877-objs := max9877.o
->   snd-soc-max98504-objs := max98504.o
->   snd-soc-simple-amplifier-objs := simple-amplifier.o
->   snd-soc-tpa6130a2-objs := tpa6130a2.o
-> +snd-soc-tas2505-objs := tas2505.o
->   snd-soc-tas2552-objs := tas2552.o
->   snd-soc-tas2562-objs := tas2562.o
->   snd-soc-tas2764-objs := tas2764.o
-> @@ -629,6 +630,7 @@ obj-$(CONFIG_SND_SOC_STA350)   += snd-soc-sta350.o
->   obj-$(CONFIG_SND_SOC_STA529)   += snd-soc-sta529.o
->   obj-$(CONFIG_SND_SOC_STAC9766)	+= snd-soc-stac9766.o
->   obj-$(CONFIG_SND_SOC_STI_SAS)	+= snd-soc-sti-sas.o
-> +obj-$(CONFIG_SND_SOC_TAS2505)	+= snd-soc-tas2505.o
->   obj-$(CONFIG_SND_SOC_TAS2552)	+= snd-soc-tas2552.o
->   obj-$(CONFIG_SND_SOC_TAS2562)	+= snd-soc-tas2562.o
->   obj-$(CONFIG_SND_SOC_TAS2764)	+= snd-soc-tas2764.o
-> diff --git a/sound/soc/codecs/tas2505.c b/sound/soc/codecs/tas2505.c
-> new file mode 100644
-> index 0000000..cf03859
-> --- /dev/null
-> +++ b/sound/soc/codecs/tas2505.c
-> @@ -0,0 +1,691 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * ALSA SoC TAS2505 codec driver
-> + *
-> + * Author: Hieu Tran Dang <dangtranhieu2012@gmail.com>
-> + *
-> + * This package is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * THIS PACKAGE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR
-> + * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
-> + * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-> + */
+The internal analog power and hp Vref of es8326 should always be on to
+reduce pop noise. The HP_VOL and HP_CAL are moved to es8326_mute function
+so they are turned on at last and turned off at first.
 
-You already have SPDX tag on top of file, no need to explicitly write 
-license.
+Also, the calibration should be done manually once during start-up
+to reduce DC offset on headphone.
 
-> +#include <linux/version.h>
-> +#include <linux/module.h>
-> +#include <linux/i2c.h>
-> +#include <linux/clk.h>
-> +#include <linux/of.h>
-> +#include <linux/of_gpio.h>
-> +#include <sound/soc.h>
-> +#include <sound/tlv.h>
-> +#include <sound/pcm_params.h>
+Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
+---
+ sound/soc/codecs/es8326.c | 75 ++++++++++++++++-----------------------
+ sound/soc/codecs/es8326.h |  5 +--
+ 2 files changed, 34 insertions(+), 46 deletions(-)
 
-Any chance of sorting above includes alphabetically?
-
-> +#include "tas2505.h"
-> +
-> +enum {
-> +	MCLK = 0,
-> +	BCLK = 1,
-> +};
-> +
-> +struct tas2505 {
-> +	int dac_vol;
-> +	int spk_vol1;
-> +} tas2505_vol;
-> +
-> +
-> +static int tas2505_dac_getvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	ucontrol->value.integer.value[0] = tas2505_vol.dac_vol;
-> +
-> +	return 0;
-> +}
-> +
-> +static int tas2505_dac_putvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	struct soc_mixer_control *mc =
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	u8 val;
-> +
-> +	val = ucontrol->value.integer.value[0];
-> +	val = mc->invert ? mc->max - val : val;
-> +	val = (val < 0) ? 0 : val;
-> +	tas2505_vol.dac_vol = val;
-> +	snd_soc_component_write(component, TAS2505_DACVOL, val);
-> +
-> +	return 0;
-> +}
-
-Above function should return 1 if value changed, otherwise 0.
-
-> +
-> +static int tas2505_spkdrv_getvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	struct soc_mixer_control *mc =
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	unsigned int val;
-> +
-> +	val = snd_soc_component_read(component, TAS2505_SPKVOL1);
-> +
-> +	val = (val > mc->max) ? mc->max : val;
-> +	val = mc->invert ? mc->max - val : val;
-> +	ucontrol->value.integer.value[0] = val;
-> +	tas2505_vol.spk_vol1 = val;
-> +	return 0;
-> +}
-> +
-> +static int tas2505_spkdrv_putvol(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	struct soc_mixer_control *mc =
-> +		(struct soc_mixer_control *)kcontrol->private_value;
-> +	u8 val;
-> +
-> +	val = (ucontrol->value.integer.value[0] & 0x7f);
-> +	val = mc->invert ? mc->max - val : val;
-> +	val = (val < 0) ? 0 : val;
-> +	tas2505_vol.spk_vol1 = val;
-> +	snd_soc_component_write(component, TAS2505_SPKVOL1, val);
-> +
-> +	return 0;
-> +}
-
-Same here, return 1 if changed, 0 otherwise.
-
-> +
-> +static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -6350, 50, 0);
-> +static const DECLARE_TLV_DB_LINEAR(spk_drv_vol_tlv, TLV_DB_GAIN_MUTE, 0);
-> +static const DECLARE_TLV_DB_SCALE(spk_amp_vol_tlv, 0, 600, 1);
-> +
-> +static const struct snd_kcontrol_new tas2505_snd_controls[] = {
-> +	SOC_SINGLE_RANGE_EXT_TLV("DAC Playback Volume", TAS2505_DACVOL,
-> +		0, 48, 0x81, 1,
-> +		tas2505_dac_getvol, tas2505_dac_putvol, dac_vol_tlv),
-> +	SOC_SINGLE_RANGE_EXT_TLV("Speaker Driver Volume", TAS2505_SPKVOL1,
-> +		0, 0, 117, 1,
-> +		tas2505_spkdrv_getvol, tas2505_spkdrv_putvol, spk_drv_vol_tlv),
-> +	SOC_SINGLE_TLV("Speaker Amplifier Volume", TAS2505_SPKVOL2,
-> +		4, 5, 0, spk_amp_vol_tlv),
-> +};
-> +
-> +static const struct snd_soc_dapm_widget tas2505_dapm_widgets[] = {
-> +	SND_SOC_DAPM_DAC("DAC Channel", "Playback",
-> +		TAS2505_DACSETUP1, 7, 0),
-> +	SND_SOC_DAPM_OUT_DRV("Speaker Driver", TAS2505_SPKAMPCTRL1,
-> +		1, 0, NULL, 0),
-> +	SND_SOC_DAPM_OUTPUT("Speaker"),
-> +};
-> +
-> +static const struct snd_soc_dapm_route tas2505_audio_map[] = {
-> +	{ "Speaker Driver", NULL, "DAC Channel" },
-> +	{ "Speaker", NULL, "Speaker Driver" },
-> +};
-> +
-> +static const struct reg_default tas2505_reg_defaults[] = {
-> +	{ TAS2505_CLKMUX, 0x00 },
-> +	{ TAS2505_PLLPR, 0x11 },
-> +	{ TAS2505_PLLJ, 0x04 },
-> +	{ TAS2505_PLLDMSB, 0x00 },
-> +	{ TAS2505_PLLDLSB, 0x00 },
-> +	{ TAS2505_NDAC, 0x01 },
-> +	{ TAS2505_MDAC, 0x01 },
-> +	{ TAS2505_DOSRMSB, 0x00 },
-> +	{ TAS2505_DOSRLSB, 0x80 },
-> +	{ TAS2505_IFACE1, 0x00 },
-> +	{ TAS2505_IFACE3, 0x00 },
-> +	{ TAS2505_DACSETUP1, 0x14 },
-> +	{ TAS2505_DACSETUP2, 0x0c },
-> +	{ TAS2505_DACVOL, 0x00 },
-> +	{ TAS2505_REF_POR_LDO_BGAP_CTRL, 0x00 },
-> +	{ TAS2505_LDO_CTRL, 0x0c },
-> +	{ TAS2505_SPKAMPCTRL1, 0x00 },
-> +	{ TAS2505_SPKVOL1, 0x00 },
-> +	{ TAS2505_SPKVOL2, 0x50 },
-> +	{ TAS2505_DACFLAG1, 0x00 },
-> +	{ TAS2505_DACFLAG2, 0x00 },
-> +	{ TAS2505_STICKYFLAG1, 0x00 },
-> +	{ TAS2505_STICKYFLAG2, 0x00 },
-> +	{ TAS2505_INTFLAG1, 0x00 },
-> +	{ TAS2505_INTFLAG2, 0x00 },
-> +	{ TAS2505_DACINSTRSET, 0x02 },
-> +	{ TAS2505_DACANLGAINFLAG, 0x00 },
-> +};
-> +
-> +static bool tas2505_volatile(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case TAS2505_PAGECTL:
-> +	case TAS2505_RESET:
-> +	case TAS2505_DACFLAG1:
-> +	case TAS2505_DACFLAG2:
-> +	case TAS2505_STICKYFLAG1:
-> +	case TAS2505_STICKYFLAG2:
-> +	case TAS2505_INTFLAG1:
-> +	case TAS2505_INTFLAG2:
-> +	case TAS2505_DACANLGAINFLAG:
-> +		return true;
-> +	}
-> +	return false;
-> +}
-> +
-> +static bool tas2505_writeable(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case TAS2505_DACFLAG1:
-> +	case TAS2505_DACFLAG2:
-> +	case TAS2505_STICKYFLAG1:
-> +	case TAS2505_STICKYFLAG2:
-> +	case TAS2505_INTFLAG1:
-> +	case TAS2505_INTFLAG2:
-> +	case TAS2505_DACANLGAINFLAG:
-> +		return false;
-> +	}
-> +	return true;
-> +}
-> +
-> +static const struct regmap_range_cfg tas2505_ranges[] = {
-> +	{
-> +		.range_min = 0,
-> +		.range_max = 69 * 128,
-> +		.selector_reg = TAS2505_PAGECTL,
-> +		.selector_mask = 0xff,
-> +		.selector_shift = 0,
-> +		.window_start = 0,
-> +		.window_len = 128,
-> +	},
-> +};
-> +
-> +static const struct regmap_config tas2505_i2c_regmap = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.writeable_reg = tas2505_writeable,
-> +	.volatile_reg = tas2505_volatile,
-> +	.reg_defaults = tas2505_reg_defaults,
-> +	.num_reg_defaults = ARRAY_SIZE(tas2505_reg_defaults),
-> +	.cache_type = REGCACHE_RBTREE,
-> +	.ranges = tas2505_ranges,
-> +	.num_ranges = ARRAY_SIZE(tas2505_ranges),
-> +	.max_register = 69 * 128,
-> +};
-> +
-> +struct tas2505_rate_divs {
-> +	u32 mclk_p;
-> +	u32 rate;
-> +	u8 pll_r;
-> +	u8 pll_j;
-> +	u16 pll_d;
-> +	u8 mdac;
-> +	u8 ndac;
-> +	u16 dosr;
-> +};
-> +
-> +static const struct tas2505_rate_divs tas2505_divs_mclksrc[] = {
-> +	{ 12288000, 44100, 1, 7, 35, 4, 4, 128 },
-> +	{ 12288000, 48000, 1, 7, 0, 7, 2, 128 },
-> +	{ 2822400, 44100, 1, 8, 4672, 3, 5, 128 },
-> +	{ 11289600, 44100, 1, 8, 0, 4, 8, 64 },
-> +	{ 11289600, 22050, 1, 8, 0, 4, 8, 128 },
-> +	{ 2822400, 44100, 1, 8, 4672, 3, 5, 128 },
-> +	{ 2822400, 22050, 1, 8, 4672, 3, 5, 256 },
-> +};
-> +
-> +static const struct tas2505_rate_divs tas2505_divs_bclksrc[] = {
-> +	{ 1536000, 48000, 1, 56, 0, 2, 7, 128 },
-> +	{ 1411200, 44100, 1, 60, 0, 5, 3, 128 },
-> +	{ 3072000, 48000, 1, 28, 0, 2, 7, 128 },
-> +	{ 2822400, 44100, 1, 30, 0, 5, 3, 128 },
-> +	{ 1024000, 32000, 2, 40, 0, 5, 4, 128 },
-> +	{ 2048000, 32000, 1, 40, 0, 5, 4, 128 },
-> +};
-> +
-> +struct tas2505_priv {
-> +	void *codec;
-> +	struct device *dev;
-> +	struct regmap *regmap;
-> +	u32 sysclk;
-> +	u32 clk_src;
-> +	u32 rate;
-> +	int rate_div_line;
-> +	int pll_clkin;
-> +	int frame_size;
-> +	u8 p_div;
-> +};
-> +
-> +static int tas2505_setup_pll(struct snd_soc_component *codec)
-> +{
-> +	struct tas2505_priv *tas2505 = snd_soc_component_get_drvdata(codec);
-> +	int mclk_p = tas2505->sysclk / tas2505->p_div;
-> +	struct tas2505_rate_divs *rate_divs;
-> +	int match = -1;
-> +	u8 p_div;
-> +	int i;
-> +
-> +	if (tas2505->clk_src == MCLK) {
-> +		for (i = 0; i < ARRAY_SIZE(tas2505_divs_mclksrc); i++) {
-> +			if (
-> +				tas2505_divs_mclksrc[i].rate == tas2505->rate &&
-> +				tas2505_divs_mclksrc[i].mclk_p == mclk_p
-> +			) {
-
-Why weird if() syntax?
-
-> +				match = i;
-> +				break;
-> +			}
-> +		}
-> +
-> +		if (match == -1) {
-> +			dev_err(codec->dev,
-> +				"Sample rate (%u) and format not supported\n",
-> +				tas2505->rate);
-> +			return -EINVAL;
-> +		}
-> +
-> +		tas2505->rate_div_line = match;
-> +		rate_divs = (struct tas2505_rate_divs *)tas2505_divs_mclksrc;
-> +	} else {
-> +		for (i = 0; i < ARRAY_SIZE(tas2505_divs_bclksrc); i++) {
-> +			if (tas2505_divs_bclksrc[i].rate ==
-> +				tas2505->rate) {
-> +				match = i;
-> +				break;
-> +			}
-> +		}
-> +
-> +		if (match == -1) {
-> +			dev_err(codec->dev,
-> +				"Sample rate (%u) and format not supported\n",
-> +				tas2505->rate);
-> +			return -EINVAL;
-> +		}
-> +		rate_divs = (struct tas2505_rate_divs *)tas2505_divs_bclksrc;
-> +	}
-> +
-> +	p_div = (tas2505->p_div == 8) ? 0 : tas2505->p_div;
-> +	p_div <<= TAS2505_PLLPR_P_SHIFT;
-> +	p_div |= rate_divs[match].pll_r;
-> +	p_div |= TAS2505_PM_MASK;
-> +
-> +	snd_soc_component_write(codec, TAS2505_PLLPR, p_div);
-> +	snd_soc_component_write(codec, TAS2505_PLLJ,
-> +		rate_divs[match].pll_j);
-> +	snd_soc_component_write(codec, TAS2505_PLLDMSB,
-> +		rate_divs[match].pll_d >> 8);
-> +	snd_soc_component_write(codec, TAS2505_PLLDLSB,
-> +		rate_divs[match].pll_d & 0xff);
-> +	mdelay(15);
-> +	snd_soc_component_write(codec, TAS2505_NDAC,
-> +		TAS2505_PM_MASK | rate_divs[match].ndac);
-> +	snd_soc_component_write(codec, TAS2505_MDAC,
-> +		TAS2505_PM_MASK | rate_divs[match].mdac);
-> +	snd_soc_component_write(codec, TAS2505_DOSRMSB,
-> +		rate_divs[match].dosr >> 8);
-> +	snd_soc_component_write(codec, TAS2505_DOSRLSB,
-> +		rate_divs[match].dosr & 0xff);
-> +	if (tas2505->clk_src != MCLK)
-> +		snd_soc_component_update_bits(codec, TAS2505_BCLKNDIV,
-> +			TAS2505_BCLKNDIV_MASK,
-> +			(rate_divs[match].dosr * rate_divs[match].mdac) /
-> +			tas2505->frame_size);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tas2505_hw_params(struct snd_pcm_substream *substream,
-> +	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *codec = dai->component;
-> +	struct tas2505_priv *tas2505 = snd_soc_component_get_drvdata(codec);
-> +	u8 data = 0;
-> +
-> +	switch (params_width(params)) {
-> +	case 16:
-> +		break;
-> +
-> +	case 20:
-> +		data = TAS2505_WORD_LEN_20BITS;
-> +		break;
-> +
-> +	case 24:
-> +		data = TAS2505_WORD_LEN_24BITS;
-> +		break;
-> +
-> +	case 32:
-> +		data = TAS2505_WORD_LEN_32BITS;
-> +		break;
-> +
-> +	default:
-> +		dev_err(codec->dev, "Unsupported width %d\n",
-> +			params_width(params));
-> +		return -EINVAL;
-> +	}
-> +	dev_info(codec->dev, "%s: bit width = %d\n",
-> +				__func__, params_width(params));
-> +	data <<= TAS2505_IFACE1_DATALEN_SHIFT;
-> +
-> +	snd_soc_component_update_bits(codec, TAS2505_IFACE1,
-> +		TAS2505_IFACE1_DATALEN_MASK, data);
-> +	tas2505->rate = params_rate(params);
-> +	tas2505->frame_size = snd_soc_params_to_frame_size(params);
-> +
-> +	return tas2505_setup_pll(codec);
-> +}
-> +
-> +static int tas2505_dac_mute(struct snd_soc_dai *dai, int mute,
-> +	int stream)
-> +{
-> +	struct snd_soc_component *codec = dai->component;
-> +
-> +	if (mute) {
-> +		snd_soc_component_write(codec, TAS2505_DACVOL, 0x81);
-> +		snd_soc_component_update_bits(codec, TAS2505_DACSETUP2,
-> +			TAS2505_DACSETUP2_MUTE_MASK,
-> +			TAS2505_DACSETUP2_MUTE_MASK);
-> +		mdelay(25);
-> +		snd_soc_component_update_bits(codec, TAS2505_DACSETUP1, 0x80, 0x00);
-> +	} else {
-> +		snd_soc_component_update_bits(codec, TAS2505_DACSETUP1, 0x80, 0x80);
-> +		mdelay(25);
-> +		snd_soc_component_write(codec, TAS2505_DACVOL, tas2505_vol.dac_vol);
-> +		snd_soc_component_update_bits(codec, TAS2505_DACSETUP2,
-> +			TAS2505_DACSETUP2_MUTE_MASK, 0x0);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int tas2505_set_dai_fmt(struct snd_soc_dai *codec_dai,
-> +	unsigned int fmt)
-> +{
-> +	struct snd_soc_component *codec = codec_dai->component;
-> +	u8 iface_reg1 = 0;
-> +	u8 iface_reg3 = 0;
-> +
-> +	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> +	case SND_SOC_DAIFMT_CBS_CFS:
-> +		break;
-> +
-> +	case SND_SOC_DAIFMT_CBM_CFM:
-> +		iface_reg1 |= TAS2505_IFACE1_BCLKDIR_MASK;
-> +		iface_reg1 |= TAS2505_IFACE1_WCLKDIR_MASK;
-> +		break;
-> +
-> +	default:
-> +		dev_err(codec->dev,
-> +			"%s SND_SOC_DAIFMT_MASTER_MASK 0x%x\n",
-> +			__func__, fmt);
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-> +	case SND_SOC_DAIFMT_NB_NF:
-> +		break;
-> +
-> +	case SND_SOC_DAIFMT_IB_NF:
-> +		iface_reg3 |= TAS2505_IFACE3_BCLKINV_MASK;
-> +		break;
-> +
-> +	default:
-> +		dev_err(codec->dev,
-> +			"%s SND_SOC_DAIFMT_INV_MASK 0x%x\n",
-> +			__func__, fmt);
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-> +	case SND_SOC_DAIFMT_I2S:
-> +		break;
-> +
-> +	case SND_SOC_DAIFMT_DSP_A:
-> +	case SND_SOC_DAIFMT_DSP_B:
-> +		iface_reg1 |= (TAS2505_DSP_MODE <<
-> +			TAS2505_IFACE1_INTERFACE_SHIFT);
-> +		break;
-> +
-> +	case SND_SOC_DAIFMT_RIGHT_J:
-> +		iface_reg1 |= (TAS2505_RJF_MODE <<
-> +			TAS2505_IFACE1_INTERFACE_SHIFT);
-> +		break;
-> +
-> +	case SND_SOC_DAIFMT_LEFT_J:
-> +		iface_reg1 |= (TAS2505_LJF_MODE <<
-> +			TAS2505_IFACE1_INTERFACE_SHIFT);
-> +		break;
-> +
-> +	default:
-> +		dev_err(codec->dev, "Invalid DAI interface format\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	snd_soc_component_write(codec, TAS2505_IFACE1, iface_reg1);
-> +	snd_soc_component_update_bits(codec, TAS2505_IFACE3,
-> +		TAS2505_IFACE3_BCLKINV_MASK | TAS2505_IFACE3_BDIVCLKIN_MASK,
-> +		iface_reg3);
-> +
-> +	return 0;
-> +}
-> +
-> +static int tas2505_set_dai_sysclk(struct snd_soc_dai *codec_dai,
-> +	int clk_id, unsigned int freq, int dir)
-> +{
-> +	struct snd_soc_component *codec = codec_dai->component;
-> +	struct tas2505_priv *tas2505 = snd_soc_component_get_drvdata(codec);
-> +	int i, x;
-> +	int ret = 0;
-> +
-> +	dev_info(tas2505->dev, "%s: clk_id: %d, freq: %d\n",
-> +		__func__, clk_id, freq);
-> +
-> +	if (tas2505->clk_src == MCLK) {
-> +		for (i = 0; i < ARRAY_SIZE(tas2505_divs_mclksrc); i++) {
-> +			for (x = 1; x < 9; x++) {
-> +				if ((freq / x) == tas2505_divs_mclksrc[i].mclk_p) {
-> +					tas2505->p_div = x;
-> +					break;
-> +				}
-> +			}
-> +			if (x < 9)
-> +				break;
-> +		}
-> +
-> +		if (i != ARRAY_SIZE(tas2505_divs_mclksrc)) {
-> +		} else {
-
-You can just do
-		if (i == ARRAY_SIZE(tas2505_divs_mclksrc)) {
-instead of if() {} else { ?
-
-> +			dev_err(tas2505->dev,
-> +				"Can't produce required PLL_CLKIN frequency\n");
-> +			ret = -EINVAL;
-> +		}
-> +		tas2505->pll_clkin = clk_id;
-> +	} else {
-> +		tas2505->pll_clkin = 1;
-> +		tas2505->p_div = 1;
-> +	}
-> +
-> +	if (!ret) {
-> +		snd_soc_component_write(codec, TAS2505_CLKMUX,
-> +			(tas2505->pll_clkin << TAS2505_PLL_CLKIN_SHIFT) |
-> +			TAS2505_CODEC_CLKIN_PLL);
-> +
-> +		tas2505->sysclk = freq;
-> +	}
-> +	return ret;
-> +
-> +}
-> +
-> +static void tas2505_power_on(struct snd_soc_component *codec)
-> +{
-> +	snd_soc_component_update_bits(codec, TAS2505_LDO_CTRL,
-> +		TAS2505_LDO_PLL_HP_LVL_MASK, 0);
-> +	snd_soc_component_update_bits(codec, TAS2505_REF_POR_LDO_BGAP_CTRL,
-> +		TAS2505_REF_POR_LDO_BGAP_MASTER_REF_MASK,
-> +		TAS2505_REF_POR_LDO_BGAP_MASTER_REF_MASK);
-> +}
-> +
-> +static void tas2505_power_off(struct snd_soc_component *codec)
-> +{
-> +	snd_soc_component_update_bits(codec, TAS2505_REF_POR_LDO_BGAP_CTRL,
-> +		TAS2505_REF_POR_LDO_BGAP_MASTER_REF_MASK, 0);
-> +	snd_soc_component_update_bits(codec, TAS2505_LDO_CTRL,
-> +		TAS2505_LDO_PLL_HP_LVL_MASK,
-> +		TAS2505_LDO_PLL_HP_LVL_MASK);
-> +}
-> +
-> +static int tas2505_set_bias_level(struct snd_soc_component *codec,
-> +	enum snd_soc_bias_level level)
-> +{
-> +	int current_lvl = snd_soc_component_get_bias_level(codec);
-> +	int rc = 0;
-> +
-> +	switch (level) {
-> +	case SND_SOC_BIAS_ON:
-> +		break;
-> +	case SND_SOC_BIAS_PREPARE:
-> +		break;
-> +	case SND_SOC_BIAS_STANDBY:
-> +		if (current_lvl == SND_SOC_BIAS_OFF) {
-> +			tas2505_power_on(codec);
-> +			dev_info(codec->dev,
-> +				"%s:power on\n", __func__);
-> +		} else
-> +			dev_info(codec->dev,
-> +				"%s:SND_SOC_BIAS_STANDBY\n",
-> +				__func__);
-> +		break;
-> +	case SND_SOC_BIAS_OFF:
-> +		if (current_lvl == SND_SOC_BIAS_STANDBY) {
-> +			tas2505_power_off(codec);
-> +			dev_info(codec->dev,
-> +				"%s:power off\n",
-> +				__func__);
-> +		} else
-> +			dev_info(codec->dev,
-> +				"%s:SND_SOC_BIAS_OFF\n",
-> +				__func__);
-> +		break;
-> +	default:
-> +		dev_err(codec->dev, "Invalid bias level\n");
-> +		rc = -EINVAL;
-> +	}
-> +
-> +	return rc;
-> +}
-> +
-> +static int tas2505_codec_probe(struct snd_soc_component *codec)
-> +{
-> +	struct tas2505_priv *tas2505 = snd_soc_component_get_drvdata(codec);
-> +
-> +	tas2505->codec = codec;
-> +	tas2505_vol.dac_vol = 0x00;
-> +	tas2505_vol.spk_vol1 = 0x00;
-> +
-> +	snd_soc_component_write(codec, TAS2505_RESET, 1);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct snd_soc_component_driver soc_codec_driver_tas2505 = {
-> +	.probe			= tas2505_codec_probe,
-> +	.set_bias_level		= tas2505_set_bias_level,
-> +	.suspend_bias_off	= true,
-> +
-> +	.controls		= tas2505_snd_controls,
-> +	.num_controls		= ARRAY_SIZE(tas2505_snd_controls),
-> +	.dapm_widgets		= tas2505_dapm_widgets,
-> +	.num_dapm_widgets	= ARRAY_SIZE(tas2505_dapm_widgets),
-> +	.dapm_routes		= tas2505_audio_map,
-> +	.num_dapm_routes	= ARRAY_SIZE(tas2505_audio_map),
-> +};
-> +
-> +static const struct snd_soc_dai_ops tas2505_dai_ops = {
-> +	.hw_params	= tas2505_hw_params,
-> +	.set_sysclk	= tas2505_set_dai_sysclk,
-> +	.set_fmt	= tas2505_set_dai_fmt,
-> +	.mute_stream	= tas2505_dac_mute,
-> +};
-> +
-> +static struct snd_soc_dai_driver tas2505_dai_driver[] = {
-> +	{
-> +		.name = "tas2505-hifi",
-> +		.playback = {
-> +			.stream_name	= "Playback",
-> +			.channels_min	= 1,
-> +			.channels_max	= 2,
-> +			.rates		= TAS2505_RATES,
-> +			.formats	= TAS2505_FORMATS,
-> +		},
-> +		.ops = &tas2505_dai_ops,
-> +		.symmetric_rate = 1,
-
-Nitpick, doesn't setting symmetric_rate make sense only if there is both 
-playback and capture, otherwise it is redundant?
-
-> +	},
-> +};
-> +
-> +static int tas2505_i2c_probe(struct i2c_client *i2c)
-> +{
-> +	struct tas2505_priv *tas2505;
-> +	struct device_node *np = i2c->dev.of_node;
-> +	const struct regmap_config *regmap_config = &tas2505_i2c_regmap;
-> +	int ret;
-> +
-> +	tas2505 = devm_kzalloc(&i2c->dev, sizeof(*tas2505), GFP_KERNEL);
-> +	if (tas2505 == NULL)
-> +		return -ENOMEM;
-> +
-> +	tas2505->regmap = devm_regmap_init_i2c(i2c, regmap_config);
-> +	if (IS_ERR(tas2505->regmap)) {
-> +		ret = PTR_ERR(tas2505->regmap);
-> +		dev_err(&i2c->dev, "Failed to allocate register map: %d\n",
-> +			ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = of_get_named_gpio(np, "gpio-reset", 0);
-> +	if ((ret > 0) && gpio_is_valid(ret)) {
-> +		devm_gpio_request_one(&i2c->dev, ret, GPIOF_OUT_INIT_HIGH,
-> +			"reset");
-> +	}
-> +
-> +	ret = of_property_read_u32(np, "clock-source",
-> +			&tas2505->clk_src);
-> +
-> +	dev_info(&i2c->dev, "%s: clock-source = %s\n", __func__,
-> +		tas2505->clk_src?"BCLK":"MCLK");
-> +
-> +	tas2505->dev = &i2c->dev;
-> +
-> +	dev_set_drvdata(tas2505->dev, tas2505);
-> +
-> +	return snd_soc_register_component(&i2c->dev,
-> +		&soc_codec_driver_tas2505, tas2505_dai_driver,
-> +		ARRAY_SIZE(tas2505_dai_driver));
-
-You use devm_ functions above, so perhaps also do 
-devm_snd_soc_register_component() and you can then drop 
-tas2505_i2c_remove()?
-
-> +}
-> +
-> +static void tas2505_i2c_remove(struct i2c_client *i2c)
-> +{
-> +	snd_soc_unregister_component(&i2c->dev);
-> +}
-> +
-> +static const struct of_device_id tas2505_of_match[] = {
-> +	{ .compatible = "ti,tas2505" },
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, tas2505_of_match);
-> +
-> +static const struct i2c_device_id tas2505_i2c_id[] = {
-> +	{ "tas2505", 0 },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2ic, tas2505_i2c_id);
-> +
-> +static struct i2c_driver tas2505_i2c_driver = {
-> +	.driver = {
-> +		.name		= "tas2505-codec",
-> +		.of_match_table	= of_match_ptr(tas2505_of_match),
-> +	},
-> +	.probe		= tas2505_i2c_probe,
-> +	.remove		= tas2505_i2c_remove,
-> +	.id_table	= tas2505_i2c_id,
-> +};
-> +
-> +module_i2c_driver(tas2505_i2c_driver);
-> +
-> +MODULE_DESCRIPTION("ASoC TAS2505 codec driver");
-> +MODULE_AUTHOR("Hieu Tran Dang <dangtranhieu2012@gmail.com>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/sound/soc/codecs/tas2505.h b/sound/soc/codecs/tas2505.h
-> new file mode 100644
-> index 0000000..79c3f84
-> --- /dev/null
-> +++ b/sound/soc/codecs/tas2505.h
-> @@ -0,0 +1,105 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * ALSA SoC TAS2505 codec driver
-> + *
-> + * Author: Hieu Tran Dang <dangtranhieu2012@gmail.com>
-> + *
-> + * This package is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License version 2 as
-> + * published by the Free Software Foundation.
-> + *
-> + * THIS PACKAGE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR
-> + * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
-> + * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-> + */
-
-License text can also be removed here, as there is SPDX on top.
-
-> +
-> +#ifndef _TAS2505_H
-> +#define _TAS2505_H
-> +
-> +#define TAS2505_RATES	(SNDRV_PCM_RATE_8000_96000)
-> +#define TAS2505_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \
-> +	SNDRV_PCM_FMTBIT_S24_LE | \
-> +	SNDRV_PCM_FMTBIT_S32_LE)
-> +
-> +#define TAS2505_REG(page, reg)	((page * 128) + reg)
-> +
-> +#define TAS2505_PAGECTL			TAS2505_REG(0, 0)
-> +#define TAS2505_RESET			TAS2505_REG(0, 1)
-> +#define TAS2505_CLKMUX			TAS2505_REG(0, 4)
-> +#define TAS2505_PLLPR			TAS2505_REG(0, 5)
-> +#define TAS2505_PLLJ			TAS2505_REG(0, 6)
-> +#define TAS2505_PLLDMSB			TAS2505_REG(0, 7)
-> +#define TAS2505_PLLDLSB			TAS2505_REG(0, 8)
-> +#define TAS2505_NDAC			TAS2505_REG(0, 11)
-> +#define TAS2505_MDAC			TAS2505_REG(0, 12)
-> +#define TAS2505_DOSRMSB			TAS2505_REG(0, 13)
-> +#define TAS2505_DOSRLSB			TAS2505_REG(0, 14)
-> +#define TAS2505_IFACE1			TAS2505_REG(0, 27)
-> +#define TAS2505_IFACE3			TAS2505_REG(0, 29)
-> +#define TAS2505_BCLKNDIV		TAS2505_REG(0, 30)
-> +#define TAS2505_DACFLAG1		TAS2505_REG(0, 37)
-> +#define TAS2505_DACFLAG2		TAS2505_REG(0, 38)
-> +#define TAS2505_STICKYFLAG1		TAS2505_REG(0, 42)
-> +#define TAS2505_INTFLAG1		TAS2505_REG(0, 43)
-> +#define TAS2505_STICKYFLAG2		TAS2505_REG(0, 44)
-> +#define TAS2505_INTFLAG2		TAS2505_REG(0, 46)
-> +#define TAS2505_DACINSTRSET		TAS2505_REG(0, 60)
-> +#define TAS2505_DACSETUP1		TAS2505_REG(0, 63)
-> +#define TAS2505_DACSETUP2		TAS2505_REG(0, 64)
-> +#define TAS2505_DACVOL			TAS2505_REG(0, 65)
-> +#define TAS2505_REF_POR_LDO_BGAP_CTRL	TAS2505_REG(1, 1)
-> +#define TAS2505_LDO_CTRL		TAS2505_REG(1, 2)
-> +#define TAS2505_PLAYBACKCONF1		TAS2505_REG(1, 3)
-> +#define TAS2505_SPKAMPCTRL1		TAS2505_REG(1, 45)
-> +#define TAS2505_SPKVOL1			TAS2505_REG(1, 46)
-> +#define TAS2505_SPKVOL2			TAS2505_REG(1, 48)
-> +#define TAS2505_DACANLGAINFLAG		TAS2505_REG(1, 63)
-> +
-> +#define TAS2505_PLLPR_P_MASK				(0x70)
-> +#define TAS2505_PLLPR_R_MASK				(0xf)
-> +#define TAS2505_PLL_DAC_MASK				(0x7f)
-> +#define TAS2505_BCLKNDIV_MASK				(0x7f)
-> +#define TAS2505_IFACE1_DATALEN_MASK			(0x30)
-> +#define TAS2505_IFACE1_WCLKDIR_MASK			(0x4)
-> +#define TAS2505_IFACE1_BCLKDIR_MASK			(0x8)
-> +#define TAS2505_IFACE1_INTERFACE_MASK			(0xc0)
-> +#define TAS2505_IFACE3_BDIVCLKIN_MASK			(0x1)
-> +#define TAS2505_IFACE3_BCLKINV_MASK			(0x8)
-> +#define TAS2505_DACSETUP1_PATH_CTRL_MSK			(0x30)
-> +#define TAS2505_DACSETUP2_MUTE_MASK			(0x8)
-> +#define TAS2505_PM_MASK					(0x80)
-> +#define TAS2505_LDO_PLL_HP_LVL_MASK			(0x8)
-> +#define TAS2505_REF_POR_LDO_BGAP_MASTER_REF_MASK	(0x10)
-> +#define TAS2505_SPKVOL2_MSK				(0x70)
-> +#define TAS2505_CODEC_CLKIN_MSK				(0x3)
-> +#define TAS2505_PLL_INPUT_CLK_MSK			(0xC)
-> +#define TAS2505_SPKAMPCTRL1_SPKDRV_MSK			BIT(1)
-> +
-> +#define TAS2505_PLLPR_P_SHIFT			(4)
-> +#define TAS2505_PLL_CLKIN_SHIFT			(2)
-> +#define TAS2505_IFACE1_DATALEN_SHIFT		(4)
-> +#define TAS2505_IFACE1_INTERFACE_SHIFT		(6)
-> +#define TAS2505_IFACE3_BCLKINV_SHIFT		(4)
-> +#define TAS2505_SPKVOL2_6DB_SHIFT		(4)
-> +#define TAS2505_DACSETUP1_PATH_CTRL_SHIFT	(4)
-> +
-> +#define TAS2505_WORD_LEN_20BITS			(1)
-> +#define TAS2505_WORD_LEN_24BITS			(2)
-> +#define TAS2505_WORD_LEN_32BITS			(3)
-
-I've notices it in switch case above that 16 bit is not defined, and 
-while I guess that 0 is "TAS2505_WORD_LEN_16BITS", perhaps it would be 
-more self documenting if it was still at least defined here.
-
-> +
-> +#define TAS2505_DSP_MODE			(1)
-> +#define TAS2505_RJF_MODE			(2)
-> +#define TAS2505_LJF_MODE			(3)
-
-Same for implicit TAS2505_I2S_MODE
-
-> +
-> +#define TAS2505_PLL_CLKIN_MCLK			(0)
-> +#define TAS2505_PLL_CLKIN_BCLK			(1)
-> +#define TAS2505_PLL_CLKIN_GPIO			(2)
-> +#define TAS2505_PLL_CLKIN_DIN			(3)
-> +#define TAS2505_CODEC_CLKIN_PLL			(3)
-> +#define TAS2505_SPKVOL2_MUTE			(0)
-> +#define TAS2505_SPKVOL2_6DB			(1)
-> +#define TAS2505_DACSETUP1_PATH_CTRL_LRDIV2	(3)
-> +#define TAS2505_SPKAMPCTRL1_SPKDRV_PWD		(0)
-> +#define TAS2505_SPKAMPCTRL1_SPKDRV_PWU		(1)
-> +
-> +#endif
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+index ed348bbf5f49..9190a8779334 100644
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -38,6 +38,9 @@ struct es8326_priv {
+ 	u8 interrupt_clk;
+ 	bool jd_inverted;
+ 	unsigned int sysclk;
++
++	bool calibrated;
++	int version;
+ };
+ 
+ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
+@@ -121,33 +124,12 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
+ 	/* Analog Power Supply*/
+ 	SND_SOC_DAPM_DAC("Right DAC", NULL, ES8326_ANA_PDN, 0, 1),
+ 	SND_SOC_DAPM_DAC("Left DAC", NULL, ES8326_ANA_PDN, 1, 1),
+-	SND_SOC_DAPM_SUPPLY("Analog Power", ES8326_ANA_PDN, 7, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("IBias Power", ES8326_ANA_PDN, 6, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("ADC Vref", ES8326_ANA_PDN, 5, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("DAC Vref", ES8326_ANA_PDN, 4, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Vref Power", ES8326_ANA_PDN, 3, 1, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("MICBIAS1", ES8326_ANA_MICBIAS, 2, 0, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("MICBIAS2", ES8326_ANA_MICBIAS, 3, 0, NULL, 0),
+ 
+ 	SND_SOC_DAPM_PGA("LHPMIX", ES8326_DAC2HPMIX, 7, 0, NULL, 0),
+ 	SND_SOC_DAPM_PGA("RHPMIX", ES8326_DAC2HPMIX, 3, 0, NULL, 0),
+ 
+-	/* Headphone Charge Pump and Output */
+-	SND_SOC_DAPM_SUPPLY("HPOR Cal", ES8326_HP_CAL, 7, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("HPOL Cal", ES8326_HP_CAL, 3, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone Charge Pump", ES8326_HP_DRIVER,
+-			    3, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone Driver Bias", ES8326_HP_DRIVER,
+-			    2, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone LDO", ES8326_HP_DRIVER,
+-			    1, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone Reference", ES8326_HP_DRIVER,
+-			    0, 1, NULL, 0),
+-	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOR Supply", ES8326_HP_CAL,
+-			 ES8326_HPOR_SHIFT, 7, 7, 0),
+-	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOL Supply", ES8326_HP_CAL,
+-			 0, 7, 7, 0),
+-
+ 	SND_SOC_DAPM_OUTPUT("HPOL"),
+ 	SND_SOC_DAPM_OUTPUT("HPOR"),
+ };
+@@ -166,34 +148,12 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+ 	{"I2S OUT", NULL, "ADC L"},
+ 	{"I2S OUT", NULL, "ADC R"},
+ 
+-	{"I2S OUT", NULL, "Analog Power"},
+-	{"I2S OUT", NULL, "ADC Vref"},
+-	{"I2S OUT", NULL, "Vref Power"},
+-	{"I2S OUT", NULL, "IBias Power"},
+-	{"I2S IN", NULL, "Analog Power"},
+-	{"I2S IN", NULL, "DAC Vref"},
+-	{"I2S IN", NULL, "Vref Power"},
+-	{"I2S IN", NULL, "IBias Power"},
+-
+ 	{"Right DAC", NULL, "I2S IN"},
+ 	{"Left DAC", NULL, "I2S IN"},
+ 
+ 	{"LHPMIX", NULL, "Left DAC"},
+ 	{"RHPMIX", NULL, "Right DAC"},
+ 
+-	{"HPOR", NULL, "HPOR Cal"},
+-	{"HPOL", NULL, "HPOL Cal"},
+-	{"HPOR", NULL, "HPOR Supply"},
+-	{"HPOL", NULL, "HPOL Supply"},
+-	{"HPOL", NULL, "Headphone Charge Pump"},
+-	{"HPOR", NULL, "Headphone Charge Pump"},
+-	{"HPOL", NULL, "Headphone Driver Bias"},
+-	{"HPOR", NULL, "Headphone Driver Bias"},
+-	{"HPOL", NULL, "Headphone LDO"},
+-	{"HPOR", NULL, "Headphone LDO"},
+-	{"HPOL", NULL, "Headphone Reference"},
+-	{"HPOR", NULL, "Headphone Reference"},
+-
+ 	{"HPOL", NULL, "LHPMIX"},
+ 	{"HPOR", NULL, "RHPMIX"},
+ };
+@@ -419,6 +379,31 @@ static int es8326_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
++static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
++{
++	struct snd_soc_component *component = dai->component;
++	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
++
++	if (mute) {
++		regmap_write(es8326->regmap, ES8326_HP_CAL, 0x00);
++		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
++				ES8326_MUTE_MASK, ES8326_MUTE);
++		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xf0);
++	} else {
++		if (!es8326->calibrated) {
++			regmap_write(es8326->regmap, ES8326_HP_CAL, 0x88);
++			msleep(30);
++			es8326->calibrated = true;
++		}
++		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa0);
++		regmap_write(es8326->regmap, ES8326_HP_VOL, 0x00);
++		regmap_write(es8326->regmap, ES8326_HP_CAL, 0x77);
++		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
++				ES8326_MUTE_MASK, ~(ES8326_MUTE));
++	}
++	return 0;
++}
++
+ static int es8326_set_bias_level(struct snd_soc_component *codec,
+ 				 enum snd_soc_bias_level level)
+ {
+@@ -469,6 +454,8 @@ static const struct snd_soc_dai_ops es8326_ops = {
+ 	.hw_params = es8326_pcm_hw_params,
+ 	.set_fmt = es8326_set_dai_fmt,
+ 	.set_sysclk = es8326_set_dai_sysclk,
++	.mute_stream = es8326_mute,
++	.no_capture_mute = 1,
+ };
+ 
+ static struct snd_soc_dai_driver es8326_dai = {
+@@ -691,7 +678,7 @@ static int es8326_suspend(struct snd_soc_component *component)
+ 
+ 	cancel_delayed_work_sync(&es8326->jack_detect_work);
+ 	es8326_disable_micbias(component);
+-
++	es8326->calibrated = false;
+ 	regmap_write(es8326->regmap, ES8326_CLK_CTL, ES8326_CLK_OFF);
+ 	regcache_cache_only(es8326->regmap, true);
+ 	regcache_mark_dirty(es8326->regmap);
+diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
+index 8e5ffe5ee10d..b837ed8c4b39 100644
+--- a/sound/soc/codecs/es8326.h
++++ b/sound/soc/codecs/es8326.h
+@@ -9,8 +9,6 @@
+ #ifndef _ES8326_H
+ #define _ES8326_H
+ 
+-#define CONFIG_HHTECH_MINIPMP	1
+-
+ /* ES8326 register space */
+ #define ES8326_RESET		0x00
+ #define ES8326_CLK_CTL		0x01
+@@ -94,6 +92,8 @@
+ #define	ES8326_PWRUP_SEQ_EN	(1 << 5)
+ #define ES8326_CODEC_RESET (0x0f << 0)
+ #define ES8326_CSM_OFF (0 << 7)
++#define ES8326_MUTE_MASK (3 << 0)
++#define ES8326_MUTE (3 << 0)
+ 
+ /* ES8326_CLK_CTL */
+ #define ES8326_CLK_ON (0x7f << 0)
+@@ -180,3 +180,4 @@
+ #define ES8326_VERSION_B (1 << 0)
+ 
+ #endif
++
+-- 
+2.34.1
 

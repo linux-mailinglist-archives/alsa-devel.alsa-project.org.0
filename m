@@ -2,109 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C50147500DA
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 10:11:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D01E7502C0
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 11:19:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EF366C1;
-	Wed, 12 Jul 2023 10:10:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EF366C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A6CE7F4;
+	Wed, 12 Jul 2023 11:19:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A6CE7F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689149467;
-	bh=3KUKIZfZGrcxSfsgfQOfa4CtqE/FexWSD7w4dPXb+og=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689153593;
+	bh=Ry3czwbD+drojCmAK4STnlovd4LCSba5lWwblh25Umg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=nG589OWr+Yjf7JyMSCqtm2Jhsx4h5JOEhuki3AGMJKqxcE/YmN8sVJSTBBhvbthWG
-	 Ez31A60yWxFk31iA1f10FmkMMHEgbDpdFQ1hhiQO+5+YbCww7BQ4BUudZnycWtgNFF
-	 CVWDr6M9gBv6WLFFr1S2pyDQMn0n5ymItEabU48Q=
+	b=j91rBV2QPOGBy9alAVodwMMPQ+mjyiBWWNOQHIoPpjcxyQKdeUReVXDD3SPWrjwRQ
+	 zMe+bIxtrbSrP1UCTjNWCFGZ36eVKkXGXuyg45wb5/gXEJ9hdPKWPDJiPJao4G5Dyq
+	 Sr/iQiHO4ENdSk8NiNJQwMDplDKJgitpo4M1YImA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D1FF5F80249; Wed, 12 Jul 2023 10:10:16 +0200 (CEST)
+	id 9DC22F80535; Wed, 12 Jul 2023 11:19:00 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E5D1F80236;
-	Wed, 12 Jul 2023 10:10:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17BE5F80236;
+	Wed, 12 Jul 2023 11:19:00 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id EFCA8F80249; Wed, 12 Jul 2023 10:10:12 +0200 (CEST)
+	id 6046FF80249; Wed, 12 Jul 2023 11:18:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=no autolearn_force=no version=3.4.6
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 67208F8024E
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 10:08:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67208F8024E
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=CuzY6jr4
-Received: by mail-pf1-x42b.google.com with SMTP id
- d2e1a72fcca58-6831e80080dso338414b3a.0
+	by alsa1.perex.cz (Postfix) with ESMTPS id 954AAF80153
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 11:18:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 954AAF80153
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-57026f4bccaso76891287b3.2
         for <alsa-devel@alsa-project.org>;
- Wed, 12 Jul 2023 01:08:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689149326; x=1691741326;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7Q6uX3QZM+MretKXDPhESSKBYs/QtN8Pl9WOLRIb584=;
-        b=CuzY6jr4z3Wr6WuOzrPB407Ie/B5TRUKpN7CekuKy2RiiV7I8Tpqe4F32BmnyZEGtj
-         AL5SJOxpZmDVVSIoQKZitdXD+BWusiXrLuFzX4LXYBYqWIJujSGnC3IbsSprIJKFg9rR
-         FdMQ3iVFJMrq+qzK8vjARAQV0VGJf281WWXG34KcRfICGk0D/ROqZReT0/zJuFxnN39a
-         ADN1QZJqmO3fjbXnriPQAMhy3s1v1kONwW1QY3KY/KXKfe3kEqWZYGClQaEw0393HI3e
-         pzNgBJ/tKl9xZtDSIUK4OO8IbxCxPG8M1all4VbXNz2B4e8ziNbWJCZFk1ZPUFTMAVQP
-         BWPA==
+ Wed, 12 Jul 2023 02:18:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689149326; x=1691741326;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20221208; t=1689153530; x=1691745530;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7Q6uX3QZM+MretKXDPhESSKBYs/QtN8Pl9WOLRIb584=;
-        b=O/R4ODZTfEyL3n7fOvWEShsVYMq02cd2uC0KR6P3ISBboAxZywFBuObyqzAP9vS0+N
-         j8uqqiupQxaNUAFvlR5fzslt5Ht/f7mVx2/o3v8bGDGDbvGqil3bpC1LIUcDIX76SnuK
-         lx+bjxHgq6yMjPwQr0IGEdKiMsOpIDRVzDp3bmzLH6xdOU0LSvZfAyZ9v0t5tGQOt6BE
-         ewgt1deRU/xaFBBMzILnA9wmx4B0WzRspqnGCxxqlYw3BXjEts6QWP5yQWivaW74LxGG
-         F+6YmL1TgF1hmx08CBGUENO9mGPhrP+8Xlb0VMyMnl5LMkW2RWEm639m8zHq9bpnfiAu
-         H/bw==
-X-Gm-Message-State: ABy/qLb78yi+Gvqs3ZJ3Eir2hF1rOXUku5q6rWJ7T+hgME4Bk8CmuWjw
-	AFT6wok8+g9rwtNtk4ZWPvHvDMMI7kfeGkpD
+        bh=kG5q3OE8NA2B1Rd9ySf5DoQyHhC234Q++094p9pDpiY=;
+        b=TOCiuLJQs/HsMWt/wk7doE4+N+2xORd6T8uYR3oW3T/h91+lkg0OqvZvuYvk0ouY2s
+         f/GR+oeKln7ZSZrbfI/31uUrgUpnmYma4kPXVeAIgMRpusaH3xltdIduarhKFCKaJB33
+         8L124peS4TtUqNA37/A7iDaPI/forXL/J4ncAbRJq3QdDi96Xqi044rlOphDwKpK3lng
+         HoCq+Y7gSoiw100HvDF/udOSbGSJUNsfGuAOBOucPfFBLbkE2bu+RaVy4f7aXpbdcEGD
+         1CGxh2fevzKBafE+QqzchIxUg1EOto74pTIly5cteovBOcNzx68zBPSuIFLgOZ0be3EV
+         BGuQ==
+X-Gm-Message-State: ABy/qLYbKsLNRiSkwx8OkMKq9QO6FQX80IFvG2tsQ0sBBnYmltIGSwGa
+	rAIfhbukOvtaV7J0d6AjzR5VUV+tkhyaHA==
 X-Google-Smtp-Source: 
- APBJJlFgxi8xX71kyFQTNBcX2/RLzfYYU3v4At5g+bcLGx6yqnWzIqhALpFwoiYfTR671zsUM7ghzw==
-X-Received: by 2002:a05:6a21:900c:b0:130:74c8:b501 with SMTP id
- tq12-20020a056a21900c00b0013074c8b501mr10390857pzb.30.1689149326299;
-        Wed, 12 Jul 2023 01:08:46 -0700 (PDT)
-Received: from a-VirtualBox.. ([116.233.75.15])
+ APBJJlGHlfQUUorcWN5lIeMju/ZO70BeUG2sicjT/7jQLu408FFbcrAxkMTA5fMdNntqiWHSj1/k7Q==
+X-Received: by 2002:a81:a191:0:b0:577:3cd0:384 with SMTP id
+ y139-20020a81a191000000b005773cd00384mr17666975ywg.15.1689153529696;
+        Wed, 12 Jul 2023 02:18:49 -0700 (PDT)
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com.
+ [209.85.219.172])
         by smtp.gmail.com with ESMTPSA id
- z10-20020a170903018a00b001b3f9a5d4besm3285962plg.255.2023.07.12.01.08.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Jul 2023 01:08:46 -0700 (PDT)
-From: Zhu Ning <zhuning0077@gmail.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Cc: pierre-louis.bossart@linux.intel.com,
-	tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com,
-	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH 4/4] ASoC: codecs: ES8326: Update jact detection function
-Date: Wed, 12 Jul 2023 16:08:30 +0800
-Message-Id: <20230712080830.973766-4-zhuning0077@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230712080830.973766-1-zhuning0077@gmail.com>
-References: <20230712080830.973766-1-zhuning0077@gmail.com>
+ w18-20020a814912000000b0057a92cd7f95sm1049339ywa.100.2023.07.12.02.18.49
+        for <alsa-devel@alsa-project.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Jul 2023 02:18:49 -0700 (PDT)
+Received: by mail-yb1-f172.google.com with SMTP id
+ 3f1490d57ef6-bff27026cb0so7556491276.1
+        for <alsa-devel@alsa-project.org>;
+ Wed, 12 Jul 2023 02:18:49 -0700 (PDT)
+X-Received: by 2002:a25:748e:0:b0:c69:b15:3e79 with SMTP id
+ p136-20020a25748e000000b00c690b153e79mr17478596ybc.28.1689153528941; Wed, 12
+ Jul 2023 02:18:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: RWCKFSYY6WTRRMERHZCBREN44VZJ7WOS
-X-Message-ID-Hash: RWCKFSYY6WTRRMERHZCBREN44VZJ7WOS
-X-MailFrom: zhuning0077@gmail.com
+References: <20230707074337.3120530-1-quic_rohkumar@quicinc.com>
+In-Reply-To: <20230707074337.3120530-1-quic_rohkumar@quicinc.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 12 Jul 2023 11:18:35 +0200
+X-Gmail-Original-Message-ID: 
+ <CAMuHMdXRt_9BzfnaqVJUAS4QdvGBDZk3B+R_cERUykZhyNWtzQ@mail.gmail.com>
+Message-ID: 
+ <CAMuHMdXRt_9BzfnaqVJUAS4QdvGBDZk3B+R_cERUykZhyNWtzQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: Update maintainer email id
+To: Rohit kumar <quic_rohkumar@quicinc.com>
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
+	srinivas.kandagatla@linaro.org, bgoswami@quicinc.com, agross@kernel.org,
+	andersson@kernel.org, konrad.dybcio@linaro.org, cychiang@chromium.org,
+	alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: DC5PPJU46PLAX7ECHSFHDHLOSZTCINIQ
+X-Message-ID-Hash: DC5PPJU46PLAX7ECHSFHDHLOSZTCINIQ
+X-MailFrom: geert.uytterhoeven@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RWCKFSYY6WTRRMERHZCBREN44VZJ7WOS/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DC5PPJU46PLAX7ECHSFHDHLOSZTCINIQ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,247 +121,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The old jack detection function only supports fixed OMTP/CTIA
-hardware connection. The new one supports auto OMTP/CTIA
-headset detection
+Hi Rohit,
 
-Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
----
- sound/soc/codecs/es8326.c | 113 ++++++++++++++++++++++++++++++--------
- sound/soc/codecs/es8326.h |  14 +++--
- 2 files changed, 101 insertions(+), 26 deletions(-)
+Thanks for your patch!
 
-diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 4fc5190d8494..c1b1f41bd4e4 100644
---- a/sound/soc/codecs/es8326.c
-+++ b/sound/soc/codecs/es8326.c
-@@ -41,6 +41,8 @@ struct es8326_priv {
- 
- 	bool calibrated;
- 	int version;
-+	int hp;
-+	int jack_remove_retry;
- };
- 
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
-@@ -528,13 +530,14 @@ static void es8326_jack_button_handler(struct work_struct *work)
- 		return;
- 
- 	mutex_lock(&es8326->lock);
--	iface = snd_soc_component_read(comp, ES8326_HPDET_TYPE);
-+	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
- 	switch (iface) {
- 	case 0x93:
- 		/* pause button detected */
- 		cur_button = SND_JACK_BTN_0;
- 		break;
- 	case 0x6f:
-+	case 0x4b:
- 		/* button volume up */
- 		cur_button = SND_JACK_BTN_1;
- 		break;
-@@ -543,6 +546,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
- 		cur_button = SND_JACK_BTN_2;
- 		break;
- 	case 0x1e:
-+	case 0xe2:
- 		/* button released or not pressed */
- 		cur_button = 0;
- 		break;
-@@ -552,20 +556,20 @@ static void es8326_jack_button_handler(struct work_struct *work)
- 
- 	if ((prev_button == cur_button) && (cur_button != 0)) {
- 		press_count++;
--		if (press_count > 10) {
--			/* report a press every 500ms */
-+		if (press_count > 3) {
-+			/* report a press every 120ms */
- 			snd_soc_jack_report(es8326->jack, cur_button,
- 					SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2);
- 			press_count = 0;
- 		}
- 		button_to_report = cur_button;
- 		queue_delayed_work(system_wq, &es8326->button_press_work,
--				   msecs_to_jiffies(50));
-+				   msecs_to_jiffies(35));
- 	} else if (prev_button != cur_button) {
- 		/* mismatch, detect again */
- 		prev_button = cur_button;
- 		queue_delayed_work(system_wq, &es8326->button_press_work,
--				   msecs_to_jiffies(50));
-+				   msecs_to_jiffies(35));
- 	} else {
- 		/* released or no pressed */
- 		if (button_to_report != 0) {
-@@ -587,34 +591,98 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 	unsigned int iface;
- 
- 	mutex_lock(&es8326->lock);
--	iface = snd_soc_component_read(comp, ES8326_HPDET_TYPE);
-+	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
- 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
-+
-+	if (es8326->jack_remove_retry == 1) {
-+		if (iface & ES8326_HPINSERT_FLAG)
-+			es8326->jack_remove_retry = 2;
-+		else
-+			es8326->jack_remove_retry = 0;
-+
-+		dev_dbg(comp->dev, "remove event check, set HPJACK_POL normal, cnt = %d\n",
-+				es8326->jack_remove_retry);
-+		/*
-+		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
-+		 */
-+		regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE,
-+					ES8326_HP_DET_JACK_POL, (es8326->jd_inverted ?
-+					~es8326->jack_pol : es8326->jack_pol));
-+		goto exit;
-+	}
-+
- 	if ((iface & ES8326_HPINSERT_FLAG) == 0) {
- 		/* Jack unplugged or spurious IRQ */
--		dev_dbg(comp->dev, "No headset detected");
-+		dev_dbg(comp->dev, "No headset detected\n");
-+		es8326_disable_micbias(es8326->component);
- 		if (es8326->jack->status & SND_JACK_HEADPHONE) {
-+			dev_dbg(comp->dev, "Report hp remove event\n");
- 			snd_soc_jack_report(es8326->jack, 0, SND_JACK_HEADSET);
--			snd_soc_component_write(comp, ES8326_ADC1_SRC, es8326->mic2_src);
--			es8326_disable_micbias(comp);
-+			/* mute adc when mic path switch */
-+			regmap_write(es8326->regmap, ES8326_ADC_SCALE, 0x33);
-+			regmap_write(es8326->regmap, ES8326_ADC1_SRC, 0x44);
-+			regmap_write(es8326->regmap, ES8326_ADC2_SRC, 0x66);
-+			es8326->hp = 0;
-+		}
-+		regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
-+		/*
-+		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
-+		 */
-+		if (es8326->jack_remove_retry == 0) {
-+			es8326->jack_remove_retry = 1;
-+			dev_dbg(comp->dev, "remove event check, invert HPJACK_POL, cnt = %d\n",
-+					es8326->jack_remove_retry);
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE,
-+					ES8326_HP_DET_JACK_POL, (es8326->jd_inverted ?
-+					es8326->jack_pol : ~es8326->jack_pol));
-+
-+		} else {
-+			es8326->jack_remove_retry = 0;
- 		}
- 	} else if ((iface & ES8326_HPINSERT_FLAG) == ES8326_HPINSERT_FLAG) {
-+		es8326->jack_remove_retry = 0;
-+		if (es8326->hp == 0) {
-+			dev_dbg(comp->dev, "First insert, start OMTP/CTIA type check\n");
-+			/*
-+			 * set auto-check mode, then restart jack_detect_work after 100ms.
-+			 * Don't report jack status.
-+			 */
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
-+			usleep_range(50000, 70000);
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x00);
-+			queue_delayed_work(system_wq, &es8326->jack_detect_work,
-+					msecs_to_jiffies(100));
-+			es8326->hp = 1;
-+			goto exit;
-+		}
- 		if (es8326->jack->status & SND_JACK_HEADSET) {
- 			/* detect button */
-+			dev_dbg(comp->dev, "button pressed\n");
- 			queue_delayed_work(system_wq, &es8326->button_press_work, 10);
-+			goto exit;
-+		}
-+		if ((iface & ES8326_HPBUTTON_FLAG) == 0x01) {
-+			dev_dbg(comp->dev, "Headphone detected\n");
-+			snd_soc_jack_report(es8326->jack,
-+					SND_JACK_HEADPHONE, SND_JACK_HEADSET);
- 		} else {
--			if ((iface & ES8326_HPBUTTON_FLAG) == 0x00) {
--				dev_dbg(comp->dev, "Headset detected");
--				snd_soc_jack_report(es8326->jack,
--						    SND_JACK_HEADSET, SND_JACK_HEADSET);
--				snd_soc_component_write(comp,
--							ES8326_ADC1_SRC, es8326->mic1_src);
--			} else {
--				dev_dbg(comp->dev, "Headphone detected");
--				snd_soc_jack_report(es8326->jack,
--						    SND_JACK_HEADPHONE, SND_JACK_HEADSET);
--			}
-+			dev_dbg(comp->dev, "Headset detected\n");
-+			snd_soc_jack_report(es8326->jack,
-+					SND_JACK_HEADSET, SND_JACK_HEADSET);
-+
-+			regmap_write(es8326->regmap, ES8326_ADC_SCALE, 0x33);
-+			regmap_update_bits(es8326->regmap, ES8326_PGA_PDN,
-+					0x08, 0x08);
-+			regmap_update_bits(es8326->regmap, ES8326_PGAGAIN,
-+					0x80, 0x80);
-+			regmap_write(es8326->regmap, ES8326_ADC1_SRC, 0x00);
-+			regmap_write(es8326->regmap, ES8326_ADC2_SRC, 0x00);
-+			regmap_update_bits(es8326->regmap, ES8326_PGA_PDN,
-+					0x08, 0x00);
-+			usleep_range(10000, 15000);
- 		}
- 	}
-+exit:
- 	mutex_unlock(&es8326->lock);
- }
- 
-@@ -633,7 +701,7 @@ static irqreturn_t es8326_irq(int irq, void *dev_id)
- 				   msecs_to_jiffies(10));
- 	else
- 		queue_delayed_work(system_wq, &es8326->jack_detect_work,
--				   msecs_to_jiffies(300));
-+				   msecs_to_jiffies(600));
- 
- out:
- 	return IRQ_HANDLED;
-@@ -766,7 +834,8 @@ static int es8326_resume(struct snd_soc_component *component)
- 			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol) :
- 			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol | 0x04)));
- 
--	es8326_irq(es8326->irq, es8326);
-+	es8326->jack_remove_retry = 0;
-+	es8326->hp = 0;
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
-index 9093222ae04d..34bc3313a518 100644
---- a/sound/soc/codecs/es8326.h
-+++ b/sound/soc/codecs/es8326.h
-@@ -127,6 +127,10 @@
- 
- /* ES8326_HP_CAL */
- #define ES8326_HPOR_SHIFT 4
-+#define ES8326_HPOL_CALI (1 << 7)
-+#define ES8326_HPOR_CALI (1 << 3)
-+#define ES8326_HPOL_ON (7 << 4)
-+#define ES8326_HPOR_ON (7 << 0)
- 
- /* ES8326_ADC1_SRC */
- #define ES8326_ADC1_SHIFT 0
-@@ -149,14 +153,16 @@
- #define ES8326_ADC4_SHIFT 3
- 
- /* ES8326_HP_DET */
-+#define ES8326_HP_INSERT_SEL (3 << 4)
-+#define ES8326_HP_DET_DISABLE (0 << 4)
- #define ES8326_HP_DET_SRC_PIN27 (1 << 5)
- #define ES8326_HP_DET_SRC_PIN9 (1 << 4)
- #define ES8326_HP_DET_JACK_POL (1 << 3)
- #define ES8326_HP_DET_BUTTON_POL (1 << 2)
--#define ES8326_HP_TYPE_OMTP	(3 << 0)
--#define ES8326_HP_TYPE_CTIA	(2 << 0)
--#define ES8326_HP_TYPE_AUTO	(1 << 0)
--#define ES8326_HP_TYPE_AUTO_INV	(0 << 0)
-+#define ES8326_HP_TYPE_CTIA	(3 << 0)
-+#define ES8326_HP_TYPE_OMTP	(2 << 0)
-+#define ES8326_HP_TYPE_TRS	(1 << 0)
-+#define ES8326_HP_TYPE_AUTO	(0 << 0)
- 
- /* ES8326_SDINOUT1_IO */
- #define ES8326_IO_INPUT	(0 << 0)
--- 
-2.34.1
+On Fri, Jul 7, 2023 at 9:49=E2=80=AFAM Rohit kumar <quic_rohkumar@quicinc.c=
+om> wrote:
+> [PATCH v2] ASoC: dt-bindings: Update maintainer email id
 
+Thank you for stepping forward to become a maintainer for all ASoC
+DT bindings ;-)
+
+> Updated my mail id to latest quicinc id.
+>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Rohit kumar <quic_rohkumar@quicinc.com>
+> ---
+> v2: Updated commit header
+>
+>  .../devicetree/bindings/sound/google,sc7180-trogdor.yaml        | 2 +-
+>  Documentation/devicetree/bindings/sound/qcom,lpass-cpu.yaml     | 2 +-
+
+Oh wait, this is not for all of ASoC...
+
+Please use one-line summaries that reflect the actual changes.
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds

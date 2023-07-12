@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC8DD75070A
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:50:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B327750711
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:50:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 456506C1;
-	Wed, 12 Jul 2023 13:49:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 456506C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BFAB206;
+	Wed, 12 Jul 2023 13:50:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BFAB206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689162638;
-	bh=TGhw0BOQLfLCUfvKyBi3wy+x2YHrjsCaDwvjVbjEVZw=;
+	s=default; t=1689162656;
+	bh=ENkcW96EGy+1LPYBYZW3/JRK1Q9huG6TFa9pKV63ocU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=YqMI93XzQtIqdNx7JLCqEswZduuHhHDjOy04MrLkpT/cad6Pasnvj/hb7W3FIngrU
-	 D5wEcUTrPRWkaGJrb8qkbWwGdy+0OPyQBBKulQUU6dmnP/VKbSOseiNv/zlWw6HPgO
-	 uYsnJSyW1c0bAlsCKAU9WbdLNA9cYAHU9qJ4w0jI=
+	b=jytdx4fxt67VNMwwBnw78aS0TZu7UB7A+xpocGOhL9blFKeva+JVv3TAr/erYAnsy
+	 H2TXcUK55k/J7Q0nHb+mPyP56ncliqS+Wrpf5fQ6iRo3biHuek4RcMxQp0uwJUxEJ0
+	 4+W6unakLb7PkIiX/S9Bf24RvfmvcMHm4+7d4cM0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7311BF805F2; Wed, 12 Jul 2023 13:47:17 +0200 (CEST)
+	id B6382F805F9; Wed, 12 Jul 2023 13:47:19 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEBA7F805E6;
-	Wed, 12 Jul 2023 13:47:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C987F805E6;
+	Wed, 12 Jul 2023 13:47:19 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 23CA8F805D2; Wed, 12 Jul 2023 13:47:10 +0200 (CEST)
+	id 355C2F805E1; Wed, 12 Jul 2023 13:47:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -36,50 +36,49 @@ Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 09570F80290
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:47:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09570F80290
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9E6FAF805CA
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:47:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E6FAF805CA
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=m+a21ZBw
+ header.s=k20201202 header.b=lxPf5Cy3
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AA6DD617A2;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8EEC96179B;
+	Wed, 12 Jul 2023 11:47:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7F8C433C9;
 	Wed, 12 Jul 2023 11:47:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF00C433CA;
-	Wed, 12 Jul 2023 11:47:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689162426;
-	bh=TGhw0BOQLfLCUfvKyBi3wy+x2YHrjsCaDwvjVbjEVZw=;
+	s=k20201202; t=1689162428;
+	bh=ENkcW96EGy+1LPYBYZW3/JRK1Q9huG6TFa9pKV63ocU=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=m+a21ZBwBD0dLXB9dUo3vmJ1K4Ko4ztyANwi9/iMKKtwbXia2rmAGh9lzTvFfquBH
-	 bb6U6QwxZ8wz5c8QcOT52DKSEhGNA80SaZPpO1Cy3Rey2D0GydCcV3Io1jHm0wofH4
-	 LDMYsllnFWxuLIFlPTNfOA2pvow6mzET8nKCuPljaLd5i/rxCwdbF446poiMzF1jIt
-	 seC+a9Phb7jS92O2SlmY1cMWcicKAi1S7BXxs/8ylnfL0p7VRN8uBYJ7Q5acnQCluk
-	 HPvXdIfUlRYx4pJ8YCre+jpIqPhLiygd3TvUK6kRTcbZWaCtGTExNgw35IYUSG/LqY
-	 S5S5A1IJVXifQ==
+	b=lxPf5Cy3tZid05IKGZsXeaJYEleuf6zbFdpLUGMhB1SXgyVnOypsbRyfTzv6PVsBK
+	 G27PUZZOr8MlOQdo/FBujM4ypCA2LFStN0hLER7rVFPtK4XrmmQT3QnD0E7VSz32Yg
+	 NK+RifmfGCoA7HJmIF/E7Wgku52fXUBvy4L4cbo1ZO83IkJEhERDSeznSbucp1nc+K
+	 enPOVA9IqLNGScZcvR95/nigiZ0+9tm4yZAYFREpa7BFy/aSMWLzVlIMEyO47l2i2l
+	 MLL3+fwbY446AFTDhpa6dwAnLD+QA3ZAMIyCJZEUuJk3t8q2tvtq/9JYM/XCC2afx3
+	 hbtQSlb1uXC5g==
 From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, tiwai@suse.com, perex@perex.cz, robh+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- Trevor Wu <trevor.wu@mediatek.com>
-Cc: alsa-devel@alsa-project.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20230629074348.21670-1-trevor.wu@mediatek.com>
-References: <20230629074348.21670-1-trevor.wu@mediatek.com>
-Subject: Re: [PATCH 0/2] ASoC: mt8188: add memory-region support
-Message-Id: <168916242315.46574.12917006493052835977.b4-ty@kernel.org>
-Date: Wed, 12 Jul 2023 12:47:03 +0100
+To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+In-Reply-To: <20230630172155.83754-1-andriy.shevchenko@linux.intel.com>
+References: <20230630172155.83754-1-andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v2 0/4] ASoC: rt5677: Refactor GPIO and use
+ device_get_match_data()
+Message-Id: <168916242630.46574.7633971537485557226.b4-ty@kernel.org>
+Date: Wed, 12 Jul 2023 12:47:06 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: ML5JMHLLVDMUEJNDCRWX44XWSANVM255
-X-Message-ID-Hash: ML5JMHLLVDMUEJNDCRWX44XWSANVM255
+Message-ID-Hash: ZITVF63P2FZPYWNWTAIIWIFTXB57MPHB
+X-Message-ID-Hash: ZITVF63P2FZPYWNWTAIIWIFTXB57MPHB
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -92,7 +91,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ML5JMHLLVDMUEJNDCRWX44XWSANVM255/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZITVF63P2FZPYWNWTAIIWIFTXB57MPHB/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,13 +100,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 29 Jun 2023 15:43:46 +0800, Trevor Wu wrote:
-> This series introduces support for memory-region, allowing afe memif to
-> utilize the region specified in dts.
+On Fri, 30 Jun 2023 20:21:51 +0300, Andy Shevchenko wrote:
+> The code can be simplified with refactored GPIO parts and with use of
+> device_get_match_data(). Besides that couple of additional changes,
+> one for maintenance and one for making IRQ domain agnostic (not being
+> pinned to OF).
 > 
-> Trevor Wu (2):
->   ASoC: mediatek: mt8188: add memory-region support
->   ASoC: dt-bindings: mediatek,mt8188-afe: add memory-region
+> Changelog v2:
+> - refactored GPIO code in (a new) patch 1
+> - fixed compilation error in patch 2 (LKP)
 > 
 > [...]
 
@@ -117,10 +118,14 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: mediatek: mt8188: add memory-region support
-      commit: fd9965235099fc4cccd94f82a371192bf7645a3e
-[2/2] ASoC: dt-bindings: mediatek,mt8188-afe: add memory-region
-      commit: e3326e3bc4937622b4dc6e9721262483109b0f0c
+[1/4] ASoC: rt5677: Refactor GPIO support code
+      commit: 5512ffd9f39832f312b7f903703ac39d6367fe8a
+[2/4] ASoC: rt5677: Use agnostic irq_domain_create_linear()
+      commit: c3d42d7baf6b4032171270e3df001fb946493452
+[3/4] ASoC: rt5677: Use device_get_match_data()
+      commit: 043bb9c012ee7d092a477159cc66dbdf62fd2666
+[4/4] ASoC: rt5677: Sort headers alphabetically
+      commit: ea1c1019a88d88cf0a7d6892f594b72ddb3b8c0b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

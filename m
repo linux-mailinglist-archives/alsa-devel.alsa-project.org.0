@@ -2,87 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15835750725
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:52:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C952750727
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jul 2023 13:52:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EF95206;
-	Wed, 12 Jul 2023 13:51:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EF95206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7ADC283B;
+	Wed, 12 Jul 2023 13:51:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7ADC283B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689162720;
-	bh=tKLfC2rwGbl8YnK4YjwgLzW6T3SVz9CzEGa1Le2ZqKA=;
+	s=default; t=1689162731;
+	bh=UZ+rY9O1PNJa3QP18G5pxuyjPuqBnCIqNKMIU6dIxgs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=sg1Pr7TjGqgAxTkkEjR+8bOq4O77qdK6i00jJd3bX1l7gitNpzvSpxLv2jiFIOJ7D
-	 b5+8Nhc/kLdMv8wKTfB8G+Go8zIztJ81CU7LjTOxG0TPnkENMicVIQOFIEZOAC/I4N
-	 XIWXECi8KYVJwZ5Pw92n8dv70r7OeWYfzPew4klQ=
+	b=YRPDzLxyiSZGsPUCYU3v3z+wBpjG6tQidq4wDPWWr/4Ow08RDo4GItP64+ZHyguSv
+	 OHszGaxGDV/rH+c9WqvC5uDhVhTfAq33VVAbSsWVhnNyj+XlNODBp5LIz7ypk5AfrR
+	 Gdyowm+MbRt+w0nlPMVd8d6JhMsYnwabicGYUTLE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 0AC84F8061E; Wed, 12 Jul 2023 13:47:32 +0200 (CEST)
+	id 2F288F80549; Wed, 12 Jul 2023 13:47:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C693DF8061E;
-	Wed, 12 Jul 2023 13:47:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84909F8053B;
+	Wed, 12 Jul 2023 13:47:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 586AAF80615; Wed, 12 Jul 2023 13:47:27 +0200 (CEST)
+	id 39393F80619; Wed, 12 Jul 2023 13:47:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 99645F80614
-	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:47:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99645F80614
+	by alsa1.perex.cz (Postfix) with ESMTPS id D61A1F80612
+	for <alsa-devel@alsa-project.org>; Wed, 12 Jul 2023 13:47:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D61A1F80612
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=NgADLBwe
+ header.s=k20201202 header.b=KiJikrD7
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 8CBF76177D;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id C422D61780;
+	Wed, 12 Jul 2023 11:47:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70DA5C433C8;
 	Wed, 12 Jul 2023 11:47:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E57FC433CC;
-	Wed, 12 Jul 2023 11:47:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689162442;
-	bh=tKLfC2rwGbl8YnK4YjwgLzW6T3SVz9CzEGa1Le2ZqKA=;
+	s=k20201202; t=1689162444;
+	bh=UZ+rY9O1PNJa3QP18G5pxuyjPuqBnCIqNKMIU6dIxgs=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=NgADLBweT0/pL8STLLYgRap71SqW9W3ABpkb1f5xw6T76IBKC/4jctVi2o7+yzp8G
-	 zEBXWmB+QvSOe0ZX54kbZV7SfMHRd4sdjWNQrHgBBNSwKVxougyW3N8I6uLVCzgpO+
-	 +zzoDG4Qkagy71dOKACXasOojrtg0Fa69MDoZFLgjVwROvXa1TxscPExwh1lENdC1t
-	 ri82wt37Gl7VYX+ikEzWDn5Zzjz7MFubp7Vuj/Qk8iffvl+tApUECx/kEM4nULNHw8
-	 vyvxzH+9VQo6vCrvN8sPNScnAAIFR5GjGtCXo388Fl8uc07s6SwZrasv1BLRDn/sN1
-	 9252cpsggdlxQ==
+	b=KiJikrD7W0oIVkZf5Jv8UMn54jPBL6yDRfWD5AorynCRn+GIFrmeSJd5kurCexzIT
+	 eZbyjIgHPF0DvZSytbgNY2UhIHqOmkVtrDGae25N2e5PcjVeeIuwn3YlzHb4jcrrMr
+	 z/EeOPp+RYspffO0RDLZCB8D7nUQqulIwhCKymDV8SKKnZvA5HbLFokpC0h1D+u/k4
+	 owh6IIMALDdC1ukIfdPBhgBwvP8mI5b4DUUFnhn2KyQ+/G2hguNln9aNZQWrze6YvN
+	 xBL0WKheY72qpa2Z9xER+5BraPEMOTJCkn7Qj2YJ94nqC/hH3ZZB2A7UqeEJreYETI
+	 E7dUPqEsEhvSQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Arnd Bergmann <arnd@arndb.de>,
- Randy Dunlap <rdunlap@infradead.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-In-Reply-To: <20230705214800.193244-1-cristian.ciocaltea@collabora.com>
-References: <20230705214800.193244-1-cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v3 0/3] AMD Vangogh support for NAU8821/MAX98388
-Message-Id: <168916243923.46574.4640392228923703244.b4-ty@kernel.org>
-Date: Wed, 12 Jul 2023 12:47:19 +0100
+To: lgirdwood@gmail.com, shumingf@realtek.com
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, jack.yu@realtek.com, derek.fang@realtek.com,
+ brent.lu@intel.com
+In-Reply-To: <20230705042349.24905-1-shumingf@realtek.com>
+References: <20230705042349.24905-1-shumingf@realtek.com>
+Subject: Re: [PATCH 1/3] ASoC: rt5645: implement set_jack callback
+Message-Id: <168916244218.46574.14620911920489886159.b4-ty@kernel.org>
+Date: Wed, 12 Jul 2023 12:47:22 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13-dev-099c9
-Message-ID-Hash: 2P7VRBAQXTZNKOB5BN53NO2FI3RRE5MZ
-X-Message-ID-Hash: 2P7VRBAQXTZNKOB5BN53NO2FI3RRE5MZ
+Message-ID-Hash: 7FSAZMQB33WEHTTBQA2NY4JS3JYLYLXI
+X-Message-ID-Hash: 7FSAZMQB33WEHTTBQA2NY4JS3JYLYLXI
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -95,7 +89,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2P7VRBAQXTZNKOB5BN53NO2FI3RRE5MZ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7FSAZMQB33WEHTTBQA2NY4JS3JYLYLXI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -104,17 +98,10 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Thu, 06 Jul 2023 00:47:57 +0300, Cristian Ciocaltea wrote:
-> This patch series extends the Vangogh machine driver to support a variant
-> based on the Nuvoton NAU88L21 Codec and the Analog Devices MAX98388
-> Speaker Amplifier.
+On Wed, 05 Jul 2023 12:23:48 +0800, shumingf@realtek.com wrote:
+> Add a wrapper function to support set_jack component driver callback.
 > 
-> Changes in v3:
->  * Dropped acp5x_max98388_hw_params() in PATCH 3/3 and rely on dai_link
->    to set format, according to Mark's review
->  * v2: https://lore.kernel.org/all/20230705134341.175889-1-cristian.ciocaltea@collabora.com/
 > 
-> [...]
 
 Applied to
 
@@ -122,12 +109,8 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: amd: vangogh: Make use of DRV_NAME
-      commit: a0cb05cb70b469198ad86c0b13b02cbba3ecd8fd
-[2/3] ASoC: amd: vangogh: Use dmi_first_match() for DMI quirk handling
-      commit: 3dd26e27ccb4f18b4d25c0a49e1888eca9c6a724
-[3/3] ASoC: amd: vangogh: Add support for NAU8821/MAX98388 variant
-      commit: dba22efd0d177a23c6da2a161e9a1ad29718924c
+[1/3] ASoC: rt5645: implement set_jack callback
+      commit: 7f6ecc220272dff53b7cec0ae2a863eefcb5335b
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during

@@ -2,74 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13943754A03
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jul 2023 18:09:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DFE0754EB0
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 14:58:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04739AEA;
-	Sat, 15 Jul 2023 18:08:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04739AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59BD0847;
+	Sun, 16 Jul 2023 14:57:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59BD0847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689437380;
-	bh=tBz1lNoB9z5HQpFPnVyMryRPhYjZK+znx9YZIiibd2M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=VCbx4YiKOCww695Gi/AwQGsBZcCZNIou4S0/2A/K6vOW2XxIQ6mBajR92V/9QEMX8
-	 y77XNthfTGdzCmaPtnki+5zVP/lvapJ9xTuN7SOKzzvZduMkfp9dpgZmrndSPjaVu7
-	 yjynivzouByl6I8OxGfZbH7QNSUdFqoPLQa5C5gQ=
+	s=default; t=1689512298;
+	bh=xQ4w5iebjkSzGuQ/RTDrpEWkMpL1OkxXxjzaVL6jiAw=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=u0gumXPf58RO6i3Udk4Po7lKVK/bi7Y1cnHFQcLSqMcdoeUleODuzbtdFz/y9sPnN
+	 rB3rOW9m7bsWBQsK15oEpqD2+47Q8WTDe2kCvMFUMUKOr4pvO1W0Xjq40vo8QYCMO4
+	 kFaEj9COw+/OEs1vMNZEiDqiJdSYLsTG8ihdMDa0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 58F34F80564; Sat, 15 Jul 2023 18:08:49 +0200 (CEST)
+	id E875AF80535; Sun, 16 Jul 2023 14:57:27 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA4E7F80548;
-	Sat, 15 Jul 2023 18:08:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DBF1F8032D;
+	Sun, 16 Jul 2023 14:57:27 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5C43BF80551; Sat, 15 Jul 2023 18:08:46 +0200 (CEST)
+	id 5971DF80249; Thu, 13 Jul 2023 17:17:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
 	autolearn=ham autolearn_force=no version=3.4.6
-Received: from bluemchen.kde.org (bluemchen.kde.org [209.51.188.41])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 86830F8047D
-	for <alsa-devel@alsa-project.org>; Sat, 15 Jul 2023 18:08:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86830F8047D
-Received: from ugly.fritz.box (localhost [127.0.0.1])
-	by bluemchen.kde.org (Postfix) with ESMTP id 30EC62408D;
-	Sat, 15 Jul 2023 12:08:40 -0400 (EDT)
-Received: by ugly.fritz.box (masqmail 0.3.6-dev, from userid 1000)
-	id 1qKhp1-N46-00; Sat, 15 Jul 2023 18:08:39 +0200
-From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-To: alsa-devel@alsa-project.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Jaroslav Kysela <perex@perex.cz>
-Subject: [PATCH 2/2] ALSA: emu10k1: rework copyright statements
-Date: Sat, 15 Jul 2023 18:08:39 +0200
-Message-Id: <20230715160839.326978-2-oswald.buddenhagen@gmx.de>
-X-Mailer: git-send-email 2.40.0.152.g15d061e6df
-In-Reply-To: <20230715160839.326978-1-oswald.buddenhagen@gmx.de>
-References: <20230715160839.326978-1-oswald.buddenhagen@gmx.de>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 555B3F80153
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 17:17:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 555B3F80153
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=cPJcXmar
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-1b9c368f4b5so14289675ad.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 13 Jul 2023 08:17:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689261470; x=1691853470;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fkYvuheuXxUs7lcziZSh45/cEYAEtU5XJFKyTCEdPAw=;
+        b=cPJcXmarGy/THqQS5YeBkXPiaUN6TNcqTUg4N/gUAzoGAZF/YDWi+9CV32JMSIufHf
+         eGsnoa5VCpDibdNPlLNPjuhC9X10Y6IzZKZ5yyqVwPbcisWxLeeFYoeOXaYpVctMNeXc
+         bk0rfmLISbTW1sVPcX48CvKFHh/TxKtg2ph3oCO38dWTM+Nz2U7TgMbCLLf1y0mIeUFs
+         2JeQ2xUbm9WYLUT3c+PGSaud31GKWHfdJgZGHaQwDvPc5QGQn9hD+tYyISUmqRT9Nbrv
+         BcTDGVhWLoADC58nzgh6sKcjBRZS2gMNCPM3Xrz0j3dkS6FpEiiMWSFYZ1zpRJ6PuBpi
+         65Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689261470; x=1691853470;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fkYvuheuXxUs7lcziZSh45/cEYAEtU5XJFKyTCEdPAw=;
+        b=g7aYv26UGKT19frsbqBrZzhPeu9rK+imNN+bU+vdAz3csGITjlkZXcW3kzINuUyVKj
+         8oeE4TkDnDtYwf/WFFrbvMKZ1BAvcMFM4pG51R+fyApBo0N6hw21/BV/DBg5gKtxKhHo
+         EXjmqjnOHV5QBzEhuJf+lRd99mHV41Ndl0mFW3LwR82u48+J5hydTUy1oK7Mkn4lXSpn
+         xEeB6Mc8nzVaHCanYbcPgzP2AIaQakZ0tqtatqhTQUh/sE6PCMNZu0jJoFp+XTwnVv1n
+         tz5DQ4z70mvurSbCpFvViiglCmT19HI0MLYVlOjepUH5c6p56gq6BHzg1rhsZO8zSdJf
+         BSxA==
+X-Gm-Message-State: ABy/qLZP3OiRWbKSl32jrRuDlmlsvqcQkB2xLbCSGZDbHUBfSTN+ARkg
+	2HlW1sslqe81moFAE7TJ/h0=
+X-Google-Smtp-Source: 
+ APBJJlHqbZ9l5bN1xWh2PTo56lO26Opa/ZRbOUhSfvD4lbvNfmbnAzKjlum4jgW8YgbdEOFDj1ZOlA==
+X-Received: by 2002:a17:903:41cb:b0:1b8:9846:a3b2 with SMTP id
+ u11-20020a17090341cb00b001b89846a3b2mr2736704ple.14.1689261469776;
+        Thu, 13 Jul 2023 08:17:49 -0700 (PDT)
+Received: from ubuntu777.domain.name (36-228-70-13.dynamic-ip.hinet.net.
+ [36.228.70.13])
+        by smtp.gmail.com with ESMTPSA id
+ y4-20020a170902ed4400b001b8a844b023sm6043640plb.272.2023.07.13.08.17.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Jul 2023 08:17:49 -0700 (PDT)
+From: Min-Hua Chen <minhuadotchen@gmail.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Banajit Goswami <bgoswami@quicinc.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Min-Hua Chen <minhuadotchen@gmail.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: q6dsp: q6apm: make g_apm static
+Date: Thu, 13 Jul 2023 23:17:43 +0800
+Message-Id: <20230713151744.86072-1-minhuadotchen@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: LCFJ3XP7OD5HJGEGFVHQTEAXGWWR3QHJ
-X-Message-ID-Hash: LCFJ3XP7OD5HJGEGFVHQTEAXGWWR3QHJ
-X-MailFrom: ossi@kde.org
+X-MailFrom: minhuadotchen@gmail.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: AR27I3BYLLBMLSEHTZMTBMEAOOAC76AI
+X-Message-ID-Hash: AR27I3BYLLBMLSEHTZMTBMEAOOAC76AI
+X-Mailman-Approved-At: Sun, 16 Jul 2023 12:57:23 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/LCFJ3XP7OD5HJGEGFVHQTEAXGWWR3QHJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AR27I3BYLLBMLSEHTZMTBMEAOOAC76AI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -78,189 +123,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-- Remove the "log-like" parts, following the same logic as the previous
-  commit
-- Unify format
-- Add missing major contributors, including myself
-- Sort entries in order of first contribution (Creative comes last for
-  optical reasons; they don't appear to have directly contributed
-  anyway)
+This patch fixes the following sprse warning:
 
-Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+sound/soc/qcom/qdsp6/q6apm.c:30:14: sparse: warning: symbol 'g_apm' was not declared. Should it be static?
+
+No functional change intended
+
+Signed-off-by: Min-Hua Chen <minhuadotchen@gmail.com>
 ---
- sound/pci/emu10k1/emu10k1.c      | 4 +---
- sound/pci/emu10k1/emu10k1_main.c | 8 +++-----
- sound/pci/emu10k1/emufx.c        | 6 +++---
- sound/pci/emu10k1/emumixer.c     | 8 ++++----
- sound/pci/emu10k1/emupcm.c       | 5 ++++-
- sound/pci/emu10k1/emuproc.c      | 7 ++++---
- sound/pci/emu10k1/io.c           | 4 ++++
- sound/pci/emu10k1/timer.c        | 2 ++
- sound/pci/emu10k1/voice.c        | 6 +++---
- 9 files changed, 28 insertions(+), 22 deletions(-)
+ sound/soc/qcom/qdsp6/q6apm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/emu10k1/emu10k1.c b/sound/pci/emu10k1/emu10k1.c
-index 1a13c086e86c..ba8e5534e2df 100644
---- a/sound/pci/emu10k1/emu10k1.c
-+++ b/sound/pci/emu10k1/emu10k1.c
-@@ -2,9 +2,7 @@
- /*
-  *  The driver for the EMU10K1 (SB Live!) based soundcards
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
-- *
-- *  Copyright (c) by James Courtier-Dutton <James@superbug.demon.co.uk>
-- *      Added support for Audigy 2 Value.
-+ *                   James Courtier-Dutton <James@superbug.co.uk>
-  */
+diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
+index 7bfac9492ab5..d5ad9cbd3c21 100644
+--- a/sound/soc/qcom/qdsp6/q6apm.c
++++ b/sound/soc/qcom/qdsp6/q6apm.c
+@@ -27,7 +27,7 @@ struct apm_graph_mgmt_cmd {
  
- #include <linux/init.h>
-diff --git a/sound/pci/emu10k1/emu10k1_main.c b/sound/pci/emu10k1/emu10k1_main.c
-index 529d0bba87da..d3a37d805fb2 100644
---- a/sound/pci/emu10k1/emu10k1_main.c
-+++ b/sound/pci/emu10k1/emu10k1_main.c
-@@ -1,13 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
-+ *                   James Courtier-Dutton <James@superbug.co.uk>
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-  *                   Creative Labs, Inc.
-- *  Routines for control of EMU10K1 chips
-  *
-- *  Copyright (c) by James Courtier-Dutton <James@superbug.co.uk>
-- *      Added support for Audigy 2 Value.
-- *  	Added EMU 1010 support.
-- *  	General bug fixes and enhancements.
-+ *  Routines for control of EMU10K1 chips
-  */
+ #define APM_GRAPH_MGMT_PSIZE(p, n) ALIGN(struct_size(p, sub_graph_id_list, n), 8)
  
- #include <linux/sched.h>
-diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
-index e0ad339c5bbf..347141635604 100644
---- a/sound/pci/emu10k1/emufx.c
-+++ b/sound/pci/emu10k1/emufx.c
-@@ -1,11 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
-+ *                   James Courtier-Dutton <James@superbug.co.uk>
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-  *                   Creative Labs, Inc.
-- *  Routines for effect processor FX8010
-  *
-- *  Copyright (c) by James Courtier-Dutton <James@superbug.co.uk>
-- *  	Added EMU 1010 support.
-+ *  Routines for effect processor FX8010
-  */
+-struct q6apm *g_apm;
++static struct q6apm *g_apm;
  
- #include <linux/pci.h>
-diff --git a/sound/pci/emu10k1/emumixer.c b/sound/pci/emu10k1/emumixer.c
-index 6ff59c44da36..cb2b4e5553e7 100644
---- a/sound/pci/emu10k1/emumixer.c
-+++ b/sound/pci/emu10k1/emumixer.c
-@@ -2,12 +2,12 @@
- /*
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>,
-  *                   Takashi Iwai <tiwai@suse.de>
-+ *                   Lee Revell <rlrevell@joe-job.com>
-+ *                   James Courtier-Dutton <James@superbug.co.uk>
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-  *                   Creative Labs, Inc.
-- *  Routines for control of EMU10K1 chips / mixer routines
-- *  Multichannel PCM support Copyright (c) Lee Revell <rlrevell@joe-job.com>
-  *
-- *  Copyright (c) by James Courtier-Dutton <James@superbug.co.uk>
-- *  	Added EMU 1010 support.
-+ *  Routines for control of EMU10K1 chips / mixer routines
-  */
- 
- #include <linux/time.h>
-diff --git a/sound/pci/emu10k1/emupcm.c b/sound/pci/emu10k1/emupcm.c
-index 7a1d448f0656..7f4c1b38d6ec 100644
---- a/sound/pci/emu10k1/emupcm.c
-+++ b/sound/pci/emu10k1/emupcm.c
-@@ -1,9 +1,12 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
-+ *                   Lee Revell <rlrevell@joe-job.com>
-+ *                   James Courtier-Dutton <James@superbug.co.uk>
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-  *                   Creative Labs, Inc.
-+ *
-  *  Routines for control of EMU10K1 chips / PCM routines
-- *  Multichannel PCM support Copyright (c) Lee Revell <rlrevell@joe-job.com>
-  */
- 
- #include <linux/pci.h>
-diff --git a/sound/pci/emu10k1/emuproc.c b/sound/pci/emu10k1/emuproc.c
-index 39b422297c70..2f80fd91017c 100644
---- a/sound/pci/emu10k1/emuproc.c
-+++ b/sound/pci/emu10k1/emuproc.c
-@@ -1,11 +1,12 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
-+ *                   Lee Revell <rlrevell@joe-job.com>
-+ *                   James Courtier-Dutton <James@superbug.co.uk>
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-  *                   Creative Labs, Inc.
-- *  Routines for control of EMU10K1 chips / proc interface routines
-  *
-- *  Copyright (c) by James Courtier-Dutton <James@superbug.co.uk>
-- *  	Added EMU 1010 support.
-+ *  Routines for control of EMU10K1 chips / proc interface routines
-  */
- 
- #include <linux/slab.h>
-diff --git a/sound/pci/emu10k1/io.c b/sound/pci/emu10k1/io.c
-index 7e4483c5bd2a..74df2330015f 100644
---- a/sound/pci/emu10k1/io.c
-+++ b/sound/pci/emu10k1/io.c
-@@ -1,7 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
-+ *                   Lee Revell <rlrevell@joe-job.com>
-+ *                   James Courtier-Dutton <James@superbug.co.uk>
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-  *                   Creative Labs, Inc.
-+ *
-  *  Routines for control of EMU10K1 chips
-  */
- 
-diff --git a/sound/pci/emu10k1/timer.c b/sound/pci/emu10k1/timer.c
-index 8798604e7f98..bb2478319361 100644
---- a/sound/pci/emu10k1/timer.c
-+++ b/sound/pci/emu10k1/timer.c
-@@ -2,6 +2,8 @@
- /*
-  *  Copyright (c) by Lee Revell <rlrevell@joe-job.com>
-  *                   Clemens Ladisch <clemens@ladisch.de>
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-+ *
-  *  Routines for control of EMU10K1 chips
-  */
- 
-diff --git a/sound/pci/emu10k1/voice.c b/sound/pci/emu10k1/voice.c
-index ffe87f359a0e..77fb5427aaed 100644
---- a/sound/pci/emu10k1/voice.c
-+++ b/sound/pci/emu10k1/voice.c
-@@ -1,11 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-  *  Copyright (c) by Jaroslav Kysela <perex@perex.cz>
-- *                   Creative Labs, Inc.
-  *                   Lee Revell <rlrevell@joe-job.com>
-- *  Routines for control of EMU10K1 chips - voice manager
-+ *                   Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
-+ *                   Creative Labs, Inc.
-  *
-- *  Rewrote voice allocator for multichannel support - rlrevell 12/2004
-+ *  Routines for control of EMU10K1 chips - voice manager
-  */
- 
- #include <linux/time.h>
+ int q6apm_send_cmd_sync(struct q6apm *apm, struct gpr_pkt *pkt, uint32_t rsp_opcode)
+ {
 -- 
-2.40.0.152.g15d061e6df
+2.34.1
 

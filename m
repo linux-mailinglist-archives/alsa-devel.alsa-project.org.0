@@ -2,103 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 807D6751887
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 08:04:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A6BA75189A
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 08:09:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD4A91;
-	Thu, 13 Jul 2023 08:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD4A91
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6292C207;
+	Thu, 13 Jul 2023 08:08:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6292C207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689228240;
-	bh=ti5TgRTMR7tpRIyC9NXZRyzJl9k/posiVIikby0ixzk=;
+	s=default; t=1689228570;
+	bh=NOhp7FDl3h9X8XDbZa9Fi93rAZ3wvCUUl+zxnfDSgLA=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=X4ORWHn9sYX0b9Nx40L0NMYr5iOLi1sswMwQprkp+pZ8QyFDj9XzdfPaMTLGjMTMT
-	 nD5Btea4QuA9FUImfsDJ7uhl6qn0CVmifKz2HgIeJ6YlkxIRkJfPae13ZsF5UpEr9c
-	 W/iFlJ7JYWuaiCsw92VuJiLtxcWGA/0X0VHMws6s=
+	b=u1xfvIHEfPPdXfLDu8EsQgOGwL/IcFRchAq9iG9zI+8z6x1jeSRu+iw500PDtPPN6
+	 IdX1hnKQs8XgNiXFd7JYW/5NKItwm5APH3CslF89POLYZOwAhXaIncbkb5BYzCsXMk
+	 DKXZuBwlQVW6JALUy613SsndKMDCh5kqBFNA/u9g=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 5A96EF80548; Thu, 13 Jul 2023 08:03:10 +0200 (CEST)
+	id 2EA92F800E4; Thu, 13 Jul 2023 08:08:40 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0B4D8F80249;
-	Thu, 13 Jul 2023 08:03:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FE04F80236;
+	Thu, 13 Jul 2023 08:08:39 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8709AF8027B; Thu, 13 Jul 2023 08:03:06 +0200 (CEST)
+	id 13E53F80236; Thu, 13 Jul 2023 08:08:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [IPv6:2001:67c:2178:6::1d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 6E69DF800E4
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 08:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E69DF800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 49143F80236
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 08:08:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49143F80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=Ho5EUXl2;
+ header.s=susede2_rsa header.b=dXrwWQhM;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=Tfa6rZRN
+ header.s=susede2_ed25519 header.b=Z4SirNNw
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 721B022205;
-	Thu, 13 Jul 2023 06:03:01 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 60D741F8D9;
+	Thu, 13 Jul 2023 06:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1689228181;
+	t=1689228510;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=k3MojbVcIgPhkMJWXOyivxSHkZorYQbjQcXYbfJta8g=;
-	b=Ho5EUXl2R3gG/HOkYXyqUGmQjoY1p0jAzF/fpFtckClR80sCTgn4Kh5//vjD2kQNCl06h/
-	tVKjsG9YFXOi/NJoaBxQ9g3IXUviCqtMmNPqsbFeepZ7NCroF8xusCLpamSm9/P6eWxXfV
-	AjvLDRyDtUdqnBxf4zWqfsYYqErp/bg=
+	bh=LQjoMOuDYWVyTBw8okmanAfIbcPTrQ1gl3sbWKCUhxY=;
+	b=dXrwWQhMGcSaIhgFB3ZwGALWDt+omPHExLwdA0WE+EtnfRANm34FO5HMLxboq2ltsVweMi
+	Dx1JeRQkaLZUwtscJr+IaFiies7a6gZabZirJzbmRR0OlglOCdzFbmrAkhyXlhrQHm3wnq
+	c5F6pQZ+dvU5yg1zV8hsX7DuOx4If3M=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689228181;
+	s=susede2_ed25519; t=1689228510;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=k3MojbVcIgPhkMJWXOyivxSHkZorYQbjQcXYbfJta8g=;
-	b=Tfa6rZRNnuHp0qkjzkTIE5snNcjsz1XUc13wtk9ZTSSEb9bJC9/zIpLo+XdQ6qi7vkXqDf
-	xfoHbtRXgtZ1NVBw==
+	bh=LQjoMOuDYWVyTBw8okmanAfIbcPTrQ1gl3sbWKCUhxY=;
+	b=Z4SirNNwXt4OQsKULKDcn4lRQ0PduBGfu7fDJ8kJ+dBfF2/Rv8JRLD32QJIQ9azxu+GY3L
+	hvXnKSO0lraYG8Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40B48138ED;
-	Thu, 13 Jul 2023 06:03:01 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24259138ED;
+	Thu, 13 Jul 2023 06:08:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id KwXTDpWTr2QFNwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 13 Jul 2023 06:03:01 +0000
-Date: Thu, 13 Jul 2023 08:03:00 +0200
-Message-ID: <87351sgxgr.wl-tiwai@suse.de>
+	id YPLaB96Ur2TrOAAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 13 Jul 2023 06:08:30 +0000
+Date: Thu, 13 Jul 2023 08:08:29 +0200
+Message-ID: <871qhcgx7m.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Ivan Orlov <ivan.orlov0322@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
 	alsa-devel@alsa-project.org,
+	linux-kselftest@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: pcmtest: Extend error injection,
- decrease buffer filling overhead
-In-Reply-To: <20230712191325.8791-1-ivan.orlov0322@gmail.com>
-References: <20230712191325.8791-1-ivan.orlov0322@gmail.com>
+Subject: Re: [PATCH][next] selftests: ALSA: Fix fclose on an already fclosed
+ file pointer
+In-Reply-To: <20230712140122.457206-1-colin.i.king@gmail.com>
+References: <20230712140122.457206-1-colin.i.king@gmail.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: CP65L6B26HFOXZKUFWWXSICLU2EEZHIB
-X-Message-ID-Hash: CP65L6B26HFOXZKUFWWXSICLU2EEZHIB
+Message-ID-Hash: NPOVPV2SQIYJYXXVKRNCXJNS7523AYUY
+X-Message-ID-Hash: NPOVPV2SQIYJYXXVKRNCXJNS7523AYUY
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +117,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CP65L6B26HFOXZKUFWWXSICLU2EEZHIB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NPOVPV2SQIYJYXXVKRNCXJNS7523AYUY/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,32 +126,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 12 Jul 2023 21:13:25 +0200,
-Ivan Orlov wrote:
+On Wed, 12 Jul 2023 16:01:22 +0200,
+Colin Ian King wrote:
 > 
-> Extend 'pcmtest' virtual driver with 'open' callback error injection
-> functionality, as it already can inject errors into other PCM callbacks.
+> In the case where a sysfs file cannot be opened the error return path
+> fcloses file pointer fpl, however, fpl has already been closed in the
+> previous stanza. Fix the double fclose by removing it.
 > 
-> Fix the driver to use already defined variables where it is possible.
-> 
-> Additionally, decrease the buffer filling overhead with conditional
-> reminder calculation in the 'inc_buf_pos' inline function.
-> 
-> Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
+> Fixes: 10b98a4db11a ("selftests: ALSA: Add test for the 'pcmtest' driver")
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-Please avoid mixing different changes in a single patch.
+Thanks, applied.
 
-This patch does three completely different things, and they should be
-split. 
-
-- New inject_open_err parameter
-- Optimization of inc_buf_pos()
-- Optimization of check_buf_block_ni() and fill_block_pattern_n()
-
-The latter two could be put in a single patch as minor optimizations,
-but the introduction of a new option doesn't fit with the rest.
-
-
-thanks,
 
 Takashi

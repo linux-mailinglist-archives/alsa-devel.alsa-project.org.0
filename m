@@ -2,153 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60EDD75220C
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 14:59:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1607875247A
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 15:59:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A47BC851;
-	Thu, 13 Jul 2023 14:58:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A47BC851
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4A90A4B;
+	Thu, 13 Jul 2023 15:58:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4A90A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689253149;
-	bh=gsRvBs4WiU6z8wllSfdR+OuwMpj5x4qhBGaIH67ey18=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689256763;
+	bh=47TTHbAdCYgeAgxoaIbpYvzsBCkGABn7ZB5oqimqvZk=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=AeLiFGjJy5C1f3PnG5ZTbPfsEu/vnjnN6l2B130VA7C/W3lxkRxGiMv/XDyCEX/KM
-	 vhuGlxD+7QuBkq/RMiff8DI+G6ub/41J+hrGHjTj3gtX/2IEs8TeNXIHy4LXAH9lD9
-	 QHcjP3d/zUFKUC88ROO+Cu/g2Qsodz4OK02PrYBA=
+	b=dep9vVrr4EiHkfXsSaonj5hP2Wg/39v9wdI/vx4Lg2/7TYb4DmnG7m5BRo/o2Ch81
+	 zV658+Go5GYy0WgEzDflVnve9ijmsNZkuD2Tk8BeAG7XkDdXSl65SBJvv8mBnlteqe
+	 a/rBaN9G6GzDhqWZLK+z83INupDFjhXjXsRJ3V6M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C2B64F80588; Thu, 13 Jul 2023 14:57:58 +0200 (CEST)
+	id 6134AF8053B; Thu, 13 Jul 2023 15:58:32 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4930CF80571;
-	Thu, 13 Jul 2023 14:57:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AF51F80236;
+	Thu, 13 Jul 2023 15:58:32 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6E2A9F80552; Thu, 13 Jul 2023 14:57:53 +0200 (CEST)
+	id 90DAAF80249; Thu, 13 Jul 2023 15:58:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20630.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7e8c::630])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8CBB2F80249;
-	Thu, 13 Jul 2023 14:57:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CBB2F80249
+	by alsa1.perex.cz (Postfix) with ESMTPS id C3164F800E4
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 15:58:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3164F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector1-amdcloud-onmicrosoft-com
- header.b=1oEMQonn
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z/j0A65AKi1UL2q+s2jPuhFxYFKZcLrx28WyZ9Xx/MPY1mMHqkGkIMQOyJ5bSxQ1FhqdedDuNSgl43/qZ5pHI05uASvd8h4kYNpKV6tYUt/Ogt+VXPQ290TlW10XEhwXsOdldO+NTk/t4wwcaQYNYMWj14YpBgbgCQVwolJGQ6Tsj4RYkCa+tflWiasL9Ee2o+qTFgfYKS01weIY+Wzczd2WxwWuzMu6+vGnJowT2tXt/aw5JdwgGG2vgbrz0lzf04xu6/AbTiEwbJNxNsXyDO1P9aXttB9TgXQLB7toBI8s6BHiOna9B01zV91MRqrw+4scNJYegGNudivAyGB39A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RWJHr2Ak5zPlmGToLxP7oSktv9oUsJrFoyds8SJ1ik4=;
- b=Y4zI8xQiOPnmG/jgCxfnDA2epT6Yt/FraWyYZ8/Py4C+dpvx49pCkMD3vq7vLSWx0tH/eatEt3Zrd9HjXGlSMu2HRwiAbiigAkq0KJJ7pBVbPpaZhI+oc5w5GwLz61PZ9MZaq2rWHphtdTGAnLt+6zyxQtIh18trLhT9rUOJbQ9L8mgI1Ljlsc8fdI3TfUPNIrehVK3SZHI8ji37zsUoXAb4L6PeHI4+/eglTboAMPpao3E1op1oI6JVzeKJeBqut3BSDWK0T2EPBpk1tesHnDr/17o8uIW0srZkKh0onATRYxzqVX6w8nvYM3a7nrTYMWEavqbJ1cAr6c/SEopusw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=kernel.org
- smtp.mailfrom=amd.corp-partner.google.com; dmarc=fail (p=reject sp=reject
- pct=100) action=oreject header.from=amd.corp-partner.google.com; dkim=none
- (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RWJHr2Ak5zPlmGToLxP7oSktv9oUsJrFoyds8SJ1ik4=;
- b=1oEMQonnbJ6lKSMJkaetpA1oHDbna/rKLs5Pxmw9WEn/1j1z/SJbbQP16UvlZA8xM6jroQh1q4kz9ZJBYwszazV3NaH/Z4HqoZopJWBIooZGgV9cpET3Y40+o2dmuNHyCPGG+dbbur0N7/qmQ0tSHQPUNUTzM7IPZswwv2Uf9U5GC6/x+P2bdnhqq5806G/mDLbirtcVxfbA0EEXr/IeykH4ayIcHs0ikADIXu2GIX3466cQtfQEdIWQINHSxvOKEJ3zypqc6byuaXXliqsRhwxewxn+3Y9DHzQvqyjy5E6KrAXcCFxazQhiEKI9qR9LH4xdP0mUlV0nkVL+WlFrnQ==
-Received: from MW4PR03CA0044.namprd03.prod.outlook.com (2603:10b6:303:8e::19)
- by CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.22; Thu, 13 Jul
- 2023 12:57:41 +0000
-Received: from CO1NAM11FT072.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8e:cafe::ec) by MW4PR03CA0044.outlook.office365.com
- (2603:10b6:303:8e::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24 via Frontend
- Transport; Thu, 13 Jul 2023 12:57:41 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.corp-partner.google.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=amd.corp-partner.google.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.corp-partner.google.com discourages use of 165.204.84.17 as permitted
- sender)
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT072.mail.protection.outlook.com (10.13.174.106) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.26 via Frontend Transport; Thu, 13 Jul 2023 12:57:40 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 13 Jul
- 2023 07:57:40 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 13 Jul
- 2023 07:57:39 -0500
-Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23
- via Frontend Transport; Thu, 13 Jul 2023 07:57:34 -0500
-From: V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
-To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
-	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
-	<ssabakar@amd.com>, <akondave@amd.com>, <mastan.katragadda@amd.com>, "V
- sujith kumar Reddy" <Vsujithkumar.Reddy@amd.com>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
-	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
-	<ranjani.sridharan@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Ajit Kumar Pandey
-	<AjitKumar.Pandey@amd.com>, "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF)
- DRIVERS" <sound-open-firmware@alsa-project.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 3/3] ASoC: SOF: amd: Add Probe register offset for renoir and
- rembrandt platform.
-Date: Thu, 13 Jul 2023 18:27:09 +0530
-Message-ID: 
- <20230713125709.418851-4-vsujithkumar.reddy@amd.corp-partner.google.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: 
- <20230713125709.418851-1-vsujithkumar.reddy@amd.corp-partner.google.com>
-References: 
- <20230713125709.418851-1-vsujithkumar.reddy@amd.corp-partner.google.com>
+ unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
+ header.s=selector1 header.b=SfPoPLnn
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36DDG3DB009960;
+	Thu, 13 Jul 2023 15:58:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=jScQfB7dHrSC/WSmDV+VXYQZhrTRCDcVOleEzuAMkbE=;
+ b=SfPoPLnnS6bLH20C2mmzuSXgd6/LCZxaRC927PE4Mq989cPc8vsuiDIrNcox0JeecTgk
+ vPSy+TZQ0MWOr5EnYuFBdJ4IeZx8ly3L7dJBVxGjU8klO2sMHXDNayHV0IEhjmSJsuCp
+ iGud6dnNZMDNTsd/DkUniBS2IpTUNWOe4vjqh2vsQwrqhmWN8E7LzuSEP4zI2yQiwW3+
+ zBpv9EiLZwUwirVLGu0eG1qtyzqzjsy3ii1suiVs0vmb/OiOXk2oEMI3chtxRqniHYa3
+ X9F+QSqs4L8qMuMBivzwcYURTgZbAwRpZYfPZh60JsRQFYr2leCnOExEUKEI2GdCBMLi ZA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rtedthy7f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 13 Jul 2023 15:58:16 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4F4DC100056;
+	Thu, 13 Jul 2023 15:58:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E240A21A21E;
+	Thu, 13 Jul 2023 15:58:14 +0200 (CEST)
+Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 13 Jul
+ 2023 15:58:12 +0200
+Message-ID: <ba409196-06a1-bf2b-3536-1e1420550ff4@foss.st.com>
+Date: Thu, 13 Jul 2023 15:58:12 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT072:EE_|CY5PR12MB6369:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58533843-c471-4226-0d3b-08db83a0be15
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	tRx0l6gguVfWPacPjilQVfbppV7hpx/pphga+cjIjeGJgWzT65JjOIDnzL8/3ea8zX6IIW2Lh+K0UYLWa/ibvoL6yXxtkdlrWWlv31p9e1Du+PX2kdt4uCp/j/FSJvbgwZ8lTj70VhIQwoRXwyJHve9n3moUWcPopO6LAAM01uCQKrjUKpIahuSA4JcvpgJ69cO6FRYijg2Fudz8cK+1Y3UsYgjQt58dI/PUtztnvYyj7F+Eq6MrxXml42Q5H+aAPsuQtqkafeoyRCBIKvB8sByNk+h3XgO8nskWzYonYvKd3Gw6xgHz+oQhD6h/ZOqsUV/r/VyUfVMDD9irTJrFMhNXNeIRbXIGSc9jeJUzGd0D6D7H7P6t10R7lOUBQXO/y6ZoVz6mULxS8BM0X5NMx+GLzVVHPs/ykD9aguJDKmyLKZ8eODg/2PeUpimhK9cceNipFwsL2kAhX64s2JSbLJ9hyAb69RnYg+4nUgO1KAFgP37bbzJG/rT2OGdyD8XdHVxb3aHpkHn2WlcJlwAY494iPYNlu/AYbVla4VJ7yAvk2XhHmkDXlzgmnLd8UJO8JJq9+Ff8c38iINkHKUdfTKTTxMA2/r3g8Cujn68lPOz/1quMdPVhl2fBDR7yibuUfe1MDyzSjfnJ5TBvMgJAi0Q70U/IisQ95If1Gbr2ICBVYVRImjxy4yaLImsJZ8XvI1eRg3lycfsFnDe8cOU1J7F3nWhdYrIrU1Dz48h/znj1UHosI7xJLyEDUUjKnEJm
-X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199021)(46966006)(40470700004)(40460700003)(4326008)(70586007)(70206006)(82310400005)(81166007)(356005)(86362001)(336012)(2616005)(1076003)(26005)(83380400001)(47076005)(82740400003)(35950700001)(110136005)(76482006)(498600001)(54906003)(40480700001)(41300700001)(5660300002)(8676002)(8936002)(6666004)(7416002)(316002)(2906002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 12:57:40.8707
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 58533843-c471-4226-0d3b-08db83a0be15
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	CO1NAM11FT072.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6369
-Message-ID-Hash: PVZA4WPYT3QLTG6KT53MOVI4YEDFX2XW
-X-Message-ID-Hash: PVZA4WPYT3QLTG6KT53MOVI4YEDFX2XW
-X-MailFrom: bounces+SRS=HnE87=C7@amdcloud.onmicrosoft.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Subject: Re: [PATCH 05/10] firewall: introduce stm32_firewall framework
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+CC: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
+ <jic23@kernel.org>,
+        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+        <catalin.marinas@arm.com>, <arnd@kernel.org>,
+        <richardcochran@gmail.com>, <linux-crypto@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>,
+        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
+        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
+        <linux-usb@vger.kernel.org>, Peng Fan <peng.fan@oss.nxp.com>
+References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+ <20230705172759.1610753-6-gatien.chevallier@foss.st.com>
+ <20230706150906.GB3858320-robh@kernel.org>
+ <d13f935c-568b-3c0d-8e7d-006b7d4e7d50@foss.st.com>
+ <20230707150724.GA112541-robh@kernel.org>
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <20230707150724.GA112541-robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.201.21.121]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-13_05,2023-07-13_01,2023-05-22_02
+Message-ID-Hash: AFAUAAW622IPKKUAVUTK3TVAFKLNCH5Q
+X-Message-ID-Hash: AFAUAAW622IPKKUAVUTK3TVAFKLNCH5Q
+X-MailFrom: prvs=55581c6632=gatien.chevallier@foss.st.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -160,7 +130,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PVZA4WPYT3QLTG6KT53MOVI4YEDFX2XW/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AFAUAAW622IPKKUAVUTK3TVAFKLNCH5Q/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -169,57 +139,167 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+Hello Rob,
 
-Add Probe register offset for renoir and rembrandt platform to get
-position update.
+On 7/7/23 17:07, Rob Herring wrote:
+> On Fri, Jul 07, 2023 at 03:43:15PM +0200, Gatien CHEVALLIER wrote:
+>>
+>>
+>> On 7/6/23 17:09, Rob Herring wrote:
+>>> On Wed, Jul 05, 2023 at 07:27:54PM +0200, Gatien Chevallier wrote:
+>>>> Introduce a firewall framework that offers to firewall consumers different
+>>>> firewall services such as the ability to check their access rights against
+>>>> their firewall controller(s).
+>>>>
+>>>> The firewall framework offers a generic API that is defined in firewall
+>>>> controllers drivers to best fit the specificity of each firewall.
+>>>>
+>>>> There are various types of firewalls:
+>>>> -Peripheral firewalls that filter accesses to peripherals
+>>>> -Memory firewalls that filter accesses to memories or memory regions
+>>>> -Resource firewalls that filter accesses to internal resources such as
+>>>> reset and clock controllers
+>>>
+>>> How do resource firewalls work? Access to registers for some clocks in a
+>>> clock controller are disabled? Or something gates off clocks/resets to
+>>> a block?
+>>
+>> To take a practical example:
+>>
+>> A clock controller can be firewall-aware and have its own firewall registers
+>> to configure. To access a clock/reset that is handled this way, a device
+>> would need to check this "resource firewall". I thought that for these kinds
+>> of hardware blocks, having a common API would help.
+> 
+> We already have the concept of 'protected clocks' which are ones
+> controlled by secure mode which limits what Linux can do with them. I
+> think you should extend this mechanism if needed and use the existing
+> clock/reset APIs for managing resources.
+> 
 
-Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
----
- sound/soc/sof/amd/pci-rmb.c | 2 ++
- sound/soc/sof/amd/pci-rn.c  | 2 ++
- 2 files changed, 4 insertions(+)
+Ok, thank you for the input. I'll remove this type of firewall for V2 as
+I no longer have a use case.
 
-diff --git a/sound/soc/sof/amd/pci-rmb.c b/sound/soc/sof/amd/pci-rmb.c
-index 58b3092425f1..9935e457b467 100644
---- a/sound/soc/sof/amd/pci-rmb.c
-+++ b/sound/soc/sof/amd/pci-rmb.c
-@@ -25,6 +25,7 @@
- 
- #define ACP6x_REG_START		0x1240000
- #define ACP6x_REG_END		0x125C000
-+#define ACP6X_FUTURE_REG_ACLK_0	0x1854
- 
- static const struct sof_amd_acp_desc rembrandt_chip_info = {
- 	.rev		= 6,
-@@ -36,6 +37,7 @@ static const struct sof_amd_acp_desc rembrandt_chip_info = {
- 	.hw_semaphore_offset = ACP6X_AXI2DAGB_SEM_0,
- 	.acp_clkmux_sel = ACP6X_CLKMUX_SEL,
- 	.fusion_dsp_offset = ACP6X_DSP_FUSION_RUNSTALL,
-+	.probe_reg_offset = ACP6X_FUTURE_REG_ACLK_0,
- };
- 
- static const struct sof_dev_desc rembrandt_desc = {
-diff --git a/sound/soc/sof/amd/pci-rn.c b/sound/soc/sof/amd/pci-rn.c
-index 7409e21ce5aa..c72d5d8aff8e 100644
---- a/sound/soc/sof/amd/pci-rn.c
-+++ b/sound/soc/sof/amd/pci-rn.c
-@@ -25,6 +25,7 @@
- 
- #define ACP3x_REG_START		0x1240000
- #define ACP3x_REG_END		0x125C000
-+#define ACP3X_FUTURE_REG_ACLK_0	0x1860
- 
- static const struct sof_amd_acp_desc renoir_chip_info = {
- 	.rev		= 3,
-@@ -35,6 +36,7 @@ static const struct sof_amd_acp_desc renoir_chip_info = {
- 	.sram_pte_offset = ACP3X_SRAM_PTE_OFFSET,
- 	.hw_semaphore_offset = ACP3X_AXI2DAGB_SEM_0,
- 	.acp_clkmux_sel	= ACP3X_CLKMUX_SEL,
-+	.probe_reg_offset = ACP3X_FUTURE_REG_ACLK_0,
- };
- 
- static const struct sof_dev_desc renoir_desc = {
--- 
-2.25.1
+>>>
+>>> It might make more sense for "resource" accesses to be managed within
+>>> those resource APIs (i.e. the clock and reset frameworks) and leave this
+>>> framework to bus accesses.
+>>>
+>>
+>> Okay, I'll drop this for V2 if you find that the above explaination do not
+>> justify this.
+>>
+>>>> A firewall controller must be probed at arch_initcall level and register
+>>>> to the framework so that consumers can use their services.
+>>>
+>>> initcall ordering hacks should not be needed. We have both deferred
+>>> probe and fw_devlinks to avoid that problem.
+>>>
+>>
+>> Greg also doubts this.
+>>
+>> Drivers like reset/clock controllers drivers (core_initcall level) will have
+>> a dependency on the firewall controllers in order to initialize their
+>> resources. I was not sure how to manage these dependencies.
+>>
+>> Now, looking at init/main.c, I've realized that core_initcall() level comes
+>> before arch_initcall() level...
+>>
+>> If managed by fw_devlink, the feature-domains property should be supported
+>> as well I suppose? I'm not sure how to handle this properly. I'd welcome
+>> your suggestion.
+> 
+> DT parent/child child dependencies are already handled which might be
+> enough for you. Otherwise, adding a new provider/consumer binding is a
+> couple of lines to add the property names. See drivers/of/property.c.
+> 
 
+Ok, I'll try with a modification of drivers/of/property.c as the
+parent/child dependency won't be enough. Thanks for pointing this out.
+
+>>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>>> ---
+>>>>    MAINTAINERS                               |   5 +
+>>>>    arch/arm64/Kconfig.platforms              |   1 +
+>>>>    drivers/bus/Kconfig                       |  10 +
+>>>>    drivers/bus/Makefile                      |   1 +
+>>>>    drivers/bus/stm32_firewall.c              | 252 ++++++++++++++++++++++
+>>>>    drivers/bus/stm32_firewall.h              |  83 +++++++
+>>>
+>>> Why something stm32 specific? We know there are multiple platforms
+>>> wanting something in this area. Wasn't the last attempt common?
+>>>
+>>> For a common binding, I'm not eager to accept anything new with only 1
+>>> user.
+>>>
+>>
+>> Last attempt was common for the feature-domain bindings. The system-bus
+>> driver was ST-specific. I don't know if other platforms needs this kind
+>> of framework. Are you suggesting that this framework should be generic? Or
+>> that this framework should have a st-specific property?
+> 
+> Ah right, the posting for SCMI device permissions was the binding only.
+> The binding should be generic and support more than 1 user. That somewhat
+> implies a generic framework, but not necessarily.
+> 
+>> I've oriented this firewall framework to serve ST purpose. There may be a
+>> need for other platforms but I'm not sure that this framework serves them
+>> well. One can argue that it is quite minimalist and covers basic purposes of
+>> a hardware firewall but I would need more feedback from other vendors to
+>> submit it as a generic one.
+> 
+> We already know there are at least 2 users. Why would we make the 2nd
+> user refactor your driver into a common framework?
+> 
+> [...]
+> 
+
+If one thinks this framework is generic enough so it can be of use for
+them, so yes, I can submit it as a common framework. I'm not that sure
+Oleksii finds a use case with it. He seemed interested by the bindings.
+Maybe I'm wrong Oleksii?
+
+For V2, I'd rather submit it again as an ST-specific framework again to
+address the generic comments. This way, other people have time to
+manifest themselves.
+
+>>>> +int stm32_firewall_get_firewall(struct device_node *np,
+>>>> +				struct stm32_firewall *firewall)
+>>>> +{
+>>>> +	struct stm32_firewall_controller *ctrl;
+>>>> +	struct of_phandle_args args;
+>>>> +	u32 controller_phandle;
+>>>> +	bool match = false;
+>>>> +	size_t i;
+>>>> +	int err;
+>>>> +
+>>>> +	if (!firewall)
+>>>> +		return -EINVAL;
+>>>> +
+>>>> +	/* The controller phandle is always the first argument of the feature-domains property. */
+>>>> +	err = of_property_read_u32(np, "feature-domains", &controller_phandle);
+>>>
+>>> Why do you need to parse the property twice?
+>>>
+>>
+>> The first parsing is to have the first argument, which is the controller
+>> phandle. The second parsing is here to get the firewall arguments based on
+>> the number of arguments defined by #feature-domain-cells. Maybe using
+>> of_property_read_u32_array() would be better.
+> 
+> No. It's not a u32 array. It's a phandle+args property, so you should
+> only use phandle+args APIs.
+> 
+>> I did not want to close the
+>> door for supporting several feature domain controllers, hence multiple
+>> phandles. of_parse_phandle_with_args() seemed fine for this purpose but the
+>> phandle is parsed out.
+> 
+> There's an iterator for handling multiple phandle+args cases.
+> 
+> Rob
+
+Ok, will look into that for V2.
+
+Best regards,
+Gatien

@@ -2,103 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF84775186B
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 07:59:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67B30751882
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 08:02:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19D05207;
-	Thu, 13 Jul 2023 07:58:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19D05207
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23B57206;
+	Thu, 13 Jul 2023 08:01:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23B57206
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689227951;
-	bh=Yfk5GrGSx45l0NkpI1xB0hTlF8R/6HDNT7BlbhFy87w=;
+	s=default; t=1689228162;
+	bh=QrJzctHjr52ewn8DgZeDoQGFFw04fkKjsT8aGC0mdN0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=lSAfOSBdpwgun70Eyz5DKzcv8QYKYtkm/CPTgtDizE3oD/GCFSc0Gl3tkIBldGihC
-	 wUCqTGLOpKEtFNkAocbyi/6S6ktrMb+BTCcUSKtqm0nxLBZRhZNtnWnf+YiKFShBP/
-	 VmOTjmlxf3lNgx846SkX5byWJ2gl2JZpPfb1vB5E=
+	b=pAFEMTdtVDeAHJW1kBEZxP+eq9RdrZ3cMgNpsBpThdVVtZripVZPdq2Mu0J46H6UO
+	 T7+En9EM5eAngfdkiPfIQQYdop3nqonL9KdFZyYM2ouxXUzqeN0pQbZ7DC78it36RM
+	 LzY/bpHNsj7B1VyIoKpHoJReFyjUPnBf5k1BUkPU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 25B1DF80236; Thu, 13 Jul 2023 07:58:19 +0200 (CEST)
+	id 94E9EF80236; Thu, 13 Jul 2023 08:01:51 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF3F9F80236;
-	Thu, 13 Jul 2023 07:58:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43818F80236;
+	Thu, 13 Jul 2023 08:01:51 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 1C2C0F80249; Thu, 13 Jul 2023 07:55:43 +0200 (CEST)
+	id 53E9BF8047D; Thu, 13 Jul 2023 07:58:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [IPv6:2001:67c:2178:6::1d])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id CD983F800E4
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 07:55:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD983F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 10F59F80249
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 07:58:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10F59F80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (1024-bit key,
  unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
- header.s=susede2_rsa header.b=D4BP4jZt;
+ header.s=susede2_rsa header.b=cWqfmokH;
 	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
- header.s=susede2_ed25519 header.b=eBLzMc3y
+ header.s=susede2_ed25519 header.b=G0p+Fr7T
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0690D1F890;
-	Thu, 13 Jul 2023 05:55:32 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CEB6322202;
+	Thu, 13 Jul 2023 05:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_rsa;
-	t=1689227732;
+	t=1689227933;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=44Cte4Bfaki0rckA2m0rHSl6HfdirCtiZyySZBp0bbw=;
-	b=D4BP4jZtmHE6fOCLqgk7MR7R9PXnsfO5EMa16pHWhToNdSNX6TzaACKyrGJJC1KLGI8U3i
-	Qre6svrkMFNbgdsk9bi9iOzmCjO1GHCWS8ZQZLAKxgoOCircffnTBr+HXP2kg8ETTP1+1x
-	hLuDitgJPbxxFFjzJdHkFLAyjm1ElG0=
+	bh=zLYPwx4k+u0j2PCQTxuBOZi/DbVGMAN0ij5roSZCatc=;
+	b=cWqfmokH9wResauwnHCMwq9P3i9HOBR6WwSxGwHi9PNjQ6guogs2VW+SnvG4UWAibY/F52
+	GndmkLO51w+ru0rSf7ey658Jx3MqpfBDP63YUebof5Zg17Y0cTelGYieUzwmV1wwM8dkkc
+	10pV6YTNM6cIPPhY1f12BGGRBBgnUvA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1689227732;
+	s=susede2_ed25519; t=1689227933;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=44Cte4Bfaki0rckA2m0rHSl6HfdirCtiZyySZBp0bbw=;
-	b=eBLzMc3yk7+4GlC3aXXFSfYyNysvwPY4BLyt931utPwXmqwatrGGKIbpC+v7y2zuqu+Pae
-	8OI/fQIZdRLmL+BA==
+	bh=zLYPwx4k+u0j2PCQTxuBOZi/DbVGMAN0ij5roSZCatc=;
+	b=G0p+Fr7TeW7Z4KZ5Gb2M1cTv9Se0RMqezEtd96qz2fH1DdsH8Tz6FAS/jB2hP8n2eO/9pH
+	nATTbMXyMVaErtAw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
  [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
 	(No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D2E161390D;
-	Thu, 13 Jul 2023 05:55:31 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89FB51390D;
+	Thu, 13 Jul 2023 05:58:53 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
 	by imap2.suse-dmz.suse.de with ESMTPSA
-	id TjhzMtORr2TtMwAAMHmgww
-	(envelope-from <tiwai@suse.de>); Thu, 13 Jul 2023 05:55:31 +0000
-Date: Thu, 13 Jul 2023 07:55:31 +0200
-Message-ID: <875y6ogxt8.wl-tiwai@suse.de>
+	id jle5IJ2Sr2RDNQAAMHmgww
+	(envelope-from <tiwai@suse.de>); Thu, 13 Jul 2023 05:58:53 +0000
+Date: Thu, 13 Jul 2023 07:58:53 +0200
+Message-ID: <874jm8gxnm.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 Cc: alsa-devel@alsa-project.org,
 	Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH 2/3] ALSA: emu10k1: remove superfluous IRQ enable state
- saving
-In-Reply-To: <20230712145750.125086-2-oswald.buddenhagen@gmx.de>
+Subject: Re: [PATCH 1/3] ALSA: emu10k1: fix return value of
+ snd_emu1010_adc_pads_put()
+In-Reply-To: <20230712145750.125086-1-oswald.buddenhagen@gmx.de>
 References: <20230712145750.125086-1-oswald.buddenhagen@gmx.de>
-	<20230712145750.125086-2-oswald.buddenhagen@gmx.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Message-ID-Hash: 6I7LUFFI53RF2LKGOKH7KOFJMG6RB25R
-X-Message-ID-Hash: 6I7LUFFI53RF2LKGOKH7KOFJMG6RB25R
+Message-ID-Hash: 2O7UOONQ5UKQDGK5HKNU5MDGFQDS5UMO
+X-Message-ID-Hash: 2O7UOONQ5UKQDGK5HKNU5MDGFQDS5UMO
 X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -111,7 +109,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6I7LUFFI53RF2LKGOKH7KOFJMG6RB25R/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/2O7UOONQ5UKQDGK5HKNU5MDGFQDS5UMO/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -120,29 +118,14 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Wed, 12 Jul 2023 16:57:49 +0200,
+On Wed, 12 Jul 2023 16:57:48 +0200,
 Oswald Buddenhagen wrote:
 > 
-> The mixer, PCM prepare, MIDI, synth driver, and procfs callbacks are all
-> always invoked with IRQs enabled, so there is no point in saving the
-> state.
-> 
-> snd_emu1010_load_firmware_entry() is called from emu1010_firmware_work()
-> and snd_emu10k1_emu1010_init(); the latter from snd_emu10k1_create() and
-> snd_emu10k1_resume(), all of which have IRQs enabled.
-> 
-> The voice and memory functions are called from mixed contexts, so they
-> keep the state saving.
-> 
-> The low-level functions all keep the state saving, because it's not
-> feasible to keep track of what is called where.
+> It returned zero even if the value had changed.
 > 
 > Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-Wouldn't it make more sense if you replace it with a mutex?
-It'll become more obvious that it's only for non-IRQ context, too.
+Applied this one.  Thanks.
 
-
-thanks,
 
 Takashi

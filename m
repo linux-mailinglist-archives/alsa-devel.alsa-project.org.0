@@ -2,122 +2,114 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 778D1751ACD
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 10:07:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F778751ACE
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 10:08:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01CFC206;
-	Thu, 13 Jul 2023 10:06:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01CFC206
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7ED0207;
+	Thu, 13 Jul 2023 10:07:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7ED0207
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689235661;
-	bh=2RzZG6Nv+sO9UFGkgxxKoYdWkr44mmFz4/z3jptgZVI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=Nhk/oc6AtQTeX7scxSDx+gfNhESnfNz3gcuBP0q20qCUquvFkZR2Am2tbRGg4utSn
-	 oAJ0qhJz0+9L0LM/KzWVQeLlW76P74fsvqai5YRgS7iHixa9pw36XKBa+nRH4NrfBT
-	 n7Pv8X0wRDZqHSdaob4pJLjL/zijJPQkKzSyN0LI=
+	s=default; t=1689235689;
+	bh=u8/1Ke69uTiV1kx6vnwfL57G/ak/cvE+6M63Jr4+byY=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=E6o7dTu8T8qpYR2+edf5mqAbua8RHtgpGJ/UUeCFxzIm++1DyOylTTqSfW9Ju/io1
+	 cSBo6teIkCaFsoJQbc5egCW7yWxQ1Oyk98atLGQANdV4i1LZRoS89/DUSQjfhg9yoz
+	 j8a9Z34ENGu26vZRtQk1jIwGtwZBFxK5oNgTqp1M=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 15EBAF8024E; Thu, 13 Jul 2023 10:06:27 +0200 (CEST)
+	id 36417F80558; Thu, 13 Jul 2023 10:06:29 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 448DCF800E4;
-	Thu, 13 Jul 2023 10:06:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B77E8F800E4;
+	Thu, 13 Jul 2023 10:06:28 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7B9F7F80249; Thu, 13 Jul 2023 09:48:36 +0200 (CEST)
+	id B6757F8024E; Thu, 13 Jul 2023 10:00:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
-	version=3.4.6
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [IPv6:2a00:1450:4864:20::630])
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [IPv6:2a00:1450:4864:20::12b])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 8F54BF80153
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 09:48:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F54BF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 143E3F80153
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 10:00:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 143E3F80153
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=r86uCzU4
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-98e1fc9d130so13907766b.0
+ header.s=20221208 header.b=ZPCjuNgz
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-4fb7bbbfa95so133173e87.0
         for <alsa-devel@alsa-project.org>;
- Thu, 13 Jul 2023 00:48:30 -0700 (PDT)
+ Thu, 13 Jul 2023 01:00:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689234507; x=1691826507;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ndfusz0Ew/9H13cssvGl1gKVP/EEjfBAeT0WImx1s0A=;
-        b=r86uCzU4iB9lwWfEiS3ussRwFswjnDBQ/4gqjlxMOjWzH0Qb0gutW0d7sO2ZClx3MH
-         Nkp/hMES+SBk6ONcS1O+oiwR0ZN+EzAamjTpQFa/bshMv7toMl/kUNL/z63avF85f4ME
-         O4o3FlENc8fFDD4ZG3sz9B5G76S8gxgZjFvrkZrmiovm5aSXG6XVi9sFOiUEs+MqD7ZJ
-         kqgVth3NRWPaw3H2HIBCCu6I5GWSylphAhgs+ocJ7yPS76THPgJPKR34X4iJ/E3x9cvG
-         N224oIuLyaf1+59M8Dh5tNjslYce4MXpAHz39f10gPtS7v8HuWfrVbUowBm5bIop0fX6
-         N0nA==
+        d=gmail.com; s=20221208; t=1689235205; x=1689840005;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=f23IFSdAOOx9PAA+0aLReuK2qCBP8wxWyzhLV70mA1Y=;
+        b=ZPCjuNgzjHKy2ukXiMpF5+1SaokuO4SFHcj6+qof6IjynhPZbDizhhjdWOE0RpuNPR
+         NhghNqr7XvvXoxL9KbOnd9NKm+a3waju4+jxeXmyICV7qkn5Hay6z5+3dHFDtwmG5flN
+         wLa4R3ocItGUmtWTw7j2PCiF9lzuxFIuJFRVCA54nmFogl5IGt51PPsNZWIxWOT/2Ggo
+         4jHKcLNDQxYzqViUb52biOOzzXZZyI5fkkUX2K9xc9xB166kLY/tJzbtDQzdWRStlF1m
+         t8qapuor1wm5GWV5FFM/bjDXG4tLmpmQoxzihdCdls6rnKiy0zyjSCvlxUp6FPnzpwIt
+         pouw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689234507; x=1691826507;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ndfusz0Ew/9H13cssvGl1gKVP/EEjfBAeT0WImx1s0A=;
-        b=E9vqx8Pnj3zaKYCwf4PbVUvx4DImoYaONSnHgyhE6bCKswPB96mcwGSMPHw5IJwpiT
-         uuV01o49TdWBnlorZ9MpaIls9HlhV+ZXqfKgKKqklLxqjZF6FN7KPXD+HNj2ex00H2bd
-         p/xA/oIMhWPzqjngHsEcvwOaAGYsmal7d3up+qxxya9oTf7PWA8cDScW9GJqt3T8G/8Q
-         U9sDsUmJ2LPc6O2TdSztzrBPqojvnZ/NailkZDHbhjIBfBk1CEJoMQJugCtTKko08ikX
-         GoNZKmjNiKTPG5awhfIed7RVkwCTlrHD3IysgNkVWsxiZ31Eg9OdGQrU+BVSGXdeLYBH
-         DzCg==
-X-Gm-Message-State: ABy/qLbArvWRjQuTxCCBhjmbgJnJ3kQN2JFonmh/cL7+Z6ItkXmGpM6t
-	i0+QKjuYr5DyO+zeh+aoo/M=
+        d=1e100.net; s=20221208; t=1689235205; x=1689840005;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=f23IFSdAOOx9PAA+0aLReuK2qCBP8wxWyzhLV70mA1Y=;
+        b=g1Dgi9wSw+Fk4p9/ZLwtG1V2i/DZA/z/WhdM+rmJg3Dgua5TwSVTKVfcr3gBHjKhmb
+         qIx+xw81B19wjH2iRfYPmAGohrO8IhRefMBUr3smuvqlgcZmcUR+0EV79CFINhj4QXfH
+         dHqG1nEaue6JGxH8JSxpsvYLr0Q+L7SefVXC9+IKkPcP5m7ru7tEIKB9Rllqp5X9QB/f
+         MUSlyAkNvwCHr/yU51gYjjfXR4e6Fr2mVT9Eci5gAWu0QARWN9/F4cy/DRkvG4XUNVm7
+         3fPzwQhheg4hFDnRwH8P9+Nv9BLnt5kkXjfYa4IhYKwa80w/Az0rAZOnGflC4XUJoQiT
+         QZpQ==
+X-Gm-Message-State: ABy/qLYnfNZCdqZ8OdDZKCmp+nUouk2/Ndk0A13Wea1W2EvpFieIr63m
+	lip7yXrP+oEMpiL0Nzuaq7I=
 X-Google-Smtp-Source: 
- APBJJlEs0yP+8wV22mQSkfnFKKtblVhfWleoA3i5vfhb5PjHGzu5pzzz4JLYc7xq8e4txGbm5yHuPw==
-X-Received: by 2002:a17:906:738c:b0:993:eed1:8f0 with SMTP id
- f12-20020a170906738c00b00993eed108f0mr589227ejl.3.1689234507219;
-        Thu, 13 Jul 2023 00:48:27 -0700 (PDT)
-Received: from [10.10.19.213] ([178.160.196.94])
+ APBJJlGtg3kc9cR2gS2y8xggbKx8I5ncgNvVW0HhONStlpTat/Dts17uh0AzUS7JnmEXKghRuez/yw==
+X-Received: by 2002:ac2:53ad:0:b0:4fa:73ea:aa2d with SMTP id
+ j13-20020ac253ad000000b004fa73eaaa2dmr487312lfh.4.1689235204577;
+        Thu, 13 Jul 2023 01:00:04 -0700 (PDT)
+Received: from ivan-HLYL-WXX9.. ([178.160.196.94])
         by smtp.gmail.com with ESMTPSA id
- b21-20020a1709065e5500b009934855d8f1sm3607892eju.34.2023.07.13.00.48.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Jul 2023 00:48:27 -0700 (PDT)
-Message-ID: <07697618-de3b-a27a-4dfe-f9d99c42c219@gmail.com>
-Date: Thu, 13 Jul 2023 11:48:14 +0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] ALSA: pcmtest: Extend error injection, decrease buffer
- filling overhead
-Content-Language: en-US
-To: Takashi Iwai <tiwai@suse.de>
-Cc: perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20230712191325.8791-1-ivan.orlov0322@gmail.com>
- <87351sgxgr.wl-tiwai@suse.de>
+ q8-20020ac25288000000b004fb8c0f247fsm1011385lfm.129.2023.07.13.01.00.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Jul 2023 01:00:04 -0700 (PDT)
 From: Ivan Orlov <ivan.orlov0322@gmail.com>
-In-Reply-To: <87351sgxgr.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] ALSA: pcmtest: Add 'open' PCM callback error injection
+Date: Thu, 13 Jul 2023 11:59:52 +0400
+Message-Id: <20230713075953.13692-1-ivan.orlov0322@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-MailFrom: ivan.orlov0322@gmail.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: DTXZQNUK7GNULLLUVC2QRIDRR32VRIB6
-X-Message-ID-Hash: DTXZQNUK7GNULLLUVC2QRIDRR32VRIB6
+Message-ID-Hash: SUI3LVY447PK6K3QFBMHK5WRCGMDPHLN
+X-Message-ID-Hash: SUI3LVY447PK6K3QFBMHK5WRCGMDPHLN
 X-Mailman-Approved-At: Thu, 13 Jul 2023 08:06:23 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/DTXZQNUK7GNULLLUVC2QRIDRR32VRIB6/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/SUI3LVY447PK6K3QFBMHK5WRCGMDPHLN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -126,40 +118,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 7/13/23 10:03, Takashi Iwai wrote:
-> On Wed, 12 Jul 2023 21:13:25 +0200,
-> Ivan Orlov wrote:
->>
->> Extend 'pcmtest' virtual driver with 'open' callback error injection
->> functionality, as it already can inject errors into other PCM callbacks.
->>
->> Fix the driver to use already defined variables where it is possible.
->>
->> Additionally, decrease the buffer filling overhead with conditional
->> reminder calculation in the 'inc_buf_pos' inline function.
->>
->> Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
-> 
-> Please avoid mixing different changes in a single patch.
-> 
-> This patch does three completely different things, and they should be
-> split.
-> 
-> - New inject_open_err parameter
-> - Optimization of inc_buf_pos()
-> - Optimization of check_buf_block_ni() and fill_block_pattern_n()
-> 
-> The latter two could be put in a single patch as minor optimizations,
-> but the introduction of a new option doesn't fit with the rest.
-> 
-> 
-> thanks,
-> 
-> Takashi
+Extend 'pcmtest' virtual driver with 'open' callback error injection
+functionality, as it already can inject errors into other PCM callbacks.
+Add module parameter which enables EBUSY error injection in the 'open'
+PCM callback.
 
-Hi Takashi,
+Signed-off-by: Ivan Orlov <ivan.orlov0322@gmail.com>
+---
+V1 -> V2:
+- Split changes in the patch into two different patches
 
-Thank you for the review. I'll split the patch and send the changes again.
+ sound/drivers/pcmtest.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Kind regards,
-Ivan Orlov
+diff --git a/sound/drivers/pcmtest.c b/sound/drivers/pcmtest.c
+index 291e7fe47893..e74c523e49eb 100644
+--- a/sound/drivers/pcmtest.c
++++ b/sound/drivers/pcmtest.c
+@@ -65,6 +65,7 @@ static int inject_delay;
+ static bool inject_hwpars_err;
+ static bool inject_prepare_err;
+ static bool inject_trigger_err;
++static bool inject_open_err;
+ 
+ static short fill_mode = FILL_MODE_PAT;
+ 
+@@ -88,6 +89,9 @@ module_param(inject_prepare_err, bool, 0600);
+ MODULE_PARM_DESC(inject_prepare_err, "Inject EINVAL error in the 'prepare' callback");
+ module_param(inject_trigger_err, bool, 0600);
+ MODULE_PARM_DESC(inject_trigger_err, "Inject EINVAL error in the 'trigger' callback");
++module_param(inject_open_err, bool, 0600);
++MODULE_PARM_DESC(inject_open_err, "Inject EBUSY error in the 'open' callback");
++
+ 
+ struct pcmtst {
+ 	struct snd_pcm *pcm;
+@@ -364,6 +368,9 @@ static int snd_pcmtst_pcm_open(struct snd_pcm_substream *substream)
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct pcmtst_buf_iter *v_iter;
+ 
++	if (inject_open_err)
++		return -EBUSY;
++
+ 	v_iter = kzalloc(sizeof(*v_iter), GFP_KERNEL);
+ 	if (!v_iter)
+ 		return -ENOMEM;
+-- 
+2.34.1
+

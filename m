@@ -2,135 +2,115 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1607875247A
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 15:59:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58153752669
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 17:15:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4A90A4B;
-	Thu, 13 Jul 2023 15:58:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4A90A4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 73363A4A;
+	Thu, 13 Jul 2023 17:14:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73363A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689256763;
-	bh=47TTHbAdCYgeAgxoaIbpYvzsBCkGABn7ZB5oqimqvZk=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=dep9vVrr4EiHkfXsSaonj5hP2Wg/39v9wdI/vx4Lg2/7TYb4DmnG7m5BRo/o2Ch81
-	 zV658+Go5GYy0WgEzDflVnve9ijmsNZkuD2Tk8BeAG7XkDdXSl65SBJvv8mBnlteqe
-	 a/rBaN9G6GzDhqWZLK+z83INupDFjhXjXsRJ3V6M=
+	s=default; t=1689261334;
+	bh=V7SDpIwueeOJXXRkfTlB8mqziBQA4THD2G6R8bWOVeM=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=JgwOvJwrGrDv00saA1EFcuDqgxkjPI3q5Of90JuBlSfVkMxGOwm+XV8JPeWbT+Cfo
+	 R7LIHPPh3fXZmmVHmDD+imvl2HDkweHI3oYjasTc53gw3DnbQ5/ZdyRaMiTgJLWFY+
+	 bQOVysEAKKEWfrnyi4eIlf39/hhWGsFPFHJ/9ylA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 6134AF8053B; Thu, 13 Jul 2023 15:58:32 +0200 (CEST)
+	id 58401F80535; Thu, 13 Jul 2023 17:14:43 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1AF51F80236;
-	Thu, 13 Jul 2023 15:58:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4859F80236;
+	Thu, 13 Jul 2023 17:14:42 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 90DAAF80249; Thu, 13 Jul 2023 15:58:28 +0200 (CEST)
+	id 2D1F3F80249; Thu, 13 Jul 2023 11:53:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,NICE_REPLY_A,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C3164F800E4
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 15:58:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3164F800E4
+	by alsa1.perex.cz (Postfix) with ESMTPS id 74C1DF80153
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 11:53:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74C1DF80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256
- header.s=selector1 header.b=SfPoPLnn
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
-	by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36DDG3DB009960;
-	Thu, 13 Jul 2023 15:58:16 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=jScQfB7dHrSC/WSmDV+VXYQZhrTRCDcVOleEzuAMkbE=;
- b=SfPoPLnnS6bLH20C2mmzuSXgd6/LCZxaRC927PE4Mq989cPc8vsuiDIrNcox0JeecTgk
- vPSy+TZQ0MWOr5EnYuFBdJ4IeZx8ly3L7dJBVxGjU8klO2sMHXDNayHV0IEhjmSJsuCp
- iGud6dnNZMDNTsd/DkUniBS2IpTUNWOe4vjqh2vsQwrqhmWN8E7LzuSEP4zI2yQiwW3+
- zBpv9EiLZwUwirVLGu0eG1qtyzqzjsy3ii1suiVs0vmb/OiOXk2oEMI3chtxRqniHYa3
- X9F+QSqs4L8qMuMBivzwcYURTgZbAwRpZYfPZh60JsRQFYr2leCnOExEUKEI2GdCBMLi ZA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
-	by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rtedthy7f-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 13 Jul 2023 15:58:16 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
-	by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4F4DC100056;
-	Thu, 13 Jul 2023 15:58:14 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
-	by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E240A21A21E;
-	Thu, 13 Jul 2023 15:58:14 +0200 (CEST)
-Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 13 Jul
- 2023 15:58:12 +0200
-Message-ID: <ba409196-06a1-bf2b-3536-1e1420550ff4@foss.st.com>
-Date: Thu, 13 Jul 2023 15:58:12 +0200
+	dkim=pass (1024-bit key,
+ unprotected) header.d=streamunlimited.com header.i=@streamunlimited.com
+ header.a=rsa-sha256 header.s=google header.b=xyHCc+a/
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3142a9ffa89so676552f8f.0
+        for <alsa-devel@alsa-project.org>;
+ Thu, 13 Jul 2023 02:53:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=streamunlimited.com; s=google; t=1689241998; x=1691833998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LPqBHwbjNM+xoM+NHlMenvzhZG8Km0jadyqZX+XYIaI=;
+        b=xyHCc+a/9Ay9QUMg/ti18Teyz1YDlkma1brdD/5tCneK+zBr7RWvV9iYJvA3kIo729
+         cRFl0g3AxqJFmVR6gFcMTIoyPWN46XGmSyJ2loXuywmlQHQOm8yQoS5ivn1XDEWVpxwq
+         nYsBPgLRiSaA1sapaVk9T5BQDmKkAtiuEmVrM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689241998; x=1691833998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LPqBHwbjNM+xoM+NHlMenvzhZG8Km0jadyqZX+XYIaI=;
+        b=i9MfObLWS7/ZjwtHKJhkItuJV+Ps+u3vSGNUzW7pkIHi8tkIGSqCrtrIAJVsXFLVqQ
+         1Z98dD5U1qSBcQFSC2iGGNfTgo94OnSlBSPnqUeOwcSIfi9OwVnOJPeNt/16kobNmInO
+         ZePxFXEa7VYy129ch2p4BLSp50HVn3wJx/218y70P8TTeHiIWqe+DCB7xQwvOnn8TOHy
+         cfG4AU3C7Zpz0+l6owJRhKemsQj3CLy83kSeCXzXtd6Ao2iL6kVo4924FSm+TCpoE/Uw
+         qXKAlxq+qORTOQ2lb4afj56AbvcPhl1YV0CxHp3rKLH2C4C2jquG61nlfxNDwNhBXcdl
+         KYjQ==
+X-Gm-Message-State: ABy/qLYsK1lFBfBNI8GOCqGTk35LvYDV+SC0cfqCerONLufjy42DVr7L
+	lMW85lI77aABVLI7o0AJHkrBJQ==
+X-Google-Smtp-Source: 
+ APBJJlHDC754TqcSXUGOL4NL4luC6Yj1LmPPfypP9S0FYc6rjykqiOqSBSAptcJzNQ9PfyZ31y8Yew==
+X-Received: by 2002:adf:cd87:0:b0:313:fa0f:3a05 with SMTP id
+ q7-20020adfcd87000000b00313fa0f3a05mr1081570wrj.14.1689241998235;
+        Thu, 13 Jul 2023 02:53:18 -0700 (PDT)
+Received: from localhost.localdomain (vpn.streamunlimited.com. [91.114.0.140])
+        by smtp.gmail.com with ESMTPSA id
+ t12-20020a5d6a4c000000b00314329f7d8asm7439711wrw.29.2023.07.13.02.53.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Jul 2023 02:53:17 -0700 (PDT)
+From: Peter Suti <peter.suti@streamunlimited.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: pierre-louis.bossart@linux.intel.com,
+	Peter Suti <peter.suti@streamunlimited.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] ASoC: soc-dai: don't call PCM audio ops if the stream is
+ not supported
+Date: Thu, 13 Jul 2023 11:52:58 +0200
+Message-Id: <20230713095258.3393827-1-peter.suti@streamunlimited.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH 05/10] firewall: introduce stm32_firewall framework
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-CC: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
-        <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
-        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
-        <alexandre.torgue@foss.st.com>, <vkoul@kernel.org>,
- <jic23@kernel.org>,
-        <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
-        <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
-        <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
-        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-        <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
-        <catalin.marinas@arm.com>, <arnd@kernel.org>,
-        <richardcochran@gmail.com>, <linux-crypto@vger.kernel.org>,
-        <devicetree@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>,
-        <dmaengine@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
-        <linux-iio@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-        <linux-media@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
-        <netdev@vger.kernel.org>, <linux-phy@lists.infradead.org>,
-        <linux-serial@vger.kernel.org>, <linux-spi@vger.kernel.org>,
-        <linux-usb@vger.kernel.org>, Peng Fan <peng.fan@oss.nxp.com>
-References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
- <20230705172759.1610753-6-gatien.chevallier@foss.st.com>
- <20230706150906.GB3858320-robh@kernel.org>
- <d13f935c-568b-3c0d-8e7d-006b7d4e7d50@foss.st.com>
- <20230707150724.GA112541-robh@kernel.org>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <20230707150724.GA112541-robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.201.21.121]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-13_05,2023-07-13_01,2023-05-22_02
-Message-ID-Hash: AFAUAAW622IPKKUAVUTK3TVAFKLNCH5Q
-X-Message-ID-Hash: AFAUAAW622IPKKUAVUTK3TVAFKLNCH5Q
-X-MailFrom: prvs=55581c6632=gatien.chevallier@foss.st.com
+Content-Transfer-Encoding: 8bit
+X-MailFrom: peter.suti@streamunlimited.com
+X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
- header-match-alsa-devel.alsa-project.org-1; nonmember-moderation;
- administrivia; implicit-dest; max-recipients; max-size; news-moderation;
- no-subject; digests; suspicious-header
+ header-match-alsa-devel.alsa-project.org-1
+Message-ID-Hash: CBCTVRRB4KXKLGIUCTH4Q3W4UVHLRUAT
+X-Message-ID-Hash: CBCTVRRB4KXKLGIUCTH4Q3W4UVHLRUAT
+X-Mailman-Approved-At: Thu, 13 Jul 2023 15:14:39 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/AFAUAAW622IPKKUAVUTK3TVAFKLNCH5Q/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CBCTVRRB4KXKLGIUCTH4Q3W4UVHLRUAT/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -139,167 +119,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Hello Rob,
+PCM audio ops may be called when the stream is not supported.
+We should not call the ops in that case to avoid unexpected behavior.
 
-On 7/7/23 17:07, Rob Herring wrote:
-> On Fri, Jul 07, 2023 at 03:43:15PM +0200, Gatien CHEVALLIER wrote:
->>
->>
->> On 7/6/23 17:09, Rob Herring wrote:
->>> On Wed, Jul 05, 2023 at 07:27:54PM +0200, Gatien Chevallier wrote:
->>>> Introduce a firewall framework that offers to firewall consumers different
->>>> firewall services such as the ability to check their access rights against
->>>> their firewall controller(s).
->>>>
->>>> The firewall framework offers a generic API that is defined in firewall
->>>> controllers drivers to best fit the specificity of each firewall.
->>>>
->>>> There are various types of firewalls:
->>>> -Peripheral firewalls that filter accesses to peripherals
->>>> -Memory firewalls that filter accesses to memories or memory regions
->>>> -Resource firewalls that filter accesses to internal resources such as
->>>> reset and clock controllers
->>>
->>> How do resource firewalls work? Access to registers for some clocks in a
->>> clock controller are disabled? Or something gates off clocks/resets to
->>> a block?
->>
->> To take a practical example:
->>
->> A clock controller can be firewall-aware and have its own firewall registers
->> to configure. To access a clock/reset that is handled this way, a device
->> would need to check this "resource firewall". I thought that for these kinds
->> of hardware blocks, having a common API would help.
-> 
-> We already have the concept of 'protected clocks' which are ones
-> controlled by secure mode which limits what Linux can do with them. I
-> think you should extend this mechanism if needed and use the existing
-> clock/reset APIs for managing resources.
-> 
+hw_params is handled already in soc-pcm.c
 
-Ok, thank you for the input. I'll remove this type of firewall for V2 as
-I no longer have a use case.
+[0] https://lore.kernel.org/alsa-devel/ae06b00a-f3f7-f9d1-0b58-4d71f3394416@linux.intel.com/T/#t
 
->>>
->>> It might make more sense for "resource" accesses to be managed within
->>> those resource APIs (i.e. the clock and reset frameworks) and leave this
->>> framework to bus accesses.
->>>
->>
->> Okay, I'll drop this for V2 if you find that the above explaination do not
->> justify this.
->>
->>>> A firewall controller must be probed at arch_initcall level and register
->>>> to the framework so that consumers can use their services.
->>>
->>> initcall ordering hacks should not be needed. We have both deferred
->>> probe and fw_devlinks to avoid that problem.
->>>
->>
->> Greg also doubts this.
->>
->> Drivers like reset/clock controllers drivers (core_initcall level) will have
->> a dependency on the firewall controllers in order to initialize their
->> resources. I was not sure how to manage these dependencies.
->>
->> Now, looking at init/main.c, I've realized that core_initcall() level comes
->> before arch_initcall() level...
->>
->> If managed by fw_devlink, the feature-domains property should be supported
->> as well I suppose? I'm not sure how to handle this properly. I'd welcome
->> your suggestion.
-> 
-> DT parent/child child dependencies are already handled which might be
-> enough for you. Otherwise, adding a new provider/consumer binding is a
-> couple of lines to add the property names. See drivers/of/property.c.
-> 
+Signed-off-by: Peter Suti <peter.suti@streamunlimited.com>
+---
+Tested on 6.1 Compile tested on next/master
+ sound/soc/soc-dai.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Ok, I'll try with a modification of drivers/of/property.c as the
-parent/child dependency won't be enough. Thanks for pointing this out.
+diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+index 02dd64dea179..73a97ac6ccb8 100644
+--- a/sound/soc/soc-dai.c
++++ b/sound/soc/soc-dai.c
+@@ -424,6 +424,9 @@ int snd_soc_dai_startup(struct snd_soc_dai *dai,
+ {
+ 	int ret = 0;
+ 
++	if (!snd_soc_dai_stream_valid(dai, substream->stream))
++		return 0;
++
+ 	if (dai->driver->ops &&
+ 	    dai->driver->ops->startup)
+ 		ret = dai->driver->ops->startup(substream, dai);
+@@ -439,6 +442,9 @@ void snd_soc_dai_shutdown(struct snd_soc_dai *dai,
+ 			  struct snd_pcm_substream *substream,
+ 			  int rollback)
+ {
++	if (!snd_soc_dai_stream_valid(dai, substream->stream))
++		return;
++
+ 	if (rollback && !soc_dai_mark_match(dai, substream, startup))
+ 		return;
+ 
+@@ -603,6 +609,8 @@ int snd_soc_pcm_dai_prepare(struct snd_pcm_substream *substream)
+ 	int i, ret;
+ 
+ 	for_each_rtd_dais(rtd, i, dai) {
++		if (!snd_soc_dai_stream_valid(dai, substream->stream))
++			continue;
+ 		if (dai->driver->ops &&
+ 		    dai->driver->ops->prepare) {
+ 			ret = dai->driver->ops->prepare(substream, dai);
+@@ -619,6 +627,9 @@ static int soc_dai_trigger(struct snd_soc_dai *dai,
+ {
+ 	int ret = 0;
+ 
++	if (!snd_soc_dai_stream_valid(dai, substream->stream))
++		return 0;
++
+ 	if (dai->driver->ops &&
+ 	    dai->driver->ops->trigger)
+ 		ret = dai->driver->ops->trigger(substream, cmd, dai);
+-- 
+2.34.1
 
->>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->>>> ---
->>>>    MAINTAINERS                               |   5 +
->>>>    arch/arm64/Kconfig.platforms              |   1 +
->>>>    drivers/bus/Kconfig                       |  10 +
->>>>    drivers/bus/Makefile                      |   1 +
->>>>    drivers/bus/stm32_firewall.c              | 252 ++++++++++++++++++++++
->>>>    drivers/bus/stm32_firewall.h              |  83 +++++++
->>>
->>> Why something stm32 specific? We know there are multiple platforms
->>> wanting something in this area. Wasn't the last attempt common?
->>>
->>> For a common binding, I'm not eager to accept anything new with only 1
->>> user.
->>>
->>
->> Last attempt was common for the feature-domain bindings. The system-bus
->> driver was ST-specific. I don't know if other platforms needs this kind
->> of framework. Are you suggesting that this framework should be generic? Or
->> that this framework should have a st-specific property?
-> 
-> Ah right, the posting for SCMI device permissions was the binding only.
-> The binding should be generic and support more than 1 user. That somewhat
-> implies a generic framework, but not necessarily.
-> 
->> I've oriented this firewall framework to serve ST purpose. There may be a
->> need for other platforms but I'm not sure that this framework serves them
->> well. One can argue that it is quite minimalist and covers basic purposes of
->> a hardware firewall but I would need more feedback from other vendors to
->> submit it as a generic one.
-> 
-> We already know there are at least 2 users. Why would we make the 2nd
-> user refactor your driver into a common framework?
-> 
-> [...]
-> 
-
-If one thinks this framework is generic enough so it can be of use for
-them, so yes, I can submit it as a common framework. I'm not that sure
-Oleksii finds a use case with it. He seemed interested by the bindings.
-Maybe I'm wrong Oleksii?
-
-For V2, I'd rather submit it again as an ST-specific framework again to
-address the generic comments. This way, other people have time to
-manifest themselves.
-
->>>> +int stm32_firewall_get_firewall(struct device_node *np,
->>>> +				struct stm32_firewall *firewall)
->>>> +{
->>>> +	struct stm32_firewall_controller *ctrl;
->>>> +	struct of_phandle_args args;
->>>> +	u32 controller_phandle;
->>>> +	bool match = false;
->>>> +	size_t i;
->>>> +	int err;
->>>> +
->>>> +	if (!firewall)
->>>> +		return -EINVAL;
->>>> +
->>>> +	/* The controller phandle is always the first argument of the feature-domains property. */
->>>> +	err = of_property_read_u32(np, "feature-domains", &controller_phandle);
->>>
->>> Why do you need to parse the property twice?
->>>
->>
->> The first parsing is to have the first argument, which is the controller
->> phandle. The second parsing is here to get the firewall arguments based on
->> the number of arguments defined by #feature-domain-cells. Maybe using
->> of_property_read_u32_array() would be better.
-> 
-> No. It's not a u32 array. It's a phandle+args property, so you should
-> only use phandle+args APIs.
-> 
->> I did not want to close the
->> door for supporting several feature domain controllers, hence multiple
->> phandles. of_parse_phandle_with_args() seemed fine for this purpose but the
->> phandle is parsed out.
-> 
-> There's an iterator for handling multiple phandle+args cases.
-> 
-> Rob
-
-Ok, will look into that for V2.
-
-Best regards,
-Gatien

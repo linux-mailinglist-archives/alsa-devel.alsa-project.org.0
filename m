@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66BC975150F
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 02:17:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 507BD751510
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 02:17:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE94184B;
-	Thu, 13 Jul 2023 02:16:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE94184B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E1CAA4B;
+	Thu, 13 Jul 2023 02:16:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E1CAA4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689207427;
-	bh=NUAvKg7hEMEGB3PEXKsUJF06rptBcDzXIY6bIE6/I5E=;
+	s=default; t=1689207433;
+	bh=xcYzg6z0Vv0wEuoBCXIuRt3deUbwZ2sskYeGNAS0OMk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=oYWBWwYbjw+eyiTHnZa7GpveuWkwp7OkRxbcV0HSewInkBw/x4usq4+H2FebnAGEW
-	 ryy6g6xngfrSD/Pp2/QXTA+oChGtRGmeyJxbYpkTaJm2IK2khiJKkAZuC5fGlxhoL8
-	 SYeEgpljRyd+VfWbRwKN+d3XTn3kCzwM+8PeEgiA=
+	b=aX3mDbacOBXaQSZABRYt/98IdD5sAzwoxiaPX/cBoJK8KfcRjpnaGmZvQ8iQ6cbBS
+	 aYPhb+qgfQ/ni+slqSSmwd0pNwN2Xn/lPeCsXUnuqtFPqw8bTiBwWOuamqWGzbMO47
+	 5cY/eZnE1b2RZXwQjcNujdqdhOXbjYp43enXPHBU=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 78673F805B3; Thu, 13 Jul 2023 02:14:44 +0200 (CEST)
+	id 3CBFFF805C1; Thu, 13 Jul 2023 02:14:46 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id E622FF805AF;
-	Thu, 13 Jul 2023 02:14:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F819F805BD;
+	Thu, 13 Jul 2023 02:14:46 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 99599F80551; Thu, 13 Jul 2023 02:14:32 +0200 (CEST)
+	id B1393F80551; Thu, 13 Jul 2023 02:14:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
 	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id BF16CF8047D
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 02:14:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF16CF8047D
+	by alsa1.perex.cz (Postfix) with ESMTPS id 6DC78F80249
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 02:14:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC78F80249
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=c5YvbZgm
+ header.s=k20201202 header.b=VfgM0d7d
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 9197B619B0;
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 573DF619B0;
+	Thu, 13 Jul 2023 00:14:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C765C433CB;
 	Thu, 13 Jul 2023 00:14:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96796C433C9;
-	Thu, 13 Jul 2023 00:14:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689207267;
-	bh=NUAvKg7hEMEGB3PEXKsUJF06rptBcDzXIY6bIE6/I5E=;
+	s=k20201202; t=1689207269;
+	bh=xcYzg6z0Vv0wEuoBCXIuRt3deUbwZ2sskYeGNAS0OMk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=c5YvbZgmsx9luu/e29oTPzilVoyq4i56WCtWCBD4a786izd/zFxs2BsKa5wiBIRGX
-	 332Lb1GYu5+LliCtmVy5kbmcxYZtKJ1YDvTfdeWU/9fieiv202q6pmYdk0cp/urEeQ
-	 DjD8wI/ipi+5z2Srs2QenS5INH5cebNMU1uxqFqG4jhTophUPZp00HPC4VI2IYENYX
-	 58pNc34ZlRJkzqamOM7DaSbGXGXd3ucmBovsJtfzhUkmaVEBgFFEzxKKd6EorGGWuQ
-	 LoARsORH0hzmXIfKghDdWftC7Vhm7nRlbvGoap7yEulWuramo76JjMEFiNaW9/1Xzi
-	 3JdRkfTiJHMGw==
+	b=VfgM0d7dbvn4GRVjdxKuRRdIbtDcXEkt8eeU4vEcD1Vr+VC4Zm5//1AVhVz/BZO2Y
+	 OkQ5Oz+98EGl60eFTlt5X4U3R5y+XqJlNFfQgWXqA6ZuHjuFyAoJmWo39+NHjBbW8c
+	 30hZEVDafUOx/M+Y8eYGgGQt6+pr5VH6iX5uBxmAFLPGJs0z20yR8hSAOimmuBeJH/
+	 sQziweFsTs/wjzFXnYDkds+3rdv0Eqsw01S+XXelYzBxDY7dGIVEpkKtLgmFjoiI2I
+	 pJpge5xnPj9JuSuA0SVyj6EPLNZioGPm7pHJ5ul4XlRiMwOdRzMbm+s1cdfSsSoGGq
+	 1u+OxaB0/VlUA==
 From: Mark Brown <broonie@kernel.org>
-Date: Thu, 13 Jul 2023 01:13:18 +0100
-Subject: [PATCH 05/48] ASoC: cs42l51: Update to use maple tree register
+Date: Thu, 13 Jul 2023 01:13:19 +0100
+Subject: [PATCH 06/48] ASoC: cs4265: Update to use maple tree register
  cache
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230713-asoc-cirrus-maple-v1-5-a62651831735@kernel.org>
+Message-Id: <20230713-asoc-cirrus-maple-v1-6-a62651831735@kernel.org>
 References: <20230713-asoc-cirrus-maple-v1-0-a62651831735@kernel.org>
 In-Reply-To: <20230713-asoc-cirrus-maple-v1-0-a62651831735@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -80,19 +79,19 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
  asahi@lists.linux.dev, Mark Brown <broonie@kernel.org>
 X-Mailer: b4 0.13-dev-099c9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1091; i=broonie@kernel.org;
- h=from:subject:message-id; bh=NUAvKg7hEMEGB3PEXKsUJF06rptBcDzXIY6bIE6/I5E=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkr0GwFCVAM9ljNOsh7jyqUK9NyVqcpJcR7Z64Y
- 9dZCx6K1p6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZK9BsAAKCRAk1otyXVSH
- 0KXyB/4y17GRx/hTY6IA495wUOTMkyyrgzZDT4pd/9phUHrXu1h9tIP1wemwVNMGWJVlgqd8trx
- +R9cVgcIZr+9Wuz/Nw1l/k5s6FlJLgxfQRYlH7ikFPUaaYjFFWM6j4tHl72cVX6hvILmZqWc9pY
- MHYtsOX+XzWrosBt8oYe3h/lfFSFi7YNC1gScQPl/DGc5YngncxszVjWaSKWAG05uDVThL/1YHv
- zilnKxLaEWOKRfaBLruVmjK2pM93EjSLRYd2DE6DvmNdgAO/nnrpsyNy2nnBPdIAmwFk7G/kKaA
- bH1bgkEZSvMZdjQCuVIkwr7qpY7NJJnwrUVNwZIuEnVChprr
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1137; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=xcYzg6z0Vv0wEuoBCXIuRt3deUbwZ2sskYeGNAS0OMk=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBkr0GwcXN+fZ/ppjnwNpDPxNTnzVCh5pttcAyyz
+ tMUaaN2r4mJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCZK9BsAAKCRAk1otyXVSH
+ 0Bt2B/49dPzdvrwOLnkaMf0s+oaB2unZV5Tf2h+yNnT9QRh5S7L3woahvagDZs5IuEt4aIPd3Py
+ w/vy8u56xtX6hLL9CJTbGP8s1Z4qG8MjT4iPbBWyUyZGxDcdgM/dUkthxIJqpQ918tKcLe+kHNe
+ 8O9E3qI7T9BXpjEvwXMGSXN7uHF/mAjDq/4BZzwb21ONze9h1uvuqWIXgvVHR9MH6wckSBCMpZ/
+ 3qei7r7HR1Z4tU2u1zqcOYjssIJtuqrkYgz+1jxYuEthmJVyGm9eMWJBYXTAXHxvOCtmsSfNee5
+ bKSDipykOWKR+zNaRfgHsKsm4Ej7RsmEjZQoPVIs2eRjaJ4O
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Message-ID-Hash: H5P6IRL67MAMICYXRP55AGRACZAY6F6A
-X-Message-ID-Hash: H5P6IRL67MAMICYXRP55AGRACZAY6F6A
+Message-ID-Hash: QNCXWHDMFWB77N46ANKUIN7WWP34ITH5
+X-Message-ID-Hash: QNCXWHDMFWB77N46ANKUIN7WWP34ITH5
 X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -105,7 +104,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/H5P6IRL67MAMICYXRP55AGRACZAY6F6A/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QNCXWHDMFWB77N46ANKUIN7WWP34ITH5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -121,26 +120,26 @@ v6.5 it has also acquired the ability to generate multi-register writes in
 sync operations, bringing performance up to parity with the rbtree cache
 there.
 
-Update the cs42l51 driver to use the more modern data structure.
+Update the cs4265 driver to use the more modern data structure.
 
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/cs42l51.c | 2 +-
+ sound/soc/codecs/cs4265.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
-index a67cd3ee84e0..36066fac394f 100644
---- a/sound/soc/codecs/cs42l51.c
-+++ b/sound/soc/codecs/cs42l51.c
-@@ -703,7 +703,7 @@ const struct regmap_config cs42l51_regmap = {
- 	.volatile_reg = cs42l51_volatile_reg,
- 	.writeable_reg = cs42l51_writeable_reg,
- 	.max_register = CS42L51_CHARGE_FREQ,
+diff --git a/sound/soc/codecs/cs4265.c b/sound/soc/codecs/cs4265.c
+index 0cfc5ab36a13..1ed1e60d8e53 100644
+--- a/sound/soc/codecs/cs4265.c
++++ b/sound/soc/codecs/cs4265.c
+@@ -564,7 +564,7 @@ static const struct regmap_config cs4265_regmap = {
+ 	.num_reg_defaults = ARRAY_SIZE(cs4265_reg_defaults),
+ 	.readable_reg = cs4265_readable_register,
+ 	.volatile_reg = cs4265_volatile_register,
 -	.cache_type = REGCACHE_RBTREE,
 +	.cache_type = REGCACHE_MAPLE,
  };
- EXPORT_SYMBOL_GPL(cs42l51_regmap);
  
+ static int cs4265_i2c_probe(struct i2c_client *i2c_client)
 
 -- 
 2.39.2

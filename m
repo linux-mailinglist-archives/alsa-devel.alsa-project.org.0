@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03B975277C
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 17:42:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65029752AD6
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 21:19:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E6C01A4D;
-	Thu, 13 Jul 2023 17:41:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6C01A4D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F513A4B;
+	Thu, 13 Jul 2023 21:19:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F513A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689262921;
-	bh=Opj8JDTNUda9NW7e+toCrb8Tsv2eHY+Uit8zdRt6gVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689275992;
+	bh=vafqn8AR/75AYFDccVSyG2B7wIw7vf0a/ENgk2BFQ5c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=SgJbyeHUrazstvsg7CQi1vhQKMKW4hvnHDIA9I3o8G0g80imbhOxFItv1h3GfteNr
-	 yHTN9xVluZFKHhtllAZQDJ4kXnXCtynTmKg3PAPxR+VsEdmX50pPTtK5vc9FXl6vAu
-	 ntPfTyFtKJjAbGrRo2RQbXNFD7DJ+zptPYyj641U=
+	b=rISU5N7j47rbqly5Q2PH9ebo77h7L505L8WgC9ReMTzxGK51bKJsbnTRip+FGbBRF
+	 Fm4H+b9sLALIJm+pIf+grmySOxEWQj59e8OgvJAdasU01zCaUD6XrqYPq9OoI2xWTw
+	 rwwG+kY7piHTwpyInHeamR0cM4a57vsBlwnpgJTc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2136FF8047D; Thu, 13 Jul 2023 17:41:10 +0200 (CEST)
+	id D6C7FF80290; Thu, 13 Jul 2023 21:19:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE470F80236;
-	Thu, 13 Jul 2023 17:41:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B4DCF80236;
+	Thu, 13 Jul 2023 21:19:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ADFB8F80249; Thu, 13 Jul 2023 17:41:05 +0200 (CEST)
+	id 8677BF80249; Thu, 13 Jul 2023 21:18:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -35,82 +35,52 @@ X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 4D3F3F80153
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 17:41:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D3F3F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id F3A6DF80093
+	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 21:18:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3A6DF80093
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=neQ5IiAx
+ header.s=k20201202 header.b=ksrHrhz3
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 7D82A60C26;
-	Thu, 13 Jul 2023 15:40:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533B0C433C8;
-	Thu, 13 Jul 2023 15:40:51 +0000 (UTC)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 8131261B30;
+	Thu, 13 Jul 2023 19:18:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28CFC433CB;
+	Thu, 13 Jul 2023 19:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689262858;
-	bh=Opj8JDTNUda9NW7e+toCrb8Tsv2eHY+Uit8zdRt6gVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=neQ5IiAxZldW/eAExMXgoPyPKHNm6aOB1qcn8qvstiRppXiDkgG0tJWL/zfT5b4Yw
-	 xKYW3Z9FAFdoR89xx/JZOeHx0EgyfAm7NQmKfhpP0YRMunKobkZMnzok1DAaZ4MbGi
-	 7p3X/OcPW4Y07DhfU8dbvMhjCW2mDGC3UAYl6szG2BsX0FvZmlLVAFrEnpS91QlRWU
-	 bPRbf6ILJl4eeYMz8vMAmUL6ehlDrZcc1vPTLQr8/2KMUl367KywIQTiKJJbQnp7lt
-	 ymcLHCB8Ixr8f0Sh25i1UophHoKMXk8nt3QkZes0Q1TqMpOxhHXWdhOcb0LPBAmojD
-	 X+pDWoB7ytTQQ==
-Date: Thu, 13 Jul 2023 16:40:48 +0100
+	s=k20201202; t=1689275927;
+	bh=vafqn8AR/75AYFDccVSyG2B7wIw7vf0a/ENgk2BFQ5c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=ksrHrhz37aqbjc8nMVvBXofezYTckyYbgwb+srWOwq8suRbJfGMYzgHmecDdPLJ3P
+	 Cm5mPq7es7cq4lfAiiHNJHWdE77bF7V6U8LCzbeiuUuSJp6ZBSiy3x/4dnxsndFTkO
+	 RyY9RVFGvIKZxie5oNBPIlXHtNXREih3wM/CTbKl0Rc2DW5w7qEPjJ+C4vag5GMyC7
+	 57w81oAfGkrTVtj5lLZnErlSmx8Sa5xzB2B52XuCTGcxZEE7feoMvnesYoMHbodrht
+	 y2fkh7foNZUiRgds9f8NQWmqR475tovgzjjCEdjvyGs2EyNaKImJlmy9K3MEaX07AW
+	 /CZo3Y7R11R4g==
 From: Lee Jones <lee@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: cros-qcom-dts-watchers@chromium.org, Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Benjamin Li <benl@squareup.com>,
-	James Willcox <jwillcox@squareup.com>,
-	Joseph Gates <jgates@squareup.com>,
-	Stephan Gerhold <stephan@gerhold.net>,
-	Zac Crosby <zac@squareup.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	Banajit Goswami <bgoswami@quicinc.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Wesley Cheng <quic_wcheng@quicinc.com>,
-	Jun Nie <jun.nie@linaro.org>, Max Chen <mchen@squareup.com>,
-	Shawn Guo <shawn.guo@linaro.org>,
-	Vivek Gautam <vivek.gautam@codeaurora.org>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vincent Knecht <vincent.knecht@mailoo.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, alsa-devel@alsa-project.org,
-	iommu@lists.linux.dev, linux-usb@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Leo Yan <leo.yan@linaro.org>, Rob Herring <robh@kernel.org>,
-	Andy Gross <andy.gross@linaro.org>
-Subject: Re: [PATCH 06/11] dt-bindings: mfd: qcom,spmi-pmic: Reference pm8916
- wcd analog codec schema
-Message-ID: <20230713154048.GD968624@google.com>
-References: <20230627-topic-more_bindings-v1-0-6b4b6cd081e5@linaro.org>
- <20230627-topic-more_bindings-v1-6-6b4b6cd081e5@linaro.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20230713-mfd-cirrus-maple-v1-0-16dacae402a8@kernel.org>
+References: <20230713-mfd-cirrus-maple-v1-0-16dacae402a8@kernel.org>
+Subject: Re: [PATCH 00/11] mfd:: Update Cirrus Logic drivers to use maple
+ tree register caches
+Message-Id: <168927592510.1059976.1452188805408715416.b4-ty@kernel.org>
+Date: Thu, 13 Jul 2023 20:18:45 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230627-topic-more_bindings-v1-6-6b4b6cd081e5@linaro.org>
-Message-ID-Hash: PVCQBHTSZP7K4C33OMHK7OP2T7UKPZZD
-X-Message-ID-Hash: PVCQBHTSZP7K4C33OMHK7OP2T7UKPZZD
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.12.2
+Message-ID-Hash: GVGH3SXVKTSCG2ZEAVXF3WSYGNMXGEE2
+X-Message-ID-Hash: GVGH3SXVKTSCG2ZEAVXF3WSYGNMXGEE2
 X-MailFrom: lee@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -123,7 +93,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/PVCQBHTSZP7K4C33OMHK7OP2T7UKPZZD/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/GVGH3SXVKTSCG2ZEAVXF3WSYGNMXGEE2/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -132,17 +102,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, 27 Jun 2023, Konrad Dybcio wrote:
 
-> Now that it's been converted to YAML, reference the PM8916 wcd codec
-> schema.
+On Thu, 13 Jul 2023 01:49:18 +0100, Mark Brown wrote:
+> With the v6.5 merge window the maple tree register cache has acquired
+> the ability to generate multi-register writes during sync operations,
+> removing the last major limitation it had compared to the rbtree cache.
+> As part of a general modernisation effort update the Cirrus Logic
+> drivers to use the more modern data structure, realistically there is
+> likely to be very little user visible impact either way but generally
+> the implementation choices of the maple tree cache should be a bit
+> better on modern hardware.
 > 
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@linaro.org>
-> ---
->  Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> [...]
 
-Applied, thanks
+Applied, thanks!
 
+[01/11] mfd: cs47l15: Update to use maple tree register cache
+        commit: b4dcbfa82d1264f7c813b6fa4cdc63851daa9b86
+[02/11] mfd: cs47l24: Update to use maple tree register cache
+        commit: 7814d7e4eac9ad7f87dd1a670feadd9caafd3713
+[03/11] mfd: cs47l35: Update to use maple tree register cache
+        commit: 1ae7edc5cb666d6d382263d50d9a48cb8a6898e9
+[04/11] mfd: cs47l85: Update to use maple tree register cache
+        commit: e7c8dce6e5dc3f9963bc9762278f8db33770db95
+[05/11] mfd: cs47l90: Update to use maple tree register cache
+        commit: 703458beace3c8530808371398dd147339f31c71
+[06/11] mfd: cs47l92: Update to use maple tree register cache
+        commit: 5b6b74f62046d44269d3720fdfe5cc482392b99e
+[07/11] mfd: wm5102: Update to use maple tree register cache
+        commit: d635f7d7f1be3160291d22cb05148259c9fdfafd
+[08/11] mfd: wm5110: Update to use maple tree register cache
+        commit: aad8ec37d158a35c2397a76964f9541fe3fd59b6
+[09/11] mfd: wm8994: Update to use maple tree register cache
+        commit: 03665778ce02e9bf95ef18f2548cb6dfca01a347
+[10/11] mfd: wm8997: Update to use maple tree register cache
+        commit: 8e3c1052f4fb404f7264059e706807de43f68a23
+[11/11] mfd: wm8998: Update to use maple tree register cache
+        commit: 0d606d3545727c1399bd61b1340dde84e900178f
+
+Best regards,
 -- 
-Lee Jones [李琼斯]
+Lee Jones <lee@kernel.org>
+

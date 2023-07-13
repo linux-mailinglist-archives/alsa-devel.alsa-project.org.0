@@ -2,55 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2288752203
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 14:58:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A0F8752209
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 14:58:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C19A3E7;
-	Thu, 13 Jul 2023 14:57:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C19A3E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0616283E;
+	Thu, 13 Jul 2023 14:58:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0616283E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689253083;
-	bh=qiT/JnJ7JSVu8aYYqMBB644pLPLSk3J/2yqa39IWKIM=;
-	h=From:To:CC:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
-	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=bKtiuI2VKQB3P3dqsimcOxa33VuPvrxpyqQMGe39oJuSbW2voJMiy7W1IbVzV40BG
-	 eJ6a9TSBGQSjte2Nkicd4vnIO9Z1bGMI14aWqP9+RANVdicJuG2U2htMXr61JOvzRn
-	 zvrC72mRTlDb7eV6mDh+e31mMYBeJQgB5UXsqmsA=
+	s=default; t=1689253134;
+	bh=Wchzowp6mOXo3xj8rBUXL6AEqedPwUMBxUL/1Bo8RU8=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References:List-Id:
+	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
+	 List-Unsubscribe:From;
+	b=CzlxDqkhXU8+ZrJ8ArJL5ymYQB+jLpBmB3uvBjbTGtvwoQ6YT0pbuMvPk+2Rn/GQ5
+	 0EqLAaxe0F2B7GzE8iR/EPkBlUm5DF/Tmyqtt5nT67KwMjyJf7IyO83mRjAoggsW3R
+	 8EzLZ78DdXtnUvRwr+qEVmsixs4IqvKyfMfd/Mk0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 11B52F80093; Thu, 13 Jul 2023 14:57:12 +0200 (CEST)
+	id 4AA42F80153; Thu, 13 Jul 2023 14:57:52 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7740F80236;
-	Thu, 13 Jul 2023 14:57:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CD0FF80535;
+	Thu, 13 Jul 2023 14:57:52 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 38FAFF80249; Thu, 13 Jul 2023 14:57:08 +0200 (CEST)
+	id EA210F80544; Thu, 13 Jul 2023 14:57:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 	HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::60e])
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2062b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e89::62b])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 252CCF80093
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 14:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 252CCF80093
+	by alsa1.perex.cz (Postfix) with ESMTPS id 98E4BF80290;
+	Thu, 13 Jul 2023 14:57:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98E4BF80290
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com
  header.a=rsa-sha256 header.s=selector1-amdcloud-onmicrosoft-com
- header.b=IGPG7L9k
+ header.b=MVgKnmGm
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X4rnplG64ssscwVFn4hicsmQ78y+c+qYbY4EYYbSzdq6n4xTjoNmASCuU1sGx+qYKtbB1mYA1Ksdr9GZK55gLuxlXxe7y3BFAZ3HlsADSeshW/S+CoBdISXvNhH5m9JfBcXrHRs/NkNXeZ2JVdXozize4EyrLMHTWE3VxhkQf9JHinRt/P+rFj3oVxilUliB17EIcACWGb6w30g8ZTy8LcPQgbCkuKRdT6JiQgZtfhHyThTz3uy6ra4EXD8rBv4dGwmc58JDzzxQ1OYHf2myO+qpA8TkAb917G/kj6r86ICz+iMSOZdxi97FjTIGKjX5P5arG7CNSo9hgjY7XIDJeA==
+ b=eTAbBrrXPqRr1mXgucOU5lC+YIojymYlfyaTtJL7xypSQJQozDwY5BIy1rPol0r/aMcpceJcB2FgedOB69iK+pkgPK0N5SDhIjTx32vIZy+G9KFamWjPTJAMSorKwIpqa/Y5wYBGiGyOLj32CFHPi8eq2UCyYXTKb2Uqkxh1xt4jrtlp4WoVQh86BzTPKim6SY68aYqPBnv+/Ri5CakH56dVGwWLPT29Mdd1kDzqYxc1SA95jCFszXirkN9ipbUPXmaJXbmw4z0Oh8xuOb6LNNXS11yYYJJawuG9FQDCk7jPaRBr9S5wFfTaGSM00HJUPhMIKaeR57qL3xajiLz1YQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ALfWTbRt5CMyLdwyChWA3GtznZS9gfoeyUvr2iYGF0Y=;
- b=eJVFhJ8W8cvuz+gbQOaM2RUDVfysnaiiHBWYjY8MzJ1LOCxwbB8kHHdSmE341tyGWdUWZiFJdyzcn/8FRupThqmgtUtI84zumokdpRdd30f3VU6Jf/gVWdJzCFET0qBSVZ4aDvDvLN7KwooS0pcay7kPl7oxjlPGAmZRgrnfphSdsfXz2jMD5YkNGBQl9lxq7s+Ojfntw2yj94TYzKSYZLtjne4J4hvpxdNQT58+svleEJ1LvDn+/3xRDCfv8+ZwXqw60ItGdvUz0wQn+5giuPgWwmH2/kDaRJ9yecg5YL4EDqZECrxYLcKXVwog5b2+nIAvSf/h4fi6j6BdP4snvA==
+ bh=4cA+q6vEZZMd4FyxrLe+MzC/9+458G/yI6cBlw28Zfo=;
+ b=LVzAOcBECVMXnjU6dcDuy+97zRo1+uM4UyYaSQ6SvBhLpjaoGrgfjX3haUjZ2IqmG0Of2aHd1TjlnZO2xAVnuOUuLf5KIW19efdNrtOLsc/c7s1JygZmqPXB88i/b0P39pEx8ADgMwrznG0IrXlU3gbSyIMHxwyB2GCY/XSHJLlQ3kkpuslYwohMDQn1fGEQ+FMUb/3eKuDTwMfQU0R9BYpJwoNJTsD9+Q9I2u/cAbfqGCHCclT/L00SG4pwQBA2I9tv6BWkaJYGk7HuNrKyjQYzQWMQsOY+Jf5s85LNmmXwtHYP0LBfnMfGLbeMn1hdpDmwnDzM9CPflwpJiGAsqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 165.204.84.17) smtp.rcpttodomain=kernel.org
  smtp.mailfrom=amd.corp-partner.google.com; dmarc=fail (p=reject sp=reject
@@ -59,18 +60,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ALfWTbRt5CMyLdwyChWA3GtznZS9gfoeyUvr2iYGF0Y=;
- b=IGPG7L9klFzpzYyQEnOty0KC6udTH/hJSzs1fSAM1ASfMgjzX5vYZ93t+2jdF/DfH+MT8xU4gZAzA8e3QmD4n5i+KuizQY+Ne+Z3j3UGvMXkDyTLLB9h0m9iwaVwm/RaeGyOxTcqDTS5tO/6KIXv9fTS9yLEGRI2X48+BpVMPaKLHsD/QMQEv1vAyIywn5XrBYUusrSqeKna7XPJB/LIUSyGHqZ1WOaejn0O5IOdgE66zLoII59YkelLV6ImrO1sDvGuTAUy+MjHGC+d2jpjtuVAkY1sfKak0xm4NpTEqDZzSPDG/vVMM4HvuYUzEjbJCSj/UShiKONG4xfwuIUsAw==
-Received: from BN0PR03CA0026.namprd03.prod.outlook.com (2603:10b6:408:e6::31)
- by DS0PR12MB8441.namprd12.prod.outlook.com (2603:10b6:8:123::8) with
+ bh=4cA+q6vEZZMd4FyxrLe+MzC/9+458G/yI6cBlw28Zfo=;
+ b=MVgKnmGmn1xl8J1Fbe6rA7mprr9yIxbulYkEAKJHJblX4hIK7ed+1v8Ze1tSMVWhPKUFjieb1W8ePWodAkYL5WsLATYZC+gQqerh9tWZPAQ5CZ6IZ7fouWBXH+9wv2Lf15bq/2MBWD4On33p0B8gNrLI4F3n4g6+iQ/5fhpr+3WFOr1xEBP3SOgA5anGGYC7nUKWIom4WSw1JWZ5oIysEbg9lqA4ji40Ql5i/1uquR/+Ta3JyCpP7Kc4H+Xhx5CYEjM88ruw6A/8YQo8z3RPs0ZChSPj22faw6cjKXS0DP7B17iYTkGytxbWS/0OfV0lwF94qTvDLVCk/EoOmF1hgw==
+Received: from SJ0PR03CA0005.namprd03.prod.outlook.com (2603:10b6:a03:33a::10)
+ by IA1PR12MB8537.namprd12.prod.outlook.com (2603:10b6:208:453::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.35; Thu, 13 Jul
- 2023 12:56:52 +0000
-Received: from BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e6:cafe::f9) by BN0PR03CA0026.outlook.office365.com
- (2603:10b6:408:e6::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.25 via Frontend
- Transport; Thu, 13 Jul 2023 12:56:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24; Thu, 13 Jul
+ 2023 12:57:29 +0000
+Received: from CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:33a:cafe::6f) by SJ0PR03CA0005.outlook.office365.com
+ (2603:10b6:a03:33a::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.22 via Frontend
+ Transport; Thu, 13 Jul 2023 12:57:28 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  165.204.84.17) smtp.mailfrom=amd.corp-partner.google.com; dkim=none (message
  not signed) header.d=none;dmarc=fail action=oreject
@@ -78,61 +79,76 @@ X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.corp-partner.google.com discourages use of 165.204.84.17 as permitted
  sender)
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT015.mail.protection.outlook.com (10.13.176.90) with Microsoft SMTP
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT005.mail.protection.outlook.com (10.13.174.147) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6588.24 via Frontend Transport; Thu, 13 Jul 2023 12:56:52 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6588.24 via Frontend Transport; Thu, 13 Jul 2023 12:57:28 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 13 Jul
- 2023 07:56:50 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 07:57:25 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 13 Jul
- 2023 07:56:49 -0500
+ 2023 07:57:23 -0500
 Received: from sof-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.23
- via Frontend Transport; Thu, 13 Jul 2023 07:56:46 -0500
+ via Frontend Transport; Thu, 13 Jul 2023 07:57:02 -0500
 From: V sujith kumar Reddy <vsujithkumar.reddy@amd.corp-partner.google.com>
 To: <broonie@kernel.org>, <alsa-devel@alsa-project.org>
 CC: <Vijendar.Mukunda@amd.com>, <Basavaraj.Hiregoudar@amd.com>,
 	<Sunil-kumar.Dommati@amd.com>, <venkataprasad.potturu@amd.com>,
 	<ssabakar@amd.com>, <akondave@amd.com>, <mastan.katragadda@amd.com>, "V
- sujith kumar Reddy" <vsujithkumar.reddy@amd.corp-partner.google.com>
-Subject: [PATCH 0/3] Add Probe functionality support for amd platforms.
-Date: Thu, 13 Jul 2023 18:27:06 +0530
+ sujith kumar Reddy" <Vsujithkumar.Reddy@amd.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Ranjani Sridharan
+	<ranjani.sridharan@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Ajit Kumar Pandey
+	<AjitKumar.Pandey@amd.com>, Iuliana Prodan <iuliana.prodan@nxp.com>, "Mastan
+ Katragadda" <Mastan.Katragadda@amd.com>, open list
+	<linux-kernel@vger.kernel.org>, "moderated list:SOUND - SOUND OPEN FIRMWARE
+ (SOF) DRIVERS" <sound-open-firmware@alsa-project.org>
+Subject: [PATCH 1/3] ASoC: SOF: amd: Add Probe functionality support for amd
+ platforms.
+Date: Thu, 13 Jul 2023 18:27:07 +0530
 Message-ID: 
- <20230713125709.418851-1-vsujithkumar.reddy@amd.corp-partner.google.com>
+ <20230713125709.418851-2-vsujithkumar.reddy@amd.corp-partner.google.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: 
+ <20230713125709.418851-1-vsujithkumar.reddy@amd.corp-partner.google.com>
+References: 
+ <20230713125709.418851-1-vsujithkumar.reddy@amd.corp-partner.google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT015:EE_|DS0PR12MB8441:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b2793ab-ce2a-4cca-d977-08db83a0a117
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT005:EE_|IA1PR12MB8537:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5e622fb-0bab-464f-4274-08db83a0b6b8
 X-MS-Exchange-SenderADCheck: 2
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	/XEKHbYUvhDsj8qqHOXZuP0MIQ8jsoZmLZqGjNB/UoUMUaloUSKrRpmfXgkVoopoueTzlee40pg+8GEsnQk+2ZEG++/WB/fsKj0oBcNZ0dMmU4MeQzdZt5WXLHHZk2rAj6u6T+xRttTB5joYQe4nLigKJd7er3vkSbVRZXxcnnNcLxszICfIMG9S4lF0htEpAuuYxTQ3N+/YQMhWnJJJjkiwCEcT2UMUzlpnkNPzXuGXocdaESN2DtXVKtIFqLDZJirimYM375/Bri996JwgBIgfl0GsUWRnkUG4EPVLcNf/4+lCgyhoe0c9loc8YHnVodSNi9OtJHpLd6jfaIEfPgtVpCp1H8kLI7yPPdPP48NP0LpF21FfSn4wFzGVSarexmvLMxw5WeCiUoFRhoXJxFAa4sGmeFdfB0LsX2y4gnEiKPT0pAFFwyplHiuFgm7NguxAnLJ1gIfC/hIpNF1L0541Dwmj7xxYWdcVoSk0joIC+PCRDVYkwosbmNUirIQdLHu+GQ25W5Sggo6br7cQXiOHm+Gdg+/0xeCvpm9OKKDtQq5+JatDUYqOMp5RXmUdrxzMe4BTX7FUpUf+75QAA+gQFIVM+GDSYL5g2Rqz9nxXv7ZD77MIlX8zfQHx41moXZ8Ips35J/tTbVtAFRrjfMjTrP7LGqYC2+ixIb433rVhzbeHfN47SlAIK3N2t0kVisXOzuuEc1cMp4cp19n3Y2HOP1e8dpqphmsuTFIPjlqgc8pgKr4siAeRCWwts4Xc
+	XERzmxOe0AXYBMz5h3d9zwGvZJ5dt+d7sNLhhkJQLMLBZVLIaevCLdAVF2L5D0hg4rcuzjZtDw0ioEUv7AnRi4X5aicbJPYRs5rZoPRmvguHJjuojaoh+1Mo8me3X665b+T6ORnTvvym4RjaNJx4SHySMWRV4dbpwHGjuEkrreYH/s/1dBLzgqwwN8QpwEOJA5Kzu/nwU++llJP2hC5kRpqeyteelwJTMPGZNq/KA/zpoG4YdV7zW1V3fdM3GqNIWwmKaMUr4mndGjmymB0stvmeqDHnjSIer0IUo7Ddp1/++hyHuIZscqvavT9lvgzDmZgDgntC6e/uJ1MPpBNqL8ffXYrkkiOgp5iNZQbs2HCDt3UTHw1y5oLn4O+1Im00dxqtLl+ermhLJaiwAFF3Dx5S9uGhJ/qMzYbHvJgCTk+jSanHD3wqegeHCbBLmrJGN5r6cYEu4uEPRuKFmOTEjepNrpdIdj8E1qSVjKfa7mHdpf1Q7snf37RlC82LfGFrrVxJcToL22uL1Qe7rdQOXStKkfE4suePfKyinDg5c65h3durZgID4IQ5Jgw7d475WdVNqYKtWT8BKRiYpPdoqbofafh3NEReRlmMSfq295aPkRSjx1yNFTbkNS/reP4XeVNHGS3BKwCa16k1+dzZdDQA+iElBArJnjqVVlK8jZ6U2xBkm0oi7cVH7Hst1BfgWc3udD9GTJjF/UY8+K2nvvQrUHyByRcJ7RMRD99JSyoSOfMc2e6nHSDIcjzn5vpu
 X-Forefront-Antispam-Report: 
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(46966006)(40470700004)(498600001)(76482006)(54906003)(110136005)(6666004)(35950700001)(40480700001)(47076005)(336012)(86362001)(40460700003)(1076003)(41300700001)(82310400005)(4326008)(70586007)(26005)(2616005)(70206006)(2906002)(5660300002)(356005)(81166007)(4744005)(8676002)(316002)(82740400003)(8936002);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(39860400002)(376002)(396003)(451199021)(40470700004)(46966006)(7416002)(4326008)(70586007)(70206006)(41300700001)(316002)(2906002)(498600001)(76482006)(5660300002)(8936002)(8676002)(54906003)(110136005)(40460700003)(26005)(1076003)(40480700001)(336012)(83380400001)(35950700001)(47076005)(2616005)(81166007)(356005)(82740400003)(82310400005)(86362001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 12:56:52.3289
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 12:57:28.5029
  (UTC)
 X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 5b2793ab-ce2a-4cca-d977-08db83a0a117
+ a5e622fb-0bab-464f-4274-08db83a0b6b8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: 
- TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+ TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: 
-	BN8NAM11FT015.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT005.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8441
-Message-ID-Hash: ZZPUEAER3TJMXQJPPV4FIBA2OQJ7RL2O
-X-Message-ID-Hash: ZZPUEAER3TJMXQJPPV4FIBA2OQJ7RL2O
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8537
+Message-ID-Hash: 6QAUU6DMDAWSR6I6SRHLZUSHFIHBNFEK
+X-Message-ID-Hash: 6QAUU6DMDAWSR6I6SRHLZUSHFIHBNFEK
 X-MailFrom: bounces+SRS=HnE87=C7@amdcloud.onmicrosoft.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -145,38 +161,324 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ZZPUEAER3TJMXQJPPV4FIBA2OQJ7RL2O/>
-List-Archive: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6QAUU6DMDAWSR6I6SRHLZUSHFIHBNFEK/>
+List-Archive: <>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Owner: <mailto:alsa-devel-owner@alsa-project.org>
 List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The Patch series consists of probe functionality support for amd
-platforms.
+From: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
 
+This patch consist of probe client device registration,stream tag
+and dma channel configuration for SOF firmware.
 
-V sujith kumar Reddy (3):
-  ASoC: SOF: amd: Add Probe functionality support for amd platforms.
-  ASoC: SOF: Add acp-probe id to sof probe client driver for
-    registration.
-  ASoC: SOF: amd: Add Probe register offset for renoir and rembrandt
-    platform.
-
- sound/soc/sof/amd/Kconfig         |   8 ++
- sound/soc/sof/amd/Makefile        |   1 +
- sound/soc/sof/amd/acp-common.c    |   4 +
- sound/soc/sof/amd/acp-ipc.c       |  26 ++++++
- sound/soc/sof/amd/acp-probes.c    | 147 ++++++++++++++++++++++++++++++
- sound/soc/sof/amd/acp.h           |   9 ++
- sound/soc/sof/amd/pci-rmb.c       |   2 +
- sound/soc/sof/amd/pci-rn.c        |   2 +
- sound/soc/sof/sof-client-probes.c |   1 +
- 9 files changed, 200 insertions(+)
+Signed-off-by: V sujith kumar Reddy <Vsujithkumar.Reddy@amd.com>
+---
+ sound/soc/sof/amd/Kconfig      |   8 ++
+ sound/soc/sof/amd/Makefile     |   1 +
+ sound/soc/sof/amd/acp-common.c |   4 +
+ sound/soc/sof/amd/acp-ipc.c    |  26 ++++++
+ sound/soc/sof/amd/acp-probes.c | 147 +++++++++++++++++++++++++++++++++
+ sound/soc/sof/amd/acp.h        |   9 ++
+ 6 files changed, 195 insertions(+)
  create mode 100644 sound/soc/sof/amd/acp-probes.c
 
+diff --git a/sound/soc/sof/amd/Kconfig b/sound/soc/sof/amd/Kconfig
+index 1cb92d6030e3..7dbc8df5cfe6 100644
+--- a/sound/soc/sof/amd/Kconfig
++++ b/sound/soc/sof/amd/Kconfig
+@@ -21,6 +21,7 @@ config SND_SOC_SOF_AMD_COMMON
+ 	select SND_SOC_SOF_PCI_DEV
+ 	select SND_AMD_ACP_CONFIG
+ 	select SND_SOC_SOF_XTENSA
++	select SND_SOC_SOF_ACP_PROBES
+ 	select SND_SOC_ACPI if ACPI
+ 	help
+ 	  This option is not user-selectable but automatically handled by
+@@ -42,4 +43,11 @@ config SND_SOC_SOF_AMD_REMBRANDT
+ 	  Say Y if you want to enable SOF on Rembrandt.
+ 	  If unsure select "N".
+ 
++config SND_SOC_SOF_ACP_PROBES
++	tristate
++	select SND_SOC_SOF_DEBUG_PROBES
++	help
++	  This option is not user-selectable but automatically handled by
++	  'select' statements at a higher level
++
+ endif
+diff --git a/sound/soc/sof/amd/Makefile b/sound/soc/sof/amd/Makefile
+index 5626d13b3e69..ef9f7df4e379 100644
+--- a/sound/soc/sof/amd/Makefile
++++ b/sound/soc/sof/amd/Makefile
+@@ -5,6 +5,7 @@
+ # Copyright(c) 2021 Advanced Micro Devices, Inc. All rights reserved.
+ 
+ snd-sof-amd-acp-objs := acp.o acp-loader.o acp-ipc.o acp-pcm.o acp-stream.o acp-trace.o acp-common.o
++snd-sof-amd-acp-$(CONFIG_SND_SOC_SOF_ACP_PROBES) = acp-probes.o
+ snd-sof-amd-renoir-objs := pci-rn.o renoir.o
+ snd-sof-amd-rembrandt-objs := pci-rmb.o rembrandt.o
+ 
+diff --git a/sound/soc/sof/amd/acp-common.c b/sound/soc/sof/amd/acp-common.c
+index df36b411a12e..3a0c7688dcfe 100644
+--- a/sound/soc/sof/amd/acp-common.c
++++ b/sound/soc/sof/amd/acp-common.c
+@@ -196,6 +196,10 @@ struct snd_sof_dsp_ops sof_acp_common_ops = {
+ 	.dbg_dump		= amd_sof_dump,
+ 	.debugfs_add_region_item = snd_sof_debugfs_add_region_item_iomem,
+ 	.dsp_arch_ops = &sof_xtensa_arch_ops,
++
++	/* probe client device registation */
++	.register_ipc_clients = acp_probes_register,
++	.unregister_ipc_clients = acp_probes_unregister,
+ };
+ EXPORT_SYMBOL_NS(sof_acp_common_ops, SND_SOC_SOF_AMD_COMMON);
+ 
+diff --git a/sound/soc/sof/amd/acp-ipc.c b/sound/soc/sof/amd/acp-ipc.c
+index 8a0fc635a997..81a2c096a185 100644
+--- a/sound/soc/sof/amd/acp-ipc.c
++++ b/sound/soc/sof/amd/acp-ipc.c
+@@ -155,6 +155,8 @@ static void acp_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
+ irqreturn_t acp_sof_ipc_irq_thread(int irq, void *context)
+ {
+ 	struct snd_sof_dev *sdev = context;
++	const struct sof_amd_acp_desc *desc = get_chip_info(sdev->pdata);
++	struct acp_dev_data *adata = sdev->pdata->hw_pdata;
+ 	unsigned int dsp_msg_write = sdev->debug_box.offset +
+ 				     offsetof(struct scratch_ipc_conf, sof_dsp_msg_write);
+ 	unsigned int dsp_ack_write = sdev->debug_box.offset +
+@@ -200,6 +202,30 @@ irqreturn_t acp_sof_ipc_irq_thread(int irq, void *context)
+ 		return IRQ_HANDLED;
+ 	}
+ 
++	if (desc->probe_reg_offset) {
++		u32 val;
++		u32 posn;
++
++		/* Probe register consists of two parts
++		 * (0-30) bit has cumulative position value
++		 * 31 bit is a synchronization flag between DSP and CPU
++		 * for the position update
++		 */
++		val = snd_sof_dsp_read(sdev, ACP_DSP_BAR, desc->probe_reg_offset);
++		if (val & PROBE_STATUS_BIT) {
++			posn = val & ~PROBE_STATUS_BIT;
++			if (adata->probe_stream) {
++				/* Probe related posn value is of 31 bits limited to 2GB
++				 * once wrapped DSP won't send posn interrupt.
++				 */
++				adata->probe_stream->cstream_posn = posn;
++				snd_compr_fragment_elapsed(adata->probe_stream->cstream);
++				snd_sof_dsp_write(sdev, ACP_DSP_BAR, desc->probe_reg_offset, posn);
++				ipc_irq = true;
++			}
++		}
++	}
++
+ 	if (!ipc_irq)
+ 		dev_dbg_ratelimited(sdev->dev, "nothing to do in IPC IRQ thread\n");
+ 
+diff --git a/sound/soc/sof/amd/acp-probes.c b/sound/soc/sof/amd/acp-probes.c
+new file mode 100644
+index 000000000000..778cf1a8b610
+--- /dev/null
++++ b/sound/soc/sof/amd/acp-probes.c
+@@ -0,0 +1,147 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++//
++// This file is provided under a dual BSD/GPLv2 license. When using or
++// redistributing this file, you may do so under either license.
++//
++// Copyright(c) 2023 Advanced Micro Devices, Inc.
++//
++// Authors: V Sujith Kumar Reddy <Vsujithkumar.Reddy@amd.com>
++
++/*
++ * Probe interface for generic AMD audio ACP DSP block
++ */
++
++#include <linux/module.h>
++#include <sound/soc.h>
++#include "../sof-priv.h"
++#include "../sof-client-probes.h"
++#include "../sof-client.h"
++#include "../ops.h"
++#include "acp.h"
++#include "acp-dsp-offset.h"
++
++static int acp_probes_compr_startup(struct sof_client_dev *cdev,
++				    struct snd_compr_stream *cstream,
++				    struct snd_soc_dai *dai, u32 *stream_id)
++{
++	struct snd_sof_dev *sdev = sof_client_dev_to_sof_dev(cdev);
++	struct acp_dsp_stream *stream;
++	struct acp_dev_data *adata;
++
++	adata = sdev->pdata->hw_pdata;
++	stream = acp_dsp_stream_get(sdev, 0);
++	if (!stream)
++		return -ENODEV;
++
++	stream->cstream = cstream;
++	cstream->runtime->private_data = stream;
++
++	adata->probe_stream = stream;
++	*stream_id = stream->stream_tag;
++
++	return 0;
++}
++
++static int acp_probes_compr_shutdown(struct sof_client_dev *cdev,
++				     struct snd_compr_stream *cstream,
++				     struct snd_soc_dai *dai)
++{
++	struct snd_sof_dev *sdev = sof_client_dev_to_sof_dev(cdev);
++	struct acp_dsp_stream *stream = cstream->runtime->private_data;
++	struct acp_dev_data *adata;
++	int ret;
++
++	ret = acp_dsp_stream_put(sdev, stream);
++	if (ret < 0) {
++		dev_err(sdev->dev, "Failed to release probe compress stream\n");
++		return ret;
++	}
++
++	adata = sdev->pdata->hw_pdata;
++	stream->cstream = NULL;
++	cstream->runtime->private_data = NULL;
++	adata->probe_stream = NULL;
++
++	return 0;
++}
++
++static int acp_probes_compr_set_params(struct sof_client_dev *cdev,
++				       struct snd_compr_stream *cstream,
++				       struct snd_compr_params *params,
++				       struct snd_soc_dai *dai)
++{
++	struct snd_sof_dev *sdev = sof_client_dev_to_sof_dev(cdev);
++	struct acp_dsp_stream *stream = cstream->runtime->private_data;
++	unsigned int buf_offset, index;
++	u32 size;
++	int ret;
++
++	stream->dmab = cstream->runtime->dma_buffer_p;
++	stream->num_pages = PFN_UP(cstream->runtime->dma_bytes);
++	size = cstream->runtime->buffer_size;
++
++	ret = acp_dsp_stream_config(sdev, stream);
++	if (ret < 0) {
++		acp_dsp_stream_put(sdev, stream);
++		return ret;
++	}
++
++	/* write buffer size of stream in scratch memory */
++
++	buf_offset = sdev->debug_box.offset +
++		     offsetof(struct scratch_reg_conf, buf_size);
++	index = stream->stream_tag - 1;
++	buf_offset = buf_offset + index * 4;
++
++	snd_sof_dsp_write(sdev, ACP_DSP_BAR, ACP_SCRATCH_REG_0 + buf_offset, size);
++
++	return 0;
++}
++
++static int acp_probes_compr_trigger(struct sof_client_dev *cdev,
++				    struct snd_compr_stream *cstream,
++				    int cmd, struct snd_soc_dai *dai)
++{
++	/* Nothing to do here, as it is a mandatory callback just defined */
++	return 0;
++}
++
++static int acp_probes_compr_pointer(struct sof_client_dev *cdev,
++				    struct snd_compr_stream *cstream,
++				    struct snd_compr_tstamp *tstamp,
++				    struct snd_soc_dai *dai)
++{
++	struct acp_dsp_stream *stream = cstream->runtime->private_data;
++	struct snd_soc_pcm_stream *pstream;
++
++	pstream = &dai->driver->capture;
++	tstamp->copied_total = stream->cstream_posn;
++	tstamp->sampling_rate = snd_pcm_rate_bit_to_rate(pstream->rates);
++
++	return 0;
++}
++
++/* SOF client implementation */
++static const struct sof_probes_host_ops acp_probes_ops = {
++	.startup = acp_probes_compr_startup,
++	.shutdown = acp_probes_compr_shutdown,
++	.set_params = acp_probes_compr_set_params,
++	.trigger = acp_probes_compr_trigger,
++	.pointer = acp_probes_compr_pointer,
++};
++
++int acp_probes_register(struct snd_sof_dev *sdev)
++{
++	return sof_client_dev_register(sdev, "acp-probes", 0, &acp_probes_ops,
++				       sizeof(acp_probes_ops));
++}
++EXPORT_SYMBOL_NS(acp_probes_register, SND_SOC_SOF_AMD_COMMON);
++
++void acp_probes_unregister(struct snd_sof_dev *sdev)
++{
++	sof_client_dev_unregister(sdev, "acp-probes", 0);
++}
++EXPORT_SYMBOL_NS(acp_probes_unregister, SND_SOC_SOF_AMD_COMMON);
++
++MODULE_IMPORT_NS(SND_SOC_SOF_CLIENT);
++
+diff --git a/sound/soc/sof/amd/acp.h b/sound/soc/sof/amd/acp.h
+index c3659dbc3745..72fa0af971f0 100644
+--- a/sound/soc/sof/amd/acp.h
++++ b/sound/soc/sof/amd/acp.h
+@@ -77,6 +77,7 @@
+ #define AMD_STACK_DUMP_SIZE			32
+ 
+ #define SRAM1_SIZE				0x13A000
++#define PROBE_STATUS_BIT			BIT(31)
+ 
+ enum clock_source {
+ 	ACP_CLOCK_96M = 0,
+@@ -156,6 +157,8 @@ struct acp_dsp_stream {
+ 	int active;
+ 	unsigned int reg_offset;
+ 	size_t posn_offset;
++	struct snd_compr_stream *cstream;
++	u64 cstream_posn;
+ };
+ 
+ struct sof_amd_acp_desc {
+@@ -168,6 +171,7 @@ struct sof_amd_acp_desc {
+ 	u32 hw_semaphore_offset;
+ 	u32 acp_clkmux_sel;
+ 	u32 fusion_dsp_offset;
++	u32 probe_reg_offset;
+ };
+ 
+ /* Common device data struct for ACP devices */
+@@ -186,6 +190,7 @@ struct acp_dev_data {
+ 	struct acp_dsp_stream stream_buf[ACP_MAX_STREAM];
+ 	struct acp_dsp_stream *dtrace_stream;
+ 	struct pci_dev *smn_dev;
++	struct acp_dsp_stream *probe_stream;
+ };
+ 
+ void memcpy_to_scratch(struct snd_sof_dev *sdev, u32 offset, unsigned int *src, size_t bytes);
+@@ -273,4 +278,8 @@ static inline const struct sof_amd_acp_desc *get_chip_info(struct snd_sof_pdata
+ 
+ 	return desc->chip_info;
+ }
++
++int acp_probes_register(struct snd_sof_dev *sdev);
++void acp_probes_unregister(struct snd_sof_dev *sdev);
++
+ #endif
 -- 
 2.25.1
 

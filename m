@@ -2,98 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD833753925
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 13:00:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2C1E753B17
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 14:36:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E807EAE9;
-	Fri, 14 Jul 2023 12:59:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E807EAE9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6DDF2847;
+	Fri, 14 Jul 2023 14:35:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DDF2847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689332450;
-	bh=g0WaMz10MmiDZgZOz+x0E2A2UYntgNbZ+38tvXaJXpM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689338186;
+	bh=qj1aaPyREzZcYjVK+fmXUh6iHLqnHWfOUSr3l9RvmIM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=p9YrUPUk+iT7wrmi7VOTmfsQ8XkUIc68q6GXlHOR4sn1N/MYsf+9dXpo3R6PJglb2
-	 XBOR8WWzz864ZLBd4UQNAgExGhz6F0Fe8Q4Rn4wRh7EnRzhhvew7SgpDtg/+pKz6Q/
-	 leayVvgA6nq5sR3x1NblPnDmeXXcHftppg3n3RWQ=
+	b=EQpq7r9m/SWo+w05ALA6Iwy7c5qHhNrqUBLTOpsw0bUn0iVaT01faoaCx7kA8sMI6
+	 zub3Rmc4Exfgyd+BnOdEeYaQq3GwJNRXO68P7nbqSyZbSCWIEBN9XqTxLWKanZrVgk
+	 yPsUEZI/BTFgb1zjLb+eclxJLZ2oXbN5F6/5ZrA0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id BC2B9F8062E; Fri, 14 Jul 2023 12:56:17 +0200 (CEST)
+	id A10A9F8024E; Fri, 14 Jul 2023 14:35:35 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDBC4F8061F;
-	Fri, 14 Jul 2023 12:56:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50BDCF80153;
+	Fri, 14 Jul 2023 14:35:35 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 012EFF805E4; Fri, 14 Jul 2023 12:56:01 +0200 (CEST)
+	id AD77BF80236; Fri, 14 Jul 2023 14:35:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F18E2F80571
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 12:55:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F18E2F80571
+	by alsa1.perex.cz (Postfix) with ESMTPS id A3C46F800E4
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 14:35:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3C46F800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=k07j/kqH
+ header.s=Intel header.b=K9YjCyxk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689332150; x=1720868150;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=g0WaMz10MmiDZgZOz+x0E2A2UYntgNbZ+38tvXaJXpM=;
-  b=k07j/kqH+IAeT81Qb1/lOYU4AhCaETjkvNhcjKBt6fdAOKG+HnEeU0PS
-   TtwSRTfJltl1RCGziuLd1Y80m/6kTZ2TSNnbxRDCLm6lmaGRqhdcRKjCL
-   /dzeRwopjYke6m53ctOpGciggnw3G9XEpsa2VKHSBsMR5yr40GI1EPpi9
-   a0aVHp0YvCay7gkkaVsKJmLRz/8UTACX60rMFd4wEN7JBQEhi43YPhSGD
-   2zwu5SoYSbLzPoGQY8TvQ1374XyLI2lKVbk+ZN1lQA+1Cb52/kQE4jWrs
-   hYjazq29U7mM0YMj1c29fAs9kzAr0q9WifmyfDK6P+rbKbXUqP0gYIaWb
+  t=1689338128; x=1720874128;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=qj1aaPyREzZcYjVK+fmXUh6iHLqnHWfOUSr3l9RvmIM=;
+  b=K9YjCyxkzU86AMkN83aFvqyjlPfyncKez/zYEVxRC/0BiXARiNbmmbd9
+   NIOXRq7/1xju8LSGpi79Lx3simOvQjB4Q8zkvmOO/eG5tfEFFpztTXYCY
+   9ybg2Tik4FDVkZ5DF41qOhgHJuCjHdNfDJdzRlZXsthama7fcOE9rANQu
+   Uqr/0Ci3ZNUZW8NgpGqhNU1LOpxF8cIk2g9kLtN3r+bCTKvoeXlLrbFov
+   lJ20z/ToH2rC39SIMh+OMyFDrOa8ZmRJCr8YK/txDxRkDx5lBFXU7/C8y
+   iAV+FByNQFA0qZIjSFBAD1rYFmvMdVuFbOVgl400p4srIwhgLSy8ZCRdV
    Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="364321262"
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="369012254"
 X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
-   d="scan'208";a="364321262"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2023 03:55:48 -0700
+   d="scan'208";a="369012254"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2023 05:35:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="722365649"
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="787840574"
 X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
-   d="scan'208";a="722365649"
-Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga002.jf.intel.com with ESMTP; 14 Jul 2023 03:55:45 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+   d="scan'208";a="787840574"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by fmsmga008.fm.intel.com with ESMTP; 14 Jul 2023 05:35:21 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@intel.com>)
+	id 1qKI11-002exN-2W;
+	Fri, 14 Jul 2023 15:35:19 +0300
+Date: Fri, 14 Jul 2023 15:35:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?=
  <amadeuszx.slawinski@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Mark Brown <broonie@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Cezary Rojewski <cezary.rojewski@intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
 	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Hans de Goede <hdegoede@redhat.com>,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Subject: [PATCH v2 15/15] ASoC: Intel: sst: Convert to PCI device IDs defines
-Date: Fri, 14 Jul 2023 20:56:15 +0200
-Message-Id: <20230714185615.370597-16-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230714185615.370597-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230714185615.370597-1-amadeuszx.slawinski@linux.intel.com>
+	Hans de Goede <hdegoede@redhat.com>
+Subject: Re: [PATCH v3 03/15] ASoC: SOF: Remove unused Broxton PCI ID
+Message-ID: <ZLFBBzmJXgXeWZ0y@smile.fi.intel.com>
+References: <20230714202457.423866-1-amadeuszx.slawinski@linux.intel.com>
+ <20230714202457.423866-4-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: NXHUNBFTLWURKLYYYXN2UUXW3LWHWV4S
-X-Message-ID-Hash: NXHUNBFTLWURKLYYYXN2UUXW3LWHWV4S
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+In-Reply-To: <20230714202457.423866-4-amadeuszx.slawinski@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Message-ID-Hash: 7ELAZ2CTOJ4LRXX5NWMBVMLIQ7H7QHMK
+X-Message-ID-Hash: 7ELAZ2CTOJ4LRXX5NWMBVMLIQ7H7QHMK
+X-MailFrom: andriy.shevchenko@intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -105,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/NXHUNBFTLWURKLYYYXN2UUXW3LWHWV4S/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/7ELAZ2CTOJ4LRXX5NWMBVMLIQ7H7QHMK/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -114,76 +115,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use PCI device IDs from pci_ids.h header.
+On Fri, Jul 14, 2023 at 10:24:45PM +0200, Amadeusz Sławiński wrote:
+> Current code references 0x1a98 which is BXT-M (not -T as it is
+> commented) and it's an RVP, BXT-M B0 to be specific. From what we know
+> no BXT is available on market.
 
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/intel/atom/sst/sst.c     | 7 ++++---
- sound/soc/intel/atom/sst/sst.h     | 3 ---
- sound/soc/intel/atom/sst/sst_pci.c | 4 ++--
- 3 files changed, 6 insertions(+), 8 deletions(-)
+...
 
-diff --git a/sound/soc/intel/atom/sst/sst.c b/sound/soc/intel/atom/sst/sst.c
-index a0d29510d2bc..74614f9b086a 100644
---- a/sound/soc/intel/atom/sst/sst.c
-+++ b/sound/soc/intel/atom/sst/sst.c
-@@ -16,6 +16,7 @@
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/firmware.h>
-+#include <linux/pci.h>
- #include <linux/pm_runtime.h>
- #include <linux/pm_qos.h>
- #include <linux/async.h>
-@@ -174,9 +175,9 @@ int sst_driver_ops(struct intel_sst_drv *sst)
- {
- 
- 	switch (sst->dev_id) {
--	case SST_MRFLD_PCI_ID:
--	case SST_BYT_ACPI_ID:
--	case SST_CHV_ACPI_ID:
-+	case PCI_DEVICE_ID_INTEL_SST_TNG:
-+	case PCI_DEVICE_ID_INTEL_SST_BYT:
-+	case PCI_DEVICE_ID_INTEL_SST_CHV:
- 		sst->tstamp = SST_TIME_STAMP_MRFLD;
- 		sst->ops = &mrfld_ops;
- 		return 0;
-diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
-index 4d37d39fd8f4..eab374bf0066 100644
---- a/sound/soc/intel/atom/sst/sst.h
-+++ b/sound/soc/intel/atom/sst/sst.h
-@@ -20,9 +20,6 @@
- 
- /* driver names */
- #define SST_DRV_NAME "intel_sst_driver"
--#define SST_MRFLD_PCI_ID 0x119A
--#define SST_BYT_ACPI_ID	0x80860F28
--#define SST_CHV_ACPI_ID	0x808622A8
- 
- #define SST_SUSPEND_DELAY 2000
- #define FW_CONTEXT_MEM (64*1024)
-diff --git a/sound/soc/intel/atom/sst/sst_pci.c b/sound/soc/intel/atom/sst/sst_pci.c
-index 4058b4f80a0c..7ed142bb3dc0 100644
---- a/sound/soc/intel/atom/sst/sst_pci.c
-+++ b/sound/soc/intel/atom/sst/sst_pci.c
-@@ -32,7 +32,7 @@ static int sst_platform_get_resources(struct intel_sst_drv *ctx)
- 
- 	/* map registers */
- 	/* DDR base */
--	if (ctx->dev_id == SST_MRFLD_PCI_ID) {
-+	if (ctx->dev_id == PCI_DEVICE_ID_INTEL_SST_TNG) {
- 		ctx->ddr_base = pci_resource_start(pci, 0);
- 		/* check that the relocated IMR base matches with FW Binary */
- 		ddr_base = relocate_imr_addr_mrfld(ctx->ddr_base);
-@@ -173,7 +173,7 @@ static void intel_sst_remove(struct pci_dev *pci)
- 
- /* PCI Routines */
- static const struct pci_device_id intel_sst_ids[] = {
--	{ PCI_VDEVICE(INTEL, SST_MRFLD_PCI_ID), 0},
-+	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_SST_TNG), 0},
- 	{ 0, }
- };
- 
+>  sound/hda/intel-dsp-config.c  | 7 -------
+>  sound/soc/sof/intel/pci-apl.c | 2 --
+
+I dunno how SOF and HDA are related to each other, but in the next patch you
+also do something about HDA, either group all of them, or split HDA, or split
+on per file basis. I'm not familiar with the relationship between them up to
+you which way you choose.
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 

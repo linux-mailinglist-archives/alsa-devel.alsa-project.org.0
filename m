@@ -2,126 +2,153 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2750E753673
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 11:29:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 696E1753688
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 11:31:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA247A4A;
-	Fri, 14 Jul 2023 11:29:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA247A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF669BC0;
+	Fri, 14 Jul 2023 11:30:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF669BC0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689326990;
-	bh=nPtPnpBd7HTsn5DR2B5WIhTIgp7BEVH1RODmT9sdYAw=;
-	h=Date:From:Subject:To:Cc:In-Reply-To:References:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=JLkl+js8skkGEOTz4rlAkdU56N0aQU2CajjzhMGaF9vfWfevgCKT1cBj4BpfVjB1T
-	 U92/nDg8l0ChHDTC2oifWD5hsWXqw50hoZc5f6kopCM+1eu5LK5OgaH/D7GzTUcMne
-	 xxdNd8qgoHBg6D5VgFE6zz2Z3orsPUm50FmTbQrc=
+	s=default; t=1689327067;
+	bh=Chbp2JzJTrRjrjTqFAH0oq+aCKQn6rpRUj0c/8W3QJA=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=Wp4pTDmY7hRp+/SUc76BdkKvooh0WkmsyMs4wXVRmoy+CdcXtbeeOvvup6fKNRCIi
+	 XqyYD6gACghpjhSVBpE3pthOxalJBroSvJN6lSbOAQCFmC+5oQOrquzxqVzIygIa4Q
+	 14ReYdzMeEgiRZF1eANknVgUuZGpJqubOjt94ISA=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E3C27F8027B; Fri, 14 Jul 2023 11:28:59 +0200 (CEST)
+	id BB753F80236; Fri, 14 Jul 2023 11:30:16 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C0A3F80236;
-	Fri, 14 Jul 2023 11:28:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 293ECF80236;
+	Fri, 14 Jul 2023 11:30:16 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9B89CF80249; Fri, 14 Jul 2023 11:28:52 +0200 (CEST)
+	id F30C4F8024E; Fri, 14 Jul 2023 11:30:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_NONE,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
+	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20615.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7d00::615])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 06FF6F80153
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 11:28:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06FF6F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6503F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 11:30:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6503F800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=ljones.dev header.i=@ljones.dev header.a=rsa-sha256
- header.s=fm1 header.b=vZhVZMWV;
-	dkim=pass (2048-bit key,
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=Ai5jwkIr
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.west.internal (Postfix) with ESMTP id B6656320025E;
-	Fri, 14 Jul 2023 05:28:19 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute5.internal (MEProxy); Fri, 14 Jul 2023 05:28:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ljones.dev; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm1; t=1689326899; x=1689413299; bh=HO
-	/XupU7fatYLhT+nNEiEaQ87f/HtyX1xL8rKV0ShGc=; b=vZhVZMWVTHfQdRvqIx
-	8K1syTDVT/yqFieCRpZv/YuaoA2823r92BQ52EFrctBtGh4PrTNIdWr6OpBLFTwy
-	SyKdC2yDjeb3tSmBIYsLJtapA29aQcTlVFPyCDC2cO/XJV7luix6LXlW5U29M6UE
-	oTcHGg/17o9P510iSrCK6IhJWCKPO/kVSas05o7FCF/QFvVR67uCTE7nGBdpnFhM
-	6GFHrLKyA4Txt/eHEbSybPhqTQsV7e0lzcrurIWeVGSWv5MY96UDJQHpIksV7VdX
-	1YV9jmdES0gcGjmna17/2yIxoCUiFT/GOBclAaIOZo0UQw7lXDORcR1QBst+F7YV
-	v7Ng==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1689326899; x=1689413299; bh=HO/XupU7fatYL
-	hT+nNEiEaQ87f/HtyX1xL8rKV0ShGc=; b=Ai5jwkIrtFVZjFiEVOIns1yE0rovD
-	wEa8A1AYUjce2HLqGWyaqJ3IWZZzJBzkHqsE+6f4rczbKsQhDe3yi7cntOuL23tv
-	WpPT8BfOQIZGNkK35aqf4khnHMcdmxODRewqfAmsoOa8lzhmpOmUbdUr91uGR9pn
-	6nXQHNKgcx35HU3U6oumjQD7Rp7E7Lu9J8dBHWi42Ci8Cuw9ioXnUU8ZiQg0Vcn/
-	C/GYyCjI4Xd4NX3m8c/9hFU1BW+UnKSAmwZAMCmsEoMf0q6ilIldk4Bs1UI1gKAc
-	13fOssTJQkPYYoEJ/FqPi03G/KZ9vuJnFTKyD60kqW8WersYH4Oq/ATlg==
-X-ME-Sender: <xms:MhWxZC9JDpSjET1F01jFHHVCi7KZEWZvxnKe6bJ-nPNUaJq-SpFeXw>
-    <xme:MhWxZCt_H2FhCqvDtleNbInNBUKsufzp-Pps7SmnZK_DHK8Sm0xCqJXsll-IAeReN
-    AiHCyPJuXnJxad9_1M>
-X-ME-Received: 
- <xmr:MhWxZIAfriOUQJVyyWfiEqtL1ZKzyevjXH4G_K1EIkit0dot3WA8PV_HiAH4T0MxZk6Vow>
-X-ME-Proxy-Cause: 
- gggruggvucftvghtrhhoucdtuddrgedviedrfeeigdduhecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffuvfevkfgjfhfogggtsehttdertdertddvnecuhfhrohhmpefnuhhkvgcu
-    lfhonhgvshcuoehluhhkvgeslhhjohhnvghsrdguvghvqeenucggtffrrghtthgvrhhnpe
-    fhieegtdevfeejueekteefkedtfeeffeetkeefffeiieetieeghefhuddtiedtheenucff
-    ohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
-    hrrghmpehmrghilhhfrhhomheplhhukhgvsehljhhonhgvshdruggvvh
-X-ME-Proxy: <xmx:MhWxZKfVU_AiSwlrLhmczrTkMofZmvOD60YDFI3IWPxKy2RBOV5wBA>
-    <xmx:MhWxZHPG3akQ9WXRVH4QNQnxg_zlekOvzJRVrtJLSmuGq-RsDj_ptA>
-    <xmx:MhWxZElto8CyaAj1mym2e4fXHkAW0AQIMeH91M2WKUtQs08juEKjXg>
-    <xmx:MxWxZOkVIM7r9uNd1XjRjznqdpDrN6IwnjyT7jtlQH4kno2eywePWA>
-Feedback-ID: i5ec1447f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 14 Jul 2023 05:28:08 -0400 (EDT)
-Date: Fri, 14 Jul 2023 21:27:56 +1200
-From: Luke Jones <luke@ljones.dev>
-Subject: Re: [PATCH 1/2] ALSA: hda: cs35l41: Add fixups for machines without a
- valid ACPI _DSD
-To: David Xu <xuwd1@hotmail.com>
-Cc: James Schulman <james.schulman@cirrus.com>, David Rhodes
-	<david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Stefan Binding <sbinding@opensource.cirrus.com>, Andy Chi
-	<andy.chi@canonical.com>, Tim Crawford <tcrawford@system76.com>,
-	Philipp Jungkamp <p.jungkamp@gmx.net>, Kacper =?iso-8859-2?q?Michaj=B3ow?=
-	<kasper93@gmail.com>, Matthew Anderson <ruinairas1992@gmail.com>, Yuchi Yang
-	<yangyuchi66@gmail.com>, Yang Yingliang <yangyingliang@huawei.com>,
-	alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org
-Message-Id: <KY4SXR.AVPNR1Y9HZSE3@ljones.dev>
-In-Reply-To: <WL3SXR.02LV303LBEC33@ljones.dev>
-References: <20230713162955.34842-1-xuwd1@hotmail.com>
-	<SY4P282MB183539E5A91B351249A2F8F1E037A@SY4P282MB1835.AUSP282.PROD.OUTLOOK.COM>
-	<WL3SXR.02LV303LBEC33@ljones.dev>
-X-Mailer: geary/44.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
+ header.s=selector2 header.b=UrEhHOKR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KT42qndfR+9DgZWRWNdo/d7e0WbFQ4kIYmIOUjcf7TzpykcJ1loP0d+0eU8ubd4V/HUtACCC5Kj3PN2o23ARRxt/KLSnNVkqUeGpRqAwmkgcZprDYlX5csQj8Fbbe7s5jqeqAARqb6VZzgMtkv5MpmYZjedyd0nhm5IcLldgOOy2DcfoPBTsI7tdDufOlZ7i4z8ez5/ZFqSREz5gjLnz5unrXC4FzS4Rn3FUWVytFL2SQuAr3X4nl966pbEA4kA7aFuk/+ZFOcz2vqzFIH8kmpySYs40qG520Yes+/1sA53HdRmnHj3V5Z9MUOlGijcr8uw904lB3HCpgKuMuZXBxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mKsi4o6bmPpohkiTArsjun4NpycQpTiT3V+aI0ZSFEg=;
+ b=aZFHFTAzDz8XKqUBfhWrVqNt3ci1RnVRP/E4w+qzmeUDaYQOzrGHzdbWk4a92mPsw8EWh2ie/9xR4ycBm/4Mifai3n58YJkGGCBvwZDmm2h5ZCKMoI8cplc6MsfQ0kJlLlu3fLmww2PadcedUSuZmq5MSmb+FuCUHp158PGy1AYOxn1CFluqxB21iaosfhivz++iUS3I5qtVAi9xY8wmBkT2uhm2tT9cEU6dJsKjBnWBqLak++geQqBZDuw51cQZWWRfdTCfIXZ/5RKfEFPJ4XxLWZ7cLTbCkp/TfefKQEP73hCCh2zlItQBdINAl7u+tIgH/JdLj+kIYKVGiRZqhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mKsi4o6bmPpohkiTArsjun4NpycQpTiT3V+aI0ZSFEg=;
+ b=UrEhHOKRuwcwPeVUR2M5/zbI8Y/sj6HiRXxADYb2kskVvK5Qg7WQiwceWHVBYfpUo7Zs1FQvf8xnoGhmljPWc7MsouK+qY3cvtJYfyYg7eoIMmQWimjFLoQvmbK2MwU0pnBRYV120MFqkdXtJ6YiCbwt5KBFtk9yF4i0Z9Lxk68=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
+ by DB9PR04MB9578.eurprd04.prod.outlook.com (2603:10a6:10:305::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.27; Fri, 14 Jul
+ 2023 09:30:03 +0000
+Received: from DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::7552:a10c:7f4b:96b7]) by DB9PR04MB9498.eurprd04.prod.outlook.com
+ ([fe80::7552:a10c:7f4b:96b7%6]) with mapi id 15.20.6588.027; Fri, 14 Jul 2023
+ 09:30:02 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org
+Cc: Chancel Liu <chancel.liu@nxp.com>
+Subject: [PATCH 0/2] Add support for rpmsg sound card on i.MX93 platform
+Date: Fri, 14 Jul 2023 17:29:11 +0800
+Message-Id: <20230714092913.1591195-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SG2PR06CA0186.apcprd06.prod.outlook.com (2603:1096:4:1::18)
+ To DB9PR04MB9498.eurprd04.prod.outlook.com (2603:10a6:10:360::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Message-ID-Hash: K5Y3SFBRZ2CTN2EMG6QWYV66R44YMJX3
-X-Message-ID-Hash: K5Y3SFBRZ2CTN2EMG6QWYV66R44YMJX3
-X-MailFrom: luke@ljones.dev
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9498:EE_|DB9PR04MB9578:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6866972-a6cc-48cd-77e2-08db844ce6b3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	B2o1DS+Hmy1y94brqYD15+DQs3HHa/IkZ9XJdEbN+FtF65JE2l3ZeYQ1N/bYbwbVYordM6Wa2VX62TX5rWbYIdwrG/r6G+qPYZwBwnZRfKZE/5m5sptFajkMLstuQeGuGXpFwXDuY6oBkAjZSldrMCir8X3jTBB96Fx4B7ABPybZzgrPRJZCUSjimwAs7IUuJQWRxEDe4RqTq5NAvWZ3j0ST6l3pQY4uALcRG3FXNNSiKh1D5/a8F0M3w3cx3Y9MVVHWO04ddX9hwnFGgxSpJoDgMi6BQ+5Zud1O67EaPoGcXXgHW7Raue3L3qQuGf1//uXazXcfn9T+6e2jYsVqA9G2qoU5Pm78ILu2ARnUuKGXsaTztZ6lzY0cksGm5N+zkyPHrlgvHT5nxzwyAuan6T6yAt4S0El+aCuYJylbgYkYk234uw9slCX5c9+SkJg+iNX9/PxgCtPla5de8S09Q2c8n3Gb5zszuOi2UoGTTS5NP//K85je7UgBbNIhaXE0d+nRAcH2UNbQjTuRsxyi+H60RquGg3EH7+xjjOefNjKPawltEshaNNGFyfoqFaEWeH5PIuP8F/OY5AZlN2BwXAJ+XPTQJ13UyLjWe0Blk4wxcoGgVtPS6XidWh5ae6KVjkwEUSonibqWUsmcEXdgBw==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9498.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(451199021)(2906002)(478600001)(38100700002)(921005)(38350700002)(6512007)(186003)(2616005)(26005)(1076003)(6506007)(86362001)(5660300002)(8936002)(4744005)(44832011)(7416002)(36756003)(6666004)(52116002)(41300700001)(66556008)(66946007)(4326008)(66476007)(8676002)(6486002)(316002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?zLL2hbQcMok8d2yHQbaPEAeyUgKVZHJeT8PBDYoIpIbbJPWQ0vyjYET+nitB?=
+ =?us-ascii?Q?b3o4UVKVS0SuH6nm9KIsHMAFKdHUqnASrLG+ARlww4PKoZlbdcN0gGZb2bJx?=
+ =?us-ascii?Q?y2GQc1k49rcS39ukVdQtzyy5ui5PHhy6p3HN1Q744qMfIq5X+JAdYwsmmXjh?=
+ =?us-ascii?Q?cnv2/B5QFaGDoeIXAbEy5bU89o9GC0XhyR5rpOfRKJVGm1Ui3qjYDvG/InGi?=
+ =?us-ascii?Q?MdbR0yBcos0pupIEp4ivoi+XQm3g3PcVzGF+tyebqSFf+Pd0GYjQTHQ+ztnA?=
+ =?us-ascii?Q?EprW/zc7ZVeaazylJTxxcibNG+fPz+u0b6dBOapELxWrmuUCBMwFM/avgb2n?=
+ =?us-ascii?Q?N64raMbNDmqPpFHUSnFwuZKeYJEpBfyccMy0t/JiZ1GSX2SeqLBBB6bDDW/i?=
+ =?us-ascii?Q?7zDSIUCslw51MD1Ms/KaSqJ87dUxBz3TNUqVuMTcZbnazqy8H0oiffQ6pIXZ?=
+ =?us-ascii?Q?LM73hGyhW47sd7siBl6W/8bvk6DfrvN6XnARRVY5G/Mbo8jq8vvEI6cZNUWM?=
+ =?us-ascii?Q?f9V3yDXBaX/oXiKpGPAgged5it8+ggs/5s9vcHGonTNtc9qRXAZFVSn3mXx3?=
+ =?us-ascii?Q?jn/QOG54RqZ3Wq4mdFXm+EyaQhGne7WVoCTO1xvQABygcE5yqLb2l4OIB2pr?=
+ =?us-ascii?Q?eS0oJm3XalqQraCesc3jRXCOwqiLez6yQbhGFPC0yprFqeMGgFQqakFGWob9?=
+ =?us-ascii?Q?hTFFTwt0BUoqfrTQOjY72Dwtg4sh98JltM5+67jr65sc7Rq8Krfo6bJXAGW+?=
+ =?us-ascii?Q?7BFvPLEkYIk0Pj0/oSf8WTWSLftnFUtuHZ7lItY8MGVXbi0tcY1KDwgD4Phj?=
+ =?us-ascii?Q?5GPzVUGftXUYGfYMOv1ncr6Pcm4KjzfaZ6qfyM+mYehsJnZx6iDKvLGaeNjD?=
+ =?us-ascii?Q?4/+V7VdFGfEt2miqA0JiFp8DkMHDcHgnnM9nOVeYUIlObmO2gUFIE2l8IDbI?=
+ =?us-ascii?Q?rWbaAfWZp1iacNtXNRj/4o2VRih/+FHX/FJrbSJymj0Rky2ogjWyBwJ/CPqq?=
+ =?us-ascii?Q?3v1ddE3ajmscWc63OptORuJSriVfbt61KujYpYukDlT2gUFmZdtiGTpB27Mx?=
+ =?us-ascii?Q?sLydt34fLFeCuoVcOrwLtjLICONe3Ak1f4kcDmcBxyh0qym8dZ0XWWb3XPBX?=
+ =?us-ascii?Q?09FAh+WeQ71Y9lBNcyYZW/Bo+H5X+XLlPeQP8cXYgwDvkH0kknUlVo6gw9PG?=
+ =?us-ascii?Q?1HVo6thF16MFq1JM2UwkojtpitDltUuCQ6nIjtikH1UfWhO9JaL0hBBMH4j7?=
+ =?us-ascii?Q?zGgX2rZKqSPSVOC5qBZi3ZCo9eExDdd0AxEO7BMNTzUvXUa1pIq/+3DYeL/L?=
+ =?us-ascii?Q?BOqMZbKpmZyBAKPM6W1aJp3BKAe66soEpfeGu00ovCCqf5jl7VKdeX8Mpd9o?=
+ =?us-ascii?Q?VgzOwXRF+T1jZVcez4W8LQu+gHeqUtlKGcz5uSGzSafXSk05ueuIL/ymomX2?=
+ =?us-ascii?Q?HjCVwyxrFuRZukNiXO9I00oPU8ExDG585X0tiWpdwTMEBTlIoTSYvpgh/D/t?=
+ =?us-ascii?Q?xG8dIYbBaGQqT5pabCSIBO3HeDwTttvtDHAAe9C1aHhV3IuoA8QfFZXZw9qw?=
+ =?us-ascii?Q?zFPCNNUiXWY1ywtqv81Y4PiPPtImBpRLFp+z/BW3?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ b6866972-a6cc-48cd-77e2-08db844ce6b3
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9498.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2023 09:30:02.9013
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ wWp4tEYousgCkvKEN/Di8Scn2v0EFbf0S+zJr4rjw4v0vu3vG1ucbGX0OdT7DKMHuCjrT6Jt1qF9ezVJAuSFHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9578
+Message-ID-Hash: RPESO542D64XAAKWZA765MDOVI3JFWPM
+X-Message-ID-Hash: RPESO542D64XAAKWZA765MDOVI3JFWPM
+X-MailFrom: chancel.liu@nxp.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -133,7 +160,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/K5Y3SFBRZ2CTN2EMG6QWYV66R44YMJX3/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RPESO542D64XAAKWZA765MDOVI3JFWPM/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -142,400 +169,16 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+Support rpmsg sound card on i.MX93 platform.
 
+Chancel Liu (2):
+  ASoC: dt-bindings: fsl_rpmsg: Add compatible string for i.MX93
+  ASoC: fsl_rpmsg: Add support for i.MX93 platform
 
-On Fri, Jul 14 2023 at 20:58:44 +12:00:00, Luke Jones <luke@ljones.dev> 
-wrote:
-> 
-> 
-> On Fri, Jul 14 2023 at 00:29:54 +08:00:00, David Xu 
-> <xuwd1@hotmail.com> wrote:
->> As the comments added in commit 4d4c4bff4f8ed79d95e05 ("ALSA: hda:
->> cs35l41: Clarify support for CSC3551 without _DSD Properties"), 
->> CSC3551
->> requires a valid _DSD to work and the current implementation just
->> fails when no _DSD can be found for CSC3551. However it is a fact
->> that many OEMs hardcoded the configurations needed by CSC3551 into 
->> their
->> proprietary software for various 2022 and later laptop models,
->> and this makes the Linux installations on these models cannot make
->> any speaker sound. Meanwhile, at this point of time, we see no hope
->> that these OEMs would ever fix this problem via a BIOS update. So
->> to fix this bothering problem it might be worthwhile to add some
->> model-specific fixups to apply some proper configurations
->> to the cs35l41.
->> 
->> To address the above problem, a configuration fixup function
->> apply_cs35l41_fixup_cfg that would be called in cs35l41_no_acpi_dsd,
->> along with a fixup table cs35l41_fixup_cfgtbl which is a array of
->> fixup entry struct cs35l41_fixup_cfg are introduced. Each fixup entry
->> records the ACPI _SUB(vender and device ID) to be matched, and a
->> configuration to be applied to each of the cs35l41 device in CSC3551.
->> 
->> More specifically for the design of this fixup mechanism,
->> the maximum number of cs35l41 configurations inside a fixup entry
->> is defined as a macro CS35L41_FIXUP_CFG_MAX_DEVICES, and the actual
->> number of cs35l41 devices in a CSC3551 system is recorded in the
->> num_device field in the fixup entry. The apply_cs35l41_fixup_cfg
->> function is responsible for finding and applying a fixup for a
->> specific model according to the model's ACPI _SUB. If no valid fixup
->> can be applied, the fixup function fails and returns to the normal
->> cs35l41_no_acpi_dsd execution flow.
->> 
->> This patch now contains only several fixups for three Lenovo laptop
->> models, namely 16IAH7, 16IAX7, and 16ARHA7 and this fixup mechanism
->> has been verified to work on 16IAH7. As far as is known, several 
->> other
->> laptop models from ASUS and HP also suffer from this no valid _DSD
->> problem and could have it addressed with this fixup mechanism when
->> proper fixup entries are inserted.
->> 
->> Signed-off-by: David Xu <xuwd1@hotmail.com>
->> ---
->>  sound/pci/hda/cs35l41_hda.c | 160 
->> ++++++++++++++++++++++++++++++++++++
->>  1 file changed, 160 insertions(+)
->> 
->> diff --git a/sound/pci/hda/cs35l41_hda.c 
->> b/sound/pci/hda/cs35l41_hda.c
->> index ce5faa620517..d957458dd4e6 100644
->> --- a/sound/pci/hda/cs35l41_hda.c
->> +++ b/sound/pci/hda/cs35l41_hda.c
->> @@ -1211,6 +1211,159 @@ static int cs35l41_get_speaker_id(struct 
->> device *dev, int amp_index,
->>  	return speaker_id;
->>  }
->> 
->> +#define CS35L41_FIXUP_CFG_MAX_DEVICES 4
->> +
->> +struct cs35l41_fixup_cfg {
->> +	unsigned short vender;
->> +	unsigned short device;
->> +	unsigned int num_device;  /* The num of cs35l41 instances */
->> +	/* cs35l41 instance ids, can be i2c index or spi index */
->> +	int ids[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +	unsigned int reset_gpio_idx[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +	enum gpiod_flags reset_gpio_flags[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +	int spkid_gpio_idx[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +	unsigned int spk_pos[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +	enum cs35l41_hda_gpio_function 
->> gpio1_func[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +	enum cs35l41_hda_gpio_function 
->> gpio2_func[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +	enum cs35l41_boost_type bst_type[CS35L41_FIXUP_CFG_MAX_DEVICES];
->> +};
->> +
->> +static const struct cs35l41_fixup_cfg cs35l41_fixup_cfgtbl[] = {
->> +	{ // Lenovo Legion Slim 7i 16IAH7
->> +	.vender = 0x17aa,
->> +	.device = 0x386e,
->> +	.num_device = 2,
->> +	.ids = {0x40, 0x41},
->> +	.reset_gpio_idx = {0, 0},
->> +	.reset_gpio_flags = {GPIOD_OUT_LOW, GPIOD_OUT_LOW},
->> +	.spkid_gpio_idx = {1, 1},
->> +	.spk_pos = {0, 1},
->> +	.gpio1_func = {CS35l41_VSPK_SWITCH, CS35l41_VSPK_SWITCH},
->> +	.gpio2_func = {CS35L41_INTERRUPT, CS35L41_NOT_USED},
->> +	.bst_type = {CS35L41_EXT_BOOST, CS35L41_EXT_BOOST}
->> +	},
->> +	{ // Lenovo Legion Slim 7i 16IAH7 type2
->> +	.vender = 0x17aa,
->> +	.device = 0x3803,
->> +	.num_device = 2,
->> +	.ids = {0x40, 0x41},
->> +	.reset_gpio_idx = {0, 0},
->> +	.reset_gpio_flags = {GPIOD_OUT_LOW, GPIOD_OUT_LOW},
->> +	.spkid_gpio_idx = {1, 1},
->> +	.spk_pos = {0, 1},
->> +	.gpio1_func = {CS35l41_VSPK_SWITCH, CS35l41_VSPK_SWITCH},
->> +	.gpio2_func = {CS35L41_INTERRUPT, CS35L41_NOT_USED},
->> +	.bst_type = {CS35L41_EXT_BOOST, CS35L41_EXT_BOOST}
->> +	},
->> +	{ // Lenovo Legion 7i 16IAX7
->> +	.vender = 0x17aa,
->> +	.device = 0x3874,
->> +	.num_device = 2,
->> +	.ids = {0x40, 0x41},
->> +	.reset_gpio_idx = {0, 0},
->> +	.reset_gpio_flags = {GPIOD_OUT_LOW, GPIOD_OUT_LOW},
->> +	.spkid_gpio_idx = {1, 1},
->> +	.spk_pos = {0, 1},
->> +	.gpio1_func = {CS35l41_VSPK_SWITCH, CS35l41_VSPK_SWITCH},
->> +	.gpio2_func = {CS35L41_INTERRUPT, CS35L41_INTERRUPT},
->> +	.bst_type = {CS35L41_EXT_BOOST, CS35L41_EXT_BOOST}
->> +	},
->> +	{ // Lenovo Legion 7i 16IAX7 type 2
->> +	.vender = 0x17aa,
->> +	.device = 0x386f,
->> +	.num_device = 2,
->> +	.ids = {0x40, 0x41},
->> +	.reset_gpio_idx = {0, 0},
->> +	.reset_gpio_flags = {GPIOD_OUT_LOW, GPIOD_OUT_LOW},
->> +	.spkid_gpio_idx = {1, 1},
->> +	.spk_pos = {0, 1},
->> +	.gpio1_func = {CS35l41_VSPK_SWITCH, CS35l41_VSPK_SWITCH},
->> +	.gpio2_func = {CS35L41_INTERRUPT, CS35L41_INTERRUPT},
->> +	.bst_type = {CS35L41_EXT_BOOST, CS35L41_EXT_BOOST}
->> +	},
->> +	{ // Lenovo Legion Slim 7 16ARHA7
->> +	.vender = 0x17aa,
->> +	.device = 0x3877,
->> +	.num_device = 2,
->> +	.ids = {0x40, 0x41},
->> +	.reset_gpio_idx = {0, 0},
->> +	.reset_gpio_flags = {GPIOD_OUT_LOW, GPIOD_OUT_LOW},
->> +	.spkid_gpio_idx = {1, 1},
->> +	.spk_pos = {0, 1},
->> +	.gpio1_func = {CS35l41_VSPK_SWITCH, CS35l41_VSPK_SWITCH},
->> +	.gpio2_func = {CS35L41_INTERRUPT, CS35L41_INTERRUPT},
->> +	.bst_type = {CS35L41_EXT_BOOST, CS35L41_EXT_BOOST}
->> +	},
->> +	{} // terminator
->> +};
->> +
->> +static inline int cs35l41_fixup_get_index(const struct 
->> cs35l41_fixup_cfg *fixup, int cs35l41_addr)
->> +{
->> +	int i;
->> +
->> +	for (i = 0; i < fixup->num_device; i++) {
->> +		if (fixup->ids[i] == cs35l41_addr)
->> +			return i;
->> +	}
->> +	return -ENODEV;
->> +}
->> +
->> +static int apply_cs35l41_fixup_cfg(struct cs35l41_hda *cs35l41,
->> +				struct device *physdev,
->> +				int cs35l41_addr,
->> +				const struct cs35l41_fixup_cfg *fixup_tbl)
->> +{
->> +	const char *ssid;
->> +	unsigned int vendid;
->> +	unsigned int devid;
->> +	const struct cs35l41_fixup_cfg *cur_fixup;
->> +	struct cs35l41_hw_cfg *hw_cfg;
->> +	int cs35l41_index;
->> +	int ret;
->> +	int i;
->> +
->> +	ssid = cs35l41->acpi_subsystem_id;
->> +	ret = sscanf(ssid, "%04x%04x", &vendid, &devid);
->> +	if (ret != 2)
->> +		return -EINVAL;
->> +
->> +	hw_cfg = &cs35l41->hw_cfg;
->> +	for (cur_fixup = fixup_tbl; cur_fixup->vender; cur_fixup++) {
->> +		if (cur_fixup->vender == vendid && cur_fixup->device == devid) {
->> +			cs35l41_index = cs35l41_fixup_get_index(cur_fixup, cs35l41_addr);
->> +			if (cs35l41_index == -ENODEV)
->> +				return -ENODEV;
->> +			cs35l41->index = cs35l41_index;
->> +			cs35l41->reset_gpio = gpiod_get_index(
->> +				physdev,
->> +				NULL,
->> +				cur_fixup->reset_gpio_idx[cs35l41_index],
->> +				cur_fixup->reset_gpio_flags[cs35l41_index]
->> +				);
->> +			cs35l41->speaker_id = cs35l41_get_speaker_id(physdev,
->> +				cs35l41_index,
->> +				cur_fixup->num_device,
->> +				cur_fixup->spkid_gpio_idx[cs35l41_index]
->> +				);
->> +			hw_cfg->spk_pos = cur_fixup->spk_pos[cs35l41_index];
->> +			cs35l41->channel_index = 0;
->> +			for (i = 0; i < cs35l41->index; i++)
->> +				if (cur_fixup->spk_pos[i] == hw_cfg->spk_pos)
->> +					cs35l41->channel_index++;
->> +
->> +			hw_cfg->gpio1.func = cur_fixup->gpio1_func[cs35l41_index];
->> +			hw_cfg->gpio1.valid = true;
->> +			hw_cfg->gpio2.func = cur_fixup->gpio2_func[cs35l41_index];
->> +			hw_cfg->gpio2.valid = true;
->> +			hw_cfg->bst_type = cur_fixup->bst_type[cs35l41_index];
->> +			dev_dbg(physdev, "Fixup applied.\n");
->> +			break;
->> +		}
->> +	}
->> +	return 0;
->> +
->> +}
->> +
->>  /*
->>   * Device CLSA010(0/1) doesn't have _DSD so a gpiod_get by the 
->> label reset won't work.
->>   * And devices created by serial-multi-instantiate don't have their 
->> device struct
->> @@ -1221,6 +1374,7 @@ static int cs35l41_get_speaker_id(struct 
->> device *dev, int amp_index,
->>  static int cs35l41_no_acpi_dsd(struct cs35l41_hda *cs35l41, struct 
->> device *physdev, int id,
->>  			       const char *hid)
->>  {
->> +	int ret;
-> 
-> This ret is unused.
-> 
->>  	struct cs35l41_hw_cfg *hw_cfg = &cs35l41->hw_cfg;
->> 
->>  	/* check I2C address to assign the index */
->> @@ -1243,7 +1397,13 @@ static int cs35l41_no_acpi_dsd(struct 
->> cs35l41_hda *cs35l41, struct device *physd
->>  		/*
->>  		 * Note: CLSA010(0/1) are special cases which use a slightly 
->> different design.
->>  		 * All other HIDs e.g. CSC3551 require valid ACPI _DSD properties 
->> to be supported.
->> +		 * However many OEMs hardcoded the configurations into their 
->> proprietary software
->> +		 * thus leaving our Linux installation with no speaker sound at 
->> all while we see
->> +		 * no hope those OEMs would fix it. So we apply a ssid specific 
->> fixup to fix it.
->>  		 */
->> +		if (apply_cs35l41_fixup_cfg(cs35l41, physdev, id, 
->> cs35l41_fixup_cfgtbl) == 0)
->> +			return 0;
->> +
->>  		dev_err(cs35l41->dev, "Error: ACPI _DSD Properties are missing 
->> for HID %s.\n", hid);
->>  		hw_cfg->valid = false;
->>  		hw_cfg->gpio1.valid = false;
->> --
->> 2.41.0
->> 
-> 
-> Hi David,
-> 
-> Thank you for working on this, it is something I was considering 
-> doing myself as there are approximately 56 laptops in the ASUS range, 
-> not counting the variants, which need similar. Some I2C connected, 
-> some SPI connected. There is zero chance all the vendors will take 
-> action to include the correct entries in DSD.
-> 
-> I have tried your patch on an SPI connected Strix G634. As there is a 
-> lack of detail on some things I am unsure if I got the setup correct. 
-> And regardless of that there are issues - I don't think I could 
-> confirm if this worked due to those.
-> 
-> I tried with the patch applied and what I thought was correct setup 
-> (in driver):
-> 1. without my DSD table additions (in acpi)
-> 2. With the CS part added (in acpi)
-> 3. With my full DSD table added (in acpi)
-> 
-> all 3 instances failed with:
-> 
-> cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: OTP Boot status 80000000 
-> error: 0
-> cs35l41-hda: probe of spi1-CSC3551:00-cs35l41-hda.0 failed with error 
-> -5
-> 
-> The driver table entry I used was:
-> 
-> + { // ROG Strix Scar
-> + .vender = 0x1043,
-> + .device = 0x1caf,
-> + .num_device = 2,
-> + .ids = {0x00, 0x01},
-> + .reset_gpio_idx = {0, 0},
-> + .reset_gpio_flags = {GPIOD_OUT_LOW, GPIOD_OUT_LOW},
-> + .spkid_gpio_idx = {1, 1},
-> + .spk_pos = {0, 1},
-> + .gpio1_func = {CS35l41_VSPK_SWITCH, CS35l41_VSPK_SWITCH},
-> + .gpio2_func = {CS35L41_INTERRUPT, CS35L41_INTERRUPT},
-> + .bst_type = {CS35L41_EXT_BOOST, CS35L41_EXT_BOOST}
-> + },
-> 
-> Compared to my ACPI patch:
-> 
-> DefinitionBlock ("", "SSDT", 1, "CUSTOM", "CSC3551", 0x00000001)
-> {
->    External (_SB_.PC00.SPI3, DeviceObj)
->    External (_SB_.PC00.SPI3.SPK1, DeviceObj)
-> 
->    Scope (_SB.PC00.SPI3.SPK1)
->    {
->        Name (_DSD, Package ()
->        {
->            ToUUID ("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
->            Package ()
->            {
->                Package () { "cirrus,dev-index", Package () { Zero, 
-> One }},
->                Package () { "reset-gpios", Package () {
->                    SPK1, One, Zero, Zero,
->                    SPK1, One, Zero, Zero
->                } },
->                Package () { "spk-id-gpios", Package () {
->                    SPK1, 0x02, Zero, Zero,
->                    SPK1, 0x02, Zero, Zero
->                } },
->                Package () { "cirrus,speaker-position", Package () { 
-> Zero, One } },
->                // gpioX-func: 0 not used, 1 VPSK_SWITCH, 2: 
-> INTERRUPT, 3: SYNC
->                Package () { "cirrus,gpio1-func", Package () { One, 
-> One } },
->                Package () { "cirrus,gpio2-func", Package () { 0x02, 
-> 0x02 } },
->                // boost-type: 0 internal, 1 external
->                Package () { "cirrus,boost-type", Package () { Zero, 
-> Zero } }
->            }
->        })
->    }
-> 
->    Scope (_SB.PC00.SPI3)
->    {
->        Name (_DSD, Package ()
->        {
->            ToUUID ("daffd814-6eba-4d8c-8a91-bc9bbf4aa301"),
->            Package ()
->            {
->                Package () { "cs-gpios", Package () {
->                    Zero, // Native CS
->                    SPK1, Zero, Zero, Zero // GPIO CS
->                } }
->            }
->        })
->    }
-> }
-> 
-> 
-> The key thing I am concerned about is how the values for the 
-> following are gained:
-> + .reset_gpio_idx = {0, 0},
-> + .reset_gpio_flags = {GPIOD_OUT_LOW, GPIOD_OUT_LOW},
-> + .spkid_gpio_idx = {1, 1},
-> 
-> there wasn't much detail provided on this, and I tried multiple 
-> variations, all ending up with the same errors as before. I will do a 
-> debug build and get some more info.
-> 
-> 
-> 
-> Some previous conversation: 
-> https://lore.kernel.org/all/1991650.PYKUYFuaPT@fedora/
+ Documentation/devicetree/bindings/sound/fsl,rpmsg.yaml | 1 +
+ sound/soc/fsl/fsl_rpmsg.c                              | 8 ++++++++
+ 2 files changed, 9 insertions(+)
 
-With and without the chip select ssdt patch for SPI I get:
-
-Serial bus multi instantiate pseudo device driver CSC3551:00: Found 
-Fixed Speaker ID GPIO (index = 2)
-Serial bus multi instantiate pseudo device driver CSC3551:00: Speaker 
-ID = 0
-Serial bus multi instantiate pseudo device driver CSC3551:00: Found 
-Fixed Speaker ID GPIO (index = 1)
-Serial bus multi instantiate pseudo device driver CSC3551:00: Speaker 
-ID = 0
-Serial bus multi instantiate pseudo device driver CSC3551:00: Fixup 
-applied.
-cs35l41-hda spi1-CSC3551:00-cs35l41-hda.1: Reset line busy, assuming 
-shared reset
-cs35l41-hda spi1-CSC3551:00-cs35l41-hda.1: OTP Boot status 80000000 
-error: 0
-cs35l41-hda: probe of spi1-CSC3551:00-cs35l41-hda.1 failed with error -5
-
-
+--
+2.25.1
 

@@ -2,100 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086B0753DE2
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 16:43:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F30BD753F83
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 18:07:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E87EA4B;
-	Fri, 14 Jul 2023 16:43:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E87EA4B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 329C1AE8;
+	Fri, 14 Jul 2023 18:07:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 329C1AE8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689345832;
-	bh=XEOxH2CqYyurx7m8JBdmTpu11TeU73bpGdvBcGnn5Hw=;
+	s=default; t=1689350875;
+	bh=0x+6yru7lLFD4oe/5xE3srvk0BbNmPu9/UtbnyNKzSY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=p/JOSzG0iFnbkvmFzTXsHUSnXEB7UWDW8Dei/Hb4VluvLKSshBp6DMl5itIKGjPab
-	 I+7vQJ+WFS6yUi2WK/8XaHbmJdmWRjOkmjzBBvMeXwPjh+/xlweYUYgmrBmALV/tf2
-	 Wr0cZGvbRrye8QsQMqIeVdEltmNPkZneQ8wJqe8c=
+	b=PziccddCMDslfMzNk8nvidSC+SB1CDw6YqN8aDeIwNf2HxtMBmp6H6X34Kd0BXooc
+	 EmFbGEGwNFUtgmvNKt2qM/+7Xy7r2fRNduuuBOHWI8P5exSqOcvAGksEZGs9FLEYvn
+	 C5VfCLomaXBfqGa0HgcxuwpT9+h1Mg8xJYC4Wyto=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9CBDDF80535; Fri, 14 Jul 2023 16:43:01 +0200 (CEST)
+	id 575F3F8024E; Fri, 14 Jul 2023 18:07:04 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 099ECF80236;
-	Fri, 14 Jul 2023 16:43:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1F92F80236;
+	Fri, 14 Jul 2023 18:07:03 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 8EFD8F80249; Fri, 14 Jul 2023 16:42:56 +0200 (CEST)
+	id 05D33F80249; Fri, 14 Jul 2023 18:07:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
-	version=3.4.6
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E3791F800E4
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 16:42:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3791F800E4
-Received: by mail-il1-f182.google.com with SMTP id
- e9e14a558f8ab-34617b29276so7501835ab.0
-        for <alsa-devel@alsa-project.org>;
- Fri, 14 Jul 2023 07:42:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689345768; x=1691937768;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KafqaUPjCBQvFb5pvwK1WdmWPTr611IYKGNe6Y4q1jw=;
-        b=AWH9AYqvD/OeAS1NCRS6DNyTt35WqqsSLmr7NfWo61O99iOkLLzc/ylJ3Xstdmx1cp
-         gmKY6n0W4aYYoZzsOYiG1tP48zM28i8ZBb7P4Z+b/bM6aNmgJpf6ymTxTi9u1h6gfSBc
-         5hxKMTLpN8kWGHzhUmlWmlRHRG33MX+scgGV6mOVbY/oJS6ygDO4O20KAP3sVAGUp1qN
-         DrgnRtj06ZcNusThEBrXXfOBlGG02+g/zEKVqvx+gT6FvMudvXWh0l6LP2LHFPMDhx30
-         91Tf94TixET0aQeSdqVQ12mEasAlk9B0B/iHf2Jqc2YmetKOrYCWZt2abV7deIq9AGeK
-         Q+YA==
-X-Gm-Message-State: ABy/qLacpQ+l2+G/5jEx8eVUAQ+7Ee0NwR+v+Y5vihINQ2GrPanRqUAe
-	NIgfc+YbLo+mF7cC//zIaA==
-X-Google-Smtp-Source: 
- APBJJlGgw+aS9LF9nyYrifeO4PKMHlwWzPPjDwEY0tG7a8ECRbrBNcvL4TYX5yATAdGS/P2F6DiReg==
-X-Received: by 2002:a05:6e02:1a62:b0:348:72fe:8de0 with SMTP id
- w2-20020a056e021a6200b0034872fe8de0mr443527ilv.14.1689345767787;
-        Fri, 14 Jul 2023 07:42:47 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.250])
-        by smtp.gmail.com with ESMTPSA id
- h12-20020a92d84c000000b0034267d3fcc5sm2788971ilq.55.2023.07.14.07.42.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Jul 2023 07:42:47 -0700 (PDT)
-Received: (nullmailer pid 3499251 invoked by uid 1000);
-	Fri, 14 Jul 2023 14:42:45 -0000
-Date: Fri, 14 Jul 2023 08:42:45 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- =?utf-8?B?IkFtYWRldXN6IFPFgmF3acWEc2tpIg==?=
- <amadeuszx.slawinski@linux.intel.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 14/15] ASoC: dt-bindings: renesas,rsnd.yaml: add
- common port-def
-Message-ID: <20230714144245.GA3492124-robh@kernel.org>
-References: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
- <87351wo921.wl-kuninori.morimoto.gx@renesas.com>
- <20230710151956.GA1992791-robh@kernel.org>
- <87lefn8gh9.wl-kuninori.morimoto.gx@renesas.com>
+	by alsa1.perex.cz (Postfix) with ESMTPS id 0ED4EF800E4
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 18:06:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0ED4EF800E4
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=aUBrwV7u
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 0F3DC61D51;
+	Fri, 14 Jul 2023 16:06:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB194C433C7;
+	Fri, 14 Jul 2023 16:06:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689350811;
+	bh=0x+6yru7lLFD4oe/5xE3srvk0BbNmPu9/UtbnyNKzSY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aUBrwV7uKVAe66TiCaKxa0wIoEurA8bk3LYNDaybwI++zH8g+dE3FB+WD6YR17QM5
+	 eCyQz919iQ15+59uNo11VtTVRARayKfuCX7FusgeAz8ZqD586CVbiFuyQFzj1ZFVe8
+	 DN1imlnjNX/Htbtkn87nwGWUzV0KDvVV2a+egHp3Xc4Ja4bQ6UWPOXAhT6uvcXLaf9
+	 5sZu81HJ32CHiSGbmQRNFaF3X42dDZUo6oTJ9QC29pI0okmu5TWHvDYdxMgGQxfWK4
+	 fgV69tVzyxq20w20aVSOmBNzUbq2YDxRBRBpQuadH3RCMzWO8EPQxZqyVEjuGxa8Fi
+	 /M1AtsrXUKulA==
+Date: Fri, 14 Jul 2023 17:06:46 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Zhu Ning <zhuning0077@gmail.com>
+Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+	tiwai@suse.com, amadeuszx.slawinski@linux.intel.com,
+	yangxiaohua@everest-semi.com, zhuning@everest-semi.com
+Subject: Re: [PATCH v1 2/5] ASoC: codecs: ES8326: Change Hp_detect and
+ volatile reg function
+Message-ID: <8ce0b387-e522-430b-b9e8-58ad9efa2505@sirena.org.uk>
+References: <20230714032453.3334-1-zhuning0077@gmail.com>
+ <20230714032453.3334-2-zhuning0077@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="523nnTeaBAVqI2UH"
 Content-Disposition: inline
-In-Reply-To: <87lefn8gh9.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID-Hash: 6ESFAWQRNT6TOCOI5JRDVBAN5IYRG5XG
-X-Message-ID-Hash: 6ESFAWQRNT6TOCOI5JRDVBAN5IYRG5XG
-X-MailFrom: robherring2@gmail.com
+In-Reply-To: <20230714032453.3334-2-zhuning0077@gmail.com>
+X-Cookie: Madness takes its toll.
+Message-ID-Hash: KLXSPTZ7JZDRXJIRFW7G5PBEEYHTPZFI
+X-Message-ID-Hash: KLXSPTZ7JZDRXJIRFW7G5PBEEYHTPZFI
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -107,7 +94,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6ESFAWQRNT6TOCOI5JRDVBAN5IYRG5XG/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KLXSPTZ7JZDRXJIRFW7G5PBEEYHTPZFI/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -116,55 +103,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On Tue, Jul 11, 2023 at 09:00:18AM +0900, Kuninori Morimoto wrote:
-> 
-> Hi Rob
-> 
-> Thank you for reviewing
-> 
-> 
-> > > diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> > > index 8a821dec9526..d9808b130e8d 100644
-> > > --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> > > +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> > > @@ -9,6 +9,20 @@ title: Renesas R-Car Sound Driver
-> > >  maintainers:
-> > >    - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > >  
-> > > +definitions:
-> > 
-> > $defs
-> 
-> Hmm... many drivers are using "definitions" ?
 
-Patches welcome to change them. I don't think it's many (not counting 
-types.yaml). Use of "definitions" or "$defs" is an exception.
+--523nnTeaBAVqI2UH
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> This kind of indication is very confusable...
+On Fri, Jul 14, 2023 at 11:24:50AM +0800, Zhu Ning wrote:
+> The old register naming method is confusing. The reg 0x57 decides
+> the default headset hardware connection type, and the reg 0xfb is
+> the headset detection status register, which changes during headset
+> insertion. Change the name to ES8326_HPDET_TYPE and ES8326_HPDET_STA.
 
-"definitions" was common convention in early json-schema. "$defs" was 
-added to the specification to standardize it.
+This breaks an x86 allmodconfig build:
 
-> > >    port:
-> > > -    $ref: audio-graph-port.yaml#/definitions/port-base
-> > > -    unevaluatedProperties: false
-> > > -    patternProperties:
-> > > -      "^endpoint(@[0-9a-f]+)?":
-> > > -        $ref: audio-graph-port.yaml#/definitions/endpoint-base
-> > > -        properties:
-> > > -          playback:
-> > > -            $ref: /schemas/types.yaml#/definitions/phandle-array
-> > > -          capture:
-> > > -            $ref: /schemas/types.yaml#/definitions/phandle-array
-> > > -        unevaluatedProperties: false
-> > > +    $ref: "#/definitions/port-def"
-> > 
-> > It would be better if users just always used "ports { port {}; };" even 
-> > in the single port case.
-> 
-> "ports" support is added, we can't modify past.
+/build/stage/linux/sound/soc/codecs/es8326.c: In function =E2=80=98es8326_r=
+esume=E2=80=99:
+/build/stage/linux/sound/soc/codecs/es8326.c:659:38: error: =E2=80=98ES8326=
+_HP_DET=E2=80=99 undeclared (first use in this function); did you mean =E2=
+=80=98ES8326_HP_OFF=E2=80=99?
+  659 |         regmap_write(es8326->regmap, ES8326_HP_DET,
+      |                                      ^~~~~~~~~~~~~
+      |                                      ES8326_HP_OFF
 
-I don't understand. The graph APIs all work the same with or without 
-'ports'. Changing the DT shouldn't affect the ABI.
+--523nnTeaBAVqI2UH
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Rob
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSxcpUACgkQJNaLcl1U
+h9B1Pwf+MnqK7SRQhWPXDXwOBUnxWZmR8H8iIZrWm8ac4IPzWPC/NNcbsObZaM8z
+6cMh5qvmsRqYifXvybU9FlKc9K+9UslRLGq/NYeeEhp4EqK4kEZKB9Zz/oLSqsn5
+yRKmAHmG59/3OkdFj2uofsWN0fyQYAa0Z3L9KPdnh0/e05CfS52yjEVyN5VrD0BK
+ReKXLdE99CK4iouCjlcr7mdiAxZzppypYgYItGt7I3pMKVNuP9dTaSnYPc3JBguv
+Jx//H92MhmGF62o5XqhCbFZGQ7I830CgvOTIg0673wivljLC0E7mP1XRJyL8ynVu
+w+tuts3rRGLzlmYMivLawY8doY248g==
+=pMjR
+-----END PGP SIGNATURE-----
+
+--523nnTeaBAVqI2UH--

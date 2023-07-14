@@ -2,85 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8795753C00
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 15:47:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD78B753ACD
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 14:25:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB48586F;
-	Fri, 14 Jul 2023 15:46:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB48586F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 47CE8A4B;
+	Fri, 14 Jul 2023 14:24:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 47CE8A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689342460;
-	bh=jlT4MOwW+4v6VFl73qUifFGFB4+CTofOHXfzIaWF/9Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=gtwbHsran+Fsp2yjYG5e0KJQvGUEDkZgDOCSCqMy166WpN3G4U+NStMrz6WlqLwNT
-	 Ka2pPDw5FQTmH2T/CbsyvFCaN+6OpOvs6jU+j5c3KH+HSZGFuFanVRTwaW3nEhZ/t4
-	 /V6x+ZiV06Lc2OLosHKWW0Ojp2mTd1xSlSzXF8Go=
+	s=default; t=1689337512;
+	bh=ctKemUwsoQTlB8hR1k2AtPpg1aFoaPmj0pPJ2qO6D3g=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=ELxuoonIVy+p++Q/ID1XkdnoQKu0z9PniTLROsSDbw6mm71hdJ7CQnnFL+qtyIxoy
+	 Nd0xVfGq+Pmq+hry0d5wu0WomauKJIKxsOnXgmUiHVlMZctFmJzYjWoNENJAf0wE0m
+	 OjhDpWxIXbwvgRCrjX7sgXQkr8DfqCTdHmhamBL8=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CCCC0F8047D; Fri, 14 Jul 2023 15:46:49 +0200 (CEST)
+	id 56CB1F80549; Fri, 14 Jul 2023 14:24:21 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96785F80236;
-	Fri, 14 Jul 2023 15:46:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD3A4F80549;
+	Fri, 14 Jul 2023 14:24:20 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7F8CFF80249; Fri, 14 Jul 2023 15:46:44 +0200 (CEST)
+	id 029C5F80548; Fri, 14 Jul 2023 14:24:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
- SHA256)
+X-Spam-Status: No, score=-2.4 required=5.0 tests=DATE_IN_FUTURE_06_12,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B616CF800D2
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 15:46:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B616CF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 686D7F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 14:24:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 686D7F800D2
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=kt4460wH
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id AAC0E61D21;
-	Fri, 14 Jul 2023 13:46:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52D64C433C8;
-	Fri, 14 Jul 2023 13:46:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689342392;
-	bh=jlT4MOwW+4v6VFl73qUifFGFB4+CTofOHXfzIaWF/9Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kt4460wHZy6jp9LP/QLU8ZGR/X5P937Fr7HjKGNDU1l3sY4pSjmctutPhFTKiAKSd
-	 2QbjPRwd2v8FZ87+8moRdVgsiRxkoAmRaWKnDZBSqLkyd7+5FgmK0MzLEF7oSmE73s
-	 ysrrRC5zs+jQ+h+jO6xPWAXH7CRPZuiK62xdVuuG1CJ42G7u2yKWQklGiUbonraRsL
-	 EFBmq15aFUz4RrvsdaGF7QdWjy/45kKnsoctdwlOCmoR1kFJCKhK2yAnIwKCtwtzyc
-	 xheQ3nVoTMnutcGhfUmiXNVmxEqQdhS87coryquiKsxfrOMzcW6X18xVknPDWykINg
-	 Jq/ZivuZqcNWQ==
-Date: Fri, 14 Jul 2023 14:46:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kevin Lu <luminlong@139.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, kevin-lu@ti.com,
-	shenghao-ding@ti.com, alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ASoC: tas2505: Add tas2505 driver
-Message-ID: <9358b427-faa7-48be-b386-bf1287906873@sirena.org.uk>
-References: <20230712044321.48530-1-luminlong@139.com>
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=FuEdXdlE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689337444; x=1720873444;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ctKemUwsoQTlB8hR1k2AtPpg1aFoaPmj0pPJ2qO6D3g=;
+  b=FuEdXdlElFAtaxBUwlTloLVe58HFfZX/Aacb9L97Q5IPzLi/hKFszEp7
+   hpPteZMYtkxMf4lewS3MuWSOpYUJ1Wro3BU6FFuPI7LBDrO7BjlvFhQav
+   ghxf5JCNcgFmKLnUfZ+ZO54jgaSqI/gC1lfZ+qZW2oMReKQQkCg+uyWRU
+   3+XpxttZROO/NTqeG+Nf6xrVoQEenoq0qMREeGAos/R2hglU+Nm0Ss8mY
+   drwCHk/i/bT06z1/+KQpwSN1TjpFUi+D807JSdLbvumz9ItFbewAdgXEh
+   yjSf3QsKt9XVrCkY/Cfcl5831Lfu96DzDSGH8HnH8h8DXjqENwf4dmC62
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="429225778"
+X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
+   d="scan'208";a="429225778"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2023 05:23:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="1053034846"
+X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
+   d="scan'208";a="1053034846"
+Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
+  by fmsmga005.fm.intel.com with ESMTP; 14 Jul 2023 05:23:39 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Mark Brown <broonie@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hdegoede@redhat.com>,
+	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH v3 00/15] PCI: Define Intel PCI IDs and use them in drivers
+Date: Fri, 14 Jul 2023 22:24:42 +0200
+Message-Id: <20230714202457.423866-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fkB7w4zBomSv3qDK"
-Content-Disposition: inline
-In-Reply-To: <20230712044321.48530-1-luminlong@139.com>
-X-Cookie: Preserve the old, but know the new.
-Message-ID-Hash: ULFO7LRNI5UZTRZTGM4DMG3WVKCTUDWB
-X-Message-ID-Hash: ULFO7LRNI5UZTRZTGM4DMG3WVKCTUDWB
-X-MailFrom: broonie@kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: MHP56MHCIN6IPDTDTNSHR3QUICTLEDP5
+X-Message-ID-Hash: MHP56MHCIN6IPDTDTNSHR3QUICTLEDP5
+X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -92,7 +102,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/ULFO7LRNI5UZTRZTGM4DMG3WVKCTUDWB/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/MHP56MHCIN6IPDTDTNSHR3QUICTLEDP5/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -101,38 +111,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+PCI IDs for Intel HDA are duplicated across quite a few drivers, due to
+various configurations and historical reasons. Currently almost all uses
+of HDA PCI IDs have corresponding comment telling which platform it is.
+Additionally there are some inconsistencies between drivers about which
+ID corresponds to which device.
 
---fkB7w4zBomSv3qDK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Simplify things, by adding PCI IDs to global header and make use of them
+in drivers. This allows for removal of comments by having IDs themselves
+being self explanatory. Additionally it allows for removal of existing
+inconsistencies by having one source of truth.
 
-On Wed, Jul 12, 2023 at 12:43:21PM +0800, Kevin Lu wrote:
+Changes from v2:
+ - Change CHV to BSW (Andy)
+ - Fix incorrectly rebased patches (Andy)
+ - Fix commit message and add suggestions from Andy to SST patch (Andy)
+ - Rebased on top of Linus tree commit: 4b810bf037e5
 
-> +	val = (ucontrol->value.integer.value[0] & 0x7f);
-> +	val = mc->invert ? mc->max - val : val;
-> +	val = (val < 0) ? 0 : val;
+Changes from v1:
+ - Remove BXT-T PCI ID as it is not released (Andy)
+ - Reorder macros to start from pci_match_id() (Andy)
+ - Add comment about BXT->APL name change in commit messages (Andy)
+ - Use SST as part of macro name for DSP only devices (Andy)
+ - Add PCI IDs for all SST combinations (Andy)
 
-Please write normal if statements, it helps with legibility.
+Changes from RFC:
+ - Sort Intel PCI IDs before adding new ones
+ - Fix ordering of new PCI IDs (Andy)
+ - Define all used Intel IDs (Andy)
+ - Add macros for controller type detection (Andy/Bjorn)
+ - Add set of patches changing to use above macro (Andy/Bjorn)
+ - Use PCI_DEVICE_DATA for Intel IDs in sound/pci/hda/hda_intel.c (Andy)
+ - Commit message wording (Andy)
+ - Remove unnecessary tabs (Andy)
 
-> +	.num_reg_defaults = ARRAY_SIZE(tas2505_reg_defaults),
-> +	.cache_type = REGCACHE_RBTREE,
+Amadeusz Sławiński (15):
+  PCI: Sort Intel PCI IDs by number
+  PCI: Add Intel Audio DSP devices to pci_ids.h
+  ASoC: SOF: Remove unused Broxton PCI ID
+  ALSA: Remove unused Broxton PCI ID
+  ALSA: hda: Add controller matching macros
+  ALSA: hda: Use global PCI match macro
+  ALSA: hda/i915:  Use global PCI match macro
+  ASoC: Intel: Skylake: Use global PCI match macro
+  ALSA: intel-dsp-config: Convert to PCI device IDs defines
+  ALSA: hda: Convert to PCI device IDs defines
+  ASoC: Intel: avs: Convert to PCI device IDs defines
+  ASoC: Intel: avs: Convert to PCI device IDs defines
+  ASoC: Intel: Skylake: Convert to PCI device IDs defines
+  ASoC: SOF: Intel: Convert to PCI device IDs defines
+  ASoC: Intel: sst: Convert to PCI device IDs defines
 
-Please use REGCACHE_MAPLE for new devices where you'd otherwise have
-used RBTREE unless there's a particular reason - it's more modern.
+ include/linux/pci_ids.h                | 105 +++++--
+ include/sound/hda_codec.h              |   3 -
+ include/sound/hdaudio.h                |  26 ++
+ sound/hda/hdac_i915.c                  |   7 +-
+ sound/hda/intel-dsp-config.c           | 124 ++++----
+ sound/pci/hda/hda_intel.c              | 373 ++++++++++---------------
+ sound/soc/intel/atom/sst/sst.c         |   9 +-
+ sound/soc/intel/atom/sst/sst.h         |   7 +-
+ sound/soc/intel/atom/sst/sst_pci.c     |   4 +-
+ sound/soc/intel/avs/board_selection.c  |  10 +-
+ sound/soc/intel/avs/core.c             |  16 +-
+ sound/soc/intel/skylake/skl-messages.c |  16 +-
+ sound/soc/intel/skylake/skl-pcm.c      |   3 +-
+ sound/soc/intel/skylake/skl.c          |  36 +--
+ sound/soc/sof/intel/pci-apl.c          |   8 +-
+ sound/soc/sof/intel/pci-cnl.c          |  15 +-
+ sound/soc/sof/intel/pci-icl.c          |  12 +-
+ sound/soc/sof/intel/pci-mtl.c          |   3 +-
+ sound/soc/sof/intel/pci-skl.c          |   6 +-
+ sound/soc/sof/intel/pci-tgl.c          |  45 +--
+ sound/soc/sof/intel/pci-tng.c          |   3 +-
+ 21 files changed, 386 insertions(+), 445 deletions(-)
 
---fkB7w4zBomSv3qDK
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.34.1
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSxUbIACgkQJNaLcl1U
-h9Bm9Af/Vmv/c7d6mMKNRJ+Kq/VFegwM1YkIGeForVA0+QYnx52ji0YoqOW82WHH
-ULAUcg7xy7NcVbJCwUbOEYC5O9ZgxG1pnzYiu1vFJa5Z0i8wF/HkmR577K2qPrjY
-44bFdOHrE9dTB4XiRK1Bxe8Q67oylR2z45qnt2nqrCCLdnJgDqwVrSgaDelNBWM4
-KUBWI7rNee8Iy+CPGMA77stRPX/mNeeRNAYKmofnu8HZ677SpglczskoSDBMyC8m
-MTeuSk5I58N8pWyAufMROBrNuQiN5FL7NPIKQ2K9OO7n7Im3InF7+wxv2PkjKvcI
-hb6qU4y1IYxjA/CT50+lkLemlGum1w==
-=4jrU
------END PGP SIGNATURE-----
-
---fkB7w4zBomSv3qDK--

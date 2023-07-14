@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3139D753911
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 12:58:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC5775390F
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 12:57:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B286BC0;
-	Fri, 14 Jul 2023 12:57:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B286BC0
+	by alsa0.perex.cz (Postfix) with ESMTPS id B824BE0E;
+	Fri, 14 Jul 2023 12:56:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B824BE0E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689332289;
-	bh=npG2m1UCZxKCtzRaw5t5Am2kMO3bj0pf6Epbexb+5Ig=;
+	s=default; t=1689332265;
+	bh=M7s2WR/9r+GNRVVyX1shgcdusyU+2/x/3kFITCcHbVw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Xud+NbUM+Vf/hBweA7PnEUwQ3SAxlppT1QSy8+oszRp8q1K5sL223Mqr1OzO28RN7
-	 OB4+Kf3Qe97K48nKD85lb/OSxXwNjxTqPGi+zCKPhhvDv0GebnlLYT6irwFjVNDf49
-	 R0WtzxRYmNXX0R1XCA5c+bYrcnCYU85KDDEHYzXg=
+	b=ZdAjDnbqu9VmPAF+sJoxRzg+sDrUCS4oqkKKXDYJDSDMov8IszqgQ8X7bk7RQbPPe
+	 BbRIxqkXpySHYBuogRxIXWSCxvz21b4+FY2JypgRS8nVoxD2gyw7eZQV9swXUhtvlp
+	 Y93ykc0jsbiUV6ecnijHxVlNqIu0RdmdcqUQfDe0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id CB418F805B1; Fri, 14 Jul 2023 12:55:50 +0200 (CEST)
+	id 7A07DF805A8; Fri, 14 Jul 2023 12:55:48 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0ECE9F805B1;
-	Fri, 14 Jul 2023 12:55:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8BA0F805A8;
+	Fri, 14 Jul 2023 12:55:47 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2941CF8027B; Fri, 14 Jul 2023 12:55:40 +0200 (CEST)
+	id 93566F80578; Fri, 14 Jul 2023 12:55:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.4 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
+	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
 	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 47A72F80290
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 12:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47A72F80290
+	by alsa1.perex.cz (Postfix) with ESMTPS id A64AFF80236
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 12:55:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A64AFF80236
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=M0Fs9AMk
+ header.s=Intel header.b=P22FZoRn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689332123; x=1720868123;
+  t=1689332124; x=1720868124;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=npG2m1UCZxKCtzRaw5t5Am2kMO3bj0pf6Epbexb+5Ig=;
-  b=M0Fs9AMkTQDKlMOTY3N00yADHuV3uqrVbiG44AMWQuAA4ILp+LLaMJQa
-   iHiIf1LY3I9LXFxRbZgmxMs45lRCE702rsn+IBViFhu9Ut7gBwo1oEuDd
-   k0nceTb0Dn84tFvpUh6vCjoM9Knx+Du8hGM4mijvIIplkDz2zbkSJBcbt
-   3QxYN1sv8EE81rldvLgd1OUljKpB0sw8Tv+TA1elhKAIrFRTo8KBiG1kD
-   GZfx7tQb4Pd6Iq2yKVuqbvz46Xs7TECoR6UNWlL95nhBZSjsx0LbnjUjb
-   4ABRq9Bged7v0rq0yGxxqmkEQ9cC6P7KA/rKb2JjTJ4/RgQRb0iLQgG39
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="364321161"
+  bh=M7s2WR/9r+GNRVVyX1shgcdusyU+2/x/3kFITCcHbVw=;
+  b=P22FZoRnqYh0fDch3xGOIUV30116AZ4Pyh/qhUQ2FEn1YFgKCcq+iQGS
+   LCsMxCe4qAlxQKr/1A16oYrxhcmxoru3bDM59uZDPAPKsTegD0yQUzQF2
+   7sMABbewPNzJ9f1fnTFP7esHQ2ds8FXXeJEG5HSO9fbUqYk1T2EdX5AvQ
+   zmQH9+AnxaDvyMoq+lUo2pD0FqOx11oLjsE+Tgr+Den/Fx/L6L6cr9KUo
+   FIJctsQjksb5VxvvkjVNXkLUV4PZZRw1NG5gdhei0S4a8936lmcQyXwcv
+   gk1Td0I4c39HH8EbiFkG85RIz5sXAH9PQmTw5oZyLS8S3ZuwakecUGybL
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="364321172"
 X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
-   d="scan'208";a="364321161"
+   d="scan'208";a="364321172"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
   by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2023 03:55:17 -0700
+ 14 Jul 2023 03:55:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="722365472"
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="722365482"
 X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
-   d="scan'208";a="722365472"
+   d="scan'208";a="722365482"
 Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by orsmga002.jf.intel.com with ESMTP; 14 Jul 2023 03:55:14 -0700
+  by orsmga002.jf.intel.com with ESMTP; 14 Jul 2023 03:55:17 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: Bjorn Helgaas <bhelgaas@google.com>,
@@ -83,17 +83,17 @@ Cc: alsa-devel@alsa-project.org,
 	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v2 05/15] ALSA: hda: Add controller matching macros
-Date: Fri, 14 Jul 2023 20:56:05 +0200
-Message-Id: <20230714185615.370597-6-amadeuszx.slawinski@linux.intel.com>
+Subject: [PATCH v2 06/15] ALSA: hda: Use global PCI match macro
+Date: Fri, 14 Jul 2023 20:56:06 +0200
+Message-Id: <20230714185615.370597-7-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230714185615.370597-1-amadeuszx.slawinski@linux.intel.com>
 References: <20230714185615.370597-1-amadeuszx.slawinski@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: KTPAK64YCQ6EPSG2VT2BMXGNCGHHRZHJ
-X-Message-ID-Hash: KTPAK64YCQ6EPSG2VT2BMXGNCGHHRZHJ
+Message-ID-Hash: KUDW7AYEAOFCKTVOPGXHS5H6MGLNUETF
+X-Message-ID-Hash: KUDW7AYEAOFCKTVOPGXHS5H6MGLNUETF
 X-MailFrom: amadeuszx.slawinski@linux.intel.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -106,7 +106,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KTPAK64YCQ6EPSG2VT2BMXGNCGHHRZHJ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/KUDW7AYEAOFCKTVOPGXHS5H6MGLNUETF/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,58 +115,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Some HDA controllers require additional handling, so there are macros to
-match them, however those are spread across multiple files. Add them all
-in one place, so they can be reused.
+Instead of using local macro to match PCI device, use global one. As
+Apollolake is Broxton-P successor that made it to the market, be precise
+and use APL shortcut.
 
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
 ---
- include/sound/hdaudio.h | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ sound/pci/hda/hda_intel.c | 20 ++++----------------
+ 1 file changed, 4 insertions(+), 16 deletions(-)
 
-diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-index 2ffdf58bd6d4..32c59053b48e 100644
---- a/include/sound/hdaudio.h
-+++ b/include/sound/hdaudio.h
-@@ -11,6 +11,7 @@
- #include <linux/io.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/iopoll.h>
-+#include <linux/pci.h>
- #include <linux/pm_runtime.h>
- #include <linux/timecounter.h>
- #include <sound/core.h>
-@@ -704,4 +705,29 @@ static inline unsigned int snd_array_index(struct snd_array *array, void *ptr)
- 	for ((idx) = 0, (ptr) = (array)->list; (idx) < (array)->used; \
- 	     (ptr) = snd_array_elem(array, ++(idx)))
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 8f0cebb83302..5e59dcc35665 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -330,18 +330,6 @@ enum {
+ #define needs_eld_notify_link(chip)	false
+ #endif
  
-+/*
-+ * Device matching
-+ */
-+
-+#define HDA_CONTROLLER_IS_HSW(pci) (pci_match_id((struct pci_device_id []){ \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_HSW_0) }, \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_HSW_2) }, \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_HSW_3) }, \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_BDW) }, \
-+			{ } \
-+		}, pci))
-+
-+#define HDA_CONTROLLER_IS_APL(pci) (pci_match_id((struct pci_device_id []){ \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_APL) }, \
-+			{ } \
-+		}, pci))
-+
-+#define HDA_CONTROLLER_IN_GPU(pci) (pci_match_id((struct pci_device_id []){ \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_DG1) }, \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_DG2_0) }, \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_DG2_1) }, \
-+			{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_HDA_DG2_2) }, \
-+			{ } \
-+		}, pci) || HDA_CONTROLLER_IS_HSW(pci))
-+
- #endif /* __SOUND_HDAUDIO_H */
+-#define CONTROLLER_IN_GPU(pci) (((pci)->vendor == 0x8086) &&         \
+-				       (((pci)->device == 0x0a0c) || \
+-					((pci)->device == 0x0c0c) || \
+-					((pci)->device == 0x0d0c) || \
+-					((pci)->device == 0x160c) || \
+-					((pci)->device == 0x490d) || \
+-					((pci)->device == 0x4f90) || \
+-					((pci)->device == 0x4f91) || \
+-					((pci)->device == 0x4f92)))
+-
+-#define IS_BXT(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0x5a98)
+-
+ static const char * const driver_short_names[] = {
+ 	[AZX_DRIVER_ICH] = "HDA Intel",
+ 	[AZX_DRIVER_PCH] = "HDA Intel PCH",
+@@ -573,7 +561,7 @@ static void hda_intel_init_chip(struct azx *chip, bool full_reset)
+ 	snd_hdac_set_codec_wakeup(bus, false);
+ 
+ 	/* reduce dma latency to avoid noise */
+-	if (IS_BXT(pci))
++	if (HDA_CONTROLLER_IS_APL(pci))
+ 		bxt_reduce_dma_latency(chip);
+ 
+ 	if (bus->mlcap != NULL)
+@@ -2175,7 +2163,7 @@ static int azx_probe(struct pci_dev *pci,
+ #endif /* CONFIG_SND_HDA_PATCH_LOADER */
+ 
+ #ifndef CONFIG_SND_HDA_I915
+-	if (CONTROLLER_IN_GPU(pci))
++	if (HDA_CONTROLLER_IN_GPU(pci))
+ 		dev_err(card->dev, "Haswell/Broadwell HDMI/DP must build in CONFIG_SND_HDA_I915\n");
+ #endif
+ 
+@@ -2283,7 +2271,7 @@ static int azx_probe_continue(struct azx *chip)
+ 			 * for other chips, still continue probing as other
+ 			 * codecs can be on the same link.
+ 			 */
+-			if (CONTROLLER_IN_GPU(pci)) {
++			if (HDA_CONTROLLER_IN_GPU(pci)) {
+ 				dev_err(chip->card->dev,
+ 					"HSW/BDW HD-audio HDMI/DP requires binding with gfx driver\n");
+ 				goto out_free;
+@@ -2294,7 +2282,7 @@ static int azx_probe_continue(struct azx *chip)
+ 		}
+ 
+ 		/* HSW/BDW controllers need this power */
+-		if (CONTROLLER_IN_GPU(pci))
++		if (HDA_CONTROLLER_IN_GPU(pci))
+ 			hda->need_i915_power = true;
+ 	}
+ 
 -- 
 2.34.1
 

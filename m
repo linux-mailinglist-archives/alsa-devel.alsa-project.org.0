@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431F675415D
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 19:51:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6F1754161
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 19:52:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8321AA4C;
-	Fri, 14 Jul 2023 19:50:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8321AA4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CED92DED;
+	Fri, 14 Jul 2023 19:51:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CED92DED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689357085;
-	bh=KNASP/ms719trke+v98OGUgfBB2WZmffsWvxsqtDVQc=;
+	s=default; t=1689357155;
+	bh=/d24obfiTmxsqU0Kn0c83DAe5ZAEC4RURrSBIHwPncM=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=Vzp/3CGynnQX6qWwB22vrI0QpyokxxJfelsckc1rlGyCxPRT3USFu/1l2MnosO1mW
-	 cqYQJzprZ9rdWGj/ZfysxDUTgApFgoM4f1UxgUsDSQgvfpA7KKDj78yv2tmqJ0lUKp
-	 GXNI5myFfeE15AO0OcQ+zncSNRbqH6xsCJBLobIQ=
+	b=AkaRNR2ShF6+Dk1hXgOoCCWT8Cu+FDAOIUWljLS3NPXwJazek0Hh4tFu6dNsQSnGL
+	 nJRvwoxJjTfshpe7ZREZUEWuLHbKxVzCCFXBf2yO39+2ydxQH32/XT6o5ZzVhKcvMh
+	 GSvRPg7kiIXTUopNoNHKaDfupwP6jPCzy2nycWdQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 3DA83F800E4; Fri, 14 Jul 2023 19:50:35 +0200 (CEST)
+	id 9028EF800E4; Fri, 14 Jul 2023 19:51:45 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id B654AF80236;
-	Fri, 14 Jul 2023 19:50:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4096AF800E4;
+	Fri, 14 Jul 2023 19:51:45 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 726CEF80249; Fri, 14 Jul 2023 19:50:31 +0200 (CEST)
+	id 0AEC8F8024E; Fri, 14 Jul 2023 19:51:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
@@ -32,61 +32,63 @@ X-Spam-Status: No, score=-4.3 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
 	RCVD_IN_DNSWL_HI,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
 	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham autolearn_force=no
 	version=3.4.6
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id E266AF800E4
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 19:50:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E266AF800E4
-Received: by mail-il1-f178.google.com with SMTP id
- e9e14a558f8ab-345d3c10bdfso9632565ab.2
+	by alsa1.perex.cz (Postfix) with ESMTPS id A7558F80153
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 19:51:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7558F80153
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-7835e5fa459so86380839f.2
         for <alsa-devel@alsa-project.org>;
- Fri, 14 Jul 2023 10:50:23 -0700 (PDT)
+ Fri, 14 Jul 2023 10:51:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689357022; x=1691949022;
+        d=1e100.net; s=20221208; t=1689357097; x=1691949097;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=h1rucALi6oAv2chldSxXwAIScTfciNmzHu3E9+4nv0w=;
-        b=kTo/eU2dRRh+XFP54nBOZxp7/tn6bvLGwEMw6cDuvGxM09wj7WnpEcq2Ib7Z/fAS8i
-         osjA2gH9VsKeLf6NhH7r+1snuqvYD0C1ZRK+5PjyJc242xHoUUcVwClzYoieSPiUz3f7
-         U7YzF6BlkaGeTDeOk3BGsuOPHWJTPLQh3vd2j5BMK09Ewa7MHIh+uV05uuXsSdS8tkyp
-         N9gTA2hhPrP+lEPr015j99G2LMJ2Hl5bcBBHIY95VIkJkKeQiFa3I9UNyGfAQXh658ZM
-         Fj1ik/fXosTnIW6rGXSRl4UVBEZgao/BVHVLQxsZKkC13HVW9MRQKPFMfToOlJxoU2yP
-         ajdw==
-X-Gm-Message-State: ABy/qLZhwRPHVaGZzIBWRyhh1fL5hzIEo1OAlE/LDbD0ocehPBH+hXk0
-	WOX8F6he4nIh8OmmTyFvQg==
+        bh=jV0ZVw+tXJJaX6sFXrDUifNmdjozDg0jsFO9uzlP0KY=;
+        b=I5dRvHLnDrx9FDLFTBdCVEr1HvqGTlL7ZR0iH46+qx3YrJvKvVFoGg38U2I9fTisTY
+         rA/rMXNDsNrY+MFd2rUo6IDZgomhcKScYrrac2G8BmwUG009qj/R4HaoB6pYm0u02hbJ
+         CdW0ebYeDiTNg7nfxhSfPr5CxPVdmgwjI8K/LBkm4s8TpZNCTjFLTYn3VBnsCIiBxrwv
+         1Krd539+S/zqOHFcbEwOmd0sQUCggJGNhy93mOGdgtNSIxtWDdP2gStYE7VePnzg46iE
+         ArSSGpQPwY5VsXmgfPpsOoFtpuQClXZ7DY8aPMpLCBCHuL+i2pg2tzgKTfsMj6mug4pC
+         Y+Pw==
+X-Gm-Message-State: ABy/qLYAxHe3HminDItZaIPO+dZpAPT3jFEoFTS5KfFCrP6j4oikoACH
+	BCRbgc8dczgABFuZOw+Y5g==
 X-Google-Smtp-Source: 
- APBJJlEx91G3Ibvbj8NwM5kn+7hG/vmpw5UnHj5DwKMzDI0mzZ/2XKJHg12dJh61mT/2CnOPqAy3Uw==
-X-Received: by 2002:a92:d28c:0:b0:346:420f:2bb7 with SMTP id
- p12-20020a92d28c000000b00346420f2bb7mr5771848ilp.16.1689357021983;
-        Fri, 14 Jul 2023 10:50:21 -0700 (PDT)
+ APBJJlGxSu03yLG4CUI74yCQInNqkiQy4rOqdX6zUkTVngY8Cs5QXVjapqeBVhmSeXBcmI8RKct4iA==
+X-Received: by 2002:a6b:db02:0:b0:783:5e93:1e7f with SMTP id
+ t2-20020a6bdb02000000b007835e931e7fmr5310749ioc.18.1689357096822;
+        Fri, 14 Jul 2023 10:51:36 -0700 (PDT)
 Received: from robh_at_kernel.org ([64.188.179.250])
         by smtp.gmail.com with ESMTPSA id
- x8-20020a92dc48000000b0034607609251sm2874160ilq.87.2023.07.14.10.50.20
+ i10-20020a02b68a000000b004290fd3a68dsm2731869jam.1.2023.07.14.10.51.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Jul 2023 10:50:21 -0700 (PDT)
-Received: (nullmailer pid 4064131 invoked by uid 1000);
-	Fri, 14 Jul 2023 17:49:52 -0000
+        Fri, 14 Jul 2023 10:51:36 -0700 (PDT)
+Received: (nullmailer pid 4066909 invoked by uid 1000);
+	Fri, 14 Jul 2023 17:51:23 -0000
 From: Rob Herring <robh@kernel.org>
-To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] soundwire: Explicitly include correct DT includes
-Date: Fri, 14 Jul 2023 11:49:46 -0600
-Message-Id: <20230714174946.4063995-1-robh@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org
+Subject: [PATCH] ALSA: Explicitly include correct DT includes
+Date: Fri, 14 Jul 2023 11:51:08 -0600
+Message-Id: <20230714175109.4066599-1-robh@kernel.org>
 X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: OSZPMBJYEPJPVYJ27OTCAPR46ZKJQ2MX
-X-Message-ID-Hash: OSZPMBJYEPJPVYJ27OTCAPR46ZKJQ2MX
+Message-ID-Hash: RV6P2DD3YQOCJW4Z5ZIXBCQSL4KQAAUN
+X-Message-ID-Hash: RV6P2DD3YQOCJW4Z5ZIXBCQSL4KQAAUN
 X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
@@ -99,7 +101,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OSZPMBJYEPJPVYJ27OTCAPR46ZKJQ2MX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/RV6P2DD3YQOCJW4Z5ZIXBCQSL4KQAAUN/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -119,21 +121,133 @@ explicitly include the correct includes.
 
 Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- drivers/soundwire/qcom.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/atmel/ac97c.c            | 3 +--
+ sound/drivers/serial-generic.c | 2 +-
+ sound/pci/hda/hda_tegra.c      | 3 ++-
+ sound/ppc/awacs.c              | 1 +
+ sound/ppc/burgundy.c           | 1 +
+ sound/sparc/amd7930.c          | 3 +--
+ sound/sparc/cs4231.c           | 2 +-
+ sound/sparc/dbri.c             | 2 +-
+ 8 files changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 7970fdb27ba0..d178a0dc0918 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -10,7 +10,6 @@
- #include <linux/debugfs.h>
- #include <linux/of.h>
- #include <linux/of_irq.h>
+diff --git a/sound/atmel/ac97c.c b/sound/atmel/ac97c.c
+index c8912b8a1dc5..402b5f66dcc3 100644
+--- a/sound/atmel/ac97c.c
++++ b/sound/atmel/ac97c.c
+@@ -12,13 +12,12 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/init.h>
+ #include <linux/interrupt.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/mutex.h>
+ #include <linux/types.h>
+ #include <linux/io.h>
+-#include <linux/of.h>
 -#include <linux/of_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
+ 
+ #include <sound/core.h>
+ #include <sound/initval.h>
+diff --git a/sound/drivers/serial-generic.c b/sound/drivers/serial-generic.c
+index e1f864dc7939..b0262541802a 100644
+--- a/sound/drivers/serial-generic.c
++++ b/sound/drivers/serial-generic.c
+@@ -16,7 +16,7 @@
+ #include <linux/io.h>
+ #include <linux/ioport.h>
+ #include <linux/module.h>
+-#include <linux/of_device.h>
++#include <linux/of.h>
+ #include <linux/serdev.h>
+ #include <linux/serial_reg.h>
+ #include <linux/slab.h>
+diff --git a/sound/pci/hda/hda_tegra.c b/sound/pci/hda/hda_tegra.c
+index 9d0ab043880b..39fa036616ce 100644
+--- a/sound/pci/hda/hda_tegra.c
++++ b/sound/pci/hda/hda_tegra.c
+@@ -16,7 +16,8 @@
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/mutex.h>
+-#include <linux/of_device.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
  #include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <linux/time.h>
+diff --git a/sound/ppc/awacs.c b/sound/ppc/awacs.c
+index 53d558b2806c..659866cfe3b4 100644
+--- a/sound/ppc/awacs.c
++++ b/sound/ppc/awacs.c
+@@ -11,6 +11,7 @@
+ #include <asm/nvram.h>
+ #include <linux/init.h>
+ #include <linux/delay.h>
++#include <linux/of.h>
+ #include <linux/slab.h>
+ #include <sound/core.h>
+ #include "pmac.h"
+diff --git a/sound/ppc/burgundy.c b/sound/ppc/burgundy.c
+index 4fb990ab2ceb..400a886562b1 100644
+--- a/sound/ppc/burgundy.c
++++ b/sound/ppc/burgundy.c
+@@ -9,6 +9,7 @@
+ #include <linux/io.h>
+ #include <linux/init.h>
+ #include <linux/delay.h>
++#include <linux/of.h>
+ #include <sound/core.h>
+ #include "pmac.h"
+ #include "burgundy.h"
+diff --git a/sound/sparc/amd7930.c b/sound/sparc/amd7930.c
+index c434b69a83f1..0fea04acc3ea 100644
+--- a/sound/sparc/amd7930.c
++++ b/sound/sparc/amd7930.c
+@@ -37,7 +37,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/moduleparam.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
++#include <linux/platform_device.h>
+ #include <linux/io.h>
+ 
+ #include <sound/core.h>
+@@ -47,7 +47,6 @@
+ #include <sound/initval.h>
+ 
+ #include <asm/irq.h>
+-#include <asm/prom.h>
+ 
+ static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;	/* Index 0-MAX */
+ static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;	/* ID for this card */
+diff --git a/sound/sparc/cs4231.c b/sound/sparc/cs4231.c
+index 31bac355ec4d..c2ad3fa2f25a 100644
+--- a/sound/sparc/cs4231.c
++++ b/sound/sparc/cs4231.c
+@@ -18,7 +18,7 @@
+ #include <linux/irq.h>
+ #include <linux/io.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
++#include <linux/platform_device.h>
+ 
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+diff --git a/sound/sparc/dbri.c b/sound/sparc/dbri.c
+index 376aed136a45..050e98f32d36 100644
+--- a/sound/sparc/dbri.c
++++ b/sound/sparc/dbri.c
+@@ -69,7 +69,7 @@
+ #include <sound/initval.h>
+ 
+ #include <linux/of.h>
+-#include <linux/of_device.h>
++#include <linux/platform_device.h>
+ #include <linux/atomic.h>
+ #include <linux/module.h>
+ 
 -- 
 2.40.1
 

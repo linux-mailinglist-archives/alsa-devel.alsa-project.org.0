@@ -2,109 +2,150 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE87F752FF0
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 05:28:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A351C7531B2
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 08:04:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33B62E11;
-	Fri, 14 Jul 2023 05:27:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33B62E11
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64BA4A4B;
+	Fri, 14 Jul 2023 08:03:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64BA4A4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689305296;
-	bh=rSbOfH40gnUkWe5YEFRVKpbsWJedT9JZ3xUbzXAKW5s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689314644;
+	bh=2qWyWGPbIWrX6puIuEArJClQcnwNbbdXXXmZULl9Ws0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=rgIzZzHSfzLtPczib2OYNI9+Qr1C/KI0C3gy79ejSFmM0VhFzpw6Fvi2EPJjjCz1t
-	 R2aw6NSgF27jmymVv2Zm+5yUG1eWHaO1rW9sfub3g4TIrHGgqlfHaQrkdJwubczFD8
-	 OZmD3/6lLE19XwYWmtPIQuUJ/3YXMzaRoiwj7j2c=
+	b=jSV5jxOrnkIgcptVjuivWevAps+p21bIRBUp3iE8toOxeOK1GA7rptMLAmXeHqHTd
+	 r/a2kAHrfUY6Y2aeBbpYSc2kAnRIqEsR8Whn0i/kJqmuCbMOwPyi68Cn2aS+rcbLn5
+	 Fox6fpyw2RIY4Y8Jr8LUoP+ved0WTlBIphNPzACc=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 60AFCF805A0; Fri, 14 Jul 2023 05:26:17 +0200 (CEST)
+	id 628B8F80290; Fri, 14 Jul 2023 08:03:13 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 205E3F80588;
-	Fri, 14 Jul 2023 05:26:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 308BFF80236;
+	Fri, 14 Jul 2023 08:03:13 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 036A0F80236; Fri, 14 Jul 2023 05:25:54 +0200 (CEST)
+	id 2C952F80249; Fri, 14 Jul 2023 07:59:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
-	RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [IPv6:2607:f8b0:4864:20::1030])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+X-Spam-Status: No, score=-2.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+	autolearn_force=no version=3.4.6
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [IPv6:2001:67c:2178:6::1c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
  SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id C6683F8024E
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 05:25:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6683F8024E
+	by alsa1.perex.cz (Postfix) with ESMTPS id C6A92F80153
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 07:58:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6A92F80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20221208 header.b=rUMg3bF9
-Received: by mail-pj1-x1030.google.com with SMTP id
- 98e67ed59e1d1-26586e824e7so699047a91.3
-        for <alsa-devel@alsa-project.org>;
- Thu, 13 Jul 2023 20:25:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1689305112; x=1691897112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=df/yzNnf113vLbNsPU0LAwfRD+OTGiv/GARCU5EDeks=;
-        b=rUMg3bF9gwMv6OxrDFCcN/otnEmwnZeLeZnv0f61cfJslI8ewZKl7SS78PXS6mIxlX
-         iVoNBmCibEoKx5oOGcIC/3Aukzbo9vXYVU5hR/SiePCJfLuKpn8NzGLa0m3mb8ly9j85
-         7fWV2b/odJY/JZ+dknTvq2e2ys6wUajLnFxGGj0VyqJUZO4TyMu7bghMvwMtfQGQ3fZ5
-         SNddvdN7f1Oyt/R37Lq5i6QrM4c5oMtv1JOCz3LjN47OMC/yu2pN0tWSiL4rQxmxF2c3
-         bEM36R8qvDyXKf9t96MvO4OhsUGyUB+K5Gtmjkmb0KXRqcQfjdMF+yJaVMh6H/CjG1/Z
-         iepw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1689305112; x=1691897112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=df/yzNnf113vLbNsPU0LAwfRD+OTGiv/GARCU5EDeks=;
-        b=hTmn8ow6jVYw2ZVALW8ocud0ACDFXe/WNN0Xq+P/dbO6FCmZOwP30bofVbj/4+lReg
-         igVWXDGydu1i+LXzfNSlIm0SQy0BCMVfq1pBCmdMXQ4YYEUZY638uUtOn+mxJ89Lvnth
-         jK3JrNOU/3+NJ3h9iUjZ0zDWXPQzVegpvLWXzBquQ2/ABrBdZL99fj7uAkKsYahTfvDi
-         LtzdPN5YZaFUytVmVsqEczY5KeuimbpTA/s+VUsagprggHHSOzSZhU5oD0e9R6wkRwFd
-         70IVuTAvKwj9W+WFsobXB3X2VbOjz2zEguiYcKTGzzBCV8zAuVQsxhjXdKvUHKpLB9EL
-         c9Dg==
-X-Gm-Message-State: ABy/qLYHbHegSzObHGrvsz/oP8hXp5lj7XHQ844AT1AA+ujMXyYXMaTY
-	HhfBori3IYxHoVIxttJtZngQ/DVf88RCr2c5
-X-Google-Smtp-Source: 
- APBJJlFXzXD5DI8QjxgUETFtVucalJgzfF6jj7TEWOdMjrneU1EzZfpK9yRija72dYTo5IeGdfUMMQ==
-X-Received: by 2002:a17:90a:7781:b0:263:f648:e6e1 with SMTP id
- v1-20020a17090a778100b00263f648e6e1mr2270330pjk.14.1689305111518;
-        Thu, 13 Jul 2023 20:25:11 -0700 (PDT)
-Received: from a-VirtualBox.. ([116.233.75.15])
-        by smtp.gmail.com with ESMTPSA id
- t3-20020a17090b018300b00262d6ac0140sm216016pjs.9.2023.07.13.20.25.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Jul 2023 20:25:11 -0700 (PDT)
-From: Zhu Ning <zhuning0077@gmail.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Cc: pierre-louis.bossart@linux.intel.com,
-	tiwai@suse.com,
-	amadeuszx.slawinski@linux.intel.com,
-	yangxiaohua@everest-semi.com,
-	zhuning@everest-semi.com,
-	Zhu Ning <zhuning0077@gmail.com>
-Subject: [PATCH v1 5/5] ASoC: codecs: ES8326: Update jact detection function
-Date: Fri, 14 Jul 2023 11:24:53 +0800
-Message-Id: <20230714032453.3334-5-zhuning0077@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230714032453.3334-1-zhuning0077@gmail.com>
-References: <20230714032453.3334-1-zhuning0077@gmail.com>
-MIME-Version: 1.0
+	dkim=pass (1024-bit key,
+ unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256
+ header.s=susede2_rsa header.b=0IHJHvUe;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256
+ header.s=susede2_ed25519 header.b=4iJK7mxr
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0629D22132;
+	Fri, 14 Jul 2023 05:58:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_rsa;
+	t=1689314330;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gu0FFJ+R4gobXXT6CHnm0hg9iiaJzUc3BBW1Fq5ptXU=;
+	b=0IHJHvUenq+o6mL8jmP9Yesrk5AwmykOqBSoNnb5VlWHeeX3/uZlMIFjf02CfkU6t8MfuZ
+	RSKa0p1GJYCgEdHQgQhw4A5zssreTZqy5MLOde7ECBA4VpDbIPkHBUk3eRLhUeSl8Bj6g4
+	96xOSb0P8AAelUpBt/J9/sjm9ILZpEs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1689314330;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gu0FFJ+R4gobXXT6CHnm0hg9iiaJzUc3BBW1Fq5ptXU=;
+	b=4iJK7mxrI55wWKz6WYwdhnUmDIrcSgxJx5pnfNuw2z97fyh4tvW16JT2GgVQPFkuQgv04/
+	UgaZyGrZp9b4ckBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de
+ [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	(No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C79BF13A15;
+	Fri, 14 Jul 2023 05:58:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA
+	id F4rULxnksGRfDgAAMHmgww
+	(envelope-from <tiwai@suse.de>); Fri, 14 Jul 2023 05:58:49 +0000
+Date: Fri, 14 Jul 2023 07:58:49 +0200
+Message-ID: <878rbjdofa.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+Cc: "Joseph C. Sible" <josephcsible@gmail.com>,
+	Bagas Sanjaya <bagasdotme@gmail.com>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"perex@perex.cz"
+	<perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+ on warm boot
+In-Reply-To: <1f83caa215ad4374aec8859c70044b00@realtek.com>
+References: <bug-217440-225600@https.bugzilla.kernel.org/>
+	<CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
+	<ZGB0cVVI7OgaJU6t@debian.me>
+	<CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
+	<87cz338ix4.wl-tiwai@suse.de>
+	<CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
+	<874jodlnmi.wl-tiwai@suse.de>
+	<415d4bc84aa74c74af913048f28b42a9@realtek.com>
+	<87fs7mdofi.wl-tiwai@suse.de>
+	<7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
+	<87353kd8b9.wl-tiwai@suse.de>
+	<1170325957764b4cbd7cd3639575f285@realtek.com>
+	<CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
+	<873536js7q.wl-tiwai@suse.de>
+	<CABpewhE0NAC-Q=iqG2Ba=XhT7SXsWy18wQGYUaopzmKDfFxyPw@mail.gmail.com>
+	<2c1fcbc00bb44d66a29ac1c1e4bec5ad@realtek.com>
+	<CABpewhFthKG97dPiQC4JhGx9sapX9Yu5rWABQjpY95TSA+eawA@mail.gmail.com>
+	<485f99149508488080d563144454040e@realtek.com>
+	<CABpewhGkvWtM+9J=mx3vw0QY=OBB5OYCxzX3nzVffvFS4QazPA@mail.gmail.com>
+	<2831c55638a5431ca9e37d9caf365ed2@realtek.com>
+	<CABpewhGiMJUpyBA6=D9_-YA6=5rjR2R0RHUZeg+cWcjtzuCoZQ@mail.gmail.com>
+	<3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
+	<CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
+	<009474f04d0b45c69a0e42e8622b7a86@realtek.com>
+	<87h6rhcef2.wl-tiwai@suse.de>
+	<0990300d759846d890de9c92fcad9a9d@realtek.com>
+	<CABpewhERnOH1qkkJ5_JJUZkz1_8oxD9aR5VBs1vsURAG7Eu_Ew@mail.gmail.com>
+	<878rctcavz.wl-tiwai@suse.de>
+	<874jnhc9u4.wl-tiwai@suse.de>
+	<CABpewhHG2+s8_6r6vChm2g5tD8ALW_SWJWubPRXWzTJB2aFR9g@mail.gmail.com>
+	<875y7vbxpg.wl-tiwai@suse.de>
+	<CABpewhHDnvn4v+uCpsaLHB+biw-f59tdTiCyFkicHnewXHYDNg@mail.gmail.com>
+	<87wn0aa1s4.wl-tiwai@suse.de>
+	<CABpewhFg=7+JR6v=zhi0_Hm9+S64DLOHKeG2pS-W7z-vNpu_5Q@mail.gmail.com>
+	<87leg7x4h7.wl-tiwai@suse.de>
+	<f4969213b5a14cc5a11befb4df861481@realtek.com>
+	<87cz182hfk.wl-tiwai@suse.de>
+	<4678992299664babac4403d9978e7ba7@realtek.com>
+	<CABpewhGkw2rg_NN7Rd8E_p+AN9MC0A1CjgnrhBvMnSKq0gz31w@mail.gmail.com>
+	<1f83caa215ad4374aec8859c70044b00@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/27.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-ID-Hash: O5LLM2KDV5EJXDOZTD47DQZRT2HBAGSL
-X-Message-ID-Hash: O5LLM2KDV5EJXDOZTD47DQZRT2HBAGSL
-X-MailFrom: zhuning0077@gmail.com
+Message-ID-Hash: QQADO6ORHV4GMQ5SJSXNE6EJJ3AF2Q25
+X-Message-ID-Hash: QQADO6ORHV4GMQ5SJSXNE6EJJ3AF2Q25
+X-MailFrom: tiwai@suse.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -116,7 +157,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/O5LLM2KDV5EJXDOZTD47DQZRT2HBAGSL/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/QQADO6ORHV4GMQ5SJSXNE6EJJ3AF2Q25/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -125,201 +166,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The old jack detection function only supports fixed OMTP/CTIA
-hardware connection. The new one supports auto OMTP/CTIA
-headset detection
+On Fri, 14 Jul 2023 04:46:25 +0200,
+Kailang wrote:
+> 
+> Hi Takashi,
+> 
+> Could you agree this workaround?
 
-Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
----
- sound/soc/codecs/es8326.c | 111 +++++++++++++++++++++++++++++++-------
- 1 file changed, 91 insertions(+), 20 deletions(-)
+Yes, looks fine.  I applied it now.
 
-diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
-index 0474bfd79aa5..40bd9b7c82ed 100644
---- a/sound/soc/codecs/es8326.c
-+++ b/sound/soc/codecs/es8326.c
-@@ -41,6 +41,8 @@ struct es8326_priv {
- 
- 	bool calibrated;
- 	int version;
-+	int hp;
-+	int jack_remove_retry;
- };
- 
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
-@@ -535,6 +537,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
- 		cur_button = SND_JACK_BTN_0;
- 		break;
- 	case 0x6f:
-+	case 0x4b:
- 		/* button volume up */
- 		cur_button = SND_JACK_BTN_1;
- 		break;
-@@ -543,6 +546,7 @@ static void es8326_jack_button_handler(struct work_struct *work)
- 		cur_button = SND_JACK_BTN_2;
- 		break;
- 	case 0x1e:
-+	case 0xe2:
- 		/* button released or not pressed */
- 		cur_button = 0;
- 		break;
-@@ -552,20 +556,20 @@ static void es8326_jack_button_handler(struct work_struct *work)
- 
- 	if ((prev_button == cur_button) && (cur_button != 0)) {
- 		press_count++;
--		if (press_count > 10) {
--			/* report a press every 500ms */
-+		if (press_count > 3) {
-+			/* report a press every 120ms */
- 			snd_soc_jack_report(es8326->jack, cur_button,
- 					SND_JACK_BTN_0 | SND_JACK_BTN_1 | SND_JACK_BTN_2);
- 			press_count = 0;
- 		}
- 		button_to_report = cur_button;
- 		queue_delayed_work(system_wq, &es8326->button_press_work,
--				   msecs_to_jiffies(50));
-+				   msecs_to_jiffies(35));
- 	} else if (prev_button != cur_button) {
- 		/* mismatch, detect again */
- 		prev_button = cur_button;
- 		queue_delayed_work(system_wq, &es8326->button_press_work,
--				   msecs_to_jiffies(50));
-+				   msecs_to_jiffies(35));
- 	} else {
- 		/* released or no pressed */
- 		if (button_to_report != 0) {
-@@ -589,32 +593,96 @@ static void es8326_jack_detect_handler(struct work_struct *work)
- 	mutex_lock(&es8326->lock);
- 	iface = snd_soc_component_read(comp, ES8326_HPDET_STA);
- 	dev_dbg(comp->dev, "gpio flag %#04x", iface);
-+
-+	if (es8326->jack_remove_retry == 1) {
-+		if (iface & ES8326_HPINSERT_FLAG)
-+			es8326->jack_remove_retry = 2;
-+		else
-+			es8326->jack_remove_retry = 0;
-+
-+		dev_dbg(comp->dev, "remove event check, set HPJACK_POL normal, cnt = %d\n",
-+				es8326->jack_remove_retry);
-+		/*
-+		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
-+		 */
-+		regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE,
-+					ES8326_HP_DET_JACK_POL, (es8326->jd_inverted ?
-+					~es8326->jack_pol : es8326->jack_pol));
-+		goto exit;
-+	}
-+
- 	if ((iface & ES8326_HPINSERT_FLAG) == 0) {
- 		/* Jack unplugged or spurious IRQ */
--		dev_dbg(comp->dev, "No headset detected");
-+		dev_dbg(comp->dev, "No headset detected\n");
-+		es8326_disable_micbias(es8326->component);
- 		if (es8326->jack->status & SND_JACK_HEADPHONE) {
-+			dev_dbg(comp->dev, "Report hp remove event\n");
- 			snd_soc_jack_report(es8326->jack, 0, SND_JACK_HEADSET);
--			snd_soc_component_write(comp, ES8326_ADC1_SRC, es8326->mic2_src);
--			es8326_disable_micbias(comp);
-+			/* mute adc when mic path switch */
-+			regmap_write(es8326->regmap, ES8326_ADC_SCALE, 0x33);
-+			regmap_write(es8326->regmap, ES8326_ADC1_SRC, 0x44);
-+			regmap_write(es8326->regmap, ES8326_ADC2_SRC, 0x66);
-+			es8326->hp = 0;
-+		}
-+		regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
-+		/*
-+		 * Inverted HPJACK_POL bit to trigger one IRQ to double check HP Removal event
-+		 */
-+		if (es8326->jack_remove_retry == 0) {
-+			es8326->jack_remove_retry = 1;
-+			dev_dbg(comp->dev, "remove event check, invert HPJACK_POL, cnt = %d\n",
-+					es8326->jack_remove_retry);
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE,
-+					ES8326_HP_DET_JACK_POL, (es8326->jd_inverted ?
-+					es8326->jack_pol : ~es8326->jack_pol));
-+
-+		} else {
-+			es8326->jack_remove_retry = 0;
- 		}
- 	} else if ((iface & ES8326_HPINSERT_FLAG) == ES8326_HPINSERT_FLAG) {
-+		es8326->jack_remove_retry = 0;
-+		if (es8326->hp == 0) {
-+			dev_dbg(comp->dev, "First insert, start OMTP/CTIA type check\n");
-+			/*
-+			 * set auto-check mode, then restart jack_detect_work after 100ms.
-+			 * Don't report jack status.
-+			 */
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x01);
-+			usleep_range(50000, 70000);
-+			regmap_update_bits(es8326->regmap, ES8326_HPDET_TYPE, 0x03, 0x00);
-+			queue_delayed_work(system_wq, &es8326->jack_detect_work,
-+					msecs_to_jiffies(100));
-+			es8326->hp = 1;
-+			goto exit;
-+		}
- 		if (es8326->jack->status & SND_JACK_HEADSET) {
- 			/* detect button */
-+			dev_dbg(comp->dev, "button pressed\n");
- 			queue_delayed_work(system_wq, &es8326->button_press_work, 10);
-+			goto exit;
-+		}
-+		if ((iface & ES8326_HPBUTTON_FLAG) == 0x01) {
-+			dev_dbg(comp->dev, "Headphone detected\n");
-+			snd_soc_jack_report(es8326->jack,
-+					SND_JACK_HEADPHONE, SND_JACK_HEADSET);
- 		} else {
--			if ((iface & ES8326_HPBUTTON_FLAG) == 0x00) {
--				dev_dbg(comp->dev, "Headset detected");
--				snd_soc_jack_report(es8326->jack,
--						    SND_JACK_HEADSET, SND_JACK_HEADSET);
--				snd_soc_component_write(comp,
--							ES8326_ADC1_SRC, es8326->mic1_src);
--			} else {
--				dev_dbg(comp->dev, "Headphone detected");
--				snd_soc_jack_report(es8326->jack,
--						    SND_JACK_HEADPHONE, SND_JACK_HEADSET);
--			}
-+			dev_dbg(comp->dev, "Headset detected\n");
-+			snd_soc_jack_report(es8326->jack,
-+					SND_JACK_HEADSET, SND_JACK_HEADSET);
-+
-+			regmap_write(es8326->regmap, ES8326_ADC_SCALE, 0x33);
-+			regmap_update_bits(es8326->regmap, ES8326_PGA_PDN,
-+					0x08, 0x08);
-+			regmap_update_bits(es8326->regmap, ES8326_PGAGAIN,
-+					0x80, 0x80);
-+			regmap_write(es8326->regmap, ES8326_ADC1_SRC, 0x00);
-+			regmap_write(es8326->regmap, ES8326_ADC2_SRC, 0x00);
-+			regmap_update_bits(es8326->regmap, ES8326_PGA_PDN,
-+					0x08, 0x00);
-+			usleep_range(10000, 15000);
- 		}
- 	}
-+exit:
- 	mutex_unlock(&es8326->lock);
- }
- 
-@@ -633,7 +701,7 @@ static irqreturn_t es8326_irq(int irq, void *dev_id)
- 				   msecs_to_jiffies(10));
- 	else
- 		queue_delayed_work(system_wq, &es8326->jack_detect_work,
--				   msecs_to_jiffies(300));
-+				   msecs_to_jiffies(600));
- 
- out:
- 	return IRQ_HANDLED;
-@@ -763,7 +831,10 @@ static int es8326_resume(struct snd_soc_component *component)
- 			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol) :
- 			(ES8326_HP_DET_SRC_PIN9 | es8326->jack_pol | 0x04)));
- 
--	es8326_irq(es8326->irq, es8326);
-+	es8326->jack_remove_retry = 0;
-+	es8326->hp = 0;
-+	dev_dbg(component->dev, "es8326->jack_remove_retry = %d", es8326->jack_remove_retry);
-+	dev_dbg(component->dev, "es8326->hp= %d", es8326->hp);
- 	return 0;
- }
- 
--- 
-2.34.1
+Thanks!
 
+Takashi
+
+> 
+> BR,
+> Kailang
+> 
+> > -----Original Message-----
+> > From: Joseph C. Sible <josephcsible@gmail.com>
+> > Sent: Friday, July 14, 2023 9:11 AM
+> > To: Kailang <kailang@realtek.com>
+> > Cc: Takashi Iwai <tiwai@suse.de>; Bagas Sanjaya <bagasdotme@gmail.com>;
+> > regressions@lists.linux.dev; perex@perex.cz; tiwai@suse.com;
+> > alsa-devel@alsa-project.org
+> > Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP
+> > 15z-fc000 on warm boot
+> > 
+> > 
+> > External mail.
+> > 
+> > 
+> > 
+> > On Thu, Jul 13, 2023 at 4:25 AM Kailang <kailang@realtek.com> wrote:
+> > >
+> > > Hi Joseph,
+> > >
+> > > Could you test attach patch?
+> > >
+> > > BR,
+> > > Kailang
+> > 
+> > I applied that patch on top of kernel 6.4.3 and tested it, and yes, it does fix the
+> > problem.
+> > 
+> > Thanks,
+> > 
+> > Joseph C. Sible
+> > 
+> > ------Please consider the environment before printing this e-mail.
+> 

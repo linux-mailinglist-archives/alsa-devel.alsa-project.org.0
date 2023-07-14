@@ -2,125 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7520752F83
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 04:48:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE3A5752FEC
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 05:27:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6567AE8;
-	Fri, 14 Jul 2023 04:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6567AE8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D317BDEC;
+	Fri, 14 Jul 2023 05:26:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D317BDEC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689302892;
-	bh=4KQo5oyHvxtO1rUp/Uub6hp3Bza7px2ErGvRSaIP+g8=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:List-Id:
-	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
-	 List-Unsubscribe:From;
-	b=PsvTtaHfgJQ9l8xri1QR1zsDILb2rCKA/3NxLm4tescWl6mbEsULys3o3lJaSfy2m
-	 HrFJmw/AuIDAhf1gzXqVUDXbWv8Aes6b6E6E4ssii2j/TRCNpGLxGNs7Nu5li2RrPa
-	 jR4aZ/D5qaT4daNEeyagBwIQnvjNWyDT/9iDoemc=
+	s=default; t=1689305263;
+	bh=W4/r+srZNYybIfknrb2BgQmSkovedGRC8uizuU3JuYQ=;
+	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
+	 List-Post:List-Subscribe:List-Unsubscribe:From;
+	b=jUNKrIur6Wo4xRPvDtgndgRLCEUF/Io1JBF8C54nPIvRZDAdUkbW9DEgtUHNh5nSx
+	 HPYQr7kZPYawonY0Z0S3W1SYVUtg4Nt03Vcpl/1/f/8FEmEoZB04CHz1BKKtkhmyNQ
+	 SSx0WCND/CP5Kzy19P8RQXy96SxEPsis+Zn+IFS0=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 801F8F80544; Fri, 14 Jul 2023 04:46:50 +0200 (CEST)
+	id 04B37F8053B; Fri, 14 Jul 2023 05:26:10 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70610F80236;
-	Fri, 14 Jul 2023 04:46:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69704F8053B;
+	Fri, 14 Jul 2023 05:26:10 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8B31F80249; Fri, 14 Jul 2023 04:46:43 +0200 (CEST)
+	id 0D51EF80290; Fri, 14 Jul 2023 05:25:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
-	autolearn=ham autolearn_force=no version=3.4.6
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42F26F80153
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 04:46:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F26F80153
-Authenticated-By: 
-X-SpamFilter-By: ArmorX SpamTrap 5.77 with qID 36E2kJvC5023866,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtexh36505.realtek.com.tw[172.21.6.25])
-	by rtits2.realtek.com.tw (8.15.2/2.81/5.90) with ESMTPS id 36E2kJvC5023866
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=FAIL);
-	Fri, 14 Jul 2023 10:46:19 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXH36505.realtek.com.tw (172.21.6.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.32; Fri, 14 Jul 2023 10:46:25 +0800
-Received: from RTEXMBS01.realtek.com.tw (172.21.6.94) by
- RTEXMBS01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Fri, 14 Jul 2023 10:46:25 +0800
-Received: from RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b]) by
- RTEXMBS01.realtek.com.tw ([fe80::9cb8:8d5:b6b3:213b%5]) with mapi id
- 15.01.2375.007; Fri, 14 Jul 2023 10:46:25 +0800
-From: Kailang <kailang@realtek.com>
-To: "Joseph C. Sible" <josephcsible@gmail.com>
-CC: Takashi Iwai <tiwai@suse.de>, Bagas Sanjaya <bagasdotme@gmail.com>,
-        "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-        "perex@perex.cz"
-	<perex@perex.cz>, "tiwai@suse.com" <tiwai@suse.com>,
-        "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: RE: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-Thread-Topic: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
- on warm boot
-Thread-Index: 
- AQHZhdSOD7kY6mXBDkGA3ryhp811r69Yu5SAgAASNACAAA22gIAA7n+AgAEJrYCABLe/YIAJNIWAgAIHAcD//4tyAIAB8UZw///vxgCADzWhgIABfgWAgACUPoCAAPnsAIAAmlKwgAA8s4CAAQ8boP//kIuAABWnYVAAAIR9gAAqhW/A//+7roD//3k98IAAkYyAgAAKhQCAAAZZgIAAiY6AgADw04CAALC0AIAA6TqAgBQJp4CAAhpFAP/xaKKggBysdYD/8VrnoAO7qooA//9fxNA=
-Date: Fri, 14 Jul 2023 02:46:25 +0000
-Message-ID: <1f83caa215ad4374aec8859c70044b00@realtek.com>
-References: <bug-217440-225600@https.bugzilla.kernel.org/>
- <CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
- <ZGB0cVVI7OgaJU6t@debian.me>
- <CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
- <87cz338ix4.wl-tiwai@suse.de>
- <CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
- <874jodlnmi.wl-tiwai@suse.de> <415d4bc84aa74c74af913048f28b42a9@realtek.com>
- <87fs7mdofi.wl-tiwai@suse.de> <7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
- <87353kd8b9.wl-tiwai@suse.de> <1170325957764b4cbd7cd3639575f285@realtek.com>
- <CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
- <873536js7q.wl-tiwai@suse.de>
- <CABpewhE0NAC-Q=iqG2Ba=XhT7SXsWy18wQGYUaopzmKDfFxyPw@mail.gmail.com>
- <2c1fcbc00bb44d66a29ac1c1e4bec5ad@realtek.com>
- <CABpewhFthKG97dPiQC4JhGx9sapX9Yu5rWABQjpY95TSA+eawA@mail.gmail.com>
- <485f99149508488080d563144454040e@realtek.com>
- <CABpewhGkvWtM+9J=mx3vw0QY=OBB5OYCxzX3nzVffvFS4QazPA@mail.gmail.com>
- <2831c55638a5431ca9e37d9caf365ed2@realtek.com>
- <CABpewhGiMJUpyBA6=D9_-YA6=5rjR2R0RHUZeg+cWcjtzuCoZQ@mail.gmail.com>
- <3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
- <CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
- <009474f04d0b45c69a0e42e8622b7a86@realtek.com> <87h6rhcef2.wl-tiwai@suse.de>
- <0990300d759846d890de9c92fcad9a9d@realtek.com>
- <CABpewhERnOH1qkkJ5_JJUZkz1_8oxD9aR5VBs1vsURAG7Eu_Ew@mail.gmail.com>
- <878rctcavz.wl-tiwai@suse.de> <874jnhc9u4.wl-tiwai@suse.de>
- <CABpewhHG2+s8_6r6vChm2g5tD8ALW_SWJWubPRXWzTJB2aFR9g@mail.gmail.com>
- <875y7vbxpg.wl-tiwai@suse.de>
- <CABpewhHDnvn4v+uCpsaLHB+biw-f59tdTiCyFkicHnewXHYDNg@mail.gmail.com>
- <87wn0aa1s4.wl-tiwai@suse.de>
- <CABpewhFg=7+JR6v=zhi0_Hm9+S64DLOHKeG2pS-W7z-vNpu_5Q@mail.gmail.com>
- <87leg7x4h7.wl-tiwai@suse.de> <f4969213b5a14cc5a11befb4df861481@realtek.com>
- <87cz182hfk.wl-tiwai@suse.de> <4678992299664babac4403d9978e7ba7@realtek.com>
- <CABpewhGkw2rg_NN7Rd8E_p+AN9MC0A1CjgnrhBvMnSKq0gz31w@mail.gmail.com>
-In-Reply-To: 
- <CABpewhGkw2rg_NN7Rd8E_p+AN9MC0A1CjgnrhBvMnSKq0gz31w@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.106]
-x-kse-serverinfo: RTEXMBS01.realtek.com.tw, 9
-x-kse-antispam-interceptor-info: fallback
-x-kse-antivirus-interceptor-info: fallback
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Spam-Status: No, score=-5.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	RCVD_IN_DNSWL_HI,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [IPv6:2607:f8b0:4864:20::22c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
+	(No client certificate requested)
+	by alsa1.perex.cz (Postfix) with ESMTPS id 5206DF800E4
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 05:25:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5206DF800E4
+Authentication-Results: alsa1.perex.cz;
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=piV66UV4
+Received: by mail-oi1-x22c.google.com with SMTP id
+ 5614622812f47-3a1ebb85f99so1262832b6e.2
+        for <alsa-devel@alsa-project.org>;
+ Thu, 13 Jul 2023 20:25:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689305101; x=1691897101;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eo3IhBDQB2OLd7kiPYuV8sy87FZlhY7X/2vIfGAQRIg=;
+        b=piV66UV4MVORBIPq22ot+BIemlj0TiI+ZFDfmfE04DeKH5QlPjsC+qauxE2IC3CWj2
+         ewrlsjDT4+VUx3E5+9vP9zhnvwZjrunveA12kHhBsnM4i0VZ6/mnemOAsSI5JlzTIGy3
+         nBP7lfyFITdkZBobxiTg1uETx8zZwW5+GU/v9jWDMAhsFUJ5SkO+5G9tT0v5scITzccz
+         nLRQXBVRKt5p+5wTqSfTw6r24Mt0w+Dtu8RsheXWTrg0IehXOKCD310EwHrLpUvTpkX5
+         TAkFpGiQLKCXbvsg1rcpJRkMoTlzHxUdS4l05S7yzgcd0KkmkND2TLK/4ga8nQXG93qK
+         Bxtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689305101; x=1691897101;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eo3IhBDQB2OLd7kiPYuV8sy87FZlhY7X/2vIfGAQRIg=;
+        b=YKnqHGHaIV0ZqOW/96fA9YBgXngbUpRQeOHipFjgj/NtvYrLriwbhD9Itb7ZMY1uGI
+         uCRUX2ggCSpowX5FSPcVo+cz+3A78cMofd6CrBU22wnDA0fjeqq/2Ocsg67oGzm/FLcj
+         v9DZ+m6cAmKwZtvUeLoyuSi9mNfqbI7g2SpZoP7tX3rZe3YVbhUkNVC9NdSV3WKdnNrN
+         yssGf9yf9XnD40MeZJc6jChuLAedhc7qFeAGvYmvDzq1mpA1Cgc2pcpxvl5R0r/LEFhh
+         48o4tBD3UQN5LipOPAcMMIrrUmnLbosKfevu9n1E/LzpfxcVAe2J/OrDVIZkn0GlbFSe
+         0m2g==
+X-Gm-Message-State: ABy/qLbgoTOtwra6mkobabpJmq+sYITHZJsbhIsjmo8mB0A775iNzQsk
+	LmuosbpIGr86iX2irbbXk5+AXPCacJ0IT+Mz
+X-Google-Smtp-Source: 
+ APBJJlH9OpBJ3bks0VAm6MO5uXNbvCAh2WMyNb3pdVkz5pkXtGMulyl3WSQk9/oclaqk/fKm0kyrhQ==
+X-Received: by 2002:a05:6808:1801:b0:3a4:3170:cc0e with SMTP id
+ bh1-20020a056808180100b003a43170cc0emr5406116oib.38.1689305101182;
+        Thu, 13 Jul 2023 20:25:01 -0700 (PDT)
+Received: from a-VirtualBox.. ([116.233.75.15])
+        by smtp.gmail.com with ESMTPSA id
+ t3-20020a17090b018300b00262d6ac0140sm216016pjs.9.2023.07.13.20.24.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Jul 2023 20:25:00 -0700 (PDT)
+From: Zhu Ning <zhuning0077@gmail.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Cc: pierre-louis.bossart@linux.intel.com,
+	tiwai@suse.com,
+	amadeuszx.slawinski@linux.intel.com,
+	yangxiaohua@everest-semi.com,
+	zhuning@everest-semi.com,
+	Zhu Ning <zhuning0077@gmail.com>
+Subject: [PATCH v1 1/5] ASoC: codecs: ES8326: Add es8326_mute function
+Date: Fri, 14 Jul 2023 11:24:49 +0800
+Message-Id: <20230714032453.3334-1-zhuning0077@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-ServerInfo: RTEXH36505.realtek.com.tw, 9
-X-KSE-AntiSpam-Interceptor-Info: fallback
-X-KSE-Antivirus-Interceptor-Info: fallback
-X-KSE-AntiSpam-Interceptor-Info: fallback
-Message-ID-Hash: 6VKEJYVRO2OKMCVVF2563HV6EQSU7TFX
-X-Message-ID-Hash: 6VKEJYVRO2OKMCVVF2563HV6EQSU7TFX
-X-MailFrom: kailang@realtek.com
+Content-Transfer-Encoding: 8bit
+Message-ID-Hash: M36SPBF3KQLOOB4PEO6O6UPDUQ5QBHLE
+X-Message-ID-Hash: M36SPBF3KQLOOB4PEO6O6UPDUQ5QBHLE
+X-MailFrom: zhuning0077@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -132,7 +112,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6VKEJYVRO2OKMCVVF2563HV6EQSU7TFX/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/M36SPBF3KQLOOB4PEO6O6UPDUQ5QBHLE/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -141,19 +121,190 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-SGkgVGFrYXNoaSwNCg0KQ291bGQgeW91IGFncmVlIHRoaXMgd29ya2Fyb3VuZD8NCg0KQlIsDQpL
-YWlsYW5nDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSm9zZXBoIEMu
-IFNpYmxlIDxqb3NlcGhjc2libGVAZ21haWwuY29tPg0KPiBTZW50OiBGcmlkYXksIEp1bHkgMTQs
-IDIwMjMgOToxMSBBTQ0KPiBUbzogS2FpbGFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4NCj4gQ2M6
-IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT47IEJhZ2FzIFNhbmpheWEgPGJhZ2FzZG90bWVA
-Z21haWwuY29tPjsNCj4gcmVncmVzc2lvbnNAbGlzdHMubGludXguZGV2OyBwZXJleEBwZXJleC5j
-ejsgdGl3YWlAc3VzZS5jb207DQo+IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZw0KPiBTdWJq
-ZWN0OiBSZTogRndkOiBbQnVnIDIxNzQ0MF0gTmV3OiBBTEMyMzYgYXVkaW8gZGlzYXBwZWFycyBm
-cm9tIEhQDQo+IDE1ei1mYzAwMCBvbiB3YXJtIGJvb3QNCj4gDQo+IA0KPiBFeHRlcm5hbCBtYWls
-Lg0KPiANCj4gDQo+IA0KPiBPbiBUaHUsIEp1bCAxMywgMjAyMyBhdCA0OjI14oCvQU0gS2FpbGFu
-ZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4gd3JvdGU6DQo+ID4NCj4gPiBIaSBKb3NlcGgsDQo+ID4N
-Cj4gPiBDb3VsZCB5b3UgdGVzdCBhdHRhY2ggcGF0Y2g/DQo+ID4NCj4gPiBCUiwNCj4gPiBLYWls
-YW5nDQo+IA0KPiBJIGFwcGxpZWQgdGhhdCBwYXRjaCBvbiB0b3Agb2Yga2VybmVsIDYuNC4zIGFu
-ZCB0ZXN0ZWQgaXQsIGFuZCB5ZXMsIGl0IGRvZXMgZml4IHRoZQ0KPiBwcm9ibGVtLg0KPiANCj4g
-VGhhbmtzLA0KPiANCj4gSm9zZXBoIEMuIFNpYmxlDQo+IA0KPiAtLS0tLS1QbGVhc2UgY29uc2lk
-ZXIgdGhlIGVudmlyb25tZW50IGJlZm9yZSBwcmludGluZyB0aGlzIGUtbWFpbC4NCg0K
+The internal analog power and hp Vref of es8326 should always be on to
+reduce pop noise. The HP_VOL and HP_CAL are moved to es8326_mute function
+so they are turned on at last and turned off at first.
+
+Also, the calibration should be done manually once during start-up
+to reduce DC offset on headphone.
+
+Signed-off-by: Zhu Ning <zhuning0077@gmail.com>
+---
+ sound/soc/codecs/es8326.c | 75 ++++++++++++++++-----------------------
+ sound/soc/codecs/es8326.h |  9 +++--
+ 2 files changed, 37 insertions(+), 47 deletions(-)
+
+diff --git a/sound/soc/codecs/es8326.c b/sound/soc/codecs/es8326.c
+index ed348bbf5f49..191579d9552c 100644
+--- a/sound/soc/codecs/es8326.c
++++ b/sound/soc/codecs/es8326.c
+@@ -38,6 +38,9 @@ struct es8326_priv {
+ 	u8 interrupt_clk;
+ 	bool jd_inverted;
+ 	unsigned int sysclk;
++
++	bool calibrated;
++	int version;
+ };
+ 
+ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
+@@ -121,33 +124,12 @@ static const struct snd_soc_dapm_widget es8326_dapm_widgets[] = {
+ 	/* Analog Power Supply*/
+ 	SND_SOC_DAPM_DAC("Right DAC", NULL, ES8326_ANA_PDN, 0, 1),
+ 	SND_SOC_DAPM_DAC("Left DAC", NULL, ES8326_ANA_PDN, 1, 1),
+-	SND_SOC_DAPM_SUPPLY("Analog Power", ES8326_ANA_PDN, 7, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("IBias Power", ES8326_ANA_PDN, 6, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("ADC Vref", ES8326_ANA_PDN, 5, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("DAC Vref", ES8326_ANA_PDN, 4, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Vref Power", ES8326_ANA_PDN, 3, 1, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("MICBIAS1", ES8326_ANA_MICBIAS, 2, 0, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY("MICBIAS2", ES8326_ANA_MICBIAS, 3, 0, NULL, 0),
+ 
+ 	SND_SOC_DAPM_PGA("LHPMIX", ES8326_DAC2HPMIX, 7, 0, NULL, 0),
+ 	SND_SOC_DAPM_PGA("RHPMIX", ES8326_DAC2HPMIX, 3, 0, NULL, 0),
+ 
+-	/* Headphone Charge Pump and Output */
+-	SND_SOC_DAPM_SUPPLY("HPOR Cal", ES8326_HP_CAL, 7, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("HPOL Cal", ES8326_HP_CAL, 3, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone Charge Pump", ES8326_HP_DRIVER,
+-			    3, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone Driver Bias", ES8326_HP_DRIVER,
+-			    2, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone LDO", ES8326_HP_DRIVER,
+-			    1, 1, NULL, 0),
+-	SND_SOC_DAPM_SUPPLY("Headphone Reference", ES8326_HP_DRIVER,
+-			    0, 1, NULL, 0),
+-	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOR Supply", ES8326_HP_CAL,
+-			 ES8326_HPOR_SHIFT, 7, 7, 0),
+-	SND_SOC_DAPM_REG(snd_soc_dapm_supply, "HPOL Supply", ES8326_HP_CAL,
+-			 0, 7, 7, 0),
+-
+ 	SND_SOC_DAPM_OUTPUT("HPOL"),
+ 	SND_SOC_DAPM_OUTPUT("HPOR"),
+ };
+@@ -166,34 +148,12 @@ static const struct snd_soc_dapm_route es8326_dapm_routes[] = {
+ 	{"I2S OUT", NULL, "ADC L"},
+ 	{"I2S OUT", NULL, "ADC R"},
+ 
+-	{"I2S OUT", NULL, "Analog Power"},
+-	{"I2S OUT", NULL, "ADC Vref"},
+-	{"I2S OUT", NULL, "Vref Power"},
+-	{"I2S OUT", NULL, "IBias Power"},
+-	{"I2S IN", NULL, "Analog Power"},
+-	{"I2S IN", NULL, "DAC Vref"},
+-	{"I2S IN", NULL, "Vref Power"},
+-	{"I2S IN", NULL, "IBias Power"},
+-
+ 	{"Right DAC", NULL, "I2S IN"},
+ 	{"Left DAC", NULL, "I2S IN"},
+ 
+ 	{"LHPMIX", NULL, "Left DAC"},
+ 	{"RHPMIX", NULL, "Right DAC"},
+ 
+-	{"HPOR", NULL, "HPOR Cal"},
+-	{"HPOL", NULL, "HPOL Cal"},
+-	{"HPOR", NULL, "HPOR Supply"},
+-	{"HPOL", NULL, "HPOL Supply"},
+-	{"HPOL", NULL, "Headphone Charge Pump"},
+-	{"HPOR", NULL, "Headphone Charge Pump"},
+-	{"HPOL", NULL, "Headphone Driver Bias"},
+-	{"HPOR", NULL, "Headphone Driver Bias"},
+-	{"HPOL", NULL, "Headphone LDO"},
+-	{"HPOR", NULL, "Headphone LDO"},
+-	{"HPOL", NULL, "Headphone Reference"},
+-	{"HPOR", NULL, "Headphone Reference"},
+-
+ 	{"HPOL", NULL, "LHPMIX"},
+ 	{"HPOR", NULL, "RHPMIX"},
+ };
+@@ -419,6 +379,31 @@ static int es8326_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
++static int es8326_mute(struct snd_soc_dai *dai, int mute, int direction)
++{
++	struct snd_soc_component *component = dai->component;
++	struct es8326_priv *es8326 = snd_soc_component_get_drvdata(component);
++
++	if (mute) {
++		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_OFF);
++		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
++				ES8326_MUTE_MASK, ES8326_MUTE);
++		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xf0);
++	} else {
++		if (!es8326->calibrated) {
++			regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_FORCE_CAL);
++			msleep(30);
++			es8326->calibrated = true;
++		}
++		regmap_write(es8326->regmap, ES8326_HP_DRIVER, 0xa0);
++		regmap_write(es8326->regmap, ES8326_HP_VOL, 0x00);
++		regmap_write(es8326->regmap, ES8326_HP_CAL, ES8326_HP_ON);
++		regmap_update_bits(es8326->regmap, ES8326_DAC_MUTE,
++				ES8326_MUTE_MASK, ~(ES8326_MUTE));
++	}
++	return 0;
++}
++
+ static int es8326_set_bias_level(struct snd_soc_component *codec,
+ 				 enum snd_soc_bias_level level)
+ {
+@@ -469,6 +454,8 @@ static const struct snd_soc_dai_ops es8326_ops = {
+ 	.hw_params = es8326_pcm_hw_params,
+ 	.set_fmt = es8326_set_dai_fmt,
+ 	.set_sysclk = es8326_set_dai_sysclk,
++	.mute_stream = es8326_mute,
++	.no_capture_mute = 1,
+ };
+ 
+ static struct snd_soc_dai_driver es8326_dai = {
+@@ -691,7 +678,7 @@ static int es8326_suspend(struct snd_soc_component *component)
+ 
+ 	cancel_delayed_work_sync(&es8326->jack_detect_work);
+ 	es8326_disable_micbias(component);
+-
++	es8326->calibrated = false;
+ 	regmap_write(es8326->regmap, ES8326_CLK_CTL, ES8326_CLK_OFF);
+ 	regcache_cache_only(es8326->regmap, true);
+ 	regcache_mark_dirty(es8326->regmap);
+diff --git a/sound/soc/codecs/es8326.h b/sound/soc/codecs/es8326.h
+index 8e5ffe5ee10d..3f8f7da58062 100644
+--- a/sound/soc/codecs/es8326.h
++++ b/sound/soc/codecs/es8326.h
+@@ -9,8 +9,6 @@
+ #ifndef _ES8326_H
+ #define _ES8326_H
+ 
+-#define CONFIG_HHTECH_MINIPMP	1
+-
+ /* ES8326 register space */
+ #define ES8326_RESET		0x00
+ #define ES8326_CLK_CTL		0x01
+@@ -94,6 +92,8 @@
+ #define	ES8326_PWRUP_SEQ_EN	(1 << 5)
+ #define ES8326_CODEC_RESET (0x0f << 0)
+ #define ES8326_CSM_OFF (0 << 7)
++#define ES8326_MUTE_MASK (3 << 0)
++#define ES8326_MUTE (3 << 0)
+ 
+ /* ES8326_CLK_CTL */
+ #define ES8326_CLK_ON (0x7f << 0)
+@@ -122,7 +122,9 @@
+ #define ES8326_MIC2_SEL (1 << 5)
+ 
+ /* ES8326_HP_CAL */
+-#define ES8326_HPOR_SHIFT 4
++#define ES8326_HP_OFF 0
++#define ES8326_HP_FORCE_CAL ((1 << 7) | (1 << 3))
++#define ES8326_HP_ON ((7 << 4) | (7 << 0))
+ 
+ /* ES8326_ADC1_SRC */
+ #define ES8326_ADC1_SHIFT 0
+@@ -180,3 +182,4 @@
+ #define ES8326_VERSION_B (1 << 0)
+ 
+ #endif
++
+-- 
+2.34.1
+

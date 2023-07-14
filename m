@@ -2,96 +2,153 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD004752BC5
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jul 2023 22:40:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E5A2752E2B
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 02:13:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5ACEC86F;
-	Thu, 13 Jul 2023 22:39:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ACEC86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E307A4A;
+	Fri, 14 Jul 2023 02:12:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E307A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689280837;
-	bh=bcGCwRJVwrgQUmowpebv9sF2MjE/I2LXNBy02Hig+sk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
+	s=default; t=1689293607;
+	bh=phM8okUitkPIKRCJ/bU0CmBDzmQB+DO1ahGPTPEO3us=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=InJI2SsO9B1yPpwRxqO0zheTl3BrSYnDHz4Eop2UePl2KI8zAnOTcG7SmsZ8BNka/
-	 t58XpW8dJ910msVAAT+kdz5z0QWu92oR3QDcinAo+bZm24s3GPtV2AUABtv3DAqKL1
-	 pKBiLtWWaPThmwwvtmNn5k5s3H0LyVTe2Xgny3Dg=
+	b=iDbTRNhIgD3tdM+ssIe73E/iz+NwIOZC8RZ8j38UMqB5cEeCyaobmsYg+/EBiFD2I
+	 oaQtZCBTjrhGPNHdx2/UVH8sopTROrzfDObNUrWLvCF8TDthrOeQecQmUF2Qsxk2vb
+	 B1UY3kFKt/v7yodc9rpo3A5+JUGfCGGqCUZ/gmSE=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id D8DEAF8024E; Thu, 13 Jul 2023 22:39:46 +0200 (CEST)
+	id E1576F8027B; Fri, 14 Jul 2023 02:12:36 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52E0DF80236;
-	Thu, 13 Jul 2023 22:39:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96792F80236;
+	Fri, 14 Jul 2023 02:12:36 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 7E6A3F80249; Thu, 13 Jul 2023 22:39:41 +0200 (CEST)
+	id DCD4BF80249; Fri, 14 Jul 2023 02:12:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
-	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on20731.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:700c::731])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 9080AF80153
-	for <alsa-devel@alsa-project.org>; Thu, 13 Jul 2023 22:39:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9080AF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id B2583F80153
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 02:12:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2583F80153
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=rcfugwaV
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 6715C61B39;
-	Thu, 13 Jul 2023 20:39:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC1AC433C8;
-	Thu, 13 Jul 2023 20:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1689280770;
-	bh=bcGCwRJVwrgQUmowpebv9sF2MjE/I2LXNBy02Hig+sk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rcfugwaVYPELK2MrNRSx1ol4j53EGpoLc200cGY57A6R/HfhrpbktcU4PxE6Iqtu+
-	 sQw6kTkRNBWbwj9j/jbsiR5rWTOUuMBeD9kNScMy7QIuyFniTsw+CWYdpqcqe9/NcF
-	 RDGDp04aRybvBEiSrAxAx+GETRHGBYlF1UXRBX6mTteq61Qx3d5WnolNFNs0ivtZOS
-	 7Y68fMqEdQt08f8+NJDJwuTCFzwgiAYVhIW4WK1UAZK537A/gKhXRU8OHTw8yWC2bg
-	 vDvKkwxhvrYw5X+cIdpHKkhUWG8un420SxdISXhX12RwOYDFcAXHcp7MbQdJ5BK3h6
-	 Knpqv23eRuZaw==
-Date: Thu, 13 Jul 2023 21:39:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: =?iso-8859-1?B?Ik7tY29sYXMgRi4gUi4gQS4i?= Prado <nfraprado@collabora.com>,
-	Jaroslav Kysela <perex@perex.cz>, kernel@collabora.com,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shuah Khan <shuah@kernel.org>, Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 2/2] kselftest/alsa: pcm-test: Decrease stream duration
- from 4 to 2 seconds
-Message-ID: <66c81c16-737d-4ec6-b590-a6b1070b991b@sirena.org.uk>
-References: <443f697b-fecf-6e8e-0b76-65257aff7da8@perex.cz>
- <9069ad0c-d166-4620-a3de-a36ab233cab0@sirena.org.uk>
- <5c2d5213-5299-44f1-9611-26002c8a5d3a@notapiano>
- <87352krcz5.wl-tiwai@suse.de>
- <f5cab2c2-1638-4d19-aff3-d46ed34b857e@sirena.org.uk>
- <87wmzwptu0.wl-tiwai@suse.de>
- <06b8bfde-e4f1-48ea-aa3e-35d2fe5df046@sirena.org.uk>
- <87wmz8i746.wl-tiwai@suse.de>
- <87ef1544-c1aa-4cce-82f2-60c6f1c2b1c8@sirena.org.uk>
- <87ilaofb9s.wl-tiwai@suse.de>
+	dkim=pass (1024-bit key,
+ unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
+ header.s=selector1 header.b=HOjjTE94
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SXTvjhCMidj+PDUwLHi5rLtGL7GLLGssJTJl2r1GHCMz9guPWIEy4saRlR/r2AkPFOGrJSgDA9MwfAzHVl9FT9UPpuveXmXl9Eu19PPJ6q0H+yeVDrOfYYgFp1zMsLQoAenbQ81GUrLzNCignoW9w5Gldw6KQ/L9qrESq6DOMqWMDA5qxIyKsUTKYWD5W3GZVlFUmtq6JdEi4O0J3JGfh4zYk7CLw7SKQui8TW67ZQdEl9nCyQRMfCvzFrSjQ9hwNwAnA9yd00QHbct1u6Q+J+iDVr3lXRHo+t3AzVB8/xeqwqLGx2oLQm3MHcZlIJ7Zgai2pQpyZs/QBKFBVYQ5Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=65dvQURReZd5nOIbfP0cmbR3T5UNISYONMzV6ib/VP0=;
+ b=mGCcOyw/wpWueqZ7TXxtLYO9xSL41IbY7sDJpafwqUkacYc1HDEMprSzc+dxX6WmurhQ+zQgdFHwcRe230MfXgjp4UF2it8/mM/JMttD6OR37m0oOafsEQDyX6pFuqcvXcVN5mEqsySJCIqSW5jFQ08c/DceBOMTwAuzgY0mh8jcF7bnAUCFWx2FWrykWpheV/er16FUYBmnWj9MVNk7uqaxzFXNuPKttWbQwtsOz/7T0z1ZlbzReOISC3eiaeGpsifL6uXLQoISW4Dy1WOOTtBYIHqGyYWD1H+Y8zACEW36cH9Z99DhReG+a6ar60Qacaf5T90LMXHx5FBppX440Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=65dvQURReZd5nOIbfP0cmbR3T5UNISYONMzV6ib/VP0=;
+ b=HOjjTE94AjmmfFhGwWN6x3i9G7V22ApALtW5rfL16sHFa7ou1uuT0QveRQwNkSYClw7Ot3TKgZGMhDcHszbZ/MeJk12wGep9yGEHW3yiRI4QctUZH2A68wdrW4diZX83EzdZmDvDvhP0DBeXrHY3XuJjGCNiNmEaCnqqolNObKo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
+ by TY3PR01MB9793.jpnprd01.prod.outlook.com (2603:1096:400:22b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.27; Fri, 14 Jul
+ 2023 00:12:11 +0000
+Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::7d35:d426:d4e5:6e5d]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
+ ([fe80::7d35:d426:d4e5:6e5d%6]) with mapi id 15.20.6565.028; Fri, 14 Jul 2023
+ 00:12:10 +0000
+Message-ID: <877cr3tkpy.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Maxim Kochetkov <fido_max@inbox.ru>
+Cc: alsa-devel@alsa-project.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Sameer Pujar <spujar@nvidia.com>,
+	Astrid Rost <astrid.rost@axis.com>,
+	Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: simple-card: add trigger-stop entry parser
+In-Reply-To: <20230713193905.347588-1-fido_max@inbox.ru>
+References: <20230713193905.347588-1-fido_max@inbox.ru>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Fri, 14 Jul 2023 00:12:10 +0000
+X-ClientProxiedBy: TYAPR01CA0154.jpnprd01.prod.outlook.com
+ (2603:1096:404:7e::22) To OS3PR01MB8426.jpnprd01.prod.outlook.com
+ (2603:1096:604:194::10)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rajlGC2kTISHyIRr"
-Content-Disposition: inline
-In-Reply-To: <87ilaofb9s.wl-tiwai@suse.de>
-X-Cookie: MOUNT TAPE U1439 ON B3, NO RING
-Message-ID-Hash: IHPOJ5O54JHK3YFB4O5MQABFPPQTSGZF
-X-Message-ID-Hash: IHPOJ5O54JHK3YFB4O5MQABFPPQTSGZF
-X-MailFrom: broonie@kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TY3PR01MB9793:EE_
+X-MS-Office365-Filtering-Correlation-Id: 084975d3-81b2-4561-bd2c-08db83fef7f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	eWls1vL6FQ5Tvsg6QrIhVvdYcjiV6tfJYRwNGzODdv+NgZ692/H23HtYp23TY4aUauC9FHVXE3KNESqFrFTvMIk0NEaotfEECab0S6p6aJ0wZId6B1MvZyk5plgoWquKickEA6qEv9b3Wd9w6RoHk4EGTcYSj9AtsZTa1I3BPyiIhrh8bSQcI/5p8BxkReNjqTshUfElaW5IIvnP9z22njVVT7S0yHlVL39Gu2Ww4aGmqQSYeKnX15a52JzjcwTt5sZUqQconv6Z6Mu60PR6KvOMTwzOl7aSvIe6ygTfribXS6vQpmz2adOAT+WUbX5EtSN7aS6nptYabsfHoxqz0t+rkVKMB9yIUfRUMEKa75SAQnF8l8HFTrT47VrOPeX+MIhguBbVxcy6NcEf1NEfQGTTr612NOKyr3Y3HGwXwoSSB/8es7nOX/SBvEksGJzi1SEDU9nrPP4QjRcKXN8lFwkVgmeFGDa3m+ljVI7g41RztbSswC+AaauEHzCM7KpFruG/8QbdLzsn2AYqVnKluALxcucu4I7MPGkH3vcbn45cwIUPv2ZUbvyNUKQp6frjsXq+g6KKIDHGN2ZGhnrOoEIW4jMRMpOIxv7bnrgupo1rNFcS0ZVb+R/E/mUcVk+5
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(366004)(136003)(346002)(376002)(451199021)(83380400001)(2906002)(4744005)(2616005)(66476007)(6486002)(6916009)(66556008)(66946007)(4326008)(316002)(52116002)(478600001)(54906003)(26005)(6506007)(186003)(7416002)(8676002)(41300700001)(5660300002)(8936002)(6512007)(38100700002)(38350700002)(86362001)(36756003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?Ywf3+Fr3TvORWmniguTD/jKaK9hVavo9lpsyC7swudVAUgKHNjDTt2XhAfv8?=
+ =?us-ascii?Q?MMAaEJuTvdlvbPV90frhE9LpmU1lAZ4AMsWAkdRjmckLcW9tQzI4Y1evKTtz?=
+ =?us-ascii?Q?3kwGgdmsJI7FwMm+JBNJnaPcntcN1ct7Vv1LeyT3Aa1YyDa2RMxK53JWJ0wH?=
+ =?us-ascii?Q?FoCeyPWjkvsPbqF2oke5ViOWb5q4SvIUN3oUGJidD8cKRTRCWikPHDDj5aHo?=
+ =?us-ascii?Q?T2FDOzVpVAGqpvqhQMiJL6B2zm95g4Q6TJuf2ZwdvDGgMj+k7cMi1d0wwl4/?=
+ =?us-ascii?Q?qVy+r06p09Z5tkrarnDgMXK3gOVh4HmrU50ZAJp8yQw9D9Ge9q9fglxjpbY0?=
+ =?us-ascii?Q?GpghIPiIoHd5e5SIMCY1TBpG8hcTkFe1H6LI4CNsKCiUXzuILitZ3DO9K5rl?=
+ =?us-ascii?Q?45/pNuEO5pce0CKJB5H/zaEqlmBMuZ73YTuwxUCpZeRMFWazCpYK2bWR/vQ1?=
+ =?us-ascii?Q?Z+LvY50gKxFakIrDk6GUr/5I5l9ZRCQzEWEBvhfontuHWHwEHFtzG2VH+83W?=
+ =?us-ascii?Q?wpubFLdkvv8/NpicJm+W9+7lFcM0TSQo4NoG2kivpnprg0OKKDvIiN+vfsTL?=
+ =?us-ascii?Q?/Rpo6Arxv9nD8Cl57l9V/0AWHaouI+gjICI1StOoSkT+4siWWI9zCSWqNnaj?=
+ =?us-ascii?Q?kjdCFMGZfc+TWnHQP0TQRty9bop/sLwrB+In5lx+oos6PL+M8aw+MgwyUwrY?=
+ =?us-ascii?Q?Hv/NXS1rj0FopOukh7YWoUGULjUH+hZU+DfY7GMtdWhFXayuMluqnW3L3n7N?=
+ =?us-ascii?Q?xtSyBkOcRjuSfhYWOi7czmyiMJOGwqikjSiVv91c33tWIOM1iOOHBfNsbMnr?=
+ =?us-ascii?Q?4aRQpJUc4M5fD4+Tz250+dF4xoocUbPlpT9Bmo6Na43Gdl3sxsWU07WM5SL/?=
+ =?us-ascii?Q?WCu3Ay6LxG7EAPfKjEPDG4FXirFtLKMZdwojUKld8x70tB0n/7T6O0NH2cei?=
+ =?us-ascii?Q?b6Q5wDEFCVYJi08xX8KiCKDNhUNcMKhZ7DPn0tLCUQGnPKXGxixy29CidWOP?=
+ =?us-ascii?Q?vJ82sfjpk65B6SSfTJnaEfPr3WYYKH5Up2L4ZLGVKY9RAnZZrUk5TD1pCjMt?=
+ =?us-ascii?Q?BNqJgsMxxEbFUf2U4SbVbMbIkl0ubXo1bagz6E29DVbzwf+xLBJFkLG1qJKK?=
+ =?us-ascii?Q?9YNCG/N51kQK+d4cDr+yBcrqXYX3oP1TlnTnaXFVQGD7bQBkiw70mir4ICSH?=
+ =?us-ascii?Q?8opkkgsLOicQfJZeK0jZNo/tElY1BdpHLNltBTIYUDceR+AhnHWW/uInLxKn?=
+ =?us-ascii?Q?teCrfr6/+Aclu5HuFcZzpR9Xpcz7YnxnfZ95HEe1E7RHX2QlGXiqb1FgdOzt?=
+ =?us-ascii?Q?7N88MRITBcVX9Od4PxQ4YamhAcSTfah/PC4TGRUyGG1P0sthkdfe/z3+g2BT?=
+ =?us-ascii?Q?t9IZsXyUFxGnxUvpMQHlHjcTdEBp/3GxtAxSR99KwHMp8+aR09oAsPhOKVqL?=
+ =?us-ascii?Q?A1n6F1C+gWp0C55cDrZr5rnnjmWUt9DskjTxYi/Qr3vDOiBqF37XlHdrvyhp?=
+ =?us-ascii?Q?KWSjkP++W8eoj3ct09jGo/BeneethM+hRnIYrz+cQ8Pwtb62mdubcasg20WE?=
+ =?us-ascii?Q?mFg0yD9EgcWzfxg7NPposyecUWkD0Kydyn83D7m1/ZFUKl3WTY5j/t5+6mY2?=
+ =?us-ascii?Q?zIrvJZbtHGv+K+jw6fqV3Ww=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 
+ 084975d3-81b2-4561-bd2c-08db83fef7f2
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2023 00:12:10.9181
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 
+ OGhmV09VkUCUOVJ/31iY66FC6o+44kupxwNwSNEpiDeIekGIrnNyMhJs5WBVSWtftKVneImBLJRxgRwOpWNGUZi+YhDpJFU4T6oDKGms4yl1HSHBZrLbaAe7iknFDbGb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB9793
+Message-ID-Hash: F7PLL2HCWAW3YZYGKL4TLNBZPWI3V7LA
+X-Message-ID-Hash: F7PLL2HCWAW3YZYGKL4TLNBZPWI3V7LA
+X-MailFrom: kuninori.morimoto.gx@renesas.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -103,7 +160,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/IHPOJ5O54JHK3YFB4O5MQABFPPQTSGZF/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F7PLL2HCWAW3YZYGKL4TLNBZPWI3V7LA/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -113,55 +170,46 @@ List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
 
---rajlGC2kTISHyIRr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi Maxim
 
-On Thu, Jul 13, 2023 at 10:47:43AM +0200, Takashi Iwai wrote:
-> Mark Brown wrote:
+Thank you for your patch
 
-> > # default.time3.0.0.0.PLAYBACK - 44.1kHz stereo large periods
-> > # default.time3.0.0.0.PLAYBACK hw_params.RW_INTERLEAVED.S16_LE.44100.2.16383.131064 sw_params.131064
-> > not ok 10 default.time3.0.0.0.PLAYBACK
-> > # time mismatch: expected 2000ms got 2229
+> It may be useful to specify trigger-stop for some DMA-based simple
+> audio card. So add this "trigger-stop" device tree entry parser.
+> 
+> Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
+> ---
+(snip)
+> +	const char *str;
+> +	struct {
+> +		char *name;
+> +		unsigned int val;
+> +	} of_trigger_table[] = {
+> +		{ "default",	SND_SOC_TRIGGER_ORDER_DEFAULT },
+> +		{ "ldc",	SND_SOC_TRIGGER_ORDER_LDC },
+> +	};
+(snip)
+> +		ret = of_property_read_string(np, "trigger-stop", &str);
 
-> > reliably (the actual time drifts by a few ms).  The other boards I've
-> > got coverage of seem fine, and I didn't check any broader CI yet.
+The name of "LDC" is from initials of "Link -> DAI -> Component".
+Thus, people want to know what does it mean.
+You need to update DT doc/yaml too :)
 
-> Interesting.  With the current patch, we rather extended the margin in
-> proportion; formerly 4 sec +/- 0.1s, now 2 sec +/- 0.1s.  And it
-> exceeded out of sudden.
+Or maybe like this ?
 
-Right.
+	// 0 : Link
+	// 1 : DAI
+	// 2 : Component
+	trigger-stop = <0, 1, 2>; // default
+	trigger-stop = <0, 2, 1>; // LDC
 
-> I guess this rather caught a problem of the driver itself.
+And please add paired "trigger-start" or add comment like
+/* ADD .trigger-start here */ or something.
+Unbalanced implementation is very confusable.
 
-Well, there's doubtless something driver/hardware related going on but
-I'm not sure if it's a problem there or not.  The results from the 4s
-runtime were:
 
-# default.time3.0.0.0.PLAYBACK - 44.1kHz stereo large periods
-# default.time3.0.0.0.PLAYBACK hw_params.RW_INTERLEAVED.S16_LE.44100.2.16383.131064 sw_params.131064
-ok 10 default.time3.0.0.0.PLAYBACK
+Thank you for your help !!
 
-so the same buffer sizes and so on, and the period size is only 10ms
-unless I miscalculated which should be quite a long way off from the
-100ms of margin we give ourselves.  It does seem a little suspect that
-it's the large periods test that's falling over though.
-
---rajlGC2kTISHyIRr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSwYPwACgkQJNaLcl1U
-h9AAjAf9G1zzfng/beUy+UkABu6GsH4CgzFwfSum/wi7FgrnLo8yNYSH8M5RU/qf
-dxoSuJF2Jf7glSBeBxFI+1lBUoEI0YmTuYez1QFQcdaOybZ1R0SgfrPFZ9sj6+14
-vdSgMfk98QkgcnU0V0HHnUrSNkXP6Nd2y9hkukv6tTzEsICWnBLC8w4WS3qu92fQ
-Z65B7dti1tOCTydBPjirhzybNy8qm3xOgw+tdIBPvEM1HMgSSYcZQIm3r2Mk3+EK
-fEjhT0ol+azg2AvW/V78L/JaaeapItkoWfvB8VtI3IWFt1JjbjL0l3PoXQR4ZNGy
-Pc4j3nYqATnS6J9OsLLgMBWzYKt6xg==
-=9JRd
------END PGP SIGNATURE-----
-
---rajlGC2kTISHyIRr--
+Best regards
+---
+Kuninori Morimoto

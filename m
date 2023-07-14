@@ -2,99 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 312BF753AF3
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 14:29:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 086B0753DE2
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 16:43:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AADB844;
-	Fri, 14 Jul 2023 14:28:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AADB844
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E87EA4B;
+	Fri, 14 Jul 2023 16:43:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E87EA4B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689337748;
-	bh=9rLxITniA1sLQNMmewKfuHQKCayEQypmbjbNmv3sb5I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:List-Id:
+	s=default; t=1689345832;
+	bh=XEOxH2CqYyurx7m8JBdmTpu11TeU73bpGdvBcGnn5Hw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=Bb8978aQfXcVOkZwTsstDBVWG7sMNZWSaWHM6hFUn75PjX445IjkAQLpt7r+LKFO4
-	 ilPb4yR/T4qGUtHlyKYp0jvk886QdY0aCb5f1XNq0ApNWx7OMIe8qcNTwFEe4su8OM
-	 aWrxcsviRTeHq9GV6+M1V2amRASmSodhr8ah7R3o=
+	b=p/JOSzG0iFnbkvmFzTXsHUSnXEB7UWDW8Dei/Hb4VluvLKSshBp6DMl5itIKGjPab
+	 I+7vQJ+WFS6yUi2WK/8XaHbmJdmWRjOkmjzBBvMeXwPjh+/xlweYUYgmrBmALV/tf2
+	 Wr0cZGvbRrye8QsQMqIeVdEltmNPkZneQ8wJqe8c=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id ED5DDF8060A; Fri, 14 Jul 2023 14:25:01 +0200 (CEST)
+	id 9CBDDF80535; Fri, 14 Jul 2023 16:43:01 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 525AFF8060A;
-	Fri, 14 Jul 2023 14:25:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 099ECF80236;
+	Fri, 14 Jul 2023 16:43:01 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 2E148F805E6; Fri, 14 Jul 2023 14:24:47 +0200 (CEST)
+	id 8EFD8F80249; Fri, 14 Jul 2023 16:42:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.1 required=5.0 tests=DATE_IN_FUTURE_06_12,
-	DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-	SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
-	shortcircuit=no autolearn=unavailable autolearn_force=no version=3.4.6
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+	T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=no autolearn_force=no
+	version=3.4.6
+Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
+ [209.85.166.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id F0534F80588
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 14:24:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0534F80588
-Authentication-Results: alsa1.perex.cz;
-	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=gULlGBvv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689337468; x=1720873468;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=9rLxITniA1sLQNMmewKfuHQKCayEQypmbjbNmv3sb5I=;
-  b=gULlGBvvFRdclEMWCH7GnpK2NBPEYZoaqwTcQ/hEzGR2VMePnkuemVnE
-   F5EwAg9NLlE9aSv22GSA26Q46Bol2JG7aPEFxOj0TxaL4PF0h5urxrNbv
-   ZFNP+T3QxQmapnGMoPinlLi8Xp+k905KwkzAOy+7EJkzbOlVhD9hI1BUL
-   Up0tzjNc4Yl2AV6EovgJzWhoZEwFbDyyaTmNJC8nxINOL9XZ0kgoYBCl3
-   EVNf/6uim7Yiu3TAqaz4qz7NV0g6fWnVKKQ8vSP0NzbP3q9/LjV3BF41R
-   A2nL1pxaRkOPnSY5OrossDnFUDbw53sXncIMqXr/qeB5CKiG+a1sZFSwG
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="429225926"
-X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
-   d="scan'208";a="429225926"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2023 05:24:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="1053035016"
-X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
-   d="scan'208";a="1053035016"
-Received: from dev2 (HELO DEV2.igk.intel.com) ([10.237.148.94])
-  by fmsmga005.fm.intel.com with ESMTP; 14 Jul 2023 05:24:23 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Hans de Goede <hdegoede@redhat.com>,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+	by alsa1.perex.cz (Postfix) with ESMTPS id E3791F800E4
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 16:42:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3791F800E4
+Received: by mail-il1-f182.google.com with SMTP id
+ e9e14a558f8ab-34617b29276so7501835ab.0
+        for <alsa-devel@alsa-project.org>;
+ Fri, 14 Jul 2023 07:42:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689345768; x=1691937768;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KafqaUPjCBQvFb5pvwK1WdmWPTr611IYKGNe6Y4q1jw=;
+        b=AWH9AYqvD/OeAS1NCRS6DNyTt35WqqsSLmr7NfWo61O99iOkLLzc/ylJ3Xstdmx1cp
+         gmKY6n0W4aYYoZzsOYiG1tP48zM28i8ZBb7P4Z+b/bM6aNmgJpf6ymTxTi9u1h6gfSBc
+         5hxKMTLpN8kWGHzhUmlWmlRHRG33MX+scgGV6mOVbY/oJS6ygDO4O20KAP3sVAGUp1qN
+         DrgnRtj06ZcNusThEBrXXfOBlGG02+g/zEKVqvx+gT6FvMudvXWh0l6LP2LHFPMDhx30
+         91Tf94TixET0aQeSdqVQ12mEasAlk9B0B/iHf2Jqc2YmetKOrYCWZt2abV7deIq9AGeK
+         Q+YA==
+X-Gm-Message-State: ABy/qLacpQ+l2+G/5jEx8eVUAQ+7Ee0NwR+v+Y5vihINQ2GrPanRqUAe
+	NIgfc+YbLo+mF7cC//zIaA==
+X-Google-Smtp-Source: 
+ APBJJlGgw+aS9LF9nyYrifeO4PKMHlwWzPPjDwEY0tG7a8ECRbrBNcvL4TYX5yATAdGS/P2F6DiReg==
+X-Received: by 2002:a05:6e02:1a62:b0:348:72fe:8de0 with SMTP id
+ w2-20020a056e021a6200b0034872fe8de0mr443527ilv.14.1689345767787;
+        Fri, 14 Jul 2023 07:42:47 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+        by smtp.gmail.com with ESMTPSA id
+ h12-20020a92d84c000000b0034267d3fcc5sm2788971ilq.55.2023.07.14.07.42.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Jul 2023 07:42:47 -0700 (PDT)
+Received: (nullmailer pid 3499251 invoked by uid 1000);
+	Fri, 14 Jul 2023 14:42:45 -0000
+Date: Fri, 14 Jul 2023 08:42:45 -0600
+From: Rob Herring <robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Mark Brown <broonie@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ =?utf-8?B?IkFtYWRldXN6IFPFgmF3acWEc2tpIg==?=
  <amadeuszx.slawinski@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v3 15/15] ASoC: Intel: sst: Convert to PCI device IDs defines
-Date: Fri, 14 Jul 2023 22:24:57 +0200
-Message-Id: <20230714202457.423866-16-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230714202457.423866-1-amadeuszx.slawinski@linux.intel.com>
-References: <20230714202457.423866-1-amadeuszx.slawinski@linux.intel.com>
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 14/15] ASoC: dt-bindings: renesas,rsnd.yaml: add
+ common port-def
+Message-ID: <20230714144245.GA3492124-robh@kernel.org>
+References: <87mt04o96f.wl-kuninori.morimoto.gx@renesas.com>
+ <87351wo921.wl-kuninori.morimoto.gx@renesas.com>
+ <20230710151956.GA1992791-robh@kernel.org>
+ <87lefn8gh9.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Message-ID-Hash: 4K7MDMVPO32BSPNX5ORS35QP7OGZSYNV
-X-Message-ID-Hash: 4K7MDMVPO32BSPNX5ORS35QP7OGZSYNV
-X-MailFrom: amadeuszx.slawinski@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87lefn8gh9.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID-Hash: 6ESFAWQRNT6TOCOI5JRDVBAN5IYRG5XG
+X-Message-ID-Hash: 6ESFAWQRNT6TOCOI5JRDVBAN5IYRG5XG
+X-MailFrom: robherring2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -106,7 +107,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/4K7MDMVPO32BSPNX5ORS35QP7OGZSYNV/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/6ESFAWQRNT6TOCOI5JRDVBAN5IYRG5XG/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -115,109 +116,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-Use PCI device IDs from pci_ids.h header. BSW replaces CHV, as 0x22a8
-was added in PCI header as BSW ID for consistency, as they are same
-(similar) platforms. The ACPI IDs are used only internally and lower
-16 bits uniquely define the device as vendor ID for Intel is 8086 for
-all of them. Use PCI_DEVICE_DATA() to match PCI device to be consistent
-with other Intel audio drivers.
+On Tue, Jul 11, 2023 at 09:00:18AM +0900, Kuninori Morimoto wrote:
+> 
+> Hi Rob
+> 
+> Thank you for reviewing
+> 
+> 
+> > > diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> > > index 8a821dec9526..d9808b130e8d 100644
+> > > --- a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> > > +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+> > > @@ -9,6 +9,20 @@ title: Renesas R-Car Sound Driver
+> > >  maintainers:
+> > >    - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > >  
+> > > +definitions:
+> > 
+> > $defs
+> 
+> Hmm... many drivers are using "definitions" ?
 
-Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
----
- sound/soc/intel/atom/sst/sst.c     | 9 +++++----
- sound/soc/intel/atom/sst/sst.h     | 7 ++-----
- sound/soc/intel/atom/sst/sst_pci.c | 4 ++--
- 3 files changed, 9 insertions(+), 11 deletions(-)
+Patches welcome to change them. I don't think it's many (not counting 
+types.yaml). Use of "definitions" or "$defs" is an exception.
 
-diff --git a/sound/soc/intel/atom/sst/sst.c b/sound/soc/intel/atom/sst/sst.c
-index a0d29510d2bc..1807813298cb 100644
---- a/sound/soc/intel/atom/sst/sst.c
-+++ b/sound/soc/intel/atom/sst/sst.c
-@@ -16,6 +16,7 @@
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/firmware.h>
-+#include <linux/pci.h>
- #include <linux/pm_runtime.h>
- #include <linux/pm_qos.h>
- #include <linux/async.h>
-@@ -174,9 +175,9 @@ int sst_driver_ops(struct intel_sst_drv *sst)
- {
- 
- 	switch (sst->dev_id) {
--	case SST_MRFLD_PCI_ID:
--	case SST_BYT_ACPI_ID:
--	case SST_CHV_ACPI_ID:
-+	case PCI_DEVICE_ID_INTEL_SST_TNG:
-+	case PCI_DEVICE_ID_INTEL_SST_BYT:
-+	case PCI_DEVICE_ID_INTEL_SST_BSW:
- 		sst->tstamp = SST_TIME_STAMP_MRFLD;
- 		sst->ops = &mrfld_ops;
- 		return 0;
-@@ -222,7 +223,7 @@ static void sst_init_locks(struct intel_sst_drv *ctx)
- }
- 
- int sst_alloc_drv_context(struct intel_sst_drv **ctx,
--		struct device *dev, unsigned int dev_id)
-+		struct device *dev, unsigned short dev_id)
- {
- 	*ctx = devm_kzalloc(dev, sizeof(struct intel_sst_drv), GFP_KERNEL);
- 	if (!(*ctx))
-diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
-index 4d37d39fd8f4..126903e126e4 100644
---- a/sound/soc/intel/atom/sst/sst.h
-+++ b/sound/soc/intel/atom/sst/sst.h
-@@ -20,9 +20,6 @@
- 
- /* driver names */
- #define SST_DRV_NAME "intel_sst_driver"
--#define SST_MRFLD_PCI_ID 0x119A
--#define SST_BYT_ACPI_ID	0x80860F28
--#define SST_CHV_ACPI_ID	0x808622A8
- 
- #define SST_SUSPEND_DELAY 2000
- #define FW_CONTEXT_MEM (64*1024)
-@@ -358,7 +355,7 @@ struct sst_fw_save {
- struct intel_sst_drv {
- 	int			sst_state;
- 	int			irq_num;
--	unsigned int		dev_id;
-+	unsigned short		dev_id;
- 	void __iomem		*ddr;
- 	void __iomem		*shim;
- 	void __iomem		*mailbox;
-@@ -523,7 +520,7 @@ int sst_register(struct device *);
- int sst_unregister(struct device *);
- 
- int sst_alloc_drv_context(struct intel_sst_drv **ctx,
--		struct device *dev, unsigned int dev_id);
-+		struct device *dev, unsigned short dev_id);
- int sst_context_init(struct intel_sst_drv *ctx);
- void sst_context_cleanup(struct intel_sst_drv *ctx);
- void sst_configure_runtime_pm(struct intel_sst_drv *ctx);
-diff --git a/sound/soc/intel/atom/sst/sst_pci.c b/sound/soc/intel/atom/sst/sst_pci.c
-index 4058b4f80a0c..d1e64c3500be 100644
---- a/sound/soc/intel/atom/sst/sst_pci.c
-+++ b/sound/soc/intel/atom/sst/sst_pci.c
-@@ -32,7 +32,7 @@ static int sst_platform_get_resources(struct intel_sst_drv *ctx)
- 
- 	/* map registers */
- 	/* DDR base */
--	if (ctx->dev_id == SST_MRFLD_PCI_ID) {
-+	if (ctx->dev_id == PCI_DEVICE_ID_INTEL_SST_TNG) {
- 		ctx->ddr_base = pci_resource_start(pci, 0);
- 		/* check that the relocated IMR base matches with FW Binary */
- 		ddr_base = relocate_imr_addr_mrfld(ctx->ddr_base);
-@@ -173,7 +173,7 @@ static void intel_sst_remove(struct pci_dev *pci)
- 
- /* PCI Routines */
- static const struct pci_device_id intel_sst_ids[] = {
--	{ PCI_VDEVICE(INTEL, SST_MRFLD_PCI_ID), 0},
-+	{ PCI_DEVICE_DATA(INTEL, SST_TNG, 0) },
- 	{ 0, }
- };
- 
--- 
-2.34.1
+> This kind of indication is very confusable...
 
+"definitions" was common convention in early json-schema. "$defs" was 
+added to the specification to standardize it.
+
+> > >    port:
+> > > -    $ref: audio-graph-port.yaml#/definitions/port-base
+> > > -    unevaluatedProperties: false
+> > > -    patternProperties:
+> > > -      "^endpoint(@[0-9a-f]+)?":
+> > > -        $ref: audio-graph-port.yaml#/definitions/endpoint-base
+> > > -        properties:
+> > > -          playback:
+> > > -            $ref: /schemas/types.yaml#/definitions/phandle-array
+> > > -          capture:
+> > > -            $ref: /schemas/types.yaml#/definitions/phandle-array
+> > > -        unevaluatedProperties: false
+> > > +    $ref: "#/definitions/port-def"
+> > 
+> > It would be better if users just always used "ports { port {}; };" even 
+> > in the single port case.
+> 
+> "ports" support is added, we can't modify past.
+
+I don't understand. The graph APIs all work the same with or without 
+'ports'. Changing the DT shouldn't affect the ABI.
+
+Rob

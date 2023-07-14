@@ -2,194 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC569754305
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 21:05:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0295754376
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 21:54:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C34CBA4C;
-	Fri, 14 Jul 2023 21:05:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C34CBA4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0DD43A4C;
+	Fri, 14 Jul 2023 21:53:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DD43A4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689361551;
-	bh=qacA9qwUpKvn7LZMtgwL6f2gOhniVmx24US3rVtu6+c=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To:List-Id:
+	s=default; t=1689364444;
+	bh=T4CbZZn7curMN80ojLMCQBF84CUUYpiULkLb3tIQ4Uw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=saRAcZ5NmIGQWArreTpbZMarfuQYg0cAKwcakpXq6Hv1izDiU6r5koOCeox8wX1EG
-	 KjqpWfUZ0tSLX95cxQkLHGsX0/+QvSHuTrAl+3ug9GV4du3h0GWODz79mlxrFKyyez
-	 nUg0oSyZzYIGPV6lNc+jWEQmvH7lLKvTJINFp4uQ=
+	b=gc2wbLtSNiVSEKcCzvHcQcMM1/sPKC16S8EEHaBXcV9A7ildJWXdWpGMESwXhPbdh
+	 w8oIqbmzvUFwYl6VIT9tg92dW7FssSsKt/3SFUmPi4WUXGEAJKTwh13sqbiB9QazW/
+	 7FBCe/Qnha4nbHUPxO4cahkbsOh0+GETE3zjcGeI=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 26823F80290; Fri, 14 Jul 2023 21:05:01 +0200 (CEST)
+	id 708FFF8024E; Fri, 14 Jul 2023 21:53:07 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0606F80153;
-	Fri, 14 Jul 2023 21:05:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB782F80236;
+	Fri, 14 Jul 2023 21:53:06 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id A2DF3F80249; Fri, 14 Jul 2023 21:04:55 +0200 (CEST)
+	id 4DEC8F80249; Fri, 14 Jul 2023 21:53:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_DNSWL_HI,
-	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no autolearn=ham
 	autolearn_force=no version=3.4.6
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 09B3BF800D2
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 21:04:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09B3BF800D2
+	by alsa1.perex.cz (Postfix) with ESMTPS id 9964EF800E4
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 21:52:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9964EF800E4
 Authentication-Results: alsa1.perex.cz;
 	dkim=pass (2048-bit key,
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=Upc8EQjX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1689361487; x=1720897487;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qacA9qwUpKvn7LZMtgwL6f2gOhniVmx24US3rVtu6+c=;
-  b=Upc8EQjXtXZNiVSVqX8uu0rxHsxxQDOp+cNfBpqGgc00/VFgoJj8qctE
-   HqLodd67BNeBhwMIFC/+rYoOC4pGWouyN4hZlYPzLgvuw31l0IqOGBAyR
-   C2QGRRyWoO34+QvhGtylzoKuEGVd2yPcr2Zmk3/Of2QuZ6zb30N/VQnse
-   Cah5XVgbc6lj2rPddx8SWii4zfEuSBuX9J+PiZTirdOEkAyxjp6CW/jET
-   zmpsoM+Tx60f1shCQGrgRtwLxc8vdsdE49DVDQ/be2MKU04lacNGSYAiT
-   1GNJo+eDvin/b7lDgJwnzAGvIiaOu7AG1tAu8njfwD33w5tYx+0hO2YTd
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10771"; a="396366512"
-X-IronPort-AV: E=Sophos;i="6.01,206,1684825200";
-   d="scan'208";a="396366512"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2023 12:04:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10771"; a="699791616"
-X-IronPort-AV: E=Sophos;i="6.01,206,1684825200";
-   d="scan'208";a="699791616"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
-  by orsmga006.jf.intel.com with ESMTP; 14 Jul 2023 12:04:07 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Fri, 14 Jul 2023 12:04:07 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27 via Frontend Transport; Fri, 14 Jul 2023 12:04:07 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.168)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.27; Fri, 14 Jul 2023 12:04:07 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DhZHiYK3Gfs/0p67J6wBqEbxk6zpvoc7/yK9bFvem27yftTouwws/aHU3TxtSqXTqWfXEa6LVZbBpQcengbubu2te474JkzI+j7MNuN9gjF1RCwyjJWCBMP4SqPF9NVHGpoBLHBDV/bAh2mkwJOukzUHFSS4g6x94wr0QkLU7Rf0WLgjJ/uZ4hnvQL8aYgVix51y3CZHtmDzGQ9si6sfWcAJ6sCVKTVrX2K4reKYfph4MuSoEJ2GXQAmFL6RoE/TJGnLJyZrgCLys1m+6AnQbogMDkP1o6f+fzntCtAvjdjCr81vXq9ttGYoD7dqisUACZKaZz1RXzkKgVTUafe9fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FtWziak9pUYSbQL6uM6Pqu0YHSTK3m7EJe7Gyc9BQKk=;
- b=AQvccwKCB+02B75zxHMeGx4//gL8+8B/Dlc0dE06kux7G/3SYKr2Ad/irQI6UaOnceB0BkiHnmV+RX4ZNGSWpRyazSR50abUTaioNh5whnbc2lFue30YcVSBSV6MCR18l0n+MywAk4MmEEZcwL6Lwix2WX35HTXgsVP/DR/F0x1G/5Wd2X91yBl6dEJ63VVBgKliBs1jf2OdE2qz/X2NH5xpxE1bM99ts1wGm/ysFcyhSQPBGkAB9eccoWvrxz5OuyGfRFYw+JgmsmzGgk7QCCCZZdW4F65WJZ1WyYpagKh5NtIiYbncsdyQIkINwZWYOvEHS5WNs3rloVNGsYB0wQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com (2603:10b6:8:c9::21) by
- PH8PR11MB8038.namprd11.prod.outlook.com (2603:10b6:510:25e::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.26; Fri, 14 Jul
- 2023 19:04:02 +0000
-Received: from DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::3a96:9177:fd4f:c649]) by DS0PR11MB6375.namprd11.prod.outlook.com
- ([fe80::3a96:9177:fd4f:c649%6]) with mapi id 15.20.6565.028; Fri, 14 Jul 2023
- 19:04:02 +0000
-Message-ID: <245f0248-b0ea-fae5-ce1b-6d4414277f36@intel.com>
-Date: Fri, 14 Jul 2023 21:03:53 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Subject: Re: [PATCH v3 00/15] PCI: Define Intel PCI IDs and use them in
- drivers
-Content-Language: en-US
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
-	<amadeuszx.slawinski@linux.intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
-	Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
-CC: <alsa-devel@alsa-project.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Pierre-Louis Bossart
-	<pierre-louis.bossart@linux.intel.com>, Kai Vehmanen
-	<kai.vehmanen@linux.intel.com>, Andy Shevchenko
-	<andriy.shevchenko@intel.com>, Hans de Goede <hdegoede@redhat.com>
-References: <20230714202457.423866-1-amadeuszx.slawinski@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20230714202457.423866-1-amadeuszx.slawinski@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BE1P281CA0420.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:83::17) To DS0PR11MB6375.namprd11.prod.outlook.com
- (2603:10b6:8:c9::21)
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=hKsR+Lti
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 2470B61CED;
+	Fri, 14 Jul 2023 19:52:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91648C433C8;
+	Fri, 14 Jul 2023 19:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1689364365;
+	bh=T4CbZZn7curMN80ojLMCQBF84CUUYpiULkLb3tIQ4Uw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=hKsR+Lti7R95tdWvqUSkX6tYWqjXfvLr1doGdQCv6je1sqRir7UszVmbY7i9SVcZ0
+	 QPCQ6zP4gvM8pyEID7V59suQvXTJsGsc0ex7c6rF86zhTRCWjD6BbbZLua7GqD8ueA
+	 Opoq5TTfGvHWvVsbjRdkb7aoYSRhoV7OjoN53X48foqUr6nLTI6T5ADZeoYmUdj8f2
+	 ZyBRDr9vLA8wz7Ph5T1DAReoDb+vYzcREdX+QFtLKTfbv+/+sKTGU4XwQB6OPZ57R1
+	 LB2WFP2agyhF/E4Rtx+yhvrlOLo3iZDa98UVRRVlUGHnIuDJaC/pXja3M4DtNqjPhl
+	 PNaYzW4yQRbLA==
+From: Mark Brown <broonie@kernel.org>
+To: lgirdwood@gmail.com, derek.fang@realtek.com
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, flove@realtek.com,
+ oder_chiou@realtek.com, jack.yu@realtek.com, shumingf@realtek.com,
+ albertchen@realtek.com, wen_chun@realtek.com
+In-Reply-To: <20230712062553.31066-1-derek.fang@realtek.com>
+References: <20230712062553.31066-1-derek.fang@realtek.com>
+Subject: Re: [PATCH] ASoC: rt5640: Fix the issue of speaker noise
+Message-Id: <168936436330.83415.4563632670988241521.b4-ty@kernel.org>
+Date: Fri, 14 Jul 2023 20:52:43 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB6375:EE_|PH8PR11MB8038:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bde0426-2eee-4e1f-0346-08db849d1628
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
- 5Wgh7Tso4oc8kdBooBKw1JL4k79kT8zFBTvgpRCiNctqxVgOIepAvul5oA+fE2F8MmIejzurFPyAGxkO9kJfWyBjRz/9aeb7t/mj7lLdT7bGk+kFxHXxeLfoTjLZCV4276aw+W06k7oceF1SbyP2bZKNwQW5mZjkRIMOGCoOyq/eCAB99FOiaiWJ2UFSCR7wNIEgweZOa1doBC3hig3wguwnerdbw17ys6K+rmscWBtrdQ6YQzBnLlpV//eMs063iw9Gt4XLpaMef8ul4GV9sTPQ9uQ1u52QdJDeIVPQOz03moRTEO6+bNHKkSqfuBwfqN4xJ9VS4WpL5LPuhkiGAwxEEdYStzY4e0rIfnq9s1rHadUm0xLoev4kRExK7NGW9i8lb0inMlKRZzdc8Xpt5WE0Fz2PhqIjfBwLf+y5BiRZCKiv2eectuG+jFWLE+MFqROyDPz52MgaSxdHBb0NCFdUmPxtvC9T2A6zWAGguVUyqvIdJrZZEakmIRJug/ENcmyLoNwJEQnrGxb4xdSNuiRhXrQNSeYOTav81CjjPboMlNc8AK7szVGXQ0CQpY8ywBnKeXqnMmAwa08WBuRPUTRJDgjyFro3rDUel7Co31JcdWRN48L+ou6Gu0b3Qlcnb5G+cHPfX5Jc6meiNgVxHA==
-X-Forefront-Antispam-Report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6375.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(366004)(346002)(396003)(376002)(136003)(451199021)(31686004)(478600001)(6666004)(110136005)(6486002)(54906003)(36756003)(53546011)(86362001)(2906002)(31696002)(26005)(6506007)(6512007)(2616005)(41300700001)(186003)(38100700002)(44832011)(5660300002)(8676002)(82960400001)(316002)(66476007)(8936002)(4326008)(7416002)(66946007)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
- =?utf-8?B?SlVqd21mN3V0cnJHcThFZ1RWeVorQ2pUeGRqNHRQK3NrZ082WEM2cjJsSCtE?=
- =?utf-8?B?L3hGcjNiRy9LVVVjdU9OcGk1TFlTdWVEcVZMU0tXaTAvelpNYllJMmRYbW1z?=
- =?utf-8?B?aE1rV0lVcmNBNTNTZlZScWZJaDhJaUloYXA2N3hwUVhTbWowbHpQSy8wUUdx?=
- =?utf-8?B?aVFQN3VEWDU4dC9TTFVHOWRSb2F0cSttMTI5N3o2WWxMVkNpVzc3NE0zc1B0?=
- =?utf-8?B?TEMwbCtFUjhvYlZkOTFQMHV0a2tVRXJ3TTA4T3NGcXc5Q29JWVp1dThQZVJQ?=
- =?utf-8?B?M1VKVDc2NjlwV256UFI1RWhGWk5zWm5sT0F4NDc0WHNINDZXOFplY0NVaVVD?=
- =?utf-8?B?ZTdmK1VxUFZWcEt4aFl0TVRUZnh6WEw0cU5yMWswZHhrQSsxU1d6djcxU0xv?=
- =?utf-8?B?ZWFEazFSeFlKbFl4U0ZxMzlVbXpXNm5MY0hVblFSVXR6Tmd2OG1wMDBPcnZz?=
- =?utf-8?B?MGIrOWUzWlJ2aXl6bk84QjlGV1J6SWtmRW0vRWNTcmZkNkJsbnlITkFEZElE?=
- =?utf-8?B?N3IvZ3RDbW50UzI0bGZCZVFmb3FrSDlPWmtIVlUzWUZxRjhEZlNSN3ZaM1RS?=
- =?utf-8?B?MThKYjRyRXRSMlFLd0lJdXNFYktFZDFHZW5EVm9XbDl4c3E4ME41dVMrQWx0?=
- =?utf-8?B?ZFkxRmtvc2ZsK2xPdG94L0pIaktEZ1I1UUxUWlEwelp2U1NvMzIwMm94aWxU?=
- =?utf-8?B?T3I0OFFoUXNMcHhDdCtZQStUVFIrNitPYndKZFpvM3JzbXU5K04zYmhTWVJx?=
- =?utf-8?B?UjFYdytuUVUycFphR3JJU1piUllYa3gvSklxcUlnb2syN3FRUTRPV3ZLNFZC?=
- =?utf-8?B?clA5VUNFSGY0aTQ2TVlOTm1OYUUyL00zcjhEdGxnUVFXK2VZOUF4d2tzSFJP?=
- =?utf-8?B?QmhlL0pnZk1kbURNUGI2cHBFakZBY3VhZTk1VDFjemtuMUhIWklVc0thZ2t3?=
- =?utf-8?B?Y3hsNVp3VldESWZ1NEVJdDVJQ0pBWlNtOU1YSjFFUFVQZjZyU2xwMFhYV04v?=
- =?utf-8?B?MElpU1lITHhaYmJEMTNiVjZZWnhDN1NiMEpkLzhneTNUeVl1WHBRZ3cxM3Zn?=
- =?utf-8?B?NVdUd3BBdWxOUXhYUGRjeUVLeU1GL3lrU08xTUV1eHpsOHhpTnI4MEdsV0Vp?=
- =?utf-8?B?L1h0MTduUUJtVXdaa25heEh5ZGwvS2NDZVh3ekN2QWRyNW9xYlZTcGJtTmR2?=
- =?utf-8?B?WTA4andSa2cyWkFGUmZWeXduZ0FMajVoWWF5T3htYU9ERUxkVjUySWNrY0kw?=
- =?utf-8?B?SkljWlJ6Z3g0ZC9KY2wwbjVTY1NncUZLaG84ZzVINURsT0FPU0M1QVpPQzg0?=
- =?utf-8?B?NGJLTExBdkp6U2dYU283SzdpL00zcGp1LzZ1cWxnc3FxRFFobHoraHZ4Z25l?=
- =?utf-8?B?WW1vWWsvNUsxbU5ZdjRSYXQzQVI3Qnl1NUlkZDJhNTVvSzlzUUFQWjF6QUt3?=
- =?utf-8?B?TC9uV2ZCc0pySW5MTTVNWmgzMFQrOGNobC82U1lKZXRVeFZsaEJFVlNLaFAv?=
- =?utf-8?B?d29xaG1PNkdMSThJMzZXdEhReStJbWhONkc1UjdRc3dvNVlVR3dYdVE2bkNw?=
- =?utf-8?B?QWhaZGgyTlRSUmtOWUphTG5UdUExOHlIWFB2NUVpL2tYQlVsL1E5MnRFWUw3?=
- =?utf-8?B?QlNFQXJCcU51S1FqRC9iN2plN0gzUnJjVEtuZUVZYS9ZTDkxdjdYV1pScmVR?=
- =?utf-8?B?WW9uMExYNTlEZ2VCbFdvT2s0dTRWMWVXcFZwa1NURmtHZE14cHlWbjB0US9I?=
- =?utf-8?B?d0FTbjZsNkNFaGRscmYvVHkwU2pFV2RCZ2NvQnkxcDFxSzZYdGlNQWFMd09R?=
- =?utf-8?B?KzZnUTlsSDZUN0NuUmlXMlRNN3dxdFhQUDVKaE5hU1VBaExBcndSOVJkdmR1?=
- =?utf-8?B?STlkb2I0cjRROGRqNkl1MzRWcXdTNVN4L2NkNkZiUmtqeVZoYzAxTEVPVGht?=
- =?utf-8?B?R2Q4TFk0dml5R25kVEluTmVrNGxRWlB0c09ZNzNZSnJZOWw4WkdJOFU4Y0xp?=
- =?utf-8?B?d1V6V2E5RnRiNXd4U2c2Mm13WmJhV2RFdmJia2tRcExRYkVBOUZ6TjdSRXVS?=
- =?utf-8?B?MmNQVldXV2dweHdnMWY2anZxaFJBQkxEYWhjS2xaSmJvM2MzQkJ5eW1rMlJC?=
- =?utf-8?B?eWFQSFhYblpRc2VDTmdTcnlCM2ZqK2Y3cXZldHVKQVNNYk9UaFllUG5ZM3dw?=
- =?utf-8?B?ZWc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 3bde0426-2eee-4e1f-0346-08db849d1628
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6375.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2023 19:04:02.2410
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- J4utCn5CxV80mZ427R2ZCpAzczwOqg1FP9up15cuDOAgpfGZcWFwl/XyJrhNMvrtLjwMqtxMbT94TC6l0qU3AOPL/3q34YIB0oUTpyb3B1M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB8038
-X-OriginatorOrg: intel.com
-Message-ID-Hash: J3PR3V25W75477V7HBOMXRQO4BWKDHRI
-X-Message-ID-Hash: J3PR3V25W75477V7HBOMXRQO4BWKDHRI
-X-MailFrom: cezary.rojewski@intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13-dev-099c9
+Message-ID-Hash: CK4UOC7YK3GJDE3BMHCZXMBH3JNY7GFW
+X-Message-ID-Hash: CK4UOC7YK3GJDE3BMHCZXMBH3JNY7GFW
+X-MailFrom: broonie@kernel.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -201,7 +90,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/J3PR3V25W75477V7HBOMXRQO4BWKDHRI/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/CK4UOC7YK3GJDE3BMHCZXMBH3JNY7GFW/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -210,40 +99,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-On 2023-07-14 10:24 PM, Amadeusz Sławiński wrote:
-> PCI IDs for Intel HDA are duplicated across quite a few drivers, due to
-> various configurations and historical reasons. Currently almost all uses
-> of HDA PCI IDs have corresponding comment telling which platform it is.
-> Additionally there are some inconsistencies between drivers about which
-> ID corresponds to which device.
+On Wed, 12 Jul 2023 14:25:53 +0800, derek.fang@realtek.com wrote:
+> Remove the class-D internal register setting during initialization
+> to be compatible with most speaker designs to avoid noise.
 > 
-> Simplify things, by adding PCI IDs to global header and make use of them
-> in drivers. This allows for removal of comments by having IDs themselves
-> being self explanatory. Additionally it allows for removal of existing
-> inconsistencies by having one source of truth.
+> 
 
-...
+Applied to
 
-> Amadeusz Sławiński (15):
->    PCI: Sort Intel PCI IDs by number
->    PCI: Add Intel Audio DSP devices to pci_ids.h
->    ASoC: SOF: Remove unused Broxton PCI ID
->    ALSA: Remove unused Broxton PCI ID
->    ALSA: hda: Add controller matching macros
->    ALSA: hda: Use global PCI match macro
->    ALSA: hda/i915:  Use global PCI match macro
->    ASoC: Intel: Skylake: Use global PCI match macro
->    ALSA: intel-dsp-config: Convert to PCI device IDs defines
->    ALSA: hda: Convert to PCI device IDs defines
->    ASoC: Intel: avs: Convert to PCI device IDs defines
->    ASoC: Intel: avs: Convert to PCI device IDs defines
->    ASoC: Intel: Skylake: Convert to PCI device IDs defines
->    ASoC: SOF: Intel: Convert to PCI device IDs defines
->    ASoC: Intel: sst: Convert to PCI device IDs defines
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
 
-Given the amount of talks we have had internally regarding this subject, 
-to my best knowledge series looks good:
+Thanks!
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+[1/1] ASoC: rt5640: Fix the issue of speaker noise
+      commit: cc8ff2dfcb948f16267335ba5440a42abb41aee2
 
-Great initiative Amadeo and, good job.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+

@@ -2,166 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4454754EB6
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 14:59:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7BBA754EB7
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jul 2023 15:00:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BAD24AEA;
-	Sun, 16 Jul 2023 14:59:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BAD24AEA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 287C8E11;
+	Sun, 16 Jul 2023 14:59:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 287C8E11
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689512396;
-	bh=0f7/EYz5sCt/loFy8J+K7H13HuUxy/zt7tByPh8s8R0=;
+	s=default; t=1689512401;
+	bh=jNcBCjfgpKFqqYeQOT7ZSvB8g0ejk/brWSi//NaBOYY=;
 	h=From:To:Cc:Subject:Date:List-Id:List-Archive:List-Help:List-Owner:
 	 List-Post:List-Subscribe:List-Unsubscribe:From;
-	b=qjNKYZP/kH+je14xurEmIPGRqp+6edfUEFAsPplOEQtLLudvI+8S5O8KqcWmrCaQ+
-	 r2aLKJsakY0LcolOa1qwTUQw01vTSoSRwOEX3neldUkzh5gCnqGeW/W3YYId1S6COk
-	 I7Le7qszRUMJa8zkxvKHnNh/YOsZBV8SDfs1ZA4M=
+	b=YupGGDNfXjbEluwAVLcM+mVQ+LaZIQu8zBRplokRhPMMsT0cnunEyJoNkBD9PRAHT
+	 HCiyZX7GltgdrOm8SL/gZdKhhdAYMD2ny++vRcHRaoVFCUsiT1AD8mvvkxJepkowIK
+	 +7syR10Cd2+noSofz+0WGKv5A1ATgx1XL7g9o0ts=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id 9CBE3F805A8; Sun, 16 Jul 2023 14:57:57 +0200 (CEST)
+	id 60A77F805AD; Sun, 16 Jul 2023 14:57:59 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29CE6F80587;
-	Sun, 16 Jul 2023 14:57:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F369EF805AB;
+	Sun, 16 Jul 2023 14:57:58 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id C93DDF80249; Fri, 14 Jul 2023 00:25:46 +0200 (CEST)
+	id 62D50F80249; Fri, 14 Jul 2023 12:31:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,FORGED_SPF_HELO,RCVD_IN_DNSWL_HI,
-	SPF_HELO_PASS,T_SCC_BODY_TEXT_LINE,T_SPF_PERMERROR,URIBL_BLOCKED
-	shortcircuit=no autolearn=ham autolearn_force=no version=3.4.6
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on062a.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe0d::62a])
+X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_NONE,
+	SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id 7D29FF80153
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 00:25:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D29FF80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 40908F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 12:31:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40908F800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256
- header.s=selector2 header.b=YC9n/jja
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Nk1fU1KM9x2//O7LoUcelAX/taayqiQqqXV8NYUiAeQ4R4SF9y6bAw2xON2x5919Q45pghPscdFhYTXXN2m3jdyN/jTgQd9ts83ozjxdindI6FdugGsjHWtrzJqHnSCpr+JR+TGUlNH2tYXGlLP0S5YoZsHuCnFHfkTyaNSeYCG0efLbmTkx1JA1brj2pL2Xge/6fgq/NgpZgAaTn53ODMC1+e0pEZKo6vhSYZHQ2TnRYOmc4ieRjvOzHdrnnbn64NzMjYSHEjd3N84zHuQcCHicszMZuCXm2Bbg74Cu99PlqKJdN86WnA8WhUw8g/dGBaLYO+HsmecHdYR/U6C+5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o3Ja3XydHohlEjuiC77t2CBkeeAzV0R7OjAAbBbe4OI=;
- b=ArdsqXoVzdIDKyBCTVOwZijrvkXz+oEnxb+0dcLlAUbfAn/vjX8/8UnSf0jWEMc/4imR3JSwTqFIqnrnflyZLuDdvBUSvMteooyt5CborkO7OZtLwXPtWJZn8T8Hw7olbDzH5AvjJI766nrxxj7rVAGnGB2ozK9QdoL7IBv+U5s6apC5GnaLnmcD9sYF2GkRaa5LhdABOF+DGsBc/rHd1In8YOeGS9/lnM8JiKgL2C9b5YEwyd5n8TgSaTDrqLOB6N5eDQOdK5MzSSZkkK4lZ5nQOOvcQuD1nqu1g+kuNEakocxDofN85nDrloIHtocQfXpGKEr93XLo+teeUiwXRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o3Ja3XydHohlEjuiC77t2CBkeeAzV0R7OjAAbBbe4OI=;
- b=YC9n/jjaEq2vRiElz/mhCbPWUyBPqKUCydALxlQKWWDLIvdcpsTAHoN/u+97hceLIEVNtMx6E1dtR8piejeBTaxf8+9npivtlG2iotsG45vPBOnEGPCDa+PVwzmSOk1qFzlq42a41UpQ1o3gqlkYqWhWxpUddyG594brtitk05A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from VI1PR04MB4845.eurprd04.prod.outlook.com (2603:10a6:803:51::30)
- by AS5PR04MB10043.eurprd04.prod.outlook.com (2603:10a6:20b:67f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.24; Thu, 13 Jul
- 2023 22:25:35 +0000
-Received: from VI1PR04MB4845.eurprd04.prod.outlook.com
- ([fe80::e93e:96cd:99c7:5dca]) by VI1PR04MB4845.eurprd04.prod.outlook.com
- ([fe80::e93e:96cd:99c7:5dca%5]) with mapi id 15.20.6588.024; Thu, 13 Jul 2023
- 22:25:35 +0000
-From: Frank Li <Frank.Li@nxp.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	=?UTF-8?q?Krzysztof=20Ha=C5=82asa?= <khalasa@piap.pl>,
-	Wolfram Sang <wsa@kernel.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	patches@opensource.cirrus.com (open list:WOLFSON MICROELECTRONICS DRIVERS),
-	alsa-devel@alsa-project.org (moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO
- POWER MANAGEM...),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev,
-	shengjiu.wang@nxp.com
-Subject: [PATCH 1/1] ASoC: codec: wm8960: add additional probe check for codec
- identification
-Date: Thu, 13 Jul 2023 18:25:12 -0400
-Message-Id: <20230713222513.1636591-1-Frank.Li@nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BYAPR07CA0069.namprd07.prod.outlook.com
- (2603:10b6:a03:60::46) To VI1PR04MB4845.eurprd04.prod.outlook.com
- (2603:10a6:803:51::30)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=hQ41dI2n
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689330662; x=1720866662;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=jNcBCjfgpKFqqYeQOT7ZSvB8g0ejk/brWSi//NaBOYY=;
+  b=hQ41dI2nB6cyFzPpAJdlu++O+fIkwzzVXPiwxCCzh1GDz3Ua7bLpfE/+
+   502f+GEmNG0RzOOm3P/wdAo7aWSBW4pMvT5HiK/mXvXDu3Zp03FHdwB1A
+   3j/91VIoEwaR7yVh+dkFNkz7tyRN3sIahsfZekBtHUQrxJu7BAmVM+upM
+   L6IxJHVPHF4gyJNH/EPovXVPZUYUJlZy3PeV1RTaXXSwakKRBNucya5B+
+   kViyrR1Z1QDwoTyebsUTPvMc+TvM2sqoBMs5EBo9fRZgeDIViKIjPfhe7
+   mJnaiL46IGw7g/yZ7IasVN/4TDZjUB0StRmrR1vmxnTF4CkSWzeo5RlHl
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="429206317"
+X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
+   d="scan'208";a="429206317"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2023 03:30:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="751992057"
+X-IronPort-AV: E=Sophos;i="6.01,205,1684825200";
+   d="scan'208";a="751992057"
+Received: from silpixa00400294.ir.intel.com ([10.237.222.100])
+  by orsmga008.jf.intel.com with ESMTP; 14 Jul 2023 03:30:37 -0700
+From: Wojciech Ziemba <wojciech.ziemba@intel.com>
+To: broonie@kernel.org
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	qat-linux@intel.com,
+	Wojciech Ziemba <wojciech.ziemba@intel.com>
+Subject: [PATCH] lib: Introduce KUnit tests for minmax
+Date: Fri, 14 Jul 2023 11:23:53 +0100
+Message-Id: <20230714102353.27814-1-wojciech.ziemba@intel.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4845:EE_|AS5PR04MB10043:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19300ea0-7543-4b18-ebdd-08db83f013cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	deQIv60CGCLtsuHwBB68P2RndhdeIgpJAjqxIWMLYHiN8elAVf+5UPYRQhEOhbZhjRltFGRmntIMCOnDFv56QbfLMLWhMTVGKNWPxWdWUWw+UZlzD3/xPukkdnTwgbLYuy6fDriAks5ruQ/sIAjS+fqMGSGy1BcAy0vqEXO/K8IyNtq5yRp7AHcRQU8VPHtbc7OmGavdMAHE8JnjN2ltf4m1IVC8e+lXUw/2pFPiGbRKozFlgO0gol7S2d2BFSICIO6pt195Z+15W06gAyqKiSRvN0q9CcSRoPI8HLyNnq3o+gkb3PpUk+Cd5e8ZfHJEZAwwAEMy1jHet064zWHW6V95bz4Da4mLITS2wnMLps8hk9E5CTsANJLPzGhHmo8C8roZJn4OjmVj3ajvFN2/LB6RZKNUZfkLwrUnO0stN3dg7fedKR8hghsU+d9aWYOaHMreqfY0u5flsFBTzoE7lYVXqoXlUc4bksH05I0MFD34PW/Ciy65s3uyOqJw4sQ1dCZijZqnjpxT12LPOquxG9kJLM/mx3a4t9jan82ORxs/AaMGoiFEXFVvkY3HKmwHjeB4HsF9ZgyGotcLqPc3ry2cUqNEtj6JYrpYUd9Pcc2t3demFHuiowtywMRYGoOww2ETo5UX3KCO6QVVLnF4CQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB4845.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(39860400002)(346002)(366004)(136003)(451199021)(7416002)(8676002)(8936002)(2906002)(2616005)(36756003)(38350700002)(38100700002)(921005)(1076003)(86362001)(5660300002)(26005)(6506007)(186003)(316002)(110136005)(6666004)(52116002)(4326008)(66556008)(66476007)(6486002)(66946007)(41300700001)(6512007)(478600001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?UhrMiNRgabm8CY+R9oAmGPtCyppvCcxthcyC2BbFi0l1Se31VLP0VgKaJkXE?=
- =?us-ascii?Q?BDd2sW+RwypNgWPgVldeI0kPQRThYAwXFOVC8sYOJYIUGhb2SPZBtViJCpnL?=
- =?us-ascii?Q?DIPLkIg+I04ZdjxCEOm2z1awKUXdITQnSdACYVNKDxcAoPoQsgM0Wz78Ynts?=
- =?us-ascii?Q?mRY101QB5IPKGCBZ3TAo+w3b2TxD3MDfgiUmEsjuyYGQFp/orLGHvfmAwRFy?=
- =?us-ascii?Q?Y+hli5o7ryDe16C+vgL9TsSOgTKjijV+xZ2ulir9LprBU4yGm/kcNI0eS/rX?=
- =?us-ascii?Q?6Sf3kQ8so3MWh/pOqHhyY5vLXgkYbMkX2XjeTJExe1hUOYX14l8FBYVPoe3d?=
- =?us-ascii?Q?h/0okT3fosqohT3hyqMaig+I+SN+DkNafyGSanGwYGhAK1JD05A/piso0+KC?=
- =?us-ascii?Q?NXAlDNDyjWAZRFBeXmh7/lTk1Zv6KCdPoB3EhPDP/nj4cFq+MzmJB9l014aQ?=
- =?us-ascii?Q?Ui6rKimL6TYz2NSDbKj4rfRFkBea9GF/YMMQkX4g/QkE1ih9efnpmGnKLghW?=
- =?us-ascii?Q?pXFolwTayE9YGT4XBndtYjuxgDgCVQJM/eua0gwWfm2hdSIbt4qyBtf3gdlo?=
- =?us-ascii?Q?W9TQcNG1/21MQI3GfTAKHhASsQIoWPYo/LksTjss661GWSBKW677Ioe05Wpl?=
- =?us-ascii?Q?QiB1N4a/stgqGR03YrSI4JD9cnchxRinnPd9t29nhM05N77omRd9dm+eEkOY?=
- =?us-ascii?Q?jNJTB3aSsMK0psNC4fidp6pXo1CYDn88kkts6rTpf96TV+u/Wy3sx8R5iYso?=
- =?us-ascii?Q?mvZVLdpjs70Zpca6q8VrvURF9ZAI8skfCOzXUGLHq353lfJAjwfkekRfekFx?=
- =?us-ascii?Q?tAhqokTKJjkZMvD4VZd2J2s7RJEdmHssDgf0L1uZJZA/vdAjRJvHbTmXi6jw?=
- =?us-ascii?Q?BO+yCGYkwG3BH+gWPZPswulqEDl5NaUI0vJ7+xuNlSioaFDtnGdf5J3isqt+?=
- =?us-ascii?Q?mO08CqjykB6cGX4WEYoSjXKAgsJCqxJORMDpCfyKtU8cR8+RawymKLgE+JJ6?=
- =?us-ascii?Q?G3g6z8sYDR7F1mrnyA0X82RJH7J5/RiGKt7TPA2Rj6WXhA7gHcvyajtb7ME7?=
- =?us-ascii?Q?G9CHVcCqv8WwwAchGDMdCDJ+n/EcSnNAyjL1mCyc3TDpCWArfea58u6tJQVe?=
- =?us-ascii?Q?HVNBwdSJ0Snqq3YIRdyWJWuVnJUYnZOYEthNd9dR77fzqnxviEoBMZr4WqqE?=
- =?us-ascii?Q?+UCaUVCH6WinTKVcmk5yiSorulx94xFYlCbK1rrCWA/4ir46G+PME5153f/I?=
- =?us-ascii?Q?tvUIpCdNEvaEjGCxKSeAJNksnK/N30/VKFvCRfIaKoT3HkxYpFW/Md0o6afV?=
- =?us-ascii?Q?Yk+yW5K6we+7aYRMQ4Q9MnuxNCLsxHk8D9VtUe3rsqxBIo9QuJ65KmfC8a6v?=
- =?us-ascii?Q?+227KORwIO7fQlBn9Eac5MeFl04Uw1iSlemgfOyHV+A/JK/cfB2984+vWRil?=
- =?us-ascii?Q?PncaBCtMgH+sgiJaW8MmV1H7f6ajsnZ3a0fShTCyEAZeSRkZqByWSRqYJQZF?=
- =?us-ascii?Q?jCEigsvB+zBI9uONiQhJhNUYcNjKiChpyAfN0qupb+6mCw7L4Qt28FmqZBNU?=
- =?us-ascii?Q?UlSf94HRbA5PmvuenwmgFwRil5ImT22XMdwMQhhd?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 19300ea0-7543-4b18-ebdd-08db83f013cf
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4845.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2023 22:25:35.5569
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- HOD5hmS3I7sBNkRtM3H/3riyv7P5+vikmgkhepbmFMsaKA8OR4Kd2CJdAWkcnTH0wn9o7uIjjQVi5zDgjH6OOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB10043
-X-MailFrom: frank.li@nxp.com
+Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 -
+ Collinstown Industrial Park, Leixlip, County Kildare - Ireland
+Content-Transfer-Encoding: 8bit
+X-MailFrom: wojciech.ziemba@intel.com
 X-Mailman-Rule-Hits: nonmember-moderation
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
  header-match-alsa-devel.alsa-project.org-1
-Message-ID-Hash: OLZQR3O46I4V5XKVU5MXEENRHKFPRCKQ
-X-Message-ID-Hash: OLZQR3O46I4V5XKVU5MXEENRHKFPRCKQ
+Message-ID-Hash: JUQYGIDF6GFXAAGTAJL3AULO7PZQEX6X
+X-Message-ID-Hash: JUQYGIDF6GFXAAGTAJL3AULO7PZQEX6X
 X-Mailman-Approved-At: Sun, 16 Jul 2023 12:57:52 +0000
 X-Mailman-Version: 3.3.8
 Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/OLZQR3O46I4V5XKVU5MXEENRHKFPRCKQ/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/JUQYGIDF6GFXAAGTAJL3AULO7PZQEX6X/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -170,41 +103,193 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
-The wm8960 codec is not readable, resulting in a NACK for address 0x3d (8-bit).
-This can partially indicate it. For example: wm8962 codec use the same address
-but is readable. This additional probe check will help prevent loading the wm8960
-module incorrectly on wm8962 hardware.
+This patch adds KUnit coverage for minmax_array() macros from
+<linux/minmax.h>. It assures that these macros compile correctly
+and work as expected when different types are used. The test cases
+exercise types: s8, u8, s16, u16, s32, u32, s64, u64 with arrays
+of random numbers.
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Wojciech Ziemba <wojciech.ziemba@intel.com>
 ---
- sound/soc/codecs/wm8960.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ lib/Kconfig.debug  |  12 +++++
+ lib/Makefile       |   1 +
+ lib/minmax_kunit.c | 132 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 145 insertions(+)
+ create mode 100644 lib/minmax_kunit.c
 
-diff --git a/sound/soc/codecs/wm8960.c b/sound/soc/codecs/wm8960.c
-index 0d167238a369..783c85912c59 100644
---- a/sound/soc/codecs/wm8960.c
-+++ b/sound/soc/codecs/wm8960.c
-@@ -1415,6 +1415,7 @@ static int wm8960_i2c_probe(struct i2c_client *i2c)
- 	struct wm8960_data *pdata = dev_get_platdata(&i2c->dev);
- 	struct wm8960_priv *wm8960;
- 	int ret;
-+	u8 val;
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index fbc89baf7de6..e845876482fb 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2777,6 +2777,18 @@ config SIPHASH_KUNIT_TEST
+ 	  This is intended to help people writing architecture-specific
+ 	  optimized versions.  If unsure, say N.
  
- 	wm8960 = devm_kzalloc(&i2c->dev, sizeof(struct wm8960_priv),
- 			      GFP_KERNEL);
-@@ -1436,6 +1437,12 @@ static int wm8960_i2c_probe(struct i2c_client *i2c)
- 	else if (i2c->dev.of_node)
- 		wm8960_set_pdata_from_of(i2c, &wm8960->pdata);
- 
-+	ret = i2c_master_recv(i2c, &val, sizeof(val));
-+	if (ret >= 0) {
-+		dev_err(&i2c->dev, "Not wm8960, wm8960 reg can not read by i2c\n");
-+		return -EINVAL;
-+	}
++config MINMAX_KUNIT_TEST
++	tristate "KUnit test for minmax" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	default KUNIT_ALL_TESTS
++	help
++	  Builds KUnit tests module for minmax.
 +
- 	ret = wm8960_reset(wm8960->regmap);
- 	if (ret != 0) {
- 		dev_err(&i2c->dev, "Failed to issue reset\n");
++	  For more information on KUnit and unit tests in general please refer
++	  to the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ config TEST_UDELAY
+ 	tristate "udelay test driver"
+ 	help
+diff --git a/lib/Makefile b/lib/Makefile
+index 42d307ade225..950a3f388e6f 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -396,6 +396,7 @@ obj-$(CONFIG_FORTIFY_KUNIT_TEST) += fortify_kunit.o
+ obj-$(CONFIG_STRCAT_KUNIT_TEST) += strcat_kunit.o
+ obj-$(CONFIG_STRSCPY_KUNIT_TEST) += strscpy_kunit.o
+ obj-$(CONFIG_SIPHASH_KUNIT_TEST) += siphash_kunit.o
++obj-$(CONFIG_MINMAX_KUNIT_TEST) += minmax_kunit.o
+ 
+ obj-$(CONFIG_GENERIC_LIB_DEVMEM_IS_ALLOWED) += devmem_is_allowed.o
+ 
+diff --git a/lib/minmax_kunit.c b/lib/minmax_kunit.c
+new file mode 100644
+index 000000000000..00ec175156d6
+--- /dev/null
++++ b/lib/minmax_kunit.c
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2023 Intel Corporation
++ *
++ * KUnit test cases for minmax.
++ */
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <kunit/test.h>
++
++#include <linux/kernel.h>
++#include <linux/minmax.h>
++#include <linux/module.h>
++#include <linux/types.h>
++
++#define MINMAX_ARR_TEST(type, op, expected)				\
++	static const type expected_##op##_##type = expected;		\
++static void op##_array_##type##_test(struct kunit *test)		\
++{									\
++	type value = op##_array(test_vector_##type,			\
++				  ARRAY_SIZE(test_vector_##type));	\
++	KUNIT_EXPECT_EQ(test, value, expected_##op##_##type);		\
++}
++
++/* type 's8' */
++static const s8 test_vector_s8[] = {
++	1, 85, -112, -61, 6, 0, 117, -55, 68, -55, 23, 1, -100, 55, -118
++};
++
++MINMAX_ARR_TEST(s8, min, -118)
++MINMAX_ARR_TEST(s8, max, 117)
++
++/* type 'u8' */
++static const u8 test_vector_u8[] = {
++	209, 145, 131, 180, 88, 97, 240, 170, 148, 158, 35, 226, 14, 244, 2
++};
++
++MINMAX_ARR_TEST(u8, min, 2)
++MINMAX_ARR_TEST(u8, max, 244)
++
++/* type 's16' */
++static const s16 test_vector_s16[] = {
++	2641, 30296, -15090, 11371, 13995, 28244, 27482, -7239, -9036, -3147,
++	22065, 2097, -26854, -8633, 13366
++};
++
++MINMAX_ARR_TEST(s16, min, -26854)
++MINMAX_ARR_TEST(s16, max, 30296)
++
++/* type 'u16' */
++static const u16 test_vector_u16[] = {
++	50102, 58387, 42350, 33531, 32109, 65525, 25985, 31889, 14772, 7296,
++	48242, 53340, 33594, 19856, 45544
++};
++
++MINMAX_ARR_TEST(u16, min, 7296)
++MINMAX_ARR_TEST(u16, max, 65525)
++
++/* type 's32' */
++static const s32 test_vector_s32[] = {
++	979885732L, 885950778L, -1450966230L, -1624192399L, -1753023734L,
++	530868381L, 656215973L, 630677997L, 391000329L, 1253640357L,
++	438040531L, -993355872L, 585127620L, -1068766240L, 147051568L
++};
++
++MINMAX_ARR_TEST(s32, min, -1753023734L)
++MINMAX_ARR_TEST(s32, max, 1253640357L)
++
++/* type 'u32' */
++static const u32 test_vector_u32[] = {
++	2161504111UL, 1183092838UL, 1728689175UL, 2309150449UL, 3735269177UL,
++	1550306875UL, 2147576091UL, 4187089172UL, 545942284UL, 1969608375UL,
++	2624877400UL, 3029665375UL, 1293120185UL, 3801307680UL, 1161238802UL
++};
++
++MINMAX_ARR_TEST(u32, min, 545942284UL)
++MINMAX_ARR_TEST(u32, max, 4187089172UL)
++
++/* type 's64' */
++static const s64 test_vector_s64[] = {
++	-8438490804591620000LL, 8025377321703520000LL, 3208690154945970000LL,
++	-2321767394263770000LL, -1278489889635390000LL, 2190470827346570000LL,
++	-2022822382784580000LL, 6599789147713410000LL, 3949996236706410000LL,
++	-8261935734503760000LL, 661645293834217000LL, 8346383784731440000LL,
++	-3443819189603500000LL, 7985744187902840000LL, 5083298007916820000LL
++};
++
++MINMAX_ARR_TEST(s64, min, -8438490804591620000LL)
++MINMAX_ARR_TEST(s64, max, 8346383784731440000LL)
++
++/* type 'u64' */
++static const u64 test_vector_u64[] = {
++	8249683091780880000ULL, 13192984997103100000ULL, 17673970905507700000ULL,
++	11101419446779000000ULL, 7059417167478820000ULL, 17488355550255500000ULL,
++	1592214570100350000ULL, 4324504718429290000ULL, 9233486922226120000ULL,
++	17205873265072200000ULL, 15951973546886800000ULL, 8694358874973410000ULL,
++	11857168979503600000ULL, 15015693759541800000ULL, 4758196429468010000ULL
++};
++
++MINMAX_ARR_TEST(u64, min, 1592214570100350000ULL)
++MINMAX_ARR_TEST(u64, max, 17673970905507700000ULL)
++#undef MINMAX_ARR_TEST
++
++static struct kunit_case minmax_array_test_cases[] = {
++	KUNIT_CASE(min_array_s8_test),
++	KUNIT_CASE(max_array_s8_test),
++	KUNIT_CASE(min_array_u8_test),
++	KUNIT_CASE(max_array_u8_test),
++	KUNIT_CASE(min_array_s16_test),
++	KUNIT_CASE(max_array_s16_test),
++	KUNIT_CASE(min_array_u16_test),
++	KUNIT_CASE(max_array_u16_test),
++	KUNIT_CASE(min_array_s32_test),
++	KUNIT_CASE(max_array_s32_test),
++	KUNIT_CASE(min_array_u32_test),
++	KUNIT_CASE(max_array_u32_test),
++	KUNIT_CASE(min_array_s64_test),
++	KUNIT_CASE(max_array_s64_test),
++	KUNIT_CASE(min_array_u64_test),
++	KUNIT_CASE(max_array_u64_test),
++	{}
++};
++
++static struct kunit_suite minmax_test_suite = {
++	.name = "minmax_array",
++	.test_cases = minmax_array_test_cases,
++};
++kunit_test_suite(minmax_test_suite);
++
++MODULE_AUTHOR("Intel");
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("KUnit test module for minmax");
 -- 
-2.34.1
+2.38.1
 

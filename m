@@ -2,153 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E5A2752E2B
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 02:13:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8879B752E78
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jul 2023 03:12:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E307A4A;
-	Fri, 14 Jul 2023 02:12:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E307A4A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A16C7A4A;
+	Fri, 14 Jul 2023 03:11:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A16C7A4A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1689293607;
-	bh=phM8okUitkPIKRCJ/bU0CmBDzmQB+DO1ahGPTPEO3us=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:List-Id:
+	s=default; t=1689297144;
+	bh=vVZF0lyzCXqHpUsnSyYlva0CCdL7KSzBN7isdIit9dE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Archive:List-Help:List-Owner:List-Post:List-Subscribe:
 	 List-Unsubscribe:From;
-	b=iDbTRNhIgD3tdM+ssIe73E/iz+NwIOZC8RZ8j38UMqB5cEeCyaobmsYg+/EBiFD2I
-	 oaQtZCBTjrhGPNHdx2/UVH8sopTROrzfDObNUrWLvCF8TDthrOeQecQmUF2Qsxk2vb
-	 B1UY3kFKt/v7yodc9rpo3A5+JUGfCGGqCUZ/gmSE=
+	b=g02pcqVUlFVhGHLHd7jBWfXWVdfJo8y7ZnwGbc/V/gDZeOnGrF2t+416r22cF16h5
+	 kLSZ/cQeGEdK9gC39L5sFD0eIB5rBCN/BRUuKaG7KojXWeLQOexHTzAEJraKjXcIzq
+	 TVB7gpCi8NKzYTQ50rVTONAZcs70mwiNOaa+FamQ=
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id E1576F8027B; Fri, 14 Jul 2023 02:12:36 +0200 (CEST)
+	id 1D2E7F80236; Fri, 14 Jul 2023 03:11:33 +0200 (CEST)
 Received: from mailman-core.alsa-project.org (mailman-core.alsa-project.org [10.254.200.10])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96792F80236;
-	Fri, 14 Jul 2023 02:12:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3AD7F80236;
+	Fri, 14 Jul 2023 03:11:33 +0200 (CEST)
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
-	id DCD4BF80249; Fri, 14 Jul 2023 02:12:30 +0200 (CEST)
+	id 8018DF80249; Fri, 14 Jul 2023 03:11:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
-	DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,SPF_HELO_PASS,SPF_PASS,
-	T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED shortcircuit=no autolearn=ham
-	autolearn_force=no version=3.4.6
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on20731.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:700c::731])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,RCVD_IN_DNSWL_HI,
+	SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE shortcircuit=no
+	autolearn=ham autolearn_force=no version=3.4.6
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256)
 	(No client certificate requested)
-	by alsa1.perex.cz (Postfix) with ESMTPS id B2583F80153
-	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 02:12:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2583F80153
+	by alsa1.perex.cz (Postfix) with ESMTPS id 3C914F800D2
+	for <alsa-devel@alsa-project.org>; Fri, 14 Jul 2023 03:11:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C914F800D2
 Authentication-Results: alsa1.perex.cz;
-	dkim=pass (1024-bit key,
- unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256
- header.s=selector1 header.b=HOjjTE94
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SXTvjhCMidj+PDUwLHi5rLtGL7GLLGssJTJl2r1GHCMz9guPWIEy4saRlR/r2AkPFOGrJSgDA9MwfAzHVl9FT9UPpuveXmXl9Eu19PPJ6q0H+yeVDrOfYYgFp1zMsLQoAenbQ81GUrLzNCignoW9w5Gldw6KQ/L9qrESq6DOMqWMDA5qxIyKsUTKYWD5W3GZVlFUmtq6JdEi4O0J3JGfh4zYk7CLw7SKQui8TW67ZQdEl9nCyQRMfCvzFrSjQ9hwNwAnA9yd00QHbct1u6Q+J+iDVr3lXRHo+t3AzVB8/xeqwqLGx2oLQm3MHcZlIJ7Zgai2pQpyZs/QBKFBVYQ5Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=65dvQURReZd5nOIbfP0cmbR3T5UNISYONMzV6ib/VP0=;
- b=mGCcOyw/wpWueqZ7TXxtLYO9xSL41IbY7sDJpafwqUkacYc1HDEMprSzc+dxX6WmurhQ+zQgdFHwcRe230MfXgjp4UF2it8/mM/JMttD6OR37m0oOafsEQDyX6pFuqcvXcVN5mEqsySJCIqSW5jFQ08c/DceBOMTwAuzgY0mh8jcF7bnAUCFWx2FWrykWpheV/er16FUYBmnWj9MVNk7uqaxzFXNuPKttWbQwtsOz/7T0z1ZlbzReOISC3eiaeGpsifL6uXLQoISW4Dy1WOOTtBYIHqGyYWD1H+Y8zACEW36cH9Z99DhReG+a6ar60Qacaf5T90LMXHx5FBppX440Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=65dvQURReZd5nOIbfP0cmbR3T5UNISYONMzV6ib/VP0=;
- b=HOjjTE94AjmmfFhGwWN6x3i9G7V22ApALtW5rfL16sHFa7ou1uuT0QveRQwNkSYClw7Ot3TKgZGMhDcHszbZ/MeJk12wGep9yGEHW3yiRI4QctUZH2A68wdrW4diZX83EzdZmDvDvhP0DBeXrHY3XuJjGCNiNmEaCnqqolNObKo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com (2603:1096:604:194::10)
- by TY3PR01MB9793.jpnprd01.prod.outlook.com (2603:1096:400:22b::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6588.27; Fri, 14 Jul
- 2023 00:12:11 +0000
-Received: from OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::7d35:d426:d4e5:6e5d]) by OS3PR01MB8426.jpnprd01.prod.outlook.com
- ([fe80::7d35:d426:d4e5:6e5d%6]) with mapi id 15.20.6565.028; Fri, 14 Jul 2023
- 00:12:10 +0000
-Message-ID: <877cr3tkpy.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Maxim Kochetkov <fido_max@inbox.ru>
-Cc: alsa-devel@alsa-project.org,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Sameer Pujar <spujar@nvidia.com>,
-	Astrid Rost <astrid.rost@axis.com>,
-	Aidan MacDonald <aidanmacdonald.0x0@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: simple-card: add trigger-stop entry parser
-In-Reply-To: <20230713193905.347588-1-fido_max@inbox.ru>
-References: <20230713193905.347588-1-fido_max@inbox.ru>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Fri, 14 Jul 2023 00:12:10 +0000
-X-ClientProxiedBy: TYAPR01CA0154.jpnprd01.prod.outlook.com
- (2603:1096:404:7e::22) To OS3PR01MB8426.jpnprd01.prod.outlook.com
- (2603:1096:604:194::10)
+	dkim=pass (2048-bit key,
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20221208 header.b=JT+9h/Vp
+Received: by mail-oo1-xc35.google.com with SMTP id
+ 006d021491bc7-558a79941c6so939460eaf.3
+        for <alsa-devel@alsa-project.org>;
+ Thu, 13 Jul 2023 18:11:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1689297078; x=1691889078;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vVZF0lyzCXqHpUsnSyYlva0CCdL7KSzBN7isdIit9dE=;
+        b=JT+9h/Vphc82wfdrbnF8/7FTOGAFa9AGaOXCM8HDgCj/YDmbujF4w6IdTLj1EhVal3
+         2J4fr57FZ/thIVxQRKAShbwC1vym5rcorHTIAKV18027IKUBEyIs/eU0EQ1drxMwRV/v
+         YYpVcp1cqmStSvgbMs0CyNwEEjPRoLoq3+NAMPPoKoi88eNJ4uHQPUitwFHFUPr2zR9T
+         Suto8IJrpL3lR57o7dXOGauWQsmyUvK93d7+2TFPvbnyBAZuc7OhZ5zHpZmOFlixlaLo
+         DSXJqspIh5DCVv0GwYuN6ZsmMdAJelXC+3aRfp/LguqY+8T+Q5BM3dkrjWVgYGrcMLWO
+         UTyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1689297078; x=1691889078;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=vVZF0lyzCXqHpUsnSyYlva0CCdL7KSzBN7isdIit9dE=;
+        b=lkPWd/dLKEykM6Rg9HdfuoW4LW0rMOgaUWnpBlrYnFB5M/irI22VbPfwR76tn1hPY3
+         KlIfEneSVUxt5c7ygJOpr5UfaDkT5rIoSvARShdU+1RnTA9pFJEqafL5utI/DhLZERfw
+         78oekjJ222rKhMFZyDJou3LtydWMN75BWv4ZWGUaTFPB9rjWa4B28yZzDk2wlE0pEUqW
+         dSLWIOvfV9qN8/rntJartbjCXTG2JXrkiaBP/N+8kJ93qXsVRbymbi2pmDvkWyBXRyvo
+         1qItcsgvHIWgBbcnwE8cQSv9L6oqzLfGUG5rEP4LYhq5ATtOOSdrrKKQVUW3S4yH7Sbi
+         ORjQ==
+X-Gm-Message-State: ABy/qLbjDOBhULNkck7LYvMJZcoUnkjXzeLf5hWhAMJMl33ATZNAI5Ds
+	4BozSYJ4HWASXzksc18d7n8HIdfDJWR3EWxJOAc=
+X-Google-Smtp-Source: 
+ APBJJlHCeMPvax2/IM2CPaptdMCJKdeNhQXTNEzeRrQkOyaLpYqEqfq/zelFt/qAGlHFghK/RIAxLFS2p1gAG9NdYig=
+X-Received: by 2002:a4a:3450:0:b0:566:f5bb:7d40 with SMTP id
+ n16-20020a4a3450000000b00566f5bb7d40mr2919868oof.6.1689297077806; Thu, 13 Jul
+ 2023 18:11:17 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PR01MB8426:EE_|TY3PR01MB9793:EE_
-X-MS-Office365-Filtering-Correlation-Id: 084975d3-81b2-4561-bd2c-08db83fef7f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	eWls1vL6FQ5Tvsg6QrIhVvdYcjiV6tfJYRwNGzODdv+NgZ692/H23HtYp23TY4aUauC9FHVXE3KNESqFrFTvMIk0NEaotfEECab0S6p6aJ0wZId6B1MvZyk5plgoWquKickEA6qEv9b3Wd9w6RoHk4EGTcYSj9AtsZTa1I3BPyiIhrh8bSQcI/5p8BxkReNjqTshUfElaW5IIvnP9z22njVVT7S0yHlVL39Gu2Ww4aGmqQSYeKnX15a52JzjcwTt5sZUqQconv6Z6Mu60PR6KvOMTwzOl7aSvIe6ygTfribXS6vQpmz2adOAT+WUbX5EtSN7aS6nptYabsfHoxqz0t+rkVKMB9yIUfRUMEKa75SAQnF8l8HFTrT47VrOPeX+MIhguBbVxcy6NcEf1NEfQGTTr612NOKyr3Y3HGwXwoSSB/8es7nOX/SBvEksGJzi1SEDU9nrPP4QjRcKXN8lFwkVgmeFGDa3m+ljVI7g41RztbSswC+AaauEHzCM7KpFruG/8QbdLzsn2AYqVnKluALxcucu4I7MPGkH3vcbn45cwIUPv2ZUbvyNUKQp6frjsXq+g6KKIDHGN2ZGhnrOoEIW4jMRMpOIxv7bnrgupo1rNFcS0ZVb+R/E/mUcVk+5
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3PR01MB8426.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(366004)(136003)(346002)(376002)(451199021)(83380400001)(2906002)(4744005)(2616005)(66476007)(6486002)(6916009)(66556008)(66946007)(4326008)(316002)(52116002)(478600001)(54906003)(26005)(6506007)(186003)(7416002)(8676002)(41300700001)(5660300002)(8936002)(6512007)(38100700002)(38350700002)(86362001)(36756003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?Ywf3+Fr3TvORWmniguTD/jKaK9hVavo9lpsyC7swudVAUgKHNjDTt2XhAfv8?=
- =?us-ascii?Q?MMAaEJuTvdlvbPV90frhE9LpmU1lAZ4AMsWAkdRjmckLcW9tQzI4Y1evKTtz?=
- =?us-ascii?Q?3kwGgdmsJI7FwMm+JBNJnaPcntcN1ct7Vv1LeyT3Aa1YyDa2RMxK53JWJ0wH?=
- =?us-ascii?Q?FoCeyPWjkvsPbqF2oke5ViOWb5q4SvIUN3oUGJidD8cKRTRCWikPHDDj5aHo?=
- =?us-ascii?Q?T2FDOzVpVAGqpvqhQMiJL6B2zm95g4Q6TJuf2ZwdvDGgMj+k7cMi1d0wwl4/?=
- =?us-ascii?Q?qVy+r06p09Z5tkrarnDgMXK3gOVh4HmrU50ZAJp8yQw9D9Ge9q9fglxjpbY0?=
- =?us-ascii?Q?GpghIPiIoHd5e5SIMCY1TBpG8hcTkFe1H6LI4CNsKCiUXzuILitZ3DO9K5rl?=
- =?us-ascii?Q?45/pNuEO5pce0CKJB5H/zaEqlmBMuZ73YTuwxUCpZeRMFWazCpYK2bWR/vQ1?=
- =?us-ascii?Q?Z+LvY50gKxFakIrDk6GUr/5I5l9ZRCQzEWEBvhfontuHWHwEHFtzG2VH+83W?=
- =?us-ascii?Q?wpubFLdkvv8/NpicJm+W9+7lFcM0TSQo4NoG2kivpnprg0OKKDvIiN+vfsTL?=
- =?us-ascii?Q?/Rpo6Arxv9nD8Cl57l9V/0AWHaouI+gjICI1StOoSkT+4siWWI9zCSWqNnaj?=
- =?us-ascii?Q?kjdCFMGZfc+TWnHQP0TQRty9bop/sLwrB+In5lx+oos6PL+M8aw+MgwyUwrY?=
- =?us-ascii?Q?Hv/NXS1rj0FopOukh7YWoUGULjUH+hZU+DfY7GMtdWhFXayuMluqnW3L3n7N?=
- =?us-ascii?Q?xtSyBkOcRjuSfhYWOi7czmyiMJOGwqikjSiVv91c33tWIOM1iOOHBfNsbMnr?=
- =?us-ascii?Q?4aRQpJUc4M5fD4+Tz250+dF4xoocUbPlpT9Bmo6Na43Gdl3sxsWU07WM5SL/?=
- =?us-ascii?Q?WCu3Ay6LxG7EAPfKjEPDG4FXirFtLKMZdwojUKld8x70tB0n/7T6O0NH2cei?=
- =?us-ascii?Q?b6Q5wDEFCVYJi08xX8KiCKDNhUNcMKhZ7DPn0tLCUQGnPKXGxixy29CidWOP?=
- =?us-ascii?Q?vJ82sfjpk65B6SSfTJnaEfPr3WYYKH5Up2L4ZLGVKY9RAnZZrUk5TD1pCjMt?=
- =?us-ascii?Q?BNqJgsMxxEbFUf2U4SbVbMbIkl0ubXo1bagz6E29DVbzwf+xLBJFkLG1qJKK?=
- =?us-ascii?Q?9YNCG/N51kQK+d4cDr+yBcrqXYX3oP1TlnTnaXFVQGD7bQBkiw70mir4ICSH?=
- =?us-ascii?Q?8opkkgsLOicQfJZeK0jZNo/tElY1BdpHLNltBTIYUDceR+AhnHWW/uInLxKn?=
- =?us-ascii?Q?teCrfr6/+Aclu5HuFcZzpR9Xpcz7YnxnfZ95HEe1E7RHX2QlGXiqb1FgdOzt?=
- =?us-ascii?Q?7N88MRITBcVX9Od4PxQ4YamhAcSTfah/PC4TGRUyGG1P0sthkdfe/z3+g2BT?=
- =?us-ascii?Q?t9IZsXyUFxGnxUvpMQHlHjcTdEBp/3GxtAxSR99KwHMp8+aR09oAsPhOKVqL?=
- =?us-ascii?Q?A1n6F1C+gWp0C55cDrZr5rnnjmWUt9DskjTxYi/Qr3vDOiBqF37XlHdrvyhp?=
- =?us-ascii?Q?KWSjkP++W8eoj3ct09jGo/BeneethM+hRnIYrz+cQ8Pwtb62mdubcasg20WE?=
- =?us-ascii?Q?mFg0yD9EgcWzfxg7NPposyecUWkD0Kydyn83D7m1/ZFUKl3WTY5j/t5+6mY2?=
- =?us-ascii?Q?zIrvJZbtHGv+K+jw6fqV3Ww=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 
- 084975d3-81b2-4561-bd2c-08db83fef7f2
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8426.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2023 00:12:10.9181
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 
- OGhmV09VkUCUOVJ/31iY66FC6o+44kupxwNwSNEpiDeIekGIrnNyMhJs5WBVSWtftKVneImBLJRxgRwOpWNGUZi+YhDpJFU4T6oDKGms4yl1HSHBZrLbaAe7iknFDbGb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB9793
-Message-ID-Hash: F7PLL2HCWAW3YZYGKL4TLNBZPWI3V7LA
-X-Message-ID-Hash: F7PLL2HCWAW3YZYGKL4TLNBZPWI3V7LA
-X-MailFrom: kuninori.morimoto.gx@renesas.com
+References: <bug-217440-225600@https.bugzilla.kernel.org/>
+ <CABpewhE4REgn9RJZduuEU6Z_ijXNeQWnrxO1tg70Gkw=F8qNYg@mail.gmail.com>
+ <ZGB0cVVI7OgaJU6t@debian.me>
+ <CABpewhGJE7-k52j8L2kJ2zKupgp3Ma+LdZazzzV4w1Bgihp7nw@mail.gmail.com>
+ <87cz338ix4.wl-tiwai@suse.de>
+ <CABpewhF01AK4cFPbwYVvKR9yWaO7o-ZE-2+MZjYSUF0BKUdYvw@mail.gmail.com>
+ <874jodlnmi.wl-tiwai@suse.de> <415d4bc84aa74c74af913048f28b42a9@realtek.com>
+ <87fs7mdofi.wl-tiwai@suse.de> <7da2fdfdae614b1c98deda6e11ca34eb@realtek.com>
+ <87353kd8b9.wl-tiwai@suse.de> <1170325957764b4cbd7cd3639575f285@realtek.com>
+ <CABpewhGBakDSBLKZ1cr2=OMspuu3qyYwZrsXUggQ3vt8gsD88A@mail.gmail.com>
+ <873536js7q.wl-tiwai@suse.de>
+ <CABpewhE0NAC-Q=iqG2Ba=XhT7SXsWy18wQGYUaopzmKDfFxyPw@mail.gmail.com>
+ <2c1fcbc00bb44d66a29ac1c1e4bec5ad@realtek.com>
+ <CABpewhFthKG97dPiQC4JhGx9sapX9Yu5rWABQjpY95TSA+eawA@mail.gmail.com>
+ <485f99149508488080d563144454040e@realtek.com>
+ <CABpewhGkvWtM+9J=mx3vw0QY=OBB5OYCxzX3nzVffvFS4QazPA@mail.gmail.com>
+ <2831c55638a5431ca9e37d9caf365ed2@realtek.com>
+ <CABpewhGiMJUpyBA6=D9_-YA6=5rjR2R0RHUZeg+cWcjtzuCoZQ@mail.gmail.com>
+ <3c27f0455d6e4bd1a68115bd25bf1a12@realtek.com>
+ <CABpewhEptq0+W_71U__8iQ4+LNtYSUB9C+0bcS2Hw-5mnj9viQ@mail.gmail.com>
+ <009474f04d0b45c69a0e42e8622b7a86@realtek.com> <87h6rhcef2.wl-tiwai@suse.de>
+ <0990300d759846d890de9c92fcad9a9d@realtek.com>
+ <CABpewhERnOH1qkkJ5_JJUZkz1_8oxD9aR5VBs1vsURAG7Eu_Ew@mail.gmail.com>
+ <878rctcavz.wl-tiwai@suse.de> <874jnhc9u4.wl-tiwai@suse.de>
+ <CABpewhHG2+s8_6r6vChm2g5tD8ALW_SWJWubPRXWzTJB2aFR9g@mail.gmail.com>
+ <875y7vbxpg.wl-tiwai@suse.de>
+ <CABpewhHDnvn4v+uCpsaLHB+biw-f59tdTiCyFkicHnewXHYDNg@mail.gmail.com>
+ <87wn0aa1s4.wl-tiwai@suse.de>
+ <CABpewhFg=7+JR6v=zhi0_Hm9+S64DLOHKeG2pS-W7z-vNpu_5Q@mail.gmail.com>
+ <87leg7x4h7.wl-tiwai@suse.de> <f4969213b5a14cc5a11befb4df861481@realtek.com>
+ <87cz182hfk.wl-tiwai@suse.de> <4678992299664babac4403d9978e7ba7@realtek.com>
+In-Reply-To: <4678992299664babac4403d9978e7ba7@realtek.com>
+From: "Joseph C. Sible" <josephcsible@gmail.com>
+Date: Thu, 13 Jul 2023 21:11:00 -0400
+Message-ID: 
+ <CABpewhGkw2rg_NN7Rd8E_p+AN9MC0A1CjgnrhBvMnSKq0gz31w@mail.gmail.com>
+Subject: Re: Fwd: [Bug 217440] New: ALC236 audio disappears from HP 15z-fc000
+ on warm boot
+To: Kailang <kailang@realtek.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Bagas Sanjaya <bagasdotme@gmail.com>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "perex@perex.cz" <perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Message-ID-Hash: I4KVWEVZDNGKGVBWHIWJ2L5UWBI6A2XZ
+X-Message-ID-Hash: I4KVWEVZDNGKGVBWHIWJ2L5UWBI6A2XZ
+X-MailFrom: josephcsible@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency;
  loop; banned-address; member-moderation;
  header-match-alsa-devel.alsa-project.org-0;
@@ -160,7 +141,7 @@ Precedence: list
 List-Id: "Alsa-devel mailing list for ALSA developers -
  http://www.alsa-project.org" <alsa-devel.alsa-project.org>
 Archived-At: 
- <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/F7PLL2HCWAW3YZYGKL4TLNBZPWI3V7LA/>
+ <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/message/I4KVWEVZDNGKGVBWHIWJ2L5UWBI6A2XZ/>
 List-Archive: 
  <https://mailman.alsa-project.org/hyperkitty/list/alsa-devel@alsa-project.org/>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
@@ -169,47 +150,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Subscribe: <mailto:alsa-devel-join@alsa-project.org>
 List-Unsubscribe: <mailto:alsa-devel-leave@alsa-project.org>
 
+On Thu, Jul 13, 2023 at 4:25=E2=80=AFAM Kailang <kailang@realtek.com> wrote=
+:
+>
+> Hi Joseph,
+>
+> Could you test attach patch?
+>
+> BR,
+> Kailang
 
-Hi Maxim
+I applied that patch on top of kernel 6.4.3 and tested it, and yes, it
+does fix the problem.
 
-Thank you for your patch
+Thanks,
 
-> It may be useful to specify trigger-stop for some DMA-based simple
-> audio card. So add this "trigger-stop" device tree entry parser.
-> 
-> Signed-off-by: Maxim Kochetkov <fido_max@inbox.ru>
-> ---
-(snip)
-> +	const char *str;
-> +	struct {
-> +		char *name;
-> +		unsigned int val;
-> +	} of_trigger_table[] = {
-> +		{ "default",	SND_SOC_TRIGGER_ORDER_DEFAULT },
-> +		{ "ldc",	SND_SOC_TRIGGER_ORDER_LDC },
-> +	};
-(snip)
-> +		ret = of_property_read_string(np, "trigger-stop", &str);
-
-The name of "LDC" is from initials of "Link -> DAI -> Component".
-Thus, people want to know what does it mean.
-You need to update DT doc/yaml too :)
-
-Or maybe like this ?
-
-	// 0 : Link
-	// 1 : DAI
-	// 2 : Component
-	trigger-stop = <0, 1, 2>; // default
-	trigger-stop = <0, 2, 1>; // LDC
-
-And please add paired "trigger-start" or add comment like
-/* ADD .trigger-start here */ or something.
-Unbalanced implementation is very confusable.
-
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+Joseph C. Sible
